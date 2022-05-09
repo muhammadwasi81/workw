@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.436 24.85">
+    <defs>
+        <style>
+            .cls-1{fill:#bfbfbf}
+        </style>
+    </defs>
+    <g id="smartphone-call" transform="translate(-7.334)">
+        <path id="Path_872"
+              d="M20.091 0H9.012a1.683 1.683 0 0 0-1.678 1.678V23.17a1.684 1.684 0 0 0 1.678 1.68h11.079a1.683 1.683 0 0 0 1.678-1.678V1.678A1.683 1.683 0 0 0 20.091 0zM12.78 1.21h3.544a.2.2 0 0 1 0 .407H12.78a.2.2 0 0 1 0-.407zm1.772 22.8a.84.84 0 1 1 .839-.84.839.839 0 0 1-.839.84zm6.05-2.267H8.5V2.662h12.1z"
+              class="cls-1" data-name="Path 872"/>
+    </g>
+</svg>

@@ -1,0 +1,50 @@
+.topBar {
+    background-color: red;
+    margin-top: 15px;
+    width: calc(100% - 80px);
+    padding: 9px;
+    border-radius: 4px;
+    background: white;
+}
+.searchBox {
+    width: 300px;
+    transition: all 0.5s;
+}
+.width50 {
+    width: 50px;
+    transition: all 0.5s;
+}
+.topBar .inner {
+    display: flex;
+    justify-content: flex-end;
+}
+.icons {
+    display: flex;
+    justify-content: space-around;
+    padding: 2px 0px 6px 0px;
+}
+.gridIcons {
+    background: #F4F4F4;
+    padding: 2px 3px;
+    border-radius: 4px;
+}
+.topBarIcon {
+    color: #1A5669;
+    font-size: 20px;
+    margin-top: 5px;
+    margin: 0px 3px 0px 3px;
+    padding: 4px;
+}
+.isActive {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 2px rgb(77 68 120 / 12%);
+    padding: 2px;
+}
+
+
+@media (min-width: 320px) and (max-width: 767px) {
+    .width50 {
+        width: 100%;
+    }
+}

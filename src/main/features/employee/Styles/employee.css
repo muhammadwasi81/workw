@@ -1,0 +1,59 @@
+.employeeSubmitButton {
+	align-self: flex-end;
+	margin-right: 70px;
+	margin-top: 20px;
+}
+
+.employeeFormImage {
+	width: 90px;
+	height: 90px;
+}
+
+.epmloyeeDeleteIcon {
+	font-size: 20px;
+	color: #1a5669;
+}
+
+@media screen and (min-width: 1700px) {
+	.residentialAddress {
+		grid-area: 3/ 1 / span 1 / span 2;
+	}
+
+	.permenantAddress {
+		grid-area: 3/ 3 / span 1 / span 2;
+	}
+}
+
+.newCustomSelect {
+	width: 100%;
+}
+
+.formItem_userTitle {
+	margin-bottom: 0px !important;
+}
+
+/* 
+.employeeForm>:nth-child(2) {
+	grid-column: 3;
+	grid-row: 1;
+} */
+
+/* .employeeForm>:nth-child(4),
+:nth-child(8),
+:nth-child(12),
+:nth-child(16),
+:nth-child(20),
+:nth-child(24),
+:nth-child(28),
+:nth-child(32),
+:nth-child(36),
+:nth-child(40),
+:nth-child(44),
+:nth-child(48),
+:nth-child(52) {
+	order: 3;
+} */
+
+.employeeForm>:nth-child(1) {
+	order: 1;
+}

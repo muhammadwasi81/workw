@@ -1,0 +1,16 @@
+<svg id="Mail_Box" data-name="Mail Box" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 38.322 38.324">
+  <g id="_004---Mail" data-name="004---Mail">
+    <path id="Shape" d="M300.8,48.1a.661.661,0,0,1-.661-.661V44.8a.661.661,0,1,1,1.321,0v2.643A.661.661,0,0,1,300.8,48.1Z" transform="translate(-277.673 -40.834)" fill="#95a5a5"/>
+    <path id="Shape-2" data-name="Shape" d="M300.8,0h5.286a.661.661,0,0,1,.661.661V3.3a.661.661,0,0,1-.661.661h-5.947V.661A.661.661,0,0,1,300.8,0Z" transform="translate(-277.673)" fill="#f0c419"/>
+    <path id="Shape-3" data-name="Shape" d="M271.289,340.5h-5.653a.757.757,0,0,1-.807-.694V326.621H272.1V339.8A.757.757,0,0,1,271.289,340.5Z" transform="translate(-245.006 -302.174)" fill="#a56a43"/>
+    <path id="Shape-4" data-name="Shape" d="M300.8,338.514a.661.661,0,0,1-.661-.661V327.282a.661.661,0,0,1,1.321,0v10.572A.661.661,0,0,1,300.8,338.514Z" transform="translate(-277.673 -302.174)" fill="#805333"/>
+    <path id="Shape-5" data-name="Shape" d="M174.331,106.776h18.5a.661.661,0,0,0,.661-.661V95.544a7.268,7.268,0,0,0-7.268-7.268h-18.5Z" transform="translate(-155.17 -81.669)" fill="#e64c3c"/>
+    <rect id="Rectangle-path" width="6.607" height="3.964" rx="1.982" transform="translate(29.072 18.5)" fill="#ecf0f1"/>
+    <path id="Shape-6" data-name="Shape" d="M71.018,94.883a7.268,7.268,0,0,1,14.506.661v10.572a.661.661,0,0,1-.661.661h-3.3Z" transform="translate(-65.702 -81.669)" fill="#802f34"/>
+    <path id="Shape-7" data-name="Shape" d="M16.961,177.147a1.321,1.321,0,0,0-1.1-.595H1.321A1.321,1.321,0,0,0,0,177.873v9.25a1.333,1.333,0,0,0,.423.965,1.28,1.28,0,0,0,.9.357H15.857a1.28,1.28,0,0,0,.9-.357,1.333,1.333,0,0,0,.423-.965v-9.25A1.321,1.321,0,0,0,16.961,177.147Z" transform="translate(0 -163.337)" fill="#f3d55b"/>
+    <path id="Shape-8" data-name="Shape" d="M6.786,190.054.423,195.439A1.333,1.333,0,0,1,0,194.474v-9.25a1.322,1.322,0,0,1,.218-.727Z" transform="translate(0 -170.688)" fill="#f0c419"/>
+    <path id="Shape-9" data-name="Shape" d="M21.983,264.122a1.28,1.28,0,0,1-.9.357H6.549a1.28,1.28,0,0,1-.9-.357l6.363-5.385.951.806a1.321,1.321,0,0,0,1.7,0l.951-.806Z" transform="translate(-5.227 -239.371)" fill="#f29c1f"/>
+    <path id="Shape-10" data-name="Shape" d="M145.644,185.224v9.25a1.333,1.333,0,0,1-.423.965l-6.363-5.385,6.568-5.557A1.321,1.321,0,0,1,145.644,185.224Z" transform="translate(-128.465 -170.688)" fill="#f0c419"/>
+    <path id="Shape-11" data-name="Shape" d="M84.073,204.355H80.109a.661.661,0,1,1,0-1.322h3.964a.661.661,0,1,1,0,1.322Z" transform="translate(-73.501 -187.837)" fill="#ecf0f1"/>
+  </g>
+</svg>

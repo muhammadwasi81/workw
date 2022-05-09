@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 36 36">
+    <defs>
+        <style>.a{fill:none;stroke:#707070;}.b{clip-path:url(#a);}.c{fill:#bfbfbf;}</style>
+        <clipPath id="a">
+            <rect class="a" width="36" height="36" transform="translate(1021 322)"/>
+        </clipPath>
+    </defs>
+    <g class="b" transform="translate(-1021 -322)">
+        <g transform="translate(1025 320)">
+            <path class="c" d="M336,224h1v11h-1Zm0,0" transform="translate(-315.005 -208.751)"/>
+            <path class="c" d="M112,224h1v11h-1Zm0,0" transform="translate(-105.002 -208.751)"/>
+            <path class="c" d="M112,416h15v1H112Zm0,0" transform="translate(-105.002 -388.754)"/>
+            <path class="c"
+                  d="M147.5,153h4v5H155V144H144v14h3.5Zm3-6H154v1h-3.5Zm0,2H154v1h-3.5Zm0,2H154v1h-3.5Zm-5.5-4h3.5v1H145Zm0,2h3.5v1H145Zm0,2h3.5v1H145Zm0,0"
+                  transform="translate(-135.002 -133.75)"/>
+            <path class="c" d="M144,384h11v1H144Zm0,0" transform="translate(-135.002 -358.753)"/>
+            <path class="c" d="M216,304h2v4h-2Zm0,0" transform="translate(-202.503 -283.752)"/>
+            <path class="c" d="M48,384h1v3H48Zm0,0" transform="translate(-45.001 -358.753)"/>
+            <path class="c"
+                  d="M369,233h3v4h1V224h-5v13h1Zm2-8h1v1h-1Zm0,2h1v1h-1Zm0,2h1v1h-1Zm0,2h1v1h-1Zm-2-6h1v1h-1Zm0,2h1v1h-1Zm0,2h1v1h-1Zm0,2h1v1h-1Zm0,0"
+                  transform="translate(-345.005 -208.751)"/>
+            <path class="c"
+                  d="M17,233h3v4h1V224H16v13h1Zm2-8h1v1H19Zm0,2h1v1H19Zm0,2h1v1H19Zm0,2h1v1H19Zm-2-6h1v1H17Zm0,2h1v1H17Zm0,2h1v1H17Zm0,2h1v1H17Zm0,0"
+                  transform="translate(-15 -208.751)"/>
+            <path class="c" d="M0,448H28.993v1H0Zm0,0" transform="translate(0 -418.754)"/>
+            <path class="c" d="M400,384h1v3h-1Zm0,0" transform="translate(-375.006 -358.753)"/>
+        </g>
+    </g>
+</svg>

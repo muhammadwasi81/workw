@@ -1,0 +1,13 @@
+.statusTag {
+    color: white !important;
+    border-radius: 5px !important;
+}
+.Cancel {
+    background-color: red;
+}
+.approved {
+    background-color: green;
+}
+.inProcess {
+    background-color: #1b5669;
+}

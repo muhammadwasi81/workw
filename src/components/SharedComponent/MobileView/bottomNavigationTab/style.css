@@ -1,0 +1,49 @@
+.bottomNavigationTab {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 45px;
+    background-color: #1A5669;
+    z-index: 2;
+    font-size: 10px;
+    justify-content: space-evenly;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+
+.bottom-tab-Item {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 14px;
+    padding: 0 6px;
+    width: max-content;
+}
+
+.bottom-tab-more {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 14px;
+    padding: 4px 0;
+    color: rgb(0, 0, 0);
+    flex-direction: row;
+    font-size: 14px;
+    /*justify-content: space-between;*/
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+@media (max-width: 425px) {
+    .bottom-tab-Item {
+        font-size: 8px;
+    }
+
+    .bottom-tab-Item .ant-btn > img {
+        width: 14px;
+        height: 14px;
+    }
+}

@@ -1,0 +1,209 @@
+.select-tag{
+    padding: 5px 10px !important;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #757D86;
+    cursor: pointer;
+}
+
+.task-composer article{
+    margin-top: 10px;
+    font-weight: bold;
+    color:#1A5669;
+    margin-bottom: 5px;
+}
+.task-checkbox-container{
+    padding-top: 20px;
+}
+.assignedByme .right {
+    display: block !important;
+}
+.status {
+    display: flex;
+    justify-content: flex-end;
+}
+.card-list-item {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px 27px;
+    margin-bottom: 12px;
+    /* height: calc(100% - 80px);
+    overflow: hidden;
+    scroll-behavior: smooth; */
+}
+.card-footer {
+    overflow: scroll;
+}
+.card-item-header{
+    display: flex;
+    justify-content: space-between;
+}
+.userInfo {
+    display: flex;
+    align-items: center;
+}
+.avatar-name {
+    margin-left: 10px;
+    line-height: 15px;
+    color: gray;
+}
+.avatar-name .name {
+    color: #1A5669 !important;
+    font-weight: bold;
+}
+.avatar-name .details {
+    display: flex;
+    align-items: center;
+}
+.avatar-name span {
+    font-size: 11px;
+    font-weight: 500;
+}
+.avatar-name .dot {
+    background-color: gray;
+    border-radius: 50%;
+    height: 5px;
+    width: 5px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.avatar-name span {
+    font-size: 11px;
+    font-weight: 500;
+}
+.card-item-body-main{
+    color: black !important;
+}
+.card-item-body{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+.card-item-body .left{
+    flex: 3;
+    padding-right: 10%;
+}
+.card-item-header .left{
+    flex: 3;
+    padding-right: 10%;
+}
+.card-item-body .right{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 135px;
+}
+.assignedByme .card-Title-1 {
+    margin-top: 0px;
+}
+.card-item-header .right{
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    min-width: 70px;
+}
+.assignedByme .left {
+    padding-right: 0px !important;
+}
+.card-Title-1 {
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 1px;
+    margin-top: 16px;
+}
+.card-desc-1{
+    margin-top: 5px;
+    font-size: 12px;
+    color: #757d86;
+    font-weight: 600;
+}
+.ratingTitle{
+    color: #1A5669 !important;
+    font-weight: bold;
+    font-size: 15px;
+}
+.card-column-view{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.card-column-view > div{
+    text-align: center;
+    margin: 10px 10px;
+}
+.column-item-head{
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+.st-tag{
+    background-color: rgb(244, 244, 244);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.attachment-cont{
+    display: flex;
+    justify-content: right;
+}
+.task-detail-body .right{
+    flex: 2;
+ }
+ .task-detail-body .left{
+     /* flex: 2; */
+     padding-right:10px
+  }
+  .detail-rigth-column{
+      background-color: white;
+      border-radius: 8px;
+      min-width: 260px !important;
+      max-width: 260px !important;
+      padding-top: 0px !important;
+  }
+  .task-rigth-inner-tabs .ant-tabs-nav{
+     background-color: rgb(244, 244, 244) !important;
+     margin: 6px !important;
+     border-radius: 5px !important;
+     height: 40px;
+     margin-bottom: 25px !important;
+  }
+  .task-rigth-inner-tabs .ant-tabs-nav-list{
+      width: 100%;
+  }
+  .task-rigth-inner-tabs .ant-tabs-tab{
+    flex: 1 !important;
+    justify-content: center;
+    margin: 4px !important;
+    border-radius: 5px !important;
+}
+.task-rigth-inner-tabs .ant-tabs-tab-btn{
+    color: #1A5669 !important;
+}
+.task-rigth-inner-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: white !important;
+}
+.task-rigth-inner-tabs .ant-tabs-tab.ant-tabs-tab-active{
+    background-color: #1A5669 !important;
+}
+  .task-rigth-inner-tabs .ant-tabs-tab.ant-tabs-tab-active{
+      background-color: #1A5669 !important;
+      /* color: white !important; */
+  }
+  .task-rigth-inner-tabs .ant-tabs-tab + .ant-tabs-tab{
+       margin: 0;
+  }
+  .task-rigth-inner-tabs .ant-tabs-ink-bar{
+    display: none;
+  }
+  .task-rigth-inner-tabs .ant-tabs-top > .ant-tabs-nav::before, .ant-tabs-top > div > .ant-tabs-nav::before{
+    bottom: -15px !important;
+  }
+  .task-rigth-inner-tabs .ant-divider-horizontal{
+    margin: 12px 0 !important;
+  }
+
+
+
+
+

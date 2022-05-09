@@ -1,0 +1,175 @@
+
+.documents-main-container {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    position: absolute;
+    overflow-y: scroll;
+}
+
+.doc-composer-header {
+    display: flex;
+    align-items: center;
+    padding: 26px 6px;
+    width: 100%;
+    background-color: #FFFFFF;
+    height: 45px;
+    border-radius: 10px;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.doc-composer-header-rtl {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 26px 6px;
+    width: 100%;
+    background-color: #FFFFFF;
+    height: 45px;
+    border-radius: 10px;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.doc-filter-sorting-header {
+    display: flex;
+    align-items: center;
+    /*margin-top: 4px;*/
+    /*padding: 26px 6px;*/
+    width: 100%;
+    justify-content: space-between;
+    /*background-color: #FFFFFF;*/
+    /*height: 40px;*/
+    border-radius: 10px;
+    /*overflow-x: auto;*/
+    /*border: 1px solid #f6f6f9;*/
+}
+
+.doc-analytic-box {
+    margin-top: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px 8px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    justify-content: space-between;
+    height: 191px;
+    animation-duration: 0.9s;
+    animation-fill-mode: forwards;
+    -webkit-transition:  height 9s;
+    -moz-transition:  height 9s;
+    -o-transition:  height 9s;
+    transition: height 9s;
+}
+
+.doc-analytic-box-scroll-up {
+    margin-top: 2px;
+    margin-bottom: 1px;
+    height: unset;
+    animation-duration: 9s;
+    animation-fill-mode: forwards;
+    -webkit-transition:  height 9s;
+    -moz-transition:  height 9s;
+    -o-transition:  height 9s;
+    transition: height 9s;
+}
+
+.doc-analytic-box-items {
+    display: flex;
+    border: 1px solid #fff;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 127px;
+    width: 210px;
+    background: rgb(255, 255, 255);
+    margin-right: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    padding: 0 22px;
+    cursor: pointer;
+}
+
+.doc-analytic-box-items-scroll-up {
+    flex-direction: row;
+    padding: 10px 21px;
+    width: 210px;
+    justify-content: space-between;
+    height: unset;
+    margin-top: unset;
+    margin-bottom: unset;
+}
+
+@keyframes smoothHeight {
+    from {
+        height: 191px;
+    }
+    to {
+        height: unset;
+    }
+}
+
+.doc-filter-icon .ant-select-selector {
+    border: 1px solid rgba(246, 246, 249, 0.44) !important;
+}
+
+.doc-filter-con {
+    width: 120px;
+    border: none;
+    margin: 13px 0 13px 8px !important;
+}
+
+.list-grid-item {
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin: 2px;
+}
+
+.list-grid-item-selected {
+    background: rgb(244, 244, 244);
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.list-grid-con {
+    display: flex;
+    margin: 0 19px 0 0;
+    width: 126px;
+    height: 26px;
+    background: rgb(255, 255, 255);
+    justify-content: space-around;
+    padding: 17px 0;
+    align-items: center;
+    border-radius: 6px;
+}
+
+.doc-filter-icon .ant-select-arrow {
+    margin-top: -11px;
+    margin-right: 3px;
+}
+
+.doc-Listing-Container{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    overflow-x: scroll;
+}
+
+
+@media screen and (max-width: 768px) {
+    .doc-composer-header {
+        margin-top: 16px;
+        height: 45px;
+    }
+    .doc-analytic-box-items {
+        height: 100px;
+        width: 200px;
+    }
+    .doc-analytic-box-items-scroll-up {
+        height: unset;
+        margin: 19px 0 0 8px;
+    }
+}

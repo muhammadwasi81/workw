@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.993" height="22" viewBox="0 0 21.993 22">
+    <defs>
+        <style>
+            .cls-1{fill:#707070}
+        </style>
+    </defs>
+    <g id="share-option" transform="translate(-204 -51.696)">
+        <path id="share" d="M21.992 10.994L11.966 0v6.586H10.8A10.8 10.8 0 0 0 0 17.387V22l1.924-2.108A13.808 13.808 0 0 1 11.966 15.4v6.585zm-20.7 7.692v-1.3A9.512 9.512 0 0 1 10.8 7.875h2.454V3.327l6.992 7.667-6.992 7.667v-4.547H12.1a15.1 15.1 0 0 0-10.811 4.572zm0 0" class="cls-1" transform="translate(204 51.696)"/>
+    </g>
+</svg>

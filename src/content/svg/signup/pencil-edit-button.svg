@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 23">
+    <defs>
+        <style>
+            .cls-1{fill:#bfbfbf}.cls-2{fill:none;stroke:#bfbfbf;stroke-linecap:round}
+        </style>
+    </defs>
+    <g id="pencil-edit-button" transform="translate(2.749 -1.289)">
+        <path id="Path_874"
+              d="M11.932 4.475l3.9 3.9-9.88 9.88-3.9-3.9zm6.868-.941l-1.744-1.741a1.727 1.727 0 0 0-2.44 0l-1.667 1.668 3.9 3.9L18.8 5.419a1.331 1.331 0 0 0 0-1.885zM.011 19.842a.444.444 0 0 0 .537.528L4.9 19.316 1 15.412z"
+              class="cls-1" data-name="Path 874"/>
+        <path id="Line_181" d="M0 0h23" class="cls-2" data-name="Line 181" transform="translate(-2.249 23.789)"/>
+    </g>
+</svg>

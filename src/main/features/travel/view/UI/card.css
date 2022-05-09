@@ -1,0 +1,121 @@
+.travel_card {
+	width: 100%;
+	height: auto;
+	display: block;
+	padding: 15px;
+	box-sizing: border-box;
+	overflow: inherit;
+	background-color: rgba(242, 240, 240, 0.4);
+	border-radius: 6px;
+}
+.travel_card .required_typography::before{
+	display: inline-block;
+    margin-right: 4px;
+    color: #ff4d4f;
+    font-size: 14px;
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+    content: '*';
+}
+.text_overflow_ellipse{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
+
+.travel_card_img_cont {
+	position: relative;
+	text-align: center;
+	color: white;
+	width: fit-content;
+}
+.travel_card_detail {
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	padding: 15px 20px;
+	width: 100%;
+	height: 100%;
+}
+.travel_card_text {
+}
+.h-full {
+	height: 100%;
+}
+.w-full {
+	width: 100%;
+}
+.flex {
+	display: flex;
+}
+.justify-between {
+	justify-content: space-between;
+}
+.flex-col {
+	flex-direction: column;
+}
+.flex-row {
+	flex-direction: row;
+}
+.item-center {
+	align-items: center;
+}
+.justify-center {
+	justify-content: center;
+}
+.justify-start {
+	justify-content: flex-start;
+}
+.justify-end {
+	justify-content: flex-end;
+}
+.text-bold {
+	font-weight: bold;
+}
+.hotel_tada_span {
+	background: #696c76;
+	padding: 2px 5px;
+	border-radius: 5px;
+}
+.text-20 {
+	font-size: 20px;
+}
+.text-16 {
+	font-size: 16px;
+}
+.text-medium {
+	font-weight: 500;
+}
+.text-semi-bold {
+	font-weight: 600;
+}
+.travel_fly_img {
+	width: 90%;
+	align-self: center;
+	height: 40px;
+}
+.travel_card_cross_icon {
+	position: absolute;
+	top: 3px;
+	right: 5px;
+	color: white;
+	border-radius: 44px;
+	width: 18px;
+	height: 18px;
+	border: 2px solid white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	padding-bottom: 1px;
+	font-size: 12px;
+	transition: 0.5s;
+}
+.travel_card_cross_icon:hover {
+	color: red;
+	border: 1px solid red;
+}
+.cursor-pointer {
+	cursor: pointer;
+}

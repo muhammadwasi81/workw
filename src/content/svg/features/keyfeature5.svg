@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65.878 55.883">
+    <defs>
+        <style>.a{fill:#405e6b;}</style>
+    </defs>
+    <g transform="translate(51.273 30.17)">
+        <g transform="translate(0 0)">
+            <path class="a"
+                  d="M403.589,273.32h-5.095a13.252,13.252,0,0,1,.8,4.555v19.255a5.678,5.678,0,0,1-.327,1.9h8.423a5.712,5.712,0,0,0,5.706-5.706v-10.5A9.52,9.52,0,0,0,403.589,273.32Z"
+                  transform="translate(-398.494 -273.32)"/>
+        </g>
+    </g>
+    <g transform="translate(0 30.17)">
+        <g transform="translate(0 0)">
+            <path class="a"
+                  d="M13.8,277.876a13.252,13.252,0,0,1,.8-4.555H9.51A9.521,9.521,0,0,0,0,282.831v10.5a5.712,5.712,0,0,0,5.706,5.706h8.423a5.68,5.68,0,0,1-.327-1.9Z"
+                  transform="translate(0 -273.321)"/>
+        </g>
+    </g>
+    <g transform="translate(17.605 25.216)">
+        <g transform="translate(0 0)">
+            <path class="a"
+                  d="M157.986,234.815H146.339a9.521,9.521,0,0,0-9.51,9.51V263.58a1.9,1.9,0,0,0,1.9,1.9h26.863a1.9,1.9,0,0,0,1.9-1.9V244.325A9.521,9.521,0,0,0,157.986,234.815Z"
+                  transform="translate(-136.829 -234.815)"/>
+        </g>
+    </g>
+    <g transform="translate(21.502)">
+        <g transform="translate(0 0)">
+            <path class="a" d="M178.551,38.84a11.435,11.435,0,1,0,11.437,11.437A11.45,11.45,0,0,0,178.551,38.84Z"
+                  transform="translate(-167.114 -38.84)"/>
+        </g>
+    </g>
+    <g transform="translate(4.303 10.66)">
+        <g transform="translate(0 0)">
+            <path class="a" d="M42,121.689a8.549,8.549,0,1,0,8.553,8.553A8.563,8.563,0,0,0,42,121.689Z"
+                  transform="translate(-33.443 -121.689)"/>
+        </g>
+    </g>
+    <g transform="translate(44.469 10.66)">
+        <g transform="translate(0 0)">
+            <path class="a" d="M354.16,121.689a8.553,8.553,0,1,0,8.553,8.553A8.563,8.563,0,0,0,354.16,121.689Z"
+                  transform="translate(-345.607 -121.689)"/>
+        </g>
+    </g>
+</svg>

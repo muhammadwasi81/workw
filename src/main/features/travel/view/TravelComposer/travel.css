@@ -1,0 +1,69 @@
+.carrouselbox{
+    /* margin: 0px 10px; */
+}
+
+.ant-carousel .slick-list .slick-slide.slick-active{
+    display: flex;
+    justify-content: center;
+}
+.ant-carousel .slick-list .slick-slide.slick-active > div {
+  margin: 10px;
+}
+.travel_card_img_cont > img{width: 100%;}
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-prev:focus {
+  font-size: inherit;
+  left: 10px;
+  z-index: 2;
+  color: var(--primary_theme_color_green);
+}
+
+.ant-carousel .slick-next,
+.ant-carousel .slick-next:hover,
+.ant-carousel .slick-next:focus {
+  font-size: inherit;
+  right: 10px;
+  z-index: 2;
+  color: var(--primary_theme_color_green);
+}
+@media (max-width: 480px) {
+  .ant-carousel .slick-next,
+.ant-carousel .slick-next:hover,
+.ant-carousel .slick-next:focus {
+  font-size: inherit;
+  right: -10px;
+  z-index: 2;
+  color: var(--primary_theme_color_green);
+}
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-prev:focus {
+  font-size: inherit;
+  left: -10px;
+  z-index: 2;
+  color: var(--primary_theme_color_green);
+}
+}
+.ant-carousel .slick-dots-bottom{
+  bottom: -12px;
+}
+.ant-carousel .slick-dots li button {
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+}
+.ant-carousel .slick-dots li.slick-active button {
+  width: 7px;
+  height: 7px;
+  border-radius: 100%;
+  background: var(--primary_theme_color_green);
+}
+.ant-carousel .slick-dots li button{
+  width: 7px;
+  height: 7px;
+  border-radius: 100%;
+  background: var(--primary_theme_color_green);
+}

@@ -1,0 +1,9 @@
+.ant-drawer-title{
+    font-size: inherit !important;
+}
+
+.drawerBtn{
+    background: var(--primary_theme_color_green) !important;
+    border-radius: 8px;
+}
+

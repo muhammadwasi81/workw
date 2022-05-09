@@ -1,0 +1,18 @@
+.uploadImg {
+	display: flex;
+	@media (max-width: 1056px) {
+		justify-content: center;
+	} 
+}
+.upload div div {
+	/* width: 120px !important;
+	height: 135px !important; */
+	/* display: flex;
+	flex-direction: column;
+	align-items: center; */
+}
+.uploadImg .ant-upload.ant-upload-select-picture-card,
+.ant-upload-list-picture-card-container {
+	width: 128px;
+	height: 128px;
+}

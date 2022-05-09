@@ -1,0 +1,251 @@
+.travel-inner-tabs .ant-tabs-tab {
+	width: 200px;
+	justify-content: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	height: 35px;
+}
+
+.travel-inner-tabs .ant-tabs-tab > div {
+	color: #1a5669 !important ;
+}
+
+.travel-inner-tabs .ant-tabs-tab-active {
+	background-color: #1a5669;
+}
+.travel-inner-tabs .ant-tabs-tab-active > div {
+	color: white !important;
+}
+.travel-inner-tabs .ant-tabs-ink-bar {
+	display: none;
+}
+.travel-list-box {
+	padding-bottom: 20px;
+}
+.travel-inner-tabs {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+/* travel item */
+
+.travel-list-item {
+	background-color: white;
+
+	border-radius: 10px;
+	padding: 10px 20px;
+}
+
+.travel-item-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.travel-item-header .left {
+	display: flex;
+	align-items: center;
+}
+
+.travel-item-header .left .avatar-name {
+	margin-left: 10px;
+	line-height: 15px;
+	color: gray;
+}
+.travel-item-header .left .avatar-name .name {
+	color: #1a5669 !important;
+	font-weight: bold;
+}
+.travel-item-header .left .avatar-name span {
+	font-size: 11px;
+	font-weight: 500;
+}
+
+.travel-item-header .left .avatar-name .dot {
+	background-color: gray;
+	border-radius: 50%;
+	height: 5px;
+	width: 5px;
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.travel-item-header .left .avatar-name .details {
+	display: flex;
+	align-items: center;
+}
+
+.travel-item-header .right .ant-tag {
+	padding: 6px 10px;
+	border-radius: 5px;
+	border: none;
+	background-color: #f4f4f4;
+}
+
+.travel-item-header .right button {
+	border-radius: 5px !important;
+}
+
+.travel-item-content h4 {
+	font-weight: bold;
+	margin: 0;
+}
+.travel-item-content {
+	margin-top: 15px;
+}
+.travel-item-content p {
+	margin: 0;
+	width: 65%;
+	color: #757d86;
+}
+
+.travel-item-footer {
+	margin-top: 10px;
+	height: 150px;
+	border-radius: 10px;
+	background-image: url("../../../../content/expense\ icons/travelRoute.png");
+	background-size: 100% 100%;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.travel-item-footer .footer-header {
+	display: flex;
+	justify-content: space-between;
+	color: white;
+	align-items: center;
+	font-weight: bold;
+}
+.travel-item-footer .footer-header div {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.travel-item-footer .footer-header div .country {
+	font-size: 12px;
+}
+.travel-item-footer .footer-header div .city {
+	font-size: 16px;
+}
+
+.travel-item-footer .footer-content {
+	display: flex;
+	align-items: center;
+	color: white;
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.travel-item-footer .footer-content .dotted-line {
+	width: 100%;
+	border-top: 3px dotted white;
+	position: relative;
+}
+.travel-item-footer .footer-content .dotted-line img {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+	top: -27px;
+}
+
+.travel-item-footer .footer-footer {
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 10px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.ant-drawer-title {
+	font-size: 22px;
+	font-weight: bold;
+	color: #1a5669;
+}
+.ant-drawer-header-title {
+	flex-direction: row-reverse;
+}
+
+.expense_tag_title {
+	font-size: 11px;
+}
+
+.expense_img_selected {
+	fill: #1a5669;
+}
+
+.expense_tag_selected {
+	border: 1px solid #1a5669;
+	color: #1a5669 !important;
+	fill: #1a5669;
+}
+
+.tag_relate {
+	color: #757d86;
+	position: relative;
+	z-index: 1;
+}
+.tag_icon {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.tag_icon:hover {
+	background: #757d86;
+	opacity: 0.2;
+	transition: 1s;
+}
+.travel_date {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 10px;
+	align-items: center;
+}
+
+.travel_tags_flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+/* .primary_button {
+	background: #1a5669;
+	padding: 5px;
+	color: #fff;
+	border-radius: 6px;
+	font-size: 18px;
+	font-weight: 700;
+	width: 120px;
+	height: 35px;
+} */
+.font_medium {
+	font-size: medium;
+}
+.font_bold {
+	font-weight: bold;
+}
+.tag_btn {
+	width: 120px;
+	height: 35px;
+}
+.tag_expense_btn {
+	margin-top: 10px;
+	height: 35px;
+}
+.error {
+	color: red;
+}
+
+.sideDrawerBtnMobileView{
+    position: absolute;
+    bottom: 110px;
+    z-index: 9999;
+    right: 20px;
+	border-radius: 50px;
+    overflow: hidden;
+}

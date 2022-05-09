@@ -1,0 +1,17 @@
+<svg id="Tasks" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32.18 32.18">
+  <path id="Path_256" data-name="Path 256" d="M2.011,16H24.135a2.011,2.011,0,0,1,2.011,2.011V45.163a2.011,2.011,0,0,1-2.011,2.011H2.011A2.011,2.011,0,0,1,0,45.163V18.011A2.011,2.011,0,0,1,2.011,16Z" transform="translate(0 -14.994)" fill="#ecce93"/>
+  <path id="Path_257" data-name="Path 257" d="M32,68.529V48H54.124V75.152h-15.5Z" transform="translate(-29.989 -44.983)" fill="#efefef"/>
+  <path id="Path_258" data-name="Path 258" d="M38.623,374.625v6.623L32,374.625Z" transform="translate(-29.989 -351.079)" fill="#e76e54"/>
+  <path id="Path_259" data-name="Path 259" d="M128,4.022V0h10.056V4.022a2.011,2.011,0,0,1-2.011,2.011h-6.034A2.011,2.011,0,0,1,128,4.022Z" transform="translate(-119.955)" fill="#e76e54"/>
+  <path id="Path_260" data-name="Path 260" d="M242.1,233.051A9.051,9.051,0,1,1,233.051,224,9.051,9.051,0,0,1,242.1,233.051Z" transform="translate(-209.921 -209.921)" fill="#48c8ef"/>
+  <path id="Path_261" data-name="Path 261" d="M301.559,328.99l-1.949-1.95a1.006,1.006,0,0,1,1.422-1.422l.652.651,4.554-3.8a1.006,1.006,0,1,1,1.288,1.546Z" transform="translate(-280.503 -301.986)" fill="#fff"/>
+  <g id="Group_116" data-name="Group 116" transform="translate(6.034 8.045)">
+    <path id="Path_262" data-name="Path 262" d="M161.006,128h8.045a1.006,1.006,0,0,1,0,2.011h-8.045a1.006,1.006,0,1,1,0-2.011Z" transform="translate(-155.978 -128)" fill="#77959e"/>
+    <path id="Path_263" data-name="Path 263" d="M96,128h2.011v2.011H96Z" transform="translate(-96 -128)" fill="#77959e"/>
+    <path id="Path_264" data-name="Path 264" d="M96,192h2.011v2.011H96Z" transform="translate(-96 -187.978)" fill="#77959e"/>
+    <path id="Path_265" data-name="Path 265" d="M96,256h2.011v2.011H96Z" transform="translate(-96 -247.955)" fill="#77959e"/>
+    <path id="Path_266" data-name="Path 266" d="M96,320h2.011v2.011H96Z" transform="translate(-96 -307.933)" fill="#77959e"/>
+    <path id="Path_267" data-name="Path 267" d="M161.006,192h6.034a1.006,1.006,0,1,1,0,2.011h-6.034a1.006,1.006,0,1,1,0-2.011Z" transform="translate(-155.978 -187.978)" fill="#77959e"/>
+    <path id="Path_268" data-name="Path 268" d="M161.006,256h2.011a1.006,1.006,0,0,1,0,2.011h-2.011a1.006,1.006,0,1,1,0-2.011Z" transform="translate(-155.978 -247.955)" fill="#77959e"/>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.941 20.959">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="man-user_1_" data-name="man-user (1)" transform="translate(-41.895)">
+        <path id="Path_868"
+              d="M108.755 10.251c2.33 0 4.22-2.295 4.22-5.125S112.354 0 108.755 0s-4.22 2.295-4.22 5.125 1.889 5.126 4.22 5.126z"
+              class="cls-1" data-name="Path 868" transform="translate(-58.889)"/>
+        <path id="Path_869" d="M41.9 300.461c0-.173 0-.049 0 0z" class="cls-1" data-name="Path 869"
+              transform="translate(0 -282.384)"/>
+        <path id="Path_870" d="M308.085 301.643c0-.047 0-.328 0 0z" class="cls-1" data-name="Path 870"
+              transform="translate(-250.249 -283.432)"/>
+        <path id="Path_871"
+              d="M57.839 184.965c-.078-4.931-.722-6.336-5.65-7.226a3.462 3.462 0 0 1-4.621 0c-4.874.88-5.557 2.264-5.647 7.065-.007.392-.011.413-.012.367v.518s1.173 2.365 7.969 2.365 7.969-2.365 7.969-2.365v-.383a3.177 3.177 0 0 1-.008-.341z"
+              class="cls-1" data-name="Path 871" transform="translate(-.012 -167.096)"/>
+    </g>
+</svg>

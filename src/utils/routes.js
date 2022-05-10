@@ -19,6 +19,8 @@ export const ROUTES = {
 		SIGN_IN_ANONYMOUSLY: `${DOMAIN_PREFIX}/authenticating`,
 		FORGOT_PASSWORD_LANDING: `${DOMAIN_PREFIX}/resetpassword`,
 		FORGOT_PASSWORD: `${DOMAIN_PREFIX}/forgotpassword`,
+		VERIFICATION_SUCCESS: `${DOMAIN_PREFIX}/verified`,
+		VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verify`,
 	},
 	BUDGET: {
 		DEFAULT: `${DOMAIN_PREFIX}/budgets`,
@@ -237,6 +239,20 @@ export const ROUTES = {
 		APPRAISALS: {
 			DEFAULT: `${DOMAIN_PREFIX}/appraisals`,
 		},
+		RESIGNATIONS: {
+			DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
+		},
+		WARNINGS: {
+			DEFAULT: `${DOMAIN_PREFIX}/warnings`,
+			APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
+		},
+		COMPLAINS: {
+			DEFAULT: `${DOMAIN_PREFIX}/complains`,
+			APPROVALS: `${DOMAIN_PREFIX}/complains/approvals`,
+		},
+		BONUS: {
+			DEFAULT: `${DOMAIN_PREFIX}/bonus`,
+		},
 	},
 	MAIL: {
 		DEFAULT: `${DOMAIN_PREFIX}/mail`,
@@ -261,5 +277,12 @@ export const ROUTES = {
 		TRASH: `${DOMAIN_PREFIX}/mail?id=INBOX.Trash`,
 		JUNK: `${DOMAIN_PREFIX}/mail?id=INBOX.junk`,
 		DRAFTS: `${DOMAIN_PREFIX}/mail?id=INBOX.Drafts`,
+	},
+	TASK: {
+		DEFAULT: `${DOMAIN_PREFIX}/tasks`,
+		DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
+	},
+	LEAD_MANAGER: {
+		DEFAULT: `${DOMAIN_PREFIX}/leadmanager`,
 	},
 };

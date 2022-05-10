@@ -4,15 +4,16 @@ import {
 	responseMessage,
 	responseMessageType,
 } from "../../../../services/slices/notificationSlice";
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
-import { addGradeService, getAllGradesService } from "../services/service";
-import { gradeDeleted } from "./slice";
-
-const API_PREFIX = "konnectapi/api/grade/";
+import {
+	addGradeService,
+	getAllGradesService,
+	removeGradeService,
+	updateGradeService,
+} from "../services/service";
 
 export const getAllGrades = createAsyncThunk(
 	"grade/getAllGrade",
-	async (args, { dispatch, getState }) => {
+	async ({ dispatch }) => {
 		const res = await getAllGradesService();
 
 		if (!res.responseCode) {
@@ -27,9 +28,9 @@ export const getAllGrades = createAsyncThunk(
 
 export const addGrade = createAsyncThunk(
 	"grade/addGrade",
-	async (args, { dispatch, getState }) => {
+	async (args, { dispatch }) => {
 		const res = await addGradeService(args);
-
+		console.log(res);
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success)
 				res.message = "Grade added successfully!";
@@ -47,44 +48,40 @@ export const addGrade = createAsyncThunk(
 
 export const updateGrade = createAsyncThunk(
 	"grade/updateGrade",
-	async (args, { dispatch, getState }) => {
-		return await AxiosConfig.put(`${API_PREFIX}updategrade`, args)
-			.then(res => {
-				if (res.data.responseCode === responseCode.Success)
-					res.data.message = "Grade updated successfully!";
-				responseMessage({ dispatch, data: res.data });
-				return res.data;
-			})
-			.catch(err => {
-				responseMessage({
-					dispatch: dispatch,
-					type: responseMessageType.ApiFailure,
-				});
-				return err;
+	async (args, { dispatch }) => {
+		const res = await updateGradeService(args);
+
+		if (res.responseCode) {
+			if (res.responseCode === responseCode.Success)
+				res.message = "Grade updated successfully!";
+			responseMessage({ dispatch, data: res });
+		} else {
+			responseMessage({
+				dispatch: dispatch,
+				type: responseMessageType.ApiFailure,
 			});
+		}
+
+		return res;
 	}
 );
 
 export const removeGrade = createAsyncThunk(
 	"grade/removeGrade",
-	async (args, { dispatch, getState }) => {
-		return await AxiosConfig.delete(
-			`${API_PREFIX}removegrade?id=${args.id}`
-		)
-			.then(res => {
-				if (res.data.responseCode === responseCode.Success) {
-					res.data.message = "Grade removed successfully!";
-					dispatch(gradeDeleted(args));
-				}
-				responseMessage({ dispatch, data: res.data });
-				return res.data;
-			})
-			.catch(err => {
-				responseMessage({
-					dispatch: dispatch,
-					type: responseMessageType.ApiFailure,
-				});
-				return err;
+	async (args, { dispatch }) => {
+		const res = await removeGradeService(args.id);
+
+		if (res.responseCode) {
+			if (res.responseCode === responseCode.Success)
+				res.message = "Grade removed successfully!";
+			responseMessage({ dispatch, data: res });
+		} else {
+			responseMessage({
+				dispatch: dispatch,
+				type: responseMessageType.ApiFailure,
 			});
+		}
+
+		return res;
 	}
 );

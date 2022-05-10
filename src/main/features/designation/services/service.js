@@ -1,8 +1,7 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
-const API_PREFIX = "konnectapi/api/Designation/";
 export const getAllDesignationsService = () => {
-	return AxiosConfig.get(`${API_PREFIX}getalldesignation`)
+	return MasterConfig.get(`api/Designation/getalldesignation`)
 		.then(res => {
 			return res.data;
 		})
@@ -12,7 +11,25 @@ export const getAllDesignationsService = () => {
 };
 
 export const addDesignationService = args => {
-	return AxiosConfig.post(`${API_PREFIX}addDesignation`, args)
+	return MasterConfig.post(`api/Designation/addDesignation`, args)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};
+export const updateDesignationService = args => {
+	return MasterConfig.put(`api/Designation/updatedesignation`, args)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};
+export const removeDesignationService = id => {
+	return MasterConfig.delete(`api/Designation/removedesignation?id=${id}`)
 		.then(res => {
 			return res.data;
 		})

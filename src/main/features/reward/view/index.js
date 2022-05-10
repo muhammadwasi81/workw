@@ -1,18 +1,21 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { BrokenPage } from "../../../../utils/base";
-import { ROUTES } from "../../../../utils/routes";
+import { Switch, Route } from "react-router-dom";
+import { BrokenPage, STRINGS } from "../../../../utils/base";
 import "./reward.css";
 import Reward from "./Reward";
 
 const Index = () => {
-	return (
-		<></>
-		// <Routes>
-		// 	<Route path={`${ROUTES.HR.REWARDS.DEFAULT}`} element={<Reward />} />
-		// 	{/* <Route element={<BrokenPage />} /> */}
-		// </Routes>
-	);
+  return (
+    <Switch>
+      <Route
+        exact
+        path={`${STRINGS.ROUTES.HR.REWARDS.DEFAULT}`}
+        component={Reward}
+      />
+      <Route component={BrokenPage} />
+      
+    </Switch>
+  );
 };
 
 export default Index;

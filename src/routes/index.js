@@ -1,7 +1,8 @@
 import React, { Suspense } from "react";
 import { Navigate, Route, Routes as R } from "react-router-dom";
 import { routes } from "./routes";
-import { STRINGS } from "../utils/base";
+// import { STRINGS } from "../utils/base";
+import { ROUTES } from "../utils/routes";
 import Nav from "../components/MainMenu/Nav/";
 import TopMenuBar from "../components/SharedComponent/MobileView/topMenu";
 import SideChatbar from "../components/MainMenu/SideChatbar";
@@ -24,20 +25,23 @@ const PrivateRoute = () => {
 		// if (isRefreshTokenExpire) {
 		//     return <Navigate to="/locked" />
 		// if (isLoggedIn) Socket();
-		return routes.Private.map((route, idx) => (
+		return (
 			<R>
-				<Route
-					key={idx}
-					path={`${route.path}`}
-					element={<route.component />}
-				/>
+				{routes.Private.map((route, idx) => (
+					<Route
+						key={idx}
+						path={`${route.path}`}
+						element={<route.component />}
+					/>
+				))}
+				<Route path="*" element={<Navigate to="*" replace />} />
 			</R>
-		));
+		);
 	} else {
 		return (
 			<Navigate
 				to={{
-					pathname: STRINGS.ROUTES.AUTH.SIGN_IN,
+					pathname: ROUTES.AUTH.SIGN_IN,
 				}}
 			/>
 		);

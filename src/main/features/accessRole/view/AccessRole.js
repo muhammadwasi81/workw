@@ -142,9 +142,6 @@ function AccessRole() {
 		<div className="access_role_container w-full">
 			<Card>
 				<div className="w-full">
-					<h1 className={Direction === "rtl" && "text-right"}>
-						{administration.AccessRole}
-					</h1>
 					<div
 						className={`flex ${
 							Direction === "rtl"

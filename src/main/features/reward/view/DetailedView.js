@@ -4,7 +4,7 @@ import TextInput from '../../../../components/SharedComponent/Input/TextInput';
 import Button from '../../../../components/SharedComponent/button/index'
 import Select from '../../../../components/SharedComponent/Select/Select';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllEmployee, getRewardCategory } from '../../../../utils/Shared/store/actions';
+import { getRewardCategory } from '../../../../utils/Shared/store/actions';
 import { addReward } from '../store/actions';
 import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -16,7 +16,7 @@ import NewCustomSelect from '../../employee/view/newCustomSelect'
 
 
 
-const Composer = props => {
+const DetailedView = props => {
 
   const dispatch = useDispatch()
 
@@ -24,16 +24,13 @@ const Composer = props => {
 
   const [profileImage, setProfileImage] = useState(null);
 
-  const { rewardCategories, employeesList } = useSelector(
+  const { rewardCategories } = useSelector(
 		state => state.sharedSlice
 	);
 
-    
 
   useEffect(() => {
 		dispatch(getRewardCategory());
-    dispatch(getAllEmployee());
-    console.log(employeesList, "EMPLOYEES")
 	}, []);
 
   const handleImageUpload = data => {
@@ -42,14 +39,6 @@ const Composer = props => {
 
   const onFinish = (v) => {
       form.resetFields();
-
-      // let members = v.cityId.map((city)=>{
-      //   return {
-      //     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //     "memberId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //     "memberType": 0
-      //   }
-      // })
 
     console.log(v, "OBJECT")
 
@@ -158,26 +147,26 @@ const Composer = props => {
           />
         </Form.Item>
 
-        <Form.Item
-          name="members"
-					label={"Search Memebers"}
+        {/* <Form.Item
+          name="cityId"
+					label={value.City}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
         >
           <NewCustomSelect
-						name="members"
-						label={"Search Memebers"}
+						name="cityId"
+						label={value.City}
 						showSearch={true}
 						direction={Direction}
 
             mode="multiple"
 
-						endPoint="GetAllUserReference"
+						endPoint="GetAllCities"
 						requestType="post"
-						placeholder={"Search Memebers"}
+						placeholder={placeholder.searchToSelect}
 					/>
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item area="true">
           <SingleUpload
@@ -257,4 +246,4 @@ const Composer = props => {
   )
 }
 
-export default Composer
+export default DetailedView

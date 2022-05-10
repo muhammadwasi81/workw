@@ -1,50 +1,191 @@
 .topBar {
-    background-color: red;
     margin-top: 15px;
     width: calc(100% - 80px);
     padding: 9px;
     border-radius: 4px;
-    background: white;
+    background-color: white;
 }
 .searchBox {
-    width: 300px;
+    /* width: 295px; */
     transition: all 0.5s;
 }
 .width50 {
     width: 50px;
     transition: all 0.5s;
 }
-.topBar .inner {
-    display: flex;
-    justify-content: flex-end;
-}
 .icons {
     display: flex;
-    justify-content: space-around;
-    padding: 2px 0px 6px 0px;
+    justify-content: space-evenly;
 }
 .gridIcons {
-    background: #F4F4F4;
-    padding: 2px 3px;
+    background: #EDEDED;
+    padding: 4px 8px;
     border-radius: 4px;
+    width: 87%;
 }
 .topBarIcon {
-    color: #1A5669;
-    font-size: 20px;
-    margin-top: 5px;
-    margin: 0px 3px 0px 3px;
-    padding: 4px;
+    color: #757D86;
+    font-size: 12px;
+    margin-top: 0px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px !important;
+    padding: 3px 5px;
+}
+.topBtn:hover {
+    background-color: #1A5669;
+    color: white;
+}
+.topBtn:hover .topBarIcon {
+    color: white;
 }
 .isActive {
     background-color: white;
     border-radius: 5px;
     box-shadow: 0px 0px 4px 2px rgb(77 68 120 / 12%);
-    padding: 2px;
+}
+.filterButton {
+    color: #757D86;
+    font-weight: 700;
+    padding: 0px 21px;
+    background: #EDEDED;
+    border: 0;
+    font-size: 11px;
+}
+.topBtn {
+    color: #757D86;
+    font-weight: 700;
+    padding: 7px 20px;
+    background: #EDEDED;
+    border: 0;
+    font-size: 12px;
+    border-radius: 4px;
+}
+.onn{
+    background-color: #1A5669;
+    color: white;
 }
 
 
 @media (min-width: 320px) and (max-width: 767px) {
     .width50 {
         width: 100%;
+    }
+    .topBar {
+        margin-top: 15px !important;
+        max-width: 100%;
+        margin: 0px auto;
+        width: 98%;
+    }
+    .forMobile {
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+    }
+    .topBtn {
+        padding: 3px 7px;
+        font-size: 9px;
+        height: 21px;
+        margin-right: 5px;
+    }    
+    .gridIcons {
+        padding: 4px 8px;
+        width: 66px;
+        max-width: 66px;
+    }
+    .filterButton .anticon {
+        margin-left: 0px !important;
+    }
+    .icons {
+        justify-content: start;
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1299px) {
+    .filterButton {
+        padding: 0px 14px;
+        font-size: 10px;
+    }
+    .topBtn {
+        padding: 9px 15px;
+        font-size: 8px;
+    }
+    .gridIcons {
+        padding: 3px 8px;
+        max-width: 146px;
+        width: 146px;
+    }
+    .topBarIcon {
+        font-size: 7px;
+        padding: 3px 5px;
+    }
+}
+
+@media (min-width: 920px) and (max-width: 1024px) {
+    .searchBox {
+        width: 180px;
+    }
+    .topBtn {
+        padding: 9px 10px;
+        font-size: 9px;
+    }
+    .icons {
+        padding-left: 0px;
+    }
+    .searchBox {
+        width: 160px;
+    }
+    .gridInner {
+        display: none !important;
+    }
+    .btnRow {
+        width: 100%;
+        margin-top: -14px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 920px) {
+    .searchBox {
+        width: 150px;
+        max-width: 150px;
+    }
+    .gridInner {
+        display: none !important;
+    }
+    .btnRow {
+        width: 100%;
+        margin-top: -14px;
+    }
+    .topBtn {
+        padding: 10px 14px;
+        font-size: 7px;
+    }
+}
+
+@media (min-width: 1300px) and (max-width: 1430px) {
+    .gridIcons {
+        width: 168px;
+        max-width: 168px;
+    }
+    .topBarIcon {
+        font-size: 9px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .icons {
+        margin-top: 12px;
+    }
+    .topBar {
+        width: 100%;
+    }
+    .gridIcons {
+        width: 35%;
+    }
+    .inner2 {
+        display: flex;
+    }
+    .topBtn {
+        margin-right: 8px;
     }
 }

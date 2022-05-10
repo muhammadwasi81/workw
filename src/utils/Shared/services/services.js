@@ -108,7 +108,17 @@ export const getAllRewardCategoryService = () => {
 		});
 };
 
-
+export const getAllEmployeeService = () => {
+	return AxiosConfig.get(
+		"https://58.65.211.234:4436/konnectapi/api/Reference/GetAllUserReference"
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};
 
 export const uploadImageService = files => {
 	const formData = new FormData();

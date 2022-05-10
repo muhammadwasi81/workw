@@ -30,7 +30,6 @@ import "./stylesheets/shared.css";
 // import "./stylesheets/task.css";
 import "./stylesheets/travel.css";
 import "./stylesheets/postComposer.css";
-import { STRINGS } from "./utils/base";
 // import { Routings } from "./utils/routes";
 import ErrorBoundary from "./utils/ErrorBoundary";
 import { LanguageChangeContext } from "./utils/localization/localContext/LocalContext";
@@ -84,32 +83,28 @@ const App = () => {
 				<Router>
 					<ReactRoutes>
 						{/*****Public Route******/}
-						{/* <Route path="*" element={<Auth />} /> */}
+						<Route path={ROUTES.AUTH.SIGN_IN} element={<Auth />} />
 						<Route
-							path={STRINGS.ROUTES.AUTH.SIGN_IN}
-							element={<Auth />}
-						/>
-						<Route
-							path={STRINGS.ROUTES.AUTH.INDIVIDUAL_SIGN_IN}
+							path={ROUTES.AUTH.INDIVIDUAL_SIGN_IN}
 							element={<IndivisualSignup />}
 						/>
 						<Route
-							path={STRINGS.ROUTES.AUTH.SIGN_UP}
+							path={ROUTES.AUTH.SIGN_UP}
 							element={<OrganizationalSignup />}
 						/>
 						<Route
-							path={STRINGS.ROUTES.AUTH.VERIFICATION_SUCCESS}
+							path={ROUTES.AUTH.VERIFICATION_SUCCESS}
 							element={<Verified />}
 						/>
 						<Route
-							path={`${STRINGS.ROUTES.AUTH.VERIFICATION_INPROCESS}/:id?`}
+							path={`${ROUTES.AUTH.VERIFICATION_INPROCESS}/:id?`}
 							element={<Verifying />}
 						/>
 						<Route
 							path={ROUTES.CALL.KONNECT_CALL}
 							element={<KonnectCall />}
 						/>
-						{/* <Route path="/" element={<Navigate replace to="/home" />} /> */}
+
 						{/*****Public Route******/}
 						<Route
 							path={ROUTES.ROOT}
@@ -121,7 +116,6 @@ const App = () => {
 								/>
 							}
 						/>
-						<Route path="*" element={<div>;lf;dl;d</div>} />
 					</ReactRoutes>
 				</Router>
 			</MainFlexContainer>

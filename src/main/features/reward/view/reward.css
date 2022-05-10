@@ -12,7 +12,7 @@
 .list-item {
     background-color: white;
     border-radius: 4px;
-    padding: 20px 27px;
+    padding: 13px 12px;
     margin-bottom: 20px;
 }
 .item-header {
@@ -23,12 +23,14 @@
     margin-top: 15px;
 }
 .item-header .right .ant-tag {
-    padding: 6px 10px;
+    padding: 4px 10px;
     border-radius: 4px;
     border: none;
 }
 .IdTag {
-    background-color: #F4F4F4;
+    background-color: #DEE5E8;
+    color: #1A5669 !important;
+    border: 0;
 }
 .item-header .right button {
     border-radius: 4px !important;
@@ -106,20 +108,47 @@
 .cancel {
     background-color: red;
 }
+.CompBtnMobile {
+    position: absolute;
+    left: 0;
+    bottom: 9px;
+    right: 6px;
+}
+.CompBtnMobile span:nth-child(2) {
+    display: none;
+}
+.CompBtnMobile .drawerBtn {
+    border-radius: 50% !important;
+    padding: 6px 9px;
+}
+.ItemDetails {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin-top: 13px;
+}
+.ListItemInner {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 11px;
+}
+.ListItemInner p {
+    color: #757D86;
+}
+.list-item .mem {
+    margin-left: 10px;
+}
+.attachmentBox .ant-image-img {
+    border-radius: 4px;
+}
+
+
 
 
 @media (min-width: 320px) and (max-width: 767px) {
     .lf-col {
         padding: 8px;
         margin-top: 0px !important;
-    }
-    .topBar {
-        margin-top: 15px !important;
-        max-width: 100%;
-        margin: 0px auto;
-    }
-    .gridIcon {
-        display: none;
     }
     .btn-hld {
         margin-top: 6px;
@@ -130,9 +159,6 @@
     .item-header .right button {
         font-size: 9px;
         padding: 8px;
-    }
-    .item-header .right .ant-tag {
-        font-size: 9px;
     }
     .list-item {
         background-color: white;
@@ -155,9 +181,11 @@
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1080px) {
     .rt-col {
         display: none !important;
     }
+    .list-item h3 {
+        font-size: 12px;
+    }
 }
-

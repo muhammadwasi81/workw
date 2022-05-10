@@ -1,46 +1,9 @@
 import axios from "axios";
 import { updateAccessToken } from "../../store/appReducer/userSlice";
 
-export const BASE_DOMAIN = (() => {
-	if (
-		window.location.hostname === "konnect.lutebox.com" ||
-		window.location.hostname === "www.konnect.lutebox.com"
-	)
-		return "http://lutebox.com";
-	else if (
-		window.location.hostname === "gqhub.com" ||
-		window.location.hostname === "www.gqhub.com"
-	)
-		return "https://gqhub.com";
-	else if (
-		window.location.hostname === "school.gqhub.com" ||
-		window.location.hostname === "www.school.gqhub.com"
-	)
-		return "https://gqhub.com";
-	else if (
-		window.location.hostname === "dev.gqhub.com" ||
-		window.location.hostname === "www.dev.gqhub.com"
-	)
-		return "https://dev.gqhub.com";
-	else if (
-		window.location.hostname === "konnect.im" ||
-		window.location.hostname === "www.konnect.im"
-	)
-		return "https://konnect.im";
-	else if (
-		process.env.NODE_ENV === "development" ||
-		window.location.hostname === "58.65.211.234" ||
-		window.location.hostname === "192.168.100.251"
-	)
-		// https://58.65.211.234:4436/konnectapi/
-		// return "https://localhost:5001";
-		return "https://58.65.211.234:4436";
-	// return "https://8d90-42-201-179-182.ngrok.io/"
-})();
-
-const API_URL = BASE_DOMAIN;
+// const API_URL = BASE_DOMAIN;
 const instance = axios.create({
-	baseURL: API_URL,
+	baseURL: "https://58.65.211.234:4436/konnectapi/",
 	headers: {
 		"Content-Type": "application/json",
 	},

@@ -30,7 +30,7 @@
 
 .appSideBarClose {
   /* width: 80px !important; */
-  display: block !important;
+  display: block ;
   animation-name: sideBarCloseAnimation;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;

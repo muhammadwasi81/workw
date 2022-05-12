@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Card from "../../../sharedComponents/Card/Card";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import AccessRoleComposer from "./AccessRoleComposer";
-import { Table, Tag, Space, message, Skeleton, Form } from "antd";
+import { message, Skeleton, Form } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	getAllBussinessFeatures,
@@ -51,7 +51,7 @@ function AccessRole() {
 		dispatch(getAllBussinessFeatures());
 		dispatch(getAllAccessRoles());
 		dispatch(getAllUserTypes());
-	}, []);
+	}, [dispatch]);
 
 	const onSubmitData = finalData => {
 		if (isEdited) {
@@ -68,24 +68,24 @@ function AccessRole() {
 			}
 			message.success("Access Role Added Successfuly...");
 		}
-	}, [success]);
+	}, [success, id, isEdited]);
 
-	const onActionClick = (text, record) => {
-		const id = record.id;
-		// console.log("record", record);
-		setIsDefault(record.isDefault);
-		setFormData(prevData => ({
-			...prevData,
-			name: record.name,
-			description: record.description,
-		}));
-		dispatch(getAccessRoleById(id));
-		toggleDrawer();
-	};
+	// const onActionClick = (text, record) => {
+	// 	const id = record.id;
+	// 	// console.log("record", record);
+	// 	setIsDefault(record.isDefault);
+	// 	setFormData(prevData => ({
+	// 		...prevData,
+	// 		name: record.name,
+	// 		description: record.description,
+	// 	}));
+	// 	dispatch(getAccessRoleById(id));
+	// 	toggleDrawer();
+	// };
 
-	const toggleDrawer = () => {
-		setOpenDrawer(!openDrawer);
-	};
+	// const toggleDrawer = () => {
+	// 	setOpenDrawer(!openDrawer);
+	// };
 
 	useEffect(() => {
 		if (
@@ -109,7 +109,7 @@ function AccessRole() {
 			defaultData.features = features;
 			setDefaultData(defaultData);
 		}
-	}, [singleAccessRole]);
+	}, [singleAccessRole, formData]);
 
 	const handleEdit = data => {
 		// console.log("data", data);
@@ -136,10 +136,11 @@ function AccessRole() {
 		// console.log("reset field");
 
 		form.resetFields();
-	}, [openDrawer]);
+	}, [openDrawer, form]);
 
 	return (
 		<div className="access_role_container w-full">
+			{/* <h1>abc</h1> */}
 			<Card>
 				<div className="w-full">
 					<div
@@ -216,26 +217,3 @@ function AccessRole() {
 }
 
 export default AccessRole;
-
-// const SpaceFunc = ({ onClick }) => {
-// 	return (
-// 		<Space size="middle" align="center">
-// 			{/* <a onClick={onClick}>View Permission</a> */}
-// 			<EditFilled style={{ color: "#1b5669" }} onClick={onClick} />
-// 		</Space>
-// 	);
-// };
-
-{
-	/* <CustomTable
-					dataSource={loading ? [] : accessRoles}
-					bordered={true}
-					loading={loading}
-					columns={["name", "description"]}
-					actions={true}
-					ActionNode={SpaceFunc}
-					onActionClick={onActionClick}
-					paginationPostition={""}
-					pagination={false}
-				/> */
-}

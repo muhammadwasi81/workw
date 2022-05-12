@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import MessengerListItem from './MessengerListItem';
 
 // let isDidMount = true
-const MessengerList = ({isChatBox=true, messageList}) => {
+const MessengerList = ({isChatBox=true, messageList, isOpenProfile}) => {
   const MyRef = useRef("myRef")
    useEffect(()=>{
       // if(isDidMount){
@@ -16,7 +16,7 @@ const MessengerList = ({isChatBox=true, messageList}) => {
   }, [messageList])
 
    return (
-      <div className={"MessengerList " + (isChatBox ? "ChatBoxMessages" : "")}  >
+      <div className={"MessengerList " + (isChatBox ? "ChatBoxMessages " : " ") + (isOpenProfile ? "blur-bg" : "")}  >
          {
             messageList.map((val) => {
                return (

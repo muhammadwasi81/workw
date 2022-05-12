@@ -1,193 +1,182 @@
-import { Form, Input, Option } from 'antd'
-import React, { useEffect, useState, useContext } from 'react'
-import TextInput from '../../../../components/SharedComponent/Input/TextInput';
-import Button from '../../../../components/SharedComponent/button/index'
-import Select from '../../../../components/SharedComponent/Select/Select';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllEmployee, getRewardCategory } from '../../../../utils/Shared/store/actions';
-import { addReward } from '../store/actions';
-import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
+import { Form, Input } from "antd";
+import React, { useEffect, useState, useContext } from "react";
+import TextInput from "../../../../components/SharedComponent/Input/TextInput";
+import Button from "../../../../components/SharedComponent/button/index";
+import Select from "../../../../components/SharedComponent/Select/Select";
+import { useSelector, useDispatch } from "react-redux";
+import { getRewardCategory } from "../../../../utils/Shared/store/actions";
+import { addReward } from "../store/actions";
+import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import {
-	uploadImage,
-} from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from '../../employee/view/newCustomSelect'
-
-
+import { uploadImage } from "../../../../utils/Shared/store/actions";
+import NewCustomSelect from "../../employee/view/newCustomSelect";
 
 const Composer = props => {
+	const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+	const [form] = Form.useForm();
 
-  const [form] = Form.useForm();
+	const [profileImage, setProfileImage] = useState(null);
 
-  const [profileImage, setProfileImage] = useState(null);
+	const { rewardCategories } = useSelector(state => state.sharedSlice);
 
-  const { rewardCategories, employeesList } = useSelector(
-		state => state.sharedSlice
-	);
-
-    
-
-  useEffect(() => {
+	useEffect(() => {
 		dispatch(getRewardCategory());
     // dispatch(getAllEmployee());
     console.log(employeesList, "EMPLOYEES")
 	}, []);
 
-  const handleImageUpload = data => {
+	const handleImageUpload = data => {
 		setProfileImage(data);
 	};
 
-  const onFinish = (v) => {
-      form.resetFields();
+	const onFinish = v => {
+		form.resetFields();
 
-      // let members = v.cityId.map((city)=>{
-      //   return {
-      //     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //     "memberId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //     "memberType": 0
-      //   }
-      // })
+		// let members = v.cityId.map((city)=>{
+		//   return {
+		//     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+		//     "memberId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+		//     "memberType": 0
+		//   }
+		// })
 
-    console.log(v, "OBJECT")
+		// console.log(v, "OBJECT");
 
-      dispatch(uploadImage(profileImage)).then(x => {
-        console.log(x.payload.data[0].id, "Hurry i got image if from server")
-        let photoId = x.payload.data[0].id;
+		dispatch(uploadImage(profileImage)).then(x => {
+			// console.log(
+			// 	x.payload.data[0].id,
+			// 	"Hurry i got image if from server"
+			// );
+			let photoId = x.payload.data[0].id;
 
-        let payload = { ...v, imageId: photoId,  };
-        dispatch(addReward(payload))
+			let payload = { ...v, imageId: photoId };
+			dispatch(addReward(payload));
 
+			// console.log(payload, "Final Data");
+		});
+	};
 
-        console.log(payload, "Final Data")
+	const onFinishFailed = errorInfo => {
+		console.log("Failed:", errorInfo);
+	};
 
-      });
-  }
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { Direction } = dictionaryList[userLanguage];
+	// const value = employees.EmployeeForm;
+	// const placeholder = employees.placeholders;
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
+	return (
+		<>
+			<Form
+				form={form}
+				name="addReward"
+				labelCol={{
+					span: 24,
+				}}
+				wrapperCol={{
+					span: 24,
+				}}
+				initialValues={{
+					remember: true,
+				}}
+				onFinish={onFinish}
+				onFinishFailed={onFinishFailed}
+				autoComplete="off"
+			>
+				<Form.Item
+					label="Award Name"
+					name="name"
+					labelPosition="top"
+					rules={[
+						{
+							required: true,
+							message: "Please Enter Award Name!",
+						},
+					]}
+				>
+					<TextInput placeholder="Enter Award Name" />
+				</Form.Item>
 
-  const { userLanguage } = useContext(LanguageChangeContext);
-	const { employees, Direction } = dictionaryList[userLanguage];
-	const value = employees.EmployeeForm;
-  const placeholder = employees.placeholders;
+				<Form.Item
+					label="Reason for Award"
+					name="reason"
+					rules={[
+						{
+							required: true,
+							message: "Please Enter Reason for Award",
+						},
+					]}
+				>
+					<TextInput placeholder="Enter Award Reason" />
+				</Form.Item>
 
-  return (
-    <>
-      <Form 
-        form={form}
-        name="addReward"
-        labelCol={{
-          span: 24,
-        }}
-        wrapperCol={{
-          span: 24,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
+				<Form.Item
+					label="Description"
+					name="description"
+					rules={[
+						{
+							required: true,
+							message: "Please Enter Description",
+						},
+					]}
+				>
+					<Input.TextArea placeholder="Enter Description" />
+				</Form.Item>
 
-        <Form.Item
-          label="Award Name"
-          name="name"
-          labelPosition="top"
-          rules={[
-            {
-              required: true,
-              message: "Please Enter Award Name!",
-            }
-          ]}
-        >
-          <TextInput placeholder="Enter Award Name" /> 
-        </Form.Item>
+				<Form.Item
+					label="Select Category"
+					name="categoryId"
+					rules={[
+						{
+							required: true,
+							message: "Please Enter Category",
+						},
+					]}
+				>
+					<Select
+						// value={
+						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+						// }
+						data={rewardCategories}
+						placeholder="Category"
+						style={{
+							width: "100%",
+							borderRadius: "5px",
+						}}
+						size="large"
+					/>
+				</Form.Item>
 
-        <Form.Item
-          label="Reason for Award"
-          name="reason"
-          rules={[
-            {
-              required: true,
-              message: "Please Enter Reason for Award",
-            }
-          ]}
-        >
-          <TextInput placeholder="Enter Award Reason" /> 
-        </Form.Item>
-
-        <Form.Item
-          label="Description"
-          name="description"
-          rules={[
-            {
-              required: true,
-              message: "Please Enter Description",
-            }
-          ]}
-        >
-          <Input.TextArea placeholder='Enter Description' />
-        </Form.Item>
-        
-         <Form.Item 
-          label="Select Category"
-          name="categoryId"
-          rules={[
-            {
-              required: true,
-              message: "Please Enter Category",
-            }
-          ]}
-          >
-          <Select
-            // value={
-            //   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-            // }
-            data={rewardCategories}
-            placeholder="Category"
-            style={{
-              width: "100%",
-              borderRadius: "5px",
-            }}
-            size="large"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="members"
+				<Form.Item
+					name="members"
 					label={"Search Memebers"}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
-        >
-          <NewCustomSelect
+				>
+					<NewCustomSelect
 						name="members"
 						label={"Search Memebers"}
 						showSearch={true}
 						direction={Direction}
-
-            mode="multiple"
-
+						mode="multiple"
 						endPoint="GetAllUserReference"
 						requestType="post"
 						placeholder={"Search Memebers"}
 					/>
-        </Form.Item>
+				</Form.Item>
 
-        <Form.Item area="true">
-          <SingleUpload
+				<Form.Item area="true">
+					<SingleUpload
 						handleImageUpload={handleImageUpload}
 						img="Add Image"
             position="flex-start"
 					/>
-        </Form.Item>
+				</Form.Item>
 
-{/*
+				{/*
         <Form.Item 
           label="Award To"
           name="members"
@@ -250,12 +239,19 @@ const Composer = props => {
           </Select>
         </Form.Item> */}
 
-        <Form.Item>
-          <Button buttonClass="submitButton" htmlType="submit" title="Create Reward" > Create Reward </Button>
-        </Form.Item>
-      </Form>
-    </>
-  )
-}
+				<Form.Item>
+					<Button
+						buttonClass="submitButton"
+						htmlType="submit"
+						title="Create Reward"
+					>
+						{" "}
+						Create Reward{" "}
+					</Button>
+				</Form.Item>
+			</Form>
+		</>
+	);
+};
 
-export default Composer
+export default Composer;

@@ -8,28 +8,30 @@ import { useDispatch } from 'react-redux';
 import { handleIsopenChat } from '../../store/messengerSlice';
 
 
-const MessengerHead = () => {
+const MessengerHead = ({handleProfileClick, isOpenProfile}) => {
     const dispatch = useDispatch()
     return (
-        <div className="MessengerHead" >
-    
-        <div className="MessengerHeadAvatar MessengerHeadAvatar-Mob" onClick={()=>dispatch(handleIsopenChat(false))} >
-            <img src={arrowIcon} alt="" />
-        <Avatar src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"} name={""} size={40} round={true} />
-        </div>
-
-        <div className="MessengerHeadName" >
-        <div >
-           Abu Bakar Memon
-        </div>
-        </div>
-        <div className="MessengerHeadIcon" >
-          <div>
-              <img src={phoneIcon} alt="" />
-              <img src={videoIcon} className="videoIcon" alt=""/>
-              <img src={infoIcon} alt=""/>
-          </div>
-        </div>
+        <div className={"MessengerHead " + (isOpenProfile ? "blur-bg" : "")} >
+            <div className="MessengerHeadAvatar MessengerHeadAvatar-Mob" 
+            onClick={() => {
+                dispatch(handleIsopenChat(false));
+                handleProfileClick()
+                }} >
+                <img src={arrowIcon} alt="" />
+                <Avatar src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"} name={""} size={40} round={true} />
+            </div>
+            <div className="MessengerHeadName" >
+                <div >
+                    Abu Bakar Memon
+                </div>
+            </div>
+            <div className="MessengerHeadIcon" >
+                <div>
+                    <img src={phoneIcon} alt="" />
+                    <img src={videoIcon} className="videoIcon" alt="" />
+                    <img src={infoIcon} alt="" />
+                </div>
+            </div>
 
         </div>
     )

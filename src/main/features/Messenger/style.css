@@ -19,6 +19,7 @@
 }
 
 .MessengerBox {
+    position: relative;
     background-color: white;
     height: 100%;
     flex: 1;
@@ -190,7 +191,34 @@ input:focus {
     color: rgb(26, 86, 105);
     padding-left: 10px;
 }
-
+.MessengerProfile .user {
+    /* margin-top: 20vh; */
+    text-align: center;
+}
+.MessengerProfile .user .name {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(26, 86, 105);
+}
+.MessengerProfile .user .desc {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(26, 86, 105);
+}
+.MessengerProfile .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.MessengerProfile .actions .actionImg1{
+    width: 25px;
+    margin-right: 20px;
+}
+.MessengerProfile .actions .actionImg2{
+    width: 30px;
+}
 .MessengerHeadIcon {
     /* background-color: rgb(255, 77, 77); */
     width: 120px;
@@ -307,6 +335,34 @@ input:focus {
 .closeMobileMessenger {
     transform: translateX(0vw);
     transition: 0.5s;
+}
+.MessengerProfile{
+    position: absolute;
+    top: 1px;
+    margin: 0px 0px 0px -29px;
+    width: -webkit-fill-available;
+    border-radius: 10px;
+    height: 100%;
+}
+.MessengerProfile .imgHolder{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    animation-name: profileImg;
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+}
+.MessengerProfile .imgHolder .profileImg{
+    /* height: 70%; */
+    width: 30%;
+    margin: 10px auto;
+    border-radius: 50%;
+    
+}
+.blur-bg{
+    filter: blur(8px);
+  -webkit-filter: blur(8px);
+  transition: 0.2s;
 }
 
 @media (max-width: 800px) {
@@ -428,5 +484,24 @@ input:focus {
         position: relative;
         top: 0px;
         opacity: 1;
+    }
+}
+@keyframes profileImg {
+    from {
+        position: relative;
+        top: 15px;
+        left: 15px;
+        /* margin: 15px 30px; */
+        height: 40px;
+        width: 40px;
+    }
+    to {
+        /* margin: 30% auto; */
+        position: relative;
+        top: 20vh;
+        left: 50%;
+        transform: translate(-50%);
+        /* height: 150px; */
+        width: 400px;
     }
 }

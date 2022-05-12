@@ -1,14 +1,15 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setUser } from "../../../../store/appReducer/userSlice";
 import { loginService, signupService } from "../services/service";
-import { uploadImageService } from "../services/service";
-import { getDesignationService } from "../services/service";
+// import { uploadImageService } from "../services/service";
+// import { getDesignationService } from "../services/service";
 import { emailVerificationService } from "../services/service";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { message } from "antd";
-import { responseMessageType } from "../../../../services/slices/notificationSlice";
-import { responseMessage } from "../../../../services/slices/notificationSlice";
+// import { responseMessageType } from "../../../../services/slices/notificationSlice";
+// import { responseMessage } from "../../../../services/slices/notificationSlice";
 import { STRINGS } from "../../../../utils/base";
+import { getDefaultDesignationService } from "../../../../utils/Shared/services/services";
 
 export const loginUser = createAsyncThunk(
 	"auth/login",
@@ -20,7 +21,7 @@ export const loginUser = createAsyncThunk(
 
 			if (data.responseCode === responseCode.Success) {
 				message.success(data.message);
-			}else{
+			} else {
 				message.error(data.message);
 			}
 
@@ -43,7 +44,7 @@ export const loginUser = createAsyncThunk(
 export const getDesignation = createAsyncThunk(
 	"Utility/GetAllDefaultDesignation",
 	async (_, thunkAPI) => {
-		const response = await getDesignationService();
+		const response = await getDefaultDesignationService();
 		return response.data;
 	}
 );

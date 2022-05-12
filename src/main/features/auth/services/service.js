@@ -1,4 +1,4 @@
-import { createGuid } from "../../../../utils/base";
+// import { createGuid } from "../../../../utils/base";
 import AuthConfig from "../../../../utils/services/AuthConfig";
 
 export const loginService = data => {

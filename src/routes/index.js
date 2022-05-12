@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Navigate, Route, Routes as R } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes as R } from "react-router-dom";
 import { routes } from "./routes";
 // import { STRINGS } from "../utils/base";
 import { ROUTES } from "../utils/routes";
@@ -26,16 +26,17 @@ const PrivateRoute = () => {
 		//     return <Navigate to="/locked" />
 		// if (isLoggedIn) Socket();
 		return (
-			<R>
-				{routes.Private.map((route, idx) => (
-					<Route
-						key={idx}
-						path={`${route.path}`}
-						element={<route.component />}
-					/>
-				))}
-				<Route path="*" element={<Navigate to="*" replace />} />
-			</R>
+			<Outlet />
+			// <R>
+			// 	{routes.Private.map((route, idx) => (
+			// 		<Route
+			// 			key={idx}
+			// 			path={`${route.path}`}
+			// 			element={<route.component />}
+			// 		/>
+			// 	))}
+			// 	<Route path="*" element={<Navigate to="/" replace />} />
+			// </R>
 		);
 	} else {
 		return (

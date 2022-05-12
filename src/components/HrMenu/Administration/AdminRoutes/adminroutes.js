@@ -17,7 +17,7 @@ import WargningCategory from "../../../../main/features/warningCategory/view";
 import AccessRole from "../../../../main/features/accessRole/view/AccessRole";
 
 const AdminRoutes = () => {
-	console.log("abcs");
+	// console.log("abcs");
 	return (
 		<Routes>
 			<Route path={ROUTES.HR.ADMINISTRATOR.GRADE} element={<Grade />} />

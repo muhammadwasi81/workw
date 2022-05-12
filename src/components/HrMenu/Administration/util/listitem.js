@@ -30,7 +30,7 @@ export const listitem = [
 		IconName: <FaUserLock size={20} color={"#1A5669"} />,
 		displayName: "AccessRole",
 		classObj: "button",
-		to: ROUTES.HR.ADMINISTRATOR.ACCESSROLES,
+		to: ROUTES.HR.ADMINISTRATOR.DEFAULT,
 	},
 	{
 		IconName: <AiFillStar size={20} color={"#1A5669"} />,

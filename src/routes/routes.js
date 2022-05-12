@@ -77,12 +77,12 @@ export const routes = {
 		},
 
 		//Hr Router
-		{
-			path: `${ROUTES.HR.ADMINISTRATOR.DEFAULT}`,
-			component: lazy(() =>
-				import("../components/HrMenu/Administration/")
-			),
-		},
+		// {
+		// 	path: `${ROUTES.HR.ADMINISTRATOR.DEFAULT}`,
+		// 	component: lazy(() =>
+		// 		import("../components/HrMenu/Administration/")
+		// 	),
+		// },
 		{
 			path: `${ROUTES.HR.EMPLOYEES.DEFAULT}`,
 			component: lazy(() => import("../main/features/employee/")),
@@ -125,5 +125,94 @@ export const routes = {
 		// ),
 		//
 		// },
+	],
+	AdminRoutes: [
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.GRADE},`,
+			component: lazy(() => {
+				import("../main/features/grade/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.DESIGNATION},`,
+			component: lazy(() => {
+				import("../main/features/designation/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.ACCESSROLES},`,
+			component: lazy(() => {
+				import("../main/features/accessRole/view/AccessRole");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.APPRASIAL},`,
+			component: lazy(() => {
+				import("../main/features/appraisal/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.OFFICETIME},`,
+			component: lazy(() => {
+				import("../main/features/officeTimings/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.LEAVE_TYPES},`,
+			component: lazy(() => {
+				import("../main/features/leaveType/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.EXPENSE_HEADERS},`,
+			component: lazy(() => {
+				import("../main/features/expenseHeader/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.SALARY_HEADERS},`,
+			component: lazy(() => {
+				import("../main/features/salaryHeader/view/index");
+			}),
+		},
+
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.EMAIL_CONFIG},`,
+			component: lazy(() => {
+				import("../main/features/emailConfiguration/view/index");
+			}),
+		},
+
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY},`,
+			component: lazy(() => {
+				import("../main/features/customApprovalCategory/view");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.ALLOWANCES},`,
+			component: lazy(() => {
+				import("../main/features/allowance/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.JOB_SKILLS},`,
+			component: lazy(() => {
+				import("../main/features/jobDescription/view/index");
+			}),
+		},
+
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.REWARD_CATEGORY},`,
+			component: lazy(() => {
+				import("../main/features/reward/rewardCategory/view");
+			}),
+		},
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.WARNING_CATEGORY},`,
+			component: lazy(() => {
+				import("../main/features/warningCategory/view");
+			}),
+		},
 	],
 };

@@ -1,10 +1,11 @@
-import AxiosConfig from "../../../utils/services/AxiosConfig";
+// import AxiosConfig from "../../../utils/services/MasterConfig";
+import MasterConfig from "../../../utils/services/MasterConfig";
 import { createGuid } from "../../../utils/base";
-const API_PREFIX = "konnectapi/api/Utility/";
-const API_FEATURES_PREFIX = "konnectapi/api/BusinessFeature/";
+const API_PREFIX = "api/Utility/";
+const API_FEATURES_PREFIX = "api/BusinessFeature/";
 
 export const getCountriesService = () => {
-	return AxiosConfig.get(`${API_PREFIX}GetAllCountries`)
+	return MasterConfig.get(`${API_PREFIX}GetAllCountries`)
 		.then(res => {
 			return res.data;
 		})
@@ -19,7 +20,7 @@ export const getCitiesService = obj => {
 		pageNo: obj.page,
 	};
 
-	return AxiosConfig.post(`${API_PREFIX}GetAllCities`, data)
+	return MasterConfig.post(`${API_PREFIX}GetAllCities`, data)
 		.then(res => {
 			return res.data;
 		})
@@ -29,7 +30,7 @@ export const getCitiesService = obj => {
 };
 
 export const getDefaultDesignationService = () => {
-	return AxiosConfig.get(`${API_PREFIX}GetAllDefaultDesignation`)
+	return MasterConfig.get(`${API_PREFIX}GetAllDefaultDesignation`)
 		.then(res => {
 			return res.data;
 		})
@@ -39,7 +40,7 @@ export const getDefaultDesignationService = () => {
 };
 
 export const getAllUserTypesService = () => {
-	return AxiosConfig.get(`${API_PREFIX}GetAllUserTypes`)
+	return MasterConfig.get(`${API_PREFIX}GetAllUserTypes`)
 		.then(res => {
 			return res.data;
 		})
@@ -49,7 +50,7 @@ export const getAllUserTypesService = () => {
 };
 
 export const getAllUserTitlesService = () => {
-	return AxiosConfig.get(`${API_PREFIX}GetAllUserTitles`)
+	return MasterConfig.get(`${API_PREFIX}GetAllUserTitles`)
 		.then(res => {
 			return res.data;
 		})
@@ -59,7 +60,7 @@ export const getAllUserTitlesService = () => {
 };
 
 export const getAllGendersService = () => {
-	return AxiosConfig.get(`${API_PREFIX}GetAllGenders`)
+	return MasterConfig.get(`${API_PREFIX}GetAllGenders`)
 		.then(res => {
 			return res.data;
 		})
@@ -69,7 +70,7 @@ export const getAllGendersService = () => {
 };
 
 export const getAllMaritalStatusService = () => {
-	return AxiosConfig.get(`${API_PREFIX}GetAllMaritalStatus`)
+	return MasterConfig.get(`${API_PREFIX}GetAllMaritalStatus`)
 		.then(res => {
 			return res.data;
 		})
@@ -78,7 +79,7 @@ export const getAllMaritalStatusService = () => {
 		});
 };
 export const getAllEmployeeTypesService = () => {
-	return AxiosConfig.get(`${API_PREFIX}GetAllEmployeeTypes`)
+	return MasterConfig.get(`${API_PREFIX}GetAllEmployeeTypes`)
 		.then(res => {
 			return res.data;
 		})
@@ -87,7 +88,7 @@ export const getAllEmployeeTypesService = () => {
 		});
 };
 export const getAllBussinessFeaturesService = () => {
-	return AxiosConfig.get(`${API_FEATURES_PREFIX}GetBusinessFeatures`)
+	return MasterConfig.get(`${API_FEATURES_PREFIX}GetBusinessFeatures`)
 		.then(res => {
 			return res.data;
 		})
@@ -97,9 +98,7 @@ export const getAllBussinessFeaturesService = () => {
 };
 
 export const getAllRewardCategoryService = () => {
-	return AxiosConfig.get(
-		"https://58.65.211.234:4436/konnectapi/api/RewardCategory/GetAllRewardCategory"
-	)
+	return MasterConfig.get("api/RewardCategory/GetAllRewardCategory")
 		.then(res => {
 			return res.data;
 		})
@@ -109,9 +108,7 @@ export const getAllRewardCategoryService = () => {
 };
 
 export const getAllEmployeeService = () => {
-	return AxiosConfig.get(
-		"https://58.65.211.234:4436/konnectapi/api/Reference/GetAllUserReference"
-	)
+	return MasterConfig.get("api/Reference/GetAllUserReference")
 		.then(res => {
 			return res.data;
 		})
@@ -132,10 +129,8 @@ export const uploadImageService = files => {
 			formData.append(`files[${i}].file`, files[i]);
 		}
 	}
-	return AxiosConfig.post(
-		`konnectupload/api/Upload/${
-			withoutAuth ? "UploadFilesWithoutAuth" : "UploadFiles"
-		}`,
+	return MasterConfig.post(
+		`Upload/${withoutAuth ? "UploadFilesWithoutAuth" : "UploadFiles"}`,
 		formData,
 		{
 			headers: { "Content-Type": "multipart/form-data" },

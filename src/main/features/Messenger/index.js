@@ -7,9 +7,7 @@ import { getAllChats } from "./store/Api";
 
 const Index = () => {
 	const { isMobileScreen } = useSelector(state => state.responsiveSlice);
-	const isOpenMessenger = useSelector(
-		state => state.MessengerSlice.mobileIsopenChat
-	);
+	const isOpenMessenger = useSelector(state => state.MessengerSlice.mobileIsopenChat);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getAllChats());

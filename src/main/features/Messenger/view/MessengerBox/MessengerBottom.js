@@ -6,27 +6,23 @@ import sendIcon from "../../../../../content/NewContent/Messenger/send.svg";
 import { sendMessage } from '../../store/messengerSlice';
 import { useDispatch } from 'react-redux';
 
-const MessengerBottom = () => {
-    const dispatch = useDispatch()
+const MessengerBottom = ({isOpenProfile}) => {
+    const dispatch = useDispatch();
     const handleMsgSend = (e) => {
         dispatch(sendMessage(e.target.value))
     }
     return (
-        <div className="MessengerBottom" >
-
+        <div className={"MessengerBottom " + (isOpenProfile ? "blur-bg" : "")} >
             <div className="MessengerInputCont">
                 <div className="MessengerInput">
-
                     <div>
                         <input placeholder="Type a Message..." onKeyUp={(e)=>{
-                            if(e.keyCode === 13){
+                            if(e.keyCode === 13)
                                 handleMsgSend(e)
-                            }
                         }} />
                     </div>
                 </div>
             </div>
-
             <div className="MessengerInputHandler">
                 <div>
                     <img src={faceIcon} alt="" />

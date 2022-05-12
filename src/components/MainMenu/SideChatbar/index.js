@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { SideChatBar } from "./SideChatBar.style";
 import SideBarHead from "./SideBarHead";
@@ -7,9 +7,9 @@ import SideBarSearch from "./SideBarSearch";
 import "./style.css";
 
 export const Index = () => {
-
   const sideBarStatus = useSelector((state) => state.sideBarChatSlice.sideBarChatStatus)
   const sideBarChatIsDefault = useSelector((state) => state.sideBarChatSlice.sideBarChatIsDefault)
+  const [isHide, setIsHide] = useState(false)
   let chatList = [
     {
       name: "User1",
@@ -157,10 +157,15 @@ export const Index = () => {
     },
 
   ]
-  let pathName = window.location.pathname
-  let isMobileView = window.innerWidth < 800
+  useEffect(()=>{
+    if(window.location.pathname === "/messenger"){
+      setIsHide(true)
+    }
+  }, [window.location.pathname])
+  
+  let isMobileView = window.innerWidth < 800;
   return (
-    <SideChatBar sideBarStatus={sideBarStatus} isDefault={sideBarChatIsDefault} style={{display:pathName === "/messenger" ? "none" : "block"}} isMobileView={isMobileView}>
+    <SideChatBar sideBarStatus={sideBarStatus} isDefault={sideBarChatIsDefault} style={{display:isHide ? "none" : "block"}} isMobileView={isMobileView}>
       <SideBarHead />
       <SideBarList chatList={chatList} />
       <SideBarSearch />

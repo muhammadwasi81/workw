@@ -7,7 +7,7 @@ import {
 	HeaderMenuContainer,
 	TabbableContainer,
 } from "../../../../components/SharedComponent/AppComponents/MainFlexContainer";
-import { Menu, Dropdown, Row, Col, Button } from "antd";
+import { Menu, Dropdown, Row, Col, Drawer, Button } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -25,7 +25,7 @@ import {
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllRewards } from "../store/actions";
+import { getAllRewards, GetRewardById } from "../store/actions";
 import Tag from "../../../sharedComponents/Tag/index";
 import { LoadingOutlined } from "@ant-design/icons";
 import TableView from "./TableView";
@@ -40,11 +40,11 @@ const Reward = props => {
 
 	const isTablet = useMediaQuery({ maxWidth: 800 });
 
+	const [visible, setVisible] = useState(false);
+
 	const dispatch = useDispatch();
 
 	const { rewards } = useSelector(state => state.rewardSlice);
-
-	const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 	const [currentTab, setCurrentTab] = useState("list");
 	const { search } = useLocation();
@@ -52,8 +52,22 @@ const Reward = props => {
 
 	console.log(rewards, "FINAL CONSOLE");
 
+	const showDrawer = (val) => {
+		setVisible(true);
+		console.log(val.currentTarget.id), "DETAILED";
+	};
+	
+	const onClose = () => {
+		setVisible(false);
+	};
+
+	const getRewardId = () => {
+		console.log("MAIN")
+	}
+
 	useEffect(() => {
 		dispatch(getAllRewards({}));
+		dispatch(GetRewardById({}));
 		console.log(rewards, "FINAL CONSOLE");
 	}, []);
 
@@ -134,7 +148,7 @@ const Reward = props => {
 					/>,
 				]}
 				gridIcons={[
-					<span
+					<div
 						onClick={() => setGrid(false)}
 						className={
 							grid
@@ -143,8 +157,8 @@ const Reward = props => {
 						}
 					>
 						{isTablet ? "" : "List View"} <UnorderedListOutlined />
-					</span>,
-					<span
+					</div>,
+					<div
 						onClick={() => setGrid(true)}
 						className={
 							grid
@@ -153,7 +167,7 @@ const Reward = props => {
 						}
 					>
 						{isTablet ? "" : "Table View"} <AppstoreFilled />
-					</span>,
+					</div>,
 				]}
 			/>
 			<ContBody className="WarningMainDiv">
@@ -166,7 +180,12 @@ const Reward = props => {
 								{rewards.map((x, index) => {
 									return (
 										<>
+										{/* <Button type="primary" onClick={showDrawer}>
+											Open
+										</Button> */}
 											<RewardListItem
+												getRewardId={getRewardId}
+												key={index}
 												name={x.creator.name}
 												category={x.category}
 												reason={x.reason}
@@ -201,6 +220,11 @@ const Reward = props => {
             <FilterForm />
           </div>  */}
 			</ContBody>
+			<Drawer title="Reward" width="768" placement="right" onClose={onClose} visible={visible}>
+				<p>Some contents...</p>
+				<p>Some contents...</p>
+				<p>Some contents...</p>
+			</Drawer>
 		</TabbableContainer>
 	);
 };

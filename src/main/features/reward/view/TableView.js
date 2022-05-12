@@ -10,6 +10,7 @@ export default function TableView() {
     <AdminTable
         columns={tableColumn(
       )}
+      style={{width: "100%"}}
       dataSource={rewards}
       pagination={false}
       rowKey="id"

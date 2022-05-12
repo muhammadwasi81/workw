@@ -1,0 +1,32 @@
+.userInfo {
+    display: flex;
+}
+.userInfo .name {
+    color: #1A5669 !important;
+    font-weight: bold;
+    font-size: 18px;
+    padding-bottom: 2px;
+}
+.userInfo .avatar-name {
+    margin-left: 10px;
+    line-height: 15px;
+    color: gray;
+    margin-top: 6px;
+}
+.userInfo .details {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+    .userInfo .name {
+        font-size: 14px;
+        padding-bottom: 0px;
+    }
+    .item-header .right .ant-tag {
+        font-size: 9px;
+        padding: 1px 7px;
+    }
+}

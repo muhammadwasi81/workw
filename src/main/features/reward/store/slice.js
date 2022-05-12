@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addReward, getAllRewards } from "./actions";
+import { addReward, getAllRewards, GetRewardById } from "./actions";
 
 const initialState = {
   rewards: [],
   loadingData: false,
   loader: false,
+  rewardDetail: {}
 };
 
 const rewardSlice = createSlice({
@@ -14,6 +15,11 @@ const rewardSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllRewards.fulfilled, (state, action) => {
       state.rewards = action.payload;
+      console.log(action.payload, "rewards data");
+    });
+
+    builder.addCase(GetRewardById.fulfilled, (state, action) => {
+      state.rewardDetail = action.payload;
       console.log(action.payload, "rewards data");
     });
 

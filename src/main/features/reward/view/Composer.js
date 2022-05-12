@@ -32,7 +32,7 @@ const Composer = props => {
 
   useEffect(() => {
 		dispatch(getRewardCategory());
-    dispatch(getAllEmployee());
+    // dispatch(getAllEmployee());
     console.log(employeesList, "EMPLOYEES")
 	}, []);
 
@@ -183,6 +183,7 @@ const Composer = props => {
           <SingleUpload
 						handleImageUpload={handleImageUpload}
 						img="Add Image"
+            position="flex-start"
 					/>
         </Form.Item>
 

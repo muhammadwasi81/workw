@@ -105,7 +105,7 @@ export const routes = {
 		},
 		{
 			path: `${ROUTES.HR.COMPLAINS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Complains/")),
+			component: lazy(() => import("../main/features/complain/view/Complain")),
 		},
 		{
 			path: `${ROUTES.HR.BONUS.DEFAULT}`,

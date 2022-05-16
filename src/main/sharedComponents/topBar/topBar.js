@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { dictionaryList } from "../../../utils/localization/languages";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { Row, Col } from 'antd'
 import SearchInput from '../searchBox/SearchInput'
 import { SearchOutlined} from '@ant-design/icons'
@@ -8,6 +10,9 @@ import { useMediaQuery } from 'react-responsive'
 
 
 const TopBar = ({ buttons, gridIcons }) =>  {
+    const { userLanguage } = useContext(LanguageChangeContext);
+	const { sharedLabels, Direction } = dictionaryList[userLanguage];
+
     const [fullWidth, setFullWidth] = useState(false)
 
     const isLaptop = useMediaQuery({ maxWidth: 1230 });
@@ -34,7 +39,7 @@ const TopBar = ({ buttons, gridIcons }) =>  {
                         onChange={(e) => console.log('hello')}
                         onBlur={() => setFullWidth(false)}
                         icon={<SearchOutlined />}
-                        placeholder="Search"
+                        placeholder={sharedLabels.Search}
                         
                     />
                 </div>

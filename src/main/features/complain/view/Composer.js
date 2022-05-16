@@ -64,8 +64,6 @@ const Composer = props => {
 
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
-	// const value = employees.EmployeeForm;
-	// const placeholder = employees.placeholders;
 
 	return (
 		<>

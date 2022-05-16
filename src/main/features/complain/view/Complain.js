@@ -33,7 +33,7 @@ import "./reward.css";
 
 const Reward = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, rewardsDictionary, Direction } = dictionaryList[userLanguage];
+	const { sharedLabels, rewardsDictionary, Direction, complains } = dictionaryList[userLanguage];
 
 
 	const [grid, setGrid] = useState(false);
@@ -79,8 +79,7 @@ const Reward = props => {
 						}
 					>
 						<SideDrawer
-							title="Create Reward"
-							buttonText={rewardsDictionary.createReward}
+							buttonText={complains.createComplain}
 							isAccessDrawer={false}
 						>
 							<Composer />
@@ -98,7 +97,7 @@ const Reward = props => {
 					<BarNavLink
 						extraClasses={"topBtn"}
 						activeName={"list"}
-						linkName={sharedLabels.MyReward}
+						linkName="My Complain"
 						onClick={() => setFilter({filterType: 1})}
 					/>,
 					<BarNavLink
@@ -112,7 +111,7 @@ const Reward = props => {
 						activeName={"aprrovals"}
 						extraClasses={"topBtn"}
 						isDefault={false}
-						linkName={sharedLabels.RewardToMe}
+						linkName="Complain To Me"
 						onClick={() => setFilter({filterType: 3})}
 					/>,
 				]}

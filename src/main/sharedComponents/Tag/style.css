@@ -11,3 +11,6 @@
 .inProcess {
     background-color: #1b5669;
 }
+.statusTag {
+    padding: 4px 10px;
+}

@@ -24,7 +24,7 @@ const Composer = props => {
 	useEffect(() => {
 		dispatch(getRewardCategory());
     // dispatch(getAllEmployee());
-    console.log(employeesList, "EMPLOYEES")
+    // console.log(employeesList, "EMPLOYEES")
 	}, []);
 
 	const handleImageUpload = data => {

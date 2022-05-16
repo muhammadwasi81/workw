@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { getAllChats } from "./Api";
+import { STRINGS } from "../../../../utils/base";
+import { getAllChats, getAllMessages, sendChatMessage } from "./Api";
 
 const tempData = [
    {
       id: "ME",
       msgId: "msg8",
-      msgContent: "Fine and you?"
+      msgContent: "Fine and you?ff"
    },
    {
       id: "YOU",
       msgId: "msg9",
-      msgContent: "animation-iteration-count: infinite; animation-iteration-count: infinite animation-iteration-count: infinite; animation-iteration-count: infiniteanimation-iteration-count: infinite; animation-iteration-count: infinite"
+      msgContent: "animatskdl"
    },
    {
       id: "YOU",
@@ -20,7 +21,10 @@ const tempData = [
 ]
 const initialState = {
    mobileIsopenChat: null,
-   currentMessenger: {},
+   currentMessenger: {
+      chatId:STRINGS.DEFAULTS.guid,
+      profile:""
+   },
    currentChatBoxes: [],
    MessengerList: {
       chatId: tempData,
@@ -47,6 +51,12 @@ export const messengerSlice = createSlice({
       builder
       .addCase(getAllChats.fulfilled, (state, { payload }) => {
          console.log(payload)
+       })
+       .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
+         console.log(payload, "sendChatMessage")
+       })
+       .addCase(getAllMessages.fulfilled, (state, { payload }) => {
+         console.log(payload, "sendChatMessage")
        })
    }
 })

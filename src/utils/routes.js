@@ -25,7 +25,7 @@ export const ROUTES = {
 	BUDGET: {
 		DEFAULT: `${DOMAIN_PREFIX}/budgets`,
 	},
-	ROOT: `${DOMAIN_PREFIX}/`,
+	ROOT: `${DOMAIN_PREFIX}*`,
 	NEWSFEED: {
 		DETAILS: `${DOMAIN_PREFIX}/newsFeedDetails`,
 	},

@@ -5,11 +5,13 @@ import attachmentIcon from "../../../../../content/NewContent/Messenger/attachme
 import sendIcon from "../../../../../content/NewContent/Messenger/send.svg";
 import { sendMessage } from '../../store/messengerSlice';
 import { useDispatch } from 'react-redux';
+import { sendChatMessage } from '../../store/Api';
 
 const MessengerBottom = ({isOpenProfile}) => {
     const dispatch = useDispatch();
     const handleMsgSend = (e) => {
         dispatch(sendMessage(e.target.value))
+        dispatch(sendChatMessage(e.target.value))
     }
     return (
         <div className={"MessengerBottom " + (isOpenProfile ? "blur-bg" : "")} >

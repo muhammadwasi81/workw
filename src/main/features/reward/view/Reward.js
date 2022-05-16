@@ -52,10 +52,10 @@ const Reward = props => {
 
 	console.log(rewards, "FINAL CONSOLE");
 
-	const showDrawer = (val) => {
-		setVisible(true);
-		console.log(val.currentTarget.id), "DETAILED";
-	};
+	// const showDrawer = (val) => {
+	// 	setVisible(true);
+	// 	console.log(val.currentTarget.id), "DETAILED";
+	// };
 	
 	const onClose = () => {
 		setVisible(false);

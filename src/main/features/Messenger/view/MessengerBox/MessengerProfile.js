@@ -10,14 +10,15 @@ const MessengerProfile = ({ hanldeClose }) => {
 
             <div className='imgHolder'>
                 <img className='profileImg' src='https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg' />
-
-                <div className='user' >
-                    <div className='name'>Abu Bakar Memon</div>
-                    <div className='desc'>React Developer</div>
-                </div>
-                <div className='actions' >
-                    <div><img src={phoneIcon} className='actionImg1'/></div>
-                    <div><img src={videoIcon} className='actionImg2'/></div>
+                <div>
+                    <div className='user' >
+                        <div className='name'>Abu Bakar Memon</div>
+                        <div className='desc'>React Developer</div>
+                    </div>
+                    <div className='actions' >
+                        <div><img src={phoneIcon} className='actionImg1' /></div>
+                        <div><img src={videoIcon} className='actionImg2' /></div>
+                    </div>
                 </div>
             </div>
 

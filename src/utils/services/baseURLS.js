@@ -18,4 +18,10 @@ const MASTER_URL = (() => {
 		servicesUrls.master = "https://58.65.211.234:4436/konnectapi/";
 		servicesUrls.mail = "https://58.65.211.234:4436/konnectmail/";
 	}
+	else{
+		servicesUrls.auth = "https://58.65.211.234:4436/konnectauth/";
+		servicesUrls.messenger = "https://58.65.211.234:4436/KonnectMessenger/";
+		servicesUrls.master = "https://58.65.211.234:4436/konnectapi/";
+		servicesUrls.mail = "https://58.65.211.234:4436/konnectmail/";
+	}
 })();

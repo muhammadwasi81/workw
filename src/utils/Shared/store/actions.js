@@ -5,7 +5,7 @@ import {
 } from "../../../services/slices/notificationSlice";
 
 import {
-	getAllRewardCategoryService,
+    getAllRewardCategoryService,
 	getAllGendersService,
 	getAllMaritalStatusService,
 	getAllUserTitlesService,

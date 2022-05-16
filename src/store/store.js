@@ -16,7 +16,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import resignationSlice from "../components/HrMenu/Resignations/store/ResignationSlice";
 // import documentsSlice from "../components/MainMenu/Documents/Store/DocumentsSlice";
 import mailSlice from "../components/MainMenu/Mail/Store/MailSlice";
-import MessengerSlice from "../components/MainMenu/Messenger/store/messengerSlice";
+import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
 import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
@@ -86,7 +86,7 @@ const persistConfig = {
 	key: "root",
 	storage,
 	version: 1,
-	// whitelist: ["userSlice"],
+	whitelist: ["userSlice"],
 	// blacklist: ["stickyNotesSlice"]
 };
 const persistedReducer = persistReducer(persistConfig, reducers);

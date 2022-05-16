@@ -345,9 +345,11 @@ input:focus {
     height: 100%;
 }
 .MessengerProfile .imgHolder{
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
+    background-color: white;
+    box-shadow: 0px 0px 8px 1px #ebebeb;
+    border-radius: 20px;
+    padding: 15px;
     animation-name: profileImg;
     animation-duration: 0.8s;
     animation-fill-mode: forwards;
@@ -491,17 +493,18 @@ input:focus {
         position: relative;
         top: 15px;
         left: 15px;
-        /* margin: 15px 30px; */
-        height: 40px;
+        /* height: 40px; */
         width: 40px;
+        width: 250px;
+        opacity: 0;
     }
     to {
-        /* margin: 30% auto; */
         position: relative;
         top: 20vh;
         left: 50%;
         transform: translate(-50%);
-        /* height: 150px; */
-        width: 400px;
+        width: 250px;
+        opacity: 1;
+
     }
 }

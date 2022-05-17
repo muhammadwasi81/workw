@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Card from "../../../sharedComponents/Card/Card";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import AccessRoleComposer from "./AccessRoleComposer";
-import { message, Skeleton, Form } from "antd";
+import { message, Skeleton, Form, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	getAllBussinessFeatures,
@@ -140,7 +140,6 @@ function AccessRole() {
 
 	return (
 		<div className="access_role_container w-full">
-			{/* <h1>abc</h1> */}
 			<Card>
 				<div className="w-full">
 					<div
@@ -184,8 +183,8 @@ function AccessRole() {
 					bordered
 					columns={tableColumns(
 						handleEdit,
-						id,
-						accessRoles,
+						// id,
+						// accessRoles,
 						Direction,
 						sharedLabels
 					)}
@@ -194,7 +193,7 @@ function AccessRole() {
 					direction={Direction}
 					rowKey="id"
 					size="small"
-					scroll={{ x: true }}
+					scroll={{ x: 500 }}
 					locale={
 						loading && {
 							emptyText: (

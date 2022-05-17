@@ -1,4 +1,4 @@
-.submitButton {
+/* .submitButton {
     background-color: #1b5669;
     display: block;
     width: 100%;
@@ -8,12 +8,7 @@
 .submitButton:hover {
     background-color: #1b5669;
     color: white;
-}
-.new {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
+} */
 .list-item {
     background-color: white;
     border-radius: 4px;
@@ -57,12 +52,12 @@
     font-weight: bold;
     margin: 0;
 }
-.ant-btn-primary {
+/* .ant-btn-primary {
     background-color: #1b5669 !important;
     border: none !important;
     border-radius: 4px !important;
     border-color: #1b5669 !important;
-}
+} */
 
 
 .grid-item {
@@ -114,19 +109,7 @@
 .cancel {
     background-color: red;
 }
-.CompBtnMobile {
-    position: absolute;
-    left: 0;
-    bottom: 9px;
-    right: 6px;
-}
-.CompBtnMobile span:nth-child(2) {
-    display: none;
-}
-.CompBtnMobile .drawerBtn {
-    border-radius: 50% !important;
-    padding: 6px 9px;
-}
+
 .ItemDetails {
     display: flex;
     justify-content: space-between;

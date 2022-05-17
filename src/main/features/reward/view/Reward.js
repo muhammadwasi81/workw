@@ -13,7 +13,7 @@ import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import { STRINGS } from "../../../../utils/base";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import RewardListItem from "./ListItem";
 import Composer from "./Composer";
 // import FilterForm from "./FilterForm";
@@ -50,25 +50,24 @@ const Reward = props => {
 	const { search } = useLocation();
 	let pathName = search.split("=")[1];
 
-	console.log(rewards, "FINAL CONSOLE");
+	// console.log(rewards, "FINAL CONSOLE");
 
 	// const showDrawer = (val) => {
 	// 	setVisible(true);
 	// 	console.log(val.currentTarget.id), "DETAILED";
 	// };
-	
+
 	const onClose = () => {
 		setVisible(false);
 	};
 
 	const getRewardId = () => {
-		console.log("MAIN")
-	}
+		console.log("MAIN");
+	};
 
 	useEffect(() => {
 		dispatch(getAllRewards({}));
-		dispatch(GetRewardById({}));
-		console.log(rewards, "FINAL CONSOLE");
+		// console.log(rewards, "FINAL CONSOLE");
 	}, []);
 
 	useEffect(() => {
@@ -91,6 +90,7 @@ const Reward = props => {
 						linkName={"My Reward"}
 						urlParam={currentTab}
 					/>
+					<Outlet />
 					{/* <HeaderNavLink
             activeName={"aprrovals"}
             to={`${STRINGS.ROUTES.HR.REWARDS.DEFAULT}?f=aprrovals`}
@@ -100,21 +100,13 @@ const Reward = props => {
           /> */}
 				</HeaderMenuContainer>
 				<div className="right-menu" style={{ paddingRight: "10px" }}>
-					<div
-						className={
-							isTablet ? "btn-hld CompBtnMobile" : "btn-hld"
-						}
-					>
-						<SideDrawer
-							title="Create Reward"
-							buttonText={rewardsDictionary.createReward}
-							isAccessDrawer={false}
-						>
-							<Composer />
-						</SideDrawer>
-					</div>
+					<SideDrawer
+						title="Create Reward"
+						buttonText={rewardsDictionary.createReward}
+						isAccessDrawer={false}
+						children={<Composer />}
+					/>
 				</div>
-				<span className="ln" />
 			</ContainerHeader>
 			<TopBar
 				buttons={[
@@ -180,7 +172,7 @@ const Reward = props => {
 								{rewards.map((x, index) => {
 									return (
 										<>
-										{/* <Button type="primary" onClick={showDrawer}>
+											{/* <Button type="primary" onClick={showDrawer}>
 											Open
 										</Button> */}
 											<RewardListItem
@@ -220,7 +212,13 @@ const Reward = props => {
             <FilterForm />
           </div>  */}
 			</ContBody>
-			<Drawer title="Reward" width="768" placement="right" onClose={onClose} visible={visible}>
+			<Drawer
+				title="Reward"
+				width="768"
+				placement="right"
+				onClose={onClose}
+				visible={visible}
+			>
 				<p>Some contents...</p>
 				<p>Some contents...</p>
 				<p>Some contents...</p>

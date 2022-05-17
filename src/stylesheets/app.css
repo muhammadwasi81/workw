@@ -50,11 +50,11 @@
 	display: flex;
 	align-items: flex-end;
 }
-
+/* 
 .ant-table-container  {
 	padding-left: 10px;
 	background-color: #f6f6f9;
-}
+} */
 
 .mem > .us-img {
     width: 27px;
@@ -315,15 +315,28 @@ iframe {
 .gap-10{
 	gap: 10px;
 }
-.sideDrawerBtnMobileView{
-    position: absolute;
+/* .sideDrawerBtnMobileView{
+    position: absolute !important;
     bottom: 110px;
     z-index: 9999;
     right: 20px;
-	border-radius: 50px;
+	border-radius: 50px !important;
     overflow: hidden;
-}
-
+} */
+/* Unified 1table Size of table */
+/* .ant-table{
+	table-layout: fixed;
+   }
+   .ant-table-tbody > tr > td {
+	max-width: 500px;
+	min-width: 70px;
+	border-bottom: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	word-break: break-all;
+   } */
 :root{
 	--primary_theme_color_green: #1a5669;
 }

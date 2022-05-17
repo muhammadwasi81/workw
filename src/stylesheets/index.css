@@ -1311,9 +1311,9 @@ i.ic-double-tick {
 .tabbable-container > .cont-body > .lf-col {
 	width: 100%;
 	min-height: min-content;
+	/* height: calc(100% - 80px); */
 	display: flex;
 	flex-direction: column;
-	height: calc(100% - 80px);
 	box-sizing: border-box;
 	/* min-width: 576px; */
 }

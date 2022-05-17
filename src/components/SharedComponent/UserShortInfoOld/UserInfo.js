@@ -1,6 +1,5 @@
 import React from "react";
 import Avatar from "../Avatar/avatar";
-import "./style.css"
 
 const UserInfo = (props) => {
     const {

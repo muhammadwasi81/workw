@@ -1,9 +1,8 @@
-// import AxiosConfig from "../../../../utils/services/AxiosConfig";
-// const API_PREFIX = "KonnectMessenger/api/Messenger/";
-import MasterConfig from "../../../../utils/services/MasterConfig";
+import Config from "../../../../utils/services/MessengerConfig";
 
 export const getAllChatsService = () => {
-	return MasterConfig.get(`api/Messenger/getAllChats`)
+	console.log("getAllChat");
+	return Config.get(`api/Messenger/getAllChats`)
 		.then(res => {
 			return res.data;
 		})
@@ -12,8 +11,18 @@ export const getAllChatsService = () => {
 		});
 };
 
-export const addGradeService = args => {
-	return MasterConfig.post(`api/Messenger/addgrade`, args)
+export const sendMessageService = data => {
+	return Config.post(`api/Messenger/SendChatMessage`, data)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};
+
+export const getAllMessageService = id => {
+	return Config.get(`api/Messenger/SendChatMessage?chatId=${id}`)
 		.then(res => {
 			return res.data;
 		})

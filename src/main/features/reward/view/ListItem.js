@@ -41,6 +41,9 @@ function RewardListItem(props) {
 
 	return (
 		<div className="list-item">
+			<div className="new" id={props.id} onClick={props.getRewardId}>
+
+			</div>
 			<div className="item-header">
 				<div className="left">
 					<UserInfo

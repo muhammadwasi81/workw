@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const AdminTable = styled(Table)`
 	.your-table table {
-		width: auto;
+		width: 100%;
 		min-width: unset !important;
 	}
 	border-radius: 4px;
@@ -46,6 +46,9 @@ export const AdminTable = styled(Table)`
 	}
 	& .drag-td-name {
 		max-width: 30px;
+	}
+	& .ant-table-wrapper {
+		width: 100%;
 	}
 	@media (max-width: 800px) {
 		& {

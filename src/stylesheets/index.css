@@ -893,7 +893,7 @@ i.ic-double-tick {
 .tabbable-container > .cont-header-rtl > .menu-rtl {
 	width: 100%;
 	display: flex;
-	padding: 4px 16px;
+	padding: 15px 16px;
 	position: relative;
 	box-sizing: content-box;
 	flex-direction: row-reverse;
@@ -938,6 +938,7 @@ i.ic-double-tick {
 	font-weight: 600;
 	border-bottom: 2px solid #1a5669;
 	z-index: 1;
+	font-size: 14px;
 	/*cursor: text;*/
 }
 

@@ -14,6 +14,7 @@
     border-radius: 4px;
     padding: 13px 12px;
     margin-bottom: 20px;
+    position: relative;
 }
 .item-header {
     display: flex;
@@ -122,6 +123,10 @@
 }
 .ListItemInner p {
     color: #757D86;
+    white-space: nowrap;
+    width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .list-item .mem {
     margin-left: 10px;
@@ -140,6 +145,14 @@
     }
     .btn-hld {
         margin-top: 6px;
+    }
+    .innerDiv {
+        flex-basis: 30%;
+    }
+    .ItemDetails {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        width: 100%;
     }
 }
 

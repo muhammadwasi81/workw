@@ -4,7 +4,7 @@ import {
   responseMessage,
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
-import { addRewardService, getAllRewardService } from "../services/service";
+import { addRewardService, getAllRewardService, GetRewardByIdService } from "../services/service";
 
 // export const getAllRewards = createAsyncThunk(
 //   "reward/GetAllReward",
@@ -29,6 +29,14 @@ export const getAllRewards = createAsyncThunk(
 	}
 );
 
+export const GetRewardById = createAsyncThunk(
+	"Reward/GetRewardById",
+	async data => {
+		const response = await GetRewardByIdService(data);
+    console.log(response.data, "GET REWARD ID")
+		return response.data;
+	}
+);
 
 
 export const addReward = createAsyncThunk(

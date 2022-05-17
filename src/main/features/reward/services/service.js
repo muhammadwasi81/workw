@@ -22,3 +22,14 @@ export const addRewardService = data => {
 			return res;
 		});
 };
+
+export const GetRewardByIdService = data => {
+	return MasterConfig.get(`api/Reward/GetRewardById`, data)
+		.then(res => {
+			// console.log(res, "from service")
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
+};

@@ -26,17 +26,17 @@ const PrivateRoute = () => {
 		//     return <Navigate to="/locked" />
 		// if (isLoggedIn) Socket();
 		return (
-			<Outlet />
-			// <R>
-			// 	{routes.Private.map((route, idx) => (
-			// 		<Route
-			// 			key={idx}
-			// 			path={`${route.path}`}
-			// 			element={<route.component />}
-			// 		/>
-			// 	))}
-			// 	<Route path="*" element={<Navigate to="/" replace />} />
-			// </R>
+			// <Outlet />
+			<R>
+				{routes.Private.map((route, idx) => (
+					<Route
+						key={idx}
+						path={`${route.path}`}
+						element={<route.component />}
+					/>
+				))}
+				<Route path="*" element={<Navigate to="/" replace />} />
+			</R>
 		);
 	} else {
 		return (

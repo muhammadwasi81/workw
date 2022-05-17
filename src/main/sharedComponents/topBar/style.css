@@ -18,10 +18,12 @@
     justify-content: space-evenly;
 }
 .gridIcons {
+    display: flex;
     background: #EDEDED;
     padding: 4px 8px;
     border-radius: 4px;
     width: 87%;
+    justify-content: space-between;
 }
 .topBarIcon {
     color: #757D86;
@@ -30,7 +32,10 @@
     letter-spacing: 1px;
     cursor: pointer;
     border-radius: 4px !important;
-    padding: 3px 5px;
+    padding: 2px 5px 2px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .topBtn:hover {
     background-color: #1A5669;
@@ -101,14 +106,14 @@
     }
 }
 
-@media (min-width: 1000px) and (max-width: 1299px) {
+@media (min-width: 1040px) and (max-width: 1299px) {
     .filterButton {
         padding: 0px 14px;
         font-size: 10px;
     }
     .topBtn {
         padding: 9px 15px;
-        font-size: 8px;
+        font-size: 9px;
     }
     .gridIcons {
         padding: 3px 8px;

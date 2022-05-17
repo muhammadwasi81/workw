@@ -107,6 +107,16 @@ export const getAllRewardCategoryService = () => {
 		});
 };
 
+export const getAllEmployeeShortService = (pageNo=0, search="") => {
+	return MasterConfig.get(`api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&search=${search}`)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};
+
 export const getAllEmployeeService = () => {
 	return MasterConfig.get("api/Reference/GetAllUserReference")
 		.then(res => {

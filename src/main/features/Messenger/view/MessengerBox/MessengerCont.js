@@ -7,7 +7,7 @@ import MessengerProfile from './MessengerProfile';
 
 const MessengerBox = () => {
     const messageList = useSelector((state) => state.MessengerSlice.MessengerList.chatId);
-    const [isOpenProfile, setIsOpenProfile] = useState(false)
+    const [isOpenProfile, setIsOpenProfile] = useState(false);
     return (
         <div className="MessengerBox" >
         <MessengerHead handleProfileClick={()=>setIsOpenProfile(true)} isOpenProfile={isOpenProfile} />

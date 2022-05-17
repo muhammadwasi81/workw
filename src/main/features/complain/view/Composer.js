@@ -1,7 +1,7 @@
-import { Button, Form, Input } from "antd";
+import { Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../../components/SharedComponent/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
+import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../../components/SharedComponent/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
@@ -64,8 +64,6 @@ const Composer = props => {
 
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
-	// const value = employees.EmployeeForm;
-	// const placeholder = employees.placeholders;
 
 	return (
 		<>
@@ -241,10 +239,7 @@ const Composer = props => {
 
 				<Form.Item>
 					<Button
-						type="primary"
-						size="medium"
-						className="ThemeBtn"
-						block
+						buttonClass="submitButton"
 						htmlType="submit"
 						title="Create Reward"
 					>

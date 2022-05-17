@@ -163,7 +163,7 @@ export const ROUTES = {
 			JOB_BY_ID: `${DOMAIN_PREFIX}/hr/careers/job`,
 		},
 		REWARDS: {
-			DEFAULT: `${DOMAIN_PREFIX}/rewards/`,
+			DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
 			APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
 		},
 		EMPLOYEES: {

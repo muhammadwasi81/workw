@@ -125,10 +125,10 @@ const App = () => {
 									element={<route.component />}
 								/>
 							))}
-							<Route
+							{/* <Route
 								path={ROUTES.HR.REWARDS.DEFAULT}
 								element={<Reward />}
-							/>
+							/> */}
 						</Route>
 						{/* <Route path="*" element={<Navigate to="/" replace />} /> */}
 					</ReactRoutes>

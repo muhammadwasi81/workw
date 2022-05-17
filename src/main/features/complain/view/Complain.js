@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState, Suspense } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../../components/SharedComponent/AppComponents/MainHeader";
-// import HeaderNavLink from "../../../../components/SharedComponent/AppComponents/MainHeader/HeaderNavLink";
+import HeaderNavLink from "../../../../components/SharedComponent/AppComponents/MainHeader/HeaderNavLink";
 import {
 	ContBody,
 	HeaderMenuContainer,
@@ -11,8 +11,8 @@ import { Row, Button, Skeleton } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-// import { STRINGS } from "../../../../utils/base";
-// import { Outlet, useLocation } from "react-router-dom";
+import { STRINGS } from "../../../../utils/base";
+import { useLocation } from "react-router-dom";
 import RewardListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
@@ -33,8 +33,8 @@ import "./reward.css";
 
 const Reward = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, rewardsDictionary, Direction } =
-		dictionaryList[userLanguage];
+	const { sharedLabels, rewardsDictionary, Direction, complains } = dictionaryList[userLanguage];
+
 
 	const [grid, setGrid] = useState(false);
 
@@ -42,20 +42,20 @@ const Reward = props => {
 
 	const [visible, setVisible] = useState(false);
 
-	const [filter, setFilter] = useState({ filterType: 0, search: "" });
+	const [filter, setFilter] = useState({filterType: 0, search: ""})
 
 	const dispatch = useDispatch();
 
-	const { rewards, loader } = useSelector(state => state.rewardSlice);
+	const { rewards,loader } = useSelector(state => state.rewardSlice);
 
 	const onClose = () => {
 		setVisible(false);
 	};
 
-	const getRewardId = id => {
-		dispatch(GetRewardById(id));
+	const getRewardId = (id) => {
+		dispatch(GetRewardById(id))
 		setVisible(true);
-	};
+	}
 
 	useEffect(() => {
 		dispatch(getAllRewards(filter));
@@ -73,13 +73,20 @@ const Reward = props => {
 					/> */}
 				</HeaderMenuContainer>
 				<div className="right-menu" style={{ paddingRight: "10px" }}>
-					<SideDrawer
-						title="Create Reward"
-						buttonText={rewardsDictionary.createReward}
-						isAccessDrawer={false}
-						children={<Composer />}
-					/>
+					<div
+						className={
+							isTablet ? "btn-hld CompBtnMobile" : "btn-hld"
+						}
+					>
+						<SideDrawer
+							buttonText={complains.createComplain}
+							isAccessDrawer={false}
+						>
+							<Composer />
+						</SideDrawer>
+					</div>
 				</div>
+				<span className="ln" />
 			</ContainerHeader>
 			<TopBar
 				buttons={[
@@ -90,22 +97,22 @@ const Reward = props => {
 					<BarNavLink
 						extraClasses={"topBtn"}
 						activeName={"list"}
-						linkName={sharedLabels.MyReward}
-						onClick={() => setFilter({ filterType: 1 })}
+						linkName="My Complain"
+						onClick={() => setFilter({filterType: 1})}
 					/>,
 					<BarNavLink
 						activeName={"aprrovals"}
 						extraClasses={"topBtn"}
 						isDefault={false}
 						linkName={sharedLabels.ForApprovals}
-						onClick={() => setFilter({ filterType: 2 })}
+						onClick={() => setFilter({filterType: 2})}
 					/>,
 					<BarNavLink
 						activeName={"aprrovals"}
 						extraClasses={"topBtn"}
 						isDefault={false}
-						linkName={sharedLabels.RewardToMe}
-						onClick={() => setFilter({ filterType: 3 })}
+						linkName="Complain To Me"
+						onClick={() => setFilter({filterType: 3})}
 					/>,
 				]}
 				gridIcons={[
@@ -117,8 +124,7 @@ const Reward = props => {
 								: "topBarIcon gridIcon isActive"
 						}
 					>
-						{isTablet ? "" : sharedLabels.ListView}{" "}
-						<UnorderedListOutlined />
+						{isTablet ? "" : sharedLabels.ListView} <UnorderedListOutlined />
 					</div>,
 					<div
 						onClick={() => setGrid(true)}
@@ -128,8 +134,7 @@ const Reward = props => {
 								: "topBarIcon gridIcon"
 						}
 					>
-						{isTablet ? "" : sharedLabels.TableView}{" "}
-						<AppstoreFilled />
+						{isTablet ? "" : sharedLabels.TableView} <AppstoreFilled />
 					</div>,
 				]}
 			/>
@@ -140,25 +145,17 @@ const Reward = props => {
 							<Row gutter={[16, 16]}>{<TableView />}</Row>
 						) : (
 							<>
-								{loader ? (
+								
+								{ loader  ?  
 									<>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
+										<Skeleton avatar paragraph={{ rows: 4 }} />
+										<Skeleton avatar paragraph={{ rows: 4 }} />
+										<Skeleton avatar paragraph={{ rows: 4 }} />
 									</>
-								) : (
+									:
 									rewards.map((x, index) => {
-										return (
-											<>
+									return (
+										<>
 												<RewardListItem
 													getRewardId={getRewardId}
 													id={x.id}
@@ -177,15 +174,13 @@ const Reward = props => {
 													approverName="Salman Ahmed"
 													approverDesignation="React JS Developer"
 												/>
-											</>
-										);
-									})
-								)}
+										</>
+									);
+								}) 
+								}
 							</>
 						)
-					) : (
-						"Data not found"
-					)}
+					) : "Data not found" }
 				</div>
 				{/* <div
               className="rt-col"

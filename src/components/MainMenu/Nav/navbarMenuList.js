@@ -29,6 +29,7 @@ import loanIcon from "../../../content/svg/menu/newNavBarIcon/Loan.svg";
 import holiday_event from "../../../content/svg/menu/newNavBarIcon/Holidays.svg";
 import career from "../../../content/svg/menu/newNavBarIcon/Career.svg";
 import resignation from "../../../content/svg/menu/newNavBarIcon/resignation.svg";
+import rewardIcon from "../../../content/svg/menu/rewardIcon.svg";
 
 const NavMenuList = () => {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -250,7 +251,7 @@ const NavMenuList = () => {
 		{
 			name: label.navMenuLabel.rewards,
 			counter: 0,
-			icon: taskIcon,
+			icon: rewardIcon,
 			to: ROUTES.HR.REWARDS.DEFAULT,
 			isActive: true,
 		},

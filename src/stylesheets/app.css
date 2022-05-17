@@ -9,7 +9,9 @@
 	/*border-radius: 4px !important;*/
 	border-color: #1b5669 !important;
 }
-
+.list-item::marker{
+	display: none !important;
+}
 .ant-btn-default {
 	/*border: none !important;*/
 	/*border-radius: 9px !important;*/
@@ -52,7 +54,6 @@
 }
 /* 
 .ant-table-container  {
-	padding-left: 10px;
 	background-color: #f6f6f9;
 } */
 

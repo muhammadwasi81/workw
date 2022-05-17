@@ -108,12 +108,12 @@ export const routes = {
 		//
 		// },
 
-		// {
-		// 	path: `${ROUTES.HR.REWARDS.DEFAULT}`,
-		// 	component: lazy(() =>
-		// 		import("../main/features/reward/view/Reward")
-		// 	),
-		// },
+		{
+			path: `${ROUTES.HR.REWARDS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/reward/view/Reward")
+			),
+		},
 
 		// {
 		// 	path: `${ROUTES.HR.REWARDS.DEFAULT}`,

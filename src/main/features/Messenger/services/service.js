@@ -1,8 +1,9 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
-
+// import AxiosConfig from "../../../../utils/services/AxiosConfig";
 // const API_PREFIX = "KonnectMessenger/api/Messenger/";
+import MasterConfig from "../../../../utils/services/MasterConfig";
+
 export const getAllChatsService = () => {
-	return AxiosConfig.get(`${API_PREFIX}getAllChats`)
+	return MasterConfig.get(`api/Messenger/getAllChats`)
 		.then(res => {
 			return res.data;
 		})
@@ -12,7 +13,7 @@ export const getAllChatsService = () => {
 };
 
 export const addGradeService = args => {
-	return AxiosConfig.post(`${API_PREFIX}addgrade`, args)
+	return MasterConfig.post(`api/Messenger/addgrade`, args)
 		.then(res => {
 			return res.data;
 		})

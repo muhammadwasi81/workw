@@ -174,7 +174,7 @@ const NavMenuList = () => {
 			name: label.navMenuLabel.administration,
 			counter: 0,
 			icon: administrator,
-			to: ROUTES.HR.ADMINISTRATOR.DEFAULT,
+			to: ROUTES.HR.ADMINISTRATOR.ADDMINISTRATION,
 			isActive: true,
 		},
 		{

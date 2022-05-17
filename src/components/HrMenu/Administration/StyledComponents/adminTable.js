@@ -18,8 +18,9 @@ export const AdminTable = styled(Table)`
 	& tr:nth-child(2n) td {
 		background-color: #f2f2f2;
 	}
-	& table {
-		table-layout: fixed !important;
+	table {
+		width: 100px !important;
+		overflow: scroll;
 	}
 	&& thead tr th {
 		background-color: #1b5669;

@@ -24,6 +24,8 @@ import { validateEmail } from "../../../../../utils/Shared/helper/validateEmail"
 import { useMediaQuery } from "react-responsive";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { useDispatch } from "react-redux";
+import { addTravel } from "../../store/actions";
 
 const initialState = {
 	subject: "",
@@ -32,7 +34,7 @@ const initialState = {
 	approvals: [],
 	agents: [],
 	cities: [],
-	specialRequests: "",
+	specialRequest: "",
 	id: defaultUiid,
 	status: 0,
 	approverStatus: 0,
@@ -65,11 +67,12 @@ function TravelComposer(props) {
 	const [errors, setErrors] = useState(initialErrors);
 	const [submit, setSubmit] = useState(false);
 	const [docsData, setDocsData] = useState(null);
+	const [isSubmit, setIsSubmit] = useState(false);
 	const [travelDetails, setTravelDetails] = useState([]);
 	const isTablet = useMediaQuery({ maxWidth: 650 });
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
-
+	const dispatch = useDispatch();
 	const onInputFieldChange = (value, name) => {
 		setState({
 			...state,
@@ -81,6 +84,7 @@ function TravelComposer(props) {
 	};
 
 	const onFinish = values => {
+		// console.log("values", values);
 		let cities = travelDetails.map(travel => {
 			return {
 				id: defaultUiid,
@@ -121,17 +125,18 @@ function TravelComposer(props) {
 				email: "",
 			};
 		});
-		const { subject, description, specialRequests } = values;
+		const { subject, description, specialRequest } = values;
 		setState(prevState => ({
 			...prevState,
 			subject,
 			description,
-			specialRequests,
+			specialRequest,
 			approvals,
 			agents,
 			cities,
 		}));
-		console.log("docsData", docsData);
+		setIsSubmit(true);
+		// console.log("docsData", docsData);
 	};
 	const onCardSlide = e => {
 		// console.log("slider", e);
@@ -146,6 +151,8 @@ function TravelComposer(props) {
 		setTravelDetails(tempTravel);
 	};
 	const checkValidation = () => {
+		// if(travelDetails.length===0){}
+
 		if (stateCard.reason.length === 0) {
 			setErrors(prevErrors => ({
 				...prevErrors,
@@ -194,11 +201,22 @@ function TravelComposer(props) {
 	};
 	const onFormSubmit = () => {
 		form.submit();
-		checkValidation();
+		if (travelDetails.length === 0) {
+			checkValidation();
+		}
 	};
 	const handleDocsUpload = data => {
 		setDocsData(data);
 	};
+	useEffect(() => {
+		console.log("state", state);
+	}, [state]);
+	useEffect(() => {
+		if (isSubmit) {
+			dispatch(addTravel(state));
+		}
+	}, [isSubmit]);
+
 	return (
 		<Form
 			className="travel-composer"
@@ -256,10 +274,11 @@ function TravelComposer(props) {
 					name="approvals"
 					label="Approvers"
 					showSearch={true}
-					endPoint="GetAllCities"
-					requestType="post"
+					endPoint="api/Reference/GetAllUserReference"
+					requestType="get"
 					placeholder="Search Approvers To Select"
 					mode="multiple"
+					showImage={true}
 				/>
 			</S.FormItem>
 
@@ -273,8 +292,8 @@ function TravelComposer(props) {
 					name="agents"
 					label={"Agent"}
 					showSearch={true}
-					endPoint="GetAllCities"
-					requestType="post"
+					endPoint="api/Reference/GetAllUserReference"
+					requestType="get"
 					placeholder="Search Agents To Select"
 					mode="tags"
 				/>
@@ -289,6 +308,7 @@ function TravelComposer(props) {
 				checkValidation={checkValidation}
 				submit={submit}
 				setSubmit={setSubmit}
+				travelDetails={travelDetails}
 			/>
 			<TravelCard>
 				<Carousel

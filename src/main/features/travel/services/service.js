@@ -1,7 +1,8 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
-const API_PREFIX = "konnectapi/api/Travel/";
+// import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
+const API_PREFIX = "api/Travel/";
 export const addTravelService = data => {
-	return AxiosConfig.post(`${API_PREFIX}AddTravel`, data)
+	return MasterConfig.post(`${API_PREFIX}AddTravel`, data)
 		.then(res => {
 			return res.data;
 		})

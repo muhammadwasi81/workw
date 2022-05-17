@@ -51,12 +51,13 @@ function SideDrawer({ title, buttonText, children, ...props }) {
 				onClick={showDrawer}
 				shape="square"
 				title={buttonText}
-				antIcon={<PlusOutlined />}
+				antIcon={<PlusOutlined height={"2em"} />}
 				buttonClass={
 					Direction === "rtl" && isTablet
 						? "drawerBtn justify-start"
 						: "drawerBtn"
 				}
+				IconSize={20}
 			/>
 			<Drawer
 				className="shared_drawer"

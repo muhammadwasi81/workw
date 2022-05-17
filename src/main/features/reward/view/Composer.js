@@ -1,7 +1,7 @@
-import { Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../../components/SharedComponent/Input/TextInput";
-import Button from "../../../../components/SharedComponent/button/index";
+// import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../../components/SharedComponent/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
@@ -240,7 +240,10 @@ const Composer = props => {
 
 				<Form.Item>
 					<Button
-						buttonClass="submitButton"
+						type="primary"
+						size="medium"
+						className="ThemeBtn"
+						block
 						htmlType="submit"
 						title="Create Reward"
 					>

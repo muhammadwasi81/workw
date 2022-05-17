@@ -2,13 +2,13 @@ import { ROUTES } from "../../../../utils/routes";
 
 import { FaBriefcase, FaUserLock } from "react-icons/fa";
 
-import { BsFillPersonCheckFill, BsFillPlusCircleFill } from "react-icons/bs";
+import { BsFillPersonCheckFill } from "react-icons/bs";
 import { HiCurrencyYen } from "react-icons/hi";
-import {
-	IoAlertCircleOutline,
-	IoIosArrowDown,
-	IoPersonCircleSharp,
-} from "react-icons/io";
+// import {
+// 	IoAlertCircleOutline,
+// 	IoIosArrowDown,
+// 	IoPersonCircleSharp,
+// } from "react-icons/io";
 
 import { ImOffice } from "react-icons/im";
 
@@ -30,7 +30,7 @@ export const listitem = [
 		IconName: <FaUserLock size={20} color={"#1A5669"} />,
 		displayName: "AccessRole",
 		classObj: "button",
-		to: ROUTES.HR.ADMINISTRATOR.DEFAULT,
+		to: ROUTES.HR.ADMINISTRATOR.ADDMINISTRATION,
 	},
 	{
 		IconName: <AiFillStar size={20} color={"#1A5669"} />,

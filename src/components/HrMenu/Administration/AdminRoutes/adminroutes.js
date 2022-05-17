@@ -17,17 +17,13 @@ import WargningCategory from "../../../../main/features/warningCategory/view";
 import AccessRole from "../../../../main/features/accessRole/view/AccessRole";
 
 const AdminRoutes = () => {
-	// console.log("abcs");
 	return (
 		<Routes>
+			<Route path={"/"} element={<AccessRole />} />
 			<Route path={ROUTES.HR.ADMINISTRATOR.GRADE} element={<Grade />} />
 			<Route
 				path={ROUTES.HR.ADMINISTRATOR.DESIGNATION}
 				element={<Designation />}
-			/>
-			<Route
-				path={ROUTES.HR.ADMINISTRATOR.ACCESSROLES}
-				element={<AccessRole />}
 			/>
 			<Route
 				path={ROUTES.HR.ADMINISTRATOR.APPRASIAL}
@@ -37,7 +33,6 @@ const AdminRoutes = () => {
 				path={ROUTES.HR.ADMINISTRATOR.OFFICETIME}
 				element={<OfficeTiming />}
 			/>
-
 			<Route
 				path={ROUTES.HR.ADMINISTRATOR.LEAVE_TYPES}
 				element={<LeaveType />}
@@ -64,7 +59,6 @@ const AdminRoutes = () => {
 				path={ROUTES.HR.ADMINISTRATOR.ALLOWANCES}
 				element={<Allowance />}
 			/>
-			{/* <Route path={ROUTES.HR.ADMINISTRATOR.DEFAULT_APPROVALS} element={} /> */}
 			<Route
 				path={ROUTES.HR.ADMINISTRATOR.JOB_SKILLS}
 				element={<JobDescription />}

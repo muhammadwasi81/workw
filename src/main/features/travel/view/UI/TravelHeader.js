@@ -17,14 +17,6 @@ import { useMediaQuery } from "react-responsive";
 function TravelHeader() {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const label = dictionaryList[userLanguage];
-	const isTablet = useMediaQuery({ maxWidth: 650 });
-
-	// const [urlParam, seturlParam] = useState("");
-
-	// useEffect(() => {
-	// 	console.log(window.location.href);
-	// }, [window.location.href]);
-
 	return (
 		<TabContainer>
 			<ContainerHeader>
@@ -48,21 +40,17 @@ function TravelHeader() {
 						linkName={label.appHeader.travel.agentProcess}
 					/> */}
 				</HeaderMenuContainer>
-				{!isTablet && (
-					<div
-						className="right-menu"
-						style={{ paddingRight: "10px" }}
-					>
-						<div className="btn-hld travel_drawer">
-							<SideDrawer
-								children={<TravelComposer />}
-								title="Create Travel Expense"
-								buttonText="Create Travel"
-								isAccessDrawer={false}
-							/>
-						</div>
+
+				<div className="right-menu" style={{ paddingRight: "10px" }}>
+					<div className="btn-hld travel_drawer">
+						<SideDrawer
+							children={<TravelComposer />}
+							title="Create Travel Expense"
+							buttonText="Create Travel"
+							isAccessDrawer={false}
+						/>
 					</div>
-				)}
+				</div>
 				{/* <span className="ln" /> */}
 			</ContainerHeader>
 			<ContBody style={{ display: "flex" }}>

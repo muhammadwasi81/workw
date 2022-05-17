@@ -5,5 +5,10 @@
 .drawerBtn{
     background: var(--primary_theme_color_green) !important;
     border-radius: 8px;
+    display: flex !important;
+    align-items: center !important;
 }
 
+.ant-col-24.ant-form-item-label {
+    padding: 0px 0px 0px !important;    
+}

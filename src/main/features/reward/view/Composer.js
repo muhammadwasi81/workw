@@ -5,7 +5,7 @@ import TextInput from "../../../../components/SharedComponent/Input/TextInput";
 import Select from "../../../../components/SharedComponent/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
-import { addReward, GetRewardById } from "../store/actions";
+import { addReward } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -86,7 +86,7 @@ const Composer = props => {
 				autoComplete="off"
 			>
 				<Form.Item
-					label="Award Name"
+					label="Name"
 					name="name"
 					labelPosition="top"
 					rules={[
@@ -100,7 +100,7 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label="Reason for Award"
+					label="Award"
 					name="reason"
 					rules={[
 						{
@@ -126,7 +126,7 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label="Select Category"
+					label="Category"
 					name="categoryId"
 					rules={[
 						{
@@ -151,20 +151,20 @@ const Composer = props => {
 
 				<Form.Item
 					name="members"
-					label={"Search Memebers"}
+					label={"Memebers"}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
 				>
 					<NewCustomSelect
 						name="members"
-						label={"Search Memebers"}
+						label={"Memebers"}
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
 						endPoint="GetAllUserReference"
 						requestType="post"
-						placeholder={"Search Memebers"}
+						placeholder={"Select Memeber"}
 					/>
 				</Form.Item>
 
@@ -172,7 +172,7 @@ const Composer = props => {
 					<SingleUpload
 						handleImageUpload={handleImageUpload}
 						img="Add Image"
-            position="flex-start"
+						position="flex-start"
 					/>
 				</Form.Item>
 

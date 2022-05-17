@@ -13,9 +13,8 @@ import {
 
 export const getAllGrades = createAsyncThunk(
 	"grade/getAllGrade",
-	async ({ dispatch }) => {
+	async (args, { dispatch }) => {
 		const res = await getAllGradesService();
-
 		if (!res.responseCode) {
 			responseMessage({
 				dispatch: dispatch,

@@ -1,7 +1,6 @@
-import React, { useEffect, useContext, useState, Suspense } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../../components/SharedComponent/AppComponents/MainHeader";
-import HeaderNavLink from "../../../../components/SharedComponent/AppComponents/MainHeader/HeaderNavLink";
 import {
 	ContBody,
 	HeaderMenuContainer,
@@ -13,7 +12,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import { STRINGS } from "../../../../utils/base";
 import { useLocation } from "react-router-dom";
-import RewardListItem from "./ListItem";
+import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 // import FilterForm from "./FilterForm";
@@ -26,14 +25,13 @@ import {
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllRewards, GetRewardById } from "../store/actions";
-import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import TableView from "./TableView";
 import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 import "./reward.css";
 
 const Reward = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, rewardsDictionary, Direction, complains } = dictionaryList[userLanguage];
+	const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
 
 
 	const [grid, setGrid] = useState(false);
@@ -42,7 +40,7 @@ const Reward = props => {
 
 	const [visible, setVisible] = useState(false);
 
-	const [filter, setFilter] = useState({filterType: 0, search: ""})
+	const [filter, setFilter] = useState({filterType: 1, search: ""})
 
 	const dispatch = useDispatch();
 
@@ -64,13 +62,6 @@ const Reward = props => {
 		<TabbableContainer>
 			<ContainerHeader>
 				<HeaderMenuContainer>
-					{/* <HeaderNavLink
-						activeName={"list"}
-						to={`${STRINGS.ROUTES.HR.REWARDS.DEFAULT}?f=list`}
-						isDefault={false}
-						linkName={"My Reward"}
-						urlParam={currentTab}
-					/> */}
 				</HeaderMenuContainer>
 				<div className="right-menu" style={{ paddingRight: "10px" }}>
 					<div
@@ -79,7 +70,8 @@ const Reward = props => {
 						}
 					>
 						<SideDrawer
-							buttonText={complains.createComplain}
+							title="Create Complain"
+							buttonText="Create Complain"
 							isAccessDrawer={false}
 						>
 							<Composer />
@@ -95,23 +87,23 @@ const Reward = props => {
 						<FilterFilled className="topBarIcon" />
 					</Button>,
 					<BarNavLink
-						extraClasses={"topBtn"}
+						extraClasses={filter.filterType === 1 ? "on topBtn" : "topBtn"}
 						activeName={"list"}
 						linkName="My Complain"
 						onClick={() => setFilter({filterType: 1})}
 					/>,
 					<BarNavLink
 						activeName={"aprrovals"}
-						extraClasses={"topBtn"}
+						extraClasses={filter.filterType === 2 ? "on topBtn" : "topBtn"}
 						isDefault={false}
 						linkName={sharedLabels.ForApprovals}
 						onClick={() => setFilter({filterType: 2})}
 					/>,
 					<BarNavLink
 						activeName={"aprrovals"}
-						extraClasses={"topBtn"}
+						extraClasses={filter.filterType === 3 ? "on topBtn" : "topBtn"}
 						isDefault={false}
-						linkName="Complain To Me"
+						linkName="Reward To Me"
 						onClick={() => setFilter({filterType: 3})}
 					/>,
 				]}
@@ -153,26 +145,14 @@ const Reward = props => {
 										<Skeleton avatar paragraph={{ rows: 4 }} />
 									</>
 									:
-									rewards.map((x, index) => {
+									rewards.map((item, index) => {
 									return (
 										<>
-												<RewardListItem
+												<ListItem
 													getRewardId={getRewardId}
-													id={x.id}
+													item={item}
+													id={item.id}
 													key={index}
-													name={x.name}
-													category={x.category}
-													reason={x.reason}
-													creator={x.creator}
-													description={x.description}
-													status={
-														<StatusTag
-															status={x.status}
-														></StatusTag>
-													}
-													members={x.members}
-													approverName="Salman Ahmed"
-													approverDesignation="React JS Developer"
 												/>
 										</>
 									);

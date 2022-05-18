@@ -23,8 +23,8 @@ const Composer = props => {
 
 	useEffect(() => {
 		dispatch(getRewardCategory());
-    // dispatch(getAllEmployee());
-    // console.log(employeesList, "EMPLOYEES")
+		// dispatch(getAllEmployee());
+		// console.log(employeesList, "EMPLOYEES")
 	}, []);
 
 	const handleImageUpload = data => {
@@ -162,7 +162,7 @@ const Composer = props => {
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
-						endPoint="GetAllUserReference"
+						endPoint="api/Reference/GetAllUserReference"
 						requestType="post"
 						placeholder={"Select Memeber"}
 					/>

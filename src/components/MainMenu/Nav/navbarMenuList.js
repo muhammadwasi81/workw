@@ -39,17 +39,17 @@ const NavMenuList = () => {
 		{
 			name: label.navMenuLabel.feed,
 			counter: 0,
-			to: ROUTES.ROOT,
+			to: ROUTES.HOME,
 			icon: newsIcon,
 			isActive: 1,
 		},
-		{
-			name: label.navMenuLabel.mailBox,
-			counter: 0,
-			to: `${ROUTES.MAIL.DEFAULT}/INBOX`,
-			icon: mailsIcon,
-			isActive: 2,
-		},
+		// {
+		// 	name: label.navMenuLabel.mailBox,
+		// 	counter: 0,
+		// 	to: `${ROUTES.MAIL.DEFAULT}/INBOX`,
+		// 	icon: mailsIcon,
+		// 	isActive: 2,
+		// },
 		{
 			name: label.navMenuLabel.messenger,
 			counter: 0,
@@ -175,7 +175,7 @@ const NavMenuList = () => {
 			name: label.navMenuLabel.administration,
 			counter: 0,
 			icon: administrator,
-			to: ROUTES.HR.ADMINISTRATOR.ADDMINISTRATION,
+			to: ROUTES.HR.ADMINISTRATOR.ADMINISTRATION,
 			isActive: true,
 		},
 		// {
@@ -227,13 +227,13 @@ const NavMenuList = () => {
 		// 	to: ROUTES.HR.WARNINGS.DEFAULT,
 		// 	isActive: true,
 		// },
-		{
-			name: label.navMenuLabel.complains,
-			counter: 0,
-			icon: career,
-			to: ROUTES.HR.COMPLAINS.DEFAULT,
-			isActive: true,
-		},
+		// {
+		// 	name: label.navMenuLabel.complains,
+		// 	counter: 0,
+		// 	icon: career,
+		// 	to: ROUTES.HR.COMPLAINS.DEFAULT,
+		// 	isActive: true,
+		// },
 		// {
 		// 	name: label.navMenuLabel.bonus,
 		// 	counter: 0,
@@ -252,7 +252,7 @@ const NavMenuList = () => {
 			name: label.navMenuLabel.rewards,
 			counter: 0,
 			icon: rewardIcon,
-			to: ROUTES.HR.REWARDS.DEFAULT,
+			to: ROUTES.HR.REWARDS.REWARD,
 			isActive: true,
 		},
 	];

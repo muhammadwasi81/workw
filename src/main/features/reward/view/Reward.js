@@ -40,7 +40,9 @@ const Reward = props => {
 
 	const dispatch = useDispatch();
 
-	const { rewards, loader } = useSelector(state => state.rewardSlice);
+	const { rewards, loader, rewardDetail } = useSelector(
+		state => state.rewardSlice
+	);
 
 	const onClose = () => {
 		setVisible(false);
@@ -55,7 +57,7 @@ const Reward = props => {
 		dispatch(getAllRewards(filter));
 	}, [filter]);
 	return (
-		<TabbableContainer>
+		<TabbableContainer className="max-width-1190">
 			<ContainerHeader>
 				<HeaderMenuContainer></HeaderMenuContainer>
 				<div className="right-menu" style={{ paddingRight: "10px" }}>
@@ -83,7 +85,9 @@ const Reward = props => {
 					</Button>,
 					<BarNavLink
 						extraClasses={
-							filter.filterType === 1 ? "on topBtn" : "topBtn"
+							filter.filterType === 1
+								? "topbarOn topBtn"
+								: "topBtn"
 						}
 						activeName={"list"}
 						linkName={sharedLabels.MyReward}
@@ -92,7 +96,9 @@ const Reward = props => {
 					<BarNavLink
 						activeName={"aprrovals"}
 						extraClasses={
-							filter.filterType === 2 ? "on topBtn" : "topBtn"
+							filter.filterType === 2
+								? "topbarOn topBtn"
+								: "topBtn"
 						}
 						isDefault={false}
 						linkName={sharedLabels.ForApprovals}
@@ -101,7 +107,9 @@ const Reward = props => {
 					<BarNavLink
 						activeName={"aprrovals"}
 						extraClasses={
-							filter.filterType === 3 ? "on topBtn" : "topBtn"
+							filter.filterType === 3
+								? "topbarOn topBtn"
+								: "topBtn"
 						}
 						isDefault={false}
 						linkName={sharedLabels.RewardToMe}
@@ -176,7 +184,9 @@ const Reward = props => {
 					)}
 				</div>
 			</ContBody>
-			<DetailedView onClose={onClose} visible={visible} />
+			{rewardDetail && (
+				<DetailedView onClose={onClose} visible={visible} />
+			)}
 		</TabbableContainer>
 	);
 };

@@ -1,4 +1,4 @@
-let DOMAIN_PREFIX = "";
+let DOMAIN_PREFIX;
 DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const ROUTES = {
@@ -10,9 +10,9 @@ export const ROUTES = {
 		CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
 	},
 	AUTH: {
-		SIGN_UP: `${DOMAIN_PREFIX}register`,
+		SIGN_UP: `${DOMAIN_PREFIX}/register`,
 		SIGN_UP_SUCCESS: `${DOMAIN_PREFIX}/thankyou`,
-		SIGN_IN: `${DOMAIN_PREFIX}login`,
+		SIGN_IN: `${DOMAIN_PREFIX}/login`,
 		INDIVIDUAL_SIGN_IN: `${DOMAIN_PREFIX}/individualSignIn`,
 		PAYMENT: `${DOMAIN_PREFIX}/AddPaymentCard`,
 		EXTERNAL_SIGN_UP: `${DOMAIN_PREFIX}/externalSignup`,
@@ -25,7 +25,8 @@ export const ROUTES = {
 	BUDGET: {
 		DEFAULT: `${DOMAIN_PREFIX}/budgets`,
 	},
-	ROOT: `${DOMAIN_PREFIX}`,
+	ROOT: `${DOMAIN_PREFIX}/`,
+	HOME: `${DOMAIN_PREFIX}/`,
 	NEWSFEED: {
 		DETAILS: `${DOMAIN_PREFIX}/newsFeedDetails`,
 	},
@@ -35,7 +36,7 @@ export const ROUTES = {
 	SCHEDULE_REMARKS: `${DOMAIN_PREFIX}/ScheduleRemark`,
 	PRE_EMPLOYMENT: `${DOMAIN_PREFIX}/EmploymentForm`,
 	GROUP: {
-		DEFAULT: `${DOMAIN_PREFIX}/groups/`,
+		DEFAULT: `${DOMAIN_PREFIX}/groups`,
 		NEWS: `${DOMAIN_PREFIX}/groups/news`,
 		SCHEDULES: `${DOMAIN_PREFIX}/groups/schedules`,
 		TASKS: `${DOMAIN_PREFIX}/groups/tasks`,
@@ -97,7 +98,7 @@ export const ROUTES = {
 		DEFAULT: `${DOMAIN_PREFIX}/newschedules`,
 	},
 	TASKS: `${DOMAIN_PREFIX}/tasks`,
-	LEAVES: `${DOMAIN_PREFIX}/leaves/`,
+	LEAVES: `${DOMAIN_PREFIX}/leaves`,
 	EXPENSES: `${DOMAIN_PREFIX}/expenses`,
 	CUSTOM_APPROVALS: `${DOMAIN_PREFIX}/customApprovals`,
 	LOAN: `${DOMAIN_PREFIX}/loan`,
@@ -164,6 +165,7 @@ export const ROUTES = {
 		},
 		REWARDS: {
 			DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
+			REWARD: `${DOMAIN_PREFIX}/rewards/`,
 			APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
 		},
 		EMPLOYEES: {
@@ -188,7 +190,7 @@ export const ROUTES = {
 		},
 		ADMINISTRATOR: {
 			DEFAULT: `${DOMAIN_PREFIX}/hr/administrator/*`,
-			ADDMINISTRATION: `${DOMAIN_PREFIX}/hr/administrator/`,
+			ADMINISTRATION: `${DOMAIN_PREFIX}/hr/administrator/`,
 			ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
 			GRADE: `grade`,
 			DESIGNATION: `designation`,

@@ -13,7 +13,7 @@ export const routes = {
 	// Private Route Here
 	Private: [
 		{
-			path: ROUTES.ROOT,
+			path: ROUTES.HOME,
 			component: lazy(() => import("../components/MainMenu/Home/")),
 		},
 		{
@@ -68,6 +68,12 @@ export const routes = {
 				import("../components/HrMenu/Administration/")
 			),
 		},
+		{
+			path: `${ROUTES.HR.REWARDS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/reward/view/Reward")
+			),
+		},
 
 		// {
 		// 	path: ROUTES.GROUP.DEFAULT,
@@ -107,13 +113,6 @@ export const routes = {
 		// 	),
 		//
 		// },
-
-		{
-			path: `${ROUTES.HR.REWARDS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/reward/view/Reward")
-			),
-		},
 
 		// {
 		// 	path: `${ROUTES.HR.REWARDS.DEFAULT}`,

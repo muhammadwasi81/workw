@@ -3,14 +3,14 @@
     border-radius: 5px !important;
 }
 .Cancel {
-    background-color: red;
+    background-color: red !important;
 }
 .approved {
-    background-color: green;
+    background-color: green !important;
 }
 .inProcess {
-    background-color: #1b5669;
+background-color: #1b5669 !important;
 }
 .statusTag {
-    padding: 4px 10px;
+    padding: 4px 10px !important;
 }

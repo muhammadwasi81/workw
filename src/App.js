@@ -35,7 +35,7 @@ import ErrorBoundary from "./utils/ErrorBoundary";
 import { LanguageChangeContext } from "./utils/localization/localContext/LocalContext";
 import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
-import Reward from "./main/features/reward/view/Reward";
+// import Reward from "./main/features/reward/view/Reward";
 // import { Socket } from "./utils/socket";
 
 const App = () => {
@@ -78,7 +78,8 @@ const App = () => {
 	const isLoggedIn = !!token;
 	// const isLoggedIn = true;
 	// if (isLoggedIn) Socket(); // i will add this line in <Route/> component. from "./routes"; line 26
-
+	console.log("app js", isLoggedIn);
+	console.log("Routes", ROUTES.ROOT);
 	return (
 		<ErrorBoundary>
 			<MainFlexContainer>
@@ -88,11 +89,15 @@ const App = () => {
 						<Route path={ROUTES.AUTH.SIGN_IN} element={<Auth />} />
 						<Route
 							path={ROUTES.AUTH.INDIVIDUAL_SIGN_IN}
-							element={<IndivisualSignup />}
+							element={
+								<IndivisualSignup isLoggedIn={isLoggedIn} />
+							}
 						/>
 						<Route
 							path={ROUTES.AUTH.SIGN_UP}
-							element={<OrganizationalSignup />}
+							element={
+								<OrganizationalSignup isLoggedIn={isLoggedIn} />
+							}
 						/>
 						<Route
 							path={ROUTES.AUTH.VERIFICATION_SUCCESS}
@@ -109,7 +114,7 @@ const App = () => {
 
 						{/*****Public Route******/}
 						<Route
-							path={"/"}
+							path={ROUTES.ROOT}
 							element={
 								<PrivateRotutes
 									isLoggedIn={isLoggedIn}
@@ -125,12 +130,11 @@ const App = () => {
 									element={<route.component />}
 								/>
 							))}
-							{/* <Route
-								path={ROUTES.HR.REWARDS.DEFAULT}
-								element={<Reward />}
-							/> */}
 						</Route>
-						{/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+						<Route
+							path={"*"}
+							element={<Navigate to={ROUTES.AUTH.SIGN_IN} />}
+						/>
 					</ReactRoutes>
 				</Router>
 			</MainFlexContainer>

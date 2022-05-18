@@ -813,7 +813,7 @@ i.ic-double-tick {
 .tabbable-container {
 	width: 100%;
 	height: 100%;
-	max-width: 1190px;
+	
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
@@ -821,6 +821,9 @@ i.ic-double-tick {
 	background-color: #f6f6f9;
 	position: relative;
 	overflow: hidden;
+}
+.max-width-1190{
+max-width: 1190px;
 }
 
 .tabbable-container > .cont-header {
@@ -831,6 +834,7 @@ i.ic-double-tick {
 	background-color: #ffffff;
 	/* position: absolute; */
 	box-shadow: 0 12px 6px -12px #bbbbbb;
+	min-height: 50px;
 }
 
 .tabbable-container > .cont-header-rtl {
@@ -906,7 +910,7 @@ i.ic-double-tick {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	font-size: 12px;
+	font-size: 16px;
 }
 
 .tabbable-container > .cont-header-rtl > .menu-rtl > .li {
@@ -938,7 +942,7 @@ i.ic-double-tick {
 	font-weight: 600;
 	border-bottom: 2px solid #1a5669;
 	z-index: 1;
-	font-size: 14px;
+	font-size: 16px;
 	/*cursor: text;*/
 }
 

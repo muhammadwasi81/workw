@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { verification } from "../../store/actions";
 import "../styles/style.css";
-import { STRINGS } from "../../../../../utils/base";
+// import { STRINGS } from "../../../../../utils/base";
+import { ROUTES } from "../../../../../utils/routes";
 
 const Verifying = () => {
 	const id = useLocation();
@@ -32,7 +33,7 @@ const Verifying = () => {
 						extra={[
 							<p>
 								We verified your email, you can now{" "}
-								<a href={`${STRINGS.ROUTES.ROOT}`}> login </a>
+								<a href={`${ROUTES.ROOT}`}> login </a>
 							</p>,
 						]}
 					/>

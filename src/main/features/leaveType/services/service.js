@@ -1,8 +1,8 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
-const API_PREFIX = "konnectapi/api/leave/leavetype/";
+// const API_PREFIX = "konnectapi/api/leave/leavetype/";
 export const getAllLeaveTypeService = () => {
-  return AxiosConfig.get(`${API_PREFIX}getallleavetype`)
+  return MasterConfig.get(`api/leave/leavetype/getallleavetype`)
     .then((res) => {
       return res.data;
     })
@@ -12,7 +12,7 @@ export const getAllLeaveTypeService = () => {
 };
 
 export const addLeaveTypeService = (args) => {
-  return AxiosConfig.post(`${API_PREFIX}addleavetype`, args)
+  return MasterConfig.post(`api/leave/leavetype/addleavetype`, args)
     .then((res) => {    
       return res.data;
     })

@@ -1,19 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode";
+import { responseCode } from "../../../../../services/enums/responseCode";
 import {
   responseMessage,
   responseMessageType,
-} from "../../../../services/slices/notificationSlice";
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
-import { addAppraisalService, getAllAppraisalService } from "../services/service";
-import { appraisalDeleted } from "./slice";
+} from "../../../../../services/slices/notificationSlice";
+import MasterConfig from "../../../../../utils/services/MasterConfig";
+import { addAppraisalQuestionService, getAllAppraisalQuestionService } from "../services/service";
+import { appraisalQuestionDeleted } from "./slice";
 
-const API_PREFIX = "konnectapi/api/appraisal/appraisalQuestion/";
 
 export const getAllQuestion = createAsyncThunk(
   "appraisalQuestion/getAllQuestion",
   async (args, { dispatch, getState }) => {
-    const res = await getAllAppraisalService();
+    const res = await getAllAppraisalQuestionService();
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
@@ -27,11 +26,11 @@ export const getAllQuestion = createAsyncThunk(
 export const addQuestion = createAsyncThunk(
   "appraisalQuestion/addQuestion",
   async (args, { dispatch, getState }) => {
-    const res = await addAppraisalService(args);
+    const res = await addAppraisalQuestionService(args);
 
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        res.message = "Appraisal added successfully!";
+        res.message = "Appraisal Question added successfully!";
       responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
@@ -47,10 +46,10 @@ export const addQuestion = createAsyncThunk(
 export const updateQuestion = createAsyncThunk(
   "appraisalQuestion/updateQuestion",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.put(`${API_PREFIX}updatequestion`, args)
+    return await MasterConfig.put(`api/appraisal/appraisalQuestion/updatequestion`, args)
       .then((res) => {
         if (res.data.responseCode === responseCode.Success)
-          res.data.message = "Appraisal updated successfully!";
+          res.data.message = "Appraisal Question updated successfully!";
         responseMessage({ dispatch, data: res.data });
         return res.data;
       })
@@ -67,11 +66,11 @@ export const updateQuestion = createAsyncThunk(
 export const removeQuestion = createAsyncThunk(
   "appraisalQuestion/removeQuestion",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.delete(`${API_PREFIX}removequestion?id=${args.id}`)
+    return await MasterConfig.delete(`api/appraisal/appraisalQuestion/removequestion?id=${args.id}`)
       .then((res) => {
         if (res.data.responseCode === responseCode.Success) {
           res.data.message = "Appraisal removed successfully!";
-          dispatch(appraisalDeleted(args));
+          dispatch(appraisalQuestionDeleted(args));
         }
         responseMessage({ dispatch, data: res.data });
         return res.data;

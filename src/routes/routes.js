@@ -152,7 +152,7 @@ export const routes = {
 		{
 			path: `${ROUTES.HR.ADMINISTRATOR.APPRASIAL},`,
 			component: lazy(() => {
-				import("../main/features/appraisal/view/index");
+				import("../main/features/appraisal/appraisalQuestion/view/index");
 			}),
 		},
 		{

@@ -4,7 +4,7 @@ import { ROUTES } from "../../../../utils/routes";
 import ExpenseHeader from "../../../../main/features/expenseHeader/view/index";
 import Grade from "../../../../main/features/grade/view/index";
 import Designation from "../../../../main/features/designation/view/index";
-import Appraisal from "../../../../main/features/appraisal/view/index";
+import Appraisal from "../../../../main/features/appraisal/appraisalQuestion/view/index";
 import LeaveType from "../../../../main/features/leaveType/view/index";
 import SalaryHeader from "../../../../main/features/salaryHeader/view/index";
 import EmailConfiguration from "../../../../main/features/emailConfiguration/view/index";

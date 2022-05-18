@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode.js";
+import { responseCode } from "../../../../../services/enums/responseCode.js";
 import { addQuestion, getAllQuestion, removeQuestion, updateQuestion } from "./actions.js";
 
 const initialState = {

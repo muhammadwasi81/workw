@@ -126,7 +126,7 @@ const Reward = props => {
 						}
 					>
 						{isTablet ? "" : sharedLabels.ListView}{" "}
-						<UnorderedListOutlined />
+						<UnorderedListOutlined style={{marginLeft: "2px"}} />
 					</div>,
 					<div
 						onClick={() => setGrid(true)}
@@ -137,7 +137,7 @@ const Reward = props => {
 						}
 					>
 						{isTablet ? "" : sharedLabels.TableView}{" "}
-						<AppstoreFilled />
+						<AppstoreFilled style={{marginLeft: "2px"}} />
 					</div>,
 				]}
 			/>

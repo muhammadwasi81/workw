@@ -1,7 +1,7 @@
 import { Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
+import { AdminTable } from "../../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllQuestion, removeQuestion } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import { appraisalDeleted } from "../store/slice";

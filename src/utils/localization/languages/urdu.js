@@ -222,6 +222,7 @@ const urdu = {
 		complains: "شکایت",
 		bonus: "انعام",
 		resignations: "استعفی",
+		rewards: "انعام"
 	},
 
 	/*** AppHeader only used in Component headerTab ***/

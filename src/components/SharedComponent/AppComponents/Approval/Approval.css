@@ -20,6 +20,10 @@
 .header-left > .user-details > .user-name{
     font-weight: bold;
 }
+.ApprovalCollapse .ant-collapse-header {
+    padding: 6px 8px !important;
+    padding-right: 32px !important;
+}
 .header-right > button{
     border-radius: 5px;
     font-weight: bold;

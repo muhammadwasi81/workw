@@ -6,34 +6,27 @@ import UserInfo from "../../../../components/SharedComponent/UserShortInfo/UserI
 import SublineDesigWithTime from "../../../../components/SharedComponent/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 
 function ListItem(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { sharedLabels } = dictionaryList[userLanguage];
 
-	const {
+	const {  	
 		creator,
-		name,
-		description,
-		image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-		reason,
-		category,
-		members = [],
+		name, 
+		description, 
+		image="http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg", 
+		reason, 
+		category, 
+		members=[], 
 		approvers,
 		status,
 	} = props.item;
 
-	// console.log(props.item, "imagessss")
+	console.log(props.item, "imagessss")
 	return (
 		<div className="list-item">
-			<div
-				className="new"
-				id={props.id}
-				onClick={() => {
-					props.getRewardId(props.id);
-				}}
-			></div>
+			<div className="new" id={props.id} onClick={() => {props.getRewardId(props.id)}}></div>
 			<div className="item-header">
 				<div className="left">
 					<UserInfo
@@ -49,7 +42,7 @@ function ListItem(props) {
 				</div>
 				<div className="right">
 					<Tag className="IdTag">TRA-000085</Tag>
-					<StatusTag status={status}></StatusTag>
+					<StatusTag  status={status}></StatusTag>
 				</div>
 			</div>
 			<div className="item-content">
@@ -75,7 +68,7 @@ function ListItem(props) {
 						<div className="mem">
 							{members.map((val, i) => {
 								if (i > 2) return "";
-								let { member = { image: "", name: "" } } = val;
+								let { member={image:"", name:""} } = val;
 								return member && member.image ? (
 									<div
 										key={`grpmem${i}`}
@@ -88,9 +81,7 @@ function ListItem(props) {
 									/>
 								) : (
 									<div key={`grpmem${i}`} className="us-img">
-										{getNameForImage(
-											member ? member.name : ""
-										)}
+										{getNameForImage(member ? member.name : "")}
 									</div>
 								);
 							})}
@@ -143,7 +134,7 @@ function ListItem(props) {
 					<Image
 						preview={false}
 						width={100}
-						src={image === "" ? RewardDefaultIcon : image}
+						src={image === "" ? "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg" : image}
 					/>
 				</div>
 			</div>

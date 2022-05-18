@@ -1,36 +1,40 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { addReward, getAllRewards, GetRewardById } from "./actions";
 
 const initialState = {
-  rewards: [],
-  loadingData: false,
-  loader: false,
-  rewardDetail: {}
+	rewards: [],
+	loadingData: false,
+	loader: true,
+	rewardDetail: null,
 };
 
 const rewardSlice = createSlice({
-  name: "rewards",
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(getAllRewards.fulfilled, (state, action) => {
-      state.rewards = action.payload;
-      console.log(action.payload, "rewards data");
-    });
+	name: "rewards",
+	initialState,
+	reducers: {},
+	extraReducers: builder => {
+		builder.addCase(getAllRewards.fulfilled, (state, action) => {
+			state.rewards = action.payload ? action.payload : [];
+			state.loader = false;
+		});
 
-    builder.addCase(GetRewardById.fulfilled, (state, action) => {
-      state.rewardDetail = action.payload;
-      console.log(action.payload, "rewards data");
-    });
+		builder.addCase(GetRewardById.fulfilled, (state, action) => {
+			console.log("action.payload", action.payload);
+			state.rewardDetail = action.payload.data;
+		});
 
-    builder.addCase(addReward.fulfilled, (state, { payload }) => {
-      console.log(payload, "from reducer")
-      state.rewardData = payload;
-      return state;
-    })
-
-
-  },
+		builder
+			.addCase(addReward.fulfilled, (state, { payload }) => {
+				state.rewardData = payload;
+				return state;
+			})
+			.addMatcher(isPending(...[getAllRewards]), state => {
+				state.loader = true;
+			})
+			.addMatcher(isRejected(...[getAllRewards]), state => {
+				state.loader = true;
+			});
+	},
 });
 
 export const {} = rewardSlice.actions;

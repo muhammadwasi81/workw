@@ -1,11 +1,11 @@
-import { Button, Form, Input } from "antd";
+import { Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../../components/SharedComponent/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
+import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../../components/SharedComponent/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
-import { addReward } from "../store/actions";
+import { addReward, GetRewardById } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -23,8 +23,8 @@ const Composer = props => {
 
 	useEffect(() => {
 		dispatch(getRewardCategory());
-		// dispatch(getAllEmployee());
-		// console.log(employeesList, "EMPLOYEES")
+    // dispatch(getAllEmployee());
+    // console.log(employeesList, "EMPLOYEES")
 	}, []);
 
 	const handleImageUpload = data => {
@@ -64,8 +64,6 @@ const Composer = props => {
 
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
-	// const value = employees.EmployeeForm;
-	// const placeholder = employees.placeholders;
 
 	return (
 		<>
@@ -86,7 +84,7 @@ const Composer = props => {
 				autoComplete="off"
 			>
 				<Form.Item
-					label="Name"
+					label="Award Name"
 					name="name"
 					labelPosition="top"
 					rules={[
@@ -100,7 +98,7 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label="Award"
+					label="Reason for Award"
 					name="reason"
 					rules={[
 						{
@@ -126,7 +124,7 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label="Category"
+					label="Select Category"
 					name="categoryId"
 					rules={[
 						{
@@ -151,20 +149,20 @@ const Composer = props => {
 
 				<Form.Item
 					name="members"
-					label={"Memebers"}
+					label={"Search Memebers"}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
 				>
 					<NewCustomSelect
 						name="members"
-						label={"Memebers"}
+						label={"Search Memebers"}
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
-						endPoint="api/Reference/GetAllUserReference"
+						endPoint="GetAllUserReference"
 						requestType="post"
-						placeholder={"Select Memeber"}
+						placeholder={"Search Memebers"}
 					/>
 				</Form.Item>
 
@@ -172,7 +170,7 @@ const Composer = props => {
 					<SingleUpload
 						handleImageUpload={handleImageUpload}
 						img="Add Image"
-						position="flex-start"
+            position="flex-start"
 					/>
 				</Form.Item>
 
@@ -241,10 +239,7 @@ const Composer = props => {
 
 				<Form.Item>
 					<Button
-						type="primary"
-						size="medium"
-						className="ThemeBtn"
-						block
+						buttonClass="submitButton"
 						htmlType="submit"
 						title="Create Reward"
 					>

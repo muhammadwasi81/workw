@@ -4,7 +4,7 @@ import * as moment from "moment";
 import brokenPaper from "../content/svg/brokenpaper.svg";
 import { Link } from "react-router-dom";
 import { REPORT_URL } from "./services";
-
+import { ROUTES } from "./routes";
 // require("jquery.caret");
 
 let DOMAIN_PREFIX = "";
@@ -156,7 +156,7 @@ export const STRINGS = {
 		BUDGET: {
 			DEFAULT: `${DOMAIN_PREFIX}/budgets`,
 		},
-		ROOT: `${DOMAIN_PREFIX}/*`,
+		ROOT: `${DOMAIN_PREFIX}/`,
 		NEWSFEED: {
 			DETAILS: `${DOMAIN_PREFIX}/newsFeedDetails`,
 		},
@@ -1661,18 +1661,24 @@ export function getCommentLikesView(count, youLike) {
 //         }
 //     }
 // }
-
 export function setAuthEnv(token, user) {
+	console.log(
+		"base chal rha he -----------------------------------------------------------"
+	);
+	console.log("dasfasdfs");
 	localStorage.setItem(STRINGS.STORAGE.token, token);
 	user.fullname = user.first_name + " " + user.last_name;
 	localStorage.setItem(STRINGS.STORAGE.user, JSON.stringify(user));
-	//console.log(user);
-	window.location = STRINGS.ROUTES.ROOT;
+	console.log(user);
+	window.location = ROUTES.ROOT;
 }
 
 export function logout() {
 	localStorage.clear();
-	window.location = STRINGS.ROUTES.ROOT;
+	window.location = ROUTES.AUTH.SIGN_IN;
+	console.log(
+		"base chal rha he -----------------------------------------------------------"
+	);
 }
 
 export function getNameForImage(name) {

@@ -13,13 +13,68 @@ export const routes = {
 	// Private Route Here
 	Private: [
 		{
-			path: ROUTES.ROOT,
+			path: ROUTES.HOME,
 			component: lazy(() => import("../components/MainMenu/Home/")),
 		},
 		{
 			path: ROUTES.MESSENGER.DEFAULT,
 			component: lazy(() => import("../main/features/Messenger/")),
 		},
+		{
+			path: `${ROUTES.MAIL.DEFAULT}`,
+			component: lazy(() => import("../components/MainMenu/Mail/")),
+		},
+		{
+			path: `${ROUTES.TASK.DEFAULT}`,
+			component: lazy(() => import("../main/features/task/view")),
+		},
+		{
+			path: `${ROUTES.HR.RESIGNATIONS.DEFAULT}`,
+			component: lazy(() =>
+				import("../components/HrMenu/Resignations/Resignation")
+			),
+		},
+		{
+			path: `${ROUTES.TRAVEL.DEFAULT}`,
+			component: lazy(() => import("../main/features/travel/")),
+		},
+		{
+			path: `${ROUTES.HR.EMPLOYEES.DEFAULT}`,
+			component: lazy(() => import("../main/features/employee/")),
+		},
+		{
+			path: `${ROUTES.HR.WARNINGS.DEFAULT}`,
+			component: lazy(() => import("../components/HrMenu/Warnings/")),
+		},
+		{
+			path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
+			component: lazy(() =>
+				import("../components/HrMenu/Warnings/Approvals/")
+			),
+		},
+		{
+			path: `${ROUTES.HR.COMPLAINS.DEFAULT}`,
+			component: lazy(() => import("../components/HrMenu/Complains/")),
+		},
+		{
+			path: `${ROUTES.HR.BONUS.DEFAULT}`,
+			component: lazy(() => import("../components/HrMenu/Bonus/")),
+		},
+
+		//Hr Router
+		{
+			path: `${ROUTES.HR.ADMINISTRATOR.DEFAULT}`,
+			component: lazy(() =>
+				import("../components/HrMenu/Administration/")
+			),
+		},
+		{
+			path: `${ROUTES.HR.REWARDS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/reward/view/Reward")
+			),
+		},
+
 		// {
 		// 	path: ROUTES.GROUP.DEFAULT,
 		// 	component: lazy(() => import("../components/MainMenu/Groups/")),
@@ -31,10 +86,6 @@ export const routes = {
 		//
 		// },
 
-		{
-			path: `${ROUTES.MAIL.DEFAULT}`,
-			component: lazy(() => import("../components/MainMenu/Mail/")),
-		},
 		// {
 		// 	path: `${ROUTES.DOCUMENTS.DEFAULT}`,
 		// 	component: lazy(() => import("../components/MainMenu/Documents/")),
@@ -54,16 +105,7 @@ export const routes = {
 		// 	),
 		//
 		// },
-		{
-			path: `${ROUTES.TASK.DEFAULT}`,
-			component: lazy(() => import("../main/features/task/view")),
-		},
-		{
-			path: `${ROUTES.HR.RESIGNATIONS.DEFAULT}`,
-			component: lazy(() =>
-				import("../components/HrMenu/Resignations/Resignation")
-			),
-		},
+
 		// {
 		// 	path: `${ROUTES.EXPENSE.DEFAULT}`,
 		// 	component: lazy(() =>
@@ -71,62 +113,29 @@ export const routes = {
 		// 	),
 		//
 		// },
-		{
-			path: `${ROUTES.TRAVEL.DEFAULT}`,
-			component: lazy(() => import("../main/features/travel/")),
-		},
 
-		//Hr Router
-		// {
-		// 	path: `${ROUTES.HR.ADMINISTRATOR.DEFAULT}`,
-		// 	component: lazy(() =>
-		// 		import("../components/HrMenu/Administration/")
-		// 	),
-		// },
-		{
-			path: `${ROUTES.HR.EMPLOYEES.DEFAULT}`,
-			component: lazy(() => import("../main/features/employee/")),
-		},
 		// {
 		// 	path: `${ROUTES.HR.REWARDS.DEFAULT}`,
 		// 	component: lazy(() =>
 		// 		import("../main/features/reward/view/Reward")
 		// 	),
 		// },
-		{
-			path: `${ROUTES.HR.WARNINGS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Warnings/")),
-		},
-		{
-			path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
-			component: lazy(() =>
-				import("../components/HrMenu/Warnings/Approvals/")
-			),
-		},
-		{
-			path: `${ROUTES.HR.COMPLAINS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Complains/")),
-		},
-		{
-			path: `${ROUTES.HR.BONUS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Bonus/")),
-		},
-		{
-			path: `${ROUTES.HR.REWARDS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/reward/view/Reward")
-			),
-		},
 
 		// {
 		// path: `${ROUTES.HR.REWARDS.APPROVALS}`,
 		// component: lazy(() =>
 		// 	import("../main/features/reward/view/BonusApproval/")
 		// ),
-		//
+
 		// },
 	],
 	AdminRoutes: [
+		{
+			path: `${"/hr/administrator/"},`,
+			component: lazy(() => {
+				import("../main/features/accessRole/view/AccessRole");
+			}),
+		},
 		{
 			path: `${ROUTES.HR.ADMINISTRATOR.GRADE},`,
 			component: lazy(() => {
@@ -139,12 +148,7 @@ export const routes = {
 				import("../main/features/designation/view/index");
 			}),
 		},
-		{
-			path: `${ROUTES.HR.ADMINISTRATOR.ACCESSROLES},`,
-			component: lazy(() => {
-				import("../main/features/accessRole/view/AccessRole");
-			}),
-		},
+
 		{
 			path: `${ROUTES.HR.ADMINISTRATOR.APPRASIAL},`,
 			component: lazy(() => {
@@ -215,4 +219,5 @@ export const routes = {
 			}),
 		},
 	],
+	Rewards: [],
 };

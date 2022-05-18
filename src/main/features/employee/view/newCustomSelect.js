@@ -1,5 +1,5 @@
-import { Form, Select } from "antd";
-import React, { useEffect, useState } from "react";
+import { Select } from "antd";
+import React, { useState } from "react";
 import useSearch from "./useSearch";
 import PropTypes from "prop-types";
 //import * as S from "../Styles/employee.style";
@@ -23,23 +23,50 @@ function NewCustomSelect(props) {
 	}
 	const onPopupScroll = event => {
 		let target = event.target;
+		// console.log("target", target.scrollTop);
+		// console.log(
+		// 	"target.scrollTop + target.offsetHeight",
+		// 	target.scrollTop + target.offsetHeight
+		// );
+		// console.log("target.scrollHeight", target.scrollHeight);
+		// if (target.scrollTop + target.offsetHeight <= target.scrollHeight) {
+		// 	console.log("loading", loading);
+		// }
 		if (
 			!loading &&
-			target.scrollTop + target.offsetHeight === target.scrollHeight
+			Math.ceil(target.scrollTop + target.offsetHeight) ===
+				target.scrollHeight
 		) {
+			console.log("inside first if");
 			if (responseData.data.length > 0) {
 				setPageNumber(prevPageNumber => prevPageNumber + 1);
 			}
+		}
+	};
+	const img = data => {
+		// console.log("data", data);
+		if (data.hasOwnProperty("image")) {
+			return (
+				<img
+					className="inline-block h-12 w-12 rounded-full ring-2 ring-white"
+					src={
+						data.image.length > 0
+							? data.image
+							: "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"
+					}
+				/>
+			);
 		}
 	};
 	// const loadedData = data.map((data, index) => {
 	// 	return <Option key={data.id}>{data.name}</Option>;
 	// });
 	// console.log("mode", props.mode);
+	// console.log("data", data);
+
 	return (
 		<Select
 			status={props.status}
-			style={{ width: "100%" }}
 			mode={props.mode}
 			onSearch={handleSearch}
 			loading={loading}
@@ -53,7 +80,7 @@ function NewCustomSelect(props) {
 			onClear={props.onClear}
 			onClick={props.onClick}
 			onFocus={props.onFocus}
-			className="newCustomSelect"
+			className="newCustomSelect w-full"
 			id={props.id}
 			allowClear={props.allowClear}
 			clearIcon={props.clearIcon}
@@ -102,6 +129,18 @@ function NewCustomSelect(props) {
 					</>
 				);
 			}}
+			filterOption={(input, option) =>
+				option.children
+					.toString()
+					.toLowerCase()
+					.indexOf(input.toLowerCase()) >= 0
+			}
+			filterSort={(optionA, optionB) =>
+				optionA.children
+					.toString()
+					.toLowerCase()
+					.localeCompare(optionB.children.toString().toLowerCase())
+			}
 		>
 			{/* {loadedData} */}
 
@@ -114,7 +153,8 @@ function NewCustomSelect(props) {
 							props.valueObject ? JSON.stringify(data) : data.id
 						}
 					>
-						{data.name.toLowerCase()}
+						{img(data)}
+						{data.name}
 					</Option>
 				))}
 		</Select>
@@ -156,17 +196,15 @@ NewCustomSelect.propTypes = {
 	onDropdownVisibleChange: PropTypes.func,
 	onSearch: PropTypes.func,
 	name: PropTypes.string.isRequired,
-	label: PropTypes.string.isRequired,
-	direction: PropTypes.any.isRequired,
+	label: PropTypes.string,
+	direction: PropTypes.any,
 	rules: PropTypes.arrayOf(PropTypes.object).isRequired,
 	endPoint: PropTypes.string.isRequired,
 	requestType: PropTypes.string.isRequired,
-	onSearch: PropTypes.func.isRequired,
+	onSearch: PropTypes.func,
 	size: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
 	status: PropTypes.string,
-	// label: PropTypes.string.isRequired,
-	direction: PropTypes.any.isRequired,
 	valueObject: PropTypes.bool,
 };
 NewCustomSelect.defaultProps = {
@@ -176,4 +214,5 @@ NewCustomSelect.defaultProps = {
 	rules: [{ required: true }],
 	onChange: undefined,
 	mode: "",
+	showImage: false,
 };

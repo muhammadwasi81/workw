@@ -235,12 +235,12 @@
 }
 .tag_expense_btn {
 	margin-top: 10px;
-	height: 35px;
+	height: 40px;
 }
 .error {
 	color: red;
 }
-
+/* 
 .sideDrawerBtnMobileView{
     position: absolute;
     bottom: 110px;
@@ -248,4 +248,4 @@
     right: 20px;
 	border-radius: 50px;
     overflow: hidden;
-}
+} */

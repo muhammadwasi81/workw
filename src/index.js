@@ -7,23 +7,23 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./store/store";
 // import { SnackbarProvider } from "notistack";
 import { LanguageProvider } from "./utils/localization/localContext/LocalContext";
-import { persistStore } from "redux-persist";
+// import { persistStore } from "redux-persist";
 import { ThemeStore } from "./utils/contextApi/directionContexApi";
 import Theme from "./utils/contextApi/directionContexApi/theme";
-import "antd/dist/antd.css";
-import { injectStore } from "./utils/services/AxiosConfig";
+import "antd/dist/antd.min.css";
+import { injectStore as InjectMainConfigStore } from "./utils/services/AxiosConfig";
 import { injectStore as InjectAuthConfigStore } from "./utils/services/AuthConfig";
-
 import { injectStore as InjectMasterConfigStore } from "./utils/services/MasterConfig";
-
+import { injectStore as InjectMessengerConfigStore } from "./utils/services/MessengerConfig";
 import ReactDOM from "react-dom/client";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // let persistor = persistStore(store);
 const onBeforeLift = () => {};
 
-injectStore(store);
+InjectMainConfigStore(store);
 InjectAuthConfigStore(store);
 InjectMasterConfigStore(store);
+InjectMessengerConfigStore(store);
 root.render(
 	<Provider store={store}>
 		<PersistGate

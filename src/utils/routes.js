@@ -1,5 +1,5 @@
-let DOMAIN_PREFIX = "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/development" : "";
+let DOMAIN_PREFIX;
+DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const ROUTES = {
 	SEARCH: {
@@ -10,9 +10,9 @@ export const ROUTES = {
 		CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
 	},
 	AUTH: {
-		SIGN_UP: `${DOMAIN_PREFIX}register`,
+		SIGN_UP: `${DOMAIN_PREFIX}/register`,
 		SIGN_UP_SUCCESS: `${DOMAIN_PREFIX}/thankyou`,
-		SIGN_IN: `${DOMAIN_PREFIX}login`,
+		SIGN_IN: `${DOMAIN_PREFIX}/login`,
 		INDIVIDUAL_SIGN_IN: `${DOMAIN_PREFIX}/individualSignIn`,
 		PAYMENT: `${DOMAIN_PREFIX}/AddPaymentCard`,
 		EXTERNAL_SIGN_UP: `${DOMAIN_PREFIX}/externalSignup`,
@@ -26,6 +26,7 @@ export const ROUTES = {
 		DEFAULT: `${DOMAIN_PREFIX}/budgets`,
 	},
 	ROOT: `${DOMAIN_PREFIX}/`,
+	HOME: `${DOMAIN_PREFIX}/`,
 	NEWSFEED: {
 		DETAILS: `${DOMAIN_PREFIX}/newsFeedDetails`,
 	},
@@ -35,7 +36,7 @@ export const ROUTES = {
 	SCHEDULE_REMARKS: `${DOMAIN_PREFIX}/ScheduleRemark`,
 	PRE_EMPLOYMENT: `${DOMAIN_PREFIX}/EmploymentForm`,
 	GROUP: {
-		DEFAULT: `${DOMAIN_PREFIX}/groups/`,
+		DEFAULT: `${DOMAIN_PREFIX}/groups`,
 		NEWS: `${DOMAIN_PREFIX}/groups/news`,
 		SCHEDULES: `${DOMAIN_PREFIX}/groups/schedules`,
 		TASKS: `${DOMAIN_PREFIX}/groups/tasks`,
@@ -97,7 +98,7 @@ export const ROUTES = {
 		DEFAULT: `${DOMAIN_PREFIX}/newschedules`,
 	},
 	TASKS: `${DOMAIN_PREFIX}/tasks`,
-	LEAVES: `${DOMAIN_PREFIX}/leaves/`,
+	LEAVES: `${DOMAIN_PREFIX}/leaves`,
 	EXPENSES: `${DOMAIN_PREFIX}/expenses`,
 	CUSTOM_APPROVALS: `${DOMAIN_PREFIX}/customApprovals`,
 	LOAN: `${DOMAIN_PREFIX}/loan`,
@@ -164,6 +165,7 @@ export const ROUTES = {
 		},
 		REWARDS: {
 			DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
+			REWARD: `${DOMAIN_PREFIX}/rewards/`,
 			APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
 		},
 		EMPLOYEES: {
@@ -187,29 +189,30 @@ export const ROUTES = {
 			BANK_DETAILS: `${DOMAIN_PREFIX}/hr/employees/bankDetails`,
 		},
 		ADMINISTRATOR: {
-			DEFAULT: `${DOMAIN_PREFIX}/hr/administrator/`,
-			ACCESSROLES: `${DOMAIN_PREFIX}accessroles`,
-			GRADE: `${DOMAIN_PREFIX}grade`,
-			DESIGNATION: `${DOMAIN_PREFIX}designation`,
-			APPRASIAL: `${DOMAIN_PREFIX}appraisal`,
-			TIMEZONE: `${DOMAIN_PREFIX}timezone`,
-			OFFICETIMING: `${DOMAIN_PREFIX}officetimings`,
-			OFFICETIME: `${DOMAIN_PREFIX}officetimings/officetime`,
-			CURRENCY: `${DOMAIN_PREFIX}currency`,
-			EMPLOYEE_TIME: `${DOMAIN_PREFIX}officetimings/employee_time`,
-			JOB_SKILLS: `${DOMAIN_PREFIX}job_skills`,
-			LEAVE_TYPES: `${DOMAIN_PREFIX}leaveType`,
-			USER_TYPES: `${DOMAIN_PREFIX}userTypes`,
-			EXPENSE_HEADERS: `${DOMAIN_PREFIX}expenseHeaders`,
-			SALARY_HEADERS: `${DOMAIN_PREFIX}salaryHeaders`,
-			EMAIL_CONFIG: `${DOMAIN_PREFIX}emailConfig`,
-			REQUEST_FOR_RIGHTS: `${DOMAIN_PREFIX}rights`,
-			CUSTOM_APPROVALS: `${DOMAIN_PREFIX}customApprovals`,
-			CUSTOM_APPROVAL_CATEGORY: `${DOMAIN_PREFIX}customApprovalCategory`,
-			DEFAULT_APPROVALS: `${DOMAIN_PREFIX}defaultApprovals`,
-			ALLOWANCES: `${DOMAIN_PREFIX}allowances`,
-			REWARD_CATEGORY: `${DOMAIN_PREFIX}rewardCategory`,
-			WARNING_CATEGORY: `${DOMAIN_PREFIX}warningCategory`,
+			DEFAULT: `${DOMAIN_PREFIX}/hr/administrator/*`,
+			ADMINISTRATION: `${DOMAIN_PREFIX}/hr/administrator/`,
+			ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
+			GRADE: `grade`,
+			DESIGNATION: `designation`,
+			APPRASIAL: `appraisal`,
+			TIMEZONE: `timezone`,
+			OFFICETIMING: `officetimings`,
+			OFFICETIME: `officetimings/officetime`,
+			CURRENCY: `currency`,
+			EMPLOYEE_TIME: `officetimings/employee_time`,
+			JOB_SKILLS: `job_skills`,
+			LEAVE_TYPES: `leaveType`,
+			USER_TYPES: `userTypes`,
+			EXPENSE_HEADERS: `expenseHeaders`,
+			SALARY_HEADERS: `salaryHeaders`,
+			EMAIL_CONFIG: `emailConfig`,
+			REQUEST_FOR_RIGHTS: `rights`,
+			CUSTOM_APPROVALS: `customApprovals`,
+			CUSTOM_APPROVAL_CATEGORY: `customApprovalCategory`,
+			DEFAULT_APPROVALS: `defaultApprovals`,
+			ALLOWANCES: `allowances`,
+			REWARD_CATEGORY: `rewardCategory`,
+			WARNING_CATEGORY: `warningCategory`,
 		},
 		COMPANIES: {
 			DEFAULT: `${DOMAIN_PREFIX}/hr/companies`,
@@ -240,7 +243,7 @@ export const ROUTES = {
 			DEFAULT: `${DOMAIN_PREFIX}/appraisals`,
 		},
 		RESIGNATIONS: {
-			DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
+			DEFAULT: `${DOMAIN_PREFIX}/resignations/`,
 		},
 		WARNINGS: {
 			DEFAULT: `${DOMAIN_PREFIX}/warnings`,

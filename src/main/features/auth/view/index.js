@@ -4,14 +4,15 @@ import "./styles/style.css";
 import SignIn from "./signIn/signin";
 import MainBannerContent from "./AuthPageContent/MainBannerContent";
 import { Col, Row } from "antd";
-import { STRINGS } from "../../../../utils/base";
+// import { STRINGS } from "../../../../utils/base";
+import { ROUTES } from "../../../../utils/routes";
 import { useSelector } from "react-redux";
 
 const Auth = () => {
 	const { token } = useSelector(state => state.userSlice);
 	const isLoggedIn = !!token;
 	if (isLoggedIn) {
-		return <Navigate to={STRINGS.ROUTES.ROOT} />;
+		return <Navigate to={ROUTES.ROOT} />;
 	}
 
 	return (

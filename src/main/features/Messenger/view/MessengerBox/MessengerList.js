@@ -18,9 +18,9 @@ const MessengerList = ({isChatBox=true, messageList, isOpenProfile}) => {
    return (
       <div className={"MessengerList " + (isChatBox ? "ChatBoxMessages " : " ") + (isOpenProfile ? "blur-bg" : "")}  >
          {
-            messageList.map((val) => {
+            messageList.map((val, ind) => {
                return (
-                  <MessengerListItem id={val.id} Content={val.msgContent} msgId={val.msgId} />
+                  <MessengerListItem id={val.id} Content={val.msgContent} msgId={val.msgId} key={ind} />
                )
             })
          }    

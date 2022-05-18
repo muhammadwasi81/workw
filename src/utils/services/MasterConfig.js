@@ -14,7 +14,7 @@ export const injectStore = _store => {
 instance.interceptors.request.use(
 	config => {
 		const token = store.getState().userSlice.token;
-		console.log("token", token);
+		// console.log("token", token);
 		if (token) {
 			axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 			config.headers["Authorization"] = "Bearer " + token;

@@ -35,23 +35,7 @@ import ErrorBoundary from "./utils/ErrorBoundary";
 import { LanguageChangeContext } from "./utils/localization/localContext/LocalContext";
 import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
-// import Administration from "./components/HrMenu/Administration/AdministationPanel";
-import Designation from "./main/features/designation/view";
-// import AdminRoutes from "./components/HrMenu/Administration/AdminRoutes/adminroutes";
-import Index from "./components/HrMenu/Administration";
-import AccessRole from "./main/features/accessRole/view/AccessRole";
-import Appraisal from "./main/features/appraisal/view";
-import OfficeTiming from "./main/features/officeTimings/view";
-import LeaveType from "./main/features/leaveType/view";
-import ExpenseHeader from "./main/features/expenseHeader/view";
-import SalaryHeader from "./main/features/salaryHeader/view";
-import EmailConfiguration from "./main/features/emailConfiguration/view";
-import CustomApprovalCategory from "./main/features/customApprovalCategory/view";
-import Allowance from "./main/features/allowance/view";
-import JobDescription from "./main/features/jobDescription/view";
-import RewardCategory from "./main/features/reward/rewardCategory/view";
-import WargningCategory from "./main/features/warningCategory/view";
-import Grade from "./main/features/grade/view";
+// import Reward from "./main/features/reward/view/Reward";
 // import { Socket } from "./utils/socket";
 
 const App = () => {
@@ -94,7 +78,8 @@ const App = () => {
 	const isLoggedIn = !!token;
 	// const isLoggedIn = true;
 	// if (isLoggedIn) Socket(); // i will add this line in <Route/> component. from "./routes"; line 26
-
+	console.log("app js", isLoggedIn);
+	console.log("Routes", ROUTES.ROOT);
 	return (
 		<ErrorBoundary>
 			<MainFlexContainer>
@@ -104,11 +89,15 @@ const App = () => {
 						<Route path={ROUTES.AUTH.SIGN_IN} element={<Auth />} />
 						<Route
 							path={ROUTES.AUTH.INDIVIDUAL_SIGN_IN}
-							element={<IndivisualSignup />}
+							element={
+								<IndivisualSignup isLoggedIn={isLoggedIn} />
+							}
 						/>
 						<Route
 							path={ROUTES.AUTH.SIGN_UP}
-							element={<OrganizationalSignup />}
+							element={
+								<OrganizationalSignup isLoggedIn={isLoggedIn} />
+							}
 						/>
 						<Route
 							path={ROUTES.AUTH.VERIFICATION_SUCCESS}
@@ -125,7 +114,7 @@ const App = () => {
 
 						{/*****Public Route******/}
 						<Route
-							path={"/"}
+							path={ROUTES.ROOT}
 							element={
 								<PrivateRotutes
 									isLoggedIn={isLoggedIn}
@@ -134,99 +123,18 @@ const App = () => {
 								/>
 							}
 						>
-							{routes.Private.map((route, idx) => (
+							{routes.Private.map(route => (
 								<Route
-									key={idx}
-									path={`${route.path}`}
+									key={route.path}
+									path={route.path}
 									element={<route.component />}
 								/>
 							))}
-							<Route
-								path={ROUTES.HR.ADMINISTRATOR.DEFAULT}
-								element={<Index />}
-							>
-								{/* <AdminRoutes /> */}
-								{/* {routes.AdminRoutes.map((route, idx) => (
-									<Route
-										key={idx}
-										path={`${route.path}`}
-										element={<route.component />}
-									/>
-								))} */}
-								<Route
-									path={ROUTES.HR.ADMINISTRATOR.GRADE}
-									element={<Grade />}
-								/>
-								<Route
-									path={ROUTES.HR.ADMINISTRATOR.DESIGNATION}
-									element={<Designation />}
-								/>
-								<Route
-									path={ROUTES.HR.ADMINISTRATOR.DEFAULT}
-									element={<AccessRole />}
-								/>
-								<Route
-									path={ROUTES.HR.ADMINISTRATOR.APPRASIAL}
-									element={<Appraisal />}
-								/>
-								<Route
-									path={ROUTES.HR.ADMINISTRATOR.OFFICETIME}
-									element={<OfficeTiming />}
-								/>
-
-								<Route
-									path={ROUTES.HR.ADMINISTRATOR.LEAVE_TYPES}
-									element={<LeaveType />}
-								/>
-
-								<Route
-									path={
-										ROUTES.HR.ADMINISTRATOR.EXPENSE_HEADERS
-									}
-									element={<ExpenseHeader />}
-								/>
-								<Route
-									path={
-										ROUTES.HR.ADMINISTRATOR.SALARY_HEADERS
-									}
-									element={<SalaryHeader />}
-								/>
-								<Route
-									path={ROUTES.HR.ADMINISTRATOR.EMAIL_CONFIG}
-									element={<EmailConfiguration />}
-								/>
-
-								<Route
-									path={
-										ROUTES.HR.ADMINISTRATOR
-											.CUSTOM_APPROVAL_CATEGORY
-									}
-									element={<CustomApprovalCategory />}
-								/>
-								<Route
-									path={ROUTES.HR.ADMINISTRATOR.ALLOWANCES}
-									element={<Allowance />}
-								/>
-
-								<Route
-									path={ROUTES.HR.ADMINISTRATOR.JOB_SKILLS}
-									element={<JobDescription />}
-								/>
-								<Route
-									path={
-										ROUTES.HR.ADMINISTRATOR.REWARD_CATEGORY
-									}
-									element={<RewardCategory />}
-								/>
-								<Route
-									path={
-										ROUTES.HR.ADMINISTRATOR.WARNING_CATEGORY
-									}
-									element={<WargningCategory />}
-								/>
-							</Route>
 						</Route>
-						<Route path="*" element={<Navigate to="/" replace />} />
+						<Route
+							path={"*"}
+							element={<Navigate to={ROUTES.AUTH.SIGN_IN} />}
+						/>
 					</ReactRoutes>
 				</Router>
 			</MainFlexContainer>

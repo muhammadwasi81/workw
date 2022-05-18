@@ -8,7 +8,8 @@ import { navBarOpen } from "../../../store/appReducer/responsiveSlice";
 import { NavLink, useLocation } from "react-router-dom";
 import AntTooltip from "../../SharedComponent/Tooltip/AntTooltip";
 import { Badge } from "antd";
-
+let DOMAIN_PREFIX = "";
+DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 const NavMenuListContainer = ({ navbarstatus }) => {
 	const { pathname } = useLocation();
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -31,7 +32,11 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 	//     });
 	//     setAllMenu(res);
 	// }, []);
-
+	// console.log(
+	// 	"asdfdsaf",
+	// 	pathname.split("/")[1] + "/" + pathname.split("/")[2]
+	// 	// path.split("/")[1] + "/" + path.split("/")[2]
+	// );
 	return (
 		<div className="nav-menu">
 			{NO_RIGHTS ? (
@@ -59,8 +64,8 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 			)}
 
 			{navMenuData &&
-				navMenuData.map(({ name, to: path, icon }, index) =>
-					navbarstatus ? (
+				navMenuData.map(({ name, to: path, icon }, index) => {
+					return navbarstatus ? (
 						<div className="menu-item" key={index}>
 							<NavLink
 								// className={({ isActive }) =>
@@ -144,8 +149,8 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 								</Badge>
 							</AntTooltip>
 						</NavLink>
-					)
-				)}
+					);
+				})}
 
 			{NO_RIGHTS && (
 				<SideMenuLabel

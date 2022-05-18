@@ -20,18 +20,25 @@ const Edit = (handleEdit, row) => {
 
 export const tableColumns = (
 	handleEdit,
-	id,
-	accessRoles,
+	// id,
+	// accessRoles,
 	Direction,
 	sharedLabels
 ) => {
 	return Direction === "ltr"
 		? [
-				{ title: [sharedLabels.name], dataIndex: "name" },
-				{ title: [sharedLabels.description], dataIndex: "description" },
+				{
+					title: [sharedLabels.name],
+					dataIndex: "name",
+				},
+				{
+					title: [sharedLabels.description],
+					dataIndex: "description",
+				},
 				{
 					title: [sharedLabels.userType],
 					dataIndex: "usertype",
+
 					render: (_, row) => {
 						return (
 							userType &&
@@ -49,7 +56,7 @@ export const tableColumns = (
 				{
 					title: [sharedLabels.action],
 					dataIndex: "action",
-					width: "10%",
+
 					render: (_, row) => {
 						return Edit(handleEdit, row);
 					},

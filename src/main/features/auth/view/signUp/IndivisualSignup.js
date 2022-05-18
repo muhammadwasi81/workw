@@ -5,7 +5,8 @@ import IndividualSignIn from "./OrganizationalSignup";
 import ArrowImg from "../../../../../content/png/arrow.png";
 // import AuthFoooterContent from './AuthPageContent/AuthFoooterContent';
 // import MainBannerContent from './AuthPageContent/MainBannerContent';
-import { STRINGS } from "../../../../../utils/base";
+// import { STRINGS } from "../../../../../utils/base";
+import { ROUTES } from "../../../../../utils/routes";
 
 export default class IndivisualSignup extends Component {
 	componentDidMount() {
@@ -13,10 +14,10 @@ export default class IndivisualSignup extends Component {
 	}
 
 	render() {
-		const isLoggedIn = !!localStorage.getItem(STRINGS.STORAGE.token);
-
+		// const isLoggedIn = !!localStorage.getItem(STRINGS.STORAGE.token);
+		const { isLoggedIn } = this.props;
 		if (isLoggedIn) {
-			return <Navigate to={STRINGS.ROUTES.ROOT} />;
+			return <Navigate to={ROUTES.ROOT} />;
 		}
 		return (
 			<div className="lgBox">

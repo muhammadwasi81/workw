@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Navigate, Outlet, Route, Routes as R } from "react-router-dom";
-import { routes } from "./routes";
+// import { routes } from "./routes";
 // import { STRINGS } from "../utils/base";
 import { ROUTES } from "../utils/routes";
 import Nav from "../components/MainMenu/Nav/";
@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { Main as KonnectCallView } from "./../main/container/konnect_call/main";
 import { InComingCallContainer } from "../main/container/konnect_call/InComingCallContainer";
 import { Socket, SOCKET_STATE } from "../utils/socket";
-
+import { routes } from "../routes/routes";
 const PrivateRoute = () => {
 	const { token } = useSelector(state => state.userSlice);
 
@@ -35,10 +35,14 @@ const PrivateRoute = () => {
 			// 			element={<route.component />}
 			// 		/>
 			// 	))}
-			// 	<Route path="*" element={<Navigate to="/" replace />} />
+			// 	<Route
+			// 		path="*"
+			// 		element={<Navigate to={ROUTES.HOME} replace />}
+			// 	/>
 			// </R>
 		);
 	} else {
+		console.log("redirect un private routes");
 		return (
 			<Navigate
 				to={{
@@ -50,6 +54,7 @@ const PrivateRoute = () => {
 };
 
 export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
+	console.log("private routes");
 	const minimizeCall = useSelector(({ call }) => call.minimizeCall);
 	const inComingCall = useSelector(({ call }) => call.inComingCall);
 	const socketState = useSelector(

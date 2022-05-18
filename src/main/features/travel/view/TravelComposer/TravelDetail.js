@@ -45,6 +45,7 @@ function TravelDetail(props) {
 		checkValidation,
 		submit,
 		setSubmit,
+		travelDetails,
 	} = props;
 
 	const [items] = useState(travelCategoryData);
@@ -230,8 +231,8 @@ function TravelDetail(props) {
 						valueObject={true}
 						name="travel"
 						showSearch={true}
-						status={errors.departureId && "error"}
-						endPoint="GetAllCities"
+						status={errors.departureId ? "error" : ""}
+						endPoint="/api/Utility/GetAllCities"
 						requestType="post"
 						placeholder="Search Departure To Select"
 						value={state.departureId}
@@ -249,8 +250,8 @@ function TravelDetail(props) {
 						valueObject={true}
 						name="travel"
 						showSearch={true}
-						status={errors.arrivalId && "error"}
-						endPoint="GetAllCities"
+						status={errors.arrivalId ? "error" : ""}
+						endPoint="/api/Utility/GetAllCities"
 						requestType="post"
 						placeholder="Search Destination To Select"
 						value={state.arrivalId}

@@ -13,7 +13,7 @@ export const getAllLeaveTypeService = () => {
 
 export const addLeaveTypeService = (args) => {
   return AxiosConfig.post(`${API_PREFIX}addleavetype`, args)
-    .then((res) => {
+    .then((res) => {    
       return res.data;
     })
     .catch((err) => {

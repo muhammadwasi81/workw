@@ -30,7 +30,7 @@ import holiday_event from "../../../content/svg/menu/newNavBarIcon/Holidays.svg"
 import career from "../../../content/svg/menu/newNavBarIcon/Career.svg";
 import resignation from "../../../content/svg/menu/newNavBarIcon/resignation.svg";
 import rewardIcon from "../../../content/svg/menu/rewardIcon.svg";
-
+import { DOMAIN_PREFIX } from "../../../utils/routes";
 const NavMenuList = () => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const label = dictionaryList[userLanguage];
@@ -39,7 +39,7 @@ const NavMenuList = () => {
 		{
 			name: label.navMenuLabel.feed,
 			counter: 0,
-			to: ROUTES.HOME,
+			to: DOMAIN_PREFIX,
 			icon: newsIcon,
 			isActive: 1,
 		},
@@ -168,14 +168,14 @@ const NavMenuList = () => {
 			name: label.navMenuLabel.employee,
 			counter: 0,
 			icon: employeeIcon,
-			to: ROUTES.HR.EMPLOYEES.DEFAULT,
+			to: ROUTES.EMPLOYEES.EMPLOYEELINK,
 			isActive: true,
 		},
 		{
 			name: label.navMenuLabel.administration,
 			counter: 0,
 			icon: administrator,
-			to: ROUTES.HR.ADMINISTRATOR.ADMINISTRATION,
+			to: ROUTES.ADMINISTRATOR.ADMINISTRATION,
 			isActive: true,
 		},
 		// {
@@ -252,7 +252,7 @@ const NavMenuList = () => {
 			name: label.navMenuLabel.rewards,
 			counter: 0,
 			icon: rewardIcon,
-			to: ROUTES.HR.REWARDS.REWARD,
+			to: ROUTES.REWARDS.REWARD,
 			isActive: true,
 		},
 	];

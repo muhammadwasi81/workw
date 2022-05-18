@@ -21,7 +21,7 @@ const Index = () => {
 				<HeaderMenuContainer>
 					<HeaderNavLink
 						activeName={"Employees"}
-						to={ROUTES.HR.EMPLOYEES.DEFAULT}
+						to={ROUTES.EMPLOYEES.EMPLOYEELINK}
 						isDefault={true}
 						linkName={label.appHeader.employee.employees}
 					/>

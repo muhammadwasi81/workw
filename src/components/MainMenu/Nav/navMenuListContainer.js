@@ -12,7 +12,6 @@ let DOMAIN_PREFIX = "";
 DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 const NavMenuListContainer = ({ navbarstatus }) => {
 	const { pathname } = useLocation();
-	console.log(pathname);
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { isMobileScreen } = useSelector(state => state.responsiveSlice);
 	const dispatch = useDispatch();
@@ -165,7 +164,6 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 
 			{navHrMenuData &&
 				navHrMenuData.map(({ name, to: path, icon }, index) => {
-					console.log("domain prefix", DOMAIN_PREFIX);
 					return navbarstatus ? (
 						<div className="menu-item" key={index}>
 							<NavLink

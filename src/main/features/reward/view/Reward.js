@@ -14,6 +14,7 @@ import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import TopBar from "../../../sharedComponents/topBar/topBar";
+import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 import {
 	FilterFilled,
 	UnorderedListOutlined,
@@ -23,7 +24,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllRewards, GetRewardById } from "../store/actions";
 import TableView from "./TableView";
-import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
+
 import "./reward.css";
 
 const Reward = props => {
@@ -57,15 +58,11 @@ const Reward = props => {
 		dispatch(getAllRewards(filter));
 	}, [filter]);
 	return (
-		<TabbableContainer className="max-width-1190">
+		<TabbableContainer className="max-width-1190 mx-auto">
 			<ContainerHeader>
 				<HeaderMenuContainer></HeaderMenuContainer>
 				<div className="right-menu" style={{ paddingRight: "10px" }}>
-					<div
-						className={
-							isTablet ? "btn-hld CompBtnMobile" : "btn-hld"
-						}
-					>
+					<div className={""}>
 						<SideDrawer
 							title="Create Reward"
 							buttonText={rewardsDictionary.createReward}
@@ -75,11 +72,11 @@ const Reward = props => {
 						</SideDrawer>
 					</div>
 				</div>
-				<span className="ln" />
+				{/* <span className="ln" /> */}
 			</ContainerHeader>
 			<TopBar
 				buttons={[
-					<Button className="filterButton topBtn">
+					<Button className="filterButton topBtn !h-full !flex !items-center">
 						{isTablet ? "" : sharedLabels.filter}
 						<FilterFilled className="topBarIcon" />
 					</Button>,

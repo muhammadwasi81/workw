@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 // import { dictionaryList } from "../../../utils/localization/languages";
 // import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { Row, Col } from "antd";
@@ -22,7 +22,7 @@ const TopBar = ({ buttons, gridIcons }) => {
 
 	return (
 		<>
-			<div className="mt-3.5 p-2 rounded bg-white sm:w-99p md:w-90p lg:w-92p xl:w-93p ">
+			<div className="mt-3.5 p-2 rounded bg-white sm:w-99p md:w-90p lg:w-92p xl:w-full ">
 				<Row>
 					<Col span={isTablet ? 18 : 6} className="inner">
 						{/* width50 */}
@@ -34,7 +34,7 @@ const TopBar = ({ buttons, gridIcons }) => {
 								style={{
 									backgroundColor: "#F4F4F4",
 									border: "1px solid #1A5669",
-									height: "30px",
+									height: "100%",
 								}}
 								className="bg-zinc-100 border border-primary-color h-8"
 								onChange={e => console.log("hello")}
@@ -60,22 +60,26 @@ const TopBar = ({ buttons, gridIcons }) => {
 						""
 					)}
 					<Col span={isTablet ? 24 : 18} className="inner2">
-						<Row className={isTablet ? "forMobile" : "btnRow"}>
+						<Row
+							className={
+								isTablet ? "forMobile" : "btnRow !h-full"
+							}
+						>
 							<Col span={isTablet ? 24 : 17}>
-								<div className="icons">{buttons}</div>
+								<div className="flex gap-3 pl-4 !h-full">
+									{buttons}
+								</div>
 							</Col>
 							{isTablet ? (
 								""
 							) : (
 								<Col
 									span={7}
-									className="gridInner"
-									style={{
-										display: "flex",
-										justifyContent: "flex-end",
-									}}
+									className="gridInner !flex !justify-end"
 								>
-									<div className="gridIcons">{gridIcons}</div>
+									<div className="gridIcons w-56">
+										{gridIcons}
+									</div>
 								</Col>
 							)}
 						</Row>

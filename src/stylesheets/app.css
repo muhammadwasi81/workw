@@ -215,7 +215,7 @@ iframe {
 /* SALMAN CSS END */
 
 /* Danish css start */
-.h-full {
+/* .h-full {
 	height: 100%;
 }
 .w-full {
@@ -229,7 +229,7 @@ iframe {
 }
 .w-fit{
 	width: fit-content;
-}
+} */
 .w-0{
 	width: 0px;
 }
@@ -239,7 +239,7 @@ iframe {
 .w-auto{
 	width: auto;
 }
-.flex {
+/* .flex {
 	display: flex;
 }
 .wrap{
@@ -274,13 +274,13 @@ iframe {
 }
 .text-bold {
 	font-weight: bold;
-}
+} */
 .hotel_tada_span {
 	background: #696c76;
 	padding: 2px 5px;
 	border-radius: 5px;
 }
-.text-20 {
+/* .text-20 {
 	font-size: 20px;
 }
 .text-16 {
@@ -315,7 +315,7 @@ iframe {
 }
 .gap-10{
 	gap: 10px;
-}
+} */
 /* .sideDrawerBtnMobileView{
     position: absolute !important;
     bottom: 110px;

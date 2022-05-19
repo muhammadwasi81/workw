@@ -27,15 +27,12 @@ import "./stylesheets/composer.css";
 import "./stylesheets/documents.css";
 import "./stylesheets/resignation.css";
 import "./stylesheets/shared.css";
-// import "./stylesheets/task.css";
 import "./stylesheets/travel.css";
 import "./stylesheets/postComposer.css";
-// import { Routings } from "./utils/routes";
 import ErrorBoundary from "./utils/ErrorBoundary";
 import { LanguageChangeContext } from "./utils/localization/localContext/LocalContext";
 import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
-// import Reward from "./main/features/reward/view/Reward";
 // import { Socket } from "./utils/socket";
 
 const App = () => {
@@ -78,8 +75,8 @@ const App = () => {
 	const isLoggedIn = !!token;
 	// const isLoggedIn = true;
 	// if (isLoggedIn) Socket(); // i will add this line in <Route/> component. from "./routes"; line 26
-	console.log("app js", isLoggedIn);
-	console.log("Routes", ROUTES.ROOT);
+	// console.log("app js", isLoggedIn);
+	// console.log("Routes", ROUTES.ROOT);
 	return (
 		<ErrorBoundary>
 			<MainFlexContainer>

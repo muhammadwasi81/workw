@@ -3,11 +3,14 @@ import React, { useState, useCallback } from "react";
 import ImageReader from "../../../sharedComponents/ImageReader/ImageReader";
 import UserSearchable from "../../../sharedComponents/UserSearchable/UserSearchable";
 import PollFields from "./PollFields";
-import PostFields from "./PostFields";
+import PostTitleField from "./PostTitleField";
+import {useDispatch} from "react-redux";
+import {onFeedCreateSubmitAction} from "../store/slice";
 
 const defaultAttachmentState = [{ type: 0, file: "" }];
 
 const ComposerForm = (props) => {
+  const dispatcher = useDispatch()
   const { setShareWith } = props;
   const [formRef] = Form.useForm();
   const [uploadedFiles, setFiles] = useState([]);
@@ -19,6 +22,7 @@ const ComposerForm = (props) => {
   };
 
   const getTagUser = (e) => {
+    console.log("aksjdhajsdkjashdas", e)
     setShareWith(e);
   };
 
@@ -79,7 +83,7 @@ const ComposerForm = (props) => {
     <>
       <Form form={formRef} onFinish={onFinish}>
         {fieldsType === "postDetails" ? (
-          <PostFields />
+          <PostTitleField />
         ) : (
           <PollFields setFieldsType={setFieldsType} />
         )}
@@ -96,7 +100,7 @@ const ComposerForm = (props) => {
         )}
         <div className="select-users">
           <div className="badge">Write</div>
-          <Form.Item name={"mentionUser"} className="c-multi-select">
+          <Form.Item name={"tagUsers"} className="c-multi-select">
             <UserSearchable data={options} onChange={(e) => getTagUser(e)} />
           </Form.Item>
         </div>
@@ -150,7 +154,7 @@ const ComposerForm = (props) => {
               />
             </button>
           </Dropdown>
-          <button className="post-form" type="submit">
+          <button className="post-form" type="submit" onClick={() => dispatcher(onFeedCreateSubmitAction())}>
             Post
           </button>
         </div>

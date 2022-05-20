@@ -177,14 +177,13 @@ const ExperienceForm = () => {
                     )}
                     <S.EFormItem rules={[{ required: true }]}>
                       <div className="custom-for-attachment-1">
-                        <Checkbox onChange={() => checkHandler(i)}>
-                          {value.Present}
-                        </Checkbox>
-
                         <DeleteOutlined
                           className="epmloyeeDeleteIcon"
                           onClick={() => remove(name)}
                         />
+                        <Checkbox onChange={() => checkHandler(i)}>
+                          {value.Present}
+                        </Checkbox>
                       </div>
                     </S.EFormItem>
                   </S.CustomSpace>

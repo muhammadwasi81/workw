@@ -23,6 +23,12 @@
 		grid-area: 3/ 3 / span 1 / span 2;
 	}
 }
+@media screen and (max-width:700px) {
+	.uploadImg
+	{
+		justify-content: center;
+	}
+}
 
 .newCustomSelect {
 	width: 100%;
@@ -56,4 +62,7 @@
 
 .employeeForm>:nth-child(1) {
 	order: 1;
+}
+.ant-form .ant-form-item .ant-form-item-control, .ant-form .ant-form-item .ant-form-item-label{
+	flex: none;
 }

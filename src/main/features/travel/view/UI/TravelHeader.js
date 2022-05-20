@@ -3,9 +3,9 @@ import { STRINGS } from "../../../../../utils/base";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import {
-	HeaderMenuContainer,
-	TabContainer,
-	ContBody,
+  HeaderMenuContainer,
+  TabContainer,
+  ContBody,
 } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 import { ContainerHeader } from "../../../../sharedComponents/AppComponents/MainHeader";
 import HeaderNavLink from "../../../../sharedComponents/AppComponents/MainHeader/HeaderNavLink";
@@ -15,19 +15,19 @@ import TravelComposer from "../TravelComposer/TravelComposer";
 import { useMediaQuery } from "react-responsive";
 
 function TravelHeader() {
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const label = dictionaryList[userLanguage];
-	return (
-		<TabContainer>
-			<ContainerHeader>
-				<HeaderMenuContainer>
-					<HeaderNavLink
-						activeName={"travel"}
-						to={STRINGS.ROUTES.TRAVEL.DEFAULT}
-						isDefault={true}
-						linkName={label.appHeader.travel.travels}
-					/>
-					{/* <HeaderNavLink
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const label = dictionaryList[userLanguage];
+  return (
+    <TabContainer>
+      <ContainerHeader>
+        <HeaderMenuContainer>
+          <HeaderNavLink
+            activeName={"travel"}
+            to={STRINGS.ROUTES.TRAVEL.DEFAULT}
+            isDefault={true}
+            linkName={label.appHeader.travel.travels}
+          />
+          {/* <HeaderNavLink
 						activeName={"approvals"}
 						to={STRINGS.ROUTES.TRAVEL.APPROVALS}
 						isDefault={false}
@@ -39,22 +39,22 @@ function TravelHeader() {
 						isDefault={false}
 						linkName={label.appHeader.travel.agentProcess}
 					/> */}
-				</HeaderMenuContainer>
+        </HeaderMenuContainer>
 
-				<div className="right-menu" style={{ paddingRight: "10px" }}>
-					<div className="btn-hld travel_drawer">
-						<SideDrawer
-							children={<TravelComposer />}
-							title="Create Travel Expense"
-							buttonText="Create Travel"
-							isAccessDrawer={false}
-						/>
-					</div>
-				</div>
-				{/* <span className="ln" /> */}
-			</ContainerHeader>
-			<ContBody style={{ display: "flex" }}>
-				{/* <div className="lf-col" style={{ flex: 2 }}>
+        <div className="right-menu" style={{ paddingRight: "10px" }}>
+          <div className="btn-hld travel_drawer">
+            <SideDrawer
+              children={<TravelComposer />}
+              title="Create Travel Expense"
+              buttonText="Create Travel"
+              isAccessDrawer={false}
+            />
+          </div>
+        </div>
+        {/* <span className="ln" /> */}
+      </ContainerHeader>
+      <ContBody style={{ display: "flex" }}>
+        {/* <div className="lf-col" style={{ flex: 2 }}>
 					<TravelListing />
 					<TravelApprovals />
 				</div>
@@ -64,14 +64,14 @@ function TravelHeader() {
 				>
 					<TravelFilterForm />
 				</div> */}
-				{/* <p>asdfadsfsadfsadfasdfasdfasdfdsafasdfdsafsadf</p> */}
-				{/* <div className="right-menu" style={{ paddingRight: "10px" }}>
+        {/* <p>asdfadsfsadfsadfasdfasdfasdfdsafasdfdsafsadf</p> */}
+        {/* <div className="right-menu" style={{ paddingRight: "10px" }}>
 					<div className="btn-hld travel_drawer">
 					</div>
 				</div> */}
-			</ContBody>
-		</TabContainer>
-	);
+      </ContBody>
+    </TabContainer>
+  );
 }
 
 export default TravelHeader;

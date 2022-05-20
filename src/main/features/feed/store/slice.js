@@ -1,7 +1,6 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {onFeedCreateSubmit, onFeedTitleTextChange, onFeedAddMention} from "./actions"
+import {createSlice} from "@reduxjs/toolkit";
+import {onFeedTitleTextChange, onFeedAddMention, onFeedCreateSubmitAction} from "./actions"
 
-export const onFeedCreateSubmitAction = createAsyncThunk("feedSlice/onFeedCreateSubmit", onFeedCreateSubmit)
 export const feedSlice = createSlice({
   name: "feedSlice",
   initialState: {
@@ -25,9 +24,14 @@ export const feedSlice = createSlice({
     onFeedTitleTextChange, onFeedAddMention
   },
   extraReducers: {
-    [onFeedCreateSubmitAction.fulfilled]: (state, _) => {
-      console.log("onFeedCreateSubmitActionFulFilled", state.feedCompose)
-      return state;
+    [onFeedCreateSubmitAction.pending]: (state, action) => {
+      console.log("onFeedCreateSubmitActionPending", state, action)
+    },
+    [onFeedCreateSubmitAction.rejected]: (state, action) => {
+      console.log("onFeedCreateSubmitActionRejected", state, action)
+    },
+    [onFeedCreateSubmitAction.fulfilled]: (state, action) => {
+      console.log("onFeedCreateSubmitActionFulFilled", state, action)
     }
   }
 });

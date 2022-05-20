@@ -1,16 +1,16 @@
 import { Dropdown, Form, Input } from "antd";
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import ImageReader from "../../../sharedComponents/ImageReader/ImageReader";
 import UserSearchable from "../../../sharedComponents/UserSearchable/UserSearchable";
 import PollFields from "./PollFields";
 import PostTitleField from "./PostTitleField";
 import {useDispatch} from "react-redux";
-import {onFeedCreateSubmitAction} from "../store/slice";
+import {onFeedCreateSubmitAction} from "../store/actions";
 
 const defaultAttachmentState = [{ type: 0, file: "" }];
 
 const ComposerForm = (props) => {
-  const dispatcher = useDispatch()
+  const dispatch = useDispatch()
   const { setShareWith } = props;
   const [formRef] = Form.useForm();
   const [uploadedFiles, setFiles] = useState([]);
@@ -154,7 +154,7 @@ const ComposerForm = (props) => {
               />
             </button>
           </Dropdown>
-          <button className="post-form" type="submit" onClick={() => dispatcher(onFeedCreateSubmitAction())}>
+          <button className="post-form" type="submit" onClick={() => dispatch(onFeedCreateSubmitAction())}>
             Post
           </button>
         </div>

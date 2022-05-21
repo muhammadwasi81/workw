@@ -101,7 +101,9 @@ function TravelHeader() {
 					</div>,
 				]}
 			/>
-			<ContBody className="!block">{/* <Table /> */}</ContBody>
+			<ContBody className="!block">
+				<Table />
+			</ContBody>
 		</TabContainer>
 	);
 }

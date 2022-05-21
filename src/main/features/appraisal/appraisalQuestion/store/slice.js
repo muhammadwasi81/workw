@@ -12,7 +12,7 @@ const appraisalSlice = createSlice({
   name: "Appraisal",
   initialState,
   reducers: {
-    appraisalDeleted: (state, { payload }) => {
+    appraisalQuestionDeleted: (state, { payload }) => {
       state.appraisals = state.appraisals.filter((e) => e.id !== payload.id);
     },
   },
@@ -49,5 +49,5 @@ const appraisalSlice = createSlice({
   },
 });
 
-export const { appraisalDeleted } = appraisalSlice.actions;
+export const { appraisalQuestionDeleted } = appraisalSlice.actions;
 export default appraisalSlice.reducer;

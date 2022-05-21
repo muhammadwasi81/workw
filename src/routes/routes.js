@@ -13,7 +13,7 @@ export const routes = {
 	// Private Route Here
 	Private: [
 		{
-			path: ROUTES.HOME,
+			path: ROUTES.ROOT,
 			component: lazy(() => import("../components/MainMenu/Home/")),
 		},
 		{
@@ -39,7 +39,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/travel/")),
 		},
 		{
-			path: `${ROUTES.HR.EMPLOYEES.DEFAULT}`,
+			path: `${ROUTES.EMPLOYEES.DEFAULT}`,
 			component: lazy(() => import("../main/features/employee/")),
 		},
 		{
@@ -53,26 +53,26 @@ export const routes = {
 			),
 		},
 		{
-			path: `${ROUTES.HR.COMPLAINS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Complains/")),
-		},
-		{
 			path: `${ROUTES.HR.BONUS.DEFAULT}`,
 			component: lazy(() => import("../components/HrMenu/Bonus/")),
 		},
 
 		//Hr Router
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.DEFAULT}`,
+			path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
 			component: lazy(() =>
 				import("../components/HrMenu/Administration/")
 			),
 		},
 		{
-			path: `${ROUTES.HR.REWARDS.DEFAULT}`,
+			path: `${ROUTES.REWARDS.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/reward/view/Reward")
 			),
+		},
+		{
+			path: `${ROUTES.COMPLAINS.DEFAULT}`,
+			component: lazy(() => import("../main/features/complain/view/Complain")),
 		},
 
 		// {
@@ -115,14 +115,14 @@ export const routes = {
 		// },
 
 		// {
-		// 	path: `${ROUTES.HR.REWARDS.DEFAULT}`,
+		// 	path: `${ROUTES.REWARDS.DEFAULT}`,
 		// 	component: lazy(() =>
 		// 		import("../main/features/reward/view/Reward")
 		// 	),
 		// },
 
 		// {
-		// path: `${ROUTES.HR.REWARDS.APPROVALS}`,
+		// path: `${ROUTES.REWARDS.APPROVALS}`,
 		// component: lazy(() =>
 		// 	import("../main/features/reward/view/BonusApproval/")
 		// ),
@@ -137,83 +137,83 @@ export const routes = {
 			}),
 		},
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.GRADE},`,
+			path: `${ROUTES.ADMINISTRATOR.GRADE},`,
 			component: lazy(() => {
 				import("../main/features/grade/view/index");
 			}),
 		},
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.DESIGNATION},`,
+			path: `${ROUTES.ADMINISTRATOR.DESIGNATION},`,
 			component: lazy(() => {
 				import("../main/features/designation/view/index");
 			}),
 		},
 
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.APPRASIAL},`,
+			path: `${ROUTES.ADMINISTRATOR.APPRASIAL},`,
 			component: lazy(() => {
 				import("../main/features/appraisal/appraisalQuestion/view/index");
 			}),
 		},
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.OFFICETIME},`,
+			path: `${ROUTES.ADMINISTRATOR.OFFICETIME},`,
 			component: lazy(() => {
 				import("../main/features/officeTimings/view/index");
 			}),
 		},
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.LEAVE_TYPES},`,
+			path: `${ROUTES.ADMINISTRATOR.LEAVE_TYPES},`,
 			component: lazy(() => {
 				import("../main/features/leaveType/view/index");
 			}),
 		},
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.EXPENSE_HEADERS},`,
+			path: `${ROUTES.ADMINISTRATOR.EXPENSE_HEADERS},`,
 			component: lazy(() => {
 				import("../main/features/expenseHeader/view/index");
 			}),
 		},
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.SALARY_HEADERS},`,
+			path: `${ROUTES.ADMINISTRATOR.SALARY_HEADERS},`,
 			component: lazy(() => {
 				import("../main/features/salaryHeader/view/index");
 			}),
 		},
 
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.EMAIL_CONFIG},`,
+			path: `${ROUTES.ADMINISTRATOR.EMAIL_CONFIG},`,
 			component: lazy(() => {
 				import("../main/features/emailConfiguration/view/index");
 			}),
 		},
 
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY},`,
+			path: `${ROUTES.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY},`,
 			component: lazy(() => {
 				import("../main/features/customApprovalCategory/view");
 			}),
 		},
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.ALLOWANCES},`,
+			path: `${ROUTES.ADMINISTRATOR.ALLOWANCES},`,
 			component: lazy(() => {
 				import("../main/features/allowance/view/index");
 			}),
 		},
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.JOB_SKILLS},`,
+			path: `${ROUTES.ADMINISTRATOR.JOB_SKILLS},`,
 			component: lazy(() => {
 				import("../main/features/jobDescription/view/index");
 			}),
 		},
 
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.REWARD_CATEGORY},`,
+			path: `${ROUTES.ADMINISTRATOR.REWARD_CATEGORY},`,
 			component: lazy(() => {
 				import("../main/features/reward/rewardCategory/view");
 			}),
 		},
 		{
-			path: `${ROUTES.HR.ADMINISTRATOR.WARNING_CATEGORY},`,
+			path: `${ROUTES.ADMINISTRATOR.WARNING_CATEGORY},`,
 			component: lazy(() => {
 				import("../main/features/warningCategory/view");
 			}),

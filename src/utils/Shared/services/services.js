@@ -107,6 +107,16 @@ export const getAllRewardCategoryService = () => {
 		});
 };
 
+export const getAllComplainCategoryService = () => {
+	return MasterConfig.get("api/Complain/ComplainCategory/GetAllComplainCategory")
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};
+
 export const getAllEmployeeShortService = (pageNo=0, search="") => {
 	return MasterConfig.get(`api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&search=${search}`)
 		.then(res => {
@@ -140,7 +150,7 @@ export const uploadImageService = files => {
 		}
 	}
 	return MasterConfig.post(
-		`Upload/${withoutAuth ? "UploadFilesWithoutAuth" : "UploadFiles"}`,
+		`/${withoutAuth ? "UploadFilesWithoutAuth" : "UploadFiles"}`,
 		formData,
 		{
 			headers: { "Content-Type": "multipart/form-data" },

@@ -822,9 +822,6 @@ i.ic-double-tick {
 	position: relative;
 	overflow: hidden;
 }
-.max-width-1190{
-max-width: 1190px;
-}
 
 .tabbable-container > .cont-header {
 	z-index: 1;

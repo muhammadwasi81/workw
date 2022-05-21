@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllQuestion, removeQuestion } from "../store/actions";
 import { tableColumn } from "./tableColumn";
-import { appraisalDeleted } from "../store/slice";
+import { appraisalQuestionDeleted } from "../store/slice";
 
 export default function AppraisalTable({
   handleEdit,
@@ -21,7 +21,7 @@ export default function AppraisalTable({
   const onSuccess = (e) => {
     console.log(e.id);
     setId(null)
-    dispatch(appraisalDeleted(e))
+    dispatch(appraisalQuestionDeleted(e))
     setClearButton(true)
   }
 

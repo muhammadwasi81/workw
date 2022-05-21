@@ -47,7 +47,11 @@ const en = {
 		MyReward: "My Reward",
 		ForApprovals: "For Approvals",
 		RewardToMe: "Reward To Me",
-		Search: "Search"
+		Search: "Search",
+		award: "Award",
+		members: "Members",
+		selectMember: "Select Member",
+		upload: "Upload"
 	},
 
 	/*** navMenuLabel only used in LeftSideBar ***/
@@ -257,9 +261,6 @@ const en = {
 			bonus: "Bonus",
 			approvers: "Approvals",
 			createBonus: "Create Bonus",
-		},
-		rewards: {
-			rewards: "Rewards",
 		},
 	},
 
@@ -597,6 +598,12 @@ const en = {
 		createresignation: "Create Resignation",
 		reasonforresignation: "Reason for Resignation",
 		istermination: "Is Termination",
+	},
+	rewards: {
+		rewards: "Rewards",
+		PleaseEnterAwardName: "Please Enter Award Name!",
+		EnterAwardName: "Enter Award Name!",
+		EnterAwardReason: "Enter Award Reason",
 	},
 
 	// *** Extra label *** //

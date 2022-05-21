@@ -12,6 +12,7 @@ let DOMAIN_PREFIX = "";
 DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 const NavMenuListContainer = ({ navbarstatus }) => {
 	const { pathname } = useLocation();
+	console.log(pathname);
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
 	const { isMobileScreen } = useSelector(state => state.responsiveSlice);
@@ -38,6 +39,17 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 	// 	pathname.split("/")[1] + "/" + pathname.split("/")[2]
 	// 	// path.split("/")[1] + "/" + path.split("/")[2]
 	// );
+	const activeTab = (isActive, path) => {
+		return isActive
+			? " on"
+			: DOMAIN_PREFIX.length > 0
+			? pathname.split("/").includes(path.split("/")[2])
+				? " on"
+				: ""
+			: pathname.split("/").includes(path.split("/")[1])
+			? " on"
+			: "";
+	};
 	return (
 		<div className="nav-menu">
 			{NO_RIGHTS ? (
@@ -66,27 +78,17 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 
 			{navMenuData &&
 				navMenuData.map(({ name, to: path, icon }, index) => {
+					// console.log("path", path);
+					// console.log("pathname.split()[1].length", path.split("/"));
+
 					return navbarstatus ? (
 						<div className="menu-item" key={index}>
 							<NavLink
-								// className={({ isActive }) =>
-								// 	"anc" + (isActive ? " on" : "")
-								// }
 								className={({ isActive }) =>
-									 Direction === "ltr" ? "anc" : "anc justify-end" +
-									(isActive
-										? " on"
-										: pathname.split("/")[1] +
-												"/" +
-												pathname.split("/")[2] ===
-										  path.split("/")[1] +
-												"/" +
-												path.split("/")[2]
-										? " on"
-										: "")
+								Direction === "ltr" ? "anc" + activeTab(isActive, path) : "anc justify-end" + activeTab(isActive, path)
 								}
+								end
 								to={path}
-								// pathname={pathname}
 								onClick={() =>
 									isMobileScreen &&
 									dispatch(navBarOpen(false))
@@ -163,22 +165,13 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 			)}
 
 			{navHrMenuData &&
-				navHrMenuData.map(({ name, to: path, icon }, index) =>
-					navbarstatus ? (
+				navHrMenuData.map(({ name, to: path, icon }, index) => {
+					console.log("domain prefix", DOMAIN_PREFIX);
+					return navbarstatus ? (
 						<div className="menu-item" key={index}>
 							<NavLink
 								className={({ isActive }) =>
-									Direction === "ltr" ? "anc" : "anc justify-end" +
-									(isActive
-										? " on"
-										: pathname.split("/")[1] +
-												"/" +
-												pathname.split("/")[2] ===
-										  path.split("/")[1] +
-												"/" +
-												path.split("/")[2]
-										? " on"
-										: "")
+								Direction === "ltr" ? "anc" + activeTab(isActive, path) : "anc justify-end" + activeTab(isActive, path)
 								}
 								to={path}
 								onClick={() =>
@@ -243,8 +236,8 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 								</Badge>
 							</AntTooltip>
 						</NavLink>
-					)
-				)}
+					);
+				})}
 		</div>
 	);
 };

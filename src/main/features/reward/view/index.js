@@ -5,17 +5,16 @@ import "./reward.css";
 import Reward from "./Reward";
 
 const Index = () => {
-  return (
-    <Switch>
-      <Route
-        exact
-        path={`${STRINGS.ROUTES.HR.REWARDS.DEFAULT}`}
-        component={Reward}
-      />
-      <Route component={BrokenPage} />
-      
-    </Switch>
-  );
+	return (
+		<Switch>
+			<Route
+				exact
+				path={`${STRINGS.ROUTES.REWARDS.DEFAULT}`}
+				component={Reward}
+			/>
+			<Route component={BrokenPage} />
+		</Switch>
+	);
 };
 
 export default Index;

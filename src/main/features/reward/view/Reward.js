@@ -67,7 +67,7 @@ const Reward = props => {
 						}
 					>
 						<SideDrawer
-							title="Create Reward"
+							title={rewardsDictionary.createReward}
 							buttonText={rewardsDictionary.createReward}
 							isAccessDrawer={false}
 						>
@@ -141,8 +141,8 @@ const Reward = props => {
 					</div>,
 				]}
 			/>
-			<ContBody className="WarningMainDiv">
-				<div className="lf-col">
+			<div className="myBody">
+				<div className="cardsRow">
 					{rewards && rewards.length > 0 ? (
 						grid ? (
 							<Row gutter={[16, 16]}>{<TableView />}</Row>
@@ -183,7 +183,7 @@ const Reward = props => {
 						"Data not found"
 					)}
 				</div>
-			</ContBody>
+			</div>
 			{rewardDetail && (
 				<DetailedView onClose={onClose} visible={visible} />
 			)}

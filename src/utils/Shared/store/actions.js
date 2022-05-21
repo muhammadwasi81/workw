@@ -16,6 +16,7 @@ import {
 	uploadImageService,
 	getAllBussinessFeaturesService,
 	getAllEmployeeTypesService,
+	getAllComplainCategoryService
 } from "../services/services";
 
 export const getCountries = createAsyncThunk(
@@ -156,6 +157,14 @@ export const getRewardCategory = createAsyncThunk(
 	"rewardcategory/getallrewardcategory",
 	async data => {
 		const response = await getAllRewardCategoryService(data);
+		return response.data;
+	}
+);
+
+export const getComplainCategory = createAsyncThunk(
+	"ComplainCategory/getAllComplainCategory",
+	async data => {
+		const response = await getAllComplainCategoryService(data);
 		return response.data;
 	}
 );

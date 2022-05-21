@@ -220,13 +220,7 @@ function TravelDetail(props) {
 				<Typography level={5} className="required_typography">
 					Travel
 				</Typography>
-				<div
-					style={{
-						display: "flex",
-						gap: "10px",
-						flexDirection: "column",
-					}}
-				>
+				<div className="flex gap-4 flex-col sm:flex-row">
 					<NewCustomSelect
 						valueObject={true}
 						name="travel"

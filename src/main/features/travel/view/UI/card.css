@@ -40,7 +40,7 @@
 }
 .travel_card_text {
 }
-.h-full {
+/* .h-full {
 	height: 100%;
 }
 .w-full {
@@ -57,8 +57,8 @@
 }
 .flex-row {
 	flex-direction: row;
-}
-.item-center {
+} */
+/* .item-center {
 	align-items: center;
 }
 .justify-center {
@@ -72,7 +72,7 @@
 }
 .text-bold {
 	font-weight: bold;
-}
+} */
 .hotel_tada_span {
 	background: #696c76;
 	padding: 2px 5px;

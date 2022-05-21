@@ -4,7 +4,7 @@
 
 .drawerBtn{
     background: var(--primary_theme_color_green) !important;
-    border-radius: 8px !important;
+    border-radius: 4px !important;
     display: flex !important;
     align-items: center;
     justify-content: center;

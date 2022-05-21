@@ -35,67 +35,65 @@ import { relations } from "../../../../utils/Shared/enums/enums";
 // 	required: "${label} is required!",
 // };
 const EmergencyForm = () => {
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { employees, Direction } = dictionaryList[userLanguage];
-	const value = employees.EmergencyForm;
-	const placeholder = employees.placeholders;
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { employees, Direction } = dictionaryList[userLanguage];
+  const value = employees.EmergencyForm;
+  const placeholder = employees.placeholders;
 
-	// const [emergenctContact, setEmergencyContact] = useState({
-	// 	name: "",
-	// 	number: "",
-	// 	address: "",
-	// 	relation: "",
-	// });
+  // const [emergenctContact, setEmergencyContact] = useState({
+  // 	name: "",
+  // 	number: "",
+  // 	address: "",
+  // 	relation: "",
+  // });
+  //
+  return (
+    <>
+      <S.ContentDivider orientation={Direction === "ltr" ? "left" : "right"}>
+        {value.EmergencyInfo}
+      </S.ContentDivider>
 
-	return (
-		<>
-			<S.ContentDivider
-				orientation={Direction === "ltr" ? "left" : "right"}
-			>
-				{value.EmergencyInfo}
-			</S.ContentDivider>
+      <S.BasicForm name="emergencyContacts" direction={Direction}>
+        <S.FormItem
+          rules={[{ required: true }]}
+          name="name"
+          label={value.Name}
+          direction={Direction}
+        >
+          <Input placeholder={placeholder.name} size="large" />
+        </S.FormItem>
+        <S.FormItem
+          rules={[{ required: true }]}
+          name="address"
+          label={value.Address}
+          direction={Direction}
+        >
+          <Input placeholder={placeholder.address} size="large" />
+        </S.FormItem>
+        <S.FormItem
+          rules={[{ required: true }]}
+          name="contactNo"
+          label={value.Number}
+          direction={Direction}
+        >
+          <Input placeholder={placeholder.number} size="large" />
+        </S.FormItem>
 
-			<S.FormContainer name="emergencyContacts">
-				<S.EFormItem
-					rules={[{ required: true }]}
-					name="name"
-					label={value.Name}
-					direction={Direction}
-				>
-					<Input placeholder={placeholder.name} size="large" />
-				</S.EFormItem>
-				<S.EFormItem
-					rules={[{ required: true }]}
-					name="address"
-					label={value.Address}
-					direction={Direction}
-				>
-					<Input placeholder={placeholder.address} size="large" />
-				</S.EFormItem>
-				<S.EFormItem
-					rules={[{ required: true }]}
-					name="contactNo"
-					label={value.Number}
-					direction={Direction}
-				>
-					<Input placeholder={placeholder.number} size="large" />
-				</S.EFormItem>
-
-				<S.EFormItem
-					rules={[{ required: true }]}
-					name="relation"
-					label={value.Relation}
-					direction={Direction}
-				>
-					<SharedSelect
-						data={relations}
-						placeholder={placeholder.selectRelation}
-						size={"large"}
-					/>
-				</S.EFormItem>
-			</S.FormContainer>
-		</>
-	);
+        <S.FormItem
+          rules={[{ required: true }]}
+          name="relation"
+          label={value.Relation}
+          direction={Direction}
+        >
+          <SharedSelect
+            data={relations}
+            placeholder={placeholder.selectRelation}
+            size={"large"}
+          />
+        </S.FormItem>
+      </S.BasicForm>
+    </>
+  );
 };
 
 export default EmergencyForm;

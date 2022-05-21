@@ -9,19 +9,34 @@ import {
 } from "../../../components/SharedComponent/AppComponents/MainFlexContainer";
 import { ContainerHeader } from "../../../components/SharedComponent/AppComponents/MainHeader";
 import HeaderNavLink from "../../../components/SharedComponent/AppComponents/MainHeader/HeaderNavLink";
-import { useMediaQuery } from "react-responsive";
 import LinkButton from "../../sharedComponents/LinkButton/LinkButton";
 import { PlusOutlined } from "@ant-design/icons";
 import EmployeeRoutes from "./routes/employeeRoutes";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { LeftOutlined } from "@ant-design/icons";
+import styled from "styled-components";
 const Index = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const label = dictionaryList[userLanguage];
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const urlLength = pathname.split("/").length;
+  const BackButton = styled.button`
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  `;
   return (
     <TabbableContainer>
       <ContainerHeader>
         <HeaderMenuContainer>
+          {urlLength > 2 && (
+            <BackButton onClick={() => navigate(-1)}>
+              <LeftOutlined />
+              Back
+            </BackButton>
+          )}
           <HeaderNavLink
             activeName={"Employees"}
             to={ROUTES.EMPLOYEES.EMPLOYEELINK}

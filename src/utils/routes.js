@@ -246,7 +246,7 @@ export const ROUTES = {
   EMPLOYEES: {
     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
-    ADD: `${DOMAIN_PREFIX}/add`,
+    ADD: `${DOMAIN_PREFIX}add`,
     BASIC_INFO: `${DOMAIN_PREFIX}/employees/info`,
     JOB_BY_ID: `${DOMAIN_PREFIX}/employees/job`,
     EMAIL_CONFIG: `${DOMAIN_PREFIX}/employees/emailconfig`,

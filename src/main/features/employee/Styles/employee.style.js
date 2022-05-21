@@ -292,7 +292,7 @@ export const AllEmpolyeeContainer = styled.div`
   width: 100%;
   display: grid;
   margin-top: 5px;
-  gap: 1rem;
+  gap: 0.5rem;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   height: fit-content;
   direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};

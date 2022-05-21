@@ -42,11 +42,11 @@ export const getAllEmployees = createAsyncThunk(
     const res = await getAllEmployeesService();
     if (res.responseCode === responseCode.Success) {
       console.log("success");
-      responseMessage({
-        dispatch: dispatch,
-        data: res,
-        type: responseMessageType.ApiSuccess,
-      });
+      // responseMessage({
+      //   dispatch: dispatch,
+      //   data: res,
+      //   type: responseMessageType.ApiSuccess,
+      // });
       return res;
     } else {
       console.log("error");

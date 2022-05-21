@@ -223,3 +223,81 @@ export const EButton = styled(Button)`
 
   width: 12.4rem !important;
 `;
+export const EmployeeCardCustom = styled.div`
+  display: flex;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 12px 6px -12px #bbbbbb;
+  padding-right: 1rem;
+  transition: 0.3s all;
+  border: 1px solid transparent;
+  cursor: pointer;
+  .employeeCard__img {
+    width: 12rem;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .employeeCard__body {
+    padding: 1rem;
+    p {
+      font-size: 18px;
+      font-weight: 700;
+      color: #454545;
+      margin-bottom: 2px;
+    }
+    & > div {
+      font-size: 12px;
+      color: #9a9a9a;
+      display: flex;
+      span {
+        white-space: nowrap;
+        font-weight: 700;
+      }
+    }
+  }
+  .employeeCard__footer {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 2rem;
+    .anticon {
+      color: #666;
+      font-size: 2rem;
+    }
+  }
+  .buttonGroup {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .ThemeBtn span {
+    color: #fff;
+  }
+  .dangerBtn {
+    background: #db5252 !important;
+    border: none;
+    border-radius: 5px;
+    span {
+      color: #fff;
+    }
+  }
+  &:hover {
+    background: #f8f8f8;
+    border-color: #ccc;
+    box-shadow: 0 18px 12px -18px #bbbbbb;
+  }
+`;
+export const AllEmpolyeeContainer = styled.div`
+  width: 100%;
+  display: grid;
+  margin-top: 5px;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  height: fit-content;
+  direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
+  ${EmployeeCardCustom} {
+    padding-right: ${(props) => (props.direction === "ltr" ? "1rem" : "0")};
+    padding-left: ${(props) => (props.direction === "ltr" ? "0" : "1rem")};
+  }
+`;

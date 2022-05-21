@@ -68,7 +68,7 @@ const EmployeeForm = (props) => {
   const placeholder = employees.placeholders;
   const selectBefore = (
     <S.FormItem name="titleId" className="formItem_userTitle">
-      <Select size="large">
+      <Select size="large" style={{ padding: "0", width: "4rem" }}>
         {userTitle.map((titles) => (
           <Option value={titles.id}>{titles.name}</Option>
         ))}

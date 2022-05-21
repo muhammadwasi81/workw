@@ -1,13 +1,37 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {onFeedTitleTextChange, onFeedAddMention, onFeedCreateSubmitAction} from "./actions"
+import {
+  onFeedCreateSubmitAction,
+  onPostTitleTextChange,
+  onPostMention,
+  onPostTagsChange,
+  addPostAttachment,
+  removePostAttachment,
+  onPostTypeChange,
+  onPostPollOptionTextChange,
+  onPostPollAttachmentChange,
+  addPostPollOption,
+  removePostPollOption,
+  onPostPrivacyChange
+} from "./actions"
+import {PollType, PostPrivacyType, PostType} from "../utils/constants";
 
 export const feedSlice = createSlice({
   name: "feedSlice",
   initialState: {
-    feedCompose: {
-      feedType: 0,
-      feedTitle: "",
-      feedMentions: []
+    postCompose: {
+      privacyType: PostPrivacyType.PUBLIC,
+      type: PostType.DEFAULT,
+      title: "",
+      pollTitle: "",
+      mentions: [],
+      tags: [],
+      attachments: [],
+      poll: {
+        options: [
+          {placeholder: `Option 1`, value: "", type: PollType.DEFAULT, attachment: null},
+          {placeholder: `Option 2`, value: "", type: PollType.DEFAULT, attachment: null}
+        ]
+      }
     },
     feedMentionOptions: [{
       id: "123456",
@@ -21,7 +45,17 @@ export const feedSlice = createSlice({
     }]
   },
   reducers: {
-    onFeedTitleTextChange, onFeedAddMention
+    onPostTitleTextChange,
+    onPostMention,
+    onPostTagsChange,
+    addPostAttachment,
+    removePostAttachment,
+    onPostTypeChange,
+    onPostPollOptionTextChange,
+    onPostPollAttachmentChange,
+    addPostPollOption,
+    removePostPollOption,
+    onPostPrivacyChange
   },
   extraReducers: {
     [onFeedCreateSubmitAction.pending]: (state, action) => {

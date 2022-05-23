@@ -24,7 +24,7 @@ import { useDispatch } from "react-redux";
 import { getAllRewards, GetRewardById } from "../store/actions";
 import TableView from "./TableView";
 import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
-import "./reward.css";
+import "./complain.css";
 
 const Reward = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);

@@ -22,7 +22,7 @@ export const addRewardService = data => {
 
 export const GetRewardByIdService = id => {
 	console.log("ID FROM SERVICE", id)
-	return MasterConfig.get(`api/Reward/GetRewardById?id=${id}`)
+	return MasterConfig.get(`api/Complain/GetComplainById?id=${id}`)
 		.then(res => {
 			return res;
 		})

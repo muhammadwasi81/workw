@@ -30,7 +30,7 @@ function DetailedView(props) {
 
 	return (
 		<Drawer
-			title={sharedLabels.rewards}
+			title={"Complain"}
 			width="768"
 			placement={Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right" }
 			onClose={props.onClose}
@@ -62,16 +62,8 @@ function DetailedView(props) {
 				<div className="ListItemInner">
 					<div className="ItemDetails">
 						<div className="innerDiv">
-							<h3>{sharedLabels.name}</h3>
-							<p>{name}</p>
-						</div>
-						<div className="innerDiv">
 							<h3>{sharedLabels.category}</h3>
 							<Tag className="IdTag">{category}</Tag>
-						</div>
-						<div className="innerDiv">
-							<h3>{sharedLabels.reason}</h3>
-							<p>{reason}</p>
 						</div>
 						<div className="innerDiv">
 							<h3>{sharedLabels.RewardTo}</h3>

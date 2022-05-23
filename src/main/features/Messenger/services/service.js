@@ -22,7 +22,7 @@ export const sendMessageService = data => {
 };
 
 export const getAllMessageService = id => {
-	return Config.get(`api/Messenger/SendChatMessage?chatId=${id}`,)
+	return Config.get(`api/Messenger/GetAllChatMessages?chatId=${id}`,)
 		.then(res => {
 			return res.data;
 		})

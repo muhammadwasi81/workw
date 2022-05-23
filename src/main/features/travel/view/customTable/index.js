@@ -1,202 +1,230 @@
-// import { Space, Tag } from "antd";
 import React from "react";
-import "./table.css";
+import { DragOutlined, MenuOutlined, MoreOutlined } from "@ant-design/icons";
+import ReactDragListView from "react-drag-listview";
 import CustomTable from "./CustomTable";
-import {
-	SortableContainer,
-	SortableElement,
-	SortableHandle,
-} from "react-sortable-hoc";
-import { arrayMoveImmutable } from "array-move";
-import { DragOutlined, MenuOutlined } from "@ant-design/icons";
-const DragHandle = SortableHandle(() => (
-	<MenuOutlined style={{ cursor: "grab", color: "#999" }} />
-));
+import { Menu, Dropdown, Space, Tag } from "antd";
+// import { DownOutlined } from "@ant-design/icons";
+import "./table.css";
 
-const DragColumn = SortableHandle(() => (
-	<DragOutlined style={{ cursor: "grab", color: "#999" }} />
-));
+const DragHandle = () => (
+	<MenuOutlined style={{ cursor: "grab", color: "#999" }} />
+);
 const dragTitle = name => {
 	return (
 		<div className="flex items-center gap-2">
-			<DragColumn />
+			<DragOutlined style={{ cursor: "grab", color: "white" }} />
 			{name}
 		</div>
 	);
 };
-let columns = [
-	{
-		title: "Sort",
-		dataIndex: "sort",
-		key: "0",
-		render: () => <DragHandle />,
-	},
-	{
-		title: dragTitle("Name"),
-		dataIndex: "name",
-		key: "1",
-	},
-	{
-		title: dragTitle("Age"),
-		dataIndex: "age",
-		key: "2",
-	},
-	{
-		title: dragTitle("Address"),
-		dataIndex: "address",
-		key: "3",
-	},
-];
 
-const data = [
-	{
-		key: "asdasd",
-		name: "John Brown",
-		age: 32,
-		address: "New York No. 1 Lake Park",
-		index: 0,
-	},
-	{
-		key: "2",
-		name: "Jim Green",
-		age: 42,
-		address: "London No. 1 Lake Park",
-		index: 1,
-	},
-	{
-		key: "3",
-		name: "Joe Black",
-		age: 32,
-		address: "Sidney No. 1 Lake Park",
-		index: 2,
-	},
-];
-const SortableColumn = SortableElement(props => <th {...props} />);
-const SortableHeader = SortableContainer(props => <thead {...props} />);
-const SortableItem = SortableElement(props => {
-	return <tr {...props} />;
-});
-const SortableBody = SortableContainer(props => <tbody {...props} />);
+const customTags = tags => (
+	<>
+		{tags.map(tag => {
+			// let color = tag.length > 5 ? "geekblue" : "green";
 
-function Table() {
-	return (
-		<>
-			{/* <CustomTable columns={columns} data={data} /> */}
-			<SortableTable style={{ zIndex: 99999999 }} />
-		</>
-	);
-}
-class SortableTable extends React.Component {
+			// if (tag === "loser") {
+			// 	color = "volcano";
+			// }
+			let color;
+			if (tag === "Declined") {
+				color = "!bg-red-500";
+			}
+			if (tag === "Approved") {
+				color = "!bg-lime-500";
+			}
+			if (tag === "In-Process") {
+				color = "!bg-primary-color";
+			}
+			if (tag === "Hold") {
+				color = "!bg-yellow-500";
+			}
+			return (
+				<Tag key={tag} className={`${color} !text-white !border-none`}>
+					{tag.toUpperCase()}
+				</Tag>
+			);
+		})}
+	</>
+);
+
+const menu = (
+	<Menu
+		items={[
+			// {
+			// 	label: <a href="https://www.antgroup.com">1st menu item</a>,
+			// 	key: "0",
+			// },
+			// {
+			// 	label: <a href="https://www.aliyun.com">2nd menu item</a>,
+			// 	key: "1",
+			// },
+			// {
+			// 	type: "divider",
+			// },
+			{
+				label: "Edit",
+				key: "1",
+			},
+		]}
+	/>
+);
+export class Table extends React.Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
-			dataSource: data,
-			columns,
+			data: [
+				{
+					key: "1",
+					name: "Boran",
+					gender: "male",
+					age: "12",
+					address: "New York",
+					status: ["In-Process"],
+				},
+				{
+					key: "2",
+					name: "JayChou",
+					gender: "male",
+					age: "38",
+					address: "TaiWan",
+					status: ["Approved"],
+				},
+				{
+					key: "3",
+					name: "Lee",
+					gender: "female",
+					age: "22",
+					address: "BeiJing",
+					status: ["Hold"],
+				},
+
+				{
+					key: "4",
+					name: "ChouTan",
+					gender: "male",
+					age: "31",
+					address: "HangZhou",
+					status: ["Declined"],
+				},
+				{
+					key: "5",
+					name: "AiTing",
+					gender: "female",
+					age: "22",
+					address: "Xi’An",
+					status: ["Hold"],
+				},
+			],
+			columns: [
+				{
+					title: "Sort",
+					dataIndex: "sort",
+					render: (text, record, index) => (
+						<p className="drag-handle">{<DragHandle />}</p>
+					),
+					fixed: "left",
+				},
+
+				{
+					title: dragTitle("Key"),
+					dataIndex: "key",
+				},
+				{
+					title: dragTitle("Status"),
+					dataIndex: "status",
+					render: (_, { status }) => customTags(status),
+					sorter: (a, b) => a.status[0].localeCompare(b.status[0]),
+				},
+				{
+					title: dragTitle("Name"),
+					dataIndex: "name",
+				},
+				{
+					title: dragTitle("Gender"),
+					dataIndex: "gender",
+				},
+				{
+					title: dragTitle("Age"),
+					dataIndex: "age",
+					sorter: (a, b) => a.age - b.age,
+				},
+				{
+					title: dragTitle("Address"),
+					dataIndex: "address",
+					sorter: (a, b) => a.address.localeCompare(b.address),
+					fixed: "right",
+				},
+				{
+					title: "Actions",
+					key: "action",
+					render: (text, record, index) => (
+						<div>
+							<Dropdown overlay={menu} trigger={["click"]}>
+								<a onClick={e => e.preventDefault()}>
+									<Space>
+										<MoreOutlined className="text-2xl " />
+									</Space>
+								</a>
+							</Dropdown>
+						</div>
+					),
+				},
+			],
 		};
-		// const that = this;
-		// this.dragProps = {
-		// 	onDragEnd(fromIndex, toIndex) {
-		// 		const columns = that.state.columns;
-		// 		const item = columns.splice(fromIndex, 1)[0];
-		// 		columns.splice(toIndex, 0, item);
-		// 		that.setState({
-		// 			columns,
-		// 		});
-		// 	},
-		// 	nodeSelector: "th",
-		// };
+
+		const that = this;
+		this.dragColumnProps = {
+			onDragEnd(fromIndex, toIndex) {
+				const columns = [...that.state.columns];
+				const item = columns.splice(fromIndex, 1)[0];
+				columns.splice(toIndex, 0, item);
+				that.setState({
+					columns,
+				});
+			},
+			nodeSelector: "th",
+			handleSelector: "div",
+		};
+		this.dragRowProps = {
+			onDragEnd(fromIndex, toIndex) {
+				const data = [...that.state.data];
+				const item = data.splice(fromIndex, 1)[0];
+				data.splice(toIndex, 0, item);
+				that.setState({
+					data,
+				});
+			},
+			handleSelector: "p",
+		};
 	}
-
-	onSortEnd = ({ oldIndex, newIndex }) => {
-		const { dataSource } = this.state;
-		if (oldIndex !== newIndex) {
-			const newData = arrayMoveImmutable(
-				[].concat(dataSource),
-				oldIndex,
-				newIndex
-			).filter(el => !!el);
-			console.log("Sorted items: ", newData);
-			this.setState({ dataSource: newData });
-		}
-	};
-	onSortColumnEnd = ({ oldIndex, newIndex }) => {
-		console.log("column drag", oldIndex, newIndex);
-
-		// const { columns } = this.state;
-		// if (oldIndex !== newIndex) {
-		// 	const newData = arrayMoveImmutable(
-		// 		[].concat(columns),
-		// 		oldIndex,
-		// 		newIndex
-		// 	).filter(el => !!el);
-		// 	console.log("Sorted items: ", newData);
-		// 	this.setState({ columns: newData });
-		// }
-	};
-
-	DraggableContainer = props => (
-		<SortableBody
-			useDragHandle
-			disableAutoscroll
-			helperClass="row-dragging"
-			onSortEnd={this.onSortEnd}
-			{...props}
-		/>
-	);
-	DraggableColumnContainer = props => {
-		console.log("column", props);
-		return (
-			<SortableHeader
-				useDragHandle
-				disableAutoscroll
-				helperClass="row-dragging"
-				onSortEnd={this.onSortEnd}
-				{...props}
-			/>
-		);
-	};
-
-	DraggableBodyRow = ({ className, style, ...restProps }) => {
-		const { dataSource } = this.state;
-		// function findIndex base on Table rowKey props and should always be a right array index
-		const index = dataSource.findIndex(
-			x => x.index === restProps["data-row-key"]
-		);
-		return <SortableItem index={index} {...restProps} />;
-	};
-	DraggableHeadColumn = ({ className, style, ...restProps }) => {
-		const { dataSource } = this.state;
-		// function findIndex base on Table rowKey props and should always be a right array index
-		const index = dataSource.findIndex(
-			x => x.index === restProps["data-row-key"]
-		);
-		return <SortableColumn index={index} {...restProps} />;
-	};
-
 	render() {
-		const { dataSource } = this.state;
-
 		return (
-			<CustomTable
-				pagination={false}
-				dataSource={dataSource}
-				columns={columns}
-				rowKey="index"
-				components={{
-					header: {
-						wrapper: this.DraggableColumnContainer,
-						// row: HeaderRow,
-						cell: this.DraggableHeadColumn,
-					},
-
-					body: {
-						wrapper: this.DraggableContainer,
-						row: this.DraggableBodyRow,
-					},
-				}}
-			/>
+			<div>
+				<ReactDragListView.DragColumn {...this.dragColumnProps}>
+					<ReactDragListView {...this.dragRowProps}>
+						<CustomTable
+							columns={this.state.columns}
+							pagination={false}
+							dataSource={this.state.data}
+							bordered={true}
+							onRow={(record, rowIndex) => {
+								return {
+									onClick: event => {
+										event.stopPropagation();
+										console.log("dsfdsf", event);
+									}, // click row
+									onDoubleClick: event => {}, // double click row
+									onContextMenu: event => {}, // right button click row
+									onMouseEnter: event => {}, // mouse enter row
+									onMouseLeave: event => {}, // mouse leave row
+								};
+							}}
+						/>
+					</ReactDragListView>
+				</ReactDragListView.DragColumn>
+			</div>
 		);
 	}
 }
-
-export default Table;

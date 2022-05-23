@@ -20,7 +20,7 @@ import {
 	UnorderedListOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
-import { Index } from "../customTable/indexTable";
+import { Table } from "../customTable/index";
 function TravelHeader() {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const label = dictionaryList[userLanguage];
@@ -102,7 +102,7 @@ function TravelHeader() {
 				]}
 			/>
 			<ContBody className="!block">
-				<Index />
+				<Table />
 			</ContBody>
 		</TabContainer>
 	);

@@ -64,7 +64,7 @@ const Reward = props => {
 				<div className="right-menu" style={{ paddingRight: "10px" }}>
 					<div className={""}>
 						<SideDrawer
-							title="Create Reward"
+							title={rewardsDictionary.createReward}
 							buttonText={rewardsDictionary.createReward}
 							isAccessDrawer={false}
 						>
@@ -123,7 +123,7 @@ const Reward = props => {
 						}
 					>
 						{isTablet ? "" : sharedLabels.ListView}{" "}
-						<UnorderedListOutlined />
+						<UnorderedListOutlined style={{marginLeft: "2px"}} />
 					</div>,
 					<div
 						onClick={() => setGrid(true)}
@@ -134,12 +134,12 @@ const Reward = props => {
 						}
 					>
 						{isTablet ? "" : sharedLabels.TableView}{" "}
-						<AppstoreFilled />
+						<AppstoreFilled style={{marginLeft: "2px"}} />
 					</div>,
 				]}
 			/>
-			<ContBody className="WarningMainDiv">
-				<div className="lf-col">
+			<div className="myBody">
+				<div className="cardsRow">
 					{rewards && rewards.length > 0 ? (
 						grid ? (
 							<Row gutter={[16, 16]}>{<TableView />}</Row>
@@ -180,7 +180,7 @@ const Reward = props => {
 						"Data not found"
 					)}
 				</div>
-			</ContBody>
+			</div>
 			{rewardDetail && (
 				<DetailedView onClose={onClose} visible={visible} />
 			)}

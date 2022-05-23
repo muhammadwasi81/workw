@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 // const API_PREFIX = "/api/Utility/";
 
 export default function useSearch(query, pageNumber, url, requestType) {
@@ -26,13 +26,13 @@ export default function useSearch(query, pageNumber, url, requestType) {
 	const getData = data => {
 		let response;
 		if (requestType.toLowerCase() === "post") {
-			response = AxiosConfig[requestType](`${url}`, data).then(res => {
+			response = MasterConfig[requestType](`${url}`, data).then(res => {
 				setResponseData(res.data);
 				return res.data;
 			});
 		}
 		if (requestType.toLowerCase() === "get") {
-			response = AxiosConfig[requestType](
+			response = MasterConfig[requestType](
 				`${url}?pageNo=${pageNumber}&search=${debouncedQuery}`
 			).then(res => {
 				setResponseData(res.data);

@@ -1,10 +1,10 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
 
 const API_PREFIX = "konnectapi/api/allowance/";
 
 export const getAllAllowanceService = () => {
-  return AxiosConfig.get(`${API_PREFIX}getallallowance`)
+  return MasterConfig.get(`api/allowance/getallallowance`)
     .then((res) => {
       return res.data;
     })
@@ -14,7 +14,7 @@ export const getAllAllowanceService = () => {
 };
 
 export const addAllowanceService = (args) => {
-  return AxiosConfig.post(`${API_PREFIX}addallowance`, args)
+  return MasterConfig.post(`api/allowance/addallowance`, args)
     .then((res) => {
       return res.data;
     })

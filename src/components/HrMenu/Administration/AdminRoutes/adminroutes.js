@@ -17,64 +17,58 @@ import WargningCategory from "../../../../main/features/warningCategory/view";
 import AccessRole from "../../../../main/features/accessRole/view/AccessRole";
 
 const AdminRoutes = () => {
-	// console.log("abcs");
 	return (
 		<Routes>
-			<Route path={ROUTES.HR.ADMINISTRATOR.GRADE} element={<Grade />} />
+			<Route path={"/"} element={<AccessRole />} />
+			<Route path={ROUTES.ADMINISTRATOR.GRADE} element={<Grade />} />
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.DESIGNATION}
+				path={ROUTES.ADMINISTRATOR.DESIGNATION}
 				element={<Designation />}
 			/>
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.ACCESSROLES}
-				element={<AccessRole />}
-			/>
-			<Route
-				path={ROUTES.HR.ADMINISTRATOR.APPRASIAL}
+				path={ROUTES.ADMINISTRATOR.APPRASIAL}
 				element={<Appraisal />}
 			/>
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.OFFICETIME}
+				path={ROUTES.ADMINISTRATOR.OFFICETIME}
 				element={<OfficeTiming />}
 			/>
-
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.LEAVE_TYPES}
+				path={ROUTES.ADMINISTRATOR.LEAVE_TYPES}
 				element={<LeaveType />}
 			/>
-			{/* <Route path={ROUTES.HR.ADMINISTRATOR.USER_TYPES} element={} />  */}
+			{/* <Route path={ROUTES.ADMINISTRATOR.USER_TYPES} element={} />  */}
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.EXPENSE_HEADERS}
+				path={ROUTES.ADMINISTRATOR.EXPENSE_HEADERS}
 				element={<ExpenseHeader />}
 			/>
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.SALARY_HEADERS}
+				path={ROUTES.ADMINISTRATOR.SALARY_HEADERS}
 				element={<SalaryHeader />}
 			/>
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.EMAIL_CONFIG}
+				path={ROUTES.ADMINISTRATOR.EMAIL_CONFIG}
 				element={<EmailConfiguration />}
 			/>
-			{/* <Route path={ROUTES.HR.ADMINISTRATOR.REQUEST_FOR_RIGHTS} element={} /> */}
+			{/* <Route path={ROUTES.ADMINISTRATOR.REQUEST_FOR_RIGHTS} element={} /> */}
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY}
+				path={ROUTES.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY}
 				element={<CustomApprovalCategory />}
 			/>
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.ALLOWANCES}
+				path={ROUTES.ADMINISTRATOR.ALLOWANCES}
 				element={<Allowance />}
 			/>
-			{/* <Route path={ROUTES.HR.ADMINISTRATOR.DEFAULT_APPROVALS} element={} /> */}
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.JOB_SKILLS}
+				path={ROUTES.ADMINISTRATOR.JOB_SKILLS}
 				element={<JobDescription />}
 			/>
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.REWARD_CATEGORY}
+				path={ROUTES.ADMINISTRATOR.REWARD_CATEGORY}
 				element={<RewardCategory />}
 			/>
 			<Route
-				path={ROUTES.HR.ADMINISTRATOR.WARNING_CATEGORY}
+				path={ROUTES.ADMINISTRATOR.WARNING_CATEGORY}
 				element={<WargningCategory />}
 			/>
 		</Routes>

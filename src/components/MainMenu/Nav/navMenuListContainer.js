@@ -8,7 +8,8 @@ import { navBarOpen } from "../../../store/appReducer/responsiveSlice";
 import { NavLink, useLocation } from "react-router-dom";
 import AntTooltip from "../../SharedComponent/Tooltip/AntTooltip";
 import { Badge } from "antd";
-
+let DOMAIN_PREFIX = "";
+DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 const NavMenuListContainer = ({ navbarstatus }) => {
 	const { pathname } = useLocation();
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -31,7 +32,22 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 	//     });
 	//     setAllMenu(res);
 	// }, []);
-
+	// console.log(
+	// 	"asdfdsaf",
+	// 	pathname.split("/")[1] + "/" + pathname.split("/")[2]
+	// 	// path.split("/")[1] + "/" + path.split("/")[2]
+	// );
+	const activeTab = (isActive, path) => {
+		return isActive
+			? " on"
+			: DOMAIN_PREFIX.length > 0
+			? pathname.split("/").includes(path.split("/")[2])
+				? " on"
+				: ""
+			: pathname.split("/").includes(path.split("/")[1])
+			? " on"
+			: "";
+	};
 	return (
 		<div className="nav-menu">
 			{NO_RIGHTS ? (
@@ -59,28 +75,18 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 			)}
 
 			{navMenuData &&
-				navMenuData.map(({ name, to: path, icon }, index) =>
-					navbarstatus ? (
+				navMenuData.map(({ name, to: path, icon }, index) => {
+					// console.log("path", path);
+					// console.log("pathname.split()[1].length", path.split("/"));
+
+					return navbarstatus ? (
 						<div className="menu-item" key={index}>
 							<NavLink
-								// className={({ isActive }) =>
-								// 	"anc" + (isActive ? " on" : "")
-								// }
 								className={({ isActive }) =>
-									"anc" +
-									(isActive
-										? " on"
-										: pathname.split("/")[1] +
-												"/" +
-												pathname.split("/")[2] ===
-										  path.split("/")[1] +
-												"/" +
-												path.split("/")[2]
-										? " on"
-										: "")
+									"anc" + activeTab(isActive, path)
 								}
+								end
 								to={path}
-								// pathname={pathname}
 								onClick={() =>
 									isMobileScreen &&
 									dispatch(navBarOpen(false))
@@ -144,8 +150,8 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 								</Badge>
 							</AntTooltip>
 						</NavLink>
-					)
-				)}
+					);
+				})}
 
 			{NO_RIGHTS && (
 				<SideMenuLabel
@@ -157,22 +163,12 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 			)}
 
 			{navHrMenuData &&
-				navHrMenuData.map(({ name, to: path, icon }, index) =>
-					navbarstatus ? (
+				navHrMenuData.map(({ name, to: path, icon }, index) => {
+					return navbarstatus ? (
 						<div className="menu-item" key={index}>
 							<NavLink
 								className={({ isActive }) =>
-									"anc" +
-									(isActive
-										? " on"
-										: pathname.split("/")[1] +
-												"/" +
-												pathname.split("/")[2] ===
-										  path.split("/")[1] +
-												"/" +
-												path.split("/")[2]
-										? " on"
-										: "")
+									"anc" + activeTab(isActive, path)
 								}
 								to={path}
 								onClick={() =>
@@ -237,8 +233,8 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 								</Badge>
 							</AntTooltip>
 						</NavLink>
-					)
-				)}
+					);
+				})}
 		</div>
 	);
 };

@@ -45,6 +45,7 @@ function TravelDetail(props) {
 		checkValidation,
 		submit,
 		setSubmit,
+		travelDetails,
 	} = props;
 
 	const [items] = useState(travelCategoryData);
@@ -219,19 +220,13 @@ function TravelDetail(props) {
 				<Typography level={5} className="required_typography">
 					Travel
 				</Typography>
-				<div
-					style={{
-						display: "flex",
-						gap: "10px",
-						flexDirection: "column",
-					}}
-				>
+				<div className="flex gap-4 flex-col sm:flex-row">
 					<NewCustomSelect
 						valueObject={true}
 						name="travel"
 						showSearch={true}
-						status={errors.departureId && "error"}
-						endPoint="GetAllCities"
+						status={errors.departureId ? "error" : ""}
+						endPoint="/api/Utility/GetAllCities"
 						requestType="post"
 						placeholder="Search Departure To Select"
 						value={state.departureId}
@@ -249,8 +244,8 @@ function TravelDetail(props) {
 						valueObject={true}
 						name="travel"
 						showSearch={true}
-						status={errors.arrivalId && "error"}
-						endPoint="GetAllCities"
+						status={errors.arrivalId ? "error" : ""}
+						endPoint="/api/Utility/GetAllCities"
 						requestType="post"
 						placeholder="Search Destination To Select"
 						value={state.arrivalId}

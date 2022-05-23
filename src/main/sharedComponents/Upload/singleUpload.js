@@ -1,5 +1,6 @@
 import React from "react";
-import "antd/dist/antd.css";
+// import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "./style.css";
 import { Upload, Modal, message } from "antd";
 import PropTypes from "prop-types";

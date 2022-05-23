@@ -4,6 +4,27 @@
 
 .drawerBtn{
     background: var(--primary_theme_color_green) !important;
-    border-radius: 8px;
+    border-radius: 4px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
 }
 
+.CompBtnMobile {
+    position: absolute !important;
+    bottom: 100px;
+    z-index: 10000;
+    right: 20px;
+    border-radius: 50px !important;
+    padding: 0px !important;
+    height: 40px !important;
+    width: 40px !important;
+    box-shadow: 0 0 20px 9px #d1d4d5 !important;
+}
+.CompBtnMobile span:nth-child(2) {
+    display: none;
+}
+
+.ant-col-24.ant-form-item-label {
+    padding: 0px 0px 0px !important;    
+}

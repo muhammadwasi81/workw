@@ -1,23 +1,20 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../../components/SharedComponent/AppComponents/MainHeader";
-import HeaderNavLink from "../../../../components/SharedComponent/AppComponents/MainHeader/HeaderNavLink";
 import {
 	ContBody,
 	HeaderMenuContainer,
 	TabbableContainer,
 } from "../../../../components/SharedComponent/AppComponents/MainFlexContainer";
-import { Menu, Dropdown, Row, Col, Drawer, Button } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { Row, Button, Skeleton } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import { STRINGS } from "../../../../utils/base";
-import { useLocation } from "react-router-dom";
-import RewardListItem from "./ListItem";
+import ListItem from "./ListItem";
 import Composer from "./Composer";
-// import FilterForm from "./FilterForm";
+import DetailedView from "./DetailedView";
 import TopBar from "../../../sharedComponents/topBar/topBar";
+import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 import {
 	FilterFilled,
 	UnorderedListOutlined,
@@ -26,10 +23,8 @@ import {
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllRewards, GetRewardById } from "../store/actions";
-import Tag from "../../../sharedComponents/Tag/index";
-import { LoadingOutlined } from "@ant-design/icons";
 import TableView from "./TableView";
-import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
+
 import "./reward.css";
 
 const Reward = props => {
@@ -42,69 +37,32 @@ const Reward = props => {
 
 	const [visible, setVisible] = useState(false);
 
+	const [filter, setFilter] = useState({ filterType: 1, search: "" });
+
 	const dispatch = useDispatch();
 
-	const { rewards } = useSelector(state => state.rewardSlice);
+	const { rewards, loader, rewardDetail } = useSelector(
+		state => state.rewardSlice
+	);
 
-	const [currentTab, setCurrentTab] = useState("list");
-	const { search } = useLocation();
-	let pathName = search.split("=")[1];
-
-	console.log(rewards, "FINAL CONSOLE");
-
-	// const showDrawer = (val) => {
-	// 	setVisible(true);
-	// 	console.log(val.currentTarget.id), "DETAILED";
-	// };
-	
 	const onClose = () => {
 		setVisible(false);
 	};
 
-	const getRewardId = () => {
-		console.log("MAIN")
-	}
+	const getRewardId = id => {
+		dispatch(GetRewardById(id));
+		setVisible(true);
+	};
 
 	useEffect(() => {
-		dispatch(getAllRewards({}));
-		dispatch(GetRewardById({}));
-		console.log(rewards, "FINAL CONSOLE");
-	}, []);
-
-	useEffect(() => {
-		if (!pathName) {
-			setCurrentTab("list");
-		} else {
-			setCurrentTab(pathName);
-		}
-	}, [search]);
-
-	const label = dictionaryList[userLanguage];
+		dispatch(getAllRewards(filter));
+	}, [filter]);
 	return (
-		<TabbableContainer>
+		<TabbableContainer className="max-width-1190 mx-auto">
 			<ContainerHeader>
-				<HeaderMenuContainer>
-					<HeaderNavLink
-						activeName={"list"}
-						to={`${STRINGS.ROUTES.HR.REWARDS.DEFAULT}?f=list`}
-						isDefault={false}
-						linkName={"My Reward"}
-						urlParam={currentTab}
-					/>
-					{/* <HeaderNavLink
-            activeName={"aprrovals"}
-            to={`${STRINGS.ROUTES.HR.REWARDS.DEFAULT}?f=aprrovals`}
-            isDefault={false}
-            linkName={sharedLabels.approvers}
-            urlParam={currentTab}
-          /> */}
-				</HeaderMenuContainer>
+				<HeaderMenuContainer></HeaderMenuContainer>
 				<div className="right-menu" style={{ paddingRight: "10px" }}>
-					<div
-						className={
-							isTablet ? "btn-hld CompBtnMobile" : "btn-hld"
-						}
-					>
+					<div className={""}>
 						<SideDrawer
 							title="Create Reward"
 							buttonText={rewardsDictionary.createReward}
@@ -114,37 +72,45 @@ const Reward = props => {
 						</SideDrawer>
 					</div>
 				</div>
-				<span className="ln" />
+				{/* <span className="ln" /> */}
 			</ContainerHeader>
 			<TopBar
 				buttons={[
-					<Button className="filterButton topBtn">
-						{isTablet ? "" : "Filter"}
+					<Button className="filterButton topBtn !h-full !flex !items-center">
+						{isTablet ? "" : sharedLabels.filter}
 						<FilterFilled className="topBarIcon" />
 					</Button>,
 					<BarNavLink
-						extraClasses={"topBtn"}
+						extraClasses={
+							filter.filterType === 1
+								? "topbarOn topBtn"
+								: "topBtn"
+						}
 						activeName={"list"}
-						to={`${STRINGS.ROUTES.HR.REWARDS.DEFAULT}?f=list`}
-						// isDefault={true}
-						linkName={"My Reward"}
-						urlParam={currentTab}
+						linkName={sharedLabels.MyReward}
+						onClick={() => setFilter({ filterType: 1 })}
 					/>,
 					<BarNavLink
 						activeName={"aprrovals"}
-						extraClasses={"topBtn"}
-						to={`${STRINGS.ROUTES.HR.REWARDS.DEFAULT}?f=aprrovals`}
+						extraClasses={
+							filter.filterType === 2
+								? "topbarOn topBtn"
+								: "topBtn"
+						}
 						isDefault={false}
-						linkName={"For Approvals"}
-						urlParam={currentTab}
+						linkName={sharedLabels.ForApprovals}
+						onClick={() => setFilter({ filterType: 2 })}
 					/>,
 					<BarNavLink
 						activeName={"aprrovals"}
-						extraClasses={"topBtn"}
-						// to={`${STRINGS.ROUTES.HR.REWARDS.DEFAULT}?f=aprrovals`}
+						extraClasses={
+							filter.filterType === 3
+								? "topbarOn topBtn"
+								: "topBtn"
+						}
 						isDefault={false}
-						linkName={"Reward To Me"}
-						// urlParam={currentTab}
+						linkName={sharedLabels.RewardToMe}
+						onClick={() => setFilter({ filterType: 3 })}
 					/>,
 				]}
 				gridIcons={[
@@ -156,7 +122,8 @@ const Reward = props => {
 								: "topBarIcon gridIcon isActive"
 						}
 					>
-						{isTablet ? "" : "List View"} <UnorderedListOutlined />
+						{isTablet ? "" : sharedLabels.ListView}{" "}
+						<UnorderedListOutlined />
 					</div>,
 					<div
 						onClick={() => setGrid(true)}
@@ -166,65 +133,57 @@ const Reward = props => {
 								: "topBarIcon gridIcon"
 						}
 					>
-						{isTablet ? "" : "Table View"} <AppstoreFilled />
+						{isTablet ? "" : sharedLabels.TableView}{" "}
+						<AppstoreFilled />
 					</div>,
 				]}
 			/>
 			<ContBody className="WarningMainDiv">
 				<div className="lf-col">
-					{currentTab === "list" && rewards ? (
+					{rewards && rewards.length > 0 ? (
 						grid ? (
 							<Row gutter={[16, 16]}>{<TableView />}</Row>
 						) : (
 							<>
-								{rewards.map((x, index) => {
-									return (
-										<>
-										{/* <Button type="primary" onClick={showDrawer}>
-											Open
-										</Button> */}
-											<RewardListItem
-												getRewardId={getRewardId}
-												key={index}
-												name={x.creator.name}
-												category={x.category}
-												reason={x.reason}
-												designation={
-													x.creator.designation
-												}
-												description={x.description}
-												// members={x.members.map((m) => m.member.name )}
-												status={
-													<Tag
-														status={x.status}
-													></Tag>
-												}
-												approverName="Salman Ahmed"
-												approverDesignation="React JS Developer"
-											/>
-										</>
-									);
-								})}
+								{loader ? (
+									<>
+										<Skeleton
+											avatar
+											paragraph={{ rows: 4 }}
+										/>
+										<Skeleton
+											avatar
+											paragraph={{ rows: 4 }}
+										/>
+										<Skeleton
+											avatar
+											paragraph={{ rows: 4 }}
+										/>
+									</>
+								) : (
+									rewards.map((item, index) => {
+										return (
+											<>
+												<ListItem
+													getRewardId={getRewardId}
+													item={item}
+													id={item.id}
+													key={index}
+												/>
+											</>
+										);
+									})
+								)}
 							</>
 						)
-					) : currentTab === "aprrovals" ? (
-						<h3>Rewards Approvals will come here</h3>
 					) : (
-						""
+						"Data not found"
 					)}
 				</div>
-				{/* <div
-              className="rt-col"
-              style={{ backgroundColor: "white", borderRadius: "4px" }}
-            >
-            <FilterForm />
-          </div>  */}
 			</ContBody>
-			<Drawer title="Reward" width="768" placement="right" onClose={onClose} visible={visible}>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-			</Drawer>
+			{rewardDetail && (
+				<DetailedView onClose={onClose} visible={visible} />
+			)}
 		</TabbableContainer>
 	);
 };

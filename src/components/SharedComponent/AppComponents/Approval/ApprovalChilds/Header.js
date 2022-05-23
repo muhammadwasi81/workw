@@ -1,26 +1,24 @@
 import { Avatar, Button } from 'antd'
 import React from 'react'
+import StatusTag from "../../../../../main/sharedComponents/Tag/StatusTag"
 
-function Header({username,userdesignation, status}) {
+function Header(props) {
     return (
         <div className="approval-header">
             <div className="header-left">
             <Avatar size={40} src="https://joeschmoe.io/api/v1/random" />
             <div className="user-details">
             <span className="user-name">
-                        {username}
+                        {props.username}
                 </span>
                 <span className="designation">
-                    {userdesignation}
+                    {props.userdesignation}
                 </span>
             </div>
                 
             </div>
             <div className="header-right">
-                    <Button type='primary'>
-                        {status}
-                    </Button>
-                    
+                    <StatusTag status={props.status} /> 
             </div>
 
         </div>

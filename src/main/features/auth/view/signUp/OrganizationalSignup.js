@@ -4,18 +4,19 @@ import "../styles/style.css";
 import SignUp from "./signup";
 import PricePlans from "../AuthPageContent/PricePlans";
 import { Col, Row } from "antd";
-import { STRINGS } from "../../../../../utils/base";
+// import { STRINGS } from "../../../../../utils/base";
+import { ROUTES } from "../../../../../utils/routes";
 
 export default class OrganizationalSignup extends Component {
 	componentDidMount() {
 		console.log(window.location.href, "location", this.props.location);
 	}
-
 	render() {
-		const isLoggedIn = !!localStorage.getItem(STRINGS.STORAGE.token);
+		const { isLoggedIn } = this.props;
+		// const isLoggedIn = !!localStorage.getItem(STRINGS.STORAGE.token);
 
 		if (isLoggedIn) {
-			return <Navigate to={STRINGS.ROUTES.ROOT} />;
+			return <Navigate to={ROUTES.ROOT} />;
 		}
 		return (
 			<div className="lg-area">

@@ -1,7 +1,7 @@
 import Config from "../../../../utils/services/MessengerConfig";
 
 export const getAllChatsService = () => {
-	console.log("getAllChat")
+	console.log("getAllChat");
 	return Config.get(`api/Messenger/getAllChats`)
 		.then(res => {
 			return res.data;
@@ -22,7 +22,7 @@ export const sendMessageService = data => {
 };
 
 export const getAllMessageService = id => {
-	return Config.get(`api/Messenger/GetAllChatMessages?chatId=${id}`,)
+	return Config.get(`api/Messenger/SendChatMessage?chatId=${id}`)
 		.then(res => {
 			return res.data;
 		})

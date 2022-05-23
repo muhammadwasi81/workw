@@ -15,15 +15,12 @@ export const loginUser = createAsyncThunk(
 	"auth/login",
 	async (userData, { dispatch, getState }) => {
 		const res = await loginService(userData);
-		console.log(res.data, "Ressss");
+		// console.log(res.data, "Ressss");
 		if (res.data) {
 			const { data } = res;
 
-			if (data.responseCode === responseCode.Success) {
-				message.success(data.message);
-			} else {
+			if (data.responseCode !== responseCode.Success)
 				message.error(data.message);
-			}
 
 			if (res) {
 				dispatch(

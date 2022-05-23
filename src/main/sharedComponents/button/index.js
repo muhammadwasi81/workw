@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Badge } from "antd";
 import AntTooltip from "../Tooltip/AntTooltip";
+import { useMediaQuery } from "react-responsive";
 
 const Index = ({
   type,
@@ -21,7 +22,9 @@ const Index = ({
   buttonClass,
   htmlType,
   loading,
+  href,
 }) => {
+  const isTablet = useMediaQuery({ maxWidth: 650 });
   return (
     <Button
       onClick={() => onClick()}
@@ -30,6 +33,7 @@ const Index = ({
       loading={loading}
       shape={shape}
       htmlType={htmlType}
+      href={href}
       icon={
         badge ? (
           <Badge className="site-badge-count-109" count={counter} dot={true}>
@@ -53,7 +57,8 @@ const Index = ({
       }
       size={size}
       style={style}
-      className={buttonClass}>
+      className={`${buttonClass} ${isTablet && "CompBtnMobile w-fit"} `}
+    >
       {title}
     </Button>
   );

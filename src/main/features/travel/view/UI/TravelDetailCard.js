@@ -2,8 +2,13 @@
 // import { CloseCircleOutlined } from "@ant-design/icons";
 // import { Button } from "antd";
 import { useEffect, useState } from "react";
-import travelImage from "../../../../../content/svg/travelcard.svg";
-import travelFly from "../../../../../content/svg/travelFly.svg";
+// import travelImage from "../../../../../content/svg/travelcard.svg";
+// import travelFly from "../../../../../content/svg/travelFly.svg";
+import ByShip from "../../../../../content/png/by_ship.png";
+import ByPlane from "../../../../../content/png/by_plane.png";
+import ByTrain from "../../../../../content/png/by_train.png";
+import ByRoad from "../../../../../content/png/by_road.png";
+import FlyLocation from "../../../../../content/svg/fly_location.svg";
 import moment from "moment";
 import { useMediaQuery } from "react-responsive";
 import "./card.css";
@@ -20,7 +25,7 @@ function TravelDetailCard(props) {
 	const isTablet = useMediaQuery({ minWidth: 640 });
 	const isMobile = useMediaQuery({ minWidth: 500 });
 	const largeSc = useMediaQuery({ minWidth: 1024 });
-
+	const { travelById } = props.travel;
 	useEffect(() => {
 		setCardDetail(prevDetail => ({
 			...prevDetail,
@@ -35,7 +40,7 @@ function TravelDetailCard(props) {
 		}));
 	}, [props.travel]);
 	// console.log("state", cardDetail);
-
+	// travelById
 	const onDeleteCard = e => {
 		// console.log("e", e);
 		props.onClick(e.target.id);
@@ -43,7 +48,20 @@ function TravelDetailCard(props) {
 	// console.log("props", props.travel);
 	return (
 		<div className="travel_card_img_cont">
-			<img src={travelImage} alt="travel card image" />
+			<img
+				src={
+					travelById === 1
+						? ByPlane
+						: travelById === 2
+						? ByShip
+						: travelById === 3
+						? ByRoad
+						: travelById === 4
+						? ByTrain
+						: ""
+				}
+				alt="travel card image"
+			/>
 			<div className="travel_card_detail">
 				<div
 					onClick={onDeleteCard}
@@ -106,8 +124,8 @@ function TravelDetailCard(props) {
 						</div>
 					</div>
 					<img
-						src={travelFly}
-						alt="travelFly"
+						src={FlyLocation}
+						alt="FlyLocation"
 						className="travel_fly_img"
 					/>
 					<div

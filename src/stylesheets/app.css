@@ -9,7 +9,9 @@
 	/*border-radius: 4px !important;*/
 	border-color: #1b5669 !important;
 }
-
+.list-item::marker{
+	display: none !important;
+}
 .ant-btn-default {
 	/*border: none !important;*/
 	/*border-radius: 9px !important;*/
@@ -50,11 +52,10 @@
 	display: flex;
 	align-items: flex-end;
 }
-
+/* 
 .ant-table-container  {
-	padding-left: 10px;
 	background-color: #f6f6f9;
-}
+} */
 
 .mem > .us-img {
     width: 27px;
@@ -214,7 +215,7 @@ iframe {
 /* SALMAN CSS END */
 
 /* Danish css start */
-.h-full {
+/* .h-full {
 	height: 100%;
 }
 .w-full {
@@ -228,7 +229,7 @@ iframe {
 }
 .w-fit{
 	width: fit-content;
-}
+} */
 .w-0{
 	width: 0px;
 }
@@ -238,7 +239,7 @@ iframe {
 .w-auto{
 	width: auto;
 }
-.flex {
+/* .flex {
 	display: flex;
 }
 .wrap{
@@ -273,13 +274,13 @@ iframe {
 }
 .text-bold {
 	font-weight: bold;
-}
+} */
 .hotel_tada_span {
 	background: #696c76;
 	padding: 2px 5px;
 	border-radius: 5px;
 }
-.text-20 {
+/* .text-20 {
 	font-size: 20px;
 }
 .text-16 {
@@ -314,16 +315,29 @@ iframe {
 }
 .gap-10{
 	gap: 10px;
-}
-.sideDrawerBtnMobileView{
-    position: absolute;
+} */
+/* .sideDrawerBtnMobileView{
+    position: absolute !important;
     bottom: 110px;
     z-index: 9999;
     right: 20px;
-	border-radius: 50px;
+	border-radius: 50px !important;
     overflow: hidden;
-}
-
+} */
+/* Unified 1table Size of table */
+/* .ant-table{
+	table-layout: fixed;
+   }
+   .ant-table-tbody > tr > td {
+	max-width: 500px;
+	min-width: 70px;
+	border-bottom: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	word-break: break-all;
+   } */
 :root{
 	--primary_theme_color_green: #1a5669;
 }

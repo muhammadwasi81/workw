@@ -1,19 +1,17 @@
-import { Table } from "antd";
 import React from "react";
+import { Table } from "antd";
 
 function CustomTable(props) {
-	const { columns, dataSource, pagination, rowKey, components } = props;
+	const { columns, pagination, dataSource, bordered } = props;
 
 	return (
 		<>
 			<Table
+				columns={columns}
 				pagination={pagination}
 				dataSource={dataSource}
-				columns={columns}
-				rowKey={rowKey}
-				components={components}
-				scroll={{ x: 500, y: 500 }}
-				style={{ zIndex: 100000 }}
+				bordered={bordered}
+				// scroll={{ x: 500, y: 500 }}
 			/>
 		</>
 	);

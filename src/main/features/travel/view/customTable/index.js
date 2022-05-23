@@ -7,34 +7,44 @@ import {
 	SortableElement,
 	SortableHandle,
 } from "react-sortable-hoc";
-import { MenuOutlined } from "@ant-design/icons";
 import { arrayMoveImmutable } from "array-move";
+import { DragOutlined, MenuOutlined } from "@ant-design/icons";
 const DragHandle = SortableHandle(() => (
 	<MenuOutlined style={{ cursor: "grab", color: "#999" }} />
 ));
 
+const DragColumn = SortableHandle(() => (
+	<DragOutlined style={{ cursor: "grab", color: "#999" }} />
+));
+const dragTitle = name => {
+	return (
+		<div className="flex items-center gap-2">
+			<DragColumn />
+			{name}
+		</div>
+	);
+};
 let columns = [
 	{
 		title: "Sort",
 		dataIndex: "sort",
-
+		key: "0",
 		render: () => <DragHandle />,
-		width: "300px",
 	},
 	{
-		title: "Name",
+		title: dragTitle("Name"),
 		dataIndex: "name",
-		width: "300px",
+		key: "1",
 	},
 	{
-		title: "Age",
+		title: dragTitle("Age"),
 		dataIndex: "age",
-		width: "300px",
+		key: "2",
 	},
 	{
-		title: "Address",
+		title: dragTitle("Address"),
 		dataIndex: "address",
-		width: "300px",
+		key: "3",
 	},
 ];
 
@@ -61,10 +71,9 @@ const data = [
 		index: 2,
 	},
 ];
-const SortableColumn = SortableElement(props => <tr {...props} />);
+const SortableColumn = SortableElement(props => <th {...props} />);
 const SortableHeader = SortableContainer(props => <thead {...props} />);
 const SortableItem = SortableElement(props => {
-	console.log("props.props", props);
 	return <tr {...props} />;
 });
 const SortableBody = SortableContainer(props => <tbody {...props} />);
@@ -134,15 +143,18 @@ class SortableTable extends React.Component {
 			{...props}
 		/>
 	);
-	DraggableColumnContainer = props => (
-		<SortableHeader
-			useDragHandle
-			disableAutoscroll
-			helperClass="row-dragging"
-			onSortEnd={this.onSortEnd}
-			{...props}
-		/>
-	);
+	DraggableColumnContainer = props => {
+		console.log("column", props);
+		return (
+			<SortableHeader
+				useDragHandle
+				disableAutoscroll
+				helperClass="row-dragging"
+				onSortEnd={this.onSortEnd}
+				{...props}
+			/>
+		);
+	};
 
 	DraggableBodyRow = ({ className, style, ...restProps }) => {
 		const { dataSource } = this.state;
@@ -152,13 +164,13 @@ class SortableTable extends React.Component {
 		);
 		return <SortableItem index={index} {...restProps} />;
 	};
-	DraggableBodyRow = ({ className, style, ...restProps }) => {
+	DraggableHeadColumn = ({ className, style, ...restProps }) => {
 		const { dataSource } = this.state;
 		// function findIndex base on Table rowKey props and should always be a right array index
 		const index = dataSource.findIndex(
 			x => x.index === restProps["data-row-key"]
 		);
-		return <SortableItem index={index} {...restProps} />;
+		return <SortableColumn index={index} {...restProps} />;
 	};
 
 	render() {
@@ -171,7 +183,11 @@ class SortableTable extends React.Component {
 				columns={columns}
 				rowKey="index"
 				components={{
-					header: {},
+					header: {
+						wrapper: this.DraggableColumnContainer,
+						// row: HeaderRow,
+						cell: this.DraggableHeadColumn,
+					},
 
 					body: {
 						wrapper: this.DraggableContainer,

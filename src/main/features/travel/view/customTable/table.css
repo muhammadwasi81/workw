@@ -11,3 +11,6 @@
   .row-dragging .drag-visible {
     visibility: visible;
   }
+  /* table th {
+    cursor: move;
+} */

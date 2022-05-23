@@ -18,6 +18,10 @@ const ConversationListItem = ({ conversation }) => {
 			name: "",
 			image: ""
 		},
+		lastMessage = {
+			lastMessage:""
+		},
+		lastUpdate = ""
 	} = conversation;
 	// TODO: Conditionally get profileImage & profileName behalf of ChatId
 	const profileImage = chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT ? chatWith.image :
@@ -56,9 +60,9 @@ const ConversationListItem = ({ conversation }) => {
 				<div className="ItemName">{profileName}</div>
 				<div className="ItemLastMsgCont">
 					<div className="ItemLastMsg">
-						Hi, How are you! What do you do
+						{lastMessage.lastMessage}
 					</div>
-					<div className="ItemLastMsgTime">.10 Min</div>
+					<div className="ItemLastMsgTime">{new Date(lastUpdate).getHours()}</div>
 				</div>
 			</div>
 			<div className="ItemIcon">

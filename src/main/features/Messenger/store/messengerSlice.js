@@ -27,6 +27,9 @@ export const messengerSlice = createSlice({
          }
          state.MessengerList.chatId = [...state.MessengerList.chatId, newMsg]
       },
+      receiveChatMessage: (state, {payload}) => {
+         state.MessengerList[payload.chatId] = [...state.MessengerList[payload.chatId],payload]
+      },
       handleIsopenChat: (state, action) => {
          state.mobileIsopenChat = action.payload
       },
@@ -43,7 +46,6 @@ export const messengerSlice = createSlice({
        })
        .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
          state.MessengerList[state.currentMessenger.chatId] = [...state.MessengerList[state.currentMessenger.chatId],payload.data]
-         console.log(payload, "sendChatMessage")
        })
        .addCase(getAllMessages.fulfilled, (state, { payload }) => {
          state.MessengerList[state.currentMessenger.chatId] = payload.data
@@ -51,5 +53,5 @@ export const messengerSlice = createSlice({
    }
 })
 
-export const { sendMessage, handleIsopenChat, handleMessengerItemClick } = messengerSlice.actions
+export const { sendMessage, handleIsopenChat, handleMessengerItemClick, receiveChatMessage} = messengerSlice.actions
 export default messengerSlice.reducer;

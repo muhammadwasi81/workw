@@ -33,6 +33,7 @@ import ErrorBoundary from "./utils/ErrorBoundary";
 import { LanguageChangeContext } from "./utils/localization/localContext/LocalContext";
 import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
+import { InitMessengerSocket } from "./utils/InitSocket";
 // import Table from "./main/features/travel/view/customTable";
 // import { Socket } from "./utils/socket";
 
@@ -44,6 +45,7 @@ const App = () => {
 	);
 	const { token } = useSelector(state => state.userSlice);
 	const dispatch = useDispatch();
+	const isLoggedIn = !!token;
 	useEffect(() => {
 		let defaultLanguage = window.localStorage.getItem("rcml-lang");
 		if (!defaultLanguage) {
@@ -54,6 +56,7 @@ const App = () => {
 
 	useEffect(() => {
 		themeHandler(window.localStorage.getItem("darkMode") === "1");
+		InitMessengerSocket(dispatch, token)
 	}, []);
 	const [activityCount /*setActivityCount*/] = useState(null);
 
@@ -73,7 +76,6 @@ const App = () => {
 		dispatch(setMobileScreenStatus(isMobileAndTab));
 	}, [isMobileAndTab, dispatch]);
 
-	const isLoggedIn = !!token;
 	// const isLoggedIn = true;
 	// if (isLoggedIn) Socket(); // i will add this line in <Route/> component. from "./routes"; line 26
 	// console.log("app js", isLoggedIn);

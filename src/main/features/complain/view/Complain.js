@@ -44,7 +44,7 @@ const Reward = props => {
 		state => state.rewardSlice
 	);
 
-	console.log(loader, "HELlOOOO!!!!")
+	console.log(loader, "HELlOOOO!!!!");
 
 	const onClose = () => {
 		setVisible(false);
@@ -81,7 +81,7 @@ const Reward = props => {
 			</ContainerHeader>
 			<TopBar
 				buttons={[
-					<Button className="filterButton topBtn">
+					<Button className="filterButton topBtn !h-full !flex !items-center">
 						{isTablet ? "" : sharedLabels.filter}
 						<FilterFilled className="topBarIcon" />
 					</Button>,
@@ -128,7 +128,7 @@ const Reward = props => {
 						}
 					>
 						{isTablet ? "" : sharedLabels.ListView}{" "}
-						<UnorderedListOutlined style={{marginLeft: "2px"}} />
+						<UnorderedListOutlined style={{ marginLeft: "2px" }} />
 					</div>,
 					<div
 						onClick={() => setGrid(true)}
@@ -139,34 +139,23 @@ const Reward = props => {
 						}
 					>
 						{isTablet ? "" : sharedLabels.TableView}{" "}
-						<AppstoreFilled style={{marginLeft: "2px"}} />
+						<AppstoreFilled style={{ marginLeft: "2px" }} />
 					</div>,
 				]}
 			/>
 			<div className="myBody">
-				<div className="cardsRow">
-					{rewards && rewards.length > 0 ? (
-						grid ? (
-							<Row gutter={[16, 16]}>{<TableView />}</Row>
-						) : (
-							<>
-								{loader ? (
-									<>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
-									</>
-								) : (
-									rewards.map((item, index) => {
+				{rewards && rewards.length > 0 ? (
+					grid ? (
+						<TableView />
+					) : (
+						<>
+							{loader ? (
+								<>
+									<Skeleton avatar paragraph={{ rows: 4 }} />
+								</>
+							) : (
+								<div className="flex gap-2 list-none flex-wrap pt-4">
+									{rewards.map((item, index) => {
 										return (
 											<>
 												<ListItem
@@ -177,14 +166,14 @@ const Reward = props => {
 												/>
 											</>
 										);
-									})
-								)}
-							</>
-						)
-					) : (
-						"Data not found"
-					)}
-				</div>
+									})}
+								</div>
+							)}
+						</>
+					)
+				) : (
+					"Data not found"
+				)}
 			</div>
 			{rewardDetail && (
 				<DetailedView onClose={onClose} visible={visible} />

@@ -67,4 +67,5 @@ export const employmentType = Object.freeze([
 		name: "PartTime",
 	},
 ]);
+export const cityApiPrefix = "/api/Utility/GetAllCities";
 export const defaultUiid = "00000000-0000-0000-0000-000000000000";

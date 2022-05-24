@@ -1,53 +1,55 @@
-import {
-  DeleteOutlined,
-  MinusCircleOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { Select, DatePicker, Checkbox, Input, Form } from "antd";
 import React, { useContext } from "react";
 import { useState } from "react";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { employmentType } from "../../../../utils/Shared/enums/enums";
+import {
+	cityApiPrefix,
+	employmentType,
+} from "../../../../utils/Shared/enums/enums";
 import * as S from "../Styles/employee.style";
 import NewCustomSelect from "./newCustomSelect";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
-const validateMessages = {
-  required: "${label} is required!",
-};
+// const validateMessages = {
+// 	required: "${label} is required!",
+// };
 const ExperienceForm = () => {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { employees, Direction } = dictionaryList[userLanguage];
-  const value = employees.WorkExperienceForm;
-  const placeholder = employees.placeholders;
-  const [present, setPresent] = useState([false]);
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { employees, Direction } = dictionaryList[userLanguage];
+	const value = employees.WorkExperienceForm;
+	const placeholder = employees.placeholders;
+	const [present, setPresent] = useState([false]);
 
-  const checkHandler = (i) => {
-    const list = [...present];
-    list[i] = !list[i];
-    setPresent(list);
-  };
-  return (
-    <>
-      <S.ContentDivider orientation={Direction === "ltr" ? "left" : "right"}>
-        {value.WorkExperienceInfo}
-      </S.ContentDivider>
+	const checkHandler = i => {
+		const list = [...present];
+		list[i] = !list[i];
+		setPresent(list);
+	};
+	return (
+		<>
+			<S.ContentDivider
+				orientation={Direction === "ltr" ? "left" : "right"}
+			>
+				{value.WorkExperienceInfo}
+			</S.ContentDivider>
 
-      <>
-        <S.AddMoreDiv>
-          <Form.List name="experiences" initialValue={[""]}>
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }, i) => (
-                  <S.CustomSpace
-                    key={key}
-                    align="baseline"
-                    direction={Direction}
-                    // type="constant"
-                  >
-                    {/* <S.EFormItem
+			<>
+				<S.AddMoreDiv>
+					<Form.List name="experiences" initialValue={[""]}>
+						{(fields, { add, remove }) => (
+							<>
+								{fields.map(
+									({ key, name, ...restField }, i) => (
+										<S.CustomSpace
+											key={key}
+											align="baseline"
+											direction={Direction}
+											// type="constant"
+										>
+											{/* <S.EFormItem
 												direction={Direction}
 												rules={[
 													{
@@ -63,7 +65,7 @@ const ExperienceForm = () => {
 													size="large"
 												/>
 											</S.EFormItem> */}
-                    {/* <S.EFormItem
+											{/* <S.EFormItem
 												name={[name, "initialPosition"]}
 												rules={[
 													{
@@ -78,35 +80,55 @@ const ExperienceForm = () => {
 													size="large"
 												/>
 											</S.EFormItem> */}
-                    <S.EFormItem
-                      rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
-                      label={value.Position}
-                      name={[name, "position"]}
-                      direction={Direction}
-                    >
-                      <Input size="large" placeholder={placeholder.position} />
-                    </S.EFormItem>
-                    <S.EFormItem
-                      name={[name, "employmentTypeId"]}
-                      label={value.EmploymentType}
-                      rules={[{ required: true }]}
-                      direction={Direction}
-                    >
-                      <Select
-                        size="large"
-                        getPopupContainer={(trigger) => trigger.parentNode}
-                        placeholder={placeholder.empType}
-                      >
-                        {employmentType.map((employee) => (
-                          <Option value={employee.id}>{employee.name}</Option>
-                        ))}
-                      </Select>
-                    </S.EFormItem>
-                    {/* <S.EFormItem
+											<S.EFormItem
+												rules={[
+													{
+														required: true,
+													},
+												]}
+												label={value.Position}
+												name={[name, "position"]}
+												direction={Direction}
+											>
+												<Input
+													size="large"
+													placeholder={
+														placeholder.position
+													}
+												/>
+											</S.EFormItem>
+											<S.EFormItem
+												name={[
+													name,
+													"employmentTypeId",
+												]}
+												label={value.EmploymentType}
+												rules={[{ required: true }]}
+												direction={Direction}
+											>
+												<Select
+													size="large"
+													getPopupContainer={trigger =>
+														trigger.parentNode
+													}
+													placeholder={
+														placeholder.empType
+													}
+												>
+													{employmentType.map(
+														employee => (
+															<Option
+																value={
+																	employee.id
+																}
+															>
+																{employee.name}
+															</Option>
+														)
+													)}
+												</Select>
+											</S.EFormItem>
+											{/* <S.EFormItem
 												rules={[
 													{
 														required: true,
@@ -121,92 +143,112 @@ const ExperienceForm = () => {
 													placeholder="Write Department"
 												/>
 											</S.EFormItem> */}
-                    <S.EFormItem
-                      rules={[{ required: true }]}
-                      label={value.City}
-                      name={[name, "cityId"]}
-                      direction={Direction}
-                    >
-                      <NewCustomSelect
-                        name="cityId"
-                        size="large"
-                        label={value.City}
-                        showSearch={true}
-                        direction={Direction}
-                        rules={[{ required: true }]}
-                        endPoint="GetAllCities"
-                        requestType="post"
-                        placeholder={placeholder.searchToSelect}
-                      />
-                    </S.EFormItem>
-                    {!present[i] && (
-                      <S.EFormItem
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                        label={value.StartEndDate}
-                        name={[name, "start/end"]}
-                        direction={Direction}
-                      >
-                        <RangePicker
-                          format={"DD/MM/YYYY"}
-                          getPopupContainer={(trigger) => trigger.parentNode}
-                          placeholder={[placeholder.sDate, placeholder.eDate]}
-                        />
-                      </S.EFormItem>
-                    )}
-                    {present[i] && (
-                      <S.EFormItem
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                        label={value.StartDate}
-                        name={[name, "start"]}
-                        direction={Direction}
-                      >
-                        <DatePicker
-                          format={"DD/MM/YYYY"}
-                          getPopupContainer={(trigger) => trigger.parentNode}
-                          placeholder={placeholder.selectDate}
-                        />
-                      </S.EFormItem>
-                    )}
-                    <S.EFormItem rules={[{ required: true }]}>
-                      <div className="custom-for-attachment-1">
-                        <DeleteOutlined
-                          className="epmloyeeDeleteIcon"
-                          onClick={() => remove(name)}
-                        />
-                        <Checkbox onChange={() => checkHandler(i)}>
-                          {value.Present}
-                        </Checkbox>
-                      </div>
-                    </S.EFormItem>
-                  </S.CustomSpace>
-                ))}
-                <S.ButtonContainer>
-                  <S.EButton
-                    type="dashed"
-                    onClick={() => add()}
-                    block
-                    icon={<PlusOutlined />}
-                  >
-                    {value.AddMoreExperience}
-                  </S.EButton>
-                </S.ButtonContainer>
-              </>
-            )}
-          </Form.List>
-        </S.AddMoreDiv>
+											<S.EFormItem
+												rules={[{ required: true }]}
+												label={value.City}
+												name={[name, "cityId"]}
+												direction={Direction}
+											>
+												<NewCustomSelect
+													name="cityId"
+													size="large"
+													label={value.City}
+													showSearch={true}
+													direction={Direction}
+													rules={[{ required: true }]}
+													endPoint={cityApiPrefix}
+													requestType="post"
+													placeholder={
+														placeholder.searchToSelect
+													}
+												/>
+											</S.EFormItem>
+											{!present[i] && (
+												<S.EFormItem
+													rules={[
+														{
+															required: true,
+														},
+													]}
+													label={value.StartEndDate}
+													name={[name, "start/end"]}
+													direction={Direction}
+												>
+													<RangePicker
+														format={"DD/MM/YYYY"}
+														getPopupContainer={trigger =>
+															trigger.parentNode
+														}
+														placeholder={[
+															placeholder.sDate,
+															placeholder.eDate,
+														]}
+													/>
+												</S.EFormItem>
+											)}
+											{present[i] && (
+												<S.EFormItem
+													rules={[
+														{
+															required: true,
+														},
+													]}
+													label={value.StartDate}
+													name={[name, "start"]}
+													direction={Direction}
+												>
+													<DatePicker
+														format={"DD/MM/YYYY"}
+														getPopupContainer={trigger =>
+															trigger.parentNode
+														}
+														placeholder={
+															placeholder.selectDate
+														}
+													/>
+												</S.EFormItem>
+											)}
+											<S.EFormItem
+												rules={[{ required: true }]}
+											>
+												<div className="custom-for-attachment-1">
+													<DeleteOutlined
+														className="epmloyeeDeleteIcon"
+														onClick={() =>
+															remove(name)
+														}
+													/>
+													<Checkbox
+														onChange={() =>
+															checkHandler(i)
+														}
+													>
+														{value.Present}
+													</Checkbox>
+												</div>
+											</S.EFormItem>
+										</S.CustomSpace>
+									)
+								)}
+								<S.ButtonContainer>
+									<S.EButton
+										type="dashed"
+										onClick={() => add()}
+										block
+										icon={<PlusOutlined />}
+									>
+										{value.AddMoreExperience}
+									</S.EButton>
+								</S.ButtonContainer>
+							</>
+						)}
+					</Form.List>
+				</S.AddMoreDiv>
 
-        {/* <S.FormContainer type="constant"></S.FormContainer> */}
-      </>
-    </>
-  );
+				{/* <S.FormContainer type="constant"></S.FormContainer> */}
+			</>
+		</>
+	);
 };
 
 export default ExperienceForm;

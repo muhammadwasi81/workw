@@ -246,7 +246,7 @@ export const ROUTES = {
 	COMPLAINS: {
 		DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
 		COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
-		APPROVALS: `${DOMAIN_PREFIX}/complains/approvals`,
+		APPROVALS: `complains/approvals`,
 	},
 	EMPLOYEES: {
 		DEFAULT: `${DOMAIN_PREFIX}/employees/*`,

@@ -53,8 +53,10 @@ export const routes = {
 			),
 		},
 		{
-			path: `${ROUTES.HR.COMPLAINS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Complains/")),
+			path: `${ROUTES.COMPLAINS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/complain/view/Complain")
+			),
 		},
 		{
 			path: `${ROUTES.HR.BONUS.DEFAULT}`,
@@ -152,7 +154,9 @@ export const routes = {
 		{
 			path: `${ROUTES.ADMINISTRATOR.APPRASIAL},`,
 			component: lazy(() => {
-				import("../main/features/appraisal/view/index");
+				import(
+					"../main/features/appraisal/appraisalQuestion/view/index"
+				);
 			}),
 		},
 		{

@@ -108,7 +108,9 @@ export const getAllRewardCategoryService = () => {
 };
 
 export const getAllComplainCategoryService = () => {
-	return MasterConfig.get("api/Complain/ComplainCategory/GetAllComplainCategory")
+	return MasterConfig.get(
+		"api/Complain/ComplainCategory/GetAllComplainCategory"
+	)
 		.then(res => {
 			return res.data;
 		})
@@ -117,8 +119,10 @@ export const getAllComplainCategoryService = () => {
 		});
 };
 
-export const getAllEmployeeShortService = (pageNo=0, search="") => {
-	return MasterConfig.get(`api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&search=${search}`)
+export const getAllEmployeeShortService = (pageNo = 0, search = "") => {
+	return MasterConfig.get(
+		`api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&search=${search}`
+	)
 		.then(res => {
 			return res.data;
 		})

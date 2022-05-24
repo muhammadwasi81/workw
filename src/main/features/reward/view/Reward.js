@@ -58,7 +58,7 @@ const Reward = props => {
 		dispatch(getAllRewards(filter));
 	}, [filter]);
 	return (
-		<TabbableContainer className="max-width-1190 mx-auto">
+		<TabbableContainer className="">
 			<ContainerHeader>
 				<HeaderMenuContainer></HeaderMenuContainer>
 				<div className="right-menu" style={{ paddingRight: "10px" }}>
@@ -78,7 +78,7 @@ const Reward = props => {
 				buttons={[
 					<Button className="filterButton topBtn !h-full !flex !items-center">
 						{isTablet ? "" : sharedLabels.filter}
-						<FilterFilled className="topBarIcon" />
+						<FilterFilled />
 					</Button>,
 					<BarNavLink
 						extraClasses={
@@ -116,33 +116,30 @@ const Reward = props => {
 				gridIcons={[
 					<div
 						onClick={() => setGrid(false)}
-						className={
+						className={`  flex justify-center items-center gap-1 ${
 							grid
 								? "topBarIcon gridIcon"
 								: "topBarIcon gridIcon isActive"
-						}
+						}`}
 					>
 						{isTablet ? "" : sharedLabels.ListView}{" "}
-						<UnorderedListOutlined style={{marginLeft: "2px"}} />
+						<UnorderedListOutlined style={{ marginLeft: "2px" }} />
 					</div>,
 					<div
 						onClick={() => setGrid(true)}
-						className={
-							grid
-								? "topBarIcon gridIcon isActive"
-								: "topBarIcon gridIcon"
-						}
+						className={` flex justify-center items-center gap-1
+							${grid ? "topBarIcon gridIcon isActive transition" : "topBarIcon gridIcon "}`}
 					>
 						{isTablet ? "" : sharedLabels.TableView}{" "}
-						<AppstoreFilled style={{marginLeft: "2px"}} />
+						<AppstoreFilled style={{ marginLeft: "2px" }} />
 					</div>,
 				]}
 			/>
 			<div className="myBody">
-				<div className="cardsRow">
+				<div className="">
 					{rewards && rewards.length > 0 ? (
 						grid ? (
-							<Row gutter={[16, 16]}>{<TableView />}</Row>
+							<TableView />
 						) : (
 							<>
 								{loader ? (
@@ -151,14 +148,14 @@ const Reward = props => {
 											avatar
 											paragraph={{ rows: 4 }}
 										/>
-										<Skeleton
+										{/* <Skeleton
 											avatar
 											paragraph={{ rows: 4 }}
 										/>
 										<Skeleton
 											avatar
 											paragraph={{ rows: 4 }}
-										/>
+										/> */}
 									</>
 								) : (
 									rewards.map((item, index) => {

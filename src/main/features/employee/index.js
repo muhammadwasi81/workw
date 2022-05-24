@@ -34,7 +34,8 @@ const Index = () => {
 		<TabbableContainer>
 			<ContainerHeader>
 				<HeaderMenuContainer>
-					{pathname === "/konnect/employees/add" && (
+					{(pathname === "/konnect/employees/add" ||
+						pathname === "/employees/add") && (
 						<BackButton
 							onClick={() =>
 								navigate(ROUTES.EMPLOYEES.EMPLOYEELINK)

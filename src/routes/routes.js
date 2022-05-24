@@ -76,6 +76,12 @@ export const routes = {
 				import("../main/features/reward/view/Reward")
 			),
 		},
+		{
+			path: `${ROUTES.LOAN.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/loan/view/Loan")
+			),
+		},
 
 		// {
 		// 	path: ROUTES.GROUP.DEFAULT,

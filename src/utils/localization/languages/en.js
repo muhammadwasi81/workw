@@ -45,12 +45,20 @@ const en = {
 		ListView: "List View",
 		TableView: "Table View",
 		MyReward: "My Reward",
+		MyLoan: "My Loan",
 		ForApprovals: "For Approvals",
 		RewardToMe: "Reward To Me",
 		Search: "Search",
 		Disable: "Disable",
 		Update: "Update",
 		AddEmployee: "Add Employee",
+		amount:"Amount",
+		deadline:"Deadline",
+		pleaseEnterAmount:"Please enter amount",
+		purpose:"Purpose",
+		SelectPurpose:"Select purpose",
+
+
 	},
 
 	/*** navMenuLabel only used in LeftSideBar ***/
@@ -373,7 +381,14 @@ const en = {
 		istermination: "Is Termination",
 	},
 	rewardsDictionary: {
-		createReward: "Create Reward",
+		createReward: "Create Reward"
+
+	},
+	loanDictionary: {
+		createLoan: "Create Loan",
+		loanTenureInMonths:"Loan Tenure/Months",
+		deductionPerMonth:"Deduction/Months",
+		pleaseEnterloanTenureInMonths:"Please enter loan tenure"
 	},
 	/*** HR Menu ***/
 	myTeam: {},

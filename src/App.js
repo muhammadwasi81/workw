@@ -56,7 +56,7 @@ const App = () => {
 
 	useEffect(() => {
 		themeHandler(window.localStorage.getItem("darkMode") === "1");
-		InitMessengerSocket(dispatch, token)
+		InitMessengerSocket(dispatch, token);
 	}, []);
 	const [activityCount /*setActivityCount*/] = useState(null);
 

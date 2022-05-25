@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { STRINGS } from "../../../../../utils/base";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
@@ -21,13 +21,137 @@ import {
 } from "@ant-design/icons";
 import { Button } from "antd";
 import { Table } from "../customTable/index";
+import { FilterSortEnum } from "../../../../../utils/Shared/enums/enums";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTravel } from "../../store/actions";
+import { travelStatus } from "../../enums/enums";
+const columns = [
+	{
+		title: "Sort",
+		dataIndex: "sort",
+		drag: true,
+		key: "0",
+		width: 200,
+	},
+
+	{
+		title: "Reference No",
+		dataIndex: "referenceNo",
+		sort: true,
+		key: "1",
+		width: 200,
+	},
+	{
+		title: "Status",
+		dataIndex: "status",
+		sort: true,
+		tag: true,
+		key: "2",
+		width: 200,
+	},
+	{
+		title: "Subject",
+		dataIndex: "subject",
+		key: "3",
+		width: 200,
+	},
+	{
+		title: "Description",
+		dataIndex: "description",
+		key: "4",
+		width: 200,
+	},
+	{
+		title: "Agent Status",
+		dataIndex: "agentStatus",
+		key: "5",
+		width: 200,
+	},
+	{
+		title: "Actions",
+		key: "action",
+		action: true,
+		actions: ["edit"],
+		key: "6",
+		width: 100,
+	},
+];
+const initialTableFilter = {
+	pageNo: 1,
+	pageSize: 20,
+	search: "",
+	approverStatus: [],
+	agentStatus: [],
+	filterType: 1,
+	sortBy: 1,
+	referenceId: "00000000-0000-0000-0000-000000000000",
+	referenceType: 0,
+};
+
 function TravelHeader() {
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const label = dictionaryList[userLanguage];
 	const [filter, setFilter] = useState({
 		filterType: 1,
 	});
 	const [tableView, setTableView] = useState(false);
+	const [tableColumnFilter, setTableColumnFilter] =
+		useState(initialTableFilter);
+	const { travels, loader, success } = useSelector(
+		state => state.travelSlice
+	);
+	// console.log("success", success);
+	const dispatch = useDispatch();
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const label = dictionaryList[userLanguage];
+
+	const handleChange = (pagination, filters, sorter) => {
+		console.log("pagination", pagination);
+		console.log("filters", filters);
+		console.log("sorter", sorter);
+		let filter = tableColumnFilter;
+		if (sorter.field === "key" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.ReferenceNoAsc;
+		}
+		if (sorter.field === "key" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.ReferenceNoDesc;
+		}
+		setTableColumnFilter(prevState => ({
+			...prevState,
+			...filter,
+		}));
+		// const offset =
+		// 	pagination.current * pagination.pageSize - pagination.pageSize;
+		// const limit = pagination.pageSize;
+		// const params = {};
+
+		// if (sorter.hasOwnProperty("column")) {
+		// 	params.order = { field: sorter.field, dir: sorter.order };
+		// }
+
+		// getData(offset, limit, params);
+	};
+	const onPageChange = (page, pageSize) => {
+		console.log("pagination value", page, pageSize);
+	};
+	const onRow = (record, rowIndex) => {
+		return {
+			onClick: event => {
+				console.log("onCLick");
+			}, // click row
+			onDoubleClick: event => {}, // double click row
+			onContextMenu: event => {}, // right button click row
+			onMouseEnter: event => {}, // mouse enter row
+			onMouseLeave: event => {}, // mouse leave row
+		};
+	};
+
+	useEffect(() => {
+		dispatch(getAllTravel(tableColumnFilter));
+	}, [tableColumnFilter, dispatch]);
+
+	// useEffect(() => {
+	// 	console.log("table", tableColumnFilter);
+	// }, [tableColumnFilter]);
+
 	return (
 		<TabContainer>
 			<ContainerHeader>
@@ -102,7 +226,17 @@ function TravelHeader() {
 				]}
 			/>
 			<ContBody className="!block">
-				<Table />
+				<Table
+					columns={columns}
+					dragable={true}
+					handleChange={handleChange}
+					onPageChange={onPageChange}
+					onRow={onRow}
+					data={travels}
+					status={travelStatus}
+					loadding={loader}
+					success={success}
+				/>
 			</ContBody>
 		</TabContainer>
 	);

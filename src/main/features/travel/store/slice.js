@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addTravel } from "./actions";
+import { addTravel, getAllTravel } from "./actions";
 
 const initialState = {
 	travels: [],
@@ -18,7 +18,13 @@ const travelSlice = createSlice({
 				state.loader = false;
 				state.success = true;
 			})
-			.addMatcher(isPending(addTravel), state => {
+			.addCase(getAllTravel.fulfilled, (state, { payload }) => {
+				state.loader = false;
+				state.success = true;
+				// console.log("payload", payload);
+				state.travels = payload.data;
+			})
+			.addMatcher(isPending(...[addTravel, getAllTravel]), state => {
 				console.log("pending");
 				state.loader = true;
 				state.success = false;

@@ -136,7 +136,7 @@ const Reward = props => {
 				]}
 			/>
 			<div className="myBody">
-				<div className="">
+				<div className="flex gap-2 list-none flex-wrap pt-4">
 					{rewards && rewards.length > 0 ? (
 						grid ? (
 							<TableView />

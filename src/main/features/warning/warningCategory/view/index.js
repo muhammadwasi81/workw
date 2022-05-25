@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { AdminContainer } from "../../../../../components/HrMenu/Administration/StyledComponents/admin";
 import { addWarningCategory, removeWarningCategory, updateWarningCategory } from "../store/actions";
 import WarningCategoryForm from "./form.js";
 import WarningCategoryTable from "./table.js";

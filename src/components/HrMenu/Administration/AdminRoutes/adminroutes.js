@@ -13,7 +13,7 @@ import JobDescription from "../../../../main/features/jobDescription/view/index"
 import RewardCategory from "../../../../main/features/reward/rewardCategory/view";
 import OfficeTiming from "../../../../main/features/officeTimings/view/index";
 import CustomApprovalCategory from "../../../../main/features/customApprovalCategory/view";
-import WargningCategory from "../../../../main/features/warningCategory/view";
+import WargningCategory from "../../../../main/features/warning/warningCategory/view";
 import AccessRole from "../../../../main/features/accessRole/view/AccessRole";
 
 const AdminRoutes = () => {

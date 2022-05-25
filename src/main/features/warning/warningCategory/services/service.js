@@ -1,4 +1,4 @@
-import MasterConfig from "../../../../utils/services/MasterConfig";
+import MasterConfig from "../../../../../utils/services/MasterConfig";
 
 export const getAllWarningCategoriesService = () => {
   return MasterConfig.get(`api/Administration/WarningCategory/getallWarningCategory`)

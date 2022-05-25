@@ -147,7 +147,7 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label={sharedLabels.award}
+					label={sharedLabels.reason}
 					name="reason"
 					rules={[
 						{

@@ -25,13 +25,14 @@ import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
 import designationSlice from "../main/features/designation/store/slice";
 import appraisalSlice from "../main/features/appraisal/appraisalQuestion/store/slice";
-import warningCategorySlice from "../main/features/warningCategory/store/slice";
+import warningCategorySlice from "../main/features/warning/warningCategory/store/slice";
 import leaveTypeSlice from "../main/features/leaveType/store/slice";
 import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";
 import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
 import allowanceSlice from "../main/features/allowance/store/slice";
 import rewardCategorySlice from "../main/features/reward/rewardCategory/store/slice";
 import rewardSlice from "../main/features/reward/store/slice";
+import complainSlice from "../main/features/complain/store/slice";
 import jobDescriptionSlice from "../main/features/jobDescription/store/slice";
 import customApprovalCategorySlice from "../main/features/customApprovalCategory/store/slice";
 import notificationSlice from "../services/slices/notificationSlice.js";
@@ -62,6 +63,7 @@ const reducers = combineReducers({
 	customApprovalCategorySlice,
 	rewardCategorySlice,
 	rewardSlice,
+	complainSlice,
 	call: callSlice,
 	general: generalSlice,
 	// documentsSlice,

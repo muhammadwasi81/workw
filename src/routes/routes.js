@@ -43,8 +43,8 @@ export const routes = {
 			component: lazy(() => import("../main/features/employee/")),
 		},
 		{
-			path: `${ROUTES.HR.WARNINGS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Warnings/")),
+			path: `${ROUTES.WARNINGS.DEFAULT}`,
+			component: lazy(() => import("../main/features/warning/view/Warning")),
 		},
 		{
 			path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
@@ -76,6 +76,12 @@ export const routes = {
 				import("../main/features/reward/view/Reward")
 			),
 		},
+		// {
+		// 	path: `${ROUTES.WARNINGS.DEFAULT}`,
+		// 	component: lazy(() =>
+		// 		import("../main/features/warning/view/Warning")
+		// 	),
+		// },
 
 		// {
 		// 	path: ROUTES.GROUP.DEFAULT,
@@ -219,7 +225,7 @@ export const routes = {
 		{
 			path: `${ROUTES.ADMINISTRATOR.WARNING_CATEGORY},`,
 			component: lazy(() => {
-				import("../main/features/warningCategory/view");
+				import("../main/features/warning/warningCategory/view");
 			}),
 		},
 	],

@@ -10,7 +10,7 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 export default function WarningCategoryForm({ data, onSubmit, loading, setClearButton, clearButton  }) {
   const [form, setForm] = useState(data);
 

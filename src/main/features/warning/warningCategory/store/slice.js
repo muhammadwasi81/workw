@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode.js";
+import { responseCode } from "../../../../../services/enums/responseCode.js";
 import { addWarningCategory, getAllWarningCategories, removeWarningCategory, updateWarningCategory } from "./actions.js";
 
 const initialState = {

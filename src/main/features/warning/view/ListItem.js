@@ -7,7 +7,6 @@ import SublineDesigWithTime from "../../../../components/SharedComponent/UserSho
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
-import moment from "moment";
 
 function ListItem(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -15,16 +14,12 @@ function ListItem(props) {
 
 	const {
 		creator,
-		name,
 		description,
 		image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-		reason,
 		category,
 		members = [],
 		approvers,
 		status,
-		referenceNo,
-		createDate,
 	} = props.item;
 
 	// console.log(props.item, "imagessss")
@@ -36,8 +31,8 @@ function ListItem(props) {
 				onClick={() => {
 					props.getRewardId(props.id);
 				}}
-			></div>
-			<div className={  "item-header"}>
+			/>
+			<div className={"item-header"}>
 				<div className="left">
 					<UserInfo
 						avatarSrc={creator.image}
@@ -45,13 +40,13 @@ function ListItem(props) {
 						Subline={
 							<SublineDesigWithTime
 								designation={creator.designation}
-								time={moment(createDate).format('DD/MM/YYYY')}
+								time="7 days ago"
 							/>
 						}
 					/>
 				</div>
 				<div className="right">
-					<Tag className="IdTag">{referenceNo}</Tag>
+					<Tag className="IdTag">TRA-000085</Tag>
 					<StatusTag status={status}></StatusTag>
 				</div>
 			</div>
@@ -61,19 +56,11 @@ function ListItem(props) {
 			<div className="ListItemInner">
 				<div className="ItemDetails">
 					<div className="innerDiv">
-						<h3>{sharedLabels.name}</h3>
-						<p>{name}</p>
-					</div>
-					<div className="innerDiv">
 						<h3>{sharedLabels.category}</h3>
 						<Tag className="IdTag">{category}</Tag>
 					</div>
 					<div className="innerDiv">
-						<h3>{sharedLabels.reason}</h3>
-						<p>{reason}</p>
-					</div>
-					<div className="innerDiv">
-						<h3>{sharedLabels.RewardTo}</h3>
+						<h3>{"Complain Of"}</h3>
 						{/* {props.members} */}
 						<div className="mem">
 							{members.map((val, i) => {

@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode";
+import { responseCode } from "../../../../../services/enums/responseCode";
 import {
   responseMessage,
   responseMessageType,
-} from "../../../../services/slices/notificationSlice";
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+} from "../../../../../services/slices/notificationSlice";
+import AxiosConfig from "../../../../../utils/services/AxiosConfig";
 import { addWarningCategoryService, getAllWarningCategoriesService } from "../services/service";
 import { warningCategoryDeleted } from "./slice";
 

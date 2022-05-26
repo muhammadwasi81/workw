@@ -1,15 +1,13 @@
-import { Button, Form, Input,Select } from "antd";
-import React, { useEffect, useState, useContext } from "react";
-//import LoanPurpose from "../enum/loanPurpose";
-import TextInput from "../../../sharedComponents/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
-//import Select from "../../../../components/SharedComponent/Select/Select";
-import { useSelector, useDispatch } from "react-redux";
-import { addLoan } from "../store/actions";
+import {Button, DatePicker, Form, Input} from "antd";
+import 	Select from "../../../sharedComponents/Select/Select";
+import React, { useState, useContext } from "react";
+import {loanPurposeList} from "../enum";
+import { useDispatch } from "react-redux";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import { loanDictionaryList } from "../localization/index";
+import moment from "moment";
 import NewCustomSelect from "../../employee/view/newCustomSelect";
-import {userTitle} from "../../../../utils/Shared/enums/enums";
+import {approvalDictionaryList} from "../../approval/localization";
 
 const initialState = {
 	id : "",
@@ -30,17 +28,17 @@ const initialState = {
 
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, Direction, loan, loanDictionary } = dictionaryList[userLanguage];
-
+	const { loanDictionary } = loanDictionaryList[userLanguage];
+	const { approvalDictionary } = approvalDictionaryList[userLanguage];
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-
 	const [state, setState] = useState({
 		id : "",
 		amount: 0,
 		deduction:150,
 		loanTenure: 0,
 		description: "",
+		deadline:moment(new Date()),
 		purposeId: "",
 		imageId: "",
 		userId:"",
@@ -105,12 +103,6 @@ const Composer = props => {
 	const onFinishFailed = errorInfo => {
 		console.log("Failed:", errorInfo);
 	};
-
-	const calculateDeduction=(e)=>{
-
-
-
-	}
 	return <>
 		<Form
 			form={form}
@@ -128,45 +120,40 @@ const Composer = props => {
 			onFinishFailed={onFinishFailed}
 			autoComplete="off"
 		>
-			{/*<Form.Item
-				label={sharedLabels.purpose}
+			<Form.Item
+				label={loanDictionary.purpose}
 				name="purposeId"
 				rules={[
 					{
 						required: true,
-						message: sharedLabels.SelectPurpose
+						message: loanDictionary.SelectPurpose
 					},
 				]}
 			>
+
 				<Select
-					// value={
-					//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-					// }
-					data={[]}
-					placeholder={sharedLabels.purpose}
+					placeholder={loanDictionary.selectPurpose}
+					data={loanPurposeList()}
 					style={{
 						width: "100%",
 						borderRadius: "5px",
 					}}
 					size="large"
-					{LoanPurpose.map(x => (
-						<Option value={x.value}>{x.label}</Option>
-					))}
 				/>
-			</Form.Item>*/}
+			</Form.Item>
 			<Form.Item
-				label={sharedLabels.amount}
+				label={loanDictionary.amount}
 				name="amount"
 				labelPosition="top"
 				rules={[
 					{
 						required: true,
-						message: sharedLabels.pleaseEnterAmount
+						message: loanDictionary.pleaseEnterAmount
 					},
 				]}
 				initialValue={state.amount}
 			>
-				<Input placeholder={sharedLabels.amount}
+				<Input placeholder={loanDictionary.amount}
 					   name="amount"
 					   value={state.amount}
 					   type="number"
@@ -211,20 +198,55 @@ const Composer = props => {
 				labelPosition="top"
 				initialValue={state.amount}
 
-
-
-
 			>
 				<Input placeholder={loanDictionary.loanTenureInMonths}
 					   type="number"
 					   />
-			{/*	<TextInput name="deduction"
-
-						   value={state.amount}
-					type="number"
-					placeholder={loanDictionary.deductionPerMonth}/>*/}
 			</Form.Item>
-
+			<Form.Item
+				name="approvers"
+				label={approvalDictionary.approvers}
+				showSearch={true}
+				direction={Direction}
+				rules={[{ required: true }]}
+			>
+				<NewCustomSelect
+					name="approvers"
+					label={approvalDictionary.approvers}
+					showSearch={true}
+					direction={Direction}
+					mode="multiple"
+					endPoint="api/Reference/GetAllUserReference"
+					requestType="get"
+					placeholder={approvalDictionary.approvers}
+				/>
+			</Form.Item>
+			<Form.Item
+				label={loanDictionary.deadline}
+				name="deadline"
+				labelPosition="top"
+				initialValue={state.deadline}
+			>
+				<DatePicker
+					placeholder={loanDictionary.deadline}
+					size="large"
+					format={"DD/MM/YYYY"}
+					getPopupContainer={trigger => trigger.parentNode}
+					showTime={{
+						defaultValue: state.deadline,
+					}}
+					disabledDate={current => {
+						return current && current < moment().add(-1, "day");
+					}}
+				/>
+			</Form.Item>
+			<Form.Item
+				label={loanDictionary.description}
+				name="description"
+				initialValue={state.description}
+			>
+				<Input.TextArea placeholder={loanDictionary.description} />
+			</Form.Item>
 			<Form.Item>
 				<Button
 					type="primary"

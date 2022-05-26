@@ -38,6 +38,7 @@ import { routes } from "./routes/routes";
 
 const App = () => {
 	const { userLanguageChange } = useContext(LanguageChangeContext);
+
 	const isMobileAndTab = useMediaQuery({ query: "(max-width: 800px)" });
 	const { isMobileScreen } = useSelector(
 		({ responsiveSlice }) => responsiveSlice

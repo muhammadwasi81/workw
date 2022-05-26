@@ -30,41 +30,35 @@ const columns = [
 		title: "Sort",
 		dataIndex: "sort",
 		drag: true,
-		key: "0",
-		width: 200,
+		width: 10,
 	},
 
 	{
 		title: "Reference No",
 		dataIndex: "referenceNo",
 		sort: true,
-		key: "1",
-		width: 200,
+		width: 100,
 	},
 	{
 		title: "Status",
 		dataIndex: "status",
 		sort: true,
 		tag: true,
-		key: "2",
-		width: 200,
+		width: 50,
 	},
 	{
 		title: "Subject",
 		dataIndex: "subject",
-		key: "3",
 		width: 200,
 	},
 	{
 		title: "Description",
 		dataIndex: "description",
-		key: "4",
 		width: 200,
 	},
 	{
 		title: "Agent Status",
 		dataIndex: "agentStatus",
-		key: "5",
 		width: 200,
 	},
 	{
@@ -98,22 +92,16 @@ function TravelHeader() {
 	const { travels, loader, success } = useSelector(
 		state => state.travelSlice
 	);
-	// console.log("success", success);
 	const dispatch = useDispatch();
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const label = dictionaryList[userLanguage];
 
 	const handleChange = (pagination, filters, sorter) => {
-		console.log("pagination", pagination);
-		console.log("filters", filters);
-		console.log("sorter", sorter);
-		let filter = tableColumnFilter;
-		if (sorter.field === "key" && sorter.order === "ascend") {
-			filter.sortBy = FilterSortEnum.ReferenceNoAsc;
-		}
-		if (sorter.field === "key" && sorter.order === "descend") {
-			filter.sortBy = FilterSortEnum.ReferenceNoDesc;
-		}
+		// console.log("pagination", pagination);
+		// console.log("filters", filters);
+		// console.log("sorter", sorter);
+
+		let filter = onSortClick(sorter);
 		setTableColumnFilter(prevState => ({
 			...prevState,
 			...filter,
@@ -128,6 +116,46 @@ function TravelHeader() {
 		// }
 
 		// getData(offset, limit, params);
+	};
+	const onSortClick = sorter => {
+		let filter = tableColumnFilter;
+		if (sorter.field === "referenceNo" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.ReferenceNoAsc;
+		}
+		if (sorter.field === "referenceNo" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.ReferenceNoDesc;
+		}
+		if (sorter.field === "createDate" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.CreateDateAsc;
+		}
+		if (sorter.field === "createDate" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.CreateDateDesc;
+		}
+		if (sorter.field === "subject" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.SubjectAsc;
+		}
+		if (sorter.field === "subject" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.SubjectDesc;
+		}
+		if (sorter.field === "status" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.StatusAsc;
+		}
+		if (sorter.field === "status" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.StatusDesc;
+		}
+		if (sorter.field === "approverStatus" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.ApproverStatusAsc;
+		}
+		if (sorter.field === "approverStatus" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.ApproverStatusDesc;
+		}
+		if (sorter.field === "agentStatus" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.AgentStatusAsc;
+		}
+		if (sorter.field === "agentStatus" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.AgentStatusDesc;
+		}
+		return filter;
 	};
 	const onPageChange = (page, pageSize) => {
 		console.log("pagination value", page, pageSize);
@@ -147,10 +175,6 @@ function TravelHeader() {
 	useEffect(() => {
 		dispatch(getAllTravel(tableColumnFilter));
 	}, [tableColumnFilter, dispatch]);
-
-	// useEffect(() => {
-	// 	console.log("table", tableColumnFilter);
-	// }, [tableColumnFilter]);
 
 	return (
 		<TabContainer>
@@ -232,7 +256,7 @@ function TravelHeader() {
 					handleChange={handleChange}
 					onPageChange={onPageChange}
 					onRow={onRow}
-					data={travels}
+					data={success ? travels : []}
 					status={travelStatus}
 					loadding={loader}
 					success={success}

@@ -25,7 +25,7 @@ const customTags = (tag, status) => {
 	if (tag === status.DeclineByApproves) {
 		color = "!bg-red-500";
 	}
-	if (tag === "Approved") {
+	if (tag === status.Approved) {
 		color = "!bg-lime-500";
 	}
 	if (tag === status.InProcess) {
@@ -78,15 +78,17 @@ export class Table extends React.Component {
 		this.state = {
 			data: [],
 			columns: [],
+			isColumnPopulated: false,
+			isDataPopulated: false,
 		};
 
-		// const that = this;
+		const that = this;
 		this.dragColumnProps = {
 			onDragEnd(fromIndex, toIndex) {
-				const columns = [...this.state.columns];
+				const columns = [...that.state.columns];
 				const item = columns.splice(fromIndex, 1)[0];
 				columns.splice(toIndex, 0, item);
-				this.setState({
+				that.setState({
 					columns,
 				});
 			},
@@ -95,10 +97,10 @@ export class Table extends React.Component {
 		};
 		this.dragRowProps = {
 			onDragEnd(fromIndex, toIndex) {
-				const data = [...this.state.data];
+				const data = [...that.state.data];
 				const item = data.splice(fromIndex, 1)[0];
 				data.splice(toIndex, 0, item);
-				this.setState({
+				that.setState({
 					data,
 				});
 			},
@@ -151,7 +153,6 @@ export class Table extends React.Component {
 		// console.log("prevprops", prevProps.success);
 		// console.log("props success", this.props.success);
 		if (prevProps.success !== this.props.success && this.props.success) {
-			// console.log("data");
 			const alterData = this.props.data.map((data, i) => {
 				return {
 					...data,
@@ -159,28 +160,34 @@ export class Table extends React.Component {
 					key: String(i),
 				};
 			});
-			// console.log("alter", alterData);
 			this.setState(
 				produce(state => {
 					state.data = alterData;
+					state.isColumnPopulated = false;
+					state.isDataPopulated = false;
 				})
 			);
 		}
 		if (
 			JSON.stringify(prevState.data) !==
 				JSON.stringify(this.state.data) &&
-			this.state.length > 0
+			this.state.length > 0 &&
+			!this.state.isDataPopulated
 		) {
+			console.log("running data");
 			this.setState(
 				produce(state => {
 					state.data = this.props.data;
+					state.isDataPopulated = true;
 				})
 			);
 		}
 		if (
 			JSON.stringify(prevState.columns) !==
-			JSON.stringify(this.state.columns)
+				JSON.stringify(this.state.columns) &&
+			!this.state.isColumnPopulated
 		) {
+			console.log("running colums");
 			const { columns: col } = this.props;
 			for (let i = 0; i < col.length; i++) {
 				const updateColumnState = produce(state => {
@@ -199,6 +206,11 @@ export class Table extends React.Component {
 					}
 				});
 				this.setState(updateColumnState);
+				this.setState(
+					produce(state => {
+						state.isColumnPopulated = true;
+					})
+				);
 			}
 		}
 	}
@@ -217,10 +229,6 @@ export class Table extends React.Component {
 									pageSizeOptions: ["20", "50", "100"],
 									responsive: true,
 									onChange: onPageChange,
-								}}
-								scroll={{
-									x: 500,
-									y: 600,
 								}}
 								dataSource={this.state.data}
 								bordered={true}
@@ -245,10 +253,6 @@ export class Table extends React.Component {
 							pageSizeOptions: ["20", "50", "100"],
 							responsive: true,
 							onChange: onPageChange,
-						}}
-						scroll={{
-							x: 500,
-							y: 600,
 						}}
 						dataSource={this.state.data}
 						bordered={true}

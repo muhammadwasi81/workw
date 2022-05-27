@@ -45,6 +45,7 @@ import userSlice from "./appReducer/userSlice";
 import sharedSlice from "../utils/Shared/store/slice";
 import accessRolesSlice from "../main/features/accessRole/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
+import feedSlice from "../main/features/feed/store/slice";
 import loanSlice from "../main/features/loan/store/slice";
 
 // import thunk from "redux-thunk";
@@ -52,6 +53,7 @@ import loanSlice from "../main/features/loan/store/slice";
 const reducers = combineReducers({
 	authSlice,
 	userSlice,
+	feedSlice,
 	stickyNotesSlice,
 	responsiveSlice,
 	responseStatusSlice,

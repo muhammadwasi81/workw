@@ -77,7 +77,7 @@ const TopBar = ({ buttons, gridIcons }) => {
 									span={7}
 									className="gridInner !flex !justify-end"
 								>
-									<div className="gridIcons w-56">
+									<div className="gridIcons w-fit">
 										{gridIcons}
 									</div>
 								</Col>

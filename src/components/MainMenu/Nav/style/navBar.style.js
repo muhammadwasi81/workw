@@ -94,6 +94,11 @@ export const SideMenuLabel = styled.div.attrs(({ theme, navbarstatus }) => ({
 			: theme.Direction === "rtl"
 			? "end"
 			: "start",
+		justifyContent: !theme
+		? "flex-start"
+		: theme.Direction === "rtl"
+		? "flex-end"
+		: "flex-start",
 	},
 }))``;
 
@@ -105,6 +110,11 @@ export const NavLinkItem = styled(NavLink).attrs(
 					? "row"
 					: theme.Direction === "rtl" && "row-reverse",
 			borderRight: theme.Direction === "rtl" && "none",
+			justifyContent: !theme
+			? "flex-start"
+			: theme.Direction === "rtl"
+			? "flex-end"
+			: "flex-start",
 			// borderLeft: localDictionary === "ltr" && "3px solid #365899"
 		},
 		className,
@@ -118,6 +128,11 @@ export const MenuLabel = styled.div.attrs(({ theme }) => ({
 		flex: theme.Direction === "rtl" && "none",
 		marginRight: theme.Direction === "rtl" && "17px",
 		position: "relative",
+		justifyContent: !theme
+			? "flex-start"
+			: theme.Direction === "rtl"
+			? "flex-end"
+			: "flex-start",
 	},
 }))``;
 

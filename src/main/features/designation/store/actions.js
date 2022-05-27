@@ -10,11 +10,12 @@ import {
 	removeDesignationService,
 	updateDesignationService,
 } from "../services/service";
+
 export const getAllDesignation = createAsyncThunk(
 	"Designation/getAllDesignation",
-	async ({ dispatch }) => {
+	async (args, { dispatch }) => {
 		const res = await getAllDesignationsService();
-
+		console.log("GET ALL DESIGNATION ACTION", res)
 		if (!res.responseCode) {
 			responseMessage({
 				dispatch: dispatch,

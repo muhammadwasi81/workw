@@ -12,14 +12,42 @@ import { dictionaryList } from "../../../../utils/localization/languages";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../employee/view/newCustomSelect";
 
+const initialState = {
+	id : "",
+	name: "",
+	reason: "",
+	description: "",
+	categoryId: "",
+	imageId: "",
+	members: [
+	  {
+		memberId: "",
+		memberType: 1
+	  }
+	],
+	approvers: [
+	  {
+		approverId: "",
+		approverType: 0,
+		isDefault: true,
+		status: 1,
+		email: ""
+	  }
+	]
+  }
+
 const Composer = props => {
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { sharedLabels, Direction, rewards, rewardsDictionary } = dictionaryList[userLanguage];
+
 	const dispatch = useDispatch();
-
 	const [form] = Form.useForm();
-
 	const [profileImage, setProfileImage] = useState(null);
-
 	const { rewardCategories } = useSelector(state => state.sharedSlice);
+
+	const [state, setState] = useState(initialState);
+
+
 
 	useEffect(() => {
 		dispatch(getRewardCategory());
@@ -31,41 +59,59 @@ const Composer = props => {
 		setProfileImage(data);
 	};
 
-	const onFinish = v => {
+	const onFinish = values => {
 		form.resetFields();
-
-		// let members = v.cityId.map((city)=>{
-		//   return {
-		//     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-		//     "memberId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-		//     "memberType": 0
-		//   }
-		// })
-
-		// console.log(v, "OBJECT");
 
 		dispatch(uploadImage(profileImage)).then(x => {
 			// console.log(
 			// 	x.payload.data[0].id,
 			// 	"Hurry i got image if from server"
 			// );
+			console.log(x, "FIRST ONE")
 			let photoId = x.payload.data[0].id;
 
-			let payload = { ...v, imageId: photoId };
-			dispatch(addReward(payload));
+			let approvers = values.approvers.map(approver => {
+				return {
+					approverId: approver,
+					approverType: 0,
+					isDefault: true,
+					status: 0,
+					email: "",
+				};
+			});
+			let members = values.members.map(approver => {
+				return {
+					approverId: approver,
+					approverType: 0,
+					isDefault: true,
+					status: 0,
+					email: "",
+				};
+			});
 
+			let payload = { ...values, imageId: photoId, approvers, members };
+
+			dispatch(addReward(payload));
+			console.log(payload, "FINALLLLL")
 			// console.log(payload, "Final Data");
 		});
+		// const { id, name, reason, categoryId, imageId  } = values;
+		// setState(prevState => ({
+		// 	...prevState,
+		// 	id,
+		// 	name,
+		// 	reason,
+		// 	categoryId,
+		// 	imageId,
+		// 	members,
+		// 	approvers
+		// }));
+
 	};
 
 	const onFinishFailed = errorInfo => {
 		console.log("Failed:", errorInfo);
 	};
-
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { Direction } = dictionaryList[userLanguage];
-	// const value = employees.EmployeeForm;
-	// const placeholder = employees.placeholders;
 
 	return (
 		<>
@@ -84,49 +130,50 @@ const Composer = props => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
+				// className={Direction === "ltr" ? "align-right" : ""}
 			>
 				<Form.Item
-					label="Name"
+					label={sharedLabels.name}
 					name="name"
 					labelPosition="top"
 					rules={[
 						{
 							required: true,
-							message: "Please Enter Award Name!",
+							message: rewards.PleaseEnterAwardName,
 						},
 					]}
 				>
-					<TextInput placeholder="Enter Award Name" />
+					<TextInput placeholder={rewards.EnterAwardName} />
 				</Form.Item>
 
 				<Form.Item
-					label="Award"
+					label={sharedLabels.award}
 					name="reason"
 					rules={[
 						{
 							required: true,
-							message: "Please Enter Reason for Award",
+							message: rewards.EnterAwardReason,
 						},
 					]}
 				>
-					<TextInput placeholder="Enter Award Reason" />
+					<TextInput placeholder={rewards.EnterAwardReason} />
 				</Form.Item>
 
 				<Form.Item
-					label="Description"
+					label={sharedLabels.description}
 					name="description"
 					rules={[
 						{
 							required: true,
-							message: "Please Enter Description",
+							message: sharedLabels.enterDescription,
 						},
 					]}
 				>
-					<Input.TextArea placeholder="Enter Description" />
+					<Input.TextArea placeholder={sharedLabels.enterDescription} />
 				</Form.Item>
 
 				<Form.Item
-					label="Category"
+					label={sharedLabels.category}
 					name="categoryId"
 					rules={[
 						{
@@ -140,7 +187,7 @@ const Composer = props => {
 						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 						// }
 						data={rewardCategories}
-						placeholder="Category"
+						placeholder={sharedLabels.category}
 						style={{
 							width: "100%",
 							borderRadius: "5px",
@@ -151,20 +198,39 @@ const Composer = props => {
 
 				<Form.Item
 					name="members"
-					label={"Memebers"}
+					label={sharedLabels.members}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
 				>
 					<NewCustomSelect
 						name="members"
-						label={"Memebers"}
+						label={sharedLabels.members}
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
 						endPoint="api/Reference/GetAllUserReference"
-						requestType="post"
-						placeholder={"Select Memeber"}
+						requestType="get"
+						placeholder={sharedLabels.selectMember}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name="approvers"
+					label={sharedLabels.approvers}
+					showSearch={true}
+					direction={Direction}
+					rules={[{ required: true }]}
+				>
+					<NewCustomSelect
+						name="approvers"
+						label={sharedLabels.approvers}
+						showSearch={true}
+						direction={Direction}
+						mode="multiple"
+						endPoint="api/Reference/GetAllUserReference"
+						requestType="get"
+						placeholder={sharedLabels.approvers}
 					/>
 				</Form.Item>
 
@@ -173,6 +239,7 @@ const Composer = props => {
 						handleImageUpload={handleImageUpload}
 						img="Add Image"
 						position="flex-start"
+						uploadText={sharedLabels.upload}
 					/>
 				</Form.Item>
 
@@ -246,10 +313,10 @@ const Composer = props => {
 						className="ThemeBtn"
 						block
 						htmlType="submit"
-						title="Create Reward"
+						title={sharedLabels.createReward}
 					>
 						{" "}
-						Create Reward{" "}
+						{rewardsDictionary.createReward}{" "}
 					</Button>
 				</Form.Item>
 			</Form>

@@ -32,6 +32,7 @@
 .main-app-style {
 	flex: 1;
 	display: flex;
+	overflow: hidden;
 }
 
 .main-flex-container-ltr {
@@ -341,4 +342,10 @@ iframe {
 :root{
 	--primary_theme_color_green: #1a5669;
 }
+
+.ant-select-selection-item-content img {
+	display: none !important;
+}
+
+
 /* Danish css end */

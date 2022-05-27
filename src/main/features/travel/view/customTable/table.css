@@ -11,3 +11,16 @@
   .row-dragging .drag-visible {
     visibility: visible;
   }
+
+  tr:nth-child(odd) td {
+		background-color: #F4F4F4;
+	}
+  thead tr th {
+		background-color: #1b5669 !important;
+    color: white !important;
+  }
+  .ant-table-tbody > tr > td{
+    padding: 5px 15px !important;
+    height: 50px;
+  }
+  .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active{color: white !important;}

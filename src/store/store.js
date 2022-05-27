@@ -24,7 +24,7 @@ import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
 import designationSlice from "../main/features/designation/store/slice";
-import appraisalSlice from "../main/features/appraisal/store/slice";
+import appraisalSlice from "../main/features/appraisal/appraisalQuestion/store/slice";
 import warningCategorySlice from "../main/features/warningCategory/store/slice";
 import leaveTypeSlice from "../main/features/leaveType/store/slice";
 import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";

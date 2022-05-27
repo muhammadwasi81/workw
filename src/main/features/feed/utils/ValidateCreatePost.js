@@ -21,15 +21,24 @@ function isValidPollOptionValue(value) {
 function ValidateDefaultPost({title, attachments}) {
     const validTitle = isValidTitle(title)
     const validAttachments = areValidAttachments(attachments)
-    return {validTitle, validAttachments}
+    const validationResult = {validTitle, validAttachments}
+    return {
+        valid: [validTitle, validAttachments].some((v) => v.valid),
+        validationResult
+    }
 }
 
-function ValidatePollPost({pollTitle, attachments, poll: {options}}) {
+function ValidatePollPost({pollTitle, poll: {options}}) {
     const validTitle = isValidTitle(pollTitle)
-    const validAttachments = areValidAttachments(attachments)
-    const validOptions = options.map(option => isValidPollOptionValue(option.value))
-    return {validTitle, validAttachments, validOptions}
+    const validateOptions = {}
+    options.forEach((option, index) => validateOptions['option_' + index] = isValidPollOptionValue(option.value))
+
+    const validationResult = {validTitle, ...validateOptions}
+    return {
+        valid: Object.values(validationResult).every((v) => v.valid),
+        validationResult
+    }
 }
 
-const ValidateCreatePost = {ValidateDefaultPost, ValidatePollPost, isValidTitle, areValidAttachments}
+const ValidateCreatePost = {ValidateDefaultPost, ValidatePollPost}
 export default ValidateCreatePost

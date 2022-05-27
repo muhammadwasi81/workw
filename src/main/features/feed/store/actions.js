@@ -9,18 +9,11 @@ export const onFeedCreateSubmitAction = createAsyncThunk("feedSlice/onFeedCreate
     const {type} = postCompose;
     const {ValidateDefaultPost, ValidatePollPost} = ValidateCreatePost
     const validation = PostType.isPollType(type) ? ValidatePollPost(postCompose) : ValidateDefaultPost(postCompose)
-
-    console.log("CREATE_POST", validation)
-
-    // const validTitle = ValidateCreatePost.isValidTitle(title)
-    // const validAttachments = ValidateCreatePost.areValidAttachments(attachments)
-    //
-    // const valid = [validTitle, validAttachments].reduce(v => v.valid)
-    // if (!valid) {
-    //     console.log("CREATE_POST_IN_VALID", validTitle, validAttachments)
-    //     return
-    // }
-    // console.log("CREATE_POST_VALID", createFeedComposeServerObject(postCompose))
+    if (!validation.valid) {
+        console.log("CREATE_POST_IN_VALID", validation.validationResult)
+        return
+    }
+    console.log("CREATE_POST_VALID", createFeedComposeServerObject(postCompose))
 })
 
 function onPostTitleTextChange(state, {payload: {value}}) {

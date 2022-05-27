@@ -46,6 +46,8 @@ import sharedSlice from "../utils/Shared/store/slice";
 import accessRolesSlice from "../main/features/accessRole/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
 import feedSlice from "../main/features/feed/store/slice";
+import loanSlice from "../main/features/loan/store/slice";
+
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -82,6 +84,7 @@ const reducers = combineReducers({
 	accessRolesSlice,
 	sharedSlice,
 	travelSlice,
+	loanSlice
 });
 
 const persistConfig = {

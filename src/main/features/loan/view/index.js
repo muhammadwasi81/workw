@@ -2,15 +2,15 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { BrokenPage, STRINGS } from "../../../../utils/base";
 import "./loan.css";
-import Reward from "./Reward";
+import Loan from "./Loan";
 
 const Index = () => {
 	return (
 		<Switch>
 			<Route
 				exact
-				path={`${STRINGS.ROUTES.REWARDS.DEFAULT}`}
-				component={Reward}
+				path={`${STRINGS.ROUTES.LOAN.DEFAULT}`}
+				component={Loan}
 			/>
 			<Route component={BrokenPage} />
 		</Switch>

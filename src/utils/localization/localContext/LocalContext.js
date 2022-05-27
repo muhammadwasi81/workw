@@ -1,13 +1,17 @@
 import React, {createContext, useState} from "react";
 import {dictionaryList} from "../languages";
+import {useSelector} from "react-redux";
+
 
 export const LanguageChangeContext = createContext({
     userLanguage: "en",
     dictionary: dictionaryList
 })
 
+
 export const LanguageProvider = ({children}) => {
     const [userLanguage, setUserLanguage] = useState('en');
+
 
     const provider = {
         userLanguage,

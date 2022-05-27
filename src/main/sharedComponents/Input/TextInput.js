@@ -14,6 +14,7 @@ function TextInput({
 	label,
 	reset,
 	status,
+	defaultValue,
 	...props
 }) {
 	const [state, setstate] = useState("");
@@ -27,9 +28,12 @@ function TextInput({
 			setstate("");
 		}
 	}, [reset]);
+
+	console.log(value,'VALUE',defaultValue,'DF');
 	return (
 		<>
 			<Input
+
 				id={name}
 				prefix={
 					props.prefix ? (
@@ -46,6 +50,7 @@ function TextInput({
 				onChange={handleChange}
 				onKeyDown={props.onKeyDown}
 				value={value}
+				defaultValue={defaultValue}
 				className={className}
 				size={props.size}
 				style={

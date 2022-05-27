@@ -48,6 +48,7 @@ const en = {
 		ListView: "List View",
 		TableView: "Table View",
 		MyReward: "My Reward",
+		MyLoan: "My Loan",
 		ForApprovals: "For Approvals",
 		RewardToMe: "Reward To Me",
 		Search: "Search",
@@ -377,7 +378,14 @@ const en = {
 		istermination: "Is Termination",
 	},
 	rewardsDictionary: {
-		createReward: "Create Reward",
+		createReward: "Create Reward"
+
+	},
+	loanDictionary: {
+		createLoan: "Create Loan",
+		loanTenureInMonths:"Loan Tenure/Months",
+		deductionPerMonth:"Deduction/Months",
+		pleaseEnterloanTenureInMonths:"Please enter loan tenure"
 	},
 	/*** HR Menu ***/
 	myTeam: {},

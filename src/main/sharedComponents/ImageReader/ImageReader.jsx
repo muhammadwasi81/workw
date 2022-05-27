@@ -3,7 +3,7 @@ import "./ImageReader.css";
 import { RiCloseFill } from "react-icons/ri";
 
 const ImageReader = (props) => {
-  const { file, removeFile, showButton = false } = props;
+  const { file, removeFile, showButton = true } = props;
 
   const [preview, setPreview] = React.useState("");
   const [fileType, setFileType] = React.useState("");

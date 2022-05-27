@@ -101,7 +101,7 @@ export const ROUTES = {
 	LEAVES: `${DOMAIN_PREFIX}/leaves`,
 	EXPENSES: `${DOMAIN_PREFIX}/expenses`,
 	CUSTOM_APPROVALS: `${DOMAIN_PREFIX}/customApprovals`,
-	LOAN: `${DOMAIN_PREFIX}/loan`,
+
 	PAYROLL: {
 		DEFAULT: `${DOMAIN_PREFIX}/payroll`,
 		PAYROLL_DETAILS: `${DOMAIN_PREFIX}/payroll/details`,
@@ -300,5 +300,10 @@ export const ROUTES = {
 		ALLOWANCES: `allowances`,
 		REWARD_CATEGORY: `rewardCategory`,
 		WARNING_CATEGORY: `warningCategory`,
+	},
+	LOAN: {
+		DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
+		LOAN: `${DOMAIN_PREFIX}/loan/`,
+		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
 	},
 };

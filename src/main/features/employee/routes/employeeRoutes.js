@@ -4,7 +4,7 @@ import EmployeeList from "../view/employeeList";
 import EmployeeAdd from "../view";
 import { ROUTES } from "../../../../utils/routes";
 
-function EmployeeRoutes() {
+function EmployeeRoutes({ currentNavLink }) {
   console.log(ROUTES.EMPLOYEES.ADD);
   return (
     <Routes>

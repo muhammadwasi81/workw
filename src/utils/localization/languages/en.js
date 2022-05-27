@@ -51,6 +51,9 @@ const en = {
     Disable: "Disable",
     Update: "Update",
     AddEmployee: "Add Employee",
+    Delete: "Delete",
+    Back: "Back",
+    Submit: "Submit",
   },
 
   /*** navMenuLabel only used in LeftSideBar ***/
@@ -514,6 +517,8 @@ const en = {
       UserType: "User Type",
       AccessRole: "Access Role",
       EmpNo: "Employee No",
+      Present: "Present",
+      Required: "Field is required!",
     },
     EmergencyForm: {
       EmergencyInfo: "Emergency Info",
@@ -522,6 +527,7 @@ const en = {
       Number: "Number",
       Relation: "Relation",
       Name: "Name",
+      AddMoreEmergency: "Add More Emergency",
     },
     EducationForm: {
       EducationInfo: "Education Info",

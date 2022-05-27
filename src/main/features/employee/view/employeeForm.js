@@ -68,7 +68,7 @@ const EmployeeForm = (props) => {
   const placeholder = employees.placeholders;
   const selectBefore = (
     <S.FormItem name="titleId" className="formItem_userTitle">
-      <Select size="large" style={{ padding: "0", width: "4rem" }}>
+      <Select size="large" style={{ padding: "0", width: "4.5rem" }}>
         {userTitle.map((titles) => (
           <Option value={titles.id}>{titles.name}</Option>
         ))}
@@ -264,7 +264,7 @@ const EmployeeForm = (props) => {
             label={value.City}
             showSearch={true}
             direction={Direction}
-            endPoint="GetAllCities"
+            endPoint="/api/Utility/GetAllCities"
             requestType="post"
             placeholder={placeholder.searchToSelect}
           />
@@ -425,7 +425,7 @@ const EmployeeForm = (props) => {
         </S.FormItem>
         <S.FormItem
           name="accessRoleId"
-          rules={[{ required: true }]}
+          // rules={[{ required: true }]}
           direction={Direction}
           label={value.AccessRole}
         >

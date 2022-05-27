@@ -50,6 +50,9 @@ const urdu = {
     Disable: "غیر فعال",
     Update: "اپ ڈیٹ",
     AddEmployee: "ملازم شامل کریں",
+    Delete: "حذف کریں",
+    Back: "پیچھے",
+    Submit: "جمع کرائیں",
   },
 
   /*** Main Menu ***/
@@ -493,6 +496,8 @@ const urdu = {
       UserType: "صارف کی قسم",
       AccessRole: "رسائی کا کردار",
       EmpNo: "ملازم کا نمبر",
+      Present: "موجودہ",
+      Required: "فیلڈ کی ضرورت ہے!",
     },
     EmergencyForm: {
       EmergencyInfo: "ایمرجنسی معلومات",
@@ -500,6 +505,7 @@ const urdu = {
       Address: "پتہ",
       Number: "نمبر",
       Relation: "رشتہ",
+      AddMoreEmergency: "مزیدایمرجنسی شامل کریں",
     },
     EducationForm: {
       EducationInfo: "تعلیمی معلومات",

@@ -3,6 +3,7 @@ const urdu = {
 
 	/*** add all shared labels like send, ok, cancel, etc ***/
 	sharedLabels: {
+		awardTo: "کو ایوارڈ",
 		inprogress: "جاری ہے",
 		filter: "فلٹر",
 		approvers: "منظوری دینے والے",

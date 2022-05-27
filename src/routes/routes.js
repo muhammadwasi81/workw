@@ -67,7 +67,7 @@ export const routes = {
 		{
 			path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
 			component: lazy(() =>
-				import("../components/HrMenu/Administration/")
+				import("../main/features/administration")
 			),
 		},
 		{

@@ -54,8 +54,6 @@ const Composer = props => {
 	};
 
 	const onFinish = values => {
-		form.resetFields();
-
 		dispatch(uploadImage(profileImage)).then(x => {
 			console.log(x, "FIRST ONE")
 			let photoId = x.payload.data[0].id;
@@ -80,6 +78,7 @@ const Composer = props => {
 			let payload = { ...values, imageId: photoId, approvers, members };
 
 			dispatch(addComplain(payload));
+			form.resetFields();
 		});
 
 	};
@@ -182,14 +181,14 @@ const Composer = props => {
 					<Input.TextArea placeholder={sharedLabels.enterDescription} />
 				</Form.Item>
 
-				<Form.Item area="true">
+				{/* <Form.Item area="true">
 					<SingleUpload
 						handleImageUpload={handleImageUpload}
 						img="Add Image"
 						position="flex-start"
 						uploadText={sharedLabels.upload}
 					/>
-				</Form.Item>
+				</Form.Item> */}
 
 				<Form.Item>
 					<Button

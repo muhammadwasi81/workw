@@ -15,7 +15,6 @@ function ListItem(props) {
 	const {
 		creator,
 		description,
-		image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
 		category,
 		members = [],
 		approvers,
@@ -128,13 +127,6 @@ function ListItem(props) {
 							) : null}
 						</div>
 					</div>
-				</div>
-				<div className="attachmentBox">
-					<Image
-						preview={false}
-						width={100}
-						src={image === "" ? RewardDefaultIcon : image}
-					/>
 				</div>
 			</div>
 		</div>

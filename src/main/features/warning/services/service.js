@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
-export const getAllComplainService = data => {
-	return MasterConfig.post(`api/Complain/GetAllComplain`, data)
+export const getAllWarningService = data => {
+	return MasterConfig.post(`api/Warning/GetAllWarning`, data)
 		.then(res => {
 			return res.data;
 		})
@@ -10,8 +10,8 @@ export const getAllComplainService = data => {
 		});
 };
 
-export const addComplainService = data => {
-	return MasterConfig.post(`api/Complain/AddComplain`, data)
+export const addWarningService = data => {
+	return MasterConfig.post(`api/Warning/WarningAdd`, data)
 		.then(res => {
 			return res;
 		})
@@ -20,9 +20,8 @@ export const addComplainService = data => {
 		});
 };
 
-export const GetRewardByIdService = id => {
-	console.log("ID FROM SERVICE", id)
-	return MasterConfig.get(`api/Complain/GetComplainById?id=${id}`)
+export const GetWarningByIdService = id => {
+	return MasterConfig.get(`api/Warning/GetWarningById?id=${id}`)
 		.then(res => {
 			return res;
 		})

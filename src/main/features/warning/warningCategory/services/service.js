@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../../utils/services/MasterConfig";
 
 export const getAllWarningCategoriesService = () => {
-  return MasterConfig.get(`api/Administration/WarningCategory/getallWarningCategory`)
+  return MasterConfig.get(`api/WarningCategory/getallWarningCategory`)
     .then((res) => {
       return res.data;
     })
@@ -11,7 +11,7 @@ export const getAllWarningCategoriesService = () => {
 };
 
 export const addWarningCategoryService = (args) => {
-  return MasterConfig.post(`api/Administration/WarningCategory/addWarningCategory`, args)
+  return MasterConfig.post(`api/WarningCategory/addWarningCategory`, args)
     .then((res) => {
       return res.data;
     })

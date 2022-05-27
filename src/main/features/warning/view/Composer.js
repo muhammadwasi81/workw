@@ -4,8 +4,9 @@ import TextInput from "../../../../components/SharedComponent/Input/TextInput";
 // import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../../components/SharedComponent/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
-import { addComplain } from "../store/actions";
-import { getComplainCategory } from "../../../../utils/Shared/store/actions";
+import { addWarning } from "../store/actions";
+import { getWarningCategory } from "../../../../utils/Shared/store/actions";
+import { getAllWarningCategories } from "../warningCategory/store/actions"
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -41,12 +42,12 @@ const Composer = props => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
-	const { complainCategories } = useSelector(state => state.sharedSlice);
+	const { warningCategories } = useSelector(state => state.warningCategorySlice);
 
 
 
 	useEffect(() => {
-		dispatch(getComplainCategory());
+		dispatch(getAllWarningCategories());
 	}, []);
 
 	const handleImageUpload = data => {
@@ -54,7 +55,6 @@ const Composer = props => {
 	};
 
 	const onFinish = values => {
-		form.resetFields();
 
 		dispatch(uploadImage(profileImage)).then(x => {
 			console.log(x, "FIRST ONE")
@@ -79,7 +79,8 @@ const Composer = props => {
 
 			let payload = { ...values, imageId: photoId, approvers, members };
 
-			dispatch(addComplain(payload));
+			dispatch(addWarning(payload));
+			form.resetFields();
 		});
 
 	};
@@ -121,7 +122,7 @@ const Composer = props => {
 						// value={
 						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 						// }
-						data={complainCategories}
+						data={warningCategories}
 						placeholder={sharedLabels.category}
 						style={{
 							width: "100%",

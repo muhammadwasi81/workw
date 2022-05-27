@@ -1,41 +1,41 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addComplain, getAllComplains, GetRewardById } from "./actions";
+import { addWarning, getAllWarnings, GetWarningById } from "./actions";
 
 const initialState = {
-	complains: [],
+	warnings: [],
 	loadingData: false,
 	loader: true,
-	rewardDetail: null,
+	warningDetail: null,
 };
 
-const complainSlice = createSlice({
-	name: "complains",
+const warningSlice = createSlice({
+	name: "warnings",
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
-		builder.addCase(getAllComplains.fulfilled, (state, action) => {
-			state.complains = action.payload ? action.payload : [];
+		builder.addCase(getAllWarnings.fulfilled, (state, action) => {
+			state.warnings = action.payload ? action.payload : [];
 			state.loader = false;
 		});
 
-		builder.addCase(GetRewardById.fulfilled, (state, action) => {
+		builder.addCase(GetWarningById.fulfilled, (state, action) => {
 			console.log("action.payload", action.payload);
-			state.rewardDetail = action.payload.data;
+			state.warningDetail = action.payload.data;
 		});
 
 		builder
-			.addCase(addComplain.fulfilled, (state, { payload }) => {
-				state.complainData = payload;
+			.addCase(addWarning.fulfilled, (state, { payload }) => {
+				state.warningData = payload;
 				return state;
 			})
-			.addMatcher(isPending(...[getAllComplains]), state => {
+			.addMatcher(isPending(...[getAllWarnings]), state => {
 				state.loader = true;
 			})
-			.addMatcher(isRejected(...[getAllComplains]), state => {
+			.addMatcher(isRejected(...[getAllWarnings]), state => {
 				state.loader = true;
 			});
 	},
 });
 
-export const {} = complainSlice.actions;
-export default complainSlice.reducer;
+export const {} = warningSlice.actions;
+export default warningSlice.reducer;

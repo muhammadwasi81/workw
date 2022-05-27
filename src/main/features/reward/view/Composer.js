@@ -147,32 +147,6 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label={sharedLabels.reason}
-					name="reason"
-					rules={[
-						{
-							required: true,
-							message: rewards.EnterAwardReason,
-						},
-					]}
-				>
-					<TextInput placeholder={rewards.EnterAwardReason} />
-				</Form.Item>
-
-				<Form.Item
-					label={sharedLabels.description}
-					name="description"
-					rules={[
-						{
-							required: true,
-							message: sharedLabels.enterDescription,
-						},
-					]}
-				>
-					<Input.TextArea placeholder={sharedLabels.enterDescription} />
-				</Form.Item>
-
-				<Form.Item
 					label={sharedLabels.category}
 					name="categoryId"
 					rules={[
@@ -197,8 +171,21 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
+					label={sharedLabels.reason}
+					name="reason"
+					rules={[
+						{
+							required: true,
+							message: rewards.EnterAwardReason,
+						},
+					]}
+				>
+					<TextInput placeholder={rewards.EnterAwardReason} />
+				</Form.Item>
+
+				<Form.Item
 					name="members"
-					label={sharedLabels.members}
+					label={sharedLabels.awardTo}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
@@ -233,6 +220,19 @@ const Composer = props => {
 						placeholder={sharedLabels.approvers}
 					/>
 				</Form.Item>
+				
+				<Form.Item
+					label={sharedLabels.description}
+					name="description"
+					rules={[
+						{
+							required: true,
+							message: sharedLabels.enterDescription,
+						},
+					]}
+				>
+					<Input.TextArea placeholder={sharedLabels.enterDescription} />
+				</Form.Item>
 
 				<Form.Item area="true">
 					<SingleUpload
@@ -242,69 +242,6 @@ const Composer = props => {
 						uploadText={sharedLabels.upload}
 					/>
 				</Form.Item>
-
-				{/*
-        <Form.Item 
-          label="Award To"
-          name="members"
-          rules={[
-            {
-              required: true,
-              message: "Please Select Members",
-            }
-          ]}
-          >
-          <Select
-            showSearch
-            size="large"
-            placeholder="Search Members"
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            filterSort={(optionA, optionB) =>
-              optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-            }
-          >
-            <Option value="1">Not Identified</Option>
-            <Option value="2">Closed</Option>
-            <Option value="3">Communicated</Option>
-            <Option value="4">Identified</Option>
-            <Option value="5">Resolved</Option>
-            <Option value="6">Cancelled</Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item 
-          label="Approvers"
-          name="approvers"
-          rules={[
-            {
-              required: true,
-              message: "Please Select Approvers",
-            }
-          ]}
-          >
-          <Select
-            showSearch
-            size="large"
-            placeholder="Search Approvers"
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            filterSort={(optionA, optionB) =>
-              optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-            }
-          >
-            <Option value="1">Not Identified</Option>
-            <Option value="2">Closed</Option>
-            <Option value="3">Communicated</Option>
-            <Option value="4">Identified</Option>
-            <Option value="5">Resolved</Option>
-            <Option value="6">Cancelled</Option>
-          </Select>
-        </Form.Item> */}
 
 				<Form.Item>
 					<Button

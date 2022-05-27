@@ -26,16 +26,17 @@
     background: #EDEDED;
     padding: 4px 8px;
     border-radius: 4px;
-    width: 87%;
+    /* width: 87%; */
     justify-content: space-between;
 }
 .topBarIcon {
     color: #757D86;
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 0px;
     letter-spacing: 1px;
     cursor: pointer;
     border-radius: 4px !important;
+    font-weight: 700;
     padding: 2px 5px 2px 5px;
     display: flex;
     justify-content: space-between;
@@ -67,8 +68,16 @@
     padding: 7px 20px;
     background: #EDEDED;
     border: 0;
-    font-size: 12px;
+    font-size: 14px;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+.topBtn:focus{
+    color: #757D86;
+}
+.topBtn:hover{
+    color: white;
 }
 .onn{
     background-color: #1A5669;
@@ -95,6 +104,7 @@
         font-size: 9px;
         height: 21px;
         margin-right: 5px;
+        
     }    
     .gridIcons {
         padding: 4px 8px;

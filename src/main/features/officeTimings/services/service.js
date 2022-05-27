@@ -1,8 +1,8 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
-const API_PREFIX = "api/officetiming/";
+
 export const getAllOfficeTimingService = () => {
-	return AxiosConfig.get(`${API_PREFIX}getallOfficeTimingGroups`)
+	return MasterConfig.get(`api/officetiming/getallOfficeTimingGroups`)
 		.then(res => {
 			return res.data;
 		})
@@ -12,7 +12,7 @@ export const getAllOfficeTimingService = () => {
 };
 
 export const addOfficeTimingService = args => {
-	return AxiosConfig.post(`${API_PREFIX}addOfficeTimingGroup`, args)
+	return MasterConfig.post(`api/officetiming/addOfficeTimingGroup`, args)
 		.then(res => {
 			return res.data;
 		})

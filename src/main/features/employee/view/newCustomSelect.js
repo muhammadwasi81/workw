@@ -66,6 +66,8 @@ function NewCustomSelect(props) {
 
 	return (
 		<Select
+			// open={}
+			notFoundContent={<></>}
 			status={props.status}
 			mode={props.mode}
 			onSearch={handleSearch}
@@ -147,15 +149,19 @@ function NewCustomSelect(props) {
 			{data &&
 				data.length > 0 &&
 				data.map((data, index) => (
-					<Option
-						key={index}
-						value={
-							props.valueObject ? JSON.stringify(data) : data.id
-						}
-					>
-						{img(data)}
-						{data.name}
-					</Option>
+					<>
+						<Option
+							key={index}
+							value={
+								props.valueObject
+									? JSON.stringify(data)
+									: data.id
+							}
+						>
+							{/* {img(data)} */}
+							{data.name}
+						</Option>
+					</>
 				))}
 		</Select>
 	);

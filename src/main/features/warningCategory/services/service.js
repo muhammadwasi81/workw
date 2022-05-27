@@ -1,8 +1,7 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
-const API_PREFIX = "konnectapi/api/Administration/WarningCategory/";
 export const getAllWarningCategoriesService = () => {
-  return AxiosConfig.get(`${API_PREFIX}getallWarningCategory`)
+  return MasterConfig.get(`api/Administration/WarningCategory/getallWarningCategory`)
     .then((res) => {
       return res.data;
     })
@@ -12,7 +11,7 @@ export const getAllWarningCategoriesService = () => {
 };
 
 export const addWarningCategoryService = (args) => {
-  return AxiosConfig.post(`${API_PREFIX}addWarningCategory`, args)
+  return MasterConfig.post(`api/Administration/WarningCategory/addWarningCategory`, args)
     .then((res) => {
       return res.data;
     })

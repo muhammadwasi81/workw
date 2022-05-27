@@ -14,6 +14,7 @@ import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import TopBar from "../../../sharedComponents/topBar/topBar";
+import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 import {
 	FilterFilled,
 	UnorderedListOutlined,
@@ -23,7 +24,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllRewards, GetRewardById } from "../store/actions";
 import TableView from "./TableView";
-import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
+
 import "./reward.css";
 
 const Reward = props => {
@@ -57,17 +58,13 @@ const Reward = props => {
 		dispatch(getAllRewards(filter));
 	}, [filter]);
 	return (
-		<TabbableContainer className="max-width-1190">
+		<TabbableContainer className="">
 			<ContainerHeader>
 				<HeaderMenuContainer></HeaderMenuContainer>
 				<div className="right-menu" style={{ paddingRight: "10px" }}>
-					<div
-						className={
-							isTablet ? "btn-hld CompBtnMobile" : "btn-hld"
-						}
-					>
+					<div className={""}>
 						<SideDrawer
-							title="Create Reward"
+							title={rewardsDictionary.createReward}
 							buttonText={rewardsDictionary.createReward}
 							isAccessDrawer={false}
 						>
@@ -75,13 +72,13 @@ const Reward = props => {
 						</SideDrawer>
 					</div>
 				</div>
-				<span className="ln" />
+				{/* <span className="ln" /> */}
 			</ContainerHeader>
 			<TopBar
 				buttons={[
-					<Button className="filterButton topBtn">
+					<Button className="filterButton topBtn !h-full !flex !items-center">
 						{isTablet ? "" : sharedLabels.filter}
-						<FilterFilled className="topBarIcon" />
+						<FilterFilled />
 					</Button>,
 					<BarNavLink
 						extraClasses={
@@ -119,33 +116,30 @@ const Reward = props => {
 				gridIcons={[
 					<div
 						onClick={() => setGrid(false)}
-						className={
+						className={`  flex justify-center items-center gap-1 ${
 							grid
 								? "topBarIcon gridIcon"
 								: "topBarIcon gridIcon isActive"
-						}
+						}`}
 					>
 						{isTablet ? "" : sharedLabels.ListView}{" "}
-						<UnorderedListOutlined />
+						<UnorderedListOutlined style={{ marginLeft: "2px" }} />
 					</div>,
 					<div
 						onClick={() => setGrid(true)}
-						className={
-							grid
-								? "topBarIcon gridIcon isActive"
-								: "topBarIcon gridIcon"
-						}
+						className={` flex justify-center items-center gap-1
+							${grid ? "topBarIcon gridIcon isActive transition" : "topBarIcon gridIcon "}`}
 					>
 						{isTablet ? "" : sharedLabels.TableView}{" "}
-						<AppstoreFilled />
+						<AppstoreFilled style={{ marginLeft: "2px" }} />
 					</div>,
 				]}
 			/>
-			<ContBody className="WarningMainDiv">
-				<div className="lf-col">
+			<div className="myBody">
+				<div className="">
 					{rewards && rewards.length > 0 ? (
 						grid ? (
-							<Row gutter={[16, 16]}>{<TableView />}</Row>
+							<TableView />
 						) : (
 							<>
 								{loader ? (
@@ -154,14 +148,14 @@ const Reward = props => {
 											avatar
 											paragraph={{ rows: 4 }}
 										/>
-										<Skeleton
+										{/* <Skeleton
 											avatar
 											paragraph={{ rows: 4 }}
 										/>
 										<Skeleton
 											avatar
 											paragraph={{ rows: 4 }}
-										/>
+										/> */}
 									</>
 								) : (
 									rewards.map((item, index) => {
@@ -183,7 +177,7 @@ const Reward = props => {
 						"Data not found"
 					)}
 				</div>
-			</ContBody>
+			</div>
 			{rewardDetail && (
 				<DetailedView onClose={onClose} visible={visible} />
 			)}

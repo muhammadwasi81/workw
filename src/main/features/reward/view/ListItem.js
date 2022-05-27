@@ -34,7 +34,7 @@ function ListItem(props) {
 					props.getRewardId(props.id);
 				}}
 			></div>
-			<div className="item-header">
+			<div className={  "item-header"}>
 				<div className="left">
 					<UserInfo
 						avatarSrc={creator.image}

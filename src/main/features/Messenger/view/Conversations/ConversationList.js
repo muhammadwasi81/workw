@@ -1,13 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import ConversationListItem from './ConversationListItem';
 
 const ConversationList = () => {
+	const conversationsState = useSelector(state => state.MessengerSlice.Conversations);
     return (
         <div className="ConversationList" >
          {
-             [{chatId:"123"},{chatId:"456"}].map((val, ind)=>{
+            conversationsState && conversationsState.map((item, ind)=>{
                  return(
-                     <ConversationListItem key={ind}/>
+                     <ConversationListItem key={ind} conversation={item}/>
                  )
              })
          }

@@ -1,9 +1,9 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
-const API_PREFIX = "konnectapi/api/Employee/";
-
+// import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
+const API_PREFIX = "api/Employee/";
 
 export const addEmployeeService = data => {
-	return AxiosConfig.post(`${API_PREFIX}AddEmployee`, data)
+	return MasterConfig.post(`${API_PREFIX}AddEmployee`, data)
 		.then(res => {
 			return res.data;
 		})
@@ -12,11 +12,8 @@ export const addEmployeeService = data => {
 		});
 };
 
-
 export const getAllEmployeesService = () => {
-	return AxiosConfig.get(
-		"https://58.65.211.234:4436/konnectapi/api/RewardCategory/GetAllRewardCategory"
-	)
+	return MasterConfig.get(`${API_PREFIX}GetAllEmployeeShort`)
 		.then(res => {
 			return res.data;
 		})

@@ -4,10 +4,10 @@
 import { useEffect, useState } from "react";
 // import travelImage from "../../../../../content/svg/travelcard.svg";
 // import travelFly from "../../../../../content/svg/travelFly.svg";
-import ByShip from "../../../../../content/svg/by_ship.svg";
-import ByPlane from "../../../../../content/svg/by_plane.svg";
-import ByTrain from "../../../../../content/svg/by_train.svg";
-import ByRoad from "../../../../../content/svg/by_road.svg";
+import ByShip from "../../../../../content/png/by_ship.png";
+import ByPlane from "../../../../../content/png/by_plane.png";
+import ByTrain from "../../../../../content/png/by_train.png";
+import ByRoad from "../../../../../content/png/by_road.png";
 import FlyLocation from "../../../../../content/svg/fly_location.svg";
 import moment from "moment";
 import { useMediaQuery } from "react-responsive";

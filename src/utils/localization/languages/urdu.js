@@ -47,6 +47,9 @@ const urdu = {
 		ForApprovals: "منظوریوں کے لیے",
 		RewardToMe: "مجھے انعام دیں",
 		Search: "تلاش کریں",
+		Disable: "غیر فعال",
+		Update: "اپ ڈیٹ",
+		AddEmployee: "ملازم شامل کریں",
 	},
 
 	/*** Main Menu ***/
@@ -541,6 +544,11 @@ const urdu = {
 			City: "شہر",
 			Country: "ملک",
 			AddMoreBank: "مزید بینک شامل کریں",
+		},
+		EmployeeList: {
+			number: "نمبر",
+			email: "ای میل",
+			designation: "عہدہ",
 		},
 		submit: "جمع کرائیں",
 	},

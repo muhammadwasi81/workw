@@ -13,18 +13,8 @@ import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 
 function DetailedView(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels } = dictionaryList[userLanguage];
-	// const [rewardDetailState, setRewardDetailState] = useState(null);
+	const { sharedLabels, Direction } = dictionaryList[userLanguage];
 	const { rewardDetail } = useSelector(state => state.rewardSlice);
-
-	// const x = rewardDetail.data;
-
-	// useEffect(() => {
-	// 	if (rewardDetail) {
-	// 		console.log("rewardDetail", rewardDetail);
-	// 		setRewardDetailState(rewardDetail);
-	// 	}
-	// }, [rewardDetail]);
 
 	const {
 		creator,
@@ -38,17 +28,13 @@ function DetailedView(props) {
 		approvers,
 	} = rewardDetail;
 
-	// Object.keys(rewardDetail).length >= 0 &&
-	// Object.getPrototypeOf(rewardDetail) === Object.prototype &&
-	// rewardDetail.data;
-	console.log("creator rewardDetail", rewardDetail);
 	const isTablet = useMediaQuery({ maxWidth: 800 });
 
 	return (
 		<Drawer
 			title={sharedLabels.rewards}
 			width="768"
-			placement={isTablet ? "bottom" : "right"}
+			placement={Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right" }
 			onClose={props.onClose}
 			visible={props.visible}
 			className="detailedViewComposer"

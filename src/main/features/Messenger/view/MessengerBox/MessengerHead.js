@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '../../../../../components/SharedComponent/Avatar/avatar';
 import phoneIcon from "../../../../../content/NewContent/Messenger/phone.svg";
 import videoIcon from "../../../../../content/NewContent/Messenger/video.svg";
@@ -8,8 +8,12 @@ import { useDispatch } from 'react-redux';
 import { handleIsopenChat } from '../../store/messengerSlice';
 
 
-const MessengerHead = ({ handleProfileClick, isOpenProfile }) => {
-    const dispatch = useDispatch()
+const MessengerHead = ({ handleProfileClick, isOpenProfile, messengerDetail }) => {
+    const dispatch = useDispatch();
+    const { profileName, profileImage, chatId, chatType } = messengerDetail;
+    useEffect(()=>{
+        
+    }, [])
     return (
         <div className={"MessengerHead " + (isOpenProfile ? "blur-bg" : "")} >
             <div className="MessengerHeadAvatar MessengerHeadAvatar-Mob" >
@@ -19,12 +23,12 @@ const MessengerHead = ({ handleProfileClick, isOpenProfile }) => {
                 <div onClick={() => {
                     handleProfileClick()
                 }}>
-                    <Avatar src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"} name={""} size={40} round={true} />
+                    <Avatar src={profileImage} name={profileName} size={40} round={true} />
                 </div>
             </div>
             <div className="MessengerHeadName" >
                 <div >
-                    Abu Bakar Memon
+                    {profileName}
                 </div>
             </div>
             <div className="MessengerHeadIcon" >

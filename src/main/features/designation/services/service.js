@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllDesignationsService = () => {
-	return MasterConfig.get(`api/Designation/getalldesignation`)
+	return 	MasterConfig.get(`api/Designation/getalldesignation`)
 		.then(res => {
 			return res.data;
 		})

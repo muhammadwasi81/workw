@@ -47,7 +47,10 @@ const en = {
 		MyReward: "My Reward",
 		ForApprovals: "For Approvals",
 		RewardToMe: "Reward To Me",
-		Search: "Search"
+		Search: "Search",
+		Disable: "Disable",
+		Update: "Update",
+		AddEmployee: "Add Employee",
 	},
 
 	/*** navMenuLabel only used in LeftSideBar ***/
@@ -564,6 +567,11 @@ const en = {
 			City: "City",
 			Country: "Country",
 			AddMoreBank: "Add More Bank",
+		},
+		EmployeeList: {
+			number: "Number",
+			email: "Email",
+			designation: "Designation",
 		},
 		submit: "Submit",
 	},

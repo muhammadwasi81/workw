@@ -1,8 +1,8 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
 const API_PREFIX = "konnectapi/api/salaryheader/";
 export const getAllSalaryHeaderService = () => {
-  return AxiosConfig.get(`${API_PREFIX}getallsalaryheader`)
+  return MasterConfig.get(`api/salaryheader/getallsalaryheader`)
     .then((res) => {
       return res.data;
     })
@@ -12,7 +12,7 @@ export const getAllSalaryHeaderService = () => {
 };
 
 export const addSalaryHeaderService = (args) => {
-  return AxiosConfig.post(`${API_PREFIX}addsalaryheader`, args)
+  return MasterConfig.post(`api/salaryheader/addsalaryheader`, args)
     .then((res) => {
       return res.data;
     })

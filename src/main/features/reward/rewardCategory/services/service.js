@@ -1,9 +1,7 @@
-import AxiosConfig from "../../../../../utils/services/AxiosConfig";
-
-const API_PREFIX = "konnectapi/api/rewardcategory/";
+import MasterConfig from "../../../../../utils/services/MasterConfig";
 
 export const getAllRewardCategoryService = () => {
-  return AxiosConfig.get(`${API_PREFIX}getallrewardcategory`)
+  return MasterConfig.get(`api/rewardcategory/getallrewardcategory`)
     .then((res) => {
       return res.data;
     })
@@ -13,7 +11,7 @@ export const getAllRewardCategoryService = () => {
 };
 
 export const addRewardCategoryService = (args) => {
-  return AxiosConfig.post(`${API_PREFIX}addrewardcategory`, args)
+  return MasterConfig.post(`api/rewardcategory/addrewardcategory`, args)
     .then((res) => {
       return res.data;
     })

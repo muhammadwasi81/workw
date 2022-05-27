@@ -11,6 +11,7 @@ import {
 	getRewardCategory,
 	getAllBussinessFeatures,
 	getAllEmployeeTypes,
+	getComplainCategory,
 } from "./actions";
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
 	isUploaded: false,
 	imageIds: [],
 	rewardCategories: [],
+	complainCategories: [],
 	loadingData: false,
 	loader: false,
 	bussinessFeatures: [],
@@ -55,6 +57,10 @@ const sharedSlice = createSlice({
 			)
 			.addCase(getRewardCategory.fulfilled, (state, { payload }) => {
 				state.rewardCategories = payload;
+				state.loadingData = false;
+			})
+			.addCase(getComplainCategory.fulfilled, (state, { payload }) => {
+				state.complainCategories = payload;
 				state.loadingData = false;
 			})
 			.addCase(uploadImage.fulfilled, (state, { payload }) => {

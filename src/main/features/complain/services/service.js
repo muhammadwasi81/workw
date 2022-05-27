@@ -1,6 +1,6 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
-export const getAllRewardService = data => {
+export const getAllComplainService = data => {
 	return MasterConfig.post(`api/Complain/GetAllComplain`, data)
 		.then(res => {
 			return res.data;
@@ -10,7 +10,7 @@ export const getAllRewardService = data => {
 		});
 };
 
-export const addRewardService = data => {
+export const addComplainService = data => {
 	return MasterConfig.post(`api/Complain/AddComplain`, data)
 		.then(res => {
 			return res;

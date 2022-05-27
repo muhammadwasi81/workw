@@ -21,10 +21,10 @@ import {
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllComplains, GetRewardById } from "../store/actions";
+import { getAllWarnings, GetWarningById } from "../store/actions";
 import TableView from "./TableView";
 import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
-import "./complain.css";
+import "./warning.css";
 
 const Reward = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -40,23 +40,21 @@ const Reward = props => {
 
 	const dispatch = useDispatch();
 
-	const { complains, loader, rewardDetail } = useSelector(
-		state => state.complainSlice
+	const { warnings, loader, warningDetail } = useSelector(
+		state => state.warningSlice
 	);
-
-	console.log(complains, "HELlOOOO!!!!");
 
 	const onClose = () => {
 		setVisible(false);
 	};
 
 	const getRewardId = id => {
-		dispatch(GetRewardById(id));
+		dispatch(GetWarningById(id));
 		setVisible(true);
 	};
 
 	useEffect(() => {
-		dispatch(getAllComplains(filter));
+		dispatch(getAllWarnings(filter));
 	}, [filter]);
 	return (
 		<TabbableContainer className="max-width-1190">
@@ -69,8 +67,8 @@ const Reward = props => {
 						}
 					>
 						<SideDrawer
-							title={sharedLabels.complain}
-							buttonText={complainDictionary.createComplain}
+							title={"Warning"}
+							buttonText={"Create Warning"}
 							isAccessDrawer={false}
 						>
 							<Composer />
@@ -92,7 +90,7 @@ const Reward = props => {
 								: "topBtn"
 						}
 						activeName={"list"}
-						linkName={complainDictionary.myComplain}
+						linkName={"My Warning"}
 						onClick={() => setFilter({ filterType: 1 })}
 					/>,
 					<BarNavLink
@@ -114,7 +112,7 @@ const Reward = props => {
 								: "topBtn"
 						}
 						isDefault={false}
-						linkName={complainDictionary.complainToMe}
+						linkName={"Warning To Me"}
 						onClick={() => setFilter({ filterType: 3 })}
 					/>,
 				]}
@@ -144,7 +142,7 @@ const Reward = props => {
 				]}
 			/>
 			<div className="myBody">
-				{complains && complains.length > 0 ? (
+				{warnings && warnings.length > 0 ? (
 					grid ? (
 						<TableView />
 					) : (
@@ -155,7 +153,7 @@ const Reward = props => {
 								</>
 							) : (
 								<div className="flex gap-2 list-none flex-wrap pt-4">
-									{complains.map((item, index) => {
+									{warnings.map((item, index) => {
 										return (
 											<>
 												<ListItem
@@ -175,7 +173,7 @@ const Reward = props => {
 					"Data not found"
 				)}
 			</div>
-			{rewardDetail && (
+			{warningDetail && (
 				<DetailedView onClose={onClose} visible={visible} />
 			)}
 		</TabbableContainer>

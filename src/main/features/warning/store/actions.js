@@ -5,12 +5,13 @@ import {
   responseMessage,
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
-import { addComplainService, getAllComplainService, GetRewardByIdService } from "../services/service";
+import { addWarningService, getAllWarningService, GetWarningByIdService } from "../services/service";
 
-export const getAllComplains = createAsyncThunk(
-	"Complain/GetAllComplain",
+export const getAllWarnings = createAsyncThunk(
+	"Warning/GetAllWarning",
 	async data => {
-		const response = await getAllComplainService(data);
+		const response = await getAllWarningService(data);
+    console.log(response, "ALL Warnings")
     if (!response.responseCode) {
         message.error("Something went wrong")
     }
@@ -18,19 +19,19 @@ export const getAllComplains = createAsyncThunk(
 	}
 );
 
-export const addComplain = createAsyncThunk(
-  "Complain/addComplain",
+export const addWarning = createAsyncThunk(
+  "Warning/addWarning",
   async (args, {dispatch, setState}) => {
-    const response = await addComplainService(args);
+    const response = await addWarningService(args);
     return response
   }
 )
 
 
-export const GetRewardById = createAsyncThunk(
+export const GetWarningById = createAsyncThunk(
 	"Reward/GetRewardById",
 	async id => {
-		const response = await GetRewardByIdService(id);
+		const response = await GetWarningByIdService(id);
     console.log("MY ID", id)
 		return response.data;
 	}

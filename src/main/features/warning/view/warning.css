@@ -37,7 +37,8 @@
     display: flex !important;
     flex-wrap: wrap;
     list-style-type: none;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    gap: 8px;
     padding-top: 15px;
 }
 .item-header {
@@ -75,6 +76,12 @@
 .item-content h4 {
     font-weight: bold;
     margin: 0;
+}
+.ant-btn-primary {
+    background-color: #1b5669 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    border-color: #1b5669 !important;
 }
 
 
@@ -127,7 +134,19 @@
 .cancel {
     background-color: red;
 }
-
+.CompBtnMobile {
+    position: absolute;
+    left: 0;
+    bottom: 9px;
+    right: 6px;
+}
+.CompBtnMobile span:nth-child(2) {
+    display: none;
+}
+.CompBtnMobile .drawerBtn {
+    border-radius: 50% !important;
+    padding: 6px 9px;
+}
 .ItemDetails {
     display: flex;
     justify-content: space-between;
@@ -142,7 +161,7 @@
 .ListItemInner p {
     color: #757D86;
     white-space: nowrap;
-    width: 90px;
+    width: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
 }

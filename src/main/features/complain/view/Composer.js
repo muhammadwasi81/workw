@@ -4,7 +4,7 @@ import TextInput from "../../../../components/SharedComponent/Input/TextInput";
 // import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../../components/SharedComponent/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
-import { addReward } from "../store/actions";
+import { addComplain } from "../store/actions";
 import { getComplainCategory } from "../../../../utils/Shared/store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -36,7 +36,7 @@ const initialState = {
 
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, Direction, rewards, rewardsDictionary } = dictionaryList[userLanguage];
+	const { sharedLabels, Direction, complainDictionary } = dictionaryList[userLanguage];
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -54,12 +54,10 @@ const Composer = props => {
 	};
 
 	const onFinish = values => {
-		form.resetFields();
-
 		dispatch(uploadImage(profileImage)).then(x => {
 			console.log(x, "FIRST ONE")
 			let photoId = x.payload.data[0].id;
-
+				console.log(values.approvers, "sadasdsada")
 			let approvers = values.approvers.map(approver => {
 				return {
 					approverId: approver,
@@ -69,19 +67,18 @@ const Composer = props => {
 					email: "",
 				};
 			});
-			let members = values.members.map(approver => {
+			let members = values.members.map(member => {
 				return {
-					approverId: approver,
-					approverType: 0,
-					isDefault: true,
-					status: 0,
+					memberId: member,
+					memberType: 0,
 					email: "",
 				};
 			});
 
 			let payload = { ...values, imageId: photoId, approvers, members };
 
-			dispatch(addReward(payload));
+			dispatch(addComplain(payload));
+			form.resetFields();
 		});
 
 	};
@@ -107,21 +104,7 @@ const Composer = props => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
-				// className={Direction === "ltr" ? "align-right" : ""}
 			>
-
-				<Form.Item
-					label={sharedLabels.description}
-					name="description"
-					rules={[
-						{
-							required: true,
-							message: sharedLabels.enterDescription,
-						},
-					]}
-				>
-					<Input.TextArea placeholder={sharedLabels.enterDescription} />
-				</Form.Item>
 
 				<Form.Item
 					label={sharedLabels.category}
@@ -149,7 +132,7 @@ const Composer = props => {
 
 				<Form.Item
 					name="members"
-					label={"Complain Of"}
+					label={complainDictionary.complainOf}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
@@ -185,14 +168,27 @@ const Composer = props => {
 					/>
 				</Form.Item>
 
-				<Form.Item area="true">
+				<Form.Item
+					label={sharedLabels.description}
+					name="description"
+					rules={[
+						{
+							required: true,
+							message: sharedLabels.enterDescription,
+						},
+					]}
+				>
+					<Input.TextArea placeholder={sharedLabels.enterDescription} />
+				</Form.Item>
+
+				{/* <Form.Item area="true">
 					<SingleUpload
 						handleImageUpload={handleImageUpload}
 						img="Add Image"
 						position="flex-start"
 						uploadText={sharedLabels.upload}
 					/>
-				</Form.Item>
+				</Form.Item> */}
 
 				<Form.Item>
 					<Button
@@ -201,10 +197,10 @@ const Composer = props => {
 						className="ThemeBtn"
 						block
 						htmlType="submit"
-						title={"Create Complain"}
+						title={sharedLabels.create}
 					>
 						{" "}
-						{"Create Complain"}{" "}
+						{sharedLabels.create}{" "}
 					</Button>
 				</Form.Item>
 			</Form>

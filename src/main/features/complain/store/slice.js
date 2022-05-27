@@ -1,20 +1,20 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addReward, getAllRewards, GetRewardById } from "./actions";
+import { addComplain, getAllComplains, GetRewardById } from "./actions";
 
 const initialState = {
-	rewards: [],
+	complains: [],
 	loadingData: false,
 	loader: true,
 	rewardDetail: null,
 };
 
-const rewardSlice = createSlice({
-	name: "rewards",
+const complainSlice = createSlice({
+	name: "complains",
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
-		builder.addCase(getAllRewards.fulfilled, (state, action) => {
-			state.rewards = action.payload ? action.payload : [];
+		builder.addCase(getAllComplains.fulfilled, (state, action) => {
+			state.complains = action.payload ? action.payload : [];
 			state.loader = false;
 		});
 
@@ -24,18 +24,18 @@ const rewardSlice = createSlice({
 		});
 
 		builder
-			.addCase(addReward.fulfilled, (state, { payload }) => {
-				state.rewardData = payload;
+			.addCase(addComplain.fulfilled, (state, { payload }) => {
+				state.complainData = payload;
 				return state;
 			})
-			.addMatcher(isPending(...[getAllRewards]), state => {
+			.addMatcher(isPending(...[getAllComplains]), state => {
 				state.loader = true;
 			})
-			.addMatcher(isRejected(...[getAllRewards]), state => {
+			.addMatcher(isRejected(...[getAllComplains]), state => {
 				state.loader = true;
 			});
 	},
 });
 
-export const {} = rewardSlice.actions;
-export default rewardSlice.reducer;
+export const {} = complainSlice.actions;
+export default complainSlice.reducer;

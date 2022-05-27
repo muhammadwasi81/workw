@@ -3,6 +3,7 @@ const en = {
 
 	/*** add all shared labels like send, ok, cancel, etc ***/
 	sharedLabels: {
+		awardTo: "Award To",
 		inprogress: "In Progress",
 		filter: "Filter",
 		approvals: "Approvals",
@@ -11,10 +12,12 @@ const en = {
 		description: "Description",
 		enterDescription: "Enter Description",
 		manager: "Manager",
+		create: "Create",
 		humanresource: "HR",
 		finance: "Finance",
 		it: "IT",
 		admin: "Admin",
+		selectMember: "Select Member",
 		othersapprovals: "Others Approvals",
 		exitinterview: "Exit Interview",
 		selectAperson: "Select a person",
@@ -52,13 +55,7 @@ const en = {
 		Disable: "Disable",
 		Update: "Update",
 		AddEmployee: "Add Employee",
-		amount:"Amount",
-		deadline:"Deadline",
-		pleaseEnterAmount:"Please enter amount",
-		purpose:"Purpose",
-		SelectPurpose:"Select purpose",
-
-
+		complain: "Complain"
 	},
 
 	/*** navMenuLabel only used in LeftSideBar ***/
@@ -608,11 +605,13 @@ const en = {
 	bonus: {
 		createBonus: "Create Bonus",
 	},
-	complains: {
-		inprogress: "In Progress",
-		filter: "Filter",
-		approvers: "Approvars",
+	complainDictionary: {
+		PleaseEnterAwardName: "منظوری دینے والے",
 		createComplain: "Create Complain",
+		complainToMe: "Complain To Me",
+		myComplain: "My Complain",
+		createComplain: "Create Complain",
+		complainOf: "Complain Of",
 	},
 	resignations: {
 		forapproval: "For Approval",
@@ -620,6 +619,12 @@ const en = {
 		createresignation: "Create Resignation",
 		reasonforresignation: "Reason for Resignation",
 		istermination: "Is Termination",
+	},
+	rewards: {
+		rewards: "Rewards",
+		PleaseEnterAwardName: "Please Enter Award Name!",
+		EnterAwardName: "Enter Award Name!",
+		EnterAwardReason: "Enter Award Reason",
 	},
 
 	// *** Extra label *** //

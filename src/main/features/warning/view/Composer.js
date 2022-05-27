@@ -4,8 +4,9 @@ import TextInput from "../../../../components/SharedComponent/Input/TextInput";
 // import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../../components/SharedComponent/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
-import { getRewardCategory } from "../../../../utils/Shared/store/actions";
-import { addReward } from "../store/actions";
+import { addWarning } from "../store/actions";
+import { getWarningCategory } from "../../../../utils/Shared/store/actions";
+import { getAllWarningCategories } from "../warningCategory/store/actions"
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -14,8 +15,6 @@ import NewCustomSelect from "../../employee/view/newCustomSelect";
 
 const initialState = {
 	id : "",
-	name: "",
-	reason: "",
 	description: "",
 	categoryId: "",
 	imageId: "",
@@ -38,21 +37,17 @@ const initialState = {
 
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, Direction, rewards, rewardsDictionary } = dictionaryList[userLanguage];
+	const { sharedLabels, Direction, complainDictionary } = dictionaryList[userLanguage];
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
-	const { rewardCategories } = useSelector(state => state.sharedSlice);
-
-	const [state, setState] = useState(initialState);
+	const { warningCategories } = useSelector(state => state.warningCategorySlice);
 
 
 
 	useEffect(() => {
-		dispatch(getRewardCategory());
-		// dispatch(getAllEmployee());
-		// console.log(employeesList, "EMPLOYEES")
+		dispatch(getAllWarningCategories());
 	}, []);
 
 	const handleImageUpload = data => {
@@ -60,16 +55,11 @@ const Composer = props => {
 	};
 
 	const onFinish = values => {
-		form.resetFields();
 
 		dispatch(uploadImage(profileImage)).then(x => {
-			// console.log(
-			// 	x.payload.data[0].id,
-			// 	"Hurry i got image if from server"
-			// );
 			console.log(x, "FIRST ONE")
 			let photoId = x.payload.data[0].id;
-
+				console.log(values.approvers, "sadasdsada")
 			let approvers = values.approvers.map(approver => {
 				return {
 					approverId: approver,
@@ -79,33 +69,19 @@ const Composer = props => {
 					email: "",
 				};
 			});
-			let members = values.members.map(approver => {
+			let members = values.members.map(member => {
 				return {
-					approverId: approver,
-					approverType: 0,
-					isDefault: true,
-					status: 0,
+					memberId: member,
+					memberType: 0,
 					email: "",
 				};
 			});
 
 			let payload = { ...values, imageId: photoId, approvers, members };
 
-			dispatch(addReward(payload));
-			console.log(payload, "FINALLLLL")
-			// console.log(payload, "Final Data");
+			dispatch(addWarning(payload));
+			form.resetFields();
 		});
-		// const { id, name, reason, categoryId, imageId  } = values;
-		// setState(prevState => ({
-		// 	...prevState,
-		// 	id,
-		// 	name,
-		// 	reason,
-		// 	categoryId,
-		// 	imageId,
-		// 	members,
-		// 	approvers
-		// }));
 
 	};
 
@@ -130,21 +106,7 @@ const Composer = props => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
-				// className={Direction === "ltr" ? "align-right" : ""}
 			>
-				<Form.Item
-					label={sharedLabels.name}
-					name="name"
-					labelPosition="top"
-					rules={[
-						{
-							required: true,
-							message: rewards.PleaseEnterAwardName,
-						},
-					]}
-				>
-					<TextInput placeholder={rewards.EnterAwardName} />
-				</Form.Item>
 
 				<Form.Item
 					label={sharedLabels.category}
@@ -160,7 +122,7 @@ const Composer = props => {
 						// value={
 						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 						// }
-						data={rewardCategories}
+						data={warningCategories}
 						placeholder={sharedLabels.category}
 						style={{
 							width: "100%",
@@ -171,21 +133,8 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label={sharedLabels.reason}
-					name="reason"
-					rules={[
-						{
-							required: true,
-							message: rewards.EnterAwardReason,
-						},
-					]}
-				>
-					<TextInput placeholder={rewards.EnterAwardReason} />
-				</Form.Item>
-
-				<Form.Item
 					name="members"
-					label={sharedLabels.awardTo}
+					label={complainDictionary.complainOf}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
@@ -220,7 +169,7 @@ const Composer = props => {
 						placeholder={sharedLabels.approvers}
 					/>
 				</Form.Item>
-				
+
 				<Form.Item
 					label={sharedLabels.description}
 					name="description"
@@ -250,10 +199,10 @@ const Composer = props => {
 						className="ThemeBtn"
 						block
 						htmlType="submit"
-						title={sharedLabels.createReward}
+						title={sharedLabels.create}
 					>
 						{" "}
-						{rewardsDictionary.createReward}{" "}
+						{sharedLabels.create}{" "}
 					</Button>
 				</Form.Item>
 			</Form>

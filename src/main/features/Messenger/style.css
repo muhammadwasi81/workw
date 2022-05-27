@@ -257,7 +257,7 @@ input:focus {
     display: flex;
     margin-top: 25px;
     animation-name: rightToLeft;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
     animation-fill-mode: forwards;
     flex-direction: row;
 }
@@ -266,7 +266,7 @@ input:focus {
     display: flex;
     margin-top: 25px;
     animation-name: leftToRight;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
     animation-fill-mode: forwards;
     flex-direction: row-reverse;
 }

@@ -1,37 +1,72 @@
 import { Badge } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { STRINGS } from "../../../../../utils/base";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import { handleIsopenChat } from "../../store/messengerSlice";
+import { handleIsopenChat, handleMessengerItemClick } from "../../store/messengerSlice";
+import { MESSENGER_ENUMS } from "../../utils/base";
 
-const ConversationListItem = () => {
+const ConversationListItem = ({ conversation }) => {
 	const dispatch = useDispatch();
+	// TODO: destructure & set default object of conversation data
+	const {
+		id = STRINGS.DEFAULTS.guid,
+		imageId = "",
+		name = "",
+		chatType = MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT,
+		chatWith = {
+			name: "",
+			image: ""
+		},
+		lastMessage = {
+			lastMessage:""
+		},
+		lastUpdate = ""
+	} = conversation;
+	// TODO: Conditionally get profileImage & profileName behalf of ChatId
+	const profileImage = chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT ? chatWith.image :
+		chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT ? imageId : "";
+	const profileName = chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT ? chatWith.name :
+		chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT ? name : ""
+	
+		const handleItemClick = () => {
+		// TODO: handleIsopenChat for manage Mobile Chat view;
+		dispatch(handleIsopenChat(true))
+		// TODO: handleMessengerItemClick for manage Global State of Messnger
+		let chatMembers =  chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT ? [chatWith] : []
+		dispatch(handleMessengerItemClick({
+			chatId: id,
+			profileName: profileName,
+			profileImage: profileImage,
+			chatType: chatType,
+			members: chatMembers
+		}))
+	}
+
 	return (
 		<div
 			className="ConversationListItem"
-			onClick={() => dispatch(handleIsopenChat(true))}
+			onClick={handleItemClick}
 		>
 			<div className="ItemDP">
 				<Avatar
-					src={
-						"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-					}
-					name={""}
+					src={profileImage}
+					name={profileName}
 					size={38}
 					round={true}
 				/>
 			</div>
 			<div className="ItemNameCont">
-				<div className="ItemName">Abu Bakar Memon</div>
+				<div className="ItemName">{profileName}</div>
 				<div className="ItemLastMsgCont">
 					<div className="ItemLastMsg">
-						Hi, How are you! What do you do
+						{lastMessage.lastMessage}
 					</div>
-					<div className="ItemLastMsgTime">.10 Min</div>
+					<div className="ItemLastMsgTime">{new Date(lastUpdate).getHours()}</div>
 				</div>
 			</div>
 			<div className="ItemIcon">
-				<Badge count={0} />
+				<Badge count={1} />
 				{/* <Avatar src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"} name={""} size={20} round={true} /> */}
 			</div>
 		</div>

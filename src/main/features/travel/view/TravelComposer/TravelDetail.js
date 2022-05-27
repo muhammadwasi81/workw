@@ -221,46 +221,49 @@ function TravelDetail(props) {
 					Travel
 				</Typography>
 				<div className="flex gap-4 flex-col sm:flex-row">
-					<NewCustomSelect
-						valueObject={true}
-						name="travel"
-						showSearch={true}
-						status={errors.departureId ? "error" : ""}
-						endPoint="/api/Utility/GetAllCities"
-						requestType="post"
-						placeholder="Search Departure To Select"
-						value={state.departureId}
-						onChange={value => {
-							handleChange(value, "departureId");
-						}}
-					/>
-					{errors.departureId && (
-						<div style={{ color: "red" }}>
-							Please select departure city.
-						</div>
-					)}
-
-					<NewCustomSelect
-						valueObject={true}
-						name="travel"
-						showSearch={true}
-						status={errors.arrivalId ? "error" : ""}
-						endPoint="/api/Utility/GetAllCities"
-						requestType="post"
-						placeholder="Search Destination To Select"
-						value={state.arrivalId}
-						// searchValue={state.arrivalId}
-						onChange={value => {
-							handleChange(value, "arrivalId");
-						}}
-						// label={value.City}
-						// direction={Direction}
-					/>
-					{errors.arrivalId && (
-						<div style={{ color: "red" }}>
-							Please select destination city.
-						</div>
-					)}
+					<div className="flex flex-col">
+						<NewCustomSelect
+							valueObject={true}
+							name="travel"
+							showSearch={true}
+							status={errors.departureId ? "error" : ""}
+							endPoint="/api/Utility/GetAllCities"
+							requestType="post"
+							placeholder="Search Departure To Select"
+							value={state.departureId}
+							onChange={value => {
+								handleChange(value, "departureId");
+							}}
+						/>
+						{errors.departureId && (
+							<div style={{ color: "red" }}>
+								Please select departure city.
+							</div>
+						)}
+					</div>
+					<div className="flex flex-col">
+						<NewCustomSelect
+							valueObject={true}
+							name="travel"
+							showSearch={true}
+							status={errors.arrivalId ? "error" : ""}
+							endPoint="/api/Utility/GetAllCities"
+							requestType="post"
+							placeholder="Search Destination To Select"
+							value={state.arrivalId}
+							// searchValue={state.arrivalId}
+							onChange={value => {
+								handleChange(value, "arrivalId");
+							}}
+							// label={value.City}
+							// direction={Direction}
+						/>
+						{errors.arrivalId && (
+							<div style={{ color: "red" }}>
+								Please select destination city.
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 

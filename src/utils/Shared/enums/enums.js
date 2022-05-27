@@ -69,3 +69,17 @@ export const employmentType = Object.freeze([
 ]);
 export const cityApiPrefix = "/api/Utility/GetAllCities";
 export const defaultUiid = "00000000-0000-0000-0000-000000000000";
+export const FilterSortEnum = Object.freeze({
+	CreateDateDesc: 1,
+	CreateDateAsc: 2,
+	SubjectDesc: 3,
+	SubjectAsc: 4,
+	StatusDesc: 5,
+	StatusAsc: 6,
+	ApproverStatusDesc: 7,
+	ApproverStatusAsc: 8,
+	AgentStatusDesc: 9,
+	AgentStatusAsc: 10,
+	ReferenceNoDesc: 11,
+	ReferenceNoAsc: 12,
+});

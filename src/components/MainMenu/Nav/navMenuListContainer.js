@@ -8,8 +8,9 @@ import { navBarOpen } from "../../../store/appReducer/responsiveSlice";
 import { NavLink, useLocation } from "react-router-dom";
 import AntTooltip from "../../SharedComponent/Tooltip/AntTooltip";
 import { Badge } from "antd";
-let DOMAIN_PREFIX = "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+import { DOMAIN_PREFIX } from "../../../utils/routes";
+// let DOMAIN_PREFIX = "";
+// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 const NavMenuListContainer = ({ navbarstatus }) => {
 	const { pathname } = useLocation();
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -53,7 +54,11 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 		<div className="nav-menu">
 			{NO_RIGHTS ? (
 				<SideMenuLabel
-					className={ Direction === "ltr" ? "justify-end menu-label" : "menu-label" }
+					className={
+						Direction === "ltr"
+							? "justify-end menu-label"
+							: "menu-label"
+					}
 					navbarstatus={navbarstatus}
 				>
 					{localDictionary.navMenuLabel.menu}
@@ -84,7 +89,10 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 						<div className="menu-item" key={index}>
 							<NavLink
 								className={({ isActive }) =>
-								Direction === "ltr" ? "anc" + activeTab(isActive, path) : "anc justify-end" + activeTab(isActive, path)
+									Direction === "ltr"
+										? "anc" + activeTab(isActive, path)
+										: "anc justify-end" +
+										  activeTab(isActive, path)
 								}
 								end
 								to={path}
@@ -116,12 +124,15 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 						<NavLink
 							key={index}
 							className={({ isActive }) =>
-								Direction === "ltr" ? "anc" : "anc justify-end" +
-								(isActive
-									? localDictionary.Direction === "rtl"
-										? " nav-item-close-StyleRtl"
-										: " nav-item-close-StyleLtr"
-									: "")
+								Direction === "ltr"
+									? "anc"
+									: "anc justify-end" +
+									  (isActive
+											? localDictionary.Direction ===
+											  "rtl"
+												? " nav-item-close-StyleRtl"
+												: " nav-item-close-StyleLtr"
+											: "")
 							}
 							style={{ padding: "12px 12px" }}
 							to={path}
@@ -169,7 +180,10 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 						<div className="menu-item" key={index}>
 							<NavLink
 								className={({ isActive }) =>
-								Direction === "ltr" ? "anc" + activeTab(isActive, path) : "anc justify-end" + activeTab(isActive, path)
+									Direction === "ltr"
+										? "anc" + activeTab(isActive, path)
+										: "anc justify-end" +
+										  activeTab(isActive, path)
 								}
 								to={path}
 								onClick={() =>
@@ -199,12 +213,15 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 						<NavLink
 							key={index}
 							className={({ isActive }) =>
-								Direction === "ltr" ? "anc" : "anc justify-end" +
-								(isActive
-									? localDictionary.Direction === "rtl"
-										? "nav-item-close-StyleRtl"
-										: "nav-item-close-StyleLtr"
-									: "")
+								Direction === "ltr"
+									? "anc"
+									: "anc justify-end" +
+									  (isActive
+											? localDictionary.Direction ===
+											  "rtl"
+												? "nav-item-close-StyleRtl"
+												: "nav-item-close-StyleLtr"
+											: "")
 							}
 							style={{ padding: "12px 12px" }}
 							to={path}

@@ -19,10 +19,8 @@
 		background-color: #1b5669 !important;
     color: white !important;
   }
-  tbody tr td{
-    
-  }
   .ant-table-tbody > tr > td{
     padding: 5px 15px !important;
+    height: 50px;
   }
   .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active{color: white !important;}

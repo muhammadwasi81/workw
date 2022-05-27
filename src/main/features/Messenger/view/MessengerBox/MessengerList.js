@@ -12,15 +12,15 @@ const MessengerList = ({isChatBox=true, messageList, isOpenProfile}) => {
       // else{
       //    MyRef.current.scrollIntoView({ behavior: "smooth" })
       // }
-      MyRef.current.scrollIntoView({ behavior: "smooth" })
+      MyRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
   }, [messageList])
 
    return (
       <div className={"MessengerList " + (isChatBox ? "ChatBoxMessages " : " ") + (isOpenProfile ? "blur-bg" : "")}  >
          {
-            messageList.map((val, ind) => {
+           messageList && messageList.map((item, ind) => {
                return (
-                  <MessengerListItem id={val.id} Content={val.msgContent} msgId={val.msgId} key={ind} />
+                  <MessengerListItem key={ind} messgeItem={item} />
                )
             })
          }    

@@ -39,6 +39,7 @@ import { InitMessengerSocket } from "./utils/InitSocket";
 
 const App = () => {
 	const { userLanguageChange } = useContext(LanguageChangeContext);
+
 	const isMobileAndTab = useMediaQuery({ query: "(max-width: 800px)" });
 	const { isMobileScreen } = useSelector(
 		({ responsiveSlice }) => responsiveSlice

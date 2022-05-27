@@ -44,12 +44,18 @@ const urdu = {
 		ListView: "فہرست دیکھیں",
 		TableView: "ٹیبل ویو",
 		MyReward: "میرا انعام",
+		MyLoan: "میرا قرض",
 		ForApprovals: "منظوریوں کے لیے",
 		RewardToMe: "مجھے انعام دیں",
 		Search: "تلاش کریں",
 		Disable: "غیر فعال",
 		Update: "اپ ڈیٹ",
 		AddEmployee: "ملازم شامل کریں",
+		amount:"رقم",
+		deadline:"ڈیڈ لائن",
+		pleaseEnterAmount:"براہ کرم رقم درج کریں",
+		purpose:"مقصد",
+		SelectPurpose:"مقصد منتخب کریں",
 	},
 
 	/*** Main Menu ***/
@@ -181,7 +187,12 @@ const urdu = {
 	rewardsDictionary: {
 		createReward: "انعام بنائیں",
 	},
-
+	loanDictionary: {
+		createLoan: "قرض بنائیں",
+		loanTenureInMonths:"قرض کی مدت/مہینے",
+		deductionPerMonth:"مہینے/کٹوتی",
+		pleaseEnterloanTenureInMonths:"براہ کرم قرض کی مدت درج کریں"
+	},
 	/*** Define language write side ***/
 	// Direction: "rtl",
 	/*** PLEASE READ FIRST ALL COMMENTS BEFORE ADD LABELS ***/

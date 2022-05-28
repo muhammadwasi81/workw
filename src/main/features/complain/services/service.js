@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllRewardService = data => {
-	return MasterConfig.post(`api/Reward/GetAllReward`, data)
+	return MasterConfig.post(`api/Complain/GetAllComplain`, data)
 		.then(res => {
 			return res.data;
 		})
@@ -11,7 +11,7 @@ export const getAllRewardService = data => {
 };
 
 export const addRewardService = data => {
-	return MasterConfig.post(`api/Reward/AddReward`, data)
+	return MasterConfig.post(`api/Complain/AddComplain`, data)
 		.then(res => {
 			return res;
 		})
@@ -22,7 +22,7 @@ export const addRewardService = data => {
 
 export const GetRewardByIdService = id => {
 	console.log("ID FROM SERVICE", id)
-	return MasterConfig.get(`api/Reward/GetRewardById?id=${id}`)
+	return MasterConfig.get(`api/Complain/GetComplainById?id=${id}`)
 		.then(res => {
 			return res;
 		})

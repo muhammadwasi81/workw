@@ -24,7 +24,7 @@ import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
 import designationSlice from "../main/features/designation/store/slice";
-import appraisalSlice from "../main/features/appraisal/store/slice";
+import appraisalSlice from "../main/features/appraisal/appraisalQuestion/store/slice";
 import warningCategorySlice from "../main/features/warningCategory/store/slice";
 import leaveTypeSlice from "../main/features/leaveType/store/slice";
 import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";
@@ -100,6 +100,41 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 // 	let persistor = persistStore(store);
 // 	return { store, persistor };
 // };
+
+const CustomMiddleware = (store) => (next) => async(action) => {
+	// if (action.type === "TEST_API") {
+	// 	let { url, method, server, dispatch } = action.payload;
+	// 	if (method === "GET") {
+	// 		if (server === "MESSENGER") {
+	// 			store.dispatch({
+	// 				type:"LOADER",
+	// 				payload:""
+	// 			})
+	// 			await MessengerConfig.get(url)
+	// 				.then(res => {
+	// 					console.log(store, "API CALL", "My Middleware")
+	// 					console.log(dispatch, "API CALL", "My Middleware")
+	// 					store.dispatch({
+	// 						type:dispatch,
+	// 						payload:res
+	// 					})
+	// 				})
+	// 				.catch(err => {
+	// 					store.dispatch({
+	// 						type:"ERROR",
+	// 						payload:"MESSAGE"
+	// 					})
+	// 				});
+	// 		}
+	// 	}
+	// 	next(action)
+	// }
+	// else {
+	// 	next(action)
+	// }
+	next(action)
+}
+
 const store = configureStore({
 	reducer: persistedReducer,
 	middleware: getDefaultMiddleware =>
@@ -111,10 +146,10 @@ const store = configureStore({
 					PAUSE,
 					PERSIST,
 					PURGE,
-					REGISTER,
+					REGISTER
 				],
 			},
-		}),
+		})
 	// devTools: process.env.NODE_ENV !== "production",
 	// middleware: [thunk],
 	// middleware: [...getDefaultMiddleware(), logger],

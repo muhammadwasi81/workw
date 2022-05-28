@@ -210,10 +210,10 @@ function Employee() {
 
       // console.log("filteredExperience", filteredExperience);
     }
-    filteredEmergencey[0].address = value.address ? value.address : "";
-    filteredEmergencey[0].name = value.name ? value.name : "";
-    filteredEmergencey[0].relation = value.relation ? value.relation : "";
-    filteredEmergencey[0].contactNo = value.contactNo ? value.contactNo : "";
+    // filteredEmergencey[0].address = value.address ? value.address : "";
+    // filteredEmergencey[0].name = value.name ? value.name : "";
+    // filteredEmergencey[0].relation = value.relation ? value.relation : "";
+    // filteredEmergencey[0].contactNo = value.contactNo ? value.contactNo : "";
     setIsFormSubmitted(true);
     const valueClone = (({ address, name, relation, contactNo, ...o }) => o)(
       value

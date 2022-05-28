@@ -137,6 +137,11 @@ export const ROUTES = {
     QUIZ_GAME: `${DOMAIN_PREFIX}/eLearningCourses/game`,
     HIGH_SCORE: `${DOMAIN_PREFIX}/eLearningCourses/highScore`,
   },
+  COMPLAINS: {
+    DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
+    COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
+    APPROVALS: `complains/approvals`,
+  },
   USER: {
     DEFAULT: `${DOMAIN_PREFIX}/user/`,
     TIMELINE: {
@@ -242,6 +247,11 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
     REWARD: `${DOMAIN_PREFIX}/rewards/`,
     APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
+  },
+  COMPLAINS: {
+    DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
+    COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
+    APPROVALS: `complains/approvals`,
   },
   EMPLOYEES: {
     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,

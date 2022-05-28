@@ -495,7 +495,6 @@ const urdu = {
       EmploymentType: "ملازمت کی قسم",
       UserType: "صارف کی قسم",
       AccessRole: "رسائی کا کردار",
-      EmpNo: "ملازم کا نمبر",
       Present: "موجودہ",
       Required: "فیلڈ کی ضرورت ہے!",
     },

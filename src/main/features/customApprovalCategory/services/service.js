@@ -1,8 +1,7 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
-const API_PREFIX = "konnectapi/api/CustomApprovalCategory/";
 export const getAllCustomApprovalCategoryService = () => {
-  return AxiosConfig.get(`${API_PREFIX}getallCustomApprovalCategory`)
+  return MasterConfig.get(`api/CustomApprovalCategory/getallCustomApprovalCategory`)
     .then((res) => {
       return res.data;
     })
@@ -12,7 +11,7 @@ export const getAllCustomApprovalCategoryService = () => {
 };
 
 export const addCustomApprovalCategoryService = (args) => {
-  return AxiosConfig.post(`${API_PREFIX}addCustomApprovalCategory`, args)
+  return MasterConfig.post(`api/CustomApprovalCategory/addCustomApprovalCategory`, args)
     .then((res) => {
       return res.data;
     })

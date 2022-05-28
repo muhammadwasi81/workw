@@ -7,20 +7,6 @@ import {
 } from "../../../../services/slices/notificationSlice";
 import { addRewardService, getAllRewardService, GetRewardByIdService } from "../services/service";
 
-// export const getAllRewards = createAsyncThunk(
-//   "reward/GetAllReward",
-//   async (args, { dispatch, setState }) => {
-//     const response = await getAllRewardsService();
-//     if (!response.responseCode) {
-//       responseMessage({
-//         dispatch: dispatch,
-//         type: responseMessageType.ApiFailure,
-//       });
-//     }
-//     return response.data;
-//   }
-// );
-
 export const getAllRewards = createAsyncThunk(
 	"reward/GetAllReward",
 	async data => {

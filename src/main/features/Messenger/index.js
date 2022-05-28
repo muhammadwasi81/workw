@@ -3,17 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import ConversationListCont from "./view/Conversations/ConversationListCont";
 import MessengerBox from "./view/MessengerBox/MessengerCont";
 import "./style.css";
-import { getAllChats, getAllEmployeeShort } from "./store/Api";
+import { getAllChats, getAllEmployeeShort, testApiCall } from "./store/Api";
 
 const Index = () => {
 	const { isMobileScreen } = useSelector(state => state.responsiveSlice);
 	const isOpenMessenger = useSelector(state => state.MessengerSlice.mobileIsopenChat);
+	
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getAllChats("dsssd", "dsklskkl"));
-		dispatch(getAllEmployeeShort("dsssd"));
+		dispatch(getAllChats());
 	}, []);
+
 	return (
+		<>
 		<div
 			className={`MessengerCont ${
 				isMobileScreen && isOpenMessenger === true
@@ -26,6 +28,8 @@ const Index = () => {
 			<ConversationListCont />
 			<MessengerBox />
 		</div>
+		</>
+		
 	);
 };
 export default Index;

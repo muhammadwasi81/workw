@@ -5,7 +5,7 @@ import SideBarHead from "./SideBarHead";
 import SideBarList from "./SideBarList";
 import SideBarSearch from "./SideBarSearch";
 import "./style.css";
-
+import { useLocation } from "react-router-dom";
 export const Index = () => {
   const sideBarStatus = useSelector((state) => state.sideBarChatSlice.sideBarChatStatus)
   const sideBarChatIsDefault = useSelector((state) => state.sideBarChatSlice.sideBarChatIsDefault)
@@ -157,15 +157,18 @@ export const Index = () => {
     },
 
   ]
-  useEffect(()=>{
-    if(window.location.pathname === "/messenger"){
+  const location = useLocation()
+  useEffect(() => {
+    if (location.pathname === "/messenger") {
       setIsHide(true)
     }
-  }, [window.location.pathname])
-  
+    else
+      setIsHide(false)
+  }, [location])
+
   let isMobileView = window.innerWidth < 800;
   return (
-    <SideChatBar sideBarStatus={sideBarStatus} isDefault={sideBarChatIsDefault} style={{display:isHide ? "none" : "block"}} isMobileView={isMobileView}>
+    <SideChatBar sideBarStatus={sideBarStatus} isDefault={sideBarChatIsDefault} style={{ display: isHide ? "none" : "block" }} isMobileView={isMobileView}>
       <SideBarHead />
       <SideBarList chatList={chatList} />
       <SideBarSearch />

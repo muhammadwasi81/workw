@@ -516,7 +516,6 @@ const en = {
       EmploymentType: "Employment Type",
       UserType: "User Type",
       AccessRole: "Access Role",
-      EmpNo: "Employee No",
       Present: "Present",
       Required: "Field is required!",
     },

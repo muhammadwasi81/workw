@@ -30,6 +30,7 @@ import holiday_event from "../../../content/svg/menu/newNavBarIcon/Holidays.svg"
 import career from "../../../content/svg/menu/newNavBarIcon/Career.svg";
 import resignation from "../../../content/svg/menu/newNavBarIcon/resignation.svg";
 import rewardIcon from "../../../content/svg/menu/rewardIcon.svg";
+import complainIcon from "../../../content/svg/menu/newNavBarIcon/complainIcon.svg";
 import { DOMAIN_PREFIX } from "../../../utils/routes";
 const NavMenuList = () => {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -228,13 +229,6 @@ const NavMenuList = () => {
 		// 	isActive: true,
 		// },
 		// {
-		// 	name: label.navMenuLabel.complains,
-		// 	counter: 0,
-		// 	icon: career,
-		// 	to: ROUTES.HR.COMPLAINS.DEFAULT,
-		// 	isActive: true,
-		// },
-		// {
 		// 	name: label.navMenuLabel.bonus,
 		// 	counter: 0,
 		// 	icon: loanIcon,
@@ -248,6 +242,13 @@ const NavMenuList = () => {
 		// 	to: ROUTES.HR.RESIGNATIONS.DEFAULT,
 		// 	isActive: true,
 		// },
+		{
+			name: label.navMenuLabel.complains,
+			counter: 0,
+			icon: complainIcon,
+			to: ROUTES.COMPLAINS.COMPLAIN,
+			isActive: true,
+		},
 		{
 			name: label.navMenuLabel.rewards,
 			counter: 0,

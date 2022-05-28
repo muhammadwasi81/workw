@@ -142,7 +142,7 @@
 .ListItemInner p {
     color: #757D86;
     white-space: nowrap;
-    width: 50px;
+    width: 90px;
     overflow: hidden;
     text-overflow: ellipsis;
 }

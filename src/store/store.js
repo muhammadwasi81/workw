@@ -25,13 +25,15 @@ import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
 import designationSlice from "../main/features/designation/store/slice";
 import appraisalSlice from "../main/features/appraisal/appraisalQuestion/store/slice";
-import warningCategorySlice from "../main/features/warningCategory/store/slice";
+import warningCategorySlice from "../main/features/warning/warningCategory/store/slice";
+import warningSlice from "../main/features/warning/store/slice";
 import leaveTypeSlice from "../main/features/leaveType/store/slice";
 import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";
 import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
 import allowanceSlice from "../main/features/allowance/store/slice";
 import rewardCategorySlice from "../main/features/reward/rewardCategory/store/slice";
 import rewardSlice from "../main/features/reward/store/slice";
+import complainSlice from "../main/features/complain/store/slice";
 import jobDescriptionSlice from "../main/features/jobDescription/store/slice";
 import customApprovalCategorySlice from "../main/features/customApprovalCategory/store/slice";
 import notificationSlice from "../services/slices/notificationSlice.js";
@@ -45,11 +47,15 @@ import userSlice from "./appReducer/userSlice";
 import sharedSlice from "../utils/Shared/store/slice";
 import accessRolesSlice from "../main/features/accessRole/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
+import feedSlice from "../main/features/feed/store/slice";
+import loanSlice from "../main/features/loan/store/slice";
+
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
 	authSlice,
 	userSlice,
+	feedSlice,
 	stickyNotesSlice,
 	responsiveSlice,
 	responseStatusSlice,
@@ -62,6 +68,8 @@ const reducers = combineReducers({
 	customApprovalCategorySlice,
 	rewardCategorySlice,
 	rewardSlice,
+	complainSlice,
+	warningSlice,
 	call: callSlice,
 	general: generalSlice,
 	// documentsSlice,
@@ -80,6 +88,7 @@ const reducers = combineReducers({
 	accessRolesSlice,
 	sharedSlice,
 	travelSlice,
+	loanSlice
 });
 
 const persistConfig = {

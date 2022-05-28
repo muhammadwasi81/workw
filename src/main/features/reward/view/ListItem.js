@@ -7,6 +7,7 @@ import SublineDesigWithTime from "../../../../components/SharedComponent/UserSho
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
+import moment from "moment";
 
 function ListItem(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -22,6 +23,8 @@ function ListItem(props) {
 		members = [],
 		approvers,
 		status,
+		referenceNo,
+		createDate,
 	} = props.item;
 
 	// console.log(props.item, "imagessss")
@@ -42,13 +45,13 @@ function ListItem(props) {
 						Subline={
 							<SublineDesigWithTime
 								designation={creator.designation}
-								time="7 days ago"
+								time={moment(createDate).format('DD/MM/YYYY')}
 							/>
 						}
 					/>
 				</div>
 				<div className="right">
-					<Tag className="IdTag">TRA-000085</Tag>
+					<Tag className="IdTag">{referenceNo}</Tag>
 					<StatusTag status={status}></StatusTag>
 				</div>
 			</div>

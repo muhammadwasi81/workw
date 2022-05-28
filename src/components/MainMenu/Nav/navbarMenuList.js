@@ -222,12 +222,6 @@ const NavMenuList = () => {
 		// 	isActive: true,
 		// },
 		// {
-		// 	name: label.navMenuLabel.warnings,
-		// 	counter: 0,
-		// 	icon: career,
-		// 	to: ROUTES.HR.WARNINGS.DEFAULT,
-		// 	isActive: true,
-		// },
 		// {
 		// 	name: label.navMenuLabel.bonus,
 		// 	counter: 0,
@@ -242,6 +236,13 @@ const NavMenuList = () => {
 		// 	to: ROUTES.HR.RESIGNATIONS.DEFAULT,
 		// 	isActive: true,
 		// },
+		{
+			name: label.navMenuLabel.warnings,
+			counter: 0,
+			icon: career,
+			to: ROUTES.WARNINGS.WARNING,
+			isActive: true,
+		},
 		{
 			name: label.navMenuLabel.complains,
 			counter: 0,

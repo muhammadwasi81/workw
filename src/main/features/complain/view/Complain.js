@@ -21,14 +21,14 @@ import {
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllRewards, GetRewardById } from "../store/actions";
+import { getAllComplains, GetRewardById } from "../store/actions";
 import TableView from "./TableView";
 import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 import "./complain.css";
 
 const Reward = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
+	const { sharedLabels,  complainDictionary } = dictionaryList[userLanguage];
 
 	const [grid, setGrid] = useState(false);
 
@@ -40,11 +40,11 @@ const Reward = props => {
 
 	const dispatch = useDispatch();
 
-	const { rewards, loader, rewardDetail } = useSelector(
-		state => state.rewardSlice
+	const { complains, loader, rewardDetail } = useSelector(
+		state => state.complainSlice
 	);
 
-	console.log(loader, "HELlOOOO!!!!");
+	console.log(complains, "HELlOOOO!!!!");
 
 	const onClose = () => {
 		setVisible(false);
@@ -56,7 +56,7 @@ const Reward = props => {
 	};
 
 	useEffect(() => {
-		dispatch(getAllRewards(filter));
+		dispatch(getAllComplains(filter));
 	}, [filter]);
 	return (
 		<TabbableContainer className="max-width-1190">
@@ -69,8 +69,8 @@ const Reward = props => {
 						}
 					>
 						<SideDrawer
-							title={"Complain"}
-							buttonText={"Create Complain"}
+							title={sharedLabels.complain}
+							buttonText={complainDictionary.createComplain}
 							isAccessDrawer={false}
 						>
 							<Composer />
@@ -92,7 +92,7 @@ const Reward = props => {
 								: "topBtn"
 						}
 						activeName={"list"}
-						linkName={"My Complain"}
+						linkName={complainDictionary.myComplain}
 						onClick={() => setFilter({ filterType: 1 })}
 					/>,
 					<BarNavLink
@@ -114,7 +114,7 @@ const Reward = props => {
 								: "topBtn"
 						}
 						isDefault={false}
-						linkName={"Complain To Me"}
+						linkName={complainDictionary.complainToMe}
 						onClick={() => setFilter({ filterType: 3 })}
 					/>,
 				]}
@@ -144,7 +144,7 @@ const Reward = props => {
 				]}
 			/>
 			<div className="myBody">
-				{rewards && rewards.length > 0 ? (
+				{complains && complains.length > 0 ? (
 					grid ? (
 						<TableView />
 					) : (
@@ -155,7 +155,7 @@ const Reward = props => {
 								</>
 							) : (
 								<div className="flex gap-2 list-none flex-wrap pt-4">
-									{rewards.map((item, index) => {
+									{complains.map((item, index) => {
 										return (
 											<>
 												<ListItem

@@ -5,13 +5,12 @@ import {
   responseMessage,
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
-import { addRewardService, getAllRewardService, GetRewardByIdService } from "../services/service";
+import { addComplainService, getAllComplainService, GetRewardByIdService } from "../services/service";
 
-export const getAllRewards = createAsyncThunk(
-	"reward/GetAllReward",
+export const getAllComplains = createAsyncThunk(
+	"Complain/GetAllComplain",
 	async data => {
-		const response = await getAllRewardService(data);
-    
+		const response = await getAllComplainService(data);
     if (!response.responseCode) {
         message.error("Something went wrong")
     }
@@ -19,20 +18,13 @@ export const getAllRewards = createAsyncThunk(
 	}
 );
 
-// export const getAllGrades = createAsyncThunk(
-// 	"grade/getAllGrade",
-// 	async ({ dispatch }) => {
-// 		const res = await getAllGradesService();
-
-// 		if (!res.responseCode) {
-// 			responseMessage({
-// 				dispatch: dispatch,
-// 				type: responseMessageType.ApiFailure,
-// 			});
-// 		}
-// 		return res;
-// 	}
-// );
+export const addComplain = createAsyncThunk(
+  "Complain/addComplain",
+  async (args, {dispatch, setState}) => {
+    const response = await addComplainService(args);
+    return response
+  }
+)
 
 
 export const GetRewardById = createAsyncThunk(
@@ -43,13 +35,3 @@ export const GetRewardById = createAsyncThunk(
 		return response.data;
 	}
 );
-
-
-export const addReward = createAsyncThunk(
-  "reward/addReward",
-  async (args, {dispatch, setState}) => {
-    const response = await addRewardService(args);
-    console.log(args, "FROM ACTION")
-    return response
-  }
-)

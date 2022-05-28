@@ -101,7 +101,7 @@ export const ROUTES = {
   LEAVES: `${DOMAIN_PREFIX}/leaves`,
   EXPENSES: `${DOMAIN_PREFIX}/expenses`,
   CUSTOM_APPROVALS: `${DOMAIN_PREFIX}/customApprovals`,
-  LOAN: `${DOMAIN_PREFIX}/loan`,
+
   PAYROLL: {
     DEFAULT: `${DOMAIN_PREFIX}/payroll`,
     PAYROLL_DETAILS: `${DOMAIN_PREFIX}/payroll/details`,
@@ -136,11 +136,6 @@ export const ROUTES = {
     QUIZ_DETAIL: `${DOMAIN_PREFIX}/eLearningCourses/quiz_detail`,
     QUIZ_GAME: `${DOMAIN_PREFIX}/eLearningCourses/game`,
     HIGH_SCORE: `${DOMAIN_PREFIX}/eLearningCourses/highScore`,
-  },
-  COMPLAINS: {
-    DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
-    COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
-    APPROVALS: `complains/approvals`,
   },
   USER: {
     DEFAULT: `${DOMAIN_PREFIX}/user/`,
@@ -253,6 +248,11 @@ export const ROUTES = {
     COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
     APPROVALS: `complains/approvals`,
   },
+  WARNINGS: {
+    DEFAULT: `${DOMAIN_PREFIX}/warnings/*`,
+    WARNING: `${DOMAIN_PREFIX}/warnings/`,
+    APPROVALS: `warnings/approvals`,
+  },
   EMPLOYEES: {
     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
@@ -300,5 +300,10 @@ export const ROUTES = {
     ALLOWANCES: `allowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
+  },
+  LOAN: {
+    DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
+    LOAN: `${DOMAIN_PREFIX}/loan/`,
+    APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
 };

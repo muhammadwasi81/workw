@@ -25,6 +25,7 @@ import { FilterSortEnum } from "../../../../../utils/Shared/enums/enums";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTravel } from "../../store/actions";
 import { travelStatus } from "../../enums/enums";
+import ListView from "../ListView/ListView";
 const columns = [
 	{
 		title: "Sort",
@@ -174,6 +175,8 @@ function TravelHeader() {
 
 	useEffect(() => {
 		dispatch(getAllTravel(tableColumnFilter));
+		// if (tableView) {
+		// }
 	}, [tableColumnFilter, dispatch]);
 
 	return (
@@ -250,17 +253,21 @@ function TravelHeader() {
 				]}
 			/>
 			<ContBody className="!block">
-				<Table
-					columns={columns}
-					dragable={true}
-					handleChange={handleChange}
-					onPageChange={onPageChange}
-					onRow={onRow}
-					data={success ? travels : []}
-					status={travelStatus}
-					loadding={loader}
-					success={success}
-				/>
+				{tableView ? (
+					<Table
+						columns={columns}
+						dragable={true}
+						handleChange={handleChange}
+						onPageChange={onPageChange}
+						onRow={onRow}
+						data={travels}
+						status={travelStatus}
+						loadding={loader}
+						success={success}
+					/>
+				) : (
+					<ListView data={travels} />
+				)}
 			</ContBody>
 		</TabContainer>
 	);

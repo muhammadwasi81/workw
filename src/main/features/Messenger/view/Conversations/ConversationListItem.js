@@ -1,4 +1,5 @@
 import { Badge } from "antd";
+import moment from "moment";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { STRINGS } from "../../../../../utils/base";
@@ -42,6 +43,7 @@ const ConversationListItem = ({ conversation }) => {
 			members: chatMembers
 		}))
 	}
+	let lastMsgTime = !moment(new Date()).isAfter(lastUpdate) ? moment(lastUpdate).format('LT') : moment(lastUpdate).format('LL')
 
 	return (
 		<div
@@ -62,7 +64,7 @@ const ConversationListItem = ({ conversation }) => {
 					<div className="ItemLastMsg">
 						{lastMessage.lastMessage}
 					</div>
-					<div className="ItemLastMsgTime">{new Date(lastUpdate).getHours()}</div>
+					<div className="ItemLastMsgTime">{ lastMsgTime }</div>
 				</div>
 			</div>
 			<div className="ItemIcon">

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ConversationListCont from "./view/Conversations/ConversationListCont";
-import MessengerBox from "./view/MessengerBox/MessengerCont";
+import MessengerBox from "./view/MessengerBox";
 import "./style.css";
 import { getAllChats, getAllEmployeeShort, testApiCall } from "./store/Api";
 

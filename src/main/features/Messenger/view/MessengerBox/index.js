@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { STRINGS } from '../../../../../utils/base';
 import { getAllMessages } from '../../store/Api';
 import MessengerBottom from './MessengerBottom';
 import MessengerHead from './MessengerHead';
 import MessengerList from './MessengerList';
-import MessengerProfile from './MessengerProfile';
+import MessengerProfile from './helpers/MessengerProfile';
+import EmptyMessenger from './helpers/EmptyMessenger';
 
 const MessengerBox = () => {
     const dispatch = useDispatch();
     const messengerDetail = useSelector((state) => state.MessengerSlice.currentMessenger);
     const messageList = useSelector((state) => state.MessengerSlice.MessengerList[messengerDetail.chatId]);
     const [isOpenProfile, setIsOpenProfile] = useState(false);
+    const isEmptyMessenger = messengerDetail.members.length === 0 && messengerDetail.chatId === STRINGS.DEFAULTS.guid;
     useEffect(()=>{
         dispatch(getAllMessages(messengerDetail.chatId))
-    }, [messengerDetail])
+    }, [messengerDetail]);
+    if(isEmptyMessenger)
+    return <EmptyMessenger />;
     return (
         <div className="MessengerBox" >
             <MessengerHead

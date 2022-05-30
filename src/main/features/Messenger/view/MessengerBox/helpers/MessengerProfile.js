@@ -1,8 +1,8 @@
 import React from 'react';
-import Avatar from '../../../../../components/SharedComponent/Avatar/avatar';
-import phoneIcon from "../../../../../content/NewContent/Messenger/phone.svg";
-import videoIcon from "../../../../../content/NewContent/Messenger/video.svg";
-import infoIcon from "../../../../../content/NewContent/Messenger/info.svg";
+import Avatar from '../../../../../../components/SharedComponent/Avatar/avatar';
+import phoneIcon from "../../../../../../content/NewContent/Messenger/phone.svg";
+import videoIcon from "../../../../../../content/NewContent/Messenger/video.svg";
+// import infoIcon from "../../../../../../content/NewContent/Messenger/info.svg";
 
 const MessengerProfile = ({ hanldeClose }) => {
     return (

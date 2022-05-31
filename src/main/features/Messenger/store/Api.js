@@ -28,7 +28,6 @@ export const sendChatMessage = createAsyncThunk(
       attachments: []
     }
     , { dispatch }) => {
-      console.log("TESTTTTTT")
     const res = await sendMessageService(data);
     if (!res.responseCode) {
       responseMessage({

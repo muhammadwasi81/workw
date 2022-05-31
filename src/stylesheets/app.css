@@ -346,6 +346,11 @@ iframe {
 .ant-select-selection-item-content img {
 	display: none !important;
 }
+.defaultNotification{
+	background-color: var(--primary_theme_color_green);
+	color: white;
+	border-radius: 10px;
+}
 
 
 /* Danish css end */

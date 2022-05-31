@@ -3,7 +3,7 @@ import ZoomImage from '../ZoomImage/';
 import { getNameForImage, STRINGS } from "../../../utils/base";
 import { Badge } from 'antd';
 
-export default function Avatar({ src, size, name, active , width, height, round, position, isZoom = true, id, style, counter }) {
+export default function Avatar({ src, size, name, active , width, height, round, position, isZoom = true, id, style, counter, contStyle={} }) {
     const handleRoute = () => {
         window.location.href = `${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${id}`
     };
@@ -16,7 +16,8 @@ export default function Avatar({ src, size, name, active , width, height, round,
                     minWidth: size !== undefined ? size : width,
                     height: size !== undefined ? size : height,
                     maxHeight: size !== undefined ? size : height,
-                    position: position !== undefined ? 'inherit' : 'relative'
+                    position: position !== undefined ? 'inherit' : 'relative',
+                    ...contStyle
                 }}>
                     {src ?
                         !isZoom ?

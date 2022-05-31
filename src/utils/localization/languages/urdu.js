@@ -24,7 +24,7 @@ const urdu = {
 		selectFinance: "فنانس کا انتخاب کریں",
 		selectAdmin: "منتظم کو منتخب کریں",
 		selectOthersApprovals: "دیگر منظوریوں کو منتخب کریں",
-		inProcess: "اس عمل میں",
+		inProcess: "عمل میں",
 		reason: "وجہ",
 		refrence: "حوالہ",
 		cancel: "منسوخ",

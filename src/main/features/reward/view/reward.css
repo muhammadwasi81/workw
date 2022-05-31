@@ -52,10 +52,14 @@
     border-radius: 4px;
     border: none;
 }
-.IdTag {
+.categoryTag {
     background-color: #DEE5E8;
     color: #1A5669 !important;
     border: 0;
+    white-space: nowrap;
+    width: 90px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .item-header .right button {
     border-radius: 4px !important;
@@ -130,7 +134,6 @@
 
 .ItemDetails {
     display: flex;
-    justify-content: space-between;
     width: 70%;
     margin-top: 13px;
 }
@@ -138,6 +141,9 @@
     display: flex;
     justify-content: space-between;
     padding-right: 11px;
+}
+.innerDiv {
+    margin-right: 20px;
 }
 .ListItemInner p {
     color: #757D86;
@@ -176,7 +182,15 @@
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
     }
+    .innerDiv {
+        margin: 0px;
+    }
+    .tabbable-container {
+        width: 100% !important;
+    }
+
 }
+
 
 @media (min-width: 320px) and (max-width: 520px) {
     .item-header .right button {
@@ -220,6 +234,7 @@
     .myBody {
         width: 100%;
         padding: 9px;
+        overflow: scroll;
     }
  }
 

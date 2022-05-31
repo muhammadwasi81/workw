@@ -66,7 +66,7 @@ function ListItem(props) {
 					</div>
 					<div className="innerDiv">
 						<h3>{sharedLabels.category}</h3>
-						<Tag className="IdTag">{category}</Tag>
+						<Tag className="categoryTag">{category}</Tag>
 					</div>
 					<div className="innerDiv">
 						<h3>{sharedLabels.reason}</h3>

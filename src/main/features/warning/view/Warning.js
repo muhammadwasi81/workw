@@ -7,7 +7,7 @@ import {
 	TabbableContainer,
 } from "../../../../components/SharedComponent/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton } from "antd";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import {warningDictionaryList} from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
@@ -28,7 +28,7 @@ import "./warning.css";
 
 const Reward = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels,  complainDictionary } = dictionaryList[userLanguage];
+	const { sharedLabels,  complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
 
 	const [grid, setGrid] = useState(false);
 
@@ -67,8 +67,8 @@ const Reward = props => {
 						}
 					>
 						<SideDrawer
-							title={"Warning"}
-							buttonText={"Create Warning"}
+							title={warningDictionary.warning}
+							buttonText={warningDictionary.createWarning}
 							isAccessDrawer={false}
 						>
 							<Composer />
@@ -80,7 +80,7 @@ const Reward = props => {
 			<TopBar
 				buttons={[
 					<Button className="filterButton topBtn !h-full !flex !items-center">
-						{isTablet ? "" : sharedLabels.filter}
+						{isTablet ? "" : "Filter"}
 						<FilterFilled className="topBarIcon" />
 					</Button>,
 					<BarNavLink
@@ -90,7 +90,7 @@ const Reward = props => {
 								: "topBtn"
 						}
 						activeName={"list"}
-						linkName={"My Warning"}
+						linkName={warningDictionary.myWarning}
 						onClick={() => setFilter({ filterType: 1 })}
 					/>,
 					<BarNavLink
@@ -101,7 +101,7 @@ const Reward = props => {
 								: "topBtn"
 						}
 						isDefault={false}
-						linkName={sharedLabels.ForApprovals}
+						linkName={warningDictionary.forApproval}
 						onClick={() => setFilter({ filterType: 2 })}
 					/>,
 					<BarNavLink
@@ -112,7 +112,7 @@ const Reward = props => {
 								: "topBtn"
 						}
 						isDefault={false}
-						linkName={"Warning To Me"}
+						linkName={warningDictionary.warningToMe}
 						onClick={() => setFilter({ filterType: 3 })}
 					/>,
 				]}
@@ -125,7 +125,7 @@ const Reward = props => {
 								: "topBarIcon gridIcon isActive"
 						}
 					>
-						{isTablet ? "" : sharedLabels.ListView}{" "}
+						{isTablet ? "" : "List View"}{" "}
 						<UnorderedListOutlined style={{ marginLeft: "2px" }} />
 					</div>,
 					<div
@@ -136,7 +136,7 @@ const Reward = props => {
 								: "topBarIcon gridIcon"
 						}
 					>
-						{isTablet ? "" : sharedLabels.TableView}{" "}
+						{isTablet ? "" : "Table View"}{" "}
 						<AppstoreFilled style={{ marginLeft: "2px" }} />
 					</div>,
 				]}

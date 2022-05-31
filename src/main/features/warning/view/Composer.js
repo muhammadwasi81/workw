@@ -5,11 +5,10 @@ import TextInput from "../../../../components/SharedComponent/Input/TextInput";
 import Select from "../../../../components/SharedComponent/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { addWarning } from "../store/actions";
-import { getWarningCategory } from "../../../../utils/Shared/store/actions";
+import {warningDictionaryList} from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { getAllWarningCategories } from "../warningCategory/store/actions"
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../employee/view/newCustomSelect";
 
@@ -36,8 +35,10 @@ const initialState = {
   }
 
 const Composer = props => {
+	// const { userLanguage } = useContext(LanguageChangeContext);
+	// const { sharedLabels, Direction, complainDictionary } = dictionaryList[userLanguage];
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, Direction, complainDictionary } = dictionaryList[userLanguage];
+	const { sharedLabels, Direction, complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -109,7 +110,7 @@ const Composer = props => {
 			>
 
 				<Form.Item
-					label={sharedLabels.category}
+					label={warningDictionary.category}
 					name="categoryId"
 					rules={[
 						{
@@ -123,7 +124,7 @@ const Composer = props => {
 						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 						// }
 						data={warningCategories}
-						placeholder={sharedLabels.category}
+						placeholder={warningDictionary.category}
 						style={{
 							width: "100%",
 							borderRadius: "5px",
@@ -134,53 +135,53 @@ const Composer = props => {
 
 				<Form.Item
 					name="members"
-					label={complainDictionary.complainOf}
+					label={warningDictionary.warningTo}	
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
 				>
 					<NewCustomSelect
 						name="members"
-						label={sharedLabels.members}
+						label={warningDictionary.members}
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
 						endPoint="api/Reference/GetAllUserReference"
 						requestType="get"
-						placeholder={sharedLabels.selectMember}
+						placeholder={warningDictionary.selectMember}
 					/>
 				</Form.Item>
 
 				<Form.Item
 					name="approvers"
-					label={sharedLabels.approvers}
+					label={warningDictionary.approvers}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
 				>
 					<NewCustomSelect
 						name="approvers"
-						label={sharedLabels.approvers}
+						label={warningDictionary.approvers}
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
 						endPoint="api/Reference/GetAllUserReference"
 						requestType="get"
-						placeholder={sharedLabels.approvers}
+						placeholder={warningDictionary.selectApprovers}
 					/>
 				</Form.Item>
 
 				<Form.Item
-					label={sharedLabels.description}
+					label={warningDictionary.description}
 					name="description"
 					rules={[
 						{
 							required: true,
-							message: sharedLabels.enterDescription,
+							message: warningDictionary.enterDescription,
 						},
 					]}
 				>
-					<Input.TextArea placeholder={sharedLabels.enterDescription} />
+					<Input.TextArea placeholder={warningDictionary.enterDescription} />
 				</Form.Item>
 
 				<Form.Item area="true">
@@ -188,7 +189,7 @@ const Composer = props => {
 						handleImageUpload={handleImageUpload}
 						img="Add Image"
 						position="flex-start"
-						uploadText={sharedLabels.upload}
+						uploadText={warningDictionary.upload}
 					/>
 				</Form.Item>
 
@@ -199,10 +200,10 @@ const Composer = props => {
 						className="ThemeBtn"
 						block
 						htmlType="submit"
-						title={sharedLabels.create}
+						title={warningDictionary.create}
 					>
 						{" "}
-						{sharedLabels.create}{" "}
+						{warningDictionary.create}{" "}
 					</Button>
 				</Form.Item>
 			</Form>

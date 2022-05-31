@@ -149,7 +149,6 @@
 }
 .ItemDetails {
     display: flex;
-    justify-content: space-between;
     width: 70%;
     margin-top: 13px;
 }

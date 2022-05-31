@@ -55,6 +55,8 @@ const urdu = {
     AddEmployee: "ملازم شامل کریں",
     complain: "شکایت",
     create: "بناؤ",
+    Submit: "جمع کرائیں",
+    Delete: "حذف کریں",
   },
 
   /*** Main Menu ***/

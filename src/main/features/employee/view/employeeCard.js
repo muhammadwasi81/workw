@@ -4,11 +4,12 @@ import CustomButton from "../../../sharedComponents/button";
 import { EmployeeCardCustom } from "../Styles/employee.style";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-
+import { employeeDictionaryList } from "../localization/index";
 function EmployeeCard({ image, name, email, designation, empNum }) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { employees, sharedLabels } = dictionaryList[userLanguage];
-  const value = employees.EmployeeList;
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { employeesDictionary } = employeeDictionaryList[userLanguage];
+  const value = employeesDictionary.EmployeeList;
   return (
     <EmployeeCardCustom>
       <div className="employeeCard__img">

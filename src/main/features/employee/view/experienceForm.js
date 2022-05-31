@@ -1,9 +1,5 @@
-import {
-  DeleteOutlined,
-  MinusCircleOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import { Select, DatePicker, Checkbox, Input, Form, Typography } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { DatePicker, Checkbox, Typography } from "antd";
 import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -13,30 +9,29 @@ import TextInput from "../../../sharedComponents/Input/TextInput";
 import * as S from "../Styles/employee.style";
 import NewCustomSelect from "./newCustomSelect";
 import SharedSelect from "../../../sharedComponents/Select/Select";
-
-const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, employees, Direction } = dictionaryList[userLanguage];
   const value = employees.WorkExperienceForm;
+  const [cities, setCities] = useState({});
   const placeholder = employees.placeholders;
   const [present, setPresent] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [state, setState] = useState({
     position: "",
     employmentTypeId: "",
-    city: "",
-    selectDate: "",
-    endDate: "",
+    cityId: "",
+    start: "",
+    start_end: "",
   });
   const [error, setError] = useState({
     position: false,
     empType: false,
-    city: false,
-    selectDate: false,
-    endDate: false,
+    cityId: false,
+    start: false,
+    start_end: false,
   });
   const checkValidation = () => {
     if (!state.position) {
@@ -61,37 +56,37 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
         empType: false,
       }));
     }
-    if (!state.endDate && !present) {
+    if (!state.start_end && !present) {
       setError((prevErrors) => ({
         ...prevErrors,
-        endDate: true,
+        start_end: true,
       }));
     } else {
       setError((prevErrors) => ({
         ...prevErrors,
-        endDate: false,
+        start_end: false,
       }));
     }
-    if (!state.city) {
+    if (!state.cityId) {
       setError((prevErrors) => ({
         ...prevErrors,
-        city: true,
+        cityId: true,
       }));
     } else {
       setError((prevErrors) => ({
         ...prevErrors,
-        city: false,
+        cityId: false,
       }));
     }
-    if (!state.selectDate && present) {
+    if (!state.start && present) {
       setError((prevErrors) => ({
         ...prevErrors,
-        selectDate: true,
+        start: true,
       }));
     } else {
       setError((prevErrors) => ({
         ...prevErrors,
-        selectDate: false,
+        start: false,
       }));
     }
   };
@@ -124,20 +119,20 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
     },
     {
       title: value.City,
-      dataIndex: "city",
-      key: "city",
+      dataIndex: "cityId",
+      key: "cityId",
       render: (value) => {
-        return value.name;
+        return cities[value];
       },
     },
     {
       title: value.StartEndDate,
-      dataIndex: "endDate",
-      key: "endDate",
+      dataIndex: "start_end",
+      key: "start_end",
       render: (value, row, index) => {
-        return experienceInfo[index].endDate.length !== 0
-          ? `${experienceInfo[index].endDate[0]} - ${experienceInfo[index].endDate[1]}`
-          : `${experienceInfo[index].selectDate} -  Present`;
+        return experienceInfo[index].start_end.length !== 0
+          ? `${experienceInfo[index].start_end[0]} - ${experienceInfo[index].start_end[1]}`
+          : `${experienceInfo[index].start} -  Present`;
       },
     },
 
@@ -169,9 +164,9 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
       if (
         !error.position &&
         !error.empType &&
-        !error.city &&
-        !error.selectDate &&
-        (!error.endDate || error.selectDate)
+        !error.cityId &&
+        !error.start &&
+        (!error.start_end || error.start)
       ) {
         handleInfoArray(true);
       }
@@ -185,9 +180,9 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
       setState({
         position: "",
         employmentTypeId: "",
-        city: "",
-        selectDate: "",
-        endDate: "",
+        cityId: "",
+        start: "",
+        start_end: "",
       });
     }
   };
@@ -277,24 +272,25 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
               >
                 <NewCustomSelect
                   valueObject={true}
-                  name="city"
+                  name="cityId"
                   showSearch={true}
-                  status={error.city ? "error" : ""}
+                  status={error.cityId ? "error" : ""}
                   endPoint="/api/Utility/GetAllCities"
-                  placeholder="Select city"
+                  placeholder="Select City"
                   requestType="post"
                   onChange={(value) => {
                     const { id, name } = JSON.parse(value);
+                    setCities((prevValues) => ({
+                      prevValues,
+                      [id]: name,
+                    }));
                     setState((prevValues) => ({
                       ...prevValues,
-                      city: {
-                        id,
-                        name,
-                      },
+                      cityId: id,
                     }));
                   }}
                 />
-                {error.city && (
+                {error.cityId && (
                   <div style={{ color: "red", fontWeight: 400 }}>
                     Please select city.
                   </div>
@@ -310,12 +306,12 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
                   <RangePicker
                     format={"DD/MM/YYYY"}
                     placeholder={[placeholder.sDate, placeholder.eDate]}
-                    status={error.endDate ? "error" : ""}
+                    status={error.start_end ? "error" : ""}
                     onChange={(value, dateString) => {
-                      onChange(value, dateString, "endDate");
+                      onChange(value, dateString, "start_end");
                     }}
                   />
-                  {error.endDate && (
+                  {error.start_end && (
                     <div style={{ color: "red", fontWeight: 400 }}>
                       Please enter Start/End Date.
                     </div>
@@ -332,13 +328,13 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
                 <div>
                   <DatePicker
                     format={"DD/MM/YYYY"}
-                    placeholder={value.selectDate}
-                    status={error.selectDate ? "error" : ""}
+                    placeholder={value.start}
+                    status={error.start ? "error" : ""}
                     onChange={(value, dateString) => {
-                      onChange(value, dateString, "selectDate");
+                      onChange(value, dateString, "start");
                     }}
                   />
-                  {error.selectDate && (
+                  {error.start && (
                     <div style={{ color: "red", fontWeight: 400 }}>
                       Please enter Start Date.
                     </div>
@@ -352,8 +348,8 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
                 setPresent(!present);
                 setState((preValues) => ({
                   ...preValues,
-                  endDate: "",
-                  selectDate: "",
+                  start_end: "",
+                  start: "",
                 }));
               }}
             >

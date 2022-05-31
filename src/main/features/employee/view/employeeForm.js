@@ -1,25 +1,14 @@
 import { DatePicker, Input, Select } from "antd";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import * as S from "../Styles/employee.style";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
-// import { getCities } from "../../../../utils/Shared/store/actions";
+import { employeeDictionaryList } from "../localization/index";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-// import CustomScrollSelect from "../../../sharedComponents/ScrollSelect/customScrollSelect";
 import { getCitiesService } from "../../../../utils/Shared/services/services";
-// import useSearch from "./useSearch";
 import NewCustomSelect from "./newCustomSelect";
 import { userType, userTitle } from "../../../../utils/Shared/enums/enums";
-// import ScrollSelect from "../../../sharedComponents/ScrollSelect/scrollSelect";
-//import { Select as SelectBox } from "../../../sharedComponents/Select/Select";
 
 const { Option } = Select;
 
@@ -32,14 +21,8 @@ const EmployeeForm = (props) => {
   // const userTypeSelectRef = useRef("");
   // console.log("userTypeSelectRef", userTypeSelectRef.current.value);
 
-  const {
-    countries,
-    designations,
-    genders,
-    maritalStatus,
-    userTitles,
-    employeeTypes,
-  } = useSelector((state) => state.sharedSlice);
+  const { countries, designations, genders, maritalStatus, employeeTypes } =
+    useSelector((state) => state.sharedSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
   const { officeTimingGroups } = useSelector(
     (state) => state.officeTimingSlice
@@ -63,9 +46,10 @@ const EmployeeForm = (props) => {
   }, [debouncedSearchTerm, counter]);
 
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { employees, Direction } = dictionaryList[userLanguage];
-  const value = employees.EmployeeForm;
-  const placeholder = employees.placeholders;
+  const { employeesDictionary, Direction } =
+    employeeDictionaryList[userLanguage];
+  const value = employeesDictionary.EmployeeForm;
+  const placeholder = employeesDictionary.placeholders;
   const selectBefore = (
     <S.FormItem name="titleId" className="formItem_userTitle">
       <Select size="large" style={{ padding: "0", width: "4.5rem" }}>
@@ -273,7 +257,7 @@ const EmployeeForm = (props) => {
         <S.FormItem
           name="probationPeriod"
           label={value.ProbationPeriod}
-          rules={[{ required: true }]}
+          // rules={[{ required: true }]}
           direction={Direction}
         >
           <Input
@@ -287,7 +271,7 @@ const EmployeeForm = (props) => {
         <S.FormItem
           name="noticePeriod"
           label={value.NoticePeriod}
-          rules={[{ required: true }]}
+          // rules={[{ required: true }]}
           direction={Direction}
         >
           <Input

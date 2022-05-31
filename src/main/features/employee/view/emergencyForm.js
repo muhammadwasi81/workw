@@ -7,12 +7,15 @@ import * as S from "../Styles/employee.style";
 import SharedSelect from "../../../sharedComponents/Select/Select";
 import { relations } from "../../../../utils/Shared/enums/enums";
 import TextInput from "../../../sharedComponents/Input/TextInput";
+import { employeeDictionaryList } from "../localization/index";
 
 const EmergencyForm = ({ onEmergencyInfo, emergencyInfo }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { employees, Direction, sharedLabels } = dictionaryList[userLanguage];
-  const value = employees.EmergencyForm;
-  const placeholder = employees.placeholders;
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { employeesDictionary, Direction } =
+    employeeDictionaryList[userLanguage];
+  const value = employeesDictionary.EmergencyForm;
+  const placeholder = employeesDictionary.placeholders;
   const [isSubmit, setIsSubmit] = useState(false);
 
   const [state, setState] = useState({

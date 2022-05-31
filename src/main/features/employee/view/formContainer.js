@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 import * as S from "../Styles/employee.style";
 import { Button, Form } from "antd";
-// import { useMediaQuery } from "react-responsive";
 import EmployeeForm from "./employeeForm";
 import EducationForm from "./educationForm";
 import EmergencyForm from "./emergencyForm";
 import ExperienceForm from "./experienceForm";
-import UserRightForm from "./userRightForm";
 import BankForm from "./bankDetailForm";
 import "../Styles/employee.css";
 import { useSelector } from "react-redux";
@@ -14,7 +12,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { dictionaryList } from "../../../../utils/localization/languages";
 
 const EmployeeFormContainer = (props) => {
-  // const [form] = Form.useForm();
+  const [form] = Form.useForm();
   const { loader: imgLoader } = useSelector((state) => state.sharedSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
@@ -53,7 +51,7 @@ const EmployeeFormContainer = (props) => {
     // setBankInfo([]);
     console.log("Received values of form: ", completeValues);
     props.handleSubmit(completeValues);
-    // form.resetFields();
+    form.resetFields();
   };
 
   return (
@@ -79,7 +77,6 @@ const EmployeeFormContainer = (props) => {
         emergencyInfo={emergencyInfo}
       />
       <BankForm onBankInfo={setBankInfo} bankInfo={bankInfo} />
-      {/* <UserRightForm /> */}
 
       <div className="employeeSubmitButton">
         <Button

@@ -30,12 +30,17 @@ const initialState = {
 	loader: false,
 	bussinessFeatures: [],
 	employeeTypes: [],
+	notification:{}
 };
 
 const sharedSlice = createSlice({
 	name: "shared",
 	initialState,
-	reducers: {},
+	reducers: {
+		openNotification: (state, {payload}) => {
+			state.notification = payload;
+		 },
+	},
 	extraReducers: builder => {
 		builder
 			.addCase(getCountries.fulfilled, (state, { payload }) => {
@@ -126,4 +131,5 @@ const sharedSlice = createSlice({
 			});
 	},
 });
+export const { openNotification } = sharedSlice.actions;
 export default sharedSlice.reducer;

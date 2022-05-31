@@ -34,6 +34,8 @@ import { LanguageChangeContext } from "./utils/localization/localContext/LocalCo
 import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
 import { InitMessengerSocket } from "./utils/InitSocket";
+import MainNotification from "./main/sharedComponents/Notification/Notification";
+import { openNotification } from "./utils/Shared/store/slice";
 // import Table from "./main/features/travel/view/customTable";
 // import { Socket } from "./utils/socket";
 
@@ -57,7 +59,7 @@ const App = () => {
 
 	useEffect(() => {
 		themeHandler(window.localStorage.getItem("darkMode") === "1");
-		InitMessengerSocket(dispatch, token);
+		isLoggedIn && InitMessengerSocket(dispatch, token);
 	}, []);
 	const [activityCount /*setActivityCount*/] = useState(null);
 
@@ -153,6 +155,7 @@ const App = () => {
 					</Router>
 				</MainFlexContainer>
 			</ErrorBoundary>
+			<MainNotification />
 		</>
 	);
 };

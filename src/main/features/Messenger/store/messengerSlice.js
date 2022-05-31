@@ -5,14 +5,15 @@ import { getAllChats, getAllMessages, sendChatMessage } from "./Api";
 const initialState = {
    mobileIsopenChat: null,
    currentMessenger: {
-      chatId:STRINGS.DEFAULTS.guid,
-      profileImage:"",
-      name:"",
-      chatType:1,
+      chatId: STRINGS.DEFAULTS.guid,
+      profileImage: "",
+      name: "",
+      chatType: 1,
+      members: []
    },
    currentChatBoxes: [],
    MessengerList: {},
-   Conversations:null
+   Conversations: null
 };
 
 export const messengerSlice = createSlice({
@@ -27,8 +28,9 @@ export const messengerSlice = createSlice({
          }
          state.MessengerList.chatId = [...state.MessengerList.chatId, newMsg]
       },
-      receiveChatMessage: (state, {payload}) => {
-         state.MessengerList[payload.chatId] = [...state.MessengerList[payload.chatId],payload]
+      receiveChatMessage: (state, { payload }) => {
+         state.MessengerList[payload.chatId] = state.MessengerList[payload.chatId] ?
+            [...state.MessengerList[payload.chatId], payload] : [payload]
       },
       handleIsopenChat: (state, action) => {
          state.mobileIsopenChat = action.payload
@@ -41,17 +43,17 @@ export const messengerSlice = createSlice({
 
    extraReducers: (builder) => {
       builder
-      .addCase(getAllChats.fulfilled, (state, { payload }) => {
-         state.Conversations = payload.data
-       })
-       .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
-         state.MessengerList[state.currentMessenger.chatId] = [...state.MessengerList[state.currentMessenger.chatId],payload.data]
-       })
-       .addCase(getAllMessages.fulfilled, (state, { payload }) => {
-         state.MessengerList[state.currentMessenger.chatId] = payload.data
-       })
+         .addCase(getAllChats.fulfilled, (state, { payload }) => {
+            state.Conversations = payload.data
+         })
+         .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
+            state.MessengerList[state.currentMessenger.chatId] = [...state.MessengerList[state.currentMessenger.chatId], payload.data]
+         })
+         .addCase(getAllMessages.fulfilled, (state, { payload }) => {
+            state.MessengerList[state.currentMessenger.chatId] = payload.data
+         })
    }
 })
 
-export const { sendMessage, handleIsopenChat, handleMessengerItemClick, receiveChatMessage} = messengerSlice.actions
+export const { sendMessage, handleIsopenChat, handleMessengerItemClick, receiveChatMessage } = messengerSlice.actions
 export default messengerSlice.reducer;

@@ -15,17 +15,14 @@ import { getAllGrades } from "../../grade/store/actions";
 import { getAllOfficeTimingGroups } from "../../officeTimings/store/actions";
 import EmployeeFormContainer from "./formContainer";
 import moment from "moment";
-import EducationForm from "./educationForm";
 import { addEmployee } from "../store/actions";
 import { getAllAccessRoles } from "../../accessRole/store/action";
 import {
   resetError,
   resetSuccess,
 } from "../../../../services/slices/notificationSlice";
-import { ROUTES } from "../../../../utils/routes";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import { info } from "autoprefixer";
 function Employee() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
@@ -47,11 +44,10 @@ function Employee() {
     designationId: "",
     managerId: "00000000-0000-0000-0000-000000000000",
     gradeId: "",
-    departmentId: "",
     countryId: "",
     cityId: "",
-    probationPeriod: 0,
-    noticePeriod: 0,
+    probationPeriod: 1,
+    noticePeriod: 1,
     birthDate: "",
     joinDate: "",
     genderId: 0,
@@ -62,12 +58,10 @@ function Employee() {
     employmentTypeId: "",
   };
   const [form] = Form.useForm();
-
   const [employeeForm, setEmployeeForm] = useState(initialState);
   const [formData, setFormData] = useState(null);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
-
   const dispatch = useDispatch();
 
   const {
@@ -152,9 +146,9 @@ function Employee() {
           isPresent: false,
         };
 
-        if (element["start/end"]) {
-          date.startDate = moment(element["start/end"][0]._d).format();
-          date.endDate = moment(element["start/end"][1]._d).format();
+        if (element["start_end"]) {
+          date.startDate = moment(element["start_end"][0]._d).format();
+          date.endDate = moment(element["start_end"][1]._d).format();
         } else {
           // console.log('element["start"]', element["start"]);
           date.startDate = moment(element["start"]._d).format();
@@ -180,7 +174,8 @@ function Employee() {
   const deleteKey = (arr) => {
     arr = arr.map((object) => {
       let item = { ...object };
-      delete item["start/end"];
+      delete item["start_end"];
+
       return item;
     });
     return arr;

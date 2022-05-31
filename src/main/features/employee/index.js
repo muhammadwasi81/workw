@@ -47,7 +47,7 @@ const Index = () => {
             linkName={label.appHeader.employee.employees}
           />
         </HeaderMenuContainer>
-        {pathname === "/employees" && (
+        {pathname !== "/employees/add" && (
           <LinkButton
             to={ROUTES.EMPLOYEES.ADD}
             text={sharedLabels.AddEmployee}

@@ -1,19 +1,23 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { DatePicker, Checkbox, Typography, Table } from "antd";
+import { DatePicker, Checkbox, Typography } from "antd";
 import * as S from "../Styles/employee.style";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import NewCustomSelect from "./newCustomSelect";
+import { employeeDictionaryList } from "../localization/index";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 const { RangePicker } = DatePicker;
 
 const EducationForm = ({ onEducationInfo, educationInfo }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, employees, Direction } = dictionaryList[userLanguage];
-  const value = employees.EducationForm;
-  const placeholder = employees.placeholders;
+  const [cities, setCities] = useState({});
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { employeesDictionary, Direction } =
+    employeeDictionaryList[userLanguage];
+  const value = employeesDictionary.EducationForm;
+  const placeholder = employeesDictionary.placeholders;
   const [isSubmit, setIsSubmit] = useState(false);
   const [present, setPresent] = useState(false);
   const [state, setState] = useState({
@@ -22,9 +26,9 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
     description: "",
     totalMarks: "",
     obtainedMarks: "",
-    endDate: "",
-    city: "",
-    selectDate: "",
+    start_end: "",
+    cityId: "",
+    start: "",
   });
   const [error, setError] = useState({
     degree: false,
@@ -32,9 +36,9 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
     description: false,
     totalMarks: false,
     obtainedMarks: false,
-    endDate: false,
-    city: false,
-    selectDate: false,
+    start_end: false,
+    cityId: false,
+    start: false,
   });
   const handleChange = useCallback((value, name) => {
     setState((prevState) => ({
@@ -99,37 +103,37 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
       }));
     }
 
-    if (!state.endDate && !present) {
+    if (!state.start_end && !present) {
       setError((prevErrors) => ({
         ...prevErrors,
-        endDate: true,
+        start_end: true,
       }));
     } else {
       setError((prevErrors) => ({
         ...prevErrors,
-        endDate: false,
+        start_end: false,
       }));
     }
-    if (!state.city) {
+    if (!state.cityId) {
       setError((prevErrors) => ({
         ...prevErrors,
-        city: true,
+        cityId: true,
       }));
     } else {
       setError((prevErrors) => ({
         ...prevErrors,
-        city: false,
+        cityId: false,
       }));
     }
-    if (!state.selectDate && present) {
+    if (!state.start && present) {
       setError((prevErrors) => ({
         ...prevErrors,
-        selectDate: true,
+        start: true,
       }));
     } else {
       setError((prevErrors) => ({
         ...prevErrors,
-        selectDate: false,
+        start: false,
       }));
     }
   };
@@ -152,10 +156,10 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
     },
     {
       title: value.City,
-      dataIndex: "city",
-      key: "city",
+      dataIndex: "cityId",
+      key: "cityId",
       render: (value) => {
-        return value.name;
+        return cities[value];
       },
     },
     {
@@ -176,12 +180,12 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
 
     {
       title: value.StartEndDate,
-      dataIndex: "endDate",
-      key: "endDate",
+      dataIndex: "start_end",
+      key: "start_end",
       render: (value, row, index) => {
-        return educationInfo[index].endDate.length !== 0
-          ? `${educationInfo[index].endDate[0]} - ${educationInfo[index].endDate[1]}`
-          : `${educationInfo[index].selectDate} -  Present`;
+        return educationInfo[index].start_end.length !== 0
+          ? `${educationInfo[index].start_end[0]} - ${educationInfo[index].start_end[1]}`
+          : `${educationInfo[index].start} -  Present`;
       },
     },
 
@@ -216,8 +220,8 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
         !error.institute &&
         !error.obtainedMarks &&
         !error.totalMarks &&
-        !error.city &&
-        (!error.endDate || error.selectDate)
+        !error.cityId &&
+        (!error.start_end || error.start)
       ) {
         handleInfoArray(true);
       }
@@ -235,9 +239,9 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
         description: "",
         totalMarks: "",
         obtainedMarks: "",
-        endDate: "",
-        city: "",
-        selectDate: "",
+        start_end: "",
+        cityId: "",
+        start: "",
       });
     }
   };
@@ -380,24 +384,25 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
               >
                 <NewCustomSelect
                   valueObject={true}
-                  name="city"
+                  name="cityId"
                   showSearch={true}
-                  status={error.city ? "error" : ""}
+                  status={error.cityId ? "error" : ""}
                   endPoint="/api/Utility/GetAllCities"
-                  placeholder="Select city"
+                  placeholder="Select City"
                   requestType="post"
                   onChange={(value) => {
                     const { id, name } = JSON.parse(value);
+                    setCities((preValues) => ({
+                      ...preValues,
+                      [id]: name,
+                    }));
                     setState((prevValues) => ({
                       ...prevValues,
-                      city: {
-                        id,
-                        name,
-                      },
+                      cityId: id,
                     }));
                   }}
                 />
-                {error.city && (
+                {error.cityId && (
                   <div style={{ color: "red", fontWeight: 400 }}>
                     Please select city.
                   </div>
@@ -414,12 +419,12 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                   <RangePicker
                     format={"DD/MM/YYYY"}
                     placeholder={[placeholder.sDate, placeholder.eDate]}
-                    status={error.endDate ? "error" : ""}
+                    status={error.start_end ? "error" : ""}
                     onChange={(value, dateString) => {
-                      onChange(value, dateString, "endDate");
+                      onChange(value, dateString, "start_end");
                     }}
                   />
-                  {error.endDate && (
+                  {error.start_end && (
                     <div style={{ color: "red", fontWeight: 400 }}>
                       Please enter Start/End Date.
                     </div>
@@ -436,13 +441,13 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                 <div>
                   <DatePicker
                     format={"DD/MM/YYYY"}
-                    placeholder={value.selectDate}
-                    status={error.selectDate ? "error" : ""}
+                    placeholder={value.start}
+                    status={error.start ? "error" : ""}
                     onChange={(value, dateString) => {
-                      onChange(value, dateString, "selectDate");
+                      onChange(value, dateString, "start");
                     }}
                   />
-                  {error.selectDate && (
+                  {error.start && (
                     <div style={{ color: "red", fontWeight: 400 }}>
                       Please enter Start Date.
                     </div>
@@ -457,8 +462,8 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                 setPresent(!present);
                 setState((preValues) => ({
                   ...preValues,
-                  endDate: "",
-                  selectDate: "",
+                  start_end: "",
+                  start: "",
                 }));
               }}
             >

@@ -1,5 +1,5 @@
 import { Form, message, Skeleton } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllDefaultDesignation,
@@ -22,8 +22,15 @@ import {
   resetError,
   resetSuccess,
 } from "../../../../services/slices/notificationSlice";
+import { ROUTES } from "../../../../utils/routes";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { info } from "autoprefixer";
 function Employee() {
-  const [form] = Form.useForm();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const label = dictionaryList[userLanguage];
+
   const initialState = {
     imageId: "00000000-0000-0000-0000-000000000000",
     userTypeId: 0,
@@ -53,64 +60,16 @@ function Employee() {
     accessRoleId: "",
     employeeNo: "",
     employmentTypeId: "",
-    // about: "",
-    educations: [
-      {
-        degree: "",
-        institute: "",
-        description: "",
-        totalMarks: "",
-        obtainedMarks: "",
-        startDate: "",
-        endDate: "",
-        cityId: "",
-        isPresent: false,
-      },
-    ],
-    experiences: [
-      {
-        position: "",
-        startDate: "",
-        endDate: "",
-        isPresent: true,
-        employmentTypeId: 2,
-      },
-    ],
-    // leaves: [
-    // 	{
-    // 		id: "",
-    // 		leaveTypeId: "",
-    // 		allocatedLeaves: 50,
-    // 	},
-    // ],
-    bankDetails: [
-      {
-        id: "",
-        userId: "",
-        bankName: "",
-        accountTitle: "",
-        bankBranchCode: "",
-        accountNumber: "",
-        ibanNumber: "",
-        sortCode: "",
-        cityId: 0,
-        countryId: 0,
-      },
-    ],
-    emergencyContacts: [
-      {
-        relation: 0,
-        name: "",
-        address: "",
-        contactNo: "",
-      },
-    ],
   };
+  const [form] = Form.useForm();
+
   const [employeeForm, setEmployeeForm] = useState(initialState);
   const [formData, setFormData] = useState(null);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
+
   const dispatch = useDispatch();
+
   const {
     isUploaded,
     imageIds,
@@ -181,6 +140,7 @@ function Employee() {
   const handleImageUpload = (data) => {
     setProfileImage(data);
   };
+
   const changeDateFromat = (value) => {
     // console.log("value", value);
     let data = [];
@@ -227,9 +187,9 @@ function Employee() {
   };
 
   const formDataSubmit = (value, imageId) => {
-    let filteredEducation = [...employeeForm.educations];
-    let filteredExperience = [...employeeForm.experiences];
-    let filteredEmergencey = [...employeeForm.emergencyContacts];
+    let filteredEducation = [...value.educations];
+    let filteredExperience = [...value.experiences];
+    let filteredEmergencey = [...value.emergencyContacts];
     if (value.educations) {
       let educationDate = changeDateFromat(
         value.educations && value.educations
@@ -250,10 +210,10 @@ function Employee() {
 
       // console.log("filteredExperience", filteredExperience);
     }
-    filteredEmergencey[0].address = value.address ? value.address : "";
-    filteredEmergencey[0].name = value.name ? value.name : "";
-    filteredEmergencey[0].relation = value.relation ? value.relation : "";
-    filteredEmergencey[0].contactNo = value.contactNo ? value.contactNo : "";
+    // filteredEmergencey[0].address = value.address ? value.address : "";
+    // filteredEmergencey[0].name = value.name ? value.name : "";
+    // filteredEmergencey[0].relation = value.relation ? value.relation : "";
+    // filteredEmergencey[0].contactNo = value.contactNo ? value.contactNo : "";
     setIsFormSubmitted(true);
     const valueClone = (({ address, name, relation, contactNo, ...o }) => o)(
       value

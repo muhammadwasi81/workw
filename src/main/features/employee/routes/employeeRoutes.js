@@ -5,12 +5,12 @@ import EmployeeAdd from "../view";
 import { ROUTES } from "../../../../utils/routes";
 
 function EmployeeRoutes() {
-	console.log(ROUTES.EMPLOYEES.ADD);
-	return (
-		<Routes>
-			<Route path={ROUTES.EMPLOYEES.ADD} element={<EmployeeAdd />} />
-			<Route path="/" element={<EmployeeList />} />
-			{/* <Route
+  console.log(ROUTES.EMPLOYEES.ADD);
+  return (
+    <Routes>
+      <Route path={ROUTES.EMPLOYEES.ADD} element={<EmployeeAdd />} />
+      <Route path="/" element={<EmployeeList />} />
+      {/* <Route
 				path="*"
 				element={
 					<>
@@ -18,8 +18,8 @@ function EmployeeRoutes() {
 					</>
 				}
 			/> */}
-		</Routes>
-	);
+    </Routes>
+  );
 }
 
 export default EmployeeRoutes;

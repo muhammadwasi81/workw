@@ -1,5 +1,5 @@
-import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { Select, Input, DatePicker, Form, Typography } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
 import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -8,29 +8,27 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import * as S from "../Styles/employee.style";
 import SharedSelect from "../../../sharedComponents/Select/Select";
-// import { getCities } from "../../../../utils/Shared/store/actions";
-// import CustomScrollSelect from "../../../sharedComponents/ScrollSelect/customScrollSelect";
 import { getCitiesService } from "../../../../utils/Shared/services/services";
 import NewCustomSelect from "./newCustomSelect";
 import TextInput from "../../../sharedComponents/Input/TextInput";
-const { Option } = Select;
+import { employeeDictionaryList } from "../localization/index";
 
-// const validateMessages = {
-// 	required: "${label} is required!",
-// };
 const BankForm = ({ onBankInfo, bankInfo }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [cityData, setCityData] = useState([]);
+  const [cityIdData, setCityData] = useState([]);
   const [counter, setCounter] = useState(0);
   const [searching, setSearching] = useState(false);
   const { countries } = useSelector((state) => state.sharedSlice);
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
-  const { employees, Direction, sharedLabels } = dictionaryList[userLanguage];
-  const value = employees.BankForm;
-  const placeholder = employees.placeholders;
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { employeesDictionary, Direction } =
+    employeeDictionaryList[userLanguage];
+  const value = employeesDictionary.BankForm;
+  const placeholder = employeesDictionary.placeholders;
   const [isSubmit, setIsSubmit] = useState(false);
+  const [cities, setCities] = useState({});
 
   useEffect(() => {
     if (debouncedSearchTerm) {
@@ -54,7 +52,7 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
     ibanNumber: "",
     sortCode: "",
     countryId: "",
-    city: "",
+    cityId: "",
   });
   const [error, setError] = useState({
     bankName: false,
@@ -64,7 +62,7 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
     ibanNumber: false,
     sortCode: false,
     countryId: false,
-    city: false,
+    cityId: false,
   });
   const handleChange = useCallback((value, name) => {
     setState((prevState) => ({
@@ -113,10 +111,10 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
     },
     {
       title: value.City,
-      dataIndex: "city",
-      key: "city",
+      dataIndex: "cityId",
+      key: "cityId",
       render: (value) => {
-        return value.name;
+        return cities[value];
       },
     },
 
@@ -221,15 +219,15 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
         countryId: false,
       }));
     }
-    if (!state.city) {
+    if (!state.cityId) {
       setError((prevErrors) => ({
         ...prevErrors,
-        city: true,
+        cityId: true,
       }));
     } else {
       setError((prevErrors) => ({
         ...prevErrors,
-        city: false,
+        cityId: false,
       }));
     }
   };
@@ -243,7 +241,7 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
         !error.ibanNumber &&
         !error.sortCode &&
         !error.countryId &&
-        !error.city
+        !error.cityId
       ) {
         handleInfoArray(true);
       }
@@ -262,7 +260,7 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
         ibanNumber: "",
         sortCode: "",
         countryId: "",
-        city: "",
+        cityId: "",
       });
     }
   };
@@ -431,7 +429,7 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
                   <S.FormItem name="countryId" direction={Direction}>
                     <SharedSelect
                       data={countries}
-                      placeholder={placeholder.searchToSelect}
+                      placeholder="Select Country"
                       size={"large"}
                       status={error.countryId ? "error" : ""}
                       onChange={(value) => {
@@ -468,24 +466,25 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
                 >
                   <NewCustomSelect
                     valueObject={true}
-                    name="city"
+                    name="cityId"
                     showSearch={true}
-                    status={error.city ? "error" : ""}
+                    status={error.cityId ? "error" : ""}
                     endPoint="/api/Utility/GetAllCities"
-                    placeholder={placeholder.searchToSelect}
+                    placeholder="Select City"
                     requestType="post"
                     onChange={(value) => {
                       const { id, name } = JSON.parse(value);
+                      setCities((prevValues) => ({
+                        ...prevValues,
+                        [id]: name,
+                      }));
                       setState((prevValues) => ({
                         ...prevValues,
-                        city: {
-                          id,
-                          name,
-                        },
+                        cityId: id,
                       }));
                     }}
                   />
-                  {error.city && (
+                  {error.cityId && (
                     <div style={{ color: "red", fontWeight: 400 }}>
                       Please select city.
                     </div>

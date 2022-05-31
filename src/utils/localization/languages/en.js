@@ -56,6 +56,8 @@ const en = {
     Update: "Update",
     AddEmployee: "Add Employee",
     complain: "Complain",
+    Submit: "Submit",
+    Delete: "Delete",
   },
 
   /*** navMenuLabel only used in LeftSideBar ***/

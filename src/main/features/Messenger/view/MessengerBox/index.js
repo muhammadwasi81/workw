@@ -14,11 +14,11 @@ const MessengerBox = () => {
     const messageList = useSelector((state) => state.MessengerSlice.MessengerList[messengerDetail.chatId]);
     const [isOpenProfile, setIsOpenProfile] = useState(false);
     const isEmptyMessenger = messengerDetail.members.length === 0 && messengerDetail.chatId === STRINGS.DEFAULTS.guid;
-    useEffect(()=>{
-        dispatch(getAllMessages(messengerDetail.chatId))
+    useEffect(() => {
+        dispatch(getAllMessages({ chatId: messengerDetail.chatId, pageNo:1 }))
     }, [messengerDetail]);
-    if(isEmptyMessenger)
-    return <EmptyMessenger />;
+    if (isEmptyMessenger)
+        return <EmptyMessenger />
     return (
         <div className="MessengerBox" >
             <MessengerHead
@@ -28,7 +28,8 @@ const MessengerBox = () => {
             <MessengerList
                 messageList={messageList}
                 isChatBox={false}
-                isOpenProfile={isOpenProfile} />
+                isOpenProfile={isOpenProfile}
+                messengerDetail={messengerDetail} />
             <MessengerBottom
                 isOpenProfile={isOpenProfile} />
             {isOpenProfile &&

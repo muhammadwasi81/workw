@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { STRINGS } from "../../../../../utils/base";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { handleIsopenChat, handleMessengerItemClick } from "../../store/messengerSlice";
-import { MESSENGER_ENUMS } from "../../utils/base";
+import { MESSENGER_ENUMS } from "../../utils/Constant";
 
 const ConversationListItem = ({ conversation }) => {
 	const dispatch = useDispatch();

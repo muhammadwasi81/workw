@@ -40,8 +40,8 @@ export const sendChatMessage = createAsyncThunk(
 );
 export const getAllMessages = createAsyncThunk(
   "messenger/getAllMessages",
-  async (chatId, { dispatch }) => {
-    const res = await getAllMessageService(chatId);
+  async (data, { dispatch }) => {
+    const res = await getAllMessageService(data.chatId, data.pageNo);
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,

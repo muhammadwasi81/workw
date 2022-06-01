@@ -29,8 +29,9 @@ export const messengerSlice = createSlice({
          state.MessengerList.chatId = [...state.MessengerList.chatId, newMsg]
       },
       receiveChatMessage: (state, { payload }) => {
-         state.MessengerList[payload.chatId] = state.MessengerList[payload.chatId] ?
-            [...state.MessengerList[payload.chatId], payload] : [payload]
+         const { chatMessage } = payload;
+         state.MessengerList[chatMessage.chatId] = state.MessengerList[chatMessage.chatId] ?
+            [...state.MessengerList[chatMessage.chatId], chatMessage] : [chatMessage]
       },
       handleIsopenChat: (state, action) => {
          state.mobileIsopenChat = action.payload

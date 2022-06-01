@@ -90,7 +90,7 @@
     width: 100%;
     border: none;
     margin: 0 10px;
-    padding-left: 35px;
+    padding-left: 15px;
 }
 
 .ConversationListSearch>div>img {
@@ -296,7 +296,7 @@ input:focus {
 }
 
 .MessengerInputHandler {
-    flex: 1;
+    /* flex: 1; */
     min-width: 120px;
 }
 
@@ -307,6 +307,8 @@ input:focus {
 
 .MessengerInputHandler>div>img {
     height: 23px;
+    margin: 0 10px;
+    cursor: pointer;
 }
 
 .MessengerListItem>.MessageBubble::before {
@@ -378,6 +380,11 @@ input:focus {
     margin-top: 10px;
     width: 300px;
 }
+.emojiCont{
+    position: absolute;
+    bottom: 90px;
+    right: 170px;
+}
 
 @media (max-width: 800px) {
     .MessengerCont {
@@ -416,6 +423,7 @@ input:focus {
     }
     .MessengerInputHandler>div>img {
         height: 20px;
+        margin: 0 5px;
     }
     .MessengerHeadName>div {
         font-size: 16px;

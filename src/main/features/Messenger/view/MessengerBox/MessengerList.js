@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import MessengerListItem from './MessengerListItem';
 
 // let isDidMount = true
-const MessengerList = ({isChatBox=true, messageList, isOpenProfile}) => {
+const MessengerList = ({isChatBox=true, messageList, isOpenProfile, messengerDetail}) => {
   const MyRef = useRef("myRef")
    useEffect(()=>{
       // if(isDidMount){
@@ -12,7 +12,7 @@ const MessengerList = ({isChatBox=true, messageList, isOpenProfile}) => {
       // else{
       //    MyRef.current.scrollIntoView({ behavior: "smooth" })
       // }
-      MyRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
+      MyRef.current.scrollIntoView({ behavior: "smooth" })
   }, [messageList])
 
    return (
@@ -20,7 +20,7 @@ const MessengerList = ({isChatBox=true, messageList, isOpenProfile}) => {
          {
            messageList && messageList.map((item, ind) => {
                return (
-                  <MessengerListItem key={ind} messgeItem={item} />
+                  <MessengerListItem key={ind} messgeItem={item} messengerDetail={messengerDetail} />
                )
             })
          }    

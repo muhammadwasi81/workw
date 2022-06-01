@@ -48,6 +48,7 @@
     font-weight: 700;
     color: rgb(26, 86, 105);
     text-align: center;
+    cursor: pointer;
 }
 
 .ConversationListSearch {
@@ -378,7 +379,113 @@ input:focus {
     margin-top: 10px;
     width: 300px;
 }
+.createChat .ant-drawer-header {
+    display: none;
+}
+.createChat .ant-drawer-body
+{
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+}
+.createChat .uploadImg
+{
+display: inline-block;
+}
+.createChat .createChat__header{
+    padding : 0.4rem;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+   
+}
+.createChat .createChat__body{
+display:  flex;
+flex: 1;
+   
+}
+.createChat .selectMemberList
+{
+    background-color: #f5f6f7;
+    width: 50%;
 
+}
+.createChat .selectMemberList__header 
+{
+display: flex;
+justify-content: space-between;
+padding: 15px 5px;
+
+}
+.createChat .selectMemberList__header p{
+    font-size: 12px;
+    font-weight: 600;
+    margin:0
+}
+.createChat .createChat__header input{
+    border: none;
+    font-size: 14px;
+}
+.createChat .uploadImg .ant-upload.ant-upload-select-picture-card, .ant-upload-list-picture-card-container
+{
+    border: 3px dashed #d9d9d9; 
+    width: 60px;
+    height: 60px;
+    margin: 0;
+}
+.createChat .ant-upload-picture-card-wrapper
+{
+    width: auto;
+}
+.memberCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:  0.3rem 0.5rem;
+    gap: 5px;
+}
+.memberCard:hover{
+    background-color: #f4f4f4;
+    cursor: pointer;
+}
+.memberCard .radio{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #dcdcdc;
+    box-sizing: border-box;
+    display: flex;
+}
+.memberCard .radio.checked
+{
+ border: none;
+}
+.memberList 
+{
+    width: 50%;
+}
+.memberList .memberList__header
+{
+padding:8px;
+}
+.memberList .memberList__header input{
+    border-radius: 0;
+}
+.memberCard__body{
+    flex: 1;
+}
+.memberCard__body p
+{
+    margin: 0;
+ 
+    color: #2c3647;
+}
+.memberCard__body p:first-child{
+    font-size: 13px;
+    line-height: 1;
+}
+.memberCard__body p:nth-child(2){
+    font-size: 11px;
+}
 @media (max-width: 800px) {
     .MessengerCont {
         margin-top: 35px;

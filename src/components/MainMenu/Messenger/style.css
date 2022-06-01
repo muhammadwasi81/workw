@@ -89,7 +89,7 @@
     width: 100%;
     border: none;
     margin: 0 10px;
-    padding-left: 35px;
+    padding-left: 15px;
 }
 
 .ConversationListSearch>div>img {
@@ -268,7 +268,7 @@ input:focus {
 }
 
 .MessengerInputHandler {
-    flex: 1;
+    /* flex: 1; */
     min-width: 120px;
 }
 
@@ -279,6 +279,7 @@ input:focus {
 
 .MessengerInputHandler>div>img {
     height: 23px;
+    margin: 0 10px;
 }
 
 .MessengerListItem>.MessageBubble::before {

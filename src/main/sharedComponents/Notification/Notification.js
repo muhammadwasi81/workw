@@ -18,11 +18,11 @@ const openNotification = (options) => {
     playSound = false,
     soundTune = messageTune,
     icon = <Avatar
-      src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"}
-      name={"Test"}
+      src={options.avatarImage}
+      name={options.avatarName}
       size={38}
       round={true}
-      contStyle={{marginTop:"-10px", marginLeft:"-10px"}} />,
+      contStyle={{position:"relative", top:"-10px", left:"-8px"}} />,
   } = options
   notification.open({
     message: title,
@@ -33,7 +33,7 @@ const openNotification = (options) => {
     style,
     className,
     closeIcon,
-    icon
+    icon: options.avatarImage !== undefined && icon
   });
   if (playSound) {
     const audio = new Audio(soundTune);

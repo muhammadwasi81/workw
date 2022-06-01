@@ -1,5 +1,14 @@
 import styled, { css } from "styled-components";
-import { Steps, Form, Select, Button, Upload, Divider, Space } from "antd";
+import {
+  Steps,
+  Form,
+  Select,
+  Button,
+  Upload,
+  Divider,
+  Space,
+  Table,
+} from "antd";
 
 const { Step } = Steps;
 
@@ -155,7 +164,7 @@ export const FormContainer = styled.div`
   display: grid;
   grid-template-columns: ${(props) =>
     props.type !== "constant"
-      ? "repeat(auto-fit, minmax(18rem, 1fr))"
+      ? "repeat(auto-fit, minmax(20rem, 1fr))"
       : "repeat(auto-fit, minmax(15rem, 1fr))"};
   row-gap: 5px;
   column-gap: 15px;
@@ -165,7 +174,7 @@ export const CustomSpace = styled(Space)`
   display: grid !important;
   grid-template-columns: ${(props) =>
     props.type !== "constant"
-      ? "repeat(auto-fit, minmax(18rem, 1fr))"
+      ? "repeat(auto-fit, minmax(20rem, 1fr))"
       : "repeat(auto-fit, minmax(12rem, 1fr))"};
   row-gap: 1px;
   column-gap: 15px;
@@ -173,6 +182,7 @@ export const CustomSpace = styled(Space)`
   align-items: flex-start;
   .ant-space-item:last-child {
     align-self: center;
+    margin-top:1rem
   }
 }
 `;
@@ -215,12 +225,15 @@ export const ButtonContainer = styled.div`
   margin-top: 10px;
   margin-right: 50px;
   align-items: center;
+  button {
+    display: flex;
+    align-items: center;
+  }
 `;
 export const EButton = styled(Button)`
   margin-right: 10px;
   margin-bottom: 10px;
   border-radius: 5px !important;
-
   width: 12.4rem !important;
 `;
 export const EmployeeCardCustom = styled.div`
@@ -300,4 +313,7 @@ export const AllEmpolyeeContainer = styled.div`
     padding-right: ${(props) => (props.direction === "ltr" ? "1rem" : "0")};
     padding-left: ${(props) => (props.direction === "ltr" ? "0" : "1rem")};
   }
+`;
+export const Customtable = styled(Table)`
+  direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
 `;

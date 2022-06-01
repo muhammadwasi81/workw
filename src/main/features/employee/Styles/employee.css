@@ -66,3 +66,6 @@
 .ant-form .ant-form-item .ant-form-item-control, .ant-form .ant-form-item .ant-form-item-label{
 	flex: none;
 }
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item, .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-placeholder, .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector:after{
+	font-weight: 400;
+}

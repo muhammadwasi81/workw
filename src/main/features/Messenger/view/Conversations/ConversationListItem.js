@@ -9,6 +9,7 @@ import { MESSENGER_ENUMS } from "../../utils/Constant";
 
 const ConversationListItem = ({ conversation }) => {
 	const dispatch = useDispatch();
+	
 	// TODO: destructure & set default object of conversation data
 	const {
 		id = STRINGS.DEFAULTS.guid,

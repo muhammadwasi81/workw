@@ -1,15 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "../../../../../components/SharedComponent/Avatar/avatar";
 import checkIcon from "../../../../../content/NewContent/Messenger/check-outline.svg";
-
-function MemberCard({ id, name, designation, image, onMember, crossIcon }) {
+import { CloseOutlined } from "@ant-design/icons";
+function MemberCard({
+  id,
+  name,
+  designation,
+  image,
+  onMember,
+  crossIcon,
+  isChecked,
+}) {
   const [checked, setChecked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    if (isClicked) {
+      setIsClicked(!isClicked);
+      onMember({ id, name, designation, image, status: checked });
+    }
+    return () => {
+      setChecked(false);
+      setIsClicked(false);
+    };
+  }, [checked]);
+
   return (
     <div
       className="memberCard"
       onClick={() => {
         setChecked(!checked);
-        onMember({ id, name, designation, image, status: checked });
+        setIsClicked(!isClicked);
       }}
     >
       <div className="memberCard__header">
@@ -21,10 +42,10 @@ function MemberCard({ id, name, designation, image, onMember, crossIcon }) {
       </div>
       <div className="memberCard__footer">
         {crossIcon ? (
-          "x"
+          <CloseOutlined />
         ) : (
-          <div className={`radio ${checked ? "checked" : ""}`}>
-            {checked && <img alt={checkIcon} src={checkIcon} />}
+          <div className={`radio ${isChecked ? "checked" : ""}`}>
+            {isChecked && <img alt={checkIcon} src={checkIcon} />}
           </div>
         )}
       </div>

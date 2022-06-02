@@ -4,7 +4,7 @@ import MemberCard from "./MemberCard";
 import { useDispatch } from "react-redux";
 import { getAllEmployeeShort } from "../../../../../utils/Shared/store/actions";
 
-function MemberList({ allMembers = [], onMember }) {
+function MemberList({ allMembers = [], onMember, cloneMembers }) {
   const dispatch = useDispatch();
 
   return (
@@ -26,6 +26,7 @@ function MemberList({ allMembers = [], onMember }) {
       {allMembers.map(({ name, designation, image, id }) => {
         return (
           <MemberCard
+            isChecked={cloneMembers[id]}
             onMember={onMember}
             name={name}
             designation={designation}

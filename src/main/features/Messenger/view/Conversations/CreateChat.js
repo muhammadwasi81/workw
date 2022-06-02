@@ -9,21 +9,32 @@ function CreateChat({ onClose, visible }) {
   const dispatch = useDispatch();
   const { employeeShort: members } = useSelector((state) => state.sharedSlice);
   const [selectedMembers, setSelectedMembers] = useState([]);
-  const [selectedMembersCopy, setSelectedMembersCopy] = useState([]);
+  const [selectedMembersClone, setSelectedMembersClone] = useState([]);
   useEffect(() => {
-    dispatch(getAllEmployeeShort());
+    dispatch(
+      getAllEmployeeShort({
+        pageNo: "1",
+        search: "",
+      })
+    );
   }, []);
   const handleMember = (member) => {
-    console.log(selectedMembersCopy);
     setSelectedMembers((preValues) => {
       if (!preValues.find((o) => o.id === member.id)) {
-        setSelectedMembersCopy((preValues) => [
+        setSelectedMembersClone((preValues) => ({
           ...preValues,
-          { id: member.id, status: member.status },
-        ]);
+          [member.id]: member.status,
+        }));
         return [...preValues, member];
       } else {
-        return [...preValues];
+        const filterSelectedMember = selectedMembers.filter(({ id }) => {
+          return id !== member.id;
+        });
+        setSelectedMembersClone((preValues) => {
+          delete preValues[member.id];
+          return preValues;
+        });
+        return [...filterSelectedMember];
       }
     });
   };
@@ -32,6 +43,10 @@ function CreateChat({ onClose, visible }) {
       return id !== memberRemoved.id;
     });
 
+    setSelectedMembersClone((preValues) => {
+      delete preValues[memberRemoved.id];
+      return preValues;
+    });
     setSelectedMembers(filterSelectedMember);
   };
   return (
@@ -51,7 +66,11 @@ function CreateChat({ onClose, visible }) {
         <Input placeholder="Name Your Group" />
       </div>
       <div className="createChat__body">
-        <MemberList allMembers={members} onMember={handleMember} />
+        <MemberList
+          allMembers={members}
+          onMember={handleMember}
+          cloneMembers={selectedMembersClone}
+        />
         <SelectMemberList
           selectedMembers={selectedMembers}
           onDelete={handleDeleteMember}

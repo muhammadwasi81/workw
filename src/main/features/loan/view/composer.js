@@ -24,7 +24,7 @@ const Composer = (props) => {
     console.log();
     form.setFieldsValue({
       deduction: state.deduction,
-        purposeId:state.purposeId
+      purposeId: state.purposeId,
     });
   }, [state]);
   const onFinish = (values) => {
@@ -124,97 +124,97 @@ const Composer = (props) => {
             size="large"
           />
         </Form.Item>
-          <div className="flex gap15">
-        <Form.Item
-          label={loanDictionary.amount}
-          name="amount"
-          labelPosition="top"
-          rules={[
-            {
-              required: true,
-              message: loanDictionary.pleaseEnterAmount,
-            },
-          ]}
-          initialValue={state.amount}
-        >
-          <Input
-            placeholder={loanDictionary.amount}
+        <div className="flex gap15">
+          <Form.Item
+            label={loanDictionary.amount}
             name="amount"
-            value={state.amount}
-            type="number"
-            onChange={(e) => {
-              /* form.setFieldsValue({
+            labelPosition="top"
+            rules={[
+              {
+                required: true,
+                message: loanDictionary.pleaseEnterAmount,
+              },
+            ]}
+            initialValue={state.amount}
+          >
+            <Input
+              placeholder={loanDictionary.amount}
+              name="amount"
+              value={state.amount}
+              type="number"
+              onChange={(e) => {
+                /* form.setFieldsValue({
                                deduction: parseFloat(e.target.value).toFixed(2) / state.loanTenure
                            });*/
 
-              dispatch(
-                setLoanForm({
-                  ...state,
-                  amount: parseFloat(e.target.value).toFixed(2),
-                  deduction:
-                    parseFloat(e.target.value).toFixed(2) / state.loanTenure,
-                })
-              );
-              //setState({);
-            }}
-          />
-        </Form.Item>
-        <Form.Item
-          label={loanDictionary.loanTenureInMonths}
-          name="loanTenure"
-          labelPosition="top"
-          rules={[
-            {
-              required: true,
-              message: loanDictionary.pleaseEnterloanTenureInMonths,
-            },
-          ]}
-          initialValue={state.loanTenure}
-        >
-          <Input
-            placeholder={loanDictionary.loanTenureInMonths}
+                dispatch(
+                  setLoanForm({
+                    ...state,
+                    amount: parseFloat(e.target.value).toFixed(2),
+                    deduction:
+                      parseFloat(e.target.value).toFixed(2) / state.loanTenure,
+                  })
+                );
+                //setState({);
+              }}
+            />
+          </Form.Item>
+          <Form.Item
+            label={loanDictionary.loanTenureInMonths}
             name="loanTenure"
-            type="number"
-            value={state.loanTenure}
-            onChange={(e) => {
-              /* form.setFieldsValue({
+            labelPosition="top"
+            rules={[
+              {
+                required: true,
+                message: loanDictionary.pleaseEnterloanTenureInMonths,
+              },
+            ]}
+            initialValue={state.loanTenure}
+          >
+            <Input
+              placeholder={loanDictionary.loanTenureInMonths}
+              name="loanTenure"
+              type="number"
+              value={state.loanTenure}
+              onChange={(e) => {
+                /* form.setFieldsValue({
                                deduction: state.amount / parseFloat(e.target.value).toFixed(2)
                            });*/
-              dispatch(
-                setLoanForm({
-                  ...state,
-                  loanTenure: parseFloat(e.target.value).toFixed(2),
-                  deduction:
-                    state.amount / parseFloat(e.target.value).toFixed(2),
-                })
-              );
-              /*  setState({
+                dispatch(
+                  setLoanForm({
+                    ...state,
+                    loanTenure: parseFloat(e.target.value).toFixed(2),
+                    deduction:
+                      state.amount / parseFloat(e.target.value).toFixed(2),
+                  })
+                );
+                /*  setState({
                        ...state,
                         loanTenure: parseFloat(e.target.value).toFixed(2),
                         deduction: state.amount / parseFloat(e.target.value).toFixed(2)
                     });*/
-            }}
-          />
-        </Form.Item>
-        <Form.Item
-          label={loanDictionary.deductionPerMonth}
-          name="deduction"
-          labelPosition="top"
-          initialValue={state.deduction}
-          /*rules={[
+              }}
+            />
+          </Form.Item>
+          <Form.Item
+            label={loanDictionary.deductionPerMonth}
+            name="deduction"
+            labelPosition="top"
+            initialValue={state.deduction}
+            /*rules={[
                     {
                         maxLength: 6,
                         message: "Value should be less than 50 character",
                     },
                 ]}*/
-        >
-          <Input
-            placeholder={loanDictionary.loanTenureInMonths}
-            type="number"
-            disabled={true}
-          />
-        </Form.Item>
-          </div>
+          >
+            <Input
+              placeholder={loanDictionary.loanTenureInMonths}
+              type="number"
+              disabled={true}
+            />
+          </Form.Item>
+        </div>
         {/* <Form.Item
           label={loanDictionary.deductionPerMonth}
           name={"currency"}

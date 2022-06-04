@@ -1,3 +1,9 @@
+.flex{
+    display: flex;
+}
+.gap15{
+    gap: 15px;
+}
 .submitButton {
     background-color: #1b5669;
     display: block;

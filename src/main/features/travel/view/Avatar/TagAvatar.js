@@ -6,7 +6,7 @@ import { UserOutlined } from "@ant-design/icons";
 function TagAvatar(props) {
 	return (
 		<div>
-			<Tag className="!text-primary-color !border-none !py-1 !px-2 !bg-primary-ref-tag !rounded !text-sm !font-bold !flex !items-center !gap-1 !w-fit">
+			<Tag className="reference_tag !flex !items-center !gap-1">
 				<Avatar
 					size={"small"}
 					style={{

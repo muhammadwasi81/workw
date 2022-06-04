@@ -1,8 +1,4 @@
-import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Tag, Tooltip } from "antd";
 import React from "react";
-import AvatarGroup from "../Avatar/AvatarGroup";
-import TagAvatar from "../Avatar/TagAvatar";
 import CardDetailView from "./CardDetailView";
 import CardProfileTopView from "./CardProfileTopView";
 
@@ -87,10 +83,7 @@ function ListView(props) {
 									/>
 								</div>
 							</div>
-							<div>
-								{/* <TagAvatar />
-					<AvatarGroup /> */}
-							</div>
+							<div></div>
 						</div>
 					</div>
 				))}

@@ -13,8 +13,8 @@ function Avatar(props) {
 	// console.log("name", name);
 	// console.log("membersdata", props.membersData);
 	// console.log("image", image);
-	console.log("heading", props.heading);
-	console.log("obje property", objProperty);
+	// console.log("heading", props.heading);
+	// console.log("obje property", objProperty);
 	return (
 		<div>
 			{props.membersData && props.membersData.length > 1 ? (

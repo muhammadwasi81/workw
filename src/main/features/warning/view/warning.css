@@ -15,9 +15,9 @@
     width: 100%;
     height: 100%;
 }
-/* .myBody {
-    width: calc(100% - 80px);
-} */
+.myBody {
+    width: 100%;
+}
 .list-item {
     background-color: white;
     border-radius: 4px;
@@ -149,9 +149,11 @@
 }
 .ItemDetails {
     display: flex;
-    justify-content: space-between;
     width: 70%;
     margin-top: 13px;
+}
+.innerDiv {
+    margin-right: 20px;
 }
 .ListItemInner {
     display: flex;

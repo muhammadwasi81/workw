@@ -2,13 +2,9 @@ import React, { useContext, useState } from "react";
 import { ROUTES } from "../../../utils/routes";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
-import {
-  ContBody,
-  HeaderMenuContainer,
-  TabbableContainer,
-} from "../../../components/SharedComponent/AppComponents/MainFlexContainer";
-import { ContainerHeader } from "../../../components/SharedComponent/AppComponents/MainHeader";
-import HeaderNavLink from "../../../components/SharedComponent/AppComponents/MainHeader/HeaderNavLink";
+import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../sharedComponents/AppComponents/MainFlexContainer";
+import { ContainerHeader } from "../../sharedComponents/AppComponents/MainHeader";
+import HeaderNavLink from "../../sharedComponents/AppComponents/MainHeader/HeaderNavLink";
 import LinkButton from "../../sharedComponents/LinkButton/LinkButton";
 import { PlusOutlined, RightOutlined } from "@ant-design/icons";
 import EmployeeRoutes from "./routes/employeeRoutes";
@@ -40,20 +36,10 @@ const Index = () => {
               {Direction === "rtl" && <RightOutlined />}
             </BackButton>
           )}
-          <HeaderNavLink
-            activeName={"Employees"}
-            to={ROUTES.EMPLOYEES.EMPLOYEELINK}
-            isDefault={true}
-            linkName={label.appHeader.employee.employees}
-          />
+          <HeaderNavLink activeName={"Employees"} to={ROUTES.EMPLOYEES.EMPLOYEELINK} isDefault={true} linkName={label.appHeader.employee.employees} />
         </HeaderMenuContainer>
         {pathname !== "/employees/add" && (
-          <LinkButton
-            to={ROUTES.EMPLOYEES.ADD}
-            text={sharedLabels.AddEmployee}
-            icon={<PlusOutlined />}
-            style={{ margin: "0 10px" }}
-          />
+          <LinkButton to={ROUTES.EMPLOYEES.ADD} text={sharedLabels.AddEmployee} icon={<PlusOutlined />} style={{ margin: "0 10px" }} />
         )}
       </ContainerHeader>
       <ContBody>

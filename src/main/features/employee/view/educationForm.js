@@ -1,21 +1,20 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { DatePicker, Checkbox, Typography } from "antd";
 import * as S from "../Styles/employee.style";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import NewCustomSelect from "./newCustomSelect";
 import { employeeDictionaryList } from "../localization/index";
 import TextInput from "../../../sharedComponents/Input/TextInput";
+import { DatePicker, Checkbox, Typography } from "antd";
 const { RangePicker } = DatePicker;
 
 const EducationForm = ({ onEducationInfo, educationInfo }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const [cities, setCities] = useState({});
   const { sharedLabels } = dictionaryList[userLanguage];
-  const { employeesDictionary, Direction } =
-    employeeDictionaryList[userLanguage];
+  const { employeesDictionary, Direction } = employeeDictionaryList[userLanguage];
   const value = employeesDictionary.EducationForm;
   const placeholder = employeesDictionary.placeholders;
   const [isSubmit, setIsSubmit] = useState(false);
@@ -204,8 +203,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                 if (index !== i) return value;
               });
               onEducationInfo(filterArray);
-            }}
-          >
+            }}>
             {sharedLabels.Delete}
           </a>
         );
@@ -248,9 +246,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
 
   return (
     <>
-      <S.ContentDivider orientation={Direction === "ltr" ? "left" : "right"}>
-        {value.EducationInfo}
-      </S.ContentDivider>
+      <S.ContentDivider orientation={Direction === "ltr" ? "left" : "right"}>{value.EducationInfo}</S.ContentDivider>
 
       <>
         <S.AddMoreDiv>
@@ -270,11 +266,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                   value={state.degree}
                   size="large"
                 />
-                {error.degree && (
-                  <div style={{ color: "red", fontWeight: 400 }}>
-                    Please enter Degree.
-                  </div>
-                )}
+                {error.degree && <div style={{ color: "red", fontWeight: 400 }}>Please enter Degree.</div>}
               </div>
             </S.FormItem>
             <S.FormItem direction={Direction}>
@@ -292,11 +284,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                   value={state.institute}
                   size="large"
                 />
-                {error.institute && (
-                  <div style={{ color: "red", fontWeight: 400 }}>
-                    Please enter Institute.
-                  </div>
-                )}
+                {error.institute && <div style={{ color: "red", fontWeight: 400 }}>Please enter Institute.</div>}
               </div>
             </S.FormItem>
             <S.FormItem direction={Direction}>
@@ -314,11 +302,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                   value={state.description}
                   size="large"
                 />
-                {error.description && (
-                  <div style={{ color: "red", fontWeight: 400 }}>
-                    Please enter Description.
-                  </div>
-                )}
+                {error.description && <div style={{ color: "red", fontWeight: 400 }}>Please enter Description.</div>}
               </div>
             </S.FormItem>
             <S.FormItem direction={Direction}>
@@ -337,11 +321,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                   value={state.totalMarks}
                   size="large"
                 />
-                {error.totalMarks && (
-                  <div style={{ color: "red", fontWeight: 400 }}>
-                    Please enter Total Marks.
-                  </div>
-                )}
+                {error.totalMarks && <div style={{ color: "red", fontWeight: 400 }}>Please enter Total Marks.</div>}
               </div>
             </S.FormItem>
             <S.FormItem direction={Direction}>
@@ -360,19 +340,11 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                   value={state.obtainedMarks}
                   size="large"
                 />
-                {error.obtainedMarks && (
-                  <div style={{ color: "red", fontWeight: 400 }}>
-                    Please enter Obtained Marks.
-                  </div>
-                )}
+                {error.obtainedMarks && <div style={{ color: "red", fontWeight: 400 }}>Please enter Obtained Marks.</div>}
               </div>
             </S.FormItem>
             <div className="input-row">
-              <Typography
-                level={5}
-                className="required_typography"
-                style={{ fontWeight: 600 }}
-              >
+              <Typography level={5} className="required_typography" style={{ fontWeight: 600 }}>
                 {value.City}:
               </Typography>
               <div
@@ -380,8 +352,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                   display: "flex",
                   gap: "0px",
                   flexDirection: "column",
-                }}
-              >
+                }}>
                 <NewCustomSelect
                   valueObject={true}
                   name="cityId"
@@ -402,11 +373,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                     }));
                   }}
                 />
-                {error.cityId && (
-                  <div style={{ color: "red", fontWeight: 400 }}>
-                    Please select city.
-                  </div>
-                )}
+                {error.cityId && <div style={{ color: "red", fontWeight: 400 }}>Please select city.</div>}
               </div>
             </div>
 
@@ -424,11 +391,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                       onChange(value, dateString, "start_end");
                     }}
                   />
-                  {error.start_end && (
-                    <div style={{ color: "red", fontWeight: 400 }}>
-                      Please enter Start/End Date.
-                    </div>
-                  )}
+                  {error.start_end && <div style={{ color: "red", fontWeight: 400 }}>Please enter Start/End Date.</div>}
                 </div>
               </div>
             )}
@@ -447,11 +410,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                       onChange(value, dateString, "start");
                     }}
                   />
-                  {error.start && (
-                    <div style={{ color: "red", fontWeight: 400 }}>
-                      Please enter Start Date.
-                    </div>
-                  )}
+                  {error.start && <div style={{ color: "red", fontWeight: 400 }}>Please enter Start Date.</div>}
                 </div>
               </div>
             )}
@@ -465,8 +424,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                   start_end: "",
                   start: "",
                 }));
-              }}
-            >
+              }}>
               {value.Present}
             </Checkbox>
           </S.CustomSpace>
@@ -479,19 +437,12 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
                 setIsSubmit(true);
               }}
               block
-              icon={<PlusOutlined />}
-            >
+              icon={<PlusOutlined />}>
               {value.AddMoreEducation}
             </S.EButton>
           </S.ButtonContainer>
           {educationInfo.length > 0 && (
-            <S.Customtable
-              direction={Direction}
-              dataSource={educationInfo}
-              columns={columns}
-              pagination={false}
-              style={{ margin: "2rem" }}
-            />
+            <S.Customtable direction={Direction} dataSource={educationInfo} columns={columns} pagination={false} style={{ margin: "2rem" }} />
           )}
         </S.AddMoreDiv>
       </>

@@ -2,18 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { Drawer, Tag, Image } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import Approval from "../../../../components/SharedComponent/AppComponents/Approval/Approval";
-import UserInfo from "../../../../components/SharedComponent/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../../components/SharedComponent/UserShortInfo/SubLine/DesigWithTime";
+import Approval from "../../../sharedComponents/AppComponents/Approval/Approval";
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, Direction } = dictionaryList[userLanguage];
+  const { sharedLabels, Direction, complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
+
   const { rewardDetail } = useSelector((state) => state.rewardSlice);
 
   const {
@@ -30,27 +31,19 @@ function DetailedView(props) {
 
   return (
     <Drawer
-      title={"Complain"}
+      title={warningDictionary.warning}
       width="768"
-      placement={
-        (Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")
-      }
+      placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
       onClose={props.onClose}
       visible={props.visible}
-      className="detailedViewComposer"
-    >
+      className="detailedViewComposer">
       <div className="detailedCard ">
         <div className="item-header">
           <div className="left">
             <UserInfo
               avatarSrc="https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
               name={creator.name}
-              Subline={
-                <SublineDesigWithTime
-                  designation={"ReactJs Developer"}
-                  time="7 days ago"
-                />
-              }
+              Subline={<SublineDesigWithTime designation={"ReactJs Developer"} time="7 days ago" />}
             />
           </div>
           <div className="right">
@@ -64,11 +57,11 @@ function DetailedView(props) {
         <div className="ListItemInner">
           <div className="ItemDetails">
             <div className="innerDiv">
-              <h3>{sharedLabels.category}</h3>
+              <h3>{warningDictionary.category}</h3>
               <Tag className="IdTag">{category}</Tag>
             </div>
             <div className="innerDiv">
-              <h3>{sharedLabels.RewardTo}</h3>
+              <h3>{warningDictionary.warningTo}</h3>
               <div className="mem">
                 {members &&
                   members.map((val, i) => {
@@ -90,19 +83,11 @@ function DetailedView(props) {
                       </div>
                     );
                   })}
-                {members ? (
-                  members.length > 2 ? (
-                    <div className="us-img">
-                      {members && members.length - 2}+
-                    </div>
-                  ) : (
-                    ""
-                  )
-                ) : null}
+                {members ? members.length > 2 ? <div className="us-img">{members && members.length - 2}+</div> : "" : null}
               </div>
             </div>
             <div className="approversBox">
-              <h3>{sharedLabels.approvers}</h3>
+              <h3>{warningDictionary.approvers}</h3>
               <div className="mem">
                 {approvers.map((val, i) => {
                   if (i > 2) return "";
@@ -123,24 +108,12 @@ function DetailedView(props) {
                     </div>
                   );
                 })}
-                {approvers ? (
-                  approvers.length > 2 ? (
-                    <div className="us-img">
-                      {approvers && props.approvers - 2}+
-                    </div>
-                  ) : (
-                    ""
-                  )
-                ) : null}
+                {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
               </div>
             </div>
           </div>
           <div className="attachmentBox">
-            <Image
-              preview={false}
-              width={100}
-              src={image === "" ? RewardDefaultIcon : image}
-            />
+            <Image preview={false} width={100} src={image === "" ? RewardDefaultIcon : image} />
           </div>
         </div>
         <div className="warning-approvers">
@@ -149,13 +122,7 @@ function DetailedView(props) {
             let { name, designation = "Default Designation" } = val.approver;
             return (
               <>
-                <Approval
-                  username={name}
-                  userdesignation={
-                    designation === "" ? "Default Designation" : designation
-                  }
-                  status={status}
-                />
+                <Approval username={name} userdesignation={designation === "" ? "Default Designation" : designation} status={status} />
               </>
             );
           })}

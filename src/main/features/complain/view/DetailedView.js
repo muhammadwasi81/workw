@@ -1,19 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext} from "react";
 import { Drawer, Tag, Image } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import {complainDictionaryList} from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import Approval from "../../../../components/SharedComponent/AppComponents/Approval/Approval";
-import UserInfo from "../../../../components/SharedComponent/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../../components/SharedComponent/UserShortInfo/SubLine/DesigWithTime";
+import Approval from "../../../sharedComponents/AppComponents/Approval/Approval";
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 
 function DetailedView(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, Direction } = dictionaryList[userLanguage];
+	const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
+
 	const { rewardDetail } = useSelector(state => state.rewardSlice);
 
 	const {
@@ -30,7 +31,7 @@ function DetailedView(props) {
 
 	return (
 		<Drawer
-			title={"Complain"}
+			title={complainDictionary.complain}
 			width="768"
 			placement={Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right" }
 			onClose={props.onClose}
@@ -62,11 +63,11 @@ function DetailedView(props) {
 				<div className="ListItemInner">
 					<div className="ItemDetails">
 						<div className="innerDiv">
-							<h3>{sharedLabels.category}</h3>
+							<h3>{complainDictionary.category}</h3>
 							<Tag className="IdTag">{category}</Tag>
 						</div>
 						<div className="innerDiv">
-							<h3>{sharedLabels.RewardTo}</h3>
+							<h3>{complainDictionary.complainOf}</h3>
 							<div className="mem">
 								{members &&
 									members.map((val, i) => {
@@ -108,7 +109,7 @@ function DetailedView(props) {
 							</div>
 						</div>
 						<div className="approversBox">
-							<h3>{sharedLabels.approvers}</h3>
+							<h3>{complainDictionary.approvers}</h3>
 							<div className="mem">
 								{approvers.map((val, i) => {
 									if (i > 2) return "";

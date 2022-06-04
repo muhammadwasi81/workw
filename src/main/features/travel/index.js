@@ -1,12 +1,14 @@
 import React from "react";
-import TravelHeader from "./view/UI/TravelHeader";
+import CustomTopBar from "./view/CustomTopBar";
+import Travel from "./view/Travel";
 
-function Travel() {
+function Index() {
 	return (
 		<>
-			<TravelHeader />
+			<CustomTopBar />
+			<Travel /> 
 		</>
 	);
 }
 
-export default Travel;
+export default Index;

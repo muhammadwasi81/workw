@@ -1,30 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
-import { STRINGS } from "../../../../../utils/base";
-import { dictionaryList } from "../../../../../utils/localization/languages";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import {
-	HeaderMenuContainer,
 	TabContainer,
 	ContBody,
-} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import { ContainerHeader } from "../../../../sharedComponents/AppComponents/MainHeader";
-import HeaderNavLink from "../../../../sharedComponents/AppComponents/MainHeader/HeaderNavLink";
-import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
-import "../../styles/Travel.css";
-import TravelComposer from "../TravelComposer/TravelComposer";
-import TopBar from "../../../../sharedComponents/topBar/topBar";
-import BarNavLink from "./Link";
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+
+import "../styles/Travel.css";
+import TopBar from "../../../sharedComponents/topBar/topBar";
+import BarNavLink from "./UI/Link";
 import {
 	AppstoreFilled,
 	FilterFilled,
 	UnorderedListOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
-import { Table } from "../customTable/index";
-import { FilterSortEnum } from "../../../../../utils/Shared/enums/enums";
+import { Table } from "./customTable/index";
+import { FilterSortEnum } from "../../../../utils/Shared/enums/enums";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTravel } from "../../store/actions";
-import { travelStatus } from "../../enums/enums";
+import { getAllTravel } from "../store/actions";
+import { travelStatus } from "../enums/enums";
+import ListView from "./ListView/ListView";
+import Header from "./Header";
 const columns = [
 	{
 		title: "Sort",
@@ -82,7 +80,7 @@ const initialTableFilter = {
 	referenceType: 0,
 };
 
-function TravelHeader() {
+function Travel() {
 	const [filter, setFilter] = useState({
 		filterType: 1,
 	});
@@ -174,31 +172,13 @@ function TravelHeader() {
 
 	useEffect(() => {
 		dispatch(getAllTravel(tableColumnFilter));
+		// if (tableView) {
+		// }
 	}, [tableColumnFilter, dispatch]);
 
 	return (
 		<TabContainer>
-			<ContainerHeader>
-				<HeaderMenuContainer>
-					<HeaderNavLink
-						activeName={"travel"}
-						to={STRINGS.ROUTES.TRAVEL.DEFAULT}
-						isDefault={true}
-						linkName={label.appHeader.travel.travels}
-					/>
-				</HeaderMenuContainer>
-
-				<div className="right-menu">
-					<div className="travel_drawer">
-						<SideDrawer
-							children={<TravelComposer />}
-							title="Create Travel Expense"
-							buttonText="Create Travel"
-							isAccessDrawer={false}
-						/>
-					</div>
-				</div>
-			</ContainerHeader>
+			<Header label={label} />
 			<TopBar
 				buttons={[
 					<Button className="filterButton topBtn !h-full !flex !items-center">
@@ -250,20 +230,24 @@ function TravelHeader() {
 				]}
 			/>
 			<ContBody className="!block">
-				<Table
-					columns={columns}
-					dragable={true}
-					handleChange={handleChange}
-					onPageChange={onPageChange}
-					onRow={onRow}
-					data={success ? travels : []}
-					status={travelStatus}
-					loadding={loader}
-					success={success}
-				/>
+				{tableView ? (
+					<Table
+						columns={columns}
+						dragable={true}
+						handleChange={handleChange}
+						onPageChange={onPageChange}
+						onRow={onRow}
+						data={travels}
+						status={travelStatus}
+						loadding={loader}
+						success={success}
+					/>
+				) : (
+					<ListView data={travels} />
+				)}
 			</ContBody>
 		</TabContainer>
 	);
 }
 
-export default TravelHeader;
+export default Travel;

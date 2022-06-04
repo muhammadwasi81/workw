@@ -35,6 +35,10 @@ const customTags = (tag, status) => {
 	if (tag === "Hold") {
 		color = "!bg-yellow-500";
 	}
+	if (tag === 0) {
+		color = "!bg-red-500";
+		text = "No Status";
+	}
 
 	return (
 		<Tag key={tag} className={`${color} !text-white !border-none`}>
@@ -152,26 +156,26 @@ export class Table extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		// console.log("prevprops", prevProps.success);
 		// console.log("props success", this.props.success);
-		if (prevProps.success !== this.props.success && this.props.success) {
-			const alterData = this.props.data.map((data, i) => {
-				return {
-					...data,
-					index: i,
-					key: String(i),
-				};
-			});
-			this.setState(
-				produce(state => {
-					state.data = alterData;
-					state.isColumnPopulated = false;
-					state.isDataPopulated = false;
-				})
-			);
-		}
+		// if (prevProps.success !== this.props.success && this.props.success) {
+		// 	const alterData = this.props.data.map((data, i) => {
+		// 		return {
+		// 			...data,
+		// 			index: i,
+		// 			key: String(i),
+		// 		};
+		// 	});
+		// 	this.setState(
+		// 		produce(state => {
+		// 			state.data = alterData;
+		// 			state.isColumnPopulated = false;
+		// 			state.isDataPopulated = false;
+		// 		})
+		// 	);
+		// }
 		if (
-			JSON.stringify(prevState.data) !==
-				JSON.stringify(this.state.data) &&
-			this.state.length > 0 &&
+			// JSON.stringify(prevState.data) !==
+			// 	JSON.stringify(this.state.data) &&
+			// this.state.length > 0 &&
 			!this.state.isDataPopulated
 		) {
 			console.log("running data");

@@ -22,7 +22,7 @@ import { getAllRewards, GetRewardById } from "../store/actions";
 import TableView from "./TableView";
 
 import "./reward.css";
-import FilterSearch from "../../../sharedComponents/FilterSearch";
+import FilterSearchButton from "../../../sharedComponents/FilterSearch";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -37,7 +37,6 @@ const Reward = (props) => {
   const [filter, setFilter] = useState({ filterType: 1, search: "" });
 
   const dispatch = useDispatch();
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const { rewards, loader, rewardDetail } = useSelector(
     (state) => state.rewardSlice
   );
@@ -55,22 +54,12 @@ const Reward = (props) => {
   useEffect(() => {
     dispatch(getAllRewards(filter));
   }, [filter]);
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+
   const handleFilter = (values) => {
     setSearchFilterValues(values);
   };
   return (
     <>
-      <FilterSearch
-        isVisible={isModalVisible}
-        onClose={handleCancel}
-        onFilter={handleFilter}
-      />
       <TabbableContainer className="">
         <ContainerHeader>
           <HeaderMenuContainer></HeaderMenuContainer>
@@ -89,13 +78,7 @@ const Reward = (props) => {
         </ContainerHeader>
         <TopBar
           buttons={[
-            <Button
-              className="filterButton topBtn !h-full !flex !items-center"
-              onClick={showModal}
-            >
-              {isTablet ? "" : sharedLabels.filter}
-              <FilterFilled />
-            </Button>,
+            <FilterSearchButton onFilter={handleFilter} />,
             <BarNavLink
               extraClasses={
                 filter.filterType === 1 ? "topbarOn topBtn" : "topBtn"

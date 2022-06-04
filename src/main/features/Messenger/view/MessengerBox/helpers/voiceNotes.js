@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useReactMediaRecorder } from "react-media-recorder";
+import attachmentIcon from "../../../../../../content/NewContent/Messenger/voiceNote.svg";
+import recordIcon from "../../../../../../content/NewContent/Messenger/record.png";
 
 function VoiceNotes(props) {
     useEffect(() => {
@@ -14,24 +16,21 @@ function VoiceNotes(props) {
         // console.log(e, "Start Recording")
     }
     const onStopRecording = (blobURL, blob) => {
-        // console.log(URL.createObjectURL(e))
-        // let blob = await fetch(e).then(r => r.blob());
         console.log(blob, "Stop Recording");
-
-        // const myBlob = new Blob(e);
-        // console.log(myBlob, "ROW BLOB", "Start Recording")
-        // console.log(blobToFile(e, "my-image.png"), "Start Recording")
     }
-    const { status, startRecording, stopRecording, mediaBlobUrl, } =
-        useReactMediaRecorder({ screen: true, onStart: onStartRecording, onStop: onStopRecording, });
+    const { status, startRecording, stopRecording, mediaBlobUrl, pauseRecording} =
+        useReactMediaRecorder({ audio: true, onStart: onStartRecording, onStop: onStopRecording });
     return (
         <div style={{ display: "flex" }} >
-            <div style={{ display: "flex" }} >
-                <p>{status}</p>
-                <button onClick={stopRecording}>Stop Recording</button>
+            {status === "recording" && <div style={{ display: "flex" }} >
+                {/* <p>{status}</p> */}
+                <img style={{ height: "20px" }} src={recordIcon} />
+                <div>00.02</div>
+                <button onClick={pauseRecording}>pause</button>
+                <button onClick={stopRecording}>Stop</button>
                 {/* <video src={mediaBlobUrl} controls autoPlay loop /> */}
-            </div>
-            <button onClick={startRecording}>Start Recording</button>
+            </div>}
+            <img className='actionBtn' onClick={startRecording} src={attachmentIcon} style={{ height: "25px", margin: "0 10px" }} />
         </div>
     )
 }

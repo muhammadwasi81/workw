@@ -237,13 +237,6 @@ const NavMenuList = () => {
 		// 	isActive: true,
 		// },
 		{
-			name: label.navMenuLabel.leaves,
-			counter: 0,
-			icon: leavesIcon,
-			to: ROUTES.LEAVES.LEAVE,
-			isActive: true,
-		},
-		{
 			name: label.navMenuLabel.warnings,
 			counter: 0,
 			icon: career,

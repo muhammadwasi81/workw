@@ -6,9 +6,10 @@ import { MenuLabel, NavMenuBadge, SideMenuLabel } from "./style/navBar.style";
 import NavMenuList from "./navbarMenuList";
 import { navBarOpen } from "../../../store/appReducer/responsiveSlice";
 import { NavLink, useLocation } from "react-router-dom";
-import AntTooltip from "../../sharedComponents/Tooltip/AntTooltip";
+
 import { Badge } from "antd";
 import { DOMAIN_PREFIX } from "../../../utils/routes";
+import AntTooltip from "../../sharedComponents/Tooltip/AntTooltip";
 // let DOMAIN_PREFIX = "";
 // DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 const NavMenuListContainer = ({ navbarstatus }) => {
@@ -43,17 +44,22 @@ const NavMenuListContainer = ({ navbarstatus }) => {
     return isActive
       ? " on"
       : DOMAIN_PREFIX.length > 0
-      ? pathname.split("/").includes(path.split("/")[2])
-        ? " on"
-        : ""
-      : pathname.split("/").includes(path.split("/")[1])
-      ? " on"
-      : "";
+        ? pathname.split("/").includes(path.split("/")[2])
+          ? " on"
+          : ""
+        : pathname.split("/").includes(path.split("/")[1])
+          ? " on"
+          : "";
   };
   return (
     <div className="nav-menu">
       {NO_RIGHTS ? (
-        <SideMenuLabel className={Direction === "ltr" ? "justify-end menu-label" : "menu-label"} navbarstatus={navbarstatus}>
+        <SideMenuLabel
+          className={
+            Direction === "ltr" ? "justify-end menu-label" : "menu-label"
+          }
+          navbarstatus={navbarstatus}
+        >
           {localDictionary.navMenuLabel.menu}
         </SideMenuLabel>
       ) : (
@@ -76,12 +82,15 @@ const NavMenuListContainer = ({ navbarstatus }) => {
             <div className="menu-item" key={index}>
               <NavLink
                 className={({ isActive }) =>
-                  Direction === "ltr" ? "anc" + activeTab(isActive, path) : "anc justify-end" + activeTab(isActive, path)
+                  Direction === "ltr"
+                    ? "anc" + activeTab(isActive, path)
+                    : "anc justify-end" + activeTab(isActive, path)
                 }
                 end
                 to={path}
                 onClick={() => isMobileScreen && dispatch(navBarOpen(false))}
-                navbarstatus={"navbarstatus"}>
+                navbarstatus={"navbarstatus"}
+              >
                 <div className="icon">
                   <img src={icon} alt="#" />
                 </div>
@@ -107,11 +116,16 @@ const NavMenuListContainer = ({ navbarstatus }) => {
                 Direction === "ltr"
                   ? "anc"
                   : "anc justify-end" +
-                    (isActive ? (localDictionary.Direction === "rtl" ? " nav-item-close-StyleRtl" : " nav-item-close-StyleLtr") : "")
+                  (isActive
+                    ? localDictionary.Direction === "rtl"
+                      ? " nav-item-close-StyleRtl"
+                      : " nav-item-close-StyleLtr"
+                    : "")
               }
               style={{ padding: "12px 12px" }}
               to={path}
-              onClick={() => isMobileScreen && dispatch(navBarOpen(false))}>
+              onClick={() => isMobileScreen && dispatch(navBarOpen(false))}
+            >
               <AntTooltip value={name} placement="right" color={"#FFFFFF"}>
                 <Badge className="site-badge-count-109" count={0} dot={true}>
                   <div
@@ -119,7 +133,8 @@ const NavMenuListContainer = ({ navbarstatus }) => {
                       display: "flex",
                       width: 24,
                       height: 24,
-                    }}>
+                    }}
+                  >
                     <img src={icon} alt="#" />
                   </div>
                 </Badge>
@@ -140,11 +155,14 @@ const NavMenuListContainer = ({ navbarstatus }) => {
             <div className="menu-item" key={index}>
               <NavLink
                 className={({ isActive }) =>
-                  Direction === "ltr" ? "anc" + activeTab(isActive, path) : "anc justify-end" + activeTab(isActive, path)
+                  Direction === "ltr"
+                    ? "anc" + activeTab(isActive, path)
+                    : "anc justify-end" + activeTab(isActive, path)
                 }
                 to={path}
                 onClick={() => isMobileScreen && dispatch(navBarOpen(false))}
-                navbarstatus={"navbarstatus"}>
+                navbarstatus={"navbarstatus"}
+              >
                 <div className="icon">
                   <img src={icon} alt="#" />
                 </div>
@@ -169,11 +187,16 @@ const NavMenuListContainer = ({ navbarstatus }) => {
                 Direction === "ltr"
                   ? "anc"
                   : "anc justify-end" +
-                    (isActive ? (localDictionary.Direction === "rtl" ? "nav-item-close-StyleRtl" : "nav-item-close-StyleLtr") : "")
+                  (isActive
+                    ? localDictionary.Direction === "rtl"
+                      ? "nav-item-close-StyleRtl"
+                      : "nav-item-close-StyleLtr"
+                    : "")
               }
               style={{ padding: "12px 12px" }}
               to={path}
-              onClick={() => isMobileScreen && dispatch(navBarOpen(false))}>
+              onClick={() => isMobileScreen && dispatch(navBarOpen(false))}
+            >
               <AntTooltip value={name} placement="right" color={"#FFFFFF"}>
                 <Badge className="site-badge-count-109" count={0} dot={true}>
                   <div
@@ -181,7 +204,8 @@ const NavMenuListContainer = ({ navbarstatus }) => {
                       display: "flex",
                       width: 24,
                       height: 24,
-                    }}>
+                    }}
+                  >
                     <img src={icon} alt="#" />
                   </div>
                 </Badge>

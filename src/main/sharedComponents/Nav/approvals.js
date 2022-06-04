@@ -5,9 +5,10 @@ import { getRelativeTime, LOGGER, STRINGS } from "../../../utils/base";
 import { Link, NavLink } from "react-router-dom";
 // import ApprovalRemarksDialog from "./approvalRemarksDialog";
 import { Badge } from "antd";
-import Avatar from "../Avatar/avatar";
 // import FormDialog from "../../SharedComponent/Snackbar/FormDialog";
 import { Spin } from "antd";
+import Avatar from "../../sharedComponents/Avatar/avatar";
+
 
 class Approvals extends Component {
   approvalsHolder = React.createRef();
@@ -31,24 +32,30 @@ class Approvals extends Component {
   getApprovals = (page) => {
     this.handlePagination(false);
     this.setState({ loading: true });
-    API.APPROVALS.getAllApprovals({ pageNo: page, status: [1, 4] }).then(({ status, data }) => {
-      if (status) {
-        this.setState({ loading: false });
-        if (data.length > 0) {
-          this.setState({
-            approvals: this.state.approvals.concat(data),
-          });
-          this.handlePagination(true);
+    API.APPROVALS.getAllApprovals({ pageNo: page, status: [1, 4] }).then(
+      ({ status, data }) => {
+        if (status) {
+          this.setState({ loading: false });
+          if (data.length > 0) {
+            this.setState({
+              approvals: this.state.approvals.concat(data),
+            });
+            this.handlePagination(true);
+          }
         }
       }
-    });
+    );
   };
 
   handlePagination = (doPagination = true) => {
     const _section = $(this.approvalsHolder.current);
     if (doPagination) {
       _section.on("scroll", () => {
-        if (_section.scrollTop() + _section.innerHeight() >= _section[0].scrollHeight) this.getApprovals(++this.currentPage);
+        if (
+          _section.scrollTop() + _section.innerHeight() >=
+          _section[0].scrollHeight
+        )
+          this.getApprovals(++this.currentPage);
       });
     } else {
       _section.off("scroll");
@@ -75,10 +82,14 @@ class Approvals extends Component {
       case 117:
       case 118:
       case 144: // travel default
-        window.location.replace(`${STRINGS.ROUTES.TRAVEL.DEFAULT}/${reference_id}`);
+        window.location.replace(
+          `${STRINGS.ROUTES.TRAVEL.DEFAULT}/${reference_id}`
+        );
         break;
       case 193: // travel
-        window.location.replace(`${STRINGS.ROUTES.TRAVEL.APPROVALS}/${reference_id}`);
+        window.location.replace(
+          `${STRINGS.ROUTES.TRAVEL.APPROVALS}/${reference_id}`
+        );
         break;
       case 143: //Leave
         window.location.replace(`${STRINGS.ROUTES.HR.LEAVES}?f=app`);
@@ -94,10 +105,14 @@ class Approvals extends Component {
         // window.location.replace(`${STRINGS.ROUTES.PROJECT.BUDGETS}/${reference_id}`);
         break;
       case 194: // schedules
-        window.location.replace(`${STRINGS.ROUTES.SCHEDULES}/2/${reference_id}?f=td`);
+        window.location.replace(
+          `${STRINGS.ROUTES.SCHEDULES}/2/${reference_id}?f=td`
+        );
         break;
       case 197: // schedules
-        window.location.replace(`${STRINGS.ROUTES.SCHEDULES}/2/${reference_id}?f=td`);
+        window.location.replace(
+          `${STRINGS.ROUTES.SCHEDULES}/2/${reference_id}?f=td`
+        );
         break;
       default:
     }
@@ -164,7 +179,8 @@ class Approvals extends Component {
         if (status) {
           this.props.onSuccess({
             isOpen: true,
-            Message: `Successfully ${remark.status === 2 ? "Approved" : "Declined"}`,
+            Message: `Successfully ${remark.status === 2 ? "Approved" : "Declined"
+              }`,
             variant: "success",
           });
           this.clearItem(approval);
@@ -230,24 +246,27 @@ class Approvals extends Component {
     const remark = {
       approval_id: approval.approval_id,
       module: reference_type,
-      remarks: finalRemarks !== undefined ? finalRemarks : this.commentTextArea.current.value,
+      remarks:
+        finalRemarks !== undefined
+          ? finalRemarks
+          : this.commentTextArea.current.value,
       status: remarkStatus,
       amount: amount,
       attachments:
         attachments.length > 0
           ? attachments.map((x) => {
-              return { attachment_id: x.attachment_id };
-            })
+            return { attachment_id: x.attachment_id };
+          })
           : attachments,
     };
     remark.attachments =
       internalAttacment.length > 0
         ? [
-            ...remark.attachments,
-            ...internalAttacment.map((x) => {
-              return { attachment_id: x.attachment_id };
-            }),
-          ]
+          ...remark.attachments,
+          ...internalAttacment.map((x) => {
+            return { attachment_id: x.attachment_id };
+          }),
+        ]
         : [...remark.attachments];
 
     if (hasAttachment) {
@@ -280,7 +299,15 @@ class Approvals extends Component {
   };
 
   render() {
-    const { approvals, isDialogOpen, approval, action, isAgentDialogOpen, actionName, loading } = this.state;
+    const {
+      approvals,
+      isDialogOpen,
+      approval,
+      action,
+      isAgentDialogOpen,
+      actionName,
+      loading,
+    } = this.state;
     const { counter } = this.props;
     return (
       <div className="toggle-menu a">
@@ -304,7 +331,13 @@ class Approvals extends Component {
         <div className="toggle-label" style={{ margin: "0px 2px" }}>
           <i className="ic-check-badge" />
           <span style={{ margin: counter && "6px -1px 18px -6px" }}>
-            {counter > 0 && <Badge className="site-badge-count-109" count={counter} dot={true}></Badge>}
+            {counter > 0 && (
+              <Badge
+                className="site-badge-count-109"
+                count={counter}
+                dot={true}
+              ></Badge>
+            )}
           </span>
         </div>
         <div className="toggle-panel">
@@ -318,7 +351,8 @@ class Approvals extends Component {
                   onClick={(_) => {
                     $(".toggle-menu").removeClass("on");
                     $(".nav").css({ "z-index": 0 });
-                  }}>
+                  }}
+                >
                   See All
                 </NavLink>
               </div>
@@ -326,72 +360,85 @@ class Approvals extends Component {
             <div ref={this.approvalsHolder} className="board-body ov-des">
               {
                 approvals.length > 0 &&
-                  approvals.map((approval) => {
-                    const { approval_id, requester, createDate, message, ref_no } = approval;
-                    return (
-                      <div key={approval_id} className="notification app" onClick={() => this.handleApprovalClick(approval)}>
-                        <div className="icon">
-                          <Avatar
-                            src={requester.profile_picture}
-                            name={requester.name}
-                            round={true}
-                            height={54}
-                            width={54}
-                            active={requester.userStatus !== 0}
-                          />
+                approvals.map((approval) => {
+                  const {
+                    approval_id,
+                    requester,
+                    createDate,
+                    message,
+                    ref_no,
+                  } = approval;
+                  return (
+                    <div
+                      key={approval_id}
+                      className="notification app"
+                      onClick={() => this.handleApprovalClick(approval)}
+                    >
+                      <div className="icon">
+                        <Avatar
+                          src={requester.profile_picture}
+                          name={requester.name}
+                          round={true}
+                          height={54}
+                          width={54}
+                          active={requester.userStatus !== 0}
+                        />
+                      </div>
+                      <div className="detail">
+                        <div className="text">
+                          <span>
+                            <Link
+                              to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${requester.id}`}
+                              onClick={(_) => {
+                                $(".toggle-menu").removeClass("on");
+                                $(".nav").css({
+                                  "z-index": 0,
+                                });
+                              }}
+                            >
+                              {requester.name}
+                            </Link>
+                          </span>
+                          {message}
                         </div>
-                        <div className="detail">
-                          <div className="text">
-                            <span>
-                              <Link
-                                to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${requester.id}`}
-                                onClick={(_) => {
-                                  $(".toggle-menu").removeClass("on");
-                                  $(".nav").css({
-                                    "z-index": 0,
-                                  });
-                                }}>
-                                {requester.name}
-                              </Link>
-                            </span>
-                            {message}
+                        <div className="detail-btm">
+                          <div className="time">
+                            {getRelativeTime(createDate)}
+                            <span>{ref_no}</span>
                           </div>
-                          <div className="detail-btm">
-                            <div className="time">
-                              {getRelativeTime(createDate)}
-                              <span>{ref_no}</span>
+                          {approval.referenceType !== 144 ? (
+                            <div className="type-inputs">
+                              <div
+                                className={`ic-txt-btn sc`}
+                              //  onClick={e => {
+                              //      this.handleApprovalActionClick(approval, 2);
+                              //      e.stopPropagation()
+                              //  }}
+                              >
+                                Accept
+                              </div>
+                              <div
+                                className={`ic-txt-btn dg`}
+                              //  onClick={e => {
+                              //      this.handleApprovalActionClick(approval, 3);
+                              //      e.stopPropagation()
+                              //  }}
+                              >
+                                Decline
+                              </div>
                             </div>
-                            {approval.referenceType !== 144 ? (
-                              <div className="type-inputs">
-                                <div
-                                  className={`ic-txt-btn sc`}
-                                  //  onClick={e => {
-                                  //      this.handleApprovalActionClick(approval, 2);
-                                  //      e.stopPropagation()
-                                  //  }}
-                                >
-                                  Accept
-                                </div>
-                                <div
-                                  className={`ic-txt-btn dg`}
-                                  //  onClick={e => {
-                                  //      this.handleApprovalActionClick(approval, 3);
-                                  //      e.stopPropagation()
-                                  //  }}
-                                >
-                                  Decline
-                                </div>
+                          ) : (
+                            <div className="d-flex w-100 justify-content-end">
+                              <div className="short-msg-box aware">
+                                {STRINGS.TYPES.MESSAGES.WAITING_FOR_APPROVAL}
                               </div>
-                            ) : (
-                              <div className="d-flex w-100 justify-content-end">
-                                <div className="short-msg-box aware">{STRINGS.TYPES.MESSAGES.WAITING_FOR_APPROVAL}</div>
-                              </div>
-                            )}
-                          </div>
+                            </div>
+                          )}
                         </div>
                       </div>
-                    );
-                  })
+                    </div>
+                  );
+                })
                 // : (<div className="note">You Have No Approvals.</div>)
               }
               {loading && (

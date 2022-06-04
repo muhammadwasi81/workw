@@ -351,6 +351,15 @@ iframe {
 	color: white;
 	border-radius: 10px;
 }
-
+.drawerSecondary .ant-drawer-body
+{
+	background: #eef2f4;
+}
+.drawerSecondary .ant-drawer-body > div {
+	background: #fff;
+	border-radius: 4px;
+    padding:12px;
+	box-shadow: 0px 0px 5px 0px #ccc;
+}
 
 /* Danish css end */

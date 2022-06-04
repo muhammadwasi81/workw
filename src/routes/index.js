@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 // import { routes } from "./routes";
 // import { STRINGS } from "../utils/base";
 import { ROUTES } from "../utils/routes";
-import Nav from "../main/sharedComponents/Nav/";
+import SideNavigation from "../main/sharedComponents/Nav/";
 import TopMenuBar from "../main/sharedComponents/MobileView/topMenu";
 import SideChatbar from "../main/sharedComponents/SideChatbar";
 import BottomNavigationTab from "../main/sharedComponents/MobileView/bottomNavigationTab/";
@@ -98,8 +98,8 @@ export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
         </div>
       </div>
       <SideChatbar />
-      {minimizeCall && <KonnectCallView short={true} />}
-      {inComingCall && <InComingCallContainer />}
+      {/* {minimizeCall && <KonnectCallView short={true} />} */}
+      {/* {inComingCall && <InComingCallContainer />} */}
       {/* <ChatBoxCont /> */}
       {isLoggedIn && isMobileView && <BottomNavigationTab />}
       {/* {isLoggedIn && <Route path={STRINGS.ROUTES.ROOT} element={<Sidebar/>}/>} */}

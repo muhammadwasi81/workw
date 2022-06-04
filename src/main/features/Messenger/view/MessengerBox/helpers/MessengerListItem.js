@@ -1,7 +1,7 @@
 import React from "react";
 // import { useDispatch } from 'react-redux';
-import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import { getMessageStatus } from "../../utils/Functions";
+import Avatar from "../../../../../sharedComponents/Avatar/avatar";
+import { getMessageStatus } from '../../../utils/Functions';
 
 const MessengerListItem = ({ messgeItem, messengerDetail = { chatType: 1 } }) => {
     // const dispatch = useDispatch();

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import phoneIcon from "../../../../../content/NewContent/Messenger/phone.svg";
-import videoIcon from "../../../../../content/NewContent/Messenger/video.svg";
-import infoIcon from "../../../../../content/NewContent/Messenger/info.svg";
-import arrowIcon from "../../../../../content/NewContent/Messenger/leftArrow.svg";
+import Avatar from "../../../../../sharedComponents/Avatar/avatar";
+import phoneIcon from "../../../../../../content/NewContent/Messenger/phone.svg";
+import videoIcon from "../../../../../../content/NewContent/Messenger/video.svg";
+import infoIcon from "../../../../../../content/NewContent/Messenger/info.svg";
+import arrowIcon from "../../../../../../content/NewContent/Messenger/leftArrow.svg";
 import { useDispatch } from "react-redux";
-import { handleIsopenChat } from "../../store/messengerSlice";
+import { handleIsopenChat } from "../../../store/messengerSlice";
 
 const MessengerHead = ({ handleProfileClick, isOpenProfile, messengerDetail }) => {
     const dispatch = useDispatch();

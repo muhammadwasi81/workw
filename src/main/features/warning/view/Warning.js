@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../../components/SharedComponent/AppComponents/MainHeader";
+import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
 import {
   ContBody,
   HeaderMenuContainer,
   TabbableContainer,
-} from "../../../../components/SharedComponent/AppComponents/MainFlexContainer";
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton } from "antd";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";

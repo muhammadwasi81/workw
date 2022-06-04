@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { FontSizeOutlined } from "@ant-design/icons";
-import Avatar from "../../../../../components/SharedComponent/Avatar/avatar";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import navDownIcon from "../../../../../content/svg/menu/newNavBarIcon/navDownIcon.svg";
 import navUpIcon from "../../../../../content/svg/menu/newNavBarIcon/navUpIcon.svg";
 import userIcon from "../../../../../content/NewContent/NavBar/UserSettingToggle/userIcon.svg";

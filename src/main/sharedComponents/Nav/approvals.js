@@ -7,7 +7,8 @@ import { Link, NavLink } from "react-router-dom";
 import { Badge } from "antd";
 // import FormDialog from "../../SharedComponent/Snackbar/FormDialog";
 import { Spin } from "antd";
-import Avatar from "../../../components/SharedComponent/Avatar/avatar";
+import Avatar from "../../sharedComponents/Avatar/avatar";
+
 
 class Approvals extends Component {
   approvalsHolder = React.createRef();

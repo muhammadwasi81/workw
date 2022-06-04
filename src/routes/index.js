@@ -3,13 +3,13 @@ import { Navigate, Outlet } from "react-router-dom";
 // import { routes } from "./routes";
 // import { STRINGS } from "../utils/base";
 import { ROUTES } from "../utils/routes";
-import Nav from "../components/MainMenu/Nav/";
-import TopMenuBar from "../components/SharedComponent/MobileView/topMenu";
-import SideChatbar from "../components/MainMenu/SideChatbar";
-import BottomNavigationTab from "../components/SharedComponent/MobileView/bottomNavigationTab/";
+import SideNavigation from "../main/sharedComponents/Nav/";
+import TopMenuBar from "../main/sharedComponents/MobileView/topMenu";
+import SideChatbar from "../main/sharedComponents/SideChatbar";
+import BottomNavigationTab from "../main/sharedComponents/MobileView/bottomNavigationTab/";
 import { useSelector } from "react-redux";
-import { Main as KonnectCallView } from "./../main/container/konnect_call/main";
-import { InComingCallContainer } from "../main/container/konnect_call/InComingCallContainer";
+// import { Main as KonnectCallView } from "./../main/container/konnect_call/main";
+// import { InComingCallContainer } from "../main/container/konnect_call/InComingCallContainer";
 import { Socket, SOCKET_STATE } from "../utils/socket";
 // import { routes } from "../routes/routes";
 const PrivateRoute = () => {
@@ -55,17 +55,10 @@ const PrivateRoute = () => {
 
 export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
   // console.log("private routes");
-  const minimizeCall = useSelector(({ call }) => call.minimizeCall);
-  const inComingCall = useSelector(({ call }) => call.inComingCall);
-  const socketState = useSelector(
-    ({ general }) => general.socketConnectionState
-  );
-  const socketStateColor =
-    socketState === SOCKET_STATE.CONNECTED
-      ? "#42b72a"
-      : socketState === SOCKET_STATE.DISCONNECTED
-      ? "#f03f27"
-      : "blue";
+  //   const minimizeCall = useSelector(({ call }) => call.minimizeCall);
+  //   const inComingCall = useSelector(({ call }) => call.inComingCall);
+  const socketState = useSelector(({ general }) => general.socketConnectionState);
+  const socketStateColor = socketState === SOCKET_STATE.CONNECTED ? "#42b72a" : socketState === SOCKET_STATE.DISCONNECTED ? "#f03f27" : "blue";
 
   return (
     <React.Fragment>
@@ -83,7 +76,7 @@ export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
           {socketState}
         </div>
       )}
-      {isLoggedIn && <Nav activityCount={activityCount} />}
+      {isLoggedIn && <SideNavigation />}
       {isLoggedIn && isMobileView ? <TopMenuBar /> : ""}
       <div className="main-app-style">
         <div className="section ov-des" id="section1">
@@ -105,8 +98,8 @@ export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
         </div>
       </div>
       <SideChatbar />
-      {minimizeCall && <KonnectCallView short={true} />}
-      {inComingCall && <InComingCallContainer />}
+      {/* {minimizeCall && <KonnectCallView short={true} />} */}
+      {/* {inComingCall && <InComingCallContainer />} */}
       {/* <ChatBoxCont /> */}
       {isLoggedIn && isMobileView && <BottomNavigationTab />}
       {/* {isLoggedIn && <Route path={STRINGS.ROUTES.ROOT} element={<Sidebar/>}/>} */}

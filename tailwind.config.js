@@ -5,6 +5,7 @@ module.exports = {
       colors: {
         "primary-color": "#1a5669",
         smoke: "#f4f4f4",
+        "primary-ref-tag": "#DEE5E8",
       },
       width: {
         "90p": "90%",

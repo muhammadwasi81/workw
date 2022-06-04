@@ -1,21 +1,19 @@
-import { Image, Tag } from "antd";
+import { Tag } from "antd";
 import React, { useContext } from "react";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import {complainDictionaryList} from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import UserInfo from "../../../../components/SharedComponent/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../../components/SharedComponent/UserShortInfo/SubLine/DesigWithTime";
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 
 function ListItem(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels } = dictionaryList[userLanguage];
+	const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
 
 	const {
 		creator,
 		description,
-		image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
 		category,
 		members = [],
 		approvers,
@@ -56,11 +54,11 @@ function ListItem(props) {
 			<div className="ListItemInner">
 				<div className="ItemDetails">
 					<div className="innerDiv">
-						<h3>{sharedLabels.category}</h3>
+						<h3>{complainDictionary.category}</h3>
 						<Tag className="IdTag">{category}</Tag>
 					</div>
 					<div className="innerDiv">
-						<h3>{"Complain Of"}</h3>
+						<h3>{complainDictionary.complainOf}</h3>
 						{/* {props.members} */}
 						<div className="mem">
 							{members.map((val, i) => {
@@ -96,7 +94,7 @@ function ListItem(props) {
 						</div>
 					</div>
 					<div className="approversBox">
-						<h3>{sharedLabels.approvers}</h3>
+						<h3>{complainDictionary.approvers}</h3>
 						<div className="mem">
 							{approvers.map((val, i) => {
 								if (i > 2) return "";
@@ -128,13 +126,6 @@ function ListItem(props) {
 							) : null}
 						</div>
 					</div>
-				</div>
-				<div className="attachmentBox">
-					<Image
-						preview={false}
-						width={100}
-						src={image === "" ? RewardDefaultIcon : image}
-					/>
 				</div>
 			</div>
 		</div>

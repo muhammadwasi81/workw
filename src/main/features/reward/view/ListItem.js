@@ -1,9 +1,9 @@
 import { Image, Tag } from "antd";
 import React, { useContext } from "react";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import {rewardDictionaryList} from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import UserInfo from "../../../../components/SharedComponent/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../../components/SharedComponent/UserShortInfo/SubLine/DesigWithTime";
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
@@ -11,7 +11,7 @@ import moment from "moment";
 
 function ListItem(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels } = dictionaryList[userLanguage];
+	const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
 
 	const {
 		creator,
@@ -37,7 +37,7 @@ function ListItem(props) {
 					props.getRewardId(props.id);
 				}}
 			></div>
-			<div className={  "item-header"}>
+			<div className={"item-header"}>
 				<div className="left">
 					<UserInfo
 						avatarSrc={creator.image}
@@ -45,7 +45,7 @@ function ListItem(props) {
 						Subline={
 							<SublineDesigWithTime
 								designation={creator.designation}
-								time={moment(createDate).format('DD/MM/YYYY')}
+								time={moment(createDate).format("DD/MM/YYYY")}
 							/>
 						}
 					/>
@@ -61,19 +61,19 @@ function ListItem(props) {
 			<div className="ListItemInner">
 				<div className="ItemDetails">
 					<div className="innerDiv">
-						<h3>{sharedLabels.name}</h3>
+						<h3>{rewardDictionary.name}</h3>
 						<p>{name}</p>
 					</div>
 					<div className="innerDiv">
-						<h3>{sharedLabels.category}</h3>
-						<Tag className="IdTag">{category}</Tag>
+						<h3>{rewardDictionary.category}</h3>
+						<Tag className="categoryTag">{category}</Tag>
 					</div>
 					<div className="innerDiv">
-						<h3>{sharedLabels.reason}</h3>
+						<h3>{rewardDictionary.reason}</h3>
 						<p>{reason}</p>
 					</div>
 					<div className="innerDiv">
-						<h3>{sharedLabels.RewardTo}</h3>
+						<h3>{rewardDictionary.rewardTo}</h3>
 						{/* {props.members} */}
 						<div className="mem">
 							{members.map((val, i) => {
@@ -109,12 +109,12 @@ function ListItem(props) {
 						</div>
 					</div>
 					<div className="approversBox">
-						<h3>{sharedLabels.approvers}</h3>
+						<h3>{rewardDictionary.approvers}</h3>
 						<div className="mem">
-							{approvers.map((val, i) => {
+							{approvers && approvers.map((val, i) => {
 								if (i > 2) return "";
 								let { approver } = val;
-								return approver.image ? (
+								return approver && (approver.image ? (
 									<div
 										key={`grpmem${i}`}
 										className="us-img"
@@ -128,7 +128,7 @@ function ListItem(props) {
 									<div key={`grpmem${i}`} className="us-img">
 										{getNameForImage(approver.name)}
 									</div>
-								);
+								))
 							})}
 							{approvers ? (
 								approvers.length > 2 ? (

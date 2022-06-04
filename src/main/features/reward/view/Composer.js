@@ -1,14 +1,14 @@
 import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
-import TextInput from "../../../../components/SharedComponent/Input/TextInput";
+import TextInput from "../../../sharedComponents/Input/TextInput";
 // import Button from "../../../../components/SharedComponent/button/index";
-import Select from "../../../../components/SharedComponent/Select/Select";
+import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
 import { addReward } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
+import {rewardDictionaryList} from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../employee/view/newCustomSelect";
 
@@ -38,7 +38,7 @@ const initialState = {
 
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, Direction, rewards, rewardsDictionary } = dictionaryList[userLanguage];
+	const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -95,17 +95,6 @@ const Composer = props => {
 			console.log(payload, "FINALLLLL")
 			// console.log(payload, "Final Data");
 		});
-		// const { id, name, reason, categoryId, imageId  } = values;
-		// setState(prevState => ({
-		// 	...prevState,
-		// 	id,
-		// 	name,
-		// 	reason,
-		// 	categoryId,
-		// 	imageId,
-		// 	members,
-		// 	approvers
-		// }));
 
 	};
 
@@ -133,21 +122,21 @@ const Composer = props => {
 				// className={Direction === "ltr" ? "align-right" : ""}
 			>
 				<Form.Item
-					label={sharedLabels.name}
+					label={rewardDictionary.name}
 					name="name"
 					labelPosition="top"
 					rules={[
 						{
 							required: true,
-							message: rewards.PleaseEnterAwardName,
+							message: rewardDictionary.pleaseEnterRewardName,
 						},
 					]}
 				>
-					<TextInput placeholder={rewards.EnterAwardName} />
+					<TextInput placeholder={rewardDictionary.enterRewardName} />
 				</Form.Item>
 
 				<Form.Item
-					label={sharedLabels.category}
+					label={rewardDictionary.category}
 					name="categoryId"
 					rules={[
 						{
@@ -161,7 +150,7 @@ const Composer = props => {
 						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 						// }
 						data={rewardCategories}
-						placeholder={sharedLabels.category}
+						placeholder={rewardDictionary.category}
 						style={{
 							width: "100%",
 							borderRadius: "5px",
@@ -171,67 +160,67 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label={sharedLabels.reason}
+					label={rewardDictionary.reason}
 					name="reason"
 					rules={[
 						{
 							required: true,
-							message: rewards.EnterAwardReason,
+							message: rewardDictionary.enterRewardReason,
 						},
 					]}
 				>
-					<TextInput placeholder={rewards.EnterAwardReason} />
+					<TextInput placeholder={rewardDictionary.enterRewardReason} />
 				</Form.Item>
 
 				<Form.Item
 					name="members"
-					label={sharedLabels.awardTo}
+					label={rewardDictionary.rewardTo}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
 				>
 					<NewCustomSelect
 						name="members"
-						label={sharedLabels.members}
+						label={rewardDictionary.members}
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
 						endPoint="api/Reference/GetAllUserReference"
 						requestType="get"
-						placeholder={sharedLabels.selectMember}
+						placeholder={rewardDictionary.selectMember}
 					/>
 				</Form.Item>
 
 				<Form.Item
 					name="approvers"
-					label={sharedLabels.approvers}
+					label={rewardDictionary.approvers}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
 				>
 					<NewCustomSelect
 						name="approvers"
-						label={sharedLabels.approvers}
+						label={rewardDictionary.approvers}
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
 						endPoint="api/Reference/GetAllUserReference"
 						requestType="get"
-						placeholder={sharedLabels.approvers}
+						placeholder={rewardDictionary.approvers}
 					/>
 				</Form.Item>
 				
 				<Form.Item
-					label={sharedLabels.description}
+					label={rewardDictionary.description}
 					name="description"
 					rules={[
 						{
 							required: true,
-							message: sharedLabels.enterDescription,
+							message: rewardDictionary.enterDescription,
 						},
 					]}
 				>
-					<Input.TextArea placeholder={sharedLabels.enterDescription} />
+					<Input.TextArea placeholder={rewardDictionary.enterDescription} />
 				</Form.Item>
 
 				<Form.Item area="true">
@@ -239,7 +228,7 @@ const Composer = props => {
 						handleImageUpload={handleImageUpload}
 						img="Add Image"
 						position="flex-start"
-						uploadText={sharedLabels.upload}
+						uploadText={rewardDictionary.upload}
 					/>
 				</Form.Item>
 
@@ -250,10 +239,10 @@ const Composer = props => {
 						className="ThemeBtn"
 						block
 						htmlType="submit"
-						title={sharedLabels.createReward}
+						title={rewardDictionary.createReward}
 					>
 						{" "}
-						{rewardsDictionary.createReward}{" "}
+						{rewardDictionary.createReward}{" "}
 					</Button>
 				</Form.Item>
 			</Form>

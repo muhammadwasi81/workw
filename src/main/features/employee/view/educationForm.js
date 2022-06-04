@@ -1,294 +1,453 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
-import {
-	DeleteOutlined,
-	DeleteTwoTone,
-	MinusCircleOutlined,
-	PlusOutlined,
-	UploadOutlined,
-} from "@ant-design/icons";
-import {
-	Button,
-	Select,
-	Upload,
-	Input,
-	DatePicker,
-	Checkbox,
-	Form,
-} from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import * as S from "../Styles/employee.style";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import NewCustomSelect from "./newCustomSelect";
-import { cityApiPrefix } from "../../../../utils/Shared/enums/enums";
-const { Option } = Select;
+import { employeeDictionaryList } from "../localization/index";
+import TextInput from "../../../sharedComponents/Input/TextInput";
+import { DatePicker, Checkbox, Typography } from "antd";
 const { RangePicker } = DatePicker;
 
-const validateMessages = {
-	required: "${label} is required!",
-};
-const EducationForm = () => {
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { employees, Direction } = dictionaryList[userLanguage];
-	const value = employees.EducationForm;
-	const placeholder = employees.placeholders;
+const EducationForm = ({ onEducationInfo, educationInfo }) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const [cities, setCities] = useState({});
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { employeesDictionary, Direction } = employeeDictionaryList[userLanguage];
+  const value = employeesDictionary.EducationForm;
+  const placeholder = employeesDictionary.placeholders;
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [present, setPresent] = useState(false);
+  const [state, setState] = useState({
+    degree: "",
+    institute: "",
+    description: "",
+    totalMarks: "",
+    obtainedMarks: "",
+    start_end: "",
+    cityId: "",
+    start: "",
+  });
+  const [error, setError] = useState({
+    degree: false,
+    institute: false,
+    description: false,
+    totalMarks: false,
+    obtainedMarks: false,
+    start_end: false,
+    cityId: false,
+    start: false,
+  });
+  const handleChange = useCallback((value, name) => {
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }, []);
+  const checkValidation = () => {
+    if (!state.degree) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        degree: true,
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        degree: false,
+      }));
+    }
+    if (!state.institute) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        institute: true,
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        institute: false,
+      }));
+    }
+    if (!state.description) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        description: true,
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        description: false,
+      }));
+    }
+    if (!state.totalMarks) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        totalMarks: true,
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        totalMarks: false,
+      }));
+    }
+    if (!state.obtainedMarks) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        obtainedMarks: true,
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        obtainedMarks: false,
+      }));
+    }
 
-	const [present, setPresent] = useState([false]);
+    if (!state.start_end && !present) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        start_end: true,
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        start_end: false,
+      }));
+    }
+    if (!state.cityId) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        cityId: true,
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        cityId: false,
+      }));
+    }
+    if (!state.start && present) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        start: true,
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        start: false,
+      }));
+    }
+  };
+  const onChange = (value, dateString, name) => {
+    setState({
+      ...state,
+      [name]: dateString,
+    });
+  };
+  const columns = [
+    {
+      title: value.Degree,
+      dataIndex: "degree",
+      key: "degree",
+    },
+    {
+      title: value.Institute,
+      dataIndex: "institute",
+      key: "institute",
+    },
+    {
+      title: value.City,
+      dataIndex: "cityId",
+      key: "cityId",
+      render: (value) => {
+        return cities[value];
+      },
+    },
+    {
+      title: value.Description,
+      dataIndex: "description",
+      key: "description",
+    },
+    {
+      title: value.ObtainedMarks,
+      dataIndex: "obtainedMarks",
+      key: "obtainedMarks",
+    },
+    {
+      title: value.TotalMarks,
+      dataIndex: "totalMarks",
+      key: "totalMarks",
+    },
 
-	const checkHandler = i => {
-		const list = [...present];
-		list[i] = !list[i];
-		setPresent(list);
-	};
+    {
+      title: value.StartEndDate,
+      dataIndex: "start_end",
+      key: "start_end",
+      render: (value, row, index) => {
+        return educationInfo[index].start_end.length !== 0
+          ? `${educationInfo[index].start_end[0]} - ${educationInfo[index].start_end[1]}`
+          : `${educationInfo[index].start} -  Present`;
+      },
+    },
 
-	return (
-		<>
-			<S.ContentDivider
-				orientation={Direction === "ltr" ? "left" : "right"}
-			>
-				{value.EducationInfo}
-			</S.ContentDivider>
+    {
+      title: sharedLabels.action,
+      render: (value) => {
+        return (
+          <a
+            href="asdasd"
+            onClick={(e) => {
+              e.preventDefault();
+              const index = educationInfo.findIndex((object) => {
+                return object === value;
+              });
+              const filterArray = educationInfo.filter((value, i) => {
+                if (index !== i) return value;
+              });
+              onEducationInfo(filterArray);
+            }}>
+            {sharedLabels.Delete}
+          </a>
+        );
+      },
+    },
+  ];
+  useEffect(() => {
+    if (isSubmit) {
+      if (
+        !error.degree &&
+        !error.description &&
+        !error.institute &&
+        !error.obtainedMarks &&
+        !error.totalMarks &&
+        !error.cityId &&
+        (!error.start_end || error.start)
+      ) {
+        handleInfoArray(true);
+      }
+    }
+  }, [error, isSubmit]);
 
-			<>
-				<S.AddMoreDiv>
-					<Form.List name="educations" initialValue={[""]}>
-						{(fields, { add, remove }) => (
-							<>
-								{fields.map(
-									({ key, name, ...restField }, i) => (
-										<S.CustomSpace
-											key={key}
-											align="baseline"
-											direction={Direction}
-										>
-											<S.EFormItem
-												{...restField}
-												direction={Direction}
-												name={[name, "degree"]}
-												rules={[
-													{
-														required: true,
-													},
-												]}
-												label={value.Degree}
-											>
-												<Input
-													placeholder={
-														placeholder.degree
-													}
-													size="large"
-												/>
-											</S.EFormItem>
-											<S.EFormItem
-												{...restField}
-												rules={[
-													{
-														required: true,
-													},
-												]}
-												label={value.Institute}
-												name={[name, "institute"]}
-												direction={Direction}
-											>
-												<Input
-													placeholder={
-														placeholder.institute
-													}
-													size="large"
-												/>
-											</S.EFormItem>
-											<S.EFormItem
-												{...restField}
-												rules={[
-													{
-														required: true,
-													},
-												]}
-												label={value.Description}
-												name={[name, "description"]}
-												direction={Direction}
-											>
-												<Input
-													placeholder={
-														placeholder.desc
-													}
-													size="large"
-												/>
-											</S.EFormItem>
-											<S.EFormItem
-												{...restField}
-												rules={[
-													{
-														required: true,
-													},
-												]}
-												label={value.TotalMarks}
-												name={[name, "totalMarks"]}
-												direction={Direction}
-											>
-												<Input
-													placeholder={
-														placeholder.tMarks
-													}
-													size="large"
-													type={"number"}
-												/>
-											</S.EFormItem>
-											<S.EFormItem
-												{...restField}
-												rules={[
-													{
-														required: true,
-													},
-												]}
-												label={value.ObtainedMarks}
-												name={[name, "obtainedMarks"]}
-												direction={Direction}
-											>
-												<Input
-													placeholder={
-														placeholder.oMarks
-													}
-													size="large"
-													type={"number"}
-												/>
-											</S.EFormItem>
-											<S.EFormItem
-												rules={[{ required: true }]}
-												label={value.City}
-												name={[name, "cityId"]}
-												direction={Direction}
-											>
-												<NewCustomSelect
-													name="cityId"
-													size="large"
-													label={value.City}
-													showSearch={true}
-													direction={Direction}
-													rules={[{ required: true }]}
-													endPoint={cityApiPrefix}
-													requestType="post"
-													placeholder={
-														placeholder.searchToSelect
-													}
-												/>
-											</S.EFormItem>
-											{!present[i] && (
-												<S.EFormItem
-													{...restField}
-													rules={[
-														{
-															required: true,
-														},
-													]}
-													label={value.StartEndDate}
-													name={[name, "start/end"]}
-													direction={Direction}
-												>
-													<RangePicker
-														format={"DD/MM/YYYY"}
-														getPopupContainer={trigger =>
-															trigger.parentNode
-														}
-														placeholder={[
-															placeholder.sDate,
-															placeholder.eDate,
-														]}
-													/>
-												</S.EFormItem>
-											)}
-											{present[i] && (
-												<S.EFormItem
-													{...restField}
-													rules={[
-														{
-															required: true,
-														},
-													]}
-													label={value.StartDate}
-													name={[name, "start"]}
-													direction={Direction}
-												>
-													<DatePicker
-														getPopupContainer={trigger =>
-															trigger.parentNode
-														}
-														format={"DD/MM/YYYY"}
-														placeholder={
-															placeholder.selectDate
-														}
-													/>
-												</S.EFormItem>
-											)}
-											<S.EFormItem
-												rules={[{ required: true }]}
-												direction={Direction}
-											>
-												<div className="custom-for-attachment-1">
-													<Checkbox
-														onChange={() =>
-															checkHandler(i)
-														}
-													>
-														{value.Present}
-													</Checkbox>
-													{/* <div className="custom-for-attachment-2">
-														<S.EFormItem
-															name="Attachments"
-															label={
-																value.Attachments
-															}
-															{...restField}
-														>
-															<Upload>
-																<Button
-																	icon={
-																		<UploadOutlined />
-																	}
-																>
-																	{
-																		value.Upload
-																	}
-																</Button>
-															</Upload>
-														</S.EFormItem>
-													</div> */}
-													{/* <MinusCircleOutlined
-														style={{s
-															paddingTop: "15px",
-														}}
-														onClick={() =>
-															remove(name)
-														}
-													/> */}
-													<DeleteOutlined
-														className="epmloyeeDeleteIcon"
-														onClick={() =>
-															remove(name)
-														}
-													/>
-												</div>
-											</S.EFormItem>
-										</S.CustomSpace>
-									)
-								)}
-								<S.ButtonContainer>
-									<S.EButton
-										type="dashed"
-										onClick={() => add()}
-										block
-										icon={<PlusOutlined />}
-									>
-										{value.AddMoreEducation}
-									</S.EButton>
-								</S.ButtonContainer>
-							</>
-						)}
-					</Form.List>
-				</S.AddMoreDiv>
-			</>
-		</>
-	);
+  const handleInfoArray = (isSubmit) => {
+    if (isSubmit) {
+      onEducationInfo((preValues) => [...preValues, state]);
+
+      setIsSubmit(false);
+      setState({
+        degree: "",
+        institute: "",
+        description: "",
+        totalMarks: "",
+        obtainedMarks: "",
+        start_end: "",
+        cityId: "",
+        start: "",
+      });
+    }
+  };
+
+  return (
+    <>
+      <S.ContentDivider orientation={Direction === "ltr" ? "left" : "right"}>{value.EducationInfo}</S.ContentDivider>
+
+      <>
+        <S.AddMoreDiv>
+          <S.CustomSpace align="baseline" direction={Direction}>
+            <S.FormItem direction={Direction}>
+              <div className="input-row">
+                <Typography level={5} className="required_typography">
+                  {value.Degree}:
+                </Typography>
+                <TextInput
+                  placeholder={placeholder.degree}
+                  name="degree"
+                  onChange={(value) => {
+                    handleChange(value, "degree");
+                  }}
+                  error={error.degree}
+                  value={state.degree}
+                  size="large"
+                />
+                {error.degree && <div style={{ color: "red", fontWeight: 400 }}>Please enter Degree.</div>}
+              </div>
+            </S.FormItem>
+            <S.FormItem direction={Direction}>
+              <div className="input-row">
+                <Typography level={5} className="required_typography">
+                  {value.Institute}:
+                </Typography>
+                <TextInput
+                  placeholder={placeholder.institute}
+                  name="institute"
+                  onChange={(value) => {
+                    handleChange(value, "institute");
+                  }}
+                  error={error.institute}
+                  value={state.institute}
+                  size="large"
+                />
+                {error.institute && <div style={{ color: "red", fontWeight: 400 }}>Please enter Institute.</div>}
+              </div>
+            </S.FormItem>
+            <S.FormItem direction={Direction}>
+              <div className="input-row">
+                <Typography level={5} className="required_typography">
+                  {value.Description}:
+                </Typography>
+                <TextInput
+                  placeholder={placeholder.desc}
+                  name="description"
+                  onChange={(value) => {
+                    handleChange(value, "description");
+                  }}
+                  error={error.description}
+                  value={state.description}
+                  size="large"
+                />
+                {error.description && <div style={{ color: "red", fontWeight: 400 }}>Please enter Description.</div>}
+              </div>
+            </S.FormItem>
+            <S.FormItem direction={Direction}>
+              <div className="input-row">
+                <Typography level={5} className="required_typography">
+                  {value.TotalMarks}:
+                </Typography>
+                <TextInput
+                  placeholder={placeholder.tMarks}
+                  name="totalMarks"
+                  type={"number"}
+                  onChange={(value) => {
+                    handleChange(value, "totalMarks");
+                  }}
+                  error={error.totalMarks}
+                  value={state.totalMarks}
+                  size="large"
+                />
+                {error.totalMarks && <div style={{ color: "red", fontWeight: 400 }}>Please enter Total Marks.</div>}
+              </div>
+            </S.FormItem>
+            <S.FormItem direction={Direction}>
+              <div className="input-row">
+                <Typography level={5} className="required_typography">
+                  {value.ObtainedMarks}:
+                </Typography>
+                <TextInput
+                  placeholder={placeholder.oMarks}
+                  name="obtainedMarks"
+                  type={"number"}
+                  onChange={(value) => {
+                    handleChange(value, "obtainedMarks");
+                  }}
+                  error={error.obtainedMarks}
+                  value={state.obtainedMarks}
+                  size="large"
+                />
+                {error.obtainedMarks && <div style={{ color: "red", fontWeight: 400 }}>Please enter Obtained Marks.</div>}
+              </div>
+            </S.FormItem>
+            <div className="input-row">
+              <Typography level={5} className="required_typography" style={{ fontWeight: 600 }}>
+                {value.City}:
+              </Typography>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "0px",
+                  flexDirection: "column",
+                }}>
+                <NewCustomSelect
+                  valueObject={true}
+                  name="cityId"
+                  showSearch={true}
+                  status={error.cityId ? "error" : ""}
+                  endPoint="/api/Utility/GetAllCities"
+                  placeholder="Select City"
+                  requestType="post"
+                  onChange={(value) => {
+                    const { id, name } = JSON.parse(value);
+                    setCities((preValues) => ({
+                      ...preValues,
+                      [id]: name,
+                    }));
+                    setState((prevValues) => ({
+                      ...prevValues,
+                      cityId: id,
+                    }));
+                  }}
+                />
+                {error.cityId && <div style={{ color: "red", fontWeight: 400 }}>Please select city.</div>}
+              </div>
+            </div>
+
+            {!present && (
+              <div className="input-row">
+                <Typography level={5} style={{ fontWeight: 600 }}>
+                  {value.StartEndDate}:
+                </Typography>
+                <div>
+                  <RangePicker
+                    format={"DD/MM/YYYY"}
+                    placeholder={[placeholder.sDate, placeholder.eDate]}
+                    status={error.start_end ? "error" : ""}
+                    onChange={(value, dateString) => {
+                      onChange(value, dateString, "start_end");
+                    }}
+                  />
+                  {error.start_end && <div style={{ color: "red", fontWeight: 400 }}>Please enter Start/End Date.</div>}
+                </div>
+              </div>
+            )}
+
+            {present && (
+              <div className="input-row">
+                <Typography level={5} style={{ fontWeight: 600 }}>
+                  {value.StartDate}:
+                </Typography>
+                <div>
+                  <DatePicker
+                    format={"DD/MM/YYYY"}
+                    placeholder={value.start}
+                    status={error.start ? "error" : ""}
+                    onChange={(value, dateString) => {
+                      onChange(value, dateString, "start");
+                    }}
+                  />
+                  {error.start && <div style={{ color: "red", fontWeight: 400 }}>Please enter Start Date.</div>}
+                </div>
+              </div>
+            )}
+
+            <Checkbox
+              checked={present}
+              onChange={() => {
+                setPresent(!present);
+                setState((preValues) => ({
+                  ...preValues,
+                  start_end: "",
+                  start: "",
+                }));
+              }}>
+              {value.Present}
+            </Checkbox>
+          </S.CustomSpace>
+
+          <S.ButtonContainer>
+            <S.EButton
+              type="dashed"
+              onClick={() => {
+                checkValidation();
+                setIsSubmit(true);
+              }}
+              block
+              icon={<PlusOutlined />}>
+              {value.AddMoreEducation}
+            </S.EButton>
+          </S.ButtonContainer>
+          {educationInfo.length > 0 && (
+            <S.Customtable direction={Direction} dataSource={educationInfo} columns={columns} pagination={false} style={{ margin: "2rem" }} />
+          )}
+        </S.AddMoreDiv>
+      </>
+    </>
+  );
 };
 
 export default EducationForm;

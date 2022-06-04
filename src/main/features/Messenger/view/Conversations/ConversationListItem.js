@@ -1,13 +1,15 @@
 import { Badge } from "antd";
+import moment from "moment";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { STRINGS } from "../../../../../utils/base";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { handleIsopenChat, handleMessengerItemClick } from "../../store/messengerSlice";
-import { MESSENGER_ENUMS } from "../../utils/base";
+import { MESSENGER_ENUMS } from "../../utils/Constant";
 
 const ConversationListItem = ({ conversation }) => {
 	const dispatch = useDispatch();
+	
 	// TODO: destructure & set default object of conversation data
 	const {
 		id = STRINGS.DEFAULTS.guid,
@@ -42,6 +44,7 @@ const ConversationListItem = ({ conversation }) => {
 			members: chatMembers
 		}))
 	}
+	let lastMsgTime = !moment(new Date()).isAfter(lastUpdate) ? moment(lastUpdate).format('LT') : moment(lastUpdate).format('LL')
 
 	return (
 		<div
@@ -62,7 +65,7 @@ const ConversationListItem = ({ conversation }) => {
 					<div className="ItemLastMsg">
 						{lastMessage.lastMessage}
 					</div>
-					<div className="ItemLastMsgTime">{new Date(lastUpdate).getHours()}</div>
+					<div className="ItemLastMsgTime">{ lastMsgTime }</div>
 				</div>
 			</div>
 			<div className="ItemIcon">

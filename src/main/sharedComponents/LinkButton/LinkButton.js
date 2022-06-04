@@ -10,6 +10,9 @@ const CustomLink = styled(Link)`
   display: flex;
   gap: 5px;
   align-item: center;
+  margin: 0px 10px;
+  display: flex;
+  align-items: center;
   .anticon svg {
     height: -webkit-fill-available;
   }

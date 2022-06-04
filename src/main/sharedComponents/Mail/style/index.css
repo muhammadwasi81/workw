@@ -1,0 +1,593 @@
+.mailContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    width: calc(100% - 95px);
+    overflow: hidden;
+    height: 100%;
+}
+
+
+.mailContainerRtl {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.mailMainContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    margin: 8px 0;
+    border-radius: 10px 10px 0 0;
+    padding: 8px 0;
+    width: 100%;
+    height: 100%;
+}
+
+.mailMainContainerRTL {
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: #ffffff;
+    margin: 8px 0;
+    border-radius: 10px 10px 0 0;
+    padding: 8px 0;
+    width: calc(100% - 80px);
+    height: 100%;
+
+}
+
+.mailComposerBody {
+    display: flex;
+    flex-direction: column;
+    width: 210px;
+    height: inherit;
+    border-right: 1px solid #F4F4F4;
+}
+
+.mailContentBody {
+    flex: 1;
+    width: 100px;
+    flex-direction: column;
+    display: flex;
+    height: inherit;
+}
+
+.mailSearchBox {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #F4F4F4;
+    margin: 9px 0;
+    padding: 10px 0;
+    margin-bottom: unset;
+}
+
+.mailMobileTabletSearchBox {
+    border: unset;
+    padding: 10px 0 6px;
+}
+
+.mailMobileTabletMargin {
+    margin: unset;
+}
+
+
+
+@media (max-width: 800px) {
+
+    .mailMainContainer {
+        height: calc(100% - 45px);
+    }
+    .mailMainContainerRTL {
+        height: calc(100% - 45px);
+    }
+}
+
+.composerBtnSection {
+    margin: 10px 0;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 2px solid #F4F4F4;
+}
+
+.mailMenuSection {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.mailMenuItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6px 0;
+    align-items: center;
+    border-radius: 0 6px 6px 0;
+}
+
+.ant-tree-switcher{
+    margin-top: 4px;
+}
+.ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected{
+    background-color: #FFFFFF;
+}
+.mailMenuItem > div {
+    display: flex;
+}
+
+.mailMenuItem.on {
+    background-color: #F4F4F4;
+    /*margin-right: 12px;*/
+}
+
+.mailMenuItem:first-child {
+    /*margin-top: 10px;*/
+}
+
+.mailMainBody {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    height: 100%;
+}
+
+.mailListingBox {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    height: 100%;
+    flex: 1;
+    margin: 6px 0;
+    overflow-y: scroll;
+}
+
+.mailItem {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    border-bottom: 2px solid rgb(244, 244, 244);
+    padding: 14px 10px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.mailItem:hover {
+    /*background-color: #1f556647;*/
+    background: #e1e1e147;
+}
+
+.mailItem:hover .mailDateBox {
+   display: none;
+}
+
+.hoverEmailAction {
+    display: none;
+}
+
+.mailItem:hover .hoverEmailAction{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 200px;
+    height: auto;
+}
+.mailItem:hover .hoverEmailAction .ant-btn{
+    background: none;
+    border: none;
+    outline: none;
+}
+.mailName {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.mailFrom {
+    margin-left: 14px;
+    margin-right: 14px;
+    width: 110px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(26, 86, 105);
+    font-weight: bold;
+}
+
+.subjectAndBody {
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(117, 125, 134);
+    font-size: 14px;
+    width: 100%;
+}
+
+.mailAttachmentBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 160px;
+    height: 28px;
+    border-radius: 45px;
+    padding: 3px 9px;
+    border: 2px solid rgb(26, 86, 105);
+    margin-top: 6px;
+}
+
+.mailAttachmentName {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 6px;
+}
+
+.mailDateBox {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.containerHideClass {
+    display: none;
+}
+
+.mail-mob-header {
+    display: flex;
+    width: 100%;
+    padding: 2px 7px 12px;
+    justify-content: space-between;
+    box-shadow: 0 1px 1px 1px #f4f4f4;
+    align-items: center;
+}
+
+
+.mail-mob-header > .mail-drawer-title {
+    color: #1A5669;
+    font-weight: bold;
+}
+
+.mail-mob-header > .mail-drawer-edit {
+    font-size: 10px;
+}
+
+/*mobile css*/
+
+.mailItemMob {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 2px solid #f4f4f4;
+}
+
+.mailItemMob:hover {
+    background-color: #E7EEF0;
+}
+
+.checkBx-mobile {
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.subjectAndBodyMob {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    font-size: 12px;
+    margin-left: 12px;
+}
+
+.mailForm {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.mailForm > .subject {
+    font-weight: 900;
+    color: rgb(26, 86, 105);
+    font-size: 12px;
+
+}
+
+.mobile-subject-body {
+    color: rgb(117, 125, 134);
+    font-size: 11px;
+    font-weight: 700;
+    /*width: 93%;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mobile-mail-body {
+    /*width: 93%;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(117, 125, 134);
+    font-size: 10px;
+}
+
+.end-date-box {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    align-items: center;
+    font-size: 12px;
+    padding-right: 6px;
+    padding-left: 4px;
+}
+
+.mail-composer-box-con {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    /*height: 100%;*/
+    width: 100%;
+    bottom: 0;
+}
+
+.mail-composer-container {
+    margin-right: 14px;
+    flex-direction: column;
+    width: 490px;
+    max-width: 500px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    background-color: #ffffff;
+    bottom: 0;
+    right: 14px;
+
+}
+
+.mail-composer-containerMax {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 559px;
+    max-width: 560px;
+    border-radius: 10px 5px 0 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    background-color: #ffffff;
+    top: 0;
+    margin: 5% auto;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.mail-composer-containerMin{
+    height: 50px;
+    width: 300px;
+}
+
+
+.mail-composer-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    border-radius: inherit;
+    background: #1A5669;
+    align-items: center;
+    padding: 0 7px;
+}
+
+.mail-composer-head div {
+    display: flex;
+    color: #fff;
+    padding: 0 5px;
+}
+
+.composer-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.composer-box div {
+    margin: 2px 2px 0 2px;
+}
+
+.composer-box div .ant-input-affix-wrapper {
+    border-radius: 7px;
+}
+
+.composer-box .composer-box-body {
+    /*height: 100%;*/
+    overflow: hidden;
+
+    /*height: 160px;*/
+    /*max-height: 160px;*/
+}
+
+.composer-box .composer-box-toolArea {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: 100px;
+    /*border: 1px solid red;*/
+}
+
+.mailHeaderContainer {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid rgb(244, 244, 244);
+    align-items: center;  
+}
+
+.headerRightItem {
+    display: flex;
+    width: 200px;
+    height: 45px;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 14px;
+}
+
+.h-body {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0 8px;
+    align-items: center;
+}
+
+.headerLeftItem {
+    display: flex;
+    width: 200px;
+    height: 45px;
+    align-items: center;
+    justify-content: space-between;
+    border-left: 2px solid rgb(244, 244, 244);
+    margin-right: 14px;
+}
+
+.mBodyContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+}
+
+.mbodySubject {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 26px 20px;
+}
+
+.mbodySubject .subject {
+    font-weight: 500;
+    color: #757D86;
+    font-size: 16px;
+}
+
+.mBodyMessage {
+    display: flex;
+    flex-direction: column;
+    margin: 0 21px;
+    border-radius: 10px 10px 0 0;
+    border: 2px solid #f4f4f4;
+    height: 100%;
+}
+.mBodyMessage .head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mBodyMessage .head .headLeft {
+    display: flex;
+    align-items: center;
+    width: 399px;
+    justify-content: space-between;
+    max-width: 400px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}  
+
+.mBodyMessage .head .headLeft .date {
+    color: #757D86;
+    font-size: 14px;
+}
+
+.mBodyMessage .head .headRight {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+.mBodyMessage .head .headRight .from {
+    color: #1A5669;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.mBodyMessage .head .headRight .forMeMore {
+    font-weight: 600;
+    color: #757D86;
+    font-size: 12px;
+}
+
+@media (max-width: 375px) {
+
+    .mBodyMessage .head .headLeft {
+        justify-content: flex-start;
+    }
+    .mBodyMessage .head .headLeft div {
+        margin-right: 5px;
+    } 
+} 
+
+.mBodyMessage .body{
+        height: 50vh;
+}
+
+.mBodyFooter {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 20px;
+}
+
+.BtnStyle {
+    color: rgb(117, 125, 134);
+    border-radius: 8px !important;
+    outline: none;
+    margin-right: 10px !important;
+}
+
+.ql-container.ql-snow {
+    border: none !important;
+    height: 200px;
+}
+.ql-toolbar.ql-snow {
+    padding: 0;
+}
+
+.ant-tree-draggable-icon {
+    display: none;
+}
+
+.ql-container.ql-snow {
+    overflow: scroll;
+}
+
+.ql-toolbar.ql-snow{
+    border: none;
+}
+
+.ql-toolbar{
+    background-color: #F4F4F4;
+    border-radius: 3px;
+    border: none !important;
+}
+
+.ql-snow .ql-stroke {
+    stroke: #1A5669 !important;
+}
+.ql-snow .ql-picker{
+    stroke: #1A5669 !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label{
+    stroke: #1A5669 !important;
+    color: #1A5669 !important;
+}

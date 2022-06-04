@@ -3,11 +3,11 @@ import { Tag } from "antd";
 import { dictionaryList } from "../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import "./style.css";
+import PropTypes from "prop-types";
 
-const Index = ({ status }) => {
+const StatusTag = ({ status }) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { sharedLabels, Direction } = dictionaryList[userLanguage];
-	// console.log("status", status);
 	return (
 		<>
 			<Tag
@@ -35,10 +35,16 @@ const Index = ({ status }) => {
 					? sharedLabels.NotRequired
 					: status === 7
 					? sharedLabels.Cancelled
-					: ""}
+					: "No Status"}
 			</Tag>
 		</>
 	);
 };
 
-export default Index;
+export default StatusTag;
+StatusTag.propTypes = {
+	status: PropTypes.number.isRequired,
+};
+StatusTag.defaultProps = {
+	// status: "",
+};

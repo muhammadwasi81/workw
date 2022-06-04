@@ -1,11 +1,12 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../../components/SharedComponent/AppComponents/MainHeader";
+import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
+
 import {
   ContBody,
   HeaderMenuContainer,
   TabbableContainer,
-} from "../../../../components/SharedComponent/AppComponents/MainFlexContainer";
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -73,7 +74,7 @@ const Loan = (props) => {
           </div>
         </div>
       </ContainerHeader> */}
-      <TopBar
+      {/* <TopBar
         buttons={[
           <Button className="filterButton topBtn !h-full !flex !items-center">
             {isTablet ? "" : sharedLabels.filter}
@@ -116,8 +117,8 @@ const Loan = (props) => {
             <AppstoreFilled style={{ marginLeft: "2px" }} />
           </div>,
         ]}
-      />
-      <div className="myBody">
+      /> */}
+      {/* <div className="myBody">
         <div className="">
           {loans && loans.length > 0 ? (
             grid ? (
@@ -127,14 +128,7 @@ const Loan = (props) => {
                 {loader ? (
                   <>
                     <Skeleton avatar paragraph={{ rows: 4 }} />
-                    {/* <Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/> */}
+                 
                   </>
                 ) : (
                   loans.map((item, index) => {
@@ -156,8 +150,8 @@ const Loan = (props) => {
             "Data not found"
           )}
         </div>
-      </div>
-      {loanDetail && <DetailedView onClose={onClose} visible={visible} />}
+      </div> */}
+      {/* {loanDetail && <DetailedView onClose={onClose} visible={visible} />} */}
     </TabbableContainer>
   );
 };

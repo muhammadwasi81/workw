@@ -71,11 +71,12 @@ export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
             zIndex: "999",
             background: socketStateColor,
             color: "white",
-          }}>
+          }}
+        >
           {socketState}
         </div>
       )}
-      {isLoggedIn && <Nav activityCount={activityCount} />}
+      {isLoggedIn && <SideNavigation />}
       {isLoggedIn && isMobileView ? <TopMenuBar /> : ""}
       <div className="main-app-style">
         <div className="section ov-des" id="section1">
@@ -86,17 +87,19 @@ export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
                   position: "fixed",
                   top: "50%",
                   left: "50%",
-                }}>
+                }}
+              >
                 <div>Loading</div>
               </div>
-            }>
+            }
+          >
             <PrivateRoute />
           </Suspense>
         </div>
       </div>
       <SideChatbar />
-      {/* {minimizeCall && <KonnectCallView short={true} />}
-      {inComingCall && <InComingCallContainer />} */}
+      {minimizeCall && <KonnectCallView short={true} />}
+      {inComingCall && <InComingCallContainer />}
       {/* <ChatBoxCont /> */}
       {isLoggedIn && isMobileView && <BottomNavigationTab />}
       {/* {isLoggedIn && <Route path={STRINGS.ROUTES.ROOT} element={<Sidebar/>}/>} */}

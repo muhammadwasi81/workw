@@ -13,10 +13,10 @@ export const NavBarStyledContainer = styled.div.attrs(
 		className: navbarstatus
 			? "nav"
 			: isMobileView && !navbarstatus
-			? "nav hideNav"
-			: theme.Direction === "rtl"
-			? "nav mobileNav"
-			: "nav mobileNav",
+				? "nav hideNav"
+				: theme.Direction === "rtl"
+					? "nav mobileNav"
+					: "nav mobileNav",
 		id: "leftNav",
 		style: {
 			right: theme.Direction === "rtl" && isMobileView ? "0px" : "",
@@ -33,8 +33,8 @@ export const LogoContainer = styled.div.attrs(({ theme }) => ({
 	},
 	// style: {display: navbarstatus ? "flex" : "none"}
 }))`
-	margin-bottom: 13px;
-	border-bottom: 1px solid #e7eef0;
+  margin-bottom: 13px;
+  border-bottom: 1px solid #e7eef0;
 `;
 
 export const ToggleLabel = styled.div.attrs(({ theme }) => ({
@@ -59,7 +59,7 @@ export const UserNavToggle = styled.div.attrs(({ navbarstatus, userType }) => ({
 		display: !navbarstatus ? "none" : "flex",
 		width:
 			userType === STRINGS.TYPES.USERS.ADMIN ||
-			userType === STRINGS.TYPES.USERS.SUPER_ADMIN
+				userType === STRINGS.TYPES.USERS.SUPER_ADMIN
 				? "77%"
 				: "72%",
 	},
@@ -72,7 +72,7 @@ export const DarkModeToggleMenu = styled.div.attrs(({ userType }) => ({
 		height: "max-content",
 		left:
 			userType === STRINGS.TYPES.USERS.ADMIN ||
-			userType === STRINGS.TYPES.USERS.SUPER_ADMIN
+				userType === STRINGS.TYPES.USERS.SUPER_ADMIN
 				? "-1px"
 				: "18px",
 	},
@@ -89,16 +89,12 @@ export const SideMenuLabel = styled.div.attrs(({ theme, navbarstatus }) => ({
 		fontSize: navbarstatus ? "16px" : "14px",
 		color: "#757D86",
 		fontFamily: "Poppins",
-		textAlign: !theme
-			? "center"
-			: theme.Direction === "rtl"
-			? "end"
-			: "start",
+		textAlign: !theme ? "center" : theme.Direction === "rtl" ? "end" : "start",
 		justifyContent: !theme
-		? "flex-start"
-		: theme.Direction === "rtl"
-		? "flex-end"
-		: "flex-start",
+			? "flex-start"
+			: theme.Direction === "rtl"
+				? "flex-end"
+				: "flex-start",
 	},
 }))``;
 
@@ -111,10 +107,10 @@ export const NavLinkItem = styled(NavLink).attrs(
 					: theme.Direction === "rtl" && "row-reverse",
 			borderRight: theme.Direction === "rtl" && "none",
 			justifyContent: !theme
-			? "flex-start"
-			: theme.Direction === "rtl"
-			? "flex-end"
-			: "flex-start",
+				? "flex-start"
+				: theme.Direction === "rtl"
+					? "flex-end"
+					: "flex-start",
 			// borderLeft: localDictionary === "ltr" && "3px solid #365899"
 		},
 		className,
@@ -131,8 +127,8 @@ export const MenuLabel = styled.div.attrs(({ theme }) => ({
 		justifyContent: !theme
 			? "flex-start"
 			: theme.Direction === "rtl"
-			? "flex-end"
-			: "flex-start",
+				? "flex-end"
+				: "flex-start",
 	},
 }))``;
 
@@ -142,10 +138,10 @@ export const NavMenuBadge = styled.span.attrs(({ theme, navbarstatus }) => ({
 			theme.Direction === "rtl" && !navbarstatus
 				? "-6px 0px 0px -20px"
 				: theme.Direction === "ltr"
-				? "0 8px"
-				: theme.Direction === "rtl"
-				? "0px 0px 0px -42px"
-				: "",
+					? "0 8px"
+					: theme.Direction === "rtl"
+						? "0px 0px 0px -42px"
+						: "",
 		position: theme.Direction === "rtl" && "absolute",
 	},
 }))``;

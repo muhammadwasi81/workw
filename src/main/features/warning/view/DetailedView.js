@@ -31,12 +31,12 @@ function DetailedView(props) {
 
   return (
     <Drawer
-      title={warningDictionary.warning}
       width="768"
       placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
       onClose={props.onClose}
       visible={props.visible}
-      className="detailedViewComposer">
+      className="detailedViewComposer drawerSecondary"
+    >
       <div className="detailedCard ">
         <div className="item-header">
           <div className="left">

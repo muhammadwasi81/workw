@@ -1,8 +1,16 @@
-import { disable as disableDarkMode, enable as enableDarkMode } from "darkreader";
+import {
+  disable as disableDarkMode,
+  enable as enableDarkMode,
+} from "darkreader";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import { BrowserRouter as Router, Navigate, Route, Routes as ReactRoutes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes as ReactRoutes,
+} from "react-router-dom";
 import Auth from "./main/features/auth/view";
 import IndivisualSignup from "./main/features/auth/view/signUp/IndivisualSignup";
 import OrganizationalSignup from "./main/features/auth/view/signUp/OrganizationalSignup";
@@ -35,7 +43,9 @@ const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
 
   const isMobileAndTab = useMediaQuery({ query: "(max-width: 800px)" });
-  const { isMobileScreen } = useSelector(({ responsiveSlice }) => responsiveSlice);
+  const { isMobileScreen } = useSelector(
+    ({ responsiveSlice }) => responsiveSlice
+  );
   const { token } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
   const isLoggedIn = !!token;
@@ -84,22 +94,51 @@ const App = () => {
             <ReactRoutes>
               {/*****Public Route******/}
               <Route path={ROUTES.AUTH.SIGN_IN} element={<Auth />} />
-              <Route path={ROUTES.AUTH.INDIVIDUAL_SIGN_IN} element={<IndivisualSignup isLoggedIn={isLoggedIn} />} />
-              <Route path={ROUTES.AUTH.SIGN_UP} element={<OrganizationalSignup isLoggedIn={isLoggedIn} />} />
-              <Route path={ROUTES.AUTH.VERIFICATION_SUCCESS} element={<Verified />} />
-              <Route path={`${ROUTES.AUTH.VERIFICATION_INPROCESS}/:id?`} element={<Verifying />} />
-              <Route path={ROUTES.CALL.KONNECT_CALL} element={<KonnectCall />} />
+              <Route
+                path={ROUTES.AUTH.INDIVIDUAL_SIGN_IN}
+                element={<IndivisualSignup isLoggedIn={isLoggedIn} />}
+              />
+              <Route
+                path={ROUTES.AUTH.SIGN_UP}
+                element={<OrganizationalSignup isLoggedIn={isLoggedIn} />}
+              />
+              <Route
+                path={ROUTES.AUTH.VERIFICATION_SUCCESS}
+                element={<Verified />}
+              />
+              <Route
+                path={`${ROUTES.AUTH.VERIFICATION_INPROCESS}/:id?`}
+                element={<Verifying />}
+              />
+              <Route
+                path={ROUTES.CALL.KONNECT_CALL}
+                element={<KonnectCall />}
+              />
 
               {/*****Public Route******/}
               <Route
                 path={ROUTES.ROOT}
-                element={<PrivateRotutes isLoggedIn={isLoggedIn} isMobileView={isMobileScreen} activityCount={activityCount} />}>
+                element={
+                  <PrivateRotutes
+                    isLoggedIn={isLoggedIn}
+                    isMobileView={isMobileScreen}
+                    activityCount={activityCount}
+                  />
+                }
+              >
                 {routes.Private.map((route) => (
-                  <Route key={route.path} path={route.path} element={<route.component />} />
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={<route.component />}
+                  />
                 ))}
                 <Route path={"*"} element={<Navigate to={ROUTES.HOME} />} />
               </Route>
-              <Route path={"*"} element={<Navigate to={ROUTES.AUTH.SIGN_IN} />} />
+              <Route
+                path={"*"}
+                element={<Navigate to={ROUTES.AUTH.SIGN_IN} />}
+              />
             </ReactRoutes>
           </Router>
         </MainFlexContainer>

@@ -18,7 +18,10 @@ class Notifications extends Component {
   }
 
   handleSocket = () => {
-    GENERAL_PROXY.on(STRINGS.SOCKET_ACTIONS.NOTIFY_LISTENER, (notification) => {});
+    GENERAL_PROXY.on(
+      STRINGS.SOCKET_ACTIONS.NOTIFY_LISTENER,
+      (notification) => { }
+    );
   };
 
   getNotifications = (page) => {
@@ -49,7 +52,11 @@ class Notifications extends Component {
     const _section = $(this.notificationsHolder.current);
     if (doPagination) {
       _section.on("scroll", () => {
-        if (_section.scrollTop() + _section.innerHeight() >= _section[0].scrollHeight) this.getNotifications(++this.currentPage);
+        if (
+          _section.scrollTop() + _section.innerHeight() >=
+          _section[0].scrollHeight
+        )
+          this.getNotifications(++this.currentPage);
       });
     } else {
       _section.off("scroll");
@@ -201,54 +208,72 @@ class Notifications extends Component {
         <div className="toggle-label" style={{ marginLeft: "55px" }}>
           <i className="ic-bell" />
           <span style={{ margin: this.props.counter && "4px -4px 16px -10px" }}>
-            {this.props.counter > 0 && <Badge className="site-badge-count-109" count={this.props.counter} dot={true}></Badge>}
+            {this.props.counter > 0 && (
+              <Badge
+                className="site-badge-count-109"
+                count={this.props.counter}
+                dot={true}
+              ></Badge>
+            )}
           </span>
         </div>
         <div className="toggle-panel">
           <div className="toggle-board">
             <div className="board-header">
               <div className="board-label">Notifications</div>
-              <div className="board-setting" onClick={this.readAllNotifications}>
+              <div
+                className="board-setting"
+                onClick={this.readAllNotifications}
+              >
                 <span>Read All</span>
               </div>
             </div>
             <div ref={this.notificationsHolder} className="board-body ov-des">
               {
                 notifications.length > 0 &&
-                  notifications.map((notification) => {
-                    const {
-                      notification_id,
-                      datetime,
-                      username,
-                      profile_picture,
-                      message,
-                      is_read,
-                      //ref_id, type,
-                    } = notification;
+                notifications.map((notification) => {
+                  const {
+                    notification_id,
+                    datetime,
+                    username,
+                    profile_picture,
+                    message,
+                    is_read,
+                    //ref_id, type,
+                  } = notification;
 
-                    return (
-                      <div
-                        key={notification_id}
-                        // to={`${STRINGS.ROUTES.NEWSFEED.DETAILS}/${ref_id}`}
-                        className={`notification ${!is_read ? "read" : ""}`}
-                        onClick={(e) => {
-                          this.onNotificationClick(notification);
-                        }}>
-                        <div className="icon">
-                          <Avatar src={profile_picture} name={username} round={true} height={52} width={52} />
+                  return (
+                    <div
+                      key={notification_id}
+                      // to={`${STRINGS.ROUTES.NEWSFEED.DETAILS}/${ref_id}`}
+                      className={`notification ${!is_read ? "read" : ""}`}
+                      onClick={(e) => {
+                        this.onNotificationClick(notification);
+                      }}
+                    >
+                      <div className="icon">
+                        <Avatar
+                          src={profile_picture}
+                          name={username}
+                          round={true}
+                          height={52}
+                          width={52}
+                        />
+                      </div>
+                      <div className="detail">
+                        <div className="text">
+                          <NavLink to="#">{username}</NavLink>
+                          {message}
                         </div>
-                        <div className="detail">
-                          <div className="text">
-                            <NavLink to="#">{username}</NavLink>
-                            {message}
-                          </div>
-                          <div className="detail-btm">
-                            <div className="time">{getRelativeTime(datetime)}</div>
+                        <div className="detail-btm">
+                          <div className="time">
+                            {getRelativeTime(datetime)}
                           </div>
                         </div>
                       </div>
-                    );
-                  })
+                    </div>
+                  );
+                })
                 // : (<div className="note">You Have No Notifications.</div>)
               }
               {loading && (

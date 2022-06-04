@@ -1,10 +1,15 @@
-import { Input } from "antd";
+import { Input, Divider } from "antd";
 import React from "react";
 import MemberCard from "./MemberCard";
 import { useDispatch } from "react-redux";
 import { getAllEmployeeShort } from "../../../../../utils/Shared/store/actions";
-
-function MemberList({ allMembers = [], onMember, cloneMembers }) {
+import { CloseOutlined } from "@ant-design/icons";
+function MemberList({
+  allMembers = [],
+  onMember,
+  selectedMembers,
+  currentMember,
+}) {
   const dispatch = useDispatch();
 
   return (
@@ -22,20 +27,40 @@ function MemberList({ allMembers = [], onMember, cloneMembers }) {
           }}
         />
       </div>
-
-      {allMembers.map(({ name, designation, image, id }) => {
-        return (
-          <MemberCard
-            isChecked={cloneMembers[id]}
-            onMember={onMember}
-            name={name}
-            designation={designation}
-            image={image}
-            id={id}
-            key={id}
-          />
-        );
-      })}
+      {selectedMembers.length > 0 && (
+        <div className="selectedMembers">
+          <Divider>Selected {selectedMembers.length}</Divider>
+          {selectedMembers.map(({ name, designation, image, id }) => {
+            return (
+              <MemberCard
+                onMember={onMember}
+                name={name}
+                designation={designation}
+                image={image}
+                id={id}
+                key={id}
+                isChecked={true}
+              />
+            );
+          })}
+        </div>
+      )}
+      <Divider>Contacts</Divider>
+      <div className="contact" style={{ position: "relative" }}>
+        {allMembers.map(({ name, designation, image, id }) => {
+          if (!selectedMembers.find((o) => o.id === id))
+            return (
+              <MemberCard
+                onMember={onMember}
+                name={name}
+                designation={designation}
+                image={image}
+                id={id}
+                key={id}
+              />
+            );
+        })}
+      </div>
     </div>
   );
 }

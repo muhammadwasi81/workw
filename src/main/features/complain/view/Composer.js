@@ -1,14 +1,13 @@
 import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
-import TextInput from "../../../../components/SharedComponent/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
-import Select from "../../../../components/SharedComponent/Select/Select";
+import TextInput from "../../../sharedComponents/Input/TextInput";
+import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { addComplain } from "../store/actions";
 import { getComplainCategory } from "../../../../utils/Shared/store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
+import {complainDictionaryList} from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../employee/view/newCustomSelect";
 
@@ -36,7 +35,7 @@ const initialState = {
 
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, Direction, complainDictionary } = dictionaryList[userLanguage];
+	const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -107,7 +106,7 @@ const Composer = props => {
 			>
 
 				<Form.Item
-					label={sharedLabels.category}
+					label={complainDictionary.category}
 					name="categoryId"
 					rules={[
 						{
@@ -121,7 +120,7 @@ const Composer = props => {
 						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 						// }
 						data={complainCategories}
-						placeholder={sharedLabels.category}
+						placeholder={complainDictionary.category}
 						style={{
 							width: "100%",
 							borderRadius: "5px",
@@ -139,46 +138,46 @@ const Composer = props => {
 				>
 					<NewCustomSelect
 						name="members"
-						label={sharedLabels.members}
+						label={complainDictionary.members}
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
 						endPoint="api/Reference/GetAllUserReference"
 						requestType="get"
-						placeholder={sharedLabels.selectMember}
+						placeholder={complainDictionary.selectMember}
 					/>
 				</Form.Item>
 
 				<Form.Item
 					name="approvers"
-					label={sharedLabels.approvers}
+					label={complainDictionary.approvers}
 					showSearch={true}
 					direction={Direction}
 					rules={[{ required: true }]}
 				>
 					<NewCustomSelect
 						name="approvers"
-						label={sharedLabels.approvers}
+						label={complainDictionary.approvers}
 						showSearch={true}
 						direction={Direction}
 						mode="multiple"
 						endPoint="api/Reference/GetAllUserReference"
 						requestType="get"
-						placeholder={sharedLabels.approvers}
+						placeholder={complainDictionary.approvers}
 					/>
 				</Form.Item>
 
 				<Form.Item
-					label={sharedLabels.description}
+					label={complainDictionary.description}
 					name="description"
 					rules={[
 						{
 							required: true,
-							message: sharedLabels.enterDescription,
+							message: complainDictionary.enterDescription,
 						},
 					]}
 				>
-					<Input.TextArea placeholder={sharedLabels.enterDescription} />
+					<Input.TextArea placeholder={complainDictionary.enterDescription} />
 				</Form.Item>
 
 				{/* <Form.Item area="true">
@@ -197,10 +196,10 @@ const Composer = props => {
 						className="ThemeBtn"
 						block
 						htmlType="submit"
-						title={sharedLabels.create}
+						title={complainDictionary.create}
 					>
 						{" "}
-						{sharedLabels.create}{" "}
+						{complainDictionary.create}{" "}
 					</Button>
 				</Form.Item>
 			</Form>

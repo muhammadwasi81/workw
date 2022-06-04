@@ -2029,8 +2029,8 @@ a.item-card:hover {
 }
 
 .tabbable-container > .cont-body > .rt-col {
-	max-width: 240px;
-	min-width: 240px;
+	max-width: 290px;
+	min-width: 290px;
 	height: min-content;
 	min-height: min-content;
 	display: flex;

@@ -2,14 +2,13 @@ import { Drawer, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import MemberList from "./MemberList";
-import SelectMemberList from "./SelectMemberList";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEmployeeShort } from "../../../../../utils/Shared/store/actions";
 function CreateChat({ onClose, visible }) {
   const dispatch = useDispatch();
   const { employeeShort: members } = useSelector((state) => state.sharedSlice);
   const [selectedMembers, setSelectedMembers] = useState([]);
-  const [selectedMembersClone, setSelectedMembersClone] = useState([]);
+  const [currentMember, setCurrentMember] = useState({});
   useEffect(() => {
     dispatch(
       getAllEmployeeShort({
@@ -19,36 +18,20 @@ function CreateChat({ onClose, visible }) {
     );
   }, []);
   const handleMember = (member) => {
+    setCurrentMember(member);
     setSelectedMembers((preValues) => {
       if (!preValues.find((o) => o.id === member.id)) {
-        setSelectedMembersClone((preValues) => ({
-          ...preValues,
-          [member.id]: member.status,
-        }));
         return [...preValues, member];
       } else {
         const filterSelectedMember = selectedMembers.filter(({ id }) => {
           return id !== member.id;
         });
-        setSelectedMembersClone((preValues) => {
-          delete preValues[member.id];
-          return preValues;
-        });
+
         return [...filterSelectedMember];
       }
     });
   };
-  const handleDeleteMember = (memberRemoved) => {
-    const filterSelectedMember = selectedMembers.filter(({ id }) => {
-      return id !== memberRemoved.id;
-    });
 
-    setSelectedMembersClone((preValues) => {
-      delete preValues[memberRemoved.id];
-      return preValues;
-    });
-    setSelectedMembers(filterSelectedMember);
-  };
   return (
     <Drawer
       placement="right"
@@ -69,11 +52,8 @@ function CreateChat({ onClose, visible }) {
         <MemberList
           allMembers={members}
           onMember={handleMember}
-          cloneMembers={selectedMembersClone}
-        />
-        <SelectMemberList
           selectedMembers={selectedMembers}
-          onDelete={handleDeleteMember}
+          currentMember={currentMember}
         />
       </div>
     </Drawer>

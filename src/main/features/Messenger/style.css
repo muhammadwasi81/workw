@@ -466,12 +466,25 @@ padding: 15px 5px;
 }
 .memberList 
 {
-    width: 50%;
+    width: 100%;
 }
 .memberList .memberList__header
 {
 padding:8px;
 }
+.memberCard.active
+{
+    
+   opacity: 0;
+    width: 100%;
+    animation:0.7s transitionToTop 0.4s forwards
+    
+
+}
+/* .selectedMembers .memberCard {
+    opacity: 0;
+animation:0.1s visibleDelay 0.4s forwards;
+} */
 .memberList .memberList__header input{
     border-radius: 0;
 }
@@ -490,6 +503,29 @@ padding:8px;
 }
 .memberCard__body p:nth-child(2){
     font-size: 11px;
+}
+@keyframes visibleDelay {
+    from {
+       
+        opacity:0;
+
+    }
+    to{
+      
+        opacity:1;
+ 
+    }
+}
+@keyframes transitionToTop {
+    from {
+        bottom:-100px;
+    }
+    to{
+        opacity: 0;
+        bottom: 0px;
+        position: relative;
+ 
+    }
 }
 @media (max-width: 800px) {
     .MessengerCont {

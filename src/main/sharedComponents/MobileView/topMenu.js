@@ -1,46 +1,40 @@
-import React from 'react';
-import './style.css';
+import React from "react";
+import "./style.css";
 import mobileBarIcon from "../../../content/svg/topMenu/mobileBarIcon.svg";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Drawers/Profile/profileOption";
-import {navBarOpen} from "../../../store/appReducer/responsiveSlice";
-import {MainTopMenuHolder} from "./topMenu.style";
-import mailSearch from "../../MainMenu/Mail/assests/mailSearch.svg";
-import SearchInput from '../searchBox/SearchInput';
+import { navBarOpen } from "../../../store/appReducer/responsiveSlice";
+import { MainTopMenuHolder } from "./topMenu.style";
+import mailSearch from "../Mail/assests/mailSearch.svg";
+import SearchInput from "../searchBox/SearchInput";
 
 const TopMenuBar = () => {
-    const dispatch = useDispatch();
-    const {navBarStatus} = useSelector(state => state.responsiveSlice);
-    const {isMobileScreen} = useSelector(state => state.responsiveSlice);
-    const icon = (
-        <img src={mailSearch} width={isMobileScreen ? 15 : 18} height={isMobileScreen ? 15 : 18} alt={"mailSearch"}/>
-    );
-    
-    // const sideBarStatus = useSelector((state) => state.sideBarChatSlice.sideBarChatStatus)
-    // const [darkMode, setDarkMode] = useState(window.localStorage.getItem('darkMode') === '1')
+  const dispatch = useDispatch();
+  const { navBarStatus } = useSelector((state) => state.responsiveSlice);
+  const { isMobileScreen } = useSelector((state) => state.responsiveSlice);
+  const icon = <img src={mailSearch} width={isMobileScreen ? 15 : 18} height={isMobileScreen ? 15 : 18} alt={"mailSearch"} />;
 
-    // const openSearch = () => {
-    //     $('.mobileSearchBar').parent().addClass('on');
-    // }
+  // const sideBarStatus = useSelector((state) => state.sideBarChatSlice.sideBarChatStatus)
+  // const [darkMode, setDarkMode] = useState(window.localStorage.getItem('darkMode') === '1')
 
-    // const openNotes = () => {
-    //     $('.toggle-menu').removeClass('on');
-    //     $('.nav').css({'z-index': 0});
-    //     if (!open) dispatch(openStickyNotes()); else dispatch(closeStickyNotes());
-    // }
+  // const openSearch = () => {
+  //     $('.mobileSearchBar').parent().addClass('on');
+  // }
 
+  // const openNotes = () => {
+  //     $('.toggle-menu').removeClass('on');
+  //     $('.nav').css({'z-index': 0});
+  //     if (!open) dispatch(openStickyNotes()); else dispatch(closeStickyNotes());
+  // }
 
-    return (
-
-        <div className="maintopMenu">
-            <MainTopMenuHolder>
-                <div onClick={() => dispatch(navBarOpen(!navBarStatus))}>
-                    <img alt="mobileMenuButton"
-                         src={mobileBarIcon}
-                         style={{height: "15px", width: "17px"}}/>
-                </div>
-                <div className="mainTopCenter">
-                    {/* <Input placeholder="Search"
+  return (
+    <div className="maintopMenu">
+      <MainTopMenuHolder>
+        <div onClick={() => dispatch(navBarOpen(!navBarStatus))}>
+          <img alt="mobileMenuButton" src={mobileBarIcon} style={{ height: "15px", width: "17px" }} />
+        </div>
+        <div className="mainTopCenter">
+          {/* <Input placeholder="Search"
                            style={{
                                border: "none",
                                borderRadius: "6px"
@@ -48,14 +42,10 @@ const TopMenuBar = () => {
                            prefix={suffix}
                     /> */}
 
-                      <SearchInput
-                icon={icon}
-                placeholder="Search"
-                style={{padding: "2px 11px"}}
-            />
+          <SearchInput icon={icon} placeholder="Search" style={{ padding: "2px 11px" }} />
 
-                      {/* <Notifications/> */}
-                    {/* <Approvals/>
+          {/* <Notifications/> */}
+          {/* <Approvals/>
                     <div onClick={openNotes}>
                         <img alt="openNotes" src={notes} style={{height: "15px", width: "17px"}}/>
                     </div>
@@ -72,15 +62,13 @@ const TopMenuBar = () => {
                         <img alt="modeHandler" src={darkMode ? sunIcon : moonIcon}
                              style={{height: "20px", width: "20px"}}/>
                     </div> */}
-                </div>
-                <div>
-                    <Profile/>
-                </div>
-            </MainTopMenuHolder>
-
-
         </div>
-    )
-}
+        <div>
+          <Profile />
+        </div>
+      </MainTopMenuHolder>
+    </div>
+  );
+};
 
 export default TopMenuBar;

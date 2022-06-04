@@ -152,6 +152,9 @@
     width: 70%;
     margin-top: 13px;
 }
+.innerDiv {
+    margin-right: 20px;
+}
 .ListItemInner {
     display: flex;
     justify-content: space-between;

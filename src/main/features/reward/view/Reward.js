@@ -1,11 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../../components/SharedComponent/AppComponents/MainHeader";
-import {
-  ContBody,
-  HeaderMenuContainer,
-  TabbableContainer,
-} from "../../../../components/SharedComponent/AppComponents/MainFlexContainer";
+import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
+import { HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer"
 import { Row, Button, Skeleton, Modal } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -149,7 +145,7 @@ const Reward = (props) => {
         />
         <div className="myBody">
           <div className="flex gap-2 list-none flex-wrap pt-4">
-            {rewards && rewards.length > 0 ? (
+            {rewards?.length > 0 ? (
               grid ? (
                 <TableView />
               ) : (

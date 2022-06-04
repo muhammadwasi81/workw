@@ -98,7 +98,7 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/newschedules`,
   },
   TASKS: `${DOMAIN_PREFIX}/tasks`,
-  LEAVES: `${DOMAIN_PREFIX}/leaves`,
+  // LEAVES: `${DOMAIN_PREFIX}/leaves`,
   EXPENSES: `${DOMAIN_PREFIX}/expenses`,
   CUSTOM_APPROVALS: `${DOMAIN_PREFIX}/customApprovals`,
 
@@ -252,6 +252,11 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/warnings/*`,
     WARNING: `${DOMAIN_PREFIX}/warnings/`,
     APPROVALS: `warnings/approvals`,
+  },
+  LEAVES: {
+    DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
+    LEAVE: `${DOMAIN_PREFIX}/leaves/`,
+    APPROVALS: `leaves/approvals`,
   },
   EMPLOYEES: {
     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,

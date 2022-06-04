@@ -1,14 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../../components/SharedComponent/AppComponents/MainHeader";
+import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
 import {
-	ContBody,
 	HeaderMenuContainer,
 	TabbableContainer,
-} from "../../../../components/SharedComponent/AppComponents/MainFlexContainer";
-import { Row, Button, Skeleton } from "antd";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Button, Skeleton } from "antd";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
@@ -19,6 +16,8 @@ import {
 	UnorderedListOutlined,
 	AppstoreFilled,
 } from "@ant-design/icons";
+import {complainDictionaryList} from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllComplains, GetRewardById } from "../store/actions";
@@ -28,7 +27,7 @@ import "./complain.css";
 
 const Reward = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels,  complainDictionary } = dictionaryList[userLanguage];
+	const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
 
 	const [grid, setGrid] = useState(false);
 
@@ -69,7 +68,7 @@ const Reward = props => {
 						}
 					>
 						<SideDrawer
-							title={sharedLabels.complain}
+							title={complainDictionary.complain}
 							buttonText={complainDictionary.createComplain}
 							isAccessDrawer={false}
 						>
@@ -82,7 +81,7 @@ const Reward = props => {
 			<TopBar
 				buttons={[
 					<Button className="filterButton topBtn !h-full !flex !items-center">
-						{isTablet ? "" : sharedLabels.filter}
+						{isTablet ? "" : complainDictionary.filter}
 						<FilterFilled className="topBarIcon" />
 					</Button>,
 					<BarNavLink
@@ -103,7 +102,7 @@ const Reward = props => {
 								: "topBtn"
 						}
 						isDefault={false}
-						linkName={sharedLabels.ForApprovals}
+						linkName={complainDictionary.forApproval}
 						onClick={() => setFilter({ filterType: 2 })}
 					/>,
 					<BarNavLink
@@ -127,7 +126,7 @@ const Reward = props => {
 								: "topBarIcon gridIcon isActive"
 						}
 					>
-						{isTablet ? "" : sharedLabels.ListView}{" "}
+						{isTablet ? "" : complainDictionary.listView}{" "}
 						<UnorderedListOutlined style={{ marginLeft: "2px" }} />
 					</div>,
 					<div
@@ -138,7 +137,7 @@ const Reward = props => {
 								: "topBarIcon gridIcon"
 						}
 					>
-						{isTablet ? "" : sharedLabels.TableView}{" "}
+						{isTablet ? "" : complainDictionary.tableView}{" "}
 						<AppstoreFilled style={{ marginLeft: "2px" }} />
 					</div>,
 				]}

@@ -20,6 +20,11 @@ export const TabContainer = styled.div.attrs(({ theme }) => ({
 	 ;
 `;
 
+export const TabbableContainer = styled.div.attrs(({theme}) => ({
+    className:  `tabbable-container ${theme.Direction === 'rtl' ? "tabbable-container-rtl" : ""}`,
+}))`;
+  `
+
 export const ContBody = styled.div.attrs(() => ({
 	className: "cont-body",
 }))``;

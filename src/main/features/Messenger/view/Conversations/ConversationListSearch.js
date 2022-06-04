@@ -1,5 +1,5 @@
 import React from "react";
-import searchIcon from "../../../../sharedComponents/Avatar/avatar";
+// import searchIcon from "../../../../sharedComponents/Avatar/avatar";
 
 const ConversationListSearch = () => {
   return (

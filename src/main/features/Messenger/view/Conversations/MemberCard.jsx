@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Avatar from "../../../../../components/SharedComponent/Avatar/avatar";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import checkIcon from "../../../../../content/NewContent/Messenger/check-outline.svg";
 import { CloseOutlined } from "@ant-design/icons";
-function MemberCard({
-  id,
-  name,
-  designation,
-  image,
-  onMember,
-  crossIcon,
-  isChecked,
-}) {
+function MemberCard({ id, name, designation, image, onMember, crossIcon, isChecked }) {
   const [checked, setChecked] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -31,8 +23,7 @@ function MemberCard({
       onClick={() => {
         setChecked(!checked);
         setIsClicked(!isClicked);
-      }}
-    >
+      }}>
       <div className="memberCard__header">
         <Avatar width={"2.2rem"} height={"2.2rem"} round src={image}></Avatar>
       </div>
@@ -44,9 +35,7 @@ function MemberCard({
         {crossIcon ? (
           <CloseOutlined />
         ) : (
-          <div className={`radio ${isChecked ? "checked" : ""}`}>
-            {isChecked && <img alt={checkIcon} src={checkIcon} />}
-          </div>
+          <div className={`radio ${isChecked ? "checked" : ""}`}>{isChecked && <img alt={checkIcon} src={checkIcon} />}</div>
         )}
       </div>
     </div>

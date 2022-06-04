@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { useSelector } from 'react-redux';
-import MessengerListItem from './MessengerListItem';
+import MessengerListItem from '../helpers/MessengerListItem';
 
 // let isDidMount = true
 const MessengerList = ({isChatBox=true, messageList, isOpenProfile, messengerDetail}) => {

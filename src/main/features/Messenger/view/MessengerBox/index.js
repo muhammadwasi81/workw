@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { STRINGS } from '../../../../../utils/base';
 import { getAllMessages } from '../../store/Api';
-import MessengerBottom from './MessengerBottom';
-import MessengerHead from './MessengerHead';
-import MessengerList from './MessengerList';
+import MessengerBottom from './body/MessengerBottom';
+import MessengerHead from './body/MessengerHead';
+import MessengerList from './body/MessengerList';
 import MessengerProfile from './helpers/MessengerProfile';
 import EmptyMessenger from './helpers/EmptyMessenger';
 

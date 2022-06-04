@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
-import Avatar from '../../../../../components/SharedComponent/Avatar/avatar';
-import phoneIcon from "../../../../../content/NewContent/Messenger/phone.svg";
-import videoIcon from "../../../../../content/NewContent/Messenger/video.svg";
-import infoIcon from "../../../../../content/NewContent/Messenger/info.svg";
-import arrowIcon from "../../../../../content/NewContent/Messenger/leftArrow.svg";
+import phoneIcon from "../../../../../../content/NewContent/Messenger/phone.svg";
+import videoIcon from "../../../../../../content/NewContent/Messenger/video.svg";
+import infoIcon from "../../../../../../content/NewContent/Messenger/info.svg";
+import arrowIcon from "../../../../../../content/NewContent/Messenger/leftArrow.svg";
 import { useDispatch } from 'react-redux';
-import { handleIsopenChat } from '../../store/messengerSlice';
-
+import { handleIsopenChat } from '../../../store/messengerSlice';
+import Avatar from '../../../../../sharedComponents/Avatar/avatar';
 
 const MessengerHead = ({ handleProfileClick, isOpenProfile, messengerDetail }) => {
     const dispatch = useDispatch();
     const { profileName, profileImage, chatId, chatType } = messengerDetail;
-    useEffect(()=>{
-        
+    useEffect(() => {
+
     }, [])
     return (
         <div className={"MessengerHead " + (isOpenProfile ? "blur-bg" : "")} >
@@ -35,7 +34,7 @@ const MessengerHead = ({ handleProfileClick, isOpenProfile, messengerDetail }) =
                 <div>
                     <img src={phoneIcon} alt="" />
                     <img src={videoIcon} className="videoIcon" alt="" />
-                    <img src={infoIcon} alt="" onClick={handleProfileClick}/>
+                    <img src={infoIcon} alt="" onClick={handleProfileClick} />
                 </div>
             </div>
 

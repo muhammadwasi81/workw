@@ -21,8 +21,8 @@ export const sendMessageService = data => {
 		});
 };
 
-export const getAllMessageService = id => {
-	return Config.get(`api/Messenger/getAllChatMessages?chatId=${id}`)
+export const getAllMessageService = (id, pageNo) => {
+	return Config.get(`api/Messenger/getAllChatMessages?chatId=${id}&pageNo=${pageNo}`)
 		.then(res => {
 			return res.data;
 		})

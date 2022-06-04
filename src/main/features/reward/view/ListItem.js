@@ -37,7 +37,7 @@ function ListItem(props) {
 					props.getRewardId(props.id);
 				}}
 			></div>
-			<div className={  "item-header"}>
+			<div className={"item-header"}>
 				<div className="left">
 					<UserInfo
 						avatarSrc={creator.image}
@@ -45,7 +45,7 @@ function ListItem(props) {
 						Subline={
 							<SublineDesigWithTime
 								designation={creator.designation}
-								time={moment(createDate).format('DD/MM/YYYY')}
+								time={moment(createDate).format("DD/MM/YYYY")}
 							/>
 						}
 					/>

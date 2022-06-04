@@ -1,4 +1,4 @@
-export let DOMAIN_PREFIX;
+export let DOMAIN_PREFIX = "";
 DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const ROUTES = {

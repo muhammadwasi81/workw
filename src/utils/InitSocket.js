@@ -15,8 +15,13 @@ export const InitMessengerSocket = (dispatch, Accesstoken) => {
 	connection.start().then(() => { });
 	// Receive Message Listner Here
 	connection.on("ReceiveMessage", data => {
-		console.log(data)
+		// console.log(data)
 		dispatch(receiveChatMessage(data));
-		dispatch(openNotification({ message: `someone sent you a message ${data.message}`, playSound:true }));
+		dispatch(openNotification({
+			message: `${data.messageFrom.name} sent you a message ${data.chatMessage.message}`,
+			playSound: true,
+			avatarName: data.messageFrom.name,
+			avatarImage: data.messageFrom.image
+		}));
 	});
 };

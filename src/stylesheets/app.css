@@ -361,5 +361,8 @@ iframe {
     padding:12px;
 	box-shadow: 0px 0px 5px 0px #ccc;
 }
+.ant-drawer{
+	z-index: 10001;
+}
 
 /* Danish css end */

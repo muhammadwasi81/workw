@@ -286,6 +286,14 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
+    {
+      name: label.navMenuLabel.leaves,
+      counter: 0,
+      icon: leavesIcon,
+      to: ROUTES.LEAVES.LEAVE,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
   ];
   return { navMenuData, navHrMenuData };
 };

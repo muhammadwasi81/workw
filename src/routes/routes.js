@@ -12,10 +12,10 @@ export const routes = {
 
   // Private Route Here
   Private: [
-    // {
-    //   path: ROUTES.ROOT,
-    //   component: lazy(() => import("../components/MainMenu/Home/")),
-    // },
+    {
+      path: ROUTES.ROOT,
+      component: lazy(() => import("../main/features/Home")),
+    },
     {
       path: ROUTES.MESSENGER.DEFAULT,
       component: lazy(() => import("../main/features/Messenger/")),

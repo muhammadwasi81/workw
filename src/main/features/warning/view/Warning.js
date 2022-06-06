@@ -1,11 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import {
-  ContBody,
-  HeaderMenuContainer,
-  TabbableContainer,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton } from "antd";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -14,11 +10,7 @@ import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import TopBar from "../../../sharedComponents/topBar/topBar";
-import {
-  FilterFilled,
-  UnorderedListOutlined,
-  AppstoreFilled,
-} from "@ant-design/icons";
+import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
@@ -29,7 +21,7 @@ import { dictionaryList } from "../../../../utils/localization/languages";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, complainDictionary } = dictionaryList[userLanguage];
+  const { warningDictionary } = warningDictionaryList[userLanguage];
 
   const [grid, setGrid] = useState(false);
 
@@ -37,13 +29,11 @@ const Reward = (props) => {
 
   const [visible, setVisible] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 1, search: "" });
+  const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
 
-  const { warnings, loader, warningDetail } = useSelector(
-    (state) => state.warningSlice
-  );
+  const { warnings, loader, warningDetail } = useSelector((state) => state.warningSlice);
 
   const onClose = () => {
     setVisible(false);
@@ -63,11 +53,7 @@ const Reward = (props) => {
         <HeaderMenuContainer></HeaderMenuContainer>
         <div className="right-menu" style={{ paddingRight: "10px" }}>
           <div className={isTablet ? "btn-hld CompBtnMobile" : "btn-hld"}>
-            <SideDrawer
-              title={"Warning"}
-              buttonText={"Create Warning"}
-              isAccessDrawer={false}
-            >
+            <SideDrawer title={"Warning"} buttonText={"Create Warning"} isAccessDrawer={false}>
               <Composer />
             </SideDrawer>
           </div>
@@ -77,54 +63,36 @@ const Reward = (props) => {
       <TopBar
         buttons={[
           <Button className="filterButton topBtn !h-full !flex !items-center">
-            {isTablet ? "" : sharedLabels.filter}
+            {isTablet ? "" : warningDictionary.filter}
             <FilterFilled className="topBarIcon" />
           </Button>,
           <BarNavLink
-            extraClasses={
-              filter.filterType === 1 ? "topbarOn topBtn" : "topBtn"
-            }
+            extraClasses={filter.filterType === 1 ? "topbarOn topBtn" : "topBtn"}
             activeName={"list"}
             linkName={"My Warning"}
             onClick={() => setFilter({ filterType: 1 })}
           />,
           <BarNavLink
             activeName={"aprrovals"}
-            extraClasses={
-              filter.filterType === 2 ? "topbarOn topBtn" : "topBtn"
-            }
+            extraClasses={filter.filterType === 2 ? "topbarOn topBtn" : "topBtn"}
             isDefault={false}
-            linkName={sharedLabels.ForApprovals}
+            linkName={warningDictionary.forApproval}
             onClick={() => setFilter({ filterType: 2 })}
           />,
           <BarNavLink
             activeName={"aprrovals"}
-            extraClasses={
-              filter.filterType === 3 ? "topbarOn topBtn" : "topBtn"
-            }
+            extraClasses={filter.filterType === 3 ? "topbarOn topBtn" : "topBtn"}
             isDefault={false}
             linkName={"Warning To Me"}
             onClick={() => setFilter({ filterType: 3 })}
           />,
         ]}
         gridIcons={[
-          <div
-            onClick={() => setGrid(false)}
-            className={
-              grid ? "topBarIcon gridIcon" : "topBarIcon gridIcon isActive"
-            }
-          >
-            {isTablet ? "" : sharedLabels.ListView}{" "}
-            <UnorderedListOutlined style={{ marginLeft: "2px" }} />
+          <div onClick={() => setGrid(false)} className={grid ? "topBarIcon gridIcon" : "topBarIcon gridIcon isActive"}>
+            {isTablet ? "" : warningDictionary.listView} <UnorderedListOutlined style={{ marginLeft: "2px" }} />
           </div>,
-          <div
-            onClick={() => setGrid(true)}
-            className={
-              grid ? "topBarIcon gridIcon isActive" : "topBarIcon gridIcon"
-            }
-          >
-            {isTablet ? "" : sharedLabels.TableView}{" "}
-            <AppstoreFilled style={{ marginLeft: "2px" }} />
+          <div onClick={() => setGrid(true)} className={grid ? "topBarIcon gridIcon isActive" : "topBarIcon gridIcon"}>
+            {isTablet ? "" : warningDictionary.tableView} <AppstoreFilled style={{ marginLeft: "2px" }} />
           </div>,
         ]}
       />
@@ -143,12 +111,7 @@ const Reward = (props) => {
                   {warnings.map((item, index) => {
                     return (
                       <>
-                        <ListItem
-                          getRewardId={getRewardId}
-                          item={item}
-                          id={item.id}
-                          key={index}
-                        />
+                        <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
                       </>
                     );
                   })}

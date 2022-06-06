@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Avatar from "../../../../SharedComponent/Avatar/avatar";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import $ from "jquery";
 import penIcon from "../../../../../content/NewContent/NewsFeed/svg/pen.svg";
 import chartIcon from "../../../../../content/NewContent/NewsFeed/svg/chart.svg";
@@ -17,9 +17,7 @@ const Index = () => {
 
           <div className="user">
             <Avatar
-              src={
-                "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-              }
+              src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"}
               className="addPostAvatar"
               name={"AbuBakar"}
               width={44}
@@ -45,11 +43,7 @@ const Index = () => {
 
           <div className="text-area">
             <label onClick={() => $("#txNewNews").focus()}>
-              <textarea
-                onClick={() => setShowComposer(true)}
-                id="txNewNews"
-                placeholder={"What’s on your mind?"}
-              />
+              <textarea onClick={() => setShowComposer(true)} id="txNewNews" placeholder={"What’s on your mind?"} />
             </label>
             {/*<div className="smile"><i className="ic-smile" onClick={this.handleEmoticon} /></div>*/}
             {/* {openEmoticons ? <span className="emoticon-cont"><Picker

@@ -8,41 +8,38 @@ import { Col, Row } from "antd";
 import { ROUTES } from "../../../../../utils/routes";
 
 export default class OrganizationalSignup extends Component {
-	componentDidMount() {
-		console.log(window.location.href, "location", this.props.location);
-	}
-	render() {
-		const { isLoggedIn } = this.props;
-		// const isLoggedIn = !!localStorage.getItem(STRINGS.STORAGE.token);
+  componentDidMount() {
+    console.log(window.location.href, "location", this.props.location);
+  }
+  render() {
+    const { isLoggedIn } = this.props;
+    // const isLoggedIn = !!localStorage.getItem(STRINGS.STORAGE.token);
 
-		if (isLoggedIn) {
-			return <Navigate to={ROUTES.ROOT} />;
-		}
-		return (
-			<div className="lg-area">
-				{/* <div className="lg-area-color-layer" /> */}
-				<Row
-					gutter={{ xs: 0, sm: 0, lg: 24 }}
-					className="main-landing-row"
-				>
-					<Col
-						xs={{ order: 2, span: 24 }}
-						sm={{ order: 2, span: 24 }}
-						lg={{ order: 1, span: 15 }}
-					>
-						<PricePlans />
-					</Col>
-					<Col
-						xs={{ order: 1, span: 24 }}
-						sm={{ order: 1, span: 24 }}
-						lg={{ order: 2, span: 9 }}
-					>
-						<div className="center-area">
-							<SignUp />
-						</div>
-					</Col>
-				</Row>
-			</div>
-		);
-	}
+    if (isLoggedIn) {
+      return <Navigate to={ROUTES.ROOT} />;
+    }
+    return (
+      <div className="lg-area">
+        {/* <div className="lg-area-color-layer" /> */}
+        <Row gutter={{ xs: 0, sm: 0, lg: 24 }} className="main-landing-row">
+          <Col
+            xs={{ order: 2, span: 24 }}
+            sm={{ order: 2, span: 24 }}
+            lg={{ order: 1, span: 15 }}
+          >
+            <PricePlans />
+          </Col>
+          <Col
+            xs={{ order: 1, span: 24 }}
+            sm={{ order: 1, span: 24 }}
+            lg={{ order: 2, span: 9 }}
+          >
+            <div className="center-area">
+              <SignUp />
+            </div>
+          </Col>
+        </Row>
+      </div>
+    );
+  }
 }

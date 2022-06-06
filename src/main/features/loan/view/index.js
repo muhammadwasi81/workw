@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { BrokenPage, STRINGS } from "../../../../utils/base";
 import "./loan.css";
-import Loan from "./Loan";
+import Loan from "./loan";
 
 const Index = () => {
 	return (

@@ -1,25 +1,25 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { addLoan, getAllLoan, getLoanById } from "./actions";
-import moment from "moment";
-import { loanPurposeEnum } from "../enum";
-
+import { loanPurposeEnum } from "../constant";
+const formInitialState = {
+  id: "",
+  currencyId: "",
+  amount: 0,
+  deduction: 0,
+  loanTenure: 0,
+  description: "",
+  deadline: new Date(),
+  purposeId: loanPurposeEnum.Personal,
+  imageId: "",
+  userId: "",
+  approvers: [],
+};
 const initialState = {
   loans: [],
   loadingData: false,
   loader: true,
   loanDetail: null,
-  loanForm: {
-    id: "",
-    amount: 0,
-    deduction: 0,
-    loanTenure: 0,
-    description: "",
-    deadline: new Date(),
-    purposeId: loanPurposeEnum.Personal,
-    imageId: "",
-    userId: "",
-    approvers: [],
-  },
+  loanForm: formInitialState,
 };
 
 const loanSlice = createSlice({
@@ -28,6 +28,9 @@ const loanSlice = createSlice({
   reducers: {
     setLoanForm: (state, action) => {
       state.loanForm = action.payload;
+    },
+    resetLoanForm: (state, action) => {
+      state.loanForm = formInitialState;
     },
   },
   extraReducers: (builder) => {

@@ -58,6 +58,13 @@ const en = {
     complain: "Complain",
     Submit: "Submit",
     Delete: "Delete",
+    NotDesignated: "Not Designated",
+    Profile: "Profile",
+    Settings: "Settings",
+    Logout: "Logout",
+    SelectLanguage: "Select Language",
+    English: "English ",
+    Urdu: "Urdu",
   },
 
   /*** navMenuLabel only used in LeftSideBar ***/

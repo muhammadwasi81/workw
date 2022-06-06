@@ -2204,3 +2204,11 @@ export function handleIndexingOnPopUpClose(){
         $('.voters-box').css({zIndex:'1'});
         $('.tabbable-container > .cont-header').css({zIndex:'2'});
 }*/
+export const groupByKey = (list, key) =>
+list.reduce(
+  (hash, obj) => ({
+	...hash,
+	[obj[key]]: (hash[obj[key]] || []).concat(obj),
+  }),
+  {}
+);

@@ -1,6 +1,6 @@
 import { Drawer } from "antd";
 import React from "react";
-import Notification from "../../../Nav/notifications/notifications";
+// import Notification from "../../../Nav/notifications/notifications";
 
 const Index = ({ drawerStatus, handleDrawer }) => {
   return (
@@ -12,8 +12,9 @@ const Index = ({ drawerStatus, handleDrawer }) => {
       maskClosable={true}
       bodyStyle={{ padding: "10px" }}
       closable={false}
-      contentWrapperStyle={{ height: "600px" }}>
-      <Notification />
+      contentWrapperStyle={{ height: "600px" }}
+    >
+      {/* <Notification /> */}
     </Drawer>
   );
 };

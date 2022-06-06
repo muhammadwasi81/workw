@@ -25,6 +25,7 @@ import { getAllWarnings, GetWarningById } from "../store/actions";
 import TableView from "./TableView";
 import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 import "./warning.css";
+import { dictionaryList } from "../../../../utils/localization/languages";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);

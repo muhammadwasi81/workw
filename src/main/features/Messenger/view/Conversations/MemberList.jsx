@@ -1,9 +1,10 @@
+/* eslint-disable array-callback-return */
 import { Input, Divider } from "antd";
 import React from "react";
 import MemberCard from "./MemberCard";
 import { useDispatch } from "react-redux";
 import { getAllEmployeeShort } from "../../../../../utils/Shared/store/actions";
-import { CloseOutlined } from "@ant-design/icons";
+
 function MemberList({
   allMembers = [],
   onMember,

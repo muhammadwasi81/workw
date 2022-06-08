@@ -19,6 +19,7 @@ import TableView from "./TableView";
 
 import "./leave.css";
 import FilterSearch from "../../../sharedComponents/FilterSearch";
+import { CardWrapper } from "../../../layout/GridStyle";
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -112,7 +113,7 @@ const Leave = (props) => {
           ]}
         />
         <div className="myBody">
-          <div className="flex gap-2 list-none flex-wrap pt-4">
+          <CardWrapper>
             {leaves && leaves.length > 0 ? (
               grid ? (
                 <TableView />
@@ -138,7 +139,7 @@ const Leave = (props) => {
             ) : (
               "Data not found"
             )}
-          </div>
+          </CardWrapper>
         </div>
         {rewardDetail && <DetailedView onClose={onClose} visible={visible} />}
       </TabbableContainer>

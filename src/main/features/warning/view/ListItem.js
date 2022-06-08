@@ -6,6 +6,7 @@ import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import { Card } from "../../../layout/GridStyle";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -15,7 +16,7 @@ function ListItem(props) {
 
   // console.log(props.item, "imagessss")
   return (
-    <div className="list-item">
+    <Card>
       <div
         className="new"
         id={props.id}
@@ -98,7 +99,7 @@ function ListItem(props) {
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 

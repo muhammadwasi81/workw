@@ -33,3 +33,14 @@
     border-color: transparent !important;
     border-radius: 5px;
 }
+@media screen and (max-width: 800px) {
+
+    .filterBtn
+    {
+        padding: 7px 12px;
+    }
+    .filterBtn span
+    {
+        margin: 0 !important;
+    }
+}

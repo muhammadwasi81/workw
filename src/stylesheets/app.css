@@ -132,6 +132,7 @@
 
 	.tabbable-container {
 		height: calc(100% - 45px);
+		width: 100%;
 	}
 
 	.tabbable-container > .cont-header > .menu > .li {
@@ -147,7 +148,7 @@
 	}
 
 	.tabbable-container > .cont-header {
-		margin-top: 33px;
+		margin-top: 10px;
 		font-size: 12px;
 		width: 100% !important;
 	}
@@ -365,4 +366,11 @@ iframe {
 	z-index: 10001;
 }
 
+.ant-modal-mask
+{
+	z-index: 99999;
+}
+.ant-modal-wrap{
+	z-index: 1000111;
+}
 /* Danish css end */

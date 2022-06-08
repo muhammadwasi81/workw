@@ -13,16 +13,16 @@ export const DatePickerWithlabel = styled.div`
 export const FilterButton = styled(Button)`
   display: flex;
   align-items: center;
-  color: #757d86;
+  color: #757d86 !important;
   font-weight: 700;
   padding: 7px 20px;
-  background: #ededed;
+  background: #ededed !important;
   border: 0;
   font-size: 14px;
   border-radius: 4px;
   font-size: 12px;
   &:hover {
-    background: #1b5669;
-    color: #fff;
+    background: #1b5669 !important;
+    color: #fff !important;
   }
 `;

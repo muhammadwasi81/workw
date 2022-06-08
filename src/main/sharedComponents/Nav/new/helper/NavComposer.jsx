@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
-function NotificationModal({ isVisible, onClose, children }) {
+function NavComposer({ isVisible, onClose, children }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
   const isDesktopOrLaptop = useMediaQuery({
@@ -16,17 +16,19 @@ function NotificationModal({ isVisible, onClose, children }) {
   let classes = "notificationModal ";
   classes += Direction === "ltr" ? "" : "rtl";
   return (
-    <Modal
-      wrapClassName={classes}
-      visible={isVisible}
-      getContainer=".main-app-style"
-      onCancel={onClose}
-      footer={null}
-      width={400}
-    >
-      {children}
-    </Modal>
+    <div className="mainNotificationWrapper">
+      <Modal
+        wrapClassName={classes}
+        visible={isVisible}
+        getContainer=".main-app-style"
+        onCancel={onClose}
+        footer={null}
+        width={400}
+      >
+        {children}
+      </Modal>
+    </div>
   );
 }
 
-export default NotificationModal;
+export default NavComposer;

@@ -12,7 +12,8 @@ import {
   disable as disableDarkMode,
   enable as enableDarkMode,
 } from "darkreader";
-import NotificationModal from "./NotificationModal";
+import NotificationModal from "./NavComposer";
+import { useMediaQuery } from "react-responsive";
 const Approvals = () => {
   return "Approvals";
 };
@@ -84,6 +85,9 @@ const Notifications = () => {
 function NotificationBar() {
   const [isSearch, setIsSearch] = useState(false);
   const [currentNotification, setCurrentNotification] = useState("");
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(max-width: 800px)",
+  });
   const renderNotification = {
     ["approval"]: <Approvals />,
     ["notification"]: <Notifications />,
@@ -126,6 +130,12 @@ function NotificationBar() {
   useEffect(() => {
     setIsSearch(false);
   }, [navBarStatus === false]);
+  useEffect(() => {
+    if (isDesktopOrLaptop) {
+      dispatch(setNotificationStatus(false));
+    }
+    console.log(isDesktopOrLaptop);
+  }, [isDesktopOrLaptop]);
 
   let classes = "notificationBar ";
   classes += isSearch ? "open" : "";

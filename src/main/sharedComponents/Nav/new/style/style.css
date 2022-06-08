@@ -1,14 +1,18 @@
 .sideNavigation {
   width: 240px;
   transition: all 0.3s;
-  z-index: 1001;
   background-color: #fff;
+  z-index: 9999;
 }
 .ant-tooltip-inner {
   color: #000 !important;
 }
 .sideNavigation.close .businessLogo {
   display: none;
+}
+.main-app-style  .ant-modal-mask
+{
+  background-color: transparent;
 }
 .sideNavigation.close {
   width: 66px;
@@ -208,7 +212,7 @@
 }
 
 .menu .menu-item a {
-  padding: 10px;
+  padding: 10px 6px;
   transition: 0.3s;
   border-left: 5px solid transparent;
   display: flex;

@@ -43,12 +43,12 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 		return isActive
 			? " on"
 			: DOMAIN_PREFIX.length > 0
-			? pathname.split("/").includes(path.split("/")[2])
-				? " on"
-				: ""
-			: pathname.split("/").includes(path.split("/")[1])
-			? " on"
-			: "";
+				? pathname.split("/").includes(path.split("/")[2])
+					? " on"
+					: ""
+				: pathname.split("/").includes(path.split("/")[1])
+					? " on"
+					: "";
 	};
 	return (
 		<div className="nav-menu">
@@ -92,7 +92,7 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 									Direction === "ltr"
 										? "anc" + activeTab(isActive, path)
 										: "anc justify-end" +
-										  activeTab(isActive, path)
+										activeTab(isActive, path)
 								}
 								end
 								to={path}
@@ -127,12 +127,12 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 								Direction === "ltr"
 									? "anc"
 									: "anc justify-end" +
-									  (isActive
-											? localDictionary.Direction ===
-											  "rtl"
-												? " nav-item-close-StyleRtl"
-												: " nav-item-close-StyleLtr"
-											: "")
+									(isActive
+										? localDictionary.Direction ===
+											"rtl"
+											? " nav-item-close-StyleRtl"
+											: " nav-item-close-StyleLtr"
+										: "")
 							}
 							style={{ padding: "12px 12px" }}
 							to={path}
@@ -183,7 +183,7 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 									Direction === "ltr"
 										? "anc" + activeTab(isActive, path)
 										: "anc justify-end" +
-										  activeTab(isActive, path)
+										activeTab(isActive, path)
 								}
 								to={path}
 								onClick={() =>
@@ -216,12 +216,12 @@ const NavMenuListContainer = ({ navbarstatus }) => {
 								Direction === "ltr"
 									? "anc"
 									: "anc justify-end" +
-									  (isActive
-											? localDictionary.Direction ===
-											  "rtl"
-												? "nav-item-close-StyleRtl"
-												: "nav-item-close-StyleLtr"
-											: "")
+									(isActive
+										? localDictionary.Direction ===
+											"rtl"
+											? "nav-item-close-StyleRtl"
+											: "nav-item-close-StyleLtr"
+										: "")
 							}
 							style={{ padding: "12px 12px" }}
 							to={path}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ConversationListCont from "./view/Conversations/ConversationListCont";
 import MessengerBox from "./view/MessengerBox";
 import "./style/style.css";
-import { getAllChats } from "./store/Api";
+import { getAllChats } from "./store/actions";
 import { MessengerContainer } from "./style/SideChatBar.style";
 
 const Index = () => {

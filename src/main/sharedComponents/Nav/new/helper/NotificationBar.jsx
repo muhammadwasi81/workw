@@ -12,7 +12,7 @@ import {
   disable as disableDarkMode,
   enable as enableDarkMode,
 } from "darkreader";
-import NotificationModal from "./NotificationModal";
+import NotificationModal from "./NavComposer";
 const Approvals = () => {
   return "Approvals";
 };

@@ -1,93 +1,114 @@
-import React from "react";
-// import { dictionaryList } from "../../../utils/localization/languages";
-// import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { Row, Col } from "antd";
+import React, { Component, useState } from "react";
 import SearchInput from "../searchBox/SearchInput";
 import { SearchOutlined } from "@ant-design/icons";
 import "./style.css";
-import { useState } from "react";
-import { useMediaQuery } from "react-responsive";
+import { Button, Segmented } from "antd";
+import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
+import FilterSearchButton from "../FilterSearch";
+import PropTypes from "prop-types";
+import { isEmptyObj } from "../../../utils/base";
 
-const TopBar = ({ buttons, gridIcons }) => {
-	// const { userLanguage } = useContext(LanguageChangeContext);
-	// const { sharedLabels, Direction } = dictionaryList[userLanguage];
+const TopBar = ({
+  filter = {},
+  onSearch,
+  segment = {},
+  buttons,
+  component,
+}) => {
+  const { onFilter, ...rest } = filter;
+  const { onSegment, lable1, lable2 } = segment;
+  const [activeButtons, setActiveButtons] = useState(buttons.map(() => false));
 
-	const [fullWidth, setFullWidth] = useState(false);
+  return (
+    <div className="topBar">
+      <div className="topBar__inner">
+        <div className="searchBox">
+          <SearchInput
+            icon={<SearchOutlined />}
+            placeholder="Search"
+            size="larger"
+            onClick={(e) => {
+              const value = e.target.value;
+              onSearch(value);
+            }}
+          />
+        </div>
+        <div className="topBar__buttons">
+          {buttons.map(({ name, onClick, icon }, index) => (
+            <Button
+              onClick={() => {
+                onClick();
+                const actives = activeButtons.map((item, key) => {
+                  if (index === key) {
+                    return (item = !item);
+                  } else {
+                    return (item = false);
+                  }
+                });
 
-	const isTablet = useMediaQuery({ maxWidth: 800 });
-
-	const handleWidth = () => {
-		setFullWidth(true);
-	};
-
-	return (
-		<>
-			<div className="mt-3.5 p-2 rounded bg-white sm:w-99p md:w-90p lg:w-92p xl:w-full ">
-				<Row>
-					<Col span={isTablet ? 18 : 6} className="inner">
-						{/* width50 */}
-						<div
-							className={fullWidth ? "searchBox" : "searchBox"}
-							onClick={handleWidth}
-						>
-							<SearchInput
-								style={{
-									backgroundColor: "#F4F4F4",
-									border: "1px solid #1A5669",
-									height: "100%",
-								}}
-								className="bg-zinc-100 border border-primary-color h-8"
-								onChange={e => console.log("hello")}
-								onBlur={() => setFullWidth(false)}
-								icon={<SearchOutlined />}
-								placeholder="Search"
-								size="larger"
-							/>
-						</div>
-					</Col>
-					{isTablet ? (
-						<Col
-							span={6}
-							className="gridIconColumn"
-							style={{
-								display: "flex",
-								justifyContent: "flex-end",
-							}}
-						>
-							<div className="gridIcons">{gridIcons}</div>
-						</Col>
-					) : (
-						""
-					)}
-					<Col span={isTablet ? 24 : 18} className="inner2">
-						<Row
-							className={
-								isTablet ? "forMobile" : "btnRow !h-full"
-							}
-						>
-							<Col span={isTablet ? 24 : 17}>
-								<div className="flex gap-3 pl-4 !h-full">
-									{buttons}
-								</div>
-							</Col>
-							{isTablet ? (
-								""
-							) : (
-								<Col
-									span={7}
-									className="gridInner !flex !justify-end"
-								>
-									<div className="gridIcons w-fit">
-										{gridIcons}
-									</div>
-								</Col>
-							)}
-						</Row>
-					</Col>
-				</Row>
-			</div>
-		</>
-	);
+                setActiveButtons(actives);
+              }}
+              key={index}
+              className={
+                activeButtons[index] ? "primaryBtn active" : "primaryBtn "
+              }
+            >
+              {name}
+              {icon && icon}
+            </Button>
+          ))}
+          {Component}
+        </div>
+      </div>
+      <div className="searchButtons">
+        {!isEmptyObj(filter) && (
+          <FilterSearchButton onFilter={onFilter} {...rest} />
+        )}
+        {!isEmptyObj(segment) && (
+          <Segmented
+            onChange={(value) => {
+              onSegment(value);
+            }}
+            options={[
+              {
+                label: lable1,
+                value: lable1,
+                icon: <BarsOutlined />,
+              },
+              {
+                label: lable2,
+                value: lable2,
+                icon: <AppstoreOutlined />,
+              },
+            ]}
+          />
+        )}
+      </div>
+    </div>
+  );
 };
-
+TopBar.propTypes = {
+  filter: PropTypes.shape({
+    onFilter: PropTypes.func,
+    select1: PropTypes.array,
+    select2: PropTypes.array,
+  }),
+  buttons: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      onClick: PropTypes.func,
+      icon: PropTypes.elementType,
+    })
+  ),
+  segment: PropTypes.shape({
+    onSegment: PropTypes.func,
+    lable1: PropTypes.array,
+    lable2: PropTypes.array,
+  }),
+  onSearch: PropTypes.func,
+};
+TopBar.defaultProps = {
+  filter: {},
+  segment: {},
+};
 export default TopBar;

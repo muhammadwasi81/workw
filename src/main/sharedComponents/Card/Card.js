@@ -8,9 +8,14 @@ import SublineDesigWithTime from "../UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../utils/base";
 import moment from "moment";
 import StatusTag from "../Tag/StatusTag";
-import { SingleItem, ItemHeader, ItemContent, ItemProfile, ItemInfo } from "../ShortCard/ShortCardStyle";
+import {
+  SingleItem,
+  ItemHeader,
+  ItemContent,
+  ItemProfile,
+  ItemInfo,
+} from "../ShortCard/ShortCardStyle";
 import { CardWrapper } from "./CardStyle";
-import "./style.css";
 
 const Card = () => {
   return (

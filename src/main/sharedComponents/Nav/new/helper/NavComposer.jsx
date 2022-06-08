@@ -16,18 +16,16 @@ function NavComposer({ isVisible, onClose, children }) {
   let classes = "notificationModal ";
   classes += Direction === "ltr" ? "" : "rtl";
   return (
-    <div className="mainNotificationWrapper">
-      <Modal
-        wrapClassName={classes}
-        visible={isVisible}
-        getContainer=".main-app-style"
-        onCancel={onClose}
-        footer={null}
-        width={400}
-      >
-        {children}
-      </Modal>
-    </div>
+    <Modal
+      wrapClassName={classes}
+      visible={isVisible}
+      getContainer=".main-app-style"
+      onCancel={onClose}
+      footer={null}
+      width={400}
+    >
+      {children}
+    </Modal>
   );
 }
 

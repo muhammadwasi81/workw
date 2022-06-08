@@ -35,8 +35,7 @@ function DetailedView(props) {
       placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
       onClose={props.onClose}
       visible={props.visible}
-      className="detailedViewComposer drawerSecondary"
-    >
+      className="detailedViewComposer drawerSecondary">
       <div className="detailedCard ">
         <div className="item-header">
           <div className="left">
@@ -89,25 +88,29 @@ function DetailedView(props) {
             <div className="approversBox">
               <h3>{warningDictionary.approvers}</h3>
               <div className="mem">
-                {approvers.map((val, i) => {
-                  if (i > 2) return "";
-                  let { approver } = val;
-                  return approver.image ? (
-                    <div
-                      key={`grpmem${i}`}
-                      className="us-img"
-                      style={{
-                        backgroundImage: `url(${approver.image})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "100% 100%",
-                      }}
-                    />
-                  ) : (
-                    <div key={`grpmem${i}`} className="us-img">
-                      {getNameForImage(approver.name)}
-                    </div>
-                  );
-                })}
+                {approvers &&
+                  approvers.map((val, i) => {
+                    if (i > 2) return "";
+                    let { approver } = val;
+                    return (
+                      approver &&
+                      (approver.image ? (
+                        <div
+                          key={`grpmem${i}`}
+                          className="us-img"
+                          style={{
+                            backgroundImage: `url(${approver.image})`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "100% 100%",
+                          }}
+                        />
+                      ) : (
+                        <div key={`grpmem${i}`} className="us-img">
+                          {getNameForImage(approver.name)}
+                        </div>
+                      ))
+                    );
+                  })}
                 {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
               </div>
             </div>
@@ -117,15 +120,17 @@ function DetailedView(props) {
           </div>
         </div>
         <div className="warning-approvers">
-          {approvers.map((val, i) => {
-            console.log(val.approver.name, "NAMEEEEEE");
-            let { name, designation = "Default Designation" } = val.approver;
-            return (
-              <>
-                <Approval username={name} userdesignation={designation === "" ? "Default Designation" : designation} status={status} />
-              </>
-            );
-          })}
+          {approvers &&
+            approvers.map((val, i) => {
+              if (val.approver) {
+                let { name, designation = "Default Designation" } = val.approver;
+                return (
+                  <>
+                    <Approval username={name} userdesignation={designation === "" ? "Default Designation" : designation} status={status} />
+                  </>
+                );
+              }
+            })}
         </div>
       </div>
     </Drawer>

@@ -24,7 +24,7 @@ function FilterSearchButton({ onFilter }) {
         onClose={handleCancel}
         onFilter={onFilter}
       />
-      <FilterButton onClick={showModal}>
+      <FilterButton onClick={showModal} className="filterBtn">
         {isTablet ? "" : sharedLabels.filter}
         <FilterFilled />
       </FilterButton>

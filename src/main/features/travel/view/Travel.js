@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+<<<<<<< HEAD
 import { TabContainer, ContBody } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 
 import "../styles/Travel.css";
@@ -9,6 +10,14 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import BarNavLink from "./UI/Link";
 import { AppstoreFilled, FilterFilled, UnorderedListOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+=======
+import {
+  TabContainer,
+  ContBody,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import "../styles/Travel.css";
+import TopBar from "../../../sharedComponents/topBar/topBar";
+>>>>>>> 54d77ab909af74ef8e90cb37a998497e85fdc13c
 import { Table } from "./customTable/index";
 import { FilterSortEnum } from "../../../../utils/Shared/enums/enums";
 import { useDispatch, useSelector } from "react-redux";
@@ -78,8 +87,16 @@ function Travel() {
     filterType: 1,
   });
   const [tableView, setTableView] = useState(false);
+<<<<<<< HEAD
   const [tableColumnFilter, setTableColumnFilter] = useState(initialTableFilter);
   const { travels, loader, success } = useSelector((state) => state.travelSlice);
+=======
+  const [tableColumnFilter, setTableColumnFilter] =
+    useState(initialTableFilter);
+  const { travels, loader, success } = useSelector(
+    (state) => state.travelSlice
+  );
+>>>>>>> 54d77ab909af74ef8e90cb37a998497e85fdc13c
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
@@ -169,45 +186,88 @@ function Travel() {
   return (
     <TabContainer>
       <Header label={label} />
+      {/* <TopBar
+				buttons={[
+					<Button className="filterButton topBtn !h-full !flex !items-center">
+						Filter
+						<FilterFilled />
+					</Button>,
+					<BarNavLink
+						activeName={"travles"}
+						linkName={"Travels"}
+						filterType={filter.filterType === 1 && true}
+					
+					/>,
+					<BarNavLink
+						activeName={"aprrovals"}
+						linkName={"For Approval"}
+						filterType={filter.filterType === 2 && true}
+					
+					/>,
+					<BarNavLink
+						activeName={"process"}
+						linkName={"Agent Process"}
+						filterType={filter.filterType === 3 && true}
+					
+					/>,
+				]}
+				gridIcons={[
+					<div
+						onClick={() => setTableView(false)}
+						className={`flex justify-center items-center gap-1 ${
+							!tableView
+								? "topBarIcon gridIcon isActive transition"
+								: "topBarIcon gridIcon"
+						}`}
+					>
+						ListView
+						<UnorderedListOutlined />
+					</div>,
+					<div
+						onClick={() => setTableView(true)}
+						className={`flex justify-center items-center gap-1 ${
+							tableView
+								? "topBarIcon gridIcon isActive transition"
+								: "topBarIcon gridIcon "
+						}`}
+					>
+						TableView
+						<AppstoreFilled />
+					</div>,
+				]}
+			/> */}
       <TopBar
+        onSearch={(value) => {
+          console.log(value);
+        }}
         buttons={[
-          <Button className="filterButton topBtn !h-full !flex !items-center">
-            Filter
-            <FilterFilled />
-          </Button>,
-          <BarNavLink
-            activeName={"travles"}
-            linkName={"Travels"}
-            filterType={filter.filterType === 1 && true}
-            onClick={() => setFilter({ filterType: 1 })}
-          />,
-          <BarNavLink
-            activeName={"aprrovals"}
-            linkName={"For Approval"}
-            filterType={filter.filterType === 2 && true}
-            onClick={() => setFilter({ filterType: 2 })}
-          />,
-          <BarNavLink
-            activeName={"process"}
-            linkName={"Agent Process"}
-            filterType={filter.filterType === 3 && true}
-            onClick={() => setFilter({ filterType: 3 })}
-          />,
+          {
+            name: "Travels",
+            onClick: () => setFilter({ filterType: 1 }),
+          },
+          {
+            name: "For Approval",
+            onClick: () => setFilter({ filterType: 2 }),
+          },
+          {
+            name: "Agent Process",
+            onClick: () => setFilter({ filterType: 3 }),
+          },
         ]}
-        gridIcons={[
-          <div
-            onClick={() => setTableView(false)}
-            className={`flex justify-center items-center gap-1 ${!tableView ? "topBarIcon gridIcon isActive transition" : "topBarIcon gridIcon"}`}>
-            ListView
-            <UnorderedListOutlined />
-          </div>,
-          <div
-            onClick={() => setTableView(true)}
-            className={`flex justify-center items-center gap-1 ${tableView ? "topBarIcon gridIcon isActive transition" : "topBarIcon gridIcon "}`}>
-            TableView
-            <AppstoreFilled />
-          </div>,
-        ]}
+        filter={{
+          onFilter: () => {},
+        }}
+        segment={{
+          onSegment: (value) => {
+            if (value === "Kanban") {
+              setTableView(true);
+            } else {
+              setTableView(false);
+            }
+          },
+          lable1: "List",
+          lable2: "Kanban",
+        }}
       />
       <ContBody className="!block">
         {tableView ? (

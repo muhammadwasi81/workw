@@ -36,6 +36,7 @@ import { routes } from "./routes/routes";
 import { InitMessengerSocket } from "./utils/InitSocket";
 import MainNotification from "./main/sharedComponents/Notification/Notification";
 import { openNotification } from "./utils/Shared/store/slice";
+import SoundWaves from "./main/sharedComponents/SoundWaves";
 // import Table from "./main/features/travel/view/customTable";
 // import { Socket } from "./utils/socket";
 
@@ -90,6 +91,7 @@ const App = () => {
 			</div> */}
       <ErrorBoundary>
         <MainFlexContainer>
+          {/* <SoundWaves /> */}
           <Router>
             <ReactRoutes>
               {/*****Public Route******/}

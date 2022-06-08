@@ -1,0 +1,43 @@
+.header
+{
+    background-color: #ffffff;
+    box-shadow: 0 12px 6px -12px #bbbbbb;
+    min-height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+.header .left,
+.header .right
+{
+    align-items: stretch;
+    display: grid;
+    place-items: center ;
+}
+.header .left .list
+{
+    margin-bottom: 0;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+.header .left a
+{
+
+    color: #757d86;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    text-transform: capitalize;
+    font-size: 16px;
+    padding-bottom: 10px;
+
+}
+.header .left a.active,
+.header .left a:hover
+{
+        color: #1a5669;
+        border-bottom: 2px solid #1a5669;
+        font-weight: 600;
+}

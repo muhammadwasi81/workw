@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useReactMediaRecorder } from "react-media-recorder";
-import attachmentIcon from "../../../../../../content/NewContent/Messenger/voiceNote.svg";
+import voiceGreyIcon from "../../../../../../content/NewContent/Messenger/voiceGrey.svg";
+import voiceRedIcon from "../../../../../../content/NewContent/Messenger/voiceRed.svg";
+import pauseRedIcon from "../../../../../../content/NewContent/Messenger/pauseRed.svg";
 import recordIcon from "../../../../../../content/NewContent/Messenger/record.png";
 
 function VoiceNotes(props) {
@@ -18,19 +20,30 @@ function VoiceNotes(props) {
     const onStopRecording = (blobURL, blob) => {
         console.log(blob, "Stop Recording");
     }
-    const { status, startRecording, stopRecording, mediaBlobUrl, pauseRecording} =
+    const { status, startRecording, stopRecording, mediaBlobUrl, pauseRecording } =
         useReactMediaRecorder({ audio: true, onStart: onStartRecording, onStop: onStopRecording });
     return (
-        <div style={{ display: "flex" }} >
-            {status === "recording" && <div style={{ display: "flex" }} >
-                {/* <p>{status}</p> */}
-                <img style={{ height: "20px" }} src={recordIcon} />
-                <div>00.02</div>
-                <button onClick={pauseRecording}>pause</button>
-                <button onClick={stopRecording}>Stop</button>
-                {/* <video src={mediaBlobUrl} controls autoPlay loop /> */}
+        <div style={{
+            display: "flex", backgroundColor: "rgb(244, 244, 244)", borderRadius: "7px",
+            height: "40px", alignItems: "center"
+        }} >
+            {/* <p>{status}</p> */}
+            {status === "recording" && <div style={{ display: "flex", alignItems: "center" }} >
+                <img style={{ height: "15px", margin: "0 0px 0 10px" }} src={recordIcon} />
+                <div style={{ margin: "0 50px 0 10px" }}>00.02</div>
+                <button onClick={pauseRecording}>
+                    <img src={pauseRedIcon} style={{ height: "22px", margin: "0 10px" }} />
+                </button>
+                <button onClick={stopRecording}>
+                    <img src={voiceRedIcon} style={{ height: "22px", margin: "0 10px" }} />
+                </button>
             </div>}
-            <img className='actionBtn' onClick={startRecording} src={attachmentIcon} style={{ height: "25px", margin: "0 10px" }} />
+            {(status === "paused" || status === "stopped") &&
+                <audio style={{ height: "14px" }} src={mediaBlobUrl} controls autoPlay loop />
+            }
+            {status !== "recording" &&
+                <img className='actionBtn' onClick={startRecording} src={voiceGreyIcon} style={{ height: "22px", margin: "0 10px" }} />
+            }
         </div>
     )
 }

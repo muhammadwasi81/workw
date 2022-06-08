@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { STRINGS } from "../../../../utils/base";
-import { getAllChats, getAllMessages, sendChatMessage } from "./Api";
+import { getAllChats, getAllMessages, sendChatMessage } from "./actions";
 
 const initialState = {
    mobileIsopenChat: null,

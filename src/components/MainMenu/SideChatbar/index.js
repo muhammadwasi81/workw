@@ -159,7 +159,7 @@ export const Index = () => {
   ]
   const location = useLocation()
   useEffect(() => {
-    if (location.pathname === "/messenger") {
+    if (location.pathname.includes("/messenger")) {
       setIsHide(true)
     }
     else

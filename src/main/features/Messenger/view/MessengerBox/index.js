@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { STRINGS } from '../../../../../utils/base';
-import { getAllMessages } from '../../store/Api';
+import { getAllMessages } from '../../store/actions';
 import MessengerBottom from './body/MessengerBottom';
 import MessengerHead from './body/MessengerHead';
 import MessengerList from './body/MessengerList';
@@ -15,7 +15,7 @@ const MessengerBox = () => {
     const [isOpenProfile, setIsOpenProfile] = useState(false);
     const isEmptyMessenger = messengerDetail.members.length === 0 && messengerDetail.chatId === STRINGS.DEFAULTS.guid;
     useEffect(() => {
-        dispatch(getAllMessages({ chatId: messengerDetail.chatId, pageNo:1 }))
+        dispatch(getAllMessages({ chatId: messengerDetail.chatId, pageNo: 1 }))
     }, [messengerDetail]);
     if (isEmptyMessenger)
         return <EmptyMessenger />

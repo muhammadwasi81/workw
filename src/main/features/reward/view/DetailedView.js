@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Drawer, Tag, Image } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import {rewardDictionaryList} from "../localization/index";
+import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import Approval from "../../../sharedComponents/AppComponents/Approval/Approval";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
@@ -13,7 +13,7 @@ import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-	const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
+  const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
 
   const { rewardDetail } = useSelector((state) => state.rewardSlice);
 
@@ -35,25 +35,17 @@ function DetailedView(props) {
     <Drawer
       title={rewardDictionary.reward}
       width="768"
-      placement={
-        (Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")
-      }
+      placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
       onClose={props.onClose}
       visible={props.visible}
-      className="detailedViewComposer"
-    >
+      className="detailedViewComposer">
       <div className="detailedCard ">
         <div className="item-header">
           <div className="left">
             <UserInfo
               avatarSrc="https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
               name={creator.name}
-              Subline={
-                <SublineDesigWithTime
-                  designation={"ReactJs Developer"}
-                  time="7 days ago"
-                />
-              }
+              Subline={<SublineDesigWithTime designation={"ReactJs Developer"} time="7 days ago" />}
             />
           </div>
           <div className="right">
@@ -101,75 +93,55 @@ function DetailedView(props) {
                       </div>
                     );
                   })}
-                {members ? (
-                  members.length > 2 ? (
-                    <div className="us-img">
-                      {members && members.length - 2}+
-                    </div>
-                  ) : (
-                    ""
-                  )
-                ) : null}
+                {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
               </div>
             </div>
             <div className="approversBox">
               <h3>{rewardDictionary.approvers}</h3>
               <div className="mem">
-                {approvers.map((val, i) => {
-                  if (i > 2) return "";
-                  let { approver } = val;
-                  return approver.image ? (
-                    <div
-                      key={`grpmem${i}`}
-                      className="us-img"
-                      style={{
-                        backgroundImage: `url(${approver.image})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "100% 100%",
-                      }}
-                    />
-                  ) : (
-                    <div key={`grpmem${i}`} className="us-img">
-                      {getNameForImage(approver.name)}
-                    </div>
-                  );
-                })}
-                {approvers ? (
-                  approvers.length > 2 ? (
-                    <div className="us-img">
-                      {approvers && props.approvers - 2}+
-                    </div>
-                  ) : (
-                    ""
-                  )
-                ) : null}
+                {approvers &&
+                  approvers.map((val, i) => {
+                    if (i > 2) return "";
+                    let { approver } = val;
+                    return (
+                      approver &&
+                      (approver.image ? (
+                        <div
+                          key={`grpmem${i}`}
+                          className="us-img"
+                          style={{
+                            backgroundImage: `url(${approver.image})`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "100% 100%",
+                          }}
+                        />
+                      ) : (
+                        <div key={`grpmem${i}`} className="us-img">
+                          {getNameForImage(approver.name)}
+                        </div>
+                      ))
+                    );
+                  })}
+                {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
               </div>
             </div>
           </div>
           <div className="attachmentBox">
-            <Image
-              preview={false}
-              width={100}
-              src={image === "" ? RewardDefaultIcon : image}
-            />
+            <Image preview={false} width={100} src={image === "" ? RewardDefaultIcon : image} />
           </div>
         </div>
         <div className="warning-approvers">
-          {approvers.map((val, i) => {
-            console.log(val.approver.name, "NAMEEEEEE");
-            let { name, designation = "Default Designation" } = val.approver;
-            return (
-              <>
-                <Approval
-                  username={name}
-                  userdesignation={
-                    designation === "" ? "Default Designation" : designation
-                  }
-                  status={status}
-                />
-              </>
-            );
-          })}
+          {approvers &&
+            approvers.map((val, i) => {
+              if (val.approver) {
+                let { name, designation = "Default Designation" } = val.approver;
+                return (
+                  <>
+                    <Approval username={name} userdesignation={designation === "" ? "Default Designation" : designation} status={status} />
+                  </>
+                );
+              }
+            })}
         </div>
       </div>
     </Drawer>

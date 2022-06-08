@@ -16,8 +16,9 @@ import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
 import TableView from "./TableView";
 import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
-import "./warning.css";
+// import "./warning.css";
 import { dictionaryList } from "../../../../utils/localization/languages";
+import { CardWrapper } from "../../../layout/GridStyle";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -67,10 +68,10 @@ const Reward = (props) => {
             <FilterFilled className="topBarIcon" />
           </Button>,
           <BarNavLink
-            extraClasses={filter.filterType === 1 ? "topbarOn topBtn" : "topBtn"}
+            extraClasses={filter.filterType === 0 ? "topbarOn topBtn" : "topBtn"}
             activeName={"list"}
             linkName={"My Warning"}
-            onClick={() => setFilter({ filterType: 1 })}
+            onClick={() => setFilter({ filterType: 0 })}
           />,
           <BarNavLink
             activeName={"aprrovals"}
@@ -107,7 +108,7 @@ const Reward = (props) => {
                   <Skeleton avatar paragraph={{ rows: 4 }} />
                 </>
               ) : (
-                <div className="flex gap-2 list-none flex-wrap pt-4">
+                <CardWrapper>
                   {warnings.map((item, index) => {
                     return (
                       <>
@@ -115,7 +116,7 @@ const Reward = (props) => {
                       </>
                     );
                   })}
-                </div>
+                </CardWrapper>
               )}
             </>
           )

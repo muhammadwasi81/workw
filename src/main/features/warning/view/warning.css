@@ -237,6 +237,9 @@
     width: 100%;
     padding: 9px;
   }
+  .tabbable-container {
+    width: 100%;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 899px) {

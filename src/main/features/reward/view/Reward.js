@@ -19,6 +19,7 @@ import TableView from "./TableView";
 
 import "./reward.css";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
+import { CardWrapper } from "../../../layout/GridStyle";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -105,7 +106,7 @@ const Reward = (props) => {
           ]}
         />
         <div className="myBody">
-          <div className="flex gap-2 list-none flex-wrap pt-4">
+          <CardWrapper>
             {rewards?.length > 0 ? (
               grid ? (
                 <TableView />
@@ -128,6 +129,7 @@ const Reward = (props) => {
                       return (
                         <>
                           <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                          {/* <Card getRewardId={getRewardId} item={item} id={item.id} key={index} /> */}
                         </>
                       );
                     })
@@ -137,7 +139,7 @@ const Reward = (props) => {
             ) : (
               "Data not found"
             )}
-          </div>
+          </CardWrapper>
         </div>
         {rewardDetail && <DetailedView onClose={onClose} visible={visible} />}
       </TabbableContainer>

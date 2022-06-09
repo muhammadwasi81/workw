@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { BrokenPage, STRINGS } from "../../../../utils/base";
-import Reward from "./Reward";
+// import Reward from "./Reward";
 
 const Index = () => {
   return (

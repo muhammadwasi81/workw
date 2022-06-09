@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-<<<<<<< HEAD
 import { TabContainer, ContBody } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 
 import "../styles/Travel.css";
@@ -10,14 +9,6 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import BarNavLink from "./UI/Link";
 import { AppstoreFilled, FilterFilled, UnorderedListOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-=======
-import {
-  TabContainer,
-  ContBody,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import "../styles/Travel.css";
-import TopBar from "../../../sharedComponents/topBar/topBar";
->>>>>>> 54d77ab909af74ef8e90cb37a998497e85fdc13c
 import { Table } from "./customTable/index";
 import { FilterSortEnum } from "../../../../utils/Shared/enums/enums";
 import { useDispatch, useSelector } from "react-redux";
@@ -87,16 +78,8 @@ function Travel() {
     filterType: 1,
   });
   const [tableView, setTableView] = useState(false);
-<<<<<<< HEAD
   const [tableColumnFilter, setTableColumnFilter] = useState(initialTableFilter);
   const { travels, loader, success } = useSelector((state) => state.travelSlice);
-=======
-  const [tableColumnFilter, setTableColumnFilter] =
-    useState(initialTableFilter);
-  const { travels, loader, success } = useSelector(
-    (state) => state.travelSlice
-  );
->>>>>>> 54d77ab909af74ef8e90cb37a998497e85fdc13c
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];

@@ -1,11 +1,11 @@
 import styled from "styled-components";
+import "./style.css";
 
 export const SingleItem = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 13px 10px;
-  margin: 13px 0px;
-
+  margin: 2px 0px 0px 0px;
   &:hover {
   }
 `;

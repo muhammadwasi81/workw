@@ -19,7 +19,7 @@ import TableView from "./TableView";
 
 import "./leave.css";
 import FilterSearch from "../../../sharedComponents/FilterSearch";
-import { CardWrapper } from "../../../layout/GridStyle";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);

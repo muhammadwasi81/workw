@@ -8,16 +8,10 @@ import FilterSearchButton from "../FilterSearch";
 import PropTypes from "prop-types";
 import { isEmptyObj } from "../../../utils/base";
 
-const TopBar = ({
-  filter = {},
-  onSearch,
-  segment = {},
-  buttons,
-  component,
-}) => {
+const TopBar = ({ filter = {}, onSearch, segment = {}, buttons, component }) => {
   const { onFilter, ...rest } = filter;
   const { onSegment, lable1, lable2 } = segment;
-  const [activeButtons, setActiveButtons] = useState(buttons.map(() => false));
+  const [activeButtons, setActiveButtons] = useState([true, false, false, false]);
 
   return (
     <div className="topBar">
@@ -49,10 +43,7 @@ const TopBar = ({
                 setActiveButtons(actives);
               }}
               key={index}
-              className={
-                activeButtons[index] ? "primaryBtn active" : "primaryBtn "
-              }
-            >
+              className={activeButtons[index] ? "primaryBtn active" : "primaryBtn "}>
               {name}
               {icon && icon}
             </Button>
@@ -61,9 +52,7 @@ const TopBar = ({
         </div>
       </div>
       <div className="searchButtons">
-        {!isEmptyObj(filter) && (
-          <FilterSearchButton onFilter={onFilter} {...rest} />
-        )}
+        {!isEmptyObj(filter) && <FilterSearchButton onFilter={onFilter} {...rest} />}
         {!isEmptyObj(segment) && (
           <Segmented
             onChange={(value) => {

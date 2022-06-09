@@ -14,21 +14,22 @@ export const tableColumns = (handleEdit, Direction, sharedLabels) => {
 			title: "Sort",
 			dataIndex: "sort",
 			drag: true,
-			width: 10,
+			width: 80,
 		},
 
 		{
 			title: "Reference No",
 			dataIndex: "referenceNo",
 			sort: true,
-			width: 100,
+			width: 200,
+			// ellipsis: true,
 		},
 		{
 			title: "Status",
 			dataIndex: "status",
 			sort: true,
 			tag: true,
-			width: 50,
+			width: 200,
 		},
 		{
 			title: "Subject",
@@ -39,6 +40,7 @@ export const tableColumns = (handleEdit, Direction, sharedLabels) => {
 			title: "Description",
 			dataIndex: "description",
 			width: 200,
+			ellipsis: true,
 		},
 		{
 			title: "Agent Status",

@@ -29,10 +29,12 @@ export const tableColumns = (
 				{
 					title: [sharedLabels.name],
 					dataIndex: "name",
+					ellipsis: true,
 				},
 				{
 					title: [sharedLabels.description],
 					dataIndex: "description",
+					ellipsis: true,
 				},
 				{
 					title: [sharedLabels.userType],

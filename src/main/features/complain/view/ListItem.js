@@ -6,7 +6,7 @@ import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import { Card } from "../../../layout/GridStyle";
+import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -16,7 +16,7 @@ function ListItem(props) {
 
   // console.log(props.item, "imagessss")
   return (
-    <Card>
+    <SingleItem>
       <div
         className="new"
         id={props.id}
@@ -24,22 +24,24 @@ function ListItem(props) {
           props.getRewardId(props.id);
         }}
       />
-      <div className={"item-header"}>
-        <div className="left">
-          <UserInfo
-            avatarSrc={creator.image}
-            name={creator.name}
-            Subline={<SublineDesigWithTime designation={creator.designation} time="7 days ago" />}
-          />
+      <ItemHeader>
+        <div className={"item-header"}>
+          <div className="left">
+            <UserInfo
+              avatarSrc={creator.image}
+              name={creator.name}
+              Subline={<SublineDesigWithTime designation={creator.designation} time="7 days ago" />}
+            />
+          </div>
+          <div className="right">
+            <Tag className="IdTag">TRA-000085</Tag>
+            <StatusTag status={status}></StatusTag>
+          </div>
         </div>
-        <div className="right">
-          <Tag className="IdTag">TRA-000085</Tag>
-          <StatusTag status={status}></StatusTag>
-        </div>
-      </div>
-      <div className="item-content">
+      </ItemHeader>
+      <ItemContent>
         <p>{description}</p>
-      </div>
+      </ItemContent>
       <div className="ListItemInner">
         <div className="ItemDetails">
           <div className="innerDiv">
@@ -99,7 +101,7 @@ function ListItem(props) {
           </div>
         </div>
       </div>
-    </Card>
+    </SingleItem>
   );
 }
 

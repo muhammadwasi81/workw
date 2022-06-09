@@ -18,7 +18,7 @@ import TableView from "./TableView";
 import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 // import "./warning.css";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import { CardWrapper } from "../../../layout/GridStyle";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);

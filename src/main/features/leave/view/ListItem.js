@@ -7,8 +7,8 @@ import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLin
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
-import { Card } from "../../../layout/GridStyle";
 import moment from "moment";
+import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -32,14 +32,14 @@ function ListItem(props) {
   const days = a.diff(b, "days");
 
   return (
-    <Card>
+    <SingleItem>
       <div
         className="new"
         id={props.id}
         onClick={() => {
           props.getRewardId(props.id);
         }}></div>
-      <div className={"item-header"}>
+      <ItemHeader>
         <div className="left">
           <UserInfo
             avatarSrc={creator.image}
@@ -51,10 +51,10 @@ function ListItem(props) {
           <Tag className="IdTag">{referenceNo}</Tag>
           <StatusTag status={status}></StatusTag>
         </div>
-      </div>
-      <div className="item-content">
+      </ItemHeader>
+      <ItemContent>
         <p>{description}</p>
-      </div>
+      </ItemContent>
       <div className="ListItemInner">
         <div className="ItemDetails">
           <div className="innerDiv">
@@ -103,7 +103,7 @@ function ListItem(props) {
           <Image preview={false} width={100} src={image === "" ? RewardDefaultIcon : image} />
         </div>
       </div>
-    </Card>
+    </SingleItem>
   );
 }
 

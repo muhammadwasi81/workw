@@ -17,15 +17,15 @@ import { useDispatch } from "react-redux";
 import { getAllRewards, GetRewardById } from "../store/actions";
 import TableView from "./TableView";
 
-import "./reward.css";
+// import "./reward.css";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
-import { CardWrapper } from "../../../layout/GridStyle";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
 
-  const [grid, setGrid] = useState(false);
+  const [tableView, setTableView] = useState(false);
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -68,6 +68,39 @@ const Reward = (props) => {
           {/* <span className="ln" /> */}
         </ContainerHeader>
         <TopBar
+          onSearch={(value) => {
+            console.log(value);
+          }}
+          buttons={[
+            {
+              name: "Rewards",
+              onClick: () => setFilter({ filterType: 0 }),
+            },
+            {
+              name: "For Approval",
+              onClick: () => setFilter({ filterType: 1 }),
+            },
+            {
+              name: "Reward To Me",
+              onClick: () => setFilter({ filterType: 2 }),
+            },
+          ]}
+          filter={{
+            onFilter: () => {},
+          }}
+          segment={{
+            onSegment: (value) => {
+              if (value === "Kanban") {
+                setTableView(true);
+              } else {
+                setTableView(false);
+              }
+            },
+            lable1: "List",
+            lable2: "Kanban",
+          }}
+        />
+        {/* <TopBar
           buttons={[
             <FilterSearchButton onFilter={handleFilter} />,
             <BarNavLink
@@ -104,11 +137,11 @@ const Reward = (props) => {
               {isTablet ? "" : sharedLabels.TableView} <AppstoreFilled style={{ marginLeft: "2px" }} />
             </div>,
           ]}
-        />
+        /> */}
         <div className="myBody">
           <CardWrapper>
             {rewards?.length > 0 ? (
-              grid ? (
+              tableView ? (
                 <TableView />
               ) : (
                 <>
@@ -129,7 +162,6 @@ const Reward = (props) => {
                       return (
                         <>
                           <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
-                          {/* <Card getRewardId={getRewardId} item={item} id={item.id} key={index} /> */}
                         </>
                       );
                     })

@@ -1,5 +1,4 @@
 import { EditFilled } from "@ant-design/icons";
-// import { LoadingOutlined } from "@ant-design/icons";
 import { userType } from "../../../../utils/Shared/enums/enums";
 const Edit = (handleEdit, row) => {
 	return (

@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 const StatusTag = ({ status }) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { sharedLabels, Direction } = dictionaryList[userLanguage];
+	// console.log("status", status);
 	return (
 		<>
 			<Tag

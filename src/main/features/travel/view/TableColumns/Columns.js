@@ -45,6 +45,7 @@ export const tableColumns = (handleEdit, Direction, sharedLabels) => {
 		{
 			title: "Agent Status",
 			dataIndex: "agentStatus",
+			tag: true,
 			width: 200,
 		},
 		{

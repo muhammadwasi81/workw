@@ -17,7 +17,7 @@ import { getAllComplains, GetRewardById } from "../store/actions";
 import TableView from "./TableView";
 import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 // import "./complain.css";
-import { CardWrapper } from "../../../layout/GridStyle";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);

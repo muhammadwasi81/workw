@@ -230,7 +230,7 @@ export class Table extends React.Component {
 	render() {
 		const { dragable, handleChange, onPageChange, onRow } = this.props;
 		return (
-			<div className="w-fit">
+			<div className="w-full">
 				{dragable ? (
 					<ReactDragListView.DragColumn {...this.dragColumnProps}>
 						<ReactDragListView {...this.dragRowProps}>

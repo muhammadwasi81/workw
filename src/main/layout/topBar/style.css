@@ -5,6 +5,10 @@
   background-color: #fff;
   padding: 5px 10px;
   margin-top: 5px;
+  width: calc(100% - 80px);
+}
+.topBar.rtl {
+  direction: rtl;
 }
 .searchBox {
   border-radius: 4px;
@@ -64,12 +68,15 @@
   background-color: #1b5669;
   color: #fff;
 }
-.searchButtons
-{
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    justify-content: center;
+.searchButtons {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.topBar .ant-segmented-item-icon + * {
+  font-size: 12px;
+  font-weight: 600;
 }
 @media screen and (max-width: 1200px) {
   .ant-segmented-item-label span:nth-child(2) {
@@ -77,43 +84,42 @@
   }
 }
 @media screen and (max-width: 1100px) {
-    .topBar
-    {
-        gap: 10px;
-        align-items: flex-start;
-    }
+  .topBar {
+    gap: 10px;
+    align-items: flex-start;
+  }
   .topBar__inner {
     flex-direction: column;
     width: 100%;
     gap: 5px;
   }
-  .searchBox
-  {
-      width: 100%;
+  .searchBox {
+    width: 100%;
   }
 }
 @media screen and (max-width: 1100px) {
-    .topBar .filterBtn span:nth-child(1)
-    {
-        display: none;
-    }
-    .topBar .filterBtn span:nth-child(2)
-    {
-        margin: 0;
-    }
+  .topBar .filterBtn span:nth-child(1) {
+    display: none;
+  }
+  .topBar .filterBtn span:nth-child(2) {
+    margin: 0;
+  }
 }
 @media screen and (max-width: 850px) {
-    .searchButtons
-    {
-        flex-direction: column;
-    }
-    .topBar .filterBtn
-    {
-        width: 100%;
-        justify-content: center;
-    }
-    .primaryBtn
-    {
-        font-size: 12px;
-    } 
-    }
+  .searchButtons {
+    flex-direction: column;
+  }
+  .topBar .filterBtn {
+    width: 100%;
+    justify-content: center;
+  }
+  .primaryBtn {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .topBar {
+    width: 100%;
+  }
+}

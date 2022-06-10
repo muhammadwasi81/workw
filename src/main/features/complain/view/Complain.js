@@ -1,27 +1,35 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  HeaderMenuContainer,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Button, Skeleton } from "antd";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
+import {
+  FilterFilled,
+  UnorderedListOutlined,
+  AppstoreFilled,
+} from "@ant-design/icons";
 import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllComplains, GetRewardById } from "../store/actions";
 import TableView from "./TableView";
-import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
+import BarNavLink from "../../../layout/topBar/BarNavLink";
 // import "./complain.css";
-import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
+import { CardWrapper } from "../../../layout/GridStyle";
+import TopBar from "../../../layout/topBar/topBar";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
+  const { Direction, complainDictionary } =
+    complainDictionaryList[userLanguage];
 
   const [grid, setGrid] = useState(false);
 
@@ -33,7 +41,9 @@ const Reward = (props) => {
 
   const dispatch = useDispatch();
 
-  const { complains, loader, rewardDetail } = useSelector((state) => state.complainSlice);
+  const { complains, loader, rewardDetail } = useSelector(
+    (state) => state.complainSlice
+  );
 
   console.log(complains, "HELlOOOO!!!!");
 
@@ -55,7 +65,11 @@ const Reward = (props) => {
         <HeaderMenuContainer></HeaderMenuContainer>
         <div className="right-menu" style={{ paddingRight: "10px" }}>
           <div className={isTablet ? "btn-hld CompBtnMobile" : "btn-hld"}>
-            <SideDrawer title={complainDictionary.complain} buttonText={complainDictionary.createComplain} isAccessDrawer={false}>
+            <SideDrawer
+              title={complainDictionary.complain}
+              buttonText={complainDictionary.createComplain}
+              isAccessDrawer={false}
+            >
               <Composer />
             </SideDrawer>
           </div>
@@ -69,32 +83,50 @@ const Reward = (props) => {
             <FilterFilled className="topBarIcon" />
           </Button>,
           <BarNavLink
-            extraClasses={filter.filterType === 1 ? "topbarOn topBtn" : "topBtn"}
+            extraClasses={
+              filter.filterType === 1 ? "topbarOn topBtn" : "topBtn"
+            }
             activeName={"list"}
             linkName={complainDictionary.myComplain}
             onClick={() => setFilter({ filterType: 1 })}
           />,
           <BarNavLink
             activeName={"aprrovals"}
-            extraClasses={filter.filterType === 2 ? "topbarOn topBtn" : "topBtn"}
+            extraClasses={
+              filter.filterType === 2 ? "topbarOn topBtn" : "topBtn"
+            }
             isDefault={false}
             linkName={complainDictionary.forApproval}
             onClick={() => setFilter({ filterType: 2 })}
           />,
           <BarNavLink
             activeName={"aprrovals"}
-            extraClasses={filter.filterType === 3 ? "topbarOn topBtn" : "topBtn"}
+            extraClasses={
+              filter.filterType === 3 ? "topbarOn topBtn" : "topBtn"
+            }
             isDefault={false}
             linkName={complainDictionary.complainToMe}
             onClick={() => setFilter({ filterType: 3 })}
           />,
         ]}
         gridIcons={[
-          <div onClick={() => setGrid(false)} className={grid ? "topBarIcon gridIcon" : "topBarIcon gridIcon isActive"}>
-            {isTablet ? "" : complainDictionary.listView} <UnorderedListOutlined style={{ marginLeft: "2px" }} />
+          <div
+            onClick={() => setGrid(false)}
+            className={
+              grid ? "topBarIcon gridIcon" : "topBarIcon gridIcon isActive"
+            }
+          >
+            {isTablet ? "" : complainDictionary.listView}{" "}
+            <UnorderedListOutlined style={{ marginLeft: "2px" }} />
           </div>,
-          <div onClick={() => setGrid(true)} className={grid ? "topBarIcon gridIcon isActive" : "topBarIcon gridIcon"}>
-            {isTablet ? "" : complainDictionary.tableView} <AppstoreFilled style={{ marginLeft: "2px" }} />
+          <div
+            onClick={() => setGrid(true)}
+            className={
+              grid ? "topBarIcon gridIcon isActive" : "topBarIcon gridIcon"
+            }
+          >
+            {isTablet ? "" : complainDictionary.tableView}{" "}
+            <AppstoreFilled style={{ marginLeft: "2px" }} />
           </div>,
         ]}
       />
@@ -113,7 +145,12 @@ const Reward = (props) => {
                   {complains.map((item, index) => {
                     return (
                       <>
-                        <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                        <ListItem
+                          getRewardId={getRewardId}
+                          item={item}
+                          id={item.id}
+                          key={index}
+                        />
                       </>
                     );
                   })}

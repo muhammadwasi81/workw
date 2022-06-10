@@ -1,20 +1,27 @@
-import React, { Component, useState } from "react";
-import SearchInput from "../searchBox/SearchInput";
+import React, { Component, useContext, useState } from "react";
+import SearchInput from "../../sharedComponents/searchBox/SearchInput";
 import { SearchOutlined } from "@ant-design/icons";
 import "./style.css";
 import { Button, Segmented } from "antd";
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
-import FilterSearchButton from "../FilterSearch";
+import FilterSearchButton from "../../sharedComponents/FilterSearch/index";
 import PropTypes from "prop-types";
 import { isEmptyObj } from "../../../utils/base";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../utils/localization/languages";
 
-const TopBar = ({ filter = {}, onSearch, segment = {}, buttons, component }) => {
+const TopBar = ({ filter, onSearch, segment, buttons, component }) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction } = dictionaryList[userLanguage];
   const { onFilter, ...rest } = filter;
   const { onSegment, lable1, lable2 } = segment;
-  const [activeButtons, setActiveButtons] = useState([true, false, false, false]);
-
+  const [activeButtons, setActiveButtons] = useState(
+    buttons.map((item, index) => (index === 0 ? true : false))
+  );
+  let classes = "topBar ";
+  classes += Direction === "rtl" ? "rtl" : "";
   return (
-    <div className="topBar">
+    <div className={classes}>
       <div className="topBar__inner">
         <div className="searchBox">
           <SearchInput
@@ -43,7 +50,10 @@ const TopBar = ({ filter = {}, onSearch, segment = {}, buttons, component }) => 
                 setActiveButtons(actives);
               }}
               key={index}
-              className={activeButtons[index] ? "primaryBtn active" : "primaryBtn "}>
+              className={
+                activeButtons[index] ? "primaryBtn active" : "primaryBtn "
+              }
+            >
               {name}
               {icon && icon}
             </Button>
@@ -52,7 +62,9 @@ const TopBar = ({ filter = {}, onSearch, segment = {}, buttons, component }) => 
         </div>
       </div>
       <div className="searchButtons">
-        {!isEmptyObj(filter) && <FilterSearchButton onFilter={onFilter} {...rest} />}
+        {!isEmptyObj(filter) && (
+          <FilterSearchButton onFilter={onFilter} {...rest} />
+        )}
         {!isEmptyObj(segment) && (
           <Segmented
             onChange={(value) => {

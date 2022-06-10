@@ -15,6 +15,83 @@ import {
 } from "./actions"
 import {PollType, PostPrivacyType, PostType} from "../utils/constants";
 
+const fakeUsers = [{
+  id: "1",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Usman Abid",
+  designation: "Web Development"
+},{
+  id: "2",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Amir Naveed",
+  designation: "Web Development"
+},{
+  id: "3",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "4",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "5",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "6",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "7",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "8",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "9",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "10",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "11",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "12",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "13",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "14",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+},{
+  id: "15",
+  avatar: "https://konnect.im/Upload/2020/6/44f1d99f-ef7c-40e8-a6c7-1ca8181df708.jpg",
+  text: "Owais Shaikh",
+  designation: "Web Development"
+}]
+
 export const feedSlice = createSlice({
   name: "feedSlice",
   initialState: {
@@ -33,16 +110,8 @@ export const feedSlice = createSlice({
         ]
       }
     },
-    feedMentionOptions: [{
-      id: "123456",
-      text: "Usman Abid"
-    },{
-      id: "123457",
-      text: "Amir Naveed"
-    },{
-      id: "1234568",
-      text: "Owais Shaikh"
-    }]
+    mentionsOptions: fakeUsers,
+    tagsOptions: fakeUsers
   },
   reducers: {
     onPostTitleTextChange,

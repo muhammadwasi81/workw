@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Avatar from "../../../../sharedComponents/Avatar/avatar";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import navDownIcon from "../../../../../content/svg/menu/newNavBarIcon/navDownIcon.svg";
 import navUpIcon from "../../../../../content/svg/menu/newNavBarIcon/navUpIcon.svg";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";

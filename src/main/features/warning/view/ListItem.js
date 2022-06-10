@@ -6,17 +6,17 @@ import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import { Card } from "../../../layout/GridStyle";
+import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
 
-  const { creator, description, category, members = [], approvers, status } = props.item;
+  const { creator, description, category, members = [], approvers, status, referenceNo } = props.item;
 
   // console.log(props.item, "imagessss")
   return (
-    <Card>
+    <SingleItem>
       <div
         className="new"
         id={props.id}
@@ -24,7 +24,7 @@ function ListItem(props) {
           props.getRewardId(props.id);
         }}
       />
-      <div className={"item-header"}>
+      <ItemHeader>
         <div className="left">
           <UserInfo
             avatarSrc={creator.image}
@@ -33,13 +33,13 @@ function ListItem(props) {
           />
         </div>
         <div className="right">
-          <Tag className="IdTag">TRA-000085</Tag>
+          <Tag className="IdTag">{referenceNo}</Tag>
           <StatusTag status={status}></StatusTag>
         </div>
-      </div>
-      <div className="item-content">
+      </ItemHeader>
+      <ItemContent>
         <p>{description}</p>
-      </div>
+      </ItemContent>
       <div className="ListItemInner">
         <div className="ItemDetails">
           <div className="innerDiv">
@@ -99,7 +99,7 @@ function ListItem(props) {
           </div>
         </div>
       </div>
-    </Card>
+    </SingleItem>
   );
 }
 

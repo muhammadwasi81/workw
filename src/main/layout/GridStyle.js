@@ -1,4 +1,3 @@
-import "./style.css";
 import styled from "styled-components";
 
 export const CardWrapper = styled.div`
@@ -22,7 +21,11 @@ export const Card = styled.div`
 `;
 
 export const MainFlexContainer = styled.div.attrs(({ theme }) => ({
-  className: `${theme.Direction === "ltr" ? "main-flex-container-ltr" : "main-flex-container-rtl"}`,
+  className: `${
+    theme.Direction === "ltr"
+      ? "main-flex-container-ltr"
+      : "main-flex-container-rtl"
+  }`,
 }))``;
 
 export const HeaderMenuContainer = styled.div.attrs(({ theme }) => ({
@@ -30,13 +33,17 @@ export const HeaderMenuContainer = styled.div.attrs(({ theme }) => ({
 }))``;
 
 export const TabContainer = styled.div.attrs(({ theme }) => ({
-  className: `tabbable-container ${theme.Direction === "rtl" ? "tabbable-container-rtl" : ""}`,
+  className: `tabbable-container ${
+    theme.Direction === "rtl" ? "tabbable-container-rtl" : ""
+  }`,
 }))`
    ;
 `;
 
 export const TabbableContainer = styled.div.attrs(({ theme }) => ({
-  className: `tabbable-container ${theme.Direction === "rtl" ? "tabbable-container-rtl" : ""}`,
+  className: `tabbable-container ${
+    theme.Direction === "rtl" ? "tabbable-container-rtl" : ""
+  }`,
 }))`
    ;
 `;

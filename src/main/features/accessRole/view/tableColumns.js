@@ -1,5 +1,4 @@
 import { EditFilled } from "@ant-design/icons";
-// import { LoadingOutlined } from "@ant-design/icons";
 import { userType } from "../../../../utils/Shared/enums/enums";
 const Edit = (handleEdit, row) => {
 	return (
@@ -30,10 +29,12 @@ export const tableColumns = (
 				{
 					title: [sharedLabels.name],
 					dataIndex: "name",
+					ellipsis: true,
 				},
 				{
 					title: [sharedLabels.description],
 					dataIndex: "description",
+					ellipsis: true,
 				},
 				{
 					title: [sharedLabels.userType],

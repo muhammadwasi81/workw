@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Avatar from "../../../../sharedComponents/Avatar/avatar";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import checkIcon from "../../../../../content/NewContent/Messenger/check-outline.svg";
 import { CloseOutlined } from "@ant-design/icons";
 function MemberCard({

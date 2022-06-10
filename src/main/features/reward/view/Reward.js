@@ -12,7 +12,7 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import BarNavLink from "../../../layout/topBar/BarNavLink";
+
 import {
   FilterFilled,
   UnorderedListOutlined,
@@ -23,16 +23,18 @@ import { useDispatch } from "react-redux";
 import { getAllRewards, GetRewardById } from "../store/actions";
 import TableView from "./TableView";
 
-import "./reward.css";
+// import "./reward.css";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
-import { CardWrapper } from "../../../layout/GridStyle";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
+import { tableColumn } from "./TableColumn";
+import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../layout/topBar/topBar";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
 
-  const [grid, setGrid] = useState(false);
+  const [tableView, setTableView] = useState(false);
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -81,6 +83,39 @@ const Reward = (props) => {
           {/* <span className="ln" /> */}
         </ContainerHeader>
         <TopBar
+          onSearch={(value) => {
+            console.log(value);
+          }}
+          buttons={[
+            {
+              name: "Rewards",
+              onClick: () => setFilter({ filterType: 0 }),
+            },
+            {
+              name: "For Approval",
+              onClick: () => setFilter({ filterType: 1 }),
+            },
+            {
+              name: "Reward To Me",
+              onClick: () => setFilter({ filterType: 2 }),
+            },
+          ]}
+          filter={{
+            onFilter: () => {},
+          }}
+          segment={{
+            onSegment: (value) => {
+              if (value === "Table") {
+                setTableView(true);
+              } else {
+                setTableView(false);
+              }
+            },
+            lable1: "List",
+            lable2: "Table",
+          }}
+        />
+        {/* <TopBar
           buttons={[
             <FilterSearchButton onFilter={handleFilter} />,
             <BarNavLink
@@ -129,12 +164,24 @@ const Reward = (props) => {
               <AppstoreFilled style={{ marginLeft: "2px" }} />
             </div>,
           ]}
-        />
+        /> */}
         <div className="myBody">
-          <CardWrapper>
+          <CardWrapper className="!block">
             {rewards?.length > 0 ? (
-              grid ? (
-                <TableView />
+              tableView ? (
+                // <TableView />
+                <Table
+                  columns={tableColumn()}
+                  dragable={true}
+                  // handleChange={handleChange}
+                  // onPageChange={onPageChange}
+                  // onRow={onRow}
+                  data={rewards}
+                  // status={travelStatus}
+                  // loadding={loader}
+                  // success={success}
+                  // onActionClick={onActionClick}
+                />
               ) : (
                 <>
                   {loader ? (
@@ -159,7 +206,6 @@ const Reward = (props) => {
                             id={item.id}
                             key={index}
                           />
-                          {/* <Card getRewardId={getRewardId} item={item} id={item.id} key={index} /> */}
                         </>
                       );
                     })

@@ -1,0 +1,10 @@
+.card {
+	width: 100%;
+	height: auto;
+	display: block;
+	padding: 15px;
+	box-sizing: border-box;
+	overflow: inherit;
+	background-color: rgba(242, 240, 240, 0.4);
+	border-radius: 6px;
+}

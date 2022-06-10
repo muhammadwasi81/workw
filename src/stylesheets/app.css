@@ -131,10 +131,10 @@
     width: 100%;
   }
 
-	.tabbable-container {
-		height: calc(100% - 45px);
-		width: 100%;
-	}
+  .tabbable-container {
+    height: calc(100% - 45px);
+    width: 100%;
+  }
 
   .tabbable-container > .cont-header > .menu > .li {
     padding: 7px;
@@ -148,11 +148,11 @@
     width: 100%;
   }
 
-	.tabbable-container > .cont-header {
-		margin-top: 10px;
-		font-size: 12px;
-		width: 100% !important;
-	}
+  .tabbable-container > .cont-header {
+    margin-top: 10px;
+    font-size: 12px;
+    width: 100% !important;
+  }
 
   .tabbable-container > .cont-header-rtl {
     margin-top: 33px;
@@ -173,10 +173,6 @@ iframe {
 }
 .WarningMainDiv {
   padding-top: 9px;
-}
-.IdTag {
-  color: black !important;
-  font-weight: 700;
 }
 .travel-item-content h3 {
   font-weight: 600;
@@ -366,11 +362,10 @@ iframe {
   z-index: 10001;
 }
 
-.ant-modal-mask
-{
-	z-index: 99999;
+.ant-modal-mask {
+  z-index: 99999;
 }
-.ant-modal-wrap{
-	z-index: 1000111;
+.ant-modal-wrap {
+  z-index: 1000111;
 }
 /* Danish css end */

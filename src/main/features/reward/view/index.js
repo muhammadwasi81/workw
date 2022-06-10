@@ -6,7 +6,11 @@ import Reward from "./Reward";
 const Index = () => {
   return (
     <Switch>
-      <Route exact path={`${STRINGS.ROUTES.REWARDS.DEFAULT}`} component={Reward} />
+      <Route
+        exact
+        path={`${STRINGS.ROUTES.REWARDS.DEFAULT}`}
+        component={Reward}
+      />
       <Route component={BrokenPage} />
     </Switch>
   );

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Card from "../../../sharedComponents/Card/Card";
+import Card from "../../../sharedComponents/Card/AccessRoleCard";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import AccessRoleComposer from "./AccessRoleComposer";
 import { message, Skeleton, Form, Table } from "antd";

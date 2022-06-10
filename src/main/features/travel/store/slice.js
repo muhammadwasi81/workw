@@ -15,23 +15,23 @@ const travelSlice = createSlice({
 	extraReducers: builder => {
 		builder
 			.addCase(addTravel.fulfilled, (state, { payload }) => {
-				console.log("travel fullfilled slice");
+				// console.log("travel fullfilled slice");
 				state.loader = false;
 				state.success = true;
 			})
 			.addCase(getAllTravel.fulfilled, (state, { payload }) => {
-				console.log("travel fullfilled slice");
+				// console.log("travel fullfilled slice");
 				state.loader = false;
 				state.success = true;
 				state.travels = payload.data;
 			})
 			.addMatcher(isPending(...[addTravel, getAllTravel]), state => {
-				console.log("travel pending slice");
+				// console.log("travel pending slice");
 				state.loader = true;
 				state.success = false;
 			})
 			.addMatcher(isRejected(), state => {
-				console.log("travel rejected slice");
+				// console.log("travel rejected slice");
 				state.loader = false;
 				state.success = false;
 			});

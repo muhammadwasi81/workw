@@ -12,7 +12,7 @@ export const addTravel = createAsyncThunk(
 	async (data, { dispatch, getState, rejectWithValue }) => {
 		const res = await addTravelService(data);
 		if (res.responseCode === responseCode.Success) {
-			console.log("success");
+			// console.log("success");
 			responseMessage({
 				dispatch: dispatch,
 				data: res,
@@ -20,7 +20,7 @@ export const addTravel = createAsyncThunk(
 			});
 			return res;
 		} else {
-			console.log("error");
+			// console.log("error");
 			responseMessage({
 				dispatch: dispatch,
 				data: res,
@@ -37,7 +37,7 @@ export const getAllTravel = createAsyncThunk(
 	async (data, { dispatch, getState, rejectWithValue }) => {
 		const res = await getAllTravelService(data);
 		if (res.responseCode === responseCode.Success) {
-			console.log("success");
+			// console.log("success");
 			responseMessage({
 				dispatch: dispatch,
 				data: res,
@@ -45,7 +45,7 @@ export const getAllTravel = createAsyncThunk(
 			});
 			return res;
 		} else {
-			console.log("error");
+			// console.log("error");
 			responseMessage({
 				dispatch: dispatch,
 				data: res,

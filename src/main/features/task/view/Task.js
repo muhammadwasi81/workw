@@ -3,17 +3,26 @@ import { useLocation } from "react-router";
 import { STRINGS } from "../../../../utils/base";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  HeaderMenuContainer,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
 import HeaderNavLink from "../../../sharedComponents/AppComponents/MainHeader/HeaderNavLink";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import TaskComposer from "./TaskComposer";
 import TaskList from "./TaskList/index";
 import FilterForm from "./Filter/";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
+
+import {
+  FilterFilled,
+  UnorderedListOutlined,
+  AppstoreFilled,
+} from "@ant-design/icons";
 import AssignedByMe from "./AssignedByMe";
 import "./task.css";
+import TopBar from "../../../layout/topBar/topBar";
 
 function Task() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -66,7 +75,11 @@ function Task() {
         </HeaderMenuContainer>
         <div className="right-menu" style={{ paddingRight: "10px" }}>
           <div className="btn-hld">
-            <SideDrawer children={<TaskComposer />} title="Create Task" buttonText="Create Task" />
+            <SideDrawer
+              children={<TaskComposer />}
+              title="Create Task"
+              buttonText="Create Task"
+            />
           </div>
         </div>
         <span className="ln" />
@@ -80,9 +93,18 @@ function Task() {
       />
       <ContBody>
         <div className="lf-col">
-          {currentTab === "task" ? <TaskList /> : currentTab === "assignedByMe" ? [1, 2, 3, 4].map((x) => <AssignedByMe />) : currentTab}
+          {currentTab === "task" ? (
+            <TaskList />
+          ) : currentTab === "assignedByMe" ? (
+            [1, 2, 3, 4].map((x) => <AssignedByMe />)
+          ) : (
+            currentTab
+          )}
         </div>
-        <div className="rt-col" style={{ backgroundColor: "white", borderRadius: "8px" }}>
+        <div
+          className="rt-col"
+          style={{ backgroundColor: "white", borderRadius: "8px" }}
+        >
           <FilterForm />
         </div>
       </ContBody>

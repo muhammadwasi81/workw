@@ -7,7 +7,7 @@ import {
   ContBody,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import "../styles/Travel.css";
-import TopBar from "../../../sharedComponents/topBar/topBar";
+
 import { Table } from "./customTable/index";
 import { FilterSortEnum } from "../../../../utils/Shared/enums/enums";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import { getAllTravel } from "../store/actions";
 import { travelStatus } from "../enums/enums";
 import ListView from "./ListView/ListView";
 import Header from "./Header";
+import TopBar from "../../../layout/topBar/topBar";
 const columns = [
   {
     title: "Sort",

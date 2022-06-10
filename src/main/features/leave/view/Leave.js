@@ -1,7 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  HeaderMenuContainer,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton, Modal } from "antd";
 import { leaveDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -9,9 +13,12 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
+import BarNavLink from "../../../layout/topBar/BarNavLink";
+import {
+  FilterFilled,
+  UnorderedListOutlined,
+  AppstoreFilled,
+} from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllLeaves, GetRewardById } from "../store/actions";
@@ -20,6 +27,7 @@ import TableView from "./TableView";
 import "./leave.css";
 import FilterSearch from "../../../sharedComponents/FilterSearch";
 import { CardWrapper } from "../../../layout/GridStyle";
+import TopBar from "../../../layout/topBar/topBar";
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -32,7 +40,9 @@ const Leave = (props) => {
 
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { leaves, loader, rewardDetail } = useSelector((state) => state.leaveSlice);
+  const { leaves, loader, rewardDetail } = useSelector(
+    (state) => state.leaveSlice
+  );
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -63,7 +73,11 @@ const Leave = (props) => {
           <HeaderMenuContainer></HeaderMenuContainer>
           <div className="right-menu" style={{ paddingRight: "10px" }}>
             <div className={""}>
-              <SideDrawer title={leaveDictionary.leave} buttonText={leaveDictionary.createleave} isAccessDrawer={false}>
+              <SideDrawer
+                title={leaveDictionary.leave}
+                buttonText={leaveDictionary.createleave}
+                isAccessDrawer={false}
+              >
                 <Composer />
               </SideDrawer>
             </div>
@@ -71,19 +85,26 @@ const Leave = (props) => {
         </ContainerHeader>
         <TopBar
           buttons={[
-            <Button className="filterButton topBtn !h-full !flex !items-center" onClick={showModal}>
+            <Button
+              className="filterButton topBtn !h-full !flex !items-center"
+              onClick={showModal}
+            >
               {isTablet ? "" : leaveDictionary.filter}
               <FilterFilled />
             </Button>,
             <BarNavLink
-              extraClasses={filter.filterType === 0 ? "topbarOn topBtn" : "topBtn"}
+              extraClasses={
+                filter.filterType === 0 ? "topbarOn topBtn" : "topBtn"
+              }
               activeName={"list"}
               linkName={leaveDictionary.myLeaves}
               onClick={() => setFilter({ filterType: 0 })}
             />,
             <BarNavLink
               activeName={"aprrovals"}
-              extraClasses={filter.filterType === 2 ? "topbarOn topBtn" : "topBtn"}
+              extraClasses={
+                filter.filterType === 2 ? "topbarOn topBtn" : "topBtn"
+              }
               isDefault={false}
               linkName={leaveDictionary.forApproval}
               onClick={() => setFilter({ filterType: 2 })}
@@ -101,14 +122,20 @@ const Leave = (props) => {
           gridIcons={[
             <div
               onClick={() => setGrid(false)}
-              className={`  flex justify-center items-center gap-1 ${grid ? "topBarIcon gridIcon" : "topBarIcon gridIcon isActive"}`}>
-              {isTablet ? "" : leaveDictionary.listView} <UnorderedListOutlined style={{ marginLeft: "2px" }} />
+              className={`  flex justify-center items-center gap-1 ${
+                grid ? "topBarIcon gridIcon" : "topBarIcon gridIcon isActive"
+              }`}
+            >
+              {isTablet ? "" : leaveDictionary.listView}{" "}
+              <UnorderedListOutlined style={{ marginLeft: "2px" }} />
             </div>,
             <div
               onClick={() => setGrid(true)}
               className={` flex justify-center items-center gap-1
-							${grid ? "topBarIcon gridIcon isActive transition" : "topBarIcon gridIcon "}`}>
-              {isTablet ? "" : leaveDictionary.tableView} <AppstoreFilled style={{ marginLeft: "2px" }} />
+							${grid ? "topBarIcon gridIcon isActive transition" : "topBarIcon gridIcon "}`}
+            >
+              {isTablet ? "" : leaveDictionary.tableView}{" "}
+              <AppstoreFilled style={{ marginLeft: "2px" }} />
             </div>,
           ]}
         />
@@ -129,7 +156,12 @@ const Leave = (props) => {
                     leaves.map((item, index) => {
                       return (
                         <>
-                          <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                          <ListItem
+                            getRewardId={getRewardId}
+                            item={item}
+                            id={item.id}
+                            key={index}
+                          />
                         </>
                       );
                     })

@@ -1,4 +1,6 @@
 import moment from "moment";
+import Avatar from "../../../sharedComponents/Avatar/Avatar";
+import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 export const tableColumn = () => {
 	return [
@@ -9,46 +11,56 @@ export const tableColumn = () => {
 			width: 80,
 		},
 		{
-			title: "Creator",
-			dataIndex: "creator",
-			// width: "20%",
-			ellipsis: true,
-			render: i => i.name,
-		},
-		{
-			title: "Date",
-			dataIndex: "createDate",
-			// width: "20%",
-			render: i => moment(i.createDate).format("DD/MM/YYYY"),
-		},
-		{
 			title: "Reference No",
 			dataIndex: "referenceNo",
-			// width: 600,
 			ellipsis: true,
+			sort: true,
+		},
+		{
+			title: "Creator",
+			dataIndex: "creator",
+			ellipsis: true,
+			render: creator => (
+				<TagAvatar text={creator.name} img={creator.image} />
+			),
+			sort: true,
 		},
 		{
 			title: "Status",
 			dataIndex: "status",
 			render: status => <StatusTag status={status} />,
-			// tag: true,
-			// width: 200,
+			sort: true,
 		},
-		{ title: "Category", dataIndex: "category", ellipsis: true },
-		{ title: "Name", dataIndex: "name", ellipsis: true },
-		{ title: "Reason", dataIndex: "reason", ellipsis: true },
-		// {
-		//   title: "Ref No",
-		//   dataIndex: "approvers",
-		// ,
-		//   key: 4,
-		//   render: (e) => e.map((i) => i.referenceId)
-		// },
+		{
+			title: "Category",
+			dataIndex: "category",
+			ellipsis: true,
+			sort: true,
+		},
+		{ title: "Name", dataIndex: "name", ellipsis: true, sort: true },
+		{ title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
+		{
+			title: "Date",
+			dataIndex: "createDate",
+			render: i => moment(i.createDate).format("DD MMM YYYY"),
+			sort: true,
+		},
+
 		{
 			title: "Reward To",
 			dataIndex: "members",
 			ellipsis: true,
-			render: e => e.map(i => i.member.name),
+			render: member => (
+				<Avatar membersData={member} heading={"Members"} />
+			),
+		},
+		{
+			title: "Approvers",
+			dataIndex: "approvers",
+			ellipsis: true,
+			render: approver => (
+				<Avatar membersData={approver} heading={"Approvers"} />
+			),
 		},
 	];
 };

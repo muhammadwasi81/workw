@@ -8,8 +8,12 @@ function Avatar(props) {
 		props.heading === "Agents"
 			? "approver"
 			: props.heading.split("s")[0].toLowerCase();
-	const name = props.membersData[0][objProperty].name;
-	const image = props.membersData[0][objProperty].image;
+	const name =
+		props.membersData[0][objProperty] &&
+		props.membersData[0][objProperty].name;
+	const image =
+		props.membersData[0][objProperty] &&
+		props.membersData[0][objProperty].image;
 	// console.log("name", name);
 	// console.log("membersdata", props.membersData);
 	// console.log("image", image);
@@ -25,7 +29,10 @@ function Avatar(props) {
 					dummyImage={props.image}
 				/>
 			) : (
-				<TagAvatar text={name} img={image ? image : props.image} />
+				<TagAvatar
+					text={name ? name : "No name"}
+					img={image ? image : props.image}
+				/>
 			)}
 		</div>
 	);

@@ -12,9 +12,10 @@ function TagAvatar(props) {
 					style={{
 						backgroundColor: "#87d068",
 					}}
-					icon={<UserOutlined />}
+					icon={!props.img && <UserOutlined />}
+					src={props.img}
 				/>
-				Danish
+				{props.text}
 			</Tag>
 		</div>
 	);

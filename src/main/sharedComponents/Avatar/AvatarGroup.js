@@ -1,7 +1,7 @@
 import React from "react";
-import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Tooltip } from "antd";
-import PropTypes from "prop-types";
+// import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
+// import PropTypes from "prop-types";
 
 function AvatarGroup(props) {
 	return (

@@ -2,9 +2,16 @@
 export const DEFAULT_MAX_POLL_OPTIONS = 4
 
 // Enums
+export const PostReferenceType = {
+    MAIN_FEED: 1,
+    GROUP: 2,
+    PROJECTS: 3,
+    TIMELINE: 4
+}
+
 export const PostType = {
-    DEFAULT: "DEFAULT",
-    POLL: "POLL",
+    DEFAULT: 1,
+    POLL: 2,
     getTitlePlaceHolder: (type) => {
         switch (type) {
             case PostType.DEFAULT:
@@ -13,7 +20,7 @@ export const PostType = {
                 return "Ask something...";
         }
     },
-    isPollType: (type) => type === PostType.POLL
+    isPollType: (type) => type === PostType.POLL,
 }
 
 export const PollType = {
@@ -22,8 +29,8 @@ export const PollType = {
 }
 
 export const PostPrivacyType = {
-    PUBLIC: "PUBLIC",
-    PRIVATE: "PRIVATE",
+    PRIVATE: 2,
+    PUBLIC: 3,
     getPostTypeIcon: (type) => {
         switch (type) {
             case PostPrivacyType.PUBLIC:
@@ -35,34 +42,5 @@ export const PostPrivacyType = {
 }
 
 // Post Create Helper Functions
-function replaceMentionNamesWithMentionId(title, mentions) {
-    const mentionsFoundInTitle = []
-    mentions.forEach(({key, value}) => {
-        const regex = `@${value}`
-        if (!title.includes(regex)) return false;
-
-        const regexExpression = new RegExp(regex, 'g');
-        title = title.replace(regexExpression, key)
-        mentionsFoundInTitle.push(key)
-    })
-    return {newTitle: title, mentionsFoundInTitle}
-}
-
-function createFeedComposeServerObject({title, mentions, tags}) {
-    const {newTitle, mentionsFoundInTitle} = replaceMentionNamesWithMentionId(title, mentions)
-    return {
-        title: newTitle,
-        mentions: mentionsFoundInTitle,
-        tags: [...tags]
-    }
-}
-
-function getPostPollOptionDefaultValue(optionNumber) {
-    return ({placeholder: `Option ${optionNumber}`, value: ""})
-}
 
 // Export Functions
-export {
-    getPostPollOptionDefaultValue,
-    createFeedComposeServerObject
-}

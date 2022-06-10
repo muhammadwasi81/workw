@@ -1,0 +1,865 @@
+.newsComposer {
+    padding-bottom: 15px;
+    z-index: 0;
+}
+
+.newsComposer.on {
+    z-index: 2;
+}
+
+.newsComposer.on > .area-block {
+    position: fixed;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.newsComposer > .composer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: white;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 12px 6px -12px #bbbbbb;
+    border: solid 1px #ebebeb;
+    position: relative;
+    z-index: 1;
+}
+
+.newsComposer > .composer > .feedIcons > img {
+    height: 20px;
+    margin-right: 15px;
+}
+
+.newsComposer.on > .composer {
+    box-shadow: none;
+    border: none;
+    flex-direction: column;
+    align-items: normal;
+}
+
+.newsComposer > .composer > .cut {
+    display: none;
+}
+
+.newsComposer.on > .composer > .cut {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    margin: 15px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsComposer.on > .composer > .cut:hover {
+    background: #ebebeb;
+}
+
+.cutWComp:hover {
+    background: #ebebeb;
+}
+
+.newsComposer.on > .composer > .cut > img {
+    width: 12px;
+    height: 12px;
+}
+
+.newsComposer > .composer > .user {
+    display: flex;
+    align-items: center;
+}
+
+.newsComposer > .composer > .user > .img {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    box-shadow: 0 3px 1px 0 rgba(211, 216, 224, 0.4);
+}
+
+.newsComposer.on > .composer > .user > .name {
+    margin: 0 15px;
+    flex: 1;
+    font-size: 14px;
+    color: #404040;
+    display: flex;
+}
+
+.newsComposer.on > .composer > .user > .name > span:nth-child(1) {
+    color: #000000;
+}
+
+.newsComposer.on > .composer > .user > .name > span {
+    color: #007af5;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.newsComposer > .composer > .user > .name {
+    display: none;
+}
+
+.newsComposer > .composer > .text-area {
+    cursor: text;
+    flex: 1;
+    height: 48px;
+    position: relative;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+}
+
+.newsComposer > .composer > .text-area > .smile {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 3px;
+    cursor: pointer;
+}
+
+.newsComposer > .composer > .text-area > .smile i {
+    width: 18px;
+    height: 18px;
+    background-color: #bec3c9;
+    transition: all 0.2s ease-in-out;
+}
+
+.newsComposer > .composer > .text-area > .smile:hover i {
+    background-color: #727780;
+}
+
+.newsComposer.on > .composer > .text-area {
+    height: auto;
+    cursor: default;
+    flex: none;
+    padding: 15px 15px 15px 5px;
+}
+
+.newsComposer > .composer > .text-area > label {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    cursor: text;
+    position: relative;
+}
+
+.newsComposer > .composer > .text-area > label > textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    margin: 0;
+    vertical-align: top;
+    font-size: 16px;
+    max-height: 220px;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 20px;
+    position: relative;
+}
+
+/*.home > .newsComposer.on > .composer > .text-area > label > .editable-area {    cursor: text;    width: 100%;    border: none;    outline: none;    resize: none;    margin: 0;    vertical-align: top;    font-size: 16px;    max-height: 220px;    overflow: hidden;    overflow-y: auto;    display: flex;}.home > .newsComposer > .composer > .text-area > label > .editable-area {    height: 20px;    overflow: hidden;}*/
+.newsComposer.on > .composer > .news-selections {
+    display: flex;
+}
+
+.newsComposer > .composer > .news-selections {
+    width: 100%;
+    margin-bottom: 8px;
+    display: none;
+    flex-direction: row;
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+.newsComposer > .composer > .news-selections > .box:nth-child(1) {
+    margin: 0;
+}
+
+.newsComposer > .composer > .news-selections > .box {
+    width: 128px;
+    min-width: 128px;
+    height: 128px;
+    margin-left: 10px;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.newsComposer > .composer > .news-selections > .box > .spinner-holder {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.newsComposer > .composer > .news-selections > .box > video {
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+.newsComposer > .composer > .news-selections > .box:hover > .overlay {
+    display: flex;
+}
+
+.newsComposer > .composer > .news-selections > .box > .overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    color: white;
+    text-decoration: underline;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    align-items: flex-end;
+    box-sizing: border-box;
+    cursor: default;
+}
+
+.newsComposer > .composer > .news-selections > .box:hover > .cut {
+    display: block;
+}
+
+.newsComposer > .composer > .news-selections > .box > .cut {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 8px;
+    display: none;
+    cursor: pointer;
+}
+
+.newsComposer > .composer > .news-selections > .box > .cut > img {
+    width: 12px;
+    height: 12px;
+}
+
+.newsComposer > .composer > .poll-env {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.newsComposer.on > .composer > .poll-env {
+    display: flex;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options {
+    width: 100%;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options.pc {
+    flex-direction: row;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt {
+    width: 100%;
+    display: flex;
+    padding: 12px 15px;
+    box-sizing: border-box;
+    border: 1px solid #e2e8f6;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .removeOption {
+    visibility: hidden;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 11px;
+    cursor: pointer;
+    margin: 15px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .removeOption.no {
+    visibility: hidden;
+    display: none;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt:hover > .removeOption {
+    visibility: visible;
+    background-color: grey;
+    color: white;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options.pc > .opt {
+    flex-direction: column-reverse;
+    padding: 0;
+    margin-bottom: 0;
+    margin: 0 3px;
+    width: auto;
+}
+
+/* .newsComposer > .composer > .poll-env > .poll-options.pc > .opt:nth-child(1) {    margin-right: 8px;} *//* .newsComposer > .composer > .poll-env > .poll-options.pc > .opt:nth-child(2) {    margin-left: 8px;} */
+.newsComposer > .composer > .poll-env > .poll-options > .opt:nth-last-child(1) {
+    margin-bottom: 0;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .cut {
+    display: none;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .cut > img {
+    width: 100%;
+    height: 100%;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options.pc > .opt > .cut {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .inp {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options.pc > .opt > .inp {
+    padding: 8px;
+    border-top: 1px solid #e2e8f6; /*background-color: red;*/
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .inp > input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: Montserrat, serif;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.22;
+    letter-spacing: normal;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .inp > label {
+    margin: 0 15px;
+    color: #727780;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options.pc > .opt > .inp > label {
+    margin: 0 0 0 6px;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .img-opt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options.pc > .opt > .img-opt {
+    height: 200px;
+    border-radius: 6px 6px 0 0;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .img-opt > input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options > .opt > .img-opt > img {
+    width: 24px;
+    height: 24px;
+}
+
+.newsComposer > .composer > .poll-env > .poll-options.pc > .opt > .img-opt.sl > img {
+    visibility: hidden;
+}
+
+.newsComposer > .composer > .poll-env > .labels {
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: "Raleway", serif !important;
+}
+
+.newsComposer > .composer > .poll-env > .labels > .lb {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.newsComposer > .composer > .poll-env > .labels > .lb:hover {
+    text-decoration: underline;
+}
+
+.newsComposer.on > .composer > .sug-inp-us-bx {
+    display: flex;
+}
+
+.newsComposer > .composer > .sug-inp-us-bx {
+    display: none;
+}
+
+.newsComposer > .composer > .bottom {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.newsComposer.on > .composer > .bottom {
+    width: 100%;
+}
+
+.newsComposer > .composer > .bottom > .options {
+    display: flex;
+    flex: 1;
+}
+
+.newsComposer > .composer > .bottom > .options > .option {
+    border-radius: 18px;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    color: #404040;
+    cursor: pointer;
+    padding: 8px 8px;
+    position: relative;
+}
+
+.newsComposer.on > .composer > .bottom > .options > .option {
+    background: #f6f6f6;
+    padding: 6px 12px;
+}
+
+.newsComposer.on > .composer > .bottom > .options > .option:hover {
+    background-color: #ececec;
+    transition: background-color 0.2ms ease-in;
+}
+
+.newsComposer > .composer > .bottom > .options > .option.dis {
+    background-color: #f9f9f9;
+}
+
+.newsComposer > .composer > .bottom > .options > .option:hover {
+    background: none;
+}
+
+.newsComposer > .composer > .bottom > .options > .option:nth-child(1) {
+    margin-left: 0;
+}
+
+.newsComposer > .composer > .bottom > .options > .option > input[type="file"] {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.newsComposer.on > .composer > .bottom > .options > .option > img {
+    width: 18px;
+    height: 18px;
+    margin-right: 0;
+}
+
+.newsComposer > .composer > .bottom > .options > .option > img {
+    width: 24px;
+    height: 24px;
+}
+
+.newsComposer.on > .composer > .bottom > .options > .option > img {
+    margin-right: 8px;
+}
+
+.newsComposer.on > .composer > .bottom > .options > .option > span {
+    display: inline-block;
+}
+
+.newsComposer > .composer > .bottom > .options > .option > span {
+    display: none;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.newsComposer > .composer > .bottom > .action {
+    display: none;
+}
+
+.newsComposer.on > .composer > .bottom > .action {
+    display: flex;
+    margin-top: 8px;
+}
+
+.newsComposer > .composer > .bottom > .action > .type {
+    position: relative;
+}
+
+.newsComposer > .composer > .bottom > .action > .type > .sel-type {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ebebeb;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.newsComposer > .composer > .bottom > .action > .type > .sel-type:hover {
+    background: #e0e0e0;
+}
+
+.newsComposer > .composer > .bottom > .action > .type > .sel-type > img {
+    width: 16px;
+    height: 16px;
+}
+
+.newsComposer > .composer > .bottom > .action > .type > .sel-opt {
+    width: 100px;
+    height: min-content;
+    flex-direction: column;
+    padding: 8px 0;
+    background: #ebebeb;
+    border-radius: 6px;
+    position: absolute;
+    left: 0;
+    margin-top: 4px;
+    display: none;
+}
+
+.newsComposer > .composer > .bottom > .action > .type.on > .sel-opt {
+    display: flex;
+}
+
+.newsComposer > .composer > .bottom > .action > .type > .sel-opt > .opt {
+    display: flex;
+    padding: 3px 9px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #727780;
+}
+
+.newsComposer > .composer > .bottom > .action > .type > .sel-opt > .opt:hover {
+    background: #e0e0e0;
+}
+
+.newsComposer > .composer > .bottom > .action > .type > .sel-opt > .opt > img {
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+}
+
+.newsComposer > .composer > .bottom > .action > .btn {
+    width: 120px;
+    height: 35px;
+    background-color: #345e95;
+    border-radius: 6px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Raleway, serif !important;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    margin-left: 10px;
+    flex: 1;
+}
+
+.newsComposer > .composer > .bottom > .action > .btn:hover {
+    background-color: #324c81; /*box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .20);*/
+    box-shadow: 0 3px 1px 0 rgba(211, 216, 224, 0.4);
+}
+
+@media screen and (max-width: 500px) {
+    .newsComposer > .composer > .bottom > .options > .option {
+        padding: 0;
+    }
+
+    .newsComposer > .composer > .text-area > label > textarea {
+        font-size: 13px;
+        margin-left: -3px;
+    }
+
+    .newsComposer > .composer > .text-area > label > textarea {
+        overflow: hidden;
+    }
+}
+
+.composer-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.composer-wrapper .avatar-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.composer-wrapper .avatar-wrapper img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 10px 0 0;
+}
+
+.composer-wrapper .avatar-wrapper h3 {
+    margin: 0;
+    font-weight: 500;
+}
+
+.composer-wrapper .avatar-wrapper .user-name {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.composer-wrapper .avatar-wrapper span {
+    margin-left: 5px;
+}
+
+.composer-wrapper .avatar-wrapper .tagged-users {
+    color: #2a8fff;
+    font-weight: 500;
+    margin-left: 5px;
+    min-width: max-content;
+}
+
+.composer-wrapper .poll-options {
+    display: flex;
+}
+
+.composer-wrapper button {
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    margin: 0px 4px 15px 4px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.composer-wrapper button:first-child {
+    margin-left: 0;
+}
+
+.composer-wrapper .select-users {
+    display: flex; /* align-items: center; */
+    width: 100%;
+    border: 1px solid #e2e8f6;
+}
+
+.composer-wrapper .select-users > div {
+    flex: 1;
+}
+
+.composer-wrapper .select-users .badge {
+    flex: unset;
+    background: #e2e8f6;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-right: 1px solid #e2e8f6;
+    display: flex;
+    align-items: center;
+}
+
+.composer-wrapper .select-users .c-multi-select {
+    margin-bottom: 0 !important;
+}
+
+.composer-wrapper .select-users .c-multi-select div {
+    border-radius: 0 !important;
+}
+
+.composer-wrapper .select-users .c-multi-select .ant-select-selector {
+    border: unset !important;
+    box-shadow: unset !important;
+}
+
+.composer-wrapper .preview-file {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.composer-wrapper .preview-file > div {
+    margin-right: 10px;
+}
+
+.composer-wrapper .uploader {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: -15px;
+    padding-top: 15px;
+}
+
+.composer-wrapper .uploader .options {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 18px;
+    margin: 0 5px;
+    color: #404040;
+    background: #f6f6f6;
+    padding: 6px 12px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.composer-wrapper .uploader .options:first-child {
+    margin-left: 0;
+}
+
+.composer-wrapper .uploader .options:hover {
+    background-color: #ececec;
+    transition: background-color 0.2ms ease-in;
+}
+
+.composer-wrapper .uploader .options .wrapper img {
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+}
+
+.composer-wrapper .uploader .options .wrapper span {
+    font-size: 16px;
+}
+
+.composer-wrapper .uploader .options .wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.composer-wrapper .uploader .options input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    cursor: pointer;
+}
+
+.composer-wrapper .submit-wrapper {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.composer-wrapper .submit-wrapper .post-form {
+    width: 100%;
+    height: 36px;
+    background-color: #345e95;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Raleway, serif !important;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 10px;
+}
+
+.composer-wrapper .submit-wrapper .dropdown-button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ebebeb;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+}
+
+.composer-wrapper .submit-wrapper .dropdown-button img {
+    width: 16px;
+    height: 16px;
+}
+
+.dropdown-wrapper {
+    width: 100px;
+    height: max-content;
+    flex-direction: column;
+    padding: 8px 0;
+    background: #ebebeb;
+    border-radius: 6px;
+    left: 0;
+    margin-top: 4px;
+}
+
+.dropdown-wrapper > div {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    padding: 4px 5px;
+    width: 100%;
+}
+
+.dropdown-wrapper > div:hover {
+    background-color: #e0e0e0;
+    transition: background-color 0.2ms ease-in;
+}
+
+.dropdown-wrapper > div img {
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+}
+
+.dropdown-wrapper > div span {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #727780;
+}

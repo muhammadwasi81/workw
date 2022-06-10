@@ -1,19 +1,29 @@
 import {createAsyncThunk, current} from "@reduxjs/toolkit";
-import {
-    createFeedComposeServerObject, PollType, PostType
-} from "../utils/constants";
+import {PollType, PostType} from "../utils/constants";
 import ValidateCreatePost from "../utils/ValidateCreatePost";
+import SavePostRequestDto from "../data/model/SavePostRequestDto";
+import {saveCreatePost} from "../data/FeedApi";
+import {ResponseType} from "../../../../utils/api/ResponseResult";
 
-export const onFeedCreateSubmitAction = createAsyncThunk("feedSlice/onFeedCreateSubmit", async (_, {getState}) => {
+
+export const onFeedCreateSubmitAction = createAsyncThunk("feedSlice/onFeedCreateSubmit", async (_, {getState, rejectWithValue}) => {
     const {feedSlice: {postCompose}} = getState()
     const {type} = postCompose;
     const {ValidateDefaultPost, ValidatePollPost} = ValidateCreatePost
     const validation = PostType.isPollType(type) ? ValidatePollPost(postCompose) : ValidateDefaultPost(postCompose)
-    if (!validation.valid) {
-        console.log("CREATE_POST_IN_VALID", validation.validationResult)
-        return
+    if (!validation.valid) return rejectWithValue(validation.validationResult)
+    /*if (attachments.length) {
+        const attachmentsResponse = await uploadFilesService(attachments);
+        console.log("CREATE_POST_UPLOADING_ATTACHMENTS", attachmentsResponse)
+    }*/
+    const requestDto = SavePostRequestDto(postCompose)
+    const response = await saveCreatePost(requestDto);
+    switch (response.type) {
+        case ResponseType.ERROR:
+            return rejectWithValue(response.errorMessage)
+        case ResponseType.SUCCESS:
+            return response.data
     }
-    console.log("CREATE_POST_VALID", createFeedComposeServerObject(postCompose))
 })
 
 function onPostTitleTextChange(state, {payload: {value}}) {

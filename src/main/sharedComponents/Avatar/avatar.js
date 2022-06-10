@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import AvatarGroup from "./AvatarGroup";
 import TagAvatar from "./TagAvatar";
-
+// avatar
 function Avatar(props) {
 	const objProperty =
 		props.heading === "Agents"

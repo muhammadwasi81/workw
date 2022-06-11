@@ -105,8 +105,8 @@ export const feedSlice = createSlice({
       attachments: [],
       poll: {
         options: [
-          {placeholder: `Option 1`, value: "", type: PollType.DEFAULT, attachment: null},
-          {placeholder: `Option 2`, value: "", type: PollType.DEFAULT, attachment: null}
+          {type: PollType.DEFAULT, value: "", attachment: null},
+          {type: PollType.DEFAULT, value: "", attachment: null}
         ]
       }
     },

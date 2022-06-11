@@ -146,13 +146,6 @@ export const ROUTES = {
     SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
     NOTES: `${DOMAIN_PREFIX}/user/notes`,
   },
-  CALL: {
-    DEFAULT: `${DOMAIN_PREFIX}/call`,
-    AUDIO: `${DOMAIN_PREFIX}/call/audiocall`,
-    VIDEO: `${DOMAIN_PREFIX}/call/audiocall`,
-    JOIN: `${DOMAIN_PREFIX}/call/joincall`,
-    KONNECT_CALL: `${DOMAIN_PREFIX}/konnectcall`,
-  },
   HR: {
     CHART: `${DOMAIN_PREFIX}/hr/chart`,
     LEAVES: `${DOMAIN_PREFIX}/hr/leaves`,

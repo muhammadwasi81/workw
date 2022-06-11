@@ -18,9 +18,7 @@ const PostTitleField = () => {
 					placeholder={PostType.getTitlePlaceHolder(type)}
 					value={PostType.isPollType(type) ? pollTitle : title}
 					onChange={value =>
-						store.dispatch(
-							feedSlice.actions.onPostTitleTextChange({ value })
-						)
+						store.dispatch(feedSlice.actions.onPostTitleTextChange({ value }))
 					}
 					onSelect={e =>
 						store.dispatch(

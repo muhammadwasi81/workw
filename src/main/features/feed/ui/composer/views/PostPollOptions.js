@@ -9,8 +9,7 @@ export default function PostPollOptions() {
         store.dispatch(feedSlice.actions.onPostPollOptionTextChange({index, value}))
     }
     const onPollAttachmentChange = (index, files) => {
-        if (files.length && files[0])
-            store.dispatch(feedSlice.actions.onPostPollAttachmentChange({index, file: files[0]}))
+        store.dispatch(feedSlice.actions.onPostPollAttachmentChange({index, files}))
     }
     const setPostTypeToDefault = () => {
         store.dispatch(feedSlice.actions.onPostTypeChange({type: PostType.DEFAULT}))

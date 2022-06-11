@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "./stylesheet/FeedCompose.css";
 import frameIcon from "../../../../../content/NewContent/NewsFeed/svg/image.svg";
 import penIcon from "../../../../../content/NewContent/NewsFeed/svg/pen.svg";
@@ -7,9 +7,16 @@ import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import PostHeader from "./views/PostHeader";
 import ComposerForm from "./views/ComposerForm";
 import CModal from "../../../../sharedComponents/CModal/CModal";
+import store from "../../../../../store/store";
+import {feedSlice} from "../../store/slice";
+import {useSelector} from "react-redux";
 
 function PostComposer() {
-    const [showComposer, setShowComposer] = useState(false);
+    const {showComposer} = useSelector((state) => state.feedSlice.postCompose)
+
+    const toggleComposer = (visibility) => {
+        store.dispatch(feedSlice.actions.toggleComposerVisibility({visibility}))
+    }
 
     return (
         <>
@@ -28,7 +35,7 @@ function PostComposer() {
                             <span>AbuBakar</span>
                         </div>
                     </div>
-                    <div className="text-area" onClick={() => setShowComposer(true)}>
+                    <div className="text-area" onClick={() => toggleComposer(true)}>
                         What’s on your mind?
                     </div>
                     <div className="feedIcons" style={{display: "flex"}}>
@@ -39,7 +46,7 @@ function PostComposer() {
                 </div>
                 <span className="area-block"/>
             </div>
-            <CModal width={800} show={showComposer} onClose={() => setShowComposer(false)}>
+            <CModal width={800} show={showComposer} onClose={() => toggleComposer(false)}>
                 <div className="composer-wrapper">
                     <PostHeader/>
                     <ComposerForm/>

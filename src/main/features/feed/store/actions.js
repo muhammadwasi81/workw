@@ -28,6 +28,10 @@ export const onFeedCreateSubmitAction = createAsyncThunk("feedSlice/onFeedCreate
     }
 })
 
+function toggleComposerVisibility(state, {payload: {visibility}}) {
+    state.postCompose.showComposer = visibility
+}
+
 function onPostTitleTextChange(state, {payload: {value}}) {
     const {postCompose: {type}} = current(state)
     if (type === PostType.DEFAULT)
@@ -102,5 +106,6 @@ export {
     onPostPollAttachmentChange,
     addPostPollOption,
     removePostPollOption,
-    onPostPrivacyChange
+    onPostPrivacyChange,
+    toggleComposerVisibility
 }

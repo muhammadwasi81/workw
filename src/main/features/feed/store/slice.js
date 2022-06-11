@@ -95,6 +95,8 @@ const fakeUsers = [{
 export const feedSlice = createSlice({
   name: "feedSlice",
   initialState: {
+    tagsOptions: fakeUsers,
+    mentionsOptions: fakeUsers,
     postCompose: {
       privacyType: PostPrivacyType.PUBLIC,
       type: PostType.DEFAULT,
@@ -109,9 +111,7 @@ export const feedSlice = createSlice({
           {type: PollType.DEFAULT, value: "", attachment: null}
         ]
       }
-    },
-    mentionsOptions: fakeUsers,
-    tagsOptions: fakeUsers
+    }
   },
   reducers: {
     onPostTitleTextChange,
@@ -128,12 +128,15 @@ export const feedSlice = createSlice({
   },
   extraReducers: {
     [onFeedCreateSubmitAction.pending]: (state, action) => {
+      state.loading = true;
       console.log("onFeedCreateSubmitActionPending", state, action)
     },
     [onFeedCreateSubmitAction.rejected]: (state, action) => {
+      state.loading = false;
       console.log("onFeedCreateSubmitActionRejected", state, action)
     },
     [onFeedCreateSubmitAction.fulfilled]: (state, action) => {
+      state.loading = false
       console.log("onFeedCreateSubmitActionFulFilled", state, action)
     }
   }

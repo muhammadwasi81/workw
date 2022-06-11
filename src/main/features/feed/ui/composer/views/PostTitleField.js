@@ -7,12 +7,8 @@ import { PostType } from "../../../utils/constants";
 import MentionUserItem from "../../../../../sharedComponents/ListItem/MentionUserItem/MentionUserItem";
 
 const PostTitleField = () => {
-	const { type, title, pollTitle } = useSelector(
-		({ feedSlice }) => feedSlice.postCompose
-	);
-	const feedMentions = useSelector(
-		({ feedSlice }) => feedSlice.mentionsOptions
-	);
+	const { type, title, pollTitle } = useSelector(({ feedSlice }) => feedSlice.postCompose);
+	const feedMentions = useSelector(({ feedSlice }) => feedSlice.mentionsOptions);
 	console.log("abcd", feedMentions);
 	return (
 		<Form.Item name={"postDetail"}>

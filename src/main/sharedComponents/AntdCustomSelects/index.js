@@ -7,6 +7,7 @@ import {
 	getCities,
 } from "../../../utils/Shared/store/actions";
 import EmailSelect from "./SharedSelects/EmailSelect";
+import Avatar from "../Avatar/avatarOLD";
 
 function ExampleAntdCustomSelect() {
 	const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function ExampleAntdCustomSelect() {
 		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
 	};
 	const selectedData = (data, obj) => {
-		console.log("wrapper select data", data);
+		console.log("wrapper select data", data, obj);
 	};
 
 	if (!isFirstTimeDataLoaded) {
@@ -53,7 +54,7 @@ function ExampleAntdCustomSelect() {
 	}
 	return (
 		<div>
-			<CitySelect
+			{/* <CitySelect
 				data={firstTimeCityData}
 				selectedData={selectedData}
 				canFetchNow={isFirstTimeCityDataLoaded}
@@ -72,13 +73,27 @@ function ExampleAntdCustomSelect() {
 						name: "Dolni Kounice",
 					},
 				]}
+				optionComponent={opt => {
+					return (
+						<>
+							<Avatar
+								name={opt.name}
+								src={opt.image}
+								round={true}
+								width={"30px"}
+								height={"30px"}
+							/>
+							{opt.name + " - " + opt.country}
+						</>
+					);
+				}}
 				defaultKey={"id"}
 				isObject={true}
-				isImage={false}
+				isImage={true}
 				mode={"multiple"}
 				placeholder={"Search..."}
 				size={"large"}
-			/>
+			/> */}
 			{/*<CitySelect
 				data={firstTimeCityData}
 				selectedData={selectedData}
@@ -109,6 +124,18 @@ function ExampleAntdCustomSelect() {
 				canFetchNow={isFirstTimeDataLoaded}
 				fetchData={fetchEmployees}
 			/>*/}
+			<EmailSelect
+				data={firstTimeEmpData}
+				selectedData={selectedData}
+				canFetchNow={isFirstTimeDataLoaded}
+				fetchData={fetchEmployees}
+				defaultKey={"email"}
+				isObject={true}
+				isImage={false}
+				mode={"tags"}
+				placeholder={"Search..."}
+				size={"large"}
+			/>
 		</div>
 	);
 }

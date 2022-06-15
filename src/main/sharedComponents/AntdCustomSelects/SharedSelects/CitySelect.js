@@ -15,6 +15,7 @@ function CitySelect({
 	placeholder = "Search...",
 	mode = "default",
 	size = "large",
+	optionComponent,
 }) {
 	const [value, setValue] = useState("");
 	const [stateVal, setStateVal] = useState([]);
@@ -109,6 +110,7 @@ function CitySelect({
 			placeholder={placeholder}
 			size={size}
 			defaultData={defaultValues}
+			optionComponent={optionComponent}
 			// tagRender={props => <TagRender props={props} />}
 		/>
 	);

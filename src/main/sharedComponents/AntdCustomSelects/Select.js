@@ -26,6 +26,7 @@ function AntCustomSelect(props) {
 		isImage,
 		value,
 		defaultData = [],
+		optionComponent,
 	} = props;
 
 	useEffect(() => {
@@ -72,16 +73,7 @@ function AntCustomSelect(props) {
 						disabled={defaultData.includes(opt.id)}
 					>
 						<div className="flex gap-1 items-center">
-							{isImage ? (
-								<Avatar
-									name={opt.name}
-									src={opt.image}
-									round={true}
-									width={"30px"}
-									height={"30px"}
-								/>
-							) : null}
-							{opt.name}
+							{optionComponent ? optionComponent(opt) : opt.name}
 						</div>
 					</Option>
 				))}

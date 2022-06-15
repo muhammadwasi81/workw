@@ -131,8 +131,12 @@ export const getAllEmployeeShortService = (pageNo = 0, search = "") => {
 		});
 };
 
-export const getAllEmployeeService = () => {
-	return MasterConfig.get("api/Reference/GetAllUserReference")
+export const getAllEmployeeService = (search, pgNo, pgSize) => {
+	return MasterConfig.get(
+		`api/Reference/GetAllUserReference?${
+			search ? `search=${search}` : `search`
+		}&pageNo=${pgNo}&pageSize=${pgSize}`
+	)
 		.then(res => {
 			return res.data;
 		})

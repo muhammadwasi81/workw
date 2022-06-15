@@ -10,7 +10,6 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import TextAreaInput from "../../../../sharedComponents/Input/TextArea";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
-import NewCustomSelect from "../../../employee/view/newCustomSelect";
 import TravelCard from "../UI/TravelCard";
 import TravelDetailCard from "../UI/TravelDetailCard";
 import TravelDetail from "./TravelDetail";
@@ -26,6 +25,7 @@ import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addTravel } from "../../store/actions";
+import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
 
 const initialState = {
 	subject: "",

@@ -7,34 +7,34 @@ import { useSelector, useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
 import { addReward } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import {rewardDictionaryList} from "../localization/index";
+import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../employee/view/newCustomSelect";
+import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 
 const initialState = {
-	id : "",
+	id: "",
 	name: "",
 	reason: "",
 	description: "",
 	categoryId: "",
 	imageId: "",
 	members: [
-	  {
-		memberId: "",
-		memberType: 1
-	  }
+		{
+			memberId: "",
+			memberType: 1,
+		},
 	],
 	approvers: [
-	  {
-		approverId: "",
-		approverType: 0,
-		isDefault: true,
-		status: 1,
-		email: ""
-	  }
-	]
-  }
+		{
+			approverId: "",
+			approverType: 0,
+			isDefault: true,
+			status: 1,
+			email: "",
+		},
+	],
+};
 
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -46,8 +46,6 @@ const Composer = props => {
 	const { rewardCategories } = useSelector(state => state.sharedSlice);
 
 	const [state, setState] = useState(initialState);
-
-
 
 	useEffect(() => {
 		dispatch(getRewardCategory());
@@ -67,7 +65,7 @@ const Composer = props => {
 			// 	x.payload.data[0].id,
 			// 	"Hurry i got image if from server"
 			// );
-			console.log(x, "FIRST ONE")
+			console.log(x, "FIRST ONE");
 			let photoId = x.payload.data[0].id;
 
 			let approvers = values.approvers.map(approver => {
@@ -92,10 +90,9 @@ const Composer = props => {
 			let payload = { ...values, imageId: photoId, approvers, members };
 
 			dispatch(addReward(payload));
-			console.log(payload, "FINALLLLL")
+			console.log(payload, "FINALLLLL");
 			// console.log(payload, "Final Data");
 		});
-
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -169,7 +166,9 @@ const Composer = props => {
 						},
 					]}
 				>
-					<TextInput placeholder={rewardDictionary.enterRewardReason} />
+					<TextInput
+						placeholder={rewardDictionary.enterRewardReason}
+					/>
 				</Form.Item>
 
 				<Form.Item
@@ -209,7 +208,7 @@ const Composer = props => {
 						placeholder={rewardDictionary.approvers}
 					/>
 				</Form.Item>
-				
+
 				<Form.Item
 					label={rewardDictionary.description}
 					name="description"
@@ -220,7 +219,9 @@ const Composer = props => {
 						},
 					]}
 				>
-					<Input.TextArea placeholder={rewardDictionary.enterDescription} />
+					<Input.TextArea
+						placeholder={rewardDictionary.enterDescription}
+					/>
 				</Form.Item>
 
 				<Form.Item area="true">

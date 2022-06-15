@@ -71,6 +71,7 @@ function AntCustomSelect(props) {
 						key={index}
 						value={isEmailSelect ? opt.email : opt.id}
 						disabled={defaultData.includes(opt.id)}
+						className="hover:!bg-primary-color hover:!text-white"
 					>
 						<div className="flex gap-1 items-center">
 							{optionComponent ? optionComponent(opt) : opt.name}

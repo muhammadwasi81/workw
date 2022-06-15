@@ -6,6 +6,9 @@ import search from "../../../../../content/svg/menu/newNavBarIcon/new/search.svg
 import notification from "../../../../../content/svg/menu/newNavBarIcon/new/notification.svg";
 import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/rewards.svg";
 import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/stickyNotes.svg";
+import Notes from "../../../../features/notes/Notes";
+import NewStickyNote from "../../../../features/notes/NewStickyNote";
+import { toggleStickyNotes } from "../../../../../store/appReducer/stickyNotesSlice";
 import { setNotificationStatus } from "../../../../../store/appReducer/responsiveSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -130,6 +133,14 @@ function NotificationBar() {
   let classes = "notificationBar ";
   classes += isSearch ? "open" : "";
 
+  // Sticky Note
+  const toggleNote = useSelector((state) => state.stickyNotesSlice.open);
+  console.log(toggleNote);
+  const stickyNoteHandler = () => {
+    dispatch(toggleStickyNotes());
+  };
+  console.log(toggleStickyNotes());
+
   return (
     <div className={classes}>
       <ul className="list">
@@ -157,9 +168,10 @@ function NotificationBar() {
           <img src={addUser} alt="" />
         </li>
         <li className="list__item">
-          <img src={stickyNotes} alt="" />
+          <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
         </li>
-
+        {toggleNote && <Notes />}
+        {<NewStickyNote />}
         <li
           className="list__item"
           onClick={() => {

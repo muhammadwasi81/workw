@@ -21,7 +21,7 @@ import FilterSearchButton from "../../../sharedComponents/FilterSearch";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
-import TopBar from "../../../layout/topBar/topBar";
+import TopBar from "../../../sharedComponents/topBar/topBar";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -98,8 +98,8 @@ const Reward = (props) => {
                 setTableView(false);
               }
             },
-            lable1: "List",
-            lable2: "Table",
+            label1: "List",
+            label2: "Table",
           }}
         />
         <ContBody>

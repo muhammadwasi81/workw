@@ -9,14 +9,6 @@ function EmployeeRoutes() {
     <Routes>
       <Route path={ROUTES.EMPLOYEES.ADD} element={<EmployeeAdd />} />
       <Route path="/" element={<EmployeeList />} />
-      {/* <Route
-				path="*"
-				element={
-					<>
-						<p>not found</p>
-					</>
-				}
-			/> */}
     </Routes>
   );
 }

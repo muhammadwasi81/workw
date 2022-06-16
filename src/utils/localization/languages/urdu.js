@@ -62,6 +62,8 @@ const urdu = {
     SelectLanguage: "زبان منتخب کریں",
     English: "انگریزی ",
     Urdu: "اردو",
+    Table: "ٹیبل",
+    List: "فہرست",
   },
 
   /*** Main Menu ***/

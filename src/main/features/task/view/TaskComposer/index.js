@@ -1,91 +1,116 @@
 import { CheckCircleOutlined } from "@ant-design/icons";
-import { Button, Checkbox, DatePicker, Input, Tag, Typography } from "antd";
-import React from "react";
+import { Button, Checkbox, DatePicker, Form, Input, Radio } from "antd";
+import React, { useContext, useState } from "react";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
-// import SuggestionBox from "../../../../../components/SharedComponent/searchSelect/SuggestionBox"
 import ImageUpload from "../../../../sharedComponents/Input/ImageUpload";
-const { TextArea } = Input;
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { taskDictionary } from "../../localization";
 const { RangePicker } = DatePicker;
+
 function TaskComposer() {
+  const [isAssignTo, setIsAssignTo] = useState(false);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction, taskDictionaryList } = taskDictionary[userLanguage];
+  const { labels, createTextBtn, placeHolder } = taskDictionaryList;
+
   const options = [
-    { label: "Assign Task", value: "Apple" },
-    { label: "Self Task", value: "Pear" },
+    { label: labels.selfTask, value: "self" },
+    { label: labels.assignTo, value: "assign" },
   ];
+  const initialValues = {
+    subject: "",
+    predecessor: "",
+    description: "",
+    type: "general",
+    taskType: "self",
+    assign: "",
+    taskDate: "",
+    priority: "default",
+    checkList: "",
+  };
+  const handleTaskType = ({ target }) => {
+    const isShow = target.value === "self" ? false : true;
+    setIsAssignTo(isShow);
+  };
+  let classes = "task-composer ";
+  classes += Direction === "ltr" ? "ltr" : "rtl";
   return (
-    <form className="task-composer">
-      <div className="input-row">
-        <Typography level={5} style={{ marginTop: "0px" }}>
-          Task Subject
-        </Typography>
-        <TextInput placeholder="Enter Group Name..." />
-      </div>
+    <Form
+      className={classes}
+      name="createTask"
+      layout="vertical"
+      initialValues={initialValues}
+    >
+      <Form.Item label={labels.taskSubject} name="subject">
+        <TextInput placeholder={placeHolder.writeSubject} />
+      </Form.Item>
+      <Form.Item label={labels.predecessor} name="predecessor">
+        <TextInput placeholder={placeHolder.writePredecessor} />
+      </Form.Item>
+      <Form.Item label={labels.description} name="description">
+        <TextInput placeholder={placeHolder.writeDescription} />
+      </Form.Item>
+      <Form.Item label={labels.type} name="type">
+        <Radio.Group className="radioPrimary">
+          <Radio.Button value="general">
+            <CheckCircleOutlined />
+            {labels.general}
+          </Radio.Button>
+          <Radio.Button value="project">
+            <CheckCircleOutlined />
+            {labels.project}
+          </Radio.Button>
+          <Radio.Button value="group">
+            <CheckCircleOutlined />
+            {labels.group}
+          </Radio.Button>
+        </Radio.Group>
+      </Form.Item>
+      <Form.Item label="" name="taskType">
+        <Radio.Group options={options} onChange={handleTaskType} />
+      </Form.Item>
+      {isAssignTo && (
+        <Form.Item label={labels.assignTo} name="assign">
+          <TextInput placeholder={placeHolder.selectAssign} />
+        </Form.Item>
+      )}
 
-      <div className="input-row">
-        <Typography level={5}>Description</Typography>
-        <TextArea style={{ borderRadius: "5px" }} placeholder="Enter Description" rows={4} />
-      </div>
-
-      {/* Type tags */}
-
-      <div className="type-tag-containet">
-        <Typography>Type</Typography>
-
-        <Tag icon={<CheckCircleOutlined />} className="select-tag" color="default">
-          success
-        </Tag>
-        <Tag icon={<CheckCircleOutlined />} color="default" className="select-tag">
-          success
-        </Tag>
-        <Tag icon={<CheckCircleOutlined />} color="default" className="select-tag">
-          success
-        </Tag>
-        <Tag icon={<CheckCircleOutlined />} color="default" className="select-tag">
-          success
-        </Tag>
-      </div>
-
-      {/* Task-checkbox */}
-
-      <div className="task-checkbox-container">
-        <Checkbox.Group
-          options={options}
-          defaultValue={["Apple"]}
-          //   onChange={onChange}
+      <Form.Item label={labels.taskDate} name="date">
+        <RangePicker
+          placeholder={[placeHolder.startDate, placeHolder.endtDate]}
         />
-      </div>
-
-      <div className="input-row">
-        <Typography level={5}>Task Subject</Typography>
-        {/* <SuggestionBox/> */}
-      </div>
-
-      <div className="input-row">
-        <Typography level={5}>Task Subject</Typography>
-        <RangePicker showTime />
-      </div>
-
-      <div className="priority-container">
-        <Typography>Priority</Typography>
-
-        <Tag icon={<CheckCircleOutlined />} className="select-tag" color="default">
-          success
-        </Tag>
-      </div>
-
-      <div className="input-row">
-        <Typography level={5}>Predecessor</Typography>
-        {/* <SuggestionBox /> */}
-      </div>
-
-      <div className="attachment-container">
-        <Typography level={5}>Attachment</Typography>
+      </Form.Item>
+      <Form.Item label={labels.priority} name="priority">
+        <Radio.Group className="radioPrimary radioPriority">
+          <Radio.Button value="default">
+            <CheckCircleOutlined />
+            {labels.default}
+          </Radio.Button>
+          <Radio.Button value="low">
+            <CheckCircleOutlined />
+            {labels.low}
+          </Radio.Button>
+          <Radio.Button value="medium">
+            <CheckCircleOutlined />
+            {labels.medium}
+          </Radio.Button>
+          <Radio.Button value="high">
+            <CheckCircleOutlined />
+            {labels.high}
+          </Radio.Button>
+        </Radio.Group>
+      </Form.Item>
+      <Form.Item label="" name="checkList">
+        <Checkbox> {labels.checkList}</Checkbox>
+      </Form.Item>
+      <Form.Item label="" name="">
         <ImageUpload />
-      </div>
+      </Form.Item>
 
-      <Button type="primary" style={{ fontWeight: "bold" }} block>
-        Create Task
+      <Button className="ThemeBtn" block>
+        {createTextBtn}
       </Button>
-    </form>
+    </Form>
   );
 }
 

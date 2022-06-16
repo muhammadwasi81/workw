@@ -1,7 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  HeaderMenuContainer,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton, Modal } from "antd";
 import { leaveDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -9,8 +13,12 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import BarNavLink from "../../../layout/topBar/BarNavLink";
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
+
+import {
+  FilterFilled,
+  UnorderedListOutlined,
+  AppstoreFilled,
+} from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllLeaves, GetRewardById } from "../store/actions";
@@ -20,7 +28,7 @@ import FilterSearch from "../../../sharedComponents/FilterSearch";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import { CardWrapper } from "../../../layout/GridStyle";
-import TopBar from "../../../layout/topBar/topBar";
+import TopBar from "../../../sharedComponents/topBar/topBar";
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -33,7 +41,9 @@ const Leave = (props) => {
 
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { leaves, loader, rewardDetail } = useSelector((state) => state.leaveSlice);
+  const { leaves, loader, rewardDetail } = useSelector(
+    (state) => state.leaveSlice
+  );
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -64,7 +74,11 @@ const Leave = (props) => {
           <HeaderMenuContainer></HeaderMenuContainer>
           <div className="right-menu" style={{ paddingRight: "10px" }}>
             <div className={""}>
-              <SideDrawer title={leaveDictionary.leave} buttonText={leaveDictionary.createleave} isAccessDrawer={false}>
+              <SideDrawer
+                title={leaveDictionary.leave}
+                buttonText={leaveDictionary.createleave}
+                isAccessDrawer={false}
+              >
                 <Composer />
               </SideDrawer>
             </div>
@@ -131,7 +145,12 @@ const Leave = (props) => {
                     leaves.map((item, index) => {
                       return (
                         <>
-                          <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                          <ListItem
+                            getRewardId={getRewardId}
+                            item={item}
+                            id={item.id}
+                            key={index}
+                          />
                         </>
                       );
                     })

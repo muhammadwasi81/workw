@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SingleAttachmentView from "./SingleAttachmentView";
 import { AttachmentGrid } from "./attachmentView.style";
-import PostModel from "../../features/Home/NewsFeed/Post/PostModel/PostModel";
+import PostModel from "../../features/feed/ui/posts_list/post/views/PostModel";
 
 const AttachmentGridView = ({ attachments }) => {
   const [modelState, setmodelState] = useState(false);

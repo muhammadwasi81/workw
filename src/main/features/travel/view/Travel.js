@@ -12,13 +12,8 @@ import { getAllTravel } from "../store/actions";
 import { travelStatus } from "../enums/enums";
 import ListView from "./ListView/ListView";
 import Header from "./Header";
-const columns = [
-  {
-    title: "Sort",
-    dataIndex: "sort",
-    drag: true,
-    width: 10,
-  },
+import { tableColumns } from "./TableColumns/Columns";
+import TopBar from "../../../sharedComponents/topBar/topBar";
 
   {
     title: "Reference No",
@@ -244,8 +239,8 @@ function Travel() {
               setTableView(false);
             }
           },
-          lable1: "List",
-          lable2: "Kanban",
+          label1: "List",
+          label2: "Table",
         }}
       />
       <ContBody className="!block">

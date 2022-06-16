@@ -1,28 +1,38 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  HeaderMenuContainer,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Button, Skeleton } from "antd";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
+import {
+  FilterFilled,
+  UnorderedListOutlined,
+  AppstoreFilled,
+} from "@ant-design/icons";
 import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllComplains, GetRewardById } from "../store/actions";
 import { Table } from "../../../sharedComponents/customTable";
-import BarNavLink from "../../../layout/topBar/BarNavLink";
+
 // import "./complain.css";
 import { CardWrapper } from "../../../layout/GridStyle";
-import TopBar from "../../../layout/topBar/topBar";
+
 import { tableColumn } from "./TableColumn";
+import TopBar from "../../../sharedComponents/topBar/topBar";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
+  const { Direction, complainDictionary } =
+    complainDictionaryList[userLanguage];
 
   const [tableView, setTableView] = useState(false);
 
@@ -34,7 +44,9 @@ const Reward = (props) => {
 
   const dispatch = useDispatch();
 
-  const { complains, loader, rewardDetail } = useSelector((state) => state.complainSlice);
+  const { complains, loader, rewardDetail } = useSelector(
+    (state) => state.complainSlice
+  );
 
   console.log(complains, "HELlOOOO!!!!");
 
@@ -56,7 +68,11 @@ const Reward = (props) => {
         <HeaderMenuContainer></HeaderMenuContainer>
         <div className="right-menu" style={{ paddingRight: "10px" }}>
           <div className={isTablet ? "btn-hld CompBtnMobile" : "btn-hld"}>
-            <SideDrawer title={complainDictionary.complain} buttonText={complainDictionary.createComplain} isAccessDrawer={false}>
+            <SideDrawer
+              title={complainDictionary.complain}
+              buttonText={complainDictionary.createComplain}
+              isAccessDrawer={false}
+            >
               <Composer />
             </SideDrawer>
           </div>
@@ -122,7 +138,12 @@ const Reward = (props) => {
                   {complains.map((item, index) => {
                     return (
                       <>
-                        <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                        <ListItem
+                          getRewardId={getRewardId}
+                          item={item}
+                          id={item.id}
+                          key={index}
+                        />
                       </>
                     );
                   })}

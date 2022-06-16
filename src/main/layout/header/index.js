@@ -7,7 +7,7 @@ import { PlusOutlined, LeftOutlined } from "@ant-design/icons";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
 function Header({ items, buttons, backButton }) {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const [activeLinks, setActiveLinks] = useState(items.map(() => false));
   const env = process.env.NODE_ENV === "development";
   const length = env ? 2 : 3;
@@ -19,20 +19,32 @@ function Header({ items, buttons, backButton }) {
   const { Direction } = dictionaryList[userLanguage];
   useEffect(() => {
     const actives = items.map((navitem, index) => {
-      if (navitem.to.includes(pathname)) {
-        setCurrentLink(index);
-        return true;
+      if (search) {
+        if (navitem.to.includes(search)) {
+          setCurrentLink(index);
+          return true;
+        } else {
+          return false;
+        }
       } else {
-        return false;
+        if (navitem.to === pathname) {
+          setCurrentLink(index);
+          return true;
+        } else {
+          return false;
+        }
       }
     });
     setActiveLinks(actives);
-  }, [pathname]);
-  const renderButtonArr = items[currentLink].renderButton && items[currentLink].renderButton;
+  }, [pathname, search]);
+  const renderButtonArr = items[currentLink] && items[currentLink].renderButton;
 
-  const filterButtons = buttons.filter((button, index) => {
-    return renderButtonArr && renderButtonArr.includes(index + 1);
-  });
+  const filterButtons =
+    items.length > 0
+      ? buttons.filter((button, index) => {
+          return renderButtonArr && renderButtonArr.includes(index + 1);
+        })
+      : buttons;
 
   const renderButton = (button, index) => {
     const { onClick, icon, buttonText, to, render } = button;
@@ -69,9 +81,9 @@ function Header({ items, buttons, backButton }) {
           </Button>
         )}
         <ul className="list">
-          {items.map(({ name, to }, index) => (
+          {items.map(({ name, to, onClick }, index) => (
             <li className="list__item" key={index}>
-              <Link to={to} className={activeLinks[index] ? "active" : ""}>
+              <Link to={to} onClick={() => onClick(name)} className={activeLinks[index] ? "active" : ""}>
                 {name}
               </Link>
             </li>

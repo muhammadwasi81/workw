@@ -59,7 +59,7 @@ function SideDrawer({ title, buttonText, children, ...props }) {
         }
         IconSize={20}
         style={{
-          fontSize: "12px",
+          fontSize: "12px", 
         }}
       />
       <Drawer

@@ -17,7 +17,6 @@ import OrganizationalSignup from "./main/features/auth/view/signUp/Organizationa
 import Verified from "./main/features/auth/view/verification/Verified";
 import Verifying from "./main/features/auth/view/verification/Verifying";
 import { MainFlexContainer } from "./main/sharedComponents/AppComponents/MainFlexContainer";
-import KonnectCall from "./main/features/konnect_call";
 import PrivateRotutes from "./routes";
 import { setMobileScreenStatus } from "./store/appReducer/responsiveSlice";
 import "./index.css";
@@ -35,10 +34,6 @@ import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
 import { InitMessengerSocket } from "./utils/InitSocket";
 import MainNotification from "./main/sharedComponents/Notification/Notification";
-import { openNotification } from "./utils/Shared/store/slice";
-import SoundWaves from "./main/sharedComponents/SoundWaves";
-// import Table from "./main/features/travel/view/customTable";
-// import { Socket } from "./utils/socket";
 
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -111,10 +106,6 @@ const App = () => {
               <Route
                 path={`${ROUTES.AUTH.VERIFICATION_INPROCESS}/:id?`}
                 element={<Verifying />}
-              />
-              <Route
-                path={ROUTES.CALL.KONNECT_CALL}
-                element={<KonnectCall />}
               />
 
               {/*****Public Route******/}

@@ -28,8 +28,7 @@ function Header({ items, buttons, backButton }) {
     });
     setActiveLinks(actives);
   }, [pathname]);
-  const renderButtonArr =
-    items[currentLink].renderButton && items[currentLink].renderButton;
+  const renderButtonArr = items[currentLink].renderButton && items[currentLink].renderButton;
 
   const filterButtons = buttons.filter((button, index) => {
     return renderButtonArr && renderButtonArr.includes(index + 1);
@@ -80,9 +79,7 @@ function Header({ items, buttons, backButton }) {
         </ul>
       </div>
       <div className="right">
-        <div className="buttons">
-          {filterButtons.map((button, index) => renderButton(button, index))}
-        </div>
+        <div className="buttons">{filterButtons.map((button, index) => renderButton(button, index))}</div>
         <div className="dropDown">
           <Dropdown
             overlayClassName="headerDropDown"
@@ -90,8 +87,7 @@ function Header({ items, buttons, backButton }) {
             placement="left"
             arrow={{
               pointAtCenter: true,
-            }}
-          >
+            }}>
             <Button className="addBtn">
               <PlusOutlined />
             </Button>
@@ -104,5 +100,6 @@ function Header({ items, buttons, backButton }) {
 Header.defaultProps = {
   buttons: [],
   backButton: true,
+  items: [],
 };
 export default Header;

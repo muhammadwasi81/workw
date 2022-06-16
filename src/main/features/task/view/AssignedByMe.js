@@ -11,23 +11,28 @@ import { NavLink } from "react-router-dom";
 
 const dummyMember = [
   {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
+    profile_picture:
+      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
     name: "Abu Bakar",
   },
   {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
+    profile_picture:
+      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
     name: "Abu Bakar",
   },
   {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
+    profile_picture:
+      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
     name: "Abu Bakar",
   },
   {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
+    profile_picture:
+      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
     name: "Abu Bakar",
   },
   {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
+    profile_picture:
+      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
     name: "Abu Bakar",
   },
 ];
@@ -40,9 +45,12 @@ function AssignedByMe() {
     <div className="card-list-item mt-40 flex assignedByme">
       <div className="card-item-header">
         <div className="left">
-          <div className="card-Title-1">Design a Task Board Page For Konnect!</div>
+          <div className="card-Title-1">
+            Design a Task Board Page For Konnect!
+          </div>
           <p className="card-desc-1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, quos aut! Cumque minus reprehenderit vero exercitationem repellat quae
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, quos
+            aut! Cumque minus reprehenderit vero exercitationem repellat quae
             voluptatibus! Tempore odit minima
           </p>
         </div>
@@ -56,13 +64,13 @@ function AssignedByMe() {
             <div style={{ width: "175px", marginTop: "12px" }}>
               <div className="ratingTitle"> Rating</div>
               <div>
-                {" "}
                 <Rate allowHalf defaultValue={2.5} />
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <NavLink to={`${STRINGS.ROUTES.TASK.DETAIL}/${"test"}`}>
         <div>
           <div className="card-item-body-main">
@@ -95,7 +103,15 @@ function AssignedByMe() {
                         </div>
                       );
                     })}
-                    {dummyMember ? dummyMember.length > 2 ? <div className="us-img">{dummyMember && dummyMember.length - 2}+</div> : "" : null}
+                    {dummyMember ? (
+                      dummyMember.length > 2 ? (
+                        <div className="us-img">
+                          {dummyMember && dummyMember.length - 2}+
+                        </div>
+                      ) : (
+                        ""
+                      )
+                    ) : null}
                   </div>
                 </div>
               </div>

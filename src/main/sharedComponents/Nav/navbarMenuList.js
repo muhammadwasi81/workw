@@ -205,6 +205,14 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
+    {
+      name: label.navMenuLabel.tasks,
+      counter: 0,
+      to: `${ROUTES.TASKS}?f=task`,
+      icon: taskIcon,
+      isActive: 6,
+      key: label.navMenuLabel.hr,
+    },
     // {
     // 	name: label.navMenuLabel.appraisals,
     // 	counter: 0,

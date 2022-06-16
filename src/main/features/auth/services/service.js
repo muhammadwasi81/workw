@@ -1,28 +1,28 @@
 // import { createGuid } from "../../../../utils/base";
 import AuthConfig from "../../../../utils/services/AuthConfig";
 
-export const loginService = data => {
-	return AuthConfig.post("api/login", data)
-		.then(res => {
-			return res;
-		})
-		.catch(error => {
-			return error;
-		});
+export const loginService = (data) => {
+  return AuthConfig.post("api/login", data)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
 };
 
-export const signupService = data => {
-	return AuthConfig.post("konnectauth/api/Signup/BusinessSignup", data)
-		.then(res => {
-			return res;
-		})
-		.catch(error => {
-			return error;
-		});
+export const signupService = (data) => {
+  return AuthConfig.post("api/Signup/BusinessSignup", data)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
 };
 
-export const emailVerificationService = data => {
-	return AuthConfig.get(`konnectapi/api/Signup/VerifySignup?token=${data}`);
+export const emailVerificationService = (data) => {
+  return AuthConfig.get(`konnectapi/api/Signup/VerifySignup?token=${data}`);
 };
 
 // export const getDesignationService = () => {
@@ -39,7 +39,7 @@ export const emailVerificationService = data => {
 // import AxiosConfig from "../../../../utils/services/AxiosConfig";
 
 // export const loginService = data => {
-// 	return AxiosConfig.post("konnectauth/api/login", data)
+// 	return AxiosConfig.post("api/login", data)
 // 		.then(res => {
 // 			return res;
 // 		})
@@ -49,7 +49,7 @@ export const emailVerificationService = data => {
 // };
 
 // export const signupService = data => {
-// 	return AxiosConfig.post("konnectauth/api/Signup/BusinessSignup", data)
+// 	return AxiosConfig.post("api/Signup/BusinessSignup", data)
 // 		.then(res => {
 // 			return res;
 // 		})

@@ -13,7 +13,7 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import BarNavLink from "../../../layout/topBar/BarNavLink";
+import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 import {
   FilterFilled,
   UnorderedListOutlined,
@@ -27,7 +27,7 @@ import TableView from "./TableView";
 import "./leave.css";
 import FilterSearch from "../../../sharedComponents/FilterSearch";
 import { CardWrapper } from "../../../layout/GridStyle";
-import TopBar from "../../../layout/topBar/topBar";
+import TopBar from "../../../sharedComponents/topBar/topBar";
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);

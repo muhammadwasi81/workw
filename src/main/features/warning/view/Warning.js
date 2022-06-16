@@ -23,11 +23,11 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
 import TableView from "./TableView";
-import BarNavLink from "../../../layout/topBar/BarNavLink";
+import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
 // import "./warning.css";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { CardWrapper } from "../../../layout/GridStyle";
-import TopBar from "../../../layout/topBar/topBar";
+import TopBar from "../../../sharedComponents/topBar/topBar";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);

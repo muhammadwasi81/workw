@@ -63,65 +63,6 @@
   max-height: 580px;
 }
 
-/* Sticky Note Item */
-.stickyNote-item__container {
-  z-index: 10;
-  border: none;
-  resize: both;
-  overflow: auto;
-  width: 300px;
-  bottom: 20%;
-  right: 20%;
-  max-width: 600px;
-  max-height: 600px;
-  height: 260px;
-  min-width: 186px;
-  min-height: 186px;
-  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
-    0 3px 14px 2px rgb(0 0 0 / 12%);
-  position: absolute;
-}
-.stickyNote-item__item {
-  padding: 0px 8px;
-  background-color: rgb(119, 200, 253);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 30px;
-  width: 100%;
-  flex-direction: row;
-  cursor: move;
-}
-.stickyNote-item__title {
-  flex: 1;
-}
-.stickyNote-item__title input {
-  background-color: rgb(119, 200, 253);
-  height: 100%;
-  width: 100%;
-  font-size: 15px;
-  font-weight: 700;
-  outline: none;
-}
-.stickyNote-item__icons {
-  display: flex row;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
-}
-.stickyNote-item__textarea {
-  height: 100%;
-  width: inherit;
-  max-width: 600px;
-  max-height: 600px;
-  outline: none;
-  border: none;
-  margin: 0;
-  font-size: 16px;
-  resize: none;
-  padding: 5px;
-}
-
 /* NOTE LIST */
 .noteLIST__container {
   max-height: 100px;

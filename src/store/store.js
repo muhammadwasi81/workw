@@ -1,5 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 // import { PersistGate } from "redux-persist/integration/react";
 // import storage from "redux-persist/lib/storage";
@@ -40,6 +49,7 @@ import accessRolesSlice from "../main/features/accessRole/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
 import feedSlice from "../main/features/feed/store/slice";
 import loanSlice from "../main/features/loan/store/slice";
+import newStickySlice from "./appReducer/newStickySlice";
 
 // import thunk from "redux-thunk";
 
@@ -80,6 +90,7 @@ const reducers = combineReducers({
   sharedSlice,
   travelSlice,
   loanSlice,
+  newStickySlice,
 });
 
 const persistConfig = {

@@ -2,14 +2,11 @@ import React from "react";
 import "./style.css";
 //import { openStickyNotes } from "../../../store/appReducer/stickyNotesSlice";
 //import NewStickyNote from "./NewStickyNote";
-import {
-  AiOutlineDash,
-  AiOutlineShareAlt,
-  AiTwotoneSnippets,
-  AiTwotoneDelete,
-  AiOutlineClose,
-} from "react-icons/ai";
+
 import NoteList from "./NoteList";
+import NewStickyNote from "./NewStickyNote";
+import { useDispatch, useSelector } from "react-redux";
+import { incrementStickyNote } from "../../../store/appReducer/newStickySlice";
 
 const Notes = () => {
   //let stickyNoteTitle = useSelector((state) => state.stickyNotesSlice.addTitle);
@@ -22,23 +19,47 @@ const Notes = () => {
 
   } */
 
-  const NewStickyNoteContent = {
-    outline: <AiOutlineDash />,
-    share: <AiOutlineShareAlt />,
-    save: <AiTwotoneSnippets />,
-    dlt: <AiTwotoneDelete />,
-    close: <AiOutlineClose />,
+  const dispatch = useDispatch();
+
+  const stickyNoteData = {
+    id: Math.random().toFixed(2).toString(),
+    title: "Title",
+    textArea_placeholder: "Take a Note",
+    x_axis: Math.floor(Math.random() * 51).toString() + "%",
+    y_axis: Math.floor(Math.random() * 51).toString() + "%",
   };
+
+  const { id, title, textArea_placeholder, x_axis, y_axis } = stickyNoteData;
 
   // const open = useSelector((state) => state.stickyNotesSlice.open);
 
   //<AddStickyNoteHandler />;
 
+  const incrementStickyNoteHandler = () => {
+    dispatch(
+      incrementStickyNote({
+        id,
+        title,
+        textArea_placeholder,
+        x_axis,
+        y_axis,
+      })
+    );
+  };
+
+  const stickyNoteList = useSelector(
+    (state) => state.newStickySlice.incrementArray
+  );
+  const xxx = stickyNoteList.map((id) => id.id);
+  console.log(xxx);
+
   return (
     <div className="note-container">
       {/* Note Header */}
       <div className="note-header">
-        <div className="note__add-btn">+</div>
+        <div className="note__add-btn" onClick={incrementStickyNoteHandler}>
+          +
+        </div>
         <div>Sticky Notes</div>
         <div className="closeAndMinimize">
           <div className="note__minus-btn">-</div>
@@ -55,7 +76,9 @@ const Notes = () => {
         </div>
       </div>
       <div className="noteList__sec">
-        <NoteList />
+        {stickyNoteList.map((stickyId) => (
+          <NoteList key={stickyId.id} id={stickyId.id} />
+        ))}
       </div>
     </div>
   );

@@ -7,28 +7,32 @@ import {
   AiTwotoneDelete,
   AiOutlineClose,
 } from "react-icons/ai";
+import style from "./NewStickyNote.module.css";
 
-const TextArea = () => {
-  return (
-    <textarea className="stickyNote-item__textarea" placeholder="Take a Note" />
-  );
-};
-
-const Img = () => {
-  return <img src={require("./content/halfArrow.ff8f53df.svg").default} />;
-};
-const NewStickyNote = () => {
-  const abc = {
+const NewStickyNote = (props) => {
+  /* const abc = {
+    id: Math.random().toFixed(2).toString(),
     title: "Title",
-    outline: <AiOutlineDash />,
-    share: <AiOutlineShareAlt />,
-    save: <AiTwotoneSnippets />,
-    dlt: <AiTwotoneDelete />,
-    close: <AiOutlineClose />,
-    textArea: <TextArea />,
-    img: <Img />,
+  }; */
+  let a = props.y_axis;
+  let b = props.x_axis;
+  const stickyContainer = {
+    zIndex: "10",
+    border: "none",
+    resize: "both",
+    overflow: "auto",
+    width: "300px",
+    bottom: props.y_axis,
+    right: props.x_axis,
+    maxWidth: "600px",
+    maxHeight: "600px",
+    height: "260px",
+    minWidth: "186px",
+    minHeight: "186px",
+    boxShadow:
+      "0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%)",
+    position: "absolute",
   };
-
   const div = {
     position: "absolute",
     zIndex: "1",
@@ -37,20 +41,35 @@ const NewStickyNote = () => {
   };
 
   return (
-    <div className="stickyNote-item__container">
+    <div style={stickyContainer} id={props.id}>
       {/* <StickyNoteColorSelector /> */}
-      <div className="stickyNote-item__item">
-        <div className="stickyNote-item__title">
-          <input placeholder={abc.title} />
+      <div className={style.stickyNoteItem__item}>
+        <div className={style.stickyNoteItem__title}>
+          <input placeholder={props.title} />
         </div>
-        <div className="stickyNote-item__icons">{abc.outline}</div>
-        <div className="stickyNote-item__icons">{abc.share}</div>
-        <div className="stickyNote-item__icons">{abc.save}</div>
-        <div className="stickyNote-item__icons">{abc.dlt}</div>
-        <div className="stickyNote-item__icons">{abc.close}</div>
+        <div className={style.stickyNoteItem__icons}>
+          <AiOutlineDash />
+        </div>
+        <div className={style.stickyNoteItem__icons}>
+          <AiOutlineShareAlt />
+        </div>
+        <div className={style.stickyNoteItem__icons}>
+          <AiTwotoneSnippets />
+        </div>
+        <div className={style.stickyNoteItem__icons}>
+          <AiTwotoneDelete />
+        </div>
+        <div className={style.stickyNoteItem__icons}>
+          <AiOutlineClose />
+        </div>
       </div>
-      {abc.textArea}
-      <div style={div}>{abc.img}</div>
+      <textarea
+        className={style.stickyNoteItem__textarea}
+        placeholder={props.textAreaPlaceholder}
+      />
+      <div style={div}>
+        <img src={require("./content/halfArrow.ff8f53df.svg").default} />
+      </div>
     </div>
   );
 };

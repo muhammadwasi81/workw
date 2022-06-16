@@ -9,6 +9,7 @@ import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/stick
 import Notes from "../../../../features/notes/Notes";
 import NewStickyNote from "../../../../features/notes/NewStickyNote";
 import { toggleStickyNotes } from "../../../../../store/appReducer/stickyNotesSlice";
+import { incrementStickyNote } from "../../../../../store/appReducer/newStickySlice";
 import { setNotificationStatus } from "../../../../../store/appReducer/responsiveSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -141,6 +142,10 @@ function NotificationBar() {
   };
   console.log(toggleStickyNotes());
 
+  const incrementStickyNote = useSelector(
+    (state) => state.newStickySlice.incrementArray
+  );
+  console.log(incrementStickyNote);
   return (
     <div className={classes}>
       <ul className="list">
@@ -171,7 +176,16 @@ function NotificationBar() {
           <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
         </li>
         {toggleNote && <Notes />}
-        {<NewStickyNote />}
+        {incrementStickyNote.map((increment) => (
+          <NewStickyNote
+            key={increment.id}
+            id={increment.id}
+            title={increment.title}
+            textAreaPlaceholder={increment.textArea_placeholder}
+            x_axis={increment.x_axis}
+            y_axis={increment.y_axis}
+          />
+        ))}
         <li
           className="list__item"
           onClick={() => {

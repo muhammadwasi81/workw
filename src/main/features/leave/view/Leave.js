@@ -13,7 +13,7 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
+
 import {
   FilterFilled,
   UnorderedListOutlined,
@@ -22,10 +22,11 @@ import {
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllLeaves, GetRewardById } from "../store/actions";
-import TableView from "./TableView";
 
 import "./leave.css";
 import FilterSearch from "../../../sharedComponents/FilterSearch";
+import { tableColumn } from "./TableColumn";
+import { Table } from "../../../sharedComponents/customTable";
 import { CardWrapper } from "../../../layout/GridStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 
@@ -33,7 +34,7 @@ const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, leaveDictionary } = leaveDictionaryList[userLanguage];
 
-  const [grid, setGrid] = useState(false);
+  const [tableView, setTableView] = useState(false);
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [visible, setVisible] = useState(false);
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
@@ -84,66 +85,54 @@ const Leave = (props) => {
           </div>
         </ContainerHeader>
         <TopBar
+          onSearch={(value) => {
+            console.log(value);
+          }}
           buttons={[
-            <Button
-              className="filterButton topBtn !h-full !flex !items-center"
-              onClick={showModal}
-            >
-              {isTablet ? "" : leaveDictionary.filter}
-              <FilterFilled />
-            </Button>,
-            <BarNavLink
-              extraClasses={
-                filter.filterType === 0 ? "topbarOn topBtn" : "topBtn"
-              }
-              activeName={"list"}
-              linkName={leaveDictionary.myLeaves}
-              onClick={() => setFilter({ filterType: 0 })}
-            />,
-            <BarNavLink
-              activeName={"aprrovals"}
-              extraClasses={
-                filter.filterType === 2 ? "topbarOn topBtn" : "topBtn"
-              }
-              isDefault={false}
-              linkName={leaveDictionary.forApproval}
-              onClick={() => setFilter({ filterType: 2 })}
-            />,
-            // <BarNavLink
-            //   activeName={"aprrovals"}
-            //   extraClasses={
-            //     filter.filterType === 3 ? "topbarOn topBtn" : "topBtn"
-            //   }
-            //   isDefault={false}
-            //   linkName={"Reward To Me"}
-            //   onClick={() => setFilter({ filterType: 3 })}
-            // />,
+            {
+              name: "leaves",
+              onClick: () => setFilter({ filterType: 0 }),
+            },
+            {
+              name: "For Approval",
+              onClick: () => setFilter({ filterType: 1 }),
+            },
+            {
+              name: "Leave To Me",
+              onClick: () => setFilter({ filterType: 2 }),
+            },
           ]}
-          gridIcons={[
-            <div
-              onClick={() => setGrid(false)}
-              className={`  flex justify-center items-center gap-1 ${
-                grid ? "topBarIcon gridIcon" : "topBarIcon gridIcon isActive"
-              }`}
-            >
-              {isTablet ? "" : leaveDictionary.listView}{" "}
-              <UnorderedListOutlined style={{ marginLeft: "2px" }} />
-            </div>,
-            <div
-              onClick={() => setGrid(true)}
-              className={` flex justify-center items-center gap-1
-							${grid ? "topBarIcon gridIcon isActive transition" : "topBarIcon gridIcon "}`}
-            >
-              {isTablet ? "" : leaveDictionary.tableView}{" "}
-              <AppstoreFilled style={{ marginLeft: "2px" }} />
-            </div>,
-          ]}
+          filter={{
+            onFilter: () => {},
+          }}
+          segment={{
+            onSegment: (value) => {
+              if (value === "Table") {
+                setTableView(true);
+              } else {
+                setTableView(false);
+              }
+            },
+            lable1: "List",
+            lable2: "Table",
+          }}
         />
         <div className="myBody">
           <CardWrapper>
             {leaves && leaves.length > 0 ? (
-              grid ? (
-                <TableView />
+              tableView ? (
+                <Table
+                  columns={tableColumn()}
+                  dragable={true}
+                  // handleChange={handleChange}
+                  // onPageChange={onPageChange}
+                  // onRow={onRow}
+                  data={leaves}
+                  // status={travelStatus}
+                  // loadding={loader}
+                  // success={success}
+                  // onActionClick={onActionClick}
+                />
               ) : (
                 <>
                   {loader ? (

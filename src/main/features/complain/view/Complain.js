@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
 import {
+  ContBody,
   HeaderMenuContainer,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
@@ -20,10 +21,12 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllComplains, GetRewardById } from "../store/actions";
-import TableView from "./TableView";
-import BarNavLink from "../../../sharedComponents/topBar/BarNavLink";
+import { Table } from "../../../sharedComponents/customTable";
+
 // import "./complain.css";
 import { CardWrapper } from "../../../layout/GridStyle";
+
+import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 
 const Reward = (props) => {
@@ -31,7 +34,7 @@ const Reward = (props) => {
   const { Direction, complainDictionary } =
     complainDictionaryList[userLanguage];
 
-  const [grid, setGrid] = useState(false);
+  const [tableView, setTableView] = useState(false);
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -77,63 +80,53 @@ const Reward = (props) => {
         <span className="ln" />
       </ContainerHeader>
       <TopBar
+        onSearch={(value) => {
+          console.log(value);
+        }}
         buttons={[
-          <Button className="filterButton topBtn !h-full !flex !items-center">
-            {isTablet ? "" : complainDictionary.filter}
-            <FilterFilled className="topBarIcon" />
-          </Button>,
-          <BarNavLink
-            extraClasses={
-              filter.filterType === 1 ? "topbarOn topBtn" : "topBtn"
-            }
-            activeName={"list"}
-            linkName={complainDictionary.myComplain}
-            onClick={() => setFilter({ filterType: 1 })}
-          />,
-          <BarNavLink
-            activeName={"aprrovals"}
-            extraClasses={
-              filter.filterType === 2 ? "topbarOn topBtn" : "topBtn"
-            }
-            isDefault={false}
-            linkName={complainDictionary.forApproval}
-            onClick={() => setFilter({ filterType: 2 })}
-          />,
-          <BarNavLink
-            activeName={"aprrovals"}
-            extraClasses={
-              filter.filterType === 3 ? "topbarOn topBtn" : "topBtn"
-            }
-            isDefault={false}
-            linkName={complainDictionary.complainToMe}
-            onClick={() => setFilter({ filterType: 3 })}
-          />,
+          {
+            name: "Complains",
+            onClick: () => setFilter({ filterType: 0 }),
+          },
+          {
+            name: "For Approval",
+            onClick: () => setFilter({ filterType: 1 }),
+          },
+          {
+            name: "Complain To Me",
+            onClick: () => setFilter({ filterType: 2 }),
+          },
         ]}
-        gridIcons={[
-          <div
-            onClick={() => setGrid(false)}
-            className={
-              grid ? "topBarIcon gridIcon" : "topBarIcon gridIcon isActive"
+        filter={{
+          onFilter: () => {},
+        }}
+        segment={{
+          onSegment: (value) => {
+            if (value === "Table") {
+              setTableView(true);
+            } else {
+              setTableView(false);
             }
-          >
-            {isTablet ? "" : complainDictionary.listView}{" "}
-            <UnorderedListOutlined style={{ marginLeft: "2px" }} />
-          </div>,
-          <div
-            onClick={() => setGrid(true)}
-            className={
-              grid ? "topBarIcon gridIcon isActive" : "topBarIcon gridIcon"
-            }
-          >
-            {isTablet ? "" : complainDictionary.tableView}{" "}
-            <AppstoreFilled style={{ marginLeft: "2px" }} />
-          </div>,
-        ]}
+          },
+          lable1: "List",
+          lable2: "Table",
+        }}
       />
-      <div className="myBody">
+      <ContBody>
         {complains && complains.length > 0 ? (
-          grid ? (
-            <TableView />
+          tableView ? (
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              // handleChange={handleChange}
+              // onPageChange={onPageChange}
+              // onRow={onRow}
+              data={complains}
+              // status={travelStatus}
+              // loadding={loader}
+              // success={success}
+              // onActionClick={onActionClick}
+            />
           ) : (
             <>
               {loader ? (
@@ -161,7 +154,7 @@ const Reward = (props) => {
         ) : (
           "Data not found"
         )}
-      </div>
+      </ContBody>
       {rewardDetail && <DetailedView onClose={onClose} visible={visible} />}
     </TabbableContainer>
   );

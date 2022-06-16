@@ -58,7 +58,7 @@ const TopBar = ({ filter, onSearch, segment, buttons, component }) => {
               {icon && icon}
             </Button>
           ))}
-          {Component}
+          {component}
         </div>
       </div>
       <div className="searchButtons">
@@ -112,6 +112,5 @@ TopBar.defaultProps = {
   filter: {},
   segment: {},
   buttons: [],
-
 };
 export default TopBar;

@@ -232,24 +232,29 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/leadmanager`,
   },
   REWARDS: {
-    DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
-    REWARD: `${DOMAIN_PREFIX}/rewards/`,
+    DEFAULT: `${DOMAIN_PREFIX}/rewards`,
+    REWARD: `${DOMAIN_PREFIX}/rewards`,
     APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
   },
   COMPLAINS: {
-    DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
-    COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
+    DEFAULT: `${DOMAIN_PREFIX}/complains`,
+    COMPLAIN: `${DOMAIN_PREFIX}/complains`,
     APPROVALS: `complains/approvals`,
   },
   WARNINGS: {
-    DEFAULT: `${DOMAIN_PREFIX}/warnings/*`,
-    WARNING: `${DOMAIN_PREFIX}/warnings/`,
+    DEFAULT: `${DOMAIN_PREFIX}/warnings`,
+    WARNING: `${DOMAIN_PREFIX}/warnings`,
     APPROVALS: `warnings/approvals`,
   },
   LEAVES: {
-    DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
-    LEAVE: `${DOMAIN_PREFIX}/leaves/`,
+    DEFAULT: `${DOMAIN_PREFIX}/leaves`,
+    LEAVE: `${DOMAIN_PREFIX}/leaves`,
     APPROVALS: `leaves/approvals`,
+  },
+  DEPARTMENTS: {
+    DEFAULT: `${DOMAIN_PREFIX}/departments`,
+    DEPARTMENT: `${DOMAIN_PREFIX}/departments`,
+    APPROVALS: `departments/approvals`,
   },
   EMPLOYEES: {
     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,

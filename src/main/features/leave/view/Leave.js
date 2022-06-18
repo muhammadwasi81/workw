@@ -1,11 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import {
-  ContBody,
-  HeaderMenuContainer,
-  TabbableContainer,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton, Modal } from "antd";
 import { leaveDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -14,11 +10,7 @@ import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 
-import {
-  FilterFilled,
-  UnorderedListOutlined,
-  AppstoreFilled,
-} from "@ant-design/icons";
+import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllLeaves, GetRewardById } from "../store/actions";
@@ -29,6 +21,7 @@ import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import { CardWrapper } from "../../../layout/GridStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
+import Header from "../../../layout/header/index";
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -41,9 +34,7 @@ const Leave = (props) => {
 
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { leaves, loader, rewardDetail } = useSelector(
-    (state) => state.leaveSlice
-  );
+  const { leaves, loader, rewardDetail } = useSelector((state) => state.leaveSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -70,20 +61,19 @@ const Leave = (props) => {
   return (
     <>
       <TabbableContainer className="">
-        <ContainerHeader>
-          <HeaderMenuContainer></HeaderMenuContainer>
-          <div className="right-menu" style={{ paddingRight: "10px" }}>
-            <div className={""}>
-              <SideDrawer
-                title={leaveDictionary.leave}
-                buttonText={leaveDictionary.createleave}
-                isAccessDrawer={false}
-              >
-                <Composer />
-              </SideDrawer>
-            </div>
-          </div>
-        </ContainerHeader>
+        <Header
+          buttons={[
+            {
+              buttonText: "Create Travel",
+              // onClick: () => setVisible(true),
+              render: (
+                <SideDrawer title={leaveDictionary.createleave} buttonText={leaveDictionary.createleave} isAccessDrawer={false}>
+                  <Composer />
+                </SideDrawer>
+              ),
+            },
+          ]}
+        />
         <TopBar
           onSearch={(value) => {
             console.log(value);
@@ -113,8 +103,8 @@ const Leave = (props) => {
                 setTableView(false);
               }
             },
-            lable1: "List",
-            lable2: "Table",
+            label1: "List",
+            label2: "Table",
           }}
         />
         <div className="myBody">
@@ -145,12 +135,7 @@ const Leave = (props) => {
                     leaves.map((item, index) => {
                       return (
                         <>
-                          <ListItem
-                            getRewardId={getRewardId}
-                            item={item}
-                            id={item.id}
-                            key={index}
-                          />
+                          <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
                         </>
                       );
                     })

@@ -17,6 +17,7 @@ import designationSlice from "../main/features/designation/store/slice";
 import appraisalSlice from "../main/features/appraisal/appraisalQuestion/store/slice";
 import warningCategorySlice from "../main/features/warning/warningCategory/store/slice";
 import warningSlice from "../main/features/warning/store/slice";
+import departmentSlice from "../main/features/departments/store/slice";
 import leaveTypeSlice from "../main/features/leave/leaveType/store/slice";
 import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";
 import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
@@ -60,6 +61,7 @@ const reducers = combineReducers({
   rewardCategorySlice,
   rewardSlice,
   complainSlice,
+  departmentSlice,
   warningSlice,
   //   call: callSlice,
   general: generalSlice,

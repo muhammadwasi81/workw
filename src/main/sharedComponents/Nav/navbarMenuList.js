@@ -302,6 +302,14 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
+    {
+      name: label.navMenuLabel.departments,
+      counter: 0,
+      icon: leavesIcon,
+      to: ROUTES.DEPARTMENTS.DEPARTMENT,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
   ];
   return { navMenuData, navHrMenuData };
 };

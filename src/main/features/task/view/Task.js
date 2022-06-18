@@ -14,7 +14,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header";
 import { buttonsEnum } from "../enum/enum";
 import { taskDictionary } from "../localization";
-import Approval from "../../../sharedComponents/AppComponents/Approval/Approval";
+import Approvals from "../../../sharedComponents/AppComponents/Approvals/view";
 
 function Task() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -88,11 +88,8 @@ function Task() {
       <ContBody>
         <div className="lf-col">
           {render[currentTab]}
-          <Approval
-            username="username"
-            userdesignation="userdesignation"
-            status="status"
-          />
+
+          <Approvals />
         </div>
       </ContBody>
     </TabbableContainer>

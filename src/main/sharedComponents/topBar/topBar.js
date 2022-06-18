@@ -1,4 +1,4 @@
-import React, { Component, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import SearchInput from "../searchBox/SearchInput";
 import { SearchOutlined } from "@ant-design/icons";
 import "./style.css";

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { message, Space } from "antd";
+import { Checkbox, message, Space } from "antd";
 import { STRINGS, SvgSpinner } from "../../../../../utils/base";
 import { ShopOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
@@ -37,7 +37,9 @@ function Signup() {
 
   const dispatch = useDispatch();
 
-  const { designations, isError, isSuccess, loader } = useSelector((state) => state.authSlice);
+  const { designations, isError, isSuccess, loader } = useSelector(
+    (state) => state.authSlice
+  );
   const { loader: imageLoader } = useSelector((state) => state.sharedSlice);
   console.log("image", imageLoader);
 
@@ -60,7 +62,10 @@ function Signup() {
 
   const handleSignUpSubmit = (v) => {
     if (file === null) {
-      let payload = { businessImageId: "", ...v };
+      let payload = {
+        businessImageId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        ...v,
+      };
       dispatch(signup(payload));
     } else {
       dispatch(uploadImage(formData.avatar)).then((x) => {
@@ -85,12 +90,17 @@ function Signup() {
   };
 
   return (
-    <Form onFinish={handleSignUpSubmit} name="nest-messages" id="form" className="form small-sign-up-form">
+    <Form
+      onFinish={handleSignUpSubmit}
+      name="nest-messages"
+      id="form"
+      className="form small-sign-up-form"
+    >
       <div className="form-section small-sign-up-form">
         {
           <div className="input-group">
             <div className="row-header">
-              <div className="row-cl-1">
+              <div className="row-cl-1" style={{ width: "60%" }}>
                 {file == null ? (
                   <ImageUpload
                     onChange={(e) => {
@@ -103,23 +113,44 @@ function Signup() {
                     }}
                   />
                 ) : (
-                  <ImageReader file={file} showButton={true} removeFile={() => setFile(null)} />
+                  <ImageReader
+                    file={file}
+                    showButton={true}
+                    removeFile={() => setFile(null)}
+                  />
                 )}
               </div>
 
               <div className="row-cl-2">
                 <div className="row-cl-2-heading1">Sign Up</div>
-                <div className="row-cl-2-heading2">You’re signing up as an Individual.</div>
+                <div className="row-cl-2-heading2">
+                  You’re signing up as an Individual.
+                </div>
               </div>
             </div>
             <Space direction="vertical" size={8} style={{ width: "100%" }}>
               <Form.Item name="businessName" rules={rules}>
-                <TextInput type="text" placeholder="Business Title" prefix={ShopOutlined} size="large" reset={reset} />
+                <TextInput
+                  type="text"
+                  placeholder="Business Title"
+                  prefix={ShopOutlined}
+                  size="large"
+                  reset={reset}
+                />
               </Form.Item>
               <div className="inp-flex-row small-sign-up-form">
-                <Space direction="horizontal" size={8} style={{ width: "100%" }}>
+                <Space
+                  direction="horizontal"
+                  size={8}
+                  style={{ width: "100%" }}
+                >
                   <Form.Item name="firstName" rules={rules}>
-                    <TextInput type="text" placeholder="First Name" size="large" reset={reset} />
+                    <TextInput
+                      type="text"
+                      placeholder="First Name"
+                      size="large"
+                      reset={reset}
+                    />
                   </Form.Item>
                   <Form.Item name="lastName" rules={rules}>
                     <TextInput
@@ -134,16 +165,33 @@ function Signup() {
               </div>
               <Form.Item name="phoneNo">
                 <div className="row country-phone-number">
-                  <CountryPhoneInput country="pk" placeholder="Enter your Phone Number" onChange={onChange} reset={reset} />
+                  <CountryPhoneInput
+                    country="pk"
+                    placeholder="Enter your Phone Number"
+                    onChange={onChange}
+                    reset={reset}
+                  />
                 </div>
               </Form.Item>
               <Form.Item name="email" rules={rules}>
-                <TextInput type="email" placeholder="Email" prefix={MailOutlined} size="large" reset={reset} />
+                <TextInput
+                  type="email"
+                  placeholder="Email"
+                  prefix={MailOutlined}
+                  size="large"
+                  reset={reset}
+                />
               </Form.Item>
               <Form.Item name="businessEmail" rules={rules}>
-                <TextInput type="email" placeholder="Business Email" prefix={MailOutlined} size="large" reset={reset} />
+                <TextInput
+                  type="email"
+                  placeholder="Business Email"
+                  prefix={MailOutlined}
+                  size="large"
+                  reset={reset}
+                />
               </Form.Item>
-              <Form.Item name="planTypeId" rules={rules}>
+              {/* <Form.Item name="planTypeId" rules={rules}>
                 <Select
                   data={[
                     { id: 1, name: "basic" },
@@ -158,7 +206,7 @@ function Signup() {
                   size="large"
                   reset={reset}
                 />
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item name="designationId" rules={rules}>
                 <Select
                   data={designations}
@@ -173,33 +221,23 @@ function Signup() {
                 />
               </Form.Item>
               <Form.Item name="password" rules={rules}>
-                <PasswordInput placeholder="Password" prefix={LockOutlined} size="large" reset={reset} />
+                <PasswordInput
+                  placeholder="Password"
+                  prefix={LockOutlined}
+                  size="large"
+                  reset={reset}
+                />
               </Form.Item>
-            </Space>
-
-            <div className="agreement small-sign-up-form small-sign-up-form-agreement">
-              <div style={{ display: "flex" }}>
-                {/* <FormControlLabel
-									style={{
-										fontSize: "13px",
-										marginRight: "0px",
-									}}
-									control={
-										<Checkbox
-											// checked={hasAgreed}
-											// onChange={(e) => {
-											//   SignUpData.hasAgreed = e.target.checked;
-											//   setState({ hasAgreed: e.target.checked });
-											// }}
-											color="primary"
-										/>
-									}
-									// label="I accept the terms and conditions"
-									labelPlacement="end"
-								/> */}
-                <span className="terms-and-conditions">I agree the terms and conditions.</span>
+              <div className="agreement small-sign-up-form small-sign-up-form-agreement">
+                <Form.Item name="agree" valuePropName="checked">
+                  <Checkbox>
+                    <span className="terms-and-conditions">
+                      I agree the terms and conditions.
+                    </span>
+                  </Checkbox>
+                </Form.Item>
               </div>
-            </div>
+            </Space>
           </div>
         }
       </div>
@@ -210,7 +248,9 @@ function Signup() {
         })}
       <div className="form-footer">
         <div className="sub-btn">
-          <button className={`button ${imageLoader || loader ? "disable" : ""}`}>
+          <button
+            className={`button ${imageLoader || loader ? "disable" : ""}`}
+          >
             Sign Up
             {!imageLoader && !loader ? (
               <span className="icon-login">
@@ -223,7 +263,11 @@ function Signup() {
         </div>
         <div className="already-acc">
           <p className="p">Already Have an Account?&nbsp;</p>
-          <NavLink id="login_btn" className="a" to={STRINGS.ROUTES.AUTH.SIGN_IN}>
+          <NavLink
+            id="login_btn"
+            className="a"
+            to={STRINGS.ROUTES.AUTH.SIGN_IN}
+          >
             Login
           </NavLink>
         </div>

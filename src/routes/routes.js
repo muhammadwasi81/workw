@@ -80,6 +80,12 @@ export const routes = {
 			path: `${ROUTES.LEAVES.DEFAULT}`,
 			component: lazy(() => import("../main/features/leave/view/Leave")),
 		},
+		{
+			path: `${ROUTES.DEPARTMENTS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/departments/view/index")
+			),
+		},
 	],
 	AdminRoutes: [
 		{

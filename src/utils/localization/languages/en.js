@@ -65,6 +65,8 @@ const en = {
 		SelectLanguage: "Select Language",
 		English: "English ",
 		Urdu: "Urdu",
+		Table: "Table",
+		List: "List",
 	},
 
 	/*** navMenuLabel only used in LeftSideBar ***/

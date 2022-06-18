@@ -1,10 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import {
-  HeaderMenuContainer,
-  TabbableContainer,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton, Modal } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -13,11 +10,7 @@ import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 
-import {
-  FilterFilled,
-  UnorderedListOutlined,
-  AppstoreFilled,
-} from "@ant-design/icons";
+import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllRewards, GetRewardById } from "../store/actions";
@@ -28,7 +21,8 @@ import FilterSearchButton from "../../../sharedComponents/FilterSearch";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
-import TopBar from "../../../layout/topBar/topBar";
+import TopBar from "../../../sharedComponents/topBar/topBar";
+import Header from "../../../layout/header/index";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -43,9 +37,7 @@ const Reward = (props) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
-  const { rewards, loader, rewardDetail } = useSelector(
-    (state) => state.rewardSlice
-  );
+  const { rewards, loader, rewardDetail } = useSelector((state) => state.rewardSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -67,21 +59,30 @@ const Reward = (props) => {
   return (
     <>
       <TabbableContainer className="">
-        <ContainerHeader>
+        <Header
+          buttons={[
+            {
+              buttonText: "Create Travel",
+              // onClick: () => setVisible(true),
+              render: (
+                <SideDrawer title={rewardsDictionary.createReward} buttonText={rewardsDictionary.createReward} isAccessDrawer={false}>
+                  <Composer />
+                </SideDrawer>
+              ),
+            },
+          ]}
+        />
+        {/* <ContainerHeader>
           <HeaderMenuContainer></HeaderMenuContainer>
           <div className="right-menu" style={{ paddingRight: "10px" }}>
             <div className={""}>
-              <SideDrawer
-                title={rewardsDictionary.createReward}
-                buttonText={rewardsDictionary.createReward}
-                isAccessDrawer={false}
-              >
+              <SideDrawer title={rewardsDictionary.createReward} buttonText={rewardsDictionary.createReward} isAccessDrawer={false}>
                 <Composer />
               </SideDrawer>
             </div>
           </div>
-          {/* <span className="ln" /> */}
-        </ContainerHeader>
+          <span className="ln" />
+        </ContainerHeader> */}
         <TopBar
           onSearch={(value) => {
             console.log(value);
@@ -111,83 +112,31 @@ const Reward = (props) => {
                 setTableView(false);
               }
             },
-            lable1: "List",
-            lable2: "Table",
+            label1: "List",
+            label2: "Table",
           }}
         />
-        {/* <TopBar
-          buttons={[
-            <FilterSearchButton onFilter={handleFilter} />,
-            <BarNavLink
-              extraClasses={
-                filter.filterType === 0 ? "topbarOn topBtn" : "topBtn"
-              }
-              activeName={"list"}
-              linkName={sharedLabels.MyReward}
-              onClick={() => setFilter({ filterType: 0 })}
-            />,
-            <BarNavLink
-              activeName={"aprrovals"}
-              extraClasses={
-                filter.filterType === 2 ? "topbarOn topBtn" : "topBtn"
-              }
-              isDefault={false}
-              linkName={sharedLabels.ForApprovals}
-              onClick={() => setFilter({ filterType: 2 })}
-            />,
-            <BarNavLink
-              activeName={"aprrovals"}
-              extraClasses={
-                filter.filterType === 3 ? "topbarOn topBtn" : "topBtn"
-              }
-              isDefault={false}
-              linkName={sharedLabels.RewardToMe}
-              onClick={() => setFilter({ filterType: 3 })}
-            />,
-          ]}
-          gridIcons={[
-            <div
-              onClick={() => setGrid(false)}
-              className={`  flex justify-center items-center gap-1 ${
-                grid ? "topBarIcon gridIcon" : "topBarIcon gridIcon isActive"
-              }`}
-            >
-              {isTablet ? "" : sharedLabels.ListView}{" "}
-              <UnorderedListOutlined style={{ marginLeft: "2px" }} />
-            </div>,
-            <div
-              onClick={() => setGrid(true)}
-              className={` flex justify-center items-center gap-1
-							${grid ? "topBarIcon gridIcon isActive transition" : "topBarIcon gridIcon "}`}
-            >
-              {isTablet ? "" : sharedLabels.TableView}{" "}
-              <AppstoreFilled style={{ marginLeft: "2px" }} />
-            </div>,
-          ]}
-        /> */}
-        <div className="myBody">
-          <CardWrapper className="!block">
-            {rewards?.length > 0 ? (
-              tableView ? (
-                // <TableView />
-                <Table
-                  columns={tableColumn()}
-                  dragable={true}
-                  // handleChange={handleChange}
-                  // onPageChange={onPageChange}
-                  // onRow={onRow}
-                  data={rewards}
-                  // status={travelStatus}
-                  // loadding={loader}
-                  // success={success}
-                  // onActionClick={onActionClick}
-                />
-              ) : (
-                <>
-                  {loader ? (
-                    <>
-                      <Skeleton avatar paragraph={{ rows: 4 }} />
-                      {/* <Skeleton
+        <ContBody>
+          {rewards?.length > 0 ? (
+            tableView ? (
+              <Table
+                columns={tableColumn()}
+                dragable={true}
+                // handleChange={handleChange}
+                // onPageChange={onPageChange}
+                // onRow={onRow}
+                data={rewards}
+                // status={travelStatus}
+                // loadding={loader}
+                // success={success}
+                // onActionClick={onActionClick}
+              />
+            ) : (
+              <>
+                {loader ? (
+                  <>
+                    <Skeleton avatar paragraph={{ rows: 4 }} />
+                    {/* <Skeleton
 											avatar
 											paragraph={{ rows: 4 }}
 										/>
@@ -195,28 +144,24 @@ const Reward = (props) => {
 											avatar
 											paragraph={{ rows: 4 }}
 										/> */}
-                    </>
-                  ) : (
-                    rewards.map((item, index) => {
+                  </>
+                ) : (
+                  <CardWrapper>
+                    {rewards.map((item, index) => {
                       return (
                         <>
-                          <ListItem
-                            getRewardId={getRewardId}
-                            item={item}
-                            id={item.id}
-                            key={index}
-                          />
+                          <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
                         </>
                       );
-                    })
-                  )}
-                </>
-              )
-            ) : (
-              "Data not found"
-            )}
-          </CardWrapper>
-        </div>
+                    })}
+                  </CardWrapper>
+                )}
+              </>
+            )
+          ) : (
+            "Data not found"
+          )}
+        </ContBody>
         {rewardDetail && <DetailedView onClose={onClose} visible={visible} />}
       </TabbableContainer>
     </>

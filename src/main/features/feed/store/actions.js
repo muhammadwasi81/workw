@@ -18,6 +18,8 @@ export const onFeedCreateSubmitAction = createAsyncThunk("feedSlice/onFeedCreate
     }*/
     const requestDto = SavePostRequestDto(postCompose)
     const response = await saveCreatePost(requestDto);
+
+    // eslint-disable-next-line default-case
     switch (response.type) {
         case ResponseType.ERROR:
             return rejectWithValue(response.errorMessage)
@@ -25,6 +27,10 @@ export const onFeedCreateSubmitAction = createAsyncThunk("feedSlice/onFeedCreate
             return response.data
     }
 })
+
+function toggleComposerVisibility(state, {payload: {visibility}}) {
+    state.postCompose.showComposer = visibility
+}
 
 function onPostTitleTextChange(state, {payload: {value}}) {
     const {postCompose: {type}} = current(state)
@@ -62,17 +68,18 @@ function onPostPollOptionTextChange(state, {payload: {index, value}}) {
     state.postCompose.poll.options = currentOptions
 }
 
-function onPostPollAttachmentChange(state, {payload: {index, file}}) {
+function onPostPollAttachmentChange(state, {payload: {index, files}}) {
+    if(!files.length) return
     const {postCompose: {poll: {options}}} = current(state)
     const currentOptions = [...options]
-    currentOptions[index] = {...currentOptions[index], attachment: file}
+    currentOptions[index] = {...currentOptions[index], attachment: files[0]}
     state.postCompose.poll.options = currentOptions
 }
 
 function addPostPollOption(state, _) {
-    const currentOptions = state.postCompose.poll.options
-    const newOption = {value: "", placeholder: `Option ${currentOptions.length + 1}`, type: PollType.DEFAULT, attachment: null}
-    state.postCompose.poll.options = [...currentOptions, newOption]
+    state.postCompose.poll.options = [...state.postCompose.poll.options, {
+        type: PollType.DEFAULT, value: "", attachment: null
+    }]
 }
 
 function removePostPollOption(state, {payload: {index}}) {
@@ -99,5 +106,6 @@ export {
     onPostPollAttachmentChange,
     addPostPollOption,
     removePostPollOption,
-    onPostPrivacyChange
+    onPostPrivacyChange,
+    toggleComposerVisibility
 }

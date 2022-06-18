@@ -12,7 +12,7 @@ function Header(props) {
 	const items = [
 		{
 			name: label.appHeader.travel.travels,
-			to: ROUTES.TRAVEL.DEFAULT,
+			to: `${ROUTES.TRAVEL.DEFAULT}?f=trv`,
 			renderButton: buttonsEnum.travel,
 		},
 	];
@@ -32,34 +32,7 @@ function Header(props) {
 			),
 		},
 	];
-	return (
-		// <ContainerHeader>
-		// 	<HeaderMenuContainer>
-		// 		<HeaderNavLink
-		// 			activeName={"travel"}
-		// 			to={}
-		// 			isDefault={true}
-		// 			linkName={}
-		// 		/>
-		// 	</HeaderMenuContainer>
-
-		// 	<div className="right-menu">
-		// 		<div className="travel_drawer">
-		//
-		// 		</div>
-		// 	</div>
-		// </ContainerHeader>
-		<>
-			{/* <SideDrawer
-        children={<TravelComposer />}
-        title="Create Travel Expense"
-        buttonText="Create Travel"
-        isAccessDrawer={false}
-      /> */}
-
-			<LayoutHeader items={items} buttons={buttons} />
-		</>
-	);
+	return <LayoutHeader items={items} buttons={buttons} />;
 }
 
 export default Header;

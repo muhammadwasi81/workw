@@ -5,15 +5,20 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { TabContainer, ContBody } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import "../styles/Travel.css";
 import TopBar from "../../../sharedComponents/topBar/topBar";
-import { Table } from "./customTable/index";
+import { Table } from "../../../sharedComponents/customTable/index";
 import { FilterSortEnum } from "../../../../utils/Shared/enums/enums";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTravel } from "../store/actions";
 import { travelStatus } from "../enums/enums";
 import ListView from "./ListView/ListView";
 import Header from "./Header";
-import { tableColumns } from "./TableColumns/Columns";
-// import TopBar from "../../../sharedComponents/topBar/topBar";
+const columns = [
+  {
+    title: "Sort",
+    dataIndex: "sort",
+    drag: true,
+    width: 10,
+  },
 
   {
     title: "Reference No",
@@ -233,19 +238,14 @@ function Travel() {
         }}
         segment={{
           onSegment: (value) => {
-            if (value === "Kanban") {
+            if (value === "Table") {
               setTableView(true);
             } else {
               setTableView(false);
             }
           },
-<<<<<<< HEAD
-          lable1: "List",
-          lable2: "Kanban",
-=======
           label1: "List",
           label2: "Table",
->>>>>>> 531909148ec8d1910589cc7e19592d9e5e72e939
         }}
       />
       <ContBody className="!block">

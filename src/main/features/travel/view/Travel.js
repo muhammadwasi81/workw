@@ -15,7 +15,7 @@ import { travelStatus } from "../enums/enums";
 import ListView from "./ListView/ListView";
 import Header from "./Header";
 import { tableColumns } from "./TableColumns/Columns";
-import TopBar from "../../../layout/topBar/topBar";
+import TopBar from "../../../sharedComponents/topBar/topBar";
 
 const initialTableFilter = {
 	pageNo: 1,

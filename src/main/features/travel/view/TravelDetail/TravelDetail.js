@@ -58,7 +58,7 @@ function TravelDetail() {
 							</span>
 							<span className="text-gray-500 font-bold text-base">
 								Description:{" "}
-								{TravelDetail && travelDetail.description}
+								{travelDetail && travelDetail.description}
 							</span>
 						</div>
 						<div>

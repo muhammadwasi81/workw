@@ -1,11 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import {
-  ContBody,
-  HeaderMenuContainer,
-  TabbableContainer,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton } from "antd";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -14,16 +10,11 @@ import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 
-import {
-  FilterFilled,
-  UnorderedListOutlined,
-  AppstoreFilled,
-} from "@ant-design/icons";
+import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
 import TableView from "./TableView";
-
 // import "./warning.css";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { CardWrapper } from "../../../layout/GridStyle";
@@ -31,6 +22,7 @@ import { CardWrapper } from "../../../layout/GridStyle";
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
+import Header from "../../../layout/header/index";
 
 const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -46,9 +38,7 @@ const Reward = (props) => {
 
   const dispatch = useDispatch();
 
-  const { warnings, loader, warningDetail } = useSelector(
-    (state) => state.warningSlice
-  );
+  const { warnings, loader, warningDetail } = useSelector((state) => state.warningSlice);
 
   const onClose = () => {
     setVisible(false);
@@ -64,21 +54,19 @@ const Reward = (props) => {
   }, [filter]);
   return (
     <TabbableContainer className="max-width-1190">
-      <ContainerHeader>
-        <HeaderMenuContainer></HeaderMenuContainer>
-        <div className="right-menu" style={{ paddingRight: "10px" }}>
-          <div className={isTablet ? "btn-hld CompBtnMobile" : "btn-hld"}>
-            <SideDrawer
-              title={"Warning"}
-              buttonText={"Create Warning"}
-              isAccessDrawer={false}
-            >
-              <Composer />
-            </SideDrawer>
-          </div>
-        </div>
-        <span className="ln" />
-      </ContainerHeader>
+      <Header
+        buttons={[
+          {
+            buttonText: "Create Travel",
+            // onClick: () => setVisible(true),
+            render: (
+              <SideDrawer title={warningDictionary.createWarning} buttonText={warningDictionary.createWarning} isAccessDrawer={false}>
+                <Composer />
+              </SideDrawer>
+            ),
+          },
+        ]}
+      />
       <TopBar
         onSearch={(value) => {
           console.log(value);
@@ -108,8 +96,8 @@ const Reward = (props) => {
               setTableView(false);
             }
           },
-          lable1: "List",
-          lable2: "Table",
+          label1: "List",
+          label2: "Table",
         }}
       />
       <ContBody>
@@ -140,12 +128,7 @@ const Reward = (props) => {
                   {warnings.map((item, index) => {
                     return (
                       <>
-                        <ListItem
-                          getRewardId={getRewardId}
-                          item={item}
-                          id={item.id}
-                          key={index}
-                        />
+                        <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
                       </>
                     );
                   })}

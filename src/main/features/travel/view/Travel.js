@@ -13,7 +13,7 @@ import { travelStatus } from "../enums/enums";
 import ListView from "./ListView/ListView";
 import Header from "./Header";
 import { tableColumns } from "./TableColumns/Columns";
-import TopBar from "../../../sharedComponents/topBar/topBar";
+// import TopBar from "../../../sharedComponents/topBar/topBar";
 
   {
     title: "Reference No",
@@ -239,8 +239,13 @@ function Travel() {
               setTableView(false);
             }
           },
+<<<<<<< HEAD
+          lable1: "List",
+          lable2: "Kanban",
+=======
           label1: "List",
           label2: "Table",
+>>>>>>> 531909148ec8d1910589cc7e19592d9e5e72e939
         }}
       />
       <ContBody className="!block">

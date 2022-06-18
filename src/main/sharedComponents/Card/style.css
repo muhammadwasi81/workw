@@ -165,6 +165,31 @@
   border-radius: 4px;
 }
 
+.Card2 {
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 15px;
+}
+.Card2 .ant-card-meta-title {
+  color: #222;
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0px 0px 0px 0px !important;
+}
+.Card2 .ant-card-meta-description {
+  color: #757d86;
+  font-size: 14px;
+}
+.Card2 .ant-card-cover img {
+  border-radius: 10px;
+}
+.Card2 .ant-card-body {
+  padding: 18px 0px 5px 0px;
+}
+.Card2 .ant-card-meta-detail {
+  margin-bottom: 12px;
+}
+
 @media (min-width: 320px) and (max-width: 767px) {
   .lf-col {
     padding: 8px;

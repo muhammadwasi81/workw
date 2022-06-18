@@ -159,8 +159,8 @@ function Travel() {
 							setTableView(false);
 						}
 					},
-					lable1: "List",
-					lable2: "Table",
+					label1: "List",
+					label2: "Table",
 				}}
 			/>
 			<ContBody className="!block">

@@ -10,7 +10,7 @@ import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../employee/view/newCustomSelect";
+import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 
 const initialState = {
   id: "",
@@ -77,7 +77,7 @@ const Composer = (props) => {
         };
       });
 
-      let payload = { ...values, imageId: photoId, approvers, members };
+      let payload = { ...values, imageId: photoId, members };
       console.log(payload, "FINALLLL!!!!");
 
       //   dispatch(addDepartment(payload));

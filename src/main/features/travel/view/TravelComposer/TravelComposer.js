@@ -12,7 +12,7 @@ import TextAreaInput from "../../../../sharedComponents/Input/TextArea";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import TravelCard from "../UI/TravelCard";
 import TravelDetailCard from "../UI/TravelDetailCard";
-import TravelDetail from "./TravelDetail";
+import TravelComposerDetail from "./TravelComposerDetail";
 import moment from "moment";
 import * as S from "../../../employee/Styles/employee.style";
 import "./travel.css";
@@ -301,7 +301,7 @@ function TravelComposer(props) {
 					mode="tags"
 				/>
 			</S.FormItem>
-			<TravelDetail
+			<TravelComposerDetail
 				addTravelDetails={addTravelDetails}
 				errors={errors}
 				setErrors={setErrors}
@@ -329,6 +329,7 @@ function TravelComposer(props) {
 								travel={travel}
 								index={index}
 								onClick={onClick}
+								isCloseable={true}
 							/>
 						</div>
 					))}

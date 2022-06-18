@@ -5,8 +5,8 @@ import Travel from "./view/Travel";
 function Index() {
 	return (
 		<>
-			<ExampleAntdCustomSelect />
-			{/* <Travel /> */}
+			{/* <ExampleAntdCustomSelect /> */}
+			<Travel />
 		</>
 	);
 }

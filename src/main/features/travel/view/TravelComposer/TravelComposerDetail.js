@@ -32,7 +32,7 @@ const options = [
 	},
 ];
 
-function TravelDetail(props) {
+function TravelComposerDetail(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
 	const isTablet = useMediaQuery({ maxWidth: 650 });
@@ -221,7 +221,7 @@ function TravelDetail(props) {
 					Travel
 				</Typography>
 				<div className="flex gap-4 flex-col sm:flex-row">
-					<div className="flex flex-col">
+					<div className="flex flex-col w-full">
 						<NewCustomSelect
 							valueObject={true}
 							name="travel"
@@ -241,7 +241,7 @@ function TravelDetail(props) {
 							</div>
 						)}
 					</div>
-					<div className="flex flex-col">
+					<div className="flex flex-col w-full">
 						<NewCustomSelect
 							valueObject={true}
 							name="travel"
@@ -391,4 +391,4 @@ function Card({ handleClick, selected, title, itemId, image }) {
 	);
 }
 
-export default TravelDetail;
+export default TravelComposerDetail;

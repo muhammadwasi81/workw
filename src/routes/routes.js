@@ -33,6 +33,12 @@ export const routes = {
 			component: lazy(() => import("../main/features/travel/")),
 		},
 		{
+			path: `${ROUTES.TRAVEL.DETAIL}`,
+			component: lazy(() =>
+				import("../main/features/travel/view/TravelDetail/TravelDetail")
+			),
+		},
+		{
 			path: `${ROUTES.EMPLOYEES.DEFAULT}`,
 			component: lazy(() => import("../main/features/employee/")),
 		},

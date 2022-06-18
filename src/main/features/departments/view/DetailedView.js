@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Drawer, Tag, Image } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";

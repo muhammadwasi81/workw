@@ -6,43 +6,42 @@ import { useSelector, useDispatch } from "react-redux";
 import { addComplain } from "../store/actions";
 import { getComplainCategory } from "../../../../utils/Shared/store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import {complainDictionaryList} from "../localization/index";
+import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../employee/view/newCustomSelect";
+import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 
 const initialState = {
-	id : "",
+	id: "",
 	description: "",
 	categoryId: "",
 	imageId: "",
 	members: [
-	  {
-		memberId: "",
-		memberType: 1
-	  }
+		{
+			memberId: "",
+			memberType: 1,
+		},
 	],
 	approvers: [
-	  {
-		approverId: "",
-		approverType: 0,
-		isDefault: true,
-		status: 1,
-		email: ""
-	  }
-	]
-  }
+		{
+			approverId: "",
+			approverType: 0,
+			isDefault: true,
+			status: 1,
+			email: "",
+		},
+	],
+};
 
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
+	const { Direction, complainDictionary } =
+		complainDictionaryList[userLanguage];
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
 	const { complainCategories } = useSelector(state => state.sharedSlice);
-
-
 
 	useEffect(() => {
 		dispatch(getComplainCategory());
@@ -54,9 +53,9 @@ const Composer = props => {
 
 	const onFinish = values => {
 		dispatch(uploadImage(profileImage)).then(x => {
-			console.log(x, "FIRST ONE")
+			console.log(x, "FIRST ONE");
 			let photoId = x.payload.data[0].id;
-				console.log(values.approvers, "sadasdsada")
+			console.log(values.approvers, "sadasdsada");
 			let approvers = values.approvers.map(approver => {
 				return {
 					approverId: approver,
@@ -79,7 +78,6 @@ const Composer = props => {
 			dispatch(addComplain(payload));
 			form.resetFields();
 		});
-
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -104,7 +102,6 @@ const Composer = props => {
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
 			>
-
 				<Form.Item
 					label={complainDictionary.category}
 					name="categoryId"
@@ -177,7 +174,9 @@ const Composer = props => {
 						},
 					]}
 				>
-					<Input.TextArea placeholder={complainDictionary.enterDescription} />
+					<Input.TextArea
+						placeholder={complainDictionary.enterDescription}
+					/>
 				</Form.Item>
 
 				{/* <Form.Item area="true">

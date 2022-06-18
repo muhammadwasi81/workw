@@ -12,6 +12,7 @@ import FlyLocation from "../../../../../content/svg/fly_location.svg";
 import moment from "moment";
 import { useMediaQuery } from "react-responsive";
 import "./card.css";
+import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 const initialValue = {
 	arrivalId: null,
 	departureId: null,
@@ -27,10 +28,22 @@ function TravelDetailCard(props) {
 	const largeSc = useMediaQuery({ minWidth: 1024 });
 	const { travelById } = props.travel;
 	useEffect(() => {
+		// console.log("props.travel", props.travel);
+		let arrivalId = props.travel.arrivalId;
+		let departureId = props.travel.departureId;
+		// console.log(JSON.parse(arrivalId));
+
+		if (arrivalId.length > defaultUiid.length) {
+			arrivalId = JSON.parse(arrivalId);
+		}
+		if (departureId.length > defaultUiid.length) {
+			departureId = JSON.parse(departureId);
+		}
+		// console.log("", typeof arrivalId, typeof departureId);
 		setCardDetail(prevDetail => ({
 			...prevDetail,
-			arrivalId: JSON.parse(props.travel.arrivalId),
-			departureId: JSON.parse(props.travel.departureId),
+			arrivalId: arrivalId,
+			departureId: departureId,
 			departureDate: moment(props.travel.departureDate).format(
 				"DD MMM, YYYY"
 			),
@@ -39,15 +52,11 @@ function TravelDetailCard(props) {
 			isTADARequired: props.travel.isTADARequired,
 		}));
 	}, [props.travel]);
-	// console.log("state", cardDetail);
-	// travelById
 	const onDeleteCard = e => {
-		// console.log("e", e);
 		props.onClick(e.target.id);
 	};
-	// console.log("props", props.travel);
 	return (
-		<div className="travel_card_img_cont">
+		<div className="travel_card_img_cont !w-max">
 			<img
 				src={
 					travelById === 1
@@ -63,23 +72,26 @@ function TravelDetailCard(props) {
 				alt="travel card image"
 			/>
 			<div className="travel_card_detail">
-				<div
-					onClick={onDeleteCard}
-					id={props.index}
-					className="travel_card_cross_icon cursor-pointer"
-				>
-					x
-				</div>
-				<div className="justify-between_text flex flex-col h-full">
+				{props.isCloseable && (
+					<div
+						onClick={onDeleteCard}
+						id={props.index}
+						className="travel_card_cross_icon cursor-pointer"
+					>
+						x
+					</div>
+				)}
+				<div className="justify-between_text flex flex-col h-full gap-1">
 					<div className="flex justify-between">
 						<div className="flex flex-col justify-center">
 							<span
-								className={`text-bold text_overflow_ellipse 
+								className={`font-bold text_overflow_ellipse 
 								${largeSc ? "text-20" : isTablet ? "text-16" : isMobile ? "text-12" : ""} `}
 							>
 								{cardDetail.arrivalId &&
-									cardDetail.arrivalId.name &&
-									cardDetail.arrivalId.name}
+								cardDetail.arrivalId.name
+									? cardDetail.arrivalId.name
+									: props.travel.arrival}
 							</span>
 							<span
 								className={`${
@@ -93,18 +105,20 @@ function TravelDetailCard(props) {
 								} `}
 							>
 								{cardDetail.arrivalId &&
-									cardDetail.arrivalId.country &&
-									cardDetail.arrivalId.country}
+								cardDetail.arrivalId.country
+									? cardDetail.arrivalId.country
+									: props.travel.arrivalCountry}
 							</span>
 						</div>
 						<div className="flex flex-col justify-center">
 							<span
-								className={`text-bold text_overflow_ellipse 
+								className={`font-bold text_overflow_ellipse 
 								${largeSc ? "text-20" : isTablet ? "text-16" : isMobile ? "text-12" : ""} `}
 							>
 								{cardDetail.departureId &&
-									cardDetail.departureId.name &&
-									cardDetail.departureId.name}
+								cardDetail.departureId.name
+									? cardDetail.departureId.name
+									: props.travel.departure}
 							</span>
 							<span
 								className={`${
@@ -118,8 +132,9 @@ function TravelDetailCard(props) {
 								} `}
 							>
 								{cardDetail.departureId &&
-									cardDetail.departureId.country &&
-									cardDetail.departureId.country}
+								cardDetail.departureId.country
+									? cardDetail.departureId.country
+									: props.travel.departureCountry}
 							</span>
 						</div>
 					</div>
@@ -130,7 +145,7 @@ function TravelDetailCard(props) {
 					/>
 					<div
 						className={
-							"flex justify-between text-semi-bold " +
+							"flex justify-between text-semi-bold my-1" +
 							`${
 								largeSc
 									? ""
@@ -146,45 +161,57 @@ function TravelDetailCard(props) {
 							{cardDetail.departureDate &&
 								cardDetail.departureDate}
 						</span>{" "}
-						<span>
-							{cardDetail.departureDate &&
-								cardDetail.departureDate}
+						<span className="bg-white bg-opacity-20 text-white font-semibold rounded-md px-1">
+							{/* {cardDetail.departureDate &&
+								cardDetail.departureDate} */}
+
+							{travelById === 1
+								? "By Plane"
+								: travelById === 2
+								? "By Ship"
+								: travelById === 3
+								? "By Road"
+								: travelById === 4
+								? "By Train"
+								: ""}
 						</span>
 					</div>
-					<hr className="w-full" />
-					<div
-						className={
-							"flex justify-between " +
-							`${
-								largeSc
-									? ""
-									: isTablet
-									? "text-12"
-									: isMobile
-									? "text-10"
-									: ""
-							}`
-						}
-					>
-						<span>
-							Hotel Required{" "}
-							<span className="hotel_tada_span">
-								{cardDetail.isHotelRequired &&
-								cardDetail.isHotelRequired
-									? "Yes"
-									: "No"}
+					{/* <hr className="w-full" /> */}
+					{props.travel.isHotelRequired !== undefined ? (
+						<div
+							className={
+								"flex justify-between " +
+								`${
+									largeSc
+										? ""
+										: isTablet
+										? "text-12"
+										: isMobile
+										? "text-10"
+										: ""
+								}`
+							}
+						>
+							<span className="font-semibold">
+								Hotel Required{" "}
+								<span className="bg-white bg-opacity-20 p-1 rounded-md">
+									{cardDetail.isHotelRequired &&
+									cardDetail.isHotelRequired
+										? "Yes"
+										: "No"}
+								</span>
 							</span>
-						</span>
-						<span className="font-medium">
-							TADA Applicable{" "}
-							<span className="hotel_tada_span">
-								{cardDetail.isTADARequired &&
-								cardDetail.isTADARequired
-									? "Yes"
-									: "No"}
+							<span className="font-semibold">
+								TADA Applicable{" "}
+								<span className="bg-white bg-opacity-20 p-1 rounded-md">
+									{cardDetail.isTADARequired &&
+									cardDetail.isTADARequired
+										? "Yes"
+										: "No"}
+								</span>
 							</span>
-						</span>
-					</div>
+						</div>
+					) : null}
 				</div>
 			</div>
 		</div>

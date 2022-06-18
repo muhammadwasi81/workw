@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useDebounce from "../../../../utils/Shared/helper/use-debounce";
-import MasterConfig from "../../../../utils/services/MasterConfig";
+import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import MasterConfig from "../../../utils/services/MasterConfig";
 // const API_PREFIX = "/api/Utility/";
 
 export default function useSearch(query, pageNumber, url, requestType) {

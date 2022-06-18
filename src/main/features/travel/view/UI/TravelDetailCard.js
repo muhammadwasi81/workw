@@ -56,7 +56,7 @@ function TravelDetailCard(props) {
 		props.onClick(e.target.id);
 	};
 	return (
-		<div className="travel_card_img_cont">
+		<div className="travel_card_img_cont !w-max">
 			<img
 				src={
 					travelById === 1
@@ -134,7 +134,7 @@ function TravelDetailCard(props) {
 								{cardDetail.departureId &&
 								cardDetail.departureId.country
 									? cardDetail.departureId.country
-									: props.travel.deparutureCountry}
+									: props.travel.departureCountry}
 							</span>
 						</div>
 					</div>
@@ -177,39 +177,41 @@ function TravelDetailCard(props) {
 						</span>
 					</div>
 					{/* <hr className="w-full" /> */}
-					<div
-						className={
-							"flex justify-between " +
-							`${
-								largeSc
-									? ""
-									: isTablet
-									? "text-12"
-									: isMobile
-									? "text-10"
-									: ""
-							}`
-						}
-					>
-						<span className="font-semibold">
-							Hotel Required{" "}
-							<span className="bg-white bg-opacity-20 p-1 rounded-md">
-								{cardDetail.isHotelRequired &&
-								cardDetail.isHotelRequired
-									? "Yes"
-									: "No"}
+					{props.travel.isHotelRequired !== undefined ? (
+						<div
+							className={
+								"flex justify-between " +
+								`${
+									largeSc
+										? ""
+										: isTablet
+										? "text-12"
+										: isMobile
+										? "text-10"
+										: ""
+								}`
+							}
+						>
+							<span className="font-semibold">
+								Hotel Required{" "}
+								<span className="bg-white bg-opacity-20 p-1 rounded-md">
+									{cardDetail.isHotelRequired &&
+									cardDetail.isHotelRequired
+										? "Yes"
+										: "No"}
+								</span>
 							</span>
-						</span>
-						<span className="font-semibold">
-							TADA Applicable{" "}
-							<span className="bg-white bg-opacity-20 p-1 rounded-md">
-								{cardDetail.isTADARequired &&
-								cardDetail.isTADARequired
-									? "Yes"
-									: "No"}
+							<span className="font-semibold">
+								TADA Applicable{" "}
+								<span className="bg-white bg-opacity-20 p-1 rounded-md">
+									{cardDetail.isTADARequired &&
+									cardDetail.isTADARequired
+										? "Yes"
+										: "No"}
+								</span>
 							</span>
-						</span>
-					</div>
+						</div>
+					) : null}
 				</div>
 			</div>
 		</div>

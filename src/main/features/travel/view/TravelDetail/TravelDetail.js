@@ -1,28 +1,34 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { ROUTES } from "../../../../../utils/routes";
 import { useParams } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
 import {
 	ContBody,
 	TabContainer,
 } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 import LayoutHeader from "../../../../layout/header";
 import CardProfileTopView from "../ListView/CardProfileTopView";
+import { getTravelById } from "../../store/actions";
+import TravelDetailCard from "../UI/TravelDetailCard";
 
 function TravelDetail() {
 	const { travelId } = useParams();
-	// console.log("params", travelId);
+	const [travelDetails, setTravelDetails] = useState([]);
+	const { travelDetail, success, loader } = useSelector(
+		state => state.travelSlice
+	);
+	const dispatch = useDispatch();
 	useEffect(() => {
-		//fetch the data of travel detail
+		dispatch(getTravelById(travelId));
 	}, []);
 
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { appHeader } = dictionaryList[userLanguage];
 	const items = [
 		{
-			name: appHeader.travel.travelDetail,
+			name: travelDetail && travelDetail.subject,
 			to: `${ROUTES.TRAVEL.DEFAULT}`,
 		},
 	];
@@ -30,32 +36,46 @@ function TravelDetail() {
 		<TabContainer>
 			<LayoutHeader items={items} />
 			<ContBody className="flex justify-center w-full">
-				<div className="bg-white p-5 rounded-xl w-[900px]">
+				<div className="bg-white p-5 rounded-xl w-[900px] flex flex-col gap-4">
 					<CardProfileTopView
 						profileImgSrc={"https://joeschmoe.io/api/v1/random"}
-						createDate={new Date()}
+						createDate={travelDetail && travelDetail.createDate}
 						isPublic={true}
-						name={"Syed Danish Ali"}
-						destination={"Not Designated"}
-						refNo={"TRA-000085"}
-						status={1}
+						name={travelDetail && travelDetail.creator.name}
+						destination={
+							travelDetail && travelDetail.creator.designation
+								? travelDetail.creator.designation
+								: "No Designation"
+						}
+						refNo={travelDetail && travelDetail.referenceNo}
+						status={travelDetail && travelDetail.status}
 						profileImgSize={40}
 					/>
 					<div className="flex justify-between flex-col gap-3">
 						<div className="flex flex-col gap-1">
 							<span className="text-black font-bold text-base">
-								Lorem Ipsum is (subject)
+								{travelDetail && travelDetail.subject}
 							</span>
 							<span className="text-gray-500 font-bold text-base">
-								Description: Lorem Ipsum is simply dummy text of
-								the printing and typesetting industry.
+								Description:{" "}
+								{TravelDetail && travelDetail.description}
 							</span>
 						</div>
 						<div>
 							<h3 className="text-xl text-primary-color font-semibold">
 								Destinations
 							</h3>
-							<div>{/* Travel cards array will come here */}</div>
+							<div className="flex overflow-x-auto gap-5 overflow-hidden justify-center">
+								{travelDetail &&
+									travelDetail.cities.map(detail => (
+										<div className="">
+											<TravelDetailCard
+												travel={detail}
+												isCloseable={false}
+											/>
+										</div>
+									))}
+							</div>
 						</div>
 						<div>
 							<hr className="border-t-[2px]" />

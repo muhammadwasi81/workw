@@ -117,7 +117,7 @@ function ListView(props) {
 				  ))
 				: null}
 			{props.loader &&
-				[0, 0, 0, 0, 0, 0].map(() => (
+				[0, 0, 0].map(() => (
 					<Skeleton
 						active
 						avatar

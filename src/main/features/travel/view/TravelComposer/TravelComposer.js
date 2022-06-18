@@ -10,10 +10,9 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import TextAreaInput from "../../../../sharedComponents/Input/TextArea";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
-import NewCustomSelect from "../../../employee/view/newCustomSelect";
 import TravelCard from "../UI/TravelCard";
 import TravelDetailCard from "../UI/TravelDetailCard";
-import TravelDetail from "./TravelDetail";
+import TravelComposerDetail from "./TravelComposerDetail";
 import moment from "moment";
 import * as S from "../../../employee/Styles/employee.style";
 import "./travel.css";
@@ -26,6 +25,7 @@ import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addTravel } from "../../store/actions";
+import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
 
 const initialState = {
 	subject: "",
@@ -36,9 +36,9 @@ const initialState = {
 	cities: [],
 	specialRequest: "",
 	id: defaultUiid,
-	status: 0,
-	approverStatus: 0,
-	agentStatus: 0,
+	// status: 0,
+	// approverStatus: 0,
+	// agentStatus: 0,
 	referenceId: defaultUiid,
 	referenceType: 0,
 	attachments: [],
@@ -301,7 +301,7 @@ function TravelComposer(props) {
 					mode="tags"
 				/>
 			</S.FormItem>
-			<TravelDetail
+			<TravelComposerDetail
 				addTravelDetails={addTravelDetails}
 				errors={errors}
 				setErrors={setErrors}
@@ -329,6 +329,7 @@ function TravelComposer(props) {
 								travel={travel}
 								index={index}
 								onClick={onClick}
+								isCloseable={true}
 							/>
 						</div>
 					))}

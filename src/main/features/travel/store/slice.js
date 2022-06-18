@@ -1,8 +1,9 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addTravel, getAllTravel } from "./actions";
+import { addTravel, getAllTravel, getTravelById } from "./actions";
 
 const initialState = {
 	travels: [],
+	travelDetail: null,
 	loader: false,
 	success: false,
 	error: false,
@@ -25,11 +26,20 @@ const travelSlice = createSlice({
 				state.success = true;
 				state.travels = payload.data;
 			})
-			.addMatcher(isPending(...[addTravel, getAllTravel]), state => {
-				// console.log("travel pending slice");
-				state.loader = true;
-				state.success = false;
+			.addCase(getTravelById.fulfilled, (state, { payload }) => {
+				// console.log("travel fullfilled slice");
+				state.loader = false;
+				state.success = true;
+				state.travelDetail = payload.data;
 			})
+			.addMatcher(
+				isPending(...[addTravel, getAllTravel, getTravelById]),
+				state => {
+					// console.log("travel pending slice");
+					state.loader = true;
+					state.success = false;
+				}
+			)
 			.addMatcher(isRejected(), state => {
 				// console.log("travel rejected slice");
 				state.loader = false;

@@ -28,7 +28,6 @@ function NewCustomSelect(props) {
 			Math.ceil(target.scrollTop + target.offsetHeight) ===
 				target.scrollHeight
 		) {
-			console.log("inside first if");
 			if (responseData.data.length > 0) {
 				setPageNumber(prevPageNumber => prevPageNumber + 1);
 			}

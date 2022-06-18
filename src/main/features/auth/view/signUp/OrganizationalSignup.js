@@ -6,6 +6,7 @@ import PricePlans from "../AuthPageContent/PricePlans";
 import { Col, Row } from "antd";
 // import { STRINGS } from "../../../../../utils/base";
 import { ROUTES } from "../../../../../utils/routes";
+import MainBannerContent from "../AuthPageContent/MainBannerContent";
 
 export default class OrganizationalSignup extends Component {
   componentDidMount() {
@@ -27,7 +28,8 @@ export default class OrganizationalSignup extends Component {
             sm={{ order: 2, span: 24 }}
             lg={{ order: 1, span: 15 }}
           >
-            <PricePlans />
+            {/* <PricePlans /> */}
+            <MainBannerContent />
           </Col>
           <Col
             xs={{ order: 1, span: 24 }}

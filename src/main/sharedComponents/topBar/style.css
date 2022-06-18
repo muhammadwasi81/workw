@@ -1,0 +1,129 @@
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 5px 10px;
+  margin-top: 8px;
+  width: calc(100% - 80px);
+}
+.topBar .ant-segmented-item-icon + * {
+  margin-left: 0;
+}
+.topBar.rtl {
+  direction: rtl;
+}
+.searchBox {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #0000000f;
+  min-width: 200px;
+}
+.searchBox input {
+  color: #757d86;
+  background-color: transparent;
+}
+.topBar .ant-input-affix-wrapper > input.ant-input input {
+  padding: 0;
+  font-size: 12px;
+}
+
+.topBar .ant-input-affix-wrapper {
+  padding: 0 5px;
+  background-color: transparent;
+}
+.topBar .ant-segmented-item-label {
+  display: flex;
+  gap: 8px;
+}
+.topBar .ant-segmented-item-icon {
+  display: flex;
+  align-items: center;
+}
+.topBar__inner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.topBar__buttons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.primaryBtn,
+.primaryBtn:focus {
+  background: #ededed;
+  padding: 5px 15px;
+  border-radius: 4px;
+  color: #757d86;
+  display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  align-items: center;
+  border-color: transparent !important;
+}
+.primaryBtn:hover {
+  background-color: #1b5669;
+  color: #fff;
+}
+.primaryBtn.active {
+  background-color: #1b5669;
+  color: #fff;
+}
+.searchButtons {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.topBar .ant-segmented-item-icon + * {
+  font-size: 12px;
+  font-weight: 600;
+}
+@media screen and (max-width: 1200px) {
+  .topBar .ant-segmented-item-label span:nth-child(2) {
+    display: none;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .topBar {
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .topBar__inner {
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+  }
+  .searchBox {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .topBar .filterBtn span:nth-child(1) {
+    display: none;
+  }
+  .topBar .filterBtn span:nth-child(2) {
+    margin: 0;
+  }
+}
+@media screen and (max-width: 850px) {
+  .searchButtons {
+    flex-direction: column;
+  }
+  .topBar .filterBtn {
+    width: 100%;
+    justify-content: center;
+  }
+  .primaryBtn {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .topBar {
+    width: 100%;
+  }
+}

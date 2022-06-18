@@ -1,111 +1,95 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import React, { useContext, useState } from "react";
 import { STRINGS } from "../../../../utils/base";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import {
   ContBody,
-  HeaderMenuContainer,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import HeaderNavLink from "../../../sharedComponents/AppComponents/MainHeader/HeaderNavLink";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import TaskComposer from "./TaskComposer";
 import TaskList from "./TaskList/index";
-import FilterForm from "./Filter/";
-
-import {
-  FilterFilled,
-  UnorderedListOutlined,
-  AppstoreFilled,
-} from "@ant-design/icons";
 import AssignedByMe from "./AssignedByMe";
-import "./task.css";
-import TopBar from "../../../layout/topBar/topBar";
+import TopBar from "../../../sharedComponents/topBar/topBar";
+import Header from "../../../layout/header";
+import { buttonsEnum } from "../enum/enum";
+import { taskDictionary } from "../localization";
+import Approvals from "../../../sharedComponents/AppComponents/Approvals/view";
 
 function Task() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const label = dictionaryList[userLanguage];
-  const [currentTab, setCurrentTab] = useState("task");
+  const { appHeader, sharedLabels } = dictionaryList[userLanguage];
+  const { taskDictionaryList } = taskDictionary[userLanguage];
 
-  const { search } = useLocation();
-  let pathName = search.split("=")[1];
-
-  useEffect(() => {
-    if (!pathName) {
-      setCurrentTab("task");
-    } else {
-      setCurrentTab(pathName);
-    }
-  }, [pathName]);
-  console.log(currentTab, "Current Tab");
+  const [currentTab, setCurrentTab] = useState(
+    `${STRINGS.ROUTES.TASK.DEFAULT}?f=task`
+  );
+  const render = {
+    [appHeader.Task.myTask]: <TaskList />,
+    [appHeader.Task.assignedByMe]: <AssignedByMe />,
+  };
+  const handleItem = (currentValue) => {
+    setCurrentTab(currentValue);
+  };
+  const items = [
+    {
+      name: appHeader.Task.dashboard,
+      to: `${STRINGS.ROUTES.TASK.DEFAULT}?f=dashboard`,
+      renderButton: buttonsEnum.dashboard,
+      onClick: (value) => handleItem(value),
+    },
+    {
+      name: appHeader.Task.myTask,
+      to: `${STRINGS.ROUTES.TASK.DEFAULT}?f=task`,
+      renderButton: buttonsEnum.task,
+      onClick: (value) => handleItem(value),
+    },
+    {
+      name: appHeader.Task.assignedByMe,
+      to: `${STRINGS.ROUTES.TASK.DEFAULT}?f=assignedByMe`,
+      renderButton: buttonsEnum.assign,
+      onClick: (value) => handleItem(value),
+    },
+    {
+      name: appHeader.Task.teamTask,
+      to: `${STRINGS.ROUTES.TASK.DEFAULT}?f=teamTask`,
+      renderButton: buttonsEnum.team,
+      onClick: (value) => handleItem(value),
+    },
+  ];
+  const buttons = [
+    {
+      buttonText: taskDictionaryList.createTextBtn,
+      render: (
+        <SideDrawer
+          children={<TaskComposer />}
+          title={taskDictionaryList.createTextBtn}
+          buttonText={taskDictionaryList.createTextBtn}
+        />
+      ),
+    },
+  ];
   return (
     <TabbableContainer>
-      <ContainerHeader>
-        <HeaderMenuContainer>
-          <HeaderNavLink
-            isDefault={false}
-            linkName={label.appHeader.Task.dashboard}
-            activeName={"dashboard"}
-            to={`${STRINGS.ROUTES.TASK.DEFAULT}?f=dashboard`}
-            urlParam={currentTab}
-          />
-          <HeaderNavLink
-            isDefault={false}
-            linkName={label.appHeader.Task.myTask}
-            activeName={"task"}
-            to={`${STRINGS.ROUTES.TASK.DEFAULT}?f=task`}
-            urlParam={currentTab}
-          />
-          <HeaderNavLink
-            isDefault={false}
-            linkName={label.appHeader.Task.assignedByMe}
-            activeName={"assignedByMe"}
-            to={`${STRINGS.ROUTES.TASK.DEFAULT}?f=assignedByMe`}
-            urlParam={currentTab}
-          />
-          <HeaderNavLink
-            isDefault={false}
-            linkName={label.appHeader.Task.teamTask}
-            activeName={"teamTask"}
-            to={`${STRINGS.ROUTES.TASK.DEFAULT}?f=teamTask`}
-            urlParam={currentTab}
-          />
-        </HeaderMenuContainer>
-        <div className="right-menu" style={{ paddingRight: "10px" }}>
-          <div className="btn-hld">
-            <SideDrawer
-              children={<TaskComposer />}
-              title="Create Task"
-              buttonText="Create Task"
-            />
-          </div>
-        </div>
-        <span className="ln" />
-      </ContainerHeader>
+      <Header items={items} buttons={buttons} />
       <TopBar
-        icons={[
-          <FilterFilled className="topBarIcon" />,
-          <AppstoreFilled className="topBarIcon gridIcon" />,
-          <UnorderedListOutlined className="topBarIcon gridIcon" />,
-        ]}
+        onSearch={(value) => {
+          console.log(value);
+        }}
+        filter={{
+          onFilter: () => {},
+        }}
+        segment={{
+          onSegment: (value) => {},
+          label1: sharedLabels.List,
+          label2: sharedLabels.Table,
+        }}
       />
       <ContBody>
         <div className="lf-col">
-          {currentTab === "task" ? (
-            <TaskList />
-          ) : currentTab === "assignedByMe" ? (
-            [1, 2, 3, 4].map((x) => <AssignedByMe />)
-          ) : (
-            currentTab
-          )}
-        </div>
-        <div
-          className="rt-col"
-          style={{ backgroundColor: "white", borderRadius: "8px" }}
-        >
-          <FilterForm />
+          {render[currentTab]}
+
+          <Approvals />
         </div>
       </ContBody>
     </TabbableContainer>

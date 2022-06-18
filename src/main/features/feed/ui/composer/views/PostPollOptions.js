@@ -25,11 +25,11 @@ export default function PostPollOptions() {
 
     return PostType.isPollType(type) && (
         <>
-            {options.map(({placeholder, value}, index) => (
+            {options.map(({value}, index) => (
                 <PollInput
                     key={index}
                     index={index}
-                    placeholder={placeholder}
+                    placeholder={`Option ${index + 1}`}
                     value={value}
                     onChange={(e) => onPollInputChange(index, e.target.value)}
                     onPollAttachmentChange={(files) => onPollAttachmentChange(index, files)}

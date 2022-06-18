@@ -8,12 +8,11 @@ import {
   AiOutlineClose,
 } from "react-icons/ai";
 import style from "./NewStickyNote.module.css";
-import { useDispatch, useSelector } from "react-redux/";
+import { useDispatch } from "react-redux";
 import {
   decrementStickyNote,
   stickyNoteColorPicker,
   closeStickyNoteColorPicker,
-  closeStickyNote,
 } from "../../../store/appReducer/newStickySlice";
 import StickyNoteColorSelector from "./StickyNoteColorSelector";
 

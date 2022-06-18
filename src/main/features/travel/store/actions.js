@@ -5,7 +5,11 @@ import {
 	responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 
-import { addTravelService, getAllTravelService } from "../services/service";
+import {
+	addTravelService,
+	getAllTravelService,
+	getTravelByIdService,
+} from "../services/service";
 
 export const addTravel = createAsyncThunk(
 	"addTravel",
@@ -55,5 +59,26 @@ export const getAllTravel = createAsyncThunk(
 		}
 		// console.log("response after sending", res);
 		// return res;
+	}
+);
+export const getTravelById = createAsyncThunk(
+	"getTravelById",
+	async (id, { dispatch, getState, rejectWithValue }) => {
+		const res = await getTravelByIdService(id);
+		if (res.responseCode === responseCode.Success) {
+			responseMessage({
+				dispatch: dispatch,
+				data: res,
+				type: responseMessageType.ApiSuccess,
+			});
+			return res;
+		} else {
+			responseMessage({
+				dispatch: dispatch,
+				data: res,
+				type: responseMessageType.ApiFailure,
+			});
+			return rejectWithValue(res.message);
+		}
 	}
 );

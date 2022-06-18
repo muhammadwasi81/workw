@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { TabContainer, ContBody } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import "../styles/Travel.css";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import { Table } from "./customTable/index";
+import { Table } from "../../../sharedComponents/customTable/index";
 import { FilterSortEnum } from "../../../../utils/Shared/enums/enums";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTravel } from "../store/actions";
@@ -13,45 +11,8 @@ import { travelStatus } from "../enums/enums";
 import ListView from "./ListView/ListView";
 import Header from "./Header";
 import { tableColumns } from "./TableColumns/Columns";
-// import TopBar from "../../../sharedComponents/topBar/topBar";
+import TopBar from "../../../sharedComponents/topBar/topBar";
 
-  {
-    title: "Reference No",
-    dataIndex: "referenceNo",
-    sort: true,
-    width: 100,
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    sort: true,
-    tag: true,
-    width: 50,
-  },
-  {
-    title: "Subject",
-    dataIndex: "subject",
-    width: 200,
-  },
-  {
-    title: "Description",
-    dataIndex: "description",
-    width: 200,
-  },
-  {
-    title: "Agent Status",
-    dataIndex: "agentStatus",
-    width: 200,
-  },
-  {
-    title: "Actions",
-    key: "action",
-    action: true,
-    actions: ["edit"],
-    key: "6",
-    width: 100,
-  },
-];
 const initialTableFilter = {
   pageNo: 1,
   pageSize: 20,
@@ -74,6 +35,7 @@ function Travel() {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
+  const { Direction, sharedLabels } = dictionaryList[userLanguage];
 
   const handleChange = (pagination, filters, sorter) => {
     // console.log("pagination", pagination);
@@ -142,7 +104,7 @@ function Travel() {
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
-        console.log("onCLick");
+        // console.log("onCLick");
       }, // click row
       onDoubleClick: (event) => {}, // double click row
       onContextMenu: (event) => {}, // right button click row
@@ -150,66 +112,17 @@ function Travel() {
       onMouseLeave: (event) => {}, // mouse leave row
     };
   };
+  const onActionClick = (row) => {
+    console.log("on action click", row);
+  };
 
   useEffect(() => {
     dispatch(getAllTravel(tableColumnFilter));
-    // if (tableView) {
-    // }
   }, [tableColumnFilter, dispatch]);
 
   return (
     <TabContainer>
       <Header label={label} />
-      {/* <TopBar
-				buttons={[
-					<Button className="filterButton topBtn !h-full !flex !items-center">
-						Filter
-						<FilterFilled />
-					</Button>,
-					<BarNavLink
-						activeName={"travles"}
-						linkName={"Travels"}
-						filterType={filter.filterType === 1 && true}
-					
-					/>,
-					<BarNavLink
-						activeName={"aprrovals"}
-						linkName={"For Approval"}
-						filterType={filter.filterType === 2 && true}
-					
-					/>,
-					<BarNavLink
-						activeName={"process"}
-						linkName={"Agent Process"}
-						filterType={filter.filterType === 3 && true}
-					
-					/>,
-				]}
-				gridIcons={[
-					<div
-						onClick={() => setTableView(false)}
-						className={`flex justify-center items-center gap-1 ${
-							!tableView
-								? "topBarIcon gridIcon isActive transition"
-								: "topBarIcon gridIcon"
-						}`}
-					>
-						ListView
-						<UnorderedListOutlined />
-					</div>,
-					<div
-						onClick={() => setTableView(true)}
-						className={`flex justify-center items-center gap-1 ${
-							tableView
-								? "topBarIcon gridIcon isActive transition"
-								: "topBarIcon gridIcon "
-						}`}
-					>
-						TableView
-						<AppstoreFilled />
-					</div>,
-				]}
-			/> */}
       <TopBar
         onSearch={(value) => {
           console.log(value);
@@ -233,25 +146,20 @@ function Travel() {
         }}
         segment={{
           onSegment: (value) => {
-            if (value === "Kanban") {
+            if (value === "Table") {
               setTableView(true);
             } else {
               setTableView(false);
             }
           },
-<<<<<<< HEAD
-          lable1: "List",
-          lable2: "Kanban",
-=======
           label1: "List",
           label2: "Table",
->>>>>>> 531909148ec8d1910589cc7e19592d9e5e72e939
         }}
       />
       <ContBody className="!block">
         {tableView ? (
           <Table
-            columns={columns}
+            columns={tableColumns(onActionClick, Direction, sharedLabels)}
             dragable={true}
             handleChange={handleChange}
             onPageChange={onPageChange}
@@ -260,9 +168,10 @@ function Travel() {
             status={travelStatus}
             loadding={loader}
             success={success}
+            onActionClick={onActionClick}
           />
         ) : (
-          <ListView data={travels} />
+          <ListView data={travels} loader={loader} />
         )}
       </ContBody>
     </TabContainer>
@@ -270,3 +179,53 @@ function Travel() {
 }
 
 export default Travel;
+
+// const columns = [
+// 	{
+// 		title: "Sort",
+// 		dataIndex: "sort",
+// 		drag: true,
+// 		width: 10,
+// 	},
+
+// 	{
+// 		title: "Reference No",
+// 		dataIndex: "referenceNo",
+// 		sort: true,
+// 		width: 100,
+// 	},
+// 	{
+// 		title: "Status",
+// 		dataIndex: "status",
+// 		sort: true,
+// 		tag: true,
+// 		width: 50,
+// 	},
+// 	{
+// 		title: "Subject",
+// 		dataIndex: "subject",
+// 		width: 200,
+// 	},
+// 	{
+// 		title: "Description",
+// 		dataIndex: "description",
+// 		width: 200,
+// 	},
+// 	{
+// 		title: "Agent Status",
+// 		dataIndex: "agentStatus",
+// 		width: 200,
+// 	},
+// 	{
+// 		title: "Actions",
+// 		key: "action",
+// 		action: true,
+// 		customAction: false,
+// 		actions: ["edit"],
+// 		key: "6",
+// 		width: 100,
+// 		render: (_, row) => {
+// 			return Edit(row);
+// 		},
+// 	},
+// ];

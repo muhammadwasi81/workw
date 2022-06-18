@@ -20,3 +20,13 @@ export const getAllTravelService = data => {
 			return error;
 		});
 };
+
+export const getTravelByIdService = id => {
+	return MasterConfig.get(`${API_PREFIX}GetTravelById?id=${id}`)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};

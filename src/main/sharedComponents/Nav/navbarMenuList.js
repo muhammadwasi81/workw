@@ -23,7 +23,6 @@ import payRollIcon from "../../../content/svg/menu/newNavBarIcon/Payroll.svg";
 import employeeIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg";
 import administrator from "../../../content/svg/menu/newNavBarIcon/Administration.svg";
 import appraisalsIcon from "../../../content/svg/menu/newNavBarIcon/Appraisals.svg";
-import departmentIcon from "../../../content/svg/menu/newNavBarIcon/Departments.svg";
 import leavesIcon from "../../../content/svg/menu/newNavBarIcon/Leaves.svg";
 import loanIcon from "../../../content/svg/menu/newNavBarIcon/Loan.svg";
 import holiday_event from "../../../content/svg/menu/newNavBarIcon/Holidays.svg";
@@ -31,6 +30,8 @@ import career from "../../../content/svg/menu/newNavBarIcon/Career.svg";
 import resignation from "../../../content/svg/menu/newNavBarIcon/resignation.svg";
 import rewardIcon from "../../../content/svg/menu/rewardIcon.svg";
 import complainIcon from "../../../content/svg/menu/newNavBarIcon/complainIcon.svg";
+import departmentIcon from "../../../content/NewContent/department/departmentIcon.svg";
+
 import { DOMAIN_PREFIX } from "../../../utils/routes";
 const NavMenuList = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -305,7 +306,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.departments,
       counter: 0,
-      icon: leavesIcon,
+      icon: departmentIcon,
       to: ROUTES.DEPARTMENTS.DEPARTMENT,
       isActive: true,
       key: label.navMenuLabel.hr,

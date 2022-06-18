@@ -8,12 +8,7 @@ function CardDetailView(props) {
     <div className="flex flex-col">
       <h2 className="text-black text-xl text-semi-bold">{props.heading}</h2>
       {props.isAvatarGroup ? (
-        <Avatar
-          membersData={props.membersData}
-          text={props.text}
-          image={props.image}
-          heading={props.heading}
-        />
+        <Avatar membersData={props.membersData} text={props.text} image={props.image} heading={props.heading} />
       ) : props.isTag ? (
         <ReferenceTag refNo={props.text} />
       ) : (

@@ -5,6 +5,7 @@ const newStickySlice = createSlice({
   initialState: {
     close: true,
     incrementArray: [],
+    colorPicker: false,
   },
   reducers: {
     closeSticky(state) {
@@ -21,13 +22,26 @@ const newStickySlice = createSlice({
       });
     },
     decrementStickyNote(state, actions) {
-      const decrementStickyNote = actions.payload;
-      state.incrementArray.filter((list) => list.id !== decrementStickyNote.id);
+      const id = actions.payload;
+      state.incrementArray = state.incrementArray.filter(
+        (list) => list.id !== id
+      );
+    },
+    stickyNoteColorPicker(state) {
+      state.colorPicker = true;
+    },
+    closeStickyNoteColorPicker(state) {
+      state.colorPicker = false;
     },
   },
 });
 
-export const { closeSticky, incrementStickyNote, decrementStickyNote } =
-  newStickySlice.actions;
+export const {
+  closeSticky,
+  incrementStickyNote,
+  decrementStickyNote,
+  stickyNoteColorPicker,
+  closeStickyNoteColorPicker,
+} = newStickySlice.actions;
 
 export default newStickySlice.reducer;

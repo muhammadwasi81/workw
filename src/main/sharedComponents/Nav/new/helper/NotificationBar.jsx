@@ -146,6 +146,8 @@ function NotificationBar() {
     (state) => state.newStickySlice.incrementArray
   );
   console.log(incrementStickyNote);
+
+  const closeStickyNote = useSelector((state) => state.newStickySlice.close);
   return (
     <div className={classes}>
       <ul className="list">

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReferenceTag from "../../../../sharedComponents/Tag/ReferenceTag";
-import Avatar from "../../../../sharedComponents/Avatar/Avatar";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 
 function CardDetailView(props) {
 	return (

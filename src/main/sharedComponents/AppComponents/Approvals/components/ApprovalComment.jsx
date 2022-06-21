@@ -1,7 +1,9 @@
 import React from "react";
 import Avatar from "../../../Avatar/avatarOLD";
+import { statusEnum } from "../enums";
 
-function ApprovalComment() {
+function ApprovalComment({ type = "Approvers", status = 1 }) {
+  const { label, color } = statusEnum[type][status - 1];
   return (
     <>
       <div className="comment">
@@ -22,7 +24,7 @@ function ApprovalComment() {
             and more recently with desktop publishing software like Aldus
             PageMaker including versions of Lorem Ipsum. s
           </p>
-          <span>Approved</span>
+          <span style={{ color }}>{label}</span>
         </div>
       </div>
     </>

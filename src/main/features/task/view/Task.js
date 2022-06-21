@@ -86,11 +86,7 @@ function Task() {
         }}
       />
       <ContBody>
-        <div className="lf-col">
-          {render[currentTab]}
-
-          <Approvals />
-        </div>
+        <div className="lf-col">{render[currentTab]}</div>
       </ContBody>
     </TabbableContainer>
   );

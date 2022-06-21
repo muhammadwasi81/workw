@@ -50,7 +50,7 @@
 .approvalCollapse {
   background-color: #f4f4f4;
   border-radius: 5px;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin-top: 5px;
 }
 .approvalCollapse,
@@ -138,7 +138,8 @@
   background-color: #fff;
   border-top-left-radius: 0;
   padding: 10px 8px;
-  width: 100%;
+  width: fit-content;
+  min-width: 40%;
 }
 .remarks__body .comment__body h6 {
   font-size: 13px;
@@ -173,6 +174,7 @@
 }
 .remarkFooter__top .right {
   width: 100%;
+  position: relative;
 }
 
 .remarkFooter__top .input {
@@ -194,6 +196,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 10px 6px 10px;
+  position: relative;
 }
 .remarkFooter__bottom .list {
   display: flex;
@@ -206,6 +209,7 @@
 }
 .remarkFooter__bottom .list__item {
   cursor: pointer;
+  white-space: nowrap;
 }
 .remarkFooter__bottom .list__item:nth-child(1) {
   color: #1a5669;
@@ -219,4 +223,10 @@
 
 .remarkFooter__bottom .list__item:nth-child(4) {
   color: #eda317;
+}
+.remarkFooter__top .emojiCont {
+  position: absolute;
+  right: -2px;
+  top: 42px;
+  z-index: 9999;
 }

@@ -9,7 +9,7 @@ import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLin
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
-import Approval from "../../../sharedComponents/AppComponents/Approval/Approval";
+import Approval from "../../../sharedComponents/AppComponents/Approvals/view";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -32,14 +32,18 @@ function DetailedView(props) {
 
   return (
     <Drawer
-      title={complainDictionary.complain}
+      title={
+        <h1 style={{ fontSize: "20px", margin: 0 }}>
+          {complainDictionary.complain}
+        </h1>
+      }
       width="768"
       placement={
         (Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")
       }
       onClose={props.onClose}
       visible={props.visible}
-      className="detailedViewComposer"
+      className="detailedViewComposer drawerSecondary"
     >
       <div className="detailedCard ">
         <div className="item-header">
@@ -150,7 +154,7 @@ function DetailedView(props) {
           </div>
         </div>
         <div className="warning-approvers">
-          {approvers &&
+          {/* {approvers &&
             approvers.map((val, i) => {
               if (val.approver) {
                 let { name, designation = "Default Designation" } =
@@ -167,7 +171,10 @@ function DetailedView(props) {
                   </>
                 );
               }
-            })}
+            })} */}
+          {rewardDetail.approvers && (
+            <Approval title={"Approvals"} data={rewardDetail.approvers} />
+          )}
         </div>
       </div>
     </Drawer>

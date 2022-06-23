@@ -1,8 +1,6 @@
 import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
-import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
 import { addDepartment } from "../store/actions";
@@ -11,6 +9,12 @@ import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import Select from "../../../sharedComponents/Select/Select";
+import { DepartmentMemberTypeList } from "../constant/index";
+import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
+import MemberComposer from "./MemberComposer";
+
+const fakeDataUrl = "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
 
 const initialState = {
   id: "",
@@ -30,11 +34,23 @@ const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
 
+  console.log(fakeDataUrl, "DUMMY DATA");
+
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
 
   const [state, setState] = useState(initialState);
+
+  const [memberList, setMemberList] = useState([]);
+
+  const onChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
 
   useEffect(() => {
     dispatch(getRewardCategory());
@@ -46,6 +62,10 @@ const Composer = (props) => {
     setProfileImage(data);
   };
 
+  const handelAddMember = (data) => {
+    setMemberList([...memberList, data]);
+  };
+
   const onFinish = (values) => {
     form.resetFields();
 
@@ -55,7 +75,7 @@ const Composer = (props) => {
       // 	"Hurry i got image if from server"
       // );
 
-      //   console.log(x, "FIRST ONE");
+      console.log(x, "FIRST ONE");
       let photoId = x.payload.data[0].id;
 
       //   let approvers = values.approvers.map((approver) => {
@@ -67,9 +87,9 @@ const Composer = (props) => {
       //       email: "",
       //     };
       //   });
-      let members = values.members.map((approver) => {
+      let members = memberList.map((member) => {
         return {
-          approverId: approver,
+          approverId: member,
           approverType: 0,
           isDefault: true,
           status: 0,
@@ -79,9 +99,7 @@ const Composer = (props) => {
 
       let payload = { ...values, imageId: photoId, members };
       console.log(payload, "FINALLLL!!!!");
-
-      //   dispatch(addDepartment(payload));
-      // console.log(payload, "Final Data");
+      dispatch(addDepartment(payload));
     });
   };
 
@@ -108,18 +126,27 @@ const Composer = (props) => {
         autoComplete="off"
         // className={Direction === "ltr" ? "align-right" : ""}
       >
-        <Form.Item
-          label={departmentDictionary.name}
-          name="name"
-          labelPosition="top"
-          rules={[
-            {
-              required: true,
-              message: departmentDictionary.pleaseEnterRewardName,
-            },
-          ]}>
-          <TextInput placeholder={departmentDictionary.enterRewardName} />
-        </Form.Item>
+        <div className="flex justify-between gap-4">
+          <div className="w-full">
+            <Form.Item
+              label={departmentDictionary.name}
+              name="name"
+              labelPosition="top"
+              rules={[
+                {
+                  required: true,
+                  message: departmentDictionary.pleaseEnterRewardName,
+                },
+              ]}>
+              <TextInput placeholder={departmentDictionary.enterRewardName} />
+            </Form.Item>
+          </div>
+          <div className="flex gap-4">
+            <Form.Item area="true" style={{ marginBottom: 0 }}>
+              <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={departmentDictionary.upload} />
+            </Form.Item>
+          </div>
+        </div>
 
         <Form.Item
           label={departmentDictionary.description}
@@ -145,25 +172,12 @@ const Composer = (props) => {
           />
         </Form.Item>
 
-        <Form.Item name="members" label={"Members"} showSearch={true} direction={Direction} rules={[{ required: true }]}>
-          <NewCustomSelect
-            name="members"
-            label={"Select Members"}
-            showSearch={true}
-            direction={Direction}
-            mode="multiple"
-            endPoint="api/Reference/GetAllUserReference"
-            requestType="get"
-            placeholder={departmentDictionary.selectMember}
-          />
-        </Form.Item>
+        <MemberComposer handleAdd={handelAddMember} />
 
-        <Form.Item area="true">
-          <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={departmentDictionary.upload} />
-        </Form.Item>
+        {memberList?.length > 0 ? <MemberListItem data={memberList} /> : ""}
 
         <Form.Item>
-          <Button type="primary" size="medium" className="ThemeBtn" block htmlType="submit" title={departmentDictionary.createReward}>
+          <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={departmentDictionary.createReward}>
             {" "}
             {"Create Department"}{" "}
           </Button>

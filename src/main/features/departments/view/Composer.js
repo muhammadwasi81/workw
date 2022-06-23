@@ -1,7 +1,7 @@
 import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
 import { addDepartment } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
@@ -9,10 +9,9 @@ import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
-import Select from "../../../sharedComponents/Select/Select";
-import { DepartmentMemberTypeList } from "../constant/index";
 import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
+import { STRINGS } from "../../../../utils/base";
 
 const fakeDataUrl = "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
 
@@ -28,6 +27,7 @@ const initialState = {
     },
   ],
   hodId: "",
+  parentId: "",
 };
 
 const Composer = (props) => {
@@ -54,8 +54,6 @@ const Composer = (props) => {
 
   useEffect(() => {
     dispatch(getRewardCategory());
-    // dispatch(getAllEmployee());
-    // console.log(employeesList, "EMPLOYEES")
   }, []);
 
   const handleImageUpload = (data) => {
@@ -70,34 +68,17 @@ const Composer = (props) => {
     form.resetFields();
 
     dispatch(uploadImage(profileImage)).then((x) => {
-      // console.log(
-      // 	x.payload.data[0].id,
-      // 	"Hurry i got image if from server"
-      // );
-
       console.log(x, "FIRST ONE");
       let photoId = x.payload.data[0].id;
 
-      //   let approvers = values.approvers.map((approver) => {
-      //     return {
-      //       approverId: approver,
-      //       approverType: 0,
-      //       isDefault: true,
-      //       status: 0,
-      //       email: "",
-      //     };
-      //   });
       let members = memberList.map((member) => {
         return {
-          approverId: member,
-          approverType: 0,
-          isDefault: true,
-          status: 0,
-          email: "",
+          memberId: member.user.id,
+          memberType: member.memberType,
         };
       });
 
-      let payload = { ...values, imageId: photoId, members };
+      let payload = { ...values, imageId: photoId, members, parentId: STRINGS.DEFAULTS.guid };
       console.log(payload, "FINALLLL!!!!");
       dispatch(addDepartment(payload));
     });
@@ -174,7 +155,11 @@ const Composer = (props) => {
 
         <MemberComposer handleAdd={handelAddMember} />
 
-        {memberList?.length > 0 ? <MemberListItem data={memberList} /> : ""}
+        {memberList?.length > 0 ? (
+          <MemberListItem data={memberList} onRemove={(row) => setMemberList(memberList.filter((item) => item.user.id !== row.user.id))} />
+        ) : (
+          ""
+        )}
 
         <Form.Item>
           <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={departmentDictionary.createReward}>

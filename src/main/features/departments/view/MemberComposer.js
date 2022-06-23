@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
-import { Button, Form } from "antd";
+import { Form, message } from "antd";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import Select from "../../../sharedComponents/Select/Select";
 import { DepartmentMemberTypeList } from "../constant/index";
 import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { PlusOutlined } from "@ant-design/icons";
 import "./style.css";
 
 function MemberComposer(props) {
@@ -44,7 +45,7 @@ function MemberComposer(props) {
         memberType: null,
       });
     } else {
-      alert("Please Fill Required Fields");
+      message.error("Please Fill Required Fields");
     }
   };
 
@@ -61,7 +62,6 @@ function MemberComposer(props) {
               showSearch={true}
               onChange={handleMember}
               direction={Direction}
-              //   mode="multiple"
               endPoint="api/Reference/GetAllUserReference"
               valueObject={true}
               requestType="get"
@@ -73,7 +73,6 @@ function MemberComposer(props) {
         </div>
         <div className="memberTypeInput">
           <Form.Item
-            // initialValue={state.purposeId}
             name="membersType"
             rules={[
               {
@@ -82,8 +81,6 @@ function MemberComposer(props) {
               },
             ]}>
             <Select
-              //   value={user.id}
-              //   defaultValue={user.id}
               placeholder={"Select Members"}
               data={DepartmentMemberTypeList()}
               onChange={handleMemberType}
@@ -97,9 +94,7 @@ function MemberComposer(props) {
         </div>
 
         <div className="">
-          <Button className="ThemeBtn" size="large" style={{ borderRadius: 4, border: 0 }} onClick={handleAdd}>
-            Add
-          </Button>
+          <PlusOutlined className="ThemeBtn text-xl" size="large" style={{ borderRadius: 4, border: 0, padding: "10px" }} onClick={handleAdd} />
         </div>
       </div>
     </>

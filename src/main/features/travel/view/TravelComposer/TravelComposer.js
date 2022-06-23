@@ -69,7 +69,7 @@ function TravelComposer(props) {
 	const [docsData, setDocsData] = useState(null);
 	const [isSubmit, setIsSubmit] = useState(false);
 	const [travelDetails, setTravelDetails] = useState([]);
-	const { loader } = useSelector(state => state.travelSlice);
+	const { loader, success } = useSelector(state => state.travelSlice);
 
 	const isTablet = useMediaQuery({ maxWidth: 650 });
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -210,12 +210,12 @@ function TravelComposer(props) {
 	const handleDocsUpload = data => {
 		setDocsData(data);
 	};
-	// useEffect(() => {
-	// 	console.log("state", state);
-	// }, [state]);
+
 	useEffect(() => {
 		if (isSubmit) {
 			dispatch(addTravel(state));
+			form.resetFields();
+			setTravelDetails([]);
 			setIsSubmit(false);
 		}
 	}, [isSubmit]);
@@ -239,7 +239,6 @@ function TravelComposer(props) {
 					<TextInput
 						name="subject"
 						placeholder="Subject"
-						value={state.subject}
 						onChange={onInputFieldChange}
 					/>
 				</div>

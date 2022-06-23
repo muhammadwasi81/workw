@@ -10,23 +10,19 @@ function ListView(props) {
 	const navigate = useNavigate();
 
 	return (
-		<div className="gap-5 flex flex-col relative z-10 hover:shadow-black duration-300">
+		<div className="gap-5 flex flex-col z-10 hover:shadow-black duration-300">
 			{props.data
 				? props.data.map(data => (
-						<div>
+						<div className="flex bg-white flex-col gap-2  rounded-xl relative overflow-hidden ">
 							<div
-								className="absolute w-full h-full cursor-pointer "
-								// id={data.id}
+								className="absolute w-full h-full cursor-pointer duration-300 rounded-xl"
 								onClick={() => {
 									navigate(
 										`${ROUTES.TRAVEL.TREAVELDETAIL}${data.id}`
 									);
 								}}
 							/>
-							<div
-								className="flex bg-white hover:shadow-inner p-5 flex-col gap-2  rounded-xl "
-								// style={{ flex: "0 0 49%" }}
-							>
+							<div className="p-5">
 								<CardProfileTopView
 									profileImgSrc={
 										data.creator &&

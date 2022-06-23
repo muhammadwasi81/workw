@@ -61,7 +61,7 @@ function NewCustomSelect(props) {
 			optionFilterProp="children"
 			onBlur={props.onBlur}
 			onSelect={val => {
-				console.log("selected value", val);
+				// console.log("selected value", val);
 			}}
 			onChange={props.onChange}
 			onClear={props.onClear}

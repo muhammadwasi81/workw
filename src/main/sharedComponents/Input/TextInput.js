@@ -29,11 +29,10 @@ function TextInput({
 		}
 	}, [reset]);
 
-	console.log(value,'VALUE',defaultValue,'DF');
+	// console.log(value,'VALUE',defaultValue,'DF');
 	return (
 		<>
 			<Input
-
 				id={name}
 				prefix={
 					props.prefix ? (

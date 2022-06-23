@@ -27,6 +27,7 @@ function TravelDetailCard(props) {
 	const isMobile = useMediaQuery({ minWidth: 500 });
 	const largeSc = useMediaQuery({ minWidth: 1024 });
 	const { travelById } = props.travel;
+
 	useEffect(() => {
 		// console.log("props.travel", props.travel);
 		let arrivalId = props.travel.arrivalId;

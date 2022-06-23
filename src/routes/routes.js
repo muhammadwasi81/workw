@@ -43,6 +43,20 @@ export const routes = {
 			component: lazy(() => import("../main/features/employee/")),
 		},
 		{
+			path: `${ROUTES.PROJECT.DEFAULT}`,
+			component: lazy(() =>
+				import(
+					"../main/features/projects/ProjectDetails/ProjectDetails"
+				)
+			),
+		},
+		{
+			path: `${ROUTES.GROUP.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/groups/GroupDetails/GroupDetails")
+			),
+		},
+		{
 			path: `${ROUTES.WARNINGS.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/warning/view/Warning")

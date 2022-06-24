@@ -32,7 +32,7 @@ function TaskComposer() {
     const isShow = target.value === "self" ? false : true;
     setIsAssignTo(isShow);
   };
-  let classes = "task-composer ";
+  let classes = "task-composer  ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
   return (
     <Form

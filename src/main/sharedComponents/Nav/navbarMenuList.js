@@ -183,6 +183,14 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     {
+      name: label.navMenuLabel.expense,
+      counter: 0,
+      to: `${ROUTES.EXPENSES.EXPENSES}?f=my`,
+      icon: expensesIcon,
+      isActive: 10,
+      key: label.navMenuLabel.hr,
+    },
+    {
       name: label.navMenuLabel.feed,
       counter: 0,
       to: DOMAIN_PREFIX,
@@ -209,7 +217,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.tasks,
       counter: 0,
-      to: `${ROUTES.TASKS}?f=task`,
+      to: `${ROUTES.TASKS}`,
       icon: taskIcon,
       isActive: 6,
       key: label.navMenuLabel.hr,

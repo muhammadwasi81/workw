@@ -27,6 +27,8 @@ const en = {
       default: "Default",
       checkList: "Check List",
       description: "Description",
+      startDate: " Start Date",
+      endtDate: " Start End",
     },
   },
   Direction: "ltr",

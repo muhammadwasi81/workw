@@ -29,7 +29,7 @@ function TravelDetail() {
 	const items = [
 		{
 			name: travelDetail && travelDetail.subject,
-			to: `${ROUTES.TRAVEL.DEFAULT}`,
+			to: `${ROUTES.TRAVEL.TREAVELDETAIL + travelId}`,
 		},
 	];
 	return (

@@ -1,14 +1,8 @@
 import React from "react";
-import ExampleAntdCustomSelect from "../../sharedComponents/AntdCustomSelects";
 import Travel from "./view/Travel";
 
 function Index() {
-	return (
-		<>
-			{/* <ExampleAntdCustomSelect /> */}
-			<Travel />
-		</>
-	);
+	return <Travel />;
 }
 
 export default Index;

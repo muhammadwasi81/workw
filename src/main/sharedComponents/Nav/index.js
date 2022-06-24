@@ -15,37 +15,37 @@ import { useDispatch } from "react-redux";
 import { setNotificationStatus } from "../../../store/appReducer/responsiveSlice";
 
 const SideNavigation = () => {
-  const { navBarStatus } = useSelector((state) => state.responsiveSlice);
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction } = dictionaryList[userLanguage];
-  const dispatch = useDispatch();
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(max-width: 800px)",
-  });
-  useEffect(() => {
-    if (isDesktopOrLaptop) {
-      dispatch(setNotificationStatus(false));
-    }
-  }, [isDesktopOrLaptop]);
+	const { navBarStatus } = useSelector(state => state.responsiveSlice);
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { Direction } = dictionaryList[userLanguage];
+	const dispatch = useDispatch();
+	const isDesktopOrLaptop = useMediaQuery({
+		query: "(max-width: 800px)",
+	});
+	useEffect(() => {
+		if (isDesktopOrLaptop) {
+			dispatch(setNotificationStatus(false));
+		}
+	}, [isDesktopOrLaptop]);
 
-  let classes = "sideNavigation ";
-  classes += !navBarStatus ? "close" : "open";
-  classes += Direction === "ltr" ? "" : " rtl";
-  return (
-    <div className={classes}>
-      <div className="sideNavigation__top">
-        <BusinessLogo />
-        <ToggleButton />
-      </div>
-      <div className="sideNavigation__body">
-        <UserDetails />
-        <NotificationBar />
-        <Menu />
-      </div>
-      <div className="sideNavigation__footer">
-        <NavigationBottom />
-      </div>
-    </div>
-  );
+	let classes = "sideNavigation ";
+	classes += !navBarStatus ? "close" : "open";
+	classes += Direction === "ltr" ? "" : " rtl";
+	return (
+		<div className={classes}>
+			<div className="sideNavigation__top">
+				<BusinessLogo />
+				<ToggleButton />
+			</div>
+			<div className="sideNavigation__body">
+				<UserDetails />
+				<NotificationBar />
+				<Menu />
+			</div>
+			<div className="sideNavigation__footer">
+				<NavigationBottom />
+			</div>
+		</div>
+	);
 };
 export default SideNavigation;

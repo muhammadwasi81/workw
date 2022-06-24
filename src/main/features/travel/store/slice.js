@@ -6,6 +6,7 @@ const initialState = {
 	travelDetail: null,
 	loader: false,
 	success: false,
+	isAdded: false,
 	error: false,
 };
 
@@ -19,6 +20,7 @@ const travelSlice = createSlice({
 				// console.log("travel fullfilled slice");
 				state.loader = false;
 				state.success = true;
+				state.isAdded = true;
 			})
 			.addCase(getAllTravel.fulfilled, (state, { payload }) => {
 				// console.log("travel fullfilled slice");
@@ -38,12 +40,14 @@ const travelSlice = createSlice({
 					// console.log("travel pending slice");
 					state.loader = true;
 					state.success = false;
+					state.isAdded = false;
 				}
 			)
 			.addMatcher(isRejected(), state => {
 				// console.log("travel rejected slice");
 				state.loader = false;
 				state.success = false;
+				state.isAdded = false;
 			});
 	},
 });

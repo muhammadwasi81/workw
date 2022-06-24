@@ -59,13 +59,7 @@ const NavMenuList = () => {
       icon: messengerIcon,
       isActive: 3,
     },
-    // {
-    // 	name: label.navMenuLabel.groups,
-    // 	counter: 0,
-    // 	to: ROUTES.GROUP.DEFAULT,
-    // 	icon: groupsIcon,
-    // 	isActive: 4,
-    // },
+
     // {
     // 	name: label.navMenuLabel.projects,
     // 	counter: 0,
@@ -175,19 +169,19 @@ const NavMenuList = () => {
       key: label.navMenuLabel.menu,
     },
     {
-      name: label.navMenuLabel.travel,
-      counter: 0,
-      to: `${ROUTES.TRAVELS}?f=trv`,
-      icon: travelIcon,
-      isActive: 11,
-      key: label.navMenuLabel.hr,
-    },
-    {
       name: label.navMenuLabel.expense,
       counter: 0,
       to: `${ROUTES.EXPENSES.EXPENSES}?f=my`,
       icon: expensesIcon,
       isActive: 10,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: label.navMenuLabel.travel,
+      counter: 0,
+      to: `${ROUTES.TRAVELS}`,
+      icon: travelIcon,
+      isActive: 11,
       key: label.navMenuLabel.hr,
     },
     {
@@ -207,6 +201,22 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     {
+      name: label.navMenuLabel.projects,
+      counter: 0,
+      to: ROUTES.PROJECT.DEFAULT,
+      icon: projectsIcon,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.groups,
+      counter: 0,
+      to: ROUTES.GROUP.DEFAULT,
+      icon: groupsIcon,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
       name: label.navMenuLabel.administration,
       counter: 0,
       icon: administrator,
@@ -217,7 +227,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.tasks,
       counter: 0,
-      to: `${ROUTES.TASKS}`,
+      to: `${ROUTES.TASKS}?f=task`,
       icon: taskIcon,
       isActive: 6,
       key: label.navMenuLabel.hr,

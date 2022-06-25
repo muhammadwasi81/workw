@@ -12,6 +12,7 @@ import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSel
 import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
 import { STRINGS } from "../../../../utils/base";
+import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
 
 const initialState = {
   id: "",
@@ -155,6 +156,8 @@ const Composer = (props) => {
         ) : (
           ""
         )}
+        <Form.Item label={"Features"} style={{ color: "#1b5669", fontSize: "17px", marginBottom: "14px" }}></Form.Item>
+        <FeatureSelect />
 
         <Form.Item>
           <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={departmentDictionary.createReward}>

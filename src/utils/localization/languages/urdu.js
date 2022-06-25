@@ -180,6 +180,7 @@ const urdu = {
       scheduleInterviews: "انٹرویو کا شیڈول",
     },
     expense: {
+      expenses: "اخراجات",
       forApprovals: "منظوریوں کے لیے",
       myExpenses: "میرے اخراجات",
       forExecution: "عملدرآمد کے لیے",

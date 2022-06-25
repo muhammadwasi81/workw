@@ -8,53 +8,24 @@ import {
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import TaskComposer from "./TaskComposer";
-import TaskList from "./TaskList/index";
-import AssignedByMe from "./AssignedByMe";
+
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header";
 import { buttonsEnum } from "../enum/enum";
 import { taskDictionary } from "../localization";
-import Approvals from "../../../sharedComponents/AppComponents/Approvals/view";
+import MyTask from "./MyTask";
 
 function Task() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { appHeader, sharedLabels } = dictionaryList[userLanguage];
+  const { appHeader, sharedLabels, navMenuLabel } =
+    dictionaryList[userLanguage];
   const { taskDictionaryList } = taskDictionary[userLanguage];
 
-  const [currentTab, setCurrentTab] = useState(
-    `${STRINGS.ROUTES.TASK.DEFAULT}?f=task`
-  );
-  const render = {
-    [appHeader.Task.myTask]: <TaskList />,
-    [appHeader.Task.assignedByMe]: <AssignedByMe />,
-  };
-  const handleItem = (currentValue) => {
-    setCurrentTab(currentValue);
-  };
   const items = [
     {
-      name: appHeader.Task.dashboard,
-      to: `${STRINGS.ROUTES.TASK.DEFAULT}?f=dashboard`,
+      name: navMenuLabel.tasks,
+      to: `${STRINGS.ROUTES.TASK.DEFAULT}`,
       renderButton: buttonsEnum.dashboard,
-      onClick: (value) => handleItem(value),
-    },
-    {
-      name: appHeader.Task.myTask,
-      to: `${STRINGS.ROUTES.TASK.DEFAULT}?f=task`,
-      renderButton: buttonsEnum.task,
-      onClick: (value) => handleItem(value),
-    },
-    {
-      name: appHeader.Task.assignedByMe,
-      to: `${STRINGS.ROUTES.TASK.DEFAULT}?f=assignedByMe`,
-      renderButton: buttonsEnum.assign,
-      onClick: (value) => handleItem(value),
-    },
-    {
-      name: appHeader.Task.teamTask,
-      to: `${STRINGS.ROUTES.TASK.DEFAULT}?f=teamTask`,
-      renderButton: buttonsEnum.team,
-      onClick: (value) => handleItem(value),
     },
   ];
   const buttons = [
@@ -79,6 +50,20 @@ function Task() {
         filter={{
           onFilter: () => {},
         }}
+        buttons={[
+          {
+            name: appHeader.Task.myTask,
+            onClick: () => {},
+          },
+          {
+            name: appHeader.Task.assignedByMe,
+            onClick: () => {},
+          },
+          {
+            name: appHeader.Task.teamTask,
+            onClick: () => {},
+          },
+        ]}
         segment={{
           onSegment: (value) => {},
           label1: sharedLabels.List,
@@ -87,9 +72,7 @@ function Task() {
       />
       <ContBody>
         <div className="lf-col">
-          {render[currentTab]}
-
-          <Approvals />
+          <MyTask />
         </div>
       </ContBody>
     </TabbableContainer>

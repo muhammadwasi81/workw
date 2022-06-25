@@ -32,13 +32,13 @@ function TaskComposer() {
     const isShow = target.value === "self" ? false : true;
     setIsAssignTo(isShow);
   };
-  let classes = "task-composer ";
+  let classes = "task-composer  ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
   return (
     <Form
       className={classes}
       name="createTask"
-      layout="vertical"
+        layout="vertical"
       initialValues={initialValues}
     >
       <Form.Item label={labels.taskSubject} name="subject">

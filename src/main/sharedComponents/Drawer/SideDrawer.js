@@ -59,11 +59,11 @@ function SideDrawer({ title, buttonText, children, ...props }) {
         }
         IconSize={20}
         style={{
-          fontSize: "12px", 
+          fontSize: "12px",
         }}
       />
       <Drawer
-        className="shared_drawer"
+        className={"shared_drawer drawerSecondary"}
         style={
           Direction === "rtl"
             ? { textAlign: "right" }

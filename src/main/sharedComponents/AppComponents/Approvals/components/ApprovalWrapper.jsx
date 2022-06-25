@@ -1,11 +1,27 @@
 import { Collapse } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import ApprovalBody from "../components/ApprovalBody";
 import { PlusSquareOutlined, ReloadOutlined } from "@ant-design/icons";
 import RemarkFooter from "./RemarkFooter";
 const { Panel } = Collapse;
-function ApprovalWrapper({ title }) {
+function ApprovalWrapper({ title, data }) {
+  const [files, setFiles] = useState([]);
+  const handleFile = (e) => {
+    if (e.target.files.length > 1) {
+      setFiles((prevValue) => [...prevValue, ...e.target.files]);
+    } else {
+      setFiles((prevValue) => [...prevValue, e.target.files[0]]);
+    }
+  };
+  const handleDelete = (deleteFile) => {
+    const allFiles = files.filter((file, index) => index !== deleteFile);
+    setFiles(allFiles);
+  };
+  useEffect(() => {
+    setFiles([]);
+  }, [data]);
+
   return (
     <div className="approvalWrapper">
       <div className="approvalWrapper__header">
@@ -19,50 +35,39 @@ function ApprovalWrapper({ title }) {
           </li>
         </ul>
       </div>
-      <Collapse
-        className="approvalCollapse"
-        expandIconPosition={"right"}
-        onChange={() => {}}
-      >
-        <Panel
-          extra={null}
-          header={
-            <Header
-              type={"Approvers"}
-              status={1}
-              user={{
-                name: "name",
-                designation: "designation",
-              }}
-            ></Header>
-          }
-        >
-          <ApprovalBody />
-          <RemarkFooter />
-        </Panel>
-      </Collapse>
-      <Collapse
-        className="approvalCollapse"
-        expandIconPosition={"right"}
-        onChange={() => {}}
-      >
-        <Panel
-          extra={null}
-          header={
-            <Header
-              type={"Approvers"}
-              status={1}
-              user={{
-                name: "name",
-                designation: "designation",
-              }}
-            ></Header>
-          }
-        >
-          <ApprovalBody />
-          <RemarkFooter />
-        </Panel>
-      </Collapse>
+
+      {data.map(({ approver }) => {
+        if (approver) {
+          const { businessId, designation, name, image } = approver;
+          return (
+            <Collapse
+              className="approvalCollapse"
+              expandIconPosition={"right"}
+              key={businessId}
+            >
+              <Panel
+                extra={null}
+                header={
+                  <Header
+                    user={{
+                      name,
+                      designation,
+                      image,
+                    }}
+                  ></Header>
+                }
+              >
+                <ApprovalBody />
+                <RemarkFooter
+                  files={files}
+                  onFile={handleFile}
+                  onDelete={handleDelete}
+                />
+              </Panel>
+            </Collapse>
+          );
+        }
+      })}
     </div>
   );
 }

@@ -1,7 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  HeaderMenuContainer,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Row, Button, Skeleton } from "antd";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -10,7 +14,11 @@ import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
+import {
+  FilterFilled,
+  UnorderedListOutlined,
+  AppstoreFilled,
+} from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
@@ -38,7 +46,9 @@ const Reward = (props) => {
 
   const dispatch = useDispatch();
 
-  const { warnings, loader, warningDetail } = useSelector((state) => state.warningSlice);
+  const { warnings, loader, warningDetail } = useSelector(
+    (state) => state.warningSlice
+  );
 
   const onClose = () => {
     setVisible(false);
@@ -60,7 +70,11 @@ const Reward = (props) => {
             buttonText: "Create Travel",
             // onClick: () => setVisible(true),
             render: (
-              <SideDrawer title={warningDictionary.createWarning} buttonText={warningDictionary.createWarning} isAccessDrawer={false}>
+              <SideDrawer
+                title={warningDictionary.createWarning}
+                buttonText={warningDictionary.createWarning}
+                isAccessDrawer={false}
+              >
                 <Composer />
               </SideDrawer>
             ),
@@ -128,7 +142,12 @@ const Reward = (props) => {
                   {warnings.map((item, index) => {
                     return (
                       <>
-                        <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                        <ListItem
+                          getRewardId={getRewardId}
+                          item={item}
+                          id={item.id}
+                          key={index}
+                        />
                       </>
                     );
                   })}

@@ -1,16 +1,22 @@
 import React from "react";
 import "./style.css";
+import { DeleteOutlined } from "@ant-design/icons";
+import { getFileExt } from "./helper";
+
 function FilePreview({ files, onDelete }) {
-  console.log(files);
-  const getFilePreview = (type, name) => {
-    return name;
-  };
   return (
     <div className="filerView">
-      {files.map(({ type, name }, index) => {
+      {files.map((file, index) => {
         return (
           <div className="image" key={index}>
-            <img src={getFilePreview(type, name)} alt="" />
+            <img src={getFileExt(file)} alt="" />
+            <div className="overlay">
+              <DeleteOutlined
+                onClick={() => {
+                  onDelete(index);
+                }}
+              />
+            </div>
           </div>
         );
       })}

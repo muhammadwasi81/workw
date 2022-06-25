@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import TravelComposer from "./TravelComposer/TravelComposer";
 import { ROUTES } from "../../../../utils/routes";
@@ -8,7 +8,7 @@ import { buttonsEnum } from "../enums/enums";
 function Header(props) {
 	const { label } = props;
 	const [visible, setVisible] = useState(false);
-
+	const { success } = props;
 	const items = [
 		{
 			name: label.appHeader.travel.travels,
@@ -27,7 +27,9 @@ function Header(props) {
 					buttonText="Create Travel"
 					isAccessDrawer={true}
 					setOpenDrawer={setVisible}
+					setIsEdited={() => {}}
 					openDrawer={visible}
+					success={success}
 				/>
 			),
 		},

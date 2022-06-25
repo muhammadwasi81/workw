@@ -55,6 +55,12 @@ export const routes = {
       ),
     },
     {
+      path: `${ROUTES.TODO.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/workboard/WorkBoardDetail/WorkBoardDetail")
+      ),
+    },
+    {
       path: `${ROUTES.WARNINGS.DEFAULT}`,
       component: lazy(() => import("../main/features/warning/view/Warning")),
     },

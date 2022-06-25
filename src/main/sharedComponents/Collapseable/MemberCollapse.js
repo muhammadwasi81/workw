@@ -37,44 +37,44 @@ function MemberCollapse(props) {
 		},
 	];
 	return (
-		<WhiteCard>
-			<Collapse
-				onChange={onChange}
-				expandIcon={({ isActive }) => (
-					<DownOutlined
-						rotate={isActive ? 0 : 180}
-						className="!text-lg !font-bold !text-primary-color"
+		<Collapse
+			onChange={onChange}
+			expandIcon={({ isActive }) => (
+				<DownOutlined
+					rotate={isActive ? 0 : 180}
+					className="!text-lg !font-bold !text-primary-color"
+				/>
+			)}
+			ghost={true}
+			expandIconPosition={"right"}
+			defaultActiveKey={["1"]}
+		>
+			<Panel
+				showArrow={true}
+				header={
+					<div>
+						<span className="text-base font-bold text-primary-color">
+							Members
+						</span>
+					</div>
+				}
+				className="custom_member_collapse"
+				extra={
+					<PlusCircleFilled
+						onClick={event => {
+							event.stopPropagation();
+						}}
+						className="text-xl font-bold !text-primary-color mr-2"
 					/>
-				)}
-				ghost={true}
-				expandIconPosition={"right"}
-				defaultActiveKey={["1"]}
+				}
+				key="1"
 			>
-				<Panel
-					showArrow={true}
-					header={
-						<div>
-							<span className="text-base font-bold text-primary-color">
-								Members
-							</span>
-						</div>
-					}
-					className="custom_member_collapse"
-					extra={
-						<PlusCircleFilled
-							onClick={event => {
-								event.stopPropagation();
-							}}
-							className="text-xl font-bold !text-primary-color mr-2"
-						/>
-					}
-					key="1"
-				>
-					<List
-						itemLayout="horizontal"
-						dataSource={data}
-						className={"max-h-[300px] overflow-y-auto"}
-						renderItem={item => (
+				<List
+					itemLayout="horizontal"
+					dataSource={data}
+					className={"max-h-[300px] overflow-y-auto"}
+					renderItem={() => {
+						return (
 							<List.Item>
 								<List.Item.Meta
 									avatar={
@@ -91,13 +91,13 @@ function MemberCollapse(props) {
 										</span>
 									}
 								/>
-								<FaUserLock className="text-xl text-primary-color" />
+								{/* <FaUserLock className="text-xl text-primary-color" /> */}
 							</List.Item>
-						)}
-					/>
-				</Panel>
-			</Collapse>
-		</WhiteCard>
+						);
+					}}
+				/>
+			</Panel>
+		</Collapse>
 	);
 }
 

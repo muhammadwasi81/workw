@@ -76,9 +76,9 @@ export const ROUTES = {
     EDITOR: `${DOMAIN_PREFIX}/documents/editor`,
   },
   TODO: {
-    DEFAULT: `${DOMAIN_PREFIX}/workBoard`,
-    TODO_BOARD: `${DOMAIN_PREFIX}/workBoard/board`,
-    MY_TODO: `${DOMAIN_PREFIX}/workBoard/assignToMe`,
+    DEFAULT: `${DOMAIN_PREFIX}/workboard`,
+    TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board`,
+    MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
   },
   CONTACT_MANAGER: {
     DEFAULT: `${DOMAIN_PREFIX}/leadManager`,

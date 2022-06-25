@@ -1,19 +1,20 @@
-import {createSlice} from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
+//import NewStickyNote from "../../main/features/notes/NewStickyNote";
 
 export const stickyNotesSlice = createSlice({
-    name: 'stickyNotes',
-    initialState: {
-        open: false
+  name: "stickyNotes",
+  initialState: {
+    open: false,
+  },
+  reducers: {
+    openStickyNotes: (state) => {
+      state.open = true;
     },
-    reducers: {
-        openStickyNotes: (state, action) => {
-            state.open = true
-        },
-        closeStickyNotes: (state, action) => {
-            state.open = false
-        },
+    closeStickyNotes: (state) => {
+      state.open = false;
     },
-})
+  },
+});
 
-export const {openStickyNotes, closeStickyNotes} = stickyNotesSlice.actions
+export const { openStickyNotes, closeStickyNotes } = stickyNotesSlice.actions;
 export default stickyNotesSlice.reducer;

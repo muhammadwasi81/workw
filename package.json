@@ -1,6 +1,6 @@
 {
   "name": "konnectv4-tailwindcss",
-  "version": "0.1.0",   
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@ant-design/charts": "^1.3.6",
@@ -23,6 +23,7 @@
     "prop-types": "^15.8.1",
     "quill": "^1.3.7",
     "react": "^18.1.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-detect-offline": "^2.4.5",
     "react-dom": "^18.1.0",
     "react-drag-listview": "0.1.8",

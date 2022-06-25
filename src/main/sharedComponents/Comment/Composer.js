@@ -48,10 +48,8 @@ const CommentComposer = props => {
 		<div className="commentComposer">
 			<div className="img">
 				<Avatar
-					src={
-						"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-					}
-					name={"Aqib Memon"}
+					src={""}
+					name={""}
 					width={33}
 					height={33}
 					round={true}

@@ -25,13 +25,8 @@ function ListItem(props) {
     name,
     description,
     image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-    reason,
-    category,
     members = [],
     approvers,
-    status,
-    referenceNo,
-    createDate,
   } = props.item;
 
   // console.log(props.item, "imagessss")

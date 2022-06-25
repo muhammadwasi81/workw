@@ -182,6 +182,7 @@
 }
 .Card2 .ant-card-cover img {
   border-radius: 10px 10px 0px 0px;
+  min-height: 180px;
 }
 .Card2 .ant-card-body {
   padding: 18px 0px 5px 0px;

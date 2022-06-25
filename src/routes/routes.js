@@ -44,20 +44,12 @@ export const routes = {
     },
     {
       path: `${ROUTES.PROJECT.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/projects/ProjectDetails/ProjectDetails")
-      ),
+      component: lazy(() => import("../main/features/projects/index")),
     },
     {
       path: `${ROUTES.GROUP.DEFAULT}`,
       component: lazy(() =>
         import("../main/features/groups/GroupDetails/GroupDetails")
-      ),
-    },
-    {
-      path: `${ROUTES.TODO.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/workboard/WorkBoardDetail/WorkBoardDetail")
       ),
     },
     {

@@ -14,6 +14,7 @@ import CoverDetail from "../UI/CoverDetail";
 import CoverImage from "../UI/CoverImage";
 import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
 import ProjectCover from "../../../../content/png/project_cover_img.png";
+import WhiteCard from "../UI/WhiteCard";
 
 function ProjectDetails() {
 	const panes = [
@@ -71,13 +72,7 @@ function ProjectDetails() {
 			icon: <EditOutlined />,
 		},
 	];
-	// const [scroll, setScroll] = useState(false);
-	// useEffect(() => {
-	// 	window.addEventListener("scroll", () => {
-	// 		setScroll(window.scrollY > 50);
-	// 	});
-	// 	console.log("scroll", scroll);
-	// }, []);
+
 	return (
 		<TabContainer>
 			<LayoutHeader items={items} buttons={buttons} />
@@ -91,7 +86,9 @@ function ProjectDetails() {
 
 					<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
 						<Budget />
-						<MemberCollapse />
+						<WhiteCard>
+							<MemberCollapse />
+						</WhiteCard>
 					</div>
 				</div>
 			</ContBody>

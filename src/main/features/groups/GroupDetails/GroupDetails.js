@@ -10,6 +10,7 @@ import Tab from "../../../sharedComponents/Tab";
 import CoverDetail from "../../projects/UI/CoverDetail";
 import CoverImage from "../../projects/UI/CoverImage";
 import GroupCover from "../../../../content/png/groups2_cover_image.jpg";
+import WhiteCard from "../../projects/UI/WhiteCard";
 
 function GroupDetails() {
 	const panes = [
@@ -60,7 +61,9 @@ function GroupDetails() {
 					</div>
 
 					<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
-						<MemberCollapse />
+						<WhiteCard>
+							<MemberCollapse />
+						</WhiteCard>
 					</div>
 				</div>
 			</ContBody>

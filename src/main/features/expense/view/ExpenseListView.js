@@ -18,6 +18,9 @@ function ExpenseListView() {
       <ExpenseList onExpense={handleExpense} />
       <ExpenseList onExpense={handleExpense} />
       <ExpenseList onExpense={handleExpense} />
+      <ExpenseList onExpense={handleExpense} />
+      <ExpenseList onExpense={handleExpense} />
+      <ExpenseList onExpense={handleExpense} />
       <ExpenseDetail visible={visible} onClose={handleDrawerClose} id={id} />
     </div>
   );

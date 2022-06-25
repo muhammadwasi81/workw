@@ -13,16 +13,8 @@ export const stickyNotesSlice = createSlice({
     closeStickyNotes: (state) => {
       state.open = false;
     },
-    toggleStickyNotes(state) {
-      state.open = !state.open;
-    },
   },
 });
 
-export const {
-  openStickyNotes,
-  closeStickyNotes,
-  toggleStickyNotes,
-  addNewStickyNote,
-} = stickyNotesSlice.actions;
+export const { openStickyNotes, closeStickyNotes } = stickyNotesSlice.actions;
 export default stickyNotesSlice.reducer;

@@ -1,5 +1,7 @@
 .stickyNoteItem__container {
+  display: flex;
   z-index: 10;
+  flex-direction: column;
   border: none;
   resize: both;
   overflow: auto;
@@ -30,7 +32,7 @@
   flex: 1;
 }
 .stickyNoteItem__title input {
-  background-color: rgb(119, 200, 253);
+  background-color: transparent;
   height: 100%;
   width: 100%;
   font-size: 15px;

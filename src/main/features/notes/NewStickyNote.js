@@ -1,5 +1,6 @@
 // import StickyNoteColorSelector from "./StickyNoteColorSelector";
 import { React, useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import {
   AiOutlineDash,
   AiOutlineShareAlt,
@@ -11,8 +12,9 @@ import style from "./NewStickyNote.module.css";
 import { useDispatch } from "react-redux";
 import {
   decrementStickyNote,
-  stickyNoteColorPicker,
-  closeStickyNoteColorPicker,
+  closeStickyNote,
+  targetTitleVal,
+  targetTextVal,
 } from "../../../store/appReducer/newStickySlice";
 import StickyNoteColorSelector from "./StickyNoteColorSelector";
 
@@ -23,27 +25,17 @@ const NewStickyNote = (props) => {
   }; */
 
   // const closeSticky = useSelector((state) => state.newStickySlice.closeSticky);
-  const [close, setClose] = useState("initial");
+
   // const open = useSelector((state) => state.newStickySlice.show);
+  const [color, setColor] = useState(true);
+  let [title, setTitle] = useState(props.titleVal);
+  //const [textAreaValue, setTextAreaValue] = useState(props.textAreaValue);
+
   const dispatch = useDispatch();
 
   const stickyContainer = {
-    zIndex: "10",
-    border: "none",
-    resize: "both",
-    overflow: "auto",
-    width: "300px",
     bottom: props.y_axis,
     right: props.x_axis,
-    maxWidth: "600px",
-    maxHeight: "600px",
-    height: "260px",
-    minWidth: "186px",
-    minHeight: "186px",
-    boxShadow:
-      "0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%)",
-    position: "absolute",
-    display: close,
   };
   const div = {
     position: "absolute",
@@ -52,60 +44,100 @@ const NewStickyNote = (props) => {
     right: "0px",
   };
 
+  //const ref = useRef();
   const { id } = props;
   const decrementStickyNoteHandler = () => {
     dispatch(decrementStickyNote(id));
   };
   const closeStickyNoteHandler = () => {
-    if (close === "initial") {
-      setClose("none");
-    }
+    dispatch(closeStickyNote(id));
   };
   const openColorPicker = () => {
-    dispatch(stickyNoteColorPicker());
+    setColor(false);
   };
   const closeColorPicker = () => {
-    dispatch(closeStickyNoteColorPicker());
+    setColor(true);
   };
-  return (
-    <div style={stickyContainer} id={props.id}>
-      <StickyNoteColorSelector />
 
-      <div className={style.stickyNoteItem__item}>
-        <div className={style.stickyNoteItem__title}>
-          <input placeholder={props.title} />
-        </div>
-        <div className={style.stickyNoteItem__icons} onClick={openColorPicker}>
-          <AiOutlineDash />
-        </div>
-        <div className={style.stickyNoteItem__icons}>
-          <AiOutlineShareAlt />
-        </div>
-        <div className={style.stickyNoteItem__icons}>
-          <AiTwotoneSnippets />
-        </div>
+  var stickyTitle;
+  const getTitleValue = (e) => {
+    stickyTitle = e.target.value;
+    setTitle(e.target.value);
+    dispatch(targetTitleVal({ stickyTitle, id }));
+  };
+
+  var stickyText;
+  const getTextVal = (e) => {
+    stickyText = e.target.value;
+    //setTextAreaValue(e.target.value);
+    dispatch(targetTextVal({ stickyText, id }));
+  };
+
+  props.onGetTitleVal(stickyTitle);
+
+  return (
+    <>
+      <div
+        style={stickyContainer}
+        id={props.id}
+        className={style.stickyNoteItem__container}
+      >
+        <StickyNoteColorSelector color={color} id={props.id} />
+
         <div
-          className={style.stickyNoteItem__icons}
-          onClick={decrementStickyNoteHandler}
+          style={{ backgroundColor: props.titleBg }}
+          className={style.stickyNoteItem__item}
         >
-          <AiTwotoneDelete />
+          <div className={style.stickyNoteItem__title}>
+            <input
+              placeholder={props.title}
+              value={title}
+              onChange={getTitleValue}
+            />
+          </div>
+          <div
+            className={style.stickyNoteItem__icons}
+            onClick={openColorPicker}
+          >
+            <AiOutlineDash />
+          </div>
+          <div className={style.stickyNoteItem__icons}>
+            <AiOutlineShareAlt />
+          </div>
+          <CopyToClipboard text={props.textAreaValue}>
+            <div className={style.stickyNoteItem__icons}>
+              <AiTwotoneSnippets />
+            </div>
+          </CopyToClipboard>
+          <div
+            className={style.stickyNoteItem__icons}
+            onClick={decrementStickyNoteHandler}
+          >
+            <AiTwotoneDelete />
+          </div>
+          <div
+            className={style.stickyNoteItem__icons}
+            onClick={closeStickyNoteHandler}
+          >
+            <AiOutlineClose />
+          </div>
         </div>
-        <div
-          className={style.stickyNoteItem__icons}
-          onClick={closeStickyNoteHandler}
-        >
-          <AiOutlineClose />
+        <textarea
+          onClick={closeColorPicker}
+          onChange={getTextVal}
+          className={style.stickyNoteItem__textarea}
+          placeholder={props.textAreaPlaceholder}
+          value={props.textAreaValue}
+        />
+        <div style={div}>
+          <img
+            src={require("./content/halfArrow.ff8f53df.svg").default}
+            style={{ height: "17px" }}
+            alt=""
+          />
         </div>
       </div>
-      <textarea
-        onClick={closeColorPicker}
-        className={style.stickyNoteItem__textarea}
-        placeholder={props.textAreaPlaceholder}
-      />
-      <div style={div}>
-        <img src={require("./content/halfArrow.ff8f53df.svg").default} />
-      </div>
-    </div>
+    </>
   );
 };
 

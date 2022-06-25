@@ -1,9 +1,15 @@
 import React from "react";
 import { AiTwotoneDelete } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {
+  selectColor,
+  deleteFromColorNoteNdList,
+} from "../../../store/appReducer/newStickySlice";
+// import { useSelector } from "react-redux";
 
-const StickyNoteColorSelector = () => {
-  const openColor = useSelector((state) => state.newStickySlice.colorPicker);
+const StickyNoteColorSelector = (props) => {
+  const dispatch = useDispatch();
+
   const delSec = {
     cursor: "default",
     margin: "10px",
@@ -17,28 +23,39 @@ const StickyNoteColorSelector = () => {
     "rgb(255, 255, 255)",
     "rgb(255, 250, 243)",
   ];
+
+  const selectColorHandler = (e) => {
+    const colorValue = e.target.getAttribute("value");
+    const id = props.id;
+    dispatch(selectColor({ colorValue, id }));
+  };
+
+  const deleteNoteNdList = () => {
+    dispatch(deleteFromColorNoteNdList(props.id));
+  };
   return (
-    <>
-      {openColor && (
-        <div className="menu__popUp">
-          <div className="color___LIST">
-            {colors.map((colors) => (
-              <div
-                class="color-box"
-                style={{ backgroundColor: colors, width: "100%" }}
-              ></div>
-            ))}
-          </div>
-          <div className="note__iconHOVER-dlt">
-            <div style={delSec}>
-              <AiTwotoneDelete />
-            </div>
-            Delete note
-          </div>
-          <hr />
+    <div
+      id={props.id}
+      className="menu__popUp"
+      style={{ display: !props.color ? "initial" : "none" }}
+    >
+      <div className="color___LIST">
+        {colors.map((colors) => (
+          <div
+            onClick={selectColorHandler}
+            style={{ backgroundColor: colors, width: "100%" }}
+            value={colors}
+          ></div>
+        ))}
+      </div>
+      <div className="note__iconHOVER-dlt" onClick={deleteNoteNdList}>
+        <div style={delSec}>
+          <AiTwotoneDelete />
         </div>
-      )}
-    </>
+        Delete note
+      </div>
+      <hr />
+    </div>
   );
 };
 

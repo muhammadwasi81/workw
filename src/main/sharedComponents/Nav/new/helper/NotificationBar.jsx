@@ -8,7 +8,7 @@ import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/rewards.s
 import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/stickyNotes.svg";
 import Notes from "../../../../features/notes/Notes";
 import NewStickyNote from "../../../../features/notes/NewStickyNote";
-import { toggleStickyNotes } from "../../../../../store/appReducer/stickyNotesSlice";
+import { toggleStickyNote } from "../../../../../store/appReducer/newStickySlice";
 import { incrementStickyNote } from "../../../../../store/appReducer/newStickySlice";
 import { setNotificationStatus } from "../../../../../store/appReducer/responsiveSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -135,19 +135,25 @@ function NotificationBar() {
   classes += isSearch ? "open" : "";
 
   // Sticky Note
-  const toggleNote = useSelector((state) => state.stickyNotesSlice.open);
-  console.log(toggleNote);
-  const stickyNoteHandler = () => {
-    dispatch(toggleStickyNotes());
-  };
-  console.log(toggleStickyNotes());
+  const toggleNote = useSelector((state) => state.newStickySlice.open);
 
+  const stickyNoteHandler = () => {
+    dispatch(toggleStickyNote());
+  };
+
+  const closeSticky = useSelector((state) => state.newStickySlice.close);
   const incrementStickyNote = useSelector(
     (state) => state.newStickySlice.incrementArray
   );
   console.log(incrementStickyNote);
 
-  const closeStickyNote = useSelector((state) => state.newStickySlice.close);
+  //console.log(closeAllSticky);
+  //const closeStickyNote = useSelector((state) => state.stickyNotesSlice.open);
+  let [title, setTitle] = useState("");
+  const titleVal = (title) => {
+    setTitle(title);
+  };
+
   return (
     <div className={classes}>
       <ul className="list">
@@ -177,15 +183,24 @@ function NotificationBar() {
         <li className="list__item">
           <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
         </li>
-        {toggleNote && <Notes />}
+        {toggleNote && <Notes stickyNoteTitle={title} />}
         {incrementStickyNote.map((increment) => (
           <NewStickyNote
             key={increment.id}
             id={increment.id}
             title={increment.title}
+            titleVal={increment.titleVal}
             textAreaPlaceholder={increment.textArea_placeholder}
+            textAreaValue={
+              increment.textArea_value === "Take a Note..."
+                ? ""
+                : increment.textArea_value
+            }
             x_axis={increment.x_axis}
             y_axis={increment.y_axis}
+            open={increment.open}
+            titleBg={increment.bgColor}
+            onGetTitleVal={titleVal}
           />
         ))}
         <li

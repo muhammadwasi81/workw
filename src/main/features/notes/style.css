@@ -2,9 +2,9 @@
   height: 400px;
   background-color: #ebecf0;
   width: 25%;
-  max-height: 320px;
+  max-height: 400px;
   position: absolute;
-  top: 50%;
+  /* top: 50%; */
   left: 50%;
   cursor: move;
   z-index: 10;
@@ -54,14 +54,16 @@
   border-radius: 20px;
 }
 .note-searchBar-input {
-  width: 90% !important;
+  width: 80% !important;
+  margin-left: 5px;
   background-color: transparent;
+  outline: none;
 }
 .noteList__sec {
   padding: 5px;
   overflow-y: auto;
-  height: auto;
-  max-height: 580px;
+  height: 300px;
+  max-height: 300px;
 }
 
 /* NOTE LIST */
@@ -117,4 +119,13 @@
 .note__iconHOVER-dlt {
   display: flex;
   align-items: center;
+}
+.no-notes-found {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 221px;
+  align-items: center;
+  margin-bottom: 10px;
 }

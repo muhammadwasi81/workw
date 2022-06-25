@@ -33,7 +33,7 @@ const Composer = (props) => {
   const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
-  const [form] = Form.useForm();
+    const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
 
   const [state, setState] = useState(initialState);

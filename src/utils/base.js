@@ -12,7 +12,8 @@ DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const STRINGS = {
   COPY_RIGHTS: `\u00A9 Miletap Ltd - Copyrights \u00402017-${new Date().getFullYear()}`,
-  STRIPE_KEY: "pk_test_51Hs6ovE6WX7VMR4a2q3dV2dNIhjNSl1YIXa4PMDlAAUMmeYimKZoZ1B0et3b2n5VaGjaoFlDoNTIMDdxW0cMv7Jr00YyDry9GE",
+  STRIPE_KEY:
+    "pk_test_51Hs6ovE6WX7VMR4a2q3dV2dNIhjNSl1YIXa4PMDlAAUMmeYimKZoZ1B0et3b2n5VaGjaoFlDoNTIMDdxW0cMv7Jr00YyDry9GE",
   USER_RIGHTS_TYPE: {
     //menu
     FEED: 1,
@@ -88,7 +89,8 @@ export const STRINGS = {
   EDITOR_URL: "https://milepad.gqhub.com/p/",
   VIDEO: ["mp4"],
   IMAGE: ["jpg", "jpeg", "png", "gif"],
-  SIGN_UP_DEFAULT_TOKEN: "hxD0MXIIS0F1tFGfO2uB56Ux6gZn6Tkvm7IOLTwWqNmyHFaDvo7Rjla0JcAU86oS",
+  SIGN_UP_DEFAULT_TOKEN:
+    "hxD0MXIIS0F1tFGfO2uB56Ux6gZn6Tkvm7IOLTwWqNmyHFaDvo7Rjla0JcAU86oS",
   ENV: {
     PRODUCTION: "production",
     DEVELOPMENT: "development",
@@ -180,7 +182,6 @@ export const STRINGS = {
     ASSETS: {
       DEFAULT: `${DOMAIN_PREFIX}/assets`,
     },
-    EXPENSE: { DEFAULT: `${DOMAIN_PREFIX}/expenses` },
 
     PROJECT: {
       DEFAULT: `${DOMAIN_PREFIX}/projects`,
@@ -230,7 +231,10 @@ export const STRINGS = {
     TASKS: `${DOMAIN_PREFIX}/tasks`,
     LEAVES: `${DOMAIN_PREFIX}/leaves/`,
     DEPARTMENT: `${DOMAIN_PREFIX}/departments`,
-    EXPENSES: `${DOMAIN_PREFIX}/expenses`,
+    EXPENSE: {
+      DEFAULT: `${DOMAIN_PREFIX}/expenses`,
+      // EXPENSE_DETAILS: `${DOMAIN_PREFIX}/expensedetail`,
+    },
     CUSTOM_APPROVALS: `${DOMAIN_PREFIX}/customApprovals`,
     LOAN: `${DOMAIN_PREFIX}/loan`,
     PAYROLL: {
@@ -499,7 +503,22 @@ export const STRINGS = {
       INVALID: 0,
     },
     ATTACHMENTS_EX: {
-      IMAGE: ["png", "jpeg", "raw", "cr2", "nef", "orf", "sr2", "tif", "tiff", "bmp", "jpeg", "jpg", "gif", "eps"],
+      IMAGE: [
+        "png",
+        "jpeg",
+        "raw",
+        "cr2",
+        "nef",
+        "orf",
+        "sr2",
+        "tif",
+        "tiff",
+        "bmp",
+        "jpeg",
+        "jpg",
+        "gif",
+        "eps",
+      ],
       VIDEO: ["mp4"],
       PDF: ["pdf"],
       WORD: ["docx", "doc"],
@@ -1251,7 +1270,8 @@ export const WEB_RTC_CONFIGS = () => {
   };
   const TURN = {
     urls: "turn:global.turn.twilio.com:3478?transport=udp",
-    username: "3afb2e83d870da93eaec2dc72bed51a80d3d2f5db271a1167ba1e47149b6acf3",
+    username:
+      "3afb2e83d870da93eaec2dc72bed51a80d3d2f5db271a1167ba1e47149b6acf3",
     credential: "9DnFMqHqcNhwMV6y6OWiwn9Up9t5T8t4UZyhzUFw6qA=",
     password: "9DnFMqHqcNhwMV6y6OWiwn9Up9t5T8t4UZyhzUFw6qA=",
   };
@@ -1280,31 +1300,93 @@ export const WEB_RTC_CONFIGS = () => {
 export function onRouteChange(notification) {
   const types = STRINGS.TYPES.NOTIFICATIONS_ROUTING_TYPE;
 
-  if (types.FEED_DETAIL.includes(notification.post_type)) window.location = `${STRINGS.ROUTES.NEWSFEED.DETAILS}/${notification.ref_id}`;
-  else if (types.TASK_DETAIL.includes(notification.post_type)) window.location = `${STRINGS.ROUTES.TASKS}/${notification.ref_id}`;
-  else if (types.EXPENSE_DETAIL.includes(notification.post_type)) window.location = `${STRINGS.ROUTES.EXPENSES}/${notification.ref_id}`;
-  else if (types.SCHEDULE_DETAIL.includes(notification.post_type)) window.location = `${STRINGS.ROUTES.SCHEDULES}/1/${notification.ref_id}?f=td`;
-  else if (types.TRAVEL_DETAILS.includes(notification.post_type)) window.location = `${STRINGS.ROUTES.TRAVEL.DEFAULT}/${notification.ref_id}`;
+  if (types.FEED_DETAIL.includes(notification.post_type))
+    window.location = `${STRINGS.ROUTES.NEWSFEED.DETAILS}/${notification.ref_id}`;
+  else if (types.TASK_DETAIL.includes(notification.post_type))
+    window.location = `${STRINGS.ROUTES.TASKS}/${notification.ref_id}`;
+  else if (types.EXPENSE_DETAIL.includes(notification.post_type))
+    window.location = `${STRINGS.ROUTES.EXPENSES}/${notification.ref_id}`;
+  else if (types.SCHEDULE_DETAIL.includes(notification.post_type))
+    window.location = `${STRINGS.ROUTES.SCHEDULES}/1/${notification.ref_id}?f=td`;
+  else if (types.TRAVEL_DETAILS.includes(notification.post_type))
+    window.location = `${STRINGS.ROUTES.TRAVEL.DEFAULT}/${notification.ref_id}`;
   else if (types.PROJECT_BUDGET_DETAIL.includes(notification.post_type))
     window.location = `${STRINGS.ROUTES.PROJECT.BUDGETS}/${notification.parent_ref_id}`;
-  else if (types.DOCUMENT_DETAIL.includes(notification.post_type)) window.location = `${STRINGS.ROUTES.DOCUMENTS.DEFAULT}?f=app`;
+  else if (types.DOCUMENT_DETAIL.includes(notification.post_type))
+    window.location = `${STRINGS.ROUTES.DOCUMENTS.DEFAULT}?f=app`;
 }
 
 export function SvgSpinner(props) {
   LOGGER.log((TAG) => console.log(TAG, props));
   return (
     <span className="spinner-holder">
-      <svg id="svg-spinner" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
-        <circle cx="24" cy="4" r="4" fill={`${props.props !== undefined ? props.props : "#fff"}`} />
-        <circle cx="12.19" cy="7.86" r="3.7" fill={`${props.props !== undefined ? props.props : "#fffbf2"}`} />
-        <circle cx="5.02" cy="17.68" r="3.4" fill={`${props.props !== undefined ? props.props : "#fef7e4"}`} />
-        <circle cx="5.02" cy="30.32" r="3.1" fill={`${props.props !== undefined ? props.props : "#fef3d7"}`} />
-        <circle cx="12.19" cy="40.14" r="2.8" fill={`${props.props !== undefined ? props.props : "#feefc9"}`} />
-        <circle cx="24" cy="44" r="2.5" fill={`${props.props !== undefined ? props.props : "#feebbc"}`} />
-        <circle cx="35.81" cy="40.14" r="2.2" fill={`${props.props !== undefined ? props.props : "#fde7af"}`} />
-        <circle cx="42.98" cy="30.32" r="1.9" fill={`${props.props !== undefined ? props.props : "#fde3a1"}`} />
-        <circle cx="42.98" cy="17.68" r="1.6" fill={`${props.props !== undefined ? props.props : "#fddf94"}`} />
-        <circle cx="35.81" cy="7.86" r="1.3" fill={`${props.props !== undefined ? props.props : "#fcdb86"}`} />
+      <svg
+        id="svg-spinner"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 48 48"
+      >
+        <circle
+          cx="24"
+          cy="4"
+          r="4"
+          fill={`${props.props !== undefined ? props.props : "#fff"}`}
+        />
+        <circle
+          cx="12.19"
+          cy="7.86"
+          r="3.7"
+          fill={`${props.props !== undefined ? props.props : "#fffbf2"}`}
+        />
+        <circle
+          cx="5.02"
+          cy="17.68"
+          r="3.4"
+          fill={`${props.props !== undefined ? props.props : "#fef7e4"}`}
+        />
+        <circle
+          cx="5.02"
+          cy="30.32"
+          r="3.1"
+          fill={`${props.props !== undefined ? props.props : "#fef3d7"}`}
+        />
+        <circle
+          cx="12.19"
+          cy="40.14"
+          r="2.8"
+          fill={`${props.props !== undefined ? props.props : "#feefc9"}`}
+        />
+        <circle
+          cx="24"
+          cy="44"
+          r="2.5"
+          fill={`${props.props !== undefined ? props.props : "#feebbc"}`}
+        />
+        <circle
+          cx="35.81"
+          cy="40.14"
+          r="2.2"
+          fill={`${props.props !== undefined ? props.props : "#fde7af"}`}
+        />
+        <circle
+          cx="42.98"
+          cy="30.32"
+          r="1.9"
+          fill={`${props.props !== undefined ? props.props : "#fde3a1"}`}
+        />
+        <circle
+          cx="42.98"
+          cy="17.68"
+          r="1.6"
+          fill={`${props.props !== undefined ? props.props : "#fddf94"}`}
+        />
+        <circle
+          cx="35.81"
+          cy="7.86"
+          r="1.3"
+          fill={`${props.props !== undefined ? props.props : "#fcdb86"}`}
+        />
       </svg>
     </span>
   );
@@ -1315,15 +1397,25 @@ export const createScreenSharePeerId = (peerId) => {
 };
 
 export const resolvePeerId = (peerId) => {
-  return peerId.includes(STRINGS.TYPES.CALL.SCREEN_SHARE_POSTFIX) ? peerId.split("_")[0] : peerId;
+  return peerId.includes(STRINGS.TYPES.CALL.SCREEN_SHARE_POSTFIX)
+    ? peerId.split("_")[0]
+    : peerId;
 };
 
 export const resolveStream = (peerId, defaultStream, screenShareStream) => {
-  return peerId.includes(STRINGS.TYPES.CALL.SCREEN_SHARE_POSTFIX) ? screenShareStream : defaultStream;
+  return peerId.includes(STRINGS.TYPES.CALL.SCREEN_SHARE_POSTFIX)
+    ? screenShareStream
+    : defaultStream;
 };
 
-export const resolvePeerIdFromPayloadType = (peerId, defaultStream, screenShareStream) => {
-  return peerId.includes(STRINGS.TYPES.CALL.SCREEN_SHARE_POSTFIX) ? screenShareStream : defaultStream;
+export const resolvePeerIdFromPayloadType = (
+  peerId,
+  defaultStream,
+  screenShareStream
+) => {
+  return peerId.includes(STRINGS.TYPES.CALL.SCREEN_SHARE_POSTFIX)
+    ? screenShareStream
+    : defaultStream;
 };
 
 export const getPeerFlag = (peerId) => {
@@ -1344,7 +1436,9 @@ export const BrokenPage = () => {
   return (
     <div className="br-content broken">
       <div className="heading">This page isn't available</div>
-      <div className="message">The link you followed may be broken, or the page may have been removed.</div>
+      <div className="message">
+        The link you followed may be broken, or the page may have been removed.
+      </div>
       <div className="image">
         <img src={brokenPaper} alt="#" />
       </div>
@@ -1368,10 +1462,14 @@ export function getTypeOfFile(fileName) {
   const ext = fileName.substr(fileName.lastIndexOf(".") + 1, fileName.length);
   if (STRINGS.IMAGE.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.IMAGE;
   else if (STRINGS.VIDEO.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.VIDEO;
-  else if (STRINGS.DOCUMENT.pdf.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.PDF;
-  else if (STRINGS.DOCUMENT.word.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.WORD;
-  else if (STRINGS.DOCUMENT.excel.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.EXCEL;
-  else if (STRINGS.DOCUMENT.powerPoint.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.PPT;
+  else if (STRINGS.DOCUMENT.pdf.includes(ext))
+    return STRINGS.TYPES.ATTACHMENTS.PDF;
+  else if (STRINGS.DOCUMENT.word.includes(ext))
+    return STRINGS.TYPES.ATTACHMENTS.WORD;
+  else if (STRINGS.DOCUMENT.excel.includes(ext))
+    return STRINGS.TYPES.ATTACHMENTS.EXCEL;
+  else if (STRINGS.DOCUMENT.powerPoint.includes(ext))
+    return STRINGS.TYPES.ATTACHMENTS.PPT;
   else return STRINGS.TYPES.ATTACHMENTS.INVALID;
 }
 
@@ -1389,7 +1487,10 @@ export function isValidFileSize(files) {
   for (const key in files) {
     if (files.hasOwnProperty(key)) {
       const file = files[key];
-      const ext = file.name.substr(file.name.lastIndexOf(".") + 1, file.name.length);
+      const ext = file.name.substr(
+        file.name.lastIndexOf(".") + 1,
+        file.name.length
+      );
       const type = getTypeOfFile(file.name);
       const size = file.size / 1024 / 1024;
       if (type === STRINGS.TYPES.ATTACHMENTS.IMAGE) {
@@ -1426,8 +1527,12 @@ export function resizeTabbableContainer() {
 
   if ($(tabbableContainer.parent()[1]).hasClass("mm-tabs")) {
     const innerTabbableContainer = $(tabbableContainer[1]);
-    const innerTabbableContainerContainerHeader = $(tabbableContainer[1]).children(".cont-header");
-    const innerTabbableContainerContainerBody = $(tabbableContainer[1]).children(".cont-body");
+    const innerTabbableContainerContainerHeader = $(
+      tabbableContainer[1]
+    ).children(".cont-header");
+    const innerTabbableContainerContainerBody = $(
+      tabbableContainer[1]
+    ).children(".cont-body");
 
     const innerTabbableContainerHeader = $(tabbableContainerHeader[1]);
 
@@ -1501,14 +1606,20 @@ export function getUrlParameter(sParam) {
     sParameterName = sURLVariables[i].split("=");
 
     if (sParameterName[0] === sParam) {
-      return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      return sParameterName[1] === undefined
+        ? true
+        : decodeURIComponent(sParameterName[1]);
     }
   }
 }
 
 export function getCommentLikesView(count, youLike) {
   if (youLike) {
-    return <div className="count">You {count > 1 ? `and ${count - 1} other` : ""}</div>;
+    return (
+      <div className="count">
+        You {count > 1 ? `and ${count - 1} other` : ""}
+      </div>
+    );
   } else {
     return <div className="count">{count}</div>;
   }
@@ -1538,7 +1649,9 @@ export function getCommentLikesView(count, youLike) {
 //     }
 // }
 export function setAuthEnv(token, user) {
-  console.log("base chal rha he -----------------------------------------------------------");
+  console.log(
+    "base chal rha he -----------------------------------------------------------"
+  );
   console.log("dasfasdfs");
   localStorage.setItem(STRINGS.STORAGE.token, token);
   user.fullname = user.first_name + " " + user.last_name;
@@ -1550,7 +1663,9 @@ export function setAuthEnv(token, user) {
 export function logout() {
   localStorage.clear();
   window.location = ROUTES.AUTH.SIGN_IN;
-  console.log("base chal rha he -----------------------------------------------------------");
+  console.log(
+    "base chal rha he -----------------------------------------------------------"
+  );
 }
 
 export function getNameForImage(name) {
@@ -1574,7 +1689,9 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
     val = "",
     appendText = false,
     startPosition = 0;
-  let mentionListView = $(`<div id="mentions_list" class="input-search-list"></div>`);
+  let mentionListView = $(
+    `<div id="mentions_list" class="input-search-list"></div>`
+  );
 
   const mentionListViewPosition = {
     bottom: "unset",
@@ -1596,7 +1713,12 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
         mentionListViewPosition.bottom = 22;
       } else {
         mentionListViewPosition.bottom = "unset";
-        mentionListViewPosition.top = !(position.top + 0 + position.height > 220) ? position.top + 22 : 220 + 18;
+        mentionListViewPosition.top = !(
+          position.top + 0 + position.height >
+          220
+        )
+          ? position.top + 22
+          : 220 + 18;
       }
     }
   });
@@ -1604,7 +1726,10 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
   inp.on("input", function () {
     _thisVal = $(this).val();
     if (appendText) {
-      if (_thisVal[startPosition - 1] === "@" && _thisVal[startPosition] !== " ") {
+      if (
+        _thisVal[startPosition - 1] === "@" &&
+        _thisVal[startPosition] !== " "
+      ) {
         let endPosition = _thisVal.indexOf(" ", startPosition);
         endPosition = endPosition <= 0 ? _thisVal.length : endPosition;
 
@@ -1626,8 +1751,14 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
                   userFound = true;
                 }
               });
-              if (leftPositionOfMentionList + inp.offset().left + mentionListView.outerWidth() >= $(window).width()) {
-                mentionListViewPosition.left = leftPositionOfMentionList - mentionListView.outerWidth() + 15;
+              if (
+                leftPositionOfMentionList +
+                  inp.offset().left +
+                  mentionListView.outerWidth() >=
+                $(window).width()
+              ) {
+                mentionListViewPosition.left =
+                  leftPositionOfMentionList - mentionListView.outerWidth() + 15;
               } else {
                 mentionListViewPosition.left = leftPositionOfMentionList;
               }
@@ -1701,14 +1832,32 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
     const contact = $(`<div class="search-item">
                                                     <div class="img"
                                                         ${
-                                                          !$.isEmptyObject(user.profile_picture)
+                                                          !$.isEmptyObject(
+                                                            user.profile_picture
+                                                          )
                                                             ? `style="background-image: url(${user.profile_picture}); background-repeat: no-repeat; background-size: 100%;"`
                                                             : ""
                                                         }
-                                                     >${$.isEmptyObject(user.profile_picture) ? getNameForImage(user.name) : ""}</div>
+                                                     >${
+                                                       $.isEmptyObject(
+                                                         user.profile_picture
+                                                       )
+                                                         ? getNameForImage(
+                                                             user.name
+                                                           )
+                                                         : ""
+                                                     }</div>
                                                     <div class="pr">
-                                                        <div class="n">${user.name}</div>
-                                                        ${!$.isEmptyObject(user.designation) ? `<div class="p">${user.designation}</div>` : ""}
+                                                        <div class="n">${
+                                                          user.name
+                                                        }</div>
+                                                        ${
+                                                          !$.isEmptyObject(
+                                                            user.designation
+                                                          )
+                                                            ? `<div class="p">${user.designation}</div>`
+                                                            : ""
+                                                        }
                                                     </div>
                                                 </div>`);
     mentionListView.append(contact);
@@ -1732,7 +1881,8 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
 
 /*---------------- Time functions -----------------*/
 export function parseUrlsInText(text) {
-  const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
+  const urlRegex =
+    /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
   return text.replace(urlRegex, function (url) {
     return `<a href="${url}" target="_blank">${url}</a>`;
   });
@@ -1806,7 +1956,20 @@ export function parseDateWithDateAndMonth(st, type = "short") {
 
 export function parseDateTimeIntoLocalDateTime(st) {
   const date = new Date(parseInt(st));
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   return {
     date: date.getDate(),
     month: monthNames[date.getMonth()],
@@ -1848,7 +2011,13 @@ export function SECONDS_TO_HMS(s) {
   s -= h * 3600;
   var m = Math.floor(s / 60); //Get remaining minutes
   s -= m * 60;
-  return (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s); //zero padding on minutes and seconds
+  return (
+    (h < 10 ? "0" + h : h) +
+    ":" +
+    (m < 10 ? "0" + m : m) +
+    ":" +
+    (s < 10 ? "0" + s : s)
+  ); //zero padding on minutes and seconds
 }
 
 export function MINUTES_TO_HMS(min) {
@@ -1857,7 +2026,13 @@ export function MINUTES_TO_HMS(min) {
   s -= h * 3600;
   var m = Math.floor(s / 60); //Get remaining minutes
   s -= m * 60;
-  return (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s); //zero padding on minutes and seconds
+  return (
+    (h < 10 ? "0" + h : h) +
+    ":" +
+    (m < 10 ? "0" + m : m) +
+    ":" +
+    (s < 10 ? "0" + s : s)
+  ); //zero padding on minutes and seconds
 }
 
 export function GET_SECONDS(x) {
@@ -1915,9 +2090,11 @@ export function getApprovalObject({ id, email }) {
 }
 
 /*---------------- Time functions -----------------*/
-export const calculateAverage = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
+export const calculateAverage = (arr) =>
+  arr.reduce((a, b) => a + b, 0) / arr.length;
 
-export const compare_dates = (date1, date2) => (date1 > date2 ? 2 : date1 < date2 ? 0 : 1);
+export const compare_dates = (date1, date2) =>
+  date1 > date2 ? 2 : date1 < date2 ? 0 : 1;
 
 export function _getTree(data) {
   let array = [];
@@ -1965,12 +2142,26 @@ export function createGuid() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   }
 
-  return (S4() + S4() + "-" + S4() + "-4" + S4().substr(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+  return (
+    S4() +
+    S4() +
+    "-" +
+    S4() +
+    "-4" +
+    S4().substr(0, 3) +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    S4() +
+    S4()
+  ).toLowerCase();
 }
 
 export function setNotificationOnBrowserTab(counter) {
   const webTitle = "Konnect";
-  const titleWithCounter = counter !== 0 ? `${webTitle} (${counter})` : webTitle;
+  const titleWithCounter =
+    counter !== 0 ? `${webTitle} (${counter})` : webTitle;
   document.title = titleWithCounter;
 }
 

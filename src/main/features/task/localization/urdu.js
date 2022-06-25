@@ -27,6 +27,8 @@ const urdu = {
       default: "پہلے سے طے شدہ",
       checkList: "چیک لسٹ",
       description: "تفصیل",
+      startDate: "شروع کرنے کی تاریخ",
+      endtDate: "شروع اختتام",
     },
   },
   Direction: "rtl",

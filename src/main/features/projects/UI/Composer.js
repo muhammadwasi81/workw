@@ -162,7 +162,7 @@ const Composer = (props) => {
         <Form.Item>
           <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={departmentDictionary.createReward}>
             {" "}
-            {"Create Department"}{" "}
+            {"Create Project"}{" "}
           </Button>
         </Form.Item>
       </Form>

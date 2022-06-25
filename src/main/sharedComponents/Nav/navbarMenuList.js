@@ -201,6 +201,14 @@ const NavMenuList = () => {
 			key: label.navMenuLabel.menu,
 		},
 		{
+			name: label.navMenuLabel.workBoard,
+			counter: 0,
+			to: ROUTES.TODO.DEFAULT,
+			icon: todoBoard,
+			isActive: true,
+			key: label.navMenuLabel.menu,
+		},
+		{
 			name: label.navMenuLabel.groups,
 			counter: 0,
 			to: ROUTES.GROUP.DEFAULT,

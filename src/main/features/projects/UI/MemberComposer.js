@@ -81,7 +81,7 @@ function MemberComposer(props) {
               },
             ]}>
             <Select
-              placeholder={"Select Members"}
+              placeholder={"Select Type"}
               data={DepartmentMemberTypeList()}
               onChange={handleMemberType}
               style={{

@@ -13,6 +13,9 @@ import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
 import { STRINGS } from "../../../../utils/base";
 import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
+import { DatePicker } from "antd";
+
+const { RangePicker } = DatePicker;
 
 const initialState = {
   id: "",
@@ -59,6 +62,13 @@ const Composer = (props) => {
 
   const handelAddMember = (data) => {
     setMemberList([...memberList, data]);
+  };
+
+  const handleEndStartDate = (value, dateString, name) => {
+    setState({
+      ...state,
+      [name]: dateString,
+    });
   };
 
   const onFinish = (values) => {
@@ -126,6 +136,7 @@ const Composer = (props) => {
         </div>
 
         <Form.Item
+          style={{ marginTop: "-18px" }}
           label={departmentDictionary.description}
           name="description"
           rules={[
@@ -137,15 +148,25 @@ const Composer = (props) => {
           <Input.TextArea placeholder={departmentDictionary.enterDescription} />
         </Form.Item>
 
-        <Form.Item name="hodId" label={"HOD"} showSearch={true} direction={Direction} rules={[{ required: true }]}>
+        <Form.Item label="Project Date" name="startEndDate">
+          <RangePicker
+            format={"DD/MM/YYYY"}
+            placeholder={["Start Start", "End Date"]}
+            onChange={(value, dateString) => {
+              handleEndStartDate(value, dateString, "start_end");
+            }}
+          />
+        </Form.Item>
+
+        <Form.Item name="hodId" label={"Externals"} showSearch={true} direction={Direction} rules={[{ required: true }]}>
           <NewCustomSelect
             name="hodId"
-            label={"HOD"}
+            label={"Externals"}
             showSearch={true}
             direction={Direction}
             endPoint="api/Reference/GetAllUserReference"
             requestType="get"
-            placeholder={"Select HOD"}
+            placeholder={"Select Externals"}
           />
         </Form.Item>
 

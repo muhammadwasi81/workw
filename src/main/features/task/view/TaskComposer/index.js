@@ -38,7 +38,7 @@ function TaskComposer() {
     <Form
       className={classes}
       name="createTask"
-      layout="vertical"
+        layout="vertical"
       initialValues={initialValues}
     >
       <Form.Item label={labels.taskSubject} name="subject">

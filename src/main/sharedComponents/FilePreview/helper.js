@@ -7,7 +7,7 @@ export const getFileExt = (file) => {
   const extention = file.name.split(".").slice(-1)[0];
   if (["svg", "png", "jpeg", "jpg", "gif"].includes(extention)) {
     return (window.URL || window.webkitURL).createObjectURL(file);
-  } else if (extention === "doc") return word;
+  } else if (["doc", "docx"].includes(extention)) return word;
   else if (["xls", "xlsx"].includes(extention)) return excel;
   else if (["ppt", "pptx"].includes(extention)) return powerpoint;
   else if (extention === "txt") return text;

@@ -5,6 +5,7 @@ import { ExpenseDictionary } from "../localization";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import { BiWorld } from "react-icons/bi";
 function ExpenseList({ onExpense }) {
   const dummyMember = [
     {
@@ -50,7 +51,7 @@ function ExpenseList({ onExpense }) {
               <SublineDesigWithTime
                 designation="ReactJs Developer"
                 time="2 days ago"
-                icon={<GlobalOutlined />}
+                icon={<BiWorld />}
               />
             }
           />

@@ -12,6 +12,7 @@ import TopBar from "../../sharedComponents/topBar/topBar";
 import { ExpenseDictionary } from "./localization";
 import ExpenseListView from "./view/ExpenseListView";
 import "./style/style.css";
+import CreateExpense from "./view/CreateExpense";
 
 function Expenses() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -30,6 +31,7 @@ function Expenses() {
       buttonText: ExpenseDictionaryList.createTextBtn,
       render: (
         <SideDrawer
+          children={<CreateExpense />}
           title={ExpenseDictionaryList.createTextBtn}
           buttonText={ExpenseDictionaryList.createTextBtn}
         />

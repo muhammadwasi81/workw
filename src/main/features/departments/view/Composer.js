@@ -37,7 +37,7 @@ const Composer = (props) => {
   console.log(fakeDataUrl, "DUMMY DATA");
 
   const dispatch = useDispatch();
-  const [form] = Form.useForm();
+    const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
 
   const [state, setState] = useState(initialState);

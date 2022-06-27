@@ -1,5 +1,5 @@
-import { Select } from "antd";
 import React, { useEffect } from "react";
+import { Select } from "antd";
 import { useState } from "react";
 import Avatar from "../Avatar/avatarOLD";
 import "./antdCustomSelect.css";
@@ -27,6 +27,8 @@ function AntCustomSelect(props) {
 		value,
 		defaultData = [],
 		optionComponent,
+		label,
+		name,
 	} = props;
 
 	useEffect(() => {

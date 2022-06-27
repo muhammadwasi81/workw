@@ -46,7 +46,7 @@ function MemberCollapse(props) {
 				/>
 			)}
 			ghost={true}
-			expandIconPosition={"right"}
+			expandIconPosition={"end"}
 			defaultActiveKey={["1"]}
 		>
 			<Panel

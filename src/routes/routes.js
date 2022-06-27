@@ -44,7 +44,11 @@ export const routes = {
 		},
 		{
 			path: `${ROUTES.PROJECT.DEFAULT}`,
-			component: lazy(() => import("../main/features/projects/index")),
+			component: lazy(() =>
+				import(
+					"../main/features/projects/ProjectDetails/ProjectDetails"
+				)
+			),
 		},
 		{
 			path: `${ROUTES.GROUP.DEFAULT}`,

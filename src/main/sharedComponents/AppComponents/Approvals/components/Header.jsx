@@ -1,9 +1,10 @@
 import Avatar from "../../../Avatar/avatarOLD";
 import { Tag } from "antd";
-import { statusEnum } from "../enums";
-function Header({ user, type = "Approvers", status = 1 }) {
-  const { name, designation, image } = user;
+import { statusEnum, statusObj } from "../enums";
+function Header({ user, type: typeNo = 1, status = 1 }) {
+  const type = statusObj[typeNo];
   const { label, color } = statusEnum[type][status - 1];
+  const { name, designation, image } = user;
 
   return (
     <div className="approval__body-header">

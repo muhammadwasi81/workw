@@ -4,10 +4,12 @@ import Avatar from "../../../Avatar/avatarOLD";
 import { SmileOutlined, PictureOutlined } from "@ant-design/icons";
 import FilePreview from "../../../FilePreview";
 import EmojiPicker from "../../../../features/Messenger/view/MessengerBox/helpers/emojiPicker";
+import { useSelector } from "react-redux";
 
 function RemarkFooter({ files, onFile, onDelete }) {
+  const { user } = useSelector((state) => state.userSlice);
+  const { firstName, lastName, userImage } = user;
   const index = useId();
-
   const [isEmoji, setisEmoji] = useState(false);
   const [text, setText] = useState("");
   const msgInpRef = useRef();
@@ -21,7 +23,14 @@ function RemarkFooter({ files, onFile, onDelete }) {
     <div className="remarkFooter">
       <div className="remarkFooter__top">
         <div className="left">
-          <Avatar size={40} round width={"30px"} height={"30px"} />
+          <Avatar
+            name={firstName + lastName}
+            src={userImage}
+            size={40}
+            round
+            width={"30px"}
+            height={"30px"}
+          />
         </div>
         <div className="right">
           {isEmoji && <EmojiPicker onSelect={onSelectEmoji} />}

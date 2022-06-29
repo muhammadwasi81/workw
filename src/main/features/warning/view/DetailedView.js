@@ -29,7 +29,7 @@ function DetailedView(props) {
   } = rewardDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
-  console.log(rewardDetail.approvers);
+
   return (
     <Drawer
       title={

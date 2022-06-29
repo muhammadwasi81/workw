@@ -3,16 +3,14 @@ import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../sharedComponents/AppComponents/MainHeader";
 import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../sharedComponents/AppComponents/MainFlexContainer";
 import { Skeleton } from "antd";
-import { departmentDictionaryList } from "./localization/index";
+import { projectsDictionaryList } from "./localization/index";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./UI/ListItem";
 import Composer from "./UI/Composer";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllDepartments, GetRewardById } from "./store/actions";
-
-// import "./reward.css";
+import { getAllProjects } from "./store/actions";
 import FilterSearchButton from "../../sharedComponents/FilterSearch";
 import { CardWrapper2 } from "../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./UI/TableColumn";
@@ -25,32 +23,23 @@ const { Meta } = Card;
 const Projects = (props) => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { departmentDictionary } = departmentDictionaryList[userLanguage];
+  const { projectsDictionary } = projectsDictionaryList[userLanguage];
 
   const [loading, setLoading] = useState(true);
   const [tableView, setTableView] = useState(false);
   const [visible, setVisible] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 1, search: "" });
-  const { departments, loader, departmentDetail } = useSelector((state) => state.departmentSlice);
-  const [searchFilterValues, setSearchFilterValues] = useState();
+  const { projects, loader } = useSelector((state) => state.projectSlice);
+
+  console.log(projects, "HELLLOOOO!!!!!!");
 
   const onClose = () => {
     setVisible(false);
   };
 
-  const getRewardId = (id) => {
-    dispatch(GetRewardById(id));
-    setVisible(true);
-  };
-
   useEffect(() => {
-    dispatch(getAllDepartments());
-  }, [filter]);
-
-  const handleFilter = (values) => {
-    setSearchFilterValues(values);
-  };
+    dispatch(getAllProjects());
+  }, []);
 
   return (
     <>
@@ -58,7 +47,7 @@ const Projects = (props) => {
         <Header
           buttons={[
             {
-              buttonText: "Create Department",
+              buttonText: "Create Project",
               // onClick: () => setVisible(true),
               render: (
                 <SideDrawer title={"Create Project"} buttonText={"Create Project"} isAccessDrawer={false}>
@@ -78,9 +67,9 @@ const Projects = (props) => {
               onClick: () => setFilter({ filterType: 0 }),
             },
           ]}
-          filter={{
-            onFilter: () => {},
-          }}
+          // filter={{
+          //   onFilter: () => {},
+          // }}
           segment={{
             onSegment: (value) => {
               if (value === "Table") {
@@ -94,9 +83,9 @@ const Projects = (props) => {
           }}
         />
         <ContBody>
-          {departments?.length > 0 ? (
+          {projects?.length > 0 ? (
             tableView ? (
-              <Table columns={tableColumn()} dragable={true} data={departments} />
+              <Table columns={tableColumn()} dragable={true} data={projects} />
             ) : (
               <>
                 {loader ? (
@@ -112,10 +101,10 @@ const Projects = (props) => {
                   </>
                 ) : (
                   <CardWrapper2>
-                    {departments.map((item, index) => {
+                    {projects.map((item, index) => {
                       return (
                         <>
-                          <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                          <ListItem item={item} id={item.id} key={index} />
                         </>
                       );
                     })}

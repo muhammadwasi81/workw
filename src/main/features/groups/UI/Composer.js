@@ -5,17 +5,14 @@ import { useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
 import { addDepartment } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { projectsDictionaryList } from "../localization/index";
+import { groupsDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
 import { STRINGS } from "../../../../utils/base";
-import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
-import { DatePicker } from "antd";
-
-const { RangePicker } = DatePicker;
+// import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
 
 const initialState = {
   id: "",
@@ -34,7 +31,7 @@ const initialState = {
 
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, projectsDictionary } = projectsDictionaryList[userLanguage];
+  const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -148,28 +145,6 @@ const Composer = (props) => {
           <Input.TextArea placeholder={"Enter Description"} />
         </Form.Item>
 
-        <Form.Item label="Project Date" name="startEndDate">
-          <RangePicker
-            format={"DD/MM/YYYY"}
-            placeholder={["Start Start", "End Date"]}
-            onChange={(value, dateString) => {
-              handleEndStartDate(value, dateString, "start_end");
-            }}
-          />
-        </Form.Item>
-
-        <Form.Item name="hodId" label={"Externals"} showSearch={true} direction={Direction} rules={[{ required: true }]}>
-          <NewCustomSelect
-            name="hodId"
-            label={"Externals"}
-            showSearch={true}
-            direction={Direction}
-            endPoint="api/Reference/GetAllUserReference"
-            requestType="get"
-            placeholder={"Select Externals"}
-          />
-        </Form.Item>
-
         <MemberComposer handleAdd={handelAddMember} />
 
         {memberList?.length > 0 ? (
@@ -177,13 +152,13 @@ const Composer = (props) => {
         ) : (
           ""
         )}
-        <Form.Item label={"Features"} style={{ color: "#1b5669", fontSize: "17px", marginBottom: "14px" }}></Form.Item>
-        <FeatureSelect />
+        {/* <Form.Item label={"Features"} style={{ color: "#1b5669", fontSize: "17px", marginBottom: "14px" }}></Form.Item>
+        <FeatureSelect /> */}
 
         <Form.Item>
           <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={"Create"}>
             {" "}
-            {"Create Project"}{" "}
+            {"Create Group"}{" "}
           </Button>
         </Form.Item>
       </Form>

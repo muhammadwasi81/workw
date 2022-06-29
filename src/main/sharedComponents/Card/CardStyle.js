@@ -6,6 +6,7 @@ export const SingleItem = styled.div`
   border-radius: 10px;
   padding: 13px 10px;
   margin: 2px 0px 0px 0px;
+  position: relative;
   &:hover {
   }
 `;

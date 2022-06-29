@@ -32,7 +32,6 @@ const Department = (props) => {
   const [tableView, setTableView] = useState(false);
   const [visible, setVisible] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 1, search: "" });
   const { departments, loader, departmentDetail } = useSelector((state) => state.departmentSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
@@ -47,11 +46,7 @@ const Department = (props) => {
 
   useEffect(() => {
     dispatch(getAllDepartments());
-  }, [filter]);
-
-  const handleFilter = (values) => {
-    setSearchFilterValues(values);
-  };
+  }, []);
 
   return (
     <>
@@ -79,9 +74,9 @@ const Department = (props) => {
               onClick: () => setFilter({ filterType: 0 }),
             },
           ]}
-          filter={{
-            onFilter: () => {},
-          }}
+          // filter={{
+          //   onFilter: () => {},
+          // }}
           segment={{
             onSegment: (value) => {
               if (value === "Table") {

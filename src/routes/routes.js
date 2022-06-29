@@ -34,9 +34,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.TRAVEL.DETAIL}`,
-      component: lazy(() =>
-        import("../main/features/travel/view/TravelDetail/TravelDetail")
-      ),
+      component: lazy(() => import("../main/features/travel/view/TravelDetail/TravelDetail")),
     },
     {
       path: `${ROUTES.EMPLOYEES.DEFAULT}`,
@@ -48,9 +46,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.GROUP.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/groups/GroupDetails/GroupDetails")
-      ),
+      component: lazy(() => import("../main/features/groups/index")),
     },
     {
       path: `${ROUTES.WARNINGS.DEFAULT}`,

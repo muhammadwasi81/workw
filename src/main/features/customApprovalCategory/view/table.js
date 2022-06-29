@@ -5,13 +5,8 @@ import { AdminTable } from "../../../../components/HrMenu/Administration/StyledC
 import { getAllCustomApprovalCategory, getAllGrades } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 
-export default function CustomApprovalCategoryTable({
-  handleEdit,
-  handleDelete,
-  removeButtons,
-  actionRights = [],
-}) {
-  const { customApprovalCategorySlice, loadingData } = useSelector((state) => state.customApprovalCategorySlice);
+export default function CustomApprovalCategoryTable({ handleEdit, handleDelete, removeButtons, actionRights = [] }) {
+  const { customApprovalCategories, loadingData } = useSelector((state) => state.customApprovalCategorySlice);
 
   const dispatch = useDispatch();
 
@@ -22,13 +17,8 @@ export default function CustomApprovalCategoryTable({
   return (
     <AdminTable
       // scroll={{ x: 1500, y: 300 }}
-      columns={tableColumn(
-        handleEdit,
-        handleDelete,
-        removeButtons,
-        actionRights
-      )}
-      dataSource={customApprovalCategorySlice}
+      columns={tableColumn(handleEdit, handleDelete, removeButtons, actionRights)}
+      dataSource={customApprovalCategories}
       pagination={false}
       rowKey="id"
       size="small"

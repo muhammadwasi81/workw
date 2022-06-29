@@ -7,12 +7,14 @@ import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLin
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import moment from "moment";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
 
-  const { creator, description, category, members = [], approvers, status, referenceNo } = props.item;
+  const { creator, description, category, createDate, members = [], approvers, status, referenceNo } = props.item;
 
   // console.log(props.item, "imagessss")
   return (
@@ -29,7 +31,12 @@ function ListItem(props) {
           <UserInfo
             avatarSrc={creator.image}
             name={creator.name}
-            Subline={<SublineDesigWithTime designation={creator.designation} time="7 days ago" />}
+            Subline={
+              <SublineDesigWithTime
+                designation={creator.designation ? creator.designation : "Default Designation"}
+                time={moment(createDate).format("DD/MM/YYYY")}
+              />
+            }
           />
         </div>
         <div className="right">
@@ -43,59 +50,30 @@ function ListItem(props) {
       <div className="ListItemInner">
         <div className="ItemDetails">
           <div className="innerDiv">
-            <h3>{warningDictionary.category}</h3>
-            <Tag className="IdTag">{category}</Tag>
+            <span className="text-black font-extrabold smallHeading">{warningDictionary.category}</span>
+            <Tag className="IdTag">{category ? category : "Default Category"}</Tag>
           </div>
           <div className="innerDiv">
-            <h3>{warningDictionary.warningTo}</h3>
-            {/* {props.members} */}
-            <div className="mem">
-              {members.map((val, i) => {
-                if (i > 2) return "";
-                let { member = { image: "", name: "" } } = val;
-                return member && member.image ? (
-                  <div
-                    key={`grpmem${i}`}
-                    className="us-img"
-                    style={{
-                      backgroundImage: `url(${member.image})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "100% 100%",
-                    }}
-                  />
-                ) : (
-                  <div key={`grpmem${i}`} className="us-img">
-                    {getNameForImage(member ? member.name : "")}
-                  </div>
-                );
-              })}
-              {members ? members.length > 2 ? <div className="us-img">{members && members.length - 2}+</div> : "" : null}
-            </div>
+            <span className="text-black font-extrabold smallHeading">{warningDictionary.warningTo}</span>
+            <Avatar
+              isAvatarGroup={true}
+              isTag={false}
+              heading={"Members"}
+              membersData={members}
+              text={"Danish"}
+              image={"https://joeschmoe.io/api/v1/random"}
+            />
           </div>
-          <div className="approversBox">
-            <h3>{warningDictionary.approvers}</h3>
-            <div className="mem">
-              {approvers.map((val, i) => {
-                if (i > 2) return "";
-                let { approver } = val;
-                return approver.image ? (
-                  <div
-                    key={`grpmem${i}`}
-                    className="us-img"
-                    style={{
-                      backgroundImage: `url(${approver.image})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "100% 100%",
-                    }}
-                  />
-                ) : (
-                  <div key={`grpmem${i}`} className="us-img">
-                    {getNameForImage(approver.name)}
-                  </div>
-                );
-              })}
-              {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
-            </div>
+          <div className="innerDiv">
+            <span className="text-black font-extrabold smallHeading">{warningDictionary.approvers}</span>
+            <Avatar
+              isAvatarGroup={true}
+              isTag={false}
+              heading={"Approvers"}
+              membersData={approvers}
+              text={"Danish"}
+              image={"https://joeschmoe.io/api/v1/random"}
+            />
           </div>
         </div>
       </div>

@@ -3,11 +3,10 @@
   color: #1a5669 !important;
   border: 0;
   white-space: nowrap;
-  width: 50px;
+  width: 111px;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
 .submitButton {
   background-color: #1b5669;
   display: block;
@@ -21,11 +20,12 @@
 }
 
 .IdTag {
-  color: black !important;
+  color: #757d86;
   font-weight: 700;
   border: 0;
   padding: 5px;
   border-radius: 4px;
+  background: #ededed;
 }
 
 .new {
@@ -59,6 +59,7 @@
 .item-header {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 .item-content {
   margin-top: 15px;
@@ -67,6 +68,7 @@
   padding: 4px 10px;
   border-radius: 4px;
   border: none;
+  background: #ededed;
 }
 .item-header .right button {
   border-radius: 4px !important;
@@ -119,12 +121,10 @@
   color: #757d86;
   font-size: 12px;
 }
-.grid-content h3 {
-  font-weight: 600;
-  color: black;
+.smallHeading {
   margin-top: 10px;
-  font-size: 11px;
   margin-bottom: 0px;
+  color: var(--primary_theme_color_green);
 }
 .grid-content h4 {
   font-weight: bold;
@@ -140,13 +140,23 @@
 
 .ItemDetails {
   display: flex;
-  width: 70%;
-  margin-top: 13px;
+  width: 100%;
+}
+.innerDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 20px;
+  min-height: 75px;
+}
+.detailedCard .innerDiv {
+  justify-content: space-evenly;
+}
+.detailedCard p {
+  margin-bottom: 0px;
 }
 .ListItemInner {
   display: flex;
-  justify-content: space-between;
-  padding-right: 11px;
 }
 .innerDiv {
   margin-right: 20px;
@@ -154,9 +164,10 @@
 .ListItemInner p {
   color: #757d86;
   white-space: nowrap;
-  width: 50px;
+  width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-top: 15px;
 }
 .list-item .mem {
   margin-left: 10px;
@@ -164,15 +175,14 @@
 .attachmentBox .ant-image-img {
   border-radius: 4px;
 }
-
 .Card2 {
   border-radius: 10px;
   overflow: hidden;
   padding: 15px;
 }
 .Card2 .ant-card-meta-title {
-  color: #222;
-  font-size: 19px;
+  color: var(--primary_theme_color_green);
+  font-size: 14px;
   font-weight: 600;
   margin: 0px 0px 0px 0px !important;
 }
@@ -195,6 +205,13 @@
   display: flex;
   align-items: center;
   padding-top: 36px;
+}
+
+.detailedCard .ListItemInner p {
+  width: auto;
+}
+.detailedCard .ItemDetails {
+  width: 100%;
 }
 
 @media (min-width: 320px) and (max-width: 767px) {

@@ -1,14 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 // import { PersistGate } from "redux-persist/integration/react";
 // import storage from "redux-persist/lib/storage";
@@ -35,6 +26,7 @@ import rewardCategorySlice from "../main/features/reward/rewardCategory/store/sl
 import rewardSlice from "../main/features/reward/store/slice";
 import leaveSlice from "../main/features/leave/store/slice";
 import complainSlice from "../main/features/complain/store/slice";
+import projectSlice from "../main/features/projects/store/slice";
 import jobDescriptionSlice from "../main/features/jobDescription/store/slice";
 import customApprovalCategorySlice from "../main/features/customApprovalCategory/store/slice";
 import notificationSlice from "../services/slices/notificationSlice.js";
@@ -73,6 +65,7 @@ const reducers = combineReducers({
   rewardSlice,
   complainSlice,
   departmentSlice,
+  projectSlice,
   warningSlice,
   //   call: callSlice,
   general: generalSlice,

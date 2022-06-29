@@ -3,14 +3,14 @@ import { Form, message } from "antd";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import Select from "../../../sharedComponents/Select/Select";
 import { DepartmentMemberTypeList } from "../constant/index";
-import { projectsDictionaryList } from "../localization/index";
+import { groupsDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { PlusOutlined } from "@ant-design/icons";
 import "./style.css";
 
 function MemberComposer(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, projectsDictionary } = projectsDictionaryList[userLanguage];
+  const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
 
   const [newState, setNewState] = useState({
     user: {
@@ -67,7 +67,7 @@ function MemberComposer(props) {
               requestType="get"
               value={user.id}
               defaultValue={user.id}
-              placeholder={projectsDictionary.selectMember}
+              placeholder={groupsDictionary.selectMember}
             />
           </Form.Item>
         </div>

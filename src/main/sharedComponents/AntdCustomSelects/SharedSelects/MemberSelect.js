@@ -19,9 +19,10 @@ function MemberSelect({
 	optionComponent,
 	value: val = mode === "default" ? "" : [],
 	onChange: change,
+	dataVal = [],
 }) {
 	const [value, setValue] = useState("");
-	const [stateVal, setStateVal] = useState([]);
+	const [stateVal, setStateVal] = useState(dataVal);
 	const [defaultValues, setDefaultValues] = useState([]);
 	const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
 	const debouncedSearch = useDebounce(value, 500);
@@ -51,13 +52,17 @@ function MemberSelect({
 	}, []);
 
 	useEffect(() => {
+		// console.log("stateVal", stateVal);
 		let filterArrOfObj;
 		if (isObject) {
 			filterArrOfObj = employees.filter(val =>
 				stateVal.includes(val[defaultKey])
 			);
 		}
+		// if (stateVal.length !== 0) {
+		// }
 		selectedData(stateVal, filterArrOfObj);
+
 		if (stateVal.length > 0) {
 			if (stateVal.length === 1) {
 				triggerChange(stateVal.toString());
@@ -98,8 +103,18 @@ function MemberSelect({
 
 	useEffect(() => {
 		if (isDataFetchable) {
-			setMemberData(prevData => {
-				return [...new Set([...prevData, ...employees])];
+			// console.log("memberData", memberData);
+			// let uniqueData = employees.filter(function (obj) {
+			// 	return memberData.indexOf(obj) === -1;
+			// });
+			// console.log("unique data", uniqueData);
+			// setMemberData(uniqueData);
+			const merged = [...memberData, ...employees];
+			// console.log("[...new Set([...prevData, ...employees])]", [
+			// 	...new Map(merged.map(v => [v.id, v])).values(),
+			// ]);
+			setMemberData(() => {
+				return [...new Map(merged.map(v => [v.id, v])).values()];
 			});
 			setIsDataFetchable(false);
 		}

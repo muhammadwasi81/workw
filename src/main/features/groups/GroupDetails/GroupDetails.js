@@ -9,7 +9,7 @@ import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollaps
 import Tab from "../../../sharedComponents/Tab";
 import CoverDetail from "../../projects/UI/CoverDetail";
 import CoverImage from "../../projects/UI/CoverImage";
-import GroupCover from "../../../../content/png/groups2_cover_image.jpg";
+import GroupCover from "../../../../content/png/groups_cover_image.jpg";
 import WhiteCard from "../../projects/UI/WhiteCard";
 
 function GroupDetails() {
@@ -38,7 +38,7 @@ function GroupDetails() {
 		{
 			title: `Documents`,
 			content: <div>Documents div</div>,
-			key: 3,
+			key: 4,
 		},
 	];
 	const items = [
@@ -54,7 +54,7 @@ function GroupDetails() {
 			<Header items={items} />
 			<ContBody className="!block">
 				<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
-					<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
+					<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll mt-10">
 						<CoverImage image={GroupCover} />
 						<CoverDetail />
 						<Tab panes={panes} />

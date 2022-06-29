@@ -40,7 +40,12 @@ export default function Avatar({
 						!isZoom ? (
 							<ZoomImage comp={src} stl={`zoomImg`} />
 						) : (
-							<img alt="#" src={src} style={style} />
+							<img
+								alt="#"
+								src={src}
+								style={style}
+								className="object-cover"
+							/>
 						)
 					) : (
 						getNameForImage(name)

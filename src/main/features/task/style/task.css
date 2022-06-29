@@ -502,8 +502,12 @@
   padding: 0;
 }
 
-.myTask .ant-collapse-header div:first-child {
+.myTask .ant-collapse-expand-icon {
   display: none;
+}
+
+.myTask .ant-collapse-header-text {
+  width: 100%;
 }
 
 .myTask .ant-divider-inner-text {

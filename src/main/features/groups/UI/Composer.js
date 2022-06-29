@@ -83,7 +83,7 @@ const Composer = (props) => {
       });
 
       let payload = { ...values, imageId: photoId, members, parentId: STRINGS.DEFAULTS.guid };
-      dispatch(addDepartment(payload));
+      // dispatch(addDepartment(payload));
     });
   };
 

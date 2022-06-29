@@ -61,12 +61,12 @@ const Projects = (props) => {
           onSearch={(value) => {
             console.log(value);
           }}
-          buttons={[
-            {
-              name: "Projects",
-              onClick: () => setFilter({ filterType: 0 }),
-            },
-          ]}
+          // buttons={[
+          //   {
+          //     name: "Projects",
+          //     onClick: () => setFilter({ filterType: 0 }),
+          //   },
+          // ]}
           // filter={{
           //   onFilter: () => {},
           // }}

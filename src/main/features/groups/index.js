@@ -59,12 +59,12 @@ const Groups = (props) => {
           onSearch={(value) => {
             console.log(value);
           }}
-          buttons={[
-            {
-              name: "Groups",
-              onClick: () => setFilter({ filterType: 0 }),
-            },
-          ]}
+          // buttons={[
+          //   {
+          //     name: "Groups",
+          //     onClick: () => setFilter({ filterType: 0 }),
+          //   },
+          // ]}
           // filter={{
           //   onFilter: () => {},
           // }}

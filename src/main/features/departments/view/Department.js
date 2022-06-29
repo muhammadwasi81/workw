@@ -68,12 +68,12 @@ const Department = (props) => {
           onSearch={(value) => {
             console.log(value);
           }}
-          buttons={[
-            {
-              name: "Departments",
-              onClick: () => setFilter({ filterType: 0 }),
-            },
-          ]}
+          // buttons={[
+          //   {
+          //     name: "Departments",
+          //     onClick: () => setFilter({ filterType: 0 }),
+          //   },
+          // ]}
           // filter={{
           //   onFilter: () => {},
           // }}

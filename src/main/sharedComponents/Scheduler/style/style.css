@@ -1,0 +1,145 @@
+.schedulerCalender {
+    position: absolute;
+    height: 0;
+    overflow: hidden;
+    transition: 0.2s;
+    top: 50px;
+}
+
+.schedulerCalender.Open {
+    height: 320px;
+    border-radius: 5px;
+    width: 100%;
+    box-shadow: 0 12px 6px -12px #bbbbbb;
+    border: solid 1px #ebebeb;
+}
+
+.scheduler__header {
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    margin-bottom: 10px;
+}
+
+.scheduler__header p {
+    margin: 0;
+}
+
+.scheduler__header .currentDate {
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.scheduler__header .today {
+    color: var(--primary_theme_color_green);
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.scheduler__header .today.current {
+    color: blue;
+}
+
+.schedulerCalender {
+    background-color: #fff;
+    z-index: 999;
+}
+
+.scheduler__header .header__inner {
+    display: flex;
+    gap: 7px;
+}
+
+.scheduler__header .header__inner .buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.scheduler__header .header__inner .buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+
+.scheduler__header .header__inner .buttons button span {
+    font-size: 10px;
+    color: #a2a2a2;
+}
+
+.timeSlot {}
+
+.timeSlot span {
+    position: relative;
+    bottom: -10px;
+    font-size: 12px;
+    background-color: #fff;
+    padding-right: 15px;
+}
+
+.schedule {
+    max-height: calc(100vh - 210px);
+    overflow: scroll;
+}
+
+.timeSlot {
+    height: 60px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: end;
+}
+
+.schedule {
+    position: relative;
+}
+
+.schedule .event {
+    width: 85%;
+    right: 0;
+    background-color: #f4f4f4;
+    position: absolute;
+    top: 0;
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    box-shadow: 0px 29px 26px #ffffff, 0px -19px 6px #ffffff;
+
+
+}
+
+.schedule .event p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1;
+}
+
+.schduleWrapper {
+    border-radius: 10px;
+    border: solid 1px #ebebeb;
+    background-color: #ffffff;
+    padding: 15px;
+    box-shadow: -10px 12px 6px -12px #bbbbbb;
+}
+
+.schedulerCalender .ant-picker-calendar-mode-switch .ant-radio-button-wrapper+.ant-radio-button-wrapper {
+    display: none;
+}
+
+.schedulerCalender .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+    background-color: var(--primary_theme_color_green);
+
+}
+
+.schedulerCalender .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before {
+    border-color: var(--primary_theme_color_green);
+}

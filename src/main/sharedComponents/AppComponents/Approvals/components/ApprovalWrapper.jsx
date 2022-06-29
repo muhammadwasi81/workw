@@ -36,9 +36,9 @@ function ApprovalWrapper({ title, data }) {
         </ul>
       </div>
 
-      {data.map(({ approver }) => {
+      {data.map(({ approver, remarks, status }) => {
         if (approver) {
-          const { businessId, designation, name, image } = approver;
+          const { businessId, designation, name, image, type } = approver;
           return (
             <Collapse
               className="approvalCollapse"
@@ -49,6 +49,8 @@ function ApprovalWrapper({ title, data }) {
                 extra={null}
                 header={
                   <Header
+                    status={status}
+                    type={type}
                     user={{
                       name,
                       designation,
@@ -57,7 +59,7 @@ function ApprovalWrapper({ title, data }) {
                   ></Header>
                 }
               >
-                <ApprovalBody />
+                <ApprovalBody remarks={remarks} />
                 <RemarkFooter
                   files={files}
                   onFile={handleFile}

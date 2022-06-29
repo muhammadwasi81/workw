@@ -31,7 +31,7 @@ function DetailedView(props) {
   } = rewardDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
-  console.log(rewardDetail.approvers);
+
   return (
     <Drawer
       title={<h1 style={{ fontSize: "20px", margin: 0 }}>{warningDictionary.warning}</h1>}

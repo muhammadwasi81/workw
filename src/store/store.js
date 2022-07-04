@@ -42,12 +42,9 @@ import sharedSlice from "../utils/Shared/store/slice";
 import accessRolesSlice from "../main/features/accessRole/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
 import feedSlice from "../main/features/feed/store/slice";
-<<<<<<< HEAD
 import NoteSlice from "./appReducer/NoteSlice";
-=======
-import loanSlice from "../main/features/loan/store/slice";
+// import loanSlice from "../main/features/loan/store/slice";
 import documentSlice from "../main/features/documents/store/slice";
->>>>>>> e2643c0bbc03f43c49ba8c7a51c128a5bd4d80d0
 import newStickySlice from "./appReducer/newStickySlice";
 
 // import thunk from "redux-thunk";
@@ -91,13 +88,10 @@ const reducers = combineReducers({
   accessRolesSlice,
   sharedSlice,
   travelSlice,
-<<<<<<< HEAD
   NoteSlice,
-=======
-  loanSlice,
->>>>>>> e2643c0bbc03f43c49ba8c7a51c128a5bd4d80d0
+  // loanSlice,
   newStickySlice,
-  documentSlice
+  documentSlice,
 });
 
 const persistConfig = {

@@ -9,7 +9,6 @@ import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/stick
 import Notes from "../../../../features/notes/Notes";
 import NewStickyNote from "../../../../features/notes/NewStickyNote";
 import { toggleStickyNote } from "../../../../../store/appReducer/newStickySlice";
-import { incrementStickyNote } from "../../../../../store/appReducer/newStickySlice";
 import { setNotificationStatus } from "../../../../../store/appReducer/responsiveSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -141,7 +140,6 @@ function NotificationBar() {
     dispatch(toggleStickyNote());
   };
 
-  const closeSticky = useSelector((state) => state.newStickySlice.close);
   const incrementStickyNote = useSelector(
     (state) => state.newStickySlice.incrementArray
   );
@@ -149,9 +147,9 @@ function NotificationBar() {
 
   //console.log(closeAllSticky);
   //const closeStickyNote = useSelector((state) => state.stickyNotesSlice.open);
-  let [title, setTitle] = useState("");
-  const titleVal = (title) => {
-    setTitle(title);
+  const [title, setTitle] = useState("");
+  const titleVal = (titleVal) => {
+    setTitle(titleVal);
   };
 
   return (
@@ -201,6 +199,7 @@ function NotificationBar() {
             open={increment.open}
             titleBg={increment.bgColor}
             onGetTitleVal={titleVal}
+            img={increment.img}
           />
         ))}
         <li

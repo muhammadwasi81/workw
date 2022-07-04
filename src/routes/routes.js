@@ -3,203 +3,191 @@ import { lazy } from "react";
 import { ROUTES } from "../utils/routes";
 
 export const routes = {
-	Public: [
-		{
-			path: ROUTES.AUTH.SIGN_IN,
-			component: lazy(() => import("../main/features/auth/view")),
-		},
-	],
+  Public: [
+    {
+      path: ROUTES.AUTH.SIGN_IN,
+      component: lazy(() => import("../main/features/auth/view")),
+    },
+  ],
 
-	// Private Route Here
-	Private: [
-		{
-			path: ROUTES.ROOT,
-			component: lazy(() => import("../main/features/feed/ui/index")),
-		},
-		{
-			path: ROUTES.MESSENGER.DEFAULT,
-			component: lazy(() => import("../main/features/Messenger/")),
-		},
-		// {
-		//   path: `${ROUTES.MAIL.DEFAULT}`,
-		//   component: lazy(() => import("../components/MainMenu/Mail/")),
-		// },
-		{
-			path: `${ROUTES.TASK.DEFAULT}`,
-			component: lazy(() => import("../main/features/task/view")),
-		},
-		{
-			path: `${ROUTES.TRAVEL.DEFAULT}`,
-			component: lazy(() => import("../main/features/travel/")),
-		},
-		{
-			path: `${ROUTES.TRAVEL.DETAIL}`,
-			component: lazy(() =>
-				import("../main/features/travel/view/TravelDetail/TravelDetail")
-			),
-		},
-		{
-			path: `${ROUTES.EMPLOYEES.DEFAULT}`,
-			component: lazy(() => import("../main/features/employee/")),
-		},
-		{
-			path: `${ROUTES.PROJECT.DEFAULT}`,
-			component: lazy(() =>
-				import(
-					"../main/features/projects/ProjectDetails/ProjectDetails"
-				)
-			),
-		},
-		{
-			path: `${ROUTES.GROUP.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/groups/GroupDetails/GroupDetails")
-			),
-		},
-		{
-			path: `${ROUTES.TODO.DEFAULT}`,
-			component: lazy(() =>
-				import(
-					"../main/features/workboard/WorkBoardDetail/WorkBoardDetail"
-				)
-			),
-		},
-		{
-			path: `${ROUTES.WARNINGS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/warning/view/Warning")
-			),
-		},
-		{
-			path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
-			component: lazy(() =>
-				import("../components/HrMenu/Warnings/Approvals/")
-			),
-		},
-		{
-			path: `${ROUTES.COMPLAINS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/complain/view/Complain")
-			),
-		},
-		{
-			path: `${ROUTES.HR.BONUS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Bonus/")),
-		},
+  // Private Route Here
+  Private: [
+    {
+      path: ROUTES.ROOT,
+      component: lazy(() => import("../main/features/feed/ui/index")),
+    },
+    {
+      path: ROUTES.MESSENGER.DEFAULT,
+      component: lazy(() => import("../main/features/Messenger/")),
+    },
+    // {
+    //   path: `${ROUTES.MAIL.DEFAULT}`,
+    //   component: lazy(() => import("../components/MainMenu/Mail/")),
+    // },
+    {
+      path: `${ROUTES.TASK.DEFAULT}`,
+      component: lazy(() => import("../main/features/task/view")),
+    },
+    {
+      path: `${ROUTES.TRAVEL.DEFAULT}`,
+      component: lazy(() => import("../main/features/travel/")),
+    },
+    {
+      path: `${ROUTES.TRAVEL.DETAIL}`,
+      component: lazy(() =>
+        import("../main/features/travel/view/TravelDetail/TravelDetail")
+      ),
+    },
+    {
+      path: `${ROUTES.EMPLOYEES.DEFAULT}`,
+      component: lazy(() => import("../main/features/employee/")),
+    },
+    {
+      path: `${ROUTES.PROJECT.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/projects/ProjectDetails/ProjectDetails")
+      ),
+    },
+    {
+      path: `${ROUTES.GROUP.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/groups/GroupDetails/GroupDetails")
+      ),
+    },
+    {
+      path: `${ROUTES.TODO.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/workboard/WorkBoardDetail/WorkBoardDetail")
+      ),
+    },
+    {
+      path: `${ROUTES.WARNINGS.DEFAULT}`,
+      component: lazy(() => import("../main/features/warning/view/Warning")),
+    },
+    {
+      path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
+      component: lazy(() => import("../components/HrMenu/Warnings/Approvals/")),
+    },
+    {
+      path: `${ROUTES.COMPLAINS.DEFAULT}`,
+      component: lazy(() => import("../main/features/complain/view/Complain")),
+    },
+    {
+      path: `${ROUTES.HR.BONUS.DEFAULT}`,
+      component: lazy(() => import("../components/HrMenu/Bonus/")),
+    },
 
-		//Hr Router
-		{
-			path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
-			component: lazy(() => import("../main/features/administration")),
-		},
-		{
-			path: `${ROUTES.REWARDS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/reward/view/Reward")
-			),
-		},
-		{
-			path: `${ROUTES.LEAVES.DEFAULT}`,
-			component: lazy(() => import("../main/features/leave/view/Leave")),
-		},
-		{
-			path: `${ROUTES.DEPARTMENTS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/departments/view/index")
-			),
-		},
-	],
-	AdminRoutes: [
-		{
-			path: `${"/hr/administrator/"},`,
-			component: lazy(() => {
-				import("../main/features/accessRole/view/AccessRole");
-			}),
-		},
-		{
-			path: `${ROUTES.ADMINISTRATOR.GRADE},`,
-			component: lazy(() => {
-				import("../main/features/grade/view/index");
-			}),
-		},
-		{
-			path: `${ROUTES.ADMINISTRATOR.DESIGNATION},`,
-			component: lazy(() => {
-				import("../main/features/designation/view/index");
-			}),
-		},
+    //Hr Router
+    {
+      path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
+      component: lazy(() => import("../main/features/administration")),
+    },
+    {
+      path: `${ROUTES.REWARDS.DEFAULT}`,
+      component: lazy(() => import("../main/features/reward/view/Reward")),
+    },
+    {
+      path: `${ROUTES.LEAVES.DEFAULT}`,
+      component: lazy(() => import("../main/features/leave/view/Leave")),
+    },
+    {
+      path: `${ROUTES.DEPARTMENTS.DEFAULT}`,
+      component: lazy(() => import("../main/features/departments/view/index")),
+    },
+    {
+      path: `${ROUTES.LOAN.DEFAULT}`,
+      component: lazy(() => import("../main/features/loan/index")),
+    },
+  ],
+  AdminRoutes: [
+    {
+      path: `${"/hr/administrator/"},`,
+      component: lazy(() => {
+        import("../main/features/accessRole/view/AccessRole");
+      }),
+    },
+    {
+      path: `${ROUTES.ADMINISTRATOR.GRADE},`,
+      component: lazy(() => {
+        import("../main/features/grade/view/index");
+      }),
+    },
+    {
+      path: `${ROUTES.ADMINISTRATOR.DESIGNATION},`,
+      component: lazy(() => {
+        import("../main/features/designation/view/index");
+      }),
+    },
 
-		{
-			path: `${ROUTES.ADMINISTRATOR.APPRASIAL},`,
-			component: lazy(() => {
-				import(
-					"../main/features/appraisal/appraisalQuestion/view/index"
-				);
-			}),
-		},
-		{
-			path: `${ROUTES.ADMINISTRATOR.OFFICETIME},`,
-			component: lazy(() => {
-				import("../main/features/officeTimings/view/index");
-			}),
-		},
-		{
-			path: `${ROUTES.ADMINISTRATOR.LEAVE_TYPES},`,
-			component: lazy(() => {
-				import("../main/features/leave/leaveType/view/index");
-			}),
-		},
-		{
-			path: `${ROUTES.ADMINISTRATOR.EXPENSE_HEADERS},`,
-			component: lazy(() => {
-				import("../main/features/expenseHeader/view/index");
-			}),
-		},
-		{
-			path: `${ROUTES.ADMINISTRATOR.SALARY_HEADERS},`,
-			component: lazy(() => {
-				import("../main/features/salaryHeader/view/index");
-			}),
-		},
+    {
+      path: `${ROUTES.ADMINISTRATOR.APPRASIAL},`,
+      component: lazy(() => {
+        import("../main/features/appraisal/appraisalQuestion/view/index");
+      }),
+    },
+    {
+      path: `${ROUTES.ADMINISTRATOR.OFFICETIME},`,
+      component: lazy(() => {
+        import("../main/features/officeTimings/view/index");
+      }),
+    },
+    {
+      path: `${ROUTES.ADMINISTRATOR.LEAVE_TYPES},`,
+      component: lazy(() => {
+        import("../main/features/leave/leaveType/view/index");
+      }),
+    },
+    {
+      path: `${ROUTES.ADMINISTRATOR.EXPENSE_HEADERS},`,
+      component: lazy(() => {
+        import("../main/features/expenseHeader/view/index");
+      }),
+    },
+    {
+      path: `${ROUTES.ADMINISTRATOR.SALARY_HEADERS},`,
+      component: lazy(() => {
+        import("../main/features/salaryHeader/view/index");
+      }),
+    },
 
-		{
-			path: `${ROUTES.ADMINISTRATOR.EMAIL_CONFIG},`,
-			component: lazy(() => {
-				import("../main/features/emailConfiguration/view/index");
-			}),
-		},
+    {
+      path: `${ROUTES.ADMINISTRATOR.EMAIL_CONFIG},`,
+      component: lazy(() => {
+        import("../main/features/emailConfiguration/view/index");
+      }),
+    },
 
-		{
-			path: `${ROUTES.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY},`,
-			component: lazy(() => {
-				import("../main/features/customApprovalCategory/view");
-			}),
-		},
-		{
-			path: `${ROUTES.ADMINISTRATOR.ALLOWANCES},`,
-			component: lazy(() => {
-				import("../main/features/allowance/view/index");
-			}),
-		},
-		{
-			path: `${ROUTES.ADMINISTRATOR.JOB_SKILLS},`,
-			component: lazy(() => {
-				import("../main/features/jobDescription/view/index");
-			}),
-		},
+    {
+      path: `${ROUTES.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY},`,
+      component: lazy(() => {
+        import("../main/features/customApprovalCategory/view");
+      }),
+    },
+    {
+      path: `${ROUTES.ADMINISTRATOR.ALLOWANCES},`,
+      component: lazy(() => {
+        import("../main/features/allowance/view/index");
+      }),
+    },
+    {
+      path: `${ROUTES.ADMINISTRATOR.JOB_SKILLS},`,
+      component: lazy(() => {
+        import("../main/features/jobDescription/view/index");
+      }),
+    },
 
-		{
-			path: `${ROUTES.ADMINISTRATOR.REWARD_CATEGORY},`,
-			component: lazy(() => {
-				import("../main/features/reward/rewardCategory/view");
-			}),
-		},
-		{
-			path: `${ROUTES.ADMINISTRATOR.WARNING_CATEGORY},`,
-			component: lazy(() => {
-				import("../main/features/warning/warningCategory/view");
-			}),
-		},
-	],
-	Rewards: [],
+    {
+      path: `${ROUTES.ADMINISTRATOR.REWARD_CATEGORY},`,
+      component: lazy(() => {
+        import("../main/features/reward/rewardCategory/view");
+      }),
+    },
+    {
+      path: `${ROUTES.ADMINISTRATOR.WARNING_CATEGORY},`,
+      component: lazy(() => {
+        import("../main/features/warning/warningCategory/view");
+      }),
+    },
+  ],
+  Rewards: [],
 };

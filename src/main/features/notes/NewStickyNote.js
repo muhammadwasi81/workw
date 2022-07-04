@@ -1,20 +1,24 @@
 // import StickyNoteColorSelector from "./StickyNoteColorSelector";
 import { React, useState } from "react";
+import Draggable from "react-draggable";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import {
   AiOutlineDash,
   AiOutlineShareAlt,
-  AiTwotoneSnippets,
-  AiTwotoneDelete,
+  AiOutlineCopy,
   AiOutlineClose,
+  AiTwotoneDelete,
+  AiOutlinePlus,
 } from "react-icons/ai";
 import style from "./NewStickyNote.module.css";
 import { useDispatch } from "react-redux";
 import {
-  decrementStickyNote,
   closeStickyNote,
   targetTitleVal,
   targetTextVal,
+  decrementStickyNote,
+  addImage,
+  deleteImg,
 } from "../../../store/appReducer/newStickySlice";
 import StickyNoteColorSelector from "./StickyNoteColorSelector";
 
@@ -27,28 +31,19 @@ const NewStickyNote = (props) => {
   // const closeSticky = useSelector((state) => state.newStickySlice.closeSticky);
 
   // const open = useSelector((state) => state.newStickySlice.show);
+  const { id } = props;
+
+  // Dragging.........
+
   const [color, setColor] = useState(true);
   let [title, setTitle] = useState(props.titleVal);
+
   //const [textAreaValue, setTextAreaValue] = useState(props.textAreaValue);
 
   const dispatch = useDispatch();
 
-  const stickyContainer = {
-    bottom: props.y_axis,
-    right: props.x_axis,
-  };
-  const div = {
-    position: "absolute",
-    zIndex: "1",
-    bottom: "0px",
-    right: "0px",
-  };
-
   //const ref = useRef();
-  const { id } = props;
-  const decrementStickyNoteHandler = () => {
-    dispatch(decrementStickyNote(id));
-  };
+
   const closeStickyNoteHandler = () => {
     dispatch(closeStickyNote(id));
   };
@@ -74,69 +69,132 @@ const NewStickyNote = (props) => {
   };
 
   props.onGetTitleVal(stickyTitle);
+  // const nodeRef = React.useRef(null);
+
+  const axis = {
+    x_axis: Math.floor(Math.random() * 40) + 300,
+    y_axis: Math.floor(Math.random() * 40) + 150,
+  };
+
+  const decrementHandler = () => {
+    dispatch(decrementStickyNote(id));
+  };
+
+  const imageHandler = (e) => {
+    const image = e.target.files[0];
+    const abc = URL.createObjectURL(image);
+    const id = props.id;
+    dispatch(addImage({ abc, id }));
+  };
+
+  let imgSrc = props.img;
+  console.log(deleteImg());
+  const deleteImgHandler = (e) => {
+    const source = String(e.target.src);
+
+    dispatch(deleteImg({ id, source }));
+    // console.log(imgSrc[0]);
+    // const source = String(e.target.src);
+    // console.log(source);
+    // imgSrc = imgSrc.filter((src) => console.log(src !== source));
+  };
+
+  //console.log(props.img);
+
+  //const reader = new FileReader();
+  //console.log(reader.result);
+  /* if (props.img) {
+    reader.readAsDataURL(props.img[0]);
+  } */
 
   return (
     <>
-      <div
-        style={stickyContainer}
-        id={props.id}
-        className={style.stickyNoteItem__container}
-      >
-        <StickyNoteColorSelector color={color} id={props.id} />
-
+      <Draggable defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}>
         <div
-          style={{ backgroundColor: props.titleBg }}
-          className={style.stickyNoteItem__item}
+          style={{ transform: `translate(${props.x_axis}, ${props.y_axis})` }}
+          id={props.id}
+          className={style.stickyNoteItem__container}
         >
-          <div className={style.stickyNoteItem__title}>
-            <input
-              placeholder={props.title}
-              value={title}
-              onChange={getTitleValue}
-            />
-          </div>
+          <StickyNoteColorSelector id={props.id} color={color} />
+
           <div
-            className={style.stickyNoteItem__icons}
-            onClick={openColorPicker}
+            style={{ backgroundColor: props.titleBg }}
+            className={style.stickyNoteItem__item}
           >
-            <AiOutlineDash />
-          </div>
-          <div className={style.stickyNoteItem__icons}>
-            <AiOutlineShareAlt />
-          </div>
-          <CopyToClipboard text={props.textAreaValue}>
-            <div className={style.stickyNoteItem__icons}>
-              <AiTwotoneSnippets />
+            <div className={style.stickyNoteItem__title}>
+              <input
+                placeholder={props.title}
+                value={title}
+                onChange={getTitleValue}
+              />
             </div>
-          </CopyToClipboard>
-          <div
-            className={style.stickyNoteItem__icons}
-            onClick={decrementStickyNoteHandler}
-          >
-            <AiTwotoneDelete />
+            <div
+              className={style.stickyNoteItem__icons}
+              onClick={openColorPicker}
+            >
+              <AiOutlineDash />
+            </div>
+
+            <div
+              className={style.stickyNoteItem__icons}
+              onClick={closeStickyNoteHandler}
+            >
+              <AiOutlineClose />
+            </div>
           </div>
-          <div
-            className={style.stickyNoteItem__icons}
-            onClick={closeStickyNoteHandler}
-          >
-            <AiOutlineClose />
+          <div className={imgSrc < 1 ? style.noHeight : style.image_container}>
+            {imgSrc.map((imagegSrc) => (
+              <img
+                onDoubleClick={deleteImgHandler}
+                id={props.id}
+                className={style.image_section}
+                src={imagegSrc}
+                alt=""
+              />
+            ))}
           </div>
-        </div>
-        <textarea
-          onClick={closeColorPicker}
-          onChange={getTextVal}
-          className={style.stickyNoteItem__textarea}
-          placeholder={props.textAreaPlaceholder}
-          value={props.textAreaValue}
-        />
-        <div style={div}>
-          <img
-            src={require("./content/halfArrow.ff8f53df.svg").default}
-            style={{ height: "17px" }}
-            alt=""
+
+          <textarea
+            onClick={closeColorPicker}
+            onChange={getTextVal}
+            className={style.stickyNoteItem__textarea}
+            placeholder={props.textAreaPlaceholder}
+            value={props.textAreaValue}
           />
+
+          <div className={style.bottom_menu}>
+            <div>
+              <AiOutlineShareAlt />
+            </div>
+            <CopyToClipboard text={props.textAreaValue}>
+              <div>
+                <AiOutlineCopy />
+              </div>
+            </CopyToClipboard>
+            <div onClick={decrementHandler}>
+              <AiTwotoneDelete />
+            </div>
+            <div className={style.img_input}>
+              {/* <AiOutlinePlus style={{ fontSize: "20px" }} /> */}
+              <input
+                placeholder="+"
+                type="file"
+                accept="image/*"
+                size="150"
+                onChange={imageHandler}
+              />
+            </div>
+          </div>
+
+          {/* <div style={div}>
+            <img
+              src={require("./content/halfArrow.ff8f53df.svg").default}
+              style={{ height: "17px" }}
+              alt=""
+            />
+          </div> */}
         </div>
-      </div>
+      </Draggable>
     </>
   );
 };

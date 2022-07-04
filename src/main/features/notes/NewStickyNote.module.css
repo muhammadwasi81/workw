@@ -2,6 +2,7 @@
   display: flex;
   z-index: 10;
   flex-direction: column;
+  background-color: white;
   border: none;
   resize: both;
   overflow: auto;
@@ -19,7 +20,7 @@
 }
 .stickyNoteItem__item {
   padding: 0px 8px;
-  background-color: rgb(119, 200, 253);
+  background-color: #1a5669;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,12 +39,14 @@
   font-size: 15px;
   font-weight: 700;
   outline: none;
+  color: white;
 }
 .stickyNoteItem__icons {
   display: flex row;
   justify-content: space-between;
   align-items: center;
   font-size: 20px;
+  color: white;
 }
 .stickyNoteItem__textarea {
   height: 100%;
@@ -56,4 +59,46 @@
   font-size: 16px;
   resize: none;
   padding: 5px;
+}
+.bottom_menu {
+  background-color: #1a5669;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  padding: 8px 8px;
+  border-top: solid 3px black;
+  font-size: 20px;
+}
+input[type="file"] {
+  opacity: 0;
+  width: 20px;
+}
+.img_input {
+  border: solid 1px white;
+  background-image: url("./content/add.png");
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  font-size: 10px;
+  color: #1a5669;
+}
+.image_container {
+  display: block;
+  overflow-y: auto;
+  height: 180px;
+}
+.image_container.noHeight {
+  height: 0px;
+}
+.image_section {
+  margin: 5px 0px;
+  width: 100% !important;
+  height: 100% !important;
+  float: left;
+}
+.react-draggable .react-draggable-dragged {
+  resize: both !important;
 }

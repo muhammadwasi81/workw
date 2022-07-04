@@ -64,7 +64,7 @@ const Composer = (props) => {
         };
       });
 
-      let payload = { ...values, imageId: photoId, approvers, members };
+      let payload = { ...values, imageId: photoId, approvers };
       // dispatch(addReward(payload));
     });
   };

@@ -2,56 +2,37 @@ import React, { useContext } from "react";
 import { STRINGS } from "../../../../../utils/base";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { ContainerHeader } from "../../../../sharedComponents/AppComponents/MainHeader";
-import HeaderNavLink from "../../../../sharedComponents/AppComponents/MainHeader/HeaderNavLink";
-import { HeaderMenuContainer } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 
+import LayoutHeader from "../../../../layout/header";
 const Header = () => {
-	const urlParam = `${new URL(window.location.href).searchParams.get("f")}`;
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const label = dictionaryList[userLanguage];
-	return (
-		<ContainerHeader>
-			<HeaderMenuContainer>
-				<HeaderNavLink
-					urlParam={urlParam}
-					activeName={"posts"}
-					isDefault={urlParam === "null"}
-					to={`${STRINGS.ROUTES.ROOT}?f=posts`}
-					linkName={label.appHeader.newsFeed.posts}
-				/>
-				<HeaderNavLink
-					urlParam={urlParam}
-					activeName={"photos"}
-					to={`${STRINGS.ROUTES.ROOT}?f=photos`}
-					linkName={label.appHeader.newsFeed.photos}
-				/>
-				<HeaderNavLink
-					urlParam={urlParam}
-					activeName={"videos"}
-					to={`${STRINGS.ROUTES.ROOT}?f=videos`}
-					linkName={label.appHeader.newsFeed.videos}
-				/>
-				<HeaderNavLink
-					urlParam={urlParam}
-					activeName={"polls"}
-					to={`${STRINGS.ROUTES.ROOT}?f=polls`}
-					linkName={label.appHeader.newsFeed.polls}
-				/>
-				<HeaderNavLink
-					urlParam={urlParam}
-					activeName={"docs"}
-					to={`${STRINGS.ROUTES.ROOT}?f=docs`}
-					linkName={label.appHeader.newsFeed.docs}
-				/>
-				<HeaderNavLink
-					urlParam={urlParam}
-					activeName={"tagged"}
-					to={`${STRINGS.ROUTES.ROOT}?f=tagged`}
-					linkName={label.appHeader.newsFeed.tagged}
-				/>
-			</HeaderMenuContainer>
-		</ContainerHeader>
-	);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const label = dictionaryList[userLanguage];
+  const items = [
+    {
+      name: label.appHeader.newsFeed.posts,
+      to: `${STRINGS.ROUTES.ROOT}`,
+    },
+    {
+      name: label.appHeader.newsFeed.photos,
+      to: `${STRINGS.ROUTES.ROOT}?f=photos`,
+    },
+    {
+      name: label.appHeader.newsFeed.polls,
+      to: `${STRINGS.ROUTES.ROOT}?f=polls`,
+    },
+    {
+      name: label.appHeader.newsFeed.videos,
+      to: `${STRINGS.ROUTES.ROOT}?f=videos`,
+    },
+    {
+      name: label.appHeader.newsFeed.docs,
+      to: `${STRINGS.ROUTES.ROOT}?f=docs`,
+    },
+    {
+      name: label.appHeader.newsFeed.tagged,
+      to: `${STRINGS.ROUTES.ROOT}?f=tagged`,
+    },
+  ];
+  return <LayoutHeader items={items}></LayoutHeader>;
 };
 export default Header;

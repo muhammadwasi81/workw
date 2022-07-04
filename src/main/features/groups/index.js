@@ -1,7 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  HeaderMenuContainer,
+  TabbableContainer,
+} from "../../sharedComponents/AppComponents/MainFlexContainer";
 import { Skeleton } from "antd";
 import { groupsDictionaryList } from "./localization/index";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
@@ -48,7 +52,11 @@ const Groups = (props) => {
               buttonText: "Create Group",
               // onClick: () => setVisible(true),
               render: (
-                <SideDrawer title={"Create Group"} buttonText={"Create Group"} isAccessDrawer={false}>
+                <SideDrawer
+                  title={"Create Group"}
+                  buttonText={"Create Group"}
+                  isAccessDrawer={false}
+                >
                   <Composer />
                 </SideDrawer>
               ),
@@ -62,7 +70,7 @@ const Groups = (props) => {
           buttons={[
             {
               name: "Groups",
-              onClick: () => setFilter({ filterType: 0 }),
+              // onClick: () => setFilter({ filterType: 0 }),
             },
           ]}
           // filter={{
@@ -90,10 +98,22 @@ const Groups = (props) => {
                   <>
                     <CardWrapper2>
                       <Skeleton loading={loading} avatar active>
-                        <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} title="Card title" description="This is the description" />
+                        <Meta
+                          avatar={
+                            <Avatar src="https://joeschmoe.io/api/v1/random" />
+                          }
+                          title="Card title"
+                          description="This is the description"
+                        />
                       </Skeleton>
                       <Skeleton loading={loading} avatar active>
-                        <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} title="Card title" description="This is the description" />
+                        <Meta
+                          avatar={
+                            <Avatar src="https://joeschmoe.io/api/v1/random" />
+                          }
+                          title="Card title"
+                          description="This is the description"
+                        />
                       </Skeleton>
                     </CardWrapper2>
                   </>

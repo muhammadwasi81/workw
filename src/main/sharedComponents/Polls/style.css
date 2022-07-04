@@ -1,0 +1,120 @@
+.polls {
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #f4f4f4;
+}
+
+.polls .ant-radio-group-outline {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.polls .ant-radio-button-wrapper {
+    border: none;
+    padding: 4px;
+    height: auto;
+}
+
+.polls .ant-radio-button-wrapper:not(:first-child):before {
+    display: none;
+}
+
+.polls .ant-radio-button-wrapper {
+    border-radius: 12px;
+    border: 2px solid #e5e5e5;
+}
+
+.polls .ant-radio-button .ant-radio-button-checked {
+    border-color: var(--primary_theme_color_green);
+    border-width: 2px;
+}
+
+.polls .ant-radio-button-wrapper:hover {
+    color: var(--primary_theme_color_green)
+}
+
+.polls .ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
+    border-right-color: var(--primary_theme_color_green);
+}
+
+.polls .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    border-color: var(--primary_theme_color_green);
+    color: var(--primary_theme_color_green)
+}
+
+.polls .pollValue {
+    width: 100%;
+    height: 35px;
+    background-color: #e5e5e5;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.polls .pollValue .label {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--primary_theme_color_green);
+    line-height: 0;
+    transition: 0.3s;
+}
+
+.polls .pollValue .icon {
+    color: #a9a9a9;
+    font-size: 18px;
+    line-height: 0;
+    transition: 0.3s;
+}
+
+.polls .pollValue .left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    left: 15px;
+}
+
+.polls .pollValue .voteCount {
+    font-weight: 600;
+    font-size: 12px;
+    color: #a9a9a9;
+    line-height: 0;
+    transition: 0.3s;
+}
+
+.polls .pollValue .right {
+    position: absolute;
+    right: 15px;
+}
+
+/* .polls .ant-radio-button-wrapper-checked .voteCount, */
+.polls .ant-radio-button-wrapper-checked .icon,
+.polls .ant-radio-button-wrapper-checked .label {
+    color: #fff;
+
+}
+
+
+
+.polls .ant-radio-button-wrapper-checked .pollValue {
+    background-color: var(--primary_theme_color_green);
+}
+
+.polls .pollWithImage {
+    display: flex;
+    flex-direction: row;
+
+
+}
+
+.polls .pollWithImage .pollImage {
+    background: #e5e5e5;
+    border-radius: 5px;
+    height: 200px;
+    width: 150px;
+
+}

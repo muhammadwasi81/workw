@@ -10,7 +10,7 @@ import { getNameForImage, STRINGS } from "../../../../../utils/base";
 import { NavLink } from "react-router-dom";
 import { taskDictionary } from "../../localization";
 
-const dummyMember = [
+export const dummyMember = [
   {
     profile_picture:
       "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",

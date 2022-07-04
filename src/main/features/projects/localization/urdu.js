@@ -1,5 +1,5 @@
 const urdu = {
-  departmentDictionary: {
+  projectsDictionary: {
     enterRewardName: "انعام کا نام درج کریں",
     pleaseEnterRewardName: "برائے مہربانی انعام کا نام درج کریں۔",
     enterRewardReason: "انعام کی وجہ درج کریں",

@@ -36,10 +36,10 @@ const TopBar = ({ filter, onSearch, segment, buttons, component }) => {
           />
         </div>
         <div className="topBar__buttons">
-          {buttons.map(({ name, onClick, icon }, index) => (
+          {buttons.map(({ name, onClick, icon, to }, index) => (
             <Button
               onClick={() => {
-                onClick();
+                onClick(to);
                 const actives = activeButtons.map((item, key) => {
                   if (index === key) {
                     return (item = !item);

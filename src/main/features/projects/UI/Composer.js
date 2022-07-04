@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
 import { addDepartment } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { departmentDictionaryList } from "../localization/index";
+import { projectsDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
@@ -13,6 +13,9 @@ import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
 import { STRINGS } from "../../../../utils/base";
 import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
+import { DatePicker } from "antd";
+
+const { RangePicker } = DatePicker;
 
 const initialState = {
   id: "",
@@ -31,7 +34,7 @@ const initialState = {
 
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
+  const { Direction, projectsDictionary } = projectsDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -61,6 +64,13 @@ const Composer = (props) => {
     setMemberList([...memberList, data]);
   };
 
+  const handleEndStartDate = (value, dateString, name) => {
+    setState({
+      ...state,
+      [name]: dateString,
+    });
+  };
+
   const onFinish = (values) => {
     form.resetFields();
 
@@ -76,7 +86,7 @@ const Composer = (props) => {
       });
 
       let payload = { ...values, imageId: photoId, members, parentId: STRINGS.DEFAULTS.guid };
-      dispatch(addDepartment(payload));
+      // dispatch(addDepartment(payload));
     });
   };
 
@@ -106,46 +116,57 @@ const Composer = (props) => {
         <div className="flex justify-between gap-4">
           <div className="w-full">
             <Form.Item
-              label={departmentDictionary.name}
+              label={"Name"}
               name="name"
               labelPosition="top"
               rules={[
                 {
                   required: true,
-                  message: departmentDictionary.pleaseEnterRewardName,
+                  message: "Please Enter Name",
                 },
               ]}>
-              <TextInput placeholder={departmentDictionary.enterRewardName} />
+              <TextInput placeholder={"Please Enter Project Name"} />
             </Form.Item>
           </div>
           <div className="flex gap-4">
             <Form.Item area="true" style={{ marginBottom: 0 }}>
-              <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={departmentDictionary.upload} />
+              <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={"Upload"} />
             </Form.Item>
           </div>
         </div>
 
         <Form.Item
-          label={departmentDictionary.description}
+          style={{ marginTop: "-18px" }}
+          label={"Description"}
           name="description"
           rules={[
             {
               required: true,
-              message: departmentDictionary.enterDescription,
+              message: "Enter Description",
             },
           ]}>
-          <Input.TextArea placeholder={departmentDictionary.enterDescription} />
+          <Input.TextArea placeholder={"Enter Description"} />
         </Form.Item>
 
-        <Form.Item name="hodId" label={"HOD"} showSearch={true} direction={Direction} rules={[{ required: true }]}>
+        <Form.Item label="Project Date" name="startEndDate">
+          <RangePicker
+            format={"DD/MM/YYYY"}
+            placeholder={["Start Start", "End Date"]}
+            onChange={(value, dateString) => {
+              handleEndStartDate(value, dateString, "start_end");
+            }}
+          />
+        </Form.Item>
+
+        <Form.Item name="hodId" label={"Externals"} showSearch={true} direction={Direction} rules={[{ required: true }]}>
           <NewCustomSelect
             name="hodId"
-            label={"HOD"}
+            label={"Externals"}
             showSearch={true}
             direction={Direction}
             endPoint="api/Reference/GetAllUserReference"
             requestType="get"
-            placeholder={"Select HOD"}
+            placeholder={"Select Externals"}
           />
         </Form.Item>
 
@@ -160,9 +181,9 @@ const Composer = (props) => {
         <FeatureSelect />
 
         <Form.Item>
-          <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={departmentDictionary.createReward}>
+          <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={"Create"}>
             {" "}
-            {"Create Department"}{" "}
+            {"Create Project"}{" "}
           </Button>
         </Form.Item>
       </Form>

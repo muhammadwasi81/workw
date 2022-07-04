@@ -5,7 +5,6 @@ import {
 } from "../../../../utils/api/ResponseResult";
 
 export const saveCreatePost = async (request) => {
-    
   try {
     const {
       data: { responseCode, data, message },

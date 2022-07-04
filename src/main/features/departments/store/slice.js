@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addDepartment, addReward, getAllDepartments, GetRewardById } from "./actions";
+import { addDepartment, addReward, getAllDepartments } from "./actions";
 
 const initialState = {
   departments: [],
@@ -16,11 +16,6 @@ const departmentSlice = createSlice({
     builder.addCase(getAllDepartments.fulfilled, (state, action) => {
       state.departments = action.payload ? action.payload : [];
       state.loader = false;
-    });
-
-    builder.addCase(GetRewardById.fulfilled, (state, action) => {
-      console.log("action.payload", action.payload);
-      state.departmentDetail = action.payload.data;
     });
 
     builder

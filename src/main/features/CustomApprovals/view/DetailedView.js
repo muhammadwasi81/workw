@@ -66,7 +66,7 @@ function DetailedView(props) {
           <div className="ItemDetails">
             <div className="innerDiv">
               <span className="text-black font-extrabold smallHeading">{customApprovalDictionary.name}</span>
-              <p>{name}</p>
+              <p>Name</p>
             </div>
             <div className="innerDiv">
               <span className="text-black font-extrabold smallHeading">{customApprovalDictionary.category}</span>
@@ -76,7 +76,7 @@ function DetailedView(props) {
             </div>
             <div className="innerDiv">
               <span className="text-black font-extrabold smallHeading">{customApprovalDictionary.reason}</span>
-              <p>{reason}</p>
+              <p>Reason</p>
             </div>
             {/* <div className="innerDiv">
               <span className="text-black font-extrabold smallHeading">{customApprovalDictionary.rewardTo}</span>

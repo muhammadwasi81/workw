@@ -184,6 +184,14 @@ const NavMenuList = () => {
       key: label.navMenuLabel.menu,
     },
     {
+      name: label.navMenuLabel.docsArchives,
+      counter: 0,
+      to: ROUTES.DOCUMENTS.DOCUMENT,
+      icon: messengerIcon,
+      isActive: 4,
+      key: label.navMenuLabel.hr,
+    },
+    {
       name: label.navMenuLabel.travel,
       counter: 0,
       to: `${ROUTES.TRAVELS}?f=trv`,

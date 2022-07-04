@@ -70,11 +70,11 @@ export const ROUTES = {
 		PROJECT_BUDGET: `${DOMAIN_PREFIX}/projects/budget/details`,
 		DOCUMENTS: `${DOMAIN_PREFIX}/projects/documents`,
 	},
-	DOCUMENTS: {
-		DEFAULT: `${DOMAIN_PREFIX}/documents`,
-		ITEM: `${DOMAIN_PREFIX}/documents`,
-		EDITOR: `${DOMAIN_PREFIX}/documents/editor`,
-	},
+	// DOCUMENTS: {
+	// 	DEFAULT: `${DOMAIN_PREFIX}/documents`,
+	// 	ITEM: `${DOMAIN_PREFIX}/documents`,
+	// 	EDITOR: `${DOMAIN_PREFIX}/documents/editor`,
+	// },
 	TODO: {
 		DEFAULT: `${DOMAIN_PREFIX}/workboard`,
 		TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board`,
@@ -258,6 +258,10 @@ export const ROUTES = {
 	EXPENSES: {
 		DEFAULT: `${DOMAIN_PREFIX}/expenses/*`,
 		EXPENSES: `${DOMAIN_PREFIX}/expenses`,
+	},
+	DOCUMENTS: {
+		DEFAULT: `${DOMAIN_PREFIX}/documents/*`,
+		DOCUMENT: `${DOMAIN_PREFIX}/documents`,
 	},
 	LEAVES: {
 		DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,

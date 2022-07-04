@@ -42,7 +42,7 @@ import accessRolesSlice from "../main/features/accessRole/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
 import feedSlice from "../main/features/feed/store/slice";
 import loanSlice from "../main/features/loan/store/slice";
-import NoteSlice from "./appReducer/NoteSlice";
+import documentSlice from "../main/features/documents/store/slice";
 import newStickySlice from "./appReducer/newStickySlice";
 
 // import thunk from "redux-thunk";
@@ -86,8 +86,8 @@ const reducers = combineReducers({
   sharedSlice,
   travelSlice,
   loanSlice,
-  NoteSlice,
   newStickySlice,
+  documentSlice
 });
 
 const persistConfig = {

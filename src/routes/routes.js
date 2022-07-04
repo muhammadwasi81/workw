@@ -90,6 +90,10 @@ export const routes = {
       path: `${ROUTES.EXPENSES.DEFAULT}`,
       component: lazy(() => import("../main/features/expense/routes/")),
     },
+	{
+		path: `${ROUTES.DOCUMENTS.DEFAULT}`,
+		component: lazy(() => import("../main/features/documents/view/index")),
+	  },
   ],
   AdminRoutes: [
     {

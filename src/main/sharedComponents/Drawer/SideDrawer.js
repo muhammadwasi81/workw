@@ -7,10 +7,11 @@ import { useMediaQuery } from "react-responsive";
 import SharedButton from "../button";
 import PropTypes from "prop-types";
 import "./sideDrawer.css";
-function SideDrawer({ title, buttonText, children, ...props }) {
+function SideDrawer({ title, buttonText, children, isDisable, isOpen=false, handleClose=()=>{},...props }) {
+  console.log(isOpen)
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
-  const [state, setstate] = useState({ visible: false });
+  const [state, setstate] = useState({ visible: false});
   const isTablet = useMediaQuery({ maxWidth: 650 });
 
   const showDrawer = () => {
@@ -19,6 +20,9 @@ function SideDrawer({ title, buttonText, children, ...props }) {
     }
     setstate({ ...state, visible: true });
   };
+  useEffect(() => {
+    setstate({...state, visible: isOpen})
+  }, [isOpen]);
   useEffect(() => {
     if (props.isAccessDrawer) {
       if (props.openDrawer) {
@@ -42,11 +46,12 @@ function SideDrawer({ title, buttonText, children, ...props }) {
       props.setIsEdited(false);
       props.form.resetFields();
     }
+    handleClose()
   };
 
   return (
     <>
-      <SharedButton
+     {!(!!isDisable) && <SharedButton
         type="primary"
         onClick={showDrawer}
         shape="square"
@@ -61,7 +66,7 @@ function SideDrawer({ title, buttonText, children, ...props }) {
         style={{
           fontSize: "12px",
         }}
-      />
+      />}
       <Drawer
         className={"shared_drawer drawerSecondary"}
         style={

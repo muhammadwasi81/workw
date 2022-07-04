@@ -85,6 +85,12 @@ const NavMenuList = () => {
       icon: customApprovalIcon,
       isActive: 4,
       key: label.navMenuLabel.menu,
+      name: label.navMenuLabel.docsArchives,
+      counter: 0,
+      to: ROUTES.DOCUMENTS.DOCUMENT,
+      icon: messengerIcon,
+      isActive: 4,
+      key: label.navMenuLabel.hr,
     },
     {
       name: label.navMenuLabel.travel,

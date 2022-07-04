@@ -1,8 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Row, Button, Skeleton, Modal } from "antd";
+import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Skeleton } from "antd";
 import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
@@ -12,8 +10,6 @@ import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllDepartments, GetRewardById } from "../store/actions";
-
-// import "./reward.css";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
 import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
@@ -32,7 +28,6 @@ const Department = (props) => {
   const [tableView, setTableView] = useState(false);
   const [visible, setVisible] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 1, search: "" });
   const { departments, loader, departmentDetail } = useSelector((state) => state.departmentSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
@@ -40,18 +35,9 @@ const Department = (props) => {
     setVisible(false);
   };
 
-  const getRewardId = (id) => {
-    dispatch(GetRewardById(id));
-    setVisible(true);
-  };
-
   useEffect(() => {
     dispatch(getAllDepartments());
-  }, [filter]);
-
-  const handleFilter = (values) => {
-    setSearchFilterValues(values);
-  };
+  }, []);
 
   return (
     <>
@@ -73,15 +59,15 @@ const Department = (props) => {
           onSearch={(value) => {
             console.log(value);
           }}
-          buttons={[
-            {
-              name: "Departments",
-              onClick: () => setFilter({ filterType: 0 }),
-            },
-          ]}
-          filter={{
-            onFilter: () => {},
-          }}
+          // buttons={[
+          //   {
+          //     name: "Departments",
+          //     onClick: () => setFilter({ filterType: 0 }),
+          //   },
+          // ]}
+          // filter={{
+          //   onFilter: () => {},
+          // }}
           segment={{
             onSegment: (value) => {
               if (value === "Table") {
@@ -127,7 +113,7 @@ const Department = (props) => {
                     {departments.map((item, index) => {
                       return (
                         <>
-                          <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                          <ListItem item={item} id={item.id} key={index} />
                         </>
                       );
                     })}

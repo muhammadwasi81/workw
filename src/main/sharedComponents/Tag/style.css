@@ -1,37 +1,16 @@
 .statusTag {
-    color: white !important;
-    border-radius: 5px !important;
+  color: white !important;
+  border-radius: 5px !important;
 }
 .Cancel {
-    background-color: red !important;
+  background-color: red !important;
 }
 .approved {
-    background-color: green !important;
+  background-color: green !important;
 }
 .inProcess {
-background-color: #1b5669 !important;
+  background-color: #1b5669 !important;
 }
 .statusTag {
-    padding: 4px 10px !important;
-}
-
-@media (min-width: 1901px) and (max-width: 2000px) {
-    .statusTag {
-        border-radius: 4px !important;
-        font-size: 15px;
-    }
-}
-
-@media (min-width: 2001px) and (max-width: 2100px) {
-    .statusTag {
-        border-radius: 4px !important;
-        font-size: 15px;
-    }
-}
-
-@media (min-width: 2101px) and (max-width: 2200px) {
-    .statusTag {
-        border-radius: 4px !important;
-        font-size: 15px;
-    }
+  padding: 4px 10px !important;
 }

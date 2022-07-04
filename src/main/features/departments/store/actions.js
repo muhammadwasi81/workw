@@ -4,18 +4,12 @@ import { responseCode } from "../../../../services/enums/responseCode";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
 import { addDepartmentService, getAllDepartmentService, GetRewardByIdService } from "../services/service";
 
-export const getAllDepartments = createAsyncThunk("reward/GetAllReward", async (data) => {
+export const getAllDepartments = createAsyncThunk("Department/getAllDepartment", async (data) => {
   const response = await getAllDepartmentService(data);
 
   if (!response.responseCode) {
     message.error("Something went wrong");
   }
-  return response.data;
-});
-
-export const GetRewardById = createAsyncThunk("Reward/GetRewardById", async (id) => {
-  const response = await GetRewardByIdService(id);
-  console.log("MY ID", id);
   return response.data;
 });
 

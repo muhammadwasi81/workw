@@ -113,6 +113,7 @@ const en = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    customApprovals: "Custom Approvals",
     feed: "NewsFeed",
     messenger: "Messenger",
     mailBox: "Mail Box",

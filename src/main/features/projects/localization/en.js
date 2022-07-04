@@ -1,5 +1,5 @@
 const en = {
-  departmentDictionary: {
+  projectsDictionary: {
     enterRewardName: "Entet Reward Name",
     pleaseEnterRewardName: "Please Enter Reward Name",
     enterRewardReason: "Enter Reward Reason",

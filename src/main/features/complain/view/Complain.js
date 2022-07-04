@@ -85,9 +85,9 @@ const Reward = (props) => {
             onClick: () => setFilter({ filterType: 2 }),
           },
         ]}
-        filter={{
-          onFilter: () => {},
-        }}
+        // filter={{
+        //   onFilter: () => {},
+        // }}
         segment={{
           onSegment: (value) => {
             if (value === "Table") {
@@ -101,7 +101,7 @@ const Reward = (props) => {
         }}
       />
       <ContBody>
-        {complains && complains.length > 0 ? (
+        {complains && complains?.length > 0 ? (
           tableView ? (
             <Table
               columns={tableColumn()}

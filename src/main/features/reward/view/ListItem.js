@@ -9,6 +9,7 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -22,7 +23,7 @@ function ListItem(props) {
     reason,
     category,
     members = [],
-    approvers,
+    approvers = [],
     status,
     referenceNo,
     createDate,
@@ -43,7 +44,12 @@ function ListItem(props) {
             <UserInfo
               avatarSrc={creator.image}
               name={creator.name}
-              Subline={<SublineDesigWithTime designation={creator.designation} time={moment(createDate).format("DD/MM/YYYY")} />}
+              Subline={
+                <SublineDesigWithTime
+                  designation={creator.designation ? creator.designation : "Default Designation"}
+                  time={moment(createDate).format("DD/MM/YYYY")}
+                />
+              }
             />
           </div>
           <div className="right">
@@ -57,71 +63,40 @@ function ListItem(props) {
         <div className="ListItemInner">
           <div className="ItemDetails">
             <div className="innerDiv">
-              <h3>{rewardDictionary.name}</h3>
+              <span className="text-black font-extrabold smallHeading">{rewardDictionary.name}</span>
               <p>{name}</p>
             </div>
             <div className="innerDiv">
-              <h3>{rewardDictionary.category}</h3>
-              <Tag className="categoryTag">{category}</Tag>
+              <span className="text-black font-extrabold smallHeading">{rewardDictionary.category}</span>
+              <p>
+                <Tag className="categoryTag">{category}</Tag>
+              </p>
             </div>
             <div className="innerDiv">
-              <h3>{rewardDictionary.reason}</h3>
+              <span className="text-black font-extrabold smallHeading">{rewardDictionary.reason}</span>
               <p>{reason}</p>
             </div>
             <div className="innerDiv">
-              <h3>{rewardDictionary.rewardTo}</h3>
-              {/* {props.members} */}
-              <div className="mem">
-                {members.map((val, i) => {
-                  if (i > 2) return "";
-                  let { member = { image: "", name: "" } } = val;
-                  return member && member.image ? (
-                    <div
-                      key={`grpmem${i}`}
-                      className="us-img"
-                      style={{
-                        backgroundImage: `url(${member.image})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "100% 100%",
-                      }}
-                    />
-                  ) : (
-                    <div key={`grpmem${i}`} className="us-img">
-                      {getNameForImage(member ? member.name : "")}
-                    </div>
-                  );
-                })}
-                {members ? members.length > 2 ? <div className="us-img">{members && members.length - 2}+</div> : "" : null}
-              </div>
+              <span className="text-black font-extrabold smallHeading">{rewardDictionary.rewardTo}</span>
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Members"}
+                membersData={members}
+                text={"Danish"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
             </div>
-            <div className="approversBox">
-              <h3>{rewardDictionary.approvers}</h3>
-              <div className="mem">
-                {approvers &&
-                  approvers.map((val, i) => {
-                    if (i > 2) return "";
-                    let { approver } = val;
-                    return (
-                      approver &&
-                      (approver.image ? (
-                        <div
-                          key={`grpmem${i}`}
-                          className="us-img"
-                          style={{
-                            backgroundImage: `url(${approver.image})`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "100% 100%",
-                          }}
-                        />
-                      ) : (
-                        <div key={`grpmem${i}`} className="us-img">
-                          {getNameForImage(approver.name)}
-                        </div>
-                      ))
-                    );
-                  })}
-                {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
-              </div>
+            <div className="innerDiv">
+              <span className="text-black font-extrabold smallHeading">{rewardDictionary.approvers}</span>
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"approvers"}
+                membersData={approvers ? approvers : []}
+                text={"Danish"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
             </div>
           </div>
           <div className="attachmentBox">

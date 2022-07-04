@@ -49,7 +49,6 @@ import sharedSlice from "../utils/Shared/store/slice";
 import accessRolesSlice from "../main/features/accessRole/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
 import feedSlice from "../main/features/feed/store/slice";
-import loanSlice from "../main/features/loan/store/slice";
 import NoteSlice from "./appReducer/NoteSlice";
 import newStickySlice from "./appReducer/newStickySlice";
 
@@ -92,7 +91,6 @@ const reducers = combineReducers({
   accessRolesSlice,
   sharedSlice,
   travelSlice,
-  loanSlice,
   NoteSlice,
   newStickySlice,
 });
@@ -154,9 +152,10 @@ const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      // serializableCheck: {
+      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      // },
+      serializableCheck: false,
     }),
   // devTools: process.env.NODE_ENV !== "production",
   // middleware: [thunk],

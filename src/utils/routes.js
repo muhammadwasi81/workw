@@ -202,7 +202,6 @@ export const ROUTES = {
   TASKS: `${DOMAIN_PREFIX}/tasks`,
   // LEAVES: `${DOMAIN_PREFIX}/leaves`,
   EXPENSES: `${DOMAIN_PREFIX}/expenses`,
-  CUSTOM_APPROVALS: `${DOMAIN_PREFIX}/customApprovals`,
 
   PAYROLL: {
     DEFAULT: `${DOMAIN_PREFIX}/payroll`,
@@ -714,10 +713,10 @@ export const ROUTES = {
       DEFAULT: `${DOMAIN_PREFIX}/warnings`,
       APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
     },
-    CUSTOM_APPROVALS: {
-      DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
-      APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
-    },
+    // CUSTOM_APPROVALS: {
+    //   DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
+    //   APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
+    // },
     COMPLAINS: {
       DEFAULT: `${DOMAIN_PREFIX}/complains`,
       APPROVALS: `${DOMAIN_PREFIX}/complains/approvals`,

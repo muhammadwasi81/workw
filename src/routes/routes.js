@@ -20,10 +20,10 @@ export const routes = {
       path: ROUTES.MESSENGER.DEFAULT,
       component: lazy(() => import("../main/features/Messenger/")),
     },
-    // {
-    //   path: `${ROUTES.MAIL.DEFAULT}`,
-    //   component: lazy(() => import("../components/MainMenu/Mail/")),
-    // },
+    {
+      path: ROUTES.CUSTOM_APPROVALS.DEFAULT,
+      component: lazy(() => import("../main/features/CustomApprovals/view/CustomApproval")),
+    },
     {
       path: `${ROUTES.TASK.DEFAULT}`,
       component: lazy(() => import("../main/features/task/routes/index")),
@@ -35,6 +35,10 @@ export const routes = {
     {
       path: `${ROUTES.TRAVEL.DETAIL}`,
       component: lazy(() => import("../main/features/travel/view/TravelDetail/TravelDetail")),
+    },
+    {
+      path: `${ROUTES.CAREER.JOB_BY_ID}`,
+      component: lazy(() => import("../main/features/careers/view/DetailView/index")),
     },
     {
       path: `${ROUTES.EMPLOYEES.DEFAULT}`,
@@ -85,6 +89,14 @@ export const routes = {
     {
       path: `${ROUTES.DEPARTMENTS.DEFAULT}`,
       component: lazy(() => import("../main/features/departments/view/index")),
+    },
+    {
+      path: `${ROUTES.CAREER.DEFAULT}`,
+      component: lazy(() => import("../main/features/careers/view/")),
+    },
+    {
+      path: `${ROUTES.CAREER.JOB_DETAIL}`,
+      component: lazy(() => import("../main/features/careers/view/DetailView/index")),
     },
     {
       path: `${ROUTES.EXPENSES.DEFAULT}`,

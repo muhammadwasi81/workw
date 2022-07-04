@@ -7,24 +7,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
 import { addReward } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { rewardDictionaryList } from "../localization/index";
+import { customApprovalDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 
 const initialState = {
   id: "",
-  name: "",
-  reason: "",
   description: "",
   categoryId: "",
   imageId: "",
-  members: [
-    {
-      memberId: "",
-      memberType: 1,
-    },
-  ],
   approvers: [
     {
       approverId: "",
@@ -38,7 +30,7 @@ const initialState = {
 
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
+  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -49,8 +41,6 @@ const Composer = (props) => {
 
   useEffect(() => {
     dispatch(getRewardCategory());
-    // dispatch(getAllEmployee());
-    // console.log(employeesList, "EMPLOYEES")
   }, []);
 
   const handleImageUpload = (data) => {
@@ -61,10 +51,6 @@ const Composer = (props) => {
     form.resetFields();
 
     dispatch(uploadImage(profileImage)).then((x) => {
-      // console.log(
-      // 	x.payload.data[0].id,
-      // 	"Hurry i got image if from server"
-      // );
       console.log(x, "FIRST ONE");
       let photoId = x.payload.data[0].id;
 
@@ -72,21 +58,14 @@ const Composer = (props) => {
         return {
           approverId: approver,
           approverType: 0,
+          isDefault: true,
+          status: 0,
           email: "",
-        };
-      });
-      let members = values.members.map((memeber) => {
-        return {
-          memberId: memeber,
-          memberType: 0,
         };
       });
 
       let payload = { ...values, imageId: photoId, approvers, members };
-
-      dispatch(addReward(payload));
-      console.log(payload, "FINALLLLL");
-      // console.log(payload, "Final Data");
+      // dispatch(addReward(payload));
     });
   };
 
@@ -114,20 +93,20 @@ const Composer = (props) => {
         // className={Direction === "ltr" ? "align-right" : ""}
       >
         <Form.Item
-          label={rewardDictionary.name}
-          name="name"
+          label={"Subject"}
+          name="subject"
           labelPosition="top"
           rules={[
             {
               required: true,
-              message: rewardDictionary.pleaseEnterRewardName,
+              message: "Please Enter Subject",
             },
           ]}>
-          <TextInput placeholder={rewardDictionary.enterRewardName} />
+          <TextInput placeholder={"Enter Subject"} />
         </Form.Item>
 
         <Form.Item
-          label={rewardDictionary.category}
+          label={customApprovalDictionary.category}
           name="categoryId"
           rules={[
             {
@@ -140,7 +119,7 @@ const Composer = (props) => {
             //   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             // }
             data={rewardCategories}
-            placeholder={rewardDictionary.category}
+            placeholder={customApprovalDictionary.category}
             style={{
               width: "100%",
               borderRadius: "5px",
@@ -150,63 +129,51 @@ const Composer = (props) => {
         </Form.Item>
 
         <Form.Item
-          label={rewardDictionary.reason}
-          name="reason"
+          label={"Amount"}
+          name="amount"
+          labelPosition="top"
           rules={[
             {
               required: true,
-              message: rewardDictionary.enterRewardReason,
+              message: "Please Enter Amount",
             },
           ]}>
-          <TextInput placeholder={rewardDictionary.enterRewardReason} />
+          <TextInput placeholder={"Enter Amount"} />
         </Form.Item>
 
-        <Form.Item name="members" label={rewardDictionary.rewardTo} showSearch={true} direction={Direction} rules={[{ required: true }]}>
-          <NewCustomSelect
-            name="members"
-            label={rewardDictionary.members}
-            showSearch={true}
-            direction={Direction}
-            mode="multiple"
-            endPoint="api/Reference/GetAllUserReference"
-            requestType="get"
-            placeholder={rewardDictionary.selectMember}
-          />
-        </Form.Item>
-
-        <Form.Item name="approvers" label={rewardDictionary.approvers} showSearch={true} direction={Direction} rules={[{ required: true }]}>
+        <Form.Item name="approvers" label={customApprovalDictionary.approvers} showSearch={true} direction={Direction} rules={[{ required: true }]}>
           <NewCustomSelect
             name="approvers"
-            label={rewardDictionary.approvers}
+            label={customApprovalDictionary.approvers}
             showSearch={true}
             direction={Direction}
             mode="multiple"
             endPoint="api/Reference/GetAllUserReference"
             requestType="get"
-            placeholder={rewardDictionary.approvers}
+            placeholder={customApprovalDictionary.approvers}
           />
         </Form.Item>
 
         <Form.Item
-          label={rewardDictionary.description}
+          label={customApprovalDictionary.description}
           name="description"
           rules={[
             {
               required: true,
-              message: rewardDictionary.enterDescription,
+              message: customApprovalDictionary.enterDescription,
             },
           ]}>
-          <Input.TextArea placeholder={rewardDictionary.enterDescription} />
+          <Input.TextArea placeholder={customApprovalDictionary.enterDescription} />
         </Form.Item>
 
         <Form.Item area="true">
-          <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={rewardDictionary.upload} />
+          <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={customApprovalDictionary.upload} />
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" size="medium" className="ThemeBtn" block htmlType="submit" title={rewardDictionary.createReward}>
+          <Button type="primary" size="medium" className="ThemeBtn" block htmlType="submit" title={customApprovalDictionary.createReward}>
             {" "}
-            {rewardDictionary.createReward}{" "}
+            {customApprovalDictionary.createCustomApproval}{" "}
           </Button>
         </Form.Item>
       </Form>

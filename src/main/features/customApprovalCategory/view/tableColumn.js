@@ -22,7 +22,22 @@ export const tableColumn = (handleEdit, handleDelete, removeButtons = false, rig
   return [
     { title: "Name", dataIndex: "name", width: "20%" },
     { title: "Description", dataIndex: "description", width: "20%" },
-    { title: "Description", dataIndex: "description", width: "20%" },
+    {
+      title: "Approvers",
+      dataIndex: "approvers",
+      key: "approvers",
+      render: (text, row) => {
+        console.log(row);
+        return (
+          <div>
+            {row.members.map((item) => (
+              <div>{/* {item.member?.name ? item.member.name : ""} */}</div>
+            ))}
+          </div>
+        );
+      },
+      width: "20%",
+    },
     removeButtons
       ? {}
       : {

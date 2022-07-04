@@ -102,6 +102,7 @@ const urdu = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    customApprovals: "حسب ضرورت منظوری",
     feed: "نیوز فیڈ",
     messenger: "میسنجر",
     mailBox: "میل باکس",

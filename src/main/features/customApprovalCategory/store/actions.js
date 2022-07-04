@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
 import { addCustomApprovalCategoryService, getAllCustomApprovalCategoryService } from "../services/service";
 import { customApprovalCategoryDeleted } from "./slice";
 import MasterConfig from "../../../../utils/services/MasterConfig";

@@ -14,8 +14,6 @@ import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllLeaves, GetRewardById } from "../store/actions";
-
-import "./leave.css";
 import FilterSearch from "../../../sharedComponents/FilterSearch";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
@@ -92,9 +90,9 @@ const Leave = (props) => {
               onClick: () => setFilter({ filterType: 2 }),
             },
           ]}
-          filter={{
-            onFilter: () => {},
-          }}
+          // filter={{
+          //   onFilter: () => {},
+          // }}
           segment={{
             onSegment: (value) => {
               if (value === "Table") {

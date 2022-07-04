@@ -3,11 +3,10 @@
   color: #1a5669 !important;
   border: 0;
   white-space: nowrap;
-  width: 50px;
+  width: 111px;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
 .submitButton {
   background-color: #1b5669;
   display: block;
@@ -19,13 +18,63 @@
   background-color: #1b5669;
   color: white;
 }
+.innerCard {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+.innerCard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.innerCard__header .left {
+  display: flex;
+  gap: 8px;
+}
+.innerCard__header .primaryTag {
+  padding: 2px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--primary_theme_color_green);
+  display: inline-flex;
+  font-size: 12px;
+  gap: 5px;
+  align-items: center;
+  color: var(--primary_theme_color_green);
+}
+.innerCard__header .secondaryTag {
+  padding: 2px 10px;
+  border-radius: 5px;
+  background: #e7e7e7;
+  display: inline-flex;
+  font-size: 12px;
+  gap: 5px;
+  align-items: center;
+  color: #7d7d7d;
+}
+.innerCard__header .right p {
+  font-size: 16px;
+  font-weight: 600;
+}
+.innerCard__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+.innerCard__footer .left span:first-child,
+.innerCard__footer .right span:first-child {
+  color: #939fa7;
+}
 
 .IdTag {
-  color: black !important;
+  color: #757d86;
   font-weight: 700;
   border: 0;
   padding: 5px;
   border-radius: 4px;
+  background: #ededed;
 }
 
 .new {
@@ -59,6 +108,7 @@
 .item-header {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 .item-content {
   margin-top: 15px;
@@ -67,6 +117,7 @@
   padding: 4px 10px;
   border-radius: 4px;
   border: none;
+  background: #ededed;
 }
 .item-header .right button {
   border-radius: 4px !important;
@@ -119,12 +170,10 @@
   color: #757d86;
   font-size: 12px;
 }
-.grid-content h3 {
-  font-weight: 600;
-  color: black;
+.smallHeading {
   margin-top: 10px;
-  font-size: 11px;
   margin-bottom: 0px;
+  color: var(--primary_theme_color_green);
 }
 .grid-content h4 {
   font-weight: bold;
@@ -140,13 +189,23 @@
 
 .ItemDetails {
   display: flex;
-  width: 70%;
-  margin-top: 13px;
+  width: 100%;
+}
+.innerDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 20px;
+  min-height: 75px;
+}
+.detailedCard .innerDiv {
+  justify-content: space-evenly;
+}
+.detailedCard p {
+  margin-bottom: 0px;
 }
 .ListItemInner {
   display: flex;
-  justify-content: space-between;
-  padding-right: 11px;
 }
 .innerDiv {
   margin-right: 20px;
@@ -154,9 +213,10 @@
 .ListItemInner p {
   color: #757d86;
   white-space: nowrap;
-  width: 50px;
+  width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-top: 15px;
 }
 .list-item .mem {
   margin-left: 10px;
@@ -164,15 +224,14 @@
 .attachmentBox .ant-image-img {
   border-radius: 4px;
 }
-
 .Card2 {
   border-radius: 10px;
   overflow: hidden;
   padding: 15px;
 }
 .Card2 .ant-card-meta-title {
-  color: #222;
-  font-size: 19px;
+  color: var(--primary_theme_color_green);
+  font-size: 14px;
   font-weight: 600;
   margin: 0px 0px 0px 0px !important;
 }
@@ -182,6 +241,7 @@
 }
 .Card2 .ant-card-cover img {
   border-radius: 10px 10px 0px 0px;
+  min-height: 180px;
 }
 .Card2 .ant-card-body {
   padding: 18px 0px 5px 0px;
@@ -194,6 +254,69 @@
   display: flex;
   align-items: center;
   padding-top: 36px;
+}
+
+.Card3 .userInfo {
+  display: block !important;
+  text-align: center;
+}
+.Card3 .ItemHeader {
+  display: block;
+  margin: 0 auto;
+}
+.Card3 .details {
+  display: flex;
+  justify-content: center;
+}
+.Card3 .dot {
+  width: 5px;
+  background: #9a9390;
+  height: 5px;
+  display: block;
+  border-radius: 12px;
+  position: relative;
+  top: 6px;
+}
+.Card3 .time {
+  margin-left: 4px;
+}
+.Card3 {
+  padding: 23px 10px !important;
+}
+
+.Card3:hover {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: all 0.5s;
+}
+.Card3 .ItemContent {
+  text-align: center;
+  margin-top: 13px;
+  margin-bottom: 26px;
+}
+
+.Card3 .ItemContent h3 {
+  color: #000000;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.Card3 .ItemContent p {
+  font-size: 11px;
+  color: #9a9390;
+}
+
+.Card3 .time:before {
+  position: absolute;
+}
+
+.Card3 .ItemFooter {
+  text-align: center;
+}
+.detailedCard .ListItemInner p {
+  width: auto;
+}
+.detailedCard .ItemDetails {
+  width: 100%;
 }
 
 @media (min-width: 320px) and (max-width: 767px) {
@@ -286,12 +409,6 @@
   }
   .innerDiv h3 {
     font-size: 13px;
-  }
-  .avatar {
-    width: 38px !important;
-    min-width: 38px !important;
-    height: 38px !important;
-    max-height: 44px !important;
   }
 }
 

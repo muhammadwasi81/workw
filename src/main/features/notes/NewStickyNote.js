@@ -8,7 +8,6 @@ import {
   AiOutlineCopy,
   AiOutlineClose,
   AiTwotoneDelete,
-  AiOutlinePlus,
 } from "react-icons/ai";
 import style from "./NewStickyNote.module.css";
 import { useDispatch } from "react-redux";
@@ -175,7 +174,6 @@ const NewStickyNote = (props) => {
               <AiTwotoneDelete />
             </div>
             <div className={style.img_input}>
-              {/* <AiOutlinePlus style={{ fontSize: "20px" }} /> */}
               <input
                 placeholder="+"
                 type="file"

@@ -35,3 +35,6 @@ export const statusEnum = {
     },
   ],
 };
+export const statusObj = {
+  1: "Approvers",
+};

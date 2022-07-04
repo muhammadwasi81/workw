@@ -93,7 +93,6 @@ const en = {
     administration: "Administration",
     appraisals: "Appraisals",
     departments: "Departments",
-    loan: "Loan",
     leaves: "Leaves",
     loan: "Loan",
     holidays: "Holidays",
@@ -114,6 +113,7 @@ const en = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    customApprovals: "Custom Approvals",
     feed: "NewsFeed",
     messenger: "Messenger",
     mailBox: "Mail Box",
@@ -192,6 +192,7 @@ const en = {
       scheduleInterviews: "Schedule Interviews",
     },
     expense: {
+      expenses: "Expenses",
       forApprovals: "For Approvals",
       myExpenses: "My Expenses",
       forExecution: "For Execution",

@@ -5,13 +5,13 @@
   max-height: 400px;
   position: absolute;
   left: 50%;
-  cursor: move;
+  cursor: pointer;
   z-index: 10;
   transform: translate(11px, 456px);
 }
 .note-header {
   padding: 7px;
-  cursor: move;
+  cursor: pointer;
   z-index: 10;
   font-size: 14px;
   letter-spacing: 1px;

@@ -1,0 +1,6 @@
+.d_AllShortCard{
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill,minmax(10rem,1fr));
+}

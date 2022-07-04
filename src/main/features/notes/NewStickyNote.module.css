@@ -27,7 +27,7 @@
   height: 30px;
   width: 100%;
   flex-direction: row;
-  cursor: move;
+  cursor: pointer;
 }
 .stickyNoteItem__title {
   flex: 1;

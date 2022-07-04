@@ -15,8 +15,8 @@ function ExampleAntdCustomSelect() {
 		state => state.sharedSlice
 	);
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
-	const [firstTimeCityData, setFirstTimeCityData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+	const [firstTimeCityData, setFirstTimeCityData] = useState([]);
 	const [isFirstTimeCityDataLoaded, setIsFirstTimeCityDataLoaded] =
 		useState(false);
 	useEffect(() => {

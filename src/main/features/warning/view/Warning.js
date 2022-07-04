@@ -85,9 +85,9 @@ const Reward = (props) => {
             onClick: () => setFilter({ filterType: 2 }),
           },
         ]}
-        filter={{
-          onFilter: () => {},
-        }}
+        // filter={{
+        //   onFilter: () => {},
+        // }}
         segment={{
           onSegment: (value) => {
             if (value === "Table") {

@@ -35,8 +35,10 @@ import rewardCategorySlice from "../main/features/reward/rewardCategory/store/sl
 import rewardSlice from "../main/features/reward/store/slice";
 import leaveSlice from "../main/features/leave/store/slice";
 import complainSlice from "../main/features/complain/store/slice";
+import projectSlice from "../main/features/projects/store/slice";
 import jobDescriptionSlice from "../main/features/jobDescription/store/slice";
 import customApprovalCategorySlice from "../main/features/customApprovalCategory/store/slice";
+import customApprovalSlice from "../main/features/CustomApprovals/store/slice";
 import notificationSlice from "../services/slices/notificationSlice.js";
 // import callSlice from "./appReducer/callSlice";
 import generalSlice from "./appReducer/generalSlice";
@@ -50,7 +52,10 @@ import accessRolesSlice from "../main/features/accessRole/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
 import feedSlice from "../main/features/feed/store/slice";
 import NoteSlice from "./appReducer/NoteSlice";
+// import loanSlice from "../main/features/loan/store/slice";
+import documentSlice from "../main/features/documents/store/slice";
 import newStickySlice from "./appReducer/newStickySlice";
+import trelloSlice from "../main/features/workboard/store/slice";
 
 // import thunk from "redux-thunk";
 
@@ -91,8 +96,52 @@ const reducers = combineReducers({
   accessRolesSlice,
   sharedSlice,
   travelSlice,
+  // loanSlice,
   NoteSlice,
   newStickySlice,
+  trelloSlice,
+  authSlice,
+  userSlice,
+  feedSlice,
+  stickyNotesSlice,
+  responsiveSlice,
+  responseStatusSlice,
+  sideBarChatSlice,
+  MessengerSlice,
+  leaveSlice,
+  //   mailSlice,
+  jobDescriptionSlice,
+  sharedQuillSlice,
+  customApprovalCategorySlice,
+  rewardCategorySlice,
+  rewardSlice,
+  complainSlice,
+  departmentSlice,
+  projectSlice,
+  customApprovalSlice,
+  warningSlice,
+  //   call: callSlice,
+  general: generalSlice,
+  // documentsSlice,
+  gradeSlice,
+  emailConfigurationSlice,
+  salaryHeaderSlice,
+  expenseHeaderSlice,
+  appraisalSlice,
+  allowanceSlice,
+  leaveTypeSlice,
+  officeTimingSlice,
+  designationSlice,
+  notificationSlice,
+  warningCategorySlice,
+  employeeSlice,
+  accessRolesSlice,
+  sharedSlice,
+  travelSlice,
+  NoteSlice,
+  // loanSlice,
+  newStickySlice,
+  documentSlice,
 });
 
 const persistConfig = {
@@ -152,9 +201,10 @@ const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      // serializableCheck: {
+      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      // },
+      serializableCheck: false,
     }),
   // devTools: process.env.NODE_ENV !== "production",
   // middleware: [thunk],

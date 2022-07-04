@@ -25,8 +25,14 @@ export const routes = {
     //   component: lazy(() => import("../components/MainMenu/Mail/")),
     // },
     {
+      path: ROUTES.CUSTOM_APPROVALS.DEFAULT,
+      component: lazy(() =>
+        import("../main/features/CustomApprovals/view/CustomApproval")
+      ),
+    },
+    {
       path: `${ROUTES.TASK.DEFAULT}`,
-      component: lazy(() => import("../main/features/task/view")),
+      component: lazy(() => import("../main/features/task/routes/index")),
     },
     {
       path: `${ROUTES.TRAVEL.DEFAULT}`,
@@ -39,26 +45,26 @@ export const routes = {
       ),
     },
     {
+      path: `${ROUTES.CAREER.JOB_BY_ID}`,
+      component: lazy(() =>
+        import("../main/features/careers/view/DetailView/index")
+      ),
+    },
+    {
       path: `${ROUTES.EMPLOYEES.DEFAULT}`,
       component: lazy(() => import("../main/features/employee/")),
     },
     {
       path: `${ROUTES.PROJECT.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/projects/ProjectDetails/ProjectDetails")
-      ),
+      component: lazy(() => import("../main/features/projects/index")),
     },
     {
       path: `${ROUTES.GROUP.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/groups/GroupDetails/GroupDetails")
-      ),
+      component: lazy(() => import("../main/features/groups/index")),
     },
     {
       path: `${ROUTES.TODO.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/workboard/WorkBoardDetail/WorkBoardDetail")
-      ),
+      component: lazy(() => import("../main/features/workboard/Trello/Board")),
     },
     {
       path: `${ROUTES.WARNINGS.DEFAULT}`,
@@ -95,8 +101,22 @@ export const routes = {
       component: lazy(() => import("../main/features/departments/view/index")),
     },
     {
-      path: `${ROUTES.LOAN.DEFAULT}`,
-      component: lazy(() => import("../main/features/loan/index")),
+      path: `${ROUTES.CAREER.DEFAULT}`,
+      component: lazy(() => import("../main/features/careers/view/")),
+    },
+    {
+      path: `${ROUTES.CAREER.JOB_DETAIL}`,
+      component: lazy(() =>
+        import("../main/features/careers/view/DetailView/index")
+      ),
+    },
+    {
+      path: `${ROUTES.EXPENSES.DEFAULT}`,
+      component: lazy(() => import("../main/features/expense/routes/")),
+    },
+    {
+      path: `${ROUTES.DOCUMENTS.DEFAULT}`,
+      component: lazy(() => import("../main/features/documents/view/index")),
     },
   ],
   AdminRoutes: [

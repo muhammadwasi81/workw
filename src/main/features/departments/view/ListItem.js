@@ -11,9 +11,9 @@ import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 import departmentDefaultImage from "../../../../content/NewContent/department/department.svg";
-
+import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
-import { Avatar, Card } from "antd";
+import { Card } from "antd";
 const { Meta } = Card;
 
 function ListItem(props) {
@@ -25,13 +25,8 @@ function ListItem(props) {
     name,
     description,
     image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-    reason,
-    category,
     members = [],
     approvers,
-    status,
-    referenceNo,
-    createDate,
   } = props.item;
 
   // console.log(props.item, "imagessss")
@@ -40,28 +35,14 @@ function ListItem(props) {
       <Card className={"Card2"} cover={<img alt="example" src={departmentDefaultImage} />} actions={[]}>
         <Meta title={name} description={description} />
         <div className="approversBox">
-          <div className="mem">
-            {members.map((val, i) => {
-              if (i > 2) return "";
-              let { member = { image: "", name: "" } } = val;
-              return member && member.image ? (
-                <div
-                  key={`grpmem${i}`}
-                  className="us-img"
-                  style={{
-                    backgroundImage: `url(${member.image})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "100% 100%",
-                  }}
-                />
-              ) : (
-                <div key={`grpmem${i}`} className="us-img">
-                  {getNameForImage(member ? member.name : "")}
-                </div>
-              );
-            })}
-            {members ? members.length > 2 ? <div className="us-img">{members && members.length - 2}+</div> : "" : null}
-          </div>
+          <Avatar
+            isAvatarGroup={true}
+            isTag={false}
+            heading={"Members"}
+            membersData={members}
+            text={"Danish"}
+            image={"https://joeschmoe.io/api/v1/random"}
+          />
         </div>
       </Card>
 

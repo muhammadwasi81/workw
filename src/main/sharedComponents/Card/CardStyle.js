@@ -39,6 +39,21 @@ export const CardWrapper2 = styled.div`
   }
 `;
 
+export const CardWrapper3 = styled.div`
+  width: 100%;
+  display: grid;
+  margin-top: 5px;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(261px, 1fr));
+  height: -moz-fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  direction: ltr;
+  &:hover {
+  }
+`;
+
 export const ItemHeader = styled.div`
   display: flex;
   justify-content: space-between;

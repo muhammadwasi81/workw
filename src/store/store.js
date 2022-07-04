@@ -29,6 +29,7 @@ import complainSlice from "../main/features/complain/store/slice";
 import projectSlice from "../main/features/projects/store/slice";
 import jobDescriptionSlice from "../main/features/jobDescription/store/slice";
 import customApprovalCategorySlice from "../main/features/customApprovalCategory/store/slice";
+import customApprovalSlice from "../main/features/CustomApprovals/store/slice";
 import notificationSlice from "../services/slices/notificationSlice.js";
 // import callSlice from "./appReducer/callSlice";
 import generalSlice from "./appReducer/generalSlice";
@@ -41,7 +42,8 @@ import sharedSlice from "../utils/Shared/store/slice";
 import accessRolesSlice from "../main/features/accessRole/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
 import feedSlice from "../main/features/feed/store/slice";
-import loanSlice from "../main/features/loan/store/slice";
+import NoteSlice from "./appReducer/NoteSlice";
+// import loanSlice from "../main/features/loan/store/slice";
 import documentSlice from "../main/features/documents/store/slice";
 import newStickySlice from "./appReducer/newStickySlice";
 
@@ -66,6 +68,7 @@ const reducers = combineReducers({
   complainSlice,
   departmentSlice,
   projectSlice,
+  customApprovalSlice,
   warningSlice,
   //   call: callSlice,
   general: generalSlice,
@@ -85,9 +88,10 @@ const reducers = combineReducers({
   accessRolesSlice,
   sharedSlice,
   travelSlice,
-  loanSlice,
+  NoteSlice,
+  // loanSlice,
   newStickySlice,
-  documentSlice
+  documentSlice,
 });
 
 const persistConfig = {

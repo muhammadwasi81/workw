@@ -18,6 +18,55 @@
   background-color: #1b5669;
   color: white;
 }
+.innerCard {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+.innerCard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.innerCard__header .left {
+  display: flex;
+  gap: 8px;
+}
+.innerCard__header .primaryTag {
+  padding: 2px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--primary_theme_color_green);
+  display: inline-flex;
+  font-size: 12px;
+  gap: 5px;
+  align-items: center;
+  color: var(--primary_theme_color_green);
+}
+.innerCard__header .secondaryTag {
+  padding: 2px 10px;
+  border-radius: 5px;
+  background: #e7e7e7;
+  display: inline-flex;
+  font-size: 12px;
+  gap: 5px;
+  align-items: center;
+  color: #7d7d7d;
+}
+.innerCard__header .right p {
+  font-size: 16px;
+  font-weight: 600;
+}
+.innerCard__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+.innerCard__footer .left span:first-child,
+.innerCard__footer .right span:first-child {
+  color: #939fa7;
+}
 
 .IdTag {
   color: #757d86;
@@ -207,6 +256,62 @@
   padding-top: 36px;
 }
 
+.Card3 .userInfo {
+  display: block !important;
+  text-align: center;
+}
+.Card3 .ItemHeader {
+  display: block;
+  margin: 0 auto;
+}
+.Card3 .details {
+  display: flex;
+  justify-content: center;
+}
+.Card3 .dot {
+  width: 5px;
+  background: #9a9390;
+  height: 5px;
+  display: block;
+  border-radius: 12px;
+  position: relative;
+  top: 6px;
+}
+.Card3 .time {
+  margin-left: 4px;
+}
+.Card3 {
+  padding: 23px 10px !important;
+}
+
+.Card3:hover {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: all 0.5s;
+}
+.Card3 .ItemContent {
+  text-align: center;
+  margin-top: 13px;
+  margin-bottom: 26px;
+}
+
+.Card3 .ItemContent h3 {
+  color: #000000;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.Card3 .ItemContent p {
+  font-size: 11px;
+  color: #9a9390;
+}
+
+.Card3 .time:before {
+  position: absolute;
+}
+
+.Card3 .ItemFooter {
+  text-align: center;
+}
 .detailedCard .ListItemInner p {
   width: auto;
 }

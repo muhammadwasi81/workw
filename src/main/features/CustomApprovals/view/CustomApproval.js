@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Skeleton } from "antd";
-import { departmentDictionaryList } from "../localization/index";
+import { Skeleton, Modal } from "antd";
+import { customApprovalDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
@@ -9,26 +9,29 @@ import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllDepartments, GetRewardById } from "../store/actions";
+import { getAllCustomApprovals } from "../store/actions";
+import TableView from "./TableView";
+
+// import "./reward.css";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
-import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
-import { Avatar, Card } from "antd";
-const { Meta } = Card;
 
-const Department = (props) => {
-  const dispatch = useDispatch();
+const CustomApproval = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { departmentDictionary } = departmentDictionaryList[userLanguage];
+  const { customApprovalDictionary } = customApprovalDictionaryList[userLanguage];
 
-  const [loading, setLoading] = useState(true);
   const [tableView, setTableView] = useState(false);
+
   const [visible, setVisible] = useState(false);
 
-  const { departments, loader, departmentDetail } = useSelector((state) => state.departmentSlice);
+  const [filter, setFilter] = useState({ filterType: 0, search: "" });
+
+  const dispatch = useDispatch();
+  const { customApprovals, loader, rewardDetail } = useSelector((state) => state.customApprovalSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -36,19 +39,25 @@ const Department = (props) => {
   };
 
   useEffect(() => {
-    dispatch(getAllDepartments());
-  }, []);
+    dispatch(getAllCustomApprovals(filter));
+  }, [filter]);
 
+  const handleFilter = (values) => {
+    setSearchFilterValues(values);
+  };
   return (
     <>
       <TabbableContainer className="">
         <Header
           buttons={[
             {
-              buttonText: "Create Department",
+              buttonText: "Create Custom Approval",
               // onClick: () => setVisible(true),
               render: (
-                <SideDrawer title={departmentDictionary.createDepartment} buttonText={departmentDictionary.createDepartment} isAccessDrawer={false}>
+                <SideDrawer
+                  title={customApprovalDictionary.createCustomApproval}
+                  buttonText={customApprovalDictionary.createCustomApproval}
+                  isAccessDrawer={false}>
                   <Composer />
                 </SideDrawer>
               ),
@@ -59,12 +68,16 @@ const Department = (props) => {
           onSearch={(value) => {
             console.log(value);
           }}
-          // buttons={[
-          //   {
-          //     name: "Departments",
-          //     onClick: () => setFilter({ filterType: 0 }),
-          //   },
-          // ]}
+          buttons={[
+            {
+              name: "Custom Approvals",
+              onClick: () => setFilter({ filterType: 0 }),
+            },
+            {
+              name: "For Approval",
+              onClick: () => setFilter({ filterType: 1 }),
+            },
+          ]}
           // filter={{
           //   onFilter: () => {},
           // }}
@@ -81,43 +94,25 @@ const Department = (props) => {
           }}
         />
         <ContBody>
-          {departments?.length > 0 ? (
+          {customApprovals?.length > 0 ? (
             tableView ? (
-              <Table
-                columns={tableColumn()}
-                dragable={true}
-                // handleChange={handleChange}
-                // onPageChange={onPageChange}
-                // onRow={onRow}
-                data={departments}
-                // status={travelStatus}
-                // loadding={loader}
-                // success={success}
-                // onActionClick={onActionClick}
-              />
+              <div></div>
             ) : (
               <>
                 {loader ? (
                   <>
-                    <CardWrapper2>
-                      <Skeleton loading={loading} avatar active>
-                        <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} title="Card title" description="This is the description" />
-                      </Skeleton>
-                      <Skeleton loading={loading} avatar active>
-                        <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} title="Card title" description="This is the description" />
-                      </Skeleton>
-                    </CardWrapper2>
+                    <Skeleton avatar paragraph={{ rows: 4 }} />
                   </>
                 ) : (
-                  <CardWrapper2>
-                    {departments.map((item, index) => {
+                  <CardWrapper>
+                    {customApprovals.map((item, index) => {
                       return (
                         <>
                           <ListItem item={item} id={item.id} key={index} />
                         </>
                       );
                     })}
-                  </CardWrapper2>
+                  </CardWrapper>
                 )}
               </>
             )
@@ -125,10 +120,10 @@ const Department = (props) => {
             "Data not found"
           )}
         </ContBody>
-        {departmentDetail && <DetailedView onClose={onClose} visible={visible} />}
+        {rewardDetail && <DetailedView onClose={onClose} visible={visible} />}
       </TabbableContainer>
     </>
   );
 };
 
-export default Department;
+export default CustomApproval;

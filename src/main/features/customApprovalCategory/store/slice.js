@@ -20,18 +20,15 @@ const customApprovalCategorySlice = createSlice({
     builder
       .addCase(getAllCustomApprovalCategory.fulfilled, (state, { payload }) => {
         state.loadingData = false;
-        state.customApprovalCategories = payload.data;
+        state.customApprovalCategories = payload;
       })
       .addCase(addCustomApprovalCategory.fulfilled, (state, { payload }) => {
         state.loader = false;
-        if (payload.responseCode === responseCode.Success)
-          state.customApprovalCategories.push(payload.data);
+        if (payload.responseCode === responseCode.Success) state.customApprovalCategories.push(payload.data);
       })
       .addCase(updateCustomApprovalCategory.fulfilled, (state, { payload }) => {
         state.loader = false;
-        state.customApprovalCategories = state.customApprovalCategories.map((x) =>
-          x.id === payload.data.id ? payload.data : x
-        );
+        state.customApprovalCategories = state.customApprovalCategories.map((x) => (x.id === payload.data.id ? payload.data : x));
       })
       .addMatcher(isPending(...[addCustomApprovalCategory, updateCustomApprovalCategory]), (state) => {
         state.loader = true;
@@ -39,13 +36,10 @@ const customApprovalCategorySlice = createSlice({
       .addMatcher(isPending(...[getAllCustomApprovalCategory]), (state) => {
         state.loadingData = true;
       })
-      .addMatcher(
-        isRejected(...[getAllCustomApprovalCategory, addCustomApprovalCategory, updateCustomApprovalCategory]),
-        (state) => {
-          state.loader = false;
-          state.loadingData = false;
-        }
-      );
+      .addMatcher(isRejected(...[getAllCustomApprovalCategory, addCustomApprovalCategory, updateCustomApprovalCategory]), (state) => {
+        state.loader = false;
+        state.loadingData = false;
+      });
   },
 });
 

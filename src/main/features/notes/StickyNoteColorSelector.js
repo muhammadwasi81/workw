@@ -42,6 +42,7 @@ const StickyNoteColorSelector = (props) => {
       <div className="color___LIST">
         {colors.map((colors) => (
           <div
+            key={colors}
             onClick={selectColorHandler}
             style={{ backgroundColor: colors, width: "100%" }}
             value={colors}

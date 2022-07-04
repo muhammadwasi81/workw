@@ -1,6 +1,6 @@
 import React from "react";
 import { AiTwotoneDelete } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   decrementStickyNote,
   openClickedStickyNote,
@@ -23,12 +23,16 @@ const NoteList = (props) => {
         x_axis: props.sticky__x_axis,
         y_axis: props.sticky__y_axis,
         bgColor: props.bgColor,
+        img: props.img,
       })
     );
   };
 
   //const bgColor = useSelector((state) => state.newStickySlice.bgColor);
   //console.log(bgColor);
+
+  const imgSrc = props.img;
+
   return (
     <div
       style={{ backgroundColor: props.bgColor }}
@@ -46,6 +50,20 @@ const NoteList = (props) => {
           <AiTwotoneDelete />
         </div>
       </div>
+      <div
+        style={{
+          display: "flex",
+          wrap: "nowrap",
+          overflowX: "auto",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        {imgSrc.map((imagegSrc) => (
+          <img id={props.id} src={imagegSrc} alt="" style={{ width: "30px" }} />
+        ))}
+      </div>
+
       <div className="noteLIST__pad">{props.text}</div>
     </div>
   );

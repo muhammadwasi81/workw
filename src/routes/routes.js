@@ -59,9 +59,7 @@ export const routes = {
 		{
 			path: `${ROUTES.TODO.DEFAULT}`,
 			component: lazy(() =>
-				import(
-					"../main/features/workboard/WorkBoardDetail/WorkBoardDetail"
-				)
+				import("../main/features/workboard/Trello/Board")
 			),
 		},
 		{

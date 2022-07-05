@@ -8,6 +8,7 @@ const PollInput = ({
   removePollOption,
   index,
   onChange,
+  onPollAttachmentChange,
 }) => {
   return (
     <div className="poll-input">
@@ -27,7 +28,7 @@ const PollInput = ({
         <input
           type="file"
           accept=".jpg, .jpeg, .gif, .bmp, .png"
-          onChange={({ target: { files } }) =>  (files)}
+          onChange={({ target: { files } }) => onPollAttachmentChange(files)}
         />
         <img
           src="https://konnect.im/static/media/picture.97cdc6a9.svg"

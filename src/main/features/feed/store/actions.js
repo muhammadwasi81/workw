@@ -15,26 +15,40 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
     const {
       feedSlice: { postCompose },
     } = getState();
-    const { attachments } = postCompose;
+    const {
+      attachments,
+      poll: { options },
+    } = postCompose;
     const { type } = postCompose;
     const { ValidateDefaultPost, ValidatePollPost } = ValidateCreatePost;
 
-    let attactmentIds = [];
+    // let attactmentIds = [];
     const validation = PostType.isPollType(type)
       ? ValidatePollPost(postCompose)
       : ValidateDefaultPost(postCompose);
     if (!validation.valid) return rejectWithValue(validation.validationResult);
-    if (attachments.length) {
-      const { data: attachmentResponse } = await uploadImageService(
-        attachments
-      );
-      attactmentIds = attachmentResponse.data.map((attachment) => {
-        return { attachmentId: attachment.id };
-      });
-    }
-    const requestDto = SavePostRequestDto(postCompose, attactmentIds);
+    // if (attachments.length) {
+    //   const { data: attachmentResponse } = await uploadImageService(
+    //     attachments
+    //   );
+    //   attactmentIds = attachmentResponse.data.map((attachment) => {
+    //     return { attachmentId: attachment.id };
+    //   });
+    // }
+    // const isPollAttachment = options.some((option) => option.attachment);
+    // if (isPollAttachment) {
+    //   const attachments = options.map((option) => option.attachment);
+    //   const { data: attachmentResponse } = await uploadImageService(
+    //     attachments
+    //   );
+    //   attactmentIds = attachmentResponse.data.map((attachment) => {
+    //     return { attachmentId: attachment.id };
+    //   });
+    // }
+    console.log("API CALL");
+    const requestDto = SavePostRequestDto(postCompose);
     const response = await saveCreatePost(requestDto);
-    console.log("Api");
+
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

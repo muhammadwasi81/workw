@@ -36,12 +36,12 @@ function getPollOptions({ type, poll: { options } }) {
   }));
 }
 
-const SavePostRequestDto = (createPostDomainEntity, attactmentIds) => {
-  const { privacyType, type } = createPostDomainEntity;
+const SavePostRequestDto = (createPostDomainEntity) => {
+  const { privacyType, type, attachments } = createPostDomainEntity;
   const { title, mentions } = getTitleAndMentions(createPostDomainEntity);
   const tags = getTags(createPostDomainEntity);
   const pollOptions = getPollOptions(createPostDomainEntity);
-  console.log(pollOptions);
+
   return {
     id: DEFAULT_GUID,
     parentId: DEFAULT_GUID,
@@ -53,7 +53,7 @@ const SavePostRequestDto = (createPostDomainEntity, attactmentIds) => {
     mentions,
     tags,
     pollOptions,
-    attachments: [...attactmentIds],
+    attachments: attachments,
   };
 };
 

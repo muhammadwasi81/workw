@@ -81,8 +81,8 @@ export const feedSlice = createSlice({
     });
     builder
       .addMatcher(isFulfilled(...[getAllFeed]), (state, { payload }) => {
+        state.allFeed.posts = payload;
         state.allFeed.loading = false;
-        state.allFeed.posts = payload.data;
       })
       .addMatcher(isPending(...[getAllFeed]), (state) => {
         state.allFeed.loading = true;

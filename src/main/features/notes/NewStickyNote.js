@@ -8,6 +8,7 @@ import {
   AiOutlineCopy,
   AiOutlineClose,
   AiTwotoneDelete,
+  AiOutlinePicture,
 } from "react-icons/ai";
 import style from "./NewStickyNote.module.css";
 import { useDispatch } from "react-redux";
@@ -110,12 +111,13 @@ const NewStickyNote = (props) => {
     <>
       <Draggable defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}>
         <div
-          style={{ transform: `translate(${props.x_axis}, ${props.y_axis})` }}
+          style={{
+            transform: `translate(${props.x_axis}, ${props.y_axis})`,
+          }}
           id={props.id}
           className={style.stickyNoteItem__container}
         >
           <StickyNoteColorSelector id={props.id} color={color} />
-
           <div
             style={{ backgroundColor: props.titleBg }}
             className={style.stickyNoteItem__item}
@@ -173,8 +175,10 @@ const NewStickyNote = (props) => {
             <div onClick={decrementHandler}>
               <AiTwotoneDelete />
             </div>
-            <div className={style.img_input}>
+            <div className={style.img_input_section}>
+              <AiOutlinePicture />
               <input
+                className={style.img_input}
                 placeholder="+"
                 type="file"
                 accept="image/*"
@@ -183,14 +187,15 @@ const NewStickyNote = (props) => {
               />
             </div>
           </div>
+          <div style={{ height: "25px" }}></div>
 
-          {/* <div style={div}>
-            <img
-              src={require("./content/halfArrow.ff8f53df.svg").default}
-              style={{ height: "17px" }}
-              alt=""
-            />
-          </div> */}
+          {/* <div style={{ position: "relative" }}>
+              <img
+                src={require("./content/halfArrow.ff8f53df.svg").default}
+                style={{ height: "17px", position: "absolute", right: "0" }}
+                alt=""
+              />
+            </div> */}
         </div>
       </Draggable>
     </>

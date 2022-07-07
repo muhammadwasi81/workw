@@ -1,35 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { changeListCardText, deleteListCard } from "../../store/slice";
+import {
+	addListCardMembers,
+	changeListCardText,
+	deleteListCard,
+	handleCardDetail,
+	openMembersModal,
+} from "../../store/slice";
 import CardEditor from "./CardEditor";
 import "./card.css";
-import { EditOutlined } from "@ant-design/icons";
+
+import EditDropDown from "../MenuDropDown/EditDropDown";
+import MemberModal from "../../Modal/MemberModal";
+import EditMembers from "../EditMembers/EditMembers";
+import CardDetailModal from "../Modal/CardDetailModal";
 
 function Card(props) {
-	const [hover, setHover] = useState(false);
 	const [editing, setEditing] = useState(false);
 	const [text, setText] = useState("");
 	const { listId, cardId, index } = props;
 	const cardData = useSelector(state => state.trelloSlice[cardId]);
+	// const memberCardId = useSelector(
+	// 	state => state.trelloSlice.addMemberCardId
+	// );
+	// const [membersId, setMembersId] = useState([]);
+	// const { members, membersId } = cardData;
 	// console.log("card data", cardData);
+	// console.log("cardId", cardId);
 	const dispatch = useDispatch();
 
-	const startHover = () => {
-		setHover(true);
-	};
-	const endHover = () => {
-		setHover(false);
-	};
-
 	const startEditing = () => {
-		setHover(false);
 		setEditing(true);
 		setText(props.card.text);
 	};
 
 	const endEditing = () => {
-		setHover(false);
 		setEditing(false);
 	};
 
@@ -43,33 +49,61 @@ function Card(props) {
 			dispatch(deleteListCard({ cardId: cardData._id, listId }));
 		}
 	};
+	const openDetail = () => {
+		dispatch(
+			handleCardDetail({
+				cardDetailId: cardId,
+				type: "open",
+			})
+		);
+	};
+
+	// useEffect(() => {
+	// 	// console.log("addmembersCardId", addMemberCardId);
+	// 	if (memberCardId) {
+	// 		if (cardData._id === memberCardId) {
+	// 			console.log("cardData.membersId", cardData.membersId);
+	// 			// if (!cardData.membersId) {
+	// 			// 	return;
+	// 			// }
+	// 			// setMembersId(cardData.membersId);
+	// 			// let newMemberIds;
+	// 			// newMemberIds = cardData.membersId;
+	// 		}
+	// 	}
+	// }, [memberCardId]);
+
+	// console.log("members id change", membersId);
+	// useEffect(() => {}, [membersId]);
+
+	console.log("members");
+
 	if (!editing) {
 		return (
-			<Draggable draggableId={cardData._id} index={index}>
-				{(provided, snapshot) => (
-					<div
-						ref={provided.innerRef}
-						{...provided.draggableProps}
-						{...provided.dragHandleProps}
-						className="Card flex items-center relative cusrosr-pointer bg-white m-[5px] p-[5px] rounded-sm border border-[rgba(0, 0, 0, 0.12)] shadow-sm text-sm break-words m-h[18px]"
-						onMouseEnter={startHover}
-						onMouseLeave={endHover}
-					>
-						{hover && (
-							<div className="Card-Icons absolute  right-[5px] flex flex-row justify-end">
-								<div
-									className="Card-Icon flex items-center cursor-pointer w-[24px] h-[24px] justify-center rounded-sm m-[1px] hover:bg-neutral-200 opacity-90 "
-									onClick={startEditing}
-								>
-									<EditOutlined />
-								</div>
+			<>
+				<Draggable draggableId={cardData._id} index={index}>
+					{(provided, snapshot) => (
+						<div
+							ref={provided.innerRef}
+							{...provided.draggableProps}
+							{...provided.dragHandleProps}
+							className="Card flex items-center relative cusrosr-pointer bg-white m-[5px] p-[5px] rounded-sm border shadow-sm text-sm break-words m-h[18px] group"
+						>
+							<div onClick={openDetail} className="w-full">
+								{cardData.text}
 							</div>
-						)}
-
-						{cardData.text}
-					</div>
-				)}
-			</Draggable>
+							<EditDropDown
+								className={"edit-icon"}
+								startEditing={startEditing}
+								// deleteList={deleteList}
+								cardId={cardData._id}
+							/>
+						</div>
+					)}
+				</Draggable>
+				<EditMembers />
+				<CardDetailModal />
+			</>
 		);
 	}
 

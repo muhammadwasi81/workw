@@ -14,7 +14,7 @@ function Colors({ colorPicker }) {
 		<div className="flex w-72 h-10">
 			{colors.map(color => (
 				<div
-					className="flex"
+					className="flex hover:scale-125 duration-300"
 					style={{ backgroundColor: color, width: "100%" }}
 					id={color}
 					onClick={e => {

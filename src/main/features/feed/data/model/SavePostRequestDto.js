@@ -41,7 +41,7 @@ const SavePostRequestDto = (createPostDomainEntity, attactmentIds) => {
   const { title, mentions } = getTitleAndMentions(createPostDomainEntity);
   const tags = getTags(createPostDomainEntity);
   const pollOptions = getPollOptions(createPostDomainEntity);
-
+  console.log(pollOptions);
   return {
     id: DEFAULT_GUID,
     parentId: DEFAULT_GUID,

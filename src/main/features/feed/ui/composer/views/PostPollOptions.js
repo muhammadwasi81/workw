@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { DEFAULT_MAX_POLL_OPTIONS, PostType } from "../../../utils/constants";
 import store from "../../../../../../store/store";
 import { feedSlice } from "../../../store/slice";
+import ImageReader from "../../../../../sharedComponents/ImageReader/ImageReader";
 
 export default function PostPollOptions() {
   const onPollInputChange = (index, value) => {
@@ -35,18 +36,21 @@ export default function PostPollOptions() {
   return (
     PostType.isPollType(type) && (
       <>
-        {options.map(({ value }, index) => (
-          <PollInput
-            key={index}
-            index={index}
-            placeholder={`Option ${index + 1}`}
-            value={value}
-            onChange={(e) => onPollInputChange(index, e.target.value)}
-            onPollAttachmentChange={(files) =>
-              onPollAttachmentChange(index, files)
-            }
-            removePollOption={() => removePollOption(index)}
-          />
+        {options.map(({ value, attachment }, index) => (
+          <>
+            <PollInput
+              key={index}
+              index={index}
+              placeholder={`Option ${index + 1}`}
+              value={value}
+              onChange={(e) => onPollInputChange(index, e.target.value)}
+              onPollAttachmentChange={(files) =>
+                onPollAttachmentChange(index, files)
+              }
+              removePollOption={() => removePollOption(index)}
+            />
+            <ImageReader key={index} file={attachment} />
+          </>
         ))}
         <div className="poll-options">
           {options.length < DEFAULT_MAX_POLL_OPTIONS && (

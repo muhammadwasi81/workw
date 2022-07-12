@@ -9,10 +9,14 @@ import {
 import { Dropdown, Menu } from "antd";
 import MemberModal from "../../Modal/MemberModal";
 import { useSelector } from "react-redux";
-import { addListCardMembers, openMembersModal } from "../../store/slice";
+import {
+	addListCardMembers,
+	openDateModal,
+	openMembersModal,
+} from "../../store/slice";
 import { useDispatch } from "react-redux";
 
-const menu = (startEditing, addMembers, deleteList) => {
+const menu = (startEditing, addMembers, deleteList, showDateModal) => {
 	return (
 		<Menu
 			items={[
@@ -47,7 +51,12 @@ const menu = (startEditing, addMembers, deleteList) => {
 				{
 					key: "3",
 					label: (
-						<div className="flex items-center gap-3">
+						<div
+							className="flex items-center gap-3"
+							onClick={() => {
+								showDateModal();
+							}}
+						>
 							<CalendarOutlined className="text-base" />
 							<span className="">Add Date</span>
 						</div>
@@ -81,7 +90,9 @@ function EditDropDown({ startEditing, deleteList, cardId }) {
 	// const onSaveMembers = members => {
 	// 	dispatch(addListCardMembers({ members, cardId }));
 	// };
-
+	const showDateModal = () => {
+		dispatch(openDateModal({ isDateModalOpen: true, cardId }));
+	};
 	const addMembers = () => {
 		// console.log("cardid add member", cardId);
 		dispatch(openMembersModal({ addMember: true, cardId }));
@@ -90,7 +101,12 @@ function EditDropDown({ startEditing, deleteList, cardId }) {
 	return (
 		<>
 			<Dropdown
-				overlay={menu(startEditing, addMembers, deleteList)}
+				overlay={menu(
+					startEditing,
+					addMembers,
+					deleteList,
+					showDateModal
+				)}
 				trigger={["click"]}
 				// visible={visible}
 			>

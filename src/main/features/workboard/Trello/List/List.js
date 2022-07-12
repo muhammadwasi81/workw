@@ -62,14 +62,20 @@ function List(props) {
 		}));
 
 	const editListTitle = async () => {
-		dispatch(changeListTitle({ id: boardList._id, title: listData.title }));
+		if (listData.title.trim().length > 0) {
+			dispatch(
+				changeListTitle({ id: boardList._id, title: listData.title })
+			);
+		}
 		toggleEditingTitle();
 	};
 
 	const addCard = async cardText => {
 		toggleAddingCard();
 		const cardId = id();
-		dispatch(addListCard({ cardText, cardId, listId: list.id }));
+		if (cardText.trim().length > 0) {
+			dispatch(addListCard({ cardText, cardId, listId: list.id }));
+		}
 	};
 
 	const deleteCardList = async () => {

@@ -6,6 +6,7 @@ const initialState = {
 	addMember: null,
 	addMemberCardId: "",
 	memberDefaulIds: [],
+	showDateModal: false,
 };
 
 const trelloSlice = createSlice({
@@ -25,7 +26,12 @@ const trelloSlice = createSlice({
 				...state[listId],
 				cards: [...state[listId].cards, cardId],
 			};
-			state[cardId] = { text: cardText, _id: cardId, members: [] };
+			state[cardId] = {
+				text: cardText,
+				_id: cardId,
+				members: [],
+				cardDueDate: { dueDate: "", isCardCompleted: false },
+			};
 		},
 		addListCardMembers(state, { payload }) {
 			const { cardId, members } = payload;
@@ -35,6 +41,18 @@ const trelloSlice = createSlice({
 				members,
 			};
 			state.memberDefaulIds = [];
+		},
+		addListCardDueDate(state, { payload }) {
+			console.log("payload due date", payload);
+			const { cardId, dueDate, isCardCompleted } = payload;
+			state[cardId] = {
+				...state[cardId],
+				cardDueDate: {
+					dueDate,
+					isCardCompleted,
+				},
+			};
+			// console.log("current", current(state));
 		},
 		changeBackgroundColor(state, { payload }) {
 			console.log("bg color", state, payload);
@@ -140,6 +158,14 @@ const trelloSlice = createSlice({
 				state.memberDefaulIds = [];
 			}
 		},
+		openDateModal(state, { payload }) {
+			console.log("payload", payload);
+			const { isDateModalOpen, cardId } = payload;
+			if (cardId) {
+				state.addMemberCardId = cardId;
+			}
+			state.showDateModal = isDateModalOpen;
+		},
 	},
 });
 
@@ -156,6 +182,8 @@ export const {
 	handleCardDetail,
 	openMembersModal,
 	addListCardMembers,
+	addListCardDueDate,
+	openDateModal,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

@@ -11,6 +11,7 @@ import {
 import Board from "./Trello/Board";
 import EditMembers from "./Trello/EditMembers/EditMembers";
 import CardDetailModal from "./Trello/Modal/CardDetailModal";
+import Header from "./UI/Header";
 import WorkBoardDetail from "./WorkBoardDetail/WorkBoardDetail";
 
 function WorkBoard() {
@@ -38,19 +39,7 @@ function WorkBoard() {
 	return (
 		<>
 			<Board />
-
-			{/* <MemberModal
-				onSave={onSaveMembers}
-				showModal={() => {
-					dispatch(openMembersModal({ addMember: !addMember }));
-				}}
-				isModalVisible={addMember}
-				// value={
-				// 	addMemberCardId
-				// 		? addMemberCardId === cardData._id && cardData.membersId
-				// 		: []
-				// }
-			/> */}
+			{/* <Header /> */}
 		</>
 	);
 }

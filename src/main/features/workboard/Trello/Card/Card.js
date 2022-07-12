@@ -17,19 +17,25 @@ import EditMembers from "../EditMembers/EditMembers";
 import CardDetailModal from "../Modal/CardDetailModal";
 import { EyeOutlined } from "@ant-design/icons";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import CheckDate from "../../UI/CheckDate";
+import DateModal from "../../Modal/DateModal";
 
 function Card(props) {
 	const [editing, setEditing] = useState(false);
 	const [text, setText] = useState("");
 	const { listId, cardId, index } = props;
 	const cardData = useSelector(state => state.trelloSlice[cardId]);
-	// const memberCardId = useSelector(
-	// 	state => state.trelloSlice.addMemberCardId
-	// );
-	// const [membersId, setMembersId] = useState([]);
-	// const { members, membersId } = cardData;
-	// console.log("card data", cardData);
-	// console.log("cardId", cardId);
+	const cardDetail = useSelector(state => state.trelloSlice[cardId]);
+	const [dueDate, setDueDate] = useState("");
+	console.log("bahar card detail", cardDetail, cardData);
+	useEffect(() => {
+		if (cardDetail !== undefined) {
+			if (dueDate !== cardDetail.cardDueDate.dueDate) {
+				setDueDate(cardDetail.cardDueDate.dueDate);
+			}
+		}
+	}, [cardDetail]);
+
 	const dispatch = useDispatch();
 
 	const startEditing = () => {
@@ -60,24 +66,6 @@ function Card(props) {
 		);
 	};
 
-	// useEffect(() => {
-	// 	// console.log("addmembersCardId", addMemberCardId);
-	// 	if (memberCardId) {
-	// 		if (cardData._id === memberCardId) {
-	// 			console.log("cardData.membersId", cardData.membersId);
-	// 			// if (!cardData.membersId) {
-	// 			// 	return;
-	// 			// }
-	// 			// setMembersId(cardData.membersId);
-	// 			// let newMemberIds;
-	// 			// newMemberIds = cardData.membersId;
-	// 		}
-	// 	}
-	// }, [memberCardId]);
-
-	// console.log("members id change", membersId);
-	// useEffect(() => {}, [membersId]);
-
 	console.log("members");
 
 	if (!editing) {
@@ -102,26 +90,35 @@ function Card(props) {
 									cardId={cardData._id}
 								/>
 							</div>
-							{cardData.members && cardData.members.length > 0 && (
-								<div className="flex items-center justify-between">
-									<EyeOutlined />
-									{cardData.members.map(mem => (
-										<Avatar
-											name={mem.name}
-											src={mem.image}
-											round={true}
-											width={"30px"}
-											height={"30px"}
-											isZoom={true}
-										/>
-									))}
+							<div className="flex items-center justify-between">
+								<div className="flex items-center gap-1">
+									{/* <EyeOutlined className="text-base" /> */}
+									{dueDate.length > 0 && (
+										<CheckDate isOutsideRender={true} />
+									)}
 								</div>
-							)}
+								{cardData.members &&
+									cardData.members.length > 0 && (
+										<div className="flex">
+											{cardData.members.map(mem => (
+												<Avatar
+													name={mem.name}
+													src={mem.image}
+													round={true}
+													width={"30px"}
+													height={"30px"}
+													isZoom={true}
+												/>
+											))}
+										</div>
+									)}
+							</div>
 						</div>
 					)}
 				</Draggable>
 				<EditMembers />
 				<CardDetailModal />
+				<DateModal />
 			</>
 		);
 	}

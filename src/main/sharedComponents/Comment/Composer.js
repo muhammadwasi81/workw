@@ -1,14 +1,27 @@
 import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { isValidFileSize } from "../../../utils/base";
-// import { getUserDataFromStorage, STRINGS } from "../../../../../utils/base";
+import { DEFAULT_GUID } from "../../../utils/constants";
 import Avatar from "../Avatar/avatarOLD";
 import closeIcon from "./assets/close.svg";
+import { postComment } from "./services";
 import "./style.css";
 
 const CommentComposer = (props) => {
-  let { isAttachment = true, user } = props;
+  const {
+    userSlice: { user },
+  } = useSelector((state) => state);
+  let {
+    isAttachment = true,
+    id = DEFAULT_GUID,
+    referenceId = DEFAULT_GUID,
+    parentId = DEFAULT_GUID,
+    module = 1,
+    afterSuccess,
+  } = props;
   const commentText = useRef();
   const { name, userImage } = user;
+
   const defaultState = {
     hasAttachment: false,
     attachmentFile: null,
@@ -44,7 +57,37 @@ const CommentComposer = (props) => {
       attachmentFile: null,
     });
   };
-
+  const commentObj = {
+    id,
+    module,
+    referenceId,
+    parentId,
+    comment: state.commentText,
+    attachments: [],
+    mentions: [],
+  };
+  const saveComment = async (event) => {
+    if (event.keyCode == 13 || event.which == 13) {
+      event.preventDefault();
+      if (state.commentText.length > 0) {
+        const response = await postComment(commentObj);
+        const prevText = state.commentText;
+        setState((preValue) => ({
+          ...preValue,
+          commentText: "",
+        }));
+        commentText.current.blur();
+        if (response) {
+          afterSuccess(response);
+        } else {
+          setState((preValue) => ({
+            ...preValue,
+            commentText: prevText,
+          }));
+        }
+      }
+    }
+  };
   return (
     <div className="commentComposer">
       <div className="img">
@@ -72,16 +115,7 @@ const CommentComposer = (props) => {
               placeholder="Write Your Comments Here."
               style={{ height: "20px" }}
               value={state.commentText}
-              onKeyPress={(event) => {
-                if (event.keyCode == 13 || event.which == 13) {
-                  event.preventDefault();
-                  setState((preValue) => ({
-                    ...preValue,
-                    commentText: "",
-                  }));
-                  commentText.current.blur();
-                }
-              }}
+              onKeyPress={(event) => saveComment(event)}
             />
           </div>
 

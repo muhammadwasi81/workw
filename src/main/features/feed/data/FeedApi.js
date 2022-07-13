@@ -3,13 +3,22 @@ import {
   ResponseResultError,
   ResponseResultSuccess,
 } from "../../../../utils/api/ResponseResult";
+import { createGuid } from "../../../../utils/base";
+import { DEFAULT_GUID } from "../../../../utils/constants";
 
 export const saveCreatePost = async (request) => {
   const formData = new FormData();
   for (let obj in request) {
-    formData.append(obj, request[obj]);
+    console.log(obj);
+    if (obj === "attachments") {
+      for (let item of request["attachments"]) {
+        formData.append("attachments", { id: DEFAULT_GUID, file: item });
+      }
+    } else {
+      formData.append(obj, request[obj]);
+    }
   }
-  console.log(request);
+
   try {
     const {
       data: { responseCode, data, message },

@@ -5,14 +5,25 @@ import ShareIcon from "../../../../../../../content/NewContent/NewsFeed/svg/shar
 import Reactions from "../../../../../../sharedComponents/reactionBox/index";
 import CommentComposer from "../../../../../../sharedComponents/Comment/Composer";
 import CommentItem from "../../../../../../sharedComponents/Comment/commentItem";
-import { useSelector } from "react-redux";
+import moment from "moment";
+import { useDispatch } from "react-redux";
+import { feedSlice } from "../../../../store/slice";
 
-const PostFooter = () => {
-  const {
-    userSlice: { user },
-  } = useSelector((state) => state);
+const PostFooter = ({ comments, commentCount, reactionCount, id, isOpen }) => {
+  const dispatch = useDispatch();
+  const filterComments = comments.length > 3 ? comments.slice(0, 3) : comments;
+
   return (
     <div className="post-footer">
+      <div className="post-count">
+        <div className="reactionCount">
+          <img src={LikeIcon} alt="" />
+          <a href="">{reactionCount}</a>
+        </div>
+        <div className="commentCount">
+          <a href=""> {commentCount} Comments</a>
+        </div>
+      </div>
       <div className="post-events">
         <div className={`btn on`}>
           <Reactions
@@ -28,7 +39,6 @@ const PostFooter = () => {
             </div>
           </Reactions>
         </div>
-
         <div className="btn" onClick={() => {}}>
           <div>
             <img src={CommentIcon} alt="" />
@@ -43,22 +53,39 @@ const PostFooter = () => {
         </div>
       </div>
       <CommentComposer
-        onCommentSend={(data) => console.log("onCommentSend", data)}
-        user={user}
+        referenceId={id}
+        afterSuccess={(comment) =>
+          dispatch(feedSlice.actions.onSaveComment({ comment }))
+        }
       />
-      <CommentItem
-        content="Waoo its great"
-        id="id123"
-        commentTime=" 2 day ago"
-        youLikeType={0}
-        likeCounter={2}
-        creator={{
-          name: "Abu Bakar Memon",
-          image:
-            "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-          designation: "React Developer",
-        }}
-      />
+      {filterComments.map(
+        ({ comment, creator, createDate, id, parentId, referenceId }) => {
+          const { designation, name, image } = creator;
+          var ts = moment.utc(createDate);
+          ts.local().format("D-MMM-Y");
+
+          return (
+            <CommentItem
+              content={comment}
+              id={id}
+              key={id}
+              commentTime={moment(ts).fromNow()}
+              youLikeType={0}
+              likeCounter={2}
+              creator={{
+                name,
+                image,
+                designation,
+              }}
+            />
+          );
+        }
+      )}
+      {comments.length > 3 && (
+        <p className="viewComments" onClick={() => isOpen(true)}>
+          View All Comments
+        </p>
+      )}
     </div>
   );
 };

@@ -53,7 +53,7 @@ const SavePostRequestDto = (createPostDomainEntity) => {
     mentions,
     tags,
     pollOptions,
-    attachments: attachments,
+    attachments,
   };
 };
 

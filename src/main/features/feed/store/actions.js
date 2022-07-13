@@ -122,7 +122,19 @@ function onPostPollOptionTextChange(state, { payload: { index, value } }) {
   currentOptions[index] = { ...currentOptions[index], value };
   state.postCompose.poll.options = currentOptions;
 }
-
+function onSaveComment(state, { payload: { comment } }) {
+  const { referenceId } = comment;
+  let {
+    allFeed: { posts },
+  } = current(state);
+  const AllPost = [...posts];
+  const index = posts.findIndex((item) => item.id === referenceId);
+  const commentedPost = { ...AllPost[index] };
+  commentedPost.commentCount = commentedPost.commentCount + 1;
+  commentedPost.comments = [comment, ...commentedPost.comments];
+  AllPost[index] = commentedPost;
+  state.allFeed.posts = AllPost;
+}
 function onPostPollAttachmentChange(state, { payload: { index, files } }) {
   if (!files.length) return;
   const {
@@ -176,5 +188,6 @@ export {
   addPostPollOption,
   removePostPollOption,
   onPostPrivacyChange,
+  onSaveComment,
   toggleComposerVisibility,
 };

@@ -183,14 +183,14 @@ const NavMenuList = () => {
 			isActive: true,
 			key: label.navMenuLabel.hr,
 		},
-		// {
-		//   name: label.navMenuLabel.bonus,
-		//   counter: 0,
-		//   icon: bonusIcon,
-		//   to: ROUTES.BONUS.DEFAULT,
-		//   isActive: true,
-		//   key: label.navMenuLabel.hr,
-		// },
+		{
+			name: label.navMenuLabel.bonus,
+			counter: 0,
+			icon: bonusIcon,
+			to: ROUTES.BONUS.DEFAULT,
+			isActive: true,
+			key: label.navMenuLabel.hr,
+		},
 		{
 			name: label.navMenuLabel.complains,
 			counter: 0,

@@ -86,7 +86,14 @@ export const routes = {
 		},
 		{
 			path: `${ROUTES.HR.BONUS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Bonus/")),
+			component: lazy(() => import("../main/features/bonus/view/Bonus")),
+		},
+
+		{
+			path: `${ROUTES.PROMOTION}`,
+			component: lazy(() =>
+				import("../main/features/promotion/view/Promotions")
+			),
 		},
 
 		//Hr Router

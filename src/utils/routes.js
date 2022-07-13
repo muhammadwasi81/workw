@@ -103,6 +103,7 @@ export const ROUTES = {
 		DEFAULT: `${DOMAIN_PREFIX}/newschedules`,
 	},
 	TASKS: `${DOMAIN_PREFIX}/tasks`,
+	PROMOTION: `${DOMAIN_PREFIX}/promotions`,
 	EXPENSES: `${DOMAIN_PREFIX}/expenses`,
 
 	PAYROLL: {
@@ -438,5 +439,9 @@ export const ROUTES = {
 		LIST: `${DOMAIN_PREFIX}/workboard/list`,
 		TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board`,
 		MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
+	},
+
+	BONUS: {
+		DEFAULT: `${DOMAIN_PREFIX}/bonus`,
 	},
 };

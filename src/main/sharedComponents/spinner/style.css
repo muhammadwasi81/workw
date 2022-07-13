@@ -1,0 +1,75 @@
+.loader {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .loader:after {
+    content: "";
+    border: 5px solid transparent;
+    border-radius: 50%;
+    border-top: 5px solid #2c5668;
+    border-right: 5px solid #2c5668;
+    /* width: 70px; */
+    /* height: 70px; */
+    border-top: 5px solid #2c5668;
+    border-right: 5px solid #2c5668;
+    position: absolute;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 1s linear infinite;
+  }
+  .splash:after {
+    width: 130px;
+    height: 130px;
+  }
+  .mySpinner:after {
+    width: 70px;
+    height: 70px;
+  }
+
+  .myImg {
+    width: 40px;
+  }
+
+  .main {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: fadeIn;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+  }

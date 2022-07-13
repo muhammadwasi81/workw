@@ -1,13 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
-	persistStore,
-	persistReducer,
-	FLUSH,
-	REHYDRATE,
-	PAUSE,
-	PERSIST,
-	PURGE,
-	REGISTER,
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 // import { PersistGate } from "redux-persist/integration/react";
@@ -60,6 +60,7 @@ import trelloSlice from "../main/features/workboard/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
+<<<<<<< HEAD
 	authSlice,
 	userSlice,
 	feedSlice,
@@ -103,14 +104,98 @@ const reducers = combineReducers({
 	newStickySlice,
 	documentSlice,
 	trelloSlice,
+=======
+  authSlice,
+  userSlice,
+  feedSlice,
+  stickyNotesSlice,
+  responsiveSlice,
+  responseStatusSlice,
+  sideBarChatSlice,
+  MessengerSlice,
+  leaveSlice,
+  //   mailSlice,
+  jobDescriptionSlice,
+  sharedQuillSlice,
+  customApprovalCategorySlice,
+  rewardCategorySlice,
+  rewardSlice,
+  complainSlice,
+  departmentSlice,
+  warningSlice,
+  //   call: callSlice,
+  general: generalSlice,
+  // documentsSlice,
+  gradeSlice,
+  emailConfigurationSlice,
+  salaryHeaderSlice,
+  expenseHeaderSlice,
+  appraisalSlice,
+  allowanceSlice,
+  leaveTypeSlice,
+  officeTimingSlice,
+  designationSlice,
+  notificationSlice,
+  warningCategorySlice,
+  employeeSlice,
+  accessRolesSlice,
+  sharedSlice,
+  travelSlice,
+  // loanSlice,
+  NoteSlice,
+  newStickySlice,
+  trelloSlice,
+  authSlice,
+  userSlice,
+  feedSlice,
+  stickyNotesSlice,
+  responsiveSlice,
+  responseStatusSlice,
+  sideBarChatSlice,
+  MessengerSlice,
+  leaveSlice,
+  //   mailSlice,
+  jobDescriptionSlice,
+  sharedQuillSlice,
+  customApprovalCategorySlice,
+  rewardCategorySlice,
+  rewardSlice,
+  complainSlice,
+  departmentSlice,
+  projectSlice,
+  customApprovalSlice,
+  warningSlice,
+  //   call: callSlice,
+  general: generalSlice,
+  // documentsSlice,
+  gradeSlice,
+  emailConfigurationSlice,
+  salaryHeaderSlice,
+  expenseHeaderSlice,
+  appraisalSlice,
+  allowanceSlice,
+  leaveTypeSlice,
+  officeTimingSlice,
+  designationSlice,
+  notificationSlice,
+  warningCategorySlice,
+  employeeSlice,
+  accessRolesSlice,
+  sharedSlice,
+  travelSlice,
+  NoteSlice,
+  // loanSlice,
+  newStickySlice,
+  documentSlice,
+>>>>>>> 304570da808af08f0f12c3737b5b86ba6bd1b276
 });
 
 const persistConfig = {
-	key: "root",
-	storage,
-	version: 1,
-	whitelist: ["userSlice"],
-	// blacklist: ["stickyNotesSlice"]
+  key: "root",
+  storage,
+  version: 1,
+  whitelist: ["userSlice"],
+  // blacklist: ["stickyNotesSlice"]
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 
@@ -124,61 +209,55 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 // 	return { store, persistor };
 // };
 
-const CustomMiddleware = store => next => async action => {
-	// if (action.type === "TEST_API") {
-	// 	let { url, method, server, dispatch } = action.payload;
-	// 	if (method === "GET") {
-	// 		if (server === "MESSENGER") {
-	// 			store.dispatch({
-	// 				type:"LOADER",
-	// 				payload:""
-	// 			})
-	// 			await MessengerConfig.get(url)
-	// 				.then(res => {
-	// 					console.log(store, "API CALL", "My Middleware")
-	// 					console.log(dispatch, "API CALL", "My Middleware")
-	// 					store.dispatch({
-	// 						type:dispatch,
-	// 						payload:res
-	// 					})
-	// 				})
-	// 				.catch(err => {
-	// 					store.dispatch({
-	// 						type:"ERROR",
-	// 						payload:"MESSAGE"
-	// 					})
-	// 				});
-	// 		}
-	// 	}
-	// 	next(action)
-	// }
-	// else {
-	// 	next(action)
-	// }
-	next(action);
+const CustomMiddleware = (store) => (next) => async (action) => {
+  // if (action.type === "TEST_API") {
+  // 	let { url, method, server, dispatch } = action.payload;
+  // 	if (method === "GET") {
+  // 		if (server === "MESSENGER") {
+  // 			store.dispatch({
+  // 				type:"LOADER",
+  // 				payload:""
+  // 			})
+  // 			await MessengerConfig.get(url)
+  // 				.then(res => {
+  // 					console.log(store, "API CALL", "My Middleware")
+  // 					console.log(dispatch, "API CALL", "My Middleware")
+  // 					store.dispatch({
+  // 						type:dispatch,
+  // 						payload:res
+  // 					})
+  // 				})
+  // 				.catch(err => {
+  // 					store.dispatch({
+  // 						type:"ERROR",
+  // 						payload:"MESSAGE"
+  // 					})
+  // 				});
+  // 		}
+  // 	}
+  // 	next(action)
+  // }
+  // else {
+  // 	next(action)
+  // }
+  next(action);
 };
 
 const store = configureStore({
-	reducer: persistedReducer,
-	middleware: getDefaultMiddleware =>
-		getDefaultMiddleware({
-			serializableCheck: {
-				ignoredActions: [
-					FLUSH,
-					REHYDRATE,
-					PAUSE,
-					PERSIST,
-					PURGE,
-					REGISTER,
-				],
-			},
-		}),
-	// devTools: process.env.NODE_ENV !== "production",
-	// middleware: [thunk],
-	// middleware: [...getDefaultMiddleware(), logger],
-	// serializableCheck: false,
-	// middleware: gDM =>
-	// 	gDM({ serializableCheck: false }).concat(checkEnv() && logger),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      // serializableCheck: {
+      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      // },
+      serializableCheck: false,
+    }),
+  // devTools: process.env.NODE_ENV !== "production",
+  // middleware: [thunk],
+  // middleware: [...getDefaultMiddleware(), logger],
+  // serializableCheck: false,
+  // middleware: gDM =>
+  // 	gDM({ serializableCheck: false }).concat(checkEnv() && logger),
 });
 export const persistor = persistStore(store);
 

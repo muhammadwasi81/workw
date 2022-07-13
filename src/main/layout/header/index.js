@@ -81,9 +81,13 @@ function Header({ items, buttons, backButton }) {
           </Button>
         )}
         <ul className="list">
-          {items.map(({ name, to, onClick }, index) => (
+          {items.map(({ name, to, onClick = () => { } }, index) => (
             <li className="list__item" key={index}>
-              <Link to={to} onClick={() => onClick(name)} className={activeLinks[index] ? "active" : ""}>
+              <Link
+                to={to}
+                onClick={() => onClick(name)}
+                className={activeLinks[index] ? "active" : ""}
+              >
                 {name}
               </Link>
             </li>
@@ -91,7 +95,9 @@ function Header({ items, buttons, backButton }) {
         </ul>
       </div>
       <div className="right">
-        <div className="buttons">{filterButtons.map((button, index) => renderButton(button, index))}</div>
+        <div className="buttons">
+          {filterButtons.map((button, index) => renderButton(button, index))}
+        </div>
         <div className="dropDown">
           <Dropdown
             overlayClassName="headerDropDown"
@@ -99,7 +105,8 @@ function Header({ items, buttons, backButton }) {
             placement="left"
             arrow={{
               pointAtCenter: true,
-            }}>
+            }}
+          >
             <Button className="addBtn">
               <PlusOutlined />
             </Button>

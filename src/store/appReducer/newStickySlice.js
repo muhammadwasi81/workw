@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const newStickySlice = createSlice({
+export const newStickySlice = createSlice({
   name: "newStickyNote",
   initialState: {
     open: false,
@@ -18,8 +18,8 @@ const newStickySlice = createSlice({
       state.open = !state.open;
       //console.log(state);
     },
-    incrementStickyNote: (state, actions) => {
-      const incrementStickyNote = actions.payload;
+    incrementStickyNote: (state, action) => {
+      const incrementStickyNote = action.payload;
       state.incrementArray.push({
         id: incrementStickyNote.id,
         title: incrementStickyNote.title,
@@ -28,6 +28,7 @@ const newStickySlice = createSlice({
         x_axis: incrementStickyNote.x_axis,
         y_axis: incrementStickyNote.y_axis,
         bgColor: "",
+        img: incrementStickyNote.img,
       });
       // state.close = true;
       state.listArray.push({
@@ -36,36 +37,44 @@ const newStickySlice = createSlice({
         title: incrementStickyNote.noteListTitle,
         text: incrementStickyNote.noteListText,
         bgColor: "",
+        img: incrementStickyNote.img,
       });
     },
-    decrementStickyNote: (state, actions) => {
-      const id = actions.payload;
+    decrementStickyNote: (state, action) => {
+      const id = action.payload;
       state.incrementArray = state.incrementArray.filter(
         (list) => list.id !== id
       );
       state.listArray = state.listArray.filter((list) => list.id !== id);
     },
-    closeStickyNote: (state, actions) => {
-      const id = actions.payload;
+    closeStickyNote: (state, action) => {
+      const id = action.payload;
       state.incrementArray = state.incrementArray.filter(
         (list) => list.id !== id
       );
     },
-    openClickedStickyNote: (state, actions) => {
-      const listId = actions.payload;
-      state.incrementArray.push({
-        id: listId.id,
-        title: listId.stickyNoteTitle,
-        titleVal: listId.title,
-        textArea_placeholder: listId.textArea_placeholder,
-        textArea_value: listId.text,
-        x_axis: listId.x_axis,
-        y_axis: listId.y_axis,
-        bgColor: listId.bgColor,
-      });
+    openClickedStickyNote: (state, action) => {
+      const listId = action.payload;
+
+      // state.incrementArray.forEach((item) => console.log(item.id == listId.id));
+      //const itemId = state.incrementArray.find((item) => item.id);
+      let existNotes = state.incrementArray.map((item) => item.id);
+      if (!existNotes.includes(listId.id)) {
+        state.incrementArray.push({
+          id: listId.id,
+          title: listId.stickyNoteTitle,
+          titleVal: listId.title,
+          textArea_placeholder: listId.textArea_placeholder,
+          textArea_value: listId.text,
+          x_axis: listId.x_axis,
+          y_axis: listId.y_axis,
+          bgColor: listId.bgColor,
+          img: listId.img,
+        });
+      }
     },
-    stickyNoteColorPicker: (state, actions) => {
-      let id = actions.payload;
+    stickyNoteColorPicker: (state, action) => {
+      let id = action.payload;
       console.log(id);
     },
     closeStickyNoteColorPicker: (state) => {
@@ -78,8 +87,8 @@ const newStickySlice = createSlice({
         (list) => list.id === "abc"
       );
     },
-    selectColor: (state, actions) => {
-      const color = actions.payload;
+    selectColor: (state, action) => {
+      const color = action.payload;
       const stickyObject = state.incrementArray.find(
         (stickyNotes) => stickyNotes.id === color.id
       );
@@ -89,21 +98,21 @@ const newStickySlice = createSlice({
       //state.listArray[color.id].bgColor = color.colorValue;
       //state.bgColor = color;
     },
-    deleteFromColorNoteNdList: (state, actions) => {
-      const id = actions.payload;
+    deleteFromColorNoteNdList: (state, action) => {
+      const id = action.payload;
       state.incrementArray = state.incrementArray.filter(
         (list) => list.id !== id
       );
       state.listArray = state.listArray.filter((list) => list.id !== id);
     },
-    targetTitleVal: (state, actions) => {
-      const val = actions.payload;
+    targetTitleVal: (state, action) => {
+      const val = action.payload;
       //console.log(val);
       const listObj = state.listArray.find((list) => list.id === val.id);
       listObj.title = val.stickyTitle;
     },
-    targetTextVal: (state, actions) => {
-      const val = actions.payload;
+    targetTextVal: (state, action) => {
+      const val = action.payload;
       const listObj = state.listArray.find((list) => list.id === val.id);
       const stickyObj = state.incrementArray.find(
         (notes) => notes.id === val.id
@@ -114,6 +123,22 @@ const newStickySlice = createSlice({
           : val.stickyText;
       listObj.text = listText;
       stickyObj.textArea_value = val.stickyText;
+    },
+    addImage: (state, action) => {
+      const values = action.payload;
+      const sticky = state.incrementArray.find((item) => item.id === values.id);
+      const noteList = state.listArray.find((item) => item.id === values.id);
+
+      sticky.img.push(values.abc);
+      noteList.img.push(values.abc);
+    },
+    deleteImg: (state, action) => {
+      const values = action.payload;
+      const sticky = state.incrementArray.find((item) => item.id === values.id);
+      const noteList = state.listArray.find((item) => item.id === values.id);
+
+      sticky.img = sticky.img.filter((item) => item !== values.source);
+      noteList.img = noteList.img.filter((item) => item !== values.source);
     },
   },
 });
@@ -132,6 +157,8 @@ export const {
   deleteFromColorNoteNdList,
   targetTitleVal,
   targetTextVal,
+  addImage,
+  deleteImg,
 } = newStickySlice.actions;
 
 export default newStickySlice.reducer;

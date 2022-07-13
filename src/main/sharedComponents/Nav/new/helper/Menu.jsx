@@ -53,7 +53,7 @@ function Menu() {
             <ReactDragListView {...dragProps}>
               {data[key].map(({ name, to: path, icon }, index) => {
                 // eslint-disable-next-line no-lone-blocks
-
+console.log(data)
                 return !navBarStatus ? (
                   <Tooltip
                     title={name}

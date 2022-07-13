@@ -3,12 +3,12 @@ import { lazy } from "react";
 import { ROUTES } from "../utils/routes";
 
 export const routes = {
-  Public: [
-    {
-      path: ROUTES.AUTH.SIGN_IN,
-      component: lazy(() => import("../main/features/auth/view")),
-    },
-  ],
+	Public: [
+		{
+			path: ROUTES.AUTH.SIGN_IN,
+			component: lazy(() => import("../main/features/auth/view")),
+		},
+	],
 
 	// Private Route Here
 	Private: [
@@ -86,134 +86,149 @@ export const routes = {
 		},
 		{
 			path: `${ROUTES.HR.BONUS.DEFAULT}`,
-			component: lazy(() => import("../components/HrMenu/Bonus/")),
+			component: lazy(() => import("../main/features/bonus/view/Bonus")),
 		},
 
-    //Hr Router
-    {
-      path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
-      component: lazy(() => import("../main/features/administration")),
-    },
-    {
-      path: `${ROUTES.REWARDS.DEFAULT}`,
-      component: lazy(() => import("../main/features/reward/view/Reward")),
-    },
-    {
-      path: `${ROUTES.LEAVES.DEFAULT}`,
-      component: lazy(() => import("../main/features/leave/view/Leave")),
-    },
-    {
-      path: `${ROUTES.DEPARTMENTS.DEFAULT}`,
-      component: lazy(() => import("../main/features/departments/view/index")),
-    },
-    {
-      path: `${ROUTES.CAREER.DEFAULT}`,
-      component: lazy(() => import("../main/features/careers/view/")),
-    },
-    {
-      path: `${ROUTES.CAREER.JOB_DETAIL}`,
-      component: lazy(() =>
-        import("../main/features/careers/view/DetailView/index")
-      ),
-    },
-    {
-      path: `${ROUTES.EXPENSES.DEFAULT}`,
-      component: lazy(() => import("../main/features/expense/routes/")),
-    },
-    {
-      path: `${ROUTES.DOCUMENTS.DEFAULT}`,
-      component: lazy(() => import("../main/features/documents/view/index")),
-    },
-  ],
-  AdminRoutes: [
-    {
-      path: `${"/hr/administrator/"},`,
-      component: lazy(() => {
-        import("../main/features/accessRole/view/AccessRole");
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.GRADE},`,
-      component: lazy(() => {
-        import("../main/features/grade/view/index");
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.DESIGNATION},`,
-      component: lazy(() => {
-        import("../main/features/designation/view/index");
-      }),
-    },
+		{
+			path: `${ROUTES.PROMOTION}`,
+			component: lazy(() =>
+				import("../main/features/promotion/view/Promotions")
+			),
+		},
 
-    {
-      path: `${ROUTES.ADMINISTRATOR.APPRASIAL},`,
-      component: lazy(() => {
-        import("../main/features/appraisal/appraisalQuestion/view/index");
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.OFFICETIME},`,
-      component: lazy(() => {
-        import("../main/features/officeTimings/view/index");
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.LEAVE_TYPES},`,
-      component: lazy(() => {
-        import("../main/features/leave/leaveType/view/index");
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.EXPENSE_HEADERS},`,
-      component: lazy(() => {
-        import("../main/features/expenseHeader/view/index");
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.SALARY_HEADERS},`,
-      component: lazy(() => {
-        import("../main/features/salaryHeader/view/index");
-      }),
-    },
+		//Hr Router
+		{
+			path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
+			component: lazy(() => import("../main/features/administration")),
+		},
+		{
+			path: `${ROUTES.REWARDS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/reward/view/Reward")
+			),
+		},
+		{
+			path: `${ROUTES.LEAVES.DEFAULT}`,
+			component: lazy(() => import("../main/features/leave/view/Leave")),
+		},
+		{
+			path: `${ROUTES.DEPARTMENTS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/departments/view/index")
+			),
+		},
+		{
+			path: `${ROUTES.CAREER.DEFAULT}`,
+			component: lazy(() => import("../main/features/careers/view/")),
+		},
+		{
+			path: `${ROUTES.CAREER.JOB_DETAIL}`,
+			component: lazy(() =>
+				import("../main/features/careers/view/DetailView/index")
+			),
+		},
+		{
+			path: `${ROUTES.EXPENSES.DEFAULT}`,
+			component: lazy(() => import("../main/features/expense/routes/")),
+		},
+		{
+			path: `${ROUTES.DOCUMENTS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/documents/view/index")
+			),
+		},
+	],
+	AdminRoutes: [
+		{
+			path: `${"/hr/administrator/"},`,
+			component: lazy(() => {
+				import("../main/features/accessRole/view/AccessRole");
+			}),
+		},
+		{
+			path: `${ROUTES.ADMINISTRATOR.GRADE},`,
+			component: lazy(() => {
+				import("../main/features/grade/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.ADMINISTRATOR.DESIGNATION},`,
+			component: lazy(() => {
+				import("../main/features/designation/view/index");
+			}),
+		},
 
-    {
-      path: `${ROUTES.ADMINISTRATOR.EMAIL_CONFIG},`,
-      component: lazy(() => {
-        import("../main/features/emailConfiguration/view/index");
-      }),
-    },
+		{
+			path: `${ROUTES.ADMINISTRATOR.APPRASIAL},`,
+			component: lazy(() => {
+				import(
+					"../main/features/appraisal/appraisalQuestion/view/index"
+				);
+			}),
+		},
+		{
+			path: `${ROUTES.ADMINISTRATOR.OFFICETIME},`,
+			component: lazy(() => {
+				import("../main/features/officeTimings/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.ADMINISTRATOR.LEAVE_TYPES},`,
+			component: lazy(() => {
+				import("../main/features/leave/leaveType/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.ADMINISTRATOR.EXPENSE_HEADERS},`,
+			component: lazy(() => {
+				import("../main/features/expenseHeader/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.ADMINISTRATOR.SALARY_HEADERS},`,
+			component: lazy(() => {
+				import("../main/features/salaryHeader/view/index");
+			}),
+		},
 
-    {
-      path: `${ROUTES.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY},`,
-      component: lazy(() => {
-        import("../main/features/customApprovalCategory/view");
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.ALLOWANCES},`,
-      component: lazy(() => {
-        import("../main/features/allowance/view/index");
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.JOB_SKILLS},`,
-      component: lazy(() => {
-        import("../main/features/jobDescription/view/index");
-      }),
-    },
+		{
+			path: `${ROUTES.ADMINISTRATOR.EMAIL_CONFIG},`,
+			component: lazy(() => {
+				import("../main/features/emailConfiguration/view/index");
+			}),
+		},
 
-    {
-      path: `${ROUTES.ADMINISTRATOR.REWARD_CATEGORY},`,
-      component: lazy(() => {
-        import("../main/features/reward/rewardCategory/view");
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.WARNING_CATEGORY},`,
-      component: lazy(() => {
-        import("../main/features/warning/warningCategory/view");
-      }),
-    },
-  ],
-  Rewards: [],
+		{
+			path: `${ROUTES.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY},`,
+			component: lazy(() => {
+				import("../main/features/customApprovalCategory/view");
+			}),
+		},
+		{
+			path: `${ROUTES.ADMINISTRATOR.ALLOWANCES},`,
+			component: lazy(() => {
+				import("../main/features/allowance/view/index");
+			}),
+		},
+		{
+			path: `${ROUTES.ADMINISTRATOR.JOB_SKILLS},`,
+			component: lazy(() => {
+				import("../main/features/jobDescription/view/index");
+			}),
+		},
+
+		{
+			path: `${ROUTES.ADMINISTRATOR.REWARD_CATEGORY},`,
+			component: lazy(() => {
+				import("../main/features/reward/rewardCategory/view");
+			}),
+		},
+		{
+			path: `${ROUTES.ADMINISTRATOR.WARNING_CATEGORY},`,
+			component: lazy(() => {
+				import("../main/features/warning/warningCategory/view");
+			}),
+		},
+	],
+	Rewards: [],
 };

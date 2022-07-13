@@ -6,8 +6,12 @@ import { groupByKey } from "../../../../../utils/base";
 import { DOMAIN_PREFIX } from "../../../../../utils/routes";
 import NavMenuList from "../../navbarMenuList";
 import ReactDragListView from "react-drag-listview";
+import { Collapse } from "antd";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
+import { CaretRightOutlined, MenuUnfoldOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+const { Panel } = Collapse;
+
 function Menu() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
@@ -34,6 +38,23 @@ function Menu() {
       : "";
   };
 
+  const renderIcons = {
+    Menu: (
+      <MenuUnfoldOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
+    HR: (
+      <UsergroupAddOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
+  };
+
   const dragProps = {
     onDragEnd: (fromIndex, toIndex) => {
       const dataCopy = { ...data };
@@ -49,60 +70,59 @@ function Menu() {
       {Object.keys(data).map((key) => {
         return (
           <>
-            <span>{key}</span>
-            <ReactDragListView {...dragProps}>
-              {data[key].map(({ name, to: path, icon }, index) => {
-                // eslint-disable-next-line no-lone-blocks
-console.log(data)
-                return !navBarStatus ? (
-                  <Tooltip
-                    title={name}
-                    color={"#fff"}
-                    placement="right"
-                    key={index}
-                    overlayClassName=""
-                  >
-                    <div
-                      className="menu-item"
-                      onDrag={() => {
-                        currentCategory = key;
-                      }}
-                    >
-                      <NavLink
-                        className={({ isActive }) => {
-                          return activeTab(isActive, path);
-                        }}
-                        to={path}
-                      >
-                        <div className="icon">
-                          <img src={icon} alt="#" />
+            <Collapse
+              expandIconPosition="end"
+              className="MenuCollapse"
+              defaultActiveKey={["1"]}
+              onChange={() => {}}
+              expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}>
+              <Panel header={key} key="1" extra={renderIcons[key]}>
+                {/* <span>{key}</span> */}
+                <ReactDragListView {...dragProps}>
+                  {data[key].map(({ name, to: path, icon }, index) => {
+                    // eslint-disable-next-line no-lone-blocks
+
+                    return !navBarStatus ? (
+                      <Tooltip title={name} color={"#fff"} placement="right" key={index} overlayClassName="">
+                        <div
+                          className="menu-item"
+                          onDrag={() => {
+                            currentCategory = key;
+                          }}>
+                          <NavLink
+                            className={({ isActive }) => {
+                              return activeTab(isActive, path);
+                            }}
+                            to={path}>
+                            <div className="icon">
+                              <img src={icon} alt="#" />
+                            </div>
+                            <p>{name}</p>
+                          </NavLink>
                         </div>
-                        <p>{name}</p>
-                      </NavLink>
-                    </div>
-                  </Tooltip>
-                ) : (
-                  <div
-                    className="menu-item"
-                    onDrag={() => {
-                      currentCategory = key;
-                    }}
-                  >
-                    <NavLink
-                      className={({ isActive }) => {
-                        return activeTab(isActive, path);
-                      }}
-                      to={path}
-                    >
-                      <div className="icon">
-                        <img src={icon} alt="#" />
+                      </Tooltip>
+                    ) : (
+                      <div
+                        className="menu-item"
+                        onDrag={() => {
+                          currentCategory = key;
+                        }}>
+                        <NavLink
+                          className={({ isActive }) => {
+                            return activeTab(isActive, path);
+                          }}
+                          to={path}>
+                          <div className="icon">
+                            <img src={icon} alt="#" />
+                          </div>
+                          <p>{name}</p>
+                        </NavLink>
                       </div>
-                      <p>{name}</p>
-                    </NavLink>
-                  </div>
-                );
-              })}
-            </ReactDragListView>
+                    );
+                  })}
+                </ReactDragListView>
+              </Panel>
+            </Collapse>
           </>
         );
       })}

@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { Socket, SOCKET_STATE } from "../utils/socket";
 import Spinner from "../main/sharedComponents/spinner/spinner";
 import SideChatBar from "../main/features/SideChatbar/index";
-import ChatBoxCont from "../main/sharedComponents/ChatBox/ChatBoxCont";
+// import ChatBoxCont from "../main/sharedComponents/ChatBox/ChatBoxCont";
 // import { routes } from "../routes/routes";
 const PrivateRoute = () => {
   const { token } = useSelector((state) => state.userSlice);
@@ -56,11 +56,12 @@ const PrivateRoute = () => {
 };
 
 export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
-  // console.log("private routes");
+  //   console.log("private routes");
   //   const minimizeCall = useSelector(({ call }) => call.minimizeCall);
   //   const inComingCall = useSelector(({ call }) => call.inComingCall);
   const socketState = useSelector(({ general }) => general.socketConnectionState);
-  const socketStateColor = socketState === SOCKET_STATE.CONNECTED ? "#42b72a" : socketState === SOCKET_STATE.DISCONNECTED ? "#f03f27" : "blue";
+  const socketStateColor = socketState === SOCKET_STATE.CONNECTED ? "#42b72a" : 
+  socketState === SOCKET_STATE.DISCONNECTED ? "#f03f27" : "blue";
 
   return (
     <React.Fragment>

@@ -29,10 +29,10 @@ function getTags({ tags }) {
 
 function getPollOptions({ type, poll: { options } }) {
   if (!PostType.isPollType(type)) return [];
-  return options.map(({ value }) => ({
+  return options.map(({ value, attachment }) => ({
     id: DEFAULT_GUID,
     option: value,
-    attachmentId: DEFAULT_GUID,
+    attachment: attachment,
   }));
 }
 

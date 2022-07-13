@@ -62,7 +62,7 @@ const Groups = (props) => {
           buttons={[
             {
               name: "Groups",
-              onClick: () => setFilter({ filterType: 0 }),
+              // onClick: () => setFilter({ filterType: 0 }),
             },
           ]}
           // filter={{

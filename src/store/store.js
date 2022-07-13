@@ -26,6 +26,7 @@ import rewardCategorySlice from "../main/features/reward/rewardCategory/store/sl
 import rewardSlice from "../main/features/reward/store/slice";
 import leaveSlice from "../main/features/leave/store/slice";
 import complainSlice from "../main/features/complain/store/slice";
+import promotionSlice from "../main/features/promotion/store/slice";
 import projectSlice from "../main/features/projects/store/slice";
 import jobDescriptionSlice from "../main/features/jobDescription/store/slice";
 import customApprovalCategorySlice from "../main/features/customApprovalCategory/store/slice";
@@ -60,6 +61,7 @@ const reducers = combineReducers({
   sideBarChatSlice,
   MessengerSlice,
   leaveSlice,
+  promotionSlice,
   //   mailSlice,
   jobDescriptionSlice,
   sharedQuillSlice,

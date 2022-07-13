@@ -72,17 +72,6 @@ const Reward = (props) => {
             },
           ]}
         />
-        {/* <ContainerHeader>
-          <HeaderMenuContainer></HeaderMenuContainer>
-          <div className="right-menu" style={{ paddingRight: "10px" }}>
-            <div className={""}>
-              <SideDrawer title={rewardsDictionary.createReward} buttonText={rewardsDictionary.createReward} isAccessDrawer={false}>
-                <Composer />
-              </SideDrawer>
-            </div>
-          </div>
-          <span className="ln" />
-        </ContainerHeader> */}
         <TopBar
           onSearch={(value) => {
             console.log(value);

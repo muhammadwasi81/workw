@@ -53,8 +53,13 @@ function ListItem(props) {
             <StatusTag status={status}></StatusTag>
           </div>
         </ItemHeader>
-        <ItemContent>
-          <p>{description}</p>
+        <ItemContent className="flex">
+          <div className="description w-full">
+            <p>{description}</p>
+          </div>
+          <div className="attachmentBox">
+            <Image preview={false} width={75} src={image === "" ? RewardDefaultIcon : image} />
+          </div>
         </ItemContent>
         <div className="flex justify-between gap-4">
           <div className="innerCard w-full">
@@ -79,32 +84,6 @@ function ListItem(props) {
                 <span>{"Header"}:</span>
                 <span> CEO Office</span>
               </div>
-            </div>
-          </div>
-          <div className="ListItemInner">
-            {/* <div className="ItemDetails">
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{"Subject"}</span>
-              <p>{subject}</p>
-            </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{customApprovalDictionary.category}</span>
-              <p>Dummy</p>
-            </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{customApprovalDictionary.approvers}</span>
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"approvers"}
-                membersData={approvers}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
-            </div>
-          </div> */}
-            <div className="attachmentBox">
-              <Image preview={false} width={75} src={image === "" ? RewardDefaultIcon : image} />
             </div>
           </div>
         </div>

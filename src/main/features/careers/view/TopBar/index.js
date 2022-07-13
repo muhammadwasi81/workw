@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
 
 function index() {
@@ -11,23 +11,23 @@ function index() {
         buttons={[
           {
             name: "Jobs",
-            onClick: () => setFilter({ filterType: 0 }),
+            // onClick: () => setFilter({ filterType: 0 }),
           },
         ]}
         // filter={{
         //   onFilter: () => {},
         // }}
-        segment={{
-          onSegment: (value) => {
-            if (value === "Table") {
-              setTableView(true);
-            } else {
-              setTableView(false);
-            }
-          },
-          label1: "List",
-          label2: "Table",
-        }}
+        // segment={{
+        //   onSegment: (value) => {
+        //     if (value === "Table") {
+        //       setTableView(true);
+        //     } else {
+        //       setTableView(false);
+        //     }
+        //   },
+        //   label1: "List",
+        //   label2: "Table",
+        // }}
       />
     </>
   );

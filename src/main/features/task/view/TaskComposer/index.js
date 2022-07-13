@@ -5,6 +5,10 @@ import TextInput from "../../../../sharedComponents/Input/TextInput";
 import ImageUpload from "../../../../sharedComponents/Input/ImageUpload";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { taskDictionary } from "../../localization";
+import { useDispatch } from "react-redux";
+import { addNewTask } from "../../store/actions";
+import { STRINGS } from "../../../../../utils/base";
+import moment from "moment";
 const { RangePicker } = DatePicker;
 
 function TaskComposer() {
@@ -12,6 +16,7 @@ function TaskComposer() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, taskDictionaryList } = taskDictionary[userLanguage];
   const { labels, createTextBtn, placeHolder } = taskDictionaryList;
+  const dispatch = useDispatch();
 
   const options = [
     { label: labels.selfTask, value: "self" },
@@ -34,12 +39,31 @@ function TaskComposer() {
   };
   let classes = "task-composer  ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
+
+  const handleSubmit = (values) => {
+console.log(values.date[0].format())
+    let requestData = {
+      subject: "Test",
+      description: "dssd",
+      parentId: STRINGS.DEFAULTS.guid,
+      referenceId: STRINGS.DEFAULTS.guid,
+      referenceType: 1,
+      startDate: moment().format(),
+      endDate: moment().format(),
+      priority: 1,
+      members: [],
+      // attachments: []
+    }
+
+    dispatch(addNewTask(requestData))
+  }
   return (
     <Form
       className={classes}
       name="createTask"
-        layout="vertical"
+      layout="vertical"
       initialValues={initialValues}
+      onFinish={handleSubmit}
     >
       <Form.Item label={labels.taskSubject} name="subject">
         <TextInput placeholder={placeHolder.writeSubject} />
@@ -82,19 +106,19 @@ function TaskComposer() {
       </Form.Item>
       <Form.Item label={labels.priority} name="priority">
         <Radio.Group className="radioPrimary radioPriority">
-          <Radio.Button value="default">
+          <Radio.Button value="1">
             <CheckCircleOutlined />
             {labels.default}
           </Radio.Button>
-          <Radio.Button value="low">
+          <Radio.Button value="2">
             <CheckCircleOutlined />
             {labels.low}
           </Radio.Button>
-          <Radio.Button value="medium">
+          <Radio.Button value="3">
             <CheckCircleOutlined />
             {labels.medium}
           </Radio.Button>
-          <Radio.Button value="high">
+          <Radio.Button value="4">
             <CheckCircleOutlined />
             {labels.high}
           </Radio.Button>
@@ -106,10 +130,11 @@ function TaskComposer() {
       <Form.Item label="" name="">
         <ImageUpload />
       </Form.Item>
-
-      <Button className="ThemeBtn" block>
-        {createTextBtn}
-      </Button>
+      <Form.Item >
+        <Button className="ThemeBtn" block htmlType="submit">
+          {createTextBtn}
+        </Button>
+      </Form.Item>
     </Form>
   );
 }

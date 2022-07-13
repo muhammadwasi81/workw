@@ -5,11 +5,7 @@ import PostModalLeft from "./PostModalLeft";
 import PostAttachment from "./PostAttachment";
 import Polls from "../../../../../../sharedComponents/Polls";
 
-const PostSection = ({ post }) => {
-  const [modelState, setmodelState] = useState(false);
-  const openModel = () => {
-    setmodelState(true);
-  };
+const PostSection = ({ post, isOpen, onOpen }) => {
   const { title, attachments, pollOptions, voteCount } = post;
   const fakePost = {
     image: [thor, thor, thor],
@@ -101,15 +97,15 @@ const PostSection = ({ post }) => {
         )}
         <div className="post-section-attachments">
           {attachments.length > 0 && (
-            <PostAttachment attachments={attachments} onOpen={openModel} />
+            <PostAttachment attachments={attachments} onOpen={onOpen} />
           )}
         </div>
       </div>
       {/* you can also pass a component to leftComponent which will render on the leftside // put false in it if you dont component */}
       <PostModel
         post={fakePost}
-        setModelState={() => setmodelState(false)}
-        open={modelState}
+        setModelState={() => onOpen(false)}
+        open={isOpen}
         leftComponent={<PostModalLeft post={post} />}
       />
     </>

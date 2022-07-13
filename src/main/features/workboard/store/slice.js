@@ -1,21 +1,64 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
 
-const initialState = { lists: [] };
+const initialState = {
+	lists: [],
+	cardDetail: null,
+	addMember: null,
+	addMemberCardId: "",
+	memberDefaulIds: [],
+	showDateModal: false,
+};
 
 const trelloSlice = createSlice({
 	name: "trello",
 	initialState,
 	reducers: {
 		addList(state, { payload }) {
+			// console.log("add card");
 			const { id, title } = payload;
 			state.lists.push({ ...payload });
 			state[id] = { _id: id, title, cards: [] };
+		},
+		addListCard(state, { payload }) {
+			// console.log("add list card");
+			const { listId, cardText, cardId } = payload;
+			state[listId] = {
+				...state[listId],
+				cards: [...state[listId].cards, cardId],
+			};
+			state[cardId] = {
+				text: cardText,
+				_id: cardId,
+				members: [],
+				cardDueDate: { dueDate: "", isCardCompleted: false },
+			};
+		},
+		addListCardMembers(state, { payload }) {
+			const { cardId, members } = payload;
+
+			state[cardId] = {
+				...state[cardId],
+				members,
+			};
+			state.memberDefaulIds = [];
+		},
+		addListCardDueDate(state, { payload }) {
+			// console.log("payload due date", payload);
+			const { cardId, dueDate, isCardCompleted } = payload;
+			state[cardId] = {
+				...state[cardId],
+				cardDueDate: {
+					dueDate,
+					isCardCompleted,
+				},
+			};
+			// console.log("current", current(state));
 		},
 		changeBackgroundColor(state, { payload }) {
 			console.log("bg color", state, payload);
 			// const index = state.lists.findIndex(payload.list.id);
 			const foundIndex = state.lists.findIndex(
-				x => x.id == payload.list.id
+				x => x.id === payload.list.id
 			);
 			console.log("index", state.lists[foundIndex]);
 			let tempList = state.lists;
@@ -39,14 +82,7 @@ const trelloSlice = createSlice({
 			const { id, title } = payload;
 			state[id] = { ...state[id], title };
 		},
-		addListCard(state, { payload }) {
-			const { listId, cardText, cardId } = payload;
-			state[listId] = {
-				...state[listId],
-				cards: [...state[listId].cards, cardId],
-			};
-			state[cardId] = { text: cardText, _id: cardId };
-		},
+
 		changeListCardText(state, { payload }) {
 			// console.log("change card text slice", state, payload);
 			const { cardId, cardText } = payload;
@@ -94,6 +130,42 @@ const trelloSlice = createSlice({
 			newLists.splice(newListIndex, 0, removedList);
 			state.lists = newLists;
 		},
+		handleCardDetail(state, { payload }) {
+			if (payload.type === "open") {
+				state.addMemberCardId = payload.cardDetailId;
+				state.cardDetail = payload.cardDetailId;
+				return;
+			}
+			state.cardDetail = null;
+		},
+		openMembersModal(state, { payload }) {
+			const { addMember, cardId } = payload;
+			state.addMember = addMember;
+
+			// console.log("card id", cardId);
+			state.memberDefaulIds = [];
+			if (cardId) {
+				state.addMemberCardId = cardId;
+				if (state[cardId].members.length > 0) {
+					let membersId = state[cardId].members.map(mem => {
+						return mem.id;
+					});
+					state.memberDefaulIds = membersId;
+					return;
+				}
+				state.memberDefaulIds = [];
+			} else {
+				state.memberDefaulIds = [];
+			}
+		},
+		openDateModal(state, { payload }) {
+			console.log("payload", payload);
+			const { isDateModalOpen, cardId } = payload;
+			if (cardId) {
+				state.addMemberCardId = cardId;
+			}
+			state.showDateModal = isDateModalOpen;
+		},
 	},
 });
 
@@ -107,6 +179,11 @@ export const {
 	changeListCardText,
 	deleteListCard,
 	changeBackgroundColor,
+	handleCardDetail,
+	openMembersModal,
+	addListCardMembers,
+	addListCardDueDate,
+	openDateModal,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

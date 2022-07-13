@@ -145,6 +145,7 @@ export const getAllEmployeeService = (search, pgNo, pgSize) => {
     });
 };
 
+
 export const uploadImageService = (files) => {
   const formData = new FormData();
   let withoutAuth = false;

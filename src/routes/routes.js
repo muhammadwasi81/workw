@@ -10,6 +10,86 @@ export const routes = {
     },
   ],
 
+<<<<<<< HEAD
+	// Private Route Here
+	Private: [
+		{
+			path: ROUTES.ROOT,
+			component: lazy(() => import("../main/features/feed/ui/index")),
+		},
+		{
+			path: ROUTES.MESSENGER.DEFAULT,
+			component: lazy(() => import("../main/features/Messenger/")),
+		},
+		// {
+		//   path: `${ROUTES.MAIL.DEFAULT}`,
+		//   component: lazy(() => import("../components/MainMenu/Mail/")),
+		// },
+		{
+			path: ROUTES.CUSTOM_APPROVALS.DEFAULT,
+			component: lazy(() =>
+				import("../main/features/CustomApprovals/view/CustomApproval")
+			),
+		},
+		{
+			path: `${ROUTES.TASK.DEFAULT}`,
+			component: lazy(() => import("../main/features/task/routes/index")),
+		},
+		{
+			path: `${ROUTES.TRAVEL.DEFAULT}`,
+			component: lazy(() => import("../main/features/travel/")),
+		},
+		{
+			path: `${ROUTES.TRAVEL.DETAIL}`,
+			component: lazy(() =>
+				import("../main/features/travel/view/TravelDetail/TravelDetail")
+			),
+		},
+		{
+			path: `${ROUTES.CAREER.JOB_BY_ID}`,
+			component: lazy(() =>
+				import("../main/features/careers/view/DetailView/index")
+			),
+		},
+		{
+			path: `${ROUTES.EMPLOYEES.DEFAULT}`,
+			component: lazy(() => import("../main/features/employee/")),
+		},
+		{
+			path: `${ROUTES.PROJECT.DEFAULT}`,
+			component: lazy(() => import("../main/features/projects/index")),
+		},
+		{
+			path: `${ROUTES.GROUP.DEFAULT}`,
+			component: lazy(() => import("../main/features/groups/index")),
+		},
+		{
+			path: `${ROUTES.TODO.DEFAULT}`,
+			component: lazy(() => import("../main/features/workboard/index")),
+		},
+		{
+			path: `${ROUTES.WARNINGS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/warning/view/Warning")
+			),
+		},
+		{
+			path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
+			component: lazy(() =>
+				import("../components/HrMenu/Warnings/Approvals/")
+			),
+		},
+		{
+			path: `${ROUTES.COMPLAINS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/complain/view/Complain")
+			),
+		},
+		{
+			path: `${ROUTES.HR.BONUS.DEFAULT}`,
+			component: lazy(() => import("../components/HrMenu/Bonus/")),
+		},
+=======
   // Private Route Here
   Private: [
     {
@@ -82,6 +162,7 @@ export const routes = {
       path: `${ROUTES.HR.BONUS.DEFAULT}`,
       component: lazy(() => import("../components/HrMenu/Bonus/")),
     },
+>>>>>>> 304570da808af08f0f12c3737b5b86ba6bd1b276
 
     //Hr Router
     {

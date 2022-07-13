@@ -8,9 +8,9 @@ import List from "./List/List";
 import { moveCard, moveList } from "../store/slice";
 function Board() {
 	const [addingList, setAddingList] = useState(false);
-	const { lists } = useSelector(state => state.trelloSlice);
+	const lists = useSelector(state => state.trelloSlice.lists);
 
-	console.log("lists", lists);
+	// console.log("lists", lists);
 	const dispatch = useDispatch();
 	// console.log("lists", lists);
 	// using useCallback is optional
@@ -53,6 +53,7 @@ function Board() {
 			);
 		}
 	};
+	// console.log("board");
 
 	return (
 		<DragDropContext onDragEnd={handleDragEnd}>
@@ -94,4 +95,4 @@ function Board() {
 	);
 }
 
-export default Board;
+export default React.memo(Board);

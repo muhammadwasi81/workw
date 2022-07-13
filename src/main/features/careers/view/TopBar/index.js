@@ -11,7 +11,7 @@ function index() {
         buttons={[
           {
             name: "Jobs",
-            onClick: () => setFilter({ filterType: 0 }),
+            // onClick: () => setFilter({ filterType: 0 }),
           },
         ]}
         // filter={{
@@ -20,9 +20,9 @@ function index() {
         segment={{
           onSegment: (value) => {
             if (value === "Table") {
-              setTableView(true);
+              // setTableView(true);
             } else {
-              setTableView(false);
+              // setTableView(false);
             }
           },
           label1: "List",

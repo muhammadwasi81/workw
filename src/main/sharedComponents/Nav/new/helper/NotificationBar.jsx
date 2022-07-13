@@ -81,7 +81,7 @@ function NotificationBar() {
   const incrementStickyNote = useSelector(
     (state) => state.newStickySlice.incrementArray
   );
-  console.log(incrementStickyNote);
+  // console.log(incrementStickyNote);
 
   //console.log(closeAllSticky);
   //const closeStickyNote = useSelector((state) => state.stickyNotesSlice.open);

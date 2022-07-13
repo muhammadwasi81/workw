@@ -8,6 +8,7 @@ import {
   getAllEmployeeService,
   uploadImageService,
 } from "../../../../utils/Shared/services/services";
+import { DEFAULT_GUID } from "../../../../utils/constants";
 
 export const onFeedCreateSubmitAction = createAsyncThunk(
   "feedSlice/onFeedCreateSubmit",
@@ -104,7 +105,10 @@ function onPostTagsChange(state, { payload }) {
 }
 
 function addPostAttachment(state, { payload: { file } }) {
-  state.postCompose.attachments = [...state.postCompose.attachments, file];
+  state.postCompose.attachments = [
+    ...state.postCompose.attachments,
+    { id: DEFAULT_GUID, file },
+  ];
 }
 
 function removePostAttachment(state, { payload: { index } }) {

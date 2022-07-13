@@ -43,7 +43,7 @@ const trelloSlice = createSlice({
 			state.memberDefaulIds = [];
 		},
 		addListCardDueDate(state, { payload }) {
-			console.log("payload due date", payload);
+			// console.log("payload due date", payload);
 			const { cardId, dueDate, isCardCompleted } = payload;
 			state[cardId] = {
 				...state[cardId],

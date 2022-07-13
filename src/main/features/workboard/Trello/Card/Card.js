@@ -27,7 +27,7 @@ function Card(props) {
 	const cardData = useSelector(state => state.trelloSlice[cardId]);
 	const cardDetail = useSelector(state => state.trelloSlice[cardId]);
 	const [dueDate, setDueDate] = useState("");
-	console.log("bahar card detail", cardDetail, cardData);
+	// console.log("bahar card detail", cardDetail, cardData);
 	useEffect(() => {
 		if (cardDetail !== undefined) {
 			if (dueDate !== cardDetail.cardDueDate.dueDate) {
@@ -66,7 +66,7 @@ function Card(props) {
 		);
 	};
 
-	console.log("members");
+	// console.log("members");
 
 	if (!editing) {
 		return (

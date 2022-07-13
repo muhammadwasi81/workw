@@ -30,9 +30,16 @@ function WorkBoardDetail() {
 	const addMemberCardId = useSelector(
 		state => state.trelloSlice.addMemberCardId
 	);
-	const member = useSelector(state => state.trelloSlice[addMemberCardId]);
-	const { members: cardMember } = member;
-	console.log("member", member);
+	const membersData = useSelector(
+		state => state.trelloSlice[addMemberCardId].members
+	);
+	const cardDueDate = useSelector(
+		state => state.trelloSlice[addMemberCardId].cardDueDate
+	);
+	// console.log("members k data", memberkadata);
+	// const member = useSelector(state => state.trelloSlice[addMemberCardId]);
+	// const { members: cardMember } = member;
+	// console.log("member", member);
 
 	const [isLabelModalVisible, setIsLabelModalVisible] = useState(false);
 
@@ -60,13 +67,15 @@ function WorkBoardDetail() {
 					<WBDCoverImage />
 					<div className="flex gap-5 justify-between">
 						<div className="basis-9/12">
-							<WorkBoardDescription />
+							<WorkBoardDescription
+								dueDate={cardDueDate.dueDate}
+							/>
 						</div>
 						<div className="basis-3/12">
 							<div className="flex flex-col gap-5">
 								<MemberCollapse
 									handleAdd={addMembers}
-									data={cardMember}
+									data={membersData}
 									ghost={false}
 								/>
 								<TrelloThemeButton

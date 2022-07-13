@@ -10,7 +10,7 @@ import DescriptionInput from "../UI/DescriptionInput";
 import CommentComposer from "../../../sharedComponents/Comment/Composer";
 import CheckDate from "../UI/CheckDate";
 
-function WorkBoardDescription() {
+function WorkBoardDescription({ dueDate }) {
 	return (
 		<div className="flex flex-col gap-5">
 			<div className="flex items-center gap-2">
@@ -19,10 +19,14 @@ function WorkBoardDescription() {
 					Going live with server deployment
 				</span>
 			</div>
-			<div className="flex flex-col ">
-				<span className="text-gray-500 font-semibold">Due date</span>
-				<CheckDate />
-			</div>
+			{dueDate.length > 0 && (
+				<div className="flex flex-col ">
+					<span className="text-gray-500 font-semibold">
+						Due date
+					</span>
+					<CheckDate />
+				</div>
+			)}
 			<div className="flex gap-2 w-full">
 				<AlignLeftOutlined className="!text-gray-500 text-lg" />
 				<div className="flex flex-col gap-2 w-full">

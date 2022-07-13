@@ -200,6 +200,12 @@ export const routes = {
         import("../main/features/warning/warningCategory/view");
       }),
     },
+    {
+      path: `${ROUTES.PROMOTION},`,
+      component: lazy(() => {
+        import("../main/features/promotion/view/Promotions");
+      }),
+    },
   ],
   Rewards: [],
 };

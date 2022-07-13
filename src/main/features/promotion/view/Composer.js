@@ -8,6 +8,7 @@ import { promotionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { getAllWarningCategories } from "../../warning/warningCategory/store/actions";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import { uploadImage } from "../../../../utils/Shared/store/actions";
 
 const initialState = {
   id: "",

@@ -9,13 +9,13 @@ export default function PostPreviewAttachments() {
   return (
     attachments.length > 0 && (
       <div className="preview-file">
-        {attachments.map((file, index) => (
+        {attachments.map((item, index) => (
           <ImageReader
             removeFile={() =>
               store.dispatch(feedSlice.actions.removePostAttachment({ index }))
             }
             key={index}
-            file={file}
+            file={item.file}
           />
         ))}
       </div>

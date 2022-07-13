@@ -8,6 +8,7 @@ import {
   getAllEmployeeService,
   uploadImageService,
 } from "../../../../utils/Shared/services/services";
+import { DEFAULT_GUID } from "../../../../utils/constants";
 
 export const onFeedCreateSubmitAction = createAsyncThunk(
   "feedSlice/onFeedCreateSubmit",
@@ -15,26 +16,40 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
     const {
       feedSlice: { postCompose },
     } = getState();
-    const { attachments } = postCompose;
+    const {
+      attachments,
+      poll: { options },
+    } = postCompose;
     const { type } = postCompose;
     const { ValidateDefaultPost, ValidatePollPost } = ValidateCreatePost;
 
-    let attactmentIds = [];
+    // let attactmentIds = [];
     const validation = PostType.isPollType(type)
       ? ValidatePollPost(postCompose)
       : ValidateDefaultPost(postCompose);
     if (!validation.valid) return rejectWithValue(validation.validationResult);
-    if (attachments.length) {
-      const { data: attachmentResponse } = await uploadImageService(
-        attachments
-      );
-      attactmentIds = attachmentResponse.data.map((attachment) => {
-        return { attachmentId: attachment.id };
-      });
-    }
-    const requestDto = SavePostRequestDto(postCompose, attactmentIds);
+    // if (attachments.length) {
+    //   const { data: attachmentResponse } = await uploadImageService(
+    //     attachments
+    //   );
+    //   attactmentIds = attachmentResponse.data.map((attachment) => {
+    //     return { attachmentId: attachment.id };
+    //   });
+    // }
+    // const isPollAttachment = options.some((option) => option.attachment);
+    // if (isPollAttachment) {
+    //   const attachments = options.map((option) => option.attachment);
+    //   const { data: attachmentResponse } = await uploadImageService(
+    //     attachments
+    //   );
+    //   attactmentIds = attachmentResponse.data.map((attachment) => {
+    //     return { attachmentId: attachment.id };
+    //   });
+    // }
+    console.log("API CALL");
+    const requestDto = SavePostRequestDto(postCompose);
     const response = await saveCreatePost(requestDto);
-    console.log("Api");
+
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
@@ -90,7 +105,10 @@ function onPostTagsChange(state, { payload }) {
 }
 
 function addPostAttachment(state, { payload: { file } }) {
-  state.postCompose.attachments = [...state.postCompose.attachments, file];
+  state.postCompose.attachments = [
+    ...state.postCompose.attachments,
+    { id: DEFAULT_GUID, file },
+  ];
 }
 
 function removePostAttachment(state, { payload: { index } }) {
@@ -108,7 +126,19 @@ function onPostPollOptionTextChange(state, { payload: { index, value } }) {
   currentOptions[index] = { ...currentOptions[index], value };
   state.postCompose.poll.options = currentOptions;
 }
-
+function onSaveComment(state, { payload: { comment } }) {
+  const { referenceId } = comment;
+  let {
+    allFeed: { posts },
+  } = current(state);
+  const AllPost = [...posts];
+  const index = posts.findIndex((item) => item.id === referenceId);
+  const commentedPost = { ...AllPost[index] };
+  commentedPost.commentCount = commentedPost.commentCount + 1;
+  commentedPost.comments = [comment, ...commentedPost.comments];
+  AllPost[index] = commentedPost;
+  state.allFeed.posts = AllPost;
+}
 function onPostPollAttachmentChange(state, { payload: { index, files } }) {
   if (!files.length) return;
   const {
@@ -162,5 +192,6 @@ export {
   addPostPollOption,
   removePostPollOption,
   onPostPrivacyChange,
+  onSaveComment,
   toggleComposerVisibility,
 };

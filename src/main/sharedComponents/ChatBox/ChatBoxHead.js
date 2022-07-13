@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from "../Avatar/avatar";
+import Avatar from "../Avatar/avatarOLD";
 import SharedButton from "../button";
 import mailMinimizeIcon from './assests/mailMinimizeIcon.svg';
 import closeMailIcon from './assests/closeMailIcon.svg';

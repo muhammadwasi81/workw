@@ -33,10 +33,6 @@ export const routes = {
       component: lazy(() => import("../main/features/task/routes/index")),
     },
     {
-      path: `${ROUTES.PROMOTION}`,
-      component: lazy(() => import("../main/features/promotion/view/Promotions")),
-    },
-    {
       path: `${ROUTES.TRAVEL.DEFAULT}`,
       component: lazy(() => import("../main/features/travel/")),
     },
@@ -62,7 +58,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.TODO.DEFAULT}`,
-      component: lazy(() => import("../main/features/workboard/Trello/Board")),
+      component: lazy(() => import("../main/features/workboard/index")),
     },
     {
       path: `${ROUTES.WARNINGS.DEFAULT}`,
@@ -77,8 +73,8 @@ export const routes = {
       component: lazy(() => import("../main/features/complain/view/Complain")),
     },
     {
-      path: `${ROUTES.BONUS.DEFAULT}`,
-      component: lazy(() => import("../main/features/bonus/view/Bonus")),
+      path: `${ROUTES.HR.BONUS.DEFAULT}`,
+      component: lazy(() => import("../components/HrMenu/Bonus/")),
     },
 
     //Hr Router

@@ -84,6 +84,7 @@ export const ROUTES = {
     TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board`,
     MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
   },
+
   CONTACT_MANAGER: {
     DEFAULT: `${DOMAIN_PREFIX}/leadManager`,
     LEAD_GROUP: `${DOMAIN_PREFIX}/leadManager/leadManagerGroup`,
@@ -203,6 +204,7 @@ export const ROUTES = {
   TASKS: `${DOMAIN_PREFIX}/tasks`,
   // LEAVES: `${DOMAIN_PREFIX}/leaves`,
   EXPENSES: `${DOMAIN_PREFIX}/expenses`,
+  // CUSTOM_APPROVALS: `${DOMAIN_PREFIX}/customApprovals`,
 
   PAYROLL: {
     DEFAULT: `${DOMAIN_PREFIX}/payroll`,
@@ -717,10 +719,10 @@ export const ROUTES = {
       DEFAULT: `${DOMAIN_PREFIX}/warnings`,
       APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
     },
-    // CUSTOM_APPROVALS: {
-    //   DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
-    //   APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
-    // },
+    CUSTOM_APPROVALS: {
+      DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
+      APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
+    },
     COMPLAINS: {
       DEFAULT: `${DOMAIN_PREFIX}/complains`,
       APPROVALS: `${DOMAIN_PREFIX}/complains/approvals`,
@@ -839,5 +841,12 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
     LOAN: `${DOMAIN_PREFIX}/loan/`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+  },
+  WORKBOARD: {
+    DEFAULT: `${DOMAIN_PREFIX}/workboard`,
+    DASHBOARD: `${DOMAIN_PREFIX}/workboard/dashboard`,
+    LIST: `${DOMAIN_PREFIX}/workboard/list`,
+    TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board`,
+    MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
   },
 };

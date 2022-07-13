@@ -126,6 +126,7 @@ const urdu = {
     administration: "انتظامیہ",
     appraisals: "تشخیص",
     departments: "محکمے",
+    loan: "قرض",
     leaves: "چھٹی",
     loan: "قرضے",
     holidays: "چھٹیاں",

@@ -9,6 +9,7 @@ function CustomModal({
 	footer,
 	destroyOnClose = true,
 	onCancel,
+	width,
 }) {
 	return (
 		<Modal
@@ -18,6 +19,7 @@ function CustomModal({
 			footer={footer}
 			destroyOnClose={destroyOnClose}
 			onCancel={onCancel}
+			width={width}
 		>
 			{children}
 		</Modal>

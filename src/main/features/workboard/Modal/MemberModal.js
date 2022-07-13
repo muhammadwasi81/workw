@@ -6,9 +6,14 @@ import ModalFooter from "./UI/ModalFooter";
 import ModalTitle from "./UI/ModalTitle";
 import CustomModal from "./CustomModal";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-function MemberModal({ onSave, showModal, isModalVisible }) {
+function MemberModal({
+	value: selectedValues,
+	onSave,
+	showModal,
+	isModalVisible,
+}) {
 	const dispatch = useDispatch();
-	const { employees } = useSelector(state => state.sharedSlice);
+	const employees = useSelector(state => state.sharedSlice.employees);
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
 	const [value, setValue] = useState([]);
@@ -33,20 +38,28 @@ function MemberModal({ onSave, showModal, isModalVisible }) {
 		setValue(data);
 		setMembers(obj);
 	};
+	useEffect(() => {
+		setValue(selectedValues);
+		// console.log(
+		// 	// "JSON.stringify(selectedValues)]",
+		// 	JSON.stringify(selectedValues)
+		// );
+	}, [JSON.stringify(selectedValues).length]);
 
+	const onSaveModal = () => {
+		setValue([]);
+		onSave(members);
+	};
+
+	// console.log("selected", selectedValues);
 	return (
 		<CustomModal
 			isModalVisible={isModalVisible}
-			centered={true}
+			// centered={true}
 			title={<ModalTitle title={"Members"} />}
 			onCancel={showModal}
-			footer={
-				<ModalFooter
-					onSave={() => {
-						onSave(members);
-					}}
-				/>
-			}
+			footer={<ModalFooter onSave={onSaveModal} />}
+			destroyOnClose={true}
 		>
 			<MemberSelect
 				data={firstTimeEmpData}

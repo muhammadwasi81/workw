@@ -2,15 +2,13 @@ import { React, useState } from "react";
 import "./style.css";
 //import { openStickyNotes } from "../../../store/appReducer/stickyNotesSlice";
 //import NewStickyNote from "./NewStickyNote";
-
+import Draggable from "react-draggable";
 import NoteList from "./NoteList";
-import NewStickyNote from "./NewStickyNote";
 import { useDispatch, useSelector } from "react-redux";
 import {
   incrementStickyNote,
   closeNote,
 } from "../../../store/appReducer/newStickySlice";
-import { object } from "prop-types";
 
 const Notes = (props) => {
   //let stickyNoteTitle = useSelector((state) => state.stickyNotesSlice.addTitle);
@@ -30,6 +28,7 @@ const Notes = (props) => {
   const time = hours + ":" + minutes;
   const dispatch = useDispatch();
   const noteList = useSelector((state) => state.newStickySlice.listArray);
+
   //const bgColor = useSelector((state) => state.newStickySlice.bgColor);
   const [searchInput, setSearchInput] = useState("");
 
@@ -41,11 +40,12 @@ const Notes = (props) => {
     title: "Title",
     textArea_placeholder: "Take a Note",
     textArea_value: "",
-    x_axis: Math.floor(Math.random() * 51).toString() + "%",
-    y_axis: Math.floor(Math.random() * 51).toString() + "%",
+    x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+    y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
     notelistTime: time,
     noteListTitle: props.stickyNoteTitle,
     noteListText: "Take a Note...",
+    img: [],
   };
 
   const {
@@ -58,6 +58,7 @@ const Notes = (props) => {
     notelistTime,
     noteListTitle,
     noteListText,
+    img,
   } = stickyNoteData;
 
   // const open = useSelector((state) => state.stickyNotesSlice.open);
@@ -76,6 +77,7 @@ const Notes = (props) => {
         notelistTime,
         noteListTitle,
         noteListText,
+        img,
       })
     );
   };
@@ -108,75 +110,67 @@ const Notes = (props) => {
   });
 
   return (
-    <div
-      className="note-container"
-      style={{
-        bottom: !minimize ? "1%" : "5%",
-        height: !minimize ? "37px" : "400px",
-        maxHeight: !minimize ? "37px" : "400px",
-      }}
-    >
-      {/* Note Header */}
-      <div className="note-header">
-        <div className="note__add-btn" onClick={incrementStickyNoteHandler}>
-          +
-        </div>
-        <div>Sticky Notes</div>
-        <div className="closeAndMinimize">
-          <div className="note__minus-btn" onClick={minimizeHandler}>
-            -
+    <Draggable defaultPosition={{ x: 11, y: 456 }}>
+      <div className={`note-container ${!minimize ? "minimize" : ""}`}>
+        {/* Note Header */}
+        <div className="note-header">
+          <div className="note__add-btn" onClick={incrementStickyNoteHandler}>
+            +
           </div>
-          <div className="note__close-btn" onClick={closeNoteHandler}>
-            x
+          <div>Sticky Notes</div>
+          <div className="closeAndMinimize">
+            <div className="note__minus-btn" onClick={minimizeHandler}>
+              -
+            </div>
+            <div className="note__close-btn" onClick={closeNoteHandler}>
+              x
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        className="note-searchBar-container"
-        style={{
-          display: !minimize ? "none" : "flex",
-        }}
-      >
-        <div className="note-searchBar">
-          <img src={require("./content/searchNew.d75a6c56.svg").default} />
-          <input
-            type="text"
-            placeholder="Search"
-            className="note-searchBar-input"
-            onChange={searchHandler}
-          />
-        </div>
-      </div>
-      <div
-        className="noteList__sec"
-        style={{ display: !minimize ? "none" : "block" }}
-      >
-        {filteredData.length > 0 ? (
-          filteredData.map((list) => (
-            <NoteList
-              key={list.id}
-              id={list.id}
-              time={list.time}
-              title={list.title}
-              stickyNoteTitle={title}
-              textArea_placeholder={textArea_placeholder}
-              text={list.text}
-              sticky__x_axis={x_axis}
-              sticky__y_axis={y_axis}
-              bgColor={list.bgColor}
-            />
-          ))
-        ) : (
-          <div className="no-notes-found">
+        <div className={`note-searchBar-container ${!minimize ? "hide" : ""}`}>
+          <div className="note-searchBar">
             <img
-              src={require("./content/no-notes-found.svg").default}
-              style={{ width: "110px", height: "110px" }}
+              src={require("./content/searchNew.d75a6c56.svg").default}
+              alt=""
             />
-            <p>No notes found!</p>
+            <input
+              type="text"
+              placeholder="Search"
+              className="note-searchBar-input"
+              onChange={searchHandler}
+            />
           </div>
-        )}
+        </div>
+        <div className={`noteList__sec ${!minimize ? "hide" : ""}`}>
+          {filteredData.length > 0 ? (
+            filteredData.map((list) => (
+              <NoteList
+                key={list.id}
+                id={list.id}
+                time={list.time}
+                title={list.title}
+                stickyNoteTitle={title}
+                textArea_placeholder={textArea_placeholder}
+                text={list.text}
+                sticky__x_axis={x_axis}
+                sticky__y_axis={y_axis}
+                bgColor={list.bgColor}
+                img={list.img}
+              />
+            ))
+          ) : (
+            <div className="no-notes-found">
+              <img
+                src={require("./content/no-notes-found.svg").default}
+                style={{ width: "110px", height: "110px" }}
+                alt=""
+              />
+              <p>No notes found!</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </Draggable>
   );
 };
 

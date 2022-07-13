@@ -1,24 +1,17 @@
-import React, { useState, useEffect } from "react";
-import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { useDispatch, useSelector } from "react-redux";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
-import ModalFooter from "./UI/ModalFooter";
-import ModalTitle from "./UI/ModalTitle";
-import CustomModal from "./CustomModal";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-function MemberModal({
-	value: selectedValues,
-	onSave,
-	showModal,
-	isModalVisible,
-}) {
+import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+
+function WorkBoardMemberSelect({ onChange }) {
 	const dispatch = useDispatch();
 	const employees = useSelector(state => state.sharedSlice.employees);
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
 	const [value, setValue] = useState([]);
-	const [members, setMembers] = useState([]);
-
+	// const [members, setMembers] = useState([]);
 	useEffect(() => {
 		fetchEmployees("", 0);
 	}, []);
@@ -36,31 +29,12 @@ function MemberModal({
 
 	const selectedData = (data, obj) => {
 		setValue(data);
-		setMembers(obj);
-	};
-	useEffect(() => {
-		setValue(selectedValues);
-		// console.log(
-		// 	// "JSON.stringify(selectedValues)]",
-		// 	JSON.stringify(selectedValues)
-		// );
-	}, [JSON.stringify(selectedValues).length]);
-
-	const onSaveModal = () => {
-		setValue([]);
-		onSave(members);
+		// setMembers(obj);
+		onChange(data, obj);
 	};
 
-	// console.log("selected", selectedValues);
 	return (
-		<CustomModal
-			isModalVisible={isModalVisible}
-			// centered={true}
-			title={<ModalTitle title={"Members"} />}
-			onCancel={showModal}
-			footer={<ModalFooter onSave={onSaveModal} />}
-			destroyOnClose={true}
-		>
+		<>
 			<MemberSelect
 				data={firstTimeEmpData}
 				selectedData={selectedData}
@@ -85,8 +59,8 @@ function MemberModal({
 				}}
 				dataVal={value}
 			/>
-		</CustomModal>
+		</>
 	);
 }
 
-export default MemberModal;
+export default WorkBoardMemberSelect;

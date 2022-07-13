@@ -105,13 +105,7 @@ export const ROUTES = {
 	TASKS: `${DOMAIN_PREFIX}/tasks`,
 	// LEAVES: `${DOMAIN_PREFIX}/leaves`,
 	EXPENSES: `${DOMAIN_PREFIX}/expenses`,
-	SEARCH: {
-		DEFAULT: `${DOMAIN_PREFIX}/search`,
-	},
-	MESSENGER: {
-		DEFAULT: `${DOMAIN_PREFIX}/messenger`,
-		CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
-	},
+
 	AUTH: {
 		SIGN_UP: `${DOMAIN_PREFIX}/register`,
 		SIGN_UP_SUCCESS: `${DOMAIN_PREFIX}/thankyou`,
@@ -203,7 +197,6 @@ export const ROUTES = {
 	TASKS: `${DOMAIN_PREFIX}/tasks`,
 	// LEAVES: `${DOMAIN_PREFIX}/leaves`,
 	EXPENSES: `${DOMAIN_PREFIX}/expenses`,
-	CUSTOM_APPROVALS: `${DOMAIN_PREFIX}/customApprovals`,
 
 	PAYROLL: {
 		DEFAULT: `${DOMAIN_PREFIX}/payroll`,

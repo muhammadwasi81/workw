@@ -1,20 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-// import { PersistGate } from "redux-persist/integration/react";
-// import storage from "redux-persist/lib/storage";
-// import { createStore } from "redux";
-// import documentsSlice from "../components/MainMenu/Documents/Storne/DocumentsSlice";
-// import mailSlice from "../components/MainMenu/Mail/Store/MailSlice";
 import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
 import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
 import authSlice from "../main/features/auth/store/slice";
@@ -40,7 +26,6 @@ import jobDescriptionSlice from "../main/features/jobDescription/store/slice";
 import customApprovalCategorySlice from "../main/features/customApprovalCategory/store/slice";
 import customApprovalSlice from "../main/features/CustomApprovals/store/slice";
 import notificationSlice from "../services/slices/notificationSlice.js";
-// import callSlice from "./appReducer/callSlice";
 import generalSlice from "./appReducer/generalSlice";
 import responseStatusSlice from "./appReducer/responseStatusSlice";
 import responsiveSlice from "./appReducer/responsiveSlice";

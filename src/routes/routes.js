@@ -72,10 +72,15 @@ export const routes = {
       path: `${ROUTES.COMPLAINS.DEFAULT}`,
       component: lazy(() => import("../main/features/complain/view/Complain")),
     },
-    // {
-    //   path: `${ROUTES.HR.BONUS.DEFAULT}`,
-    //   component: lazy(() => import("../components/HrMenu/Bonus/")),
-    // },
+    {
+      path: `${ROUTES.HR.BONUS.DEFAULT}`,
+      component: lazy(() => import("../main/features/bonus/view/Bonus")),
+    },
+
+    {
+      path: `${ROUTES.PROMOTION}`,
+      component: lazy(() => import("../main/features/promotion/view/Promotions")),
+    },
 
     //Hr Router
     {
@@ -198,12 +203,6 @@ export const routes = {
       path: `${ROUTES.ADMINISTRATOR.WARNING_CATEGORY},`,
       component: lazy(() => {
         import("../main/features/warning/warningCategory/view");
-      }),
-    },
-    {
-      path: `${ROUTES.PROMOTION},`,
-      component: lazy(() => {
-        import("../main/features/promotion/view/Promotions");
       }),
     },
   ],

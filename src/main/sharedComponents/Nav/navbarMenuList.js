@@ -31,6 +31,7 @@ import resignation from "../../../content/svg/menu/newNavBarIcon/resignation.svg
 import rewardIcon from "../../../content/svg/menu/rewardIcon.svg";
 import complainIcon from "../../../content/svg/menu/newNavBarIcon/complainIcon.svg";
 import departmentIcon from "../../../content/NewContent/department/departmentIcon.svg";
+import bonusIcon from "../../../content/NewContent/bonus/bonus.svg";
 
 import { DOMAIN_PREFIX } from "../../../utils/routes";
 const NavMenuList = () => {
@@ -166,62 +167,27 @@ const NavMenuList = () => {
       isActive: 6,
       key: label.navMenuLabel.hr,
     },
-    // {
-    // 	name: label.navMenuLabel.appraisals,
-    // 	counter: 0,
-    // 	icon: appraisalsIcon,
-    // 	to: ROUTES.HR.APPRAISALS.DEFAULT,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.departments,
-    // 	counter: 0,
-    // 	icon: departmentIcon,
-    // 	to: ROUTES.HR.DEPARTMENTS,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.leaves,
-    // 	counter: 0,
-    // 	icon: leavesIcon,
-    // 	to: ROUTES.HR.LEAVES,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.loan,
-    // 	counter: 0,
-    // 	icon: loanIcon,
-    // 	to: `${ROUTES.LOAN}?f=my`,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.holidays,
-    // 	counter: 0,
-    // 	icon: holiday_event,
-    // 	to: ROUTES.HR.HOLIDAYS,
-    // 	isActive: true,
-    // },
-    // {
-    // {
-    // {
-    // 	name: label.navMenuLabel.bonus,
-    // 	counter: 0,
-    // 	icon: loanIcon,
-    // 	to: ROUTES.HR.BONUS.DEFAULT,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.resignations,
-    // 	counter: 0,
-    // 	icon: resignation,
-    // 	to: ROUTES.HR.RESIGNATIONS.DEFAULT,
-    // 	isActive: true,
-    // },
+    {
+      name: label.navMenuLabel.promotions,
+      counter: 0,
+      to: `${ROUTES.PROMOTION}`,
+      icon: customApprovalIcon,
+      isActive: 7,
+      key: label.navMenuLabel.hr,
+    },
     {
       name: label.navMenuLabel.warnings,
       counter: 0,
       icon: career,
       to: ROUTES.WARNINGS.WARNING,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: label.navMenuLabel.bonus,
+      counter: 0,
+      icon: bonusIcon,
+      to: ROUTES.BONUS.DEFAULT,
       isActive: true,
       key: label.navMenuLabel.hr,
     },

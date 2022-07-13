@@ -22,6 +22,9 @@ export const CardWrapper = styled.div`
   direction: ltr;
   &:hover {
   }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
 `;
 
 export const CardWrapper2 = styled.div`

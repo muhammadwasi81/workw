@@ -103,6 +103,7 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/newschedules`,
   },
   TASKS: `${DOMAIN_PREFIX}/tasks`,
+  PROMOTION: `${DOMAIN_PREFIX}/promotions`,
   // LEAVES: `${DOMAIN_PREFIX}/leaves`,
   EXPENSES: `${DOMAIN_PREFIX}/expenses`,
   SEARCH: {
@@ -565,6 +566,9 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/documents/*`,
     DOCUMENT: `${DOMAIN_PREFIX}/documents`,
   },
+  BONUS: {
+    DEFAULT: `${DOMAIN_PREFIX}/bonus`,
+  },
   LEAVES: {
     DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
     LEAVE: `${DOMAIN_PREFIX}/leaves/`,
@@ -722,9 +726,6 @@ export const ROUTES = {
     COMPLAINS: {
       DEFAULT: `${DOMAIN_PREFIX}/complains`,
       APPROVALS: `${DOMAIN_PREFIX}/complains/approvals`,
-    },
-    BONUS: {
-      DEFAULT: `${DOMAIN_PREFIX}/bonus`,
     },
   },
   MAIL: {

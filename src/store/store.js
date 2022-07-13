@@ -63,6 +63,8 @@ const reducers = combineReducers({
   customApprovalCategorySlice,
   rewardCategorySlice,
   rewardSlice,
+  customApprovalSlice,
+  projectSlice,
   complainSlice,
   departmentSlice,
   warningSlice,

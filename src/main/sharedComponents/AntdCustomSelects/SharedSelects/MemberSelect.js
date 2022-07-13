@@ -52,15 +52,12 @@ function MemberSelect({
 	}, []);
 
 	useEffect(() => {
-		// console.log("stateVal", stateVal);
 		let filterArrOfObj;
 		if (isObject) {
 			filterArrOfObj = employees.filter(val =>
 				stateVal.includes(val[defaultKey])
 			);
 		}
-		// if (stateVal.length !== 0) {
-		// }
 		selectedData(stateVal, filterArrOfObj);
 
 		if (stateVal.length > 0) {
@@ -120,6 +117,13 @@ function MemberSelect({
 		}
 	}, [employees]);
 
+	useEffect(() => {
+		if (canFetchNow) {
+			setMemberData([...data]);
+		}
+	}, [data]);
+
+	// console.log("select", data);
 	return (
 		<AntCustomSelect
 			value={stateVal}
@@ -139,6 +143,7 @@ function MemberSelect({
 			size={size}
 			defaultData={defaultValues}
 			optionComponent={optionComponent}
+			isLoaded={canFetchNow}
 			// tagRender={props => <TagRender props={props} />}
 		/>
 	);

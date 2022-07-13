@@ -16,7 +16,9 @@ function AddList({ toggleAddingList }) {
 
 	const createList = async () => {
 		toggleAddingList();
-		dispatch(addList({ id: id(), title, color: "" }));
+		if (title.trim().length !== 0) {
+			dispatch(addList({ id: id(), title, color: "" }));
+		}
 	};
 
 	return (

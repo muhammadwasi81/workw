@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { Select } from "antd";
+import { Select, Skeleton, Space } from "antd";
 import { useState } from "react";
 import Avatar from "../Avatar/avatarOLD";
 import "./antdCustomSelect.css";
+import { act } from "react-dom/test-utils";
 const { Option } = Select;
 
 function AntCustomSelect(props) {
@@ -29,6 +30,7 @@ function AntCustomSelect(props) {
 		optionComponent,
 		label,
 		name,
+		isLoaded,
 	} = props;
 
 	useEffect(() => {
@@ -49,7 +51,7 @@ function AntCustomSelect(props) {
 			paginationHandler(pgNo);
 		}
 	}, [pgNo]);
-
+	console.log("data", isLoaded, data);
 	return (
 		<Select
 			className="w-full antd_custom_select"
@@ -66,7 +68,8 @@ function AntCustomSelect(props) {
 			onSearch={onSearch}
 			filterOption={filterOption}
 		>
-			{data &&
+			{isLoaded && !loading ? (
+				data &&
 				data.length > 0 &&
 				data.map((opt, index) => (
 					<Option
@@ -79,7 +82,15 @@ function AntCustomSelect(props) {
 							{optionComponent ? optionComponent(opt) : opt.name}
 						</div>
 					</Option>
-				))}
+				))
+			) : (
+				<Option>
+					<Space>
+						<Skeleton.Avatar active={true} />
+						<Skeleton.Input active={true} />
+					</Space>
+				</Option>
+			)}
 		</Select>
 	);
 }

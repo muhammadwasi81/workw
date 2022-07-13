@@ -41,6 +41,7 @@ import NoteSlice from "./appReducer/NoteSlice";
 import documentSlice from "../main/features/documents/store/slice";
 import newStickySlice from "./appReducer/newStickySlice";
 import trelloSlice from "../main/features/workboard/store/slice";
+import taskSlice from "../main/features/task/store/taskSlice";
 
 // import thunk from "redux-thunk";
 
@@ -85,6 +86,7 @@ const reducers = combineReducers({
   NoteSlice,
   newStickySlice,
   trelloSlice,
+  taskSlice,
   documentSlice,
 });
 

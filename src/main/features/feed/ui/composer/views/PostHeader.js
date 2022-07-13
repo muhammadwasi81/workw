@@ -9,7 +9,7 @@ const PostHeader = () => {
       user: { name, userImage },
     },
   } = useSelector((state) => state);
-  console.log(userImage, name);
+
   return (
     <>
       <div className="avatar-wrapper">

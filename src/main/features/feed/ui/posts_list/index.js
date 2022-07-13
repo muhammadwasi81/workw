@@ -1,6 +1,4 @@
 import PostItem from "./post/index";
-import thor from "./../../../../../content/thor.jpg";
-import ballon from "./../../../../../content/ballon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllFeed } from "../../store/actions";
 import { useEffect } from "react";
@@ -12,7 +10,7 @@ function PostsList() {
     dispatch(
       getAllFeed({
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 20,
         search: "",
         referenceId: userSlice.user.id,
         referenceType: 1,
@@ -21,7 +19,7 @@ function PostsList() {
     );
   }, []);
 
-  if (feedSlice.allFeed.loading) return <p>Loading</p>;
+  //   if (feedSlice.allFeed.loading) return <p>Loading</p>;
   return (
     <div className="newsList ">
       {!feedSlice.allFeed.posts.length > 0 ? (

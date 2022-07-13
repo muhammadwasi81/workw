@@ -31,7 +31,6 @@ export default function ComposerForm() {
           type="submit"
           onClick={() => {
             dispatch(onFeedCreateSubmitAction());
-            console.log("After disptach");
           }}
         >
           Post

@@ -20,17 +20,21 @@
 }
 .innerCard {
   background-color: #f4f4f4;
-  border-radius: 8px;
-  padding: 10px 20px;
+  border-radius: 5px;
+  padding: 8px 11px;
 }
 .innerCard__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 5px;
 }
 .innerCard__header .left {
   display: flex;
   gap: 8px;
+  color: black;
+  font-weight: 600;
+  font-size: 13px;
 }
 .innerCard__header .primaryTag {
   padding: 2px 10px;
@@ -194,9 +198,13 @@
 .innerDiv {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-right: 20px;
   min-height: 75px;
+}
+.innerDiv .reference_tag {
+  position: relative;
+  top: 11px;
 }
 .detailedCard .innerDiv {
   justify-content: space-evenly;
@@ -217,6 +225,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 15px;
+}
+.ItemDetails .IdTag {
+  margin-top: 13px;
 }
 .list-item .mem {
   margin-left: 10px;

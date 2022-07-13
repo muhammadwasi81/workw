@@ -17,7 +17,7 @@ import { Table } from "../../../sharedComponents/customTable";
 import Header from "../../../layout/header/index";
 
 // import "./complain.css";
-import { CardWrapper } from "../../../layout/GridStyle";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";

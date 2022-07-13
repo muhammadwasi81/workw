@@ -4,21 +4,23 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding: 15px 0 0; /*background-color: #000000;*//* min-width: 576px; */
+    /* padding: 15px 0 0;  */
+    /*background-color: #000000;*/
+    /* min-width: 576px; */
 }
 
-.newsFeed > .newsList > .note {
+.newsFeed>.newsList>.note {
     padding: 15px;
     text-align: center;
     color: #727780;
 }
 
-.newsFeed > .newsList > .note > span {
+.newsFeed>.newsList>.note>span {
     color: #345e95;
     cursor: pointer;
 }
 
-.newsFeed > .newsList > .note > span:hover {
+.newsFeed>.newsList>.note>span:hover {
     text-decoration: underline;
 }
 
@@ -33,7 +35,7 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.dialogue-video > .video-react {
+.dialogue-video>.video-react {
     height: 78vh !important;
     width: 100% !important;
 }
@@ -43,23 +45,24 @@
     width: 80%;
 }
 
-.email-vid > img {
+.email-vid>img {
     width: 32px;
     height: 32px;
 }
 
-.cmnt-composer > .composer-area > .inputs > .att {
+.cmnt-composer>.composer-area>.inputs>.att {
     width: 24px;
     height: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    margin-left: 5px; /* background: url(../../../../content/svg/attachment.svg) no-repeat; */
+    margin-left: 5px;
+    /* background: url(../../../../content/svg/attachment.svg) no-repeat; */
     background-size: 100% 100%;
 }
 
-.cmnt-composer > .composer-area > .inputs > .att > input[type="file"] {
+.cmnt-composer>.composer-area>.inputs>.att>input[type="file"] {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -72,7 +75,7 @@
     opacity: 0;
 }
 
-.post-events .btn > div > img {
+.post-events .btn>div>img {
     height: 20px;
     margin-right: 10px;
 }

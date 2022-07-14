@@ -14,8 +14,12 @@ function BoardComposer() {
 
 	const onFinish = values => {
 		// console.log("image object", image);
+		// [{ memberId: asdf }, { memberId: asdfasdf }];
+		let membersObj = membersData.map(member => {
+			return { memberId: member };
+		});
 		let tempObj = values;
-		tempObj.members = { memberId: membersData };
+		tempObj.members = membersObj;
 		tempObj.attachment = { file: image };
 		tempObj.privacyId = privacyId;
 

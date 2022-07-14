@@ -15,7 +15,7 @@ export default function PostPreviewAttachments() {
               store.dispatch(feedSlice.actions.removePostAttachment({ index }))
             }
             key={index}
-            file={item.file}
+            file={item}
           />
         ))}
       </div>

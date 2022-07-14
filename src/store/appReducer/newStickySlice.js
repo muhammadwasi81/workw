@@ -9,6 +9,8 @@ export const newStickySlice = createSlice({
     listArray: [],
     colorPicker: false,
     bgColor: "",
+    openImageSrc: "",
+    openImg: false,
   },
   reducers: {
     closeSticky: (state) => {
@@ -140,6 +142,14 @@ export const newStickySlice = createSlice({
       sticky.img = sticky.img.filter((item) => item !== values.source);
       noteList.img = noteList.img.filter((item) => item !== values.source);
     },
+    openFullImage: (state, action) => {
+      const imgSrc = action.payload;
+      state.openImageSrc = imgSrc;
+      state.openImg = true;
+    },
+    closeFullImage: (state) => {
+      state.openImg = false;
+    },
     boldText: (state, action) => {
       const id = action.payload;
       //let selection = window.getSelection();
@@ -166,6 +176,8 @@ export const {
   targetTextVal,
   addImage,
   deleteImg,
+  openFullImage,
+  closeFullImage,
   boldText,
 } = newStickySlice.actions;
 

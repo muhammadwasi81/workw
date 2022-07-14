@@ -24,8 +24,11 @@ import {
   addImage,
   deleteImg,
   boldText,
+  openFullImage,
 } from "../../../store/appReducer/newStickySlice";
 import StickyNoteColorSelector from "./StickyNoteColorSelector";
+import { useSelector } from "react-redux";
+import OpenImage from "./OpenImage";
 
 const NewStickyNote = (props) => {
   /* const abc = {
@@ -42,7 +45,6 @@ const NewStickyNote = (props) => {
 
   const [color, setColor] = useState(true);
   let [title, setTitle] = useState(props.titleVal);
-  const [set, isSet] = useState(true);
 
   //const [textAreaValue, setTextAreaValue] = useState(props.textAreaValue);
 
@@ -94,10 +96,9 @@ const NewStickyNote = (props) => {
   };
 
   let imgSrc = props.img;
-  console.log(deleteImg());
-  const deleteImgHandler = (e) => {
-    const source = String(e.target.src);
 
+  const deleteImgHandler = (e) => {
+    const source = String(e.target.id);
     dispatch(deleteImg({ id, source }));
     // console.log(imgSrc[0]);
     // const source = String(e.target.src);
@@ -114,9 +115,8 @@ const NewStickyNote = (props) => {
   } */
 
   const boldTextHandler = () => {
-    const id = props.id;
-    isSet(false);
-    dispatch(boldText(id));
+    /* const id = props.id;
+    dispatch(boldText(id)); */
   };
 
   const italicText = () => {};
@@ -125,11 +125,9 @@ const NewStickyNote = (props) => {
 
   const listText = () => {};
 
-  const [cancel, setCancel] = useState(false);
-
-  const XXX = () => {
-    setCancel(true);
-    console.log(cancel);
+  const openImage = (e) => {
+    const src = e.target.src;
+    dispatch(openFullImage(src));
   };
 
   return (
@@ -222,17 +220,15 @@ const NewStickyNote = (props) => {
               >
                 <div
                   className={style.image_deleteIcon}
-                  style={{ display: `${cancel ? "initial" : "none"}` }}
+                  onClick={deleteImgHandler}
                 >
-                  <AiTwotoneDelete
-                    style={{ margin: "0px auto" /* color: "black" */ }}
-                  />
+                  <AiOutlineClose id={imagegSrc} />
                 </div>
                 <img
+                  className={style.image}
                   key={index}
-                  onMouseOver={XXX}
-                  onDoubleClick={deleteImgHandler}
-                  style={{ height: "40px", width: "auto" }}
+                  onClick={openImage}
+                  //onDoubleClick={deleteImgHandler}
                   src={imagegSrc}
                   alt=""
                 />

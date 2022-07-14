@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import {
@@ -8,6 +8,7 @@ import {
 
 const NoteList = (props) => {
   const dispatch = useDispatch();
+  const [dotsIsVisible, setDotsIsVisible] = useState(false);
   const decrementStickyNoteHandler = () => {
     dispatch(decrementStickyNote(props.id));
   };
@@ -28,6 +29,14 @@ const NoteList = (props) => {
     );
   };
 
+  const dotsOnMouseOverHandler = () => {
+    setDotsIsVisible(true);
+  };
+
+  const dotsOnMouseOut = () => {
+    setDotsIsVisible(false);
+  };
+
   //const bgColor = useSelector((state) => state.newStickySlice.bgColor);
   //console.log(bgColor);
 
@@ -44,23 +53,36 @@ const NoteList = (props) => {
         <div className="noteLIST__title">{props.title}</div>
         <div
           className="noteLIST__date-sec"
-          onClick={decrementStickyNoteHandler}
+          onMouseOver={dotsOnMouseOverHandler}
+          onMouseOut={dotsOnMouseOut}
         >
-          {props.time}
-          <AiTwotoneDelete />
+          <div className={`time ${dotsIsVisible ? "invisible" : ""}`}>
+            {props.time}
+          </div>
+          <div
+            onClick={decrementStickyNoteHandler}
+            className={`dots ${dotsIsVisible ? "isVisible" : ""}`}
+          >
+            <AiTwotoneDelete />
+          </div>
         </div>
       </div>
       <div
         style={{
           display: "flex",
-          wrap: "nowrap",
+          margin: "8px 0px",
           overflowX: "auto",
-          justifyContent: "space-between",
           alignItems: "center",
+          height: imgSrc.length < 1 ? "3px" : "auto",
         }}
       >
         {imgSrc.map((imagegSrc) => (
-          <img id={props.id} src={imagegSrc} alt="" style={{ width: "30px" }} />
+          <img
+            id={props.id}
+            src={imagegSrc}
+            alt=""
+            style={{ width: "30px", margin: "0px 5px" }}
+          />
         ))}
       </div>
 

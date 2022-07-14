@@ -9,6 +9,10 @@ import {
   AiOutlineClose,
   AiTwotoneDelete,
   AiOutlinePicture,
+  AiOutlineBold,
+  AiOutlineItalic,
+  AiOutlineUnderline,
+  AiOutlineUnorderedList,
 } from "react-icons/ai";
 import style from "./NewStickyNote.module.css";
 import { useDispatch } from "react-redux";
@@ -19,6 +23,7 @@ import {
   decrementStickyNote,
   addImage,
   deleteImg,
+  boldText,
 } from "../../../store/appReducer/newStickySlice";
 import StickyNoteColorSelector from "./StickyNoteColorSelector";
 
@@ -37,6 +42,7 @@ const NewStickyNote = (props) => {
 
   const [color, setColor] = useState(true);
   let [title, setTitle] = useState(props.titleVal);
+  const [set, isSet] = useState(true);
 
   //const [textAreaValue, setTextAreaValue] = useState(props.textAreaValue);
 
@@ -107,98 +113,151 @@ const NewStickyNote = (props) => {
     reader.readAsDataURL(props.img[0]);
   } */
 
-  return (
-    <>
-      <Draggable defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}>
-        <div
-          style={{
-            transform: `translate(${props.x_axis}, ${props.y_axis})`,
-          }}
-          id={props.id}
-          className={style.stickyNoteItem__container}
-        >
-          <StickyNoteColorSelector id={props.id} color={color} />
-          <div
-            style={{ backgroundColor: props.titleBg }}
-            className={style.stickyNoteItem__item}
-          >
-            <div className={style.stickyNoteItem__title}>
-              <input
-                placeholder={props.title}
-                value={title}
-                onChange={getTitleValue}
-              />
-            </div>
-            <div
-              className={style.stickyNoteItem__icons}
-              onClick={openColorPicker}
-            >
-              <AiOutlineDash />
-            </div>
+  const boldTextHandler = () => {
+    const id = props.id;
+    isSet(false);
+    dispatch(boldText(id));
+  };
 
-            <div
-              className={style.stickyNoteItem__icons}
-              onClick={closeStickyNoteHandler}
-            >
-              <AiOutlineClose />
-            </div>
+  const italicText = () => {};
+
+  const underlineText = () => {};
+
+  const listText = () => {};
+
+  const [cancel, setCancel] = useState(false);
+
+  const XXX = () => {
+    setCancel(true);
+    console.log(cancel);
+  };
+
+  return (
+    <Draggable
+      defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
+      handle=".handle"
+    >
+      <div id={props.id} className={style.stickyNoteItem__container}>
+        <StickyNoteColorSelector id={props.id} color={color} />
+        <div
+          style={{ backgroundColor: props.titleBg }}
+          className={style.stickyNoteItem__item + " handle"}
+        >
+          <div className={style.stickyNoteItem__title}>
+            <input
+              placeholder={props.title}
+              value={title}
+              onChange={getTitleValue}
+            />
           </div>
-          <div className={imgSrc < 1 ? style.noHeight : style.image_container}>
-            {imgSrc.map((imagegSrc) => (
-              <img
-                onDoubleClick={deleteImgHandler}
-                id={props.id}
+          <div
+            className={style.stickyNoteItem__icons}
+            onClick={openColorPicker}
+          >
+            <AiOutlineDash />
+          </div>
+
+          <div
+            className={style.stickyNoteItem__icons}
+            onClick={closeStickyNoteHandler}
+          >
+            <AiOutlineClose />
+          </div>
+        </div>
+
+        <div className={style.bottom_menu}>
+          <div className={style.bottom_menuIcon} onClick={boldTextHandler}>
+            <AiOutlineBold />
+          </div>
+          <div className={style.bottom_menuIcon} onClick={italicText}>
+            <AiOutlineItalic />
+          </div>
+          <div className={style.bottom_menuIcon} onClick={underlineText}>
+            <AiOutlineUnderline />
+          </div>
+          <div className={style.bottom_menuIcon} onClick={listText}>
+            <AiOutlineUnorderedList />
+          </div>
+          <div className={style.bottom_menuIcon}>
+            <AiOutlineShareAlt />
+          </div>
+          <CopyToClipboard text={props.textAreaValue}>
+            <div className={style.bottom_menuIcon}>
+              <AiOutlineCopy />
+            </div>
+          </CopyToClipboard>
+          <div onClick={decrementHandler} className={style.bottom_menuIcon}>
+            <AiTwotoneDelete />
+          </div>
+          <div className={style.img_input_section}>
+            <AiOutlinePicture />
+            <input
+              className={style.img_input}
+              placeholder="+"
+              type="file"
+              accept="image/*"
+              size="150"
+              onChange={imageHandler}
+            />
+          </div>
+        </div>
+
+        <textarea
+          onClick={closeColorPicker}
+          onChange={getTextVal}
+          className={style.stickyNoteItem__textarea}
+          placeholder={props.textAreaPlaceholder}
+          value={props.textAreaValue}
+        />
+
+        {
+          <div
+            className={imgSrc < 1 ? style.noHeight : style.image_container}
+            style={{ display: "block" }}
+          >
+            {imgSrc.map((imagegSrc, index) => (
+              <div
                 className={style.image_section}
-                src={imagegSrc}
-                alt=""
-              />
+                style={{ display: "inline-block", width: "unset" }}
+              >
+                <div
+                  className={style.image_deleteIcon}
+                  style={{ display: `${cancel ? "initial" : "none"}` }}
+                >
+                  <AiTwotoneDelete
+                    style={{ margin: "0px auto" /* color: "black" */ }}
+                  />
+                </div>
+                <img
+                  key={index}
+                  onMouseOver={XXX}
+                  onDoubleClick={deleteImgHandler}
+                  style={{ height: "40px", width: "auto" }}
+                  src={imagegSrc}
+                  alt=""
+                />
+              </div>
             ))}
           </div>
+        }
 
-          <textarea
-            onClick={closeColorPicker}
-            onChange={getTextVal}
-            className={style.stickyNoteItem__textarea}
-            placeholder={props.textAreaPlaceholder}
-            value={props.textAreaValue}
+        <br />
+
+        <div
+          style={{
+            position: "absolute",
+            zIndex: "1",
+            bottom: "0px",
+            right: "0px",
+          }}
+        >
+          <img
+            src={require("./content/halfArrow.ff8f53df.svg").default}
+            alt=""
           />
-
-          <div className={style.bottom_menu}>
-            <div>
-              <AiOutlineShareAlt />
-            </div>
-            <CopyToClipboard text={props.textAreaValue}>
-              <div>
-                <AiOutlineCopy />
-              </div>
-            </CopyToClipboard>
-            <div onClick={decrementHandler}>
-              <AiTwotoneDelete />
-            </div>
-            <div className={style.img_input_section}>
-              <AiOutlinePicture />
-              <input
-                className={style.img_input}
-                placeholder="+"
-                type="file"
-                accept="image/*"
-                size="150"
-                onChange={imageHandler}
-              />
-            </div>
-          </div>
-          <div style={{ height: "25px" }}></div>
-
-          {/* <div style={{ position: "relative" }}>
-              <img
-                src={require("./content/halfArrow.ff8f53df.svg").default}
-                style={{ height: "17px", position: "absolute", right: "0" }}
-                alt=""
-              />
-            </div> */}
         </div>
-      </Draggable>
-    </>
+      </div>
+    </Draggable>
   );
 };
 

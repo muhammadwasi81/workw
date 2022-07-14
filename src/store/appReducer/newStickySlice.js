@@ -140,6 +140,13 @@ export const newStickySlice = createSlice({
       sticky.img = sticky.img.filter((item) => item !== values.source);
       noteList.img = noteList.img.filter((item) => item !== values.source);
     },
+    boldText: (state, action) => {
+      const id = action.payload;
+      //let selection = window.getSelection();
+      //let boldText = <strong> {selection} </strong>;
+      const selectSticky = state.incrementArray.find((item) => item.id === id);
+      //selectSticky.textArea_value = ;
+    },
   },
 });
 
@@ -159,6 +166,7 @@ export const {
   targetTextVal,
   addImage,
   deleteImg,
+  boldText,
 } = newStickySlice.actions;
 
 export default newStickySlice.reducer;

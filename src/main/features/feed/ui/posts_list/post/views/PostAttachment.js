@@ -19,7 +19,7 @@ function PostAttachment({ attachments, onOpen }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <div className="slider-container">
-      <div className="attacmentFullScreenBtn" onClick={onOpen}>
+      <div className="attacmentFullScreenBtn" onClick={() => onOpen(true)}>
         <FullscreenOutlined />
       </div>
       <div className="slides">

@@ -9,6 +9,7 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import { PieChartOutlined, GlobalOutlined } from "@ant-design/icons";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 function ListItem(props) {
@@ -28,8 +29,6 @@ function ListItem(props) {
     referenceNo,
     createDate,
   } = props.item;
-
-  // console.log(props.item, "imagessss")
   return (
     <>
       <SingleItem>
@@ -57,25 +56,44 @@ function ListItem(props) {
             <StatusTag status={status}></StatusTag>
           </div>
         </ItemHeader>
-        <ItemContent>
-          <p>{description}</p>
+        <ItemContent className="flex">
+          <div className="description w-full">
+            <p>{description}</p>
+          </div>
+          <div className="attachmentBox">
+            <Image preview={false} width={60} src={image === "" ? RewardDefaultIcon : image} />
+          </div>
         </ItemContent>
+        <div className="flex justify-between">
+          <div className="innerCard w-full">
+            <div className="innerCard__header">
+              <div className="left">
+                Category :
+                <span className="" style={{ color: "#757D86" }}>
+                  {category}
+                </span>
+              </div>
+              <div className="right">
+                <div className="left">
+                  Name :
+                  <span className="" style={{ color: "#757D86" }}>
+                    {name}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="innerCard__footer">
+              <div className="left">
+                Reason :
+                <span className="" style={{ color: "#757D86" }}>
+                  {reason}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="ListItemInner">
           <div className="ItemDetails">
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{rewardDictionary.name}</span>
-              <p>{name}</p>
-            </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{rewardDictionary.category}</span>
-              <p>
-                <Tag className="categoryTag">{category}</Tag>
-              </p>
-            </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{rewardDictionary.reason}</span>
-              <p>{reason}</p>
-            </div>
             <div className="innerDiv">
               <span className="text-black font-extrabold smallHeading">{rewardDictionary.rewardTo}</span>
               <Avatar
@@ -98,9 +116,6 @@ function ListItem(props) {
                 image={"https://joeschmoe.io/api/v1/random"}
               />
             </div>
-          </div>
-          <div className="attachmentBox">
-            <Image preview={false} width={100} src={image === "" ? RewardDefaultIcon : image} />
           </div>
         </div>
       </SingleItem>

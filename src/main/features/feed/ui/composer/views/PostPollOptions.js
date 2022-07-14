@@ -27,37 +27,77 @@ export default function PostPollOptions() {
   const removePollOption = (index) => {
     store.dispatch(feedSlice.actions.removePostPollOption({ index }));
   };
-
+  const removePollAttachment = () => {
+    console.log("w");
+  };
   const {
     type,
     poll: { options },
   } = useSelector(({ feedSlice }) => feedSlice.postCompose);
-
+  const isPollAttachment = options.some((item) => item.attachment);
   return (
     PostType.isPollType(type) && (
       <>
-        {options.map(({ value, attachment }, index) => (
+        {isPollAttachment ? (
+          <div className="pollsImageWrapper">
+            <div className="pollsImage">
+              {options.map(({ value, attachment }, index) => (
+                <div className="pollsImage__inner">
+                  <ImageReader
+                    key={index}
+                    file={attachment}
+                    removeFile={removePollAttachment}
+                  />
+                  <PollInput
+                    key={index}
+                    index={index}
+                    placeholder={`Option ${index + 1}`}
+                    value={value}
+                    onChange={(e) => onPollInputChange(index, e.target.value)}
+                    onPollAttachmentChange={(files) =>
+                      onPollAttachmentChange(index, files)
+                    }
+                    removePollOption={() => removePollOption(index)}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="poll-options">
+              {options.length < DEFAULT_MAX_POLL_OPTIONS && (
+                <button onClick={() => addPollOption()}>Add poll option</button>
+              )}
+              <button onClick={() => setPostTypeToDefault()}>
+                Remove poll
+              </button>
+            </div>
+          </div>
+        ) : (
           <>
-            <PollInput
-              key={index}
-              index={index}
-              placeholder={`Option ${index + 1}`}
-              value={value}
-              onChange={(e) => onPollInputChange(index, e.target.value)}
-              onPollAttachmentChange={(files) =>
-                onPollAttachmentChange(index, files)
-              }
-              removePollOption={() => removePollOption(index)}
-            />
-            <ImageReader key={index} file={attachment} />
+            {options.map(({ value }, index) => (
+              <>
+                <PollInput
+                  key={index}
+                  index={index}
+                  placeholder={`Option ${index + 1}`}
+                  value={value}
+                  onChange={(e) => onPollInputChange(index, e.target.value)}
+                  onPollAttachmentChange={(files) =>
+                    onPollAttachmentChange(index, files)
+                  }
+                  removePollOption={() => removePollOption(index)}
+                />
+              </>
+            ))}
+            <div className="poll-options">
+              {options.length < DEFAULT_MAX_POLL_OPTIONS && (
+                <button onClick={() => addPollOption()}>Add poll option</button>
+              )}
+              <button onClick={() => setPostTypeToDefault()}>
+                Remove poll
+              </button>
+            </div>
           </>
-        ))}
-        <div className="poll-options">
-          {options.length < DEFAULT_MAX_POLL_OPTIONS && (
-            <button onClick={() => addPollOption()}>Add poll option</button>
-          )}
-          <button onClick={() => setPostTypeToDefault()}>Remove poll</button>
-        </div>
+        )}
       </>
     )
   );

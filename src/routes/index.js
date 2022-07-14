@@ -5,12 +5,14 @@ import { Navigate, Outlet } from "react-router-dom";
 import { ROUTES } from "../utils/routes";
 import SideNavigation from "../main/sharedComponents/Nav/";
 import TopMenuBar from "../main/sharedComponents/MobileView/topMenu";
-import SideChatbar from "../main/sharedComponents/SideChatbar";
 import BottomNavigationTab from "../main/sharedComponents/MobileView/bottomNavigationTab/";
 import { useSelector } from "react-redux";
 // import { Main as KonnectCallView } from "./../main/container/konnect_call/main";
 // import { InComingCallContainer } from "../main/container/konnect_call/InComingCallContainer";
 import { Socket, SOCKET_STATE } from "../utils/socket";
+import Spinner from "../main/sharedComponents/spinner/spinner";
+import SideChatBar from "../main/features/SideChatbar/index";
+// import ChatBoxCont from "../main/sharedComponents/ChatBox/ChatBoxCont";
 // import { routes } from "../routes/routes";
 const PrivateRoute = () => {
   const { token } = useSelector((state) => state.userSlice);
@@ -54,11 +56,12 @@ const PrivateRoute = () => {
 };
 
 export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
-  // console.log("private routes");
+  //   console.log("private routes");
   //   const minimizeCall = useSelector(({ call }) => call.minimizeCall);
   //   const inComingCall = useSelector(({ call }) => call.inComingCall);
   const socketState = useSelector(({ general }) => general.socketConnectionState);
-  const socketStateColor = socketState === SOCKET_STATE.CONNECTED ? "#42b72a" : socketState === SOCKET_STATE.DISCONNECTED ? "#f03f27" : "blue";
+  const socketStateColor = socketState === SOCKET_STATE.CONNECTED ? "#42b72a" : 
+  socketState === SOCKET_STATE.DISCONNECTED ? "#f03f27" : "blue";
 
   return (
     <React.Fragment>
@@ -82,22 +85,14 @@ export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
         <div className="section ov-des" id="section1">
           <Suspense
             fallback={
-              <div
-                style={{
-                  position: "fixed",
-                  top: "50%",
-                  left: "50%",
-                }}
-              >
-                <div>Loading</div>
-              </div>
+             <Spinner />
             }
           >
             <PrivateRoute />
           </Suspense>
         </div>
       </div>
-      <SideChatbar />
+      <SideChatBar />
       {/* {minimizeCall && <KonnectCallView short={true} />} */}
       {/* {inComingCall && <InComingCallContainer />} */}
       {/* <ChatBoxCont /> */}

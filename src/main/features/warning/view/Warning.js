@@ -17,7 +17,7 @@ import { getAllWarnings, GetWarningById } from "../store/actions";
 import TableView from "./TableView";
 // import "./warning.css";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import { CardWrapper } from "../../../layout/GridStyle";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";

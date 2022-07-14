@@ -7,6 +7,7 @@ import DocumentComposers from "./composer";
 import { useSelector } from "react-redux";
 import DocumentDetailCards from "./documentDetailCards";
 import DocumentShortCards from "./documentShortCards";
+import DropableContainer from "./dropableContainer";
 
 const Documents = () => {
   const CurrentTab = useSelector(state => state.documentSlice.currentTab);
@@ -18,10 +19,11 @@ const Documents = () => {
   return (
     <TabbableContainer>
       <Header />
-      {/* <TypeBar /> */}
       <FilterBar />
       <ContBody>
-        { RenderTab[CurrentTab] }
+        <DropableContainer>
+          {RenderTab[CurrentTab]}
+        </DropableContainer>
       </ContBody>
       <DocumentComposers />
     </TabbableContainer>

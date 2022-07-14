@@ -5,7 +5,7 @@ import PictureIcon from './assests/picture.svg';
 import attachmentIcon from './assests/attachment.svg';
 import sendIcon from './assests/send.svg';
 import { useDispatch } from "react-redux";
-import { sendMessage } from "../../MainMenu/Messenger/store/messengerSlice";
+import { sendMessage } from "../../features/Messenger/store/messengerSlice";
 
 const ChatBoxFoot = (props) => {
     const dispatch = useDispatch()

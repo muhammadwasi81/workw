@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DocsComposerEnums } from "../../constant";
 import { handleCloseDocComposer } from "../../store/slice";
+import UploadByDrop from "./dropUpload";
 import CreateFolder from "./folder";
 import MileBoard from "./mileBoard";
 import MileGrid from "./mileGrid";

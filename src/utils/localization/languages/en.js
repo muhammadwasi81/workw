@@ -71,6 +71,7 @@ const en = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    promotions: "Promotions",
     feed: "NewsFeed",
     messenger: "Messenger",
     mailBox: "Mail Box",
@@ -113,6 +114,7 @@ const en = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    promotions: "Promotions",
     customApprovals: "Custom Approvals",
     feed: "NewsFeed",
     messenger: "Messenger",

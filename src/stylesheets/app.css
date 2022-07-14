@@ -369,6 +369,13 @@ iframe {
   color: white;
   border-radius: 10px;
 }
+.defaultNotification .ant-notification-notice-message{
+  margin: 0px !important;
+}
+.defaultNotification .ant-notification-notice-icon{
+  top: 9px;
+  left: 12px;
+}
 
 .drawerSecondary .ant-drawer-body {
   background: #faf9f9;

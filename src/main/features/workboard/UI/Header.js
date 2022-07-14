@@ -4,12 +4,27 @@ import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import BoardComposer from "../Composer/BoardComposer";
 // import { buttonsEnum } from "../enums/enums";
-import { useSelector } from "react-redux";
-function Header(props) {
-	const { label } = props;
-	// const { success } = props;
-	const success = useSelector(state => state.trelloSlice.success);
+import { useSelector, useDispatch } from "react-redux";
+import { openNotification } from "../../../../utils/Shared/store/slice";
+// import usePrevious from "../../../../utils/Shared/usePrevious";
+function Header() {
 	const [visible, setVisible] = useState(false);
+	const success = useSelector(state => state.trelloSlice.success);
+	// const prevProps = usePrevious(success);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (success) {
+			dispatch(
+				openNotification({
+					message: "WorkBoard Created Successfully",
+					type: "success",
+					duration: 0,
+				})
+			);
+		}
+	}, [success]);
+
 	const items = [
 		{
 			name: "Dashboard",

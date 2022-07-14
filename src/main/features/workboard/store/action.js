@@ -5,7 +5,10 @@ import {
 	responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 
-import { addWorkboardService } from "../services/services";
+import {
+	addWorkboardService,
+	getAllWorkboardService,
+} from "../services/services";
 
 export const addWorkBoard = createAsyncThunk(
 	"addWorkBoard",
@@ -30,5 +33,29 @@ export const addWorkBoard = createAsyncThunk(
 		}
 		// console.log("response after sending", res);
 		// return res;
+	}
+);
+
+export const getAllWorkBoard = createAsyncThunk(
+	"getAllWorkBoard",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await getAllWorkboardService(data);
+		if (res.responseCode === responseCode.Success) {
+			// console.log("success");
+			responseMessage({
+				dispatch: dispatch,
+				data: res,
+				type: responseMessageType.ApiSuccess,
+			});
+			return res;
+		} else {
+			// console.log("error");
+			responseMessage({
+				dispatch: dispatch,
+				data: res,
+				type: responseMessageType.ApiFailure,
+			});
+			return rejectWithValue(res.message);
+		}
 	}
 );

@@ -9,3 +9,13 @@ export const addWorkboardService = data => {
 			return error;
 		});
 };
+
+export const getAllWorkboardService = data => {
+	return MasterConfig.post(`${API_PREFIX}GetAllWorkBoard`, data)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};

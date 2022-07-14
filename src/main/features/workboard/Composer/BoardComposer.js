@@ -5,20 +5,22 @@ import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { useDispatch } from "react-redux";
 import { addWorkBoard } from "../store/action";
 import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
+import { jsonToFormData } from "../../../../utils/base";
 function BoardComposer() {
 	const [membersData, setMembersData] = useState([]);
 	const dispatch = useDispatch();
 	const [image, setImage] = useState();
 	const [privacyId, setPrivacyId] = useState(1);
-	const formData = new FormData();
 
 	const onFinish = values => {
+		// console.log("image object", image);
 		let tempObj = values;
-		tempObj.members = membersData;
-		tempObj.attachments = image;
+		tempObj.members = { memberId: membersData };
+		tempObj.attachment = { file: image };
 		tempObj.privacyId = privacyId;
-		Object.keys(tempObj).forEach(key => formData.append(key, tempObj[key]));
-		dispatch(addWorkBoard(formData));
+
+		// Object.keys(tempObj).forEach(key => formData.append(key, tempObj[key]));
+		dispatch(addWorkBoard(jsonToFormData(tempObj)));
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -58,9 +60,9 @@ function BoardComposer() {
 					<SingleUpload
 						handleImageUpload={fileData => {
 							// console.log("fileData", fileData[0]);
-							setImage(fileData[0]);
+							setImage(fileData[0].originFileObj);
 						}}
-						uploadText={"Upload"}
+						uploadText={"Upload Cover"}
 						multiple={false}
 					/>
 				</Form.Item>

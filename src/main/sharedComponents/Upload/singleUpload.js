@@ -59,7 +59,7 @@ class SingleUpload extends React.Component {
 		const { previewVisible, previewImage, fileList, previewTitle } =
 			this.state;
 		const uploadButton = (
-			<div>
+			<div className="px-1">
 				<PlusOutlined />
 				<div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
 			</div>

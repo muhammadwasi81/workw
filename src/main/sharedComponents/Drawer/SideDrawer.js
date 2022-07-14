@@ -109,6 +109,7 @@ function SideDrawer({
 						  }
 						: { fontSize: "22px" }
 				}
+				destroyOnClose={true}
 			>
 				{children}
 			</Drawer>

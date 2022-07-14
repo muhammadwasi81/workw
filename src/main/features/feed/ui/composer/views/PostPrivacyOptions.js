@@ -37,6 +37,13 @@ function PostPrivacyOptionsMenu(onPrivacyChange) {
         />
         <span>Private</span>
       </div>
+      <div onClick={() => onPrivacyChange(PostPrivacyType.EXTERNAL)}>
+        <img
+          src="https://konnect.im/static/media/padlock.35a2d6ca.svg"
+          alt=""
+        />
+        <span>External</span>
+      </div>
     </div>
   );
 }

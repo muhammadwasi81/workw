@@ -4,11 +4,7 @@ import ValidateCreatePost from "../utils/ValidateCreatePost";
 import SavePostRequestDto from "../data/model/SavePostRequestDto";
 import { getAllFeedServices, saveCreatePost } from "../data/FeedApi";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
-import {
-  getAllEmployeeService,
-  uploadImageService,
-} from "../../../../utils/Shared/services/services";
-import { DEFAULT_GUID } from "../../../../utils/constants";
+import { getAllEmployeeService } from "../../../../utils/Shared/services/services";
 
 export const onFeedCreateSubmitAction = createAsyncThunk(
   "feedSlice/onFeedCreateSubmit",
@@ -16,10 +12,6 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
     const {
       feedSlice: { postCompose },
     } = getState();
-    const {
-      attachments,
-      poll: { options },
-    } = postCompose;
     const { type } = postCompose;
     const { ValidateDefaultPost, ValidatePollPost } = ValidateCreatePost;
 
@@ -28,28 +20,10 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
       ? ValidatePollPost(postCompose)
       : ValidateDefaultPost(postCompose);
     if (!validation.valid) return rejectWithValue(validation.validationResult);
-    // if (attachments.length) {
-    //   const { data: attachmentResponse } = await uploadImageService(
-    //     attachments
-    //   );
-    //   attactmentIds = attachmentResponse.data.map((attachment) => {
-    //     return { attachmentId: attachment.id };
-    //   });
-    // }
-    // const isPollAttachment = options.some((option) => option.attachment);
-    // if (isPollAttachment) {
-    //   const attachments = options.map((option) => option.attachment);
-    //   const { data: attachmentResponse } = await uploadImageService(
-    //     attachments
-    //   );
-    //   attactmentIds = attachmentResponse.data.map((attachment) => {
-    //     return { attachmentId: attachment.id };
-    //   });
-    // }
-    console.log("API CALL");
     const requestDto = SavePostRequestDto(postCompose);
     const response = await saveCreatePost(requestDto);
 
+    // eslint-disable-next-line default-case
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
@@ -64,6 +38,7 @@ export const getAllFeed = createAsyncThunk(
   async (data, { _, rejectWithValue }) => {
     const response = await getAllFeedServices(data);
 
+    // eslint-disable-next-line default-case
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
@@ -104,11 +79,16 @@ function onPostTagsChange(state, { payload }) {
   state.postCompose.tags = payload;
 }
 
-function addPostAttachment(state, { payload: { file } }) {
-  state.postCompose.attachments = [
-    ...state.postCompose.attachments,
-    { id: DEFAULT_GUID, file },
-  ];
+function addPostAttachment(state, { payload: { files } }) {
+  console.log(files);
+  if (files.length > 1) {
+    state.postCompose.attachments = [
+      ...state.postCompose.attachments,
+      ...files,
+    ];
+  } else {
+    state.postCompose.attachments.push(files[0]);
+  }
 }
 
 function removePostAttachment(state, { payload: { index } }) {

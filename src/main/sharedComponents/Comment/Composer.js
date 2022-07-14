@@ -70,13 +70,13 @@ const CommentComposer = (props) => {
     if (event.keyCode == 13 || event.which == 13) {
       event.preventDefault();
       if (state.commentText.length > 0) {
+        commentText.current.blur();
         const response = await postComment(commentObj);
         const prevText = state.commentText;
         setState((preValue) => ({
           ...preValue,
           commentText: "",
         }));
-        commentText.current.blur();
         if (response) {
           afterSuccess(response);
         } else {

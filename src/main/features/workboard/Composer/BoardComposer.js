@@ -2,20 +2,31 @@ import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import WorkBoardMemberSelect from "./WorkBoardMemberSelect";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-
+import { useDispatch } from "react-redux";
+import { addWorkBoard } from "../store/action";
+import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 function BoardComposer() {
 	const [membersData, setMembersData] = useState([]);
+	const dispatch = useDispatch();
 	const [image, setImage] = useState();
+	const [privacyId, setPrivacyId] = useState(1);
 	const formData = new FormData();
+
 	const onFinish = values => {
 		let tempObj = values;
 		tempObj.members = membersData;
 		tempObj.attachments = image;
+		tempObj.privacyId = privacyId;
 		Object.keys(tempObj).forEach(key => formData.append(key, tempObj[key]));
+		dispatch(addWorkBoard(formData));
 	};
 
 	const onFinishFailed = errorInfo => {
 		console.log("Failed:", errorInfo);
+	};
+
+	const onPrivacyChange = value => {
+		setPrivacyId(value);
 	};
 
 	return (
@@ -32,7 +43,7 @@ function BoardComposer() {
 			<div className="flex gap-10">
 				<Form.Item
 					label="Board Name"
-					name="boardName"
+					name="name"
 					rules={[
 						{
 							required: true,
@@ -56,7 +67,7 @@ function BoardComposer() {
 			</div>
 			<Form.Item
 				label="Board Description"
-				name="boardDescription"
+				name="description"
 				rules={[
 					{
 						required: true,
@@ -75,15 +86,21 @@ function BoardComposer() {
 					/>
 				</Form.Item>
 				<Form.Item>
-					<Button
-						type="primary"
-						htmlType="submit"
-						block
-						className="ThemeBtn"
-						size="large"
-					>
-						Create Board
-					</Button>
+					<div className="flex items-center gap-2">
+						<PrivacyOptions
+							privacyId={privacyId}
+							onPrivacyChange={onPrivacyChange}
+						/>
+						<Button
+							type="primary"
+							htmlType="submit"
+							block
+							className="ThemeBtn"
+							size="large"
+						>
+							Create Board
+						</Button>
+					</div>
 				</Form.Item>
 			</div>
 		</Form>

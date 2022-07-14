@@ -4,11 +4,12 @@ import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import BoardComposer from "../Composer/BoardComposer";
 // import { buttonsEnum } from "../enums/enums";
-
+import { useSelector } from "react-redux";
 function Header(props) {
 	const { label } = props;
+	// const { success } = props;
+	const success = useSelector(state => state.trelloSlice.success);
 	const [visible, setVisible] = useState(false);
-	const { success } = props;
 	const items = [
 		{
 			name: "Dashboard",

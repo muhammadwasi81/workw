@@ -4,12 +4,12 @@ import { Checkbox, Tag } from "antd";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { addListCardDueDate } from "../store/slice";
+import { addListCardDueDate, openDateModal } from "../store/slice";
 
-function CheckDate({ isOutsideRender }) {
+function CheckDate({ isOutsideRender, cardId }) {
 	const [checked, setChecked] = useState(false);
 	const dispatch = useDispatch();
-	const cardId = useSelector(state => state.trelloSlice.addMemberCardId);
+	// const cardId = useSelector(state => state.trelloSlice.addMemberCardId);
 	const cardDetail = useSelector(state => state.trelloSlice[cardId]);
 	const [dateVal, setDateVal] = useState("");
 
@@ -57,6 +57,10 @@ function CheckDate({ isOutsideRender }) {
 		}
 		return moment(myDate, "DD/MM/YYYY").format("D MMM");
 	}
+
+	const showDateModal = () => {
+		dispatch(openDateModal({ isDateModalOpen: true, cardId }));
+	};
 
 	return (
 		<>
@@ -110,7 +114,10 @@ function CheckDate({ isOutsideRender }) {
 						}`}
 					/>
 
-					<div className="p-2 bg-neutral-100 rounded-sm flex items-center gap-2 cursor-pointer hover:bg-neutral-200">
+					<div
+						className="p-2 bg-neutral-100 rounded-sm flex items-center gap-2 cursor-pointer hover:bg-neutral-200"
+						onClick={showDateModal}
+					>
 						<span className="text-sm">{dateVal}</span>
 						{checked ? (
 							<Tag color="#87d068">complete</Tag>

@@ -69,6 +69,7 @@ function WorkBoardDetail() {
 						<div className="basis-9/12">
 							<WorkBoardDescription
 								dueDate={cardDueDate.dueDate}
+								cardId={addMemberCardId}
 							/>
 						</div>
 						<div className="basis-3/12">

@@ -83,3 +83,24 @@ export const FilterSortEnum = Object.freeze({
 	ReferenceNoDesc: 11,
 	ReferenceNoAsc: 12,
 });
+
+export const privacyOption = Object.freeze({
+	Public: 1,
+	Private: 2,
+	External: 3,
+});
+
+export const PostPrivacyType = Object.freeze({
+	PUBLIC: 1,
+	PRIVATE: 2,
+	EXTERNAL: 3,
+	getPostTypeIcon: type => {
+		// eslint-disable-next-line default-case
+		switch (type) {
+			case PostPrivacyType.PUBLIC:
+				return "https://konnect.im/static/media/world.f69f1142.svg";
+			case PostPrivacyType.PRIVATE:
+				return "https://konnect.im/static/media/padlock.35a2d6ca.svg";
+		}
+	},
+});

@@ -66,8 +66,6 @@ function Card(props) {
 		);
 	};
 
-	// console.log("members");
-
 	if (!editing) {
 		return (
 			<>
@@ -94,7 +92,10 @@ function Card(props) {
 								<div className="flex items-center gap-1">
 									{/* <EyeOutlined className="text-base" /> */}
 									{dueDate.length > 0 && (
-										<CheckDate isOutsideRender={true} />
+										<CheckDate
+											isOutsideRender={true}
+											cardId={cardData._id}
+										/>
 									)}
 								</div>
 								{cardData.members &&

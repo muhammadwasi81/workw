@@ -38,8 +38,8 @@ function WorkBoard() {
 
 	return (
 		<>
-			<Board />
-			{/* <Header /> */}
+			{/* <Board /> */}
+			<Header />
 		</>
 	);
 }

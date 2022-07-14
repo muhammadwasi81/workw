@@ -10,7 +10,7 @@ import DescriptionInput from "../UI/DescriptionInput";
 import CommentComposer from "../../../sharedComponents/Comment/Composer";
 import CheckDate from "../UI/CheckDate";
 
-function WorkBoardDescription({ dueDate }) {
+function WorkBoardDescription({ dueDate, cardId }) {
 	return (
 		<div className="flex flex-col gap-5">
 			<div className="flex items-center gap-2">
@@ -24,7 +24,7 @@ function WorkBoardDescription({ dueDate }) {
 					<span className="text-gray-500 font-semibold">
 						Due date
 					</span>
-					<CheckDate />
+					<CheckDate cardId={cardId} />
 				</div>
 			)}
 			<div className="flex gap-2 w-full">

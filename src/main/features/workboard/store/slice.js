@@ -1,4 +1,5 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
+import { addWorkBoard } from "./action";
 
 const initialState = {
 	lists: [],
@@ -7,6 +8,10 @@ const initialState = {
 	addMemberCardId: "",
 	memberDefaulIds: [],
 	showDateModal: false,
+	loader: false,
+	success: false,
+	error: false,
+	workboardsList: [],
 };
 
 const trelloSlice = createSlice({
@@ -166,6 +171,13 @@ const trelloSlice = createSlice({
 			}
 			state.showDateModal = isDateModalOpen;
 		},
+	},
+	extraReducers: builder => {
+		builder.addCase(addWorkBoard.fulfilled, (state, { payload }) => {
+			state.loader = false;
+			state.success = true;
+			state.error = false;
+		});
 	},
 });
 

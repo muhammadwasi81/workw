@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router";
 import { BrokenPage, STRINGS } from "../../../../utils/base";
 import Task from "../view/Task";
 // import TaskDetail from "./TaskDetail";
-import "../style/task.css";
+import "../view/style/task.css";
 
 function Index() {
   return (

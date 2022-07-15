@@ -1,23 +1,28 @@
 import React from "react";
 import { Card } from "antd";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
-import GroupImg from "../../../../content/png/groups_cover_image.jpg";
+import WorkBoardImg from "../../../../content/png/workboard.png";
 import PublicPrivateIcon from "../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
-function WorkBoardCard({ data, onWorkBoardClick }) {
+import { EditOutlined } from "@ant-design/icons";
+import { ROUTES } from "../../../../utils/routes";
+import { useNavigate } from "react-router-dom";
+function WorkBoardCard({ data }) {
 	const { Meta } = Card;
+	const navigate = useNavigate();
 	return (
 		<Card
 			cover={
 				<img
 					alt="example"
 					className="object-cover"
-					src={data.image ? data.image : GroupImg}
+					src={data.image ? data.image : WorkBoardImg}
 				/>
 			}
 			className="Card2"
 			hoverable
 			onClick={() => {
-				onWorkBoardClick(data.id);
+				// onWorkBoardClick(data.id);
+				navigate(`${ROUTES.WORKBOARD.BOARD}${data.id}`);
 			}}
 		>
 			<Meta

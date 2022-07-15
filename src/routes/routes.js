@@ -63,8 +63,14 @@ export const routes = {
 			component: lazy(() => import("../main/features/groups/index")),
 		},
 		{
-			path: `${ROUTES.TODO.DEFAULT}`,
+			path: `${ROUTES.WORKBOARD.DEFAULT}`,
 			component: lazy(() => import("../main/features/workboard/index")),
+		},
+		{
+			path: `${ROUTES.WORKBOARD.TODO_BOARD}`,
+			component: lazy(() =>
+				import("../main/features/workboard/Trello/Board")
+			),
 		},
 		{
 			path: `${ROUTES.WARNINGS.DEFAULT}`,

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
 import { getAllWorkBoard } from "../store/action";
 import WorkBoardCard from "./WorkBoardCard";
 
-function WorkBoardDashboard({ onWorkBoardClick }) {
-	const [first, setfirst] = useState("");
+function WorkBoardDashboard() {
 	const dispatch = useDispatch();
 	const workboardsListData = useSelector(
 		state => state.trelloSlice.workboardsList
@@ -24,10 +23,7 @@ function WorkBoardDashboard({ onWorkBoardClick }) {
 		<>
 			<CardWrapper2>
 				{workboardsListData.map(data => (
-					<WorkBoardCard
-						data={data}
-						onWorkBoardClick={onWorkBoardClick}
-					/>
+					<WorkBoardCard data={data} />
 				))}
 			</CardWrapper2>
 		</>

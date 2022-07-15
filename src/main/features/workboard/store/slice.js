@@ -1,5 +1,5 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
-import { addWorkBoard, getAllWorkBoard } from "./action";
+import { addWorkBoard, getAllWorkBoard, getWorkboardById } from "./action";
 
 const initialState = {
 	lists: [],
@@ -12,6 +12,7 @@ const initialState = {
 	success: false,
 	error: false,
 	workboardsList: [],
+	workboardDetail: null,
 };
 
 const trelloSlice = createSlice({
@@ -178,12 +179,16 @@ const trelloSlice = createSlice({
 				state.loader = false;
 				state.success = true;
 				state.error = false;
+				state.workboardsList.unshift(payload.data);
 			})
 			.addCase(getAllWorkBoard.fulfilled, (state, { payload }) => {
 				state.workboardsList = payload.data;
 			})
+			.addCase(getWorkboardById.fulfilled, (state, { payload }) => {
+				state.workboardDetail = payload.detail;
+			})
 			.addMatcher(
-				isPending(...[addWorkBoard, getAllWorkBoard]),
+				isPending(...[addWorkBoard, getAllWorkBoard, getWorkboardById]),
 				state => {
 					state.loader = true;
 					state.success = false;

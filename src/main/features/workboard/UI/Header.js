@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import BoardComposer from "../Composer/BoardComposer";
 import { useSelector, useDispatch } from "react-redux";
-import { openNotification } from "../../../../utils/Shared/store/slice";
+// import { openNotification } from "../../../../utils/Shared/store/slice";
 function Header() {
 	const [visible, setVisible] = useState(false);
 	const success = useSelector(state => state.trelloSlice.success);
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		if (success) {
-			dispatch(
-				openNotification({
-					message: "WorkBoard Created Successfully",
-					type: "success",
-					duration: 0,
-				})
-			);
-		}
-	}, [success]);
+	// const dispatch = useDispatch();
 
 	const items = [
 		{

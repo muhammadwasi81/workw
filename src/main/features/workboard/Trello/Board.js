@@ -61,7 +61,7 @@ function Board() {
 				{(provided, _snapshot) => (
 					<div
 						ref={provided.innerRef}
-						className="Board h-full flex overflow-x-auto bg-slate-500"
+						className="Board h-full flex overflow-x-auto bg-white"
 					>
 						{lists.map((list, index) => {
 							return (
@@ -78,7 +78,7 @@ function Board() {
 						<div className="Add_List w-[264px] m-[10px] flex-shrink-0">
 							{!addingList ? (
 								<Button
-									className="!flex !items-center !bg-[#ffffff3d] !rounded-sm !text-white hover:!bg-[#ffffff52] !border-none mx-2 !w-[264px]"
+									className="!flex !items-center !bg-neutral-400 !rounded-sm !text-white hover:!bg-neutral-500 !border-none mx-2 !w-[264px]"
 									icon={<PlusOutlined />}
 									onClick={toggleAddingList}
 								>

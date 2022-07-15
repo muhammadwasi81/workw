@@ -19,3 +19,13 @@ export const getAllWorkboardService = data => {
 			return error;
 		});
 };
+
+export const getWorkboardByIdService = id => {
+	return MasterConfig.get(`${API_PREFIX}GetWorkBoardById?id=${id}`)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};

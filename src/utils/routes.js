@@ -437,7 +437,8 @@ export const ROUTES = {
 		DEFAULT: `${DOMAIN_PREFIX}/workboard`,
 		DASHBOARD: `${DOMAIN_PREFIX}/workboard/dashboard`,
 		LIST: `${DOMAIN_PREFIX}/workboard/list`,
-		TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board`,
+		BOARD: `${DOMAIN_PREFIX}/workboard/board/`,
+		TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board/:id`,
 		MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
 	},
 

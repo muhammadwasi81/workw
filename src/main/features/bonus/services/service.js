@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllPromotionService = (data) => {
-  return MasterConfig.post(`api/Promotion/GetAllPromotion`, data)
+  return MasterConfig.post(`api/Bonus/GetAllBonus`, data)
     .then((res) => {
       return res.data;
     })

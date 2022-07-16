@@ -24,7 +24,7 @@ import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 
-const Reward = (props) => {
+const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { warningDictionary } = warningDictionaryList[userLanguage];
 
@@ -44,7 +44,7 @@ const Reward = (props) => {
     setVisible(false);
   };
 
-  const getRewardId = (id) => {
+  const getWarningId = (id) => {
     dispatch(GetWarningById(id));
     setVisible(true);
   };
@@ -128,7 +128,7 @@ const Reward = (props) => {
                   {warnings.map((item, index) => {
                     return (
                       <>
-                        <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                        <ListItem getWarningId={getWarningId} item={item} id={item.id} key={index} />
                       </>
                     );
                   })}
@@ -145,4 +145,4 @@ const Reward = (props) => {
   );
 };
 
-export default Reward;
+export default Warning;

@@ -260,6 +260,7 @@
 }
 .Card2 .ant-card-meta-detail {
   margin-bottom: 12px;
+  width: 100%;
 }
 
 .Card2 .departmentUpload {

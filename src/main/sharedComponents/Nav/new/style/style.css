@@ -4,7 +4,7 @@
   background-color: #fff;
 }
 .ant-tooltip-inner {
-  color: #000 !important;
+  /* color: #000 !important; */
 }
 .MenuCollapse {
   border: 0 !important;

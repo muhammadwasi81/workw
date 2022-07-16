@@ -185,7 +185,7 @@ const trelloSlice = createSlice({
 				state.workboardsList = payload.data;
 			})
 			.addCase(getWorkboardById.fulfilled, (state, { payload }) => {
-				state.workboardDetail = payload.detail;
+				state.workboardDetail = payload.data;
 			})
 			.addMatcher(
 				isPending(...[addWorkBoard, getAllWorkBoard, getWorkboardById]),

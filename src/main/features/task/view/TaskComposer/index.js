@@ -4,15 +4,19 @@ import React, { useContext, useState } from "react";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import ImageUpload from "../../../../sharedComponents/Input/ImageUpload";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { taskDictionary } from "../../localization";
+import { taskDictionary } from "../../utils/localization";
 import { useDispatch } from "react-redux";
 import { addNewTask } from "../../store/actions";
 import { STRINGS } from "../../../../../utils/base";
 import moment from "moment";
+import { openNotification } from "../../../../../utils/Shared/store/slice";
+import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 const { RangePicker } = DatePicker;
 
 function TaskComposer() {
+  const [form] = Form.useForm();
   const [isAssignTo, setIsAssignTo] = useState(false);
+  const [attachments, setAttachments] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, taskDictionaryList } = taskDictionary[userLanguage];
   const { labels, createTextBtn, placeHolder } = taskDictionaryList;
@@ -26,11 +30,11 @@ function TaskComposer() {
     subject: "",
     predecessor: "",
     description: "",
-    type: "general",
+    type: "1",
     taskType: "self",
     assign: "",
     taskDate: "",
-    priority: "default",
+    priority: "1",
     checkList: "",
   };
   const handleTaskType = ({ target }) => {
@@ -41,21 +45,29 @@ function TaskComposer() {
   classes += Direction === "ltr" ? "ltr" : "rtl";
 
   const handleSubmit = (values) => {
-console.log(values.date[0].format())
+    console.log(values);
+    let { date, description, predecessor, priority, subject, taskType, type } = values;
     let requestData = {
-      subject: "Test",
-      description: "dssd",
+      subject,
+      description,
       parentId: STRINGS.DEFAULTS.guid,
       referenceId: STRINGS.DEFAULTS.guid,
-      referenceType: 1,
-      startDate: moment().format(),
-      endDate: moment().format(),
-      priority: 1,
+      referenceType: Number(type),
+      startDate: date[0].format(),
+      endDate: date[1].format(),
+      priority: Number(priority),
       members: [],
-      // attachments: []
+      attachments: attachments
     }
+    dispatch(addNewTask(requestData));
+    // dispatch(openNotification({
+    //   message: "Task Create Successfully",
+    //   style: { backgroundColor: "#48da00" },
+    //   type:"success",
+    //   duration: 2
+    // }));
+    form.resetFields();
 
-    dispatch(addNewTask(requestData))
   }
   return (
     <Form
@@ -64,33 +76,69 @@ console.log(values.date[0].format())
       layout="vertical"
       initialValues={initialValues}
       onFinish={handleSubmit}
+      form={form}
     >
-      <Form.Item label={labels.taskSubject} name="subject">
+      <Form.Item label={labels.taskSubject} name="subject"
+        rules={[
+          {
+            required: true,
+            message: "Please input subject!",
+          },
+        ]}
+      >
         <TextInput placeholder={placeHolder.writeSubject} />
       </Form.Item>
-      <Form.Item label={labels.predecessor} name="predecessor">
+      {/* <Form.Item label={labels.predecessor} name="predecessor"
+      rules={[
+        {
+          required: true,
+          message: "Please input predecessor!",
+        },
+      ]}
+      >
         <TextInput placeholder={placeHolder.writePredecessor} />
-      </Form.Item>
-      <Form.Item label={labels.description} name="description">
+      </Form.Item> */}
+      <Form.Item label={labels.description} name="description"
+        rules={[
+          {
+            required: true,
+            message: "Please input description!",
+          },
+        ]}
+      >
         <TextInput placeholder={placeHolder.writeDescription} />
       </Form.Item>
-      <Form.Item label={labels.type} name="type">
+      <Form.Item label={labels.type} name="type"
+        rules={[
+          {
+            required: true,
+            message: "Please select type!",
+          },
+        ]}
+      >
         <Radio.Group className="radioPrimary">
-          <Radio.Button value="general">
+          <Radio.Button value="1">
             <CheckCircleOutlined />
             {labels.general}
           </Radio.Button>
-          <Radio.Button value="project">
+          <Radio.Button value="2">
             <CheckCircleOutlined />
             {labels.project}
           </Radio.Button>
-          <Radio.Button value="group">
+          <Radio.Button value="3">
             <CheckCircleOutlined />
             {labels.group}
           </Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="" name="taskType">
+      <Form.Item label="" name="taskType"
+        rules={[
+          {
+            required: true,
+            message: "Please select type!",
+          },
+        ]}
+      >
         <Radio.Group options={options} onChange={handleTaskType} />
       </Form.Item>
       {isAssignTo && (
@@ -99,12 +147,24 @@ console.log(values.date[0].format())
         </Form.Item>
       )}
 
-      <Form.Item label={labels.taskDate} name="date">
+      <Form.Item label={labels.taskDate} name="date"
+        rules={[
+          {
+            required: true,
+            message: "Please select date!",
+          },
+        ]}>
         <RangePicker
           placeholder={[placeHolder.startDate, placeHolder.endtDate]}
         />
       </Form.Item>
-      <Form.Item label={labels.priority} name="priority">
+      <Form.Item label={labels.priority} name="priority"
+        rules={[
+          {
+            required: true,
+            message: "Please select priority!",
+          },
+        ]}>
         <Radio.Group className="radioPrimary radioPriority">
           <Radio.Button value="1">
             <CheckCircleOutlined />
@@ -124,11 +184,19 @@ console.log(values.date[0].format())
           </Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="" name="checkList">
+      {/* <Form.Item label="" name="checkList">
         <Checkbox> {labels.checkList}</Checkbox>
-      </Form.Item>
-      <Form.Item label="" name="">
-        <ImageUpload />
+      </Form.Item> */}
+      <Form.Item label="" name="" className="w-max">
+        <SingleUpload
+          handleImageUpload={fileData => {
+            // console.log("fileData", fileData[0]);
+            setAttachments([...attachments, { id:STRINGS.DEFAULTS.guid ,file: fileData[0].originFileObj }]);
+          }}
+          uploadText={"Upload"}
+          multiple={false}
+        />
+
       </Form.Item>
       <Form.Item >
         <Button className="ThemeBtn" block htmlType="submit">

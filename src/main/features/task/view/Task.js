@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { STRINGS } from "../../../../utils/base";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -11,15 +11,32 @@ import TaskComposer from "./TaskComposer";
 
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header";
-import { buttonsEnum } from "../enum/enum";
-import { taskDictionary } from "../localization";
+import { buttonsEnum } from "../utils/enum/enum";
+import { taskDictionary } from "../utils/localization";
 import MyTask from "./MyTask";
+import { useDispatch } from "react-redux";
+import { getAllTask } from "../store/actions";
+import useSelection from "antd/lib/table/hooks/useSelection";
+import { useSelector } from "react-redux";
 
 function Task() {
+  let defaultFilter = {
+    filterType: 2,
+    pageNo: 1,
+    pageSize: 20
+  }
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { appHeader, sharedLabels, navMenuLabel } =
-    dictionaryList[userLanguage];
+  const { appHeader, sharedLabels, navMenuLabel } = dictionaryList[userLanguage];
   const { taskDictionaryList } = taskDictionary[userLanguage];
+  const [filterType, setFilterType] = useState(2);
+  const dispatch = useDispatch();
+  const taskList = useSelector((state)=> state.taskSlice.taskList)
+  useEffect(() => {
+    dispatch(getAllTask({
+      ...defaultFilter,
+      filterType
+    }))
+  }, [filterType])
 
   const items = [
     {
@@ -36,9 +53,10 @@ function Task() {
           children={<TaskComposer />}
           title={taskDictionaryList.createTextBtn}
           buttonText={taskDictionaryList.createTextBtn}
+
         />
       ),
-    },
+    }
   ];
   return (
     <TabbableContainer>
@@ -47,32 +65,28 @@ function Task() {
         onSearch={(value) => {
           console.log(value);
         }}
-        filter={{
-          onFilter: () => {},
-        }}
+        // filter={{
+        //   onFilter: () => {},
+        // }}
         buttons={[
           {
             name: appHeader.Task.myTask,
-            onClick: () => {},
+            onClick: () => setFilterType(2),
           },
           {
-            name: appHeader.Task.assignedByMe,
-            onClick: () => {},
-          },
-          {
-            name: appHeader.Task.teamTask,
-            onClick: () => {},
+            name: appHeader.Task.createdByMe,
+            onClick: () => setFilterType(1),
           },
         ]}
         segment={{
-          onSegment: (value) => {},
+          onSegment: (value) => { },
           label1: sharedLabels.List,
           label2: sharedLabels.Table,
         }}
       />
       <ContBody>
         <div className="lf-col">
-          <MyTask />
+          <MyTask list={taskList ? taskList : []}/>
         </div>
       </ContBody>
     </TabbableContainer>

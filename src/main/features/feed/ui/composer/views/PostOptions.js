@@ -15,8 +15,9 @@ function PostOptions() {
   ];
 
   const onPostAttachment = (files) => {
+   
     if (files.length && files[0]) {
-      store.dispatch(feedSlice.actions.addPostAttachment({ file: files[0] }));
+      store.dispatch(feedSlice.actions.addPostAttachment({ files: files }));
     }
   };
   const setPostTypeToPoll = () => {

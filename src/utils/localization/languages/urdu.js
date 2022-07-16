@@ -168,6 +168,7 @@ const urdu = {
     Task: {
       myTask: "میرے کام",
       assignedByMe: "میری طرف سے تفویض کردہ",
+      createdByMe: "میری طرف سے تفویض کردہ",
       teamTask: "ٹیم ٹاسک",
       dashboard: "ڈیش بورڈ",
     },

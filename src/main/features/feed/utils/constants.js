@@ -30,14 +30,17 @@ export const PollType = Object.freeze({
 });
 
 export const PostPrivacyType = Object.freeze({
+  PUBLIC: 1,
   PRIVATE: 2,
-  PUBLIC: 3,
+  EXTERNAL: 3,
   getPostTypeIcon: (type) => {
     // eslint-disable-next-line default-case
     switch (type) {
       case PostPrivacyType.PUBLIC:
         return "https://konnect.im/static/media/world.f69f1142.svg";
       case PostPrivacyType.PRIVATE:
+        return "https://konnect.im/static/media/padlock.35a2d6ca.svg";
+      case PostPrivacyType.EXTERNAL:
         return "https://konnect.im/static/media/padlock.35a2d6ca.svg";
     }
   },

@@ -338,10 +338,10 @@
 }
 .notificationModal .ant-modal {
   margin: 0;
-  left: 255px;
+  left: 220px;
   transform: none;
   position: relative;
-  top: 160px;
+  top: 150px;
 }
 .notificationModal .ant-modal-wrap {
   z-index: 998;

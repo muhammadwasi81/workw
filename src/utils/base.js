@@ -1753,8 +1753,8 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
               });
               if (
                 leftPositionOfMentionList +
-                  inp.offset().left +
-                  mentionListView.outerWidth() >=
+                inp.offset().left +
+                mentionListView.outerWidth() >=
                 $(window).width()
               ) {
                 mentionListViewPosition.left =
@@ -1831,33 +1831,29 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
   function userItem(user) {
     const contact = $(`<div class="search-item">
                                                     <div class="img"
-                                                        ${
-                                                          !$.isEmptyObject(
-                                                            user.profile_picture
-                                                          )
-                                                            ? `style="background-image: url(${user.profile_picture}); background-repeat: no-repeat; background-size: 100%;"`
-                                                            : ""
-                                                        }
-                                                     >${
-                                                       $.isEmptyObject(
-                                                         user.profile_picture
-                                                       )
-                                                         ? getNameForImage(
-                                                             user.name
-                                                           )
-                                                         : ""
-                                                     }</div>
+                                                        ${!$.isEmptyObject(
+      user.profile_picture
+    )
+        ? `style="background-image: url(${user.profile_picture}); background-repeat: no-repeat; background-size: 100%;"`
+        : ""
+      }
+                                                     >${$.isEmptyObject(
+        user.profile_picture
+      )
+        ? getNameForImage(
+          user.name
+        )
+        : ""
+      }</div>
                                                     <div class="pr">
-                                                        <div class="n">${
-                                                          user.name
-                                                        }</div>
-                                                        ${
-                                                          !$.isEmptyObject(
-                                                            user.designation
-                                                          )
-                                                            ? `<div class="p">${user.designation}</div>`
-                                                            : ""
-                                                        }
+                                                        <div class="n">${user.name
+      }</div>
+                                                        ${!$.isEmptyObject(
+        user.designation
+      )
+        ? `<div class="p">${user.designation}</div>`
+        : ""
+      }
                                                     </div>
                                                 </div>`);
     mentionListView.append(contact);
@@ -2178,14 +2174,45 @@ export function handleIndexingOnPopUpClose(){
         $('.voters-box').css({zIndex:'1'});
         $('.tabbable-container > .cont-header').css({zIndex:'2'});
 }*/
-export const groupByKey = (list, key) =>
-  list.reduce(
+export const groupByKey = (list, key) => {
+  return list.reduce(
     (hash, obj) => ({
       ...hash,
       [obj[key]]: (hash[obj[key]] || []).concat(obj),
     }),
     {}
   );
+}
 export const isEmptyObj = (obj) => {
   return Object.keys(obj).length === 0;
 };
+export function buildFormData(formData, data, parentKey) {
+  if (
+    data &&
+    typeof data === "object" &&
+    !(data instanceof Date) &&
+    !(data instanceof File)
+  ) {
+    Object.keys(data).forEach((key) => {
+      buildFormData(
+        formData,
+        data[key],
+        // parentKey ? `${parentKey}[${key}]` : key
+        parentKey
+          ? !isNaN(Number(key))
+            ? `${parentKey}[${key}]`
+            : `${parentKey}.${key}`
+          : key
+      );
+    });
+  } else {
+    const value = data == null ? "" : data;
+    formData.append(parentKey, value);
+  }
+}
+
+export function jsonToFormData(data) {
+  const formData = new FormData();
+  buildFormData(formData, data);
+  return formData;
+}

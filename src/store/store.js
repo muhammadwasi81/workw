@@ -51,7 +51,7 @@ import documentSlice from "../main/features/documents/store/slice";
 import newStickySlice from "./appReducer/newStickySlice";
 import trelloSlice from "../main/features/workboard/store/slice";
 // import loanSlice from "../main/features/loan/store/slice";
-// import taskSlice from "../main/features/task/store/taskSlice";
+import taskSlice from "../main/features/task/store/taskSlice";
 
 // import thunk from "redux-thunk";
 
@@ -100,6 +100,7 @@ const reducers = combineReducers({
 	newStickySlice,
 	documentSlice,
 	trelloSlice,
+	taskSlice
 });
 
 const persistConfig = {

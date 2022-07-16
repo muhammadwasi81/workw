@@ -13,6 +13,8 @@ function EmployeeList() {
   const dispatch = useDispatch();
   const { employees, loader } = useSelector((state) => state.employeeSlice);
 
+  console.log(employees, "HELLO EMP");
+
   useEffect(() => {
     dispatch(getAllEmployees());
   }, [dispatch]);
@@ -20,16 +22,7 @@ function EmployeeList() {
   return (
     <AllEmpolyeeContainer direction={Direction}>
       {employees.map(({ businessId, designation, email, image, name }) => {
-        return (
-          <EmployeeCard
-            key={businessId}
-            name={name}
-            email={email}
-            designation={designation}
-            empNum={businessId}
-            image={image}
-          />
-        );
+        return <EmployeeCard key={businessId} name={name} email={email} designation={designation} empNum={businessId} image={image} />;
       })}
     </AllEmpolyeeContainer>
   );

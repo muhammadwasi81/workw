@@ -32,7 +32,7 @@ const Reward = (props) => {
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
-  const [visible, setVisible] = useState(false);
+  const [detailId, setDetailId] = useState(false);
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
@@ -41,12 +41,7 @@ const Reward = (props) => {
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
-    setVisible(false);
-  };
-
-  const getRewardId = (id) => {
-    dispatch(GetRewardById(id));
-    setVisible(true);
+    setDetailId(null);
   };
 
   useEffect(() => {
@@ -139,7 +134,7 @@ const Reward = (props) => {
                     {rewards.map((item, index) => {
                       return (
                         <>
-                          <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                          <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
                         </>
                       );
                     })}
@@ -151,7 +146,7 @@ const Reward = (props) => {
             "Data not found"
           )}
         </ContBody>
-        {rewardDetail && <DetailedView onClose={onClose} visible={visible} />}
+        {<DetailedView onClose={onClose} id={detailId} />}
       </TabbableContainer>
     </>
   );

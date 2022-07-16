@@ -12,7 +12,7 @@ import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllComplains, GetRewardById } from "../store/actions";
+import { getAllComplains, GetComplainById, GetRewardById } from "../store/actions";
 import { Table } from "../../../sharedComponents/customTable";
 import Header from "../../../layout/header/index";
 
@@ -23,29 +23,24 @@ import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 
 const Reward = (props) => {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
 
   const [tableView, setTableView] = useState(false);
 
-  const isTablet = useMediaQuery({ maxWidth: 800 });
-
   const [visible, setVisible] = useState(false);
 
   const [filter, setFilter] = useState({ filterType: 1, search: "" });
 
-  const dispatch = useDispatch();
-
-  const { complains, loader, rewardDetail } = useSelector((state) => state.complainSlice);
-
-  console.log(complains, "HELlOOOO!!!!");
+  const { complains, loader, complainDetail } = useSelector((state) => state.complainSlice);
 
   const onClose = () => {
     setVisible(false);
   };
 
-  const getRewardId = (id) => {
-    dispatch(GetRewardById(id));
+  const getComplainById = (id) => {
+    dispatch(GetComplainById(id));
     setVisible(true);
   };
 
@@ -103,18 +98,7 @@ const Reward = (props) => {
       <ContBody>
         {complains && complains?.length > 0 ? (
           tableView ? (
-            <Table
-              columns={tableColumn()}
-              dragable={true}
-              // handleChange={handleChange}
-              // onPageChange={onPageChange}
-              // onRow={onRow}
-              data={complains}
-              // status={travelStatus}
-              // loadding={loader}
-              // success={success}
-              // onActionClick={onActionClick}
-            />
+            <Table columns={tableColumn()} dragable={true} data={complains} />
           ) : (
             <>
               {loader ? (
@@ -126,7 +110,7 @@ const Reward = (props) => {
                   {complains.map((item, index) => {
                     return (
                       <>
-                        <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
+                        <ListItem getComplainById={getComplainById} item={item} id={item.id} key={index} />
                       </>
                     );
                   })}
@@ -138,7 +122,7 @@ const Reward = (props) => {
           "Data not found"
         )}
       </ContBody>
-      {rewardDetail && <DetailedView onClose={onClose} visible={visible} />}
+      {complainDetail && <DetailedView onClose={onClose} visible={visible} />}
     </TabbableContainer>
   );
 };

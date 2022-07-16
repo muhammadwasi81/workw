@@ -55,8 +55,8 @@ function DetailedView(props) {
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={creator.image}
-              name={creator.name}
+              avatarSrc={creator && creator.image}
+              name={creator && creator.name}
               Subline={
                 <SublineDesigWithTime
                   designation={creator.designation ? creator.designation : "Default Designation"}

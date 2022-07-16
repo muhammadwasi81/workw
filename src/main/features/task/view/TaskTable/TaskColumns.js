@@ -26,8 +26,8 @@ export const tableColumn = () => {
 			render: status => <StatusTag status={status} />,
 			sort: true,
 		},
-		{ title: "Name", dataIndex: "name", ellipsis: true, sort: true },
-		{ title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
+		{ title: "Subject", dataIndex: "subject", ellipsis: true, sort: true },
+		{ title: "Progress", dataIndex: "progress", ellipsis: true, sort: true },
 
 		{
 			title: "Task Assigned To",

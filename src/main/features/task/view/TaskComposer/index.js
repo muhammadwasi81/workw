@@ -56,7 +56,7 @@ function TaskComposer() {
       startDate: date[0].format(),
       endDate: date[1].format(),
       priority: Number(priority),
-      members: [],
+      members: taskType === "self" ? [] : [],
       attachments: attachments
     }
     dispatch(addNewTask(requestData));

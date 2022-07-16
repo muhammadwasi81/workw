@@ -31,6 +31,12 @@ export const routes = {
 			),
 		},
 		{
+			path: ROUTES.APPROVALS.DEFAULT,
+			component: lazy(() =>
+				import("../main/features/approval/view/AllApprovals/index")
+			),
+		},
+		{
 			path: `${ROUTES.TASK.DEFAULT}`,
 			component: lazy(() => import("../main/features/task/routes/index")),
 		},
@@ -56,7 +62,7 @@ export const routes = {
 		},
 		{
 			path: `${ROUTES.PROJECT.DEFAULT}`,
-			component: lazy(() => import("../main/features/projects/index")),
+			component: lazy(() => import("../main/features/projects/ProjectDetails/ProjectDetails")),
 		},
 		{
 			path: `${ROUTES.GROUP.DEFAULT}`,
@@ -133,6 +139,18 @@ export const routes = {
 		},
 		{
 			path: `${ROUTES.DOCUMENTS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/documents/view/index")
+			),
+		},
+		{
+			path: `${ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/documents/view/index")
+			),
+		},
+		{
+			path: `${ROUTES.FINANCE.VOUCHER.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/documents/view/index")
 			),

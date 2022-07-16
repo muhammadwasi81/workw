@@ -10,8 +10,10 @@ export const ROUTES = {
 		CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
 	},
 	CUSTOM_APPROVALS: {
-		DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
-		CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
+		DEFAULT: `${DOMAIN_PREFIX}/customApprovals`
+	},
+	APPROVALS: {
+		DEFAULT: `${DOMAIN_PREFIX}/approvals`,
 	},
 	AUTH: {
 		SIGN_UP: `${DOMAIN_PREFIX}/register`,
@@ -321,6 +323,14 @@ export const ROUTES = {
 	DOCUMENTS: {
 		DEFAULT: `${DOMAIN_PREFIX}/documents/*`,
 		DOCUMENT: `${DOMAIN_PREFIX}/documents`,
+	},
+	FINANCE: {
+		CHART_OF_ACCOUNT: {
+			DEFAULT: `${DOMAIN_PREFIX}/chart-of-account/*`,
+		},
+		VOUCHER: {
+			DEFAULT: `${DOMAIN_PREFIX}/voucher/*`,
+		}
 	},
 
 	HR: {

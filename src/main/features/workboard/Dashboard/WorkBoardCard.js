@@ -3,13 +3,16 @@ import { Card } from "antd";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import WorkBoardImg from "../../../../content/png/workboard.png";
 import PublicPrivateIcon from "../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
-import { EditOutlined } from "@ant-design/icons";
 import { ROUTES } from "../../../../utils/routes";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { getWorkboardById } from "../store/action";
+import { useDispatch } from "react-redux";
+import { handleBoardComposer } from "../store/slice";
 function WorkBoardCard({ data }) {
 	const { Meta } = Card;
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const userId = useSelector(state => state.userSlice.user.id);
 
 	return (
@@ -51,15 +54,20 @@ function WorkBoardCard({ data }) {
 				/>
 				{userId === data.createBy && (
 					<div
-						className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color font-medium hover:bg-neutral-200 transition"
+						className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
 						onClick={e => {
 							e.preventDefault();
 							e.stopPropagation();
-							console.log("click");
+							dispatch(getWorkboardById(data.id));
+							dispatch(
+								handleBoardComposer({
+									isEdit: true,
+									isVisible: true,
+								})
+							);
 						}}
 					>
-						<EditOutlined className="" />
-						Edit
+						Update
 					</div>
 				)}
 			</div>

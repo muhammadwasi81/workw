@@ -1,5 +1,19 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
-import { addWorkBoard, getAllWorkBoard, getWorkboardById } from "./action";
+import {
+	addWorkBoard,
+	getAllWorkBoard,
+	getWorkboardById,
+	updateWorkBoard,
+} from "./action";
+
+const initialComposerData = {
+	name: "",
+	description: "",
+	members: [],
+	attachments: [],
+	privacyId: 1,
+	image: "",
+};
 
 const initialState = {
 	lists: [],
@@ -13,6 +27,10 @@ const initialState = {
 	error: false,
 	workboardsList: [],
 	workboardDetail: null,
+	isComposerEdit: false,
+	isComposerVisible: false,
+	composerData: initialComposerData,
+	workBoardSections: [],
 };
 
 const trelloSlice = createSlice({
@@ -172,6 +190,11 @@ const trelloSlice = createSlice({
 			}
 			state.showDateModal = isDateModalOpen;
 		},
+		handleBoardComposer(state, { payload }) {
+			state.isComposerEdit = payload.isEdit;
+			state.isComposerVisible = payload.isVisible;
+			state.composerData = initialComposerData;
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -181,14 +204,29 @@ const trelloSlice = createSlice({
 				state.error = false;
 				state.workboardsList.unshift(payload.data);
 			})
+			.addCase(updateWorkBoard.fulfilled, (state, { payload }) => {
+				state.loader = false;
+				state.success = true;
+				state.error = false;
+				console.log("updated");
+				// state.workboardsList.unshift(payload.data);
+			})
 			.addCase(getAllWorkBoard.fulfilled, (state, { payload }) => {
 				state.workboardsList = payload.data;
 			})
 			.addCase(getWorkboardById.fulfilled, (state, { payload }) => {
 				state.workboardDetail = payload.data;
+				state.composerData = payload.data;
 			})
 			.addMatcher(
-				isPending(...[addWorkBoard, getAllWorkBoard, getWorkboardById]),
+				isPending(
+					...[
+						addWorkBoard,
+						getAllWorkBoard,
+						getWorkboardById,
+						updateWorkBoard,
+					]
+				),
 				state => {
 					state.loader = true;
 					state.success = false;
@@ -213,6 +251,7 @@ export const {
 	addListCardMembers,
 	addListCardDueDate,
 	openDateModal,
+	handleBoardComposer,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

@@ -20,6 +20,7 @@ function MemberSelect({
 	value: val = mode === "default" ? "" : [],
 	onChange: change,
 	dataVal = [],
+	loadDefaultData = false,
 }) {
 	const [value, setValue] = useState("");
 	const [stateVal, setStateVal] = useState(dataVal);
@@ -28,6 +29,8 @@ function MemberSelect({
 	const debouncedSearch = useDebounce(value, 500);
 	const [memberData, setMemberData] = useState([...data]);
 	const { employees, loader } = useSelector(state => state.sharedSlice);
+	const [isAssignDefaultData, setIsAssignDefaultData] =
+		useState(loadDefaultData);
 
 	const onChange = value => {
 		const tempArray = String(value).split(",");
@@ -122,6 +125,13 @@ function MemberSelect({
 			setMemberData([...data]);
 		}
 	}, [data]);
+
+	useEffect(() => {
+		if (isAssignDefaultData && dataVal.length > 0) {
+			setStateVal([...dataVal]);
+			setIsAssignDefaultData(false);
+		}
+	}, [dataVal]);
 
 	// console.log("select", data);
 	return (

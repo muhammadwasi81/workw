@@ -96,6 +96,7 @@ function Board() {
 												key={list.id}
 												index={index}
 												color={list.color}
+												sectionId={id}
 											/>
 										);
 									})}
@@ -115,6 +116,7 @@ function Board() {
 												toggleAddingList={
 													toggleAddingList
 												}
+												sectionId={id}
 											/>
 										)}
 									</div>

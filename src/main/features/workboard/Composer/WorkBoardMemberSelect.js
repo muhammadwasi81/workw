@@ -5,16 +5,21 @@ import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 
-function WorkBoardMemberSelect({ onChange }) {
+function WorkBoardMemberSelect({ onChange, defaultData, loadDefaultData }) {
 	const dispatch = useDispatch();
 	const employees = useSelector(state => state.sharedSlice.employees);
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
 	const [value, setValue] = useState([]);
-	// const [members, setMembers] = useState([]);
+	const [loading, setLoading] = useState(false);
 	useEffect(() => {
 		fetchEmployees("", 0);
 	}, []);
+
+	useEffect(() => {
+		setValue(defaultData);
+		setLoading(true);
+	}, [defaultData]);
 
 	useEffect(() => {
 		if (employees.length > 0 && !isFirstTimeDataLoaded) {
@@ -43,6 +48,7 @@ function WorkBoardMemberSelect({ onChange }) {
 				placeholder={"Search members"}
 				mode={"multiple"}
 				isObject={true}
+				loadDefaultData={loadDefaultData}
 				optionComponent={opt => {
 					return (
 						<>

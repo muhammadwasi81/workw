@@ -7,9 +7,11 @@ import {
 import { openNotification } from "../../../../utils/Shared/store/slice";
 
 import {
+	addWorkBoardSectionService,
 	addWorkboardService,
 	getAllWorkboardService,
 	getWorkboardByIdService,
+	updateWorkboardService,
 } from "../services/services";
 
 export const addWorkBoard = createAsyncThunk(
@@ -22,6 +24,46 @@ export const addWorkBoard = createAsyncThunk(
 					message: "WorkBoard Created Successfully",
 					type: "success",
 					duration: 2,
+				})
+			);
+			dispatch(
+				getAllWorkBoard({
+					pageNo: 0,
+					pageSize: 0,
+					search: "",
+				})
+			);
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const updateWorkBoard = createAsyncThunk(
+	"updateWorkBoard",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await updateWorkboardService(data);
+		if (res.responseCode === responseCode.Success) {
+			dispatch(
+				openNotification({
+					message: "WorkBoard Updated Successfully!",
+					type: "success",
+					duration: 2,
+				})
+			);
+			dispatch(
+				getAllWorkBoard({
+					pageNo: 0,
+					pageSize: 0,
+					search: "",
 				})
 			);
 			return res;
@@ -43,20 +85,8 @@ export const getAllWorkBoard = createAsyncThunk(
 	async (data, { dispatch, getState, rejectWithValue }) => {
 		const res = await getAllWorkboardService(data);
 		if (res.responseCode === responseCode.Success) {
-			// console.log("success");
-			// responseMessage({
-			// 	dispatch: dispatch,
-			// 	data: res,
-			// 	type: responseMessageType.ApiSuccess,
-			// });
 			return res;
 		} else {
-			// console.log("error");
-			// responseMessage({
-			// 	dispatch: dispatch,
-			// 	data: res,
-			// 	type: responseMessageType.ApiFailure,
-			// });
 			return rejectWithValue(res.message);
 		}
 	}
@@ -79,6 +109,32 @@ export const getWorkboardById = createAsyncThunk(
 				data: res,
 				type: responseMessageType.ApiFailure,
 			});
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const addWorkBoardSection = createAsyncThunk(
+	"addWorkBoardSection",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await addWorkBoardSectionService(data);
+		if (res.responseCode === responseCode.Success) {
+			dispatch(
+				getAllWorkBoard({
+					pageNo: 0,
+					pageSize: 0,
+					search: "",
+				})
+			);
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
 			return rejectWithValue(res.message);
 		}
 	}

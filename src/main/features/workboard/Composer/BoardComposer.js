@@ -1,29 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
 import WorkBoardMemberSelect from "./WorkBoardMemberSelect";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { useDispatch } from "react-redux";
-import { addWorkBoard } from "../store/action";
+import { addWorkBoard, updateWorkBoard } from "../store/action";
 import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { jsonToFormData } from "../../../../utils/base";
-function BoardComposer() {
+import { useSelector } from "react-redux";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+function BoardComposer({ isEdit, composerData }) {
+	const [form] = Form.useForm();
+
 	const [membersData, setMembersData] = useState([]);
 	const dispatch = useDispatch();
-	const [image, setImage] = useState();
+
+	const [image, setImage] = useState("");
 	const [privacyId, setPrivacyId] = useState(1);
 
 	const onFinish = values => {
-		// console.log("image object", image);
-		// [{ memberId: asdf }, { memberId: asdfasdf }];
+		console.log("values", values);
 		let membersObj = membersData.map(member => {
 			return { memberId: member };
 		});
+		let imgObj = { file: image, id: defaultUiid };
 		let tempObj = values;
 		tempObj.members = membersObj;
-		tempObj.attachment = { file: image };
+		tempObj.attachment = imgObj;
 		tempObj.privacyId = privacyId;
-
-		// Object.keys(tempObj).forEach(key => formData.append(key, tempObj[key]));
+		if (isEdit) {
+			if (!image) {
+				tempObj.attachment = { ...imgObj, id: composerData.imageId };
+			}
+			tempObj.id = composerData.id;
+			dispatch(updateWorkBoard(jsonToFormData(tempObj)));
+			return;
+		}
 		dispatch(addWorkBoard(jsonToFormData(tempObj)));
 	};
 
@@ -34,17 +45,21 @@ function BoardComposer() {
 	const onPrivacyChange = value => {
 		setPrivacyId(value);
 	};
-
+	useEffect(() => {
+		form.setFieldsValue(composerData);
+		setPrivacyId(composerData.privacyId);
+		// setImage(composerData.imageId);
+	}, [form, composerData]);
+	// console.log("composerData", composerData);
 	return (
 		<Form
 			name="basic"
 			layout="vertical"
-			initialValues={{
-				remember: true,
-			}}
+			initialValues={{}}
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
 			autoComplete="off"
+			form={form}
 		>
 			<div className="flex gap-10">
 				<Form.Item
@@ -68,6 +83,7 @@ function BoardComposer() {
 						}}
 						uploadText={"Upload Cover"}
 						multiple={false}
+						url={composerData.image}
 					/>
 				</Form.Item>
 			</div>
@@ -89,6 +105,10 @@ function BoardComposer() {
 						onChange={(val, obj) => {
 							setMembersData(val);
 						}}
+						defaultData={composerData.members.map(members => {
+							return members.memberId;
+						})}
+						loadDefaultData={true}
 					/>
 				</Form.Item>
 				<Form.Item>
@@ -104,7 +124,7 @@ function BoardComposer() {
 							className="ThemeBtn"
 							size="large"
 						>
-							Create Board
+							{isEdit ? "Update " : "Create "}Board
 						</Button>
 					</div>
 				</Form.Item>

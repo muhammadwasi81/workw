@@ -1,12 +1,12 @@
-import { Tag } from "antd";
+import { Image, Tag } from "antd";
 import React, { useContext } from "react";
 import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import DefaultAttachment from "../../../../content/NewContent/complain/DefaultAttachment.svg";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
 
@@ -14,16 +14,14 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
 
-  const { creator, description, category, createDate, members = [], approvers, status } = props.item;
-
-  // console.log(props.item, "imagessss")
+  const { creator, description, image = DefaultAttachment, category, createDate, members = [], approvers, status } = props.item;
   return (
     <SingleItem>
       <div
         className="new"
         id={props.id}
         onClick={() => {
-          props.getRewardId(props.id);
+          props.getComplainById(props.id);
         }}
       />
       <ItemHeader>
@@ -32,12 +30,7 @@ function ListItem(props) {
             <UserInfo
               avatarSrc={creator.image}
               name={creator.name}
-              Subline={
-                <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : "Default Designation"}
-                  time={moment(createDate).format("DD/MM/YYYY")}
-                />
-              }
+              Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
             />
           </div>
           <div className="right">
@@ -46,8 +39,13 @@ function ListItem(props) {
           </div>
         </div>
       </ItemHeader>
-      <ItemContent>
-        <p>{description}</p>
+      <ItemContent className="flex">
+        <div className="description w-full">
+          <p>{description}</p>
+        </div>
+        {/* <div className="attachmentBox">
+          <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
+        </div> */}
       </ItemContent>
       <div className="ListItemInner">
         <div className="ItemDetails">

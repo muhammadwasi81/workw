@@ -30,12 +30,7 @@ function ListItem(props) {
           <UserInfo
             avatarSrc={creator.image}
             name={creator.name}
-            Subline={
-              <SublineDesigWithTime
-                designation={creator.designation ? creator.designation : "Default Designation"}
-                time={moment(createDate).format("DD/MM/YYYY")}
-              />
-            }
+            Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
           />
         </div>
         <div className="right">

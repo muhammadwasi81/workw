@@ -11,7 +11,7 @@ import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllPromotions, GetPromotionById } from "../store/actions";
+import { getAllBonus, GetPromotionById } from "../store/actions";
 import TableView from "./TableView";
 // import "./warning.css";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -22,7 +22,7 @@ import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 
-const Reward = (props) => {
+const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { bonusDictionary } = bonusDictionaryList[userLanguage];
 
@@ -34,7 +34,7 @@ const Reward = (props) => {
 
   const dispatch = useDispatch();
 
-  const { promotions, loader, promotionDetail } = useSelector((state) => state.promotionSlice);
+  const { bonuses, loader, bonusDetail } = useSelector((state) => state.bonusSlice);
 
   const onClose = () => {
     setVisible(false);
@@ -46,7 +46,7 @@ const Reward = (props) => {
   };
 
   useEffect(() => {
-    dispatch(getAllPromotions(filter));
+    dispatch(getAllBonus(filter));
   }, [filter]);
   return (
     <TabbableContainer className="max-width-1190">
@@ -93,21 +93,10 @@ const Reward = (props) => {
         }}
       />
       <ContBody>
-        {promotions && promotions.length > 0 ? (
+        {bonuses && bonuses.length > 0 ? (
           tableView ? (
             <div>
-              <Table
-                columns={tableColumn()}
-                dragable={false}
-                // handleChange={handleChange}
-                // onPageChange={onPageChange}
-                // onRow={onRow}
-                data={promotions}
-                // status={travelStatus}
-                // loadding={loader}
-                // success={success}
-                // onActionClick={onActionClick}
-              />
+              <Table columns={tableColumn()} dragable={false} data={bonuses} />
             </div>
           ) : (
             <>
@@ -117,7 +106,7 @@ const Reward = (props) => {
                 </>
               ) : (
                 <CardWrapper>
-                  {promotions.map((item, index) => {
+                  {bonuses.map((item, index) => {
                     return (
                       <>
                         <ListItem getPromotionId={getPromotionId} item={item} id={item.id} key={index} />
@@ -132,9 +121,9 @@ const Reward = (props) => {
           "Data not found"
         )}
       </ContBody>
-      {promotionDetail && <DetailedView onClose={onClose} visible={visible} />}
+      {bonusDetail && <DetailedView onClose={onClose} visible={visible} />}
     </TabbableContainer>
   );
 };
 
-export default Reward;
+export default Bonus;

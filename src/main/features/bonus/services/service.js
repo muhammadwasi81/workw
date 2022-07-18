@@ -1,6 +1,6 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
-export const getAllPromotionService = (data) => {
+export const getAllBonusService = (data) => {
   return MasterConfig.post(`api/Bonus/GetAllBonus`, data)
     .then((res) => {
       return res.data;
@@ -10,8 +10,8 @@ export const getAllPromotionService = (data) => {
     });
 };
 
-export const addPromotionService = (data) => {
-  return MasterConfig.post(`api/Promotion/AddPromotion`, data)
+export const addBonusService = (data) => {
+  return MasterConfig.post(`api/Bonus/AddBonus`, data)
     .then((res) => {
       return res;
     })

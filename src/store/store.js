@@ -1,14 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import {
-	persistStore,
-	persistReducer,
-	FLUSH,
-	REHYDRATE,
-	PAUSE,
-	PERSIST,
-	PURGE,
-	REGISTER,
-} from "redux-persist";
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
 import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
@@ -27,6 +18,7 @@ import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";
 import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
 import allowanceSlice from "../main/features/allowance/store/slice";
 import rewardCategorySlice from "../main/features/reward/rewardCategory/store/slice";
+import bonusSlice from "../main/features/bonus/store/slice";
 import rewardSlice from "../main/features/reward/store/slice";
 import leaveSlice from "../main/features/leave/store/slice";
 import complainSlice from "../main/features/complain/store/slice";
@@ -56,59 +48,60 @@ import taskSlice from "../main/features/task/store/taskSlice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
-	authSlice,
-	userSlice,
-	feedSlice,
-	stickyNotesSlice,
-	responsiveSlice,
-	responseStatusSlice,
-	sideBarChatSlice,
-	MessengerSlice,
-	leaveSlice,
-	promotionSlice,
-	//   mailSlice,
-	jobDescriptionSlice,
-	sharedQuillSlice,
-	customApprovalCategorySlice,
-	rewardCategorySlice,
-	rewardSlice,
-	complainSlice,
-	departmentSlice,
-	projectSlice,
-	customApprovalSlice,
-	warningSlice,
-	//   call: callSlice,
-	general: generalSlice,
-	// documentsSlice,
-	gradeSlice,
-	emailConfigurationSlice,
-	salaryHeaderSlice,
-	expenseHeaderSlice,
-	appraisalSlice,
-	allowanceSlice,
-	leaveTypeSlice,
-	officeTimingSlice,
-	designationSlice,
-	notificationSlice,
-	warningCategorySlice,
-	employeeSlice,
-	accessRolesSlice,
-	sharedSlice,
-	travelSlice,
-	NoteSlice,
-	// loanSlice,
-	newStickySlice,
-	documentSlice,
-	trelloSlice,
-	taskSlice
+  authSlice,
+  userSlice,
+  feedSlice,
+  stickyNotesSlice,
+  responsiveSlice,
+  responseStatusSlice,
+  sideBarChatSlice,
+  MessengerSlice,
+  leaveSlice,
+  promotionSlice,
+  //   mailSlice,
+  jobDescriptionSlice,
+  sharedQuillSlice,
+  customApprovalCategorySlice,
+  rewardCategorySlice,
+  rewardSlice,
+  complainSlice,
+  departmentSlice,
+  projectSlice,
+  customApprovalSlice,
+  warningSlice,
+  //   call: callSlice,
+  general: generalSlice,
+  // documentsSlice,
+  gradeSlice,
+  emailConfigurationSlice,
+  salaryHeaderSlice,
+  expenseHeaderSlice,
+  appraisalSlice,
+  allowanceSlice,
+  leaveTypeSlice,
+  officeTimingSlice,
+  designationSlice,
+  notificationSlice,
+  warningCategorySlice,
+  employeeSlice,
+  accessRolesSlice,
+  sharedSlice,
+  travelSlice,
+  NoteSlice,
+  bonusSlice,
+  // loanSlice,
+  newStickySlice,
+  documentSlice,
+  trelloSlice,
+  taskSlice,
 });
 
 const persistConfig = {
-	key: "root",
-	storage,
-	version: 1,
-	whitelist: ["userSlice"],
-	// blacklist: ["stickyNotesSlice"]
+  key: "root",
+  storage,
+  version: 1,
+  whitelist: ["userSlice"],
+  // blacklist: ["stickyNotesSlice"]
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 
@@ -122,55 +115,55 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 // 	return { store, persistor };
 // };
 
-const CustomMiddleware = store => next => async action => {
-	// if (action.type === "TEST_API") {
-	// 	let { url, method, server, dispatch } = action.payload;
-	// 	if (method === "GET") {
-	// 		if (server === "MESSENGER") {
-	// 			store.dispatch({
-	// 				type:"LOADER",
-	// 				payload:""
-	// 			})
-	// 			await MessengerConfig.get(url)
-	// 				.then(res => {
-	// 					console.log(store, "API CALL", "My Middleware")
-	// 					console.log(dispatch, "API CALL", "My Middleware")
-	// 					store.dispatch({
-	// 						type:dispatch,
-	// 						payload:res
-	// 					})
-	// 				})
-	// 				.catch(err => {
-	// 					store.dispatch({
-	// 						type:"ERROR",
-	// 						payload:"MESSAGE"
-	// 					})
-	// 				});
-	// 		}
-	// 	}
-	// 	next(action)
-	// }
-	// else {
-	// 	next(action)
-	// }
-	next(action);
+const CustomMiddleware = (store) => (next) => async (action) => {
+  // if (action.type === "TEST_API") {
+  // 	let { url, method, server, dispatch } = action.payload;
+  // 	if (method === "GET") {
+  // 		if (server === "MESSENGER") {
+  // 			store.dispatch({
+  // 				type:"LOADER",
+  // 				payload:""
+  // 			})
+  // 			await MessengerConfig.get(url)
+  // 				.then(res => {
+  // 					console.log(store, "API CALL", "My Middleware")
+  // 					console.log(dispatch, "API CALL", "My Middleware")
+  // 					store.dispatch({
+  // 						type:dispatch,
+  // 						payload:res
+  // 					})
+  // 				})
+  // 				.catch(err => {
+  // 					store.dispatch({
+  // 						type:"ERROR",
+  // 						payload:"MESSAGE"
+  // 					})
+  // 				});
+  // 		}
+  // 	}
+  // 	next(action)
+  // }
+  // else {
+  // 	next(action)
+  // }
+  next(action);
 };
 
 const store = configureStore({
-	reducer: persistedReducer,
-	middleware: getDefaultMiddleware =>
-		getDefaultMiddleware({
-			// serializableCheck: {
-			//   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-			// },
-			serializableCheck: false,
-		}),
-	// devTools: process.env.NODE_ENV !== "production",
-	// middleware: [thunk],
-	// middleware: [...getDefaultMiddleware(), logger],
-	// serializableCheck: false,
-	// middleware: gDM =>
-	// 	gDM({ serializableCheck: false }).concat(checkEnv() && logger),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      // serializableCheck: {
+      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      // },
+      serializableCheck: false,
+    }),
+  // devTools: process.env.NODE_ENV !== "production",
+  // middleware: [thunk],
+  // middleware: [...getDefaultMiddleware(), logger],
+  // serializableCheck: false,
+  // middleware: gDM =>
+  // 	gDM({ serializableCheck: false }).concat(checkEnv() && logger),
 });
 export const persistor = persistStore(store);
 

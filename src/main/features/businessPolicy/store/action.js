@@ -5,16 +5,18 @@ import {
 	responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 import {
-	addAccessRoleService,
+	addBusinessPolicyService,
 	getAccessRoleByIdService,
-	getAllAccessRolesService,
-	updateAccessRoleByIdService,
+	getAllBusinessPolicyService,
 } from "../services/service";
 
-export const addAccessRole = createAsyncThunk(
-	"addAccessRole",
+export const addBusinessPolicy = createAsyncThunk(
+	"addBusiness",
 	async (data, { dispatch, getState, rejectWithValue }) => {
-		const res = await addAccessRoleService(data);
+		const res = await addBusinessPolicyService(data);
+
+		console.log(res, "HELLOOO RESPONSE")
+
 		if (res.responseCode === responseCode.Success) {
 			// res.message = "Access Role added successfully!";
 			// responseMessage({ dispatch, data: res });
@@ -29,40 +31,10 @@ export const addAccessRole = createAsyncThunk(
 	}
 );
 
-export const getAllAccessRoles = createAsyncThunk(
-	"getAllAccessRoles",
+export const getAllBusinessPolicy = createAsyncThunk(
+	"getAllBusinessPolicy",
 	async (data, { dispatch, getState }) => {
-		const res = await getAllAccessRolesService();
-		if (!res.responseCode) {
-			responseMessage({
-				dispatch: dispatch,
-				type: responseMessageType.ApiFailure,
-			});
-		}
-		// console.log("response after getting access role", res);
-		return res;
-	}
-);
-
-export const getAccessRoleById = createAsyncThunk(
-	"getAccessRoleById",
-	async (data, { dispatch, getState }) => {
-		const res = await getAccessRoleByIdService(data);
-		if (!res.responseCode) {
-			responseMessage({
-				dispatch: dispatch,
-				type: responseMessageType.ApiFailure,
-			});
-		}
-		// console.log("response after getting access role", res);
-		return res;
-	}
-);
-
-export const updateAccessRoleById = createAsyncThunk(
-	"updateAccessRoleById",
-	async (data, { dispatch, getState }) => {
-		const res = await updateAccessRoleByIdService(data);
+		const res = await getAllBusinessPolicyService();
 		if (!res.responseCode) {
 			responseMessage({
 				dispatch: dispatch,

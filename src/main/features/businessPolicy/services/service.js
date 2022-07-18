@@ -1,8 +1,8 @@
 // import AxiosConfig from "../../../../utils/services/AxiosConfig";
 import MasterConfig from "../../../../utils/services/MasterConfig";
-const API_PREFIX = "api/AccessRole/";
-export const addAccessRoleService = data => {
-	return MasterConfig.post(`${API_PREFIX}AddAccessRole`, data)
+const API_PREFIX = "api/BusinessPolicy/";
+export const addBusinessPolicyService = data => {
+	return MasterConfig.post(`${API_PREFIX}AddBusinessPolicy`, data)
 		.then(res => {
 			return res.data;
 		})
@@ -11,8 +11,8 @@ export const addAccessRoleService = data => {
 		});
 };
 
-export const getAllAccessRolesService = () => {
-	return MasterConfig.get(`${API_PREFIX}GetAllAccessRole`)
+export const getAllBusinessPolicyService = () => {
+	return MasterConfig.get(`${API_PREFIX}GetAllBusinessPolicy`)
 		.then(res => {
 			return res.data;
 		})

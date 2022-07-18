@@ -15,17 +15,17 @@ import { ImOffice } from "react-icons/im";
 import { AiFillStar, AiFillLike, AiFillDollarCircle, AiOutlineStar } from "react-icons/ai";
 import { RiMedal2Line, RiUser2Fill, RiTerminalWindowFill, RiMailSettingsFill, RiMedalFill } from "react-icons/ri";
 export const listitem = [
-  // {
-  // 	IconName: <FaUserLock size={20} color={"#1A5669"} />,
-  // 	displayName: "AccessRole",
-  // 	classObj: "button",
-  // 	to: ROUTES.ADMINISTRATOR.ADMINISTRATION,
-  // },
+  {
+  	IconName: <FaUserLock size={20} color={"#1A5669"} />,
+  	displayName: "AccessRole",
+  	classObj: "button",
+    to: ROUTES.ADMINISTRATOR.ADMINISTRATION,
+  },
   {
     IconName: <FaUserLock size={20} color={"#1A5669"} />,
     displayName: "Business Policy",
     classObj: "button",
-    to: ROUTES.ADMINISTRATOR.ADMINISTRATION,
+    to: ROUTES.ADMINISTRATOR.BUSINESS_POLICY,
   },
   {
     IconName: <AiFillStar size={20} color={"#1A5669"} />,

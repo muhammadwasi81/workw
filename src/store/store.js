@@ -16,6 +16,7 @@ import departmentSlice from "../main/features/departments/store/slice";
 import leaveTypeSlice from "../main/features/leave/leaveType/store/slice";
 import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";
 import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
+import businessPolicySlice from "../main/features/businessPolicy/store/slice";
 import allowanceSlice from "../main/features/allowance/store/slice";
 import rewardCategorySlice from "../main/features/reward/rewardCategory/store/slice";
 import bonusSlice from "../main/features/bonus/store/slice";
@@ -89,6 +90,7 @@ const reducers = combineReducers({
   travelSlice,
   NoteSlice,
   bonusSlice,
+  businessPolicySlice,
   // loanSlice,
   newStickySlice,
   documentSlice,

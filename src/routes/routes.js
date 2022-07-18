@@ -130,6 +130,12 @@ export const routes = {
     {
       path: `${"/hr/administrator/"},`,
       component: lazy(() => {
+        import("../main/features/businessPolicy/view/BusinessPolicy");
+      }),
+    },
+    {
+      path: `${"/hr/administrator/"},`,
+      component: lazy(() => {
         import("../main/features/accessRole/view/AccessRole");
       }),
     },

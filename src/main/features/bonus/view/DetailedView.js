@@ -17,9 +17,9 @@ function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, bonusDictionary } = bonusDictionaryList[userLanguage];
 
-  const { promotionDetail } = useSelector((state) => state.promotionSlice);
+  const { bonusDetail } = useSelector((state) => state.bonusSlice);
 
-  const { creator, description, status, createDate, grade, members = [], approvers } = promotionDetail;
+  const { creator, description, status, createDate, grade, members = [], approvers } = bonusDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 

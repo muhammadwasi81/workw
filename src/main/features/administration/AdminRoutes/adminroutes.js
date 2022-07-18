@@ -21,7 +21,7 @@ const AdminRoutes = () => {
   return (
     <Routes>
       <Route path={"/"} element={<AccessRole />} />
-      <Route path={"/"} element={<BusinessPolicy />} />
+      <Route path={ROUTES.ADMINISTRATOR.BUSINESS_POLICY} element={<BusinessPolicy />} />
       <Route path={ROUTES.ADMINISTRATOR.GRADE} element={<Grade />} />
       <Route path={ROUTES.ADMINISTRATOR.DESIGNATION} element={<Designation />} />
       <Route path={ROUTES.ADMINISTRATOR.APPRASIAL} element={<Appraisal />} />

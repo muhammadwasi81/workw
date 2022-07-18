@@ -234,7 +234,7 @@ const NavMenuList = () => {
 		{
 			name: label.navMenuLabel.chartOfAccount,
 			counter: 0,
-			to: ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT,
+			to: ROUTES.FINANCE.CHART_OF_ACCOUNT.ROOT,
 			icon: messengerIcon,
 			isActive: true,
 			key: label.navMenuLabel.finance,
@@ -242,7 +242,7 @@ const NavMenuList = () => {
 		{
 			name: label.navMenuLabel.voucher,
 			counter: 0,
-			to: ROUTES.FINANCE.VOUCHER.DEFAULT,
+			to: ROUTES.FINANCE.VOUCHER.ROOT,
 			icon: messengerIcon,
 			isActive: true,
 			key: label.navMenuLabel.finance,

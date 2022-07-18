@@ -10,11 +10,11 @@ const panes = [
     }
 ];
 
-export default function ApprovalDetail() {
+export default function ApprovalDetail({}) {
     return (
         <>
         <Tab panes={panes} />
-        {/* <Reward /> */}
+        {/* <Reward id="9fb567fa-7a1e-4317-974b-ff59540ce4f9" /> */}
         </>
     )
 }

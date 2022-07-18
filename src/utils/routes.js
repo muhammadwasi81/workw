@@ -36,6 +36,9 @@ export const ROUTES = {
 	NEWSFEED: {
 		DETAILS: `${DOMAIN_PREFIX}/newsFeedDetails`,
 	},
+	BUSINESS_POLICY: {
+		DEFAULT: `${DOMAIN_PREFIX}/businessPolicy`,
+	},
 	JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
 	OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
 	DOCUMENT_APPROVAL: `${DOMAIN_PREFIX}/DocumentApproval`,

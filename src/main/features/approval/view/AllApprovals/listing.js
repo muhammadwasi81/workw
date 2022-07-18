@@ -32,7 +32,7 @@ export default function Listing() {
             <Tab panes={panes} />
             <div className="overflow-scroll h-[75vh]" >
                 {
-                    Array(100).fill({ type: 1 }).map((item) => <ApprovalItem />)
+                    Array(100).fill({ type: 1, refrenceId:"9fb567fa-7a1e-4317-974b-ff59540ce4f9" }).map((item) => <ApprovalItem item={item} />)
                 }
             </div>
         </>

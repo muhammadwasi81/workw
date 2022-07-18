@@ -16,8 +16,8 @@ import {
   enable as enableDarkMode,
 } from "darkreader";
 import NotificationModal from "./NavComposer";
-import Approvals from "../../../../features/approval/view";
-import Notifications from "../../../../features/notifiation/view";
+import Approvals from "../../../../features/approval/view/SideBarApproval/sideBarAppovals";
+import Notifications from "../../../../features/notifiation/view/index";
 // const Approvals = () => {
 //   return "Approvals";
 // };

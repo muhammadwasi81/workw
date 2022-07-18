@@ -231,6 +231,31 @@ const NavMenuList = () => {
 			isActive: true,
 			key: label.navMenuLabel.hr,
 		},
+		{
+			name: label.navMenuLabel.chartOfAccount,
+			counter: 0,
+			to: ROUTES.FINANCE.CHART_OF_ACCOUNT.ROOT,
+			icon: messengerIcon,
+			isActive: true,
+			key: label.navMenuLabel.finance,
+		},
+		{
+			name: label.navMenuLabel.voucher,
+			counter: 0,
+			to: ROUTES.FINANCE.VOUCHER.ROOT,
+			icon: messengerIcon,
+			isActive: true,
+			key: label.navMenuLabel.finance,
+		},
+		{
+			name: label.navMenuLabel.report,
+			counter: 0,
+			to: "/Report",
+			icon: messengerIcon,
+			isActive: true,
+			key: label.navMenuLabel.finance,
+		}
+
 	];
 	return { navMenuData, navHrMenuData };
 };

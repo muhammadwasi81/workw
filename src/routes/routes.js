@@ -33,6 +33,16 @@ export const routes = {
       component: lazy(() => import("../main/features/task/routes/index")),
     },
     {
+      path: `${ROUTES.FINANCE.VOUCHER.DEFAULT}`,
+      component: lazy(() => import("../main/features/voucher/view/index")),
+    },
+	{
+		path: ROUTES.APPROVALS.DEFAULT,
+		component: lazy(() =>
+			import("../main/features/approval/view/AllApprovals/index")
+		),
+	},
+    {
       path: `${ROUTES.TRAVEL.DEFAULT}`,
       component: lazy(() => import("../main/features/travel/")),
     },

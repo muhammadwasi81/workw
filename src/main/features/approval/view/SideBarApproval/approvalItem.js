@@ -1,8 +1,8 @@
 import React from "react";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
-import './style.css'
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import '../style.css'
 
-export default function ApprovalItem() {
+export default function ApprovalItem(item) {
     return (
         <div className="approval_item" >
             <div>

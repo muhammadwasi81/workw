@@ -10,8 +10,8 @@ export const getAllBonusService = (data) => {
     });
 };
 
-export const addPromotionService = (data) => {
-  return MasterConfig.post(`api/Promotion/AddPromotion`, data)
+export const addBonusService = (data) => {
+  return MasterConfig.post(`api/Bonus/AddBonus`, data)
     .then((res) => {
       return res;
     })

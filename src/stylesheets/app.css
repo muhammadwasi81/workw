@@ -374,7 +374,13 @@ iframe {
   background: #f4f4f4;
 }
 
-.drawerSecondary .ant-drawer-body > div {
+.drawerSecondary .ant-drawer-body > .detailedViewComposer {
+  background: #fff;
+  border-radius: 4px;
+  padding: 15px;
+  /* box-shadow: 0px 0px 5px 0px #ccc; */
+}
+.approvalDetail .detailedViewComposer {
   background: #fff;
   border-radius: 4px;
   padding: 15px;

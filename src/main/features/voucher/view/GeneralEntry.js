@@ -1,12 +1,13 @@
-import React from 'react'
-import CreateEntryTable from './createEntryTable';
+import React from "react";
+import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import CreateEntryTable from "./createEntryTable";
 const GeneralEntry = () => {
   return (
-    <div className="tabbable-container" style={{ maxWidth: "100%" }}>
-      <CreateEntryTable
-      defaultRows={8}
-      />
-    </div>
-  )
-}
+    <TabbableContainer>
+      <ContBody>
+        <CreateEntryTable defaultRows={16} />
+      </ContBody>
+    </TabbableContainer>
+  );
+};
 export default GeneralEntry;

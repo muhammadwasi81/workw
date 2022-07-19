@@ -282,6 +282,7 @@ const urdu = {
   payroll: {},
   employee: {},
   administration: {
+    Business_Policy: "کاروباری پالیسی",
     AccessRole: "رسائی کا کردار",
     Grade: "گریڈ",
     Designation: "عہدہ",

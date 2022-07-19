@@ -1,81 +1,28 @@
 import React from "react";
-import Tab from "../../../../sharedComponents/Tab";
-import Reward from "../../../reward/view/DetailCard";
 import PolicyItem from "./policyItem";
-// import Tab from "../../../../sharedComponents/Tab";
-// import Reward from "../../../reward/view/DetailCard";
 
-const panes = [
-    {
-        title: `Description`,
-        content: <div></div>,
-        key: 0,
-    }
-];
-
-export default function ApprovalDetail() {
+export default function ApprovalDetail({ item }) {
     return (
         <div className="approvalDetail" >
-            {/* <Tab panes={panes} /> */}
             <div className="policyHeader colorTheme">
                 Description
             </div>
-            <PolicyItem />
+            {/* <PolicyItem item={item} /> */}
             <div className="item-card" >
-            <div className="row !mb-0" >
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                dskjkldjslkjdlkjkd dfjkdjfkjkdfjkf dsdkjskjskdjksdj
-                ldkkslkldsklklsdklsd
-                sl;dlsdklsdksldk
-                lsdkllskdlklsdlksklsdklsjdkjksdkjsdkjksdj
-                sdlsldklkds;akl;dkl;skad;lks;ldklas
-                
+                <div className="!flex !flex-row" >
+                    <div className="row flex-1 !w-max !mb-0 font-bold" >
+                        {item.name}
+                    </div>
+                    <div className="w-max mr-2" >
+                        <div className="policyTag" >
+                            {item.typeId === 1 ? "HR" : item.typeId === 2 ? "Other" : ""}
+                        </div>
+                    </div>
+                </div>
+                <div className="row !mb-0 mt-4" >
+                    {item.description}
+                </div>
             </div>
-        </div>
         </ div>
     )
 }

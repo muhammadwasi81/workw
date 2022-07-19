@@ -6,6 +6,7 @@ import {
 
 const initialState = {
 	businessPolicies: [],
+	policyDetail:null,
 	loader: false,
 	success: false,
 	error: false,
@@ -14,18 +15,21 @@ const initialState = {
 const businessPolicySlice = createSlice({
 	name: "businessPolicy",
 	initialState,
-	reducers: {},
+	reducers: {
+		handleOpenDetail:(state, action) => {
+			state.policyDetail = action.payload
+		 },
+	},
 	extraReducers: builder => {
 		builder
 			.addCase(addBusinessPolicy.fulfilled, (state, { payload }) => {
-				// console.log("payload", payload.data);
 				state.businessPolicies.push(payload.data);
 				state.success = true;
 				state.loader = false;
 			})
 			.addCase(getAllBusinessPolicy.fulfilled, (state, { payload }) => {
-				console.log("payload", payload);
 				state.businessPolicies = payload.data;
+				state.policyDetail = payload.data[0];
 				state.loader = false;
 			})
 			.addMatcher(
@@ -54,4 +58,5 @@ const businessPolicySlice = createSlice({
 	},
 });
 
+export const { handleOpenDetail } = businessPolicySlice.actions;
 export default businessPolicySlice.reducer;

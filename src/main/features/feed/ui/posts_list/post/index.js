@@ -4,7 +4,12 @@ import PostSection from "./views/PostSection";
 import PostFooter from "./views/PostFooter";
 import { useState } from "react";
 
-const Post = ({ post }) => {
+const Post = ({ post = { attachments: [] }, viewAllComments }) => {
+  const [modelState, setmodelState] = useState(false);
+  const openModel = (value) => {
+    setmodelState(value);
+  };
+
   const {
     id,
     creator,
@@ -17,10 +22,6 @@ const Post = ({ post }) => {
     commentCount,
     reactionCount,
   } = post;
-  const [modelState, setmodelState] = useState(false);
-  const openModel = (value) => {
-    setmodelState(value);
-  };
   return (
     <div className="post">
       <PostHeader
@@ -42,6 +43,8 @@ const Post = ({ post }) => {
         reactionCount={reactionCount}
         commentCount={commentCount}
         isOpen={openModel}
+        viewAllComments={viewAllComments}
+        attachments={attachments}
       />
     </div>
   );

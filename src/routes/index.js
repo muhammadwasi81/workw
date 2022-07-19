@@ -55,7 +55,7 @@ const PrivateRoute = () => {
   }
 };
 
-export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
+export default function   Routes({ isLoggedIn, isMobileView, activityCount }) {
   //   console.log("private routes");
   //   const minimizeCall = useSelector(({ call }) => call.minimizeCall);
   //   const inComingCall = useSelector(({ call }) => call.inComingCall);

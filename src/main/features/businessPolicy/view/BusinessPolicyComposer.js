@@ -10,36 +10,36 @@ import { FormLabel } from "./FormLabel";
 import { addBusinessPolicy } from "../store/action";
 const { Option } = Select;
 
-const modules = {
-	toolbar: [
-		[{ 'font': [] }],
-		[{ 'size': ['small', false, 'large', 'huge'] }],
-		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-		['bold', 'italic', 'underline', 'link', 'image'],
-		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
-		[{ 'script': 'sub' }, { 'script': 'super' }],
-		//[{ 'indent': '-1'}, { 'indent': '+1' }],
-		[{ 'direction': 'rtl' }],
-		[{ 'align': ['center'] }],
-		[{ 'color': [] }, { 'background': [] }],
-		['clean']
-	]
-}
-const formats = {
-	toolbar: [
-		[{ 'font': [] }],
-		[{ 'size': ['small', false, 'large', 'huge'] }],
-		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-		['bold', 'italic', 'underline', 'link', 'image'],
-		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
-		[{ 'script': 'sub' }, { 'script': 'super' }],
-		//[{ 'indent': '-1'}, { 'indent': '+1' }],
-		[{ 'direction': 'rtl' }],
-		[{ 'align': ['center'] }],
-		[{ 'color': [] }, { 'background': [] }],
-		['clean']
-	]
-}
+// const modules = {
+// 	toolbar: [
+// 		[{ 'font': [] }],
+// 		[{ 'size': ['small', false, 'large', 'huge'] }],
+// 		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+// 		['bold', 'italic', 'underline', 'link', 'image'],
+// 		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
+// 		[{ 'script': 'sub' }, { 'script': 'super' }],
+// 		//[{ 'indent': '-1'}, { 'indent': '+1' }],
+// 		[{ 'direction': 'rtl' }],
+// 		[{ 'align': ['center'] }],
+// 		[{ 'color': [] }, { 'background': [] }],
+// 		['clean']
+// 	]
+// }
+// const formats = {
+// 	toolbar: [
+// 		[{ 'font': [] }],
+// 		[{ 'size': ['small', false, 'large', 'huge'] }],
+// 		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+// 		['bold', 'italic', 'underline', 'link', 'image'],
+// 		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
+// 		[{ 'script': 'sub' }, { 'script': 'super' }],
+// 		//[{ 'indent': '-1'}, { 'indent': '+1' }],
+// 		[{ 'direction': 'rtl' }],
+// 		[{ 'align': ['center'] }],
+// 		[{ 'color': [] }, { 'background': [] }],
+// 		['clean']
+// 	]
+// }
 
 
 function BusinessPolicyComposer() {
@@ -83,9 +83,10 @@ function BusinessPolicyComposer() {
 							placeholder={
 								"Enter Name"
 							}
+							size="large"
 						/>
 					</S.FormItem>
-					{/* <S.FormItem
+					<S.FormItem
 						direction={Direction}
 						name="description"
 						rules={[
@@ -106,12 +107,12 @@ function BusinessPolicyComposer() {
 							}
 						/>
 						
-					</S.FormItem> */}
-					<ReactQuill
+					</S.FormItem>
+					{/* <ReactQuill
 						onChange={(e) => console.log(e)}
 						modules={modules}
 						formats={formats}
-					/>
+					/> */}
 					<S.FormItem
 						direction={Direction}
 						name="type"

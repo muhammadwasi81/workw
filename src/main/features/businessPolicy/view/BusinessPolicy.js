@@ -7,7 +7,7 @@ import "../style/businessPolicy.css";
 import "../style/style.css"
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import { getAllBusinessPolicy } from "../store/action";
+import { getAllBusinessPolicy, removeBusinessPolicy } from "../store/action";
 import "../style/businessPolicy.css";
 import {
     EditOutlined, DeleteOutlined
@@ -33,6 +33,20 @@ function BusinessPolicy(props) {
 
   const onCollpase = (key) => {
   };
+
+  const onRemove =((e, id) => {
+    e.preventDefault()
+    e.stopPropagation();
+    dispatch(removeBusinessPolicy(id))
+  })
+
+  const onEdit = ((e, item) => {
+    e.pereventDefault()
+    e.stopPropagation();
+    console.log(item, "ITEMMM!!!")
+  })
+
+
 
   return (
     <>
@@ -66,7 +80,7 @@ function BusinessPolicy(props) {
           businessPolicies?.map((item, ind) => {
             return (<>
               <Collapse defaultActiveKey={0} onChange={onCollpase}>
-                <Panel header={item.name} key={ind} extra={[<EditOutlined />, <DeleteOutlined />]}>
+                <Panel header={item.name} key={ind} extra={[<EditOutlined onClick={(e) => onEdit(e,item)} />, <DeleteOutlined onClick={(e) => onRemove(e,item.id)} />]}>
                   <p>{item.description}</p>
                 </Panel>
               </Collapse>

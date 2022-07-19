@@ -9,3 +9,13 @@ export const getAllCustomApprovalService = (data) => {
       return err;
     });
 };
+
+export const GetCustomApprovalByIdService = (id) => {
+  return MasterConfig.get(`api/CustomApproval/GetCustomApprovalById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};

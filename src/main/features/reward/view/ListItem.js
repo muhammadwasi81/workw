@@ -31,24 +31,14 @@ function ListItem(props) {
   } = props.item;
   return (
     <>
-      <SingleItem>
-        <div
-          className="new"
-          id={props.id}
-          onClick={() => {
-            props.getRewardId(props.id);
-          }}></div>
+      <SingleItem onClick={props.onClick}>
+        <div className="new" id={props.id}></div>
         <ItemHeader>
           <div className="left">
             <UserInfo
               avatarSrc={creator.image}
               name={creator.name}
-              Subline={
-                <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : "Default Designation"}
-                  time={moment(createDate).format("DD/MM/YYYY")}
-                />
-              }
+              Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
             />
           </div>
           <div className="right">
@@ -70,14 +60,14 @@ function ListItem(props) {
               <div className="left">
                 Category :
                 <span className="" style={{ color: "#757D86" }}>
-                  {category}
+                  &nbsp;{category}
                 </span>
               </div>
               <div className="right">
                 <div className="left">
                   Name :
                   <span className="" style={{ color: "#757D86" }}>
-                    {name}
+                    &nbsp;{name}
                   </span>
                 </div>
               </div>
@@ -86,7 +76,7 @@ function ListItem(props) {
               <div className="left">
                 Reason :
                 <span className="" style={{ color: "#757D86" }}>
-                  {reason}
+                  &nbsp;{reason}
                 </span>
               </div>
             </div>

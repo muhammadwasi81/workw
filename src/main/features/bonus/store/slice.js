@@ -1,41 +1,41 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addWarning, getAllPromotions, GetPromotionById } from "./actions";
+import { addWarning, getAllBonus, GetPromotionById } from "./actions";
 
 const initialState = {
-  promotions: [],
+  bonuses: [],
   loadingData: false,
   loader: true,
-  promotionDetail: null,
+  bonusDetail: null,
 };
 
-const promotionSlice = createSlice({
-  name: "promotions",
+const bonusSlice = createSlice({
+  name: "bonus",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllPromotions.fulfilled, (state, action) => {
-      state.promotions = action.payload ? action.payload : [];
+    builder.addCase(getAllBonus.fulfilled, (state, action) => {
+      state.bonuses = action.payload ? action.payload : [];
       state.loader = false;
     });
 
-    builder.addCase(GetPromotionById.fulfilled, (state, action) => {
-      //   console.log("action.payload", action.payload);
-      state.promotionDetail = action.payload.data;
-    });
+    // builder.addCase(GetPromotionById.fulfilled, (state, action) => {
+    //   //   console.log("action.payload", action.payload);
+    //   state.promotionDetail = action.payload.data;
+    // });
 
     builder
       //   .addCase(addWarning.fulfilled, (state, { payload }) => {
       //     state.warningData = payload;
       //     return state;
       //   })
-      .addMatcher(isPending(...[getAllPromotions]), (state) => {
+      .addMatcher(isPending(...[getAllBonus]), (state) => {
         state.loader = true;
       })
-      .addMatcher(isRejected(...[getAllPromotions]), (state) => {
+      .addMatcher(isRejected(...[getAllBonus]), (state) => {
         state.loader = true;
       });
   },
 });
 
-export const {} = promotionSlice.actions;
-export default promotionSlice.reducer;
+export const {} = bonusSlice.actions;
+export default bonusSlice.reducer;

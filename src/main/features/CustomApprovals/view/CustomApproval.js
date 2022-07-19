@@ -9,7 +9,7 @@ import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllCustomApprovals } from "../store/actions";
+import { getAllCustomApprovals, GetCustomApprovalById } from "../store/actions";
 import TableView from "./TableView";
 
 // import "./reward.css";
@@ -31,7 +31,7 @@ const CustomApproval = (props) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
-  const { customApprovals, loader, rewardDetail } = useSelector((state) => state.customApprovalSlice);
+  const { customApprovals, loader, customApprovalDetail } = useSelector((state) => state.customApprovalSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -41,6 +41,11 @@ const CustomApproval = (props) => {
   useEffect(() => {
     dispatch(getAllCustomApprovals(filter));
   }, [filter]);
+
+  const getCustomApprovalId = (id) => {
+    dispatch(GetCustomApprovalById(id));
+    setVisible(true);
+  };
 
   const handleFilter = (values) => {
     setSearchFilterValues(values);
@@ -108,7 +113,7 @@ const CustomApproval = (props) => {
                     {customApprovals.map((item, index) => {
                       return (
                         <>
-                          <ListItem item={item} id={item.id} key={index} />
+                          <ListItem getCustomApprovalId={getCustomApprovalId} item={item} id={item.id} key={index} />
                         </>
                       );
                     })}
@@ -120,7 +125,7 @@ const CustomApproval = (props) => {
             "Data not found"
           )}
         </ContBody>
-        {rewardDetail && <DetailedView onClose={onClose} visible={visible} />}
+        {customApprovalDetail && <DetailedView onClose={onClose} visible={visible} />}
       </TabbableContainer>
     </>
   );

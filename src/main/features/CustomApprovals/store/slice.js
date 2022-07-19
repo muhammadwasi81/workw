@@ -1,11 +1,11 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { getAllCustomApprovals } from "./actions";
+import { getAllCustomApprovals, GetCustomApprovalById } from "./actions";
 
 const initialState = {
   customApprovals: [],
   loadingData: false,
   loader: true,
-  rewardDetail: null,
+  customApprovalDetail: null,
 };
 
 const customApprovalSlice = createSlice({
@@ -14,15 +14,19 @@ const customApprovalSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllCustomApprovals.fulfilled, (state, action) => {
-      console.log(state, "HELLLOOO  From SLICE");
       state.customApprovals = action.payload ? action.payload : [];
       state.loader = false;
+    });
+
+    builder.addCase(GetCustomApprovalById.fulfilled, (state, action) => {
+      state.customApprovalDetail = action.payload.data;
     });
 
     builder
       .addMatcher(isPending(...[getAllCustomApprovals]), (state) => {
         state.loader = true;
       })
+
       .addMatcher(isRejected(...[getAllCustomApprovals]), (state) => {
         state.loader = true;
       });

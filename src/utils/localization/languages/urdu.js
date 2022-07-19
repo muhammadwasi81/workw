@@ -143,6 +143,7 @@ const urdu = {
     bonus: "انعام",
     resignations: "استعفی",
     rewards: "انعامات",
+    businessPolicy: "کاروباری پالیسی",
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -168,6 +169,7 @@ const urdu = {
     Task: {
       myTask: "میرے کام",
       assignedByMe: "میری طرف سے تفویض کردہ",
+      createdByMe: "میری طرف سے تفویض کردہ",
       teamTask: "ٹیم ٹاسک",
       dashboard: "ڈیش بورڈ",
     },

@@ -76,3 +76,12 @@
 .approval_item_detail .dateTime{
     flex: 1;
 }
+.ApprovalMainView {
+    padding-top: 15px;
+}
+.ApprovalMainView .approval_item {
+    background-color: white;
+    border-radius: 8px;
+    padding: 6px;
+    margin-bottom: 8px;
+}

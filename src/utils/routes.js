@@ -11,7 +11,9 @@ export const ROUTES = {
   },
   CUSTOM_APPROVALS: {
     DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
-    CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
+  },
+  APPROVALS: {
+    DEFAULT: `${DOMAIN_PREFIX}/approvals`,
   },
   AUTH: {
     SIGN_UP: `${DOMAIN_PREFIX}/register`,
@@ -33,6 +35,9 @@ export const ROUTES = {
   HOME: `${DOMAIN_PREFIX}`,
   NEWSFEED: {
     DETAILS: `${DOMAIN_PREFIX}/newsFeedDetails/:id`,
+  },
+  BUSINESS_POLICY: {
+    DEFAULT: `${DOMAIN_PREFIX}/businessPolicy`,
   },
   JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
   OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
@@ -74,11 +79,11 @@ export const ROUTES = {
     PROJECT_BUDGET: `${DOMAIN_PREFIX}/projects/budget/details`,
     DOCUMENTS: `${DOMAIN_PREFIX}/projects/documents`,
   },
-  DOCUMENTS: {
-    DEFAULT: `${DOMAIN_PREFIX}/documents`,
-    ITEM: `${DOMAIN_PREFIX}/documents`,
-    EDITOR: `${DOMAIN_PREFIX}/documents/editor`,
-  },
+  // DOCUMENTS: {
+  // 	DEFAULT: `${DOMAIN_PREFIX}/documents`,
+  // 	ITEM: `${DOMAIN_PREFIX}/documents`,
+  // 	EDITOR: `${DOMAIN_PREFIX}/documents/editor`,
+  // },
   TODO: {
     DEFAULT: `${DOMAIN_PREFIX}/workboard`,
     TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board`,
@@ -278,6 +283,7 @@ export const ROUTES = {
   ADMINISTRATOR: {
     DEFAULT: `${DOMAIN_PREFIX}/administrator/*`,
     ADMINISTRATION: `${DOMAIN_PREFIX}/administrator/`,
+    BUSINESS_POLICY: `businessPolicy`,
     ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
     GRADE: `grade`,
     DESIGNATION: `designation`,
@@ -321,6 +327,16 @@ export const ROUTES = {
   DOCUMENTS: {
     DEFAULT: `${DOMAIN_PREFIX}/documents/*`,
     DOCUMENT: `${DOMAIN_PREFIX}/documents`,
+  },
+  FINANCE: {
+    CHART_OF_ACCOUNT: {
+      DEFAULT: `${DOMAIN_PREFIX}/chart-of-account/*`,
+      ROOT: `${DOMAIN_PREFIX}/chart-of-account`,
+    },
+    VOUCHER: {
+      DEFAULT: `${DOMAIN_PREFIX}/voucher/*`,
+      ROOT: `${DOMAIN_PREFIX}/voucher`,
+    },
   },
 
   HR: {

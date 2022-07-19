@@ -78,7 +78,7 @@ const CommentComposer = (props) => {
           commentText: "",
         }));
         if (response) {
-          afterSuccess(response);
+          afterSuccess && afterSuccess(response);
         } else {
           setState((preValue) => ({
             ...preValue,

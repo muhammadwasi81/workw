@@ -2,9 +2,15 @@ import { createAsyncThunk, current } from "@reduxjs/toolkit";
 import { PollType, PostType } from "../utils/constants";
 import ValidateCreatePost from "../utils/ValidateCreatePost";
 import SavePostRequestDto from "../data/model/SavePostRequestDto";
-import { getAllFeedServices, saveCreatePost } from "../data/FeedApi";
+import {
+  getAllFeedServices,
+  getFeedByIdServices,
+  saveCreatePost,
+  savePollResponseService,
+} from "../data/FeedApi";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { getAllEmployeeService } from "../../../../utils/Shared/services/services";
+import { DEFAULT_GUID } from "../../../../utils/constants";
 
 export const onFeedCreateSubmitAction = createAsyncThunk(
   "feedSlice/onFeedCreateSubmit",
@@ -37,6 +43,34 @@ export const getAllFeed = createAsyncThunk(
   "feedSlice/getAllFeed",
   async (data, { _, rejectWithValue }) => {
     const response = await getAllFeedServices(data);
+
+    // eslint-disable-next-line default-case
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+    }
+  }
+);
+export const savePollResponse = createAsyncThunk(
+  "",
+  async (data, { _, rejectWithValue }) => {
+    const response = await savePollResponseService(data);
+
+    // eslint-disable-next-line default-case
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+    }
+  }
+);
+export const getFeedById = createAsyncThunk(
+  "feedSlice/getFeedById",
+  async (data, { _, rejectWithValue }) => {
+    const response = await getFeedByIdServices(data);
 
     // eslint-disable-next-line default-case
     switch (response.type) {
@@ -80,14 +114,19 @@ function onPostTagsChange(state, { payload }) {
 }
 
 function addPostAttachment(state, { payload: { files } }) {
-  console.log(files);
-  if (files.length > 1) {
+  const arr = Array.from(files);
+  if (Array.isArray(arr)) {
     state.postCompose.attachments = [
       ...state.postCompose.attachments,
-      ...files,
+      ...arr.map((file) => {
+        return {
+          id: DEFAULT_GUID,
+          file,
+        };
+      }),
     ];
   } else {
-    state.postCompose.attachments.push(files[0]);
+    state.postCompose.attachments.push({ id: DEFAULT_GUID, file: files[0] });
   }
 }
 
@@ -110,13 +149,21 @@ function onSaveComment(state, { payload: { comment } }) {
   const { referenceId } = comment;
   let {
     allFeed: { posts },
+    singlePost,
   } = current(state);
+
   const AllPost = [...posts];
   const index = posts.findIndex((item) => item.id === referenceId);
   const commentedPost = { ...AllPost[index] };
-  commentedPost.commentCount = commentedPost.commentCount + 1;
+  commentedPost.commentCount += 1;
   commentedPost.comments = [comment, ...commentedPost.comments];
   AllPost[index] = commentedPost;
+  if (singlePost.id === referenceId) {
+    const post = { ...singlePost };
+    post.commentCount += 1;
+    post.comments = [comment, ...post.comments];
+    state.singlePost = post;
+  }
   state.allFeed.posts = AllPost;
 }
 function onPostPollAttachmentChange(state, { payload: { index, files } }) {
@@ -142,6 +189,9 @@ function addPostPollOption(state, _) {
   ];
 }
 
+function clearSinglePost(state, _) {
+  state.singlePost = {};
+}
 function removePostPollOption(state, { payload: { index } }) {
   const {
     postCompose: {
@@ -159,7 +209,24 @@ function removePostPollOption(state, { payload: { index } }) {
 function onPostPrivacyChange(state, { payload: { privacyType } }) {
   state.postCompose.privacyType = privacyType;
 }
-
+function renderTitleWithMentions(title, mentions) {
+  if (mentions.length > 0) {
+    const titleArr = title.split(" ");
+    return titleArr
+      .map((item) => {
+        const mention = mentions.filter((member) => member.memberId == item);
+        if (mention.length > 0) {
+          return `<a href=${mention[0].member.id}>${mention[0].member.name}</a>`;
+          // return mention;
+        } else {
+          return item;
+        }
+      })
+      .join(" ");
+  } else {
+    return title;
+  }
+}
 export {
   onPostTitleTextChange,
   onPostMention,
@@ -174,4 +241,6 @@ export {
   onPostPrivacyChange,
   onSaveComment,
   toggleComposerVisibility,
+  clearSinglePost,
+  renderTitleWithMentions,
 };

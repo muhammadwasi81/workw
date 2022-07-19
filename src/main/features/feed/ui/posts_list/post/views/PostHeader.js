@@ -7,7 +7,13 @@ import publicIcon from "./../../../../../../../content/NewContent/NewsFeed/svg/p
 import moment from "moment";
 import { LockOutlined, ShareAltOutlined } from "@ant-design/icons";
 
-const PostHeader = ({ creator, tags, isPinnedPost, createDate, privacyId }) => {
+const PostHeader = ({
+  creator = {},
+  tags = [],
+  isPinnedPost,
+  createDate,
+  privacyId,
+}) => {
   const { image, name, designation } = creator;
   const privacy = {
     1: <img src={publicIcon} alt="#" />,
@@ -29,7 +35,7 @@ const PostHeader = ({ creator, tags, isPinnedPost, createDate, privacyId }) => {
             {/* Taged Users */}
             {tags.length > 0 && (
               <React.Fragment>
-                &ensp;with <span>String</span>
+                &ensp;with <span>{tags[tags.length - 1].member.name}</span>
                 {tags.length > 1 && (
                   <React.Fragment>
                     &ensp;and&ensp;

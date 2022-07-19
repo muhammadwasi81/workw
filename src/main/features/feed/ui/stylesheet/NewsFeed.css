@@ -90,6 +90,10 @@
     bottom: 200px;
 
 } */
+.postDetails {
+    width: 70%;
+    margin: 0 auto;
+}
 
 @media screen and (max-width: 500px) {
     .addPostAvatar {

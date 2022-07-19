@@ -1,5 +1,6 @@
 import { PostReferenceType, PostType } from "../../utils/constants";
 import { DEFAULT_GUID } from "../../../../../utils/constants";
+import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 
 function getTitleAndMentions({ type, title, pollTitle, mentions }) {
   let titleWithMentions = PostType.isPollType(type) ? pollTitle : title;
@@ -32,7 +33,7 @@ function getPollOptions({ type, poll: { options } }) {
   return options.map(({ value, attachment }) => ({
     id: DEFAULT_GUID,
     option: value,
-    attachment: attachment,
+    attachment: { id: defaultUiid, file: attachment },
   }));
 }
 

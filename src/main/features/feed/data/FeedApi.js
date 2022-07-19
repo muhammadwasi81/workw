@@ -28,3 +28,26 @@ export const getAllFeedServices = async (request) => {
     return ResponseResultError(e);
   }
 };
+export const getFeedByIdServices = async (request) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(`api/Feed/GetFeedById?id=${request}`);
+    if (responseCode === 1001) return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+export const savePollResponseService = async (request) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Feed/AddPollResponse?id=${request}`);
+    if (responseCode === 1001) return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};

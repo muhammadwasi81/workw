@@ -3,25 +3,32 @@ import LikeIcon from "../../../../../../../content/NewContent/NewsFeed/svg/like.
 import CommentIcon from "../../../../../../../content/NewContent/NewsFeed/svg/comment.svg";
 import ShareIcon from "../../../../../../../content/NewContent/NewsFeed/svg/share.svg";
 import Reactions from "../../../../../../sharedComponents/reactionBox/index";
-import CommentComposer from "../../../../../../sharedComponents/Comment/Composer";
-import CommentItem from "../../../../../../sharedComponents/Comment/commentItem";
-import moment from "moment";
 import { useDispatch } from "react-redux";
 import { feedSlice } from "../../../../store/slice";
+import { useNavigate } from "react-router-dom";
+import CommentWrapper from "../../../../../../sharedComponents/Comment/CommentWrapper";
 
-const PostFooter = ({ comments, commentCount, reactionCount, id, isOpen }) => {
+const PostFooter = ({
+  attachments,
+  comments = [],
+  commentCount,
+  reactionCount,
+  id,
+  isOpen,
+  viewAllComments,
+}) => {
   const dispatch = useDispatch();
-  const filterComments = comments.length > 3 ? comments.slice(0, 3) : comments;
+  let navigate = useNavigate();
 
   return (
     <div className="post-footer">
       <div className="post-count">
         <div className="reactionCount">
           <img src={LikeIcon} alt="" />
-          <a href="">{reactionCount}</a>
+          <a href={reactionCount}>{reactionCount}</a>
         </div>
         <div className="commentCount">
-          <a href=""> {commentCount} Comments</a>
+          <a href={commentCount}> {commentCount} Comments</a>
         </div>
       </div>
       <div className="post-events">
@@ -52,37 +59,22 @@ const PostFooter = ({ comments, commentCount, reactionCount, id, isOpen }) => {
           <div> Share</div>
         </div>
       </div>
-      <CommentComposer
+
+      <CommentWrapper
+        initailComments={comments}
         referenceId={id}
         afterSuccess={(comment) =>
           dispatch(feedSlice.actions.onSaveComment({ comment }))
         }
       />
-      {filterComments.map(
-        ({ comment, creator, createDate, id, parentId, referenceId }) => {
-          const { designation, name, image } = creator;
-          var ts = moment.utc(createDate);
-          ts.local().format("D-MMM-Y");
-
-          return (
-            <CommentItem
-              content={comment}
-              id={id}
-              key={id}
-              commentTime={moment(ts).fromNow()}
-              youLikeType={0}
-              likeCounter={2}
-              creator={{
-                name,
-                image,
-                designation,
-              }}
-            />
-          );
-        }
-      )}
-      {comments.length > 3 && (
-        <p className="viewComments" onClick={() => isOpen(true)}>
+      {viewAllComments && comments.length > 3 && (
+        <p
+          className="viewComments"
+          onClick={() => {
+            if (attachments.length > 0) isOpen(true);
+            else navigate(`/newsFeedDetails/${id}`);
+          }}
+        >
           View All Comments
         </p>
       )}

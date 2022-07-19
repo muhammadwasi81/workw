@@ -158,6 +158,7 @@ const en = {
     bonus: "Bonus",
     resignations: "Resignations",
     rewards: "Rewards",
+    businessPolicy: "Business Policy",
   },
 
   /*** AppHeader only used in Component headerTab ***/

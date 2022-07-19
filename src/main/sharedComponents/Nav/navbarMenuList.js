@@ -258,6 +258,14 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.finance,
     },
+    {
+      name: label.navMenuLabel.businessPolicy,
+      counter: 0,
+      to: ROUTES.BUSINESS_POLICY.DEFAULT,
+      icon: reportIcon,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
   ];
   return { navMenuData, navHrMenuData };
 };

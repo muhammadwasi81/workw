@@ -72,6 +72,12 @@
 
 }
 
+.post-model .post-footer .comments {
+
+    height: calc(100vh - 222px);
+    overflow: scroll;
+}
+
 .post .post-count .reactionCount {
     display: flex;
     align-items: center;

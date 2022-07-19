@@ -143,6 +143,7 @@ const urdu = {
     bonus: "انعام",
     resignations: "استعفی",
     rewards: "انعامات",
+    businessPolicy: "کاروباری پالیسی",
   },
 
   /*** AppHeader only used in Component headerTab ***/

@@ -27,14 +27,11 @@ function BusinessPolicy(props) {
   const dispatch = useDispatch();
   const { loader: loading, success, businessPolicies } = useSelector((state) => state.businessPolicySlice);
 
-  console.log(businessPolicies, "GET ALL !!!!")
-
   useEffect(() => {
     dispatch(getAllBusinessPolicy())
   }, [])
 
   const onCollpase = (key) => {
-    console.log(key);
   };
 
   return (

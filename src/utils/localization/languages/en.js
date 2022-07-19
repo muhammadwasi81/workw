@@ -332,6 +332,7 @@ const en = {
   payroll: {},
   employee: {},
   administration: {
+    Business_Policy: "Business Policy",
     AccessRole: "Access Role",
     Grade: "Grade",
     Designation: "Designation",
@@ -413,6 +414,7 @@ const en = {
   payroll: {},
   employee: {},
   administration: {
+    Business_Policy: "Business Policy",
     AccessRole: "Access Role",
     Grade: "Grade",
     Designation: "Designation",

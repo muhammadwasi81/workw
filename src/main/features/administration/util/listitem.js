@@ -23,7 +23,7 @@ export const listitem = [
   },
   {
     IconName: <FaUserLock size={20} color={"#1A5669"} />,
-    displayName: "Business Policy",
+    displayName: "Business_Policy",
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.BUSINESS_POLICY,
   },

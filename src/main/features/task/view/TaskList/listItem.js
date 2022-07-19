@@ -7,45 +7,17 @@ import { Rate } from "antd";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage, STRINGS } from "../../../../../utils/base";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { taskDictionary } from "../../utils/localization";
 import moment from "moment";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import FilePreview from "../../../../sharedComponents/FilePreview/index";
 
-export const dummyMember = [
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-];
-
-function TaskListItem({item}) {
+function TaskListItem({ item }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, Direction } = dictionaryList[userLanguage];
   const { taskDictionaryList } = taskDictionary[userLanguage];
   const { labels } = taskDictionaryList;
+  const Navigate = useNavigate();
   const {
     subject,
     description,
@@ -54,26 +26,26 @@ function TaskListItem({item}) {
     startDate,
     endDate,
     progress,
-    members=[],
+    members = [],
     creator
   } = item;
 
   let classes = "card-list-item ";
   classes += Direction === "rtl" ? "rtl" : "ltr";
   return (
-    <div className={classes}>
+    <div className={classes} onClick={()=>Navigate('taskDetail')} >
       <div className="card-item-header">
         <div className="left">
-            <UserInfo
-              avatarSrc={creator.image}
-              name={creator.name}
-              Subline={
-                <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : "Not Designated"}
-                  // time="2 days ago"
-                />
-              }
-            />
+          <UserInfo
+            avatarSrc={creator.image}
+            name={creator.name}
+            Subline={
+              <SublineDesigWithTime
+                designation={creator.designation ? creator.designation : "Not Designated"}
+              // time="2 days ago"
+              />
+            }
+          />
         </div>
 
         <div className="right">
@@ -95,7 +67,7 @@ function TaskListItem({item}) {
                 {subject}
               </div>
               <p className="card-desc-1">
-               {description}
+                {description}
               </p>
             </div>
 
@@ -107,13 +79,13 @@ function TaskListItem({item}) {
               <div className="column-item-head"> {labels.assignTo} </div>
               <div className="SummaryMembers">
                 <div className="mem">
-                <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Members"}
-                membersData={members}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
+                  <Avatar
+                    isAvatarGroup={true}
+                    isTag={false}
+                    heading={"Members"}
+                    membersData={members}
+                    image={"https://joeschmoe.io/api/v1/random"}
+                  />
                 </div>
               </div>
             </div>
@@ -133,12 +105,8 @@ function TaskListItem({item}) {
             </div>
 
             <div className="column-item-head">
-              {/* <FilePreview files={}/> */}
             </div>
-
-
           </div>
-
           <div>
             <Progress strokeColor="#1b5669" percent={progress} />
           </div>

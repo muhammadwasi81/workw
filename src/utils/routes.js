@@ -107,7 +107,7 @@ export const ROUTES = {
 	NEW_SCHEDULES: {
 		DEFAULT: `${DOMAIN_PREFIX}/newschedules`,
 	},
-	TASKS: `${DOMAIN_PREFIX}/tasks`,
+	// TASKS: `${DOMAIN_PREFIX}/tasks`,
 	PROMOTION: `${DOMAIN_PREFIX}/promotions`,
 	EXPENSES: `${DOMAIN_PREFIX}/expenses`,
 
@@ -227,10 +227,10 @@ export const ROUTES = {
 		JUNK: `${DOMAIN_PREFIX}/mail?id=INBOX.junk`,
 		DRAFTS: `${DOMAIN_PREFIX}/mail?id=INBOX.Drafts`,
 	},
-	TASK: {
-		DEFAULT: `${DOMAIN_PREFIX}/tasks`,
-		DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
-	},
+	// TASK: {
+	// 	DEFAULT: `${DOMAIN_PREFIX}/tasks`,
+	// 	DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
+	// },
 	LEAD_MANAGER: {
 		DEFAULT: `${DOMAIN_PREFIX}/leadmanager`,
 	},
@@ -414,8 +414,9 @@ export const ROUTES = {
 	},
 
 	TASK: {
-		DEFAULT: `${DOMAIN_PREFIX}/tasks`,
-		DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
+		DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
+		ROOT: `${DOMAIN_PREFIX}/tasks`,
+		DETAIL: `tasks/taskDetail`,
 	},
 
 	REWARDS: {

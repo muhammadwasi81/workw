@@ -228,7 +228,7 @@ export const STRINGS = {
     NEW_SCHEDULES: {
       DEFAULT: `${DOMAIN_PREFIX}/newschedules`,
     },
-    TASKS: `${DOMAIN_PREFIX}/tasks`,
+    // TASKS: `${DOMAIN_PREFIX}/tasks`,
     LEAVES: `${DOMAIN_PREFIX}/leaves/`,
     DEPARTMENT: `${DOMAIN_PREFIX}/departments`,
     EXPENSE: {
@@ -427,8 +427,9 @@ export const STRINGS = {
     },
 
     TASK: {
-      DEFAULT: `${DOMAIN_PREFIX}/tasks`,
-      DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
+      DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
+      ROOT: `${DOMAIN_PREFIX}/tasks`,
+      DETAIL: `taskDetail`,
     },
   },
   SOCKET_ACTIONS: {

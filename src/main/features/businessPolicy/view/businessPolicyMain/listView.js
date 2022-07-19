@@ -16,7 +16,7 @@ export default function Listing({ listData }) {
             <div className="overflow-scroll h-[85vh] w-[400px]" >
                 {
                     listData.length !== 0 && listData?.map((item) =>
-                        <PolicyItem item={item} handleClick={handleClick}/> )
+                        <PolicyItem item={item} handleClick={handleClick} />)
                 }
             </div>
         </>

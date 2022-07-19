@@ -1,7 +1,6 @@
 import React from "react";
-import PolicyItem from "./policyItem";
 
-export default function ApprovalDetail({ item }) {
+export default function PolicyDetail({ item }) {
     return (
         <div className="approvalDetail" >
             <div className="policyHeader colorTheme">

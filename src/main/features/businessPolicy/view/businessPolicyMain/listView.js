@@ -1,3 +1,4 @@
+import Input from "antd/lib/input/Input";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { handleOpenDetail } from "../../store/slice";

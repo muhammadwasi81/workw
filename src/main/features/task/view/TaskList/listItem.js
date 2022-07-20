@@ -33,7 +33,7 @@ function TaskListItem({ item }) {
   let classes = "card-list-item ";
   classes += Direction === "rtl" ? "rtl" : "ltr";
   return (
-    <div className={classes} onClick={()=>Navigate('taskDetail')} >
+    <div className={classes} onClick={()=>Navigate('taskDetail/' + item.id)} >
       <div className="card-item-header">
         <div className="left">
           <UserInfo

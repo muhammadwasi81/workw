@@ -429,7 +429,7 @@ export const STRINGS = {
     TASK: {
       DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
       ROOT: `${DOMAIN_PREFIX}/tasks`,
-      DETAIL: `taskDetail`,
+      DETAIL: `taskDetail/:id`,
     },
   },
   SOCKET_ACTIONS: {

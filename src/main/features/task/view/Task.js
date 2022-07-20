@@ -47,7 +47,7 @@ function Task() {
 	const items = [
 		{
 			name: navMenuLabel.tasks,
-			to: `${STRINGS.ROUTES.TASK.DEFAULT}`,
+			to: `${STRINGS.ROUTES.TASK.ROOT}`,
 			renderButton: buttonsEnum.dashboard,
 		},
 	];

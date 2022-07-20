@@ -416,7 +416,7 @@ export const ROUTES = {
 	TASK: {
 		DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
 		ROOT: `${DOMAIN_PREFIX}/tasks`,
-		DETAIL: `tasks/taskDetail`,
+		DETAIL: `tasks/taskDetail/:id`
 	},
 
   REWARDS: {

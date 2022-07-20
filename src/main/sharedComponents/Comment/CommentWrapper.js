@@ -1,18 +1,30 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { STRINGS } from "../../../utils/base";
 import CommentItem from "./commentItem";
 import CommentComposer from "./Composer";
+import { getAllComment } from "./services";
 
 function CommentWrapper({
   initailComments = [],
   referenceId,
   module,
   afterSuccess,
+  isCommentLoad = false
 }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
     setComments([...initailComments]);
   }, [initailComments]);
+
+  useEffect(()=>{
+    isCommentLoad && getComments(referenceId, STRINGS.DEFAULTS.guid, module)
+  }, [])
+
+  const getComments = async (referenceId, parentId, module) => {
+    const response = await getAllComment(referenceId, parentId, module);
+    setComments([...response]);
+  };
 
   return (
     <div className="commentWrapper">

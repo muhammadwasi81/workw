@@ -413,10 +413,11 @@ export const ROUTES = {
     CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
   },
 
-  TASK: {
-    DEFAULT: `${DOMAIN_PREFIX}/tasks`,
-    DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
-  },
+	TASK: {
+		DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
+		ROOT: `${DOMAIN_PREFIX}/tasks`,
+		DETAIL: `tasks/taskDetail/:id`
+	},
 
   REWARDS: {
     DEFAULT: `${DOMAIN_PREFIX}/rewards`,

@@ -41,6 +41,7 @@
     "react-responsive": "^9.0.0-beta.6",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-treelist": "^1.2.0",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.5",
     "swiper": "^8.1.4",

@@ -43,6 +43,10 @@ export const routes = {
       component: lazy(() => import("../main/features/voucher/view/index")),
     },
     {
+      path: `${ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT}`,
+      component: lazy(() => import("../main/features/chartOfAccount/view/index")),
+    },
+    {
       path: ROUTES.APPROVALS.DEFAULT,
       component: lazy(() =>
         import("../main/features/approval/view/AllApprovals/index")

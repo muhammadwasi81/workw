@@ -235,6 +235,38 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     {
+      name: label.navMenuLabel.chartOfAccount,
+      counter: 0,
+      to: ROUTES.FINANCE.CHART_OF_ACCOUNT.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.voucher,
+      counter: 0,
+      to: ROUTES.FINANCE.VOUCHER.ROOT,
+      icon: voucherIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.report,
+      counter: 0,
+      to: "/Report",
+      icon: reportIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.businessPolicy,
+      counter: 0,
+      to: ROUTES.BUSINESS_POLICY.DEFAULT,
+      icon: reportIcon,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
       name: label.navMenuLabel.loan,
       counter: 0,
       icon: loanIcon,
@@ -251,7 +283,6 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
   ];
-
   return { navMenuData, navHrMenuData };
 };
 export default NavMenuList;

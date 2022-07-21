@@ -1,5 +1,5 @@
 import React from "react";
-import "antd/dist/antd.css";
+// import "antd/dist/antd.css";
 // import './index.css';
 import { Button, Form, Input, Select } from "antd";
 const { TextArea } = Input;

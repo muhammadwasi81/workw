@@ -6,7 +6,7 @@ import { LanguageChangeContext } from "../../../utils/localization/localContext/
 import { loanDictionaryList } from "./localization";
 import TopBar from "../../sharedComponents/topBar/topBar";
 import Composer from "./composer";
-import "./style.css";
+// import "./style.css";
 import styled from "styled-components";
 import ListView from "./ListView";
 import ListBoxes from "./ListBoxes";

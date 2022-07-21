@@ -251,6 +251,7 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
   ];
+
   return { navMenuData, navHrMenuData };
 };
 export default NavMenuList;

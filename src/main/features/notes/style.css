@@ -131,7 +131,9 @@
 .noteLIST__pad {
   font-size: 15px;
 }
-
+.noteLIST__pad br {
+  display: none;
+}
 /* STICKY NOTE COLOR SELECTOR */
 .menu__popUp {
   background-color: #fdfdfd;
@@ -150,6 +152,10 @@
   display: flex;
   align-items: center;
 }
+.note__iconHOVER-dlt:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
 .no-notes-found {
   display: flex;
   align-self: center;
@@ -158,4 +164,14 @@
   height: 221px;
   align-items: center;
   margin-bottom: 10px;
+}
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  height: max-content !important;
+}
+div[contenteditable="true"] {
+  height: 75px !important;
+  overflow-y: auto !important;
+}
+.ql-container.ql-snow {
+  border: none !important;
 }

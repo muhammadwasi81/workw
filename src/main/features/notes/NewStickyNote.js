@@ -3,6 +3,7 @@ import { React, useState } from "react";
 import Draggable from "react-draggable";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import {
+  AiOutlineBgColors,
   AiOutlineDash,
   AiOutlineShareAlt,
   AiOutlineCopy,
@@ -15,6 +16,7 @@ import {
   AiOutlineUnorderedList,
 } from "react-icons/ai";
 import style from "./NewStickyNote.module.css";
+import "./style.css";
 import { useDispatch } from "react-redux";
 import {
   closeStickyNote,
@@ -23,12 +25,12 @@ import {
   decrementStickyNote,
   addImage,
   deleteImg,
-  boldText,
   openFullImage,
+  closeStickyNoteColorPicker,
 } from "../../../store/appReducer/newStickySlice";
 import StickyNoteColorSelector from "./StickyNoteColorSelector";
-import { useSelector } from "react-redux";
-import OpenImage from "./OpenImage";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const NewStickyNote = (props) => {
   /* const abc = {
@@ -39,12 +41,14 @@ const NewStickyNote = (props) => {
   // const closeSticky = useSelector((state) => state.newStickySlice.closeSticky);
 
   // const open = useSelector((state) => state.newStickySlice.show);
+
   const { id } = props;
 
   // Dragging.........
 
-  const [color, setColor] = useState(true);
+  // const [color, setColor] = useState(true);
   let [title, setTitle] = useState(props.titleVal);
+  const [menuList, setMenuList] = useState(false);
 
   //const [textAreaValue, setTextAreaValue] = useState(props.textAreaValue);
 
@@ -56,11 +60,12 @@ const NewStickyNote = (props) => {
     dispatch(closeStickyNote(id));
   };
   const openColorPicker = () => {
-    setColor(false);
+    dispatch(closeStickyNoteColorPicker());
+    //setColor(false);
   };
-  const closeColorPicker = () => {
+  /* const closeColorPicker = () => {
     setColor(true);
-  };
+  }; */
 
   var stickyTitle;
   const getTitleValue = (e) => {
@@ -71,7 +76,8 @@ const NewStickyNote = (props) => {
 
   var stickyText;
   const getTextVal = (e) => {
-    stickyText = e.target.value;
+    console.log(e);
+    stickyText = e;
     //setTextAreaValue(e.target.value);
     dispatch(targetTextVal({ stickyText, id }));
   };
@@ -114,20 +120,48 @@ const NewStickyNote = (props) => {
     reader.readAsDataURL(props.img[0]);
   } */
 
-  const boldTextHandler = () => {
-    /* const id = props.id;
-    dispatch(boldText(id)); */
-  };
-
-  const italicText = () => {};
-
-  const underlineText = () => {};
-
-  const listText = () => {};
-
   const openImage = (e) => {
     const src = e.target.src;
     dispatch(openFullImage(src));
+  };
+
+  const openMenuList = () => {
+    setMenuList(true);
+  };
+
+  const closeMenuList = () => {
+    setMenuList(false);
+  };
+
+  const modules = {
+    toolbar: [
+      // [{ font: [] }],
+      // [{ size: ["small", false, "large", "huge"] }],
+      // [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      // [{ script: "sub" }, { script: "super" }],
+      //[{ 'indent': '-1'}, { 'indent': '+1' }],
+      // [{ direction: "rtl" }],
+      // [{ align: ["center"] }],
+      // [{ color: ["blue"] }, { background: ["red"] }],
+      // ["clean"],
+    ],
+  };
+  const formats = {
+    toolbar: [
+      [{ font: [] }],
+      // [{ size: ["small", false, "large", "huge"] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "link", "image"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ script: "sub" }, { script: "super" }],
+      //[{ 'indent': '-1'}, { 'indent': '+1' }],
+      [{ direction: "rtl" }],
+      [{ align: ["center"] }],
+      [{ color: [] }, { background: [] }],
+      ["clean"],
+    ],
   };
 
   return (
@@ -136,7 +170,7 @@ const NewStickyNote = (props) => {
       handle=".handle"
     >
       <div id={props.id} className={style.stickyNoteItem__container}>
-        <StickyNoteColorSelector id={props.id} color={color} />
+        <StickyNoteColorSelector id={props.id} /* color={color} */ />
         <div
           style={{ backgroundColor: props.titleBg }}
           className={style.stickyNoteItem__item + " handle"}
@@ -148,11 +182,14 @@ const NewStickyNote = (props) => {
               onChange={getTitleValue}
             />
           </div>
+          <div className={style.stickyNoteItem__icons} onClick={openMenuList}>
+            <AiOutlineDash />
+          </div>
           <div
             className={style.stickyNoteItem__icons}
             onClick={openColorPicker}
           >
-            <AiOutlineDash />
+            <AiOutlineBgColors />
           </div>
 
           <div
@@ -163,19 +200,10 @@ const NewStickyNote = (props) => {
           </div>
         </div>
 
-        <div className={style.bottom_menu}>
-          <div className={style.bottom_menuIcon} onClick={boldTextHandler}>
-            <AiOutlineBold />
-          </div>
-          <div className={style.bottom_menuIcon} onClick={italicText}>
-            <AiOutlineItalic />
-          </div>
-          <div className={style.bottom_menuIcon} onClick={underlineText}>
-            <AiOutlineUnderline />
-          </div>
-          <div className={style.bottom_menuIcon} onClick={listText}>
-            <AiOutlineUnorderedList />
-          </div>
+        <div
+          style={{ display: `${menuList ? "flex" : "none"}` }}
+          className={style.bottom_menu}
+        >
           <div className={style.bottom_menuIcon}>
             <AiOutlineShareAlt />
           </div>
@@ -198,11 +226,17 @@ const NewStickyNote = (props) => {
               onChange={imageHandler}
             />
           </div>
+          <div onClick={closeMenuList} className={style.bottom_menuIcon}>
+            <AiOutlineClose />
+          </div>
         </div>
 
-        <textarea
-          onClick={closeColorPicker}
+        <ReactQuill
+          //style={{ fontWeight: `${styles ? "700" : "unset"}` }}
+          // onClick={closeColorPicker}
           onChange={getTextVal}
+          modules={modules}
+          formats={formats}
           className={style.stickyNoteItem__textarea}
           placeholder={props.textAreaPlaceholder}
           value={props.textAreaValue}

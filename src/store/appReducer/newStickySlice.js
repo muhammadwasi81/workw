@@ -7,7 +7,7 @@ export const newStickySlice = createSlice({
     close: true,
     incrementArray: [],
     listArray: [],
-    colorPicker: false,
+    colorPicker: true,
     bgColor: "",
     openImageSrc: "",
     openImg: false,
@@ -81,6 +81,9 @@ export const newStickySlice = createSlice({
     },
     closeStickyNoteColorPicker: (state) => {
       state.colorPicker = false;
+    },
+    openStickyNoteColorPicker: (state) => {
+      state.colorPicker = true;
     },
     closeNote: (state) => {
       state.open = false;
@@ -169,6 +172,7 @@ export const {
   openClickedStickyNote,
   stickyNoteColorPicker,
   closeStickyNoteColorPicker,
+  openStickyNoteColorPicker,
   closeNote,
   selectColor,
   deleteFromColorNoteNdList,

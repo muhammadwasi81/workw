@@ -86,7 +86,12 @@ const NoteList = (props) => {
         ))}
       </div>
 
-      <div className="noteLIST__pad">{props.text}</div>
+      <div
+        className="noteLIST__pad"
+        dangerouslySetInnerHTML={{
+          __html: props.text,
+        }}
+      ></div>
     </div>
   );
 };

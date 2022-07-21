@@ -18,6 +18,7 @@ const CommentComposer = (props) => {
     parentId = DEFAULT_GUID,
     module = 1,
     afterSuccess,
+    placeHolder = "Write Your Comments Here.",
   } = props;
   const commentText = useRef();
   const { name, userImage } = user;
@@ -112,7 +113,7 @@ const CommentComposer = (props) => {
                   commentText: event.target.value,
                 }));
               }}
-              placeholder="Write Your Comments Here."
+              placeholder={placeHolder}
               style={{ height: "20px" }}
               value={state.commentText}
               onKeyPress={(event) => saveComment(event)}

@@ -1,5 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
 import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
@@ -43,7 +52,7 @@ import NoteSlice from "./appReducer/NoteSlice";
 import documentSlice from "../main/features/documents/store/slice";
 import newStickySlice from "./appReducer/newStickySlice";
 import trelloSlice from "../main/features/workboard/store/slice";
-// import loanSlice from "../main/features/loan/store/slice";
+import expenseSlice from "../main/features/expense/store/slice";
 import taskSlice from "../main/features/task/store/taskSlice";
 
 // import thunk from "redux-thunk";
@@ -59,6 +68,7 @@ const reducers = combineReducers({
   MessengerSlice,
   leaveSlice,
   promotionSlice,
+
   //   mailSlice,
   jobDescriptionSlice,
   sharedQuillSlice,
@@ -70,6 +80,7 @@ const reducers = combineReducers({
   projectSlice,
   customApprovalSlice,
   warningSlice,
+  expenseSlice,
   //   call: callSlice,
   general: generalSlice,
   // documentsSlice,
@@ -91,7 +102,6 @@ const reducers = combineReducers({
   NoteSlice,
   bonusSlice,
   businessPolicySlice,
-  // loanSlice,
   newStickySlice,
   documentSlice,
   trelloSlice,

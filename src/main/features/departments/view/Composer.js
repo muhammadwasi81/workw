@@ -2,7 +2,10 @@ import { Button, Form, Input, Skeleton } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEmployees, getRewardCategory } from "../../../../utils/Shared/store/actions";
+import {
+  getAllEmployees,
+  getRewardCategory,
+} from "../../../../utils/Shared/store/actions";
 import { addDepartment } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { departmentDictionaryList } from "../localization/index";
@@ -49,7 +52,8 @@ const Composer = (props) => {
   }, [employees]);
 
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
+  const { Direction, departmentDictionary } =
+    departmentDictionaryList[userLanguage];
 
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
@@ -145,13 +149,19 @@ const Composer = (props) => {
                   required: true,
                   message: "{Please Department Name}",
                 },
-              ]}>
+              ]}
+            >
               <TextInput placeholder={"Enter Name"} />
             </Form.Item>
           </div>
           <div className="flex gap-4">
             <Form.Item area="true" style={{ marginBottom: 0 }}>
-              <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={departmentDictionary.upload} />
+              <SingleUpload
+                handleImageUpload={handleImageUpload}
+                img="Add Image"
+                position="flex-start"
+                uploadText={departmentDictionary.upload}
+              />
             </Form.Item>
           </div>
         </div>
@@ -164,22 +174,36 @@ const Composer = (props) => {
               required: true,
               message: departmentDictionary.enterDescription,
             },
-          ]}>
+          ]}
+        >
           <Input.TextArea placeholder={departmentDictionary.enterDescription} />
         </Form.Item>
 
-        <Form.Item name="hodId" label={"HOD"} showSearch={true} direction={Direction} rules={[{ required: true }]}>
+        <Form.Item
+          name="hodId"
+          label={"HOD"}
+          showSearch={true}
+          direction={Direction}
+          rules={[{ required: true }]}
+        >
           <MemberSelect
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             name="hodId"
+            mode="multiple"
             placeholder={"Select HOD"}
             optionComponent={(opt) => {
               return (
                 <>
-                  <Avatar name={opt.name} src={opt.image} round={true} width={"30px"} height={"30px"} />
+                  <Avatar
+                    name={opt.name}
+                    src={opt.image}
+                    round={true}
+                    width={"30px"}
+                    height={"30px"}
+                  />
                   {opt.name}
                 </>
               );
@@ -205,13 +229,27 @@ const Composer = (props) => {
         />
 
         {memberList?.length > 0 ? (
-          <MemberListItem data={memberList} onRemove={(row) => setMemberList(memberList.filter((item) => item.user.id !== row.user.id))} />
+          <MemberListItem
+            data={memberList}
+            onRemove={(row) =>
+              setMemberList(
+                memberList.filter((item) => item.user.id !== row.user.id)
+              )
+            }
+          />
         ) : (
           ""
         )}
 
         <Form.Item>
-          <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={departmentDictionary.createReward}>
+          <Button
+            type="primary"
+            size="large"
+            className="ThemeBtn"
+            block
+            htmlType="submit"
+            title={departmentDictionary.createReward}
+          >
             {" "}
             {"Create Department"}{" "}
           </Button>

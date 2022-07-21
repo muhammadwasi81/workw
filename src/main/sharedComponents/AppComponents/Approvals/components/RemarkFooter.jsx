@@ -5,10 +5,11 @@ import { SmileOutlined, PictureOutlined } from "@ant-design/icons";
 import FilePreview from "../../../FilePreview";
 import EmojiPicker from "../../../../features/Messenger/view/MessengerBox/helpers/emojiPicker";
 import { useSelector } from "react-redux";
+import CommentWrapper from "../../../Comment/CommentWrapper";
 
-function RemarkFooter({ files, onFile, onDelete }) {
+function RemarkFooter({ files, onFile, onDelete, referenceId }) {
   const { user } = useSelector((state) => state.userSlice);
-  const { firstName, lastName, userImage } = user;
+  const { name, userImage } = user;
   const index = useId();
   const [isEmoji, setisEmoji] = useState(false);
   const [text, setText] = useState("");
@@ -22,9 +23,9 @@ function RemarkFooter({ files, onFile, onDelete }) {
   return (
     <div className="remarkFooter">
       <div className="remarkFooter__top">
-        <div className="left">
+        {/* <div className="left">
           <Avatar
-            name={firstName + lastName}
+            name={name}
             src={userImage}
             size={40}
             round
@@ -62,7 +63,12 @@ function RemarkFooter({ files, onFile, onDelete }) {
               />
             </label>
           </div>
-        </div>
+        </div> */}
+        <CommentWrapper
+          initailComments={[]}
+          referenceId={referenceId}
+          placeHolder={"Write Your Remarks Here."}
+        />
       </div>
       <div className="remarkFooter__bottom">
         <div className="left">

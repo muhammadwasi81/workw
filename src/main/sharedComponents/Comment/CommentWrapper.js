@@ -8,6 +8,7 @@ function CommentWrapper({
   referenceId,
   module,
   afterSuccess,
+  placeHolder,
 }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -17,6 +18,7 @@ function CommentWrapper({
   return (
     <div className="commentWrapper">
       <CommentComposer
+        placeHolder={placeHolder}
         referenceId={referenceId}
         module={module}
         afterSuccess={(comment) => {

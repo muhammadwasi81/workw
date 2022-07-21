@@ -86,18 +86,12 @@ function EditDropDown({ startEditing, deleteList, todoId, sectionId }) {
 	// );
 	const dispatch = useDispatch();
 
-	// console.log("save card member", todoId);
-	// const onSaveMembers = members => {
-	// 	dispatch(addListCardMembers({ members, todoId }));
-	// };
 	const showDateModal = () => {
 		dispatch(openDateModal({ isDateModalOpen: true, todoId, sectionId }));
 	};
 	const addMembers = () => {
-		// console.log("todoId add member", todoId);
 		dispatch(openMembersModal({ addMember: true, todoId }));
 	};
-	// console.log("edit drop down");
 
 	return (
 		<>

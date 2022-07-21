@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
 	CheckSquareOutlined,
@@ -21,25 +21,29 @@ import LabelModal from "../Modal/LabelModal/LabelModal";
 import { useDispatch } from "react-redux";
 import { openMembersModal } from "../store/slice";
 import { useSelector } from "react-redux";
+import Upload from "antd/lib/upload/Upload";
+import { jsonToFormData } from "../../../../utils/base";
+import { DEFAULT_GUID } from "../../../../utils/constants";
+import {
+	removeWorkBoardTodoImage,
+	updateWorkBoardTodoImage,
+} from "../store/action";
+import UploadBgImg from "./UploadBgImg";
 
-function WorkBoardDetail() {
-	const [members, setMembers] = useState([]);
-	// const [label, setLabel] = useState([]);
+function WorkBoardDetail({ todoDetail }) {
+	// const [members, setMembers] = useState([]);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const dispatch = useDispatch();
 	const addMemberCardId = useSelector(
 		state => state.trelloSlice.addMemberCardId
 	);
-	const membersData = useSelector(
-		state => state.trelloSlice[addMemberCardId].members
-	);
-	const cardDueDate = useSelector(
-		state => state.trelloSlice[addMemberCardId].cardDueDate
-	);
-	// console.log("members k data", memberkadata);
-	// const member = useSelector(state => state.trelloSlice[addMemberCardId]);
-	// const { members: cardMember } = member;
-	// console.log("member", member);
+	const [todoData, setTodoData] = useState(todoDetail);
+
+	useEffect(() => {
+		if (todoDetail) {
+			setTodoData(todoDetail);
+		}
+	}, [todoDetail]);
 
 	const [isLabelModalVisible, setIsLabelModalVisible] = useState(false);
 
@@ -50,33 +54,62 @@ function WorkBoardDetail() {
 		setIsModalVisible(!isModalVisible);
 	};
 	const addMembers = () => {
-		// console.log("cardid add member", cardId);
 		dispatch(
 			openMembersModal({ addMember: true, cardId: addMemberCardId })
 		);
 	};
 
-	const onSave = members => {
-		setIsModalVisible(false);
-		setMembers(members);
+	// const onSave = members => {
+	// 	setIsModalVisible(false);
+	// 	setMembers(members);
+	// };
+
+	const onUploadImg = info => {
+		const { fileList } = info;
+		const file = fileList[0].originFileObj;
+		const response = jsonToFormData({
+			todoId: todoData.id,
+			image: { id: DEFAULT_GUID, file },
+			sectionId: todoData.sectionId,
+		});
+
+		dispatch(updateWorkBoardTodoImage(response));
+	};
+
+	const onRemoveImg = () => {
+		dispatch(
+			removeWorkBoardTodoImage({
+				id: todoData.id,
+				sectionId: todoData.sectionId,
+			})
+		);
 	};
 	return (
 		<>
 			<div className=" bg-white rounded-xl mt-5">
 				<div className="flex flex-col gap-5">
-					<WBDCoverImage />
+					{todoData && todoData.image.length > 0 && (
+						<WBDCoverImage
+							todoData={todoData}
+							image={todoData && todoData.image}
+							onUploadImg={onUploadImg}
+							onRemoveImg={onRemoveImg}
+						/>
+					)}
 					<div className="flex gap-5 justify-between">
 						<div className="basis-9/12">
 							<WorkBoardDescription
-								dueDate={cardDueDate.dueDate}
+								todoData={todoData}
+								todoDetail={todoDetail}
+								dueDate={todoDetail ? todoDetail.dueDate : ""}
 								cardId={addMemberCardId}
 							/>
 						</div>
-						<div className="basis-3/12">
+						<div className="basis-3/12 mt-[50px]">
 							<div className="flex flex-col gap-5">
 								<MemberCollapse
 									handleAdd={addMembers}
-									data={membersData}
+									data={todoDetail ? todoDetail.members : []}
 									ghost={false}
 								/>
 								<TrelloThemeButton
@@ -96,10 +129,14 @@ function WorkBoardDetail() {
 									text={"Attachment"}
 									icon={<PaperClipOutlined />}
 								/>
-								<TrelloThemeButton
-									text={"Cover"}
-									icon={<PictureOutlined />}
-								/>
+								{todoData && todoData.image.length === 0 && (
+									<UploadBgImg onUploadImg={onUploadImg}>
+										<TrelloThemeButton
+											text={"Cover"}
+											icon={<PictureOutlined />}
+										/>
+									</UploadBgImg>
+								)}
 							</div>
 						</div>
 					</div>

@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities; */
 
+.workboard_upload .ant-upload{
+  width: 100%;
+}
+
 .ant-btn-primary {
   /*background-color: #1b5669 !important;*/
   /*border: none !important;*/

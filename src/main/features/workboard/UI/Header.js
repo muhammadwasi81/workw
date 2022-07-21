@@ -11,6 +11,7 @@ function Header() {
 	const composerData = useSelector(state => state.trelloSlice.composerData);
 	// const [data, setData] = useState(composerData);
 	const success = useSelector(state => state.trelloSlice.success);
+	const loading = useSelector(state => state.trelloSlice.loader);
 	const visible = useSelector(state => state.trelloSlice.isComposerVisible);
 	const isComposerEdit = useSelector(
 		state => state.trelloSlice.isComposerEdit
@@ -39,6 +40,7 @@ function Header() {
 						<BoardComposer
 							isEdit={isComposerEdit}
 							composerData={composerData}
+							loading={loading}
 						/>
 					}
 					title={(isComposerEdit ? "Update" : "Create") + " Board"}

@@ -5,22 +5,30 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import AddList from "./AddList/AddList";
 import { useSelector, useDispatch } from "react-redux";
 import List from "./List/List";
-import { moveCard, moveList } from "../store/slice";
+import { moveCard, moveList, moveSection } from "../store/slice";
 import { useParams } from "react-router-dom";
-import { getWorkboardById } from "../store/action";
+import { getWorkboardById, moveWorkBoardSection } from "../store/action";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import {
 	ContBody,
 	TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import CardDetailModal from "./Modal/CardDetailModal";
+import DateModal from "../Modal/DateModal";
 
 function Board() {
 	const [addingList, setAddingList] = useState(false);
-	const lists = useSelector(state => state.trelloSlice.lists);
+
 	const workboardDetail = useSelector(
 		state => state.trelloSlice.workboardDetail
 	);
+	// const [sections, setSections] = useState([]);
+
+	// useEffect(() => {
+	// 	if (workboardDetail) setSections([...workboardDetail.sections]);
+	// }, [workboardDetail]);
+
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	useEffect(() => {
@@ -37,13 +45,22 @@ function Board() {
 
 		// Move list
 		if (type === "COLUMN") {
-			console.log("drag");
+			// console.log("drag");
 			// Prevent update if nothing has changed
 			if (source.index !== destination.index) {
+				// console.log("old index", source.index);
+				// console.log("new index", destination.index);
 				dispatch(
-					moveList({
+					moveSection({
 						oldListIndex: source.index,
 						newListIndex: destination.index,
+					})
+				);
+				dispatch(
+					moveWorkBoardSection({
+						workBoardId: id,
+						currentIndexNo: Number(source.index) + 1,
+						targetIndexNo: Number(destination.index) + 1,
 					})
 				);
 			}
@@ -55,14 +72,15 @@ function Board() {
 			source.index !== destination.index ||
 			source.droppableId !== destination.droppableId
 		) {
-			dispatch(
-				moveCard({
-					sourceListId: source.droppableId,
-					destListId: destination.droppableId,
-					oldCardIndex: source.index,
-					newCardIndex: destination.index,
-				})
-			);
+			console.log("move card");
+			// dispatch(
+			// 	moveCard({
+			// 		sourceListId: source.droppableId,
+			// 		destListId: destination.droppableId,
+			// 		oldCardIndex: source.index,
+			// 		newCardIndex: destination.index,
+			// 	})
+			// );
 		}
 	};
 
@@ -89,17 +107,25 @@ function Board() {
 									ref={provided.innerRef}
 									className="Board h-full flex overflow-x-auto bg-white"
 								>
-									{lists.map((list, index) => {
-										return (
-											<List
-												list={list}
-												key={list.id}
-												index={index}
-												color={list.color}
-												sectionId={id}
-											/>
-										);
-									})}
+									{workboardDetail &&
+										workboardDetail.sections.map(
+											(section, index) => {
+												return (
+													<List
+														section={section}
+														sectionId={section.id}
+														key={section.id}
+														index={index}
+														colorCode={
+															section.colorCode
+														}
+														workBoardId={
+															section.workBoardId
+														}
+													/>
+												);
+											}
+										)}
 
 									{provided.placeholder}
 									<div className="Add_List w-[264px] m-[10px] flex-shrink-0">
@@ -126,6 +152,8 @@ function Board() {
 					</DragDropContext>
 				</ContBody>
 			</TabbableContainer>
+			<CardDetailModal />
+			<DateModal />
 		</>
 	);
 }

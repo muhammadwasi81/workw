@@ -93,7 +93,7 @@
 }
 .userDetails {
   padding: 7px;
-  background: #1a5669;
+  background: var(--primary_theme_color_green);
   border-radius: 5px;
   display: flex;
   align-items: center;

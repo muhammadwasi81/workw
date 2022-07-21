@@ -7,6 +7,7 @@ import {
 	deleteListCard,
 	handleCardDetail,
 	openMembersModal,
+	openSectionDetail,
 } from "../../store/slice";
 import CardEditor from "./CardEditor";
 import "./card.css";
@@ -19,28 +20,33 @@ import { EyeOutlined } from "@ant-design/icons";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import CheckDate from "../../UI/CheckDate";
 import DateModal from "../../Modal/DateModal";
+import {
+	getWorkBoardTodoById,
+	updateWorkBoardTodoTitle,
+} from "../../store/action";
 
 function Card(props) {
 	const [editing, setEditing] = useState(false);
 	const [text, setText] = useState("");
-	const { listId, cardId, index } = props;
-	const cardData = useSelector(state => state.trelloSlice[cardId]);
-	const cardDetail = useSelector(state => state.trelloSlice[cardId]);
+	const { sectionId, id, index, text: todoText, members, todoData } = props;
+	// console.log("props", props);
+	// const cardData = useSelector(state => state.trelloSlice[cardId]);
+	// const cardDetail = useSelector(state => state.trelloSlice[cardId]);
 	const [dueDate, setDueDate] = useState("");
 	// console.log("bahar card detail", cardDetail, cardData);
-	useEffect(() => {
-		if (cardDetail !== undefined) {
-			if (dueDate !== cardDetail.cardDueDate.dueDate) {
-				setDueDate(cardDetail.cardDueDate.dueDate);
-			}
-		}
-	}, [cardDetail]);
+	// useEffect(() => {
+	// 	if (cardDetail !== undefined) {
+	// 		if (dueDate !== cardDetail.cardDueDate.dueDate) {
+	// 			setDueDate(cardDetail.cardDueDate.dueDate);
+	// 		}
+	// 	}
+	// }, [cardDetail]);
 
 	const dispatch = useDispatch();
 
 	const startEditing = () => {
 		setEditing(true);
-		setText(props.card.text);
+		setText(text);
 	};
 
 	const endEditing = () => {
@@ -49,27 +55,28 @@ function Card(props) {
 
 	const editCard = async text => {
 		endEditing();
-		dispatch(changeListCardText({ cardId: cardData._id, cardText: text }));
+		dispatch(updateWorkBoardTodoTitle({ todoId: id, title: text }));
+		// dispatch(changeListCardText({ cardId: cardData._id, cardText: text }));
 	};
 
 	const deleteCard = async () => {
 		if (window.confirm("Are you sure to delete this card?")) {
-			dispatch(deleteListCard({ cardId: cardData._id, listId }));
+			// dispatch(deleteListCard({ cardId: cardData._id, listId }));
 		}
 	};
 	const openDetail = () => {
-		dispatch(
-			handleCardDetail({
-				cardDetailId: cardId,
-				type: "open",
-			})
-		);
+		dispatch(getWorkBoardTodoById(id));
+		// dispatch(openSectionDetail({ type: "open" }));
+		// handleCardDetail({
+		// 	cardDetailId: cardId,
+		// 	type: "open",
+		// })
 	};
 
 	if (!editing) {
 		return (
 			<>
-				<Draggable draggableId={cardData._id} index={index}>
+				<Draggable draggableId={id} index={index}>
 					{(provided, snapshot) => (
 						<div
 							ref={provided.innerRef}
@@ -78,55 +85,65 @@ function Card(props) {
 							className="Card items-center relative cusrosr-pointer bg-white m-[5px] p-[5px] rounded-sm border shadow-sm text-sm break-words m-h[18px] group"
 						>
 							<div className="flex mb-3">
-								<div onClick={openDetail} className="w-full">
-									{cardData.text}
+								<div
+									className="w-full flex flex-col"
+									onClick={e => {
+										openDetail();
+									}}
+								>
+									{todoText}
+									<img
+										src={todoData && todoData.image}
+										alt=""
+										className="pt-2"
+									/>
 								</div>
 								<EditDropDown
 									className={"edit-icon"}
 									startEditing={startEditing}
 									// deleteList={deleteList}
-									cardId={cardData._id}
+									sectionId={sectionId}
+									todoId={id}
 								/>
 							</div>
 							<div className="flex items-center justify-between">
 								<div className="flex items-center gap-1">
-									{/* <EyeOutlined className="text-base" /> */}
-									{dueDate.length > 0 && (
-										<CheckDate
-											isOutsideRender={true}
-											cardId={cardData._id}
-										/>
-									)}
+									{todoData &&
+										todoData.dueDate &&
+										todoData.dueDate.length > 0 && (
+											// <div>{todoData.dueDate}</div>
+											<CheckDate
+												isOutsideRender={true}
+												todoData={todoData}
+											/>
+										)}
 								</div>
-								{cardData.members &&
-									cardData.members.length > 0 && (
-										<div className="flex">
-											{cardData.members.map(mem => (
-												<Avatar
-													name={mem.name}
-													src={mem.image}
-													round={true}
-													width={"30px"}
-													height={"30px"}
-													isZoom={true}
-												/>
-											))}
-										</div>
-									)}
+								{members && members.length > 0 && (
+									<div className="flex">
+										{members.map(mem => (
+											<Avatar
+												name={mem.name}
+												src={mem.image}
+												round={true}
+												width={"30px"}
+												height={"30px"}
+												isZoom={true}
+											/>
+										))}
+									</div>
+								)}
 							</div>
 						</div>
 					)}
 				</Draggable>
-				<EditMembers />
-				<CardDetailModal />
-				<DateModal />
+				{/* <EditMembers /> */}
 			</>
 		);
 	}
 
 	return (
 		<CardEditor
-			text={cardData.text}
+			text={todoText}
 			onSave={editCard}
 			onDelete={deleteCard}
 			onCancel={endEditing}

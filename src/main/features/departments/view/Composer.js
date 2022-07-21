@@ -35,7 +35,9 @@ const initialState = {
 
 const Composer = props => {
 	const dispatch = useDispatch();
+
 	const { employees } = useSelector(state => state.sharedSlice);
+
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
 

@@ -8,7 +8,7 @@ import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/Pri
 import { jsonToFormData } from "../../../../utils/base";
 import { useSelector } from "react-redux";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
-function BoardComposer({ isEdit, composerData }) {
+function BoardComposer({ isEdit, composerData, loading }) {
 	const [form] = Form.useForm();
 
 	const [membersData, setMembersData] = useState([]);
@@ -18,7 +18,7 @@ function BoardComposer({ isEdit, composerData }) {
 	const [privacyId, setPrivacyId] = useState(1);
 
 	const onFinish = values => {
-		console.log("values", values);
+		// console.log("values", values);
 		let membersObj = membersData.map(member => {
 			return { memberId: member };
 		});
@@ -123,6 +123,7 @@ function BoardComposer({ isEdit, composerData }) {
 							block
 							className="ThemeBtn"
 							size="large"
+							loading={loading}
 						>
 							{isEdit ? "Update " : "Create "}Board
 						</Button>

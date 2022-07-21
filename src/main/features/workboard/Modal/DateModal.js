@@ -6,32 +6,36 @@ import CustomModal from "./CustomModal";
 import ModalTitle from "./UI/ModalTitle";
 import ModalFooter from "./UI/ModalFooter";
 import moment from "moment";
+import { updateWorkBoardTodoDueDate } from "../store/action";
 function DateModal() {
-	const addMemberCardId = useSelector(
-		state => state.trelloSlice.addMemberCardId
+	const todoDueDateDetail = useSelector(
+		state => state.trelloSlice.todoDueDateDetail
 	);
-	const cardDetail = useSelector(state => state.trelloSlice[addMemberCardId]);
 	const [date, setDate] = useState("");
 	const [dueDate, setDueDate] = useState("");
 
 	useEffect(() => {
-		if (cardDetail !== undefined) {
-			if (dueDate !== cardDetail.cardDueDate.dueDate) {
-				setDueDate(cardDetail.cardDueDate.dueDate);
+		if (todoDueDateDetail) {
+			if (todoDueDateDetail.dueDate) {
+				if (dueDate !== todoDueDateDetail.dueDate) {
+					setDueDate(todoDueDateDetail.dueDate);
+				}
 			}
 		}
-	}, [cardDetail]);
+	}, [todoDueDateDetail]);
 
 	const dispatch = useDispatch();
 	const showDateModal = useSelector(state => state.trelloSlice.showDateModal);
-	const handleDateModal = () => {
-		dispatch(
-			addListCardDueDate({
-				dueDate: date,
-				isCardCompleted: false,
-				cardId: addMemberCardId,
-			})
-		);
+	const handleDateModal = type => {
+		if (type === "save") {
+			dispatch(
+				updateWorkBoardTodoDueDate({
+					todoId: todoDueDateDetail.id,
+					sectionId: todoDueDateDetail.sectionId,
+					dueDate: moment(date, "DD/MM/YYYY").format(),
+				})
+			);
+		}
 		dispatch(openDateModal({ isDateModalOpen: !showDateModal }));
 	};
 	const onChange = (date, dateString) => {
@@ -42,16 +46,23 @@ function DateModal() {
 		<CustomModal
 			isModalVisible={showDateModal}
 			title={<ModalTitle title={"Dates"} />}
-			footer={<ModalFooter onSave={handleDateModal} />}
+			footer={
+				<ModalFooter
+					onSave={() => {
+						handleDateModal("save");
+					}}
+				/>
+			}
 			onCancel={() => {
-				handleDateModal();
+				handleDateModal("cancel");
 			}}
 		>
 			<DatePicker
 				format={["DD/MM/YYYY", "DD/MM/YY"]}
 				onChange={onChange}
 				defaultValue={
-					dueDate.length > 0 && moment(dueDate, "DD/MM/YYYY")
+					dueDate.length > 0 &&
+					moment(new Date(dueDate), "DD/MM/YYYY")
 				}
 			/>
 		</CustomModal>

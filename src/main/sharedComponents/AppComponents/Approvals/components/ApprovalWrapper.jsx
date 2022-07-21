@@ -5,7 +5,7 @@ import ApprovalBody from "../components/ApprovalBody";
 import { PlusSquareOutlined, ReloadOutlined } from "@ant-design/icons";
 import RemarkFooter from "./RemarkFooter";
 const { Panel } = Collapse;
-function ApprovalWrapper({ title, data }) {
+function ApprovalWrapper({ title, data, referenceId }) {
   const [files, setFiles] = useState([]);
   const handleFile = (e) => {
     if (e.target.files.length > 1) {
@@ -36,7 +36,7 @@ function ApprovalWrapper({ title, data }) {
         </ul>
       </div>
 
-      {data.map(({ approver, remarks, status }) => {
+      {data?.map(({ approver, remarks, status }) => {
         if (approver) {
           const { businessId, designation, name, image, type } = approver;
           return (
@@ -64,6 +64,7 @@ function ApprovalWrapper({ title, data }) {
                   files={files}
                   onFile={handleFile}
                   onDelete={handleDelete}
+                  referenceId={referenceId}
                 />
               </Panel>
             </Collapse>

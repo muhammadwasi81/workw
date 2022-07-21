@@ -9,44 +9,58 @@ import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 import moment from "moment";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+	ItemContent,
+	ItemHeader,
+	SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 import departmentDefaultImage from "../../../../content/NewContent/department/department.svg";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
+import {
+	EditOutlined,
+	EllipsisOutlined,
+	SettingOutlined,
+} from "@ant-design/icons";
 import { Card } from "antd";
 const { Meta } = Card;
 
 function ListItem(props) {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { Direction, departmentDictionary } =
+		departmentDictionaryList[userLanguage];
 
-  const {
-    creator,
-    name,
-    description,
-    image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-    members = [],
-    approvers,
-  } = props.item;
+	const {
+		creator,
+		name,
+		description,
+		image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
+		members = [],
+		approvers,
+	} = props.item;
 
-  // console.log(props.item, "imagessss")
-  return (
-    <>
-      <Card className={"Card2"} cover={<img alt="example" src={departmentDefaultImage} />} actions={[]}>
-        <Meta title={name} description={description} />
-        <div className="approversBox">
-          <Avatar
-            isAvatarGroup={true}
-            isTag={false}
-            heading={"Members"}
-            membersData={members}
-            text={"Danish"}
-            image={"https://joeschmoe.io/api/v1/random"}
-          />
-        </div>
-      </Card>
+	// console.log(props.item, "imagessss")
+	return (
+		<>
+			<Card
+				className={"Card2"}
+				cover={<img alt="example" src={departmentDefaultImage} />}
+				actions={[]}
+				hoverable
+			>
+				<Meta title={name} description={description} />
+				<div className="approversBox">
+					<Avatar
+						isAvatarGroup={true}
+						isTag={false}
+						heading={"Members"}
+						membersData={members}
+						text={"Danish"}
+						image={"https://joeschmoe.io/api/v1/random"}
+					/>
+				</div>
+			</Card>
 
-      {/* <SingleItem>
+			{/* <SingleItem>
         <div
           className="new"
           id={props.id}
@@ -143,8 +157,8 @@ function ListItem(props) {
           </div>
         </div>
       </SingleItem> */}
-    </>
-  );
+		</>
+	);
 }
 
 export default ListItem;

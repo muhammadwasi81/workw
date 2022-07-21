@@ -2,11 +2,12 @@ import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
 	addBusinessPolicy,
 	getAllBusinessPolicy,
+	removeBusinessPolicy,
 } from "./action";
 
 const initialState = {
 	businessPolicies: [],
-	policyDetail:null,
+	policyDetail: null,
 	loader: false,
 	success: false,
 	error: false,
@@ -16,9 +17,12 @@ const businessPolicySlice = createSlice({
 	name: "businessPolicy",
 	initialState,
 	reducers: {
-		handleOpenDetail:(state, action) => {
+		handleOpenDetail: (state, action) => {
 			state.policyDetail = action.payload
-		 },
+		},
+		businessDeleted: (state, { payload }) => {
+			state.businessPolicies = state.businessPolicies.filter((e) => e.id !== payload);
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -32,6 +36,12 @@ const businessPolicySlice = createSlice({
 				state.policyDetail = payload.data[0];
 				state.loader = false;
 			})
+			.addCase(removeBusinessPolicy.fulfilled, (state, { payload }) => {
+				console.log(payload, "FROM REDUCER")
+				state.businessPolicies = state.businessPolicies.filter((e) => e.id !== payload.id);
+			})
+
+
 			.addMatcher(
 				isPending(
 					...[addBusinessPolicy, getAllBusinessPolicy]
@@ -58,5 +68,5 @@ const businessPolicySlice = createSlice({
 	},
 });
 
-export const { handleOpenDetail } = businessPolicySlice.actions;
+export const { handleOpenDetail, businessDeleted } = businessPolicySlice.actions;
 export default businessPolicySlice.reducer;

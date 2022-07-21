@@ -141,8 +141,7 @@ const CommentComposer = (props) => {
                   backgroundRepeat: `no-repeat`,
                   backgroundSize: "contain",
                   backgroundPosition: "center",
-                }}
-              >
+                }} >
                 <div className="overlay">
                   <span>{state.attachmentName}</span>
                 </div>
@@ -159,4 +158,5 @@ const CommentComposer = (props) => {
     </div>
   );
 };
+
 export default CommentComposer;

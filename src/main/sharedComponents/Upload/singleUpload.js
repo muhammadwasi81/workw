@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 // import * as S from "../../features/employee/Styles/employee.style";
 // import { default as imageupload } from "../../features/employee/util/imageupload.svg";
 import { PlusOutlined } from "@ant-design/icons";
+import produce from "immer";
 
 function getBase64(file) {
 	return new Promise((resolve, reject) => {
@@ -24,6 +25,16 @@ class SingleUpload extends React.Component {
 		previewTitle: "",
 		fileList: [],
 	};
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.url !== this.props.url && this.props.url.length > 0) {
+			this.setState(
+				produce(state => {
+					state.fileList.push({ url: this.props.url });
+				})
+			);
+		}
+	}
 
 	handleCancel = () => this.setState({ previewVisible: false });
 
@@ -59,7 +70,7 @@ class SingleUpload extends React.Component {
 		const { previewVisible, previewImage, fileList, previewTitle } =
 			this.state;
 		const uploadButton = (
-			<div>
+			<div className="px-1">
 				<PlusOutlined />
 				<div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
 			</div>

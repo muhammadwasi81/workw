@@ -1,3 +1,4 @@
+import Input from "antd/lib/input/Input";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { handleOpenDetail } from "../../store/slice";
@@ -16,7 +17,7 @@ export default function Listing({ listData }) {
             <div className="overflow-scroll h-[85vh] w-[400px]" >
                 {
                     listData.length !== 0 && listData?.map((item) =>
-                        <PolicyItem item={item} handleClick={handleClick}/> )
+                        <PolicyItem item={item} handleClick={handleClick} />)
                 }
             </div>
         </>

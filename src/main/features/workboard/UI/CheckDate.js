@@ -4,59 +4,78 @@ import { Checkbox, Tag } from "antd";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { addListCardDueDate } from "../store/slice";
+import { addListCardDueDate, openDateModal } from "../store/slice";
 
-function CheckDate({ isOutsideRender }) {
+let dDiff;
+
+function CheckDate({ isOutsideRender, todoData }) {
 	const [checked, setChecked] = useState(false);
 	const dispatch = useDispatch();
-	const cardId = useSelector(state => state.trelloSlice.addMemberCardId);
-	const cardDetail = useSelector(state => state.trelloSlice[cardId]);
+	// const cardId = useSelector(state => state.trelloSlice.addMemberCardId);
+
 	const [dateVal, setDateVal] = useState("");
 
 	const [dueDate, setDueDate] = useState("");
 
 	useEffect(() => {
-		if (cardDetail !== undefined) {
-			if (checked !== cardDetail.cardDueDate.isCardCompleted) {
-				setChecked(cardDetail.cardDueDate.isCardCompleted);
-			}
-			if (dueDate !== cardDetail.cardDueDate.dueDate) {
-				setDueDate(cardDetail.cardDueDate.dueDate);
+		if (todoData !== undefined) {
+			if (todoData.dueDate) {
+				if (checked !== todoData.isComplete) {
+					setChecked(todoData.isComplete);
+				}
+				if (dueDate !== todoData.dueDate) {
+					setDueDate(todoData.dueDate);
+				}
+				dDiff = null;
 			}
 		}
-	}, [cardDetail]);
+	}, [todoData]);
 
 	useEffect(() => {
 		setDateVal(dateToFromNowDaily(dueDate));
 	}, [dueDate]);
 
 	const onChange = e => {
-		dispatch(
-			addListCardDueDate({
-				cardId,
-				dueDate,
-				isCardCompleted: e.target.checked,
-			})
-		);
+		// setChecked(e.target.checked);
+		// dispatch(
+		// 	addListCardDueDate({
+		// 		cardId,
+		// 		dueDate,
+		// 		isComplete: e.target.checked,
+		// 	})
+		// );
 	};
 
 	// call this function, passing-in your date
 	function dateToFromNowDaily(myDate) {
+		const newMyDate = moment(new Date(myDate));
 		const today = moment();
 		const tomorrow = moment().add(1, "days");
-		const yesterday = moment().add(-1, "days");
 
-		if (moment(myDate, "DD/MM/YYYY").isSame(today, "day")) {
+		const yesterday = moment().add(-1, "days");
+		dDiff = moment(newMyDate).isBefore(today); // true
+
+		if (moment(newMyDate, "DD/MM/YYYY").isSame(today, "day")) {
 			return "today";
 		}
-		if (moment(myDate, "DD/MM/YYYY").isSame(tomorrow, "day")) {
+		if (moment(newMyDate, "DD/MM/YYYY").isSame(tomorrow, "day")) {
 			return "tomorrow";
 		}
-		if (moment(myDate, "DD/MM/YYYY").isSame(yesterday, "day")) {
+		if (moment(newMyDate, "DD/MM/YYYY").isSame(yesterday, "day")) {
 			return "yesterday";
 		}
-		return moment(myDate, "DD/MM/YYYY").format("D MMM");
+		return moment(newMyDate, "DD/MM/YYYY").format("D MMM");
 	}
+
+	const showDateModal = () => {
+		dispatch(
+			openDateModal({
+				isDateModalOpen: true,
+				todoId: todoData.id,
+				sectionId: todoData.sectionId,
+			})
+		);
+	};
 
 	return (
 		<>
@@ -65,8 +84,9 @@ function CheckDate({ isOutsideRender }) {
 					className={`group w-fit hover:bg-neutral-200 rounded-sm ${
 						checked
 							? "bg-green-500 hover:bg-green-600 !text-white"
-							: dateVal === "yesterday"
-							? "bg-[#eb5a46] hover:bg-[#b04632] !text-white"
+							: dateVal === "yesterday" ||
+							  (dDiff && dateVal !== "today")
+							? "bg-[#EC9488] hover:bg-[#eb5a46] !text-white"
 							: dateVal === "today" &&
 							  "bg-[#f2d600] hover:bg-[#d9b51c] !text-white"
 					} p-1`}
@@ -74,7 +94,9 @@ function CheckDate({ isOutsideRender }) {
 					<div className="group-hover:hidden flex items-center gap-2 leading-[1.4rem]">
 						<ClockCircleOutlined className="hover:hidden text-base" />
 						<span className="pr-[8px]">
-							{moment(dueDate, "DD/MM/YYYY").format("D MMM")}
+							{moment(new Date(dueDate), "DD/MM/YYYY").format(
+								"D MMM"
+							)}
 						</span>
 					</div>
 
@@ -95,7 +117,9 @@ function CheckDate({ isOutsideRender }) {
 									"!text-white"
 								}`}
 							>
-								{moment(dueDate, "DD/MM/YYYY").format("D MMM")}
+								{moment(new Date(dueDate), "DD/MM/YYYY").format(
+									"D MMM"
+								)}
 							</span>
 						</Checkbox>
 					</div>
@@ -110,12 +134,17 @@ function CheckDate({ isOutsideRender }) {
 						}`}
 					/>
 
-					<div className="p-2 bg-neutral-100 rounded-sm flex items-center gap-2 cursor-pointer hover:bg-neutral-200">
+					<div
+						className="p-2 bg-neutral-100 rounded-sm flex items-center gap-2 cursor-pointer hover:bg-neutral-200"
+						onClick={showDateModal}
+					>
 						<span className="text-sm">{dateVal}</span>
 						{checked ? (
 							<Tag color="#87d068">complete</Tag>
 						) : dateVal === "yesterday" ? (
-							<Tag color="#f50">overdue</Tag>
+							<Tag color="#EC9488">overdue</Tag>
+						) : dDiff && dateVal !== "today" ? (
+							<Tag color="#EC9488">overdue</Tag>
 						) : (
 							dateVal === "today" && (
 								<Tag color="#F2D600">due soon</Tag>

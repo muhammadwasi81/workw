@@ -5,29 +5,32 @@ import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import AntCustomSelect from "../Select";
 
 function MemberSelect({
-  data,
-  selectedData,
-  canFetchNow,
-  fetchData,
-  defaultData = [],
-  defaultKey = "id",
-  isObject = false,
-  isImage = false,
-  placeholder = "Search...",
-  mode = "default",
-  size = "large",
-  optionComponent,
-  value: val = mode === "default" ? "" : [],
-  onChange: change,
-  dataVal = [],
+	data,
+	selectedData,
+	canFetchNow,
+	fetchData,
+	defaultData = [],
+	defaultKey = "id",
+	isObject = false,
+	isImage = false,
+	placeholder = "Search...",
+	mode = "default",
+	size = "large",
+	optionComponent,
+	value: val = mode === "default" ? "" : [],
+	onChange: change,
+	dataVal = [],
+	loadDefaultData = false,
 }) {
-  const [value, setValue] = useState("");
-  const [stateVal, setStateVal] = useState(dataVal);
-  const [defaultValues, setDefaultValues] = useState([]);
-  const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
-  const debouncedSearch = useDebounce(value, 500);
-  const [memberData, setMemberData] = useState([...data]);
-  const { employees, loader } = useSelector((state) => state.sharedSlice);
+	const [value, setValue] = useState("");
+	const [stateVal, setStateVal] = useState(dataVal);
+	const [defaultValues, setDefaultValues] = useState([]);
+	const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
+	const debouncedSearch = useDebounce(value, 500);
+	const [memberData, setMemberData] = useState([...data]);
+	const { employees, loader } = useSelector(state => state.sharedSlice);
+	const [isAssignDefaultData, setIsAssignDefaultData] =
+		useState(loadDefaultData);
 
   const onChange = (value) => {
     const tempArray = String(value).split(",");
@@ -123,29 +126,37 @@ function MemberSelect({
     }
   }, [data]);
 
-  return (
-    <AntCustomSelect
-      value={stateVal}
-      data={memberData}
-      apiData={employees}
-      loading={loader}
-      onChange={onChange}
-      onSearch={onSearch}
-      onSelect={onSelect}
-      paginationHandler={paginationHandler}
-      debouncedSearch={debouncedSearch}
-      filterOption={false}
-      isEmailSelect={false}
-      isImage={isImage}
-      mode={mode}
-      placeholder={placeholder}
-      size={size}
-      defaultData={defaultValues}
-      optionComponent={optionComponent}
-      isLoaded={canFetchNow}
-      // tagRender={props => <TagRender props={props} />}
-    />
-  );
+	useEffect(() => {
+		if (isAssignDefaultData && dataVal.length > 0) {
+			setStateVal([...dataVal]);
+			setIsAssignDefaultData(false);
+		}
+	}, [dataVal]);
+
+	// console.log("select", data);
+	return (
+		<AntCustomSelect
+			value={stateVal}
+			data={memberData}
+			apiData={employees}
+			loading={loader}
+			onChange={onChange}
+			onSearch={onSearch}
+			onSelect={onSelect}
+			paginationHandler={paginationHandler}
+			debouncedSearch={debouncedSearch}
+			filterOption={false}
+			isEmailSelect={false}
+			isImage={isImage}
+			mode={mode}
+			placeholder={placeholder}
+			size={size}
+			defaultData={defaultValues}
+			optionComponent={optionComponent}
+			isLoaded={canFetchNow}
+			// tagRender={props => <TagRender props={props} />}
+		/>
+	);
 }
 
 export default MemberSelect;

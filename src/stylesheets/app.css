@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities; */
 
+.workboard_upload .ant-upload{
+  width: 100%;
+}
+
 .ant-btn-primary {
   /*background-color: #1b5669 !important;*/
   /*border: none !important;*/
@@ -369,26 +373,30 @@ iframe {
   color: white;
   border-radius: 10px;
 }
+.defaultNotification .ant-notification-notice-message{
+  margin: 0px !important;
+}
+.defaultNotification .ant-notification-notice-icon{
+  top: 9px;
+  left: 12px;
+}
 
 .drawerSecondary .ant-drawer-body {
   background: #f4f4f4;
 }
 
-
-.drawerSecondary .ant-drawer-body>div {
+.drawerSecondary .ant-drawer-body > div {
   background: #fff;
   border-radius: 4px;
   padding: 15px;
   /* box-shadow: 0px 0px 5px 0px #ccc; */
 }
 
-.drawerSecondary .ant-drawer-body>.detailedViewComposer {
+/* .drawerSecondary .ant-drawer-body > .detailedViewComposer {
   background: #fff;
   border-radius: 4px;
   padding: 15px;
-  /* box-shadow: 0px 0px 5px 0px #ccc; */
-}
-
+} */
 .approvalDetail .detailedViewComposer {
   background: #fff;
   border-radius: 4px;

@@ -2,24 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import CustomModal from "../../Modal/CustomModal";
-import { handleCardDetail } from "../../store/slice";
+import { handleCardDetail, openSectionDetail } from "../../store/slice";
 import WorkBoardDetail from "../../WorkBoardDetail/WorkBoardDetail";
 
 function CardDetailModal() {
 	const [isOpenDetail, setIsOpenDetail] = useState(false);
 	const dispatch = useDispatch();
 	const handleOpenDetails = () => {
-		dispatch(handleCardDetail({ cardDetail: null, type: "close" }));
+		dispatch(openSectionDetail({ type: "close" }));
 	};
-	const cardDetail = useSelector(state => state.trelloSlice.cardDetail);
+	const todoDetail = useSelector(state => state.trelloSlice.todoDetail);
 	useEffect(() => {
-		if (cardDetail) {
+		if (todoDetail) {
 			setIsOpenDetail(true);
 			return;
 		} else {
 			setIsOpenDetail(false);
 		}
-	}, [cardDetail]);
+	}, [todoDetail]);
+
 	return (
 		<CustomModal
 			isModalVisible={isOpenDetail}
@@ -27,7 +28,7 @@ function CardDetailModal() {
 			width={1000}
 			onCancel={handleOpenDetails}
 		>
-			<WorkBoardDetail />
+			<WorkBoardDetail todoDetail={todoDetail} />
 		</CustomModal>
 	);
 }

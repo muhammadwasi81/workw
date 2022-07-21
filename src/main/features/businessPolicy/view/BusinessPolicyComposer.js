@@ -1,13 +1,46 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Select } from "antd";
 import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
-
+import ReactQuill from "react-quill"
 import { FormTextArea } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import * as S from "../../employee/Styles/employee.style";
 import { FormLabel } from "./FormLabel";
 import { addBusinessPolicy } from "../store/action";
+const { Option } = Select;
+
+// const modules = {
+// 	toolbar: [
+// 		[{ 'font': [] }],
+// 		[{ 'size': ['small', false, 'large', 'huge'] }],
+// 		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+// 		['bold', 'italic', 'underline', 'link', 'image'],
+// 		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
+// 		[{ 'script': 'sub' }, { 'script': 'super' }],
+// 		//[{ 'indent': '-1'}, { 'indent': '+1' }],
+// 		[{ 'direction': 'rtl' }],
+// 		[{ 'align': ['center'] }],
+// 		[{ 'color': [] }, { 'background': [] }],
+// 		['clean']
+// 	]
+// }
+// const formats = {
+// 	toolbar: [
+// 		[{ 'font': [] }],
+// 		[{ 'size': ['small', false, 'large', 'huge'] }],
+// 		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+// 		['bold', 'italic', 'underline', 'link', 'image'],
+// 		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
+// 		[{ 'script': 'sub' }, { 'script': 'super' }],
+// 		//[{ 'indent': '-1'}, { 'indent': '+1' }],
+// 		[{ 'direction': 'rtl' }],
+// 		[{ 'align': ['center'] }],
+// 		[{ 'color': [] }, { 'background': [] }],
+// 		['clean']
+// 	]
+// }
+
 
 function BusinessPolicyComposer() {
 	const dispatch = useDispatch();
@@ -50,6 +83,7 @@ function BusinessPolicyComposer() {
 							placeholder={
 								"Enter Name"
 							}
+							size="large"
 						/>
 					</S.FormItem>
 					<S.FormItem
@@ -72,6 +106,35 @@ function BusinessPolicyComposer() {
 								"Enter Description"
 							}
 						/>
+						
+					</S.FormItem>
+					{/* <ReactQuill
+						onChange={(e) => console.log(e)}
+						modules={modules}
+						formats={formats}
+					/> */}
+					<S.FormItem
+						direction={Direction}
+						name="type"
+						rules={[
+							{
+								required: true,
+								message:
+									"Please Select Type",
+							},
+						]}
+						label={
+							<FormLabel>{"Type"}</FormLabel>
+						}
+					>
+						<Select
+							showSearch
+							placeholder="Select Type"
+							size="large"
+						>
+							<Option value={1}>HR</Option>
+							<Option value={2}>Other</Option>
+						</Select>
 					</S.FormItem>
 				</div>
 

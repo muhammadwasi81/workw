@@ -1,24 +1,31 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Radio } from "antd";
+import { Form, Radio } from "antd";
 import "swiper/css";
 import { expenseCategory } from "../enums/expenseCategory";
 function ExpenseType() {
   return (
-    <Radio.Group defaultValue="a" className="expenseCategory">
-      <Swiper spaceBetween={5} slidesPerView={7}>
-        {expenseCategory.map(({ id, name, image }, index) => {
-          return (
-            <SwiperSlide key={id}>
-              <Radio.Button value={index}>
-                {image}
-                {name}
-              </Radio.Button>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-    </Radio.Group>
+    <Form.Item
+      label="Category"
+      name="categoryId"
+      labelPosition="top"
+      rules={[{ required: true }]}
+    >
+      <Radio.Group defaultValue={1} className="expenseCategory">
+        <Swiper spaceBetween={5} slidesPerView={8}>
+          {expenseCategory.map(({ id, name, image }) => {
+            return (
+              <SwiperSlide key={id}>
+                <Radio.Button value={id}>
+                  {image}
+                  {name}
+                </Radio.Button>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </Radio.Group>
+    </Form.Item>
   );
 }
 

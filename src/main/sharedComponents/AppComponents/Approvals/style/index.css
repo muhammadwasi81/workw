@@ -12,7 +12,7 @@
 }
 
 .approval__body-header {
-  padding: 8px 5px 8px 10px;
+  padding: 5px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,7 +37,7 @@
 }
 
 .approval__body-header .left .username {
-  font-size: 13px;
+  font-size: 12px;
   color: #1a5669;
   display: block;
   line-height: 1;
@@ -62,10 +62,10 @@
   margin-top: 5px;
 }
 
-.approvalCollapse,
+/* .approvalCollapse,
 .approvalCollapse * {
   border: none !important;
-}
+} */
 
 .approvalCollapse .ant-collapse-header {
   padding: 0 !important;
@@ -190,13 +190,13 @@
 }
 
 .remarkFooter {
-  background-color: #f4f4f4;
+  background-color: #fff;
   padding: 5px 10px;
   padding-top: 5px;
 }
 
 .remarkFooter__top {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   gap: 8px;
 }
@@ -269,13 +269,13 @@
 }
 
 .remarkNoData {
-  background-color: #f4f4f4;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 90px;
-  border-top: 1px solid #d5d5d5 !important;
+  /* border-top: 1px solid #d5d5d5 !important;s */
   border-bottom: 1px solid #d5d5d5 !important;
 }
 

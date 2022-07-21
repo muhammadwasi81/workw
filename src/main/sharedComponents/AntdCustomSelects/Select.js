@@ -7,35 +7,35 @@ import { act } from "react-dom/test-utils";
 const { Option } = Select;
 
 function AntCustomSelect(props) {
-	const [pgNo, setPgNo] = useState(0);
+  const [pgNo, setPgNo] = useState(0);
 
-	const {
-		loading,
-		data,
-		onChange,
-		onSearch,
-		onSelect,
-		paginationHandler,
-		debouncedSearch,
-		apiData,
-		mode,
-		placeholder,
-		size,
-		filterOption,
-		tagRender,
-		isEmailSelect,
-		isImage,
-		value,
-		defaultData = [],
-		optionComponent,
-		label,
-		name,
-		isLoaded,
-	} = props;
+  const {
+    loading,
+    data,
+    onChange,
+    onSearch,
+    onSelect,
+    paginationHandler,
+    debouncedSearch,
+    apiData,
+    mode,
+    placeholder,
+    size,
+    filterOption,
+    tagRender,
+    isEmailSelect,
+    isImage,
+    value,
+    defaultData = [],
+    optionComponent,
+    label,
+    name,
+    isLoaded,
+  } = props;
 
-	useEffect(() => {
-		setPgNo(0);
-	}, [debouncedSearch]);
+  useEffect(() => {
+    setPgNo(0);
+  }, [debouncedSearch]);
 
 	// handle pagination inside this component
 	const onPopupScroll = event => {

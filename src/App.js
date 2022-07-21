@@ -34,7 +34,6 @@ import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
 import { InitMessengerSocket } from "./utils/InitSocket";
 import MainNotification from "./main/sharedComponents/Notification/Notification";
-import loader from "../src/content/loader.gif";
 
 const App = () => {
 	const { userLanguageChange } = useContext(LanguageChangeContext);

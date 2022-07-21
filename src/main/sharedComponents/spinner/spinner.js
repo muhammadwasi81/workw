@@ -1,15 +1,15 @@
 import React from "react";
 import "./style.css";
-// import Konnect from "./konnect.png";
+import Workwise from "./workwise-logo-2.gif";
 
 const Spinner = ({ isHeight }) => {
 	return (
-		<div className="main fadeOut" style={{ height: isHeight && "unset" }}>
-			<div className="loader mySpinner">
-				<div className="child">
-					{/* <img alt="" src={Konnect} className="loader" /> */}
-				</div>
-			</div>
+		<div className="flex w-full h-full justify-center items-center">
+			<img
+				alt=""
+				src={Workwise}
+				className="h-full w-[500px] object-contain"
+			/>
 		</div>
 	);
 };

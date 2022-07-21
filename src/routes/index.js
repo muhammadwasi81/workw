@@ -56,6 +56,7 @@ export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
 			{isLoggedIn && isMobileView ? <TopMenuBar /> : ""}
 			<div className="main-app-style">
 				<div className="section ov-des" id="section1">
+					{/* <Spinner /> */}
 					<Suspense fallback={<Spinner />}>
 						<PrivateRoute />
 					</Suspense>

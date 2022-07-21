@@ -30,12 +30,12 @@ export const tableColumn = () => {
       render: (status) => <StatusTag status={status} />,
       sort: true,
     },
-    {
-      title: "Category",
-      dataIndex: "category",
-      ellipsis: true,
-      sort: true,
-    },
+    // {
+    //   title: "Category",
+    //   dataIndex: "category",
+    //   ellipsis: true,
+    //   sort: true,
+    // },
     // { title: "Name", dataIndex: "name", ellipsis: true, sort: true },
     // { title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
     {

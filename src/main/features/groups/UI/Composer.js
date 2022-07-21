@@ -119,10 +119,10 @@ const Composer = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please Enter Name",
+                  message: "Please Enter Name Group Name",
                 },
               ]}>
-              <TextInput placeholder={"Please Enter Project Name"} />
+              <TextInput placeholder={"Enter Name"} />
             </Form.Item>
           </div>
           <div className="flex gap-4">

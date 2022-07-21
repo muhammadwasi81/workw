@@ -118,6 +118,9 @@ const en = {
     customApprovals: "Custom Approvals",
     feed: "NewsFeed",
     messenger: "Messenger",
+    chartOfAccount: "Chart of Account",
+    voucher: "Voucher",
+    report: "Report",
     mailBox: "Mail Box",
     groups: "Groups",
     projects: "Projects",
@@ -145,6 +148,7 @@ const en = {
     companies: "Companies",
     menu: "Menu",
     hr: "HR",
+    finance: "Finance",
     privacy: "Privacy",
     TC: "T & C",
     more: "more",
@@ -154,6 +158,7 @@ const en = {
     bonus: "Bonus",
     resignations: "Resignations",
     rewards: "Rewards",
+    businessPolicy: "Business Policy",
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -179,6 +184,7 @@ const en = {
     Task: {
       myTask: "My Tasks",
       assignedByMe: "Assigned By Me",
+      createdByMe: "Created By Me",
       teamTask: "Team Task",
       dashboard: "Dashboard",
     },
@@ -327,6 +333,7 @@ const en = {
   payroll: {},
   employee: {},
   administration: {
+    Business_Policy: "Business Policy",
     AccessRole: "Access Role",
     Grade: "Grade",
     Designation: "Designation",
@@ -408,6 +415,7 @@ const en = {
   payroll: {},
   employee: {},
   administration: {
+    Business_Policy: "Business Policy",
     AccessRole: "Access Role",
     Grade: "Grade",
     Designation: "Designation",

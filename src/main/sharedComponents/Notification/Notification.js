@@ -22,6 +22,7 @@ const openNotification = options => {
 		),
 		playSound = false,
 		soundTune = messageTune,
+		type,
 		// icon = (
 		// 	<Avatar
 		// 		src={
@@ -41,7 +42,13 @@ const openNotification = options => {
 		duration,
 		onClick,
 		style,
-		className,
+		className:
+			className +
+			(type === "success"
+				? " !bg-[#4CAF50]"
+				: type === "error"
+				? " !bg-[#f44336]"
+				: ""),
 		closeIcon,
 		// icon,
 	});

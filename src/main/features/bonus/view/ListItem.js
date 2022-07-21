@@ -26,18 +26,13 @@ function ListItem(props) {
         }}
       />
       <ItemHeader>
-        <div className="left">
+        {/* <div className="left">
           <UserInfo
             avatarSrc={creator.image}
             name={creator.name}
-            Subline={
-              <SublineDesigWithTime
-                designation={creator.designation ? creator.designation : "Default Designation"}
-                time={moment(createDate).format("DD/MM/YYYY")}
-              />
-            }
+            Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
           />
-        </div>
+        </div> */}
         <div className="right">
           <Tag className="IdTag">{referenceNo}</Tag>
           <StatusTag status={status}></StatusTag>

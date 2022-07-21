@@ -20,20 +20,20 @@ const menu = (startEditing, addMembers, deleteList, showDateModal) => {
 	return (
 		<Menu
 			items={[
-				{
-					key: "1",
-					label: (
-						<div
-							className="flex items-center gap-3"
-							onClick={e => {
-								startEditing();
-							}}
-						>
-							<EditOutlined className="text-base" />
-							<span className="">Edit Title</span>
-						</div>
-					),
-				},
+				// {
+				// 	key: "1",
+				// 	label: (
+				// 		<div
+				// 			className="flex items-center gap-3"
+				// 			onClick={e => {
+				// 				startEditing();
+				// 			}}
+				// 		>
+				// 			<EditOutlined className="text-base" />
+				// 			<span className="">Edit Title</span>
+				// 		</div>
+				// 	),
+				// },
 				{
 					key: "2",
 					label: (
@@ -79,24 +79,25 @@ const menu = (startEditing, addMembers, deleteList, showDateModal) => {
 	);
 };
 
-function EditDropDown({ startEditing, deleteList, cardId }) {
+function EditDropDown({ startEditing, deleteList, todoId, sectionId }) {
 	// const isOpen = useSelector(state => state.trelloSlice.addMember);
 	// const memberDefaulIds = useSelector(
 	// 	state => state.trelloSlice.memberDefaulIds
 	// );
 	const dispatch = useDispatch();
 
-	// console.log("save card member", cardId);
+	// console.log("save card member", todoId);
 	// const onSaveMembers = members => {
-	// 	dispatch(addListCardMembers({ members, cardId }));
+	// 	dispatch(addListCardMembers({ members, todoId }));
 	// };
 	const showDateModal = () => {
-		dispatch(openDateModal({ isDateModalOpen: true, cardId }));
+		dispatch(openDateModal({ isDateModalOpen: true, todoId, sectionId }));
 	};
 	const addMembers = () => {
-		// console.log("cardid add member", cardId);
-		dispatch(openMembersModal({ addMember: true, cardId }));
+		// console.log("todoId add member", todoId);
+		dispatch(openMembersModal({ addMember: true, todoId }));
 	};
+	// console.log("edit drop down");
 
 	return (
 		<>
@@ -108,6 +109,7 @@ function EditDropDown({ startEditing, deleteList, cardId }) {
 					showDateModal
 				)}
 				trigger={["click"]}
+				className="z-10"
 				// visible={visible}
 			>
 				<div className="Card-Icons absolute  right-[5px] flex flex-row justify-end invisible group-hover:visible ">

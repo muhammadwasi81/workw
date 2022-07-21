@@ -1,6 +1,7 @@
 import React from "react";
 import {
 	AlignLeftOutlined,
+	EyeOutlined,
 	PaperClipOutlined,
 	UnorderedListOutlined,
 } from "@ant-design/icons";
@@ -9,33 +10,42 @@ import { HiOutlineClipboardList } from "react-icons/hi";
 import DescriptionInput from "../UI/DescriptionInput";
 import CommentComposer from "../../../sharedComponents/Comment/Composer";
 import CheckDate from "../UI/CheckDate";
+import TodoTitleInput from "../UI/TodoTitleInput";
 
-function WorkBoardDescription({ dueDate }) {
+function WorkBoardDescription({ dueDate, cardId, todoData }) {
 	return (
-		<div className="flex flex-col gap-5">
-			<div className="flex items-center gap-2">
+		<div className="flex flex-col gap-4">
+			<div className="flex gap-2">
 				<HiOutlineClipboardList className="text-xl text-gray-500" />
-				<span className="font-bold text-base text-primary-color">
-					Going live with server deployment
-				</span>
+				<div className="flex flex-col gap-1 w-full">
+					<TodoTitleInput
+						title={todoData && todoData.title}
+						id={todoData && todoData.id}
+						sectionId={todoData && todoData.sectionId}
+					/>
+
+					<span className="text-gray-500 flex items-center gap-2">
+						in section{" "}
+						<span className="underline cursor-pointer hover:text-gray-600">
+							{todoData && todoData.workBoardSection}
+						</span>
+						<EyeOutlined className="" />
+					</span>
+				</div>
 			</div>
-			{dueDate.length > 0 && (
+			{dueDate && dueDate.length > 0 && (
 				<div className="flex flex-col ">
 					<span className="text-gray-500 font-semibold">
 						Due date
 					</span>
-					<CheckDate />
+					<CheckDate todoData={todoData} />
 				</div>
 			)}
-			<div className="flex gap-2 w-full">
+			{/* <div className="flex gap-2 w-full">
 				<AlignLeftOutlined className="!text-gray-500 text-lg" />
-				<div className="flex flex-col gap-2 w-full">
-					<span className="text-black font-extrabold ">
-						Description
-					</span>
-					<DescriptionInput />
-				</div>
-			</div>
+				<div className="flex flex-col gap-2 w-full"></div>
+			</div> */}
+			<DescriptionInput todoData={todoData} />
 
 			<div className="flex gap-2 w-full">
 				<PaperClipOutlined className="!text-gray-500 text-lg" />

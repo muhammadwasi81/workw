@@ -4,7 +4,7 @@
   background-color: #fff;
 }
 .ant-tooltip-inner {
-  color: #000 !important;
+  /* color: #000 !important; */
 }
 .MenuCollapse {
   border: 0 !important;
@@ -93,7 +93,7 @@
 }
 .userDetails {
   padding: 7px;
-  background: #1a5669;
+  background: var(--primary_theme_color_green);
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -281,14 +281,14 @@
 .menu .menu-item p {
   margin: 0;
   color: #3e3e3e;
-  font-size: 12px;
+  font-size: 14px;
 }
 .menu .menu-item a:hover {
   background-color: #e5e5e5;
   border-color: #1a5669;
 }
 .menu span {
-  font-size: 13px;
+  font-size: 14px;
   font-family: Poppins;
   margin-left: 6px;
   font-weight: 400;
@@ -338,10 +338,10 @@
 }
 .notificationModal .ant-modal {
   margin: 0;
-  left: 255px;
+  left: 220px;
   transform: none;
   position: relative;
-  top: 160px;
+  top: 150px;
 }
 .notificationModal .ant-modal-wrap {
   z-index: 998;

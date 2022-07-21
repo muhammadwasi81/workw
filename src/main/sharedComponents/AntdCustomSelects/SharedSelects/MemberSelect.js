@@ -20,6 +20,7 @@ function MemberSelect({
 	value: val = mode === "default" ? "" : [],
 	onChange: change,
 	dataVal = [],
+	loadDefaultData = false,
 }) {
 	const [value, setValue] = useState("");
 	const [stateVal, setStateVal] = useState(dataVal);
@@ -28,100 +29,109 @@ function MemberSelect({
 	const debouncedSearch = useDebounce(value, 500);
 	const [memberData, setMemberData] = useState([...data]);
 	const { employees, loader } = useSelector(state => state.sharedSlice);
+	const [isAssignDefaultData, setIsAssignDefaultData] =
+		useState(loadDefaultData);
 
-	const onChange = value => {
-		const tempArray = String(value).split(",");
-		if (!tempArray[0]) {
-			setStateVal([]);
-		} else {
-			setStateVal([...tempArray]);
-		}
-	};
-	const triggerChange = changedValue => {
-		change?.(changedValue);
-	};
+  const onChange = (value) => {
+    const tempArray = String(value).split(",");
+    if (!tempArray[0]) {
+      setStateVal([]);
+    } else {
+      setStateVal([...tempArray]);
+    }
+  };
+  const triggerChange = (changedValue) => {
+    change?.(changedValue);
+  };
+  useEffect(() => {
+    if (defaultData.length > 0) {
+      let tempArray = [];
+      defaultData.forEach((element) => {
+        tempArray.push(element[defaultKey]);
+      });
+      setStateVal(tempArray);
+      setDefaultValues(tempArray);
+    }
+  }, []);
+
+  useEffect(() => {
+    let filterArrOfObj;
+    if (isObject) {
+      filterArrOfObj = employees.filter((val) =>
+        stateVal.includes(val[defaultKey])
+      );
+    }
+    selectedData(stateVal, filterArrOfObj);
+
+    if (stateVal.length > 0) {
+      if (stateVal.length === 1) {
+        triggerChange(stateVal.toString());
+      } else {
+        triggerChange(stateVal);
+      }
+    }
+  }, [stateVal]);
+
+  const onSearch = (value) => {
+    if (defaultData.length > 0) {
+      setMemberData([...defaultData]);
+    } else {
+      setMemberData([]);
+    }
+    setIsDataFetchable(true);
+    setValue(value);
+  };
+  const onSelect = (value) => {
+    // console.log("selected value", value);
+    // selectedData(value);
+  };
+
+  const paginationHandler = (pgNo) => {
+    if (debouncedSearch.length > 0) {
+      fetchData(debouncedSearch, pgNo);
+      setIsDataFetchable(true);
+    }
+  };
+
+  useEffect(() => {
+    if (debouncedSearch.length > 0) {
+      fetchData(debouncedSearch, 0);
+    } else {
+      setMemberData([...data]);
+    }
+  }, [debouncedSearch]);
+
+  useEffect(() => {
+    if (isDataFetchable) {
+      // console.log("memberData", memberData);
+      // let uniqueData = employees.filter(function (obj) {
+      // 	return memberData.indexOf(obj) === -1;
+      // });
+      // console.log("unique data", uniqueData);
+      // setMemberData(uniqueData);
+      const merged = [...memberData, ...employees];
+      // console.log("[...new Set([...prevData, ...employees])]", [
+      // 	...new Map(merged.map(v => [v.id, v])).values(),
+      // ]);
+      setMemberData(() => {
+        return [...new Map(merged.map((v) => [v.id, v])).values()];
+      });
+      setIsDataFetchable(false);
+    }
+  }, [employees]);
+
+  useEffect(() => {
+    if (canFetchNow) {
+      setMemberData([...data]);
+    }
+  }, [data]);
+
 	useEffect(() => {
-		if (defaultData.length > 0) {
-			let tempArray = [];
-			defaultData.forEach(element => {
-				tempArray.push(element[defaultKey]);
-			});
-			setStateVal(tempArray);
-			setDefaultValues(tempArray);
+		if (isAssignDefaultData && dataVal.length > 0) {
+			setStateVal([...dataVal]);
+			setIsAssignDefaultData(false);
 		}
-	}, []);
-
-	useEffect(() => {
-		let filterArrOfObj;
-		if (isObject) {
-			filterArrOfObj = employees.filter(val =>
-				stateVal.includes(val[defaultKey])
-			);
-		}
-		selectedData(stateVal, filterArrOfObj);
-
-		if (stateVal.length > 0) {
-			if (stateVal.length === 1) {
-				triggerChange(stateVal.toString());
-			} else {
-				triggerChange(stateVal);
-			}
-		}
-	}, [stateVal]);
-
-	const onSearch = value => {
-		if (defaultData.length > 0) {
-			setMemberData([...defaultData]);
-		} else {
-			setMemberData([]);
-		}
-		setIsDataFetchable(true);
-		setValue(value);
-	};
-	const onSelect = value => {
-		// console.log("selected value", value);
-		// selectedData(value);
-	};
-
-	const paginationHandler = pgNo => {
-		if (debouncedSearch.length > 0) {
-			fetchData(debouncedSearch, pgNo);
-			setIsDataFetchable(true);
-		}
-	};
-
-	useEffect(() => {
-		if (debouncedSearch.length > 0) {
-			fetchData(debouncedSearch, 0);
-		} else {
-			setMemberData([...data]);
-		}
-	}, [debouncedSearch]);
-
-	useEffect(() => {
-		if (isDataFetchable) {
-			// console.log("memberData", memberData);
-			// let uniqueData = employees.filter(function (obj) {
-			// 	return memberData.indexOf(obj) === -1;
-			// });
-			// console.log("unique data", uniqueData);
-			// setMemberData(uniqueData);
-			const merged = [...memberData, ...employees];
-			// console.log("[...new Set([...prevData, ...employees])]", [
-			// 	...new Map(merged.map(v => [v.id, v])).values(),
-			// ]);
-			setMemberData(() => {
-				return [...new Map(merged.map(v => [v.id, v])).values()];
-			});
-			setIsDataFetchable(false);
-		}
-	}, [employees]);
-
-	useEffect(() => {
-		if (canFetchNow) {
-			setMemberData([...data]);
-		}
-	}, [data]);
+	}, [dataVal]);
 
 	// console.log("select", data);
 	return (

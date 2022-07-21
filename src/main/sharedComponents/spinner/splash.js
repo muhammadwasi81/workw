@@ -1,16 +1,16 @@
 import React from "react";
 import "./style.css";
-import Logo from "./konnect.png";
+import Workwise from "./workwise-logo-2.gif";
 
 const Splash = () => {
-    return (
-        <div className="main fadeOut">
-            <div className="loader splash"  >
-                <div className="child">
-                    <img alt="" src={Logo} className="myImg" style={{ width: "80px" }} />
-                </div>
-            </div>
-        </div>
-    )
-}
+	return (
+		<div className="flex w-[500px] h-full justify-center items-center">
+			<img
+				alt=""
+				src={Workwise}
+				className="h-full w-full object-contain"
+			/>
+		</div>
+	);
+};
 export default Splash;

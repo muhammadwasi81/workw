@@ -8,27 +8,19 @@ import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
-import Approval from "../../../sharedComponents/AppComponents/Approvals/view";
+import DefaultAttachment from "../../../../content/NewContent/complain/DefaultAttachment.svg";
+import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
+import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
 
-  const { rewardDetail } = useSelector((state) => state.rewardSlice);
+  const { complainDetail } = useSelector((state) => state.complainSlice);
 
-  const {
-    creator,
-    description,
-    image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-    category,
-    createDate,
-    status,
-    members = [],
-    approvers,
-  } = rewardDetail;
+  const { creator, description, image = DefaultAttachment, category, createDate, status, members = [], approvers } = complainDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -41,37 +33,38 @@ function DetailedView(props) {
       visible={props.visible}
       className="detailedViewComposer drawerSecondary">
       <div className="detailedCard ">
-        <div className="item-header">
-          <div className="left">
-            <UserInfo
-              avatarSrc="https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-              name={creator.name}
-              Subline={
-                <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : "Default Designation"}
-                  time={moment(createDate).format("DD/MM/YYYY")}
-                />
-              }
-            />
+        <ItemHeader>
+          <div className={"item-header"}>
+            <div className="left">
+              <UserInfo
+                avatarSrc={creator.image}
+                name={creator.name}
+                Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+              />
+            </div>
+            <div className="right">
+              <Tag className="IdTag">TRA-000085</Tag>
+              <StatusTag status={status}></StatusTag>
+            </div>
           </div>
-          <div className="right">
-            <Tag className="IdTag">TRA-000085</Tag>
-            <StatusTag status={status}></StatusTag>
+        </ItemHeader>
+        <ItemContent className="flex">
+          <div className="description w-full">
+            <p>{description}</p>
           </div>
-        </div>
-        <div className="item-content">
-          <p>{description}</p>
-        </div>
+          {/* <div className="attachmentBox">
+          <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
+        </div> */}
+        </ItemContent>
         <div className="ListItemInner">
           <div className="ItemDetails">
             <div className="innerDiv">
               <span className="text-black font-extrabold smallHeading">{complainDictionary.category}</span>
-              <p>
-                <Tag className="IdTag">{category}</Tag>
-              </p>
+              <Tag className="IdTag">{category}</Tag>
             </div>
             <div className="innerDiv">
               <span className="text-black font-extrabold smallHeading">{complainDictionary.complainOf}</span>
+              {/* {props.members} */}
               <Avatar
                 isAvatarGroup={true}
                 isTag={false}
@@ -81,11 +74,20 @@ function DetailedView(props) {
                 image={"https://joeschmoe.io/api/v1/random"}
               />
             </div>
-          </div>
-          <div className="attachmentBox">
-            <Image preview={false} width={100} src={image === "" ? RewardDefaultIcon : image} />
+            <div className="innerDiv">
+              <span className="text-black font-extrabold smallHeading">{complainDictionary.approvers}</span>
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Approvers"}
+                membersData={approvers}
+                text={"Danish"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            </div>
           </div>
         </div>
+        <RemarksApproval data={approvers} title="Approvals" />
       </div>
     </Drawer>
   );

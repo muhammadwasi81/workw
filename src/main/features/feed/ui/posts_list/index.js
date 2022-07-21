@@ -19,13 +19,15 @@ function PostsList() {
     );
   }, []);
 
-  //   if (feedSlice.allFeed.loading) return <p>Loading</p>;
+  if (feedSlice.allFeed.loading) return <p>Loading</p>;
   return (
     <div className="newsList ">
       {!feedSlice.allFeed.posts.length > 0 ? (
         <p>No Posts</p>
       ) : (
-        feedSlice.allFeed.posts.map((post) => <PostItem post={post} />)
+        feedSlice.allFeed.posts.map((post) => (
+          <PostItem post={post} viewAllComments={true} />
+        ))
       )}
     </div>
   );

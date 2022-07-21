@@ -6,6 +6,14 @@
   height: fit-content;
 }
 
+.addExpense .ant-select-lg {
+  font-size: 14px;
+}
+
+/* .addExpense .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  height: 35px;
+} */
+
 .expenseCard {
   padding: 15px 20px;
   border-radius: 5px;
@@ -108,6 +116,11 @@
   color: var(--primary_theme_color_green);
 }
 
+.expensedetail__header .primaryTag svg {
+  width: 15px;
+  height: 15px;
+}
+
 .expensedetail__header .secondaryTag {
   padding: 2px 10px;
   border-radius: 5px;
@@ -175,7 +188,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 2px;
-  font-size: 12px;
+  font-size: 10px;
   border-width: 1px;
   color: var(--primary_theme_color_green);
   font-weight: 600;
@@ -194,7 +207,7 @@
 }
 
 .expenseCategory .ant-radio-button-wrapper svg {
-  width: 35px;
+  width: 25px;
   color: #757d86;
 }
 
@@ -202,7 +215,7 @@
     color: var(--primary_theme_color_green);
 } */
 
-.expenseCategory .ant-radio-button-wrapper span + span {
+.expenseCategory .ant-radio-button-wrapper span+span {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -274,7 +287,7 @@
   border-color: #1a5669;
 }
 
-.addExpense .ant-form-item-label > label {
+.addExpense .ant-form-item-label>label {
   color: var(--primary_theme_color_green);
   font-weight: 600;
 }

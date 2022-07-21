@@ -4,31 +4,19 @@ import { customApprovalDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
-import { PieChartOutlined, GlobalOutlined } from "@ant-design/icons";
+import customApprovalIcon from "../../../../content/svg/menu/newNavBarIcon/Custom Approval.svg";
+import { PieChartOutlined } from "@ant-design/icons";
 import moment from "moment";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
+import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, customApprovalDictionary } = customApprovalDictionaryList[userLanguage];
 
-  const {
-    creator,
-    description,
-    image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-    category,
-    subject,
-    approvers = [],
-    status,
-    referenceNo,
-    createDate,
-  } = props.item;
+  const { creator, description, image = customApprovalIcon, approvers = [], status, referenceNo, createDate } = props.item;
 
-  // console.log(props.item, "imagessss")
   return (
     <>
       <SingleItem>
@@ -36,16 +24,14 @@ function ListItem(props) {
           className="new"
           id={props.id}
           onClick={() => {
-            props.getRewardId(props.id);
+            props.getCustomApprovalId(props.id);
           }}></div>
         <ItemHeader>
           <div className="left">
             <UserInfo
               avatarSrc={creator.image}
               name={creator.name}
-              Subline={
-                <SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).format("DD/MM/YYYY")} />
-              }
+              Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
             />
           </div>
           <div className="right">
@@ -58,7 +44,7 @@ function ListItem(props) {
             <p>{description}</p>
           </div>
           <div className="attachmentBox">
-            <Image preview={false} width={75} src={image === "" ? RewardDefaultIcon : image} />
+            <Image preview={false} width={50} src={image === "" ? customApprovalIcon : image} />
           </div>
         </ItemContent>
         <div className="flex justify-between gap-4">
@@ -87,6 +73,21 @@ function ListItem(props) {
             </div>
           </div>
         </div>
+        {/* <div className="ListItemInner">
+          <div className="ItemDetails">
+            <div className="innerDiv">
+              <span className="text-black font-extrabold smallHeading">{customApprovalDictionary.approvers}</span>
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Approvers"}
+                membersData={approvers ? approvers : []}
+                text={"Danish"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            </div>
+          </div>
+        </div> */}
       </SingleItem>
     </>
   );

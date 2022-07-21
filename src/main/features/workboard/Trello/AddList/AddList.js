@@ -5,8 +5,9 @@ import { useDispatch } from "react-redux";
 import { addList } from "../../store/slice";
 import { v4 as id } from "uuid";
 import ListEditor from "./ListEditor";
+import { addWorkBoardSection } from "../../store/action";
 
-function AddList({ toggleAddingList }) {
+function AddList({ toggleAddingList, sectionId }) {
 	const [title, setTitle] = useState("");
 	const dispatch = useDispatch();
 
@@ -18,6 +19,9 @@ function AddList({ toggleAddingList }) {
 		toggleAddingList();
 		if (title.trim().length !== 0) {
 			dispatch(addList({ id: id(), title, color: "" }));
+			dispatch(
+				addWorkBoardSection({ workBoardId: sectionId, name: title })
+			);
 		}
 	};
 

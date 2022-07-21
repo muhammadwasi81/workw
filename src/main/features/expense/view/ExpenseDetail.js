@@ -1,15 +1,21 @@
 import { Drawer } from "antd";
-import React, { useContext } from "react";
-import { useMediaQuery } from "react-responsive";
+import React, { useContext, useEffect } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import Approval from "../../../sharedComponents/AppComponents/Approvals/view";
 import { ExpenseDictionary } from "../localization";
+import { useDispatch, useSelector } from "react-redux";
 import ExpenseList from "./ExpenseList";
+import { getExpenseById } from "../store/actions";
+
 function ExpenseDetail({ visible, onClose, id }) {
-  const isTablet = useMediaQuery({ maxWidth: 800 });
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
+  const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
+  const { expense } = useSelector((state) => state.expenseSlice);
   const { labels } = ExpenseDictionaryList;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (visible) dispatch(getExpenseById(id));
+  }, [visible]);
   const data = [
     {
       approvalType: 1,
@@ -53,7 +59,7 @@ function ExpenseDetail({ visible, onClose, id }) {
       status: 1,
     },
   ];
-  console.log(Direction);
+  console.log(expense);
   return (
     <Drawer
       title={
@@ -62,12 +68,26 @@ function ExpenseDetail({ visible, onClose, id }) {
       width="768"
       onClose={onClose}
       visible={visible}
+      destroyOnClose
       className="detailedViewComposer drawerSecondary"
     >
       <div className="expenseDetail">
-        <ExpenseList />
-        <Approval title={"Approvals"} data={data} />
-        <Approval title={"Executor"} data={data} />
+        {<ExpenseList expense={expense} />}
+        <Approval
+          title={"Approvals"}
+          data={expense.approvers}
+          referenceId={id}
+        />
+        <Approval
+          title={"Executor"}
+          data={expense.executors}
+          referenceId={id}
+        />
+        <Approval
+          title={"Financers"}
+          data={expense.financers}
+          referenceId={id}
+        />
       </div>
     </Drawer>
   );

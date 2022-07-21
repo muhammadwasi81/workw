@@ -33,7 +33,7 @@
   font-size: 22px;
 }
 
-.post-model .post-footer>.commentComposer {
+.post-model .post-footer .commentWrapper>.commentComposer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -47,7 +47,7 @@
   height: 100%;
 }
 
-.swiper-slide {
+.post-section .swiper-slide {
   display: flex;
   justify-content: center;
 }

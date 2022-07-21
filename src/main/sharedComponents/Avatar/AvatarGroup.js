@@ -4,32 +4,40 @@ import { Avatar, Tooltip } from "antd";
 // import PropTypes from "prop-types";
 
 function AvatarGroup(props) {
-  return (
-    <div>
-      <Avatar.Group
-        maxCount={4}
-        maxPopoverTrigger="click"
-        size="small"
-        maxStyle={{
-          color: "#f56a00",
-          backgroundColor: "#fde3cf",
-          cursor: "pointer",
-        }}>
-        {props.membersData.map((members) => (
-          <Tooltip title={members[props.nestedObjProperty] !== null && members[props.nestedObjProperty].name} placement="top">
-            <Avatar
-              style={{
-                backgroundColor: "#1890ff",
-              }}
-              src={
-                members[props.nestedObjProperty] !== null && members[props.nestedObjProperty].image
-                  ? members[props.nestedObjProperty].image
-                  : props.dummyImage
-              }
-            />
-          </Tooltip>
-        ))}
-        {/* <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+	return (
+		<div>
+			<Avatar.Group
+				maxCount={2}
+				maxPopoverTrigger="click"
+				size="small"
+				maxStyle={{
+					color: "#f56a00",
+					backgroundColor: "#fde3cf",
+					cursor: "pointer",
+				}}
+			>
+				{props.membersData.map(members => (
+					<Tooltip
+						title={
+							members[props.nestedObjProperty] !== null &&
+							members[props.nestedObjProperty].name
+						}
+						placement="top"
+					>
+						<Avatar
+							style={{
+								backgroundColor: "#1890ff",
+							}}
+							src={
+								members[props.nestedObjProperty] !== null &&
+								members[props.nestedObjProperty].image
+									? members[props.nestedObjProperty].image
+									: props.dummyImage
+							}
+						/>
+					</Tooltip>
+				))}
+				{/* <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
 				<Avatar
 					style={{
 						backgroundColor: "#f56a00",
@@ -51,9 +59,9 @@ function AvatarGroup(props) {
 					}}
 					icon={<AntDesignOutlined />}
 				/> */}
-      </Avatar.Group>
-    </div>
-  );
+			</Avatar.Group>
+		</div>
+	);
 }
 
 export default AvatarGroup;

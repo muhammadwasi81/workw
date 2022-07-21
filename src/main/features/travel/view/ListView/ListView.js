@@ -13,15 +13,22 @@ function ListView(props) {
 		<div className="gap-5 flex flex-col z-10 hover:shadow-black duration-300">
 			{props.data
 				? props.data.map(data => (
-						<div className="flex bg-white flex-col gap-2  rounded-xl relative overflow-hidden ">
-							<div
+						<div
+							className="flex bg-white flex-col gap-2 rounded-xl cursor-pointer overflow-hidden"
+							onClick={() => {
+								navigate(
+									`${ROUTES.TRAVEL.TREAVELDETAIL}${data.id}`
+								);
+							}}
+						>
+							{/* <div
 								className="absolute w-full h-full cursor-pointer duration-300 rounded-xl"
 								onClick={() => {
 									navigate(
 										`${ROUTES.TRAVEL.TREAVELDETAIL}${data.id}`
 									);
 								}}
-							/>
+							/> */}
 							<div className="p-5">
 								<CardProfileTopView
 									profileImgSrc={

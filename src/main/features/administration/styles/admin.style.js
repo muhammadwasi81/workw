@@ -46,7 +46,7 @@ export const List = styled.div`
   white-space: nowrap;
   height: min-content;
   min-height: 700px;
-  margin: 1.2rem 0.5rem;
+  margin: 0rem 0.5rem;
   background-color: white;
   border-radius: 4px;
 

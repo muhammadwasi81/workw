@@ -17,9 +17,9 @@ function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, bonusDictionary } = bonusDictionaryList[userLanguage];
 
-  const { promotionDetail } = useSelector((state) => state.promotionSlice);
+  const { bonusDetail } = useSelector((state) => state.bonusSlice);
 
-  const { creator, description, status, createDate, grade, members = [], approvers } = promotionDetail;
+  const { creator, description, status, createDate, grade, members = [], approvers } = bonusDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -35,14 +35,9 @@ function DetailedView(props) {
         <div className="item-header">
           <div className="left">
             <UserInfo
-              avatarSrc="https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
+              avatarSrc={creator.image}
               name={creator.name}
-              Subline={
-                <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : "Default Designation"}
-                  time={moment(createDate).format("DD/MM/YYYY")}
-                />
-              }
+              Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
             />
           </div>
           <div className="right">

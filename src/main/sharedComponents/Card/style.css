@@ -31,7 +31,6 @@
 }
 .innerCard__header .left {
   display: flex;
-  gap: 8px;
   color: black;
   font-weight: 600;
   font-size: 13px;
@@ -76,9 +75,10 @@
   color: #757d86;
   font-weight: 700;
   border: 0;
-  padding: 5px;
+  padding: 4px;
   border-radius: 4px;
   background: #ededed;
+  text-align: center;
 }
 
 .new {

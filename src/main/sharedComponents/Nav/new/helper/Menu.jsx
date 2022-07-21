@@ -53,6 +53,14 @@ function Menu() {
         }}
       />
     ),
+    FINANCE: (
+      <UsergroupAddOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
+    
   };
 
   const dragProps = {

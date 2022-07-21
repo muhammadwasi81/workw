@@ -9,12 +9,13 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
+import DefaultAttachment from "../../../../content/NewContent/warning/warningsDefaultAttachment.svg";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
+  const { warningDictionary } = warningDictionaryList[userLanguage];
 
-  const { creator, description, category, createDate, members = [], approvers, status, referenceNo } = props.item;
+  const { creator, description, category, image = DefaultAttachment, createDate, members = [], approvers, status, referenceNo } = props.item;
 
   // console.log(props.item, "imagessss")
   return (
@@ -23,7 +24,7 @@ function ListItem(props) {
         className="new"
         id={props.id}
         onClick={() => {
-          props.getRewardId(props.id);
+          props.getWarningId(props.id);
         }}
       />
       <ItemHeader>
@@ -31,12 +32,7 @@ function ListItem(props) {
           <UserInfo
             avatarSrc={creator.image}
             name={creator.name}
-            Subline={
-              <SublineDesigWithTime
-                designation={creator.designation ? creator.designation : "Default Designation"}
-                time={moment(createDate).format("DD/MM/YYYY")}
-              />
-            }
+            Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
           />
         </div>
         <div className="right">
@@ -44,8 +40,13 @@ function ListItem(props) {
           <StatusTag status={status}></StatusTag>
         </div>
       </ItemHeader>
-      <ItemContent>
-        <p>{description}</p>
+      <ItemContent className="flex">
+        <div className="description w-full">
+          <p>{description}</p>
+        </div>
+        {/* <div className="attachmentBox">
+          <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
+        </div> */}
       </ItemContent>
       <div className="ListItemInner">
         <div className="ItemDetails">

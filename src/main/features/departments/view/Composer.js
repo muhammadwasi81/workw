@@ -35,9 +35,7 @@ const initialState = {
 
 const Composer = props => {
 	const dispatch = useDispatch();
-
 	const { employees } = useSelector(state => state.sharedSlice);
-
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
 
@@ -149,16 +147,11 @@ const Composer = props => {
 							rules={[
 								{
 									required: true,
-									message:
-										departmentDictionary.pleaseEnterRewardName,
+									message: "{Please Department Name}",
 								},
 							]}
 						>
-							<TextInput
-								placeholder={
-									departmentDictionary.enterRewardName
-								}
-							/>
+							<TextInput placeholder={"Enter Name"} />
 						</Form.Item>
 					</div>
 					<div className="flex gap-4">

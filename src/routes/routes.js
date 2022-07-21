@@ -17,6 +17,12 @@ export const routes = {
 			component: lazy(() => import("../main/features/feed/ui/index")),
 		},
 		{
+			path: ROUTES.NEWSFEED.DETAILS,
+			component: lazy(() =>
+				import("../main/features/feed/ui/postDetail")
+			),
+		},
+		{
 			path: ROUTES.MESSENGER.DEFAULT,
 			component: lazy(() => import("../main/features/Messenger/")),
 		},
@@ -33,6 +39,32 @@ export const routes = {
 		{
 			path: `${ROUTES.TASK.DEFAULT}`,
 			component: lazy(() => import("../main/features/task/routes/index")),
+		},
+		{
+			path: `${ROUTES.FINANCE.VOUCHER.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/voucher/view/index")
+			),
+		},
+		{
+			path: `${ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/chartOfAccount/view/index")
+			),
+		},
+		{
+			path: ROUTES.APPROVALS.DEFAULT,
+			component: lazy(() =>
+				import("../main/features/approval/view/AllApprovals/index")
+			),
+		},
+		{
+			path: ROUTES.BUSINESS_POLICY.DEFAULT,
+			component: lazy(() =>
+				import(
+					"../main/features/businessPolicy/view/businessPolicyMain/index"
+				)
+			),
 		},
 		{
 			path: `${ROUTES.TRAVEL.DEFAULT}`,
@@ -145,6 +177,12 @@ export const routes = {
 		},
 	],
 	AdminRoutes: [
+		{
+			path: `${"/hr/administrator/"},`,
+			component: lazy(() => {
+				import("../main/features/businessPolicy/view/BusinessPolicy");
+			}),
+		},
 		{
 			path: `${"/hr/administrator/"},`,
 			component: lazy(() => {

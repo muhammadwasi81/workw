@@ -1,14 +1,5 @@
 import styled, { css } from "styled-components";
-import {
-  Steps,
-  Form,
-  Select,
-  Button,
-  Upload,
-  Divider,
-  Space,
-  Table,
-} from "antd";
+import { Steps, Form, Select, Button, Upload, Divider, Space, Table } from "antd";
 
 const { Step } = Steps;
 
@@ -123,14 +114,11 @@ export const BasicForm = styled.div`
   column-gap: 15px;
   direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
   ${Form.Item} {
-    justify-content: ${(props) =>
-      props.direction === "ltr" ? "flex-end" : "flex-start"};
+    justify-content: ${(props) => (props.direction === "ltr" ? "flex-end" : "flex-start")};
   }
   .ant-input-group-addon:first-child {
-    border-right: ${(props) =>
-      props.direction === "ltr" ? "0" : "1px solid #d9d9d9"};
-    border-left: ${(props) =>
-      props.direction === "ltr" ? "1px solid #d9d9d9" : "0"};
+    border-right: ${(props) => (props.direction === "ltr" ? "0" : "1px solid #d9d9d9")};
+    border-left: ${(props) => (props.direction === "ltr" ? "1px solid #d9d9d9" : "0")};
   }
 `;
 //label
@@ -162,20 +150,14 @@ export const CustomButton = styled(Button)`
 //education form container
 export const FormContainer = styled.div`
   display: grid;
-  grid-template-columns: ${(props) =>
-    props.type !== "constant"
-      ? "repeat(auto-fit, minmax(20rem, 1fr))"
-      : "repeat(auto-fit, minmax(15rem, 1fr))"};
+  grid-template-columns: ${(props) => (props.type !== "constant" ? "repeat(auto-fit, minmax(20rem, 1fr))" : "repeat(auto-fit, minmax(15rem, 1fr))")};
   row-gap: 5px;
   column-gap: 15px;
   padding: 0.5rem 2rem;
 `;
 export const CustomSpace = styled(Space)`
   display: grid !important;
-  grid-template-columns: ${(props) =>
-    props.type !== "constant"
-      ? "repeat(auto-fit, minmax(20rem, 1fr))"
-      : "repeat(auto-fit, minmax(12rem, 1fr))"};
+  grid-template-columns: ${(props) => (props.type !== "constant" ? "repeat(auto-fit, minmax(20rem, 1fr))" : "repeat(auto-fit, minmax(12rem, 1fr))")};
   row-gap: 1px;
   column-gap: 15px;
   padding: 0.5rem 2rem;
@@ -246,10 +228,12 @@ export const EmployeeCardCustom = styled.div`
   border: 1px solid transparent;
   cursor: pointer;
   .employeeCard__img {
-    width: 12rem;
+    width: 10rem;
+    height: 10rem;
     img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
   .employeeCard__body {
@@ -306,7 +290,7 @@ export const AllEmpolyeeContainer = styled.div`
   display: grid;
   margin-top: 5px;
   gap: 0.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
   height: fit-content;
   direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
   ${EmployeeCardCustom} {

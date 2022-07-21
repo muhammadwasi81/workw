@@ -1,5 +1,6 @@
 import { Col, Modal, Row } from "antd";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import "./../stylesheet/PostModel.css";
 import SwiperCore, {
   Navigation,
@@ -14,23 +15,35 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { getFeedById } from "../../../../store/actions";
+import PostModalLeft from "./PostModalLeft";
+import store from "../../../../../../../store/store";
+import { feedSlice } from "../../../../store/slice";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Zoom, Thumbs]);
 
-function PostModel({ open, setModelState, post, leftComponent }) {
+function PostModel({ id, open, setModelState, leftComponent }) {
   const [visible, setVisible] = useState(false);
-
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const dispatch = useDispatch();
+  const { singlePost } = useSelector((state) => state.feedSlice);
 
   useEffect(() => {
     setVisible(open);
   }, [open]);
+  useEffect(() => {
+    if (visible) {
+      dispatch(getFeedById(id));
+      return () => {
+        store.dispatch(feedSlice.actions.clearSinglePost());
+      };
+    }
+  }, [visible, dispatch, id]);
 
   const onClose = () => {
-    // setVisible(false)
-
     setModelState(false);
   };
+
   return (
     <Modal
       title={null}
@@ -67,12 +80,12 @@ function PostModel({ open, setModelState, post, leftComponent }) {
 
                 zoom={true}
               >
-                {post.image.map((slide, ind) => {
+                {singlePost?.attachments?.map(({ path }, ind) => {
                   return (
                     <SwiperSlide zoom={true} key={ind}>
                       <img
                         id={1}
-                        src={slide}
+                        src={path}
                         style={{
                           height: "100%",
                           width: "min-content",
@@ -84,7 +97,7 @@ function PostModel({ open, setModelState, post, leftComponent }) {
                 })}
               </Swiper>
             </div>
-            {post.image.length > 1 && (
+            {singlePost?.attachments?.length > 1 && (
               <div className="thumbnails">
                 <Swiper
                   onSwiper={setThumbsSwiper}
@@ -96,7 +109,7 @@ function PostModel({ open, setModelState, post, leftComponent }) {
                   className="mySwiper"
                   touchRatio={0.2}
                 >
-                  {post.image.map((slide, ind) => {
+                  {singlePost?.attachments?.map(({ path }, ind) => {
                     return (
                       <SwiperSlide
                         style={{ width: "100px" }}
@@ -105,7 +118,7 @@ function PostModel({ open, setModelState, post, leftComponent }) {
                       >
                         <img
                           id={1}
-                          src={slide}
+                          src={path}
                           style={{
                             height: "100px",
                             width: "100%",
@@ -129,7 +142,7 @@ function PostModel({ open, setModelState, post, leftComponent }) {
                 height: "100%",
               }}
             >
-              {leftComponent}
+              {<PostModalLeft post={singlePost} />}
             </div>
           </Col>
         )}

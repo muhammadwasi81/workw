@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities; */
 
+.workboard_upload .ant-upload{
+  width: 100%;
+}
+
 .ant-btn-primary {
   /*background-color: #1b5669 !important;*/
   /*border: none !important;*/
@@ -368,6 +372,13 @@ iframe {
   background-color: var(--primary_theme_color_green);
   color: white;
   border-radius: 10px;
+}
+.defaultNotification .ant-notification-notice-message{
+  margin: 0px !important;
+}
+.defaultNotification .ant-notification-notice-icon{
+  top: 9px;
+  left: 12px;
 }
 
 .drawerSecondary .ant-drawer-body {

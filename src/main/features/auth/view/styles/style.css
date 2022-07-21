@@ -501,10 +501,10 @@ i.ic-key-feature6 {
 
 .system-logo {
   /*background: brown;*/
-  width: 200px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
+  /* width: 200px;
+  height: 200px; */
+  /* display: flex; */
+  /* justify-content: center; */
 }
 
 .center-area > .system-logo > img {

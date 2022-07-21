@@ -51,7 +51,7 @@ function AntCustomSelect(props) {
 			paginationHandler(pgNo);
 		}
 	}, [pgNo]);
-	console.log("data", isLoaded, data);
+	// console.log("data", isLoaded, data);
 	return (
 		<Select
 			className="w-full antd_custom_select"

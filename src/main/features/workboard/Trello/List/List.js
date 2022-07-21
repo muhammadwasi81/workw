@@ -9,41 +9,29 @@ import {
 	changeBackgroundColor,
 	changeListTitle,
 	deleteList,
+	handleSectionBgColor,
+	handleSectionTitle,
 } from "../../store/slice";
 import { Button } from "antd";
 import { EllipsisOutlined, PlusOutlined } from "@ant-design/icons";
 import CardEditor from "../Card/CardEditor";
 import Colors from "../Colors/Colors";
 import MenuDropDown from "../MenuDropDown/MenuDropDown";
-// function getStyle(style, snapshot) {
-// 	if (!snapshot.isDropAnimating) {
-// 		return style;
-// 	}
-// 	const { moveTo, curve, duration } = snapshot.dropAnimation;
-// 	// move to the right spot
-// 	const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`;
-// 	// add a bit of turn for fun
-// 	const rotate = "rotate(0.5turn)";
+import {
+	addWorkBoardSectionTodo,
+	updateWorkBoardSectionColorCode,
+	updateWorkBoardSectionTitle,
+} from "../../store/action";
 
-// 	// patching the existing style
-// 	return {
-// 		...style,
-// 		transform: `${translate} ${rotate}`,
-// 		// slowing down the drop because we can
-// 		transition: `all ${curve} ${duration + 0}s`,
-// 	};
-// }
 function List(props) {
-	const { list, index, color } = props;
-	const boardList = useSelector(state => state.trelloSlice[list.id]);
-	// console.log("board ka sara data", boardList);
+	const { section, index, colorCode, key, sectionId } = props;
+	const boardList = useSelector(state => state.trelloSlice[sectionId]);
 	const dispatch = useDispatch();
 	const [listData, setListData] = useState({
 		editingTitle: false,
-		title: list.title,
+		title: section.name,
 		addingCard: false,
 	});
-	const [showColors, setShowColors] = useState(false);
 	const toggleAddingCard = () =>
 		setListData(prevState => ({
 			...prevState,
@@ -64,7 +52,17 @@ function List(props) {
 	const editListTitle = async () => {
 		if (listData.title.trim().length > 0) {
 			dispatch(
-				changeListTitle({ id: boardList._id, title: listData.title })
+				handleSectionTitle({
+					sectionId,
+					title: listData.title,
+				})
+			);
+			dispatch(
+				updateWorkBoardSectionTitle({
+					sectionId,
+					title: listData.title,
+					colorCode: "",
+				})
 			);
 		}
 		toggleEditingTitle();
@@ -72,9 +70,14 @@ function List(props) {
 
 	const addCard = async cardText => {
 		toggleAddingCard();
-		const cardId = id();
 		if (cardText.trim().length > 0) {
-			dispatch(addListCard({ cardText, cardId, listId: list.id }));
+			dispatch(
+				addWorkBoardSectionTodo({
+					sectionId,
+					title: cardText,
+				})
+			);
+			// dispatch(addListCard({ cardText, cardId, listId: section.id }));
 		}
 	};
 
@@ -82,38 +85,41 @@ function List(props) {
 		if (window.confirm("Are you sure to delete this list?")) {
 			dispatch(
 				deleteList({
-					payload: { list, boardList, cards: boardList.cards },
+					payload: { section, boardList, cards: boardList.cards },
 				})
 			);
 		}
 	};
-	// console.log("list");
+
+	const changeSectionBgColor = colorCode => {
+		const data = {
+			sectionId,
+			colorCode,
+		};
+		dispatch(updateWorkBoardSectionColorCode(data));
+		dispatch(handleSectionBgColor(data));
+	};
 
 	return (
-		<Draggable draggableId={boardList._id} index={index}>
+		<Draggable draggableId={sectionId} index={index}>
 			{(provided, snapshot) => (
 				<div
 					ref={provided.innerRef}
 					{...provided.draggableProps}
 					{...provided.dragHandleProps}
-					// isDragging={
-					// 	snapshot.isDragging && !snapshot.isDropAnimating
-					// }
-					// style={getStyle(provided.draggableProps.style, snapshot)}
 				>
 					<div
-						style={{ background: color && color }}
-						className={`List bg-neutral-200 flex-shrink-0 w-[264px] h-fit m-[10px] mr-0 rounded-sm `}
+						style={{ background: colorCode && colorCode }}
+						className={`List bg-neutral-200 flex-shrink-0 w-[264px] p-1 h-fit m-[10px] mr-0 rounded-sm `}
 					>
 						{listData.editingTitle ? (
 							<ListEditor
-								list={boardList}
+								// list={boardList}
 								title={listData.title}
 								handleChangeTitle={handleChangeTitle}
 								saveList={editListTitle}
-								onClickOutside={editListTitle}
-								isEdit={true}
-								// deleteList={deleteCardList}
+								// onClickOutside={editListTitle}
+								// isEdit={true}
 							/>
 						) : (
 							<div className="flex cursor-pointer items-center justify-between pr-2">
@@ -121,38 +127,21 @@ function List(props) {
 									className="List-Title !cusrsor-pointer p-2 break-words font-bold w-full"
 									onClick={toggleEditingTitle}
 								>
-									{boardList.title}
+									{section.name}
 								</div>
 								<MenuDropDown
-									changeBgColor={color => {
-										dispatch(
-											changeBackgroundColor({
-												list,
-												color,
-											})
-										);
-									}}
+									changeBgColor={changeSectionBgColor}
 									deleteList={deleteCardList}
 								/>
 							</div>
 						)}
 
-						<Droppable droppableId={boardList._id}>
+						<Droppable droppableId={sectionId}>
 							{(provided, _snapshot) => (
 								<div
 									ref={provided.innerRef}
 									className="Lists-Cards"
 								>
-									{boardList.cards &&
-										boardList.cards.map((cardId, index) => (
-											<Card
-												key={cardId}
-												cardId={cardId}
-												index={index}
-												listId={boardList._id}
-											/>
-										))}
-									{provided.placeholder}
 									{listData.addingCard ? (
 										<CardEditor
 											onSave={addCard}
@@ -174,6 +163,21 @@ function List(props) {
 											</Button>
 										</div>
 									)}
+
+									{section.todos &&
+										section.todos.map((todo, index) => (
+											<Card
+												key={todo.id}
+												id={todo.id}
+												index={index}
+												text={todo.title}
+												sectionId={todo.sectionId}
+												members={todo.members}
+												todoData={todo}
+											/>
+										))}
+
+									{provided.placeholder}
 								</div>
 							)}
 						</Droppable>
@@ -185,13 +189,3 @@ function List(props) {
 }
 
 export default List;
-
-{
-	/* {showColors && (
-	<Colors
-		colorPicker={color => {
-			dispatch(changeBackgroundColor({ list, color }));
-		}}
-	/>
-)} */
-}

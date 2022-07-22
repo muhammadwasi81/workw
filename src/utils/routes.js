@@ -39,6 +39,10 @@ export const ROUTES = {
 	BUSINESS_POLICY: {
 		DEFAULT: `${DOMAIN_PREFIX}/businessPolicy`,
 	},
+	FORMS: {
+		FORMS: `${DOMAIN_PREFIX}/forms/*`,
+		ROOT: `${DOMAIN_PREFIX}/forms`,
+	},
 	JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
 	OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
 	DOCUMENT_APPROVAL: `${DOMAIN_PREFIX}/DocumentApproval`,

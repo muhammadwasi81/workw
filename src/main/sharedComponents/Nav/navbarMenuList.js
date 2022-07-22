@@ -34,6 +34,7 @@ import departmentIcon from "../../../content/NewContent/department/departmentIco
 import bonusIcon from "../../../content/NewContent/bonus/bonus.svg";
 import coaIcon from "../../../content/NewContent/chartOfAccount/coa.svg";
 import reportIcon from "../../../content/NewContent/report/report.svg";
+import documentIcon from "../../../content/NewContent/Documents/file/folder.svg";
 import voucherIcon from "../../../content/NewContent/voucher/voucher.svg";
 
 import { DOMAIN_PREFIX } from "../../../utils/routes";
@@ -86,9 +87,9 @@ const NavMenuList = () => {
       name: label.navMenuLabel.docsArchives,
       counter: 0,
       to: ROUTES.DOCUMENTS.DOCUMENT,
-      icon: messengerIcon,
+      icon: documentIcon,
       // isActive: 6,
-      key: label.navMenuLabel.hr,
+      key: label.navMenuLabel.menu,
     },
     {
       name: label.navMenuLabel.customApprovals,
@@ -104,7 +105,7 @@ const NavMenuList = () => {
       to: `${ROUTES.TRAVELS}?f=trv`,
       icon: travelIcon,
       isActive: 11,
-      key: label.navMenuLabel.hr,
+      key: label.navMenuLabel.menu,
     },
     {
       name: label.navMenuLabel.feed,
@@ -152,7 +153,7 @@ const NavMenuList = () => {
       to: `${ROUTES.EXPENSES.EXPENSES}?f=my`,
       icon: expensesIcon,
       isActive: 10,
-      key: label.navMenuLabel.hr,
+      key: label.navMenuLabel.menu,
     },
     {
       name: label.navMenuLabel.administration,
@@ -168,7 +169,7 @@ const NavMenuList = () => {
       to: `${ROUTES.TASK.ROOT}`,
       icon: taskIcon,
       isActive: 6,
-      key: label.navMenuLabel.hr,
+      key: label.navMenuLabel.menu,
     },
     {
       name: label.navMenuLabel.promotions,
@@ -264,8 +265,24 @@ const NavMenuList = () => {
       to: ROUTES.BUSINESS_POLICY.DEFAULT,
       icon: reportIcon,
       isActive: true,
-      key: label.navMenuLabel.hr,
+      key: label.navMenuLabel.menu,
     },
+    {
+      name: label.navMenuLabel.form,
+      counter: 0,
+      to: ROUTES.FORMS.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    // {
+    //   name: label.navMenuLabel.businessPolicy,
+    //   counter: 0,
+    //   to: ROUTES.BUSINESS_POLICY.DEFAULT,
+    //   icon: reportIcon,
+    //   isActive: true,
+    //   key: label.navMenuLabel.menu,
+    // },
   ];
   return { navMenuData, navHrMenuData };
 };

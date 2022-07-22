@@ -8,6 +8,7 @@ import {
 	addBusinessPolicyService,
 	removeBusinessPolicyService,
 	getAllBusinessPolicyService,
+	updateBusinessPolicyService,
 } from "../services/service";
 import { businessDeleted } from "./slice";
 
@@ -15,12 +16,8 @@ export const addBusinessPolicy = createAsyncThunk(
 	"addBusiness",
 	async (data, { dispatch, getState, rejectWithValue }) => {
 		const res = await addBusinessPolicyService(data);
-
-		console.log(res, "HELLOOO RESPONSE")
-
+		
 		if (res.responseCode === responseCode.Success) {
-			// res.message = "Access Role added successfully!";
-			// responseMessage({ dispatch, data: res });
 			return res;
 		} else {
 			responseMessage({
@@ -55,8 +52,23 @@ export const removeBusinessPolicy = createAsyncThunk(
 
 		if (res.responseCode === responseCode.Success) {
 			dispatch(businessDeleted(args))
-			console.log(args, "FROM ACTIONSSS")
 			return res; 
+		} else {
+			responseMessage({
+				dispatch: dispatch,
+				type: responseMessageType.ApiFailure,
+			});
+			return rejectWithValue("Something went wrong");
+		}
+	}
+);
+
+export const updateBusinessPolicy = createAsyncThunk(
+	"updateBusinessPolicy",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await updateBusinessPolicyService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
 		} else {
 			responseMessage({
 				dispatch: dispatch,

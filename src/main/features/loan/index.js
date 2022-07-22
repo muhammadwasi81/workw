@@ -71,8 +71,10 @@ function Index() {
           label2: "Table",
         }}
       />
-      <ListBoxes />
-      <ContBody>
+
+      <ContBody className="!block">
+        <ListBoxes />
+
         <ListView />
       </ContBody>
     </TabbableContainer>

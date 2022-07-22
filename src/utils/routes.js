@@ -309,12 +309,12 @@ export const ROUTES = {
   },
   LOAN: {
     DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
-    LOAN: `${DOMAIN_PREFIX}/loan/`,
+    LOAN: `${DOMAIN_PREFIX}/loan`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
   RESIGNATION: {
     DEFAULT: `${DOMAIN_PREFIX}/designation/*`,
-    RESIGNATION: `${DOMAIN_PREFIX}/designation/`,
+    RESIGNATION: `${DOMAIN_PREFIX}/designation`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
 

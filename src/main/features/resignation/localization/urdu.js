@@ -1,5 +1,5 @@
 const urdu = {
-  loanDictionary: {
+  resignationDictionary: {
     filter: "فلٹر",
     selectApprovers: "منظور کنندگان کو منتخب کریں۔",
     warning: "انتباہ",
@@ -14,7 +14,7 @@ const urdu = {
     warningTo: "کو انتباہ",
     myWarning: "میرا انتباہ",
     warningToMe: "مجھے انتباہ",
-    createLoan: "قرض بنائیں",
+    createResignation: "استعفی بنائیں",
     forApproval: "منظوری کے لیے",
     deductionPerMonth: "مہینے/کٹوتی",
     pleaseEnterloanTenureInMonths: "براہ کرم قرض کی مدت درج کریں",

@@ -1,5 +1,5 @@
 const en = {
-  loanDictionary: {
+  resignationDictionary: {
     filter: "Filter",
     selectApprovers: "Select Approvers",
     warning: "Warning",
@@ -14,7 +14,7 @@ const en = {
     warningTo: "Warning To",
     myWarning: "My Warning",
     warningToMe: "Warning To Me",
-    createLoan: "Create Loan",
+    createResignation: "Create Resignation",
     forApproval: "For Approval",
     deductionPerMonth: "Deduction/Months",
     pleaseEnterloanTenureInMonths: "Please enter loan tenure",

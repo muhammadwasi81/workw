@@ -8,7 +8,7 @@ const Spinner = ({ isHeight }) => {
 			<img
 				alt=""
 				src={Workwise}
-				className="h-full w-[500px] object-contain"
+				className=" w-[500px] !object-contain"
 			/>
 		</div>
 	);

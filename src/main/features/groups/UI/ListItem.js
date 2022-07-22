@@ -12,21 +12,43 @@ import moment from "moment";
 import GroupDefaultImage from "../../../../content/NewContent/groups/GroupDefaultImage.svg";
 // import CardDetailView from "./CardDetailView";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
+import {
+	EditOutlined,
+	EllipsisOutlined,
+	SettingOutlined,
+} from "@ant-design/icons";
 import { Card } from "antd";
 const { Meta } = Card;
 
 function ListItem(props) {
-  //   const { userLanguage } = useContext(LanguageChangeContext);
-  //   const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
+	//   const { userLanguage } = useContext(LanguageChangeContext);
+	//   const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
 
-  const { creator, name, description, image = GroupDefaultImage, members = [], approvers } = props.item;
+	const {
+		creator,
+		name,
+		description,
+		image = GroupDefaultImage,
+		members = [],
+		approvers,
+	} = props.item;
 
-  return (
-    <>
-      <Card className={"Card2"} cover={<img alt="example" className="object-cover" src={GroupDefaultImage} />} actions={[]}>
-        <Meta title={name} description={description} />
-        {/* <CardDetailView
+	return (
+		<>
+			<Card
+				className={"Card2"}
+				cover={
+					<img
+						alt="example"
+						className="object-cover"
+						src={GroupDefaultImage}
+					/>
+				}
+				actions={[]}
+				hoverable
+			>
+				<Meta title={name} description={description} />
+				{/* <CardDetailView
           isAvatarGroup={true}
           isTag={false}
           heading={"Members"}
@@ -34,15 +56,15 @@ function ListItem(props) {
           text={"Danish"}
           image={"https://joeschmoe.io/api/v1/random"}
         /> */}
-        <Avatar
-          isAvatarGroup={true}
-          isTag={false}
-          heading={"Members"}
-          membersData={members}
-          text={"Danish"}
-          image={"https://joeschmoe.io/api/v1/random"}
-        />
-        {/* <div className="approversBox">
+				<Avatar
+					isAvatarGroup={true}
+					isTag={false}
+					heading={"Members"}
+					membersData={members}
+					text={"Danish"}
+					image={"https://joeschmoe.io/api/v1/random"}
+				/>
+				{/* <div className="approversBox">
           <div className="mem">
             {members.map((val, i) => {
               if (i > 2) return "";
@@ -66,9 +88,9 @@ function ListItem(props) {
             {members ? members.length > 2 ? <div className="us-img">{members && members.length - 2}+</div> : "" : null}
           </div>
         </div> */}
-      </Card>
-    </>
-  );
+			</Card>
+		</>
+	);
 }
 
 export default ListItem;

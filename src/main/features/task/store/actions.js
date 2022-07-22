@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { jsonToFormData } from "../../../../utils/base";
 import { openNotification } from "../../../../utils/Shared/store/slice";
-import { addNewTaskService, getAllTaskService } from "../utils/services/service";
+import { addNewTaskService, getAllTaskService, getTaskByIdService } from "../utils/services/service";
 
 export const addNewTask = createAsyncThunk(
   "task/addNewTask",
@@ -29,6 +29,21 @@ export const getAllTask = createAsyncThunk(
   "task/getAllTask",
   async (request, { rejectWithValue }) => {
     const response = await getAllTaskService(request);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getTaskById = createAsyncThunk(
+  "task/getTaskById",
+  async (id, { rejectWithValue }) => {
+    const response = await getTaskByIdService(id);
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

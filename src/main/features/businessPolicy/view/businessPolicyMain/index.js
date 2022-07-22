@@ -5,6 +5,7 @@ import Header from "../../../../layout/header/index";
 import { ContBody } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 import { getAllBusinessPolicy } from "../../store/action";
 import ApprovalDetail from "./detailView";
+import { Input } from 'antd';
 import Listing from "./listView";
 import './style.css'
 export default function AllApprovals() {
@@ -22,13 +23,16 @@ export default function AllApprovals() {
                     to: "/businessPolicy"
                 }]}
             />
-            <ContBody>
+            <ContBody className="!block">
+                {/* <div className="searchBar"> */}
+                    {/* <Input placeholder="Search" onCha /> */}
+                {/* </div> */}
                 <div className="flex ApprovalMainView gap-4 w-full">
                     <div className="">
                         <Listing listData={businessPolicies} />
                     </div>
                     <div className="flex-1" >
-                       {policyDetail && <ApprovalDetail item={policyDetail} />}
+                        {policyDetail && <ApprovalDetail item={policyDetail} />}
                     </div>
                 </div>
             </ContBody>

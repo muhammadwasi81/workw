@@ -1,8 +1,8 @@
 import AxiosConfig from "../../../../utils/services/AxiosConfig";
 
-const API_PREFIX = "konnectapi/api/expenseheader/";
+const API_PREFIX = "api/ExpenseHeader/";
 export const getAllExpenseHeaderService = () => {
-  return AxiosConfig.get(`${API_PREFIX}getallexpense`)
+  return AxiosConfig.get(`${API_PREFIX}GetAllExpenseHeader`)
     .then((res) => {
       return res.data;
     })

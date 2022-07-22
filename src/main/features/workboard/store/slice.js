@@ -1,4 +1,29 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
+import {
+	addWorkBoard,
+	addWorkBoardSectionTodo,
+	getAllWorkBoard,
+	getWorkboardById,
+	getWorkBoardTodoById,
+	moveWorkBoardSection,
+	removeWorkBoardTodoImage,
+	updateWorkBoard,
+	updateWorkBoardSectionColorCode,
+	updateWorkBoardSectionTitle,
+	updateWorkBoardTodoDesc,
+	updateWorkBoardTodoDueDate,
+	updateWorkBoardTodoImage,
+	updateWorkBoardTodoTitle,
+} from "./action";
+
+const initialComposerData = {
+	name: "",
+	description: "",
+	members: [],
+	attachments: [],
+	privacyId: 1,
+	image: "",
+};
 
 const initialState = {
 	lists: [],
@@ -7,6 +32,17 @@ const initialState = {
 	addMemberCardId: "",
 	memberDefaulIds: [],
 	showDateModal: false,
+	loader: false,
+	success: false,
+	error: false,
+	workboardsList: [],
+	workboardDetail: null,
+	isComposerEdit: false,
+	isComposerVisible: false,
+	composerData: initialComposerData,
+	workBoardSections: [],
+	todoDetail: null,
+	todoDueDateDetail: null,
 };
 
 const trelloSlice = createSlice({
@@ -78,9 +114,26 @@ const trelloSlice = createSlice({
 			// 	color: payload.color,
 			// };
 		},
+		handleSectionBgColor(state, { payload }) {
+			const { sectionId, colorCode } = payload;
+			const workBoardSectionIndex =
+				state.workboardDetail.sections.findIndex(
+					section => section.id === sectionId
+				);
+			state.workboardDetail.sections[workBoardSectionIndex].colorCode =
+				colorCode;
+		},
 		changeListTitle(state, { payload }) {
 			const { id, title } = payload;
 			state[id] = { ...state[id], title };
+		},
+		handleSectionTitle(state, { payload }) {
+			const { sectionId, title } = payload;
+			const workBoardSectionIndex =
+				state.workboardDetail.sections.findIndex(
+					section => section.id === sectionId
+				);
+			state.workboardDetail.sections[workBoardSectionIndex].name = title;
 		},
 
 		changeListCardText(state, { payload }) {
@@ -130,6 +183,13 @@ const trelloSlice = createSlice({
 			newLists.splice(newListIndex, 0, removedList);
 			state.lists = newLists;
 		},
+		moveSection(state, { payload }) {
+			const { oldListIndex, newListIndex } = payload;
+			const newLists = Array.from(state.workboardDetail.sections);
+			const [removedList] = newLists.splice(oldListIndex, 1);
+			newLists.splice(newListIndex, 0, removedList);
+			state.workboardDetail.sections = newLists;
+		},
 		handleCardDetail(state, { payload }) {
 			if (payload.type === "open") {
 				state.addMemberCardId = payload.cardDetailId;
@@ -159,13 +219,238 @@ const trelloSlice = createSlice({
 			}
 		},
 		openDateModal(state, { payload }) {
-			console.log("payload", payload);
-			const { isDateModalOpen, cardId } = payload;
-			if (cardId) {
-				state.addMemberCardId = cardId;
+			// console.log("payload", payload);
+			const { isDateModalOpen, todoId, sectionId } = payload;
+			if (todoId && sectionId) {
+				const workBoardSectionIndex =
+					state.workboardDetail.sections.findIndex(
+						section => section.id === sectionId
+					);
+
+				const todoIndex = state.workboardDetail.sections[
+					workBoardSectionIndex
+				].todos.findIndex(todo => todo.id === todoId);
+
+				state.todoDueDateDetail =
+					state.workboardDetail.sections[workBoardSectionIndex].todos[
+						todoIndex
+					];
 			}
 			state.showDateModal = isDateModalOpen;
 		},
+		handleBoardComposer(state, { payload }) {
+			state.isComposerEdit = payload.isEdit;
+			state.isComposerVisible = payload.isVisible;
+			state.composerData = initialComposerData;
+		},
+		openSectionDetail(state, { payload }) {
+			if (payload.type === "open") {
+				return;
+			}
+			state.todoDetail = null;
+		},
+		updateSectionTodoDesc(state, { payload }) {
+			const { todoId, sectionId, description } = payload;
+
+			// console.log("description", description);
+
+			const workBoardSectionIndex =
+				state.workboardDetail.sections.findIndex(
+					section => section.id === sectionId
+				);
+
+			const todoIndex = state.workboardDetail.sections[
+				workBoardSectionIndex
+			].todos.findIndex(todo => todo.id === todoId);
+			// console.log(
+			// 	"data of description in slice",
+			// 	current(
+			// 		state.workboardDetail.sections[workBoardSectionIndex].todos[
+			// 			todoIndex
+			// 		].description
+			// 	)
+			// );
+			state.workboardDetail.sections[workBoardSectionIndex].todos[
+				todoIndex
+			].description = description;
+		},
+	},
+	extraReducers: builder => {
+		builder
+			.addCase(addWorkBoard.fulfilled, (state, { payload }) => {
+				state.loader = false;
+				state.success = true;
+				state.error = false;
+				state.workboardsList.unshift(payload.data);
+			})
+			.addCase(updateWorkBoard.fulfilled, (state, { payload }) => {
+				state.loader = false;
+				state.success = true;
+				state.error = false;
+				console.log("updated");
+				// state.workboardsList.unshift(payload.data);
+			})
+			.addCase(getAllWorkBoard.fulfilled, (state, { payload }) => {
+				state.workboardsList = payload.data;
+				state.loader = false;
+				state.error = false;
+			})
+			.addCase(getWorkboardById.fulfilled, (state, { payload }) => {
+				state.workboardDetail = payload.data;
+				state.composerData = payload.data;
+				state.loader = false;
+				state.error = false;
+			})
+			.addCase(moveWorkBoardSection.fulfilled, (state, { payload }) => {
+				state.loader = false;
+			})
+			.addCase(
+				addWorkBoardSectionTodo.fulfilled,
+				(state, { payload }) => {
+					state.loader = false;
+					const { sectionId } = payload.data;
+					const workBoardSectionIndex =
+						state.workboardDetail.sections.findIndex(
+							section => section.id === sectionId
+						);
+					state.workboardDetail.sections[
+						workBoardSectionIndex
+					].todos.unshift(payload.data);
+				}
+			)
+			.addCase(
+				updateWorkBoardSectionColorCode.fulfilled,
+				(state, { payload }) => {
+					state.loader = false;
+				}
+			)
+			.addCase(
+				updateWorkBoardSectionTitle.fulfilled,
+				(state, { payload }) => {
+					state.loader = false;
+				}
+			)
+			.addCase(getWorkBoardTodoById.fulfilled, (state, { payload }) => {
+				state.loader = false;
+				state.todoDetail = payload.data;
+			})
+			.addCase(
+				updateWorkBoardTodoDesc.fulfilled,
+				(state, { payload }) => {
+					state.loader = false;
+				}
+			)
+			.addCase(
+				updateWorkBoardTodoTitle.fulfilled,
+				(state, { payload }) => {
+					state.loader = false;
+					const { data, sectionId } = payload;
+					const workBoardSectionIndex =
+						state.workboardDetail.sections.findIndex(
+							section => section.id === sectionId
+						);
+					const todoIndex = state.workboardDetail.sections[
+						workBoardSectionIndex
+					].todos.findIndex(todo => todo.id === data.todoId);
+
+					state.workboardDetail.sections[workBoardSectionIndex].todos[
+						todoIndex
+					].title = data.title;
+				}
+			)
+			.addCase(
+				updateWorkBoardTodoImage.fulfilled,
+				(state, { payload }) => {
+					state.loader = false;
+
+					const { data, id, sectionId } = payload;
+
+					const workBoardSectionIndex =
+						state.workboardDetail.sections.findIndex(
+							section => section.id === sectionId
+						);
+
+					const todoIndex = state.workboardDetail.sections[
+						workBoardSectionIndex
+					].todos.findIndex(todo => todo.id === id);
+
+					state.workboardDetail.sections[workBoardSectionIndex].todos[
+						todoIndex
+					].image = data.path;
+					state.todoDetail.image = data.path;
+				}
+			)
+
+			.addCase(
+				updateWorkBoardTodoDueDate.fulfilled,
+				(state, { payload }) => {
+					state.loader = false;
+
+					const { data, sectionId } = payload;
+
+					const workBoardSectionIndex =
+						state.workboardDetail.sections.findIndex(
+							section => section.id === sectionId
+						);
+
+					const todoIndex = state.workboardDetail.sections[
+						workBoardSectionIndex
+					].todos.findIndex(todo => todo.id === data.todoId);
+
+					state.workboardDetail.sections[workBoardSectionIndex].todos[
+						todoIndex
+					].dueDate = data.dueDate;
+					if (state.todoDetail) {
+						state.todoDetail.dueDate = data.dueDate;
+					}
+				}
+			)
+			.addCase(
+				removeWorkBoardTodoImage.fulfilled,
+				(state, { payload }) => {
+					state.loader = false;
+					const { id, sectionId } = payload;
+
+					const workBoardSectionIndex =
+						state.workboardDetail.sections.findIndex(
+							section => section.id === sectionId
+						);
+
+					const todoIndex = state.workboardDetail.sections[
+						workBoardSectionIndex
+					].todos.findIndex(todo => todo.id === id);
+
+					state.workboardDetail.sections[workBoardSectionIndex].todos[
+						todoIndex
+					].image = "";
+					state.todoDetail.image = "";
+				}
+			)
+			.addMatcher(
+				isPending(
+					...[
+						addWorkBoard,
+						getAllWorkBoard,
+						getWorkboardById,
+						updateWorkBoard,
+						moveWorkBoardSection,
+						addWorkBoardSectionTodo,
+						updateWorkBoardSectionColorCode,
+						updateWorkBoardSectionTitle,
+						getWorkBoardTodoById,
+						updateWorkBoardTodoDesc,
+						updateWorkBoardTodoTitle,
+						updateWorkBoardTodoImage,
+						updateWorkBoardTodoDueDate,
+						removeWorkBoardTodoImage,
+					]
+				),
+				state => {
+					state.loader = true;
+					state.success = false;
+					state.error = false;
+				}
+			);
 	},
 });
 
@@ -184,6 +469,12 @@ export const {
 	addListCardMembers,
 	addListCardDueDate,
 	openDateModal,
+	handleBoardComposer,
+	moveSection,
+	handleSectionBgColor,
+	handleSectionTitle,
+	openSectionDetail,
+	updateSectionTodoDesc,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

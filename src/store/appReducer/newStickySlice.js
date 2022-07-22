@@ -7,8 +7,10 @@ export const newStickySlice = createSlice({
     close: true,
     incrementArray: [],
     listArray: [],
-    colorPicker: false,
+    colorPicker: true,
     bgColor: "",
+    openImageSrc: "",
+    openImg: false,
   },
   reducers: {
     closeSticky: (state) => {
@@ -80,6 +82,9 @@ export const newStickySlice = createSlice({
     closeStickyNoteColorPicker: (state) => {
       state.colorPicker = false;
     },
+    openStickyNoteColorPicker: (state) => {
+      state.colorPicker = true;
+    },
     closeNote: (state) => {
       state.open = false;
       //console.log(state);
@@ -140,6 +145,21 @@ export const newStickySlice = createSlice({
       sticky.img = sticky.img.filter((item) => item !== values.source);
       noteList.img = noteList.img.filter((item) => item !== values.source);
     },
+    openFullImage: (state, action) => {
+      const imgSrc = action.payload;
+      state.openImageSrc = imgSrc;
+      state.openImg = true;
+    },
+    closeFullImage: (state) => {
+      state.openImg = false;
+    },
+    boldText: (state, action) => {
+      const id = action.payload;
+      //let selection = window.getSelection();
+      //let boldText = <strong> {selection} </strong>;
+      const selectSticky = state.incrementArray.find((item) => item.id === id);
+      //selectSticky.textArea_value = ;
+    },
   },
 });
 
@@ -152,6 +172,7 @@ export const {
   openClickedStickyNote,
   stickyNoteColorPicker,
   closeStickyNoteColorPicker,
+  openStickyNoteColorPicker,
   closeNote,
   selectColor,
   deleteFromColorNoteNdList,
@@ -159,6 +180,9 @@ export const {
   targetTextVal,
   addImage,
   deleteImg,
+  openFullImage,
+  closeFullImage,
+  boldText,
 } = newStickySlice.actions;
 
 export default newStickySlice.reducer;

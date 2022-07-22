@@ -275,6 +275,22 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.menu,
     },
+    {
+      name: label.navMenuLabel.loan,
+      counter: 0,
+      icon: loanIcon,
+      to: ROUTES.LOAN.LOAN,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: label.navMenuLabel.resignations,
+      counter: 0,
+      icon: resignation,
+      to: ROUTES.RESIGNATION.RESIGNATION,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
     // {
     //   name: label.navMenuLabel.businessPolicy,
     //   counter: 0,

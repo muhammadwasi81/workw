@@ -47,6 +47,10 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.FORMS.DEFAULT}`,
+			component: lazy(() => import("../main/features/forms/view/index")),
+		},
+		{
 			path: `${ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/chartOfAccount/view/index")
@@ -187,6 +191,16 @@ export const routes = {
 			path: `${ROUTES.DOCUMENTS.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/documents/view/index")
+			),
+		},
+		{
+			path: `${ROUTES.LOAN.DEFAULT}`,
+			component: lazy(() => import("../main/features/loan/index")),
+		},
+		{
+			path: `${ROUTES.RESIGNATION.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/resignation/view/index")
 			),
 		},
 	],

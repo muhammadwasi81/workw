@@ -11,6 +11,7 @@ const initialState = {
 	loader: false,
 	success: false,
 	error: false,
+	editData: null,
 };
 
 const businessPolicySlice = createSlice({
@@ -23,6 +24,10 @@ const businessPolicySlice = createSlice({
 		businessDeleted: (state, { payload }) => {
 			state.businessPolicies = state.businessPolicies.filter((e) => e.id !== payload);
 		},
+		handleEdit: (state, { payload }) => {
+			console.log(payload, "FROM EDIT SLICE")
+			state.editData = payload
+		}
 	},
 	extraReducers: builder => {
 		builder
@@ -35,10 +40,6 @@ const businessPolicySlice = createSlice({
 				state.businessPolicies = payload.data;
 				state.policyDetail = payload.data[0];
 				state.loader = false;
-			})
-			.addCase(removeBusinessPolicy.fulfilled, (state, { payload }) => {
-				console.log(payload, "FROM REDUCER")
-				state.businessPolicies = state.businessPolicies.filter((e) => e.id !== payload.id);
 			})
 
 
@@ -59,7 +60,6 @@ const businessPolicySlice = createSlice({
 					]
 				),
 				state => {
-					// console.log("rejected");
 					state.loader = false;
 					state.success = false;
 					state.error = true;
@@ -68,5 +68,5 @@ const businessPolicySlice = createSlice({
 	},
 });
 
-export const { handleOpenDetail, businessDeleted } = businessPolicySlice.actions;
+export const { handleOpenDetail, businessDeleted, handleEdit } = businessPolicySlice.actions;
 export default businessPolicySlice.reducer;

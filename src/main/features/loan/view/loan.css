@@ -1,29 +1,4 @@
-.flex{
-    display: flex;
-}
-.gap15{
-    gap: 15px;
-}
-.submitButton {
-    background-color: #1b5669;
-    display: block;
-    width: 100%;
-    color: white;
-    border-radius: 4px;
-}
-.submitButton:hover {
-    background-color: #1b5669;
-    color: white;
-}
-
-.new {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-/* .myBody {
-    width: calc(100% - 80px);
-} */
+/* 
 .list-item {
     background-color: white;
     border-radius: 4px;
@@ -366,4 +341,4 @@
     .ItemDetails {
         flex-wrap: wrap;
     }
-}
+}  */

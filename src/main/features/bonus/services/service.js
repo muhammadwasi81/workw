@@ -20,8 +20,8 @@ export const addBonusService = (data) => {
     });
 };
 
-export const GetPromotionByIdService = (id) => {
-  return MasterConfig.get(`api/Promotion/GetPromotionById?id=${id}`)
+export const GetBonusByIdService = (id) => {
+  return MasterConfig.get(`api/Bonus/GetBonusById?id=${id}`)
     .then((res) => {
       return res;
     })

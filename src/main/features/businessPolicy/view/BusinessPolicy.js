@@ -12,7 +12,9 @@ import "../style/businessPolicy.css";
 import {
     EditOutlined, DeleteOutlined
 } from '@ant-design/icons';
+import { handleEdit } from "../store/slice";
 const { Panel } = Collapse;
+
 
 
 function BusinessPolicy(props) {
@@ -25,7 +27,7 @@ function BusinessPolicy(props) {
   const [form] = Form.useForm();
   const [id, setId] = useState();
   const dispatch = useDispatch();
-  const { loader: loading, success, businessPolicies } = useSelector((state) => state.businessPolicySlice);
+  const { loader: loading, success, businessPolicies, editData } = useSelector((state) => state.businessPolicySlice);
 
   useEffect(() => {
     dispatch(getAllBusinessPolicy())
@@ -41,10 +43,12 @@ function BusinessPolicy(props) {
   })
 
   const onEdit = ((e, item) => {
-    e.pereventDefault()
+    e.preventDefault()
     e.stopPropagation();
-    console.log(item, "ITEMMM!!!")
+    dispatch(handleEdit(item))
   })
+
+  
 
 
 
@@ -56,23 +60,26 @@ function BusinessPolicy(props) {
             Business Policies
           </h2>
           <SideDrawer
-            title={"Create"}
+            title={ editData ? "Update" :  "Create" }
             buttonText={"Create"}
             success={success}
-            openDrawer={openDrawer}
+            openDrawer={openDrawer || !!editData}
+            handleClose={() => dispatch(handleEdit(null))}
             setOpenDrawer={setOpenDrawer}
             setIsEdited={setIsEdited}
             form={form}
             isAccessDrawer={true}
             children={
-              <Composer
-                isDefault={isDefault}
-                isEdited={isEdited}
-                openDrawer={openDrawer}
-                id={id}
-                form={form}
-                defaultData={defaultData}
-              />
+            //  (!!editData || openDrawer ) && 
+             <Composer
+              editData={editData}
+              isDefault={isDefault}
+              isEdited={isEdited}
+              openDrawer={openDrawer}
+              id={id}
+              form={form}
+              defaultData={defaultData}
+            />
             }
           />
         </div>
@@ -81,7 +88,7 @@ function BusinessPolicy(props) {
             return (<>
               <Collapse defaultActiveKey={0} onChange={onCollpase}>
                 <Panel header={item.name} key={ind} extra={[<EditOutlined onClick={(e) => onEdit(e,item)} />, <DeleteOutlined onClick={(e) => onRemove(e,item.id)} />]}>
-                  <p>{item.description}</p>
+                  <div dangerouslySetInnerHTML={{__html: item.description}} ></div>
                 </Panel>
               </Collapse>
             </>)

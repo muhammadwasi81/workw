@@ -1,14 +1,16 @@
 import React from "react";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { AiTwotoneDelete, AiOutlineClose } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectColor,
   deleteFromColorNoteNdList,
+  openStickyNoteColorPicker,
 } from "../../../store/appReducer/newStickySlice";
 // import { useSelector } from "react-redux";
 
 const StickyNoteColorSelector = (props) => {
   const dispatch = useDispatch();
+  const color = useSelector((state) => state.newStickySlice.colorPicker);
 
   const delSec = {
     cursor: "default",
@@ -33,11 +35,15 @@ const StickyNoteColorSelector = (props) => {
   const deleteNoteNdList = () => {
     dispatch(deleteFromColorNoteNdList(props.id));
   };
+
+  const closeColorPicker = () => {
+    dispatch(openStickyNoteColorPicker());
+  };
   return (
     <div
       id={props.id}
       className="menu__popUp"
-      style={{ display: !props.color ? "initial" : "none" }}
+      style={{ display: !color ? "initial" : "none" }}
     >
       <div className="color___LIST">
         {colors.map((colors) => (
@@ -53,7 +59,14 @@ const StickyNoteColorSelector = (props) => {
         <div style={delSec}>
           <AiTwotoneDelete />
         </div>
-        Delete note
+        Delete Note
+      </div>
+      <hr />
+      <div className="note__iconHOVER-dlt" onClick={closeColorPicker}>
+        <div style={delSec}>
+          <AiOutlineClose />
+        </div>
+        Close Note
       </div>
       <hr />
     </div>

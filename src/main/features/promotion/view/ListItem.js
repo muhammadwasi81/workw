@@ -44,7 +44,7 @@ function ListItem(props) {
       <div className="ListItemInner">
         <div className="ItemDetails">
           <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{promotionDictionary.grade}</span>
+            <span className="text-black font-extrabold smallHeading">{"New Grade"}</span>
             <Tag className="IdTag">{grade ? grade : "Default Grade"}</Tag>
           </div>
           <div className="innerDiv">

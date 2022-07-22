@@ -14,7 +14,7 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { bonusDictionary } = bonusDictionaryList[userLanguage];
 
-  const { creator, description, category, createDate, members = [], approvers, status, referenceNo, grade } = props.item;
+  const { creator, category, createDate, members = [], approvers, amount, status, referenceNo, member } = props.item;
 
   return (
     <SingleItem>
@@ -22,42 +22,67 @@ function ListItem(props) {
         className="new"
         id={props.id}
         onClick={() => {
-          props.getPromotionId(props.id);
+          props.getBonusId(props.id);
         }}
       />
       <ItemHeader>
-        {/* <div className="left">
-          <UserInfo
+        <div className="left">
+          {/* <UserInfo
             avatarSrc={creator.image}
             name={creator.name}
             Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
-          />
-        </div> */}
+          /> */}
+        </div>
         <div className="right">
           <Tag className="IdTag">{referenceNo}</Tag>
           <StatusTag status={status}></StatusTag>
         </div>
       </ItemHeader>
-      <ItemContent>
-        <p>{description}</p>
-      </ItemContent>
+      <div className="flex justify-between mt-4">
+          <div className="innerCard w-full">
+            <div className="innerCard__header">
+              <div className="left">
+                Category :
+                <span className="" style={{ color: "#757D86" }}>
+                  &nbsp;{category}
+                </span>
+              </div>
+              <div className="right">
+                <div className="left">
+                  Amount :
+                  <span className="" style={{ color: "#757D86" }}>
+                    &nbsp;{amount}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="innerCard__footer">
+              <div className="left">
+                Reason :
+                <span className="" style={{ color: "#757D86" }}>
+                  &nbsp;{}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       <div className="ListItemInner">
         <div className="ItemDetails">
           <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{bonusDictionary.grade}</span>
-            <Tag className="IdTag">{grade ? grade : "Default Grade"}</Tag>
+            <span className="text-black font-extrabold smallHeading">{"Bonus To"}</span>
+            {/* <Tag className="IdTag">{ ?  : ""}</Tag> */}
           </div>
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{bonusDictionary.promotionTo}</span>
-            {/* <Avatar
+          {/* <div className="innerDiv">
+            <span className="text-black font-extrabold smallHeading">{"Bonus To"}</span>
+            <Avatar
               isAvatarGroup={true}
               isTag={false}
-              heading={"Members"}
-              membersData={members}
+              heading={"Member"}
+              membersData={member}
               text={"Danish"}
               image={"https://joeschmoe.io/api/v1/random"}
-            /> */}
-          </div>
+            />
+          </div> */}
           <div className="innerDiv">
             <span className="text-black font-extrabold smallHeading">{bonusDictionary.approvers}</span>
             <Avatar

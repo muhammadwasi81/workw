@@ -51,9 +51,15 @@ function DetailedView(props) {
         <div className="ListItemInner">
           <div className="ItemDetails">
             <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{"Grade"}</span>
+              <span className="text-black font-extrabold smallHeading">{"New Grade"}</span>
               <p>
                 <Tag className="IdTag">{grade}</Tag>
+              </p>
+            </div>
+            <div className="innerDiv">
+              <span className="text-black font-extrabold smallHeading">{"Promotion To"}</span>
+              <p>
+                <Tag className="IdTag"></Tag>
               </p>
             </div>
             <div className="innerDiv">

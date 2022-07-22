@@ -2,7 +2,6 @@ import React from "react";
 import Header from "./header";
 import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import FilterBar from "./filterBar";
-import DocumentComposers from "./composer";
 import DocumentDetailCards from "./documentDetailCards";
 
 const Forms = () => {
@@ -12,9 +11,8 @@ const Forms = () => {
       <Header />
       <FilterBar />
       <ContBody>
-        <DocumentShortCards />
+        <DocumentDetailCards />
       </ContBody>
-      <DocumentComposers />
     </TabbableContainer>
   );
 };

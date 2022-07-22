@@ -42,6 +42,10 @@ export const routes = {
       path: `${ROUTES.FINANCE.VOUCHER.DEFAULT}`,
       component: lazy(() => import("../main/features/voucher/view/index")),
     },
+	{
+		path: `${ROUTES.FORMS.DEFAULT}`,
+		component: lazy(() => import("../main/features/forms/view/index")),
+	},
     {
       path: `${ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT}`,
       component: lazy(() =>

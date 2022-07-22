@@ -9,7 +9,6 @@ import { handleBoardComposer } from "../store/slice";
 function Header() {
 	const dispatch = useDispatch();
 	const composerData = useSelector(state => state.trelloSlice.composerData);
-	// const [data, setData] = useState(composerData);
 	const success = useSelector(state => state.trelloSlice.success);
 	const loading = useSelector(state => state.trelloSlice.loader);
 	const visible = useSelector(state => state.trelloSlice.isComposerVisible);
@@ -27,9 +26,7 @@ function Header() {
 	const handleOpenDrawer = val => {
 		dispatch(handleBoardComposer({ isEdit: false, isVisible: val }));
 	};
-	// useEffect(() => {
-	// 	setData(composerData);
-	// }, [composerData]);
+
 	const buttons = [
 		{
 			buttonText: "Create WorkBoard",

@@ -2,6 +2,8 @@ import React from "react";
 import ProjectDefaultImage from "../../../../content/png/project_cover_img.png";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { Card } from "antd";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../../utils/routes";
 const { Meta } = Card;
 
 function ListItem(props) {
@@ -11,7 +13,7 @@ function ListItem(props) {
 		image = ProjectDefaultImage,
 		members = [],
 	} = props.item;
-
+	const navigate = useNavigate();
 	return (
 		<>
 			<Card
@@ -24,7 +26,9 @@ function ListItem(props) {
 					/>
 				}
 				hoverable
-				actions={[]}
+				onClick={e => {
+					navigate(`${ROUTES.PROJECT.DETAIL}`);
+				}}
 			>
 				<Meta title={name} description={description} />
 				<Avatar

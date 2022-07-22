@@ -15,25 +15,12 @@ import {
 	openMembersModal,
 } from "../../store/slice";
 import { useDispatch } from "react-redux";
+import { removeWorkBoardTodo } from "../../store/action";
 
-const menu = (startEditing, addMembers, deleteList, showDateModal) => {
+const menu = (startEditing, addMembers, deleteTodo, showDateModal) => {
 	return (
 		<Menu
 			items={[
-				// {
-				// 	key: "1",
-				// 	label: (
-				// 		<div
-				// 			className="flex items-center gap-3"
-				// 			onClick={e => {
-				// 				startEditing();
-				// 			}}
-				// 		>
-				// 			<EditOutlined className="text-base" />
-				// 			<span className="">Edit Title</span>
-				// 		</div>
-				// 	),
-				// },
 				{
 					key: "2",
 					label: (
@@ -65,11 +52,13 @@ const menu = (startEditing, addMembers, deleteList, showDateModal) => {
 				{
 					key: "4",
 					label: (
-						<div className="flex items-center gap-3">
-							<DeleteOutlined
-								// onClick={deleteList}
-								className="text-base"
-							/>
+						<div
+							className="flex items-center gap-3"
+							onClick={() => {
+								deleteTodo();
+							}}
+						>
+							<DeleteOutlined className="text-base" />
 							<span className="">Delete</span>
 						</div>
 					),
@@ -79,11 +68,7 @@ const menu = (startEditing, addMembers, deleteList, showDateModal) => {
 	);
 };
 
-function EditDropDown({ startEditing, deleteList, todoId, sectionId }) {
-	// const isOpen = useSelector(state => state.trelloSlice.addMember);
-	// const memberDefaulIds = useSelector(
-	// 	state => state.trelloSlice.memberDefaulIds
-	// );
+function EditDropDown({ startEditing, todoId, sectionId }) {
 	const dispatch = useDispatch();
 
 	const showDateModal = () => {
@@ -93,18 +78,21 @@ function EditDropDown({ startEditing, deleteList, todoId, sectionId }) {
 		dispatch(openMembersModal({ addMember: true, todoId }));
 	};
 
+	const deleteTodo = () => {
+		dispatch(removeWorkBoardTodo({ id: todoId, sectionId }));
+	};
+
 	return (
 		<>
 			<Dropdown
 				overlay={menu(
 					startEditing,
 					addMembers,
-					deleteList,
+					deleteTodo,
 					showDateModal
 				)}
 				trigger={["click"]}
 				className="z-10"
-				// visible={visible}
 			>
 				<div className="Card-Icons absolute  right-[5px] flex flex-row justify-end invisible group-hover:visible ">
 					<div className="Card-Icon flex items-center cursor-pointer w-[24px] h-[24px] justify-center rounded-sm m-[1px] hover:bg-neutral-200 opacity-90 ">

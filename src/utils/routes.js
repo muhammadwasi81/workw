@@ -50,6 +50,7 @@ export const ROUTES = {
 		SCHEDULES: `${DOMAIN_PREFIX}/groups/schedules`,
 		TASKS: `${DOMAIN_PREFIX}/groups/tasks`,
 		EXPENSES: `${DOMAIN_PREFIX}/groups/expenses`,
+		DETAIL: `${DOMAIN_PREFIX}/groups/group-detail`,
 	},
 	INVENTORY: {
 		DEFAULT: `${DOMAIN_PREFIX}/inventory`,
@@ -63,6 +64,7 @@ export const ROUTES = {
 	},
 	PROJECT: {
 		DEFAULT: `${DOMAIN_PREFIX}/projects`,
+		DETAIL: `${DOMAIN_PREFIX}/projects/project-detail`,
 		NEWS: `${DOMAIN_PREFIX}/projects/news`,
 		SCHEDULES: `${DOMAIN_PREFIX}/projects/schedules`,
 		TASKS: `${DOMAIN_PREFIX}/projects/tasks`,

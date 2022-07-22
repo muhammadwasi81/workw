@@ -2,13 +2,18 @@ import { createSlice } from "@reduxjs/toolkit"
 import { addChartOfAccount, getAllChartOfAccount } from "./actions";
 
 const initialState = {
-   listData: []
+   listData: [],
+   editData: null,
 };
 
 export const ChartOfAccountSlice = createSlice({
    name: 'chartOfAccount',
    initialState: initialState,
    reducers: {
+      handleEdit: (state, { payload }) => {
+         console.log(payload, "PAYLOAD")
+			state.editData = payload
+		}
    },
 
    extraReducers: (builder) => {
@@ -22,5 +27,5 @@ export const ChartOfAccountSlice = createSlice({
    }
 })
 
-// export const {  } = taskSlice.actions
+export const { handleEdit } = ChartOfAccountSlice.actions
 export default ChartOfAccountSlice.reducer;

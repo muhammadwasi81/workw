@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Header from '../../../layout/header';
 import { ContBody, TabbableContainer } from '../../../sharedComponents/AppComponents/MainFlexContainer';
-import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import Composer from './Composer';
 import COA_List from './listView';
+import "../styles/style.css"
+import { useSelector, useDispatch } from 'react-redux';
+import { handleEdit } from '../store/slice';
 
 export default function ChartOfAccounts() {
+    const dispatch = useDispatch();
+    const {success, editData} = useSelector(state => state.chartOfAccountsSlice);
+    const [openDrawer, setOpenDrawer] = useState(false);
+
+    console.log(editData)
 
     return (
         <TabbableContainer>
@@ -14,27 +23,26 @@ export default function ChartOfAccounts() {
                         buttonText: "Create Account",
                         render: (
                             <SideDrawer
-                                children={
-                                    <div>dfdf</div>
-                                    // <AddComposer
-                                    // isEdit={isComposerEdit}
-                                    // composerData={composerData}
-                                    // loading={loading}
-                                    // />
-                                }
-                                title={"Create Account"}
-                                buttonText="Create Account"
+                                title={!!editData ? "Update" : "Create"}
+                                buttonText={"Create"}
+                                openDrawer={openDrawer || !!editData}
+                                handleClose={() => dispatch(handleEdit(null))}
+                                setOpenDrawer={()=>{}}
+                                setIsEdited={()=>{}}
                                 isAccessDrawer={true}
-                            // setOpenDrawer={handleOpenDrawer}
-                            // setIsEdited={() => {}}
-                            // openDrawer={visible}
-                            // success={success}
+                                children={
+                                    <Composer
+                                        editData={editData}
+                                        // openDrawer={openDrawer}
+                                    />
+                                }
                             />
+
                         ),
                     },
                 ]}
             />
-            <ContBody>
+            <ContBody className="chartOfAccountBody">
                 <COA_List />
             </ContBody>
         </TabbableContainer>

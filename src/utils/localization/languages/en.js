@@ -64,7 +64,8 @@ const en = {
     Logout: "Logout",
     SelectLanguage: "Select Language",
     English: "English ",
-    Urdu: "Urdu",
+    Urdu: "اردو",
+    Arabic: "عربي",
     Table: "Table",
     List: "List",
   },
@@ -159,6 +160,7 @@ const en = {
     resignations: "Resignations",
     rewards: "Rewards",
     businessPolicy: "Business Policy",
+    form: "Form",
   },
 
   /*** AppHeader only used in Component headerTab ***/

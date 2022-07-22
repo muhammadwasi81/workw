@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addWarning, getAllBonus, GetPromotionById } from "./actions";
+import { addBonus, addWarning, getAllBonus, GetBonusById, GetPromotionById } from "./actions";
 
 const initialState = {
   bonuses: [],
@@ -18,16 +18,15 @@ const bonusSlice = createSlice({
       state.loader = false;
     });
 
-    // builder.addCase(GetPromotionById.fulfilled, (state, action) => {
-    //   //   console.log("action.payload", action.payload);
-    //   state.promotionDetail = action.payload.data;
-    // });
+    builder.addCase(GetBonusById.fulfilled, (state, action) => {
+      state.promotionDetail = action.payload.data;
+    });
 
     builder
-      //   .addCase(addWarning.fulfilled, (state, { payload }) => {
-      //     state.warningData = payload;
-      //     return state;
-      //   })
+        .addCase(addBonus.fulfilled, (state, { payload }) => {
+          state.warningData = payload;
+          return state;
+        })
       .addMatcher(isPending(...[getAllBonus]), (state) => {
         state.loader = true;
       })

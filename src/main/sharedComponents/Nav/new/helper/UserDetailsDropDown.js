@@ -14,7 +14,7 @@ function UserDetailsDropDown({ id, isToggle }) {
     LanguageChangeContext
   );
   const {
-    sharedLabels: { Profile, Settings, Logout, SelectLanguage, English, Urdu },
+    sharedLabels: { Profile, Settings, Logout, SelectLanguage, English, Urdu, Arabic },
   } = dictionaryList[userLanguage];
   const dispatch = useDispatch();
   const handleLanguageChange = (e) => {
@@ -65,6 +65,16 @@ function UserDetailsDropDown({ id, isToggle }) {
           }}
         >
           <p>{Urdu}</p>
+          <FontSizeOutlined />
+        </li>
+        <li
+          className="list__item"
+          onClick={() => handleLanguageChange("arabic")}
+          style={{
+            backgroundColor: userLanguage === "arabic" && "#e5e5e5",
+          }}
+        >
+          <p>{Arabic}</p>
           <FontSizeOutlined />
         </li>
       </ul>

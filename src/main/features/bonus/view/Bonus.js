@@ -11,7 +11,7 @@ import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllBonus, GetPromotionById } from "../store/actions";
+import { getAllBonus, GetBonusById, GetPromotionById } from "../store/actions";
 import TableView from "./TableView";
 // import "./warning.css";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -40,8 +40,8 @@ const Bonus = (props) => {
     setVisible(false);
   };
 
-  const getPromotionId = (id) => {
-    dispatch(GetPromotionById(id));
+  const getBonusId = (id) => {
+    dispatch(GetBonusById(id));
     setVisible(true);
   };
 
@@ -109,7 +109,7 @@ const Bonus = (props) => {
                   {bonuses.map((item, index) => {
                     return (
                       <>
-                        <ListItem getPromotionId={getPromotionId} item={item} id={item.id} key={index} />
+                        <ListItem getBonusId={getBonusId} item={item} id={item.id} key={index} />
                       </>
                     );
                   })}

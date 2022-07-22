@@ -19,3 +19,6 @@
 .ar_container .ar_tree .ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner::after{
     background-color: var(--primary_theme_color_green);
   }
+  .ReactQuill {
+    
+  }

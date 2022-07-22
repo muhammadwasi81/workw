@@ -8,7 +8,7 @@ const Splash = () => {
 			<img
 				alt=""
 				src={Workwise}
-				className="h-full w-full object-contain"
+				className=" w-full !object-contain"
 			/>
 		</div>
 	);

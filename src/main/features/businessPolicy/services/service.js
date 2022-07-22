@@ -32,3 +32,13 @@ export const removeBusinessPolicyService = (id) => {
 			return error;
 		});
 };
+
+export const updateBusinessPolicyService = data => {
+	return MasterConfig.put(`${API_PREFIX}UpdateBusinessPolicy`, data)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};

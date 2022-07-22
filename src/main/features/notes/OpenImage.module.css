@@ -1,0 +1,31 @@
+/* html {
+  overflow-y: hidden;
+} */
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  /* bottom: 10%;
+  left: 30%; */
+  z-index: 11;
+  background: black;
+}
+.imageContainer img {
+  width: auto;
+  height: 100%;
+}
+.icon {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  font-size: 40px;
+  color: white;
+}
+.icon:hover {
+  cursor: pointer;
+}

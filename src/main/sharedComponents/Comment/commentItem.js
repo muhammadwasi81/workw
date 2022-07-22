@@ -120,6 +120,7 @@ const CommentItem = ({ comment }) => {
               )}
 
               <CommentComposer
+                placeHolder={"Write Your Reply Here."}
                 referenceId={referenceId}
                 parentId={parentId}
                 afterSuccess={(comment) =>

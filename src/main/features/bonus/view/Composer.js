@@ -1,14 +1,12 @@
 import { Button, Form, Input, Radio } from "antd";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { addBonus } from "../store/actions";
 import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { getAllWarningCategories } from "../../warning/warningCategory/store/actions";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
 
 const initialState = {
   id: "",
@@ -41,26 +39,7 @@ const Composer = (props) => {
   const [profileImage, setProfileImage] = useState(null);
   const [value, setValue] = useState(1);
 
-  const { warningCategories } = useSelector((state) => state.warningCategorySlice);
-
-  useEffect(() => {
-    dispatch(getAllWarningCategories());
-  }, []);
-
-  const handleImageUpload = (data) => {
-    setProfileImage(data);
-  };
-
   const onFinish = (values) => {
-    let members = values.members.map((member) => {
-      return {
-        memberId: member,
-        memberType: 0,
-        isDefault: true,
-        status: 0,
-        email: "",
-      };
-    });
 
     let approvers = values.approvers.map((approver) => {
       return {
@@ -72,7 +51,7 @@ const Composer = (props) => {
       };
     });
 
-    let payload = { ...values, approvers, members };
+    let payload = { ...values, approvers };
 
     dispatch(addBonus(payload));
     form.resetFields();
@@ -103,9 +82,9 @@ const Composer = (props) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off">
-        <Form.Item name="members" label={bonusDictionary.bonusTo} showSearch={true} direction={Direction} rules={[{ required: true }]}>
+        <Form.Item name="memberId" label={bonusDictionary.bonusTo} showSearch={true} direction={Direction} rules={[{ required: true }]}>
           <NewCustomSelect
-            name="members"
+            name="memberId"
             label={bonusDictionary.bonusTo}
             showSearch={true}
             direction={Direction}

@@ -10,16 +10,17 @@ function CommentWrapper({
   referenceId,
   module,
   afterSuccess,
-  isCommentLoad = false
+  placeHolder,
+  isCommentLoad = false,
 }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
     setComments([...initailComments]);
   }, [initailComments]);
 
-  useEffect(()=>{
-    isCommentLoad && getComments(referenceId, STRINGS.DEFAULTS.guid, module)
-  }, [])
+  useEffect(() => {
+    isCommentLoad && getComments(referenceId, STRINGS.DEFAULTS.guid, module);
+  }, []);
 
   const getComments = async (referenceId, parentId, module) => {
     const response = await getAllComment(referenceId, parentId, module);
@@ -29,6 +30,7 @@ function CommentWrapper({
   return (
     <div className="commentWrapper">
       <CommentComposer
+        placeHolder={placeHolder}
         referenceId={referenceId}
         module={module}
         afterSuccess={(comment) => {

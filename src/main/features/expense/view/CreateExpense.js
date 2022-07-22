@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CheckCircleOutlined,
   WalletOutlined,
@@ -6,25 +6,125 @@ import {
   BankOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
+import "swiper/css";
 import ExpenseType from "../components/ExpenseType";
-import {
-  Button,
-  Form,
-  Input,
-  Radio,
-  DatePicker,
-  Checkbox,
-  Textarea,
-} from "antd";
+import { Button, Form, Input, Radio, DatePicker, Checkbox } from "antd";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
+import { useDispatch, useSelector } from "react-redux";
+import { addExpense } from "../store/actions";
+import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
+import { DEFAULT_GUID } from "../../../../utils/constants";
+import moment from "moment";
+import Select from "../../../sharedComponents/Select/Select";
+import { getAllExpenseHeaderService } from "../../expenseHeader/services/service";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 const { TextArea } = Input;
+
 function CreateExpense() {
   const [isExecutor, setIsExecutor] = useState(false);
-  const [type, setType] = useState("General");
+  const [type, setType] = useState(1);
+  const dispatch = useDispatch();
 
-  const onFinish = (values) => {
-    console.log(values);
+  const {
+    sharedSlice: { employees },
+  } = useSelector((state) => state);
+
+  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [allHeader, setAllHeader] = useState([]);
+  const [file, setFile] = useState("");
+  const listObj = {
+    1: "General",
+    2: "Project",
+    3: "Group",
+    4: "Travel",
+    5: "Assets",
   };
+  const [employeeData, setEmployeeData] = useState({
+    approvers: [],
+    executors: [],
+    finance: [],
+  });
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+    }
+  }, [employees]);
+  const selectedData = (_, obj, name) => {
+    if (name === "approvers") {
+      setEmployeeData((preValue) => {
+        return {
+          ...preValue,
+          approvers: obj.map(({ type, id }) => {
+            return { approverType: type, approverId: id };
+          }),
+        };
+      });
+    } else if (name === "executors") {
+      setEmployeeData((preValue) => {
+        return {
+          ...preValue,
+          executors: obj.map(({ type, id }) => {
+            return { approverType: type, approverId: id };
+          }),
+        };
+      });
+    } else if (name === "finance") {
+      setEmployeeData((preValue) => {
+        return {
+          ...preValue,
+          finance: obj.map(({ type, id }) => {
+            return { approverType: type, approverId: id };
+          }),
+        };
+      });
+    }
+  };
+  const getAllHeaderExpense = async () => {
+    const { data } = await getAllExpenseHeaderService();
+    if (data?.length) setAllHeader(data);
+  };
+  useEffect(() => {
+    fetchEmployees("", 0);
+    getAllHeaderExpense();
+  }, []);
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
+  const handleHeader = (value) => {
+    console.log(value);
+  };
+  const onFinish = (values) => {
+    const {
+      categoryId,
+      headerId,
+      amount,
+      expenseDate,
+      description,
+      referenceType,
+    } = values;
+
+    const expenseObj = {
+      id: DEFAULT_GUID,
+      referenceId: defaultUiid,
+      categoryId,
+      headerId,
+      referenceType,
+      amount,
+      expenseDate: moment(expenseDate._d).format(),
+      isReimbursable: isExecutor,
+      description,
+      attachments: { id: DEFAULT_GUID, file: file },
+      approvers: [...employeeData.approvers],
+      executors: [...employeeData.executors],
+      financers: [...employeeData.finance],
+    };
+    dispatch(addExpense(expenseObj));
+  };
+
   const [form] = Form.useForm();
   return (
     <Form
@@ -34,56 +134,85 @@ function CreateExpense() {
       autoComplete="off"
       layout="vertical"
       className="addExpense"
+      initialValues={{ categoryId: 1, referenceType: 1 }}
     >
-      <Form.Item label="Category" name="category" labelPosition="top">
-        <ExpenseType />
-      </Form.Item>
-      <Form.Item label={"Types"} name="type">
+      <ExpenseType />
+      <Form.Item label={"Types"} name="referenceType">
         <Radio.Group
-          defaultValue={"General"}
+          defaultValue={1}
+          rules={[{ required: true }]}
           className="radioPrimary"
           onChange={(value) => {
             setType(value.target.value);
           }}
         >
-          <Radio.Button value="General">
+          <Radio.Button value={1}>
             <WalletOutlined />
             General
           </Radio.Button>
-          <Radio.Button value="Project">
+          <Radio.Button value={2}>
             <PieChartOutlined />
             Project
           </Radio.Button>
-          <Radio.Button value="Group">
+          <Radio.Button value={3}>
             <TeamOutlined />
             Group
           </Radio.Button>
-          <Radio.Button value="Travel">
+          <Radio.Button value={4}>
             <CheckCircleOutlined />
             Travel
           </Radio.Button>
-          <Radio.Button value="Asset">
+          <Radio.Button value={5}>
             <BankOutlined />
             Asset
           </Radio.Button>
         </Radio.Group>
       </Form.Item>
-      {type != "General" && (
-        <Form.Item label={`${type} List`} name="amount" labelPosition="top">
-          <Input placeholder={type} />
+      {type !== 1 && (
+        <Form.Item
+          rules={[{ required: true }]}
+          label={`${listObj[type]} List`}
+          name="amount"
+          labelPosition="top"
+        >
+          <Input placeholder={listObj[type]} />
         </Form.Item>
       )}
-      <Form.Item label="Header" name="header" labelPosition="top">
-        <Input placeholder="Write Header Here..." />
+      <Form.Item
+        rules={[{ required: true }]}
+        label="Header"
+        name="headerId"
+        labelPosition="top"
+      >
+        <Select
+          placeholder={"Write Header Here..."}
+          data={allHeader}
+          onChange={handleHeader}
+          style={{
+            width: "100%",
+            borderRadius: "5px",
+          }}
+          size="large"
+        />
       </Form.Item>
       <div className="formItem-w50">
-        <Form.Item label="Amount" name="amount" labelPosition="top">
+        <Form.Item
+          label="Amount"
+          name="amount"
+          labelPosition="top"
+          rules={[{ required: true }]}
+        >
           <Input placeholder="Enter Amount" />
         </Form.Item>
-        <Form.Item label="Date" name="date" labelPosition="top">
+        <Form.Item
+          label="Date"
+          name="expenseDate"
+          labelPosition="top"
+          rules={[{ required: true }]}
+        >
           <DatePicker placeholder="Pick Current Date" />
         </Form.Item>
-        <Form.Item label=" " name="date" labelPosition="top">
+        <Form.Item label=" " name="isReimbursable" labelPosition="top">
           <Checkbox
             onChange={() => {
               setIsExecutor(!isExecutor);
@@ -93,20 +222,108 @@ function CreateExpense() {
           </Checkbox>
         </Form.Item>
       </div>
-      <Form.Item label="Approver" name="approver" labelPosition="top">
-        <Input placeholder="Select Approver" />
+      <Form.Item
+        name="approver"
+        label={"Approvers"}
+        rules={[{ required: true }]}
+      >
+        <MemberSelect
+          isObject={true}
+          data={firstTimeEmpData}
+          selectedData={(data, obj, name = "approvers") =>
+            selectedData(data, obj, name)
+          }
+          canFetchNow={isFirstTimeDataLoaded}
+          fetchData={fetchEmployees}
+          name="approvers"
+          mode="multiple"
+          placeholder={"Select Approvers"}
+          optionComponent={(opt) => {
+            return (
+              <>
+                <Avatar
+                  name={opt.name}
+                  src={opt.image}
+                  round={true}
+                  width={"30px"}
+                  height={"30px"}
+                />
+                {opt.name}
+              </>
+            );
+          }}
+        />
       </Form.Item>
+
       {!isExecutor && (
-        <Form.Item label="Executor" name="executor" labelPosition="top">
-          <Input placeholder="Select Executor" />
+        <Form.Item
+          rules={[{ required: true }]}
+          name="Executor"
+          label={"Executors"}
+        >
+          <MemberSelect
+            isObject={true}
+            data={firstTimeEmpData}
+            selectedData={(data, obj, name = "executors") =>
+              selectedData(data, obj, name)
+            }
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            name="Executors"
+            mode="multiple"
+            placeholder={"Select Executors"}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar
+                    name={opt.name}
+                    src={opt.image}
+                    round={true}
+                    width={"30px"}
+                    height={"30px"}
+                  />
+                  {opt.name}
+                </>
+              );
+            }}
+          />
         </Form.Item>
       )}
-
-      <Form.Item label="Finance" name="finance" labelPosition="top">
-        <Input placeholder="Select Finance" />
+      <Form.Item name="Finance" label={"Finance"} rules={[{ required: true }]}>
+        <MemberSelect
+          isObject={true}
+          data={firstTimeEmpData}
+          selectedData={(data, obj, name = "finance") =>
+            selectedData(data, obj, name)
+          }
+          canFetchNow={isFirstTimeDataLoaded}
+          fetchData={fetchEmployees}
+          name="Finance"
+          mode="multiple"
+          placeholder={"Select Finance"}
+          optionComponent={(opt) => {
+            return (
+              <>
+                <Avatar
+                  name={opt.name}
+                  src={opt.image}
+                  round={true}
+                  width={"30px"}
+                  height={"30px"}
+                />
+                {opt.name}
+              </>
+            );
+          }}
+        />
       </Form.Item>
 
-      <Form.Item label="Description" name="description" labelPosition="top">
+      <Form.Item
+        label="Description"
+        name="description"
+        labelPosition="top"
+        rules={[{ required: true }]}
+      >
         <TextArea
           placeholder="Wirte Description Here..."
           name=""
@@ -114,7 +331,13 @@ function CreateExpense() {
         ></TextArea>
       </Form.Item>
       <Form.Item label="Attachments" name="attachments" labelPosition="top">
-        <SingleUpload position={"left"} />
+        <SingleUpload
+          handleImageUpload={(file) => {
+            // console.log(file[0].originFileObj);
+            setFile(file[0].originFileObj);
+          }}
+          position={"left"}
+        />
       </Form.Item>
       <Form.Item>
         <Button

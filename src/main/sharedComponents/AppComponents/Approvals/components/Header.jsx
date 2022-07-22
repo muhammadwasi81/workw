@@ -9,13 +9,7 @@ function Header({ user, type: typeNo = 1, status = 1 }) {
   return (
     <div className="approval__body-header">
       <div className="left">
-        <Avatar
-          src={image && image}
-          size={40}
-          round
-          width={"30px"}
-          height={"30px"}
-        />
+        <Avatar src={image && image} round width={"30px"} height={"30px"} />
         <div className="userDetail">
           <span className="username">{name}</span>
           <span className="designation">{designation}</span>

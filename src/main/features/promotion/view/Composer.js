@@ -123,7 +123,7 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label={"Grade"}
+					label={"New Grade"}
 					name="categoryId"
 					rules={[
 						{

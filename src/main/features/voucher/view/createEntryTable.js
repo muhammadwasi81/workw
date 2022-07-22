@@ -52,7 +52,8 @@ const CreateEntryTable = ({ defaultRows }) => {
             filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
           >
             {
-              [{ label: "Payment Voucher", value: 1 }, { label: "Receipt Voucher", value: 2 }, { label: "Other Voucher", value: 3 }].map((item) => <Option value={item.value}>{item.label}</Option>)
+              [{ label: "Payment Voucher", value: 1 }, { label: "Receipt Voucher", value: 2 }, { label: "Other Voucher", value: 3 }].map((item) =>
+               <Option value={item.value}>{item.label}</Option>)
             }
           </Select>
         </div>

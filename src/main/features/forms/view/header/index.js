@@ -1,26 +1,24 @@
 import React, { useContext } from "react";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { documentDictionaryList } from "../../localization/index";
 import Header from "../../../../layout/header/index";
-import CreateDocDropdown from "./createDocDropdown";
 import { ROUTES } from "../../../../../utils/routes";
+import { Button } from "antd";
 
 const Index = () => {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { documentDictionary } = documentDictionaryList[userLanguage];
 
   return (
     <Header
-    items={[
-      {
-        name: "Docs & Archive",
-        to: `${ROUTES.DOCUMENTS.DOCUMENT}`,
-        renderButton: [1],
-      }
-    ]}
+      items={[
+        {
+          name: "Forms",
+          to: `${ROUTES.FORMS.ROOT}`,
+          renderButton: [1],
+        }
+      ]}
       buttons={[
         {
-          render: <CreateDocDropdown />,
+          render: <Button className="headerBtn" >
+            Create Form
+          </Button>,
         }
       ]}
     />

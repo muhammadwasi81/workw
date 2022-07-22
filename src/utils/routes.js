@@ -40,7 +40,7 @@ export const ROUTES = {
 		DEFAULT: `${DOMAIN_PREFIX}/businessPolicy`,
 	},
 	FORMS: {
-		FORMS: `${DOMAIN_PREFIX}/forms/*`,
+		DEFAULT: `${DOMAIN_PREFIX}/forms/*`,
 		ROOT: `${DOMAIN_PREFIX}/forms`,
 	},
 	JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,

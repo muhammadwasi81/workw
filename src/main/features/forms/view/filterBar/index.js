@@ -19,13 +19,13 @@ const FilterBar = () => {
     }}
     buttons={[
       {
-        name: "All Documents",
-        to:"allDocuments",
+        name: "All Forms",
+        to:"allForms",
         onClick: handleTabChange,
       },
       {
-        name: "My Documents",
-        to:"myDocuments",
+        name: "My Forms",
+        to:"myForms",
         onClick: handleTabChange,
       },
       {
@@ -34,9 +34,9 @@ const FilterBar = () => {
         onClick: handleTabChange,
       },
     ]}
-    filter={{
-      onFilter: () => {},
-    }}
+    // filter={{
+    //   onFilter: () => {},
+    // }}
     segment={{
       onSegment: (value) => {
         if (value === "Table") {

@@ -41,6 +41,10 @@ export const routes = {
 			component: lazy(() => import("../main/features/task/routes/index")),
 		},
 		{
+			path: `${ROUTES.FORMS.DEFAULT}`,
+			component: lazy(() => import("../main/features/forms/view/index")),
+		},
+		{
 			path: `${ROUTES.FINANCE.VOUCHER.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/voucher/view/index")

@@ -5,9 +5,18 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import AddList from "./AddList/AddList";
 import { useSelector, useDispatch } from "react-redux";
 import List from "./List/List";
-import { moveCard, moveList, moveSection } from "../store/slice";
+import {
+	moveCard,
+	moveList,
+	moveSection,
+	moveSectionTodo,
+} from "../store/slice";
 import { useParams } from "react-router-dom";
-import { getWorkboardById, moveWorkBoardSection } from "../store/action";
+import {
+	getWorkboardById,
+	moveWorkBoardSection,
+	moveWorkBoardTodo,
+} from "../store/action";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import {
@@ -16,6 +25,8 @@ import {
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import CardDetailModal from "./Modal/CardDetailModal";
 import DateModal from "../Modal/DateModal";
+import MemberModal from "../Modal/MemberModal";
+import EditMembers from "./EditMembers/EditMembers";
 
 function Board() {
 	const [addingList, setAddingList] = useState(false);
@@ -72,15 +83,27 @@ function Board() {
 			source.index !== destination.index ||
 			source.droppableId !== destination.droppableId
 		) {
-			console.log("move card");
-			// dispatch(
-			// 	moveCard({
-			// 		sourceListId: source.droppableId,
-			// 		destListId: destination.droppableId,
-			// 		oldCardIndex: source.index,
-			// 		newCardIndex: destination.index,
-			// 	})
-			// );
+			// console.log("move card");
+			// console.log("sourceListId", source.droppableId);
+			// console.log("destListId", destination.droppableId);
+			// console.log("oldCardIndex", source.index);
+			// console.log("newCardIndex", destination.index);
+			dispatch(
+				moveSectionTodo({
+					sourceListId: source.droppableId,
+					destListId: destination.droppableId,
+					oldCardIndex: source.index,
+					newCardIndex: destination.index,
+				})
+			);
+			dispatch(
+				moveWorkBoardTodo({
+					currentSectionId: source.droppableId,
+					targetSectionId: destination.droppableId,
+					currentIndexNo: Number(source.index) + 1,
+					targetIndexNo: Number(destination.index) + 1,
+				})
+			);
 		}
 	};
 
@@ -154,6 +177,7 @@ function Board() {
 			</TabbableContainer>
 			<CardDetailModal />
 			<DateModal />
+			{/* <EditMembers /> */}
 		</>
 	);
 }

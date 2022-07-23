@@ -18,12 +18,14 @@ import {
 	SettingOutlined,
 } from "@ant-design/icons";
 import { Card } from "antd";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../../utils/routes";
 const { Meta } = Card;
 
 function ListItem(props) {
 	//   const { userLanguage } = useContext(LanguageChangeContext);
 	//   const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
-
+	const navigate = useNavigate();
 	const {
 		creator,
 		name,
@@ -46,6 +48,9 @@ function ListItem(props) {
 				}
 				actions={[]}
 				hoverable
+				onClick={e => {
+					navigate(`${ROUTES.GROUP.DETAIL}`);
+				}}
 			>
 				<Meta title={name} description={description} />
 				{/* <CardDetailView

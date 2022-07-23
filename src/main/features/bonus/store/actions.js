@@ -2,9 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
-import { getAllBonusService, GetPromotionByIdService, addBonusService } from "../services/service";
+import { getAllBonusService, addBonusService, GetBonusByIdService } from "../services/service";
 
-export const getAllBonus = createAsyncThunk("Promotion/GetAllBonus", async (data) => {
+export const getAllBonus = createAsyncThunk("Bonus/GetAllBonus", async (data) => {
   const response = await getAllBonusService(data);
   if (!response.responseCode) {
     message.error("Something went wrong");
@@ -17,8 +17,7 @@ export const addBonus = createAsyncThunk("Bonus/addBonus", async (args, { dispat
   return response;
 });
 
-export const GetPromotionById = createAsyncThunk("Promotion/GetPromotionById'", async (id) => {
-  const response = await GetPromotionByIdService(id);
-  console.log("MY ID", id);
+export const GetBonusById = createAsyncThunk("Bonus/GetBonusById'", async (id) => {
+  const response = await GetBonusByIdService(id);
   return response.data;
 });

@@ -110,14 +110,14 @@ const Notes = (props) => {
   });
 
   return (
-    <Draggable defaultPosition={{ x: 11, y: 456 }}>
+    <Draggable defaultPosition={{ x: 11, y: 456 }} handle=".handle">
       <div className={`note-container ${!minimize ? "minimize" : ""}`}>
         {/* Note Header */}
-        <div className="note-header">
+        <div className="note-header handle">
           <div className="note__add-btn" onClick={incrementStickyNoteHandler}>
             +
           </div>
-          <div>Sticky Notes</div>
+          <div style={{ fontSize: "17px" }}>Sticky Notes</div>
           <div className="closeAndMinimize">
             <div className="note__minus-btn" onClick={minimizeHandler}>
               -

@@ -6,6 +6,8 @@ import {
 	getWorkboardById,
 	getWorkBoardTodoById,
 	moveWorkBoardSection,
+	moveWorkBoardTodo,
+	removeWorkBoardTodo,
 	removeWorkBoardTodoImage,
 	updateWorkBoard,
 	updateWorkBoardSectionColorCode,
@@ -116,12 +118,12 @@ const trelloSlice = createSlice({
 		},
 		handleSectionBgColor(state, { payload }) {
 			const { sectionId, colorCode } = payload;
-			const workBoardSectionIndex =
-				state.workboardDetail.sections.findIndex(
-					section => section.id === sectionId
-				);
-			state.workboardDetail.sections[workBoardSectionIndex].colorCode =
-				colorCode;
+			const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+				section => section.id === sectionId
+			);
+			state.workboardDetail.sections[
+				workBoardSectionIndex
+			].colorCode = colorCode;
 		},
 		changeListTitle(state, { payload }) {
 			const { id, title } = payload;
@@ -129,10 +131,9 @@ const trelloSlice = createSlice({
 		},
 		handleSectionTitle(state, { payload }) {
 			const { sectionId, title } = payload;
-			const workBoardSectionIndex =
-				state.workboardDetail.sections.findIndex(
-					section => section.id === sectionId
-				);
+			const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+				section => section.id === sectionId
+			);
 			state.workboardDetail.sections[workBoardSectionIndex].name = title;
 		},
 
@@ -149,8 +150,12 @@ const trelloSlice = createSlice({
 			console.log("delete card", state, payload);
 		},
 		moveCard(state, { payload }) {
-			const { oldCardIndex, newCardIndex, sourceListId, destListId } =
-				payload;
+			const {
+				oldCardIndex,
+				newCardIndex,
+				sourceListId,
+				destListId,
+			} = payload;
 			// // Move within the same list
 			if (sourceListId === destListId) {
 				const newCards = Array.from(state[sourceListId].cards);
@@ -164,9 +169,11 @@ const trelloSlice = createSlice({
 			}
 			// // Move card from one list to another
 			const sourceCards = Array.from(state[sourceListId].cards);
+
 			const removedCard = sourceCards.splice(oldCardIndex, 1);
 			const destinationCards = Array.from(state[destListId].cards);
 			destinationCards.splice(newCardIndex, 0, removedCard);
+
 			state[sourceListId] = {
 				...state[sourceListId],
 				cards: sourceCards,
@@ -189,6 +196,37 @@ const trelloSlice = createSlice({
 			const [removedList] = newLists.splice(oldListIndex, 1);
 			newLists.splice(newListIndex, 0, removedList);
 			state.workboardDetail.sections = newLists;
+		},
+		moveSectionTodo(state, { payload }) {
+			const {
+				oldCardIndex,
+				newCardIndex,
+				sourceListId,
+				destListId,
+			} = payload;
+
+			// // Move within the same list
+			const sourceSection = state.workboardDetail.sections.find(
+				section => section.id === sourceListId
+			);
+			const destinationsSection = state.workboardDetail.sections.find(
+				section => section.id === destListId
+			);
+			const sectionIndex = state.workboardDetail.sections.findIndex(
+				section => section.id === sourceListId
+			);
+
+			if (sourceListId === destListId) {
+				const newTodos = sourceSection.todos;
+				const [removedCard] = newTodos.splice(oldCardIndex, 1);
+				newTodos.splice(newCardIndex, 0, removedCard);
+
+				state.workboardDetail.sections[sectionIndex].todos = newTodos;
+				return;
+			}
+			//move todo from one section to another
+			const removedTodo = sourceSection.todos.splice(oldCardIndex, 1);
+			destinationsSection.todos.splice(newCardIndex, 0, removedTodo[0]);
 		},
 		handleCardDetail(state, { payload }) {
 			if (payload.type === "open") {
@@ -222,10 +260,9 @@ const trelloSlice = createSlice({
 			// console.log("payload", payload);
 			const { isDateModalOpen, todoId, sectionId } = payload;
 			if (todoId && sectionId) {
-				const workBoardSectionIndex =
-					state.workboardDetail.sections.findIndex(
-						section => section.id === sectionId
-					);
+				const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+					section => section.id === sectionId
+				);
 
 				const todoIndex = state.workboardDetail.sections[
 					workBoardSectionIndex
@@ -241,6 +278,10 @@ const trelloSlice = createSlice({
 		handleBoardComposer(state, { payload }) {
 			state.isComposerEdit = payload.isEdit;
 			state.isComposerVisible = payload.isVisible;
+			if (payload.isVisible) {
+				state.composerData = state.workboardDetail;
+				return;
+			}
 			state.composerData = initialComposerData;
 		},
 		openSectionDetail(state, { payload }) {
@@ -254,10 +295,9 @@ const trelloSlice = createSlice({
 
 			// console.log("description", description);
 
-			const workBoardSectionIndex =
-				state.workboardDetail.sections.findIndex(
-					section => section.id === sectionId
-				);
+			const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+				section => section.id === sectionId
+			);
 
 			const todoIndex = state.workboardDetail.sections[
 				workBoardSectionIndex
@@ -297,7 +337,7 @@ const trelloSlice = createSlice({
 			})
 			.addCase(getWorkboardById.fulfilled, (state, { payload }) => {
 				state.workboardDetail = payload.data;
-				state.composerData = payload.data;
+				// state.composerData = payload.data;
 				state.loader = false;
 				state.error = false;
 			})
@@ -309,10 +349,9 @@ const trelloSlice = createSlice({
 				(state, { payload }) => {
 					state.loader = false;
 					const { sectionId } = payload.data;
-					const workBoardSectionIndex =
-						state.workboardDetail.sections.findIndex(
-							section => section.id === sectionId
-						);
+					const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+						section => section.id === sectionId
+					);
 					state.workboardDetail.sections[
 						workBoardSectionIndex
 					].todos.unshift(payload.data);
@@ -345,10 +384,9 @@ const trelloSlice = createSlice({
 				(state, { payload }) => {
 					state.loader = false;
 					const { data, sectionId } = payload;
-					const workBoardSectionIndex =
-						state.workboardDetail.sections.findIndex(
-							section => section.id === sectionId
-						);
+					const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+						section => section.id === sectionId
+					);
 					const todoIndex = state.workboardDetail.sections[
 						workBoardSectionIndex
 					].todos.findIndex(todo => todo.id === data.todoId);
@@ -365,10 +403,9 @@ const trelloSlice = createSlice({
 
 					const { data, id, sectionId } = payload;
 
-					const workBoardSectionIndex =
-						state.workboardDetail.sections.findIndex(
-							section => section.id === sectionId
-						);
+					const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+						section => section.id === sectionId
+					);
 
 					const todoIndex = state.workboardDetail.sections[
 						workBoardSectionIndex
@@ -388,10 +425,9 @@ const trelloSlice = createSlice({
 
 					const { data, sectionId } = payload;
 
-					const workBoardSectionIndex =
-						state.workboardDetail.sections.findIndex(
-							section => section.id === sectionId
-						);
+					const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+						section => section.id === sectionId
+					);
 
 					const todoIndex = state.workboardDetail.sections[
 						workBoardSectionIndex
@@ -411,10 +447,9 @@ const trelloSlice = createSlice({
 					state.loader = false;
 					const { id, sectionId } = payload;
 
-					const workBoardSectionIndex =
-						state.workboardDetail.sections.findIndex(
-							section => section.id === sectionId
-						);
+					const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+						section => section.id === sectionId
+					);
 
 					const todoIndex = state.workboardDetail.sections[
 						workBoardSectionIndex
@@ -426,6 +461,18 @@ const trelloSlice = createSlice({
 					state.todoDetail.image = "";
 				}
 			)
+			.addCase(removeWorkBoardTodo.fulfilled, (state, { payload }) => {
+				state.loader = false;
+				const { id, sectionId } = payload;
+				const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+					section => section.id === sectionId
+				);
+				state.workboardDetail.sections[
+					workBoardSectionIndex
+				].todos = state.workboardDetail.sections[
+					workBoardSectionIndex
+				].todos.filter(todo => todo.id !== id);
+			})
 			.addMatcher(
 				isPending(
 					...[
@@ -443,6 +490,8 @@ const trelloSlice = createSlice({
 						updateWorkBoardTodoImage,
 						updateWorkBoardTodoDueDate,
 						removeWorkBoardTodoImage,
+						moveWorkBoardTodo,
+						removeWorkBoardTodo,
 					]
 				),
 				state => {
@@ -475,6 +524,7 @@ export const {
 	handleSectionTitle,
 	openSectionDetail,
 	updateSectionTodoDesc,
+	moveSectionTodo,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

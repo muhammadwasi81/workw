@@ -5,8 +5,11 @@ import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { loanDictionaryList } from "./localization";
 import TopBar from "../../sharedComponents/topBar/topBar";
-import "./style.css";
+import Composer from "./composer";
+// import "./style.css";
 import styled from "styled-components";
+import ListView from "./ListView";
+import ListBoxes from "./ListBoxes";
 
 function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -29,7 +32,7 @@ function Index() {
                 buttonText={loanDictionary.createLoan}
                 isAccessDrawer={false}
               >
-                <div>Here is Composer</div>
+                <Composer />
               </SideDrawer>
             ),
           },
@@ -68,7 +71,12 @@ function Index() {
           label2: "Table",
         }}
       />
-      <ContBody>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</ContBody>
+
+      <ContBody className="!block">
+        <ListBoxes />
+
+        <ListView />
+      </ContBody>
     </TabbableContainer>
   );
 }

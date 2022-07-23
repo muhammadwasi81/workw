@@ -69,7 +69,7 @@ export const ContentDivider = styled(Divider)`
 // //addemployee basic info form
 export const FormItem = styled(Form.Item)`
   width: 100%;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   flex-direction: column !important;
   & > div:first-child {
     display: flex;

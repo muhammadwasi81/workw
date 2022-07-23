@@ -102,6 +102,16 @@ export const moveWorkBoardSectionService = data => {
 		});
 };
 
+export const moveWorkBoardSectionTodoService = data => {
+	return MasterConfig.post(`${TODO_API_PREFIX}MoveWorkBoardTodo `, data)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};
+
 export const addWorkBoardSectionTodoService = data => {
 	return MasterConfig.post(`${TODO_API_PREFIX}AddWorkBoardTodo`, data)
 		.then(res => {
@@ -161,6 +171,18 @@ export const updateWorkBoardTodoDueDateService = data => {
 export const removeWorkBoardTodoImageService = data => {
 	return MasterConfig.delete(
 		`${TODO_API_PREFIX}RemoveWorkBoardTodoImage?id=${data.id}`
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};
+
+export const removeWorkBoardTodoService = data => {
+	return MasterConfig.delete(
+		`${TODO_API_PREFIX}RemoveWorkBoardTodo?todoId=${data.id}`
 	)
 		.then(res => {
 			return res.data;

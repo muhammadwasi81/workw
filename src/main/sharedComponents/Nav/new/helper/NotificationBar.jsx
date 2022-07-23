@@ -18,6 +18,7 @@ import {
 import NotificationModal from "./NavComposer";
 import Approvals from "../../../../features/approval/view/SideBarApproval/sideBarAppovals";
 import Notifications from "../../../../features/notifiation/view/index";
+import OpenImage from "../../../../features/notes/OpenImage";
 // const Approvals = () => {
 //   return "Approvals";
 // };
@@ -81,6 +82,8 @@ function NotificationBar() {
   const incrementStickyNote = useSelector(
     (state) => state.newStickySlice.incrementArray
   );
+
+  const openImg = useSelector((state) => state.newStickySlice.openImg);
   // console.log(incrementStickyNote);
 
   //console.log(closeAllSticky);
@@ -166,6 +169,7 @@ function NotificationBar() {
       >
         {renderModal[currentNotification]}
       </NotificationModal>
+      {openImg && <OpenImage />}
     </div>
   );
 }

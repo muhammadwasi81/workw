@@ -39,6 +39,10 @@ export const ROUTES = {
 	BUSINESS_POLICY: {
 		DEFAULT: `${DOMAIN_PREFIX}/businessPolicy`,
 	},
+	FORMS: {
+		DEFAULT: `${DOMAIN_PREFIX}/forms/*`,
+		ROOT: `${DOMAIN_PREFIX}/forms`,
+	},
 	JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
 	OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
 	DOCUMENT_APPROVAL: `${DOMAIN_PREFIX}/DocumentApproval`,
@@ -50,6 +54,7 @@ export const ROUTES = {
 		SCHEDULES: `${DOMAIN_PREFIX}/groups/schedules`,
 		TASKS: `${DOMAIN_PREFIX}/groups/tasks`,
 		EXPENSES: `${DOMAIN_PREFIX}/groups/expenses`,
+		DETAIL: `${DOMAIN_PREFIX}/groups/group-detail`,
 	},
 	INVENTORY: {
 		DEFAULT: `${DOMAIN_PREFIX}/inventory`,
@@ -63,6 +68,7 @@ export const ROUTES = {
 	},
 	PROJECT: {
 		DEFAULT: `${DOMAIN_PREFIX}/projects`,
+		DETAIL: `${DOMAIN_PREFIX}/projects/project-detail`,
 		NEWS: `${DOMAIN_PREFIX}/projects/news`,
 		SCHEDULES: `${DOMAIN_PREFIX}/projects/schedules`,
 		TASKS: `${DOMAIN_PREFIX}/projects/tasks`,
@@ -309,7 +315,12 @@ export const ROUTES = {
 	},
 	LOAN: {
 		DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
-		LOAN: `${DOMAIN_PREFIX}/loan/`,
+		LOAN: `${DOMAIN_PREFIX}/loan`,
+		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+	},
+	RESIGNATION: {
+		DEFAULT: `${DOMAIN_PREFIX}/designation/*`,
+		RESIGNATION: `${DOMAIN_PREFIX}/designation`,
 		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
 	},
 
@@ -379,7 +390,7 @@ export const ROUTES = {
 			DEFAULT: `${DOMAIN_PREFIX}/appraisals`,
 		},
 		RESIGNATIONS: {
-			DEFAULT: `${DOMAIN_PREFIX}/resignations/`,
+			DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
 		},
 		WARNINGS: {
 			DEFAULT: `${DOMAIN_PREFIX}/warnings`,

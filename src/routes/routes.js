@@ -47,6 +47,10 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.FORMS.DEFAULT}`,
+			component: lazy(() => import("../main/features/forms/view/index")),
+		},
+		{
 			path: `${ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/chartOfAccount/view/index")
@@ -91,8 +95,22 @@ export const routes = {
 			component: lazy(() => import("../main/features/projects/index")),
 		},
 		{
+			path: `${ROUTES.PROJECT.DETAIL}`,
+			component: lazy(() =>
+				import(
+					"../main/features/projects/ProjectDetails/ProjectDetails"
+				)
+			),
+		},
+		{
 			path: `${ROUTES.GROUP.DEFAULT}`,
 			component: lazy(() => import("../main/features/groups/index")),
+		},
+		{
+			path: `${ROUTES.GROUP.DETAIL}`,
+			component: lazy(() =>
+				import("../main/features/groups/GroupDetails/GroupDetails")
+			),
 		},
 		{
 			path: `${ROUTES.WORKBOARD.DEFAULT}`,
@@ -173,6 +191,16 @@ export const routes = {
 			path: `${ROUTES.DOCUMENTS.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/documents/view/index")
+			),
+		},
+		{
+			path: `${ROUTES.LOAN.DEFAULT}`,
+			component: lazy(() => import("../main/features/loan/index")),
+		},
+		{
+			path: `${ROUTES.RESIGNATION.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/resignation/view/index")
 			),
 		},
 	],

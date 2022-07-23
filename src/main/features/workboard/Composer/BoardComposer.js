@@ -99,37 +99,36 @@ function BoardComposer({ isEdit, composerData, loading }) {
 			>
 				<Input size="large" />
 			</Form.Item>
-			<div className="bg-[#faf9f9] p-5 rounded-md">
-				<Form.Item label="Members">
-					<WorkBoardMemberSelect
-						onChange={(val, obj) => {
-							setMembersData(val);
-						}}
-						defaultData={composerData.members.map(members => {
-							return members.memberId;
-						})}
-						loadDefaultData={true}
+
+			<Form.Item label="Members">
+				<WorkBoardMemberSelect
+					onChange={(val, obj) => {
+						setMembersData(val);
+					}}
+					defaultData={composerData.members.map(members => {
+						return members.memberId;
+					})}
+					loadDefaultData={true}
+				/>
+			</Form.Item>
+			<Form.Item>
+				<div className="flex items-center gap-2">
+					<PrivacyOptions
+						privacyId={privacyId}
+						onPrivacyChange={onPrivacyChange}
 					/>
-				</Form.Item>
-				<Form.Item>
-					<div className="flex items-center gap-2">
-						<PrivacyOptions
-							privacyId={privacyId}
-							onPrivacyChange={onPrivacyChange}
-						/>
-						<Button
-							type="primary"
-							htmlType="submit"
-							block
-							className="ThemeBtn"
-							size="large"
-							loading={loading}
-						>
-							{isEdit ? "Update " : "Create "}Board
-						</Button>
-					</div>
-				</Form.Item>
-			</div>
+					<Button
+						type="primary"
+						htmlType="submit"
+						block
+						className="ThemeBtn"
+						size="large"
+						loading={loading}
+					>
+						{isEdit ? "Update " : "Create "}Board
+					</Button>
+				</div>
+			</Form.Item>
 		</Form>
 	);
 }

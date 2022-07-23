@@ -148,3 +148,8 @@
     cursor: pointer;
     font-weight: 600;
 }
+
+.commentComposer .ant-mentions.ant-mentions-focused {
+    box-shadow: none;
+
+}

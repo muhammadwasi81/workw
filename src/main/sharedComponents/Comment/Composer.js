@@ -1,8 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { isValidFileSize } from "../../../utils/base";
+import { getMentionsAndText, isValidFileSize } from "../../../utils/base";
 import { DEFAULT_GUID } from "../../../utils/constants";
+import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import { getAllEmployeeService } from "../../../utils/Shared/services/services";
 import Avatar from "../Avatar/avatarOLD";
+import CustomMentions from "../Mentions";
 import closeIcon from "./assets/close.svg";
 import { postComment } from "./services";
 import "./style.css";
@@ -22,6 +25,8 @@ const CommentComposer = (props) => {
   } = props;
   const commentText = useRef();
   const { name, userImage } = user;
+  const [mentions, setMentions] = useState([]);
+  const [mentionsInTitle, setMentionsInTitle] = useState([]);
 
   const defaultState = {
     hasAttachment: false,
@@ -58,20 +63,23 @@ const CommentComposer = (props) => {
       attachmentFile: null,
     });
   };
-  const commentObj = {
-    id,
-    module,
-    referenceId,
-    parentId,
-    comment: state.commentText,
-    attachments: [],
-    mentions: [],
-  };
   const saveComment = async (event) => {
+    const { title, mentions } = getMentionsAndText(
+      state.commentText,
+      mentionsInTitle
+    );
+    const commentObj = {
+      id,
+      module,
+      referenceId,
+      parentId,
+      comment: title,
+      attachments: [],
+      mentions,
+    };
     if (event.keyCode == 13 || event.which == 13) {
       event.preventDefault();
       if (state.commentText.length > 0) {
-        commentText.current.blur();
         const response = await postComment(commentObj);
         const prevText = state.commentText;
         setState((preValue) => ({
@@ -89,6 +97,20 @@ const CommentComposer = (props) => {
       }
     }
   };
+  const getempolyeeBySearch = async (search) => {
+    if (search.includes("@")) {
+      let filter = search.split("@").at(-1);
+      const text = filter.replace(/@/g, "");
+
+      const { responseCode, data } = await getAllEmployeeService(text, 1, 20);
+      if (responseCode === 1001) setMentions(data);
+    }
+  };
+  const search = useDebounce(state.commentText, 500);
+  useEffect(() => {
+    getempolyeeBySearch(search);
+  }, [search]);
+
   return (
     <div className="commentComposer">
       <div className="img">
@@ -100,23 +122,29 @@ const CommentComposer = (props) => {
           src={userImage}
         />
       </div>
-      {/* onCommentSend({comment:state.commentText, attachmentFile : state.attachmentFile}) */}
+
       <div className="composer-area">
         <form className="inputs">
           <div className="inp">
-            <textarea
-              type={"text"}
-              ref={commentText}
+            <CustomMentions
               onChange={(event) => {
                 setState((preValue) => ({
                   ...preValue,
-                  commentText: event.target.value,
+                  commentText: event,
                 }));
+                // getempolyeeBySearch(state.commentText);
               }}
-              placeholder={placeHolder}
-              style={{ height: "20px" }}
+              row={1}
+              ref={commentText}
+              style={{ height: "25px", border: "none" }}
+              onSelect={(e) => {
+                console.log(e);
+                setMentionsInTitle((preValue) => [...preValue, e]);
+              }}
               value={state.commentText}
               onKeyPress={(event) => saveComment(event)}
+              mentions={mentions}
+              placeholder={placeHolder}
             />
           </div>
 
@@ -141,7 +169,8 @@ const CommentComposer = (props) => {
                   backgroundRepeat: `no-repeat`,
                   backgroundSize: "contain",
                   backgroundPosition: "center",
-                }} >
+                }}
+              >
                 <div className="overlay">
                   <span>{state.attachmentName}</span>
                 </div>

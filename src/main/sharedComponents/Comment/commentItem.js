@@ -5,8 +5,9 @@ import DotesIcon from "./assets/dotes.svg";
 import CommentComposer from "./Composer";
 import { getAllComment } from "./services";
 import moment from "moment";
+import { renderTitleWithMentions } from "../../../utils/base";
 
-const CommentItem = ({ comment }) => {
+const CommentItem = ({ comment, mentions, commentMentions }) => {
   let {
     referenceId,
     isReply = false,
@@ -19,7 +20,6 @@ const CommentItem = ({ comment }) => {
   let { name, image, designation } = creator;
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
-
   const toggleReply = (referenceId, parentId) => {
     setOpenComposer((prevState) => {
       if (!prevState) getReply(referenceId, parentId);
@@ -54,7 +54,11 @@ const CommentItem = ({ comment }) => {
             </div>
           </div>
 
-          <div>{content}</div>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: renderTitleWithMentions(content, commentMentions),
+            }}
+          ></p>
         </div>
 
         <div className="likeReplyCont">
@@ -64,7 +68,7 @@ const CommentItem = ({ comment }) => {
         <div>
           {openComposer && (
             <React.Fragment>
-              {replies.map(
+              {replies?.map(
                 ({
                   id: Rid,
                   creator: Rcreator,
@@ -120,6 +124,7 @@ const CommentItem = ({ comment }) => {
               )}
 
               <CommentComposer
+                mentions={mentions}
                 placeHolder={"Write Your Reply Here."}
                 referenceId={referenceId}
                 parentId={parentId}

@@ -23,7 +23,7 @@ function RemarkFooter({ files, onFile, onDelete, referenceId }) {
   return (
     <div className="remarkFooter">
       <div className="remarkFooter__top">
-        {/* <div className="left">
+        <div className="left">
           <Avatar
             name={name}
             src={userImage}
@@ -63,12 +63,7 @@ function RemarkFooter({ files, onFile, onDelete, referenceId }) {
               />
             </label>
           </div>
-        </div> */}
-        <CommentWrapper
-          initailComments={[]}
-          referenceId={referenceId}
-          placeHolder={"Write Your Remarks Here."}
-        />
+        </div>
       </div>
       <div className="remarkFooter__bottom">
         <div className="left">

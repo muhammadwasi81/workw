@@ -8,10 +8,11 @@ import { getAllComment } from "./services";
 function CommentWrapper({
   initailComments = [],
   referenceId,
-  module,
+  module = 1,
   afterSuccess,
   placeHolder,
   isCommentLoad = false,
+  mentions,
 }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -30,23 +31,33 @@ function CommentWrapper({
   return (
     <div className="commentWrapper">
       <CommentComposer
-        placeHolder={placeHolder}
         referenceId={referenceId}
+        mentions={mentions}
+        placeHolder={placeHolder}
         module={module}
         afterSuccess={(comment) => {
-          afterSuccess && afterSuccess(comment);
           setComments((preValue) => [...preValue, comment]);
+          afterSuccess && afterSuccess(comment);
         }}
       />
       <div className="comments">
         {comments.map(
-          ({ comment, creator, createDate, id: commentID, referenceId }) => {
+          ({
+            comment,
+            creator,
+            createDate,
+            id: commentID,
+            referenceId,
+            mentions: commentMentions,
+          }) => {
             const { designation, name, image } = creator;
             var ts = moment.utc(createDate);
             ts.local().format("D-MMM-Y");
-
+           
             return (
               <CommentItem
+                mentions={mentions}
+                commentMentions={commentMentions}
                 comment={{
                   content: comment,
                   parentId: commentID,

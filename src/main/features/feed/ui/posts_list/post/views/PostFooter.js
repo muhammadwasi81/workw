@@ -66,6 +66,7 @@ const PostFooter = ({
         afterSuccess={(comment) =>
           dispatch(feedSlice.actions.onSaveComment({ comment }))
         }
+        mentions={[]}
       />
       {viewAllComments && comments.length > 3 && (
         <p

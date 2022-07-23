@@ -209,24 +209,7 @@ function removePostPollOption(state, { payload: { index } }) {
 function onPostPrivacyChange(state, { payload: { privacyType } }) {
   state.postCompose.privacyType = privacyType;
 }
-function renderTitleWithMentions(title, mentions) {
-  if (mentions.length > 0) {
-    const titleArr = title.split(" ");
-    return titleArr
-      .map((item) => {
-        const mention = mentions.filter((member) => member.memberId == item);
-        if (mention.length > 0) {
-          return `<a href=${mention[0].member.id}>${mention[0].member.name}</a>`;
-          // return mention;
-        } else {
-          return item;
-        }
-      })
-      .join(" ");
-  } else {
-    return title;
-  }
-}
+
 export {
   onPostTitleTextChange,
   onPostMention,
@@ -242,5 +225,4 @@ export {
   onSaveComment,
   toggleComposerVisibility,
   clearSinglePost,
-  renderTitleWithMentions,
 };

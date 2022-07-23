@@ -1,7 +1,7 @@
 import PostModel from "./PostModel";
 import PostAttachment from "./PostAttachment";
 import Polls from "../../../../../../sharedComponents/Polls";
-import { renderTitleWithMentions } from "../../../../store/actions";
+import { renderTitleWithMentions } from "../../../../../../../utils/base";
 
 const PostSection = ({ post, isOpen, onOpen }) => {
   const {

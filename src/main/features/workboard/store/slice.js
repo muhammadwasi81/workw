@@ -2,6 +2,7 @@ import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
 import {
 	addWorkBoard,
 	addWorkBoardSectionTodo,
+	addWorkBoardTodoLabel,
 	getAllWorkBoard,
 	getWorkboardById,
 	getWorkBoardTodoById,
@@ -9,6 +10,7 @@ import {
 	moveWorkBoardTodo,
 	removeWorkBoardTodo,
 	removeWorkBoardTodoImage,
+	removeWorkBoardTodoLabel,
 	updateWorkBoard,
 	updateWorkBoardSectionColorCode,
 	updateWorkBoardSectionTitle,
@@ -298,21 +300,28 @@ const trelloSlice = createSlice({
 			const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
 				section => section.id === sectionId
 			);
+			const todoIndex = state.workboardDetail.sections[
+				workBoardSectionIndex
+			].todos.findIndex(todo => todo.id === todoId);
+			state.workboardDetail.sections[workBoardSectionIndex].todos[
+				todoIndex
+			].description = description;
+		},
+		updateWorkBoardTodoLabel(state, { payload }) {
+			const { labelObj, sectionId, todoId } = payload;
+
+			const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+				section => section.id === sectionId
+			);
 
 			const todoIndex = state.workboardDetail.sections[
 				workBoardSectionIndex
 			].todos.findIndex(todo => todo.id === todoId);
-			// console.log(
-			// 	"data of description in slice",
-			// 	current(
-			// 		state.workboardDetail.sections[workBoardSectionIndex].todos[
-			// 			todoIndex
-			// 		].description
-			// 	)
-			// );
+
 			state.workboardDetail.sections[workBoardSectionIndex].todos[
 				todoIndex
-			].description = description;
+			].labels = labelObj;
+			state.todoDetail.labels = labelObj;
 		},
 	},
 	extraReducers: builder => {
@@ -371,6 +380,7 @@ const trelloSlice = createSlice({
 			)
 			.addCase(getWorkBoardTodoById.fulfilled, (state, { payload }) => {
 				state.loader = false;
+				console.log("payload or data", payload.data);
 				state.todoDetail = payload.data;
 			})
 			.addCase(
@@ -473,6 +483,41 @@ const trelloSlice = createSlice({
 					workBoardSectionIndex
 				].todos.filter(todo => todo.id !== id);
 			})
+			.addCase(addWorkBoardTodoLabel.fulfilled, (state, { payload }) => {
+				console.log("payload data after success", payload);
+				const { data, sectionId } = payload;
+				const { workBoardTodoId: todoId } = data;
+				const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+					section => section.id === sectionId
+				);
+
+				const todoIndex = state.workboardDetail.sections[
+					workBoardSectionIndex
+				].todos.findIndex(todo => todo.id === todoId);
+
+				state.workboardDetail.sections[workBoardSectionIndex].todos[
+					todoIndex
+				].labels.push(data);
+				state.todoDetail.labels.push(data);
+			})
+			.addCase(
+				removeWorkBoardTodoLabel.fulfilled,
+				(state, { payload }) => {
+					const { labels, sectionId, todoId } = payload;
+					const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
+						section => section.id === sectionId
+					);
+
+					const todoIndex = state.workboardDetail.sections[
+						workBoardSectionIndex
+					].todos.findIndex(todo => todo.id === todoId);
+
+					state.workboardDetail.sections[workBoardSectionIndex].todos[
+						todoIndex
+					].labels = labels;
+					state.todoDetail.labels = labels;
+				}
+			)
 			.addMatcher(
 				isPending(
 					...[
@@ -492,6 +537,8 @@ const trelloSlice = createSlice({
 						removeWorkBoardTodoImage,
 						moveWorkBoardTodo,
 						removeWorkBoardTodo,
+						addWorkBoardTodoLabel,
+						removeWorkBoardTodoLabel,
 					]
 				),
 				state => {
@@ -525,6 +572,7 @@ export const {
 	openSectionDetail,
 	updateSectionTodoDesc,
 	moveSectionTodo,
+	updateWorkBoardTodoLabel,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

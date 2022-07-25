@@ -3,6 +3,7 @@ import {
 	AlignLeftOutlined,
 	EyeOutlined,
 	PaperClipOutlined,
+	PlusOutlined,
 	UnorderedListOutlined,
 } from "@ant-design/icons";
 import { HiOutlineClipboardList } from "react-icons/hi";
@@ -12,7 +13,12 @@ import CommentComposer from "../../../sharedComponents/Comment/Composer";
 import CheckDate from "../UI/CheckDate";
 import TodoTitleInput from "../UI/TodoTitleInput";
 
-function WorkBoardDescription({ dueDate, cardId, todoData }) {
+function WorkBoardDescription({
+	dueDate,
+	todoData,
+	todoDetail,
+	showLabelModal,
+}) {
 	return (
 		<div className="flex flex-col gap-4">
 			<div className="flex gap-2">
@@ -33,14 +39,37 @@ function WorkBoardDescription({ dueDate, cardId, todoData }) {
 					</span>
 				</div>
 			</div>
-			{dueDate && dueDate.length > 0 && (
-				<div className="flex flex-col ">
-					<span className="text-gray-500 font-semibold">
-						Due date
-					</span>
-					<CheckDate todoData={todoData} />
-				</div>
-			)}
+			<div className="flex gap-2">
+				{dueDate && dueDate.length > 0 && (
+					<div className="flex flex-col ">
+						<span className="text-gray-500 font-semibold">
+							Due date
+						</span>
+						<CheckDate todoData={todoData} />
+					</div>
+				)}
+				{todoData.labels && todoData.labels.length > 0 && (
+					<div className="flex flex-col">
+						<span className="text-gray-500">Labels</span>
+						<div
+							className="flex gap-2 items-center"
+							onClick={showLabelModal}
+						>
+							{todoData.labels.map(label => (
+								<div
+									style={{ background: label.colorCode }}
+									className="px-[12px] w-auto min-w-[40px] h-[32px] rounded-sm hover:opacity-80 cursor-pointer"
+								>
+									{label.label}
+								</div>
+							))}
+							<span className="p-2 px-3 cursor-pointer hover:bg-neutral-200 transition flex items-center bg-neutral-100 rounded-sm">
+								<PlusOutlined className="!text-gray-600" />
+							</span>
+						</div>
+					</div>
+				)}
+			</div>
 			{/* <div className="flex gap-2 w-full">
 				<AlignLeftOutlined className="!text-gray-500 text-lg" />
 				<div className="flex flex-col gap-2 w-full"></div>

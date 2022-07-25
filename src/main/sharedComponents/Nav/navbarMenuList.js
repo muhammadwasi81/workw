@@ -91,7 +91,14 @@ const NavMenuList = () => {
 			isActive: 3,
 			key: label.navMenuLabel.menu,
 		},
-
+		{
+			name: label.navMenuLabel.leadManager,
+			counter: 0,
+			to: ROUTES.LEAD_MANAGER.DEFAULT,
+			icon: contactManagerIcon,
+			isActive: 8,
+			key: label.navMenuLabel.menu,
+		},
 		{
 			name: label.navMenuLabel.customApprovals,
 			counter: 0,

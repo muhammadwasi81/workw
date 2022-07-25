@@ -42,6 +42,7 @@ export const ROUTES = {
 	FORMS: {
 		DEFAULT: `${DOMAIN_PREFIX}/forms/*`,
 		ROOT: `${DOMAIN_PREFIX}/forms`,
+		SUBMIT_FORM: `${DOMAIN_PREFIX}/submitForm`,
 	},
 	JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
 	OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,

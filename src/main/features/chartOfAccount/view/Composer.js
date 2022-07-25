@@ -74,7 +74,7 @@ function Composer() {
                     />
                 </S.FormItem>
                 <S.FormItem
-                    name="Description"
+                    name="description"
                     label={
                         <FormLabel>
                             {

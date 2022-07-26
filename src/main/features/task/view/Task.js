@@ -28,8 +28,9 @@ function Task() {
 		pageSize: 20,
 	};
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { appHeader, sharedLabels, navMenuLabel } =
-		dictionaryList[userLanguage];
+	const { appHeader, sharedLabels, navMenuLabel } = dictionaryList[
+		userLanguage
+	];
 	const { taskDictionaryList } = taskDictionary[userLanguage];
 	const [filterType, setFilterType] = useState(2);
 	const [tableView, setTableView] = useState(false);

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import Card from "../../UI/Card/Card";
+import Card from "../../../UI/Card/Card";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
-import CardHeader from "../../UI/Card/CardHeader";
+import CardHeader from "../../../UI/Card/CardHeader";
 import { PlusOutlined, UserOutlined } from "@ant-design/icons";
-import CardButton from "../../UI/Button/CardButton";
-import SectionForm from "../Sections/SectionForm/SectionForm";
+import CardButton from "../../../UI/Button/CardButton";
+import SectionForm from "./SectionForm/SectionForm";
 import List from "./SectionList/List";
-import { v4 as id } from "uuid";
 function Section(props) {
 	const { section, index } = props;
 	const [sections, setSections] = useState([]);

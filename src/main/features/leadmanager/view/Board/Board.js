@@ -3,7 +3,7 @@ import {
 	ContBody,
 	TabbableContainer,
 } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import Section from "../Sections/Section";
+import Section from "./Sections/Section";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Header from "../../../../layout/header";
 import { ROUTES } from "../../../../../utils/routes";

@@ -91,7 +91,7 @@ function Menu() {
                     // eslint-disable-next-line no-lone-blocks
 
                     return !navBarStatus ? (
-                      <Tooltip title={name} color={"#fff"} placement="right" key={index} overlayClassName="">
+                      <Tooltip title={name} color={""} placement="right" key={index} overlayClassName="">
                         <div
                           className="menu-item"
                           onDrag={() => {

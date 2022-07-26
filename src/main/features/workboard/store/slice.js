@@ -280,8 +280,9 @@ const trelloSlice = createSlice({
 		handleBoardComposer(state, { payload }) {
 			state.isComposerEdit = payload.isEdit;
 			state.isComposerVisible = payload.isVisible;
-			if (payload.isVisible) {
-				state.composerData = state.workboardDetail;
+			if (!state.isComposerVisible) {
+				state.workboardDetail = null;
+				// state.composerData = state.workboardDetail;
 				return;
 			}
 			state.composerData = initialComposerData;
@@ -346,6 +347,9 @@ const trelloSlice = createSlice({
 			})
 			.addCase(getWorkboardById.fulfilled, (state, { payload }) => {
 				state.workboardDetail = payload.data;
+				// if (state.isComposerEdit) {
+				// 	handleBoardComposer({ isEdit: true, isVisible: true });
+				// }
 				// state.composerData = payload.data;
 				state.loader = false;
 				state.error = false;
@@ -523,7 +527,7 @@ const trelloSlice = createSlice({
 					...[
 						addWorkBoard,
 						getAllWorkBoard,
-						getWorkboardById,
+
 						updateWorkBoard,
 						moveWorkBoardSection,
 						addWorkBoardSectionTodo,

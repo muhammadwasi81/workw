@@ -16,7 +16,6 @@ function SideDrawer({
 	handleClose = () => {},
 	...props
 }) {
-	// console.log(isOpen)
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
 	const [state, setstate] = useState({ visible: false });
@@ -31,6 +30,7 @@ function SideDrawer({
 	useEffect(() => {
 		setstate({ ...state, visible: isOpen });
 	}, [isOpen]);
+
 	useEffect(() => {
 		if (props.isAccessDrawer) {
 			if (props.openDrawer) {
@@ -125,7 +125,7 @@ SideDrawer.propTypes = {
 	resetFields: PropTypes.func,
 	setOpenDrawer: PropTypes.func,
 	setIsEdited: PropTypes.func,
-	openDrawer: PropTypes.func,
+	openDrawer: PropTypes.bool,
 	buttonText: PropTypes.string,
 	title: PropTypes.string,
 	isAccessDrawer: PropTypes.bool,
@@ -135,9 +135,9 @@ SideDrawer.defaultProps = {
 	form: {
 		resetFields: () => {},
 	},
-	setOpenDrawer: undefined,
-	setIsEdited: undefined,
-	openDrawer: undefined,
+	setOpenDrawer: () => {},
+	setIsEdited: () => {},
+	openDrawer: false,
 	isAccessDrawer: false,
 	success: false,
 	buttonText: "",

@@ -4,7 +4,7 @@
 
 @layer components {
   .reference_tag {
-    @apply !text-primary-color !border-none !py-1 !px-2 !bg-primary-ref-tag !rounded !text-xs !font-bold !w-fit;
+    @apply !text-primary-color !border-none !py-1 !px-2 !flex !items-center !bg-primary-ref-tag !rounded !text-xs !font-bold !w-fit;
   }
 }
 

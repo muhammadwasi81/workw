@@ -29,7 +29,7 @@ function ListView(props) {
 									);
 								}}
 							/> */}
-							<div className="p-5">
+							<div className="p-3 sm:p-5">
 								<CardProfileTopView
 									profileImgSrc={
 										data.creator &&
@@ -49,15 +49,15 @@ function ListView(props) {
 									status={data.status}
 									profileImgSize={40}
 								/>
-								<div className="flex justify-between">
+								<div className="flex justify-between flex-wrap">
 									<div className="flex flex-col gap-1">
-										<span className="text-black text-base text-semi-bold">
+										<span className="text-black sm:text-base text-semi-bold">
 											{data.subject}
 										</span>
 										<span>
 											Description: {data.description}
 										</span>
-										<div className="flex gap-5 flex-wrap ">
+										<div className="flex gap-2 justify-between sm:justify-start sm:gap-5 flex-wrap ">
 											<CardDetailView
 												isAvatarGroup={false}
 												isTag={false}

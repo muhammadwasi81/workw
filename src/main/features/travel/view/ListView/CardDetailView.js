@@ -6,7 +6,7 @@ import Avatar from "../../../../sharedComponents/Avatar/avatar";
 function CardDetailView(props) {
 	return (
 		<div className="flex flex-col">
-			<h2 className="text-black text-base text-semi-bold">
+			<h2 className="text-black sm:text-base text-semi-bold">
 				{props.heading}
 			</h2>
 			{props.isAvatarGroup ? (
@@ -19,7 +19,7 @@ function CardDetailView(props) {
 			) : props.isTag ? (
 				<ReferenceTag refNo={props.text} />
 			) : (
-				<h2 className="text-gray-500 text-base text-semi-bold">
+				<h2 className="text-gray-500 sm:text-base text-semi-bold">
 					{props.text}
 				</h2>
 			)}

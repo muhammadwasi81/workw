@@ -117,13 +117,19 @@ export const routes = {
 			component: lazy(() => import("../main/features/workboard/index")),
 		},
 		{
+			path: `${ROUTES.WORKBOARD.TODO_BOARD}`,
+			component: lazy(() =>
+				import("../main/features/workboard/Trello/Board")
+			),
+		},
+		{
 			path: `${ROUTES.LEAD_MANAGER.DEFAULT}`,
 			component: lazy(() => import("../main/features/leadmanager/index")),
 		},
 		{
-			path: `${ROUTES.WORKBOARD.TODO_BOARD}`,
+			path: `${ROUTES.LEAD_MANAGER.LEAD_DETAIL}`,
 			component: lazy(() =>
-				import("../main/features/workboard/Trello/Board")
+				import("../main/features/leadmanager/view/Board/Board")
 			),
 		},
 		{

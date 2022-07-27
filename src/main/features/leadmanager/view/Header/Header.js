@@ -44,6 +44,8 @@ function Header() {
 	useEffect(() => {
 		if (isEditComposer && leadMangerDetail && !isComposerDataLoading) {
 			setComposerData(leadMangerDetail);
+		} else {
+			setComposerData(initialComposerData);
 		}
 	}, [
 		isComposerOpen,
@@ -54,6 +56,7 @@ function Header() {
 
 	const buttons = [
 		{
+			buttonText: "Create Lead Manager",
 			onClick: () => handleOpenDrawer(true),
 			render: (
 				<SideDrawer

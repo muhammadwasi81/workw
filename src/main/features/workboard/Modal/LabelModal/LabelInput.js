@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CheckOutlined, EditOutlined } from "@ant-design/icons";
+
 import styled from "styled-components";
 const LabelInputContainer = styled.div`
 	&::before {
 		background: ${props => props.color};
 	}
 `;
-function LabelInput({ label, text }) {
+function LabelInput({ labelObj, todoDetail, handleWorkBoardTodoLabel }) {
 	const [labelText, setLabelText] = useState("");
 	const [enableText, setEnableText] = useState(true);
+	const { labels } = todoDetail;
 	const inputRef = useRef();
 
 	const onEnter = e => {
@@ -22,17 +24,17 @@ function LabelInput({ label, text }) {
 			inputRef.current.focus();
 		}
 	}, [enableText]);
-
+	// console.log("labels", todoDetail);
 	return (
 		<LabelInputContainer
 			className={`flex mb-2 items-center relative w-full hover:before:w-2 before:h-[40px] before:brightness-75 `}
-			color={label.color}
+			color={labelObj.colorCode}
 			onClick={() => {
-				console.log("color", label.color);
+				handleWorkBoardTodoLabel(labelObj);
 			}}
 		>
 			<div
-				style={{ background: label.color }}
+				style={{ background: labelObj.colorCode }}
 				className="w-full flex items-center h-[40px]"
 			>
 				<input
@@ -51,8 +53,11 @@ function LabelInput({ label, text }) {
 						e.stopPropagation();
 					}}
 				/>
-				{label.checked && (
-					<CheckOutlined className="pr-5 text-base !text-white" />
+				{labels.map(
+					label =>
+						label.colorCode === labelObj.colorCode && (
+							<CheckOutlined className="pr-5 text-base !text-white" />
+						)
 				)}
 			</div>
 			<EditOutlined

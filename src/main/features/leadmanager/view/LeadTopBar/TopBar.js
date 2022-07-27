@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import TopBar from "../../../sharedComponents/topBar/topBar";
+import TopBar from "../../../../sharedComponents/topBar/topBar";
 
-function WorkBoardTopBar({ handleView }) {
-	const [filter, setFilter] = useState({
-		filterType: 1,
-	});
+function LeadTopBar({ handleView }) {
+	// const [filter, setFilter] = useState({
+	// 	filterType: 1,
+	// });
 	const [tableView, setTableView] = useState(false);
 	handleView(tableView);
 	return (
@@ -12,16 +12,7 @@ function WorkBoardTopBar({ handleView }) {
 			onSearch={value => {
 				console.log(value);
 			}}
-			buttons={[
-				{
-					name: "Public Groups",
-					onClick: () => setFilter({ filterType: 1 }),
-				},
-				{
-					name: "Private Groups",
-					onClick: () => setFilter({ filterType: 2 }),
-				},
-			]}
+			buttons={[]}
 			filter={{
 				onFilter: () => {},
 			}}
@@ -40,4 +31,4 @@ function WorkBoardTopBar({ handleView }) {
 	);
 }
 
-export default WorkBoardTopBar;
+export default LeadTopBar;

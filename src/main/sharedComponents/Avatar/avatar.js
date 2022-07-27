@@ -9,10 +9,14 @@ function Avatar(props) {
 			? "approver"
 			: props.heading.split("s")[0].toLowerCase();
 	const name =
+		props.membersData.length > 0 &&
 		props.membersData[0][objProperty] !== null &&
+		props.membersData[0][objProperty] !== undefined &&
 		props.membersData[0][objProperty].name;
 	const image =
+		props.membersData.length > 0 &&
 		props.membersData[0][objProperty] !== null &&
+		props.membersData[0][objProperty] !== undefined &&
 		props.membersData[0][objProperty].image;
 	// console.log("name", name);
 	// console.log("membersdata", props.membersData);

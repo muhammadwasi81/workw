@@ -3,28 +3,29 @@ import {
 	ContBody,
 	TabbableContainer,
 } from "../../sharedComponents/AppComponents/MainFlexContainer";
-import WorkBoardDashboard from "./Dashboard/WorkBoardDashboard";
-import Header from "./UI/Header";
-import WorkBoardTopBar from "./UI/WorkBoardTopBar";
+import Header from "./view/Header/Header";
+import Board from "./view/Board/Board";
+import LeadTopBar from "./view/LeadTopBar/TopBar";
+import LeadDashboard from "./view/Dashboard/Dashboard";
 
-function WorkBoard() {
+function LeadManager() {
 	const [isTableView, setIsTableView] = useState(false);
-
 	return (
 		<>
+			{/* <Board /> */}
 			<Header />
 			<TabbableContainer className="">
-				<WorkBoardTopBar
+				<LeadTopBar
 					handleView={isTable => {
 						setIsTableView(isTable);
 					}}
 				/>
 				<ContBody className="!block">
-					<WorkBoardDashboard isTableView={isTableView} />
+					<LeadDashboard isTableView={isTableView} />
 				</ContBody>
 			</TabbableContainer>
 		</>
 	);
 }
 
-export default WorkBoard;
+export default LeadManager;

@@ -96,7 +96,7 @@ export const ROUTES = {
 		MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
 	},
 
-	CONTACT_MANAGER: {
+	LEAD_MANAGER: {
 		DEFAULT: `${DOMAIN_PREFIX}/leadManager`,
 		LEAD_GROUP: `${DOMAIN_PREFIX}/leadManager/leadManagerGroup`,
 		LEAD_DETAIL: `${DOMAIN_PREFIX}/leadManager/leadManagerGroupDetails`,

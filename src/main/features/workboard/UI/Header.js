@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import BoardComposer from "../Composer/BoardComposer";
 import { useSelector, useDispatch } from "react-redux";
 import { handleBoardComposer } from "../store/slice";
-// import { openNotification } from "../../../../utils/Shared/store/slice";
+
+const initialComposerData = {
+	name: "",
+	description: "",
+	members: [],
+	attachments: [],
+	privacyId: 1,
+	image: "",
+};
+
 function Header() {
 	const dispatch = useDispatch();
-	const composerData = useSelector(state => state.trelloSlice.composerData);
+	const [composerData, setComposerData] = useState(initialComposerData);
+	const workboardDetail = useSelector(
+		state => state.trelloSlice.workboardDetail
+	);
 	const success = useSelector(state => state.trelloSlice.success);
 	const loading = useSelector(state => state.trelloSlice.loader);
-	const visible = useSelector(state => state.trelloSlice.isComposerVisible);
+	const isComposerVisible = useSelector(
+		state => state.trelloSlice.isComposerVisible
+	);
+	const [visible, setVisible] = useState(false);
 	const isComposerEdit = useSelector(
 		state => state.trelloSlice.isComposerEdit
 	);
@@ -24,8 +39,22 @@ function Header() {
 		},
 	];
 	const handleOpenDrawer = val => {
+		setVisible(val);
 		dispatch(handleBoardComposer({ isEdit: false, isVisible: val }));
 	};
+
+	useEffect(() => {
+		if (isComposerEdit && workboardDetail) {
+			setComposerData({ ...composerData, ...workboardDetail });
+			setVisible(true);
+		}
+		if (isComposerVisible && !isComposerEdit) {
+			setComposerData(initialComposerData);
+		}
+		if (!isComposerVisible) {
+			setComposerData(initialComposerData);
+		}
+	}, [workboardDetail, isComposerEdit, isComposerVisible]);
 
 	const buttons = [
 		{
@@ -44,7 +73,6 @@ function Header() {
 					buttonText="Create Board"
 					isAccessDrawer={true}
 					setOpenDrawer={handleOpenDrawer}
-					setIsEdited={() => {}}
 					openDrawer={visible}
 					success={success}
 				/>

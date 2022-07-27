@@ -13,6 +13,7 @@ import accountTypes from "./listView"
 import { addChartOfAccount, getAllChartOfAccount, updateChartOfAccount } from "../store/actions";
 import TextArea from "antd/lib/input/TextArea";
 import { handleEdit } from "../store/slice";
+import { STRINGS } from "../../../../utils/base";
 const { Option } = Select;
 
 
@@ -37,7 +38,10 @@ function Composer() {
                 ...values
             }))
         } else {
-            dispatch(addChartOfAccount(payload))
+            dispatch(addChartOfAccount({
+                ...payload,
+                parentId:payload.parentId ? payload.parentId : STRINGS.DEFAULTS.guid
+            }))
         }
     };
 
@@ -97,7 +101,7 @@ function Composer() {
                     editData ? "" :
                     <div>
                         <S.FormItem
-                    name="AccountType"
+                    name="accountType"
                     label={
                         <FormLabel>
                             {
@@ -137,13 +141,6 @@ function Composer() {
                             }
                         </FormLabel>
                     }
-                    rules={[
-                        {
-                            required: true,
-                            message:
-                                "Please Enter Parent Account",
-                        },
-                    ]}
                 >
                     <Select
                         // data={listData}

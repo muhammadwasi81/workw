@@ -22,7 +22,7 @@ const Radio = (props) => {
             <label htmlFor="">
               <input onChange={(e)=> handleRadioChange(e.target.value,index,question.id, question.localType)} className="styled-radio mr_10" type="radio" name="radio" id="radio1" 
               value={id} disabled={disableSubmit} />
-              <h3 className="f-bold">{answer}</h3>
+              <div className="f-bold">{answer}</div>
             </label>
           </div>
         ))}

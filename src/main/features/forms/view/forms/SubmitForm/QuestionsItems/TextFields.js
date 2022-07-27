@@ -11,7 +11,8 @@ const TextFields = (props) => {
         <label className="required label" htmlFor="">
           {fieldData.question}
         </label>
-        <input onChange={(e)=> handleChange(e.target.value, index, fieldData.id, fieldData.localType)} className="styled-input" type={type} placeholder="Type here..."
+        <input onChange={(e)=> handleChange(e.target.value, index, fieldData.id, fieldData.localType)} className="styled-input" type={type} 
+        placeholder="Your answer"
         disabled={disableSubmit} />
       </div>
     </>

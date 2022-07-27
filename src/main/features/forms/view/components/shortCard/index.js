@@ -7,6 +7,7 @@ import { ItemContent, ItemHeader, SingleItem } from "../../../../../sharedCompon
 import { Link } from "react-router-dom";
 import { Button } from "antd";
 import './style.css';
+import { ROUTES } from "../../../../../../utils/routes";
 
 function ListItem(props) {
   return (
@@ -25,17 +26,16 @@ function ListItem(props) {
           <h3 >FR-00032</h3>
         </ItemContent>
         <div className="ItemFooter">
-          <Link to={"/"}>
+          <Link to={ROUTES.FORMS.SUBMIT_FORM+"/dfdfdf"}>
             <Button className="ThemeBtn">
               Copy Link
             </Button>
           </Link>
-          <Link to={"/"}>
+          <Link to={ROUTES.FORMS.SUBMIT_FORM+"/dfd"}>
             <Button className="ThemeBtn">
               Attempt
             </Button>
           </Link>
-
         </div>
       </SingleItem>
     </>

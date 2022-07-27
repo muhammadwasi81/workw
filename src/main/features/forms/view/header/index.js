@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Header from "../../../../layout/header/index";
 import { ROUTES } from "../../../../../utils/routes";
 import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 const Index = () => {
 
@@ -16,9 +17,12 @@ const Index = () => {
       ]}
       buttons={[
         {
-          render: <Button className="headerBtn" >
-            Create Form
-          </Button>,
+          render:
+            <Link to={ROUTES.FORMS.CREATE_FORM} >
+              <Button className="headerBtn">
+                Create Form
+              </Button>
+            </Link>,
         }
       ]}
     />

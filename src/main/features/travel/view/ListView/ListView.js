@@ -81,7 +81,6 @@ function ListView(props) {
 												isTag={false}
 												heading={"Members"}
 												membersData={data.members}
-												text={"Danish"}
 												image={
 													"https://joeschmoe.io/api/v1/random"
 												}
@@ -91,7 +90,6 @@ function ListView(props) {
 												isTag={false}
 												heading={"Approvers"}
 												membersData={data.approvers}
-												text={"Danish"}
 												image={
 													"https://joeschmoe.io/api/v1/random"
 												}
@@ -101,7 +99,6 @@ function ListView(props) {
 												isTag={false}
 												heading={"Agents"}
 												membersData={data.agents}
-												text={"Danish"}
 												image={
 													"https://joeschmoe.io/api/v1/random"
 												}

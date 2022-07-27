@@ -60,7 +60,7 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 			autoComplete="off"
 			form={form}
 		>
-			<div className="flex gap-10">
+			<div className="flex-col-reverse flex gap-2 sm:gap-10 sm:flex-row justify-center">
 				<Form.Item
 					label="Group Name"
 					name="name"
@@ -90,6 +90,7 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 							uploadText={"Upload Cover"}
 							multiple={false}
 							url={composerData.image}
+							position={"justify-center"}
 						/>
 					)}
 				</Form.Item>

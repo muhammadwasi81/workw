@@ -1,11 +1,12 @@
 import React from "react";
+import { CardWrapper2 } from "../../../../../sharedComponents/Card/CardStyle";
 import { getLeadManagerById } from "../../../store/actions";
 import { handleComposer } from "../../../store/slice";
 import DashboardCardLayout from "../../../UI/DashboardCard/DashboardCardLayout";
 
-function GridView({ data, loading, dispatch }) {
+function GridView({ data, loading, dispatch, handleClickNavigation }) {
 	return (
-		<>
+		<CardWrapper2>
 			{data &&
 				data.map(manager => (
 					<DashboardCardLayout
@@ -20,9 +21,12 @@ function GridView({ data, loading, dispatch }) {
 								handleComposer({ isOpen: true, isEdit: true })
 							);
 						}}
+						onClick={() => {
+							handleClickNavigation(manager.id);
+						}}
 					/>
 				))}
-		</>
+		</CardWrapper2>
 	);
 }
 

@@ -126,10 +126,12 @@ SingleUpload.propTypes = {
 	handleImageUpload: PropTypes.func,
 	uploadText: PropTypes.string,
 	position: PropTypes.string,
+	url: PropTypes.string,
 };
 SingleUpload.defaultProps = {
 	multiple: false,
 	handleImageUpload: () => {},
 	uploadText: "Upload",
 	position: "justify-end",
+	url: "",
 };

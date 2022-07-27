@@ -10,12 +10,14 @@ import {
 	addWorkBoardSectionService,
 	addWorkBoardSectionTodoService,
 	addWorkboardService,
+	addWorkBoardTodoLabelService,
 	getAllWorkboardService,
 	getWorkboardByIdService,
 	getWorkboardTodoByIdService,
 	moveWorkBoardSectionService,
 	moveWorkBoardSectionTodoService,
 	removeWorkBoardTodoImageService,
+	removeWorkBoardTodoLabelService,
 	removeWorkBoardTodoService,
 	updateWorkBoardSectionColorCodeService,
 	updateWorkBoardSectionTitleService,
@@ -109,11 +111,6 @@ export const getWorkboardById = createAsyncThunk(
 	async (id, { dispatch, getState, rejectWithValue }) => {
 		const res = await getWorkboardByIdService(id);
 		if (res.responseCode === responseCode.Success) {
-			responseMessage({
-				dispatch: dispatch,
-				data: res,
-				type: responseMessageType.ApiSuccess,
-			});
 			return res;
 		} else {
 			responseMessage({
@@ -229,6 +226,25 @@ export const addWorkBoardSectionTodo = createAsyncThunk(
 		const res = await addWorkBoardSectionTodoService(data);
 		if (res.responseCode === responseCode.Success) {
 			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const addWorkBoardTodoLabel = createAsyncThunk(
+	"addWorkBoardTodoLabel",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await addWorkBoardTodoLabelService(data.labelObj);
+		if (res.responseCode === responseCode.Success) {
+			return { data: res.data, sectionId: data.sectionId };
 		} else {
 			dispatch(
 				openNotification({
@@ -366,6 +382,29 @@ export const removeWorkBoardTodo = createAsyncThunk(
 		const res = await removeWorkBoardTodoService(data);
 		if (res.responseCode === responseCode.Success) {
 			return { id: data.id, sectionId: data.sectionId };
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const removeWorkBoardTodoLabel = createAsyncThunk(
+	"removeWorkBoardTodoLabel",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await removeWorkBoardTodoLabelService(data);
+		if (res.responseCode === responseCode.Success) {
+			return {
+				sectionId: data.sectionId,
+				labels: data.labels,
+				todoId: data.todoId,
+			};
 		} else {
 			dispatch(
 				openNotification({

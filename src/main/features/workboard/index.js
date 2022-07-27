@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	ContBody,
 	TabbableContainer,
@@ -8,13 +8,19 @@ import Header from "./UI/Header";
 import WorkBoardTopBar from "./UI/WorkBoardTopBar";
 
 function WorkBoard() {
+	const [isTableView, setIsTableView] = useState(false);
+
 	return (
 		<>
 			<Header />
 			<TabbableContainer className="">
-				<WorkBoardTopBar />
+				<WorkBoardTopBar
+					handleView={isTable => {
+						setIsTableView(isTable);
+					}}
+				/>
 				<ContBody className="!block">
-					<WorkBoardDashboard />
+					<WorkBoardDashboard isTableView={isTableView} />
 				</ContBody>
 			</TabbableContainer>
 		</>

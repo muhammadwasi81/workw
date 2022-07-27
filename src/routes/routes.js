@@ -131,6 +131,16 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.LEAD_MANAGER.DEFAULT}`,
+			component: lazy(() => import("../main/features/leadmanager/index")),
+		},
+		{
+			path: `${ROUTES.LEAD_MANAGER.LEAD_DETAIL}`,
+			component: lazy(() =>
+				import("../main/features/leadmanager/view/Board/Board")
+			),
+		},
+		{
 			path: `${ROUTES.WARNINGS.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/warning/view/Warning")

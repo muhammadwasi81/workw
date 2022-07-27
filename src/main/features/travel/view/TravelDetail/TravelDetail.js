@@ -58,11 +58,13 @@ function TravelDetail() {
 							</span>
 							<span className="text-gray-500 font-bold text-base">
 								Description:{" "}
-								{travelDetail && travelDetail.description}
+								<span className="text-sm text-black font-normal">
+									{travelDetail && travelDetail.description}
+								</span>
 							</span>
 						</div>
 						<div>
-							<h3 className="text-xl text-primary-color font-semibold">
+							<h3 className="text-base text-primary-color font-semibold">
 								Destinations
 							</h3>
 							<div className="flex overflow-x-auto gap-5 overflow-hidden justify-center">

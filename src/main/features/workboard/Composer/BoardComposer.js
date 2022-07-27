@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { addWorkBoard, updateWorkBoard } from "../store/action";
 import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { jsonToFormData } from "../../../../utils/base";
-import { useSelector } from "react-redux";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 function BoardComposer({ isEdit, composerData, loading }) {
 	const [form] = Form.useForm();
@@ -46,11 +45,12 @@ function BoardComposer({ isEdit, composerData, loading }) {
 		setPrivacyId(value);
 	};
 	useEffect(() => {
-		form.setFieldsValue(composerData);
-		setPrivacyId(composerData.privacyId);
-		// setImage(composerData.imageId);
+		if (composerData) {
+			form.setFieldsValue(composerData);
+			setPrivacyId(composerData.privacyId);
+		}
 	}, [form, composerData]);
-	// console.log("composerData", composerData);
+
 	return (
 		<Form
 			name="basic"
@@ -83,7 +83,7 @@ function BoardComposer({ isEdit, composerData, loading }) {
 						}}
 						uploadText={"Upload Cover"}
 						multiple={false}
-						url={composerData.image}
+						url={composerData.image || ""}
 					/>
 				</Form.Item>
 			</div>
@@ -105,10 +105,14 @@ function BoardComposer({ isEdit, composerData, loading }) {
 					onChange={(val, obj) => {
 						setMembersData(val);
 					}}
-					defaultData={composerData.members.map(members => {
-						return members.memberId;
-					})}
+					defaultData={
+						composerData &&
+						composerData.members.map(members => {
+							return members.memberId;
+						})
+					}
 					loadDefaultData={true}
+					loading={loading}
 				/>
 			</Form.Item>
 			<Form.Item>

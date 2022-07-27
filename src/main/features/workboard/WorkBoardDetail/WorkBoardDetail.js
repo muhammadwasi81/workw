@@ -113,6 +113,7 @@ function WorkBoardDetail({ todoDetail }) {
 								todoDetail={todoDetail}
 								dueDate={todoDetail ? todoDetail.dueDate : ""}
 								cardId={addMemberCardId}
+								showLabelModal={showLabelModal}
 							/>
 						</div>
 						<div className="basis-3/12 mt-[50px]">
@@ -162,6 +163,7 @@ function WorkBoardDetail({ todoDetail }) {
 			<LabelModal
 				showLabelModal={showLabelModal}
 				isLabelModalVisible={isLabelModalVisible}
+				todoDetail={todoDetail}
 			/>
 		</>
 	);

@@ -57,7 +57,7 @@ function TravelDetailCard(props) {
 		props.onClick(e.target.id);
 	};
 	return (
-		<div className="travel_card_img_cont !w-max">
+		<div className="travel_card_img_cont !w-full">
 			<img
 				src={
 					travelById === 1
@@ -70,6 +70,7 @@ function TravelDetailCard(props) {
 						? ByTrain
 						: ""
 				}
+				className="w-full"
 				alt="travel card image"
 			/>
 			<div className="travel_card_detail">

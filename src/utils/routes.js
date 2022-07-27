@@ -42,6 +42,8 @@ export const ROUTES = {
 	FORMS: {
 		DEFAULT: `${DOMAIN_PREFIX}/forms/*`,
 		ROOT: `${DOMAIN_PREFIX}/forms`,
+		SUBMIT_FORM: `${DOMAIN_PREFIX}/submitForm`,
+		CREATE_FORM: `create`,
 	},
 	JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
 	OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
@@ -346,6 +348,14 @@ export const ROUTES = {
 		VOUCHER: {
 			DEFAULT: `${DOMAIN_PREFIX}/voucher/*`,
 			ROOT: `${DOMAIN_PREFIX}/voucher`,
+		},
+		TRANSACTION: {
+			DEFAULT: `${DOMAIN_PREFIX}/transaction/*`,
+			ROOT: `${DOMAIN_PREFIX}/transaction`,
+		},
+		REPORT: {
+			DEFAULT: `${DOMAIN_PREFIX}/report/*`,
+			ROOT: `${DOMAIN_PREFIX}/report`,
 		},
 	},
 

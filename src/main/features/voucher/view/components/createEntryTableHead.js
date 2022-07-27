@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import CustomizedSnackbars from '../../../snackbar/CustomizedSnackbars';
-// import { API } from '../../../utils/services';
-// import { STRINGS } from '../../../utils/base';
 
 const CreateEntryHead = () => {
 
@@ -14,7 +11,7 @@ const CreateEntryHead = () => {
         <th style={{ width: "230px" }}>
           Account
         </th>
-        <th style={{ width: "120px" }}>
+        <th style={{ width: "100px" }}>
           Cheque No.
         </th>
         <th>

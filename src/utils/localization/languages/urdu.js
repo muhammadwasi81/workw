@@ -149,7 +149,8 @@ const urdu = {
     finance: "مالیات",
     chartOfAccount: "اکاؤنٹ کا چارٹ",
     report: "رپورٹ",
-    voucher: "واؤچر"
+    voucher: "واؤچر",
+    transaction: "لین دین",
   },
 
   /*** AppHeader only used in Component headerTab ***/

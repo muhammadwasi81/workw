@@ -9,7 +9,7 @@ import ReactDragListView from "react-drag-listview";
 import { Collapse } from "antd";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
-import { CaretRightOutlined, MenuUnfoldOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+import { CaretRightOutlined, MenuUnfoldOutlined, UsergroupAddOutlined, FileDoneOutlined } from "@ant-design/icons";
 const { Panel } = Collapse;
 
 function Menu() {
@@ -53,8 +53,8 @@ function Menu() {
         }}
       />
     ),
-    FINANCE: (
-      <UsergroupAddOutlined
+    Finance: (
+      <FileDoneOutlined
         onClick={(event) => {
           event.stopPropagation();
         }}

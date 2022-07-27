@@ -8152,6 +8152,9 @@ i.ic-bar-img {
 }
 
 @media screen and (max-width: 700px) {
+  .section{
+    padding: 0;
+  }
   .md-rt > .content > .cnt-main {
     width: 80%;
     max-width: 80%;
@@ -8463,7 +8466,7 @@ input[type="password"],
 input[type="number"],
 input[type="email"] {
   /* height: 38px !important; */
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 input[type="text"]:hover,

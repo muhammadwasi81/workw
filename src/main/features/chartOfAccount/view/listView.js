@@ -30,7 +30,7 @@ function COA_List() {
       "title": "Action",
       "field": "name",
       "expand": false,
-      "formatter":(item, row)=><EditOutlined onClick={(e) => onEdit(item,row)} />
+      "formatter":(item, row)=><EditOutlined onClick={(e) => onEdit(item,row)} />,
     },
   ];
 
@@ -61,7 +61,7 @@ function COA_List() {
         columns={treeColumns}
         options={{
           "minimumColWidth": 100,
-          "expandAll": true
+          "expandAll": false
         }}
         
         // handlers={HANDLERS}

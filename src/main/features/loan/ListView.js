@@ -1,12 +1,43 @@
 import React from "react";
 import ListItem from "./ListItem";
+import { useSelector, useDispatch } from "react-redux";
 import { CardWrapper } from "../../sharedComponents/Card/CardStyle";
+import { GetLoanById } from "../../../store/appReducer/loanSlice";
 
 const ListView = () => {
+  const items = [
+    {
+      id: 1,
+    },
+    {
+      id: 2,
+    },
+    {
+      id: 3,
+    },
+    {
+      id: 4,
+    },
+    {
+      id: 5,
+    },
+    {
+      id: 6,
+    },
+    {
+      id: 7,
+    },
+  ];
+
+  const dispatch = useDispatch();
+
+  const getLoanById = (id) => {
+    dispatch(GetLoanById(id));
+  };
   return (
     <CardWrapper>
-      {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-        <ListItem id={item} />
+      {items.map((item) => (
+        <ListItem getLoanById={getLoanById} id={item.id} />
       ))}
     </CardWrapper>
   );

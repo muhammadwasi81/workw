@@ -25,8 +25,8 @@ export const PostType = Object.freeze({
 });
 
 export const PollType = Object.freeze({
-  DEFAULT: "DEFAULT",
-  PICTURE: "PICTURE",
+  DEFAULT: 1,
+  PICTURE: 2,
 });
 
 export const PostPrivacyType = Object.freeze({

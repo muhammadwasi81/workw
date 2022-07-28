@@ -1,5 +1,5 @@
 import React from "react";
-import ApprovalComment from "./ApprovalComment";
+import ApprovalComment from "./RemarkBubble";
 function Remarks({ remarker, status, type, remark, date }) {
   return (
     <div className="remarks">

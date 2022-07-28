@@ -422,7 +422,7 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
 							{value.AddMoreExperience}
 						</S.EButton>
 					</S.ButtonContainer>
-					{experienceInfo.length > 0 && (
+					{experienceInfo && experienceInfo.length > 0 && (
 						<S.Customtable
 							direction={Direction}
 							dataSource={experienceInfo}

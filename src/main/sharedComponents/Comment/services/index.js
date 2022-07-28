@@ -16,7 +16,7 @@ export const postComment = async (comment) => {
   }
   return response.data;
 };
-export const getAllComment = async (referenceId, parentId, module=1) => {
+export const getAllComment = async (referenceId, parentId, module = 1) => {
   const request = {
     pageNo: 1,
     pageSize: 20,

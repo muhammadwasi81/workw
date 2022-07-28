@@ -110,6 +110,7 @@ const en = {
     complains: "Complains",
     bonus: "Bonus",
     resignations: "Resignations",
+    requisition: "Requisition",
     rewards: "Rewards",
   },
 
@@ -159,6 +160,7 @@ const en = {
     complains: "Complains",
     bonus: "Bonus",
     resignations: "Resignations",
+    requisition: "Requisition",
     rewards: "Rewards",
     businessPolicy: "Business Policy",
     form: "Form",
@@ -416,7 +418,14 @@ const en = {
   myTeam: {},
   orgChart: {},
   payroll: {},
-  employee: {},
+  employee: {
+    Basic_Info: "Basic Information",
+    Email_Configuration: "Email Configuration",
+    Bank_Detail: "Bank Detail",
+    Education: "Education",
+    Emergency_Info: "Emergency Information",
+    Experience: "Experience",
+  },
   administration: {
     Business_Policy: "Business Policy",
     AccessRole: "Access Role",

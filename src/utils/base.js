@@ -1451,7 +1451,7 @@ export const BrokenPage = () => {
 };
 
 export function setAutoHeightOfInput(element) {
-  setTimeout(function () {
+  setTimeout(function() {
     element.css("height", "20px");
     element.css("padding", 0);
     element.css("-moz-box-sizing", "content-box");
@@ -1567,7 +1567,7 @@ export function resizeTabbableContainer() {
 }
 
 export function resizeRightMenu() {
-  $(window).resize(function () {
+  $(window).resize(function() {
     if (window.screen.width < 1240) {
       $(".right-menu-docs").css({ display: "contents" });
       $(".right-menu-close").css({ display: "none" });
@@ -1701,7 +1701,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
   };
   let leftPositionOfMentionList = 0;
 
-  inp.on("mouseup keydown", function (e) {
+  inp.on("mouseup keydown", function(e) {
     if (e.key === "@") {
       appendText = true;
       startPosition = $(this).caret("pos") + 1;
@@ -1724,7 +1724,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
     }
   });
 
-  inp.on("input", function () {
+  inp.on("input", function() {
     _thisVal = $(this).val();
     if (appendText) {
       if (
@@ -1754,8 +1754,8 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
               });
               if (
                 leftPositionOfMentionList +
-                inp.offset().left +
-                mentionListView.outerWidth() >=
+                  inp.offset().left +
+                  mentionListView.outerWidth() >=
                 $(window).width()
               ) {
                 mentionListViewPosition.left =
@@ -1781,7 +1781,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
     }
   });
 
-  inp.on("keydown", function (e) {
+  inp.on("keydown", function(e) {
     let x = document.getElementById("mentions_list");
     if ($.isEmptyObject($(x).html())) {
       if (e.keyCode === 13 && submit !== null) {
@@ -1832,29 +1832,33 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
   function userItem(user) {
     const contact = $(`<div class="search-item">
                                                     <div class="img"
-                                                        ${!$.isEmptyObject(
-      user.profile_picture
-    )
-        ? `style="background-image: url(${user.profile_picture}); background-repeat: no-repeat; background-size: 100%;"`
-        : ""
-      }
-                                                     >${$.isEmptyObject(
-        user.profile_picture
-      )
-        ? getNameForImage(
-          user.name
-        )
-        : ""
-      }</div>
+                                                        ${
+                                                          !$.isEmptyObject(
+                                                            user.profile_picture
+                                                          )
+                                                            ? `style="background-image: url(${user.profile_picture}); background-repeat: no-repeat; background-size: 100%;"`
+                                                            : ""
+                                                        }
+                                                     >${
+                                                       $.isEmptyObject(
+                                                         user.profile_picture
+                                                       )
+                                                         ? getNameForImage(
+                                                             user.name
+                                                           )
+                                                         : ""
+                                                     }</div>
                                                     <div class="pr">
-                                                        <div class="n">${user.name
-      }</div>
-                                                        ${!$.isEmptyObject(
-        user.designation
-      )
-        ? `<div class="p">${user.designation}</div>`
-        : ""
-      }
+                                                        <div class="n">${
+                                                          user.name
+                                                        }</div>
+                                                        ${
+                                                          !$.isEmptyObject(
+                                                            user.designation
+                                                          )
+                                                            ? `<div class="p">${user.designation}</div>`
+                                                            : ""
+                                                        }
                                                     </div>
                                                 </div>`);
     mentionListView.append(contact);
@@ -1878,9 +1882,8 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
 
 /*---------------- Time functions -----------------*/
 export function parseUrlsInText(text) {
-  const urlRegex =
-    /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
-  return text.replace(urlRegex, function (url) {
+  const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
+  return text.replace(urlRegex, function(url) {
     return `<a href="${url}" target="_blank">${url}</a>`;
   });
 }
@@ -2183,7 +2186,7 @@ export const groupByKey = (list, key) => {
     }),
     {}
   );
-}
+};
 export const isEmptyObj = (obj) => {
   return Object.keys(obj).length === 0;
 };
@@ -2216,4 +2219,43 @@ export function jsonToFormData(data) {
   const formData = new FormData();
   buildFormData(formData, data);
   return formData;
+}
+
+export const getMentionsAndText = (titleWithMentions, mentions) => {
+  const mentionsFoundInTitle = [];
+  mentions.forEach(({ key, value }) => {
+    const regex = `@${value}`;
+    if (!titleWithMentions.includes(regex)) return false;
+
+    const regexExpression = new RegExp(regex, "g");
+    titleWithMentions = titleWithMentions.replace(regexExpression, key);
+    mentionsFoundInTitle.push(key);
+  });
+
+  return {
+    title: titleWithMentions,
+    mentions: mentionsFoundInTitle.map((key) => ({
+      memberId: key,
+      memberType: 1,
+    })),
+  };
+};
+export function renderTitleWithMentions(title, mentions) {
+  if (mentions.length > 0) {
+    console.log(mentions)
+    const titleArr = title.split(" ");
+    return titleArr
+      .map((item) => {
+        const mention = mentions.filter((member) => member.memberId == item);
+        if (mention.length > 0) {
+          return `<a href=${mention[0].member.id}>${mention[0].member.name}</a>`;
+          // return mention;
+        } else {
+          return item;
+        }
+      })
+      .join(" ");
+  } else {
+    return title;
+  }
 }

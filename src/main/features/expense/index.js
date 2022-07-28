@@ -32,7 +32,6 @@ function Expenses() {
       renderButton: [1],
     },
   ];
-  console.log(isCreateComposer, "isCreateComposer");
 
   const buttons = [
     {

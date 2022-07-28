@@ -561,7 +561,7 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
 							{value.AddMoreEducation}
 						</S.EButton>
 					</S.ButtonContainer>
-					{educationInfo.length > 0 && (
+					{educationInfo && educationInfo.length > 0 && (
 						<S.Customtable
 							direction={Direction}
 							dataSource={educationInfo}

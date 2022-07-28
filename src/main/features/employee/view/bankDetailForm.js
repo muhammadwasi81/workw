@@ -31,6 +31,8 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
 	const [isSubmit, setIsSubmit] = useState(false);
 	const [cities, setCities] = useState({});
 
+	console.log(bankInfo, "BANK INFORMATION")
+
 	useEffect(() => {
 		if (debouncedSearchTerm) {
 			setSearching(true);
@@ -583,7 +585,7 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
 								{value.AddMoreBank}
 							</S.EButton>
 						</S.ButtonContainer>
-						{bankInfo.length > 0 && (
+						{bankInfo  && bankInfo.length > 0 && (
 							<S.Customtable
 								direction={Direction}
 								dataSource={bankInfo}

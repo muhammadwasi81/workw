@@ -23,9 +23,10 @@ function ListItem(props) {
       <SingleItem>
         <div
           className="new"
+          style={{ cursor: "pointer" }}
           id={props.id}
           onClick={() => {
-            // props.getRewardId(props.id);
+            props.getLoanById(props.id);
           }}
         ></div>
         <ItemHeader>

@@ -172,6 +172,10 @@ export const routes = {
 
 		//Hr Router
 		{
+			path: `${ROUTES.EMPLOYEES_INFO.DEFAULT}`,
+			component: lazy(() => import("../main/features/employee/view/updateEmployee")),
+		},
+		{
 			path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
 			component: lazy(() => import("../main/features/administration")),
 		},

@@ -1,0 +1,85 @@
+export const typeConstant = {
+  GRADE: "Grade",
+  DESIGNATION: "Designation",
+  APPRAISAL: "Appraisal",
+  LEAVE_TYPES: "Leave_Types",
+  USER_TYPES: "User_Types",
+  EXPENSE_HEADER: "Expense_Headers",
+  EMAIL_CONFIG: "Email_Configuration",
+  OFFICE_TIMING: "Office_Timings",
+  SALARY_HEADER: "Salary_Headers",
+  REWARDS: "RewardsCategory",
+  REWARD_CATEGORY: "RewardsCategory",
+  ALLOWANCE: "Allowances",
+  JOB_DESCRIPTION: "Job_Description",
+  DEFAULT_APPROVALS:"Default_Approvals",
+  WARNING_CATEGORY:"Warning_Category"
+};
+export const typeApi = {
+  GRADE: {
+    getApi: "Grade/GetAllGrade",
+    setApi: "Grade/AddGrade",
+    deleteApi: "Grade/RemoveGrade",
+    updateApi: "Grade/UpdateGrade",
+  },
+  DESIGNATION: {
+    getApi: "UserDesignation/GetAllDesignation",
+    setApi: "UserDesignation/AddDesignation",
+    deleteApi: "UserDesignation/RemoveDesignation",
+    updateApi: "UserDesignation/UpdateDesignation",
+  },
+  APPRAISAL: {
+    getApi: "AppraisalQuestion/GetAllQuestion",
+    setApi: "AppraisalQuestion/AddQuestion",
+    deleteApi: "AppraisalQuestion/RemoveQuestion",
+    updateApi: "AppraisalQuestion/updateQuestion",
+  },
+  LEAVE_TYPES: {
+    getApi: "LeaveType/GetAllLeaveType",
+    setApi: "LeaveType/AddLeaveType",
+    deleteApi: "LeaveType/RemoveLeaveType",
+    updateApi: "LeaveType/UpdateLeaveType",
+  },
+  EXPENSE_HEADER: {
+    getApi: "ExpenseHeader/GetAllExpense",
+    setApi: "ExpenseHeader/AddExpense",
+    deleteApi: "ExpenseHeader/RemoveExpense",
+    updateApi: "ExpenseHeader/UpdateExpense",
+  },
+  EMAIL_CONFIG: {
+    getApi: "EmailConfiguration/GetEmailConfigurationByBusinessId",
+    setApi: "EmailConfiguration/AddEmailConfiguration",
+    deleteApi: "EmailConfiguration/RemoveEmailConfiguration",
+    updateApi: "EmailConfiguration/UpdateEmailConfiguration",
+  },
+  OFFICE_TIMING: {
+    getApi: "OfficeTiming/GetAllOfficeTimingGroups",
+    setApi: "OfficeTiming/AddOfficeTimingGroup",
+    // deleteApi: "EmailConfiguration/RemoveEmailConfiguration",
+    // updateApi: "EmailConfiguration/UpdateEmailConfiguration",
+  },
+  SALARY_HEADER: {
+    getApi: "SalaryHeader/GetAllSalaryHeader",
+    setApi: "SalaryHeader/AddSalaryHeader",
+    deleteApi: "SalaryHeader/RemoveSalaryHeader",
+    updateApi: "SalaryHeader/UpdateSalaryHeader",
+  },
+  REWARDS: {
+    getApi: "Reward/GetAllRewardCategory",
+    setApi: "RewardCategory/AddRewardCategory",
+    deleteApi: "RewardCategory/RemoveRewardCategory",
+    updateApi: "RewardCategory/UpdateRewardCategory",
+  },
+  ALLOWANCE: {
+    getApi: "Allowance/GetAllAllowance",
+    setApi: "Allowance/AddAllowance",
+    deleteApi: "Allowance/RemoveAllowance",
+    updateApi: "Allowance/UpdateAllowance",
+  },
+  JOB_DESCRIPTION: {
+    getApi: "JobDescription/GetAllJobDescription",
+    setApi: "JobDescription/AddJobDescription",
+    deleteApi: "JobDescription/RemoveJobDescription",
+    updateApi: "JobDescription/UpdateJobDesctiption",
+  },
+};

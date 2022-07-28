@@ -5,8 +5,10 @@ import { EmployeeCardCustom } from "../Styles/employee.style";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { employeeDictionaryList } from "../localization/index";
+import { Link, useNavigate } from "react-router-dom";
 
-function EmployeeCard({ image, name, email, designation, empNum }) {
+function EmployeeCard({ image, name, email, designation, empNum, id }) {
+  const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const { employeesDictionary } = employeeDictionaryList[userLanguage];
@@ -33,7 +35,7 @@ function EmployeeCard({ image, name, email, designation, empNum }) {
         </div>
         <div className="buttonGroup">
           <CustomButton title={sharedLabels.Disable} buttonClass=" tag_expense_btn font_bold dangerBtn " />
-          <CustomButton title={sharedLabels.Update} buttonClass="ThemeBtn tag_expense_btn font_bold " />
+          <CustomButton title={sharedLabels.Update}  onClick={() => { navigate(`info/${id}/basicInfo` ) }} buttonClass="ThemeBtn tag_expense_btn font_bold " />
         </div>
       </div>
       <div className="employeeCard__footer">

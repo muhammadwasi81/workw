@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
 
-function LeadTopBar({ handleView }) {
+function LeadTopBar({ handleView, topBar }) {
 	// const [filter, setFilter] = useState({
 	// 	filterType: 1,
 	// });
@@ -24,8 +24,8 @@ function LeadTopBar({ handleView }) {
 						setTableView(false);
 					}
 				},
-				label1: "List",
-				label2: "Table",
+				label1: topBar.list,
+				label2: topBar.table,
 			}}
 		/>
 	);

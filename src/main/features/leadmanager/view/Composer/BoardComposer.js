@@ -8,7 +8,15 @@ import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/
 import { jsonToFormData } from "../../../../../utils/base";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 import { addLeadManager, updateLeadManager } from "../../store/actions";
-function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
+function BoardComposer({
+	isEdit,
+	composerData,
+	loading,
+	dataLoading,
+	dictionary,
+	direction,
+}) {
+	const { placeHolder, labels } = dictionary;
 	const [form] = Form.useForm();
 
 	const [membersData, setMembersData] = useState([]);
@@ -52,17 +60,19 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 
 	return (
 		<Form
-			name="basic"
+			name="lead manager form"
 			layout="vertical"
 			initialValues={{}}
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
 			autoComplete="off"
 			form={form}
+			dir={direction}
+			className={`${direction}`}
 		>
 			<div className="flex-col-reverse flex gap-2 sm:gap-10 sm:flex-row justify-center">
 				<Form.Item
-					label="Group Name"
+					label={labels.grpName}
 					name="name"
 					rules={[
 						{
@@ -75,7 +85,10 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 					{dataLoading ? (
 						<Skeleton.Input active={true} block size={"large"} />
 					) : (
-						<Input size="large" placeholder="Enter group name..." />
+						<Input
+							size="large"
+							placeholder={placeHolder.grpNamePH}
+						/>
 					)}
 				</Form.Item>
 				<Form.Item area="true" className="!m-0">
@@ -87,7 +100,7 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 								// console.log("fileData", fileData[0]);
 								setImage(fileData[0].originFileObj);
 							}}
-							uploadText={"Upload Cover"}
+							uploadText={labels.uploadCvr}
 							multiple={false}
 							url={composerData.image}
 							position={"justify-center"}
@@ -96,7 +109,7 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 				</Form.Item>
 			</div>
 			<Form.Item
-				label="Group Description"
+				label={labels.grpDescription}
 				name="description"
 				rules={[
 					{
@@ -110,12 +123,12 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 				) : (
 					<Input
 						size="large"
-						placeholder="Enter group description..."
+						placeholder={placeHolder.grpNameDescPH}
 					/>
 				)}
 			</Form.Item>
 
-			<Form.Item label="Members">
+			<Form.Item label={labels.members}>
 				{dataLoading ? (
 					<Skeleton.Input active={true} block size={"large"} />
 				) : (
@@ -127,6 +140,7 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 							return members.memberId;
 						})}
 						loadDefaultData={true}
+						placeholder={placeHolder.serachMembersPH}
 					/>
 				)}
 			</Form.Item>
@@ -151,6 +165,7 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 							<PrivacyOptions
 								privacyId={privacyId}
 								onPrivacyChange={onPrivacyChange}
+								labels={labels}
 							/>
 							<Button
 								type="primary"
@@ -160,7 +175,7 @@ function BoardComposer({ isEdit, composerData, loading, dataLoading }) {
 								size="large"
 								loading={loading}
 							>
-								{isEdit ? "Update " : "Create "}Group
+								{isEdit ? labels.updateGrp : labels.createGrp}
 							</Button>
 						</>
 					)}

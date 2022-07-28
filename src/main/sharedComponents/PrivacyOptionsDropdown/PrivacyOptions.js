@@ -1,11 +1,11 @@
 import { Dropdown } from "antd";
 import { PostPrivacyType } from "../../../utils/Shared/enums/enums";
 import "./privacyOption.css";
-export default function PrivacyOptions({ onPrivacyChange, privacyId }) {
+export default function PrivacyOptions({ onPrivacyChange, privacyId, labels }) {
 	return (
 		<Dropdown
 			trigger={["click"]}
-			overlay={PostPrivacyOptionsMenu(onPrivacyChange)}
+			overlay={PostPrivacyOptionsMenu(onPrivacyChange, labels)}
 		>
 			<button className="dropdown-button">
 				<img src={PostPrivacyType.getPostTypeIcon(privacyId)} alt="" />
@@ -14,7 +14,7 @@ export default function PrivacyOptions({ onPrivacyChange, privacyId }) {
 	);
 }
 
-function PostPrivacyOptionsMenu(onPrivacyChange) {
+function PostPrivacyOptionsMenu(onPrivacyChange, labels) {
 	return (
 		<div className="dropdown-wrapper">
 			<div onClick={() => onPrivacyChange(PostPrivacyType.PUBLIC)}>
@@ -22,14 +22,14 @@ function PostPrivacyOptionsMenu(onPrivacyChange) {
 					src="https://konnect.im/static/media/world.f69f1142.svg"
 					alt=""
 				/>
-				<span>Public</span>
+				<span>{labels.public}</span>
 			</div>
 			<div onClick={() => onPrivacyChange(PostPrivacyType.PRIVATE)}>
 				<img
 					src="https://konnect.im/static/media/padlock.35a2d6ca.svg"
 					alt=""
 				/>
-				<span>Private</span>
+				<span>{labels.private}</span>
 			</div>
 		</div>
 	);

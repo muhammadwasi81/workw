@@ -1231,6 +1231,13 @@ i.ic-double-tick {
   margin: 55px auto 0;
   overflow-x: scroll;
 }
+.cont-body.rtl * {
+  direction: rtl;
+}
+
+.cont-body.ltr * {
+  direction: ltr;
+}
 
 .tabbable-container > .cont-body > .main-app-col {
   flex: 1;

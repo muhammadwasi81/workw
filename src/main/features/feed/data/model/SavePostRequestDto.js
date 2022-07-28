@@ -1,27 +1,11 @@
-import { PostReferenceType, PostType } from "../../utils/constants";
+import { PollType, PostReferenceType, PostType } from "../../utils/constants";
 import { DEFAULT_GUID } from "../../../../../utils/constants";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
+import { getMentionsAndText } from "../../../../../utils/base";
 
 function getTitleAndMentions({ type, title, pollTitle, mentions }) {
   let titleWithMentions = PostType.isPollType(type) ? pollTitle : title;
-  const mentionsFoundInTitle = [];
-  mentions.forEach(({ key, value }) => {
-    const regex = `@${value}`;
-    if (!titleWithMentions.includes(regex)) return false;
-
-    const regexExpression = new RegExp(regex, "g");
-    titleWithMentions = titleWithMentions.replace(regexExpression, key);
-    mentionsFoundInTitle.push(key);
-  });
-  console.log(parseMentionsIntoServerEntity(mentionsFoundInTitle));
-  return {
-    title: titleWithMentions,
-    mentions: parseMentionsIntoServerEntity(mentionsFoundInTitle),
-  };
-}
-
-function parseMentionsIntoServerEntity(mentions) {
-  return mentions.map((key) => ({ memberId: key, memberType: 1 }));
+  return getMentionsAndText(titleWithMentions, mentions);
 }
 
 function getTags({ tags }) {
@@ -34,6 +18,7 @@ function getPollOptions({ type, poll: { options } }) {
     id: DEFAULT_GUID,
     option: value,
     attachment: { id: defaultUiid, file: attachment },
+    type: PollType.DEFAULT,
   }));
 }
 

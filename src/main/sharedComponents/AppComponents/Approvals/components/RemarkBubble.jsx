@@ -1,17 +1,8 @@
 import moment from "moment";
 import React from "react";
 import Avatar from "../../../Avatar/avatarOLD";
-import { statusEnum, statusObj } from "../enums";
 
-function ApprovalComment({
-  remarker,
-  remark,
-  type: typeNo = 1,
-  status = 1,
-  date,
-}) {
-  const type = statusObj[typeNo];
-  const { label, color } = statusEnum[type][status - 1];
+function RemarksBubble({ remarker, remark, type, status, date }) {
   const { name, image } = remarker;
   return (
     <>
@@ -23,11 +14,11 @@ function ApprovalComment({
           <h6>{name}</h6>
           <span> {moment(date).fromNow()}</span>
           <p>{remark}</p>
-          <span style={{ color }}>{label}</span>
+          {/* <span style={{ color }}>{label}</span> */}
         </div>
       </div>
     </>
   );
 }
 
-export default ApprovalComment;
+export default RemarksBubble;

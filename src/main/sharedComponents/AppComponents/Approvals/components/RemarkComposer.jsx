@@ -5,33 +5,33 @@ import { SmileOutlined, PictureOutlined } from "@ant-design/icons";
 import FilePreview from "../../../FilePreview";
 import EmojiPicker from "../../../../features/Messenger/view/MessengerBox/helpers/emojiPicker";
 import { useSelector } from "react-redux";
-import CommentWrapper from "../../../Comment/CommentWrapper";
 
-function RemarkFooter({ files, onFile, onDelete, referenceId }) {
+function RemarksComposer({
+  files,
+  onFile,
+  onDelete,
+  onRemarksText,
+  onCurrentStatus,
+}) {
   const { user } = useSelector((state) => state.userSlice);
+  const [text, setText] = useState("");
   const { name, userImage } = user;
   const index = useId();
   const [isEmoji, setisEmoji] = useState(false);
-  const [text, setText] = useState("");
-  const msgInpRef = useRef();
 
   const onSelectEmoji = (emoji) => {
     setText((prevValue) => prevValue + emoji.native);
-    msgInpRef.current.focus();
   };
+
+  useEffect(() => {
+    onRemarksText(text);
+  }, [text, onRemarksText]);
 
   return (
     <div className="remarkFooter">
       <div className="remarkFooter__top">
-        {/* <div className="left">
-          <Avatar
-            name={name}
-            src={userImage}
-            size={40}
-            round
-            width={"30px"}
-            height={"30px"}
-          />
+        <div className="left">
+          <Avatar name={name} src={userImage} size={30} round />
         </div>
         <div className="right">
           {isEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
@@ -63,12 +63,7 @@ function RemarkFooter({ files, onFile, onDelete, referenceId }) {
               />
             </label>
           </div>
-        </div> */}
-        <CommentWrapper
-          initailComments={[]}
-          referenceId={referenceId}
-          placeHolder={"Write Your Remarks Here."}
-        />
+        </div>
       </div>
       <div className="remarkFooter__bottom">
         <div className="left">
@@ -76,10 +71,30 @@ function RemarkFooter({ files, onFile, onDelete, referenceId }) {
         </div>
         <div className="right">
           <ul className="list">
-            <div className="list__item">In Process</div>
-            <div className="list__item">Approve</div>
-            <div className="list__item">Decline</div>
-            <div className="list__item">Hold</div>
+            <div
+              className="list__item"
+              onClick={() => onCurrentStatus("process")}
+            >
+              In Process
+            </div>
+            <div
+              className="list__item"
+              onClick={() => onCurrentStatus("process")}
+            >
+              Approve
+            </div>
+            <div
+              className="list__item"
+              onClick={() => onCurrentStatus("process")}
+            >
+              Decline
+            </div>
+            <div
+              className="list__item"
+              onClick={() => onCurrentStatus("process")}
+            >
+              Hold
+            </div>
           </ul>
         </div>
       </div>
@@ -87,4 +102,4 @@ function RemarkFooter({ files, onFile, onDelete, referenceId }) {
   );
 }
 
-export default RemarkFooter;
+export default RemarksComposer;

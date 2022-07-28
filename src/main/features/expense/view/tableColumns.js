@@ -12,23 +12,38 @@ export const tableColumn = () => {
       sort: true,
     },
     {
-      title: "Creator",
-      dataIndex: "creator",
+      title: "Header",
+      dataIndex: "header",
       ellipsis: true,
-      render: (creator) => (
-        <TagAvatar text={creator.name} img={creator.image} />
-      ),
       sort: true,
     },
+    {
+      title: "Description",
+      dataIndex: "description",
+      ellipsis: true,
+      sort: true,
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      ellipsis: true,
+      sort: true,
+    },
+
+    {
+      title: "Expense Date",
+      dataIndex: "expenseDate",
+      ellipsis: true,
+      sort: true,
+      render: (date) => moment(date).format("ddd,MMM DD,YYYY"),
+    },
+
     {
       title: "Status",
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
     },
-    { title: "Subject", dataIndex: "subject", ellipsis: true, sort: true },
-    { title: "Progress", dataIndex: "progress", ellipsis: true, sort: true },
-
     // {
     //   title: "Task Assigned To",
     //   dataIndex: "members",

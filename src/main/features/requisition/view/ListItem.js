@@ -96,7 +96,7 @@ function ListItem(props) {
           <div className="ItemDetails">
             <div className="innerDiv">
               <span className="!text-black font-extrabold smallHeading">
-                {"Deduction per month"}
+                {"Budget"}
               </span>
               <Tag className="IdTag !bg-transparent !text-left">
                 {"584.332"}
@@ -116,7 +116,7 @@ function ListItem(props) {
             </div>
             <div className="innerDiv">
               <span className="!text-black font-extrabold smallHeading">
-                {"Amount"}
+                {"Reason"}
               </span>
               {/* <Avatar
                 isAvatarGroup={true}
@@ -124,7 +124,7 @@ function ListItem(props) {
                 heading={"Approvers"}
                 image={"https://joeschmoe.io/api/v1/random"}
               /> */}
-              <Tag className="IdTag !bg-transparent">{"200,000"}</Tag>
+              <Tag className="IdTag !bg-transparent">{"For Office"}</Tag>
             </div>
           </div>
         </div>

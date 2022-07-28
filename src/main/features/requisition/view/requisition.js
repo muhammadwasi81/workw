@@ -4,7 +4,7 @@ import { TabbableContainer, ContBody } from "../../../layout/GridStyle";
 import Header from "../../../layout/header";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { resignationDictionaryList } from "../localization";
+import { requisitionDictionaryList } from "../localization";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Composer from "./composer";
 import ListView from "./ListView";
@@ -12,15 +12,10 @@ import DetailedView from "./DetailedView";
 import { CloseDetailView } from "../../../../store/appReducer/resignationSlice";
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
-// import ListItem from "./ListItem";
-//import "./style.css";
-//import styled from "styled-components";
-//import ListView from "./ListView";
-//import ListBoxes from "./ListBoxes";
 
-function Index() {
+function Requisition() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { resignationDictionary } = resignationDictionaryList[userLanguage];
+  const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
   const { listItem } = useSelector((state) => state.resignationSlice);
@@ -42,8 +37,8 @@ function Index() {
             // onClick: () => setVisible(true),
             render: (
               <SideDrawer
-                title={resignationDictionary.createResignation}
-                buttonText={resignationDictionary.createResignation}
+                title={requisitionDictionary.createRequisition}
+                buttonText={requisitionDictionary.createRequisition}
                 isAccessDrawer={false}
               >
                 <Composer />
@@ -58,7 +53,7 @@ function Index() {
         }}
         buttons={[
           {
-            name: "Resignation",
+            name: "Requisition",
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
@@ -66,7 +61,7 @@ function Index() {
             onClick: () => setFilter({ filterType: 1 }),
           },
           {
-            name: "Resignation To Me",
+            name: "Requisition To Me",
             onClick: () => setFilter({ filterType: 2 }),
           },
         ]}
@@ -97,4 +92,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Requisition;

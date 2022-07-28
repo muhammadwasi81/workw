@@ -110,6 +110,7 @@ const en = {
     complains: "Complains",
     bonus: "Bonus",
     resignations: "Resignations",
+    requisition: "Requisition",
     rewards: "Rewards",
   },
 
@@ -159,6 +160,7 @@ const en = {
     complains: "Complains",
     bonus: "Bonus",
     resignations: "Resignations",
+    requisition: "Requisition",
     rewards: "Rewards",
     businessPolicy: "Business Policy",
     form: "Form",

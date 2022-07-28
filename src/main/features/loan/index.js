@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { TabbableContainer, ContBody } from "../../layout/GridStyle";
 import Header from "../../layout/header";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
@@ -10,14 +11,28 @@ import Composer from "./composer";
 import styled from "styled-components";
 import ListView from "./ListView";
 import ListBoxes from "./ListBoxes";
+import DetailedView from "./DetailedView";
+import { CloseDetailView } from "../../../store/appReducer/loanSlice";
+import { Table } from "../../sharedComponents/customTable";
+import { tableColumn } from "./TableColumn";
 
 function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { loanDictionary } = loanDictionaryList[userLanguage];
 
+  const dispatch = useDispatch();
+  const { listItem } = useSelector((state) => state.loanSlice);
+
   const [tableView, setTableView] = useState(false);
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
+
+  // const [detailViewIsVisible, setDetailViewIsVisible] = useState(true);
+
+  const closeDetailView = () => {
+    dispatch(CloseDetailView());
+    // setDetailViewIsVisible(false);
+  };
 
   return (
     <TabbableContainer>
@@ -73,10 +88,21 @@ function Index() {
       />
 
       <ContBody className="!block">
-        <ListBoxes />
+        {tableView && (
+          <Table
+            columns={tableColumn()}
+            dragable={true}
+            //data={"Daniyal"}
+          />
+        )}
 
-        <ListView />
+        {!tableView && <ListBoxes />}
+
+        {!tableView && <ListView />}
       </ContBody>
+      {listItem && (
+        <DetailedView onClose={closeDetailView} visible={listItem} />
+      )}
     </TabbableContainer>
   );
 }

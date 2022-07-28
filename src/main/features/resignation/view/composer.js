@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 // import "antd/dist/antd.css";
 // import './index.css';
 import { Button, Form, Input, Select } from "antd";
+import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
+import styling from "./style.module.css";
+import FormItemLabel from "antd/lib/form/FormItemLabel";
+import { auto } from "darkreader";
+
 const { TextArea } = Input;
 
 const { Option } = Select;
@@ -22,6 +27,8 @@ const tailLayout = {
 
 const Composer = () => {
   const [form] = Form.useForm();
+  const [search, setSearch] = useState(false);
+  const [terminationSearch, setTerminationSearch] = useState(false);
 
   const onGenderChange = (value) => {
     switch (value) {
@@ -67,76 +74,91 @@ const Composer = () => {
       layout="vertical"
     >
       <Form.Item
-        name="amount"
-        label="Amount"
+        name="reason for resignation"
+        label="Reason for resignation"
         rules={[
           {
             required: true,
           },
         ]}
       >
-        <Input type="number" placeholder="Amount" />
-      </Form.Item>
-      <Form.Item name="interest rate" label="Interest Rate">
-        <div
-          style={{
-            border: "1px solid #d9d9d9",
-            borderRadius: "5px",
-            height: "32px",
-            width: "100%",
-          }}
-        ></div>
-      </Form.Item>
-      <Form.Item
-        name="loan tenure"
-        label="Loan Tenure"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input type="number" placeholder="Loan Tenure" />
-      </Form.Item>
-      <Form.Item name="interest" label="Interest">
-        <div
-          style={{
-            border: "1px solid #d9d9d9",
-            borderRadius: "5px",
-            height: "32px",
-            width: "100%",
-          }}
-        ></div>
-      </Form.Item>
-      <Form.Item name="deduction/month" label="Deduction/Month">
-        <div
-          style={{
-            border: "1px solid #d9d9d9",
-            borderRadius: "5px",
-            height: "32px",
-            width: "100%",
-          }}
-        ></div>
-      </Form.Item>
-      <Form.Item
-        name="loan purpose"
-        label="Loan Purpose"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Select placeholder="Loan Purpose" onChange={onGenderChange} allowClear>
-          <Option value="vehicle">Vehicle</Option>
-          <Option value="personal">Personal</Option>
-          <Option value="wedding">Wedding</Option>
-          <Option value="medical">Medical</Option>
-          <Option value="education">Education</Option>
-          <Option value="house">House</Option>
-          <Option value="other">Other</Option>
+        <Select
+          placeholder="Reason for resignation"
+          onChange={onGenderChange}
+          allowClear
+        >
+          <Option value="Insufficient Work-Life Balance">
+            Insufficient Work-Life Balance
+          </Option>
+          <Option value="Time Off, and Flexibility">
+            Time Off, and Flexibility
+          </Option>
+          <Option value="Unrealistic Goals and Performance Objectives">
+            Unrealistic Goals and Performance Objectives
+          </Option>
+          <Option value="Lack of a Clear Path for Career Advancement">
+            Lack of a Clear Path for Career Advancement
+          </Option>
+          <Option value="Feel Unsupported by Manage">
+            Feel Unsupported by Manage
+          </Option>
+          <Option value="Don't Feel Challenged">Don't Feel Challenged</Option>
+          <Option value="Relocation">Relocation</Option>
+          <Option value="other">Others</Option>
         </Select>
       </Form.Item>
+      <Form.Item name="resignation date" label="Resignation Date">
+        <Input type="date" />
+      </Form.Item>
+      <Form.Item
+        name="on behalf of colleague"
+        label="On Behalf Of Colleague"
+        style={{ display: "flex", flexDirection: "row", flexFlow: "nowrap" }}
+      >
+        <Input
+          type="checkbox"
+          style={{ width: "auto" }}
+          onChange={(e) => {
+            if (e.target.checked == true) {
+              setSearch(true);
+            } else {
+              setSearch(false);
+            }
+          }}
+        />
+      </Form.Item>
+
+      {search && (
+        <Form.Item>
+          {" "}
+          <Input name="behalf-of-colleague" style={{ width: "100%" }} />{" "}
+        </Form.Item>
+      )}
+      <Form.Item
+        name="is termination"
+        label="Is Termination ?"
+        className={styling.termination_label}
+        style={{ display: "flex", flexDirection: "row", flexFlow: "nowrap" }}
+      >
+        <Input
+          type="checkbox"
+          style={{ width: "auto" }}
+          onChange={(e) => {
+            if (e.target.checked == true) {
+              setTerminationSearch(true);
+            } else {
+              setTerminationSearch(false);
+            }
+          }}
+        />
+      </Form.Item>
+      {terminationSearch && (
+        <Form.Item>
+          {" "}
+          <Input style={{ width: "100%" }} />{" "}
+        </Form.Item>
+      )}
+
       {/* <Form.Item
         noStyle
         shouldUpdate={(prevValues, currentValues) =>
@@ -160,16 +182,77 @@ const Composer = () => {
         }
       </Form.Item> */}
       <Form.Item
-        name="approvers"
-        label="Approvers"
+        name="manager"
+        label="Manager"
         rules={[
           {
             required: true,
           },
         ]}
       >
-        <Input placeholder="Approvers" />
+        <Input placeholder="Manager" />
       </Form.Item>
+
+      <Form.Item
+        name="hr"
+        label="HR"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input placeholder="Select HR" />
+      </Form.Item>
+
+      <Form.Item
+        name="finance"
+        label="Finance"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input placeholder="Select Finance" />
+      </Form.Item>
+
+      <Form.Item
+        name="it"
+        label="IT"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input placeholder="Select IT" />
+      </Form.Item>
+
+      <Form.Item
+        name="admin"
+        label="Admin"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input placeholder="Select Admin" />
+      </Form.Item>
+
+      <Form.Item
+        name="extra interview"
+        label="Extra Interview"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input placeholder="Select Exit" />
+      </Form.Item>
+
       <Form.Item
         name="description"
         label="Description"
@@ -180,6 +263,14 @@ const Composer = () => {
         ]}
       >
         <TextArea rows={2} placeholder="Description" />
+      </Form.Item>
+      <Form.Item area="true">
+        <SingleUpload
+          //handleImageUpload={handleImageUpload}
+          img="Add Image"
+          position="flex-start"
+          //uploadText={warningDictionary.upload}
+        />
       </Form.Item>
       <Form.Item>
         <Button

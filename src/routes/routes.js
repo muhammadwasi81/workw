@@ -163,6 +163,12 @@ export const routes = {
       path: `${ROUTES.RESIGNATION.DEFAULT}`,
       component: lazy(() => import("../main/features/resignation/view/index")),
     },
+    {
+      path: `${ROUTES.REQUISITION.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/requisition/view/requisition")
+      ),
+    },
   ],
   AdminRoutes: [
     {

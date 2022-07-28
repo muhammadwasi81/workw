@@ -36,6 +36,7 @@ import coaIcon from "../../../content/NewContent/chartOfAccount/coa.svg";
 import reportIcon from "../../../content/NewContent/report/report.svg";
 import documentIcon from "../../../content/NewContent/Documents/file/folder.svg";
 import voucherIcon from "../../../content/NewContent/voucher/voucher.svg";
+import requisitionIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg";
 
 import { DOMAIN_PREFIX } from "../../../utils/routes";
 const NavMenuList = () => {
@@ -288,6 +289,14 @@ const NavMenuList = () => {
       counter: 0,
       icon: resignation,
       to: ROUTES.RESIGNATION.RESIGNATION,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: label.navMenuLabel.requisition,
+      counter: 0,
+      icon: requisitionIcon,
+      to: ROUTES.REQUISITION.REQUISITION,
       isActive: true,
       key: label.navMenuLabel.hr,
     },

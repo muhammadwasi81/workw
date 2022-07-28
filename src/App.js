@@ -34,6 +34,7 @@ import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
 import { InitMessengerSocket } from "./utils/InitSocket";
 import MainNotification from "./main/sharedComponents/Notification/Notification";
+import SubmitForm from "./main/features/forms/view/forms/SubmitForm/index.js";
 
 const App = () => {
 	const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -116,6 +117,10 @@ const App = () => {
 							<Route
 								path={`${ROUTES.AUTH.VERIFICATION_INPROCESS}/:id?`}
 								element={<Verifying />}
+							/>
+							<Route
+								path={`${ROUTES.FORMS.SUBMIT_FORM}/:id`}
+								element={<SubmitForm />}
 							/>
 
 							{/*****Public Route******/}

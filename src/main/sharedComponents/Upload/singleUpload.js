@@ -35,6 +35,15 @@ class SingleUpload extends React.Component {
 			);
 		}
 	}
+	componentDidMount() {
+		if (this.props.url.length > 0) {
+			this.setState(
+				produce(state => {
+					state.fileList.push({ url: this.props.url });
+				})
+			);
+		}
+	}
 
 	handleCancel = () => this.setState({ previewVisible: false });
 
@@ -67,8 +76,12 @@ class SingleUpload extends React.Component {
 	};
 
 	render() {
-		const { previewVisible, previewImage, fileList, previewTitle } =
-			this.state;
+		const {
+			previewVisible,
+			previewImage,
+			fileList,
+			previewTitle,
+		} = this.state;
 		const uploadButton = (
 			<div className="px-1">
 				<PlusOutlined />
@@ -113,10 +126,12 @@ SingleUpload.propTypes = {
 	handleImageUpload: PropTypes.func,
 	uploadText: PropTypes.string,
 	position: PropTypes.string,
+	url: PropTypes.string,
 };
 SingleUpload.defaultProps = {
 	multiple: false,
 	handleImageUpload: () => {},
 	uploadText: "Upload",
 	position: "justify-end",
+	url: "",
 };

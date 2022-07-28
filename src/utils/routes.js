@@ -42,6 +42,8 @@ export const ROUTES = {
 	FORMS: {
 		DEFAULT: `${DOMAIN_PREFIX}/forms/*`,
 		ROOT: `${DOMAIN_PREFIX}/forms`,
+		SUBMIT_FORM: `${DOMAIN_PREFIX}/submitForm`,
+		CREATE_FORM: `create`,
 	},
 	JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
 	OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
@@ -96,10 +98,11 @@ export const ROUTES = {
 		MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
 	},
 
-	CONTACT_MANAGER: {
+	LEAD_MANAGER: {
 		DEFAULT: `${DOMAIN_PREFIX}/leadManager`,
 		LEAD_GROUP: `${DOMAIN_PREFIX}/leadManager/leadManagerGroup`,
-		LEAD_DETAIL: `${DOMAIN_PREFIX}/leadManager/leadManagerGroupDetails`,
+		LEAD_GROUP_DETAIL: `${DOMAIN_PREFIX}/leadManager/leadManagerGroupDetails/`,
+		LEAD_DETAIL: `${DOMAIN_PREFIX}/leadManager/leadManagerGroupDetails/:id`,
 	},
 	SCHEDULES: `${DOMAIN_PREFIX}/schedules`,
 	FILTER_SCHEDULE_ITEM: `${DOMAIN_PREFIX}/search_schedule`,
@@ -237,9 +240,7 @@ export const ROUTES = {
 		DEFAULT: `${DOMAIN_PREFIX}/tasks`,
 		DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
 	},
-	LEAD_MANAGER: {
-		DEFAULT: `${DOMAIN_PREFIX}/leadmanager`,
-	},
+
 	REWARDS: {
 		DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
 		REWARD: `${DOMAIN_PREFIX}/rewards/`,
@@ -347,6 +348,14 @@ export const ROUTES = {
 		VOUCHER: {
 			DEFAULT: `${DOMAIN_PREFIX}/voucher/*`,
 			ROOT: `${DOMAIN_PREFIX}/voucher`,
+		},
+		TRANSACTION: {
+			DEFAULT: `${DOMAIN_PREFIX}/transaction/*`,
+			ROOT: `${DOMAIN_PREFIX}/transaction`,
+		},
+		REPORT: {
+			DEFAULT: `${DOMAIN_PREFIX}/report/*`,
+			ROOT: `${DOMAIN_PREFIX}/report`,
 		},
 	},
 

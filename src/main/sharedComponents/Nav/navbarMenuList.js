@@ -24,6 +24,7 @@ import employeeIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg"
 import administrator from "../../../content/svg/menu/newNavBarIcon/Administration.svg";
 import appraisalsIcon from "../../../content/svg/menu/newNavBarIcon/Appraisals.svg";
 import leavesIcon from "../../../content/svg/menu/newNavBarIcon/Leaves.svg";
+import companyIcon from "../../../content/svg/menu/newNavBarIcon/companies.svg";
 import loanIcon from "../../../content/svg/menu/newNavBarIcon/Loan.svg";
 import holiday_event from "../../../content/svg/menu/newNavBarIcon/Holidays.svg";
 import career from "../../../content/svg/menu/newNavBarIcon/Career.svg";
@@ -314,15 +315,15 @@ const NavMenuList = () => {
       icon: requisitionIcon,
       to: ROUTES.REQUISITION.REQUISITION,
       isActive: true,
-      key: label.navMenuLabel.hr,
+      key: label.navMenuLabel.inventorySection,
     },
 	{
 		name: label.navMenuLabel.companies,
 		counter: 0,
-		icon: resignation,
-		to: ROUTES.RESIGNATION.RESIGNATION,
+		icon: companyIcon,
+		to: "/companies",
 		isActive: true,
-		key: label.navMenuLabel.companies,
+		key: label.navMenuLabel.companiesSection,
 	},
     // {
     //   name: label.navMenuLabel.businessPolicy,

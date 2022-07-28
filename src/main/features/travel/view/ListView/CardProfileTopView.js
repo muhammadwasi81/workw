@@ -5,7 +5,7 @@ import ProfileDetailView from "./ProfileDetailView";
 
 function CardProfileTopView(props) {
 	return (
-		<div className="flex items-center justify-between w-full">
+		<div className="flex items-center justify-between w-full gap-2 sm:gap-0 flex-wrap">
 			<ProfileDetailView
 				profileImgSrc={props.profileImgSrc}
 				profileImgSize={props.profileImgSize}

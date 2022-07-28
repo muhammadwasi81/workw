@@ -19,7 +19,7 @@ import WorkBoardDescription from "./WorkBoardDescription";
 import MemberModal from "../Modal/MemberModal";
 import LabelModal from "../Modal/LabelModal/LabelModal";
 import { useDispatch } from "react-redux";
-import { openMembersModal } from "../store/slice";
+import { openDateModal, openMembersModal } from "../store/slice";
 import { useSelector } from "react-redux";
 import Upload from "antd/lib/upload/Upload";
 import { jsonToFormData } from "../../../../utils/base";
@@ -84,6 +84,16 @@ function WorkBoardDetail({ todoDetail }) {
 			})
 		);
 	};
+
+	const showDateModal = () => {
+		dispatch(
+			openDateModal({
+				isDateModalOpen: true,
+				todoId: todoData.id,
+				sectionId: todoData.sectionId,
+			})
+		);
+	};
 	return (
 		<>
 			<div className=" bg-white rounded-xl mt-5">
@@ -103,6 +113,7 @@ function WorkBoardDetail({ todoDetail }) {
 								todoDetail={todoDetail}
 								dueDate={todoDetail ? todoDetail.dueDate : ""}
 								cardId={addMemberCardId}
+								showLabelModal={showLabelModal}
 							/>
 						</div>
 						<div className="basis-3/12 mt-[50px]">
@@ -124,6 +135,7 @@ function WorkBoardDetail({ todoDetail }) {
 								<TrelloThemeButton
 									text={"Dates"}
 									icon={<TagOutlined />}
+									onClick={showDateModal}
 								/>
 								<TrelloThemeButton
 									text={"Attachment"}
@@ -151,6 +163,7 @@ function WorkBoardDetail({ todoDetail }) {
 			<LabelModal
 				showLabelModal={showLabelModal}
 				isLabelModalVisible={isLabelModalVisible}
+				todoDetail={todoDetail}
 			/>
 		</>
 	);

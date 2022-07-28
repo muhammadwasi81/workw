@@ -65,8 +65,9 @@ const menu = (actions, row, actionClick) => {
 		/>
 	);
 };
-const dragable = () => (text, record, index) =>
-	<p className="drag-handle">{<DragHandle />}</p>;
+const dragable = () => (text, record, index) => (
+	<p className="drag-handle">{<DragHandle />}</p>
+);
 
 const tagable = (tags, status) => customTags(tags, status);
 
@@ -228,7 +229,13 @@ export class Table extends React.Component {
 		}
 	}
 	render() {
-		const { dragable, handleChange, onPageChange, onRow } = this.props;
+		const {
+			dragable,
+			handleChange,
+			onPageChange,
+			onRow,
+			loading,
+		} = this.props;
 		return (
 			<div className="w-full">
 				{dragable ? (
@@ -248,7 +255,7 @@ export class Table extends React.Component {
 								onRow={onRow}
 								onChange={handleChange}
 								locale={{
-									emptyText: this.props.loading ? (
+									emptyText: loading ? (
 										<Skeleton active={true} />
 									) : (
 										<Empty />
@@ -272,7 +279,7 @@ export class Table extends React.Component {
 						onRow={onRow}
 						onChange={handleChange}
 						locale={{
-							emptyText: this.props.loading ? (
+							emptyText: loading ? (
 								<Skeleton active={true} />
 							) : (
 								<Empty />
@@ -298,22 +305,3 @@ Table.defaultProps = {
 	onPageChange: () => {},
 	onRow: () => {},
 };
-
-// console.log("prevprops", prevProps.success);
-// console.log("props success", this.props.success);
-// if (prevProps.success !== this.props.success && this.props.success) {
-// 	const alterData = this.props.data.map((data, i) => {
-// 		return {
-// 			...data,
-// 			index: i,
-// 			key: String(i),
-// 		};
-// 	});
-// 	this.setState(
-// 		produce(state => {
-// 			state.data = alterData;
-// 			state.isColumnPopulated = false;
-// 			state.isDataPopulated = false;
-// 		})
-// 	);
-// }

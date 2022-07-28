@@ -202,7 +202,7 @@ function CreateExpense() {
           labelPosition="top"
           rules={[{ required: true }]}
         >
-          <Input placeholder="Enter Amount" />
+          <Input placeholder="Enter Amount" type={"number"} />
         </Form.Item>
         <Form.Item
           label="Date"

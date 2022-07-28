@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { addWorkBoard, updateWorkBoard } from "../store/action";
 import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { jsonToFormData } from "../../../../utils/base";
-import { useSelector } from "react-redux";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 function BoardComposer({ isEdit, composerData, loading }) {
 	const [form] = Form.useForm();
@@ -46,11 +45,12 @@ function BoardComposer({ isEdit, composerData, loading }) {
 		setPrivacyId(value);
 	};
 	useEffect(() => {
-		form.setFieldsValue(composerData);
-		setPrivacyId(composerData.privacyId);
-		// setImage(composerData.imageId);
+		if (composerData) {
+			form.setFieldsValue(composerData);
+			setPrivacyId(composerData.privacyId);
+		}
 	}, [form, composerData]);
-	// console.log("composerData", composerData);
+
 	return (
 		<Form
 			name="basic"
@@ -83,7 +83,7 @@ function BoardComposer({ isEdit, composerData, loading }) {
 						}}
 						uploadText={"Upload Cover"}
 						multiple={false}
-						url={composerData.image}
+						url={composerData.image || ""}
 					/>
 				</Form.Item>
 			</div>
@@ -99,37 +99,40 @@ function BoardComposer({ isEdit, composerData, loading }) {
 			>
 				<Input size="large" />
 			</Form.Item>
-			<div className="bg-[#faf9f9] p-5 rounded-md">
-				<Form.Item label="Members">
-					<WorkBoardMemberSelect
-						onChange={(val, obj) => {
-							setMembersData(val);
-						}}
-						defaultData={composerData.members.map(members => {
+
+			<Form.Item label="Members">
+				<WorkBoardMemberSelect
+					onChange={(val, obj) => {
+						setMembersData(val);
+					}}
+					defaultData={
+						composerData &&
+						composerData.members.map(members => {
 							return members.memberId;
-						})}
-						loadDefaultData={true}
+						})
+					}
+					loadDefaultData={true}
+					loading={loading}
+				/>
+			</Form.Item>
+			<Form.Item>
+				<div className="flex items-center gap-2">
+					<PrivacyOptions
+						privacyId={privacyId}
+						onPrivacyChange={onPrivacyChange}
 					/>
-				</Form.Item>
-				<Form.Item>
-					<div className="flex items-center gap-2">
-						<PrivacyOptions
-							privacyId={privacyId}
-							onPrivacyChange={onPrivacyChange}
-						/>
-						<Button
-							type="primary"
-							htmlType="submit"
-							block
-							className="ThemeBtn"
-							size="large"
-							loading={loading}
-						>
-							{isEdit ? "Update " : "Create "}Board
-						</Button>
-					</div>
-				</Form.Item>
-			</div>
+					<Button
+						type="primary"
+						htmlType="submit"
+						block
+						className="ThemeBtn"
+						size="large"
+						loading={loading}
+					>
+						{isEdit ? "Update " : "Create "}Board
+					</Button>
+				</div>
+			</Form.Item>
 		</Form>
 	);
 }

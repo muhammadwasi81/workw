@@ -121,6 +121,7 @@ const en = {
     messenger: "Messenger",
     chartOfAccount: "Chart of Account",
     voucher: "Voucher",
+    transaction: "Transaction",
     report: "Report",
     mailBox: "Mail Box",
     groups: "Groups",

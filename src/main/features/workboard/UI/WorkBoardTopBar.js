@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 
-function WorkBoardTopBar() {
+function WorkBoardTopBar({ handleView }) {
 	const [filter, setFilter] = useState({
 		filterType: 1,
 	});
 	const [tableView, setTableView] = useState(false);
+	handleView(tableView);
 	return (
 		<TopBar
 			onSearch={value => {

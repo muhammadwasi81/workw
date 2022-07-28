@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+// import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
-import { documentDictionaryList } from "../../localization/index";
+// import { documentDictionaryList } from "../../localization/index";
 import { handleChangeTab } from "../../store/slice";
 
 const FilterBar = () => {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { documentDictionary } = documentDictionaryList[userLanguage];
+  // const { userLanguage } = useContext(LanguageChangeContext);
+  // const { documentDictionary } = documentDictionaryList[userLanguage];
   const dispatch = useDispatch();
   const handleTabChange = (tab) => {
     dispatch(handleChangeTab(tab))

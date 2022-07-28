@@ -1,0 +1,14 @@
+.formShortCard .ItemFooter{
+    display: flex;
+    justify-content: space-around;
+    width: max-content;
+    margin: 0 auto;
+}
+.formShortCard .ItemFooter .ThemeBtn{
+    margin: 5px;
+    font-size: 11px;
+    padding: 2px 8px;
+}
+.formShortCard .ItemContent{
+    margin-bottom: 10px;
+}

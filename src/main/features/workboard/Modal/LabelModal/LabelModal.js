@@ -1,21 +1,87 @@
-import { EditOutlined } from "@ant-design/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CustomModal from "../CustomModal";
 import ModalTitle from "../UI/ModalTitle";
+import LabelInput from "./LabelInput";
+import { useDispatch } from "react-redux";
+import {
+	addWorkBoardTodoLabel,
+	removeWorkBoardTodoLabel,
+} from "../../store/action";
 
-function LabelModal({ showLabelModal, isLabelModalVisible }) {
-	const labelColors = [
-		{ color: "bg-green-400", name: "Green", id: 1 },
-		{ color: "bg-yellow-300	", name: "", id: 2 },
-		{ color: "bg-green-200	", name: "", id: 3 },
-		{ color: "bg-red-500 ", name: "", id: 4 },
-		{ color: "bg-purple-500	", name: "", id: 5 },
-		{ color: "bg-blue-500	", name: "", id: 6 },
-		{ color: "bg-sky-500", name: "", id: 7 },
-		{ color: "bg-green-300", name: "", id: 8 },
-		{ color: "bg-pink-400	", name: "", id: 9 },
-		{ color: "bg-zinc-500	", name: "", id: 10 },
+function LabelModal({ todoDetail, showLabelModal, isLabelModalVisible }) {
+	const dispatch = useDispatch();
+	let labelObj = [
+		{ colorCode: "#61bd4f" },
+		{ colorCode: "#f2d600" },
+		{ colorCode: "#ff9f1a" },
+		{ colorCode: "#eb5a46" },
+		{ colorCode: "#c377e0" },
+		{ colorCode: "#0079bf" },
+		{ colorCode: "#00c2e0" },
+		{ colorCode: "#51e898" },
+		{ colorCode: "#ff78cb" },
+		{ colorCode: "#344563" },
 	];
+	if (todoDetail) {
+		labelObj = labelObj.map(item => ({
+			...item,
+			label: "",
+			workBoardTodoId: todoDetail.id,
+		}));
+	}
+	const handleWorkBoardTodoLabel = labelObj => {
+		if (todoDetail) {
+			if (
+				todoDetail.labels.filter(
+					label => label.colorCode === labelObj.colorCode
+				).length > 0
+			) {
+				const filteredArray = todoDetail.labels.filter(
+					label => label.colorCode !== labelObj.colorCode
+				);
+				const filteredObj = todoDetail.labels.filter(
+					label => label.colorCode === labelObj.colorCode
+				);
+
+				dispatch(
+					removeWorkBoardTodoLabel({
+						id: filteredObj[0].id,
+						sectionId: todoDetail.sectionId,
+						labels: filteredArray,
+						todoId: todoDetail.id,
+					})
+				);
+			} else {
+				dispatch(
+					addWorkBoardTodoLabel({
+						labelObj,
+						sectionId: todoDetail.sectionId,
+					})
+				);
+			}
+		}
+	};
+
+	// useEffect(() => {
+	// 	if (todoLabelsNew.length > 0) {
+	// 		dispatch(
+	// 			updateWorkBoardTodoLabel({
+	// 				labelObj: todoLabelsNew,
+	// 				sectionId: todoDetail.sectionId,
+	// 				todoId: todoDetail.id,
+	// 			})
+	// 		);
+	// 	} else {
+	// 		dispatch(
+	// 			updateWorkBoardTodoLabel({
+	// 				labelObj: [],
+	// 				sectionId: todoDetail.sectionId,
+	// 				todoId: todoDetail.id,
+	// 			})
+	// 		);
+	// 	}
+	// }, [todoLabelsNew]);
+
 	return (
 		<CustomModal
 			title={<ModalTitle title={"Labels"} />}
@@ -27,15 +93,13 @@ function LabelModal({ showLabelModal, isLabelModalVisible }) {
 			<>
 				<div>Labels</div>
 				<div className="">
-					{labelColors.map(color => (
-						<div className="flex items-center gap-2 w-full">
-							<div
-								className={`${color.color} h-10 text-white font-bold p-2 w-full my-1 rounded-sm cursor-pointer hover:border-l-lime-300 hover:border-l-8 `}
-							>
-								{color.name}
-							</div>
-							<EditOutlined className="cursor-pointer hover:bg-neutral-100 rounded-sm p-2" />
-						</div>
+					{labelObj.map((label, index) => (
+						<LabelInput
+							labelObj={label}
+							todoDetail={todoDetail}
+							key={index}
+							handleWorkBoardTodoLabel={handleWorkBoardTodoLabel}
+						/>
 					))}
 				</div>
 			</>

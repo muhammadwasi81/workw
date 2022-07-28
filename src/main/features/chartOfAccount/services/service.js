@@ -25,12 +25,14 @@ export const getAllChartOfAccountService = async () => {
 	}
 };
 
-export const updateChartOfAccountService = data => {
-	return Config.put(`api/ChartOfAccount/UpdateChartOfAccount`, data)
-		.then(res => {
-			return res.data;
-		})
-		.catch(error => {
-			return error;
-		});
+export const updateChartOfAccountService = async(request) => {
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.put(`api/ChartOfAccount/UpdateChartOfAccount`, request);
+		if (responseCode === 1001) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
 };

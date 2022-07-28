@@ -1,27 +1,8 @@
-import { Collapse } from "antd";
-import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import ApprovalBody from "../components/ApprovalBody";
+import React from "react";
 import { PlusSquareOutlined, ReloadOutlined } from "@ant-design/icons";
-import RemarkFooter from "./RemarkFooter";
-const { Panel } = Collapse;
-function ApprovalWrapper({ title, data, referenceId }) {
-  const [files, setFiles] = useState([]);
-  const handleFile = (e) => {
-    if (e.target.files.length > 1) {
-      setFiles((prevValue) => [...prevValue, ...e.target.files]);
-    } else {
-      setFiles((prevValue) => [...prevValue, e.target.files[0]]);
-    }
-  };
-  const handleDelete = (deleteFile) => {
-    const allFiles = files.filter((file, index) => index !== deleteFile);
-    setFiles(allFiles);
-  };
-  useEffect(() => {
-    setFiles([]);
-  }, [data]);
+import Approval from "./Approval";
 
+function ApprovalWrapper({ title, data, module, approverType }) {
   return (
     <div className="approvalWrapper">
       <div className="approvalWrapper__header">
@@ -36,41 +17,21 @@ function ApprovalWrapper({ title, data, referenceId }) {
         </ul>
       </div>
 
-      {data?.map(({ approver, remarks, status }) => {
-        if (approver) {
-          const { businessId, designation, name, image, type } = approver;
+      {data?.map(
+        ({ approver, remarks: initialRemarks, status, approverId }, index) => {
           return (
-            <Collapse
-              className="approvalCollapse"
-              expandIconPosition={"right"}
-              key={businessId}
-            >
-              <Panel
-                extra={null}
-                header={
-                  <Header
-                    status={status}
-                    type={type}
-                    user={{
-                      name,
-                      designation,
-                      image,
-                    }}
-                  ></Header>
-                }
-              >
-                <ApprovalBody remarks={remarks} />
-                <RemarkFooter
-                  files={files}
-                  onFile={handleFile}
-                  onDelete={handleDelete}
-                  referenceId={referenceId}
-                />
-              </Panel>
-            </Collapse>
+            <Approval
+              module={module}
+              approverType={approverType}
+              key={index}
+              approver={approver}
+              initialRemarks={initialRemarks}
+              status={status}
+              approverId={approverId}
+            />
           );
         }
-      })}
+      )}
     </div>
   );
 }

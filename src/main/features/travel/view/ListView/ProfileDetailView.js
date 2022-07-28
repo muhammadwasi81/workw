@@ -13,10 +13,10 @@ function ProfileDetailView(props) {
 				<span className="text-primary-color font-bold text-sm">
 					{props.name}
 				</span>
-				<span className="flex items-center text-center">
-					{props.destination}&nbsp;<span>.</span>&nbsp;
+				<span className="flex items-center text-center text-xs sm:text-sm">
+					{props.destination}&nbsp;&#9679;&nbsp;
 					{moment(props.createDate).fromNow()}
-					&nbsp;.&nbsp;
+					&nbsp;&#9679;&nbsp;
 					{props.isPublic ? <BiWorld /> : <LockOutlined />}
 				</span>
 			</div>

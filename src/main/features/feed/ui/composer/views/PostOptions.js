@@ -3,19 +3,7 @@ import { feedSlice } from "../../../store/slice";
 import { PostType } from "../../../utils/constants";
 
 function PostOptions() {
-  const _fileProperties = [
-    "lastModified",
-    "lastModifiedDate",
-    "name",
-    "path",
-    "preview",
-    "size",
-    "type",
-    "webkitRelativePath",
-  ];
-
   const onPostAttachment = (files) => {
-   
     if (files.length && files[0]) {
       store.dispatch(feedSlice.actions.addPostAttachment({ files: files }));
     }

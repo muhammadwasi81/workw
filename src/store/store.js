@@ -54,6 +54,7 @@ import newStickySlice from "./appReducer/newStickySlice";
 import trelloSlice from "../main/features/workboard/store/slice";
 import expenseSlice from "../main/features/expense/store/slice";
 import taskSlice from "../main/features/task/store/taskSlice";
+import leadMangerSlice from "../main/features/leadmanager/store/slice";
 import chartOfAccountsSlice from "../main/features/chartOfAccount/store/slice";
 
 // import thunk from "redux-thunk";
@@ -107,7 +108,8 @@ const reducers = combineReducers({
   documentSlice,
   trelloSlice,
   taskSlice,
-  chartOfAccountsSlice
+  chartOfAccountsSlice,
+  leadMangerSlice,
 });
 
 const persistConfig = {

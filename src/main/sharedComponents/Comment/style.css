@@ -20,7 +20,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-left: 12px;
+
 }
 
 .commentComposer>.composer-area>.inputs {
@@ -28,6 +28,7 @@
     height: auto;
     box-sizing: border-box;
     font-size: 12px;
+    align-items: center;
     /* padding-top: 8px; */
 }
 
@@ -38,6 +39,18 @@
     margin-right: 10px;
     position: relative;
     /* height: min-content; */
+}
+
+.commentComposer>.composer-area>.inputs>.inp .ant-mentions>textarea {
+    border: none;
+    font-size: 12px;
+    padding-right: 0;
+    padding-top: 5px;
+}
+
+.commentComposer>.composer-area>.inputs>.inp .ant-mentions {
+    border: none;
+
 }
 
 .commentComposer>.composer-area>.inputs>.capture {
@@ -89,7 +102,7 @@
 .CommentBubble {
     background-color: rgb(244, 244, 244);
     color: black;
-    /* width: max-content; */
+    width: 100%;
     margin: 0 10px;
     padding: 10px 15px;
     font-size: 13px;
@@ -138,7 +151,7 @@
 
 .likeReplyCont {
     display: flex;
-    margin: 3px 10px;
+    margin: 3px 50px;
     color: #757D86;
 }
 

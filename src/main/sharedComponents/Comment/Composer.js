@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getMentionsAndText, isValidFileSize } from "../../../utils/base";
 import { DEFAULT_GUID } from "../../../utils/constants";
@@ -10,24 +10,19 @@ import closeIcon from "./assets/close.svg";
 import { postComment } from "./services";
 import "./style.css";
 
-const CommentComposer = (props) => {
+const CommentComposer = ({
+  isAttachment = true,
+  id = DEFAULT_GUID,
+  referenceId = DEFAULT_GUID,
+  parentId = DEFAULT_GUID,
+  module = 1,
+  commentRequestSuccess,
+  initialMentions = [],
+  placeHolder = "Write Your Comments Here.",
+}) => {
   const {
     userSlice: { user },
   } = useSelector((state) => state);
-  let {
-    isAttachment = true,
-    id = DEFAULT_GUID,
-    referenceId = DEFAULT_GUID,
-    parentId = DEFAULT_GUID,
-    module = 1,
-    afterSuccess,
-    placeHolder = "Write Your Comments Here.",
-  } = props;
-  const commentText = useRef();
-  const { name, userImage } = user;
-  const [mentions, setMentions] = useState([]);
-  const [mentionsInTitle, setMentionsInTitle] = useState([]);
-
   const defaultState = {
     hasAttachment: false,
     attachmentFile: null,
@@ -35,7 +30,12 @@ const CommentComposer = (props) => {
     attachmentPath: "",
     commentText: "",
   };
+  const { name, userImage } = user;
+  const [mentions, setMentions] = useState([...initialMentions]);
+  const [mentionsInTitle, setMentionsInTitle] = useState([]);
   const [state, setState] = useState(defaultState);
+  const search = useDebounce(state.commentText, 500);
+
   const handleCommentImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const validFile = isValidFileSize(e.target.files);
@@ -55,7 +55,7 @@ const CommentComposer = (props) => {
       }
     }
   };
-  const deleteAttachment = () => {
+  const handleDeleteAttachments = () => {
     setState({
       ...state,
       hasAttachment: false,
@@ -63,7 +63,7 @@ const CommentComposer = (props) => {
       attachmentFile: null,
     });
   };
-  const saveComment = async (event) => {
+  const createNewComment = async (event) => {
     const { title, mentions } = getMentionsAndText(
       state.commentText,
       mentionsInTitle
@@ -77,17 +77,17 @@ const CommentComposer = (props) => {
       attachments: [],
       mentions,
     };
-    if (event.keyCode == 13 || event.which == 13) {
+    if (event.keyCode === 13 || event.which === 13) {
       event.preventDefault();
       if (state.commentText.length > 0) {
-        const response = await postComment(commentObj);
         const prevText = state.commentText;
         setState((preValue) => ({
           ...preValue,
           commentText: "",
         }));
+        const response = await postComment(commentObj);
         if (response) {
-          afterSuccess && afterSuccess(response);
+          commentRequestSuccess && commentRequestSuccess(response);
         } else {
           setState((preValue) => ({
             ...preValue,
@@ -97,18 +97,18 @@ const CommentComposer = (props) => {
       }
     }
   };
-  const getempolyeeBySearch = async (search) => {
-    if (search.includes("@")) {
-      let filter = search.split("@").at(-1);
+  const getEmployeeOnMentionSearch = async (value) => {
+    if (value.includes("@")) {
+      let filter = value.split("@").at(-1);
       const text = filter.replace(/@/g, "");
 
       const { responseCode, data } = await getAllEmployeeService(text, 1, 20);
       if (responseCode === 1001) setMentions(data);
     }
   };
-  const search = useDebounce(state.commentText, 500);
+
   useEffect(() => {
-    getempolyeeBySearch(search);
+    getEmployeeOnMentionSearch(search);
   }, [search]);
 
   return (
@@ -116,8 +116,8 @@ const CommentComposer = (props) => {
       <div className="img">
         <Avatar
           name={name}
-          width={33}
-          height={33}
+          width={30}
+          height={30}
           round={true}
           src={userImage}
         />
@@ -132,18 +132,14 @@ const CommentComposer = (props) => {
                   ...preValue,
                   commentText: event,
                 }));
-                // getempolyeeBySearch(state.commentText);
               }}
               row={1}
-              ref={commentText}
-              style={{ height: "25px", border: "none" }}
-              onSelect={(e) => {
-                console.log(e);
-                setMentionsInTitle((preValue) => [...preValue, e]);
+              onSelect={(event) => {
+                setMentionsInTitle((preValue) => [...preValue, event]);
               }}
               value={state.commentText}
-              onKeyPress={(event) => saveComment(event)}
-              mentions={mentions}
+              onKeyPress={(event) => createNewComment(event)}
+              initialMentions={mentions}
               placeholder={placeHolder}
             />
           </div>
@@ -174,7 +170,7 @@ const CommentComposer = (props) => {
                 <div className="overlay">
                   <span>{state.attachmentName}</span>
                 </div>
-                <div className="cut" onClick={deleteAttachment}>
+                <div className="cut" onClick={handleDeleteAttachments}>
                   <img src={closeIcon} alt="#" />
                 </div>
               </div>

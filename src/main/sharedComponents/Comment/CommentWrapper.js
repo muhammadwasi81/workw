@@ -9,10 +9,10 @@ function CommentWrapper({
   initailComments = [],
   referenceId,
   module = 1,
-  afterSuccess,
+  commentRequestSuccess,
   placeHolder,
   isCommentLoad = false,
-  mentions,
+  initialMentions = [],
 }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -32,12 +32,11 @@ function CommentWrapper({
     <div className="commentWrapper">
       <CommentComposer
         referenceId={referenceId}
-        mentions={mentions}
         placeHolder={placeHolder}
         module={module}
-        afterSuccess={(comment) => {
+        commentRequestSuccess={(comment) => {
           setComments((preValue) => [...preValue, comment]);
-          afterSuccess && afterSuccess(comment);
+          commentRequestSuccess && commentRequestSuccess(comment);
         }}
       />
       <div className="comments">
@@ -48,21 +47,18 @@ function CommentWrapper({
             createDate,
             id: commentID,
             referenceId,
-            mentions: commentMentions,
+            mentions: mentionedUser,
           }) => {
             const { designation, name, image } = creator;
-            var ts = moment.utc(createDate);
-            ts.local().format("D-MMM-Y");
-           
             return (
               <CommentItem
-                mentions={mentions}
-                commentMentions={commentMentions}
+                initialMentions={initialMentions}
+                mentionedUser={mentionedUser}
                 comment={{
                   content: comment,
                   parentId: commentID,
                   referenceId: referenceId,
-                  commentTime: moment(ts).fromNow(),
+                  createDate,
                   youLikeType: 0,
                   likeCounter: 0,
                   creator: {

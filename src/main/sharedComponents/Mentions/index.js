@@ -6,13 +6,13 @@ function CustomMentions({
   value,
   onChange,
   onSelect,
-  mentions = [],
+  initialMentions = [],
   ...props
 }) {
   const [data, setData] = useState([]);
   useEffect(() => {
-    setData([...mentions]);
-  }, [mentions]);
+    setData([...initialMentions]);
+  }, [initialMentions]);
 
   return (
     <Mentions
@@ -20,12 +20,8 @@ function CustomMentions({
       rows={props.row || 4}
       placeholder={placeholder}
       value={value}
-      onChange={(value) => {
-        onChange(value);
-      }}
-      onSelect={(e) => {
-        onSelect(e);
-      }}
+      onChange={(value) => onChange(value)}
+      onSelect={(e) => onSelect(e)}
     >
       {data.map(({ id, image, name, designation }) => (
         <Mentions.Option key={id} value={name}>

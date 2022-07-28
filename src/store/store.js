@@ -107,7 +107,7 @@ const reducers = combineReducers({
   documentSlice,
   trelloSlice,
   taskSlice,
-  chartOfAccountsSlice
+  chartOfAccountsSlice,
 });
 
 const persistConfig = {

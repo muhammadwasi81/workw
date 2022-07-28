@@ -27,6 +27,7 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
       : ValidateDefaultPost(postCompose);
     if (!validation.valid) return rejectWithValue(validation.validationResult);
     const requestDto = SavePostRequestDto(postCompose);
+    console.log(postCompose);
     const response = await saveCreatePost(requestDto);
 
     // eslint-disable-next-line default-case
@@ -173,7 +174,11 @@ function onPostPollAttachmentChange(state, { payload: { index, files } }) {
       poll: { options },
     },
   } = current(state);
-  const currentOptions = [...options];
+
+  const currentOptions = options.map((option) => {
+    return { ...option, type: PollType.PICTURE };
+  });
+
   currentOptions[index] = { ...currentOptions[index], attachment: files[0] };
   state.postCompose.poll.options = currentOptions;
 }

@@ -1,4 +1,4 @@
-import { PostReferenceType, PostType } from "../../utils/constants";
+import { PollType, PostReferenceType, PostType } from "../../utils/constants";
 import { DEFAULT_GUID } from "../../../../../utils/constants";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 import { getMentionsAndText } from "../../../../../utils/base";
@@ -18,6 +18,7 @@ function getPollOptions({ type, poll: { options } }) {
     id: DEFAULT_GUID,
     option: value,
     attachment: { id: defaultUiid, file: attachment },
+    type: PollType.DEFAULT,
   }));
 }
 

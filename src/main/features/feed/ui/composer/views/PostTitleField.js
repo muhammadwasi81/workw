@@ -11,9 +11,9 @@ const PostTitleField = () => {
     ({ feedSlice }) => feedSlice.postCompose
   );
   const feedMentions = useSelector(
-    ({ feedSlice }) => feedSlice.mentionsOptions
+    ({ feedSlice = [] }) => feedSlice.mentionsOptions
   );
-  console.log(feedMentions);
+
   return (
     <Form.Item name={"postDetail"}>
       <Form.Item>
@@ -26,7 +26,7 @@ const PostTitleField = () => {
           }
           placeholder={PostType.getTitlePlaceHolder(type)}
           value={PostType.isPollType(type) ? pollTitle : title}
-          feedMentions={[]}
+          initialMentions={[...feedMentions]}
         />
       </Form.Item>
     </Form.Item>

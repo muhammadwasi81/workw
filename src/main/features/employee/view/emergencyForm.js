@@ -282,7 +282,7 @@ const EmergencyForm = ({ onEmergencyInfo, emergencyInfo }) => {
           {value.AddMoreEmergency}
         </S.EButton>
       </S.ButtonContainer>
-      {emergencyInfo.length > 0 && (
+      {emergencyInfo && emergencyInfo.length > 0 && (
         <S.Customtable
           direction={Direction}
           dataSource={emergencyInfo}

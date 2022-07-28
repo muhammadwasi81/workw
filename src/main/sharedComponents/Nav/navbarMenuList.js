@@ -307,6 +307,14 @@ const NavMenuList = () => {
 			isActive: true,
 			key: label.navMenuLabel.hr,
 		},
+		{
+			name: label.navMenuLabel.companies,
+			counter: 0,
+			icon: resignation,
+			to: ROUTES.RESIGNATION.RESIGNATION,
+			isActive: true,
+			key: label.navMenuLabel.companies,
+		},
 		// {
 		//   name: label.navMenuLabel.businessPolicy,
 		//   counter: 0,

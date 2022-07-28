@@ -43,9 +43,27 @@ export const routes = {
       component: lazy(() => import("../main/features/voucher/view/index")),
     },
     {
+      path: `${ROUTES.FORMS.DEFAULT}`,
+      component: lazy(() => import("../main/features/forms/view/index")),
+    },
+    // {
+    // 		path: `${ROUTES.FORMS.SUBMIT_FORM}`,
+    // 		component: lazy(() => import("../main/features/forms/view/forms/SubmitForm/index.js")),
+    // 	},
+    {
       path: `${ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT}`,
       component: lazy(() =>
         import("../main/features/chartOfAccount/view/index")
+      ),
+    },
+    {
+      path: `${ROUTES.FINANCE.TRANSACTION.DEFAULT}`,
+      component: lazy(() => import("../main/features/transaction/view/index")),
+    },
+    {
+      path: `${ROUTES.FINANCE.REPORT.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/financeReport/view/index")
       ),
     },
     {
@@ -85,8 +103,20 @@ export const routes = {
       component: lazy(() => import("../main/features/projects/index")),
     },
     {
+      path: `${ROUTES.PROJECT.DETAIL}`,
+      component: lazy(() =>
+        import("../main/features/projects/ProjectDetails/ProjectDetails")
+      ),
+    },
+    {
       path: `${ROUTES.GROUP.DEFAULT}`,
       component: lazy(() => import("../main/features/groups/index")),
+    },
+    {
+      path: `${ROUTES.GROUP.DETAIL}`,
+      component: lazy(() =>
+        import("../main/features/groups/GroupDetails/GroupDetails")
+      ),
     },
     {
       path: `${ROUTES.WORKBOARD.DEFAULT}`,
@@ -95,6 +125,16 @@ export const routes = {
     {
       path: `${ROUTES.WORKBOARD.TODO_BOARD}`,
       component: lazy(() => import("../main/features/workboard/Trello/Board")),
+    },
+    {
+      path: `${ROUTES.LEAD_MANAGER.DEFAULT}`,
+      component: lazy(() => import("../main/features/leadmanager/index")),
+    },
+    {
+      path: `${ROUTES.LEAD_MANAGER.LEAD_DETAIL}`,
+      component: lazy(() =>
+        import("../main/features/leadmanager/view/Board/Board")
+      ),
     },
     {
       path: `${ROUTES.WARNINGS.DEFAULT}`,
@@ -121,6 +161,12 @@ export const routes = {
     },
 
     //Hr Router
+    {
+      path: `${ROUTES.EMPLOYEES_INFO.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/employee/view/updateEmployee")
+      ),
+    },
     {
       path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
       component: lazy(() => import("../main/features/administration")),

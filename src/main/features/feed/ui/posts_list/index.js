@@ -2,6 +2,7 @@ import PostItem from "./post/index";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllFeed } from "../../store/actions";
 import { useEffect } from "react";
+import PostSkeleton from "./post/skeleton/post";
 
 function PostsList() {
   const { userSlice, feedSlice } = useSelector((state) => state);
@@ -19,7 +20,7 @@ function PostsList() {
     );
   }, []);
 
-  if (feedSlice.allFeed.loading) return <p>Loading</p>;
+  if (feedSlice.allFeed.loading) return <PostSkeleton />;
   return (
     <div className="newsList ">
       {!feedSlice.allFeed.posts.length > 0 ? (

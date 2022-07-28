@@ -10,7 +10,6 @@ function MyTask({list}) {
     startDateOnly:moment(item.startDate).format("MMM Do YYYY")
   }))
   const groupDate = groupByKey(filteredList, "startDateOnly");
-console.log(groupDate)
   return (
     <>
       {Object.keys(groupDate).map((item) => {

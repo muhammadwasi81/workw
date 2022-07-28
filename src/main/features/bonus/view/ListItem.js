@@ -14,7 +14,7 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { bonusDictionary } = bonusDictionaryList[userLanguage];
 
-  const { creator, category, createDate, members = [], approvers, amount, status, referenceNo, member } = props.item;
+  const { creator, category, createDate, members = [], approvers, amount, status, referenceNo, } = props.item;
 
   return (
     <SingleItem>
@@ -27,11 +27,11 @@ function ListItem(props) {
       />
       <ItemHeader>
         <div className="left">
-          {/* <UserInfo
+          <UserInfo
             avatarSrc={creator.image}
             name={creator.name}
             Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
-          /> */}
+          />
         </div>
         <div className="right">
           <Tag className="IdTag">{referenceNo}</Tag>
@@ -77,8 +77,8 @@ function ListItem(props) {
             <Avatar
               isAvatarGroup={true}
               isTag={false}
-              heading={"Member"}
-              membersData={member}
+              heading={"Members"}
+              membersData={members}
               text={"Danish"}
               image={"https://joeschmoe.io/api/v1/random"}
             />

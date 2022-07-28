@@ -6,6 +6,9 @@
   height: 40vmin;
   pointer-events: none;
 }
+input:active, input:focus, input {
+  outline: none !important;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

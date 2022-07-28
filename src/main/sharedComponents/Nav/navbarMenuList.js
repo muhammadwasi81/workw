@@ -77,6 +77,14 @@ const NavMenuList = () => {
   ];
   const navHrMenuData = [
     {
+      name: label.navMenuLabel.feed,
+      counter: 0,
+      to: DOMAIN_PREFIX,
+      icon: newsIcon,
+      isActive: 1,
+      key: label.navMenuLabel.menu,
+    },
+    {
       name: label.navMenuLabel.messenger,
       counter: 0,
       to: ROUTES.MESSENGER.DEFAULT,
@@ -85,11 +93,11 @@ const NavMenuList = () => {
       key: label.navMenuLabel.menu,
     },
     {
-      name: label.navMenuLabel.docsArchives,
+      name: label.navMenuLabel.leadManager,
       counter: 0,
-      to: ROUTES.DOCUMENTS.DOCUMENT,
-      icon: documentIcon,
-      // isActive: 6,
+      to: ROUTES.LEAD_MANAGER.DEFAULT,
+      icon: contactManagerIcon,
+      isActive: 8,
       key: label.navMenuLabel.menu,
     },
     {
@@ -109,11 +117,11 @@ const NavMenuList = () => {
       key: label.navMenuLabel.menu,
     },
     {
-      name: label.navMenuLabel.feed,
+      name: label.navMenuLabel.docsArchives,
       counter: 0,
-      to: DOMAIN_PREFIX,
-      icon: newsIcon,
-      isActive: 1,
+      to: ROUTES.DOCUMENTS.DOCUMENT,
+      icon: documentIcon,
+      // isActive: 6,
       key: label.navMenuLabel.menu,
     },
     {
@@ -253,9 +261,17 @@ const NavMenuList = () => {
       key: label.navMenuLabel.finance,
     },
     {
+      name: label.navMenuLabel.transaction,
+      counter: 0,
+      to: ROUTES.FINANCE.TRANSACTION.ROOT,
+      icon: taskIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
       name: label.navMenuLabel.report,
       counter: 0,
-      to: "/Report",
+      to: ROUTES.FINANCE.REPORT.ROOT,
       icon: reportIcon,
       isActive: true,
       key: label.navMenuLabel.finance,

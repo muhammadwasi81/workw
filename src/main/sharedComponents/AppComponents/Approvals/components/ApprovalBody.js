@@ -1,7 +1,7 @@
 import React from "react";
 import Remarks from "./Remarks";
 import noData from "../../../../../content/svg/noData.svg";
-import { P } from "@antv/g2plot";
+
 function ApprovalBody({ remarks }) {
   return (
     <div className="approval__header-body">

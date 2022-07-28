@@ -65,7 +65,8 @@ const CreateDocDropdown = () => {
             />}
             trigger={['click']}>
             <Button className="headerBtn" >
-                {documentDictionary.create}
+                Create Document
+                {/* {documentDictionary.create} */}
             </Button>
         </Dropdown>
     );

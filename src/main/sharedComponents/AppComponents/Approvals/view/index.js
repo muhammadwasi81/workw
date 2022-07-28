@@ -4,7 +4,7 @@ import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 import "../style/index.css";
 import ApprovalWrapper from "../components/ApprovalWrapper";
 
-function Approval({ title, data, referenceId }) {
+function Approval({ title, data, module, approverType }) {
   return (
     <div className="approval">
       <div className="approval__header">
@@ -21,7 +21,12 @@ function Approval({ title, data, referenceId }) {
         /> */}
       </div>
       <div className="approval__body">
-        <ApprovalWrapper title={title} data={data} referenceId={referenceId} />
+        <ApprovalWrapper
+          title={title}
+          data={data}
+          module={module}
+          approverType={approverType}
+        />
       </div>
     </div>
   );

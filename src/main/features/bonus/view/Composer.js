@@ -7,6 +7,8 @@ import { addBonus } from "../store/actions";
 import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
+
 
 const initialState = {
   id: "",
@@ -38,6 +40,7 @@ const Composer = (props) => {
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
   const [value, setValue] = useState(1);
+  const [privacyId, setPrivacyId] = useState(1);
 
   const onFinish = (values) => {
 
@@ -64,6 +67,10 @@ const Composer = (props) => {
   const handleType = (value) => {
     setValue(value);
   };
+
+  const onPrivacyChange = value => {
+		setPrivacyId(value);
+	};
 
   return (
     <>
@@ -161,10 +168,16 @@ const Composer = (props) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={bonusDictionary.create}>
+        <div className="flex items-center gap-2">
+            <PrivacyOptions
+							privacyId={privacyId}
+							onPrivacyChange={onPrivacyChange}
+						/>
+            <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={bonusDictionary.create}>
             {" "}
             {bonusDictionary.create}{" "}
           </Button>
+            </div>
         </Form.Item>
       </Form>
     </>

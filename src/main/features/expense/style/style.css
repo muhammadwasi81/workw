@@ -292,6 +292,10 @@
   font-weight: 600;
 }
 
+.addExpense .ant-input-number {
+  width: 100%;
+}
+
 .formItem-w50 {
   display: flex;
   align-items: center;

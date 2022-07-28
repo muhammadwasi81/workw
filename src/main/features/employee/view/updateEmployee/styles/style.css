@@ -1,0 +1,20 @@
+.updateFormsBody {
+    width: 100%;
+    background-color: white;
+    padding-top: 17px;
+}
+.updateFormsBody .ant-divider-horizontal {
+    display: none;
+}
+.updateFormsBody .bankDetailForm {
+    margin-top: 0px ;
+}
+.updateFormsBody .emergencyForm {
+    margin-top: 0px;
+}
+.updateFormsBody .emergencyForm .sc-evZas {
+    margin-top: 0px;
+}
+.updateFormsBody .basicInfoForm {
+    margin-top: 0;
+}

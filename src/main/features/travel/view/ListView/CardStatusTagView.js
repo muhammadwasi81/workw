@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 function CardStatusTagView(props) {
 	return (
-		<div>
+		<div className="flex justify-center m-auto sm:m-0">
 			<ReferenceTag refNo={props.refNo} />
 			<StatusTag status={props.status} />
 		</div>

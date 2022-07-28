@@ -122,6 +122,7 @@ const en = {
     messenger: "Messenger",
     chartOfAccount: "Chart of Account",
     voucher: "Voucher",
+    transaction: "Transaction",
     report: "Report",
     mailBox: "Mail Box",
     groups: "Groups",
@@ -417,7 +418,14 @@ const en = {
   myTeam: {},
   orgChart: {},
   payroll: {},
-  employee: {},
+  employee: {
+    Basic_Info: "Basic Information",
+    Email_Configuration: "Email Configuration",
+    Bank_Detail: "Bank Detail",
+    Education: "Education",
+    Emergency_Info: "Emergency Information",
+    Experience: "Experience",
+  },
   administration: {
     Business_Policy: "Business Policy",
     AccessRole: "Access Role",

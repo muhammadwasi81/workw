@@ -8,10 +8,11 @@ import { getAllComment } from "./services";
 function CommentWrapper({
   initailComments = [],
   referenceId,
-  module,
-  afterSuccess,
+  module = 1,
+  commentRequestSuccess,
   placeHolder,
   isCommentLoad = false,
+  initialMentions = [],
 }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -30,28 +31,34 @@ function CommentWrapper({
   return (
     <div className="commentWrapper">
       <CommentComposer
-        placeHolder={placeHolder}
         referenceId={referenceId}
+        placeHolder={placeHolder}
         module={module}
-        afterSuccess={(comment) => {
-          afterSuccess && afterSuccess(comment);
+        commentRequestSuccess={(comment) => {
           setComments((preValue) => [...preValue, comment]);
+          commentRequestSuccess && commentRequestSuccess(comment);
         }}
       />
       <div className="comments">
         {comments.map(
-          ({ comment, creator, createDate, id: commentID, referenceId }) => {
+          ({
+            comment,
+            creator,
+            createDate,
+            id: commentID,
+            referenceId,
+            mentions: mentionedUser,
+          }) => {
             const { designation, name, image } = creator;
-            var ts = moment.utc(createDate);
-            ts.local().format("D-MMM-Y");
-
             return (
               <CommentItem
+                initialMentions={initialMentions}
+                mentionedUser={mentionedUser}
                 comment={{
                   content: comment,
                   parentId: commentID,
                   referenceId: referenceId,
-                  commentTime: moment(ts).fromNow(),
+                  createDate,
                   youLikeType: 0,
                   likeCounter: 0,
                   creator: {

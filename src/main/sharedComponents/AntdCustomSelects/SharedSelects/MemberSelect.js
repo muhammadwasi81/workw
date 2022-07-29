@@ -133,7 +133,7 @@ function MemberSelect({
 			setIsAssignDefaultData(false);
 		}
 	}, [dataVal]);
-	// console.log("select", data);
+
 	return (
 		<AntCustomSelect
 			value={stateVal}

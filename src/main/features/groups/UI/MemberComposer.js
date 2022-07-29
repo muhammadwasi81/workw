@@ -1,104 +1,162 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Form, message } from "antd";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import Select from "../../../sharedComponents/Select/Select";
 import { DepartmentMemberTypeList } from "../constant/index";
-import { groupsDictionaryList } from "../localization/index";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { PlusOutlined } from "@ant-design/icons";
 import "./style.css";
+import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 
 function MemberComposer(props) {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
+	// const form = Form.useFormInstance();
 
-  const [newState, setNewState] = useState({
-    user: {
-      id: null,
-    },
-    memberType: null,
-  });
+	const { defaultData, Direction, form } = props;
+	const dispatch = useDispatch();
+	const employees = useSelector(state => state.sharedSlice.employees);
+	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+	const [value, setValue] = useState([]);
 
-  const handleMember = (val) => {
-    const user = JSON.parse(val);
-    setNewState({
-      ...newState,
-      user,
-    });
-  };
+	useEffect(() => {
+		fetchEmployees("", 0);
+	}, []);
 
-  const handleMemberType = (val) => {
-    setNewState({
-      ...newState,
-      memberType: val,
-    });
-  };
-  const handleAdd = () => {
-    if (newState.user && newState.memberType) {
-      //   Submit Here
-      // After Submit
-      props.handleAdd(newState);
-      setNewState({
-        user: {
-          id: null,
-        },
-        memberType: null,
-      });
-    } else {
-      message.error("Please Fill Required Fields");
-    }
-  };
+	useEffect(() => {
+		setValue(defaultData);
+		// setLoading(true);
+	}, [defaultData]);
 
-  const { user } = newState;
+	useEffect(() => {
+		if (employees.length > 0 && !isFirstTimeDataLoaded) {
+			setIsFirstTimeDataLoaded(true);
+			setFirstTimeEmpData(employees);
+		}
+	}, [employees]);
 
-  return (
-    <>
-      <div className="flex justify-between gap-4">
-        <div className="w-full">
-          <Form.Item name="members" showSearch={true} direction={Direction} rules={[{ required: true }]}>
-            <NewCustomSelect
-              name="members"
-              label={"Select Members"}
-              showSearch={true}
-              onChange={handleMember}
-              direction={Direction}
-              endPoint="api/Reference/GetAllUserReference"
-              valueObject={true}
-              requestType="get"
-              value={user.id}
-              defaultValue={user.id}
-              placeholder={groupsDictionary.selectMember}
-            />
-          </Form.Item>
-        </div>
-        <div className="memberTypeInput">
-          <Form.Item
-            name="membersType"
-            rules={[
-              {
-                required: true,
-                message: "Select Members",
-              },
-            ]}>
-            <Select
-              placeholder={"Select Type"}
-              data={DepartmentMemberTypeList()}
-              onChange={handleMemberType}
-              style={{
-                width: "100%",
-                borderRadius: "5px",
-              }}
-              size="large"
-            />
-          </Form.Item>
-        </div>
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
 
-        <div className="">
-          <PlusOutlined className="ThemeBtn text-xl" size="large" style={{ borderRadius: 4, border: 0, padding: "10px" }} onClick={handleAdd} />
-        </div>
-      </div>
-    </>
-  );
+	const selectedData = (data, obj) => {
+		setValue(data);
+		handleMember(obj);
+		// setMembers(obj);
+		// onChange(data, obj);
+	};
+	const [newState, setNewState] = useState({
+		members: [],
+		memberType: null,
+	});
+
+	const handleMember = val => {
+		setNewState({
+			...newState,
+			members: [...val],
+		});
+	};
+
+	const handleMemberType = val => {
+		setNewState({
+			...newState,
+			memberType: val,
+		});
+	};
+	const handleAdd = () => {
+		if (newState.members.length > 0 && newState.memberType) {
+			props.handleAdd(newState);
+			// form.setFieldsValue({ members: "", memberType: null });
+			// setNewState({
+			// 	members: [],
+			// 	memberType: null,
+			// });
+			// setValue([]);
+		} else {
+			message.error("Please Fill Required Fields");
+		}
+	};
+
+	return (
+		<>
+			<div className="flex justify-between gap-4">
+				<div className="w-full">
+					<Form.Item
+						name="members"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: "Select Members",
+							},
+						]}
+					>
+						<MemberSelect
+							data={firstTimeEmpData}
+							selectedData={selectedData}
+							canFetchNow={isFirstTimeDataLoaded}
+							fetchData={fetchEmployees}
+							placeholder={"Search Members"}
+							mode={""}
+							isObject={true}
+							loadDefaultData={true}
+							optionComponent={opt => {
+								return (
+									<>
+										<Avatar
+											name={opt.name}
+											src={opt.image}
+											round={true}
+											width={"30px"}
+											height={"30px"}
+										/>
+										{opt.name}
+									</>
+								);
+							}}
+							dataVal={value}
+						/>
+					</Form.Item>
+				</div>
+				<div className="memberTypeInput">
+					<Form.Item
+						name="memberType"
+						rules={[
+							{
+								required: true,
+								message: "Select Members Type",
+							},
+						]}
+					>
+						<Select
+							placeholder={"Select Type"}
+							data={DepartmentMemberTypeList()}
+							onChange={handleMemberType}
+							style={{
+								width: "100%",
+								borderRadius: "5px",
+							}}
+							size="large"
+						/>
+					</Form.Item>
+				</div>
+
+				<div className="">
+					<PlusOutlined
+						className="ThemeBtn text-xl"
+						size="large"
+						style={{
+							borderRadius: 4,
+							border: 0,
+							padding: "10px",
+						}}
+						onClick={handleAdd}
+					/>
+				</div>
+			</div>
+		</>
+	);
 }
 
 export default MemberComposer;

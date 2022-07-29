@@ -27,12 +27,10 @@ function ListItem(props) {
 	//   const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
 	const navigate = useNavigate();
 	const {
-		creator,
 		name,
 		description,
 		image = GroupDefaultImage,
 		members = [],
-		approvers,
 	} = props.item;
 
 	return (
@@ -40,11 +38,7 @@ function ListItem(props) {
 			<Card
 				className={"Card2"}
 				cover={
-					<img
-						alt="example"
-						className="object-cover"
-						src={GroupDefaultImage}
-					/>
+					<img alt="example" className="object-cover" src={image} />
 				}
 				actions={[]}
 				hoverable
@@ -53,46 +47,13 @@ function ListItem(props) {
 				}}
 			>
 				<Meta title={name} description={description} />
-				{/* <CardDetailView
-          isAvatarGroup={true}
-          isTag={false}
-          heading={"Members"}
-          membersData={members}
-          text={"Danish"}
-          image={"https://joeschmoe.io/api/v1/random"}
-        /> */}
+
 				<Avatar
 					isAvatarGroup={true}
 					isTag={false}
 					heading={"Members"}
 					membersData={members}
-					text={"Danish"}
-					image={"https://joeschmoe.io/api/v1/random"}
 				/>
-				{/* <div className="approversBox">
-          <div className="mem">
-            {members.map((val, i) => {
-              if (i > 2) return "";
-              let { member = { image: "", name: "" } } = val;
-              return member && member.image ? (
-                <div
-                  key={`grpmem${i}`}
-                  className="us-img"
-                  style={{
-                    backgroundImage: `url(${member.image})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "100% 100%",
-                  }}
-                />
-              ) : (
-                <div key={`grpmem${i}`} className="us-img">
-                  {getNameForImage(member ? member.name : "")}
-                </div>
-              );
-            })}
-            {members ? members.length > 2 ? <div className="us-img">{members && members.length - 2}+</div> : "" : null}
-          </div>
-        </div> */}
 			</Card>
 		</>
 	);

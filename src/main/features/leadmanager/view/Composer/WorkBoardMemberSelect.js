@@ -6,10 +6,10 @@ import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedS
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 
 function WorkBoardMemberSelect({
-	onChange,
-	defaultData,
-	loadDefaultData,
-	placeholder,
+	onChange = () => {},
+	defaultData = [],
+	loadDefaultData = false,
+	placeholder = "Search",
 }) {
 	const dispatch = useDispatch();
 	const employees = useSelector(state => state.sharedSlice.employees);

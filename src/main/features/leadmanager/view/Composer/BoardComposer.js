@@ -128,7 +128,15 @@ function BoardComposer({
 				)}
 			</Form.Item>
 
-			<Form.Item label={labels.members}>
+			<Form.Item
+				label={labels.members}
+				rules={[
+					{
+						required: true,
+						message: "Members is required",
+					},
+				]}
+			>
 				{dataLoading ? (
 					<Skeleton.Input active={true} block size={"large"} />
 				) : (

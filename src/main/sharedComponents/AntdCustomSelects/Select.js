@@ -4,39 +4,40 @@ import { useState } from "react";
 import Avatar from "../Avatar/avatarOLD";
 import "./antdCustomSelect.css";
 import { act } from "react-dom/test-utils";
+import { useSelector } from "react-redux";
 const { Option } = Select;
 
 function AntCustomSelect(props) {
-  const [pgNo, setPgNo] = useState(0);
+	const [pgNo, setPgNo] = useState(0);
 
-  const {
-    loading,
-    data,
-    onChange,
-    onSearch,
-    onSelect,
-    paginationHandler,
-    debouncedSearch,
-    apiData,
-    mode,
-    placeholder,
-    size,
-    filterOption,
-    tagRender,
-    isEmailSelect,
-    isImage,
-    value,
-    defaultData = [],
-    optionComponent,
-    label,
-    name,
-    isLoaded,
-  } = props;
+	const {
+		loading,
+		data,
+		onChange,
+		onSearch,
+		onSelect,
+		paginationHandler,
+		debouncedSearch,
+		apiData,
+		mode,
+		placeholder,
+		size,
+		filterOption,
+		tagRender,
+		isEmailSelect,
+		isImage,
+		value,
+		defaultData = [],
+		optionComponent,
+		label,
+		name,
+		isLoaded,
+	} = props;
 
-  useEffect(() => {
-    setPgNo(0);
-  }, [debouncedSearch]);
-
+	useEffect(() => {
+		setPgNo(0);
+	}, [debouncedSearch]);
+	const userId = useSelector(state => state.userSlice.user.id);
 	// handle pagination inside this component
 	const onPopupScroll = event => {
 		let target = event.target;
@@ -71,18 +72,23 @@ function AntCustomSelect(props) {
 			{isLoaded && !loading ? (
 				data &&
 				data.length > 0 &&
-				data.map((opt, index) => (
-					<Option
-						key={index}
-						value={isEmailSelect ? opt.email : opt.id}
-						disabled={defaultData.includes(opt.id)}
-						className="hover:!bg-primary-color hover:!text-white"
-					>
-						<div className="flex gap-1 items-center">
-							{optionComponent ? optionComponent(opt) : opt.name}
-						</div>
-					</Option>
-				))
+				data.map(
+					(opt, index) =>
+						userId !== opt.id && (
+							<Option
+								key={index}
+								value={isEmailSelect ? opt.email : opt.id}
+								disabled={defaultData.includes(opt.id)}
+								className="hover:!bg-primary-color hover:!text-white"
+							>
+								<div className="flex gap-1 items-center">
+									{optionComponent
+										? optionComponent(opt)
+										: opt.name}
+								</div>
+							</Option>
+						)
+				)
 			) : (
 				<Option>
 					<Space>

@@ -106,7 +106,7 @@ function WorkBoardDetail({ todoDetail }) {
 							onRemoveImg={onRemoveImg}
 						/>
 					)}
-					<div className="flex gap-5 justify-between flex-wrap">
+					<div className="flex gap-5 justify-between flex-wrap sm:flex-nowrap">
 						<div className="w-full sm:basis-9/12">
 							<WorkBoardDescription
 								todoData={todoData}

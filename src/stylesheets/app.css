@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+.ant-message-custom-content.ant-message-error{
+  display: flex; 
+  align-items: center;
+}
+
 .ant-btn-primary {
   /*background-color: #1b5669 !important;*/
   /*border: none !important;*/

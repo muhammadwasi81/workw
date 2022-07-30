@@ -3,6 +3,7 @@ import { ROUTES } from "../../../../utils/routes";
 import Header from "../../../layout/header";
 import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import ReportReport from "./Filter";
+import ReportView from "./reportView";
 const FinanceReport = () => {
   return (
     <TabbableContainer>
@@ -16,7 +17,20 @@ const FinanceReport = () => {
       />
       <ReportReport />
       <ContBody>
-        <h1>Reports</h1>
+        <div className="ReportViewCont" >
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+        </div>
       </ContBody>
     </TabbableContainer>
   );

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Steps, Form, Select, Button, Upload ,Divider, Space} from "antd";
+import { Steps, Form, Select, Button, Upload, Divider, Space } from "antd";
 
 const { Step } = Steps;
 
@@ -31,22 +31,23 @@ export const Container = styled(Form)`
   overflow: scroll;
   display: flex;
   flex-direction: column;
-  padding-bottom:6rem ;
+  padding-bottom: 6rem;
 `;
-export const ContentDivider=styled(Divider)`
-margin-top: 0 !important;
-color: black;
-&>span{
-  border: none;
-  color: rgb(26, 86, 105);
-  font-weight: bold;
-  font-size: 18px;
-  white-space: nowrap;
-}
-&::before,&::after{
-  border-top: 1px solid #00000052 !important;
-}
-`
+export const ContentDivider = styled(Divider)`
+  margin-top: 0 !important;
+  color: black;
+  & > span {
+    border: none;
+    color: rgb(26, 86, 105);
+    font-weight: bold;
+    font-size: 18px;
+    white-space: nowrap;
+  }
+  &::before,
+  &::after {
+    border-top: 1px solid #00000052 !important;
+  }
+`;
 // export const Stepers = styled(Steps)`
 //   height: 100px;
 //   display: flex;
@@ -79,33 +80,31 @@ export const FormItem = styled(Form.Item)`
   width: 100%;
   margin-bottom: 0px;
   flex-direction: column !important;
-  &>div:first-child{
+  & > div:first-child {
     display: flex;
-    justify-content: ${props=>props.direction==='ltr'? 'flex-start' : 'flex-end'};
+    justify-content: ${(props) =>
+      props.direction === "ltr" ? "flex-start" : "flex-end"};
     border: none;
-  color: #1a5669;
-  font-weight: bold;
-  font-size: 13px;
-  white-space: nowrap;
+    color: var(--primary_theme_color_green);
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
   }
   ${(props) =>
     props.area
       ? css`
-          grid-area: 1/-2 / span 2/span 1;
-          justify-self:flex-end;
+          grid-area: 1/-2 / span 2 / span 1;
+          justify-self: flex-end;
         `
       : ""};
 `;
-export const LabelText = styled.label`
-  
-`;
+export const LabelText = styled.label``;
 export const ImageUpload = styled(Upload)`
   display: flex;
   justify-content: flex-end;
-  @media (max-width:1056px){
+  @media (max-width: 1056px) {
     justify-content: center;
   }
-  
 `;
 export const ImageButton = styled(Button)`
   width: 120px;
@@ -126,50 +125,56 @@ export const CustomButton = styled(Button)`
 //education form container
 export const FormContainer = styled.div`
   display: grid;
-  grid-template-columns:${props=>props.type!=='constant' ?"repeat(auto-fit, minmax(18rem, 1fr))":"repeat(auto-fit, minmax(15rem, 1fr))"} ;
+  grid-template-columns: ${(props) =>
+    props.type !== "constant"
+      ? "repeat(auto-fit, minmax(18rem, 1fr))"
+      : "repeat(auto-fit, minmax(15rem, 1fr))"};
   row-gap: 5px;
   column-gap: 15px;
   padding: 0.5rem 2rem;
-  `;
-  export const CustomSpace=styled(Space)`
-   display: grid !important;
-  grid-template-columns:${props=>props.type!=='constant' ?"repeat(auto-fit, minmax(18rem, 1fr))":"repeat(auto-fit, minmax(15rem, 1fr))"} ;
+`;
+export const CustomSpace = styled(Space)`
+  display: grid !important;
+  grid-template-columns: ${(props) =>
+    props.type !== "constant"
+      ? "repeat(auto-fit, minmax(18rem, 1fr))"
+      : "repeat(auto-fit, minmax(15rem, 1fr))"};
   row-gap: 1px;
   column-gap: 15px;
   padding: 0.5rem 2rem;
   align-items: flex-start;
-  .ant-space-item:last-child{
+  .ant-space-item:last-child {
     align-self: center;
   }
-  `
-export const AddMoreDiv=styled.div`
-display:flex;
-flex-direction:column;
-
-`
+`;
+export const AddMoreDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 export const EFormItem = styled(Form.Item)`
   width: 100%;
   align-self: center;
   justify-self: center;
   margin-bottom: 0;
   flex-direction: column !important;
-  &>div:first-child{
+  & > div:first-child {
     display: flex;
-    justify-content: ${props=>props.direction==='ltr'? 'flex-start' : 'flex-end'};
+    justify-content: ${(props) =>
+      props.direction === "ltr" ? "flex-start" : "flex-end"};
     border: none;
-  color: #1a5669;
-  font-weight: bold;
-  font-size: 13px;
-  white-space: nowrap;
+    color: var(--primary_theme_color_green);
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
   }
-  & .custom-for-attachment-1{
+  & .custom-for-attachment-1 {
     height: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding-top: 10px;
   }
-  & .custom-for-attachment-2{
+  & .custom-for-attachment-2 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

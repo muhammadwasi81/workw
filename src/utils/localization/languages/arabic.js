@@ -143,13 +143,14 @@ const urdu = {
     complains: "شکایت",
     bonus: "انعام",
     resignations: "استعفی",
+    requisition: "الاستيلاء",
     rewards: "انعامات",
     businessPolicy: "کاروباری پالیسی",
     form: "فارم",
     finance: "مالیات",
     chartOfAccount: "اکاؤنٹ کا چارٹ",
     report: "رپورٹ",
-    voucher: "واؤچر"
+    voucher: "واؤچر",
   },
 
   /*** AppHeader only used in Component headerTab ***/

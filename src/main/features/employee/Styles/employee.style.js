@@ -1,5 +1,14 @@
 import styled, { css } from "styled-components";
-import { Steps, Form, Select, Button, Upload, Divider, Space, Table } from "antd";
+import {
+  Steps,
+  Form,
+  Select,
+  Button,
+  Upload,
+  Divider,
+  Space,
+  Table,
+} from "antd";
 
 const { Step } = Steps;
 
@@ -74,7 +83,7 @@ export const FormItem = styled(Form.Item)`
   & > div:first-child {
     display: flex;
     border: none;
-    color: #1a5669;
+    color: var(--primary_theme_color_green);
     font-weight: bold;
     font-size: 13px;
     white-space: nowrap;
@@ -114,11 +123,14 @@ export const BasicForm = styled.div`
   column-gap: 15px;
   direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
   ${Form.Item} {
-    justify-content: ${(props) => (props.direction === "ltr" ? "flex-end" : "flex-start")};
+    justify-content: ${(props) =>
+      props.direction === "ltr" ? "flex-end" : "flex-start"};
   }
   .ant-input-group-addon:first-child {
-    border-right: ${(props) => (props.direction === "ltr" ? "0" : "1px solid #d9d9d9")};
-    border-left: ${(props) => (props.direction === "ltr" ? "1px solid #d9d9d9" : "0")};
+    border-right: ${(props) =>
+      props.direction === "ltr" ? "0" : "1px solid #d9d9d9"};
+    border-left: ${(props) =>
+      props.direction === "ltr" ? "1px solid #d9d9d9" : "0"};
   }
 `;
 //label
@@ -150,14 +162,20 @@ export const CustomButton = styled(Button)`
 //education form container
 export const FormContainer = styled.div`
   display: grid;
-  grid-template-columns: ${(props) => (props.type !== "constant" ? "repeat(auto-fit, minmax(20rem, 1fr))" : "repeat(auto-fit, minmax(15rem, 1fr))")};
+  grid-template-columns: ${(props) =>
+    props.type !== "constant"
+      ? "repeat(auto-fit, minmax(20rem, 1fr))"
+      : "repeat(auto-fit, minmax(15rem, 1fr))"};
   row-gap: 5px;
   column-gap: 15px;
   padding: 0.5rem 2rem;
 `;
 export const CustomSpace = styled(Space)`
   display: grid !important;
-  grid-template-columns: ${(props) => (props.type !== "constant" ? "repeat(auto-fit, minmax(20rem, 1fr))" : "repeat(auto-fit, minmax(12rem, 1fr))")};
+  grid-template-columns: ${(props) =>
+    props.type !== "constant"
+      ? "repeat(auto-fit, minmax(20rem, 1fr))"
+      : "repeat(auto-fit, minmax(12rem, 1fr))"};
   row-gap: 1px;
   column-gap: 15px;
   padding: 0.5rem 2rem;
@@ -182,7 +200,7 @@ export const EFormItem = styled(Form.Item)`
     display: flex;
     direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
     border: none;
-    color: #1a5669;
+    color: var(--primary_theme_color_green);
     font-weight: bold;
     font-size: 13px;
     white-space: nowrap;

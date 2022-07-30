@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
+import {useParams} from 'react-router-dom';
 import { PlusOutlined } from "@ant-design/icons";
 import * as S from "../Styles/employee.style";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -9,11 +10,14 @@ import { employeeDictionaryList } from "../localization/index";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import { DatePicker, Checkbox, Typography } from "antd";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import { getAllEducationService } from "../../education/service/service";
+import { Table } from "../../../sharedComponents/customTable";
 const { RangePicker } = DatePicker;
 
-const EducationForm = ({ onEducationInfo, educationInfo }) => {
+const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const [cities, setCities] = useState({});
+	const detailId = useParams();
 	const { sharedLabels } = dictionaryList[userLanguage];
 	const { employeesDictionary, Direction } =
 		employeeDictionaryList[userLanguage];
@@ -21,6 +25,10 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
 	const placeholder = employeesDictionary.placeholders;
 	const [isSubmit, setIsSubmit] = useState(false);
 	const [present, setPresent] = useState(false);
+	const [education, setEducation] = useState([])
+	const [editIndex, setEditIndex] = useState()
+	const [editMode, setEditMode] = useState(false)
+
 	const [state, setState] = useState({
 		degree: "",
 		institute: "",
@@ -41,6 +49,22 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
 		cityId: false,
 		start: false,
 	});
+
+	console.log(detailId.id, "Hello ID")
+
+	useEffect(() => {
+		if (isEdit) {
+			getEducation()	
+		} 
+		setEducation([...educationInfo])
+		console.log("SASASAS")
+	},[])
+
+	const getEducation = async() => {
+		const response = await  getAllEducationService(detailId.id)
+		setEducation(response.data)
+	}
+
 	const handleChange = useCallback((value, name) => {
 		setState(prevState => ({
 			...prevState,
@@ -179,41 +203,61 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
 			key: "totalMarks",
 		},
 
-		{
-			title: value.StartEndDate,
-			dataIndex: "start_end",
-			key: "start_end",
-			render: (value, row, index) => {
-				return educationInfo[index].start_end.length !== 0
-					? `${educationInfo[index].start_end[0]} - ${educationInfo[index].start_end[1]}`
-					: `${educationInfo[index].start} -  Present`;
-			},
-		},
+		// {
+		// 	title: value.StartEndDate,
+		// 	dataIndex: "start_end",
+		// 	key: "start_end",
+		// 	render: (value, row, index) => {
+		// 		return educationInfo[index].start_end.length !== 0
+		// 			? `${educationInfo[index].start_end[0]} - ${educationInfo[index].start_end[1]}`
+		// 			: `${educationInfo[index].start} -  Present`;
+		// 	},
+		// },
 
 		{
 			title: sharedLabels.action,
 			render: value => {
 				return (
-					<a
-						href="asdasd"
-						onClick={e => {
-							e.preventDefault();
-							const index = educationInfo.findIndex(object => {
-								return object === value;
-							});
-							const filterArray = educationInfo.filter(
-								(value, i) => {
-									if (index !== i) return value;
-								}
-							);
-							onEducationInfo(filterArray);
-						}}
-					>
-						{sharedLabels.Delete}
-					</a>
+					<>
+						<a
+							href="asdasd"
+							
+							onRowClick={(e, a, b) => {
+								e.preventDefault();
+								console.log(e, a, b, "EEE")
+							}}
+						>
+							{"Edit"}
+						</a>
+					</>
 				);
 			},
 		},
+
+		// {
+		// 	title: sharedLabels.action,
+		// 	render: value => {
+		// 		return (
+		// 			<a
+		// 				href="asdasd"
+		// 				onClick={e => {
+		// 					e.preventDefault();
+		// 					const index = educationInfo.findIndex(object => {
+		// 						return object === value;
+		// 					});
+		// 					const filterArray = educationInfo.filter(
+		// 						(value, i) => {
+		// 							if (index !== i) return value;
+		// 						}
+		// 					);
+		// 					onEducationInfo(filterArray);
+		// 				}}
+		// 			>
+		// 				{sharedLabels.Delete}
+		// 			</a>
+		// 		);
+		// 	},
+		// },
 	];
 	useEffect(() => {
 		if (isSubmit) {
@@ -547,29 +591,38 @@ const EducationForm = ({ onEducationInfo, educationInfo }) => {
 							{value.Present}
 						</Checkbox>
 					</S.CustomSpace>
-
 					<S.ButtonContainer>
-						<S.EButton
-							type="dashed"
-							onClick={() => {
-								checkValidation();
-								setIsSubmit(true);
-							}}
-							block
-							icon={<PlusOutlined />}
-						>
-							{value.AddMoreEducation}
-						</S.EButton>
-					</S.ButtonContainer>
-					{educationInfo && educationInfo.length > 0 && (
-						<S.Customtable
-							direction={Direction}
-							dataSource={educationInfo}
+							<S.EButton
+								type="dashed"
+								onClick={() => {
+									checkValidation();
+									setIsSubmit(true);
+									setEditMode(false)
+								}}
+								block
+								icon={<PlusOutlined />}
+							>
+								{ editMode ? "Save" : value.AddMoreEducation}
+							</S.EButton>
+						</S.ButtonContainer>
+					{education  && education.length > 0 && (
+							<Table
 							columns={columns}
-							pagination={false}
-							style={{ margin: "2rem" }}
+							dragable={true}
+							data={education}
+							onRow = {(record, rowIndex) => {
+								return {
+									onClick: event => {
+										event.preventDefault();
+										setState(education[rowIndex])
+										setEditIndex([rowIndex])
+										setEditMode(true)
+						;
+									}
+								};
+							}}
 						/>
-					)}
+						)}
 				</S.AddMoreDiv>
 			</>
 		</>

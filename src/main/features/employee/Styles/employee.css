@@ -1,41 +1,40 @@
 .employeeSubmitButton {
-	align-self: flex-end;
-	margin-right: 70px;
-	margin-top: 20px;
+  align-self: flex-end;
+  margin-right: 70px;
+  margin-top: 20px;
 }
 
 .employeeFormImage {
-	width: 90px;
-	height: 90px;
+  width: 90px;
+  height: 90px;
 }
 
 .epmloyeeDeleteIcon {
-	font-size: 20px;
-	color: #1a5669;
+  font-size: 20px;
+  color: var(--primary_theme_color_green);
 }
 
 @media screen and (min-width: 1700px) {
-	.residentialAddress {
-		grid-area: 3/ 1 / span 1 / span 2;
-	}
+  .residentialAddress {
+    grid-area: 3/ 1 / span 1 / span 2;
+  }
 
-	.permenantAddress {
-		grid-area: 3/ 3 / span 1 / span 2;
-	}
+  .permenantAddress {
+    grid-area: 3/ 3 / span 1 / span 2;
+  }
 }
-@media screen and (max-width:700px) {
-	.uploadImg
-	{
-		justify-content: center;
-	}
+@media screen and (max-width: 700px) {
+  .uploadImg {
+    justify-content: center;
+  }
 }
 
 .newCustomSelect {
-	width: 100%;
+  width: 100%;
 }
 
 .formItem_userTitle {
-	margin-bottom: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 /* 
@@ -60,12 +59,20 @@
 	order: 3;
 } */
 
-.employeeForm>:nth-child(1) {
-	order: 1;
+.employeeForm > :nth-child(1) {
+  order: 1;
 }
-.ant-form .ant-form-item .ant-form-item-control, .ant-form .ant-form-item .ant-form-item-label{
-	flex: none;
+.ant-form .ant-form-item .ant-form-item-control,
+.ant-form .ant-form-item .ant-form-item-label {
+  flex: none;
 }
-.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item, .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-placeholder, .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector:after{
-	font-weight: 400;
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input)
+  .ant-select-selector
+  .ant-select-selection-item,
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input)
+  .ant-select-selector
+  .ant-select-selection-placeholder,
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input)
+  .ant-select-selector:after {
+  font-weight: 400;
 }

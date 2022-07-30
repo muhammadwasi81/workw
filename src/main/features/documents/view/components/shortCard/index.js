@@ -5,23 +5,33 @@ import menuIcon from '../../../../../../content/NewContent/Documents/3dots.svg';
 import favorateIcon from '../../../../../../content/NewContent/Documents/favorate.svg';
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
+import { getIconByExtensionType } from "../../../constant/helpers";
+import { IconByExtensionType } from "../../../constant";
+import { attachTypeApi } from "antd/lib/message";
+import { DOCUMENT_ENUM } from "../../../constant";
+import {
+    FilePdfOutlined,
+} from '@ant-design/icons';
+
 
 const DocShortCard = ({
     icon,
     name,
     description
 }) => {
+    let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
+
     return (
-        <DragDropContainer 
+        <DragDropContainer
             targetKey="docsDrag"
             dragData={{ name: "props.name" }}
             onDrop={() => { }}
             noDragging={false}>
-            <DropTarget 
-            onHit={() => { }} 
-            targetKey="docsDrag" 
-            highlighted 
-            dropData={{ name: "props.name" }}>
+            <DropTarget
+                onHit={() => { }}
+                targetKey="docsDrag"
+                highlighted
+                dropData={{ name: "props.name" }}>
                 <div className="d_ShortCard" >
                     <div className="d_ShortCard_Child1" >
                         <img
@@ -36,8 +46,13 @@ const DocShortCard = ({
                     <div className="d_ShortCard_Child2">
                         <img
                             alt=""
-                            src={pdfIcon}
+                            src={getIconByExtensionType(1)}
                         />
+                    </div>
+                    <div className="fileName">
+                        <h5>
+                            Folder
+                        </h5>
                     </div>
                     <div className="d_ShortCard_Child3">
                         <div></div>

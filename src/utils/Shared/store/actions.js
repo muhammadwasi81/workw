@@ -175,7 +175,7 @@ export const getAllEmployeeTypes = createAsyncThunk(
 export const uploadImage = createAsyncThunk(
   "Upload/UploadFiles",
   async (data) => {
-    // console.log("data from component", data);
+    console.log("data from component", data);
 
     const response = await uploadImageService(data);
     return response.data;

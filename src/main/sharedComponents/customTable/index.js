@@ -227,7 +227,18 @@ export class Table extends React.Component {
 				);
 			}
 		}
+		if (
+			JSON.stringify(prevProps.data) !==
+			JSON.stringify(this.props.data)
+		)
+			{ this.setState(
+				produce(state => {
+					state.data = this.props.data;
+					state.isDataPopulated = true;
+				})
+			);}
 	}
+	
 	render() {
 		const {
 			dragable,

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-
+import { useSelector, useDispatch } from "react-redux";
 import { TabbableContainer, ContBody } from "../../../layout/GridStyle";
 import Header from "../../../layout/header";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
@@ -8,6 +8,10 @@ import { resignationDictionaryList } from "../localization";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Composer from "./composer";
 import ListView from "./ListView";
+import DetailedView from "./DetailedView";
+import { CloseDetailView } from "../../../../store/appReducer/resignationSlice";
+import { Table } from "../../../sharedComponents/customTable";
+import { tableColumn } from "./TableColumn";
 // import ListItem from "./ListItem";
 //import "./style.css";
 //import styled from "styled-components";
@@ -18,9 +22,16 @@ function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { resignationDictionary } = resignationDictionaryList[userLanguage];
 
+  const dispatch = useDispatch();
+  const { listItem } = useSelector((state) => state.resignationSlice);
+
   const [tableView, setTableView] = useState(false);
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
+
+  const closeDetailView = () => {
+    dispatch(CloseDetailView());
+  };
 
   return (
     <TabbableContainer>
@@ -76,8 +87,12 @@ function Index() {
       />
 
       <ContBody>
-        <ListView />
+        {tableView && <Table columns={tableColumn()} dragable={true} />}
+        {!tableView && <ListView />}
       </ContBody>
+      {listItem && (
+        <DetailedView onClose={closeDetailView} visible={listItem} />
+      )}
     </TabbableContainer>
   );
 }

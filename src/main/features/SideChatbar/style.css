@@ -49,7 +49,7 @@
   height: 60px;
 }
 
-.sideBarHead>.headIcon {
+.sideBarHead > .headIcon {
   height: inherit;
   display: flex;
   justify-content: center;
@@ -81,7 +81,7 @@
 .myDivider {
   width: 80%;
   height: 1px;
-  background-color: #AAAAAA29;
+  background-color: #aaaaaa29;
   margin: auto;
 }
 
@@ -98,14 +98,14 @@
   border-radius: 7px;
   height: 30px;
   margin: 3px;
-  color: #1A5669;
+  color: var(--primary_theme_color_green);
   font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.chatSearchBoxHalf>img {
+.chatSearchBoxHalf > img {
   height: 17px;
 }
 
@@ -120,7 +120,7 @@
   font-size: 14px;
   align-self: center;
   font-weight: 700;
-  border-bottom: 1px solid #AAAAAA29;
+  border-bottom: 1px solid #aaaaaa29;
 }
 
 .hideSideBarItem {

@@ -327,8 +327,13 @@ export const ROUTES = {
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
   RESIGNATION: {
-    DEFAULT: `${DOMAIN_PREFIX}/designation/*`,
-    RESIGNATION: `${DOMAIN_PREFIX}/designation`,
+    DEFAULT: `${DOMAIN_PREFIX}/resignation/*`,
+    RESIGNATION: `${DOMAIN_PREFIX}/resignation`,
+    APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+  },
+  REQUISITION: {
+    DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+    REQUISITION: `${DOMAIN_PREFIX}/requisition`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
 
@@ -426,7 +431,10 @@ export const ROUTES = {
 		EXPENSES: `${DOMAIN_PREFIX}/travel/expenses`,
 		AGENT: `${DOMAIN_PREFIX}/travel/agent`,
 	},
-
+	COMPANIES: {
+		DEFAULT: `${DOMAIN_PREFIX}/companies/*`,
+		ROOT: `${DOMAIN_PREFIX}/companies`,
+	},
 	DOCUMENTS: {
 		DEFAULT: `${DOMAIN_PREFIX}/documents/*`,
 		DOCUMENT: `${DOMAIN_PREFIX}/documents`,

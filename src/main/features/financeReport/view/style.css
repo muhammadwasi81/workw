@@ -11,3 +11,17 @@
   align-items: center;
   width: calc(100% - 80px);
 }
+.reportView{
+  width: 100%;
+}
+
+.ledger{
+  width: 800px;
+  background-color: white;
+  min-height: 800px;
+  margin: 20px auto;
+}
+.ledger .reportHeader{
+  text-align: center;
+  padding-top: 20px;
+}

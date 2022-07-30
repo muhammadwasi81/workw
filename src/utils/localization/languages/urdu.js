@@ -143,6 +143,7 @@ const urdu = {
     complains: "شکایت",
     bonus: "انعام",
     resignations: "استعفی",
+    requisition: "درخواست",
     rewards: "انعامات",
     businessPolicy: "کاروباری پالیسی",
     form: "فارم",

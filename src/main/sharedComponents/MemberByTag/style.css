@@ -3,7 +3,7 @@
 }
 .MemberListItem .ant-list-item-meta-title {
   margin-bottom: 0px;
-  color: #1a5669;
+  color: var(--primary_theme_color_green);
   font-size: 15px;
   line-height: 1;
 }

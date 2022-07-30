@@ -8,7 +8,7 @@
   width: calc(100% - 80px);
 }
 
-.topBar .ant-segmented-item-icon+* {
+.topBar .ant-segmented-item-icon + * {
   margin-left: 0;
 }
 
@@ -28,7 +28,7 @@
   background-color: transparent;
 }
 
-.topBar .ant-input-affix-wrapper>input.ant-input input {
+.topBar .ant-input-affix-wrapper > input.ant-input input {
   padding: 0;
   font-size: 12px;
 }
@@ -76,12 +76,12 @@
 }
 
 .primaryBtn:hover {
-  background-color: #1b5669;
+  background-color: var(--primary_theme_color_green);
   color: #fff;
 }
 
 .primaryBtn.active {
-  background-color: #1b5669;
+  background-color: var(--primary_theme_color_green);
   color: #fff;
 }
 
@@ -92,7 +92,7 @@
   justify-content: center;
 }
 
-.topBar .ant-segmented-item-icon+* {
+.topBar .ant-segmented-item-icon + * {
   font-size: 12px;
   font-weight: 600;
 }

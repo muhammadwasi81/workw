@@ -32,7 +32,12 @@ it can be found as a welcome guest in many households across the world.
       <div className="approval-top-bar">
         <Title level={5}>{warnings.approvers}</Title>
         <Button type="link" onClick={() => setVisible(true)}>
-          <PlusCircleOutlined style={{ fontSize: "21px", color: "#1A5669" }} />
+          <PlusCircleOutlined
+            style={{
+              fontSize: "21px",
+              color: "var(--primary_theme_color_green)",
+            }}
+          />
         </Button>
         <Modal
           title="Add New Approvar"

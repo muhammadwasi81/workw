@@ -15,7 +15,7 @@
   z-index: 10;
   font-size: 14px;
   letter-spacing: 1px;
-  background-color: #1a5669;
+  background-color: var(--primary_theme_color_green);
   color: rgb(255, 255, 255);
   display: flex;
   flex-direction: row;

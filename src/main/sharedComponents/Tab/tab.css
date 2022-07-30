@@ -1,13 +1,13 @@
-.ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar,
-.ant-tabs-top>.ant-tabs-nav:before,
-.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-ink-bar,
-.ant-tabs-top>div>.ant-tabs-nav:before {
+.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-top > .ant-tabs-nav:before,
+.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-top > div > .ant-tabs-nav:before {
   top: 0;
   height: 100%;
 }
 
-.ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar {
-  background-color: #1a5669;
+.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar {
+  background-color: var(--primary_theme_color_green);
   border-radius: 5px;
 }
 
@@ -27,14 +27,14 @@
   border-radius: 5px;
 }
 
-.ant-tabs-tab-btn:hover{
-    color: #1a5669;
+.ant-tabs-tab-btn:hover {
+  color: var(--primary_theme_color_green);
 }
 
-.ant-tabs-tab:hover{
-    color: #1a5669;
+.ant-tabs-tab:hover {
+  color: var(--primary_theme_color_green);
 }
 
-.ant-tabs-top>.ant-tabs-nav::before {
-    border: none;
-  }
+.ant-tabs-top > .ant-tabs-nav::before {
+  border: none;
+}

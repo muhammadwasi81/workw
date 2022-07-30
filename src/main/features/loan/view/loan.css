@@ -35,7 +35,7 @@
 }
 .IdTag {
     background-color: #DEE5E8;
-    color: #1A5669 !important;
+    color: var(--primary_theme_color_green) !important;
     border: 0;
 }
 .item-header .right button {

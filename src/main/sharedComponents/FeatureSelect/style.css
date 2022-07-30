@@ -18,7 +18,7 @@
   margin-top: 13px;
 }
 .radioSelected {
-  background-color: #1b5669;
+  background-color: var(--primary_theme_color_green);
 }
 .radioSelected h4 {
   color: white;

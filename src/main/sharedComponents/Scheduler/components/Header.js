@@ -27,9 +27,19 @@ function Header({ currentDate, onCalender, onToday, onPrev, onNext }) {
       >
         {moment(currentDate).format("MMMM DD YYYY")}
         {isOpen ? (
-          <CaretUpOutlined style={{ color: "#1a5669", fontSize: "16px" }} />
+          <CaretUpOutlined
+            style={{
+              color: "var(--primary_theme_color_green)",
+              fontSize: "16px",
+            }}
+          />
         ) : (
-          <CaretDownOutlined style={{ color: "#1a5669", fontSize: "16px" }} />
+          <CaretDownOutlined
+            style={{
+              color: "var(--primary_theme_color_green)",
+              fontSize: "16px",
+            }}
+          />
         )}
       </span>
       <div className="header__inner">

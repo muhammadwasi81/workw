@@ -1,3 +1,4 @@
+import { jsonToFormData } from "../../../../utils/base";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllRewardService = data => {
@@ -10,8 +11,11 @@ export const getAllRewardService = data => {
 		});
 };
 
-export const addRewardService = data => {
-	return MasterConfig.post(`api/Reward/AddReward`, data)
+export const addRewardService = async(data) => {
+	console.log(data, "FROM SERVICE");
+
+	const formData = jsonToFormData(data);
+	return MasterConfig.post(`api/Reward/AddReward`, formData)
 		.then(res => {
 			return res;
 		})

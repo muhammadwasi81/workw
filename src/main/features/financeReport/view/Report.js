@@ -17,7 +17,20 @@ const FinanceReport = () => {
       />
       <ReportReport />
       <ContBody>
-       <ReportView />
+        <div className="ReportViewCont" >
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+          <ReportView />
+        </div>
       </ContBody>
     </TabbableContainer>
   );

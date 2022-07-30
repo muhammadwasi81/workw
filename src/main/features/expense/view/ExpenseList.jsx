@@ -5,9 +5,9 @@ import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { BiWorld } from "react-icons/bi";
 import moment from "moment";
-import { statusEnum } from "../enums";
 import { expenseCategory } from "../enums/expenseCategory";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
+import { getStatusLabelAndColor } from "../../../sharedComponents/AppComponents/Approvals/enums";
 
 function ExpenseList({ onExpense, expense }) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -31,6 +31,8 @@ function ExpenseList({ onExpense, expense }) {
   let classes = "expenseCard ";
   classes += Direction === "rtl" ? "rtl" : "";
   const category = expenseCategory.filter((cate) => cate.id === categoryId)[0];
+  const { label, color } = getStatusLabelAndColor()[status];
+
   return (
     <div className={classes} onClick={() => onExpense(id)}>
       <div className="expenseCard__header">
@@ -49,8 +51,8 @@ function ExpenseList({ onExpense, expense }) {
         </div>
         <div className="right">
           <div className="primaryTag">{referenceNo}</div>
-          <div className="secondaryTag">
-            {statusEnum.Approvers[status - 1].label}
+          <div className="secondaryTag" style={{ background: color }}>
+            {label}
           </div>
         </div>
       </div>
@@ -63,9 +65,7 @@ function ExpenseList({ onExpense, expense }) {
                 {category.image}
                 {category.name}
               </span>
-              <span className="secondaryTag">
-                {statusEnum.Approvers[status - 1].label}
-              </span>
+              <span className="secondaryTag">{label}</span>
             </div>
             <div className="right">
               <p>Rs. {amount}</p>

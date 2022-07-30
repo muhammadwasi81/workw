@@ -1,9 +1,11 @@
 import moment from "moment";
 import React from "react";
 import Avatar from "../../../Avatar/avatarOLD";
+import { getStatusLabelAndColor } from "../enums";
 
 function RemarksBubble({ remarker, remark, type, status, date }) {
   const { name, image } = remarker;
+  const { label, color } = getStatusLabelAndColor()[status];
   return (
     <>
       <div className="comment">
@@ -14,7 +16,7 @@ function RemarksBubble({ remarker, remark, type, status, date }) {
           <h6>{name}</h6>
           <span> {moment(date).fromNow()}</span>
           <p>{remark}</p>
-          {/* <span style={{ color }}>{label}</span> */}
+          <span style={{ color }}>{label}</span>
         </div>
       </div>
     </>

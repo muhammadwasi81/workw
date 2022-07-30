@@ -18,7 +18,6 @@ function ExpenseDetail({ visible, onClose, id }) {
     if (visible) dispatch(getExpenseById(id));
   }, [visible]);
 
-  console.log(expense);
   return (
     <Drawer
       title={

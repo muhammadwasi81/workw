@@ -4,7 +4,7 @@ import ExpenseList from "./ExpenseList";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllExpense } from "../store/actions";
 
-function ExpenseListView() {
+function ExpenseListView({ filterType }) {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const { expenses, loader } = useSelector((state) => state.expenseSlice);
@@ -14,10 +14,10 @@ function ExpenseListView() {
       getAllExpense({
         pageNo: 1,
         pageSize: 20,
-        filterType: 1,
+        filterType,
       })
     );
-  }, []);
+  }, [filterType]);
 
   const handleDrawerClose = () => {
     setVisible(false);

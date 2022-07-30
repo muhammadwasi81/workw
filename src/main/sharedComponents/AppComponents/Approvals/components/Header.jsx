@@ -1,7 +1,9 @@
-import Avatar from "../../../Avatar/avatarOLD";
 import { Tag } from "antd";
-function Header({ user, type: typeNo, status }) {
+import Avatar from "../../../Avatar/avatarOLD";
+import { getStatusLabelAndColor } from "../enums";
+function Header({ user, type, status }) {
   const { name, designation, image } = user;
+  const { label, color } = getStatusLabelAndColor()[status];
 
   return (
     <div className="approval__body-header">
@@ -13,7 +15,7 @@ function Header({ user, type: typeNo, status }) {
         </div>
       </div>
       <div className="right">
-        {/* <Tag style={{ background: color }}>{label}</Tag> */}
+        <Tag style={{ background: color }}>{label}</Tag>
       </div>
     </div>
   );

@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import store from "../../../../../../store/store";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { FeedDictionary } from "../../../localization";
 import { feedSlice } from "../../../store/slice";
 import { PostType } from "../../../utils/constants";
 
@@ -11,6 +14,9 @@ function PostOptions() {
   const setPostTypeToPoll = () => {
     store.dispatch(feedSlice.actions.onPostTypeChange({ type: PostType.POLL }));
   };
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { composer } = FeedDictionary[userLanguage];
+  const { Poll, Documents, PhotoVideo } = composer;
 
   return (
     <div className="uploader">
@@ -26,7 +32,7 @@ function PostOptions() {
             src="https://konnect.im/static/media/image.002df348.svg"
             alt=""
           />{" "}
-          <span>Photo/Video</span>
+          <span>{PhotoVideo}</span>
         </div>
       </div>
       <div className="options">
@@ -41,7 +47,7 @@ function PostOptions() {
             src="https://konnect.im/static/media/contract.eb367011.svg"
             alt=""
           />{" "}
-          <span>Documents</span>
+          <span>{Documents}</span>
         </div>
       </div>
       <div className="options" onClick={() => setPostTypeToPoll()}>
@@ -50,7 +56,7 @@ function PostOptions() {
             src="https://konnect.im/static/media/ballot.ad2d2fc5.svg"
             alt=""
           />
-          <span>Poll</span>
+          <span>{Poll}</span>
         </div>
       </div>
     </div>

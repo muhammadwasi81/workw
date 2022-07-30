@@ -21,6 +21,7 @@ function LeadManager() {
 		topBar,
 		placeHolder,
 		labels,
+		table,
 	} = LeadManagerDictionaryList;
 	const [isTableView, setIsTableView] = useState(false);
 	return (

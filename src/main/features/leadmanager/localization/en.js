@@ -25,6 +25,12 @@ const en = {
 			uploadCvr: "Upload Cover",
 		},
 		detail: {},
+		table: {
+			name: "Name",
+			description: "Description",
+			members: "Members",
+			createDate: "Created Date",
+		},
 	},
 	Direction: "ltr",
 };

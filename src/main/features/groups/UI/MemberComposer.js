@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Form, message } from "antd";
-import Select from "../../../sharedComponents/Select/Select";
+import { Form, message, Select } from "antd";
 import { DepartmentMemberTypeList } from "../constant/index";
 import { PlusOutlined } from "@ant-design/icons";
 import "./style.css";
@@ -11,7 +10,7 @@ import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 
 function MemberComposer(props) {
 	// const form = Form.useFormInstance();
-
+	const { Option } = Select;
 	const { defaultData, Direction, form } = props;
 	const dispatch = useDispatch();
 	const employees = useSelector(state => state.sharedSlice.employees);
@@ -66,12 +65,12 @@ function MemberComposer(props) {
 	const handleAdd = () => {
 		if (newState.members.length > 0 && newState.memberType) {
 			props.handleAdd(newState);
-			// form.setFieldsValue({ members: "", memberType: null });
-			// setNewState({
-			// 	members: [],
-			// 	memberType: null,
-			// });
-			// setValue([]);
+			form.setFieldsValue({ members: [], memberType: null });
+			setNewState({
+				members: [],
+				memberType: null,
+			});
+			setValue([]);
 		} else {
 			message.error("Please Fill Required Fields");
 		}
@@ -81,43 +80,40 @@ function MemberComposer(props) {
 		<>
 			<div className="flex justify-between gap-4">
 				<div className="w-full">
-					<Form.Item
+					<MemberSelect
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={"Search Members"}
+						mode={""}
+						isObject={true}
+						loadDefaultData={true}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										round={true}
+										width={"30px"}
+										height={"30px"}
+									/>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
 						name="members"
 						showSearch={true}
 						direction={Direction}
 						rules={[
 							{
 								required: true,
-								message: "Select Members",
+								message: "Please select members.",
 							},
 						]}
-					>
-						<MemberSelect
-							data={firstTimeEmpData}
-							selectedData={selectedData}
-							canFetchNow={isFirstTimeDataLoaded}
-							fetchData={fetchEmployees}
-							placeholder={"Search Members"}
-							mode={""}
-							isObject={true}
-							loadDefaultData={true}
-							optionComponent={opt => {
-								return (
-									<>
-										<Avatar
-											name={opt.name}
-											src={opt.image}
-											round={true}
-											width={"30px"}
-											height={"30px"}
-										/>
-										{opt.name}
-									</>
-								);
-							}}
-							dataVal={value}
-						/>
-					</Form.Item>
+					/>
 				</div>
 				<div className="memberTypeInput">
 					<Form.Item
@@ -125,20 +121,23 @@ function MemberComposer(props) {
 						rules={[
 							{
 								required: true,
-								message: "Select Members Type",
+								message: "Please select member type.",
 							},
 						]}
 					>
 						<Select
 							placeholder={"Select Type"}
-							data={DepartmentMemberTypeList()}
 							onChange={handleMemberType}
 							style={{
 								width: "100%",
 								borderRadius: "5px",
 							}}
 							size="large"
-						/>
+						>
+							{DepartmentMemberTypeList().map(({ id, name }) => (
+								<Option value={id}>{name}</Option>
+							))}
+						</Select>
 					</Form.Item>
 				</div>
 

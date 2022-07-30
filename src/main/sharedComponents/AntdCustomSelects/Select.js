@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
-import { Select, Skeleton, Space } from "antd";
+import { Form, Select, Skeleton, Space } from "antd";
 import { useState } from "react";
-import Avatar from "../Avatar/avatarOLD";
 import "./antdCustomSelect.css";
-import { act } from "react-dom/test-utils";
 import { useSelector } from "react-redux";
 const { Option } = Select;
 
 function AntCustomSelect(props) {
 	const [pgNo, setPgNo] = useState(0);
-
+	const form = Form.useFormInstance();
 	const {
 		loading,
 		data,
@@ -29,9 +27,11 @@ function AntCustomSelect(props) {
 		value,
 		defaultData = [],
 		optionComponent,
-		label,
-		name,
 		isLoaded,
+		label = "",
+		name = "",
+		showSearch = false,
+		rules = [],
 	} = props;
 
 	useEffect(() => {
@@ -54,50 +54,57 @@ function AntCustomSelect(props) {
 	}, [pgNo]);
 	// console.log("data", isLoaded, data);
 	return (
-		<Select
-			className="w-full antd_custom_select"
-			mode={mode}
-			size={size}
-			showSearch
-			placeholder={placeholder}
-			tagRender={tagRender}
-			value={value}
-			loading={loading}
-			onPopupScroll={onPopupScroll}
-			onSelect={onSelect}
-			onChange={onChange}
-			onSearch={onSearch}
-			filterOption={filterOption}
+		<Form.Item
+			label={label}
+			name={name}
+			showSearch={showSearch}
+			rules={rules}
 		>
-			{isLoaded && !loading ? (
-				data &&
-				data.length > 0 &&
-				data.map(
-					(opt, index) =>
-						userId !== opt.id && (
-							<Option
-								key={index}
-								value={isEmailSelect ? opt.email : opt.id}
-								disabled={defaultData.includes(opt.id)}
-								className="hover:!bg-primary-color hover:!text-white"
-							>
-								<div className="flex gap-1 items-center">
-									{optionComponent
-										? optionComponent(opt)
-										: opt.name}
-								</div>
-							</Option>
-						)
-				)
-			) : (
-				<Option>
-					<Space>
-						<Skeleton.Avatar active={true} />
-						<Skeleton.Input active={true} />
-					</Space>
-				</Option>
-			)}
-		</Select>
+			<Select
+				className="w-full antd_custom_select"
+				mode={mode}
+				size={size}
+				showSearch
+				placeholder={placeholder}
+				tagRender={tagRender}
+				value={value}
+				loading={loading}
+				onPopupScroll={onPopupScroll}
+				onSelect={onSelect}
+				onChange={onChange}
+				onSearch={onSearch}
+				filterOption={filterOption}
+			>
+				{isLoaded && !loading ? (
+					data &&
+					data.length > 0 &&
+					data.map(
+						(opt, index) =>
+							userId !== opt.id && (
+								<Option
+									key={index}
+									value={isEmailSelect ? opt.email : opt.id}
+									disabled={defaultData.includes(opt.id)}
+									className="hover:!bg-primary-color hover:!text-white"
+								>
+									<div className="flex gap-1 items-center">
+										{optionComponent
+											? optionComponent(opt)
+											: opt.name}
+									</div>
+								</Option>
+							)
+					)
+				) : (
+					<Option>
+						<Space>
+							<Skeleton.Avatar active={true} />
+							<Skeleton.Input active={true} block />
+						</Space>
+					</Option>
+				)}
+			</Select>
+		</Form.Item>
 	);
 }
 

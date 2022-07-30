@@ -25,6 +25,12 @@ const urdu = {
 			uploadCvr: "کور اپ لوڈ کریں",
 		},
 		detail: {},
+		table: {
+			name: "نام",
+			description: "تفصیل",
+			members: "ممبران",
+			createDate: "تشکیل کی تاریخ",
+		},
 	},
 	Direction: "rtl",
 };

@@ -8,6 +8,7 @@ const initialState = {
 	groupDetail: null,
 	success: false,
 	error: false,
+	getDataLoading: false,
 };
 
 const groupSlice = createSlice({
@@ -17,8 +18,8 @@ const groupSlice = createSlice({
 	extraReducers: builder => {
 		builder.addCase(getAllGroup.fulfilled, (state, { payload }) => {
 			state.groups = payload.data;
-			state.loader = false;
 			state.success = true;
+			state.getDataLoading = false;
 		});
 
 		builder.addCase(addGroup.fulfilled, (state, { payload }) => {
@@ -27,12 +28,15 @@ const groupSlice = createSlice({
 			state.groups.push(payload.data);
 		});
 		builder
-			.addMatcher(isPending(...[getAllGroup, addGroup]), state => {
+			.addMatcher(isPending(getAllGroup), state => {
+				state.getDataLoading = true;
+			})
+			.addMatcher(isPending(...[addGroup]), state => {
 				state.loader = true;
 				state.success = false;
 				state.error = false;
 			})
-			.addMatcher(isRejected(...[getAllGroup]), state => {
+			.addMatcher(isRejected(...[getAllGroup, addGroup]), state => {
 				state.loader = false;
 				state.success = false;
 				state.error = true;

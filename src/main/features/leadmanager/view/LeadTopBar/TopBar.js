@@ -18,7 +18,7 @@ function LeadTopBar({ handleView, topBar }) {
 			}}
 			segment={{
 				onSegment: value => {
-					if (value === "Table") {
+					if (value === topBar.table) {
 						setTableView(true);
 					} else {
 						setTableView(false);

@@ -7,7 +7,7 @@ import { getAllLeadManager } from "../../store/actions";
 import GridView from "./GridView/GridView";
 import { tableColumn } from "./TableView/tableColumn";
 
-function LeadDashboard({ isTableView }) {
+function LeadDashboard({ isTableView, dictionary }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const leadManagerData = useSelector(
@@ -49,10 +49,11 @@ function LeadDashboard({ isTableView }) {
 					loading={loading}
 					dispatch={dispatch}
 					handleClickNavigation={handleClickNavigation}
+					dictionary={dictionary}
 				/>
 			) : (
 				<Table
-					columns={tableColumn()}
+					columns={tableColumn(dictionary)}
 					dragable={true}
 					// handleChange={handleChange}
 					// onPageChange={onPageChange}

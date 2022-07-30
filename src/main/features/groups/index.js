@@ -15,40 +15,42 @@ import Composer from "./UI/Composer";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllGroup } from "./store/actions";
-import FilterSearchButton from "../../sharedComponents/FilterSearch";
-import { CardWrapper2 } from "../../sharedComponents/Card/CardStyle";
+
 import { tableColumn } from "./UI/TableColumn";
 import { Table } from "../../sharedComponents/customTable";
 import TopBar from "../../sharedComponents/topBar/topBar";
 import Header from "../../layout/header/index";
-import { Avatar, Card } from "antd";
-const { Meta } = Card;
+
+import GridView from "../leadmanager/view/Dashboard/GridView/GridView";
+import { ROUTES } from "../../../utils/routes";
+import { useNavigate } from "react-router-dom";
+import Spinner from "../../sharedComponents/spinner/spinner";
 
 const initialComposerData = {
 	name: "",
 	description: "",
 	members: [],
-	attachments: [],
-	privacyId: 1,
-	image: "",
+	memberType: null,
 };
 const Groups = props => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { groupsDictionary } = groupsDictionaryList[userLanguage];
 	const [composerData, setComposerData] = useState(initialComposerData);
 	const [loading, setLoading] = useState(true);
 	const [tableView, setTableView] = useState(false);
 	const [visible, setVisible] = useState(false);
-	const { groups, loader, success } = useSelector(state => state.groupSlice);
-
-	const onClose = () => {
-		setVisible(false);
-	};
+	const { groups, success, getDataLoading } = useSelector(
+		state => state.groupSlice
+	);
 
 	useEffect(() => {
 		dispatch(getAllGroup());
 	}, []);
+	const handleClickNavigation = id => {
+		navigate(`${ROUTES.GROUP.DETAIL}`);
+	};
 
 	return (
 		<>
@@ -96,8 +98,10 @@ const Groups = props => {
 						label2: "Table",
 					}}
 				/>
-				<ContBody>
-					{groups?.length > 0 ? (
+				<ContBody className="!block">
+					{getDataLoading ? (
+						<Spinner />
+					) : groups?.length > 0 ? (
 						tableView ? (
 							<Table
 								columns={tableColumn()}
@@ -106,52 +110,14 @@ const Groups = props => {
 							/>
 						) : (
 							<>
-								{loader ? (
-									<>
-										<CardWrapper2>
-											<Skeleton
-												loading={loading}
-												avatar
-												active
-											>
-												<Meta
-													avatar={
-														<Avatar src="https://joeschmoe.io/api/v1/random" />
-													}
-													title="Card title"
-													description="This is the description"
-												/>
-											</Skeleton>
-											<Skeleton
-												loading={loading}
-												avatar
-												active
-											>
-												<Meta
-													avatar={
-														<Avatar src="https://joeschmoe.io/api/v1/random" />
-													}
-													title="Card title"
-													description="This is the description"
-												/>
-											</Skeleton>
-										</CardWrapper2>
-									</>
-								) : (
-									<CardWrapper2>
-										{groups.map((item, index) => {
-											return (
-												<>
-													<ListItem
-														item={item}
-														id={item.id}
-														key={index}
-													/>
-												</>
-											);
-										})}
-									</CardWrapper2>
-								)}
+								<GridView
+									data={groups}
+									loading={getDataLoading}
+									dispatch={dispatch}
+									handleClickNavigation={
+										handleClickNavigation
+									}
+								/>
 							</>
 						)
 					) : (

@@ -1,4 +1,4 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, message, Select } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,7 @@ import MemberComposer from "./MemberComposer";
 import { jsonToFormData, STRINGS } from "../../../../utils/base";
 
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { DepartmentMemberTypeList } from "../constant";
 
 const initialState = {
 	id: "",
@@ -84,6 +85,12 @@ const Composer = props => {
 				wrapperCol={{
 					span: 24,
 				}}
+				initialValues={{
+					memberType: null,
+					members: [],
+					name: "",
+					description: "",
+				}}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
@@ -98,7 +105,7 @@ const Composer = props => {
 							rules={[
 								{
 									required: true,
-									message: "Please Enter Name Group Name",
+									message: "Please enter group name.",
 								},
 							]}
 						>
@@ -125,12 +132,13 @@ const Composer = props => {
 					rules={[
 						{
 							required: true,
-							message: "Enter Description",
+							message: "Please enter description.",
 						},
 					]}
 				>
 					<Input.TextArea placeholder={"Enter Description"} />
 				</Form.Item>
+
 				<Form.Item
 					shouldUpdate={(prevValues, curValues) =>
 						prevValues.members !== curValues.members

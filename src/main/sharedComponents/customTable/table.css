@@ -36,3 +36,13 @@ thead tr th {
 .drag-handle {
   margin: 0px;
 }
+
+.custom_table.rtl .ant-table-thead, .custom_table.rtl .ant-table-tbody{
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.custom_table.ltr .ant-table-tbody, .custom_table.ltr .ant-table-tbody{
+  direction: ltr !important;
+  text-align: left !important;
+}

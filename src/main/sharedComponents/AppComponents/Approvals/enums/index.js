@@ -2,7 +2,7 @@ export const statusEnum = {
   ExpenseApproval: [
     {
       label: "In-Process",
-      color: "#1a5669",
+      color: "var(--primary_theme_color_green)",
     },
     {
       label: "Approved",

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="27" height="30" viewBox="0 0 27 30">
   <g id="Icon_feather-user" data-name="Icon feather-user" transform="translate(-4.5 -3)">
-    <path id="Path_1105" data-name="Path 1105" d="M30,31.5v-3a6,6,0,0,0-6-6H12a6,6,0,0,0-6,6v3" fill="none" stroke="#1a5669" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-    <path id="Path_1106" data-name="Path 1106" d="M24,10.5a6,6,0,1,1-6-6,6,6,0,0,1,6,6Z" fill="none" stroke="#1a5669" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_1105" data-name="Path 1105" d="M30,31.5v-3a6,6,0,0,0-6-6H12a6,6,0,0,0-6,6v3" fill="none" stroke="var(--primary_theme_color_green)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_1106" data-name="Path 1106" d="M24,10.5a6,6,0,1,1-6-6,6,6,0,0,1,6,6Z" fill="none" stroke="var(--primary_theme_color_green)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
   </g>
 </svg>

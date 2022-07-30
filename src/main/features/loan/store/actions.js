@@ -34,9 +34,9 @@ export const GetRewardById = createAsyncThunk(
 
 export const addReward = createAsyncThunk(
   "reward/addReward",
-  async (args, { dispatch, setState }) => {
-    const response = await addRewardService(args);
-    console.log(args, "FROM ACTION");
+  async (data, { dispatch, setState }) => {
+    const response = await addRewardService(data);
+    console.log(response, "FROM ACTION");
     return response;
   }
 );

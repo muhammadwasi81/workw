@@ -1,5 +1,5 @@
 .warning-content h4 {
-  color: #1a5669;
+  color: var(--primary_theme_color_green);
   font-size: 17px;
 }
 .ApproversDiv {
@@ -17,7 +17,7 @@
   padding-bottom: 8px;
 }
 .WarningFilterForm h2 {
-  color: #1a5669;
+  color: var(--primary_theme_color_green);
   margin: 0px;
 }
 .AttachmentGridView {

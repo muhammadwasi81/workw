@@ -1,6 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
 import React, { useCallback, useContext, useEffect } from "react";
+import {useParams} from 'react-router-dom';
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -13,12 +14,24 @@ import { getCitiesService } from "../../../../utils/Shared/services/services";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import { employeeDictionaryList } from "../localization/index";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import { Table } from "../../../sharedComponents/customTable";
+import { getCountries } from "../../../../utils/Shared/store/actions";
+import { useDispatch } from "react-redux";
+import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { getAllUserBankDetailsService } from "../../bankDetails/service/service";
 
-const BankForm = ({ onBankInfo, bankInfo }) => {
+const BankForm = ({ onBankInfo, bankInfo, isEdit }) => {
+	const dispatch = useDispatch()
 	const [searchTerm, setSearchTerm] = useState("");
 	const [cityIdData, setCityData] = useState([]);
 	const [counter, setCounter] = useState(0);
 	const [searching, setSearching] = useState(false);
+	const [bankDetails, setBankDetails] = useState([]);
+	const [editIndex, setEditIndex] = useState()
+	const [editMode, setEditMode] = useState(false)
+
+
 	const { countries } = useSelector(state => state.sharedSlice);
 
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -30,10 +43,24 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
 	const placeholder = employeesDictionary.placeholders;
 	const [isSubmit, setIsSubmit] = useState(false);
 	const [cities, setCities] = useState({});
+	const detailId = useParams();
+	
 
-	console.log(bankInfo, "BANK INFORMATION")
 
 	useEffect(() => {
+		if (isEdit) {
+			getBankDetail()	
+		} 
+		setBankDetails([...bankInfo])
+	},[])
+
+	const getBankDetail = async() => {
+		const response = await  getAllUserBankDetailsService(detailId.id)
+		setBankDetails(response.data)
+	}
+
+	useEffect(() => {
+		dispatch(getCountries());
 		if (debouncedSearchTerm) {
 			setSearching(true);
 			getCitiesService({
@@ -75,71 +102,98 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
 	}, []);
 	const columns = [
 		{
-			title: value.BankName,
-			dataIndex: "bankName",
-			key: "bankName",
-		},
-		{
-			title: value.AccountTitle,
-			dataIndex: "accountTitle",
-			key: "accountTitle",
-		},
-		{
-			title: value.BranchCode,
-			dataIndex: "bankBranchCode",
-			key: "bankBranchCode",
-		},
-		{
-			title: value.AccountNumber,
-			dataIndex: "accountNumber",
-			key: "accountNumber",
-		},
-		{
-			title: value.IBAN,
-			dataIndex: "ibanNumber",
-			key: "ibanNumber",
-		},
-		{
-			title: value.SortCode,
-			dataIndex: "sortCode",
-			key: "sortCode",
-		},
-		{
-			title: value.Country,
-			dataIndex: "countryId",
-			key: "countryId",
-			render: value => {
-				return countries.filter(item => item.id === value)[0].name;
-			},
-		},
-		{
-			title: value.City,
-			dataIndex: "cityId",
-			key: "cityId",
-			render: value => {
-				return cities[value];
-			},
-		},
+			title: "Status",
+			dataIndex: "status",
+			ellipsis: true,
+			render: (status) => <StatusTag status={status} />,
+			sort: true,
+		  },
+		  {
+			  title: "Bank Name",
+			  dataIndex: "bankName",
+			  ellipsis: true,
+			  key: "bankName",
+		  },
+		  {
+			  title: "Account Name",
+			  dataIndex: "accountTitle",
+			  ellipsis: true,
+			  key: "accountTitle",
+		  },
+		  {
+			  title: "Branch Code",
+			  dataIndex: "bankBranchCode",
+			  ellipsis: true,
+			  key: "bankBranchCode",
+		  },
+		  {
+			  title: "Account Number",
+			  dataIndex: "accountNumber",
+			  ellipsis: true,
+			  key: "accountNumber",
+		  },
+		  {
+			  title: "IBN",
+			  dataIndex: "ibanNumber",
+			  ellipsis: true,
+			  key: "ibanNumber",
+		  },
+		  {
+			  title: "Sort Code",
+			  dataIndex: "sortCode",
+			  ellipsis: true,
+			  key: "sortCode",
+		  },
+		//   {
+		//       title: "Country",
+		//       dataIndex: "countryId",
+		//       ellipsis: true,
+		//       key: "countryId",
+		//       render: value => {
+		//           return countries.filter(item => item.id === value)[0].name;
+		//       },
+		//   },
+		  {
+		      title: "City",
+		      dataIndex: "cityId",
+		      ellipsis: true,
+		      key: "cityId",
+		      render: value => {
+		          return cities[value];
+		      },
+		  },
 
 		{
 			title: sharedLabels.action,
 			render: value => {
 				return (
-					<a
-						href="asdasd"
-						onClick={e => {
-							e.preventDefault();
-							const index = bankInfo.findIndex(object => {
-								return object === value;
-							});
-							const filterArray = bankInfo.filter((value, i) => {
-								if (index !== i) return value;
-							});
-							onBankInfo(filterArray);
-						}}
-					>
-						{sharedLabels.Delete}
-					</a>
+					<>
+						{/* <a
+							href="asdasd"
+							onClick={e => {
+								e.preventDefault();
+								const index = bankInfo.findIndex(object => {
+									return object === value;
+								});
+								const filterArray = bankInfo.filter((value, i) => {
+									if (index !== i) return value;
+								});
+								onBankInfo(filterArray);
+							}}
+						>
+							{sharedLabels.Delete}
+						</a> */}
+						<a
+							href="asdasd"
+							
+							onRowClick={(e, a, b) => {
+								e.preventDefault();
+								console.log(e, a, b, "EEE")
+							}}
+						>
+							{"Edit"}
+						</a>
+					</>
 				);
 			},
 		},
@@ -265,8 +319,13 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
 				countryId: "",
 				cityId: "",
 			});
+			let updatedBankDetails = [...bankDetails]
+			updatedBankDetails[editIndex] = state
+			setBankDetails(updatedBankDetails)
+
 		}
 	};
+	console.log(bankDetails)
 	return (
 		<>
 			<S.ContentDivider
@@ -469,55 +528,58 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
 									)}
 								</div>
 							</S.FormItem>
-
-							<div className="input-row">
-								<Typography
-									level={5}
-									className="required_typography"
-									style={{ fontWeight: 600 }}
-								>
-									{value.Country}:
-								</Typography>
-								<div
-									style={{
-										display: "flex",
-										gap: "0px",
-										flexDirection: "column",
-									}}
-								>
-									<S.FormItem
-										name="countryId"
-										direction={Direction}
+							
+							<S.FormItem style={{marginTop: "0px"}}>
+								<div className="input-row">
+									<Typography
+										level={5}
+										className="required_typography"
+										style={{ fontWeight: 600 }}
 									>
-										<SharedSelect
-											data={countries}
-											placeholder="Select Country"
-											size={"large"}
-											status={
-												error.countryId ? "error" : ""
-											}
-											onChange={value => {
-												setState(prevValues => ({
-													...prevValues,
-													countryId: value,
-												}));
-											}}
-										/>
-
-										{error.countryId && (
-											<div
-												style={{
-													color: "red",
-													fontWeight: 400,
+										{value.Country}:
+									</Typography>
+									<div
+										style={{
+											display: "flex",
+											gap: "0px",
+											flexDirection: "column",
+										}}
+									>
+										<S.FormItem
+											name="countryId"
+											direction={Direction}
+										>
+											<SharedSelect
+												data={countries}
+												placeholder="Select Country"
+												size={"large"}
+												status={
+													error.countryId ? "error" : ""
+												}
+												onChange={value => {
+													setState(prevValues => ({
+														...prevValues,
+														countryId: value,
+													}));
 												}}
-											>
-												Please select country.
-											</div>
-										)}
-									</S.FormItem>
-								</div>
-							</div>
+											/>
 
+											{error.countryId && (
+												<div
+													style={{
+														color: "red",
+														fontWeight: 400,
+													}}
+												>
+													Please select country.
+												</div>
+											)}
+										</S.FormItem>
+									</div>
+								</div>
+							</S.FormItem>
+
+							<S.FormItem>
 							<div className="input-row">
 								<Typography
 									level={5}
@@ -536,6 +598,7 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
 									<NewCustomSelect
 										valueObject={true}
 										name="cityId"
+										value={state.cityId}
 										showSearch={true}
 										status={error.cityId ? "error" : ""}
 										endPoint="/api/Utility/GetAllCities"
@@ -566,10 +629,11 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
 									)}
 								</div>
 							</div>
-							<S.FormItem
+							</S.FormItem>
+							{/* <S.FormItem
 								name=""
 								direction={Direction}
-							></S.FormItem>
+							></S.FormItem> */}
 						</S.CustomSpace>
 
 						<S.ButtonContainer>
@@ -578,22 +642,33 @@ const BankForm = ({ onBankInfo, bankInfo }) => {
 								onClick={() => {
 									checkValidation();
 									setIsSubmit(true);
+									setEditMode(false)
 								}}
 								block
 								icon={<PlusOutlined />}
 							>
-								{value.AddMoreBank}
+								{ editMode ? "Save" : value.AddMoreBank}
 							</S.EButton>
 						</S.ButtonContainer>
-						{bankInfo  && bankInfo.length > 0 && (
-							<S.Customtable
-								direction={Direction}
-								dataSource={bankInfo}
-								columns={columns}
-								pagination={false}
-								style={{ margin: "2rem" }}
-							/>
+						{bankDetails  && bankDetails.length > 0 && (
+							<Table
+							columns={columns}
+							dragable={true}
+							data={bankDetails}
+							onRow = {(record, rowIndex) => {
+								return {
+									onClick: event => {
+										event.preventDefault();
+										setState(bankDetails[rowIndex])
+										setEditIndex([rowIndex])
+										setEditMode(true)
+						;
+									}
+								};
+							}}
+						/>
 						)}
+						
 					</>
 				</S.AddMoreDiv>
 			</>

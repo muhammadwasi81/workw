@@ -7,6 +7,7 @@ function Index() {
     <EducationForm
       educationInfo={educationInfo}
       onEducationInfo={setEducationInfo}
+      isEdit={true}
     />
   )
 }

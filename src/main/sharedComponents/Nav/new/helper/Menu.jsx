@@ -9,7 +9,7 @@ import ReactDragListView from "react-drag-listview";
 import { Collapse } from "antd";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
-import { CaretRightOutlined, MenuUnfoldOutlined, UsergroupAddOutlined, FileDoneOutlined } from "@ant-design/icons";
+import { CaretRightOutlined, MenuUnfoldOutlined, UsergroupAddOutlined, FileDoneOutlined, GlobalOutlined, SafetyCertificateOutlined } from "@ant-design/icons";
 const { Panel } = Collapse;
 
 function Menu() {
@@ -21,7 +21,6 @@ function Menu() {
   const groupedMenuItems = groupByKey(navHrMenuData, "key");
   const [data, setData] = useState(groupedMenuItems);
   let currentCategory = "";
-
   useEffect(() => {
     setData(groupedMenuItems);
   }, [Direction]);
@@ -60,7 +59,20 @@ function Menu() {
         }}
       />
     ),
-    
+    "Workwise Companies": (
+      <GlobalOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
+    Inventory: (
+      <SafetyCertificateOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
   };
 
   const dragProps = {

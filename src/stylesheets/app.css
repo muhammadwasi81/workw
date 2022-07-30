@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities; */
 
-.workboard_upload .ant-upload{
+.workboard_upload .ant-upload {
   width: 100%;
 }
 
@@ -230,6 +230,11 @@ iframe {
   text-align: center;
 }
 
+.ant-modal.rtl .ant-modal-close {
+  right: auto;
+  left: 0;
+}
+
 /* SALMAN CSS END */
 
 /* Danish css start */
@@ -373,10 +378,12 @@ iframe {
   color: white;
   border-radius: 10px;
 }
-.defaultNotification .ant-notification-notice-message{
+
+.defaultNotification .ant-notification-notice-message {
   margin: 0px !important;
 }
-.defaultNotification .ant-notification-notice-icon{
+
+.defaultNotification .ant-notification-notice-icon {
   top: 9px;
   left: 12px;
 }
@@ -385,7 +392,7 @@ iframe {
   background: #f4f4f4;
 }
 
-.drawerSecondary .ant-drawer-body > div {
+.drawerSecondary .ant-drawer-body>div {
   background: #fff;
   border-radius: 4px;
   padding: 15px;

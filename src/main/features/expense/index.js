@@ -16,8 +16,10 @@ import "./style/style.css";
 import CreateExpense from "./view/CreateExpense";
 import { toggleCreateComposer } from "./store/slice";
 import ExpenseTableView from "./view/ExpenseTableView";
+import { ExpenseFilterType } from "./enums/expenseCategory";
 
 function Expenses() {
+  const [filterType, setFilterType] = useState(ExpenseFilterType.myExpense);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appHeader, sharedLabels } = dictionaryList[userLanguage];
   const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
@@ -52,7 +54,7 @@ function Expenses() {
   ];
 
   const render = {
-    List: <ExpenseListView />,
+    List: <ExpenseListView filterType={filterType} />,
     Table: <ExpenseTableView />,
   };
   return (
@@ -67,20 +69,30 @@ function Expenses() {
         }}
         buttons={[
           {
-            name: labels.approvals,
-            onClick: () => {},
+            name: labels.myExpense,
+            onClick: () => {
+              setFilterType(ExpenseFilterType.myExpense);
+            },
           },
           {
-            name: labels.myExpense,
-            onClick: () => {},
+            name: labels.approvals,
+            onClick: () => {
+              console.log("end");
+              setFilterType(ExpenseFilterType.forApprovals);
+            },
           },
+
           {
             name: labels.forExecution,
-            onClick: () => {},
+            onClick: () => {
+              setFilterType(ExpenseFilterType.forExcecution);
+            },
           },
           {
             name: labels.forFinance,
-            onClick: () => {},
+            onClick: () => {
+              setFilterType(ExpenseFilterType.forFinance);
+            },
           },
         ]}
         segment={{

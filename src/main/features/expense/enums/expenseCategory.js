@@ -1,14 +1,3 @@
-// Transport=1,
-//     Health=2,
-//     Food=3,
-//     Shopping=4,
-//     Entertainment=5,
-//     Travel=6,
-//     Bill=7,
-//     Office=8,
-//     Fuel=9,
-//     Asset=10,
-//     Other=11
 export const expenseCategory = [
   {
     id: 1,
@@ -357,3 +346,9 @@ export const expenseCategory = [
     name: "Health",
   },
 ];
+export const ExpenseFilterType = {
+  myExpense: 1,
+  forApprovals: 2,
+  forExcecution: 3,
+  forFinance: 4,
+};

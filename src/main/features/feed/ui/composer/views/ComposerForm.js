@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Form } from "antd";
 import { useDispatch } from "react-redux";
 import PostTitleField from "./PostTitleField";
@@ -8,8 +8,13 @@ import PostPreviewAttachments from "./PostPreviewAttachments";
 import PostPollOptions from "./PostPollOptions";
 import PostOptions from "./PostOptions";
 import { getAllUser, onFeedCreateSubmitAction } from "../../../store/actions";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { FeedDictionary } from "../../../localization";
 
 export default function ComposerForm() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { composer } = FeedDictionary[userLanguage];
+  const { Post } = composer;
   const dispatch = useDispatch();
   const [formRef] = Form.useForm();
   useEffect(() => {
@@ -32,7 +37,7 @@ export default function ComposerForm() {
             dispatch(onFeedCreateSubmitAction());
           }}
         >
-          Post
+          {Post}
         </button>
       </div>
     </Form>

@@ -11,6 +11,7 @@
 .appSideBarDefault {
   width: 80px;
 }
+
 .appSideBarDefault-Mob {
   display: none !important;
 }
@@ -30,7 +31,7 @@
 
 .appSideBarClose {
   /* width: 80px !important; */
-  display: block ;
+  display: block;
   animation-name: sideBarCloseAnimation;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
@@ -53,10 +54,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 5px
+}
+
+.sideBarHead>.headIcon .anticon-phone svg {
+  font-size: 24px;
+  color: var(--primary_theme_color_green);
 }
 
 .headIcon>img {
-  height: 30px;
+  height: 24px;
   cursor: pointer;
 }
 
@@ -140,6 +147,7 @@
   from {
     width: 80px;
   }
+
   to {
     width: 240px;
   }
@@ -149,14 +157,17 @@
   from {
     width: 240px;
   }
+
   to {
     width: 80px;
   }
 }
+
 @keyframes sideBarCloseMobAnimation {
   from {
     width: 240px;
   }
+
   to {
     width: 0px;
     display: none !important;
@@ -168,6 +179,7 @@
     opacity: 1;
     width: 160px;
   }
+
   to {
     opacity: 0;
     width: 0px;
@@ -181,6 +193,7 @@
     position: relative;
     left: 100px;
   }
+
   to {
     opacity: 1;
     width: 160px;

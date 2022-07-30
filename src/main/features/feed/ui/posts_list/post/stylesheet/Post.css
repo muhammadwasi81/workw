@@ -786,6 +786,7 @@
     cursor: pointer;
     font-weight: 600;
     user-select: none;
+    gap: 8px;
 }
 
 .post>.post-footer>.post-events>.btn:nth-child(1) {

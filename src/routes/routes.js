@@ -324,5 +324,4 @@ export const routes = {
 			}),
 		},
 	],
-	Rewards: [],
 };

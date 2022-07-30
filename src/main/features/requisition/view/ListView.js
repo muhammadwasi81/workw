@@ -9,7 +9,6 @@ import {
 
 const ListView = () => {
   const dispatch = useDispatch();
-
   const getRewardId = (id) => {
     dispatch(OpenDetailView(id));
   };

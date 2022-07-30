@@ -1,4 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { addDocument } from "./actions";
 
 const initialState = {
   listLoading: false,
@@ -10,7 +11,12 @@ const initialState = {
     milepad: false,
     mileboard: false,
     mileshow: false,
-  }
+  },
+  listData: [],
+  editData: null,
+  success: false,
+  loader: false,
+  error: false
 };
 
 const documentSlice = createSlice({
@@ -27,6 +33,27 @@ const documentSlice = createSlice({
       state.currentTab = tab;
     }
   },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(addDocument.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.success = true;
+        state.listData = [payload, ...state.listData];
+      })
+      .addMatcher(
+        isPending(
+          ...[
+            addDocument
+          ]
+        ),
+        state => {
+          state.loader = true;
+          state.success = false;
+          state.error = false;
+        }
+      );
+  }
 
 });
 

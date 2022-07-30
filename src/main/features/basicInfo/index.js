@@ -7,7 +7,7 @@ function Index(props) {
   return (
     <>
       <S.Container className='basicInfoForm'>
-        <EmployeeForm handleImageUpload={props.handleImageUpload} />
+        <EmployeeForm handleImageUpload={props.handleImageUpload}  />
       </S.Container>
     </>
   )

@@ -12,42 +12,11 @@ import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 import { addDocument } from "../../store/actions";
 import { DOCUMENT_ENUM } from "../../constant";
 
-const initialState = {
-	id: "",
-	name: "",
-	reason: "",
-	description: "",
-	categoryId: "",
-	imageId: "",
-	members: [
-		{
-			memberId: "",
-			memberType: 1,
-		},
-	],
-	approvers: [
-		{
-			approverId: "",
-			approverType: 0,
-			isDefault: true,
-			status: 1,
-			email: "",
-		},
-	],
-};
-
 const CreateFolder = ({ isOpen, handleClose }) => {
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-	const [profileImage, setProfileImage] = useState(null);
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
-
-	const [state, setState] = useState(initialState);
-	const handleImageUpload = data => {
-		setProfileImage(data);
-	};
-
 	const onPrivacyChange = value => {
 		setPrivacyId(value);
 	};
@@ -57,36 +26,17 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 		let payload = {
 			name: values.name,
 			description: values.description,
-			approvers:values.approvers ?  values.approvers.map((item)=>({approverId:item})) : [],
-			members:values.readers ? values.readers.map((item)=>({memberId:item})) : [],
-			parentId:null,
-			documentType:DOCUMENT_ENUM.DUCOMENT_TYPE.folder
+			members: values.readers ? values.readers.map((item) => ({
+				memberId: item,
+				memberType: 1,
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER
+			})) : [],
+			parentId: null,
+			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.folder,
+			privacyId: privacyId
 		}
-		dispatch(addDocument(payload))
-
+		dispatch(addDocument({ payload, form }))
 		// form.resetFields();
-
-		// dispatch(uploadImage(profileImage)).then(x => {
-		// 	let photoId = x.payload.data[0].id;
-
-		// 	let approvers = values.approvers.map(approver => {
-		// 		return {
-		// 			approverId: approver,
-		// 			approverType: 0,
-		// 			email: "",
-		// 		};
-		// 	});
-		// 	let members = values.members.map(member => {
-		// 		return {
-		// 			memberId: member,
-		// 			memberType: 0,
-		// 		};
-		// 	});
-
-		// 	let payload = { ...values, imageId: photoId, approvers, members };
-
-		// 	// dispatch(addReward(payload));
-		// });
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -103,7 +53,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 			>
 				<Form
 					form={form}
-					name="addMileBoard"
+					name="addFolder"
 					labelCol={{
 						span: 24,
 					}}
@@ -137,42 +87,6 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 					>
 						<Input.TextArea
 							placeholder={"Enter Description"}
-						/>
-					</Form.Item>
-
-					<Form.Item
-						name="approvers"
-						label={"Approvers"}
-						showSearch={true}
-					// direction={Direction}
-					>
-						<NewCustomSelect
-							name="approvers"
-							label={"Approvers"}
-							showSearch={true}
-							// direction={Direction}
-							mode="multiple"
-							endPoint="api/Reference/GetAllUserReference"
-							requestType="get"
-							placeholder={"Approvers"}
-						/>
-					</Form.Item>
-
-					<Form.Item
-						name="collaborator"
-						label={"Collaborators"}
-						showSearch={true}
-					// direction={Direction}
-					>
-						<NewCustomSelect
-							name="collaborator"
-							label={"Collaborators"}
-							showSearch={true}
-							// direction={Direction}
-							mode="multiple"
-							endPoint="api/Reference/GetAllUserReference"
-							requestType="get"
-							placeholder={"Select Collaborators"}
 						/>
 					</Form.Item>
 

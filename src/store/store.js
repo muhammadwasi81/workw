@@ -57,6 +57,8 @@ import taskSlice from "../main/features/task/store/taskSlice";
 import leadMangerSlice from "../main/features/leadmanager/store/slice";
 import groupSlice from "../main/features/groups/store/slice";
 import chartOfAccountsSlice from "../main/features/chartOfAccount/store/slice";
+import loanSlice from "./appReducer/loanSlice";
+import resignationSlice from "./appReducer/resignationSlice";
 
 // import thunk from "redux-thunk";
 
@@ -105,6 +107,8 @@ const reducers = combineReducers({
 	NoteSlice,
 	bonusSlice,
 	businessPolicySlice,
+	loanSlice,
+	resignationSlice,
 	newStickySlice,
 	documentSlice,
 	trelloSlice,

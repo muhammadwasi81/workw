@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Form } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import PostTitleField from "./PostTitleField";
 import PostTagField from "./PostTagField";
 import PostPrivacyOptions from "./PostPrivacyOptions";
@@ -11,12 +11,11 @@ import { getAllUser, onFeedCreateSubmitAction } from "../../../store/actions";
 
 export default function ComposerForm() {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.feedSlice);
   const [formRef] = Form.useForm();
   useEffect(() => {
-    dispatch(getAllUser({ search: "", pageNo: 1, pageSize: 10 }));
+    dispatch(getAllUser({ search: "", pageNo: 1, pageSize: 20 }));
   }, []);
-  if (loading) return null;
+
   return (
     <Form form={formRef}>
       <PostTitleField />

@@ -1,9 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { addChartOfAccount, getAllChartOfAccount } from "./actions";
+import { createSlice, isPending } from "@reduxjs/toolkit"
+import { addChartOfAccount, getAllChartOfAccount, updateChartOfAccount } from "./actions";
 
 const initialState = {
    listData: [],
    editData: null,
+   success:false,
+   loader:false,
+   error:false
 };
 
 export const ChartOfAccountSlice = createSlice({
@@ -19,11 +22,41 @@ export const ChartOfAccountSlice = createSlice({
    extraReducers: (builder) => {
       builder
          .addCase(addChartOfAccount.fulfilled, (state, { payload }) => {
+            state.loader = false;
+            state.success = true;
             state.listData = [payload, ...state.listData];
          })
+         .addCase(updateChartOfAccount.fulfilled, (state, { payload }) => {
+            console.log(payload, "PAYLOAD HERE")
+            state.editData = null;
+            state.loader = false;
+            state.success = true;
+            let tempListData = [...state.listData];
+            tempListData.splice(
+               tempListData.findIndex(it=>it.id === payload.id),
+               1,
+               payload
+               );
+               state.listData = tempListData;
+         })
          .addCase(getAllChartOfAccount.fulfilled, (state, { payload }) => {
+            state.loader = false;
             state.listData = payload;
          })
+         .addMatcher(
+				isPending(
+					...[
+						addChartOfAccount,
+                  getAllChartOfAccount,
+                  updateChartOfAccount
+					]
+				),
+				state => {
+					state.loader = true;
+					state.success = false;
+					state.error = false;
+				}
+			);
    }
 })
 

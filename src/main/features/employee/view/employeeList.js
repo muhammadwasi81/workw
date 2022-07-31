@@ -21,8 +21,8 @@ function EmployeeList() {
   if (loader) return <Skeleton loading={true} active></Skeleton>;
   return (
     <AllEmpolyeeContainer direction={Direction}>
-      {employees.map(({ businessId, designation, email, image, name }) => {
-        return <EmployeeCard key={businessId} name={name} email={email} designation={designation} empNum={businessId} image={image} />;
+      {employees.map(({ businessId, designation, email, image, name, id }) => {
+        return <EmployeeCard key={businessId} name={name} id={id} email={email} designation={designation} empNum={businessId} image={image} />;
       })}
     </AllEmpolyeeContainer>
   );

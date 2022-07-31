@@ -27,7 +27,7 @@
   place-items: center;
   width: 27px;
   height: 27px;
-  background-color: #1b5669;
+  background-color: var(--primary_theme_color_green);
   border-radius: 50%;
   padding: 0;
   margin-left: -5px;
@@ -52,8 +52,8 @@
 }
 .header .left a.active,
 .header .left a:hover {
-  color: #1a5669;
-  border-bottom: 2px solid #1a5669;
+  color: var(--primary_theme_color_green);
+  border-bottom: 2px solid var(--primary_theme_color_green);
   font-weight: 600;
 }
 .header .right .buttons {
@@ -64,7 +64,7 @@
 }
 .header .right .headerBtn {
   color: #fff;
-  background-color: #1b5669;
+  background-color: var(--primary_theme_color_green);
   border-color: transparent;
   border-radius: 4px;
   padding: 0 15px;
@@ -95,7 +95,7 @@
   margin: 0 !important;
 }
 .header .right .dropDown .addBtn {
-  background: #1a5669;
+  background: var(--primary_theme_color_green);
   position: fixed;
   z-index: 99999;
   display: grid;
@@ -111,7 +111,7 @@
 .headerDropDown .ant-menu-item-selected,
 .headerDropDown .ant-menu-item-selected a,
 .headerDropDown .ant-menu-item-selected a:hover {
-  color: #1a5669;
+  color: var(--primary_theme_color_green);
 }
 .headerDropDown .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: #0000000f;

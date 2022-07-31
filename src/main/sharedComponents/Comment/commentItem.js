@@ -1,78 +1,67 @@
 import React, { useState } from "react";
-import Avatar from "../Avatar/avatarOLD";
 import "./style.css";
-import DotesIcon from "./assets/dotes.svg";
 import CommentComposer from "./Composer";
 import { getAllComment } from "./services";
-import moment from "moment";
+import CommentBubble from "./CommentBubble";
 
-const CommentItem = ({ comment }) => {
+const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
   let {
     referenceId,
     isReply = false,
     creator,
-    commentTime = "",
-    content = "",
+    createDate,
+    content,
     handleLike,
     parentId,
   } = comment;
-  let { name, image, designation } = creator;
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
-
   const toggleReply = (referenceId, parentId) => {
     setOpenComposer((prevState) => {
-      if (!prevState) getReply(referenceId, parentId);
+      if (!prevState) getRepliesByParent(referenceId, parentId);
       return !prevState;
     });
   };
-  const getReply = async (referenceId, parentId) => {
+  const getRepliesByParent = async (referenceId, parentId) => {
     const response = await getAllComment(referenceId, parentId);
-    const replies = response.map((reply) => {
-      const res = response.filter((res) => res.id === reply.id);
-      if (res.length > 0) return res[0];
-      else return reply;
-    });
-    setReplies(replies);
+    if (response) {
+      const replies = response.map((reply) => {
+        const res = response.filter((res) => res.id === reply.id);
+        if (res.length > 0) return res[0];
+        else return reply;
+      });
+      setReplies(replies);
+    }
   };
 
   return (
     <div className={"CommentItem " + (isReply ? "ReplyComment" : "")}>
-      <div>
-        <Avatar src={image} name={name} size={35} round={true} />
-      </div>
       <div style={{ flex: "1" }}>
-        <div className="CommentBubble">
-          <div className="CommentHeader">
-            <div className="CommentHeaderDet">
-              <div className="name">{name}</div>
-              <div className="designation">{designation}</div>
-            </div>
-            <div className="CommentHeaderIcon">
-              <img src={DotesIcon} alt="" />
-              <span className="time">{commentTime}</span>
-            </div>
+        <div>
+          <CommentBubble
+            user={creator}
+            content={content}
+            mentionedUser={mentionedUser}
+            date={createDate}
+          />
+
+          <div className="likeReplyCont">
+            <div onClick={() => handleLike(referenceId)}>Like</div>
+            <div onClick={() => toggleReply(referenceId, parentId)}>Reply</div>
           </div>
-
-          <div>{content}</div>
-        </div>
-
-        <div className="likeReplyCont">
-          <div onClick={() => handleLike(referenceId)}>Like</div>
-          <div onClick={() => toggleReply(referenceId, parentId)}>Reply</div>
         </div>
         <div>
           {openComposer && (
             <React.Fragment>
-              {replies.map(
+              {replies?.map(
                 ({
                   id: Rid,
-                  creator: Rcreator,
-                  createDate: RcreateDate,
-                  comment: Rcomment,
+                  creator: replyCreator,
+                  createDate: replyCreateDate,
+                  comment: replyContent,
+                  mentions: replyMentionedUser,
                 }) => {
-                  var ts = moment.utc(RcreateDate);
-                  ts.local().format("D-MMM-Y");
+                  console.log(replyCreator);
                   return (
                     <React.Fragment key={Rid}>
                       <div
@@ -80,39 +69,15 @@ const CommentItem = ({ comment }) => {
                           "CommentItem " + (isReply ? "ReplyComment" : "")
                         }
                       >
-                        <div>
-                          <Avatar
-                            src={Rcreator.image}
-                            name={Rcreator.commentTimename}
-                            size={35}
-                            round={true}
-                          />
-                        </div>
-                        <div style={{ flex: "1" }}>
-                          <div className="CommentBubble">
-                            <div className="CommentHeader">
-                              <div className="CommentHeaderDet">
-                                <div className="name">{Rcreator.name}</div>
-                                <div className="designation">
-                                  {Rcreator.designation}
-                                </div>
-                              </div>
-                              <div className="CommentHeaderIcon">
-                                <img src={DotesIcon} alt="" />
-                                <span className="time">
-                                  {moment(ts).fromNow()}
-                                </span>
-                              </div>
-                            </div>
-
-                            <div>{Rcomment}</div>
-                          </div>
-                          <div className="likeReplyCont">
-                            <div onClick={() => handleLike(referenceId)}>
-                              Like
-                            </div>
-                          </div>
-                        </div>
+                        <CommentBubble
+                          user={replyCreator}
+                          content={replyContent}
+                          mentionedUser={replyMentionedUser}
+                          date={replyCreateDate}
+                        />
+                      </div>
+                      <div className="likeReplyCont">
+                        <div onClick={() => handleLike(referenceId)}>Like</div>
                       </div>
                     </React.Fragment>
                   );
@@ -120,10 +85,11 @@ const CommentItem = ({ comment }) => {
               )}
 
               <CommentComposer
+                initialMentions={initialMentions}
                 placeHolder={"Write Your Reply Here."}
                 referenceId={referenceId}
                 parentId={parentId}
-                afterSuccess={(comment) =>
+                commentRequestSuccess={(comment) =>
                   setReplies((preValue) => [...preValue, comment])
                 }
               />

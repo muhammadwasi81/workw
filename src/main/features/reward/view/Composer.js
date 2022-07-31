@@ -11,6 +11,7 @@ import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import { STRINGS } from "../../../../utils/base";
 
 const initialState = {
   id: "",
@@ -58,36 +59,23 @@ const Composer = (props) => {
   };
 
   const onFinish = (values) => {
+    console.log(profileImage)
+    let approvers = values.approvers.map((approver) => {
+      return {
+        approverId: approver
+      };
+    });
+    let members = values.members.map((memeber) => {
+      return {
+        memberId: memeber
+      };
+    });
+    let image = { id: STRINGS.DEFAULTS.guid, file:profileImage[0].originFileObj }
+    let payload = { ...values, approvers, members, image };
+    console.log("payload")
+    dispatch(addReward(payload));
     form.resetFields();
 
-    dispatch(uploadImage(profileImage)).then((x) => {
-      // console.log(
-      // 	x.payload.data[0].id,
-      // 	"Hurry i got image if from server"
-      // );
-      console.log(x, "FIRST ONE");
-      let photoId = x.payload.data[0].id;
-
-      let approvers = values.approvers.map((approver) => {
-        return {
-          approverId: approver,
-          approverType: 0,
-          email: "",
-        };
-      });
-      let members = values.members.map((memeber) => {
-        return {
-          memberId: memeber,
-          memberType: 0,
-        };
-      });
-
-      let payload = { ...values, imageId: photoId, approvers, members };
-
-      dispatch(addReward(payload));
-      console.log(payload, "FINALLLLL");
-      // console.log(payload, "Final Data");
-    });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -111,7 +99,7 @@ const Composer = (props) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        // className={Direction === "ltr" ? "align-right" : ""}
+      // className={Direction === "ltr" ? "align-right" : ""}
       >
         <Form.Item
           label={rewardDictionary.name}

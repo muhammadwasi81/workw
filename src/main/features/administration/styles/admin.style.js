@@ -32,7 +32,8 @@ export const AdminPanelContainer = styled.div`
   width: 100%;
   background: #f9f9f9;
   min-height: 80vh;
-  flex-direction: ${(props) => (props.theme.Direction === "ltr" ? "row" : "row-reverse")};
+  flex-direction: ${(props) =>
+    props.theme.Direction === "ltr" ? "row" : "row-reverse"};
 `;
 export const AdminList = styled.div`
   height: min-content;
@@ -68,7 +69,8 @@ export const Item = styled.div`
   }
 `;
 export const Link = styled(NavLink)`
-  flex-direction: ${(props) => (props.theme.Direction === "ltr" ? "row" : "row-reverse")};
+  flex-direction: ${(props) =>
+    props.theme.Direction === "ltr" ? "row" : "row-reverse"};
 
   text-decoration: none !important ;
   padding-right: 10px;
@@ -77,7 +79,7 @@ export const Link = styled(NavLink)`
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  color: #1a5669;
+  color: var(--primary_theme_color_green);
   font-family: inherit;
   font-weight: ${(props) => (props.theme.Direction === "ltr" ? 700 : 500)};
 
@@ -92,14 +94,14 @@ export const Link = styled(NavLink)`
     left: 0;
   }
   &:hover {
-    color: #1a5669;
+    color: var(--primary_theme_color_green);
     ::before {
       width: 2px;
     }
   }
   &.active,
   &:active {
-    background-color: #1b5669;
+    background-color: var(--primary_theme_color_green);
     border-radius: 0 4px 4px 0;
     color: white;
 
@@ -108,7 +110,7 @@ export const Link = styled(NavLink)`
     }
 
     &:hover {
-      color: #1b5669;
+      color: var(--primary_theme_color_green);
       color: white;
       & > svg {
         fill: white;
@@ -127,7 +129,8 @@ export const Link = styled(NavLink)`
 export const Container = styled.div`
   width: 100%;
   display: block;
-  flex-direction: ${(props) => (props.theme.Direction === "ltr" ? "row" : "row-reverse")};
+  flex-direction: ${(props) =>
+    props.theme.Direction === "ltr" ? "row" : "row-reverse"};
   margin: 1rem 0;
   border-radius: 4px;
   background-color: white;
@@ -137,7 +140,7 @@ export const Container = styled.div`
 `;
 export const Heading = styled.div`
   width: 100%;
-  color: #1a5669;
+  color: var(--primary_theme_color_green);
   font-weight: ${(props) => (props.theme.Direction === "ltr" ? 700 : 500)};
 
   border: none;
@@ -148,7 +151,8 @@ export const Heading = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
-  flex-direction: ${(props) => (props.theme.Direction === "ltr" ? "row" : "row-reverse")};
+  flex-direction: ${(props) =>
+    props.theme.Direction === "ltr" ? "row" : "row-reverse"};
 `;
 export const FormCustom = styled(Form)`
   flex: 0 0 25%;
@@ -175,14 +179,15 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: ${(props) => (props.theme.Direction === "ltr" ? "flex-start" : "flex-end")};
+  align-items: ${(props) =>
+    props.theme.Direction === "ltr" ? "flex-start" : "flex-end"};
 `;
 export const Text = styled.div`
   display: flex;
 
   font-size: 12px;
   border: none;
-  color: #1a5669;
+  color: var(--primary_theme_color_green);
   font-weight: bold;
   font-size: 13px;
 `;
@@ -193,7 +198,8 @@ export const InputText = styled(Input)`
   &::placeholder {
     display: flex;
 
-    flex-direction: ${(props) => (props.theme.Direction === "ltr" ? "row" : "row-reverse")};
+    flex-direction: ${(props) =>
+      props.theme.Direction === "ltr" ? "row" : "row-reverse"};
   }
 `;
 export const InputNo = styled(InputNumber)`

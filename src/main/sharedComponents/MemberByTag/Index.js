@@ -10,30 +10,6 @@ const fakeDataUrl =
 const ContainerHeight = "400";
 
 const MemberList = props => {
-	// const [data, setData] = useState([]);
-	// console.log("data member list", props.data);
-	// const appendData = () => {
-	// 	fetch(fakeDataUrl)
-	// 		.then(res => res.json())
-	// 		.then(body => {
-	// 			setData(data.concat(body.results));
-	// 			// message.success(`${body.results.length} more items loaded!`);
-	// 		});
-	// };
-
-	// useEffect(() => {
-	// 	appendData();
-	// }, []);
-
-	// const onScroll = e => {
-	// 	if (
-	// 		e.currentTarget.scrollHeight - e.currentTarget.scrollTop ===
-	// 		ContainerHeight
-	// 	) {
-	// 		appendData();
-	// 	}
-	// };
-
 	return (
 		<List>
 			<VirtualList
@@ -58,7 +34,12 @@ const MemberList = props => {
 							title={<a href="">{item.members[0].name}</a>}
 							description={item.members[0].email}
 						/>
-						<div style={{ color: "#1A5669", fontWeight: 700 }}>
+						<div
+							style={{
+								color: "var(--primary_theme_color_green)",
+								fontWeight: 700,
+							}}
+						>
 							{item.memberType === 1
 								? "Employee"
 								: item.memberType === 2

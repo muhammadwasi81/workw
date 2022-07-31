@@ -20,7 +20,7 @@ export const addChartOfAccount = createAsyncThunk(
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         dispatch(openNotification({
-          message: "ChartOfAccount Create Successfully",
+          message: "Chart Of Account Create Successfully",
           style: { backgroundColor: "#48da00" },
           type:"success",
           duration: 2
@@ -49,16 +49,20 @@ export const getAllChartOfAccount = createAsyncThunk(
 export const updateChartOfAccount = createAsyncThunk(
 	"updateChartOfAccount",
 	async (data, { dispatch, getState, rejectWithValue }) => {
-		const res = await updateChartOfAccountService(data);
-		if (res.responseCode === responseCode.Success) {
-      dispatch(handleEdit(null))
-			return res;
-		} else {
-			responseMessage({
-				dispatch: dispatch,
-				type: responseMessageType.ApiFailure,
-			});
-			return rejectWithValue("Something went wrong");
-		}
+		const response = await updateChartOfAccountService(data);
+		switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(openNotification({
+          message: "Chart Of Account Update Successfully",
+          style: { backgroundColor: "#48da00" },
+          type:"success",
+          duration: 2
+        }))
+        return response.data;
+      default:
+        return;
+    }
 	}
 );

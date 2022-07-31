@@ -22,14 +22,14 @@ function PostPrivacyOptionsMenu(onPrivacyChange, labels) {
 					src="https://konnect.im/static/media/world.f69f1142.svg"
 					alt=""
 				/>
-				<span>{labels.public}</span>
+				<span>{labels ? labels.public : "Public"}</span>
 			</div>
 			<div onClick={() => onPrivacyChange(PostPrivacyType.PRIVATE)}>
 				<img
 					src="https://konnect.im/static/media/padlock.35a2d6ca.svg"
 					alt=""
 				/>
-				<span>{labels.private}</span>
+				<span>{labels ? labels.private : "Private"}</span>
 			</div>
 		</div>
 	);

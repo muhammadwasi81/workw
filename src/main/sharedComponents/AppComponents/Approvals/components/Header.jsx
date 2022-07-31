@@ -1,9 +1,6 @@
 import Avatar from "../../../Avatar/avatarOLD";
 import { Tag } from "antd";
-import { statusEnum, statusObj } from "../enums";
-function Header({ user, type: typeNo = 1, status = 1 }) {
-  const type = statusObj[typeNo];
-  const { label, color } = statusEnum[type][status - 1];
+function Header({ user, type: typeNo, status }) {
   const { name, designation, image } = user;
 
   return (
@@ -16,7 +13,7 @@ function Header({ user, type: typeNo = 1, status = 1 }) {
         </div>
       </div>
       <div className="right">
-        <Tag style={{ background: color }}>{label}</Tag>
+        {/* <Tag style={{ background: color }}>{label}</Tag> */}
       </div>
     </div>
   );

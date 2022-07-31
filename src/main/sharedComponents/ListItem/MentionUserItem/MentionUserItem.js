@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import Avatar from "../../Avatar/avatarOLD";
 
 const Styles = {
   ItemWrapper: styled.div`
     display: flex;
     align-items: center;
+    gap: 8px;
   `,
   Avatar: styled.img`
     width: 24px;
@@ -26,11 +28,11 @@ const Styles = {
 };
 
 function MentionUserItem({ avatar, name, designation }) {
-  const { ItemWrapper, Avatar, Detail, UserName, UserDesignation } = Styles;
+  const { ItemWrapper, Detail, UserName, UserDesignation } = Styles;
 
   return (
     <ItemWrapper>
-      <Avatar src={avatar} alt={""} />
+      <Avatar name={name} width={24} height={24} round={true} src={avatar} />
       <Detail>
         <UserName>{name}</UserName>
         <UserDesignation>{designation}</UserDesignation>

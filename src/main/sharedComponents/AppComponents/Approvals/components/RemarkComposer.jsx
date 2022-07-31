@@ -5,6 +5,8 @@ import { SmileOutlined, PictureOutlined } from "@ant-design/icons";
 import FilePreview from "../../../FilePreview";
 import EmojiPicker from "../../../../features/Messenger/view/MessengerBox/helpers/emojiPicker";
 import { useSelector } from "react-redux";
+import { ApprovalStatus } from "../enums";
+import RemarkStatus from "./RemarkStatus";
 
 function RemarksComposer({
   files,
@@ -12,10 +14,18 @@ function RemarksComposer({
   onDelete,
   onRemarksText,
   onCurrentStatus,
+  createBy,
+  approverId,
+  status,
 }) {
   const { user } = useSelector((state) => state.userSlice);
   const [text, setText] = useState("");
-  const { name, userImage } = user;
+  const { name, userImage, id } = user;
+  const isRemarker = createBy === id;
+  const isApprover = approverId === id;
+  const isRemarkApproved = ApprovalStatus.Approved === status;
+  const isRemarkDecline = ApprovalStatus.Declined === status;
+  const isRemarkCancelled = ApprovalStatus.Cancelled === status;
   const index = useId();
   const [isEmoji, setisEmoji] = useState(false);
 
@@ -27,6 +37,12 @@ function RemarksComposer({
     onRemarksText(text);
   }, [text, onRemarksText]);
 
+  const renderStatus = () => {
+    if (!isRemarker && isApprover)
+      return <RemarkStatus onCurrentStatus={onCurrentStatus} />;
+  };
+
+  if (isRemarkApproved || isRemarkDecline || isRemarkCancelled) return null;
   return (
     <div className="remarkFooter">
       <div className="remarkFooter__top">
@@ -65,38 +81,12 @@ function RemarksComposer({
           </div>
         </div>
       </div>
+
       <div className="remarkFooter__bottom">
         <div className="left">
           <FilePreview files={files} onDelete={onDelete} />
         </div>
-        <div className="right">
-          <ul className="list">
-            <div
-              className="list__item"
-              onClick={() => onCurrentStatus("process")}
-            >
-              In Process
-            </div>
-            <div
-              className="list__item"
-              onClick={() => onCurrentStatus("process")}
-            >
-              Approve
-            </div>
-            <div
-              className="list__item"
-              onClick={() => onCurrentStatus("process")}
-            >
-              Decline
-            </div>
-            <div
-              className="list__item"
-              onClick={() => onCurrentStatus("process")}
-            >
-              Hold
-            </div>
-          </ul>
-        </div>
+        <div className="right">{renderStatus()}</div>
       </div>
     </div>
   );

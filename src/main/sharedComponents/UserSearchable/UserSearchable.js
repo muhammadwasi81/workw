@@ -32,7 +32,7 @@ const UserSearchable = (props) => {
         onChange={handleChange}
         mode="multiple"
         style={{ width: "100%" }}
-        placeholder="Write name"
+        placeholder={props.placeholder}
         optionLabelProp="label"
       >
         {options?.map((res, i) => (

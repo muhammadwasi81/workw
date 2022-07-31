@@ -2242,7 +2242,7 @@ export const getMentionsAndText = (titleWithMentions, mentions) => {
 };
 export function renderTitleWithMentions(title, mentions) {
   if (mentions.length > 0) {
-    console.log(mentions)
+    console.log(mentions);
     const titleArr = title.split(" ");
     return titleArr
       .map((item) => {

@@ -9,6 +9,8 @@ import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustom
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
+import { addDocument } from "../../store/actions";
+import { DOCUMENT_ENUM } from "../../constant";
 
 const initialState = {
 	id: "",
@@ -50,9 +52,17 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 		setPrivacyId(value);
 	};
 
-	const onFinish = values => {
-
+	const onFinish = (values) => {
 		console.log(values)
+		let payload = {
+			name: values.name,
+			description: values.description,
+			approvers:values.approvers ?  values.approvers.map((item)=>({approverId:item})) : [],
+			members:values.readers ? values.readers.map((item)=>({memberId:item})) : [],
+			parentId:null,
+			documentType:DOCUMENT_ENUM.DUCOMENT_TYPE.folder
+		}
+		dispatch(addDocument(payload))
 
 		// form.resetFields();
 
@@ -124,7 +134,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 					<Form.Item
 						label={"Description"}
 						name="description"
-						>
+					>
 						<Input.TextArea
 							placeholder={"Enter Description"}
 						/>
@@ -134,7 +144,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 						name="approvers"
 						label={"Approvers"}
 						showSearch={true}
-						// direction={Direction}
+					// direction={Direction}
 					>
 						<NewCustomSelect
 							name="approvers"
@@ -152,7 +162,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 						name="collaborator"
 						label={"Collaborators"}
 						showSearch={true}
-						// direction={Direction}
+					// direction={Direction}
 					>
 						<NewCustomSelect
 							name="collaborator"
@@ -166,24 +176,24 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 						/>
 					</Form.Item>
 
-					{privacyId === PostPrivacyType.PRIVATE && 
-					<Form.Item
-						name="readers"
-						label={"Readers"}
-						showSearch={true}
-						// direction={Direction}
-					>
-						<NewCustomSelect
+					{privacyId === PostPrivacyType.PRIVATE &&
+						<Form.Item
 							name="readers"
 							label={"Readers"}
 							showSearch={true}
-							// direction={Direction}
-							mode="multiple"
-							endPoint="api/Reference/GetAllUserReference"
-							requestType="get"
-							placeholder={"Select Readers"}
-						/>
-					</Form.Item>
+						// direction={Direction}
+						>
+							<NewCustomSelect
+								name="readers"
+								label={"Readers"}
+								showSearch={true}
+								// direction={Direction}
+								mode="multiple"
+								endPoint="api/Reference/GetAllUserReference"
+								requestType="get"
+								placeholder={"Select Readers"}
+							/>
+						</Form.Item>
 					}
 					<Form.Item>
 						<div className="flex items-center gap-2">

@@ -18,11 +18,13 @@ import DummyImage from "../../../../../../content/NewContent/Documents/mediaDumm
 import { dummyMember } from "../../../../task/view/TaskList/listItem";
 import { getNameForImage } from "../../../../../../utils/base";
 import { createReducer } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { DOCUMENT_ENUM } from "../../../constant";
 
 const DocFullCard = ({ data }) => {
-	const disptach = useDispatch()
+	// const disptach = useDispatch()
 
-	let { name, documentType, creator, createDate, id, path } = data
+	let { name, documentType, creator, createDate, description, id, path } = data
 	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
 	return (
@@ -52,7 +54,7 @@ const DocFullCard = ({ data }) => {
 				<div className="doc_detail_content">
 					<div className="doc_detail_body_head">
 						<div className="doc_detail_title">
-							New Dummy Documents
+							{name}
 						</div>
 						<div>
 							<Button className="ThemeBtn">Download</Button>
@@ -60,10 +62,7 @@ const DocFullCard = ({ data }) => {
 					</div>
 					<div className="doc_detail_desc">
 						<p>
-							Test 123 Test 123 Test 123 Test 123 Test 123 Test
-							123 Test 123 Test 123 Test 123 Test 123 Test 123
-							Test 123 Test 123 Test 123 Test 123 Test 123 Test
-							123 Test 123
+							{description}
 						</p>
 					</div>
 

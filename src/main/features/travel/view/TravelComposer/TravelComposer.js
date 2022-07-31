@@ -61,6 +61,8 @@ const initialTravelDetailState = {
 };
 
 function TravelComposer(props) {
+	const { label } = props;
+	const { labels, placeHolder, travelBy } = label;
 	const [form] = Form.useForm();
 	const [state, setState] = useState(initialState);
 	const [stateCard, setStateCard] = useState(initialTravelDetailState);
@@ -86,7 +88,6 @@ function TravelComposer(props) {
 	};
 
 	const onFinish = values => {
-		// console.log("values", values);
 		let cities = travelDetails.map(travel => {
 			return {
 				id: defaultUiid,
@@ -226,10 +227,11 @@ function TravelComposer(props) {
 			onFinish={onFinish}
 			layout="vertical"
 			form={form}
+			dir={Direction}
 		>
 			<S.FormItem
 				name="subject"
-				label={<Typography level={5}>Subject</Typography>}
+				label={<Typography level={5}>{labels.subject}</Typography>}
 				rules={[
 					{ required: true, message: "Please input your subject!" },
 				]}
@@ -238,14 +240,14 @@ function TravelComposer(props) {
 				<div className="input-row">
 					<TextInput
 						name="subject"
-						placeholder="Subject"
+						placeholder={placeHolder.subjectPh}
 						onChange={onInputFieldChange}
 					/>
 				</div>
 			</S.FormItem>
 			<S.FormItem
 				name="description"
-				label={<Typography level={5}>Description</Typography>}
+				label={<Typography level={5}>{labels.description}</Typography>}
 				rules={[
 					{
 						required: true,
@@ -258,7 +260,7 @@ function TravelComposer(props) {
 					<TextAreaInput
 						name="description"
 						style={{ borderRadius: "5px" }}
-						placeholder="Description"
+						placeholder={placeHolder.DescPh}
 						rows={4}
 						onChange={onInputFieldChange}
 					/>
@@ -266,7 +268,7 @@ function TravelComposer(props) {
 			</S.FormItem>
 			<S.FormItem
 				name="approvers"
-				label={<Typography level={5}>Approvers</Typography>}
+				label={<Typography level={5}>{labels.approvers}</Typography>}
 				rules={[
 					{ required: true, message: "Please select approvers!" },
 				]}
@@ -274,11 +276,11 @@ function TravelComposer(props) {
 			>
 				<NewCustomSelect
 					name="approvers"
-					label="Approvers"
+					label={labels.approvers}
 					showSearch={true}
 					endPoint="api/Reference/GetAllUserReference"
 					requestType="get"
-					placeholder="Search Approvers To Select"
+					placeholder={placeHolder.approversPh}
 					mode="multiple"
 					showImage={true}
 				/>
@@ -286,17 +288,17 @@ function TravelComposer(props) {
 
 			<S.FormItem
 				name="agents"
-				label={<Typography level={5}>Agent</Typography>}
+				label={<Typography level={5}>{labels.agent}</Typography>}
 				rules={[{ required: true, message: "Please select agents!" }]}
 				direction={Direction}
 			>
 				<NewCustomSelect
 					name="agents"
-					label={"Agent"}
+					label={labels.agent}
 					showSearch={true}
 					endPoint="api/Reference/GetAllUserReference"
 					requestType="get"
-					placeholder="Search Agents To Select"
+					placeholder={placeHolder.agentPh}
 					mode="tags"
 				/>
 			</S.FormItem>
@@ -311,6 +313,7 @@ function TravelComposer(props) {
 				submit={submit}
 				setSubmit={setSubmit}
 				travelDetails={travelDetails}
+				labels={label}
 			/>
 			<TravelCard>
 				<Carousel
@@ -336,11 +339,11 @@ function TravelComposer(props) {
 			</TravelCard>
 			<S.FormItem name="specialRequest" direction={Direction}>
 				<div className="input-row">
-					<Typography level={5}>Special Request</Typography>
+					<Typography level={5}>{labels.specialRequest}</Typography>
 					<TextAreaInput
 						name="specialRequests"
 						style={{ borderRadius: "5px" }}
-						placeholder="Write Special Request Here"
+						placeholder={placeHolder.specialRequestPh}
 						rows={4}
 						onChange={onInputFieldChange}
 					/>
@@ -348,10 +351,10 @@ function TravelComposer(props) {
 			</S.FormItem>
 			<S.FormItem direction={Direction}>
 				<div className="input-row">
-					<Typography level={5}>Attachments</Typography>
+					<Typography level={5}>{labels.attachments}</Typography>
 					<SingleUpload
 						handleImageUpload={handleDocsUpload}
-						uploadText={"Upload"}
+						uploadText={labels.upload}
 						multiple={true}
 						position={"flex-start"}
 					/>
@@ -367,7 +370,7 @@ function TravelComposer(props) {
 				// htmlType="submit"
 				onClick={onFormSubmit}
 			>
-				Create Expense
+				{labels.createExpense}
 			</Button>
 		</Form>
 	);

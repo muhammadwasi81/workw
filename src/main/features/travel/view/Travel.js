@@ -1,7 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { TabContainer, ContBody } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+	TabContainer,
+	ContBody,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import "../styles/Travel.css";
 import { Table } from "../../../sharedComponents/customTable/index";
 import { FilterSortEnum } from "../../../../utils/Shared/enums/enums";
@@ -13,182 +16,178 @@ import Header from "./Header";
 import { tableColumns } from "./TableColumns/Columns";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { openNotification } from "../../../../utils/Shared/store/slice";
+import { TravelDictionary } from "../localization";
 
 const initialTableFilter = {
-  pageNo: 1,
-  pageSize: 20,
-  search: "",
-  approverStatus: [],
-  agentStatus: [],
-  filterType: 1,
-  sortBy: 1,
-  referenceId: "00000000-0000-0000-0000-000000000000",
-  referenceType: 0,
+	pageNo: 1,
+	pageSize: 20,
+	search: "",
+	approverStatus: [],
+	agentStatus: [],
+	filterType: 1,
+	sortBy: 1,
+	referenceId: "00000000-0000-0000-0000-000000000000",
+	referenceType: 0,
 };
 
 function Travel() {
-  const [filter, setFilter] = useState({
-    filterType: 1,
-  });
-  const [tableView, setTableView] = useState(false);
-  const [tableColumnFilter, setTableColumnFilter] = useState(initialTableFilter);
-  const { travels, loader, success, isAdded } = useSelector((state) => state.travelSlice);
-  const dispatch = useDispatch();
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const label = dictionaryList[userLanguage];
-  const { Direction, sharedLabels } = dictionaryList[userLanguage];
+	const [filter, setFilter] = useState({
+		filterType: 1,
+	});
+	const [tableView, setTableView] = useState(false);
+	const [tableColumnFilter, setTableColumnFilter] = useState(
+		initialTableFilter
+	);
+	const { travels, loader, success, isAdded } = useSelector(
+		state => state.travelSlice
+	);
+	const dispatch = useDispatch();
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { TravelDictionaryList, Direction } = TravelDictionary[userLanguage];
+	const { topBar, headings, table } = TravelDictionaryList;
+	// const { Direction, sharedLabels } = dictionaryList[userLanguage];
 
-  const handleChange = (pagination, filters, sorter) => {
-    // console.log("pagination", pagination);
-    // console.log("filters", filters);
-    // console.log("sorter", sorter);
+	const handleChange = (pagination, filters, sorter) => {
+		let filter = onSortClick(sorter);
+		setTableColumnFilter(prevState => ({
+			...prevState,
+			...filter,
+		}));
+	};
+	const onSortClick = sorter => {
+		let filter = tableColumnFilter;
+		if (sorter.field === "referenceNo" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.ReferenceNoAsc;
+		}
+		if (sorter.field === "referenceNo" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.ReferenceNoDesc;
+		}
+		if (sorter.field === "createDate" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.CreateDateAsc;
+		}
+		if (sorter.field === "createDate" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.CreateDateDesc;
+		}
+		if (sorter.field === "subject" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.SubjectAsc;
+		}
+		if (sorter.field === "subject" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.SubjectDesc;
+		}
+		if (sorter.field === "status" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.StatusAsc;
+		}
+		if (sorter.field === "status" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.StatusDesc;
+		}
+		if (sorter.field === "approverStatus" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.ApproverStatusAsc;
+		}
+		if (sorter.field === "approverStatus" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.ApproverStatusDesc;
+		}
+		if (sorter.field === "agentStatus" && sorter.order === "ascend") {
+			filter.sortBy = FilterSortEnum.AgentStatusAsc;
+		}
+		if (sorter.field === "agentStatus" && sorter.order === "descend") {
+			filter.sortBy = FilterSortEnum.AgentStatusDesc;
+		}
+		return filter;
+	};
+	const onPageChange = (page, pageSize) => {
+		console.log("pagination value", page, pageSize);
+	};
+	const onRow = (record, rowIndex) => {
+		return {
+			onClick: event => {
+				// console.log("onCLick");
+			}, // click row
+			onDoubleClick: event => {}, // double click row
+			onContextMenu: event => {}, // right button click row
+			onMouseEnter: event => {}, // mouse enter row
+			onMouseLeave: event => {}, // mouse leave row
+		};
+	};
 
-    let filter = onSortClick(sorter);
-    setTableColumnFilter((prevState) => ({
-      ...prevState,
-      ...filter,
-    }));
-    // const offset =
-    // 	pagination.current * pagination.pageSize - pagination.pageSize;
-    // const limit = pagination.pageSize;
-    // const params = {};
+	const onActionClick = row => {
+		console.log("on action click", row);
+	};
 
-    // if (sorter.hasOwnProperty("column")) {
-    // 	params.order = { field: sorter.field, dir: sorter.order };
-    // }
+	useEffect(() => {
+		dispatch(getAllTravel(tableColumnFilter));
+	}, [tableColumnFilter, dispatch]);
 
-    // getData(offset, limit, params);
-  };
-  const onSortClick = (sorter) => {
-    let filter = tableColumnFilter;
-    if (sorter.field === "referenceNo" && sorter.order === "ascend") {
-      filter.sortBy = FilterSortEnum.ReferenceNoAsc;
-    }
-    if (sorter.field === "referenceNo" && sorter.order === "descend") {
-      filter.sortBy = FilterSortEnum.ReferenceNoDesc;
-    }
-    if (sorter.field === "createDate" && sorter.order === "ascend") {
-      filter.sortBy = FilterSortEnum.CreateDateAsc;
-    }
-    if (sorter.field === "createDate" && sorter.order === "descend") {
-      filter.sortBy = FilterSortEnum.CreateDateDesc;
-    }
-    if (sorter.field === "subject" && sorter.order === "ascend") {
-      filter.sortBy = FilterSortEnum.SubjectAsc;
-    }
-    if (sorter.field === "subject" && sorter.order === "descend") {
-      filter.sortBy = FilterSortEnum.SubjectDesc;
-    }
-    if (sorter.field === "status" && sorter.order === "ascend") {
-      filter.sortBy = FilterSortEnum.StatusAsc;
-    }
-    if (sorter.field === "status" && sorter.order === "descend") {
-      filter.sortBy = FilterSortEnum.StatusDesc;
-    }
-    if (sorter.field === "approverStatus" && sorter.order === "ascend") {
-      filter.sortBy = FilterSortEnum.ApproverStatusAsc;
-    }
-    if (sorter.field === "approverStatus" && sorter.order === "descend") {
-      filter.sortBy = FilterSortEnum.ApproverStatusDesc;
-    }
-    if (sorter.field === "agentStatus" && sorter.order === "ascend") {
-      filter.sortBy = FilterSortEnum.AgentStatusAsc;
-    }
-    if (sorter.field === "agentStatus" && sorter.order === "descend") {
-      filter.sortBy = FilterSortEnum.AgentStatusDesc;
-    }
-    return filter;
-  };
-  const onPageChange = (page, pageSize) => {
-    console.log("pagination value", page, pageSize);
-  };
-  const onRow = (record, rowIndex) => {
-    return {
-      onClick: (event) => {
-        // console.log("onCLick");
-      }, // click row
-      onDoubleClick: (event) => {}, // double click row
-      onContextMenu: (event) => {}, // right button click row
-      onMouseEnter: (event) => {}, // mouse enter row
-      onMouseLeave: (event) => {}, // mouse leave row
-    };
-  };
+	useEffect(() => {
+		if (isAdded) {
+			dispatch(
+				openNotification({
+					message: "Travel Added Successfull.",
+					direction: "topRight",
+				})
+			);
+		}
+	}, [isAdded]);
 
-  const onActionClick = (row) => {
-    console.log("on action click", row);
-  };
-
-  useEffect(() => {
-    dispatch(getAllTravel(tableColumnFilter));
-  }, [tableColumnFilter, dispatch]);
-
-  useEffect(() => {
-    if (isAdded) {
-      dispatch(
-        openNotification({
-          message: "Travel Added Successfull.",
-          direction: "topRight",
-        })
-      );
-    }
-  }, [isAdded]);
-
-  return (
-    <TabContainer>
-      <Header label={label} success={isAdded} />
-      <TopBar
-        onSearch={(value) => {
-          console.log(value);
-        }}
-        buttons={[
-          {
-            name: "Travels",
-            onClick: () => setFilter({ filterType: 1 }),
-          },
-          {
-            name: "For Approval",
-            onClick: () => setFilter({ filterType: 2 }),
-          },
-          {
-            name: "Agent Process",
-            onClick: () => setFilter({ filterType: 3 }),
-          },
-        ]}
-        filter={{
-          onFilter: () => {},
-        }}
-        segment={{
-          onSegment: (value) => {
-            if (value === "Table") {
-              setTableView(true);
-            } else {
-              setTableView(false);
-            }
-          },
-          label1: "List",
-          label2: "Table",
-        }}
-      />
-      <ContBody className="!block">
-        {tableView ? (
-          <Table
-            columns={tableColumns(onActionClick, Direction, sharedLabels)}
-            dragable={true}
-            handleChange={handleChange}
-            onPageChange={onPageChange}
-            onRow={onRow}
-            data={travels}
-            status={travelStatus}
-            loadding={loader}
-            success={success}
-            onActionClick={onActionClick}
-          />
-        ) : (
-          <ListView data={travels} loader={loader} />
-        )}
-      </ContBody>
-    </TabContainer>
-  );
+	return (
+		<TabContainer>
+			<Header label={TravelDictionaryList} success={isAdded} />
+			<TopBar
+				onSearch={value => {
+					console.log(value);
+				}}
+				buttons={[
+					{
+						name: topBar.travels,
+						onClick: () => setFilter({ filterType: 1 }),
+					},
+					{
+						name: topBar.approval,
+						onClick: () => setFilter({ filterType: 2 }),
+					},
+					{
+						name: topBar.agentProcess,
+						onClick: () => setFilter({ filterType: 3 }),
+					},
+				]}
+				filter={{
+					onFilter: () => {},
+				}}
+				segment={{
+					onSegment: value => {
+						if (value === topBar.table) {
+							setTableView(true);
+						} else {
+							setTableView(false);
+						}
+					},
+					label1: topBar.list,
+					label2: topBar.table,
+				}}
+			/>
+			<ContBody className={`!block ${Direction}`} direction={Direction}>
+				{tableView ? (
+					<Table
+						columns={tableColumns(onActionClick, Direction, table)}
+						dragable={true}
+						handleChange={handleChange}
+						onPageChange={onPageChange}
+						onRow={onRow}
+						data={travels}
+						status={travelStatus}
+						loading={loader}
+						success={success}
+						onActionClick={onActionClick}
+					/>
+				) : (
+					<ListView
+						data={travels}
+						loader={loader}
+						labels={headings}
+					/>
+				)}
+			</ContBody>
+		</TabContainer>
+	);
 }
 
 export default Travel;

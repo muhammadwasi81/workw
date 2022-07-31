@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+.ant-message-custom-content.ant-message-error{
+  display: flex; 
+  align-items: center;
+}
+
 .ant-btn-primary {
   /*background-color: var(--primary_theme_color_green) !important;*/
   /*border: none !important;*/
@@ -415,6 +420,13 @@ iframe {
   border-radius: 4px;
   padding: 15px;
   /* box-shadow: 0px 0px 5px 0px #ccc; */
+}
+
+.ant-form.rtl .ant-form-item-label{
+  text-align: right;
+}
+.ant-form.ltr .ant-form-item-label{
+  text-align: left;
 }
 
 /* .ant-drawer {

@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../../utils/routes";
 import { Table } from "../../../../sharedComponents/customTable";
+import Spinner from "../../../../sharedComponents/spinner/spinner";
 import { getAllLeadManager } from "../../store/actions";
 import GridView from "./GridView/GridView";
 import { tableColumn } from "./TableView/tableColumn";
 
-function LeadDashboard({ isTableView }) {
+function LeadDashboard({ isTableView, dictionary }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const leadManagerData = useSelector(
@@ -44,15 +45,20 @@ function LeadDashboard({ isTableView }) {
 	return (
 		<>
 			{!isTableView ? (
-				<GridView
-					data={leadManagerData}
-					loading={loading}
-					dispatch={dispatch}
-					handleClickNavigation={handleClickNavigation}
-				/>
+				loading ? (
+					<Spinner />
+				) : (
+					<GridView
+						data={leadManagerData}
+						loading={loading}
+						dispatch={dispatch}
+						handleClickNavigation={handleClickNavigation}
+						dictionary={dictionary}
+					/>
+				)
 			) : (
 				<Table
-					columns={tableColumn()}
+					columns={tableColumn(dictionary)}
 					dragable={true}
 					// handleChange={handleChange}
 					// onPageChange={onPageChange}

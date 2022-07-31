@@ -12,8 +12,8 @@ function WorkBoard() {
 
 	return (
 		<>
-			<Header />
 			<TabbableContainer className="">
+				<Header />
 				<WorkBoardTopBar
 					handleView={isTable => {
 						setIsTableView(isTable);

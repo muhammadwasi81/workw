@@ -8,48 +8,48 @@ const Edit = (handleEdit, row) => {
 	);
 };
 
-export const tableColumns = (handleEdit, Direction, sharedLabels) => {
-	const defaultColumns = [
+export const tableColumns = (handleEdit, Direction, table) => {
+	return [
 		{
-			title: "Sort",
+			title: table.sort,
 			dataIndex: "sort",
 			drag: true,
 			width: 80,
 		},
 
 		{
-			title: "Reference No",
+			title: table.reffNo,
 			dataIndex: "referenceNo",
 			sort: true,
 			width: 200,
 			// ellipsis: true,
 		},
 		{
-			title: "Status",
+			title: table.status,
 			dataIndex: "status",
 			sort: true,
 			tag: true,
 			width: 200,
 		},
 		{
-			title: "Subject",
+			title: table.subject,
 			dataIndex: "subject",
 			width: 200,
 		},
 		{
-			title: "Description",
+			title: table.description,
 			dataIndex: "description",
 			width: 200,
 			ellipsis: true,
 		},
 		{
-			title: "Agent Status",
+			title: table.agentStatus,
 			dataIndex: "agentStatus",
 			tag: true,
 			width: 200,
 		},
 		{
-			title: "Actions",
+			title: table.actions,
 			key: "action",
 			action: true,
 			customAction: true,
@@ -61,6 +61,6 @@ export const tableColumns = (handleEdit, Direction, sharedLabels) => {
 			},
 		},
 	];
-	let columns = [...defaultColumns].reverse();
-	return Direction === "ltr" ? defaultColumns : columns;
+	// let columns = [...defaultColumns].reverse();
+	// return Direction === "ltr" ? defaultColumns : columns;
 };

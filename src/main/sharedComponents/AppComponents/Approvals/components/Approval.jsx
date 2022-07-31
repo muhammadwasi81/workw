@@ -5,7 +5,7 @@ import { saveApprovalsRemarks } from "../services";
 import ApprovalBody from "./ApprovalBody";
 import Header from "./Header";
 import RemarkFooter from "./RemarkComposer";
-import { ApproverType } from "../enums/index";
+import { ApprovalStatus, ApproverType } from "../enums/index";
 const { Panel } = Collapse;
 function Approval({
   approver,
@@ -13,13 +13,16 @@ function Approval({
   status,
   approverId,
   module,
+  createBy,
   approverType = ApproverType.User,
 }) {
   const { businessId, designation, name, image, type } = approver;
   const [files, setFiles] = useState([]);
   const [remarks, setRemarks] = useState([]);
   const [remarksText, setremarksText] = useState("");
-  const [currentStatus, setCurrentStatus] = useState("");
+  const [currentStatus, setCurrentStatus] = useState(ApprovalStatus.InProcess);
+  const [isMount, setIsMount] = useState(false);
+
   const handleFile = (e) => {
     if (e.target.files.length > 1) {
       setFiles((prevValue) => [...prevValue, ...e.target.files]);
@@ -35,18 +38,16 @@ function Approval({
     setremarksText(value);
   };
   const handleCurrentStatus = (status) => {
+    setIsMount(true);
     setCurrentStatus(status);
-    createRemark();
   };
   const createRemark = async () => {
     const remarks = {
       approvalId: approverId,
       remark: remarksText,
       module,
-      status: 1,
+      status: currentStatus,
       type: approverType,
-      branchId: defaultUiid,
-      businessId: defaultUiid,
       attachments: [...files].map((file) => {
         return { id: defaultUiid, file };
       }),
@@ -57,6 +58,11 @@ function Approval({
   useEffect(() => {
     setRemarks([...initialRemarks]);
   }, []);
+  useEffect(() => {
+    if (isMount) {
+      createRemark();
+    }
+  }, [currentStatus, isMount]);
 
   return (
     <Collapse
@@ -80,12 +86,13 @@ function Approval({
       >
         <ApprovalBody remarks={remarks} />
         <RemarkFooter
+          approverId={approverId}
           onCurrentStatus={handleCurrentStatus}
           onRemarksText={handleRemarksText}
           files={files}
           onFile={handleFile}
           onDelete={handleDelete}
-          approverId={approverId}
+          createBy={createBy}
           status={status}
         />
       </Panel>

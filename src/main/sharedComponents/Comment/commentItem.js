@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./style.css";
 import CommentComposer from "./Composer";
 import { getAllComment } from "./services";
 import CommentBubble from "./CommentBubble";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { CommentDictionary } from "./localization";
 
 const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
   let {
@@ -33,7 +35,8 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
       setReplies(replies);
     }
   };
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
   return (
     <div className={"CommentItem " + (isReply ? "ReplyComment" : "")}>
       <div style={{ flex: "1" }}>
@@ -46,8 +49,10 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
           />
 
           <div className="likeReplyCont">
-            <div onClick={() => handleLike(referenceId)}>Like</div>
-            <div onClick={() => toggleReply(referenceId, parentId)}>Reply</div>
+            <div onClick={() => handleLike(referenceId)}>{Like}</div>
+            <div onClick={() => toggleReply(referenceId, parentId)}>
+              {Reply}
+            </div>
           </div>
         </div>
         <div>
@@ -61,7 +66,6 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
                   comment: replyContent,
                   mentions: replyMentionedUser,
                 }) => {
-                  console.log(replyCreator);
                   return (
                     <React.Fragment key={Rid}>
                       <div
@@ -77,7 +81,9 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
                         />
                       </div>
                       <div className="likeReplyCont">
-                        <div onClick={() => handleLike(referenceId)}>Like</div>
+                        <div onClick={() => handleLike(referenceId)}>
+                          {Like}
+                        </div>
                       </div>
                     </React.Fragment>
                   );
@@ -86,7 +92,7 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
 
               <CommentComposer
                 initialMentions={initialMentions}
-                placeHolder={"Write Your Reply Here."}
+                placeHolder={WriteYourReplyHere}
                 referenceId={referenceId}
                 parentId={parentId}
                 commentRequestSuccess={(comment) =>

@@ -18,7 +18,10 @@ function ApprovalWrapper({ title, data, module, approverType }) {
       </div>
 
       {data?.map(
-        ({ approver, remarks: initialRemarks, status, approverId }, index) => {
+        (
+          { approver, remarks: initialRemarks, status, approverId, createBy },
+          index
+        ) => {
           return (
             <Approval
               module={module}
@@ -28,6 +31,7 @@ function ApprovalWrapper({ title, data, module, approverType }) {
               initialRemarks={initialRemarks}
               status={status}
               approverId={approverId}
+              createBy={createBy}
             />
           );
         }

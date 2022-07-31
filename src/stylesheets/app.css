@@ -235,6 +235,11 @@ iframe {
   text-align: center;
 }
 
+.ant-modal.rtl .ant-modal-close {
+  right: auto;
+  left: 0;
+}
+
 /* SALMAN CSS END */
 
 /* Danish css start */
@@ -391,7 +396,7 @@ iframe {
   background: #f4f4f4;
 }
 
-.drawerSecondary .ant-drawer-body > div {
+.drawerSecondary .ant-drawer-body>div {
   background: #fff;
   border-radius: 4px;
   padding: 15px;

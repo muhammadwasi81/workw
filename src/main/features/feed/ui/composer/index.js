@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./stylesheet/FeedCompose.css";
 import frameIcon from "../../../../../content/NewContent/NewsFeed/svg/image.svg";
 import penIcon from "../../../../../content/NewContent/NewsFeed/svg/pen.svg";
@@ -12,11 +12,16 @@ import { feedSlice } from "../../store/slice";
 import { useSelector } from "react-redux";
 import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 import { Modal } from "antd";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { FeedDictionary } from "../../localization";
 
 function PostComposer() {
   const { showComposer } = useSelector((state) => state.feedSlice.postCompose);
   const { userSlice } = useSelector((state) => state);
   const { name, userImage } = userSlice.user;
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { composer, Direction } = FeedDictionary[userLanguage];
+  const { Whatsonyourmind } = composer;
   const toggleComposer = (visibility) => {
     store.dispatch(feedSlice.actions.toggleComposerVisibility({ visibility }));
   };
@@ -39,7 +44,7 @@ function PostComposer() {
             </div>
           </div>
           <div className="text-area" onClick={() => toggleComposer(true)}>
-            What’s on your mind?
+            {Whatsonyourmind}
           </div>
           <div className="feedIcons" style={{ display: "flex" }}>
             <img src={frameIcon} alt="" />
@@ -50,6 +55,7 @@ function PostComposer() {
         <span className="area-block" />
       </div>
       <Modal
+        className={Direction}
         width={800}
         visible={showComposer}
         onCancel={() => toggleComposer(false)}
@@ -57,7 +63,7 @@ function PostComposer() {
         footer={null}
         header={null}
       >
-        <div className="composer-wrapper">
+        <div className="composer-wrapper" style={{ direction: Direction }}>
           <PostHeader />
           <ComposerForm />
         </div>

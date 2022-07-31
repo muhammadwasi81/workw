@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import LikeIcon from "../../../../../../../content/NewContent/NewsFeed/svg/like.svg";
 import CommentIcon from "../../../../../../../content/NewContent/NewsFeed/svg/comment.svg";
 import ShareIcon from "../../../../../../../content/NewContent/NewsFeed/svg/share.svg";
@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { feedSlice } from "../../../../store/slice";
 import { useNavigate } from "react-router-dom";
 import CommentWrapper from "../../../../../../sharedComponents/Comment/CommentWrapper";
+import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
+import { FeedDictionary } from "../../../../localization";
 
 const PostFooter = ({
   attachments,
@@ -19,6 +21,16 @@ const PostFooter = ({
 }) => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Post } = FeedDictionary[userLanguage];
+  const {
+    Comments,
+    Comment,
+    Share,
+    Like,
+    WriteYourCommentHere,
+    WriteYourReplyHere,
+  } = Post;
 
   return (
     <div className="post-footer">
@@ -28,7 +40,9 @@ const PostFooter = ({
           <a href={reactionCount}>{reactionCount}</a>
         </div>
         <div className="commentCount">
-          <a href={commentCount}> {commentCount} Comments</a>
+          <a href={commentCount}>
+            {commentCount} {Comments}
+          </a>
         </div>
       </div>
       <div className="post-events">
@@ -42,7 +56,7 @@ const PostFooter = ({
               <div>
                 <img src={LikeIcon} alt="" />
               </div>
-              <div> Like</div>
+              <div> {Like}</div>
             </div>
           </Reactions>
         </div>
@@ -50,17 +64,19 @@ const PostFooter = ({
           <div>
             <img src={CommentIcon} alt="" />
           </div>
-          <div> Comment</div>
+          <div> {Comment}</div>
         </div>
         <div className="btn">
           <div>
             <img src={ShareIcon} alt="" />
           </div>
-          <div> Share</div>
+          <div> {Share}</div>
         </div>
       </div>
 
       <CommentWrapper
+        placeHolder={WriteYourCommentHere}
+        placeHolderReply={WriteYourReplyHere}
         initailComments={comments}
         referenceId={id}
         commentRequestSuccess={(comment) =>

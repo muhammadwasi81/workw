@@ -24,6 +24,7 @@ export const addDocument = createAsyncThunk(
     }
   }
 );
+
 export const getAllDocument = createAsyncThunk(
   "document/getAllDocument",
   async (request, { rejectWithValue }) => {

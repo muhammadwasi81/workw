@@ -46,7 +46,7 @@ const DocShortCard = ({
                     <div className="d_ShortCard_Child2">
                         <img
                             alt=""
-                            src={getIconByExtensionType(1)}
+                            src={getIconByExtensionType(5)}
                         />
                     </div>
                     <div className="fileName">

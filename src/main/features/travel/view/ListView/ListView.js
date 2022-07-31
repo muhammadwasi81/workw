@@ -8,6 +8,7 @@ import { ROUTES } from "../../../../../utils/routes";
 
 function ListView(props) {
 	const navigate = useNavigate();
+	const { labels } = props;
 
 	return (
 		<div className="gap-5 flex flex-col z-10 hover:shadow-black duration-300">
@@ -21,14 +22,6 @@ function ListView(props) {
 								);
 							}}
 						>
-							{/* <div
-								className="absolute w-full h-full cursor-pointer duration-300 rounded-xl"
-								onClick={() => {
-									navigate(
-										`${ROUTES.TRAVEL.TREAVELDETAIL}${data.id}`
-									);
-								}}
-							/> */}
 							<div className="p-3 sm:p-5">
 								<CardProfileTopView
 									profileImgSrc={
@@ -51,16 +44,20 @@ function ListView(props) {
 								/>
 								<div className="flex justify-between flex-wrap">
 									<div className="flex flex-col gap-1">
-										<span className="text-black sm:text-base text-semi-bold">
+										<span className="text-black text-semi-bold">
 											{data.subject}
 										</span>
-										<span>
-											Description: {data.description}
-										</span>
+										<div>
+											<span className="text-black text-semi-bold">
+												{labels.description}:{" "}
+											</span>
+											{data.description}
+										</div>
 										<div className="flex gap-2 justify-between sm:justify-start sm:gap-5 flex-wrap ">
 											<CardDetailView
 												isAvatarGroup={false}
 												isTag={false}
+												label={labels.type}
 												heading={"Type"}
 												text={"Project"}
 												image={
@@ -70,6 +67,7 @@ function ListView(props) {
 											<CardDetailView
 												isAvatarGroup={false}
 												isTag={true}
+												label={labels.project}
 												heading={"Project"}
 												text={"Marketing"}
 												image={
@@ -79,6 +77,7 @@ function ListView(props) {
 											<CardDetailView
 												isAvatarGroup={true}
 												isTag={false}
+												label={labels.members}
 												heading={"Members"}
 												membersData={data.members}
 												image={
@@ -88,6 +87,7 @@ function ListView(props) {
 											<CardDetailView
 												isAvatarGroup={true}
 												isTag={false}
+												label={labels.approvers}
 												heading={"Approvers"}
 												membersData={data.approvers}
 												image={
@@ -97,6 +97,7 @@ function ListView(props) {
 											<CardDetailView
 												isAvatarGroup={true}
 												isTag={false}
+												label={labels.agents}
 												heading={"Agents"}
 												membersData={data.agents}
 												image={

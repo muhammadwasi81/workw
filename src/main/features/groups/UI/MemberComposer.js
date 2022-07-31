@@ -85,7 +85,7 @@ function MemberComposer(props) {
 						selectedData={selectedData}
 						canFetchNow={isFirstTimeDataLoaded}
 						fetchData={fetchEmployees}
-						placeholder={"Search Members"}
+						placeholder={props.placeholder.membersPh}
 						mode={""}
 						isObject={true}
 						loadDefaultData={true}
@@ -110,7 +110,7 @@ function MemberComposer(props) {
 						rules={[
 							{
 								required: true,
-								message: "Please select members.",
+								message: props.error.members,
 							},
 						]}
 					/>
@@ -121,12 +121,12 @@ function MemberComposer(props) {
 						rules={[
 							{
 								required: true,
-								message: "Please select member type.",
+								message: props.error.type,
 							},
 						]}
 					>
 						<Select
-							placeholder={"Select Type"}
+							placeholder={props.placeholder.typePh}
 							onChange={handleMemberType}
 							style={{
 								width: "100%",

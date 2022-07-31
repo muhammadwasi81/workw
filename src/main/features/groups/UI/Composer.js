@@ -27,7 +27,7 @@ const initialState = {
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
-
+	const { labels, placeHolders, errors } = groupsDictionary;
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
@@ -94,22 +94,23 @@ const Composer = props => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
-				// className={Direction === "ltr" ? "align-right" : ""}
+				dir={Direction}
+				className={`${Direction}`}
 			>
 				<div className="flex justify-between gap-4">
 					<div className="w-full">
 						<Form.Item
-							label={"Name"}
+							label={labels.name}
 							name="name"
 							labelPosition="top"
 							rules={[
 								{
 									required: true,
-									message: "Please enter group name.",
+									message: errors.name,
 								},
 							]}
 						>
-							<TextInput placeholder={"Enter Name"} />
+							<TextInput placeholder={placeHolders.namePh} />
 						</Form.Item>
 					</div>
 					<div className="flex gap-4">
@@ -118,7 +119,7 @@ const Composer = props => {
 								handleImageUpload={handleImageUpload}
 								img="Add Image"
 								position="flex-start"
-								uploadText={"Upload"}
+								uploadText={labels.upload}
 								multiple={false}
 							/>
 						</Form.Item>
@@ -127,16 +128,16 @@ const Composer = props => {
 
 				<Form.Item
 					style={{ marginTop: "-18px" }}
-					label={"Description"}
+					label={labels.desc}
 					name="description"
 					rules={[
 						{
 							required: true,
-							message: "Please enter description.",
+							message: errors.desc,
 						},
 					]}
 				>
-					<Input.TextArea placeholder={"Enter Description"} />
+					<Input.TextArea placeholder={placeHolders.descPh} />
 				</Form.Item>
 
 				<Form.Item
@@ -153,6 +154,8 @@ const Composer = props => {
 									return members.memberId;
 								})}
 								form={form}
+								placeholder={placeHolders}
+								error={errors}
 							/>
 						);
 					}}
@@ -180,7 +183,7 @@ const Composer = props => {
 						htmlType="submit"
 						title={"Create"}
 					>
-						{"Create Group"}
+						{groupsDictionary.createTextBtn}
 					</Button>
 				</Form.Item>
 			</Form>

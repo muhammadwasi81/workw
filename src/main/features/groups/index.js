@@ -36,11 +36,10 @@ const Groups = props => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { groupsDictionary } = groupsDictionaryList[userLanguage];
-	const [composerData, setComposerData] = useState(initialComposerData);
-	const [loading, setLoading] = useState(true);
+	const { groupsDictionary, Direction } = groupsDictionaryList[userLanguage];
+	const { createTextBtn, topBar } = groupsDictionary;
+
 	const [tableView, setTableView] = useState(false);
-	const [visible, setVisible] = useState(false);
 	const { groups, success, getDataLoading } = useSelector(
 		state => state.groupSlice
 	);
@@ -58,12 +57,12 @@ const Groups = props => {
 				<Header
 					buttons={[
 						{
-							buttonText: "Create Group",
+							buttonText: createTextBtn,
 							// onClick: () => setVisible(true),
 							render: (
 								<SideDrawer
-									title={"Create Group"}
-									buttonText={"Create Group"}
+									title={createTextBtn}
+									buttonText={createTextBtn}
 									isAccessDrawer={true}
 									success={success}
 								>
@@ -79,7 +78,7 @@ const Groups = props => {
 					}}
 					buttons={[
 						{
-							name: "Groups",
+							name: topBar.group,
 							// onClick: () => setFilter({ filterType: 0 }),
 						},
 					]}
@@ -88,17 +87,17 @@ const Groups = props => {
 					// }}
 					segment={{
 						onSegment: value => {
-							if (value === "Table") {
+							if (value === topBar.table) {
 								setTableView(true);
 							} else {
 								setTableView(false);
 							}
 						},
-						label1: "List",
-						label2: "Table",
+						label1: topBar.list,
+						label2: topBar.table,
 					}}
 				/>
-				<ContBody className="!block">
+				<ContBody className="!block" direction={Direction}>
 					{getDataLoading ? (
 						<Spinner />
 					) : groups?.length > 0 ? (

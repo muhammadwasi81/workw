@@ -1,4 +1,4 @@
-const en = {
+const arabic = {
 	projectsDictionary: {
 		createTextBtn: "Create Project",
 		topBar: {
@@ -33,6 +33,6 @@ const en = {
 	},
 
 	/*** Define language write side ***/
-	Direction: "ltr",
+	Direction: "rtl",
 };
-export default en;
+export default arabic;

@@ -11,17 +11,14 @@ const en = {
 			approval: "For Approval",
 			agentProcess: "Agent Process",
 		},
-		composer: {
-			createTravel: "Create Travel Expense",
-		},
 		placeHolder: {
 			subjectPh: "Enter travel subject",
 			DescPh: "Enter travel description",
 			approversPh: "Search approvers to select",
 			agentPh: "Search agents to select",
 			reasonPh: "Write reason of travel",
-			traveDepartlPh: "Search departure to select",
-			travelDestPh: "Search desctination to select",
+			traveDepartlPh: "Travel from",
+			travelDestPh: "Travel to",
 			specialRequestPh: "Write special request detail",
 		},
 		headings: {

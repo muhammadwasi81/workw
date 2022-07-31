@@ -15,14 +15,7 @@ function LeadManager() {
 	const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
 		userLanguage
 	];
-	const {
-		createTextBtn,
-		dashboard,
-		topBar,
-		placeHolder,
-		labels,
-		table,
-	} = LeadManagerDictionaryList;
+	const { topBar } = LeadManagerDictionaryList;
 	const [isTableView, setIsTableView] = useState(false);
 	return (
 		<TabbableContainer>

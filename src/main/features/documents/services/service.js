@@ -12,7 +12,7 @@ const getAllDocumentList_DBO = (data) => {
 		"referenceId": data.referenceId ? data.referenceId : STRINGS.DEFAULTS.guid,
 		"parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
 		"myDocuments": data.myDocuments ? data.myDocuments : true,
-		"sortBy": data.sortBy ? data.sortBy : null,
+		"sortBy": data.sortBy ? data.sortBy : 0,
 	}
 }
 
@@ -24,8 +24,8 @@ const getAllDocument_DBO = (data) => {
 		"referenceId": data.referenceId ? data.referenceId : STRINGS.DEFAULTS.guid,
 		"parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
 		"referenceType": data.referenceType ? data.referenceType : 1,
-		"sortBy": data.sortBy ? data.sortBy : null,
-  		"filterType": data.filterType ? data.filterType : null, 
+		"sortBy": data.sortBy ? data.sortBy : 0,
+  		"filterType": data.filterType ? data.filterType : 0, 
 	}
 }
 

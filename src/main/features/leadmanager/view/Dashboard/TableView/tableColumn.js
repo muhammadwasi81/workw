@@ -3,23 +3,25 @@ import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = () => {
+export const tableColumn = dictionary => {
+	const { table } = dictionary;
+
 	return [
 		{
-			title: "Name",
+			title: table.name,
 			dataIndex: "name",
 			ellipsis: true,
 			sort: true,
 		},
 		{
-			title: "Description",
+			title: table.description,
 			dataIndex: "description",
 			ellipsis: true,
 			sort: true,
 		},
 
 		{
-			title: "Members",
+			title: table.members,
 			dataIndex: "members",
 			ellipsis: true,
 			render: member => (
@@ -27,7 +29,7 @@ export const tableColumn = () => {
 			),
 		},
 		{
-			title: "Create Date",
+			title: table.createDate,
 			dataIndex: "createDate",
 			render: i => moment(i.createDate).format("DD MMM YYYY"),
 			ellipsis: true,

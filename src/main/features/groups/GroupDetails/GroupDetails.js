@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ROUTES } from "../../../../utils/routes";
 import Header from "../../../layout/header";
 import {
@@ -11,32 +11,37 @@ import CoverDetail from "../../projects/UI/CoverDetail";
 import CoverImage from "../../projects/UI/CoverImage";
 import GroupCover from "../../../../content/png/groups_cover_image.jpg";
 import WhiteCard from "../../projects/UI/WhiteCard";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { groupsDictionaryList } from "../localization";
 
 function GroupDetails() {
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { groupsDictionary, Direction } = groupsDictionaryList[userLanguage];
+	const { groupDetail } = groupsDictionary;
 	const panes = [
 		{
-			title: `Discussion`,
+			title: groupDetail.discussion,
 			content: <div>Discussion div</div>,
 			key: 0,
 		},
 		{
-			title: `Schedule`,
+			title: groupDetail.schedule,
 			content: <div>Schedule div</div>,
 			key: 1,
 		},
 
 		{
-			title: `Task`,
+			title: groupDetail.task,
 			content: <div>Task div</div>,
 			key: 2,
 		},
 		{
-			title: `Expenses`,
+			title: groupDetail.expenses,
 			content: <div>Expenses div</div>,
 			key: 3,
 		},
 		{
-			title: `Documents`,
+			title: groupDetail.documents,
 			content: <div>Documents div</div>,
 			key: 4,
 		},
@@ -52,12 +57,12 @@ function GroupDetails() {
 	return (
 		<TabContainer>
 			<Header items={items} />
-			<ContBody className="!block">
+			<ContBody className="!block" direction={Direction}>
 				<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
 					<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll mt-10">
 						<CoverImage image={GroupCover} />
 						<CoverDetail />
-						<Tab panes={panes} />
+						<Tab panes={panes} dir={Direction} />
 					</div>
 
 					<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">

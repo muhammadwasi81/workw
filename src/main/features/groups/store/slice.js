@@ -1,32 +1,48 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { getAllProjects } from "./actions";
+import { addGroup, getAllGroup, getAllProjects } from "./actions";
 
 const initialState = {
-  projects: [],
-  loadingData: false,
-  loader: true,
-  projectDetail: null,
+	groups: [],
+	loadingData: false,
+	loader: true,
+	groupDetail: null,
+	success: false,
+	error: false,
+	getDataLoading: false,
 };
 
-const projectSlice = createSlice({
-  name: "departments",
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(getAllProjects.fulfilled, (state, action) => {
-      state.projects = action.payload ? action.payload : [];
-      state.loader = false;
-    });
+const groupSlice = createSlice({
+	name: "groupSlice",
+	initialState,
+	reducers: {},
+	extraReducers: builder => {
+		builder.addCase(getAllGroup.fulfilled, (state, { payload }) => {
+			state.groups = payload.data;
+			state.success = true;
+			state.getDataLoading = false;
+		});
 
-    builder
-      .addMatcher(isPending(...[getAllProjects]), (state) => {
-        state.loader = true;
-      })
-      .addMatcher(isRejected(...[getAllProjects]), (state) => {
-        state.loader = true;
-      });
-  },
+		builder.addCase(addGroup.fulfilled, (state, { payload }) => {
+			state.loader = false;
+			state.success = true;
+			state.groups.push(payload.data);
+		});
+		builder
+			.addMatcher(isPending(getAllGroup), state => {
+				state.getDataLoading = true;
+			})
+			.addMatcher(isPending(...[addGroup]), state => {
+				state.loader = true;
+				state.success = false;
+				state.error = false;
+			})
+			.addMatcher(isRejected(...[getAllGroup, addGroup]), state => {
+				state.loader = false;
+				state.success = false;
+				state.error = true;
+			});
+	},
 });
 
-export const {} = projectSlice.actions;
-export default projectSlice.reducer;
+export const {} = groupSlice.actions;
+export default groupSlice.reducer;

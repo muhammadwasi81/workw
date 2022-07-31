@@ -21,6 +21,10 @@ function MemberSelect({
 	onChange: change,
 	dataVal = [],
 	loadDefaultData = false,
+	name = "",
+	label = "",
+	rules = [],
+	showSearch = false,
 }) {
 	const [value, setValue] = useState("");
 	const [stateVal, setStateVal] = useState(dataVal);
@@ -34,6 +38,7 @@ function MemberSelect({
 	);
 
 	const onChange = value => {
+		console.log("value", value);
 		const tempArray = String(value).split(",");
 		if (!tempArray[0]) {
 			setStateVal([]);
@@ -133,7 +138,7 @@ function MemberSelect({
 			setIsAssignDefaultData(false);
 		}
 	}, [dataVal]);
-	// console.log("select", data);
+
 	return (
 		<AntCustomSelect
 			value={stateVal}
@@ -154,6 +159,11 @@ function MemberSelect({
 			defaultData={defaultValues}
 			optionComponent={optionComponent}
 			isLoaded={canFetchNow}
+			name={name}
+			showSearch={showSearch}
+			rules={rules}
+			label={label}
+
 			// tagRender={props => <TagRender props={props} />}
 		/>
 	);

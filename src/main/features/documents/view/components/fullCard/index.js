@@ -17,21 +17,25 @@ import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 import DummyImage from "../../../../../../content/NewContent/Documents/mediaDummy.svg";
 import { dummyMember } from "../../../../task/view/TaskList/listItem";
 import { getNameForImage } from "../../../../../../utils/base";
+import { createReducer } from "@reduxjs/toolkit";
 
-const DocFullCard = ({ icon, name, description }) => {
+const DocFullCard = ({ data }) => {
+	const disptach = useDispatch()
+
+	let { name, documentType, creator, createDate, id, path } = data
+	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
+
 	return (
 		<SingleItem>
 			<ItemHeader>
 				<div className={"item-header"}>
 					<div className="left">
 						<UserInfo
-							avatarSrc={
-								"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-							}
-							name={"Abu Bakar"}
+							avatarSrc={creator.image}
+							name={creator.name}
 							Subline={
 								<SublineDesigWithTime
-									designation={"Reactjs Developer"}
+									designation={creator.designation}
 									time={moment().format("DD/MM/YYYY")}
 								/>
 							}

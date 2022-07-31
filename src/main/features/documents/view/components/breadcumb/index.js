@@ -1,18 +1,20 @@
 import { Breadcrumb } from 'antd';
 import React from 'react';
+import "./style.css";
 
-function BreadCumbs() {
+function BreadCumbs({ data }) {
+    const onClick = (item) => {
+
+    }
     return (
-        <Breadcrumb>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>
-                <a href="">Application Center</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-                <a href="">Application List</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>An Application</Breadcrumb.Item>
-        </Breadcrumb>
+        <div className='MybreadCumbs'>
+            <Breadcrumb>
+                {
+                    data.map((item) => <Breadcrumb.Item onClick={() => onClick(item)} >{item.label}</Breadcrumb.Item>
+                    )
+                }
+            </Breadcrumb>
+        </div>
     )
 }
 

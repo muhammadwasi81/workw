@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import './style.css';
 import pdfIcon from '../../../../../../content/NewContent/Documents/file/PDF_DOC.svg';
 import menuIcon from '../../../../../../content/NewContent/Documents/3dots.svg';
@@ -12,14 +13,24 @@ import { DOCUMENT_ENUM } from "../../../constant";
 import {
     FilePdfOutlined,
 } from '@ant-design/icons';
+import moment from "moment";
+import { handleParentId } from "../../../store/slice";
 
 
-const DocShortCard = ({
-    icon,
-    name,
-    description
-}) => {
+
+const DocShortCard = ({ data }) => {
+    const disptach = useDispatch()
+
+    let { name, documentType, creator, createDate, id, path  } = data
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
+
+    const handleType = (() => {
+        disptach(handleParentId({
+            id,
+            name
+        }))
+    })
+
 
     return (
         <DragDropContainer
@@ -45,23 +56,25 @@ const DocShortCard = ({
                     </div>
                     <div className="d_ShortCard_Child2">
                         <img
+                            onClick={handleType}
                             alt=""
-                            src={getIconByExtensionType(5)}
+                            src={ documentType === DUCOMENT_TYPE.image ? 
+                                  path : getIconByExtensionType(documentType)}
                         />
                     </div>
                     <div className="fileName">
                         <h5>
-                            Folder
+                            {name}
                         </h5>
+                        {/* <h6>
+                            {moment(createDate,'mm/dd/yyyy')}
+                        </h6> */}
                     </div>
                     <div className="d_ShortCard_Child3">
                         <div></div>
                         <div>
                             <Avatar
-                                src={
-                                    "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-                                }
-                                name={""}
+                                src={creator.image}
                                 size={20}
                                 round={true}
                             />

@@ -8,13 +8,14 @@ import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 import { addDocument } from "../../store/actions";
 import { DOCUMENT_ENUM } from "../../constant";
+import { useSelector } from "react-redux";
 
 const CreateMileboard = ({ isOpen, handleClose }) => {
 
 	const dispatch = useDispatch();
+	const loader = useSelector(state => state.documentSlice.loader);
 	const [form] = Form.useForm();
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
-
 	const onPrivacyChange = value => {
 		setPrivacyId(value);
 	};
@@ -166,6 +167,7 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 								block
 								htmlType="submit"
 								title={"Create Milepad"}
+								loading={loader}
 							>
 								{" "}
 								{"Create"}{" "}

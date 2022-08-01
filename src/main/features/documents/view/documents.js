@@ -10,6 +10,7 @@ import DocumentShortCards from "./documentShortCards";
 import DropableContainer from "./dropableContainer";
 import { useDispatch } from "react-redux";
 import { addDocument, getAllDocument, getAllDocumentList } from "../store/actions";
+import { resetBreadCumb } from "../store/slice";
 
 const Documents = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,6 @@ const Documents = () => {
   const ParentId = useSelector(state => state.documentSlice.parentId);
 
   useEffect(() => {
-
     if (CurrentTab === "allDocuments") {
       let payload = {
         parentId: ParentId
@@ -31,7 +31,11 @@ const Documents = () => {
       }
       dispatch(getAllDocument(payload))
     }
-  }, [ParentId, CurrentTab])
+  }, [ParentId, CurrentTab]);
+  useEffect(()=>{
+    dispatch(resetBreadCumb())
+    
+  }, [])
 
   let RenderTab = {
     allDocuments: <DocumentShortCards data={ListData} />,

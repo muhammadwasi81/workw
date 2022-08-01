@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-color": "#1a5669",
+        "primary-color": "var(--currentThemeColor)",
         smoke: "#f4f4f4",
         "primary-ref-tag": "#ededed",
       },

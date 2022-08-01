@@ -6,7 +6,7 @@
   border-bottom: 1px solid #ebebeb;
 }
 
-.commentComposer > .img {
+.commentComposer>.img {
   min-width: 34px;
   min-height: 34px;
   max-width: 34px;
@@ -14,7 +14,7 @@
   border-radius: 50%;
 }
 
-.commentComposer > .composer-area {
+.commentComposer>.composer-area {
   flex: 1 1;
   display: flex;
   justify-content: center;
@@ -22,14 +22,14 @@
   margin-left: 12px;
 }
 
-.commentComposer > .composer-area > .inputs {
+.commentComposer>.composer-area>.inputs {
   display: flex;
   height: auto;
   box-sizing: border-box;
   /* padding-top: 8px; */
 }
 
-.commentComposer > .composer-area > .inputs > .inp {
+.commentComposer>.composer-area>.inputs>.inp {
   flex: 1 1;
   display: flex;
   align-items: center;
@@ -38,7 +38,7 @@
   /* height: min-content; */
 }
 
-.commentComposer > .composer-area > .inputs > .capture {
+.commentComposer>.composer-area>.inputs>.capture {
   width: 20px;
   height: 20px;
   display: flex;
@@ -49,7 +49,7 @@
   background-size: 100% 100%;
 }
 
-.commentComposer > .composer-area > .inputs > .capture > input[type="file"] {
+.commentComposer>.composer-area>.inputs>.capture>input[type="file"] {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -62,7 +62,7 @@
   opacity: 0;
 }
 
-.commentComposer > .composer-area > .inputs > .inp > textarea {
+.commentComposer>.composer-area>.inputs>.inp>textarea {
   width: 100%;
   border: none;
   outline: none;
@@ -84,7 +84,7 @@
 }
 
 .CommentBubble {
-  background-color: rgb(244, 244, 244);
+  background: rgb(244, 244, 244);
   color: black;
   /* width: max-content; */
   margin: 0 10px;
@@ -111,19 +111,19 @@
   width: 100%;
 }
 
-.CommentHeaderDet > .name {
-  color: var(--primary_theme_color_green);
+.CommentHeaderDet>.name {
+  color: var(--currentThemeColor);
   font-weight: bolder;
   font-size: 13px;
   margin-right: 20px;
 }
 
-.CommentHeaderDet > .designation {
+.CommentHeaderDet>.designation {
   color: #757d86;
   font-size: 11px;
 }
 
-.CommentHeaderIcon > img {
+.CommentHeaderIcon>img {
   width: 15px;
 }
 
@@ -133,7 +133,7 @@
   color: #757d86;
 }
 
-.likeReplyCont > div {
+.likeReplyCont>div {
   font-size: 12px;
   margin-left: 10px;
   cursor: pointer;

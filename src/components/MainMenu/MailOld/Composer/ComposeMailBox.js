@@ -14,7 +14,7 @@ import SearchAndSelectInput from "./searchAndSelectInput";
 import { composeMail } from "../Store/Api";
 
 const composerBtnStyle = {
-  backgroundColor: "var(--primary_theme_color_green)",
+  backgroundColor: "var(--currentThemeColor)",
   borderRadius: "8px",
   color: "#fff",
   // outline: "none",
@@ -190,7 +190,7 @@ const ComposeMailBox = ({
               IconSize={12}
               disabled={isMax}
               style={{
-                backgroundColor: "var(--primary_theme_color_green)",
+                backgroundColor: "var(--currentThemeColor)",
                 border: "none",
               }}
             />
@@ -205,7 +205,7 @@ const ComposeMailBox = ({
               IconSize={11}
               disabled={isMinimize}
               style={{
-                backgroundColor: "var(--primary_theme_color_green)",
+                backgroundColor: "var(--currentThemeColor)",
                 border: "none",
               }}
             />
@@ -219,7 +219,7 @@ const ComposeMailBox = ({
               icon={closeMailIcon}
               IconSize={10}
               style={{
-                backgroundColor: "var(--primary_theme_color_green)",
+                backgroundColor: "var(--currentThemeColor)",
                 border: "none",
               }}
             />
@@ -285,7 +285,7 @@ const ComposeMailBox = ({
               style={{
                 cursor: "pointer",
                 fontWeight: isBcc && "900",
-                color: isBcc && "var(--primary_theme_color_green)",
+                color: isBcc && "var(--currentThemeColor)",
               }}
               onClick={() => setBcc(!isBcc)}
             >
@@ -295,7 +295,7 @@ const ComposeMailBox = ({
               style={{
                 cursor: "pointer",
                 fontWeight: isCc && "900",
-                color: isCc && "var(--primary_theme_color_green)",
+                color: isCc && "var(--currentThemeColor)",
               }}
               onClick={() => setCc(!isCc)}
             >

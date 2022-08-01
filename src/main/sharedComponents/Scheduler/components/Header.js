@@ -29,14 +29,14 @@ function Header({ currentDate, onCalender, onToday, onPrev, onNext }) {
         {isOpen ? (
           <CaretUpOutlined
             style={{
-              color: "var(--primary_theme_color_green)",
+              color: "var(--currentThemeColor)",
               fontSize: "16px",
             }}
           />
         ) : (
           <CaretDownOutlined
             style={{
-              color: "var(--primary_theme_color_green)",
+              color: "var(--currentThemeColor)",
               fontSize: "16px",
             }}
           />

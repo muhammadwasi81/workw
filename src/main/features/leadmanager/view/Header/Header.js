@@ -16,9 +16,10 @@ const initialComposerData = {
 	image: "",
 };
 
-function Header() {
+function Header({ dictionary, direction }) {
 	const dispatch = useDispatch();
-
+	const { createTextBtn, dashboard, labels } = dictionary;
+	const { createGrp, updateGrp } = labels;
 	const {
 		loading,
 		success,
@@ -32,7 +33,7 @@ function Header() {
 
 	const items = [
 		{
-			name: "Dashboard",
+			name: dashboard,
 			to: `${ROUTES.LEAD_MANAGER.DEFAULT}`,
 			renderButton: [1],
 		},
@@ -56,7 +57,7 @@ function Header() {
 
 	const buttons = [
 		{
-			buttonText: "Create Lead Manager",
+			buttonText: createTextBtn,
 			onClick: () => handleOpenDrawer(true),
 			render: (
 				<SideDrawer
@@ -66,10 +67,14 @@ function Header() {
 							composerData={composerData}
 							dataLoading={isComposerDataLoading}
 							loading={loading}
+							dictionary={dictionary}
+							direction={direction}
 						/>
 					}
-					title={isEditComposer ? "Update" : "Create" + " Group"}
-					buttonText="Create Lead Category Group"
+					title={
+						isEditComposer && isComposerOpen ? updateGrp : createGrp
+					}
+					buttonText={createTextBtn}
 					isAccessDrawer={true}
 					setOpenDrawer={handleOpenDrawer}
 					openDrawer={isComposerOpen}

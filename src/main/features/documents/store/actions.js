@@ -5,19 +5,19 @@ import { openNotification } from "../../../../utils/Shared/store/slice";
 import { addDocumentService, getAllDocumentListService, getAllDocumentService } from "../services/service";
 
 const addDocument_DBO = (data) => {
-	return{
-		"name": data.name ? data.name : "",
-		"description": data.description ? data.description : "",
-		"privacyId": data.privacyId ? data.privacyId : 1,
-		"referenceId": data.referenceId ? data.referenceId : STRINGS.DEFAULTS.guid,
-		"referenceType": data.referenceType ? data.referenceType : 1,
-		"parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
-		"documentType": data.documentType ? data.documentType : "",
-		"approvers": data.approvers ? data.approvers : [],
-		"members": data.members ? data.members : [],
-		"attachments": data.attachments ? data.attachments : [],
-		"approvers": data.approvers ? data.approvers : []
-	}
+  return {
+    "name": data.name ? data.name : "",
+    "description": data.description ? data.description : "",
+    "privacyId": data.privacyId ? data.privacyId : 1,
+    "referenceId": data.referenceId ? data.referenceId : STRINGS.DEFAULTS.guid,
+    "referenceType": data.referenceType ? data.referenceType : 1,
+    "parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
+    "documentType": data.documentType ? data.documentType : "",
+    "approvers": data.approvers ? data.approvers : [],
+    "members": data.members ? data.members : [],
+    "attachments": data.attachments ? data.attachments : [],
+    "approvers": data.approvers ? data.approvers : []
+  }
 }
 
 
@@ -25,9 +25,8 @@ const addDocument_DBO = (data) => {
 
 export const addDocument = createAsyncThunk(
   "document/addDocument",
-  async (data, { rejectWithValue, dispatch }) => {
-    let request = addDocument_DBO(data)
-
+  async ({ payload, form }, { rejectWithValue, dispatch }) => {
+    let request = addDocument_DBO(payload)
     const formdataRequest = jsonToFormData(request);
     console.log(formdataRequest, "ACTION")
 
@@ -36,9 +35,10 @@ export const addDocument = createAsyncThunk(
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
+        form.resetFields();
         dispatch(openNotification({
           message: "Document Create Successfully",
-          type:"success",
+          type: "success",
           duration: 2
         }))
         return response.data;

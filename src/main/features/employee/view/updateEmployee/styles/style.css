@@ -1,38 +1,47 @@
 .updateFormsBody {
     width: 100%;
-    background-color: white;
+    background: white;
     padding-top: 17px;
 }
+
 .updateFormsBody .ant-divider-horizontal {
     display: none;
 }
+
 .updateFormsBody .bankDetailForm {
     margin-top: 0px;
     padding: 0px 20px;
 }
+
 .updateFormsBody .bankDetailForm .sc-idiyUo {
     padding-left: 0px;
     padding-right: 0px;
 }
+
 .updateFormsBody .bankDetailForm .sc-dmRaPn {
     margin-right: 0px;
     margin: 0 auto;
 }
+
 .updateFormsBody .bankDetailForm .hPSCHC .ant-space-item:last-child {
     margin-top: -0.5rem;
 }
+
 .updateFormsBody .bankDetailForm .HrEBn {
     width: 9.4rem !important;
     justify-content: center;
 }
+
 .updateFormsBody .emergencyForm {
     margin-top: 0px;
     padding: 0px 20px;
 }
+
 .updateFormsBody .emergencyForm .sc-evZas {
     margin-top: 0px;
     padding: 0px 20px;
 }
+
 .updateFormsBody .basicInfoForm {
     margin-top: 0;
     padding: 0px 20px;

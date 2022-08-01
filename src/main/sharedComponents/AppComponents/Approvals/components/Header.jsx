@@ -1,9 +1,14 @@
 import { Tag } from "antd";
+import { useContext } from "react";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import Avatar from "../../../Avatar/avatarOLD";
 import { getStatusLabelAndColor } from "../enums";
+import { ApprovalDictionary } from "../localization";
 function Header({ user, type, status }) {
   const { name, designation, image } = user;
-  const { label, color } = getStatusLabelAndColor()[status];
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { status: statusLabels } = ApprovalDictionary[userLanguage];
+  const { label, color } = getStatusLabelAndColor("", statusLabels)[status];
 
   return (
     <div className="approval__body-header">

@@ -242,7 +242,7 @@ const MobileMailComposer = () => {
               style={{
                 cursor: "pointer",
                 fontWeight: isBcc && "900",
-                color: isBcc && "var(--primary_theme_color_green)",
+                color: isBcc && "var(--currentThemeColor)",
               }}
               onClick={() => setBcc(!isBcc)}
             >
@@ -252,7 +252,7 @@ const MobileMailComposer = () => {
               style={{
                 cursor: "pointer",
                 fontWeight: isCc && "900",
-                color: isCc && "var(--primary_theme_color_green)",
+                color: isCc && "var(--currentThemeColor)",
               }}
               onClick={() => setCc(!isCc)}
             >

@@ -5,8 +5,8 @@
   top: 20px;
 }
 
-.Tooltip-bx > .tooltiptext {
-  /*background-color: dimgrey;*/
+.Tooltip-bx>.tooltiptext {
+  /*background: dimgrey;*/
   color: #fff;
   font-size: 8px;
   text-align: center;
@@ -18,10 +18,10 @@
 }
 
 .ant-tooltip-inner {
-  color: var(--primary_theme_color_green) !important;
-  /*background-color: #FFFFFF !important;*/
+  color: var(--currentThemeColor) !important;
+  /*background: #FFFFFF !important;*/
 }
 
 .ant-tooltip-arrow-content {
-  /*background-color: #FFFFFF !important;*/
+  /*background: #FFFFFF !important;*/
 }

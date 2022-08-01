@@ -3,10 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Form, Radio } from "antd";
 import "swiper/css";
 import { expenseCategory } from "../enums/expenseCategory";
-function ExpenseType() {
+function ExpenseType({ labels }) {
   return (
     <Form.Item
-      label="Category"
+      label={labels.category}
       name="categoryId"
       labelPosition="top"
       rules={[{ required: true }]}

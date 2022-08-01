@@ -1,5 +1,5 @@
 .appSideBar {
-  background-color: white;
+  background: white;
   z-index: 3;
   position: absolute;
   right: 0;
@@ -50,14 +50,14 @@
 
 }
 
-.sideBarHead > .headIcon {
+.sideBarHead>.headIcon {
   height: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.headIcon > img {
+.headIcon>img {
   height: 30px;
   cursor: pointer;
 }
@@ -76,7 +76,7 @@
 .myDivider {
   width: 80%;
   height: 1px;
-  background-color: #aaaaaa29;
+  background: #aaaaaa29;
   margin: auto;
 }
 
@@ -89,18 +89,18 @@
 }
 
 .chatSearchBoxHalf {
-  background-color: #ebe9e9;
+  background: #ebe9e9;
   border-radius: 7px;
   height: 30px;
   margin: 3px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.chatSearchBoxHalf > img {
+.chatSearchBoxHalf>img {
   height: 17px;
 }
 

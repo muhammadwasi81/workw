@@ -153,7 +153,7 @@ const MainBody = () => {
                         value={!isRead}
                         style={{
                           fontSize: "16px",
-                          color: "var(--primary_theme_color_green)",
+                          color: "var(--currentThemeColor)",
                         }}
                       />
                     </AntTooltip>

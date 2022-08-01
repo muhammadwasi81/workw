@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
 	ContBody,
 	TabbableContainer,
@@ -7,24 +7,35 @@ import Header from "./view/Header/Header";
 import Board from "./view/Board/Board";
 import LeadTopBar from "./view/LeadTopBar/TopBar";
 import LeadDashboard from "./view/Dashboard/Dashboard";
+import { LeadManagerDictionary } from "./localization";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 
 function LeadManager() {
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
+		userLanguage
+	];
+	const { topBar } = LeadManagerDictionaryList;
 	const [isTableView, setIsTableView] = useState(false);
 	return (
-		<>
-			{/* <Board /> */}
-			<Header />
-			<TabbableContainer className="">
-				<LeadTopBar
-					handleView={isTable => {
-						setIsTableView(isTable);
-					}}
+		<TabbableContainer>
+			<Header
+				dictionary={LeadManagerDictionaryList}
+				direction={Direction}
+			/>
+			<LeadTopBar
+				handleView={isTable => {
+					setIsTableView(isTable);
+				}}
+				topBar={topBar}
+			/>
+			<ContBody className="!block" direction={Direction}>
+				<LeadDashboard
+					isTableView={isTableView}
+					dictionary={LeadManagerDictionaryList}
 				/>
-				<ContBody className="!block">
-					<LeadDashboard isTableView={isTableView} />
-				</ContBody>
-			</TabbableContainer>
-		</>
+			</ContBody>
+		</TabbableContainer>
 	);
 }
 

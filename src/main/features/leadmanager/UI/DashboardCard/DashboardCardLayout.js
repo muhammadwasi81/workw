@@ -11,6 +11,7 @@ function DashboardCardLayout({
 	handleUpdate = () => {},
 	getDetailById = () => {},
 	onClick = () => {},
+	dictionary = {},
 }) {
 	const { Meta } = Card;
 	const userId = useSelector(state => state.userSlice.user.id);
@@ -65,7 +66,9 @@ function DashboardCardLayout({
 								handleUpdate();
 							}}
 						>
-							Update
+							{dictionary &&
+								dictionary.labels &&
+								dictionary.labels.update}
 						</div>
 					)}
 				</div>

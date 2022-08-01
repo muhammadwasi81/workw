@@ -34,37 +34,40 @@ export const ApproverType = {
   User: 1,
   Department: 2,
 };
-export const getStatusLabelAndColor = (module) => {
+export const getStatusLabelAndColor = (module, statusLabels) => {
   return {
-    [ApprovalStatus.InProcess]: { label: "In-Process", color: "#1a5669" },
+    [ApprovalStatus.InProcess]: {
+      label: statusLabels.InProcess,
+      color: "#1a5669",
+    },
     [ApprovalStatus.Approved]: {
-      label: "Approved",
+      label: statusLabels.Approved,
       color: "#1ECB40",
     },
     [ApprovalStatus.Declined]: {
-      label: "Declined",
+      label: statusLabels.Declined,
       color: "#FF0000",
     },
     [ApprovalStatus.Resend]: {
-      label: "Resend",
+      label: statusLabels.Resend,
       color: "#1ECB40",
     },
     [ApprovalStatus.Inactive]: {
-      label: "Inactive",
+      label: statusLabels.Inactive,
       color: "#1ECB40",
     },
     [ApprovalStatus.NotRequired]: {
-      label: "NotRequired",
+      label: statusLabels.NotRequired,
       color: "#1ECB40",
     },
     [ApprovalStatus.Cancelled]: {
-      label: "Cancelled",
+      label: statusLabels.Cancelled,
       color: "#1ECB40",
     },
     [ApprovalStatus.ApprovalRequired]: {
-      label: "ApprovalRequired",
+      label: statusLabels.ApprovalRequired,
       color: "#1ECB40",
     },
-    [ApprovalStatus.Hold]: { label: "Hold", color: "#1a5669" },
+    [ApprovalStatus.Hold]: { label: statusLabels.Hold, color: "#1a5669" },
   };
 };

@@ -51,7 +51,7 @@ obj.bars = [];
 function draw() {
   for (let i = 0; i < obj.bars.length; i++) {
     const bar = obj.bars[i];
-    obj.ctx.fillStyle = `var(--primary_theme_color_green)`;
+    obj.ctx.fillStyle = `var(--currentThemeColor)`;
     obj.ctx.fillRect(bar.x, bar.y, bar.width, bar.height);
     bar.x = bar.x - 2;
 

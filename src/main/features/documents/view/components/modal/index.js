@@ -30,9 +30,15 @@ function PreviewModal({ previewItem, handleClose = () => { } }) {
             <img src={previewItem?.path} /> :
             (previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.draw || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.grid ||
               previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.pad || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.show)
-              ? <iframe src={previewItem?.path} title="description"
+              ? 
+              <iframe 
+              className="!block"
+              style={{display:"block !important"}}
+              src={previewItem?.path} title="description"
               width='500px'
               height='500px' frameBorder='0'></iframe>
+
+              
               : ""
         }
       </Modal>

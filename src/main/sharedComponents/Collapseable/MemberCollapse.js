@@ -39,15 +39,15 @@ function MemberCollapse({ handleAdd, data = [], ghost = true }) {
 					</div>
 				}
 				className="custom_member_collapse"
-				extra={
-					<PlusCircleFilled
-						onClick={event => {
-							event.stopPropagation();
-							handleAdd();
-						}}
-						className="text-xl font-bold !text-primary-color mr-2"
-					/>
-				}
+				// extra={
+				// 	<PlusCircleFilled
+				// 		onClick={event => {
+				// 			event.stopPropagation();
+				// 			handleAdd();
+				// 		}}
+				// 		className="text-xl font-bold !text-primary-color mr-2"
+				// 	/>
+				// }
 				key="1"
 			>
 				<List

@@ -47,6 +47,13 @@ function BoardComposer({ isEdit, composerData, loading }) {
 	useEffect(() => {
 		if (composerData) {
 			form.setFieldsValue(composerData);
+			if (isEdit) {
+				form.setFieldsValue({
+					members: composerData.members.map(members => {
+						return members.memberId;
+					}),
+				});
+			}
 			setPrivacyId(composerData.privacyId);
 		}
 	}, [form, composerData]);
@@ -100,7 +107,7 @@ function BoardComposer({ isEdit, composerData, loading }) {
 				<Input size="large" />
 			</Form.Item>
 
-			<Form.Item label="Members">
+			<Form.Item label="Members" name="members">
 				<WorkBoardMemberSelect
 					onChange={(val, obj) => {
 						setMembersData(val);

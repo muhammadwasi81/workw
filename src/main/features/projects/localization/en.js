@@ -30,6 +30,16 @@ const en = {
 			type: "Please select member type.",
 			externals: "Please select externals",
 		},
+		features: {
+			features: "Features",
+			newsFeed: "News Feed",
+			schedule: "Schedule",
+			workBoard: "Work Board",
+			document: "Document",
+			expenses: "Expenses",
+			task: "Task",
+			travel: "Travel",
+		},
 	},
 
 	/*** Define language write side ***/

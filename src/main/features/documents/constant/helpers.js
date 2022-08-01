@@ -6,16 +6,13 @@ import drawIcon from "../../../../content/NewContent/Documents/file/mileboard.sv
 import padIcon from "../../../../content/NewContent/Documents/file/milepad.svg"
 import showIcon from "../../../../content/NewContent/Documents/file/mileshow.svg"
 import dummyImage from "../../../../content/NewContent/Documents/mediaDummy.svg"
-import defaultImage from "../../../../content/video_default.svg"
+import defaultImage from "../../../../content/business_default.png"
 
 export const getIconByExtensionType = ((AttachmentType, extensionType = null) => {
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
     switch (AttachmentType) {
         case DUCOMENT_TYPE.folder:
-            return folderIcon
-            break;
-        case DUCOMENT_TYPE.image:
             return folderIcon
             break;
         case DUCOMENT_TYPE.grid:

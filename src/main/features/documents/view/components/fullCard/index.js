@@ -20,10 +20,10 @@ import { getNameForImage } from "../../../../../../utils/base";
 import { createReducer } from "@reduxjs/toolkit";
 
 const DocFullCard = ({ data }) => {
-	const disptach = useDispatch()
+	// const disptach = useDispatch()
 
 	let { name, documentType, creator, createDate, id, path } = data
-	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
+	// let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
 	return (
 		<SingleItem>

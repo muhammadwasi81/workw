@@ -15,25 +15,21 @@ import { handleParentId } from "../../../store/slice";
 
 
 
-const DocShortCard = ({ data }) => {
+const DocShortCard = ({ data, handlePreview }) => {
     const disptach = useDispatch()
 
     let { name, documentType, creator, createDate, id, path } = data
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
-    const handleClick = (() => {
+    const handleClick = (item) => {
 
-        if (DUCOMENT_TYPE === "folder") {
-            disptach(handleParentId({
-                id,
-                name
-            }))
+        if (documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
+            disptach(handleParentId(item))
         }
         else {
-            setVisible(true);
+            handlePreview(item);
         }
-    })
-
+    }
 
     return (
         <>
@@ -68,7 +64,7 @@ const DocShortCard = ({ data }) => {
                     </div> */}
                         <div className="d_ShortCard_Child2">
                             <img
-                                onClick={handleClick}
+                                onClick={()=>handleClick(data)}
                                 alt=""
                                 src={documentType === DUCOMENT_TYPE.image && path ?
                                     path : getIconByExtensionType(documentType)}

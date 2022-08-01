@@ -33,7 +33,7 @@ function PreviewModal({ previewItem, handleClose = () => { } }) {
               previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.pad || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.show)
               ? 
               <iframe 
-              className="!block"
+              className="!block h-full w-full"
               style={{display:"block !important"}}
               src={previewItem?.path} title="description"
               // width='500px'

@@ -55,6 +55,13 @@ function BoardComposer({
 	};
 	useEffect(() => {
 		form.setFieldsValue(composerData);
+		if (isEdit) {
+			form.setFieldsValue({
+				members: composerData.members.map(members => {
+					return members.memberId;
+				}),
+			});
+		}
 		setPrivacyId(composerData.privacyId);
 	}, [form, composerData]);
 
@@ -136,6 +143,7 @@ function BoardComposer({
 						message: "Members is required",
 					},
 				]}
+				name="members"
 			>
 				{dataLoading ? (
 					<Skeleton.Input active={true} block size={"large"} />

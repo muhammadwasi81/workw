@@ -21,18 +21,19 @@ const initialState = {
 	travelById: null,
 };
 
-const options = [
-	{
-		label: "Hotel Required",
-		value: "hotelRequired",
-	},
-	{
-		label: "TADA Application",
-		value: "tadaRequired",
-	},
-];
-
 function TravelComposerDetail(props) {
+	const { labels, placeHolder, travelBy } = props.labels;
+
+	const options = [
+		{
+			label: labels.hotelReq,
+			value: "hotelRequired",
+		},
+		{
+			label: labels.tadaReq,
+			value: "tadaRequired",
+		},
+	];
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
 	const isTablet = useMediaQuery({ maxWidth: 650 });
@@ -48,7 +49,7 @@ function TravelComposerDetail(props) {
 		travelDetails,
 	} = props;
 
-	const [items] = useState(travelCategoryData);
+	const [items] = useState(travelCategoryData(travelBy));
 	const [selected, setSelected] = useState(null);
 	const [isReturn, setIsReturn] = useState(false);
 
@@ -199,10 +200,10 @@ function TravelComposerDetail(props) {
 			<S.FormItem direction={Direction}>
 				<div className="input-row">
 					<Typography level={5} className="required_typography">
-						Reason
+						{labels.reason}
 					</Typography>
 					<TextInput
-						placeholder="Write Reason to Travel"
+						placeholder={placeHolder.reasonPh}
 						name="reason"
 						onChange={onInputFieldChange}
 						error={errors.reason}
@@ -218,7 +219,7 @@ function TravelComposerDetail(props) {
 			</S.FormItem>
 			<div className="input-row">
 				<Typography level={5} className="required_typography">
-					Travel
+					{labels.travel}
 				</Typography>
 				<div className="flex gap-4 flex-col sm:flex-row">
 					<div className="flex flex-col w-full">
@@ -229,7 +230,7 @@ function TravelComposerDetail(props) {
 							status={errors.departureId ? "error" : ""}
 							endPoint="/api/Utility/GetAllCities"
 							requestType="post"
-							placeholder="Search Departure To Select"
+							placeholder={placeHolder.traveDepartlPh}
 							value={state.departureId}
 							onChange={value => {
 								handleChange(value, "departureId");
@@ -249,7 +250,7 @@ function TravelComposerDetail(props) {
 							status={errors.arrivalId ? "error" : ""}
 							endPoint="/api/Utility/GetAllCities"
 							requestType="post"
-							placeholder="Search Destination To Select"
+							placeholder={placeHolder.travelDestPh}
 							value={state.arrivalId}
 							// searchValue={state.arrivalId}
 							onChange={value => {
@@ -268,7 +269,7 @@ function TravelComposerDetail(props) {
 			</div>
 
 			<div className="input-row">
-				<Typography level={5}>Date</Typography>
+				<Typography level={5}>{labels.date}</Typography>
 				<div
 					className={`${
 						isTablet ? "flex wrap gap-10" : "travel_date"
@@ -315,13 +316,13 @@ function TravelComposerDetail(props) {
 							// }));
 						}}
 					>
-						{"Return"}
+						{labels.return}
 					</Checkbox>
 				</div>
 			</div>
 
 			<div className="task-checkbox-container">
-				<Typography level={5}>Hotel & TADA</Typography>
+				<Typography level={5}>{labels.hotelTada}</Typography>
 
 				<Checkbox.Group
 					options={options}
@@ -334,7 +335,7 @@ function TravelComposerDetail(props) {
 			</div>
 
 			<Typography level={5} className="required_typography">
-				Travel By
+				{labels.travelBy}
 			</Typography>
 			<div className={`travel_tags_flex ${isTablet && "wrap "}`}>
 				<div
@@ -361,7 +362,7 @@ function TravelComposerDetail(props) {
 					}
 					onClick={checkValidation}
 				>
-					Add
+					{labels.add}
 				</Button>
 			</div>
 			{errors.travelBy && (

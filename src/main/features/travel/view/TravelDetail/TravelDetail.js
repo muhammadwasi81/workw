@@ -12,6 +12,7 @@ import LayoutHeader from "../../../../layout/header";
 import CardProfileTopView from "../ListView/CardProfileTopView";
 import { getTravelById } from "../../store/actions";
 import TravelDetailCard from "../UI/TravelDetailCard";
+import { TravelDictionary } from "../../localization";
 
 function TravelDetail() {
 	const { travelId } = useParams();
@@ -25,7 +26,8 @@ function TravelDetail() {
 	}, []);
 
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { appHeader } = dictionaryList[userLanguage];
+	const { TravelDictionaryList, Direction } = TravelDictionary[userLanguage];
+	const { headings } = TravelDictionaryList;
 	const items = [
 		{
 			name: travelDetail && travelDetail.subject,
@@ -35,7 +37,10 @@ function TravelDetail() {
 	return (
 		<TabContainer>
 			<LayoutHeader items={items} />
-			<ContBody className="flex justify-center w-full">
+			<ContBody
+				className="flex justify-center w-full"
+				direction={Direction}
+			>
 				<div className="bg-white p-5 rounded-xl w-[900px] flex flex-col gap-4">
 					<CardProfileTopView
 						profileImgSrc={"https://joeschmoe.io/api/v1/random"}
@@ -53,19 +58,19 @@ function TravelDetail() {
 					/>
 					<div className="flex justify-between flex-col gap-3">
 						<div className="flex flex-col gap-1">
-							<span className="text-black font-bold text-base">
+							<span className="text-black font-bold ">
 								{travelDetail && travelDetail.subject}
 							</span>
-							<span className="text-gray-500 font-bold text-base">
-								Description:{" "}
+							<span className="text-gray-500 font-bold ">
+								{headings.description}:{" "}
 								<span className="text-sm text-black font-normal">
 									{travelDetail && travelDetail.description}
 								</span>
 							</span>
 						</div>
 						<div>
-							<h3 className="text-base text-primary-color font-semibold">
-								Destinations
+							<h3 className=" text-primary-color font-semibold">
+								{headings.desctination}
 							</h3>
 							<div className="flex overflow-x-auto gap-5 overflow-hidden justify-center">
 								{travelDetail &&

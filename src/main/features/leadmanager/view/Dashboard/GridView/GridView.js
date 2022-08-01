@@ -4,7 +4,13 @@ import { getLeadManagerById } from "../../../store/actions";
 import { handleComposer } from "../../../store/slice";
 import DashboardCardLayout from "../../../UI/DashboardCard/DashboardCardLayout";
 
-function GridView({ data, loading, dispatch, handleClickNavigation }) {
+function GridView({
+	data,
+	loading,
+	dispatch,
+	handleClickNavigation,
+	dictionary,
+}) {
 	return (
 		<CardWrapper2>
 			{data &&
@@ -24,6 +30,7 @@ function GridView({ data, loading, dispatch, handleClickNavigation }) {
 						onClick={() => {
 							handleClickNavigation(manager.id);
 						}}
+						dictionary={dictionary}
 					/>
 				))}
 		</CardWrapper2>

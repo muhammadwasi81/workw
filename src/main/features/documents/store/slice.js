@@ -1,5 +1,6 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addDocument } from "./actions";
+import { STRINGS } from "../../../../utils/base";
+import { addDocument, getAllDocument, getAllDocumentList } from "./actions";
 
 const initialState = {
   listLoading: false,
@@ -13,10 +14,16 @@ const initialState = {
     mileshow: false,
   },
   listData: [],
+  detailListData: [],
   editData: null,
   success: false,
   loader: false,
-  error: false
+  error: false,
+  parentId: null,
+  breadCumbPath: [{
+    label: "Home",
+    id: STRINGS.DEFAULTS.guid
+  }],
 };
 
 const documentSlice = createSlice({
@@ -31,6 +38,13 @@ const documentSlice = createSlice({
     },
     handleChangeTab: (state, { payload: tab }) => {
       state.currentTab = tab;
+    },
+    handleParentId: (state, { payload }) => {
+      state.parentId = payload.id;
+      state.breadCumbPath = [...state.breadCumbPath, {
+        label: payload.name,
+        id: payload.id
+      }];
     }
   },
 
@@ -40,6 +54,16 @@ const documentSlice = createSlice({
         state.loader = false;
         state.success = true;
         state.listData = [payload, ...state.listData];
+      })
+      .addCase(getAllDocumentList.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.success = true;
+        state.listData = payload
+      })
+      .addCase(getAllDocument.fulfilled, (state, {payload}) => {
+        state.loader = false;
+        state.success = true,
+        state.detailListData = payload;
       })
       .addMatcher(
         isPending(
@@ -57,5 +81,5 @@ const documentSlice = createSlice({
 
 });
 
-export const { handleOpenDocComposer, handleCloseDocComposer, handleChangeTab } = documentSlice.actions;
+export const { handleOpenDocComposer, handleCloseDocComposer, handleChangeTab, handleParentId } = documentSlice.actions;
 export default documentSlice.reducer;

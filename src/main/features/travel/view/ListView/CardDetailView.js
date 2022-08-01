@@ -4,11 +4,10 @@ import ReferenceTag from "../../../../sharedComponents/Tag/ReferenceTag";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 
 function CardDetailView(props) {
+	const { label } = props;
 	return (
 		<div className="flex flex-col">
-			<h2 className="text-black sm:text-base text-semi-bold">
-				{props.heading}
-			</h2>
+			<h2 className="text-black text-semi-bold">{label}</h2>
 			{props.isAvatarGroup ? (
 				<Avatar
 					membersData={props.membersData}
@@ -19,9 +18,7 @@ function CardDetailView(props) {
 			) : props.isTag ? (
 				<ReferenceTag refNo={props.text} />
 			) : (
-				<h2 className="text-gray-500 sm:text-base text-semi-bold">
-					{props.text}
-				</h2>
+				<h2 className="text-gray-500 text-semi-bold">{props.text}</h2>
 			)}
 		</div>
 	);

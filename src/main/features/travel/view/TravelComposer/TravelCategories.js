@@ -1,4 +1,4 @@
-export const travelCategoryData = [
+export const travelCategoryData = travel => [
 	{
 		id: 1,
 		image: (
@@ -17,7 +17,7 @@ export const travelCategoryData = [
 				/>
 			</svg>
 		),
-		name: "By Plane",
+		name: travel.plane,
 	},
 	{
 		id: 2,
@@ -45,7 +45,7 @@ export const travelCategoryData = [
 				/>
 			</svg>
 		),
-		name: "By Ship",
+		name: travel.ship,
 	},
 	{
 		id: 3,
@@ -64,7 +64,7 @@ export const travelCategoryData = [
 				/>
 			</svg>
 		),
-		name: "By Bus",
+		name: travel.bus,
 	},
 	{
 		id: 4,
@@ -85,6 +85,6 @@ export const travelCategoryData = [
 				/>
 			</svg>
 		),
-		name: "By Train",
+		name: travel.train,
 	},
 ];

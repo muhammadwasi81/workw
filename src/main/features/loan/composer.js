@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import "antd/dist/antd.css";
 // import './index.css';
 import { Button, Form, Input, Select } from "antd";
@@ -23,6 +23,8 @@ const tailLayout = {
 const Composer = () => {
   const [form] = Form.useForm();
 
+  // const [account, setAccount] = useState("");
+
   const onGenderChange = (value) => {
     switch (value) {
       case "male":
@@ -45,7 +47,22 @@ const Composer = () => {
   };
 
   const onFinish = (values) => {
-    console.log(values);
+    // console.log(values.approvers);
+    let approvers = values.approvers;
+    let amount = values.amount;
+    let loanTenure = values.loanTenure;
+    let loanPurpose = values.loanPurpose;
+    let description = values.description;
+    //let image = profileImage[0].originFileObj;
+    let payload = {
+      ...values,
+      approvers,
+      amount,
+      loanTenure,
+      loanPurpose,
+      description,
+    };
+    console.log(payload);
   };
 
   const onReset = () => {
@@ -64,6 +81,7 @@ const Composer = () => {
       form={form}
       name="control-hooks"
       onFinish={onFinish}
+      onFill={onFill}
       layout="vertical"
     >
       <Form.Item

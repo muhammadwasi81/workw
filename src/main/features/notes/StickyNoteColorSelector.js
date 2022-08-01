@@ -66,7 +66,7 @@ const StickyNoteColorSelector = (props) => {
         <div style={delSec}>
           <AiOutlineClose />
         </div>
-        Close Note
+        Close Colors
       </div>
       <hr />
     </div>

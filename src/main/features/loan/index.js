@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TabbableContainer, ContBody } from "../../layout/GridStyle";
 import Header from "../../layout/header";
@@ -15,6 +15,7 @@ import DetailedView from "./DetailedView";
 import { CloseDetailView } from "../../../store/appReducer/loanSlice";
 import { Table } from "../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
+//import { getAllRewards } from "./store/actions";
 
 function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -28,6 +29,10 @@ function Index() {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   // const [detailViewIsVisible, setDetailViewIsVisible] = useState(true);
+
+  // useEffect(() => {
+  //   dispatch(getAllRewards(filter));
+  // }, [filter]);
 
   const closeDetailView = () => {
     dispatch(CloseDetailView());

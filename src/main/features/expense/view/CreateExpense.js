@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   CheckCircleOutlined,
   WalletOutlined,
@@ -20,13 +20,19 @@ import moment from "moment";
 import Select from "../../../sharedComponents/Select/Select";
 import { getAllExpenseHeaderService } from "../../expenseHeader/services/service";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { ExpenseDictionary } from "../localization";
 const { TextArea } = Input;
 
 function CreateExpense() {
   const [isExecutor, setIsExecutor] = useState(false);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const {
+    Direction,
+    ExpenseDictionaryList: { labels, placeHolder },
+  } = ExpenseDictionary[userLanguage];
   const [type, setType] = useState(1);
   const dispatch = useDispatch();
-
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -36,11 +42,11 @@ function CreateExpense() {
   const [allHeader, setAllHeader] = useState([]);
   const [file, setFile] = useState("");
   const listObj = {
-    1: "General",
-    2: "Project",
-    3: "Group",
-    4: "Travel",
-    5: "Assets",
+    1: labels.general,
+    2: labels.project,
+    3: labels.group,
+    4: labels.travel,
+    5: labels.assets,
   };
   const [employeeData, setEmployeeData] = useState({
     approvers: [],
@@ -128,16 +134,17 @@ function CreateExpense() {
   const [form] = Form.useForm();
   return (
     <Form
+      style={{ direction: Direction }}
       form={form}
       name="addExpense"
       onFinish={onFinish}
       autoComplete="off"
       layout="vertical"
-      className="addExpense"
+      className={Direction === "ltr" ? "addExpense" : "addExpense rtl"}
       initialValues={{ categoryId: 1, referenceType: 1 }}
     >
-      <ExpenseType />
-      <Form.Item label={"Types"} name="referenceType">
+      <ExpenseType labels={labels} />
+      <Form.Item label={labels.types} name="referenceType">
         <Radio.Group
           defaultValue={1}
           rules={[{ required: true }]}
@@ -148,23 +155,23 @@ function CreateExpense() {
         >
           <Radio.Button value={1}>
             <WalletOutlined />
-            General
+            {labels.general}
           </Radio.Button>
           <Radio.Button value={2}>
             <PieChartOutlined />
-            Project
+            {labels.project}
           </Radio.Button>
           <Radio.Button value={3}>
             <TeamOutlined />
-            Group
+            {labels.group}
           </Radio.Button>
           <Radio.Button value={4}>
             <CheckCircleOutlined />
-            Travel
+            {labels.travel}
           </Radio.Button>
           <Radio.Button value={5}>
             <BankOutlined />
-            Asset
+            {labels.assets}
           </Radio.Button>
         </Radio.Group>
       </Form.Item>
@@ -180,12 +187,12 @@ function CreateExpense() {
       )}
       <Form.Item
         rules={[{ required: true }]}
-        label="Header"
+        label={labels.header}
         name="headerId"
         labelPosition="top"
       >
         <Select
-          placeholder={"Write Header Here..."}
+          placeholder={placeHolder.writeHeaderHere}
           data={allHeader}
           onChange={handleHeader}
           style={{
@@ -197,34 +204,34 @@ function CreateExpense() {
       </Form.Item>
       <div className="formItem-w50">
         <Form.Item
-          label="Amount"
+          label={labels.amount}
           name="amount"
           labelPosition="top"
           rules={[{ required: true }]}
         >
-          <Input placeholder="Enter Amount" type={"number"} />
+          <Input placeholder={placeHolder.enterAmount} type={"number"} />
         </Form.Item>
         <Form.Item
-          label="Date"
+          label={labels.date}
           name="expenseDate"
           labelPosition="top"
           rules={[{ required: true }]}
         >
-          <DatePicker placeholder="Pick Current Date" />
+          <DatePicker placeholder={placeHolder.pickCurrentDate} />
         </Form.Item>
-        <Form.Item label=" " name="isReimbursable" labelPosition="top">
+        <Form.Item label="" name="isReimbursable" labelPosition="top">
           <Checkbox
             onChange={() => {
               setIsExecutor(!isExecutor);
             }}
           >
-            Is Reimbursable
+            {labels.isReimbursable}
           </Checkbox>
         </Form.Item>
       </div>
       <Form.Item
         name="approver"
-        label={"Approvers"}
+        label={labels.approvers}
         rules={[{ required: true }]}
       >
         <MemberSelect
@@ -237,7 +244,7 @@ function CreateExpense() {
           fetchData={fetchEmployees}
           name="approvers"
           mode="multiple"
-          placeholder={"Select Approvers"}
+          placeholder={placeHolder.selectApprovers}
           optionComponent={(opt) => {
             return (
               <>
@@ -259,7 +266,7 @@ function CreateExpense() {
         <Form.Item
           rules={[{ required: true }]}
           name="Executor"
-          label={"Executors"}
+          label={labels.executors}
         >
           <MemberSelect
             isObject={true}
@@ -271,7 +278,7 @@ function CreateExpense() {
             fetchData={fetchEmployees}
             name="Executors"
             mode="multiple"
-            placeholder={"Select Executors"}
+            placeholder={placeHolder.selectExecutors}
             optionComponent={(opt) => {
               return (
                 <>
@@ -289,7 +296,11 @@ function CreateExpense() {
           />
         </Form.Item>
       )}
-      <Form.Item name="Finance" label={"Finance"} rules={[{ required: true }]}>
+      <Form.Item
+        name="Finance"
+        label={labels.financers}
+        rules={[{ required: true }]}
+      >
         <MemberSelect
           isObject={true}
           data={firstTimeEmpData}
@@ -300,7 +311,7 @@ function CreateExpense() {
           fetchData={fetchEmployees}
           name="Finance"
           mode="multiple"
-          placeholder={"Select Finance"}
+          placeholder={placeHolder.selectFinancers}
           optionComponent={(opt) => {
             return (
               <>
@@ -319,18 +330,22 @@ function CreateExpense() {
       </Form.Item>
 
       <Form.Item
-        label="Description"
+        label={labels.description}
         name="description"
         labelPosition="top"
         rules={[{ required: true }]}
       >
         <TextArea
-          placeholder="Wirte Description Here..."
+          placeholder={placeHolder.writeDescription}
           name=""
           id=""
         ></TextArea>
       </Form.Item>
-      <Form.Item label="Attachments" name="attachments" labelPosition="top">
+      <Form.Item
+        label={labels.attachments}
+        name="attachments"
+        labelPosition="top"
+      >
         <SingleUpload
           handleImageUpload={(file) => {
             // console.log(file[0].originFileObj);
@@ -347,7 +362,7 @@ function CreateExpense() {
           block
           htmlType="submit"
         >
-          Create Expense
+          {labels.createExpense}
         </Button>
       </Form.Item>
     </Form>

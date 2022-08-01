@@ -13,26 +13,31 @@
 }
 
 tr:nth-child(odd) td {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
 }
+
 thead tr th {
-  background-color: var(--primary_theme_color_green) !important;
+  background: var(--currentThemeColor) !important;
   color: white !important;
 }
-.custom_table .ant-table-tbody > tr > td {
+
+.custom_table .ant-table-tbody>tr>td {
   padding: 5px 15px !important;
   height: 47px;
   font-size: 12px;
 }
-.custom_table .ant-table-thead > tr > th {
+
+.custom_table .ant-table-thead>tr>th {
   padding: 5px 15px !important;
   height: 37px;
   font-size: 12px;
 }
+
 .ant-table-column-sorter-down.active,
 .ant-table-column-sorter-up.active {
   color: white !important;
 }
+
 .drag-handle {
   margin: 0px;
 }

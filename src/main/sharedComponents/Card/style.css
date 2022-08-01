@@ -1,50 +1,57 @@
 .categoryTag {
-  background-color: #dee5e8;
-  color: var(--primary_theme_color_green) !important;
+  background: #dee5e8;
+  color: var(--currentThemeColor) !important;
   border: 0;
   white-space: nowrap;
   width: 111px;
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
 .submitButton {
-  background-color: #1b5669;
+  background: #1b5669;
   display: block;
   width: 100%;
   color: white;
   border-radius: 4px;
 }
+
 .submitButton:hover {
-  background-color: #1b5669;
+  background: #1b5669;
   color: white;
 }
+
 .innerCard {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   border-radius: 5px;
   padding: 8px 11px;
 }
+
 .innerCard__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
 }
+
 .innerCard__header .left {
   display: flex;
   color: black;
   font-weight: 600;
   font-size: 13px;
 }
+
 .innerCard__header .primaryTag {
   padding: 2px 10px;
   border-radius: 5px;
-  border: 1px solid var(--primary_theme_color_green);
+  border: 1px solid var(--currentThemeColor);
   display: inline-flex;
   font-size: 12px;
   gap: 5px;
   align-items: center;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
+
 .innerCard__header .secondaryTag {
   padding: 2px 10px;
   border-radius: 5px;
@@ -55,10 +62,12 @@
   align-items: center;
   color: #7d7d7d;
 }
+
 .innerCard__header .right p {
   font-size: 16px;
   font-weight: 600;
 }
+
 .innerCard__footer {
   display: flex;
   justify-content: space-between;
@@ -66,6 +75,7 @@
   font-size: 12px;
   font-weight: 600;
 }
+
 .innerCard__footer .left span:first-child,
 .innerCard__footer .right span:first-child {
   color: #939fa7;
@@ -86,6 +96,7 @@
   width: 100%;
   height: 100%;
 }
+
 .cardsRow {
   width: 100%;
   display: grid;
@@ -96,41 +107,49 @@
   height: fit-content;
   direction: ltr;
 }
+
 .list-item {
-  background-color: white;
+  background: white;
   border-radius: 4px;
   padding: 13px 12px;
   position: relative;
 }
+
 .detailedCard {
-  background-color: white;
+  background: white;
   border-radius: 4px;
   padding: 13px 12px;
   margin-bottom: 20px;
   position: relative;
 }
+
 .item-header {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
+
 .item-content {
   margin-top: 15px;
 }
+
 .item-header .right .ant-tag {
   padding: 4px 10px;
   border-radius: 4px;
   border: none;
   background: #ededed;
 }
+
 .item-header .right button {
   border-radius: 4px !important;
 }
+
 .item-content p {
   margin: 0;
   width: 65%;
   color: #757d86;
 }
+
 .item-content h3 {
   font-weight: 600;
   color: black;
@@ -138,63 +157,74 @@
   font-size: 18px;
   margin-bottom: 0px;
 }
+
 .item-content h4 {
   font-weight: bold;
   margin: 0;
 }
 
 .grid-item {
-  background-color: white;
+  background: white;
   border-radius: 4px;
   padding: 6px 6px;
   margin-bottom: 4px;
 }
+
 .grid-header {
   display: flex;
   justify-content: space-between;
 }
+
 .grid-content {
   margin-top: 15px;
 }
+
 .grid-header .right .ant-tag {
   padding: 7px 12px;
   border-radius: 4px;
   border: none;
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   font-size: 8px;
 }
+
 .grid-header .right button {
   border-radius: 4px !important;
   font-size: 10px;
   padding: 6px 10px 5px 10px;
 }
+
 .grid-content p {
   margin: 0;
   width: 100%;
   color: #757d86;
   font-size: 12px;
 }
+
 .smallHeading {
   margin-top: 10px;
   margin-bottom: 0px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
+
 .grid-content h4 {
   font-weight: bold;
   margin: 0;
 }
+
 .grid-item .avatar-name span {
   font-size: 7px;
   font-weight: 500;
 }
+
 .cancel {
-  background-color: red;
+  background: red;
 }
 
 .ItemDetails {
   display: flex;
   width: 100%;
 }
+
 .innerDiv {
   display: flex;
   flex-direction: column;
@@ -202,22 +232,28 @@
   margin-right: 20px;
   min-height: 75px;
 }
+
 .innerDiv .reference_tag {
   position: relative;
   top: 11px;
 }
+
 .detailedCard .innerDiv {
   justify-content: space-evenly;
 }
+
 .detailedCard p {
   margin-bottom: 0px;
 }
+
 .ListItemInner {
   display: flex;
 }
+
 .innerDiv {
   margin-right: 20px;
 }
+
 .ListItemInner p {
   color: #757d86;
   white-space: nowrap;
@@ -226,38 +262,47 @@
   text-overflow: ellipsis;
   margin-top: 15px;
 }
+
 .ItemDetails .IdTag {
   margin-top: 13px;
 }
+
 .list-item .mem {
   margin-left: 10px;
 }
+
 .attachmentBox .ant-image-img {
   border-radius: 4px;
 }
+
 .Card2 {
   border-radius: 10px;
   overflow: hidden;
   padding: 15px;
 }
+
 .Card2 .ant-card-meta-title {
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-size: 14px;
   font-weight: 600;
   margin: 0px 0px 0px 0px !important;
 }
+
 .Card2 .ant-card-meta-description {
   color: #757d86;
   font-size: 14px;
 }
+
 .Card2 .ant-card-cover img {
   border-radius: 10px 10px 0px 0px;
   height: 180px;
   background-size: cover;
 }
+
 .Card2 .ant-card-body {
   padding: 18px 0px 5px 0px;
 }
+
 .Card2 .ant-card-meta-detail {
   margin-bottom: 12px;
   width: 100%;
@@ -273,14 +318,17 @@
   display: block !important;
   text-align: center;
 }
+
 .Card3 .ItemHeader {
   display: block;
   margin: 0 auto;
 }
+
 .Card3 .details {
   display: flex;
   justify-content: center;
 }
+
 .Card3 .dot {
   width: 5px;
   background: #9a9390;
@@ -290,9 +338,11 @@
   position: relative;
   top: 6px;
 }
+
 .Card3 .time {
   margin-left: 4px;
 }
+
 .Card3 {
   padding: 23px 10px !important;
 }
@@ -301,6 +351,7 @@
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   transition: all 0.5s;
 }
+
 .Card3 .ItemContent {
   text-align: center;
   margin-top: 13px;
@@ -313,6 +364,7 @@
   font-weight: 600;
   margin-bottom: 0px;
 }
+
 .Card3 .ItemContent p {
   font-size: 11px;
   color: #9a9390;
@@ -325,9 +377,11 @@
 .Card3 .ItemFooter {
   text-align: center;
 }
+
 .detailedCard .ListItemInner p {
   width: auto;
 }
+
 .detailedCard .ItemDetails {
   width: 100%;
 }
@@ -337,24 +391,30 @@
     padding: 8px;
     margin-top: 0px !important;
   }
+
   .btn-hld {
     margin-top: 6px;
   }
+
   .innerDiv {
     flex-basis: 30%;
   }
+
   .ItemDetails {
     flex-wrap: wrap;
     justify-content: flex-start;
     width: 100%;
   }
+
   .detailedViewComposer .ant-drawer-content {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
   }
+
   .innerDiv {
     margin: 0px;
   }
+
   .tabbable-container {
     width: 100% !important;
   }
@@ -365,22 +425,27 @@
     font-size: 9px;
     padding: 8px;
   }
+
   .list-item {
-    background-color: white;
+    background: white;
     padding: 8px 6px;
   }
+
   .right {
     margin-top: 2px;
   }
+
   .avatar-name span {
     font-size: 7px;
   }
+
   .avatar {
     width: 35px !important;
     min-width: 35px !important;
     height: 35px !important;
     max-height: 35px !important;
   }
+
   .avatar-name .name {
     font-size: 11px;
   }
@@ -390,6 +455,7 @@
   .rt-col {
     display: none !important;
   }
+
   .list-item h3 {
     font-size: 12px;
   }
@@ -402,24 +468,25 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 899px) {
-}
+@media (min-width: 768px) and (max-width: 899px) {}
 
-@media (min-width: 900px) and (max-width: 1099px) {
-}
+@media (min-width: 900px) and (max-width: 1099px) {}
 
 @media (min-width: 1100px) and (max-width: 1500px) {
   .userInfo .name {
     font-size: 13px;
     padding-bottom: 0px;
   }
+
   .ItemDetails {
     display: flex;
     flex-wrap: wrap;
   }
+
   .ListItemInner {
     padding-right: 0px;
   }
+
   .innerDiv h3 {
     font-size: 13px;
   }
@@ -430,13 +497,16 @@
     font-size: 13px;
     padding-bottom: 0px;
   }
+
   .ItemDetails {
     display: flex;
     flex-wrap: wrap;
   }
+
   .ListItemInner {
     padding-right: 0px;
   }
+
   .innerDiv h3 {
     font-size: 13px;
   }
@@ -454,20 +524,25 @@
     display: flex;
     flex-wrap: wrap;
   }
+
   .ItemDetails {
     display: flex;
     flex-wrap: wrap;
   }
+
   .userInfo .name {
     font-size: 13px;
     padding-bottom: 0px;
   }
+
   .ListItemInner {
     padding-right: 0px;
   }
+
   .innerDiv h3 {
     font-size: 13px;
   }
+
   .avatar {
     width: 38px !important;
     min-width: 38px !important;
@@ -480,6 +555,7 @@
   .ItemDetails {
     flex-wrap: wrap;
   }
+
   .InnerDiv h3 {
     font-size: 17px;
   }

@@ -44,7 +44,7 @@
   font-weight: 600;
   padding: 4px 16px;
   border-radius: 5px;
-  background-color: #ededed;
+  background: #ededed;
   white-space: nowrap;
 }
 
@@ -55,7 +55,7 @@
   border-radius: 5px;
   color: #fff;
   white-space: nowrap;
-  background-color: var(--primary_theme_color_green);
+  background: var(--currentThemeColor);
 }
 
 .expenseCard__header .userInfo .details {
@@ -85,7 +85,7 @@
 }
 
 .expensedetail {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   border-radius: 8px;
   padding: 10px 20px;
 }
@@ -108,12 +108,12 @@
 .expensedetail__header .primaryTag {
   padding: 2px 10px;
   border-radius: 5px;
-  border: 1px solid var(--primary_theme_color_green);
+  border: 1px solid var(--currentThemeColor);
   display: inline-flex;
   font-size: 12px;
   gap: 5px;
   align-items: center;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
 
 .expensedetail__header .primaryTag svg {
@@ -166,7 +166,7 @@
 }
 
 .expenseCard__footer .column-item-head {
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-weight: 600;
 }
 
@@ -190,16 +190,15 @@
   border-radius: 2px;
   font-size: 10px;
   border-width: 1px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-weight: 600;
   padding-bottom: 5px;
   background: #faf9f9;
   height: 80px;
 }
 
-.expenseCategory
-  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-  border-color: var(--primary_theme_color_green);
+.expenseCategory .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  border-color: var(--currentThemeColor);
 }
 
 .expenseCategory .ant-radio-button-wrapper::after,
@@ -213,10 +212,10 @@
 }
 
 /* .expenseCategory:hover span {
-    color: var(--primary_theme_color_green);
+    color: var(--currentThemeColor);
 } */
 
-.expenseCategory .ant-radio-button-wrapper span + span {
+.expenseCategory .ant-radio-button-wrapper span+span {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -226,18 +225,16 @@
   white-space: nowrap;
 }
 
-.expenseCategory
-  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
-  color: var(--primary_theme_color_green);
+.expenseCategory .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+  color: var(--currentThemeColor);
 }
 
-.expenseCategory
-  .ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
-  border-right-color: var(--primary_theme_color_green);
+.expenseCategory .ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
+  border-right-color: var(--currentThemeColor);
 }
 
 .expenseCategory .ant-radio-button-wrapper-checked svg path {
-  fill: var(--primary_theme_color_green);
+  fill: var(--currentThemeColor);
 }
 
 .radioPrimary {
@@ -265,18 +262,17 @@
 }
 
 .radioPrimary .ant-radio-button-wrapper:hover {
-  border-color: var(--primary_theme_color_green);
+  border-color: var(--currentThemeColor);
 }
 
 .radioPrimary .ant-radio-button-wrapper-checked span:nth-child(2) {
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
 
-.radioPrimary
-  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-  color: var(--primary_theme_color_green);
+.radioPrimary .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  color: var(--currentThemeColor);
   background: #fff;
-  border-color: var(--primary_theme_color_green);
+  border-color: var(--currentThemeColor);
 }
 
 .radioPrimary .ant-radio-button-wrapper {
@@ -284,21 +280,25 @@
 }
 
 .radioPrimary .ant-radio-button-wrapper span:hover {
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
 
-.radioPrimary
-  .ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
-  border-color: var(--primary_theme_color_green);
+.radioPrimary .ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
+  border-color: var(--currentThemeColor);
 }
 
-.addExpense .ant-form-item-label > label {
-  color: var(--primary_theme_color_green);
+.addExpense .ant-form-item-label>label {
+  color: var(--currentThemeColor);
   font-weight: 600;
 }
 
 .addExpense .ant-input-number {
   width: 100%;
+}
+
+.addExpense.rtl .ant-form-item-label {
+  text-align: right;
+
 }
 
 .formItem-w50 {

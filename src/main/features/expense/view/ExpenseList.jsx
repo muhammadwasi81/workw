@@ -8,10 +8,12 @@ import moment from "moment";
 import { expenseCategory } from "../enums/expenseCategory";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { getStatusLabelAndColor } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import { ApprovalDictionary } from "../../../sharedComponents/AppComponents/Approvals/localization";
 
 function ExpenseList({ onExpense, expense }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
+  const { status: statusLabels } = ApprovalDictionary[userLanguage];
   if (!Object || !Object?.keys(expense).length > 0) return null;
   const {
     creator: { name, image, designation },
@@ -31,7 +33,7 @@ function ExpenseList({ onExpense, expense }) {
   let classes = "expenseCard ";
   classes += Direction === "rtl" ? "rtl" : "";
   const category = expenseCategory.filter((cate) => cate.id === categoryId)[0];
-  const { label, color } = getStatusLabelAndColor()[status];
+  const { label, color } = getStatusLabelAndColor("", statusLabels)[status];
 
   return (
     <div className={classes} onClick={() => onExpense(id)}>

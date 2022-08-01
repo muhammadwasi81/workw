@@ -11,7 +11,7 @@ const Styles = {
     width: 24px;
     height: 24px;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
-    background-color: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 50%;
     margin-right: 8px;
   `,

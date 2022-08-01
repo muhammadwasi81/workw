@@ -9,7 +9,7 @@ function PricePlans() {
           textAlign: "center",
           fontWeight: "bold",
           margin: "0px",
-          color: "var(--primary_theme_color_green)",
+          color: "var(--currentThemeColor)",
           marginTop: "20px",
         }}
       >
@@ -65,7 +65,7 @@ function PricePlans() {
                   borderRadius: "5px",
                   fontWeight: "bold",
                   color: "white",
-                  backgroundColor: "var(--primary_theme_color_green)",
+                  backgroundColor: "var(--currentThemeColor)",
                 }}
                 block
               >
@@ -77,7 +77,7 @@ function PricePlans() {
             <div
               className="basic-price-card"
               style={{
-                backgroundColor: "var(--primary_theme_color_green)",
+                backgroundColor: "var(--currentThemeColor)",
                 color: "white",
               }}
             >
@@ -125,7 +125,7 @@ function PricePlans() {
                 style={{
                   borderRadius: "5px",
                   fontWeight: "bold",
-                  color: "var(--primary_theme_color_green)",
+                  color: "var(--currentThemeColor)",
                 }}
                 block
               >
@@ -170,7 +170,7 @@ function PricePlans() {
                   borderRadius: "5px",
                   fontWeight: "bold",
                   color: "white",
-                  backgroundColor: "var(--primary_theme_color_green)",
+                  backgroundColor: "var(--currentThemeColor)",
                 }}
                 block
               >

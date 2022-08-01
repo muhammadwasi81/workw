@@ -13,9 +13,9 @@ const DocumentDetailCards = (props) => {
     <>
       {/* <DocSceleton /> */}
       <CardWrapper>
-        <BreadCumbs
+        {/* <BreadCumbs
           data={breadCumbsState}
-        />
+        /> */}
         {
           props.data.map((item, index) => (
             <DocFullCard data={item} />

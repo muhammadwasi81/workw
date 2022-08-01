@@ -13,10 +13,10 @@
 }
 
 .ant-btn-primary {
-  /*background-color: var(--primary_theme_color_green) !important;*/
+  /*background: var(--currentThemeColor) !important;*/
   /*border: none !important;*/
   /*border-radius: 4px !important;*/
-  border-color: var(--primary_theme_color_green) !important;
+  border-color: var(--currentThemeColor) !important;
 }
 
 .list-item::marker {
@@ -26,7 +26,7 @@
 .ant-btn-default {
   /*border: none !important;*/
   /*border-radius: 9px !important;*/
-  border-color: var(--primary_theme_color_green) !important;
+  border-color: var(--currentThemeColor) !important;
   /*border-radius: 4px !important;*/
 }
 
@@ -69,16 +69,16 @@
 
 /* 
 .ant-table-container  {
-	background-color: #f6f6f9;
+	background: #f6f6f9;
 } */
 
-.mem > .us-img {
+.mem>.us-img {
   width: 27px;
   height: 27px;
   border-radius: 50%;
   margin-left: -13px;
   border: 2px solid #fff;
-  background-color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.8);
   color: #fff;
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@
 }
 
 .section {
-  background-color: #f6f6f9;
+  background: #f6f6f9;
 }
 
 .cont-body {
@@ -124,17 +124,17 @@
 }
 
 .ic-txt-btn.dg:hover {
-  background-color: rgba(255, 51, 51, 0.11);
+  background: rgba(255, 51, 51, 0.11);
 }
 
 .ic-txt-btn.sc:hover {
-  background-color: rgba(1, 174, 58, 0.11);
+  background: rgba(1, 174, 58, 0.11);
 }
 
 /* .tabbable-container > .cont-body{
     overflow: unset !important;
 } */
-.tabbable-container > .cont-body > .lf-col {
+.tabbable-container>.cont-body>.lf-col {
   overflow: auto;
   scroll-behavior: smooth;
 }
@@ -153,32 +153,32 @@
     width: 100%;
   }
 
-  .tabbable-container > .cont-header > .menu > .li {
+  .tabbable-container>.cont-header>.menu>.li {
     padding: 7px;
   }
 
-  .tabbable-container > .cont-header {
+  .tabbable-container>.cont-header {
     width: 100%;
   }
 
-  .tabbable-container > .cont-body {
+  .tabbable-container>.cont-body {
     width: 100%;
   }
 
-  .tabbable-container > .cont-header {
+  .tabbable-container>.cont-header {
     margin-top: 10px;
     font-size: 12px;
     width: 100% !important;
   }
 
-  .tabbable-container > .cont-header-rtl {
+  .tabbable-container>.cont-header-rtl {
     margin-top: 33px;
     font-size: 12px;
     padding-right: unset;
     width: 100% !important;
   }
 
-  .tabbable-container > .cont-body > .lf-col {
+  .tabbable-container>.cont-body>.lf-col {
     height: unset;
   }
 }
@@ -202,25 +202,25 @@ iframe {
 }
 
 .ThemeBtn {
-  background-color: var(--primary_theme_color_green) !important;
+  background: var(--currentThemeColor) !important;
   color: white !important;
   border-radius: 5px !important;
 }
 
 .lowPriorityBtn {
-  background-color: #01ae3a !important;
+  background: #01ae3a !important;
   color: white !important;
   border-radius: 5px !important;
 }
 
 .mediumPriorityBtn {
-  background-color: orange !important;
+  background: orange !important;
   color: white !important;
   border-radius: 5px !important;
 }
 
 .highPriorityBtn {
-  background-color: #f33 !important;
+  background: #f33 !important;
   color: white !important;
   border-radius: 4px !important;
 }
@@ -371,8 +371,14 @@ iframe {
 	word-break: break-all;
    } */
 :root {
-  /* --primary_theme_color_green: #1a5669; */
-  --primary_theme_color_green: #1a5669;
+  /* --currentThemeColor: #1a5669; */
+  --currentThemeColor: #526bb1;
+  /* --themeColorGreen: #64c4b2;
+  --themeColorSkyBlue: #45c6ee;
+  --themeColorDarkBlue: #526bb1;
+  --themeColorPink: #e8137b;
+  --themeColorYellow: #f7d447; */
+
 }
 
 .ant-select-selection-item-content img {
@@ -380,13 +386,15 @@ iframe {
 }
 
 .defaultNotification {
-  background-color: var(--primary_theme_color_green);
+  background: var(--currentThemeColor);
   color: white;
   border-radius: 10px;
 }
+
 .defaultNotification .ant-notification-notice-message {
   margin: 0px !important;
 }
+
 .defaultNotification .ant-notification-notice-icon {
   top: 9px;
   left: 12px;
@@ -415,7 +423,7 @@ iframe {
   /* box-shadow: 0px 0px 5px 0px #ccc; */
 }
 
-.drawerSecondary .ant-drawer-body > form {
+.drawerSecondary .ant-drawer-body>form {
   background: #fff;
   border-radius: 4px;
   padding: 15px;

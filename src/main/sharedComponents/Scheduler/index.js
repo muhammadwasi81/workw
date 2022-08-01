@@ -21,7 +21,7 @@ function Scheduler() {
     setCurrentDate(new_date);
   };
   return (
-    <div className="schduleWrapper">
+    <div className="schduleWrapper" style={{ direction: "ltr" }}>
       <Header
         currentDate={currentDate}
         onCalender={handleCalender}

@@ -6,7 +6,10 @@
   height: 40vmin;
   pointer-events: none;
 }
-input:active, input:focus, input {
+
+input:active,
+input:focus,
+input {
   outline: none !important;
 }
 
@@ -17,7 +20,7 @@ input:active, input:focus, input {
 }
 
 .App-header {
-  background-color: #282c34;
+  background: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,6 +38,7 @@ input:active, input:focus, input {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

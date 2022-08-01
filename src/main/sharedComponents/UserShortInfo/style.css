@@ -3,10 +3,12 @@
   color: #9a9390;
   white-space: nowrap;
 }
+
 .time {
   color: #9a9390;
 }
+
 .name {
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-weight: 600;
 }

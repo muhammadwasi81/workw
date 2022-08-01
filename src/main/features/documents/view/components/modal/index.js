@@ -26,16 +26,24 @@ function PreviewModal({ previewItem, handleClose = () => { } }) {
         }}
       >
         <div className="ModalInner">
-          { 
+        {
+          previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.image ?
+            <img src={previewItem?.path} /> :
+            (previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.draw || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.grid ||
+              previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.pad || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.show)
+              ? 
+              <iframe 
+              className="!block h-full w-full"
+              style={{display:"block !important"}}
+              src={previewItem?.path} title="description"
+              // width='500px'
+              // height='500px' 
+              frameBorder='0'
+              ></iframe>
 
-            previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.image ?
-              <img src={previewItem?.path} /> :
-              (previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.draw || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.grid ||
-                previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.pad || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.show)
-                ? <iframe src={previewItem?.path} title="description"
-                  frameBorder='0'></iframe>
-                : ""
-          }
+              
+              : ""
+        }
         </div>
       </Modal>
     </>

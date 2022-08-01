@@ -34,6 +34,11 @@ const DocumentShortCards = (props) => {
         <PreviewModal
          previewItem={previewPath}
          handleClose={handleClose} />
+         {/* {
+          previewPath &&  <iframe src={previewPath?.path} title="description"
+          width='500px'
+          height='500px' frameBorder='0'></iframe>
+         } */}
       </div>
     </>
   );

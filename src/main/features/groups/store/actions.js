@@ -1,12 +1,49 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { message } from "antd";
-import { getAllProjectsService } from "../services/service";
+import { addGroupService, getAllGroupService } from "../services/service";
+import { responseCode } from "../../../../services/enums/responseCode";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 
-export const getAllProjects = createAsyncThunk("Project/GetAllProject", async (data) => {
-  const response = await getAllProjectsService(data);
+export const getAllGroup = createAsyncThunk(
+	"getAllGroup",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await getAllGroupService();
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			return rejectWithValue(res.message);
+		}
+	}
+);
 
-  if (!response.responseCode) {
-    message.error("Something went wrong");
-  }
-  return response.data;
-});
+export const addGroup = createAsyncThunk(
+	"addGroup",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await addGroupService(data);
+		if (res.responseCode === responseCode.Success) {
+			dispatch(
+				openNotification({
+					message: "Group Created Successfully",
+					type: "success",
+					duration: 2,
+				})
+			);
+			// dispatch(
+			// 	getAllGroup({
+			// 		pageNo: 0,
+			// 		pageSize: 0,
+			// 		search: "",
+			// 	})
+			// );
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);

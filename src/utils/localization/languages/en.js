@@ -3,6 +3,7 @@ const en = {
 
   /*** add all shared labels like send, ok, cancel, etc ***/
   sharedLabels: {
+    theme: "Theme",
     awardTo: "Award To",
     inprogress: "In Progress",
     filter: "Filter",
@@ -72,6 +73,7 @@ const en = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    workWiseCompanies: "Workwise Companies",
     promotions: "Promotions",
     customApprovals: "Custom Approvals",
     feed: "NewsFeed",

@@ -1,7 +1,14 @@
-import Avatar from "../../../Avatar/avatarOLD";
 import { Tag } from "antd";
-function Header({ user, type: typeNo, status }) {
+import { useContext } from "react";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import Avatar from "../../../Avatar/avatarOLD";
+import { getStatusLabelAndColor } from "../enums";
+import { ApprovalDictionary } from "../localization";
+function Header({ user, type, status }) {
   const { name, designation, image } = user;
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { status: statusLabels } = ApprovalDictionary[userLanguage];
+  const { label, color } = getStatusLabelAndColor("", statusLabels)[status];
 
   return (
     <div className="approval__body-header">
@@ -13,7 +20,7 @@ function Header({ user, type: typeNo, status }) {
         </div>
       </div>
       <div className="right">
-        {/* <Tag style={{ background: color }}>{label}</Tag> */}
+        <Tag style={{ background: color }}>{label}</Tag>
       </div>
     </div>
   );

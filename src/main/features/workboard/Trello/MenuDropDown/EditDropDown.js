@@ -21,20 +21,20 @@ const menu = (startEditing, addMembers, deleteTodo, showDateModal) => {
 	return (
 		<Menu
 			items={[
-				{
-					key: "2",
-					label: (
-						<div
-							className="flex items-center gap-3"
-							onClick={e => {
-								addMembers();
-							}}
-						>
-							<UserAddOutlined className="text-base" />
-							<span className="">Add Members</span>
-						</div>
-					),
-				},
+				// {
+				// 	key: "2",
+				// 	label: (
+				// 		<div
+				// 			className="flex items-center gap-3"
+				// 			onClick={e => {
+				// 				addMembers();
+				// 			}}
+				// 		>
+				// 			<UserAddOutlined className="text-base" />
+				// 			<span className="">Add Members</span>
+				// 		</div>
+				// 	),
+				// },
 				{
 					key: "3",
 					label: (

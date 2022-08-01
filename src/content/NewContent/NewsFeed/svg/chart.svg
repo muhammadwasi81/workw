@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
   <g id="Group_135" data-name="Group 135" transform="translate(-558.98 -231)">
-    <rect id="Rectangle_22" data-name="Rectangle 22" width="2.667" height="9.334" rx="0.589" transform="translate(565.313 241.333)" fill="var(--primary_theme_color_green)"/>
-    <rect id="Rectangle_23" data-name="Rectangle 23" width="2.667" height="13.334" rx="0.589" transform="translate(570.647 237.333)" fill="var(--primary_theme_color_green)"/>
-    <rect id="Rectangle_24" data-name="Rectangle 24" width="2.667" height="5.334" rx="0.589" transform="translate(575.98 245.333)" fill="var(--primary_theme_color_green)"/>
-    <path id="Path_326" data-name="Path 326" d="M579.1,257H564.864a5.891,5.891,0,0,1-5.884-5.885v-14.23A5.891,5.891,0,0,1,564.864,231H579.1a5.891,5.891,0,0,1,5.884,5.885v14.23A5.891,5.891,0,0,1,579.1,257Zm-14.232-24a3.889,3.889,0,0,0-3.884,3.885v14.23A3.889,3.889,0,0,0,564.864,255H579.1a3.889,3.889,0,0,0,3.884-3.885v-14.23A3.889,3.889,0,0,0,579.1,233Z" fill="var(--primary_theme_color_green)"/>
+    <rect id="Rectangle_22" data-name="Rectangle 22" width="2.667" height="9.334" rx="0.589" transform="translate(565.313 241.333)" fill="var(--currentThemeColor)"/>
+    <rect id="Rectangle_23" data-name="Rectangle 23" width="2.667" height="13.334" rx="0.589" transform="translate(570.647 237.333)" fill="var(--currentThemeColor)"/>
+    <rect id="Rectangle_24" data-name="Rectangle 24" width="2.667" height="5.334" rx="0.589" transform="translate(575.98 245.333)" fill="var(--currentThemeColor)"/>
+    <path id="Path_326" data-name="Path 326" d="M579.1,257H564.864a5.891,5.891,0,0,1-5.884-5.885v-14.23A5.891,5.891,0,0,1,564.864,231H579.1a5.891,5.891,0,0,1,5.884,5.885v14.23A5.891,5.891,0,0,1,579.1,257Zm-14.232-24a3.889,3.889,0,0,0-3.884,3.885v14.23A3.889,3.889,0,0,0,564.864,255H579.1a3.889,3.889,0,0,0,3.884-3.885v-14.23A3.889,3.889,0,0,0,579.1,233Z" fill="var(--currentThemeColor)"/>
   </g>
 </svg>

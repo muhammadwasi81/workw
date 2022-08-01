@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -13,6 +13,7 @@ import {
 } from "../store/slice";
 import { useParams } from "react-router-dom";
 import {
+	getAllWorkBoardTodoPaging,
 	getWorkboardById,
 	moveWorkBoardSection,
 	moveWorkBoardTodo,
@@ -25,8 +26,12 @@ import {
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import CardDetailModal from "./Modal/CardDetailModal";
 import DateModal from "../Modal/DateModal";
-import MemberModal from "../Modal/MemberModal";
-import EditMembers from "./EditMembers/EditMembers";
+import BoardTopBar from "./BoardTopBar/TopBar";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { WorkBoardDictionary } from "../localization";
+import Spinner from "../../../sharedComponents/spinner/spinner";
+import { Table } from "../../../sharedComponents/customTable";
+import { sectionTableColumn } from "./tableColumns";
 
 function Board() {
 	const [addingList, setAddingList] = useState(false);
@@ -34,16 +39,25 @@ function Board() {
 	const workboardDetail = useSelector(
 		state => state.trelloSlice.workboardDetail
 	);
-	// const [sections, setSections] = useState([]);
-
-	// useEffect(() => {
-	// 	if (workboardDetail) setSections([...workboardDetail.sections]);
-	// }, [workboardDetail]);
+	const sectionTableData = useSelector(
+		state => state.trelloSlice.sectionTableData
+	);
 
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	useEffect(() => {
 		dispatch(getWorkboardById(id));
+		dispatch(
+			getAllWorkBoardTodoPaging({
+				pageNo: 0,
+				pageSize: 20,
+				search: "",
+				boards: [id],
+				members: [],
+				sections: [],
+				sortBy: 1,
+			})
+		);
 	}, []);
 
 	const toggleAddingList = () => {
@@ -113,66 +127,99 @@ function Board() {
 			to: `${ROUTES.WORKBOARD.BOARD + id}`,
 		},
 	];
+	const loader = useSelector(state => state.trelloSlice.loader);
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { WorkBoardDictionaryList, Direction } = WorkBoardDictionary[
+		userLanguage
+	];
+	const { topBar, labels } = WorkBoardDictionaryList;
+	const [isTableView, setIsTableView] = useState(false);
 
 	return (
 		<>
-			<LayoutHeader items={items} />
 			<TabbableContainer className="">
-				<ContBody className="!block">
-					<DragDropContext onDragEnd={handleDragEnd}>
-						<Droppable
-							droppableId="board"
-							direction="horizontal"
-							type="COLUMN"
-						>
-							{(provided, _snapshot) => (
-								<div
-									ref={provided.innerRef}
-									className="Board h-full flex overflow-x-auto bg-white"
-								>
-									{workboardDetail &&
-										workboardDetail.sections.map(
-											(section, index) => {
-												return (
-													<List
-														section={section}
-														sectionId={section.id}
-														key={section.id}
-														index={index}
-														colorCode={
-															section.colorCode
-														}
-														workBoardId={
-															section.workBoardId
-														}
-													/>
-												);
-											}
-										)}
+				<LayoutHeader items={items} />
 
-									{provided.placeholder}
-									<div className="Add_List w-[264px] m-[10px] flex-shrink-0">
-										{!addingList ? (
-											<Button
-												className="!flex !items-center !bg-neutral-400 !rounded-sm !text-white hover:!bg-neutral-500 !border-none mx-2 !w-[264px]"
-												icon={<PlusOutlined />}
-												onClick={toggleAddingList}
-											>
-												Add a list
-											</Button>
-										) : (
-											<AddList
-												toggleAddingList={
-													toggleAddingList
+				<BoardTopBar
+					handleView={isTable => {
+						setIsTableView(isTable);
+					}}
+					topBar={topBar}
+				/>
+				<ContBody className="!block" direction={Direction}>
+					{!isTableView ? (
+						<DragDropContext onDragEnd={handleDragEnd}>
+							<Droppable
+								droppableId="board"
+								direction="horizontal"
+								type="COLUMN"
+							>
+								{(provided, _snapshot) => (
+									<div
+										ref={provided.innerRef}
+										className="Board h-full flex overflow-x-auto bg-white"
+									>
+										{workboardDetail &&
+											workboardDetail.sections.map(
+												(section, index) => {
+													return (
+														<List
+															section={section}
+															sectionId={
+																section.id
+															}
+															key={section.id}
+															index={index}
+															colorCode={
+																section.colorCode
+															}
+															workBoardId={
+																section.workBoardId
+															}
+															labels={labels}
+														/>
+													);
 												}
-												sectionId={id}
-											/>
-										)}
+											)}
+
+										{provided.placeholder}
+										<div className="Add_List w-[264px] m-[10px] flex-shrink-0">
+											{!addingList ? (
+												<Button
+													className="!flex !items-center !bg-neutral-400 !rounded-sm !text-white hover:!bg-neutral-500 !border-none mx-2 !w-[264px]"
+													icon={<PlusOutlined />}
+													onClick={toggleAddingList}
+												>
+													{labels.addSection}
+												</Button>
+											) : (
+												<AddList
+													toggleAddingList={
+														toggleAddingList
+													}
+													sectionId={id}
+													labels={labels}
+												/>
+											)}
+										</div>
 									</div>
-								</div>
-							)}
-						</Droppable>
-					</DragDropContext>
+								)}
+							</Droppable>
+						</DragDropContext>
+					) : (
+						<Table
+							columns={sectionTableColumn()}
+							// dragable={true}
+							// handleChange={handleChange}
+							// onPageChange={onPageChange}
+							// onRow={onRow}
+							data={sectionTableData}
+							// status={travelStatus}
+							loading={loader}
+							// success={success}
+							// onActionClick={onActionClick}
+						/>
+					)}
 				</ContBody>
 			</TabbableContainer>
 			<CardDetailModal />

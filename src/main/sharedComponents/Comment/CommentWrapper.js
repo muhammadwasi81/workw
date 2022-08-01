@@ -13,6 +13,7 @@ function CommentWrapper({
   placeHolder,
   isCommentLoad = false,
   initialMentions = [],
+  placeHolderReply,
 }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -52,6 +53,7 @@ function CommentWrapper({
             const { designation, name, image } = creator;
             return (
               <CommentItem
+                placeHolderReply={placeHolderReply}
                 initialMentions={initialMentions}
                 mentionedUser={mentionedUser}
                 comment={{

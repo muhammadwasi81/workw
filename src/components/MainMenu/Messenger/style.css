@@ -6,7 +6,7 @@
 }
 
 .ConversationListCont {
-  background-color: white;
+  background: white;
   height: 100%;
   width: 300px;
   margin: 15px 10px;
@@ -19,7 +19,7 @@
 }
 
 .MessengerBox {
-  background-color: white;
+  background: white;
   height: 100%;
   flex: 1;
   margin: 15px 10px;
@@ -35,13 +35,13 @@
   padding: 0 15px;
 }
 
-.ConversationListHead > .HeadName {
+.ConversationListHead>.HeadName {
   font-size: 18px;
   font-weight: 700;
   color: rgb(26, 86, 105);
 }
 
-.ConversationListHead > .HeadIcon {
+.ConversationListHead>.HeadIcon {
   width: 40px;
   font-size: 30px;
   font-weight: 700;
@@ -50,42 +50,42 @@
 }
 
 .ConversationListSearch {
-  /* background-color: wheat; */
+  /* background: wheat; */
   height: 60px;
   padding: 6px 10px;
 }
 
-.ConversationListSearch > div,
-.MessengerInput > div {
-  background-color: rgb(244, 244, 244);
+.ConversationListSearch>div,
+.MessengerInput>div {
+  background: rgb(244, 244, 244);
   border-radius: 7px;
   height: 40px;
   margin: 3px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: right;
 }
 
-.ConversationListSearch > div > input {
-  background-color: transparent;
+.ConversationListSearch>div>input {
+  background: transparent;
   height: 100%;
   width: 83%;
   border: none;
   margin: 0 5px;
 }
 
-.MessengerInput > div > input {
-  background-color: transparent;
+.MessengerInput>div>input {
+  background: transparent;
   height: 100%;
   width: 83%;
   border: none;
   margin: 0 10px;
 }
 
-.MessengerInput > div > input {
-  background-color: transparent;
+.MessengerInput>div>input {
+  background: transparent;
   height: 100%;
   width: 100%;
   border: none;
@@ -93,7 +93,7 @@
   padding-left: 15px;
 }
 
-.ConversationListSearch > div > img {
+.ConversationListSearch>div>img {
   height: 16px;
   margin: 0 10px;
 }
@@ -114,17 +114,17 @@ input:focus {
   cursor: pointer;
 }
 
-.ConversationListItem > .ItemNameCont {
+.ConversationListItem>.ItemNameCont {
   flex: 1;
-  /* background-color: rgb(223, 189, 255); */
+  /* background: rgb(223, 189, 255); */
   padding: 0 0px 0px 8px;
 }
 
-.ItemNameCont > .ItemName {
-  color: var(--primary_theme_color_green);
+.ItemNameCont>.ItemName {
+  color: var(--currentThemeColor);
   font-size: 14px;
   font-weight: 700;
-  /* background-color: brown; */
+  /* background: brown; */
   width: 200px;
   overflow: hidden;
   white-space: nowrap;
@@ -132,7 +132,7 @@ input:focus {
   margin-bottom: 3px;
 }
 
-.ConversationListItem > .ItemDP {
+.ConversationListItem>.ItemDP {
   display: flex;
   justify-content: center;
 }
@@ -141,8 +141,8 @@ input:focus {
   display: flex;
 }
 
-.ItemLastMsgCont > .ItemLastMsg {
-  /* background-color: brown; */
+.ItemLastMsgCont>.ItemLastMsg {
+  /* background: brown; */
   width: 130px;
   font-size: 12px;
   color: #757d86;
@@ -151,8 +151,8 @@ input:focus {
   text-overflow: ellipsis;
 }
 
-.ItemLastMsgCont > .ItemLastMsgTime {
-  /* background-color: brown; */
+.ItemLastMsgCont>.ItemLastMsgTime {
+  /* background: brown; */
   width: 80px;
   font-size: 12px;
   color: black;
@@ -177,7 +177,7 @@ input:focus {
   width: 50px;
 }
 
-.MessengerHeadAvatar > img {
+.MessengerHeadAvatar>img {
   display: none;
 }
 
@@ -185,7 +185,7 @@ input:focus {
   flex: 1;
 }
 
-.MessengerHeadName > div {
+.MessengerHeadName>div {
   font-size: 18px;
   font-weight: 700;
   color: rgb(26, 86, 105);
@@ -193,25 +193,26 @@ input:focus {
 }
 
 .MessengerHeadIcon {
-  /* background-color: rgb(255, 77, 77); */
+  /* background: rgb(255, 77, 77); */
   width: 120px;
   /* display: flex; */
 }
 
-.MessengerHeadIcon > div {
+.MessengerHeadIcon>div {
   display: flex;
   justify-content: space-between;
 }
 
-.MessengerHeadIcon > div > img {
+.MessengerHeadIcon>div>img {
   width: 25px;
 }
-.MessengerHeadIcon > div > .videoIcon {
+
+.MessengerHeadIcon>div>.videoIcon {
   width: 28px;
 }
 
 .MessengerList {
-  /* background-color: rgb(104, 255, 247); */
+  /* background: rgb(104, 255, 247); */
   height: calc(100% - 120px);
   padding: 10px 0;
   overflow: auto;
@@ -219,7 +220,7 @@ input:focus {
 }
 
 .MessengerBottom {
-  /* background-color: rgb(229, 255, 189); */
+  /* background: rgb(229, 255, 189); */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -245,7 +246,7 @@ input:focus {
 }
 
 .MessageBubble {
-  background-color: rgb(244, 244, 244);
+  background: rgb(244, 244, 244);
   color: black;
   width: max-content;
   margin: 0 10px;
@@ -257,14 +258,14 @@ input:focus {
   position: relative;
 }
 
-.MessengerListItem-ME > .MessageBubble {
+.MessengerListItem-ME>.MessageBubble {
   border-radius: 15px 0px 15px 15px;
-  background-color: rgb(26, 86, 105);
+  background: rgb(26, 86, 105);
   color: rgb(221, 221, 221);
 }
 
 .MessengerInputCont {
-  /* background-color: brown; */
+  /* background: brown; */
   flex: 3;
 }
 
@@ -273,17 +274,17 @@ input:focus {
   /* min-width: 120px; */
 }
 
-.MessengerInputHandler > div {
+.MessengerInputHandler>div {
   display: flex;
   justify-content: space-around;
 }
 
-.MessengerInputHandler > div > img {
+.MessengerInputHandler>div>img {
   height: 23px;
   margin: 0 10px;
 }
 
-.MessengerListItem > .MessageBubble::before {
+.MessengerListItem>.MessageBubble::before {
   content: "";
   position: absolute;
   border-right: 10px solid rgb(244, 244, 244);
@@ -292,7 +293,7 @@ input:focus {
   left: -10px;
 }
 
-.MessengerListItem-ME > .MessageBubble::before {
+.MessengerListItem-ME>.MessageBubble::before {
   content: "";
   position: absolute;
   border-bottom: 10px solid transparent;
@@ -321,75 +322,96 @@ input:focus {
   .MessengerCont {
     height: 96vh;
   }
+
   .ConversationListCont {
     width: 95vw;
   }
+
   .ConversationList {
     width: 95vw;
   }
+
   .MessengerBox {
     width: 98vw;
     padding: 5px 10px;
     margin: 8px 5px;
   }
-  .ItemNameCont > .ItemName {
+
+  .ItemNameCont>.ItemName {
     width: 70vw;
   }
+
   .MessengerHeadAvatar-Mob {
     display: flex;
   }
+
   .MessengerHeadAvatar {
     width: 60px;
   }
-  .MessengerHeadAvatar-Mob > img {
+
+  .MessengerHeadAvatar-Mob>img {
     display: inline-block;
     width: 20px;
     margin-right: 5px;
   }
-  .MessengerInputHandler > div > img {
+
+  .MessengerInputHandler>div>img {
     height: 20px;
   }
-  .MessengerHeadName > div {
+
+  .MessengerHeadName>div {
     font-size: 16px;
   }
-  .MessengerHeadIcon > div > img {
+
+  .MessengerHeadIcon>div>img {
     width: 20px;
   }
-  .MessengerHeadIcon > div > .videoIcon {
+
+  .MessengerHeadIcon>div>.videoIcon {
     width: 24px;
   }
+
   .MessengerHeadIcon {
     width: 110px;
   }
+
   .MessengerHead {
     height: 50px;
   }
+
   .MessageBubble {
     align-self: center;
     padding: 8px 10px;
     font-size: 12px;
     max-width: 300px;
   }
+
   .MessengerListItem {
     margin-top: 15px;
   }
+
   .MessengerListItem-ME {
     margin-top: 15px;
   }
+
   .MessengerList {
     padding: 0;
   }
-  .ItemLastMsgCont > .ItemLastMsg {
+
+  .ItemLastMsgCont>.ItemLastMsg {
     width: 50vw;
   }
-  .ItemLastMsgCont > .ItemLastMsgTime {
+
+  .ItemLastMsgCont>.ItemLastMsgTime {
     width: 20vw;
   }
+
   .MessengerCont {
     position: fixed;
     width: unset;
   }
-  .MessengerInput > div > input {
+
+  .MessengerInput>div>input {
     padding-left: 0px;
   }
 }
@@ -400,6 +422,7 @@ input:focus {
     right: 100px;
     opacity: 0;
   }
+
   to {
     position: relative;
     right: 0px;
@@ -413,6 +436,7 @@ input:focus {
     left: 100px;
     opacity: 0;
   }
+
   to {
     position: relative;
     left: 0px;
@@ -426,6 +450,7 @@ input:focus {
     top: 50px;
     opacity: 0;
   }
+
   to {
     position: relative;
     top: 0px;

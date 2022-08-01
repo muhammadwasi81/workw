@@ -8,7 +8,7 @@
 .file-reader .image-wrapper {
   height: 140px;
   width: 140px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .file-reader .image-wrapper img {
@@ -29,6 +29,7 @@
 .file-reader:hover .remove-file {
   display: block;
 }
+
 .file-reader .remove-file svg {
   color: #fff;
   font-size: 25px;

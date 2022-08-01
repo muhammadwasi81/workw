@@ -9,74 +9,37 @@ import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustom
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
-
-const initialState = {
-	id: "",
-	name: "",
-	reason: "",
-	description: "",
-	categoryId: "",
-	imageId: "",
-	members: [
-		{
-			memberId: "",
-			memberType: 1,
-		},
-	],
-	approvers: [
-		{
-			approverId: "",
-			approverType: 0,
-			isDefault: true,
-			status: 1,
-			email: "",
-		},
-	],
-};
+import { addDocument } from "../../store/actions";
+import { DOCUMENT_ENUM } from "../../constant";
+import { useSelector } from "react-redux";
 
 const CreateFolder = ({ isOpen, handleClose }) => {
 
 	const dispatch = useDispatch();
+	const loader = useSelector(state => state.documentSlice.loader);
+	console.log(loader, "LOADER")
 	const [form] = Form.useForm();
-	const [profileImage, setProfileImage] = useState(null);
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
-
-	const [state, setState] = useState(initialState);
-	const handleImageUpload = data => {
-		setProfileImage(data);
-	};
-
 	const onPrivacyChange = value => {
 		setPrivacyId(value);
 	};
 
-	const onFinish = values => {
-
+	const onFinish = (values) => {
 		console.log(values)
-
+		let payload = {
+			name: values.name,
+			description: values.description,
+			members: values.readers ? values.readers.map((item) => ({
+				memberId: item,
+				memberType: 1,
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER
+			})) : [],
+			parentId: null,
+			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.folder,
+			privacyId: privacyId
+		}
+		dispatch(addDocument({ payload, form }))
 		// form.resetFields();
-
-		// dispatch(uploadImage(profileImage)).then(x => {
-		// 	let photoId = x.payload.data[0].id;
-
-		// 	let approvers = values.approvers.map(approver => {
-		// 		return {
-		// 			approverId: approver,
-		// 			approverType: 0,
-		// 			email: "",
-		// 		};
-		// 	});
-		// 	let members = values.members.map(member => {
-		// 		return {
-		// 			memberId: member,
-		// 			memberType: 0,
-		// 		};
-		// 	});
-
-		// 	let payload = { ...values, imageId: photoId, approvers, members };
-
-		// 	// dispatch(addReward(payload));
-		// });
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -93,7 +56,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 			>
 				<Form
 					form={form}
-					name="addMileBoard"
+					name="addFolder"
 					labelCol={{
 						span: 24,
 					}}
@@ -124,66 +87,30 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 					<Form.Item
 						label={"Description"}
 						name="description"
-						>
+					>
 						<Input.TextArea
 							placeholder={"Enter Description"}
 						/>
 					</Form.Item>
 
-					<Form.Item
-						name="approvers"
-						label={"Approvers"}
-						showSearch={true}
-						// direction={Direction}
-					>
-						<NewCustomSelect
-							name="approvers"
-							label={"Approvers"}
-							showSearch={true}
-							// direction={Direction}
-							mode="multiple"
-							endPoint="api/Reference/GetAllUserReference"
-							requestType="get"
-							placeholder={"Approvers"}
-						/>
-					</Form.Item>
-
-					<Form.Item
-						name="collaborator"
-						label={"Collaborators"}
-						showSearch={true}
-						// direction={Direction}
-					>
-						<NewCustomSelect
-							name="collaborator"
-							label={"Collaborators"}
-							showSearch={true}
-							// direction={Direction}
-							mode="multiple"
-							endPoint="api/Reference/GetAllUserReference"
-							requestType="get"
-							placeholder={"Select Collaborators"}
-						/>
-					</Form.Item>
-
-					{privacyId === PostPrivacyType.PRIVATE && 
-					<Form.Item
-						name="readers"
-						label={"Readers"}
-						showSearch={true}
-						// direction={Direction}
-					>
-						<NewCustomSelect
+					{privacyId === PostPrivacyType.PRIVATE &&
+						<Form.Item
 							name="readers"
 							label={"Readers"}
 							showSearch={true}
-							// direction={Direction}
-							mode="multiple"
-							endPoint="api/Reference/GetAllUserReference"
-							requestType="get"
-							placeholder={"Select Readers"}
-						/>
-					</Form.Item>
+						// direction={Direction}
+						>
+							<NewCustomSelect
+								name="readers"
+								label={"Readers"}
+								showSearch={true}
+								// direction={Direction}
+								mode="multiple"
+								endPoint="api/Reference/GetAllUserReference"
+								requestType="get"
+								placeholder={"Select Readers"}
+							/>
+						</Form.Item>
 					}
 					<Form.Item>
 						<div className="flex items-center gap-2">
@@ -198,6 +125,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 								block
 								htmlType="submit"
 								title={"Create Milepad"}
+								loading={loader}
 							>
 								{" "}
 								{"Create Folder"}{" "}

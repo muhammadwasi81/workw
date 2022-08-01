@@ -1,20 +1,25 @@
 .formBtn {
     margin: 0px 4px;
-}   
+}
+
 .formBtn:hover {
-    background-color: #1b5669;
-}   
+    background: #1b5669;
+}
+
 .formBtn:focus {
-    background-color: #1b5669;
+    background: #1b5669;
     margin: 0px 4px;
-}   
+}
+
 .radioGroup {
     width: 100%;
     margin-bottom: 30px;
 }
+
 .radioContainer {
     width: 100%;
 }
+
 .radioGroupRow {
     width: 75%;
 }

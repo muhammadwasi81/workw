@@ -36,7 +36,7 @@
 }
 
 .scheduler__header .today {
-    color: var(--primary_theme_color_green);
+    color: var(--currentThemeColor);
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
@@ -47,7 +47,7 @@
 }
 
 .schedulerCalender {
-    background-color: #fff;
+    background: #fff;
     z-index: 999;
 }
 
@@ -81,7 +81,7 @@
     position: relative;
     bottom: -10px;
     font-size: 12px;
-    background-color: #fff;
+    background: #fff;
     padding-right: 15px;
 }
 
@@ -104,7 +104,7 @@
 .schedule .event {
     width: 85%;
     right: 0;
-    background-color: #f4f4f4;
+    background: #f4f4f4;
     position: absolute;
     top: 0;
     border-radius: 3px;
@@ -126,7 +126,7 @@
 .schduleWrapper {
     border-radius: 10px;
     border: solid 1px #ebebeb;
-    background-color: #ffffff;
+    background: #ffffff;
     padding: 15px;
     box-shadow: -10px 12px 6px -12px #bbbbbb;
 }
@@ -136,10 +136,10 @@
 }
 
 .schedulerCalender .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
-    background-color: var(--primary_theme_color_green);
+    background: var(--currentThemeColor);
 
 }
 
 .schedulerCalender .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before {
-    border-color: var(--primary_theme_color_green);
+    border-color: var(--currentThemeColor);
 }

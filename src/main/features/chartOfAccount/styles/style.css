@@ -1,12 +1,15 @@
 .chartOfAccountBody .tgrid-column-header-text-wrapper {
     padding: 6px 5px 0px 5px !important;
 }
+
 .chartOfAccountBody .tgrid-header-table {
-    background-color: var(--primary_theme_color_green);
+    background: var(--currentThemeColor);
 }
+
 .chartOfAccountBody .tgrid-column-header-text {
     color: white;
 }
+
 .chartOfAccountBody tbody tr:nth-child(even) {
-    background-color: rgb(235, 233, 233);
+    background: rgb(235, 233, 233);
 }

@@ -1,39 +1,3 @@
-export const statusEnum = {
-  ExpenseApproval: [
-    {
-      label: "In-Process",
-      color: "var(--primary_theme_color_green)",
-    },
-    {
-      label: "Approved",
-      color: "#1ECB40",
-    },
-    {
-      label: "Declined",
-      color: "#FF0000",
-    },
-    {
-      label: "Resend",
-      color: "#1ECB40",
-    },
-    {
-      label: "Inactive",
-      color: "#1ECB40",
-    },
-    {
-      label: "NotRequired",
-      color: "#1ECB40",
-    },
-    {
-      label: "Cancelled",
-      color: "#1ECB40",
-    },
-    {
-      label: "ApprovalRequired",
-      color: "#1ECB40",
-    },
-  ],
-};
 export const ApprovalsModule = {
   ExpenseApproval: 1,
   ExpenseExecutor: 2,
@@ -63,9 +27,47 @@ export const ApprovalStatus = {
   NotRequired: 6,
   Cancelled: 7,
   ApprovalRequired: 8,
+  Hold: 9,
 };
 export const ApproverType = {
   All: 0,
   User: 1,
   Department: 2,
+};
+export const getStatusLabelAndColor = (module, statusLabels) => {
+  return {
+    [ApprovalStatus.InProcess]: {
+      label: statusLabels.InProcess,
+      color: "#1a5669",
+    },
+    [ApprovalStatus.Approved]: {
+      label: statusLabels.Approved,
+      color: "#1ECB40",
+    },
+    [ApprovalStatus.Declined]: {
+      label: statusLabels.Declined,
+      color: "#FF0000",
+    },
+    [ApprovalStatus.Resend]: {
+      label: statusLabels.Resend,
+      color: "#1ECB40",
+    },
+    [ApprovalStatus.Inactive]: {
+      label: statusLabels.Inactive,
+      color: "#1ECB40",
+    },
+    [ApprovalStatus.NotRequired]: {
+      label: statusLabels.NotRequired,
+      color: "#1ECB40",
+    },
+    [ApprovalStatus.Cancelled]: {
+      label: statusLabels.Cancelled,
+      color: "#1ECB40",
+    },
+    [ApprovalStatus.ApprovalRequired]: {
+      label: statusLabels.ApprovalRequired,
+      color: "#1ECB40",
+    },
+    [ApprovalStatus.Hold]: { label: statusLabels.Hold, color: "#1a5669" },
+  };
 };

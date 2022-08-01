@@ -7,7 +7,7 @@ import { v4 as id } from "uuid";
 import ListEditor from "./ListEditor";
 import { addWorkBoardSection } from "../../store/action";
 
-function AddList({ toggleAddingList, sectionId }) {
+function AddList({ toggleAddingList, sectionId, labels = {} }) {
 	const [title, setTitle] = useState("");
 	const dispatch = useDispatch();
 
@@ -32,13 +32,14 @@ function AddList({ toggleAddingList, sectionId }) {
 				handleChangeTitle={handleChangeTitle}
 				onClickOutside={toggleAddingList}
 				saveList={createList}
+				labels={labels}
 			/>
 			<div className="flex items-center p-1 gap-4">
 				<Button
 					className="!bg-[#0079bf] hover:!bg-[#026aa7] !text-white !border-none !rounded-sm "
 					onClick={createList}
 				>
-					Add list
+					{labels.addTodo}
 				</Button>
 				<CloseOutlined
 					onClick={toggleAddingList}

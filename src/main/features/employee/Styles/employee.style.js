@@ -34,7 +34,7 @@ export const device = {
 
 export const Container = styled(Form)`
   width: 100%;
-  background-color: white;
+  background: white;
   border-radius: 10px;
   margin-top: 20px;
   overflow: scroll;
@@ -83,7 +83,7 @@ export const FormItem = styled(Form.Item)`
   & > div:first-child {
     display: flex;
     border: none;
-    color: var(--primary_theme_color_green);
+    color: var(--currentThemeColor);
     font-weight: bold;
     font-size: 13px;
     white-space: nowrap;
@@ -200,7 +200,7 @@ export const EFormItem = styled(Form.Item)`
     display: flex;
     direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
     border: none;
-    color: var(--primary_theme_color_green);
+    color: var(--currentThemeColor);
     font-weight: bold;
     font-size: 13px;
     white-space: nowrap;

@@ -1,10 +1,14 @@
 import { Input } from "antd";
-import React, { useState, useId, useRef, useEffect } from "react";
+import React, { useState, useId, useRef, useEffect, useContext } from "react";
 import Avatar from "../../../Avatar/avatarOLD";
 import { SmileOutlined, PictureOutlined } from "@ant-design/icons";
 import FilePreview from "../../../FilePreview";
 import EmojiPicker from "../../../../features/Messenger/view/MessengerBox/helpers/emojiPicker";
 import { useSelector } from "react-redux";
+import { ApprovalStatus } from "../enums";
+import RemarkStatus from "./RemarkStatus";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { ApprovalDictionary } from "../localization";
 
 function RemarksComposer({
   files,
@@ -12,10 +16,20 @@ function RemarksComposer({
   onDelete,
   onRemarksText,
   onCurrentStatus,
+  createBy,
+  approverId,
+  status,
 }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { placeHolder } = ApprovalDictionary[userLanguage];
   const { user } = useSelector((state) => state.userSlice);
   const [text, setText] = useState("");
-  const { name, userImage } = user;
+  const { name, userImage, id } = user;
+  const isRemarker = createBy === id;
+  const isApprover = approverId === id;
+  const isRemarkApproved = ApprovalStatus.Approved === status;
+  const isRemarkDecline = ApprovalStatus.Declined === status;
+  const isRemarkCancelled = ApprovalStatus.Cancelled === status;
   const index = useId();
   const [isEmoji, setisEmoji] = useState(false);
 
@@ -27,6 +41,12 @@ function RemarksComposer({
     onRemarksText(text);
   }, [text, onRemarksText]);
 
+  const renderStatus = () => {
+    if (!isRemarker && isApprover)
+      return <RemarkStatus onCurrentStatus={onCurrentStatus} />;
+  };
+
+  if (isRemarkApproved || isRemarkDecline || isRemarkCancelled) return null;
   return (
     <div className="remarkFooter">
       <div className="remarkFooter__top">
@@ -37,7 +57,7 @@ function RemarksComposer({
           {isEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
           <div className="input">
             <Input
-              placeholder="Write Your Remarks Here ..."
+              placeholder={placeHolder.writeYourRemarksHere}
               value={text}
               onChange={(e) => {
                 setText(e.target.value);
@@ -65,38 +85,12 @@ function RemarksComposer({
           </div>
         </div>
       </div>
+
       <div className="remarkFooter__bottom">
         <div className="left">
           <FilePreview files={files} onDelete={onDelete} />
         </div>
-        <div className="right">
-          <ul className="list">
-            <div
-              className="list__item"
-              onClick={() => onCurrentStatus("process")}
-            >
-              In Process
-            </div>
-            <div
-              className="list__item"
-              onClick={() => onCurrentStatus("process")}
-            >
-              Approve
-            </div>
-            <div
-              className="list__item"
-              onClick={() => onCurrentStatus("process")}
-            >
-              Decline
-            </div>
-            <div
-              className="list__item"
-              onClick={() => onCurrentStatus("process")}
-            >
-              Hold
-            </div>
-          </ul>
-        </div>
+        <div className="right">{renderStatus()}</div>
       </div>
     </div>
   );

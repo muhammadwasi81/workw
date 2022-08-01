@@ -2,15 +2,19 @@
   color: white !important;
   border-radius: 5px !important;
 }
+
 .Cancel {
-  background-color: red !important;
+  background: red !important;
 }
+
 .approved {
-  background-color: green !important;
+  background: green !important;
 }
+
 .inProcess {
-  background-color: var(--primary_theme_color_green) !important;
+  background: var(--currentThemeColor) !important;
 }
+
 .statusTag {
   padding: 4px 10px !important;
 }

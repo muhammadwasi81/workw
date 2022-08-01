@@ -106,8 +106,8 @@ function WorkBoardDetail({ todoDetail }) {
 							onRemoveImg={onRemoveImg}
 						/>
 					)}
-					<div className="flex gap-5 justify-between">
-						<div className="basis-9/12">
+					<div className="flex gap-5 justify-between flex-wrap sm:flex-nowrap">
+						<div className="w-full sm:basis-9/12">
 							<WorkBoardDescription
 								todoData={todoData}
 								todoDetail={todoDetail}
@@ -116,7 +116,7 @@ function WorkBoardDetail({ todoDetail }) {
 								showLabelModal={showLabelModal}
 							/>
 						</div>
-						<div className="basis-3/12 mt-[50px]">
+						<div className="w-full sm:basis-3/12 mt-5 sm:mt-[50px]">
 							<div className="flex flex-col gap-5">
 								<MemberCollapse
 									handleAdd={addMembers}
@@ -128,19 +128,19 @@ function WorkBoardDetail({ todoDetail }) {
 									icon={<TagOutlined />}
 									onClick={showLabelModal}
 								/>
-								<TrelloThemeButton
+								{/* <TrelloThemeButton
 									text={"Check List"}
 									icon={<CheckSquareOutlined />}
-								/>
+								/> */}
 								<TrelloThemeButton
 									text={"Dates"}
 									icon={<TagOutlined />}
 									onClick={showDateModal}
 								/>
-								<TrelloThemeButton
+								{/* <TrelloThemeButton
 									text={"Attachment"}
 									icon={<PaperClipOutlined />}
-								/>
+								/> */}
 								{todoData && todoData.image.length === 0 && (
 									<UploadBgImg onUploadImg={onUploadImg}>
 										<TrelloThemeButton

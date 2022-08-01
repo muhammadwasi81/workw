@@ -1,6 +1,6 @@
 const en = {
   documentDictionary: {
-
+    Hello: "hello"
   },
 
   /*** Define language write side ***/

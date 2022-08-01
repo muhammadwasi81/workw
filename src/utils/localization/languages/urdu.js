@@ -3,6 +3,7 @@ const urdu = {
 
   /*** add all shared labels like send, ok, cancel, etc ***/
   sharedLabels: {
+    theme: "خیالیہ",
     awardTo: "کو ایوارڈ",
     inprogress: "جاری ہے",
     filter: "فلٹر",
@@ -103,6 +104,7 @@ const urdu = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    workWiseCompanies: "کام کے لحاظ سے کمپنیاں",
     promotions: "پروموشنز",
     customApprovals: "حسب ضرورت منظوری",
     feed: "نیوز فیڈ",

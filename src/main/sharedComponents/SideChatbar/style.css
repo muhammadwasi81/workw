@@ -1,5 +1,5 @@
 .appSideBar {
-  background-color: white;
+  background: white;
   z-index: 3;
   position: absolute;
   right: 0;
@@ -11,6 +11,7 @@
 .appSideBarDefault {
   width: 80px;
 }
+
 .appSideBarDefault-Mob {
   display: none !important;
 }
@@ -46,16 +47,17 @@
 
 .sideBarHead {
   height: 60px;
+
 }
 
-.sideBarHead > .headIcon {
+.sideBarHead>.headIcon {
   height: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.headIcon > img {
+.headIcon>img {
   height: 30px;
   cursor: pointer;
 }
@@ -74,7 +76,7 @@
 .myDivider {
   width: 80%;
   height: 1px;
-  background-color: #aaaaaa29;
+  background: #aaaaaa29;
   margin: auto;
 }
 
@@ -87,18 +89,18 @@
 }
 
 .chatSearchBoxHalf {
-  background-color: #ebe9e9;
+  background: #ebe9e9;
   border-radius: 7px;
   height: 30px;
   margin: 3px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.chatSearchBoxHalf > img {
+.chatSearchBoxHalf>img {
   height: 17px;
 }
 
@@ -140,6 +142,7 @@
   from {
     width: 80px;
   }
+
   to {
     width: 240px;
   }
@@ -149,14 +152,17 @@
   from {
     width: 240px;
   }
+
   to {
     width: 80px;
   }
 }
+
 @keyframes sideBarCloseMobAnimation {
   from {
     width: 240px;
   }
+
   to {
     width: 0px;
     display: none !important;
@@ -168,6 +174,7 @@
     opacity: 1;
     width: 160px;
   }
+
   to {
     opacity: 0;
     width: 0px;
@@ -181,6 +188,7 @@
     position: relative;
     left: 100px;
   }
+
   to {
     opacity: 1;
     width: 160px;

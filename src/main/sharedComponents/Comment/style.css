@@ -1,163 +1,164 @@
 .commentComposer {
-  display: flex;
-  padding: 4px 18px;
-  box-sizing: border-box;
-  border-top: 1px solid #ebebeb;
-  border-bottom: 1px solid #ebebeb;
-  margin-bottom: 5px;
+    display: flex;
+    padding: 4px 18px;
+    box-sizing: border-box;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 5px;
 }
 
-.commentComposer > .img {
-  min-width: 34px;
-  min-height: 34px;
-  max-width: 34px;
-  max-height: 34px;
-  border-radius: 50%;
+.commentComposer>.img {
+    min-width: 34px;
+    min-height: 34px;
+    max-width: 34px;
+    max-height: 34px;
+    border-radius: 50%;
 }
 
-.commentComposer > .composer-area {
-  flex: 1 1;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+.commentComposer>.composer-area {
+    flex: 1 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.commentComposer > .composer-area > .inputs {
-  display: flex;
-  height: auto;
-  box-sizing: border-box;
-  font-size: 12px;
-  align-items: center;
-  /* padding-top: 8px; */
+.commentComposer>.composer-area>.inputs {
+    display: flex;
+    height: auto;
+    box-sizing: border-box;
+    font-size: 12px;
+    align-items: center;
+    /* padding-top: 8px; */
 }
 
-.commentComposer > .composer-area > .inputs > .inp {
-  flex: 1 1;
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  position: relative;
-  /* height: min-content; */
+.commentComposer>.composer-area>.inputs>.inp {
+    flex: 1 1;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    position: relative;
+    /* height: min-content; */
 }
 
-.commentComposer > .composer-area > .inputs > .inp .ant-mentions > textarea {
-  border: none;
-  font-size: 12px;
-  padding-right: 0;
-  padding-top: 5px;
+.commentComposer>.composer-area>.inputs>.inp .ant-mentions>textarea {
+    border: none;
+    font-size: 12px;
+    padding-right: 0;
+    padding-top: 5px;
 }
 
-.commentComposer > .composer-area > .inputs > .inp .ant-mentions {
-  border: none;
+.commentComposer>.composer-area>.inputs>.inp .ant-mentions {
+    border: none;
 }
 
-.commentComposer > .composer-area > .inputs > .capture {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  background: url(./assets/attachment.svg) no-repeat;
-  background-size: 100% 100%;
+.commentComposer>.composer-area>.inputs>.capture {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: url(./assets/attachment.svg) no-repeat;
+    background-size: 100% 100%;
 }
 
-.commentComposer > .composer-area > .inputs > .capture > input[type="file"] {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  cursor: pointer;
-  z-index: 0;
-  outline: none;
-  border: none;
-  opacity: 0;
+.commentComposer>.composer-area>.inputs>.capture>input[type="file"] {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    z-index: 0;
+    outline: none;
+    border: none;
+    opacity: 0;
 }
 
-.commentComposer > .composer-area > .inputs > .inp > textarea {
-  width: 100%;
-  border: none;
-  outline: none;
-  resize: none;
-  margin: 0;
-  vertical-align: top;
-  font-size: 12px;
-  max-height: 220px;
-  overflow: hidden;
-  overflow-y: auto;
-  z-index: 0;
-  height: 20px;
-  position: relative;
+.commentComposer>.composer-area>.inputs>.inp>textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    margin: 0;
+    vertical-align: top;
+    font-size: 12px;
+    max-height: 220px;
+    overflow: hidden;
+    overflow-y: auto;
+    z-index: 0;
+    height: 20px;
+    position: relative;
 }
 
 .CommentItem {
-  display: flex;
-  margin: 5px 18px;
+    display: flex;
+    margin: 5px 18px;
 }
 
 .CommentBubble {
-  background-color: rgb(244, 244, 244);
-  color: black;
-  width: 100%;
-  margin: 0 10px;
-  padding: 10px 15px;
-  font-size: 13px;
-  /* max-width: 350px; */
-  word-wrap: break-word;
-  border-radius: 0px 8px 8px 8px;
-  position: relative;
+    background: rgb(244, 244, 244);
+    color: black;
+    width: 100%;
+    margin: 0 10px;
+    padding: 10px 15px;
+    font-size: 13px;
+    /* max-width: 350px; */
+    word-wrap: break-word;
+    border-radius: 0px 8px 8px 8px;
+    position: relative;
 }
 
 .ReplyComment {
-  margin-left: 70px;
+    margin-left: 70px;
 }
 
 .CommentHeader {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .CommentHeaderDet {
-  line-height: 15px;
-  margin-bottom: 7px;
+    line-height: 15px;
+    margin-bottom: 7px;
 }
 
-.CommentHeaderDet > .name {
-  color: var(--primary_theme_color_green);
-  font-weight: bolder;
-  font-size: 13px;
-  margin-right: 20px;
-  display: flex;
+.CommentHeaderDet>.name {
+    color: #1A5669;
+    font-weight: bolder;
+    font-size: 13px;
+    /* margin-right: 20px; */
+    display: flex;
+
 }
 
-.CommentHeaderDet > .designation {
-  color: #757d86;
-  font-size: 11px;
+.CommentHeaderDet>.designation {
+    color: #757d86;
+    font-size: 11px;
 }
 
-.CommentHeaderIcon > img {
-  width: 15px;
-  margin-left: auto;
+.CommentHeaderIcon>img {
+    width: 15px;
+    margin-left: auto;
 }
 
 .CommentHeaderIcon .time {
-  font-size: 9px;
+    font-size: 9px;
 }
 
 .likeReplyCont {
-  display: flex;
-  margin: 3px 50px;
-  color: #757d86;
+    display: flex;
+    margin: 3px 50px;
+    color: #757d86;
 }
 
-.likeReplyCont > div {
-  font-size: 12px;
-  margin-left: 10px;
-  cursor: pointer;
-  font-weight: 600;
+.likeReplyCont>div {
+    font-size: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .commentComposer .ant-mentions.ant-mentions-focused {
-  box-shadow: none;
+    box-shadow: none;
 }

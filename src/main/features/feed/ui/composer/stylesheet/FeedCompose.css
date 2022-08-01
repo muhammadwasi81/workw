@@ -15,13 +15,14 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .newsComposer>.composer {
     width: 100%;
     display: flex;
     flex-direction: row;
+    gap: 10px;
     align-items: center;
     background: white;
     padding: 8px 15px;
@@ -119,7 +120,7 @@
     position: relative;
     padding-top: 15px;
     padding-bottom: 15px;
-    padding-left: 15px;
+    /* padding-left: 15px; */
 }
 
 .newsComposer>.composer>.text-area>.smile {
@@ -136,12 +137,12 @@
 .newsComposer>.composer>.text-area>.smile i {
     width: 18px;
     height: 18px;
-    background-color: #bec3c9;
+    background: #bec3c9;
     transition: all 0.2s ease-in-out;
 }
 
 .newsComposer>.composer>.text-area>.smile:hover i {
-    background-color: #727780;
+    background: #727780;
 }
 
 .newsComposer.on>.composer>.text-area {
@@ -201,7 +202,7 @@
     height: 128px;
     margin-left: 10px;
     position: relative;
-    background-color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .newsComposer>.composer>.news-selections>.box>.spinner-holder {
@@ -223,7 +224,7 @@
 .newsComposer>.composer>.news-selections>.box>.overlay {
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
     display: none;
     color: white;
     text-decoration: underline;
@@ -343,7 +344,7 @@
 
 .newsComposer>.composer>.poll-env>.poll-options>.opt:hover>.removeOption {
     visibility: visible;
-    background-color: grey;
+    background: grey;
     color: white;
 }
 
@@ -388,7 +389,7 @@
 .newsComposer>.composer>.poll-env>.poll-options.pc>.opt>.inp {
     padding: 8px;
     border-top: 1px solid #e2e8f6;
-    /*background-color: red;*/
+    /*background: red;*/
 }
 
 .newsComposer>.composer>.poll-env>.poll-options>.opt>.inp>input {
@@ -498,12 +499,12 @@
 }
 
 .newsComposer.on>.composer>.bottom>.options>.option:hover {
-    background-color: #ececec;
-    transition: background-color 0.2ms ease-in;
+    background: #ececec;
+    transition: background 0.2ms ease-in;
 }
 
 .newsComposer>.composer>.bottom>.options>.option.dis {
-    background-color: #f9f9f9;
+    background: #f9f9f9;
 }
 
 .newsComposer>.composer>.bottom>.options>.option:hover {
@@ -623,7 +624,7 @@
 .newsComposer>.composer>.bottom>.action>.btn {
     width: 120px;
     height: 35px;
-    background-color: #345e95;
+    background: #345e95;
     border-radius: 6px;
     color: white;
     display: flex;
@@ -639,7 +640,7 @@
 }
 
 .newsComposer>.composer>.bottom>.action>.btn:hover {
-    background-color: #324c81;
+    background: #324c81;
     /*box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .20);*/
     box-shadow: 0 3px 1px 0 rgba(211, 216, 224, 0.4);
 }
@@ -707,7 +708,7 @@
 .composer-wrapper button {
     font-size: 14px;
     border: none;
-    background-color: transparent;
+    background: transparent;
     margin: 0px 4px 15px 4px;
     padding: 0;
     cursor: pointer;
@@ -789,8 +790,8 @@
 }
 
 .composer-wrapper .uploader .options:hover {
-    background-color: #ececec;
-    transition: background-color 0.2ms ease-in;
+    background: #ececec;
+    transition: background 0.2ms ease-in;
 }
 
 .composer-wrapper .uploader .options .wrapper img {
@@ -815,7 +816,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: red;
+    background: red;
     cursor: pointer;
 }
 
@@ -828,7 +829,7 @@
 .composer-wrapper .submit-wrapper .post-form {
     width: 100%;
     height: 36px;
-    background-color: #345e95;
+    background: #345e95;
     border-radius: 6px;
     border: none;
     color: #fff;
@@ -883,8 +884,8 @@
 }
 
 .dropdown-wrapper>div:hover {
-    background-color: #e0e0e0;
-    transition: background-color 0.2ms ease-in;
+    background: #e0e0e0;
+    transition: background 0.2ms ease-in;
 }
 
 .dropdown-wrapper>div img {

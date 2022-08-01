@@ -64,6 +64,8 @@ function WorkBoardMemberSelect({ onChange, defaultData, loadDefaultData }) {
 					);
 				}}
 				dataVal={value}
+				name="members"
+				showSearch={true}
 			/>
 		</>
 	);

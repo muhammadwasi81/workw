@@ -4,13 +4,14 @@ import React, { useContext, useState } from "react";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import ImageUpload from "../../../../sharedComponents/Input/ImageUpload";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { taskDictionary } from "../../utils/localization";
+
 import { useDispatch } from "react-redux";
 import { addNewTask } from "../../store/actions";
 import { STRINGS } from "../../../../../utils/base";
 import moment from "moment";
 import { openNotification } from "../../../../../utils/Shared/store/slice";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
+import { taskDictionary } from "../../localization";
 const { RangePicker } = DatePicker;
 
 function TaskComposer() {
@@ -46,7 +47,15 @@ function TaskComposer() {
 
   const handleSubmit = (values) => {
     console.log(values);
-    let { date, description, predecessor, priority, subject, taskType, type } = values;
+    let {
+      date,
+      description,
+      predecessor,
+      priority,
+      subject,
+      taskType,
+      type,
+    } = values;
     let requestData = {
       subject,
       description,
@@ -57,8 +66,8 @@ function TaskComposer() {
       endDate: date[1].format(),
       priority: Number(priority),
       members: taskType === "self" ? [] : [],
-      attachments: attachments
-    }
+      attachments: attachments,
+    };
     dispatch(addNewTask(requestData));
     // dispatch(openNotification({
     //   message: "Task Create Successfully",
@@ -67,8 +76,7 @@ function TaskComposer() {
     //   duration: 2
     // }));
     form.resetFields();
-
-  }
+  };
   return (
     <Form
       className={classes}
@@ -78,7 +86,9 @@ function TaskComposer() {
       onFinish={handleSubmit}
       form={form}
     >
-      <Form.Item label={labels.taskSubject} name="subject"
+      <Form.Item
+        label={labels.taskSubject}
+        name="subject"
         rules={[
           {
             required: true,
@@ -98,7 +108,9 @@ function TaskComposer() {
       >
         <TextInput placeholder={placeHolder.writePredecessor} />
       </Form.Item> */}
-      <Form.Item label={labels.description} name="description"
+      <Form.Item
+        label={labels.description}
+        name="description"
         rules={[
           {
             required: true,
@@ -108,7 +120,9 @@ function TaskComposer() {
       >
         <TextInput placeholder={placeHolder.writeDescription} />
       </Form.Item>
-      <Form.Item label={labels.type} name="type"
+      <Form.Item
+        label={labels.type}
+        name="type"
         rules={[
           {
             required: true,
@@ -131,7 +145,9 @@ function TaskComposer() {
           </Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="" name="taskType"
+      <Form.Item
+        label=""
+        name="taskType"
         rules={[
           {
             required: true,
@@ -147,24 +163,30 @@ function TaskComposer() {
         </Form.Item>
       )}
 
-      <Form.Item label={labels.taskDate} name="date"
+      <Form.Item
+        label={labels.taskDate}
+        name="date"
         rules={[
           {
             required: true,
             message: "Please select date!",
           },
-        ]}>
+        ]}
+      >
         <RangePicker
           placeholder={[placeHolder.startDate, placeHolder.endtDate]}
         />
       </Form.Item>
-      <Form.Item label={labels.priority} name="priority"
+      <Form.Item
+        label={labels.priority}
+        name="priority"
         rules={[
           {
             required: true,
             message: "Please select priority!",
           },
-        ]}>
+        ]}
+      >
         <Radio.Group className="radioPrimary radioPriority">
           <Radio.Button value="1">
             <CheckCircleOutlined />
@@ -189,16 +211,18 @@ function TaskComposer() {
       </Form.Item> */}
       <Form.Item label="" name="" className="w-max">
         <SingleUpload
-          handleImageUpload={fileData => {
+          handleImageUpload={(fileData) => {
             // console.log("fileData", fileData[0]);
-            setAttachments([...attachments, { id:STRINGS.DEFAULTS.guid ,file: fileData[0].originFileObj }]);
+            setAttachments([
+              ...attachments,
+              { id: STRINGS.DEFAULTS.guid, file: fileData[0].originFileObj },
+            ]);
           }}
           uploadText={"Upload"}
           multiple={false}
         />
-
       </Form.Item>
-      <Form.Item >
+      <Form.Item>
         <Button className="ThemeBtn" block htmlType="submit">
           {createTextBtn}
         </Button>

@@ -37,6 +37,7 @@ const Composer = props => {
 	const { Direction, projectsDictionary } = projectsDictionaryList[
 		userLanguage
 	];
+	const { labels, placeholders, features, errors } = projectsDictionary;
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -118,24 +119,24 @@ const Composer = props => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
+				dir={Direction}
+				className={`${Direction}`}
 				// className={Direction === "ltr" ? "align-right" : ""}
 			>
 				<div className="flex justify-between gap-4">
 					<div className="w-full">
 						<Form.Item
-							label={"Name"}
+							label={labels.name}
 							name="name"
 							labelPosition="top"
 							rules={[
 								{
 									required: true,
-									message: "Please Enter Name",
+									message: errors.name,
 								},
 							]}
 						>
-							<TextInput
-								placeholder={"Please Enter Project Name"}
-							/>
+							<TextInput placeholder={placeholders.name} />
 						</Form.Item>
 					</div>
 					<div className="flex gap-4">
@@ -152,22 +153,25 @@ const Composer = props => {
 
 				<Form.Item
 					style={{ marginTop: "-18px" }}
-					label={"Description"}
+					label={labels.desc}
 					name="description"
 					rules={[
 						{
 							required: true,
-							message: "Enter Description",
+							message: errors.desc,
 						},
 					]}
 				>
-					<Input.TextArea placeholder={"Enter Description"} />
+					<Input.TextArea placeholder={placeholders.desc} />
 				</Form.Item>
 
-				<Form.Item label="Project Date" name="startEndDate">
+				<Form.Item label={labels.projectDate} name="startEndDate">
 					<RangePicker
 						format={"DD/MM/YYYY"}
-						placeholder={["Start Start", "End Date"]}
+						placeholder={[
+							placeholders.startDate,
+							placeholders.endDate,
+						]}
 						onChange={(value, dateString) => {
 							handleEndStartDate(value, dateString, "start_end");
 						}}
@@ -175,20 +179,20 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					name="hodId"
-					label={"Externals"}
+					name={"members"}
+					label={labels.externals}
 					showSearch={true}
 					direction={Direction}
-					rules={[{ required: true }]}
+					rules={[{ required: true, message: errors.members }]}
 				>
 					<NewCustomSelect
-						name="hodId"
-						label={"Externals"}
+						name={"members"}
+						label={labels.externals}
 						showSearch={true}
 						direction={Direction}
 						endPoint="api/Reference/GetAllUserReference"
 						requestType="get"
-						placeholder={"Select Externals"}
+						placeholder={placeholders.externals}
 					/>
 				</Form.Item>
 
@@ -209,14 +213,14 @@ const Composer = props => {
 					""
 				)}
 				<Form.Item
-					label={"Features"}
+					label={features.features}
 					style={{
 						color: "#1b5669",
 						fontSize: "17px",
 						marginBottom: "14px",
 					}}
 				></Form.Item>
-				<FeatureSelect />
+				<FeatureSelect features={features} />
 
 				<Form.Item>
 					<Button
@@ -227,8 +231,7 @@ const Composer = props => {
 						htmlType="submit"
 						title={"Create"}
 					>
-						{" "}
-						{"Create Project"}{" "}
+						{labels.createTextBtn}
 					</Button>
 				</Form.Item>
 			</Form>

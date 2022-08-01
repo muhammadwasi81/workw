@@ -27,7 +27,10 @@ const { Meta } = Card;
 const Projects = props => {
 	const dispatch = useDispatch();
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { projectsDictionary } = projectsDictionaryList[userLanguage];
+	const { projectsDictionary, Direction } = projectsDictionaryList[
+		userLanguage
+	];
+	const { createTextBtn, topBar } = projectsDictionary;
 
 	const [loading, setLoading] = useState(true);
 	const [tableView, setTableView] = useState(false);
@@ -51,12 +54,12 @@ const Projects = props => {
 				<Header
 					buttons={[
 						{
-							buttonText: "Create Project",
+							buttonText: createTextBtn,
 							// onClick: () => setVisible(true),
 							render: (
 								<SideDrawer
-									title={"Create Project"}
-									buttonText={"Create Project"}
+									title={createTextBtn}
+									buttonText={createTextBtn}
 									isAccessDrawer={false}
 								>
 									<Composer />
@@ -80,17 +83,17 @@ const Projects = props => {
 					// }}
 					segment={{
 						onSegment: value => {
-							if (value === "Table") {
+							if (value === topBar.table) {
 								setTableView(true);
 							} else {
 								setTableView(false);
 							}
 						},
-						label1: "List",
-						label2: "Table",
+						label1: topBar.list,
+						label2: topBar.table,
 					}}
 				/>
-				<ContBody>
+				<ContBody className="!block" direction={Direction}>
 					{projects?.length > 0 ? (
 						tableView ? (
 							<Table

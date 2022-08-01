@@ -1,4 +1,4 @@
-const urdu = {
+const arabic = {
   taskDictionaryList: {
     createTextBtn: "ٹاسک بنائیں",
     placeHolder: {
@@ -33,4 +33,4 @@ const urdu = {
   },
   Direction: "rtl",
 };
-export default urdu;
+export default arabic;

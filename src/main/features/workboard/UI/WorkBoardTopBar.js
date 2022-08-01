@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 
-function WorkBoardTopBar({ handleView }) {
+function WorkBoardTopBar({ handleView, topBar }) {
 	const [filter, setFilter] = useState({
 		filterType: 1,
 	});
@@ -14,11 +14,11 @@ function WorkBoardTopBar({ handleView }) {
 			}}
 			buttons={[
 				{
-					name: "Public Groups",
+					name: topBar.publicGroup,
 					onClick: () => setFilter({ filterType: 1 }),
 				},
 				{
-					name: "Private Groups",
+					name: topBar.privateGroup,
 					onClick: () => setFilter({ filterType: 2 }),
 				},
 			]}
@@ -27,14 +27,14 @@ function WorkBoardTopBar({ handleView }) {
 			}}
 			segment={{
 				onSegment: value => {
-					if (value === "Table") {
+					if (value === topBar.table) {
 						setTableView(true);
 					} else {
 						setTableView(false);
 					}
 				},
-				label1: "List",
-				label2: "Table",
+				label1: topBar.list,
+				label2: topBar.table,
 			}}
 		/>
 	);

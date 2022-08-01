@@ -1,6 +1,7 @@
 import { Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { DOCUMENT_ENUM } from "../../../constant";
+import "./style.css"
 
 function PreviewModal({ previewItem, handleClose = () => { } }) {
   // const [visible, setVisible] = useState(false);
@@ -11,20 +12,20 @@ function PreviewModal({ previewItem, handleClose = () => { } }) {
     handleClose()
   };
 
-  const handleOk = () => {
-    handleClose()
-  };
-
   return (
     <>
       <Modal
-        title="Title"
+        className="DocumentModal"
         visible={!!previewItem}
-        onOk={handleOk}
         okText="done"
+        width={1000}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        style={{
+          top: 20,
+        }}
       >
+        <div className="ModalInner">
         {
           previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.image ?
             <img src={previewItem?.path} /> :
@@ -35,12 +36,15 @@ function PreviewModal({ previewItem, handleClose = () => { } }) {
               className="!block"
               style={{display:"block !important"}}
               src={previewItem?.path} title="description"
-              width='500px'
-              height='500px' frameBorder='0'></iframe>
+              // width='500px'
+              // height='500px' 
+              frameBorder='0'
+              ></iframe>
 
               
               : ""
         }
+        </div>
       </Modal>
     </>
   );

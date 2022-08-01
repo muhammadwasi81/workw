@@ -4,6 +4,7 @@ import {
 	addWorkBoardSectionTodo,
 	addWorkBoardTodoLabel,
 	getAllWorkBoard,
+	getAllWorkBoardTodoPaging,
 	getWorkboardById,
 	getWorkBoardTodoById,
 	moveWorkBoardSection,
@@ -47,6 +48,7 @@ const initialState = {
 	workBoardSections: [],
 	todoDetail: null,
 	todoDueDateDetail: null,
+	sectionTableData: [],
 };
 
 const trelloSlice = createSlice({
@@ -522,6 +524,12 @@ const trelloSlice = createSlice({
 					state.todoDetail.labels = labels;
 				}
 			)
+			.addCase(
+				getAllWorkBoardTodoPaging.fulfilled,
+				(state, { payload }) => {
+					state.sectionTableData = payload.data.data;
+				}
+			)
 			.addMatcher(
 				isPending(
 					...[
@@ -543,6 +551,7 @@ const trelloSlice = createSlice({
 						removeWorkBoardTodo,
 						addWorkBoardTodoLabel,
 						removeWorkBoardTodoLabel,
+						getAllWorkBoardTodoPaging,
 					]
 				),
 				state => {

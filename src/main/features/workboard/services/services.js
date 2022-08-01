@@ -12,6 +12,19 @@ export const addWorkboardService = data => {
 		});
 };
 
+export const getAllWorkboardTodoPagingService = data => {
+	return MasterConfig.post(
+		`${TODO_API_PREFIX}GetAllWorkBoardTodoPaging`,
+		data
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};
+
 export const updateWorkboardService = data => {
 	return MasterConfig.put(`${API_PREFIX}UpdateWorkBoard`, data)
 		.then(res => {

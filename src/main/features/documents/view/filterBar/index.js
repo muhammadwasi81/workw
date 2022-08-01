@@ -14,9 +14,9 @@ const FilterBar = () => {
   }
   return (
     <TopBar
-    onSearch={(value) => {
-      console.log(value);
-    }}
+    // onSearch={(value) => {
+    //   console.log(value);
+    // }}
     buttons={[
       {
         name: "All Documents",
@@ -34,20 +34,20 @@ const FilterBar = () => {
         onClick: handleTabChange,
       },
     ]}
-    filter={{
-      onFilter: () => {},
-    }}
-    segment={{
-      onSegment: (value) => {
-        if (value === "Table") {
-          // setTableView(true);
-        } else {
-          // setTableView(false);
-        }
-      },
-      label1: "List",
-      label2: "Table",
-    }}
+    // filter={{
+    //   onFilter: () => {},
+    // }}
+    // segment={{
+    //   onSegment: (value) => {
+    //     if (value === "Table") {
+    //       // setTableView(true);
+    //     } else {
+    //       // setTableView(false);
+    //     }
+    //   },
+    //   label1: "List",
+    //   label2: "Table",
+    // }}
   />
   );
 };

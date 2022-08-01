@@ -11,6 +11,7 @@ import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 import { addDocument } from "../../store/actions";
 import { DOCUMENT_ENUM } from "../../constant";
+import { STRINGS } from "../../../../../utils/base";
 
 const initialState = {
 	id: "",
@@ -36,16 +37,15 @@ const initialState = {
 	],
 };
 
-const CreateFolder = ({ isOpen, handleClose }) => {
+const CreateUpload = ({ isOpen, handleClose }) => {
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-	const [profileImage, setProfileImage] = useState(null);
+	const [attachment, setAttachment] = useState(null);
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
 
-	const [state, setState] = useState(initialState);
 	const handleImageUpload = data => {
-		setProfileImage(data);
+		setAttachment(data);
 	};
 
 	const onPrivacyChange = value => {
@@ -53,18 +53,40 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 	};
 
 	const onFinish = (values) => {
-		console.log(values)
+		console.log(values);
+		console.log(attachment)
+		let readers = values.readers ? values.readers : [];
+		let collaborators = values.collaborators ? values.collaborators : [];
+		let members = [
+			...readers.map((item) => ({
+				memberId: item,
+				memberType: 1,
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER
+			})),
+			...collaborators.map((item) => ({
+				memberId: item,
+				memberType: 1,
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.COLLABRATOR
+			}))
+		];
 		let payload = {
 			name: values.name,
 			description: values.description,
 			approvers: values.approvers ? values.approvers.map((item) => ({ approverId: item })) : [],
-			members: values.readers ? values.readers.map((item) => ({ memberId: item })) : [],
+			members: members,
 			parentId: null,
-			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.folder,
-			privacyId: privacyId
+			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.attachment,
+			privacyId: privacyId,
+			attachments: [{
+				documentName: values.name,
+				attachment:{
+					id: STRINGS.DEFAULTS.guid,
+					file: attachment[0].originFileObj,
+				}
+			}
+			]
 		}
-		dispatch(addDocument(payload))
-		// form.resetFields();
+		dispatch(addDocument({ payload, form }))
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -73,7 +95,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 
 	return (
 		<>
-			<SideDrawer title={"Create Folder"}
+			<SideDrawer title={"Upload"}
 				isDisable={true}
 				isOpen={isOpen}
 				isAccessDrawer={false}
@@ -81,7 +103,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 			>
 				<Form
 					form={form}
-					name="addMileBoard"
+					name="uploadFile"
 					labelCol={{
 						span: 24,
 					}}
@@ -197,7 +219,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 								title={"Create Milepad"}
 							>
 								{" "}
-								{"Create Folder"}{" "}
+								{"Create"}{" "}
 							</Button>
 						</div>
 					</Form.Item>
@@ -207,4 +229,4 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 	);
 };
 
-export default CreateFolder;
+export default CreateUpload;

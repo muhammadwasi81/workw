@@ -1,4 +1,4 @@
-import { DOCUMENT_ENUM } from ".";
+import { DocsComposerEnums, DOCUMENT_ENUM } from ".";
 import folderIcon from "../../../../content/NewContent/Documents/file/folder.svg"
 import pdfIcon from "../../../../content/NewContent/Documents/file/PDF_DOC.svg"
 import gridIcon from "../../../../content/NewContent/Documents/file/milegrid.svg"
@@ -30,7 +30,7 @@ export const getIconByExtensionType = ((AttachmentType, extensionType = null) =>
         case DUCOMENT_TYPE.show:
             return showIcon
             break;
-            
+
         case "attachment":
             switch (extensionType) {
                 case 1: {
@@ -47,3 +47,20 @@ export const getIconByExtensionType = ((AttachmentType, extensionType = null) =>
             break;
     }
 })
+
+export const getComposerKeyByType = (documentType) => {
+    switch (documentType) {
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+            return DocsComposerEnums.upload
+            case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+            return DocsComposerEnums.upload
+            case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+            return DocsComposerEnums.upload
+            case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+            return DocsComposerEnums.upload
+            case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+            return DocsComposerEnums.upload
+        default:
+            break;
+    }
+}

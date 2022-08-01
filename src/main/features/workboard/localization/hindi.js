@@ -11,7 +11,7 @@ const en = {
 			privateGroup: "निजी समूह",
 		},
 		labels: {
-			update: "Update Board",
+			update: "अद्यतन बोर्ड",
 			create: "बोर्ड बनाएं",
 			name: "Board Name",
 			description: "Board Description",

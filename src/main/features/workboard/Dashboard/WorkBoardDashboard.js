@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../utils/routes";
 import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
 import { Table } from "../../../sharedComponents/customTable";
+import Spinner from "../../../sharedComponents/spinner/spinner";
 import { getAllWorkBoard } from "../store/action";
 import { tableColumn } from "./tableColumns";
 import WorkBoardCard from "./WorkBoardCard";
@@ -14,6 +15,7 @@ function WorkBoardDashboard({ isTableView }) {
 	const workboardsListData = useSelector(
 		state => state.trelloSlice.workboardsList
 	);
+	const loader = useSelector(state => state.trelloSlice.loader);
 	useEffect(() => {
 		dispatch(
 			getAllWorkBoard({
@@ -39,7 +41,9 @@ function WorkBoardDashboard({ isTableView }) {
 
 	return (
 		<>
-			{!isTableView ? (
+			{loader ? (
+				<Spinner />
+			) : !isTableView ? (
 				<CardWrapper2>
 					{workboardsListData.map(data => (
 						<WorkBoardCard data={data} />

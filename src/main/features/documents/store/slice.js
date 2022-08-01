@@ -1,5 +1,6 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { STRINGS } from "../../../../utils/base";
+import { getComposerKeyByType } from "../constant/helpers";
 import { addDocument, getAllDocument, getAllDocumentList } from "./actions";
 
 const initialState = {
@@ -54,15 +55,21 @@ const documentSlice = createSlice({
         state.loader = false;
         state.success = true;
         state.listData = [payload, ...state.listData];
+        state.isOpenComposers.folder = false;
+        state.isOpenComposers.mileboard = false;
+        state.isOpenComposers.milegrid = false;
+        state.isOpenComposers.milepad = false;
+        state.isOpenComposers.mileshow = false;
+        state.isOpenComposers.upload = false;
       })
       .addCase(getAllDocumentList.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        state.listData = payload
+        state.listData = payload;
       })
       .addCase(getAllDocument.fulfilled, (state, {payload}) => {
         state.loader = false;
-        state.success = true,
+        state.success = true;
         state.detailListData = payload;
       })
       .addMatcher(

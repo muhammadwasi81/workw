@@ -5,13 +5,13 @@ import { STRINGS } from "../../../../utils/base";
 
 const getAllDocumentList_DBO = (data) => {
 	return{
-		"pageNo": data.pageNo ? data.pageNo : 0,
+		"pageNo": data.pageNo ? data.pageNo : 1,
 		"pageSize": data.pageSize ? data.pageSize : 20,
 		"search": data.search ? data.search : "",
 		"referenceType": data.referenceType ? data.referenceType : 1,
 		"referenceId": data.referenceId ? data.referenceId : STRINGS.DEFAULTS.guid,
 		"parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
-		"myDocuments": data.myDocuments ? data.myDocuments : true,
+		"myDocuments": data.myDocuments ? data.myDocuments : false,
 		"sortBy": data.sortBy ? data.sortBy : 0,
 	}
 }

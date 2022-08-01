@@ -69,6 +69,9 @@ function WorkBoardMemberSelect({
 					);
 				}}
 				dataVal={value}
+				name="members"
+				showSearch={true}
+				// direction={Direction}
 			/>
 		</>
 	);

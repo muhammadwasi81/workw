@@ -1,31 +1,32 @@
 import React from "react";
 import "./style.css";
-import pdfIcon from "../../../../../../content/NewContent/Documents/file/PDF_DOC.svg";
-import menuIcon from "../../../../../../content/NewContent/Documents/3dots.svg";
-import favorateIcon from "../../../../../../content/NewContent/Documents/favorate.svg";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import {
-	ItemContent,
 	ItemHeader,
 	SingleItem,
 } from "../../../../../sharedComponents/Card/CardStyle";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import moment from "moment";
-import { Button, Tag } from "antd";
+import { Button, Tag, Image } from "antd";
 import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
-import DummyImage from "../../../../../../content/NewContent/Documents/mediaDummy.svg";
-import { dummyMember } from "../../../../task/view/TaskList/listItem";
-import { getNameForImage } from "../../../../../../utils/base";
-import { createReducer } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { DOCUMENT_ENUM } from "../../../constant";
+import { handleParentId } from "../../../store/slice";
+import { getIconByExtensionType } from "../../../constant/helpers";
 
 const DocFullCard = ({ data }) => {
-	// const disptach = useDispatch()
+	const disptach = useDispatch()
 
-	let { name, documentType, creator, createDate, description, id, path } = data
+	let { name, documentType, creator, createDate, description, id, path, members, approvers, image } = data
 	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
+
+	const handleType = (() => {
+		disptach(handleParentId({
+			id,
+			name
+		}))
+	})
 
 	return (
 		<SingleItem>
@@ -56,9 +57,6 @@ const DocFullCard = ({ data }) => {
 						<div className="doc_detail_title">
 							{name}
 						</div>
-						<div>
-							<Button className="ThemeBtn">Download</Button>
-						</div>
 					</div>
 					<div className="doc_detail_desc">
 						<p>
@@ -66,101 +64,62 @@ const DocFullCard = ({ data }) => {
 						</p>
 					</div>
 
-					<div className="card-column-view">
-						<div className="card-column-item">
-							<div className="column-item-head">
-								{" "}
-								{"Approvers"}{" "}
-							</div>
-							<div className="SummaryMembers">
-								<div className="mem">
-									{dummyMember.map((val, i) => {
-										if (i > 2) return "";
-										return val.profile_picture ? (
-											<div
-												key={`grpmem${i}`}
-												className="us-img"
-												style={{
-													backgroundImage: `url(${val.profile_picture})`,
-													backgroundRepeat:
-														"no-repeat",
-													backgroundSize: "100% 100%",
-												}}
+					<div className="ListItemInner">
+						<div className="ItemDetails">
+							<div className="innerDiv">
+								{
+									members.length ?
+										<div>
+											< span className="text-black font-extrabold smallHeading">{"Members"}</span>
+											<Avatar
+												isAvatarGroup={true}
+												isTag={false}
+												heading={"Members"}
+												membersData={members}
+												text={"Danish"}
+												image={"https://joeschmoe.io/api/v1/random"}
 											/>
-										) : (
-											<div
-												key={`grpmem${i}`}
-												className="us-img"
-											>
-												{getNameForImage(val.name)}
-											</div>
-										);
-									})}
-									{dummyMember ? (
-										dummyMember.length > 2 ? (
-											<div className="us-img">
-												{dummyMember &&
-													dummyMember.length - 2}
-												+
-											</div>
-										) : (
-											""
-										)
-									) : null}
-								</div>
+										</div> : ""
+								}
 							</div>
-						</div>
-
-						<div className="card-column-item">
-							<div className="column-item-head">
-								{" "}
-								{"Downloaders"}{" "}
-							</div>
-							<div className="SummaryMembers">
-								<div className="mem">
-									{dummyMember.map((val, i) => {
-										if (i > 2) return "";
-										return val.profile_picture ? (
-											<div
-												key={`grpmem${i}`}
-												className="us-img"
-												style={{
-													backgroundImage: `url(${val.profile_picture})`,
-													backgroundRepeat:
-														"no-repeat",
-													backgroundSize: "100% 100%",
-												}}
+							<div className="innerDiv">
+								{
+									approvers.length ?
+										<div>
+											<span className="text-black font-extrabold smallHeading">{"Approvers"}</span>
+											<Avatar
+												isAvatarGroup={true}
+												isTag={false}
+												heading={"approvers"}
+												membersData={approvers ? approvers : []}
+												text={"Danish"}
+												image={"https://joeschmoe.io/api/v1/random"}
 											/>
-										) : (
-											<div
-												key={`grpmem${i}`}
-												className="us-img"
-											>
-												{getNameForImage(val.name)}
-											</div>
-										);
-									})}
-									{dummyMember ? (
-										dummyMember.length > 2 ? (
-											<div className="us-img">
-												{dummyMember &&
-													dummyMember.length - 2}
-												+
-											</div>
-										) : (
-											""
-										)
-									) : null}
-								</div>
+										</div>
+										: ""
+								}
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className="doc_detail_media">
-					<img src={DummyImage} alt="" />
+					<div className="d_ShortCard_Child2">
+						<img
+							onClick={handleType}
+							alt=""
+							src={documentType === DUCOMENT_TYPE.image && path ?
+								path : getIconByExtensionType(documentType)}
+						/>
+					</div>
+					<div className="downloadBtn">
+						{
+							documentType === DUCOMENT_TYPE.attachment ?
+								<Button className="ThemeBtn downloadBtn">Download</Button> : ""
+						}
+					</div>
 				</div>
 			</div>
-		</SingleItem>
+		</SingleItem >
 	);
 };
 

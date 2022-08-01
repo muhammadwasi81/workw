@@ -22,7 +22,7 @@ const PostFooter = ({
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Post } = FeedDictionary[userLanguage];
+  const { Post, Direction } = FeedDictionary[userLanguage];
   const {
     Comments,
     Comment,
@@ -48,6 +48,7 @@ const PostFooter = ({
       <div className="post-events">
         <div className={`btn on`}>
           <Reactions
+            direction={Direction}
             onUpdate={(e) => {
               console.log(e);
             }}

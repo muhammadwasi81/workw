@@ -73,6 +73,7 @@ const en = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    workWiseCompanies: "Workwise Companies",
     promotions: "Promotions",
     customApprovals: "Custom Approvals",
     feed: "NewsFeed",

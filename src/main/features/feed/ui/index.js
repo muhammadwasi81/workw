@@ -18,7 +18,7 @@ const NewsFeed = () => {
   return (
     <TabbableContainer>
       <Header />
-      <ContBody>
+      <ContBody style={{ direction: Direction }}>
         <div className="lf-col" style={{ direction: Direction }}>
           <div className="newsFeed">
             <PostComposer />

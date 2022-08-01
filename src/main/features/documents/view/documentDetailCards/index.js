@@ -1,19 +1,26 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { CardWrapper } from "../../../../layout/GridStyle.js";
+import BreadCumbs from "../components/breadcumb/index.js";
 import DocFullCard from "../components/fullCard/index.js";
 import ShortCard from "../components/shortCard/index.js";
 import DocSceleton from "../skeleton/index.js";
 import './style.css';
 
-const DocumentDetailCards = () => {
+const DocumentDetailCards = (props) => {
+  const breadCumbsState = useSelector(state => state.documentSlice.breadCumbPath);
   return (
     <>
       {/* <DocSceleton /> */}
       <CardWrapper>
-        {(Array(100).fill(1)).map((item, index) => (
-          <DocFullCard />
-        )
-      )}
+        {/* <BreadCumbs
+          data={breadCumbsState}
+        /> */}
+        {
+          props.data.map((item, index) => (
+            <DocFullCard data={item} />
+          ))
+        }
       </CardWrapper>
     </>
   );

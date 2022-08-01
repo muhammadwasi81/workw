@@ -1,86 +1,103 @@
-.approval_list_cont{
+.approval_list_cont {
     /* padding: 10px; */
 }
-.approval_header{
+
+.approval_header {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #e1e1e1;
     padding: 10px 10px 5px 10px;
     position: sticky;
     top: 0;
-    background-color: white;
+    background: white;
     z-index: 1;
 }
-.approval_header_child1{
+
+.approval_header_child1 {
     font-size: 14px;
     font-weight: bolder;
-    color: var(--primary_theme_color_green);
+    color: var(--currentThemeColor);
 }
-.approval_header_child2{
+
+.approval_header_child2 {
     display: flex;
-    /* background-color: red; */
+    /* background: red; */
     width: 120px;
     justify-content: space-around;
     font-size: 13px;
     font-weight: bolder;
-    color: var(--primary_theme_color_green);
+    color: var(--currentThemeColor);
 }
-.approval_header_child2 > * {
+
+.approval_header_child2>* {
     cursor: pointer;
 }
-.approval_list{
+
+.approval_list {
     padding: 10px 5px 10px 10px;
 }
-.approval_item{
+
+.approval_item {
     display: flex;
     padding: 5px 0;
     border-bottom: 1px solid rgb(240, 240, 240);
 }
-.approval_item_detail_child1{
+
+.approval_item_detail_child1 {
     font-size: 12px;
-    color: var(--primary_theme_color_green);
+    color: var(--currentThemeColor);
     font-weight: 600;
 }
-.approval_item_detail{
+
+.approval_item_detail {
     padding-left: 10px;
     flex: 1;
 }
-.approval_item_detail_child2{
+
+.approval_item_detail_child2 {
     display: flex;
 }
-.approval_item_detail .shortDesc{
+
+.approval_item_detail .shortDesc {
     font-size: 10px;
- }
- .approval_item_status{
+}
+
+.approval_item_status {
     width: 170px;
-    /* background-color: red; */
+    /* background: red; */
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
- }
- .approval_item_status > div{
+}
+
+.approval_item_status>div {
     font-size: 12px;
     font-weight: bolder;
     cursor: pointer;
- }
- .approval_item_status > .accept{
+}
+
+.approval_item_status>.accept {
     color: rgb(0, 194, 0);
- }
- .approval_item_status > .decline{
+}
+
+.approval_item_status>.decline {
     color: red;
- }
- .approval_item_status > .hold{
+}
+
+.approval_item_status>.hold {
     color: #eda317;
- }
- 
-.approval_item_detail .dateTime{
+}
+
+.approval_item_detail .dateTime {
     flex: 1;
 }
+
 .ApprovalMainView {
     padding-top: 15px;
 }
+
 .ApprovalMainView .approval_item {
-    background-color: white;
+    background: white;
     border-radius: 8px;
     padding: 6px;
     margin-bottom: 8px;

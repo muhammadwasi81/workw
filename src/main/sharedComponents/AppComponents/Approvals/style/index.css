@@ -1,5 +1,5 @@
 .approval {
-  background-color: #fff;
+  background: #fff;
   padding-bottom: 5px;
 }
 
@@ -38,7 +38,7 @@
 
 .approval__body-header .left .username {
   font-size: 12px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   display: block;
   line-height: 1;
   font-weight: 600;
@@ -56,7 +56,7 @@
 }
 
 .approvalCollapse {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   border-radius: 5px;
   /* overflow: hidden; */
   margin-top: 5px;
@@ -75,7 +75,7 @@
 }
 
 .approvalCollapse .ant-tag {
-  background: var(--primary_theme_color_green);
+  background: var(--currentThemeColor);
   border-radius: 3px;
   font-size: 13px;
   text-transform: capitalize;
@@ -87,7 +87,7 @@
   display: none !important;
 }
 
-.approvalWrapper + .approvalWrapper {
+.approvalWrapper+.approvalWrapper {
   margin-top: 12px;
 }
 
@@ -113,7 +113,7 @@
 }
 
 .approvalWrapper__header .list__item {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   border-radius: 50%;
   width: 25px;
   height: 25px;
@@ -124,12 +124,12 @@
   font-size: 14px;
 }
 
-.approvalCollapse .ant-collapse-content > .ant-collapse-content-box {
+.approvalCollapse .ant-collapse-content>.ant-collapse-content-box {
   padding: 0 !important;
 }
 
 .remarks {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   border-width: 1px 0 !important;
   border-color: #ccc !important;
   border-style: solid !important;
@@ -159,7 +159,7 @@
 
 .remarks__body .comment__body {
   border-radius: 5px;
-  background-color: #fff;
+  background: #fff;
   border-top-left-radius: 0;
   padding: 10px 8px;
   width: fit-content;
@@ -168,7 +168,7 @@
 
 .remarks__body .comment__body h6 {
   font-size: 13px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   display: block;
   line-height: 1;
   font-weight: 600;
@@ -190,7 +190,7 @@
 }
 
 .remarkFooter {
-  background-color: #fff;
+  background: #fff;
   padding: 5px 10px;
   padding-top: 5px;
 }
@@ -246,7 +246,7 @@
 }
 
 .remarkFooter__bottom .list__item:nth-child(1) {
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
 
 .remarkFooter__bottom .list__item:nth-child(2) {
@@ -269,7 +269,7 @@
 }
 
 .remarkNoData {
-  background-color: #fff;
+  background: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;

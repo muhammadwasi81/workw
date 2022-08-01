@@ -9,21 +9,35 @@ import DocumentDetailCards from "./documentDetailCards";
 import DocumentShortCards from "./documentShortCards";
 import DropableContainer from "./dropableContainer";
 import { useDispatch } from "react-redux";
-import { addDocument, getAllDocument } from "../store/actions";
+import { addDocument, getAllDocument, getAllDocumentList } from "../store/actions";
 
 const Documents = () => {
   const dispatch = useDispatch();
   const CurrentTab = useSelector(state => state.documentSlice.currentTab);
+  const ListData = useSelector(state => state.documentSlice.listData);
+  const DetailListData = useSelector(state => state.documentSlice.detailListData);
+  const ParentId = useSelector(state => state.documentSlice.parentId);
+
+  console.log(DetailListData, "DETAILEDDD !!!")
+
   useEffect(() => {
-    let payload = {
-      parentId: null
+
+    if (CurrentTab === "allDocuments") {
+      let payload = {
+        parentId: ParentId
+      }
+      dispatch(getAllDocumentList(payload))   
+    } else {
+      let payload = {
+          filterType : CurrentTab === "myDocuments" ? 2 : CurrentTab === "forApprovals" ? 3 : null
+      }
+      dispatch(getAllDocument(payload))
     }
-    dispatch(getAllDocument(payload))
-  }, [CurrentTab])
+  }, [ParentId, CurrentTab])
 
   let RenderTab = {
-    allDocuments: <DocumentShortCards />,
-    myDocuments: <DocumentDetailCards />,
+    allDocuments: <DocumentShortCards data={ListData} />,
+    myDocuments: <DocumentDetailCards data={DetailListData} />,
     forApprovals: <DocumentDetailCards />
   }
   return (

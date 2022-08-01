@@ -276,7 +276,7 @@ const Composer = () => {
         <Button
           style={{
             width: "100%",
-            background: "var(--primary_theme_color_green)",
+            background: "var(--currentThemeColor)",
             border: "none",
             borderRadius: "5px",
             fontSize: "16px",

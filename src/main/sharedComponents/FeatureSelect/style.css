@@ -3,10 +3,12 @@
   padding: 8px 14px 0px 9px;
   border-radius: 10px;
 }
+
 .FeatureSelect h4 {
   margin: 7px 0px 0px 0px;
   line-height: 1;
 }
+
 .imageBox {
   background: #8dabb4;
   padding: 8px 12px 0px 12px;
@@ -14,12 +16,15 @@
   max-height: 48px;
   margin: 0px 10px 0px 0px;
 }
+
 .radioBtn {
   margin-top: 13px;
 }
+
 .radioSelected {
-  background-color: var(--primary_theme_color_green);
+  background: var(--currentThemeColor);
 }
+
 .radioSelected h4 {
   color: white;
 }

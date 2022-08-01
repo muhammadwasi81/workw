@@ -4,34 +4,40 @@
   border-radius: 0.5rem;
   overflow: hidden;
 }
+
 .modalWrapper .ant-modal-content .ant-form-item {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
 .modalWrapper .ant-modal-content .ant-form-item label {
   color: #1b5669;
   font-weight: bold;
   display: inline-block;
 }
+
 .ant-form-horizontal .ant-form-item-control {
   width: 100%;
 }
+
 .modalWrapper .ant-modal-content .ant-form-item label::after {
   display: none;
 }
 
 .modalWrapper .ant-modal-content .resetBtn {
-  background-color: #dee5e8;
-  color: var(--primary_theme_color_green);
+  background: #dee5e8;
+  color: var(--currentThemeColor);
   border-color: transparent !important;
   border-radius: 5px;
 }
+
 @media screen and (max-width: 800px) {
   .filterBtn {
     padding: 7px 12px;
   }
+
   .filterBtn span {
     margin: 0 !important;
   }

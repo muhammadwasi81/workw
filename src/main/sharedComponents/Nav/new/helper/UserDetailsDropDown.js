@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import userIcon from "../../../../../content/NewContent/NavBar/UserSettingToggle/userIcon.svg";
 import userLogout from "../../../../../content/NewContent/NavBar/UserSettingToggle/userLogout.svg";
 import userSettings from "../../../../../content/NewContent/NavBar/UserSettingToggle/userSettings.svg";
@@ -9,18 +9,54 @@ import { userSettingToggleFun } from "../../../../../store/appReducer/responsive
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { useDispatch } from "react-redux";
+import {
+  defualtThemeColor,
+  ThemeColorEnum,
+} from "../../../../../utils/Shared/enums/enums";
 function UserDetailsDropDown({ id, isToggle }) {
+  const getCurrentTheme = () => {
+    return localStorage.getItem("theme");
+  };
+  const [currentTheme, setCurrentTheme] = useState(
+    getCurrentTheme() || defualtThemeColor
+  );
   const { userLanguage, userLanguageChange } = useContext(
     LanguageChangeContext
   );
   const {
-    sharedLabels: { Profile, Settings, Logout, SelectLanguage, English, Urdu, Arabic },
+    sharedLabels: {
+      Profile,
+      Settings,
+      Logout,
+      SelectLanguage,
+      theme,
+      English,
+      Urdu,
+      Arabic,
+    },
   } = dictionaryList[userLanguage];
+
   const dispatch = useDispatch();
   const handleLanguageChange = (e) => {
     userLanguageChange(e);
     dispatch(userSettingToggleFun(false));
   };
+  const handleTheme = (currentTheme) => {
+    setCurrentTheme(currentTheme);
+    document.documentElement.style.setProperty(
+      "--currentThemeColor",
+      currentTheme
+    );
+    localStorage.setItem("theme", currentTheme);
+  };
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--currentThemeColor",
+      currentTheme
+    );
+  }, []);
+
   let classes = "dropDown ";
   classes += !isToggle ? "close" : "open";
 
@@ -77,6 +113,19 @@ function UserDetailsDropDown({ id, isToggle }) {
           <p>{Arabic}</p>
           <FontSizeOutlined />
         </li>
+      </ul>
+      <span>{theme}</span>
+      <ul className="theme">
+        {ThemeColorEnum.map((color, index) => (
+          <li
+            key={index}
+            style={{ background: color }}
+            className={currentTheme === color ? "color active" : "color"}
+            onClick={() => {
+              handleTheme(color);
+            }}
+          ></li>
+        ))}
       </ul>
     </div>
   );

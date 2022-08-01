@@ -1,5 +1,5 @@
-.reportFilter{
-  background-color: #ffffff;
+.reportFilter {
+  background: #ffffff;
   /* box-shadow: 0 12px 6px -12px #bbbbbb; */
   margin-top: 20px;
   /* height: 200px; */
@@ -11,60 +11,69 @@
   align-items: center;
   width: calc(100% - 80px);
 }
-.ReportViewCont{
+
+.ReportViewCont {
   margin: 0 auto;
 }
-.reportView{
+
+.reportView {
   width: 100%;
   margin: 20px 0;
   position: relative;
 }
 
-.ledger{
+.ledger {
   width: 595px;
-  
-  background-color: white;
+
+  background: white;
   /* min-height: 800px; */
   height: 842px;
   margin: 0px auto;
   padding: 20px 0 50px 0;
 }
-.ledger .reportHeader{
+
+.ledger .reportHeader {
   text-align: center;
   /* padding-top: 20px; */
 }
 
-.reportTable{
+.reportTable {
   width: 90%;
   margin: 20px auto 0 auto;
   border: 1px solid black;
   text-align: center;
 }
-.reportTable tr{
+
+.reportTable tr {
   border: 1px solid black;
 }
-.reportTable th{
+
+.reportTable th {
   font-size: 11px;
   padding: 3px 0;
 }
-.reportTable td{
+
+.reportTable td {
   font-size: 11px;
 }
-.reportWaterMark{
-  position:absolute;
+
+.reportWaterMark {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0.15;
 }
-.reportCompanyLogo{
-  position:absolute;
+
+.reportCompanyLogo {
+  position: absolute;
   top: 20px;
   right: 40px;
   width: 70px;
   height: auto;
 }
-.reportFooter{
+
+.reportFooter {
   display: flex;
   justify-content: space-between;
   align-items: baseline;

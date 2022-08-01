@@ -65,7 +65,7 @@ const ComposerBox = () => {
         IconSize={isMobileScreen ? 12 : 12}
         toolTip={"reply"}
         style={{
-          backgroundColor: "var(--primary_theme_color_green)",
+          backgroundColor: "var(--currentThemeColor)",
           color: "#fff",
           borderRadius: "9px",
         }}

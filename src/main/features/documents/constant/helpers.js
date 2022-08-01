@@ -28,6 +28,7 @@ export const getIconByExtensionType = ((AttachmentType, extensionType = null) =>
         case DUCOMENT_TYPE.show:
             return showIcon
             break;
+            
         case "attachment":
             switch (extensionType) {
                 case 1: {

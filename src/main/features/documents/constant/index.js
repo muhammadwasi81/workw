@@ -64,6 +64,10 @@ export const DOCUMENT_ENUM = {
     pad: 6,
     show: 7,
     draw: 8
+  },
+  MEMBER_RIGHT_TYPE:{
+    READER:1,
+    COLLABRATOR:2
   }
 }
 

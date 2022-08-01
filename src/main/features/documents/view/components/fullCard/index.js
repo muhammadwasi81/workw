@@ -17,21 +17,27 @@ import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 import DummyImage from "../../../../../../content/NewContent/Documents/mediaDummy.svg";
 import { dummyMember } from "../../../../task/view/TaskList/listItem";
 import { getNameForImage } from "../../../../../../utils/base";
+import { createReducer } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { DOCUMENT_ENUM } from "../../../constant";
 
-const DocFullCard = ({ icon, name, description }) => {
+const DocFullCard = ({ data }) => {
+	// const disptach = useDispatch()
+
+	let { name, documentType, creator, createDate, description, id, path } = data
+	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
+
 	return (
 		<SingleItem>
 			<ItemHeader>
 				<div className={"item-header"}>
 					<div className="left">
 						<UserInfo
-							avatarSrc={
-								"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-							}
-							name={"Abu Bakar"}
+							avatarSrc={creator.image}
+							name={creator.name}
 							Subline={
 								<SublineDesigWithTime
-									designation={"Reactjs Developer"}
+									designation={creator.designation}
 									time={moment().format("DD/MM/YYYY")}
 								/>
 							}
@@ -48,7 +54,7 @@ const DocFullCard = ({ icon, name, description }) => {
 				<div className="doc_detail_content">
 					<div className="doc_detail_body_head">
 						<div className="doc_detail_title">
-							New Dummy Documents
+							{name}
 						</div>
 						<div>
 							<Button className="ThemeBtn">Download</Button>
@@ -56,10 +62,7 @@ const DocFullCard = ({ icon, name, description }) => {
 					</div>
 					<div className="doc_detail_desc">
 						<p>
-							Test 123 Test 123 Test 123 Test 123 Test 123 Test
-							123 Test 123 Test 123 Test 123 Test 123 Test 123
-							Test 123 Test 123 Test 123 Test 123 Test 123 Test
-							123 Test 123
+							{description}
 						</p>
 					</div>
 

@@ -53,9 +53,7 @@ const MobileDrawer = () => {
             pathName={folderPath}
             name={"Inbox"}
             badgeCount={unseen}
-            icon={
-              <MdInbox size={20} color={"var(--primary_theme_color_green)"} />
-            }
+            icon={<MdInbox size={20} color={"var(--currentThemeColor)"} />}
             style={{
               margin: "6px 2px 1px 28px",
             }}

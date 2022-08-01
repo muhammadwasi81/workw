@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Remarks from "./Remarks";
 import noData from "../../../../../content/svg/noData.svg";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { ApprovalDictionary } from "../localization";
 
 function ApprovalBody({ remarks }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { labels } = ApprovalDictionary[userLanguage];
   return (
     <div className="approval__header-body">
       {remarks.length > 0 ? (
@@ -21,7 +25,7 @@ function ApprovalBody({ remarks }) {
       ) : (
         <div className="remarkNoData">
           <img src={noData} alt="" />
-          <p>No Data</p>
+          <p>{labels.noData}</p>
         </div>
       )}
     </div>

@@ -12,6 +12,7 @@ import {
 	addWorkboardService,
 	addWorkBoardTodoLabelService,
 	getAllWorkboardService,
+	getAllWorkboardTodoPagingService,
 	getWorkboardByIdService,
 	getWorkboardTodoByIdService,
 	moveWorkBoardSectionService,
@@ -47,6 +48,25 @@ export const addWorkBoard = createAsyncThunk(
 					search: "",
 				})
 			);
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const getAllWorkBoardTodoPaging = createAsyncThunk(
+	"getAllWorkBoardTodoPaging",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await getAllWorkboardTodoPagingService(data);
+		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {
 			dispatch(

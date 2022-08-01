@@ -5,6 +5,8 @@ import gridIcon from "../../../../content/NewContent/Documents/file/milegrid.svg
 import drawIcon from "../../../../content/NewContent/Documents/file/mileboard.svg"
 import padIcon from "../../../../content/NewContent/Documents/file/milepad.svg"
 import showIcon from "../../../../content/NewContent/Documents/file/mileshow.svg"
+import dummyImage from "../../../../content/NewContent/Documents/mediaDummy.svg"
+import defaultImage from "../../../../content/video_default.svg"
 
 export const getIconByExtensionType = ((AttachmentType, extensionType = null) => {
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
@@ -35,10 +37,13 @@ export const getIconByExtensionType = ((AttachmentType, extensionType = null) =>
                     return
                 }
                 case 2: {
-                    return
+                    return defaultImage
                 }
+                default:
+                    break;
             }
         default:
+            return defaultImage
             break;
     }
 })

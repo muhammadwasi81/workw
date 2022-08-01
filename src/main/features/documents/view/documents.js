@@ -38,7 +38,7 @@ const Documents = () => {
   let RenderTab = {
     allDocuments: <DocumentShortCards data={ListData} />,
     myDocuments: <DocumentDetailCards data={DetailListData} />,
-    forApprovals: <DocumentDetailCards />
+    forApprovals: <DocumentDetailCards data={DetailListData} />
   }
   return (
     <TabbableContainer>

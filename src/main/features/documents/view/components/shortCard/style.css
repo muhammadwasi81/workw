@@ -37,3 +37,16 @@
     align-items: flex-end;
     justify-content: space-between;
 }
+.doc_detail_media .d_ShortCard_Child2 {
+    width: 100px;
+}
+.downloadBtn {
+    justify-content: center;
+    display: flex;
+    padding: 11px 0px 0px 0px;
+}
+.downloadBtn {
+    font-size: 10px;
+    padding: 4px 9px;
+    height: 24px;
+}

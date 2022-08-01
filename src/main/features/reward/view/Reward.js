@@ -106,14 +106,7 @@ const Reward = (props) => {
               <Table
                 columns={tableColumn()}
                 dragable={true}
-                // handleChange={handleChange}
-                // onPageChange={onPageChange}
-                // onRow={onRow}
                 data={rewards}
-                // status={travelStatus}
-                // loadding={loader}
-                // success={success}
-                // onActionClick={onActionClick}
               />
             ) : (
               <>

@@ -15,7 +15,7 @@ export const CardWrapper = styled.div`
 `;
 
 export const Card = styled.div`
-  background-color: white;
+  background: white;
   border-radius: 4px;
   padding: 13px 12px;
   position: relative;

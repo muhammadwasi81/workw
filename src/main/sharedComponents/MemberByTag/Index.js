@@ -53,7 +53,7 @@ const MemberList = (props) => {
             />
             <div
               style={{
-                color: "var(--primary_theme_color_green)",
+                color: "var(--currentThemeColor)",
                 fontWeight: 700,
               }}
             >

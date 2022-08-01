@@ -4,7 +4,7 @@
   width: 100%;
   bottom: 0;
   height: 45px;
-  background-color: var(--primary_theme_color_green);
+  background: var(--currentThemeColor);
   z-index: 2;
   font-size: 10px;
   justify-content: space-evenly;
@@ -42,7 +42,7 @@
     font-size: 8px;
   }
 
-  .bottom-tab-Item .ant-btn > img {
+  .bottom-tab-Item .ant-btn>img {
     width: 14px;
     height: 14px;
   }

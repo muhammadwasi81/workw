@@ -16,7 +16,7 @@ function Tab(props) {
         background: "white",
         padding: "2px 5px",
         borderRadius: "10px",
-        color: "var(--primary_theme_color_green)",
+        color: "var(--currentThemeColor)",
         fontWeight: "bold",
       }}
     >

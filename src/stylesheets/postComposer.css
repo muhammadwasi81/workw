@@ -47,7 +47,7 @@
 .composer-wrapper button {
   font-size: 14px;
   border: none;
-  background-color: transparent;
+  background: transparent;
   margin: 0px 4px 15px 4px;
   padding: 0;
   cursor: pointer;
@@ -129,8 +129,8 @@
 }
 
 .composer-wrapper .uploader .options:hover {
-  background-color: #ececec;
-  transition: background-color 0.2ms ease-in;
+  background: #ececec;
+  transition: background 0.2ms ease-in;
 }
 
 .composer-wrapper .uploader .options .wrapper img {
@@ -155,7 +155,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: red;
+  background: red;
   cursor: pointer;
 }
 
@@ -168,7 +168,7 @@
 .composer-wrapper .submit-wrapper .post-form {
   width: 100%;
   height: 36px;
-  background-color: #345e95;
+  background: #345e95;
   border-radius: 6px;
   border: none;
   color: #fff;
@@ -224,8 +224,8 @@
 }
 
 .dropdown-wrapper>div:hover {
-  background-color: #e0e0e0;
-  transition: background-color 0.2ms ease-in;
+  background: #e0e0e0;
+  transition: background 0.2ms ease-in;
 }
 
 .dropdown-wrapper>div img {

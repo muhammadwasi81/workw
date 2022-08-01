@@ -1,11 +1,16 @@
 import moment from "moment";
-import React from "react";
+import React, { useContext } from "react";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import Avatar from "../../../Avatar/avatarOLD";
 import { getStatusLabelAndColor } from "../enums";
+import { ApprovalDictionary } from "../localization";
 
 function RemarksBubble({ remarker, remark, type, status, date }) {
   const { name, image } = remarker;
-  const { label, color } = getStatusLabelAndColor()[status];
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { status: statusLabels } = ApprovalDictionary[userLanguage];
+  const { label, color } = getStatusLabelAndColor("", statusLabels)[status];
+
   return (
     <>
       <div className="comment">

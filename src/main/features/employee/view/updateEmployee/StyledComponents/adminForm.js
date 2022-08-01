@@ -11,7 +11,7 @@ export const FormContainer = styled.div`
 
 export const FormHeader = styled.h1`
   width: 100%;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-weight: 700;
   border: none;
   height: 3rem;
@@ -51,7 +51,7 @@ export const FormLabel = styled.label`
   display: flex;
   font-size: 12px;
   border: none;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-weight: bold;
   font-size: 13px;
 `;
@@ -66,7 +66,7 @@ export const FormButtonContainer = styled.div`
 `;
 
 export const FormButton = styled(Button)`
-  background-color: #1b5669;
+  background: #1b5669;
   width: 35%;
   border-radius: 4px;
   align-items: center;

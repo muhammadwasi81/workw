@@ -16,7 +16,7 @@ a {
 }
 
 body {
-  --background-color: #fff;
+  --background: #fff;
   --error-code-color: var(--google-gray-700);
   --google-blue-100: rgb(210, 227, 252);
   --google-blue-300: rgb(138, 180, 248);
@@ -32,11 +32,11 @@ body {
   --google-gray-900: rgb(32, 33, 36);
   --heading-color: var(--google-gray-900);
   --link-color: rgb(88, 88, 88);
-  --popup-container-background-color: rgba(0,0,0,.65);
+  --popup-container-background: rgba(0,0,0,.65);
   --primary-button-fill-color-active: var(--google-blue-700);
   --primary-button-fill-color: var(--google-blue-600);
   --primary-button-text-color: #fff;
-  --quiet-background-color: rgb(247, 247, 247);
+  --quiet-background: rgb(247, 247, 247);
   --secondary-button-border-color: var(--google-gray-500);
   --secondary-button-fill-color: #fff;
   --secondary-button-hover-border-color: var(--google-gray-600);
@@ -44,7 +44,7 @@ body {
   --secondary-button-text-color: var(--google-gray-700);
   --small-link-color: var(--google-gray-700);
   --text-color: var(--google-gray-700);
-  background: var(--background-color);
+  background: var(--background);
   color: var(--text-color);
   word-wrap: break-word;
 }
@@ -74,14 +74,14 @@ html {
 
 @media (prefers-color-scheme: dark) {
   body {
-    --background-color: var(--google-gray-900);
+    --background: var(--google-gray-900);
     --error-code-color: var(--google-gray-500);
     --heading-color: var(--google-gray-500);
     --link-color: var(--google-blue-300);
     --primary-button-fill-color-active: rgb(129, 162, 208);
     --primary-button-fill-color: var(--google-blue-300);
     --primary-button-text-color: var(--google-gray-900);
-    --quiet-background-color: var(--background-color);
+    --quiet-background: var(--background);
     --secondary-button-border-color: var(--google-gray-700);
     --secondary-button-fill-color: var(--google-gray-900);
     --secondary-button-hover-fill-color: rgb(48, 51, 57);
@@ -416,9 +416,9 @@ input[type=checkbox]:checked ~ .checkbox::before {
        (min-width: 421px) and (min-height: 240px) and
        (max-height: 560px) {
   body .nav-wrapper {
-    background: var(--background-color);
+    background: var(--background);
     bottom: 0;
-    box-shadow: 0 -12px 24px var(--background-color);
+    box-shadow: 0 -12px 24px var(--background);
     left: 0;
     margin: 0 auto;
     max-width: 736px;
@@ -694,7 +694,7 @@ a {
 .use-popup-container#error-information-popup-container
   #error-information-popup {
   align-items: center;
-  background-color: var(--popup-container-background-color);
+  background: var(--popup-container-background);
   display: flex;
   height: 100%;
   left: 0;
@@ -716,7 +716,7 @@ a {
 
 .use-popup-container#error-information-popup-container
   #error-information-popup-box {
-  background-color: var(--background-color);
+  background: var(--background);
   left: 5%;
   padding-bottom: 15px;
   padding-top: 15px;
@@ -976,7 +976,7 @@ a {
 
 .suggestion-with-icon .offline-content-suggestion-thumbnail > div {
   align-items: center;
-  background-color: rgb(241, 243, 244);
+  background: rgb(241, 243, 244);
   border-radius: 50%;
   display: flex;
   height: 2.3em;
@@ -1182,19 +1182,19 @@ html[subframe] body {
   -webkit-align-items: center;
   -webkit-flex-flow: column;
   -webkit-justify-content: center;
-  background-color: #DDD;
+  background: #DDD;
   display: -webkit-flex;
   height: 100%;
   left: 0;
   position: absolute;
   text-align: center;
   top: 0;
-  transition: background-color 200ms ease-in-out;
+  transition: background 200ms ease-in-out;
   width: 100%;
 }
 
 #sub-frame-error:hover {
-  background-color: #EEE;
+  background: #EEE;
 }
 
 #sub-frame-error .icon-generic {
@@ -1297,14 +1297,14 @@ html[dir='rtl'].offline .icon-offline {
 
 .offline {
   transition: filter 1.5s cubic-bezier(0.65, 0.05, 0.36, 1),
-              background-color 1.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+              background 1.5s cubic-bezier(0.65, 0.05, 0.36, 1);
 
-  will-change: filter, background-color;
+  will-change: filter, background;
 
 }
 
 .offline body {
-  transition: background-color 1.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+  transition: background 1.5s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 .offline #main-message > p {
@@ -1312,12 +1312,12 @@ html[dir='rtl'].offline .icon-offline {
 }
 
 .offline.inverted {
-  background-color: #fff;
+  background: #fff;
   filter: invert(1);
 }
 
 .offline.inverted body {
-  background-color: #fff;
+  background: #fff;
 }
 
 .offline .interstitial-wrapper {
@@ -1385,7 +1385,7 @@ html[dir='rtl'].offline .icon-offline {
 .offline-runner-live-region {
   bottom: 0;
   clip-path: polygon(0 0, 0 0, 0 0);
-  color: var(--background-color);
+  color: var(--background);
   display: block;
   font-size: xx-small;
   overflow: hidden;
@@ -1624,12 +1624,12 @@ html[dir='rtl'].offline .icon-offline {
   }
 
   .offline.inverted {
-    background-color: var(--background-color);
+    background: var(--background);
     filter: invert(0);
   }
 
   .offline.inverted body {
-    background-color: #fff;
+    background: #fff;
   }
 
   .offline.inverted .offline-runner-live-region {

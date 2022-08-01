@@ -3,16 +3,16 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ChatIcon from "../../../content/NewContent/Sidebar/svg/Messenger.svg";
 import { sideBarOpen } from "./store/sideBarChatSlice";
-import { PhoneOutlined } from "@ant-design/icons";
+import { VideoCameraOutlined } from "@ant-design/icons";
 import { Dropdown, Menu, Space, Typography } from "antd";
-
+import { message } from "antd";
 export const SideBarHead = () => {
   const dispatch = useDispatch();
   const isOpenChatBar = useSelector(
     (state) => state.sideBarChatSlice.sideBarChatStatus
   );
   const { user } = useSelector((state) => state.userSlice);
-  console.log("name", user.name);
+
   const handleClick = () => {
     dispatch(sideBarOpen(!isOpenChatBar));
   };
@@ -28,33 +28,34 @@ export const SideBarHead = () => {
           key: "2",
           label: "Instant Call",
           onClick: async () => {
-            const response = await fetch(
-              "https://192.168.18.11:3300/api/createroomlink",
-              {
-                method: "POST", // *GET, POST, PUT, DELETE, etc.
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  initializerName: user.name,
-                  meetingType: "public",
-                  receiverIds: [],
-                }),
-              }
-            );
-            const { data } = await response.json();
-            intilizeCallwindow(data);
-            //   .then((response) => response.json())
-            //   .then((response) => response)
-            //   .catch((e) => console.log("Error", e));
+            try {
+              const response = await fetch(
+                "https://192.168.18.11:3300/api/createroomlink",
+                {
+                  method: "POST", // *GET, POST, PUT, DELETE, etc.
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    initializerName: user.name,
+                    meetingType: "public",
+                    receiverIds: [],
+                  }),
+                }
+              );
+              const { data } = await response.json();
+              intilizeCallwindow(data);
+            } catch (e) {
+              message.error(e.message);
+            }
           },
         },
       ]}
     />
   );
   const intilizeCallwindow = (response) => {
-    const windowURL = `https://192.168.18.123:3000/${response.roomId}`;
-    window.open(windowURL);
+    const windowURL = `https://call.workw.com/${response.roomId}`;
+    window.open(windowURL, "_blank").focus();
   };
 
   return (
@@ -64,7 +65,7 @@ export const SideBarHead = () => {
         <Dropdown overlay={menu}>
           <Typography.Link>
             <Space>
-              <PhoneOutlined />
+              <VideoCameraOutlined />
             </Space>
           </Typography.Link>
         </Dropdown>

@@ -9,8 +9,8 @@ export const NoteHead = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 2.5rem;
-  background-color: #d9d9d970;
-  color: var(--primary_theme_color_green);
+  background: #d9d9d970;
+  color: var(--currentThemeColor);
   font-weight: 600;
   border-radius: 5px;
   padding: 0 10px;

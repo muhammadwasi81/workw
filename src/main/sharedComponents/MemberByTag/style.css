@@ -1,15 +1,18 @@
 .MemberListItem .ant-list-item-meta-description {
   line-height: 0.3;
 }
+
 .MemberListItem .ant-list-item-meta-title {
   margin-bottom: 0px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-size: 15px;
   line-height: 1;
 }
+
 .IconDiv {
   margin-left: 30px;
 }
+
 .MemberList {
   border: 1px solid #d9d9d9;
   border-radius: 5px;

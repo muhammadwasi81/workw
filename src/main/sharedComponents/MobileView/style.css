@@ -2,7 +2,7 @@
   .maintopMenu {
     height: 40px;
     width: 100%;
-    background-color: var(--primary_theme_color_green);
+    background: var(--currentThemeColor);
     position: fixed;
     z-index: 2;
   }
@@ -32,19 +32,19 @@
     justify-content: space-evenly;
   }
 
-  .menuHolder > div {
+  .menuHolder>div {
     flex: 1;
     color: white;
     text-align: center;
     padding-top: 5px;
   }
 
-  .menuHolder > div > img {
+  .menuHolder>div>img {
     height: 20px;
     width: 20px;
   }
 
-  .menuHolder > div > div {
+  .menuHolder>div>div {
     margin: 0 auto;
   }
 
@@ -52,26 +52,26 @@
         max-height: 80% !important;
         height: 80% !important;
     } */
-  .h-80 > :nth-child(3) {
+  .h-80> :nth-child(3) {
     max-height: 80% !important;
     height: 80% !important;
   }
 
-  .h-34 > :nth-child(3) {
+  .h-34> :nth-child(3) {
     max-height: 34% !important;
     height: 34% !important;
   }
 
-  .h-20 > :nth-child(3) {
+  .h-20> :nth-child(3) {
     max-height: 20% !important;
     height: 20% !important;
   }
 
-  .toggle-menu > .toggle-label {
+  .toggle-menu>.toggle-label {
     display: none;
   }
 
-  .toggle-menu > .toggle-panel > .toggle-board > .board-header {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-header {
     width: 100%;
     display: flex;
     padding: 6px 15px;
@@ -79,24 +79,20 @@
     border-bottom: 1px solid #dcdcdc;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-header
-    > .board-setting {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-header>.board-setting {
     flex: 1 1;
     display: flex;
     align-items: center;
     justify-content: flex-end;
   }
 
-  .toggle-menu > .toggle-panel > .toggle-board > .board-body {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body {
     max-height: 560px;
     overflow: auto;
     padding: 0 5px;
   }
 
-  .toggle-menu > .toggle-panel > .toggle-board > .board-body > .notification {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification {
     width: 100%;
     height: min-content;
     min-height: 84px;
@@ -109,23 +105,13 @@
     cursor: pointer;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .icon {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.icon {
     width: 54px;
     height: 54px;
     position: relative;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail {
     flex: 1 1;
     height: 100%;
     display: flex;
@@ -135,13 +121,7 @@
     box-sizing: border-box;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .text {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.text {
     font-weight: normal;
     color: black;
     display: -webkit-box;
@@ -153,40 +133,20 @@
     margin-bottom: 4px;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .text
-    > a {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.text>a {
     font-weight: 600;
     color: #365899;
     text-decoration: underline;
     cursor: pointer;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .detail-btm {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.detail-btm {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .detail-btm
-    > .time {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.detail-btm>.time {
     color: #90949c;
     font-size: 12px;
     padding: 2px 0;
@@ -195,7 +155,7 @@
   }
 
   /* Messages */
-  .toggle-menu > .toggle-panel > .toggle-board > .board-header > .board-label {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-header>.board-label {
     font-size: 16px;
     font-weight: 600;
     white-space: nowrap;
@@ -204,7 +164,7 @@
     text-align: left;
   }
 
-  .toggle-menu > .toggle-panel > .toggle-board > .board-body > .conversation {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.conversation {
     width: 440px;
     min-height: 70px;
     padding: 0 5px;
@@ -216,33 +176,17 @@
     max-height: 122px;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .conversation
-    > .detail {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.conversation>.detail {
     margin: 0 15px;
     flex: 1 1;
     box-sizing: border-box;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .conversation
-    > .icon {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.conversation>.icon {
     margin-top: 10px;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .conversation
-    > .detail
-    > .dis {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.conversation>.detail>.dis {
     display: flex;
     width: 100%;
     box-sizing: border-box;
@@ -250,14 +194,7 @@
     /* flex-wrap: wrap; */
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .conversation
-    > .detail
-    > .dis
-    > .name {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.conversation>.detail>.dis>.name {
     width: 180px !important;
     max-width: 180px;
     min-width: 180px;
@@ -265,7 +202,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    /* background-color: #365899; */
+    /* background: #365899; */
     font-size: 14px;
     font-weight: 700;
     text-decoration: none;
@@ -273,14 +210,7 @@
     flex: 1 1;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .conversation
-    > .detail
-    > .dis
-    > .time {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.conversation>.detail>.dis>.time {
     font-size: 12px;
     color: #90949c;
     width: 100px !important;
@@ -293,14 +223,7 @@
     text-align: right;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .conversation
-    > .detail
-    > .dis
-    > .msgRpBtn {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.conversation>.detail>.dis>.msgRpBtn {
     font-size: 14px;
     position: relative;
     top: 25px;
@@ -308,7 +231,7 @@
   }
 
   /* Notification */
-  .toggle-menu > .toggle-panel > .toggle-board > .board-body > .notification {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification {
     /* width: 480px; */
     height: -webkit-min-content;
     height: -moz-min-content;
@@ -323,23 +246,13 @@
     cursor: pointer;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .icon {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.icon {
     width: 54px;
     height: 54px;
     position: relative;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail {
     flex: 1 1;
     height: 100%;
     display: flex;
@@ -349,13 +262,7 @@
     box-sizing: border-box;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .text {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.text {
     font-weight: 400;
     color: #000;
     display: -webkit-box;
@@ -368,38 +275,18 @@
     font-size: 14px;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .detail-btm {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.detail-btm {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .text
-    > span {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.text>span {
     font-weight: bolder;
     margin-right: 4px;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .detail-btm
-    > .time {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.detail-btm>.time {
     color: #90949c;
     font-size: 12px;
     padding: 2px 0;
@@ -407,65 +294,36 @@
     flex-direction: column;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .detail-btm
-    > .type-inputs {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.detail-btm>.type-inputs {
     display: flex;
     align-items: center;
     flex: 1 1;
     justify-content: flex-end;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .notification
-    > .detail
-    > .detail-btm
-    > .time
-    span {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.notification>.detail>.detail-btm>.time span {
     color: #90949c;
     font-size: 12px;
     padding: 2px 0;
     font-weight: bolder;
   }
 
-  .main-app-col > .approval-item > .detail > .text > .span {
+  .main-app-col>.approval-item>.detail>.text>.span {
     color: #90949c;
     font-size: 12px;
     padding: 2px 0;
     font-weight: bolder;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .conversation
-    > .detail
-    > .dis
-    > .msgShow {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.conversation>.detail>.dis>.msgShow {
     width: 190px !important;
   }
 
-  .toggle-menu
-    > .toggle-panel
-    > .toggle-board
-    > .board-body
-    > .conversation
-    > .detail
-    > .dis
-    > div {
+  .toggle-menu>.toggle-panel>.toggle-board>.board-body>.conversation>.detail>.dis>div {
     font-size: 13px;
   }
 
-  .tabbable-container > .cont-body > .main-app-col {
+  .tabbable-container>.cont-body>.main-app-col {
     flex: initial;
     width: 100%;
   }
@@ -474,7 +332,7 @@
     margin-top: 18px;
   }
 
-  .approval-item > .detail > .text {
+  .approval-item>.detail>.text {
     line-height: 15px;
   }
 
@@ -482,18 +340,19 @@
     display: none !important;
   }
 
-  .tm-content > .cont-header > .options > :nth-child(3) {
+  .tm-content>.cont-header>.options> :nth-child(3) {
     display: none !important;
   }
 
-  .chatBox > .chatRoom > .footer > .text-box > textarea {
-    width: 95% !important;
-  }
-  .chatBox > .chatRoom > .footer > .text-box > input {
+  .chatBox>.chatRoom>.footer>.text-box>textarea {
     width: 95% !important;
   }
 
-  .toggle-menu > .toggle-panel {
+  .chatBox>.chatRoom>.footer>.text-box>input {
+    width: 95% !important;
+  }
+
+  .toggle-menu>.toggle-panel {
     margin-left: 0px !important;
     width: 100% !important;
   }
@@ -524,17 +383,11 @@
     /* width: unset !important; */
   }
 
-  .tabbable-container
-    > .cont-body
-    > .lf-col
-    > .mm-vw
-    > .mm-sct
-    > .rw
-    > .mm-tab-menu {
+  .tabbable-container>.cont-body>.lf-col>.mm-vw>.mm-sct>.rw>.mm-tab-menu {
     overflow: scroll;
   }
 
-  .grid-list > .item > .det > .name > .name {
+  .grid-list>.item>.det>.name>.name {
     white-space: nowrap;
   }
 
@@ -542,7 +395,7 @@
     margin-top: 35px;
   }
 
-  .tm-content > .cont-header > .options {
+  .tm-content>.cont-header>.options {
     display: unset !important;
   }
 
@@ -554,39 +407,39 @@
     width: 300px !important;
   }
 
-  .cnt-main > .cnt-body.smScroll.sc {
+  .cnt-main>.cnt-body.smScroll.sc {
     flex-direction: column;
   }
 
-  .profileBtn > div {
+  .profileBtn>div {
     margin: 0 auto;
   }
 }
 
 @media (max-width: 500px) {
-  .cnt-main > .cnt-decs > .sImg {
+  .cnt-main>.cnt-decs>.sImg {
     padding: 5px 5px 5px 10px;
   }
 
-  .cnt-main > .cnt-decs > .sDetails {
+  .cnt-main>.cnt-decs>.sDetails {
     padding: 5px 10px;
   }
 }
 
 @media (max-width: 400px) {
-  .tm-content > .cont-header {
+  .tm-content>.cont-header {
     padding: 5px 5px 0;
   }
 
-  .tm-content > .cont-header > .details > .name {
+  .tm-content>.cont-header>.details>.name {
     font-size: 15px;
   }
 
-  .tm-content > .cont-header > .details > .name > span {
+  .tm-content>.cont-header>.details>.name>span {
     font-size: 14px;
   }
 
-  .tm-content > .cont-header > .details {
+  .tm-content>.cont-header>.details {
     padding: 15px 5px 5px 5px;
   }
 }

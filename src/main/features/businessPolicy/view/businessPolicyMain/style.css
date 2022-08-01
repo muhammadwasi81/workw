@@ -5,7 +5,7 @@
     height: -webkit-min-content;
     height: min-content;
     border: 1px solid #ebebeb;
-    background-color: #fff;
+    background: #fff;
     display: flex;
     flex-direction: column;
     padding: 15px 0;
@@ -28,12 +28,13 @@
     margin-bottom: 12px;
     cursor: pointer;
 }
-.policyHeader{
+
+.policyHeader {
     border-radius: 7px;
     height: 40px;
     width: 100%;
     margin-bottom: 20px;
-    background-color: var(--primary_theme_color_green);
+    background: var(--currentThemeColor);
     color: white;
     display: flex;
     /* justify-content: center; */
@@ -42,10 +43,10 @@
     font-size: 14px;
     font-weight: bolder;
 }
-.colorTheme{
 
-}
-.policyTag{
+.colorTheme {}
+
+.policyTag {
     border-radius: 10px;
     font-size: 10px;
     font-weight: bolder;
@@ -56,17 +57,18 @@
     line-height: 20px;
     padding: 0 10px;
     white-space: nowrap;
-    background-color:var(--primary_theme_color_green);
+    background: var(--currentThemeColor);
     color: white;
 }
 
-@keyframes bottomToTop{
-    0%{
+@keyframes bottomToTop {
+    0% {
         opacity: 0;
         margin-top: 40px;
         /* transform: translateY(100%); */
     }
-    100%{
+
+    100% {
         opacity: 1;
         margin-top: 0px;
         /* transform: translateY(0); */

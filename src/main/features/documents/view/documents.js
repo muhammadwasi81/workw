@@ -18,8 +18,6 @@ const Documents = () => {
   const DetailListData = useSelector(state => state.documentSlice.detailListData);
   const ParentId = useSelector(state => state.documentSlice.parentId);
 
-  console.log(DetailListData, "DETAILEDDD !!!")
-
   useEffect(() => {
 
     if (CurrentTab === "allDocuments") {

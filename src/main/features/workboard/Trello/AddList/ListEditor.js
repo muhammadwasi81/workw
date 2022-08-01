@@ -38,11 +38,11 @@ function ListEditor(props) {
 		}
 	};
 
-	const { title, handleChangeTitle } = props;
+	const { title, handleChangeTitle, labels } = props;
 	return (
 		<div className="p-1 flex items-center gap-1" ref={ref}>
 			<Input
-				placeholder="Enter list title..."
+				placeholder={labels.enterSectionTitle}
 				className=""
 				style={{
 					boxShadow: "inset 0 0 0 2px #0079bf",

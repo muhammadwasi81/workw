@@ -128,19 +128,19 @@ function WorkBoardDetail({ todoDetail }) {
 									icon={<TagOutlined />}
 									onClick={showLabelModal}
 								/>
-								<TrelloThemeButton
+								{/* <TrelloThemeButton
 									text={"Check List"}
 									icon={<CheckSquareOutlined />}
-								/>
+								/> */}
 								<TrelloThemeButton
 									text={"Dates"}
 									icon={<TagOutlined />}
 									onClick={showDateModal}
 								/>
-								<TrelloThemeButton
+								{/* <TrelloThemeButton
 									text={"Attachment"}
 									icon={<PaperClipOutlined />}
-								/>
+								/> */}
 								{todoData && todoData.image.length === 0 && (
 									<UploadBgImg onUploadImg={onUploadImg}>
 										<TrelloThemeButton

@@ -24,7 +24,7 @@ import {
 } from "../../store/action";
 
 function List(props) {
-	const { section, index, colorCode, key, sectionId } = props;
+	const { section, index, colorCode, key, sectionId, labels } = props;
 	const boardList = useSelector(state => state.trelloSlice[sectionId]);
 	const dispatch = useDispatch();
 	const [listData, setListData] = useState({
@@ -159,7 +159,7 @@ function List(props) {
 												ghost={true}
 												size="small"
 											>
-												Add a card
+												{labels.addTodo}
 											</Button>
 										</div>
 									)}

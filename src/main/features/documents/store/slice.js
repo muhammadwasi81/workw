@@ -46,7 +46,23 @@ const documentSlice = createSlice({
         label: payload.name,
         id: payload.id
       }];
-    }
+    },
+    resetBreadCumb: (state, { payload }) => {
+      state.breadCumbPath =  [{
+        label: "Home",
+        id: STRINGS.DEFAULTS.guid
+      }];
+      state.parentId = STRINGS.DEFAULTS.guid;
+    },
+    handleBreadCumb: (state, { payload }) => {
+      console.log(payload)
+      // state.breadCumbPath =  [{
+      //   label: "Home",
+      //   id: STRINGS.DEFAULTS.guid
+      // }];
+      state.breadCumbPath = state.breadCumbPath.slice(0, (payload.index+1))
+      state.parentId = payload.id;
+    },
   },
 
   extraReducers: (builder) => {
@@ -88,5 +104,6 @@ const documentSlice = createSlice({
 
 });
 
-export const { handleOpenDocComposer, handleCloseDocComposer, handleChangeTab, handleParentId } = documentSlice.actions;
+export const { handleOpenDocComposer, handleCloseDocComposer, handleChangeTab, handleParentId,
+  resetBreadCumb, handleBreadCumb } = documentSlice.actions;
 export default documentSlice.reducer;

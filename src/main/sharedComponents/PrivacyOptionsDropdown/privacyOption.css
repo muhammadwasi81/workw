@@ -36,8 +36,8 @@
 }
 
 .dropdown-wrapper>div:hover {
-    background-color: #e0e0e0;
-    transition: background-color 0.2ms ease-in;
+    background: #e0e0e0;
+    transition: background 0.2ms ease-in;
 }
 
 .dropdown-wrapper>div img {

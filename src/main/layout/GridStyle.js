@@ -14,7 +14,7 @@ export const CardWrapper = styled.div`
 `;
 
 export const Card = styled.div`
-  background-color: white;
+  background: white;
   border-radius: 4px;
   padding: 13px 12px;
   position: relative;
@@ -37,7 +37,7 @@ export const TabContainer = styled.div.attrs(({ theme }) => ({
     theme.Direction === "rtl" ? "tabbable-container-rtl" : ""
   }`,
 }))`
-   ;
+
 `;
 
 export const TabbableContainer = styled.div.attrs(({ theme }) => ({
@@ -45,7 +45,7 @@ export const TabbableContainer = styled.div.attrs(({ theme }) => ({
     theme.Direction === "rtl" ? "tabbable-container-rtl" : ""
   }`,
 }))`
-   ;
+
 `;
 
 export const ContBody = styled.div.attrs(() => ({

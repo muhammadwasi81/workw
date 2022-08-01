@@ -1,5 +1,5 @@
 .appSideBar {
-  background-color: white;
+  background: white;
   z-index: 3;
   position: absolute;
   right: 0;
@@ -49,7 +49,7 @@
   height: 60px;
 }
 
-.sideBarHead > .headIcon {
+.sideBarHead>.headIcon {
   height: inherit;
   display: flex;
   justify-content: center;
@@ -57,9 +57,9 @@
   gap: 5px
 }
 
-.sideBarHead>.headIcon .anticon-phone svg {
+.sideBarHead>.headIcon .anticon-video-camera svg {
   font-size: 24px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
 
 .headIcon>img {
@@ -81,7 +81,7 @@
 .myDivider {
   width: 80%;
   height: 1px;
-  background-color: #aaaaaa29;
+  background: #aaaaaa29;
   margin: auto;
 }
 
@@ -94,18 +94,18 @@
 }
 
 .chatSearchBoxHalf {
-  background-color: #ebe9e9;
+  background: #ebe9e9;
   border-radius: 7px;
   height: 30px;
   margin: 3px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.chatSearchBoxHalf > img {
+.chatSearchBoxHalf>img {
   height: 17px;
 }
 

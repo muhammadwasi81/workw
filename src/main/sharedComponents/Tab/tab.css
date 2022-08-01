@@ -1,13 +1,13 @@
-.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar,
-.ant-tabs-top > .ant-tabs-nav:before,
-.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-ink-bar,
-.ant-tabs-top > div > .ant-tabs-nav:before {
+.ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-top>.ant-tabs-nav:before,
+.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-top>div>.ant-tabs-nav:before {
   top: 0;
   height: 100%;
 }
 
-.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar {
-  background-color: var(--primary_theme_color_green);
+.ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar {
+  background: var(--currentThemeColor);
   border-radius: 5px;
 }
 
@@ -22,19 +22,19 @@
 }
 
 .ant-tabs-nav-wrap {
-  background-color: #fff;
+  background: #fff;
   padding: 2px 5px;
   border-radius: 5px;
 }
 
 .ant-tabs-tab-btn:hover {
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
 
 .ant-tabs-tab:hover {
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
 
-.ant-tabs-top > .ant-tabs-nav::before {
+.ant-tabs-top>.ant-tabs-nav::before {
   border: none;
 }

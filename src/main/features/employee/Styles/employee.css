@@ -11,7 +11,7 @@
 
 .epmloyeeDeleteIcon {
   font-size: 20px;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
 }
 
 @media screen and (min-width: 1700px) {
@@ -23,6 +23,7 @@
     grid-area: 3/ 3 / span 1 / span 2;
   }
 }
+
 @media screen and (max-width: 700px) {
   .uploadImg {
     justify-content: center;
@@ -59,20 +60,17 @@
 	order: 3;
 } */
 
-.employeeForm > :nth-child(1) {
+.employeeForm> :nth-child(1) {
   order: 1;
 }
+
 .ant-form .ant-form-item .ant-form-item-control,
 .ant-form .ant-form-item .ant-form-item-label {
   flex: none;
 }
-.ant-select-single.ant-select-lg:not(.ant-select-customize-input)
-  .ant-select-selector
-  .ant-select-selection-item,
-.ant-select-single.ant-select-lg:not(.ant-select-customize-input)
-  .ant-select-selector
-  .ant-select-selection-placeholder,
-.ant-select-single.ant-select-lg:not(.ant-select-customize-input)
-  .ant-select-selector:after {
+
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item,
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-placeholder,
+.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector:after {
   font-weight: 400;
 }

@@ -1,66 +1,79 @@
-.approval-header{
+.approval-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100% !important;
 }
-.header-left{
+
+.header-left {
     display: flex;
     align-items: center;
 }
-.header-left > .user-details{
+
+.header-left>.user-details {
     display: flex;
     flex-direction: column;
     line-height: 14px;
     margin-left: 10px;
 }
-.header-left > .user-details >.designation{
+
+.header-left>.user-details>.designation {
     font-size: 12px;
 }
-.header-left > .user-details > .user-name{
+
+.header-left>.user-details>.user-name {
     font-weight: bold;
 }
+
 .ApprovalCollapse .ant-collapse-header {
     padding: 6px 8px !important;
     padding-right: 32px !important;
 }
-.header-right > button{
+
+.header-right>button {
     border-radius: 5px;
     font-weight: bold;
 }
+
 .ApprovalCollapse {
     margin-bottom: 10px;
 }
+
 /* Approval BOdy */
 
 
 
 /* Remarks Display */
 
-.remarks-display{
-    background-color: #F4F4F4;
+.remarks-display {
+    background: #F4F4F4;
     border-radius: 10px;
     padding: 15px;
 
 }
-.remarks-display > .remarks-header{
+
+.remarks-display>.remarks-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
 }
-.remarks-header-left{
+
+.remarks-header-left {
     display: flex;
     flex-direction: column;
     line-height: 14px;
 }
-.remarks-header-left > .user-name{
+
+.remarks-header-left>.user-name {
     font-weight: bold;
 
 }
-.remarks-header-left > .designation{
+
+.remarks-header-left>.designation {
     font-size: 12px;
 }
-.remarks-button{
+
+.remarks-button {
     display: flex;
     font-size: 14px;
     margin-left: 20px;
@@ -69,43 +82,47 @@
 
 /* Remarks COmposer */
 
-.remarks-composer-input{
-    background-color: #F4F4F4;
+.remarks-composer-input {
+    background: #F4F4F4;
     border-radius: 10px;
-    
+
 }
-.remarks-composer-input{
+
+.remarks-composer-input {
     display: flex;
 }
-.remarks-composer-input >div{
+
+.remarks-composer-input>div {
     display: flex;
     padding: 5px;
 }
-.remarks-composer-input button{
+
+.remarks-composer-input button {
     border: none !important;
     font-size: 16px;
     padding: 5px 8px !important;
     color: #707070;
-    
+
 }
 
-.remarks-composer-input button:hover{
+.remarks-composer-input button:hover {
     border: none !important;
 
-}   
+}
 
 
-.approval-collapse .ant-collapse-content{
+.approval-collapse .ant-collapse-content {
     border-top: none !important;
     /* border-bottom: 1px solid #707070; */
     border-radius: 15px !important;
 }
-.approval-collapse .ant-collapse-item{
+
+.approval-collapse .ant-collapse-item {
     border-bottom: none;
 }
 
 
-.top-divider.ant-divider-horizontal{
+.top-divider.ant-divider-horizontal {
     margin: 0;
     margin-bottom: 20px;
 }
@@ -120,15 +137,18 @@
     padding-top: 8px;
     padding-bottom: 8px;
 }
-.approval-top-bar button{
-        border: none !important;
-        color: black !important;
+
+.approval-top-bar button {
+    border: none !important;
+    color: black !important;
 }
-.approval-top-bar button:hover{
+
+.approval-top-bar button:hover {
     border: none !important;
     color: black !important;
 
 }
+
 .ant-modal-content {
-    background-color: white !important;
-} 
+    background: white !important;
+}

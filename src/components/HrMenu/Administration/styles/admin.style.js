@@ -48,7 +48,7 @@ export const List = styled.div`
   height: min-content;
   min-height: 700px;
   margin: 1.2rem 0.5rem;
-  background-color: white;
+  background: white;
   border-radius: 4px;
 
   @media ${device.tablet} {
@@ -65,7 +65,7 @@ export const Item = styled.div`
   border-bottom: 1px solid rgba(29, 45, 58, 0.1);
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background: rgba(0, 0, 0, 0.04);
   }
 `;
 export const Link = styled(NavLink)`
@@ -79,7 +79,7 @@ export const Link = styled(NavLink)`
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-family: inherit;
   font-weight: ${(props) => (props.theme.Direction === "ltr" ? 700 : 500)};
 
@@ -88,20 +88,20 @@ export const Link = styled(NavLink)`
   &::before {
     content: "";
     height: 100%;
-    background-color: #365899;
+    background: #365899;
     position: absolute;
     top: 0;
     left: 0;
   }
   &:hover {
-    color: var(--primary_theme_color_green);
+    color: var(--currentThemeColor);
     ::before {
       width: 2px;
     }
   }
   &.active,
   &:active {
-    background-color: #1b5669;
+    background: #1b5669;
     border-radius: 0 4px 4px 0;
     color: white;
 
@@ -133,14 +133,14 @@ export const Container = styled.div`
     props.theme.Direction === "ltr" ? "row" : "row-reverse"};
   margin: 1rem 0;
   border-radius: 4px;
-  background-color: white;
+  background: white;
   @media (max-width: 1200px) {
     flex-direction: column;
   }
 `;
 export const Heading = styled.div`
   width: 100%;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-weight: ${(props) => (props.theme.Direction === "ltr" ? 700 : 500)};
 
   border: none;
@@ -187,7 +187,7 @@ export const Text = styled.div`
 
   font-size: 12px;
   border: none;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   font-weight: bold;
   font-size: 13px;
 `;

@@ -34,7 +34,7 @@ it can be found as a welcome guest in many households across the world.
           <PlusCircleOutlined
             style={{
               fontSize: "21px",
-              color: "var(--primary_theme_color_green)",
+              color: "var(--currentThemeColor)",
             }}
           />
         </Button>

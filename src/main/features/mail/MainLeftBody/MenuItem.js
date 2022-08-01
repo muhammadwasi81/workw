@@ -26,21 +26,18 @@ const MenuItem = ({
 
   const setDefaultIcon = (labelName) => {
     if (labelName === "Testing" || labelName === "Notes") {
-      return <MdLabel size={20} color={"var(--primary_theme_color_green)"} />;
+      return <MdLabel size={20} color={"var(--currentThemeColor)"} />;
     } else if (labelName === "spam") {
-      return (
-        <RiSpamFill size={20} color={"var(--primary_theme_color_green)"} />
-      );
+      return <RiSpamFill size={20} color={"var(--currentThemeColor)"} />;
     } else if (labelName === "Trash") {
-      return <MdDelete size={20} color={"var(--primary_theme_color_green)"} />;
+      return <MdDelete size={20} color={"var(--currentThemeColor)"} />;
     } else if (labelName === "Sent") {
-      return <MdSend size={20} color={"var(--primary_theme_color_green)"} />;
+      return <MdSend size={20} color={"var(--currentThemeColor)"} />;
     } else if (labelName === "Drafts") {
-      return <MdDrafts size={20} color={"var(--primary_theme_color_green)"} />;
+      return <MdDrafts size={20} color={"var(--currentThemeColor)"} />;
     } else if (labelName === "Archive") {
-      return <MdArchive size={20} color={"var(--primary_theme_color_green)"} />;
-    } else
-      return <MdLabel size={20} color={"var(--primary_theme_color_green)"} />;
+      return <MdArchive size={20} color={"var(--currentThemeColor)"} />;
+    } else return <MdLabel size={20} color={"var(--currentThemeColor)"} />;
   };
 
   const setDefaultLabel = (labelName) => {
@@ -74,7 +71,7 @@ const MenuItem = ({
             <div
               style={{
                 marginLeft: 10,
-                color: "var(--primary_theme_color_green)",
+                color: "var(--currentThemeColor)",
                 fontWeight: "900",
                 width: "80px",
                 textOverflow: "ellipsis",
@@ -106,7 +103,7 @@ const MenuItem = ({
             <div
               style={{
                 marginRight: 5,
-                color: "var(--primary_theme_color_green)",
+                color: "var(--currentThemeColor)",
                 fontWeight: "900",
                 width: "80px",
                 textOverflow: "ellipsis",

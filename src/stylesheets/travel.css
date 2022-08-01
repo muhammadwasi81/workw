@@ -7,30 +7,35 @@
   height: 35px;
 }
 
-.travel-inner-tabs .ant-tabs-tab > div {
-  color: var(--primary_theme_color_green) !important ;
+.travel-inner-tabs .ant-tabs-tab>div {
+  color: var(--currentThemeColor) !important;
 }
 
 .travel-inner-tabs .ant-tabs-tab-active {
-  background-color: var(--primary_theme_color_green);
+  background: var(--currentThemeColor);
 }
-.travel-inner-tabs .ant-tabs-tab-active > div {
+
+.travel-inner-tabs .ant-tabs-tab-active>div {
   color: white !important;
 }
+
 .travel-inner-tabs .ant-tabs-ink-bar {
   display: none;
 }
+
 .travel-list-box {
   padding-bottom: 20px;
 }
+
 .travel-inner-tabs {
   padding-left: 10px;
   padding-right: 10px;
 }
+
 /* travel item */
 
 .travel-list-item {
-  background-color: white;
+  background: white;
   border-radius: 10px;
   padding: 20px 27px;
 }
@@ -50,19 +55,21 @@
   line-height: 15px;
   color: gray;
 }
+
 .travel-item-header .left .avatar-name .name {
-  color: var(--primary_theme_color_green) !important;
+  color: var(--currentThemeColor) !important;
   font-weight: bold;
   font-size: 18px;
   padding-bottom: 2px;
 }
+
 .travel-item-header .left .avatar-name span {
   font-size: 11px;
   font-weight: 500;
 }
 
 .travel-item-header .left .avatar-name .dot {
-  background-color: gray;
+  background: gray;
   border-radius: 50%;
   height: 5px;
   width: 5px;
@@ -70,6 +77,7 @@
   margin-left: 5px;
   margin-right: 5px;
 }
+
 .travel-item-header .left .avatar-name .details {
   display: flex;
   align-items: center;
@@ -79,7 +87,7 @@
   padding: 6px 10px;
   border-radius: 5px;
   border: none;
-  background-color: #f4f4f4;
+  background: #f4f4f4;
 }
 
 .travel-item-header .right button {
@@ -90,9 +98,11 @@
   font-weight: bold;
   margin: 0;
 }
+
 .travel-item-content {
   margin-top: 15px;
 }
+
 .travel-item-content p {
   margin: 0;
   width: 65%;
@@ -118,6 +128,7 @@
   align-items: center;
   font-weight: bold;
 }
+
 .travel-item-footer .footer-header div {
   display: flex;
   flex-direction: column;
@@ -127,6 +138,7 @@
 .travel-item-footer .footer-header div .country {
   font-size: 12px;
 }
+
 .travel-item-footer .footer-header div .city {
   font-size: 16px;
 }
@@ -139,11 +151,13 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
 .travel-item-footer .footer-content .dotted-line {
   width: 100%;
   border-top: 3px dotted white;
   position: relative;
 }
+
 .travel-item-footer .footer-content .dotted-line img {
   position: absolute;
   left: 0;

@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import React, { useState, useId, useRef, useEffect } from "react";
+import React, { useState, useId, useRef, useEffect, useContext } from "react";
 import Avatar from "../../../Avatar/avatarOLD";
 import { SmileOutlined, PictureOutlined } from "@ant-design/icons";
 import FilePreview from "../../../FilePreview";
@@ -7,6 +7,8 @@ import EmojiPicker from "../../../../features/Messenger/view/MessengerBox/helper
 import { useSelector } from "react-redux";
 import { ApprovalStatus } from "../enums";
 import RemarkStatus from "./RemarkStatus";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { ApprovalDictionary } from "../localization";
 
 function RemarksComposer({
   files,
@@ -18,6 +20,8 @@ function RemarksComposer({
   approverId,
   status,
 }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { placeHolder } = ApprovalDictionary[userLanguage];
   const { user } = useSelector((state) => state.userSlice);
   const [text, setText] = useState("");
   const { name, userImage, id } = user;
@@ -53,7 +57,7 @@ function RemarksComposer({
           {isEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
           <div className="input">
             <Input
-              placeholder="Write Your Remarks Here ..."
+              placeholder={placeHolder.writeYourRemarksHere}
               value={text}
               onChange={(e) => {
                 setText(e.target.value);

@@ -8,9 +8,10 @@ import ExpenseList from "./ExpenseList";
 import { getExpenseById } from "../store/actions";
 import { ApprovalsModule } from "../../../sharedComponents/AppComponents/Approvals/enums";
 
-function ExpenseDetail({ visible, onClose, id }) {
+function ExpenseDetail(props) {
+  const { visible, onClose, id } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
+  const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
   const { expense } = useSelector((state) => state.expenseSlice);
   const { labels } = ExpenseDictionaryList;
   const dispatch = useDispatch();
@@ -21,8 +22,17 @@ function ExpenseDetail({ visible, onClose, id }) {
   return (
     <Drawer
       title={
-        <h1 style={{ fontSize: "20px", margin: 0 }}>{labels.expenseDetail}</h1>
+        <h1
+          style={{
+            fontSize: "20px",
+            margin: 0,
+            textAlign: Direction === "ltr" ? "" : "end",
+          }}
+        >
+          {labels.expenseDetail}
+        </h1>
       }
+      placement={props.direction === "ltr" ? "right" : "left"}
       width="768"
       onClose={onClose}
       visible={visible}
@@ -32,17 +42,17 @@ function ExpenseDetail({ visible, onClose, id }) {
       <div className="expenseDetail">
         {<ExpenseList expense={expense} />}
         <Approval
-          title={"Approvals"}
+          title={labels.approvers}
           module={ApprovalsModule.ExpenseApproval}
           data={expense.approvers}
         />
         <Approval
-          title={"Executor"}
+          title={labels.executors}
           module={ApprovalsModule.ExpenseExecutor}
           data={expense.executors}
         />
         <Approval
-          title={"Financers"}
+          title={labels.financers}
           module={ApprovalsModule.ExpenseFinance}
           data={expense.financers}
         />

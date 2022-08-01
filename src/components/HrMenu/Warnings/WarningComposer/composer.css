@@ -6,14 +6,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fafafa;
+  background: #fafafa;
   cursor: pointer;
   border-radius: 5px;
   border: 1px solid #d9d9d9;
   font-weight: bold;
   font-size: 9px;
 }
-.expense-tag > img {
+
+.expense-tag>img {
   height: 30px;
   width: 30px;
   margin-bottom: 5px;
@@ -30,9 +31,10 @@
 .travel-composer article {
   margin-top: 10px;
   font-weight: bold;
-  color: var(--primary_theme_color_green);
+  color: var(--currentThemeColor);
   margin-bottom: 5px;
 }
+
 .expense-checkbox-container {
   padding-top: 20px;
 }

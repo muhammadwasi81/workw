@@ -1,7 +1,7 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { STRINGS } from "../../../../utils/base";
 import { getComposerKeyByType } from "../constant/helpers";
-import { addDocument, getAllDocument, getAllDocumentList, moveDocument } from "./actions";
+import { addDocument, getAllDocument, getAllDocumentList, moveDocument, GetDocumentById } from "./actions";
 
 const initialState = {
   listLoading: false,
@@ -16,6 +16,7 @@ const initialState = {
   },
   listData: [],
   detailListData: [],
+  documentDetail: [],
   editData: null,
   success: false,
   loader: false,
@@ -88,6 +89,9 @@ const documentSlice = createSlice({
         state.loader = false;
         state.success = true;
         state.detailListData = payload;
+      })
+      .addCase(GetDocumentById.fulfilled, (state, action) => {
+        state.documentDetail = action.payload.data;
       })
       .addMatcher(
         isPending(

@@ -88,3 +88,15 @@ export const getAllDocumentService = async (data) => {
 		return ResponseResultError(e);
 	}
 };
+
+export const getDocumentByIdService = async () => {
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/Document/GetDocumentById`,);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};

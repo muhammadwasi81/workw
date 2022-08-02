@@ -28,16 +28,16 @@ export const getIconByExtensionType = ((AttachmentType, extensionType = null) =>
             return showIcon
             break;
 
-        case "attachment":
+        case DUCOMENT_TYPE.attachment:
             switch (extensionType) {
-                case 1: {
-                    return
-                }
-                case 2: {
-                    return defaultImage
-                }
+                // case 1: {
+                //     return
+                // }
+                // case 2: {
+
+                // }
                 default:
-                    break;
+                    return defaultImage
             }
         default:
             return defaultImage
@@ -49,13 +49,13 @@ export const getComposerKeyByType = (documentType) => {
     switch (documentType) {
         case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
             return DocsComposerEnums.upload
-            case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
             return DocsComposerEnums.upload
-            case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
             return DocsComposerEnums.upload
-            case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
             return DocsComposerEnums.upload
-            case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
             return DocsComposerEnums.upload
         default:
             break;

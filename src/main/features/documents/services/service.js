@@ -4,7 +4,7 @@ import { responseCode as responseCodeEnum } from "../../../../services/enums/res
 import { STRINGS } from "../../../../utils/base";
 
 const getAllDocumentList_DBO = (data) => {
-	return{
+	return {
 		"pageNo": data.pageNo ? data.pageNo : 1,
 		"pageSize": data.pageSize ? data.pageSize : 20,
 		"search": data.search ? data.search : "",
@@ -17,7 +17,7 @@ const getAllDocumentList_DBO = (data) => {
 }
 
 const getAllDocument_DBO = (data) => {
-	return{
+	return {
 		"pageNo": data.pageNo ? data.pageNo : 0,
 		"pageSize": data.pageSize ? data.pageSize : 20,
 		"search": data.search ? data.search : "",
@@ -25,7 +25,13 @@ const getAllDocument_DBO = (data) => {
 		"parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
 		"referenceType": data.referenceType ? data.referenceType : 1,
 		"sortBy": data.sortBy ? data.sortBy : 0,
-  		"filterType": data.filterType ? data.filterType : 0, 
+		"filterType": data.filterType ? data.filterType : 0,
+	}
+}
+const moveDocument_DBO = (data) => {
+	return {
+		"parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
+		"documents": data.documents ? data.documents : []
 	}
 }
 
@@ -41,6 +47,21 @@ export const addDocumentService = async (request) => {
 		return ResponseResultError(e);
 	}
 };
+
+export const moveDocumentService = async (payload) => {
+	console.log(payload)
+	let request = moveDocument_DBO(payload);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/Document/MoveDocument`, request);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+
 
 export const getAllDocumentListService = async (data) => {
 	let request = getAllDocumentList_DBO(data)

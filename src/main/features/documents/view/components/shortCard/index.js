@@ -12,6 +12,7 @@ import { DOCUMENT_ENUM } from "../../../constant";
 import { Button, Modal } from 'antd';
 import moment from "moment";
 import { handleParentId } from "../../../store/slice";
+import { moveDocument } from "../../../store/actions";
 
 
 
@@ -22,7 +23,6 @@ const DocShortCard = ({ data, handlePreview }) => {
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
     const handleClick = (item) => {
-
         if (documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
             disptach(handleParentId(item))
         }
@@ -30,20 +30,39 @@ const DocShortCard = ({ data, handlePreview }) => {
             handlePreview(item);
         }
     }
+    const handleDrop = (item) => {
+        // console.log(item)
+        disptach(moveDocument({
+            parentId: item.dropData.name,
+            documents: [
+                item.dragData.name
+            ]
+        }))
+    }
+
+    // console.log("render")
 
     return (
         <>
             <DragDropContainer
-                targetKey="docsDrag"
-                dragData={{ name: "props.name" }}
-                onDrop={() => { }}
-                noDragging={false}>
+                targetKey={"docsDrag"}
+                dragData={{ name: data.id }}
+                onDrop={handleDrop}
+                key={data.id}
+                noDragging={false}
+                 
+                >
                 <DropTarget
-                    onHit={() => { }}
+                    onHit={(e) => { }}
                     targetKey="docsDrag"
                     highlighted
-                    dropData={{ name: "props.name" }}>
-                    <div className="d_ShortCard" >
+                    dropData={{ name: data.id }}
+                    key={data.id}
+                    >
+                    <div className="d_ShortCard"
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation() }}
+                        id={data.id}
+                    >
                         <div className="d_ShortCard_Child1" >
                             <img
                                 alt=""
@@ -64,7 +83,7 @@ const DocShortCard = ({ data, handlePreview }) => {
                     </div> */}
                         <div className="d_ShortCard_Child2">
                             <img
-                                onClick={()=>handleClick(data)}
+                                onClick={() => handleClick(data)}
                                 alt=""
                                 src={documentType === DUCOMENT_TYPE.image && path ?
                                     path : getIconByExtensionType(documentType)}

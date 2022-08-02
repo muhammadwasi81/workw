@@ -243,10 +243,7 @@ const NewStickyNote = (props) => {
         />
 
         {
-          <div
-            className={imgSrc < 1 ? style.noHeight : style.image_container}
-            style={{ display: "block" }}
-          >
+          <div className={style.image_container} style={{ display: "block" }}>
             {imgSrc.map((imagegSrc, index) => (
               <div
                 className={style.image_section}

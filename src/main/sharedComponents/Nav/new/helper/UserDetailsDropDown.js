@@ -31,6 +31,7 @@ function UserDetailsDropDown({ id, isToggle }) {
       SelectLanguage,
       theme,
       English,
+      Hindi,
       Urdu,
       Arabic,
     },
@@ -93,6 +94,7 @@ function UserDetailsDropDown({ id, isToggle }) {
           <p>{English}</p>
           <FontSizeOutlined />
         </li>
+
         <li
           className="list__item"
           onClick={() => handleLanguageChange("urdu")}
@@ -111,6 +113,16 @@ function UserDetailsDropDown({ id, isToggle }) {
           }}
         >
           <p>{Arabic}</p>
+          <FontSizeOutlined />
+        </li>
+        <li
+          className="list__item"
+          onClick={() => handleLanguageChange("hindi")}
+          style={{
+            backgroundColor: userLanguage === "hindi" && "#e5e5e5",
+          }}
+        >
+          <p>{Hindi}</p>
           <FontSizeOutlined />
         </li>
       </ul>

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
 import { ROUTES } from "../../../utils/routes";
@@ -44,6 +44,7 @@ const NavMenuList = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
   const { Direction } = dictionaryList[userLanguage];
+
   const navMenuData = [
     {
       name: label.navMenuLabel.feed,

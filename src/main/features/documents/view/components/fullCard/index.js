@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./style.css";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import {
@@ -14,8 +14,13 @@ import { useDispatch } from "react-redux";
 import { DOCUMENT_ENUM } from "../../../constant";
 import { handleParentId } from "../../../store/slice";
 import { getIconByExtensionType } from "../../../constant/helpers";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../localization/index";
+import DetailCard from "../detailCard";
 
 const DocFullCard = ({ data }) => {
+	const { userLanguage } = useContext(LanguageChangeContext);
+    const { documentDictionary } = documentDictionaryList[userLanguage];
 	const disptach = useDispatch()
 
 	let { name, documentType, creator, createDate, description, id, path, members, approvers, image } = data
@@ -89,7 +94,7 @@ const DocFullCard = ({ data }) => {
 									{
 										approvers.length ?
 											<div>
-												<span className="text-black font-extrabold smallHeading">{"Approvers"}</span>
+												<span className="text-black font-extrabold smallHeading">{documentDictionary.Approvers}</span>
 												<Avatar
 													isAvatarGroup={true}
 													isTag={false}
@@ -117,7 +122,7 @@ const DocFullCard = ({ data }) => {
 						<div className="downloadBtn">
 							{
 								documentType === DUCOMENT_TYPE.attachment ?
-									<Button className="ThemeBtn downloadBtn">Download</Button> : ""
+									<Button className="ThemeBtn downloadBtn">{documentDictionary.Download}</Button> : ""
 							}
 						</div>
 					</div>

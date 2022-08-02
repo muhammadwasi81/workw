@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import TopBar from "../../../../sharedComponents/topBar/topBar";
 import { documentDictionaryList } from "../../localization/index";
+import TopBar from "../../../../sharedComponents/topBar/topBar";
 import { handleChangeTab } from "../../store/slice";
 
 const FilterBar = () => {
@@ -14,26 +14,26 @@ const FilterBar = () => {
   }
   return (
     <TopBar
-    // onSearch={(value) => {
-    //   console.log(value);
-    // }}
-    buttons={[
-      {
-        name: "All Documents",
-        to:"allDocuments",
-        onClick: handleTabChange,
-      },
-      {
-        name: "My Documents",
-        to:"myDocuments",
-        onClick: handleTabChange,
-      },
-      {
-        name: "For Approvals",
-        to:"forApprovals",
-        onClick: handleTabChange,
-      },
-    ]}
+      // onSearch={(value) => {
+      //   console.log(value);
+      // }}
+      buttons={[
+        {
+          name: documentDictionary.AllDocuments,
+          to: "allDocuments",
+          onClick: handleTabChange,
+        },
+        {
+          name: documentDictionary.MyDocuments,
+          to: "myDocuments",
+          onClick: handleTabChange,  
+        },
+        {
+          name: documentDictionary.ForApprovals,
+          to: "forApprovals",
+          onClick: handleTabChange,
+        },
+      ]}
     // filter={{
     //   onFilter: () => {},
     // }}
@@ -48,7 +48,7 @@ const FilterBar = () => {
     //   label1: "List",
     //   label2: "Table",
     // }}
-  />
+    />
   );
 };
 

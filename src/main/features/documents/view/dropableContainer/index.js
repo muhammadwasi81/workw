@@ -70,10 +70,8 @@ const DropableContainer = ({ children }) => {
     }
   }
   const onDragStartHandler = (event) => {
-    console.log(event, "DRAG_START")
   }
   const onDragOverHandler = (event) => {
-    console.log(event, "DRAG_OVER")
 
     event.preventDefault();
   }

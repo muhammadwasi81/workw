@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { CardWrapper } from "../../../../layout/GridStyle.js";
 import BreadCumbs from "../components/breadcumb/index.js";
+import DetailCard from "../components/detailCard/index.js";
 import DocFullCard from "../components/fullCard/index.js";
 import ShortCard from "../components/shortCard/index.js";
 import DocSceleton from "../skeleton/index.js";
 import './style.css';
 
 const DocumentDetailCards = (props) => {
+  const [detailId, setDetailId] = useState(false);
   const breadCumbsState = useSelector(state => state.documentSlice.breadCumbPath);
+
+  const onClose = () => {
+    setDetailId(null);
+  };
   return (
     <>
       {/* <DocSceleton /> */}
@@ -22,6 +28,7 @@ const DocumentDetailCards = (props) => {
           ))
         }
       </CardWrapper>
+			{/* <DetailCard onClose={onClose} id={detailId}  /> */}
     </>
   );
 };

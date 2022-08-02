@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../localization/index";
 import './style.css';
 import menuIcon from '../../../../../../content/NewContent/Documents/3dots.svg';
 import favorateIcon from '../../../../../../content/NewContent/Documents/favorate.svg';
@@ -16,6 +18,8 @@ import { handleParentId } from "../../../store/slice";
 
 
 const DocShortCard = ({ data, handlePreview }) => {
+    const { userLanguage } = useContext(LanguageChangeContext);
+    const { documentDictionary } = documentDictionaryList[userLanguage];
     const disptach = useDispatch()
 
     let { name, documentType, creator, createDate, id, path } = data
@@ -64,7 +68,7 @@ const DocShortCard = ({ data, handlePreview }) => {
                     </div> */}
                         <div className="d_ShortCard_Child2">
                             <img
-                                onClick={()=>handleClick(data)}
+                                onClick={() => handleClick(data)}
                                 alt=""
                                 src={documentType === DUCOMENT_TYPE.image && path ?
                                     path : getIconByExtensionType(documentType)}

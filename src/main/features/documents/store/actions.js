@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { jsonToFormData, STRINGS } from "../../../../utils/base";
 import { openNotification } from "../../../../utils/Shared/store/slice";
-import { addDocumentService, getAllDocumentListService, getAllDocumentService } from "../services/service";
+import { addDocumentService, getAllDocumentListService, getAllDocumentService, getDocumentByIdService } from "../services/service";
 
 const addDocument_DBO = (data) => {
   return {
@@ -69,6 +69,22 @@ export const getAllDocument = createAsyncThunk(
   async (request, { rejectWithValue }) => {
     console.log(request, "REQUEST")
     const response = await getAllDocumentService(request);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const GetDocumentById = createAsyncThunk(
+  "document/getDocumentById",
+  async (request, { rejectWithValue }) => {
+    console.log(request, "REQUEST")
+    const response = await getDocumentByIdService(request);
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

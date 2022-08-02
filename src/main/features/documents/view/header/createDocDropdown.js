@@ -21,37 +21,37 @@ const CreateDocDropdown = () => {
     }
     const CreateOptions = [
         {
-            label: "New Folder",
+            label: documentDictionary.NewFolder,
             key: "folder",
             icon:<img width="17px" alt="" src={folderIcon} />,
             onClick:handleChange
         },
         {
-            label: "Upload Documents",
+            label: documentDictionary.UploadDocuments,
             key: "upload",
             icon:<img width="17px" alt="" src={documentIcon} />,
             onClick:handleChange
         },
         {
-            label: "Add Mileboard",
+            label: documentDictionary.AddMileBoard,
             key: "mileboard",
             icon:<img width="17px" alt="" src={mileboardIcon} />,
             onClick:handleChange
         },
         {
-            label: "Add Milepad",
+            label: documentDictionary.AddMilePad,
             key: "milepad",
             icon:<img width="17px" alt="" src={milepadIcon} />,
             onClick:handleChange
         },
         {
-            label: "Add Milegrid",
+            label: documentDictionary.AddMileGrid,
             key: "milegrid",
             icon:<img width="17px" alt="" src={milegridIcon} />,
             onClick:handleChange
         },
         {
-            label: "Add Mileshow",
+            label: documentDictionary.AddMileShow,
             key: "mileshow",
             icon:<img width="17px" alt="" src={mileshowIcon} />,
             onClick:handleChange
@@ -65,8 +65,7 @@ const CreateDocDropdown = () => {
             />}
             trigger={['click']}>
             <Button className="headerBtn" >
-                Create Document
-                {/* {documentDictionary.create} */}
+                {documentDictionary.CreateDocument}
             </Button>
         </Dropdown>
     );

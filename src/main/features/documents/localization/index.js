@@ -8,4 +8,6 @@ export const languageOptions = {
   en: "English",
   urdu: "Urdu",
   arabic: "Arabic",
+  hindi: "Hindi",
+  turkish: "Turkish"
 };

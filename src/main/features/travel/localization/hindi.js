@@ -69,6 +69,6 @@ const hindi = {
 			actions: "कार्रवाई",
 		},
 	},
-	Direction: "rtl",
+	Direction: "ltr",
 };
 export default hindi;

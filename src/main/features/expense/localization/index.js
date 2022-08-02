@@ -1,10 +1,13 @@
 import en from "./en";
 import urdu from "./urdu";
 import arabic from "./arabic";
-export const ExpenseDictionary = { en, urdu, arabic };
+import hindi from "./hindi";
+
+export const ExpenseDictionary = { en, urdu, arabic, hindi };
 
 export const languageOptions = {
   en: "English",
   urdu: "Urdu",
   arabic: "Arabic",
+  hindi: "Hindi",
 };

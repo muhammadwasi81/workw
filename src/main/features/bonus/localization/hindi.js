@@ -1,8 +1,10 @@
 const hindi = {
-  warningDictionary: {
+  bonusDictionary: {
     filter: "फ़िल्टर",
+    grade: "श्रेणी",
+    bonus: "बक्शीश",
     selectApprovers: "स्वीकृतकर्ताओं का चयन करें",
-    warning: "चेतावनी",
+    promotion: "पदोन्नति",
     create: "सृजन करना",
     upload: "डालना",
     tableView: "टेबल व्यू",
@@ -11,10 +13,10 @@ const hindi = {
     members: "सदस्यों",
     category: "श्रेणी",
     approvers: "अनुमोदक",
-    warningTo: "चेतावनी",
+    bonusTo: "बोनस टू",
     myWarning: "मेरी चेतावनी",
     warningToMe: "मुझे चेतावनी",
-    createWarning: "चेतावनी बनाएं",
+    createBonus: "बोनस बनाएं",
     forApproval: "अप्रूवल के लिए",
     deductionPerMonth: "कटौती / महीने",
     pleaseEnterloanTenureInMonths: "कृपया ऋण अवधि दर्ज करें",

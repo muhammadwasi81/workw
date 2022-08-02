@@ -24,10 +24,11 @@ const DocumentShortCards = (props) => {
       />
       <div className="d_AllShortCard" >
         {
-          props.data.map((item) => (
+          props.data.map((item, index) => (
             <ShortCard
               data={item}
               handlePreview={handlePreview}
+              key={item.id}
             />
           ))
         }

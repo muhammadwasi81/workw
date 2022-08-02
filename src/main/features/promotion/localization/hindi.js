@@ -1,0 +1,43 @@
+const hindi = {
+  promotionDictionary: {
+    filter: "फ़िल्टर",
+    grade: "ग्रेड",
+    selectApprovers: "अनुमोदकों का चयन करें",
+    promotion: "पदोन्नति",
+    create: "बनाएं",
+    upload: "अपलोड करें",
+    tableView: "तालिका देखें",
+    listView: "सूची देखें",
+    selectMember: "सदस्य चुनें",
+    members: "सदस्य",
+    category: "ग्रेड0",
+    approvers: "ग्रेड1",
+    promotionTo: "ग्रेड2",
+    myWarning: "ग्रेड3",
+    warningToMe: "ग्रेड4",
+    createPromotion: "ग्रेड5",
+    forApproval: "ग्रेड6",
+    deductionPerMonth: "ग्रेड7",
+    pleaseEnterloanTenureInMonths: "ग्रेड8",
+    amount: "ग्रेड9",
+    pleaseEnterAmount: "अनुमोदकों का चयन करें0",
+    purpose: "अनुमोदकों का चयन करें1",
+    selectPurpose: "अनुमोदकों का चयन करें2",
+    deadline: "अनुमोदकों का चयन करें3",
+    description: "अनुमोदकों का चयन करें4",
+    enterDescription: "अनुमोदकों का चयन करें5",
+    loanPurpose: {
+      vehicle: "अनुमोदकों का चयन करें6",
+      personal: "अनुमोदकों का चयन करें7",
+      wedding: "अनुमोदकों का चयन करें8",
+      medical: "अनुमोदकों का चयन करें9",
+      education: "पदोन्नति0",
+      house: "पदोन्नति1",
+      other: "पदोन्नति2",
+    },
+  },
+
+  /*** Define language write side ***/
+  Direction: "ltr",
+};
+export default hindi;

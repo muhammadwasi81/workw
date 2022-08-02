@@ -9,12 +9,19 @@ import ReactDragListView from "react-drag-listview";
 import { Collapse } from "antd";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
-import { CaretRightOutlined, MenuUnfoldOutlined, UsergroupAddOutlined, FileDoneOutlined, GlobalOutlined, SafetyCertificateOutlined } from "@ant-design/icons";
+import {
+  CaretRightOutlined,
+  MenuUnfoldOutlined,
+  UsergroupAddOutlined,
+  FileDoneOutlined,
+  GlobalOutlined,
+  SafetyCertificateOutlined,
+} from "@ant-design/icons";
 const { Panel } = Collapse;
 
 function Menu() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction } = dictionaryList[userLanguage];
+  const { Direction, navMenuLabel } = dictionaryList[userLanguage];
   const { pathname } = useLocation();
   let { navHrMenuData } = NavMenuList();
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
@@ -23,7 +30,7 @@ function Menu() {
   let currentCategory = "";
   useEffect(() => {
     setData(groupedMenuItems);
-  }, [Direction]);
+  }, [Direction, navMenuLabel]);
 
   const activeTab = (isActive, path) => {
     return isActive
@@ -95,7 +102,10 @@ function Menu() {
               className="MenuCollapse"
               defaultActiveKey={["1"]}
               onChange={() => {}}
-              expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}>
+              expandIcon={({ isActive }) => (
+                <CaretRightOutlined rotate={isActive ? 90 : 0} />
+              )}
+            >
               <Panel header={key} key="1" extra={renderIcons[key]}>
                 {/* <span>{key}</span> */}
                 <ReactDragListView {...dragProps}>
@@ -103,17 +113,25 @@ function Menu() {
                     // eslint-disable-next-line no-lone-blocks
 
                     return !navBarStatus ? (
-                      <Tooltip title={name} color={""} placement="right" key={index} overlayClassName="">
+                      <Tooltip
+                        title={name}
+                        color={""}
+                        placement="right"
+                        key={index}
+                        overlayClassName=""
+                      >
                         <div
                           className="menu-item"
                           onDrag={() => {
                             currentCategory = key;
-                          }}>
+                          }}
+                        >
                           <NavLink
                             className={({ isActive }) => {
                               return activeTab(isActive, path);
                             }}
-                            to={path}>
+                            to={path}
+                          >
                             <div className="icon">
                               <img src={icon} alt="#" />
                             </div>
@@ -126,12 +144,14 @@ function Menu() {
                         className="menu-item"
                         onDrag={() => {
                           currentCategory = key;
-                        }}>
+                        }}
+                      >
                         <NavLink
                           className={({ isActive }) => {
                             return activeTab(isActive, path);
                           }}
-                          to={path}>
+                          to={path}
+                        >
                           <div className="icon">
                             <img src={icon} alt="#" />
                           </div>

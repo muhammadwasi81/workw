@@ -43,6 +43,6 @@ const hindi = {
 	},
 
 	/*** Define language write side ***/
-	Direction: "rtl",
+	Direction: "ltr",
 };
 export default hindi;

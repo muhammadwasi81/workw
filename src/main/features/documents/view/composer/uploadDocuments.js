@@ -12,6 +12,7 @@ import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 import { addDocument } from "../../store/actions";
 import { DOCUMENT_ENUM } from "../../constant";
 import { STRINGS } from "../../../../../utils/base";
+import { useSelector } from "react-redux";
 
 const initialState = {
 	id: "",
@@ -42,6 +43,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [attachment, setAttachment] = useState(null);
+	const ParentId = useSelector(state => state.documentSlice.parentId);
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
 
 	const handleImageUpload = data => {
@@ -53,8 +55,6 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 	};
 
 	const onFinish = (values) => {
-		console.log(values);
-		console.log(attachment)
 		let readers = values.readers ? values.readers : [];
 		let collaborators = values.collaborators ? values.collaborators : [];
 		let members = [
@@ -74,7 +74,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 			description: values.description,
 			approvers: values.approvers ? values.approvers.map((item) => ({ approverId: item })) : [],
 			members: members,
-			parentId: null,
+			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.attachment,
 			privacyId: privacyId,
 			attachments: [{

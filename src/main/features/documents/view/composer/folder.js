@@ -17,6 +17,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 
 	const dispatch = useDispatch();
 	const loader = useSelector(state => state.documentSlice.loader);
+	const ParentId = useSelector(state => state.documentSlice.parentId);
 	console.log(loader, "LOADER")
 	const [form] = Form.useForm();
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
@@ -34,7 +35,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 				memberType: 1,
 				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER
 			})) : [],
-			parentId: null,
+			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.folder,
 			privacyId: privacyId
 		}

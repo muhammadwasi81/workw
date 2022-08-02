@@ -16,6 +16,7 @@ const CreateMileshow = ({ isOpen, handleClose }) => {
 	const [form] = Form.useForm();
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
 	const loader = useSelector(state => state.documentSlice.loader);
+	const ParentId = useSelector(state => state.documentSlice.parentId);
 	const onPrivacyChange = value => {
 		setPrivacyId(value);
 	};
@@ -41,7 +42,7 @@ const CreateMileshow = ({ isOpen, handleClose }) => {
 			description: values.description,
 			approvers: values.approvers ? values.approvers.map((item) => ({ approverId: item })) : [],
 			members: members,
-			parentId: null,
+			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.show,
 			privacyId: privacyId
 		}

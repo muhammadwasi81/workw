@@ -32,6 +32,6 @@ const hindi = {
 			createDate: "तिथि बनाएं",
 		},
 	},
-	Direction: "rtl",
+	Direction: "ltr",
 };
 export default hindi;

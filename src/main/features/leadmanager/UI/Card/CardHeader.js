@@ -1,14 +1,15 @@
-import { Avatar } from "antd";
 import React from "react";
 
 function CardHeader({ icon, text, className, count }) {
 	return (
-		<div className="flex justify-between items-center text-white">
-			<div className="flex items-center gap-2">
-				<Avatar icon={icon} />
-				<span className={`${className}`}>{text}</span>
+		<div className="flex items-center w-full bg-white bg-opacity-20 rounded-lg text-white">
+			<div className="bg-white rounded-lg h-full p-1">
+				<img src={icon} alt="icons" />
 			</div>
-			<span>{"( " + count + " )"}</span>
+			<div className="flex items-center gap-2 w-full  p-2 ">
+				<span className={`${className}`}>{text}</span>
+				{/* <span className="ml-auto">{"( " + count + " )"}</span> */}
+			</div>
 		</div>
 	);
 }

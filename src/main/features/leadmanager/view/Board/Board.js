@@ -7,17 +7,41 @@ import Section from "./Sections/Section";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Header from "../../../../layout/header";
 import { ROUTES } from "../../../../../utils/routes";
+import Completed from "../../../../../content/svg/leadManagers/completed.svg";
+import Contact from "../../../../../content/svg/leadManagers/conatct_established.svg";
+import Contract from "../../../../../content/svg/leadManagers/contract_sent.svg";
+import Intrested from "../../../../../content/svg/leadManagers/intrested.svg";
+import Introductions from "../../../../../content/svg/leadManagers/Introductions_completed.svg";
+import NotIntrested from "../../../../../content/svg/leadManagers/not_intrested.svg";
+import Potentials from "../../../../../content/svg/leadManagers/potentials.svg";
+import CustomModal from "../../../workboard/Modal/CustomModal";
+import SectionDetail from "./SectionDetail";
 
 function Board() {
 	let sections = [
-		{ colorCode: "#0095c2", text: "Potentials", id: 1 },
-		{ colorCode: "rgb(135, 233, 128)", text: "Contact Established", id: 2 },
-		{ colorCode: "#f99e2d", text: "Introductions Completed", id: 3 },
-		{ colorCode: "#14803f", text: "Interested", id: 4 },
-		{ colorCode: "#f2df56", text: "Contract Sent", id: 5 },
-		{ colorCode: "#f5da21", text: "Completed", id: 6 },
-		{ colorCode: "#365899", text: "Not Interested (Potential)", id: 7 },
-		{ colorCode: "#f25656", text: "Not Interested", id: 8 },
+		{ colorCode: "#1276D0", text: "Potentials", icon: Potentials, id: 1 },
+		{
+			colorCode: "#45B08C",
+			text: "Contact Established",
+			icon: Contact,
+			id: 2,
+		},
+		{
+			colorCode: "#E97551",
+			text: "Introductions Completed",
+			icon: Introductions,
+			id: 3,
+		},
+		{ colorCode: "#006D5B", text: "Interested", icon: Intrested, id: 4 },
+		{ colorCode: "#FECD2F", text: "Contract Sent", icon: Contract, id: 5 },
+		{ colorCode: "#14A06E", text: "Completed", icon: Completed, id: 6 },
+		// { colorCode: "#365899", text: "Not Interested (Potential)", id: 7 },
+		{
+			colorCode: "#FD4A26",
+			text: "Not Interested",
+			icon: NotIntrested,
+			id: 7,
+		},
 	];
 	const handleDragEnd = ({ source, destination, type }) => {
 		if (!destination) return;
@@ -79,6 +103,14 @@ function Board() {
 					</DragDropContext>
 				</ContBody>
 			</TabbableContainer>
+			{/* <CustomModal
+				isModalVisible={true}
+				width={"60%"}
+				title="Details"
+				footer={null}
+				children={<SectionDetail />}
+				className={""}
+			/> */}
 		</>
 	);
 }

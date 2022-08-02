@@ -57,6 +57,6 @@ const hindi = {
 			desc: "कृपया बोर्ड विवरण दर्ज करें!",
 		},
 	},
-	Direction: "rtl",
+	Direction: "ltr",
 };
 export default hindi;

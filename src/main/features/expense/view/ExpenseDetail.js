@@ -36,7 +36,7 @@ function ExpenseDetail(props) {
       width="768"
       onClose={onClose}
       visible={visible}
-      destroyOnClose
+      destroyOnClose={true}
       className="detailedViewComposer drawerSecondary"
     >
       <div className="expenseDetail">
@@ -45,16 +45,19 @@ function ExpenseDetail(props) {
           title={labels.approvers}
           module={ApprovalsModule.ExpenseApproval}
           data={expense.approvers}
+          onStatusChanged={(status) => console.log(status, "status")}
         />
         <Approval
           title={labels.executors}
           module={ApprovalsModule.ExpenseExecutor}
           data={expense.executors}
+          onStatusChanged={(status) => console.log(status, "status")}
         />
         <Approval
           title={labels.financers}
           module={ApprovalsModule.ExpenseFinance}
           data={expense.financers}
+          onStatusChanged={(status) => console.log(status, "status")}
         />
       </div>
     </Drawer>

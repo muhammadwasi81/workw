@@ -1,14 +1,21 @@
 import { Segmented } from "antd";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 import "../style/index.css";
 import ApprovalWrapper from "../components/ApprovalWrapper";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { ApprovalDictionary } from "../localization";
 
-function Approval({ title, data, module, approverType }) {
+function Approval({ title, data, module, approverType, onStatusChanged }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = ApprovalDictionary[userLanguage];
+  const [status, setStatus] = useState("");
+  const onStatusChange = (status) => {
+    setStatus(status);
+  };
+  useEffect(() => {
+    onStatusChanged(status);
+  }, [status]);
 
   return (
     <div className="approval" style={{ direction: Direction }}>
@@ -31,6 +38,7 @@ function Approval({ title, data, module, approverType }) {
           data={data}
           module={module}
           approverType={approverType}
+          onStatusChange={onStatusChange}
         />
       </div>
     </div>

@@ -43,7 +43,6 @@ const DocumentComposers = () => {
                 isOpen={folder}
                 handleClose={() => handleCloseComposer(DocsComposerEnums.folder)}
             />
-
         </>
     );
 };

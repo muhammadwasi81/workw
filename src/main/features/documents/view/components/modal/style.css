@@ -1,0 +1,16 @@
+.ModalInner  {
+    height: 80vh;
+}
+.DocumentModal img {
+    margin: 0 auto;
+    height: 100%;
+}
+.DocumentModal .ant-modal-footer {
+    display: none;
+}
+
+@media (min-width: 320px) and (max-width: 720px) {
+    .ModalInner  {
+        height: 40vh;
+    }   
+}

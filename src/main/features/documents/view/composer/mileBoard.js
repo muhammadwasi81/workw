@@ -14,6 +14,7 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 
 	const dispatch = useDispatch();
 	const loader = useSelector(state => state.documentSlice.loader);
+	const ParentId = useSelector(state => state.documentSlice.parentId);
 	const [form] = Form.useForm();
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
 	const onPrivacyChange = value => {
@@ -41,7 +42,7 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 			description: values.description,
 			approvers: values.approvers ? values.approvers.map((item) => ({ approverId: item })) : [],
 			members: members,
-			parentId: null,
+			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.draw,
 			privacyId: privacyId
 		}

@@ -13,7 +13,7 @@ const Index = () => {
     <Header
     items={[
       {
-        name: "Docs & Archive",
+        name: documentDictionary.DocsArchive,
         to: `${ROUTES.DOCUMENTS.DOCUMENT}`,
         renderButton: [1],
       }

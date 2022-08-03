@@ -38,8 +38,9 @@ function Section(props) {
 							<CardHeader
 								text={section.text}
 								className={"text-white font-semibold"}
-								icon={<UserOutlined />}
+								// icon={<UserOutlined />}
 								count={2}
+								icon={section.icon}
 							/>
 							<CardButton
 								className={"text-gray-400"}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	ContBody,
 	TabbableContainer,
@@ -7,42 +7,27 @@ import Section from "./Sections/Section";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Header from "../../../../layout/header";
 import { ROUTES } from "../../../../../utils/routes";
-import Completed from "../../../../../content/svg/leadManagers/completed.svg";
-import Contact from "../../../../../content/svg/leadManagers/conatct_established.svg";
-import Contract from "../../../../../content/svg/leadManagers/contract_sent.svg";
-import Intrested from "../../../../../content/svg/leadManagers/intrested.svg";
-import Introductions from "../../../../../content/svg/leadManagers/Introductions_completed.svg";
-import NotIntrested from "../../../../../content/svg/leadManagers/not_intrested.svg";
-import Potentials from "../../../../../content/svg/leadManagers/potentials.svg";
+
 import CustomModal from "../../../workboard/Modal/CustomModal";
 import SectionDetail from "./SectionDetail";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	getLeadManagerById,
+	getLeadManagerSectionById,
+} from "../../store/actions";
 
 function Board() {
-	let sections = [
-		{ colorCode: "#1276D0", text: "Potentials", icon: Potentials, id: 1 },
-		{
-			colorCode: "#45B08C",
-			text: "Contact Established",
-			icon: Contact,
-			id: 2,
-		},
-		{
-			colorCode: "#E97551",
-			text: "Introductions Completed",
-			icon: Introductions,
-			id: 3,
-		},
-		{ colorCode: "#006D5B", text: "Interested", icon: Intrested, id: 4 },
-		{ colorCode: "#FECD2F", text: "Contract Sent", icon: Contract, id: 5 },
-		{ colorCode: "#14A06E", text: "Completed", icon: Completed, id: 6 },
-		// { colorCode: "#365899", text: "Not Interested (Potential)", id: 7 },
-		{
-			colorCode: "#FD4A26",
-			text: "Not Interested",
-			icon: NotIntrested,
-			id: 7,
-		},
-	];
+	const { id } = useParams();
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getLeadManagerById(id));
+	}, []);
+
+	const leadManagerDetail = useSelector(
+		state => state.leadMangerSlice.leadManagerDetail
+	);
+
 	const handleDragEnd = ({ source, destination, type }) => {
 		if (!destination) return;
 		// Move section
@@ -69,8 +54,11 @@ function Board() {
 	};
 	const items = [
 		{
-			name: "Leads Overview",
-			to: `${ROUTES.LEAD_MANAGER.DEFAULT}`,
+			name: leadManagerDetail && leadManagerDetail.name,
+			to: `${ROUTES.LEAD_MANAGER.LEAD_GROUP_DETAIL}${id}`,
+			onClick: () => {
+				dispatch(getLeadManagerById(id));
+			},
 		},
 	];
 	return (
@@ -89,13 +77,16 @@ function Board() {
 									className="flex overflow-scroll"
 									ref={provided.innerRef}
 								>
-									{sections.map((section, index) => (
-										<Section
-											section={section}
-											index={index}
-											key={section.id}
-										/>
-									))}
+									{leadManagerDetail &&
+										leadManagerDetail.sections.map(
+											(section, index) => (
+												<Section
+													section={section}
+													index={index}
+													key={section.id}
+												/>
+											)
+										)}
 								</div>
 								// {provided.placeholder}
 							)}
@@ -103,14 +94,14 @@ function Board() {
 					</DragDropContext>
 				</ContBody>
 			</TabbableContainer>
-			{/* <CustomModal
-				isModalVisible={true}
+			<CustomModal
+				isModalVisible={false}
 				width={"60%"}
 				title="Details"
 				footer={null}
 				children={<SectionDetail />}
 				className={""}
-			/> */}
+			/>
 		</>
 	);
 }

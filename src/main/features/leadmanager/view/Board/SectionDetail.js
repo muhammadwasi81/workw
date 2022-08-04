@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Collapse, Form, Input } from "antd";
-import { FaGlobe, FaUserAlt } from "react-icons/fa";
+import { FaGlobe, FaUserAlt, FaUserPlus } from "react-icons/fa";
 import {
 	CalendarOutlined,
+	DeleteFilled,
 	EnvironmentFilled,
 	MailFilled,
 	PhoneFilled,
 } from "@ant-design/icons";
+
+import "./sectionDetail.css";
+import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
 
 const { Panel } = Collapse;
 
@@ -88,46 +92,71 @@ function SectionDetail() {
 					</Form.Item>
 				</Form>
 			</section>
-			<section className="basis-5/12">
+			<section className="basis-5/12 flex flex-col gap-5">
 				<div className="bg-neutral-100 p-2 rounded-lg h-fit">
 					<Collapse
-						// onChange={onChange}
-						// expandIcon={({ isActive }) => (
-						// 	<DownOutlined
-						// 		rotate={isActive ? 0 : 180}
-						// 		className="!text-lg !font-bold !text-primary-color"
-						// 	/>
-						// )}
-						className="w-full bg-neutral-100"
-						ghost={true}
-						expandIconPosition={"end"}
+						bordered={false}
 						defaultActiveKey={["1"]}
+						ghost={true}
+						expandIconPosition="end"
+						className="site-collapse-custom-collapse !overflow-hidden"
 					>
 						<Panel
-							showArrow={false}
 							header={
-								<div>
-									<span className="text-base font-bold text-white">
-										Members
-									</span>
-								</div>
+								<p className="text-white w-full !m-0">
+									Meetings
+								</p>
 							}
-							extra={<CalendarOutlined className="!text-white" />}
-							className="!bg-primary-color !rounded-xl !h-[50px] w-full !pr-0"
-							// extra={
-							// 	<PlusCircleFilled
-							// 		onClick={event => {
-							// 			event.stopPropagation();
-							// 			handleAdd();
-							// 		}}
-							// 		className="text-xl font-bold !text-primary-color mr-2"
-							// 	/>
-							// }
 							key="1"
+							className=" site-collapse-custom-panel"
+							showArrow={false}
+							extra={
+								<CalendarOutlined className="!text-white !text-base" />
+							}
 						>
-							adsfadsf
+							<p className="!m-0 ">{"asdfasdf"}</p>
 						</Panel>
 					</Collapse>
+				</div>
+
+				<div className="bg-neutral-100 p-2 rounded-lg h-fit">
+					<Collapse
+						bordered={false}
+						defaultActiveKey={["1"]}
+						ghost={true}
+						expandIconPosition="end"
+						className="site-collapse-custom-collapse !overflow-hidden"
+					>
+						<Panel
+							header={
+								<p className="text-white w-full !m-0">
+									Contacts
+								</p>
+							}
+							key="1"
+							className=" site-collapse-custom-panel"
+							showArrow={false}
+							extra={
+								<FaUserPlus className="!text-white !text-base" />
+							}
+						>
+							<div className="bg-white rounded-lg p-2">
+								<div className="flex items-center justify-between  w-full">
+									<div className="flex gap-3 items-center">
+										{/* <img /> */}
+										<p className="text-black !m-0">
+											Syed Danish Ali
+										</p>
+									</div>
+									<DeleteFilled className="!text-gray-500" />
+								</div>
+							</div>
+						</Panel>
+					</Collapse>
+				</div>
+
+				<div className="bg-white rounded-xl overflow-y-auto py-2">
+					<CommentWrapper />
 				</div>
 			</section>
 		</div>

@@ -3,6 +3,7 @@ const en = {
 
   /*** add all shared labels like send, ok, cancel, etc ***/
   sharedLabels: {
+    Turkish: "Turkish",
     Hindi: "Hindi",
     theme: "Theme",
     awardTo: "Award To",

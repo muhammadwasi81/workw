@@ -4,6 +4,7 @@ const hindi = {
   /*** add all shared labels like send, ok, cancel, etc ***/
 
   sharedLabels: {
+    Turkish: "Turkish",
     Hindi: "हिंदी",
     theme: "थीम",
     awardTo: "पुरस्कार",

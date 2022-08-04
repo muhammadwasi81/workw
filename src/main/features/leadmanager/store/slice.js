@@ -1,9 +1,11 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
 import {
 	addLeadManager,
+	addLeadManagerDetail,
 	getAllLeadManager,
 	getAllLeadManagerPaging,
 	getLeadManagerById,
+	getLeadManagerSectionById,
 	updateLeadManager,
 } from "./actions";
 
@@ -21,11 +23,12 @@ const initialState = {
 	error: false,
 	loading: false,
 	leadManagersData: [],
-	leadMangerDetail: null,
+	leadManagerDetail: null,
 	isComposerOpen: false,
 	isEditComposer: false,
 	composerData: initialComposerData,
 	isComposerDataLoading: false,
+	leadManagerSections: [],
 };
 const leadMangerSlice = createSlice({
 	name: "leadManager",
@@ -49,7 +52,7 @@ const leadMangerSlice = createSlice({
 			})
 			.addCase(getLeadManagerById.fulfilled, (state, { payload }) => {
 				state.isComposerDataLoading = false;
-				state.leadMangerDetail = payload.data;
+				state.leadManagerDetail = payload.data;
 			})
 			.addCase(getAllLeadManager.fulfilled, (state, { payload }) => {
 				state.success = true;
@@ -68,9 +71,28 @@ const leadMangerSlice = createSlice({
 				state.success = true;
 				state.loading = false;
 			})
+			.addCase(
+				getLeadManagerSectionById.fulfilled,
+				(state, { payload }) => {
+					state.success = true;
+					state.loading = false;
+					state.leadManagerSections = payload.data;
+				}
+			)
+			.addCase(addLeadManagerDetail.fulfilled, (state, { payload }) => {
+				state.success = true;
+				state.loading = false;
+				const { sectionId } = payload.data;
+				const sectionIndex = state.leadManagerDetail.sections.findIndex(
+					section => section.id === sectionId
+				);
+				state.leadManagerDetail.sections[sectionIndex].details.push(
+					payload.data
+				);
+			})
 			.addMatcher(isPending(getLeadManagerById), state => {
 				state.isComposerDataLoading = true;
-				state.leadMangerDetail = null;
+				state.leadManagerDetail = null;
 			})
 			.addMatcher(
 				isPending(
@@ -79,6 +101,8 @@ const leadMangerSlice = createSlice({
 						getAllLeadManager,
 						getAllLeadManagerPaging,
 						updateLeadManager,
+						getLeadManagerSectionById,
+						addLeadManagerDetail,
 					]
 				),
 				state => {

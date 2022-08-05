@@ -68,6 +68,9 @@ export const ItemHeader = styled.div`
 
 export const ItemContent = styled.div`
   margin-top: 15px;
+  max-height: 80px;
+  min-height: 80px;
+}
 `;
 
 export const ItemProfile = styled.div`

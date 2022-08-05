@@ -29,7 +29,7 @@ const TopBar = ({ filter, onSearch, segment, buttons, component }) => {
 						icon={<SearchOutlined />}
 						placeholder={sharedLabels.Search}
 						size="larger"
-						onClick={e => {
+						onChange={e => {
 							const value = e.target.value;
 							onSearch(value);
 						}}

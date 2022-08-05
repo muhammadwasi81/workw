@@ -6,12 +6,17 @@ const initialState = {
   loadingData: false,
   loader: true,
   rewardDetail: {},
+  drawerOpen: false
 };
 
 const rewardSlice = createSlice({
   name: "rewards",
   initialState,
-  reducers: {},
+  reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = false
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllRewards.fulfilled, (state, action) => {
       state.rewards = action.payload ? action.payload : [];
@@ -25,7 +30,9 @@ const rewardSlice = createSlice({
 
     builder
       .addCase(addReward.fulfilled, (state, { payload }) => {
-        state.rewardData = payload;
+        state.rewards = payload;
+        console.log(state.drawerOpen)
+        state.drawerOpen = false;
         return state;
       })
       .addMatcher(isPending(...[getAllRewards]), (state) => {
@@ -37,5 +44,5 @@ const rewardSlice = createSlice({
   },
 });
 
-export const {} = rewardSlice.actions;
+export const {handleOpenComposer} = rewardSlice.actions;
 export default rewardSlice.reducer;

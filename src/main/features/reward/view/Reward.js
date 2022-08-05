@@ -29,24 +29,29 @@ const Reward = (props) => {
   const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
 
   const [tableView, setTableView] = useState(false);
-
   const isTablet = useMediaQuery({ maxWidth: 800 });
-
   const [detailId, setDetailId] = useState(false);
+  // const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
-  const { rewards, loader, rewardDetail } = useSelector((state) => state.rewardSlice);
+  const { rewards, loader, rewardDetail, drawerOpen } = useSelector((state) => state.rewardSlice);
+
+  console.log(drawerOpen, "COMPOSER STATE")
+
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
     setDetailId(null);
   };
 
+
   useEffect(() => {
     dispatch(getAllRewards(filter));
   }, [filter]);
+
+  console.log(filter, "FILTER")
 
   const handleFilter = (values) => {
     setSearchFilterValues(values);
@@ -60,7 +65,7 @@ const Reward = (props) => {
               buttonText: "Create Travel",
               // onClick: () => setVisible(true),
               render: (
-                <SideDrawer title={rewardsDictionary.createReward} buttonText={rewardsDictionary.createReward} isAccessDrawer={false}>
+                <SideDrawer title={rewardsDictionary.createReward} buttonText={rewardsDictionary.createReward} succes={drawerOpen} >
                   <Composer />
                 </SideDrawer>
               ),
@@ -69,7 +74,8 @@ const Reward = (props) => {
         />
         <TopBar
           onSearch={(value) => {
-            console.log(value);
+            setFilter({...filter, search: value})
+            console.log("TESTING")
           }}
           buttons={[
             {

@@ -1,25 +1,25 @@
 const turkish = {
-  Direction: "ltr",
+	Direction: "ltr",
 
-  composer: {
-    Whatsonyourmind: "Aklınızdan ne geçiyor",
-    Write: "Yazın",
-    WriteYourName: "Adınızı Yazın",
-    Poll: "Anket",
-    Documents: "Belgeler",
-    PhotoVideo: "Fotoğraf/Video",
-    Post: "Yayınla",
-    Removepoll: "Anketi kaldır",
-    Addpolloption: "Anket seçeneği ekle",
-  },
-  Post: {
-    Comments: "Yorumlar",
-    Comment: "Yazın0",
-    Share: "Yazın1",
-    Like: "Yazın2",
-    ViewAllComments: "Yazın3",
-    WriteYourCommentHere: "Yazın4",
-    WriteYourReplyHere: "Yazın5",
-  },
+	composer: {
+		Whatsonyourmind: "Aklınızdan ne geçiyor",
+		Write: "Yazmak",
+		WriteYourName: "İsmini yaz",
+		Poll: "Anket",
+		Documents: "Belgeler",
+		PhotoVideo: "Fotoğraf/Video",
+		Post: "Postalamak",
+		Removepoll: "Anketi kaldır",
+		Addpolloption: "Anket seçeneği ekle",
+	},
+	Post: {
+		Comments: "Yorumlar",
+		Comment: "Yorum",
+		Share: "Paylaşmak",
+		Like: "Beğenmek",
+		ViewAllComments: "Tüm Yorumları Görüntüle",
+		WriteYourCommentHere: "Yorumunuzu Buraya Yazın",
+		WriteYourReplyHere: "Cevabınızı Buraya Yazın",
+	},
 };
 export default turkish;

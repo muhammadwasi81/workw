@@ -6,10 +6,12 @@ import {
 } from "../../../../services/slices/notificationSlice";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
+	addLeadManagerDetailService,
 	addLeadManagerService,
 	getAllLeadManagerPagingService,
 	getAllLeadManagerService,
 	getLeadManagerByIdService,
+	getLeadManagerSectionByIdService,
 	updateLeadManagerService,
 } from "../services/services";
 
@@ -30,6 +32,32 @@ export const addLeadManager = createAsyncThunk(
 					pageNo: 0,
 					pageSize: 0,
 					search: "",
+				})
+			);
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const addLeadManagerDetail = createAsyncThunk(
+	"addLeadManagerDetail",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await addLeadManagerDetailService(data);
+		if (res.responseCode === responseCode.Success) {
+			dispatch(
+				openNotification({
+					message: "LeadManager Detail Created Successfully",
+					type: "success",
+					duration: 2,
 				})
 			);
 			return res;
@@ -107,6 +135,23 @@ export const getLeadManagerById = createAsyncThunk(
 	"getLeadManagerById",
 	async (id, { dispatch, getState, rejectWithValue }) => {
 		const res = await getLeadManagerByIdService(id);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			responseMessage({
+				dispatch: dispatch,
+				data: res,
+				type: responseMessageType.ApiFailure,
+			});
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const getLeadManagerSectionById = createAsyncThunk(
+	"getLeadManagerSectionById",
+	async (id, { dispatch, getState, rejectWithValue }) => {
+		const res = await getLeadManagerSectionByIdService(id);
 		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {

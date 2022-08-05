@@ -5,7 +5,7 @@ function List(props) {
 	const { sectionList, color, index } = props;
 
 	return (
-		<Draggable draggableId={sectionList.name} index={index}>
+		<Draggable draggableId={sectionList.id} index={index}>
 			{(provided, _snapshot) => (
 				<div
 					ref={provided.innerRef}

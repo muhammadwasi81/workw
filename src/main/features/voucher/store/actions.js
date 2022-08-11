@@ -16,9 +16,10 @@ export const addVoucher = createAsyncThunk(
           type:"success",
           duration: 2
         }))
+        console.log(response)
         return response.data;
       default:
-        return;
+        return null;
     }
   }
 );

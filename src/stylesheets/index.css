@@ -8420,11 +8420,11 @@ i.ic-bar-img {
   box-shadow: none !important;
 }
 
-.ant-picker {
+/* .ant-picker {
   border-radius: 5px !important;
   height: 38px;
   width: 100%;
-}
+} */
 
 .ant-picker-range .ant-picker-active-bar {
   background: var(--currentThemeColor) !important;

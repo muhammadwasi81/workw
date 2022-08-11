@@ -5,21 +5,19 @@ const VoucherFooter = ({
 }) => {
 
   return (
-    <div className='totalAmountCont' >
-      <div className='totalAmountItem'>
-        <div className='totalAmountLabel'>Total Dr : </div>
+    <div className='flex items-center' >
+      <div className='totalAmountItem flex mx-5'>
+        <div className='totalAmountLabel'>Dr : </div>
         <div className='totalAmountValue'>{(dr).toFixed(2)}</div>
       </div>
-      <div className='totalAmountItem'>
-        <div className='totalAmountLabel'>Total Cr : </div>
+      <div className='totalAmountItem flex mx-5'>
+        <div className='totalAmountLabel'>Cr : </div>
         <div className='totalAmountValue'>{(cr).toFixed(2)}</div>
       </div>
-      <div className='totalAmountItem'>
+      <div className='totalAmountItem flex mx-5'>
         <div className='totalAmountLabel'>Difference : </div>
-        <div className='totalAmountValue'>{(dr-cr).toFixed(2)}</div>
+        <div className='totalAmountValue'>{(dr - cr).toFixed(2)}</div>
       </div>
-      {/* <butto>Save</butto> */}
-      {/* <butto>Add Row</butto> */}
     </div>
   )
 }

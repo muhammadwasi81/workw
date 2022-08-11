@@ -23,7 +23,7 @@ const DocShortCard = ({ data, handlePreview }) => {
     const { documentDictionary } = documentDictionaryList[userLanguage];
     const disptach = useDispatch()
 
-    let { name, documentType, creator, createDate, id, path } = data
+    let { name, documentType, creator, createDate, id, path, extensionTypeId } = data
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
     const handleClick = (item) => {
@@ -90,13 +90,13 @@ const DocShortCard = ({ data, handlePreview }) => {
                                 onClick={() => handleClick(data)}
                                 alt=""
                                 src={documentType === DUCOMENT_TYPE.image && path ?
-                                    path : getIconByExtensionType(documentType)}
+                                    path : getIconByExtensionType(documentType, extensionTypeId)}
                             />
                         </div>
                         <div className="fileName">
-                            <h5>
+                            <div>
                                 {name}
-                            </h5>
+                            </div>
                             {/* <h6>
                             {moment(createDate,'mm/dd/yyyy')}
                         </h6> */}

@@ -30,18 +30,29 @@ function PreviewModal({ previewItem, handleClose = () => { } }) {
           {
             previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.image ?
               <img src={previewItem?.path} /> :
-              (previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.draw || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.grid ||
-                previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.pad || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.show)
-                ?
-                <iframe
-                  className="!block h-full w-full"
-                  style={{ display: "block !important" }}
-                  src={previewItem?.path} title="description"
-                  // width='500px'
-                  // height='500px' 
-                  frameBorder='0'
-                ></iframe>
-                : ""
+              previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.video ?
+                <video style={{
+                  // width: "80%",
+                  height: "100%",
+                }}
+                  controls
+                  autoPlay
+                  controlsList="nodownload"
+                >
+                  <source src={previewItem?.path + "#t=0.5"} />
+                </video> :
+                // (previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.draw || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.grid ||
+                //   previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.pad || previewItem?.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.show)
+                //   ?
+                  <iframe
+                    className="!block h-full w-full"
+                    style={{ display: "block !important" }}
+                    src={previewItem?.path} title="description"
+                    // width='500px'
+                    // height='500px' 
+                    frameBorder='0'
+                  ></iframe>
+                  // : ""
           }
         </div>
       </Modal>

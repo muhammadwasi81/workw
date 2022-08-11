@@ -65,9 +65,32 @@ export const DOCUMENT_ENUM = {
     show: 7,
     draw: 8
   },
-  MEMBER_RIGHT_TYPE:{
-    READER:1,
-    COLLABRATOR:2
+  MEMBER_RIGHT_TYPE: {
+    READER: 1,
+    COLLABRATOR: 2
+  },
+  EXTENSION_TYPE: {
+    Other: 0,
+    Jpg: 1,
+    Jpeg: 2,
+    Bmp: 3,
+    Png: 4,
+    Gif: 5,
+    Mp4: 6,
+    Avi: 7,
+    Pdf: 8,
+    Docx: 9,
+    Doc: 10,
+    Xls: 11,
+    Xlsx: 12,
+    Pptx: 13,
+    Ppt: 14,
+    Mp3: 15,
+    Wav: 16,
+    Apk: 17,
+    MilePad: 18,
+    MileGrid: 19,
+    MileBoard: 20
   }
 }
 

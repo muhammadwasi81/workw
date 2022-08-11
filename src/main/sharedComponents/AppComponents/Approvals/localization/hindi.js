@@ -1,7 +1,7 @@
-const en = {
+const hindi = {
   Direction: "ltr",
   labels: {
-    noData: "No Remark Found.",
+    noData: "No Data",
   },
   status: {
     InProcess: "InProcess",
@@ -18,4 +18,4 @@ const en = {
     writeYourRemarksHere: "Write Yours Remarks Here...",
   },
 };
-export default en;
+export default hindi;

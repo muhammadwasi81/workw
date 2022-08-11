@@ -1,23 +1,46 @@
 import { Drawer } from "antd";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import Approval from "../../../sharedComponents/AppComponents/Approvals/view";
 import { ExpenseDictionary } from "../localization";
 import { useDispatch, useSelector } from "react-redux";
 import ExpenseList from "./ExpenseList";
 import { getExpenseById } from "../store/actions";
-import { ApprovalsModule } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import {
+  ApprovalsModule,
+  ApprovalStatus,
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
 
 function ExpenseDetail(props) {
   const { visible, onClose, id } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
   const { expense } = useSelector((state) => state.expenseSlice);
+  const [expenseStatus, setExpenseStatus] = useState({});
+  const [status, setStatus] = useState("");
+
   const { labels } = ExpenseDictionaryList;
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (visible) dispatch(getExpenseById(id));
   }, [visible]);
+
+  useEffect(() => {
+    if (Object.keys(expenseStatus).length !== 0) {
+      const expenseStatusArr = Object.keys(expenseStatus).map((k) => {
+        return { [k]: expenseStatus[k] };
+      });
+
+      const updateList = [...expenseStatusArr].reduce((acc, val, index) => {
+        const ac = Object?.values(acc)?.toString();
+        const va = Object?.values(val)?.toString();
+        if (ac === va) return va;
+        else return ApprovalStatus.InProcess;
+      });
+      setStatus(updateList);
+    }
+  }, [expenseStatus]);
 
   return (
     <Drawer
@@ -34,30 +57,49 @@ function ExpenseDetail(props) {
       }
       placement={props.direction === "ltr" ? "right" : "left"}
       width="768"
-      onClose={onClose}
+      onClose={() => {
+        onClose();
+        setExpenseStatus([]);
+        setStatus();
+      }}
       visible={visible}
       destroyOnClose={true}
       className="detailedViewComposer drawerSecondary"
     >
       <div className="expenseDetail">
-        {<ExpenseList expense={expense} />}
+        {<ExpenseList expense={expense} updateStatus={status} />}
         <Approval
           title={labels.approvers}
           module={ApprovalsModule.ExpenseApproval}
           data={expense.approvers}
-          onStatusChanged={(status) => console.log(status, "status")}
+          onStatusChanged={(status) => {
+            setExpenseStatus((prev) => {
+              return { ...prev, ...status };
+            });
+          }}
+          status={expense.approverStatus}
         />
         <Approval
           title={labels.executors}
           module={ApprovalsModule.ExpenseExecutor}
           data={expense.executors}
-          onStatusChanged={(status) => console.log(status, "status")}
+          onStatusChanged={(status) =>
+            setExpenseStatus((prev) => {
+              return { ...prev, ...status };
+            })
+          }
+          status={expense.executorStatus}
         />
         <Approval
           title={labels.financers}
           module={ApprovalsModule.ExpenseFinance}
           data={expense.financers}
-          onStatusChanged={(status) => console.log(status, "status")}
+          onStatusChanged={(status) =>
+            setExpenseStatus((prev) => {
+              return { ...prev, ...status };
+            })
+          }
+          status={expense.financeStatus}
         />
       </div>
     </Drawer>

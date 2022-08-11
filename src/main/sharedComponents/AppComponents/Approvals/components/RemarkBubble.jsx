@@ -9,7 +9,8 @@ function RemarksBubble({ remarker, remark, type, status, date }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { status: statusLabels } = ApprovalDictionary[userLanguage];
   const { label, color } = getStatusLabelAndColor("", statusLabels)[status];
-
+  var ts = moment.utc(date);
+  ts.local().format("D-MMM-Y");
   return (
     <>
       <div className="comment">
@@ -23,8 +24,10 @@ function RemarksBubble({ remarker, remark, type, status, date }) {
           />
         </div>
         <div className="comment__body">
-          <h6>{remarker?.name}</h6>
-          <span> {moment(date).fromNow()}</span>
+          <div className="left">
+            <h6>{remarker?.name}</h6>
+            <span> {moment(ts).fromNow()}</span>
+          </div>
           <p>{remark}</p>
           <span style={{ color }}>{label}</span>
         </div>

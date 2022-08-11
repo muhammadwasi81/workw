@@ -8,6 +8,7 @@ function ApprovalWrapper({
   module,
   approverType,
   onStatusChange,
+  onListStatus,
 }) {
   return (
     <div className="approvalWrapper">
@@ -47,6 +48,8 @@ function ApprovalWrapper({
               approverId={approverId}
               createBy={createBy}
               id={id}
+              title={title}
+              onListStatus={onListStatus}
             />
           );
         }

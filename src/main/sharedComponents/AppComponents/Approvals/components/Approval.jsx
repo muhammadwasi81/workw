@@ -17,13 +17,15 @@ function Approval({
   onStatusChange,
   id,
   approverType = ApproverType.User,
+  title = "",
+  onListStatus,
 }) {
   const { businessId, designation, name, image, type } = approver;
   const [files, setFiles] = useState([]);
   const [remarks, setRemarks] = useState([]);
   const [remarksText, setremarksText] = useState("");
   const [currentStatus, setCurrentStatus] = useState(status);
-
+  let prevStatus = currentStatus;
   const handleFile = (e) => {
     if (e.target.files.length > 1) {
       setFiles((prevValue) => [...prevValue, ...e.target.files]);
@@ -40,9 +42,11 @@ function Approval({
     if (event?.keyCode === 13) createRemark(ApprovalStatus.InProcess);
   };
   const handleCurrentStatus = (status) => {
+    prevStatus = currentStatus;
     setCurrentStatus(status);
     createRemark(status);
   };
+
   const createRemark = async (status) => {
     const remarks = {
       approvalId: id,
@@ -57,10 +61,17 @@ function Approval({
     setremarksText("");
 
     const remark = await saveApprovalsRemarks(remarks);
-    if (remark) setRemarks((prevValue) => [...prevValue, remark]);
+    if (remark) {
+      setRemarks((prevValue) => [...prevValue, remark]);
+      onStatusChange({ id, status });
+    } else {
+      setCurrentStatus(prevStatus);
+      onStatusChange({ id, status });
+    }
   };
   useEffect(() => {
     setRemarks([...initialRemarks]);
+    onListStatus({ id, status });
   }, []);
 
   return (

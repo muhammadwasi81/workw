@@ -5,17 +5,42 @@ import "../style/index.css";
 import ApprovalWrapper from "../components/ApprovalWrapper";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { ApprovalDictionary } from "../localization";
-
-function Approval({ title, data, module, approverType, onStatusChanged }) {
+import { ApprovalStatus } from "../enums";
+function Approval({
+  title,
+  data,
+  module,
+  approverType,
+  onStatusChanged,
+  status,
+}) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = ApprovalDictionary[userLanguage];
-  const [status, setStatus] = useState("");
-  const onStatusChange = (status) => {
-    setStatus(status);
+  const [statusList, setStatusList] = useState([]);
+  const [updateStatus, setUpdateStatus] = useState();
+  const handleStatusList = (status) => {
+    setStatusList((preValue) => [...preValue, status]);
+  };
+
+  const createNewStatus = (changedStatus) => {
+    const newStatusList = statusList.map((item) => {
+      if (item.id === changedStatus.id) return changedStatus;
+      else return item;
+    });
+    const updateList = newStatusList.reduce((acc, val) => {
+      if (acc.status === val.status) return val.status;
+      else return ApprovalStatus.InProcess;
+    });
+
+    setUpdateStatus(updateList.status);
   };
   useEffect(() => {
-    onStatusChanged(status);
+    if (status) onStatusChanged({ [title]: status });
   }, [status]);
+
+  useEffect(() => {
+    if (updateStatus) onStatusChanged({ [title]: updateStatus });
+  }, [updateStatus]);
 
   return (
     <div className="approval" style={{ direction: Direction }}>
@@ -32,13 +57,17 @@ function Approval({ title, data, module, approverType, onStatusChanged }) {
           ]}
         /> */}
       </div>
+
       <div className="approval__body">
         <ApprovalWrapper
           title={title}
           data={data}
           module={module}
+          onListStatus={handleStatusList}
           approverType={approverType}
-          onStatusChange={onStatusChange}
+          onStatusChange={(status) => {
+            createNewStatus(status);
+          }}
         />
       </div>
     </div>

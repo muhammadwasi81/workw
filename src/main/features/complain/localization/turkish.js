@@ -1,0 +1,43 @@
+const turkish = {
+  complainDictionary: {
+    filter: "Filtre",
+    tableView: "Tablo Görünümü",
+    listView: "Liste Görünümü",
+    complainOf: "Şikayet",
+    selectApprovers: "Onaylayanları Seçin",
+    complain: "Şikayet edin",
+    create: "Oluştur",
+    upload: "Yükle",
+    selectMember: "Üyeleri Seçin",
+    members: "Üyeler",
+    category: "Tablo Görünümü0",
+    approvers: "Tablo Görünümü1",
+    warningTo: "Tablo Görünümü2",
+    myComplain: "Tablo Görünümü3",
+    complainToMe: "Tablo Görünümü4",
+    createComplain: "Tablo Görünümü5",
+    forApproval: "Tablo Görünümü6",
+    deductionPerMonth: "Tablo Görünümü7",
+    pleaseEnterloanTenureInMonths: "Tablo Görünümü8",
+    amount: "Tablo Görünümü9",
+    pleaseEnterAmount: "Liste Görünümü0",
+    purpose: "Liste Görünümü1",
+    selectPurpose: "Liste Görünümü2",
+    deadline: "Liste Görünümü3",
+    description: "Liste Görünümü4",
+    enterDescription: "Liste Görünümü5",
+    loanPurpose: {
+      vehicle: "Liste Görünümü6",
+      personal: "Liste Görünümü7",
+      wedding: "Liste Görünümü8",
+      medical: "Liste Görünümü9",
+      education: "Şikayet0",
+      house: "Şikayet1",
+      other: "Şikayet2",
+    },
+  },
+
+  /*** Define language write side ***/
+  Direction: "ltr",
+};
+export default turkish;

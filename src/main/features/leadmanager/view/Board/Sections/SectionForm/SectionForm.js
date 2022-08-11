@@ -11,31 +11,26 @@ function SectionForm(props) {
 		<div className="bg-white p-3 rounded-sm">
 			<Form
 				name="basic"
-				initialValues={
-					{
-						// remember: true,
-					}
-				}
+				initialValues={{ businessIndividualType: 1 }}
 				layout={"vertical"}
 				onFinish={props.onFinish}
-				// onFinishFailed={onFinishFailed}
 				autoComplete="off"
 			>
 				<Form.Item
 					name="name"
-					// rules={[
-					// 	{
-					// 		required: true,
-					// 		message: "Title required!",
-					// 	},
-					// ]}
+					rules={[
+						{
+							required: true,
+							message: "Name required!",
+						},
+					]}
 				>
 					<Input
 						prefix={<BiPencil className="!text-gray-500" />}
 						placeholder="Lead Name"
 					/>
 				</Form.Item>
-				<Form.Item name="contactNo">
+				<Form.Item name="phoneNo">
 					<Input
 						prefix={
 							<PhoneOutlined
@@ -46,14 +41,22 @@ function SectionForm(props) {
 						placeholder="Lead Phone Number"
 					/>
 				</Form.Item>
-				<Form.Item name="email">
+				<Form.Item name="emailAddress">
 					<Input
-						// type={"email"}
+						type={"email"}
 						prefix={<MailOutlined className="!text-gray-500" />}
 						placeholder="Lead Email Address"
 					/>
 				</Form.Item>
-				<Form.Item name="address">
+				<Form.Item
+					name="address"
+					rules={[
+						{
+							required: true,
+							message: "Address required!",
+						},
+					]}
+				>
 					<Input
 						prefix={
 							<EnvironmentOutlined className="!text-gray-500" />
@@ -61,17 +64,25 @@ function SectionForm(props) {
 						placeholder="Lead Address"
 					/>
 				</Form.Item>
-				<Form.Item name="url">
+				<Form.Item
+					name="website"
+					rules={[
+						{
+							required: true,
+							message: "Website required!",
+						},
+					]}
+				>
 					<Input
 						prefix={<BiWorld className="!text-gray-500" />}
-						placeholder="Lead Url"
-						// type={"url"}
+						placeholder="Lead Website"
+						type={"url"}
 					/>
 				</Form.Item>
-				<Form.Item>
-					<Radio.Group defaultValue="business">
-						<Radio value="business"> Business </Radio>
-						<Radio value="individual"> Individual </Radio>
+				<Form.Item name="businessIndividualType">
+					<Radio.Group>
+						<Radio value={1}> Business</Radio>
+						<Radio value={2}> Individual</Radio>
 					</Radio.Group>
 				</Form.Item>
 				<Form.Item>

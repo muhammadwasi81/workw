@@ -10,6 +10,11 @@
     color: white;
 }
 
+.chartOfAccountBody .tgrid {
+    height: max-content;
+    background-color: white;
+}
+
 .chartOfAccountBody tbody tr:nth-child(even) {
-    background: rgb(235, 233, 233);
+    background: rgb(249, 249, 249);
 }

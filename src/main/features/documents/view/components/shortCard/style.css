@@ -20,17 +20,23 @@
 }
 
 .d_ShortCard_Child2 {
-    flex: 1 1;
+    /* flex: 1 1; */
     display: flex;
     justify-content: center;
     align-items: center;
     width: 70px;
+    /* height: 250px; */
     margin: 0 auto;
 }
 
-.fileName h5 {
+.fileName div {
+    margin-top: 5px;
     text-align: center;
     font-size: 13px;
+    overflow: hidden;
+    width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .d_ShortCard_Child2 img {

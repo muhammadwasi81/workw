@@ -23,17 +23,9 @@ const DocFullCard = ({ data }) => {
     const { documentDictionary } = documentDictionaryList[userLanguage];
 	const disptach = useDispatch()
 
-	let { name, documentType, creator, createDate, description, id, path, members, approvers, image } = data
+	let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId } = data
 	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
-	const handleType = (() => {
-		disptach(handleParentId({
-			id,
-			name
-		}))
-	})
-
-	
 
 	return (
 		<>
@@ -113,10 +105,9 @@ const DocFullCard = ({ data }) => {
 					<div className="doc_detail_media">
 						<div className="d_ShortCard_Child2">
 							<img
-								onClick={handleType}
 								alt=""
 								src={documentType === DUCOMENT_TYPE.image && path ?
-									path : getIconByExtensionType(documentType)}
+									path : getIconByExtensionType(documentType, extensionTypeId)}
 							/>
 						</div>
 						<div className="downloadBtn">

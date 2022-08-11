@@ -26,6 +26,7 @@ const CreateEntryItem = ({ index, accounts, handleChange, handleRemoveRow, value
           showSearch
           optionFilterProp="children"
           onChange={onChangeAccount}
+          value={value.accountId}
           style={{ width: "100%" }}
           filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
         >

@@ -74,10 +74,13 @@
   box-shadow: 0px 0px 6px 1px #dedede;
 }
 
-.totalAmountCont>.totalAmountItem {
+.totalAmountItem {
   display: flex;
   font-weight: bolder;
   font-size: 15px;
+}
+.totalAmountLabel{
+  margin-right: 10px;
 }
 
 .totalAmountCont>.totalAmountItem:nth-child(2) {

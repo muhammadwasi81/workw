@@ -7,13 +7,13 @@ const GeneralEntry = () => {
   return (
     <TabbableContainer>
       <Header
-             items={[
-                {
-                    name: "Create Voucher",
-                    to: ROUTES.FINANCE.VOUCHER.ROOT,
-                }
-            ]}
-            />
+        items={[
+          {
+            name: "Create Voucher",
+            to: ROUTES.FINANCE.VOUCHER.ROOT,
+          }
+        ]}
+      />
       <ContBody>
         <CreateEntryTable defaultRows={12} />
       </ContBody>

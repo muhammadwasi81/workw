@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DocsComposerEnums } from "../../constant";
-import { handleCloseDocComposer } from "../../store/slice";
+import { handleCloseDocComposer, uploadFileByDrop } from "../../store/slice";
 import UploadByDrop from "./dropUpload";
 import CreateFolder from "./folder";
 import MileBoard from "./mileBoard";
@@ -15,7 +15,8 @@ const DocumentComposers = () => {
     const composerState = useSelector(state => state.documentSlice.isOpenComposers);
     let { folder, mileboard, milegrid, milepad, mileshow, upload } = composerState;
     const handleCloseComposer = (key) => {
-        dispatch(handleCloseDocComposer(key))
+        dispatch(handleCloseDocComposer(key));
+        dispatch(uploadFileByDrop([]));
     }
     return (
         <>

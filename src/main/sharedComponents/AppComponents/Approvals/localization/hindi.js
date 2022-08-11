@@ -1,21 +1,22 @@
 const hindi = {
   Direction: "ltr",
+
   labels: {
-    noData: "No Data",
+    noData: "कोई डेटा नहीं",
   },
   status: {
-    InProcess: "InProcess",
-    Approved: "Approved",
-    Declined: "Declined",
-    Resend: "Resend",
-    Inactive: "Inactive",
-    NotRequired: "NotRequired",
-    Cancelled: "Cancelled",
-    ApprovalRequired: "ApprovalRequired",
-    Hold: "Hold",
+    InProcess: "इनप्रोसेस",
+    Approved: "स्वीकृत",
+    Declined: "अस्वीकार",
+    Resend: "फिर से भेजें",
+    Inactive: "निष्क्रिय",
+    NotRequired: "आवश्यक नहीं",
+    Cancelled: "रद्द",
+    ApprovalRequired: "अनुमोदन आवश्यक",
+    Hold: "रुको",
   },
   placeHolder: {
-    writeYourRemarksHere: "Write Yours Remarks Here...",
+    writeYourRemarksHere: "इनप्रोसेस0",
   },
 };
 export default hindi;

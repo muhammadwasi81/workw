@@ -2,8 +2,9 @@ import en from "./en";
 import urdu from "./urdu";
 import arabic from "./arabic";
 import hindi from "./hindi";
+import turkish from "./turkish";
 
-export const documentDictionaryList = { en, urdu, arabic, hindi };
+export const documentDictionaryList = { en, urdu, arabic, hindi, turkish };
 
 export const languageOptions = {
   en: "English",

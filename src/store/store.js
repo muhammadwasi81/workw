@@ -59,6 +59,7 @@ import groupSlice from "../main/features/groups/store/slice";
 import chartOfAccountsSlice from "../main/features/chartOfAccount/store/slice";
 import loanSlice from "./appReducer/loanSlice";
 import resignationSlice from "./appReducer/resignationSlice";
+import voucherSlice from "../main/features/voucher/store/slice";
 
 // import thunk from "redux-thunk";
 
@@ -116,6 +117,7 @@ const reducers = combineReducers({
 	chartOfAccountsSlice,
 	leadMangerSlice,
 	groupSlice,
+	voucherSlice
 });
 
 const persistConfig = {

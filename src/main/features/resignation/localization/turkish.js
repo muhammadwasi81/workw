@@ -1,0 +1,42 @@
+const turkish = {
+  resignationDictionary: {
+    filter: "Filtre",
+    selectApprovers: "Onaylayanları Seçin",
+    warning: "Uyarı",
+    create: "Oluştur",
+    upload: "Yükle",
+    tableView: "Tablo Görünümü",
+    listView: "Liste Görünümü",
+    selectMember: "Üyeleri Seçin",
+    members: "Üyeler",
+    category: "Kategori",
+    approvers: "Onaylayanları Seçin0",
+    warningTo: "Onaylayanları Seçin1",
+    myWarning: "Onaylayanları Seçin2",
+    warningToMe: "Onaylayanları Seçin3",
+    createResignation: "Onaylayanları Seçin4",
+    forApproval: "Onaylayanları Seçin5",
+    deductionPerMonth: "Onaylayanları Seçin6",
+    pleaseEnterloanTenureInMonths: "Onaylayanları Seçin7",
+    amount: "Onaylayanları Seçin8",
+    pleaseEnterAmount: "Onaylayanları Seçin9",
+    purpose: "Uyarı0",
+    selectPurpose: "Uyarı1",
+    deadline: "Uyarı2",
+    description: "Uyarı3",
+    enterDescription: "Uyarı4",
+    loanPurpose: {
+      vehicle: "Uyarı5",
+      personal: "Uyarı6",
+      wedding: "Uyarı7",
+      medical: "Uyarı8",
+      education: "Uyarı9",
+      house: "Oluştur0",
+      other: "Oluştur1",
+    },
+  },
+
+  /*** Define language write side ***/
+  Direction: "ltr",
+};
+export default turkish;

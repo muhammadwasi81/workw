@@ -4,6 +4,7 @@ import pdfIcon from '../../../../../../content/NewContent/Documents/file/PDF_DOC
 import menuIcon from '../../../../../../content/NewContent/Documents/3dots.svg';
 import favorateIcon from '../../../../../../content/NewContent/Documents/favorate.svg';
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
+import { Skeleton, Space } from "antd";
 
 const SclknShortCard = ({
     icon,
@@ -23,22 +24,12 @@ const SclknShortCard = ({
                 />
             </div>
             <div className="d_ShortCard_Child2">
-                <img
-                    alt=""
-                    src={pdfIcon}
-                />
+                <Skeleton.Image active={true} block={true} className="ant-skeleton-active" />
             </div>
             <div className="d_ShortCard_Child3">
                 <div></div>
                 <div>
-                    <Avatar
-                        src={
-                            "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-                        }
-                        name={""}
-                        size={20}
-                        round={true}
-                    />
+                    <Skeleton.Avatar active={true}className="ant-skeleton-active mb-2" size={"small"} />
                 </div>
             </div>
         </div>

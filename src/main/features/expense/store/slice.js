@@ -14,6 +14,9 @@ const expenseSlice = createSlice({
     toggleCreateComposer: (state, payload) => {
       state.isCreateComposer = !state.isCreateComposer;
     },
+    clearExpense: (state) => {
+      state.expense = {};
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -30,7 +33,11 @@ const expenseSlice = createSlice({
         state.expense = data;
         state.isSuccess = true;
       })
-
+      .addMatcher(isPending(...[getAllExpense]), (state) => {
+        state.expenses = [];
+        state.loader = true;
+        state.isSuccess = true;
+      })
       .addMatcher(isPending(...[getAllExpense, getExpenseById]), (state) => {
         state.loader = true;
         state.isSuccess = true;
@@ -42,5 +49,5 @@ const expenseSlice = createSlice({
       });
   },
 });
-export const { toggleCreateComposer } = expenseSlice.actions;
+export const { toggleCreateComposer, clearExpense } = expenseSlice.actions;
 export default expenseSlice.reducer;

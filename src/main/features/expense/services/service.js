@@ -1,5 +1,5 @@
 import { jsonToFormData } from "../../../../utils/base";
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import AxiosConfig from "../../../../utils/services/MasterConfig";
 
 const API_PREFIX = "api/Expense/";
 

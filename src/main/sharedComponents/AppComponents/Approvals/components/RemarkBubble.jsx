@@ -6,20 +6,28 @@ import { getStatusLabelAndColor } from "../enums";
 import { ApprovalDictionary } from "../localization";
 
 function RemarksBubble({ remarker, remark, type, status, date }) {
-  const { name, image } = remarker;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { status: statusLabels } = ApprovalDictionary[userLanguage];
   const { label, color } = getStatusLabelAndColor("", statusLabels)[status];
-
+  var ts = moment.utc(date);
+  ts.local().format("D-MMM-Y");
   return (
     <>
       <div className="comment">
         <div className="comment__header">
-          <Avatar src={image} size={40} round width={"30px"} height={"30px"} />
+          <Avatar
+            src={remarker?.image}
+            size={40}
+            round
+            width={"30px"}
+            height={"30px"}
+          />
         </div>
         <div className="comment__body">
-          <h6>{name}</h6>
-          <span> {moment(date).fromNow()}</span>
+          <div className="left">
+            <h6>{remarker?.name}</h6>
+            <span> {moment(ts).fromNow()}</span>
+          </div>
           <p>{remark}</p>
           <span style={{ color }}>{label}</span>
         </div>

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { message } from "antd";
 import { responseCode } from "../enums/responseCode";
 
 const initialState = {
@@ -30,6 +31,8 @@ export const responseMessage = ({
     case responseMessageType.ApiFailure:
       dispatch(setError({ message: "Something went wrong!" }));
       break;
+    default:
+      return null;
   }
 };
 
@@ -46,9 +49,9 @@ const notificationSlice = createSlice({
       state.message = "";
     },
     setError: (state, { payload }) => {
-      console.log("error");
       state.error = true;
       state.message = payload.message;
+      message.error(payload.message);
     },
     resetError: (state, { payload }) => {
       state.error = false;
@@ -57,6 +60,10 @@ const notificationSlice = createSlice({
   },
 });
 
-export const { setSuccess, resetSuccess, setError, resetError } =
-  notificationSlice.actions;
+export const {
+  setSuccess,
+  resetSuccess,
+  setError,
+  resetError,
+} = notificationSlice.actions;
 export default notificationSlice.reducer;

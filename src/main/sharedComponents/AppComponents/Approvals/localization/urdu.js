@@ -1,7 +1,7 @@
 const urdu = {
   Direction: "rtl",
   labels: {
-    noData: "کوئی مواد نہیں    ",
+    noData: "کوئی تبصرہ نہیں ملا",
   },
   status: {
     InProcess: "اس عمل میں",

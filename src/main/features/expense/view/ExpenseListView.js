@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllExpense } from "../store/actions";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { ExpenseDictionary } from "../localization";
+import { clearExpense } from "../store/slice";
 
 function ExpenseListView({ filterType }) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -26,6 +27,7 @@ function ExpenseListView({ filterType }) {
 
   const handleDrawerClose = () => {
     setVisible(false);
+    dispatch(clearExpense());
   };
   const handleExpense = (id) => {
     setId(id);

@@ -519,6 +519,7 @@ export const STRINGS = {
         "jpg",
         "gif",
         "eps",
+        "svg",
       ],
       VIDEO: ["mp4"],
       PDF: ["pdf"],

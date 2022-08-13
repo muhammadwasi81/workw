@@ -11,7 +11,13 @@ import './style.css';
 const DocumentDetailCards = (props) => {
   const [detailId, setDetailId] = useState(false);
   const breadCumbsState = useSelector(state => state.documentSlice.breadCumbPath);
-
+  const [previewPath, setPreviewPath] = useState(false);
+  const handlePreview = (item) => {
+    setPreviewPath(item)
+  }
+  const handleClose = (item) => {
+    setPreviewPath(null)
+  }
   const onClose = () => {
     setDetailId(null);
   };
@@ -19,9 +25,6 @@ const DocumentDetailCards = (props) => {
     <>
       {/* <DocSceleton /> */}
       <CardWrapper>
-        {/* <BreadCumbs
-          data={breadCumbsState}
-        /> */}
         {
           props.data.map((item, index) => (
             <DocFullCard data={item} />

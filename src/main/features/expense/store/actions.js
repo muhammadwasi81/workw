@@ -4,6 +4,7 @@ import {
   responseMessage,
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
+import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 
 import {
@@ -17,7 +18,7 @@ export const addExpense = createAsyncThunk(
   async (args, { dispatch, getState }) => {
     const res = await addExpenseService(args);
 
-    if (res.responseCode === responseCode.Success) {
+    if (res?.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
           message: "Expense Created Successfully",
@@ -41,14 +42,15 @@ export const addExpense = createAsyncThunk(
 );
 export const getAllExpense = createAsyncThunk(
   "expense/getAllExpense",
-  async (args, { dispatch, getState }) => {
+  async (args, { dispatch, rejectWithValue }) => {
     const res = await getAllExpenseService(args);
 
-    if (res.responseCode === responseCode.Success) {
+    if (res?.responseCode === responseCode.Success) {
       return res;
     } else {
       responseMessage({
         dispatch: dispatch,
+        data: "",
         type: responseMessageType.ApiFailure,
       });
     }
@@ -59,7 +61,7 @@ export const getExpenseById = createAsyncThunk(
   async (args, { dispatch, getState }) => {
     const res = await getExpenseByIDService(args);
 
-    if (res.responseCode === responseCode.Success) {
+    if (res?.responseCode === responseCode.Success) {
       return res;
     } else {
       responseMessage({

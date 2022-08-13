@@ -1,7 +1,7 @@
 const arabic = {
   Direction: "rtl",
   labels: {
-    noData: "لايوجد بيانات    ",
+    noData: "لم يتم العثور على أي علامة    ",
   },
   status: {
     InProcess: "يمسك",

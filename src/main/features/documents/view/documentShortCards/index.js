@@ -8,6 +8,7 @@ import './style.css';
 
 const DocumentShortCards = (props) => {
   const breadCumbsState = useSelector(state => state.documentSlice.breadCumbPath);
+  const loader = useSelector(state => state.documentSlice.loader);
   // const [isOpenPreview, setIsOpenPreview] = useState(false);
   const [previewPath, setPreviewPath] = useState(false);
   const handlePreview = (item) => {
@@ -23,6 +24,7 @@ const DocumentShortCards = (props) => {
         data={breadCumbsState}
       />
       <div className="d_AllShortCard" >
+        <DocSceleton type="short" isActive={loader}/>
         {
           props.data.map((item, index) => (
             <ShortCard

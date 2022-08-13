@@ -16,36 +16,13 @@ import { useSelector } from "react-redux";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 
-const initialState = {
-	id: "",
-	name: "",
-	reason: "",
-	description: "",
-	categoryId: "",
-	imageId: "",
-	members: [
-		{
-			memberId: "",
-			memberType: 1,
-		},
-	],
-	approvers: [
-		{
-			approverId: "",
-			approverType: 0,
-			isDefault: true,
-			status: 1,
-			email: "",
-		},
-	],
-};
-
 const CreateUpload = ({ isOpen, handleClose }) => {
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [attachment, setAttachment] = useState(null);
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
+	const [fileNames, setFileNames] = useState([]);
 	const [value, setValue] = useState([]);
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -93,6 +70,13 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 	const onPrivacyChange = value => {
 		setPrivacyId(value);
 	};
+	const defaultFiles = useSelector(state => state.documentSlice.defaultFiles);
+	console.log(defaultFiles, "defaultFiles")
+	useEffect(() => {
+		let defaultFileName = defaultFiles.map((item) => item.name);
+		setFileNames(defaultFileName)
+		console.log(defaultFileName, "MOUNT")
+	}, [defaultFiles])
 
 	const onFinish = (values) => {
 		console.log(values)
@@ -118,22 +102,48 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.attachment,
 			privacyId: privacyId,
-			attachments: [{
-				documentName: values.name,
-				attachment: {
-					id: STRINGS.DEFAULTS.guid,
-					file: attachment[0].originFileObj,
-				}
-			}
-			]
+			attachments: defaultFiles.length === 0 ?
+				[
+					{
+						documentName: values.name,
+						attachment: {
+							id: STRINGS.DEFAULTS.guid,
+							file: attachment[0].originFileObj,
+						}
+					}
+				] :
+				defaultFiles.length === 1 ?
+					[
+						{
+							documentName: values.name,
+							attachment: {
+								id: STRINGS.DEFAULTS.guid,
+								file: defaultFiles[0]
+							}
+						}
+					] :
+					defaultFiles.length > 1 ?
+						[...defaultFiles.map((item, index) => ({
+							documentName: fileNames[index],
+							attachment: {
+								id: STRINGS.DEFAULTS.guid,
+								file: item,
+							}
+						}))]
+						: []
 		}
 		dispatch(addDocument({ payload, form }))
+	};
+	const handleNameChange = (value, index) => {
+		let tempFileNames = [...fileNames];
+		tempFileNames[index] = value;
+		setFileNames(tempFileNames);
 	};
 
 	const onFinishFailed = errorInfo => {
 		console.log("Failed:", errorInfo);
 	};
-
+	console.log(fileNames)
 	return (
 		<>
 			<SideDrawer title={"Upload"}
@@ -257,14 +267,41 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 						/>
 					</Form.Item>
 
-					<Form.Item area="true">
+					{defaultFiles.length === 0 && <Form.Item area="true">
 						<SingleUpload
 							handleImageUpload={handleImageUpload}
 							img="Add Image"
 							position="flex-start"
 							uploadText={"Upload"}
 						/>
-					</Form.Item>
+					</Form.Item>}
+					{
+						defaultFiles.length > 1 &&
+						<div className="mt-8 w-full">
+							{
+								defaultFiles.map((item, index) =>
+									<div className="flex mt-4 w-full" >
+										<div className="flex-1 flex items-center" >
+											<TextInput placeholder={"Enter Name"}
+												value={fileNames[index]}
+												onChange={(value) => handleNameChange(value, index)}
+											/>
+										</div>
+										<div className="w-[100px] ml-4 cursor-pointer" >
+											<img className="h-[50px] rounded-md m-auto" src={item.src} />
+										</div>
+
+									</div>
+								)
+							}
+						</div>
+					}
+					{
+						defaultFiles.length === 1 &&
+						<div className="w-[100px] ml-4 cursor-pointer" >
+							<img className="h-[100px] rounded-md mb-6" src={defaultFiles[0].src} />
+						</div>
+					}
 
 					{privacyId === PostPrivacyType.PRIVATE &&
 						<Form.Item

@@ -2,15 +2,18 @@ import React from "react";
 import SclknShortCard from "./shortCard/index.js";
 import './style.css';
 
-const DocSceleton = () => {
+const DocSceleton = ({ type = "short", isActive = false }) => {
+  if (!isActive)
+    return <></>
+
   return (
-    <div className="d_AllShortCard" >
+    <>
       {
-        (Array(100).fill(1)).map((item) => (
+        type === "short" ? (Array(100).fill(1)).map((item) => (
           <SclknShortCard />
-        ))
+        )) : ""
       }
-    </div>
+    </>
   );
 };
 

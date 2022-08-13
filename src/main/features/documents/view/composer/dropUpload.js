@@ -1,6 +1,7 @@
 import { Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import NewCustomSelect from '../../../../sharedComponents/CustomSelect/newCustomSelect';
+import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 
 const UploadByDrop = ({ isOpen, handleClose, fileList }) => {
     const [visible, setVisible] = useState(false);
@@ -190,11 +191,19 @@ const UploadByDrop = ({ isOpen, handleClose, fileList }) => {
                                 item.type === STRINGS.TYPES.ATTACHMENTS.EXCEL ?  <img src={ic_excel} width={100} height={100}  alt={""}/> :
                                     item.type === STRINGS.TYPES.ATTACHMENTS.PPT ? <img src={ic_ppt} width={100} height={100}  alt={""}/> :
                                             item.type === STRINGS.TYPES.ATTACHMENTS.VIDEO ? <img src={videoImg} width={100} height={100}  alt={""}/>: ""} */}
-
+                           
                         </div>
                     )
                     )}</div>
-
+ <SingleUpload
+                                handleImageUpload={() => { }}
+                                img="Add Image"
+                                position="flex-start"
+                                uploadText={"Upload"}
+                                defaultFile={fileList}
+                                url={fileList[0]?.src}
+                                // url={"blob:http://localhost:3000/22c8f19c-99ba-40eb-a14c-f42f8c829eff"}
+                            />
             </Modal>
         </>
     );

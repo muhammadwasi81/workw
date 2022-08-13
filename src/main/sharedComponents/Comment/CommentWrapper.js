@@ -17,7 +17,7 @@ function CommentWrapper({
 }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
-    setComments([...initailComments]);
+    if (initailComments.length > 0) setComments([...initailComments]);
   }, [initailComments]);
 
   useEffect(() => {

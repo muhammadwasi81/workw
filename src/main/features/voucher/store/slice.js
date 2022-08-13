@@ -17,9 +17,9 @@ export const VoucherSlice = createSlice({
    extraReducers: (builder) => {
       builder
          .addCase(addVoucher.fulfilled, (state, { payload }) => {
+            console.log("Test")
             state.loader = false;
             state.success = true;
-            state.listData = [payload, ...state.listData];
          })
          .addMatcher(
 				isPending(

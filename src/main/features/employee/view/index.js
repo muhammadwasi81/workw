@@ -236,13 +236,14 @@ function Employee() {
   };
 
   return (
-    <Skeleton loading={sharedLoader || gradeLoader || accessRoleLoader} active>
-      <EmployeeFormContainer
+    // <Skeleton loading={sharedLoader || gradeLoader || accessRoleLoader} active>
+      
+    // </Skeleton>
+    <EmployeeFormContainer
         form={form}
         handleSubmit={handleSubmit}
         handleImageUpload={handleImageUpload}
       />
-    </Skeleton>
   );
 }
 

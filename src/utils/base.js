@@ -2259,3 +2259,14 @@ export function renderTitleWithMentions(title, mentions) {
     return title;
   }
 }
+
+
+// This function will convert single string into array
+
+export function modifySelectData(data){
+  if (typeof data === 'string') {
+      return [data]
+  }else {
+    return data
+  }
+}

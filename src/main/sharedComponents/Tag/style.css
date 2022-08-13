@@ -1,20 +1,6 @@
 .statusTag {
   color: white !important;
-  border-radius: 5px !important;
-}
-
-.Cancel {
-  background: red !important;
-}
-
-.approved {
-  background: green !important;
-}
-
-.inProcess {
-  background: var(--currentThemeColor) !important;
-}
-
-.statusTag {
-  padding: 4px 10px !important;
+  padding: 5px 13px;
+  border: 0;
+  border-radius: 5px;
 }

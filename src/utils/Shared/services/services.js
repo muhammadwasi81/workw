@@ -79,7 +79,7 @@ export const getAllMaritalStatusService = () => {
     });
 };
 export const getAllEmployeeTypesService = () => {
-  return MasterConfig.get(`${API_PREFIX}GetAllEmployeeTypes`)
+  return MasterConfig.get(`${API_PREFIX}GetAllUserTypes`)
     .then((res) => {
       return res.data;
     })

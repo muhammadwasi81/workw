@@ -12,8 +12,6 @@ export const getAllRewardService = data => {
 };
 
 export const addRewardService = async(data) => {
-	console.log(data, "FROM SERVICE");
-
 	const formData = jsonToFormData(data);
 	return MasterConfig.post(`api/Reward/AddReward`, formData)
 		.then(res => {
@@ -25,8 +23,17 @@ export const addRewardService = async(data) => {
 };
 
 export const GetRewardByIdService = id => {
-	console.log("ID FROM SERVICE", id)
 	return MasterConfig.get(`api/Reward/GetRewardById?id=${id}`)
+		.then(res => {
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
+};
+
+export const cancelRewardService = id => {
+	return MasterConfig.delete(`api/Reward/RewardCancel?id=${id}`)
 		.then(res => {
 			return res;
 		})

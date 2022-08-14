@@ -106,7 +106,7 @@ const documentSlice = createSlice({
         state.detailListData = payload;
       })
       .addCase(GetDocumentById.fulfilled, (state, action) => {
-        state.documentDetail = action.payload.data;
+        state.documentDetail = action.payload;
       })
       .addMatcher(
         isPending(

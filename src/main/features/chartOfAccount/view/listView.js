@@ -27,6 +27,11 @@ function COA_List() {
       "type": "string"
     },
     {
+      "title": "Clossing Balance",
+      "field": "currentBalance",
+      "type": "string"
+    },
+    {
       "title": "Action",
       "field": "name",
       "expand": false,

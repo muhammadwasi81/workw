@@ -148,9 +148,9 @@ export const ROUTES = {
 		HIGH_SCORE: `${DOMAIN_PREFIX}/eLearningCourses/highScore`,
 	},
 	USER: {
-		DEFAULT: `${DOMAIN_PREFIX}/user/`,
+		DEFAULT: `${DOMAIN_PREFIX}/timeline/`,
 		TIMELINE: {
-			DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
+			DEFAULT: `${DOMAIN_PREFIX}/timeline/:id`,
 			INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
 		},
 		SETTINGS: `${DOMAIN_PREFIX}/user/settings`,

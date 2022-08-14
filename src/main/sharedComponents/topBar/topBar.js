@@ -18,7 +18,6 @@ const TopBar = ({ filter, onSearch, segment, buttons, component }) => {
 	const [activeButtons, setActiveButtons] = useState(
 		buttons.map((item, index) => (index === 0 ? true : false))
 	);
-	// asdas
 	let classes = "topBar ";
 	classes += Direction === "rtl" ? "rtl" : "";
 	return (
@@ -29,9 +28,8 @@ const TopBar = ({ filter, onSearch, segment, buttons, component }) => {
 						icon={<SearchOutlined />}
 						placeholder={sharedLabels.Search}
 						size="larger"
-						onClick={e => {
-							const value = e.target.value;
-							onSearch(value);
+						onChange={e => {
+							onSearch(e.target.value);
 						}}
 					/>
 				</div>

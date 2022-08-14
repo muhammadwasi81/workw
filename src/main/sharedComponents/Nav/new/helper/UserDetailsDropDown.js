@@ -10,148 +10,152 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { useDispatch } from "react-redux";
 import {
-  defualtThemeColor,
-  ThemeColorEnum,
+	defualtThemeColor,
+	ThemeColorEnum,
 } from "../../../../../utils/Shared/enums/enums";
+import { ROUTES } from "../../../../../utils/routes";
 function UserDetailsDropDown({ id, isToggle }) {
-  const getCurrentTheme = () => {
-    return localStorage.getItem("theme");
-  };
-  const [currentTheme, setCurrentTheme] = useState(
-    getCurrentTheme() || defualtThemeColor
-  );
-  const { userLanguage, userLanguageChange } = useContext(
-    LanguageChangeContext
-  );
-  const {
-    sharedLabels: {
-      Profile,
-      Settings,
-      Logout,
-      SelectLanguage,
-      theme,
-      English,
-      Hindi,
-      Turkish,
-      Urdu,
-      Arabic,
-    },
-  } = dictionaryList[userLanguage];
+	const getCurrentTheme = () => {
+		return localStorage.getItem("theme");
+	};
+	const [currentTheme, setCurrentTheme] = useState(
+		getCurrentTheme() || defualtThemeColor
+	);
+	const { userLanguage, userLanguageChange } = useContext(
+		LanguageChangeContext
+	);
+	const {
+		sharedLabels: {
+			Profile,
+			Settings,
+			Logout,
+			SelectLanguage,
+			theme,
+			English,
+			Hindi,
+			Turkish,
+			Urdu,
+			Arabic,
+		},
+	} = dictionaryList[userLanguage];
 
-  const dispatch = useDispatch();
-  const handleLanguageChange = (e) => {
-    userLanguageChange(e);
-    dispatch(userSettingToggleFun(false));
-  };
-  const handleTheme = (currentTheme) => {
-    setCurrentTheme(currentTheme);
-    document.documentElement.style.setProperty(
-      "--currentThemeColor",
-      currentTheme
-    );
-    localStorage.setItem("theme", currentTheme);
-  };
+	const dispatch = useDispatch();
+	const handleLanguageChange = e => {
+		userLanguageChange(e);
+		dispatch(userSettingToggleFun(false));
+	};
+	const handleTheme = currentTheme => {
+		setCurrentTheme(currentTheme);
+		document.documentElement.style.setProperty(
+			"--currentThemeColor",
+			currentTheme
+		);
+		localStorage.setItem("theme", currentTheme);
+	};
 
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--currentThemeColor",
-      currentTheme
-    );
-  }, []);
+	useEffect(() => {
+		document.documentElement.style.setProperty(
+			"--currentThemeColor",
+			currentTheme
+		);
+	}, []);
 
-  let classes = "dropDown ";
-  classes += !isToggle ? "close" : "open";
+	let classes = "dropDown ";
+	classes += !isToggle ? "close" : "open";
 
-  return (
-    <div className={classes}>
-      <ul className="list">
-        <li className="list__item">
-          <NavLink to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${id}`}>
-            <img src={userIcon} alt="userIcon" />
-            <p>{Profile}</p>
-          </NavLink>
-        </li>
-        <li className="list__item">
-          <NavLink to={`${STRINGS.ROUTES.USER.SETTINGS}/${id}`}>
-            <img src={userSettings} alt="userSettings" />
-            <p>{Settings}</p>
-          </NavLink>
-        </li>
-        <li className="list__item" onClick={logout}>
-          <img src={userLogout} alt="userSettings" />
-          <p>{Logout}</p>
-        </li>
-      </ul>
+	return (
+		<div className={classes}>
+			<ul className="list">
+				<li className="list__item">
+					<NavLink to={`${ROUTES.USER.DEFAULT}${id}`}>
+						<img src={userIcon} alt="userIcon" />
+						<p>{Profile}</p>
+					</NavLink>
+				</li>
+				<li className="list__item">
+					<NavLink to={`${STRINGS.ROUTES.USER.SETTINGS}/${id}`}>
+						<img src={userSettings} alt="userSettings" />
+						<p>{Settings}</p>
+					</NavLink>
+				</li>
+				<li className="list__item" onClick={logout}>
+					<img src={userLogout} alt="userSettings" />
+					<p>{Logout}</p>
+				</li>
+			</ul>
 
-      <span>{SelectLanguage}</span>
-      <ul className="list lang">
-        <li
-          className="list__item"
-          onClick={() => handleLanguageChange("en")}
-          style={{
-            backgroundColor: userLanguage === "en" && "#e5e5e5",
-          }}
-        >
-          <p>{English}</p>
-          <FontSizeOutlined />
-        </li>
+			<span>{SelectLanguage}</span>
+			<ul className="list lang">
+				<li
+					className="list__item"
+					onClick={() => handleLanguageChange("en")}
+					style={{
+						backgroundColor: userLanguage === "en" && "#e5e5e5",
+					}}
+				>
+					<p>{English}</p>
+					<FontSizeOutlined />
+				</li>
 
-        <li
-          className="list__item"
-          onClick={() => handleLanguageChange("urdu")}
-          style={{
-            backgroundColor: userLanguage === "urdu" && "#e5e5e5",
-          }}
-        >
-          <p>{Urdu}</p>
-          <FontSizeOutlined />
-        </li>
-        <li
-          className="list__item"
-          onClick={() => handleLanguageChange("arabic")}
-          style={{
-            backgroundColor: userLanguage === "arabic" && "#e5e5e5",
-          }}
-        >
-          <p>{Arabic}</p>
-          <FontSizeOutlined />
-        </li>
-        <li
-          className="list__item"
-          onClick={() => handleLanguageChange("hindi")}
-          style={{
-            backgroundColor: userLanguage === "hindi" && "#e5e5e5",
-          }}
-        >
-          <p>{Hindi}</p>
-          <FontSizeOutlined />
-        </li>
-        <li
-          className="list__item"
-          onClick={() => handleLanguageChange("turkish")}
-          style={{
-            backgroundColor: userLanguage === "turkish" && "#e5e5e5",
-          }}
-        >
-          <p>{Turkish}</p>
-          <FontSizeOutlined />
-        </li>
-      </ul>
-      <span>{theme}</span>
-      <ul className="theme">
-        {ThemeColorEnum.map((color, index) => (
-          <li
-            key={index}
-            style={{ background: color }}
-            className={currentTheme === color ? "color active" : "color"}
-            onClick={() => {
-              handleTheme(color);
-            }}
-          ></li>
-        ))}
-      </ul>
-    </div>
-  );
+				<li
+					className="list__item"
+					onClick={() => handleLanguageChange("urdu")}
+					style={{
+						backgroundColor: userLanguage === "urdu" && "#e5e5e5",
+					}}
+				>
+					<p>{Urdu}</p>
+					<FontSizeOutlined />
+				</li>
+				<li
+					className="list__item"
+					onClick={() => handleLanguageChange("arabic")}
+					style={{
+						backgroundColor: userLanguage === "arabic" && "#e5e5e5",
+					}}
+				>
+					<p>{Arabic}</p>
+					<FontSizeOutlined />
+				</li>
+				<li
+					className="list__item"
+					onClick={() => handleLanguageChange("hindi")}
+					style={{
+						backgroundColor: userLanguage === "hindi" && "#e5e5e5",
+					}}
+				>
+					<p>{Hindi}</p>
+					<FontSizeOutlined />
+				</li>
+				<li
+					className="list__item"
+					onClick={() => handleLanguageChange("turkish")}
+					style={{
+						backgroundColor:
+							userLanguage === "turkish" && "#e5e5e5",
+					}}
+				>
+					<p>{Turkish}</p>
+					<FontSizeOutlined />
+				</li>
+			</ul>
+			<span>{theme}</span>
+			<ul className="theme">
+				{ThemeColorEnum.map((color, index) => (
+					<li
+						key={index}
+						style={{ background: color }}
+						className={
+							currentTheme === color ? "color active" : "color"
+						}
+						onClick={() => {
+							handleTheme(color);
+						}}
+					></li>
+				))}
+			</ul>
+		</div>
+	);
 }
 
 export default UserDetailsDropDown;

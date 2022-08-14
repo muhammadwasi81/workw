@@ -207,6 +207,13 @@ iframe {
   border-radius: 5px !important;
 }
 
+.ThemeBtnDelete {
+  background: red !important;
+  color: white !important;
+  border-radius: 5px !important;
+  border-color: red !important;
+}
+
 .lowPriorityBtn {
   background: #01ae3a !important;
   color: white !important;

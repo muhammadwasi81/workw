@@ -1,11 +1,8 @@
 import React from "react";
-// import "antd/dist/antd.css";
 import "antd/dist/antd.min.css";
 import "./style.css";
 import { Upload, Modal, message } from "antd";
 import PropTypes from "prop-types";
-// import * as S from "../../features/employee/Styles/employee.style";
-// import { default as imageupload } from "../../features/employee/util/imageupload.svg";
 import { PlusOutlined } from "@ant-design/icons";
 import produce from "immer";
 

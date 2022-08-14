@@ -12,6 +12,7 @@ import {
 	getAllLeadManagerService,
 	getLeadManagerByIdService,
 	getLeadManagerSectionByIdService,
+	getLeadManagerSectionDetailByIdService,
 	updateLeadManagerService,
 } from "../services/services";
 
@@ -152,6 +153,23 @@ export const getLeadManagerSectionById = createAsyncThunk(
 	"getLeadManagerSectionById",
 	async (id, { dispatch, getState, rejectWithValue }) => {
 		const res = await getLeadManagerSectionByIdService(id);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			responseMessage({
+				dispatch: dispatch,
+				data: res,
+				type: responseMessageType.ApiFailure,
+			});
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const getLeadManagerDetailById = createAsyncThunk(
+	"getLeadManagerDetailById",
+	async (id, { dispatch, getState, rejectWithValue }) => {
+		const res = await getLeadManagerSectionDetailByIdService(id);
 		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {

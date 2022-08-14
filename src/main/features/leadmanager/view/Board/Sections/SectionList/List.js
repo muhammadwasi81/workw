@@ -1,9 +1,11 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { getLeadManagerDetailById } from "../../../../store/actions";
 
 function List(props) {
-	const { sectionList, color, index } = props;
-
+	const { sectionList, color, index, handleSectionDetailModal } = props;
+	const dispatch = useDispatch();
 	return (
 		<Draggable draggableId={sectionList.id} index={index}>
 			{(provided, _snapshot) => (
@@ -17,6 +19,10 @@ function List(props) {
 						style={{
 							border: `${color} solid`,
 							boxShadow: ` 0 0 20px -8px ${color}`,
+						}}
+						onClick={() => {
+							handleSectionDetailModal();
+							dispatch(getLeadManagerDetailById(sectionList.id));
 						}}
 					>
 						{sectionList.name}

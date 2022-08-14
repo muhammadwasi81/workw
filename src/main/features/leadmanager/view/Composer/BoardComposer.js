@@ -16,9 +16,11 @@ function BoardComposer({
 	dictionary,
 	direction,
 }) {
+	// console.log("composerData", composerData);
 	const { placeHolder, labels } = dictionary;
 	const [form] = Form.useForm();
-
+	// const [isEdited, setIsEdited] = useState(isEdit);
+	// console.log("ieEdited", isEdited);
 	const [membersData, setMembersData] = useState([]);
 	const dispatch = useDispatch();
 
@@ -56,6 +58,7 @@ function BoardComposer({
 	useEffect(() => {
 		form.setFieldsValue(composerData);
 		if (isEdit) {
+			// console.log("dsfadsf");
 			form.setFieldsValue({
 				members: composerData.members.map(members => {
 					return members.memberId;

@@ -77,3 +77,15 @@ export const getLeadManagerSectionByIdService = id => {
 			return error;
 		});
 };
+
+export const getLeadManagerSectionDetailByIdService = id => {
+	return MasterConfig.get(
+		`${API_LEAD_MANAGER_PREFIX}GetLeadManagerDetailById?id=${id}`
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};

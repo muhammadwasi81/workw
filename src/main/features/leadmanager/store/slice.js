@@ -5,6 +5,7 @@ import {
 	getAllLeadManager,
 	getAllLeadManagerPaging,
 	getLeadManagerById,
+	getLeadManagerDetailById,
 	getLeadManagerSectionById,
 	updateLeadManager,
 } from "./actions";
@@ -24,6 +25,8 @@ const initialState = {
 	loading: false,
 	leadManagersData: [],
 	leadManagerDetail: null,
+	leadManagerSectionDetailData: null,
+	isSectionDetailLoading: false,
 	isComposerOpen: false,
 	isEditComposer: false,
 	composerData: initialComposerData,
@@ -51,6 +54,7 @@ const leadMangerSlice = createSlice({
 				state.success = true;
 			})
 			.addCase(getLeadManagerById.fulfilled, (state, { payload }) => {
+				// console.log("payload.data", payload.data);
 				state.isComposerDataLoading = false;
 				state.leadManagerDetail = payload.data;
 			})
@@ -90,9 +94,21 @@ const leadMangerSlice = createSlice({
 					payload.data
 				);
 			})
+			.addCase(
+				getLeadManagerDetailById.fulfilled,
+				(state, { payload }) => {
+					state.isSectionDetailLoading = false;
+					state.success = true;
+					state.leadManagerSectionDetailData = payload.data;
+				}
+			)
 			.addMatcher(isPending(getLeadManagerById), state => {
 				state.isComposerDataLoading = true;
 				state.leadManagerDetail = null;
+			})
+			.addMatcher(isPending(getLeadManagerDetailById), state => {
+				state.isSectionDetailLoading = true;
+				state.leadManagerSectionDetailData = null;
 			})
 			.addMatcher(
 				isPending(

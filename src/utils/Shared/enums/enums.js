@@ -38,6 +38,57 @@ export const userTitle = Object.freeze([
     name: "Mrs",
   },
 ]);
+
+export const genderList = Object.freeze([
+  {
+    id: 1,
+    name: "Male",
+  },
+  {
+    id: 2,
+    name: "Female",
+  },
+  {
+    id: 3,
+    name: "Non Binary",
+  },
+  {
+    id: 4,
+    name: "PreferNotToSay",
+  },
+]);
+
+export const maritalStatusList = Object.freeze([
+  {
+    id: 1,
+    name: "Single",
+  },
+  {
+    id: 2,
+    name: "Engaged",
+  },
+  {
+    id: 3,
+    name: "Married",
+  },
+  {
+    id: 4,
+    name: "Divorced",
+  },
+  {
+    id: 4,
+    name: "Widow",
+  },
+  {
+    id: 4,
+    name: "Widower",
+  },
+  {
+    id: 4,
+    name: "PreferNotToStay",
+  },
+]);
+
 export const relations = Object.freeze([
   {
     id: 1,

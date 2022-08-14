@@ -19,6 +19,8 @@ function RemarksComposer({
   createBy,
   approverId,
   status,
+
+  value,
 }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { placeHolder } = ApprovalDictionary[userLanguage];
@@ -33,14 +35,14 @@ function RemarksComposer({
   const index = useId();
   const [isEmoji, setisEmoji] = useState(false);
 
-  const onSelectEmoji = (emoji) => {
-    setText((prevValue) => prevValue + emoji.native);
-  };
+  // const onSelectEmoji = (emoji) => {
+  //   setText((prevValue) => prevValue + emoji.native);
+  // };
 
-  useEffect(() => {
-    onRemarksText(text);
-  }, [text, onRemarksText]);
-
+  // useEffect(() => {
+  //   console.log("Enter Press");
+  //   onRemarksText(text);
+  // }, [text, onRemarksText]);
   const renderStatus = () => {
     if (!isRemarker && isApprover)
       return <RemarkStatus onCurrentStatus={onCurrentStatus} />;
@@ -54,13 +56,16 @@ function RemarksComposer({
           <Avatar name={name} src={userImage} size={30} round />
         </div>
         <div className="right">
-          {isEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
+          {isEmoji && <EmojiPicker onSelect={() => {}} />}
           <div className="input">
             <Input
               placeholder={placeHolder.writeYourRemarksHere}
-              value={text}
+              value={value}
               onChange={(e) => {
-                setText(e.target.value);
+                onRemarksText(e.target.value, e);
+              }}
+              onKeyUp={(e) => {
+                onRemarksText(e.target.value, e);
               }}
             />
             <label

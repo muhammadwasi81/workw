@@ -5,10 +5,11 @@ import ShareIcon from "../../../../../../../content/NewContent/NewsFeed/svg/shar
 import Reactions from "../../../../../../sharedComponents/reactionBox/index";
 import { useDispatch } from "react-redux";
 import { feedSlice } from "../../../../store/slice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CommentWrapper from "../../../../../../sharedComponents/Comment/CommentWrapper";
 import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
 import { FeedDictionary } from "../../../../localization";
+import { ROUTES } from "../../../../../../../utils/routes";
 
 const PostFooter = ({
   attachments,
@@ -40,9 +41,9 @@ const PostFooter = ({
           <a href={reactionCount}>{reactionCount}</a>
         </div>
         <div className="commentCount">
-          <a href={commentCount}>
-            {commentCount} {Comments}
-          </a>
+          <Link className="" to={ROUTES.NEWSFEED.LINK + id}>
+            {Comments}
+          </Link>
         </div>
       </div>
       <div className="post-events">
@@ -83,14 +84,13 @@ const PostFooter = ({
         commentRequestSuccess={(comment) =>
           dispatch(feedSlice.actions.onSaveComment({ comment }))
         }
-        initialMentions={[]}
       />
       {viewAllComments && comments.length > 3 && (
         <p
           className="viewComments"
           onClick={() => {
             if (attachments.length > 0) isOpen(true);
-            else navigate(`/newsFeedDetails/${id}`);
+            else navigate(ROUTES.NEWSFEED.LINK + id);
           }}
         >
           View All Comments

@@ -50,7 +50,7 @@ export const getStatusLabelAndColor = (module, statusLabels) => {
     },
     [ApprovalStatus.Resend]: {
       label: statusLabels.Resend,
-      color: "#1ECB40",
+      color: "#008eff",
     },
     [ApprovalStatus.Inactive]: {
       label: statusLabels.Inactive,

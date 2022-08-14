@@ -4,31 +4,65 @@ import TextInput from "../../../../sharedComponents/Input/TextInput";
 import Select from "../../../../sharedComponents/Select/Select";
 import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
-import { uploadImage } from "../../../../../utils/Shared/store/actions";
+import { getAllEmployees, uploadImage } from "../../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 import { addDocument } from "../../store/actions";
 import { DOCUMENT_ENUM } from "../../constant";
-import { STRINGS } from "../../../../../utils/base";
+import { modifySelectData, STRINGS } from "../../../../../utils/base";
 import { useSelector } from "react-redux";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 
 const CreateUpload = ({ isOpen, handleClose }) => {
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [attachment, setAttachment] = useState(null);
-	const [fileNames, setFileNames] = useState([]);
-	const ParentId = useSelector(state => state.documentSlice.parentId);
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
-	const defaultFiles = useSelector(state => state.documentSlice.defaultFiles);
-	console.log(defaultFiles, "defaultFiles")
+	const [fileNames, setFileNames] = useState([]);
+	const [value, setValue] = useState([]);
+	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+
+	const ParentId = useSelector(state => state.documentSlice.parentId);
+	const employees = useSelector(state => state.sharedSlice.employees);
+
+	const selectedData = (data, obj) => {
+		setValue(data);
+		handleMember(obj);
+		// setMembers(obj);
+		// onChange(data, obj);
+	};
 	useEffect(() => {
-		let defaultFileName = defaultFiles.map((item) => item.name);
-		setFileNames(defaultFileName)
-		console.log(defaultFileName, "MOUNT")
-	}, [defaultFiles])
+		fetchEmployees("", 0);
+	}, []);
+
+	const handleMember = val => {
+		setNewState({
+			...newState,
+			members: [...val],
+		});
+	};
+
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
+
+	const [newState, setNewState] = useState({
+		members: [],
+		memberType: null,
+	});
+
+	useEffect(() => {
+		if (employees.length > 0 && !isFirstTimeDataLoaded) {
+			setIsFirstTimeDataLoaded(true);
+			setFirstTimeEmpData(employees);
+		}
+	}, [employees]);
+
 	const handleImageUpload = data => {
 		setAttachment(data);
 	};
@@ -36,10 +70,18 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 	const onPrivacyChange = value => {
 		setPrivacyId(value);
 	};
+	const defaultFiles = useSelector(state => state.documentSlice.defaultFiles);
+	console.log(defaultFiles, "defaultFiles")
+	useEffect(() => {
+		let defaultFileName = defaultFiles.map((item) => item.name);
+		setFileNames(defaultFileName)
+		console.log(defaultFileName, "MOUNT")
+	}, [defaultFiles])
 
 	const onFinish = (values) => {
-		let readers = values.readers ? values.readers : [];
-		let collaborators = values.collaborators ? values.collaborators : [];
+		console.log(values)
+		let readers = values.readers ? modifySelectData(values.readers) : [];
+		let collaborators = values.collaborators ? modifySelectData(values.collaborators) : [];
 		let members = [
 			...readers.map((item) => ({
 				memberId: item,
@@ -55,7 +97,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 		let payload = {
 			name: values.name,
 			description: values.description,
-			approvers: values.approvers ? values.approvers.map((item) => ({ approverId: item })) : [],
+			approvers: values.approvers ? modifySelectData(values.approvers).map((item) => ({ approverId: item })) : [],
 			members: members,
 			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.attachment,
@@ -153,35 +195,75 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 						name="approvers"
 						label={"Approvers"}
 						showSearch={true}
+						style={{ marginBottom: "0px" }}
 					// direction={Direction}
 					>
-						<NewCustomSelect
-							name="approvers"
-							label={"Approvers"}
-							showSearch={true}
-							// direction={Direction}
-							mode="multiple"
-							endPoint="api/Reference/GetAllUserReference"
-							requestType="get"
+						<CustomSelect
+							style={{ marginBottom: "0px" }}
+							data={firstTimeEmpData}
+							selectedData={selectedData}
+							canFetchNow={isFirstTimeDataLoaded}
+							fetchData={fetchEmployees}
 							placeholder={"Approvers"}
+							mode={"multiple"}
+							isObject={true}
+							loadDefaultData={false}
+							optionComponent={opt => {
+								return (
+									<>
+										<Avatar
+											name={opt.name}
+											src={opt.image}
+											round={true}
+											width={"30px"}
+											height={"30px"}
+										/>
+										{opt.name}
+									</>
+								);
+							}}
+							dataVal={value}
+							name="approvers"
+							showSearch={true}
+						// direction={Direction}
+
 						/>
 					</Form.Item>
 
 					<Form.Item
-						name="collaborator"
+						name="collaborators"
 						label={"Collaborators"}
 						showSearch={true}
+						style={{marginBottom: "0px"}}
 					// direction={Direction}
 					>
-						<NewCustomSelect
-							name="collaborator"
-							label={"Collaborators"}
+						<CustomSelect
+							style={{ marginBottom: "0px" }}
+							data={firstTimeEmpData}
+							selectedData={selectedData}
+							canFetchNow={isFirstTimeDataLoaded}
+							fetchData={fetchEmployees}
+							placeholder={"collaborators"}
+							mode={"multiple"}
+							isObject={true}
+							loadDefaultData={false}
+							optionComponent={opt => {
+								return (
+									<>
+										<Avatar
+											name={opt.name}
+											src={opt.image}
+											round={true}
+											width={"30px"}
+											height={"30px"}
+										/>
+										{opt.name}
+									</>
+								);
+							}}
+							dataVal={value}
+							name="collaborators"
 							showSearch={true}
-							// direction={Direction}
-							mode="multiple"
-							endPoint="api/Reference/GetAllUserReference"
-							requestType="get"
-							placeholder={"Select Collaborators"}
 						/>
 					</Form.Item>
 
@@ -228,15 +310,33 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 							showSearch={true}
 						// direction={Direction}
 						>
-							<NewCustomSelect
+							<CustomSelect
+								style={{ marginBottom: "0px" }}
+								data={firstTimeEmpData}
+								selectedData={selectedData}
+								canFetchNow={isFirstTimeDataLoaded}
+								fetchData={fetchEmployees}
+								placeholder={"Readers"}
+								mode={"multiple"}
+								isObject={true}
+								loadDefaultData={false}
+								optionComponent={opt => {
+									return (
+										<>
+											<Avatar
+												name={opt.name}
+												src={opt.image}
+												round={true}
+												width={"30px"}
+												height={"30px"}
+											/>
+											{opt.name}
+										</>
+									);
+								}}
+								dataVal={value}
 								name="readers"
-								label={"Readers"}
 								showSearch={true}
-								// direction={Direction}
-								mode="multiple"
-								endPoint="api/Reference/GetAllUserReference"
-								requestType="get"
-								placeholder={"Select Readers"}
 							/>
 						</Form.Item>
 					}

@@ -1,11 +1,10 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
 import { addExpense, getAllExpense, getExpenseById } from "./actions.js";
 
 const expenseSlice = createSlice({
   name: "expense",
   initialState: {
     loader: true,
-    isSuccess: true,
     isCreateComposer: false,
     expenses: [],
     expense: {},
@@ -17,37 +16,52 @@ const expenseSlice = createSlice({
     clearExpense: (state) => {
       state.expense = {};
     },
+    updateListExpenseStatus: (state, { payload }) => {
+      state.expenses = current(state.expenses).map((item) => {
+        if (item.id === payload.id) {
+          return {
+            ...item,
+            status: payload.status,
+          };
+        } else {
+          return item;
+        }
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(addExpense.fulfilled, (state, { payload: { data } }) => {
-        state.expenses.unshift(data);
-        state.isCreateComposer = true;
+        if (data) {
+          state.expenses.unshift(data);
+          state.isCreateComposer = true;
+        }
       })
       .addCase(getAllExpense.fulfilled, (state, { payload: { data } }) => {
         state.expenses = data;
-        state.loader = true;
-        state.isSuccess = true;
+        state.loader = false;
       })
       .addCase(getExpenseById.fulfilled, (state, { payload: { data } }) => {
         state.expense = data;
-        state.isSuccess = true;
       })
       .addMatcher(isPending(...[getAllExpense]), (state) => {
         state.expenses = [];
         state.loader = true;
-        state.isSuccess = true;
       })
-      .addMatcher(isPending(...[getAllExpense, getExpenseById]), (state) => {
-        state.loader = true;
-        state.isSuccess = true;
+      .addMatcher(isPending(...[getExpenseById]), (state) => {
+        state.expense = {};
       })
-
-      .addMatcher(isRejected(...[getAllExpense, getExpenseById]), (state) => {
+      .addMatcher(isRejected(...[getExpenseById]), (state) => {
+        state.expense = {};
+      })
+      .addMatcher(isRejected(...[getExpenseById]), (state) => {
         state.loader = false;
-        state.isSuccess = false;
       });
   },
 });
-export const { toggleCreateComposer, clearExpense } = expenseSlice.actions;
+export const {
+  toggleCreateComposer,
+  clearExpense,
+  updateListExpenseStatus,
+} = expenseSlice.actions;
 export default expenseSlice.reducer;

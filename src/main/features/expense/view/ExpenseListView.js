@@ -6,6 +6,7 @@ import { getAllExpense } from "../store/actions";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { ExpenseDictionary } from "../localization";
 import { clearExpense } from "../store/slice";
+import { Skeleton } from "antd";
 
 function ExpenseListView({ filterType }) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -33,18 +34,21 @@ function ExpenseListView({ filterType }) {
     setId(id);
     setVisible(true);
   };
-  if (!loader) return <div>Loading</div>;
   return (
     <div className="expenseCardWrapper" style={{ direction: Direction }}>
-      {expenses.map((expense, index) => {
-        return (
-          <ExpenseList
-            key={index}
-            onExpense={handleExpense}
-            expense={expense}
-          />
-        );
-      })}
+      {loader
+        ? [...Array(3)].map((item) => (
+            <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
+          ))
+        : expenses.map((expense, index) => {
+            return (
+              <ExpenseList
+                key={index}
+                onExpense={handleExpense}
+                expense={expense}
+              />
+            );
+          })}
       <ExpenseDetail
         direction={Direction}
         visible={visible}

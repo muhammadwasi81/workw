@@ -15,6 +15,7 @@ export const ROUTES = {
   APPROVALS: {
     DEFAULT: `${DOMAIN_PREFIX}/approvals`,
   },
+  
   AUTH: {
     SIGN_UP: `${DOMAIN_PREFIX}/register`,
     SIGN_UP_SUCCESS: `${DOMAIN_PREFIX}/thankyou`,

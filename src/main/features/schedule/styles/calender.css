@@ -1,0 +1,8 @@
+.calender {
+    display: flex;
+    gap: 10px;
+}
+
+.calender>.left {
+    width: 70%;
+}

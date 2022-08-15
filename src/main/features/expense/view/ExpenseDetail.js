@@ -1,4 +1,4 @@
-import { Drawer } from "antd";
+import { Drawer, Skeleton } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import Approval from "../../../sharedComponents/AppComponents/Approvals/view";
@@ -10,6 +10,7 @@ import {
   ApprovalsModule,
   ApprovalStatus,
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import { updateListExpenseStatus } from "../store/slice";
 
 function ExpenseDetail(props) {
   const { visible, onClose, id } = props;
@@ -17,7 +18,7 @@ function ExpenseDetail(props) {
   const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
   const { expense } = useSelector((state) => state.expenseSlice);
   const [expenseStatus, setExpenseStatus] = useState({});
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState();
 
   const { labels } = ExpenseDictionaryList;
   const dispatch = useDispatch();
@@ -25,6 +26,12 @@ function ExpenseDetail(props) {
   useEffect(() => {
     if (visible) dispatch(getExpenseById(id));
   }, [visible]);
+  useEffect(() => {
+    if (status) {
+      console.log(status, "status");
+      dispatch(updateListExpenseStatus({ id, status }));
+    }
+  }, [status]);
 
   useEffect(() => {
     if (Object.keys(expenseStatus).length !== 0) {
@@ -66,42 +73,46 @@ function ExpenseDetail(props) {
       destroyOnClose={true}
       className="detailedViewComposer drawerSecondary"
     >
-      <div className="expenseDetail">
-        {<ExpenseList expense={expense} updateStatus={status} />}
-        <Approval
-          title={labels.approvers}
-          module={ApprovalsModule.ExpenseApproval}
-          data={expense.approvers}
-          onStatusChanged={(status) => {
-            setExpenseStatus((prev) => {
-              return { ...prev, ...status };
-            });
-          }}
-          status={expense.approverStatus}
-        />
-        <Approval
-          title={labels.executors}
-          module={ApprovalsModule.ExpenseExecutor}
-          data={expense.executors}
-          onStatusChanged={(status) =>
-            setExpenseStatus((prev) => {
-              return { ...prev, ...status };
-            })
-          }
-          status={expense.executorStatus}
-        />
-        <Approval
-          title={labels.financers}
-          module={ApprovalsModule.ExpenseFinance}
-          data={expense.financers}
-          onStatusChanged={(status) =>
-            setExpenseStatus((prev) => {
-              return { ...prev, ...status };
-            })
-          }
-          status={expense.financeStatus}
-        />
-      </div>
+      {!Object.keys(expense).length ? (
+        <Skeleton avatar paragraph={{ rows: 6 }} />
+      ) : (
+        <div className="expenseDetail">
+          {<ExpenseList expense={expense} updateStatus={status} />}
+          <Approval
+            title={labels.approvers}
+            module={ApprovalsModule.ExpenseApproval}
+            data={expense.approvers}
+            onStatusChanged={(status) => {
+              setExpenseStatus((prev) => {
+                return { ...prev, ...status };
+              });
+            }}
+            status={expense.approverStatus}
+          />
+          <Approval
+            title={labels.executors}
+            module={ApprovalsModule.ExpenseExecutor}
+            data={expense.executors}
+            onStatusChanged={(status) =>
+              setExpenseStatus((prev) => {
+                return { ...prev, ...status };
+              })
+            }
+            status={expense.executorStatus}
+          />
+          <Approval
+            title={labels.financers}
+            module={ApprovalsModule.ExpenseFinance}
+            data={expense.financers}
+            onStatusChanged={(status) =>
+              setExpenseStatus((prev) => {
+                return { ...prev, ...status };
+              })
+            }
+            status={expense.financeStatus}
+          />
+        </div>
+      )}
     </Drawer>
   );
 }

@@ -74,6 +74,7 @@ const hindi = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    Schedules: "Schedules",
     workWiseCompanies: "कार्यवार कंपनियां",
     promotions: "पदोन्नति",
     customApprovals: "कस्टम स्वीकृतियां",

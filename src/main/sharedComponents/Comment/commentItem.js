@@ -98,6 +98,7 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
                 commentRequestSuccess={(comment) =>
                   setReplies((preValue) => [...preValue, comment])
                 }
+                
               />
             </React.Fragment>
           )}

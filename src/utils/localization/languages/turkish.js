@@ -73,6 +73,7 @@ const turkish = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    Schedules: "Schedules",
     workWiseCompanies: "Workwise Companies",
     promotions: "Promosyonlar",
     customApprovals: "Özel Onaylar",

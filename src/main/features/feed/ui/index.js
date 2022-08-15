@@ -7,10 +7,10 @@ import "./stylesheet/EventBox.css";
 import Header from "./header";
 import PostComposer from "./composer";
 import PostsList from "./posts_list";
-import Scheduler from "../../../sharedComponents/Scheduler";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useContext } from "react";
 import { FeedDictionary } from "../localization";
+import Scheduler from "../../schedule/view/scheduler";
 
 const NewsFeed = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -25,8 +25,13 @@ const NewsFeed = () => {
             <PostsList />
           </div>
         </div>
-        <div className="rt-col">
-          <Scheduler />
+        <div
+          className="rt-col"
+          style={{ display: "block", height: "auto", minHeight: "auto" }}
+        >
+          <div className="schedule" style={{ height: "60%" }}>
+            <Scheduler />
+          </div>
         </div>
       </ContBody>
     </TabbableContainer>

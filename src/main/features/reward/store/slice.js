@@ -1,12 +1,13 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addReward, getAllRewards, GetRewardById } from "./actions";
+import { addReward, cancelReward, getAllRewards, GetRewardById } from "./actions";
 
 const initialState = {
   rewards: [],
   loadingData: false,
   loader: true,
   rewardDetail: {},
-  drawerOpen: false
+  drawerOpen: false,
+  cancelReward: {}
 };
 
 const rewardSlice = createSlice({
@@ -24,15 +25,16 @@ const rewardSlice = createSlice({
     });
 
     builder.addCase(GetRewardById.fulfilled, (state, action) => {
-      console.log("action.payload", action.payload);
       state.rewardDetail = action.payload.data;
+    });
+
+    builder.addCase(cancelReward.fulfilled, (state, action) => {
+      state.cancelReward = action.payload.data;
     });
 
     builder
       .addCase(addReward.fulfilled, (state, { payload }) => {
-        state.rewards = payload;
-        console.log(state.drawerOpen)
-        state.drawerOpen = false;
+        
         return state;
       })
       .addMatcher(isPending(...[getAllRewards]), (state) => {

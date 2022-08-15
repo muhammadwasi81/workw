@@ -7,7 +7,7 @@ import { employeeDictionaryList } from "../localization/index";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { getCitiesService } from "../../../../utils/Shared/services/services";
-import { userType, userTitle } from "../../../../utils/Shared/enums/enums";
+import { userType, userTitle, genderList, maritalStatusList, employmentType } from "../../../../utils/Shared/enums/enums";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 
 const { Option } = Select;
@@ -21,7 +21,7 @@ const EmployeeForm = props => {
 	// const userTypeSelectRef = useRef("");
 	// console.log("userTypeSelectRef", userTypeSelectRef.current.value);
 
-	const { countries, designations, genders, maritalStatus, employeeTypes } =
+	const { countries, designations, } =
 		useSelector(state => state.sharedSlice);
 	const { grades } = useSelector(state => state.gradeSlice);
 	const { officeTimingGroups } = useSelector(
@@ -125,7 +125,7 @@ const EmployeeForm = props => {
 					<Input placeholder={placeholder.phNo} size="large" />
 				</S.FormItem>
 
-				<S.FormItem
+				{/* <S.FormItem
 					name="residentialAddress"
 					label={value.rAddress}
 					rules={[{ required: true }]}
@@ -134,8 +134,8 @@ const EmployeeForm = props => {
 					className="residentialAddress"
 				>
 					<Input placeholder={placeholder.rAddress} size="large" />
-				</S.FormItem>
-				<S.FormItem
+				</S.FormItem> */}
+				{/* <S.FormItem
 					name="permanentAddress"
 					label={value.pAddress}
 					rules={[{ required: true }]}
@@ -144,7 +144,7 @@ const EmployeeForm = props => {
 					className="permenantAddress"
 				>
 					<Input placeholder={placeholder.pAddress} size="large" />
-				</S.FormItem>
+				</S.FormItem> */}
 				<S.FormItem
 					name="nic"
 					label={value.CNICNumber}
@@ -323,11 +323,9 @@ const EmployeeForm = props => {
 						placeholder={placeholder.selectGender}
 						getPopupContainer={trigger => trigger.parentNode}
 					>
-						{genders &&
-							genders.length > 0 &&
-							genders.map(gender => (
-								<Option value={gender.id}>{gender.name}</Option>
-							))}
+						{genderList.map(gender => (
+							<Option value={gender.id}>{gender.name}</Option>
+						))}
 					</S.CustomSelect>
 				</S.FormItem>
 				<S.FormItem
@@ -341,11 +339,9 @@ const EmployeeForm = props => {
 						placeholder={placeholder.selectMarital}
 						getPopupContainer={trigger => trigger.parentNode}
 					>
-						{maritalStatus &&
-							maritalStatus.length > 0 &&
-							maritalStatus.map(status => (
-								<Option value={status.id}>{status.name}</Option>
-							))}
+						{maritalStatusList.map(status => (
+							<Option value={status.id}>{status.name}</Option>
+						))}
 					</S.CustomSelect>
 				</S.FormItem>
 				<S.FormItem
@@ -364,6 +360,9 @@ const EmployeeForm = props => {
 							officeTimingGroups.map(timing => (
 								<Option value={timing.id}>{timing.name}</Option>
 							))}
+							{maritalStatusList.map(status => (
+							<Option value={status.id}>{status.name}</Option>
+						))}
 					</S.CustomSelect>
 				</S.FormItem>
 				<S.FormItem
@@ -385,13 +384,9 @@ const EmployeeForm = props => {
 						getPopupContainer={trigger => trigger.parentNode}
 						placeholder={placeholder.empType}
 					>
-						{employeeTypes &&
-							employeeTypes.length > 0 &&
-							employeeTypes.map(employee => (
-								<Option value={employee.id}>
-									{employee.name}
-								</Option>
-							))}
+						{employmentType.map(type => (
+							<Option value={type.id}>{type.name}</Option>
+						))}
 					</S.CustomSelect>
 				</S.FormItem>
 				<S.FormItem

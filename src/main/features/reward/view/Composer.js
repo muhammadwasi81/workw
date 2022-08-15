@@ -56,7 +56,6 @@ const Composer = (props) => {
   const employees = useSelector(state => state.sharedSlice.employees);
 
   const selectedData = (data, obj) => {
-    console.log(data, "DATA!!!")
     setValue(data);
     handleMember(obj);
     // setMembers(obj);

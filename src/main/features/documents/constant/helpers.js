@@ -19,22 +19,16 @@ export const getIconByExtensionType = ((AttachmentType, extensionType = null) =>
     switch (AttachmentType) {
         case DUCOMENT_TYPE.folder:
             return folderIcon
-            break;
         case DUCOMENT_TYPE.video:
             return playIcon
-            break;
         case DUCOMENT_TYPE.grid:
             return gridIcon
-            break;
         case DUCOMENT_TYPE.draw:
             return drawIcon
-            break;
         case DUCOMENT_TYPE.pad:
             return padIcon
-            break;
         case DUCOMENT_TYPE.show:
             return showIcon
-            break;
 
         case DUCOMENT_TYPE.attachment:
             switch (extensionType) {

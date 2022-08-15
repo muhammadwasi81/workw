@@ -18,8 +18,8 @@ export default function PolicyDetail({ item }) {
                         </div>
                     </div>
                 </div>
-                <div className="row !mb-0 mt-4" >
-                    {item.description}
+                <div className="row !mb-0 mt-4" dangerouslySetInnerHTML={{__html:item.description}} >
+                    {/* {item.description} */}
                 </div>
             </div>
         </ div>

@@ -5,6 +5,7 @@ import BreadCumbs from "../components/breadcumb/index.js";
 import DetailCard from "../components/detailCard/index.js";
 import DocFullCard from "../components/fullCard/index.js";
 import ShortCard from "../components/shortCard/index.js";
+import DetailedView from "../documentDetailView/index.js";
 import DocSceleton from "../skeleton/index.js";
 import './style.css';
 
@@ -27,11 +28,11 @@ const DocumentDetailCards = (props) => {
       <CardWrapper>
         {
           props.data.map((item, index) => (
-            <DocFullCard data={item} />
+            <DocFullCard data={item} handleClickCard={(id) => setDetailId(id)} />
           ))
         }
       </CardWrapper>
-			{/* <DetailCard onClose={onClose} id={detailId}  /> */}
+      <DetailedView onClose={onClose} id={detailId} />
     </>
   );
 };

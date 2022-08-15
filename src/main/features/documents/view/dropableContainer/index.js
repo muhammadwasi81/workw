@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getTypeOfFile, isValidFileSize, STRINGS } from "../../../../../utils/base";
 import { DocsComposerEnums } from "../../constant";
-import { handleOpenDocComposer } from "../../store/slice";
+import { handleOpenDocComposer, uploadFileByDrop } from "../../store/slice";
 import UploadByDrop from "../composer/dropUpload";
 
 const DropableContainer = ({ children }) => {
@@ -10,11 +10,11 @@ const DropableContainer = ({ children }) => {
   const [FileList, setFileList] = useState([]);
   const [isOpenComposer, setIsOpenComposer] = useState(false);
   const dispatch = useDispatch();
-
+  let fileList = [];
   const onDropHandler = (ev) => {
     ev.preventDefault();
     ev.preventDefault();
-    const fileList = ev.dataTransfer.files;
+    fileList = ev.dataTransfer.files;
 
     if (fileList.length !== 0) {
       let fileTypeValidation = false;
@@ -58,8 +58,9 @@ const DropableContainer = ({ children }) => {
             value: item.name.split(".")[0]
           }));
           setFileList(attachment);
-          setIsOpenComposer(true)
-          // dispatch(handleOpenDocComposer(DocsComposerEnums.upload))
+          // setIsOpenComposer(true)
+          dispatch(handleOpenDocComposer(DocsComposerEnums.upload));
+          dispatch(uploadFileByDrop(attachment));
           // this.setState({dragOver: false, openDocumentsModal: true, uploadedFiles: attachment})
           console.log([...fileList], this.state.dragOver, "data droped");
 
@@ -84,11 +85,12 @@ const DropableContainer = ({ children }) => {
       className="w-full"
     >
       {children}
-      <UploadByDrop
+      {/* <UploadByDrop
         isOpen={isOpenComposer}
         handleClose={() => setIsOpenComposer(false)}
+        // fileList={FileList}
         fileList={FileList}
-      />
+      /> */}
     </div>
   )
 };

@@ -26,6 +26,7 @@ const CreateEntryItem = ({ index, accounts, handleChange, handleRemoveRow, value
           showSearch
           optionFilterProp="children"
           onChange={onChangeAccount}
+          value={value.accountId}
           style={{ width: "100%" }}
           filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
         >
@@ -36,15 +37,15 @@ const CreateEntryItem = ({ index, accounts, handleChange, handleRemoveRow, value
       </td>
       <td>
         <input name="chequeNo" onChange={handleInputChange}
-        value={value.chequeNo} />
+          value={value.chequeNo} />
       </td>
       <td>
         <input className='w-full' name="naration" onChange={handleInputChange}
-        value={value.naration} />
+          value={value.naration} />
       </td>
       <td>
         <input name="amount" onChange={handleInputChange}
-        value={value.amount} />
+          value={value.amount} />
       </td>
       <td>
         <Select

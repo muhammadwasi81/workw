@@ -1,7 +1,7 @@
 const en = {
   Direction: "ltr",
   labels: {
-    noData: "No Data",
+    noData: "No Remark Found.",
   },
   status: {
     InProcess: "InProcess",

@@ -21,6 +21,7 @@ class SingleUpload extends React.Component {
 		previewImage: "",
 		previewTitle: "",
 		fileList: [],
+		defaultFileList:[]
 	};
 
 	componentDidUpdate(prevProps, prevState) {
@@ -33,12 +34,15 @@ class SingleUpload extends React.Component {
 		}
 	}
 	componentDidMount() {
-		if (this.props.url.length > 0) {
+		let {url, defaultFile} = this.props;
+		if (url.length > 0) {
 			this.setState(
 				produce(state => {
-					state.fileList.push({ url: this.props.url });
+					state.fileList.push({ url: url });
+					// state.defaultFileList = defaultFile;
 				})
 			);
+			this.setState({defaultFileList:defaultFile})
 		}
 	}
 
@@ -71,13 +75,15 @@ class SingleUpload extends React.Component {
 		this.setState({ fileList });
 		this.props.handleImageUpload(fileList);
 	};
-
 	render() {
+		console.log(this.state, "FileList")
+		console.log(this.props.defaultFile, "FileList")
 		const {
 			previewVisible,
 			previewImage,
 			fileList,
 			previewTitle,
+			defaultFileList
 		} = this.state;
 		const uploadButton = (
 			<div className="px-1">
@@ -97,6 +103,7 @@ class SingleUpload extends React.Component {
 					beforeUpload={() => false}
 					multiple={this.props.multiple}
 					maxCount={1}
+					defaultFileList={defaultFileList}
 				>
 					{fileList.length === 1 ? null : uploadButton}
 				</Upload>

@@ -35,6 +35,7 @@ export const ROUTES = {
 	HOME: `${DOMAIN_PREFIX}`,
 	NEWSFEED: {
 		DETAILS: `${DOMAIN_PREFIX}/newsFeedDetails/:id`,
+		LINK: `${DOMAIN_PREFIX}/newsFeedDetails/`,
 	},
 	BUSINESS_POLICY: {
 		DEFAULT: `${DOMAIN_PREFIX}/businessPolicy`,
@@ -148,9 +149,9 @@ export const ROUTES = {
 		HIGH_SCORE: `${DOMAIN_PREFIX}/eLearningCourses/highScore`,
 	},
 	USER: {
-		DEFAULT: `${DOMAIN_PREFIX}/timeline/`,
+		DEFAULT: `${DOMAIN_PREFIX}/user/`,
 		TIMELINE: {
-			DEFAULT: `${DOMAIN_PREFIX}/timeline/:id`,
+			DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
 			INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
 		},
 		SETTINGS: `${DOMAIN_PREFIX}/user/settings`,

@@ -10,19 +10,22 @@ const { Panel } = Collapse;
 function Approval({
   approver,
   initialRemarks,
-  status,
+  status = ApprovalStatus.InProcess,
   approverId,
   module,
   createBy,
+  onStatusChange,
+  id,
   approverType = ApproverType.User,
+  title = "",
+  onListStatus,
 }) {
   const { businessId, designation, name, image, type } = approver;
   const [files, setFiles] = useState([]);
   const [remarks, setRemarks] = useState([]);
   const [remarksText, setremarksText] = useState("");
-  const [currentStatus, setCurrentStatus] = useState(ApprovalStatus.InProcess);
-  const [isMount, setIsMount] = useState(false);
-
+  const [currentStatus, setCurrentStatus] = useState(status);
+  let prevStatus = currentStatus;
   const handleFile = (e) => {
     if (e.target.files.length > 1) {
       setFiles((prevValue) => [...prevValue, ...e.target.files]);
@@ -34,35 +37,42 @@ function Approval({
     const allFiles = files.filter((file, index) => index !== deleteFile);
     setFiles(allFiles);
   };
-  const handleRemarksText = (value) => {
+  const handleRemarksText = (value, event) => {
     setremarksText(value);
+    if (event?.keyCode === 13) createRemark(ApprovalStatus.InProcess);
   };
   const handleCurrentStatus = (status) => {
-    setIsMount(true);
+    prevStatus = currentStatus;
     setCurrentStatus(status);
+    createRemark(status);
   };
-  const createRemark = async () => {
+
+  const createRemark = async (status) => {
     const remarks = {
-      approvalId: approverId,
+      approvalId: id,
       remark: remarksText,
       module,
-      status: currentStatus,
+      status,
       type: approverType,
       attachments: [...files].map((file) => {
         return { id: defaultUiid, file };
       }),
     };
+    setremarksText("");
+
     const remark = await saveApprovalsRemarks(remarks);
-    if (remark) setRemarks((prevValue) => [...prevValue, remark]);
+    if (remark) {
+      setRemarks((prevValue) => [...prevValue, remark]);
+      onStatusChange({ id, status });
+    } else {
+      setCurrentStatus(prevStatus);
+      onStatusChange({ id, status });
+    }
   };
   useEffect(() => {
     setRemarks([...initialRemarks]);
+    onListStatus({ id, status });
   }, []);
-  useEffect(() => {
-    if (isMount) {
-      createRemark();
-    }
-  }, [currentStatus, isMount]);
 
   return (
     <Collapse
@@ -74,7 +84,7 @@ function Approval({
         extra={null}
         header={
           <Header
-            status={status}
+            status={currentStatus}
             type={type}
             user={{
               name,
@@ -93,7 +103,8 @@ function Approval({
           onFile={handleFile}
           onDelete={handleDelete}
           createBy={createBy}
-          status={status}
+          status={currentStatus}
+          value={remarksText}
         />
       </Panel>
     </Collapse>

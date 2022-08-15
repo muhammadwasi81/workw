@@ -24,7 +24,7 @@ function ApprovalBody({ remarks }) {
         })
       ) : (
         <div className="remarkNoData">
-          <img src={noData} alt="" />
+          {/* <img src={noData} alt="" /> */}
           <p>{labels.noData}</p>
         </div>
       )}

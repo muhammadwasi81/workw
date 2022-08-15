@@ -1,4 +1,4 @@
-import { Image, Tag } from "antd";
+import { Button, Image, Tag } from "antd";
 import React, { useContext } from "react";
 import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -11,10 +11,14 @@ import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 import { PieChartOutlined, GlobalOutlined } from "@ant-design/icons";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
+import { useDispatch } from "react-redux";
+import { cancelReward } from "../store/actions";
+import { getStatusLabelAndColor } from "../../../sharedComponents/AppComponents/Approvals/enums";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
+  const disptach = useDispatch();
 
   const {
     creator,
@@ -29,6 +33,14 @@ function ListItem(props) {
     referenceNo,
     createDate,
   } = props.item;
+
+  const handleCancel = (e, payload) => {
+    e.preventDefault()
+    e.stopPropagation();
+    console.log(e, payload, "HELLOO!!! E")
+    disptach(cancelReward(payload));
+  }
+
   return (
     <>
       <SingleItem onClick={props.onClick}>
@@ -44,6 +56,7 @@ function ListItem(props) {
           <div className="right">
             <Tag className="IdTag">{referenceNo}</Tag>
             <StatusTag status={status}></StatusTag>
+            <Button className="ThemeBtn" onClick={(e)=>handleCancel(e, props.id)}>Cancel</Button>
           </div>
         </ItemHeader>
         <ItemContent className="flex">

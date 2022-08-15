@@ -1,4 +1,4 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import AxiosConfig from "../../../../utils/services/MasterConfig";
 
 const API_PREFIX = "api/ExpenseHeader/";
 export const getAllExpenseHeaderService = () => {

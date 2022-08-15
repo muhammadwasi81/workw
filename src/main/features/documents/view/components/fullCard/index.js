@@ -18,22 +18,14 @@ import { LanguageChangeContext } from "../../../../../../utils/localization/loca
 import { documentDictionaryList } from "../../../localization/index";
 import DetailCard from "../detailCard";
 
-const DocFullCard = ({ data }) => {
+const DocFullCard = ({ data, handleClickCard }) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
-    const { documentDictionary } = documentDictionaryList[userLanguage];
+	const { documentDictionary } = documentDictionaryList[userLanguage];
 	const disptach = useDispatch()
 
-	let { name, documentType, creator, createDate, description, id, path, members, approvers, image } = data
+	let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId } = data
 	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
-	const handleType = (() => {
-		disptach(handleParentId({
-			id,
-			name
-		}))
-	})
-
-	
 
 	return (
 		<>
@@ -53,13 +45,13 @@ const DocFullCard = ({ data }) => {
 							/>
 						</div>
 						<div className="right">
-							<Tag className="IdTag">TRA-000085</Tag>
-							<StatusTag status={"In Proccess"}></StatusTag>
+							{/* <Tag className="IdTag">TRA-000085</Tag> */}
+							<StatusTag status={2}></StatusTag>
 						</div>
 					</div>
 				</ItemHeader>
 
-				<div className="doc_detail_body">
+				<div className="doc_detail_body" onClick={() => handleClickCard(id)}>
 					<div className="doc_detail_content">
 						<div className="doc_detail_body_head">
 							<div className="doc_detail_title">
@@ -113,10 +105,9 @@ const DocFullCard = ({ data }) => {
 					<div className="doc_detail_media">
 						<div className="d_ShortCard_Child2">
 							<img
-								onClick={handleType}
 								alt=""
 								src={documentType === DUCOMENT_TYPE.image && path ?
-									path : getIconByExtensionType(documentType)}
+									path : getIconByExtensionType(documentType, extensionTypeId)}
 							/>
 						</div>
 						<div className="downloadBtn">

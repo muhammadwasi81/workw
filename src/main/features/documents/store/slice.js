@@ -26,6 +26,7 @@ const initialState = {
     label: "Home",
     id: STRINGS.DEFAULTS.guid
   }],
+  defaultFiles:[]
 };
 
 const documentSlice = createSlice({
@@ -62,6 +63,10 @@ const documentSlice = createSlice({
     updateMoveDocument: (state, { payload }) => {
       state.listData = state.listData.filter(item=>item.id !== payload.documents[0]);
     },
+    uploadFileByDrop: (state, { payload }) => {
+      state.defaultFiles = payload;
+    },
+    
   },
 
   extraReducers: (builder) => {
@@ -69,7 +74,17 @@ const documentSlice = createSlice({
       .addCase(addDocument.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        state.listData = [payload, ...state.listData];
+        state.listData = payload.attachments.length > 0 ? 
+        [
+          ...payload.attachments.map((item)=>({
+          ...payload,
+          path: item.path,
+          name:item.attachmentName
+        })),
+        ...state.listData
+      ] : [payload, ...state.listData]
+        //  [payload, ...state.listData];
+        state.defaultFiles = [];
         state.isOpenComposers.folder = false;
         state.isOpenComposers.mileboard = false;
         state.isOpenComposers.milegrid = false;
@@ -91,12 +106,14 @@ const documentSlice = createSlice({
         state.detailListData = payload;
       })
       .addCase(GetDocumentById.fulfilled, (state, action) => {
-        state.documentDetail = action.payload.data;
+        state.documentDetail = action.payload;
       })
       .addMatcher(
         isPending(
           ...[
-            addDocument
+            addDocument,
+            getAllDocument,
+            getAllDocumentList
           ]
         ),
         state => {
@@ -110,5 +127,5 @@ const documentSlice = createSlice({
 });
 
 export const { handleOpenDocComposer, handleCloseDocComposer, handleChangeTab, handleParentId,
-  resetBreadCumb, handleBreadCumb, updateMoveDocument } = documentSlice.actions;
+  resetBreadCumb, handleBreadCumb, updateMoveDocument, uploadFileByDrop } = documentSlice.actions;
 export default documentSlice.reducer;

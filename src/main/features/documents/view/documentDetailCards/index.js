@@ -5,13 +5,20 @@ import BreadCumbs from "../components/breadcumb/index.js";
 import DetailCard from "../components/detailCard/index.js";
 import DocFullCard from "../components/fullCard/index.js";
 import ShortCard from "../components/shortCard/index.js";
+import DetailedView from "../documentDetailView/index.js";
 import DocSceleton from "../skeleton/index.js";
 import './style.css';
 
 const DocumentDetailCards = (props) => {
   const [detailId, setDetailId] = useState(false);
   const breadCumbsState = useSelector(state => state.documentSlice.breadCumbPath);
-
+  const [previewPath, setPreviewPath] = useState(false);
+  const handlePreview = (item) => {
+    setPreviewPath(item)
+  }
+  const handleClose = (item) => {
+    setPreviewPath(null)
+  }
   const onClose = () => {
     setDetailId(null);
   };
@@ -19,16 +26,13 @@ const DocumentDetailCards = (props) => {
     <>
       {/* <DocSceleton /> */}
       <CardWrapper>
-        {/* <BreadCumbs
-          data={breadCumbsState}
-        /> */}
         {
           props.data.map((item, index) => (
-            <DocFullCard data={item} />
+            <DocFullCard data={item} handleClickCard={(id) => setDetailId(id)} />
           ))
         }
       </CardWrapper>
-			{/* <DetailCard onClose={onClose} id={detailId}  /> */}
+      <DetailedView onClose={onClose} id={detailId} />
     </>
   );
 };

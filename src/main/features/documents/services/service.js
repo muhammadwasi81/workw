@@ -89,11 +89,11 @@ export const getAllDocumentService = async (data) => {
 	}
 };
 
-export const getDocumentByIdService = async () => {
+export const getDocumentByIdService = async (documentId) => {
 	try {
 		const {
 			data: { responseCode, data, message },
-		} = await Config.post(`api/Document/GetDocumentById`,);
+		} = await Config.get(`api/Document/GetDocumentById?id=${documentId}`);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {

@@ -275,7 +275,7 @@ export const STRINGS = {
 		USER: {
 			DEFAULT: `${DOMAIN_PREFIX}/user/`,
 			TIMELINE: {
-				DEFAULT: `${DOMAIN_PREFIX}/timeline/:id`,
+				DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
 				INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
 			},
 			SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
@@ -519,6 +519,7 @@ export const STRINGS = {
 				"jpg",
 				"gif",
 				"eps",
+				"svg",
 			],
 			VIDEO: ["mp4"],
 			PDF: ["pdf"],
@@ -2291,5 +2292,15 @@ export function renderTitleWithMentions(title, mentions) {
 			.join(" ");
 	} else {
 		return title;
+	}
+}
+
+// This function will convert single string into array
+
+export function modifySelectData(data) {
+	if (typeof data === "string") {
+		return [data];
+	} else {
+		return data;
 	}
 }

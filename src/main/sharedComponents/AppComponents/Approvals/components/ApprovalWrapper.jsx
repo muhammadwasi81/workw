@@ -2,7 +2,14 @@ import React from "react";
 import { PlusSquareOutlined, ReloadOutlined } from "@ant-design/icons";
 import Approval from "./Approval";
 
-function ApprovalWrapper({ title, data, module, approverType }) {
+function ApprovalWrapper({
+  title,
+  data,
+  module,
+  approverType,
+  onStatusChange,
+  onListStatus,
+}) {
   return (
     <div className="approvalWrapper">
       <div className="approvalWrapper__header">
@@ -19,7 +26,14 @@ function ApprovalWrapper({ title, data, module, approverType }) {
 
       {data?.map(
         (
-          { approver, remarks: initialRemarks, status, approverId, createBy },
+          {
+            approver,
+            remarks: initialRemarks,
+            status,
+            approverId,
+            createBy,
+            id,
+          },
           index
         ) => {
           return (
@@ -30,8 +44,12 @@ function ApprovalWrapper({ title, data, module, approverType }) {
               approver={approver}
               initialRemarks={initialRemarks}
               status={status}
+              onStatusChange={onStatusChange}
               approverId={approverId}
               createBy={createBy}
+              id={id}
+              title={title}
+              onListStatus={onListStatus}
             />
           );
         }

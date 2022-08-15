@@ -6,6 +6,7 @@ import {
 } from "../../../../services/slices/notificationSlice";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
+	addLeadManagerContactService,
 	addLeadManagerDetailService,
 	addLeadManagerService,
 	getAllLeadManagerPagingService,
@@ -178,6 +179,32 @@ export const getLeadManagerDetailById = createAsyncThunk(
 				data: res,
 				type: responseMessageType.ApiFailure,
 			});
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const addLeadManagerContact = createAsyncThunk(
+	"addLeadManagerContact",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await addLeadManagerContactService(data);
+		if (res.responseCode === responseCode.Success) {
+			dispatch(
+				openNotification({
+					message: "LeadManager Contact Created Successfully",
+					type: "success",
+					duration: 2,
+				})
+			);
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
 			return rejectWithValue(res.message);
 		}
 	}

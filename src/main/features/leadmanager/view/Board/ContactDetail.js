@@ -1,66 +1,88 @@
 import { Button, Form, Input, Select, Tag } from "antd";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { jsonToFormData } from "../../../../../utils/base";
+import { DEFAULT_GUID } from "../../../../../utils/constants";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
+import { addLeadManagerContact } from "../../store/actions";
 const { Option } = Select;
 function ContactDetail() {
+	const [image, setImage] = useState();
+	const dispatch = useDispatch();
 	const handleChange = value => {
 		console.log(`selected ${value}`);
 	};
 	const prefixSelector = (
-		<Form.Item name="prefix" noStyle>
+		<Form.Item name="titleId" noStyle>
 			<Select>
-				<Option value="Mr">Mr</Option>
-				<Option value="Ms">Ms</Option>
-				<Option value="Mrs">Mrs</Option>
+				<Option value={1}>Mr</Option>
+				<Option value={2}>Ms</Option>
+				<Option value={3}>Mrs</Option>
 			</Select>
 		</Form.Item>
 	);
+
+	const onFinish = value => {
+		const imageObj = {
+			id: DEFAULT_GUID,
+			file: image,
+		};
+		dispatch(
+			addLeadManagerContact(
+				jsonToFormData({ image: { ...imageObj }, ...value })
+			)
+		);
+	};
 	return (
 		<Form
 			name="basic"
 			autoComplete="off"
 			layout="vertical"
-			initialValues={{ prefix: "Mr" }}
+			initialValues={{ titleId: 1 }}
+			onFinish={onFinish}
 		>
 			<div className="grid gap-x-5 grid-cols-[1.8fr_1.3fr_0.3fr]">
-				<Form.Item
-					label="Friendly Status"
-					name="friendlyStatus"
-					className=""
-				>
-					<Select
-						onChange={handleChange}
-						placeholder="Select Friendly Status"
+				<div className="flex gap-5">
+					<Form.Item
+						label="Friendly Status"
+						name="friendlyStatusId"
+						className=""
 					>
-						<Option value={1}>
-							<Tag color="green">Friendly Status</Tag>
-						</Option>
-						<Option value={2}>
-							<Tag color="yellow">Friendly Status</Tag>
-						</Option>
-						<Option value={3}>
-							<Tag color="red">Friendly Status</Tag>
-						</Option>
-					</Select>
-				</Form.Item>
-				<Form.Item
-					label={"Active Status"}
-					name="activeStatus"
-					className=""
-				>
-					<Select
-						onChange={handleChange}
-						placeholder="Select Active Status"
+						<Select
+							// onChange={handleChange}
+							placeholder="Select Friendly Status"
+						>
+							<Option value={1}>
+								<Tag color="green">Friendly Status</Tag>
+							</Option>
+							<Option value={2}>
+								<Tag color="yellow">Friendly Status</Tag>
+							</Option>
+							<Option value={3}>
+								<Tag color="red">Friendly Status</Tag>
+							</Option>
+						</Select>
+					</Form.Item>
+					<Form.Item
+						label={"Active Status"}
+						name="activeStatusId"
+						className=""
 					>
-						<Option value={1}>
-							<Tag color="green">Active</Tag>
-						</Option>
-						<Option value={2}>
-							<Tag color="red">In-Active</Tag>
-						</Option>
-					</Select>
-				</Form.Item>
+						<Select
+							// onChange={handleChange}
+							placeholder="Select Active Status"
+						>
+							<Option value={1}>
+								<Tag color="green">Active</Tag>
+							</Option>
+							<Option value={2}>
+								<Tag color="red">In-Active</Tag>
+							</Option>
+						</Select>
+					</Form.Item>
+				</div>
+				<div></div>
 
 				<Form.Item label={"Name"} name="name" className="w-full">
 					<Input
@@ -73,10 +95,9 @@ function ContactDetail() {
 					className="flex items-end"
 				>
 					<SingleUpload
-						// handleImageUpload={fileData => {
-						// 	// console.log("fileData", fileData[0]);
-						// 	setImage(fileData[0].originFileObj);
-						// }}
+						handleImageUpload={fileData => {
+							setImage(fileData[0].originFileObj);
+						}}
 						// uploadText={labels.uploadCvr}
 						// multiple={false}
 						// url={composerData.image}
@@ -86,11 +107,11 @@ function ContactDetail() {
 				</div>
 			</div>
 			<div className="grid grid-cols-2 gap-x-5">
-				<Form.Item label={"Phone"} name="phone" className="">
+				<Form.Item label={"Phone"} name="phoneNumber" className="">
 					<Input placeholder="Write phone number" />
 				</Form.Item>
 				<Form.Item label={"Email"} name="email" className="">
-					<Input placeholder="Write email address" />
+					<Input placeholder="Write email address" type={"email"} />
 				</Form.Item>
 				<Form.Item
 					label={"Office Address"}
@@ -99,10 +120,13 @@ function ContactDetail() {
 				>
 					<Input placeholder="Write office address" />
 				</Form.Item>
-				<Form.Item label={"Gender"} name="gender" className="">
-					<Select onChange={handleChange} placeholder="Select gender">
-						<Option value={"Male"}>Male</Option>
-						<Option value={"Female"}>Female</Option>
+				<Form.Item label={"Address"} name="address" className="">
+					<Input placeholder="Write address" />
+				</Form.Item>
+				<Form.Item label={"Gender"} name="genderId" className="">
+					<Select placeholder="Select gender">
+						<Option value={1}>Male</Option>
+						<Option value={2}>Female</Option>
 					</Select>
 				</Form.Item>
 				<Form.Item
@@ -120,9 +144,9 @@ function ContactDetail() {
 					<Input placeholder="Write designation" />
 				</Form.Item>
 			</div>
-			<div>
+			{/* <div>
 				<CommentWrapper />
-			</div>
+			</div> */}
 			<Form.Item className="!mt-5">
 				<Button
 					type="primary"

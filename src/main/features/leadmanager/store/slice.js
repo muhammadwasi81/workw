@@ -1,6 +1,7 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
 import {
 	addLeadManager,
+	addLeadManagerContact,
 	addLeadManagerDetail,
 	getAllLeadManager,
 	getAllLeadManagerPaging,
@@ -102,6 +103,11 @@ const leadMangerSlice = createSlice({
 					state.leadManagerSectionDetailData = payload.data;
 				}
 			)
+			.addCase(addLeadManagerContact.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.success = true;
+				console.log("payload data", payload.data);
+			})
 			.addMatcher(isPending(getLeadManagerById), state => {
 				state.isComposerDataLoading = true;
 				state.leadManagerDetail = null;

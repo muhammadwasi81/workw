@@ -11,25 +11,46 @@ import {
 
 import "./sectionDetail.css";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
+import UploadBgImg from "../../../workboard/WorkBoardDetail/UploadBgImg";
 
 const { Panel } = Collapse;
 
 function SectionDetail(props) {
 	const { data } = props;
 
+	const [image, setImage] = useState();
+
 	return (
 		<div className="flex gap-5">
 			<section className="flex flex-col gap-3 basis-7/12">
-				<div className="">
+				<div className="overflow-hidden relative h-[200px]">
 					<img
 						className="object-cover h-[200px] w-full rounded-2xl"
 						src={
 							data.image
 								? data.image
+								: image
+								? (
+										window.URL || window.webkitURL
+								  ).createObjectURL(image)
 								: "https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
 						}
 						alt="lead manager"
 					/>
+					<UploadBgImg
+						onUploadImg={value => {
+							setImage(value.fileList[0].originFileObj);
+						}}
+					>
+						<div
+							className="bg-gray-500 absolute text-white w-full bottom-0 left-0 flex justify-center py-3 bg-opacity-90 rounded-b-2xl cursor-pointer hover:bg-opacity-95 transition hover:font-semibold"
+							onClick={() => {
+								console.log("upload ");
+							}}
+						>
+							Upload Image
+						</div>
+					</UploadBgImg>
 				</div>
 				<Form
 					name="basic"

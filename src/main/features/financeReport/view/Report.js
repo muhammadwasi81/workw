@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { ROUTES } from "../../../../utils/routes";
 import Header from "../../../layout/header";
@@ -8,7 +9,9 @@ import ReportFilter from "./Filter";
 import ReportView from "./reportView";
 const FinanceReport = () => {
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState(null)
+  const [filter, setFilter] = useState(null);
+  const ledgerReport = useSelector(state => state.voucherSlice.ledgerReport);
+
   useEffect(() => {
     let payload = {
       ...filter
@@ -30,6 +33,8 @@ const FinanceReport = () => {
       <ReportFilter handleChange={(data) => setFilter(data)} />
       <ContBody>
         <div className="ReportViewCont" >
+        {ledgerReport && <ReportView data={ledgerReport} />}
+          {/* <ReportView />
           <ReportView />
           <ReportView />
           <ReportView />
@@ -39,9 +44,7 @@ const FinanceReport = () => {
           <ReportView />
           <ReportView />
           <ReportView />
-          <ReportView />
-          <ReportView />
-          <ReportView />
+          <ReportView /> */}
         </div>
       </ContBody>
     </TabbableContainer>

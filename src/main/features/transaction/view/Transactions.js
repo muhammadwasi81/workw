@@ -20,9 +20,10 @@ const Transactions = () => {
     dispatch(getAllVoucher({}));
   }, [])
   const handleClickPrint = (id) => {
-    console.log(id)
+    setCurrentId(id)
     setIsOpenModal(true)
   }
+
   return (
     <TabbableContainer>
       <Header
@@ -42,17 +43,17 @@ const Transactions = () => {
           // onRow={onRow}
           data={voucherList}
           // status={travelStatus}
-          loading={loader}
+          loading={true}
         // success={success}
         // onActionClick={onActionClick}
         />
         <CustomModal
           isModalVisible={isOpenModal}
           onCancel={() => setIsOpenModal(false)}
-          width={"630px"}
+          width={"70%"}
           title="Voucher Detail"
           footer={null}
-          children={<VoucherPrint />}
+          children={<VoucherPrint id={currentId} />}
           className={""}
         />
       </ContBody>

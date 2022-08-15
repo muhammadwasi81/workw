@@ -9,10 +9,14 @@ import { message } from "antd";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import CreateRoom from "../calling/components/createRoom/CreateRoom";
 import { sideChatBarList } from "./localization";
+import { handleCreateRoomModal } from "../calling/store/slice";
 export const SideBarHead = () => {
 	const dispatch = useDispatch();
 	const isOpenChatBar = useSelector(
 		state => state.sideBarChatSlice.sideBarChatStatus
+	);
+	const isCreateRoomModalOpen = useSelector(
+		state => state.callingSlice.isCreateRoomModalOpen
 	);
 	const { user } = useSelector(state => state.userSlice);
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -29,7 +33,7 @@ export const SideBarHead = () => {
 				{
 					key: "1",
 					label: createRoom,
-					onClick: () => setVisible(true),
+					onClick: () => dispatch(handleCreateRoomModal()),
 				},
 				{
 					key: "2",
@@ -92,9 +96,11 @@ export const SideBarHead = () => {
 			<Modal
 				title=""
 				centered
-				visible={visible}
-				onOk={() => setVisible(false)}
-				onCancel={() => setVisible(false)}
+				visible={isCreateRoomModalOpen}
+				// onOk={() => setVisible(false)}
+				onCancel={() => {
+					dispatch(handleCreateRoomModal());
+				}}
 				width={1000}
 				footer={null}
 				destroyOnClose={true}

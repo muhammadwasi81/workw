@@ -1,5 +1,5 @@
-import { DatePicker, Form, Input, Switch } from "antd";
-import React, { useState } from "react";
+import { Button, DatePicker, Form, Input, message, Switch } from "antd";
+import React, { useEffect, useState } from "react";
 import "./styles/createRoom.css";
 import { HomeOutlined, BranchesOutlined } from "@ant-design/icons";
 // import MemberModal from "../../../workboard/Modal/MemberModal";
@@ -9,6 +9,11 @@ import { validateEmail } from "../../../../../utils/Shared/helper/validateEmail"
 import { v4 as id } from "uuid";
 import MultipleAvatars from "../../../../sharedComponents/Avatar/MultipleAvatars";
 import ExternalMember from "../../Modal/ExternalMember";
+import { useDispatch } from "react-redux";
+import { createRoom } from "../../store/action";
+import { useSelector } from "react-redux";
+
+const CALL_URL_PREFIX = "https://192.168.18.81:3000/";
 export default function CreateRoom() {
 	const [isPassword, setIsPassword] = useState(false);
 	const [isMeetingSchedule, setIsMeetingSchedule] = useState(false);
@@ -17,6 +22,18 @@ export default function CreateRoom() {
 	const [selectedMembers, setSelectedMembers] = useState([]);
 	const [membersValue, setMembersValue] = useState([]);
 	const [externalMembers, setExternalMembers] = useState([]);
+
+	const loading = useSelector(state => state.callingSlice.loading);
+	const success = useSelector(state => state.callingSlice.success);
+	const roomId = useSelector(state => state.callingSlice.roomId);
+
+	useEffect(() => {
+		if (success && roomId && !loading) {
+			const strWindowFeatures =
+				"location=yes,height=800,width=800,scrollbars=yes,status=yes";
+			window.open(CALL_URL_PREFIX + roomId, "_blank", strWindowFeatures);
+		}
+	}, [success, roomId]);
 
 	const handleAddMemberModal = () => {
 		setAddMember(!addMember);
@@ -97,7 +114,21 @@ export default function CreateRoom() {
 	const getUniqueListBy = (arr, key) => {
 		return [...new Map(arr.map(item => [item[key], item])).values()];
 	};
-
+	const dispatch = useDispatch();
+	const onSubmit = () => {
+		// console.log("form", form.getFieldsValue(true));
+		const fields = form.getFieldsValue(true);
+		if (fields.private && selectedMembers.length === 0) {
+			return message.error("Please add atleast one member.");
+		}
+		let dataToSend = {
+			...fields,
+			receiverIds: [...selectedMembers],
+			externalMembers: [...externalMembers],
+		};
+		dispatch(createRoom(dataToSend));
+	};
+	const [form] = Form.useForm();
 	return (
 		<>
 			<div className="createRoom">
@@ -112,7 +143,14 @@ export default function CreateRoom() {
 						</p>
 
 						<div className="createRoom__form">
-							<Form layout="">
+							<Form
+								layout=""
+								form={form}
+								initialValues={{
+									private: false,
+									roomPassword: "",
+								}}
+							>
 								{/* <Form.Item label="Room Name" name="Room Name">
 									<Input placeholder="Room Name" />
 								</Form.Item> */}
@@ -185,7 +223,7 @@ export default function CreateRoom() {
 								</div>
 								{isPassword && (
 									<div className="createRoom__formBottom__input">
-										<Form.Item label="" name="Room Name">
+										<Form.Item label="" name="roomPassword">
 											<Input placeholder="Create a Password" />
 										</Form.Item>
 									</div>
@@ -217,11 +255,15 @@ export default function CreateRoom() {
 						</div>
 					</div>
 					<div className="btnGroupBottom">
-						<button className="btn btn-primary">
+						<Button
+							className="btn btn-primary"
+							onClick={onSubmit}
+							loading={loading}
+						>
 							{!isMeetingSchedule
 								? "Start Now"
 								: "Confirm Schedule"}
-						</button>
+						</Button>
 						{/* <button className="btn btn-secondary">
 							<HomeOutlined />
 							Main Lobby

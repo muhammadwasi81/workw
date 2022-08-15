@@ -57,6 +57,7 @@ import taskSlice from "../main/features/task/store/taskSlice";
 import leadMangerSlice from "../main/features/leadmanager/store/slice";
 import groupSlice from "../main/features/groups/store/slice";
 import chartOfAccountsSlice from "../main/features/chartOfAccount/store/slice";
+import callingSlice from "../main/features/calling/store/slice";
 import loanSlice from "./appReducer/loanSlice";
 import resignationSlice from "./appReducer/resignationSlice";
 
@@ -116,6 +117,7 @@ const reducers = combineReducers({
 	chartOfAccountsSlice,
 	leadMangerSlice,
 	groupSlice,
+	callingSlice,
 });
 
 const persistConfig = {

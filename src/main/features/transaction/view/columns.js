@@ -3,6 +3,7 @@ import moment from "moment";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import { getVoucherNameByType } from "../../voucher/utils/constant";
 export const transactionColumn = (handleClickPrint) => {
 	return [
 		{
@@ -21,7 +22,11 @@ export const transactionColumn = (handleClickPrint) => {
 			sort: true,
 		},
 		{
-			title: "Voucher Type", dataIndex: "voucherType", ellipsis: true, sort: true
+			title: "Voucher Type", dataIndex: "voucherType", ellipsis: true, 
+			render: value => (
+				<div>{getVoucherNameByType(value)}</div>
+			),
+			sort: true
 		},
 		{ title: "Amount", dataIndex: "amount", ellipsis: true, sort: true },
 		{

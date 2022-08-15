@@ -35,7 +35,7 @@ const CreateEntryTable = ({ defaultRows }) => {
   const AllVouchers = useSelector(state => state.voucherSlice.voucherList);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllChartOfAccount())
+    dispatch(getAllChartOfAccount());
   }, []);
   useEffect(() => {
     console.log(success, "success")
@@ -148,7 +148,7 @@ const CreateEntryTable = ({ defaultRows }) => {
         </div>
       </div>
 
-      <div className='bg-white p-4 rounded-md flex w-full justify-between mt-5' >
+      <div className='bg-white p-4 rounded-md flex w-full justify-between mt-5 sticky bottom-2' >
 
         <div>
           <Button className='ThemeBtn mr-2' onClick={() => setEntries(Array(defaultRows).fill(defaultEntry))} >

@@ -1,4 +1,4 @@
-import { Button, Checkbox, DatePicker, Typography } from "antd";
+import { Button, Checkbox, DatePicker, Form, Input, Typography } from "antd";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import TravelCard from "../UI/TravelCard";
@@ -91,10 +91,10 @@ function TravelComposerDetail(props) {
 		}
 	};
 
-	const onInputFieldChange = (value, name) => {
+	const onInputFieldChange = e => {
 		setState(prevState => ({
 			...prevState,
-			[name]: value,
+			[e.target.name]: e.target.value,
 		}));
 		// checkValidation();
 	};
@@ -113,54 +113,6 @@ function TravelComposerDetail(props) {
 		});
 	}
 
-	// const checkValidation = () => {
-	// 	if (state.reason.length === 0) {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			reason: true,
-	// 		}));
-	// 	} else {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			reason: false,
-	// 		}));
-	// 	}
-	// 	if (state.arrivalId === null) {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			arrivalId: true,
-	// 		}));
-	// 	} else {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			arrivalId: false,
-	// 		}));
-	// 	}
-	// 	if (state.departureId === null) {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			departureId: true,
-	// 		}));
-	// 	} else {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			departureId: false,
-	// 		}));
-	// 	}
-	// 	if (state.travelById === null) {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			travelBy: true,
-	// 		}));
-	// 	} else {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			travelBy: false,
-	// 		}));
-	// 	}
-	// 	setSubmit(true);
-	// 	// props.checkCardValidation(checkValidation());
-	// };
 	const addTravelDetails = () => {
 		let tempArr = [];
 		tempArr.push(state);
@@ -197,7 +149,7 @@ function TravelComposerDetail(props) {
 
 	return (
 		<TravelCard>
-			<S.FormItem direction={Direction}>
+			<Form.Item direction={Direction}>
 				<div className="input-row">
 					<Typography level={5} className="required_typography">
 						{labels.reason}
@@ -216,7 +168,7 @@ function TravelComposerDetail(props) {
 						</div>
 					)}
 				</div>
-			</S.FormItem>
+			</Form.Item>
 			<div className="input-row">
 				<Typography level={5} className="required_typography">
 					{labels.travel}

@@ -1,67 +1,65 @@
-import { Select } from "antd";
+import { DatePicker, Select } from "antd";
 import { Option } from "antd/lib/mentions";
-import React from "react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllChartOfAccount } from "../../chartOfAccount/store/actions";
 
-const ReportReport = () => {
+const ReportReport = ({handleChange}) => {
 	const { Option } = Select;
+	const dispatch = useDispatch();
+	const allAccounts = useSelector(state => state.chartOfAccountsSlice.listData);
+	useEffect(()=>{
+		handleChange(filter);
+		dispatch(getAllChartOfAccount())
+	}, [])
+	const [filter , setFilter] = useState({
+		search: "",
+		startDate: moment().subtract(1, 'month'),
+		endDate: moment(),
+		accountId: null,
+		balanceBroughtForward: true
+	});
 	return (
 		<div className="reportFilter">
 			<Select
 				showSearch
 				optionFilterProp="children"
-				onChange={() => {}}
+				onChange={(value) => {
+					setFilter({
+						...filter,
+						accountId:value
+					});
+					handleChange({
+						...filter,
+						accountId:value
+					})
+				}}
 				style={{ width: "200px", margin: "5px" }}
-				placeholder="Voucher Type"
+				placeholder="Select Account"
 				filterOption={(input, option) =>
 					option.children.toLowerCase().includes(input.toLowerCase())
 				}
 			>
-				{[
-					{ label: "Payment Voucher", value: 1 },
-					{ label: "Receipt Voucher", value: 2 },
-					{ label: "Other Voucher", value: 3 },
-				].map(item => (
-					<Option value={item.value}>{item.label}</Option>
-				))}
+				{ allAccounts.map((item) => <Option value={item.id}>{item.name}</Option>)}
 			</Select>
 
-			<Select
-				showSearch
-				optionFilterProp="children"
-				onChange={() => {}}
-				style={{ width: "200px", margin: "5px" }}
-				placeholder="Voucher Type"
-				filterOption={(input, option) =>
-					option.children.toLowerCase().includes(input.toLowerCase())
-				}
-			>
-				{[
-					{ label: "Payment Voucher", value: 1 },
-					{ label: "Receipt Voucher", value: 2 },
-					{ label: "Other Voucher", value: 3 },
-				].map(item => (
-					<Option value={item.value}>{item.label}</Option>
-				))}
-			</Select>
+			<DatePicker
+              value={filter.startDate}
+              onChange={(value) => {
+				setFilter({ ...filter, startDate: value })
+			}}
+			  className="ml-2"
+			//   defaultValue={moment(-1)}
+            />
+			<DatePicker
+              value={filter.endDate}
+              onChange={(value) => setFilter({ ...filter, endDate: value })}
+			//   defaultValue={moment()}
+            />
 
-			<Select
-				showSearch
-				optionFilterProp="children"
-				onChange={() => {}}
-				style={{ width: "200px", margin: "5px" }}
-				placeholder="Voucher Type"
-				filterOption={(input, option) =>
-					option.children.toLowerCase().includes(input.toLowerCase())
-				}
-			>
-				{[
-					{ label: "Payment Voucher", value: 1 },
-					{ label: "Receipt Voucher", value: 2 },
-					{ label: "Other Voucher", value: 3 },
-				].map(item => (
-					<Option value={item.value}>{item.label}</Option>
-				))}
-			</Select>
+
 		</div>
 	);
 };

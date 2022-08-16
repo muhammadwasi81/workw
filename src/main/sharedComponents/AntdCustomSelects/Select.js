@@ -7,7 +7,7 @@ const { Option } = Select;
 
 function AntCustomSelect(props) {
 	const [pgNo, setPgNo] = useState(0);
-	const form = Form.useFormInstance();
+
 	const {
 		loading,
 		data,
@@ -32,11 +32,15 @@ function AntCustomSelect(props) {
 		name = "",
 		showSearch = false,
 		rules = [],
+		apiLoad = true,
+		formItem = true,
 	} = props;
 
 	useEffect(() => {
-		setPgNo(0);
-	}, [debouncedSearch]);
+		if (apiLoad) {
+			setPgNo(0);
+		}
+	}, [debouncedSearch, apiLoad]);
 	const userId = useSelector(state => state.userSlice.user.id);
 	// handle pagination inside this component
 	const onPopupScroll = event => {
@@ -48,63 +52,124 @@ function AntCustomSelect(props) {
 		}
 	};
 	useEffect(() => {
-		if (pgNo !== 0) {
-			paginationHandler(pgNo);
+		if (apiLoad) {
+			if (pgNo !== 0) {
+				paginationHandler(pgNo);
+			}
 		}
-	}, [pgNo]);
+	}, [pgNo, apiLoad]);
 	// console.log("data", isLoaded, data);
 	return (
-		<Form.Item
-			label={label}
-			name={name}
-			showSearch={showSearch}
-			rules={rules}
-		>
-			<Select
-				className="w-full antd_custom_select"
-				mode={mode}
-				size={size}
-				showSearch
-				placeholder={placeholder}
-				tagRender={tagRender}
-				value={value}
-				loading={loading}
-				onPopupScroll={onPopupScroll}
-				onSelect={onSelect}
-				onChange={onChange}
-				onSearch={onSearch}
-				filterOption={filterOption}
-			>
-				{isLoaded && !loading ? (
-					data &&
-					data.length > 0 &&
-					data.map(
-						(opt, index) =>
-							userId !== opt.id && (
-								<Option
-									key={index}
-									value={isEmailSelect ? opt.email : opt.id}
-									disabled={defaultData.includes(opt.id)}
-									className="hover:!bg-primary-color hover:!text-white"
-								>
-									<div className="flex gap-1 items-center">
-										{optionComponent
-											? optionComponent(opt)
-											: opt.name}
-									</div>
-								</Option>
+		<>
+			{!formItem ? (
+				<Select
+					className="w-full antd_custom_select"
+					mode={mode}
+					size={size}
+					showSearch
+					placeholder={placeholder}
+					tagRender={tagRender}
+					value={value}
+					loading={loading}
+					onPopupScroll={apiLoad && onPopupScroll}
+					onSelect={onSelect}
+					onChange={onChange}
+					onSearch={onSearch}
+					filterOption={filterOption}
+					// maxTagCount="responsive"
+				>
+					{isLoaded && !loading ? (
+						data &&
+						data.length > 0 &&
+						data.map(
+							(opt, index) =>
+								userId !== opt.id && (
+									<Option
+										key={index}
+										value={
+											isEmailSelect ? opt.email : opt.id
+										}
+										disabled={defaultData.includes(opt.id)}
+										className="hover:!bg-primary-color hover:!text-white"
+									>
+										<div className="flex gap-1 items-center">
+											{optionComponent
+												? optionComponent(opt)
+												: opt.name}
+										</div>
+									</Option>
+								)
+						)
+					) : (
+						<Option>
+							<Space>
+								<Skeleton.Avatar active={true} />
+								<Skeleton.Input active={true} block />
+							</Space>
+						</Option>
+					)}
+				</Select>
+			) : (
+				<Form.Item
+					label={label}
+					name={name}
+					showSearch={showSearch}
+					rules={rules}
+				>
+					<Select
+						className="w-full antd_custom_select"
+						mode={mode}
+						size={size}
+						showSearch
+						placeholder={placeholder}
+						tagRender={tagRender}
+						value={value}
+						loading={loading}
+						onPopupScroll={apiLoad && onPopupScroll}
+						onSelect={onSelect}
+						onChange={onChange}
+						onSearch={onSearch}
+						filterOption={filterOption}
+						// maxTagCount="responsive"
+					>
+						{isLoaded && !loading ? (
+							data &&
+							data.length > 0 &&
+							data.map(
+								(opt, index) =>
+									userId !== opt.id && (
+										<Option
+											key={index}
+											value={
+												isEmailSelect
+													? opt.email
+													: opt.id
+											}
+											disabled={defaultData.includes(
+												opt.id
+											)}
+											className="hover:!bg-primary-color hover:!text-white"
+										>
+											<div className="flex gap-1 items-center">
+												{optionComponent
+													? optionComponent(opt)
+													: opt.name}
+											</div>
+										</Option>
+									)
 							)
-					)
-				) : (
-					<Option>
-						<Space>
-							<Skeleton.Avatar active={true} />
-							<Skeleton.Input active={true} block />
-						</Space>
-					</Option>
-				)}
-			</Select>
-		</Form.Item>
+						) : (
+							<Option>
+								<Space>
+									<Skeleton.Avatar active={true} />
+									<Skeleton.Input active={true} block />
+								</Space>
+							</Option>
+						)}
+					</Select>
+				</Form.Item>
+			)}
+		</>
 	);
 }
 

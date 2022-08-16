@@ -79,6 +79,7 @@ const en = {
       Relation: "Relation",
       Name: "Name",
       AddMoreEmergency: "Add More Emergency",
+      AddEmergency: "Add Emergency",
     },
     EducationForm: {
       EducationInfo: "Education Info",
@@ -91,7 +92,7 @@ const en = {
       ObtainedMarks: "Obtained Marks",
       Present: "Present",
       Attachments: "Attachments",
-      AddMoreEducation: "Add More Education",
+      AddEducation: "Add Education",
       Upload: "Upload",
       City: "City",
     },
@@ -105,6 +106,7 @@ const en = {
       StartDate: "Start Date",
       Present: "Present",
       AddMoreExperience: "Add More Experience",
+      AddExperience: "Add Experience",
       EmploymentType: "Employment Type",
       City: "City",
     },
@@ -124,6 +126,7 @@ const en = {
       City: "City",
       Country: "Country",
       AddMoreBank: "Add More Bank",
+      AddBank: "Add Bank"
     },
     EmployeeList: {
       number: "Number",

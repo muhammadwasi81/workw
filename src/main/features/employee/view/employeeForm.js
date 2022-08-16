@@ -293,6 +293,7 @@ const EmployeeForm = props => {
 					direction={Direction}
 				>
 					<DatePicker
+						style={{width: "100%"}}
 						placeholder={placeholder.selectDate}
 						size="large"
 						format={"DD/MM/YYYY"}
@@ -307,6 +308,7 @@ const EmployeeForm = props => {
 				>
 					<DatePicker
 						placeholder={placeholder.selectDate}
+						style={{width: "100%"}}
 						size="large"
 						format={"DD/MM/YYYY"}
 						getPopupContainer={trigger => trigger.parentNode}

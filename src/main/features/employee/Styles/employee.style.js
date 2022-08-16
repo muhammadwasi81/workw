@@ -229,12 +229,13 @@ export const ButtonContainer = styled.div`
     display: flex;
     align-items: center;
   }
+  width: 100%;
 `;
 export const EButton = styled(Button)`
   margin-right: 10px;
   margin-bottom: 10px;
   border-radius: 5px !important;
-  width: 12.4rem !important;
+  width: auto !important;
 `;
 export const EmployeeCardCustom = styled.div`
   display: flex;

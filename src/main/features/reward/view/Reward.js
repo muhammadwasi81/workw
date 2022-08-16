@@ -11,7 +11,7 @@ import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 
 import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";  
 import { useDispatch } from "react-redux";
 import { getAllRewards, GetRewardById } from "../store/actions";
 import TableView from "./TableView";

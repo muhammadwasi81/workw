@@ -23,7 +23,7 @@ const DocFullCard = ({ data }) => {
     const { documentDictionary } = documentDictionaryList[userLanguage];
 	const disptach = useDispatch()
 
-	let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId } = data
+	let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId, status } = data
 	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
 
@@ -46,7 +46,7 @@ const DocFullCard = ({ data }) => {
 						</div>
 						<div className="right">
 							<Tag className="IdTag">TRA-000085</Tag>
-							<StatusTag status={"In Proccess"}></StatusTag>
+							<StatusTag status={status}></StatusTag>
 						</div>
 					</div>
 				</ItemHeader>

@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { getStatusLabelAndColor } from "../AppComponents/Approvals/enums";
 import { ApprovalDictionary } from "../AppComponents/Approvals/localization";
 
-const StatusTag = ({ status }) => {
+const StatusTag = ({ status = 1 }) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { sharedLabels, Direction } = dictionaryList[userLanguage];
 	const { status: statusLabels } = ApprovalDictionary[userLanguage];
@@ -15,7 +15,7 @@ const StatusTag = ({ status }) => {
 	// console.log("status", status);
 	return (
 		<>
-			<Tag className="statusTag" style={{backgroundColor: color}}>
+			<Tag className="statusTag" style={{ backgroundColor: color }}>
 				{label}
 			</Tag>
 		</>

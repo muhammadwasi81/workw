@@ -7,7 +7,7 @@ import ModalTitle from "./UI/ModalTitle";
 import CustomModal from "./CustomModal";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 function MemberModal({
-	value: selectedValues,
+	value: selectedValues = [],
 	onSave,
 	showModal,
 	isModalVisible,
@@ -55,7 +55,7 @@ function MemberModal({
 	return (
 		<CustomModal
 			isModalVisible={isModalVisible}
-			// centered={true}
+			centered={true}
 			title={<ModalTitle title={"Members"} />}
 			onCancel={showModal}
 			footer={<ModalFooter onSave={onSaveModal} />}

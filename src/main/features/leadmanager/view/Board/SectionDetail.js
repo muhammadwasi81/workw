@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Collapse, Form, Input } from "antd";
+import { Avatar, Button, Collapse, Form, Input } from "antd";
 import { FaGlobe, FaUserAlt, FaUserPlus } from "react-icons/fa";
 import {
 	CalendarOutlined,
@@ -11,21 +11,53 @@ import {
 
 import "./sectionDetail.css";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
+import UploadBgImg from "../../../workboard/WorkBoardDetail/UploadBgImg";
 
 const { Panel } = Collapse;
 
-function SectionDetail() {
+function SectionDetail(props) {
+	const { data } = props;
+
+	const [image, setImage] = useState();
+
 	return (
 		<div className="flex gap-5">
 			<section className="flex flex-col gap-3 basis-7/12">
-				<div className="">
+				<div className="overflow-hidden relative h-[200px]">
 					<img
 						className="object-cover h-[200px] w-full rounded-2xl"
-						src="https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
+						src={
+							data.image
+								? data.image
+								: image
+								? (
+										window.URL || window.webkitURL
+								  ).createObjectURL(image)
+								: "https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
+						}
 						alt="lead manager"
 					/>
+					<UploadBgImg
+						onUploadImg={value => {
+							setImage(value.fileList[0].originFileObj);
+						}}
+					>
+						<div
+							className="bg-gray-500 absolute text-white w-full bottom-0 left-0 flex justify-center py-3 bg-opacity-90 rounded-b-2xl cursor-pointer hover:bg-opacity-95 transition hover:font-semibold"
+							onClick={() => {
+								console.log("upload ");
+							}}
+						>
+							Upload Image
+						</div>
+					</UploadBgImg>
 				</div>
-				<Form name="basic" autoComplete="off" layout="vertical">
+				<Form
+					name="basic"
+					autoComplete="off"
+					layout="vertical"
+					initialValues={{ ...data }}
+				>
 					<Form.Item
 						label={<span className="text-primary-color">Name</span>}
 						name="name"
@@ -36,7 +68,7 @@ function SectionDetail() {
 						/>
 					</Form.Item>
 					<Form.Item
-						name="contactNo"
+						name="phoneNumber"
 						label={
 							<span className="text-primary-color">
 								Phone Number
@@ -66,7 +98,7 @@ function SectionDetail() {
 						/>
 					</Form.Item>
 					<Form.Item
-						name="address"
+						name="emailAddress"
 						label={
 							<span className="text-primary-color">Address</span>
 						}
@@ -79,7 +111,7 @@ function SectionDetail() {
 						/>
 					</Form.Item>
 					<Form.Item
-						name="url"
+						name="website"
 						label={
 							<span className="text-primary-color">Website</span>
 						}
@@ -89,6 +121,14 @@ function SectionDetail() {
 							placeholder="Lead Url"
 							// type={"url"}
 						/>
+					</Form.Item>
+					<Form.Item className="!mb-0">
+						<Button
+							htmlType="submit"
+							className="ThemeBtn !block ml-auto"
+						>
+							Update
+						</Button>
 					</Form.Item>
 				</Form>
 			</section>
@@ -114,7 +154,9 @@ function SectionDetail() {
 								<CalendarOutlined className="!text-white !text-base" />
 							}
 						>
-							<p className="!m-0 ">{"asdfasdf"}</p>
+							<div className="flex justify-center text-primary-color">
+								No Meetings
+							</div>
 						</Panel>
 					</Collapse>
 				</div>
@@ -137,26 +179,45 @@ function SectionDetail() {
 							className=" site-collapse-custom-panel"
 							showArrow={false}
 							extra={
-								<FaUserPlus className="!text-white !text-base" />
+								<FaUserPlus
+									className="!text-white !text-base"
+									onClick={e => {
+										e.preventDefault();
+										e.stopPropagation();
+										props.handleContactDetailModal();
+									}}
+								/>
 							}
 						>
-							<div className="bg-white rounded-lg p-2">
-								<div className="flex items-center justify-between  w-full">
-									<div className="flex gap-3 items-center">
-										{/* <img /> */}
-										<p className="text-black !m-0">
-											Syed Danish Ali
-										</p>
+							{data.members.length > 0 ? (
+								data.members.map(member => (
+									<div className="bg-white rounded-lg p-2">
+										<div className="flex items-center justify-between  w-full">
+											<div className="flex gap-3 items-center">
+												<Avatar src="" />
+												<p className="text-black !m-0">
+													Syed Danish Ali
+												</p>
+											</div>
+											<DeleteFilled className="!text-gray-500" />
+										</div>
 									</div>
-									<DeleteFilled className="!text-gray-500" />
+								))
+							) : (
+								<div className="flex justify-center text-primary-color">
+									No Contacts
 								</div>
-							</div>
+							)}
 						</Panel>
 					</Collapse>
 				</div>
 
-				<div className="bg-white rounded-xl overflow-y-auto py-2">
-					<CommentWrapper />
+				<div className="bg-white rounded-xl py-2 max-h-96 overflow-y-auto">
+					<CommentWrapper
+						referenceId={data.id}
+						isCommentLoad={true}
+						module={7}
+					/>
 				</div>
 			</section>
 		</div>

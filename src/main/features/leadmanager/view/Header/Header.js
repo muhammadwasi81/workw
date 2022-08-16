@@ -25,11 +25,14 @@ function Header({ dictionary, direction }) {
 		success,
 		isComposerOpen,
 		isEditComposer,
-		leadMangerDetail,
+		leadManagerDetail,
 		isComposerDataLoading,
 	} = useSelector(state => state.leadMangerSlice);
 
 	const [composerData, setComposerData] = useState(initialComposerData);
+	// console.log("composerData", leadManagerDetail);
+	const isEdited = isEditComposer;
+	// const [isEdited, setIsEdited] = useState(false);
 
 	const items = [
 		{
@@ -43,15 +46,15 @@ function Header({ dictionary, direction }) {
 	};
 
 	useEffect(() => {
-		if (isEditComposer && leadMangerDetail && !isComposerDataLoading) {
-			setComposerData(leadMangerDetail);
+		if (isEditComposer && leadManagerDetail && !isComposerDataLoading) {
+			setComposerData(leadManagerDetail);
 		} else {
 			setComposerData(initialComposerData);
 		}
 	}, [
 		isComposerOpen,
 		isEditComposer,
-		leadMangerDetail,
+		leadManagerDetail,
 		isComposerDataLoading,
 	]);
 
@@ -63,7 +66,7 @@ function Header({ dictionary, direction }) {
 				<SideDrawer
 					children={
 						<BoardComposer
-							isEdit={isEditComposer}
+							isEdit={isEdited}
 							composerData={composerData}
 							dataLoading={isComposerDataLoading}
 							loading={loading}
@@ -71,9 +74,7 @@ function Header({ dictionary, direction }) {
 							direction={direction}
 						/>
 					}
-					title={
-						isEditComposer && isComposerOpen ? updateGrp : createGrp
-					}
+					title={isEdited ? updateGrp : createGrp}
 					buttonText={createTextBtn}
 					isAccessDrawer={true}
 					setOpenDrawer={handleOpenDrawer}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
 
-function LeadTopBar({ handleView, topBar }) {
+function LeadTopBar({ handleView, topBar, handleSearch }) {
 	// const [filter, setFilter] = useState({
 	// 	filterType: 1,
 	// });
@@ -10,7 +10,7 @@ function LeadTopBar({ handleView, topBar }) {
 	return (
 		<TopBar
 			onSearch={value => {
-				console.log(value);
+				handleSearch(value);
 			}}
 			buttons={[]}
 			filter={{

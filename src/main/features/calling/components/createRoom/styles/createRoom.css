@@ -113,10 +113,11 @@
 }
 
 .createRoom__formBottom .ant-form-item {
-    flex-direction: row-reverse;
+    /* flex-direction: row-reverse; */
     gap: 5px;
     width: fit-content;
     margin-bottom: 3px;
+    align-items: center;
 }
 
 .createRoom__formBottom .ant-form-item .ant-form-item-label {

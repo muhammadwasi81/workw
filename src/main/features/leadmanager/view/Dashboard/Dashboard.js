@@ -8,23 +8,23 @@ import { getAllLeadManager } from "../../store/actions";
 import GridView from "./GridView/GridView";
 import { tableColumn } from "./TableView/tableColumn";
 
-function LeadDashboard({ isTableView, dictionary }) {
+function LeadDashboard({ isTableView, dictionary, data }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const leadManagerData = useSelector(
-		state => state.leadMangerSlice.leadManagersData
-	);
+	// const leadManagerData = useSelector(
+	// 	state => state.leadMangerSlice.leadManagersData
+	// );
 	const loading = useSelector(state => state.leadMangerSlice.loading);
-	useEffect(() => {
-		dispatch(
-			getAllLeadManager({
-				pageNo: 0,
-				pageSize: 0,
-				search: "",
-				sortBy: 1,
-			})
-		);
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(
+	// 		getAllLeadManager({
+	// 			pageNo: 0,
+	// 			pageSize: 0,
+	// 			search: "",
+	// 			sortBy: 1,
+	// 		})
+	// 	);
+	// }, []);
 
 	const onRow = (record, rowIndex) => {
 		return {
@@ -49,7 +49,7 @@ function LeadDashboard({ isTableView, dictionary }) {
 					<Spinner />
 				) : (
 					<GridView
-						data={leadManagerData}
+						data={data}
 						loading={loading}
 						dispatch={dispatch}
 						handleClickNavigation={handleClickNavigation}
@@ -63,7 +63,7 @@ function LeadDashboard({ isTableView, dictionary }) {
 					// handleChange={handleChange}
 					// onPageChange={onPageChange}
 					onRow={onRow}
-					data={leadManagerData ? leadManagerData : []}
+					data={data ? data : []}
 					// status={travelStatus}
 					loading={loading}
 					// success={success}

@@ -1,0 +1,208 @@
+.ReactQuill div[contenteditable="true"] {
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.formInput.w-50 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.formInput.w-50 .ant-row {
+    flex: 1;
+}
+
+.formInput.w-50 .ant-picker {
+    width: 100%;
+}
+
+.formInput.w-33 {
+    display: flex;
+    gap: 10px;
+}
+
+.formInput.w-33 .ant-row+.ant-row {
+    flex: 1;
+}
+
+.formInput.w-33 .ant-row:first-child {
+    min-width: 150px;
+}
+
+.createSchedule .ant-form-vertical .ant-form-item-label>label {
+    color: var(--currentThemeColor);
+    font-weight: 600;
+}
+
+
+
+.createSchedule .ant-radio-button-wrapper {
+
+    color: #666;
+    padding: 0 8px;
+}
+
+.createSchedule .ant-radio-button-wrapper::before {
+    display: none;
+}
+
+.createSchedule .ant-radio-button-wrapper:hover {
+    color: var(--currentThemeColor);
+}
+
+.createSchedule .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+
+    font-weight: 600;
+    color: var(--currentThemeColor);
+}
+
+.createSchedule .ant-radio-button-wrapper span+span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.createSchedule .ant-radio-button-wrapper {
+    border-width: 1px
+}
+
+.createSchedule .ant-radio-button-wrapper svg {
+    font-size: 16px;
+}
+
+.createSchedule .ant-radio-group {
+    display: flex;
+    gap: 5px;
+}
+
+.createSchedule .ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
+    border-color: var(--currentThemeColor);
+    border-radius: 3px
+}
+
+.createSchedule .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    border-color: var(--currentThemeColor);
+    border-radius: 3px;
+}
+
+.fc .fc-timegrid-now-indicator-container {
+    background-color: white !important;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 0.5em !important;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+
+}
+
+.fc .fc-toolbar {
+    display: block !important;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 20px !important;
+    margin-bottom: 4px;
+}
+
+.fc {
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+    border: solid 1px #ebebeb;
+    box-shadow: 0 12px 6px -12px #bbbbbb;
+    height: 100%;
+}
+
+.fc .fc-timegrid-axis-cushion,
+.fc .fc-timegrid-slot-label-cushion {
+    font-size: 12px;
+}
+
+.fc .fc-button-primary:disabled {
+    color: #666 !important;
+    background-color: transparent !important;
+    border-color: #666 !important;
+    text-transform: capitalize;
+
+}
+
+.fc .fc-button {
+    /* font-weight: 600 !important; */
+    padding: 3px 8px !important;
+    font-size: 12px !important;
+    text-transform: capitalize !important;
+    background-color: var(--currentThemeColor) !important;
+    border-color: var(--currentThemeColor) !important;
+}
+
+.fc .fc-button:disabled {
+    opacity: 1 !important;
+}
+
+.fc .fc-button-group>.fc-button {
+    padding: 1px !important;
+    border-radius: 50%;
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
+
+
+}
+
+.fc .fc-button-group>.fc-button .fc-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fc .fc-button-group {
+    display: inline-flex;
+    gap: 5px;
+}
+
+.fc-direction-ltr .fc-button-group>.fc-button:not(:first-child) {
+    margin-left: -1px;
+    border-top-left-radius: 50% !important;
+    border-bottom-left-radius: 50% !important;
+}
+
+.fc .fc-button-primary:focus {
+    box-shadow: none !important;
+}
+
+.fc .fc-button-primary.fc-prev-button,
+.fc .fc-button-primary.fc-next-button {
+    background: transparent !important;
+    border: 1px solid var(--currentThemeColor) !important;
+}
+
+.fc-icon-chevron-right:before,
+.fc-icon-chevron-left:before {
+    color: var(--currentThemeColor);
+    font-size: 16px;
+}
+
+.fc .fc-scrollgrid-liquid {
+    border: none !important;
+}
+
+.fc .fc-scrollgrid-section-liquid>td {
+    border: none !important;
+}
+
+.fc-timegrid-event .fc-event-main {
+    padding: 0 !important;
+}
+
+.fc-v-event {
+    border: 1px solid #D9D9D9 !important;
+    overflow: hidden;
+    background-color: #ccc;
+}
+
+.fc-event-main .event {
+    border: none;
+    padding: 3px 10px;
+    height: 100%;
+}   

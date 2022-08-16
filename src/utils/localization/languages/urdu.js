@@ -105,6 +105,7 @@ const urdu = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    Schedules: "Schedules",
     workWiseCompanies: "کام کے لحاظ سے کمپنیاں",
     promotions: "پروموشنز",
     customApprovals: "حسب ضرورت منظوری",

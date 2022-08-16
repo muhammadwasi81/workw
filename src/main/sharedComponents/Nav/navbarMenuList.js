@@ -87,6 +87,14 @@ const NavMenuList = () => {
       key: label.navMenuLabel.menu,
     },
     {
+      name: label.navMenuLabel.Schedules,
+      counter: 0,
+      to: ROUTES.SCHEDULES,
+      icon: schedulesIcon,
+      isActive: 1,
+      key: label.navMenuLabel.menu,
+    },
+    {
       name: label.navMenuLabel.messenger,
       counter: 0,
       to: ROUTES.MESSENGER.DEFAULT,

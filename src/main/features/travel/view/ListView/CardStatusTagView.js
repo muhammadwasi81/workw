@@ -4,6 +4,7 @@ import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 import PropTypes from "prop-types";
 
 function CardStatusTagView(props) {
+	console.log("props", props.status);
 	return (
 		<div className="flex justify-center m-auto sm:m-0">
 			<ReferenceTag refNo={props.refNo} />

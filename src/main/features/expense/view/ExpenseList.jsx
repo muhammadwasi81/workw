@@ -15,7 +15,7 @@ function ExpenseList({ onExpense, expense, updateStatus }) {
   const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
   const { status: statusLabels } = ApprovalDictionary[userLanguage];
 
-  if (!Object || !Object?.keys(expense).length > 0) return null;
+  if (!Object || !Object?.keys(expense)?.length > 0) return null;
   const {
     creator: { name, image, designation },
     id,

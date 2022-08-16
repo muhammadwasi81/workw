@@ -75,6 +75,7 @@ const en = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    Schedules: "Schedules",
     workWiseCompanies: "Workwise Companies",
     promotions: "Promotions",
     customApprovals: "Custom Approvals",

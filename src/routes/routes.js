@@ -30,6 +30,10 @@ export const routes = {
 			path: ROUTES.MESSENGER.DEFAULT,
 			component: lazy(() => import("../main/features/Messenger/")),
 		},
+		{
+			path: ROUTES.SCHEDULES,
+			component: lazy(() => import("../main/features/schedule/routes/")),
+		},
 		// {
 		//   path: `${ROUTES.MAIL.DEFAULT}`,
 		//   component: lazy(() => import("../components/MainMenu/Mail/")),

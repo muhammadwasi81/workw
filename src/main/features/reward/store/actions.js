@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { addRewardService, cancelRewardService, getAllRewardService, GetRewardByIdService } from "../services/service";
@@ -18,13 +18,14 @@ export const GetRewardById = createAsyncThunk("Reward/GetRewardById", async (id)
   return response.data;
 });
 
-export const addReward = createAsyncThunk("reward/addReward", async (data, { dispatch, setState }) => {
+export const addReward = createAsyncThunk("reward/addReward", async (data, { dispatch, setState, rejectWithValue }) => {
   const res = await addRewardService(data);
+  console.log(res, "RESPONSE")
   if (res.data?.responseCode === responseCode.Success) {
     message.success('Reward Created');
     return res;
   } else {
-    return message.error(res.data.message)
+    return rejectWithValue(res.data.message);
   }
 });
 

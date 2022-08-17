@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/event.css";
-function Event() {
+function Event({ shortDesc = false }) {
   return (
     <div className="event">
       <div className="left">
@@ -12,6 +12,7 @@ function Event() {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
           ipsa.
         </p>
+        {shortDesc && <span>Thu, Jul 14, 2022 6:55 PM thu, Jul 14, 2022</span>}
       </div>
     </div>
   );

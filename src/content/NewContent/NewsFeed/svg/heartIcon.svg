@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="149.875" height="149.875" viewBox="0 0 149.875 149.875">
+  <g id="Group_5166" data-name="Group 5166" transform="translate(0 0)">
+    <ellipse id="Ellipse_201" data-name="Ellipse 201" cx="64.322" cy="64.322" rx="64.322" ry="64.322" transform="translate(10.615 10.617)" fill="#fff"/>
+    <g id="Group_5065" data-name="Group 5065" transform="translate(0 0)">
+      <g id="Group_5063" data-name="Group 5063">
+        <ellipse id="Ellipse_202" data-name="Ellipse 202" cx="58.826" cy="58.826" rx="58.826" ry="58.826" transform="translate(0 38.808) rotate(-19.26)" fill="#ef5350"/>
+      </g>
+      <path id="Path_1687" data-name="Path 1687" d="M287.448,429.422a58.828,58.828,0,0,1-94.265-44.58,69.9,69.9,0,0,0,94.265,44.58Z" transform="translate(-177.019 -307.563)" fill="#e6e6e6" style="mix-blend-mode: multiply;isolation: isolate"/>
+      <path id="Union_32" data-name="Union 32" d="M24631.148-264.8c-17.723-5.492-35.32-19.852-38.094-36.843-3.666-22.445,23.117-38.569,38.09-14.439,14.979-24.13,41.756-8.006,38.1,14.439C24666.467-284.656,24648.863-270.3,24631.148-264.8Z" transform="translate(-24556.209 375.662)" fill="#fff" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

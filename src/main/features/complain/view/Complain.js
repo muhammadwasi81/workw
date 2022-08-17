@@ -1,13 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Button, Skeleton } from "antd";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Button, Skeleton, Drawer } from "antd";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
 import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useSelector } from "react-redux";
@@ -21,6 +17,7 @@ import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
+import { handleOpenComposer } from "../store/slice";
 
 const Reward = (props) => {
   const dispatch = useDispatch();
@@ -33,7 +30,7 @@ const Reward = (props) => {
 
   const [filter, setFilter] = useState({ filterType: 1, search: "" });
 
-  const { complains, loader, complainDetail } = useSelector((state) => state.complainSlice);
+  const { complains, loader, complainDetail, drawerOpen } = useSelector((state) => state.complainSlice);
 
   const onClose = () => {
     setVisible(false);
@@ -52,12 +49,14 @@ const Reward = (props) => {
       <Header
         buttons={[
           {
-            buttonText: "Create Travel",
-            // onClick: () => setVisible(true),
+            buttonText: "Create Complain",
             render: (
-              <SideDrawer title={complainDictionary.createComplain} buttonText={complainDictionary.createComplain} isAccessDrawer={false}>
-                <Composer />
-              </SideDrawer>
+              <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                  Create Complain
+                </Button>
+              // <SideDrawer title={complainDictionary.createComplain} buttonText={complainDictionary.createComplain} isAccessDrawer={false}>
+              //   <Composer />
+              // </SideDrawer>
             ),
           },
         ]}
@@ -73,11 +72,11 @@ const Reward = (props) => {
           },
           {
             name: "For Approval",
-            onClick: () => setFilter({ filterType: 1 }),
+            onClick: () => setFilter({ filterType: 2 }),
           },
           {
             name: "Complain To Me",
-            onClick: () => setFilter({ filterType: 2 }),
+            onClick: () => setFilter({ filterType: 3 }),
           },
         ]}
         // filter={{
@@ -122,6 +121,27 @@ const Reward = (props) => {
           "Data not found"
         )}
       </ContBody>
+      <Drawer
+          title={
+            <h1
+              style={{
+                fontSize: "20px",
+                margin: 0,
+              }}
+            >
+              Create Complain
+            </h1>
+          }
+          width="768"
+          onClose={() => {
+            dispatch(handleOpenComposer(false))
+          }}
+          visible={drawerOpen}
+          destroyOnClose={true}
+          className="detailedViewComposer drawerSecondary"
+        >
+          <Composer />
+        </Drawer>
       {complainDetail && <DetailedView onClose={onClose} visible={visible} />}
     </TabbableContainer>
   );

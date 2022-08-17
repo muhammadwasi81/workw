@@ -29,3 +29,13 @@ export const getComplainByIdService = (id) => {
       return res;
     });
 };
+
+export const cancelComplainService = id => {
+	return MasterConfig.delete(`api/Complain/ComplainCancel?id=${id}`)
+		.then(res => {
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
+};

@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { createRoom } from "../../store/action";
 import { useSelector } from "react-redux";
 
-const CALL_URL_PREFIX = "https://192.168.18.81:3000/";
+const CALL_URL_PREFIX = "https://call.workw.com/";
 export default function CreateRoom() {
 	const [isPassword, setIsPassword] = useState(false);
 	const [isMeetingSchedule, setIsMeetingSchedule] = useState(false);
@@ -26,6 +26,7 @@ export default function CreateRoom() {
 	const loading = useSelector(state => state.callingSlice.loading);
 	const success = useSelector(state => state.callingSlice.success);
 	const roomId = useSelector(state => state.callingSlice.roomId);
+	const user = useSelector(state => state.userSlice.user);
 
 	useEffect(() => {
 		if (success && roomId && !loading) {
@@ -116,7 +117,6 @@ export default function CreateRoom() {
 	};
 	const dispatch = useDispatch();
 	const onSubmit = () => {
-		// console.log("form", form.getFieldsValue(true));
 		const fields = form.getFieldsValue(true);
 		if (fields.private && selectedMembers.length === 0) {
 			return message.error("Please add atleast one member.");
@@ -125,6 +125,13 @@ export default function CreateRoom() {
 			...fields,
 			receiverIds: [...selectedMembers],
 			externalMembers: [...externalMembers],
+			myData: {
+				image: user.userImage,
+				userId: user.id,
+				admin: true,
+				name: user.name,
+				email: user.email,
+			},
 		};
 		dispatch(createRoom(dataToSend));
 	};

@@ -28,7 +28,7 @@ const Reward = (props) => {
 
   const [visible, setVisible] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 1, search: "" });
+  const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const { complains, loader, complainDetail, drawerOpen } = useSelector((state) => state.complainSlice);
 
@@ -52,23 +52,24 @@ const Reward = (props) => {
             buttonText: "Create Complain",
             render: (
               <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
-                  Create Complain
+                  {complainDictionary.createComplain}
                 </Button>
-              // <SideDrawer title={complainDictionary.createComplain} buttonText={complainDictionary.createComplain} isAccessDrawer={false}>
-              //   <Composer />
-              // </SideDrawer>
             ),
           },
         ]}
       />
       <TopBar
         onSearch={(value) => {
-          console.log(value);
+          setFilter({ ...filter, search: value })
         }}
         buttons={[
           {
             name: "Complains",
             onClick: () => setFilter({ filterType: 0 }),
+          },
+          {
+            name: "Created By Me",
+            onClick: () => setFilter({ filterType: 1 }),
           },
           {
             name: "For Approval",
@@ -79,9 +80,6 @@ const Reward = (props) => {
             onClick: () => setFilter({ filterType: 3 }),
           },
         ]}
-        // filter={{
-        //   onFilter: () => {},
-        // }}
         segment={{
           onSegment: (value) => {
             if (value === "Table") {

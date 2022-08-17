@@ -37,8 +37,6 @@ const rewardSlice = createSlice({
         let data = payload
         if (data.responseCode === 1007) {
           return state.drawerOpen = false 
-        } else {
-          return state.drawerOpen = true
         }
       })
       .addMatcher(isPending(...[getAllRewards]), (state) => {

@@ -164,6 +164,7 @@ const Composer = props => {
 					label={complainDictionary.complainOf}
 					showSearch={true}
 					direction={Direction}
+					style={{ marginBottom: "0px" }}
 				>
 					<CustomSelect
 						style={{ marginBottom: "0px" }}
@@ -207,6 +208,7 @@ const Composer = props => {
 					label={complainDictionary.approvers}
 					showSearch={true}
 					direction={Direction}
+					style={{ marginBottom: "0px" }}
 				>
 					<CustomSelect
 						style={{ marginBottom: "0px" }}

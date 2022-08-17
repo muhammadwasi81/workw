@@ -10,18 +10,23 @@ import { getAllVoucher } from "../../voucher/store/actions";
 import VoucherPrint from "../../voucher/view/voucherPrintModal";
 import CustomModal from "../../workboard/Modal/CustomModal";
 import { transactionColumn } from "./columns";
+import ReportFilter from "./Filter";
+
 const Transactions = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const dispatch = useDispatch();
   const voucherList = useSelector(state => state.voucherSlice.voucherList);
   const loader = useSelector(state => state.voucherSlice.loader);
   const [currentId, setCurrentId] = useState(STRINGS.DEFAULTS.guid);
-  useEffect(() => {
-    dispatch(getAllVoucher({}));
-  }, [])
+  // useEffect(() => {
+    
+  // }, [])
   const handleClickPrint = (id) => {
     setCurrentId(id)
     setIsOpenModal(true)
+  }
+  const handleFilter = (filter) => {
+    dispatch(getAllVoucher(filter));
   }
 
   return (
@@ -34,19 +39,23 @@ const Transactions = () => {
           }
         ]}
       />
+          <ReportFilter handleChange={handleFilter} />
+
       <ContBody>
-        <Table
-          columns={transactionColumn(handleClickPrint)}
-          dragable={true}
-          // handleChange={handleChange}
-          // onPageChange={onPageChange}
-          // onRow={onRow}
-          data={voucherList}
-          // status={travelStatus}
-          loading={true}
-        // success={success}
-        // onActionClick={onActionClick}
-        />
+          <div className='bg-white p-4 rounded-md overflow-x-auto' >
+            <Table
+              columns={transactionColumn(handleClickPrint)}
+              dragable={true}
+              // handleChange={handleChange}
+              // onPageChange={onPageChange}
+              // onRow={onRow}
+              data={voucherList}
+              // status={travelStatus}
+              loading={true}
+            // success={success}
+            // onActionClick={onActionClick}
+            />
+        </div>
         <CustomModal
           isModalVisible={isOpenModal}
           onCancel={() => setIsOpenModal(false)}

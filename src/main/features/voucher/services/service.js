@@ -3,7 +3,7 @@ import Config from "../../../../utils/services/MasterConfig";
 
 const getAllVoucher_dbo = (data) => {
 	return {
-		"pageNo": data.pageNo ? data.pageNo : 1,
+		"pageNo": data.pageNo ? data.pageNo : 0,
 		"pageSize": data.pageSize ? data.pageSize : 20,
 		"search": data.search ? data.search : "",
 		"startDate": data.startDate ? data.startDate : null,
@@ -14,7 +14,7 @@ const getAllVoucher_dbo = (data) => {
 }
 const getLedger_dbo = (data) => {
 	return {
-		"pageNo": data.pageNo ? data.pageNo : 1,
+		"pageNo": data.pageNo ? data.pageNo : 0,
 		"pageSize": data.pageSize ? data.pageSize : 20,
 		"search": data.search ? data.search : "",
 		"startDate": data.startDate ? data.startDate : null,

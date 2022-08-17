@@ -182,7 +182,7 @@ const leadMangerSlice = createSlice({
 					]
 				),
 				state => {
-					state.loader = true;
+					state.loading = true;
 					state.success = false;
 					state.error = false;
 				}

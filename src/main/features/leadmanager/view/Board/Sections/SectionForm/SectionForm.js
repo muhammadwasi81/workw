@@ -9,7 +9,6 @@ import {
 import { useSelector } from "react-redux";
 function SectionForm(props) {
 	const loading = useSelector(state => state.leadMangerSlice.loading);
-	console.log("loadni", loading);
 	return (
 		<div className="bg-white p-3 rounded-sm">
 			<Form

@@ -34,10 +34,8 @@ const rewardSlice = createSlice({
 
     builder
       .addCase(addReward.fulfilled, (state, { payload }) => {
-        let data = payload
-        if (data.responseCode === 1007) {
-          return state.drawerOpen = false 
-        }
+        console.log(payload, "PAY")
+        state.drawerOpen = false
       })
       .addMatcher(isPending(...[getAllRewards]), (state) => {
         state.loader = true;

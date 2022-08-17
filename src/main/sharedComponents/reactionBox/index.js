@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from "react";
 import Icon from "./components/icon";
 import IconContainer from "./components/iconContainer";
-
+import appreciateIcon from "../../../content/NewContent/NewsFeed/svg/appreciateIcon.svg";
+import likeIcon from "../../../content/NewContent/NewsFeed/svg/likeIcon.svg";
+import celebrateIcon from "../../../content/NewContent/NewsFeed/svg/celebrateIcon.svg";
+import heartIcon from "../../../content/NewContent/NewsFeed/svg/heartIcon.svg";
+import searchIcon from "../../../content/NewContent/NewsFeed/svg/searchIcon.svg";
 export default class Reactions extends Component {
   constructor(props) {
     super(props);
@@ -21,23 +25,17 @@ export default class Reactions extends Component {
     });
   }
   images = [
-    { id: "like", description: "Like", img: "http://i.imgur.com/LwCYmcM.gif" },
-    { id: "love", description: "Love", img: "http://i.imgur.com/k5jMsaH.gif" },
-    { id: "haha", description: "Haha", img: "http://i.imgur.com/f93vCxM.gif" },
-    { id: "yay", description: "Yay", img: "http://i.imgur.com/a44ke8c.gif" },
-    { id: "wow", description: "Wow", img: "http://i.imgur.com/9xTkN93.gif" },
-    { id: "sad", description: "Sad", img: "http://i.imgur.com/tFOrN5d.gif" },
-    {
-      id: "angry",
-      description: "Angry",
-      img: "http://i.imgur.com/1MgcQg0.gif",
-    },
+    { id: "like", description: "Like", img: likeIcon },
+    { id: "love", description: "Love", img: celebrateIcon },
+    { id: "haha", description: "Haha", img: appreciateIcon },
+    { id: "yay", description: "Yay", img: heartIcon },
+    { id: "wow", description: "Wow", img: searchIcon },
   ];
   render() {
     const { open } = this.state;
     // const items = this.props.items;
     const items = this.images;
-    const width = items.length * 52;
+    const width = items.length * 45;
 
     const optionsStyles = {
       position: "relative",

@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
-import { addComplainService, getAllComplainService, getComplainByIdService } from "../services/service";
+import { addComplainService, cancelComplainService, getAllComplainService, getComplainByIdService } from "../services/service";
 
 export const getAllComplains = createAsyncThunk("Complain/GetAllComplain", async (data) => {
   const response = await getAllComplainService(data);
@@ -21,4 +21,9 @@ export const GetComplainById = createAsyncThunk("Complain/GetComplainById", asyn
   const response = await getComplainByIdService(id);
   console.log("MY ID", id);
   return response.data;
+});
+
+export const cancelComplain = createAsyncThunk("complain/cancelComplain", async (id, { dispatch, setState }) => {
+  const response = await cancelComplainService(id);
+  return response;
 });

@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Drawer, Tag, Image } from "antd";
+import React, { useContext, useState } from "react";
+import { Drawer, Tag, Button } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { complainDictionaryList } from "../localization/index";
@@ -13,6 +13,10 @@ import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/v
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import { cancelComplain } from "../store/actions";
+import { ApprovalsModule, ApprovalStatus } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import "./complain.css"
+
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -20,9 +24,20 @@ function DetailedView(props) {
 
   const { complainDetail } = useSelector((state) => state.complainSlice);
 
-  const { creator, description, image = DefaultAttachment, category, createDate, status, members = [], approvers } = complainDetail;
+  const [updatedStatus, setUpdatedStatus] = useState();
+
+  const { creator, description, category, createDate, status, members = [], approvers } = complainDetail;
+  let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
+
+  const handleCancel = (e, payload) => {
+    e.preventDefault()
+    e.stopPropagation();
+    dispatch(cancelComplain(payload));
+  }
+
+  console.log(updatedStatus, "STATUS")
 
   return (
     <Drawer
@@ -32,7 +47,7 @@ function DetailedView(props) {
       onClose={props.onClose}
       visible={props.visible}
       className="detailedViewComposer drawerSecondary">
-      <div className="detailedCard ">
+      <div className="detailedCard ComplainListItem">
         <ItemHeader>
           <div className={"item-header"}>
             <div className="left">
@@ -44,24 +59,34 @@ function DetailedView(props) {
             </div>
             <div className="right">
               <Tag className="IdTag">TRA-000085</Tag>
-              <StatusTag status={status}></StatusTag>
+              <StatusTag status={updatedStatus?.Approvals}></StatusTag>
+              {
+                status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
+                  ""
+              }
             </div>
           </div>
         </ItemHeader>
-        <ItemContent className="flex">
-          <div className="description w-full">
+        <ItemContent className="flex description">
+          <div className="w-full">
             <p>{description}</p>
           </div>
           {/* <div className="attachmentBox">
           <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
         </div> */}
         </ItemContent>
+        <div className="innerCard w-full description">
+            <div className="innerCard__header">
+              <div className="left">
+                Category :
+                <span className="" style={{ color: "#757D86" }}>
+                  &nbsp;{category}
+                </span>
+              </div>
+            </div>
+          </div>
         <div className="ListItemInner">
           <div className="ItemDetails">
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{complainDictionary.category}</span>
-              <Tag className="IdTag">{category}</Tag>
-            </div>
             <div className="innerDiv">
               <span className="text-black font-extrabold smallHeading">{complainDictionary.complainOf}</span>
               {/* {props.members} */}
@@ -74,20 +99,9 @@ function DetailedView(props) {
                 image={"https://joeschmoe.io/api/v1/random"}
               />
             </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{complainDictionary.approvers}</span>
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Approvers"}
-                membersData={approvers}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
-            </div>
           </div>
         </div>
-        <RemarksApproval data={approvers} title="Approvals" />
+        <RemarksApproval module={ApprovalsModule.ComplainApproval}  status={status} onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)}   data={approvers} title="Approvals" />
       </div>
     </Drawer>
   );

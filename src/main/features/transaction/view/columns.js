@@ -35,6 +35,7 @@ export const transactionColumn = (handleClickPrint) => {
 				<Button className="ThemeBtn !text-[11px] !p-2" onClick={()=>handleClickPrint(id)} >
 					View / Print
 				</Button>,
+				width:"120px"
 		},
 	];
 };

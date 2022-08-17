@@ -90,8 +90,6 @@ const Composer = (props) => {
 
   useEffect(() => {
     dispatch(getRewardCategory());
-    // dispatch(getAllEmployee());
-    // console.log(employeesList, "EMPLOYEES")
   }, []);
 
   const handleImageUpload = (data) => {
@@ -180,9 +178,6 @@ const Composer = (props) => {
             },
           ]}>
           <Select
-            // value={
-            //   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-            // }
             data={rewardCategories}
             placeholder={rewardDictionary.category}
             style={{
@@ -205,7 +200,7 @@ const Composer = (props) => {
           <TextInput placeholder={rewardDictionary.enterRewardReason} />
         </Form.Item>
 
-        <Form.Item name="members" label={rewardDictionary.rewardTo} showSearch={true} direction={Direction} rules={[{ required: true }]} style={{ marginBottom: "0px" }} >
+        <Form.Item name="members" label={rewardDictionary.rewardTo} showSearch={true} direction={Direction} style={{ marginBottom: "0px" }} >
 
           <CustomSelect
             style={{ marginBottom: "0px" }}
@@ -244,7 +239,7 @@ const Composer = (props) => {
           />
         </Form.Item>
 
-        <Form.Item name="approvers" label={rewardDictionary.approvers} showSearch={true} direction={Direction} rules={[{ required: true }]} style={{ marginBottom: "0px" }}>
+        <Form.Item name="approvers" label={rewardDictionary.approvers} showSearch={true} direction={Direction} style={{ marginBottom: "0px" }}>
           <CustomSelect
             style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}

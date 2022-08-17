@@ -15,7 +15,7 @@ const rewardSlice = createSlice({
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
-      state.drawerOpen = false
+      state.drawerOpen = payload
     },
   },
   extraReducers: (builder) => {
@@ -34,8 +34,12 @@ const rewardSlice = createSlice({
 
     builder
       .addCase(addReward.fulfilled, (state, { payload }) => {
-        
-        return state;
+        let data = payload
+        if (data.responseCode === 1007) {
+          return state.drawerOpen = false 
+        } else {
+          return state.drawerOpen = true
+        }
       })
       .addMatcher(isPending(...[getAllRewards]), (state) => {
         state.loader = true;

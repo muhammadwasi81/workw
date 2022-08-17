@@ -1,33 +1,37 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image } from "antd";
-import { useSelector, useDispatch } from "react-redux";
-import { useMediaQuery } from "react-responsive";
+import { Drawer, Tag, Image, Button } from "antd";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
-import Approval from "../../../sharedComponents/AppComponents/Approvals/view";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import moment from "moment";
-import { GetRewardById } from "../store/actions";
+import { cancelReward, GetRewardById } from "../store/actions";
+import { ApprovalStatus } from "../../../sharedComponents/AppComponents/Approvals/enums";
 
 function RewardDetailCard(props) {
     const { userLanguage } = useContext(LanguageChangeContext);
     const { rewardDictionary } = rewardDictionaryList[userLanguage];
     const { rewardDetail } = useSelector((state) => state.rewardSlice);
+    const { user } = useSelector(state => state.userSlice);
     const dispatch = useDispatch();
+
+    let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
+
+    let userId = user.id
+    
+
     useEffect(() => {
-        // const isTablet = mediaQuery({ maxWidth: 800 });
         props.id && dispatch(GetRewardById(props.id));
     }, [props.id]);
 
-    console.log(rewardDetail, "rewardDetail");
     const {
         creator,
         name,
@@ -41,6 +45,12 @@ function RewardDetailCard(props) {
         members = [],
         approvers,
     } = rewardDetail;
+
+    const handleCancel = (e, payload) => {
+        e.preventDefault()
+        e.stopPropagation();
+        dispatch(cancelReward(payload));
+    }
 
     const isTablet = false;
 
@@ -59,6 +69,10 @@ function RewardDetailCard(props) {
                         <div className="right">
                             <Tag className="IdTag">{referenceNo}</Tag>
                             <StatusTag status={status}></StatusTag>
+                            {
+                                userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
+                                "" : ""
+                            }
                         </div>
                     </ItemHeader>
                     <ItemContent className="flex">

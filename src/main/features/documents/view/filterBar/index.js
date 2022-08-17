@@ -14,9 +14,9 @@ const FilterBar = () => {
   }
   return (
     <TopBar
-      // onSearch={(value) => {
-      //   console.log(value);
-      // }}
+      onSearch={(value) => {
+        console.log(value);
+      }}
       buttons={[
         {
           name: documentDictionary.AllDocuments,

@@ -9,6 +9,7 @@ import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/C
 import DefaultAttachment from "../../../../content/NewContent/complain/DefaultAttachment.svg";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
+import "./complain.css"
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -16,7 +17,7 @@ function ListItem(props) {
 
   const { creator, description, image = DefaultAttachment, category, createDate, members = [], approvers, status } = props.item;
   return (
-    <SingleItem>
+    <SingleItem className="ComplainListItem">
       <div
         className="new"
         id={props.id}
@@ -39,7 +40,7 @@ function ListItem(props) {
           </div>
         </div>
       </ItemHeader>
-      <ItemContent className="flex">
+      <ItemContent className="flex description">
         <div className="description w-full">
           <p>{description}</p>
         </div>
@@ -47,15 +48,22 @@ function ListItem(props) {
           <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
         </div> */}
       </ItemContent>
+      <div className="flex justify-between">
+          <div className="innerCard w-full">
+            <div className="innerCard__header">
+              <div className="left">
+                Category :
+                <span className="" style={{ color: "#757D86" }}>
+                  &nbsp;{category}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       <div className="ListItemInner">
         <div className="ItemDetails">
           <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{complainDictionary.category}</span>
-            <Tag className="IdTag">{category}</Tag>
-          </div>
-          <div className="innerDiv">
             <span className="text-black font-extrabold smallHeading">{complainDictionary.complainOf}</span>
-            {/* {props.members} */}
             <Avatar
               isAvatarGroup={true}
               isTag={false}

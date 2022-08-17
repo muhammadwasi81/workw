@@ -17,11 +17,17 @@ export const addChartOfAccount = createAsyncThunk(
     const response = await addChartOfAccountService(request);
     switch (response.type) {
       case ResponseType.ERROR:
+        responseMessage({
+          dispatch: dispatch,
+          type: responseMessageType.ApiFailure,
+          data:{
+            message:response.errorMessage
+          }
+        });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         dispatch(openNotification({
           message: "Chart Of Account Create Successfully",
-          style: { backgroundColor: "#48da00" },
           type:"success",
           duration: 2
         }))
@@ -33,10 +39,17 @@ export const addChartOfAccount = createAsyncThunk(
 );
 export const getAllChartOfAccount = createAsyncThunk(
   "ChartOfAccount/getAllChartOfAccount",
-  async (request, { rejectWithValue }) => {
+  async (request, { rejectWithValue, dispatch }) => {
     const response = await getAllChartOfAccountService(request);
     switch (response.type) {
       case ResponseType.ERROR:
+        responseMessage({
+          dispatch: dispatch,
+          type: responseMessageType.ApiFailure,
+          data:{
+            message:response.errorMessage
+          }
+        });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         return response.data;
@@ -52,6 +65,13 @@ export const updateChartOfAccount = createAsyncThunk(
 		const response = await updateChartOfAccountService(data);
 		switch (response.type) {
       case ResponseType.ERROR:
+        responseMessage({
+          dispatch: dispatch,
+          type: responseMessageType.ApiFailure,
+          data:{
+            message:response.errorMessage
+          }
+        });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         dispatch(openNotification({

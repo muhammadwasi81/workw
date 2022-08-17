@@ -10,6 +10,7 @@ import { jsonToFormData } from "../../../../../../utils/base";
 import { useDispatch } from "react-redux";
 import { addLeadManagerDetail } from "../../../store/actions";
 import { v4 as id } from "uuid";
+import { DEFAULT_GUID } from "../../../../../../utils/constants";
 function Section(props) {
 	const { section, index, handleSectionDetailModal } = props;
 	// const [sections, setSections] = useState([]);
@@ -20,7 +21,7 @@ function Section(props) {
 		let tempObj = {
 			sectionId: section.id,
 			image: {
-				id: id(),
+				id: DEFAULT_GUID,
 				file: null,
 			},
 			...values,

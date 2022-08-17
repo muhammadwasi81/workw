@@ -103,3 +103,53 @@ export const addLeadManagerContactService = data => {
 			return error;
 		});
 };
+
+export const updateLeadManagerDetailService = data => {
+	return MasterConfig.put(
+		`${API_LEAD_MANAGER_PREFIX}UpdateLeadManagerDetail`,
+		data
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};
+
+export const getLeadManagerContactDetailService = id => {
+	return MasterConfig.get(
+		`${API_LEAD_MANAGER_CONTACT_PREFIX}GetLeadManagerContactById?id=${id}`
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};
+
+export const updateLeadManagerContactService = data => {
+	return MasterConfig.put(
+		`${API_LEAD_MANAGER_CONTACT_PREFIX}UpdateLeadManagerContact`,
+		data
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};
+
+// export const deleteLeadManagerContactService = id => {
+// 	return MasterConfig.delete(
+// 		`${API_LEAD_MANAGER_CONTACT_PREFIX}RemoveLeadManagerContact?id=${id}`
+// 	)
+// 		.then(res => {
+// 			return res.data;
+// 		})
+// 		.catch(error => {
+// 			return error;
+// 		});
+// };

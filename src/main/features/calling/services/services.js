@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 export const createRoomService = data => {
 	return MasterConfig.post(
-		`https://192.168.18.11:3300/api/createroomlink
+		`https://call.workw.com/api/createroomlink
     `,
 		data
 	)

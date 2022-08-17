@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import LikeIcon from "../../../../../../../content/NewContent/NewsFeed/svg/like.svg";
+import LikeIcon from "../../../../../../../content/NewContent/NewsFeed/svg/likeIcon.svg";
 import CommentIcon from "../../../../../../../content/NewContent/NewsFeed/svg/comment.svg";
 import ShareIcon from "../../../../../../../content/NewContent/NewsFeed/svg/share.svg";
 import Reactions from "../../../../../../sharedComponents/reactionBox/index";

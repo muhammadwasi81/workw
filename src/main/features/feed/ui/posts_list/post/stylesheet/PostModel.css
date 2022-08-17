@@ -52,6 +52,12 @@
   justify-content: center;
 }
 
+.slider-container .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .slider-container {
   height: 100%;
   width: 100%;

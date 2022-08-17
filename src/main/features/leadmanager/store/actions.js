@@ -9,11 +9,15 @@ import {
 	addLeadManagerContactService,
 	addLeadManagerDetailService,
 	addLeadManagerService,
+	deleteLeadManagerContactService,
 	getAllLeadManagerPagingService,
 	getAllLeadManagerService,
 	getLeadManagerByIdService,
+	getLeadManagerContactDetailService,
 	getLeadManagerSectionByIdService,
 	getLeadManagerSectionDetailByIdService,
+	updateLeadManagerContactService,
+	updateLeadManagerDetailService,
 	updateLeadManagerService,
 } from "../services/services";
 
@@ -31,8 +35,8 @@ export const addLeadManager = createAsyncThunk(
 			);
 			dispatch(
 				getAllLeadManager({
-					pageNo: 0,
-					pageSize: 0,
+					pageNo: 1,
+					pageSize: 20,
 					search: "",
 				})
 			);
@@ -57,7 +61,7 @@ export const addLeadManagerDetail = createAsyncThunk(
 		if (res.responseCode === responseCode.Success) {
 			dispatch(
 				openNotification({
-					message: "LeadManager Detail Created Successfully",
+					message: "Lead Manager Detail Created Successfully",
 					type: "success",
 					duration: 2,
 				})
@@ -83,18 +87,18 @@ export const updateLeadManager = createAsyncThunk(
 		if (res.responseCode === responseCode.Success) {
 			dispatch(
 				openNotification({
-					message: "LeadManager Updated Successfully!",
+					message: "Lead Manager Updated Successfully!",
 					type: "success",
 					duration: 2,
 				})
 			);
-			dispatch(
-				getAllLeadManager({
-					pageNo: 0,
-					pageSize: 0,
-					search: "",
-				})
-			);
+			// dispatch(
+			// 	getAllLeadManager({
+			// 		pageNo: 0,
+			// 		pageSize: 0,
+			// 		search: "",
+			// 	})
+			// );
 			return res;
 		} else {
 			dispatch(
@@ -209,3 +213,89 @@ export const addLeadManagerContact = createAsyncThunk(
 		}
 	}
 );
+
+export const updateLeadManagerDetail = createAsyncThunk(
+	"updateLeadManagerDetail",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await updateLeadManagerDetailService(data);
+		if (res.responseCode === responseCode.Success) {
+			dispatch(
+				openNotification({
+					message: "Lead Manager Detail Updated Successfully!",
+					type: "success",
+					duration: 2,
+				})
+			);
+
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const getAllLeadManagerContactDetail = createAsyncThunk(
+	"getAllLeadManagerContactDetail",
+	async (id, { dispatch, getState, rejectWithValue }) => {
+		const res = await getLeadManagerContactDetailService(id);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const updateLeadManagerContact = createAsyncThunk(
+	"updateLeadManagerContact",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await updateLeadManagerContactService(data);
+		if (res.responseCode === responseCode.Success) {
+			dispatch(
+				openNotification({
+					message: "Lead Manager Contact Updated Successfully!",
+					type: "success",
+					duration: 2,
+				})
+			);
+
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+// export const deleteLeadManagerContact = createAsyncThunk(
+// 	"deleteLeadManagerContact",
+// 	async (id, { dispatch, getState, rejectWithValue }) => {
+// 		const res = await deleteLeadManagerContactService(id);
+// 		if (res.responseCode === responseCode.Success) {
+// 			dispatch(
+// 				openNotification({
+// 					message: "Lead Manager Contact Deleted Successfully!",
+// 					type: "success",
+// 					duration: 2,
+// 				})
+// 			);
+
+// 			return res;
+// 		} else {
+// 			return rejectWithValue(res.message);
+// 		}
+// 	}
+// );

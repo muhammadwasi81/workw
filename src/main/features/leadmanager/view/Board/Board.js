@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	ContBody,
 	TabbableContainer,
@@ -16,8 +16,13 @@ import {
 	getLeadManagerById,
 	getLeadManagerSectionById,
 } from "../../store/actions";
+import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
+import ContactDetail from "./ContactDetail";
+import ContactDetailSkeleton from "../../UI/Skeleton/ContactDetailSkeleton";
 
 function Board() {
+	const [openSectionDetailModal, setOpenSectionDetailModal] = useState(false);
+	const [openContactDetailModal, setOpenContactDetailModal] = useState(false);
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -26,6 +31,12 @@ function Board() {
 
 	const leadManagerDetail = useSelector(
 		state => state.leadMangerSlice.leadManagerDetail
+	);
+	const isSectionDetailLoading = useSelector(
+		state => state.leadMangerSlice.isSectionDetailLoading
+	);
+	const leadManagerSectionDetailData = useSelector(
+		state => state.leadMangerSlice.leadManagerSectionDetailData
 	);
 
 	const handleDragEnd = ({ source, destination, type }) => {
@@ -61,6 +72,13 @@ function Board() {
 			},
 		},
 	];
+
+	const handleSectionDetailModal = () => {
+		setOpenSectionDetailModal(!openSectionDetailModal);
+	};
+	const handleContactDetailModal = () => {
+		setOpenContactDetailModal(!openContactDetailModal);
+	};
 	return (
 		<>
 			<Header items={items} />
@@ -84,6 +102,9 @@ function Board() {
 													section={section}
 													index={index}
 													key={section.id}
+													handleSectionDetailModal={
+														handleSectionDetailModal
+													}
 												/>
 											)
 										)}
@@ -95,11 +116,31 @@ function Board() {
 				</ContBody>
 			</TabbableContainer>
 			<CustomModal
-				isModalVisible={false}
+				isModalVisible={openSectionDetailModal}
+				onCancel={handleSectionDetailModal}
 				width={"60%"}
 				title="Details"
 				footer={null}
-				children={<SectionDetail />}
+				children={
+					isSectionDetailLoading && !leadManagerSectionDetailData ? (
+						<SectionDetailSkeleton />
+					) : (
+						<SectionDetail
+							handleContactDetailModal={handleContactDetailModal}
+							data={leadManagerSectionDetailData}
+						/>
+					)
+				}
+				className={""}
+			/>
+
+			<CustomModal
+				isModalVisible={openContactDetailModal}
+				onCancel={handleContactDetailModal}
+				width={"50%"}
+				title="Contact Detail"
+				footer={null}
+				children={<ContactDetail />}
 				className={""}
 			/>
 		</>

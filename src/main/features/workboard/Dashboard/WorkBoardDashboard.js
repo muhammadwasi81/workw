@@ -19,8 +19,8 @@ function WorkBoardDashboard({ isTableView }) {
 	useEffect(() => {
 		dispatch(
 			getAllWorkBoard({
-				pageNo: 0,
-				pageSize: 0,
+				pageNo: 1,
+				pageSize: 20,
 				search: "",
 			})
 		);

@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { addLeadManagerDetail } from "../../../store/actions";
 import { v4 as id } from "uuid";
 function Section(props) {
-	const { section, index } = props;
+	const { section, index, handleSectionDetailModal } = props;
 	// const [sections, setSections] = useState([]);
 	const [toggleForm, setToggleForm] = useState(false);
 	const dispatch = useDispatch();
@@ -84,6 +84,9 @@ function Section(props) {
 															}
 															index={index}
 															key={index}
+															handleSectionDetailModal={
+																handleSectionDetailModal
+															}
 														/>
 													)
 												)}

@@ -11,15 +11,16 @@ import ProjectCover from "../../../content/png/project_cover_img.png";
 function Profile() {
 	const panes = [
 		{
-			title: `Posts`,
-			content: <div>Posts div</div>,
+			title: `Information`,
+			content: <div>Information div</div>,
 			key: 0,
 		},
 		{
-			title: `Information`,
-			content: <div>Information div</div>,
+			title: `Posts`,
+			content: <div>Posts div</div>,
 			key: 1,
 		},
+
 		{
 			title: `Apraisals`,
 			content: <div>Apraisals div</div>,
@@ -49,8 +50,8 @@ function Profile() {
 	return (
 		<TabContainer>
 			<ContBody className="!block">
-				<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
-					<div className="rounded-xl flex flex-col gap-5 overflow-scroll">
+				<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)] w-full">
+					<div className="rounded-xl flex flex-col gap-5 overflow-scroll w-full">
 						<CoverImage image={ProjectCover} />
 						<ProfileCoverDetail />
 						<Tab panes={panes} />

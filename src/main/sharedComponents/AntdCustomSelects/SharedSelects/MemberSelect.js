@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { isEmpty } from "lodash";
 import { useSelector } from "react-redux";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import AntCustomSelect from "../Select";
 
 function MemberSelect({
-	data,
-	selectedData,
-	canFetchNow,
-	fetchData,
+	data = [],
+	selectedData = () => {},
+	canFetchNow = false,
+	fetchData = () => {},
 	defaultData = [],
 	defaultKey = "id",
 	isObject = false,
@@ -25,6 +24,9 @@ function MemberSelect({
 	label = "",
 	rules = [],
 	showSearch = false,
+	apiLoad = true,
+	emptyStateAfterSelect = false,
+	formItem = true,
 }) {
 	const [value, setValue] = useState("");
 	const [stateVal, setStateVal] = useState(dataVal);
@@ -38,13 +40,15 @@ function MemberSelect({
 	);
 
 	const onChange = value => {
-		console.log("value", value);
 		const tempArray = String(value).split(",");
 		if (!tempArray[0]) {
 			setStateVal([]);
 		} else {
 			setStateVal([...tempArray]);
 		}
+		// if (emptyStateAfterSelect) {
+		// 	setStateVal("");
+		// }
 	};
 	const triggerChange = changedValue => {
 		change?.(changedValue);
@@ -61,20 +65,28 @@ function MemberSelect({
 	}, []);
 
 	useEffect(() => {
-		let filterArrOfObj;
-		if (isObject) {
-			filterArrOfObj = employees.filter(val =>
-				stateVal.includes(val[defaultKey])
-			);
-		}
-		selectedData(stateVal, filterArrOfObj);
-
 		if (stateVal.length > 0) {
-			if (stateVal.length === 1) {
-				triggerChange(stateVal.toString());
-			} else {
-				triggerChange(stateVal);
+			let filterArrOfObj;
+			if (isObject) {
+				filterArrOfObj = employees.filter(val =>
+					stateVal.includes(val[defaultKey])
+				);
 			}
+			if (canFetchNow) {
+				selectedData(stateVal, filterArrOfObj);
+			}
+
+			if (stateVal.length > 0) {
+				if (stateVal.length === 1) {
+					triggerChange(stateVal.toString());
+				} else {
+					triggerChange(stateVal);
+				}
+			}
+		}
+		if (emptyStateAfterSelect && stateVal.length > 0) {
+			console.log("remove");
+			setStateVal([]);
 		}
 	}, [stateVal]);
 
@@ -100,45 +112,41 @@ function MemberSelect({
 	};
 
 	useEffect(() => {
-		if (debouncedSearch.length > 0) {
-			fetchData(debouncedSearch, 0);
-		} else {
-			setMemberData([...data]);
-		}
-	}, [debouncedSearch]);
+		if (apiLoad)
+			if (debouncedSearch.length > 0) {
+				fetchData(debouncedSearch, 0);
+			} else {
+				setMemberData([...data]);
+			}
+	}, [debouncedSearch, apiLoad]);
 
 	useEffect(() => {
-		if (isDataFetchable) {
-			// console.log("memberData", memberData);
-			// let uniqueData = employees.filter(function (obj) {
-			// 	return memberData.indexOf(obj) === -1;
-			// });
-			// console.log("unique data", uniqueData);
-			// setMemberData(uniqueData);
-			const merged = [...memberData, ...employees];
-			// console.log("[...new Set([...prevData, ...employees])]", [
-			// 	...new Map(merged.map(v => [v.id, v])).values(),
-			// ]);
-			setMemberData(() => {
-				return [...new Map(merged.map(v => [v.id, v])).values()];
-			});
-			setIsDataFetchable(false);
-		}
+		if (apiLoad)
+			if (isDataFetchable) {
+				const merged = [...memberData, ...employees];
+				setMemberData(() => {
+					return [...new Map(merged.map(v => [v.id, v])).values()];
+				});
+				setIsDataFetchable(false);
+			}
 	}, [employees]);
 
 	useEffect(() => {
-		if (canFetchNow) {
-			setMemberData([...data]);
+		if (apiLoad) {
+			if (canFetchNow) {
+				setMemberData([...data]);
+			}
 		}
 	}, [data]);
 
 	useEffect(() => {
-		if (isAssignDefaultData && dataVal && dataVal.length > 0) {
-			setStateVal([...dataVal]);
-			setIsAssignDefaultData(false);
-		}
+		if (apiLoad)
+			if (isAssignDefaultData && dataVal && dataVal.length > 0) {
+				setStateVal([...dataVal]);
+				setIsAssignDefaultData(false);
+			}
 	}, [dataVal]);
-
+	// console.log("stateval", stateVal);
 	return (
 		<AntCustomSelect
 			value={stateVal}
@@ -163,8 +171,8 @@ function MemberSelect({
 			showSearch={showSearch}
 			rules={rules}
 			label={label}
-
-			// tagRender={props => <TagRender props={props} />}
+			apiLoad={apiLoad}
+			formItem={formItem}
 		/>
 	);
 }

@@ -7,7 +7,7 @@ export const VOUCHER_ENUM = {
 export const voucherTypes = [
     { label: "Receipt Voucher", value: 1 },
     { label: "Payment Voucher", value: 2 },
-    { label: "Other Voucher", value: 3 }
+    { label: "General Voucher", value: 3 }
 ];
 
 export const getVoucherNameByType = (type) => {

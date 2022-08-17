@@ -9,8 +9,6 @@ import wordIcon from "../../../../content/NewContent/Documents/file/word.svg"
 import excelIcon from "../../../../content/NewContent/Documents/file/excel.svg"
 import playIcon from "../../../../content/NewContent/Documents/file/play.svg"
 import powerpointIcon from "../../../../content/NewContent/Documents/file/powerpoint.svg"
-
-import dummyImage from "../../../../content/NewContent/Documents/mediaDummy.svg"
 import defaultImage from "../../../../content/business_default.png"
 
 export const getIconByExtensionType = ((AttachmentType, extensionType = null) => {

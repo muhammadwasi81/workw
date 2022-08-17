@@ -56,7 +56,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "local-build":""
+    "local-build": ""
   },
   "eslintConfig": {
     "extends": [
@@ -78,7 +78,9 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
+    "jest": "^28.1.3",
     "postcss": "^8.4.13",
+    "react-test-renderer": "^18.2.0",
     "tailwindcss": "^3.0.24"
   },
   "resolutions": {

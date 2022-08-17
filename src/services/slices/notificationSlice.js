@@ -18,7 +18,7 @@ export const responseMessage = ({
   data: data,
   type: type,
 }) => {
-  // console.log("data", data);
+  console.log("data", data);
   // console.log("type", type);
   switch (type) {
     case responseMessageType.ApiSuccess:
@@ -29,7 +29,7 @@ export const responseMessage = ({
       // dispatch(setError({ message: data.message }));
       break;
     case responseMessageType.ApiFailure:
-      dispatch(setError({ message: "Something went wrong!" }));
+      dispatch(setError({  message: data.message }));
       break;
     default:
       return null;

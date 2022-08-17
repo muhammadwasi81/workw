@@ -79,3 +79,14 @@
   margin-right: 10px;
   margin-top: 5px;
 }
+.reportFilter {
+  background: #ffffff;
+  margin-top: 15px;
+  padding: 8px 5px;
+  min-height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-radius: 5px;
+  width: calc(100% - 80px);
+}

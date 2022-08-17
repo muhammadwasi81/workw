@@ -20,22 +20,25 @@ function COA_List() {
       "title": "Name",
       "field": "name",
       "type": "string",
+      "class":"min-w-max"
     },
     {
       "title": "Account Type",
       "field": "accountType",
-      "type": "string"
+      "type": "string",
+      "width":170
     },
     {
       "title": "Clossing Balance",
       "field": "currentBalance",
-      "type": "string"
+      "type": "string",
+      "width":170
     },
     {
-      "title": "Action",
-      "field": "name",
-      "expand": false,
+      "title": "Edit",
+      "field": "currentBalance",
       "formatter":(item, row)=><EditOutlined onClick={(e) => onEdit(item,row)} />,
+      "width":80
     },
   ];
 
@@ -60,7 +63,7 @@ function COA_List() {
   })
 
   return (
-    <div className="table-holder COA_TableView" style={{ width: '100%', padding: "30px 20px 10px 20px" }}>
+    <div className="table-holder COA_TableView w-full bg-white rounded-md h-max !py-4 !px-4 mt-2" >
       <TreeList
         data={data}
         columns={treeColumns}

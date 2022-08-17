@@ -1,16 +1,4 @@
-.reportFilter {
-  background: #ffffff;
-  /* box-shadow: 0 12px 6px -12px #bbbbbb; */
-  margin-top: 20px;
-  /* height: 200px; */
-  padding: 8px 5px;
-  min-height: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  /* justify-content: space-between; */
-  align-items: center;
-  width: calc(100% - 80px);
-}
+
 
 .ReportViewCont {
   margin: 0 auto;

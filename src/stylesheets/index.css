@@ -1235,6 +1235,7 @@ i.ic-double-tick {
   overflow-x: scroll;
   gap: 10px;
 }
+
 .cont-body.rtl * {
   direction: rtl;
 }
@@ -1936,8 +1937,8 @@ a.item-card:hover {
 }
 
 .tabbable-container>.cont-body>.rt-col {
-  max-width: 290px;
-  min-width: 290px;
+  max-width: 300px;
+  min-width: 300px;
   height: min-content;
   min-height: min-content;
   display: flex;

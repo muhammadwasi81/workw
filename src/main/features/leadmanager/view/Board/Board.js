@@ -23,6 +23,7 @@ import ContactDetailSkeleton from "../../UI/Skeleton/ContactDetailSkeleton";
 function Board() {
 	const [openSectionDetailModal, setOpenSectionDetailModal] = useState(false);
 	const [openContactDetailModal, setOpenContactDetailModal] = useState(false);
+	const [isContactUpdated, setIsContactUpdated] = useState(false);
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -35,9 +36,24 @@ function Board() {
 	const isSectionDetailLoading = useSelector(
 		state => state.leadMangerSlice.isSectionDetailLoading
 	);
+	const isContactDetailLoading = useSelector(
+		state => state.leadMangerSlice.isContactDetailLoading
+	);
+	const contactDetail = useSelector(
+		state => state.leadMangerSlice.contactDetail
+	);
 	const leadManagerSectionDetailData = useSelector(
 		state => state.leadMangerSlice.leadManagerSectionDetailData
 	);
+
+	const contactUpdate = useSelector(
+		state => state.leadMangerSlice.isContactUpdated
+	);
+	const loading = useSelector(state => state.leadMangerSlice.loading);
+	const contactDetaUpdating = useSelector(
+		state => state.leadMangerSlice.contactDetaUpdating
+	);
+	const success = useSelector(state => state.leadMangerSlice.success);
 
 	const handleDragEnd = ({ source, destination, type }) => {
 		if (!destination) return;
@@ -79,6 +95,17 @@ function Board() {
 	const handleContactDetailModal = () => {
 		setOpenContactDetailModal(!openContactDetailModal);
 	};
+
+	const onClickContact = value => {
+		setIsContactUpdated(value);
+	};
+
+	useEffect(() => {
+		if (success) {
+			setOpenContactDetailModal(false);
+		}
+	}, [success]);
+
 	return (
 		<>
 			<Header items={items} />
@@ -128,6 +155,8 @@ function Board() {
 						<SectionDetail
 							handleContactDetailModal={handleContactDetailModal}
 							data={leadManagerSectionDetailData}
+							onClickContact={onClickContact}
+							loading={loading}
 						/>
 					)
 				}
@@ -140,7 +169,18 @@ function Board() {
 				width={"50%"}
 				title="Contact Detail"
 				footer={null}
-				children={<ContactDetail />}
+				children={
+					isContactDetailLoading ? (
+						!contactDetail && <ContactDetailSkeleton />
+					) : (
+						<ContactDetail
+							isContactUpdated={isContactUpdated}
+							data={leadManagerSectionDetailData}
+							contactDetail={contactDetail}
+							loading={contactDetaUpdating}
+						/>
+					)
+				}
 				className={""}
 			/>
 		</>

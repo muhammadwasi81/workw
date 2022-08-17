@@ -14,7 +14,6 @@ import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/
 import moment from "moment";
 import { Button, Tag } from "antd";
 import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
-import DummyImage from "../../../../../../content/NewContent/Documents/mediaDummy.svg";
 import { dummyMember } from "../../../../task/view/TaskList/listItem";
 import { getNameForImage } from "../../../../../../utils/base";
 
@@ -154,7 +153,7 @@ const DocFullCard = ({ icon, name, description }) => {
 					</div>
 				</div>
 				<div className="doc_detail_media">
-					<img src={DummyImage} alt="" />
+					{/* <img src={DummyImage} alt="" /> */}
 				</div>
 			</div>
 		</SingleItem>

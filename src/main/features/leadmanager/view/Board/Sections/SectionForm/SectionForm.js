@@ -6,12 +6,15 @@ import {
 	MailOutlined,
 	PhoneOutlined,
 } from "@ant-design/icons";
+import { useSelector } from "react-redux";
 function SectionForm(props) {
+	const loading = useSelector(state => state.leadMangerSlice.loading);
+	console.log("loadni", loading);
 	return (
 		<div className="bg-white p-3 rounded-sm">
 			<Form
 				name="basic"
-				initialValues={{ businessIndividualType: 1 }}
+				initialValues={{ typeId: 1 }}
 				layout={"vertical"}
 				onFinish={props.onFinish}
 				autoComplete="off"
@@ -30,7 +33,7 @@ function SectionForm(props) {
 						placeholder="Lead Name"
 					/>
 				</Form.Item>
-				<Form.Item name="phoneNo">
+				<Form.Item name="phoneNumber">
 					<Input
 						prefix={
 							<PhoneOutlined
@@ -79,7 +82,7 @@ function SectionForm(props) {
 						type={"url"}
 					/>
 				</Form.Item>
-				<Form.Item name="businessIndividualType">
+				<Form.Item name="typeId">
 					<Radio.Group>
 						<Radio value={1}> Business</Radio>
 						<Radio value={2}> Individual</Radio>
@@ -98,6 +101,7 @@ function SectionForm(props) {
 							type="primary"
 							htmlType="submit"
 							className="ThemeBtn"
+							loading={loading}
 						>
 							Add
 						</Button>

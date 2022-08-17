@@ -1,17 +1,23 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addComplain, getAllComplains, GetComplainById } from "./actions";
+import { addComplain, cancelComplain, getAllComplains, GetComplainById } from "./actions";
 
 const initialState = {
   complains: [],
   loadingData: false,
   loader: true,
   complainDetail: null,
+  drawerOpen: false,
+  cancelComplain: {}
 };
 
 const complainSlice = createSlice({
   name: "complains",
   initialState,
-  reducers: {},
+  reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllComplains.fulfilled, (state, action) => {
       state.complains = action.payload ? action.payload : [];
@@ -19,8 +25,11 @@ const complainSlice = createSlice({
     });
 
     builder.addCase(GetComplainById.fulfilled, (state, action) => {
-      console.log("action.payload", action.payload);
       state.complainDetail = action.payload.data;
+    });
+
+    builder.addCase(cancelComplain.fulfilled, (state, action) => {
+      state.cancelComplain = action.payload.data;
     });
 
     builder
@@ -37,5 +46,5 @@ const complainSlice = createSlice({
   },
 });
 
-export const {} = complainSlice.actions;
+export const {handleOpenComposer} = complainSlice.actions;
 export default complainSlice.reducer;

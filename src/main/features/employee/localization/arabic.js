@@ -35,6 +35,7 @@ const arabic = {
       number: "نمبر درج کریں",
       selectRelation: "رشتہ منتخب کریں",
       bankName: "بینک کا نام درج کریں",
+      AddBank: "بینک کا نام درج کریں",
       accTitle: "اکاؤنٹ کا عنوان درج کریں",
       branchCode: "برانچ کوڈ درج کریں",
       accNo: "اکاؤنٹ نمبر درج کریں",
@@ -78,6 +79,7 @@ const arabic = {
       Number: "نمبر",
       Relation: "رشتہ",
       AddMoreEmergency: "مزید ایمرجنسی شامل کریں",
+      AddEmergency: "ایمرجنسی شامل کریں",
     },
     EducationForm: {
       EducationInfo: "تعلیمی معلومات",
@@ -103,6 +105,7 @@ const arabic = {
       StartDate: "شروع کرنے کی تاریخ",
       Present: "موجودہ",
       AddMoreExperience: "مزید تجربہ شامل کریں",
+      AddExperience: "تجربہ شامل کریں",
       EmploymentType: "ملازمت کی قسم",
       City: "شہر",
     },

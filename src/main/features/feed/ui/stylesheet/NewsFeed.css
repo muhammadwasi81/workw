@@ -105,7 +105,7 @@
 }
 
 .rt-col .schedule .event .right {
-    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .rt-col .schedule .event .right p {

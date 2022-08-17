@@ -75,11 +75,11 @@
 .post .post-count .reactionCount {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 2px;
 }
 
 .post .post-count .reactionCount img {
-    width: 15px;
+    width: 20px;
 }
 
 .post .post-count .commentCount {
@@ -779,7 +779,7 @@
     cursor: pointer;
     font-weight: 600;
     user-select: none;
-    gap: 8px;
+    gap: 3px;
 }
 
 .post>.post-footer>.post-events>.btn:nth-child(1) {

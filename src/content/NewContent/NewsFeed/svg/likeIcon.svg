@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="142.018" height="142.017" viewBox="0 0 142.018 142.017">
+  <g id="Group_5165" data-name="Group 5165" transform="translate(0 0)">
+    <ellipse id="Ellipse_203" data-name="Ellipse 203" cx="64.322" cy="64.322" rx="64.322" ry="64.322" transform="translate(6.687 6.688)" fill="#fff"/>
+    <g id="Group_5074" data-name="Group 5074" transform="translate(0 0)">
+      <g id="Group_5067" data-name="Group 5067">
+        <ellipse id="Ellipse_204" data-name="Ellipse 204" cx="58.826" cy="58.826" rx="58.826" ry="58.826" transform="translate(0 114.353) rotate(-76.4)" fill="#1a5669"/>
+      </g>
+      <g id="Group_5070" data-name="Group 5070" transform="translate(12.234 73.351)" style="mix-blend-mode: multiply;isolation: isolate">
+        <path id="Path_1692" data-name="Path 1692" d="M138.665,429.422A58.828,58.828,0,0,1,44.4,384.842a69.9,69.9,0,0,0,94.266,44.58Z" transform="translate(-44.399 -384.842)" fill="#e6e6e6"/>
+      </g>
+      <g id="Group_5073" data-name="Group 5073" transform="translate(37.112 36.419)">
+        <g id="Group_5071" data-name="Group 5071" transform="translate(0 23.382)">
+          <rect id="Rectangle_1693" data-name="Rectangle 1693" width="14.019" height="43.16" rx="3.665" fill="#fff"/>
+        </g>
+        <g id="Group_5072" data-name="Group 5072" transform="translate(19.78)">
+          <path id="Path_1693" data-name="Path 1693" d="M135.309,377.073a5.918,5.918,0,0,0-5.918-5.917H111.338l-6.994-.06,1.644-3.345a20.328,20.328,0,0,0,2.088-8.832l.005-2.572a5.126,5.126,0,0,0-9.975-1.7c-1.008,2.938-2.756,7.517-5.076,9.584l-3.591,3.2a12.972,12.972,0,0,0-4.34,9.682v26.912a10.435,10.435,0,0,0,10.436,10.435h25.1a5.9,5.9,0,0,0,3.627-10.561,5.9,5.9,0,0,0,5.21-5.847h0a5.883,5.883,0,0,0-2.289-4.643,5.874,5.874,0,0,0,2.92-10.489A5.9,5.9,0,0,0,135.309,377.073Z" transform="translate(-85.1 -351.183)" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

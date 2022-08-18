@@ -3,10 +3,10 @@ export const servicesUrls = { master: "", messenger: "", auth: "", mail: "" };
 export const buildType = "LOCAL";
 export const MASTER_URL = (() => {
 	if (buildType === "LIVE") {
-		servicesUrls.auth = "https://workw.com/auth/";
-		servicesUrls.messenger = "https://workw.com/messenger/";
-		servicesUrls.master = "https://workw.com/api/";
-		servicesUrls.mail = "https://workw.com/mail/";
+		servicesUrls.auth = "https://workw.com/authapi/";
+		servicesUrls.messenger = "https://workw.com/messengerapi/";
+		servicesUrls.master = "https://workw.com/workwapi/";
+		servicesUrls.mail = "https://workw.com/mailapi/";
 	} else {
 		servicesUrls.auth = "https://58.65.211.234:4436/konnectauth/";
 		servicesUrls.messenger = "https://58.65.211.234:4436/KonnectMessenger/";

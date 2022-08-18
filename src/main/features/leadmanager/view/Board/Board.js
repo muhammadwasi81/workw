@@ -14,11 +14,14 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	getLeadManagerById,
-	getLeadManagerSectionById,
+	moveLeadManagerDetail,
+	// getLeadManagerSectionById,
+	moveLeadManagerSection,
 } from "../../store/actions";
 import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
 import ContactDetail from "./ContactDetail";
 import ContactDetailSkeleton from "../../UI/Skeleton/ContactDetailSkeleton";
+import { moveDetail, moveSection } from "../../store/slice";
 
 function Board() {
 	const [openSectionDetailModal, setOpenSectionDetailModal] = useState(false);
@@ -62,8 +65,19 @@ function Board() {
 			// console.log("drag");
 			// Prevent update if nothing has changed
 			if (source.index !== destination.index) {
-				console.log("old index", source.index);
-				console.log("new index", destination.index);
+				dispatch(
+					moveSection({
+						oldListIndex: source.index,
+						newListIndex: destination.index,
+					})
+				);
+				dispatch(
+					moveLeadManagerSection({
+						leadManagerId: id,
+						currentIndexNo: Number(source.index) + 1,
+						targetIndexNo: Number(destination.index) + 1,
+					})
+				);
 			}
 			return;
 		}
@@ -72,11 +86,27 @@ function Board() {
 			source.index !== destination.index ||
 			source.droppableId !== destination.droppableId
 		) {
-			// console.log("move card");
+			console.log("move card");
 			console.log("sourceListId", source.droppableId);
 			console.log("destListId", destination.droppableId);
 			console.log("oldCardIndex", source.index);
 			console.log("newCardIndex", destination.index);
+			dispatch(
+				moveDetail({
+					sourceListId: source.droppableId,
+					destListId: destination.droppableId,
+					oldCardIndex: source.index,
+					newCardIndex: destination.index,
+				})
+			);
+			dispatch(
+				moveLeadManagerDetail({
+					currentSectionId: source.droppableId,
+					targetSectionId: destination.droppableId,
+					currentIndexNo: Number(source.index) + 1,
+					targetIndexNo: Number(destination.index) + 1,
+				})
+			);
 		}
 	};
 	const items = [
@@ -119,8 +149,8 @@ function Board() {
 						>
 							{(provided, _snapshot) => (
 								<div
-									className="flex overflow-scroll"
 									ref={provided.innerRef}
+									className="flex overflow-auto"
 								>
 									{leadManagerDetail &&
 										leadManagerDetail.sections.map(
@@ -135,8 +165,8 @@ function Board() {
 												/>
 											)
 										)}
+									{provided.placeholder}
 								</div>
-								// {provided.placeholder}
 							)}
 						</Droppable>
 					</DragDropContext>

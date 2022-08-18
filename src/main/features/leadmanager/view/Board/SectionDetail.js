@@ -220,7 +220,7 @@ function SectionDetail(props) {
 								/>
 							}
 						>
-							<div className="h-60 overflow-y-auto flex flex-col gap-3">
+							<div className="max-h-60 overflow-y-auto flex flex-col gap-3">
 								{data.contacts.length > 0 ? (
 									data.contacts.map(contact => (
 										<div

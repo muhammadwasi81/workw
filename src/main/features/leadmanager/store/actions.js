@@ -9,13 +9,14 @@ import {
 	addLeadManagerContactService,
 	addLeadManagerDetailService,
 	addLeadManagerService,
-	deleteLeadManagerContactService,
 	getAllLeadManagerPagingService,
 	getAllLeadManagerService,
 	getLeadManagerByIdService,
 	getLeadManagerContactDetailService,
 	getLeadManagerSectionByIdService,
 	getLeadManagerSectionDetailByIdService,
+	moveLeadManagerDetailService,
+	moveLeadManagerSectionService,
 	updateLeadManagerContactService,
 	updateLeadManagerDetailService,
 	updateLeadManagerService,
@@ -266,6 +267,44 @@ export const updateLeadManagerContact = createAsyncThunk(
 				})
 			);
 
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const moveLeadManagerSection = createAsyncThunk(
+	"moveLeadManagerSection",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await moveLeadManagerSectionService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const moveLeadManagerDetail = createAsyncThunk(
+	"moveLeadManagerDetail",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await moveLeadManagerDetailService(data);
+		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {
 			dispatch(

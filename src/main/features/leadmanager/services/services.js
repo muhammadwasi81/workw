@@ -142,6 +142,32 @@ export const updateLeadManagerContactService = data => {
 		});
 };
 
+export const moveLeadManagerSectionService = data => {
+	return MasterConfig.post(
+		`${API_SECTION_PREFIX}MoveLeadManagerSection`,
+		data
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};
+
+export const moveLeadManagerDetailService = data => {
+	return MasterConfig.post(
+		`${API_LEAD_MANAGER_PREFIX}MoveLeadManagerDetail`,
+		data
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};
+
 // export const deleteLeadManagerContactService = id => {
 // 	return MasterConfig.delete(
 // 		`${API_LEAD_MANAGER_CONTACT_PREFIX}RemoveLeadManagerContact?id=${id}`

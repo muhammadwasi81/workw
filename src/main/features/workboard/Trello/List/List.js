@@ -102,7 +102,7 @@ function List(props) {
 
 	return (
 		<Draggable draggableId={sectionId} index={index}>
-			{(provided, snapshot) => (
+			{(provided, _snapshot) => (
 				<div
 					ref={provided.innerRef}
 					{...provided.draggableProps}

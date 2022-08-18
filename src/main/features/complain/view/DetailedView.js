@@ -12,41 +12,75 @@ import DefaultAttachment from "../../../../content/NewContent/complain/DefaultAt
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+  ItemContent,
+  ItemHeader,
+  SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 import { cancelComplain } from "../store/actions";
-import { ApprovalsModule, ApprovalStatus } from "../../../sharedComponents/AppComponents/Approvals/enums";
-import "./complain.css"
-
+import {
+  ApprovalsModule,
+  ApprovalStatus,
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
+import "./complain.css";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
+  const { Direction, complainDictionary } = complainDictionaryList[
+    userLanguage
+  ];
 
   const { complainDetail } = useSelector((state) => state.complainSlice);
 
   const [updatedStatus, setUpdatedStatus] = useState();
 
-  const { creator, description, category, createDate, status, members = [], approvers } = complainDetail;
-  let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
+  const {
+    creator,
+    description,
+    category,
+    createDate,
+    status,
+    members = [],
+    approvers,
+  } = complainDetail;
+  let {
+    InProcess,
+    Approved,
+    Declined,
+    Resend,
+    Inactive,
+    NotRequired,
+    Cancelled,
+    ApprovalRequired,
+    Hold,
+    NoStatus,
+  } = ApprovalStatus;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
   const handleCancel = (e, payload) => {
-    e.preventDefault()
+    e.preventDefault();
     e.stopPropagation();
-    dispatch(cancelComplain(payload));
-  }
+    // dispatch(cancelComplain(payload));
+  };
 
-  console.log(updatedStatus, "STATUS")
+  console.log(updatedStatus, "STATUS");
 
   return (
     <Drawer
-      title={<h1 style={{ fontSize: "20px", margin: 0 }}>{complainDictionary.complain}</h1>}
+      title={
+        <h1 style={{ fontSize: "20px", margin: 0 }}>
+          {complainDictionary.complain}
+        </h1>
+      }
       width="768"
-      placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
+      placement={
+        (Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")
+      }
       onClose={props.onClose}
       visible={props.visible}
-      className="detailedViewComposer drawerSecondary">
+      className="detailedViewComposer drawerSecondary"
+    >
       <div className="detailedCard ComplainListItem">
         <ItemHeader>
           <div className={"item-header"}>
@@ -54,16 +88,27 @@ function DetailedView(props) {
               <UserInfo
                 avatarSrc={creator.image}
                 name={creator.name}
-                Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+                Subline={
+                  <SublineDesigWithTime
+                    designation={creator.designation ? creator.designation : ""}
+                    time={moment(createDate).fromNow()}
+                  />
+                }
               />
             </div>
             <div className="right">
               <Tag className="IdTag">TRA-000085</Tag>
               <StatusTag status={updatedStatus?.Approvals}></StatusTag>
-              {
-                status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
-                  ""
-              }
+              {status != Declined && status != Resend && status != Approved ? (
+                <Button
+                  className="ThemeBtn"
+                  onClick={(e) => handleCancel(e, props.id)}
+                >
+                  Cancel
+                </Button>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </ItemHeader>
@@ -76,19 +121,21 @@ function DetailedView(props) {
         </div> */}
         </ItemContent>
         <div className="innerCard w-full description">
-            <div className="innerCard__header">
-              <div className="left">
-                Category :
-                <span className="" style={{ color: "#757D86" }}>
-                  &nbsp;{category}
-                </span>
-              </div>
+          <div className="innerCard__header">
+            <div className="left">
+              Category :
+              <span className="" style={{ color: "#757D86" }}>
+                &nbsp;{category}
+              </span>
             </div>
           </div>
+        </div>
         <div className="ListItemInner">
           <div className="ItemDetails">
             <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{complainDictionary.complainOf}</span>
+              <span className="text-black font-extrabold smallHeading">
+                {complainDictionary.complainOf}
+              </span>
               {/* {props.members} */}
               <Avatar
                 isAvatarGroup={true}
@@ -101,7 +148,13 @@ function DetailedView(props) {
             </div>
           </div>
         </div>
-        <RemarksApproval module={ApprovalsModule.ComplainApproval}  status={status} onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)}   data={approvers} title="Approvals" />
+        <RemarksApproval
+          module={ApprovalsModule.ComplainApproval}
+          status={status}
+          onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)}
+          data={approvers}
+          title="Approvals"
+        />
       </div>
     </Drawer>
   );

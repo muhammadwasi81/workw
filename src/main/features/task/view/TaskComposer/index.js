@@ -26,7 +26,7 @@ import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
 
 const { RangePicker } = DatePicker;
-
+let newType;
 function TaskComposer() {
   const [form] = Form.useForm();
   const [isAssignTo, setIsAssignTo] = useState(false);
@@ -47,58 +47,37 @@ function TaskComposer() {
     { label: labels.selfTask, value: "self" },
     { label: labels.assignTo, value: "assign" },
   ];
-  useEffect(() => {
-    fetchEmployees("", 0);
-  }, []);
-  const confirm = () => {
-    setVisible(false);
-    message.success("Next step.");
-    setEmployeesData([]);
-    form.setFieldValue("assign", "");
-  };
-
-  const cancel = () => {
-    setVisible(false);
-    message.error("Click on cancel.");
-  };
-  useEffect(() => {
-    if (type !== "1") {
-      form.setFieldValue("members", "");
-      if (employeesData.length > 0) {
-        setVisible(true);
-      }
-    }
-  }, [type]);
-
-  const fetchEmployees = (text, pgNo) => {
-    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
-  };
   const initialValues = {
     subject: "",
     predecessor: "",
     description: "",
     type: "1",
     taskType: "self",
-    assign: "",
+    assign: [],
     taskDate: "",
     priority: "1",
     checkList: "",
   };
+
+  const confirm = () => {
+    setVisible(false);
+    setEmployeesData([]);
+    form.setFieldValue("assign", []);
+    console.log("newtyep", newType);
+    form.setFieldValue("type", newType);
+    form.setFieldValue("Groups/Projects", []);
+  };
+  const cancel = () => {
+    setVisible(false);
+  };
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
+
   const handleTaskType = ({ target }) => {
     const isShow = target.value === "self" ? false : true;
     setIsAssignTo(isShow);
   };
-  useEffect(() => {
-    if (employees.length > 0 && !isFirstTimeDataLoaded) {
-      setIsFirstTimeDataLoaded(true);
-      setFirstTimeEmpData(employees);
-    }
-  }, [employees]);
-  const selectedData = (data, obj) => {
-    setEmployeesData((prevValue) => [...prevValue, obj]);
-  };
-  let classes = "task-composer  ";
-  classes += Direction === "ltr" ? "ltr" : "rtl";
 
   const handleSubmit = (values) => {
     let {
@@ -131,6 +110,24 @@ function TaskComposer() {
     // }));
     form.resetFields();
   };
+
+  const selectedData = (data, obj) => {
+    setEmployeesData([obj]);
+  };
+
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+    }
+  }, [employees]);
+
+  useEffect(() => {
+    fetchEmployees("", 0);
+  }, []);
+
+  let classes = "task-composer  ";
+  classes += Direction === "ltr" ? "ltr" : "rtl";
 
   const endpoint =
     type === "2" ? "api/Project/GetAllProject" : "api/Group/GetAllGroup";
@@ -190,7 +187,14 @@ function TaskComposer() {
         <Radio.Group
           className="radioPrimary"
           onChange={(event) => {
-            setType(event.target.value);
+            if (employeesData.length > 0) {
+              setVisible(true);
+              form.setFieldValue("type", type);
+              newType = event.target.value;
+            } else {
+              setType(event.target.value);
+              form.setFieldValue("Groups/Projects", []);
+            }
           }}
         >
           <Radio.Button value="1">
@@ -210,7 +214,7 @@ function TaskComposer() {
 
       {type !== "1" && (
         <Form.Item
-          name="members"
+          name="Groups/Projects"
           label={type === "2" ? "Projects" : "Groups"}
           showSearch={true}
           direction={Direction}
@@ -220,6 +224,10 @@ function TaskComposer() {
             name="Groups/Projects"
             label={type === "2" ? "Select Project" : "Select Group"}
             showSearch={true}
+            onChange={(_, obj) => {
+              console.log("members", JSON.parse(obj.value).members);
+            }}
+            valueObject={true}
             direction={Direction}
             endPoint={endpoint}
             requestType="post"
@@ -243,9 +251,8 @@ function TaskComposer() {
       {isAssignTo && (
         <>
           <Popconfirm
-            title="Are you sure delete this task?"
+            title="Are you sure? Change Type will remove assign members."
             visible={visible}
-            // onVisibleChange={handleVisibleChange}
             onConfirm={confirm}
             onCancel={cancel}
             okText="Yes"

@@ -15,13 +15,12 @@ function CommentWrapper({
 	isCommentLoad = false,
 	initialMentions = [],
 	placeHolderReply,
+	loadSkeleton = false,
 }) {
-	const [comments, setComments] = useState(null);
+	const [comments, setComments] = useState([]);
 	useEffect(() => {
 		if (initailComments.length > 0) {
 			setComments([...initailComments]);
-		} else {
-			setComments([]);
 		}
 	}, [initailComments]);
 
@@ -35,7 +34,7 @@ function CommentWrapper({
 		setComments([...response]);
 	};
 
-	if (!comments) return <Skeleton active />;
+	if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
 
 	return (
 		<div className="commentWrapper">

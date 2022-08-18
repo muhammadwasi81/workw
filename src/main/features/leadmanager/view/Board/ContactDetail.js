@@ -1,18 +1,19 @@
 import { Button, Form, Input, Select, Tag } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { jsonToFormData } from "../../../../../utils/base";
 import { DEFAULT_GUID } from "../../../../../utils/constants";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
-import { addLeadManagerContact } from "../../store/actions";
+import {
+	addLeadManagerContact,
+	updateLeadManagerContact,
+} from "../../store/actions";
 const { Option } = Select;
-function ContactDetail() {
+function ContactDetail(props) {
 	const [image, setImage] = useState();
 	const dispatch = useDispatch();
-	const handleChange = value => {
-		console.log(`selected ${value}`);
-	};
+	const [form] = Form.useForm();
 	const prefixSelector = (
 		<Form.Item name="titleId" noStyle>
 			<Select>
@@ -24,16 +25,48 @@ function ContactDetail() {
 	);
 
 	const onFinish = value => {
-		const imageObj = {
-			id: DEFAULT_GUID,
+		let imageObj = {
+			id: !isContactUpdated
+				? DEFAULT_GUID
+				: typeof image === String
+				? props.contactDetail.imageId
+				: DEFAULT_GUID,
 			file: image,
 		};
+		// if (props.contactDetail.imageId !== DEFAULT_GUID) {
+		// 	imageObj = { ...imageObj, id: props.contactDetail.imageId };
+		// }
+		if (!props.isContactUpdated) {
+			dispatch(
+				addLeadManagerContact(
+					jsonToFormData({
+						image: { ...imageObj },
+						...value,
+						id: props.data.id,
+					})
+				)
+			);
+			return;
+		}
 		dispatch(
-			addLeadManagerContact(
-				jsonToFormData({ image: { ...imageObj }, ...value })
+			updateLeadManagerContact(
+				jsonToFormData({
+					image: { ...imageObj },
+					...value,
+					detailId: props.data.id,
+					id: props.contactDetail.id,
+				})
 			)
 		);
 	};
+	const { isContactUpdated, contactDetail } = props;
+	useEffect(() => {
+		if (isContactUpdated) {
+			form.setFieldsValue({ ...contactDetail });
+			setImage(contactDetail.image);
+		}
+	}, [isContactUpdated]);
+
 	return (
 		<Form
 			name="basic"
@@ -41,6 +74,7 @@ function ContactDetail() {
 			layout="vertical"
 			initialValues={{ titleId: 1 }}
 			onFinish={onFinish}
+			form={form}
 		>
 			<div className="grid gap-x-5 grid-cols-[1.8fr_1.3fr_0.3fr]">
 				<div className="flex gap-5">
@@ -96,12 +130,18 @@ function ContactDetail() {
 				>
 					<SingleUpload
 						handleImageUpload={fileData => {
-							setImage(fileData[0].originFileObj);
+							if (fileData.length > 0) {
+								setImage(fileData[0].originFileObj);
+							} else {
+								setImage(null);
+							}
+							// console.log("filedata", fileData);
 						}}
 						// uploadText={labels.uploadCvr}
 						// multiple={false}
-						// url={composerData.image}
-
+						url={
+							props.contactDetail ? props.contactDetail.image : ""
+						}
 						position={"justify-end item-end"}
 					/>
 				</div>
@@ -144,16 +184,23 @@ function ContactDetail() {
 					<Input placeholder="Write designation" />
 				</Form.Item>
 			</div>
-			{/* <div>
-				<CommentWrapper />
-			</div> */}
+			{props.isContactUpdated && (
+				<CommentWrapper
+					referenceId={props.contactDetail.id}
+					isCommentLoad={true}
+					module={8}
+					loadSkeleton={true}
+				/>
+			)}
+
 			<Form.Item className="!mt-5">
 				<Button
 					type="primary"
 					htmlType="submit"
 					className="ThemeBtn !block ml-auto"
+					loading={props.loading}
 				>
-					Update
+					{!props.isContactUpdated ? "Add Contact" : "Update Contact"}
 				</Button>
 			</Form.Item>
 		</Form>

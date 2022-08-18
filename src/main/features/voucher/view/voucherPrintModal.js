@@ -1,3 +1,4 @@
+import { Skeleton } from 'antd';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -14,9 +15,15 @@ function VoucherPrint({ id }) {
     }, [id]);
 
     if (!voucherDetail)
-        return <>
-            <h1>Loading</h1>
-        </>
+        return <div className='overflow-x-auto' >
+            <div className="reportView" >
+            <div className="ledger" >
+                {
+                    Array(10).fill(1).map((item) => <Skeleton active={true} />)
+                }
+            </div>
+            </div>
+        </div> 
 
     let { voucherType, amount, voucherDate, voucherNo, details } = voucherDetail;
     return (
@@ -24,10 +31,6 @@ function VoucherPrint({ id }) {
             <div className="reportView" >
                 <div className="ledger" >
                     <div className="reportHeader" >
-                        {/* <div className="font-bold text-xl" >Helpers Corporation</div> */}
-                        {/* <div className="text-sm">Plot#102, Phase 2 Extension, DHA, Karachi.</div> */}
-                        {/* <div className="text-sm">Phone # 0332-324242983 - 0312-3290875</div> */}
-                        {/* <div className="text-sm">Email : helperscorp@helpers.com</div> */}
                         <div className="font-bold text-xl">{getVoucherNameByType(voucherType)}</div>
                         <div className="text-sm">{moment(voucherDate).format("Do MMM YYYY")}</div>
                         <div className="text-sm">{voucherNo}</div>
@@ -41,16 +44,6 @@ function VoucherPrint({ id }) {
                             <th>Debit</th>
                             <th>Credit</th>
                         </tr>
-                        {/* {
-                            Array(30).fill(1).map((item) =>
-                                <tr>
-                                    <td>01-01-2021</td>
-                                    <td>Cash On Hand</td>
-                                    <td>Short description here</td>
-                                    <td>12000</td>
-                                    <td>12000</td>
-                                </tr>)
-                        } */}
                         {
                             details.map((item) =>
                                 <tr>

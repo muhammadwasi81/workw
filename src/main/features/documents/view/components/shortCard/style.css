@@ -1,4 +1,4 @@
-.d_ShortCard {
+/* .d_ShortCard {
     height: 150px;
     background: white;
     border-radius: 7px;
@@ -7,7 +7,7 @@
     padding: 10px 10px 0px 10px;
     min-width: 10rem;
     cursor: pointer;
-}
+} */
 
 .d_ShortCard_Child1 {
     height: 25px;
@@ -61,4 +61,8 @@
     font-size: 10px;
     padding: 4px 9px;
     height: 24px;
+}
+.privacyStatus {
+    position: relative;
+    top: -6px;
 }

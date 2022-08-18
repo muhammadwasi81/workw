@@ -79,6 +79,7 @@ const hindi = {
       Relation: "रिश्ता",
       Name: "नाम",
       AddMoreEmergency: "अधिक आपातकाल जोड़ें",
+      AddEmergency: "अधिक आपातकाल जोड़ें",
     },
     EducationForm: {
       EducationInfo: "Education Info",
@@ -91,7 +92,7 @@ const hindi = {
       ObtainedMarks: "प्राप्त अंक",
       Present: "वर्तमान",
       Attachments: "संलग्नक",
-      AddMoreEducation: "अधिक शिक्षा जोड़ें",
+      AddEducation: "अधिक शिक्षा जोड़ें",
       Upload: "डालना",
       City: "शहर",
     },
@@ -105,6 +106,7 @@ const hindi = {
       StartDate: "आरंभ करने की तिथि",
       Present: "वर्तमान",
       AddMoreExperience: "अधिक अनुभव जोड़ें",
+      AddExperience: "अधिक अनुभव",
       EmploymentType: "रोजगार के प्रकार",
       City: "शहर",
     },
@@ -124,6 +126,7 @@ const hindi = {
       City: "शहर",
       Country: "देश",
       AddMoreBank: "अधिक बैंक जोड़ें",
+      AddBank: "अधिक बैंक जोड़ें",
     },
     EmployeeList: {
       number: "संख्या",

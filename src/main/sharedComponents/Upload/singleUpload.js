@@ -24,27 +24,29 @@ class SingleUpload extends React.Component {
     defaultFileList: [],
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.url !== this.props.url && this.props.url.length > 0) {
-      this.setState(
-        produce((state) => {
-          state.fileList.push({ url: this.props.url });
-        })
-      );
-    }
-  }
-  componentDidMount() {
-    let { url, defaultFile } = this.props;
-    if (url.length > 0) {
-      this.setState(
-        produce((state) => {
-          state.fileList.push({ url: url });
-          // state.defaultFileList = defaultFile;
-        })
-      );
-      this.setState({ defaultFileList: defaultFile });
-    }
-  }
+	componentDidUpdate(prevProps, prevState) {
+		console.log("", this.props.url);
+		if (prevProps.url !== this.props.url && this.props.url.length > 0) {
+			this.setState(
+				produce(state => {
+					state.fileList.push({ url: this.props.url });
+				})
+			);
+		}
+	}
+	componentDidMount() {
+		console.log(this.props.url);
+		let { url, defaultFile } = this.props;
+		if (url.length > 0) {
+			this.setState(
+				produce(state => {
+					state.fileList.push({ url: url });
+					// state.defaultFileList = defaultFile;
+				})
+			);
+			this.setState({ defaultFileList: defaultFile });
+		}
+	}
 
   handleCancel = () => this.setState({ previewVisible: false });
 

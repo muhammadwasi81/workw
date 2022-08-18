@@ -279,7 +279,7 @@ const EmergencyForm = ({ onEmergencyInfo, emergencyInfo }) => {
           block
           icon={<PlusOutlined />}
         >
-          {value.AddMoreEmergency}
+          {value.AddEmergency}
         </S.EButton>
       </S.ButtonContainer>
       {emergencyInfo && emergencyInfo.length > 0 && (

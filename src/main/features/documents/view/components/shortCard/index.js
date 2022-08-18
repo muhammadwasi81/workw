@@ -15,7 +15,10 @@ import { Button, Modal } from 'antd';
 import moment from "moment";
 import { handleParentId } from "../../../store/slice";
 import { moveDocument } from "../../../store/actions";
-
+import {
+    LockFilled
+} from '@ant-design/icons';
+import { privacyOption } from "../../../../../../utils/Shared/enums/enums";
 
 
 const DocShortCard = ({ data, handlePreview }) => {
@@ -23,8 +26,9 @@ const DocShortCard = ({ data, handlePreview }) => {
     const { documentDictionary } = documentDictionaryList[userLanguage];
     const disptach = useDispatch()
 
-    let { name, documentType, creator, createDate, id, path, extensionTypeId } = data
+    let { name, documentType, creator, createDate, id, path, extensionTypeId, privacyId } = data
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
+    let { Public, Private, External } = privacyOption
 
     const handleClick = (item) => {
         if (documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
@@ -54,15 +58,15 @@ const DocShortCard = ({ data, handlePreview }) => {
                 onDrop={handleDrop}
                 key={data.id}
                 noDragging={false}
-                 
-                >
+
+            >
                 <DropTarget
                     onHit={(e) => { }}
                     targetKey="docsDrag"
                     highlighted
                     dropData={{ name: data.id }}
                     key={data.id}
-                    >
+                >
                     <div className="d_ShortCard"
                         onClick={(e) => { e.preventDefault(); e.stopPropagation() }}
                         id={data.id}
@@ -102,7 +106,11 @@ const DocShortCard = ({ data, handlePreview }) => {
                         </h6> */}
                         </div>
                         <div className="d_ShortCard_Child3">
-                            <div></div>
+                            <div className="privacyStatus">
+                                {
+                                    privacyId === Private ? <LockFilled style={{color: "var(--currentThemeColor)"}} /> : ""
+                                }
+                            </div>
                             <div>
                                 <Avatar
                                     src={creator.image}

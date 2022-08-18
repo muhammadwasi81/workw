@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Avatar, Button, Collapse, Form, Input } from "antd";
+import { Avatar, Button, Collapse, Form, Input, Radio, Tag } from "antd";
 import { FaGlobe, FaUserAlt, FaUserPlus } from "react-icons/fa";
 import {
 	CalendarOutlined,
-	DeleteFilled,
 	EnvironmentFilled,
 	MailFilled,
 	PhoneFilled,
@@ -12,13 +11,37 @@ import {
 import "./sectionDetail.css";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
 import UploadBgImg from "../../../workboard/WorkBoardDetail/UploadBgImg";
+import { useDispatch } from "react-redux";
+import {
+	getAllLeadManagerContactDetail,
+	updateLeadManagerDetail,
+} from "../../store/actions";
+import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
 
 const { Panel } = Collapse;
 
 function SectionDetail(props) {
 	const { data } = props;
 
-	const [image, setImage] = useState();
+	const [image, setImage] = useState(
+		data.image
+			? data.image
+			: "https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
+	);
+	const dispatch = useDispatch();
+
+	const onFinish = values => {
+		dispatch(
+			updateLeadManagerDetail(
+				jsonToFormData({
+					image: { id: data.imageId, file: image ? image : null },
+					...values,
+					id: data.id,
+					sectionId: data.sectionId,
+				})
+			)
+		);
+	};
 
 	return (
 		<div className="flex gap-5">
@@ -27,13 +50,11 @@ function SectionDetail(props) {
 					<img
 						className="object-cover h-[200px] w-full rounded-2xl"
 						src={
-							data.image
-								? data.image
-								: image
-								? (
+							image && image.length > 0
+								? image
+								: (
 										window.URL || window.webkitURL
 								  ).createObjectURL(image)
-								: "https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
 						}
 						alt="lead manager"
 					/>
@@ -57,7 +78,14 @@ function SectionDetail(props) {
 					autoComplete="off"
 					layout="vertical"
 					initialValues={{ ...data }}
+					onFinish={onFinish}
 				>
+					<Form.Item name="typeId">
+						<Radio.Group>
+							<Radio value={1}>Business</Radio>
+							<Radio value={2}>Individual</Radio>
+						</Radio.Group>
+					</Form.Item>
 					<Form.Item
 						label={<span className="text-primary-color">Name</span>}
 						name="name"
@@ -86,7 +114,7 @@ function SectionDetail(props) {
 						/>
 					</Form.Item>
 					<Form.Item
-						name="email"
+						name="emailAddress"
 						label={
 							<span className="text-primary-color">Email</span>
 						}
@@ -98,7 +126,7 @@ function SectionDetail(props) {
 						/>
 					</Form.Item>
 					<Form.Item
-						name="emailAddress"
+						name="address"
 						label={
 							<span className="text-primary-color">Address</span>
 						}
@@ -126,6 +154,7 @@ function SectionDetail(props) {
 						<Button
 							htmlType="submit"
 							className="ThemeBtn !block ml-auto"
+							loading={props.loading}
 						>
 							Update
 						</Button>
@@ -176,7 +205,7 @@ function SectionDetail(props) {
 								</p>
 							}
 							key="1"
-							className=" site-collapse-custom-panel"
+							className=" site-collapse-custom-panel "
 							showArrow={false}
 							extra={
 								<FaUserPlus
@@ -184,30 +213,73 @@ function SectionDetail(props) {
 									onClick={e => {
 										e.preventDefault();
 										e.stopPropagation();
+
 										props.handleContactDetailModal();
+										props.onClickContact(false);
 									}}
 								/>
 							}
 						>
-							{data.members.length > 0 ? (
-								data.members.map(member => (
-									<div className="bg-white rounded-lg p-2">
-										<div className="flex items-center justify-between  w-full">
-											<div className="flex gap-3 items-center">
-												<Avatar src="" />
-												<p className="text-black !m-0">
-													Syed Danish Ali
-												</p>
+							<div className="h-60 overflow-y-auto flex flex-col gap-3">
+								{data.contacts.length > 0 ? (
+									data.contacts.map(contact => (
+										<div
+											className="bg-white rounded-lg p-2 cursor-pointer hover:bg-primary-color group text-black hover:text-white transition "
+											onClick={() => {
+												dispatch(
+													getAllLeadManagerContactDetail(
+														contact.id
+													)
+												);
+												props.handleContactDetailModal();
+												props.onClickContact(true);
+											}}
+										>
+											<div className="flex items-center justify-between w-full">
+												<div className="flex gap-3 items-center ">
+													<Avatar src={contact.image}>
+														{getNameForImage(
+															contact.name
+														)}
+													</Avatar>
+													<p className=" !m-0">
+														{contact.name}
+													</p>
+												</div>
+												<Tag
+													color={
+														contact.activeStatusId ===
+														1
+															? `green`
+															: `red`
+													}
+												>
+													{contact.activeStatusId ===
+													1
+														? `Active`
+														: `In-Active`}
+												</Tag>
+												{/* <DeleteFilled
+												className="!text-gray-500 cursor-pointer group-hover:!text-white"
+												onClick={e => {
+													e.preventDefault();
+													e.stopPropagation();
+													dispatch(
+														deleteLeadManagerContact(
+															contact.id
+														)
+													);
+												}}
+											/> */}
 											</div>
-											<DeleteFilled className="!text-gray-500" />
 										</div>
+									))
+								) : (
+									<div className="flex justify-center text-primary-color">
+										No Contacts
 									</div>
-								))
-							) : (
-								<div className="flex justify-center text-primary-color">
-									No Contacts
-								</div>
-							)}
+								)}
+							</div>
 						</Panel>
 					</Collapse>
 				</div>
@@ -217,6 +289,7 @@ function SectionDetail(props) {
 						referenceId={data.id}
 						isCommentLoad={true}
 						module={7}
+						loadSkeleton={true}
 					/>
 				</div>
 			</section>

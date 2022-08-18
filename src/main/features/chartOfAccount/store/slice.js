@@ -1,4 +1,4 @@
-import { createSlice, isPending } from "@reduxjs/toolkit"
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit"
 import { addChartOfAccount, getAllChartOfAccount, updateChartOfAccount } from "./actions";
 
 const initialState = {
@@ -45,11 +45,21 @@ export const ChartOfAccountSlice = createSlice({
          })
          .addMatcher(
 				isPending(
-					...[
-						addChartOfAccount,
+					...[ addChartOfAccount,
                   getAllChartOfAccount,
-                  updateChartOfAccount
-					]
+                  updateChartOfAccount ]
+				),
+				state => {
+					state.loader = true;
+					state.success = false;
+					state.error = false;
+				}
+			)
+         .addMatcher(
+				isRejected(
+					...[ addChartOfAccount,
+                  getAllChartOfAccount,
+                  updateChartOfAccount ]
 				),
 				state => {
 					state.loader = true;

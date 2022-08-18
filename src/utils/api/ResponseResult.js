@@ -1,4 +1,4 @@
-const ResponseResult = ({type, errorMessage = null, data = null}) => ({type, errorMessage, data})
+const ResponseResult = ({type=2, errorMessage = null, data = null}) => ({type, errorMessage, data})
 export const ResponseType = Object.freeze({
     SUCCESS: 1,
     ERROR: 2

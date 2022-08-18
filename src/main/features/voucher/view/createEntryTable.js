@@ -12,6 +12,7 @@ import { addVoucher } from '../store/actions';
 import moment from 'moment';
 import CustomModal from '../../workboard/Modal/CustomModal';
 import VoucherPrint from './voucherPrintModal';
+import { responseMessageType } from '../../../../services/slices/notificationSlice';
 
 const CreateEntryTable = ({ defaultRows }) => {
   const defaultEntry = {
@@ -34,6 +35,11 @@ const CreateEntryTable = ({ defaultRows }) => {
   const success = useSelector(state => state.voucherSlice.success);
   const AllVouchers = useSelector(state => state.voucherSlice.voucherList);
   const dispatch = useDispatch();
+  const totalDr = entries.filter(it => it.dr_cr === VOUCHER_ENUM.DR_CR.DR)
+    .reduce((a, b) => a + Number(b.amount), 0);
+  const totalCr = entries.filter(it => it.dr_cr === VOUCHER_ENUM.DR_CR.CR)
+    .reduce((a, b) => a + Number(b.amount), 0);
+
   useEffect(() => {
     dispatch(getAllChartOfAccount());
   }, []);
@@ -64,12 +70,12 @@ const CreateEntryTable = ({ defaultRows }) => {
     };
     setEntries(tempEntries)
   }
-
-  const handleSubmit = () => {
-    console.log(entries)
+  const createPayload = () => {
     let payload = {
       voucherDate: form.voucherDate,
       voucherType: form.voucherType,
+      totalDr,
+      totalCr,
       details: entries.filter(item => item.accountId)
         .map((entry) => ({
           accountId: entry.accountId,
@@ -78,16 +84,16 @@ const CreateEntryTable = ({ defaultRows }) => {
           narration: entry.naration,
           chequeNo: entry.chequeNo
         }))
-    }
-    console.log(payload,"payload")
-
-    dispatch(addVoucher(payload))
+    };
+    return payload;
   }
 
-  const totalDr = entries.filter(it => it.dr_cr === VOUCHER_ENUM.DR_CR.DR)
-    .reduce((a, b) => a + Number(b.amount), 0);
-  const totalCr = entries.filter(it => it.dr_cr === VOUCHER_ENUM.DR_CR.CR)
-    .reduce((a, b) => a + Number(b.amount), 0);
+  const handleSubmit = () => {
+    let payload = createPayload();
+    dispatch(addVoucher(payload));
+  }
+
+
   return (
     <div className='createEntryTable' >
       <div className='flex justify-between items-center my-2 bg-white px-4 py-2 rounded-md' >
@@ -122,7 +128,6 @@ const CreateEntryTable = ({ defaultRows }) => {
       </div>
 
       <div className='bg-white p-4 rounded-md overflow-x-auto' >
-
         <table>
           <CreateEntryHead />
           <tbody>
@@ -140,9 +145,8 @@ const CreateEntryTable = ({ defaultRows }) => {
             }
           </tbody>
         </table>
-
         <div>
-          <div className='defaultBtn addRowBtn' onClick={handleAddRow} >
+          <div className='defaultBtn addRowBtn cursor-pointer' onClick={handleAddRow} >
             +
           </div>
         </div>

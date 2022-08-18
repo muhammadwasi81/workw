@@ -78,6 +78,7 @@ const turkish = {
       Relation: "İlişki",
       Name: "Ad",
       AddMoreEmergency: "Daha Fazla Acil Durum Ekle",
+      AddEmergency: "Daha Fazla Acil",
     },
 
     EducationForm: {
@@ -91,7 +92,7 @@ const turkish = {
       ObtainedMarks: "Alınan Notlar",
       Present: "Mevcut",
       Attachments: "Ekler",
-      AddMoreEducation: "Derece0",
+      AddEducation: "Derece0",
       Upload: "Derece1",
       City: "Derece2",
     },
@@ -104,7 +105,8 @@ const turkish = {
       StartEndDate: "Başlangıç/Bitiş Tarihi",
       StartDate: "Başlangıç ​​Tarihi",
       Present: "Mevcut",
-      AddMoreExperience: "Derece8",
+      AddMoreExperience: "Derece",
+      AddExperience: "Derece",
       EmploymentType: "Derece9",
       City: "Derece2",
     },
@@ -124,6 +126,7 @@ const turkish = {
       City: "Derece2",
       Country: "Başlangıç/Bitiş Tarihi0",
       AddMoreBank: "Başlangıç/Bitiş Tarihi1",
+      AddBank: "Başlangıç/Bitiş Tarihi",
     },
 
     EmployeeList: {

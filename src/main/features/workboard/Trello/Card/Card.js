@@ -59,7 +59,7 @@ function Card(props) {
 		return (
 			<>
 				<Draggable draggableId={id} index={index}>
-					{(provided, snapshot) => (
+					{(provided, _snapshot) => (
 						<div
 							ref={provided.innerRef}
 							{...provided.draggableProps}

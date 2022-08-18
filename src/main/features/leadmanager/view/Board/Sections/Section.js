@@ -37,68 +37,66 @@ function Section(props) {
 	};
 
 	return (
-		<Draggable draggableId={String(section.id)} index={index}>
-			{(provided, snapshot) => (
+		<Draggable draggableId={section.id} index={index}>
+			{(provided, _snapshot) => (
 				<div
 					ref={provided.innerRef}
 					{...provided.draggableProps}
 					{...provided.dragHandleProps}
 					className="h-fit"
 				>
-					<div>
-						<Card
-							style={{ background: section.colorCode }}
-							className={`w-[330px] m-[10px] rounded`}
-						>
-							<CardHeader
-								text={section.name}
-								className={"text-white font-semibold"}
-								// count={2}
-								// icon={section.icon}
-							/>
-							<CardButton
-								className={"text-gray-400"}
-								icon={
-									<PlusOutlined className="!text-gray-500" />
-								}
-								onClick={handleToggleForm}
-							/>
-							{toggleForm && (
-								<SectionForm
-									onFinish={onFinish}
-									handleToggleForm={handleToggleForm}
-								/>
-							)}
-							<Droppable droppableId={String(section.id)}>
-								{(provided, _snapshot) => (
-									<div ref={provided.innerRef}>
-										{section.details.length > 0 && (
-											<div className="bg-white p-2 rounded-sm flex flex-col gap-2">
-												{section.details.map(
-													(sectionList, index) => (
-														<List
-															sectionList={
-																sectionList
-															}
-															color={
-																section.colorCode
-															}
-															index={index}
-															key={index}
-															handleSectionDetailModal={
-																handleSectionDetailModal
-															}
-														/>
-													)
-												)}
-												{provided.placeholder}
-											</div>
-										)}
-									</div>
-								)}
-							</Droppable>
-						</Card>
-					</div>
+					<Droppable droppableId={section.id}>
+						{(provided, _snapshot) => (
+							<div ref={provided.innerRef}>
+								<Card
+									style={{ background: section.colorCode }}
+									className={`w-[330px] m-[10px] rounded h-fit `}
+								>
+									<CardHeader
+										text={section.name}
+										className={"text-white font-semibold"}
+									/>
+									<CardButton
+										className={"text-gray-400"}
+										icon={
+											<PlusOutlined className="!text-gray-500" />
+										}
+										onClick={handleToggleForm}
+									/>
+									{toggleForm && (
+										<SectionForm
+											onFinish={onFinish}
+											handleToggleForm={handleToggleForm}
+										/>
+									)}
+
+									{section.details.length > 0 && (
+										<div className="bg-white p-2 rounded-sm flex flex-col gap-2 overflow-auto">
+											{section.details.map(
+												(sectionList, index) => (
+													<List
+														sectionList={
+															sectionList
+														}
+														color={
+															section.colorCode
+														}
+														id={sectionList.id}
+														index={index}
+														key={sectionList.id}
+														handleSectionDetailModal={
+															handleSectionDetailModal
+														}
+													/>
+												)
+											)}
+											{provided.placeholder}
+										</div>
+									)}
+								</Card>
+							</div>
+						)}
+					</Droppable>
 				</div>
 			)}
 		</Draggable>

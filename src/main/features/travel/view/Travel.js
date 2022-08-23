@@ -31,9 +31,6 @@ const initialTableFilter = {
 };
 
 function Travel() {
-	const [filter, setFilter] = useState({
-		filterType: 1,
-	});
 	const [tableView, setTableView] = useState(false);
 	const [tableColumnFilter, setTableColumnFilter] = useState(
 		initialTableFilter
@@ -133,20 +130,32 @@ function Travel() {
 			<Header label={TravelDictionaryList} success={isAdded} />
 			<TopBar
 				onSearch={value => {
-					console.log(value);
+					// console.log(value);
 				}}
 				buttons={[
 					{
 						name: topBar.travels,
-						onClick: () => setFilter({ filterType: 1 }),
+						onClick: () =>
+							setTableColumnFilter({
+								...tableColumnFilter,
+								filterType: 1,
+							}),
 					},
 					{
 						name: topBar.approval,
-						onClick: () => setFilter({ filterType: 2 }),
+						onClick: () =>
+							setTableColumnFilter({
+								...tableColumnFilter,
+								filterType: 2,
+							}),
 					},
 					{
 						name: topBar.agentProcess,
-						onClick: () => setFilter({ filterType: 3 }),
+						onClick: () =>
+							setTableColumnFilter({
+								...tableColumnFilter,
+								filterType: 3,
+							}),
 					},
 				]}
 				filter={{

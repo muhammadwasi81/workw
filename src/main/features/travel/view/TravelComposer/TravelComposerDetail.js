@@ -91,10 +91,10 @@ function TravelComposerDetail(props) {
 		}
 	};
 
-	const onInputFieldChange = e => {
+	const onInputFieldChange = (value, name) => {
 		setState(prevState => ({
 			...prevState,
-			[e.target.name]: e.target.value,
+			[name]: value,
 		}));
 		// checkValidation();
 	};

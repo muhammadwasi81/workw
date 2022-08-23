@@ -16,9 +16,10 @@ function CitySelect({
 	mode = "default",
 	size = "large",
 	optionComponent,
+	preSelectedData = [],
 }) {
 	const [value, setValue] = useState("");
-	const [stateVal, setStateVal] = useState([]);
+	const [stateVal, setStateVal] = useState(preSelectedData);
 	const [defaultValues, setDefaultValues] = useState([]);
 	const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
 	const debouncedSearch = useDebounce(value, 500);
@@ -33,6 +34,7 @@ function CitySelect({
 			setStateVal([...tempArray]);
 		}
 	};
+
 	useEffect(() => {
 		if (defaultData.length > 0) {
 			let tempArray = [];
@@ -111,6 +113,7 @@ function CitySelect({
 			size={size}
 			defaultData={defaultValues}
 			optionComponent={optionComponent}
+			isLoaded={canFetchNow}
 			// tagRender={props => <TagRender props={props} />}
 		/>
 	);

@@ -35,7 +35,7 @@ class SingleUpload extends React.Component {
 		}
 	}
 	componentDidMount() {
-		console.log(this.props.url);
+		// console.log(this.props.url);
 		let { url, defaultFile } = this.props;
 		if (url.length > 0) {
 			this.setState(

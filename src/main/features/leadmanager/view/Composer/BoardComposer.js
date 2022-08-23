@@ -8,6 +8,7 @@ import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/
 import { jsonToFormData } from "../../../../../utils/base";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 import { addLeadManager, updateLeadManager } from "../../store/actions";
+import { useSelector } from "react-redux";
 function BoardComposer({
 	isEdit,
 	composerData,
@@ -21,6 +22,7 @@ function BoardComposer({
 	const [form] = Form.useForm();
 	// const [isEdited, setIsEdited] = useState(isEdit);
 	// console.log("ieEdited", isEdited);
+	const userId = useSelector(state => state.userSlice.user.id);
 	const [membersData, setMembersData] = useState([]);
 	const dispatch = useDispatch();
 
@@ -58,13 +60,16 @@ function BoardComposer({
 	useEffect(() => {
 		form.setFieldsValue(composerData);
 		if (isEdit) {
-			// console.log("dsfadsf");
 			form.setFieldsValue({
-				members: composerData.members.map(members => {
-					return members.memberId;
-				}),
+				members: composerData.members
+					.map(members => {
+						return members.memberId;
+					})
+					.filter(member => member !== userId),
 			});
 		}
+		// console.log("userid", userId);
+		// console.log("form.getFieldsValues(true)", form.getFieldsValue(true));
 		setPrivacyId(composerData.privacyId);
 	}, [form, composerData]);
 
@@ -155,9 +160,11 @@ function BoardComposer({
 						onChange={(val, obj) => {
 							setMembersData(val);
 						}}
-						defaultData={composerData.members.map(members => {
-							return members.memberId;
-						})}
+						// defaultData={composerData.members
+						// 	.map(members => {
+						// 		return members.memberId;
+						// 	})
+						// 	.filter(member => member !== userId)}
 						loadDefaultData={true}
 						placeholder={placeHolder.serachMembersPH}
 					/>

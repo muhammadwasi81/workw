@@ -66,7 +66,7 @@ function DetailedView(props) {
 		dispatch(cancelComplain(payload));
 	};
 
-	console.log(updatedStatus, "STATUS");;
+	console.log(updatedStatus, "STATUS");
 
 	return (
 		<Drawer
@@ -171,7 +171,6 @@ function DetailedView(props) {
 			</div>
 		</Drawer>
 	);
->>>>>>> 40a8eb5b62719976ea5c9932e86d5d984b2dfb55
 }
 
 export default DetailedView;

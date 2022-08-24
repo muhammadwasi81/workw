@@ -114,9 +114,9 @@ function CreateSchedule() {
 				return { memberId: member };
 			});
 		}
-		let attachemnts;
+		let attachments;
 		if (files.length > 0) {
-			attachemnts = files.map(file => {
+			attachments = files.map(file => {
 				return {
 					id: defaultUiid,
 					file: file.originFileObj,
@@ -132,7 +132,7 @@ function CreateSchedule() {
 			addSchedule(
 				jsonToFormData({
 					...objToSend,
-					attachemnts,
+					attachments,
 				})
 			)
 		);

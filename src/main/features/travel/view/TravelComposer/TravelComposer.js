@@ -1,12 +1,4 @@
-import {
-	Button,
-	Carousel,
-	Checkbox,
-	DatePicker,
-	Form,
-	Input,
-	Typography,
-} from "antd";
+import { Button, Carousel, Form, Typography } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import TextAreaInput from "../../../../sharedComponents/Input/TextArea";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
@@ -26,6 +18,7 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { useDispatch, useSelector } from "react-redux";
 import { addTravel } from "../../store/actions";
 import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
+import { jsonToFormData } from "../../../../../utils/base";
 
 const initialState = {
 	subject: "",
@@ -36,9 +29,6 @@ const initialState = {
 	cities: [],
 	specialRequest: "",
 	id: defaultUiid,
-	// status: 0,
-	// approverStatus: 0,
-	// agentStatus: 0,
 	referenceId: defaultUiid,
 	referenceType: 0,
 	attachments: [],
@@ -129,6 +119,15 @@ function TravelComposer(props) {
 			};
 		});
 		const { subject, description, specialRequest } = values;
+		let attachments = [];
+		if (docsData && docsData.length > 0) {
+			attachments = docsData.map(file => {
+				return {
+					id: defaultUiid,
+					file: file.originFileObj,
+				};
+			});
+		}
 		setState(prevState => ({
 			...prevState,
 			subject,
@@ -137,6 +136,7 @@ function TravelComposer(props) {
 			approvers,
 			agents,
 			cities,
+			attachments,
 		}));
 		setIsSubmit(true);
 		// console.log("docsData", docsData);
@@ -214,7 +214,7 @@ function TravelComposer(props) {
 
 	useEffect(() => {
 		if (isSubmit) {
-			dispatch(addTravel(state));
+			dispatch(addTravel(jsonToFormData(state)));
 			form.resetFields();
 			setTravelDetails([]);
 			setIsSubmit(false);

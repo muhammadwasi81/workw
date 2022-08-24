@@ -85,7 +85,7 @@ function MemberSelect({
 			}
 		}
 		if (emptyStateAfterSelect && stateVal.length > 0) {
-			console.log("remove");
+			// console.log("remove");
 			setStateVal([]);
 		}
 	}, [stateVal]);

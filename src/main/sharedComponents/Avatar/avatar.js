@@ -30,6 +30,7 @@ function Avatar(props) {
 					membersData={props.membersData}
 					heading={props.heading}
 					nestedObjProperty={objProperty}
+					size={props.size}
 					// dummyImage={props.image}
 				/>
 			)}

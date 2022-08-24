@@ -24,7 +24,7 @@ function AntCustomSelect(props) {
 		tagRender,
 		isEmailSelect,
 		isImage,
-		value,
+		value = [],
 		defaultData = [],
 		optionComponent,
 		isLoaded,

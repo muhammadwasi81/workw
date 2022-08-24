@@ -65,6 +65,7 @@ class SingleUpload extends React.Component {
 
 	handleChange = info => {
 		let { fileList } = info;
+		console.log("file", fileList);
 		const status = info.file.status;
 		if (status !== "uploading") {
 			// console.log(info.file, info.fileList);
@@ -102,10 +103,14 @@ class SingleUpload extends React.Component {
 					accept="*"
 					beforeUpload={() => false}
 					multiple={this.props.multiple}
-					maxCount={1}
+					// maxCount={1}
 					defaultFileList={defaultFileList}
 				>
-					{fileList.length === 1 ? null : uploadButton}
+					{this.props.multiple
+						? uploadButton
+						: fileList.length === 1
+						? null
+						: uploadButton}
 				</Upload>
 				<Modal
 					visible={previewVisible}

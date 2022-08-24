@@ -32,15 +32,13 @@ function AntCustomSelect(props) {
 		name = "",
 		showSearch = false,
 		rules = [],
-		apiLoad = true,
+
 		formItem = true,
 	} = props;
 
 	useEffect(() => {
-		if (apiLoad) {
-			setPgNo(0);
-		}
-	}, [debouncedSearch, apiLoad]);
+		setPgNo(0);
+	}, [debouncedSearch]);
 	const userId = useSelector(state => state.userSlice.user.id);
 	// handle pagination inside this component
 	const onPopupScroll = event => {
@@ -52,13 +50,12 @@ function AntCustomSelect(props) {
 		}
 	};
 	useEffect(() => {
-		if (apiLoad) {
-			if (pgNo !== 0) {
-				paginationHandler(pgNo);
-			}
+		if (pgNo !== 0) {
+			paginationHandler(pgNo);
 		}
-	}, [pgNo, apiLoad]);
+	}, [pgNo]);
 	// console.log("data", isLoaded, data);
+
 	return (
 		<>
 			{!formItem ? (
@@ -71,11 +68,12 @@ function AntCustomSelect(props) {
 					tagRender={tagRender}
 					value={value}
 					loading={loading}
-					onPopupScroll={apiLoad && onPopupScroll}
+					onPopupScroll={onPopupScroll}
 					onSelect={onSelect}
 					onChange={onChange}
 					onSearch={onSearch}
 					filterOption={filterOption}
+					getPopupContainer={trigger => trigger.parentNode}
 					// maxTagCount="responsive"
 				>
 					{isLoaded && !loading ? (
@@ -125,11 +123,12 @@ function AntCustomSelect(props) {
 						tagRender={tagRender}
 						value={value}
 						loading={loading}
-						onPopupScroll={apiLoad && onPopupScroll}
+						onPopupScroll={onPopupScroll}
 						onSelect={onSelect}
 						onChange={onChange}
 						onSearch={onSearch}
 						filterOption={filterOption}
+						getPopupContainer={trigger => trigger.parentNode}
 						// maxTagCount="responsive"
 					>
 						{isLoaded && !loading ? (

@@ -18,7 +18,7 @@ const PrivateRoute = () => {
     return (
       <Navigate
         to={{
-          pathname: ROUTES.AUTH.SIGN_IN,
+          pathname: ROUTES.AUTH.SIGN_IN
         }}
       />
     );

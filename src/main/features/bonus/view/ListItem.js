@@ -18,13 +18,14 @@ function ListItem(props) {
 
   return (
     <SingleItem>
-      <div
+      {/* <div
         className="new"
         id={props.id}
         onClick={() => {
           props.getBonusId(props.id);
         }}
-      />
+      /> */}
+      <div className="new" id={props.id}></div>
       <ItemHeader>
         <div className="left">
           <UserInfo
@@ -39,50 +40,34 @@ function ListItem(props) {
         </div>
       </ItemHeader>
       <div className="flex justify-between mt-4">
-          <div className="innerCard w-full">
-            <div className="innerCard__header">
+        <div className="innerCard w-full">
+          <div className="innerCard__header">
+            <div className="right">
               <div className="left">
-                Category :
+                Amount :
                 <span className="" style={{ color: "#757D86" }}>
-                  &nbsp;{category}
-                </span>
-              </div>
-              <div className="right">
-                <div className="left">
-                  Amount :
-                  <span className="" style={{ color: "#757D86" }}>
-                    &nbsp;{amount}
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="innerCard__footer">
-              <div className="left">
-                Reason :
-                <span className="" style={{ color: "#757D86" }}>
-                  &nbsp;{}
+                  &nbsp;{amount}
                 </span>
               </div>
             </div>
           </div>
         </div>
+      </div>
       <div className="ListItemInner">
         <div className="ItemDetails">
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{"Bonus To"}</span>
-            {/* <Tag className="IdTag">{ ?  : ""}</Tag> */}
-          </div>
-          {/* <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{"Bonus To"}</span>
-            <Avatar
-              isAvatarGroup={true}
-              isTag={false}
-              heading={"Members"}
-              membersData={members}
-              text={"Danish"}
-              image={"https://joeschmoe.io/api/v1/random"}
-            />
-          </div> */}
+          {members.length > 0 ?
+            <div className="innerDiv">
+              <span className="text-black font-extrabold smallHeading">{"Bonus To"}</span>
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Members"}
+                membersData={members}
+                text={"Danish"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            </div> : ""
+          }
           <div className="innerDiv">
             <span className="text-black font-extrabold smallHeading">{bonusDictionary.approvers}</span>
             <Avatar

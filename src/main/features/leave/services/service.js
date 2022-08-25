@@ -20,8 +20,7 @@ export const addLeaveService = data => {
 		});
 };
 
-export const GetRewardByIdService = id => {
-	console.log("ID FROM SERVICE", id)
+export const GetLeaveByIdService = id => {
 	return MasterConfig.get(`api/Leave/GetLeaveById?id=${id}`)
 		.then(res => {
 			return res;

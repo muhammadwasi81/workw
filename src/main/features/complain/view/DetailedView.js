@@ -21,13 +21,14 @@ import "./complain.css"
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
-
+  const { user } = useSelector(state => state.userSlice);
   const { complainDetail } = useSelector((state) => state.complainSlice);
 
   const [updatedStatus, setUpdatedStatus] = useState();
 
   const { creator, description, category, createDate, status, members = [], approvers } = complainDetail;
-  let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
+  let {  Approved, Declined, Resend } = ApprovalStatus
+  let userId = user.id
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -61,8 +62,8 @@ function DetailedView(props) {
               <Tag className="IdTag">TRA-000085</Tag>
               <StatusTag status={updatedStatus?.Approvals}></StatusTag>
               {
-                status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
-                  ""
+                userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
+                  "" : ""
               }
             </div>
           </div>
@@ -76,15 +77,15 @@ function DetailedView(props) {
         </div> */}
         </ItemContent>
         <div className="innerCard w-full description">
-            <div className="innerCard__header">
-              <div className="left">
-                Category :
-                <span className="" style={{ color: "#757D86" }}>
-                  &nbsp;{category}
-                </span>
-              </div>
+          <div className="innerCard__header">
+            <div className="left">
+              Category :
+              <span className="" style={{ color: "#757D86" }}>
+                &nbsp;{category}
+              </span>
             </div>
           </div>
+        </div>
         <div className="ListItemInner">
           <div className="ItemDetails">
             <div className="innerDiv">
@@ -101,7 +102,7 @@ function DetailedView(props) {
             </div>
           </div>
         </div>
-        <RemarksApproval module={ApprovalsModule.ComplainApproval}  status={status} onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)}   data={approvers} title="Approvals" />
+        <RemarksApproval module={ApprovalsModule.ComplainApproval} status={status} onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)} data={approvers} title="Approvals" />
       </div>
     </Drawer>
   );

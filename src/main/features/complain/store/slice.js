@@ -34,6 +34,7 @@ const complainSlice = createSlice({
 
     builder
       .addCase(addComplain.fulfilled, (state, { payload }) => {
+        state.drawerOpen = false;
         state.complainData = payload;
         return state;
       })

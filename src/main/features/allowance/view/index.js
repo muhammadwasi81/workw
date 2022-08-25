@@ -4,9 +4,10 @@ import { AdminContainer } from "../../../../components/HrMenu/Administration/Sty
 import { addAllowance, removeAllowance, updateAllowance } from "../store/actions";
 import AllowanceTable from "./table.js";
 import AllowanceForm from "./form.js"
+import "./allowance.css"
 
 export default function Allowance() {
-  const initialState = { name: "", description: "", allowanceType: "", allowanceUnit: "", isTaxable: ""   };
+  const initialState = { name: "", description: "", gradeId: "", allowanceType: "", allowanceUnit: "", isTaxable: "", value: ""   };
   const [allowance, setAllowance] = useState(initialState);
   const [clearButton, setClearButton] = useState(false)
 

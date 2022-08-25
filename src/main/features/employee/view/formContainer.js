@@ -37,6 +37,7 @@ const EmployeeFormContainer = (props) => {
   };
 
   const onFinish = (values) => {
+    console.log(educationInfo, "EDUCATION!!!")
     const completeValues = {
       ...values,
       educations: educationInfo,

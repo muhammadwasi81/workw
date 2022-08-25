@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { PlusOutlined } from "@ant-design/icons";
 import * as S from "../Styles/employee.style";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -25,7 +25,7 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 	const placeholder = employeesDictionary.placeholders;
 	const [isSubmit, setIsSubmit] = useState(false);
 	const [present, setPresent] = useState(false);
-	const [education, setEducation] = useState([])
+	const [educations, setEducations] = useState([])
 	const [editIndex, setEditIndex] = useState()
 	const [editMode, setEditMode] = useState(false)
 
@@ -50,19 +50,18 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 		start: false,
 	});
 
-	console.log(detailId.id, "Hello ID")
-
 	useEffect(() => {
 		if (isEdit) {
-			getEducation()	
-		} 
-		setEducation([...educationInfo])
-		console.log("SASASAS")
-	},[])
+			getEducation()
+		}
+		console.log(isEdit, "EDUCATIONSSSS")
+		setEducations([...educationInfo])
+	}, [])
 
-	const getEducation = async() => {
-		const response = await  getAllEducationService(detailId.id)
-		setEducation(response.data)
+	const getEducation = async () => {
+		const response = await getAllEducationService(detailId.id)
+		console.log(educations, "HELLO 123")
+		setEducations(response.data)
 	}
 
 	const handleChange = useCallback((value, name) => {
@@ -221,7 +220,7 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 					<>
 						<a
 							href="asdasd"
-							
+
 							onRowClick={(e, a, b) => {
 								e.preventDefault();
 								console.log(e, a, b, "EEE")
@@ -229,6 +228,37 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 						>
 							{"Edit"}
 						</a>
+						{/* {
+							isEdit ?
+								<a
+									href="asdasd"
+
+									onRowClick={(e, a, b) => {
+										e.preventDefault();
+										console.log(e, a, b, "EEE")
+									}}
+								>
+									{"Edit"}
+								</a> :
+								<a
+									href="asdasd"
+									onClick={e => {
+										e.preventDefault();
+										const index = educationInfo.findIndex(object => {
+											return object === value;
+										});
+										const filterArray = educationInfo.filter(
+											(value, i) => {
+												if (index !== i) return value;
+											}
+										);
+										onEducationInfo(filterArray);
+									}}
+								>
+									{sharedLabels.Delete}
+								</a>
+
+						} */}
 					</>
 				);
 			},
@@ -319,7 +349,7 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 										handleChange(value, "degree");
 									}}
 									error={error.degree}
-									value={state.degree}
+									// value={state.degree}
 									size="large"
 								/>
 								{error.degree && (
@@ -349,7 +379,7 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 										handleChange(value, "institute");
 									}}
 									error={error.institute}
-									value={state.institute}
+									// value={state.institute}
 									size="large"
 								/>
 								{error.institute && (
@@ -379,7 +409,7 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 										handleChange(value, "description");
 									}}
 									error={error.description}
-									value={state.description}
+									// value={state.description}
 									size="large"
 								/>
 								{error.description && (
@@ -410,7 +440,7 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 										handleChange(value, "totalMarks");
 									}}
 									error={error.totalMarks}
-									value={state.totalMarks}
+									// value={state.totalMarks}
 									size="large"
 								/>
 								{error.totalMarks && (
@@ -441,7 +471,7 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 										handleChange(value, "obtainedMarks");
 									}}
 									error={error.obtainedMarks}
-									value={state.obtainedMarks}
+									// value={state.obtainedMarks}
 									size="large"
 								/>
 								{error.obtainedMarks && (
@@ -592,37 +622,38 @@ const EducationForm = ({ onEducationInfo, educationInfo, isEdit }) => {
 						</Checkbox>
 					</S.CustomSpace>
 					<S.ButtonContainer>
-							<S.EButton
-								type="dashed"
-								onClick={() => {
-									checkValidation();
-									setIsSubmit(true);
-									setEditMode(false)
-								}}
-								block
-								icon={<PlusOutlined />}
-							>
-								{ editMode ? "Save" : value.AddMoreEducation}
-							</S.EButton>
-						</S.ButtonContainer>
-					{education  && education.length > 0 && (
-							<Table
+						<S.EButton
+							type="dashed"
+							onClick={() => {
+								checkValidation();
+								setIsSubmit(true);
+								setEditMode(false)
+								setEducations(educationInfo)
+								console.log(educationInfo, educations, "SASASASAA")
+							}}
+							block
+							icon={<PlusOutlined />}
+						>
+							{isEdit ? "Save" : value.AddEducation}
+						</S.EButton>
+					</S.ButtonContainer>
+					{educationInfo.length > 0 && (
+						<Table
 							columns={columns}
 							dragable={true}
-							data={education}
-							onRow = {(record, rowIndex) => {
+							data={isEdit ? educations : educationInfo}
+							onRow={(record, rowIndex) => {
 								return {
 									onClick: event => {
 										event.preventDefault();
-										setState(education[rowIndex])
+										setState(educations[rowIndex])
 										setEditIndex([rowIndex])
-										setEditMode(true)
-						;
+										setEditMode(true);
 									}
 								};
 							}}
 						/>
-						)}
+					)}
 				</S.AddMoreDiv>
 			</>
 		</>

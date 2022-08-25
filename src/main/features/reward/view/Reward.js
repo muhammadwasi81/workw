@@ -1,46 +1,38 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Row, Button, Skeleton, Modal } from "antd";
+import { Button, Drawer } from "antd";
+import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Skeleton, Modal } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllRewards, GetRewardById } from "../store/actions";
-import TableView from "./TableView";
-
-// import "./reward.css";
-import FilterSearchButton from "../../../sharedComponents/FilterSearch";
+import { getAllRewards} from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
+import { handleOpenComposer } from "../store/slice";
 
 const Reward = (props) => {
+  const { visible } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
 
   const [tableView, setTableView] = useState(false);
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
-  // const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
   const { rewards, loader, rewardDetail, drawerOpen } = useSelector((state) => state.rewardSlice);
 
-  console.log(drawerOpen, "COMPOSER STATE")
-
-  const [searchFilterValues, setSearchFilterValues] = useState();
+  const [searchFilterValues, setSearchFilterValues] = useState()
 
   const onClose = () => {
     setDetailId(null);
@@ -50,8 +42,6 @@ const Reward = (props) => {
   useEffect(() => {
     dispatch(getAllRewards(filter));
   }, [filter]);
-
-  console.log(filter, "FILTER")
 
   const handleFilter = (values) => {
     setSearchFilterValues(values);
@@ -63,19 +53,17 @@ const Reward = (props) => {
           buttons={[
             {
               buttonText: "Create Travel",
-              // onClick: () => setVisible(true),
               render: (
-                <SideDrawer title={rewardsDictionary.createReward} buttonText={rewardsDictionary.createReward} succes={drawerOpen} >
-                  <Composer />
-                </SideDrawer>
+                <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                  Create Reward
+                </Button>
               ),
             },
           ]}
         />
         <TopBar
           onSearch={(value) => {
-            setFilter({...filter, search: value})
-            console.log("TESTING")
+            setFilter({ ...filter, search: value })
           }}
           buttons={[
             {
@@ -83,17 +71,18 @@ const Reward = (props) => {
               onClick: () => setFilter({ filterType: 0 }),
             },
             {
-              name: "For Approval",
+              name: "Created By Me",
               onClick: () => setFilter({ filterType: 1 }),
             },
             {
-              name: "Reward To Me",
+              name: "For Approval",
               onClick: () => setFilter({ filterType: 2 }),
             },
+            {
+              name: "Reward To Me",
+              onClick: () => setFilter({ filterType: 3 }),
+            },
           ]}
-          // filter={{
-          //   onFilter: () => {},
-          // }}
           segment={{
             onSegment: (value) => {
               if (value === "Table") {
@@ -119,14 +108,6 @@ const Reward = (props) => {
                 {loader ? (
                   <>
                     <Skeleton avatar paragraph={{ rows: 4 }} />
-                    {/* <Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/> */}
                   </>
                 ) : (
                   <CardWrapper>
@@ -142,10 +123,32 @@ const Reward = (props) => {
               </>
             )
           ) : (
-            "Data not found"
+            <Skeleton avatar paragraph={{ rows: 4 }} />
           )}
         </ContBody>
-        {<DetailedView onClose={onClose} id={detailId} />}
+        {<DetailedView onClose={onClose} id={detailId} />}   
+
+        <Drawer
+          title={
+            <h1
+              style={{
+                fontSize: "20px",
+                margin: 0,
+              }}
+            >
+              Create Reward
+            </h1>
+          }
+          width="768"
+          onClose={() => {
+            dispatch(handleOpenComposer(false))
+          }}
+          visible={drawerOpen}
+          destroyOnClose={true}
+          className="detailedViewComposer drawerSecondary"
+        >
+          <Composer />
+        </Drawer>
       </TabbableContainer>
     </>
   );

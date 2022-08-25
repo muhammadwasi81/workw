@@ -419,7 +419,7 @@ const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
 							block
 							icon={<PlusOutlined />}
 						>
-							{value.AddMoreExperience}
+							{"Add Experience"}
 						</S.EButton>
 					</S.ButtonContainer>
 					{experienceInfo && experienceInfo.length > 0 && (

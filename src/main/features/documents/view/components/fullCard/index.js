@@ -23,7 +23,7 @@ const DocFullCard = ({ data, handleClickCard }) => {
 	const { documentDictionary } = documentDictionaryList[userLanguage];
 	const disptach = useDispatch()
 
-	let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId } = data
+	let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId, status } = data
 	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
 
@@ -45,8 +45,8 @@ const DocFullCard = ({ data, handleClickCard }) => {
 							/>
 						</div>
 						<div className="right">
-							{/* <Tag className="IdTag">TRA-000085</Tag> */}
-							<StatusTag status={2}></StatusTag>
+							<Tag className="IdTag">TRA-000085</Tag>
+							<StatusTag status={status}></StatusTag>
 						</div>
 					</div>
 				</ItemHeader>

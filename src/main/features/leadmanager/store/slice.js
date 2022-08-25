@@ -3,7 +3,7 @@ import {
 	addLeadManager,
 	addLeadManagerContact,
 	addLeadManagerDetail,
-	deleteLeadManagerContact,
+	// deleteLeadManagerContact,
 	getAllLeadManager,
 	getAllLeadManagerContactDetail,
 	getAllLeadManagerPaging,
@@ -53,6 +53,46 @@ const leadMangerSlice = createSlice({
 				state.isEditComposer = false;
 			}
 			state.isComposerOpen = isOpen;
+		},
+		moveSection(state, { payload }) {
+			const { oldListIndex, newListIndex } = payload;
+			const newLists = Array.from(state.leadManagerDetail.sections);
+			const [removedList] = newLists.splice(oldListIndex, 1);
+			newLists.splice(newListIndex, 0, removedList);
+			state.leadManagerDetail.sections = newLists;
+		},
+		moveDetail(state, { payload }) {
+			const {
+				oldCardIndex,
+				newCardIndex,
+				sourceListId,
+				destListId,
+			} = payload;
+
+			// // Move within the same list
+			const sourceSection = state.leadManagerDetail.sections.find(
+				section => section.id === sourceListId
+			);
+			const destinationsSection = state.leadManagerDetail.sections.find(
+				section => section.id === destListId
+			);
+			const sectionIndex = state.leadManagerDetail.sections.findIndex(
+				section => section.id === sourceListId
+			);
+
+			if (sourceListId === destListId) {
+				const newTodos = sourceSection.details;
+				const [removedCard] = newTodos.splice(oldCardIndex, 1);
+				newTodos.splice(newCardIndex, 0, removedCard);
+
+				state.leadManagerDetail.sections[
+					sectionIndex
+				].details = newTodos;
+				return;
+			}
+			//move todo from one section to another
+			const removedTodo = sourceSection.details.splice(oldCardIndex, 1);
+			destinationsSection.details.splice(newCardIndex, 0, removedTodo[0]);
 		},
 	},
 	extraReducers: builder => {
@@ -182,7 +222,7 @@ const leadMangerSlice = createSlice({
 					]
 				),
 				state => {
-					state.loader = true;
+					state.loading = true;
 					state.success = false;
 					state.error = false;
 				}
@@ -190,6 +230,10 @@ const leadMangerSlice = createSlice({
 	},
 });
 
-export const { handleComposer } = leadMangerSlice.actions;
+export const {
+	handleComposer,
+	moveSection,
+	moveDetail,
+} = leadMangerSlice.actions;
 
 export default leadMangerSlice.reducer;

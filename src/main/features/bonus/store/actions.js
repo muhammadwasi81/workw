@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
-import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
-import { getAllBonusService, addBonusService, GetBonusByIdService } from "../services/service";
+import { getAllBonusService, addBonusService, GetBonusByIdService, cancelBonusService } from "../services/service";
 
 export const getAllBonus = createAsyncThunk("Bonus/GetAllBonus", async (data) => {
   const response = await getAllBonusService(data);
@@ -12,12 +11,23 @@ export const getAllBonus = createAsyncThunk("Bonus/GetAllBonus", async (data) =>
   return response.data;
 });
 
-export const addBonus = createAsyncThunk("Bonus/addBonus", async (args, { dispatch, setState }) => {
-  const response = await addBonusService(args);
-  return response;
+export const addBonus = createAsyncThunk("Bonus/addBonus", async (data, { dispatch, getState, rejectWithValue }) => {
+  const res = await addBonusService(data);
+  if (res.data?.responseCode === responseCode.Success) {
+    message.success('Bonus Created');
+    return res;
+  } else {
+    message.error(res.data.message);
+    return rejectWithValue(res.data.message);
+  }
 });
 
 export const GetBonusById = createAsyncThunk("Bonus/GetBonusById'", async (id) => {
   const response = await GetBonusByIdService(id);
   return response.data;
+});
+
+export const cancelBonus = createAsyncThunk("bonus/cancelBonus", async (id, { dispatch, setState }) => {
+  const response = await cancelBonusService(id);
+  return response;
 });

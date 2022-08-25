@@ -101,13 +101,13 @@ const BankForm = ({ onBankInfo, bankInfo, isEdit }) => {
 		}));
 	}, []);
 	const columns = [
-		{
-			title: "Status",
-			dataIndex: "status",
-			ellipsis: true,
-			render: (status) => <StatusTag status={status} />,
-			sort: true,
-		  },
+		// {
+		// 	title: "Status",
+		// 	dataIndex: "status",
+		// 	ellipsis: true,
+		// 	render: (status) => <StatusTag status={status} />,
+		// 	sort: true,
+		//   },
 		  {
 			  title: "Bank Name",
 			  dataIndex: "bankName",
@@ -647,14 +647,14 @@ const BankForm = ({ onBankInfo, bankInfo, isEdit }) => {
 								block
 								icon={<PlusOutlined />}
 							>
-								{ editMode ? "Save" : value.AddMoreBank}
+								{ editMode ? "Save" : value.AddBank}
 							</S.EButton>
 						</S.ButtonContainer>
-						{bankDetails  && bankDetails.length > 0 && (
+						{bankInfo  && bankInfo.length > 0 && (
 							<Table
 							columns={columns}
 							dragable={true}
-							data={bankDetails}
+							data={isEdit ? bankDetails : bankInfo}
 							onRow = {(record, rowIndex) => {
 								return {
 									onClick: event => {

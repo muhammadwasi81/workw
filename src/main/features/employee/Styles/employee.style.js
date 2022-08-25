@@ -219,22 +219,23 @@ export const EFormItem = styled(Form.Item)`
 	}
 `;
 export const ButtonContainer = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-end;
-	margin-top: 10px;
-	margin-right: 50px;
-	align-items: center;
-	button {
-		display: flex;
-		align-items: center;
-	}
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-right: 50px;
+  align-items: center;
+  button {
+    display: flex;
+    align-items: center;
+  }
+  width: 100%;
 `;
 export const EButton = styled(Button)`
-	margin-right: 10px;
-	margin-bottom: 10px;
-	border-radius: 5px !important;
-	width: 12.4rem !important;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px !important;
+  width: auto !important;
 `;
 export const EmployeeCardCustom = styled.div`
 	display: flex;

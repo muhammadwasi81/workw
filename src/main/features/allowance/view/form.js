@@ -1,5 +1,5 @@
 import "./allowance.css";
-import { Col, Input, Radio, RadioContainer, Row } from "antd";
+import { Col, Input, Radio, Row, Select } from "antd";
 import { useEffect, useState } from "react";
 import {
   FormButton,
@@ -11,39 +11,69 @@ import {
   FormLabel,
   FormTextArea,
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+// import Select from "../../../sharedComponents/Select/Select";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllGrades } from "../../grade/store/actions";
+import { number } from "prop-types";
 
 export default function AllowanceForm({ data, onSubmit, loading, setClearButton, clearButton }) {
+  const dispatch = useDispatch();
   const [value, setValue] = useState(1);
   const [form, setForm] = useState(data);
 
+  const { grades } = useSelector(
+    state => state.gradeSlice
+  );
+
 
   const handleClear = (e) => {
-    setForm({...form, description: "", name: ""})
+    setForm({ ...form, description: "", name: "", gradeId: null, value: ""  })
     setClearButton(false)
-}
-
-const handelChangeName = (e) => {
-  console.log(e.target.value)
-  if (e.target.value.length > 0) {
-    setClearButton(true)
-  } else {
-    setClearButton(false) 
   }
-  setForm({ ...form, name: e.target.value })
-}
 
-const handelChangeDescription = (e) => {
-  if (e.target.value.length > 0) {
-    setClearButton(true)
-  } else {
-    setClearButton(false) 
+  const handelChangeName = (e) => {
+    if (e.target.value.length > 0) {
+      setClearButton(true)
+    } else {
+      setClearButton(false)
+    }
+    setForm({ ...form, name: e.target.value })
   }
-  setForm({ ...form, description: e.target.value })
-}
+
+  const handelChangeAmount = (e) => {
+    if (e.target.value.length > 0) {
+      setClearButton(true)
+    } else {
+      setClearButton(false)
+    }
+    let val = e.target.value
+    setForm({ ...form, value: val  })
+  }
+
+  const handelChangeDescription = (e) => {
+    if (e.target.value.length > 0) {
+      setClearButton(true)
+    } else {
+      setClearButton(false)
+    }
+    setForm({ ...form, description: e.target.value })
+  }
+
+  const  handelChangeGrade = (value) =>  {
+    if (value.length > 0) {
+      setClearButton(true)
+    } else {
+      setClearButton(false)
+    }
+    const x = grades.filter((item) => item.id === value)
+    setForm({...form, gradeId: x[0].id})
+    
+  }
 
   useEffect(() => {
     setForm(data);
-    
+    dispatch(getAllGrades())
   }, [data]);
 
   return (
@@ -61,6 +91,14 @@ const handelChangeDescription = (e) => {
               />
             </AllowncesFormInput>
             <AllowncesFormInput>
+              <FormLabel>Amount</FormLabel>
+              <Input
+                placeholder={"Enter Amount"}
+                value={form.value}
+                onChange={handelChangeAmount}
+              />
+            </AllowncesFormInput>
+            <AllowncesFormInput>
               <FormLabel>Description</FormLabel>
               <FormTextArea
                 placeholder={"Enter Description"}
@@ -68,8 +106,24 @@ const handelChangeDescription = (e) => {
                 onChange={handelChangeDescription}
               />
             </AllowncesFormInput>
+            <AllowncesFormInput>
+              <FormLabel>Grade</FormLabel>
+              <Select
+                showSearch
+                style={{ width: "100%" }}
+                placeholder="Select Grade"
+                optionFilterProp="children"
+                onChange={handelChangeGrade}
+                name="gradeId"
+                size="large"
+              >
+                {grades.map((item) => (
+                  <Select.Option value={item.id}>{item.name}</Select.Option>
+                ))}
+              </Select>
+            </AllowncesFormInput>
           </Col>
-          <Col lg={22} md={24} xl={10} sm={24} xs={24} style={{paddingTop: 27,}}>
+          <Col lg={22} md={24} xl={10} sm={24} xs={24} style={{ paddingTop: 27, }}>
             <div className="radioContainer">
               <Radio.Group
                 onChange={(e) => {
@@ -112,45 +166,45 @@ const handelChangeDescription = (e) => {
       </FormInputContainer>
       <FormButtonContainer>
         {
-          form.id ? 
-          <>
-            <FormButton
-            type="primary"
-            size="medium"
-            style={{}}
-            className="formBtn"
-            onClick={(e) => {onSubmit(form); setClearButton(false)}}
-          >
-            Save Allowance
-          </FormButton>
-          </>
-        : 
-        <FormButton
-          type="primary"
-          size="medium"
-          style={{}}
-          className="formBtn"
-          onClick={(e) => {
-            onSubmit(form);
-            setClearButton(false)
-          }}
-          // loading={loading}
-      >
-        Add Allowance 
-      </FormButton>
-        }
-        {
-            clearButton && 
+          form.id ?
+            <>
+              <FormButton
+                type="primary"
+                size="medium"
+                style={{}}
+                className="formBtn"
+                onClick={(e) => { onSubmit({...form, value: Number(form.value)}); setClearButton(false) }}
+              >
+                Save Allowance
+              </FormButton>
+            </>
+            :
             <FormButton
               type="primary"
               size="medium"
               style={{}}
               className="formBtn"
-              onClick={handleClear}
+              onClick={(e) => {
+                onSubmit({...form, value: Number(form.value)});
+                setClearButton(false)
+              }}
+            // loading={loading}
             >
-              Clear 
+              Add Allowance
             </FormButton>
-          }
+        }
+        {
+          clearButton &&
+          <FormButton
+            type="primary"
+            size="medium"
+            style={{}}
+            className="formBtn"
+            onClick={handleClear}
+          >
+            Clear
+          </FormButton>
+        }
       </FormButtonContainer>
     </FormContainer>
   );

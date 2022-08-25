@@ -78,6 +78,7 @@ const urdu = {
       Number: "نمبر",
       Relation: "رشتہ",
       AddMoreEmergency: "مزید ایمرجنسی شامل کریں",
+      AddEmergency: "ایمرجنسی شامل کریں",
     },
     EducationForm: {
       EducationInfo: "تعلیمی معلومات",
@@ -90,7 +91,7 @@ const urdu = {
       ObtainedMarks: "مارکس حاصل کئے",
       Present: "موجودہ",
       Attachments: "ملحقات",
-      AddMoreEducation: "مزید تعلیم شامل کریں",
+      AddEducation: "مزید تعلیم شامل کریں",
       City: "شہر",
       Upload: "اپ لوڈ",
     },
@@ -103,6 +104,7 @@ const urdu = {
       StartDate: "شروع کرنے کی تاریخ",
       Present: "موجودہ",
       AddMoreExperience: "مزید تجربہ شامل کریں",
+      AddExperience: "تجربہ شامل کریں",
       EmploymentType: "ملازمت کی قسم",
       City: "شہر",
     },
@@ -122,6 +124,7 @@ const urdu = {
       City: "شہر",
       Country: "ملک",
       AddMoreBank: "مزید بینک شامل کریں",
+      AddBank: "بینک شامل کریں",
     },
     EmployeeList: {
       number: "نمبر",

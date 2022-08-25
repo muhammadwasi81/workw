@@ -1,7 +1,6 @@
 import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllEmployees, getRewardCategory } from "../../../../utils/Shared/store/actions";
@@ -9,12 +8,9 @@ import { addReward } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { STRINGS } from "../../../../utils/base";
-import { handleOpenComposer } from "../store/slice";
 
 const initialState = {
   id: "",
@@ -90,8 +86,6 @@ const Composer = (props) => {
 
   useEffect(() => {
     dispatch(getRewardCategory());
-    // dispatch(getAllEmployee());
-    // console.log(employeesList, "EMPLOYEES")
   }, []);
 
   const handleImageUpload = (data) => {
@@ -180,9 +174,6 @@ const Composer = (props) => {
             },
           ]}>
           <Select
-            // value={
-            //   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-            // }
             data={rewardCategories}
             placeholder={rewardDictionary.category}
             style={{
@@ -205,7 +196,7 @@ const Composer = (props) => {
           <TextInput placeholder={rewardDictionary.enterRewardReason} />
         </Form.Item>
 
-        <Form.Item name="members" label={rewardDictionary.rewardTo} showSearch={true} direction={Direction} rules={[{ required: true }]} style={{ marginBottom: "0px" }} >
+        <Form.Item name="members" label={rewardDictionary.rewardTo} showSearch={true} direction={Direction} style={{ marginBottom: "0px" }} >
 
           <CustomSelect
             style={{ marginBottom: "0px" }}
@@ -244,7 +235,7 @@ const Composer = (props) => {
           />
         </Form.Item>
 
-        <Form.Item name="approvers" label={rewardDictionary.approvers} showSearch={true} direction={Direction} rules={[{ required: true }]} style={{ marginBottom: "0px" }}>
+        <Form.Item name="approvers" label={rewardDictionary.approvers} showSearch={true} direction={Direction} style={{ marginBottom: "0px" }}>
           <CustomSelect
             style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}

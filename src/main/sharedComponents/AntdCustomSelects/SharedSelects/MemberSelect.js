@@ -27,6 +27,7 @@ function MemberSelect({
 	apiLoad = true,
 	emptyStateAfterSelect = false,
 	formItem = true,
+	sliceName="employees"
 }) {
 	const [value, setValue] = useState("");
 	const [stateVal, setStateVal] = useState(dataVal);
@@ -34,7 +35,8 @@ function MemberSelect({
 	const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
 	const debouncedSearch = useDebounce(value, 500);
 	const [memberData, setMemberData] = useState([...data]);
-	const { employees, loader } = useSelector(state => state.sharedSlice);
+	const {  loader } = useSelector(state => state.sharedSlice);
+	const  employees = useSelector(state => state.sharedSlice[sliceName]);
 	const [isAssignDefaultData, setIsAssignDefaultData] = useState(
 		loadDefaultData
 	);

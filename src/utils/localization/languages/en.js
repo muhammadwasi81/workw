@@ -126,6 +126,10 @@ const en = {
     rewards: "Rewards",
     businessPolicy: "Business Policy",
     form: "Form",
+    ledgerReport: "Ledger Report",
+    salary: "Salary",
+    payroll: "Payroll",
+
   },
 
   /*** AppHeader only used in Component headerTab ***/

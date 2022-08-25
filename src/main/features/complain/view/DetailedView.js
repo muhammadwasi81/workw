@@ -12,11 +12,18 @@ import DefaultAttachment from "../../../../content/NewContent/complain/DefaultAt
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+	ItemContent,
+	ItemHeader,
+	SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 import { cancelComplain } from "../store/actions";
-import { ApprovalsModule, ApprovalStatus } from "../../../sharedComponents/AppComponents/Approvals/enums";
-import "./complain.css"
-
+import {
+	ApprovalsModule,
+	ApprovalStatus,
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
+import "./complain.css";
+import { useDispatch } from "react-redux";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -24,21 +31,21 @@ function DetailedView(props) {
   const { user } = useSelector(state => state.userSlice);
   const { complainDetail } = useSelector((state) => state.complainSlice);
 
-  const [updatedStatus, setUpdatedStatus] = useState();
+	const [updatedStatus, setUpdatedStatus] = useState();
 
   const { creator, description, category, createDate, status, members = [], approvers } = complainDetail;
   let {  Approved, Declined, Resend } = ApprovalStatus
   let userId = user.id
 
-  const isTablet = useMediaQuery({ maxWidth: 800 });
+	const isTablet = useMediaQuery({ maxWidth: 800 });
 
-  const handleCancel = (e, payload) => {
-    e.preventDefault()
-    e.stopPropagation();
-    dispatch(cancelComplain(payload));
-  }
+	const handleCancel = (e, payload) => {
+		e.preventDefault();
+		e.stopPropagation();
+		dispatch(cancelComplain(payload));
+	};
 
-  console.log(updatedStatus, "STATUS")
+	console.log(updatedStatus, "STATUS");;
 
   return (
     <Drawer

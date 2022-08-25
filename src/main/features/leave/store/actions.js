@@ -13,14 +13,12 @@ export const getAllLeaves = createAsyncThunk("leaves/GetAllLeave", async (data) 
   return response.data;
 });
 
-export const GetRewardById = createAsyncThunk("Reward/GetRewardById", async (id) => {
-  const response = await GetRewardByIdService(id);
-  console.log("MY ID", id);
+export const GetLeaveById = createAsyncThunk("Leave/GetLeaveById", async (id) => {
+  const response = await GetLeaveById(id);
   return response.data;
 });
 
 export const addLeave = createAsyncThunk("leaves/addLeave", async (args, { dispatch, setState }) => {
   const response = await addLeaveService(args);
-  console.log(args, "FROM ACTION");
   return response;
 });

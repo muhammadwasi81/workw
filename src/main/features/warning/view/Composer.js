@@ -1,15 +1,14 @@
 import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
-import TextInput from "../../../sharedComponents/Input/TextInput";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import { addWarning } from "../store/actions";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { getAllWarningCategories } from "../warningCategory/store/actions";
-import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
+import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 
 const initialState = {
 	id: "",
@@ -40,46 +39,85 @@ const Composer = props => {
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-	const [profileImage, setProfileImage] = useState(null);
+	const [state, setState] = useState(initialState);
+	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+	const [value, setValue] = useState([]);
+
 	const { warningCategories } = useSelector(
 		state => state.warningCategorySlice
 	);
+
+	const employees = useSelector(state => state.sharedSlice.employees);
+
+	const selectedData = (data, obj) => {
+		setValue(data);
+		handleMember(obj);
+		// setMembers(obj);
+		// onChange(data, obj);
+	};
+	useEffect(() => {
+		fetchEmployees("", 0);
+	}, []);
+
+	const handleMember = val => {
+		setNewState({
+			...newState,
+			members: [...val],
+		});
+	};
+
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
+
+	const [newState, setNewState] = useState({
+		members: [],
+		memberType: null,
+	});
+
+	useEffect(() => {
+		if (employees.length > 0 && !isFirstTimeDataLoaded) {
+			setIsFirstTimeDataLoaded(true);
+			setFirstTimeEmpData(employees);
+		}
+	}, [employees]);
 
 	useEffect(() => {
 		dispatch(getAllWarningCategories());
 	}, []);
 
-	const handleImageUpload = data => {
-		setProfileImage(data);
-	};
-
 	const onFinish = values => {
-		dispatch(uploadImage(profileImage)).then(x => {
-			console.log(x, "FIRST ONE");
-			let photoId = x.payload.data[0].id;
-			console.log(values.approvers, "sadasdsada");
-			let approvers = values.approvers.map(approver => {
+		let approvers = [];
+		let members = [];
+		if (typeof values.approvers === 'string') {
+			approvers.push({
+				approverId: values.approvers
+			})
+		}
+		else {
+			approvers = values.approvers.map((approver) => {
 				return {
-					approverId: approver,
-					approverType: 0,
-					isDefault: true,
-					status: 0,
-					email: "",
+					approverId: approver
 				};
 			});
-			let members = values.members.map(member => {
+		}
+		if (typeof values.members === 'string') {
+			members.push({
+				memberId: values.members
+			})
+		} else {
+			members = values.members.map((memeber) => {
 				return {
-					memberId: member,
-					memberType: 0,
-					email: "",
+					memberId: memeber
 				};
 			});
+		}
+		let payload = { ...values, approvers, members };
 
-			let payload = { ...values, imageId: photoId, approvers, members };
+		dispatch(addWarning(payload));
+		form.resetFields();
 
-			dispatch(addWarning(payload));
-			form.resetFields();
-		});
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -90,7 +128,7 @@ const Composer = props => {
 		<>
 			<Form
 				form={form}
-				name="addReward"
+				name="addBonus"
 				labelCol={{
 					span: 24,
 				}}
@@ -115,9 +153,6 @@ const Composer = props => {
 					]}
 				>
 					<Select
-						// value={
-						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-						// }
 						data={warningCategories}
 						placeholder={warningDictionary.category}
 						style={{
@@ -133,17 +168,41 @@ const Composer = props => {
 					label={warningDictionary.warningTo}
 					showSearch={true}
 					direction={Direction}
-					rules={[{ required: true }]}
 				>
-					<NewCustomSelect
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={warningDictionary.selectMember}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										round={true}
+										width={"30px"}
+										height={"30px"}
+									/>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
 						name="members"
-						label={warningDictionary.members}
 						showSearch={true}
 						direction={Direction}
-						mode="multiple"
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={warningDictionary.selectMember}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
 					/>
 				</Form.Item>
 
@@ -152,17 +211,41 @@ const Composer = props => {
 					label={warningDictionary.approvers}
 					showSearch={true}
 					direction={Direction}
-					rules={[{ required: true }]}
 				>
-					<NewCustomSelect
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={warningDictionary.selectMember}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										round={true}
+										width={"30px"}
+										height={"30px"}
+									/>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
 						name="approvers"
-						label={warningDictionary.approvers}
 						showSearch={true}
 						direction={Direction}
-						mode="multiple"
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={warningDictionary.selectApprovers}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Approver",
+							},
+						]}
 					/>
 				</Form.Item>
 
@@ -178,15 +261,6 @@ const Composer = props => {
 				>
 					<Input.TextArea
 						placeholder={warningDictionary.enterDescription}
-					/>
-				</Form.Item>
-
-				<Form.Item area="true">
-					<SingleUpload
-						handleImageUpload={handleImageUpload}
-						img="Add Image"
-						position="flex-start"
-						uploadText={warningDictionary.upload}
 					/>
 				</Form.Item>
 

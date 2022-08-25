@@ -26,37 +26,16 @@ import "./complain.css";
 import { useDispatch } from "react-redux";
 
 function DetailedView(props) {
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { Direction, complainDictionary } = complainDictionaryList[
-		userLanguage
-	];
-	const dispatch = useDispatch();
-
-	const { complainDetail } = useSelector(state => state.complainSlice);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
+  const { user } = useSelector(state => state.userSlice);
+  const { complainDetail } = useSelector((state) => state.complainSlice);
 
 	const [updatedStatus, setUpdatedStatus] = useState();
 
-	const {
-		creator,
-		description,
-		category,
-		createDate,
-		status,
-		members = [],
-		approvers,
-	} = complainDetail;
-	let {
-		InProcess,
-		Approved,
-		Declined,
-		Resend,
-		Inactive,
-		NotRequired,
-		Cancelled,
-		ApprovalRequired,
-		Hold,
-		NoStatus,
-	} = ApprovalStatus;
+  const { creator, description, category, createDate, status, members = [], approvers } = complainDetail;
+  let {  Approved, Declined, Resend } = ApprovalStatus
+  let userId = user.id
 
 	const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -68,110 +47,72 @@ function DetailedView(props) {
 
 	console.log(updatedStatus, "STATUS");;
 
-	return (
-		<Drawer
-			title={
-				<h1 style={{ fontSize: "20px", margin: 0 }}>
-					{complainDictionary.complain}
-				</h1>
-			}
-			width="768"
-			placement={
-				(Direction === "ltr" ? "left" : "right",
-				isTablet ? "bottom" : "right")
-			}
-			onClose={props.onClose}
-			visible={props.visible}
-			className="detailedViewComposer drawerSecondary"
-		>
-			<div className="detailedCard ComplainListItem">
-				<ItemHeader>
-					<div className={"item-header"}>
-						<div className="left">
-							<UserInfo
-								avatarSrc={creator.image}
-								name={creator.name}
-								Subline={
-									<SublineDesigWithTime
-										designation={
-											creator.designation
-												? creator.designation
-												: ""
-										}
-										time={moment(createDate).fromNow()}
-									/>
-								}
-							/>
-						</div>
-						<div className="right">
-							<Tag className="IdTag">TRA-000085</Tag>
-							<StatusTag
-								status={updatedStatus?.Approvals}
-							></StatusTag>
-							{status != Declined &&
-							status != Resend &&
-							status != Approved ? (
-								<Button
-									className="ThemeBtn"
-									onClick={e => handleCancel(e, props.id)}
-								>
-									Cancel
-								</Button>
-							) : (
-								""
-							)}
-						</div>
-					</div>
-				</ItemHeader>
-				<ItemContent className="flex description">
-					<div className="w-full">
-						<p>{description}</p>
-					</div>
-					{/* <div className="attachmentBox">
+  return (
+    <Drawer
+      title={<h1 style={{ fontSize: "20px", margin: 0 }}>{complainDictionary.complain}</h1>}
+      width="768"
+      placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
+      onClose={props.onClose}
+      visible={props.visible}
+      className="detailedViewComposer drawerSecondary">
+      <div className="detailedCard ComplainListItem">
+        <ItemHeader>
+          <div className={"item-header"}>
+            <div className="left">
+              <UserInfo
+                avatarSrc={creator.image}
+                name={creator.name}
+                Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+              />
+            </div>
+            <div className="right">
+              <Tag className="IdTag">TRA-000085</Tag>
+              <StatusTag status={updatedStatus?.Approvals}></StatusTag>
+              {
+                userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
+                  "" : ""
+              }
+            </div>
+          </div>
+        </ItemHeader>
+        <ItemContent className="flex description">
+          <div className="w-full">
+            <p>{description}</p>
+          </div>
+          {/* <div className="attachmentBox">
           <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
         </div> */}
-				</ItemContent>
-				<div className="innerCard w-full description">
-					<div className="innerCard__header">
-						<div className="left">
-							Category :
-							<span className="" style={{ color: "#757D86" }}>
-								&nbsp;{category}
-							</span>
-						</div>
-					</div>
-				</div>
-				<div className="ListItemInner">
-					<div className="ItemDetails">
-						<div className="innerDiv">
-							<span className="text-black font-extrabold smallHeading">
-								{complainDictionary.complainOf}
-							</span>
-							{/* {props.members} */}
-							<Avatar
-								isAvatarGroup={true}
-								isTag={false}
-								heading={"Members"}
-								membersData={members}
-								text={"Danish"}
-								image={"https://joeschmoe.io/api/v1/random"}
-							/>
-						</div>
-					</div>
-				</div>
-				<RemarksApproval
-					module={ApprovalsModule.ComplainApproval}
-					status={status}
-					onStatusChanged={statusChanged =>
-						setUpdatedStatus(statusChanged)
-					}
-					data={approvers}
-					title="Approvals"
-				/>
-			</div>
-		</Drawer>
-	);
->>>>>>> 40a8eb5b62719976ea5c9932e86d5d984b2dfb55
+        </ItemContent>
+        <div className="innerCard w-full description">
+          <div className="innerCard__header">
+            <div className="left">
+              Category :
+              <span className="" style={{ color: "#757D86" }}>
+                &nbsp;{category}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="ListItemInner">
+          <div className="ItemDetails">
+            <div className="innerDiv">
+              <span className="text-black font-extrabold smallHeading">{complainDictionary.complainOf}</span>
+              {/* {props.members} */}
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Members"}
+                membersData={members}
+                text={"Danish"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            </div>
+          </div>
+        </div>
+        <RemarksApproval module={ApprovalsModule.ComplainApproval} status={status} onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)} data={approvers} title="Approvals" />
+      </div>
+    </Drawer>
+  );
 }
 
 export default DetailedView;

@@ -1,25 +1,21 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Row, Button, Skeleton, Modal } from "antd";
+import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Button, Skeleton, Drawer } from "antd";
 import { leaveDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllLeaves, GetRewardById } from "../store/actions";
-import FilterSearch from "../../../sharedComponents/FilterSearch";
+import { getAllLeaves, GetLeaveById, } from "../store/actions";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import { CardWrapper } from "../../../layout/GridStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
+import { handleOpenComposer } from "../store/slice";
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -32,42 +28,31 @@ const Leave = (props) => {
 
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { leaves, loader, rewardDetail } = useSelector((state) => state.leaveSlice);
-  const [searchFilterValues, setSearchFilterValues] = useState();
+  const { leaves, loader, leaveDetail, drawerOpen } = useSelector((state) => state.leaveSlice);
 
   const onClose = () => {
     setVisible(false);
   };
 
-  const getRewardId = (id) => {
-    dispatch(GetRewardById(id));
+  const getLeaveId = (id) => {
+    dispatch(GetLeaveById(id));
     setVisible(true);
   };
 
   useEffect(() => {
     dispatch(getAllLeaves(filter));
   }, [filter]);
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-  const handleFilter = (values) => {
-    setSearchFilterValues(values);
-  };
   return (
     <>
       <TabbableContainer className="">
         <Header
           buttons={[
             {
-              buttonText: "Create Travel",
-              // onClick: () => setVisible(true),
+              buttonText: "Create Leave",
               render: (
-                <SideDrawer title={leaveDictionary.createleave} buttonText={leaveDictionary.createleave} isAccessDrawer={false}>
-                  <Composer />
-                </SideDrawer>
+                <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                  Create Leave
+                </Button>
               ),
             },
           ]}
@@ -82,17 +67,18 @@ const Leave = (props) => {
               onClick: () => setFilter({ filterType: 0 }),
             },
             {
-              name: "For Approval",
+              name: "Created By Me",
               onClick: () => setFilter({ filterType: 1 }),
             },
             {
-              name: "Leave To Me",
+              name: "For Approval",
               onClick: () => setFilter({ filterType: 2 }),
             },
+            {
+              name: "Leave To Me",
+              onClick: () => setFilter({ filterType: 3 }),
+            },
           ]}
-          // filter={{
-          //   onFilter: () => {},
-          // }}
           segment={{
             onSegment: (value) => {
               if (value === "Table") {
@@ -105,21 +91,45 @@ const Leave = (props) => {
             label2: "Table",
           }}
         />
-        <div className="myBody">
+        <ContBody>
+          {leaves?.length > 0 ? (
+            tableView ? (
+              <Table
+                columns={tableColumn()}
+                dragable={true}
+                data={leaves}
+              />
+            ) : (
+              <>
+                {loader ? (
+                  <>
+                    <Skeleton avatar paragraph={{ rows: 4 }} />
+                  </>
+                ) : (
+                  <CardWrapper>
+                    {leaves.map((item, index) => {
+                      return (
+                        <>
+                           <ListItem getLeaveById={getLeaveId} item={item} id={item.id} key={index} />
+                        </>
+                      );
+                    })}
+                  </CardWrapper>
+                )}
+              </>
+            )
+          ) : (
+            <Skeleton avatar paragraph={{ rows: 4 }} />
+          )}
+        </ContBody>
+        {/* <ContBody>
           <CardWrapper>
             {leaves && leaves.length > 0 ? (
               tableView ? (
                 <Table
                   columns={tableColumn()}
                   dragable={true}
-                  // handleChange={handleChange}
-                  // onPageChange={onPageChange}
-                  // onRow={onRow}
                   data={leaves}
-                  // status={travelStatus}
-                  // loadding={loader}
-                  // success={success}
-                  // onActionClick={onActionClick}
                 />
               ) : (
                 <>
@@ -144,8 +154,29 @@ const Leave = (props) => {
               "Data not found"
             )}
           </CardWrapper>
-        </div>
-        {rewardDetail && <DetailedView onClose={onClose} visible={visible} />}
+          </ContBody> */}
+        {leaveDetail && <DetailedView onClose={onClose} visible={visible} />}
+        <Drawer
+          title={
+            <h1
+              style={{
+                fontSize: "20px",
+                margin: 0,
+              }}
+            >
+              Create Leave
+            </h1>
+          }
+          width="768"
+          onClose={() => {
+            dispatch(handleOpenComposer(false))
+          }}
+          visible={drawerOpen}
+          destroyOnClose={true}
+          className="detailedViewComposer drawerSecondary"
+        >
+          <Composer />
+        </Drawer>
       </TabbableContainer>
     </>
   );

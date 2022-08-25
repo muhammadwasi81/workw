@@ -8,15 +8,9 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllRewards, GetRewardById } from "../store/actions";
-import TableView from "./TableView";
-
-// import "./reward.css";
-import FilterSearchButton from "../../../sharedComponents/FilterSearch";
+import { getAllRewards} from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
@@ -32,17 +26,13 @@ const Reward = (props) => {
   const [tableView, setTableView] = useState(false);
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
-  const [expenseStatus, setExpenseStatus] = useState({});
-  const [status, setStatus] = useState();
-
-  // const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
   const { rewards, loader, rewardDetail, drawerOpen } = useSelector((state) => state.rewardSlice);
 
-  const [searchFilterValues, setSearchFilterValues] = useState();
+  const [searchFilterValues, setSearchFilterValues] = useState()
 
   const onClose = () => {
     setDetailId(null);
@@ -133,10 +123,10 @@ const Reward = (props) => {
               </>
             )
           ) : (
-            "Data not found"
+            <Skeleton avatar paragraph={{ rows: 4 }} />
           )}
         </ContBody>
-        {<DetailedView onClose={onClose} id={detailId} />}
+        {<DetailedView onClose={onClose} id={detailId} />}   
 
         <Drawer
           title={

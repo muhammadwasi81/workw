@@ -24,6 +24,13 @@
     width: 75%;
 }
 
+.allowanceTable .name {
+    max-width: 122px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 @media (min-width: 1300px) and (max-width: 1400px) {
     .radioGroupRow {
         width: 80%;

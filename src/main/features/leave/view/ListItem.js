@@ -37,7 +37,7 @@ function ListItem(props) {
         className="new"
         id={props.id}
         onClick={() => {
-          props.getRewardId(props.id);
+          props.getLeaveId(props.id);
         }}></div>
       <ItemHeader>
         <div className="left">

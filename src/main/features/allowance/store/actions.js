@@ -7,6 +7,7 @@ import {
 import AxiosConfig from "../../../../utils/services/AxiosConfig";
 import { addAllowanceService, getAllAllowanceService } from "../services/service";
 import { allowanceDeleted } from "./slice";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
 const API_PREFIX = "konnectapi/api/allowance/";
 
@@ -48,7 +49,7 @@ export const addAllowance = createAsyncThunk(
 export const updateAllowance = createAsyncThunk(
   "allowance/updateAllowance",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.put(`${API_PREFIX}updateallowance`, args)
+    return await MasterConfig.put(`api/allowance/updateAllowance`, args)
       .then((res) => {
         if (res.data.responseCode === responseCode.Success)
           res.data.message = "Allowance updated successfully!";

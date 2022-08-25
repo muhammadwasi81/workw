@@ -36,8 +36,10 @@ export const tableColumn = (
   setClearButton
 ) => {
   return [
-    { title: "Name", dataIndex: "name", width: "15%" },
-    { title: "Description", dataIndex: "description", width: "15%" },
+    { title: "Name", className:"name", dataIndex: "name", width: "5%" },
+    // { title: "Description", dataIndex: "description", width: "5%" },
+    { title: "Grade", dataIndex: "gradeName", width: "5%" },
+    { title: "Amount", dataIndex: "value", width: "5%" },
     { title: "Allowance Type", dataIndex: "allowanceType", width: "20%" },
     { title: "Allowance Unit", dataIndex: "allowanceUnit", width: "20%" },
     { title:  

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image } from "antd";
+import React, { useContext } from "react";
+import { Drawer, Tag } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { warningDictionaryList } from "../localization/index";
@@ -7,7 +7,6 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import DefaultAttachment from "../../../../content/NewContent/warning/warningsDefaultAttachment.svg";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
@@ -50,9 +49,6 @@ function DetailedView(props) {
           <div className="description w-full">
             <p>{description}</p>
           </div>
-          {/* <div className="attachmentBox">
-            <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
-          </div> */}
         </ItemContent>
         <div className="ListItemInner">
           <div className="ItemDetails">

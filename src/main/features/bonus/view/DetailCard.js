@@ -13,13 +13,14 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import moment from "moment";
-import { cancelReward, GetRewardById } from "../store/actions";
+import { cancelBonus, GetBonusById } from "../store/actions";
 import { ApprovalStatus } from "../../../sharedComponents/AppComponents/Approvals/enums";
 
-function RewardDetailCard(props) {
-    const { userLanguage } = useContext(LanguageChangeContext);
-    const { rewardDictionary } = rewardDictionaryList[userLanguage];
-    const { rewardDetail } = useSelector((state) => state.rewardSlice);
+function BonusDetailCard(props) {
+    // const { userLanguage } = useContext(LanguageChangeContext);
+    // const { Direction, bonusDictionary } = bonusDictionaryList[userLanguage];
+
+    const { bonusDetail } = useSelector((state) => state.bonusSlice);
     const { user } = useSelector(state => state.userSlice);
     const dispatch = useDispatch();
 
@@ -28,36 +29,67 @@ function RewardDetailCard(props) {
 
 
     useEffect(() => {
-        props.id && dispatch(GetRewardById(props.id));
+        props.id && dispatch(GetBonusById(props.id));
     }, [props.id]);
 
-    const {
-        creator,
-        name,
-        description,
-        image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-        reason,
-        category,
-        status,
-        createDate,
-        referenceNo,
-        members = [],
-        approvers,
-    } = rewardDetail;
+    const { creator, description, status, createDate, grade, members = [], approvers } = bonusDetail;
 
     const handleCancel = (e, payload) => {
         e.preventDefault()
         e.stopPropagation();
-        dispatch(cancelReward(payload));
+        dispatch(cancelBonus(payload));
     }
 
     const isTablet = false;
 
     return (
         <>
-            {rewardDetail.id && (
+            {bonusDetail.id && (
                 <div id={props.id} className="detailedViewComposer">
-                    <ItemHeader>
+                    <div className="detailedCard ">
+                        <div className="item-header">
+                            <div className="left">
+                                <UserInfo
+                                    avatarSrc={creator.image}
+                                    name={creator.name}
+                                    Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+                                />
+                            </div>
+                            <div className="right">
+                                <Tag className="IdTag">TRA-000085</Tag>
+                                <StatusTag status={status}></StatusTag>
+                                {
+                                    userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
+                                        "" : ""
+                                }
+                            </div>
+                        </div>
+                        <div className="item-content">
+                            <p>{description}</p>
+                        </div>
+                        <div className="ListItemInner">
+                            <div className="ItemDetails">
+                                <div className="innerDiv">
+                                    <span className="text-black font-extrabold smallHeading">{"Grade"}</span>
+                                    <p>
+                                        <Tag className="IdTag">{grade}</Tag>
+                                    </p>
+                                </div>
+                                <div className="innerDiv">
+                                    <span className="text-black font-extrabold smallHeading">{"Approvers"}</span>
+                                    <Avatar
+                                        isAvatarGroup={true}
+                                        isTag={false}
+                                        heading={"Approvers"}
+                                        membersData={approvers}
+                                        text={"Danish"}
+                                        image={"https://joeschmoe.io/api/v1/random"}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <ItemHeader>
                         <div className="left">
                             <UserInfo
                                 avatarSrc={creator.image}
@@ -124,12 +156,12 @@ function RewardDetailCard(props) {
                                 />
                             </div>
                         </div>
-                    </div>
-                    <RemarksApproval data={approvers} title="Approvals" />
+                    </div> */}
+                    {/* <RemarksApproval data={approvers} title="Approvals" /> */}
                 </div>
             )}
         </>
     );
 }
 
-export default RewardDetailCard;
+export default BonusDetailCard;

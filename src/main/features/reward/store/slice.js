@@ -34,7 +34,6 @@ const rewardSlice = createSlice({
 
     builder
       .addCase(addReward.fulfilled, (state, { payload }) => {
-        console.log(payload, "PAY")
         state.drawerOpen = false
       })
       .addMatcher(isPending(...[getAllRewards]), (state) => {

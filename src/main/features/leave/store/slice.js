@@ -5,7 +5,7 @@ const initialState = {
 	leaves: [],
 	loadingData: false,
 	loader: true,
-	leaveDetail: null,
+	leaveDetail: {},
 	drawerOpen: false,
 };
 
@@ -24,6 +24,7 @@ const leaveSlice = createSlice({
 		});
 
 		builder.addCase(GetLeaveById.fulfilled, (state, action) => {
+			console.log(state, action, "STATE")
 			state.leaveDetail = action.payload.data;
 		});
 

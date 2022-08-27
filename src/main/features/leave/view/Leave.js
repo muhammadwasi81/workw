@@ -25,13 +25,14 @@ const Leave = (props) => {
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [visible, setVisible] = useState(false);
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [detailId, setDetailId] = useState(false);
 
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { leaves, loader, leaveDetail, drawerOpen } = useSelector((state) => state.leaveSlice);
 
   const onClose = () => {
-    setVisible(false);
+    setDetailId(null);
   };
 
   const getLeaveId = (id) => {
@@ -59,7 +60,7 @@ const Leave = (props) => {
         />
         <TopBar
           onSearch={(value) => {
-            console.log(value);
+            setFilter({ ...filter, search: value })
           }}
           buttons={[
             {
@@ -110,7 +111,7 @@ const Leave = (props) => {
                     {leaves.map((item, index) => {
                       return (
                         <>
-                           <ListItem getLeaveById={getLeaveId} item={item} id={item.id} key={index} />
+                          <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
                         </>
                       );
                     })}
@@ -122,40 +123,7 @@ const Leave = (props) => {
             <Skeleton avatar paragraph={{ rows: 4 }} />
           )}
         </ContBody>
-        {/* <ContBody>
-          <CardWrapper>
-            {leaves && leaves.length > 0 ? (
-              tableView ? (
-                <Table
-                  columns={tableColumn()}
-                  dragable={true}
-                  data={leaves}
-                />
-              ) : (
-                <>
-                  {loader ? (
-                    <>
-                      <Skeleton avatar paragraph={{ rows: 4 }} />
-                      <Skeleton avatar paragraph={{ rows: 4 }} />
-                      <Skeleton avatar paragraph={{ rows: 4 }} />
-                    </>
-                  ) : (
-                    leaves.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem getRewardId={getRewardId} item={item} id={item.id} key={index} />
-                        </>
-                      );
-                    })
-                  )}
-                </>
-              )
-            ) : (
-              "Data not found"
-            )}
-          </CardWrapper>
-          </ContBody> */}
-        {leaveDetail && <DetailedView onClose={onClose} visible={visible} />}
+        {<DetailedView onClose={onClose} id={detailId} />}
         <Drawer
           title={
             <h1

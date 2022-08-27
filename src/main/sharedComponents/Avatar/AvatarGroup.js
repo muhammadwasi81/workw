@@ -10,7 +10,7 @@ function AvatarGroup(props) {
 			<Avatar.Group
 				maxCount={2}
 				maxPopoverTrigger="click"
-				size=""
+				size="small"
 				maxStyle={{
 					color: "#f56a00",
 					backgroundColor: "#fde3cf",

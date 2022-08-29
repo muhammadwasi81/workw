@@ -98,7 +98,7 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
     let payload = createPayload();
     // dispatch(addVoucher(payload));
   }
-console.log(entries)
+
   return (
     <div className='createEntryTable' >
 

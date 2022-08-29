@@ -5,6 +5,9 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { getAllEmployees } from '../../../../../../utils/Shared/store/actions';
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { ALLOWANCE_ENUM } from '../../../../allowance/view/enum';
+import { calculateAllowance } from '../../../utils/constant';
+
 const CreateEntryItem = ({
   index,
   handleChange,
@@ -14,21 +17,42 @@ const CreateEntryItem = ({
   fetchEmployees = () => { },
   employeesData = [],
   fetchEmployeesShort = () => { },
-  employeesShortData = []
+  employeesShortData = [],
+  allowanceData = []
 }) => {
 
   const handleInputChange = (e) => {
     handleChange(e.target.value, e.target.name, index)
   }
   const onEmployeeSelect = (row) => {
-    console.log(row, "row")
-    let {gradeId, grade} = row[0];
-    handleRowChange({
+    // console.log(row, "row")
+    let { gradeId, grade } = row[0];
+    let { totalAllowance, totalDeductions } = calculateAllowance(allowanceData, grade, value.basicSalary);
+    let tempValue = {
       ...value,
-      grade
+      grade,
+      allowance: totalAllowance,
+      deduction: totalDeductions,
+      netSalary: (value.basicSalary) + totalAllowance - totalDeductions
+    };
+    handleRowChange({
+      ...tempValue
     }, index)
   }
-
+  const onChangeSalary = (salaryInput) => {
+    // console.log(row, "row")
+    let { totalAllowance, totalDeductions } = calculateAllowance(allowanceData, value.grade, salaryInput);
+    let tempValue = {
+      ...value,
+      allowance: totalAllowance,
+      basicSalary: Number(salaryInput),
+      deduction: totalDeductions,
+      netSalary: Number(salaryInput) + totalAllowance - totalDeductions,
+    };
+    handleRowChange({
+      ...tempValue
+    }, index)
+  }
   return (
     <tr>
       <td>
@@ -44,7 +68,7 @@ const CreateEntryItem = ({
         <CustomSelect
           style={{ marginBottom: "0px" }}
           data={employeesShortData}
-          selectedData={(value, row) => onEmployeeSelect(row) }
+          selectedData={(value, row) => onEmployeeSelect(row)}
           canFetchNow={employeesShortData && employeesShortData.length > 0}
           fetchData={fetchEmployeesShort}
           sliceName="employeeShort"
@@ -73,23 +97,26 @@ const CreateEntryItem = ({
         />
       </td>
       <td>
-      <input value={value.grade} disabled={true} />
+        <input className='text-[#a7a7a7] font-bold' value={value.grade} disabled={true} />
       </td>
       <td>
-        <input name="basicSalary" onChange={handleInputChange}
+        <input name="basicSalary" onChange={(e) => onChangeSalary(e.target.value)}
           value={value.basicSalary} />
       </td>
       <td>
-        <input value={value.allowance} disabled={true} />
+        <input className='text-[#a7a7a7] font-bold' value={value.allowance} disabled={true} />
       </td>
       <td>
-      <input value={value.netSalary} disabled={true} />
+        <input className='text-[#a7a7a7] font-bold' value={value.deduction} disabled={true} />
+      </td>
+      <td>
+        <input className='text-[#a7a7a7] font-bold' value={value.netSalary} disabled={true} />
       </td>
       <td className='removeMargin'>
         <CustomSelect
           style={{ marginBottom: "0px" }}
           data={employeesData}
-          selectedData={(value, row) => {console.log(row) }}
+          selectedData={(value, row) => console.log(row)}
           canFetchNow={employeesData && employeesData.length > 0}
           fetchData={fetchEmployees}
           placeholder={"Approvers"}
@@ -122,7 +149,6 @@ const CreateEntryItem = ({
       </td>
 
       <td onClick={() => handleRemoveRow(index)} >
-        {/* <DeleteIcon /> */}
         <DeleteOutlined />
       </td>
     </tr>

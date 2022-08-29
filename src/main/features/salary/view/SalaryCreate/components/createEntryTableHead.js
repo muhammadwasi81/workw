@@ -24,6 +24,9 @@ const CreateEntryHead = () => {
           Allowances
         </th>
         <th style={{ minWidth: "150px" }}>
+          Deductions
+        </th>
+        <th style={{ minWidth: "150px" }}>
           Net Salary
         </th>
         <th style={{ minWidth: "300px" }}>

@@ -31,26 +31,12 @@ export const tableColumn = () => {
       sort: true,
     },
     {
-      title: "Category",
-      dataIndex: "category",
-      ellipsis: true,
-      sort: true,
-    },
-    { title: "Name", dataIndex: "name", ellipsis: true, sort: true },
-    { title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
-    {
       title: "Date",
       dataIndex: "createDate",
       render: (i) => moment(i.createDate).format("DD MMM YYYY"),
       sort: true,
     },
 
-    {
-      title: "Reward To",
-      dataIndex: "members",
-      ellipsis: true,
-      render: (member) => <Avatar membersData={member} heading={"Members"} />,
-    },
     {
       title: "Approvers",
       dataIndex: "approvers",

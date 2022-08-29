@@ -1,26 +1,31 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addLeave, getAllLeaves, GetRewardById } from "./actions";
+import { addLeave, getAllLeaves, GetLeaveById } from "./actions";
 
 const initialState = {
 	leaves: [],
 	loadingData: false,
 	loader: true,
-	rewardDetail: null,
+	leaveDetail: {},
+	drawerOpen: false,
 };
 
 const leaveSlice = createSlice({
 	name: "leaves",
 	initialState,
-	reducers: {},
+	reducers: {
+		handleOpenComposer: (state, { payload }) => {
+			state.drawerOpen = payload
+		},
+	},
 	extraReducers: builder => {
 		builder.addCase(getAllLeaves.fulfilled, (state, action) => {
 			state.leaves = action.payload ? action.payload : [];
 			state.loader = false;
 		});
 
-		builder.addCase(GetRewardById.fulfilled, (state, action) => {
-			console.log("action.payload", action.payload);
-			state.rewardDetail = action.payload.data;
+		builder.addCase(GetLeaveById.fulfilled, (state, action) => {
+			console.log(state, action, "STATE")
+			state.leaveDetail = action.payload.data;
 		});
 
 		builder
@@ -37,5 +42,5 @@ const leaveSlice = createSlice({
 	},
 });
 
-export const {} = leaveSlice.actions;
+export const { handleOpenComposer } = leaveSlice.actions;
 export default leaveSlice.reducer;

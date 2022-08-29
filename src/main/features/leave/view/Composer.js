@@ -3,15 +3,17 @@ import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
-import { getRewardCategory } from "../../../../utils/Shared/store/actions";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import { addLeave } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { leaveDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { getAllLeaveType } from "../leaveType/store/actions";
 import { DatePicker, Checkbox, Typography } from "antd";
+import { STRINGS } from "../../../../utils/base";
 
 const { RangePicker } = DatePicker;
 
@@ -44,19 +46,57 @@ const Composer = props => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
-	const { leaveTypes } = useSelector(state => state.leaveTypeSlice);
-
 	const [state, setState] = useState(initialState);
+	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+	const [value, setValue] = useState([]);
+
+
+	const { leaveTypes } = useSelector(state => state.leaveTypeSlice);
+	const employees = useSelector(state => state.sharedSlice.employees);
+
+	const selectedData = (data, obj) => {
+		setValue(data);
+		handleMember(obj);
+		// setMembers(obj);
+		// onChange(data, obj);
+	};
+	useEffect(() => {
+		fetchEmployees("", 0);
+	}, []);
+
+	const handleMember = val => {
+		setNewState({
+			...newState,
+			members: [...val],
+		});
+	};
+
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
+
+	const [newState, setNewState] = useState({
+		members: [],
+		memberType: null,
+	});
+
+	useEffect(() => {
+		if (employees.length > 0 && !isFirstTimeDataLoaded) {
+			setIsFirstTimeDataLoaded(true);
+			setFirstTimeEmpData(employees);
+		}
+	}, [employees]);
+
+	const handleImageUpload = (data) => {
+		setProfileImage(data);
+	};
 
 	useEffect(() => {
 		dispatch(getAllLeaveType());
 		// dispatch(getAllEmployee());
 		// console.log(employeesList, "EMPLOYEES")
 	}, []);
-
-	const handleImageUpload = data => {
-		setProfileImage(data);
-	};
 
 	const handleEndStartDate = (value, dateString, name) => {
 		setState({
@@ -66,41 +106,37 @@ const Composer = props => {
 	};
 
 	const onFinish = values => {
-		form.resetFields();
-
-		dispatch(uploadImage(profileImage)).then(x => {
-			// console.log(
-			// 	x.payload.data[0].id,
-			// 	"Hurry i got image if from server"
-			// );
-			console.log(x, "FIRST ONE");
-			let photoId = x.payload.data[0].id;
-
-			let approvers = values.approvers.map(approver => {
+		let approvers = [];
+		let members = [];
+		if (typeof values.approvers === 'string') {
+			approvers.push({
+				approverId: values.approvers
+			})
+		}
+		else {
+			approvers = values.approvers.map((approver) => {
 				return {
-					approverId: approver,
-					approverType: 0,
-					isDefault: true,
-					status: 0,
-					email: "",
+					approverId: approver
 				};
 			});
-			let members = values.members.map(member => {
+		}
+		if (typeof values.members === 'string') {
+			members.push({
+				memberId: values.members
+			})
+		} else {
+			members = values.members.map((memeber) => {
 				return {
-					memberId: member,
-					memberType: 1,
-					isDefault: true,
-					status: 0,
-					email: "",
+					memberId: memeber
 				};
 			});
+		}
 
-			let payload = { ...values, imageId: photoId, approvers, members };
+		let image = { id: STRINGS.DEFAULTS.guid, file: profileImage[0].originFileObj }
+		let payload = { ...values, approvers, members, image };
 
-			dispatch(addLeave(payload));
-			console.log(payload, "FINALLLLL");
-			// console.log(payload, "Final Data");
-		});
+		dispatch(addLeave(payload));
+		console.log(payload, "FINALLLLL");
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -124,7 +160,7 @@ const Composer = props => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
-				// className={Direction === "ltr" ? "align-right" : ""}
+			// className={Direction === "ltr" ? "align-right" : ""}
 			>
 				<Form.Item
 					label={"Leave Type"}
@@ -155,17 +191,41 @@ const Composer = props => {
 					label={"On Behalf Of"}
 					showSearch={true}
 					direction={Direction}
-					rules={[{ required: true }]}
 				>
-					<NewCustomSelect
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={leaveDictionary.selectMember}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										round={true}
+										width={"30px"}
+										height={"30px"}
+									/>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
 						name="members"
-						label={leaveDictionary.members}
 						showSearch={true}
 						direction={Direction}
-						mode="multiple"
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={leaveDictionary.selectMember}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
 					/>
 				</Form.Item>
 
@@ -174,17 +234,41 @@ const Composer = props => {
 					label={leaveDictionary.approvers}
 					showSearch={true}
 					direction={Direction}
-					rules={[{ required: true }]}
 				>
-					<NewCustomSelect
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={leaveDictionary.selectMember}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										round={true}
+										width={"30px"}
+										height={"30px"}
+									/>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
 						name="approvers"
-						label={leaveDictionary.approvers}
 						showSearch={true}
 						direction={Direction}
-						mode="multiple"
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={leaveDictionary.approvers}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Approver",
+							},
+						]}
 					/>
 				</Form.Item>
 

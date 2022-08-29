@@ -1,7 +1,6 @@
 import { Button, Form, Input, Avatar } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -12,13 +11,9 @@ import { addReward } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
-// import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { getNameForImage, STRINGS } from "../../../../utils/base";
-import { handleOpenComposer } from "../store/slice";
-import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
+import { STRINGS } from "../../../../utils/base";
 
 const initialState = {
 	id: "",

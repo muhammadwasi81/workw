@@ -1,8 +1,5 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
-
-const API_PREFIX = "konnectapi/api/allowance/";
-
 export const getAllAllowanceService = () => {
   return MasterConfig.get(`api/allowance/getallallowance`)
     .then((res) => {

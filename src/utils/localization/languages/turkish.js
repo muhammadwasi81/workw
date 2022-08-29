@@ -124,6 +124,9 @@ const turkish = {
 		rewards: "ödüller",
 		businessPolicy: "iş politikası",
 		form: "biçim",
+		ledgerReport: "Defter Raporu",
+		salary: "Aylık maaş",
+		payroll: "Maaş bordrosu",
 	},
 
 	/*** AppHeader only used in Component headerTab ***/

@@ -6,9 +6,10 @@ import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
+import DefaultIcon from "../../../../content/NewContent/leaves/Leaves.svg";
 import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -19,7 +20,7 @@ function ListItem(props) {
     startDate,
     endDate,
     description,
-    image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
+    image = DefaultIcon,
     members = [],
     approvers,
     status,
@@ -32,13 +33,8 @@ function ListItem(props) {
   const days = a.diff(b, "days");
 
   return (
-    <SingleItem>
-      <div
-        className="new"
-        id={props.id}
-        onClick={() => {
-          props.getRewardId(props.id);
-        }}></div>
+    <SingleItem onClick={props.onClick}>
+        <div className="new" id={props.id}></div>
       <ItemHeader>
         <div className="left">
           <UserInfo
@@ -52,55 +48,41 @@ function ListItem(props) {
           <StatusTag status={status}></StatusTag>
         </div>
       </ItemHeader>
-      <ItemContent>
-        <p>{description}</p>
-      </ItemContent>
-      <div className="ListItemInner">
-        <div className="ItemDetails">
-          <div className="innerDiv">
-            <h3>{leaveDictionary.startDate}</h3>
-            <p>{moment(startDate).format("ddd,MMM DD,YYYY")}</p>
-          </div>
-          <div className="innerDiv">
-            <h3>{leaveDictionary.endDate}</h3>
-            <p>{moment(endDate).format("ddd,MMM DD,YYYY")}</p>
-          </div>
-          <div className="innerDiv">
-            <h3>{leaveDictionary.days}</h3>
-            <p>{days}</p>
-          </div>
-          <div className="approversBox">
-            <h3>{leaveDictionary.approvers}</h3>
-            <div className="mem">
-              {approvers &&
-                approvers.map((val, i) => {
-                  if (i > 2) return "";
-                  let { approver } = val;
-                  return (
-                    approver &&
-                    (approver.image ? (
-                      <div
-                        key={`grpmem${i}`}
-                        className="us-img"
-                        style={{
-                          backgroundImage: `url(${approver.image})`,
-                          backgroundRepeat: "no-repeat",
-                          backgroundSize: "100% 100%",
-                        }}
-                      />
-                    ) : (
-                      <div key={`grpmem${i}`} className="us-img">
-                        {getNameForImage(approver.name)}
-                      </div>
-                    ))
-                  );
-                })}
-              {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
-            </div>
-          </div>
+      <ItemContent className="flex description">
+        <div className="w-full">
+          <p>{description}</p>
         </div>
         <div className="attachmentBox">
-          <Image preview={false} width={100} src={image === "" ? RewardDefaultIcon : image} />
+          <Image preview={false} width={60} src={image === "" ? DefaultIcon : image} />
+        </div>
+      </ItemContent>
+      <div className="cardSections">
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{leaveDictionary.startDate}</div>
+          <div className="cardSection__body">{moment(startDate).format("ddd,MMM DD,YYYY")}</div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{leaveDictionary.endDate}</div>
+          <div className="cardSection__body">{moment(endDate).format("ddd,MMM DD,YYYY")}</div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{leaveDictionary.days}</div>
+          <div className="cardSection__body">{leaveDictionary.days}</div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{leaveDictionary.approvers}</div>
+          <div className="cardSection__body" >
+            {approvers &&
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Approvers"}
+                membersData={approvers}
+                text={"Approvers"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            }
+          </div>
         </div>
       </div>
     </SingleItem>

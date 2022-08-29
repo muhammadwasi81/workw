@@ -28,6 +28,7 @@ import "./stylesheets/resignation.css";
 import "./stylesheets/shared.css";
 import "./stylesheets/travel.css";
 import "./stylesheets/postComposer.css";
+import "./stylesheets/voucher.css";
 import ErrorBoundary from "./utils/ErrorBoundary";
 import { LanguageChangeContext } from "./utils/localization/localContext/LocalContext";
 import { ROUTES } from "./utils/routes";

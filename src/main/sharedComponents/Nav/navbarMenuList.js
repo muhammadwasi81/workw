@@ -230,14 +230,14 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
-    // {
-    //   name: label.navMenuLabel.leaves,
-    //   counter: 0,
-    //   icon: leavesIcon,
-    //   to: ROUTES.LEAVES.LEAVE,
-    //   isActive: true,
-    //   key: label.navMenuLabel.hr,
-    // },
+    {
+      name: label.navMenuLabel.leaves,
+      counter: 0,
+      icon: leavesIcon,
+      to: ROUTES.LEAVES.LEAVE,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
     {
       name: label.navMenuLabel.departments,
       counter: 0,
@@ -279,12 +279,28 @@ const NavMenuList = () => {
       key: label.navMenuLabel.finance,
     },
     {
-      name: label.navMenuLabel.report,
+      name: label.navMenuLabel.ledgerReport,
       counter: 0,
       to: ROUTES.FINANCE.REPORT.ROOT,
       icon: reportIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.payroll,
+      counter: 0,
+      to: ROUTES.FINANCE.REPORT.ROOT,
+      icon: reportIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.salary,
+      counter: 0,
+      to: ROUTES.SALARY.ROOT,
+      icon: reportIcon,
+      isActive: true,
+      key: label.navMenuLabel.hr,
     },
     {
       name: label.navMenuLabel.businessPolicy,
@@ -334,6 +350,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.workWiseCompanies,
     },
+    
     // {
     //   name: label.navMenuLabel.businessPolicy,
     //   counter: 0,

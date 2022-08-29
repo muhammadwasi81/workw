@@ -1,6 +1,7 @@
 import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 import { addRewardService, cancelRewardService, getAllRewardService, GetRewardByIdService } from "../services/service";
 
 export const getAllRewards = createAsyncThunk("reward/GetAllReward", async (data) => {
@@ -18,13 +19,14 @@ export const GetRewardById = createAsyncThunk("Reward/GetRewardById", async (id)
   return response.data;
 });
 
-export const addReward = createAsyncThunk("reward/addReward", async (data, { dispatch, setState, rejectWithValue }) => {
+export const addReward = createAsyncThunk("reward/addReward", async (data, { dispatch, getState, rejectWithValue }) => {
   const res = await addRewardService(data);
-  console.log(res, "RESPONSE")
+  console.log(res.data.message, "RESPONSE")
   if (res.data?.responseCode === responseCode.Success) {
     message.success('Reward Created');
     return res;
   } else {
+    message.error(res.data.message);
     return rejectWithValue(res.data.message);
   }
 });

@@ -30,8 +30,7 @@ function DetailedView(props) {
 	const { Direction, complainDictionary } = complainDictionaryList[
 		userLanguage
 	];
-	const dispatch = useDispatch();
-
+	const { user } = useSelector(state => state.userSlice);
 	const { complainDetail } = useSelector(state => state.complainSlice);
 
 	const [updatedStatus, setUpdatedStatus] = useState();
@@ -45,18 +44,8 @@ function DetailedView(props) {
 		members = [],
 		approvers,
 	} = complainDetail;
-	let {
-		InProcess,
-		Approved,
-		Declined,
-		Resend,
-		Inactive,
-		NotRequired,
-		Cancelled,
-		ApprovalRequired,
-		Hold,
-		NoStatus,
-	} = ApprovalStatus;
+	let { Approved, Declined, Resend } = ApprovalStatus;
+	let userId = user.id;
 
 	const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -108,15 +97,19 @@ function DetailedView(props) {
 							<StatusTag
 								status={updatedStatus?.Approvals}
 							></StatusTag>
-							{status != Declined &&
-							status != Resend &&
-							status != Approved ? (
-								<Button
-									className="ThemeBtn"
-									onClick={e => handleCancel(e, props.id)}
-								>
-									Cancel
-								</Button>
+							{userId === creator.id ? (
+								status != Declined &&
+								status != Resend &&
+								status != Approved ? (
+									<Button
+										className="ThemeBtn"
+										onClick={e => handleCancel(e, props.id)}
+									>
+										Cancel
+									</Button>
+								) : (
+									""
+								)
 							) : (
 								""
 							)}

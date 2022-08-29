@@ -1,36 +1,44 @@
 import { createSlice, isPending } from "@reduxjs/toolkit"
-import { addMultipleEmployeeSalary, addVoucher, getAllEmployeeSalary, getEmployeeSalaryDetail } from "./actions";
+import { addVoucher, getAllVoucher, getLedgerReport, getVoucherDetail } from "./actions";
 
 const initialState = {
    editData: null,
    success: false,
    loader: false,
    error: false,
-   salaryDetail: null,
-   salaryList:[],
+   voucherDetail: null,
+   voucherList:[],
+   ledgerReport:null
 };
 
 export const VoucherSlice = createSlice({
-   name: 'EmployeeSalary',
+   name: 'Voucher',
    initialState: initialState,
    reducers: {},
 
    extraReducers: (builder) => {
       builder
-         .addCase(addMultipleEmployeeSalary.fulfilled, (state, { payload }) => {
+         .addCase(addVoucher.fulfilled, (state, { payload }) => {
             state.loader = false;
             state.success = true;
-            state.salaryList = [...state.salaryList, payload]
+            state.voucherList = [...state.voucherList, payload]
          })
-         .addCase(getEmployeeSalaryDetail.fulfilled, (state, { payload }) => {
-            state.salaryDetail = payload;
+         .addCase(getVoucherDetail.fulfilled, (state, { payload }) => {
+            state.voucherDetail = payload;
             state.loader = false;
             state.success = true;
          })
-         .addCase(getAllEmployeeSalary.fulfilled, (state, { payload }) => {
-            state.salaryList = payload.data;
+         .addCase(getAllVoucher.fulfilled, (state, { payload }) => {
+            state.voucherList = payload.data;
             state.loader = false;
             state.success = true;
+         })
+         .addCase(getLedgerReport.fulfilled, (state, { payload }) => {
+            state.ledgerReport = payload;
+            state.loader = false;
+         })
+         .addCase(getVoucherDetail.pending, (state, { payload }) => {
+            state.voucherDetail = null;
          })
          .addMatcher(
             isPending(

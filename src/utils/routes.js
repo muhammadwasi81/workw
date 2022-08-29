@@ -443,6 +443,11 @@ export const ROUTES = {
 		ROOT: `${DOMAIN_PREFIX}/salary`,
 		CREATE: `${DOMAIN_PREFIX}/create`,
 	},
+	PAYROLL: {
+		DEFAULT: `${DOMAIN_PREFIX}/payroll/*`,
+		ROOT: `${DOMAIN_PREFIX}/payroll`,
+		CREATE: `${DOMAIN_PREFIX}/create`,
+	},
 	FINANCE: {
 		CHART_OF_ACCOUNT: {
 			DEFAULT: `${DOMAIN_PREFIX}/chart-of-account/*`,

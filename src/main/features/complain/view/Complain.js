@@ -116,7 +116,7 @@ const Reward = (props) => {
             </>
           )
         ) : (
-          "Data not found"
+          <Skeleton avatar paragraph={{ rows: 4 }} />
         )}
       </ContBody>
       <Drawer

@@ -4,6 +4,7 @@ import TravelComposer from "./TravelComposer/TravelComposer";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import { buttonsEnum } from "../enums/enums";
+import NewTravelComposer from "./TravelComposer/NewTravelComposer";
 
 function Header(props) {
 	const { label } = props;
@@ -23,7 +24,10 @@ function Header(props) {
 			onClick: () => setVisible(true),
 			render: (
 				<SideDrawer
-					children={<TravelComposer label={label} />}
+					children={
+						// <TravelComposer label={label} />
+						<NewTravelComposer label={label} />
+					}
 					title={label.labels.createTravel}
 					buttonText={label.createTextBtn}
 					isAccessDrawer={true}

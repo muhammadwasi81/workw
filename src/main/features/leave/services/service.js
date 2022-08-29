@@ -1,3 +1,4 @@
+import { jsonToFormData } from "../../../../utils/base";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllLeaveService = data => {
@@ -10,8 +11,9 @@ export const getAllLeaveService = data => {
 		});
 };
 
-export const addLeaveService = data => {
-	return MasterConfig.post(`api/Leave/AddLeave`, data)
+export const addLeaveService = async(data) => {
+	const formData = jsonToFormData(data);
+	return MasterConfig.post(`api/Leave/AddLeave`, formData)
 		.then(res => {
 			return res;
 		})
@@ -20,8 +22,7 @@ export const addLeaveService = data => {
 		});
 };
 
-export const GetRewardByIdService = id => {
-	console.log("ID FROM SERVICE", id)
+export const GetLeaveByIdService = id => {
 	return MasterConfig.get(`api/Leave/GetLeaveById?id=${id}`)
 		.then(res => {
 			return res;

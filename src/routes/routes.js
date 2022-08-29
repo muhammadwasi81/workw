@@ -249,6 +249,18 @@ export const routes = {
 				import("../main/features/requisition/view/requisition")
 			),
 		},
+		{
+			path: `${ROUTES.SALARY.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/salary/view/index")
+			),
+		},
+		{
+			path: `${ROUTES.PAYROLL.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/payroll/view/index")
+			),
+		},
 	],
 	AdminRoutes: [
 		{

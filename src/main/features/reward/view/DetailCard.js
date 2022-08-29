@@ -24,9 +24,8 @@ function RewardDetailCard(props) {
     const dispatch = useDispatch();
 
     let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
-
     let userId = user.id
-    
+
 
     useEffect(() => {
         props.id && dispatch(GetRewardById(props.id));
@@ -71,7 +70,7 @@ function RewardDetailCard(props) {
                             <StatusTag status={status}></StatusTag>
                             {
                                 userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
-                                "" : ""
+                                    "" : ""
                             }
                         </div>
                     </ItemHeader>

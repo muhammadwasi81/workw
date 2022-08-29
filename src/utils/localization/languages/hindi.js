@@ -126,6 +126,9 @@ const hindi = {
     rewards: "मैसेंजर5",
     businessPolicy: "मैसेंजर6",
     form: "मैसेंजर7",
+    ledgerReport: "लेजर रिपोर्ट",
+    salary: "वेतन",
+    payroll: "पेरोल",
   },
 
   /*** AppHeader only used in Component headerTab ***/

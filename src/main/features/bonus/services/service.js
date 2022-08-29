@@ -29,3 +29,13 @@ export const GetBonusByIdService = (id) => {
       return res;
     });
 };
+
+export const cancelBonusService = id => {
+	return MasterConfig.delete(`api/bonus/BonusCancel?id=${id}`)
+		.then(res => {
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
+};

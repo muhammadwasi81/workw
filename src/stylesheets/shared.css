@@ -90,3 +90,59 @@
   border-radius: 5px;
   width: calc(100% - 80px);
 }
+
+/*  Card 0.3 Start   */
+
+.cardSections {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 10px 10px;
+}
+/* .cardSections::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  background-color: red;
+  right: 0;
+} */
+
+.cardSection__title {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgb(136, 136, 136);
+}
+
+.cardSection__body {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--currentThemeColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardSectionItem {
+  min-width: 100px;
+  flex: 1;
+  margin: 5px 0;
+  border-right: 1px solid rgb(222, 222, 222);
+  text-align: center;
+}
+
+.cardSections> :last-child {
+  border: none;
+}
+
+.removeMargin .ant-form-item {
+  margin-bottom: 0px !important;
+}
+.salaryDatePicker .ant-picker{
+  background-color: transparent;
+  border: none;
+}
+
+/* Card 0.3 END  */

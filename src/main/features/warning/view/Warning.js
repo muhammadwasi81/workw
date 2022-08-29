@@ -77,17 +77,18 @@ const Warning = (props) => {
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: "For Approval",
+            name: "Created By Me",
             onClick: () => setFilter({ filterType: 1 }),
           },
           {
-            name: "Warning To Me",
+            name: "For Approval",
             onClick: () => setFilter({ filterType: 2 }),
           },
+          {
+            name: "Warning To Me",
+            onClick: () => setFilter({ filterType: 3 }),
+          },
         ]}
-        // filter={{
-        //   onFilter: () => {},
-        // }}
         segment={{
           onSegment: (value) => {
             if (value === "Table") {
@@ -107,14 +108,7 @@ const Warning = (props) => {
               <Table
                 columns={tableColumn()}
                 dragable={false}
-                // handleChange={handleChange}
-                // onPageChange={onPageChange}
-                // onRow={onRow}
                 data={warnings}
-                // status={travelStatus}
-                // loadding={loader}
-                // success={success}
-                // onActionClick={onActionClick}
               />
             </div>
           ) : (

@@ -11,6 +11,11 @@ function CustomTable(props) {
 			{...props}
 			className={`custom_table ${Direction}`}
 			rowClassName={"cursor-pointer"}
+			locale={{
+				triggerDesc: "",
+				triggerAsc: "",
+				cancelSort: "",
+			}}
 		/>
 	);
 }

@@ -54,7 +54,7 @@ export const tableColumn = () => {
     {
       title: "Approvers",
       dataIndex: "approvers",
-      ellipsis: true,
+      ellipsis: true,  
       render: (approver) => <Avatar membersData={approver} heading={"Approvers"} />,
     },
   ];

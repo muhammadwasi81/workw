@@ -45,6 +45,9 @@ const sharedSlice = createSlice({
 		openNotification: (state, { payload }) => {
 			state.notification = payload;
 		},
+		emptyEmployeesData: (state, { payload }) => {
+			state.employees = [];
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -60,6 +63,7 @@ const sharedSlice = createSlice({
 			.addCase(getAllEmployeeShort.fulfilled, (state, { payload }) => {
 				state.employeeShort = payload.data;
 				state.loadingData = false;
+				state.loader = false;
 			})
 			.addCase(getCities.fulfilled, (state, { payload }) => {
 				// console.log("city payload data", payload.data);
@@ -151,5 +155,5 @@ const sharedSlice = createSlice({
 			});
 	},
 });
-export const { openNotification } = sharedSlice.actions;
+export const { openNotification, emptyEmployeesData } = sharedSlice.actions;
 export default sharedSlice.reducer;

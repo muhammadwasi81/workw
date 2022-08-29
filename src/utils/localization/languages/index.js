@@ -11,5 +11,5 @@ export const languageOptions = {
   urdu: "Urdu",
   arabic: "Arabic",
   hindi: "Hindi",
-  turkish: "Turkish",
+  turkish: "Turkish"
 };

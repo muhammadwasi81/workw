@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
 import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Row, Button, Skeleton } from "antd";
+import { Row, Button, Skeleton, Drawer } from "antd";
 import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
@@ -12,8 +12,6 @@ import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllBonus, GetBonusById, GetPromotionById } from "../store/actions";
-import TableView from "./TableView";
-// import "./warning.css";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
@@ -21,6 +19,7 @@ import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
+import { handleOpenComposer } from "../store/slice";
 
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -30,13 +29,16 @@ const Bonus = (props) => {
 
   const [visible, setVisible] = useState(false);
 
+  const [detailId, setDetailId] = useState(false);
+
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
 
-  const { bonuses, loader, bonusDetail } = useSelector((state) => state.bonusSlice);
-
+  const { bonuses, loader, bonusDetail, drawerOpen } = useSelector((state) => state.bonusSlice);
+  
   const onClose = () => {
+    setDetailId(null);
     setVisible(false);
   };
 
@@ -56,16 +58,16 @@ const Bonus = (props) => {
             buttonText: "Create Bonus",
             // onClick: () => setVisible(true),
             render: (
-              <SideDrawer title={bonusDictionary.createBonus} buttonText={bonusDictionary.createBonus} isAccessDrawer={false}>
-                <Composer />
-              </SideDrawer>
+              <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                  Create Bonus
+                </Button>
             ),
           },
         ]}
       />
       <TopBar
         onSearch={(value) => {
-          console.log(value);
+          setFilter({ ...filter, search: value })
         }}
         buttons={[
           {
@@ -73,13 +75,18 @@ const Bonus = (props) => {
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: "My Bonus",
+            name: "Created By Me",
             onClick: () => setFilter({ filterType: 1 }),
           },
+          {
+            name: "For Approvals",
+            onClick: () => setFilter({ filterType: 2 }),
+          },
+          {
+            name: "Bonus For Me",
+            onClick: () => setFilter({ filterType: 3 }),
+          },
         ]}
-        // filter={{
-        //   onFilter: () => {},
-        // }}
         segment={{
           onSegment: (value) => {
             if (value === "Table") {
@@ -107,12 +114,12 @@ const Bonus = (props) => {
               ) : (
                 <CardWrapper>
                   {bonuses.map((item, index) => {
-                    return (
-                      <>
-                        <ListItem getBonusId={getBonusId} item={item} id={item.id} key={index} />
-                      </>
-                    );
-                  })}
+                      return (
+                        <>
+                          <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
+                        </>
+                      );
+                    })}
                 </CardWrapper>
               )}
             </>
@@ -121,7 +128,28 @@ const Bonus = (props) => {
           "Data not found"
         )}
       </ContBody>
-      {bonusDetail && <DetailedView onClose={onClose} visible={visible} />}
+      {<DetailedView onClose={onClose} id={detailId} />}
+      <Drawer
+          title={
+            <h1
+              style={{
+                fontSize: "20px",
+                margin: 0,
+              }}
+            >
+              Create Bonus
+            </h1>
+          }
+          width="768"
+          onClose={() => {
+            dispatch(handleOpenComposer(false))
+          }}
+          visible={drawerOpen}
+          destroyOnClose={true}
+          className="detailedViewComposer drawerSecondary"
+        >
+          <Composer />
+        </Drawer>
     </TabbableContainer>
   );
 };

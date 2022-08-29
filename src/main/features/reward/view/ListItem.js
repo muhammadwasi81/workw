@@ -1,15 +1,13 @@
-import { Button, Image, Tag } from "antd";
+import { Image, Tag } from "antd";
 import React, { useContext } from "react";
 import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
-import { PieChartOutlined, GlobalOutlined } from "@ant-design/icons";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { useDispatch } from "react-redux";
 
@@ -35,7 +33,7 @@ function ListItem(props) {
   return (
     <>
       <SingleItem onClick={props.onClick}>
-        <div className="new" id={props.id}></div>
+        <div className="new" id={props.id}></div> 
         <ItemHeader>
           <div className="left">
             <UserInfo
@@ -45,7 +43,8 @@ function ListItem(props) {
             />
           </div>
           <div className="right">
-            <Tag className="IdTag">{referenceNo}</Tag>
+            <Tag className="IdTag">
+              {referenceNo}</Tag>
             <StatusTag status={status}></StatusTag>
           </div>
         </ItemHeader>

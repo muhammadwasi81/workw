@@ -1,4 +1,4 @@
-import { Button, Carousel, Form, Typography } from "antd";
+import { Button, Carousel, Form, Typography, Avatar } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import TextAreaInput from "../../../../sharedComponents/Input/TextArea";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
@@ -18,7 +18,12 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { useDispatch, useSelector } from "react-redux";
 import { addTravel } from "../../store/actions";
 import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
-import { jsonToFormData } from "../../../../../utils/base";
+import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
+import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import {
+	getAllEmployees,
+	getCities,
+} from "../../../../../utils/Shared/store/actions";
 
 const initialState = {
 	subject: "",
@@ -67,6 +72,28 @@ function TravelComposer(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
 	const dispatch = useDispatch();
+	const employees = useSelector(state => state.sharedSlice.employees);
+	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+	useEffect(() => {
+		if (employees.length > 0 && !isFirstTimeDataLoaded) {
+			setIsFirstTimeDataLoaded(true);
+			setFirstTimeEmpData(employees);
+		}
+	}, [employees]);
+	useEffect(() => {
+		fetchEmployees("", 1);
+		fetchCityData("", 0);
+	}, []);
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
+	const fetchCityData = (text, pgNo) => {
+		dispatch(getCities({ textData: text, page: pgNo }));
+	};
+	const selectedData = (data, obj) => {
+		console.log("wrapper select data", data, obj);
+	};
 	const onInputFieldChange = (value, name) => {
 		setState({
 			...state,
@@ -266,42 +293,63 @@ function TravelComposer(props) {
 					/>
 				</div>
 			</S.FormItem>
-			<S.FormItem
+
+			<MemberSelect
+				data={firstTimeEmpData}
+				selectedData={value => {}}
+				canFetchNow={isFirstTimeDataLoaded}
+				fetchData={fetchEmployees}
+				placeholder={placeHolder.approversPh}
+				mode={"multiple"}
+				isObject={true}
+				loadDefaultData={false}
+				optionComponent={opt => {
+					return (
+						<>
+							<Avatar src={opt.image} className="!bg-black">
+								{getNameForImage(opt.name)}
+							</Avatar>
+							{opt.name}
+						</>
+					);
+				}}
+				dataVal={[]}
 				name="approvers"
-				label={<Typography level={5}>{labels.approvers}</Typography>}
+				showSearch={true}
+				direction={Direction}
 				rules={[
 					{ required: true, message: "Please select approvers!" },
 				]}
-				direction={Direction}
-			>
-				<NewCustomSelect
-					name="approvers"
-					label={labels.approvers}
-					showSearch={true}
-					endPoint="api/Reference/GetAllUserReference"
-					requestType="get"
-					placeholder={placeHolder.approversPh}
-					mode="multiple"
-					showImage={true}
-				/>
-			</S.FormItem>
+				label={<Typography level={5}>{labels.approvers}</Typography>}
+			/>
 
-			<S.FormItem
+			<MemberSelect
+				data={firstTimeEmpData}
+				selectedData={value => {}}
+				canFetchNow={isFirstTimeDataLoaded}
+				fetchData={fetchEmployees}
+				placeholder={placeHolder.agentPh}
+				mode={"multiple"}
+				isObject={true}
+				loadDefaultData={false}
+				optionComponent={opt => {
+					return (
+						<>
+							<Avatar src={opt.image} className="!bg-black">
+								{getNameForImage(opt.name)}
+							</Avatar>
+							{opt.name}
+						</>
+					);
+				}}
+				dataVal={[]}
 				name="agents"
-				label={<Typography level={5}>{labels.agent}</Typography>}
-				rules={[{ required: true, message: "Please select agents!" }]}
+				showSearch={true}
 				direction={Direction}
-			>
-				<NewCustomSelect
-					name="agents"
-					label={labels.agent}
-					showSearch={true}
-					endPoint="api/Reference/GetAllUserReference"
-					requestType="get"
-					placeholder={placeHolder.agentPh}
-					mode="tags"
-				/>
-			</S.FormItem>
+				rules={[{ required: true, message: "Please select agents!" }]}
+				label={<Typography level={5}>{labels.agent}</Typography>}
+			/>
+
 			<TravelComposerDetail
 				addTravelDetails={addTravelDetails}
 				errors={errors}
@@ -314,6 +362,7 @@ function TravelComposer(props) {
 				setSubmit={setSubmit}
 				travelDetails={travelDetails}
 				labels={label}
+				fetchCityData={fetchCityData}
 			/>
 			<TravelCard>
 				<Carousel

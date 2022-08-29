@@ -1,7 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { openNotification } from "../../../../utils/Shared/store/slice";
-import { addScheduleService } from "../services/services";
+import {
+	addScheduleService,
+	getAllScheduleService,
+} from "../services/services";
 
 export const addSchedule = createAsyncThunk(
 	"addSchedule",
@@ -15,6 +18,25 @@ export const addSchedule = createAsyncThunk(
 					duration: 2,
 				})
 			);
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const getAllSchedule = createAsyncThunk(
+	"getAllSchedule",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await getAllScheduleService(data);
+		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {
 			dispatch(

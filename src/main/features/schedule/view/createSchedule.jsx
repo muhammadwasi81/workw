@@ -1,4 +1,4 @@
-import { Button, Checkbox, DatePicker, Form, Input, Radio, Select } from "antd";
+import { Button, Avatar, DatePicker, Form, Input, Radio, Select } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
@@ -14,12 +14,11 @@ import {
 
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { ScheduleTypeEnum } from "../enum/enum";
 import { addSchedule } from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
-import { jsonToFormData } from "../../../../utils/base";
+import { getNameForImage, jsonToFormData } from "../../../../utils/base";
 
 function CreateSchedule() {
 	const [venue, setVenue] = useState("Venue");
@@ -99,16 +98,15 @@ function CreateSchedule() {
 	}, []);
 
 	const onFinish = value => {
-		console.log("value", value);
 		let objToSend = value;
 		if (objToSend.startDate) {
 			objToSend.endDate = moment(value.startDate)
 				.add(+value.endDate.split(" ")[0], value.endDate.split(" ")[1])
 				.format();
 			objToSend.startDate = moment(objToSend.startDate).format();
-		}else{
-      objToSend.endDate=""
-    }
+		} else {
+			objToSend.endDate = "";
+		}
 		if (objToSend.members) {
 			objToSend.members = value.members.map(member => {
 				return { memberId: member };
@@ -172,6 +170,8 @@ function CreateSchedule() {
 					scheduleType: ScheduleTypeEnum.Meeting,
 					endDate: "15 minutes",
 					onVideoConference: false,
+					travelTime: 0,
+					preparationTime: 0,
 				}}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
@@ -267,15 +267,31 @@ function CreateSchedule() {
 					</Form.Item>
 				)}
 				<div className="formInput w-50">
-					<Form.Item label={"Time:"} name="startDate">
+					<Form.Item
+						label={"Start Date & Time:"}
+						name="startDate"
+						rules={[
+							{
+								required: true,
+								message: "Date & Time is required",
+							},
+						]}
+					>
 						<DatePicker
 							format="YYYY-MM-DD HH:mm:ss"
 							showTime={{
 								defaultValue: moment("00:00:00", "HH:mm:ss"),
 							}}
+							placeholder="Select Date & Time"
 						/>
 					</Form.Item>
-					<Form.Item label={"Duration:"} name="endDate">
+					<Form.Item
+						label={"Duration:"}
+						name="endDate"
+						rules={[
+							{ required: true, message: "Duration is required" },
+						]}
+					>
 						<Select
 							defaultValue="15min"
 							options={meetingduration}
@@ -295,19 +311,14 @@ function CreateSchedule() {
 					optionComponent={opt => {
 						return (
 							<>
-								<Avatar
-									name={opt.name}
-									src={opt.image}
-									round={true}
-									width={"30px"}
-									height={"30px"}
-								/>
+								<Avatar src={opt.image} className="!bg-black">
+									{getNameForImage(opt.name)}
+								</Avatar>
 								{opt.name}
 							</>
 						);
 					}}
 					label={"Members"}
-					// rules={[{ required: true, message: "Members is required" }]}
 					size="default"
 				/>
 

@@ -24,7 +24,6 @@ function MemberSelect({
 	label = "",
 	rules = [],
 	showSearch = false,
-
 	emptyStateAfterSelect = false,
 	formItem = true,
 }) {

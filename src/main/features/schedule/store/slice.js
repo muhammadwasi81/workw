@@ -1,5 +1,5 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
-import { addSchedule } from "./action";
+import { addSchedule, getAllSchedule } from "./action";
 
 const scheduleSlice = createSlice({
 	name: "schedule",
@@ -20,13 +20,18 @@ const scheduleSlice = createSlice({
 			.addCase(addSchedule.fulfilled, (state, { payload }) => {
 				state.loading = false;
 				state.success = true;
+				// state.schedules = payload.data;
+			})
+			.addCase(getAllSchedule.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.success = true;
 				state.schedules = payload.data;
 			})
-			.addMatcher(isPending(...[addSchedule]), state => {
+			.addMatcher(isPending(...[addSchedule, getAllSchedule]), state => {
 				state.loading = true;
 				state.success = false;
 			})
-			.addMatcher(isRejected(...[addSchedule]), state => {
+			.addMatcher(isRejected(...[addSchedule, getAllSchedule]), state => {
 				state.loading = false;
 				state.success = false;
 				state.error = true;

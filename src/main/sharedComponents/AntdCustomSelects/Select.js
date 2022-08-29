@@ -23,7 +23,6 @@ function AntCustomSelect(props) {
 		filterOption,
 		tagRender,
 		isEmailSelect,
-		isImage,
 		value = [],
 		defaultData = [],
 		optionComponent,
@@ -32,7 +31,6 @@ function AntCustomSelect(props) {
 		name = "",
 		showSearch = false,
 		rules = [],
-
 		formItem = true,
 	} = props;
 
@@ -63,7 +61,7 @@ function AntCustomSelect(props) {
 					className="w-full antd_custom_select"
 					mode={mode}
 					size={size}
-					showSearch
+					showSearch={true}
 					placeholder={placeholder}
 					tagRender={tagRender}
 					value={value}
@@ -111,14 +109,15 @@ function AntCustomSelect(props) {
 				<Form.Item
 					label={label}
 					name={name}
-					showSearch={showSearch}
+					// showSearch={showSearch}
 					rules={rules}
 				>
 					<Select
 						className="w-full antd_custom_select"
 						mode={mode}
 						size={size}
-						showSearch
+						// showSearch={true}
+						showSearch={true}
 						placeholder={placeholder}
 						tagRender={tagRender}
 						value={value}

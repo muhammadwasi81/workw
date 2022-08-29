@@ -118,6 +118,7 @@ function List(props) {
 								title={listData.title}
 								handleChangeTitle={handleChangeTitle}
 								saveList={editListTitle}
+								labels={labels}
 								// onClickOutside={editListTitle}
 								// isEdit={true}
 							/>

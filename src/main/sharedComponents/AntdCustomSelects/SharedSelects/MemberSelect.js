@@ -24,7 +24,6 @@ function MemberSelect({
 	label = "",
 	rules = [],
 	showSearch = false,
-	apiLoad = true,
 	emptyStateAfterSelect = false,
 	formItem = true,
 	sliceName="employees"
@@ -87,7 +86,7 @@ function MemberSelect({
 			}
 		}
 		if (emptyStateAfterSelect && stateVal.length > 0) {
-			console.log("remove");
+			// console.log("remove");
 			setStateVal([]);
 		}
 	}, [stateVal]);
@@ -114,40 +113,39 @@ function MemberSelect({
 	};
 
 	useEffect(() => {
-		if (apiLoad)
-			if (debouncedSearch.length > 0) {
-				fetchData(debouncedSearch, 0);
-			} else {
-				setMemberData([...data]);
-			}
-	}, [debouncedSearch, apiLoad]);
+		if (debouncedSearch.length > 0) {
+			fetchData(debouncedSearch, 0);
+		} else {
+			setMemberData([...data]);
+		}
+	}, [debouncedSearch]);
 
 	useEffect(() => {
-		if (apiLoad)
-			if (isDataFetchable) {
-				const merged = [...memberData, ...employees];
-				setMemberData(() => {
-					return [...new Map(merged.map(v => [v.id, v])).values()];
-				});
-				setIsDataFetchable(false);
-			}
+		if (isDataFetchable) {
+			const merged = [...memberData, ...employees];
+			setMemberData(() => {
+				return [...new Map(merged.map(v => [v.id, v])).values()];
+			});
+			setIsDataFetchable(false);
+		}
 	}, [employees]);
 
 	useEffect(() => {
-		if (apiLoad) {
-			if (canFetchNow) {
-				setMemberData([...data]);
-			}
+		if (canFetchNow) {
+			setMemberData([...data]);
 		}
 	}, [data]);
 
 	useEffect(() => {
-		if (apiLoad)
-			if (isAssignDefaultData && dataVal && dataVal.length > 0) {
-				setStateVal([...dataVal]);
-				setIsAssignDefaultData(false);
-			}
+		if (isAssignDefaultData && dataVal && dataVal.length > 0) {
+			setStateVal([...dataVal]);
+			setIsAssignDefaultData(false);
+		}
 	}, [dataVal]);
+	// console.log("isAssignDefaultData", isAssignDefaultData);
+	// console.log("data val----", dataVal);
+	// console.log("canfetch now", canFetchNow);
+	// console.log("data", data);
 	// console.log("stateval", stateVal);
 	return (
 		<AntCustomSelect
@@ -173,7 +171,6 @@ function MemberSelect({
 			showSearch={showSearch}
 			rules={rules}
 			label={label}
-			apiLoad={apiLoad}
 			formItem={formItem}
 		/>
 	);

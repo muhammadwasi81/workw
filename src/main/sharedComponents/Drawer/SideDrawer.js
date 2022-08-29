@@ -7,6 +7,8 @@ import { useMediaQuery } from "react-responsive";
 import SharedButton from "../button";
 import PropTypes from "prop-types";
 import "./sideDrawer.css";
+import { useDispatch } from "react-redux";
+import { emptyEmployeesData } from "../../../utils/Shared/store/slice";
 function SideDrawer({
 	title,
 	buttonText,
@@ -20,6 +22,7 @@ function SideDrawer({
 	const { Direction } = dictionaryList[userLanguage];
 	const [state, setstate] = useState({ visible: false });
 	const isTablet = useMediaQuery({ maxWidth: 650 });
+	const dispatch = useDispatch();
 
 	const showDrawer = () => {
 		if (props.isAccessDrawer) {
@@ -48,6 +51,7 @@ function SideDrawer({
 	}, [props.success]);
 
 	const onClose = () => {
+		dispatch(emptyEmployeesData());
 		setstate({ ...state, visible: false });
 		if (props.isAccessDrawer) {
 			props.setOpenDrawer(false);

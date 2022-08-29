@@ -23,8 +23,7 @@ function AntCustomSelect(props) {
 		filterOption,
 		tagRender,
 		isEmailSelect,
-		isImage,
-		value,
+		value = [],
 		defaultData = [],
 		optionComponent,
 		isLoaded,
@@ -32,15 +31,12 @@ function AntCustomSelect(props) {
 		name = "",
 		showSearch = false,
 		rules = [],
-		apiLoad = true,
 		formItem = true,
 	} = props;
 
 	useEffect(() => {
-		if (apiLoad) {
-			setPgNo(0);
-		}
-	}, [debouncedSearch, apiLoad]);
+		setPgNo(0);
+	}, [debouncedSearch]);
 	const userId = useSelector(state => state.userSlice.user.id);
 	// handle pagination inside this component
 	const onPopupScroll = event => {
@@ -52,13 +48,12 @@ function AntCustomSelect(props) {
 		}
 	};
 	useEffect(() => {
-		if (apiLoad) {
-			if (pgNo !== 0) {
-				paginationHandler(pgNo);
-			}
+		if (pgNo !== 0) {
+			paginationHandler(pgNo);
 		}
-	}, [pgNo, apiLoad]);
+	}, [pgNo]);
 	// console.log("data", isLoaded, data);
+
 	return (
 		<>
 			{!formItem ? (
@@ -66,16 +61,17 @@ function AntCustomSelect(props) {
 					className="w-full antd_custom_select"
 					mode={mode}
 					size={size}
-					showSearch
+					showSearch={true}
 					placeholder={placeholder}
 					tagRender={tagRender}
 					value={value}
 					loading={loading}
-					onPopupScroll={apiLoad && onPopupScroll}
+					onPopupScroll={onPopupScroll}
 					onSelect={onSelect}
 					onChange={onChange}
 					onSearch={onSearch}
 					filterOption={filterOption}
+					getPopupContainer={trigger => trigger.parentNode}
 					// maxTagCount="responsive"
 				>
 					{isLoaded && !loading ? (
@@ -113,23 +109,25 @@ function AntCustomSelect(props) {
 				<Form.Item
 					label={label}
 					name={name}
-					showSearch={showSearch}
+					// showSearch={showSearch}
 					rules={rules}
 				>
 					<Select
 						className="w-full antd_custom_select"
 						mode={mode}
 						size={size}
-						showSearch
+						// showSearch={true}
+						showSearch={true}
 						placeholder={placeholder}
 						tagRender={tagRender}
 						value={value}
 						loading={loading}
-						onPopupScroll={apiLoad && onPopupScroll}
+						onPopupScroll={onPopupScroll}
 						onSelect={onSelect}
 						onChange={onChange}
 						onSearch={onSearch}
 						filterOption={filterOption}
+						getPopupContainer={trigger => trigger.parentNode}
 						// maxTagCount="responsive"
 					>
 						{isLoaded && !loading ? (

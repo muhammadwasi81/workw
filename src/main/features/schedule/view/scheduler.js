@@ -10,83 +10,148 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { toggleEventDetailComposer } from "../store/slice";
 import EventDetail from "./eventDetail";
+import moment from "moment";
+import { getAllSchedule } from "../store/action";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { useSelector } from "react-redux";
 
 function Scheduler() {
-  const [id, setId] = useState("");
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const calendarRef = useRef();
-  let isPanelChange = false;
-  const dispatch = useDispatch();
-  const renderEventContent = (eventInfo) => {
-    return (
-      <Event />
-      // <>
-      //   <b>{eventInfo.timeText}</b>
-      //   <i>{eventInfo.event.title}</i>
-      // </>
-    );
-  };
+	const [id, setId] = useState("");
+	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+	const schedules = useSelector(state => state.scheduleSlice.schedules);
+	const calendarRef = useRef();
+	let isPanelChange = false;
+	const dispatch = useDispatch();
+	const renderEventContent = eventInfo => {
+		return (
+			<Event eventInfo={eventInfo} />
+			// <>
+			//   <b>{eventInfo.timeText}</b>
+			//   <i>{eventInfo.event.title}</i>
+			// </>
+		);
+	};
+	useEffect(() => {
+		fetchAllSchedule(new Date(), new Date());
+	}, []);
 
-  const onChange = (value) => {
-    calendarRef.current.getApi().gotoDate(new Date(value.format("YYYY-MM-DD")));
-    if (isPanelChange) {
-      setIsCalendarOpen(true);
-      isPanelChange = false;
-    } else {
-      setIsCalendarOpen(false);
-    }
-  };
-  return (
-    <>
-      <EventDetail id={id} />
-      <div className="schedulerCalender">
-        <FullCalendar
-          ref={calendarRef}
-          customButtons={{
-            myCustomButton: {
-              text: "",
-              click: () => {
-                setIsCalendarOpen(!isCalendarOpen);
-              },
-            },
-          }}
-          headerToolbar={{
-            start: "title myCustomButton",
-          }}
-          eventClick={(info) => {
-            setId(parseInt(info.event._def.publicId));
-            dispatch(toggleEventDetailComposer());
-          }}
-          header
-          dayHeaders={false}
-          allDaySlot={false}
-          plugins={[timeGridPlugin, interactionPlugin]}
-          initialView="timeGrid"
-          events={[{ id: 3, title: "event 1", date: Date.now() }]}
-          //   locales={allLocales}
-          //   locale="ja"
-          // datesSet={(args) => console.log("###datesSet:", args)}
-          editable={true}
-          eventContent={renderEventContent}
-          eventResize={() => {}}
+	const fetchAllSchedule = (startVal, endVal) => {
+		const startDate = moment(startVal)
+			.startOf("day")
+			.format();
+		const endDate = moment(endVal)
+			.endOf("day")
+			.format();
 
-          //   dateClick={handleDateClick}
-        />
+		dispatch(
+			getAllSchedule({
+				pageNo: 1,
+				pageSize: 20,
+				search: "",
+				sortBy: 1,
+				referenceId: defaultUiid,
+				referenceType: 0,
+				startDate,
+				endDate,
+			})
+		);
+	};
 
-        <div
-          className={isCalendarOpen ? "site-calendar open" : "site-calendar "}
-        >
-          <Calendar
-            fullscreen={false}
-            onChange={onChange}
-            onPanelChange={() => {
-              isPanelChange = true;
-            }}
-          />
-        </div>
-      </div>
-    </>
-  );
+	const onChange = value => {
+		fetchAllSchedule(value, value);
+		calendarRef.current
+			.getApi()
+			.gotoDate(new Date(value.format("YYYY-MM-DD")));
+		if (isPanelChange) {
+			setIsCalendarOpen(true);
+			isPanelChange = false;
+		} else {
+			setIsCalendarOpen(false);
+		}
+	};
+	let data = schedules?.map(sch => {
+		return {
+			...sch,
+			start: new Date(sch.startDate),
+			end: new Date(sch.endDate),
+			title: sch.subject,
+		};
+	});
+	return (
+		<>
+			<EventDetail id={id} />
+			<div className="schedulerCalender">
+				<FullCalendar
+					ref={calendarRef}
+					customButtons={{
+						myCustomButton: {
+							text: "",
+							click: () => {
+								setIsCalendarOpen(!isCalendarOpen);
+							},
+						},
+						next: {
+							text: "Next",
+							click: function(value) {
+								calendarRef.current.getApi().next();
+								fetchAllSchedule(
+									calendarRef.current.getApi().getDate(),
+									calendarRef.current.getApi().getDate()
+								);
+							},
+						},
+						prev: {
+							text: "Prev",
+							click: function(value) {
+								calendarRef.current.getApi().prev();
+								fetchAllSchedule(
+									calendarRef.current.getApi().getDate(),
+									calendarRef.current.getApi().getDate()
+								);
+							},
+						},
+					}}
+					headerToolbar={{
+						start: "title myCustomButton",
+					}}
+					eventClick={info => {
+						setId(parseInt(info.event._def.publicId));
+						dispatch(toggleEventDetailComposer());
+					}}
+					// locale="en-GB"
+					dayHeaders={false}
+					allDaySlot={false}
+					plugins={[timeGridPlugin, interactionPlugin]}
+					initialView="timeGrid"
+					events={data}
+					//   locales={allLocales}
+					//   locale="ja"
+					// datesSet={(args) => console.log("###datesSet:", args)}
+					editable={true}
+					eventContent={renderEventContent}
+					eventResize={() => {}}
+					slotDuration={"00:15:00"}
+					slotLabelFormat={{ hour: "numeric", minute: "numeric" }}
+
+					//   dateClick={handleDateClick}
+				/>
+
+				<div
+					className={
+						isCalendarOpen ? "site-calendar open" : "site-calendar "
+					}
+				>
+					<Calendar
+						fullscreen={false}
+						onChange={onChange}
+						onPanelChange={() => {
+							isPanelChange = true;
+						}}
+					/>
+				</div>
+			</div>
+		</>
+	);
 }
 
 export default Scheduler;

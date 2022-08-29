@@ -4,11 +4,14 @@ import moment from "moment";
 import { BiWorld } from "react-icons/bi";
 import { LockOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
+import { getNameForImage } from "../../../../../utils/base";
 
 function ProfileDetailView(props) {
 	return (
 		<div className="flex items-center gap-1">
-			<Avatar src={props.profileImgSrc} size={props.profileImgSize} />
+			<Avatar src={props.profileImgSrc} size={props.profileImgSize}>
+				{getNameForImage(props.name)}
+			</Avatar>
 			<div>
 				<span className="text-primary-color font-bold text-sm">
 					{props.name}

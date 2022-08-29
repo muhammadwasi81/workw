@@ -1,4 +1,5 @@
 import {
+	Avatar,
 	Button,
 	Carousel,
 	Checkbox,
@@ -27,6 +28,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTravel } from "../../store/actions";
 import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
 import NewTravelComposerDetail from "./NewTravelComposerDetail";
+import {
+	getAllEmployees,
+	getCities,
+} from "../../../../../utils/Shared/store/actions";
+import { getNameForImage } from "../../../../../utils/base";
+import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 
 const initialState = {
 	subject: "",
@@ -221,125 +228,158 @@ function NewTravelComposer(props) {
 	// 		setIsSubmit(false);
 	// 	}
 	// }, [isSubmit]);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		fetchEmployees("", 1);
+		fetchCityData("", 0);
+	}, []);
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
+	const fetchCityData = (text, pgNo) => {
+		dispatch(getCities({ textData: text, page: pgNo }));
+	};
+	const employees = useSelector(state => state.sharedSlice.employees);
+
+	const handleAttachmentsUpload = files => {
+		console.log("files", files);
+	};
 	const [form] = Form.useForm();
+	// const onFinishForm = () => {
+	// 	console.log("form.travelForm", form.travelForm);
+	// };
 	return (
 		<Form.Provider
-			onFormFinish={(name, { values, forms }) => {
-				// console.log("values", values);
-				// console.log("name", name);
-				// console.log("forms", forms);
-				const { travelForm } = forms;
-				// travelDetailForm.submit();
-				// travelForm.submit();
-				// travelForm.getFieldsValue();
-				// travelDetailForm.getFieldsValue();
-				if (name === "travelDetailForm") {
-					const reason = travelForm.getFieldValue("reason") || "";
-					travelForm.setFieldsValue({
-						reason: [...reason, values],
-					});
-					console.log("", travelForm.getFieldsValue(true));
-
-					// setVisible(false);
-				}
+			onFormFinish={async (name, { values, forms }) => {
+				console.log("name", name);
+				console.log("forms", forms, values, name);
+				try {
+					const { travelForm, travelDetailForm } = forms;
+					// console.log("travelde", travelDetailForm);
+					travelForm.validateFields();
+					const isValidated = await travelDetailForm.validateFields();
+					// console.log("isValidated", isValidated);
+				} catch (error) {}
 			}}
+			key={1}
 		>
-			<Form
-				className="travel-composer"
-				onFinish={values => {
-					console.log("travelForm:", form.getFieldsValue(true));
-				}}
-				layout="vertical"
-				form={form}
-				dir={Direction}
-				name="travelForm"
-			>
-				<Form.Item
-					name="subject"
-					label={<Typography level={5}>{labels.subject}</Typography>}
-					rules={[
-						{
-							required: true,
-							message: "Please input your subject!",
-						},
-					]}
-					direction={Direction}
+			<Form>
+				<Form
+					className="travel-composer !rounded-b-none"
+					// onFinish={values => {
+					// 	console.log("travelForm:", form.getFieldsValue(true));
+					// }}
+					layout="vertical"
+					// form={form}
+					dir={Direction}
+					name="travelForm"
 				>
-					<Input
-						placeholder={placeHolder.subjectPh}
-						// onChange={onInputFieldChange}
-					/>
-				</Form.Item>
-				<Form.Item
-					name="description"
-					label={
-						<Typography level={5}>{labels.description}</Typography>
-					}
-					rules={[
-						{
-							required: true,
-							message: "Please input your description!",
-						},
-					]}
-					direction={Direction}
-				>
-					<Input.TextArea
-						style={{ borderRadius: "5px" }}
-						placeholder={placeHolder.DescPh}
-						rows={4}
-						// onChange={onInputFieldChange}
-					/>
-				</Form.Item>
-				<Form.Item
-					name="approvers"
-					label={
-						<Typography level={5}>{labels.approvers}</Typography>
-					}
-					rules={[
-						{ required: true, message: "Please select approvers!" },
-					]}
-					direction={Direction}
-				>
-					<Input
-						// name="subject"
-						placeholder={placeHolder.subjectPh}
-						// onChange={onInputFieldChange}
-					/>
-					{/* <NewCustomSelect
-						name="approvers"
-						label={labels.approvers}
-						showSearch={true}
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={placeHolder.approversPh}
-						mode="multiple"
-						showImage={true}
-					/> */}
-				</Form.Item>
+					<Form.Item
+						name="subject"
+						label={labels.subject}
+						rules={[
+							{
+								required: true,
+								message: "Please input your subject!",
+							},
+						]}
+						direction={Direction}
+					>
+						<Input
+							placeholder={placeHolder.subjectPh}
+							size="middle"
+						/>
+					</Form.Item>
+					<Form.Item
+						name="description"
+						label={labels.description}
+						rules={[
+							{
+								required: true,
+								message: "Please input your description!",
+							},
+						]}
+						direction={Direction}
+					>
+						<Input.TextArea
+							style={{ borderRadius: "5px" }}
+							placeholder={placeHolder.DescPh}
+							rows={4}
+						/>
+					</Form.Item>
 
-				<Form.Item
-					name="agents"
-					label={<Typography level={5}>{labels.agent}</Typography>}
-					rules={[
-						{ required: true, message: "Please select agents!" },
-					]}
-					direction={Direction}
-				>
-					<Input
-						placeholder={placeHolder.subjectPh}
-						// onChange={onInputFieldChange}
-					/>
-					{/* <NewCustomSelect
-						name="agents"
-						label={labels.agent}
+					<MemberSelect
+						data={employees}
+						selectedData={value => {}}
+						canFetchNow={employees && employees.length > 0}
+						fetchData={fetchEmployees}
+						placeholder={placeHolder.approversPh}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={[]}
+						name="approvers"
 						showSearch={true}
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
+						direction={Direction}
+						size="middle"
+						rules={[
+							{
+								required: true,
+								message: "Please select approvers!",
+							},
+						]}
+						label={labels.approvers}
+					/>
+
+					<MemberSelect
+						data={employees}
+						selectedData={value => {}}
+						canFetchNow={employees && employees.length > 0}
+						fetchData={fetchEmployees}
 						placeholder={placeHolder.agentPh}
-						mode="tags"
-					/> */}
-				</Form.Item>
-				{/* <TravelComposerDetail
+						mode={"multiple"}
+						size="middle"
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={[]}
+						name="agents"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: "Please select agents!",
+							},
+						]}
+						label={labels.agent}
+					/>
+					{/* <TravelComposerDetail
 					addTravelDetails={addTravelDetails}
 					errors={errors}
 					setErrors={setErrors}
@@ -352,8 +392,8 @@ function NewTravelComposer(props) {
 					travelDetails={travelDetails}
 					labels={label}
 				/> */}
-				<NewTravelComposerDetail />
-				{/* <TravelCard>
+
+					{/* <TravelCard>
 					<Carousel
 						afterChange={onCardSlide}
 						infinite={false}
@@ -375,51 +415,24 @@ function NewTravelComposer(props) {
 						))}
 					</Carousel>
 				</TravelCard> */}
-				<Form.Item
-					name="specialRequest"
-					direction={Direction}
-					label={
-						<Typography level={5}>
-							{labels.specialRequest}
-						</Typography>
-					}
+				</Form>
+				<NewTravelComposerDetail
+					key={0}
+					fetchCityData={fetchCityData}
+					travelBy={travelBy}
+					labels={labels}
+					placeHolder={placeHolder}
+					Direction={Direction}
+					handleAttachmentsUpload={handleAttachmentsUpload}
+				/>
+				<Button
+					htmlType="submit"
+					className="ThemeBtn"
+					block
+					// onClick={onFinishForm}
 				>
-					<Input.TextArea
-						// name="specialRequests"
-						style={{ borderRadius: "5px" }}
-						placeholder={placeHolder.specialRequestPh}
-						rows={4}
-						// onChange={onInputFieldChange}
-					/>
-				</Form.Item>
-				<Form.Item
-					direction={Direction}
-					label={
-						<Typography level={5}>{labels.attachments}</Typography>
-					}
-				>
-					<SingleUpload
-						// handleImageUpload={handleDocsUpload}
-						uploadText={labels.upload}
-						multiple={true}
-						position={"flex-start"}
-					/>
-				</Form.Item>
-				<Button htmlType="submit" type="primary">
 					Submit
 				</Button>
-				{/* <Button
-					className={`ThemeBtn tag_expense_btn font_bold p-0 ${
-						isTablet ? "" : "font_medium"
-					}`}
-					block
-					size={!isTablet && "large"}
-					loading={loader}
-					// htmlType="submit"
-					// onClick={onFormSubmit}
-				>
-					{labels.createExpense}
-				</Button> */}
 			</Form>
 		</Form.Provider>
 	);

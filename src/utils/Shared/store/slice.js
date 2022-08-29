@@ -45,6 +45,9 @@ const sharedSlice = createSlice({
 		openNotification: (state, { payload }) => {
 			state.notification = payload;
 		},
+		emptyEmployeesData: (state, { payload }) => {
+			state.employees = [];
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -152,5 +155,5 @@ const sharedSlice = createSlice({
 			});
 	},
 });
-export const { openNotification } = sharedSlice.actions;
+export const { openNotification, emptyEmployeesData } = sharedSlice.actions;
 export default sharedSlice.reducer;

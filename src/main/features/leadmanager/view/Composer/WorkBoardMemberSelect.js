@@ -16,14 +16,14 @@ function WorkBoardMemberSelect({
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
 	const [value, setValue] = useState([]);
-	const [loading, setLoading] = useState(false);
+
 	useEffect(() => {
 		fetchEmployees("", 0);
 	}, []);
 
 	useEffect(() => {
 		setValue(defaultData);
-		setLoading(true);
+		// setLoading(true);
 	}, [defaultData]);
 
 	useEffect(() => {

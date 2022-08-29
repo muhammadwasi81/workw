@@ -226,6 +226,26 @@ const leadMangerSlice = createSlice({
 					state.success = false;
 					state.error = false;
 				}
+			)
+			.addMatcher(
+				isRejected(
+					...[
+						addLeadManager,
+						getAllLeadManager,
+						getAllLeadManagerPaging,
+						updateLeadManager,
+						getLeadManagerSectionById,
+						addLeadManagerDetail,
+						// updateLeadManagerContact,
+						// addLeadManagerContact,
+						// deleteLeadManagerContact,
+					]
+				),
+				state => {
+					state.loading = false;
+					state.success = false;
+					state.error = true;
+				}
 			);
 	},
 });

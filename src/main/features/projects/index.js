@@ -22,6 +22,7 @@ import { Table } from "../../sharedComponents/customTable";
 import TopBar from "../../sharedComponents/topBar/topBar";
 import Header from "../../layout/header/index";
 import { Avatar, Card } from "antd";
+import ExampleAntdCustomSelect from "../../sharedComponents/AntdCustomSelects";
 const { Meta } = Card;
 
 const Projects = props => {
@@ -45,7 +46,14 @@ const Projects = props => {
 	};
 
 	useEffect(() => {
-		dispatch(getAllProjects());
+		dispatch(
+			getAllProjects({
+				pageNo: 1,
+				pageSize: 20,
+				search: "",
+				sortBy: 1,
+			})
+		);
 	}, []);
 
 	return (
@@ -72,15 +80,6 @@ const Projects = props => {
 					onSearch={value => {
 						console.log(value);
 					}}
-					// buttons={[
-					//   {
-					//     name: "Projects",
-					//     onClick: () => setFilter({ filterType: 0 }),
-					//   },
-					// ]}
-					// filter={{
-					//   onFilter: () => {},
-					// }}
 					segment={{
 						onSegment: value => {
 							if (value === topBar.table) {
@@ -93,7 +92,9 @@ const Projects = props => {
 						label2: topBar.table,
 					}}
 				/>
+
 				<ContBody className="!block" direction={Direction}>
+					<ExampleAntdCustomSelect />
 					{projects?.length > 0 ? (
 						tableView ? (
 							<Table

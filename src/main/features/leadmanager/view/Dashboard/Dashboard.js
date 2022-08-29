@@ -8,7 +8,7 @@ import { getAllLeadManager } from "../../store/actions";
 import GridView from "./GridView/GridView";
 import { tableColumn } from "./TableView/tableColumn";
 
-function LeadDashboard({ isTableView, dictionary, data }) {
+function LeadDashboard({ isTableView, dictionary, data, onChange }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	// const leadManagerData = useSelector(
@@ -45,22 +45,18 @@ function LeadDashboard({ isTableView, dictionary, data }) {
 	return (
 		<>
 			{!isTableView ? (
-				loading ? (
-					<Spinner />
-				) : (
-					<GridView
-						data={data}
-						loading={loading}
-						dispatch={dispatch}
-						handleClickNavigation={handleClickNavigation}
-						dictionary={dictionary}
-					/>
-				)
+				<GridView
+					data={data}
+					loading={loading}
+					dispatch={dispatch}
+					handleClickNavigation={handleClickNavigation}
+					dictionary={dictionary}
+				/>
 			) : (
 				<Table
 					columns={tableColumn(dictionary)}
 					dragable={true}
-					// handleChange={handleChange}
+					handleChange={onChange}
 					// onPageChange={onPageChange}
 					onRow={onRow}
 					data={data ? data : []}

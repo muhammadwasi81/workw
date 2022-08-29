@@ -4,13 +4,13 @@ import {
 	TabbableContainer,
 } from "../../sharedComponents/AppComponents/MainFlexContainer";
 import Header from "./view/Header/Header";
-import Board from "./view/Board/Board";
 import LeadTopBar from "./view/LeadTopBar/TopBar";
 import LeadDashboard from "./view/Dashboard/Dashboard";
 import { LeadManagerDictionary } from "./localization";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { useDispatch, useNavigate, useSelector } from "react-redux";
 import { getAllLeadManager } from "./store/actions";
+import useDebounce from "../../../utils/Shared/helper/use-debounce";
 
 function LeadManager() {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -20,6 +20,10 @@ function LeadManager() {
 	const { topBar } = LeadManagerDictionaryList;
 	const [isTableView, setIsTableView] = useState(false);
 	const [search, setSearch] = useState("");
+	const [sort, setSort] = useState(1);
+	const [page, setPage] = useState(20);
+	const [pageNo, setPageNo] = useState(1);
+	const value = useDebounce(search, 500);
 	const dispatch = useDispatch();
 	const leadManagerData = useSelector(
 		state => state.leadMangerSlice.leadManagersData
@@ -28,13 +32,25 @@ function LeadManager() {
 	useEffect(() => {
 		dispatch(
 			getAllLeadManager({
-				pageNo: 1,
-				pageSize: 20,
-				search,
-				sortBy: 1,
+				pageNo,
+				pageSize: page,
+				search: value,
+				sortBy: sort,
 			})
 		);
-	}, [search]);
+	}, [value, sort, page, pageNo]);
+
+	const handleColumnSorting = (pagination, filters, sorter) => {
+		const { current, pageSize } = pagination;
+		setPage(pageSize);
+		setPageNo(current);
+		const { order } = sorter;
+		if (order === "ascend") {
+			setSort(2);
+			return;
+		}
+		setSort(1);
+	};
 	return (
 		<TabbableContainer>
 			<Header
@@ -55,6 +71,7 @@ function LeadManager() {
 					isTableView={isTableView}
 					dictionary={LeadManagerDictionaryList}
 					data={leadManagerData}
+					onChange={handleColumnSorting}
 				/>
 			</ContBody>
 		</TabbableContainer>

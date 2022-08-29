@@ -42,6 +42,8 @@ const en = {
       sortCode: "Enter Sort Code",
     },
     EmployeeForm: {
+      UpdateBasicInfo: "Update BasicInfo",
+      BasicInfo: "Basic Info",
       AddImage: "Add Image",
       FirstName: "First Name",
       LastName: "Last Name",
@@ -80,8 +82,11 @@ const en = {
       Name: "Name",
       AddMoreEmergency: "Add More Emergency",
       AddEmergency: "Add Emergency",
+      UpdateEmergency: "Update Emergency",
     },
     EducationForm: {
+      AddEducation: "Add Education",
+      UpdateEducation: "Update Education",
       EducationInfo: "Education Info",
       Degree: "Degree",
       Institute: "Institute",
@@ -98,6 +103,7 @@ const en = {
     },
     WorkExperienceForm: {
       WorkExperienceInfo: "Work Experience Info",
+
       Employer: "Employer",
       Position: "Position",
       Designation: "Designation",
@@ -109,6 +115,7 @@ const en = {
       AddExperience: "Add Experience",
       EmploymentType: "Employment Type",
       City: "City",
+      UpdateExperience: "Update Experience",
     },
     UserForm: {
       UserRights: "User Rights",
@@ -116,6 +123,7 @@ const en = {
       UserRole: "User Role",
     },
     BankForm: {
+      updateBank: "Update Bank",
       BankInfo: "Bank Info",
       BankName: "Bank Name",
       AccountTitle: "Account Title",
@@ -126,14 +134,14 @@ const en = {
       City: "City",
       Country: "Country",
       AddMoreBank: "Add More Bank",
-      AddBank: "Add Bank"
+      AddBank: "Add Bank",
     },
     EmployeeList: {
       number: "Number",
       email: "Email",
       designation: "Designation",
     },
-    submit: "Submit",
+    AddEmployee: "Add Employee",
   },
 
   /*** Define language write side ***/

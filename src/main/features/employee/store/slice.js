@@ -1,11 +1,23 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { getBankDetailByUser } from "../../bankDetails/store/actions";
+import { getUserBasicInfo } from "../../basicInfo/store/actions";
+import { getEducationDetailByUser } from "../../education/store/actions";
+import { getUserEmergency } from "../../emergencyInfo/store/actions";
+import { getUserWorkExperience } from "../../experienceInfo/store/actions";
+
 import { addEmployee, getAllEmployees } from "./actions";
 
 const initialState = {
   employees: [],
+  employee: {
+    bankdetails: {},
+    emergencydetails: [],
+    experiencedetails: [],
+    educationdetails: [],
+    basicdetails: [],
+  },
   loader: false,
   success: false,
-  error: false,
 };
 
 const employeeSlice = createSlice({
@@ -23,8 +35,22 @@ const employeeSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
+      .addCase(getBankDetailByUser.fulfilled, (state, { payload }) => {
+        state.employee.bankdetails = payload.data;
+      })
+      .addCase(getUserBasicInfo.fulfilled, (state, { payload }) => {
+        state.employee.basicdetails = payload.data;
+      })
+      .addCase(getUserEmergency.fulfilled, (state, { payload }) => {
+        state.employee.emergencydetails = payload.data;
+      })
+      .addCase(getUserWorkExperience.fulfilled, (state, { payload }) => {
+        state.employee.experiencedetails = payload.data;
+      })
+      .addCase(getEducationDetailByUser.fulfilled, (state, { payload }) => {
+        state.employee.educationdetails = payload.data;
+      })
       .addMatcher(isPending(...[addEmployee, getAllEmployees]), (state) => {
-        console.log("pending");
         state.loader = true;
         state.success = false;
       })

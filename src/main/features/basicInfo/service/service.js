@@ -2,10 +2,8 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "api/";
 
-export const getBankDetailsByUserService = (data) => {
-  return MasterConfig.get(
-    `${API_PREFIX}UserBankDetail/GetAllUserBankDetail?userId=${data}`
-  )
+export const getUserBasicInfoByIdService = (data) => {
+  return MasterConfig.get(`${API_PREFIX}Employee/GetEmployeeById?id=${data}`)
     .then((res) => {
       return res.data;
     })

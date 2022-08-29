@@ -43,6 +43,8 @@ const arabic = {
       sortCode: "ترتیب کوڈ درج کریں",
     },
     EmployeeForm: {
+      UpdateBasicInfo: "Update BasicInfo",
+      BasicInfo: "Basic Info",
       AddImage: "تصویر شامل کریں",
       FirstName: "پہلا نام",
       LastName: "آخری نام",
@@ -80,8 +82,11 @@ const arabic = {
       Relation: "رشتہ",
       AddMoreEmergency: "مزید ایمرجنسی شامل کریں",
       AddEmergency: "ایمرجنسی شامل کریں",
+      UpdateEmergency: "Update Emergency",
     },
     EducationForm: {
+      AddEducation: "Add Education",
+      UpdateEducation: "Update Education",
       EducationInfo: "تعلیمی معلومات",
       Degree: "ڈگری",
       Institute: "انسٹی ٹیوٹ",
@@ -108,6 +113,7 @@ const arabic = {
       AddExperience: "تجربہ شامل کریں",
       EmploymentType: "ملازمت کی قسم",
       City: "شہر",
+      UpdateExperience: "Update Experience",
     },
     UserForm: {
       UserRights: "صارف کے حقوق",
@@ -115,6 +121,7 @@ const arabic = {
       UserRole: "صارف کا کردار",
     },
     BankForm: {
+      updateBank: "Update Bank",
       BankInfo: "بینک کی معلومات",
       BankName: "بینک کا نام",
       AccountTitle: "اکاؤنٹ ٹائٹل",
@@ -131,7 +138,7 @@ const arabic = {
       email: "ای میل",
       designation: "عہدہ",
     },
-    submit: "جمع کرائیں",
+    AddEmployee: "Add Employee",
   },
   /*** Define language write side ***/
   Direction: "rtl",

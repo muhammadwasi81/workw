@@ -20,33 +20,45 @@ class SingleUpload extends React.Component {
     previewVisible: false,
     previewImage: "",
     previewTitle: "",
-    fileList: [],
+    fileList: this.props.fileList || [],
     defaultFileList: [],
   };
 
-	componentDidUpdate(prevProps, prevState) {
-		console.log("", this.props.url);
-		if (prevProps.url !== this.props.url && this.props.url.length > 0) {
-			this.setState(
-				produce(state => {
-					state.fileList.push({ url: this.props.url });
-				})
-			);
-		}
-	}
-	componentDidMount() {
-		console.log(this.props.url);
-		let { url, defaultFile } = this.props;
-		if (url.length > 0) {
-			this.setState(
-				produce(state => {
-					state.fileList.push({ url: url });
-					// state.defaultFileList = defaultFile;
-				})
-			);
-			this.setState({ defaultFileList: defaultFile });
-		}
-	}
+  componentDidUpdate(prevProps, prevState) {
+    console.log("", this.props.url);
+    if (prevProps.url !== this.props.url && this.props.url.length > 0) {
+      this.setState(
+        produce((state) => {
+          state.fileList.push({ url: this.props.url });
+        })
+      );
+    }
+    if (
+      JSON.stringify(prevProps.fileList) !==
+        JSON.stringify(this.props.fileList) &&
+      JSON.stringify(this.state.fileList) !==
+        JSON.stringify(this.props.fileList)
+    ) {
+      this.setState(
+        produce((state) => {
+          state.fileList = this.props.fileList;
+        })
+      );
+    }
+  }
+  componentDidMount() {
+    console.log(this.props.url);
+    let { url, defaultFile } = this.props;
+    if (url.length > 0) {
+      this.setState(
+        produce((state) => {
+          state.fileList.push({ url: url });
+          // state.defaultFileList = defaultFile;
+        })
+      );
+      this.setState({ defaultFileList: defaultFile });
+    }
+  }
 
   handleCancel = () => this.setState({ previewVisible: false });
 

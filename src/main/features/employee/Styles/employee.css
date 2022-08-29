@@ -1,4 +1,4 @@
-.employeeSubmitButton {
+/* .employeeSubmitButton {
   align-self: flex-end;
   margin-right: 70px;
   margin-top: 20px;
@@ -60,17 +60,84 @@
 	order: 3;
 } */
 
-.employeeForm> :nth-child(1) {
+/* .employeeForm> :nth-child(1) {
   order: 1;
 }
 
-.ant-form .ant-form-item .ant-form-item-control,
-.ant-form .ant-form-item .ant-form-item-label {
+.employeeForm .ant-form .ant-form-item .ant-form-item-control,
+.employeeForm .ant-form .ant-form-item .ant-form-item-label {
   flex: none;
 }
 
-.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item,
-.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-placeholder,
-.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector:after {
-  font-weight: 400;
+.employeeForm .ant-col .ant-form-item-label {
+  text-align: inherit !important;
+  font-weight: 500;
+}
+
+.employeeForm .ant-form-horizontal .ant-form-item-label {
+  text-align: start;
+} */
+.employeeCard {
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.employeeCard__header {
+  margin-bottom: 10px;
+}
+
+.employeeCard__header--img .ant-avatar {
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  background-color: #000;
+}
+
+.employeeCard__body p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--currentThemeColor);
+  text-transform: capitalize;
+}
+
+.employeeCard__body span {
+  font-size: 10px;
+  color-scheme: #ccc;
+  display: block;
+  line-height: 1;
+}
+
+.employeeCard__body .buttonGroup {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.employeeCard__body .buttonGroup button {
+  height: 26px;
+  display: flex;
+  align-items: center;
+
+}
+
+.employeeCard__body .ThemeBtn.disable {
+  background: #ab2a2a !important;
+  border-color: #ab2a2a !important;
+}
+
+.empolyeesListContainer {
+  display: grid;
+  margin-top: 5px;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  height: fit-content;
+  width: 100%;
+}
+
+.empolyeesListContainer.rtl {
+  direction: rtl;
 }

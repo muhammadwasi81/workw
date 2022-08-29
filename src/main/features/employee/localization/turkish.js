@@ -71,6 +71,7 @@ const turkish = {
       EmpNo: "Soyadı7",
     },
     EmergencyForm: {
+      UpdateEmergency: "Update Emergency",
       EmergencyInfo: "Acil Durum Bilgisi",
       Designation: "Tanıma",
       Address: "Adres",
@@ -82,6 +83,10 @@ const turkish = {
     },
 
     EducationForm: {
+      UpdateBasicInfo: "Update BasicInfo",
+      BasicInfo: "Basic Info",
+      AddEducation: "Add Education",
+      UpdateEducation: "Update Education",
       EducationInfo: "Eğitim Bilgileri",
       Degree: "Derece",
       Institute: "Enstitü",
@@ -109,6 +114,7 @@ const turkish = {
       AddExperience: "Derece",
       EmploymentType: "Derece9",
       City: "Derece2",
+      UpdateExperience: "Update Experience",
     },
     UserForm: {
       UserRights: "Enstitü0",
@@ -116,6 +122,7 @@ const turkish = {
       UserRole: "Enstitü2",
     },
     BankForm: {
+      updateBank: "Update Bank",
       BankInfo: "Enstitü3",
       BankName: "Enstitü4",
       AccountTitle: "Enstitü5",
@@ -134,7 +141,7 @@ const turkish = {
       email: "E-posta",
       designation: "Tanımlama",
     },
-    submit: "Gönder",
+    AddEmployee: "Add Employee",
   },
 
   /*** Define language write side ***/

@@ -61,6 +61,7 @@ const en = {
     complain: "Complain",
     Submit: "Submit",
     Delete: "Delete",
+    Edit: "Edit",
     NotDesignated: "Not Designated",
     Profile: "Profile",
     Settings: "Settings",
@@ -582,7 +583,7 @@ const en = {
       email: "Email",
       designation: "Designation",
     },
-    submit: "Submit",
+    submit: "Add Employee",
   },
   travel: {
     placeholders: {},

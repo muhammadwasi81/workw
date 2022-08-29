@@ -29,7 +29,7 @@ export const responseMessage = ({
       // dispatch(setError({ message: data.message }));
       break;
     case responseMessageType.ApiFailure:
-      dispatch(setError({  message: data.message }));
+      dispatch(setError({ message: data.message }));
       break;
     default:
       return null;

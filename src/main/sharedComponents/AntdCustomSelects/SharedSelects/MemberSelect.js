@@ -26,7 +26,8 @@ function MemberSelect({
 	showSearch = false,
 	emptyStateAfterSelect = false,
 	formItem = true,
-	sliceName="employees"
+	sliceName = "employees",
+	resetField = false,
 }) {
 	const [value, setValue] = useState("");
 	const [stateVal, setStateVal] = useState(dataVal);
@@ -34,8 +35,8 @@ function MemberSelect({
 	const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
 	const debouncedSearch = useDebounce(value, 500);
 	const [memberData, setMemberData] = useState([...data]);
-	const {  loader } = useSelector(state => state.sharedSlice);
-	const  employees = useSelector(state => state.sharedSlice[sliceName]);
+	const { loader } = useSelector(state => state.sharedSlice);
+	const employees = useSelector(state => state.sharedSlice[sliceName]);
 	const [isAssignDefaultData, setIsAssignDefaultData] = useState(
 		loadDefaultData
 	);
@@ -86,10 +87,15 @@ function MemberSelect({
 			}
 		}
 		if (emptyStateAfterSelect && stateVal.length > 0) {
-			// console.log("remove");
 			setStateVal([]);
 		}
 	}, [stateVal]);
+
+	useEffect(() => {
+		if (resetField) {
+			setStateVal([]);
+		}
+	}, [resetField]);
 
 	const onSearch = value => {
 		if (defaultData.length > 0) {

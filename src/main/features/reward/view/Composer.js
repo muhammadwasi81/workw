@@ -11,9 +11,9 @@ import { addReward } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { STRINGS } from "../../../../utils/base";
+import { getNameForImage, STRINGS } from "../../../../utils/base";
+import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 
 const initialState = {
 	id: "",

@@ -81,11 +81,8 @@ function SalaryListItem(props) {
             <div className="cardSection__body">
               <Avatar
                 isAvatarGroup={true}
-                isTag={false}
                 heading={"approvers"}
                 membersData={approvers ? approvers : []}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
               />
             </div>
           </div>

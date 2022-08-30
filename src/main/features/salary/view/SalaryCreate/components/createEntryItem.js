@@ -1,6 +1,6 @@
 import { DatePicker, Select } from 'antd';
 import { Option } from 'antd/lib/mentions';
-import React from 'react';
+import React, { useState } from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 import { getAllEmployees } from '../../../../../../utils/Shared/store/actions';
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
@@ -20,7 +20,6 @@ const CreateEntryItem = ({
   employeesShortData = [],
   allowanceData = []
 }) => {
-
   const handleInputChange = (e) => {
     handleChange(e.target.value, e.target.name, index)
   }
@@ -127,6 +126,7 @@ const CreateEntryItem = ({
           isObject={true}
           size="small"
           loadDefaultData={false}
+          formItem={false}
           optionComponent={opt => {
             return (
               <>

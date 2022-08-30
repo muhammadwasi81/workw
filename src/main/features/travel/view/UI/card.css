@@ -1,3 +1,4 @@
+
 .travel_card {
 	width: 100%;
 	height: auto;
@@ -132,3 +133,10 @@
 .cursor-pointer {
 	cursor: pointer;
 }
+
+/* .logo {
+	background-color: red;
+	background: url('../../../../../content/svg/travel-location.svg') no-repeat center;
+	mask: url('../../../../../content/svg/travel-location.svg') no-repeat center;
+	-webkit-mask: url('../../../../../content/svg/travel-location.svg') no-repeat center;
+  } */

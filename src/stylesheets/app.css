@@ -388,7 +388,7 @@ iframe {
 
 }
 
-.ant-select-selection-item-content img, .ant-select-selection-item-content .ant-avatar {
+.ant-select-selection-item-content img, .ant-select-selection-item-content .ant-avatar, .ant-select-selector .ant-avatar{
   display: none !important;
 }
 

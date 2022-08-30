@@ -1,4 +1,4 @@
-import { Button, DatePicker, Divider, Form, Input, Select } from "antd";
+import { Button, DatePicker, Divider, Form, Input, Select, Avatar } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -25,7 +25,7 @@ import { getAllOfficeTimingGroups } from "../../officeTimings/store/actions";
 import { getUserBasicInfo } from "../../basicInfo/store/actions";
 import moment from "moment";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+// import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getNameForImage } from "../../../../utils/base";
 import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
 const { Option } = Select;
@@ -49,7 +49,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     managerId: "",
     gradeId: "",
     countryId: "",
-    cityId: "",
+    cityId: [],
     probationPeriod: "",
     birthDate: "",
     joinDate: "",
@@ -89,7 +89,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const {
     employee: { basicdetails },
   } = useSelector((state) => state.employeeSlice);
-
   const labels = employeesDictionary.EmployeeForm;
   const placeholder = employeesDictionary.placeholders;
 
@@ -110,8 +109,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
       if (!countries.length) dispatch(getCountries());
+      if (!cities.length) fetchCityData("", 0);
     }
-    fetchCityData("", 0);
     if (!designations.length) dispatch(getAllDefaultDesignation());
     if (!grades.length) dispatch(getAllGrades());
     if (!officeTimingGroups.length) dispatch(getAllOfficeTimingGroups());
@@ -333,7 +332,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           </Select>
         </Form.Item>
 
-        {/* <Input name="cityId" placeholder={placeholder.searchToSelect} /> */}
         <CitySelect
           data={cities}
           selectedData={(val) => {
@@ -353,9 +351,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           }}
           defaultKey={"id"}
           isObject={true}
-          mode={"multiple"}
-          placeholder={"Search destination city"}
-          size="middle"
+          placeholder={placeholder.searchToSelect}
+          size="large"
           name="cityId"
           label={labels.City}
           rules={[{ required: true }]}

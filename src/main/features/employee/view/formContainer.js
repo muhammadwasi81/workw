@@ -8,7 +8,10 @@ import "../Styles/employee.css";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import BasicInfo from "./basicForm";
 import { useDispatch } from "react-redux";
-import { getCountries } from "../../../../utils/Shared/store/actions";
+import {
+  getCities,
+  getCountries,
+} from "../../../../utils/Shared/store/actions";
 import { employeeDictionaryList } from "../localization";
 import { addEmployee } from "../store/actions";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
@@ -29,6 +32,7 @@ const EmployeeFormContainer = () => {
   };
   useEffect(() => {
     dispatch(getCountries());
+    dispatch(getCities({ textData: "", page: 20 }));
   }, [dispatch]);
   const handleIsSubmit = () => {
     setIsSubmit(true);
@@ -39,7 +43,7 @@ const EmployeeFormContainer = () => {
     const emergencyInfo = forms.emergencyInfo.values();
     const educationDetails = forms.educationDetails.values();
     const basicDetails = forms.basicInfo.values();
-
+    console.log(educationDetails, "educationDetails");
     const employeeData = {
       ...image,
       ...basicDetails,
@@ -68,7 +72,6 @@ const EmployeeFormContainer = () => {
               onSubmit(forms);
             }
           } catch (e) {}
-          
         }}
       >
         <Form>

@@ -12,12 +12,16 @@ import {
   Input,
   Button,
   Table,
+  Avatar,
 } from "antd";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 import moment from "moment";
 import { getEducationDetailByUser } from "../../education/store/actions";
+import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
+import { getNameForImage } from "../../../../utils/base";
+import { getCities } from "../../../../utils/Shared/store/actions";
 const { RangePicker } = DatePicker;
 
 const EducationForm = ({ id, mode, isSubmit }) => {
@@ -32,6 +36,8 @@ const EducationForm = ({ id, mode, isSubmit }) => {
   const {
     employee: { educationdetails },
   } = useSelector((state) => state.employeeSlice);
+  const [city, setCity] = useState([]);
+  const { cities } = useSelector((state) => state.sharedSlice);
   const labels = employeesDictionary.EducationForm;
   const placeholder = employeesDictionary.placeholders;
   const [educationDetails, setEducationDetails] = useState([]);
@@ -63,7 +69,7 @@ const EducationForm = ({ id, mode, isSubmit }) => {
     totalMarks: "",
     obtainedMarks: "",
     startDate: "",
-    cityId: "",
+    cityId: [],
     isPresent: false,
   };
   const [initialValues, setInitialValues] = useState(initialState);
@@ -84,7 +90,7 @@ const EducationForm = ({ id, mode, isSubmit }) => {
       dataIndex: "cityId",
       key: "cityId",
       render: (value) => {
-        // return cities[value];
+        return city.filter((item) => item.id === value.toString())[0].name;
       },
     },
     {
@@ -170,6 +176,7 @@ const EducationForm = ({ id, mode, isSubmit }) => {
   useEffect(() => {
     if (isEdit) {
       dispatch(getEducationDetailByUser(id));
+      if (!cities.length) fetchCityData("", 0);
     }
   }, []);
 
@@ -188,6 +195,9 @@ const EducationForm = ({ id, mode, isSubmit }) => {
     }
   }, [educationdetails]);
 
+  const fetchCityData = (text, pgNo) => {
+    dispatch(getCities({ textData: text, page: pgNo }));
+  };
   const handleUpdate = () => {
     console.log("handle Update");
   };
@@ -257,17 +267,33 @@ const EducationForm = ({ id, mode, isSubmit }) => {
         >
           <Input type="number" placeholder={placeholder.oMarks}></Input>
         </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+
+        <CitySelect
+          data={cities}
+          selectedData={(val, obj) => {
+            setCity((preValues) => [...preValues, ...obj]);
+          }}
+          canFetchNow={cities && cities.length > 0}
+          fetchData={fetchCityData}
+          optionComponent={(opt) => {
+            return (
+              <>
+                <Avatar src={opt.image} className="!bg-black">
+                  {getNameForImage(opt.name)}
+                </Avatar>
+                {opt.name + " - " + opt.country}
+              </>
+            );
+          }}
+          defaultKey={"id"}
+          isObject={true}
+          placeholder={placeholder.searchToSelect}
+          size="large"
           name="cityId"
           label={labels.City}
-        >
-          <Input placeholder="Select City"></Input>
-        </Form.Item>
+          rules={[{ required: true }]}
+        />
+
         <div className="dates">
           {!isPresent && (
             <Form.Item

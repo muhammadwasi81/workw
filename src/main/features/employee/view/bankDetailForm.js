@@ -1,16 +1,20 @@
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Divider, Form, Input, Select, Table } from "antd";
+import { Avatar, Button, Divider, Form, Input, Select, Table } from "antd";
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { employeeDictionaryList } from "../localization/index";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import "../Styles/employeeForm.css";
 import { useDispatch } from "react-redux";
-import { getCountries } from "../../../../utils/Shared/store/actions";
+import {
+  getCities,
+  getCountries,
+} from "../../../../utils/Shared/store/actions";
 import { useSelector } from "react-redux";
 import { getBankDetailByUser } from "../../bankDetails/store/actions";
+import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
+import { getNameForImage } from "../../../../utils/base";
 const { Option } = Select;
 const BankForm = ({ mode, id, isSubmit }) => {
   const isEdit = mode === "edit";
@@ -19,7 +23,7 @@ const BankForm = ({ mode, id, isSubmit }) => {
   const { sharedLabels } = dictionaryList[userLanguage];
   const [countries, setCountries] = useState([]);
   const dispatch = useDispatch();
-  const { countries: countriesSlice } = useSelector(
+  const { countries: countriesSlice, cities } = useSelector(
     (state) => state.sharedSlice
   );
   const {
@@ -39,6 +43,7 @@ const BankForm = ({ mode, id, isSubmit }) => {
     sortCode: "",
   };
   const [initialValues, setInitialValues] = useState(initialState);
+  const [city, setCity] = useState([]);
   const labels = employeesDictionary.BankForm;
   const placeholder = employeesDictionary.placeholders;
   const [form] = Form.useForm();
@@ -48,7 +53,6 @@ const BankForm = ({ mode, id, isSubmit }) => {
       return bankDetails.map((item) => {
         return {
           ...item,
-          cityId: item.cityId.id,
           countryId: item.countryId.value,
         };
       });
@@ -65,6 +69,7 @@ const BankForm = ({ mode, id, isSubmit }) => {
   useEffect(() => {
     if (isEdit) {
       if (!countriesSlice.length) dispatch(getCountries());
+      if (!cities.length) fetchCityData("", 0);
       dispatch(getBankDetailByUser(id));
     }
   }, []);
@@ -92,6 +97,11 @@ const BankForm = ({ mode, id, isSubmit }) => {
       }
     } catch (e) {}
   };
+
+  const fetchCityData = (text, pgNo) => {
+    dispatch(getCities({ textData: text, page: pgNo }));
+  };
+
   const handleUpdate = () => {
     console.log("handle update");
   };
@@ -153,8 +163,8 @@ const BankForm = ({ mode, id, isSubmit }) => {
       dataIndex: "cityId",
       ellipsis: true,
       key: "cityId",
-      render: (labels) => {
-        // return citiesArr.map((item) => <span>{item.name}</span>);
+      render: (value) => {
+        return city.filter((item) => item.id === value.toString())[0].name;
       },
     },
 
@@ -269,6 +279,7 @@ const BankForm = ({ mode, id, isSubmit }) => {
           rules={[{ required: true }]}
         >
           <Select
+            getPopupContainer={(trigger) => trigger.parentNode}
             placeholder="Please select country."
             size="large"
             onChange={(value, object) =>
@@ -280,27 +291,31 @@ const BankForm = ({ mode, id, isSubmit }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
+        <CitySelect
+          data={cities}
+          selectedData={(val, obj) => {
+            setCity((preValues) => [...preValues, ...obj]);
+          }}
+          canFetchNow={cities && cities.length > 0}
+          fetchData={fetchCityData}
+          optionComponent={(opt) => {
+            return (
+              <>
+                <Avatar src={opt.image} className="!bg-black">
+                  {getNameForImage(opt.name)}
+                </Avatar>
+                {opt.name + " - " + opt.country}
+              </>
+            );
+          }}
+          defaultKey={"id"}
+          isObject={true}
+          placeholder={placeholder.searchToSelect}
+          size="large"
           name="cityId"
           label={labels.City}
-          showSearch={true}
           rules={[{ required: true }]}
-        >
-          <NewCustomSelect
-            name="cityId"
-            label={labels.cityId}
-            showSearch={true}
-            // mode="multiple"
-            endPoint="/api/Utility/GetAllCities"
-            requestType="post"
-            placeholder={"Please select city."}
-            valueObject={true}
-            onChange={(value, obj) => {
-              console.log(obj, "obj");
-              form.setFieldValue("cityId", JSON.parse(obj.value));
-            }}
-          />
-        </Form.Item>
+        />
       </Form>
       <div className={isEdit ? "editButtons" : "buttons"}>
         <Button

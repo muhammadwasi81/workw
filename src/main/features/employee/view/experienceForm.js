@@ -1,5 +1,6 @@
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import {
+  Avatar,
   Button,
   Checkbox,
   DatePicker,
@@ -20,6 +21,9 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getUserWorkExperience } from "../../experienceInfo/store/actions";
 import moment from "moment";
+import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
+import { getNameForImage } from "../../../../utils/base";
+import { getCities } from "../../../../utils/Shared/store/actions";
 
 const { RangePicker } = DatePicker;
 
@@ -45,6 +49,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
     enumerable: true,
     configurable: true,
   });
+  const [city, setCity] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const [isPresent, setIsPresent] = useState(false);
@@ -57,13 +62,14 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
   const initialState = {
     position: "",
     employmentTypeId: "",
-    cityId: "",
+    cityId: [],
     startDate: "",
     isPresent: false,
   };
   const [initialValues, setInitialValues] = useState(initialState);
   const labels = employeesDictionary.WorkExperienceForm;
   const placeholder = employeesDictionary.placeholders;
+  const { cities } = useSelector((state) => state.sharedSlice);
 
   useEffect(() => {
     form.setFieldsValue(initialValues);
@@ -73,11 +79,14 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
   useEffect(() => {
     if (isEdit) {
       dispatch(getUserWorkExperience(id));
+      if (!cities.length) fetchCityData("", 0);
     }
   }, []);
+
   useEffect(() => {
     setWorkInfo([]);
   }, [isSubmit]);
+
   useEffect(() => {
     if (isEdit)
       setWorkInfo(
@@ -92,6 +101,9 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
       );
   }, [experiencedetails]);
 
+  const fetchCityData = (text, pgNo) => {
+    dispatch(getCities({ textData: text, page: pgNo }));
+  };
   const handleUpdate = () => {
     console.log("handle udpate");
   };
@@ -133,7 +145,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
       dataIndex: "cityId",
       key: "cityId",
       render: (value) => {
-        // return cities[value];
+        return city.filter((item) => item.id === value.toString())[0].name;
       },
     },
     {
@@ -223,7 +235,33 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
+
+        <CitySelect
+          data={cities}
+          selectedData={(val, obj) => {
+            setCity((preValues) => [...preValues, ...obj]);
+          }}
+          canFetchNow={cities && cities.length > 0}
+          fetchData={fetchCityData}
+          optionComponent={(opt) => {
+            return (
+              <>
+                <Avatar src={opt.image} className="!bg-black">
+                  {getNameForImage(opt.name)}
+                </Avatar>
+                {opt.name + " - " + opt.country}
+              </>
+            );
+          }}
+          defaultKey={"id"}
+          isObject={true}
+          placeholder={placeholder.searchToSelect}
+          size="large"
+          name="cityId"
+          label={labels.City}
+          rules={[{ required: true }]}
+        />
+        {/* <Form.Item
           rules={[
             {
               required: true,
@@ -233,7 +271,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
           label={labels.City}
         >
           <Input placeholder={placeholder.City}></Input>
-        </Form.Item>
+        </Form.Item> */}
         <div className="dates">
           {!isPresent && (
             <Form.Item
@@ -246,6 +284,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
               label={labels.StartEndDate}
             >
               <RangePicker
+                getPopupContainer={(trigger) => trigger.parentNode}
                 size="large"
                 format={"DD/MM/YYYY"}
                 placeholder={[placeholder.sDate, placeholder.eDate]}
@@ -264,6 +303,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
               label={labels.StartDate}
             >
               <DatePicker
+                getPopupContainer={(trigger) => trigger.parentNode}
                 format={"DD/MM/YYYY"}
                 placeholder={labels.start}
                 size="large"

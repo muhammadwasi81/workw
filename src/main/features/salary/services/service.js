@@ -7,17 +7,18 @@ const getAllEmployeeSalary_dto = (data) => {
 		"pageSize": data.pageSize ? data.pageSize : 20,
 		"search": data.search ? data.search : "",
 		"approverStatus": data.approverStatus ? data.approverStatus : [],
-		"sortBy": data.sortBy ? data.sortBy : 0,
+		"sortBy": data.sortBy ? data.sortBy : 1,
 		"filterType": data.filterType ? data.filterType : 0
 	}
 }
 const addMultipleEmployeeSalary_dto = (data = []) => {
 	return data.map((item) => ({
-		"userId": data.userId ? data.userId : null,
-		"basicSalary": data.basicSalary ? data.basicSalary : 0,
-		"description":  data.description ? data.description : "",
-		"netSalary": data.netSalary ? data.netSalary : 0,
-		"effectiveDate":  data.effectiveDate ? data.effectiveDate : null,
+		"userId": item.userId ? item.userId : null,
+		"basicSalary": item.basicSalary ? item.basicSalary : 0,
+		"description":  item.description ? item.description : "",
+		"netSalary": item.netSalary ? item.netSalary : 0,
+		"effectiveDate":  item.effectiveDate ? item.effectiveDate : null,
+		"isDefault":  item.isDefault ? item.isDefault : true,
 		"approvers": item.approvers ? item.approvers.map((approver)=>({
 			"approverId": approver.approverId ? approver.approverId : ""
 		})) : [],

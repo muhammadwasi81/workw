@@ -52,7 +52,7 @@ function DetailedView(props) {
 	const handleCancel = (e, payload) => {
 		e.preventDefault();
 		e.stopPropagation();
-		dispatch(cancelComplain(payload));
+		// dispatch(cancelComplain(payload));
 	};
 
 	console.log(updatedStatus, "STATUS");

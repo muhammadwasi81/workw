@@ -25,10 +25,6 @@ function NewTravelComposerDetail(props) {
 	const {
 		fetchCityData,
 		travelBy,
-		labels,
-		placeHolder,
-		Direction,
-		handleAttachmentsUpload,
 		onSelectCity,
 		onTravelDetailAdd,
 		travelDetails,
@@ -254,48 +250,6 @@ function NewTravelComposerDetail(props) {
 						</Button>
 					</div>
 				</div>
-
-				<Carousel
-					// afterChange={onCardSlide}
-					infinite={false}
-					prevArrow={<LeftOutlined />}
-					nextArrow={<RightOutlined />}
-					slidesToShow={1}
-					dots={true}
-					arrows
-				>
-					{travelDetails.map((travel, index) => (
-						<div className="carrouselbox">
-							<NewTravelDetailCard
-								key={index}
-								travel={travel}
-								index={index}
-								// onClick={onClick}
-								isCloseable={true}
-							/>
-						</div>
-					))}
-				</Carousel>
-
-				<Form.Item
-					name="specialRequest"
-					direction={Direction}
-					label={labels.specialRequest}
-				>
-					<Input.TextArea
-						style={{ borderRadius: "5px" }}
-						placeholder={placeHolder.specialRequestPh}
-						rows={4}
-					/>
-				</Form.Item>
-				<Form.Item direction={Direction} label={labels.attachments}>
-					<SingleUpload
-						handleImageUpload={handleAttachmentsUpload}
-						uploadText={labels.upload}
-						multiple={true}
-						position={"flex-start"}
-					/>
-				</Form.Item>
 			</Form>
 		</>
 	);

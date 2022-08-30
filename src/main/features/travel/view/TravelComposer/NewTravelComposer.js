@@ -34,6 +34,7 @@ import {
 } from "../../../../../utils/Shared/store/actions";
 import { getNameForImage } from "../../../../../utils/base";
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import NewTravelDetailCard from "../UI/NewTravelDetailCard";
 
 const initialState = {
 	subject: "",
@@ -250,8 +251,6 @@ function NewTravelComposer(props) {
 	// const [form] = Form.useForm();
 	const onFinishForm = (travelVal, travelDetailVal) => {
 		// console.log("form.travelForm", travelVal, travelDetailVal);
-		if (travelDetailVal) {
-		}
 	};
 	const onSelectCity = (name, objVal) => {
 		setCities({
@@ -273,6 +272,7 @@ function NewTravelComposer(props) {
 				// console.log("forms", forms, values, name);
 				try {
 					const travelVal = await forms.travelForm.validateFields();
+					onFinishForm(travelVal, travelDetails);
 					// console.log("travel", travelVal);
 					// const travelDetailVal = await travelDetailForm.validateFields();
 					// onFinishForm(travelVal, travelDetailVal);
@@ -411,19 +411,58 @@ function NewTravelComposer(props) {
 					travelDetails={travelDetails}
 					labels={label}
 				/> */}
+					<NewTravelComposerDetail
+						key={0}
+						fetchCityData={fetchCityData}
+						travelBy={travelBy}
+						labels={labels}
+						placeHolder={placeHolder}
+						Direction={Direction}
+						handleAttachmentsUpload={handleAttachmentsUpload}
+						onSelectCity={onSelectCity}
+						onTravelDetailAdd={onTravelDetailAdd}
+					/>
+					<Carousel
+						// afterChange={onCardSlide}
+						infinite={false}
+						prevArrow={<LeftOutlined />}
+						nextArrow={<RightOutlined />}
+						slidesToShow={1}
+						dots={true}
+						arrows
+					>
+						{travelDetails.map((travel, index) => (
+							<div className="carrouselbox">
+								<NewTravelDetailCard
+									key={index}
+									travel={travel}
+									index={index}
+									// onClick={onClick}
+									isCloseable={true}
+								/>
+							</div>
+						))}
+					</Carousel>
+					<Form.Item
+						name="specialRequest"
+						direction={Direction}
+						label={labels.specialRequest}
+					>
+						<Input.TextArea
+							style={{ borderRadius: "5px" }}
+							placeholder={placeHolder.specialRequestPh}
+							rows={4}
+						/>
+					</Form.Item>
+					<Form.Item direction={Direction} label={labels.attachments}>
+						<SingleUpload
+							handleImageUpload={handleAttachmentsUpload}
+							uploadText={labels.upload}
+							multiple={true}
+							position={"flex-start"}
+						/>
+					</Form.Item>
 				</Form>
-				<NewTravelComposerDetail
-					key={0}
-					fetchCityData={fetchCityData}
-					travelBy={travelBy}
-					labels={labels}
-					placeHolder={placeHolder}
-					Direction={Direction}
-					handleAttachmentsUpload={handleAttachmentsUpload}
-					onSelectCity={onSelectCity}
-					onTravelDetailAdd={onTravelDetailAdd}
-					travelDetails={travelDetails}
-				/>
 
 				<Button
 					htmlType="submit"

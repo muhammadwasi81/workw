@@ -14,7 +14,7 @@ function NewTravelDetailCard(props) {
 	return (
 		<div className="bg-[#F4F4F4] rounded-lg w-[380px] text-primary-color">
 			<div className="flex flex-col justify-center p-4">
-				<div className="flex justify-between items-center px-2">
+				<div className="flex justify-between items-center ">
 					<div className="flex flex-col items-center ">
 						<span className="text-lg font-semibold">
 							{travel?.departure.name}
@@ -28,10 +28,9 @@ function NewTravelDetailCard(props) {
 						<span>{travel?.arrival.country}</span>
 					</div>
 				</div>
-				{/* <div className="flex justify-center">
-				</div> */}
-				<img src={FlyLocation} alt="" />
-				{/* <div className="logo"></div> */}
+				<div className="flex justify-center">
+					<img src={FlyLocation} alt="" />
+				</div>
 
 				<div className="flex items-center justify-between font-semibold">
 					<span>

@@ -59,8 +59,8 @@ const initialErrors = {
 };
 const initialTravelDetailState = {
 	reason: "",
-	departureId: null,
-	arrivalId: null,
+	departure: null,
+	arrival: null,
 	departureDate: moment().format("YYYY-MM-DD, h:mm"),
 	returnDate: moment().format("YYYY-MM-DD, h:mm"),
 	isHotelRequired: false,
@@ -71,17 +71,20 @@ const initialTravelDetailState = {
 function NewTravelComposer(props) {
 	const { label } = props;
 	const { labels, placeHolder, travelBy } = label;
-	// const [form] = Form.useForm();
 	// const [state, setState] = useState(initialState);
 	// const [stateCard, setStateCard] = useState(initialTravelDetailState);
 	// const [errors, setErrors] = useState(initialErrors);
 	// const [submit, setSubmit] = useState(false);
 	// const [docsData, setDocsData] = useState(null);
 	// const [isSubmit, setIsSubmit] = useState(false);
-	// const [travelDetails, setTravelDetails] = useState([]);
-	const { loader, success } = useSelector(state => state.travelSlice);
+	const [cities, setCities] = useState({
+		departure: null,
+		arrival: null,
+	});
+	const [travelDetails, setTravelDetails] = useState([]);
+	// const { loader, success } = useSelector(state => state.travelSlice);
 
-	const isTablet = useMediaQuery({ maxWidth: 650 });
+	// const isTablet = useMediaQuery({ maxWidth: 650 });
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
 	// const dispatch = useDispatch();
@@ -244,33 +247,49 @@ function NewTravelComposer(props) {
 	const handleAttachmentsUpload = files => {
 		console.log("files", files);
 	};
-	const [form] = Form.useForm();
-	// const onFinishForm = () => {
-	// 	console.log("form.travelForm", form.travelForm);
-	// };
+	// const [form] = Form.useForm();
+	const onFinishForm = (travelVal, travelDetailVal) => {
+		// console.log("form.travelForm", travelVal, travelDetailVal);
+		if (travelDetailVal) {
+		}
+	};
+	const onSelectCity = (name, objVal) => {
+		setCities({
+			...cities,
+			[name]: objVal[0],
+		});
+	};
+
+	const onTravelDetailAdd = values => {
+		// setTravelDetails()
+		let tempObj = { ...values, ...cities };
+		setTravelDetails(prevTravel => [...prevTravel, tempObj]);
+	};
+
 	return (
 		<Form.Provider
 			onFormFinish={async (name, { values, forms }) => {
-				console.log("name", name);
-				console.log("forms", forms, values, name);
+				// console.log("name", name);
+				// console.log("forms", forms, values, name);
 				try {
-					const { travelForm, travelDetailForm } = forms;
-					// console.log("travelde", travelDetailForm);
-					travelForm.validateFields();
-					const isValidated = await travelDetailForm.validateFields();
-					// console.log("isValidated", isValidated);
+					const travelVal = await forms.travelForm.validateFields();
+					// console.log("travel", travelVal);
+					// const travelDetailVal = await travelDetailForm.validateFields();
+					// onFinishForm(travelVal, travelDetailVal);
 				} catch (error) {}
+				if (travelDetails.length === 0) {
+					try {
+						const travelDetailVal = await forms.travelDetailForm.validateFields();
+						// console.log("detail", travelDetailVal);
+					} catch (error) {}
+				}
 			}}
 			key={1}
 		>
 			<Form>
 				<Form
-					className="travel-composer !rounded-b-none"
-					// onFinish={values => {
-					// 	console.log("travelForm:", form.getFieldsValue(true));
-					// }}
+					className="travel-composer"
 					layout="vertical"
-					// form={form}
 					dir={Direction}
 					name="travelForm"
 				>
@@ -392,29 +411,6 @@ function NewTravelComposer(props) {
 					travelDetails={travelDetails}
 					labels={label}
 				/> */}
-
-					{/* <TravelCard>
-					<Carousel
-						afterChange={onCardSlide}
-						infinite={false}
-						prevArrow={<LeftOutlined />}
-						nextArrow={<RightOutlined />}
-						slidesToShow={1}
-						dots={true}
-						arrows
-					>
-						{travelDetails.map((travel, index) => (
-							<div className="carrouselbox">
-								<TravelDetailCard
-									travel={travel}
-									index={index}
-									onClick={onClick}
-									isCloseable={true}
-								/>
-							</div>
-						))}
-					</Carousel>
-				</TravelCard> */}
 				</Form>
 				<NewTravelComposerDetail
 					key={0}
@@ -424,7 +420,11 @@ function NewTravelComposer(props) {
 					placeHolder={placeHolder}
 					Direction={Direction}
 					handleAttachmentsUpload={handleAttachmentsUpload}
+					onSelectCity={onSelectCity}
+					onTravelDetailAdd={onTravelDetailAdd}
+					travelDetails={travelDetails}
 				/>
+
 				<Button
 					htmlType="submit"
 					className="ThemeBtn"

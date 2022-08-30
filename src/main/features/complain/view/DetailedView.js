@@ -32,7 +32,7 @@ function DetailedView(props) {
 	];
 	const { user } = useSelector(state => state.userSlice);
 	const { complainDetail } = useSelector(state => state.complainSlice);
-
+	const dispatch = useDispatch();
 	const [updatedStatus, setUpdatedStatus] = useState();
 
 	const {

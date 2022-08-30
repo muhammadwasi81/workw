@@ -11,17 +11,21 @@ import { responseMessageType } from '../../../../../services/slices/notification
 import { getAllEmployees, getAllEmployeeShort } from '../../../../../utils/Shared/store/actions';
 import { createGuid } from '../../../../../utils/base';
 import { getAllAllowance } from '../../../allowance/store/actions';
+import { addMultipleEmployeeSalary } from '../../store/actions';
+import { useNavigate } from 'react-router-dom';
 
 const CreateSalaryVoucher = ({ defaultRows }) => {
   const defaultEntry = {
     effectiveDate: moment(),
-    employee: "",
+    userId: "",
     grade: "",
     basicSalary: 0,
+    allowance: 0,
     allowance: 0,
     deduction: 0,
     netSalary: 0,
     approvers: [],
+    details: [],
     description: "",
     id: createGuid()
   }
@@ -32,6 +36,7 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
   const [isFirstTime, setIsFirstTime] = useState(true);
   const success = useSelector(state => state.voucherSlice.success);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const employeesData = useSelector(state => state.sharedSlice.employees);
   const employeesShortData = useSelector(state => state.sharedSlice.employeeShort);
   const allowanceData = useSelector((state) => state.allowanceSlice.allowances);
@@ -87,18 +92,12 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
     tempEntries[index] = data;
     setEntries(tempEntries)
   }
-  const createPayload = () => {
-    let payload = {
-
-    };
-    return payload;
-  }
 
   const handleSubmit = () => {
-    let payload = createPayload();
-    // dispatch(addVoucher(payload));
+    let filteredEntries = entries.filter(item => item.userId)
+    dispatch(addMultipleEmployeeSalary({ navigate: navigate, salaries: filteredEntries }));
   }
-console.log(entries)
+  console.log(entries)
   return (
     <div className='createEntryTable' >
 
@@ -137,11 +136,11 @@ console.log(entries)
       <div className='bg-white p-4 rounded-md flex w-full justify-between mt-5 sticky bottom-2' >
 
         <div>
-          <Button className='ThemeBtn mr-2' onClick={() => setEntries(Array(defaultRows).fill(defaultEntry))} >
+          {/* <Button className='ThemeBtn mr-2' onClick={() => setEntries(Array(defaultRows).fill(defaultEntry))} >
             Clear
-          </Button>
+          </Button> */}
           <Button className='ThemeBtn mr-2' onClick={handleSubmit} >
-            Save
+            Create Salary
           </Button>
         </div>
 

@@ -1,5 +1,5 @@
 import { createSlice, isPending } from "@reduxjs/toolkit"
-import { addMultipleEmployeeSalary, addVoucher, getAllEmployeeSalary, getEmployeeSalaryDetail } from "./actions";
+import { addMultipleEmployeeSalary, getAllEmployeeSalary, getEmployeeSalaryDetail } from "./actions";
 
 const initialState = {
    editData: null,
@@ -20,7 +20,7 @@ export const VoucherSlice = createSlice({
          .addCase(addMultipleEmployeeSalary.fulfilled, (state, { payload }) => {
             state.loader = false;
             state.success = true;
-            state.salaryList = [...state.salaryList, payload]
+            state.salaryList = [...state.salaryList, ...payload]
          })
          .addCase(getEmployeeSalaryDetail.fulfilled, (state, { payload }) => {
             state.salaryDetail = payload;
@@ -34,7 +34,7 @@ export const VoucherSlice = createSlice({
          })
          .addMatcher(
             isPending(
-               ...[ addVoucher ]
+               ...[ addMultipleEmployeeSalary ]
             ),
             state => {
                state.loader = true;

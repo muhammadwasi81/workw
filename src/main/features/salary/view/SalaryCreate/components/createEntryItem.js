@@ -1,6 +1,6 @@
 import { DatePicker, Select } from 'antd';
 import { Option } from 'antd/lib/mentions';
-import React from 'react';
+import React, { useState } from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 import { getAllEmployees } from '../../../../../../utils/Shared/store/actions';
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
@@ -20,17 +20,18 @@ const CreateEntryItem = ({
   employeesShortData = [],
   allowanceData = []
 }) => {
-
   const handleInputChange = (e) => {
     handleChange(e.target.value, e.target.name, index)
   }
   const onEmployeeSelect = (row) => {
-    // console.log(row, "row")
-    let { gradeId, grade } = row[0];
-    let { totalAllowance, totalDeductions } = calculateAllowance(allowanceData, grade, value.basicSalary);
+    let { gradeId, grade, id } = row[0];
+    let { totalAllowance, totalDeductions, details } = calculateAllowance(allowanceData, gradeId, value.basicSalary);
     let tempValue = {
       ...value,
+      userId: id,
+      details,
       grade,
+      gradeId,
       allowance: totalAllowance,
       deduction: totalDeductions,
       netSalary: (value.basicSalary) + totalAllowance - totalDeductions
@@ -41,9 +42,10 @@ const CreateEntryItem = ({
   }
   const onChangeSalary = (salaryInput) => {
     // console.log(row, "row")
-    let { totalAllowance, totalDeductions } = calculateAllowance(allowanceData, value.grade, salaryInput);
+    let { totalAllowance, totalDeductions, details } = calculateAllowance(allowanceData, value.gradeId, salaryInput);
     let tempValue = {
       ...value,
+      details,
       allowance: totalAllowance,
       basicSalary: Number(salaryInput),
       deduction: totalDeductions,
@@ -116,7 +118,7 @@ const CreateEntryItem = ({
         <CustomSelect
           style={{ marginBottom: "0px" }}
           data={employeesData}
-          selectedData={(value, row) => console.log(row)}
+          selectedData={(value, row) => handleChange(row.map(item => ({ approverId: item.id })), "approvers", index)}
           canFetchNow={employeesData && employeesData.length > 0}
           fetchData={fetchEmployees}
           placeholder={"Approvers"}
@@ -124,6 +126,7 @@ const CreateEntryItem = ({
           isObject={true}
           size="small"
           loadDefaultData={false}
+          formItem={false}
           optionComponent={opt => {
             return (
               <>

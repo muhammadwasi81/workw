@@ -16,7 +16,7 @@ function ProfileDetailView(props) {
 				<span className="text-primary-color font-bold text-sm">
 					{props.name}
 				</span>
-				<span className="flex items-center text-center text-xs sm:text-sm">
+				<span className="flex items-center text-center text-xs text-slate-500">
 					{props.destination}&nbsp;&#9679;&nbsp;
 					{moment(props.createDate).fromNow()}
 					&nbsp;&#9679;&nbsp;

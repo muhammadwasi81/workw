@@ -1,8 +1,7 @@
 import moment from "moment";
 import React from "react";
 import FlyLocation from "../../../../../content/svg/travel-location.svg";
-// import FlyLocation from "../../../../../content/svg/fly_location.svg";
-// import "./card.css";
+
 function NewTravelDetailCard(props) {
 	const { travel } = props;
 	const travelObj = {
@@ -12,20 +11,32 @@ function NewTravelDetailCard(props) {
 		4: "By Train",
 	};
 	return (
-		<div className="bg-[#F4F4F4] rounded-lg w-[380px] text-primary-color">
+		<div className={`bg-[#F4F4F4] rounded-lg w-[380px] text-primary-color`}>
 			<div className="flex flex-col justify-center p-4">
 				<div className="flex justify-between items-center ">
 					<div className="flex flex-col items-center ">
 						<span className="text-lg font-semibold">
-							{travel?.departure.name}
+							{travel?.departure.name
+								? travel.departure.name
+								: travel.departure}
 						</span>
-						<span>{travel?.departure.country}</span>
+						<span>
+							{travel?.departure.country
+								? travel.departure.country
+								: travel.departureCountry}
+						</span>
 					</div>
 					<div className="flex flex-col items-center ">
 						<span className="text-lg font-semibold">
-							{travel?.arrival.name}
+							{travel?.arrival.name
+								? travel.arrival.name
+								: travel.arrival}
 						</span>
-						<span>{travel?.arrival.country}</span>
+						<span>
+							{travel?.arrival.country
+								? travel.arrival.country
+								: travel.arrivalCountry}
+						</span>
 					</div>
 				</div>
 				<div className="flex justify-center">

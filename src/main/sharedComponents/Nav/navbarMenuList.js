@@ -289,7 +289,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.payroll,
       counter: 0,
-      to: ROUTES.FINANCE.REPORT.ROOT,
+      to: ROUTES.PAYROLL.ROOT,
       icon: reportIcon,
       isActive: true,
       key: label.navMenuLabel.finance,

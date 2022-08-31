@@ -2,7 +2,7 @@ import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "/api/Group/";
 
 export const getAllGroupService = data => {
-	return MasterConfig.get(`${API_PREFIX}GetAllGroup`)
+	return MasterConfig.post(`${API_PREFIX}GetAllGroup`, data)
 		.then(res => {
 			return res.data;
 		})

@@ -4,7 +4,7 @@ import TravelComposer from "./TravelComposer/TravelComposer";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import { buttonsEnum } from "../enums/enums";
-import NewTravelComposer from "./TravelComposer/NewTravelComposer";
+// import NewTravelComposer from "./TravelComposer/NewTravelComposer";
 
 function Header(props) {
 	const { label } = props;

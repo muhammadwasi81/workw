@@ -194,7 +194,7 @@ export class Table extends React.Component {
 		}
 		if (
 			JSON.stringify(prevState.columns) !==
-			JSON.stringify(this.state.columns) &&
+				JSON.stringify(this.state.columns) &&
 			!this.state.isColumnPopulated
 		) {
 			const { columns: col } = this.props;
@@ -228,9 +228,9 @@ export class Table extends React.Component {
 			}
 		}
 		if (
-			JSON.stringify(prevProps.data) !==
-			JSON.stringify(this.props.data)
+			JSON.stringify(prevProps.data) !== JSON.stringify(this.props.data)
 		) {
+			this.componentDidMount();
 			this.setState(
 				produce(state => {
 					state.data = this.props.data;
@@ -268,14 +268,21 @@ export class Table extends React.Component {
 								onChange={handleChange}
 								locale={{
 									emptyText: loading ? (
-										Array(13).fill(1).map(() => <Skeleton.Input
-											active="true"
-											size="medium"
-											block={true}
-											round="true"
-											shape="circle"
-											style={{ width: "100%", margin: "8px 0px" }}
-										/>)
+										Array(13)
+											.fill(1)
+											.map(() => (
+												<Skeleton.Input
+													active="true"
+													size="medium"
+													block={true}
+													round="true"
+													shape="circle"
+													style={{
+														width: "100%",
+														margin: "8px 0px",
+													}}
+												/>
+											))
 									) : (
 										<Empty />
 									),
@@ -320,7 +327,7 @@ Table.propTypes = {
 Table.defaultProps = {
 	dragable: false,
 	columns: [],
-	handleChange: () => { },
-	onPageChange: () => { },
-	onRow: () => { },
+	handleChange: () => {},
+	onPageChange: () => {},
+	onRow: () => {},
 };

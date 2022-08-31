@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
 	responseMessage,
 	responseMessageType,
@@ -17,19 +18,23 @@ export const addTravel = createAsyncThunk(
 		const res = await addTravelService(data);
 		if (res.responseCode === responseCode.Success) {
 			// console.log("success");
-			responseMessage({
-				dispatch: dispatch,
-				data: res,
-				type: responseMessageType.ApiSuccess,
-			});
+			dispatch(
+				openNotification({
+					message: "Travel Created Successfully",
+					type: "success",
+					duration: 2,
+				})
+			);
 			return res;
 		} else {
 			// console.log("error");
-			responseMessage({
-				dispatch: dispatch,
-				data: res,
-				type: responseMessageType.ApiFailure,
-			});
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
 			return rejectWithValue(res.message);
 		}
 		// console.log("response after sending", res);

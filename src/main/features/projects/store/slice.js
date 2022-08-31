@@ -1,10 +1,17 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { getAllProjects } from "./actions";
+import {
+	addProject,
+	getAllProjects,
+	getProjectById,
+	updateProject,
+} from "./actions";
 
 const initialState = {
 	projects: [],
 	loadingData: false,
 	loader: true,
+	success: false,
+	error: false,
 	projectDetail: null,
 };
 
@@ -13,18 +20,62 @@ const projectSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
-		builder.addCase(getAllProjects.fulfilled, (state, action) => {
-			state.projects = action.payload ? action.payload.data : [];
-			state.loader = false;
-		});
+		builder
+			.addCase(getAllProjects.fulfilled, (state, action) => {
+				state.projects = action.payload ? action.payload.data : [];
+				state.loader = false;
+				state.success = true;
+			})
+			.addCase(addProject.fulfilled, (state, action) => {
+				// state.projects = action.payload ? action.payload.data : [];
+				console.log("add project", action.payload);
+				state.loader = false;
+				state.success = true;
+			})
+			.addCase(getProjectById.fulfilled, (state, action) => {
+				// state.projects = action.payload ? action.payload.data : [];
+				console.log("project by id", action.payload);
+				state.loader = false;
+				state.success = true;
+			})
+			.addCase(updateProject.fulfilled, (state, action) => {
+				// state.projects = action.payload ? action.payload.data : [];
+				console.log("update", action.payload);
+				state.loader = false;
+				state.success = true;
+			});
 
 		builder
-			.addMatcher(isPending(...[getAllProjects]), state => {
-				state.loader = true;
-			})
-			.addMatcher(isRejected(...[getAllProjects]), state => {
-				state.loader = false;
-			});
+			.addMatcher(
+				isPending(
+					...[
+						getAllProjects,
+						addProject,
+						getProjectById,
+						updateProject,
+					]
+				),
+				state => {
+					state.loader = true;
+					state.error = false;
+					state.success = false;
+				}
+			)
+			.addMatcher(
+				isRejected(
+					...[
+						getAllProjects,
+						addProject,
+						getProjectById,
+						updateProject,
+					]
+				),
+				state => {
+					state.loader = false;
+					state.error = true;
+					state.success = false;
+				}
+			);
 	},
 });
 

@@ -45,7 +45,14 @@ const Groups = props => {
 	);
 
 	useEffect(() => {
-		dispatch(getAllGroup());
+		dispatch(
+			getAllGroup({
+				pageNo: 1,
+				pageSize: 20,
+				search: "",
+				sortBy: 1,
+			})
+		);
 	}, []);
 	const handleClickNavigation = id => {
 		navigate(`${ROUTES.GROUP.DETAIL}`);

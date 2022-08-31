@@ -6,7 +6,7 @@ import { openNotification } from "../../../../utils/Shared/store/slice";
 export const getAllGroup = createAsyncThunk(
 	"getAllGroup",
 	async (data, { dispatch, getState, rejectWithValue }) => {
-		const res = await getAllGroupService();
+		const res = await getAllGroupService(data);
 		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {
@@ -27,13 +27,7 @@ export const addGroup = createAsyncThunk(
 					duration: 2,
 				})
 			);
-			// dispatch(
-			// 	getAllGroup({
-			// 		pageNo: 0,
-			// 		pageSize: 0,
-			// 		search: "",
-			// 	})
-			// );
+
 			return res;
 		} else {
 			dispatch(

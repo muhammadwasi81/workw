@@ -1,4 +1,5 @@
 import { EditFilled } from "@ant-design/icons";
+import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 const Edit = (handleEdit, row) => {
 	return (
 		<EditFilled
@@ -28,7 +29,8 @@ export const tableColumns = (handleEdit, Direction, table) => {
 			title: table.status,
 			dataIndex: "status",
 			sort: true,
-			tag: true,
+			// tag: true,
+			render: status => <StatusTag status={status} />,
 			width: 200,
 		},
 		{
@@ -45,7 +47,8 @@ export const tableColumns = (handleEdit, Direction, table) => {
 		{
 			title: table.agentStatus,
 			dataIndex: "agentStatus",
-			tag: true,
+			render: status => <StatusTag status={status} />,
+			// tag: true,
 			width: 200,
 		},
 		{

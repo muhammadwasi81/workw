@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import BankForm from '../employee/view/bankDetailForm'
-import * as S from "../employee/view/updateEmployee/styles/employee.style";
+import React from "react";
+import { useParams } from "react-router-dom";
+import BankForm from "../employee/view/bankDetailForm";
 
 function Index() {
-  const [bankInfo, setBankInfo] = useState([]);
-
-
-  return (
-      <S.Container className='bankDetailForm'>
-        <BankForm onBankInfo={setBankInfo} bankInfo={bankInfo} isEdit={true} />
-      </S.Container>
-  )
+  const { id } = useParams();
+  return <BankForm id={id} mode="edit" />;
 }
 
-export default Index
+export default Index;

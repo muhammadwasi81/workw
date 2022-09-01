@@ -36,7 +36,7 @@ function Task() {
   const [filterType, setFilterType] = useState(2);
   const [tableView, setTableView] = useState(false);
   const dispatch = useDispatch();
-  const taskList = useSelector((state) => state.taskSlice.taskList);
+  const { taskList, success } = useSelector((state) => state.taskSlice);
   useEffect(() => {
     dispatch(
       getAllTask({
@@ -58,6 +58,9 @@ function Task() {
       buttonText: taskDictionaryList.createTextBtn,
       render: (
         <SideDrawer
+          success={success}
+          isAccessDrawer={true}
+          openDrawer={success}
           children={<TaskComposer />}
           title={taskDictionaryList.createTextBtn}
           buttonText={taskDictionaryList.createTextBtn}

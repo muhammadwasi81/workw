@@ -60,6 +60,7 @@ const hindi = {
     complain: "स्वीकृति2",
     Submit: "स्वीकृति3",
     Delete: "स्वीकृति4",
+    Edit: "Edit",
     NotDesignated: "स्वीकृति5",
     Profile: "स्वीकृति6",
     Settings: "स्वीकृति7",

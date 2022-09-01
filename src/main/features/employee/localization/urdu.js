@@ -42,6 +42,7 @@ const urdu = {
       sortCode: "ترتیب کوڈ درج کریں",
     },
     EmployeeForm: {
+      UpdateBasicInfo: "Update BasicInfo",
       AddImage: "تصویر شامل کریں",
       FirstName: "پہلا نام",
       LastName: "آخری نام",
@@ -81,6 +82,9 @@ const urdu = {
       AddEmergency: "ایمرجنسی شامل کریں",
     },
     EducationForm: {
+      BasicInfo: "Basic Info",
+      AddEducation: "Add Education",
+      UpdateEducation: "Update Education",
       EducationInfo: "تعلیمی معلومات",
       Degree: "ڈگری",
       Institute: "انسٹی ٹیوٹ",
@@ -107,6 +111,7 @@ const urdu = {
       AddExperience: "تجربہ شامل کریں",
       EmploymentType: "ملازمت کی قسم",
       City: "شہر",
+      UpdateExperience: "Update Experience",
     },
     UserForm: {
       UserRights: "صارف کے حقوق",
@@ -114,6 +119,7 @@ const urdu = {
       UserRole: "صارف کا کردار",
     },
     BankForm: {
+      updateBank: "Update Bank",
       BankInfo: "بینک کی معلومات",
       BankName: "بینک کا نام",
       AccountTitle: "اکاؤنٹ ٹائٹل",
@@ -131,7 +137,7 @@ const urdu = {
       email: "ای میل",
       designation: "عہدہ",
     },
-    submit: "جمع کرائیں",
+    AddEmployee: "Add Employee",
   },
   /*** Define language write side ***/
   Direction: "rtl",

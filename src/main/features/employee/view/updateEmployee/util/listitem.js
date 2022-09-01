@@ -2,28 +2,29 @@ import { ROUTES } from "../../../../../../utils/routes";
 
 export const listitem = [
   {
-  	displayName: "Basic_Info",
-  	classObj: "button",
-    to: ROUTES.EMPLOYEES_INFO.BASIC_INFO,
+    displayName: "Basic_Info",
+    classObj: "button",
+    to: (id) => `/employees/info/basicInfo/${id}`,
   },
   {
-  	displayName: "Bank_Detail",
-  	classObj: "button",
-    to: ROUTES.EMPLOYEES_INFO.BANK_DETAIL,
+    displayName: "Bank_Detail",
+    classObj: "button",
+
+    to: (id) => `/employees/info/bankDetail/${id}`,
   },
   {
-  	displayName: "Education",
-  	classObj: "button",
-    to: ROUTES.EMPLOYEES_INFO.EDUCATION,
+    displayName: "Education",
+    classObj: "button",
+    to: (id) => `/employees/info/education/${id}`,
   },
   {
-  	displayName: "Emergency_Info",
-  	classObj: "button",
-    to: ROUTES.EMPLOYEES_INFO.EMERGENCY_INFO,
+    displayName: "Emergency_Info",
+    classObj: "button",
+    to: (id) => `/employees/info/emergencyInfo/${id}`,
   },
   {
-  	displayName: "Experience",
-  	classObj: "button",
-    to: ROUTES.EMPLOYEES_INFO.EXPERIENCE,
+    displayName: "Experience",
+    classObj: "button",
+    to: (id) => `/employees/info/experience/${id}`,
   },
 ];

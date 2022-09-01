@@ -15,9 +15,8 @@ export const salaryTableColumn = () => {
 			title: "Creator",
 			dataIndex: "creator",
 			ellipsis: true,
-			render: creator => (
-				<TagAvatar text={creator.name} img={creator.image} />
-			),
+			render: creator =>
+				<TagAvatar text={creator.name} img={creator.image} />,
 			sort: true,
 		},
 		{

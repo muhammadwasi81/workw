@@ -33,9 +33,8 @@ function Salaries() {
   const buttons = [
     {
       buttonText: "",
-      render: (
-        <Button className="ThemeBtn" onClick={() => navigate("create")} > Create Salary </Button>
-      ),
+      render: <Button className="ThemeBtn" onClick={() => navigate("create")} > Create Salary </Button>
+      ,
     }
   ];
   const filterButtons = [

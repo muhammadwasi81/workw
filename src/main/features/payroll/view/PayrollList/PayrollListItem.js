@@ -68,23 +68,23 @@ function PayrollList(props) {
         <div className="cardSections">
 
           <div className="cardSectionItem">
-            <div className="cardSection__title">Salary For</div>
+            <div className="cardSection__title">Employees</div>
             <div className="cardSection__body">Syed Danish</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Effective Date</div>
+            <div className="cardSection__title">Disperse Date</div>
             <div className="cardSection__body">06-March-2020</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Basic Salary</div>
-            <div className="cardSection__body">45,0000</div>
+            <div className="cardSection__title">Month</div>
+            <div className="cardSection__body">September</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Allowances</div>
-            <div className="cardSection__body">45,0000</div>
+            <div className="cardSection__title">Year</div>
+            <div className="cardSection__body">2022</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Net Salary</div>
+            <div className="cardSection__title">Total Amount</div>
             <div className="cardSection__body">45,0000</div>
           </div>
           <div className="cardSectionItem">

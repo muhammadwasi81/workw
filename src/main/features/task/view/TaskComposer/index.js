@@ -104,7 +104,7 @@ function TaskComposer() {
       members:
         taskType === "self"
           ? []
-          : employeesData.map((item) => ({ memberId: item.id })),
+          : employeesData.map((item) => ({ memberId: item.memberId })),
       attachments: attachments,
     };
     dispatch(addNewTask(requestData));
@@ -267,6 +267,13 @@ function TaskComposer() {
           {type === "1" ? (
             <Form.Item label={labels.assignTo} name="assign">
               <MemberSelect
+                onDeselect={(value) => {
+                  let memberArr = [...employeesData];
+                  memberArr = memberArr.filter((item) => item.id !== value);
+                  setEmployeesData(memberArr);
+                  form.setFieldValue("assign", memberArr);
+                  form.setFieldValue("assign", memberArr);
+                }}
                 name="managerId"
                 mode="multiple"
                 formItem={false}
@@ -298,6 +305,12 @@ function TaskComposer() {
                 size="large"
                 getPopupContainer={(trigger) => trigger.parentNode}
                 placeholder={placeHolder.selectAssign}
+                onDeselect={(value) => {
+                  let memberArr = [...employeesData];
+                  memberArr = memberArr.filter((item) => item.id !== value);
+                  setEmployeesData(memberArr);
+                  form.setFieldValue("assign", memberArr);
+                }}
               >
                 {employeesData.map((item, index) => {
                   return (
@@ -306,6 +319,13 @@ function TaskComposer() {
                       value={item?.id}
                       className="hover:!bg-primary-color hover:!text-white"
                     >
+                      <Avatar
+                        src={item.member.image}
+                        className="!bg-black flex !mr-1ss"
+                      >
+                        {getNameForImage(item.member.name)}
+                      </Avatar>
+
                       {item?.member?.name}
                     </Option>
                   );

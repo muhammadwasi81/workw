@@ -7,8 +7,8 @@ import { ValidateAddMultipleSalary } from "../utils/validate";
 
 export const addMultipleEmployeeSalary = createAsyncThunk(
   "EmployeeSalary/addMultipleEmployeeSalary",
-  async (request, { rejectWithValue, dispatch }) => {
-    let validatePayload = ValidateAddMultipleSalary(request);
+  async ({ navigate, salaries }, { rejectWithValue, dispatch }) => {
+    let validatePayload = ValidateAddMultipleSalary(salaries);
     if (validatePayload.error) {
       responseMessage({
         dispatch: dispatch,
@@ -18,7 +18,7 @@ export const addMultipleEmployeeSalary = createAsyncThunk(
       return rejectWithValue(validatePayload.message)
     }
 
-    const response = await addMultipleEmployeeSalaryService(request);
+    const response = await addMultipleEmployeeSalaryService(salaries);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({
@@ -35,7 +35,7 @@ export const addMultipleEmployeeSalary = createAsyncThunk(
           type: "success",
           duration: 2
         }))
-        console.log(response)
+        navigate("/salary")
         return response.data;
       default:
         return null;
@@ -79,7 +79,7 @@ export const getAllEmployeeSalary = createAsyncThunk(
         });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
-        return response.data;
+        return response;
       default:
         return;
     }

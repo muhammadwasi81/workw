@@ -1,236 +1,37 @@
-import {
-	Avatar,
-	Button,
-	Carousel,
-	Checkbox,
-	DatePicker,
-	Form,
-	Input,
-	Typography,
-} from "antd";
+import { Avatar, Button, Carousel, Form, Input, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import TextAreaInput from "../../../../sharedComponents/Input/TextArea";
-import TextInput from "../../../../sharedComponents/Input/TextInput";
-import TravelCard from "../UI/TravelCard";
-import TravelDetailCard from "../UI/TravelDetailCard";
-import TravelComposerDetail from "./TravelComposerDetail";
 import moment from "moment";
-import * as S from "../../../employee/Styles/employee.style";
 import "./travel.css";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { validateEmail } from "../../../../../utils/Shared/helper/validateEmail";
-import { useMediaQuery } from "react-responsive";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addTravel } from "../../store/actions";
-import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
 import NewTravelComposerDetail from "./NewTravelComposerDetail";
 import {
 	getAllEmployees,
 	getCities,
 } from "../../../../../utils/Shared/store/actions";
-import { getNameForImage } from "../../../../../utils/base";
+import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-
-const initialState = {
-	subject: "",
-	description: "",
-	returnTicket: false,
-	approvers: [],
-	agents: [],
-	cities: [],
-	specialRequest: "",
-	id: defaultUiid,
-	// status: 0,
-	// approverStatus: 0,
-	// agentStatus: 0,
-	referenceId: defaultUiid,
-	referenceType: 0,
-	attachments: [],
-};
-const initialErrors = {
-	reason: false,
-	departureId: false,
-	arrivalId: false,
-	travelBy: false,
-};
-const initialTravelDetailState = {
-	reason: "",
-	departure: null,
-	arrival: null,
-	departureDate: moment().format("YYYY-MM-DD, h:mm"),
-	returnDate: moment().format("YYYY-MM-DD, h:mm"),
-	isHotelRequired: false,
-	isTADARequired: false,
-	travelById: null,
-};
+import NewTravelDetailCard from "../UI/NewTravelDetailCard";
 
 function NewTravelComposer(props) {
 	const { label } = props;
 	const { labels, placeHolder, travelBy } = label;
-	// const [state, setState] = useState(initialState);
-	// const [stateCard, setStateCard] = useState(initialTravelDetailState);
-	// const [errors, setErrors] = useState(initialErrors);
-	// const [submit, setSubmit] = useState(false);
-	// const [docsData, setDocsData] = useState(null);
-	// const [isSubmit, setIsSubmit] = useState(false);
 	const [cities, setCities] = useState({
 		departure: null,
 		arrival: null,
 	});
 	const [travelDetails, setTravelDetails] = useState([]);
-	// const { loader, success } = useSelector(state => state.travelSlice);
 
-	// const isTablet = useMediaQuery({ maxWidth: 650 });
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
-	// const dispatch = useDispatch();
-	// const onInputFieldChange = (value, name) => {
-	// 	setState({
-	// 		...state,
-	// 		[name]: value,
-	// 	});
-	// };
-	// const addTravelDetails = state => {
-	// 	setTravelDetails(prevTravel => [...prevTravel, ...state]);
-	// };
 
-	// const onFinish = values => {
-	// 	let cities = travelDetails.map(travel => {
-	// 		return {
-	// 			id: defaultUiid,
-	// 			reason: travel.reason,
-	// 			departureId: JSON.parse(travel.departureId).id,
-	// 			arrivalId: JSON.parse(travel.arrivalId).id,
-	// 			departureDate: moment(travel.departureDate).format(),
-	// 			returnDate: moment(travel.returnDate).format(),
-	// 			travelById: travel.travelById,
-	// 			isTADARequired: travel.isTADARequired,
-	// 			isHotelRequired: travel.isHotelRequired,
-	// 		};
-	// 	});
-	// 	let approvers = values.approvers.map(approver => {
-	// 		return {
-	// 			approverId: approver,
-	// 			approverType: 0,
-	// 			isDefault: true,
-	// 			status: 0,
-	// 			email: "",
-	// 		};
-	// 	});
-	// 	let agents = values.agents.map(agent => {
-	// 		if (validateEmail(agent)) {
-	// 			return {
-	// 				approverId: defaultUiid,
-	// 				approverType: 0,
-	// 				isDefault: true,
-	// 				status: 0,
-	// 				email: agent,
-	// 			};
-	// 		}
-	// 		return {
-	// 			approverId: agent,
-	// 			approverType: 0,
-	// 			isDefault: true,
-	// 			status: 0,
-	// 			email: "",
-	// 		};
-	// 	});
-	// 	const { subject, description, specialRequest } = values;
-	// 	setState(prevState => ({
-	// 		...prevState,
-	// 		subject,
-	// 		description,
-	// 		specialRequest,
-	// 		approvers,
-	// 		agents,
-	// 		cities,
-	// 	}));
-	// 	setIsSubmit(true);
-	// 	// console.log("docsData", docsData);
-	// };
-	// const onCardSlide = e => {
-	// 	// console.log("slider", e);
-	// };
-
-	// const onClick = index => {
-	// 	const tempTravel = [...travelDetails];
-	// 	//   const index = tempTravel.indexOf(5);
-	// 	if (index != -1) {
-	// 		tempTravel.splice(index, 1); // remove number using index
-	// 	}
-	// 	setTravelDetails(tempTravel);
-	// };
-	// const checkValidation = () => {
-	// 	// if(travelDetails.length===0){}
-
-	// 	if (stateCard.reason.length === 0) {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			reason: true,
-	// 		}));
-	// 	} else {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			reason: false,
-	// 		}));
-	// 	}
-	// 	if (stateCard.arrivalId === null) {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			arrivalId: true,
-	// 		}));
-	// 	} else {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			arrivalId: false,
-	// 		}));
-	// 	}
-	// 	if (stateCard.departureId === null) {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			departureId: true,
-	// 		}));
-	// 	} else {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			departureId: false,
-	// 		}));
-	// 	}
-	// 	if (stateCard.travelById === null) {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			travelBy: true,
-	// 		}));
-	// 	} else {
-	// 		setErrors(prevErrors => ({
-	// 			...prevErrors,
-	// 			travelBy: false,
-	// 		}));
-	// 	}
-	// 	setSubmit(true);
-	// };
-	// const onFormSubmit = () => {
-	// 	form.submit();
-	// 	if (travelDetails.length === 0) {
-	// 		checkValidation();
-	// 	}
-	// };
-	// const handleDocsUpload = data => {
-	// 	setDocsData(data);
-	// };
-
-	// useEffect(() => {
-	// 	if (isSubmit) {
-	// 		dispatch(addTravel(state));
-	// 		form.resetFields();
-	// 		setTravelDetails([]);
-	// 		setIsSubmit(false);
-	// 	}
-	// }, [isSubmit]);
+	const [docs, setDocs] = useState();
 	const dispatch = useDispatch();
 	useEffect(() => {
 		fetchEmployees("", 1);
@@ -243,15 +44,79 @@ function NewTravelComposer(props) {
 		dispatch(getCities({ textData: text, page: pgNo }));
 	};
 	const employees = useSelector(state => state.sharedSlice.employees);
+	const loading = useSelector(state => state.travelSlice.loader);
 
 	const handleAttachmentsUpload = files => {
-		console.log("files", files);
+		setDocs(files);
 	};
-	// const [form] = Form.useForm();
 	const onFinishForm = (travelVal, travelDetailVal) => {
-		// console.log("form.travelForm", travelVal, travelDetailVal);
-		if (travelDetailVal) {
+		if (travelDetails.length === 0) {
+			message.error("Please add travel detail.");
+			return;
 		}
+		const cities = travelDetails.map(travel => {
+			return {
+				id: defaultUiid,
+				reason: travel.reason,
+				departureId: travel.departureId,
+				arrivalId: travel.arrivalId,
+				departureDate: moment(travel.departureDate).format(),
+				returnDate: moment(travel.returnDate).format(),
+				travelById: travel.travelById,
+				isTADARequired: travel.isTADARequired,
+				isHotelRequired: travel.isHotelRequired,
+			};
+		});
+		const approvers = travelVal.approvers.map(approver => {
+			return {
+				approverId: approver,
+				// approverType: 0,
+				// isDefault: true,
+				// status: 0,
+				// email: "",
+			};
+		});
+		const agents = travelVal.agents.map(agent => {
+			if (validateEmail(agent)) {
+				return {
+					approverId: defaultUiid,
+					// approverType: 0,
+					// isDefault: true,
+					// status: 0,
+					// email: agent,
+				};
+			}
+			return {
+				approverId: agent,
+				// approverType: 0,
+				// isDefault: true,
+				// status: 0,
+				// email: "",
+			};
+		});
+		const { subject, description, specialRequest } = travelVal;
+		let attachments;
+		if (docs?.length > 0) {
+			attachments = docs.map(file => {
+				return {
+					id: defaultUiid,
+					file: file.originFileObj,
+				};
+			});
+		}
+		dispatch(
+			addTravel(
+				jsonToFormData({
+					subject,
+					description,
+					specialRequest,
+					approvers,
+					agents,
+					cities,
+					attachments,
+				})
+			)
+		);
 	};
 	const onSelectCity = (name, objVal) => {
 		setCities({
@@ -261,26 +126,35 @@ function NewTravelComposer(props) {
 	};
 
 	const onTravelDetailAdd = values => {
-		// setTravelDetails()
+		let tempArr = [];
 		let tempObj = { ...values, ...cities };
-		setTravelDetails(prevTravel => [...prevTravel, tempObj]);
+
+		tempArr.push(tempObj);
+
+		if (values.return) {
+			let tempObj;
+			tempObj = { ...values };
+			tempObj.returnDate = values.departureDate;
+			tempObj.departure = cities.arrival;
+			tempObj.arrival = cities.departure;
+			tempObj.departureDate = values.returnDate;
+			tempObj.arrivalId = values.departureId;
+			tempObj.departureId = values.arrivalId;
+			tempArr.push(tempObj);
+		}
+		setTravelDetails(prevTravel => [...prevTravel, ...tempArr]);
 	};
 
 	return (
 		<Form.Provider
 			onFormFinish={async (name, { values, forms }) => {
-				// console.log("name", name);
-				// console.log("forms", forms, values, name);
 				try {
 					const travelVal = await forms.travelForm.validateFields();
-					// console.log("travel", travelVal);
-					// const travelDetailVal = await travelDetailForm.validateFields();
-					// onFinishForm(travelVal, travelDetailVal);
+					onFinishForm(travelVal, travelDetails);
 				} catch (error) {}
 				if (travelDetails.length === 0) {
 					try {
-						const travelDetailVal = await forms.travelDetailForm.validateFields();
-						// console.log("detail", travelDetailVal);
+						await forms.travelDetailForm.validateFields();
 					} catch (error) {}
 				}
 			}}
@@ -398,38 +272,64 @@ function NewTravelComposer(props) {
 						]}
 						label={labels.agent}
 					/>
-					{/* <TravelComposerDetail
-					addTravelDetails={addTravelDetails}
-					errors={errors}
-					setErrors={setErrors}
-					initialState={initialTravelDetailState}
-					state={stateCard}
-					setState={setStateCard}
-					checkValidation={checkValidation}
-					submit={submit}
-					setSubmit={setSubmit}
-					travelDetails={travelDetails}
-					labels={label}
-				/> */}
+					<NewTravelComposerDetail
+						key={0}
+						fetchCityData={fetchCityData}
+						travelBy={travelBy}
+						labels={labels}
+						placeHolder={placeHolder}
+						Direction={Direction}
+						handleAttachmentsUpload={handleAttachmentsUpload}
+						onSelectCity={onSelectCity}
+						onTravelDetailAdd={onTravelDetailAdd}
+					/>
+					<Carousel
+						// afterChange={onCardSlide}
+						infinite={false}
+						prevArrow={<LeftOutlined />}
+						nextArrow={<RightOutlined />}
+						slidesToShow={1}
+						dots={true}
+						arrows
+					>
+						{travelDetails.map((travel, index) => (
+							<div className="carrouselbox">
+								<NewTravelDetailCard
+									key={index}
+									travel={travel}
+									index={index}
+									// onClick={onClick}
+									isCloseable={true}
+								/>
+							</div>
+						))}
+					</Carousel>
+					<Form.Item
+						name="specialRequest"
+						direction={Direction}
+						label={labels.specialRequest}
+					>
+						<Input.TextArea
+							style={{ borderRadius: "5px" }}
+							placeholder={placeHolder.specialRequestPh}
+							rows={4}
+						/>
+					</Form.Item>
+					<Form.Item direction={Direction} label={labels.attachments}>
+						<SingleUpload
+							handleImageUpload={handleAttachmentsUpload}
+							uploadText={labels.upload}
+							multiple={true}
+							position={"flex-start"}
+						/>
+					</Form.Item>
 				</Form>
-				<NewTravelComposerDetail
-					key={0}
-					fetchCityData={fetchCityData}
-					travelBy={travelBy}
-					labels={labels}
-					placeHolder={placeHolder}
-					Direction={Direction}
-					handleAttachmentsUpload={handleAttachmentsUpload}
-					onSelectCity={onSelectCity}
-					onTravelDetailAdd={onTravelDetailAdd}
-					travelDetails={travelDetails}
-				/>
 
 				<Button
 					htmlType="submit"
 					className="ThemeBtn"
 					block
-					// onClick={onFinishForm}
+					loading={loading}
 				>
 					Submit
 				</Button>

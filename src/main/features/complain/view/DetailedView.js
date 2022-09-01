@@ -49,11 +49,11 @@ function DetailedView(props) {
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
-  const handleCancel = (e, payload) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dispatch(cancelComplain(payload));
-  };
+	const handleCancel = (e, payload) => {
+		e.preventDefault();
+		e.stopPropagation();
+		// dispatch(cancelComplain(payload));
+	};
 
 	console.log(updatedStatus, "STATUS");
 

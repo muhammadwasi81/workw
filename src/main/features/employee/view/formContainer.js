@@ -22,7 +22,7 @@ const EmployeeFormContainer = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { employeesDictionary } = employeeDictionaryList[userLanguage];
   const [profileImage, setProfileImage] = useState();
-  const [isSubmit, setIsSubmit] = useState(false);
+
   const { loader } = useSelector((state) => state.employeeSlice);
   const image = {
     image: {
@@ -34,16 +34,13 @@ const EmployeeFormContainer = () => {
     dispatch(getCountries());
     dispatch(getCities({ textData: "", page: 20 }));
   }, [dispatch]);
-  const handleIsSubmit = () => {
-    setIsSubmit(true);
-  };
+
   const onSubmit = (forms) => {
     const bankDetails = forms.bankDetails.values();
     const workInfo = forms.workInfo.values();
     const emergencyInfo = forms.emergencyInfo.values();
     const educationDetails = forms.educationDetails.values();
     const basicDetails = forms.basicInfo.values();
-    console.log(educationDetails, "educationDetails");
     const employeeData = {
       ...image,
       ...basicDetails,
@@ -57,7 +54,6 @@ const EmployeeFormContainer = () => {
       addEmployee({
         data: employeeData,
         resetAllFields: forms,
-        handleIsSubmit: handleIsSubmit,
       })
     );
   };
@@ -79,10 +75,10 @@ const EmployeeFormContainer = () => {
             profileImage={profileImage}
             handleImageUpload={(value) => setProfileImage(value)}
           />
-          <EducationForm isSubmit={isSubmit} />
-          <ExperienceForm isSubmit={isSubmit} />
-          <EmergencyForm isSubmit={isSubmit} />
-          <BankForm isSubmit={isSubmit} />
+          <EducationForm />
+          <ExperienceForm />
+          <EmergencyForm />
+          <BankForm />
           <Button
             loading={loader}
             size="large"

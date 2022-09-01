@@ -7,7 +7,10 @@ import {
 	getCities,
 } from "../../../utils/Shared/store/actions";
 import EmailSelect from "./SharedSelects/EmailSelect";
-import Avatar from "../Avatar/avatarOLD";
+// import Avatar from "../Avatar/avatarOLD";
+import MemberSelect from "./SharedSelects/MemberSelect";
+import { getNameForImage } from "../../../utils/base";
+import { Avatar } from "antd";
 
 function ExampleAntdCustomSelect() {
 	const dispatch = useDispatch();
@@ -20,6 +23,7 @@ function ExampleAntdCustomSelect() {
 	const [isFirstTimeCityDataLoaded, setIsFirstTimeCityDataLoaded] = useState(
 		false
 	);
+	const [resetField, setResetField] = useState(false);
 	useEffect(() => {
 		fetchCityData("", 0);
 		fetchEmployees("", 0);
@@ -36,7 +40,11 @@ function ExampleAntdCustomSelect() {
 			setFirstTimeCityData(cities);
 		}
 	}, [cities]);
-
+	useEffect(() => {
+		if (resetField) {
+			setResetField(false);
+		}
+	}, [resetField]);
 	const fetchCityData = (text, pgNo) => {
 		dispatch(getCities({ textData: text, page: pgNo }));
 	};
@@ -45,6 +53,7 @@ function ExampleAntdCustomSelect() {
 	};
 	const selectedData = (data, obj) => {
 		console.log("wrapper select data", data, obj);
+		setResetField(true);
 	};
 
 	if (!isFirstTimeDataLoaded) {
@@ -53,9 +62,44 @@ function ExampleAntdCustomSelect() {
 	if (!isFirstTimeCityDataLoaded) {
 		return;
 	}
+
+	// const selectedData = () => {};
 	return (
 		<div>
-			<CitySelect
+			<MemberSelect
+				data={employees}
+				selectedData={selectedData}
+				canFetchNow={employees && employees.length > 0}
+				fetchData={fetchEmployees}
+				// placeholder={placeHolder.agentPh}
+				mode={"multiple"}
+				isObject={true}
+				loadDefaultData={false}
+				optionComponent={opt => {
+					return (
+						<>
+							<Avatar src={opt.image} className="!bg-black">
+								{getNameForImage(opt.name)}
+							</Avatar>
+							{opt.name}
+						</>
+					);
+				}}
+				dataVal={[]}
+				formItem={false}
+				resetField={resetField}
+				// name="agents"
+				showSearch={true}
+				// direction={Direction}
+				// rules={[
+				// 	{
+				// 		required: true,
+				// 		message: "Please select agents!",
+				// 	},
+				// ]}
+				// label={labels.agent}
+			/>
+			{/* <CitySelect
 				data={firstTimeCityData}
 				selectedData={selectedData}
 				canFetchNow={isFirstTimeCityDataLoaded}
@@ -98,7 +142,7 @@ function ExampleAntdCustomSelect() {
 				mode={"multiple"}
 				placeholder={"Search..."}
 				size={"large"}
-			/>
+			/> */}
 			{/*<CitySelect
 				data={firstTimeCityData}
 				selectedData={selectedData}

@@ -10,19 +10,20 @@ import { relations } from "../../../../utils/Shared/enums/enums";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getUserEmergency } from "../../emergencyInfo/store/actions";
+import { resetEmergencydetails } from "../store/slice";
 
 const { Option } = Select;
-const EmergencyForm = ({ mode, id, isSubmit }) => {
+const EmergencyForm = ({ mode, id }) => {
   const isEdit = mode === "edit";
   const [emergencyInfo, setEmergencyInfo] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
-
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
   const {
     employee: { emergencydetails },
+    success,
   } = useSelector((state) => state.employeeSlice);
 
   const initialState = {
@@ -37,12 +38,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
   const [form] = Form.useForm();
   Object.defineProperty(form, "values", {
     value: function() {
-      return emergencyInfo.map((item) => {
-        return {
-          ...item,
-          relation: item.relation.value,
-        };
-      });
+      return emergencyInfo;
     },
     writable: true,
     enumerable: true,
@@ -54,8 +50,8 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
   }, [initialValues, form]);
 
   useEffect(() => {
-    setEmergencyInfo([]);
-  }, [isSubmit]);
+    if (success) setEmergencyInfo([]);
+  }, [success]);
 
   useEffect(() => {
     if (isEdit) setEmergencyInfo(emergencydetails);
@@ -65,6 +61,10 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
     if (isEdit) {
       dispatch(getUserEmergency(id));
     }
+
+    return () => {
+      dispatch(resetEmergencydetails());
+    };
   }, []);
   const handleAddMore = async () => {
     form.submit();
@@ -83,55 +83,62 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
     emergencyInfoArr.splice(rowIndex, 1);
     setEmergencyInfo(emergencyInfoArr);
   };
-  const columns = [
-    {
-      title: labels.Name,
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: labels.Address,
-      dataIndex: "address",
-      key: "address",
-    },
-    {
-      title: labels.Number,
-      dataIndex: "contactNo",
-      key: "contactNo",
-    },
-    {
-      title: labels.Relation,
-      dataIndex: "relation",
-      key: "relation",
-      render: (value) => {
-        return value.children;
+  const columns = (data) => {
+    console.log(data, "data2");
+    return [
+      {
+        title: labels.Name,
+        dataIndex: "name",
+        key: "name",
       },
-    },
+      {
+        title: labels.Address,
+        dataIndex: "address",
+        key: "address",
+      },
+      {
+        title: labels.Number,
+        dataIndex: "contactNo",
+        key: "contactNo",
+      },
+      {
+        title: labels.Relation,
+        dataIndex: "relation",
+        key: "relation",
+        render: (value) => {
+          return relations[value - 1]?.name;
+        },
+      },
 
-    {
-      title: sharedLabels.action,
-      render: (value, __, rowIndex) => {
-        return (
-          <a
-            href=" "
-            onClick={(e) => {
-              e.preventDefault();
-              if (isEdit) {
-                handleRowChange(rowIndex);
-              } else {
-                const filterArray = emergencyInfo.filter((value, i) => {
-                  if (rowIndex !== i) return value;
-                });
-                setEmergencyInfo(filterArray);
-              }
-            }}
-          >
-            {isEdit ? sharedLabels.Edit : sharedLabels.Delete}
-          </a>
-        );
+      {
+        title: sharedLabels.action,
+        render: (value, __, rowIndex) => {
+          console.log(data, "return");
+          return (
+            <a
+              href=" "
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (isEdit) {
+                  handleRowChange(rowIndex);
+                } else {
+                  console.log("Data", data);
+                  const filterArray = data.filter((value, i) => {
+                    if (rowIndex !== i) return value;
+                  });
+                  setEmergencyInfo(filterArray);
+                }
+              }}
+            >
+              {isEdit ? sharedLabels.Edit : sharedLabels.Delete}
+            </a>
+          );
+        },
       },
-    },
-  ];
+    ];
+  };
+
   const handleUpdate = () => {
     console.log("handle Update");
   };
@@ -190,10 +197,11 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder="Please select relation"
             size="large"
-            onChange={(value, object) => form.setFieldValue("relation", object)}
           >
             {relations.map((item) => (
-              <Option key={item.id}>{item.name}</Option>
+              <Option key={item.id} value={item.id}>
+                {item.name}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -220,7 +228,11 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
       </div>
 
       {emergencyInfo.length > 0 && (
-        <Table columns={columns} dragable={true} dataSource={emergencyInfo} />
+        <Table
+          columns={columns(emergencyInfo)}
+          dragable={true}
+          dataSource={emergencyInfo}
+        />
       )}
     </div>
   );

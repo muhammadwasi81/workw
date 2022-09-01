@@ -4,7 +4,6 @@ import { getUserBasicInfo } from "../../basicInfo/store/actions";
 import { getEducationDetailByUser } from "../../education/store/actions";
 import { getUserEmergency } from "../../emergencyInfo/store/actions";
 import { getUserWorkExperience } from "../../experienceInfo/store/actions";
-
 import { addEmployee, getAllEmployees } from "./actions";
 
 const initialState = {
@@ -23,7 +22,23 @@ const initialState = {
 const employeeSlice = createSlice({
   name: "employee",
   initialState,
-  reducers: {},
+  reducers: {
+    resetBankDetails: (state) => {
+      state.employee.bankdetails = [];
+    },
+    resetEmergencydetails: (state) => {
+      state.employee.emergencydetails = [];
+    },
+    resetExperiencedetails: (state) => {
+      state.employee.experiencedetails = [];
+    },
+    resetEducationdetails: (state) => {
+      state.employee.educationdetails = [];
+    },
+    resetBasicdetails: (state) => {
+      state.employee.basicdetails = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addEmployee.fulfilled, (state, { payload }) => {
@@ -61,3 +76,10 @@ const employeeSlice = createSlice({
   },
 });
 export default employeeSlice.reducer;
+export const {
+  resetBankDetails,
+  resetEducationdetails,
+  resetExperiencedetails,
+  resetBasicdetails,
+  resetEmergencydetails,
+} = employeeSlice.actions;

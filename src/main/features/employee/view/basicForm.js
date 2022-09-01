@@ -25,9 +25,9 @@ import { getAllOfficeTimingGroups } from "../../officeTimings/store/actions";
 import { getUserBasicInfo } from "../../basicInfo/store/actions";
 import moment from "moment";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-// import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getNameForImage } from "../../../../utils/base";
 import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
+import { resetBasicdetails } from "../store/slice";
 const { Option } = Select;
 
 const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
@@ -99,7 +99,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         getPopupContainer={(trigger) => trigger.parentNode}
       >
         {userTitle.map((titles) => (
-          <Option value={titles.id}>{titles.name}</Option>
+          <Option key={titles.id} value={titles.id}>
+            {titles.name}
+          </Option>
         ))}
       </Select>
     </Form.Item>
@@ -114,7 +116,13 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     if (!designations.length) dispatch(getAllDefaultDesignation());
     if (!grades.length) dispatch(getAllGrades());
     if (!officeTimingGroups.length) dispatch(getAllOfficeTimingGroups());
-    if (!accessRoles.length) dispatch(getAllAccessRoles());
+    if (!accessRoles.length) {
+      dispatch(getAllAccessRoles());
+    }
+
+    return () => {
+      dispatch(resetBasicdetails());
+    };
   }, []);
   useEffect(() => {
     if (isEdit) {
@@ -122,7 +130,10 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         ...basicdetails,
         birthDate: moment(basicdetails.birthDate),
         joinDate: moment(basicdetails.joinDate),
+        accessRoleId: basicdetails?.accessRoles?.map((item) => item.id),
       });
+      setUserTypeValue(basicdetails.userTypeId);
+      console.log(basicdetails.userTypeId, "setUserTypeValue");
     }
   }, [basicdetails]);
 
@@ -158,6 +169,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   };
   let classes = "employeeForm basicInfo ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
+
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.BasicInfo}</Divider>
@@ -169,6 +181,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
       >
         <Form.Item area="true" style={{ gridArea: "1/-2 / span 2 / span 1" }}>
           <SingleUpload
+            url={isEdit ? initialValues.image : ""}
             value={profileImage}
             handleImageUpload={handleImageUpload}
             uploadText={labels.AddImage}
@@ -264,7 +277,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             placeholder="select your gender"
           >
             {designations?.map((designation) => (
-              <Option value={designation.id}>{designation.name}</Option>
+              <Option key={designation.id} value={designation.id}>
+                {designation.name}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -284,13 +299,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             optionComponent={(opt) => {
               return (
                 <>
-                  <Avatar
-                    name={opt.name}
-                    src={opt.image}
-                    round={true}
-                    width={"30px"}
-                    height={"30px"}
-                  />
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
                   {opt.name}
                 </>
               );
@@ -310,7 +321,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             optionFilterProp="children"
           >
             {grades?.map((grade) => (
-              <Option value={grade.id}>{grade.name}</Option>
+              <Option key={grade.id} value={grade.id}>
+                {grade.name}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -419,7 +432,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             size="large"
           >
             {genderList.map((item) => (
-              <Option key={item.id}>{item.name}</Option>
+              <Option key={item.id} value={item.id}>
+                {item.name}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -434,7 +449,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             size="large"
           >
             {maritalStatusList.map((item) => (
-              <Option key={item.id}>{item.name}</Option>
+              <Option key={item.id} value={item.id}>
+                {item.name}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -450,7 +467,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
           >
             {officeTimingGroups?.map((timing) => (
-              <Option value={timing.id}>{timing.name}</Option>
+              <Option key={timing.id} value={timing.id}>
+                {timing.name}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -472,7 +491,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             placeholder={placeholder.empType}
           >
             {employmentType.map((type) => (
-              <Option value={type.id}>{type.name}</Option>
+              <Option key={type.id} value={type.id}>
+                {type.name}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -490,7 +511,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
           >
             {userType.map((type) => (
-              <Option value={type.id}>{type.name}</Option>
+              <Option key={type.id} value={type.id}>
+                {type.name}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -504,13 +527,18 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             placeholder={placeholder.selectAccessRole}
             getPopupContainer={(trigger) => trigger.parentNode}
             showSearch={true}
+            onChange={(value) => {
+              console.log(value);
+            }}
           >
             {accessRoles
               .filter((ele) => {
                 if (ele.roleTypeId === userTypeValue) return ele;
               })
               .map((type) => (
-                <Option value={type.id}>{type.name}</Option>
+                <Option key={type.id} value={type.id}>
+                  {type.name}
+                </Option>
               ))}
           </Select>
         </Form.Item>

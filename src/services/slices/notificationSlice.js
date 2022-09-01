@@ -23,6 +23,7 @@ export const responseMessage = ({
   switch (type) {
     case responseMessageType.ApiSuccess:
       if (data.responseCode === responseCode.Success) {
+        console.log("data.responseCode");
         dispatch(setSuccess({ message: data.message }));
         return;
       }
@@ -41,6 +42,7 @@ const notificationSlice = createSlice({
   initialState,
   reducers: {
     setSuccess: (state, { payload }) => {
+      console.log("success dispatch");
       state.success = true;
       state.message = payload.message;
     },

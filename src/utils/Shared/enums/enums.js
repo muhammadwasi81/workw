@@ -139,7 +139,7 @@ export const privacyOption = Object.freeze({
   Public: 1,
   Private: 2,
   External: 3,
-}); 
+});
 
 export const PostPrivacyType = Object.freeze({
   PUBLIC: 1,

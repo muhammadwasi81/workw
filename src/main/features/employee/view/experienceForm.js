@@ -24,11 +24,12 @@ import moment from "moment";
 import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
 import { getNameForImage } from "../../../../utils/base";
 import { getCities } from "../../../../utils/Shared/store/actions";
+import { resetEmergencydetails } from "../store/slice";
 
 const { RangePicker } = DatePicker;
 
 const { Option } = Select;
-const EmergencyForm = ({ mode, id, isSubmit }) => {
+const EmergencyForm = ({ mode, id }) => {
   const isEdit = mode === "edit";
   const dispatch = useDispatch();
   const [workInfo, setWorkInfo] = useState([]);
@@ -58,6 +59,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
   ];
   const {
     employee: { experiencedetails },
+    success,
   } = useSelector((state) => state.employeeSlice);
   const initialState = {
     position: "",
@@ -81,11 +83,15 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
       dispatch(getUserWorkExperience(id));
       if (!cities.length) fetchCityData("", 0);
     }
+
+    return () => {
+      dispatch(resetEmergencydetails());
+    };
   }, []);
 
   useEffect(() => {
-    setWorkInfo([]);
-  }, [isSubmit]);
+    if (success) setWorkInfo([]);
+  }, [success]);
 
   useEffect(() => {
     if (isEdit)
@@ -137,7 +143,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
       dataIndex: "employmentTypeId",
       key: "employmentTypeId",
       render: (value) => {
-        return value.children;
+        return employmentType[value - 1]?.name;
       },
     },
     {
@@ -145,7 +151,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
       dataIndex: "cityId",
       key: "cityId",
       render: (value) => {
-        return city.filter((item) => item.id === value.toString())[0].name;
+        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
       },
     },
     {
@@ -175,11 +181,9 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
                 console.log("edit");
               } else {
                 console.log("delete");
-                const index = workInfo.findIndex((object) => {
-                  return object === value;
-                });
+
                 const filterArray = workInfo.filter((value, i) => {
-                  if (index !== i) return value;
+                  if (rowIndex !== i) return value;
                 });
                 setWorkInfo(filterArray);
               }
@@ -223,15 +227,11 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
           name="employmentTypeId"
           label={labels.EmploymentType}
         >
-          <Select
-            placeholder={placeholder.empType}
-            size="large"
-            onChange={(value, object) =>
-              form.setFieldValue("employmentTypeId", object)
-            }
-          >
+          <Select placeholder={placeholder.empType} size="large">
             {employmentType.map((item) => (
-              <Option key={item.id}>{item.name}</Option>
+              <Option key={item.id} value={item.id}>
+                {item.name}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -261,17 +261,7 @@ const EmergencyForm = ({ mode, id, isSubmit }) => {
           label={labels.City}
           rules={[{ required: true }]}
         />
-        {/* <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="city"
-          label={labels.City}
-        >
-          <Input placeholder={placeholder.City}></Input>
-        </Form.Item> */}
+
         <div className="dates">
           {!isPresent && (
             <Form.Item

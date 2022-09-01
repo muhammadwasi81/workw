@@ -15,8 +15,9 @@ import { useSelector } from "react-redux";
 import { getBankDetailByUser } from "../../bankDetails/store/actions";
 import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
 import { getNameForImage } from "../../../../utils/base";
+import { resetBankDetails } from "../store/slice";
 const { Option } = Select;
-const BankForm = ({ mode, id, isSubmit }) => {
+const BankForm = ({ mode, id }) => {
   const isEdit = mode === "edit";
   const [bankDetails, setBankDetails] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -28,6 +29,7 @@ const BankForm = ({ mode, id, isSubmit }) => {
   );
   const {
     employee: { bankdetails },
+    success,
   } = useSelector((state) => state.employeeSlice);
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
@@ -72,11 +74,15 @@ const BankForm = ({ mode, id, isSubmit }) => {
       if (!cities.length) fetchCityData("", 0);
       dispatch(getBankDetailByUser(id));
     }
+
+    return () => {
+      dispatch(resetBankDetails());
+    };
   }, []);
 
   useEffect(() => {
-    setBankDetails([]);
-  }, [isSubmit]);
+    if (success) setBankDetails([]);
+  }, [success]);
 
   useEffect(() => {
     if (isEdit) setBankDetails(bankdetails);
@@ -164,7 +170,7 @@ const BankForm = ({ mode, id, isSubmit }) => {
       ellipsis: true,
       key: "cityId",
       render: (value) => {
-        return city.filter((item) => item.id === value.toString())[0].name;
+        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
       },
     },
 

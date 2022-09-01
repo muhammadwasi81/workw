@@ -24,7 +24,7 @@ import { getNameForImage } from "../../../../utils/base";
 import { getCities } from "../../../../utils/Shared/store/actions";
 const { RangePicker } = DatePicker;
 
-const EducationForm = ({ id, mode, isSubmit }) => {
+const EducationForm = ({ id, mode }) => {
   const isEdit = mode === "edit";
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -35,6 +35,7 @@ const EducationForm = ({ id, mode, isSubmit }) => {
   ];
   const {
     employee: { educationdetails },
+    success,
   } = useSelector((state) => state.employeeSlice);
   const [city, setCity] = useState([]);
   const { cities } = useSelector((state) => state.sharedSlice);
@@ -59,8 +60,8 @@ const EducationForm = ({ id, mode, isSubmit }) => {
     configurable: true,
   });
   useEffect(() => {
-    setEducationDetails([]);
-  }, [isSubmit]);
+    if (success) setEducationDetails([]);
+  }, [success]);
 
   const initialState = {
     degree: "",
@@ -90,7 +91,7 @@ const EducationForm = ({ id, mode, isSubmit }) => {
       dataIndex: "cityId",
       key: "cityId",
       render: (value) => {
-        return city.filter((item) => item.id === value.toString())[0].name;
+        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
       },
     },
     {
@@ -178,6 +179,10 @@ const EducationForm = ({ id, mode, isSubmit }) => {
       dispatch(getEducationDetailByUser(id));
       if (!cities.length) fetchCityData("", 0);
     }
+
+    return () => {
+      form.setFieldsValue(initialValues);
+    };
   }, []);
 
   useEffect(() => {

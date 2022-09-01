@@ -13,14 +13,14 @@ import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/v
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
 import {
-	ItemContent,
-	ItemHeader,
-	SingleItem,
+  ItemContent,
+  ItemHeader,
+  SingleItem,
 } from "../../../sharedComponents/Card/CardStyle";
 import { cancelComplain } from "../store/actions";
 import {
-	ApprovalsModule,
-	ApprovalStatus,
+  ApprovalsModule,
+  ApprovalStatus,
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
 import "./complain.css";
 import { useDispatch } from "react-redux";
@@ -47,7 +47,7 @@ function DetailedView(props) {
 	let { Approved, Declined, Resend } = ApprovalStatus;
 	let userId = user.id;
 
-	const isTablet = useMediaQuery({ maxWidth: 800 });
+  const isTablet = useMediaQuery({ maxWidth: 800 });
 
 	const handleCancel = (e, payload) => {
 		e.preventDefault();

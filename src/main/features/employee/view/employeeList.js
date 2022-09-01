@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import EmployeeCard from "./employeeCard";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { AllEmpolyeeContainer } from "../Styles/employee.style";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEmployees } from "../store/actions";
 import { Skeleton } from "antd";
+import { dictionaryList } from "../../../../utils/localization/languages";
 
 function EmployeeList() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -13,19 +12,32 @@ function EmployeeList() {
   const dispatch = useDispatch();
   const { employees, loader } = useSelector((state) => state.employeeSlice);
 
-  console.log(employees, "HELLO EMP");
-
   useEffect(() => {
     dispatch(getAllEmployees());
   }, [dispatch]);
-  if (loader) return <Skeleton loading={true} active></Skeleton>;
-  return (
-    <AllEmpolyeeContainer direction={Direction}>
-      {employees.map(({ businessId, designation, email, image, name, id }) => {
-        return <EmployeeCard key={businessId} name={name} id={id} email={email} designation={designation} empNum={businessId} image={image} />;
-      })}
-    </AllEmpolyeeContainer>
-  );
+
+  let classes = "empolyeesListContainer  ";
+  classes += Direction === "ltr" ? "ltr" : "rtl";
+  if (loader) {
+    return (
+      <div className="empolyeesListContainer">
+        {[...Array(40)].map(() => (
+          <>
+            <Skeleton.Avatar shape={"circle"} size={"large"} />
+            <Skeleton loading={true} active></Skeleton>
+          </>
+        ))}
+      </div>
+    );
+  } else {
+    return (
+      <div className={classes}>
+        {employees.map((employee, index) => {
+          return <EmployeeCard employees={employee} key={index} />;
+        })}
+      </div>
+    );
+  }
 }
 
 export default EmployeeList;

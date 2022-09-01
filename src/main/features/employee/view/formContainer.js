@@ -1,96 +1,96 @@
-import React, { useContext, useState } from "react";
-import * as S from "../Styles/employee.style";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Form } from "antd";
-import EmployeeForm from "./employeeForm";
 import EducationForm from "./educationForm";
 import EmergencyForm from "./emergencyForm";
 import ExperienceForm from "./experienceForm";
 import BankForm from "./bankDetailForm";
 import "../Styles/employee.css";
-import { useSelector } from "react-redux";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import BasicInfo from "./basicForm";
+import { useDispatch } from "react-redux";
+import {
+  getCities,
+  getCountries,
+} from "../../../../utils/Shared/store/actions";
+import { employeeDictionaryList } from "../localization";
+import { addEmployee } from "../store/actions";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { useSelector } from "react-redux";
 
-const EmployeeFormContainer = (props) => {
-  const [form] = Form.useForm();
-  const { loader: imgLoader } = useSelector((state) => state.sharedSlice);
+const EmployeeFormContainer = () => {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels } = dictionaryList[userLanguage];
-  const [educationInfo, setEducationInfo] = useState([]);
-  const [experienceInfo, setExperienceInfo] = useState([]);
-  const [bankInfo, setBankInfo] = useState([]);
-  const [emergencyInfo, setEmergencyInfo] = useState([]);
-  const { loader: employeeLoader } = useSelector(
-    (state) => state.employeeSlice
-  );
+  const { employeesDictionary } = employeeDictionaryList[userLanguage];
+  const [profileImage, setProfileImage] = useState();
 
-  const validateMessages = {
-    required: "Field is required!",
-    types: {
-      text: "${label} is not a valid name!",
-      email: "${label} is not a valid email!",
-      number: "${label} is not a valid number!",
-    },
-    number: {
-      range: "${label} must be between ${min} and ${max}",
+  const { loader } = useSelector((state) => state.employeeSlice);
+  const image = {
+    image: {
+      id: defaultUiid,
+      file: profileImage?.[0]?.originFileObj,
     },
   };
+  useEffect(() => {
+    dispatch(getCountries());
+    dispatch(getCities({ textData: "", page: 20 }));
+  }, [dispatch]);
 
-  const onFinish = (values) => {
-    console.log(educationInfo, "EDUCATION!!!")
-    const completeValues = {
-      ...values,
-      educations: educationInfo,
-      experiences: experienceInfo,
-      bankDetails: bankInfo,
-      emergencyContacts: emergencyInfo,
+  const onSubmit = (forms) => {
+    const bankDetails = forms.bankDetails.values();
+    const workInfo = forms.workInfo.values();
+    const emergencyInfo = forms.emergencyInfo.values();
+    const educationDetails = forms.educationDetails.values();
+    const basicDetails = forms.basicInfo.values();
+    const employeeData = {
+      ...image,
+      ...basicDetails,
+      educations: [...educationDetails],
+      experiences: [...workInfo],
+      bankDetails: [...bankDetails],
+      emergencyContacts: [...emergencyInfo],
     };
 
-    // setEducationInfo([]);
-    // setExperienceInfo([]);
-    // setEmergencyInfo([]);
-    // setBankInfo([]);
-    console.log("Received values of form: ", completeValues);
-    props.handleSubmit(completeValues);
-    form.resetFields();
+    dispatch(
+      addEmployee({
+        data: employeeData,
+        resetAllFields: forms,
+      })
+    );
   };
 
   return (
-    <S.Container
-      form={props.form}
-      onFinish={onFinish}
-      name="EmployeeFormConatiner"
-      validateMessages={validateMessages}
-      scrollToFirstError={true}
-      initialValues={{ titleId: 1 }}
-    >
-      <EmployeeForm handleImageUpload={props.handleImageUpload} />
-      <EducationForm
-        educationInfo={educationInfo}
-        onEducationInfo={setEducationInfo}
-      />
-      <ExperienceForm
-        experienceInfo={experienceInfo}
-        onExperienceInfo={setExperienceInfo}
-      />
-      <EmergencyForm
-        onEmergencyInfo={setEmergencyInfo}
-        emergencyInfo={emergencyInfo}
-      />
-      <BankForm onBankInfo={setBankInfo} bankInfo={bankInfo} />
-
-      <div className="employeeSubmitButton">
-        <Button
-          size="large"
-          type="primary"
-          htmlType="submit"
-          loading={imgLoader || employeeLoader}
-          className="ThemeBtn"
-        >
-          {sharedLabels.Submit}
-        </Button>
-      </div>
-    </S.Container>
+    <div className="addEmployeeForm">
+      <Form.Provider
+        onFormFinish={async (name, { values, forms }) => {
+          try {
+            const isValidation = await forms.basicInfo.validateFields();
+            if (isValidation) {
+              onSubmit(forms);
+            }
+          } catch (e) {}
+        }}
+      >
+        <Form>
+          <BasicInfo
+            profileImage={profileImage}
+            handleImageUpload={(value) => setProfileImage(value)}
+          />
+          <EducationForm />
+          <ExperienceForm />
+          <EmergencyForm />
+          <BankForm />
+          <Button
+            loading={loader}
+            size="large"
+            type="primary"
+            htmlType="submit"
+            className="ThemeBtn"
+          >
+            {employeesDictionary.AddEmployee}
+          </Button>
+        </Form>
+      </Form.Provider>
+    </div>
   );
 };
 

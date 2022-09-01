@@ -1,17 +1,10 @@
-import React, { useState } from 'react'
-import ExperienceForm from '../employee/view/experienceForm'
-import * as S from "../employee/view/updateEmployee/styles/employee.style";
+import React from "react";
+import { useParams } from "react-router-dom";
+import ExperienceForm from "../employee/view/experienceForm";
 
 function Index() {
-  const [experienceInfo, setExperienceInfo] = useState([]);
-  return (
-      <S.Container className='bankDetailForm'>
-        <ExperienceForm
-        experienceInfo={experienceInfo}
-        onExperienceInfo={setExperienceInfo}
-      />
-      </S.Container>
-  )
+  const { id } = useParams();
+  return <ExperienceForm id={id} mode="edit" />;
 }
 
-export default Index
+export default Index;

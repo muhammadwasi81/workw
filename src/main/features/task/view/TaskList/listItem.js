@@ -12,33 +12,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import moment from "moment";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { taskDictionary } from "../../localization";
-export const dummyMember = [
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture:
-      "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-];
+
 function TaskListItem({ item }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, Direction } = dictionaryList[userLanguage];
@@ -64,12 +38,12 @@ function TaskListItem({ item }) {
       <div className="card-item-header">
         <div className="left">
           <UserInfo
-            avatarSrc={creator.image}
-            name={creator.name}
+            avatarSrc={creator?.image}
+            name={creator?.name}
             Subline={
               <SublineDesigWithTime
                 designation={
-                  creator.designation ? creator.designation : "Not Designated"
+                  creator?.designation ? creator?.designation : "Not Designated"
                 }
                 // time="2 days ago"
               />

@@ -1,679 +1,354 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Typography } from "antd";
-import React, { useCallback, useContext, useEffect } from "react";
-import {useParams} from 'react-router-dom';
+import { PlusOutlined, EditOutlined } from "@ant-design/icons";
+import { Avatar, Button, Divider, Form, Input, Select, Table } from "antd";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import useDebounce from "../../../../utils/Shared/helper/use-debounce";
-import * as S from "../Styles/employee.style";
-import SharedSelect from "../../../sharedComponents/Select/Select";
-import { getCitiesService } from "../../../../utils/Shared/services/services";
-// import NewCustomSelect from "./newCustomSelect";
-import TextInput from "../../../sharedComponents/Input/TextInput";
 import { employeeDictionaryList } from "../localization/index";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
-import { Table } from "../../../sharedComponents/customTable";
-import { getCountries } from "../../../../utils/Shared/store/actions";
+import "../Styles/employeeForm.css";
 import { useDispatch } from "react-redux";
-import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
-import { getAllUserBankDetailsService } from "../../bankDetails/service/service";
+import {
+  getCities,
+  getCountries,
+} from "../../../../utils/Shared/store/actions";
+import { useSelector } from "react-redux";
+import { getBankDetailByUser } from "../../bankDetails/store/actions";
+import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
+import { getNameForImage } from "../../../../utils/base";
+import { resetBankDetails } from "../store/slice";
+const { Option } = Select;
+const BankForm = ({ mode, id }) => {
+  const isEdit = mode === "edit";
+  const [bankDetails, setBankDetails] = useState([]);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const [countries, setCountries] = useState([]);
+  const dispatch = useDispatch();
+  const { countries: countriesSlice, cities } = useSelector(
+    (state) => state.sharedSlice
+  );
+  const {
+    employee: { bankdetails },
+    success,
+  } = useSelector((state) => state.employeeSlice);
+  const { employeesDictionary, Direction } = employeeDictionaryList[
+    userLanguage
+  ];
+  const initialState = {
+    accountNumber: "",
+    accountTitle: "",
+    bankBranchCode: "",
+    bankName: "",
+    cityId: [],
+    countryId: [],
+    ibanNumber: "",
+    sortCode: "",
+  };
+  const [initialValues, setInitialValues] = useState(initialState);
+  const [city, setCity] = useState([]);
+  const labels = employeesDictionary.BankForm;
+  const placeholder = employeesDictionary.placeholders;
+  const [form] = Form.useForm();
 
-const BankForm = ({ onBankInfo, bankInfo, isEdit }) => {
-	const dispatch = useDispatch()
-	const [searchTerm, setSearchTerm] = useState("");
-	const [cityIdData, setCityData] = useState([]);
-	const [counter, setCounter] = useState(0);
-	const [searching, setSearching] = useState(false);
-	const [bankDetails, setBankDetails] = useState([]);
-	const [editIndex, setEditIndex] = useState()
-	const [editMode, setEditMode] = useState(false)
+  Object.defineProperty(form, "values", {
+    value: function() {
+      return bankDetails.map((item) => {
+        return {
+          ...item,
+          countryId: item.countryId.value,
+        };
+      });
+    },
+    writable: true,
+    enumerable: true,
+    configurable: true,
+  });
 
+  useEffect(() => {
+    form.setFieldsValue(initialValues);
+  }, [initialValues, form]);
 
-	const { countries } = useSelector(state => state.sharedSlice);
+  useEffect(() => {
+    if (isEdit) {
+      if (!countriesSlice.length) dispatch(getCountries());
+      if (!cities.length) fetchCityData("", 0);
+      dispatch(getBankDetailByUser(id));
+    }
 
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const debouncedSearchTerm = useDebounce(searchTerm, 500);
-	const { sharedLabels } = dictionaryList[userLanguage];
-	const { employeesDictionary, Direction } =
-		employeeDictionaryList[userLanguage];
-	const value = employeesDictionary.BankForm;
-	const placeholder = employeesDictionary.placeholders;
-	const [isSubmit, setIsSubmit] = useState(false);
-	const [cities, setCities] = useState({});
-	const detailId = useParams();
-	
+    return () => {
+      dispatch(resetBankDetails());
+    };
+  }, []);
 
+  useEffect(() => {
+    if (success) setBankDetails([]);
+  }, [success]);
 
-	useEffect(() => {
-		if (isEdit) {
-			getBankDetail()	
-		} 
-		setBankDetails([...bankInfo])
-	},[])
+  useEffect(() => {
+    if (isEdit) setBankDetails(bankdetails);
+  }, [bankdetails]);
 
-	const getBankDetail = async() => {
-		const response = await  getAllUserBankDetailsService(detailId.id)
-		setBankDetails(response.data)
-	}
+  useEffect(() => {
+    setCountries(countriesSlice);
+  }, [countriesSlice]);
 
-	useEffect(() => {
-		dispatch(getCountries());
-		if (debouncedSearchTerm) {
-			setSearching(true);
-			getCitiesService({
-				textData: debouncedSearchTerm,
-				page: counter,
-			}).then(res => {
-				if (res.message === "success") {
-					setCityData([...res.data]);
-				}
-				setSearching(false);
-			});
-		}
-	}, [debouncedSearchTerm, counter]);
-	const [state, setState] = useState({
-		bankName: "",
-		accountTitle: "",
-		bankBranchCode: "",
-		accountNumber: "",
-		ibanNumber: "",
-		sortCode: "",
-		countryId: "",
-		cityId: "",
-	});
-	const [error, setError] = useState({
-		bankName: false,
-		accountTitle: false,
-		bankBranchCode: false,
-		accountNumber: false,
-		ibanNumber: false,
-		sortCode: false,
-		countryId: false,
-		cityId: false,
-	});
-	const handleChange = useCallback((value, name) => {
-		setState(prevState => ({
-			...prevState,
-			[name]: value,
-		}));
-	}, []);
-	const columns = [
-		// {
-		// 	title: "Status",
-		// 	dataIndex: "status",
-		// 	ellipsis: true,
-		// 	render: (status) => <StatusTag status={status} />,
-		// 	sort: true,
-		//   },
-		  {
-			  title: "Bank Name",
-			  dataIndex: "bankName",
-			  ellipsis: true,
-			  key: "bankName",
-		  },
-		  {
-			  title: "Account Name",
-			  dataIndex: "accountTitle",
-			  ellipsis: true,
-			  key: "accountTitle",
-		  },
-		  {
-			  title: "Branch Code",
-			  dataIndex: "bankBranchCode",
-			  ellipsis: true,
-			  key: "bankBranchCode",
-		  },
-		  {
-			  title: "Account Number",
-			  dataIndex: "accountNumber",
-			  ellipsis: true,
-			  key: "accountNumber",
-		  },
-		  {
-			  title: "IBN",
-			  dataIndex: "ibanNumber",
-			  ellipsis: true,
-			  key: "ibanNumber",
-		  },
-		  {
-			  title: "Sort Code",
-			  dataIndex: "sortCode",
-			  ellipsis: true,
-			  key: "sortCode",
-		  },
-		//   {
-		//       title: "Country",
-		//       dataIndex: "countryId",
-		//       ellipsis: true,
-		//       key: "countryId",
-		//       render: value => {
-		//           return countries.filter(item => item.id === value)[0].name;
-		//       },
-		//   },
-		  {
-		      title: "City",
-		      dataIndex: "cityId",
-		      ellipsis: true,
-		      key: "cityId",
-		      render: value => {
-		          return cities[value];
-		      },
-		  },
+  const handleAddMore = async () => {
+    form.submit();
+    try {
+      const isValidation = await form.validateFields();
+      if (isValidation) {
+        setBankDetails((preValues) => [...preValues, form.getFieldsValue()]);
+        form.resetFields();
+        setInitialValues(initialState);
+      }
+    } catch (e) {}
+  };
 
-		{
-			title: sharedLabels.action,
-			render: value => {
-				return (
-					<>
-						{/* <a
-							href="asdasd"
-							onClick={e => {
-								e.preventDefault();
-								const index = bankInfo.findIndex(object => {
-									return object === value;
-								});
-								const filterArray = bankInfo.filter((value, i) => {
-									if (index !== i) return value;
-								});
-								onBankInfo(filterArray);
-							}}
-						>
-							{sharedLabels.Delete}
-						</a> */}
-						<a
-							href="asdasd"
-							
-							onRowClick={(e, a, b) => {
-								e.preventDefault();
-								console.log(e, a, b, "EEE")
-							}}
-						>
-							{"Edit"}
-						</a>
-					</>
-				);
-			},
-		},
-	];
-	const checkValidation = () => {
-		if (!state.bankName) {
-			setError(prevErrors => ({
-				...prevErrors,
-				bankName: true,
-			}));
-		} else {
-			setError(prevErrors => ({
-				...prevErrors,
-				bankName: false,
-			}));
-		}
-		if (!state.accountTitle) {
-			setError(prevErrors => ({
-				...prevErrors,
-				accountTitle: true,
-			}));
-		} else {
-			setError(prevErrors => ({
-				...prevErrors,
-				accountTitle: false,
-			}));
-		}
-		if (!state.bankBranchCode) {
-			setError(prevErrors => ({
-				...prevErrors,
-				bankBranchCode: true,
-			}));
-		} else {
-			setError(prevErrors => ({
-				...prevErrors,
-				bankBranchCode: false,
-			}));
-		}
-		if (!state.accountNumber) {
-			setError(prevErrors => ({
-				...prevErrors,
-				accountNumber: true,
-			}));
-		} else {
-			setError(prevErrors => ({
-				...prevErrors,
-				accountNumber: false,
-			}));
-		}
-		if (!state.ibanNumber) {
-			setError(prevErrors => ({
-				...prevErrors,
-				ibanNumber: true,
-			}));
-		} else {
-			setError(prevErrors => ({
-				...prevErrors,
-				ibanNumber: false,
-			}));
-		}
-		if (!state.sortCode) {
-			setError(prevErrors => ({
-				...prevErrors,
-				sortCode: true,
-			}));
-		} else {
-			setError(prevErrors => ({
-				...prevErrors,
-				sortCode: false,
-			}));
-		}
-		if (!state.countryId) {
-			setError(prevErrors => ({
-				...prevErrors,
-				countryId: true,
-			}));
-		} else {
-			setError(prevErrors => ({
-				...prevErrors,
-				countryId: false,
-			}));
-		}
-		if (!state.cityId) {
-			setError(prevErrors => ({
-				...prevErrors,
-				cityId: true,
-			}));
-		} else {
-			setError(prevErrors => ({
-				...prevErrors,
-				cityId: false,
-			}));
-		}
-	};
-	useEffect(() => {
-		if (isSubmit) {
-			if (
-				!error.bankName &&
-				!error.accountTitle &&
-				!error.bankBranchCode &&
-				!error.accountNumber &&
-				!error.ibanNumber &&
-				!error.sortCode &&
-				!error.countryId &&
-				!error.cityId
-			) {
-				handleInfoArray(true);
-			}
-		}
-	}, [error, isSubmit]);
+  const fetchCityData = (text, pgNo) => {
+    dispatch(getCities({ textData: text, page: pgNo }));
+  };
 
-	const handleInfoArray = isSubmit => {
-		if (isSubmit) {
-			onBankInfo(preValues => [...preValues, state]);
-			setIsSubmit(false);
-			setState({
-				bankName: "",
-				accountTitle: "",
-				bankBranchCode: "",
-				accountNumber: "",
-				ibanNumber: "",
-				sortCode: "",
-				countryId: "",
-				cityId: "",
-			});
-			let updatedBankDetails = [...bankDetails]
-			updatedBankDetails[editIndex] = state
-			setBankDetails(updatedBankDetails)
+  const handleUpdate = () => {
+    console.log("handle update");
+  };
 
-		}
-	};
-	console.log(bankDetails)
-	return (
-		<>
-			<S.ContentDivider
-				orientation={Direction === "ltr" ? "left" : "right"}
-			>
-				{value.BankInfo}
-			</S.ContentDivider>
-			<>
-				<S.AddMoreDiv>
-					<>
-						<S.CustomSpace align="baseline" direction={Direction}>
-							<S.FormItem direction={Direction}>
-								<div className="input-row">
-									<Typography
-										level={5}
-										className="required_typography"
-									>
-										{value.BankName}:
-									</Typography>
-									<TextInput
-										placeholder={placeholder.bankName}
-										name="bankName"
-										onChange={value => {
-											handleChange(value, "bankName");
-										}}
-										error={error.bankName}
-										value={state.bankName}
-										size="large"
-									/>
-									{error.bankName && (
-										<div
-											style={{
-												color: "red",
-												fontWeight: 400,
-											}}
-										>
-											Please enter Bank Name.
-										</div>
-									)}
-								</div>
-							</S.FormItem>
+  const handleRowChange = (rowIndex) => {
+    setInitialValues(bankDetails[rowIndex]);
+    let bankDetailsArr = [...bankDetails];
+    bankDetailsArr.splice(rowIndex, 1);
+    setBankDetails(bankDetailsArr);
+  };
+  const columns = [
+    {
+      title: "Bank Name",
+      dataIndex: "bankName",
+      ellipsis: true,
+      key: "bankName",
+    },
+    {
+      title: "Account Name",
+      dataIndex: "accountTitle",
+      ellipsis: true,
+      key: "accountTitle",
+    },
+    {
+      title: "Branch Code",
+      dataIndex: "bankBranchCode",
+      ellipsis: true,
+      key: "bankBranchCode",
+    },
+    {
+      title: "Account Number",
+      dataIndex: "accountNumber",
+      ellipsis: true,
+      key: "accountNumber",
+    },
+    {
+      title: "IBN",
+      dataIndex: "ibanNumber",
+      ellipsis: true,
+      key: "ibanNumber",
+    },
+    {
+      title: "Sort Code",
+      dataIndex: "sortCode",
+      ellipsis: true,
+      key: "sortCode",
+    },
+    {
+      title: "Country",
+      dataIndex: "countryId",
+      ellipsis: true,
+      key: "countryId",
+      render: (labels) => {
+        return labels.children;
+      },
+    },
+    {
+      title: "City",
+      dataIndex: "cityId",
+      ellipsis: true,
+      key: "cityId",
+      render: (value) => {
+        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
+      },
+    },
 
-							<S.FormItem direction={Direction}>
-								<div className="input-row">
-									<Typography
-										level={5}
-										className="required_typography"
-									>
-										{value.AccountTitle}:
-									</Typography>
-									<TextInput
-										placeholder={placeholder.accTitle}
-										name="accountTitle"
-										onChange={value => {
-											handleChange(value, "accountTitle");
-										}}
-										error={error.accountTitle}
-										value={state.accountTitle}
-										size="large"
-									/>
-									{error.accountTitle && (
-										<div
-											style={{
-												color: "red",
-												fontWeight: 400,
-											}}
-										>
-											Please enter Account Title.
-										</div>
-									)}
-								</div>
-							</S.FormItem>
+    {
+      title: sharedLabels.action,
+      render: (value, __, rowIndex) => {
+        return (
+          <a
+            href=" "
+            onClick={(e) => {
+              e.preventDefault();
+              if (isEdit) {
+                handleRowChange(rowIndex);
+              } else {
+                const filterArray = bankDetails.filter((value, i) => {
+                  if (rowIndex !== i) return value;
+                });
+                setBankDetails(filterArray);
+              }
+            }}
+          >
+            {isEdit ? sharedLabels.Edit : sharedLabels.Delete}
+          </a>
+        );
+      },
+    },
+  ];
 
-							<S.FormItem direction={Direction}>
-								<div className="input-row">
-									<Typography
-										level={5}
-										className="required_typography"
-									>
-										{value.BranchCode}:
-									</Typography>
-									<TextInput
-										placeholder={placeholder.branchCode}
-										name="bankBranchCode"
-										onChange={value => {
-											handleChange(
-												value,
-												"bankBranchCode"
-											);
-										}}
-										error={error.bankBranchCode}
-										value={state.bankBranchCode}
-										size="large"
-									/>
-									{error.bankBranchCode && (
-										<div
-											style={{
-												color: "red",
-												fontWeight: 400,
-											}}
-										>
-											Please enter Bank Branch Code.
-										</div>
-									)}
-								</div>
-							</S.FormItem>
+  let classes = "employeeForm bankDetails ";
+  classes += Direction === "ltr" ? "ltr" : "rtl";
+  return (
+    <div className={classes}>
+      <Divider orientation="left"> {labels.BankInfo}</Divider>
+      <Form
+        name="bankDetails"
+        form={form}
+        layout={"vertical"}
+        initialValues={initialValues}
+        onFinish={() => {
+          console.log("bankDetails");
+        }}
+      >
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="bankName"
+          label={labels.BankName}
+        >
+          <Input placeholder={placeholder.bankName}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="accountTitle"
+          label={labels.AccountTitle}
+        >
+          <Input placeholder={placeholder.accTitle}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="bankBranchCode"
+          label={labels.BranchCode}
+        >
+          <Input placeholder={placeholder.branchCode}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="accountNumber"
+          label={labels.AccountNumber}
+        >
+          <Input placeholder={placeholder.accNo}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="ibanNumber"
+          label={labels.IBAN}
+        >
+          <Input placeholder={placeholder.iban}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="sortCode"
+          label={labels.SortCode}
+        >
+          <Input placeholder={placeholder.sortCode}></Input>
+        </Form.Item>
+        <Form.Item
+          name="countryId"
+          label={labels.Country}
+          rules={[{ required: true }]}
+        >
+          <Select
+            getPopupContainer={(trigger) => trigger.parentNode}
+            placeholder="Please select country."
+            size="large"
+            onChange={(value, object) =>
+              form.setFieldValue("countryId", object)
+            }
+          >
+            {countries.map((item) => (
+              <Option key={item.id}>{item.name}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <CitySelect
+          data={cities}
+          selectedData={(val, obj) => {
+            setCity((preValues) => [...preValues, ...obj]);
+          }}
+          canFetchNow={cities && cities.length > 0}
+          fetchData={fetchCityData}
+          optionComponent={(opt) => {
+            return (
+              <>
+                <Avatar src={opt.image} className="!bg-black">
+                  {getNameForImage(opt.name)}
+                </Avatar>
+                {opt.name + " - " + opt.country}
+              </>
+            );
+          }}
+          defaultKey={"id"}
+          isObject={true}
+          placeholder={placeholder.searchToSelect}
+          size="large"
+          name="cityId"
+          label={labels.City}
+          rules={[{ required: true }]}
+        />
+      </Form>
+      <div className={isEdit ? "editButtons" : "buttons"}>
+        <Button
+          type="dashed"
+          className="btn addMore"
+          icon={<PlusOutlined />}
+          onClick={handleAddMore}
+        >
+          {labels.AddBank}
+        </Button>
 
-							<S.FormItem direction={Direction}>
-								<div className="input-row">
-									<Typography
-										level={5}
-										className="required_typography"
-									>
-										{value.AccountNumber}:
-									</Typography>
-									<TextInput
-										placeholder={placeholder.accNo}
-										name="accountNumber"
-										onChange={value => {
-											handleChange(
-												value,
-												"accountNumber"
-											);
-										}}
-										error={error.accountNumber}
-										value={state.accountNumber}
-										size="large"
-									/>
-									{error.accountNumber && (
-										<div
-											style={{
-												color: "red",
-												fontWeight: 400,
-											}}
-										>
-											Please enter Account Number.
-										</div>
-									)}
-								</div>
-							</S.FormItem>
+        {isEdit && (
+          <Button
+            className="btn ThemeBtn"
+            icon={<EditOutlined />}
+            onClick={handleUpdate}
+          >
+            {labels.updateBank}
+          </Button>
+        )}
+      </div>
 
-							<S.FormItem direction={Direction}>
-								<div className="input-row">
-									<Typography
-										level={5}
-										className="required_typography"
-									>
-										{value.IBAN}:
-									</Typography>
-									<TextInput
-										placeholder={placeholder.iban}
-										name="ibanNumber"
-										onChange={value => {
-											handleChange(value, "ibanNumber");
-										}}
-										error={error.ibanNumber}
-										value={state.ibanNumber}
-										size="large"
-									/>
-									{error.ibanNumber && (
-										<div
-											style={{
-												color: "red",
-												fontWeight: 400,
-											}}
-										>
-											Please enter IBAN Number.
-										</div>
-									)}
-								</div>
-							</S.FormItem>
-
-							<S.FormItem direction={Direction}>
-								<div className="input-row">
-									<Typography
-										level={5}
-										className="required_typography"
-									>
-										{value.SortCode}:
-									</Typography>
-									<TextInput
-										placeholder={placeholder.sortCode}
-										name="sortCode"
-										onChange={value => {
-											handleChange(value, "sortCode");
-										}}
-										error={error.sortCode}
-										value={state.sortCode}
-										size="large"
-									/>
-									{error.sortCode && (
-										<div
-											style={{
-												color: "red",
-												fontWeight: 400,
-											}}
-										>
-											Please enter SortCode.
-										</div>
-									)}
-								</div>
-							</S.FormItem>
-							
-							<S.FormItem style={{marginTop: "0px"}}>
-								<div className="input-row">
-									<Typography
-										level={5}
-										className="required_typography"
-										style={{ fontWeight: 600 }}
-									>
-										{value.Country}:
-									</Typography>
-									<div
-										style={{
-											display: "flex",
-											gap: "0px",
-											flexDirection: "column",
-										}}
-									>
-										<S.FormItem
-											name="countryId"
-											direction={Direction}
-										>
-											<SharedSelect
-												data={countries}
-												placeholder="Select Country"
-												size={"large"}
-												status={
-													error.countryId ? "error" : ""
-												}
-												onChange={value => {
-													setState(prevValues => ({
-														...prevValues,
-														countryId: value,
-													}));
-												}}
-											/>
-
-											{error.countryId && (
-												<div
-													style={{
-														color: "red",
-														fontWeight: 400,
-													}}
-												>
-													Please select country.
-												</div>
-											)}
-										</S.FormItem>
-									</div>
-								</div>
-							</S.FormItem>
-
-							<S.FormItem>
-							<div className="input-row">
-								<Typography
-									level={5}
-									className="required_typography"
-									style={{ fontWeight: 600 }}
-								>
-									{value.City}:
-								</Typography>
-								<div
-									style={{
-										display: "flex",
-										gap: "0px",
-										flexDirection: "column",
-									}}
-								>
-									<NewCustomSelect
-										valueObject={true}
-										name="cityId"
-										value={state.cityId}
-										showSearch={true}
-										status={error.cityId ? "error" : ""}
-										endPoint="/api/Utility/GetAllCities"
-										placeholder="Select City"
-										requestType="post"
-										onChange={value => {
-											const { id, name } =
-												JSON.parse(value);
-											setCities(prevValues => ({
-												...prevValues,
-												[id]: name,
-											}));
-											setState(prevValues => ({
-												...prevValues,
-												cityId: id,
-											}));
-										}}
-									/>
-									{error.cityId && (
-										<div
-											style={{
-												color: "red",
-												fontWeight: 400,
-											}}
-										>
-											Please select city.
-										</div>
-									)}
-								</div>
-							</div>
-							</S.FormItem>
-							{/* <S.FormItem
-								name=""
-								direction={Direction}
-							></S.FormItem> */}
-						</S.CustomSpace>
-
-						<S.ButtonContainer>
-							<S.EButton
-								type="dashed"
-								onClick={() => {
-									checkValidation();
-									setIsSubmit(true);
-									setEditMode(false)
-								}}
-								block
-								icon={<PlusOutlined />}
-							>
-								{ editMode ? "Save" : value.AddBank}
-							</S.EButton>
-						</S.ButtonContainer>
-						{bankInfo  && bankInfo.length > 0 && (
-							<Table
-							columns={columns}
-							dragable={true}
-							data={isEdit ? bankDetails : bankInfo}
-							onRow = {(record, rowIndex) => {
-								return {
-									onClick: event => {
-										event.preventDefault();
-										setState(bankDetails[rowIndex])
-										setEditIndex([rowIndex])
-										setEditMode(true)
-						;
-									}
-								};
-							}}
-						/>
-						)}
-						
-					</>
-				</S.AddMoreDiv>
-			</>
-		</>
-	);
+      {bankDetails.length > 0 && (
+        <Table columns={columns} dragable={true} dataSource={bankDetails} />
+      )}
+    </div>
+  );
 };
 
 export default BankForm;

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import TravelComposer from "./TravelComposer/TravelComposer";
+// import TravelComposer from "./TravelComposer/TravelComposer";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import { buttonsEnum } from "../enums/enums";
-// import NewTravelComposer from "./TravelComposer/NewTravelComposer";
+import NewTravelComposer from "./TravelComposer/NewTravelComposer";
 
 function Header(props) {
 	const { label } = props;
@@ -25,8 +25,8 @@ function Header(props) {
 			render: (
 				<SideDrawer
 					children={
-						<TravelComposer label={label} />
-						// <NewTravelComposer label={label} />
+						// <TravelComposer label={label} />
+						<NewTravelComposer label={label} />
 					}
 					title={label.labels.createTravel}
 					buttonText={label.createTextBtn}

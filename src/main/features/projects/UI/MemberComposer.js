@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Form, message } from "antd";
+import React, { useState, useContext, useEffect } from "react";
+import { Avatar, Form, message } from "antd";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import Select from "../../../sharedComponents/Select/Select";
 import { DepartmentMemberTypeList } from "../constant/index";
@@ -7,13 +7,30 @@ import { projectsDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { PlusOutlined } from "@ant-design/icons";
 import "./style.css";
+import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getNameForImage } from "../../../../utils/base";
 
 function MemberComposer(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction, projectsDictionary } = projectsDictionaryList[
 		userLanguage
 	];
-
+	const employees = useSelector(state => state.sharedSlice.employees);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		fetchEmployees("", 0);
+	}, []);
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
+	const selectedData = (data, obj) => {
+		// setValue(data);
+		// handleMember(obj);
+		// setMembers(obj);
+		// onChange(data, obj);
+	};
 	const [newState, setNewState] = useState({
 		user: {
 			id: null,
@@ -37,8 +54,6 @@ function MemberComposer(props) {
 	};
 	const handleAdd = () => {
 		if (newState.user && newState.memberType) {
-			//   Submit Here
-			// After Submit
 			props.handleAdd(newState);
 			setNewState({
 				user: {
@@ -51,34 +66,43 @@ function MemberComposer(props) {
 		}
 	};
 
-	const { user } = newState;
+	// const { user } = newState;
 
 	return (
 		<>
 			<div className="flex justify-between gap-4">
 				<div className="w-full">
-					<Form.Item
+					<MemberSelect
+						data={employees}
+						selectedData={selectedData}
+						canFetchNow={employees && employees.length > 0}
+						fetchData={fetchEmployees}
+						placeholder={"Search members"}
+						mode={""}
+						isObject={true}
+						loadDefaultData={true}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
 						name="members"
 						showSearch={true}
-						direction={Direction}
-						rules={[{ required: true }]}
-					>
-						<NewCustomSelect
-							name="members"
-							label={"Select Members"}
-							showSearch={true}
-							onChange={handleMember}
-							direction={Direction}
-							endPoint="api/Reference/GetAllUserReference"
-							valueObject={true}
-							requestType="get"
-							value={user.id}
-							defaultValue={user.id}
-							placeholder={
-								projectsDictionary.placeholders.members
-							}
-						/>
-					</Form.Item>
+						rules={[
+							{
+								required: true,
+								message: "Please add members",
+							},
+						]}
+					/>
 				</div>
 				<div className="memberTypeInput">
 					<Form.Item

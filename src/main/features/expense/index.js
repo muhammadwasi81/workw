@@ -43,10 +43,10 @@ function Expenses() {
           children={<CreateExpense />}
           title={ExpenseDictionaryList.createTextBtn}
           buttonText={ExpenseDictionaryList.createTextBtn}
-          success={isCreateComposer}
-          setOpenDrawer={() => dispatch(toggleCreateComposer())}
-          isAccessDrawer={true}
-          openDrawer={isCreateComposer}
+            success={isCreateComposer}
+            setOpenDrawer={() => dispatch(toggleCreateComposer())}
+            isAccessDrawer={true}
+            openDrawer={isCreateComposer}
           setIsEdited={() => {}}
         />
       ),

@@ -15,7 +15,6 @@ import ListView from "./ListView/ListView";
 import Header from "./Header";
 import { tableColumns } from "./TableColumns/Columns";
 import TopBar from "../../../sharedComponents/topBar/topBar";
-import { openNotification } from "../../../../utils/Shared/store/slice";
 import { TravelDictionary } from "../localization";
 
 const initialTableFilter = {
@@ -32,6 +31,7 @@ const initialTableFilter = {
 
 function Travel() {
 	const [tableView, setTableView] = useState(false);
+
 	const [tableColumnFilter, setTableColumnFilter] = useState(
 		initialTableFilter
 	);
@@ -113,17 +113,6 @@ function Travel() {
 	useEffect(() => {
 		dispatch(getAllTravel(tableColumnFilter));
 	}, [tableColumnFilter, dispatch]);
-
-	useEffect(() => {
-		if (isAdded) {
-			dispatch(
-				openNotification({
-					message: "Travel Added Successfull.",
-					direction: "topRight",
-				})
-			);
-		}
-	}, [isAdded]);
 
 	return (
 		<TabContainer>

@@ -22,17 +22,7 @@ import TravelDetailCard from "../UI/TravelDetailCard";
 import { travelCategoryData } from "./TravelCategories";
 
 function NewTravelComposerDetail(props) {
-	const {
-		fetchCityData,
-		travelBy,
-		labels,
-		placeHolder,
-		Direction,
-		handleAttachmentsUpload,
-		onSelectCity,
-		onTravelDetailAdd,
-		travelDetails,
-	} = props;
+	const { fetchCityData, travelBy, onSelectCity, onTravelDetailAdd } = props;
 	const cities = useSelector(state => state.sharedSlice.cities);
 	const [form] = Form.useForm();
 	const [isReturn, setIsReturn] = useState(false);
@@ -42,11 +32,11 @@ function NewTravelComposerDetail(props) {
 		try {
 			const travelDetailVal = await form.validateFields();
 			onTravelDetailAdd(travelDetailVal);
+			setIsReturn(false);
 			form.resetFields();
-			// console.log("detail", travelDetailVal);
 		} catch (error) {}
 	};
-	console.log("traveldetails", travelDetails);
+
 	return (
 		<>
 			<Form
@@ -58,7 +48,7 @@ function NewTravelComposerDetail(props) {
 					returnDate: moment(new Date()),
 					isHotelRequired: false,
 					isTADARequired: false,
-					specialRequest: "",
+					return: false,
 				}}
 				className=""
 			>
@@ -195,11 +185,10 @@ function NewTravelComposerDetail(props) {
 										}}
 										size="middle"
 										placeholder="Select Date"
-										// value={moment(new Date())}
 									/>
 								</Form.Item>
 							)}
-							<Form.Item valuePropName="checked">
+							<Form.Item valuePropName="checked" name="return">
 								<Checkbox
 									onChange={e => {
 										setIsReturn(e.target.checked);
@@ -254,48 +243,6 @@ function NewTravelComposerDetail(props) {
 						</Button>
 					</div>
 				</div>
-
-				<Carousel
-					// afterChange={onCardSlide}
-					infinite={false}
-					prevArrow={<LeftOutlined />}
-					nextArrow={<RightOutlined />}
-					slidesToShow={1}
-					dots={true}
-					arrows
-				>
-					{travelDetails.map((travel, index) => (
-						<div className="carrouselbox">
-							<NewTravelDetailCard
-								key={index}
-								travel={travel}
-								index={index}
-								// onClick={onClick}
-								isCloseable={true}
-							/>
-						</div>
-					))}
-				</Carousel>
-
-				<Form.Item
-					name="specialRequest"
-					direction={Direction}
-					label={labels.specialRequest}
-				>
-					<Input.TextArea
-						style={{ borderRadius: "5px" }}
-						placeholder={placeHolder.specialRequestPh}
-						rows={4}
-					/>
-				</Form.Item>
-				<Form.Item direction={Direction} label={labels.attachments}>
-					<SingleUpload
-						handleImageUpload={handleAttachmentsUpload}
-						uploadText={labels.upload}
-						multiple={true}
-						position={"flex-start"}
-					/>
-				</Form.Item>
 			</Form>
 		</>
 	);

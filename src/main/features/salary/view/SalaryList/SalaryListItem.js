@@ -51,8 +51,9 @@ function SalaryListItem(props) {
             <StatusTag status={status}></StatusTag>
           </div>
         </ItemHeader>
-        <div className="description w-full pt-3 pb-5">
-          <p>{description}</p>
+        <div className="description w-full pt-3 pb-5 h-[100px]">
+          <p>{description.length > 0 ? description : "No description"}</p>
+          {description.length > 0 ?<p>description</p> :<p> No description </p>}
         </div>
 
         <div className="cardSections">

@@ -15,7 +15,7 @@ const Index = () => {
         ]}
       />
       <ContBody>
-        <CreatePayrollTable />
+        <CreatePayrollTable defaultRows={15} />
       </ContBody>
     </TabbableContainer>
   );

@@ -13,7 +13,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header";
 import { buttonsEnum } from "../utils/enum/enum";
 
-import MyTask from "./MyTask";
+import MyTaskList from "./MyTask";
 import { useDispatch } from "react-redux";
 import { getAllTask } from "../store/actions";
 import useSelection from "antd/lib/table/hooks/useSelection";
@@ -68,6 +68,9 @@ function Task() {
       ),
     },
   ];
+  // CreatedByMe=1,
+  // MyTasks=2,
+  // MyTeamTasks=3
   return (
     <TabbableContainer>
       <Header items={items} buttons={buttons} />
@@ -86,6 +89,10 @@ function Task() {
           {
             name: appHeader.Task.createdByMe,
             onClick: () => setFilterType(1),
+          },
+          {
+            name: appHeader.Task.teamTask,
+            onClick: () => setFilterType(3),
           },
         ]}
         segment={{
@@ -106,17 +113,10 @@ function Task() {
             <Table
               columns={tableColumn()}
               dragable={true}
-              // handleChange={handleChange}
-              // onPageChange={onPageChange}
-              // onRow={onRow}
               data={taskList ? taskList : []}
-              // status={travelStatus}
-              // loadding={loader}
-              // success={success}
-              // onActionClick={onActionClick}
             />
           ) : (
-            <MyTask list={taskList ? taskList : []} />
+            <MyTaskList />
           )}
         </div>
       </ContBody>

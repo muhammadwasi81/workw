@@ -536,6 +536,10 @@
   }
 }
 
+.card-list-item {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1000px) {
   .card-list-item {
     padding: 10px;

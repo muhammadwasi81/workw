@@ -5,6 +5,7 @@ const initialState = {
   success: false,
   taskList: [],
   taskdetail: null,
+  loading: false,
 };
 
 export const taskSlice = createSlice({
@@ -16,22 +17,30 @@ export const taskSlice = createSlice({
     builder
       .addCase(addNewTask.fulfilled, (state, { payload }) => {
         state.success = true;
-        console.log(payload, "state.taskList");
+        state.loading = false;
         state.taskList = [payload, ...state.taskList];
       })
       .addCase(getAllTask.fulfilled, (state, { payload }) => {
         state.taskList = payload;
+        state.loading = false;
       })
       .addCase(getTaskById.fulfilled, (state, { payload }) => {
         state.taskdetail = payload;
-        console.log(payload);
       })
-      .addMatcher(isPending(...[addNewTask]), (state) => {
-        state.success = false;
-      })
-      .addMatcher(isRejected(...[addNewTask]), (state) => {
-        state.success = false;
-      });
+      .addMatcher(
+        isPending(...[addNewTask, getAllTask, getTaskById]),
+        (state) => {
+          state.success = false;
+          state.loading = true;
+        }
+      )
+      .addMatcher(
+        isRejected(...[addNewTask, getAllTask, getTaskById]),
+        (state) => {
+          state.success = false;
+          state.loading = false;
+        }
+      );
   },
 });
 

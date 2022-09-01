@@ -12,6 +12,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import moment from "moment";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { taskDictionary } from "../../localization";
+import { getPriorityLabel } from "../../utils/enum/enum";
 
 function TaskListItem({ item }) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -24,6 +25,7 @@ function TaskListItem({ item }) {
     description,
     referenceNo,
     rating,
+    priority,
     startDate,
     endDate,
     progress,
@@ -33,6 +35,8 @@ function TaskListItem({ item }) {
 
   let classes = "card-list-item ";
   classes += Direction === "rtl" ? "rtl" : "ltr";
+  const { color, label } = getPriorityLabel(labels, priority);
+
   return (
     <div className={classes} onClick={() => Navigate("taskDetail/" + item.id)}>
       <div className="card-item-header">
@@ -53,11 +57,13 @@ function TaskListItem({ item }) {
 
         <div className="right">
           <div className="rating">
-            <Rate allowHalf defaultValue={rating} />
+            <Rate allowHalf defaultValue={rating} disabled />
           </div>
           <div className="labels">
             <span className="taskID">{referenceNo}</span>
-            <span className="priority high">{labels.high}</span>
+            <span className="priority " style={{ backgroundColor: color }}>
+              {label}
+            </span>
           </div>
         </div>
       </div>
@@ -72,12 +78,27 @@ function TaskListItem({ item }) {
 
             <div className="right"></div>
           </div>
-
-          <div className="card-column-view">
-            <div className="card-column-item">
-              <div className="column-item-head"> {labels.assignTo} </div>
-              <div className="SummaryMembers">
-                <div className="mem">
+          <div className="cardSections">
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.startDate}</div>
+              <div className="cardSection__body">
+                {moment(startDate).format("ddd,MMM DD,YYYY")}
+              </div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.endtDate}</div>
+              <div className="cardSection__body">
+                {moment(endDate).format("ddd,MMM DD,YYYY")}
+              </div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.predecessor}</div>
+              <div className="cardSection__body">Predecessor</div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.assignTo}</div>
+              <div className="cardSection__body">
+                {members && (
                   <Avatar
                     isAvatarGroup={true}
                     isTag={false}
@@ -85,31 +106,11 @@ function TaskListItem({ item }) {
                     membersData={members}
                     image={"https://joeschmoe.io/api/v1/random"}
                   />
-                </div>
+                )}
               </div>
             </div>
-            <div className="column-item-head">
-              <span>{labels.predecessor}</span>
-              <div className="st-tag"> Helpers UI </div>
-            </div>
-
-            <div className="column-item-head">
-              <span>{labels.startDate}</span>
-              <div className="st-tag">
-                {moment(startDate).format("MMM Do YYYY")}{" "}
-              </div>
-            </div>
-
-            <div className="column-item-head">
-              <span>{labels.endtDate}</span>
-              <div className="st-tag">
-                {" "}
-                {moment(endDate).format("MMM Do YYYY")}
-              </div>
-            </div>
-
-            <div className="column-item-head"></div>
           </div>
+
           <div>
             <Progress strokeColor="#1b5669" percent={progress} />
           </div>

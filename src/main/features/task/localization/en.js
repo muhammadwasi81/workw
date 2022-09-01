@@ -28,7 +28,7 @@ const en = {
       checkList: "Check List",
       description: "Description",
       startDate: " Start Date",
-      endtDate: " Start End",
+      endtDate: " End Date",
     },
   },
   Direction: "ltr",

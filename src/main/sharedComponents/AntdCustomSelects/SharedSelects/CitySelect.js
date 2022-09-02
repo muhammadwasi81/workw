@@ -16,6 +16,11 @@ function CitySelect({
 	mode = "default",
 	size = "large",
 	optionComponent,
+	name = "",
+	label = "",
+	rules = [],
+	showSearch = false,
+	formItem = true,
 }) {
 	const [value, setValue] = useState("");
 	const [stateVal, setStateVal] = useState([]);
@@ -24,6 +29,7 @@ function CitySelect({
 	const debouncedSearch = useDebounce(value, 500);
 	const [cityData, setCityData] = useState([...data]);
 	const { cities, loadingData } = useSelector(state => state.sharedSlice);
+	const [isDataLoaded_inState, setIsDataLoaded_inState] = useState(false);
 
 	const onChange = value => {
 		const tempArray = String(value).split(",");
@@ -33,6 +39,7 @@ function CitySelect({
 			setStateVal([...tempArray]);
 		}
 	};
+
 	useEffect(() => {
 		if (defaultData.length > 0) {
 			let tempArray = [];
@@ -91,6 +98,12 @@ function CitySelect({
 			setIsDataFetchable(false);
 		}
 	}, [cities]);
+	useEffect(() => {
+		if (canFetchNow && !isDataLoaded_inState) {
+			setCityData([...data]);
+			setIsDataLoaded_inState(true);
+		}
+	}, [data]);
 
 	return (
 		<AntCustomSelect
@@ -111,6 +124,12 @@ function CitySelect({
 			size={size}
 			defaultData={defaultValues}
 			optionComponent={optionComponent}
+			isLoaded={canFetchNow}
+			name={name}
+			showSearch={showSearch}
+			rules={rules}
+			label={label}
+			formItem={formItem}
 			// tagRender={props => <TagRender props={props} />}
 		/>
 	);

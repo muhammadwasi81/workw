@@ -1,22 +1,23 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { ROUTES } from "../../../../../../utils/routes";
+import { BrokenPage } from "../../../../../../utils/base";
 import BankForm from "../../../../bankDetails/index";
 import BasicInfo from "../../../../basicInfo/index";
 import EducationForm from "../../../../education/index";
 import EmergencyForm from "../../../../emergencyInfo/index";
-import ExperienceForm from "../../experienceForm";
-import "../styles/style.css"
+import ExperienceForm from "../../../../experienceInfo/index";
+import "../styles/style.css";
 
 const EmployeeRoutes = () => {
   return (
     <div className="updateFormsBody">
       <Routes>
-        <Route path={ROUTES.EMPLOYEES_INFO.BASIC_INFO} element={<BasicInfo />} />
-        <Route path={ROUTES.EMPLOYEES_INFO.BANK_DETAIL} element={<BankForm />} />
-        <Route path={ROUTES.EMPLOYEES_INFO.EDUCATION} element={<EducationForm />} />
-        <Route path={ROUTES.EMPLOYEES_INFO.EMERGENCY_INFO} element={<EmergencyForm />} />
-        <Route path={ROUTES.EMPLOYEES_INFO.EXPERIENCE} element={<ExperienceForm />} />
+        <Route path={"/basicInfo/:id"} element={<BasicInfo />} />
+        <Route path={"/bankDetail/:id"} element={<BankForm mode="edit" />} />
+        <Route path={"/education/:id"} element={<EducationForm />} />
+        <Route path={"/emergencyInfo/:id"} element={<EmergencyForm />} />
+        <Route path={"/experience/:id"} element={<ExperienceForm />} />
+        <Route path={"*"} element={<BrokenPage />} />
       </Routes>
     </div>
   );

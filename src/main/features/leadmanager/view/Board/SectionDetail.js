@@ -180,7 +180,9 @@ function SectionDetail(props) {
 							className=" site-collapse-custom-panel"
 							showArrow={false}
 							extra={
-								<CalendarOutlined className="!text-white !text-base" />
+								<div className="h-[32px] w-[32px] flex items-center justify-center rounded-lg bg-white hover:bg-neutral-200 transition">
+									<CalendarOutlined className="!text-primary-color !text-base" />
+								</div>
 							}
 						>
 							<div className="flex justify-center text-primary-color">
@@ -208,16 +210,18 @@ function SectionDetail(props) {
 							className=" site-collapse-custom-panel "
 							showArrow={false}
 							extra={
-								<FaUserPlus
-									className="!text-white !text-base"
-									onClick={e => {
-										e.preventDefault();
-										e.stopPropagation();
+								<div className="p-2 rounded-lg bg-white hover:bg-neutral-200 transition">
+									<FaUserPlus
+										className="!text-primary-color !text-base"
+										onClick={e => {
+											e.preventDefault();
+											e.stopPropagation();
 
-										props.handleContactDetailModal();
-										props.onClickContact(false);
-									}}
-								/>
+											props.handleContactDetailModal();
+											props.onClickContact(false);
+										}}
+									/>
+								</div>
 							}
 						>
 							<div className="max-h-60 overflow-y-auto flex flex-col gap-3">

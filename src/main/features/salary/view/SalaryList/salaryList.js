@@ -2,16 +2,13 @@ import React from 'react';
 import { CardWrapper } from '../../../../sharedComponents/Card/CardStyle';
 import SalaryListItem from './SalaryListItem';
 
-const SalaryList = () => {
+const SalaryList = ({data}) => {
     return (
         <CardWrapper >
-            <SalaryListItem item={{}} />
-            <SalaryListItem item={{}} />
-            <SalaryListItem item={{}} />
-            <SalaryListItem item={{}} />
-            <SalaryListItem item={{}} />
-            <SalaryListItem item={{}} />
-            <SalaryListItem item={{}} />
+            {
+                data.map((item) =>
+                    <SalaryListItem item={item} />)
+            }
         </CardWrapper>
     )
 }

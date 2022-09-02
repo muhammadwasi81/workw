@@ -23,30 +23,42 @@ class SingleUpload extends React.Component {
     fileList: [],
     defaultFileList: [],
   };
+  componentDidMount() {
+    // console.log(this.props.url);
+    const { url, defaultFile } = this.props;
+    if (url.length > 0) {
+      this.setState(
+        produce((state) => {
+          state.fileList = [{ url: url }];
+          // state.defaultFileList = defaultFile;
+        })
+      );
+      this.setState({ defaultFileList: defaultFile });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("", this.props.url);
+    if (prevProps.url !== this.props.url && this.props.url.length > 0) {
+      this.setState(
+        produce((state) => {
+          state.fileList = [{ url: this.props.url }];
+        })
+      );
+    }
+  }
 
-	componentDidUpdate(prevProps, prevState) {
-		console.log("", this.props.url);
-		if (prevProps.url !== this.props.url && this.props.url.length > 0) {
-			this.setState(
-				produce(state => {
-					state.fileList.push({ url: this.props.url });
-				})
-			);
-		}
-	}
-	componentDidMount() {
-		console.log(this.props.url);
-		let { url, defaultFile } = this.props;
-		if (url.length > 0) {
-			this.setState(
-				produce(state => {
-					state.fileList.push({ url: url });
-					// state.defaultFileList = defaultFile;
-				})
-			);
-			this.setState({ defaultFileList: defaultFile });
-		}
-	}
+  componentWillUnmount() {
+    this.setState(
+      produce((state) => {
+        state.previewVisible = false;
+        state.previewImage = "";
+        state.previewTitle = "";
+        state.fileList = [];
+        state.defaultFileList = [];
+        // state.defaultFileList = defaultFile;
+      })
+    );
+  }
 
   handleCancel = () => this.setState({ previewVisible: false });
 
@@ -65,6 +77,7 @@ class SingleUpload extends React.Component {
 
   handleChange = (info) => {
     let { fileList } = info;
+    console.log("file", fileList);
     const status = info.file.status;
     if (status !== "uploading") {
       // console.log(info.file, info.fileList);
@@ -91,6 +104,7 @@ class SingleUpload extends React.Component {
         <div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
       </div>
     );
+    console.log(this.props.multiple);
     return (
       <>
         <Upload
@@ -102,10 +116,14 @@ class SingleUpload extends React.Component {
           accept="*"
           beforeUpload={() => false}
           multiple={this.props.multiple}
-          maxCount={1}
+          // maxCount={1}
           defaultFileList={defaultFileList}
         >
-          {fileList.length === 1 ? null : uploadButton}
+          {this.props.multiple
+            ? uploadButton
+            : fileList.length === 1
+            ? null
+            : uploadButton}
         </Upload>
         <Modal
           visible={previewVisible}

@@ -94,13 +94,13 @@ function Menu() {
   };
   return (
     <div className="menu">
-      {Object.keys(data).map((key) => {
+      {Object.keys(data).map((key, ObjIndex) => {
         return (
           <>
             <Collapse
               expandIconPosition="end"
               className="MenuCollapse"
-              defaultActiveKey={["1"]}
+              defaultActiveKey={ObjIndex === 0 && ["1"]}
               onChange={() => {}}
               expandIcon={({ isActive }) => (
                 <CaretRightOutlined rotate={isActive ? 90 : 0} />

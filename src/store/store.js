@@ -58,6 +58,7 @@ import leadMangerSlice from "../main/features/leadmanager/store/slice";
 import groupSlice from "../main/features/groups/store/slice";
 import chartOfAccountsSlice from "../main/features/chartOfAccount/store/slice";
 import callingSlice from "../main/features/calling/store/slice";
+import salarySlice from "../main/features/salary/store/slice";
 import loanSlice from "./appReducer/loanSlice";
 import resignationSlice from "./appReducer/resignationSlice";
 import voucherSlice from "../main/features/voucher/store/slice";
@@ -121,6 +122,7 @@ const reducers = combineReducers({
   groupSlice,
   callingSlice,
   voucherSlice,
+  salarySlice
 });
 
 const persistConfig = {

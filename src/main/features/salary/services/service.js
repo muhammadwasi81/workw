@@ -1,34 +1,41 @@
 import { ResponseResultError, ResponseResultSuccess } from "../../../../utils/api/ResponseResult";
 import Config from "../../../../utils/services/MasterConfig";
 
-const getAllVoucher_dbo = (data) => {
+const getAllEmployeeSalary_dto = (data) => {
 	return {
 		"pageNo": data.pageNo ? data.pageNo : 0,
 		"pageSize": data.pageSize ? data.pageSize : 20,
 		"search": data.search ? data.search : "",
-		"startDate": data.startDate ? data.startDate : null,
-		"endDate": data.endDate ? data.endDate : null,
-		"voucherTypes": data.voucherTypes ? data.voucherTypes : [],
-		"sortBy": data.sortBy ? data.sortBy : 0
+		"approverStatus": data.approverStatus ? data.approverStatus : [],
+		"sortBy": data.sortBy ? data.sortBy : 1,
+		"filterType": data.filterType ? data.filterType : 0
 	}
 }
-const getLedger_dbo = (data) => {
-	return {
-		"pageNo": data.pageNo ? data.pageNo : 0,
-		"pageSize": data.pageSize ? data.pageSize : 20,
-		"search": data.search ? data.search : "",
-		"startDate": data.startDate ? data.startDate : null,
-		"endDate": data.endDate ? data.endDate : null,
-		"accountId": data.accountId ? data.accountId : null,
-		"balanceBroughtForward": data.balanceBroughtForward !== undefined ? data.balanceBroughtForward : true
-	}
-};
+const addMultipleEmployeeSalary_dto = (data = []) => {
+	return data.map((item) => ({
+		"userId": item.userId ? item.userId : null,
+		"basicSalary": item.basicSalary ? item.basicSalary : 0,
+		"description":  item.description ? item.description : "",
+		"netSalary": item.netSalary ? item.netSalary : 0,
+		"effectiveDate":  item.effectiveDate ? item.effectiveDate : null,
+		"isDefault":  item.isDefault ? item.isDefault : true,
+		"approvers": item.approvers ? item.approvers.map((approver)=>({
+			"approverId": approver.approverId ? approver.approverId : ""
+		})) : [],
+		"details": item.details ? item.details.map((detail)=>({
+			"allowanceId": detail.allowanceId ? detail.allowanceId : "",
+			"allowance": detail.allowance ? detail.allowance : 0
+		})) : [],
+	}))
+}
 
-export const addVoucherService = async (request) => {
+
+export const addMultipleEmployeeSalaryService = async (payload) => {
 	try {
+		let request = addMultipleEmployeeSalary_dto(payload);
 		const {
 			data: { responseCode, data, message },
-		} = await Config.post(`api/Transaction/AddTransaction`, request);
+		} = await Config.post(`api/EmployeeSalary/addEmployeeSalary`, request);
 		if (responseCode === 1001) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
@@ -36,11 +43,11 @@ export const addVoucherService = async (request) => {
 	}
 };
 
-export const getVoucherDetailService = async (id) => {
+export const getEmployeeSalaryDetailService = async (id) => {
 	try {
 		const {
 			data: { responseCode, data, message },
-		} = await Config.get(`api/Transaction/GetTransactionById?id=${id}`);
+		} = await Config.get(`api/EmployeeSalary/GetEmployeeSalaryById?id=${id}`);
 		if (responseCode === 1001) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
@@ -48,39 +55,15 @@ export const getVoucherDetailService = async (id) => {
 	}
 };
 
-export const getAllVoucherService = async (payload={}) => {
+export const getAllEmployeeSalaryService = async (payload = {}) => {
 	try {
-		let request = getAllVoucher_dbo(payload);
+		let request = getAllEmployeeSalary_dto(payload);
 		const {
 			data: { responseCode, data, message },
-		} = await Config.post(`api/Transaction/GetAllTransaction`, request);
+		} = await Config.post(`api/EmployeeSalary/GetAllEmployeeSalary`, request);
 		if (responseCode === 1001) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
 		return ResponseResultError(e);
 	}
 };
-export const getLegderService = async (payload={}) => {
-	try {
-		let request = getLedger_dbo(payload);
-		const {
-			data: { responseCode, data, message },
-		} = await Config.post(`api/Transaction/GetLedger`, request);
-		if (responseCode === 1001) return ResponseResultSuccess(data);
-		return ResponseResultError(message);
-	} catch (e) {
-		return ResponseResultError(e);
-	}
-};
-
-// export const updateChartOfAccountService = async(request) => {
-// 	try {
-// 		const {
-// 			data: { responseCode, data, message },
-// 		} = await Config.put(`api/ChartOfAccount/UpdateChartOfAccount`, request);
-// 		if (responseCode === 1001) return ResponseResultSuccess(data);
-// 		return ResponseResultError(message);
-// 	} catch (e) {
-// 		return ResponseResultError(e);
-// 	}
-// };

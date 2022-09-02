@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
-import EmployeeForm from '../employee/view/employeeForm'
-import * as S from "../employee/view/updateEmployee/styles/employee.style";
+import React from "react";
+import { useParams } from "react-router-dom";
+import BasicInfo from "../employee/view/basicForm";
 
-function Index(props) {
-  const [bankInfo, setBankInfo] = useState([]);
+function Index({ handleImageUpload, profileImage }) {
+  const { id } = useParams();
   return (
-    <>
-      <S.Container className='basicInfoForm'>
-        <EmployeeForm handleImageUpload={props.handleImageUpload}  />
-      </S.Container>
-    </>
-  )
+    <BasicInfo
+      handleImageUpload={handleImageUpload}
+      profileImage={profileImage}
+      mode={"edit"}
+      id={id}
+    />
+  );
 }
 
-export default Index
+export default Index;

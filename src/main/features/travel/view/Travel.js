@@ -15,7 +15,6 @@ import ListView from "./ListView/ListView";
 import Header from "./Header";
 import { tableColumns } from "./TableColumns/Columns";
 import TopBar from "../../../sharedComponents/topBar/topBar";
-import { openNotification } from "../../../../utils/Shared/store/slice";
 import { TravelDictionary } from "../localization";
 
 const initialTableFilter = {
@@ -31,10 +30,8 @@ const initialTableFilter = {
 };
 
 function Travel() {
-	const [filter, setFilter] = useState({
-		filterType: 1,
-	});
 	const [tableView, setTableView] = useState(false);
+
 	const [tableColumnFilter, setTableColumnFilter] = useState(
 		initialTableFilter
 	);
@@ -117,36 +114,37 @@ function Travel() {
 		dispatch(getAllTravel(tableColumnFilter));
 	}, [tableColumnFilter, dispatch]);
 
-	useEffect(() => {
-		if (isAdded) {
-			dispatch(
-				openNotification({
-					message: "Travel Added Successfull.",
-					direction: "topRight",
-				})
-			);
-		}
-	}, [isAdded]);
-
 	return (
 		<TabContainer>
 			<Header label={TravelDictionaryList} success={isAdded} />
 			<TopBar
 				onSearch={value => {
-					console.log(value);
+					// console.log(value);
 				}}
 				buttons={[
 					{
 						name: topBar.travels,
-						onClick: () => setFilter({ filterType: 1 }),
+						onClick: () =>
+							setTableColumnFilter({
+								...tableColumnFilter,
+								filterType: 1,
+							}),
 					},
 					{
 						name: topBar.approval,
-						onClick: () => setFilter({ filterType: 2 }),
+						onClick: () =>
+							setTableColumnFilter({
+								...tableColumnFilter,
+								filterType: 2,
+							}),
 					},
 					{
 						name: topBar.agentProcess,
-						onClick: () => setFilter({ filterType: 3 }),
+						onClick: () =>
+							setTableColumnFilter({
+								...tableColumnFilter,
+								filterType: 3,
+							}),
 					},
 				]}
 				filter={{

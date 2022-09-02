@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Form, message, Select } from "antd";
+import { Form, message, Select, Avatar } from "antd";
 import { DepartmentMemberTypeList } from "../constant/index";
 import { PlusOutlined } from "@ant-design/icons";
 import "./style.css";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+// import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
+import { getNameForImage } from "../../../../utils/base";
 
 function MemberComposer(props) {
 	// const form = Form.useFormInstance();
@@ -92,13 +93,9 @@ function MemberComposer(props) {
 						optionComponent={opt => {
 							return (
 								<>
-									<Avatar
-										name={opt.name}
-										src={opt.image}
-										round={true}
-										width={"30px"}
-										height={"30px"}
-									/>
+									<Avatar src={opt.image}>
+										{getNameForImage(opt.name)}
+									</Avatar>
 									{opt.name}
 								</>
 							);

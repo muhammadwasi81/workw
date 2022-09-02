@@ -1,14 +1,14 @@
-import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { openNotification } from "../../../../utils/Shared/store/slice";
-import { addVoucherService, getAllVoucherService, getLegderService, getVoucherDetailService } from "../services/service";
-import { ValidateSubmitVoucher } from "../utils/validate";
+import { addMultipleEmployeeSalaryService, getAllEmployeeSalaryService, getEmployeeSalaryDetailService } from "../services/service";
+import { ValidateAddMultipleSalary } from "../utils/validate";
 
-export const addVoucher = createAsyncThunk(
-  "Voucher/addVoucher",
-  async (request, { rejectWithValue, dispatch }) => {
-    let validatePayload = ValidateSubmitVoucher(request);
+export const addMultipleEmployeeSalary = createAsyncThunk(
+  "EmployeeSalary/addMultipleEmployeeSalary",
+  async ({ navigate, salaries }, { rejectWithValue, dispatch }) => {
+    let validatePayload = ValidateAddMultipleSalary(salaries);
     if (validatePayload.error) {
       responseMessage({
         dispatch: dispatch,
@@ -18,7 +18,7 @@ export const addVoucher = createAsyncThunk(
       return rejectWithValue(validatePayload.message)
     }
 
-    const response = await addVoucherService(request);
+    const response = await addMultipleEmployeeSalaryService(salaries);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({
@@ -31,21 +31,21 @@ export const addVoucher = createAsyncThunk(
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         dispatch(openNotification({
-          message: "Voucher Create Successfully",
+          message: "Salary Create Successfully",
           type: "success",
           duration: 2
         }))
-        console.log(response)
+        navigate("/salary")
         return response.data;
       default:
         return null;
     }
   }
 );
-export const getVoucherDetail = createAsyncThunk(
-  "Voucher/voucherDetail",
+export const getEmployeeSalaryDetail = createAsyncThunk(
+  "EmployeeSalary/getEmployeeSalaryDetail",
   async (id, { rejectWithValue, dispatch }) => {
-    const response = await getVoucherDetailService(id);
+    const response = await getEmployeeSalaryDetailService(id);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({
@@ -64,10 +64,10 @@ export const getVoucherDetail = createAsyncThunk(
   }
 );
 
-export const getAllVoucher = createAsyncThunk(
-  "Voucher/getAllVoucher",
+export const getAllEmployeeSalary = createAsyncThunk(
+  "EmployeeSalary/getAllEmployeeSalary",
   async (data, { rejectWithValue, dispatch }) => {
-    const response = await getAllVoucherService(data);
+    const response = await getAllEmployeeSalaryService(data);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({
@@ -79,29 +79,7 @@ export const getAllVoucher = createAsyncThunk(
         });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
-        return response.data;
-      default:
-        return;
-    }
-  }
-);
-
-export const getLedgerReport = createAsyncThunk(
-  "Voucher/getLedgerReport",
-  async (data, { rejectWithValue, dispatch }) => {
-    const response = await getLegderService(data);
-    switch (response.type) {
-      case ResponseType.ERROR:
-        responseMessage({
-          dispatch: dispatch,
-          type: responseMessageType.ApiFailure,
-          data: {
-            message: response.errorMessage
-          }
-        });
-        return rejectWithValue(response.errorMessage);
-      case ResponseType.SUCCESS:
-        return response.data;
+        return response;
       default:
         return;
     }

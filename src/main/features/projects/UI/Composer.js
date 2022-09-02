@@ -75,27 +75,8 @@ const Composer = props => {
 	};
 
 	const onFinish = values => {
-		form.resetFields();
-
-		dispatch(uploadImage(profileImage)).then(x => {
-			console.log(x, "FIRST ONE");
-			let photoId = x.payload.data[0].id;
-
-			let members = memberList.map(member => {
-				return {
-					memberId: member.user.id,
-					memberType: member.memberType,
-				};
-			});
-
-			let payload = {
-				...values,
-				imageId: photoId,
-				members,
-				parentId: STRINGS.DEFAULTS.guid,
-			};
-			// dispatch(addDepartment(payload));
-		});
+		console.log("values", form.getFieldsValue(true));
+		// form.resetFields();
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -106,20 +87,11 @@ const Composer = props => {
 		<>
 			<Form
 				form={form}
-				name="addDepartment"
-				labelCol={{
-					span: 24,
-				}}
-				wrapperCol={{
-					span: 24,
-				}}
-				initialValues={{
-					remember: true,
-				}}
+				initialValues={{ features: [{ featureId: 1 }] }}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
-				autoComplete="off"
 				dir={Direction}
+				layout={"vertical"}
 				className={`${Direction}`}
 				// className={Direction === "ltr" ? "align-right" : ""}
 			>
@@ -136,7 +108,7 @@ const Composer = props => {
 								},
 							]}
 						>
-							<TextInput placeholder={placeholders.name} />
+							<Input placeholder={placeholders.name} />
 						</Form.Item>
 					</div>
 					<div className="flex gap-4">
@@ -183,7 +155,12 @@ const Composer = props => {
 					label={labels.externals}
 					showSearch={true}
 					direction={Direction}
-					rules={[{ required: true, message: errors.members }]}
+					rules={[
+						{
+							// required: true,
+							message: errors.members,
+						},
+					]}
 				>
 					<NewCustomSelect
 						name={"members"}
@@ -201,37 +178,29 @@ const Composer = props => {
 				{memberList?.length > 0 ? (
 					<MemberListItem
 						data={memberList}
-						onRemove={row =>
+						onRemove={(row, ind) => {
 							setMemberList(
-								memberList.filter(
-									item => item.user.id !== row.user.id
-								)
-							)
-						}
+								memberList.filter((_, index) => index !== ind)
+							);
+						}}
 					/>
 				) : (
 					""
 				)}
-				<Form.Item
-					label={features.features}
-					style={{
-						color: "#1b5669",
-						fontSize: "17px",
-						marginBottom: "14px",
-					}}
-				></Form.Item>
-				<FeatureSelect features={features} />
+				<div>
+					Feature
+					<FeatureSelect features={features} form={form} />
+				</div>
 
 				<Form.Item>
 					<Button
 						type="primary"
-						size="large"
 						className="ThemeBtn"
 						block
+						size="large"
 						htmlType="submit"
-						title={"Create"}
 					>
-						{labels.createTextBtn}
+						Create Project
 					</Button>
 				</Form.Item>
 			</Form>

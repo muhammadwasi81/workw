@@ -1,48 +1,40 @@
 import { createSlice, isPending } from "@reduxjs/toolkit"
-import { addVoucher, getAllVoucher, getLedgerReport, getVoucherDetail } from "./actions";
+import { addMultipleEmployeeSalary, getAllEmployeeSalary, getEmployeeSalaryDetail } from "./actions";
 
 const initialState = {
    editData: null,
    success: false,
    loader: false,
    error: false,
-   voucherDetail: null,
-   voucherList:[],
-   ledgerReport:null
+   salaryDetail: null,
+   salaryList:[],
 };
 
 export const VoucherSlice = createSlice({
-   name: 'Voucher',
+   name: 'EmployeeSalary',
    initialState: initialState,
    reducers: {},
 
    extraReducers: (builder) => {
       builder
-         .addCase(addVoucher.fulfilled, (state, { payload }) => {
+         .addCase(addMultipleEmployeeSalary.fulfilled, (state, { payload }) => {
             state.loader = false;
             state.success = true;
-            state.voucherList = [...state.voucherList, payload]
+            state.salaryList = [...state.salaryList, ...payload]
          })
-         .addCase(getVoucherDetail.fulfilled, (state, { payload }) => {
-            state.voucherDetail = payload;
-            state.loader = false;
-            state.success = true;
-         })
-         .addCase(getAllVoucher.fulfilled, (state, { payload }) => {
-            state.voucherList = payload.data;
+         .addCase(getEmployeeSalaryDetail.fulfilled, (state, { payload }) => {
+            state.salaryDetail = payload;
             state.loader = false;
             state.success = true;
          })
-         .addCase(getLedgerReport.fulfilled, (state, { payload }) => {
-            state.ledgerReport = payload;
+         .addCase(getAllEmployeeSalary.fulfilled, (state, { payload }) => {
+            state.salaryList = payload.data;
             state.loader = false;
-         })
-         .addCase(getVoucherDetail.pending, (state, { payload }) => {
-            state.voucherDetail = null;
+            state.success = true;
          })
          .addMatcher(
             isPending(
-               ...[ addVoucher ]
+               ...[ addMultipleEmployeeSalary ]
             ),
             state => {
                state.loader = true;

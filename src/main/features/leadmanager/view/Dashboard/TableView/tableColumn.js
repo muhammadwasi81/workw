@@ -1,9 +1,8 @@
 import moment from "moment";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
-
-import TagAvatar from "../../../../../sharedComponents/Avatar/TagAvatar";
-import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = dictionary => {
+// import TagAvatar from "../../../../../sharedComponents/Avatar/TagAvatar";
+// import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
+export const tableColumn = (dictionary, data) => {
 	const { table } = dictionary;
 
 	return [
@@ -34,6 +33,24 @@ export const tableColumn = dictionary => {
 			render: i => moment(i.createDate).format("DD MMM YYYY"),
 			ellipsis: true,
 			sort: true,
+		},
+		{
+			title: "Action",
+			key: "action",
+			render: (text, record, index) => (
+				<div
+					onClick={e => {
+						e.preventDefault();
+						e.stopPropagation();
+						console.log("text", text);
+						console.log("record", record);
+						console.log("index", index);
+						console.log("data", data);
+					}}
+				>
+					Delete
+				</div>
+			),
 		},
 	];
 };

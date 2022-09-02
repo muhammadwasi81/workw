@@ -1,4 +1,12 @@
-import { Button, Checkbox, DatePicker, Form, Input, Typography } from "antd";
+import {
+	Avatar,
+	Button,
+	Checkbox,
+	DatePicker,
+	Form,
+	Input,
+	Typography,
+} from "antd";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import TravelCard from "../UI/TravelCard";
@@ -9,6 +17,9 @@ import { useMediaQuery } from "react-responsive";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import * as S from "../../../employee/Styles/employee.style";
+import { getNameForImage } from "../../../../../utils/base";
+import { useSelector } from "react-redux";
+import CitySelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
 
 const initialState = {
 	reason: "",
@@ -91,10 +102,10 @@ function TravelComposerDetail(props) {
 		}
 	};
 
-	const onInputFieldChange = e => {
+	const onInputFieldChange = (value, name) => {
 		setState(prevState => ({
 			...prevState,
-			[e.target.name]: e.target.value,
+			[name]: value,
 		}));
 		// checkValidation();
 	};
@@ -146,7 +157,9 @@ function TravelComposerDetail(props) {
 			}
 		}
 	}, [errors, submit, isReturn]);
-
+	const { cities, loadingData, success, employees } = useSelector(
+		state => state.sharedSlice
+	);
 	return (
 		<TravelCard>
 			<Form.Item direction={Direction}>
@@ -175,7 +188,34 @@ function TravelComposerDetail(props) {
 				</Typography>
 				<div className="flex gap-4 flex-col sm:flex-row">
 					<div className="flex flex-col w-full">
-						<NewCustomSelect
+						<CitySelect
+							data={cities}
+							selectedData={val => {
+								console.log("val", val);
+							}}
+							formItem={false}
+							canFetchNow={cities && cities.length > 0}
+							fetchData={props.fetchCityData}
+							optionComponent={opt => {
+								return (
+									<>
+										<Avatar
+											src={opt.image}
+											className="!bg-black"
+										>
+											{getNameForImage(opt.name)}
+										</Avatar>
+										{opt.name + " - " + opt.country}
+									</>
+								);
+							}}
+							defaultKey={"id"}
+							isObject={true}
+							mode={"multiple"}
+							placeholder={"Search..."}
+							size={"large"}
+						/>
+						{/* <NewCustomSelect
 							valueObject={true}
 							name="travel"
 							showSearch={true}
@@ -192,7 +232,7 @@ function TravelComposerDetail(props) {
 							<div style={{ color: "red" }}>
 								Please select departure city.
 							</div>
-						)}
+						)} */}
 					</div>
 					<div className="flex flex-col w-full">
 						<NewCustomSelect

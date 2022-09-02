@@ -1,19 +1,19 @@
 import EmployeeList from "./employeeList";
-import React, { useState } from "react";
+import React from "react";
 import { EmployeePanelContainer } from "../styles/employee.style";
 import EmployeeRoutes from "../EmployeeUpdateRoutes/routes";
-import BankForm from "../../bankDetailForm";
-
+import { useParams } from "react-router-dom";
 const EmployeesUpdate = () => {
-	
-	return (
-		<>
-			<EmployeePanelContainer>
-				<EmployeeList />
-				<EmployeeRoutes />
-			</EmployeePanelContainer>
-		</>
-	);
+  const { "*": id } = useParams();
+  console.log(id, "ID");
+  return (
+    <>
+      <EmployeePanelContainer>
+        <EmployeeList id={id} />
+        <EmployeeRoutes />
+      </EmployeePanelContainer>
+    </>
+  );
 };
 
 export default EmployeesUpdate;

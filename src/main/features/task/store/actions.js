@@ -1,27 +1,37 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
+import { responseCode } from "../../../../services/enums/responseCode";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
-import { jsonToFormData } from "../../../../utils/base";
 import { openNotification } from "../../../../utils/Shared/store/slice";
-import { addNewTaskService, getAllTaskService, getTaskByIdService } from "../utils/services/service";
+import {
+  addNewTaskService,
+  getAllTaskService,
+  getTaskByIdService,
+} from "../utils/services/service";
 
 export const addNewTask = createAsyncThunk(
   "task/addNewTask",
   async (request, { rejectWithValue, dispatch }) => {
-    const requestData = jsonToFormData(request);
-    const response = await addNewTaskService(requestData);
-    switch (response.type) {
-      case ResponseType.ERROR:
-        return rejectWithValue(response.errorMessage);
-      case ResponseType.SUCCESS:
-        dispatch(openNotification({
-          message: "Task Create Successfully",
-          style: { backgroundColor: "#48da00" },
-          type:"success",
-          duration: 2
-        }))
-        return response.data;
-      default:
-        return;
+    const res = await addNewTaskService(request);
+    if (res?.responseCode === responseCode.Success) {
+      console.log("response ture condition");
+      dispatch(
+        openNotification({
+          message: "User Task Created Successfully",
+          type: "success",
+          duration: 2,
+        })
+      );
+
+      return res.data;
+    } else {
+      dispatch(
+        openNotification({
+          message: res.message,
+          type: "error",
+          duration: 2,
+        })
+      );
+      return isRejectedWithValue(res.message);
     }
   }
 );

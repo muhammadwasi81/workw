@@ -1,49 +1,35 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, message, Select, Avatar } from "antd";
 import { DepartmentMemberTypeList } from "../constant/index";
 import { PlusOutlined } from "@ant-design/icons";
 import "./style.css";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-// import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import { getNameForImage } from "../../../../utils/base";
 
 function MemberComposer(props) {
-	// const form = Form.useFormInstance();
 	const { Option } = Select;
-	const { defaultData, Direction, form } = props;
+	const { Direction, form } = props;
 	const dispatch = useDispatch();
 	const employees = useSelector(state => state.sharedSlice.employees);
-	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
-	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-	const [value, setValue] = useState([]);
+	// const [value, setValue] = useState([]);
 
 	useEffect(() => {
 		fetchEmployees("", 0);
 	}, []);
 
-	useEffect(() => {
-		setValue(defaultData);
-		// setLoading(true);
-	}, [defaultData]);
-
-	useEffect(() => {
-		if (employees.length > 0 && !isFirstTimeDataLoaded) {
-			setIsFirstTimeDataLoaded(true);
-			setFirstTimeEmpData(employees);
-		}
-	}, [employees]);
+	// useEffect(() => {
+	// 	setValue(defaultData);
+	// }, [defaultData]);
 
 	const fetchEmployees = (text, pgNo) => {
 		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
 	};
 
 	const selectedData = (data, obj) => {
-		setValue(data);
+		// setValue(data);
 		handleMember(obj);
-		// setMembers(obj);
-		// onChange(data, obj);
 	};
 	const [newState, setNewState] = useState({
 		members: [],
@@ -71,7 +57,7 @@ function MemberComposer(props) {
 				members: [],
 				memberType: null,
 			});
-			setValue([]);
+			// setValue([]);
 		} else {
 			message.error("Please Fill Required Fields");
 		}
@@ -82,9 +68,9 @@ function MemberComposer(props) {
 			<div className="flex justify-between gap-4">
 				<div className="w-full">
 					<MemberSelect
-						data={firstTimeEmpData}
+						data={employees}
 						selectedData={selectedData}
-						canFetchNow={isFirstTimeDataLoaded}
+						canFetchNow={employees && employees.length > 0}
 						fetchData={fetchEmployees}
 						placeholder={props.placeholder.membersPh}
 						mode={""}
@@ -93,14 +79,17 @@ function MemberComposer(props) {
 						optionComponent={opt => {
 							return (
 								<>
-									<Avatar src={opt.image}>
+									<Avatar
+										src={opt.image}
+										className="!bg-black"
+									>
 										{getNameForImage(opt.name)}
 									</Avatar>
 									{opt.name}
 								</>
 							);
 						}}
-						dataVal={value}
+						// dataVal={value}
 						name="members"
 						showSearch={true}
 						direction={Direction}

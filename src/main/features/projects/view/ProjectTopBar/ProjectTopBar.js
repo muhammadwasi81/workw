@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
-
-function LeadTopBar({ handleView, topBar, handleSearch }) {
+function ProjectTopBar({ handleView, topBar, handleSearch }) {
 	const [tableView, setTableView] = useState(false);
 	handleView(tableView);
 	return (
@@ -9,7 +8,6 @@ function LeadTopBar({ handleView, topBar, handleSearch }) {
 			onSearch={value => {
 				handleSearch(value);
 			}}
-			buttons={[]}
 			filter={{
 				onFilter: () => {},
 			}}
@@ -28,4 +26,4 @@ function LeadTopBar({ handleView, topBar, handleSearch }) {
 	);
 }
 
-export default LeadTopBar;
+export default ProjectTopBar;

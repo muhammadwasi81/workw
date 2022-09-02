@@ -10,7 +10,12 @@ const urdu = {
 			table: "ٹیبل",
 			group: "گروپس",
 		},
-		labels: { name: "نام", desc: "تفصیل", upload: "اپ لوڈ کریں" },
+		labels: {
+			update: "اپ ڈیٹ",
+			name: "نام",
+			desc: "تفصیل",
+			upload: "اپ لوڈ کریں",
+		},
 		placeHolders: {
 			namePh: "نام درج کریں",
 			descPh: "تفصیل درج کریں",

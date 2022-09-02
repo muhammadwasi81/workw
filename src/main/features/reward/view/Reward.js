@@ -47,111 +47,8 @@ const Reward = props => {
 	useEffect(() => {
 		dispatch(getAllRewards(filter));
 	}, [filter]);
-
-	const handleFilter = values => {
-		setSearchFilterValues(values);
-	};
-	return (
-		<>
-			<TabbableContainer className="">
-				<Header
-					buttons={[
-						{
-							buttonText: "Create Travel",
-							render: (
-								<Button
-									className="ThemeBtn"
-									onClick={() =>
-										dispatch(handleOpenComposer(true))
-									}
-								>
-									Create Reward
-								</Button>
-							),
-						},
-					]}
-				/>
-				<TopBar
-					onSearch={value => {
-						setFilter({ ...filter, search: value });
-					}}
-					buttons={[
-						{
-							name: "Rewards",
-							onClick: () => setFilter({ filterType: 0 }),
-						},
-						{
-							name: "Created By Me",
-							onClick: () => setFilter({ filterType: 1 }),
-						},
-						{
-							name: "For Approval",
-							onClick: () => setFilter({ filterType: 2 }),
-						},
-						{
-							name: "Reward To Me",
-							onClick: () => setFilter({ filterType: 3 }),
-						},
-					]}
-					segment={{
-						onSegment: value => {
-							if (value === "Table") {
-								setTableView(true);
-							} else {
-								setTableView(false);
-							}
-						},
-						label1: "List",
-						label2: "Table",
-					}}
-				/>
-				<ContBody>
-					{rewards?.length > 0 ? (
-						tableView ? (
-							<Table
-								columns={tableColumn()}
-								dragable={true}
-								data={rewards}
-							/>
-						) : (
-							<>
-								{loader ? (
-									<>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
-									</>
-								) : (
-									<CardWrapper>
-										{rewards.map((item, index) => {
-											return (
-												<>
-													<ListItem
-														item={item}
-														id={item.id}
-														key={index}
-														onClick={() =>
-															setDetailId(item.id)
-														}
-													/>
-												</>
-											);
-										})}
-									</CardWrapper>
-								)}
-							</>
-						)
-					) : (
-						<Skeleton avatar paragraph={{ rows: 4 }} />
-					)}
-				</ContBody>
-				{<DetailedView onClose={onClose} id={detailId} />}
-
-<<<<<<< HEAD
-  const handleFilter = (values) => {
-    setSearchFilterValues(values);
-  };
+	
+	
   return (
     <>
       <TabbableContainer className="">
@@ -258,32 +155,6 @@ const Reward = props => {
       </TabbableContainer>
     </>
   );
-=======
-				<Drawer
-					title={
-						<h1
-							style={{
-								fontSize: "20px",
-								margin: 0,
-							}}
-						>
-							Create Reward
-						</h1>
-					}
-					width="768"
-					onClose={() => {
-						dispatch(handleOpenComposer(false));
-					}}
-					visible={drawerOpen}
-					destroyOnClose={true}
-					className="detailedViewComposer drawerSecondary"
-				>
-					<Composer />
-				</Drawer>
-			</TabbableContainer>
-		</>
-	);
->>>>>>> e6d05b4aac3e85a4f95b3bdcb57e2ab603a29e58
 };
 
 export default Reward;

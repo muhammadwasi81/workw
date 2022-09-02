@@ -143,40 +143,6 @@ const Composer = props => {
 		console.log("Failed:", errorInfo);
 	};
 
-	return (
-		<>
-			<Form
-				form={form}
-				name="addReward"
-				labelCol={{
-					span: 24,
-				}}
-				wrapperCol={{
-					span: 24,
-				}}
-				initialValues={{
-					remember: true,
-				}}
-				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
-				autoComplete="off"
-				// className={Direction === "ltr" ? "align-right" : ""}
-			>
-				<Form.Item
-					label={rewardDictionary.name}
-					name="name"
-					labelPosition="top"
-					rules={[
-						{
-							required: true,
-							message: rewardDictionary.pleaseEnterRewardName,
-						},
-					]}
-				>
-					<TextInput placeholder={rewardDictionary.enterRewardName} />
-				</Form.Item>
-
-<<<<<<< HEAD
   return (
     <>
       <Form
@@ -207,28 +173,6 @@ const Composer = props => {
           ]}>
           <TextInput placeholder={rewardDictionary.enterRewardName} />
         </Form.Item>
-=======
-				<Form.Item
-					label={rewardDictionary.category}
-					name="categoryId"
-					rules={[
-						{
-							required: true,
-							message: "Please Enter Category",
-						},
-					]}
-				>
-					<Select
-						data={rewardCategories}
-						placeholder={rewardDictionary.category}
-						style={{
-							width: "100%",
-							borderRadius: "5px",
-						}}
-						size="large"
-					/>
-				</Form.Item>
->>>>>>> e6d05b4aac3e85a4f95b3bdcb57e2ab603a29e58
 
 				<Form.Item
 					label={rewardDictionary.reason}

@@ -160,7 +160,6 @@ const Composer = props => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
-			// className={Direction === "ltr" ? "align-right" : ""}
 			>
 				<Form.Item
 					label={"Leave Type"}
@@ -173,9 +172,6 @@ const Composer = props => {
 					]}
 				>
 					<Select
-						// value={
-						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-						// }
 						data={leaveTypes}
 						placeholder={"Select Type"}
 						style={{
@@ -191,6 +187,7 @@ const Composer = props => {
 					label={"On Behalf Of"}
 					showSearch={true}
 					direction={Direction}
+					style={{ marginBottom: "0px" }}
 				>
 					<CustomSelect
 						style={{ marginBottom: "0px" }}
@@ -234,6 +231,7 @@ const Composer = props => {
 					label={leaveDictionary.approvers}
 					showSearch={true}
 					direction={Direction}
+					style={{ marginBottom: "0px" }}
 				>
 					<CustomSelect
 						style={{ marginBottom: "0px" }}

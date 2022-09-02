@@ -13,9 +13,15 @@ export const getAllPromotions = createAsyncThunk("Promotion/GetAllPromotion", as
   return response.data;
 });
 
-export const addPromotion = createAsyncThunk("Promotion/addPromotion", async (args, { dispatch, setState }) => {
-  const response = await addPromotionService(args);
-  return response;
+export const addPromotion = createAsyncThunk("Promotion/addPromotion", async (data, { dispatch, getState, rejectWithValue }) => {
+  const res = await addPromotionService(data);
+  if (res.data?.responseCode === responseCode.Success) {
+    message.success('Promotion Created');
+    return res;
+  } else {
+    message.error(res.data.message);
+    return rejectWithValue(res.data.message);
+  }
 });
 
 export const GetPromotionById = createAsyncThunk("Promotion/GetPromotionById'", async (id) => {

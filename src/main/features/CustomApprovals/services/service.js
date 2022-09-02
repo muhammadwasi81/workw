@@ -1,3 +1,4 @@
+import { jsonToFormData } from "../../../../utils/base";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllCustomApprovalService = (data) => {
@@ -18,4 +19,15 @@ export const GetCustomApprovalByIdService = (id) => {
     .catch((res) => {
       return res;
     });
+};
+
+export const addCustomApprovalService = async(data) => {
+	const formData = jsonToFormData(data);
+	return MasterConfig.post(`api/customApproval/AddCustomApproval`, formData)
+		.then(res => {
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
 };

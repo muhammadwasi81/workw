@@ -8,9 +8,9 @@ import customApprovalIcon from "../../../../content/svg/menu/newNavBarIcon/Custo
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import { PieChartOutlined } from "@ant-design/icons";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import { ItemContent, ItemHeader } from "../../../sharedComponents/Card/CardStyle";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -18,7 +18,7 @@ function DetailedView(props) {
 
   const { customApprovalDetail } = useSelector((state) => state.customApprovalSlice);
 
-  const { creator, description, image = customApprovalIcon, category, status, createDate, referenceNo, approvers } = customApprovalDetail;
+  const { creator, description, image = customApprovalIcon, approvers = [], status, referenceNo, category, value, createDate } = customApprovalDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -52,29 +52,28 @@ function DetailedView(props) {
             <Image preview={false} width={50} src={image === "" ? customApprovalIcon : image} />
           </div>
         </ItemContent>
-        <div className="flex justify-between gap-4">
-          <div className="innerCard w-full">
-            <div className="innerCard__header">
-              <div className="left">
-                <span className="primaryTag">
-                  <PieChartOutlined />
-                  {"Subject"}
-                </span>
-                <span className="secondaryTag">{"In Process"}</span>
-              </div>
-              <div className="right">
-                <p>Rs. 10000</p>
-              </div>
-            </div>
-            <div className="innerCard__footer">
-              <div className="left">
-                <span>{"Date"}</span>
-                <span> Thu,Oct 14 ,2021</span>
-              </div>
-              <div className="right">
-                <span>{"Header"}:</span>
-                <span> CEO Office</span>
-              </div>
+        <div className="cardSections">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Category"}</div>
+            <div className="cardSection__body">{category}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Amount"}</div>
+            <div className="cardSection__body">{value}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{customApprovalDictionary.approvers}</div>
+            <div className="cardSection__body" >
+              {approvers &&
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Approvers"}
+                  membersData={approvers}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              }
             </div>
           </div>
         </div>

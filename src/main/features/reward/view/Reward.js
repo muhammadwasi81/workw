@@ -56,7 +56,7 @@ const Reward = (props) => {
               render: (
                 <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
                   Create Reward
-                </Button>
+                </Button> 
               ),
             },
           ]}

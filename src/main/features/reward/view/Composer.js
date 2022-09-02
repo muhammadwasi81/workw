@@ -93,7 +93,6 @@ const Composer = (props) => {
   };
 
   const onFinish = (values) => {
-    console.log(values, "VALUES")
     let approvers = [];
     let members = [];
     if (typeof values.approvers === 'string') {
@@ -149,7 +148,6 @@ const Composer = (props) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-      // className={Direction === "ltr" ? "align-right" : ""}
       >
         <Form.Item
           label={rewardDictionary.name}

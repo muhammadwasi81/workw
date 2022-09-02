@@ -14,7 +14,7 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { promotionDictionary } = promotionDictionaryList[userLanguage];
 
-  const { creator, description, category, createDate, members = [], approvers, status, referenceNo, grade } = props.item;
+  const { creator, description, createDate, member = {}, approvers, status, referenceNo, grade } = props.item;
 
   return (
     <SingleItem>
@@ -41,33 +41,31 @@ function ListItem(props) {
       <ItemContent>
         <p>{description}</p>
       </ItemContent>
-      <div className="ListItemInner">
-        <div className="ItemDetails">
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{"New Grade"}</span>
-            <Tag className="IdTag">{grade ? grade : "Default Grade"}</Tag>
+      <div className="cardSections">
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{"New Grade"}</div>
+          <div className="cardSection__body"><Tag className="IdTag">{grade ? grade : "Default Grade"}</Tag></div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{promotionDictionary.promotionTo}</div>
+          <div className="cardSection__body">
+            {member && member.name
+            }
           </div>
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{promotionDictionary.promotionTo}</span>
-            {/* <Avatar
-              isAvatarGroup={true}
-              isTag={false}
-              heading={"Members"}
-              membersData={members}
-              text={"Danish"}
-              image={"https://joeschmoe.io/api/v1/random"}
-            /> */}
-          </div>
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{promotionDictionary.approvers}</span>
-            <Avatar
-              isAvatarGroup={true}
-              isTag={false}
-              heading={"Approvers"}
-              membersData={approvers}
-              text={"Danish"}
-              image={"https://joeschmoe.io/api/v1/random"}
-            />
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{promotionDictionary.approvers}</div>
+          <div className="cardSection__body">
+            {approvers &&
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Approvers"}
+                membersData={approvers}
+                text={"Approvers"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            }
           </div>
         </div>
       </div>

@@ -55,7 +55,7 @@ function TravelDetail(props) {
 	];
 
 	return (
-		<div className="" direction={Direction}>
+		<div className="p-4 bg-white rounded" direction={Direction}>
 			<div className="flex flex-col gap-4">
 				{!travelDetail ? (
 					<TravelDetailSkeleton />

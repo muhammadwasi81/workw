@@ -78,50 +78,55 @@ function RewardDetailCard(props) {
                         <div className="description w-full">
                             <p>{description}</p>
                         </div>
-                        <div className="attachmentBox">
+                        <div className="attachmentBox" style={{width: "65px", height: "60px"}}>
                             <Image preview={false} width={60} src={image === "" ? RewardDefaultIcon : image} />
                         </div>
                     </ItemContent>
-                    <div className="flex justify-between">
-                        <div className="innerCard w-full">
-                            <div className="innerCard__header">
-                                <div className="left">
-                                    Category :
-                                    <span className="" style={{ color: "#757D86" }}>
-                                        {category}
-                                    </span>
-                                </div>
-                                <div className="right">
-                                    <div className="left">
-                                        Name :
-                                        <span className="" style={{ color: "#757D86" }}>
-                                            {name}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="innerCard__footer">
-                                <div className="left">
-                                    Reason :
-                                    <span className="" style={{ color: "#757D86" }}>
-                                        {reason}
-                                    </span>
-                                </div>
+                    <div className="cardSections">
+                        <div className="cardSectionItem">
+                            <div className="cardSection__title">{"Category"}</div>
+                            <div className="cardSection__body">{category}</div>
+                        </div>
+                        <div className="cardSectionItem">
+                            <div className="cardSection__title">{"Name"}</div>
+                            <div className="cardSection__body">
+                                {name}
                             </div>
                         </div>
-                    </div>
-                    <div className="ListItemInner">
-                        <div className="ItemDetails">
-                            <div className="innerDiv">
-                                <span className="text-black font-extrabold smallHeading">{rewardDictionary.rewardTo}</span>
-                                <Avatar
-                                    isAvatarGroup={true}
-                                    isTag={false}
-                                    heading={"Members"}
-                                    membersData={members}
-                                    text={"Danish"}
-                                    image={"https://joeschmoe.io/api/v1/random"}
-                                />
+                        <div className="cardSectionItem">
+                            <div className="cardSection__title">{"Reason"}</div>
+                            <div className="cardSection__body">
+                                {reason}
+                            </div>
+                        </div>
+                        <div className="cardSectionItem">
+                            <div className="cardSection__title">{rewardDictionary.rewardTo}</div>
+                            <div className="cardSection__body">
+                                {members &&
+                                    <Avatar
+                                        isAvatarGroup={true}
+                                        isTag={false}
+                                        heading={"Members"}
+                                        membersData={members}
+                                        text={"Members"}
+                                        image={"https://joeschmoe.io/api/v1/random"}
+                                    />
+                                }
+                            </div>
+                        </div>
+                        <div className="cardSectionItem">
+                            <div className="cardSection__title">{rewardDictionary.approvers}</div>
+                            <div className="cardSection__body">
+                                {approvers &&
+                                    <Avatar
+                                        isAvatarGroup={true}
+                                        isTag={false}
+                                        heading={"approvers"}
+                                        membersData={approvers ? approvers : []}
+                                        text={"Approvers"}
+                                        image={"https://joeschmoe.io/api/v1/random"}
+                                    />
+                                }
                             </div>
                         </div>
                     </div>

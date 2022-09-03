@@ -1,9 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Skeleton, Modal } from "antd";
+import { Skeleton, Modal, Button, Drawer } from "antd";
 import { customApprovalDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
@@ -19,6 +18,7 @@ import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
+import { handleOpenComposer } from "../store/slice";
 
 const CustomApproval = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -31,7 +31,7 @@ const CustomApproval = (props) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
-  const { customApprovals, loader, customApprovalDetail } = useSelector((state) => state.customApprovalSlice);
+  const { customApprovals, loader, customApprovalDetail, drawerOpen } = useSelector((state) => state.customApprovalSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -57,21 +57,17 @@ const CustomApproval = (props) => {
           buttons={[
             {
               buttonText: "Create Custom Approval",
-              // onClick: () => setVisible(true),
               render: (
-                <SideDrawer
-                  title={customApprovalDictionary.createCustomApproval}
-                  buttonText={customApprovalDictionary.createCustomApproval}
-                  isAccessDrawer={false}>
-                  <Composer />
-                </SideDrawer>
+                <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                  Create Custom Approval
+                </Button>
               ),
             },
           ]}
         />
         <TopBar
           onSearch={(value) => {
-            console.log(value);
+            setFilter({ ...filter, search: value })
           }}
           buttons={[
             {
@@ -79,13 +75,18 @@ const CustomApproval = (props) => {
               onClick: () => setFilter({ filterType: 0 }),
             },
             {
-              name: "For Approval",
+              name: "Created By Me",
               onClick: () => setFilter({ filterType: 1 }),
             },
+            {
+              name: "For Approval",
+              onClick: () => setFilter({ filterType: 2 }),
+            },
+            {
+              name: "Approvals For Me",
+              onClick: () => setFilter({ filterType: 3 }),
+            },
           ]}
-          // filter={{
-          //   onFilter: () => {},
-          // }}
           segment={{
             onSegment: (value) => {
               if (value === "Table") {
@@ -101,7 +102,11 @@ const CustomApproval = (props) => {
         <ContBody>
           {customApprovals?.length > 0 ? (
             tableView ? (
-              <div></div>
+              <Table
+                columns={tableColumn()}
+                dragable={true}
+                data={customApprovals}
+              />
             ) : (
               <>
                 {loader ? (
@@ -126,6 +131,27 @@ const CustomApproval = (props) => {
           )}
         </ContBody>
         {customApprovalDetail && <DetailedView onClose={onClose} visible={visible} />}
+        <Drawer
+          title={
+            <h1
+              style={{
+                fontSize: "20px",
+                margin: 0,
+              }}
+            >
+              Create Custom Approval
+            </h1>
+          }
+          width="768"
+          onClose={() => {
+            dispatch(handleOpenComposer(false))
+          }}
+          visible={drawerOpen}
+          destroyOnClose={true}
+          className="detailedViewComposer drawerSecondary"
+        >
+          <Composer />
+        </Drawer>
       </TabbableContainer>
     </>
   );

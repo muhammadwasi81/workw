@@ -15,6 +15,7 @@ function DashboardCardLayout({
 }) {
 	const { Meta } = Card;
 	const userId = useSelector(state => state.userSlice.user.id);
+	console.log("dict", dictionary);
 
 	return (
 		<>
@@ -66,9 +67,7 @@ function DashboardCardLayout({
 								handleUpdate();
 							}}
 						>
-							{dictionary &&
-								dictionary.labels &&
-								dictionary.labels.update}
+							{dictionary?.labels?.update}
 						</div>
 					)}
 				</div>

@@ -10,7 +10,12 @@ const turkish = {
 			table: "Masa",
 			group: "Gruplar",
 		},
-		labels: { name: "İsim", desc: "Tanım", upload: "Yüklemek" },
+		labels: {
+			name: "İsim",
+			desc: "Tanım",
+			upload: "Yüklemek",
+			update: "Güncelleme",
+		},
 		placeHolders: {
 			namePh: "İsim giriniz",
 			descPh: "Açıklama girin",

@@ -123,6 +123,7 @@ const Groups = props => {
 									handleClickNavigation={
 										handleClickNavigation
 									}
+									dictionary={groupsDictionary}
 								/>
 							</>
 						)

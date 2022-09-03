@@ -1,11 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Row, Button, Skeleton } from "antd";
+import { ContBody,  TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Button, Skeleton, Drawer } from "antd";
 import { promotionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
@@ -13,16 +10,16 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllPromotions, GetPromotionById } from "../store/actions";
 import TableView from "./TableView";
-// import "./warning.css";
-import { dictionaryList } from "../../../../utils/localization/languages";
 import { CardWrapper } from "../../../layout/GridStyle";
 
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
+import { handleOpenComposer } from "../store/slice";
 
-const Reward = (props) => {
+const Promotion = (props) => {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { promotionDictionary } = promotionDictionaryList[userLanguage];
 
@@ -32,9 +29,7 @@ const Reward = (props) => {
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
-  const dispatch = useDispatch();
-
-  const { promotions, loader, promotionDetail } = useSelector((state) => state.promotionSlice);
+  const { promotions, loader, promotionDetail, drawerOpen } = useSelector((state) => state.promotionSlice);
 
   const onClose = () => {
     setVisible(false);
@@ -54,18 +49,17 @@ const Reward = (props) => {
         buttons={[
           {
             buttonText: "Create Promotion",
-            // onClick: () => setVisible(true),
             render: (
-              <SideDrawer title={promotionDictionary.createPromotion} buttonText={promotionDictionary.createPromotion} isAccessDrawer={false}>
-                <Composer />
-              </SideDrawer>
+              <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                  Create Promotion
+                </Button> 
             ),
           },
         ]}
       />
       <TopBar
         onSearch={(value) => {
-          console.log(value);
+          setFilter({ ...filter, search: value })
         }}
         buttons={[
           {
@@ -73,13 +67,19 @@ const Reward = (props) => {
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: "My Promotions",
+            name: "Created By Me",
             onClick: () => setFilter({ filterType: 1 }),
           },
+          {
+            name: "For Approval",
+            onClick: () => setFilter({ filterType: 2 }),
+          },
+          {
+            name: "Promotion For Me",
+            onClick: () => setFilter({ filterType: 3 }),
+          },
+          
         ]}
-        // filter={{
-        //   onFilter: () => {},
-        // }}
         segment={{
           onSegment: (value) => {
             if (value === "Table") {
@@ -99,14 +99,7 @@ const Reward = (props) => {
               <Table
                 columns={tableColumn()}
                 dragable={false}
-                // handleChange={handleChange}
-                // onPageChange={onPageChange}
-                // onRow={onRow}
                 data={promotions}
-                // status={travelStatus}
-                // loadding={loader}
-                // success={success}
-                // onActionClick={onActionClick}
               />
             </div>
           ) : (
@@ -133,8 +126,29 @@ const Reward = (props) => {
         )}
       </ContBody>
       {promotionDetail && <DetailedView onClose={onClose} visible={visible} />}
+      <Drawer
+          title={
+            <h1
+              style={{
+                fontSize: "20px",
+                margin: 0,
+              }}
+            >
+              Create Promotion
+            </h1>
+          }
+          width="768"
+          onClose={() => {
+            dispatch(handleOpenComposer(false))
+          }}
+          visible={drawerOpen}
+          destroyOnClose={true}
+          className="detailedViewComposer drawerSecondary"
+        >
+          <Composer />
+        </Drawer>
     </TabbableContainer>
   );
 };
 
-export default Reward;
+export default Promotion;

@@ -78,9 +78,9 @@ const CreateEntryItem = ({
   }
   return (
     <tr>
-     <td>100</td>
-     <td>100</td>
-     <td>100</td>
+     <td>1</td>
+     <td>Abu Bakar</td>
+     <td>1250000</td>
      <td>100</td>
      <td>100</td>
      <td>100</td>

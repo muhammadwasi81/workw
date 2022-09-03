@@ -36,14 +36,14 @@ function CheckDate({ isOutsideRender, todoData }) {
 	}, [dueDate]);
 
 	const onChange = e => {
-		// setChecked(e.target.checked);
-		// dispatch(
-		// 	addListCardDueDate({
-		// 		cardId,
-		// 		dueDate,
-		// 		isComplete: e.target.checked,
-		// 	})
-		// );
+		setChecked(e.target.checked);
+		dispatch(
+			addListCardDueDate({
+				cardId,
+				dueDate,
+				isComplete: e.target.checked,
+			})
+		);
 	};
 
 	// call this function, passing-in your date
@@ -106,16 +106,13 @@ function CheckDate({ isOutsideRender, todoData }) {
 						<Checkbox
 							onChange={onChange}
 							checked={checked}
-							className={`text-base !pr-0 ${
-								checked && `!text-white`
-							}`}
+							className={`text-base !pr-0 ${checked &&
+								`!text-white`}`}
 						>
 							<span
-								className={`text-sm ${
-									(dateVal === "today" ||
-										dateVal === "yesterday") &&
-									"!text-white"
-								}`}
+								className={`text-sm ${(dateVal === "today" ||
+									dateVal === "yesterday") &&
+									"!text-white"}`}
 							>
 								{moment(new Date(dueDate), "DD/MM/YYYY").format(
 									"D MMM"
@@ -129,9 +126,8 @@ function CheckDate({ isOutsideRender, todoData }) {
 					<Checkbox
 						onChange={onChange}
 						checked={checked}
-						className={`text-base !pr-0 ${
-							checked && `!text-white`
-						}`}
+						className={`text-base !pr-0 ${checked &&
+							`!text-white`}`}
 					/>
 
 					<div

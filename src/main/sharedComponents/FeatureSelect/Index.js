@@ -127,12 +127,13 @@ function FeatureSelect({ features, form }) {
 
 	return (
 		<>
+			<p className="!mb-[8px]">Features</p>
 			{data.map(item => {
 				return (
-					<div className="FeatureSelect flex justify-between radioSelected mb-2">
+					<div className="FeatureSelect flex justify-between bg-[#f4f4f4] mb-2">
 						<div>
 							<div className="flex">
-								<div className="imageBox">
+								<div className="imageBox border-r border-r-[#b3bed5]">
 									<img
 										src={item.icon}
 										className="h-[34px] w-[34px]"
@@ -140,7 +141,7 @@ function FeatureSelect({ features, form }) {
 								</div>
 								<div>
 									<h4>{item.name}</h4>
-									<p className="text-neutral-200">
+									<p className="text-slate-500">
 										{item.description}
 									</p>
 								</div>

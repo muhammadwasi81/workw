@@ -1,19 +1,15 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message, Select } from "antd";
 import React, { useEffect, useState, useContext } from "react";
-import TextInput from "../../../sharedComponents/Input/TextInput";
 import { useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
-import { addDepartment } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { projectsDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
-import { STRINGS } from "../../../../utils/base";
 import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
 import { DatePicker } from "antd";
+import { validateEmail } from "../../../../utils/Shared/helper/validateEmail";
 
 const { RangePicker } = DatePicker;
 
@@ -108,7 +104,11 @@ const Composer = props => {
 								},
 							]}
 						>
-							<Input placeholder={placeholders.name} />
+							<Input
+								placeholder={placeholders.name}
+								size="large"
+								className="!rounded"
+							/>
 						</Form.Item>
 					</div>
 					<div className="flex gap-4">
@@ -134,7 +134,11 @@ const Composer = props => {
 						},
 					]}
 				>
-					<Input.TextArea placeholder={placeholders.desc} />
+					<Input.TextArea
+						placeholder={placeholders.desc}
+						rows={4}
+						className="!rounded"
+					/>
 				</Form.Item>
 
 				<Form.Item label={labels.projectDate} name="startEndDate">
@@ -147,29 +151,44 @@ const Composer = props => {
 						onChange={(value, dateString) => {
 							handleEndStartDate(value, dateString, "start_end");
 						}}
+						size="large"
+						className="!rounded"
 					/>
 				</Form.Item>
 
 				<Form.Item
-					name={"members"}
+					name={"external"}
 					label={labels.externals}
-					showSearch={true}
 					direction={Direction}
 					rules={[
 						{
 							// required: true,
-							message: errors.members,
+							// message: errors.members,
+							validator: (_, value) => {
+								if (validateEmail(value[value.length - 1])) {
+									form.setFieldsValue({ external: value });
+									return;
+								} else {
+									message.error("Please add validate email.");
+									form.setFieldsValue({
+										external: form
+											.getFieldValue("external")
+											.slice(
+												0,
+												form.getFieldValue("external")
+													.length - 1
+											),
+									});
+								}
+							},
 						},
 					]}
 				>
-					<NewCustomSelect
-						name={"members"}
-						label={labels.externals}
-						showSearch={true}
-						direction={Direction}
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={placeholders.externals}
+					<Select
+						mode="tags"
+						dropdownClassName="hidden"
+						placeholder="Please add external members"
+						size="large"
 					/>
 				</Form.Item>
 
@@ -187,10 +206,7 @@ const Composer = props => {
 				) : (
 					""
 				)}
-				<div>
-					Feature
-					<FeatureSelect features={features} form={form} />
-				</div>
+				<FeatureSelect features={features} form={form} />
 
 				<Form.Item>
 					<Button

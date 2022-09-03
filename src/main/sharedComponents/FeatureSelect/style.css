@@ -1,5 +1,5 @@
 .FeatureSelect {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #b3bed5;
   padding: 8px 14px 0px 9px;
   border-radius: 10px;
 }
@@ -10,7 +10,7 @@
 }
 
 .imageBox {
-  background: #8dabb4;
+  background: transparent;
   padding: 8px 12px 0px 12px;
   border-radius: 4px;
   max-height: 48px;

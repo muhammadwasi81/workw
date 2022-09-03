@@ -140,25 +140,13 @@ const Composer = props => {
 					<Input.TextArea placeholder={placeHolders.descPh} />
 				</Form.Item>
 
-				<Form.Item
-					shouldUpdate={(prevValues, curValues) =>
-						prevValues.members !== curValues.members
-					}
-				>
-					{form => {
-						return (
-							<MemberComposer
-								handleAdd={handelAddMember}
-								state={state}
-								defaultData={state.members.map(members => {
-									return members.memberId;
-								})}
-								form={form}
-								placeholder={placeHolders}
-								error={errors}
-							/>
-						);
-					}}
+				<Form.Item>
+					<MemberComposer
+						handleAdd={handelAddMember}
+						placeholder={placeHolders}
+						error={errors}
+						form={form}
+					/>
 				</Form.Item>
 
 				{memberList?.length > 0 ? (

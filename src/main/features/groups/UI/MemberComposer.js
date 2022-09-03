@@ -64,7 +64,7 @@ function MemberComposer(props) {
 	};
 
 	return (
-		<>
+		<Form form={form}>
 			<div className="flex justify-between gap-4">
 				<div className="w-full">
 					<MemberSelect
@@ -140,7 +140,7 @@ function MemberComposer(props) {
 					/>
 				</div>
 			</div>
-		</>
+		</Form>
 	);
 }
 

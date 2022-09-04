@@ -4,12 +4,12 @@ import {
   Button,
   DatePicker,
   Form,
+  Input,
   Popconfirm,
   Radio,
   Select,
 } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import TextInput from "../../../../sharedComponents/Input/TextInput";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { useDispatch } from "react-redux";
 import { addNewTask } from "../../store/actions";
@@ -21,6 +21,7 @@ import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedS
 import { useSelector } from "react-redux";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
+import TextArea from "antd/lib/input/TextArea";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 let newType;
@@ -41,21 +42,23 @@ function TaskComposer() {
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
-  const { success } = useSelector((state) => state.taskSlice);
+  const { success, taskList, loading } = useSelector(
+    (state) => state.taskSlice
+  );
   const options = [
     { label: labels.selfTask, value: "self" },
     { label: labels.assignTo, value: "assign" },
   ];
   const initialValues = {
     subject: "",
-    predecessor: "",
+    parentId: [],
     description: "",
     type: "1",
     taskType: "self",
     assign: [],
     taskDate: "",
     referenceId: "",
-    priority: "1",
+    priority: "2",
     checkList: "",
   };
 
@@ -88,12 +91,13 @@ function TaskComposer() {
       subject,
       taskType,
       type,
+      parentId,
       referenceId,
     } = values;
     let requestData = {
       subject,
       description,
-      parentId: STRINGS.DEFAULTS.guid,
+      parentId: parentId || STRINGS.DEFAULTS.guid,
       referenceId: referenceId
         ? JSON.parse(referenceId)?.id
         : STRINGS.DEFAULTS.guid,
@@ -104,7 +108,7 @@ function TaskComposer() {
       members:
         taskType === "self"
           ? []
-          : employeesData.map((item) => ({ memberId: item.memberId })),
+          : employeesData.map((item) => ({ memberId: item.id })),
       attachments: attachments,
     };
     dispatch(addNewTask(requestData));
@@ -155,18 +159,32 @@ function TaskComposer() {
           },
         ]}
       >
-        <TextInput placeholder={placeHolder.writeSubject} />
+        <Input placeholder={placeHolder.writeSubject} />
       </Form.Item>
-      {/* <Form.Item label={labels.predecessor} name="predecessor"
-      rules={[
-        {
-          required: true,
-          message: "Please input predecessor!",
-        },
-      ]}
+      <Form.Item
+        label={labels.predecessor}
+        name="parentId"
+        rules={[
+          {
+            required: true,
+            message: "Please input predecessor!",
+          },
+        ]}
       >
-        <TextInput placeholder={placeHolder.writePredecessor} />
-      </Form.Item> */}
+        <Select
+          getPopupContainer={(trigger) => trigger.parentNode}
+          placeholder={placeHolder.writePredecessor}
+          size={"large"}
+        >
+          {taskList &&
+            taskList.map(({ id, subject }) => (
+              <Option key={id} value={id}>
+                {subject}
+              </Option>
+            ))}
+        </Select>
+        {/* <Input  /> */}
+      </Form.Item>
       <Form.Item
         label={labels.description}
         name="description"
@@ -177,7 +195,12 @@ function TaskComposer() {
           },
         ]}
       >
-        <TextInput placeholder={placeHolder.writeDescription} />
+        <Input.TextArea
+          placeholder={placeHolder.writeDescription}
+          rows={4}
+          maxLength={200}
+          name="description"
+        />
       </Form.Item>
       <Form.Item
         label={labels.type}
@@ -221,9 +244,13 @@ function TaskComposer() {
         <Form.Item
           name="referenceId"
           label={type === "2" ? "Projects" : "Groups"}
-          showSearch={true}
           direction={Direction}
-          rules={[{ required: true }]}
+          rules={[
+            {
+              required: true,
+              message: `Please select ${type === "2" ? "Projects" : "Groups"}!`,
+            },
+          ]}
         >
           <NewCustomSelect
             name="referenceId"
@@ -265,7 +292,16 @@ function TaskComposer() {
             cancelText="No"
           ></Popconfirm>
           {type === "1" ? (
-            <Form.Item label={labels.assignTo} name="assign">
+            <Form.Item
+              label={labels.assignTo}
+              name="assign"
+              rules={[
+                {
+                  required: true,
+                  message: "Please Select Assign Member!",
+                },
+              ]}
+            >
               <MemberSelect
                 onDeselect={(value) => {
                   let memberArr = [...employeesData];
@@ -276,7 +312,7 @@ function TaskComposer() {
                 }}
                 name="managerId"
                 mode="multiple"
-                formItem={false}
+                formitem={false}
                 isObject={true}
                 data={firstTimeEmpData}
                 canFetchNow={isFirstTimeDataLoaded}
@@ -298,7 +334,16 @@ function TaskComposer() {
               />
             </Form.Item>
           ) : (
-            <Form.Item label={labels.assignTo} name="assign">
+            <Form.Item
+              label={labels.assignTo}
+              name="assign"
+              rules={[
+                {
+                  required: true,
+                  message: "Please Select Assign Member!",
+                },
+              ]}
+            >
               <Select
                 mode="multiple"
                 name="assign"
@@ -321,7 +366,7 @@ function TaskComposer() {
                     >
                       <Avatar
                         src={item.member.image}
-                        className="!bg-black flex !mr-1ss"
+                        className="!bg-black flex !mr-1"
                       >
                         {getNameForImage(item.member.name)}
                       </Avatar>
@@ -362,10 +407,10 @@ function TaskComposer() {
         ]}
       >
         <Radio.Group className="radioPrimary radioPriority">
-          <Radio.Button value="1">
+          {/* <Radio.Button value="1">
             <CheckCircleOutlined />
             {labels.default}
-          </Radio.Button>
+          </Radio.Button> */}
           <Radio.Button value="2">
             <CheckCircleOutlined />
             {labels.low}
@@ -383,7 +428,7 @@ function TaskComposer() {
       {/* <Form.Item label="" name="checkList">
         <Checkbox> {labels.checkList}</Checkbox>
       </Form.Item> */}
-      <Form.Item label="" name="" className="w-max">
+      <Form.Item label={labels.attachments} name="" className="w-max">
         <SingleUpload
           handleImageUpload={(fileData) => {
             setAttachments([
@@ -392,11 +437,11 @@ function TaskComposer() {
             ]);
           }}
           uploadText={"Upload"}
-          multiple={false}
+          multiple={true}
         />
       </Form.Item>
       <Form.Item>
-        <Button className="ThemeBtn" block htmlType="submit">
+        <Button loading={loading} className="ThemeBtn" block htmlType="submit">
           {createTextBtn}
         </Button>
       </Form.Item>

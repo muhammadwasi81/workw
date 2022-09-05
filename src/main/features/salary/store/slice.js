@@ -7,13 +7,17 @@ const initialState = {
    loader: false,
    error: false,
    salaryDetail: null,
-   salaryList:[],
+   salaryList: [],
 };
 
 export const VoucherSlice = createSlice({
    name: 'EmployeeSalary',
    initialState: initialState,
-   reducers: {},
+   reducers: {
+      clearSalaryDetail: (state) => {
+         state.salaryDetail = null;
+      }
+   },
 
    extraReducers: (builder) => {
       builder
@@ -34,7 +38,7 @@ export const VoucherSlice = createSlice({
          })
          .addMatcher(
             isPending(
-               ...[ addMultipleEmployeeSalary ]
+               ...[addMultipleEmployeeSalary]
             ),
             state => {
                state.loader = true;
@@ -44,5 +48,5 @@ export const VoucherSlice = createSlice({
          );
    }
 })
-
+export const { clearSalaryDetail } = VoucherSlice.actions;
 export default VoucherSlice.reducer;

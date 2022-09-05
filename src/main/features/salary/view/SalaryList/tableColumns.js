@@ -20,6 +20,14 @@ export const salaryTableColumn = () => {
 			sort: true,
 		},
 		{
+			title: "Salary For",
+			dataIndex: "creator",
+			ellipsis: true,
+			render: creator =>
+				<TagAvatar text={"Syed Danish"} img={creator.image} />,
+			sort: true,
+		},
+		{
 			title: "Approvers",
 			dataIndex: "approvers",
 			ellipsis: true,

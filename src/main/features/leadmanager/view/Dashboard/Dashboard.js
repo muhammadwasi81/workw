@@ -11,21 +11,7 @@ import { tableColumn } from "./TableView/tableColumn";
 function LeadDashboard({ isTableView, dictionary, data, onChange }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	// const leadManagerData = useSelector(
-	// 	state => state.leadMangerSlice.leadManagersData
-	// );
 	const loading = useSelector(state => state.leadMangerSlice.loading);
-	// useEffect(() => {
-	// 	dispatch(
-	// 		getAllLeadManager({
-	// 			pageNo: 0,
-	// 			pageSize: 0,
-	// 			search: "",
-	// 			sortBy: 1,
-	// 		})
-	// 	);
-	// }, []);
-
 	const onRow = (record, rowIndex) => {
 		return {
 			onClick: event => {

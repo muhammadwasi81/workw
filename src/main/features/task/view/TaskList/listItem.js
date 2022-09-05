@@ -1,26 +1,23 @@
-import { Button, Progress, Tag } from "antd";
+import { Progress } from "antd";
 import React, { useContext } from "react";
-// import WarningApprovel from "../WarningApprovel";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { Rate } from "antd";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage, STRINGS } from "../../../../../utils/base";
-import { NavLink, useNavigate } from "react-router-dom";
-
 import moment from "moment";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { taskDictionary } from "../../localization";
 import { getPriorityLabel } from "../../utils/enum/enum";
+import TaskMembers from "../TaskDetail/taskMembers";
 
-function TaskListItem({ item }) {
+function TaskListItem({ item, isTaskMember = false, onTask = () => {} }) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, Direction } = dictionaryList[userLanguage];
+  const { Direction } = dictionaryList[userLanguage];
   const { taskDictionaryList } = taskDictionary[userLanguage];
   const { labels } = taskDictionaryList;
-  const Navigate = useNavigate();
   const {
+    id,
     subject,
     description,
     referenceNo,
@@ -38,7 +35,7 @@ function TaskListItem({ item }) {
   const { color, label } = getPriorityLabel(labels, priority);
 
   return (
-    <div className={classes} onClick={() => Navigate("taskDetail/" + item.id)}>
+    <div className={classes} onClick={() => onTask(id)}>
       <div className="card-item-header">
         <div className="left">
           <UserInfo
@@ -76,7 +73,12 @@ function TaskListItem({ item }) {
               <p className="card-desc-1">{description}</p>
             </div>
 
-            <div className="right"></div>
+            <div className="right">
+              {isTaskMember && <TaskMembers members={members} />}
+            </div>
+          </div>
+          <div>
+            <Progress strokeColor="#1b5669" percent={progress} />
           </div>
           <div className="cardSections">
             <div className="cardSectionItem">
@@ -109,10 +111,6 @@ function TaskListItem({ item }) {
                 )}
               </div>
             </div>
-          </div>
-
-          <div>
-            <Progress strokeColor="#1b5669" percent={progress} />
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ const en = {
       selectAssign: "Select Assign",
     },
     labels: {
+      attachments:"Attachments",
       taskSubject: "Task Subject",
       predecessor: "Predecessor",
       type: "Type",

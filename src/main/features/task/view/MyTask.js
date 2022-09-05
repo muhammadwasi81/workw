@@ -1,20 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import TaskListItem from "./TaskList/listItem";
 import { Collapse, Divider, Skeleton } from "antd";
 import { groupByKey } from "../../../../utils/base";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import TaskDetail from "./TaskDetail/TaskDetail";
 const { Panel } = Collapse;
 function MyTask() {
-  const { taskList, loading } = useSelector((state) => state.taskSlice);
-  if (loading)
-    return [...Array(10)].map(() => (
-      <div style={{ margin: "10px" }}>
-        <Skeleton avatar />
-      </div>
-    ));
+  const {
+    taskList: { loading, list },
+  } = useSelector((state) => state.taskSlice);
+  const [visible, setVisible] = useState(false);
+  const [id, setId] = useState("");
+  const handleCard = (id) => {
+    console.log("handleCard", "handleCard");
+    setId(id);
+    setVisible(true);
+  };
+  const handleDrawerClose = () => {
+    setVisible(false);
+  };
 
-  let filteredList = taskList.map((item) => ({
+  if (loading)
+    return (
+      <div className="taskItemContainer">
+        {[...Array(10)].map(() => (
+          <div className="taskListSkeleton">
+            <Skeleton avatar />
+          </div>
+        ))}
+      </div>
+    );
+
+  let filteredList = list.map((item) => ({
     ...item,
     startDateOnly: moment(item.startDate).format("MMM Do YYYY"),
   }));
@@ -39,13 +57,22 @@ function MyTask() {
               }
               key="1"
             >
-              {groupDate[item].map((task) => {
-                return <TaskListItem key={task.id} item={task} />;
-              })}
+              <div className="taskItemContainer">
+                {groupDate[item].map((task) => {
+                  return (
+                    <TaskListItem
+                      key={task.id}
+                      item={task}
+                      onTask={handleCard}
+                    />
+                  );
+                })}
+              </div>
             </Panel>
           </Collapse>
         );
       })}
+      <TaskDetail id={id} visible={visible} onClose={handleDrawerClose} />
     </>
   );
 }

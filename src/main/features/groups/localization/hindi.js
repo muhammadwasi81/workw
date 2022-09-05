@@ -10,7 +10,12 @@ const hindi = {
 			table: "मेज",
 			group: "समूहों",
 		},
-		labels: { name: "नाम", desc: "विवरण", upload: "डालना" },
+		labels: {
+			name: "नाम",
+			desc: "विवरण",
+			upload: "डालना",
+			update: "अद्यतन",
+		},
 		placeHolders: {
 			namePh: "नाम दर्ज",
 			descPh: "विवरण दर्ज करें",

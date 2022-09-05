@@ -1,17 +1,22 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { getAllCustomApprovals, GetCustomApprovalById } from "./actions";
+import { addCustomApproval, getAllCustomApprovals, GetCustomApprovalById } from "./actions";
 
 const initialState = {
   customApprovals: [],
   loadingData: false,
   loader: true,
   customApprovalDetail: null,
+  drawerOpen: false,
 };
 
 const customApprovalSlice = createSlice({
   name: "customApprovals",
   initialState,
-  reducers: {},
+  reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllCustomApprovals.fulfilled, (state, action) => {
       state.customApprovals = action.payload ? action.payload : [];
@@ -21,6 +26,11 @@ const customApprovalSlice = createSlice({
     builder.addCase(GetCustomApprovalById.fulfilled, (state, action) => {
       state.customApprovalDetail = action.payload.data;
     });
+    builder.addCase(addCustomApproval.fulfilled, (state, { payload }) => {
+      state.leaveData = payload;
+      state.drawerOpen = false;
+      return state;
+    })
 
     builder
       .addMatcher(isPending(...[getAllCustomApprovals]), (state) => {
@@ -33,5 +43,5 @@ const customApprovalSlice = createSlice({
   },
 });
 
-export const {} = customApprovalSlice.actions;
+export const { handleOpenComposer } = customApprovalSlice.actions;
 export default customApprovalSlice.reducer;

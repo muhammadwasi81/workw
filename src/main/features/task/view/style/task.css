@@ -52,8 +52,8 @@
 .card-list-item {
   background: white;
   border-radius: 10px;
-  padding: 20px 27px;
-  margin-bottom: 12px;
+  padding: 20px 15px;
+  /* margin-bottom: 12px; */
   /* height: calc(100% - 80px);
     overflow: hidden;
     scroll-behavior: smooth; */
@@ -408,32 +408,41 @@
   gap: 10px;
 }
 
-.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(2) {
+.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(1) {
   border-color: red;
 }
 
-.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(2) span {
+.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(1) span {
   color: red;
 }
 
-.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(3) {
+.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(2) {
   border-color: orange;
 }
 
-.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(3) span {
+.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(2) span {
   color: orange;
 }
 
-.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(4) {
+.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(3) {
   border-color: green;
 }
 
-.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(4) span {
+.radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(3) span {
   color: green;
 }
 
-.radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(2).ant-radio-button-wrapper-checked {
+.radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(1).ant-radio-button-wrapper-checked {
   background: #bd1919;
+  border-color: #a40d0d;
+}
+
+.radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(1).ant-radio-button-wrapper-checked span {
+  color: #fff;
+}
+
+.radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(2).ant-radio-button-wrapper-checked {
+  background: #f2a00b;
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(2).ant-radio-button-wrapper-checked span {
@@ -441,18 +450,10 @@
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(3).ant-radio-button-wrapper-checked {
-  background: #f2a00b;
-}
-
-.radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(3).ant-radio-button-wrapper-checked span {
-  color: #fff;
-}
-
-.radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(4).ant-radio-button-wrapper-checked {
   background: #0a7c0a;
 }
 
-.radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(4).ant-radio-button-wrapper-checked span {
+.radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(3).ant-radio-button-wrapper-checked span {
   color: #fff;
 }
 
@@ -524,7 +525,15 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+.taskItemContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 20px;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1200px) {
   .card-item-header .right {
     flex-direction: column;
     align-items: end;
@@ -536,13 +545,30 @@
   }
 }
 
+.task-composer .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  font-size: 14px;
+}
+
 .card-list-item {
   cursor: pointer;
 }
 
-@media screen and (max-width: 1000px) {
+.taskListSkeleton {
+
+  width: 49%;
+}
+
+.taskItemContainer .card-list-item {
+  width: 49.5%;
+}
+
+@media screen and (max-width: 100px) {
   .card-list-item {
     padding: 10px;
+  }
+
+  .taskItemContainer .card-list-item {
+    width: 100%;
   }
 
   .card-column-view>div {

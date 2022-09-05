@@ -2,7 +2,7 @@ import {
   ResponseResultError,
   ResponseResultSuccess,
 } from "../../../../../utils/api/ResponseResult";
-import { jsonToFormData, STRINGS } from "../../../../../utils/base";
+import { jsonToFormData } from "../../../../../utils/base";
 import Config from "../../../../../utils/services/MasterConfig";
 
 export const addNewTaskService = async (request) => {
@@ -40,7 +40,8 @@ export const getAllTaskService = async (
   }
 };
 
-export const getTaskByIdService = async (taskId = STRINGS.DEFAULTS.guid) => {
+export const getTaskByIdService = async (taskId) => {
+  console.log(taskId, "service");
   try {
     const {
       data: { responseCode, data, message },

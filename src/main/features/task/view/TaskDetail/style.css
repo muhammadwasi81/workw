@@ -1,8 +1,16 @@
-.taskMembers{
+.taskMembers {
     width: 250px;
-    height: 330px;
+    /* height: 330px; */
     padding: 10px 10px;
     border-radius: 8px;
     border: 1px solid rgb(230, 230, 230);
     overflow: scroll;
+}
+
+.taskDetail .card-list-item {
+    cursor: default;
+}
+
+.taskDetail .card-item-body {
+    width: 100%;
 }

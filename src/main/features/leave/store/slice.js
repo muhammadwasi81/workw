@@ -24,12 +24,12 @@ const leaveSlice = createSlice({
 		});
 
 		builder.addCase(GetLeaveById.fulfilled, (state, action) => {
-			console.log(state, action, "STATE")
 			state.leaveDetail = action.payload.data;
 		});
 
 		builder
 			.addCase(addLeave.fulfilled, (state, { payload }) => {
+				state.drawerOpen = false;
 				state.leaveData = payload;
 				return state;
 			})

@@ -10,6 +10,7 @@ const hindi = {
       selectAssign: "असाइन करें का चयन करें",
     },
     labels: {
+      attachments: "Attachments",
       taskSubject: "कार्य विषय",
       predecessor: "पूर्ववर्ती",
       type: "प्रकार",

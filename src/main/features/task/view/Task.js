@@ -36,7 +36,10 @@ function Task() {
   const [filterType, setFilterType] = useState(2);
   const [tableView, setTableView] = useState(false);
   const dispatch = useDispatch();
-  const { taskList, success } = useSelector((state) => state.taskSlice);
+  const {
+    taskList: { list },
+    success,
+  } = useSelector((state) => state.taskSlice);
   useEffect(() => {
     dispatch(
       getAllTask({
@@ -68,9 +71,7 @@ function Task() {
       ),
     },
   ];
-  // CreatedByMe=1,
-  // MyTasks=2,
-  // MyTeamTasks=3
+
   return (
     <TabbableContainer>
       <Header items={items} buttons={buttons} />
@@ -113,10 +114,10 @@ function Task() {
             <Table
               columns={tableColumn()}
               dragable={true}
-              data={taskList ? taskList : []}
+              data={list ? list : []}
             />
           ) : (
-            <MyTaskList />
+            <MyTaskList filterType={filterType} />
           )}
         </div>
       </ContBody>

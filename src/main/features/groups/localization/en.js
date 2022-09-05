@@ -10,7 +10,12 @@ const en = {
 			table: "Table",
 			group: "Groups",
 		},
-		labels: { name: "Name", desc: "Description", upload: "Upload" },
+		labels: {
+			name: "Name",
+			desc: "Description",
+			upload: "Upload",
+			update: "Update",
+		},
 		placeHolders: {
 			namePh: "Enter name",
 			descPh: "Enter description",

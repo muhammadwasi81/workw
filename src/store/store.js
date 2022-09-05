@@ -59,7 +59,7 @@ import groupSlice from "../main/features/groups/store/slice";
 import chartOfAccountsSlice from "../main/features/chartOfAccount/store/slice";
 import callingSlice from "../main/features/calling/store/slice";
 import salarySlice from "../main/features/salary/store/slice";
-import loanSlice from "./appReducer/loanSlice";
+import loanSlice from "../main/features/loan/store/slice";
 import resignationSlice from "./appReducer/resignationSlice";
 import voucherSlice from "../main/features/voucher/store/slice";
 import scheduleSlice from "../main/features/schedule/store/slice";
@@ -122,7 +122,7 @@ const reducers = combineReducers({
   groupSlice,
   callingSlice,
   voucherSlice,
-  salarySlice
+  salarySlice,
 });
 
 const persistConfig = {

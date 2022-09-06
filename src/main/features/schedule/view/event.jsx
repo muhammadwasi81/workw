@@ -3,7 +3,7 @@ import React from "react";
 import "../styles/event.css";
 function Event({ shortDesc = false, eventInfo }) {
 	const data = eventInfo?.event._def.extendedProps;
-	console.log("data", data);
+	
 	return (
 		<div className="event">
 			<div className="left">

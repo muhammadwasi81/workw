@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "../styles/style.css";
@@ -23,13 +24,7 @@ function Scheduler() {
 	let isPanelChange = false;
 	const dispatch = useDispatch();
 	const renderEventContent = eventInfo => {
-		return (
-			<Event eventInfo={eventInfo} />
-			// <>
-			//   <b>{eventInfo.timeText}</b>
-			//   <i>{eventInfo.event.title}</i>
-			// </>
-		);
+		return <Event eventInfo={eventInfo} />;
 	};
 	useEffect(() => {
 		fetchAllSchedule(new Date(), new Date());
@@ -83,6 +78,7 @@ function Scheduler() {
 			<div className="schedulerCalender">
 				<FullCalendar
 					ref={calendarRef}
+					// hiddenDays={[]}
 					customButtons={{
 						myCustomButton: {
 							text: "",
@@ -112,17 +108,40 @@ function Scheduler() {
 						},
 					}}
 					headerToolbar={{
-						start: "title myCustomButton",
+						// start: "title myCustomButton",
+						left: "timeGridDay prev next",
+						center: "title,myCustomButton",
+						right: "timeGridWeek dayGridMonth",
 					}}
 					eventClick={info => {
 						setId(parseInt(info.event._def.publicId));
 						dispatch(toggleEventDetailComposer());
 					}}
+					// views={{
+					// 	month: {
+					// 		type: "dayGridMonth",
+					// 		buttonText: "Month",
+					// 		dayMaxEventRows: 4,
+					// 	},
+					// 	week: {
+					// 		type: "dayGridWeek",
+					// 		duration: { days: 7 },
+					// 		buttonText: "Week",
+					// 	},
+					// 	day: {
+					// 		type: "timeGrid",
+					// 		duration: { days: 1 },
+					// 		buttonText: "Day",
+					// 	},
+					// 	listMonth: {
+					// 		buttonText: "List",
+					// 	},
+					// }}
 					// locale="en-GB"
-					dayHeaders={false}
-					allDaySlot={false}
-					plugins={[timeGridPlugin, interactionPlugin]}
-					initialView="timeGrid"
+					dayHeaders={true}
+					allDaySlot={true}
+					plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+					initialView="timeGridDay"
 					events={data}
 					//   locales={allLocales}
 					//   locale="ja"

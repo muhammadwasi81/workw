@@ -210,7 +210,7 @@
 
 .site-calendar {
     width: 300px;
-
+    left: 33%;
     border-radius: 2px;
     position: absolute;
     top: 42px;
@@ -230,4 +230,13 @@
     position: relative;
     height: 100%;
 
+}
+
+.schedulerCalender .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr{
+    display: inline-flex !important;
+}
+
+.schedulerCalender .fc-toolbar-chunk>div{
+    display: inline-flex !important;
+    gap: 10px !important;
 }

@@ -1,5 +1,5 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
-import { addSchedule, getAllSchedule } from "./action";
+import { addSchedule, getAllEventSchedule, getAllSchedule } from "./action";
 
 const scheduleSlice = createSlice({
 	name: "schedule",
@@ -9,6 +9,7 @@ const scheduleSlice = createSlice({
 		success: false,
 		error: false,
 		schedules: [],
+		eventSchedules: [],
 	},
 	reducers: {
 		toggleEventDetailComposer: (state, _) => {
@@ -27,15 +28,30 @@ const scheduleSlice = createSlice({
 				state.success = true;
 				state.schedules = payload.data;
 			})
-			.addMatcher(isPending(...[addSchedule, getAllSchedule]), state => {
-				state.loading = true;
-				state.success = false;
-			})
-			.addMatcher(isRejected(...[addSchedule, getAllSchedule]), state => {
+			.addCase(getAllEventSchedule.fulfilled, (state, { payload }) => {
 				state.loading = false;
-				state.success = false;
-				state.error = true;
-			});
+				state.success = true;
+				state.eventSchedules = payload.data;
+			})
+			.addMatcher(
+				isPending(
+					...[addSchedule, getAllSchedule, getAllEventSchedule]
+				),
+				state => {
+					state.loading = true;
+					state.success = false;
+				}
+			)
+			.addMatcher(
+				isRejected(
+					...[addSchedule, getAllSchedule, getAllEventSchedule]
+				),
+				state => {
+					state.loading = false;
+					state.success = false;
+					state.error = true;
+				}
+			);
 	},
 });
 

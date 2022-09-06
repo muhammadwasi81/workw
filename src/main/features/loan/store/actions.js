@@ -25,11 +25,11 @@ export const getAllLoans = createAsyncThunk(
   }
 );
 
-// export const GetLoanById = createAsyncThunk("loans/GetLoanById", async (id) => {
-//   const response = await GetLoanByIdService(id);
-//   console.log("MY ID", id);
-//   return response.data;
-// });
+export const GetLoanById = createAsyncThunk("loans/GetLoanById", async (id) => {
+  const response = await GetLoanByIdService(id);
+  console.log("MY ID", id);
+  return response.data;
+});
 
 // export const addReward = createAsyncThunk(
 //   "Loan/addLoan",

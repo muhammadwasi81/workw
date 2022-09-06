@@ -22,10 +22,10 @@ const LoanSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
-      // .addCase(GetLoanById.fulfilled, (state, { payload }) => {
-      //   console.log("getLoanById payload", payload);
-      //   // state.loanDetail = action.payload.data;
-      // })
+      .addCase(GetLoanById.fulfilled, (state, { payload }) => {
+        console.log("getLoanById payload", payload.data);
+        state.loanDetail = payload.data;
+      })
       .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
       });

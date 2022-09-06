@@ -1,5 +1,6 @@
 import { Image, Tag } from "antd";
 import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
 //import { rewardDictionaryList } from "../localization/index";
 //import { loanDictionaryList } from "./localization/index";
 //import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -13,12 +14,14 @@ import {
   ItemHeader,
   SingleItem,
 } from "../../sharedComponents/Card/CardStyle";
+import { GetLoanById } from "./store/actions";
 import Avatar from "../../sharedComponents/Avatar/avatar";
 
 function ListItem(props) {
   //const { userLanguage } = useContext(LanguageChangeContext);
   //const { Direction, rewardDictionary } = loanDictionaryList[userLanguage];
   // console.log("props for list item", props.item);
+  const dispatch = useDispatch();
   const { designation, name, image } = props.item.user;
   const {
     description,
@@ -31,11 +34,22 @@ function ListItem(props) {
     status,
     amount,
   } = props.item;
+  console.log(props);
+
+  const getLoanById = (id) => {
+    console.log("dispatch getloanbyId");
+    dispatch(GetLoanById(id));
+  };
 
   return (
     <>
       {/* <SingleItem onClick={() => props.onclick(userId)}> */}
-      <SingleItem>
+      <SingleItem
+        onClick={() => {
+          getLoanById(props.id);
+          props.onListItem();
+        }}
+      >
         {/* <div
           className="new"
           style={{ cursor: "pointer" }}

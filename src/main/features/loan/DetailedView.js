@@ -22,8 +22,18 @@ function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, complainDictionary } = loanDictionaryList[userLanguage];
 
-  // const { complainDetail } = useSelector((state) => state.complainSlice);
-
+  const { loanDetail } = useSelector((state) => state.loanSlice);
+  console.log("loan detaisl", loanDetail);
+  const {
+    user,
+    referenceNo,
+    status,
+    description,
+    deductionPerMonth,
+    amount,
+    deadline,
+    approvers,
+  } = loanDetail;
   // const {
   //   creator,
   //   description,
@@ -52,6 +62,9 @@ function DetailedView(props) {
       onClose={props.onClose}
       visible={props.visible}
       className="detailedViewComposer drawerSecondary"
+      style={{
+        cursor: "pointer",
+      }}
     >
       <div className="detailedCard ">
         <ItemHeader>
@@ -59,7 +72,7 @@ function DetailedView(props) {
             <div className="left">
               <UserInfo
                 avatarSrc={""}
-                name={"Daniyal Khan"}
+                name={user.name ? user.name : "Test User"}
                 Subline={
                   <SublineDesigWithTime
                   //  designation={creator.designation ? creator.designation : ""}
@@ -69,18 +82,14 @@ function DetailedView(props) {
               />
             </div>
             <div className="right">
-              <Tag className="IdTag">TRA-000085</Tag>
-              <StatusTag /* status={status} */></StatusTag>
+              <Tag className="IdTag">{referenceNo}</Tag>
+              <StatusTag status={status}></StatusTag>
             </div>
           </div>
         </ItemHeader>
         <ItemContent className="flex">
           <div className="description w-full">
-            <p>
-              {
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and"
-              }
-            </p>
+            <p>{description}</p>
           </div>
           {/* <div className="attachmentBox">
           <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
@@ -93,7 +102,7 @@ function DetailedView(props) {
                 {"Deduction per month"}
               </span>
               <Tag className="IdTag !bg-transparent !text-left">
-                {"584.332"}
+                {deductionPerMonth}
               </Tag>
             </div>
             <div className="innerDiv">
@@ -111,13 +120,13 @@ function DetailedView(props) {
               /> */}
               {
                 <Tag className="IdTag !bg-transparent !text-left">
-                  {"Avatar"}
+                  {moment(deadline).format("ddd,MMM DD,YYYY")}
                 </Tag>
               }
             </div>
             <div className="innerDiv">
               <span className="text-black font-extrabold smallHeading">
-                {"Amount"}
+                {amount}
               </span>
               {/* <Avatar
                 isAvatarGroup={true}
@@ -131,7 +140,16 @@ function DetailedView(props) {
             </div>
           </div>
         </div>
-        <RemarksApproval /* data={approvers} */ title="Approvals" />
+        {approvers && (
+          <Avatar
+            isAvatarGroup={true}
+            isTag={false}
+            heading={"approvers"}
+            membersData={approvers ? approvers : []}
+            text={"Approvers"}
+            image={"https://joeschmoe.io/api/v1/random"}
+          />
+        )}
       </div>
     </Drawer>
   );

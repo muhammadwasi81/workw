@@ -18,13 +18,24 @@ import Avatar from "../../sharedComponents/Avatar/avatar";
 function ListItem(props) {
   //const { userLanguage } = useContext(LanguageChangeContext);
   //const { Direction, rewardDictionary } = loanDictionaryList[userLanguage];
-  console.log("props for list item", props.item);
-  const { designation, name } = props.item.user;
-  const { description, referenceNo, approvers } = props.item;
+  // console.log("props for list item", props.item);
+  const { designation, name, image } = props.item.user;
+  const {
+    description,
+    referenceNo,
+    approvers,
+    createDate,
+    userId,
+    deductionPerMonth,
+    deadline,
+    status,
+    amount,
+  } = props.item;
 
   return (
     <>
-      <SingleItem onClick={() => props.getLoanById(props.id)}>
+      {/* <SingleItem onClick={() => props.onclick(userId)}> */}
+      <SingleItem>
         {/* <div
           className="new"
           style={{ cursor: "pointer" }}
@@ -36,19 +47,19 @@ function ListItem(props) {
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={""}
+              avatarSrc={image}
               name={name}
               Subline={
                 <SublineDesigWithTime
                   designation={designation}
-                  time={moment().format("DD/MM/YYYY")} //date to be set
+                  time={moment(createDate).fromNow()} //date to be set
                 />
               }
             />
           </div>
           <div className="right">
             <Tag className="IdTag">{referenceNo}</Tag>
-            <StatusTag status={1}></StatusTag>
+            <StatusTag status={status}></StatusTag>
           </div>
         </ItemHeader>
         <ItemContent className="flex">
@@ -102,18 +113,18 @@ function ListItem(props) {
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">Deduction per month</div>
-            <div className="cardSection__body">dummy detection</div>
+            <div className="cardSection__body">{deductionPerMonth}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Deadline</div>
             <div className="cardSection__body">
               {/* {moment(effectiveDate).format("Do MMM YY")} */}
-              {Date.now()}
+              {moment(deadline).format("ddd,MMM DD,YYYY")}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Amount</div>
-            <div className="cardSection__body">122222</div>
+            <div className="cardSection__body">{amount}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>

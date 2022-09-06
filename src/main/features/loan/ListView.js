@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { CardWrapper } from "../../sharedComponents/Card/CardStyle";
 import { GetLoanById } from "../../../store/appReducer/loanSlice";
 import { getAllLoans } from "./store/actions";
+import { Skeleton } from "antd";
 
 const ListView = () => {
   // const items = [
@@ -31,8 +32,10 @@ const ListView = () => {
   // ];
 
   const dispatch = useDispatch();
-  const loanData = useSelector((state) => state.loanSlice.loanList);
-  console.log(loanData, "loan data from list view");
+  const { loanList, loader } = useSelector((state) => state.loanSlice);
+
+  console.log(loanList, "loan data from list view");
+  console.log("loader", loader);
   const getLoanById = (id) => {
     dispatch(GetLoanById(id));
   };
@@ -49,10 +52,22 @@ const ListView = () => {
       })
     );
   }, []);
-
+  if (loader)
+    return [...Array(6)].map((item) => (
+      <>
+        {console.log("array console skeleton")}
+        <Skeleton avatar />
+      </>
+    ));
   return (
+    // <CardWrapper>
+    //   {loanData.map((item) => (
+    //     <Skeleton key={item.id} avatar />
+    //   ))}
+    // </CardWrapper>
+
     <CardWrapper>
-      {loanData.map((item) => (
+      {loanList.map((item) => (
         <ListItem getLoanById={getLoanById} id={item.id} item={item} />
       ))}
     </CardWrapper>

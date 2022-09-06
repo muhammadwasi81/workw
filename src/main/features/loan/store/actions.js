@@ -11,6 +11,7 @@ import {
   GetLoanByIdService,
 } from "../services/service";
 
+//Done
 export const getAllLoans = createAsyncThunk(
   "loans/GetAllLoan",
   async (data) => {
@@ -19,25 +20,22 @@ export const getAllLoans = createAsyncThunk(
     if (!response.responseCode) {
       message.error("Something went wrong");
     }
-    console.log("response data from actions", response.data);
+    // console.log("response data from actions", response.data);
     return response.data;
   }
 );
 
-export const GetRewardById = createAsyncThunk(
-  "Loan/GetLoanById",
-  async (id) => {
-    const response = await GetLoanByIdService(id);
-    console.log("MY ID", id);
-    return response.data;
-  }
-);
+// export const GetLoanById = createAsyncThunk("loans/GetLoanById", async (id) => {
+//   const response = await GetLoanByIdService(id);
+//   console.log("MY ID", id);
+//   return response.data;
+// });
 
-export const addReward = createAsyncThunk(
-  "Loan/addLoan",
-  async (data, { dispatch, setState }) => {
-    const response = await addLoanService(data);
-    console.log(response, "FROM ACTION");
-    return response;
-  }
-);
+// export const addReward = createAsyncThunk(
+//   "Loan/addLoan",
+//   async (data, { dispatch, setState }) => {
+//     const response = await addLoanService(data);
+//     console.log(response, "FROM ACTION");
+//     return response;
+//   }
+// );

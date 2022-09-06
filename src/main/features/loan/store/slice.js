@@ -15,17 +15,20 @@ const LoanSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllLoans.fulfilled, (state, { payload }) => {
-      console.log("****************", payload);
-      state.loanList = payload ? payload : [];
-      state.loader = false;
-      state.success = true;
-    });
-
-    // builder.addCase(GetLoanById.fulfilled, (state, action) => {
-    //   console.log("action.payload", action.payload);
-    //   state.loanDetail = action.payload.data;
-    // });
+    builder
+      .addCase(getAllLoans.fulfilled, (state, { payload }) => {
+        // console.log("****************", payload);
+        state.loanList = payload ? payload : [];
+        state.loader = false;
+        state.success = true;
+      })
+      // .addCase(GetLoanById.fulfilled, (state, { payload }) => {
+      //   console.log("getLoanById payload", payload);
+      //   // state.loanDetail = action.payload.data;
+      // })
+      .addMatcher(isPending(...[getAllLoans]), (state) => {
+        state.loader = true;
+      });
 
     // builder
     //   .addCase(addLoan.fulfilled, (state, { payload }) => {

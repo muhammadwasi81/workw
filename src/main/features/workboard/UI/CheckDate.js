@@ -39,7 +39,7 @@ function CheckDate({ isOutsideRender, todoData }) {
 		setChecked(e.target.checked);
 		dispatch(
 			addListCardDueDate({
-				cardId,
+				// cardId,
 				dueDate,
 				isComplete: e.target.checked,
 			})

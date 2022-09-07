@@ -23,23 +23,24 @@
     overflow: auto;
 }
 
-.fc-header-toolbar .fc-toolbar-chunk:first-child {
+.fc-header-toolbar .fc-toolbar-chunk {
     display: flex;
     align-items: center;
 }
 
-.fc-header-toolbar .fc-toolbar-chunk:first-child .fc-myCustomButton-button {
-    background-color: transparent !important;
+.fc-header-toolbar .fc-toolbar-chunk .fc-myCustomButton-button {
+    background: transparent !important;
     padding: 0px !important;
     border: none !important;
 }
 
-.fc-header-toolbar .fc-toolbar-chunk:first-child .fc-myCustomButton-button::before {
+.fc-header-toolbar .fc-toolbar-chunk .fc-myCustomButton-button::before {
     content: "\25BE";
     font-size: 26px;
     color: var(--currentThemeColor);
     line-height: 0;
     display: block;
+   
 }
 
 .schedule_calendar .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before {

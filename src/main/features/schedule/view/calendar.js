@@ -111,7 +111,6 @@ function Calendar() {
 				/>
 				<div className="events">
 					<EventWrapper data={currentSchedules} />
-					{/* <EventWrapper /> */}
 				</div>
 			</div>
 		</div>

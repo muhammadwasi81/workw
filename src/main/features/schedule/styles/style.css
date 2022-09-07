@@ -197,9 +197,9 @@
 }
 
 .fc-v-event {
-    border: 1px solid #D9D9D9 !important;
+    border: 1px solid var(--currentThemeColor) !important;
     overflow: hidden;
-    background-color: #ccc;
+    background-color: var(--currentThemeColor);
 }
 
 .fc-event-main .event {

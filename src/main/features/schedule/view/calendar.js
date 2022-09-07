@@ -4,7 +4,7 @@ import Scheduler from "./scheduler";
 import { Calendar as AntCalendar, Badge } from "antd";
 import "../styles/calender.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEventSchedule } from "../store/action";
+import { getAllCurrentSchedule, getAllEventSchedule } from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { useEffect } from "react";
 import moment from "moment";
@@ -13,6 +13,9 @@ function Calendar() {
 	const dispatch = useDispatch();
 	const eventSchedules = useSelector(
 		state => state.scheduleSlice.eventSchedules
+	);
+	const currentSchedules = useSelector(
+		state => state.scheduleSlice.currentSchedules
 	);
 
 	useEffect(() => {
@@ -41,6 +44,32 @@ function Calendar() {
 		);
 	};
 
+	useEffect(() => {
+		fetchCurrentDateScedules(new Date());
+	}, []);
+
+	const fetchCurrentDateScedules = value => {
+		const startDate = moment(value)
+			.startOf("day")
+			.format();
+		const endDate = moment(value)
+			.endOf("day")
+			.format();
+
+		dispatch(
+			getAllCurrentSchedule({
+				pageNo: 1,
+				pageSize: 20,
+				search: "",
+				sortBy: 1,
+				referenceId: defaultUiid,
+				referenceType: 0,
+				startDate,
+				endDate,
+			})
+		);
+	};
+
 	const dateCellRender = value => {
 		return (
 			<ul className="schedule_badge">
@@ -51,7 +80,11 @@ function Calendar() {
 					const endDate = moment(item.endDate).format("YYYY-MM-DD");
 					const compareDate = moment(value).format("YYYY-MM-DD");
 
-					if (moment(compareDate).isBetween(startDate, endDate)) {
+					if (
+						moment(compareDate).isBetween(startDate, endDate) ||
+						moment(compareDate).isSame(startDate) ||
+						moment(compareDate).isSame(endDate)
+					) {
 						return (
 							<li key={item.id}>
 								<Badge status={"error"} />
@@ -72,10 +105,13 @@ function Calendar() {
 					fullscreen={false}
 					dateCellRender={dateCellRender}
 					className="schedule_calendar"
+					onChange={val => {
+						fetchCurrentDateScedules(val);
+					}}
 				/>
 				<div className="events">
-					<EventWrapper />
-					<EventWrapper />
+					<EventWrapper data={currentSchedules} />
+					{/* <EventWrapper /> */}
 				</div>
 			</div>
 		</div>

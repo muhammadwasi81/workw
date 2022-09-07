@@ -3,8 +3,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import "../styles/style.css";
-import "../styles/calender.css";
+// import "../styles/style.css";
+// import "../styles/calender.css";
 import Event from "./event";
 import { Calendar } from "antd";
 import { useRef } from "react";
@@ -18,6 +18,8 @@ import { useSelector } from "react-redux";
 
 function Scheduler() {
 	const [id, setId] = useState("");
+	const [calendatView, setCalendatView] = useState("");
+	const [todayDate, setTodayDate] = useState(new Date());
 	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 	const schedules = useSelector(state => state.scheduleSlice.schedules);
 	const calendarRef = useRef();
@@ -27,15 +29,15 @@ function Scheduler() {
 		return <Event eventInfo={eventInfo} />;
 	};
 	useEffect(() => {
-		fetchAllSchedule(new Date(), new Date());
+		fetchAllSchedule(todayDate, todayDate);
 	}, []);
 
 	const fetchAllSchedule = (startVal, endVal) => {
 		const startDate = moment(startVal)
-			.startOf("day")
+			.startOf("month")
 			.format();
 		const endDate = moment(endVal)
-			.endOf("day")
+			.endOf("month")
 			.format();
 
 		dispatch(
@@ -52,8 +54,19 @@ function Scheduler() {
 		);
 	};
 
+	const handleDateChange = date => {
+		if (!moment(date).isSame(moment(todayDate), "month")) {
+			setTodayDate(new Date(calendarRef.current.getApi().getDate()));
+			fetchAllSchedule(
+				calendarRef.current.getApi().getDate(),
+				calendarRef.current.getApi().getDate()
+			);
+		}
+	};
+
 	const onChange = value => {
-		fetchAllSchedule(value, value);
+		const date = value.format("YYYY-MM-DD");
+		handleDateChange(date);
 		calendarRef.current
 			.getApi()
 			.gotoDate(new Date(value.format("YYYY-MM-DD")));
@@ -72,13 +85,13 @@ function Scheduler() {
 			title: sch.subject,
 		};
 	});
+	// console.log("calendarRef.current.getApi().getDate()", calendarRef.current);
 	return (
 		<>
 			<EventDetail id={id} />
-			<div className="schedulerCalender">
+			<div className={`schedulerCalender ${calendatView}`}>
 				<FullCalendar
 					ref={calendarRef}
-					// hiddenDays={[]}
 					customButtons={{
 						myCustomButton: {
 							text: "",
@@ -90,26 +103,25 @@ function Scheduler() {
 							text: "Next",
 							click: function(value) {
 								calendarRef.current.getApi().next();
-								fetchAllSchedule(
-									calendarRef.current.getApi().getDate(),
+								const date = moment(
 									calendarRef.current.getApi().getDate()
-								);
+								).format("YYYY-MM-DD");
+								handleDateChange(date);
 							},
 						},
 						prev: {
 							text: "Prev",
 							click: function(value) {
 								calendarRef.current.getApi().prev();
-								fetchAllSchedule(
-									calendarRef.current.getApi().getDate(),
+								const date = moment(
 									calendarRef.current.getApi().getDate()
-								);
+								).format("YYYY-MM-DD");
+								handleDateChange(date);
 							},
 						},
 					}}
 					headerToolbar={{
-						// start: "title myCustomButton",
-						left: "timeGridDay prev next",
+						left: "timeGridDay prev next today",
 						center: "title,myCustomButton",
 						right: "timeGridWeek dayGridMonth",
 					}}
@@ -117,41 +129,56 @@ function Scheduler() {
 						setId(parseInt(info.event._def.publicId));
 						dispatch(toggleEventDetailComposer());
 					}}
-					// views={{
-					// 	month: {
-					// 		type: "dayGridMonth",
-					// 		buttonText: "Month",
-					// 		dayMaxEventRows: 4,
-					// 	},
-					// 	week: {
-					// 		type: "dayGridWeek",
-					// 		duration: { days: 7 },
-					// 		buttonText: "Week",
-					// 	},
-					// 	day: {
-					// 		type: "timeGrid",
-					// 		duration: { days: 1 },
-					// 		buttonText: "Day",
-					// 	},
-					// 	listMonth: {
-					// 		buttonText: "List",
-					// 	},
-					// }}
-					// locale="en-GB"
+					datesSet={val => {
+						if (val.view.type !== "timeGridDay") {
+							setCalendatView(val.view.type);
+						} else {
+							setCalendatView("");
+						}
+					}}
+					// nowIndicator={true}
+					// eventMaxStack={3}
+					selectable={true}
 					dayHeaders={true}
-					allDaySlot={true}
+					allDaySlot={false}
+					dayMaxEventRows={true}
+					editable={true}
 					plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
 					initialView="timeGridDay"
-					events={data}
-					//   locales={allLocales}
-					//   locale="ja"
-					// datesSet={(args) => console.log("###datesSet:", args)}
-					editable={true}
-					eventContent={renderEventContent}
+					events={
+						data
+						// "https://fullcalendar.io/api/demo-feeds/events.json"
+					}
 					eventResize={() => {}}
 					slotDuration={"00:15:00"}
 					slotLabelFormat={{ hour: "numeric", minute: "numeric" }}
-
+					views={{
+						month: {
+							type: "dayGridMonth",
+							buttonText: "Month",
+							dayMaxEventRows: 2,
+						},
+						week: {
+							type: "dayGridWeek",
+							duration: { days: 7 },
+							buttonText: "Week",
+							eventMaxStack: 2,
+						},
+						day: {
+							type: "timeGrid",
+							duration: { days: 1 },
+							buttonText: "Day",
+							eventMaxStack: 3,
+						},
+						// listMonth: {
+						// 	buttonText: "List",
+						// },
+					}}
+					// locale="en-GB"
+					// eventContent={renderEventContent}
+					//   locales={allLocales}
+					//   locale="ja"
+					// datesSet={(args) => console.log("###datesSet:", args)}
 					//   dateClick={handleDateClick}
 				/>
 

@@ -69,3 +69,22 @@ export const getAllEventSchedule = createAsyncThunk(
 		}
 	}
 );
+
+export const getAllCurrentSchedule = createAsyncThunk(
+	"getAllCurrentSchedule",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await getAllScheduleService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);

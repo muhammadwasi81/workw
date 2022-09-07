@@ -21,20 +21,15 @@ export const tableColumn = () => {
       title: "Creator",
       dataIndex: "creator",
       ellipsis: true,
-      render: (/* creator */) => (
-        <TagAvatar
-          text={/* creator.name */ "Daniyal"}
-          img={/* creator.image */ "Avatar"}
-        />
+      render: (creator) => (
+        <TagAvatar text={creator.name} img={creator.image} />
       ),
       sort: true,
     },
     {
       title: "Status",
       dataIndex: "status",
-      render: (/* status */) => (
-        <StatusTag status={/* status */ "In Progress"} />
-      ),
+      render: (status) => <StatusTag status={status} />,
       sort: true,
     },
     {
@@ -48,7 +43,7 @@ export const tableColumn = () => {
     {
       title: "Date",
       dataIndex: "createDate",
-      render: (/* i */) => moment(/* i.createDate */).format("DD MMM YYYY"),
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
     },
 
@@ -56,16 +51,19 @@ export const tableColumn = () => {
       title: "Complain Of",
       dataIndex: "members",
       ellipsis: true,
-      render: (/* member */) => (
-        <Avatar membersData={/* member */ "Daniyal"} heading={"Members"} />
+      render: (member) => (
+        <Avatar membersData={member ? member : []} heading={"Members"} />
       ),
     },
     {
       title: "Approvers",
       dataIndex: "approvers",
       ellipsis: true,
-      render: (/* approver */) => (
-        <Avatar membersData={/* approver */ "No Name"} heading={"Approvers"} />
+      render: (approvers) => (
+        <Avatar
+          membersData={approvers ? approvers : []}
+          heading={"Approvers"}
+        />
       ),
     },
   ];

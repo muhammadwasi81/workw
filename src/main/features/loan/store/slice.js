@@ -1,41 +1,46 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addReward, getAllRewards, GetRewardById } from "./actions";
+import { addLoan, getAllLoans, GetLoanById } from "./actions";
 
 const initialState = {
-  rewards: [],
-  loadingData: false,
-  loader: true,
-  rewardDetail: {},
+  editData: null,
+  loanData: [],
+  success: false,
+  loader: false,
+  error: false,
+  loanDetail: null,
+  loanList: [],
 };
 
-const rewardSlice = createSlice({
-  name: "rewards",
+const LoanSlice = createSlice({
+  name: "loans",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllRewards.fulfilled, (state, action) => {
-      state.rewards = action.payload ? action.payload : [];
-      state.loader = false;
-    });
-
-    builder.addCase(GetRewardById.fulfilled, (state, action) => {
-      console.log("action.payload", action.payload);
-      state.rewardDetail = action.payload.data;
-    });
-
     builder
-      .addCase(addReward.fulfilled, (state, { payload }) => {
-        state.rewardData = payload;
-        return state;
+      .addCase(getAllLoans.fulfilled, (state, { payload }) => {
+        // console.log("****************", payload);
+        state.loanList = payload ? payload : [];
+        state.loader = false;
+        state.success = true;
       })
-      .addMatcher(isPending(...[getAllRewards]), (state) => {
-        state.loader = true;
+      .addCase(GetLoanById.fulfilled, (state, { payload }) => {
+        console.log("getLoanById payload", payload.data);
+        state.loanDetail = payload.data;
       })
-      .addMatcher(isRejected(...[getAllRewards]), (state) => {
+      .addCase(addLoan.fulfilled, (state, { payload }) => {
+        console.log(payload);
+      })
+      .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
       });
+    //   .addMatcher(isPending(...[getAllLoans]), (state) => {
+    //     state.loader = true;
+    //   })
+    //   .addMatcher(isRejected(...[getAllLoans]), (state) => {
+    //     state.loader = true;
+    //   });
   },
 });
 
-export const {} = rewardSlice.actions;
-export default rewardSlice.reducer;
+export const {} = LoanSlice.actions;
+export default LoanSlice.reducer;

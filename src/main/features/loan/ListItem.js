@@ -34,7 +34,6 @@ function ListItem(props) {
     status,
     amount,
   } = props.item;
-  console.log(props);
 
   const getLoanById = (id) => {
     console.log("dispatch getloanbyId");

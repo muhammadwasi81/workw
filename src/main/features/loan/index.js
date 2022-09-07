@@ -23,10 +23,11 @@ function Index() {
   const { loanDictionary } = loanDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
-  const { listItem } = useSelector((state) => state.loanSlice);
+  const { loanList, listItem } = useSelector((state) => state.loanSlice);
 
   const [tableView, setTableView] = useState(false);
-  // const [view, setView] = useState("List");
+  const [viewType, setViewType] = useState("List");
+  const [search, setSearch] = useState("");
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
@@ -42,15 +43,17 @@ function Index() {
   };
 
   // const render = {
-  //   List: <ListView filter={filter} />,
+  //   List: <ListView filter={filter} data={listItem} />,
   //   Table: (
   //     <Table
   //       columns={tableColumn()}
   //       dragable={true}
   //       //data={"Daniyal"}
+  //       data={listItem}
   //     />
   //   ),
   // };
+  const onSearch = (value) => setSearch(value);
 
   return (
     <TabbableContainer>
@@ -72,9 +75,7 @@ function Index() {
         ]}
       />
       <TopBar
-        onSearch={(value) => {
-          console.log(value);
-        }}
+        onSearch={onSearch}
         buttons={[
           {
             name: "Loans",
@@ -100,6 +101,7 @@ function Index() {
           onSegment: (value) => {
             if (value === "Table") {
               setTableView(true);
+              console.log(tableView);
             } else {
               setTableView(false);
             }
@@ -114,14 +116,16 @@ function Index() {
           <Table
             columns={tableColumn()}
             dragable={true}
-            //data={"Daniyal"}
+            data={loanList ? loanList : []}
           />
         )}
 
         {!tableView && <ListBoxes />}
 
         {!tableView && <ListView filter={filter} />}
-        {/* {render[view]} */}
+        {/* 
+        {render[view]}
+        {render[viewType]} */}
       </ContBody>
       {listItem && (
         <DetailedView onClose={closeDetailView} visible={listItem} />

@@ -23,7 +23,6 @@ function DetailedView(props) {
   const { Direction, complainDictionary } = loanDictionaryList[userLanguage];
 
   const { loanDetail } = useSelector((state) => state.loanSlice);
-  console.log("loan detaisl", loanDetail);
   const {
     referenceNo,
     user,

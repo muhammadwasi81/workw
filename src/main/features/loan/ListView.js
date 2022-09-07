@@ -12,9 +12,6 @@ const ListView = ({ filter }) => {
   const [visible, setVisible] = useState(false);
   const { loanList, loader } = useSelector((state) => state.loanSlice);
 
-  console.log(loanList, "loan data from list view");
-  console.log("loader", loader);
-
   const handleDrawerClose = () => {
     setVisible(false);
   };
@@ -22,7 +19,6 @@ const ListView = ({ filter }) => {
   const handleDrawerOpen = () => {
     setVisible(true);
   };
-  console.log(filter, "*******");
   useEffect(() => {
     dispatch(
       getAllLoans({

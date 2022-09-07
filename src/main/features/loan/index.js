@@ -15,6 +15,7 @@ import DetailedView from "./DetailedView";
 import { CloseDetailView } from "../../../store/appReducer/loanSlice";
 import { Table } from "../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
+import { LoanFilterTypeEnum } from "./enum/index";
 //import { getAllRewards } from "./store/actions";
 
 function Index() {
@@ -25,6 +26,7 @@ function Index() {
   const { listItem } = useSelector((state) => state.loanSlice);
 
   const [tableView, setTableView] = useState(false);
+  // const [view, setView] = useState("List");
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
@@ -38,6 +40,17 @@ function Index() {
     dispatch(CloseDetailView());
     // setDetailViewIsVisible(false);
   };
+
+  // const render = {
+  //   List: <ListView filter={filter} />,
+  //   Table: (
+  //     <Table
+  //       columns={tableColumn()}
+  //       dragable={true}
+  //       //data={"Daniyal"}
+  //     />
+  //   ),
+  // };
 
   return (
     <TabbableContainer>
@@ -65,15 +78,19 @@ function Index() {
         buttons={[
           {
             name: "Loans",
-            onClick: () => setFilter({ filterType: 0 }),
+            onClick: () => setFilter({ filterType: LoanFilterTypeEnum.All }),
           },
           {
             name: "For Approval",
-            onClick: () => setFilter({ filterType: 1 }),
+            onClick: () =>
+              setFilter({ filterType: LoanFilterTypeEnum.ForApproval }),
           },
           {
             name: "Loans To Me",
-            onClick: () => setFilter({ filterType: 2 }),
+            onClick: () =>
+              setFilter({
+                filterType: LoanFilterTypeEnum.CreatedByMeAndLoanOfMe,
+              }),
           },
         ]}
         filter={{
@@ -103,7 +120,8 @@ function Index() {
 
         {!tableView && <ListBoxes />}
 
-        {!tableView && <ListView />}
+        {!tableView && <ListView filter={filter} />}
+        {/* {render[view]} */}
       </ContBody>
       {listItem && (
         <DetailedView onClose={closeDetailView} visible={listItem} />

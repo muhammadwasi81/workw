@@ -1,14 +1,6 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
-export const getAllLoanService = () => {
-  const data = {
-    pageNo: 1,
-    pageSize: 20,
-    search: "",
-    approverStatus: [],
-    filterType: 0,
-    sortBy: 1,
-  };
+export const getAllLoanService = (data) => {
   return MasterConfig.post(`api/Loan/GetAllLoan`, data)
     .then((res) => {
       return res.data;

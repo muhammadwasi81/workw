@@ -7,7 +7,7 @@ import { getAllLoans } from "./store/actions";
 import { Skeleton } from "antd";
 import DetailedView from "./DetailedView";
 
-const ListView = () => {
+const ListView = ({ filter }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const { loanList, loader } = useSelector((state) => state.loanSlice);
@@ -22,7 +22,7 @@ const ListView = () => {
   const handleDrawerOpen = () => {
     setVisible(true);
   };
-
+  console.log(filter, "*******");
   useEffect(() => {
     dispatch(
       getAllLoans({
@@ -30,11 +30,12 @@ const ListView = () => {
         pageSize: 20,
         search: "",
         approverStatus: [],
-        filterType: 0,
+        filterType: filter.filterType,
         sortBy: 1,
       })
     );
-  }, []);
+  }, [filter.filterType]);
+
   if (loader)
     return [...Array(6)].map((item) => (
       <>

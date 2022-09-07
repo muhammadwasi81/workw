@@ -25,15 +25,15 @@ function DetailedView(props) {
   const { loanDetail } = useSelector((state) => state.loanSlice);
   console.log("loan detaisl", loanDetail);
   const {
-    user,
     referenceNo,
+    user,
     status,
     description,
     deductionPerMonth,
     amount,
     deadline,
     approvers,
-  } = loanDetail;
+  } = loanDetail || {};
   // const {
   //   creator,
   //   description,
@@ -72,7 +72,7 @@ function DetailedView(props) {
             <div className="left">
               <UserInfo
                 avatarSrc={""}
-                name={user.name ? user.name : "Test User"}
+                name={"Test User"}
                 Subline={
                   <SublineDesigWithTime
                   //  designation={creator.designation ? creator.designation : ""}

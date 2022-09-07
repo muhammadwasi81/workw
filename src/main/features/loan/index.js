@@ -16,7 +16,8 @@ import { CloseDetailView } from "../../../store/appReducer/loanSlice";
 import { Table } from "../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import { LoanFilterTypeEnum } from "./enum/index";
-//import { getAllRewards } from "./store/actions";
+import getStoredState from "redux-persist/es/getStoredState";
+import { getAllLoans } from "./store/actions";
 
 function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -37,6 +38,15 @@ function Index() {
   //   dispatch(getAllRewards(filter));
   // }, [filter]);
 
+  useEffect(() => {
+    dispatch(
+      getAllLoans({
+        filter,
+        search,
+      })
+    );
+  }, [filter, search]);
+
   const closeDetailView = () => {
     dispatch(CloseDetailView());
     // setDetailViewIsVisible(false);
@@ -54,6 +64,7 @@ function Index() {
   //   ),
   // };
   const onSearch = (value) => setSearch(value);
+  const onSegment = (value) => setViewType(value);
 
   return (
     <TabbableContainer>

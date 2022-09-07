@@ -3,6 +3,7 @@ import { addLoan, getAllLoans, GetLoanById } from "./actions";
 
 const initialState = {
   editData: null,
+  loanData: [],
   success: false,
   loader: false,
   error: false,
@@ -26,15 +27,12 @@ const LoanSlice = createSlice({
         console.log("getLoanById payload", payload.data);
         state.loanDetail = payload.data;
       })
+      .addCase(addLoan.fulfilled, (state, { payload }) => {
+        console.log(payload);
+      })
       .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
       });
-
-    // builder
-    //   .addCase(addLoan.fulfilled, (state, { payload }) => {
-    //     state.rewardData = payload;
-    //     return state;
-    //   })
     //   .addMatcher(isPending(...[getAllLoans]), (state) => {
     //     state.loader = true;
     //   })

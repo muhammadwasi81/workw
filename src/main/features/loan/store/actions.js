@@ -36,8 +36,10 @@ export const GetLoanById = createAsyncThunk("loans/GetLoanById", async (id) => {
 export const addLoan = createAsyncThunk(
   "Loan/addLoan",
   async (data, { dispatch, setState }) => {
-    const response = await addLoanService(data);
-    console.log(response, "FROM ACTION");
+    console.log(data, "this is data in add loan actions");
+    const { loanObj } = data;
+    const response = await addLoanService(loanObj);
+    // console.log(response, "FROM ACTION");
     return response;
   }
 );

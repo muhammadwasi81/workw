@@ -28,10 +28,18 @@ const LoanSlice = createSlice({
         state.loanDetail = payload.data;
       })
       .addCase(addLoan.fulfilled, (state, { payload }) => {
+        state.success = true;
         console.log(payload);
+        state.loanList = [...state.loanList, payload.data.data];
       })
       .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[addLoan]), (state) => {
+        state.success = false;
+      })
+      .addMatcher(isRejected(...[addLoan]), (state) => {
+        state.success = false;
       });
     //   .addMatcher(isPending(...[getAllLoans]), (state) => {
     //     state.loader = true;

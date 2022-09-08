@@ -19,7 +19,13 @@ export const GetLeaveById = createAsyncThunk("Leave/GetLeaveById", async (id) =>
   return response.data;
 });
 
-export const addLeave = createAsyncThunk("leaves/addLeave", async (args, { dispatch, setState }) => {
-  const response = await addLeaveService(args);
-  return response;
+export const addLeave = createAsyncThunk("leaves/addLeave", async (data, { dispatch, getState, rejectWithValue }) => {
+  const res = await addLeaveService(data);
+  if (res.data?.responseCode === responseCode.Success) {
+    message.success('Leave Created');
+    return res;
+  } else {
+    message.error(res.data.message);
+    return rejectWithValue(res.data.message);
+  }
 });

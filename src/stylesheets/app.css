@@ -408,7 +408,7 @@ iframe {
   left: 12px;
 }
 
-.drawerSecondary .ant-drawer-body {
+.drawerSecondary .ant-drawer-body, .ant-drawer-body {
   background: #f4f4f4;
 }
 

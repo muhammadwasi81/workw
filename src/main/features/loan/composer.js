@@ -35,6 +35,9 @@ const Composer = () => {
     sharedSlice: { employees },
   } = useSelector((state) => state);
   const { success } = useSelector((state) => state.loanSlice);
+  const [loanAmount, setLoanAmount] = useState(0);
+  const [loanTenure, setLoanTenure] = useState(0);
+  const [deductionPerMonth, setDeductionPerMonth] = useState(0);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [employeesData, setEmployeesData] = useState([]);
@@ -119,6 +122,7 @@ const Composer = () => {
       <Form.Item
         name="amount"
         label="Amount"
+        onChange={(e) => setLoanAmount(e.target.value)}
         rules={[
           {
             required: true,
@@ -140,6 +144,7 @@ const Composer = () => {
       <Form.Item
         name="loanTenure"
         label="Loan Tenure"
+        onChange={(e) => setLoanTenure(e.target.value)}
         rules={[
           {
             required: true,
@@ -158,7 +163,13 @@ const Composer = () => {
           }}
         ></div>
       </Form.Item> */}
-      <Form.Item name="deductionPerMonth" label="Deduction/Month">
+      <Form.Item
+        disabled={true}
+        name="deductionPerMonth"
+        label="Deduction/Month"
+        // value={loanAmount & loanTenure ? loanAmount / loanTenure : 0}
+        value={loanAmount / loanTenure}
+      >
         <div
           style={{
             border: "1px solid #d9d9d9",
@@ -167,7 +178,11 @@ const Composer = () => {
             width: "100%",
           }}
         >
-          <Input type="number" placeholder="Deduction/month" />
+          <Input
+            type="number"
+            placeholder="Deduction/month"
+            value={loanAmount / loanTenure}
+          />
         </div>
       </Form.Item>
       <Form.Item

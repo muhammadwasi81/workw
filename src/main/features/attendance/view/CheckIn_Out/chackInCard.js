@@ -1,14 +1,18 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import ClockIn from '../../../../content/NewContent/checkIn/clockIn.svg';
-import ClockOut from '../../../../content/NewContent/checkIn/clockOut.svg';
+import { useDispatch } from 'react-redux';
+import ClockIn from '../../../../../content/NewContent/checkIn/clockIn.svg';
+import ClockOut from '../../../../../content/NewContent/checkIn/clockOut.svg';
+import { addAttendanceCheckIn } from '../../store/actions';
+import { ATTENDANCE_ENUM } from '../../utils/constant';
 import FaceRating from './RatingBox';
 
-const CheckInCard = ({ lastData, handleUpdate, onSuccess }) => {
-    const [rattingVal, setRattingVal] = useState(1);
+const CheckInCard = ({ lastCheckIn }) => {
+    const dispatch = useDispatch();
+    const [rattingVal, setRattingVal] = useState(3);
     const [noteVal, setNoteVal] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
     const [myLocation, setMyLocation] = useState(null);
+    const {CHECK_IN} = ATTENDANCE_ENUM;
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -16,26 +20,16 @@ const CheckInCard = ({ lastData, handleUpdate, onSuccess }) => {
         });
     }, [])
 
-    const handleSubmit = async () => {
-        setIsLoading(true);
+    const handleSubmit =  () => {
         let payload = {
             lat: myLocation ? myLocation.coords.latitude : 0,
             lng: myLocation ? myLocation.coords.longitude : 0,
-            mood_id: rattingVal,
+            moodId: rattingVal,
             comment: noteVal,
-            type: lastData ? (lastData.type === 1 ? 2 : lastData.type === 2 ? 1 : 1) : 1
+            userId:"d3202659-8910-410f-93d5-2c7d8b39a2d5",
+            type: lastCheckIn && lastCheckIn.type === CHECK_IN.IN ? CHECK_IN.OUT : CHECK_IN.IN
         }
-        // const submitRes = await API.CHECK_IN_OUT.AddCheckIn(payload);
-        const submitRes = {};
-        if (submitRes.status) {
-            handleUpdate(submitRes.data)
-            setIsLoading(false)
-            onSuccess()
-        }
-        else {
-            alert(submitRes.error)
-            setIsLoading(false)
-        }
+        dispatch(addAttendanceCheckIn(payload))
     }
     return (
         <div className='CheckInCard' >
@@ -46,13 +40,13 @@ const CheckInCard = ({ lastData, handleUpdate, onSuccess }) => {
                     <div className='checkInTime dateSpace'>{moment().format('LTS')}</div>
                     <div className='checkInDate'>{moment().format('dddd MMM Do YYYY')}</div>
                 </div>
-                {!isLoading && <div className={'radius50 ' + (lastData && lastData.type === 1 ? "blinkInfoRed" : "blinkInfo")} >
-                    <img src={lastData ? lastData.type === 1 ? ClockOut : lastData.type === 2 ? ClockIn : ClockIn : ClockIn} alt="" onClick={handleSubmit} />
+                { <div className={'radius50 ' + (lastCheckIn && lastCheckIn.type === CHECK_IN.IN ? "blinkInfoRed" : "blinkInfo")} >
+                    <img src={lastCheckIn && lastCheckIn.type === CHECK_IN.IN  ? ClockOut : ClockIn} alt="" onClick={handleSubmit} />
                 </div>}
             </div>
 
             <div className='mt-2' >
-                <FaceRating />
+                <FaceRating handleChange={(value)=>setRattingVal(value)}/>
             </div>
 
             <div className='checkInNote' >

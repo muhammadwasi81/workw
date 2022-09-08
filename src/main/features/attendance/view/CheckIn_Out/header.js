@@ -1,5 +1,5 @@
 import React from "react";
-import homeIcon from "../../../../content/NewContent/checkIn/home.svg";
+import homeIcon from "../../../../../content/NewContent/checkIn/home.svg";
 
 const CheckInHeader = () => {
     return (

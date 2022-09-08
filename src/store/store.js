@@ -63,6 +63,7 @@ import loanSlice from "../main/features/loan/store/slice";
 import resignationSlice from "./appReducer/resignationSlice";
 import voucherSlice from "../main/features/voucher/store/slice";
 import scheduleSlice from "../main/features/schedule/store/slice";
+import attendanceSlice from "../main/features/attendance/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -77,7 +78,7 @@ const reducers = combineReducers({
   MessengerSlice,
   leaveSlice,
   promotionSlice,
-
+  attendanceSlice,
   //   mailSlice,
   jobDescriptionSlice,
   sharedQuillSlice,

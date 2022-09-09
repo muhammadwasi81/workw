@@ -14,13 +14,18 @@ import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/C
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import moment from "moment";
 import { cancelReward, GetRewardById } from "../store/actions";
-import { ApprovalStatus } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import {
+    ApprovalsModule,
+    ApprovalStatus,
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
 
 function RewardDetailCard(props) {
     const { userLanguage } = useContext(LanguageChangeContext);
     const { rewardDictionary } = rewardDictionaryList[userLanguage];
     const { rewardDetail } = useSelector((state) => state.rewardSlice);
     const { user } = useSelector(state => state.userSlice);
+    const [updatedStatus, setUpdatedStatus] = useState();
+
     const dispatch = useDispatch();
 
     let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
@@ -67,7 +72,9 @@ function RewardDetailCard(props) {
                         </div>
                         <div className="right">
                             <Tag className="IdTag">{referenceNo}</Tag>
-                            <StatusTag status={status}></StatusTag>
+                            <StatusTag
+                                status={updatedStatus?.Approvals}
+                            ></StatusTag>
                             {
                                 userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
                                     "" : ""
@@ -78,7 +85,7 @@ function RewardDetailCard(props) {
                         <div className="description w-full">
                             <p>{description}</p>
                         </div>
-                        <div className="attachmentBox" style={{width: "65px", height: "60px"}}>
+                        <div className="attachmentBox" style={{ width: "65px", height: "60px" }}>
                             <Image preview={false} width={60} src={image === "" ? RewardDefaultIcon : image} />
                         </div>
                     </ItemContent>
@@ -130,7 +137,16 @@ function RewardDetailCard(props) {
                             </div>
                         </div>
                     </div>
-                    <RemarksApproval data={approvers} title="Approvals" />
+                    {/* <RemarksApproval data={approvers} title="Approvals" /> */}
+                    <RemarksApproval 
+                        module={ApprovalsModule.RewardApproval}
+                        status={status}
+                        onStatusChanged={statusChanged =>
+                            setUpdatedStatus(statusChanged)
+                        }
+                        data={approvers}
+                        title="Approvals"
+                    />
                 </div>
             )}
         </>

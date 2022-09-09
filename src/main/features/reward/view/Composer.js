@@ -85,9 +85,6 @@ const Composer = props => {
 			setIsFirstTimeDataLoaded(true);
 			setFirstTimeEmpData(employees);
 		}
-		// return () => {
-		// 	dispatch(emptyEmployeesData());
-		// };
 	}, [employees]);
 
 	useEffect(() => {

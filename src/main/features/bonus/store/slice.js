@@ -5,7 +5,7 @@ const initialState = {
   bonuses: [],
   loadingData: false,
   loader: true,
-  bonusDetail: null,
+  bonusDetail: {},
   drawerOpen: false,
   cancelReward: {}
 };
@@ -25,7 +25,7 @@ const bonusSlice = createSlice({
     });
 
     builder.addCase(GetBonusById.fulfilled, (state, action) => {
-      state.promotionDetail = action.payload.data;
+      state.bonusDetail = action.payload.data;
     });
 
     builder.addCase(cancelBonus.fulfilled, (state, action) => {

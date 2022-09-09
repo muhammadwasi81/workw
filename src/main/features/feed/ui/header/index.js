@@ -5,7 +5,7 @@ import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 import LayoutHeader from "../../../../layout/header";
-import CheckIn from "../../../attendance/CheckIn_Out";
+import CheckIn from "../../../attendance/view/CheckIn_Out";
 const Header = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];

@@ -33,9 +33,13 @@ function Salaries() {
   const buttons = [
     {
       buttonText: "",
-      render: <Button className="ThemeBtn" onClick={() => navigate("create")} > Create Salary </Button>
-      ,
-    }
+      render: (
+        <Button className="ThemeBtn" onClick={() => navigate("create")}>
+          {" "}
+          Create Salary{" "}
+        </Button>
+      ),
+    },
   ];
   const filterButtons = [
     {
@@ -49,25 +53,24 @@ function Salaries() {
     {
       name: "For Approval",
       onClick: () => setFilterType(2),
-    }
+    },
   ];
   const onSearch = (value) => setSearch(value);
-  const onSegment = (value) => setViewType(value);;
+  const onSegment = (value) => setViewType(value);
   useEffect(() => {
-    dispatch(getAllEmployeeSalary({
-      filterType,
-      search,
-    }))
-  }, [filterType, search])
+    dispatch(
+      getAllEmployeeSalary({
+        filterType,
+        search,
+      })
+    );
+  }, [filterType, search]);
 
   const render = {
-    List: <SalaryList
-      data={listData} />,
-    Table: <Table
-      columns={salaryTableColumn()}
-      dragable={true}
-      data={listData}
-    />,
+    List: <SalaryList data={listData} />,
+    Table: (
+      <Table columns={salaryTableColumn()} dragable={true} data={listData} />
+    ),
   };
   return (
     <TabbableContainer>

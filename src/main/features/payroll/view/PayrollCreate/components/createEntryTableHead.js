@@ -11,10 +11,10 @@ const CreateEntryHead = () => {
         <th style={{ minWidth: "200px" }}>
           Employee
         </th>
-        <th style={{ minWidth: "100px" }}>
+        <th style={{ minWidth: "120px" }}>
           Basic Salary
         </th>
-        <th style={{ minWidth: "100px" }}>
+        <th style={{ minWidth: "120px" }}>
           Gross Salary
         </th>
         <th style={{ minWidth: "100px" }}>

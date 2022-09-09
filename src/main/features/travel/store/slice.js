@@ -21,7 +21,7 @@ const travelSlice = createSlice({
 	extraReducers: builder => {
 		builder
 			.addCase(addTravel.fulfilled, (state, { payload }) => {
-				state.travels.shift(payload.data);
+				state.travels.unshift(payload.data);
 				state.loader = false;
 				state.success = true;
 				state.isAdded = true;

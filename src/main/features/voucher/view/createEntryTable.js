@@ -91,6 +91,7 @@ const CreateEntryTable = ({ defaultRows }) => {
   const handleSubmit = () => {
     let payload = createPayload();
     dispatch(addVoucher(payload));
+    
   }
 
 

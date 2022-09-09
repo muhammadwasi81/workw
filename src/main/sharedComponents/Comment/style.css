@@ -113,6 +113,44 @@
     margin-left: 70px;
 }
 
+.SystemComment p {
+    margin: 0;
+    font-weight: 600;
+    color: rgb(136, 136, 136);
+    line-height: 1;
+
+}
+
+.SystemComment {
+    background-color: #f4f4f4;
+    margin: 0;
+    margin-bottom: 4px;
+    padding-left: 10px;
+    border-radius: 3px;
+}
+
+.SystemComment .CommentHeaderDet>.name {
+    font-size: 12px;
+}
+
+.SystemComment .CommentHeaderDet {
+    line-height: 1.8;
+}
+
+.SystemComment .ant-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.SystemComment .CommentBubble {
+    padding: 6px 0 10px 0;
+}
+
+.SystemComment .CommentHeaderDet {
+    margin-bottom: 0;
+}
+
 .CommentHeader {
     display: flex;
     justify-content: space-between;

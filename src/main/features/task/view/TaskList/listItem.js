@@ -1,5 +1,5 @@
 import { Progress } from "antd";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { Rate } from "antd";
@@ -10,22 +10,32 @@ import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { taskDictionary } from "../../localization";
 import { getPriorityLabel } from "../../utils/enum/enum";
 import TaskMembers from "../TaskDetail/taskMembers";
+import { postUserTaskRating } from "../../utils/services/service";
 
-function TaskListItem({ item, isTaskMember = false, onTask = () => {} }) {
+function TaskListItem({
+  item,
+  isTaskMember = false,
+  onTask = () => {},
+  isRatingDisable = true,
+  changeOnProgress,
+  progress,
+}) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
+  const [rating, setRating] = useState("");
   const { taskDictionaryList } = taskDictionary[userLanguage];
+  const [isMount, setIsMount] = useState(false);
   const { labels } = taskDictionaryList;
   const {
     id,
     subject,
     description,
     referenceNo,
-    rating,
+    ratingAssign,
     priority,
     startDate,
     endDate,
-    progress,
+    progress: progressed,
     members = [],
     creator,
   } = item;
@@ -34,6 +44,20 @@ function TaskListItem({ item, isTaskMember = false, onTask = () => {} }) {
   classes += Direction === "rtl" ? "rtl" : "ltr";
   const { color, label } = getPriorityLabel(labels, priority);
 
+  useEffect(() => {
+    if (isMount) {
+      if (!isRatingDisable) handleRating(id, rating);
+    }
+  }, [rating]);
+
+  useEffect(() => {
+    setIsMount(true);
+  }, []);
+
+  const handleRating = async (id, rating) => {
+    await postUserTaskRating(id, rating);
+  };
+  console.log(progress ? progress : progressed, "condition");
   return (
     <div className={classes} onClick={() => onTask(id)}>
       <div className="card-item-header">
@@ -54,7 +78,12 @@ function TaskListItem({ item, isTaskMember = false, onTask = () => {} }) {
 
         <div className="right">
           <div className="rating">
-            <Rate allowHalf defaultValue={rating} disabled />
+            <Rate
+              allowHalf
+              defaultValue={ratingAssign}
+              disabled={isRatingDisable || progress !== 100}
+              onChange={(value) => setRating(value)}
+            />
           </div>
           <div className="labels">
             <span className="taskID">{referenceNo}</span>
@@ -74,11 +103,19 @@ function TaskListItem({ item, isTaskMember = false, onTask = () => {} }) {
             </div>
 
             <div className="right">
-              {isTaskMember && <TaskMembers members={members} />}
+              {isTaskMember && (
+                <TaskMembers
+                  members={members}
+                  changeOnProgress={changeOnProgress}
+                />
+              )}
             </div>
           </div>
           <div>
-            <Progress strokeColor="#1b5669" percent={progress} />
+            <Progress
+              strokeColor="#526bb1"
+              percent={progress ? progress : progressed}
+            />
           </div>
           <div className="cardSections">
             <div className="cardSectionItem">

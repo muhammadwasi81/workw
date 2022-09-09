@@ -175,8 +175,9 @@
 .card-item-body {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   /* padding-top: 20px; */
-  width: 50%;
+  /* width: 50%; */
 }
 
 /* .card-item-body .left {

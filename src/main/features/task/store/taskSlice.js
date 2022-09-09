@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
 import { addNewTask, getAllTask, getTaskById } from "./actions";
 
 const initialState = {
@@ -17,6 +17,20 @@ export const taskSlice = createSlice({
   reducers: {
     clearTaskById: (state) => {
       state.task = {};
+    },
+    changeOnProgress: (state, { payload }) => {
+      let members = state.task.members;
+      members = members.map((item) => {
+        if (item.memberId === payload.memberId) {
+          return {
+            ...item,
+            progress: payload.progress,
+          };
+        } else {
+          return item;
+        }
+      });
+      state.task.members = members;
     },
   },
 
@@ -51,5 +65,5 @@ export const taskSlice = createSlice({
   },
 });
 
-export const { clearTaskById } = taskSlice.actions;
+export const { clearTaskById, changeOnProgress } = taskSlice.actions;
 export default taskSlice.reducer;

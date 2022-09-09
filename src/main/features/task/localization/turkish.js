@@ -10,6 +10,7 @@ const turkish = {
       selectAssign: "Atayı Seç",
     },
     labels: {
+      taskDetail: "Task Detail",
       attachments: "Attachments",
       taskSubject: "Görev Konusu",
       predecessor: "Önceki",

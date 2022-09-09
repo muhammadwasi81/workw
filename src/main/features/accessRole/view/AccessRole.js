@@ -21,6 +21,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { tableColumns } from "./tableColumns";
+import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
 
 const initialFormData = {
 	name: "",
@@ -139,79 +140,80 @@ function AccessRole() {
 	}, [openDrawer, form]);
 
 	return (
-		<div className="access_role_container w-full">
-			<Card>
-				<div className="w-full">
-					<div
-						className={`flex ${
-							Direction === "rtl"
-								? "justify-start"
-								: "justify-end"
-						}`}
-					>
-						<SideDrawer
-							title={
-								administration.accessRole.Drawer
-									.CreateAccessRole
-							}
-							buttonText={
-								administration.accessRole.Button.AddAccessRole
-							}
-							success={success}
-							openDrawer={openDrawer}
-							setOpenDrawer={setOpenDrawer}
-							setIsEdited={setIsEdited}
-							form={form}
-							isAccessDrawer={true}
-							children={
-								<AccessRoleComposer
-									isDefault={isDefault}
-									onSubmitData={onSubmitData}
-									formData={formData}
-									isEdited={isEdited}
-									openDrawer={openDrawer}
-									id={id}
-									form={form}
-									defaultData={defaultData}
-								/>
-							}
-						/>
+		<AdminContainer>
+			<div className="access_role_container w-full">
+				<Card>
+					<div className="w-full">
+						<div
+							className={`flex ${Direction === "rtl"
+									? "justify-start"
+									: "justify-end"
+								}`}
+						>
+							<SideDrawer
+								title={
+									administration.accessRole.Drawer
+										.CreateAccessRole
+								}
+								buttonText={
+									administration.accessRole.Button.AddAccessRole
+								}
+								success={success}
+								openDrawer={openDrawer}
+								setOpenDrawer={setOpenDrawer}
+								setIsEdited={setIsEdited}
+								form={form}
+								isAccessDrawer={true}
+								children={
+									<AccessRoleComposer
+										isDefault={isDefault}
+										onSubmitData={onSubmitData}
+										formData={formData}
+										isEdited={isEdited}
+										openDrawer={openDrawer}
+										id={id}
+										form={form}
+										defaultData={defaultData}
+									/>
+								}
+							/>
+						</div>
 					</div>
-				</div>
 
-				<AdminTable
-					bordered
-					columns={tableColumns(
-						handleEdit,
-						// id,
-						// accessRoles,
-						Direction,
-						sharedLabels
-					)}
-					dataSource={accessRoles}
-					pagination={false}
-					direction={Direction}
-					rowKey="id"
-					size="small"
-					scroll={{ x: 500 }}
-					locale={
-						loading && {
-							emptyText: (
-								<Skeleton.Input
-									active="true"
-									size="small"
-									block={true}
-									loading={loading}
-									round="true"
-									shape="circle"
-									style={{ width: "100%", marginBottom: 2 }}
-								/>
-							),
+					<AdminTable
+						bordered
+						columns={tableColumns(
+							handleEdit,
+							// id,
+							// accessRoles,
+							Direction,
+							sharedLabels
+						)}
+						dataSource={accessRoles}
+						pagination={false}
+						direction={Direction}
+						rowKey="id"
+						size="small"
+						scroll={{ x: 500 }}
+						locale={
+							loading && {
+								emptyText: (
+									<Skeleton.Input
+										active="true"
+										size="small"
+										block={true}
+										loading={loading}
+										round="true"
+										shape="circle"
+										style={{ width: "100%", marginBottom: 2 }}
+									/>
+								),
+							}
 						}
-					}
-				/>
-			</Card>
-		</div>
+					/>
+				</Card>
+			</div>
+		</AdminContainer>
 	);
 }
 

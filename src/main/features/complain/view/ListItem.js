@@ -1,4 +1,4 @@
-import { Image, Tag } from "antd";
+import { Tag } from "antd";
 import React, { useContext } from "react";
 import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -44,47 +44,42 @@ function ListItem(props) {
         <div className="description w-full">
           <p>{description}</p>
         </div>
-        {/* <div className="attachmentBox">
-          <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
-        </div> */}
       </ItemContent>
-      <div className="flex justify-between">
-          <div className="innerCard w-full">
-            <div className="innerCard__header">
-              <div className="left">
-                Category :
-                <span className="" style={{ color: "#757D86" }}>
-                  &nbsp;{category}
-                </span>
-              </div>
+      <div className="cardSections">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Category"}</div>
+            <div className="cardSection__body">{category}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{complainDictionary.complainOf}</div>
+            <div className="cardSection__body">
+              { members &&
+                <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Members"}
+                membersData={members ? members : []}
+                text={"Members"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+              }
             </div>
           </div>
-        </div>
-      <div className="ListItemInner">
-        <div className="ItemDetails">
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{complainDictionary.complainOf}</span>
-            <Avatar
-              isAvatarGroup={true}
-              isTag={false}
-              heading={"Members"}
-              membersData={members}
-              text={"Danish"}
-              image={"https://joeschmoe.io/api/v1/random"}
-            />
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{complainDictionary.approvers}</div>
+            <div className="cardSection__body">
+              {approvers &&
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers ? approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              }
+            </div>
           </div>
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{complainDictionary.approvers}</span>
-            <Avatar
-              isAvatarGroup={true}
-              isTag={false}
-              heading={"Approvers"}
-              membersData={approvers}
-              text={"Danish"}
-              image={"https://joeschmoe.io/api/v1/random"}
-            />
-          </div>
-        </div>
       </div>
     </SingleItem>
   );

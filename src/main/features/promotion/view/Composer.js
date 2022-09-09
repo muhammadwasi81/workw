@@ -61,7 +61,6 @@ const Composer = props => {
 	const selectedData = (data, obj) => {
 		setValue(data);
 		handleMember(obj);
-		console.log(data, obj[0].grade, "MAIN")
 		setPreviousGrade(obj[0].grade === '' ? "Not Available" : obj[0].grade)
 	};
 	const selectedDataApprover = (data, obj) => {

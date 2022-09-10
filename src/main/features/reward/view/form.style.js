@@ -1,7 +1,7 @@
 import { Form } from "antd";
 import styled from "styled-components";
 
-export const DateItem=styled(Form.Item)`
+export const DateItem = styled(Form.Item)`
 display:flex;
 flex-direction:column ;
 align-items:flex-start;

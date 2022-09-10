@@ -11,6 +11,7 @@ import { responseMessageType } from '../../../../../services/slices/notification
 import { getAllEmployees, getAllEmployeeShort } from '../../../../../utils/Shared/store/actions';
 import { createGuid } from '../../../../../utils/base';
 import { getAllAllowance } from '../../../allowance/store/actions';
+import CreateVoucherOptions from './components/createVoucherOptions';
 
 const CreateSalaryVoucher = ({ defaultRows }) => {
   const defaultEntry = {
@@ -63,30 +64,6 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
     }
   }, [success])
 
-  const handleAddRow = () => {
-    setEntries([...entries, defaultEntry])
-  }
-
-  const handleRemoveRow = (index) => {
-    console.log(index)
-    let filteredRows = [...entries];
-    filteredRows.splice(index, 1);
-    setEntries(filteredRows)
-  }
-
-  const handleChange = (value, name, index) => {
-    let tempEntries = [...entries];
-    tempEntries[index] = {
-      ...tempEntries[index],
-      [name]: value
-    };
-    setEntries(tempEntries)
-  }
-  const handleRowChange = (data, index) => {
-    let tempEntries = [...entries];
-    tempEntries[index] = data;
-    setEntries(tempEntries)
-  }
   const createPayload = () => {
     let payload = {
 
@@ -101,7 +78,7 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
 
   return (
     <div className='createEntryTable' >
-
+      <CreateVoucherOptions />
       <div className='bg-white p-4 rounded-md ' >
         <div className='overflow-x-auto'>
           <table>
@@ -112,36 +89,25 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
                   return <CreateEntryItem
                     key={item.id}
                     index={ind}
-                    handleChange={handleChange}
-                    handleRowChange={handleRowChange}
-                    handleRemoveRow={handleRemoveRow}
                     value={item}
-                    fetchEmployees={fetchEmployees}
-                    fetchEmployeesShort={fetchEmployeesShort}
-                    employeesData={fetchEmployeesData}
-                    employeesShortData={employeesShortData}
-                    allowanceData={allowanceData}
                   />
                 })
               }
             </tbody>
           </table>
         </div>
-        <div>
+        {/* <div>
           <div className='defaultBtn addRowBtn cursor-pointer' onClick={handleAddRow} >
             +
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className='bg-white p-4 rounded-md flex w-full justify-between mt-5 sticky bottom-2' >
 
         <div>
-          <Button className='ThemeBtn mr-2' onClick={() => setEntries(Array(defaultRows).fill(defaultEntry))} >
-            Clear
-          </Button>
           <Button className='ThemeBtn mr-2' onClick={handleSubmit} >
-            Save
+            Create Payroll
           </Button>
         </div>
 

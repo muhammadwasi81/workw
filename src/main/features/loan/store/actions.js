@@ -6,36 +6,37 @@ import {
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 import {
-  addRewardService,
-  getAllRewardService,
-  GetRewardByIdService,
+  getAllLoanService,
+  addLoanService,
+  GetLoanByIdService,
 } from "../services/service";
 
-export const getAllRewards = createAsyncThunk(
-  "reward/GetAllReward",
+//Done
+export const getAllLoans = createAsyncThunk(
+  "loans/GetAllLoan",
   async (data) => {
-    const response = await getAllRewardService(data);
+    const response = await getAllLoanService(data);
 
     if (!response.responseCode) {
       message.error("Something went wrong");
     }
+    // console.log("response data from actions", response.data);
     return response.data;
   }
 );
 
-export const GetRewardById = createAsyncThunk(
-  "Reward/GetRewardById",
-  async (id) => {
-    const response = await GetRewardByIdService(id);
-    console.log("MY ID", id);
-    return response.data;
-  }
-);
+//done
+export const GetLoanById = createAsyncThunk("loans/GetLoanById", async (id) => {
+  const response = await GetLoanByIdService(id);
+  console.log("MY ID", id);
+  return response.data;
+});
 
-export const addReward = createAsyncThunk(
-  "reward/addReward",
+//working
+export const addLoan = createAsyncThunk(
+  "Loan/addLoan",
   async (data, { dispatch, setState }) => {
-    const response = await addRewardService(data);
+    const response = await addLoanService(data);
     console.log(response, "FROM ACTION");
     return response;
   }

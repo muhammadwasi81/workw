@@ -17,6 +17,7 @@ export const ApprovalsModule = {
 	LoanApproval: 16,
 	CustomApproval: 17,
 	FormApproval: 18,
+	SalaryApproval: 20,
 };
 export const ApprovalStatus = {
 	InProcess: 1,

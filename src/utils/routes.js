@@ -384,6 +384,8 @@ export const ROUTES = {
   ADMINISTRATOR: {
     DEFAULT: `${DOMAIN_PREFIX}/administrator/*`,
     ADMINISTRATION: `${DOMAIN_PREFIX}/administrator/`,
+    BUSINESS_LOGO: `businessLogo`,
+    REBATE_CATEGORY: `rebateCategory`,
     BUSINESS_POLICY: `businessPolicy`,
     ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
     GRADE: `grade`,

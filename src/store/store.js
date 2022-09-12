@@ -14,6 +14,7 @@ import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
 import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
+import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
 import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
@@ -78,6 +79,7 @@ const reducers = combineReducers({
   MessengerSlice,
   leaveSlice,
   promotionSlice,
+  rebateCategorySlice,
   attendanceSlice,
   //   mailSlice,
   jobDescriptionSlice,

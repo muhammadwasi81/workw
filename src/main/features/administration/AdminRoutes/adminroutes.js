@@ -16,12 +16,16 @@ import CustomApprovalCategory from "../../../../main/features/customApprovalCate
 import WargningCategory from "../../../../main/features/warning/warningCategory/view";
 import AccessRole from "../../../../main/features/accessRole/view/AccessRole";
 import BusinessPolicy from "../../businessPolicy/view/BusinessPolicy";
+import BusinessLogo from "../../businessLogo/view";
+import RebateCategory from "../../rebateCategory/view";
 
 const AdminRoutes = () => {
   return (
     <Routes>
       <Route path={"/"} element={<AccessRole />} />
       <Route path={ROUTES.ADMINISTRATOR.BUSINESS_POLICY} element={<BusinessPolicy />} />
+      <Route path={ROUTES.ADMINISTRATOR.BUSINESS_LOGO} element={<BusinessLogo />} />
+      <Route path={ROUTES.ADMINISTRATOR.REBATE_CATEGORY} element={<RebateCategory />} />
       <Route path={ROUTES.ADMINISTRATOR.GRADE} element={<Grade />} />
       <Route path={ROUTES.ADMINISTRATOR.DESIGNATION} element={<Designation />} />
       <Route path={ROUTES.ADMINISTRATOR.APPRASIAL} element={<Appraisal />} />

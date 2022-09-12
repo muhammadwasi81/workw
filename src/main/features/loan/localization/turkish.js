@@ -1,5 +1,5 @@
 const turkish = {
-  loanDictionary: {
+  loanDictionaryList: {
     filter: "Filtre",
     selectApprovers: "Onaylayanları Seçin",
     warning: "Uyarı",

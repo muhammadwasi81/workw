@@ -4,7 +4,7 @@ import { TabbableContainer, ContBody } from "../../layout/GridStyle";
 import Header from "../../layout/header";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { loanDictionaryList } from "./localization";
+import { LoanDictionary } from "./localization";
 import TopBar from "../../sharedComponents/topBar/topBar";
 import { toggleCreateComposer } from "./store/slice";
 import Composer from "./composer";
@@ -22,7 +22,7 @@ import { getAllLoans } from "./store/actions";
 
 function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { loanDictionary } = loanDictionaryList[userLanguage];
+  const { loanDictionaryList } = LoanDictionary[userLanguage];
   const dispatch = useDispatch();
   const { loanList, listItem, isCreateComposer } = useSelector(
     (state) => state.loanSlice
@@ -77,8 +77,8 @@ function Index() {
             // onClick: () => setVisible(true),
             render: (
               <SideDrawer
-                title={loanDictionary.createLoan}
-                buttonText={loanDictionary.createLoan}
+                title={loanDictionaryList.createLoan}
+                buttonText={loanDictionaryList.createLoan}
                 success={isCreateComposer}
                 setOpenDrawer={() => dispatch(toggleCreateComposer())}
                 isAccessDrawer={true}
@@ -137,7 +137,7 @@ function Index() {
           />
         )}
 
-        {!tableView && <ListBoxes />}
+        {/* {!tableView && <ListBoxes />} */}
 
         {!tableView && <ListView filter={filter} />}
         {/* 

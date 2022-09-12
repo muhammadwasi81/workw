@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { CardWrapper } from "../../sharedComponents/Card/CardStyle";
 // import { GetLoanById } from "../../../store/appReducer/loanSlice";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { ExpenseDictionary, loanDictionaryList } from "./localization";
+import { ExpenseDictionary, LoanDictionary } from "./localization";
 import { getAllLoans } from "./store/actions";
 import { Skeleton } from "antd";
 import { ContBody } from "../../sharedComponents/AppComponents/MainFlexContainer";
@@ -13,7 +13,7 @@ import DetailedView from "./DetailedView";
 const ListView = ({ filter }) => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction } = loanDictionaryList[userLanguage];
+  const { Direction } = LoanDictionary[userLanguage];
   const [id, setId] = useState();
   const [visible, setVisible] = useState(false);
   const { loanList, loader } = useSelector((state) => state.loanSlice);

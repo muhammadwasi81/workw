@@ -7,6 +7,7 @@ import { LanguageChangeContext } from "../../../utils/localization/localContext/
 import { ExpenseDictionary, loanDictionaryList } from "./localization";
 import { getAllLoans } from "./store/actions";
 import { Skeleton } from "antd";
+import { ContBody } from "../../sharedComponents/AppComponents/MainFlexContainer";
 import DetailedView from "./DetailedView";
 
 const ListView = ({ filter }) => {

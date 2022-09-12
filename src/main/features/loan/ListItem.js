@@ -41,6 +41,7 @@ function ListItem(props) {
   return (
     <>
       {/* <SingleItem onClick={() => props.onclick(userId)}> */}
+
       <SingleItem
         onClick={() => {
           onListItem(props.item.id);
@@ -57,16 +58,18 @@ function ListItem(props) {
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={"https://joeschmoe.io/api/v1/random"}
+              avatarSrc={
+                user.image ? user.image : "https://joeschmoe.io/api/v1/random"
+              }
               // avatarSrc="https://joeschmoe.io/api/v1/random"
-              // name={user.name ? user.name : "ttt"}
-              name="Test user"
+              name={user.name ? user.name : "Test User"}
+              // name="Test user"
               Subline={
                 <SublineDesigWithTime
-                  // designation={
-                  //   user.designation ? user.designation : "Software Engineer"
-                  // }
-                  designation="software Engineer"
+                  designation={
+                    user.designation ? user.designation : "Software Engineer"
+                  }
+                  // designation="software Engineer"
                   time={moment(createDate).fromNow()} //date to be set
                   // time={moment().fromNow()}
                 />

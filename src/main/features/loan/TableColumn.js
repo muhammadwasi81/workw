@@ -5,12 +5,6 @@ import TagAvatar from "../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../sharedComponents/Tag/StatusTag";
 export const tableColumn = () => {
   return [
-    // {
-    //   title: "Sort",
-    //   dataIndex: "sort",
-    //   drag: true,
-    //   width: 80,
-    // },
     {
       title: "Reference No",
       dataIndex: "referenceNo",
@@ -33,27 +27,30 @@ export const tableColumn = () => {
       sort: true,
     },
     {
-      title: "Category",
-      dataIndex: "category",
+      title: "Amount",
+      dataIndex: "amount",
       ellipsis: true,
       sort: true,
     },
-    // { title: "Name", dataIndex: "name", ellipsis: true, sort: true },
-    // { title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
+    {
+      title: "Deduction Per Month",
+      dataIndex: "deductionPerMonth",
+      ellipsis: true,
+      sort: true,
+    },
+    {
+      title: "DeadLine",
+      dataIndex: "deadline",
+      render: (deadline) => moment(deadline).format("DD MMM YYYY"),
+      ellipsis: true,
+      sort: true,
+    },
+
     {
       title: "Date",
       dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
-    },
-
-    {
-      title: "Complain Of",
-      dataIndex: "members",
-      ellipsis: true,
-      render: (member) => (
-        <Avatar membersData={member ? member : []} heading={"Members"} />
-      ),
     },
     {
       title: "Approvers",

@@ -14,6 +14,8 @@ export const getAllLoanService = (data) => {
 export const addLoanService = (data) => {
   return MasterConfig.post(`api/Loan/AddLoan`, data)
     .then((res) => {
+      console.log("data in service function", data);
+      // console.log(res.data);
       return res;
     })
     .catch((res) => {

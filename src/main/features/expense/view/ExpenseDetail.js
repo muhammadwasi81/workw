@@ -19,6 +19,7 @@ function ExpenseDetail(props) {
   const { expense } = useSelector((state) => state.expenseSlice);
   const [expenseStatus, setExpenseStatus] = useState({});
   const [status, setStatus] = useState();
+  const [isMount, setIsMount] = useState(false);
 
   const { labels } = ExpenseDictionaryList;
   const dispatch = useDispatch();
@@ -28,7 +29,6 @@ function ExpenseDetail(props) {
   }, [visible]);
   useEffect(() => {
     if (status) {
-      console.log(status, "status");
       dispatch(updateListExpenseStatus({ id, status }));
     }
   }, [status]);
@@ -49,6 +49,13 @@ function ExpenseDetail(props) {
     }
   }, [expenseStatus]);
 
+  useEffect(() => {
+    setIsMount(true);
+    return () => {
+      setIsMount(false);
+    };
+  }, []);
+  console.log(expense, "expense detailssss");
   return (
     <Drawer
       title={
@@ -77,7 +84,12 @@ function ExpenseDetail(props) {
         <Skeleton avatar paragraph={{ rows: 6 }} />
       ) : (
         <div className="expenseDetail">
-          {<ExpenseList expense={expense} updateStatus={status} />}
+          {
+            <ExpenseList
+              expense={expense}
+              updateStatus={isMount ? status : expense.status}
+            />
+          }
           <Approval
             title={labels.approvers}
             module={ApprovalsModule.ExpenseApproval}

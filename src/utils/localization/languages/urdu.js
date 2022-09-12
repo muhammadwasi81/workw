@@ -306,6 +306,8 @@ const urdu = {
     Experience: "Experience",
   },
   administration: {
+    Business_Logo: "کاروبار کا لوگو",
+    Rebate_Category: "چھوٹ کی قسم",
     Business_Policy: "کاروباری پالیسی",
     AccessRole: "رسائی کا کردار",
     Grade: "گریڈ",

@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Drawer, Tag, Image } from "antd";
+import React, { useContext, useEffect } from "react";
+import { Drawer, Tag, Image, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { loanDictionaryList } from "./localization/index";
@@ -17,8 +17,12 @@ import {
   ItemHeader,
   SingleItem,
 } from "../../sharedComponents/Card/CardStyle";
+import ListItem from "./ListItem";
+import { useDispatch } from "react-redux";
+import { GetLoanById } from "./store/actions";
 
 function DetailedView(props) {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, complainDictionary } = loanDictionaryList[userLanguage];
 
@@ -33,16 +37,15 @@ function DetailedView(props) {
     deadline,
     approvers,
   } = loanDetail || {};
-  // const {
-  //   creator,
-  //   description,
-  //   image = DefaultAttachment,
-  //   category,
-  //   createDate,
-  //   status,
-  //   members = [],
-  //   approvers,
-  // } = complainDetail;
+
+  console.log(loanDetail);
+
+  useEffect(() => {
+    if (props.id) {
+      dispatch(GetLoanById(props.id));
+      console.log(props, "props in useEffect");
+    }
+  }, [props.id]);
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -65,91 +68,11 @@ function DetailedView(props) {
         cursor: "pointer",
       }}
     >
-      <div className="detailedCard ">
-        <ItemHeader>
-          <div className={"item-header"}>
-            <div className="left">
-              <UserInfo
-                avatarSrc={""}
-                name={"Test User"}
-                Subline={
-                  <SublineDesigWithTime
-                  //  designation={creator.designation ? creator.designation : ""}
-                  //  time={moment(createDate).fromNow()}
-                  />
-                }
-              />
-            </div>
-            <div className="right">
-              <Tag className="IdTag">{referenceNo}</Tag>
-              <StatusTag status={status}></StatusTag>
-            </div>
-          </div>
-        </ItemHeader>
-        <ItemContent className="flex">
-          <div className="description w-full">
-            <p>{description}</p>
-          </div>
-          {/* <div className="attachmentBox">
-          <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
-        </div> */}
-        </ItemContent>
-        <div className="ListItemInner">
-          <div className="ItemDetails">
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">
-                {"Deduction per month"}
-              </span>
-              <Tag className="IdTag !bg-transparent !text-left">
-                {deductionPerMonth}
-              </Tag>
-            </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">
-                {"Deadline"}
-              </span>
-              {/* {props.members} */}
-              {/* <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Members"}
-                membersData={members}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              /> */}
-              {
-                <Tag className="IdTag !bg-transparent !text-left">
-                  {moment(deadline).format("ddd,MMM DD,YYYY")}
-                </Tag>
-              }
-            </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">
-                {amount}
-              </span>
-              {/* <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Approvers"}
-                membersData={approvers}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              /> */}
-              <Tag className="IdTag !bg-transparent">{"200,000"}</Tag>
-            </div>
-          </div>
-        </div>
-        {approvers && (
-          <Avatar
-            isAvatarGroup={true}
-            isTag={false}
-            heading={"approvers"}
-            membersData={approvers ? approvers : []}
-            text={"Approvers"}
-            image={"https://joeschmoe.io/api/v1/random"}
-          />
-        )}
-      </div>
+      {!Object.keys(loanDetail).length ? (
+        <Skeleton avatar paragraph={{ rows: 6 }} />
+      ) : (
+        <ListItem item={loanDetail} />
+      )}
     </Drawer>
   );
 }

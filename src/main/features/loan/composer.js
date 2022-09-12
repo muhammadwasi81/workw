@@ -84,13 +84,13 @@ const Composer = () => {
         email: item.email,
       })),
       deadline: moment(deadline._d).format(),
-      deductionPerMonth,
+      deductionPerMonth: loanAmount / loanTenure,
       description,
       loanPurpose,
       loanTenure,
     };
     dispatch(addLoan({ loanObj }));
-    // console.log(loanObj);
+    console.log(success);
     onReset();
   };
 
@@ -168,7 +168,7 @@ const Composer = () => {
         name="deductionPerMonth"
         label="Deduction/Month"
         // value={loanAmount & loanTenure ? loanAmount / loanTenure : 0}
-        value={loanAmount / loanTenure}
+        // value={loanAmount / loanTenure}
       >
         <div
           style={{
@@ -287,6 +287,7 @@ const Composer = () => {
           }}
           type="primary"
           htmlType="submit"
+          loading={success}
         >
           Create
         </Button>

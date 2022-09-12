@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Drawer, Tag, Image, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import { loanDictionaryList } from "./localization/index";
+import { LoanDictionary } from "./localization/index";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
@@ -12,6 +12,12 @@ import DefaultAttachment from "../../../content/NewContent/complain/DefaultAttac
 import RemarksApproval from "../../sharedComponents/AppComponents/Approvals/view";
 import Avatar from "../../sharedComponents/Avatar/avatar";
 import moment from "moment";
+
+import Approval from "../../sharedComponents/AppComponents/Approvals/view";
+import {
+  ApprovalsModule,
+  ApprovalStatus,
+} from "../../sharedComponents/AppComponents/Approvals/enums";
 import {
   ItemContent,
   ItemHeader,
@@ -24,13 +30,13 @@ import { GetLoanById } from "./store/actions";
 function DetailedView(props) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, complainDictionary } = loanDictionaryList[userLanguage];
-
+  const { loanDictionaryList, Direction } = LoanDictionary[userLanguage];
+  const [loanStatus, setLoanStatus] = useState({});
+  const [status, setStatus] = useState();
   const { loanDetail } = useSelector((state) => state.loanSlice);
   const {
     referenceNo,
     user,
-    status,
     description,
     deductionPerMonth,
     amount,
@@ -38,16 +44,29 @@ function DetailedView(props) {
     approvers,
   } = loanDetail || {};
 
-  console.log(loanDetail);
-
   useEffect(() => {
     if (props.id) {
       dispatch(GetLoanById(props.id));
-      console.log(props, "props in useEffect");
     }
   }, [props.id]);
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
+
+  useEffect(() => {
+    if (Object.keys(loanStatus).length !== 0) {
+      const loanStatusArr = Object.keys(loanStatus).map((k) => {
+        return { [k]: loanStatus[k] };
+      });
+
+      const updateList = [...loanStatusArr].reduce((acc, val, index) => {
+        const ac = Object?.values(acc)?.toString();
+        const va = Object?.values(val)?.toString();
+        if (ac === va) return va;
+        else return ApprovalStatus.InProcess;
+      });
+      setStatus(updateList);
+    }
+  }, [loanStatus]);
 
   return (
     <Drawer
@@ -71,7 +90,20 @@ function DetailedView(props) {
       {!Object.keys(loanDetail).length ? (
         <Skeleton avatar paragraph={{ rows: 6 }} />
       ) : (
-        <ListItem item={loanDetail} />
+        <div className="loanDetail">
+          <ListItem item={loanDetail} />
+          <Approval
+            title={loanDictionaryList.approvers}
+            module={ApprovalsModule.ExpenseApproval}
+            data={loanDetail.approvers}
+            onStatusChanged={(status) => {
+              setLoanStatus((prev) => {
+                return { ...prev, ...status };
+              });
+            }}
+            status={loanDetail.approverStatus}
+          />
+        </div>
       )}
     </Drawer>
   );

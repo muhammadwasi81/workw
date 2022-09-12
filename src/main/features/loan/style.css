@@ -49,3 +49,9 @@
   grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   height: fit-content;
 }
+
+.loandetail {
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 10px 20px;
+}

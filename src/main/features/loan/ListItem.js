@@ -37,7 +37,7 @@ function ListItem(props) {
     status,
     amount,
   } = props.item || null;
-  console.log(props);
+
   return (
     <>
       {/* <SingleItem onClick={() => props.onclick(userId)}> */}
@@ -62,13 +62,11 @@ function ListItem(props) {
                 user.image ? user.image : "https://joeschmoe.io/api/v1/random"
               }
               // avatarSrc="https://joeschmoe.io/api/v1/random"
-              name={user.name ? user.name : "Test User"}
+              name={user.name ? user.name : "No username"}
               // name="Test user"
               Subline={
                 <SublineDesigWithTime
-                  designation={
-                    user.designation ? user.designation : "Software Engineer"
-                  }
+                  designation={user.designation ? user.designation : ""}
                   // designation="software Engineer"
                   time={moment(createDate).fromNow()} //date to be set
                   // time={moment().fromNow()}

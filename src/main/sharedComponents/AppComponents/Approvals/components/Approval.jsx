@@ -64,6 +64,7 @@ function Approval({
     if (remark) {
       setRemarks((prevValue) => [...prevValue, remark]);
       onStatusChange({ id, status });
+      setFiles([]);
     } else {
       setCurrentStatus(prevStatus);
       onStatusChange({ id, status });

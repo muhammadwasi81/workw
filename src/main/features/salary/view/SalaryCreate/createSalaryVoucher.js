@@ -56,8 +56,8 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
   const fetchEmployees = (text = "", pgNo = 1) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
-  const fetchEmployeesShort = (pgNo = 1) => {
-    dispatch(getAllEmployeeShort({ pgNo, pgSize: 20 }));
+  const fetchEmployeesShort =(text = "", pgNo = 1) => {
+    dispatch(getAllEmployeeShort({ text, pgNo, pgSize: 20 }));
   };
   const fetchAllowance = () => {
     dispatch(getAllAllowance());
@@ -97,7 +97,6 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
     let filteredEntries = entries.filter(item => item.userId)
     dispatch(addMultipleEmployeeSalary({ navigate: navigate, salaries: filteredEntries }));
   }
-  console.log(entries)
   return (
     <div className='createEntryTable' >
 

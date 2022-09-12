@@ -14,17 +14,10 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { bonusDictionary } = bonusDictionaryList[userLanguage];
 
-  const { creator, category, createDate, members = [], approvers, amount, status, referenceNo, } = props.item;
+  const { creator, createDate, member, approvers, amount, status, referenceNo, disburseAmount } = props.item;
 
   return (
-    <SingleItem>
-      {/* <div
-        className="new"
-        id={props.id}
-        onClick={() => {
-          props.getBonusId(props.id);
-        }}
-      /> */}
+    <SingleItem onClick={props.onClick}>
       <div className="new" id={props.id}></div>
       <ItemHeader>
         <div className="left">
@@ -39,45 +32,34 @@ function ListItem(props) {
           <StatusTag status={status}></StatusTag>
         </div>
       </ItemHeader>
-      <div className="flex justify-between mt-4">
-        <div className="innerCard w-full">
-          <div className="innerCard__header">
-            <div className="right">
-              <div className="left">
-                Amount :
-                <span className="" style={{ color: "#757D86" }}>
-                  &nbsp;{amount}
-                </span>
-              </div>
-            </div>
+      <div className="cardSections" style={{ marginTop: "20px" }}>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{"Amount"}</div>
+          <div className="cardSection__body">{amount}</div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{"Disburse Amount"}</div>
+          <div className="cardSection__body">{disburseAmount}</div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{"Member"}</div>
+          <div className="cardSection__body">
+            {member && member.name}
           </div>
         </div>
-      </div>
-      <div className="ListItemInner">
-        <div className="ItemDetails">
-          {members.length > 0 ?
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{"Bonus To"}</span>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{bonusDictionary.approvers}</div>
+          <div className="cardSection__body">
+            {approvers &&
               <Avatar
                 isAvatarGroup={true}
                 isTag={false}
-                heading={"Members"}
-                membersData={members}
-                text={"Danish"}
+                heading={"approvers"}
+                membersData={approvers ? approvers : []}
+                text={"Approvers"}
                 image={"https://joeschmoe.io/api/v1/random"}
               />
-            </div> : ""
-          }
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{bonusDictionary.approvers}</span>
-            <Avatar
-              isAvatarGroup={true}
-              isTag={false}
-              heading={"Approvers"}
-              membersData={approvers}
-              text={"Danish"}
-              image={"https://joeschmoe.io/api/v1/random"}
-            />
+            }
           </div>
         </div>
       </div>

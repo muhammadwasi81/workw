@@ -10,6 +10,8 @@ const urdu = {
       selectAssign: "تفویض کو منتخب کریں",
     },
     labels: {
+      taskDetail: "Task Detail",
+      attachments: "Attachments",
       taskSubject: "ٹاسک کا موضوع",
       predecessor: "پیشرو",
       type: "قسم",

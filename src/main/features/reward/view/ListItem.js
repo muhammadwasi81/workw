@@ -53,7 +53,7 @@ function ListItem(props) {
             <p>{description}</p>
           </div>
           <div className="attachmentBox">
-            <Image preview={false} width={60} src={image === "" ? RewardDefaultIcon : image} />
+            <Image preview={false} width={60} height={60} src={image === "" ? RewardDefaultIcon : image} />
           </div>
         </ItemContent>
         <div className="cardSections">

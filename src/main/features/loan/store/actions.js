@@ -1,6 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
   responseMessage,
   responseMessageType,
@@ -33,11 +34,43 @@ export const GetLoanById = createAsyncThunk("loans/GetLoanById", async (id) => {
 });
 
 //working
+// export const addLoan = createAsyncThunk(
+//   "Loan/addLoan",
+//   async (data, { dispatch, setState }) => {
+//     console.log(data, "this is data in add loan actions");
+//     const { loanObj } = data;
+//     const response = await addLoanService(loanObj);
+//     // console.log(response, "FROM ACTION");
+//     return response;
+//   }
+// );
+
 export const addLoan = createAsyncThunk(
   "Loan/addLoan",
-  async (data, { dispatch, setState }) => {
-    const response = await addLoanService(data);
-    console.log(response, "FROM ACTION");
-    return response;
+  async (args, { dispatch, getState }) => {
+    const { loanObj } = args;
+    const res = await addLoanService(loanObj);
+
+    if (res.data?.responseCode === responseCode.Success) {
+      dispatch(
+        openNotification({
+          message: "Loan Created Successfully",
+          type: "success",
+          duration: 2,
+        })
+      );
+      console.log("response when success", res.data);
+      return res.data;
+    } else {
+      dispatch(
+        openNotification({
+          message: res.message,
+          type: "error",
+          duration: 2,
+        })
+      );
+      console.log("response when failed", res.data);
+      return isRejectedWithValue(res.data.message);
+    }
   }
 );

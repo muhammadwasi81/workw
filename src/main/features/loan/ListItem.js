@@ -16,37 +16,35 @@ import {
 } from "../../sharedComponents/Card/CardStyle";
 import { GetLoanById } from "./store/actions";
 import Avatar from "../../sharedComponents/Avatar/avatar";
+import { useEffect } from "react";
 
 function ListItem(props) {
+  const { onListItem = () => {} } = props;
   //const { userLanguage } = useContext(LanguageChangeContext);
   //const { Direction, rewardDictionary } = loanDictionaryList[userLanguage];
   // console.log("props for list item", props.item);
   const dispatch = useDispatch();
-  const { designation, name, image } = props.item.user;
+  // const { designation, name, image } = props.item.user || [];
   const {
     description,
     referenceNo,
     approvers,
     createDate,
     userId,
+    user,
     deductionPerMonth,
     deadline,
     status,
     amount,
-  } = props.item;
-
-  const getLoanById = (id) => {
-    console.log("dispatch getloanbyId");
-    dispatch(GetLoanById(id));
-  };
-
+  } = props.item || null;
+  console.log(props);
   return (
     <>
       {/* <SingleItem onClick={() => props.onclick(userId)}> */}
+
       <SingleItem
         onClick={() => {
-          getLoanById(props.id);
-          props.onListItem();
+          onListItem(props.item.id);
         }}
       >
         {/* <div
@@ -60,19 +58,30 @@ function ListItem(props) {
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={image}
-              name={name}
+              avatarSrc={
+                user.image ? user.image : "https://joeschmoe.io/api/v1/random"
+              }
+              // avatarSrc="https://joeschmoe.io/api/v1/random"
+              name={user.name ? user.name : "Test User"}
+              // name="Test user"
               Subline={
                 <SublineDesigWithTime
-                  designation={designation}
+                  designation={
+                    user.designation ? user.designation : "Software Engineer"
+                  }
+                  // designation="software Engineer"
                   time={moment(createDate).fromNow()} //date to be set
+                  // time={moment().fromNow()}
                 />
               }
             />
           </div>
           <div className="right">
-            <Tag className="IdTag">{referenceNo}</Tag>
-            <StatusTag status={status}></StatusTag>
+            <Tag className="IdTag">
+              {referenceNo ? referenceNo : ""}
+              {/* LOA-000005 */}
+            </Tag>
+            <StatusTag status={status ? status : 1}></StatusTag>
           </div>
         </ItemHeader>
         <ItemContent className="flex">
@@ -85,6 +94,7 @@ function ListItem(props) {
           </div> */}
           <div className="description w-full pt-3 pb-5 h-[100px]">
             <p> {description ? description : "No description"} </p>
+            {/* <p>no description</p> */}
           </div>
         </ItemContent>
         {/* <div className="flex justify-between">
@@ -126,18 +136,24 @@ function ListItem(props) {
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">Deduction per month</div>
-            <div className="cardSection__body">{deductionPerMonth}</div>
+            <div className="cardSection__body">
+              {deductionPerMonth ? deductionPerMonth : ""}
+              {/* 100 */}
+            </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Deadline</div>
             <div className="cardSection__body">
               {/* {moment(effectiveDate).format("Do MMM YY")} */}
-              {moment(deadline).format("ddd,MMM DD,YYYY")}
+              {deadline
+                ? moment(deadline).format("ddd,MMM DD,YYYY")
+                : moment().format("ddd,MMM DD,YYYY")}
+              {/* {moment().format("dd,MM DD YYY")} */}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Amount</div>
-            <div className="cardSection__body">{amount}</div>
+            <div className="cardSection__body"> {amount ? amount : ""}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>

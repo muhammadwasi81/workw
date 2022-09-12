@@ -3,6 +3,7 @@ import MasterConfig from "../../../../utils/services/MasterConfig";
 export const getAllDepartmentService = (data) => {
   return MasterConfig.get(`api/Department/GetAllDepartment`, data)
     .then((res) => {
+      console.log("response data from service", res.data);
       return res.data;
     })
     .catch((err) => {
@@ -10,23 +11,23 @@ export const getAllDepartmentService = (data) => {
     });
 };
 
-export const addDepartmentService = (data) => {
-  return MasterConfig.post(`api/Department/AddDepartment`, data)
-    .then((res) => {
-      return res;
-    })
-    .catch((res) => {
-      return res;
-    });
-};
+// export const addDepartmentService = (data) => {
+//   return MasterConfig.post(`api/Department/AddDepartment`, data)
+//     .then((res) => {
+//       return res;
+//     })
+//     .catch((res) => {
+//       return res;
+//     });
+// };
 
-export const GetRewardByIdService = (id) => {
-  console.log("ID FROM SERVICE", id);
-  return MasterConfig.get(`api/Reward/GetRewardById?id=${id}`)
-    .then((res) => {
-      return res;
-    })
-    .catch((res) => {
-      return res;
-    });
-};
+// export const GetRewardByIdService = (id) => {
+//   console.log("ID FROM SERVICE", id);
+//   return MasterConfig.get(`api/Reward/GetRewardById?id=${id}`)
+//     .then((res) => {
+//       return res;
+//     })
+//     .catch((res) => {
+//       return res;
+//     });
+// };

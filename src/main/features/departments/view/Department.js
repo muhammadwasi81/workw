@@ -55,7 +55,7 @@ const Department = (props) => {
   // useEffect(()=>{
 
   // },[departments])
-
+  // const onSearch = (value) => setSearch(value);
   return (
     <>
       <TabbableContainer className="">
@@ -77,6 +77,7 @@ const Department = (props) => {
           ]}
         />
         <TopBar
+          // onSearch={onSearch}
           onSearch={(value) => {
             console.log(value);
           }}

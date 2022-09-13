@@ -10,6 +10,8 @@ const arabic = {
       selectAssign: "حدد تعيين",
     },
     labels: {
+      taskDetail: "Task Detail",
+      attachments: "Attachments",
       taskSubject: "موضوع المهمة",
       predecessor: "المعالج المسبق",
       type: "النوع",

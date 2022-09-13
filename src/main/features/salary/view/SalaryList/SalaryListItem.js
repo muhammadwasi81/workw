@@ -32,12 +32,13 @@ function SalaryListItem(props) {
     referenceNo = "SAR-10001",
     createDate = moment(),
     effectiveDate = moment(),
+    id
   } = props.item;
 
 
   return (
     <>
-      <SingleItem onClick={props.onClick}>
+      <SingleItem onClick={()=>props.onClick(id)}>
         <ItemHeader>
           <div className="left">
             <UserInfo
@@ -52,8 +53,7 @@ function SalaryListItem(props) {
           </div>
         </ItemHeader>
         <div className="description w-full pt-3 pb-5 h-[100px]">
-          <p>{description.length > 0 ? description : "No description"}</p>
-          {description.length > 0 ?<p>description</p> :<p> No description </p>}
+          {description.length > 0 ?<p>{description}</p> :<p> No description </p>}
         </div>
 
         <div className="cardSections">
@@ -69,10 +69,6 @@ function SalaryListItem(props) {
             <div className="cardSection__title">Basic Salary</div>
             <div className="cardSection__body">{basicSalary}</div>
           </div>
-          {/* <div className="cardSectionItem">
-            <div className="cardSection__title">Allowances</div>
-            <div className="cardSection__body">45,0000</div>
-          </div> */}
           <div className="cardSectionItem">
             <div className="cardSection__title">Net Salary</div>
             <div className="cardSection__body">{netSalary}</div>

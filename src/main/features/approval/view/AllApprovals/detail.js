@@ -1,6 +1,7 @@
 import React from "react";
 import Tab from "../../../../sharedComponents/Tab";
 import Reward from "../../../reward/view/DetailCard";
+import SalaryDetailCard from "../../../salary/view/SalaryList/salaryDetailCard";
 
 const panes = [
     {
@@ -14,7 +15,7 @@ export default function ApprovalDetail() {
     return (
         <div className="approvalDetail" >
             <Tab panes={panes} />
-            <Reward id="9fb567fa-7a1e-4317-974b-ff59540ce4f9" />
+            <SalaryDetailCard  id={"f1865fdd-f28f-4b75-9a14-234b62802bc0"}/>
         </ div>
     )
 }

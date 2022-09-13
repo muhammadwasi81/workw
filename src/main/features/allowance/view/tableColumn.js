@@ -40,8 +40,23 @@ export const tableColumn = (
     // { title: "Description", dataIndex: "description", width: "5%" },
     { title: "Grade", dataIndex: "gradeName", width: "5%" },
     { title: "Amount", dataIndex: "value", width: "5%" },
-    { title: "Allowance Type", dataIndex: "allowanceType", width: "20%" },
-    { title: "Allowance Unit", dataIndex: "allowanceUnit", width: "20%" },
+    { title:  
+      "Allowance Type",
+      dataIndex: "allowanceType",
+      width: "20%",
+      render: (text, row) => {
+        return text === 1 ? "Percent" : "Amount" 
+      }
+    },
+    { title:  
+      "Allowance Unit",
+      dataIndex: "allowanceUnit",
+      width: "20%",
+      render: (text, row) => {
+        return text === 1 ? "Benefit" : "Deduction" 
+      }
+    },
+    { title: "", dataIndex: "", width: "20%" },
     { title:  
       "Is Taxable",
       dataIndex: "isTaxable",

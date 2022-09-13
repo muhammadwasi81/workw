@@ -10,6 +10,8 @@ const en = {
       selectAssign: "Select Assign",
     },
     labels: {
+      taskDetail: "Task Detail",
+      attachments: "Attachments",
       taskSubject: "Task Subject",
       predecessor: "Predecessor",
       type: "Type",
@@ -28,7 +30,7 @@ const en = {
       checkList: "Check List",
       description: "Description",
       startDate: " Start Date",
-      endtDate: " Start End",
+      endtDate: " End Date",
     },
   },
   Direction: "ltr",

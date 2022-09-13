@@ -44,39 +44,43 @@ function ListItem(props) {
         <div className="description w-full">
           <p>{description}</p>
         </div>
-        {/* <div className="attachmentBox">
-          <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
-        </div> */}
       </ItemContent>
-      <div className="ListItemInner">
-        <div className="ItemDetails">
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{warningDictionary.category}</span>
-            <Tag className="IdTag">{category ? category : "Default Category"}</Tag>
-          </div>
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{warningDictionary.warningTo}</span>
-            <Avatar
-              isAvatarGroup={true}
-              isTag={false}
-              heading={"Members"}
-              membersData={members}
-              text={"Danish"}
-              image={"https://joeschmoe.io/api/v1/random"}
-            />
-          </div>
-          <div className="innerDiv">
-            <span className="text-black font-extrabold smallHeading">{warningDictionary.approvers}</span>
-            <Avatar
-              isAvatarGroup={true}
-              isTag={false}
-              heading={"Approvers"}
-              membersData={approvers}
-              text={"Danish"}
-              image={"https://joeschmoe.io/api/v1/random"}
-            />
+      <div className="cardSections">
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{warningDictionary.category}</div>
+          <div className="cardSection__body"><Tag className="IdTag">{category ? category : "Default Category"}</Tag></div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{warningDictionary.warningTo}</div>
+          <div className="cardSection__body">
+            {members &&
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Members"}
+                membersData={members}
+                text={"Members"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            }
           </div>
         </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{warningDictionary.approvers}</div>
+          <div className="cardSection__body">
+            {approvers &&
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Approvers"}
+                membersData={approvers}
+                text={"Approvers"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            }
+          </div>
+        </div>
+
       </div>
     </SingleItem>
   );

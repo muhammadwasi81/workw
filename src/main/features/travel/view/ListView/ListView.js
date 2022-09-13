@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Drawer, Skeleton } from "antd";
-import TravelDetailCard from "../UI/TravelDetailCard";
-import CardDetailView from "./CardDetailView";
+// import TravelDetailCard from "../UI/TravelDetailCard";
+// import CardDetailView from "./CardDetailView";
 import CardProfileTopView from "./CardProfileTopView";
 import Calender from "../../../../../content/svg/Calender.svg";
 import location from "../../../../../content/svg/location.svg";
-import { ROUTES } from "../../../../../utils/routes";
+// import { ROUTES } from "../../../../../utils/routes";
 
 import moment from "moment";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
@@ -29,7 +29,7 @@ function ListView(props) {
 		setVisible(false);
 		dispatch(resetTravelDetail());
 	};
-	// console.log("travel", travelId);
+	// console.log("travel", props);
 	return (
 		<div className="gap-5 flex flex-col z-10 ">
 			{props.data

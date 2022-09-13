@@ -1,41 +1,70 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addReward, getAllRewards, GetRewardById } from "./actions";
+import { addLoan, getAllLoans, GetLoanById } from "./actions";
 
 const initialState = {
-  rewards: [],
-  loadingData: false,
-  loader: true,
-  rewardDetail: {},
+  editData: null,
+  loanData: [],
+  success: false,
+  loader: false,
+  error: false,
+  isCreateComposer: false,
+  loanDetail: {},
+  loanList: [],
 };
 
-const rewardSlice = createSlice({
-  name: "rewards",
+const LoanSlice = createSlice({
+  name: "loans",
   initialState,
-  reducers: {},
+  reducers: {
+    toggleCreateComposer: (state, payload) => {
+      state.isCreateComposer = !state.isCreateComposer;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(getAllRewards.fulfilled, (state, action) => {
-      state.rewards = action.payload ? action.payload : [];
-      state.loader = false;
-    });
-
-    builder.addCase(GetRewardById.fulfilled, (state, action) => {
-      console.log("action.payload", action.payload);
-      state.rewardDetail = action.payload.data;
-    });
-
     builder
-      .addCase(addReward.fulfilled, (state, { payload }) => {
-        state.rewardData = payload;
-        return state;
+      .addCase(getAllLoans.fulfilled, (state, { payload }) => {
+        // console.log("****************", payload);
+        state.loanList = payload ? payload : [];
+        state.loader = false;
+        // state.success = true;
       })
-      .addMatcher(isPending(...[getAllRewards]), (state) => {
+      .addCase(GetLoanById.fulfilled, (state, { payload }) => {
+        console.log("getLoanById payload", payload.data);
+        state.loanDetail = payload.data;
+        state.loading = false;
+      })
+      .addCase(addLoan.fulfilled, (state, { payload }) => {
+        if (payload.data.data) {
+          state.loanList.unshift(payload.data.data);
+          state.isCreateComposer = true;
+        }
+        // state.success = true;
+        // console.log(payload);
+        // state.loanList = [...state.loanList, payload.data.data];
+      })
+      .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
       })
-      .addMatcher(isRejected(...[getAllRewards]), (state) => {
-        state.loader = true;
+      // .addMatcher(isPending(...[GetLoanById]), (state) => {
+      //   state.loanDetail = {};
+      // })
+      // .addMatcher(isRejected(...[GetLoanById]), (state) => {
+      //   state.loanDetail = {};
+      // })
+      .addMatcher(isPending(...[addLoan]), (state) => {
+        state.success = true;
+      })
+      .addMatcher(isRejected(...[addLoan]), (state) => {
+        state.success = false;
       });
+    //   .addMatcher(isPending(...[getAllLoans]), (state) => {
+    //     state.loader = true;
+    //   })
+    //   .addMatcher(isRejected(...[getAllLoans]), (state) => {
+    //     state.loader = true;
+    //   });
   },
 });
 
-export const {} = rewardSlice.actions;
-export default rewardSlice.reducer;
+export const { toggleCreateComposer } = LoanSlice.actions;
+export default LoanSlice.reducer;

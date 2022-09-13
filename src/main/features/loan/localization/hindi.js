@@ -1,5 +1,5 @@
 const hindi = {
-  loanDictionary: {
+  loanDictionaryList: {
     filter: "फ़िल्टर",
     selectApprovers: "अनुमोदकों का चयन करें",
     warning: "चेतावनी",

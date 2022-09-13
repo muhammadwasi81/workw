@@ -4,23 +4,27 @@ import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { promotionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import Approval from "../../../sharedComponents/AppComponents/Approvals/view";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
+import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
+import {
+  ApprovalsModule,
+  ApprovalStatus,
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, promotionDictionary } = promotionDictionaryList[userLanguage];
 
+  const [updatedStatus, setUpdatedStatus] = useState();
+
   const { promotionDetail } = useSelector((state) => state.promotionSlice);
 
-  const { creator, description, status, createDate, grade, members = [], approvers } = promotionDetail;
-
+  const { creator, description, status, createDate, grade, member, approvers } = promotionDetail;
+  let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
   return (
@@ -42,39 +46,51 @@ function DetailedView(props) {
           </div>
           <div className="right">
             <Tag className="IdTag">TRA-000085</Tag>
-            <StatusTag status={status}></StatusTag>
+            <StatusTag
+              status={updatedStatus?.Approvals}
+            ></StatusTag>
           </div>
         </div>
         <div className="item-content">
           <p>{description}</p>
         </div>
-        <div className="ListItemInner">
-          <div className="ItemDetails">
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{"New Grade"}</span>
-              <p>
-                <Tag className="IdTag">{grade}</Tag>
-              </p>
+        <div className="cardSections" style={{ marginTop: "10px" }}>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"New Grade"}</div>
+            <div className="cardSection__body"><Tag className="IdTag">{grade ? grade : "Default Grade"}</Tag></div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{promotionDictionary.promotionTo}</div>
+            <div className="cardSection__body">
+              {member && member.name
+              }
             </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{"Promotion To"}</span>
-              <p>
-                <Tag className="IdTag"></Tag>
-              </p>
-            </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{"Approvers"}</span>
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Approvers"}
-                membersData={approvers}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{promotionDictionary.approvers}</div>
+            <div className="cardSection__body">
+              {approvers &&
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Approvers"}
+                  membersData={approvers}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              }
             </div>
           </div>
         </div>
+        <RemarksApproval
+          module={ApprovalsModule.RewardApproval}
+          status={status}
+          onStatusChanged={statusChanged =>
+            setUpdatedStatus(statusChanged)
+          }
+          data={approvers}
+          title="Approvals"
+        />
       </div>
     </Drawer>
   );

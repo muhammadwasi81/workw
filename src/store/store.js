@@ -14,6 +14,7 @@ import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
 import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
+import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
 import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
@@ -59,10 +60,11 @@ import groupSlice from "../main/features/groups/store/slice";
 import chartOfAccountsSlice from "../main/features/chartOfAccount/store/slice";
 import callingSlice from "../main/features/calling/store/slice";
 import salarySlice from "../main/features/salary/store/slice";
-import loanSlice from "./appReducer/loanSlice";
+import loanSlice from "../main/features/loan/store/slice";
 import resignationSlice from "./appReducer/resignationSlice";
 import voucherSlice from "../main/features/voucher/store/slice";
 import scheduleSlice from "../main/features/schedule/store/slice";
+import attendanceSlice from "../main/features/attendance/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -77,7 +79,8 @@ const reducers = combineReducers({
   MessengerSlice,
   leaveSlice,
   promotionSlice,
-
+  rebateCategorySlice,
+  attendanceSlice,
   //   mailSlice,
   jobDescriptionSlice,
   sharedQuillSlice,
@@ -122,7 +125,7 @@ const reducers = combineReducers({
   groupSlice,
   callingSlice,
   voucherSlice,
-  salarySlice
+  salarySlice,
 });
 
 const persistConfig = {

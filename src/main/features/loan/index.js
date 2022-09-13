@@ -4,10 +4,11 @@ import { TabbableContainer, ContBody } from "../../layout/GridStyle";
 import Header from "../../layout/header";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { loanDictionaryList } from "./localization";
+import { LoanDictionary } from "./localization";
 import TopBar from "../../sharedComponents/topBar/topBar";
+import { toggleCreateComposer } from "./store/slice";
 import Composer from "./composer";
-// import "./style.css";
+import "./style.css";
 import styled from "styled-components";
 import ListView from "./ListView";
 import ListBoxes from "./ListBoxes";
@@ -15,16 +16,21 @@ import DetailedView from "./DetailedView";
 import { CloseDetailView } from "../../../store/appReducer/loanSlice";
 import { Table } from "../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
-//import { getAllRewards } from "./store/actions";
+import { LoanFilterTypeEnum } from "./enum/index";
+import getStoredState from "redux-persist/es/getStoredState";
+import { getAllLoans } from "./store/actions";
 
 function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { loanDictionary } = loanDictionaryList[userLanguage];
-
+  const { loanDictionaryList } = LoanDictionary[userLanguage];
   const dispatch = useDispatch();
-  const { listItem } = useSelector((state) => state.loanSlice);
+  const { loanList, listItem, isCreateComposer } = useSelector(
+    (state) => state.loanSlice
+  );
 
   const [tableView, setTableView] = useState(false);
+  const [viewType, setViewType] = useState("List");
+  const [search, setSearch] = useState("");
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
@@ -34,11 +40,34 @@ function Index() {
   //   dispatch(getAllRewards(filter));
   // }, [filter]);
 
+  useEffect(() => {
+    dispatch(
+      getAllLoans({
+        filter,
+        search,
+      })
+    );
+  }, [filter, search]);
+
   const closeDetailView = () => {
     dispatch(CloseDetailView());
     // setDetailViewIsVisible(false);
   };
 
+  // const render = {
+  //   List: <ListView filter={filter} data={listItem} />,
+  //   Table: (
+  //     <Table
+  //       columns={tableColumn()}
+  //       dragable={true}
+  //       //data={"Daniyal"}
+  //       data={listItem}
+  //     />
+  //   ),
+  // };
+  const onSearch = (value) => setSearch(value);
+  const onSegment = (value) => setViewType(value);
+  console.log("iscerate***", isCreateComposer);
   return (
     <TabbableContainer>
       <Header
@@ -48,9 +77,13 @@ function Index() {
             // onClick: () => setVisible(true),
             render: (
               <SideDrawer
-                title={loanDictionary.createLoan}
-                buttonText={loanDictionary.createLoan}
-                isAccessDrawer={false}
+                title={loanDictionaryList.createLoan}
+                buttonText={loanDictionaryList.createLoan}
+                success={isCreateComposer}
+                setOpenDrawer={() => dispatch(toggleCreateComposer())}
+                isAccessDrawer={true}
+                openDrawer={isCreateComposer}
+                setIsEdited={() => {}}
               >
                 <Composer />
               </SideDrawer>
@@ -59,21 +92,23 @@ function Index() {
         ]}
       />
       <TopBar
-        onSearch={(value) => {
-          console.log(value);
-        }}
+        onSearch={onSearch}
         buttons={[
           {
             name: "Loans",
-            onClick: () => setFilter({ filterType: 0 }),
+            onClick: () => setFilter({ filterType: LoanFilterTypeEnum.All }),
           },
           {
             name: "For Approval",
-            onClick: () => setFilter({ filterType: 1 }),
+            onClick: () =>
+              setFilter({ filterType: LoanFilterTypeEnum.ForApproval }),
           },
           {
             name: "Loans To Me",
-            onClick: () => setFilter({ filterType: 2 }),
+            onClick: () =>
+              setFilter({
+                filterType: LoanFilterTypeEnum.CreatedByMeAndLoanOfMe,
+              }),
           },
         ]}
         filter={{
@@ -83,6 +118,7 @@ function Index() {
           onSegment: (value) => {
             if (value === "Table") {
               setTableView(true);
+              console.log(tableView);
             } else {
               setTableView(false);
             }
@@ -97,13 +133,16 @@ function Index() {
           <Table
             columns={tableColumn()}
             dragable={true}
-            //data={"Daniyal"}
+            data={loanList ? loanList : []}
           />
         )}
 
-        {!tableView && <ListBoxes />}
+        {/* {!tableView && <ListBoxes />} */}
 
-        {!tableView && <ListView />}
+        {!tableView && <ListView filter={filter} />}
+        {/* 
+        {render[view]}
+        {render[viewType]} */}
       </ContBody>
       {listItem && (
         <DetailedView onClose={closeDetailView} visible={listItem} />

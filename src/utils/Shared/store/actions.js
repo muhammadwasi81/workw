@@ -107,8 +107,8 @@ export const getAllGenders = createAsyncThunk(
 export const getAllEmployeeShort = createAsyncThunk(
   "getAllEmployeeShort",
   async (args, { dispatch, getState }) => {
-    const { pageNo, search } = args;
-    const res = await getAllEmployeeShortService(pageNo, search);
+    const { text, pageNo, search } = args;
+    const res = await getAllEmployeeShortService(pageNo, text);
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,

@@ -23,7 +23,7 @@ export const AdminTable = styled(Table)`
     overflow: scroll;
   }
   && thead tr th {
-    background: #1b5669;
+    background: var(--currentThemeColor) !important;  
     color: white;
     ${(props) => props.direction === "rtl" && "text-align: right;"}
   }

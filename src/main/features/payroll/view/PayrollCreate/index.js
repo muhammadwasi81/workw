@@ -2,7 +2,7 @@ import React from "react";
 import { ROUTES } from "../../../../../utils/routes";
 import Header from "../../../../layout/header";
 import { ContBody, TabbableContainer } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import CreatePayrollTable from "./createSalaryVoucher";
+import CreatePayrollTable from "./createPayrollVoucher";
 const Index = () => {
   return (
     <TabbableContainer>

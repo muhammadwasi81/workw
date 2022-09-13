@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
-export const getAllRewardService = (data) => {
-  return MasterConfig.post(`api/Reward/GetAllReward`, data)
+export const getAllLoanService = (data) => {
+  return MasterConfig.post(`api/Loan/GetAllLoan`, data)
     .then((res) => {
       return res.data;
     })
@@ -10,9 +10,12 @@ export const getAllRewardService = (data) => {
     });
 };
 
-export const addRewardService = (data) => {
-  return MasterConfig.post(`api/Reward/AddReward`, data)
+//working
+export const addLoanService = (data) => {
+  return MasterConfig.post(`api/Loan/AddLoan`, data)
     .then((res) => {
+      console.log("data in service function", data);
+      // console.log(res.data);
       return res;
     })
     .catch((res) => {
@@ -20,9 +23,9 @@ export const addRewardService = (data) => {
     });
 };
 
-export const GetRewardByIdService = (id) => {
+export const GetLoanByIdService = (id) => {
   console.log("ID FROM SERVICE", id);
-  return MasterConfig.get(`api/Reward/GetRewardById?id=${id}`)
+  return MasterConfig.get(`api/Loan/GetLoanById?id=${id}`)
     .then((res) => {
       return res;
     })

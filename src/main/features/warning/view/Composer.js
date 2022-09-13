@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Avatar } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,7 +8,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { getAllWarningCategories } from "../warningCategory/store/actions";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+// import  from "../../../sharedComponents/Avatar/avatarOLD";
 
 const initialState = {
 	id: "",
@@ -168,6 +168,7 @@ const Composer = props => {
 					label={warningDictionary.warningTo}
 					showSearch={true}
 					direction={Direction}
+					style={{ marginBottom: "0px" }}
 				>
 					<CustomSelect
 						style={{ marginBottom: "0px" }}
@@ -211,6 +212,7 @@ const Composer = props => {
 					label={warningDictionary.approvers}
 					showSearch={true}
 					direction={Direction}
+					style={{ marginBottom: "0px" }}
 				>
 					<CustomSelect
 						style={{ marginBottom: "0px" }}

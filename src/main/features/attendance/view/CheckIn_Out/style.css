@@ -2,7 +2,7 @@
     border-radius: 10px;
 }
 .checkInModal .ant-modal-body{
-    background-image: url(../../../../content/NewContent/checkIn/background.svg);
+    background-image: url(../../../../../content/NewContent/checkIn/background.svg);
     /* width: 500px; */
     height: 500px;
     background-size: contain;
@@ -121,7 +121,7 @@
 }
 .CheckInListItem > .headingCont > .headTime {
     font-weight: bolder;
-    -webkit-text-stroke: 0.8px;
+    -webkit-text-stroke: 0.1px;
     font-size: 11px;
 }
 .CheckInListItem > .headingCont > .headDesc {

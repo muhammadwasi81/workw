@@ -13,9 +13,15 @@ export const getAllWarnings = createAsyncThunk("Warning/GetAllWarning", async (d
   return response.data;
 });
 
-export const addWarning = createAsyncThunk("Warning/addWarning", async (args, { dispatch, setState }) => {
-  const response = await addWarningService(args);
-  return response;
+export const addWarning = createAsyncThunk("Warning/addWarning", async (data, { dispatch, getState, rejectWithValue }) => {
+  const res = await addWarningService(data);
+  if (res.data?.responseCode === responseCode.Success) {
+    message.success('Warning Created');
+    return res;
+  } else {
+    message.error(res.data.message);
+    return rejectWithValue(res.data.message);
+  }
 });
 
 export const GetWarningById = createAsyncThunk("Warning/GetWarningById", async (id) => {

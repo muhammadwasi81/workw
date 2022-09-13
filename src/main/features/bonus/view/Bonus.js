@@ -1,17 +1,14 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Row, Button, Skeleton, Drawer } from "antd";
+import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Button, Skeleton, Drawer } from "antd";
 import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllBonus, GetBonusById, GetPromotionById } from "../store/actions";
+import { getAllBonus } from "../store/actions";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
@@ -36,15 +33,10 @@ const Bonus = (props) => {
   const dispatch = useDispatch();
 
   const { bonuses, loader, bonusDetail, drawerOpen } = useSelector((state) => state.bonusSlice);
-  
+
   const onClose = () => {
     setDetailId(null);
     setVisible(false);
-  };
-
-  const getBonusId = (id) => {
-    dispatch(GetBonusById(id));
-    setVisible(true);
   };
 
   useEffect(() => {
@@ -56,11 +48,10 @@ const Bonus = (props) => {
         buttons={[
           {
             buttonText: "Create Bonus",
-            // onClick: () => setVisible(true),
             render: (
               <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
-                  Create Bonus
-                </Button>
+                Create Bonus
+              </Button>
             ),
           },
         ]}
@@ -114,12 +105,13 @@ const Bonus = (props) => {
               ) : (
                 <CardWrapper>
                   {bonuses.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
-                        </>
-                      );
-                    })}
+                    return (
+                      <>
+                        {/*  */}
+                        <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
+                      </>
+                    );
+                  })}
                 </CardWrapper>
               )}
             </>
@@ -130,26 +122,26 @@ const Bonus = (props) => {
       </ContBody>
       {<DetailedView onClose={onClose} id={detailId} />}
       <Drawer
-          title={
-            <h1
-              style={{
-                fontSize: "20px",
-                margin: 0,
-              }}
-            >
-              Create Bonus
-            </h1>
-          }
-          width="768"
-          onClose={() => {
-            dispatch(handleOpenComposer(false))
-          }}
-          visible={drawerOpen}
-          destroyOnClose={true}
-          className="detailedViewComposer drawerSecondary"
-        >
-          <Composer />
-        </Drawer>
+        title={
+          <h1
+            style={{
+              fontSize: "20px",
+              margin: 0,
+            }}
+          >
+            Create Bonus
+          </h1>
+        }
+        width="768"
+        onClose={() => {
+          dispatch(handleOpenComposer(false))
+        }}
+        visible={drawerOpen}
+        destroyOnClose={true}
+        className="detailedViewComposer drawerSecondary"
+      >
+        <Composer />
+      </Drawer>
     </TabbableContainer>
   );
 };

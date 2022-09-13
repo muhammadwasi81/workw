@@ -10,7 +10,7 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { getStatusLabelAndColor } from "../../../sharedComponents/AppComponents/Approvals/enums";
 import { ApprovalDictionary } from "../../../sharedComponents/AppComponents/Approvals/localization";
 
-function ExpenseList({ onExpense, expense, updateStatus }) {
+function ExpenseList({ onExpense = () => {}, expense, updateStatus }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
   const { status: statusLabels } = ApprovalDictionary[userLanguage];

@@ -214,19 +214,12 @@ function CreateSchedule() {
 								setQuillError(false);
 							}
 						}}
+						
 						modules={modules}
 						formats={formats}
 						placeholder="Description"
 					/>
-					{/* {quillError && (
-						<div className="flex flex-nowrap -top-[5px] relative">
-							<div className="ant-form-item-explain ant-form-item-explain-connected">
-								<div className="ant-form-item-explain-error">
-									Description is required
-								</div>
-							</div>
-						</div>
-					)} */}
+					
 				</Form.Item>
 				<Form.Item label="Type:" name={"scheduleType"}>
 					<Radio.Group

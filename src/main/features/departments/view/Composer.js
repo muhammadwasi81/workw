@@ -6,7 +6,7 @@ import {
   getAllEmployees,
   getRewardCategory,
 } from "../../../../utils/Shared/store/actions";
-// import { addDepartment } from "../store/actions";
+import { addDepartment } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -40,7 +40,8 @@ const Composer = (props) => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getRewardCategory());
+    // dispatch(getRewardCategory());
+    //TODO:
     fetchEmployees("", 0);
   }, []);
 
@@ -74,50 +75,34 @@ const Composer = (props) => {
   if (!isFirstTimeDataLoaded) {
     return <Skeleton active />;
   }
-  const onChange = (value) => {
-    console.log(`selected ${value}`);
-  };
-
-  const onSearch = (value) => {
-    console.log("search:", value);
-  };
 
   const handleImageUpload = (data) => {
     setProfileImage(data);
+    // console.log("Image", data);
   };
 
-  const handelAddMember = (data) => {
-    console.log("data of handle member", data);
-    setMemberList([...memberList, data]);
-  };
+  // const handelAddMember = (data) => {
+  //   console.log("data of handle member", data);
+  //   setMemberList([...memberList, data]);
+  // };
 
   const onFinish = (values) => {
-    console.log("values", values);
+    // console.log(values, "SIMPLE VALUES");
+
+    let image = {
+      id: STRINGS.DEFAULTS.guid,
+      file: profileImage[0].originFileObj,
+    };
+    let payload = { ...values, image };
+
+    // console.log(payload, "FINAL PAYLOAD !!!");
+    dispatch(addDepartment(payload));
+
     form.resetFields();
-
-    dispatch(uploadImage(profileImage)).then((x) => {
-      console.log(x, "FIRST ONE");
-      let photoId = x.payload.data[0].id;
-
-      let members = memberList.map((member) => {
-        return {
-          memberId: member.user[0].id,
-          memberType: member.memberType,
-        };
-      });
-
-      let payload = {
-        ...values,
-        imageId: photoId,
-        members,
-        parentId: STRINGS.DEFAULTS.guid,
-      };
-      //   dispatch(addDepartment(payload));
-    });
   };
 
   const onFinishFailed = (errorInfo) => {
-    // console.log("Failed:", errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -161,7 +146,7 @@ const Composer = (props) => {
                 handleImageUpload={handleImageUpload}
                 img="Add Image"
                 position="flex-start"
-                uploadText={departmentDictionary.upload}
+                uploadText={"Uploads"}
               />
             </Form.Item>
           </div>
@@ -179,15 +164,15 @@ const Composer = (props) => {
         >
           <Input.TextArea placeholder={departmentDictionary.enterDescription} />
         </Form.Item>
-
+        {/* 
         <Form.Item
           name="hodId"
           label={"HOD"}
           showSearch={true}
           direction={Direction}
           rules={[{ required: true }]}
-        >
-          <MemberSelect
+        > */}
+        {/* <MemberSelect
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -208,8 +193,8 @@ const Composer = (props) => {
                 </>
               );
             }}
-          />
-          {/* <NewCustomSelect
+          /> */}
+        {/* <NewCustomSelect
 						name="hodId"
 						label={"HOD"}
 						showSearch={true}
@@ -218,28 +203,35 @@ const Composer = (props) => {
 						requestType="get"
 						placeholder={"Select HOD"}
 					/> */}
-        </Form.Item>
-
-        <MemberComposer
-          handleAdd={handelAddMember}
-          firstTimeEmpData={firstTimeEmpData}
-          selectedData={selectedData}
-          isFirstTimeDataLoaded={isFirstTimeDataLoaded}
-          fetchEmployees={fetchEmployees}
-        />
-
-        {memberList?.length > 0 ? (
-          <MemberListItem
-            data={memberList}
-            onRemove={(row) =>
-              setMemberList(
-                memberList.filter((item) => item.user.id !== row.user.id)
-              )
-            }
+        {/* </Form.Item> */}
+        {/* <Form.Item
+          name="name"
+          label="Employee Type"
+          showSearch={true}
+          direction={Direction}
+          rules={[{ required: true }]}
+        >
+          <MemberComposer
+            handleAdd={handelAddMember}
+            firstTimeEmpData={firstTimeEmpData}
+            selectedData={selectedData}
+            isFirstTimeDataLoaded={isFirstTimeDataLoaded}
+            fetchEmployees={fetchEmployees}
           />
-        ) : (
-          ""
-        )}
+
+          {memberList?.length > 0 ? (
+            <MemberListItem
+              data={memberList}
+              onRemove={(row) =>
+                setMemberList(
+                  memberList.filter((item) => item.user.id !== row.user.id)
+                )
+              }
+            />
+          ) : (
+            ""
+          )}
+        </Form.Item> */}
 
         <Form.Item>
           <Button

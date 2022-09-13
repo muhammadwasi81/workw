@@ -1,4 +1,5 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
+import { jsonToFormData } from "../../../../utils/base";
 
 export const getAllDepartmentService = (data) => {
   return MasterConfig.get(`api/Department/GetAllDepartment`, data)
@@ -11,15 +12,18 @@ export const getAllDepartmentService = (data) => {
     });
 };
 
-// export const addDepartmentService = (data) => {
-//   return MasterConfig.post(`api/Department/AddDepartment`, data)
-//     .then((res) => {
-//       return res;
-//     })
-//     .catch((res) => {
-//       return res;
-//     });
-// };
+export const addDepartmentService = (data) => {
+  const formData = jsonToFormData(data);
+  // console.log("formdatatoFormdata", formData);
+  return MasterConfig.post(`api/Department/AddDepartment`, formData)
+    .then((res) => {
+      console.log(res, "response from dept service");
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
 
 // export const GetRewardByIdService = (id) => {
 //   console.log("ID FROM SERVICE", id);

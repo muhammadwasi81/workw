@@ -130,7 +130,6 @@ const en = {
     ledgerReport: "Ledger Report",
     salary: "Salary",
     payroll: "Payroll",
-
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -157,7 +156,7 @@ const en = {
       myTask: "My Tasks",
       assignedByMe: "Assigned By Me",
       createdByMe: "Created By Me",
-      
+
       teamTask: "Team Task",
       dashboard: "Dashboard",
     },
@@ -393,6 +392,8 @@ const en = {
     Education: "Education",
     Emergency_Info: "Emergency Information",
     Experience: "Experience",
+    Rebate: "Rebate",
+    Salary: "Salary",
   },
   administration: {
     Business_Policy: "Business Policy",

@@ -27,4 +27,14 @@ export const listitem = [
     classObj: "button",
     to: (id) => `/employees/info/experience/${id}`,
   },
+  {
+    displayName: "Salary",
+    classObj: "button",
+    to: (id) => `/employees/info/salary/${id}`,
+  },
+  {
+    displayName: "Rebate",
+    classObj: "button",
+    to: (id) => `/employees/info/rebate/${id}`,
+  },
 ];

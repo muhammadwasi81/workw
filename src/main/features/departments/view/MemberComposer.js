@@ -20,7 +20,7 @@ function MemberComposer(props) {
     user: {
       id: null,
     },
-    memberType: null,
+    // memberType: null,
   });
 
   const handleMember = (obj) => {
@@ -30,15 +30,16 @@ function MemberComposer(props) {
     });
   };
 
-  const handleMemberType = (val) => {
-    setNewState({
-      ...newState,
-      memberType: val,
-    });
-  };
+  // const handleMemberType = (val) => {
+  //   setNewState({
+  //     ...newState,
+  //     memberType: val,
+  //   });
+  // };
   console.log(props, "props in member composer");
   const handleAdd = () => {
-    if (newState.user && newState.memberType) {
+    console.log("handle add working");
+    if (newState.user) {
       //   Submit Here
       // After Submit
       handleMember({});
@@ -47,7 +48,7 @@ function MemberComposer(props) {
         user: {
           id: null,
         },
-        memberType: null,
+        // memberType: null,
       });
     } else {
       message.error("Please Fill Required Fields");
@@ -102,7 +103,7 @@ function MemberComposer(props) {
             />
           </Form.Item>
         </div>
-        <div className="memberTypeInput">
+        {/* <div className="memberTypeInput">
           <Form.Item
             name="membersType"
             rules={[
@@ -123,7 +124,7 @@ function MemberComposer(props) {
               size="large"
             />
           </Form.Item>
-        </div>
+        </div> */}
 
         <div className="">
           <PlusOutlined

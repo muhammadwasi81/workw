@@ -1,4 +1,4 @@
-import { Button, Form, Input, Skeleton } from "antd";
+import { Avatar, Button, Form, Input, Skeleton } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,9 +14,8 @@ import { uploadImage } from "../../../../utils/Shared/store/actions";
 // import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
-import { STRINGS } from "../../../../utils/base";
+import { getNameForImage, STRINGS } from "../../../../utils/base";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 
 const initialState = {
   id: "",
@@ -38,6 +37,7 @@ const Composer = (props) => {
   const { employees } = useSelector((state) => state.sharedSlice);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [employeesData, setEmployeesData] = useState([]);
 
   useEffect(() => {
     // dispatch(getRewardCategory());
@@ -81,21 +81,25 @@ const Composer = (props) => {
     // console.log("Image", data);
   };
 
-  // const handelAddMember = (data) => {
-  //   console.log("data of handle member", data);
-  //   setMemberList([...memberList, data]);
-  // };
+  const handelAddMember = (data) => {
+    console.log("data of handle member", data);
+    setMemberList([...memberList, data]);
+  };
 
   const onFinish = (values) => {
     // console.log(values, "SIMPLE VALUES");
-
+    const employees = employeesData.map((item) => ({
+      approverId: item.id,
+      email: item.email,
+    }));
+    console.log("employees*******", employees);
     let image = {
       id: STRINGS.DEFAULTS.guid,
       file: profileImage[0].originFileObj,
     };
-    let payload = { ...values, image };
+    let payload = { ...values, image, employees };
 
-    // console.log(payload, "FINAL PAYLOAD !!!");
+    console.log(payload, "FINAL PAYLOAD !!!");
     dispatch(addDepartment(payload));
 
     form.resetFields();
@@ -206,7 +210,7 @@ const Composer = (props) => {
         {/* </Form.Item> */}
         {/* <Form.Item
           name="name"
-          label="Employee Type"
+          label="Add Employees"
           showSearch={true}
           direction={Direction}
           rules={[{ required: true }]}
@@ -232,7 +236,31 @@ const Composer = (props) => {
             ""
           )}
         </Form.Item> */}
-
+        <Form.Item label="Add Employees" name="approvers">
+          <MemberSelect
+            name="managerId"
+            mode="multiple"
+            formItem={false}
+            isObject={true}
+            data={firstTimeEmpData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            placeholder="Add Employees"
+            selectedData={(_, obj) => {
+              setEmployeesData([...obj]);
+            }}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
+            }}
+          />
+        </Form.Item>
         <Form.Item>
           <Button
             type="primary"

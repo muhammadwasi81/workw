@@ -39,8 +39,6 @@ function ListItem(props) {
     approvers,
   } = props.item;
 
-  // console.log(props.item, "imagessss")
-  console.log("props of list item of card", props);
   return (
     <>
       <Card

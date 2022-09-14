@@ -8,7 +8,7 @@ import {
 import {
   addDepartmentService,
   getAllDepartmentService,
-  // GetRewardByIdService,
+  GetDepartmentByIdService,
 } from "../services/service";
 
 export const getAllDepartments = createAsyncThunk(
@@ -19,6 +19,19 @@ export const getAllDepartments = createAsyncThunk(
     if (!response.responseCode) {
       message.error("Something went wrong");
     }
+    // console.log("response data from actions", response.data);
+    return response.data;
+  }
+);
+
+export const getDepartmentById = createAsyncThunk(
+  "Department/getDepartmentById",
+  async (data) => {
+    const response = await GetDepartmentByIdService(data);
+
+    // if (!response.responseCode) {
+    //   message.error("Something went wrong");
+    // }
     // console.log("response data from actions", response.data);
     return response.data;
   }

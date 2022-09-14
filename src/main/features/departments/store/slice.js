@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { getAllDepartments, addDepartment } from "./actions";
+import { getAllDepartments, addDepartment, getDepartmentById } from "./actions";
 
 const initialState = {
   departments: [],
@@ -9,7 +9,7 @@ const initialState = {
   success: false,
   error: false,
   drawerOpen: false,
-  departmentDetail: null,
+  departmentDetail: {},
 };
 
 const departmentSlice = createSlice({
@@ -31,6 +31,11 @@ const departmentSlice = createSlice({
           console.log("after adding", state.departments);
         }
         state.success = true;
+      })
+      .addCase(getDepartmentById.fulfilled, (state, { payload }) => {
+        console.log("GetDepartmentById payload", payload.data);
+        state.departmentDetail = payload.data;
+        state.loading = false;
       })
       .addMatcher(isPending(...[addDepartment]), (state) => {
         console.log("its pending");

@@ -14,9 +14,11 @@ import Approval from "../../../sharedComponents/AppComponents/Approval/Approval"
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
+  const { Direction, departmentDictionary } = departmentDictionaryList[
+    userLanguage
+  ];
 
-  const { rewardDetail } = useSelector((state) => state.rewardSlice);
+  const { departmentDetail } = useSelector((state) => state.departmentSlice);
 
   const {
     creator,
@@ -28,7 +30,7 @@ function DetailedView(props) {
     status,
     members = [],
     approvers,
-  } = rewardDetail;
+  } = departmentDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -36,17 +38,25 @@ function DetailedView(props) {
     <Drawer
       title={departmentDictionary.reward}
       width="768"
-      placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
+      placement={
+        (Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")
+      }
       onClose={props.onClose}
       visible={props.visible}
-      className="detailedViewComposer">
+      className="detailedViewComposer"
+    >
       <div className="detailedCard ">
         <div className="item-header">
           <div className="left">
             <UserInfo
               avatarSrc="https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
               name={creator.name}
-              Subline={<SublineDesigWithTime designation={"ReactJs Developer"} time="7 days ago" />}
+              Subline={
+                <SublineDesigWithTime
+                  designation={"ReactJs Developer"}
+                  time="7 days ago"
+                />
+              }
             />
           </div>
           <div className="right">
@@ -94,7 +104,15 @@ function DetailedView(props) {
                       </div>
                     );
                   })}
-                {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
+                {approvers ? (
+                  approvers.length > 2 ? (
+                    <div className="us-img">
+                      {approvers && props.approvers - 2}+
+                    </div>
+                  ) : (
+                    ""
+                  )
+                ) : null}
               </div>
             </div>
             <div className="approversBox">
@@ -123,22 +141,43 @@ function DetailedView(props) {
                       ))
                     );
                   })}
-                {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
+                {approvers ? (
+                  approvers.length > 2 ? (
+                    <div className="us-img">
+                      {approvers && props.approvers - 2}+
+                    </div>
+                  ) : (
+                    ""
+                  )
+                ) : null}
               </div>
             </div>
           </div>
           <div className="attachmentBox">
-            <Image preview={false} width={100} src={image === "" ? RewardDefaultIcon : image} />
+            <Image
+              preview={false}
+              width={100}
+              src={image === "" ? RewardDefaultIcon : image}
+            />
           </div>
         </div>
         <div className="warning-approvers">
           {approvers &&
             approvers.map((val, i) => {
               if (val.approver) {
-                let { name, designation = "Default Designation" } = val.approver;
+                let {
+                  name,
+                  designation = "Default Designation",
+                } = val.approver;
                 return (
                   <>
-                    <Approval username={name} userdesignation={designation === "" ? "Default Designation" : designation} status={status} />
+                    <Approval
+                      username={name}
+                      userdesignation={
+                        designation === "" ? "Default Designation" : designation
+                      }
+                      status={status}
+                    />
                   </>
                 );
               }

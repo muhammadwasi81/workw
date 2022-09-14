@@ -439,16 +439,16 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/documents/*`,
     DOCUMENT: `${DOMAIN_PREFIX}/documents`,
   },
-	SALARY: {
-		DEFAULT: `${DOMAIN_PREFIX}/salary/*`,
-		ROOT: `${DOMAIN_PREFIX}/salary`,
-		CREATE: `${DOMAIN_PREFIX}/create`,
-	},
-	PAYROLL: {
-		DEFAULT: `${DOMAIN_PREFIX}/payroll/*`,
-		ROOT: `${DOMAIN_PREFIX}/payroll`,
-		CREATE: `${DOMAIN_PREFIX}/create`,
-	},
+  SALARY: {
+    DEFAULT: `${DOMAIN_PREFIX}/salary/*`,
+    ROOT: `${DOMAIN_PREFIX}/salary`,
+    CREATE: `${DOMAIN_PREFIX}/create`,
+  },
+  PAYROLL: {
+    DEFAULT: `${DOMAIN_PREFIX}/payroll/*`,
+    ROOT: `${DOMAIN_PREFIX}/payroll`,
+    CREATE: `${DOMAIN_PREFIX}/create`,
+  },
   FINANCE: {
     CHART_OF_ACCOUNT: {
       DEFAULT: `${DOMAIN_PREFIX}/chart-of-account/*`,
@@ -465,10 +465,10 @@ export const ROUTES = {
     REPORT: {
       DEFAULT: `${DOMAIN_PREFIX}/ledgerReport/*`,
       ROOT: `${DOMAIN_PREFIX}/ledgerReport`,
-		},
-		PAYROLL: {
-			DEFAULT: `${DOMAIN_PREFIX}/payroll/*`,
-			ROOT: `${DOMAIN_PREFIX}/payroll`,
+    },
+    PAYROLL: {
+      DEFAULT: `${DOMAIN_PREFIX}/payroll/*`,
+      ROOT: `${DOMAIN_PREFIX}/payroll`,
     },
   },
 
@@ -575,6 +575,7 @@ export const ROUTES = {
   DEPARTMENTS: {
     DEFAULT: `${DOMAIN_PREFIX}/departments`,
     DEPARTMENT: `${DOMAIN_PREFIX}/departments`,
+    DETAIL: `${DOMAIN_PREFIX}/departments/department-detail`,
     APPROVALS: `departments/approvals`,
   },
   CAREER: {

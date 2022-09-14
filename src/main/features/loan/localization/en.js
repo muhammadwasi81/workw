@@ -1,5 +1,5 @@
 const en = {
-  loanDictionary: {
+  loanDictionaryList: {
     filter: "Filter",
     selectApprovers: "Select Approvers",
     warning: "Warning",

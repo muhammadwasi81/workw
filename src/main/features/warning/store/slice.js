@@ -6,12 +6,17 @@ const initialState = {
 	loadingData: false,
 	loader: true,
 	warningDetail: null,
+	drawerOpen: false,
 };
 
 const warningSlice = createSlice({
 	name: "warnings",
 	initialState,
-	reducers: {},
+	reducers: {
+		handleOpenComposer: (state, { payload }) => {
+			state.drawerOpen = payload
+		},
+	},
 	extraReducers: builder => {
 		builder.addCase(getAllWarnings.fulfilled, (state, action) => {
 			state.warnings = action.payload ? action.payload : [];
@@ -26,6 +31,7 @@ const warningSlice = createSlice({
 		builder
 			.addCase(addWarning.fulfilled, (state, { payload }) => {
 				state.warningData = payload;
+				state.drawerOpen = false;
 				return state;
 			})
 			.addMatcher(isPending(...[getAllWarnings]), state => {
@@ -37,5 +43,5 @@ const warningSlice = createSlice({
 	},
 });
 
-export const {} = warningSlice.actions;
+export const { handleOpenComposer } = warningSlice.actions;
 export default warningSlice.reducer;

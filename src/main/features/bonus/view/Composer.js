@@ -104,8 +104,6 @@ const Composer = (props) => {
     console.log("Failed:", errorInfo);
   };
 
-  console.log(amountType, "TYPE STATE")
-
   const handleType = (e) => {
     console.log(e.target.value, "HELLO I AM RADIO")
     let type = e.target.value;

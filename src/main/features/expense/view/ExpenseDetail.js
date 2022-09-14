@@ -55,7 +55,7 @@ function ExpenseDetail(props) {
       setIsMount(false);
     };
   }, []);
-
+  console.log(expense, "expense detailssss");
   return (
     <Drawer
       title={

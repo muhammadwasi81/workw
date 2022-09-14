@@ -1,17 +1,13 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Avatar } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllEmployees, getRewardCategory } from "../../../../utils/Shared/store/actions";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { customApprovalDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { STRINGS } from "../../../../utils/base";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllCustomApprovalCategory } from "../../customApprovalCategory/store/actions";
 import { addCustomApproval } from "../store/actions";
 import { DEFAULT_GUID } from "../../../../utils/constants";
@@ -86,9 +82,7 @@ const Composer = (props) => {
     dispatch(getAllCustomApprovalCategory());
   }, []);
 
-  // const handleImageUpload = (data) => {
-  //   setAttachment(data);
-  // };
+  
 
   const onFinish = (values) => {
     let approvers = [];
@@ -108,7 +102,6 @@ const Composer = (props) => {
     let attachments = [{ id: DEFAULT_GUID, file: file }]
     // let image = { id: STRINGS.DEFAULTS.guid, file: profileImage[0].originFileObj }
     let payload = { ...values, approvers, attachments };
-    console.log(payload, "FINAL TOUCH")
     dispatch(addCustomApproval(payload));
 
     form.resetFields();

@@ -4,10 +4,11 @@ import { TabbableContainer, ContBody } from "../../layout/GridStyle";
 import Header from "../../layout/header";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { loanDictionaryList } from "./localization";
+import { LoanDictionary } from "./localization";
 import TopBar from "../../sharedComponents/topBar/topBar";
+import { toggleCreateComposer } from "./store/slice";
 import Composer from "./composer";
-// import "./style.css";
+import "./style.css";
 import styled from "styled-components";
 import ListView from "./ListView";
 import ListBoxes from "./ListBoxes";
@@ -21,10 +22,11 @@ import { getAllLoans } from "./store/actions";
 
 function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { loanDictionary } = loanDictionaryList[userLanguage];
-
+  const { loanDictionaryList } = LoanDictionary[userLanguage];
   const dispatch = useDispatch();
-  const { loanList, listItem } = useSelector((state) => state.loanSlice);
+  const { loanList, listItem, isCreateComposer } = useSelector(
+    (state) => state.loanSlice
+  );
 
   const [tableView, setTableView] = useState(false);
   const [viewType, setViewType] = useState("List");
@@ -65,7 +67,7 @@ function Index() {
   // };
   const onSearch = (value) => setSearch(value);
   const onSegment = (value) => setViewType(value);
-
+  console.log("iscerate***", isCreateComposer);
   return (
     <TabbableContainer>
       <Header
@@ -75,9 +77,13 @@ function Index() {
             // onClick: () => setVisible(true),
             render: (
               <SideDrawer
-                title={loanDictionary.createLoan}
-                buttonText={loanDictionary.createLoan}
-                isAccessDrawer={false}
+                title={loanDictionaryList.createLoan}
+                buttonText={loanDictionaryList.createLoan}
+                success={isCreateComposer}
+                setOpenDrawer={() => dispatch(toggleCreateComposer())}
+                isAccessDrawer={true}
+                openDrawer={isCreateComposer}
+                setIsEdited={() => {}}
               >
                 <Composer />
               </SideDrawer>
@@ -131,7 +137,7 @@ function Index() {
           />
         )}
 
-        {!tableView && <ListBoxes />}
+        {/* {!tableView && <ListBoxes />} */}
 
         {!tableView && <ListView filter={filter} />}
         {/* 

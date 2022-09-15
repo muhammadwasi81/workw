@@ -407,6 +407,7 @@ export const ROUTES = {
     ALLOWANCES: `allowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
+    REBATE_CATEGORY: `rebateCategory`,
   },
   LOAN: {
     DEFAULT: `${DOMAIN_PREFIX}/loan/*`,

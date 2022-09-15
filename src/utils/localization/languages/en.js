@@ -323,6 +323,7 @@ const en = {
     Job_Description: "Job Description",
     Reward_Category: "Reward Category",
     Warning_Category: "Warning Category",
+    Rebate_Category: "Rebate Category",
     Form: {
       Description: "Description",
       Add: "Add",

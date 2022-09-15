@@ -1,48 +1,57 @@
 import { createSlice, isPending } from "@reduxjs/toolkit"
-import { addVoucher, getAllVoucher, getLedgerReport, getVoucherDetail } from "./actions";
+import { calculateNetSalary } from "../utils/constant";
+import { addPayroll, getAllPayroll, getCalculatedPayroll } from "./actions";
 
 const initialState = {
-   editData: null,
    success: false,
    loader: false,
    error: false,
-   voucherDetail: null,
-   voucherList:[],
-   ledgerReport:null
+   payrollCalculatedList: null,
+   payrollList: null,
+   payrollDetail: null
 };
 
-export const VoucherSlice = createSlice({
-   name: 'Voucher',
+export const payrollSlice = createSlice({
+   name: 'Payroll',
    initialState: initialState,
-   reducers: {},
+   reducers: {
+      handleChangePayrollItem: (state, { payload }) => {
+         let { index, data } = payload;
+         state.payrollCalculatedList[index] = data;
+      },
+      handleChangeAllPayrollItem: (state, { payload }) => {
+         state.payrollCalculatedList = payload;
+      },
+      setPayrollDetail: (state, { payload }) => {
+         state.payrollDetail = payload;
+      }
+   },
 
    extraReducers: (builder) => {
       builder
-         .addCase(addVoucher.fulfilled, (state, { payload }) => {
+         .addCase(getCalculatedPayroll.fulfilled, (state, { payload }) => {
             state.loader = false;
             state.success = true;
-            state.voucherList = [...state.voucherList, payload]
+            let calculatedSalaries = payload.map((item) => ({
+               ...item,
+               netSalary: calculateNetSalary(item),
+               isChecked: true
+            }))
+            state.payrollCalculatedList = calculatedSalaries;
          })
-         .addCase(getVoucherDetail.fulfilled, (state, { payload }) => {
-            state.voucherDetail = payload;
+         .addCase(addPayroll.fulfilled, (state, { payload }) => {
             state.loader = false;
             state.success = true;
+            state.payrollList = state.payrollList ? [...state.payrollList, payload] : [payload]
          })
-         .addCase(getAllVoucher.fulfilled, (state, { payload }) => {
-            state.voucherList = payload.data;
+         .addCase(getAllPayroll.fulfilled, (state, { payload }) => {
             state.loader = false;
             state.success = true;
-         })
-         .addCase(getLedgerReport.fulfilled, (state, { payload }) => {
-            state.ledgerReport = payload;
-            state.loader = false;
-         })
-         .addCase(getVoucherDetail.pending, (state, { payload }) => {
-            state.voucherDetail = null;
-         })
+            state.payrollList = payload;
+         }) 
          .addMatcher(
             isPending(
-               ...[ addVoucher ]
+               ...[getCalculatedPayroll, addPayroll]
             ),
             state => {
                state.loader = true;
@@ -52,5 +61,5 @@ export const VoucherSlice = createSlice({
          );
    }
 })
-
-export default VoucherSlice.reducer;
+export const { handleChangePayrollItem, handleChangeAllPayrollItem, setPayrollDetail } = payrollSlice.actions;
+export default payrollSlice.reducer;

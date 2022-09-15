@@ -1,8 +1,9 @@
 import React from "react";
 import { Collapse } from "antd";
+import { ALLOWANCE_ENUM } from "../../../allowance/view/enum";
 const { Panel } = Collapse;
 
-const AllowanceDetail = () => {
+const AllowanceDetail = ({ details }) => {
     return (
         <div className="mt-5">
             <Collapse>
@@ -23,35 +24,21 @@ const AllowanceDetail = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        Medical Allowance
-                                    </td>
-                                    <td>
-                                        Benefit
-                                    </td>
-                                    <td>
-                                        12000
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Medical Allowance </td>
-                                    <td> Benefit </td>
-                                    <td>
-                                        12000
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Medical Allowance
-                                    </td>
-                                    <td>
-                                        Benefit
-                                    </td>
-                                    <td>
-                                        12000
-                                    </td>
-                                </tr>
+                                {
+                                    details && details.map((item) => (
+                                        <tr>
+                                            <td>
+                                                {item.name}
+                                            </td>
+                                            <td>
+                                                {item.allowanceUnit === ALLOWANCE_ENUM.UNIT.BENEFIT ? "Benefit" : "Deduction" }
+                                            </td>
+                                            <td>
+                                                {item.allowance}
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
                             </tbody>
                         </table>
                     </div>

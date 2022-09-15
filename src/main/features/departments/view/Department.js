@@ -1,6 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Skeleton } from "antd";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { List, Skeleton } from "antd";
 import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
@@ -16,7 +19,7 @@ import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
-import { Avatar, Card } from "antd";
+import { Avatar, Card, Space } from "antd";
 const { Meta } = Card;
 
 const Department = (props) => {
@@ -27,8 +30,13 @@ const Department = (props) => {
   const [loading, setLoading] = useState(true);
   const [tableView, setTableView] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [search, setSearch] = useState("");
 
-  const { departments, loader, departmentDetail } = useSelector((state) => state.departmentSlice);
+  const [filter, setFilter] = useState({ filterType: 0, search: "" });
+
+  const { departments, loader, departmentDetail } = useSelector(
+    (state) => state.departmentSlice
+  );
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -36,9 +44,18 @@ const Department = (props) => {
   };
 
   useEffect(() => {
-    dispatch(getAllDepartments());
-  }, []);
+    dispatch(
+      getAllDepartments({
+        filter,
+        search,
+      })
+    );
+  }, [filter, search]);
 
+  // useEffect(()=>{
+
+  // },[departments])
+  // const onSearch = (value) => setSearch(value);
   return (
     <>
       <TabbableContainer className="">
@@ -48,7 +65,11 @@ const Department = (props) => {
               buttonText: "Create Department",
               // onClick: () => setVisible(true),
               render: (
-                <SideDrawer title={departmentDictionary.createDepartment} buttonText={departmentDictionary.createDepartment} isAccessDrawer={false}>
+                <SideDrawer
+                  title={departmentDictionary.createDepartment}
+                  buttonText={departmentDictionary.createDepartment}
+                  isAccessDrawer={false}
+                >
                   <Composer />
                 </SideDrawer>
               ),
@@ -56,6 +77,7 @@ const Department = (props) => {
           ]}
         />
         <TopBar
+          // onSearch={onSearch}
           onSearch={(value) => {
             console.log(value);
           }}
@@ -99,14 +121,13 @@ const Department = (props) => {
               <>
                 {loader ? (
                   <>
-                    <CardWrapper2>
-                      <Skeleton loading={loading} avatar active>
-                        <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} title="Card title" description="This is the description" />
-                      </Skeleton>
-                      <Skeleton loading={loading} avatar active>
-                        <Meta avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />} title="Card title" description="This is the description" />
-                      </Skeleton>
-                    </CardWrapper2>
+                    {[...Array(20)].map((item) => {
+                      return (
+                        <CardWrapper2>
+                          <Skeleton active={false} />
+                        </CardWrapper2>
+                      );
+                    })}
                   </>
                 ) : (
                   <CardWrapper2>
@@ -119,13 +140,35 @@ const Department = (props) => {
                     })}
                   </CardWrapper2>
                 )}
+                {/* <Skeleton loading={loading} avatar active>
+                  <Meta
+                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                    title="Card title"
+                    description="This is the description"
+                  />
+                </Skeleton> */}
+                {/* <CardWrapper2>
+                  {[...Array(9)].map((item) => (
+                    <Skeleton active={false} />
+                  ))}
+                </CardWrapper2> */}
               </>
             )
           ) : (
-            "Data not found"
+            <CardWrapper2>
+              {[...Array(20)].map((item) => {
+                return (
+                  <CardWrapper2>
+                    <Skeleton active={false} />
+                  </CardWrapper2>
+                );
+              })}
+            </CardWrapper2>
           )}
         </ContBody>
-        {departmentDetail && <DetailedView onClose={onClose} visible={visible} />}
+        {departmentDetail && (
+          <DetailedView onClose={onClose} visible={visible} />
+        )}
       </TabbableContainer>
     </>
   );

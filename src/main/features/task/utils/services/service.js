@@ -2,7 +2,7 @@ import {
   ResponseResultError,
   ResponseResultSuccess,
 } from "../../../../../utils/api/ResponseResult";
-import { jsonToFormData, STRINGS } from "../../../../../utils/base";
+import { jsonToFormData } from "../../../../../utils/base";
 import Config from "../../../../../utils/services/MasterConfig";
 
 export const addNewTaskService = async (request) => {
@@ -40,11 +40,37 @@ export const getAllTaskService = async (
   }
 };
 
-export const getTaskByIdService = async (taskId = STRINGS.DEFAULTS.guid) => {
+export const getTaskByIdService = async (taskId) => {
+  console.log(taskId, "service");
   try {
     const {
       data: { responseCode, data, message },
     } = await Config.get(`api/UserTask/GetUserTaskById?id=${taskId}`);
+    if (responseCode === 1001) return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+export const postUserTaskRating = async (taskId, rating) => {
+  try {
+    const {
+      data: { responseCode, message },
+    } = await Config.get(
+      `api/UserTask/UpdateUserTaskRating?id=${taskId}&rating=${rating}`
+    );
+    if (responseCode === 1001) return true;
+    return false;
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+export const updateUserTaskMemberProgressService = async (request) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/UserTask/UpdateUserTaskMemberProgress`, request);
     if (responseCode === 1001) return ResponseResultSuccess(data);
     return ResponseResultError(message);
   } catch (e) {

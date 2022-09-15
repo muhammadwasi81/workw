@@ -34,6 +34,18 @@ export const listitem = [
   },
   {
     IconName: <FaUserLock size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Business_Logo",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.BUSINESS_LOGO,
+  },
+  {
+    IconName: <FaUserLock size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Rebate_Category",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.REBATE_CATEGORY,
+  },
+  {
+    IconName: <FaUserLock size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Business_Policy",
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.BUSINESS_POLICY,

@@ -1,40 +1,65 @@
-import { Button, Progress, Tag } from "antd";
-import React, { useContext } from "react";
-// import WarningApprovel from "../WarningApprovel";
+import { Progress } from "antd";
+import React, { useContext, useEffect, useState } from "react";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { Rate } from "antd";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage, STRINGS } from "../../../../../utils/base";
-import { NavLink, useNavigate } from "react-router-dom";
-
 import moment from "moment";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { taskDictionary } from "../../localization";
+import { getPriorityLabel } from "../../utils/enum/enum";
+import TaskMembers from "../TaskDetail/taskMembers";
+import { postUserTaskRating } from "../../utils/services/service";
 
-function TaskListItem({ item }) {
+function TaskListItem({
+  item,
+  isTaskMember = false,
+  onTask = () => {},
+  isRatingDisable = true,
+  changeOnProgress,
+  progress,
+}) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, Direction } = dictionaryList[userLanguage];
+  const { Direction } = dictionaryList[userLanguage];
+  const [rating, setRating] = useState("");
   const { taskDictionaryList } = taskDictionary[userLanguage];
+  const [isMount, setIsMount] = useState(false);
   const { labels } = taskDictionaryList;
-  const Navigate = useNavigate();
   const {
+    id,
     subject,
     description,
     referenceNo,
-    rating,
+    ratingAssign,
+    priority,
     startDate,
     endDate,
-    progress,
+    progress: progressed,
     members = [],
     creator,
   } = item;
 
   let classes = "card-list-item ";
   classes += Direction === "rtl" ? "rtl" : "ltr";
+  const { color, label } = getPriorityLabel(labels, priority);
+
+  useEffect(() => {
+    if (isMount) {
+      if (!isRatingDisable) handleRating(id, rating);
+    }
+  }, [rating]);
+
+  useEffect(() => {
+    setIsMount(true);
+  }, []);
+
+  const handleRating = async (id, rating) => {
+    await postUserTaskRating(id, rating);
+  };
+  console.log(progress ? progress : progressed, "condition");
   return (
-    <div className={classes} onClick={() => Navigate("taskDetail/" + item.id)}>
+    <div className={classes} onClick={() => onTask(id)}>
       <div className="card-item-header">
         <div className="left">
           <UserInfo
@@ -53,11 +78,18 @@ function TaskListItem({ item }) {
 
         <div className="right">
           <div className="rating">
-            <Rate allowHalf defaultValue={rating} />
+            <Rate
+              allowHalf
+              defaultValue={ratingAssign}
+              disabled={isRatingDisable || progress !== 100}
+              onChange={(value) => setRating(value)}
+            />
           </div>
           <div className="labels">
             <span className="taskID">{referenceNo}</span>
-            <span className="priority high">{labels.high}</span>
+            <span className="priority " style={{ backgroundColor: color }}>
+              {label}
+            </span>
           </div>
         </div>
       </div>
@@ -70,14 +102,42 @@ function TaskListItem({ item }) {
               <p className="card-desc-1">{description}</p>
             </div>
 
-            <div className="right"></div>
+            <div className="right">
+              {isTaskMember && (
+                <TaskMembers
+                  members={members}
+                  changeOnProgress={changeOnProgress}
+                />
+              )}
+            </div>
           </div>
-
-          <div className="card-column-view">
-            <div className="card-column-item">
-              <div className="column-item-head"> {labels.assignTo} </div>
-              <div className="SummaryMembers">
-                <div className="mem">
+          <div>
+            <Progress
+              strokeColor="#526bb1"
+              percent={progress ? progress : progressed}
+            />
+          </div>
+          <div className="cardSections">
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.startDate}</div>
+              <div className="cardSection__body">
+                {moment(startDate).format("ddd,MMM DD,YYYY")}
+              </div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.endtDate}</div>
+              <div className="cardSection__body">
+                {moment(endDate).format("ddd,MMM DD,YYYY")}
+              </div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.predecessor}</div>
+              <div className="cardSection__body">Predecessor</div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.assignTo}</div>
+              <div className="cardSection__body">
+                {members && (
                   <Avatar
                     isAvatarGroup={true}
                     isTag={false}
@@ -85,33 +145,9 @@ function TaskListItem({ item }) {
                     membersData={members}
                     image={"https://joeschmoe.io/api/v1/random"}
                   />
-                </div>
+                )}
               </div>
             </div>
-            <div className="column-item-head">
-              <span>{labels.predecessor}</span>
-              <div className="st-tag"> Helpers UI </div>
-            </div>
-
-            <div className="column-item-head">
-              <span>{labels.startDate}</span>
-              <div className="st-tag">
-                {moment(startDate).format("MMM Do YYYY")}{" "}
-              </div>
-            </div>
-
-            <div className="column-item-head">
-              <span>{labels.endtDate}</span>
-              <div className="st-tag">
-                {" "}
-                {moment(endDate).format("MMM Do YYYY")}
-              </div>
-            </div>
-
-            <div className="column-item-head"></div>
-          </div>
-          <div>
-            <Progress strokeColor="#1b5669" percent={progress} />
           </div>
         </div>
       </div>

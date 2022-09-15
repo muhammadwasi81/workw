@@ -1,10 +1,14 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addDepartment, addReward, getAllDepartments } from "./actions";
+import { getAllDepartments, addDepartment } from "./actions";
 
 const initialState = {
   departments: [],
   loadingData: false,
-  loader: true,
+  createLoader: false,
+  loader: false,
+  success: false,
+  error: false,
+  drawerOpen: false,
   departmentDetail: null,
 };
 
@@ -13,18 +17,28 @@ const departmentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllDepartments.fulfilled, (state, action) => {
-      state.departments = action.payload ? action.payload : [];
-      state.loader = false;
-    });
-
     builder
+      .addCase(getAllDepartments.fulfilled, (state, { payload }) => {
+        // console.log(payload);
+        state.departments = payload ? payload : [];
+        state.loader = false;
+      })
       .addCase(addDepartment.fulfilled, (state, { payload }) => {
-        state.departmentData = payload;
-        return state;
+        console.log("*****", payload.data);
+        if (payload.data.data) {
+          console.log("before adding", state.departments);
+          state.departments.unshift(payload.data.data);
+          console.log("after adding", state.departments);
+        }
+        state.success = true;
+      })
+      .addMatcher(isPending(...[addDepartment]), (state) => {
+        console.log("its pending");
+        state.createLoader = true;
       })
       .addMatcher(isPending(...[getAllDepartments]), (state) => {
-        state.loader = true;
+        console.log("its pending");
+        state.createLoader = true;
       })
       .addMatcher(isRejected(...[getAllDepartments]), (state) => {
         state.loader = true;

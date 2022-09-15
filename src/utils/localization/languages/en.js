@@ -157,6 +157,7 @@ const en = {
       myTask: "My Tasks",
       assignedByMe: "Assigned By Me",
       createdByMe: "Created By Me",
+      
       teamTask: "Team Task",
       dashboard: "Dashboard",
     },
@@ -305,6 +306,7 @@ const en = {
   payroll: {},
   employee: {},
   administration: {
+    Business_Logo: "Business Logo",
     Business_Policy: "Business Policy",
     AccessRole: "Access Role",
     Grade: "Grade",
@@ -395,7 +397,9 @@ const en = {
     Experience: "Experience",
   },
   administration: {
+    Business_Logo: "Business Logo",
     Business_Policy: "Business Policy",
+    Rebate_Category: "Rebate Category",
     AccessRole: "Access Role",
     Grade: "Grade",
     Designation: "Designation",

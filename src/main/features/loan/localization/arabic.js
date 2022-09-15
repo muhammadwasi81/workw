@@ -1,5 +1,5 @@
 const arabic = {
-  loanDictionary: {
+  loanDictionaryList: {
     filter: "فلٹر",
     selectApprovers: "منظور کنندگان کو منتخب کریں۔",
     warning: "انتباہ",

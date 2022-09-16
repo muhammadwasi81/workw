@@ -11,6 +11,7 @@ function getBase64(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
+    console.log(reader.result, "result of uploaded file");
     reader.onerror = (error) => reject(error);
   });
 }
@@ -26,6 +27,8 @@ class SingleUpload extends React.Component {
   componentDidMount() {
     // console.log(this.props.url);
     const { url, defaultFile } = this.props;
+    console.log("url of image", url);
+    console.log("default file", defaultFile);
     if (url.length > 0) {
       this.setState(
         produce((state) => {
@@ -77,7 +80,7 @@ class SingleUpload extends React.Component {
 
   handleChange = (info) => {
     let { fileList } = info;
-    console.log("file", fileList);
+    console.log(fileList);
     const status = info.file.status;
     if (status !== "uploading") {
       // console.log(info.file, info.fileList);
@@ -104,7 +107,7 @@ class SingleUpload extends React.Component {
         <div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
       </div>
     );
-    console.log(this.props.multiple);
+
     return (
       <>
         <Upload

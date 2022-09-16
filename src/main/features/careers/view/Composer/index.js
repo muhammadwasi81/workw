@@ -1,150 +1,117 @@
-import { Button, Form, Input } from "antd";
+import { Avatar, Button, DatePicker, Form, Input, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import TextInput from "../../../../sharedComponents/Input/TextInput";
-import Select from "../../../../sharedComponents/Select/Select";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
-import { uploadImage } from "../../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
-
-const initialState = {
-  id: "",
-  name: "",
-  reason: "",
-  description: "",
-  categoryId: "",
-  imageId: "",
-  members: [
-    {
-      memberId: "",
-      memberType: 1,
-    },
-  ],
-  approvers: [
-    {
-      approverId: "",
-      approverType: 0,
-      isDefault: true,
-      status: 1,
-      email: "",
-    },
-  ],
-};
+import { getAllJobDescriptionService } from "../../../jobDescription/services/service";
+import { getAllDepartmentService } from "../../../departments/services/service";
+import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getNameForImage } from "../../../../../utils/base";
+import { useSelector } from "react-redux";
+import {
+  getAllEmployees,
+  getCities,
+} from "../../../../../utils/Shared/store/actions";
+import CitySelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
+import {
+  CareerLevelTypeEnum,
+  EducationTypeEnum,
+  JobShiftTypeEnum,
+  JobTypeEnum,
+} from "../enums/enums";
 
 const Composer = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [profileImage, setProfileImage] = useState(null);
-  const { rewardCategories } = useSelector((state) => state.sharedSlice);
-
-  const [state, setState] = useState(initialState);
+  const [designation, setDesignation] = useState([]);
+  const [department, setDepartment] = useState([]);
+  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const { cities } = useSelector((state) => state.sharedSlice);
+  const {
+    sharedSlice: { employees },
+  } = useSelector((state) => state);
+  const getDesigantion = async () => {
+    const { responseCode, data } = await getAllJobDescriptionService();
+    if (responseCode === 1001) setDesignation(data);
+  };
+  const getDepartment = async () => {
+    const { responseCode, data } = await getAllDepartmentService();
+    if (responseCode === 1001) setDepartment(data);
+  };
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
+  const fetchCityData = (text, pgNo) => {
+    dispatch(getCities({ textData: text, page: pgNo }));
+  };
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+    }
+  }, [employees]);
 
   useEffect(() => {
-    // dispatch(getRewardCategory());
-    // dispatch(getAllEmployee());
-    // console.log(employeesList, "EMPLOYEES")
+    if (!cities.length) fetchCityData("", 0);
+    fetchEmployees("", 0);
+    getDesigantion();
+    getDepartment();
   }, []);
 
-  const handleImageUpload = (data) => {
-    setProfileImage(data);
-  };
-
   const onFinish = (values) => {
-    form.resetFields();
-
-    dispatch(uploadImage(profileImage)).then((x) => {
-      // console.log(
-      // 	x.payload.data[0].id,
-      // 	"Hurry i got image if from server"
-      // );
-      console.log(x, "FIRST ONE");
-      let photoId = x.payload.data[0].id;
-
-      let approvers = values.approvers.map((approver) => {
-        return {
-          approverId: approver,
-          approverType: 0,
-          // isDefault: true,
-          // status: 0,
-          email: "",
-        };
-      });
-      let members = values.members.map((member) => {
-        return {
-          memberId: member,
-          memberType: 0,
-          // isDefault: true,
-          // status: 0,
-          // email: "",
-        };
-      });
-
-      let payload = { ...values, imageId: photoId, approvers, members };
-
-      // dispatch(addReward(payload));
-    });
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log(values, "values");
+    // form.resetFields();
   };
 
   return (
     <>
       <Form
         form={form}
-        name="addJob"
-        labelCol={{
-          span: 24,
-        }}
-        wrapperCol={{
-          span: 24,
-        }}
-        initialValues={{
-          remember: true,
-        }}
+        name="createCareer"
+        className="createCareer"
+        // initialValues={initialState}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off">
+        layout="vertical"
+      >
         <Form.Item
           label={"Designation"}
-          name=""
+          name="designationId"
           rules={[
             {
               required: true,
               message: "Please Enter Designation",
             },
-          ]}>
-          <Select
-            placeholder={"Select Designtion"}
-            style={{
-              width: "100%",
-              borderRadius: "5px",
-            }}
-            size="large"
-          />
+          ]}
+        >
+          <Select placeholder={"Select Designtion"} size="large">
+            {designation.map((item) => (
+              <Select.Option key={item.id} value={item.id}>
+                {item.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-
         <Form.Item
           label={"Job Description"}
-          name="jobDescription"
+          name="description"
           rules={[
             {
               required: true,
               message: "Enter Job Description",
             },
-          ]}>
+          ]}
+        >
           <Input.TextArea placeholder={"Job Description"} />
         </Form.Item>
-
         <div className="salaryRangeInputs">
           <Form.Item
             label="Range Of Salary"
             style={{
               marginBottom: 0,
-            }}>
+            }}
+          >
             <Form.Item
-              name="minimumSalary"
+              name="minSalary"
               rules={[
                 {
                   required: true,
@@ -153,11 +120,16 @@ const Composer = () => {
               style={{
                 display: "inline-block",
                 width: "calc(50% - 8px)",
-              }}>
-              <Input size="large" placeholder="Enter Minimum Salary" />
+              }}
+            >
+              <Input
+                size="large"
+                placeholder="Enter Minimum Salary"
+                type="number"
+              />
             </Form.Item>
             <Form.Item
-              name="maximumSalary"
+              name="maxSalary"
               rules={[
                 {
                   required: true,
@@ -167,167 +139,374 @@ const Composer = () => {
                 display: "inline-block",
                 width: "calc(50% - 8px)",
                 margin: "0 8px",
-              }}>
-              <Input size="large" placeholder="Enter Maximum Salary" />
+              }}
+            >
+              <Input
+                size="large"
+                placeholder="Enter Maximum Salary"
+                type="number"
+              />
             </Form.Item>
           </Form.Item>
         </div>
-
         <Form.Item
           label={"Department"}
-          name=""
+          name="departmentId"
           rules={[
             {
               required: true,
               message: "Please Enter Department",
             },
-          ]}>
-          <Select
-            placeholder={"Select Department"}
-            style={{
-              width: "100%",
-              borderRadius: "5px",
-            }}
-            size="large"
-          />
+          ]}
+        >
+          <Select placeholder={"Select Department"} size="large">
+            {department.map((item) => (
+              <Select.Option key={item.id} value={item.id}>
+                {item.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-
         <Form.Item
           label={"Supervisor"}
-          name=""
+          name="managerId"
           rules={[
             {
               required: true,
               message: "Please Select Supervisor",
             },
-          ]}>
-          <Select
+          ]}
+        >
+          <MemberSelect
+            name="managerId"
+            mode="multiple"
+            formitem={false}
             placeholder={"Select Supervisor"}
-            style={{
-              width: "100%",
-              borderRadius: "5px",
+            isObject={true}
+            data={firstTimeEmpData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
             }}
-            size="large"
           />
         </Form.Item>
-
         <Form.Item
           label={"Interviewers"}
-          name=""
+          name="interviewers"
           rules={[
             {
               required: true,
               message: "Please Select Interviewers",
             },
-          ]}>
-          <Select
+          ]}
+        >
+          <MemberSelect
+            name="interviewers"
+            mode="multiple"
+            formitem={false}
             placeholder={"Select Interviewers"}
-            style={{
-              width: "100%",
-              borderRadius: "5px",
+            isObject={true}
+            data={firstTimeEmpData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
             }}
-            size="large"
           />
         </Form.Item>
-
         <Form.Item
           label={"Post Interviewers"}
-          name=""
+          name="postInterviewers"
           rules={[
             {
               required: true,
               message: "Please Select Post Interviewers",
             },
-          ]}>
-          <Select
+          ]}
+        >
+          <MemberSelect
+            name="postInterviewers"
+            mode="multiple"
+            formitem={false}
             placeholder={"Select Post Interviewers"}
-            style={{
-              width: "100%",
-              borderRadius: "5px",
+            isObject={true}
+            data={firstTimeEmpData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
             }}
-            size="large"
           />
         </Form.Item>
-
         <Form.Item
           label={"Hiring Buddy"}
-          name=""
+          name="hiringBuddyId"
           rules={[
             {
               required: true,
               message: "Please Select Buddy",
             },
-          ]}>
-          <Select
+          ]}
+        >
+          <MemberSelect
+            name="hiringBuddyId"
+            mode="multiple"
+            formitem={false}
             placeholder={"Select Buddy"}
-            style={{
-              width: "100%",
-              borderRadius: "5px",
+            isObject={true}
+            data={firstTimeEmpData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
             }}
-            size="large"
           />
         </Form.Item>
-
-        <Form.Item name="members" label={"Reward To"} showSearch={true} rules={[{ required: true }]}>
-          <NewCustomSelect
+        <Form.Item
+          name="members"
+          label={"Job Viewer"}
+          rules={[{ required: true }]}
+        >
+          <MemberSelect
             name="members"
-            label={"Members"}
-            showSearch={true}
-            // direction={Direction}
             mode="multiple"
-            endPoint="api/Reference/GetAllUserReference"
-            requestType="get"
-            placeholder={"Select Member"}
+            formitem={false}
+            placeholder={"Select Members"}
+            isObject={true}
+            data={firstTimeEmpData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
+            }}
           />
         </Form.Item>
-
-        <Form.Item name="approvers" label={"Approvers"} showSearch={true} rules={[{ required: true }]}>
-          <NewCustomSelect
+        <Form.Item
+          name="approvers"
+          label={"Approvers"}
+          showSearch={true}
+          rules={[{ required: true }]}
+        >
+          <MemberSelect
             name="approvers"
-            label={"Approvers"}
-            showSearch={true}
-            // direction={Direction}
             mode="multiple"
-            endPoint="api/Reference/GetAllUserReference"
-            requestType="get"
+            formitem={false}
             placeholder={"Select Approvers"}
+            isObject={true}
+            data={firstTimeEmpData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
+            }}
+          />
+        </Form.Item>
+        <CitySelect
+          data={cities}
+          selectedData={(val) => {
+            // console.log("val", val);
+          }}
+          canFetchNow={cities && cities.length > 0}
+          fetchData={fetchCityData}
+          optionComponent={(opt) => {
+            return (
+              <>
+                <Avatar src={opt.image} className="!bg-black">
+                  {getNameForImage(opt.name)}
+                </Avatar>
+                {opt.name + " - " + opt.country}
+              </>
+            );
+          }}
+          defaultKey={"id"}
+          isObject={true}
+          placeholder={"Select City"}
+          size="large"
+          name="cityId"
+          label={"City"}
+          rules={[{ required: true }]}
+        />
+        <Form.Item
+          name="skillTags"
+          label="Skills"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select size="large" placeholder="Add Skills" mode="tags" />
+        </Form.Item>
+        <Form.Item
+          name="experience"
+          label="Experience (Years)"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input size="large" placeholder="Write Years" type="number" />
+        </Form.Item>
+
+        <div className="w-full flex gap-3 mb-2">
+          <Form.Item
+            className="w-2/4"
+            label={"Job Type"}
+            name="jobType"
+            rules={[
+              {
+                required: true,
+                message: "Please Enter Job Type",
+              },
+            ]}
+          >
+            <Select placeholder={"Select Job Type"} size="large">
+              {JobTypeEnum.map((item) => (
+                <Select.Option key={item.value} value={item.value}>
+                  {item.label}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            className="w-2/4"
+            label={"Job Shift"}
+            name="jobShift"
+            rules={[
+              {
+                required: true,
+                message: "Please Enter Job Shift",
+              },
+            ]}
+          >
+            <Select placeholder={"Select Job Shift"} size="large">
+              {JobShiftTypeEnum.map((item) => (
+                <Select.Option key={item.value} value={item.value}>
+                  {item.label}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </div>
+
+        <div className="w-full flex gap-3 mb-2">
+          <Form.Item
+            className="w-2/4"
+            label={"Education"}
+            name="education"
+            rules={[
+              {
+                required: true,
+                message: "Please Select Education",
+              },
+            ]}
+          >
+            <Select placeholder={"Please Select Education"} size="large">
+              {EducationTypeEnum.map((item) => (
+                <Select.Option key={item.value} value={item.value}>
+                  {item.label}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            className="w-2/4"
+            label={"Career Level"}
+            name="careerLevel"
+            rules={[
+              {
+                required: true,
+                message: "Please Enter Career Level",
+              },
+            ]}
+          >
+            <Select placeholder={"Select Career Level"} size="large">
+              {CareerLevelTypeEnum.map((item) => (
+                <Select.Option key={item.value} value={item.value}>
+                  {item.label}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </div>
+
+        <Form.Item
+          name="endDate"
+          label="End Date"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <DatePicker
+            size="large"
+            className="w-full"
+            placeholder="Select End Date"
           />
         </Form.Item>
 
-        <Form.Item name="country" label={"Country"} showSearch={true} rules={[{ required: true }]}>
-          <NewCustomSelect
-            name="country"
-            label={"Country"}
-            showSearch={true}
-            // direction={Direction}
-            mode="multiple"
-            endPoint="api/Reference/GetAllUserReference"
-            requestType="get"
-            placeholder={"Select Country"}
+        <Form.Item area="true" label="Attachment">
+          <SingleUpload
+            handleImageUpload={() => {}}
+            img="Add Image"
+            position="flex-start"
+            uploadText={"Upload"}
           />
         </Form.Item>
-
-        <Form.Item name="city" label={"City"} showSearch={true} rules={[{ required: true }]}>
-          <NewCustomSelect
-            name="city"
-            label={"city"}
-            showSearch={true}
-            // direction={Direction}
-            mode="multiple"
-            endPoint="api/Reference/GetAllUserReference"
-            requestType="get"
-            placeholder={"Select City"}
-          />
-        </Form.Item>
-
-        <Form.Item area="true">
-          <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={"Upload"} />
-        </Form.Item>
-
         <Form.Item>
-          <Button type="primary" size="medium" className="ThemeBtn" block htmlType="submit" title={"Create"}>
-            {" "}
-            {"Create"}{" "}
+          <Button
+            type="primary"
+            size="medium"
+            className="ThemeBtn"
+            block
+            htmlType="submit"
+          >
+            Create Job
           </Button>
         </Form.Item>
       </Form>

@@ -28,13 +28,13 @@ export const listitem = [
     to: (id) => `/employees/info/experience/${id}`,
   },
   {
-    displayName: "Salary",
-    classObj: "button",
-    to: (id) => `/employees/info/salary/${id}`,
-  },
-  {
     displayName: "Rebate",
     classObj: "button",
     to: (id) => `/employees/info/rebate/${id}`,
+  },
+  {
+    displayName: "Salary",
+    classObj: "button",
+    to: (id) => `/employees/info/salary/${id}`,
   },
 ];

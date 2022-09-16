@@ -6,6 +6,8 @@ import BasicInfo from "../../../../basicInfo/index";
 import EducationForm from "../../../../education/index";
 import EmergencyForm from "../../../../emergencyInfo/index";
 import ExperienceForm from "../../../../experienceInfo/index";
+import RebateEmployee from "../../../../rebate/rebateEmployee";
+import SalaryEmployee from "../../../../salary/view/SalaryEmployee/salaryEmployee";
 import "../styles/style.css";
 
 const EmployeeRoutes = () => {
@@ -16,8 +18,8 @@ const EmployeeRoutes = () => {
         <Route path={"/bankDetail/:id"} element={<BankForm mode="edit" />} />
         <Route path={"/education/:id"} element={<EducationForm />} />
         <Route path={"/emergencyInfo/:id"} element={<EmergencyForm />} />
-        <Route path={"/rebate/:id"} element={<EducationForm />} />
-        <Route path={"/salary/:id"} element={<EmergencyForm />} />
+        <Route path={"/rebate/:id"} element={<RebateEmployee />} />
+        <Route path={"/salary/:id"} element={<SalaryEmployee />} />
         <Route path={"/experience/:id"} element={<ExperienceForm />} />
         <Route path={"*"} element={<BrokenPage />} />
       </Routes>

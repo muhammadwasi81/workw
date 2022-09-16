@@ -36,7 +36,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
 
   const initialState = {
     coverImageId: "",
-    userTypeId: [],
+    userTypeId: "",
     titleId: 1,
     firstName: "",
     lastName: "",
@@ -45,20 +45,20 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     personalEmail: "",
     nic: "",
     phoneNo: "",
-    designationId: [],
+    designationId: "",
     managerId: "",
-    gradeId: [],
-    countryId: [],
+    gradeId: "",
+    countryId: "",
     cityId: [],
     probationPeriod: "",
     birthDate: "",
     joinDate: "",
-    genderId: [],
-    maritalStatusId: [],
-    officeTimingId: [],
-    accessRoleId: [],
+    genderId: "",
+    maritalStatusId: "",
+    officeTimingId: "",
+    accessRoleId: "",
     employeeNo: "",
-    employmentTypeId: [],
+    employmentTypeId: "",
   };
   const [initialValues, setInitialValues] = useState(initialState);
   const [userTypeValue, setUserTypeValue] = useState("");

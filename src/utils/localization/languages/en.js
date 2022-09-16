@@ -306,7 +306,10 @@ const en = {
   payroll: {},
   employee: {},
   administration: {
+    Default_Hiring_Criteria: "Default Hiring Criteria",
     Business_Logo: "Business Logo",
+    Payroll_Group: "Payroll Group",
+    Complain_Category: "Complain Category",
     Business_Policy: "Business Policy",
     AccessRole: "Access Role",
     Grade: "Grade",
@@ -396,7 +399,10 @@ const en = {
     Experience: "Experience",
   },
   administration: {
+    Default_Hiring_Criteria: "Default Hiring Criteria",
     Business_Logo: "Business Logo",
+    Complain_Category: "Complain Category",
+    Payroll_Group: "Payroll Group",
     Business_Policy: "Business Policy",
     Rebate_Category: "Rebate Category",
     AccessRole: "Access Role",

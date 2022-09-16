@@ -59,8 +59,7 @@ export const getAllDepartmentAppraisalQuestion = createAsyncThunk(
   "Department/getAllDepartmentAppraisalQuestion",
   async (data) => {
     const response = await getAllDepartmentAppraisalQuestionService(data);
-    // console.log(data, "****getallappraisal");
-    console.log("*****", response);
+    // console.log("*****", response);
     if (!response.responseCode) {
       message.error("Something went wrong");
     }
@@ -72,7 +71,7 @@ export const getAllDepartmentAppraisalQuestion = createAsyncThunk(
 export const addDepartmentAppraisalQuestion = createAsyncThunk(
   "Department/addDepartmentAppraisalQuestion",
   async (data, { dispatch, getState, rejectWithValue }) => {
-    console.log("data in actions ", data);
+    // console.log("data in actions ", data);
     const res = await addDepartmentAppraisalQuestionService(data);
     if (res.data?.responseCode === responseCode.Success) {
       message.success("Appraisal Question Created");
@@ -87,7 +86,7 @@ export const addDepartmentAppraisalQuestion = createAsyncThunk(
 export const removeDepartmentAppraisalQuestion = createAsyncThunk(
   "Department/removeDepartmentAppraisalQuestion",
   async (data, { dispatch }) => {
-    console.log("data in actions ", data);
+    // console.log("data in actions ", data);
     const res = await removeDepartmentAppraisalQuestionService(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
@@ -107,12 +106,11 @@ export const removeDepartmentAppraisalQuestion = createAsyncThunk(
 export const updateDepartmentAppraisalQuestion = createAsyncThunk(
   "Department/updateDepartmentAppraisalQuestion",
   async (data, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, "data in update async");
+    // console.log(data, "data in update async");
     const res = await updateDepartmentAppraisalQuestionService(data);
 
     if (res.data.responseCode) {
       if (res.data.responseCode === responseCode.Success)
-        // res.message = "Appraisal updated successfully!";
         message.success("Appraisal updated successfully!");
     } else {
       message.error(res.statusText);

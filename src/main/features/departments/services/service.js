@@ -42,7 +42,7 @@ export const getAllDepartmentAppraisalQuestionService = (data) => {
     `api/Department/GetAllDepartmentAppraisalQuestion?id=${data}`
   )
     .then((res) => {
-      console.log("response data from service appraisal", res.data);
+      // console.log("response data from service appraisal", res.data);
       return res.data;
     })
     .catch((err) => {
@@ -51,7 +51,7 @@ export const getAllDepartmentAppraisalQuestionService = (data) => {
 };
 
 export const addDepartmentAppraisalQuestionService = (data) => {
-  console.log("data from service", data);
+  // console.log("data from service", data);
   return MasterConfig.post(
     `api/Department/AddDepartmentAppraisalQuestion`,
     data
@@ -71,7 +71,7 @@ export const removeDepartmentAppraisalQuestionService = (data) => {
     `api/Department/RemoveDepartmentAppraisalQuestion?id=${data.id}`
   )
     .then((res) => {
-      console.log("response data from service appraisal", res.data);
+      // console.log("response data from service appraisal", res.data);
       return res.data;
     })
     .catch((err) => {
@@ -80,13 +80,13 @@ export const removeDepartmentAppraisalQuestionService = (data) => {
 };
 
 export const updateDepartmentAppraisalQuestionService = (data) => {
-  console.log("update data from service", data);
+  // console.log("update data from service", data);
   return MasterConfig.put(
     `api/Department/UpdateDepartmentAppraisalQuestion`,
     data
   )
     .then((res) => {
-      console.log(res, "response from dept service");
+      // console.log(res, "response from dept service");
       return res;
     })
     .catch((res) => {

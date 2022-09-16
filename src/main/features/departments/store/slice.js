@@ -26,7 +26,7 @@ const departmentSlice = createSlice({
   initialState,
   reducers: {
     appraisalQuestionDeleted: (state, { payload }) => {
-      console.log(payload, "********delet reducer");
+      // console.log(payload, "********delet reducer");
       state.appraisalQuestion = state.appraisalQuestion.filter(
         (e) => e.id !== payload
       );
@@ -56,7 +56,7 @@ const departmentSlice = createSlice({
       .addCase(
         updateDepartmentAppraisalQuestion.fulfilled,
         (state, { payload }) => {
-          console.log(payload, "payload of update appraisal question");
+          // console.log(payload, "payload of update appraisal question");
           state.loader = false;
           state.appraisalQuestion = state.appraisalQuestion.map((x) =>
             x.id === payload.data.data.id ? payload.data.data : x
@@ -66,7 +66,7 @@ const departmentSlice = createSlice({
       .addCase(
         getAllDepartmentAppraisalQuestion.fulfilled,
         (state, { payload }) => {
-          console.log(payload, "*******");
+          // console.log(payload, "*******");
           if (payload) {
             state.appraisalQuestion = payload;
             state.loading = false;

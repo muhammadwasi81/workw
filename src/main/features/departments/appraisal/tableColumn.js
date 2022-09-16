@@ -37,7 +37,6 @@ export const tableColumn = (
 ) => {
   return [
     { title: "Questions", dataIndex: "question", width: "20%", key: 1 },
-    // { title: "Description", dataIndex: "description", width: "20%", key: 2 },
     removeButtons
       ? {}
       : {

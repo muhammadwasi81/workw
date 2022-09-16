@@ -9,7 +9,6 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-  FormTextArea,
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 export default function Appraisal({
   data,
@@ -20,10 +19,7 @@ export default function Appraisal({
 }) {
   const [form, setForm] = useState(data);
 
-  //   console.log(clearButton);
-
   const handleClear = (e) => {
-    console.log("handle clear works");
     setForm({ ...form, question: "" });
     setClearButton(false);
   };
@@ -31,7 +27,6 @@ export default function Appraisal({
   const handelChangeName = (e) => {
     // console.log(e.target.value)
     if (e.target.value.length > 0) {
-      console.log("set clear button");
       setClearButton(true);
     } else {
       setClearButton(false);

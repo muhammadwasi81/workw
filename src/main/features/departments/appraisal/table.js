@@ -21,17 +21,11 @@ export default function GradeTable({
   } = useSelector((state) => state.departmentSlice);
 
   const dispatch = useDispatch();
-  //   useEffect(() => {
-  //     console.log(departmentDetail.id);
-  //     dispatch(getAllDepartmentAppraisalQuestion(departmentDetail.id));
-  //     console.log("dispatch get all appraisal questions");
-  //   }, []);
 
   const [id, setId] = useState();
 
   const onSuccess = (e) => {
     setId(null);
-    // TODO: dispatch delete appraisal question
     dispatch(appraisalQuestionDeleted(e.id));
     setClearButton(true);
   };
@@ -42,8 +36,7 @@ export default function GradeTable({
 
   const handleDelete = (e) => {
     setId(e.id);
-    console.log("handle delete");
-    //TODO: dispatch remove Appraisal question
+    // console.log("handle delete");
     dispatch(removeDepartmentAppraisalQuestion(e)).then(
       () => onSuccess(e),
       onError

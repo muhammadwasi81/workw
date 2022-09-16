@@ -30,16 +30,12 @@ export const addRebateCategory = createAsyncThunk(
 	"RebateCategory/addRebateCategory",
 	async (args, { dispatch }) => {
 		const res = await addRebateCategoryService(args);
-		if (res.responseCode) {
-			if (res.responseCode === responseCode.Success)
-				message.success(res.message)
-				if (res.responseCode === responseCode.Failure || res.responseCode === responseCode.ServerError) {
-					message.error(res.message)
-				}
+		if (res.responseCode && res.responseCode === responseCode.Success) {
+			message.success("Category added successfully!")
+			responseMessage({ dispatch, data: res });
 		} else {
-			message.error("Something Went Wrong")
+			message.error(res.message)
 		}
-
 		return res;
 	}
 );
@@ -72,7 +68,7 @@ export const removeRebateCategory = createAsyncThunk(
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success)
 				res.message = "Rebate removed successfully!";
-				dispatch(getAllRebateCategories())
+			dispatch(getAllRebateCategories())
 			responseMessage({ dispatch, data: res });
 		} else {
 			responseMessage({

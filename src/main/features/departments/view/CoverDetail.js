@@ -5,7 +5,7 @@ import { BiWorld } from "react-icons/bi";
 import WhiteCard from "./WhiteCard";
 
 function CoverDetail(props) {
-  console.log("cover details props", props);
+  // console.log("cover details props", props);
   const { name, members, description } = props.data;
   //TODO: add dynamic data when api respond proper data
   return (

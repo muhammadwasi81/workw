@@ -20,6 +20,7 @@ import { useLocation } from "react-router-dom";
 import ProjectCover from "../../../../content/png/project_cover_img.png";
 import { useDispatch } from "react-redux";
 import { getDepartmentById } from "../store/actions";
+import Appraisal from "../appraisal/index";
 // import WhiteCard from "../UI/WhiteCard";
 
 function ProjectDetails() {
@@ -29,7 +30,7 @@ function ProjectDetails() {
   const [descrip, setDescrip] = useState("");
   const { data } = state;
 
-  const { image, description } = departmentDetail;
+  const { image, description, id } = departmentDetail;
   const panes = [
     {
       title: `Description`,
@@ -37,8 +38,8 @@ function ProjectDetails() {
       key: 0,
     },
     {
-      title: `Members`,
-      content: <div>Members div</div>,
+      title: `Appraisals`,
+      content: <Appraisal />,
       key: 1,
     },
     // {
@@ -75,7 +76,7 @@ function ProjectDetails() {
       icon: <EditOutlined />,
     },
   ];
-  console.log("details", data);
+  // console.log("details", data);
 
   useEffect(() => {
     console.log("useEffects works");
@@ -83,7 +84,7 @@ function ProjectDetails() {
     setDescrip(data.description);
   }, []);
 
-  console.log("department Details*******", departmentDetail);
+  // console.log("department Details*******", departmentDetail);
   return (
     <TabContainer>
       <LayoutHeader items={items} buttons={buttons} />

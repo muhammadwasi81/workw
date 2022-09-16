@@ -21,6 +21,8 @@ import emailConfigurationSlice from "../main/features/emailConfiguration/store/s
 import designationSlice from "../main/features/designation/store/slice";
 import appraisalSlice from "../main/features/appraisal/appraisalQuestion/store/slice";
 import warningCategorySlice from "../main/features/warning/warningCategory/store/slice";
+import complainCategorySlice from "../main/features/complain/complainCategory/store/slice";
+import defaultHiringCriteriaSlice from "../main/features/careers/defaultHiringCriteria/store/slice";
 import warningSlice from "../main/features/warning/store/slice";
 import departmentSlice from "../main/features/departments/store/slice";
 import leaveTypeSlice from "../main/features/leave/leaveType/store/slice";
@@ -29,6 +31,7 @@ import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
 import businessPolicySlice from "../main/features/businessPolicy/store/slice";
 import allowanceSlice from "../main/features/allowance/store/slice";
 import rewardCategorySlice from "../main/features/reward/rewardCategory/store/slice";
+import payrollGroupSlice from "../main/features/payroll/payrollGroup/store/slice";
 import bonusSlice from "../main/features/bonus/store/slice";
 import rewardSlice from "../main/features/reward/store/slice";
 import leaveSlice from "../main/features/leave/store/slice";
@@ -84,6 +87,9 @@ const reducers = combineReducers({
   //   mailSlice,
   jobDescriptionSlice,
   sharedQuillSlice,
+  defaultHiringCriteriaSlice,
+  complainCategorySlice,
+  payrollGroupSlice,
   customApprovalCategorySlice,
   rewardCategorySlice,
   rewardSlice,

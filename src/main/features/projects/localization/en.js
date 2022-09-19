@@ -1,6 +1,7 @@
 const en = {
 	projectsDictionary: {
 		createTextBtn: "Create Project",
+		updateTextBtn: "Update Project",
 		topBar: {
 			search: "Search",
 			filter: "Filter",

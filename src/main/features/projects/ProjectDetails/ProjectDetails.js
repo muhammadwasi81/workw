@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { ROUTES } from "../../../../utils/routes";
 import {
 	ContBody,
@@ -15,8 +15,30 @@ import CoverImage from "../UI/CoverImage";
 import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
 import ProjectCover from "../../../../content/png/project_cover_img.png";
 import WhiteCard from "../UI/WhiteCard";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProjectById } from "../store/actions";
+import { Drawer } from "antd";
+import Composer from "../UI/Composer";
+import { useState } from "react";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { projectsDictionaryList } from "../localization";
 
 function ProjectDetails() {
+	const params = useParams();
+	const dispatch = useDispatch();
+	const detail = useSelector(state => state.projectSlice.projectDetail);
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { projectsDictionary, Direction } = projectsDictionaryList[
+		userLanguage
+	];
+	const { updateTextBtn } = projectsDictionary;
+	const [open, setOpen] = useState(false);
+	const { id } = params;
+	useEffect(() => {
+		dispatch(getProjectById(id));
+	}, [id]);
+
 	const panes = [
 		{
 			title: `Discussion`,
@@ -61,38 +83,57 @@ function ProjectDetails() {
 	];
 	const items = [
 		{
-			name: "Project Details",
+			name: detail?.name,
 			to: `${ROUTES.PROJECT.DEFAULT}`,
 			renderButton: [1],
 		},
 	];
+	const handleEditComposer = () => {
+		setOpen(!open);
+	};
 	const buttons = [
 		{
 			buttonText: "Edit Projects",
 			icon: <EditOutlined />,
+			onClick: handleEditComposer,
 		},
 	];
 
 	return (
-		<TabContainer>
-			<LayoutHeader items={items} buttons={buttons} />
-			<ContBody className="!block">
-				<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
-					<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
-						<CoverImage image={ProjectCover} />
-						<CoverDetail />
-						<Tab panes={panes} />
-					</div>
+		<>
+			<TabContainer>
+				<LayoutHeader items={items} buttons={buttons} />
+				<ContBody className="!block">
+					<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
+						<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
+							<CoverImage image={detail?.image} />
+							<CoverDetail />
+							<Tab panes={detail?.features} />
+						</div>
 
-					<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
-						<Budget />
-						<WhiteCard>
-							<MemberCollapse />
-						</WhiteCard>
+						<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
+							<Budget data={detail} />
+							<WhiteCard>
+								<MemberCollapse data={detail?.members} />
+							</WhiteCard>
+						</div>
 					</div>
-				</div>
-			</ContBody>
-		</TabContainer>
+				</ContBody>
+			</TabContainer>
+			<Drawer
+				open={open}
+				width={"786px"}
+				onClose={handleEditComposer}
+				title={updateTextBtn}
+				className={"shared_drawer drawerSecondary"}
+			>
+				<Composer
+					buttonText={updateTextBtn}
+					detail={detail}
+					update={true}
+				/>
+			</Drawer>
+		</>
 	);
 }
 

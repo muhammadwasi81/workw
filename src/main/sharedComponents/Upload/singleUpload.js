@@ -103,7 +103,7 @@ class SingleUpload extends React.Component {
 				<div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
 			</div>
 		);
-		console.log(this.props.multiple);
+		// console.log(this.props.multiple);
 		return (
 			<>
 				<Upload

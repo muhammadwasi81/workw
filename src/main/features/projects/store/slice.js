@@ -26,15 +26,17 @@ const projectSlice = createSlice({
 				state.loader = false;
 				state.success = true;
 			})
-			.addCase(addProject.fulfilled, (state, action) => {
+			.addCase(addProject.fulfilled, (state, { payload }) => {
 				// state.projects = action.payload ? action.payload.data : [];
-				console.log("add project", action.payload);
+				// console.log("add project", payload);
+				state.projects.unshift(payload.data);
 				state.loader = false;
 				state.success = true;
 			})
-			.addCase(getProjectById.fulfilled, (state, action) => {
+			.addCase(getProjectById.fulfilled, (state, { payload }) => {
 				// state.projects = action.payload ? action.payload.data : [];
-				console.log("project by id", action.payload);
+				// console.log("project by id", action.payload);
+				state.projectDetail = payload.data;
 				state.loader = false;
 				state.success = true;
 			})

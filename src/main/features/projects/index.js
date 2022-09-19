@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from "react";
-
 import {
 	ContBody,
 	TabbableContainer,
@@ -13,7 +12,6 @@ import { getAllProjects } from "./store/actions";
 import { CardWrapper2 } from "../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./UI/TableColumn";
 import { Table } from "../../sharedComponents/customTable";
-import { Card } from "antd";
 import Header from "./view/Header/Header";
 import ProjectTopBar from "./view/ProjectTopBar/ProjectTopBar";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";

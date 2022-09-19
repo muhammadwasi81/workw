@@ -1,6 +1,7 @@
 const turkish = {
 	projectsDictionary: {
 		createTextBtn: "Proje Oluştur",
+		updateTextBtn: "Update Project",
 		topBar: {
 			search: "Arama",
 			filter: "Filtre",

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Avatar, Form, message } from "antd";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
-import Select from "../../../sharedComponents/Select/Select";
+import { Avatar, Form, message, Select } from "antd";
+// import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+// import Select from "../../../sharedComponents/Select/Select";
 import { DepartmentMemberTypeList } from "../constant/index";
 import { projectsDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getNameForImage } from "../../../../utils/base";
 
 function MemberComposer(props) {
+	const { Option } = Select;
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction, projectsDictionary } = projectsDictionaryList[
 		userLanguage
@@ -25,24 +26,16 @@ function MemberComposer(props) {
 	const fetchEmployees = (text, pgNo) => {
 		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
 	};
-	const selectedData = (data, obj) => {
-		// setValue(data);
-		// handleMember(obj);
-		// setMembers(obj);
-		// onChange(data, obj);
-	};
+
 	const [newState, setNewState] = useState({
-		user: {
-			id: null,
-		},
+		member: {},
 		memberType: null,
 	});
 
 	const handleMember = val => {
-		const user = JSON.parse(val);
 		setNewState({
 			...newState,
-			user,
+			member: val,
 		});
 	};
 
@@ -52,21 +45,21 @@ function MemberComposer(props) {
 			memberType: val,
 		});
 	};
+	const selectedData = (data, obj) => {
+		handleMember(obj[0]);
+	};
 	const handleAdd = () => {
-		if (newState.user && newState.memberType) {
+		if (newState.member && newState.memberType) {
 			props.handleAdd(newState);
+			props.form.setFieldsValue({ members: [], memberType: null });
 			setNewState({
-				user: {
-					id: null,
-				},
+				member: [],
 				memberType: null,
 			});
 		} else {
-			message.error("Please Fill Required Fields");
+			message.error("Please add member and member type.");
 		}
 	};
-
-	// const { user } = newState;
 
 	return (
 		<>
@@ -96,34 +89,37 @@ function MemberComposer(props) {
 						}}
 						name="members"
 						showSearch={true}
-						rules={[
-							{
-								required: true,
-								message: "Please add members",
-							},
-						]}
+						// rules={[
+						// 	{
+						// 		required: true,
+						// 		message: "Please add members",
+						// 	},
+						// ]}
 					/>
 				</div>
 				<div className="memberTypeInput">
 					<Form.Item
-						name="membersType"
-						rules={[
-							{
-								required: true,
-								message: "Select Members",
-							},
-						]}
+						name="memberType"
+						// rules={[
+						// 	{
+						// 		required: true,
+						// 		message: props.error.type,
+						// 	},
+						// ]}
 					>
 						<Select
-							placeholder={projectsDictionary.placeholders.type}
-							data={DepartmentMemberTypeList()}
+							placeholder={props.placeholder.type}
 							onChange={handleMemberType}
 							style={{
 								width: "100%",
 								borderRadius: "5px",
 							}}
 							size="large"
-						/>
+						>
+							{DepartmentMemberTypeList().map(({ id, name }) => (
+								<Option value={id}>{name}</Option>
+							))}
+						</Select>
 					</Form.Item>
 				</div>
 

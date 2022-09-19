@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Select } from "antd";
+import { Button, Form, Input, message, Select, Switch } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
@@ -10,22 +10,25 @@ import MemberComposer from "./MemberComposer";
 import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
 import { DatePicker } from "antd";
 import { validateEmail } from "../../../../utils/Shared/helper/validateEmail";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { addProject, updateProject } from "../store/actions";
+import { jsonToFormData } from "../../../../utils/base";
+import { useSelector } from "react-redux";
+import moment from "moment";
 
 const { RangePicker } = DatePicker;
 
 const initialState = {
-	id: "",
 	name: "",
 	description: "",
-	imageId: "",
+	imageId: defaultUiid,
+	image: "",
 	members: [
 		{
 			memberId: "",
 			memberType: 1,
 		},
 	],
-	hodId: "",
-	parentId: "",
 };
 
 const Composer = props => {
@@ -34,7 +37,7 @@ const Composer = props => {
 		userLanguage
 	];
 	const { labels, placeholders, features, errors } = projectsDictionary;
-
+	const loading = useSelector(state => state.projectSlice.loader);
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
@@ -43,20 +46,8 @@ const Composer = props => {
 
 	const [memberList, setMemberList] = useState([]);
 
-	const onChange = value => {
-		console.log(`selected ${value}`);
-	};
-
-	const onSearch = value => {
-		console.log("search:", value);
-	};
-
-	useEffect(() => {
-		dispatch(getRewardCategory());
-	}, []);
-
 	const handleImageUpload = data => {
-		setProfileImage(data);
+		setProfileImage(data[0].originFileObj);
 	};
 
 	const handelAddMember = data => {
@@ -69,27 +60,80 @@ const Composer = props => {
 			[name]: dateString,
 		});
 	};
+	const { detail, update } = props;
 
-	const onFinish = values => {
-		console.log("values", form.getFieldsValue(true));
-		// form.resetFields();
+	const onFinish = () => {
+		const values = form.getFieldsValue(true);
+		// console.log("values", values);
+		let startDate = "";
+		let endDate = "";
+		if (values.startEndDate) {
+			startDate = values.startEndDate[0].format();
+			endDate = values.startEndDate[1].format();
+		}
+		let members = memberList.map(member => {
+			return {
+				memberId: member.members.id,
+				memberType: member.memberType,
+			};
+		});
+		let image = { file: profileImage, id: defaultUiid };
+		let objToSend = {
+			name: values.name,
+			description: values.description,
+			startDate,
+			endDate,
+			externals: values.externals,
+			members,
+			features: values.features,
+			image,
+		};
+		if (update) {
+			dispatch(updateProject(jsonToFormData(objToSend)));
+			return;
+		}
+		dispatch(addProject(jsonToFormData(objToSend)));
 	};
 
 	const onFinishFailed = errorInfo => {
-		// console.log("Failed:", errorInfo);
+		console.log("Failed:", errorInfo);
 	};
+
+	useEffect(() => {
+		if (update) {
+			const featureValues = detail.features.map(item => ({
+				[item.featureName]: true,
+			}));
+			form.setFieldsValue({
+				features: detail.features.map(item => {
+					return { featureId: item.featureId };
+				}),
+				name: detail.name,
+				description: detail.description,
+				startEndDate: [
+					moment(detail.startDate),
+					moment(detail.endDate),
+				],
+				externals: detail.externals,
+				...featureValues.reduce(function(result, current) {
+					return Object.assign(result, current);
+				}, {}),
+			});
+			setMemberList([...detail.members]);
+			setProfileImage(detail.image);
+		}
+	}, [detail]);
 
 	return (
 		<>
 			<Form
 				form={form}
-				initialValues={{ features: [{ featureId: 1 }] }}
+				initialValues={{ Feed: true, features: [{ featureId: 1 }] }}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				dir={Direction}
 				layout={"vertical"}
 				className={`${Direction}`}
-				// className={Direction === "ltr" ? "align-right" : ""}
 			>
 				<div className="flex justify-between gap-4">
 					<div className="w-full">
@@ -115,9 +159,9 @@ const Composer = props => {
 						<Form.Item area="true" style={{ marginBottom: 0 }}>
 							<SingleUpload
 								handleImageUpload={handleImageUpload}
-								img="Add Image"
 								position="flex-start"
 								uploadText={"Upload"}
+								url={detail?.image ? detail.image : ""}
 							/>
 						</Form.Item>
 					</div>
@@ -157,28 +201,31 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					name={"external"}
+					name={"externals"}
 					label={labels.externals}
 					direction={Direction}
 					rules={[
 						{
-							// required: true,
-							// message: errors.members,
 							validator: (_, value) => {
 								if (validateEmail(value[value.length - 1])) {
-									form.setFieldsValue({ external: value });
-									return;
-								} else {
-									message.error("Please add validate email.");
 									form.setFieldsValue({
-										external: form
-											.getFieldValue("external")
+										externals: value,
+									});
+									return Promise.resolve();
+								} else {
+									message.error("Please add correct email.");
+									form.setFieldsValue({
+										externals: form
+											.getFieldValue("externals")
 											.slice(
 												0,
-												form.getFieldValue("external")
+												form.getFieldValue("externals")
 													.length - 1
 											),
 									});
+									return Promise.reject(
+										new Error("Please add correct email.")
+									);
 								}
 							},
 						},
@@ -192,7 +239,12 @@ const Composer = props => {
 					/>
 				</Form.Item>
 
-				<MemberComposer handleAdd={handelAddMember} />
+				<MemberComposer
+					handleAdd={handelAddMember}
+					form={form}
+					placeholder={placeholders}
+					error={errors}
+				/>
 
 				{memberList?.length > 0 ? (
 					<MemberListItem
@@ -210,13 +262,14 @@ const Composer = props => {
 
 				<Form.Item>
 					<Button
-						type="primary"
+						// type="primary"
 						className="ThemeBtn"
 						block
 						size="large"
 						htmlType="submit"
+						loading={loading}
 					>
-						Create Project
+						{props.buttonText}
 					</Button>
 				</Form.Item>
 			</Form>

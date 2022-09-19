@@ -119,7 +119,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/projects/index")),
 		},
 		{
-			path: `${ROUTES.PROJECT.DETAIL}`,
+			path: `${ROUTES.PROJECT.DEFAULT}/:id`,
 			component: lazy(() =>
 				import(
 					"../main/features/projects/ProjectDetails/ProjectDetails"
@@ -251,9 +251,7 @@ export const routes = {
 		},
 		{
 			path: `${ROUTES.SALARY.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/salary/view/index")
-			),
+			component: lazy(() => import("../main/features/salary/view/index")),
 		},
 		{
 			path: `${ROUTES.PAYROLL.DEFAULT}`,

@@ -1,6 +1,7 @@
 const hindi = {
 	projectsDictionary: {
 		createTextBtn: "प्रोजेक्ट बनाएं",
+		updateTextBtn: "Update Project",
 		topBar: {
 			search: "खोज",
 			filter: "फ़िल्टर",

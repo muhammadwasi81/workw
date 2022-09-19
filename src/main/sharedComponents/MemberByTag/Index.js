@@ -11,8 +11,8 @@ const itemMemberType = {
 	2: "Admin",
 	3: "Sub Head Of Department",
 };
-
 const MemberList = props => {
+	console.log("props.data", props.data);
 	return (
 		<List>
 			<VirtualList
@@ -24,18 +24,18 @@ const MemberList = props => {
 				// onScroll={onScroll}
 			>
 				{(item, index) => (
-					<List.Item key={item.members[0].id}>
+					<List.Item key={item.member.id}>
 						<List.Item.Meta
 							avatar={
 								<Avatar
-									src={item.members[0].image}
+									src={item.member.image}
 									className="!bg-black"
 								>
-									{getNameForImage(item.members[0].name)}
+									{getNameForImage(item.member.name)}
 								</Avatar>
 							}
-							title={<span>{item.members[0].name}</span>}
-							description={item.members[0].email}
+							title={<span>{item.member.name}</span>}
+							description={item.member.email}
 						/>
 						<div
 							style={{

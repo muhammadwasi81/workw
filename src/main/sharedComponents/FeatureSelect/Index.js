@@ -56,50 +56,49 @@ function FeatureSelect({ features, form }) {
 	const data = [
 		{
 			name: features.newsFeed,
-			featureName: "newsFeed",
+			featureName: "Feed",
 			icon: feedIcon,
 			description: "loremipsum",
-			isChecked: true,
 			id: FeaturesEnum.Feed,
 		},
 		{
 			name: features.schedule,
-			featureName: "schedule",
+			featureName: "Schedule",
 			icon: schedulesIcon,
 			description: "loremipsum",
 			id: FeaturesEnum.Schedule,
 		},
 		{
 			name: features.workBoard,
-			featureName: "workboard",
+			featureName: "Workboard",
 			icon: todoBoard,
 			description: "loremipsum",
 			id: FeaturesEnum.WorkBoard,
 		},
 		{
 			name: features.document,
-			featureName: "document",
+			featureName: "Document",
 			icon: documentIcon,
 			description: "loremipsum",
 			id: FeaturesEnum.Document,
 		},
 		{
 			name: features.task,
-			featureName: "task",
+			featureName: "Task",
 			icon: taskIcon,
 			description: "loremipsum",
 			id: FeaturesEnum.Task,
 		},
 		{
 			name: features.expenses,
-			featureName: "expenses",
+			featureName: "Expenses",
 			icon: expensesIcon,
 			description: "loremipsum",
 			id: FeaturesEnum.Expense,
 		},
 		{
 			name: features.travel,
-			featureName: "travel",
+			featureName: "Travel",
 			icon: travelIcon,
 			description: "loremipsum",
 			id: FeaturesEnum.Travel,
@@ -148,10 +147,12 @@ function FeatureSelect({ features, form }) {
 							</div>
 						</div>
 						<div className="radioBtn">
-							<Form.Item name={item.featureName}>
+							<Form.Item
+								name={item.featureName}
+								valuePropName="checked"
+							>
 								<Switch
 									defaultChecked={false}
-									checked={item.isChecked}
 									onChange={checked => {
 										onChange(item.id, checked);
 									}}

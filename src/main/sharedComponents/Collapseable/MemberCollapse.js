@@ -9,7 +9,7 @@ const { Panel } = Collapse;
 
 function MemberCollapse({ handleAdd, data = [], ghost = true }) {
 	const onChange = key => {
-		console.log(key);
+		// console.log(key);
 	};
 	// const data = [
 	// 	{

@@ -1,6 +1,7 @@
 const urdu = {
 	projectsDictionary: {
 		createTextBtn: "پروجیکٹ بنائیں",
+		updateTextBtn: "Update Project",
 		topBar: {
 			search: "تلاش کریں",
 			filter: "فلٹر",

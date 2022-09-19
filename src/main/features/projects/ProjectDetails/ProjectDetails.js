@@ -107,7 +107,7 @@ function ProjectDetails() {
 					<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
 						<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
 							<CoverImage image={detail?.image} />
-							<CoverDetail />
+							<CoverDetail detail={detail} />
 							<Tab panes={detail?.features} />
 						</div>
 

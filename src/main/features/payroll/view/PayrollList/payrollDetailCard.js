@@ -1,4 +1,4 @@
-import { Button, Image, Tag } from "antd";
+import { Tag } from "antd";
 import React, { useContext, useEffect } from "react";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 // import AllowanceDetail from "./allowanceDetail";
 import RemarksApproval from "../../../../sharedComponents/AppComponents/Approvals/view";
 import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import EmployeesDetail from "./EmployeesDetail";
 
 function DetailDetailCard(props) {
   const dispatch = useDispatch();
@@ -83,21 +84,10 @@ function DetailDetailCard(props) {
             <div className="cardSection__title">Total Amount</div>
             <div className="cardSection__body">{total}</div>
           </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">Approvers</div>
-            <div className="cardSection__body">
-              <Avatar
-                isAvatarGroup={true}
-                heading={"approvers"}
-                membersData={approvers ? approvers : []}
-              />
-            </div>
           </div>
-        </div>
-
+        <EmployeesDetail details={details}/>
+        <RemarksApproval data={approvers} title="Approvals" module={ApprovalsModule.PayrollApproval} onStatusChanged={() => { }} />
       </SingleItem>
-      {/* <AllowanceDetail details={details} /> */}
-      <RemarksApproval data={approvers} title="Approvals" module={ApprovalsModule.SalaryApproval} onStatusChanged={() => { }} />
     </>
   );
 }

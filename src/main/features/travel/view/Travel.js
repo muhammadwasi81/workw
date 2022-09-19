@@ -21,17 +21,17 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import { TravelDictionary } from "../localization";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 
-const initialTableFilter = {
-	pageNo: 1,
-	pageSize: 20,
-	search: "",
-	approverStatus: [],
-	agentStatus: [],
-	filterType: 1,
-	sortBy: 1,
-	referenceId: "00000000-0000-0000-0000-000000000000",
-	referenceType: 0,
-};
+// const initialTableFilter = {
+// 	pageNo: 1,
+// 	pageSize: 20,
+// 	search: "",
+// 	approverStatus: [],
+// 	agentStatus: [],
+// 	filterType: 1,
+// 	sortBy: 1,
+// 	referenceId: "00000000-0000-0000-0000-000000000000",
+// 	referenceType: 0,
+// };
 
 function Travel({ referenceId, referenceType }) {
 	const [tableView, setTableView] = useState(false);

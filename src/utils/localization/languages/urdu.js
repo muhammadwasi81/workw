@@ -3,6 +3,8 @@ const urdu = {
 
   /*** add all shared labels like send, ok, cancel, etc ***/
   sharedLabels: {
+    Delete: "Delete",
+    Edit: "Edit",
     Hindi: "Hindi",
     theme: "خیالیہ",
     awardTo: "کو ایوارڈ",
@@ -304,6 +306,11 @@ const urdu = {
     Experience: "Experience",
   },
   administration: {
+    Default_Hiring_Criteria: "پہلے سے طے شدہ ملازمت کے معیار",
+    Complain_Category: "شکایت کا زمرہ",
+    Payroll_Group: "پے رول گروپ",
+    Business_Logo: "کاروبار کا لوگو",
+    Rebate_Category: "چھوٹ کی قسم",
     Business_Policy: "کاروباری پالیسی",
     AccessRole: "رسائی کا کردار",
     Grade: "گریڈ",

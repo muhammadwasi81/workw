@@ -13,11 +13,15 @@ const initialState = {
 const travelSlice = createSlice({
 	name: "travel",
 	initialState,
-	reducers: {},
+	reducers: {
+		resetTravelDetail(state, { payload }) {
+			state.travelDetail = null;
+		},
+	},
 	extraReducers: builder => {
 		builder
 			.addCase(addTravel.fulfilled, (state, { payload }) => {
-				// console.log("travel fullfilled slice");
+				state.travels.unshift(payload.data);
 				state.loader = false;
 				state.success = true;
 				state.isAdded = true;
@@ -51,4 +55,6 @@ const travelSlice = createSlice({
 			});
 	},
 });
+
+export const { resetTravelDetail } = travelSlice.actions;
 export default travelSlice.reducer;

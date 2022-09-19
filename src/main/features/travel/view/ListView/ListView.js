@@ -1,20 +1,35 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Skeleton } from "antd";
-import TravelDetailCard from "../UI/TravelDetailCard";
-import CardDetailView from "./CardDetailView";
+import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import { Drawer, Skeleton } from "antd";
+// import TravelDetailCard from "../UI/TravelDetailCard";
+// import CardDetailView from "./CardDetailView";
 import CardProfileTopView from "./CardProfileTopView";
 import Calender from "../../../../../content/svg/Calender.svg";
 import location from "../../../../../content/svg/location.svg";
-import { ROUTES } from "../../../../../utils/routes";
+// import { ROUTES } from "../../../../../utils/routes";
 
 import moment from "moment";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
+import TravelDetail from "../TravelDetail/TravelDetail";
+import { useDispatch } from "react-redux";
+import { resetTravelDetail } from "../../store/slice";
 
 function ListView(props) {
-	const navigate = useNavigate();
 	const { labels } = props;
+	const [visible, setVisible] = useState(false);
+	const [travelId, setTravelId] = useState("");
 
+	const dispatch = useDispatch();
+	const showDrawer = id => {
+		setTravelId(id);
+		setVisible(true);
+	};
+
+	const onClose = () => {
+		setVisible(false);
+		dispatch(resetTravelDetail());
+	};
+	// console.log("travel", props);
 	return (
 		<div className="gap-5 flex flex-col z-10 ">
 			{props.data
@@ -22,9 +37,10 @@ function ListView(props) {
 						<div
 							className="flex bg-white flex-col gap-2 rounded-xl cursor-pointer overflow-hidden hover:shadow-lg duration-300"
 							onClick={() => {
-								navigate(
-									`${ROUTES.TRAVEL.TREAVELDETAIL}${data.id}`
-								);
+								showDrawer(data.id);
+								// navigate(
+								// 	`${ROUTES.TRAVEL.TREAVELDETAIL}${data.id}`
+								// );
 							}}
 						>
 							<div className="p-3 sm:p-5">
@@ -147,6 +163,16 @@ function ListView(props) {
 						}}
 					/>
 				))}
+			<Drawer
+				title="Travel Detail"
+				placement="right"
+				onClose={onClose}
+				visible={visible}
+				width={"768px"}
+				destroyOnClose={true}
+			>
+				<TravelDetail travelId={travelId} />
+			</Drawer>
 		</div>
 	);
 }

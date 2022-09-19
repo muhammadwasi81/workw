@@ -45,12 +45,10 @@ export const List = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   white-space: nowrap;
-  height: min-content;
-  min-height: 700px;
-  margin: 0rem 0.5rem;
+  margin-right: 10px;
   background: white;
   border-radius: 4px;
-
+  margin-bottom: 10px;
   @media ${device.tablet} {
     & {
       height: min-content;
@@ -58,11 +56,12 @@ export const List = styled.div`
   }
 `;
 export const Item = styled.div`
+  background: ${({ active }) => (active ? "var(--currentThemeColor)" : "")};
+  color: ${({ active }) => (active ? "#fff" : "")};
   width: 100%;
   height: 40px;
   list-style-type: none;
   border-bottom: 1px solid rgba(29, 45, 58, 0.1);
-
   &:hover {
     background: rgba(0, 0, 0, 0.04);
   }
@@ -80,7 +79,7 @@ export const Link = styled.div`
   width: 100%;
   height: 100%;
   cursor: pointer;
-  color: var(--currentThemeColor);
+  ${"" /* color: var(--currentThemeColor); */}
   font-family: inherit;
   font-weight: ${(props) => (props.theme.Direction === "ltr" ? 700 : 500)};
 
@@ -89,7 +88,7 @@ export const Link = styled.div`
   &::before {
     content: "";
     height: 100%;
-    background: #365899;
+    background: var(--currentThemeColor);
     position: absolute;
     top: 0;
     left: 0;
@@ -102,7 +101,7 @@ export const Link = styled.div`
   }
   &.active,
   &:active {
-    background: #1b5669;
+    background: var(--currentThemeColor);
     border-radius: 0 4px 4px 0;
     color: white;
 
@@ -111,7 +110,7 @@ export const Link = styled.div`
     }
 
     &:hover {
-      color: #1b5669;
+      color: var(--currentThemeColor);
       color: white;
       & > svg {
         fill: white;

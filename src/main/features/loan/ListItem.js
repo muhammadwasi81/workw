@@ -1,59 +1,98 @@
 import { Image, Tag } from "antd";
 import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
 //import { rewardDictionaryList } from "../localization/index";
 //import { loanDictionaryList } from "./localization/index";
 //import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../sharedComponents/Tag/StatusTag";
+import RemarksApproval from "../../sharedComponents/AppComponents/Approvals/view";
 import moment from "moment";
 import {
   ItemContent,
   ItemHeader,
   SingleItem,
 } from "../../sharedComponents/Card/CardStyle";
+import { GetLoanById } from "./store/actions";
 import Avatar from "../../sharedComponents/Avatar/avatar";
+import { useEffect } from "react";
 
 function ListItem(props) {
+  const { onListItem = () => {} } = props;
   //const { userLanguage } = useContext(LanguageChangeContext);
   //const { Direction, rewardDictionary } = loanDictionaryList[userLanguage];
+  // console.log("props for list item", props.item);
+  const dispatch = useDispatch();
+  // const { designation, name, image } = props.item.user || [];
+  const {
+    description,
+    referenceNo,
+    approvers,
+    createDate,
+    userId,
+    user,
+    deductionPerMonth,
+    deadline,
+    status,
+    amount,
+  } = props.item || null;
 
   return (
     <>
-      <SingleItem>
-        <div
+      {/* <SingleItem onClick={() => props.onclick(userId)}> */}
+
+      <SingleItem
+        onClick={() => {
+          onListItem(props.item.id);
+        }}
+      >
+        {/* <div
           className="new"
           style={{ cursor: "pointer" }}
           id={props.id}
           onClick={() => {
             props.getLoanById(props.id);
           }}
-        ></div>
+        ></div> */}
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={""}
-              name={"Daniyal Khan"}
+              avatarSrc={
+                user.image ? user.image : "https://joeschmoe.io/api/v1/random"
+              }
+              // avatarSrc="https://joeschmoe.io/api/v1/random"
+              name={user.name ? user.name : "No username"}
+              // name="Test user"
               Subline={
                 <SublineDesigWithTime
-                  designation={"Default Designation"}
-                  time={moment().format("DD/MM/YYYY")}
+                  designation={user.designation ? user.designation : ""}
+                  // designation="software Engineer"
+                  time={moment(createDate).fromNow()} //date to be set
+                  // time={moment().fromNow()}
                 />
               }
             />
           </div>
           <div className="right">
-            <Tag className="IdTag">{"RT-786565"}</Tag>
-            <StatusTag status={1}></StatusTag>
+            <Tag className="IdTag">
+              {referenceNo ? referenceNo : ""}
+              {/* LOA-000005 */}
+            </Tag>
+            <StatusTag status={status ? status : 1}></StatusTag>
           </div>
         </ItemHeader>
         <ItemContent className="flex">
-          <div className="description w-96">
+          {/* <div className="description w-96">
             <p>
               {
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and "
               }
             </p>
+          </div> */}
+          <div className="description w-full pt-3 pb-5 h-[100px]">
+            <p> {description ? description : "No description"} </p>
+            {/* <p>no description</p> */}
           </div>
         </ItemContent>
         {/* <div className="flex justify-between">
@@ -92,79 +131,45 @@ function ListItem(props) {
             </div>
           </div>
         </div> */}
-
-        <div className="ListItemInner">
-          <div className="ItemDetails">
-            <div className="innerDiv">
-              <span className="!text-black font-extrabold smallHeading">
-                {"Deduction per month"}
-              </span>
-              <Tag className="IdTag !bg-transparent !text-left">
-                {"584.332"}
-              </Tag>
-            </div>
-            <div className="innerDiv">
-              <span className="!text-black font-extrabold smallHeading">
-                {"Deadline"}
-              </span>
-              {/* <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Members"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              /> */}
-              <Tag className="IdTag !bg-transparent">{"Sun, May, 2020"}</Tag>
-            </div>
-            <div className="innerDiv">
-              <span className="!text-black font-extrabold smallHeading">
-                {"Amount"}
-              </span>
-              {/* <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Approvers"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              /> */}
-              <Tag className="IdTag !bg-transparent">{"200,000"}</Tag>
+        <div className="cardSections">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Deduction per month</div>
+            <div className="cardSection__body">
+              {deductionPerMonth ? deductionPerMonth : ""}
+              {/* 100 */}
             </div>
           </div>
-        </div>
-
-        <div className="ListItemInner">
-          <div className="ItemDetails">
-            <div className="innerDiv">
-              {
-                <span className="text-black font-extrabold smallHeading">
-                  {/* {rewardDictionary.rewardTo} */}
-                  Avatar
-                </span>
-              }
-              {
-                // <Avatar
-                //   isAvatarGroup={true}
-                //   isTag={false}
-                //   heading={"Members"}
-                //   membersData={members}
-                //   text={"Danish"}
-                //   image={"https://joeschmoe.io/api/v1/random"}
-                // />
-              }
-            </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">
-                {/* {rewardDictionary.approvers} */}
-                Approvers
-              </span>
-              {/* <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"approvers"}
-                membersData={approvers ? approvers : []}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              /> */}
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Deadline</div>
+            <div className="cardSection__body">
+              {/* {moment(effectiveDate).format("Do MMM YY")} */}
+              {deadline
+                ? moment(deadline).format("ddd,MMM DD,YYYY")
+                : moment().format("ddd,MMM DD,YYYY")}
+              {/* {moment().format("dd,MM DD YYY")} */}
             </div>
           </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Amount</div>
+            <div className="cardSection__body"> {amount ? amount : ""}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Approvers</div>
+            <div className="cardSection__body">
+              {approvers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers ? approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* <RemarksApproval data={approvers && approvers} title="Approvers" /> */}
         </div>
       </SingleItem>
     </>

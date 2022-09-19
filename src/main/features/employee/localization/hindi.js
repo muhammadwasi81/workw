@@ -42,6 +42,7 @@ const hindi = {
       sortCode: "क्रमबद्ध कोड दर्ज करें",
     },
     EmployeeForm: {
+      UpdateBasicInfo: "Update BasicInfo",
       AddImage: "छवि जोड़ें",
       FirstName: "पहला नाम",
       LastName: "उपनाम",
@@ -72,6 +73,7 @@ const hindi = {
       EmpNo: "कर्मचारी संख्या",
     },
     EmergencyForm: {
+      UpdateEmergency: "Update Emergency",
       EmergencyInfo: "आपातकालीन जानकारी",
       Designation: "पद",
       Address: "पता",
@@ -82,6 +84,9 @@ const hindi = {
       AddEmergency: "अधिक आपातकाल जोड़ें",
     },
     EducationForm: {
+      BasicInfo: "Basic Info",
+      AddEducation: "Add Education",
+      UpdateEducation: "Update Education",
       EducationInfo: "Education Info",
       Degree: "डिग्री",
       Institute: "संस्था",
@@ -109,6 +114,7 @@ const hindi = {
       AddExperience: "अधिक अनुभव",
       EmploymentType: "रोजगार के प्रकार",
       City: "शहर",
+      UpdateExperience: "Update Experience",
     },
     UserForm: {
       UserRights: "प्रयोगकर्ता के अधिकार",
@@ -116,6 +122,7 @@ const hindi = {
       UserRole: "उपयोगकर्ता भूमिका",
     },
     BankForm: {
+      updateBank: "Update Bank",
       BankInfo: "बैंक जानकारी",
       BankName: "बैंक का नाम",
       AccountTitle: "खाते का शीर्षक",
@@ -133,7 +140,7 @@ const hindi = {
       email: "ईमेल",
       designation: "पद",
     },
-    submit: "प्रस्तुत करना",
+    AddEmployee: "Add Employee",
   },
 
   /*** Define language write side ***/

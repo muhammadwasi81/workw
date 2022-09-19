@@ -1,15 +1,7 @@
 import { ROUTES } from "../../../../utils/routes";
-
 import { FaBriefcase, FaUserLock } from "react-icons/fa";
-
 import { BsFillPersonCheckFill } from "react-icons/bs";
 import { HiCurrencyYen } from "react-icons/hi";
-// import {
-// 	IoAlertCircleOutline,
-// 	IoIosArrowDown,
-// 	IoPersonCircleSharp,
-// } from "react-icons/io";
-
 import { ImOffice } from "react-icons/im";
 
 import {
@@ -17,6 +9,12 @@ import {
   AiFillLike,
   AiFillDollarCircle,
   AiOutlineStar,
+  AiFillWarning,
+  AiFillShop,
+  AiOutlineFileText,
+  AiFillFileImage,
+  AiOutlineGroup,
+  AiOutlineShrink
 } from "react-icons/ai";
 import {
   RiMedal2Line,
@@ -33,16 +31,46 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.ADMINISTRATION,
   },
   {
-    IconName: <FaUserLock size={20} color={"var(--currentThemeColor)"} />,
+    IconName: <AiFillStar size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Grade",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.GRADE,
+  },
+  {
+    IconName: <AiFillFileImage size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Business_Logo",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.BUSINESS_LOGO,
+  },
+  {
+    IconName: <AiOutlineFileText size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Rebate_Category",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.REBATE_CATEGORY,
+  },
+  {
+    IconName: <AiOutlineGroup size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Payroll_Group",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.PAYROLL_GROUP,
+  },
+  {
+    IconName: <AiFillShop size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Business_Policy",
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.BUSINESS_POLICY,
   },
   {
-    IconName: <AiFillStar size={20} color={"var(--currentThemeColor)"} />,
-    displayName: "Grade",
+    IconName: <AiFillWarning size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Complain_Category",
     classObj: "button",
-    to: ROUTES.ADMINISTRATOR.GRADE,
+    to: ROUTES.ADMINISTRATOR.COMLAIN_CATEGORY,
+  },
+  {
+    IconName: <AiOutlineShrink size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Default_Hiring_Criteria",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.DEFAULT_HIRING_CRITERIA,
   },
   {
     IconName: <RiMedal2Line size={20} color={"var(--currentThemeColor)"} />,

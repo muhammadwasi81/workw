@@ -7,7 +7,7 @@ function Index() {
   return (
     <Routes>
       <Route path={`/`} element={<Expense />} />
-      <Route path={"*"} element={<BrokenPage />} />
+        <Route path={"*"} element={<BrokenPage />} />
     </Routes>
   );
 }

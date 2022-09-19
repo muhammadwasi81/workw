@@ -1,4 +1,4 @@
-import { Avatar, Button, Image, Tag } from "antd";
+import { Button, Image, Tag } from "antd";
 import React, { useContext } from "react";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
@@ -8,6 +8,7 @@ import RewardDefaultIcon from "../../../../../content/svg/menu/rewardIcon.svg";
 import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../../sharedComponents/Card/CardStyle";
 import { useDispatch } from "react-redux";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 
 function SalaryListItem(props) {
   const disptach = useDispatch();
@@ -22,27 +23,22 @@ function SalaryListItem(props) {
       type: 1,
       userTypeId: 2
     },
-    name = "Salary Title Here",
+    basicSalary,
+    details,
+    netSalary,
     description = "Salary Description here",
-    image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-    reason = "not found",
-    category = "Salary",
-    members = [],
     approvers = [{}],
     status = 1,
     referenceNo = "SAR-10001",
     createDate = moment(),
+    effectiveDate = moment(),
+    id
   } = props.item;
 
-  const handleCancel = (e, payload) => {
-    e.preventDefault()
-    e.stopPropagation();
-    console.log(e, payload, "HELLOO!!! E");
-  }
 
   return (
     <>
-      <SingleItem onClick={props.onClick}>
+      <SingleItem onClick={()=>props.onClick(id)}>
         <ItemHeader>
           <div className="left">
             <UserInfo
@@ -56,42 +52,37 @@ function SalaryListItem(props) {
             <StatusTag status={status}></StatusTag>
           </div>
         </ItemHeader>
-        <div className="description w-full pt-3 pb-5">
-          <p>{description}</p>
+        <div className="description w-full pt-3 pb-5 h-[100px]">
+          {description.length > 0 ?<p>{description}</p> :<p> No description </p>}
         </div>
 
-
-
-
-
-
         <div className="cardSections">
-
           <div className="cardSectionItem">
             <div className="cardSection__title">Salary For</div>
             <div className="cardSection__body">Syed Danish</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Effective Date</div>
-            <div className="cardSection__body">06-March-2020</div>
+            <div className="cardSection__body">{moment(effectiveDate).format("Do MMM YY")}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Basic Salary</div>
-            <div className="cardSection__body">45,0000</div>
-          </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">Allowances</div>
-            <div className="cardSection__body">45,0000</div>
+            <div className="cardSection__body">{basicSalary}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Net Salary</div>
-            <div className="cardSection__body">45,0000</div>
+            <div className="cardSection__body">{netSalary}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>
-            <div className="cardSection__body">Syed Danish</div>
+            <div className="cardSection__body">
+              <Avatar
+                isAvatarGroup={true}
+                heading={"approvers"}
+                membersData={approvers ? approvers : []}
+              />
+            </div>
           </div>
-
         </div>
 
       </SingleItem>

@@ -1,28 +1,22 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Row, Button, Skeleton } from "antd";
+import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Button, Skeleton, Drawer } from "antd";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-
-import { FilterFilled, UnorderedListOutlined, AppstoreFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
-import TableView from "./TableView";
-// import "./warning.css";
-import { dictionaryList } from "../../../../utils/localization/languages";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
+import { handleOpenComposer } from "../store/slice";
 
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -38,7 +32,7 @@ const Warning = (props) => {
 
   const dispatch = useDispatch();
 
-  const { warnings, loader, warningDetail } = useSelector((state) => state.warningSlice);
+  const { warnings, loader, warningDetail, drawerOpen } = useSelector((state) => state.warningSlice);
 
   const onClose = () => {
     setVisible(false);
@@ -57,12 +51,14 @@ const Warning = (props) => {
       <Header
         buttons={[
           {
-            buttonText: "Create Travel",
-            // onClick: () => setVisible(true),
+            buttonText: "Create Warning",
             render: (
-              <SideDrawer title={warningDictionary.createWarning} buttonText={warningDictionary.createWarning} isAccessDrawer={false}>
-                <Composer />
-              </SideDrawer>
+              <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                Create Warning
+              </Button>
+              // <SideDrawer title={warningDictionary.createWarning} buttonText={warningDictionary.createWarning} isAccessDrawer={false}>
+              //   <Composer />
+              // </SideDrawer>
             ),
           },
         ]}
@@ -135,6 +131,27 @@ const Warning = (props) => {
         )}
       </ContBody>
       {warningDetail && <DetailedView onClose={onClose} visible={visible} />}
+      <Drawer
+        title={
+          <h1
+            style={{
+              fontSize: "20px",
+              margin: 0,
+            }}
+          >
+            Create Reward
+          </h1>
+        }
+        width="768"
+        onClose={() => {
+          dispatch(handleOpenComposer(false))
+        }}
+        visible={drawerOpen}
+        destroyOnClose={true}
+        className="detailedViewComposer drawerSecondary"
+      >
+        <Composer />
+      </Drawer>
     </TabbableContainer>
   );
 };

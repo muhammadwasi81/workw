@@ -58,7 +58,7 @@ const DropableContainer = ({ children }) => {
             value: item.name.split(".")[0]
           }));
           setFileList(attachment);
-          // setIsOpenComposer(true)
+          // setIsOpenComposer(true) 22
           dispatch(handleOpenDocComposer(DocsComposerEnums.upload));
           dispatch(uploadFileByDrop(attachment));
           // this.setState({dragOver: false, openDocumentsModal: true, uploadedFiles: attachment})

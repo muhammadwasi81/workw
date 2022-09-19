@@ -1,20 +1,20 @@
 import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
-import TextInput from "../../../sharedComponents/Input/TextInput";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
-import { addPromotion, addWarning } from "../store/actions";
+import { addPromotion } from "../store/actions";
 import { promotionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { getAllWarningCategories } from "../../warning/warningCategory/store/actions";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
+import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getAllEmployeeShort } from "../../../../utils/Shared/store/actions";
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import { getAllGrades } from "../../grade/store/actions";
+import "./style.css"
 
 const initialState = {
 	id: "",
 	description: "",
-	categoryId: "",
-	imageId: "",
+	gradeId: "",
 	members: [
 		{
 			memberId: "",
@@ -40,46 +40,79 @@ const Composer = props => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
-	const { warningCategories } = useSelector(
-		state => state.warningCategorySlice
+	const [state, setState] = useState(initialState);
+	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+	const [value, setValue] = useState([]);
+	const [previousGrade, setPreviousGrade] = useState(null);
+
+	const { employeeShort } = useSelector(
+		state => state.sharedSlice
+	);
+
+	const { grades } = useSelector(
+		state => state.gradeSlice
 	);
 
 	useEffect(() => {
-		dispatch(getAllWarningCategories());
+		dispatch(getAllGrades());
 	}, []);
 
-	const handleImageUpload = data => {
-		setProfileImage(data);
+	const selectedData = (data, obj) => {
+		setValue(data);
+		handleMember(obj);
+		setPreviousGrade(obj[0].grade === '' ? "Not Available" : obj[0].grade)
+	};
+	const selectedDataApprover = (data, obj) => {
+		setValue(data);
+		handleMember(obj);
+	};
+	useEffect(() => {
+		fetchEmployees("", 0);
+	}, []);
+
+	const handleMember = val => {
+		setNewState({
+			...newState,
+			members: [...val],
+		});
 	};
 
-	const onFinish = values => {
-		dispatch(uploadImage(profileImage)).then(x => {
-			console.log(x, "FIRST ONE");
-			let photoId = x.payload.data[0].id;
-			console.log(values.approvers, "sadasdsada");
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployeeShort({ text, pgNo, pgSize: 20 }));
+	};
 
-			let approvers = values.approvers.map(approver => {
+	const [newState, setNewState] = useState({
+		members: [],
+		memberType: null,
+	});
+
+	useEffect(() => {
+		if (employeeShort.length > 0 && !isFirstTimeDataLoaded) {
+			setIsFirstTimeDataLoaded(true);
+			setFirstTimeEmpData(employeeShort);
+		}
+	}, [employeeShort]);
+
+	const onFinish = values => {
+		let approvers = [];
+		let currentGrade = employeeShort.filter(item => item.id === values.memberId)[0].grade
+		console.log(currentGrade, "HELLO NEW")
+		if (typeof values.approvers === 'string') {
+			approvers.push({
+				approverId: values.approvers
+			})
+		}
+		else {
+			approvers = values.approvers.map((approver) => {
 				return {
-					approverId: approver,
-					approverType: 0,
-					isDefault: true,
-					status: 0,
-					email: "",
+					approverId: approver
 				};
 			});
-			//   let members = values.members.map((member) => {
-			//     return {
-			//       memberId: member,
-			//       memberType: 0,
-			//       email: "",
-			//     };
-			//   });
-
-			let payload = { ...values, approvers };
-
-			dispatch(addPromotion(payload));
-			form.resetFields();
-		});
+		}
+		let payload = { ...values, approvers, previousGrade: currentGrade };
+		console.log(payload, "Payload")
+		dispatch(addPromotion(payload))
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -105,84 +138,143 @@ const Composer = props => {
 				autoComplete="off"
 			>
 				<Form.Item
-					name="members"
+					name="memberId"
 					label={promotionDictionary.promotionTo}
 					showSearch={true}
 					direction={Direction}
-					rules={[{ required: true }]}
+					style={{ marginBottom: "0px" }}
 				>
-					<NewCustomSelect
-						name="members"
-						label={"Promotion To"}
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={promotionDictionary.selectMember}
+						isObject={true}
+						formItem={false}
+						sliceName="employeeShort"
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										round={true}
+										width={"30px"}
+										height={"30px"}
+									/>
+									{opt.name}
+								</>
+							);
+						}}
+						name="memberId"
 						showSearch={true}
 						direction={Direction}
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={promotionDictionary.selectMember}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
 					/>
 				</Form.Item>
+				<div className="currentGrade">
+					<h5>Current Grade : </h5>
+					<h5>&nbsp;&nbsp;{previousGrade && previousGrade}</h5>
+				</div>
+			<Form.Item
+				label={"New Grade"}
+				name="gradeId"
+				rules={[
+					{
+						required: true,
+						message: "Please Enter Category",
+					},
+				]}
+			>
+				<Select
+					data={grades}
+					placeholder={"Grades"}
+					style={{
+						width: "100%",
+						borderRadius: "5px",
+					}}
+					size="large"
+				/>
+			</Form.Item>
 
-				<Form.Item
-					label={"New Grade"}
-					name="categoryId"
+			<Form.Item
+				name="approvers"
+				label={promotionDictionary.approvers}
+				showSearch={true}
+				direction={Direction}
+				style={{ marginBottom: "0px" }}
+			>
+				<CustomSelect
+					style={{ marginBottom: "0px" }}
+					data={firstTimeEmpData}
+					selectedData={selectedDataApprover}
+					canFetchNow={isFirstTimeDataLoaded}
+					fetchData={fetchEmployees}
+					placeholder={promotionDictionary.selectMember}
+					mode={"multiple"}
+					isObject={true}
+					loadDefaultData={false}
+					optionComponent={opt => {
+						return (
+							<>
+								<Avatar
+									name={opt.name}
+									src={opt.image}
+									round={true}
+									width={"30px"}
+									height={"30px"}
+								/>
+								{opt.name}
+							</>
+						);
+					}}
+					dataVal={value}
+					name="approvers"
+					showSearch={true}
+					direction={Direction}
 					rules={[
 						{
 							required: true,
-							message: "Please Enter Category",
+							message: "Please Select Approver",
 						},
 					]}
+				/>
+			</Form.Item>
+
+			<Form.Item
+				label={promotionDictionary.description}
+				name="description"
+				rules={[
+					{
+						required: true,
+						message: promotionDictionary.enterDescription,
+					},
+				]}>
+				<Input.TextArea placeholder={promotionDictionary.enterDescription} />
+			</Form.Item>
+
+			<Form.Item>
+				<Button
+					type="primary"
+					size="medium"
+					className="ThemeBtn"
+					block
+					htmlType="submit"
+					title={promotionDictionary.create}
 				>
-					<Select
-						// value={
-						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-						// }
-						data={warningCategories}
-						placeholder={promotionDictionary.category}
-						style={{
-							width: "100%",
-							borderRadius: "5px",
-						}}
-						size="large"
-					/>
-				</Form.Item>
-
-				<Form.Item
-					name="approvers"
-					label={promotionDictionary.approvers}
-					showSearch={true}
-					direction={Direction}
-					rules={[{ required: true }]}
-				>
-					<NewCustomSelect
-						name="approvers"
-						label={promotionDictionary.approvers}
-						showSearch={true}
-						direction={Direction}
-						mode="multiple"
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={promotionDictionary.selectApprovers}
-					/>
-				</Form.Item>
-
-				{/* <Form.Item area="true">
-          <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={promotionDictionary.upload} />
-        </Form.Item> */}
-
-				<Form.Item>
-					<Button
-						type="primary"
-						size="medium"
-						className="ThemeBtn"
-						block
-						htmlType="submit"
-						title={promotionDictionary.create}
-					>
-						{" "}
-						{promotionDictionary.create}{" "}
-					</Button>
-				</Form.Item>
-			</Form>
+					{" "}
+					{promotionDictionary.create}{" "}
+				</Button>
+			</Form.Item>
+		</Form>
 		</>
 	);
 };

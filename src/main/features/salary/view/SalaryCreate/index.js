@@ -10,7 +10,7 @@ const Index = () => {
         items={[
           {
             name: "Create Salary",
-            to: ROUTES.SALARY.ROOT
+            to: ROUTES.SALARY.ROOT + "/create"
           }
         ]}
       />

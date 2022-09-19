@@ -76,15 +76,15 @@ export const maritalStatusList = Object.freeze([
     name: "Divorced",
   },
   {
-    id: 4,
+    id: 5,
     name: "Widow",
   },
   {
-    id: 4,
+    id: 6,
     name: "Widower",
   },
   {
-    id: 4,
+    id: 7,
     name: "PreferNotToStay",
   },
 ]);

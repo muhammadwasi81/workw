@@ -52,7 +52,7 @@ function DetailedView(props) {
 	const handleCancel = (e, payload) => {
 		e.preventDefault();
 		e.stopPropagation();
-		dispatch(cancelComplain(payload));
+		// dispatch(cancelComplain(payload));
 	};
 
 	console.log(updatedStatus, "STATUS");
@@ -67,7 +67,7 @@ function DetailedView(props) {
 			width="768"
 			placement={
 				(Direction === "ltr" ? "left" : "right",
-				isTablet ? "bottom" : "right")
+					isTablet ? "bottom" : "right")
 			}
 			onClose={props.onClose}
 			visible={props.visible}
@@ -99,8 +99,8 @@ function DetailedView(props) {
 							></StatusTag>
 							{userId === creator.id ? (
 								status != Declined &&
-								status != Resend &&
-								status != Approved ? (
+									status != Resend &&
+									status != Approved ? (
 									<Button
 										className="ThemeBtn"
 										onClick={e => handleCancel(e, props.id)}
@@ -120,35 +120,25 @@ function DetailedView(props) {
 					<div className="w-full">
 						<p>{description}</p>
 					</div>
-					{/* <div className="attachmentBox">
-          <Image preview={false} width={60} src={image === "" ? DefaultAttachment : image} />
-        </div> */}
 				</ItemContent>
-				<div className="innerCard w-full description">
-					<div className="innerCard__header">
-						<div className="left">
-							Category :
-							<span className="" style={{ color: "#757D86" }}>
-								&nbsp;{category}
-							</span>
-						</div>
+				<div className="cardSections">
+					<div className="cardSectionItem">
+						<div className="cardSection__title">{"Category"}</div>
+						<div className="cardSection__body">{category}</div>
 					</div>
-				</div>
-				<div className="ListItemInner">
-					<div className="ItemDetails">
-						<div className="innerDiv">
-							<span className="text-black font-extrabold smallHeading">
-								{complainDictionary.complainOf}
-							</span>
-							{/* {props.members} */}
-							<Avatar
-								isAvatarGroup={true}
-								isTag={false}
-								heading={"Members"}
-								membersData={members}
-								text={"Danish"}
-								image={"https://joeschmoe.io/api/v1/random"}
-							/>
+					<div className="cardSectionItem">
+						<div className="cardSection__title">{complainDictionary.complainOf}</div>
+						<div className="cardSection__body">
+							{members &&
+								<Avatar
+									isAvatarGroup={true}
+									isTag={false}
+									heading={"Members"}
+									membersData={members ? members : []}
+									text={"Members"}
+									image={"https://joeschmoe.io/api/v1/random"}
+								/>
+							}
 						</div>
 					</div>
 				</div>

@@ -7,7 +7,7 @@ import AllowanceForm from "./form.js"
 import "./allowance.css"
 
 export default function Allowance() {
-  const initialState = { name: "", description: "", gradeId: "", allowanceType: "", allowanceUnit: "", isTaxable: "", value: ""   };
+  const initialState = { name: "", description: "", gradeId: "", allowanceType: 1, allowanceUnit: 1, isTaxable: true, value: ""   };
   const [allowance, setAllowance] = useState(initialState);
   const [clearButton, setClearButton] = useState(false)
 
@@ -19,6 +19,7 @@ export default function Allowance() {
   };
 
   const onSubmit = (e) => {
+    console.log(e, "FROM MAIN")
     if (!e.id) {
       dispatch(addAllowance(e));
       setAllowance(initialState);

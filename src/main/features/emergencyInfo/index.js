@@ -1,17 +1,10 @@
-import React, { useState } from 'react'
-import EmergencyForm from '../employee/view/emergencyForm';
-import * as S from "../employee/view/updateEmployee/styles/employee.style";
+import React from "react";
+import { useParams } from "react-router-dom";
+import EmergencyForm from "../employee/view/emergencyForm";
 
 function Index() {
-    const [emergencyInfo, setEmergencyInfo] = useState([]);
-    return (
-            <S.Container className='emergencyForm'>
-            <EmergencyForm
-                onEmergencyInfo={setEmergencyInfo}
-                emergencyInfo={emergencyInfo}
-            />
-            </S.Container>
-    )
+  const { id } = useParams();
+  return <EmergencyForm id={id} mode="edit" />;
 }
 
-export default Index
+export default Index;

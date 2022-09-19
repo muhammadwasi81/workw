@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
 
 function LeadTopBar({ handleView, topBar, handleSearch }) {
-	// const [filter, setFilter] = useState({
-	// 	filterType: 1,
-	// });
 	const [tableView, setTableView] = useState(false);
 	handleView(tableView);
 	return (

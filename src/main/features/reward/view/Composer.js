@@ -85,9 +85,6 @@ const Composer = props => {
 			setIsFirstTimeDataLoaded(true);
 			setFirstTimeEmpData(employees);
 		}
-		// return () => {
-		// 	dispatch(emptyEmployeesData());
-		// };
 	}, [employees]);
 
 	useEffect(() => {
@@ -102,32 +99,32 @@ const Composer = props => {
 		setProfileImage(data);
 	};
 
-	const onFinish = values => {
-		console.log(values, "VALUES");
-		let approvers = [];
-		let members = [];
-		if (typeof values.approvers === "string") {
-			approvers.push({
-				approverId: values.approvers,
-			});
-		} else {
-			approvers = values.approvers.map(approver => {
-				return {
-					approverId: approver,
-				};
-			});
-		}
-		if (typeof values.members === "string") {
-			members.push({
-				memberId: values.members,
-			});
-		} else {
-			members = values.members.map(memeber => {
-				return {
-					memberId: memeber,
-				};
-			});
-		}
+  const onFinish = (values) => {
+    let approvers = [];
+    let members = [];
+    if (typeof values.approvers === 'string') {
+      approvers.push({
+        approverId: values.approvers
+      })
+    }
+    else {
+      approvers = values.approvers.map((approver) => {
+        return {
+          approverId: approver
+        };
+      });
+    }
+    if (typeof values.members === 'string') {
+      members.push({
+        memberId: values.members
+      })
+    } else {
+      members = values.members.map((memeber) => {
+        return {
+          memberId: memeber
+        };
+      });
+    }
 
 		let image = {
 			id: STRINGS.DEFAULTS.guid,
@@ -143,59 +140,36 @@ const Composer = props => {
 		console.log("Failed:", errorInfo);
 	};
 
-	return (
-		<>
-			<Form
-				form={form}
-				name="addReward"
-				labelCol={{
-					span: 24,
-				}}
-				wrapperCol={{
-					span: 24,
-				}}
-				initialValues={{
-					remember: true,
-				}}
-				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
-				autoComplete="off"
-				// className={Direction === "ltr" ? "align-right" : ""}
-			>
-				<Form.Item
-					label={rewardDictionary.name}
-					name="name"
-					labelPosition="top"
-					rules={[
-						{
-							required: true,
-							message: rewardDictionary.pleaseEnterRewardName,
-						},
-					]}
-				>
-					<TextInput placeholder={rewardDictionary.enterRewardName} />
-				</Form.Item>
-
-				<Form.Item
-					label={rewardDictionary.category}
-					name="categoryId"
-					rules={[
-						{
-							required: true,
-							message: "Please Enter Category",
-						},
-					]}
-				>
-					<Select
-						data={rewardCategories}
-						placeholder={rewardDictionary.category}
-						style={{
-							width: "100%",
-							borderRadius: "5px",
-						}}
-						size="large"
-					/>
-				</Form.Item>
+  return (
+    <>
+      <Form
+        form={form}
+        name="addReward"
+        labelCol={{
+          span: 24,
+        }}
+        wrapperCol={{
+          span: 24,
+        }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+          label={rewardDictionary.name}
+          name="name"
+          labelPosition="top"
+          rules={[
+            {
+              required: true,
+              message: rewardDictionary.pleaseEnterRewardName,
+            },
+          ]}>
+          <TextInput placeholder={rewardDictionary.enterRewardName} />
+        </Form.Item>
 
 				<Form.Item
 					label={rewardDictionary.reason}

@@ -13,7 +13,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header";
 import { buttonsEnum } from "../utils/enum/enum";
 
-import MyTask from "./MyTask";
+import MyTaskList from "./MyTask";
 import { useDispatch } from "react-redux";
 import { getAllTask } from "../store/actions";
 import useSelection from "antd/lib/table/hooks/useSelection";
@@ -36,7 +36,10 @@ function Task() {
   const [filterType, setFilterType] = useState(2);
   const [tableView, setTableView] = useState(false);
   const dispatch = useDispatch();
-  const taskList = useSelector((state) => state.taskSlice.taskList);
+  const {
+    taskList: { list },
+    success,
+  } = useSelector((state) => state.taskSlice);
   useEffect(() => {
     dispatch(
       getAllTask({
@@ -58,6 +61,9 @@ function Task() {
       buttonText: taskDictionaryList.createTextBtn,
       render: (
         <SideDrawer
+          success={success}
+          isAccessDrawer={true}
+          openDrawer={success}
           children={<TaskComposer />}
           title={taskDictionaryList.createTextBtn}
           buttonText={taskDictionaryList.createTextBtn}
@@ -65,6 +71,7 @@ function Task() {
       ),
     },
   ];
+
   return (
     <TabbableContainer>
       <Header items={items} buttons={buttons} />
@@ -83,6 +90,10 @@ function Task() {
           {
             name: appHeader.Task.createdByMe,
             onClick: () => setFilterType(1),
+          },
+          {
+            name: appHeader.Task.teamTask,
+            onClick: () => setFilterType(3),
           },
         ]}
         segment={{
@@ -103,17 +114,10 @@ function Task() {
             <Table
               columns={tableColumn()}
               dragable={true}
-              // handleChange={handleChange}
-              // onPageChange={onPageChange}
-              // onRow={onRow}
-              data={taskList ? taskList : []}
-              // status={travelStatus}
-              // loadding={loader}
-              // success={success}
-              // onActionClick={onActionClick}
+              data={list ? list : []}
             />
           ) : (
-            <MyTask list={taskList ? taskList : []} />
+            <MyTaskList filterType={filterType} />
           )}
         </div>
       </ContBody>

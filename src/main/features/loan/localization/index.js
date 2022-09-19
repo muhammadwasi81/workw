@@ -4,7 +4,7 @@ import arabic from "./arabic";
 import hindi from "./hindi";
 import turkish from "./turkish";
 
-export const loanDictionaryList = { en, urdu, arabic, hindi, turkish };
+export const LoanDictionary = { en, urdu, arabic, hindi, turkish };
 
 export const languageOptions = {
   en: "English",

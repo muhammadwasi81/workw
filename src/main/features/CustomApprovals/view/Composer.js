@@ -1,16 +1,16 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Avatar } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
-import { getRewardCategory } from "../../../../utils/Shared/store/actions";
-import { addReward } from "../store/actions";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { customApprovalDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getAllCustomApprovalCategory } from "../../customApprovalCategory/store/actions";
+import { addCustomApproval } from "../store/actions";
+import { DEFAULT_GUID } from "../../../../utils/constants";
 
 const initialState = {
   id: "",
@@ -35,38 +35,76 @@ const Composer = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
-  const { rewardCategories } = useSelector((state) => state.sharedSlice);
-
+  const [file, setFile] = useState("");
   const [state, setState] = useState(initialState);
+  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [value, setValue] = useState([]);
 
+  const { customApprovalCategories } = useSelector((state) => state.customApprovalCategorySlice);
+
+  const employees = useSelector(state => state.sharedSlice.employees);
+
+  const selectedData = (data, obj) => {
+    setValue(data);
+    handleMember(obj);
+    // setMembers(obj);
+    // onChange(data, obj);
+  };
   useEffect(() => {
-    dispatch(getRewardCategory());
+    fetchEmployees("", 0);
   }, []);
 
-  const handleImageUpload = (data) => {
-    setProfileImage(data);
+  const handleMember = val => {
+    setNewState({
+      ...newState,
+      members: [...val],
+    });
   };
 
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
+
+  const [newState, setNewState] = useState({
+    members: [],
+    memberType: null,
+  });
+
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+    }
+  }, [employees]);
+
+  useEffect(() => {
+    dispatch(getAllCustomApprovalCategory());
+  }, []);
+
+  
+
   const onFinish = (values) => {
-    form.resetFields();
-
-    dispatch(uploadImage(profileImage)).then((x) => {
-      console.log(x, "FIRST ONE");
-      let photoId = x.payload.data[0].id;
-
-      let approvers = values.approvers.map((approver) => {
+    let approvers = [];
+    if (typeof values.approvers === 'string') {
+      approvers.push({
+        approverId: values.approvers
+      })
+    }
+    else {
+      approvers = values.approvers.map((approver) => {
         return {
-          approverId: approver,
-          approverType: 0,
-          isDefault: true,
-          status: 0,
-          email: "",
+          approverId: approver
         };
       });
+    }
 
-      let payload = { ...values, imageId: photoId, approvers };
-      // dispatch(addReward(payload));
-    });
+    let attachments = [{ id: DEFAULT_GUID, file: file }]
+    // let image = { id: STRINGS.DEFAULTS.guid, file: profileImage[0].originFileObj }
+    let payload = { ...values, approvers, attachments };
+    dispatch(addCustomApproval(payload));
+
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -77,7 +115,7 @@ const Composer = (props) => {
     <>
       <Form
         form={form}
-        name="addReward"
+        name="addCustomApproval"
         labelCol={{
           span: 24,
         }}
@@ -90,7 +128,6 @@ const Composer = (props) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        // className={Direction === "ltr" ? "align-right" : ""}
       >
         <Form.Item
           label={"Subject"}
@@ -115,10 +152,7 @@ const Composer = (props) => {
             },
           ]}>
           <Select
-            // value={
-            //   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-            // }
-            data={rewardCategories}
+            data={customApprovalCategories}
             placeholder={customApprovalDictionary.category}
             style={{
               width: "100%",
@@ -141,16 +175,41 @@ const Composer = (props) => {
           <TextInput placeholder={"Enter Amount"} />
         </Form.Item>
 
-        <Form.Item name="approvers" label={customApprovalDictionary.approvers} showSearch={true} direction={Direction} rules={[{ required: true }]}>
-          <NewCustomSelect
+        <Form.Item style={{ marginBottom: "0px" }} name="approvers" label={customApprovalDictionary.approvers} showSearch={true} direction={Direction} rules={[{ required: true }]}>
+          <CustomSelect
+            style={{ marginBottom: "0px" }}
+            data={firstTimeEmpData}
+            selectedData={selectedData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            placeholder={customApprovalDictionary.selectMember}
+            mode={"multiple"}
+            isObject={true}
+            loadDefaultData={false}
+            optionComponent={opt => {
+              return (
+                <>
+                  <Avatar
+                    name={opt.name}
+                    src={opt.image}
+                    round={true}
+                    width={"30px"}
+                    height={"30px"}
+                  />
+                  {opt.name}
+                </>
+              );
+            }}
+            dataVal={value}
             name="approvers"
-            label={customApprovalDictionary.approvers}
             showSearch={true}
             direction={Direction}
-            mode="multiple"
-            endPoint="api/Reference/GetAllUserReference"
-            requestType="get"
-            placeholder={customApprovalDictionary.approvers}
+            rules={[
+              {
+                required: true,
+                message: "Please Select Approver",
+              },
+            ]}
           />
         </Form.Item>
 
@@ -167,7 +226,11 @@ const Composer = (props) => {
         </Form.Item>
 
         <Form.Item area="true">
-          <SingleUpload handleImageUpload={handleImageUpload} img="Add Image" position="flex-start" uploadText={customApprovalDictionary.upload} />
+          <SingleUpload
+            handleImageUpload={(file) => {
+              setFile(file[0].originFileObj);
+            }}
+            img="Add Image" position="flex-start" uploadText={customApprovalDictionary.upload} />
         </Form.Item>
 
         <Form.Item>

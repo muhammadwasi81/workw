@@ -7,15 +7,17 @@ import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLin
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import customApprovalIcon from "../../../../content/svg/menu/newNavBarIcon/Custom Approval.svg";
 import { PieChartOutlined } from "@ant-design/icons";
-import moment from "moment";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import moment from "moment";
+import { Category } from "emoji-mart";
+import { AttachmentType } from "../../documents/constant";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, customApprovalDictionary } = customApprovalDictionaryList[userLanguage];
 
-  const { creator, description, image = customApprovalIcon, approvers = [], status, referenceNo, createDate } = props.item;
+  const { creator, description, image = customApprovalIcon, approvers = [], status, referenceNo, category, value, createDate, attachments } = props.item;
 
   return (
     <>
@@ -43,51 +45,47 @@ function ListItem(props) {
           <div className="description w-full">
             <p>{description}</p>
           </div>
-          <div className="attachmentBox">
-            <Image preview={false} width={50} src={image === "" ? customApprovalIcon : image} />
+          <div className="attachmentBox" style={{width: "75px"}}>
+            {
+              attachments.map((i) => {
+                return <img
+                  width={"100%"}
+                  src={i.path}
+                />
+              })
+            }
           </div>
         </ItemContent>
-        <div className="flex justify-between gap-4">
-          <div className="innerCard w-full">
-            <div className="innerCard__header">
-              <div className="left">
-                <span className="primaryTag">
-                  <PieChartOutlined />
-                  {"Subject"}
-                </span>
-                <span className="secondaryTag">{"In Process"}</span>
-              </div>
-              <div className="right">
-                <p>Rs. 10000</p>
-              </div>
-            </div>
-            <div className="innerCard__footer">
-              <div className="left">
-                <span>{"Date"}</span>
-                <span> Thu,Oct 14 ,2021</span>
-              </div>
-              <div className="right">
-                <span>{"Header"}:</span>
-                <span> CEO Office</span>
-              </div>
+        <div className="cardSections">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Category"}</div>
+            <div className="cardSection__body">{category}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Amount"}</div>
+            <div className="cardSection__body">{value}</div>
+          </div>
+          {/* <div className="cardSectionItem">
+          <div className="cardSection__title">{customApprovalDictionary.days}</div>
+          <div className="cardSection__body">{customApprovalDictionary.days}</div>
+        </div> */}
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{customApprovalDictionary.approvers}</div>
+            <div className="cardSection__body" >
+              {approvers &&
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Approvers"}
+                  membersData={approvers}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              }
             </div>
           </div>
         </div>
-        {/* <div className="ListItemInner">
-          <div className="ItemDetails">
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">{customApprovalDictionary.approvers}</span>
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Approvers"}
-                membersData={approvers ? approvers : []}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
-            </div>
-          </div>
-        </div> */}
+
       </SingleItem>
     </>
   );

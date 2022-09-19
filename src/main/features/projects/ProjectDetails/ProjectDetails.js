@@ -24,11 +24,14 @@ import { useState } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { projectsDictionaryList } from "../localization";
 import { resetProjectDetail } from "../store/slice";
+import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
+import WorkBoard from "../../workboard";
 
 function ProjectDetails() {
 	const params = useParams();
 	const dispatch = useDispatch();
 	const detail = useSelector(state => state.projectSlice.projectDetail);
+	const [features, setFeatures] = useState([]);
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { projectsDictionary, Direction } = projectsDictionaryList[
 		userLanguage
@@ -46,46 +49,32 @@ function ProjectDetails() {
 		};
 	}, []);
 
+	useEffect(() => {
+		let temp = detail?.features.map(feat => {
+			return {
+				...feat,
+				content: featuresComp[feat.featureId],
+			};
+		});
+		// console.log("temp features", temp);
+
+		setFeatures(temp);
+	}, [detail]);
+
+	// useEffect(() => {
+	// }, [features]);
+
 	const panes = [
 		{
-			title: `Discussion`,
-			content: <div>Discussion div</div>,
-			key: 0,
-		},
-		{
-			title: `Schedule`,
-			content: <div>Schedule div</div>,
-			key: 1,
-		},
-		{
-			title: `Workboard`,
-			content: <div>Workboard div</div>,
-			key: 2,
-		},
-		{
-			title: `Documents`,
-			content: <div>Documents div</div>,
-			key: 3,
-		},
-		{
-			title: `Task`,
-			content: <div>Task div</div>,
-			key: 4,
-		},
-		{
-			title: `Expenses`,
-			content: <div>Expenses div</div>,
-			key: 5,
-		},
-		{
 			title: `Travel`,
-			content: <Travel />,
-			key: 6,
-		},
-		{
-			title: `Approvals`,
-			content: <div>Approvals div</div>,
-			key: 7,
+			content: (
+				<Travel
+					referenceType={FeaturesEnum.Project}
+					referenceId={id}
+					backButton={false}
+				/>
+			),
+			key: 11,
 		},
 	];
 	const items = [
@@ -106,6 +95,24 @@ function ProjectDetails() {
 		},
 	];
 
+	const featuresComp = {
+		11: (
+			<Travel
+				referenceType={FeaturesEnum.Project}
+				referenceId={id}
+				backButton={false}
+			/>
+		),
+		// 10: <Schedule/>
+		7: (
+			<WorkBoard
+				referenceType={FeaturesEnum.Project}
+				referenceId={id}
+				backButton={false}
+			/>
+		),
+	};
+
 	return (
 		<>
 			<TabContainer>
@@ -115,7 +122,7 @@ function ProjectDetails() {
 						<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
 							<CoverImage image={detail?.image} />
 							<CoverDetail detail={detail} />
-							<Tab panes={detail?.features} />
+							<Tab panes={features} id={id} features={panes} />
 						</div>
 
 						<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
@@ -138,6 +145,7 @@ function ProjectDetails() {
 					buttonText={updateTextBtn}
 					detail={detail}
 					update={true}
+					id={id}
 				/>
 			</Drawer>
 		</>

@@ -15,6 +15,7 @@ import { addProject, updateProject } from "../store/actions";
 import { jsonToFormData } from "../../../../utils/base";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 
 const { RangePicker } = DatePicker;
 
@@ -41,6 +42,11 @@ const Composer = props => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
+	const [privacyId, setPrivacyId] = useState(1);
+
+	const onPrivacyChange = value => {
+		setPrivacyId(value);
+	};
 
 	const [state, setState] = useState(initialState);
 
@@ -60,11 +66,12 @@ const Composer = props => {
 			[name]: dateString,
 		});
 	};
-	const { detail, update } = props;
+	const { detail, update, id } = props;
 
 	const onFinish = () => {
 		const values = form.getFieldsValue(true);
 		// console.log("values", values);
+
 		let startDate = "";
 		let endDate = "";
 		if (values.startEndDate) {
@@ -77,7 +84,15 @@ const Composer = props => {
 				memberType: member.memberType,
 			};
 		});
-		let image = { file: profileImage, id: defaultUiid };
+		let image = {
+			file: profileImage,
+			id: defaultUiid,
+		};
+		// console.log("detail.imageId", detail.imageId);
+		// console.log("profile image", profileImage);
+		if (!profileImage) {
+			image.id = detail.imageId;
+		}
 		let objToSend = {
 			name: values.name,
 			description: values.description,
@@ -87,9 +102,19 @@ const Composer = props => {
 			members,
 			features: values.features,
 			image,
+			privacyId,
 		};
 		if (update) {
-			dispatch(updateProject(jsonToFormData(objToSend)));
+			dispatch(
+				updateProject(
+					jsonToFormData({
+						name: values.name,
+						description: values.description,
+						image,
+						id,
+					})
+				)
+			);
 			return;
 		}
 		dispatch(addProject(jsonToFormData(objToSend)));
@@ -120,7 +145,8 @@ const Composer = props => {
 				}, {}),
 			});
 			setMemberList([...detail.members]);
-			setProfileImage(detail.image);
+			setPrivacyId(detail.privacyId);
+			// setProfileImage(detail.image);
 		}
 	}, [detail]);
 
@@ -184,93 +210,120 @@ const Composer = props => {
 						className="!rounded"
 					/>
 				</Form.Item>
-
-				<Form.Item label={labels.projectDate} name="startEndDate">
-					<RangePicker
-						format={"DD/MM/YYYY"}
-						placeholder={[
-							placeholders.startDate,
-							placeholders.endDate,
-						]}
-						onChange={(value, dateString) => {
-							handleEndStartDate(value, dateString, "start_end");
-						}}
-						size="large"
-						className="!rounded"
-					/>
-				</Form.Item>
-
-				<Form.Item
-					name={"externals"}
-					label={labels.externals}
-					direction={Direction}
-					rules={[
-						{
-							validator: (_, value) => {
-								if (validateEmail(value[value.length - 1])) {
-									form.setFieldsValue({
-										externals: value,
-									});
-									return Promise.resolve();
-								} else {
-									message.error("Please add correct email.");
-									form.setFieldsValue({
-										externals: form
-											.getFieldValue("externals")
-											.slice(
-												0,
-												form.getFieldValue("externals")
-													.length - 1
-											),
-									});
-									return Promise.reject(
-										new Error("Please add correct email.")
+				{!update && (
+					<>
+						<Form.Item
+							label={labels.projectDate}
+							name="startEndDate"
+						>
+							<RangePicker
+								format={"DD/MM/YYYY"}
+								placeholder={[
+									placeholders.startDate,
+									placeholders.endDate,
+								]}
+								onChange={(value, dateString) => {
+									handleEndStartDate(
+										value,
+										dateString,
+										"start_end"
 									);
-								}
-							},
-						},
-					]}
-				>
-					<Select
-						mode="tags"
-						dropdownClassName="hidden"
-						placeholder="Please add external members"
-						size="large"
-					/>
-				</Form.Item>
+								}}
+								size="large"
+								className="!rounded"
+							/>
+						</Form.Item>
 
-				<MemberComposer
-					handleAdd={handelAddMember}
-					form={form}
-					placeholder={placeholders}
-					error={errors}
-				/>
+						<Form.Item
+							name={"externals"}
+							label={labels.externals}
+							direction={Direction}
+							rules={[
+								{
+									validator: (_, value) => {
+										if (
+											validateEmail(
+												value[value.length - 1]
+											)
+										) {
+											form.setFieldsValue({
+												externals: value,
+											});
+											return Promise.resolve();
+										} else {
+											message.error(
+												"Please add correct email."
+											);
+											form.setFieldsValue({
+												externals: form
+													.getFieldValue("externals")
+													.slice(
+														0,
+														form.getFieldValue(
+															"externals"
+														).length - 1
+													),
+											});
+											return Promise.reject(
+												new Error(
+													"Please add correct email."
+												)
+											);
+										}
+									},
+								},
+							]}
+						>
+							<Select
+								mode="tags"
+								dropdownClassName="hidden"
+								placeholder="Please add external members"
+								size="large"
+							/>
+						</Form.Item>
 
-				{memberList?.length > 0 ? (
-					<MemberListItem
-						data={memberList}
-						onRemove={(row, ind) => {
-							setMemberList(
-								memberList.filter((_, index) => index !== ind)
-							);
-						}}
-					/>
-				) : (
-					""
+						<MemberComposer
+							handleAdd={handelAddMember}
+							form={form}
+							placeholder={placeholders}
+							error={errors}
+						/>
+
+						{memberList?.length > 0 ? (
+							<MemberListItem
+								data={memberList}
+								onRemove={(row, ind) => {
+									setMemberList(
+										memberList.filter(
+											(_, index) => index !== ind
+										)
+									);
+								}}
+							/>
+						) : (
+							""
+						)}
+						<FeatureSelect features={features} form={form} />
+					</>
 				)}
-				<FeatureSelect features={features} form={form} />
-
 				<Form.Item>
-					<Button
-						// type="primary"
-						className="ThemeBtn"
-						block
-						size="large"
-						htmlType="submit"
-						loading={loading}
-					>
-						{props.buttonText}
-					</Button>
+					<div className="flex items-center gap-2">
+						<PrivacyOptions
+							privacyId={privacyId}
+							onPrivacyChange={onPrivacyChange}
+							labels={labels}
+						/>
+						<Button
+							// type="primary"
+							className="ThemeBtn"
+							block
+							size="large"
+							htmlType="submit"
+							loading={loading}
+						>
+							{props.buttonText}
+						</Button>
+					</div>
 				</Form.Item>
 			</Form>
 		</>

@@ -1,20 +1,25 @@
 import React from "react";
 import { Tabs } from "antd";
 import "./tab.css";
-import { useDispatch } from "react-redux";
-import { getAllFeed } from "../../features/feed/store/actions";
+// import { useDispatch } from "react-redux";
+// import { getAllFeed } from "../../features/feed/store/actions";
+import Travel from "../../features/travel/view/Travel";
 const { TabPane } = Tabs;
-const onChange = key => {
-	// console.log(key);
-};
 function Tab(props) {
 	// const dispatch = useDispatch();
 	// dispatch(getAllFeed());
-	const { panes } = props;
+	const { panes, id, features } = props;
+	// const onChange = key => {
+
+	// 	// console.log(key);
+	// };
+	// const features = {
+	// 	11: ,
+	// };
 	return (
 		<Tabs
 			// defaultActiveKey={"0"}
-			onChange={onChange}
+			// onChange={onChange}
 			className="custom_tab"
 			tabBarStyle={{
 				background: "white",
@@ -26,7 +31,7 @@ function Tab(props) {
 			dir={props.dir}
 		>
 			{panes?.map(pane => (
-				<TabPane tab={pane.featureName} key={pane.id}>
+				<TabPane tab={pane.featureName} key={pane.featureId}>
 					{pane.content}
 				</TabPane>
 			))}

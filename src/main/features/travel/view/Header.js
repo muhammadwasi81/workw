@@ -7,14 +7,14 @@ import { buttonsEnum } from "../enums/enums";
 import NewTravelComposer from "./TravelComposer/NewTravelComposer";
 
 function Header(props) {
-	const { label } = props;
+	const { label, backButton, route } = props;
 	// console.log("label", labels);
 	const [visible, setVisible] = useState(false);
 	const { success } = props;
 	const items = [
 		{
 			name: label.travels,
-			to: `${ROUTES.TRAVEL.DEFAULT}?f=trv`,
+			to: route ? route : `${ROUTES.TRAVEL.DEFAULT}?f=trv`,
 			renderButton: buttonsEnum.travel,
 		},
 	];
@@ -39,7 +39,9 @@ function Header(props) {
 			),
 		},
 	];
-	return <LayoutHeader items={items} buttons={buttons} />;
+	return (
+		<LayoutHeader items={items} buttons={buttons} backButton={backButton} />
+	);
 }
 
 export default Header;

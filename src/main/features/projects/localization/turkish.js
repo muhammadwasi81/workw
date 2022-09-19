@@ -15,6 +15,8 @@ const turkish = {
 			upload: "Yüklemek",
 			projectDate: "Proje Tarihi",
 			externals: "Hariciler",
+			public: "Public",
+			private: "Private",
 		},
 		placeholders: {
 			name: "İsim giriniz",

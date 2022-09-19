@@ -9,7 +9,7 @@ import { getAllWorkBoard } from "../store/action";
 import { tableColumn } from "./tableColumns";
 import WorkBoardCard from "./WorkBoardCard";
 
-function WorkBoardDashboard({ isTableView }) {
+function WorkBoardDashboard({ isTableView, referenceType, referenceId }) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const workboardsListData = useSelector(

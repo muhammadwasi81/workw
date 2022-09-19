@@ -14,6 +14,8 @@ const urdu = {
 			upload: "اپ لوڈ کریں",
 			projectDate: "پروجیکٹ کی تاریخ",
 			externals: "بیرونی",
+			public: "Public",
+			private: "Private",
 		},
 		placeholders: {
 			name: "نام درج کریں",

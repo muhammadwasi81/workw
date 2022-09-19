@@ -1,7 +1,8 @@
 import React from "react";
-import { InfoCircleOutlined } from "@ant-design/icons";
-import { Popover } from "antd";
+import { InfoCircleOutlined, LockOutlined } from "@ant-design/icons";
+import { Popover, Tooltip } from "antd";
 import { BiWorld } from "react-icons/bi";
+import { FaLock } from "react-icons/fa";
 import WhiteCard from "./WhiteCard";
 
 function CoverDetail({ detail }) {
@@ -13,11 +14,27 @@ function CoverDetail({ detail }) {
 						{detail?.name}
 					</span>
 					<span className="text-gray-500 text-sm font-bold flex items-center gap-1">
-						<BiWorld /> {detail?.description}
+						{detail?.privacyId === 1 ? (
+							<Popover
+								content={"Public Project"}
+								className="cursor-pointer"
+							>
+								<BiWorld />
+							</Popover>
+						) : (
+							<Popover
+								content={"Private Project"}
+								className="cursor-pointer"
+							>
+								<FaLock />
+							</Popover>
+						)}
+
+						{detail?.description}
 					</span>
 				</div>
 				<div className="text-black text-base font-bold flex items-center gap-2">
-					<Popover content={"Created by: Syed Danish Ali"}>
+					<Popover content={`Created by: ${detail?.creator.name}`}>
 						<InfoCircleOutlined className="cursor-pointer" />
 					</Popover>
 					<span>Created by: {detail?.creator.name}</span>

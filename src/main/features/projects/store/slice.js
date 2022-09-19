@@ -44,9 +44,8 @@ const projectSlice = createSlice({
 				state.loader = false;
 				state.success = true;
 			})
-			.addCase(updateProject.fulfilled, (state, action) => {
-				// state.projects = action.payload ? action.payload.data : [];
-				// console.log("update", action.payload);
+			.addCase(updateProject.fulfilled, (state, { payload }) => {
+				state.projectDetail = payload.data;
 				state.loader = false;
 				state.success = true;
 			});

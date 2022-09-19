@@ -14,6 +14,8 @@ const hindi = {
 			upload: "डालना",
 			projectDate: "परियोजना तिथि",
 			externals: "पैदा हुई कारण",
+			public: "Public",
+			private: "Private",
 		},
 		placeholders: {
 			name: "नाम दर्ज",

@@ -14,6 +14,8 @@ const en = {
 			upload: "Upload",
 			projectDate: "Project Date",
 			externals: "Externals",
+			public: "Public",
+			private: "Private",
 		},
 		placeholders: {
 			name: "Enter name",

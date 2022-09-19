@@ -33,7 +33,7 @@ import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 // 	referenceType: 0,
 // };
 
-function Travel({ referenceId, referenceType }) {
+function Travel({ referenceId, referenceType, backButton }) {
 	const [tableView, setTableView] = useState(false);
 	const [search, setSearch] = useState("");
 	const value = useDebounce(search, 500);
@@ -152,7 +152,11 @@ function Travel({ referenceId, referenceType }) {
 
 	return (
 		<TabContainer>
-			<Header label={TravelDictionaryList} success={isAdded} />
+			<Header
+				label={TravelDictionaryList}
+				success={isAdded}
+				backButton={backButton}
+			/>
 			<TopBar
 				onSearch={value => {
 					setSearch(value);

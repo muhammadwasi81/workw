@@ -23,6 +23,7 @@ import Composer from "../UI/Composer";
 import { useState } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { projectsDictionaryList } from "../localization";
+import { resetProjectDetail } from "../store/slice";
 
 function ProjectDetails() {
 	const params = useParams();
@@ -38,6 +39,12 @@ function ProjectDetails() {
 	useEffect(() => {
 		dispatch(getProjectById(id));
 	}, [id]);
+
+	useEffect(() => {
+		return () => {
+			dispatch(resetProjectDetail());
+		};
+	}, []);
 
 	const panes = [
 		{

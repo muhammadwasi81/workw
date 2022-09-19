@@ -21,17 +21,17 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import { TravelDictionary } from "../localization";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 
-const initialTableFilter = {
-	pageNo: 1,
-	pageSize: 20,
-	search: "",
-	approverStatus: [],
-	agentStatus: [],
-	filterType: 1,
-	sortBy: 1,
-	referenceId: "00000000-0000-0000-0000-000000000000",
-	referenceType: 0,
-};
+// const initialTableFilter = {
+// 	pageNo: 1,
+// 	pageSize: 20,
+// 	search: "",
+// 	approverStatus: [],
+// 	agentStatus: [],
+// 	filterType: 1,
+// 	sortBy: 1,
+// 	referenceId: "00000000-0000-0000-0000-000000000000",
+// 	referenceType: 0,
+// };
 
 function Travel({ referenceId, referenceType }) {
 	const [tableView, setTableView] = useState(false);
@@ -213,53 +213,3 @@ function Travel({ referenceId, referenceType }) {
 }
 
 export default Travel;
-
-// const columns = [
-// 	{
-// 		title: "Sort",
-// 		dataIndex: "sort",
-// 		drag: true,
-// 		width: 10,
-// 	},
-
-// 	{
-// 		title: "Reference No",
-// 		dataIndex: "referenceNo",
-// 		sort: true,
-// 		width: 100,
-// 	},
-// 	{
-// 		title: "Status",
-// 		dataIndex: "status",
-// 		sort: true,
-// 		tag: true,
-// 		width: 50,
-// 	},
-// 	{
-// 		title: "Subject",
-// 		dataIndex: "subject",
-// 		width: 200,
-// 	},
-// 	{
-// 		title: "Description",
-// 		dataIndex: "description",
-// 		width: 200,
-// 	},
-// 	{
-// 		title: "Agent Status",
-// 		dataIndex: "agentStatus",
-// 		width: 200,
-// 	},
-// 	{
-// 		title: "Actions",
-// 		key: "action",
-// 		action: true,
-// 		customAction: false,
-// 		actions: ["edit"],
-// 		key: "6",
-// 		width: 100,
-// 		render: (_, row) => {
-// 			return Edit(row);
-// 		},
-// 	},
-// ];

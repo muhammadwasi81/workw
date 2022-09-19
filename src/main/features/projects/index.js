@@ -91,8 +91,10 @@ const Projects = () => {
 								})}
 							</CardWrapper2>
 						)
+					) : loader ? (
+						"loading"
 					) : (
-						"Data not found"
+						"No Data Found"
 					)}
 				</ContBody>
 			</TabbableContainer>

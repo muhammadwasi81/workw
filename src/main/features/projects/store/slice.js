@@ -18,7 +18,11 @@ const initialState = {
 const projectSlice = createSlice({
 	name: "projects",
 	initialState,
-	reducers: {},
+	reducers: {
+		resetProjectDetail(state, { payload }) {
+			state.projectDetail = null;
+		},
+	},
 	extraReducers: builder => {
 		builder
 			.addCase(getAllProjects.fulfilled, (state, action) => {
@@ -42,7 +46,7 @@ const projectSlice = createSlice({
 			})
 			.addCase(updateProject.fulfilled, (state, action) => {
 				// state.projects = action.payload ? action.payload.data : [];
-				console.log("update", action.payload);
+				// console.log("update", action.payload);
 				state.loader = false;
 				state.success = true;
 			});
@@ -81,5 +85,5 @@ const projectSlice = createSlice({
 	},
 });
 
-export const {} = projectSlice.actions;
+export const { resetProjectDetail } = projectSlice.actions;
 export default projectSlice.reducer;

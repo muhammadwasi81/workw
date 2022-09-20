@@ -78,10 +78,10 @@
     max-height: 117px;
     overflow: scroll;
 }
-
-.fc-v-event {
+    
+/* .fc-v-event {
     background: transparent !important;
-}
+} */
 
 
 .eventDetail__header {
@@ -184,3 +184,7 @@
     background: #8bc34a;
     border-radius: 50%;
 }
+
+/* .dayGridMonth .event{
+
+} */

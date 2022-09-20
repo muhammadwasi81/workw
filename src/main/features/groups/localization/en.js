@@ -15,6 +15,8 @@ const en = {
 			desc: "Description",
 			upload: "Upload",
 			update: "Update",
+			public: "Public",
+			private: "Private",
 		},
 		placeHolders: {
 			namePh: "Enter name",
@@ -35,6 +37,16 @@ const en = {
 			expenses: "Expenses",
 			documents: "Documents",
 			members: "Members",
+		},
+		features: {
+			features: "Features",
+			newsFeed: "News Feed",
+			schedule: "Schedule",
+			workBoard: "Work Board",
+			document: "Document",
+			expenses: "Expenses",
+			task: "Task",
+			travel: "Travel",
 		},
 	},
 

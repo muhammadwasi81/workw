@@ -20,6 +20,7 @@ import { tableColumns } from "./TableColumns/Columns";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { TravelDictionary } from "../localization";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
+import { TravelReferenceTypeEnum } from "../../projects/enum/enums";
 
 // const initialTableFilter = {
 // 	pageNo: 1,
@@ -33,7 +34,11 @@ import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 // 	referenceType: 0,
 // };
 
-function Travel({ referenceId, referenceType, backButton }) {
+function Travel({
+	referenceType = TravelReferenceTypeEnum.General,
+	referenceId = defaultUiid,
+	backButton = true,
+}) {
 	const [tableView, setTableView] = useState(false);
 	const [search, setSearch] = useState("");
 	const value = useDebounce(search, 500);
@@ -140,8 +145,8 @@ function Travel({ referenceId, referenceType, backButton }) {
 				filterType,
 				approverStatus: [],
 				agentStatus: [],
-				referenceId: (referenceId = defaultUiid),
-				referenceType: (referenceType = 0),
+				referenceId,
+				referenceType,
 			})
 		);
 	}, [value, sort, page, pageNo, filterType]);
@@ -149,13 +154,15 @@ function Travel({ referenceId, referenceType, backButton }) {
 	// useEffect(() => {
 	// 	dispatch(getAllTravel(tableColumnFilter));
 	// }, [tableColumnFilter, dispatch]);
-
+	// console.log("asdfasdfasdf", referenceId, referenceType);
 	return (
 		<TabContainer>
 			<Header
 				label={TravelDictionaryList}
 				success={isAdded}
 				backButton={backButton}
+				referenceId={referenceId}
+				referenceType={referenceType}
 			/>
 			<TopBar
 				onSearch={value => {

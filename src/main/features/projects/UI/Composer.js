@@ -67,10 +67,9 @@ const Composer = props => {
 		});
 	};
 	const { detail, update, id } = props;
-
 	const onFinish = () => {
 		const values = form.getFieldsValue(true);
-		// console.log("values", values);
+		// console.log("values", profileImage);
 
 		let startDate = "";
 		let endDate = "";
@@ -80,7 +79,7 @@ const Composer = props => {
 		}
 		let members = memberList.map(member => {
 			return {
-				memberId: member.members.id,
+				memberId: member.member.id,
 				memberType: member.memberType,
 			};
 		});
@@ -88,10 +87,15 @@ const Composer = props => {
 			file: profileImage,
 			id: defaultUiid,
 		};
+		if (update) {
+			if (!JSON.stringify(profileImage).length) {
+				image.id = detail.imageId;
+			}
+		}
 		// console.log("detail.imageId", detail.imageId);
 		// console.log("profile image", profileImage);
 		if (!profileImage) {
-			image.id = detail.imageId;
+			image.id = detail ? detail.imageId : defaultUiid;
 		}
 		let objToSend = {
 			name: values.name,
@@ -303,9 +307,9 @@ const Composer = props => {
 						) : (
 							""
 						)}
-						<FeatureSelect features={features} form={form} />
 					</>
 				)}
+				<FeatureSelect features={features} form={form} />
 				<Form.Item>
 					<div className="flex items-center gap-2">
 						<PrivacyOptions

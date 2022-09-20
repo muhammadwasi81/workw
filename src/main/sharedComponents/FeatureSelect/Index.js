@@ -9,50 +9,9 @@ import documentIcon from "../../../content/NewContent/Documents/file/folder.svg"
 import expensesIcon from "../../../content/svg/menu/newNavBarIcon/Expenses.svg";
 
 import "./style.css";
+import { FeaturesEnum } from "../../../utils/Shared/enums/enums";
 
-function FeatureSelect({ features, form }) {
-	const FeaturesEnum = {
-		Feed: 1,
-		Mailbox: 2,
-		Messenger: 3,
-		Group: 4,
-		Project: 5,
-		Task: 6,
-		WorkBoard: 7,
-		Lead: 8,
-		Expense: 9,
-		Schedule: 10,
-		Travel: 11,
-		Document: 12,
-		ELearning: 13,
-		Asset: 14,
-		CustomApproval: 15,
-		Employee: 16,
-		Administration: 17,
-		Appraisal: 18,
-		Department: 19,
-		Leave: 20,
-		Loan: 21,
-		Holiday: 22,
-		Career: 23,
-		AudioCalling: 24,
-		VideoCalling: 25,
-		Attendance: 27,
-		Requisition: 28,
-		MileBoard: 29,
-		MileGrid: 30,
-		MilePad: 31,
-		Payroll: 32,
-		Rewards: 33,
-		Complains: 34,
-		Warnings: 35,
-		Bonus: 36,
-		Promotion: 37,
-		OrganizationalChart: 38,
-		MyTeam: 39,
-		Grade: 40,
-	};
-
+function FeatureSelect({ features, form, notIncludeFeature }) {
 	const data = [
 		{
 			name: features.newsFeed,
@@ -91,7 +50,7 @@ function FeatureSelect({ features, form }) {
 		},
 		{
 			name: features.expenses,
-			featureName: "Expenses",
+			featureName: "Expense",
 			icon: expensesIcon,
 			description: "loremipsum",
 			id: FeaturesEnum.Expense,
@@ -127,42 +86,44 @@ function FeatureSelect({ features, form }) {
 	return (
 		<>
 			<p className="!mb-[8px]">Features</p>
-			{data.map(item => {
-				return (
-					<div className="FeatureSelect flex justify-between bg-[#f4f4f4] mb-2">
-						<div>
-							<div className="flex">
-								<div className="imageBox border-r border-r-[#b3bed5]">
-									<img
-										src={item.icon}
-										className="h-[34px] w-[34px]"
-									/>
-								</div>
-								<div>
-									<h4>{item.name}</h4>
-									<p className="text-slate-500">
-										{item.description}
-									</p>
+			{data
+				.filter(data => data.id !== notIncludeFeature)
+				.map(item => {
+					return (
+						<div className="FeatureSelect flex justify-between bg-[#f4f4f4] mb-2">
+							<div>
+								<div className="flex">
+									<div className="imageBox border-r border-r-[#b3bed5]">
+										<img
+											src={item.icon}
+											className="h-[34px] w-[34px]"
+										/>
+									</div>
+									<div>
+										<h4>{item.name}</h4>
+										<p className="text-slate-500">
+											{item.description}
+										</p>
+									</div>
 								</div>
 							</div>
+							<div className="radioBtn">
+								<Form.Item
+									name={item.featureName}
+									valuePropName="checked"
+								>
+									<Switch
+										defaultChecked={false}
+										onChange={checked => {
+											onChange(item.id, checked);
+										}}
+										disabled={item.id === FeaturesEnum.Feed}
+									/>
+								</Form.Item>
+							</div>
 						</div>
-						<div className="radioBtn">
-							<Form.Item
-								name={item.featureName}
-								valuePropName="checked"
-							>
-								<Switch
-									defaultChecked={false}
-									onChange={checked => {
-										onChange(item.id, checked);
-									}}
-									disabled={item.id === FeaturesEnum.Feed}
-								/>
-							</Form.Item>
-						</div>
-					</div>
-				);
-			})}
+					);
+				})}
 		</>
 	);
 }

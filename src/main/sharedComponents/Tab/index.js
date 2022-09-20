@@ -1,21 +1,9 @@
 import React from "react";
 import { Tabs } from "antd";
 import "./tab.css";
-// import { useDispatch } from "react-redux";
-// import { getAllFeed } from "../../features/feed/store/actions";
-import Travel from "../../features/travel/view/Travel";
 const { TabPane } = Tabs;
 function Tab(props) {
-	// const dispatch = useDispatch();
-	// dispatch(getAllFeed());
 	const { panes, id, features } = props;
-	// const onChange = key => {
-
-	// 	// console.log(key);
-	// };
-	// const features = {
-	// 	11: ,
-	// };
 	return (
 		<Tabs
 			// defaultActiveKey={"0"}

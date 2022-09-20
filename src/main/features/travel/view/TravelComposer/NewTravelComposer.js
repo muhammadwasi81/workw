@@ -18,9 +18,14 @@ import {
 import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import NewTravelDetailCard from "../UI/NewTravelDetailCard";
+import { TravelReferenceTypeEnum } from "../../../projects/enum/enums";
 
 function NewTravelComposer(props) {
-	const { label } = props;
+	const {
+		label,
+		referenceType = TravelReferenceTypeEnum.General,
+		referenceId = defaultUiid,
+	} = props;
 	const { labels, placeHolder, travelBy } = label;
 	const [cities, setCities] = useState({
 		departure: null,
@@ -114,6 +119,8 @@ function NewTravelComposer(props) {
 					agents,
 					cities,
 					attachments,
+					referenceId,
+					referenceType,
 				})
 			)
 		);

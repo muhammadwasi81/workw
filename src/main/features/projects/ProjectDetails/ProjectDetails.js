@@ -7,7 +7,7 @@ import {
 import Tab from "../../../sharedComponents/Tab";
 import LayoutHeader from "../../../layout/header/index";
 import { EditOutlined } from "@ant-design/icons";
-import Travel from "../../travel/index";
+import Travel from "../../travel/view/Travel";
 import "../styles/projects.css";
 import Budget from "../UI/Budget";
 import CoverDetail from "../UI/CoverDetail";
@@ -26,6 +26,7 @@ import { projectsDictionaryList } from "../localization";
 import { resetProjectDetail } from "../store/slice";
 import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
 import WorkBoard from "../../workboard";
+import { TravelReferenceTypeEnum } from "../enum/enums";
 
 function ProjectDetails() {
 	const params = useParams();
@@ -56,20 +57,15 @@ function ProjectDetails() {
 				content: featuresComp[feat.featureId],
 			};
 		});
-		// console.log("temp features", temp);
-
 		setFeatures(temp);
 	}, [detail]);
-
-	// useEffect(() => {
-	// }, [features]);
 
 	const panes = [
 		{
 			title: `Travel`,
 			content: (
 				<Travel
-					referenceType={FeaturesEnum.Project}
+					referenceType={TravelReferenceTypeEnum.Project}
 					referenceId={id}
 					backButton={false}
 				/>
@@ -98,12 +94,11 @@ function ProjectDetails() {
 	const featuresComp = {
 		11: (
 			<Travel
-				referenceType={FeaturesEnum.Project}
+				referenceType={TravelReferenceTypeEnum.Project}
 				referenceId={id}
 				backButton={false}
 			/>
 		),
-		// 10: <Schedule/>
 		7: (
 			<WorkBoard
 				referenceType={FeaturesEnum.Project}

@@ -10,7 +10,7 @@ import { getNameForImage } from "../../../../utils/base";
 
 function MemberComposer(props) {
 	const { Option } = Select;
-	const { Direction, form } = props;
+	const { Direction, form, memberList } = props;
 	const dispatch = useDispatch();
 	const employees = useSelector(state => state.sharedSlice.employees);
 	// const [value, setValue] = useState([]);
@@ -29,17 +29,17 @@ function MemberComposer(props) {
 
 	const selectedData = (data, obj) => {
 		// setValue(data);
-		handleMember(obj);
+		handleMember(obj[0]);
 	};
 	const [newState, setNewState] = useState({
-		members: [],
+		member: {},
 		memberType: null,
 	});
 
 	const handleMember = val => {
 		setNewState({
 			...newState,
-			members: [...val],
+			member: val,
 		});
 	};
 
@@ -50,11 +50,11 @@ function MemberComposer(props) {
 		});
 	};
 	const handleAdd = () => {
-		if (newState.members.length > 0 && newState.memberType) {
+		if (newState.member && newState.memberType) {
 			props.handleAdd(newState);
 			form.setFieldsValue({ members: [], memberType: null });
 			setNewState({
-				members: [],
+				member: {},
 				memberType: null,
 			});
 			// setValue([]);
@@ -64,7 +64,7 @@ function MemberComposer(props) {
 	};
 
 	return (
-		<Form form={form}>
+		<>
 			<div className="flex justify-between gap-4">
 				<div className="w-full">
 					<MemberSelect
@@ -95,7 +95,7 @@ function MemberComposer(props) {
 						direction={Direction}
 						rules={[
 							{
-								required: true,
+								required: memberList ? false : true,
 								message: props.error.members,
 							},
 						]}
@@ -106,7 +106,7 @@ function MemberComposer(props) {
 						name="memberType"
 						rules={[
 							{
-								required: true,
+								required: memberList ? false : true,
 								message: props.error.type,
 							},
 						]}
@@ -140,7 +140,7 @@ function MemberComposer(props) {
 					/>
 				</div>
 			</div>
-		</Form>
+		</>
 	);
 }
 

@@ -131,7 +131,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/groups/index")),
 		},
 		{
-			path: `${ROUTES.GROUP.DETAIL}`,
+			path: `${ROUTES.GROUP.DEFAULT}/:id`,
 			component: lazy(() =>
 				import("../main/features/groups/GroupDetails/GroupDetails")
 			),

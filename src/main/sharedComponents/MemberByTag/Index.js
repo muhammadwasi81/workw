@@ -12,7 +12,7 @@ const itemMemberType = {
 	3: "Sub Head Of Department",
 };
 const MemberList = props => {
-	console.log("props.data", props.data);
+	// console.log("props.data", props.data);
 	return (
 		<List>
 			<VirtualList

@@ -1,12 +1,13 @@
-import { Avatar, Button, DatePicker, Form, Input, Select } from "antd";
+import { Avatar, Button, DatePicker, Form, Input, List, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { getAllJobDescriptionService } from "../../../jobDescription/services/service";
 import { getAllDepartmentService } from "../../../departments/services/service";
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { getNameForImage } from "../../../../../utils/base";
+import { createGuid, getNameForImage } from "../../../../../utils/base";
 import { useSelector } from "react-redux";
+import { PlusOutlined } from "@ant-design/icons";
 import {
   getAllEmployees,
   getCities,
@@ -18,6 +19,7 @@ import {
   JobShiftTypeEnum,
   JobTypeEnum,
 } from "../enums/enums";
+import { getAllDefaultHiringCriteriaService } from "../../defaultHiringCriteria/services/service";
 
 const Composer = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ const Composer = () => {
   const [department, setDepartment] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [reviewCriteria, setReviewCriteria] = useState([]);
   const { cities } = useSelector((state) => state.sharedSlice);
   const {
     sharedSlice: { employees },
@@ -41,8 +44,27 @@ const Composer = () => {
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
+  const getReviewCriteria = async () => {
+    const { responseCode, data } = await getAllDefaultHiringCriteriaService();
+    if (responseCode === 1001) setReviewCriteria(data);
+  };
   const fetchCityData = (text, pgNo) => {
     dispatch(getCities({ textData: text, page: pgNo }));
+  };
+  const handleAddCriteria = () => {
+    const value = form.getFieldValue("reviewCriteria");
+    const newObj = {
+      id: createGuid(),
+      question: value,
+      remove: true,
+    };
+    setReviewCriteria((preValue) => [...preValue, newObj]);
+    form.setFieldValue("reviewCriteria", "");
+  };
+  const handleDeleteCriteria = (id) => {
+    let reviewCriteriaArr = [...reviewCriteria];
+    reviewCriteriaArr = reviewCriteriaArr.filter((item) => item.id !== id);
+    setReviewCriteria(reviewCriteriaArr);
   };
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
@@ -56,6 +78,7 @@ const Composer = () => {
     fetchEmployees("", 0);
     getDesigantion();
     getDepartment();
+    getReviewCriteria();
   }, []);
 
   const onFinish = (values) => {
@@ -489,6 +512,47 @@ const Composer = () => {
             placeholder="Select End Date"
           />
         </Form.Item>
+        <div className="flex items-end gap-2">
+          <Form.Item
+            label={"Review Criteria"}
+            className="w-full"
+            name="reviewCriteria"
+          >
+            <Input placeholder={"Enter Review Criteria"} size="large" />
+          </Form.Item>
+          <Button
+            icon={<PlusOutlined />}
+            title="Add"
+            className="ThemeBtn mb-2 flex"
+            onClick={handleAddCriteria}
+          ></Button>
+        </div>
+        <List
+          className="!mb-5"
+          bordered={true}
+          size="small"
+          itemLayout="horizontal"
+          dataSource={reviewCriteria}
+          renderItem={(item) => (
+            <List.Item>
+              <List.Item.Meta
+                title={item.question}
+                description={
+                  item?.remove ? (
+                    <p
+                      onClick={() => handleDeleteCriteria(item.id)}
+                      className="text-amber-800"
+                    >
+                      Delete
+                    </p>
+                  ) : (
+                    ""
+                  )
+                }
+              />
+            </List.Item>
+          )}
+        />
 
         <Form.Item area="true" label="Attachment">
           <SingleUpload

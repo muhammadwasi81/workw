@@ -119,7 +119,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/projects/index")),
 		},
 		{
-			path: `${ROUTES.PROJECT.DETAIL}`,
+			path: `${ROUTES.PROJECT.DEFAULT}/:id`,
 			component: lazy(() =>
 				import(
 					"../main/features/projects/ProjectDetails/ProjectDetails"
@@ -131,7 +131,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/groups/index")),
 		},
 		{
-			path: `${ROUTES.GROUP.DETAIL}`,
+			path: `${ROUTES.GROUP.DEFAULT}/:id`,
 			component: lazy(() =>
 				import("../main/features/groups/GroupDetails/GroupDetails")
 			),
@@ -214,6 +214,14 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.DEPARTMENTS.DETAIL}`,
+			component: lazy(() =>
+				import(
+					"../main/features/departments/DepartmentDetails/DeptartmentDetails"
+				)
+			),
+		},
+		{
 			path: `${ROUTES.CAREER.DEFAULT}`,
 			component: lazy(() => import("../main/features/careers/view/")),
 		},
@@ -251,9 +259,7 @@ export const routes = {
 		},
 		{
 			path: `${ROUTES.SALARY.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/salary/view/index")
-			),
+			component: lazy(() => import("../main/features/salary/view/index")),
 		},
 		{
 			path: `${ROUTES.PAYROLL.DEFAULT}`,

@@ -2,9 +2,11 @@ import React from "react";
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import Layout from "../../../../layout/header/index";
 import Composer from "../../UI/Composer";
+import { useSelector } from "react-redux";
 
 function Header(props) {
 	const { createTextBtn } = props;
+	const success = useSelector(state => state.projectSlice.success);
 	return (
 		<Layout
 			buttons={[
@@ -14,9 +16,10 @@ function Header(props) {
 						<SideDrawer
 							title={createTextBtn}
 							buttonText={createTextBtn}
-							isAccessDrawer={false}
+							isAccessDrawer={true}
+							success={success}
 						>
-							<Composer />
+							<Composer buttonText={createTextBtn} />
 						</SideDrawer>
 					),
 				},

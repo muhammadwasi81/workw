@@ -55,7 +55,7 @@ const Groups = props => {
 		);
 	}, []);
 	const handleClickNavigation = id => {
-		navigate(`${ROUTES.GROUP.DETAIL}`);
+		navigate(`${ROUTES.GROUP.DEFAULT}/${id}`);
 	};
 
 	return (

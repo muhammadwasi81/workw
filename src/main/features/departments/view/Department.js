@@ -166,9 +166,9 @@ const Department = (props) => {
             </CardWrapper2>
           )}
         </ContBody>
-        {departmentDetail && (
+        {/* {departmentDetail && (
           <DetailedView onClose={onClose} visible={visible} />
-        )}
+        )} */}
       </TabbableContainer>
     </>
   );

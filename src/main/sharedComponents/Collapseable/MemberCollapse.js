@@ -9,7 +9,7 @@ const { Panel } = Collapse;
 
 function MemberCollapse({ handleAdd, data = [], ghost = true }) {
 	const onChange = key => {
-		console.log(key);
+		// console.log(key);
 	};
 	// const data = [
 	// 	{
@@ -60,8 +60,8 @@ function MemberCollapse({ handleAdd, data = [], ghost = true }) {
 								<List.Item.Meta
 									avatar={
 										<Avatar
-											name={item.name}
-											src={item.image}
+											name={item.member.name}
+											src={item.member.image}
 											round={true}
 											width={"30px"}
 											height={"30px"}
@@ -70,13 +70,13 @@ function MemberCollapse({ handleAdd, data = [], ghost = true }) {
 									}
 									title={
 										<span className=" text-black font-bold">
-											{item.name}
+											{item?.member?.name}
 										</span>
 									}
 									description={
 										<span className="text-gray-500 text-xs ">
-											{item.designation
-												? item.designation
+											{item.member.designation
+												? item.member.designation
 												: "No designation"}
 										</span>
 									}

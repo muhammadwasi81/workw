@@ -15,6 +15,8 @@ const urdu = {
 			name: "نام",
 			desc: "تفصیل",
 			upload: "اپ لوڈ کریں",
+			public: "Public",
+			private: "Private",
 		},
 		placeHolders: {
 			namePh: "نام درج کریں",
@@ -35,6 +37,16 @@ const urdu = {
 			expenses: "اخراجات",
 			documents: "دستاویزات",
 			members: "ممبران",
+		},
+		features: {
+			features: "Features",
+			newsFeed: "News Feed",
+			schedule: "Schedule",
+			workBoard: "Work Board",
+			document: "Document",
+			expenses: "Expenses",
+			task: "Task",
+			travel: "Travel",
 		},
 	},
 	/*** Define language write side ***/

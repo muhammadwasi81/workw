@@ -14,6 +14,8 @@ import {
   ItemHeader,
   SingleItem,
 } from "../../../sharedComponents/Card/CardStyle";
+import { ROUTES } from "../../../../utils/routes";
+import { useNavigate } from "react-router-dom";
 import departmentDefaultImage from "../../../../content/NewContent/department/department.svg";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import {
@@ -38,7 +40,7 @@ function ListItem(props) {
     members = [],
     approvers,
   } = props.item;
-
+  const navigate = useNavigate();
   return (
     <>
       <Card
@@ -48,6 +50,13 @@ function ListItem(props) {
         }
         actions={[]}
         hoverable
+        onClick={(e) => {
+          navigate(`${ROUTES.DEPARTMENTS.DETAIL}`, {
+            state: {
+              data: props.item,
+            },
+          });
+        }}
       >
         <Meta title={name} description={description} />
         <div className="approversBox">

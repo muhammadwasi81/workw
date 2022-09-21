@@ -196,10 +196,14 @@
     padding: 0 !important;
 }
 
+.ql-editor{
+    white-space: normal !important;
+}
+
 .fc-v-event {
-    border: 1px solid #D9D9D9 !important;
+    border: 1px solid var(--currentThemeColor) !important;
     overflow: hidden;
-    background-color: #ccc;
+    background-color: var(--currentThemeColor);
 }
 
 .fc-event-main .event {
@@ -210,7 +214,7 @@
 
 .site-calendar {
     width: 300px;
-
+    left: 33%;
     border-radius: 2px;
     position: absolute;
     top: 42px;
@@ -230,4 +234,13 @@
     position: relative;
     height: 100%;
 
+}
+
+.schedulerCalender .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr{
+    display: inline-flex !important;
+}
+
+.schedulerCalender .fc-toolbar-chunk>div{
+    display: inline-flex !important;
+    gap: 10px !important;
 }

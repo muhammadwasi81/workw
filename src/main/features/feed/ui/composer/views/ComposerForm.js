@@ -11,7 +11,7 @@ import { getAllUser, onFeedCreateSubmitAction } from "../../../store/actions";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { FeedDictionary } from "../../../localization";
 
-export default function ComposerForm() {
+export default function ComposerForm({ referenceType, referenceId }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { composer } = FeedDictionary[userLanguage];
   const { Post } = composer;
@@ -34,7 +34,7 @@ export default function ComposerForm() {
           className="post-form"
           type="submit"
           onClick={() => {
-            dispatch(onFeedCreateSubmitAction());
+            dispatch(onFeedCreateSubmitAction({ referenceType, referenceId }));
           }}
         >
           {Post}

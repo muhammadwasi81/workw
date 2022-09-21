@@ -22,7 +22,11 @@ function getPollOptions({ type, poll: { options } }) {
   }));
 }
 
-const SavePostRequestDto = (createPostDomainEntity) => {
+const SavePostRequestDto = (
+  createPostDomainEntity,
+  referenceType,
+  referenceId
+) => {
   const { privacyType, type, attachments } = createPostDomainEntity;
   const { title, mentions } = getTitleAndMentions(createPostDomainEntity);
   const tags = getTags(createPostDomainEntity);
@@ -31,8 +35,8 @@ const SavePostRequestDto = (createPostDomainEntity) => {
   return {
     id: DEFAULT_GUID,
     parentId: DEFAULT_GUID,
-    referenceType: PostReferenceType.MAIN_FEED,
-    referenceId: DEFAULT_GUID,
+    referenceType,
+    referenceId,
     privacyId: privacyType,
     type,
     title,

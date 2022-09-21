@@ -14,7 +14,7 @@ import { DEFAULT_GUID } from "../../../../utils/constants";
 
 export const onFeedCreateSubmitAction = createAsyncThunk(
   "feedSlice/onFeedCreateSubmit",
-  async (_, { getState, rejectWithValue }) => {
+  async ({ referenceType, referenceId }, { getState, rejectWithValue }) => {
     const {
       feedSlice: { postCompose },
     } = getState();
@@ -26,7 +26,11 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
       ? ValidatePollPost(postCompose)
       : ValidateDefaultPost(postCompose);
     if (!validation.valid) return rejectWithValue(validation.validationResult);
-    const requestDto = SavePostRequestDto(postCompose);
+    const requestDto = SavePostRequestDto(
+      postCompose,
+      referenceType,
+      referenceId
+    );
     console.log(postCompose);
     const response = await saveCreatePost(requestDto);
 

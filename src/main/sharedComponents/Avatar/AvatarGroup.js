@@ -27,7 +27,7 @@ function AvatarGroup(props) {
 						placement="top"
 					>
 						<Avatar
-							className="bg-neutral-100 cursor-pointer"
+							className="cursor-pointer !bg-black"
 							src={
 								members[props.nestedObjProperty] !== null &&
 								members[props.nestedObjProperty].image

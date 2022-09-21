@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-// import TravelComposer from "./TravelComposer/TravelComposer";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import { buttonsEnum } from "../enums/enums";
 import NewTravelComposer from "./TravelComposer/NewTravelComposer";
 
 function Header(props) {
-	const { label } = props;
-	// console.log("label", labels);
+	const { label, backButton, route, referenceId, referenceType } = props;
 	const [visible, setVisible] = useState(false);
 	const { success } = props;
 	const items = [
 		{
 			name: label.travels,
-			to: `${ROUTES.TRAVEL.DEFAULT}?f=trv`,
+			to: route ? route : `${ROUTES.TRAVEL.DEFAULT}?f=trv`,
 			renderButton: buttonsEnum.travel,
 		},
 	];
@@ -25,8 +23,11 @@ function Header(props) {
 			render: (
 				<SideDrawer
 					children={
-						// <TravelComposer label={label} />
-						<NewTravelComposer label={label} />
+						<NewTravelComposer
+							label={label}
+							referenceId={referenceId}
+							referenceType={referenceType}
+						/>
 					}
 					title={label.labels.createTravel}
 					buttonText={label.createTextBtn}
@@ -39,7 +40,9 @@ function Header(props) {
 			),
 		},
 	];
-	return <LayoutHeader items={items} buttons={buttons} />;
+	return (
+		<LayoutHeader items={items} buttons={buttons} backButton={backButton} />
+	);
 }
 
 export default Header;

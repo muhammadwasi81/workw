@@ -12,7 +12,7 @@ export const getAllProjectsService = data => {
 };
 
 export const getProjectByIdService = id => {
-	return MasterConfig.get(`${API_PREFIX}GetProjectById&id=${id}`)
+	return MasterConfig.get(`${API_PREFIX}GetProjectById?id=${id}`)
 		.then(res => {
 			return res.data;
 		})
@@ -22,7 +22,7 @@ export const getProjectByIdService = id => {
 };
 
 export const updateProjectService = data => {
-	return MasterConfig.get(`${API_PREFIX}UpdateProject`, data)
+	return MasterConfig.put(`${API_PREFIX}UpdateProject`, data)
 		.then(res => {
 			return res.data;
 		})

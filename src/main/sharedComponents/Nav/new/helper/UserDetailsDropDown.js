@@ -67,7 +67,7 @@ function UserDetailsDropDown({ id, isToggle }) {
 		<div className={classes}>
 			<ul className="list">
 				<li className="list__item">
-					<NavLink to={`${ROUTES.USER.DEFAULT}${id}`}>
+					<NavLink to={`${ROUTES.USER.LINK}${id}`}>
 						<img src={userIcon} alt="userIcon" />
 						<p>{Profile}</p>
 					</NavLink>

@@ -1,6 +1,7 @@
 const turkish = {
 	projectsDictionary: {
 		createTextBtn: "Proje Oluştur",
+		updateTextBtn: "Update Project",
 		topBar: {
 			search: "Arama",
 			filter: "Filtre",
@@ -14,6 +15,8 @@ const turkish = {
 			upload: "Yüklemek",
 			projectDate: "Proje Tarihi",
 			externals: "Hariciler",
+			public: "Public",
+			private: "Private",
 		},
 		placeholders: {
 			name: "İsim giriniz",

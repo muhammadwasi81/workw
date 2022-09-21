@@ -1,35 +1,35 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message, Select, Switch } from "antd";
 import React, { useEffect, useState, useContext } from "react";
-import TextInput from "../../../sharedComponents/Input/TextInput";
 import { useDispatch } from "react-redux";
 import { getRewardCategory } from "../../../../utils/Shared/store/actions";
-import { addDepartment } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { projectsDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
-import { STRINGS } from "../../../../utils/base";
 import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
 import { DatePicker } from "antd";
+import { validateEmail } from "../../../../utils/Shared/helper/validateEmail";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { addProject, updateProject } from "../store/actions";
+import { jsonToFormData } from "../../../../utils/base";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 
 const { RangePicker } = DatePicker;
 
 const initialState = {
-	id: "",
 	name: "",
 	description: "",
-	imageId: "",
+	imageId: defaultUiid,
+	image: "",
 	members: [
 		{
 			memberId: "",
 			memberType: 1,
 		},
 	],
-	hodId: "",
-	parentId: "",
 };
 
 const Composer = props => {
@@ -38,29 +38,22 @@ const Composer = props => {
 		userLanguage
 	];
 	const { labels, placeholders, features, errors } = projectsDictionary;
-
+	const loading = useSelector(state => state.projectSlice.loader);
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
+	const [privacyId, setPrivacyId] = useState(1);
+
+	const onPrivacyChange = value => {
+		setPrivacyId(value);
+	};
 
 	const [state, setState] = useState(initialState);
 
 	const [memberList, setMemberList] = useState([]);
 
-	const onChange = value => {
-		console.log(`selected ${value}`);
-	};
-
-	const onSearch = value => {
-		console.log("search:", value);
-	};
-
-	useEffect(() => {
-		dispatch(getRewardCategory());
-	}, []);
-
 	const handleImageUpload = data => {
-		setProfileImage(data);
+		setProfileImage(data[0].originFileObj);
 	};
 
 	const handelAddMember = data => {
@@ -73,27 +66,104 @@ const Composer = props => {
 			[name]: dateString,
 		});
 	};
+	const { detail, update, id } = props;
+	const onFinish = () => {
+		const values = form.getFieldsValue(true);
+		// console.log("values", profileImage);
 
-	const onFinish = values => {
-		console.log("values", form.getFieldsValue(true));
-		// form.resetFields();
+		let startDate = "";
+		let endDate = "";
+		if (values.startEndDate) {
+			startDate = values.startEndDate[0].format();
+			endDate = values.startEndDate[1].format();
+		}
+		let members = memberList.map(member => {
+			return {
+				memberId: member.member.id,
+				memberType: member.memberType,
+			};
+		});
+		let image = {
+			file: profileImage,
+			id: defaultUiid,
+		};
+		if (update) {
+			if (!JSON.stringify(profileImage).length) {
+				image.id = detail.imageId;
+			}
+		}
+		// console.log("detail.imageId", detail.imageId);
+		// console.log("profile image", profileImage);
+		if (!profileImage) {
+			image.id = detail ? detail.imageId : defaultUiid;
+		}
+		let objToSend = {
+			name: values.name,
+			description: values.description,
+			startDate,
+			endDate,
+			externals: values.externals,
+			members,
+			features: values.features,
+			image,
+			privacyId,
+		};
+		if (update) {
+			dispatch(
+				updateProject(
+					jsonToFormData({
+						name: values.name,
+						description: values.description,
+						image,
+						id,
+					})
+				)
+			);
+			return;
+		}
+		dispatch(addProject(jsonToFormData(objToSend)));
 	};
 
 	const onFinishFailed = errorInfo => {
-		// console.log("Failed:", errorInfo);
+		console.log("Failed:", errorInfo);
 	};
+
+	useEffect(() => {
+		if (update) {
+			const featureValues = detail.features.map(item => ({
+				[item.featureName]: true,
+			}));
+			form.setFieldsValue({
+				features: detail.features.map(item => {
+					return { featureId: item.featureId };
+				}),
+				name: detail.name,
+				description: detail.description,
+				startEndDate: [
+					moment(detail.startDate),
+					moment(detail.endDate),
+				],
+				externals: detail.externals,
+				...featureValues.reduce(function(result, current) {
+					return Object.assign(result, current);
+				}, {}),
+			});
+			setMemberList([...detail.members]);
+			setPrivacyId(detail.privacyId);
+			// setProfileImage(detail.image);
+		}
+	}, [detail]);
 
 	return (
 		<>
 			<Form
 				form={form}
-				initialValues={{ features: [{ featureId: 1 }] }}
+				initialValues={{ Feed: true, features: [{ featureId: 1 }] }}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				dir={Direction}
 				layout={"vertical"}
 				className={`${Direction}`}
-				// className={Direction === "ltr" ? "align-right" : ""}
 			>
 				<div className="flex justify-between gap-4">
 					<div className="w-full">
@@ -108,16 +178,20 @@ const Composer = props => {
 								},
 							]}
 						>
-							<Input placeholder={placeholders.name} />
+							<Input
+								placeholder={placeholders.name}
+								size="large"
+								className="!rounded"
+							/>
 						</Form.Item>
 					</div>
 					<div className="flex gap-4">
 						<Form.Item area="true" style={{ marginBottom: 0 }}>
 							<SingleUpload
 								handleImageUpload={handleImageUpload}
-								img="Add Image"
 								position="flex-start"
 								uploadText={"Upload"}
+								url={detail?.image ? detail.image : ""}
 							/>
 						</Form.Item>
 					</div>
@@ -134,74 +208,126 @@ const Composer = props => {
 						},
 					]}
 				>
-					<Input.TextArea placeholder={placeholders.desc} />
-				</Form.Item>
-
-				<Form.Item label={labels.projectDate} name="startEndDate">
-					<RangePicker
-						format={"DD/MM/YYYY"}
-						placeholder={[
-							placeholders.startDate,
-							placeholders.endDate,
-						]}
-						onChange={(value, dateString) => {
-							handleEndStartDate(value, dateString, "start_end");
-						}}
+					<Input.TextArea
+						placeholder={placeholders.desc}
+						rows={4}
+						className="!rounded"
 					/>
 				</Form.Item>
+				{!update && (
+					<>
+						<Form.Item
+							label={labels.projectDate}
+							name="startEndDate"
+						>
+							<RangePicker
+								format={"DD/MM/YYYY"}
+								placeholder={[
+									placeholders.startDate,
+									placeholders.endDate,
+								]}
+								onChange={(value, dateString) => {
+									handleEndStartDate(
+										value,
+										dateString,
+										"start_end"
+									);
+								}}
+								size="large"
+								className="!rounded"
+							/>
+						</Form.Item>
 
-				<Form.Item
-					name={"members"}
-					label={labels.externals}
-					showSearch={true}
-					direction={Direction}
-					rules={[
-						{
-							// required: true,
-							message: errors.members,
-						},
-					]}
-				>
-					<NewCustomSelect
-						name={"members"}
-						label={labels.externals}
-						showSearch={true}
-						direction={Direction}
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={placeholders.externals}
-					/>
-				</Form.Item>
+						<Form.Item
+							name={"externals"}
+							label={labels.externals}
+							direction={Direction}
+							rules={[
+								{
+									validator: (_, value) => {
+										if (
+											validateEmail(
+												value[value.length - 1]
+											)
+										) {
+											form.setFieldsValue({
+												externals: value,
+											});
+											return Promise.resolve();
+										} else {
+											message.error(
+												"Please add correct email."
+											);
+											form.setFieldsValue({
+												externals: form
+													.getFieldValue("externals")
+													.slice(
+														0,
+														form.getFieldValue(
+															"externals"
+														).length - 1
+													),
+											});
+											return Promise.reject(
+												new Error(
+													"Please add correct email."
+												)
+											);
+										}
+									},
+								},
+							]}
+						>
+							<Select
+								mode="tags"
+								dropdownClassName="hidden"
+								placeholder="Please add external members"
+								size="large"
+							/>
+						</Form.Item>
 
-				<MemberComposer handleAdd={handelAddMember} />
+						<MemberComposer
+							handleAdd={handelAddMember}
+							form={form}
+							placeholder={placeholders}
+							error={errors}
+						/>
 
-				{memberList?.length > 0 ? (
-					<MemberListItem
-						data={memberList}
-						onRemove={(row, ind) => {
-							setMemberList(
-								memberList.filter((_, index) => index !== ind)
-							);
-						}}
-					/>
-				) : (
-					""
+						{memberList?.length > 0 ? (
+							<MemberListItem
+								data={memberList}
+								onRemove={(row, ind) => {
+									setMemberList(
+										memberList.filter(
+											(_, index) => index !== ind
+										)
+									);
+								}}
+							/>
+						) : (
+							""
+						)}
+					</>
 				)}
-				<div>
-					Feature
-					<FeatureSelect features={features} form={form} />
-				</div>
-
+				<FeatureSelect features={features} form={form} />
 				<Form.Item>
-					<Button
-						type="primary"
-						className="ThemeBtn"
-						block
-						size="large"
-						htmlType="submit"
-					>
-						Create Project
-					</Button>
+					<div className="flex items-center gap-2">
+						<PrivacyOptions
+							privacyId={privacyId}
+							onPrivacyChange={onPrivacyChange}
+							labels={labels}
+						/>
+						<Button
+							// type="primary"
+							className="ThemeBtn"
+							block
+							size="large"
+							htmlType="submit"
+							loading={loading}
+						>
+							{props.buttonText}
+						</Button>
+					</div>
 				</Form.Item>
 			</Form>
 		</>

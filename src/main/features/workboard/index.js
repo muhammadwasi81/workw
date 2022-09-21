@@ -9,7 +9,7 @@ import { WorkBoardDictionary } from "./localization";
 import Header from "./UI/Header";
 import WorkBoardTopBar from "./UI/WorkBoardTopBar";
 
-function WorkBoard() {
+function WorkBoard({ referenceType, referenceId }) {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { WorkBoardDictionaryList, Direction } = WorkBoardDictionary[
 		userLanguage
@@ -28,7 +28,11 @@ function WorkBoard() {
 					topBar={topBar}
 				/>
 				<ContBody className="!block">
-					<WorkBoardDashboard isTableView={isTableView} />
+					<WorkBoardDashboard
+						isTableView={isTableView}
+						referenceType={referenceType}
+						referenceId={referenceId}
+					/>
 				</ContBody>
 			</TabbableContainer>
 		</>

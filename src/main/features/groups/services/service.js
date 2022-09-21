@@ -20,3 +20,23 @@ export const addGroupService = data => {
 			return error;
 		});
 };
+
+export const getGroupByIdService = id => {
+	return MasterConfig.get(`${API_PREFIX}GetGroupById?id=${id}`)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};
+
+export const updateGroupService = data => {
+	return MasterConfig.put(`${API_PREFIX}UpdateGroup`, data)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};

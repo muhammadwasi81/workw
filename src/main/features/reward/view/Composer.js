@@ -7,7 +7,7 @@ import {
 	getAllEmployees,
 	getRewardCategory,
 } from "../../../../utils/Shared/store/actions";
-import { addReward } from "../store/actions";
+import { addReward, getAllRewards } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -52,6 +52,7 @@ const Composer = props => {
 	const [value, setValue] = useState([]);
 
 	const { rewardCategories } = useSelector(state => state.sharedSlice);
+	const { success } = useSelector(state => state.rewardSlice);
 	const employees = useSelector(state => state.sharedSlice.employees);
 
 	const selectedData = (data, obj) => {
@@ -62,6 +63,10 @@ const Composer = props => {
 	};
 	useEffect(() => {
 		fetchEmployees("", 0);
+	}, []);
+
+	useEffect(() => {
+		dispatch(getRewardCategory());
 	}, []);
 
 	const handleMember = val => {
@@ -99,77 +104,106 @@ const Composer = props => {
 		setProfileImage(data);
 	};
 
-  const onFinish = (values) => {
-    let approvers = [];
-    let members = [];
-    if (typeof values.approvers === 'string') {
-      approvers.push({
-        approverId: values.approvers
-      })
-    }
-    else {
-      approvers = values.approvers.map((approver) => {
-        return {
-          approverId: approver
-        };
-      });
-    }
-    if (typeof values.members === 'string') {
-      members.push({
-        memberId: values.members
-      })
-    } else {
-      members = values.members.map((memeber) => {
-        return {
-          memberId: memeber
-        };
-      });
-    }
+	const onFinish = (values) => {
+		let approvers = [];
+		let members = [];
+		if (typeof values.approvers === 'string') {
+			approvers.push({
+				approverId: values.approvers
+			})
+		}
+		else {
+			approvers = values.approvers.map((approver) => {
+				return {
+					approverId: approver
+				};
+			});
+		}
+		if (typeof values.members === 'string') {
+			members.push({
+				memberId: values.members
+			})
+		} else {
+			members = values.members.map((memeber) => {
+				return {
+					memberId: memeber
+				};
+			});
+		}
 
 		let image = {
 			id: STRINGS.DEFAULTS.guid,
-			file: profileImage[0].originFileObj,
+			file: profileImage && profileImage[0]?.originFileObj,
 		};
-		let payload = { ...values, approvers, members, image };
-		dispatch(addReward(payload));
 
-		form.resetFields();
+		if (Object.keys(image).length > 0) {
+			let payload = { ...values, approvers, members, image };
+			dispatch(addReward(payload));	
+		} else {
+			let payload = { ...values, approvers, members };
+			dispatch(addReward(payload));	
+		}
 	};
+	useEffect(() => {
+		if (success) {
+		  form.resetFields();
+		}
+	  }, [success]);
 
 	const onFinishFailed = errorInfo => {
 		console.log("Failed:", errorInfo);
 	};
 
-  return (
-    <>
-      <Form
-        form={form}
-        name="addReward"
-        labelCol={{
-          span: 24,
-        }}
-        wrapperCol={{
-          span: 24,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          label={rewardDictionary.name}
-          name="name"
-          labelPosition="top"
-          rules={[
-            {
-              required: true,
-              message: rewardDictionary.pleaseEnterRewardName,
-            },
-          ]}>
-          <TextInput placeholder={rewardDictionary.enterRewardName} />
-        </Form.Item>
+	return (
+		<>
+			<Form
+				form={form}
+				name="addReward"
+				labelCol={{
+					span: 24,
+				}}
+				wrapperCol={{
+					span: 24,
+				}}
+				initialValues={{
+					remember: true,
+				}}
+				onFinish={onFinish}
+				onFinishFailed={onFinishFailed}
+				autoComplete="off"
+			>
+				<Form.Item
+					label={"Reward Category"}
+					name="categoryId"
+					rules={[
+						{
+							required: true,
+							message: "Please Select Category",
+						},
+					]}
+				>
+					<Select
+						data={rewardCategories}
+						placeholder={"Select Category"}
+						style={{
+							width: "100%",
+							borderRadius: "5px",
+						}}
+						size="large"
+					/>
+				</Form.Item>
+				<Form.Item
+					label={rewardDictionary.name}
+					name="name"
+					labelPosition="top"
+					rules={[
+						{
+							required: true,
+							message: rewardDictionary.pleaseEnterRewardName,
+						},
+					]}>
+					<TextInput placeholder={rewardDictionary.enterRewardName} />
+				</Form.Item>
 
 				<Form.Item
 					label={rewardDictionary.reason}

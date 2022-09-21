@@ -387,6 +387,8 @@ export const ROUTES = {
     BUSINESS_LOGO: `businessLogo`,
     REBATE_CATEGORY: `rebateCategory`,
     DEFAULT_HIRING_CRITERIA: `defaultHiringCriteria`,
+    SUBSIDIARY_OFFICE: `subsidiaryOffice`,
+    SUBSIDIARY: `subsidiary`,
     BUSINESS_POLICY: `businessPolicy`,
     COMLAIN_CATEGORY: `complainCategory`,
     PAYROLL_GROUP: `payrollGroup`,

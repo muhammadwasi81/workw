@@ -8,6 +8,7 @@ import CreateVoucherOptions from './components/createVoucherOptions';
 import { addPayroll, getCalculatedPayroll } from '../../store/actions';
 import moment from 'moment';
 import CreateEntryTable from './components/createEntryTable';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePayrollVoucher = () => {
   const initialState = {
@@ -23,6 +24,7 @@ const CreatePayrollVoucher = () => {
   let [state, setState] = useState(initialState);
   let totalAmount = payrollCalculatedList && payrollCalculatedList.reduce((a, b) => a + (b.isChecked ? b.netSalary : 0), 0);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCalculatedPayroll({
@@ -30,12 +32,16 @@ const CreatePayrollVoucher = () => {
       year: state.year
     }))
   }, [state.month, state.year]);
+  useEffect(() => {
+    if (success)
+      navigate("/payroll")
+  }, [success])
   const createPayload = () => {
     let payload = {
       ...state,
       total: totalAmount,
       details: payrollCalculatedList.filter(item => item.isChecked).map((item) => ({ ...item, month: 1, year: 1 })),
-      approvers:state.approvers.map((item)=>({approverId:item.id}))
+      approvers: state.approvers.map((item) => ({ approverId: item.id }))
     };
     return payload;
   }
@@ -44,7 +50,6 @@ const CreatePayrollVoucher = () => {
     let payload = createPayload();
     dispatch(addPayroll(payload));
   }
-  console.log(state, "State")
   return (
     <div className='createEntryTable' >
       <CreateVoucherOptions data={state} handleChange={(value) => setState(value)} />

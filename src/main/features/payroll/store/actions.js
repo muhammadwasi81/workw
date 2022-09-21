@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 import { addPayrollService, getAllPayrollService, getCalculatedPayrollService } from "../services/service";
 
 export const getCalculatedPayroll = createAsyncThunk(
@@ -62,6 +63,11 @@ export const addPayroll = createAsyncThunk(
         });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
+        dispatch(openNotification({
+          message: "Payroll Create Successfully",
+          type: "success",
+          duration: 2
+        }))
         return response.data;
       default:
         return;

@@ -24,7 +24,6 @@ function SideDrawer({
   const isTablet = useMediaQuery({ maxWidth: 650 });
   const dispatch = useDispatch();
 
-  console.log(props, "props in side drawer");
   const showDrawer = () => {
     if (props.isAccessDrawer) {
       props.form.resetFields();

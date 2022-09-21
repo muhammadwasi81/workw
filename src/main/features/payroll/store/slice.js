@@ -31,7 +31,6 @@ export const payrollSlice = createSlice({
       builder
          .addCase(getCalculatedPayroll.fulfilled, (state, { payload }) => {
             state.loader = false;
-            state.success = true;
             let calculatedSalaries = payload.map((item) => ({
                ...item,
                netSalary: calculateNetSalary(item),
@@ -46,7 +45,6 @@ export const payrollSlice = createSlice({
          })
          .addCase(getAllPayroll.fulfilled, (state, { payload }) => {
             state.loader = false;
-            state.success = true;
             state.payrollList = payload;
          }) 
          .addMatcher(

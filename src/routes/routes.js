@@ -214,6 +214,14 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.DEPARTMENTS.DETAIL}`,
+			component: lazy(() =>
+				import(
+					"../main/features/departments/DepartmentDetails/DeptartmentDetails"
+				)
+			),
+		},
+		{
 			path: `${ROUTES.CAREER.DEFAULT}`,
 			component: lazy(() => import("../main/features/careers/view/")),
 		},

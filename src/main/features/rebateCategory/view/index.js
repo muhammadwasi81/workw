@@ -4,6 +4,7 @@ import { AdminContainer } from "../../../../components/HrMenu/Administration/Sty
 import { addRebateCategory, getAllRebateCategories, removeRebateCategory, updateRebateCategory } from "../store/actions";
 import RebateCategoryTable from "./table.js";
 import RebateCategoryForm from "./form"
+import { message } from "antd";
 
 export default function RebateCategory() {
   const initialState = { name: "", maxPercentage: "", maxAmount: "", rebateType: ""  };
@@ -19,6 +20,9 @@ export default function RebateCategory() {
   };
 
   const onSubmit = (e) => {
+    if (e.name === "" || e.description === "") {
+      message.error("Please fill required fields")
+    }
     if (!e.id) {
       dispatch(addRebateCategory(e));
       setRebateCategories(initialState);

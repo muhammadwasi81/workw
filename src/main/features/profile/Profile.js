@@ -7,44 +7,25 @@ import Tab from "../../sharedComponents/Tab";
 import CoverImage from "../projects/UI/CoverImage";
 import ProfileCoverDetail from "./ProfileCoverDetail";
 import ProjectCover from "../../../content/png/project_cover_img.png";
+import ProfilePanel from "./view/ProfilePanel";
+import { useParams } from "react-router-dom";
+import { ROUTES } from "../../../utils/routes";
+import "./styles/profileStyle.css";
 
 function Profile() {
+	const param = useParams();
+	const { id } = param;
+
 	const panes = [
 		{
-			title: `Information`,
+			featureName: `Feed`,
 			content: <div>Information div</div>,
-			key: 0,
+			featureId: ROUTES.USER.DEFAULT + id,
 		},
 		{
-			title: `Posts`,
-			content: <div>Posts div</div>,
-			key: 1,
-		},
-
-		{
-			title: `Apraisals`,
-			content: <div>Apraisals div</div>,
-			key: 2,
-		},
-		{
-			title: `Salary`,
-			content: <div>Salary div</div>,
-			key: 3,
-		},
-		{
-			title: `Task`,
-			content: <div>Task div</div>,
-			key: 4,
-		},
-		{
-			title: `Activity`,
-			content: <div>Activity div</div>,
-			key: 5,
-		},
-		{
-			title: `About`,
-			content: <div>About div</div>,
-			key: 6,
+			featureName: `About`,
+			content: <ProfilePanel />,
+			featureId: ROUTES.USER.DEFAULT + id + "/about",
 		},
 	];
 	return (
@@ -54,7 +35,7 @@ function Profile() {
 					<div className="rounded-xl flex flex-col gap-5 overflow-scroll w-full">
 						<CoverImage image={ProjectCover} />
 						<ProfileCoverDetail />
-						<Tab panes={panes} />
+						<Tab panes={panes} canChangeRoute={true} />
 					</div>
 				</div>
 			</ContBody>

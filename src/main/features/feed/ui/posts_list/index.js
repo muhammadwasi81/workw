@@ -4,7 +4,7 @@ import { getAllFeed } from "../../store/actions";
 import { useEffect } from "react";
 import PostSkeleton from "./post/skeleton/post";
 
-function PostsList() {
+function PostsList({ referenceType = 1, referenceId }) {
   const { userSlice, feedSlice } = useSelector((state) => state);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -13,8 +13,8 @@ function PostsList() {
         pageNo: 1,
         pageSize: 20,
         search: "",
-        referenceId: userSlice.user.id,
-        referenceType: 1,
+        referenceId: referenceId ? referenceId : userSlice.user.id,
+        referenceType,
         filterType: 1,
       })
     );

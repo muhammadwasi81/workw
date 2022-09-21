@@ -307,6 +307,8 @@ const en = {
   employee: {},
   administration: {
     Default_Hiring_Criteria: "Default Hiring Criteria",
+    subsidiary: "Subsidiary",
+    Subsidiary_Office: "Subsidiary Office",
     Business_Logo: "Business Logo",
     Payroll_Group: "Payroll Group",
     Complain_Category: "Complain Category",
@@ -400,7 +402,9 @@ const en = {
     Experience: "Experience",
   },
   administration: {
+    Subsidiary_Office: "Subsidiary Office",
     Default_Hiring_Criteria: "Default Hiring Criteria",
+    subsidiary: "Subsidiary",
     Business_Logo: "Business Logo",
     Complain_Category: "Complain Category",
     Payroll_Group: "Payroll Group",

@@ -24,7 +24,7 @@ import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustom
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 let newType;
-function TaskComposer() {
+function TaskComposer({ referenceId: referenceIdProps, referenceType = 1 }) {
   const [form] = Form.useForm();
   const [isAssignTo, setIsAssignTo] = useState(false);
   const [attachments, setAttachments] = useState([]);
@@ -90,7 +90,6 @@ function TaskComposer() {
       priority,
       subject,
       taskType,
-      type,
       parentId,
       referenceId,
     } = values;
@@ -99,9 +98,9 @@ function TaskComposer() {
       description,
       parentId: parentId || STRINGS.DEFAULTS.guid,
       referenceId: referenceId
-        ? JSON.parse(referenceId)?.id
+        ? JSON.parse(referenceId ? referenceId : referenceIdProps)?.id
         : STRINGS.DEFAULTS.guid,
-      referenceType: Number(type),
+      referenceType,
       startDate: date[0].format(),
       endDate: date[1].format(),
       priority: Number(priority),

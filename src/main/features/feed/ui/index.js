@@ -11,28 +11,43 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { useContext } from "react";
 import { FeedDictionary } from "../localization";
 import Scheduler from "../../schedule/view/scheduler";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { PostReferenceType } from "../utils/constants";
 
-const NewsFeed = () => {
+const NewsFeed = ({
+  referenceType = PostReferenceType.MAIN_FEED,
+  referenceId = defaultUiid,
+  isScheduler = true,
+  isCheckedIn,
+}) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = FeedDictionary[userLanguage];
   return (
     <TabbableContainer>
-      <Header />
+      <Header isCheckedIn={isCheckedIn} />
       <ContBody style={{ direction: Direction }}>
         <div className="lf-col" style={{ direction: Direction }}>
           <div className="newsFeed">
-            <PostComposer />
-            <PostsList />
+            <PostComposer
+              referenceType={referenceType}
+              referenceId={referenceId}
+            />
+            <PostsList
+              referenceType={referenceType}
+              referenceId={referenceId}
+            />
           </div>
         </div>
-        <div
-          className="rt-col"
-          style={{ display: "block", height: "auto", minHeight: "auto" }}
-        >
-          <div className="schedule" style={{ height: "60%" }}>
-            <Scheduler />
+        {isScheduler && (
+          <div
+            className="rt-col"
+            style={{ display: "block", height: "auto", minHeight: "auto" }}
+          >
+            <div className="schedule" style={{ height: "60%" }}>
+              <Scheduler />
+            </div>
           </div>
-        </div>
+        )}
       </ContBody>
     </TabbableContainer>
   );

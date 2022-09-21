@@ -1,6 +1,7 @@
 const urdu = {
 	projectsDictionary: {
 		createTextBtn: "پروجیکٹ بنائیں",
+		updateTextBtn: "Update Project",
 		topBar: {
 			search: "تلاش کریں",
 			filter: "فلٹر",
@@ -13,6 +14,8 @@ const urdu = {
 			upload: "اپ لوڈ کریں",
 			projectDate: "پروجیکٹ کی تاریخ",
 			externals: "بیرونی",
+			public: "Public",
+			private: "Private",
 		},
 		placeholders: {
 			name: "نام درج کریں",

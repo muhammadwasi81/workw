@@ -23,8 +23,6 @@ import { ROUTES } from "../../../../utils/routes";
 const { Meta } = Card;
 
 function ListItem(props) {
-	//   const { userLanguage } = useContext(LanguageChangeContext);
-	//   const { Direction, departmentDictionary } = departmentDictionaryList[userLanguage];
 	const navigate = useNavigate();
 	const {
 		name,
@@ -43,7 +41,7 @@ function ListItem(props) {
 				actions={[]}
 				hoverable
 				onClick={e => {
-					navigate(`${ROUTES.GROUP.DETAIL}`);
+					navigate(`${ROUTES.GROUP.DEFAULT}/${props.id}`);
 				}}
 			>
 				<Meta title={name} description={description} />

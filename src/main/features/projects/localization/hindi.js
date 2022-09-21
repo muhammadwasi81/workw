@@ -1,6 +1,7 @@
 const hindi = {
 	projectsDictionary: {
 		createTextBtn: "प्रोजेक्ट बनाएं",
+		updateTextBtn: "Update Project",
 		topBar: {
 			search: "खोज",
 			filter: "फ़िल्टर",
@@ -13,6 +14,8 @@ const hindi = {
 			upload: "डालना",
 			projectDate: "परियोजना तिथि",
 			externals: "पैदा हुई कारण",
+			public: "Public",
+			private: "Private",
 		},
 		placeholders: {
 			name: "नाम दर्ज",

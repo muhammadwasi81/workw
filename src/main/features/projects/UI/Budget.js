@@ -1,7 +1,7 @@
 import React from "react";
 import WhiteCard from "./WhiteCard";
 
-function Budget() {
+function Budget({ data }) {
 	return (
 		<WhiteCard className={"text-base"}>
 			<div className="flex flex-col gap-2">
@@ -9,18 +9,24 @@ function Budget() {
 					<span className="text-primary-color text-base font-semibold">
 						Total Budget
 					</span>
-					<span className="text-black font-semibold">500$</span>
+					<span className="text-black font-semibold">
+						{data?.totalBudget}$
+					</span>
 				</div>
 				<div className="text-base p-5 bg-neutral-100 flex justify-around rounded-lg font-bold">
 					<div className="flex flex-col gap-3 text-center">
-						<span className="text-red-600">100$</span>
+						<span className="text-red-600">
+							{data?.spendAmount}$
+						</span>
 						<span className="text-gray-500 font-semibold">
 							Spent
 						</span>
 					</div>
 					<div className="border-r-2 border-gray-500" />
 					<div className="flex flex-col gap-3 text-center">
-						<span className="text-green-500">400$</span>
+						<span className="text-green-500">
+							{data?.balanceAmount}$
+						</span>
 						<span className="text-gray-500 font-semibold">
 							Balance
 						</span>

@@ -2,6 +2,7 @@ import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { addReward, cancelReward, getAllRewards, GetRewardById } from "./actions";
 
 const initialState = {
+  success: false,
   rewards: [],
   loadingData: false,
   loader: true,
@@ -35,6 +36,8 @@ const rewardSlice = createSlice({
     builder
       .addCase(addReward.fulfilled, (state, { payload }) => {
         state.drawerOpen = false
+        state.success = true
+        state.rewards = [...state.rewards, payload.data.data];
       })
       .addMatcher(isPending(...[getAllRewards]), (state) => {
         state.loader = true;
@@ -45,5 +48,5 @@ const rewardSlice = createSlice({
   },
 });
 
-export const {handleOpenComposer} = rewardSlice.actions;
+export const { handleOpenComposer } = rewardSlice.actions;
 export default rewardSlice.reducer;

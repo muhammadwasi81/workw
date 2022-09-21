@@ -61,6 +61,18 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.BUSINESS_POLICY,
   },
   {
+    IconName: <AiFillShop size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "subsidiary",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.SUBSIDIARY,
+  },
+  {
+    IconName: <AiFillShop size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Subsidiary_Office",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.SUBSIDIARY_OFFICE,
+  },
+  {
     IconName: <AiFillWarning size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Complain_Category",
     classObj: "button",

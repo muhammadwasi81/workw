@@ -1,0 +1,13 @@
+.formBtn {
+    margin: 0px 4px;
+    background-color: var(--currentThemeColor) !important;
+}
+
+.formBtn:hover {
+    background: #1b5669;
+}
+
+.formBtn:focus {
+    background: #1b5669;
+    margin: 0px 4px;
+}

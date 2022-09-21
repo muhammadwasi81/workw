@@ -10,6 +10,7 @@ import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { useDispatch } from "react-redux";
+import { data } from "jquery";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -30,6 +31,8 @@ function ListItem(props) {
     createDate,
   } = props.item;
 
+  const localTime = moment.utc(createDate).local().format();
+
   return (
     <>
       <SingleItem onClick={props.onClick}>
@@ -37,15 +40,15 @@ function ListItem(props) {
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={creator.image}
-              name={creator.name}
-              Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+              avatarSrc={creator?.image}
+              name={creator?.name}
+              Subline={<SublineDesigWithTime designation={creator?.designation ? creator?.designation : ""} time={moment(localTime).fromNow()} />}
             />
           </div>
           <div className="right">
             <Tag className="IdTag">
-              {referenceNo}</Tag>
-            <StatusTag status={status}></StatusTag>
+              {referenceNo && referenceNo}</Tag>
+            <StatusTag status={status && status}></StatusTag>
           </div>
         </ItemHeader>
         <ItemContent className="flex">

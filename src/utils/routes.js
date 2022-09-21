@@ -15,6 +15,16 @@ export const ROUTES = {
 	APPROVALS: {
 		DEFAULT: `${DOMAIN_PREFIX}/approvals`,
 	},
+	USER: {
+		LINK: `${DOMAIN_PREFIX}/user/`,
+		DEFAULT: `${DOMAIN_PREFIX}/user/`,
+		TIMELINE: {
+			DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
+			INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
+		},
+		SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
+		NOTES: `${DOMAIN_PREFIX}/user/notes`,
+	},
 	AUTH: {
 		SIGN_UP: `${DOMAIN_PREFIX}/register`,
 		SIGN_UP_SUCCESS: `${DOMAIN_PREFIX}/thankyou`,
@@ -148,15 +158,7 @@ export const ROUTES = {
 		QUIZ_GAME: `${DOMAIN_PREFIX}/eLearningCourses/game`,
 		HIGH_SCORE: `${DOMAIN_PREFIX}/eLearningCourses/highScore`,
 	},
-	USER: {
-		DEFAULT: `${DOMAIN_PREFIX}/user/`,
-		TIMELINE: {
-			DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
-			INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
-		},
-		SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
-		NOTES: `${DOMAIN_PREFIX}/user/notes`,
-	},
+
 	CALL: {
 		DEFAULT: `${DOMAIN_PREFIX}/call`,
 		AUDIO: `${DOMAIN_PREFIX}/call/audiocall`,

@@ -6,7 +6,7 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 
 import LayoutHeader from "../../../../layout/header";
 import CheckIn from "../../../attendance/view/CheckIn_Out";
-const Header = () => {
+const Header = ({ isCheckedIn = true }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
   const items = [
@@ -44,8 +44,8 @@ const Header = () => {
   const buttons = [
     {
       buttonText: "aaa",
-      render:<CheckIn />
-    }
+      render: isCheckedIn && <CheckIn />,
+    },
   ];
   return <LayoutHeader items={items} buttons={buttons}></LayoutHeader>;
 };

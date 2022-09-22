@@ -1,12 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import { Checkbox } from 'antd';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { handleChangeAllPayrollItem } from '../../../store/slice';
 
 const CreateEntryHead = () => {
-
+  const dispatch = useDispatch();
+  const payrollCalculatedList = useSelector(state => state.payrollSlice.payrollCalculatedList);
+  const handleChange = (event) => {
+    dispatch(handleChangeAllPayrollItem(
+      payrollCalculatedList.map((item)=>({
+        ...item,
+        isChecked:event.target.checked
+      }))
+    ))
+  }
   return (
     <thead>
       <tr className='whitespace-nowrap' >
-        <th style={{ minWidth: "50px" }} >
-          S.No.
+        <th style={{ minWidth: "30px" }} >
+          <Checkbox onChange={handleChange}
+            checked={payrollCalculatedList?.every((item) => item.isChecked)} />
         </th>
         <th style={{ minWidth: "200px" }}>
           Employee
@@ -14,11 +28,11 @@ const CreateEntryHead = () => {
         <th style={{ minWidth: "120px" }}>
           Basic Salary
         </th>
-        <th style={{ minWidth: "120px" }}>
-          Gross Salary
-        </th>
         <th style={{ minWidth: "100px" }}>
           Loan
+        </th>
+        <th style={{ minWidth: "100px" }}>
+          Allowance
         </th>
         <th style={{ minWidth: "100px" }}>
           Deduction
@@ -33,10 +47,10 @@ const CreateEntryHead = () => {
           Bonus
         </th>
         <th style={{ minWidth: "100px" }}>
-        Other
+          Other
         </th>
         <th style={{ minWidth: "100px" }}>
-        Net Salary
+          Net Salary
         </th>
       </tr>
     </thead>

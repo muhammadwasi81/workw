@@ -15,10 +15,9 @@ import { Button, Modal } from 'antd';
 import moment from "moment";
 import { handleParentId } from "../../../store/slice";
 import { moveDocument } from "../../../store/actions";
-import {
-    LockFilled
-} from '@ant-design/icons';
+import { LockFilled } from '@ant-design/icons';
 import { privacyOption } from "../../../../../../utils/Shared/enums/enums";
+import { openNotification } from "../../../../../../utils/Shared/store/slice";
 
 
 const DocShortCard = ({ data, handlePreview }) => {
@@ -39,22 +38,31 @@ const DocShortCard = ({ data, handlePreview }) => {
         }
     }
     const handleDrop = (item) => {
-        // console.log(item)
-        disptach(moveDocument({
-            parentId: item.dropData.name,
-            documents: [
-                item.dragData.name
-            ]
-        }))
+        console.log(item, "Item")
+        let dragData = item.dragData.name;
+        let dropData = item.dropData.name;
+        if (dropData.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
+            disptach(moveDocument({
+                parentId: dropData.id,
+                documents: [
+                    dragData.id
+                ]
+            }))
+        }
+        else {
+            disptach(openNotification({
+                message: "Invalid Move",
+                type: "error"
+            }))
+        }
+
     }
-
-    // console.log("render")
-
+    console.log(data, "Data")
     return (
         <>
             <DragDropContainer
                 targetKey={"docsDrag"}
-                dragData={{ name: data.id }}
+                dragData={{ name: data }}
                 onDrop={handleDrop}
                 key={data.id}
                 noDragging={false}
@@ -64,7 +72,7 @@ const DocShortCard = ({ data, handlePreview }) => {
                     onHit={(e) => { }}
                     targetKey="docsDrag"
                     highlighted
-                    dropData={{ name: data.id }}
+                    dropData={{ name: data }}
                     key={data.id}
                 >
                     <div className="d_ShortCard"
@@ -108,7 +116,7 @@ const DocShortCard = ({ data, handlePreview }) => {
                         <div className="d_ShortCard_Child3">
                             <div className="privacyStatus">
                                 {
-                                    privacyId === Private ? <LockFilled style={{color: "var(--currentThemeColor)"}} /> : ""
+                                    privacyId === Private ? <LockFilled style={{ color: "var(--currentThemeColor)" }} /> : ""
                                 }
                             </div>
                             <div>

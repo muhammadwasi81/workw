@@ -24,7 +24,6 @@ function SalaryListItem(props) {
       userTypeId: 2
     },
     basicSalary,
-    details,
     netSalary,
     description = "Salary Description here",
     approvers = [{}],
@@ -32,7 +31,8 @@ function SalaryListItem(props) {
     referenceNo = "SAR-10001",
     createDate = moment(),
     effectiveDate = moment(),
-    id
+    id,
+    user
   } = props.item;
 
 
@@ -59,7 +59,7 @@ function SalaryListItem(props) {
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">Salary For</div>
-            <div className="cardSection__body">Syed Danish</div>
+            <div className="cardSection__body">{user.name}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Effective Date</div>

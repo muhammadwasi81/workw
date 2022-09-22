@@ -21,10 +21,10 @@ export const salaryTableColumn = () => {
 		},
 		{
 			title: "Salary For",
-			dataIndex: "creator",
+			dataIndex: "user",
 			ellipsis: true,
 			render: creator =>
-				<TagAvatar text={"Syed Danish"} img={creator.image} />,
+				<TagAvatar text={creator.name} img={creator.image} />,
 			sort: true,
 		},
 		{

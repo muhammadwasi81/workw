@@ -11,6 +11,7 @@ import ProfilePanel from "./view/ProfilePanel";
 import { useParams } from "react-router-dom";
 import { ROUTES } from "../../../utils/routes";
 import "./styles/profileStyle.css";
+import NewsFeed from "../feed/ui";
 
 function Profile() {
 	const param = useParams();
@@ -19,7 +20,13 @@ function Profile() {
 	const panes = [
 		{
 			featureName: `Feed`,
-			content: <div>Information div</div>,
+			content: (
+				<NewsFeed
+					isScheduler={false}
+					isCheckedIn={false}
+					width={"!w-full"}
+				/>
+			),
 			featureId: ROUTES.USER.DEFAULT + id,
 		},
 		{

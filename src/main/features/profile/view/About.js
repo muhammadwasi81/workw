@@ -1,7 +1,7 @@
 import React from "react";
-
+import Overview from "./Overview";
 function About() {
-	return <div>About</div>;
+	return <Overview />;
 }
 
 export default About;

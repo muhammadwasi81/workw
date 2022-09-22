@@ -25,6 +25,8 @@ function Profile() {
 					isScheduler={false}
 					isCheckedIn={false}
 					width={"!w-full"}
+					referenceType={4}
+					referenceId={id}
 				/>
 			),
 			featureId: ROUTES.USER.DEFAULT + id,

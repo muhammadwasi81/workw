@@ -6,44 +6,44 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 
 import LayoutHeader from "../../../../layout/header";
 import CheckIn from "../../../attendance/view/CheckIn_Out";
-const Header = ({ isCheckedIn = true, width }) => {
+const Header = ({ isCheckedIn = true, width, backButton, routeLink }) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const label = dictionaryList[userLanguage];
 	const items = [
 		{
 			name: label.appHeader.newsFeed.posts,
-			to: `${STRINGS.ROUTES.ROOT}`,
+			to: `${routeLink ? routeLink : STRINGS.ROUTES.ROOT}`,
 			renderButton: [1],
 		},
 		{
 			name: label.appHeader.newsFeed.photos,
-			to: `${STRINGS.ROUTES.ROOT}?f=photos`,
+			to: `${routeLink ? routeLink : STRINGS.ROUTES.ROOT}?f=photos`,
 			renderButton: [1],
 		},
 		{
 			name: label.appHeader.newsFeed.polls,
-			to: `${STRINGS.ROUTES.ROOT}?f=polls`,
+			to: `${routeLink ? routeLink : STRINGS.ROUTES.ROOT}?f=polls`,
 			renderButton: [1],
 		},
 		{
 			name: label.appHeader.newsFeed.videos,
-			to: `${STRINGS.ROUTES.ROOT}?f=videos`,
+			to: `${routeLink ? routeLink : STRINGS.ROUTES.ROOT}?f=videos`,
 			renderButton: [1],
 		},
 		{
 			name: label.appHeader.newsFeed.docs,
-			to: `${STRINGS.ROUTES.ROOT}?f=docs`,
+			to: `${routeLink ? routeLink : STRINGS.ROUTES.ROOT}?f=docs`,
 			renderButton: [1],
 		},
 		{
 			name: label.appHeader.newsFeed.tagged,
-			to: `${STRINGS.ROUTES.ROOT}?f=tagged`,
+			to: `${routeLink ? routeLink : STRINGS.ROUTES.ROOT}?f=tagged`,
 			renderButton: [1],
 		},
 	];
 	const buttons = [
 		{
-			buttonText: "aaa",
+			buttonText: "Check In",
 			render: <CheckIn />,
 		},
 	];
@@ -52,6 +52,7 @@ const Header = ({ isCheckedIn = true, width }) => {
 			items={items}
 			buttons={isCheckedIn ? buttons : []}
 			width={width}
+			backButton={backButton}
 		/>
 	);
 };

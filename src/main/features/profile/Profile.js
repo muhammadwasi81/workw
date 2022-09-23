@@ -12,6 +12,10 @@ import { useParams } from "react-router-dom";
 import { ROUTES } from "../../../utils/routes";
 import "./styles/profileStyle.css";
 import NewsFeed from "../feed/ui";
+import { useEffect } from "react";
+import { getEducationDetailByUser } from "../education/store/actions";
+import { useDispatch } from "react-redux";
+import { getUserWorkExperience } from "../experienceInfo/store/actions";
 
 function Profile() {
 	const param = useParams();
@@ -27,6 +31,8 @@ function Profile() {
 					width={"!w-full"}
 					referenceType={4}
 					referenceId={id}
+					backButton={false}
+					routeLink={ROUTES.USER.DEFAULT + id}
 				/>
 			),
 			featureId: ROUTES.USER.DEFAULT + id,
@@ -37,6 +43,11 @@ function Profile() {
 			featureId: ROUTES.USER.DEFAULT + id + "/about",
 		},
 	];
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getEducationDetailByUser(id));
+		dispatch(getUserWorkExperience(id));
+	}, []);
 	return (
 		<TabContainer>
 			<ContBody className="!block">

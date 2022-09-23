@@ -20,12 +20,19 @@ const NewsFeed = ({
 	isScheduler = true,
 	isCheckedIn,
 	width = "",
+	backButton,
+	routeLink,
 }) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = FeedDictionary[userLanguage];
 	return (
 		<TabbableContainer>
-			<Header isCheckedIn={isCheckedIn} width={width && width} />
+			<Header
+				isCheckedIn={isCheckedIn}
+				width={width && width}
+				backButton={backButton}
+				routeLink={routeLink}
+			/>
 			<ContBody
 				style={{ direction: Direction }}
 				className={width && width}

@@ -11,9 +11,6 @@ import { MdEmail, MdLocationOn } from "react-icons/md";
 function Overview() {
 	return (
 		<div className="flex flex-col p-3 gap-5 !text-[#85878B] pb-10">
-			{/* <p className="px-2 text-black text-[18px] font-semibold">
-                Overview
-             </p> */}
 			<OverviewDetail
 				icon={<FaGraduationCap />}
 				heading={"Studied A- Levels at"}

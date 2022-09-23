@@ -25,13 +25,13 @@ export default function Subsidiary() {
       if (!e.id) {
         dispatch(addBranch(e));
         dispatch(getAllBranch())
-        setsubsidiary(initialState);
+        setSubsidiary(initialState);
         setClearButton(true)
         return;
       }
       dispatch(updateBranch(e));
 
-      setsubsidiary(initialState);
+      setSubsidiary(initialState);
     }
   };
   return (

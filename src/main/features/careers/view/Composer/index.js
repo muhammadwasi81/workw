@@ -1,5 +1,5 @@
-import { Avatar, Button, DatePicker, Form, Input, List, Select } from "antd";
 import React, { useEffect, useState } from "react";
+import { Avatar, Button, DatePicker, Form, Input, List, Select } from "antd";
 import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { getAllJobDescriptionService } from "../../../jobDescription/services/service";
@@ -18,7 +18,7 @@ import {
   EducationTypeEnum,
   JobShiftTypeEnum,
   JobTypeEnum,
-} from "../enums/enums";
+} from "../../utils/enums";
 import { getAllDefaultHiringCriteriaService } from "../../defaultHiringCriteria/services/service";
 
 const Composer = () => {

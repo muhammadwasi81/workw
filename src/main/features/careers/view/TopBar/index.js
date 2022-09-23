@@ -11,12 +11,12 @@ function Index() {
         onSearch={(value) => {
           console.log(value);
         }}
-        buttons={[
-          {
-            name: "Jobs",
-            onClick: () => setFilter({ filterType: 0 }),
-          },
-        ]}
+        // buttons={[
+        //   {
+        //     name: "Jobs",
+        //     onClick: () => setFilter({ filterType: 0 }),
+        //   },
+        // ]}
         // filter={{
         //   onFilter: () => {},
         // }}

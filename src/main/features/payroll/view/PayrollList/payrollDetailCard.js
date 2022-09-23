@@ -1,17 +1,28 @@
-import { Button, Image, Tag } from "antd";
-import React, { useContext } from "react";
+import { Tag } from "antd";
+import React, { useContext, useEffect } from "react";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-// import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import RewardDefaultIcon from "../../../../../content/svg/menu/rewardIcon.svg";
 import moment from "moment";
-import { ItemContent, ItemHeader, SingleItem } from "../../../../sharedComponents/Card/CardStyle";
+import { ItemHeader, SingleItem } from "../../../../sharedComponents/Card/CardStyle";
 import { useDispatch } from "react-redux";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
+import { useSelector } from "react-redux";
+// import AllowanceDetail from "./allowanceDetail";
+import RemarksApproval from "../../../../sharedComponents/AppComponents/Approvals/view";
+import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import EmployeesDetail from "./EmployeesDetail";
 
-function PayrollList(props) {
-  const disptach = useDispatch();
+function DetailDetailCard(props) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // if (props.id)
+    //   dispatch(getEmployeeSalaryDetail(props.id))
+  }, [props.id])
+
+  const payrollDetail = useSelector((state) => state.payrollSlice.payrollDetail);
+  if (!payrollDetail) return <></>
+  console.log(payrollDetail)
   const {
     creator,
     description,
@@ -25,11 +36,10 @@ function PayrollList(props) {
     year,
     details,
     id
-  } = props.item;
-
+  } = payrollDetail;
   return (
     <>
-      <SingleItem onClick={()=>props.onClick(id)}>
+      <SingleItem onClick={() => props.onClick(id)}>
         <ItemHeader>
           <div className="left">
             <UserInfo
@@ -74,21 +84,12 @@ function PayrollList(props) {
             <div className="cardSection__title">Total Amount</div>
             <div className="cardSection__body">{total}</div>
           </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">Approvers</div>
-            <div className="cardSection__body">
-              <Avatar
-                isAvatarGroup={true}
-                heading={"approvers"}
-                membersData={approvers ? approvers : []}
-              />
-            </div>
           </div>
-        </div>
-
+        <EmployeesDetail details={details}/>
+        <RemarksApproval data={approvers} title="Approvals" module={ApprovalsModule.PayrollApproval} onStatusChanged={() => { }} />
       </SingleItem>
     </>
   );
 }
 
-export default PayrollList;
+export default DetailDetailCard;

@@ -28,6 +28,10 @@ export const moveDocument = createAsyncThunk(
     const response = await moveDocumentService(payload);
     switch (response.type) {
       case ResponseType.ERROR:
+        dispatch(openNotification({
+          message: "Error " + response.errorMessage,
+          type: "error"
+        }))
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         dispatch(updateMoveDocument(payload))
@@ -49,11 +53,14 @@ export const addDocument = createAsyncThunk(
   async ({ payload, form }, { rejectWithValue, dispatch }) => {
     let request = addDocument_DBO(payload)
     const formdataRequest = jsonToFormData(request);
-    console.log(formdataRequest, "ACTION")
 
     const response = await addDocumentService(formdataRequest);
     switch (response.type) {
       case ResponseType.ERROR:
+        dispatch(openNotification({
+          message: response.errorMessage,
+          type: "error"
+        }))
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         form.resetFields();

@@ -24,7 +24,6 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 	const [value, setValue] = useState([]);
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-
 	const employees = useSelector(state => state.sharedSlice.employees);
 
 	const selectedData = (data, obj) => {

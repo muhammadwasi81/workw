@@ -160,16 +160,7 @@ function TaskComposer({ referenceId: referenceIdProps, referenceType = 1 }) {
       >
         <Input placeholder={placeHolder.writeSubject} />
       </Form.Item>
-      <Form.Item
-        label={labels.predecessor}
-        name="parentId"
-        rules={[
-          {
-            required: true,
-            message: "Please input predecessor!",
-          },
-        ]}
-      >
+      <Form.Item label={labels.predecessor} name="parentId">
         <Select
           getPopupContainer={(trigger) => trigger.parentNode}
           placeholder={placeHolder.writePredecessor}

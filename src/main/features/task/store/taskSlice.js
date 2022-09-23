@@ -31,6 +31,26 @@ export const taskSlice = createSlice({
         }
       });
       state.task.members = members;
+      let tasks = [...state.taskList.list];
+      let index = tasks.findIndex((item) => item.id === payload.taskId);
+      let task = tasks.filter((item) => item.id === payload.taskId)[0];
+      let membersTask = task.members.map((item) => {
+        if (item.memberId === payload.memberId) {
+          return {
+            ...item,
+            progress: payload.progress,
+          };
+        } else return item;
+      });
+      task.members = membersTask;
+      const memberAvg = task.members?.reduce(
+        (acc, obj) => acc + obj.progress,
+        0
+      );
+      const progress = memberAvg / task?.members?.length;
+      task.progress = progress;
+      tasks[index] = task;
+      state.taskList.list = tasks;
     },
   },
 

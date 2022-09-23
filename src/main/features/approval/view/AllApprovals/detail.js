@@ -1,21 +1,26 @@
 import React from "react";
+import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 import Tab from "../../../../sharedComponents/Tab";
 import Reward from "../../../reward/view/DetailCard";
 import SalaryDetailCard from "../../../salary/view/SalaryList/salaryDetailCard";
+import TravelDetail from "../../../travel/view/TravelDetail/TravelDetail";
 
-const panes = [
-    {
-        title: `Deatils`,
-        content: <div></div>,
-        key: 0,
-    }
-];
+export default function ApprovalDetail({ approvalDetailData }) {
+	const panes = () => {
+		return [
+			{
+				featureName: `Details`,
+				content: <div></div>,
+				featureId: 0,
+			},
+		];
+	};
 
-export default function ApprovalDetail() {
-    return (
-        <div className="approvalDetail" >
-            <Tab panes={panes} />
-            <SalaryDetailCard  id={"f1865fdd-f28f-4b75-9a14-234b62802bc0"}/>
-        </ div>
-    )
+	return (
+		<div className="approvalDetail">
+			<Tab panes={panes()} />
+			<SalaryDetailCard id={defaultUiid} />
+			<TravelDetail travelId={defaultUiid} />
+		</div>
+	);
 }

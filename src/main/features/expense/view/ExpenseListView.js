@@ -8,6 +8,7 @@ import { ExpenseDictionary } from "../localization";
 import { clearExpense } from "../store/slice";
 import { Skeleton } from "antd";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import ExpenseDetailsComposer from "./ExpenseDetailsComposer";
 
 function ExpenseListView({
   filterType,
@@ -56,7 +57,7 @@ function ExpenseListView({
               />
             );
           })}
-      <ExpenseDetail
+      <ExpenseDetailsComposer
         direction={Direction}
         visible={visible}
         onClose={handleDrawerClose}

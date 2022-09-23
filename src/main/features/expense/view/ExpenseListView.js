@@ -7,8 +7,13 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { ExpenseDictionary } from "../localization";
 import { clearExpense } from "../store/slice";
 import { Skeleton } from "antd";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 
-function ExpenseListView({ filterType }) {
+function ExpenseListView({
+  filterType,
+  referenceId = 1,
+  referenceType = defaultUiid,
+}) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = ExpenseDictionary[userLanguage];
 
@@ -22,6 +27,8 @@ function ExpenseListView({ filterType }) {
         pageNo: 1,
         pageSize: 20,
         filterType,
+        // referenceType,
+        // referenceId,
       })
     );
   }, [filterType]);

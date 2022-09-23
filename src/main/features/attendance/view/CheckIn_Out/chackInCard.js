@@ -26,7 +26,7 @@ const CheckInCard = ({ lastCheckIn }) => {
             lng: myLocation ? myLocation.coords.longitude : 0,
             moodId: rattingVal,
             comment: noteVal,
-            userId:"d3202659-8910-410f-93d5-2c7d8b39a2d5",
+            // userId:"d3202659-8910-410f-93d5-2c7d8b39a2d5",
             type: lastCheckIn && lastCheckIn.type === CHECK_IN.IN ? CHECK_IN.OUT : CHECK_IN.IN
         }
         dispatch(addAttendanceCheckIn(payload))

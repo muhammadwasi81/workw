@@ -10,33 +10,9 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../../../../utils/routes";
 
 function ListItem(props) {
-  //   const { userLanguage } = useContext(LanguageChangeContext);
-  //   const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
-
-  //   const {
-  //     creator,
-  //     name,
-  //     description,
-  //     image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-  //     reason,
-  //     category,
-  //     members = [],
-  //     approvers = [],
-  //     status,
-  //     referenceNo,
-  //     createDate,
-  //   } = props.item;
-
-  // console.log(props.item, "imagessss")
   return (
     <>
       <SingleItem className="Card3">
-        {/* <div
-          className="new"
-          id={props.id}
-          onClick={() => {
-            props.getRewardId(props.id);
-          }}></div> */}
         <ItemHeader className="ItemHeader">
           <UserInfo
             avatarSrc={ProImage}

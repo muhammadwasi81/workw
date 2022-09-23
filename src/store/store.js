@@ -69,6 +69,7 @@ import resignationSlice from "./appReducer/resignationSlice";
 import voucherSlice from "../main/features/voucher/store/slice";
 import scheduleSlice from "../main/features/schedule/store/slice";
 import attendanceSlice from "../main/features/attendance/store/slice";
+import payrollSlice from "../main/features/payroll/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -134,6 +135,7 @@ const reducers = combineReducers({
   callingSlice,
   voucherSlice,
   salarySlice,
+  payrollSlice
 });
 
 const persistConfig = {

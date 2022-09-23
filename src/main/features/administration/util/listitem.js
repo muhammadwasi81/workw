@@ -182,4 +182,10 @@ export const listitem = [
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.WARNING_CATEGORY,
   },
+  {
+    IconName: <RiMailSettingsFill size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Rebate_Category",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.REBATE_CATEGORY,
+  },
 ];

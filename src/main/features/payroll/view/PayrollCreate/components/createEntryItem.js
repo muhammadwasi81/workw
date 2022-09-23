@@ -1,31 +1,50 @@
-import { DatePicker, Select } from 'antd';
-import { Option } from 'antd/lib/mentions';
+import { Checkbox } from 'antd';
 import React from 'react';
-import { DeleteOutlined } from '@ant-design/icons';
-import { getAllEmployees } from '../../../../../../utils/Shared/store/actions';
-import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
-import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { ALLOWANCE_ENUM } from '../../../../allowance/view/enum';
+import { useDispatch } from 'react-redux';
+import { handleChangePayrollItem } from '../../../store/slice';
 
 const CreateEntryItem = ({
-  index,
-  handleChange,
-  value
+  value,
+  index
 }) => {
-
+  let {
+    user,
+    basicSalary,
+    grossSalary,
+    loan,
+    allowance,
+    tax,
+    rebate,
+    bonus,
+    other,
+    netSalary,
+    deduction,
+    isChecked
+  } = value;
+  const dispatch = useDispatch();
+  const handleChangeCheck = (e) => {
+    dispatch(handleChangePayrollItem({
+      index,
+      data:{
+        ...value,
+        isChecked:e.target.checked
+      }
+    }))
+  }
   return (
     <tr>
-     <td className='!py-[2px]'>1</td>
-     <td>Abu Bakar</td>
-     <td>1250000</td>
-     <td>100</td>
-     <td>100</td>
-     <td>100</td>
-     <td>100</td>
-     <td>100</td>
-     <td>100</td>
-     <td>100</td>
-     <td>100</td>
+      <td className='!py-[2px] text-center'> <Checkbox onChange={handleChangeCheck} checked={isChecked} /></td>
+      <td>{user.name}</td>
+      <td>{basicSalary}</td>
+      {/* <td>{grossSalary}</td> */}
+      <td>{loan}</td>
+      <td>{allowance}</td>
+      <td>{deduction}</td>
+      <td>{tax}</td>
+      <td>{rebate}</td>
+      <td>{bonus}</td>
+      <td>{other}</td>
+      <td>{netSalary}</td>
     </tr>
   )
 }

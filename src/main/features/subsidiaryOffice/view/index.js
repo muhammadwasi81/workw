@@ -32,25 +32,6 @@ export default function SubsidiaryOffice() {
 		dispatch(removeBranch(e));
 	};
 
-	const onSubmit = e => {
-		if (
-			e.name === "" ||
-			e.address === "" ||
-			e.lat === "" ||
-			e.lng === "" ||
-			e.isDefault === ""
-		) {
-			message.error("Please fill all required fields");
-		} else {
-			if (!e.id) {
-				dispatch(addBranch(e));
-				dispatch(getAllBranch());
-				setSubsidiary(initialState);
-				setClearButton(true);
-				return;
-			}
-			dispatch(updateBranch(e));
-
   const onSubmit = (e) => {
     if (e.name === "" || e.address === "" || e.lat === "" || e.lng === "" || e.isDefault === "") {
       message.error("Please fill all required fields")

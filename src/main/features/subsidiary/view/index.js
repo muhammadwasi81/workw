@@ -26,19 +26,6 @@ export default function Subsidiary() {
 		dispatch(removeBranch(e));
 	};
 
-	const onSubmit = e => {
-		if (e.branchTitle === "") {
-			message.error("Title can't be empty");
-		} else {
-			if (!e.id) {
-				dispatch(addBranch(e));
-				dispatch(getAllBranch());
-				setSubsidiary(initialState);
-				setClearButton(true);
-				return;
-			}
-			dispatch(updateBranch(e));
-
   const onSubmit = (e) => {
     if (e.branchTitle === "") {
       message.error("Title can't be empty")

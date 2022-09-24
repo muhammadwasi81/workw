@@ -1,6 +1,11 @@
 const urdu = {
   employeesDictionary: {
     placeholders: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       fName: "پہلا نام درج کریں",
       lName: "آخری نام درج کریں",
       fatherName: "والد کا نام درج کریں",
@@ -42,6 +47,11 @@ const urdu = {
       sortCode: "ترتیب کوڈ درج کریں",
     },
     EmployeeForm: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       UpdateBasicInfo: "Update BasicInfo",
       AddImage: "تصویر شامل کریں",
       FirstName: "پہلا نام",
@@ -100,6 +110,7 @@ const urdu = {
       Upload: "اپ لوڈ",
     },
     WorkExperienceForm: {
+      organization: "Organization",
       WorkExperienceInfo: "کام کے تجربے کی معلومات",
       Employer: "آجر",
       Position: "پوزیشن",

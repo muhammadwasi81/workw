@@ -1,6 +1,11 @@
 const en = {
   employeesDictionary: {
     placeholders: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       fName: "Enter First Name",
       lName: "Enter Last Name",
       fatherName: "Enter Father Name",
@@ -72,6 +77,10 @@ const en = {
       UserType: "User Type",
       AccessRole: "Access Role",
       EmpNo: "Employee No",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
     },
     EmergencyForm: {
       EmergencyInfo: "Emergency Info",
@@ -103,7 +112,7 @@ const en = {
     },
     WorkExperienceForm: {
       WorkExperienceInfo: "Work Experience Info",
-
+      organization: "Organization",
       Employer: "Employer",
       Position: "Position",
       Designation: "Designation",

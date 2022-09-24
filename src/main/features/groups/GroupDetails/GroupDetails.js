@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ROUTES } from "../../../../utils/routes";
 import Header from "../../../layout/header";
 import {
@@ -9,15 +9,59 @@ import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollaps
 import Tab from "../../../sharedComponents/Tab";
 import CoverDetail from "../../projects/UI/CoverDetail";
 import CoverImage from "../../projects/UI/CoverImage";
-import GroupCover from "../../../../content/png/groups_cover_image.jpg";
 import WhiteCard from "../../projects/UI/WhiteCard";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { groupsDictionaryList } from "../localization";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import Travel from "../../travel/view/Travel";
+import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
+import { getGroupById } from "../store/actions";
+import { resetGroupDetail } from "../store/slice";
+import { EditOutlined } from "@ant-design/icons";
+import { Drawer } from "antd";
+import Composer from "../UI/Composer";
 
 function GroupDetails() {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { groupsDictionary, Direction } = groupsDictionaryList[userLanguage];
-	const { groupDetail } = groupsDictionary;
+	const { groupDetail, updateTextBtn } = groupsDictionary;
+	const params = useParams();
+	const dispatch = useDispatch();
+	const detail = useSelector(state => state.groupSlice.groupDetail);
+	const [features, setFeatures] = useState([]);
+	const [open, setOpen] = useState(false);
+	const { id } = params;
+	useEffect(() => {
+		dispatch(getGroupById(id));
+	}, [id]);
+
+	useEffect(() => {
+		return () => {
+			dispatch(resetGroupDetail());
+		};
+	}, []);
+
+	useEffect(() => {
+		let temp = detail?.features.map(feat => {
+			return {
+				...feat,
+				content: featuresComp[feat.featureId],
+			};
+		});
+		setFeatures(temp);
+	}, [detail]);
+	const featuresComp = {
+		11: (
+			<Travel
+				referenceType={FeaturesEnum.Group}
+				referenceId={id}
+				backButton={false}
+			/>
+		),
+	};
 	const panes = [
 		{
 			title: groupDetail.discussion,
@@ -48,31 +92,63 @@ function GroupDetails() {
 	];
 	const items = [
 		{
-			name: "Group Details",
+			name: detail?.name,
 			to: `${ROUTES.GROUP.DEFAULT}`,
 			renderButton: [1],
 		},
 	];
+	const handleEditComposer = () => {
+		setOpen(!open);
+	};
+	const buttons = [
+		{
+			buttonText: "Edit Groups",
+			icon: <EditOutlined />,
+			onClick: handleEditComposer,
+		},
+	];
 
 	return (
-		<TabContainer>
-			<Header items={items} />
-			<ContBody className="!block" direction={Direction}>
-				<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
-					<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll mt-10">
-						<CoverImage image={GroupCover} />
-						<CoverDetail />
-						<Tab panes={panes} dir={Direction} />
-					</div>
+		<>
+			<TabContainer>
+				<Header items={items} buttons={buttons} />
+				<ContBody className="!block" direction={Direction}>
+					<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
+						<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll mt-10">
+							<CoverImage image={detail?.image} />
+							<CoverDetail detail={detail} key={detail} />
+							<Tab
+								panes={features}
+								dir={Direction}
+								id={id}
+								features={panes}
+							/>
+						</div>
 
-					<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
-						<WhiteCard>
-							<MemberCollapse />
-						</WhiteCard>
+						<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
+							<WhiteCard>
+								<MemberCollapse data={detail?.members} />
+							</WhiteCard>
+						</div>
 					</div>
-				</div>
-			</ContBody>
-		</TabContainer>
+				</ContBody>
+			</TabContainer>
+			<Drawer
+				open={open}
+				width={"786px"}
+				onClose={handleEditComposer}
+				title={updateTextBtn}
+				className={"shared_drawer drawerSecondary"}
+				destroyOnClose={true}
+			>
+				<Composer
+					buttonText={updateTextBtn}
+					detail={detail}
+					update={true}
+					id={id}
+				/>
+			</Drawer>
+		</>
 	);
 }
 

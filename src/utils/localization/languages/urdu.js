@@ -306,6 +306,10 @@ const urdu = {
     Experience: "Experience",
   },
   administration: {
+    subsidiary: "ماتحت ادارہ",
+    Default_Hiring_Criteria: "پہلے سے طے شدہ ملازمت کے معیار",
+    Complain_Category: "شکایت کا زمرہ",
+    Payroll_Group: "پے رول گروپ",
     Business_Logo: "کاروبار کا لوگو",
     Rebate_Category: "چھوٹ کی قسم",
     Business_Policy: "کاروباری پالیسی",

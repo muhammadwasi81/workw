@@ -18,11 +18,21 @@ import AccessRole from "../../../../main/features/accessRole/view/AccessRole";
 import BusinessPolicy from "../../businessPolicy/view/BusinessPolicy";
 import BusinessLogo from "../../businessLogo/view";
 import RebateCategory from "../../rebateCategory/view";
+import ComplainCategory from "../../complain/complainCategory/view";
+import PayrollGroup from "../../payroll/payrollGroup/view";
+import DefaultHiringCriteria from "../../careers/defaultHiringCriteria/view";
+import Subsidiary from "../../subsidiary/view";
+import SubsidiaryOffice from "../../subsidiaryOffice/view";
 
 const AdminRoutes = () => {
   return (
     <Routes>
       <Route path={"/"} element={<AccessRole />} />
+      <Route path={ROUTES.ADMINISTRATOR.PAYROLL_GROUP} element={<PayrollGroup />} />
+      <Route path={ROUTES.ADMINISTRATOR.DEFAULT_HIRING_CRITERIA} element={<DefaultHiringCriteria />} />
+      <Route path={ROUTES.ADMINISTRATOR.SUBSIDIARY_OFFICE} element={<SubsidiaryOffice />} />
+      <Route path={ROUTES.ADMINISTRATOR.SUBSIDIARY} element={<Subsidiary />} />
+      <Route path={ROUTES.ADMINISTRATOR.COMLAIN_CATEGORY} element={<ComplainCategory />} />
       <Route path={ROUTES.ADMINISTRATOR.BUSINESS_POLICY} element={<BusinessPolicy />} />
       <Route path={ROUTES.ADMINISTRATOR.BUSINESS_LOGO} element={<BusinessLogo />} />
       <Route path={ROUTES.ADMINISTRATOR.REBATE_CATEGORY} element={<RebateCategory />} />

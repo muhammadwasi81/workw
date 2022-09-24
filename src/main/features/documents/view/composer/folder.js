@@ -18,7 +18,6 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 	const dispatch = useDispatch();
 	const loader = useSelector(state => state.documentSlice.loader);
 	const ParentId = useSelector(state => state.documentSlice.parentId);
-	console.log(loader, "LOADER")
 	const [form] = Form.useForm();
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
 	const onPrivacyChange = value => {
@@ -26,7 +25,6 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 	};
 
 	const onFinish = (values) => {
-		console.log(values)
 		let payload = {
 			name: values.name,
 			description: values.description,

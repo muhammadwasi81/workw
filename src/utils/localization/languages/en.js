@@ -305,7 +305,12 @@ const en = {
   payroll: {},
   employee: {},
   administration: {
+    Default_Hiring_Criteria: "Default Hiring Criteria",
+    subsidiary: "Subsidiary",
+    Subsidiary_Office: "Subsidiary Office",
     Business_Logo: "Business Logo",
+    Payroll_Group: "Payroll Group",
+    Complain_Category: "Complain Category",
     Business_Policy: "Business Policy",
     AccessRole: "Access Role",
     Grade: "Grade",
@@ -324,6 +329,7 @@ const en = {
     Job_Description: "Job Description",
     Reward_Category: "Reward Category",
     Warning_Category: "Warning Category",
+    Rebate_Category: "Rebate Category",
     Form: {
       Description: "Description",
       Add: "Add",
@@ -397,7 +403,12 @@ const en = {
     Salary: "Salary",
   },
   administration: {
+    Subsidiary_Office: "Subsidiary Office",
+    Default_Hiring_Criteria: "Default Hiring Criteria",
+    subsidiary: "Subsidiary",
     Business_Logo: "Business Logo",
+    Complain_Category: "Complain Category",
+    Payroll_Group: "Payroll Group",
     Business_Policy: "Business Policy",
     Rebate_Category: "Rebate Category",
     AccessRole: "Access Role",

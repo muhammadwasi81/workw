@@ -21,7 +21,7 @@ const BankForm = ({ mode, id }) => {
   const isEdit = mode === "edit";
   const [bankDetails, setBankDetails] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels } = dictionaryList[userLanguage];
+  const { sharedLabels } = dictionaryList[userLanguage];  
   const [countries, setCountries] = useState([]);
   const dispatch = useDispatch();
   const { countries: countriesSlice, cities } = useSelector(

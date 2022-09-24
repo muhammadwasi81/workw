@@ -1,6 +1,7 @@
 const en = {
 	projectsDictionary: {
 		createTextBtn: "Create Project",
+		updateTextBtn: "Update Project",
 		topBar: {
 			search: "Search",
 			filter: "Filter",
@@ -13,6 +14,8 @@ const en = {
 			upload: "Upload",
 			projectDate: "Project Date",
 			externals: "Externals",
+			public: "Public",
+			private: "Private",
 		},
 		placeholders: {
 			name: "Enter name",

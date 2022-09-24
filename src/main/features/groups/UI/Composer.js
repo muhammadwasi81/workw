@@ -2,7 +2,7 @@ import { Button, Form, Input, message, Select } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import { useDispatch } from "react-redux";
-import { addGroup } from "../store/actions";
+import { addGroup, updateGroup } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { groupsDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -11,8 +11,14 @@ import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
 import { jsonToFormData, STRINGS } from "../../../../utils/base";
 
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import {
+	defaultUiid,
+	FeaturesEnum,
+} from "../../../../utils/Shared/enums/enums";
 import { DepartmentMemberTypeList } from "../constant";
+import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
+import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
+import { useSelector } from "react-redux";
 
 const initialState = {
 	id: "",
@@ -27,16 +33,22 @@ const initialState = {
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
-	const { labels, placeHolders, errors } = groupsDictionary;
+	const { labels, placeHolders, errors, features } = groupsDictionary;
+	const loading = useSelector(state => state.groupSlice.loader);
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-	const [profileImage, setProfileImage] = useState(null);
-
-	const [state, setState] = useState(initialState);
-
+	const [profileImage, setProfileImage] = useState("");
+	const { detail, update = false, id } = props;
+	// const [state, setState] = useState(initialState);
+	const [privacyId, setPrivacyId] = useState(1);
 	const [memberList, setMemberList] = useState([]);
 
+	const onPrivacyChange = value => {
+		setPrivacyId(value);
+	};
+
 	const handleImageUpload = fileData => {
+		console.log("filedata", fileData);
 		setProfileImage(fileData[0].originFileObj);
 	};
 
@@ -44,57 +56,84 @@ const Composer = props => {
 		setMemberList([...memberList, data]);
 	};
 
-	const onFinish = values => {
-		if (profileImage === null) {
-			return message.error({
-				content: "Please upload group image.",
-			});
-		}
+	const onFinish = () => {
+		const values = form.getFieldsValue(true);
 		let members = memberList.map(member => {
 			return {
-				memberId: member.members[0].id,
+				memberId: member.member.id,
 				memberType: member.memberType,
 			};
 		});
-		let imgObj = { file: profileImage, id: defaultUiid };
+		let image = {
+			file: profileImage,
+			id: defaultUiid,
+		};
+		if (update) {
+			if (!JSON.stringify(profileImage).length) {
+				image.id = detail.imageId;
+			}
+		}
+		let objToSend = {
+			name: values.name,
+			description: values.description,
+			members,
+			features: values.features,
+			image,
+			privacyId,
+		};
 
-		dispatch(
-			addGroup(
-				jsonToFormData({
-					image: { ...imgObj },
-					name: values.name,
-					description: values.description,
-					members,
-				})
-			)
-		);
+		if (update) {
+			dispatch(
+				updateGroup(
+					jsonToFormData({
+						name: values.name,
+						description: values.description,
+						image,
+						id,
+						features: values.features,
+						privacyId,
+					})
+				)
+			);
+			return;
+		}
+		dispatch(addGroup(jsonToFormData(objToSend)));
 	};
 
 	const onFinishFailed = errorInfo => {
-		// console.log("Failed:", errorInfo);
+		console.log("Failed:", errorInfo);
 	};
+
+	useEffect(() => {
+		if (update) {
+			const featureValues = detail.features.map(item => ({
+				[item.featureName]: true,
+			}));
+			form.setFieldsValue({
+				features: detail.features.map(item => {
+					return { featureId: item.featureId };
+				}),
+				name: detail.name,
+				description: detail.description,
+				...featureValues.reduce(function(result, current) {
+					return Object.assign(result, current);
+				}, {}),
+			});
+			setMemberList([...detail.members]);
+			setPrivacyId(detail.privacyId);
+		}
+	}, [detail]);
 
 	return (
 		<>
 			<Form
 				form={form}
 				name="addDepartment"
-				labelCol={{
-					span: 24,
-				}}
-				wrapperCol={{
-					span: 24,
-				}}
-				initialValues={{
-					memberType: null,
-					members: [],
-					name: "",
-					description: "",
-				}}
+				initialValues={{ Feed: true, features: [{ featureId: 1 }] }}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
-				autoComplete="off"
 				dir={Direction}
+				layout={"vertical"}
 				className={`${Direction}`}
 			>
 				<div className="flex justify-between gap-4">
@@ -117,10 +156,10 @@ const Composer = props => {
 						<Form.Item area="true" style={{ marginBottom: 0 }}>
 							<SingleUpload
 								handleImageUpload={handleImageUpload}
-								img="Add Image"
 								position="flex-start"
 								uploadText={labels.upload}
 								multiple={false}
+								url={detail?.image ? detail.image : ""}
 							/>
 						</Form.Item>
 					</div>
@@ -140,26 +179,13 @@ const Composer = props => {
 					<Input.TextArea placeholder={placeHolders.descPh} />
 				</Form.Item>
 
-				<Form.Item
-					shouldUpdate={(prevValues, curValues) =>
-						prevValues.members !== curValues.members
-					}
-				>
-					{form => {
-						return (
-							<MemberComposer
-								handleAdd={handelAddMember}
-								state={state}
-								defaultData={state.members.map(members => {
-									return members.memberId;
-								})}
-								form={form}
-								placeholder={placeHolders}
-								error={errors}
-							/>
-						);
-					}}
-				</Form.Item>
+				<MemberComposer
+					handleAdd={handelAddMember}
+					placeholder={placeHolders}
+					error={errors}
+					form={form}
+					memberList={memberList?.length > 0}
+				/>
 
 				{memberList?.length > 0 ? (
 					<MemberListItem
@@ -173,18 +199,31 @@ const Composer = props => {
 				) : (
 					""
 				)}
+				<FeatureSelect
+					features={features}
+					form={form}
+					notIncludeFeature={FeaturesEnum.Travel}
+				/>
 
 				<Form.Item>
-					<Button
-						type="primary"
-						size="large"
-						className="ThemeBtn"
-						block
-						htmlType="submit"
-						title={"Create"}
-					>
-						{groupsDictionary.createTextBtn}
-					</Button>
+					<div className="flex items-center gap-2">
+						<PrivacyOptions
+							privacyId={privacyId}
+							onPrivacyChange={onPrivacyChange}
+							labels={labels}
+						/>
+						<Button
+							size="large"
+							className="ThemeBtn"
+							block
+							htmlType="submit"
+							loading={loading}
+						>
+							{update
+								? groupsDictionary.updateTextBtn
+								: groupsDictionary.createTextBtn}
+						</Button>
+					</div>
 				</Form.Item>
 			</Form>
 		</>

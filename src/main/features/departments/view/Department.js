@@ -52,7 +52,10 @@ const Department = (props) => {
     );
   }, [filter, search]);
 
-  console.log("loader", loader);
+  // useEffect(()=>{
+
+  // },[departments])
+  // const onSearch = (value) => setSearch(value);
   return (
     <>
       <TabbableContainer className="">
@@ -74,6 +77,7 @@ const Department = (props) => {
           ]}
         />
         <TopBar
+          // onSearch={onSearch}
           onSearch={(value) => {
             console.log(value);
           }}
@@ -117,7 +121,7 @@ const Department = (props) => {
               <>
                 {loader ? (
                   <>
-                    {[...Array(9)].map((item) => {
+                    {[...Array(20)].map((item) => {
                       return (
                         <CardWrapper2>
                           <Skeleton active={false} />
@@ -152,13 +156,19 @@ const Department = (props) => {
             )
           ) : (
             <CardWrapper2>
-              <h1>Data not Found</h1>
+              {[...Array(20)].map((item) => {
+                return (
+                  <CardWrapper2>
+                    <Skeleton active={false} />
+                  </CardWrapper2>
+                );
+              })}
             </CardWrapper2>
           )}
         </ContBody>
-        {departmentDetail && (
+        {/* {departmentDetail && (
           <DetailedView onClose={onClose} visible={visible} />
-        )}
+        )} */}
       </TabbableContainer>
     </>
   );

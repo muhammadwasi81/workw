@@ -15,12 +15,15 @@ import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarCh
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
 import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
+import subsidiarySlice from "../main/features/subsidiary/store/slice";
 import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
 import designationSlice from "../main/features/designation/store/slice";
 import appraisalSlice from "../main/features/appraisal/appraisalQuestion/store/slice";
 import warningCategorySlice from "../main/features/warning/warningCategory/store/slice";
+import complainCategorySlice from "../main/features/complain/complainCategory/store/slice";
+import defaultHiringCriteriaSlice from "../main/features/careers/defaultHiringCriteria/store/slice";
 import warningSlice from "../main/features/warning/store/slice";
 import departmentSlice from "../main/features/departments/store/slice";
 import leaveTypeSlice from "../main/features/leave/leaveType/store/slice";
@@ -29,6 +32,7 @@ import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
 import businessPolicySlice from "../main/features/businessPolicy/store/slice";
 import allowanceSlice from "../main/features/allowance/store/slice";
 import rewardCategorySlice from "../main/features/reward/rewardCategory/store/slice";
+import payrollGroupSlice from "../main/features/payroll/payrollGroup/store/slice";
 import bonusSlice from "../main/features/bonus/store/slice";
 import rewardSlice from "../main/features/reward/store/slice";
 import leaveSlice from "../main/features/leave/store/slice";
@@ -65,6 +69,7 @@ import resignationSlice from "./appReducer/resignationSlice";
 import voucherSlice from "../main/features/voucher/store/slice";
 import scheduleSlice from "../main/features/schedule/store/slice";
 import attendanceSlice from "../main/features/attendance/store/slice";
+import payrollSlice from "../main/features/payroll/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -75,6 +80,7 @@ const reducers = combineReducers({
   stickyNotesSlice,
   responsiveSlice,
   responseStatusSlice,
+  subsidiarySlice,
   sideBarChatSlice,
   MessengerSlice,
   leaveSlice,
@@ -84,6 +90,9 @@ const reducers = combineReducers({
   //   mailSlice,
   jobDescriptionSlice,
   sharedQuillSlice,
+  defaultHiringCriteriaSlice,
+  complainCategorySlice,
+  payrollGroupSlice,
   customApprovalCategorySlice,
   rewardCategorySlice,
   rewardSlice,
@@ -126,6 +135,7 @@ const reducers = combineReducers({
   callingSlice,
   voucherSlice,
   salarySlice,
+  payrollSlice
 });
 
 const persistConfig = {

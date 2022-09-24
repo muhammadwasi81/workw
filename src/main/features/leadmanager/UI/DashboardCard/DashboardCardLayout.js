@@ -15,7 +15,7 @@ function DashboardCardLayout({
 }) {
 	const { Meta } = Card;
 	const userId = useSelector(state => state.userSlice.user.id);
-	console.log("dict", dictionary);
+	// console.log("dict", dictionary);
 
 	return (
 		<>

@@ -19,15 +19,11 @@ function ListItem(props) {
 			<Card
 				className={"Card2"}
 				cover={
-					<img
-						alt="example"
-						className="object-cover"
-						src={ProjectDefaultImage}
-					/>
+					<img alt="example" className="object-cover" src={image} />
 				}
 				hoverable
 				onClick={e => {
-					navigate(`${ROUTES.PROJECT.DETAIL}`);
+					navigate(`${ROUTES.PROJECT.DEFAULT}/${props.id} `);
 				}}
 			>
 				<Meta title={name} description={description} />
@@ -36,8 +32,6 @@ function ListItem(props) {
 					isTag={false}
 					heading={"Members"}
 					membersData={members}
-					text={"Danish"}
-					image={"https://joeschmoe.io/api/v1/random"}
 				/>
 			</Card>
 		</>

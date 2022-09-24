@@ -6,12 +6,12 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 export const tableColumn = () => {
   return [
     { title: "Dept Name", dataIndex: "name", ellipsis: true, sort: true },
-    {
-      title: "Reference No",
-      dataIndex: "referenceNo",
-      ellipsis: true,
-      sort: true,
-    },
+    // {
+    //   title: "Reference No",
+    //   dataIndex: "referenceNo",
+    //   ellipsis: true,
+    //   sort: true,
+    // },
     {
       title: "Description",
       dataIndex: "description",
@@ -33,11 +33,11 @@ export const tableColumn = () => {
       render: (status) => <StatusTag status={status} />,
       sort: true,
     },
-    {
-      title: "Category",
-      dataIndex: "category",
-      ellipsis: true,
-      sort: true,
-    },
+    // {
+    //   title: "Category",
+    //   dataIndex: "category",
+    //   ellipsis: true,
+    //   sort: true,
+    // },
   ];
 };

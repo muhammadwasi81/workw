@@ -9,6 +9,7 @@ import "./editForm.css";
 import DrangableQuestions from "./DragableItems";
 import { useSelector } from "react-redux";
 import { STRINGS } from "../../../../../../utils/base";
+import BusinessLogo from "../../../../../../content/systemLogo.png";
 // import DragHandleIcon from '@material-ui/icons/DragHandle';
 import CreateForm from "../CreateForm/CreateForm";
 
@@ -49,27 +50,59 @@ const EditForm = (props) => {
       user_type: 2,
     },
     approvals: [],
-    questions: [],
+    questions: [
+      // {
+      //   id: "577bc117-1883-4790-bb5e-ecfa8a97f157",
+      //   form_id: "c54f223b-46d0-40d8-85d3-9fd8257d2d02",
+      //   question: "What is your name?",
+      //   sequence: 0,
+      //   answerType: 3,
+      //   isRequired: true,
+      //   image_id: "00000000-0000-0000-0000-000000000000",
+      //   image: "",
+      //   createBy: "fab583c7-7ebb-4993-b40b-cad65768247b",
+      //   createDate: "1658748266000",
+      //   answers: [],
+      // },
+    ],
   };
-  console.log(data);
+  // console.log(props, "props in edit section");
   useEffect(() => {
-    // console.log(user);
-    data.name = user.name;
-    data.createBy = user.id;
     console.log(data);
     setFormDataByType(data);
   }, []);
+
+  // useEffect(() => {
+  //   console.log(data);
+  //   setFormDataByType(data);
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("use effect works when form datta changes");
+  //   setFormDataByType(formData);
+  // }, [formData]);
+
+  const dataGet = (values) => {
+    console.log("data getting from create form component", values);
+    setFormDataByType(values);
+  };
+
   let setFormDataByType = (data) => {
-    let filteredData = data.questions.map((item) => {
-      if (item.answerType === 4) {
+    console.log("data getting in set form by type", data);
+    console.log("questions data map", data.questions);
+    let filteredData = data.questions.map((item, index) => {
+      if (item.answerType === 2) {
+        console.log("************check");
         return {
           ...item,
           localType: "number",
+          sequence: index,
         };
       } else if (item.answerType === 3) {
         return {
           ...item,
           localType: "text",
+          sequence: index,
         };
       } else if (item.answerType === 1 && "radioWithImage") {
         let isRadioWithImg = item.answers.filter(
@@ -79,17 +112,21 @@ const EditForm = (props) => {
           return {
             ...item,
             localType: "radio",
+            sequence: index,
           };
         } else {
           return {
             ...item,
             localType: "radioWithImage",
+            sequence: index,
           };
         }
       }
     });
     // setSubmitForms(submitData);
+    console.log("filtered data", filteredData);
     setFormData({ ...data, questions: filteredData });
+    console.log("formData", formData);
   };
   const handleChange = (items) => {
     console.log(items);
@@ -104,13 +141,12 @@ const EditForm = (props) => {
     });
     setFormData({ ...formData, questions: filteredData });
   };
-  console.log(formData);
   if (!formData) return <div>Loading...</div>;
   return (
     <>
       <div className="submit-form-wrap">
         <div className="formCompanyLogo">
-          <img src={formData.businessLogo} />
+          <img src={BusinessLogo} />
         </div>
         <div className="center-fix">
           <FormHeader
@@ -158,7 +194,7 @@ const EditForm = (props) => {
                 </>
               ))}
           </DrangableQuestions>
-          <CreateForm />
+          <CreateForm dataSend={dataGet} />
         </div>
         {/* <div>
           <CustomizedSnackbars

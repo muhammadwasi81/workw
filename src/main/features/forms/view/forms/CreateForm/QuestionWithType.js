@@ -16,7 +16,7 @@ const QuestionWithType = ({
   ...props
 }) => {
   const [options, setOptions] = useState([{ option: "", image: {} }]);
-
+  const [question, setQuestion] = useState(" ");
   const [fileList, setFileList] = useState([]);
 
   const handleImageChange = (info, index, action) => {
@@ -33,13 +33,19 @@ const QuestionWithType = ({
     props.questionChange(options);
   }, [options]);
 
+  const handleQuestionChange = (e) => {
+    console.log(e.target.value);
+    setQuestion(e.target.value);
+    props.questionChange(e.target.value);
+  };
+
   const handleChange = (e, index) => {
     const { value } = e.target;
     let data = [...options];
 
     data[index] = { ...data[index], option: value };
     setOptions(data);
-    props.questionChange(options);
+    props.optionChange(options);
   };
 
   let removeFormFields = (i) => {
@@ -70,11 +76,16 @@ const QuestionWithType = ({
   return (
     <>
       <Form.Item>
-        <Input name="Question" placeholder="Question.." />
+        <Input
+          name="Question"
+          placeholder="Question.."
+          // value={question}
+          onChange={handleQuestionChange}
+        />
       </Form.Item>
-      <Form.Item name="Question Type">
+      <Form.Item name="answerType">
         <Select
-          placeholder="Select Question Type"
+          placeholder="Select Answer Type"
           onChange={onQuestionTypeChange}
           allowClear
         >

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { getNameForImage, STRINGS } from "../../../../../../utils/base";
+import moment from "moment";
+import {
+  createGuid,
+  getNameForImage,
+  STRINGS,
+} from "../../../../../../utils/base";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Input, Avatar, Select, Button, Space } from "antd";
 // import SingleUpload from "../../../../../sharedComponents/Upload/singleUpload";
@@ -16,6 +21,7 @@ const CreateForm = (props) => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [type, setType] = useState([]);
   const [options, setOptions] = useState([]);
+  const [question, setQuestion] = useState("");
   const [pollsImage, setPollsImage] = useState([]);
   const [polls, setPolls] = useState([]);
 
@@ -27,7 +33,7 @@ const CreateForm = (props) => {
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
-
+  const { user } = useSelector((state) => state.userSlice);
   useEffect(() => {
     fetchEmployees("", 0);
   }, []);
@@ -40,16 +46,68 @@ const CreateForm = (props) => {
   }, [employees]);
 
   const onFinish = (values) => {
+    console.log("usersss", user);
     console.log("Success:", values);
     //Type and options to be used in form submission and pushing into question object
     console.log(type);
     console.log(options);
+    console.log(question);
+
+    let questions = {
+      id: createGuid(),
+      form_id: createGuid(),
+      question: question,
+      answerType: values.answerType,
+      isRequired: true,
+      image_id: "00000000-0000-0000-0000-000000000000",
+      image: "",
+      createBy: createGuid(),
+      createDate: moment().format("DD/MM/YYYY"),
+      answers: options ? [options.value] : [],
+    };
+
+    let data = {
+      id: createGuid(),
+      name: values.subject,
+      description: values.description,
+      acceptingResponse: true,
+      businessLogo:
+        "https://Konnect.im/upload/2021/12/440ba960-2b69-43d4-90f2-754824fd8a40.png",
+      status: 1,
+      approverStatus: 2,
+      ref_no: "",
+      createBy: user.firstName,
+      createDate: moment().format("DD/MM/YYYY"),
+      creator: {
+        id: user.id,
+        name: user.firstName,
+        profile_picture: user.image,
+        designation: "",
+        email: user.email,
+        userStatus: 1,
+        userStatusDatetime: "",
+        type: 1,
+        isActive: true,
+        isDisable: false,
+        business_id: "",
+        user_type: 2,
+      },
+      approvals: values.approvers,
+      questions: [questions],
+    };
+    //Todo:  Send Data into edit section
+    props.dataSend(data);
+    // subject: values.subject,
+    // approvers: values.approvers,
+    // questionType: values.answerType,
+    // question: question,
+    // answers: options ? [options.value] : [],
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  console.log(props, "in parent component");
+  // console.log(props, "in parent component");
   return (
     <>
       <Form
@@ -70,7 +128,7 @@ const CreateForm = (props) => {
         >
           <Input placeholder="Subject" />
         </Form.Item>
-        <Form.Item>
+        <Form.Item name="description">
           <TextArea placeholder="Description" rows={4} />
         </Form.Item>
         <Form.Item label="Approvers" name="approvers">
@@ -100,78 +158,11 @@ const CreateForm = (props) => {
         </Form.Item>
         <QuestionWithType
           setQuestionType={(value) => setType({ type: value })}
-          questionChange={(value) => setOptions({ value })}
+          optionChange={(value) => setOptions({ value })}
           typeProp={type}
+          questionChange={(value) => setQuestion(value)}
           //   optionChange={(value)=> }
         />
-        {/* <Form.Item name="question">
-          <Input placeholder="Question" />
-        </Form.Item> */}
-        {/* <Form.Item name="Question Type">
-          <Select
-            placeholder="Select Question Type"
-            onChange={onQuestionTypeChange}
-            allowClear
-          >
-            <Option value={1}>Text</Option>
-            <Option value={2}>Number</Option>
-            <Option value={3}>Polls</Option>
-          </Select>
-        </Form.Item> */}
-
-        {/* {type === 3 && (
-          //   <Form.Item name="options">
-          //     {options.map((element, index) => (
-          //       <div style={{ display: "flex", gridGap: "1em" }}>
-          //         <Input
-          //           placeholder={`option ${index + 1}`}
-          //           onChange={(e) => {
-
-          //           }}
-          //         />
-          //         <SingleUpload
-          //           handleImageUpload={handleImageUpload}
-          //           img="Add Image"
-          //           position="flex-start"
-          //           uploadText={"Uploads"}
-          //         />
-          //         {index ? (
-          //           <button
-          //             type="button"
-          //             className="button-remove"
-          //             onClick={() => removeFormFields(index)}
-          //           >
-          //             <CloseOutlined />
-          //           </button>
-          //         ) : null}
-          //       </div>
-          //     ))}
-
-          //     <Button onClick={() => addFormFields()}>Add More</Button>
-          //   </Form.Item>
-          <div>
-            {options.map((element, index) => (
-              <>
-                <Options
-                  onChange={onInputFieldChange}
-                  placeholder="Optionsss"
-                  name="option"
-                  handleImageUpload={handleImageUpload}
-                />
-                {index ? (
-                  <button
-                    type="button"
-                    className="button-remove"
-                    onClick={() => removeFormFields(index)}
-                  >
-                    <CloseOutlined />
-                  </button>
-                ) : null}
-              </>
-            ))}
-            <Button onClick={() => addFormFields()}>Add More</Button>
-          </div>
-        )} */}
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Add Question

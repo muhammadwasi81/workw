@@ -1,0 +1,37 @@
+.sticky_container {
+  height: 400px;
+  background: #ebecf0;
+  width: 20%;
+  max-height: 400px;
+  position: absolute;
+  left: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transform: translate(11px, 456px);
+}
+.sticky-header {
+  padding: 7px;
+  cursor: move;
+  z-index: 10;
+  font-size: 14px;
+  letter-spacing: 1px;
+  background-color: #0f4c81;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+.heading {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+.right_Icons {
+  font-size: 20px !important;
+}
+.left_Icon {
+  font-size: 20px !important;
+}

@@ -19,6 +19,7 @@ import NotificationModal from "./NavComposer";
 import Approvals from "../../../../features/approval/view/SideBarApproval/sideBarAppovals";
 import Notifications from "../../../../features/notifiation/view/index";
 import OpenImage from "../../../../features/notes/OpenImage";
+import StickyContainer from "../../../../features/notes/newStickyNotes/StickyContainer";
 // const Approvals = () => {
 //   return "Approvals";
 // };
@@ -74,7 +75,7 @@ function NotificationBar() {
 
   // Sticky Note
   const toggleNote = useSelector((state) => state.newStickySlice.open);
-
+``
   const stickyNoteHandler = () => {
     dispatch(toggleStickyNote());
   };
@@ -122,7 +123,9 @@ function NotificationBar() {
         <li className="list__item">
           <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
         </li>
-        {toggleNote && <Notes stickyNoteTitle={title} />}
+        {/* {toggleNote && <Notes stickyNoteTitle={title} />} */}
+        {/* {<StickyContainer/>} */}
+        {toggleNote && <StickyContainer />}
         {incrementStickyNote.map((increment) => (
           <NewStickyNote
             key={increment.id}

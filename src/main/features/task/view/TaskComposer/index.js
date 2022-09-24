@@ -16,7 +16,6 @@ import { addNewTask } from "../../store/actions";
 import { getNameForImage, STRINGS } from "../../../../../utils/base";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { taskDictionary } from "../../localization";
-
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { useSelector } from "react-redux";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";

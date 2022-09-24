@@ -23,6 +23,7 @@ const EmployeeList = ({ id }) => {
     <List>
       <AList className="admin_list">
         {listitem.map(({ displayName, to, IconName }) => {
+          console.log(displayName, "displayName");
           return (
             <Item key={displayName} active={to().includes(baseURL)}>
               <Tooltip

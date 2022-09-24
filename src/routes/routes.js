@@ -104,12 +104,12 @@ export const routes = {
 				import("../main/features/travel/view/TravelDetail/TravelDetail")
 			),
 		},
-		{
-			path: `${ROUTES.CAREER.JOB_BY_ID}`,
-			component: lazy(() =>
-				import("../main/features/careers/view/DetailView/index")
-			),
-		},
+		// {
+		// 	path: `${ROUTES.CAREER.JOB_BY_ID}`,
+		// 	component: lazy(() =>
+		// 		import("../main/features/careers/view/DetailView/index")
+		// 	),
+		// },
 		{
 			path: `${ROUTES.EMPLOYEES.DEFAULT}`,
 			component: lazy(() => import("../main/features/employee/")),
@@ -225,12 +225,12 @@ export const routes = {
 			path: `${ROUTES.CAREER.DEFAULT}`,
 			component: lazy(() => import("../main/features/careers/view/")),
 		},
-		{
-			path: `${ROUTES.CAREER.JOB_DETAIL}`,
-			component: lazy(() =>
-				import("../main/features/careers/view/DetailView/index")
-			),
-		},
+		// {
+		// 	path: `${ROUTES.CAREER.JOB_DETAIL}`,
+		// 	component: lazy(() =>
+		// 		import("../main/features/careers/view/DetailView/index")
+		// 	),
+		// },
 		{
 			path: `${ROUTES.EXPENSES.DEFAULT}`,
 			component: lazy(() => import("../main/features/expense/routes/")),

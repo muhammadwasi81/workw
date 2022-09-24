@@ -1,0 +1,58 @@
+.createCareer .ant-form-item {
+  margin-bottom: 5px;
+}
+
+.DetailCard h2 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+
+.DetailCard h6 {
+  color: #757d86;
+  font-size: 14px;
+}
+
+.DetailCard h4 {
+  color: var(--currentThemeColor);
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0px 0px 8px 0px !important;
+}
+
+.DetailCard p {
+  color: #757d86;
+  font-size: 12px;
+}
+
+.DetailCard .ItemDetails {
+  justify-content: space-between;
+}
+
+.Card3 .ThemeBtn {
+  z-index: 999;
+  padding: 7px 14px;
+}
+
+.DetailCard .right {
+  display: flex;
+}
+
+.DetailCard .linkDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.LinkTag {
+  padding: 4px 7px;
+  margin-top: 4px;
+}
+
+.LinkTag span {
+  position: relative;
+  top: -2px;
+}
+
+.DetailCard .IdTag {
+  padding: 5px 12px;
+}

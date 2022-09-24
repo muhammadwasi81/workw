@@ -1,6 +1,11 @@
 const arabic = {
   employeesDictionary: {
     placeholders: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       fName: "پہلا نام درج کریں",
       lName: "آخری نام درج کریں",
       fatherName: "والد کا نام درج کریں",
@@ -43,6 +48,11 @@ const arabic = {
       sortCode: "ترتیب کوڈ درج کریں",
     },
     EmployeeForm: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       UpdateBasicInfo: "Update BasicInfo",
       BasicInfo: "Basic Info",
       AddImage: "تصویر شامل کریں",

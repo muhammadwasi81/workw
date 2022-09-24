@@ -254,7 +254,7 @@ function CreateExpense({ referenceId = defaultUiid }) {
           name={typeList[type]}
           labelPosition="top"
         >
-          <Select placeholder={listObj[type]}>
+          <Select placeholder={listObj[type]} size="large">
             {typesSelect.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {type === 4 ? item.subject : item.name}

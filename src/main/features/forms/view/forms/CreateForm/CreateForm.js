@@ -110,65 +110,72 @@ const CreateForm = (props) => {
   // console.log(props, "in parent component");
   return (
     <>
-      <Form
-        name="CreateForm"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-        form={form}
-      >
-        <Form.Item
-          name="subject"
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-            },
-          ]}
+      <Form.Provider>
+        <Form
+          name="CreateForm"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+          form={form}
         >
-          <Input placeholder="Subject" />
-        </Form.Item>
-        <Form.Item name="description">
-          <TextArea placeholder="Description" rows={4} />
-        </Form.Item>
-        <Form.Item label="Approvers" name="approvers">
-          <MemberSelect
-            name="Approvers"
-            mode="multiple"
-            formItem={false}
-            isObject={true}
-            data={firstTimeEmpData}
-            canFetchNow={isFirstTimeDataLoaded}
-            fetchData={fetchEmployees}
-            placeholder="Select Approvers"
-            selectedData={(_, obj) => {
-              setEmployeesData([...obj]);
-            }}
-            optionComponent={(opt) => {
-              return (
-                <>
-                  <Avatar src={opt.image} className="!bg-black">
-                    {getNameForImage(opt.name)}
-                  </Avatar>
-                  {opt.name}
-                </>
-              );
-            }}
-          />
-        </Form.Item>
-        <QuestionWithType
-          setQuestionType={(value) => setType({ type: value })}
-          optionChange={(value) => setOptions({ value })}
-          typeProp={type}
-          questionChange={(value) => setQuestion(value)}
+          <Form.Item
+            name="subject"
+            rules={[
+              {
+                required: true,
+                message: "Please input your username!",
+              },
+            ]}
+          >
+            <Input placeholder="Subject" />
+          </Form.Item>
+          <Form.Item name="description">
+            <TextArea placeholder="Description" rows={4} />
+          </Form.Item>
+          <Form.Item label="Approvers" name="approvers">
+            <MemberSelect
+              name="Approvers"
+              mode="multiple"
+              formItem={false}
+              isObject={true}
+              data={firstTimeEmpData}
+              canFetchNow={isFirstTimeDataLoaded}
+              fetchData={fetchEmployees}
+              placeholder="Select Approvers"
+              selectedData={(_, obj) => {
+                setEmployeesData([...obj]);
+              }}
+              optionComponent={(opt) => {
+                return (
+                  <>
+                    <Avatar src={opt.image} className="!bg-black">
+                      {getNameForImage(opt.name)}
+                    </Avatar>
+                    {opt.name}
+                  </>
+                );
+              }}
+            />
+          </Form.Item>
+         
+          <QuestionWithType
+            // setQuestionType={(value) => setType({ type: value })}
+            // optionChange={(value) => setOptions({ value })}
+            // typeProp={type}
+            // questionChange={(value) => setQuestion(value)}
           //   optionChange={(value)=> }
-        />
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Add Question
-          </Button>
-        </Form.Item>
-      </Form>
+          />
+
+
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Add Question
+            </Button>
+          </Form.Item>
+        </Form>
+      </Form.Provider>
+   
     </>
   );
 };

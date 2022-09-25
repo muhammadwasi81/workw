@@ -12,7 +12,7 @@ import {
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
 import { updateListExpenseStatus } from "../store/slice";
 
-function ExpenseDetail({ id, visible }) {
+function ExpenseDetail({ id }) {
 	const { expense } = useSelector(state => state.expenseSlice);
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
@@ -22,8 +22,8 @@ function ExpenseDetail({ id, visible }) {
 	const [isMount, setIsMount] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		if (visible) dispatch(getExpenseById(id));
-	}, [visible]);
+		dispatch(getExpenseById(id));
+	}, [id]);
 	useEffect(() => {
 		if (status) {
 			dispatch(updateListExpenseStatus({ id, status }));

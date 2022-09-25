@@ -25,22 +25,56 @@ const panes = [
 	},
 ];
 
+const approvals = [
+	{
+		type: 1,
+		id: 1,
+	},
+	{
+		type: 2,
+		id: 2,
+	},
+	{
+		type: 3,
+		id: 3,
+	},
+	{
+		type: 4,
+		id: 4,
+	},
+	{
+		type: 5,
+		id: 5,
+	},
+	{
+		type: 6,
+		id: 6,
+	},
+	{
+		type: 7,
+		id: 7,
+	},
+	{
+		type: 8,
+		id: 8,
+	},
+	{
+		type: 9,
+		id: 9,
+	},
+];
+
 export default function Listing({ handleApprovalDetail }) {
 	return (
 		<>
 			<Tab panes={panes} />
 			<div className="overflow-scroll h-[85vh]">
-				{Array(100)
-					.fill({
-						type: 1,
-						id: "9fb567fa-7a1e-4317-974b-ff59540ce4f9",
-					})
-					.map(item => (
-						<ApprovalItem
-							item={item}
-							handleApprovalDetail={handleApprovalDetail}
-						/>
-					))}
+				{approvals.map(item => (
+					<ApprovalItem
+						item={item}
+						handleApprovalDetail={handleApprovalDetail}
+					/>
+				))}
 			</div>
 		</>
 	);

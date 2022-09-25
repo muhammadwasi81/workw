@@ -11,6 +11,43 @@ import RewardDetailCard from "../../../reward/view/DetailCard";
 import SalaryDetailCard from "../../../salary/view/SalaryList/salaryDetailCard";
 import TravelDetail from "../../../travel/view/TravelDetail/TravelDetail";
 
+function Detail({ type, id }) {
+	switch (type) {
+		case 1:
+			return <SalaryDetailCard id={id} />;
+
+		case 2:
+			return <TravelDetail travelId={id} />;
+
+		case 3:
+			return <DocumentDetail id={id} />;
+
+		case 4:
+			return <RewardDetailCard id={id} />;
+
+		case 5:
+			return <BonusDetailCard id={id} />;
+
+		case 6:
+			<ComplainDetail id={id} />;
+			return;
+
+		case 7:
+			<PromotionDetail id={id} />;
+			return;
+
+		case 8:
+			<LoanDetail id={id} />;
+			return;
+
+		case 9:
+			return <PayrolDetailCard id={id} />;
+
+		default:
+			return <></>;
+	}
+}
+
 export default function ApprovalDetail({ approvalDetailData }) {
 	const panes = () => {
 		return [
@@ -22,38 +59,15 @@ export default function ApprovalDetail({ approvalDetailData }) {
 		];
 	};
 
-	// switch (key) {
-	// 	case value:
-	// 		break;
-
-	// 	default:
-	// 		break;
-	// }
+	console.log("approval detail", approvalDetailData);
 
 	return (
 		<div className="approvalDetail">
 			<Tab panes={panes()} />
-			{/* salary => done*/}
-			<SalaryDetailCard id={defaultUiid} />
-			{/* travel detail */}
-			{/* <TravelDetail travelId={defaultUiid} /> */}
-			{/* docs and archive => */}
-			{/* <DocumentDetail id={defaultUiid} /> */}
+			{Detail(approvalDetailData)}
 			{/* schedules pending */}
 			{/* expense =>*/}
 			{/* <Expense/> */}
-			{/* reward => done*/}
-			{/* <RewardDetailCard id={defaultUiid} /> */}
-			{/* bonus */}
-			{/* <BonusDetailCard id={defaultUiid} /> */}
-			{/* complaint */}
-			{/* <ComplainDetail id={defaultUiid} /> */}
-			{/* promotion */}
-			{/* <PromotionDetail id={defaultUiid} /> */}
-			{/* loan */}
-			{/* <LoanDetail id={defaultUiid} /> */}
-			{/* payrol => i think*/}
-			{/* <PayrolDetailCard id={defaultUiid} /> */}
 		</div>
 	);
 }

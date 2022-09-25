@@ -10,6 +10,14 @@
   font-size: 14px;
 }
 
+.addExpense .expenseDate {
+  width: 100%;
+}
+
+.addExpense .reimbursable {
+  margin-bottom: -30px;
+}
+
 /* .addExpense .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
   height: 35px;
 } */

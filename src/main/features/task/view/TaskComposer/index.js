@@ -16,7 +16,6 @@ import { addNewTask } from "../../store/actions";
 import { getNameForImage, STRINGS } from "../../../../../utils/base";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { taskDictionary } from "../../localization";
-
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { useSelector } from "react-redux";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
@@ -160,16 +159,7 @@ function TaskComposer({ referenceId: referenceIdProps, referenceType = 1 }) {
       >
         <Input placeholder={placeHolder.writeSubject} />
       </Form.Item>
-      <Form.Item
-        label={labels.predecessor}
-        name="parentId"
-        rules={[
-          {
-            required: true,
-            message: "Please input predecessor!",
-          },
-        ]}
-      >
+      <Form.Item label={labels.predecessor} name="parentId">
         <Select
           getPopupContainer={(trigger) => trigger.parentNode}
           placeholder={placeHolder.writePredecessor}

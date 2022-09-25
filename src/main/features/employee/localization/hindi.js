@@ -1,6 +1,11 @@
 const hindi = {
   employeesDictionary: {
     placeholders: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       fName: "प्रथम नाम दर्ज करें",
       lName: "अंतिम नाम दर्ज करो",
       fatherName: "पिता का नाम दर्ज करें",
@@ -42,6 +47,11 @@ const hindi = {
       sortCode: "क्रमबद्ध कोड दर्ज करें",
     },
     EmployeeForm: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       UpdateBasicInfo: "Update BasicInfo",
       AddImage: "छवि जोड़ें",
       FirstName: "पहला नाम",
@@ -102,6 +112,7 @@ const hindi = {
       City: "शहर",
     },
     WorkExperienceForm: {
+      organization: "Organization",
       WorkExperienceInfo: "कार्य अनुभव जानकारी",
       Employer: "नियोक्ता",
       Position: "स्थान",

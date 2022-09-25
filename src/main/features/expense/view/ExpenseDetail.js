@@ -12,20 +12,15 @@ import {
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
 import { updateListExpenseStatus } from "../store/slice";
 
-function ExpenseDetail(props) {
-	const { visible, onClose, id } = props;
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { ExpenseDictionaryList, Direction } = ExpenseDictionary[
-		userLanguage
-	];
+function ExpenseDetail({ id, visible }) {
 	const { expense } = useSelector(state => state.expenseSlice);
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
+	const { labels } = ExpenseDictionaryList;
 	const [expenseStatus, setExpenseStatus] = useState({});
 	const [status, setStatus] = useState();
 	const [isMount, setIsMount] = useState(false);
-
-	const { labels } = ExpenseDictionaryList;
 	const dispatch = useDispatch();
-
 	useEffect(() => {
 		if (visible) dispatch(getExpenseById(id));
 	}, [visible]);
@@ -59,31 +54,9 @@ function ExpenseDetail(props) {
 			setIsMount(false);
 		};
 	}, []);
-	console.log(expense, "expense detailssss");
+
 	return (
-		<Drawer
-			title={
-				<h1
-					style={{
-						fontSize: "20px",
-						margin: 0,
-						textAlign: Direction === "ltr" ? "" : "end",
-					}}
-				>
-					{labels.expenseDetail}
-				</h1>
-			}
-			placement={props.direction === "ltr" ? "right" : "left"}
-			width="768"
-			onClose={() => {
-				onClose();
-				setExpenseStatus([]);
-				setStatus();
-			}}
-			visible={visible}
-			destroyOnClose={true}
-			className="detailedViewComposer drawerSecondary"
-		>
+		<>
 			{!Object.keys(expense).length ? (
 				<Skeleton avatar paragraph={{ rows: 6 }} />
 			) : (
@@ -129,8 +102,7 @@ function ExpenseDetail(props) {
 					/>
 				</div>
 			)}
-		</Drawer>
+		</>
 	);
 }
-
 export default ExpenseDetail;

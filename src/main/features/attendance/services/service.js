@@ -31,7 +31,7 @@ export const GetAttendanceLastCheckInService = async () => {
 	try {
 		const {
 			data: { responseCode, data, message },
-		} = await Config.get(`api/Attendance/GetAttendanceCheckInById`);
+		} = await Config.get(`api/Attendance/GetAttendanceLastCheckIn`);
 		if (responseCode === 1001) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {

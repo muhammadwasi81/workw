@@ -1,34 +1,54 @@
 import { ResponseResultError, ResponseResultSuccess } from "../../../../utils/api/ResponseResult";
 import Config from "../../../../utils/services/MasterConfig";
 
-const getAllVoucher_dbo = (data) => {
+const getCalculatedPayroll_dto = (data) => {
 	return {
-		"pageNo": data.pageNo ? data.pageNo : 0,
-		"pageSize": data.pageSize ? data.pageSize : 20,
-		"search": data.search ? data.search : "",
-		"startDate": data.startDate ? data.startDate : null,
-		"endDate": data.endDate ? data.endDate : null,
-		"voucherTypes": data.voucherTypes ? data.voucherTypes : [],
-		"sortBy": data.sortBy ? data.sortBy : 0
+		"departments": data.departments ? data.departments : [],
+		"month": data.month ? data.month : 0,
+		"year": data.year ? data.year : 0,
+		"employees": data.employees ? data.employees : []
 	}
-}
-const getLedger_dbo = (data) => {
+};
+const addPayroll_dto = (data) => {
 	return {
-		"pageNo": data.pageNo ? data.pageNo : 0,
-		"pageSize": data.pageSize ? data.pageSize : 20,
+		"description": data.description ? data.description : ".",
+		"disperseDate": data.disperseDate ? data.disperseDate : null,
+		"total": data.total ? data.total : 0,
+		"details": data.details ? data.details : [],
+		"approvers": data.approvers ? data.approvers : [],       
+		"month": data.month ? data.month : 0,       
+		"year": data.year ? data.year : 0
+	}
+};
+const getAllPayroll_dto = (data) => {
+	return {
+		"pageNo": data.pageNo ? data.pageNo : 1,
+		"pageSize": data.pageSize ? data.pageSize : 50,
 		"search": data.search ? data.search : "",
-		"startDate": data.startDate ? data.startDate : null,
-		"endDate": data.endDate ? data.endDate : null,
-		"accountId": data.accountId ? data.accountId : null,
-		"balanceBroughtForward": data.balanceBroughtForward !== undefined ? data.balanceBroughtForward : true
+		"approverStatus": data.approverStatus ? data.approverStatus : [],
+		"filterType": data.filterType ? data.filterType : 0,
+		"sortBy": data.sortBy ? data.sortBy : 1
 	}
 };
 
-export const addVoucherService = async (request) => {
+export const getAllPayrollService = async (payload = {}) => {
 	try {
+		let request = getAllPayroll_dto(payload);
 		const {
 			data: { responseCode, data, message },
-		} = await Config.post(`api/Transaction/AddTransaction`, request);
+		} = await Config.post(`api/Payroll/GetAllPayroll`, request);
+		if (responseCode === 1001) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+export const getCalculatedPayrollService = async (payload = {}) => {
+	try {
+		let request = getCalculatedPayroll_dto(payload);
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/Payroll/GetCalculatedPayroll`, request);
 		if (responseCode === 1001) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
@@ -36,51 +56,15 @@ export const addVoucherService = async (request) => {
 	}
 };
 
-export const getVoucherDetailService = async (id) => {
+export const addPayrollService = async (payload = {}) => {
 	try {
+		let request = addPayroll_dto(payload);
 		const {
 			data: { responseCode, data, message },
-		} = await Config.get(`api/Transaction/GetTransactionById?id=${id}`);
+		} = await Config.post(`api/Payroll/AddPayroll`, request);
 		if (responseCode === 1001) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
 		return ResponseResultError(e);
 	}
 };
-
-export const getAllVoucherService = async (payload={}) => {
-	try {
-		let request = getAllVoucher_dbo(payload);
-		const {
-			data: { responseCode, data, message },
-		} = await Config.post(`api/Transaction/GetAllTransaction`, request);
-		if (responseCode === 1001) return ResponseResultSuccess(data);
-		return ResponseResultError(message);
-	} catch (e) {
-		return ResponseResultError(e);
-	}
-};
-export const getLegderService = async (payload={}) => {
-	try {
-		let request = getLedger_dbo(payload);
-		const {
-			data: { responseCode, data, message },
-		} = await Config.post(`api/Transaction/GetLedger`, request);
-		if (responseCode === 1001) return ResponseResultSuccess(data);
-		return ResponseResultError(message);
-	} catch (e) {
-		return ResponseResultError(e);
-	}
-};
-
-// export const updateChartOfAccountService = async(request) => {
-// 	try {
-// 		const {
-// 			data: { responseCode, data, message },
-// 		} = await Config.put(`api/ChartOfAccount/UpdateChartOfAccount`, request);
-// 		if (responseCode === 1001) return ResponseResultSuccess(data);
-// 		return ResponseResultError(message);
-// 	} catch (e) {
-// 		return ResponseResultError(e);
-// 	}
-// };

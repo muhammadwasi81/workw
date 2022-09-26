@@ -1,6 +1,8 @@
 import React from "react";
-import { ROUTES } from "../../../../../utils/routes";
-import { ContBody, TabbableContainer } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 import Header from "../../view/Header/index";
 import Card from "./Card";
 import styled from "styled-components";

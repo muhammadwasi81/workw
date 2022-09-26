@@ -26,7 +26,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 	const [value, setValue] = useState([]);
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-
+	const loader = useSelector(state => state.documentSlice.loader);
 	const ParentId = useSelector(state => state.documentSlice.parentId);
 	const employees = useSelector(state => state.sharedSlice.employees);
 
@@ -71,7 +71,6 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 		setPrivacyId(value);
 	};
 	const defaultFiles = useSelector(state => state.documentSlice.defaultFiles);
-	console.log(defaultFiles, "defaultFiles")
 	useEffect(() => {
 		let defaultFileName = defaultFiles.map((item) => item.name);
 		setFileNames(defaultFileName)
@@ -143,7 +142,6 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 	const onFinishFailed = errorInfo => {
 		console.log("Failed:", errorInfo);
 	};
-	console.log(fileNames)
 	return (
 		<>
 			<SideDrawer title={"Upload"}
@@ -353,6 +351,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 								block
 								htmlType="submit"
 								title={"Create Milepad"}
+								loading={loader}
 							>
 								{" "}
 								{"Create"}{" "}

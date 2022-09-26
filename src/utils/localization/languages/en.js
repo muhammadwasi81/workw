@@ -130,7 +130,6 @@ const en = {
     ledgerReport: "Ledger Report",
     salary: "Salary",
     payroll: "Payroll",
-
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -157,7 +156,7 @@ const en = {
       myTask: "My Tasks",
       assignedByMe: "Assigned By Me",
       createdByMe: "Created By Me",
-      
+
       teamTask: "Team Task",
       dashboard: "Dashboard",
     },
@@ -307,6 +306,8 @@ const en = {
   employee: {},
   administration: {
     Default_Hiring_Criteria: "Default Hiring Criteria",
+    subsidiary: "Subsidiary",
+    Subsidiary_Office: "Subsidiary Office",
     Business_Logo: "Business Logo",
     Payroll_Group: "Payroll Group",
     Complain_Category: "Complain Category",
@@ -328,6 +329,7 @@ const en = {
     Job_Description: "Job Description",
     Reward_Category: "Reward Category",
     Warning_Category: "Warning Category",
+    Rebate_Category: "Rebate Category",
     Form: {
       Description: "Description",
       Add: "Add",
@@ -397,9 +399,13 @@ const en = {
     Education: "Education",
     Emergency_Info: "Emergency Information",
     Experience: "Experience",
+    Rebate: "Rebate",
+    Salary: "Salary",
   },
   administration: {
+    Subsidiary_Office: "Subsidiary Office",
     Default_Hiring_Criteria: "Default Hiring Criteria",
+    subsidiary: "Subsidiary",
     Business_Logo: "Business Logo",
     Complain_Category: "Complain Category",
     Payroll_Group: "Payroll Group",

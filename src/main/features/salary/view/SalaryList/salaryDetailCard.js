@@ -26,16 +26,7 @@ function SalaryDetailCard(props) {
   if (!salaryDetail) return <></>
 
   const {
-    creator = {
-      businessId: "cfe50d8d-7c47-4abb-9154-661daf129cec",
-      designation: "",
-      email: "owais@miletap.com",
-      id: "77546782-aa7a-4984-9388-5fd044c0fb11",
-      image: "https://58.65.211.234:4436/Resources\\cfe50d8d-7c47-4abb-9154-661daf129cec\\Images\\45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg",
-      name: "Owais Shaikh",
-      type: 1,
-      userTypeId: 2
-    },
+    creator,
     basicSalary,
     details,
     netSalary,
@@ -45,6 +36,7 @@ function SalaryDetailCard(props) {
     referenceNo = "SAR-10001",
     createDate = moment(),
     effectiveDate = moment(),
+    user
   } = salaryDetail;
   return (
     <>
@@ -69,7 +61,7 @@ function SalaryDetailCard(props) {
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">Salary For</div>
-            <div className="cardSection__body">Syed Danish</div>
+            <div className="cardSection__body">{user.name}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Effective Date</div>
@@ -81,9 +73,9 @@ function SalaryDetailCard(props) {
           </div>
         </div>
 
-        <AllowanceDetail />
+        <AllowanceDetail details={details} />
 
-        <RemarksApproval data={approvers} title="Approvals"  module={ApprovalsModule.SalaryApproval} />
+        <RemarksApproval data={approvers} title="Approvals" module={ApprovalsModule.SalaryApproval} onStatusChanged={()=>{}} />
 
       </SingleItem>
     </>

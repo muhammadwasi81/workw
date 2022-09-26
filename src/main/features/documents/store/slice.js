@@ -20,6 +20,7 @@ const initialState = {
   editData: null,
   success: false,
   loader: false,
+  listLoader: false,
   error: false,
   parentId: null,
   breadCumbPath: [{
@@ -83,7 +84,6 @@ const documentSlice = createSlice({
         })),
         ...state.listData
       ] : [payload, ...state.listData]
-        //  [payload, ...state.listData];
         state.defaultFiles = [];
         state.isOpenComposers.folder = false;
         state.isOpenComposers.mileboard = false;
@@ -96,20 +96,34 @@ const documentSlice = createSlice({
       //   state.listData = state.listData.filter(item=>item.id !== payload.documents[0]);
       // })
       .addCase(getAllDocumentList.fulfilled, (state, { payload }) => {
-        state.loader = false;
-        state.success = true;
+        state.listLoader = false;
         state.listData = payload;
       })
       .addCase(getAllDocument.fulfilled, (state, {payload}) => {
-        state.loader = false;
-        state.success = true;
+        state.listLoader = false;
         state.detailListData = payload;
       })
       .addCase(GetDocumentById.fulfilled, (state, action) => {
         state.documentDetail = action.payload;
       })
+      .addCase(addDocument.pending, (state, action) => {
+        state.loader = true;
+      })
       .addMatcher(
         isPending(
+          ...[
+            getAllDocument,
+            getAllDocumentList
+          ]
+        ),
+        state => {
+          state.listLoader = true;
+          state.success = false;
+          state.error = false;
+        }
+      )
+      .addMatcher(
+        isRejected(
           ...[
             addDocument,
             getAllDocument,
@@ -117,9 +131,8 @@ const documentSlice = createSlice({
           ]
         ),
         state => {
-          state.loader = true;
-          state.success = false;
-          state.error = false;
+          state.listLoader = false;
+          state.loader = false;
         }
       );
   }

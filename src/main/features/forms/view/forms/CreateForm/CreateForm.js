@@ -21,6 +21,7 @@ const CreateForm = (props) => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [type, setType] = useState([]);
   const [options, setOptions] = useState([]);
+  const [data, setData] = useState([{}]);
   const [question, setQuestion] = useState("");
   const [pollsImage, setPollsImage] = useState([]);
   const [polls, setPolls] = useState([]);
@@ -45,64 +46,23 @@ const CreateForm = (props) => {
     }
   }, [employees]);
 
+  // console.log("props", props);
+
   const onFinish = (values) => {
-    console.log("usersss", user);
     console.log("Success:", values);
-    //Type and options to be used in form submission and pushing into question object
-    console.log(type);
-    console.log(options);
-    console.log(question);
-
-    let questions = {
-      id: createGuid(),
-      form_id: createGuid(),
-      question: question,
-      answerType: values.answerType,
-      isRequired: true,
-      image_id: "00000000-0000-0000-0000-000000000000",
-      image: "",
-      createBy: createGuid(),
-      createDate: moment().format("DD/MM/YYYY"),
-      answers: options ? [options.value] : [],
-    };
-
-    let data = {
-      id: createGuid(),
-      name: values.subject,
-      description: values.description,
-      acceptingResponse: true,
-      businessLogo:
-        "https://Konnect.im/upload/2021/12/440ba960-2b69-43d4-90f2-754824fd8a40.png",
-      status: 1,
-      approverStatus: 2,
-      ref_no: "",
-      createBy: user.firstName,
-      createDate: moment().format("DD/MM/YYYY"),
-      creator: {
-        id: user.id,
-        name: user.firstName,
-        profile_picture: user.image,
-        designation: "",
-        email: user.email,
-        userStatus: 1,
-        userStatusDatetime: "",
-        type: 1,
-        isActive: true,
-        isDisable: false,
-        business_id: "",
-        user_type: 2,
-      },
-      approvals: values.approvers,
-      questions: [questions],
-    };
-    //Todo:  Send Data into edit section
-    props.dataSend(data);
-    // subject: values.subject,
-    // approvers: values.approvers,
-    // questionType: values.answerType,
-    // question: question,
-    // answers: options ? [options.value] : [],
+    props.subDescriptionSend(values);
   };
+
+  const dataGet = (values) => {
+    console.log("data get in create form", values);
+    //send data to edit form component
+    props.dataSend(values);
+  };
+
+  // useEffect(() => {
+  //   //send Data to parents
+  //   console.log("use Effect works");
+  // }, [dataGet]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -157,25 +117,24 @@ const CreateForm = (props) => {
               }}
             />
           </Form.Item>
-         
+          {/* {console.log("data", data)} */}
           <QuestionWithType
+            dataSend={(values) => dataGet(values)}
+            // getData={(value) => setData(value)}
             // setQuestionType={(value) => setType({ type: value })}
             // optionChange={(value) => setOptions({ value })}
             // typeProp={type}
             // questionChange={(value) => setQuestion(value)}
-          //   optionChange={(value)=> }
+            //   optionChange={(value)=> }
           />
-
-
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Add Question
+              Submit Form
             </Button>
           </Form.Item>
         </Form>
       </Form.Provider>
-   
     </>
   );
 };

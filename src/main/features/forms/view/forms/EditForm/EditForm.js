@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Button } from "antd";
 import FormHeader from "./FormHeader";
 import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
@@ -8,69 +10,59 @@ import TextFields from "./QuestionsItems/TextFields";
 import "./editForm.css";
 import DrangableQuestions from "./DragableItems";
 import { useSelector } from "react-redux";
-import { STRINGS } from "../../../../../../utils/base";
+import { createGuid, STRINGS } from "../../../../../../utils/base";
 import BusinessLogo from "../../../../../../content/systemLogo.png";
+import { addForm } from "../../../store/actions";
 // import DragHandleIcon from '@material-ui/icons/DragHandle';
 import CreateForm from "../CreateForm/CreateForm";
+let initialData = {
+  id: "",
+  name: "",
+  description: "",
+  acceptingResponse: true,
+  business_id: "",
+  businessLogo:
+    "https://Konnect.im/upload/2021/12/440ba960-2b69-43d4-90f2-754824fd8a40.png",
+  status: 1,
+  approverStatus: 2,
+  ref_no: "FRM-000042",
+  createBy: "",
+  createDate: "",
+  creator: {
+    id: "",
+    name: "",
+    profile_picture: "",
+    designation: "",
+    email: "",
+    userStatus: 1,
+    userStatusDatetime: "",
+    type: 1,
+    isActive: true,
+    isDisable: false,
+    business_id: "",
+    user_type: 2,
+  },
+  approvals: [],
+  questions: [],
+};
 
 const EditForm = (props) => {
   let { id } = useParams();
+  const dispatch = useDispatch();
+  const [dataObj, setDataObj] = useState(initialData);
   const [formData, setFormData] = useState(null);
+  const [questions, setQuestions] = useState([]);
   const [snackbarState, setSnackbarState] = useState({
     isOpen: false,
     Message: "",
     variant: "error",
   });
   const { user } = useSelector((state) => state.userSlice);
-  let data = {
-    id: "",
-    name: "",
-    description: "",
-    acceptingResponse: true,
-    business_id: "",
-    businessLogo:
-      "https://Konnect.im/upload/2021/12/440ba960-2b69-43d4-90f2-754824fd8a40.png",
-    status: 1,
-    approverStatus: 2,
-    ref_no: "FRM-000042",
-    createBy: "",
-    createDate: "",
-    creator: {
-      id: "",
-      name: "",
-      profile_picture: "",
-      designation: "",
-      email: "",
-      userStatus: 1,
-      userStatusDatetime: "",
-      type: 1,
-      isActive: true,
-      isDisable: false,
-      business_id: "",
-      user_type: 2,
-    },
-    approvals: [],
-    questions: [
-      // {
-      //   id: "577bc117-1883-4790-bb5e-ecfa8a97f157",
-      //   form_id: "c54f223b-46d0-40d8-85d3-9fd8257d2d02",
-      //   question: "What is your name?",
-      //   sequence: 0,
-      //   answerType: 3,
-      //   isRequired: true,
-      //   image_id: "00000000-0000-0000-0000-000000000000",
-      //   image: "",
-      //   createBy: "fab583c7-7ebb-4993-b40b-cad65768247b",
-      //   createDate: "1658748266000",
-      //   answers: [],
-      // },
-    ],
-  };
-  // console.log(props, "props in edit section");
+
   useEffect(() => {
-    console.log(data);
-    setFormDataByType(data);
-  }, []);
+    console.log("use effect works when data object change****");
+    setFormDataByType(dataObj);
+  }, [dataObj]);
 
   // useEffect(() => {
   //   console.log(data);
@@ -78,21 +70,85 @@ const EditForm = (props) => {
   // }, []);
 
   // useEffect(() => {
-  //   console.log("use effect works when form datta changes");
-  //   setFormDataByType(formData);
-  // }, [formData]);
+  //TODO: Append questions in object
+  // const append = (answers, image) =>
+  //   answers.map((x, i) => {
+  //     return {
+  //       option: x,
+  //       image: image[i],
+  //     };
+  //   });
+  // let questionArray = questions.map((elem, index) => {
+  //   return {
+  //     id: createGuid(),
+  //     formId: createGuid(),
+  //     answerType: elem.answerType,
+  //     sequence: index,
+  //     question: elem.Question,
+  //     createBy: user.id,
+  //     answers: elem.options && append(elem.options, elem.fileList),
+  //   };
+  // });
+  // data.questions = questionArray;
+  // setFormDataByType(data);
+  // console.log(data);
+  // setFormDataByType(questions);
+  // }, [questions]);
+
+  useEffect(() => {
+    const append = (answers, image) =>
+      answers.map((x, i) => {
+        return {
+          option: x,
+          image: image[i],
+        };
+      });
+    let questionArray = questions.map((elem, index) => {
+      return {
+        id: createGuid(),
+        formId: createGuid(),
+        answerType: elem.answerType,
+        sequence: index,
+        question: elem.Question,
+        createBy: user.id,
+        answers: elem.options && append(elem.options, elem.fileList),
+      };
+    });
+    console.log("****", questionArray);
+    setDataObj({ ...dataObj, questions: questionArray });
+  }, [questions]);
 
   const dataGet = (values) => {
     console.log("data getting from create form component", values);
-    setFormDataByType(values);
+    setQuestions([...questions, values]);
+  };
+
+  const createForm = () => {
+    console.log("create form done!!!!");
+    dispatch(addForm(dataObj));
+  };
+
+  const subDescriptionGet = (values) => {
+    console.log(values);
+    setDataObj({
+      ...dataObj,
+      id: createGuid(),
+      name: values.subject,
+      description: values.description,
+      approvers: values.approvers.map((el, index) => {
+        return {
+          approverId: el,
+        };
+      }),
+    });
+    console.log("final data to be send to api****", dataObj);
   };
 
   let setFormDataByType = (data) => {
-    console.log("data getting in set form by type", data);
-    console.log("questions data map", data.questions);
+    console.log("data getting in set form by type****", data);
+    console.log("questions data map****", data.questions);
     let filteredData = data.questions.map((item, index) => {
       if (item.answerType === 2) {
-        console.log("************check");
         return {
           ...item,
           localType: "number",
@@ -104,23 +160,37 @@ const EditForm = (props) => {
           localType: "text",
           sequence: index,
         };
-      } else if (item.answerType === 1 && "radioWithImage") {
-        let isRadioWithImg = item.answers.filter(
-          (it) => it.image_id !== STRINGS.DEFAULTS.guid
-        );
-        if (isRadioWithImg.length === 0) {
-          return {
-            ...item,
-            localType: "radio",
-            sequence: index,
-          };
-        } else {
+      } else if (item.answerType === 1) {
+        console.log(item);
+        if (item.fileList) {
           return {
             ...item,
             localType: "radioWithImage",
             sequence: index,
           };
+        } else {
+          return {
+            ...item,
+            localType: "radio",
+            sequence: index,
+          };
         }
+        // let isRadioWithImg = item.answers.filter(
+        //   (it) => it.image_id !== STRINGS.DEFAULTS.guid
+        // );
+        // if (isRadioWithImg.length === 1) {
+        //   return {
+        //     ...item,
+        //     localType: "radio",
+        //     sequence: index,
+        //   };
+        // } else {
+        //   return {
+        //     ...item,
+        //     localType: "radioWithImage",
+        //     sequence: index,
+        //   };
+        // }
       }
     });
     // setSubmitForms(submitData);
@@ -161,6 +231,7 @@ const EditForm = (props) => {
             {formData &&
               formData.questions.map((item, index) => (
                 <>
+                  {console.log("item radio with image", item)}
                   {item.localType === "radio" && (
                     <Radio
                       handleRadioChange={handleChange}
@@ -194,7 +265,13 @@ const EditForm = (props) => {
                 </>
               ))}
           </DrangableQuestions>
-          <CreateForm dataSend={dataGet} />
+          <CreateForm
+            dataSend={(values) => dataGet(values)}
+            subDescriptionSend={(values) => subDescriptionGet(values)}
+          />
+          <Button onClick={createForm} style={{ margin: "1em 0em 1em 0em" }}>
+            Submit FForm
+          </Button>
         </div>
         {/* <div>
           <CustomizedSnackbars

@@ -124,7 +124,6 @@ function NotificationBar() {
           <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
         </li>
         {/* {toggleNote && <Notes stickyNoteTitle={title} />} */}
-        {/* {<StickyContainer/>} */}
         {toggleNote && <StickyContainer />}
         {incrementStickyNote.map((increment) => (
           <NewStickyNote

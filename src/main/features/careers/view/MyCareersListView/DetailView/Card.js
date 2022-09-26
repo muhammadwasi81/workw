@@ -19,14 +19,58 @@ function Card(props) {
 
   return (
     <>
-     <SingleItem>
-      <div className="" >
-        Details
-      </div>
-      <h1>ksksdjksjksdjk</h1>
-      <h1>ksksdjksjksdjk</h1>
-      <h1>ksksdjksjksdjk</h1>
-      <h1>ksksdjksjksdjk</h1>
+      <SingleItem>
+        <div className="careersDetailCard" >
+          <div className="cardLabel" >
+            Job Details
+          </div>
+
+          <div className="careersSections">
+            <div className="">
+              <div className="text-[15px] font-bold text-[grey]">Salary For</div>
+              <div className="text-[18px] font-bold">{"user.name"}</div>
+            </div>
+            <div className="">
+              <div className="text-[15px] font-bold text-[grey]">Salary For</div>
+               <div className="text-[18px] font-bold">{"user.name"}</div>
+            </div>
+            <div className="">
+              <div className="text-[15px] font-bold text-[grey]">Salary For</div>
+               <div className="text-[18px] font-bold">{"user.name"}</div>
+            </div>
+            <div className="">
+              <div className="text-[15px] font-bold text-[grey]">Salary For</div>
+               <div className="text-[18px] font-bold">{"user.name"}</div>
+            </div>
+            <div className="">
+              <div className="text-[15px] font-bold text-[grey]">Salary For</div>
+               <div className="text-[18px] font-bold">{"user.name"}</div>
+            </div>
+            <div className="">
+              <div className="text-[15px] font-bold text-[grey]">Salary For</div>
+               <div className="text-[18px] font-bold">{"user.name"}</div>
+            </div>
+            <div className="">
+              <div className="text-[15px] font-bold text-[grey]">Salary For</div>
+               <div className="text-[18px] font-bold">{"user.name"}</div>
+            </div>
+            <div className="">
+              <div className="text-[15px] font-bold text-[grey]">Salary For</div>
+               <div className="text-[18px] font-bold">{"user.name"}</div>
+            </div>
+            <div className="">
+              <div className="text-[15px] font-bold text-[grey]">Salary For</div>
+               <div className="text-[18px] font-bold">{"user.name"}</div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+
       </SingleItem>
     </>
   );

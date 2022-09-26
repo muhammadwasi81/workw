@@ -5,22 +5,22 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 const { TabPane } = Tabs;
 function Tab(props) {
-	const [defaultPath, setDefaultPath] = useState("");
-	const { panes, id, features, canChangeRoute = false } = props;
-	const onChange = key => {
-		if (canChangeRoute) {
-			navigate(key);
-		}
-	};
-	const navigate = useNavigate();
-	const location = useLocation();
-	const { pathname } = location;
+	const { panes, canChangeRoute = false, onChange, defaultPath } = props;
+	// const [defaultPath, setDefaultPath] = useState("");
+	// const onChange = key => {
+	// 	if (canChangeRoute) {
+	// 		navigate(key);
+	// 	}
+	// };
+	// const navigate = useNavigate();
+	// const location = useLocation();
+	// const { pathname } = location;
 
-	useEffect(() => {
-		if (canChangeRoute) {
-			setDefaultPath(pathname.split("_")[0]);
-		}
-	}, [pathname]);
+	// useEffect(() => {
+	// 	if (canChangeRoute) {
+	// 		setDefaultPath(pathname.split("_")[0]);
+	// 	}
+	// }, [pathname]);
 
 	return (
 		<>

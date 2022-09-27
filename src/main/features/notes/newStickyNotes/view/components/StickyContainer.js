@@ -1,4 +1,4 @@
-import React, { useState, } from "react";
+import React, { useState,useEffect } from "react";
 import { Typography } from "antd";
 import Draggable from "react-draggable";
 import { MinusOutlined, CloseOutlined,PlusOutlined } from "@ant-design/icons";
@@ -6,26 +6,29 @@ import { MinusOutlined, CloseOutlined,PlusOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import CustomCard from "./CustomCard";
 import SearchBox from "./SearchBox";
-import "./style.css";
+import "../../style.css";
 import NewStickyNote from "./NewStickyNote";
+import DetailedStickyNote from "./DetailedStickyNote";
 const { Title } = Typography;
 
 const StickyContainer = () => {
-  const [stickyNoteOpen,setStickyOpen]=useState(true);
+  const [stickyNoteOpen,setStickyOpen]=useState(false);
+  const [cardOpen,setCardOpen]=useState(false);
 
   const openStickyNoteHandler=()=>{
     setStickyOpen(true);
+    
+  }
+  const cardDetailedOpen=()=>{
+    setCardOpen(true);
   }
 
-  console.log(stickyNoteOpen);
-  if(stickyNoteOpen){
-    <NewStickyNote/>
-  }
+  
   // {stickyNoteOpen && <NewStickyNote/> }
   
   return (
     <>
-     <NewStickyNote/>
+     {/* <NewStickyNote/> */}
       <Draggable defaultPosition={{ x: 11, y: 456 }}>
         <div className="sticky_container">
           <div className="sticky-header">
@@ -33,6 +36,8 @@ const StickyContainer = () => {
               {/* {stickyNoteOpen ? <NewStickyNote/> : null} */}
           <PlusOutlined onClick={openStickyNoteHandler}/>
           </div>
+          {/* {stickyNoteOpen && <NewStickyNote/>} */}
+
             <p className="heading">Sticky Notes</p>
            <div className="right_Icons">
             <MinusOutlined/>
@@ -41,8 +46,8 @@ const StickyContainer = () => {
           </div>
           
           <SearchBox/>
-         
-          <CustomCard title="sanjna" cardContent="Miletap"/>
+          <CustomCard title="sanjna" cardContent="Miletap" onClick={()=>cardDetailedOpen()}/>
+          {cardOpen && <DetailedStickyNote/>}
           <CustomCard title="How to Draw professional Wireframe" cardContent="Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap"/>
         </div>
       </Draggable>

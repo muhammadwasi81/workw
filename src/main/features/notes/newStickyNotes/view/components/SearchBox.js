@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from 'antd';
 import "antd/dist/antd.css";
 import {SearchOutlined  } from '@ant-design/icons';
-import "./style.css";
+import "../../style.css";
 
 
 

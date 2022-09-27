@@ -6,9 +6,11 @@
   position: absolute;
   left: 50%;
   cursor: pointer;
-  border-radius: 25px;
+  border-radius: 5px;
   z-index: 10;
   transform: translate(11px, 456px);
+  overflow-y: scroll;
+
 }
 .sticky-header {
   padding: 7px;
@@ -18,11 +20,12 @@
   /* font-size: 14px; */
   letter-spacing: 1px;
   background-color: #0f4c81;
-  border-radius: 12px;
+  border-radius: 5px;
   color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   /* align-items: center; */
 }
 .heading {
@@ -43,6 +46,8 @@
 .left_Icon {
   font-size: 16px !important;
   font-weight: bold;
+  /* margin: 10px;
+  justify-content: space-around; */
 }
 .time_delete{
   display: flex;
@@ -91,6 +96,29 @@
   min-width: 186px;
   min-height: 186px;
   position: absolute;
+  border-radius: 5px;
+  cursor: move;
+}
+.stickyNote_container .ant-input{
+  outline: 0;
+  border: none;
+
+}
+.stickyNote_container .ant-input-open{
+  outline: 0;
+  border: none;
+}
+.stickyNote_container .ant-input:active{
+  outline: 0;
+  border: none;
+}
+.stickyNote_container .ant-input:focus{
+  outline: 0;
+  border: none;
+}
+.stickyNote_container .ant-input:hover{
+  outline: 0;
+  border: none;
 }
 .stickyNote_header{
   padding: 7px;
@@ -100,10 +128,67 @@
   /* font-size: 14px; */
   letter-spacing: 1px;
   background-color: #0f4c81;
-  border-radius: 12px;
+  border-radius: 5px;
   color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+.leftNote_Icon{
+  font-size: 16px !important;
+  font-weight: bold;
+  margin-left: 10px !important;
+  justify-content: space-around !important;
+}
+.textArea_container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow-y: scroll;
+}
+ .image_icon{
+  margin: 7px;
+ }
+ .image_body{
+  display: inline-block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 14px;
+  justify-content: space-between;
+ }
+ .image{
+  width:90px !important ;
+   height:50 !important;
+   border-radius: 12px;
+   margin: 3px;
+ }
+
+  /* *****************sticky color styling***************** */
+  .menu__popUp{
+  background: #fdfdfd;
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  position: absolute;
+  z-index: 2;
+  border: 1px solid #d2d2d2;
+  }
+  .color___LIST{
+    display: flex;
+    height: 30px;
+  }
+
+ /* ****************detailed sticky note container container****************** */
+
+ /* ****************8Delete it***********  */
+ /* .detailed_container{
+  margin: 5px;
+ }
  
+ .detailed_content{
+  overflow-y: scroll;
+ }
+ .content{
+  font-size: 12px;
+ } */

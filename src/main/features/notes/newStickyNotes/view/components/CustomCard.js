@@ -3,7 +3,7 @@ import { Card } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
 import { DeleteOutlined } from "@ant-design/icons";
-import "./style.css";
+import "../../style.css";
 
 const CustomCard = ({ title, cardContent }) => {
   //********current date in sticky notes********
@@ -47,7 +47,7 @@ const CustomCard = ({ title, cardContent }) => {
           marginLeft: "10px",
           marginTop: "10px",
           // alignItems:"center",
-          borderRadius: "20px",
+          borderRadius: "5px",
         }}
       >
         <p className="sticky_content">{cardContent}</p>

@@ -3,8 +3,8 @@ import { STRINGS } from "../../../../utils/base";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import {
-  ContBody,
-  TabbableContainer,
+	ContBody,
+	TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import TaskComposer from "./TaskComposer";
@@ -18,108 +18,134 @@ import { useSelector } from "react-redux";
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TaskTable/TaskColumns";
 import { taskDictionary } from "../localization";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { TaskReferenceTypeEnum } from "../enums/enum";
+import "../view/style/task.css";
 
-function Task() {
-  let defaultFilter = {
-    filterType: 2,
-    pageNo: 1,
-    pageSize: 20,
-  };
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { appHeader, sharedLabels, navMenuLabel } = dictionaryList[
-    userLanguage
-  ];
-  const { taskDictionaryList } = taskDictionary[userLanguage];
-  const [filterType, setFilterType] = useState(2);
-  const [tableView, setTableView] = useState(false);
-  const dispatch = useDispatch();
-  const {
-    taskList: { list },
-    success,
-  } = useSelector((state) => state.taskSlice);
-  useEffect(() => {
-    dispatch(
-      getAllTask({
-        ...defaultFilter,
-        filterType,
-      })
-    );
-  }, [filterType]);
+function Task({
+	referenceId = defaultUiid,
+	referenceType = TaskReferenceTypeEnum.General,
+	width = "",
+	routeLink,
+	backButton,
+}) {
+	let defaultFilter = {
+		filterType: 2,
+		pageNo: 1,
+		pageSize: 20,
+	};
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { appHeader, sharedLabels, navMenuLabel } = dictionaryList[
+		userLanguage
+	];
+	const { taskDictionaryList } = taskDictionary[userLanguage];
+	const [filterType, setFilterType] = useState(2);
+	const [tableView, setTableView] = useState(false);
+	const dispatch = useDispatch();
+	const {
+		taskList: { list },
+		success,
+	} = useSelector(state => state.taskSlice);
+	useEffect(() => {
+		dispatch(
+			getAllTask({
+				...defaultFilter,
+				filterType,
+				referenceId,
+				referenceType,
+			})
+		);
+	}, [filterType]);
 
-  const items = [
-    {
-      name: navMenuLabel.tasks,
-      to: `${STRINGS.ROUTES.TASK.ROOT}`,
-      renderButton: buttonsEnum.dashboard,
-    },
-  ];
-  const buttons = [
-    {
-      buttonText: taskDictionaryList.createTextBtn,
-      render: (
-        <SideDrawer
-          success={success}
-          isAccessDrawer={true}
-          openDrawer={success}
-          children={<TaskComposer />}
-          title={taskDictionaryList.createTextBtn}
-          buttonText={taskDictionaryList.createTextBtn}
-        />
-      ),
-    },
-  ];
+	const items = [
+		{
+			name: navMenuLabel.tasks,
+			to: `${routeLink ? routeLink : STRINGS.ROUTES.TASK.ROOT}`,
+			renderButton: buttonsEnum.dashboard,
+		},
+	];
+	const buttons = [
+		{
+			buttonText: taskDictionaryList.createTextBtn,
+			render: (
+				<SideDrawer
+					success={success}
+					isAccessDrawer={true}
+					openDrawer={success}
+					children={
+						<TaskComposer
+							referenceId={referenceId}
+							referenceType={referenceType}
+						/>
+					}
+					title={taskDictionaryList.createTextBtn}
+					buttonText={taskDictionaryList.createTextBtn}
+				/>
+			),
+		},
+	];
 
-  return (
-    <TabbableContainer>
-      <Header items={items} buttons={buttons} />
-      <TopBar
-        onSearch={(value) => {
-          console.log(value);
-        }}
-        // filter={{
-        //   onFilter: () => {},
-        // }}
-        buttons={[
-          {
-            name: appHeader.Task.myTask,
-            onClick: () => setFilterType(2),
-          },
-          {
-            name: appHeader.Task.createdByMe,
-            onClick: () => setFilterType(1),
-          },
-          {
-            name: appHeader.Task.teamTask,
-            onClick: () => setFilterType(3),
-          },
-        ]}
-        segment={{
-          onSegment: (value) => {
-            if (value === "Table") {
-              setTableView(true);
-            } else {
-              setTableView(false);
-            }
-          },
-          label1: sharedLabels.List,
-          label2: sharedLabels.Table,
-        }}
-      />
-      <ContBody>
-        <div className="lf-col">
-          {tableView ? (
-            <Table
-              columns={tableColumn()}
-              dragable={true}
-              data={list ? list : []}
-            />
-          ) : (
-            <MyTaskList filterType={filterType} />
-          )}
-        </div>
-      </ContBody>
-    </TabbableContainer>
-  );
+	return (
+		<TabbableContainer>
+			<Header
+				items={items}
+				buttons={buttons}
+				width={width}
+				backButton={backButton}
+			/>
+			<TopBar
+				width={width}
+				onSearch={value => {
+					console.log(value);
+				}}
+				// filter={{
+				//   onFilter: () => {},
+				// }}
+				buttons={[
+					{
+						name: appHeader.Task.myTask,
+						onClick: () => setFilterType(2),
+					},
+					{
+						name: appHeader.Task.createdByMe,
+						onClick: () => setFilterType(1),
+					},
+					{
+						name: appHeader.Task.teamTask,
+						onClick: () => setFilterType(3),
+					},
+				]}
+				segment={{
+					onSegment: value => {
+						if (value === "Table") {
+							setTableView(true);
+						} else {
+							setTableView(false);
+						}
+					},
+					label1: sharedLabels.List,
+					label2: sharedLabels.Table,
+				}}
+			/>
+			<ContBody className={width}>
+				<div className="lf-col">
+					{tableView ? (
+						<Table
+							columns={tableColumn()}
+							dragable={true}
+							data={list ? list : []}
+						/>
+					) : (
+						<MyTaskList
+							filterType={filterType}
+							referenceId={referenceId}
+							referenceType={referenceType}
+						/>
+					)}
+				</div>
+			</ContBody>
+		</TabbableContainer>
+	);
 }
 
 export default Task;

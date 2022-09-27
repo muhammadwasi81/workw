@@ -14,8 +14,12 @@ import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 
-const CreateMileboard = ({ isOpen, handleClose }) => {
-
+const CreateMileboard = ({
+	isOpen,
+	handleClose,
+	referenceId,
+	referenceType,
+}) => {
 	const dispatch = useDispatch();
 	const loader = useSelector(state => state.documentSlice.loader);
 	const ParentId = useSelector(state => state.documentSlice.parentId);
@@ -63,32 +67,40 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 		setPrivacyId(value);
 	};
 
-	const onFinish = (values) => {
+	const onFinish = values => {
 		console.log(values);
 		let readers = values.readers ? modifySelectData(values.readers) : [];
-		let collaborators = values.collaborators ? modifySelectData(values.collaborators) : [];
+		let collaborators = values.collaborators
+			? modifySelectData(values.collaborators)
+			: [];
 		let members = [
-			...readers.map((item) => ({
+			...readers.map(item => ({
 				memberId: item,
 				memberType: 1,
-				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER,
 			})),
-			...collaborators.map((item) => ({
+			...collaborators.map(item => ({
 				memberId: item,
 				memberType: 1,
-				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.COLLABRATOR
-			}))
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.COLLABRATOR,
+			})),
 		];
 		let payload = {
 			name: values.name,
 			description: values.description,
-			approvers: values.approvers ? modifySelectData(values.approvers).map((item) => ({ approverId: item })) : [],
+			approvers: values.approvers
+				? modifySelectData(values.approvers).map(item => ({
+						approverId: item,
+				  }))
+				: [],
 			members: members,
 			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.draw,
-			privacyId: privacyId
-		}
-		dispatch(addDocument({ payload, form }))
+			privacyId: privacyId,
+			referenceId,
+			referenceType,
+		};
+		dispatch(addDocument({ payload, form }));
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -97,7 +109,8 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 
 	return (
 		<>
-			<SideDrawer title={"Create Mileboard"}
+			<SideDrawer
+				title={"Create Mileboard"}
 				isDisable={true}
 				isOpen={isOpen}
 				isAccessDrawer={false}
@@ -133,20 +146,15 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 						<TextInput placeholder={"Enter Name"} />
 					</Form.Item>
 
-					<Form.Item
-						label={"Description"}
-						name="description"
-					>
-						<Input.TextArea
-							placeholder={"Enter Description"}
-						/>
+					<Form.Item label={"Description"} name="description">
+						<Input.TextArea placeholder={"Enter Description"} />
 					</Form.Item>
 
 					<Form.Item
 						name="collaborator"
 						label={"Collaborators"}
 						showSearch={true}
-						style={{marginBottom: "0px"}}
+						style={{ marginBottom: "0px" }}
 					>
 						<CustomSelect
 							style={{ marginBottom: "0px" }}
@@ -182,7 +190,7 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 						name="approvers"
 						label={"Approvers"}
 						showSearch={true}
-						style={{marginBottom: "0px"}}
+						style={{ marginBottom: "0px" }}
 					>
 						<CustomSelect
 							style={{ marginBottom: "0px" }}
@@ -211,17 +219,16 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 							dataVal={value}
 							name="approvers"
 							showSearch={true}
-
 						/>
 					</Form.Item>
 
-					{privacyId === PostPrivacyType.PRIVATE &&
+					{privacyId === PostPrivacyType.PRIVATE && (
 						<Form.Item
 							name="readers"
 							label={"Readers"}
 							showSearch={true}
-							style={{marginBottom: "0px"}}
-						// direction={Direction}
+							style={{ marginBottom: "0px" }}
+							// direction={Direction}
 						>
 							<CustomSelect
 								style={{ marginBottom: "0px" }}
@@ -252,7 +259,7 @@ const CreateMileboard = ({ isOpen, handleClose }) => {
 								showSearch={true}
 							/>
 						</Form.Item>
-					}
+					)}
 					<Form.Item>
 						<div className="flex items-center gap-2">
 							<PrivacyOptions

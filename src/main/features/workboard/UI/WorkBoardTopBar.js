@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 
-function WorkBoardTopBar({ handleView, topBar }) {
+function WorkBoardTopBar({ handleView, topBar, width }) {
 	const [filter, setFilter] = useState({
 		filterType: 1,
 	});
@@ -9,6 +9,7 @@ function WorkBoardTopBar({ handleView, topBar }) {
 	handleView(tableView);
 	return (
 		<TopBar
+			width={width}
 			onSearch={value => {
 				console.log(value);
 			}}

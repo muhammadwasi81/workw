@@ -14,8 +14,12 @@ import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { modifySelectData } from "../../../../../utils/base";
 
-const CreateMileshow = ({ isOpen, handleClose }) => {
-
+const CreateMileshow = ({
+	isOpen,
+	handleClose,
+	referenceId,
+	referenceType,
+}) => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
@@ -64,32 +68,40 @@ const CreateMileshow = ({ isOpen, handleClose }) => {
 		setPrivacyId(value);
 	};
 
-	const onFinish = (values) => {
+	const onFinish = values => {
 		console.log(values);
 		let readers = values.readers ? modifySelectData(values.readers) : [];
-		let collaborators = values.collaborators ? modifySelectData(values.collaborators) : [];
+		let collaborators = values.collaborators
+			? modifySelectData(values.collaborators)
+			: [];
 		let members = [
-			...readers.map((item) => ({
+			...readers.map(item => ({
 				memberId: item,
 				memberType: 1,
-				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER,
 			})),
-			...collaborators.map((item) => ({
+			...collaborators.map(item => ({
 				memberId: item,
 				memberType: 1,
-				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.COLLABRATOR
-			}))
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.COLLABRATOR,
+			})),
 		];
 		let payload = {
 			name: values.name,
 			description: values.description,
-			approvers: values.approvers ? modifySelectData(values.approvers).map((item) => ({ approverId: item })) : [],
+			approvers: values.approvers
+				? modifySelectData(values.approvers).map(item => ({
+						approverId: item,
+				  }))
+				: [],
 			members: members,
 			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.show,
-			privacyId: privacyId
-		}
-		dispatch(addDocument({ payload, form }))
+			privacyId: privacyId,
+			referenceId,
+			referenceType,
+		};
+		dispatch(addDocument({ payload, form }));
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -98,7 +110,8 @@ const CreateMileshow = ({ isOpen, handleClose }) => {
 
 	return (
 		<>
-			<SideDrawer title={"Create Mileshow"}
+			<SideDrawer
+				title={"Create Mileshow"}
 				isDisable={true}
 				isOpen={isOpen}
 				isAccessDrawer={false}
@@ -134,13 +147,8 @@ const CreateMileshow = ({ isOpen, handleClose }) => {
 						<TextInput placeholder={"Enter Name"} />
 					</Form.Item>
 
-					<Form.Item
-						label={"Description"}
-						name="description"
-					>
-						<Input.TextArea
-							placeholder={"Enter Description"}
-						/>
+					<Form.Item label={"Description"} name="description">
+						<Input.TextArea placeholder={"Enter Description"} />
 					</Form.Item>
 
 					<Form.Item
@@ -148,7 +156,7 @@ const CreateMileshow = ({ isOpen, handleClose }) => {
 						label={"Approvers"}
 						showSearch={true}
 						style={{ marginBottom: "0px" }}
-					// direction={Direction}
+						// direction={Direction}
 					>
 						<CustomSelect
 							style={{ marginBottom: "0px" }}
@@ -177,8 +185,7 @@ const CreateMileshow = ({ isOpen, handleClose }) => {
 							dataVal={value}
 							name="approvers"
 							showSearch={true}
-						// direction={Direction}
-
+							// direction={Direction}
 						/>
 					</Form.Item>
 
@@ -186,8 +193,8 @@ const CreateMileshow = ({ isOpen, handleClose }) => {
 						name="collaborators"
 						label={"Collaborators"}
 						showSearch={true}
-						style={{marginBottom: "0px"}}
-					// direction={Direction}
+						style={{ marginBottom: "0px" }}
+						// direction={Direction}
 					>
 						<CustomSelect
 							style={{ marginBottom: "0px" }}
@@ -219,43 +226,43 @@ const CreateMileshow = ({ isOpen, handleClose }) => {
 						/>
 					</Form.Item>
 
-					{privacyId === PostPrivacyType.PRIVATE &&
+					{privacyId === PostPrivacyType.PRIVATE && (
 						<Form.Item
-						name="readers"
-						label={"Readers"}
-						showSearch={true}
-					// direction={Direction}
-					>
-						<CustomSelect
-							style={{ marginBottom: "0px" }}
-							data={firstTimeEmpData}
-							selectedData={selectedData}
-							canFetchNow={isFirstTimeDataLoaded}
-							fetchData={fetchEmployees}
-							placeholder={"Readers"}
-							mode={"multiple"}
-							isObject={true}
-							loadDefaultData={false}
-							optionComponent={opt => {
-								return (
-									<>
-										<Avatar
-											name={opt.name}
-											src={opt.image}
-											round={true}
-											width={"30px"}
-											height={"30px"}
-										/>
-										{opt.name}
-									</>
-								);
-							}}
-							dataVal={value}
 							name="readers"
+							label={"Readers"}
 							showSearch={true}
-						/>
-					</Form.Item>
-					}
+							// direction={Direction}
+						>
+							<CustomSelect
+								style={{ marginBottom: "0px" }}
+								data={firstTimeEmpData}
+								selectedData={selectedData}
+								canFetchNow={isFirstTimeDataLoaded}
+								fetchData={fetchEmployees}
+								placeholder={"Readers"}
+								mode={"multiple"}
+								isObject={true}
+								loadDefaultData={false}
+								optionComponent={opt => {
+									return (
+										<>
+											<Avatar
+												name={opt.name}
+												src={opt.image}
+												round={true}
+												width={"30px"}
+												height={"30px"}
+											/>
+											{opt.name}
+										</>
+									);
+								}}
+								dataVal={value}
+								name="readers"
+								showSearch={true}
+							/>
+						</Form.Item>
+					)}
 					<Form.Item>
 						<div className="flex items-center gap-2">
 							<PrivacyOptions

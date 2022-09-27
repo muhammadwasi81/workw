@@ -57,7 +57,7 @@ function DashboardCardLayout({
 						heading={"Members"}
 						membersData={data.members ? data.members : []}
 					/>
-					{userId === data.createBy && (
+					{/* {userId === data.createBy && (
 						<div
 							className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
 							onClick={e => {
@@ -69,7 +69,7 @@ function DashboardCardLayout({
 						>
 							{dictionary?.labels?.update}
 						</div>
-					)}
+					)} */}
 				</div>
 			</Card>
 		</>

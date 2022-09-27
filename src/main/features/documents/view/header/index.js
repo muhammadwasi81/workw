@@ -5,26 +5,28 @@ import Header from "../../../../layout/header/index";
 import CreateDocDropdown from "./createDocDropdown";
 import { ROUTES } from "../../../../../utils/routes";
 
-const Index = () => {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { documentDictionary } = documentDictionaryList[userLanguage];
+const Index = ({ width, routeLink, backButton }) => {
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { documentDictionary } = documentDictionaryList[userLanguage];
 
-  return (
-    <Header
-    items={[
-      {
-        name: documentDictionary.DocsArchive,
-        to: `${ROUTES.DOCUMENTS.DOCUMENT}`,
-        renderButton: [1],
-      }
-    ]}
-      buttons={[
-        {
-          render: <CreateDocDropdown />,
-        }
-      ]}
-    />
-  );
+	return (
+		<Header
+			backButton={backButton}
+			width={width}
+			items={[
+				{
+					name: documentDictionary.DocsArchive,
+					to: routeLink ? routeLink : `${ROUTES.DOCUMENTS.DOCUMENT}`,
+					renderButton: [1],
+				},
+			]}
+			buttons={[
+				{
+					render: <CreateDocDropdown />,
+				},
+			]}
+		/>
+	);
 };
 
 export default Index;

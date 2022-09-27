@@ -13,7 +13,8 @@ export const routes = {
 	// Private Route Here
 	Private: [
 		{
-			path: `${ROUTES.USER.DEFAULT}:id/*`,
+			path: `${ROUTES.USER.DEFAULT}:id`,
+			// path: `${ROUTES.USER.DEFAULT}:id/*`,
 			component: lazy(() => import("../main/features/profile/Profile")),
 		},
 		{

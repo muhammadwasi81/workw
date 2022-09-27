@@ -7,7 +7,7 @@ import {
   getNameForImage,
   STRINGS,
 } from "../../../../../../utils/base";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Avatar, Select, Button, Space } from "antd";
 // import SingleUpload from "../../../../../sharedComponents/Upload/singleUpload";
 import QuestionWithType from "./QuestionWithType";
@@ -19,12 +19,8 @@ const CreateForm = (props) => {
   const [form] = Form.useForm();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-  const [type, setType] = useState([]);
-  const [options, setOptions] = useState([]);
-  const [data, setData] = useState([{}]);
-  const [question, setQuestion] = useState("");
-  const [pollsImage, setPollsImage] = useState([]);
-  const [polls, setPolls] = useState([]);
+
+  const { createLoader } = useSelector((state) => state.formSlice);
 
   const {
     sharedSlice: { employees },
@@ -46,8 +42,6 @@ const CreateForm = (props) => {
     }
   }, [employees]);
 
-  // console.log("props", props);
-
   const onFinish = (values) => {
     console.log("Success:", values);
     props.subDescriptionSend(values);
@@ -59,15 +53,11 @@ const CreateForm = (props) => {
     props.dataSend(values);
   };
 
-  // useEffect(() => {
-  //   //send Data to parents
-  //   console.log("use Effect works");
-  // }, [dataGet]);
+  // console.log("props in create form", props);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  // console.log(props, "in parent component");
   return (
     <>
       <Form.Provider>
@@ -118,18 +108,14 @@ const CreateForm = (props) => {
             />
           </Form.Item>
           {/* {console.log("data", data)} */}
-          <QuestionWithType
-            dataSend={(values) => dataGet(values)}
-            // getData={(value) => setData(value)}
-            // setQuestionType={(value) => setType({ type: value })}
-            // optionChange={(value) => setOptions({ value })}
-            // typeProp={type}
-            // questionChange={(value) => setQuestion(value)}
-            //   optionChange={(value)=> }
-          />
+          <QuestionWithType dataSend={(values) => dataGet(values)} />
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={!createLoader ? false : true}
+            >
               Submit Form
             </Button>
           </Form.Item>

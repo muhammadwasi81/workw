@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Select, Button, Upload, Space } from "antd";
-import { CloseOutlined, UploadOutlined } from "@ant-design/icons";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  UploadOutlined,
+  PlusOutlined,
+  MinusCircleOutlined,
+} from "@ant-design/icons";
 import { createGuid } from "../../../../../../utils/base";
+import styles from "../EditForm/editForm.css";
 const { Option } = Select;
 
 const QuestionWithType = (props) => {
@@ -16,16 +21,6 @@ const QuestionWithType = (props) => {
     if (!fileList[index]) {
       setFileList([...fileList, info.fileList[0]]);
     }
-  };
-
-  let removeFormFields = (i) => {
-    let newOption = [...options];
-    newOption.splice(i, 1);
-    setOptions(newOption);
-  };
-
-  let addFormFields = () => {
-    setOptions([...options, { option: "" }]);
   };
 
   const onQuestionTypeChange = (value) => {
@@ -47,9 +42,6 @@ const QuestionWithType = (props) => {
         options: [],
       };
     }
-
-    // console.log("final data", data);
-    //send data to create Form
     props.dataSend(data);
   };
 
@@ -74,7 +66,12 @@ const QuestionWithType = (props) => {
           {(fields, { add, remove }, { errors }) => (
             <>
               {fields.map((field, index) => (
-                <Form.Item required={false} key={field.key} name={[field.name]}>
+                <Form.Item
+                  required={false}
+                  key={field.key}
+                  name={[field.name]}
+                  className="optionClass"
+                >
                   <Form.Item
                     {...field}
                     validateTrigger={["onChange", "onBlur"]}
@@ -90,10 +87,11 @@ const QuestionWithType = (props) => {
                     <Input
                       placeholder={`option ${index + 1}`}
                       style={{
-                        width: "60%",
+                        width: "80%",
                       }}
                     />
                   </Form.Item>
+
                   <Form.Item>
                     <Upload
                       onChange={(info) => handleImageChange(info, index)}
@@ -106,62 +104,34 @@ const QuestionWithType = (props) => {
                       <Button icon={<UploadOutlined />}></Button>
                     </Upload>
                   </Form.Item>
-
-                  {fields.length > 1 ? (
-                    <MinusCircleOutlined
-                      className="dynamic-delete-button"
-                      onClick={() => remove(field.name)}
-                    />
-                  ) : null}
+                  <div
+                    style={{
+                      height: "1em",
+                      width: "2em",
+                    }}
+                  >
+                    {fields.length > 1 ? (
+                      <MinusCircleOutlined
+                        className="dynamic-delete-button"
+                        onClick={() => remove(field.name)}
+                      />
+                    ) : null}
+                  </div>
                 </Form.Item>
               ))}
+              {/**check*/}
               <Form.Item>
                 <Button
                   type="dashed"
                   onClick={() => add()}
                   style={{
-                    width: "60%",
+                    width: "100%",
                   }}
                   icon={<PlusOutlined />}
                 >
-                  Add Question
+                  Add Option
                 </Button>
-
-                {/* <Form.ErrorList errors={errors} /> */}
               </Form.Item>
-
-              {/* {questionType === 3 && (
-        <>
-          {options.map((elem, index) => (
-            <div key={index}>
-              <Form.Item name={`answer[${index}]`}>
-                <Input />
-              </Form.Item>
-
-              <Upload
-                onChange={(info) => handleImageChange(info, index)}
-                accept="*"
-                beforeUpload={() => false}
-                multiple={false}
-                defaultFileList={[]}
-                uid={index}
-              >
-                <Button icon={<UploadOutlined />}></Button>
-              </Upload>
-              {index ? (
-                <Button
-                  icon={<CloseOutlined />}
-                  onClick={() => removeFormFields(index)}
-                ></Button>
-              ) : null}
-            </div>
-          ))} */}
-              <Button
-                onClick={() => addFormFields()}
-                style={{ margin: "1em 0em 1em 0em" }}
-              >
-                Add More
-              </Button>
             </>
           )}
         </Form.List>

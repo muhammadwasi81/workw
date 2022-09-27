@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Button } from "antd";
 import FormHeader from "./FormHeader";
@@ -9,8 +9,11 @@ import TextFields from "./QuestionsItems/TextFields";
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
 import "./editForm.css";
 import DrangableQuestions from "./DragableItems";
-import { useSelector } from "react-redux";
-import { createGuid, STRINGS } from "../../../../../../utils/base";
+import {
+  createGuid,
+  modifySelectData,
+  STRINGS,
+} from "../../../../../../utils/base";
 import BusinessLogo from "../../../../../../content/systemLogo.png";
 import { addForm } from "../../../store/actions";
 // import DragHandleIcon from '@material-ui/icons/DragHandle';
@@ -60,40 +63,9 @@ const EditForm = (props) => {
   const { user } = useSelector((state) => state.userSlice);
 
   useEffect(() => {
-    console.log("use effect works when data object change****");
+    // console.log("use effect works when data object change****");
     setFormDataByType(dataObj);
   }, [dataObj]);
-
-  // useEffect(() => {
-  //   console.log(data);
-  //   setFormDataByType(data);
-  // }, []);
-
-  // useEffect(() => {
-  //TODO: Append questions in object
-  // const append = (answers, image) =>
-  //   answers.map((x, i) => {
-  //     return {
-  //       option: x,
-  //       image: image[i],
-  //     };
-  //   });
-  // let questionArray = questions.map((elem, index) => {
-  //   return {
-  //     id: createGuid(),
-  //     formId: createGuid(),
-  //     answerType: elem.answerType,
-  //     sequence: index,
-  //     question: elem.Question,
-  //     createBy: user.id,
-  //     answers: elem.options && append(elem.options, elem.fileList),
-  //   };
-  // });
-  // data.questions = questionArray;
-  // setFormDataByType(data);
-  // console.log(data);
-  // setFormDataByType(questions);
-  // }, [questions]);
 
   useEffect(() => {
     const append = (answers, image) =>
@@ -114,39 +86,42 @@ const EditForm = (props) => {
         answers: elem.options && append(elem.options, elem.fileList),
       };
     });
-    console.log("****", questionArray);
+    // console.log("****", questionArray);
     setDataObj({ ...dataObj, questions: questionArray });
   }, [questions]);
 
   const dataGet = (values) => {
-    console.log("data getting from create form component", values);
+    // console.log("data getting from create form component", values);
     setQuestions([...questions, values]);
   };
 
   const createForm = () => {
-    console.log("create form done!!!!");
+    // console.log("create form done!!!!");
+    // console.log("data object", dataObj);
     dispatch(addForm(dataObj));
   };
 
   const subDescriptionGet = (values) => {
-    console.log(values);
-    setDataObj({
+    // console.log("sub description", values);
+    let payload = {
       ...dataObj,
       id: createGuid(),
-      name: values.subject,
+      subject: values.subject,
       description: values.description,
-      approvers: values.approvers.map((el, index) => {
+      approvers: modifySelectData(values.approvers).map((el, index) => {
         return {
           approverId: el,
         };
       }),
-    });
-    console.log("final data to be send to api****", dataObj);
+    };
+    setDataObj(payload);
+    // console.log("final data to be send to api****", payload);
+    dispatch(addForm(payload));
   };
 
   let setFormDataByType = (data) => {
-    console.log("data getting in set form by type****", data);
-    console.log("questions data map****", data.questions);
+    // console.log("data getting in set form by type****", data);
+    // console.log("questions data map****", data.questions);
     let filteredData = data.questions.map((item, index) => {
       if (item.answerType === 2) {
         return {
@@ -161,7 +136,7 @@ const EditForm = (props) => {
           sequence: index,
         };
       } else if (item.answerType === 1) {
-        console.log(item);
+        // console.log(item);
         if (item.fileList) {
           return {
             ...item,
@@ -194,9 +169,9 @@ const EditForm = (props) => {
       }
     });
     // setSubmitForms(submitData);
-    console.log("filtered data", filteredData);
+    // console.log("filtered data", filteredData);
     setFormData({ ...data, questions: filteredData });
-    console.log("formData", formData);
+    // console.log("formData", formData);
   };
   const handleChange = (items) => {
     console.log(items);
@@ -220,7 +195,7 @@ const EditForm = (props) => {
         </div>
         <div className="center-fix">
           <FormHeader
-            title={formData.name}
+            title={formData.subject}
             description={formData.description}
             isAcceptingResp={formData.acceptingResponse}
           />
@@ -269,9 +244,9 @@ const EditForm = (props) => {
             dataSend={(values) => dataGet(values)}
             subDescriptionSend={(values) => subDescriptionGet(values)}
           />
-          <Button onClick={createForm} style={{ margin: "1em 0em 1em 0em" }}>
+          {/* <Button onClick={createForm} style={{ margin: "1em 0em 1em 0em" }}>
             Submit FForm
-          </Button>
+          </Button> */}
         </div>
         {/* <div>
           <CustomizedSnackbars

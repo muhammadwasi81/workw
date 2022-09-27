@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addForm } from "./actions";
+import { addForm, getAllForms } from "./actions";
 
 const initialState = {
   forms: [],
@@ -37,18 +37,27 @@ const formSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getAllForms.fulfilled, (state, { payload }) => {
+        // console.log(payload);
+        state.forms = payload ? payload : [];
+        state.loader = false;
+      })
 
       .addCase(addForm.fulfilled, (state, { payload }) => {
-        // console.log("*****", payload.data);
+        console.log("*****payload data*********", payload.data);
         if (payload.data.data) {
           // console.log("before adding", state.departments);
-          state.departments.unshift(payload.data.data);
+          state.forms.unshift(payload.data.data);
           // console.log("after adding", state.departments);
         }
         state.success = true;
+        state.createLoader = false;
+      })
+      .addMatcher(isPending(...[getAllForms]), (state) => {
+        // console.log("its pending");
+        state.loader = true;
       })
       .addMatcher(isPending(...[addForm]), (state) => {
-        // console.log("its pending");
         state.createLoader = true;
       });
   },

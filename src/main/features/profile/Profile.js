@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	ContBody,
 	TabContainer,
@@ -8,18 +8,44 @@ import CoverImage from "../projects/UI/CoverImage";
 import ProfileCoverDetail from "./ProfileCoverDetail";
 import ProjectCover from "../../../content/png/project_cover_img.png";
 import ProfilePanel from "./view/ProfilePanel";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../utils/routes";
 import "./styles/profileStyle.css";
+import NewsFeed from "../feed/ui";
+import { useEffect } from "react";
+import { getEducationDetailByUser } from "../education/store/actions";
+import { useDispatch } from "react-redux";
+import { getUserWorkExperience } from "../experienceInfo/store/actions";
 
 function Profile() {
 	const param = useParams();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const dispatch = useDispatch();
+	const { pathname } = location;
 	const { id } = param;
+	const [defaultPath, setDefaultPath] = useState("");
+	const onChange = key => {
+		navigate(key);
+	};
+	useEffect(() => {
+		setDefaultPath(pathname.split("_")[0]);
+	}, [pathname]);
 
 	const panes = [
 		{
 			featureName: `Feed`,
-			content: <div>Information div</div>,
+			content: (
+				<NewsFeed
+					isScheduler={false}
+					isCheckedIn={false}
+					width={"!w-full"}
+					referenceType={4}
+					referenceId={id}
+					backButton={false}
+					routeLink={ROUTES.USER.DEFAULT + id}
+				/>
+			),
 			featureId: ROUTES.USER.DEFAULT + id,
 		},
 		{
@@ -28,6 +54,11 @@ function Profile() {
 			featureId: ROUTES.USER.DEFAULT + id + "/about",
 		},
 	];
+
+	useEffect(() => {
+		dispatch(getEducationDetailByUser(id));
+		dispatch(getUserWorkExperience(id));
+	}, []);
 	return (
 		<TabContainer>
 			<ContBody className="!block">
@@ -35,7 +66,12 @@ function Profile() {
 					<div className="rounded-xl flex flex-col gap-5 overflow-scroll w-full">
 						<CoverImage image={ProjectCover} />
 						<ProfileCoverDetail />
-						<Tab panes={panes} canChangeRoute={true} />
+						<Tab
+							panes={panes}
+							canChangeRoute={true}
+							onChange={onChange}
+							defaultPath={defaultPath}
+						/>
 					</div>
 				</div>
 			</ContBody>

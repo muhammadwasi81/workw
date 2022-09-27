@@ -37,7 +37,6 @@ export default function Form({
 		
 		setForm(data);
 	}, [data]);
-	console.log(data, "dtaaa")
 	return (
 		<FormContainer>
 			<FormHeader>Subsidiary</FormHeader>

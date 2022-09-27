@@ -8,7 +8,12 @@ const Edit = (handleEdit, row, setClearButton) => {
       onClick={(e) => {
         handleEdit({
           id: row.id,
-          branchTitle: row.branchTitle,
+          name: row.name,
+          description: row.description,
+          startMonth: row.startMonth,
+          endMonth: row.endMonth,
+          startYear: row.startYear,
+          endYear: row.endYear,
         }); 
         setClearButton(true)
       }
@@ -35,11 +40,12 @@ export const tableColumn = (
   setClearButton
 ) => {
   return [
-    { title: "Name", dataIndex: "name", width: "20%", key: 1 },
-    { title: "Branch", dataIndex: "branchName", width: "15%", key: 2 },
-    { title: "Address", dataIndex: "address", width: "20%", key: 3 },
-    { title: "Latitude", dataIndex: "lat", width: "10%", key: 4 },
-    { title: "Longitude", dataIndex: "lng", width: "10%", key: 5 },
+    { title: "name", dataIndex: "name", width: "15%", key: 1 },
+    { title: "Description", dataIndex: "description", width: "15%", key: 2 },
+    { title: "Start Month", dataIndex: "startMonth", width: "15%", key: 3 },
+    { title: "End Month", dataIndex: "endMonth", width: "15%", key: 4 },
+    { title: "Start Year", dataIndex: "startYear", width: "15%", key: 5 },
+    { title: "End Year", dataIndex: "endYear", width: "15%", key: 6 },
     removeButtons
       ? {}
       : {

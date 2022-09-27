@@ -8,7 +8,11 @@ const Edit = (handleEdit, row, setClearButton) => {
       onClick={(e) => {
         handleEdit({
           id: row.id,
-          branchTitle: row.branchTitle,
+          name: row.name,
+          min: row.min,
+          max: row.max,
+          percentage: row.percentage,
+          previousCharge: row.previousCharge,
         }); 
         setClearButton(true)
       }
@@ -36,10 +40,10 @@ export const tableColumn = (
 ) => {
   return [
     { title: "Name", dataIndex: "name", width: "20%", key: 1 },
-    { title: "Branch", dataIndex: "branchName", width: "15%", key: 2 },
-    { title: "Address", dataIndex: "address", width: "20%", key: 3 },
-    { title: "Latitude", dataIndex: "lat", width: "10%", key: 4 },
-    { title: "Longitude", dataIndex: "lng", width: "10%", key: 5 },
+    { title: "Min", dataIndex: "min", width: "15%", key: 2 },
+    { title: "Max", dataIndex: "max", width: "15%", key: 3 },
+    { title: "Percentage", dataIndex: "percentage", width: "10%", key: 4 },
+    { title: "Previous Charge", dataIndex: "previousCharge", width: "20%", key: 5 },
     removeButtons
       ? {}
       : {

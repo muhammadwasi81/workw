@@ -145,7 +145,7 @@ function RewardDetailCard(props) {
                             setUpdatedStatus(statusChanged)
                         }
                         data={approvers}
-                        title="Approvals"
+                        title="Approvers"
                     />
                 </div>
             )}

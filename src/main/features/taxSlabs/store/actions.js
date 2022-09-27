@@ -6,15 +6,16 @@ import {
 	responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 import {
-	addbranchOfficeService,
-	getAllBranchOfficeService,
-	updateBranchService,
+	addTaxSlabService,
+	getAllTaxSlabService,
+	removeTaxSlabService,
+	updateTaxSlabService,
 } from "../services/service";
 
-export const getAllBranchOffice = createAsyncThunk(
-	"BranchOffice/getAlBranchOffice",
+export const getAllTaxSlab = createAsyncThunk(
+	"TaxSlab/getAllTaxSlab",
 	async (args, { dispatch }) => {
-		const res = await getAllBranchOfficeService();
+		const res = await getAllTaxSlabService();
 		if (!res.responseCode) {
 			responseMessage({
 				dispatch: dispatch,
@@ -25,13 +26,13 @@ export const getAllBranchOffice = createAsyncThunk(
 	}
 );
 
-export const addBranchOffice = createAsyncThunk(
-	"BranchOffice/addBranchOffice",
+export const addTaxSlab = createAsyncThunk(
+	"TaxSlab/addTaxSlab",
 	async (args, { dispatch }) => {
-		const res = await addbranchOfficeService(args);
+		const res = await addTaxSlabService(args);
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success) {
-				message.success("Subsidiary Office added successfully!")
+				message.success("Tax Slab added successfully!")
 				responseMessage({ dispatch, data: res });
 				return res
 			} else {
@@ -43,13 +44,13 @@ export const addBranchOffice = createAsyncThunk(
 	}
 );
 
-export const updateBranch = createAsyncThunk(
-	"Branch/updateBranch",
+export const updateTaxSlab = createAsyncThunk(
+	"TaxSlab/updateTaxSlab",
 	async (args, { dispatch }) => {
-		const res = await updateBranchService(args);
+		const res = await updateTaxSlabService(args);
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success) {
-				message.success("Subsidiary updated successfully!")
+				message.success("Tax Slab updated successfully!")
 				responseMessage({ dispatch, data: res });
 				return res
 			} else {
@@ -63,14 +64,13 @@ export const updateBranch = createAsyncThunk(
 	}
 );
 
-export const removeBranchOffice = createAsyncThunk(
-	"BranchOffice/removeBranchOffice",
+export const removeTaxSlab = createAsyncThunk(
+	"TaxSlab/removeTaxSlab",
 	async (args, { dispatch }) => {
-		const res = await addbranchOfficeService(args.id);
-
+		const res = await removeTaxSlabService(args.id);
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success)
-				message.success("Subsidiary removed successfully!")
+				message.success("Tax Slab removed successfully!")
 			responseMessage({ dispatch, data: res });
 		} else {
 			responseMessage({

@@ -12,8 +12,11 @@ import {
   AiFillWarning,
   AiFillShop,
   AiOutlineFileText,
+  AiOutlinePartition,
   AiFillFileImage,
   AiOutlineGroup,
+  AiFillGolden,
+  AiOutlineCalendar,
   AiOutlineShrink
 } from "react-icons/ai";
 import {
@@ -43,6 +46,12 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.BUSINESS_LOGO,
   },
   {
+    IconName: <AiOutlineCalendar size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Fiscal_Year",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.FISCAL_YEAR,
+  },
+  {
     IconName: <AiOutlineFileText size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Rebate_Category",
     classObj: "button",
@@ -61,7 +70,13 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.BUSINESS_POLICY,
   },
   {
-    IconName: <AiFillShop size={20} color={"var(--currentThemeColor)"} />,
+    IconName: <AiFillGolden size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Tax_Slabs",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.TAX_SLAB,
+  },
+  {
+    IconName: <AiOutlinePartition size={20} color={"var(--currentThemeColor)"} />,
     displayName: "subsidiary",
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.SUBSIDIARY,

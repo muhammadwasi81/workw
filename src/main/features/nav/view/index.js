@@ -47,11 +47,11 @@ import { LanguageChangeContext } from "../../../utils/localization/localContext/
 
 const Index = () => {
 	useEffect(() => {
-		$(document).ready(function () {
-			(function () {
+		$(document).ready(function() {
+			(function() {
 				const mainNav = $("#mainNav");
 				const togglePanelInitialTopPosition = 125;
-				mainNav.scroll(function () {
+				mainNav.scroll(function() {
 					const scrolled = mainNav.scrollTop();
 					const calculatedTopPosition =
 						togglePanelInitialTopPosition - scrolled;
@@ -64,19 +64,27 @@ const Index = () => {
 			})();
 
 			const toggleMenu = $(".toggle-menu > .toggle-label");
-			toggleMenu.on("click", function (e) {
+			toggleMenu.on("click", function(e) {
 				if ($(".ic-bar-img").is(e.target)) {
 				} else {
 					if ($(this).hasClass("no-act")) return;
 
-					if (!$(this).parent().hasClass("on")) {
+					if (
+						!$(this)
+							.parent()
+							.hasClass("on")
+					) {
 						$(".toggle-menu").removeClass("on");
 						$(".nav").css({
 							"z-index": 2,
 						});
-						$(this).parent().addClass("on");
+						$(this)
+							.parent()
+							.addClass("on");
 					} else {
-						$(this).parent().removeClass("on");
+						$(this)
+							.parent()
+							.removeClass("on");
 						$(".nav").css({
 							"z-index": 0,
 						});
@@ -86,7 +94,7 @@ const Index = () => {
 
 			const toggleBoard = $(".toggle-board");
 			const searchInputArea = $(".search-input-area");
-			$(document).click(function (e) {
+			$(document).click(function(e) {
 				if (
 					!toggleBoard.is(e.target) &&
 					toggleBoard.has(e.target).length === 0 &&
@@ -101,7 +109,7 @@ const Index = () => {
 			});
 
 			const optionMenu = toggleBoard.find(".option");
-			optionMenu.on("click", function () {
+			optionMenu.on("click", function() {
 				$(".toggle-menu").removeClass("on");
 				$(".nav").css({
 					"z-index": 0,

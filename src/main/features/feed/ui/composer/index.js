@@ -10,12 +10,11 @@ import CModal from "../../../../sharedComponents/CModal/CModal";
 import store from "../../../../../store/store";
 import { feedSlice } from "../../store/slice";
 import { useSelector } from "react-redux";
-import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 import { Modal } from "antd";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { FeedDictionary } from "../../localization";
 
-function PostComposer() {
+function PostComposer({ referenceType, referenceId }) {
   const { showComposer } = useSelector((state) => state.feedSlice.postCompose);
   const { userSlice } = useSelector((state) => state);
   const { name, userImage } = userSlice.user;
@@ -65,7 +64,10 @@ function PostComposer() {
       >
         <div className="composer-wrapper" style={{ direction: Direction }}>
           <PostHeader />
-          <ComposerForm />
+          <ComposerForm
+            referenceType={referenceType}
+            referenceId={referenceId}
+          />
         </div>
       </Modal>
     </>

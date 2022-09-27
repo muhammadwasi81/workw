@@ -15,6 +15,16 @@ export const ROUTES = {
 	APPROVALS: {
 		DEFAULT: `${DOMAIN_PREFIX}/approvals`,
 	},
+	USER: {
+		LINK: `${DOMAIN_PREFIX}/user/`,
+		DEFAULT: `${DOMAIN_PREFIX}/user/`,
+		TIMELINE: {
+			DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
+			INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
+		},
+		SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
+		NOTES: `${DOMAIN_PREFIX}/user/notes`,
+	},
 	AUTH: {
 		SIGN_UP: `${DOMAIN_PREFIX}/register`,
 		SIGN_UP_SUCCESS: `${DOMAIN_PREFIX}/thankyou`,
@@ -148,15 +158,7 @@ export const ROUTES = {
 		QUIZ_GAME: `${DOMAIN_PREFIX}/eLearningCourses/game`,
 		HIGH_SCORE: `${DOMAIN_PREFIX}/eLearningCourses/highScore`,
 	},
-	USER: {
-		DEFAULT: `${DOMAIN_PREFIX}/user/`,
-		TIMELINE: {
-			DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
-			INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
-		},
-		SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
-		NOTES: `${DOMAIN_PREFIX}/user/notes`,
-	},
+
 	CALL: {
 		DEFAULT: `${DOMAIN_PREFIX}/call`,
 		AUDIO: `${DOMAIN_PREFIX}/call/audiocall`,
@@ -335,54 +337,54 @@ export const ROUTES = {
 		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
 	},
 
-  REWARDS: {
-    DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
-    REWARD: `${DOMAIN_PREFIX}/rewards/`,
-    APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
-  },
-  COMPLAINS: {
-    DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
-    COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
-    APPROVALS: `complains/approvals`,
-  },
-  WARNINGS: {
-    DEFAULT: `${DOMAIN_PREFIX}/warnings/*`,
-    WARNING: `${DOMAIN_PREFIX}/warnings/`,
-    APPROVALS: `warnings/approvals`,
-  },
-  EXPENSES: {
-    DEFAULT: `${DOMAIN_PREFIX}/expenses/*`,
-    EXPENSES: `${DOMAIN_PREFIX}/expenses`,
-  },
-  LEAVES: {
-    DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
-    LEAVE: `${DOMAIN_PREFIX}/leaves/`,
-    APPROVALS: `leaves/approvals`,
-  },
-  //   EMPLOYEES: {
-  //     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
-  //     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
-  //     ADD: `add`,
-  //     BASIC_INFO: `${DOMAIN_PREFIX}/employees/info`,
-  //     JOB_BY_ID: `${DOMAIN_PREFIX}/employees/job`,
-  //     EMAIL_CONFIG: `${DOMAIN_PREFIX}/employees/emailconfig`,
-  //     EDUCATION: `${DOMAIN_PREFIX}/employees/education`,
-  //     EXPERIENCE: `${DOMAIN_PREFIX}/employees/experience`,
-  //     PACKAGE: `${DOMAIN_PREFIX}/employees/package`,
-  //     LINKAGE: `${DOMAIN_PREFIX}/employees/linkage`,
-  //     USER_RIGHTS: `${DOMAIN_PREFIX}/employees/rights`,
-  //     ACTIVITY_LOGS: `${DOMAIN_PREFIX}/employees/activityLogs`,
-  //     SALARY: `${DOMAIN_PREFIX}/employees/salary`,
-  //     APPRAISAL: `${DOMAIN_PREFIX}/employees/appraisal`,
-  //     OFFICE_TIMINGS: `${DOMAIN_PREFIX}/employees/officeTimings`,
-  //     OFFICETIME: `${DOMAIN_PREFIX}/employees/officetime`,
-  //     EMPLOYEE_TIME: `${DOMAIN_PREFIX}/employees/employee_time`,
-  //     EMAIL_SEND: `${DOMAIN_PREFIX}/employees/EmailSend`,
-  //     ALLOWANCES: `${DOMAIN_PREFIX}/employees/allowances`,
-  //     BANK_DETAILS: `${DOMAIN_PREFIX}/employees/bankDetails`,
-  //   },
-  ADMINISTRATOR: {
-    DEFAULT: `${DOMAIN_PREFIX}/administrator/*`,
+	REWARDS: {
+		DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
+		REWARD: `${DOMAIN_PREFIX}/rewards/`,
+		APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
+	},
+	COMPLAINS: {
+		DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
+		COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
+		APPROVALS: `complains/approvals`,
+	},
+	WARNINGS: {
+		DEFAULT: `${DOMAIN_PREFIX}/warnings/*`,
+		WARNING: `${DOMAIN_PREFIX}/warnings/`,
+		APPROVALS: `warnings/approvals`,
+	},
+	EXPENSES: {
+		DEFAULT: `${DOMAIN_PREFIX}/expenses/*`,
+		EXPENSES: `${DOMAIN_PREFIX}/expenses`,
+	},
+	LEAVES: {
+		DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
+		LEAVE: `${DOMAIN_PREFIX}/leaves/`,
+		APPROVALS: `leaves/approvals`,
+	},
+	//   EMPLOYEES: {
+	//     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
+	//     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
+	//     ADD: `add`,
+	//     BASIC_INFO: `${DOMAIN_PREFIX}/employees/info`,
+	//     JOB_BY_ID: `${DOMAIN_PREFIX}/employees/job`,
+	//     EMAIL_CONFIG: `${DOMAIN_PREFIX}/employees/emailconfig`,
+	//     EDUCATION: `${DOMAIN_PREFIX}/employees/education`,
+	//     EXPERIENCE: `${DOMAIN_PREFIX}/employees/experience`,
+	//     PACKAGE: `${DOMAIN_PREFIX}/employees/package`,
+	//     LINKAGE: `${DOMAIN_PREFIX}/employees/linkage`,
+	//     USER_RIGHTS: `${DOMAIN_PREFIX}/employees/rights`,
+	//     ACTIVITY_LOGS: `${DOMAIN_PREFIX}/employees/activityLogs`,
+	//     SALARY: `${DOMAIN_PREFIX}/employees/salary`,
+	//     APPRAISAL: `${DOMAIN_PREFIX}/employees/appraisal`,
+	//     OFFICE_TIMINGS: `${DOMAIN_PREFIX}/employees/officeTimings`,
+	//     OFFICETIME: `${DOMAIN_PREFIX}/employees/officetime`,
+	//     EMPLOYEE_TIME: `${DOMAIN_PREFIX}/employees/employee_time`,
+	//     EMAIL_SEND: `${DOMAIN_PREFIX}/employees/EmailSend`,
+	//     ALLOWANCES: `${DOMAIN_PREFIX}/employees/allowances`,
+	//     BANK_DETAILS: `${DOMAIN_PREFIX}/employees/bankDetails`,
+	//   },
+	ADMINISTRATOR: {
+		DEFAULT: `${DOMAIN_PREFIX}/administrator/*`,
     ADMINISTRATION: `${DOMAIN_PREFIX}/administrator/`,
     BUSINESS_LOGO: `businessLogo`,
     REBATE_CATEGORY: `rebateCategory`,
@@ -416,17 +418,17 @@ export const ROUTES = {
     ALLOWANCES: `allowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
-  },
-  LOAN: {
-    DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
-    LOAN: `${DOMAIN_PREFIX}/loan`,
-    APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
-  },
-  RESIGNATION: {
-    DEFAULT: `${DOMAIN_PREFIX}/designation/*`,
-    RESIGNATION: `${DOMAIN_PREFIX}/designation`,
-    APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
-  },
+	},
+	LOAN: {
+		DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
+		LOAN: `${DOMAIN_PREFIX}/loan`,
+		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+	},
+	RESIGNATION: {
+		DEFAULT: `${DOMAIN_PREFIX}/designation/*`,
+		RESIGNATION: `${DOMAIN_PREFIX}/designation`,
+		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+	},
 
 	TRAVELS: `${DOMAIN_PREFIX}/travel`,
 	TRAVEL: {

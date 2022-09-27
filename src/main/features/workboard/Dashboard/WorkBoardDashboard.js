@@ -2,14 +2,20 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../utils/routes";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
 import { Table } from "../../../sharedComponents/customTable";
 import Spinner from "../../../sharedComponents/spinner/spinner";
+import { WorkBoardReferenceTypeEnum } from "../enum";
 import { getAllWorkBoard } from "../store/action";
 import { tableColumn } from "./tableColumns";
 import WorkBoardCard from "./WorkBoardCard";
 
-function WorkBoardDashboard({ isTableView, referenceType, referenceId }) {
+function WorkBoardDashboard({
+	isTableView,
+	referenceType = WorkBoardReferenceTypeEnum.General,
+	referenceId = defaultUiid,
+}) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const workboardsListData = useSelector(
@@ -22,6 +28,8 @@ function WorkBoardDashboard({ isTableView, referenceType, referenceId }) {
 				pageNo: 1,
 				pageSize: 20,
 				search: "",
+				referenceId,
+				referenceType,
 			})
 		);
 	}, []);

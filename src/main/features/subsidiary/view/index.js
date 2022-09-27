@@ -2,21 +2,29 @@ import { message } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
-import { addBranch, addDefaultHiringCriteria, getAllBranch, getAllDefaultHiringCriteria, removeBranch, removeDefaultHiringCriteria, updateBranch, updateDefaultHiringCriteria} from "../store/actions";
+import {
+	addBranch,
+	addDefaultHiringCriteria,
+	getAllBranch,
+	getAllDefaultHiringCriteria,
+	removeBranch,
+	removeDefaultHiringCriteria,
+	updateBranch,
+	updateDefaultHiringCriteria,
+} from "../store/actions";
 import Form from "./form.js";
 import TableView from "./table.js";
 
 export default function Subsidiary() {
-  const initialState = { branchTitle: "" };
-  const [subsidiary, setSubsidiary] = useState(initialState);
-  const [clearButton, setClearButton] = useState(false)
+	const initialState = { branchTitle: "" };
+	const [subsidiary, setSubsidiary] = useState(initialState);
+	const [clearButton, setClearButton] = useState(false);
 
+	const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
-
-  const handleDelete = (e) => {
-    dispatch(removeBranch(e));
-  };
+	const handleDelete = e => {
+		dispatch(removeBranch(e));
+	};
 
   const onSubmit = (e) => {
     if (e.branchTitle === "") {

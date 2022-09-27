@@ -11,8 +11,7 @@ export default function SubsidiaryOffice() {
   const [subsidiary, setSubsidiary] = useState(initialState);
   const [clearButton, setClearButton] = useState(false)
 
-
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
   const handleDelete = (e) => {
     dispatch(removeBranchOffice(e));

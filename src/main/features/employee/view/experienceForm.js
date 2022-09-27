@@ -63,7 +63,7 @@ const EmergencyForm = ({ mode, id }) => {
   } = useSelector((state) => state.employeeSlice);
   const initialState = {
     position: "",
-    employmentTypeId: "",
+    employmentTypeId: [],
     cityId: [],
     startDate: "",
     isPresent: false,
@@ -217,6 +217,17 @@ const EmergencyForm = ({ mode, id }) => {
           label={labels.Position}
         >
           <Input placeholder={placeholder.position}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="organization"
+          label={labels.organization}
+        >
+          <Input placeholder={placeholder.organization}></Input>
         </Form.Item>
         <Form.Item
           rules={[

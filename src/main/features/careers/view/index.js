@@ -7,9 +7,8 @@ import JobDetails from "../view/DetailView/index";
 function Index() {
   return (
     <Routes>
-      <Route path="jobdetail" element={<JobDetails />} />
-      {/* <Route path="/jobdetail" element={() => <h1>DSSDSD</h1>} /> */}
       <Route path="/" element={<Careers />} />
+      <Route path="jobdetail" element={<JobDetails />} />
     </Routes>
   );
 }

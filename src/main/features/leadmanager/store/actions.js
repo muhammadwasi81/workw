@@ -34,13 +34,6 @@ export const addLeadManager = createAsyncThunk(
 					duration: 2,
 				})
 			);
-			dispatch(
-				getAllLeadManager({
-					pageNo: 1,
-					pageSize: 20,
-					search: "",
-				})
-			);
 			return res;
 		} else {
 			dispatch(

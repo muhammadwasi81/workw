@@ -1,15 +1,17 @@
+import { Avatar } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { getNameForImage } from "../../../../../utils/base";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+// import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 
 function WorkBoardMemberSelect({
 	onChange = () => {},
 	defaultData = [],
-	loadDefaultData = false,
 	placeholder = "Search",
+	label,
 }) {
 	const dispatch = useDispatch();
 	const employees = useSelector(state => state.sharedSlice.employees);
@@ -24,7 +26,7 @@ function WorkBoardMemberSelect({
 	useEffect(() => {
 		setValue(defaultData);
 		// setLoading(true);
-	}, [defaultData]);
+	}, [JSON.stringify(defaultData)]);
 
 	useEffect(() => {
 		if (employees.length > 0 && !isFirstTimeDataLoaded) {
@@ -38,9 +40,9 @@ function WorkBoardMemberSelect({
 	};
 
 	const selectedData = (data, obj) => {
-		setValue(data);
+		// setValue(data);
 		// setMembers(obj);
-		onChange(data, obj);
+		// onChange(data, obj);
 	};
 
 	return (
@@ -53,17 +55,13 @@ function WorkBoardMemberSelect({
 				placeholder={placeholder}
 				mode={"multiple"}
 				isObject={true}
-				loadDefaultData={loadDefaultData}
+				loadDefaultData={true}
 				optionComponent={opt => {
 					return (
 						<>
-							<Avatar
-								name={opt.name}
-								src={opt.image}
-								round={true}
-								width={"30px"}
-								height={"30px"}
-							/>
+							<Avatar src={opt.image} className="!bg-black">
+								{getNameForImage(opt.name)}
+							</Avatar>
 							{opt.name}
 						</>
 					);
@@ -71,7 +69,13 @@ function WorkBoardMemberSelect({
 				dataVal={value}
 				name="members"
 				showSearch={true}
-				// direction={Direction}
+				rules={[
+					{
+						required: true,
+						message: "Members is required",
+					},
+				]}
+				label={label}
 			/>
 		</>
 	);

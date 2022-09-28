@@ -10,40 +10,38 @@ import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 import { addLeadManager, updateLeadManager } from "../../store/actions";
 import { useSelector } from "react-redux";
 function BoardComposer({
+	btnText,
 	isEdit,
-	composerData,
 	loading,
-	dataLoading,
+	dataLoading = false,
 	dictionary,
 	direction,
 }) {
-	// console.log("composerData", composerData);
+	const leadDetail = useSelector(
+		state => state.leadMangerSlice.leadManagerDetail
+	);
 	const { placeHolder, labels } = dictionary;
 	const [form] = Form.useForm();
-	// const [isEdited, setIsEdited] = useState(isEdit);
-	// console.log("ieEdited", isEdited);
 	const userId = useSelector(state => state.userSlice.user.id);
-	const [membersData, setMembersData] = useState([]);
 	const dispatch = useDispatch();
 
 	const [image, setImage] = useState("");
 	const [privacyId, setPrivacyId] = useState(1);
 
 	const onFinish = values => {
-		// console.log("values", values);
-		let membersObj = membersData.map(member => {
+		let members = values.members.map(member => {
 			return { memberId: member };
 		});
 		let imgObj = { file: image, id: defaultUiid };
-		let tempObj = values;
-		tempObj.members = membersObj;
-		tempObj.attachment = imgObj;
+		let tempObj = { ...values };
+		tempObj.members = members;
+		tempObj.image = imgObj;
 		tempObj.privacyId = privacyId;
 		if (isEdit) {
-			if (!image) {
-				tempObj.attachment = { ...imgObj, id: composerData.imageId };
+			if (typeof image === "string" && image) {
+				tempObj.image = { ...imgObj, id: leadDetail.imageId };
 			}
-			tempObj.id = composerData.id;
+			tempObj.id = leadDetail.id;
 			dispatch(updateLeadManager(jsonToFormData(tempObj)));
 			return;
 		}
@@ -58,26 +56,30 @@ function BoardComposer({
 		setPrivacyId(value);
 	};
 	useEffect(() => {
-		form.setFieldsValue(composerData);
-		if (isEdit) {
+		setImage("");
+	}, []);
+
+	useEffect(() => {
+		if (leadDetail && isEdit) {
+			// console.log("lead detail", leadDetail);
+			form.setFieldsValue({ ...leadDetail });
 			form.setFieldsValue({
-				members: composerData.members
+				members: leadDetail.members
 					.map(members => {
 						return members.memberId;
 					})
 					.filter(member => member !== userId),
 			});
+			setImage(leadDetail.image);
+			setPrivacyId(leadDetail.privacyId);
 		}
-		// console.log("userid", userId);
-		// console.log("form.getFieldsValues(true)", form.getFieldsValue(true));
-		setPrivacyId(composerData.privacyId);
-	}, [form, composerData]);
+	}, [form, leadDetail]);
 
 	return (
 		<Form
 			name="lead manager form"
 			layout="vertical"
-			initialValues={{}}
+			initialValues={{ name: "", description: "", members: [] }}
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
 			autoComplete="off"
@@ -112,12 +114,16 @@ function BoardComposer({
 					) : (
 						<SingleUpload
 							handleImageUpload={fileData => {
-								// console.log("fileData", fileData[0]);
-								setImage(fileData[0].originFileObj);
+								// console.log("fileData", fileData);
+								if (fileData.length > 0) {
+									setImage(fileData[0].originFileObj);
+								} else {
+									setImage("");
+								}
 							}}
 							uploadText={labels.uploadCvr}
 							multiple={false}
-							url={composerData.image}
+							url={image}
 							position={"justify-center"}
 						/>
 					)}
@@ -143,33 +149,14 @@ function BoardComposer({
 				)}
 			</Form.Item>
 
-			<Form.Item
-				label={labels.members}
-				rules={[
-					{
-						required: true,
-						message: "Members is required",
-					},
-				]}
-				name="members"
-			>
-				{dataLoading ? (
-					<Skeleton.Input active={true} block size={"large"} />
-				) : (
-					<WorkBoardMemberSelect
-						onChange={(val, obj) => {
-							setMembersData(val);
-						}}
-						// defaultData={composerData.members
-						// 	.map(members => {
-						// 		return members.memberId;
-						// 	})
-						// 	.filter(member => member !== userId)}
-						loadDefaultData={true}
-						placeholder={placeHolder.serachMembersPH}
-					/>
-				)}
-			</Form.Item>
+			{dataLoading ? (
+				<Skeleton.Input active={true} block size={"large"} />
+			) : (
+				<WorkBoardMemberSelect
+					placeholder={placeHolder.serachMembersPH}
+					label={labels.members}
+				/>
+			)}
 			<Form.Item>
 				<div className="flex items-center gap-2">
 					{dataLoading ? (
@@ -201,7 +188,7 @@ function BoardComposer({
 								size="large"
 								loading={loading}
 							>
-								{isEdit ? labels.updateGrp : labels.createGrp}
+								{btnText}
 							</Button>
 						</>
 					)}

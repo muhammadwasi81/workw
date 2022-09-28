@@ -20,21 +20,28 @@ function DashboardCardLayout({
 	return (
 		<>
 			<Card
+				// cover={
+				// 	!loading ? (
+				// 		<img
+				// 			alt="example"
+				// 			className="object-cover"
+				// 			src={data.image ? data.image : defaultImg}
+				// 		/>
+				// 	) : (
+				// 		<Skeleton.Image className="ant-skeleton-active" />
+				// 	)
+				// }
 				cover={
-					!loading ? (
-						<img
-							alt="example"
-							className="object-cover"
-							src={data.image ? data.image : defaultImg}
-						/>
-					) : (
-						<Skeleton.Image className="ant-skeleton-active" />
-					)
+					<img
+						alt="example"
+						className="object-cover"
+						src={data.image ? data.image : defaultImg}
+					/>
 				}
 				className="Card2"
 				hoverable
 				onClick={onClick}
-				loading={loading}
+				// loading={loading}
 			>
 				<Meta
 					className="w-full"
@@ -57,7 +64,7 @@ function DashboardCardLayout({
 						heading={"Members"}
 						membersData={data.members ? data.members : []}
 					/>
-					{/* {userId === data.createBy && (
+					{userId === data.createBy && (
 						<div
 							className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
 							onClick={e => {
@@ -69,7 +76,7 @@ function DashboardCardLayout({
 						>
 							{dictionary?.labels?.update}
 						</div>
-					)} */}
+					)}
 				</div>
 			</Card>
 		</>

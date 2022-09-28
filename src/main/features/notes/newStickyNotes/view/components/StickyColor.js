@@ -19,7 +19,6 @@ const StickyColor = () => {
   return (
     <>
       <div
-       
         className="menu__popUp"
         //   style={{ display: !color ? "initial" : "none" }}
       >
@@ -34,7 +33,7 @@ const StickyColor = () => {
           ))}
         </div>
         <div className="note__iconHOVER-dlt">
-          <div >
+          <div>
             <DeleteOutlined />
           </div>
           Delete Note

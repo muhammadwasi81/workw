@@ -8,7 +8,7 @@ import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/rewards.s
 import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/stickyNotes.svg";
 import Notes from "../../../../features/notes/Notes";
 import NewStickyNote from "../../../../features/notes/NewStickyNote";
-import { toggleStickyNote } from "../../../../../store/appReducer/newStickySlice";
+import { toggleStickyNote } from "../../../../features/notes/newStickyNotes/store/stickySlice";
 import { setNotificationStatus } from "../../../../../store/appReducer/responsiveSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -75,15 +75,15 @@ function NotificationBar() {
   classes += isSearch ? "open" : "";
 
   // Sticky Note
-  const toggleNote = useSelector((state) => state.newStickySlice.open);
-``
+  const toggleNote = useSelector((state) => state.stickySlice.open);
+
   const stickyNoteHandler = () => {
     dispatch(toggleStickyNote());
   };
 
-  const incrementStickyNote = useSelector(
-    (state) => state.newStickySlice.incrementArray
-  );
+  // const incrementStickyNote = useSelector(
+  //   (state) => state.newStickySlice.incrementArray
+  // );
 
   const openImg = useSelector((state) => state.newStickySlice.openImg);
   // console.log(incrementStickyNote);
@@ -126,7 +126,7 @@ function NotificationBar() {
         </li>
         {/* {toggleNote && <Notes stickyNoteTitle={title} />} */}
         {toggleNote && <StickyContainer />}
-        {incrementStickyNote.map((increment) => (
+        {/* {incrementStickyNote.map((increment) => (
           <NewStickyNote
             key={increment.id}
             id={increment.id}
@@ -145,7 +145,7 @@ function NotificationBar() {
             onGetTitleVal={titleVal}
             img={increment.img}
           />
-        ))}
+        ))} */}
         <li
           className="list__item"
           onClick={() => {

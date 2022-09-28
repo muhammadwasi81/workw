@@ -2,7 +2,6 @@ import React from "react";
 import { Input, Dropdown, Menu, Space, Col, Row, Image } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
-
 import {
   CopyOutlined,
   CloseOutlined,
@@ -22,7 +21,7 @@ import "../../style.css";
 const { TextArea } = Input;
 
 const NewStickyNote = () => {
-  // ********dropdown menu in three dot*********
+  // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
     <Menu
       items={[
@@ -76,7 +75,7 @@ const NewStickyNote = () => {
             <p>Title</p>
             {/* <Input placeholder="Title" style={{backroundColor:"#0f4c81"}} /> */}
 
-            {/* ******Drop Down menu on three dot****** */}
+            {/* ******Drop Down menu (color, copy, share) on three dot****** */}
             <div className="leftNote_Icon">
               <Dropdown overlay={menu}>
                 <a onClick={(e) => e.preventDefault()}>

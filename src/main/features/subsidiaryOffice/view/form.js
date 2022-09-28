@@ -22,8 +22,6 @@ export default function Form({
 }) {
 	const disptach = useDispatch()
 	const [form, setForm] = useState(data);
-	const [latitude, setLat] = useState(null);
-	const [longitude, setLng] = useState(null);
 	const [status, setStatus] = useState(null);
 
 	const { items } = useSelector(
@@ -34,8 +32,6 @@ export default function Form({
 		disptach(getAllBranch())
 	}, []);
 
-	console.log(items, "ITEMS BRANHCES")
-
 
 	const getLocation = () => {
 		if (!navigator.geolocation) {
@@ -44,8 +40,11 @@ export default function Form({
 			setStatus('Locating...');
 			navigator.geolocation.getCurrentPosition((position) => {
 				setStatus(null);
-				setLat(position.coords.latitude);
-				setLng(position.coords.longitude);
+				setForm({
+					...form,
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				})
 			}, () => {
 				setStatus('Unable to retrieve your location');
 			});
@@ -54,17 +53,8 @@ export default function Form({
 
 
 	const handleClear = e => {
-		setForm({ ...form, branchTitle: "" });
+		setForm({ ...form, branchId: "" });
 		setClearButton(false);
-	};
-
-	const handelChangebranchTitle = e => {
-		if (e.target.value.length > 0) {
-			setClearButton(true);
-		} else {
-			setClearButton(false);
-		}
-		setForm({ ...form, branchTitle: e.target.value });
 	};
 
 	const handelChangeName = e => {
@@ -85,7 +75,14 @@ export default function Form({
 		setForm({ ...form, address: e.target.value });
 	};
 
-	setForm({ ...form, lat: form.latitude, lng: form.longitude });
+	const handelChangeBranch = e => {
+		if (e.length > 0) {
+			setClearButton(true);
+		} else {
+			setClearButton(false);
+		}
+		setForm({ ...form, branchId: e });
+	};
 
 	useEffect(() => {
 		getLocation();
@@ -116,10 +113,10 @@ export default function Form({
 						showSearch
 						style={{ width: "100%" }}
 						placeholder="Select Subsidiary"
+						defaultValue={form.branchId}
 						optionFilterProp="children"
-						onChange={handelChangebranchTitle}
+						onChange={handelChangeBranch}
 						value={form.branchId}
-						name="branchId"
 						size="large"
 					>
 						{items.map((item) => (
@@ -132,16 +129,16 @@ export default function Form({
 					<Input
 						// value={form.lat}
 						// onChange={handelChangeName}
-						value={longitude}
+						value={form.lat}
 						disabled
 					/>
 				</FormInput>
 				<FormInput>
-					<FormLabel>Latitude</FormLabel>
+					<FormLabel>longitude</FormLabel>
 					<Input
 						// value={form.lng}
 						// onChange={handelChangeName}
-						value={longitude}
+						value={form.lng}
 						disabled
 					/>
 				</FormInput>

@@ -31,7 +31,7 @@ export const GetBonusByIdService = (id) => {
 };
 
 export const cancelBonusService = id => {
-	return MasterConfig.delete(`api/bonus/BonusCancel?id=${id}`)
+	return MasterConfig.delete(`api/bonus/BonusCancel?bonusId=${id}`)
 		.then(res => {
 			return res;
 		})

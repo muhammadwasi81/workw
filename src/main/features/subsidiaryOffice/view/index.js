@@ -7,7 +7,7 @@ import Form from "./form.js";
 import TableView from "./table.js";
 
 export default function SubsidiaryOffice() {
-  const initialState = { name: "", address: "", lat: "", lng: "" };
+  const initialState = { name: "", address: "", lat: "", lng: "", branchId: "" };
   const [subsidiary, setSubsidiary] = useState(initialState);
   const [clearButton, setClearButton] = useState(false)
 
@@ -18,6 +18,7 @@ export default function SubsidiaryOffice() {
   };
 
   const onSubmit = (e) => {
+    console.log(e, "FINALL VALUESSS")
     if (e.name === "" || e.address === "") {
       message.error("Please fill all required fields")
     } else {

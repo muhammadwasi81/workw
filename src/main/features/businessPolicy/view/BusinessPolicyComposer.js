@@ -54,7 +54,7 @@ function BusinessPolicyComposer({editData}) {
 
 	const onFinish = values => {
 		if (editData) {
-			 dispatch(updateBusinessPolicy(values))
+			 dispatch(updateBusinessPolicy({...values, id: editData.id}))
 		} else {
 			dispatch(addBusinessPolicy(values))
 		}
@@ -96,7 +96,7 @@ function BusinessPolicyComposer({editData}) {
 					</S.FormItem>
 					<S.FormItem
 						direction={Direction}
-						name="type"
+						name="typeId"
 						rules={[
 							{
 								required: true,

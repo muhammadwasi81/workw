@@ -33,7 +33,7 @@ export const GetRewardByIdService = id => {
 };
 
 export const cancelRewardService = id => {
-	return MasterConfig.delete(`api/Reward/RewardCancel?id=${id}`)
+	return MasterConfig.delete(`api/Reward/RewardCancel?rewardId=${id}`)
 		.then(res => {
 			return res;
 		})

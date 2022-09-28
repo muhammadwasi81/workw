@@ -8,6 +8,7 @@ import {
 import {
 	addbranchOfficeService,
 	getAllBranchOfficeService,
+	removeBranchOfficeService,
 	updateBranchService,
 } from "../services/service";
 
@@ -66,7 +67,7 @@ export const updateBranch = createAsyncThunk(
 export const removeBranchOffice = createAsyncThunk(
 	"BranchOffice/removeBranchOffice",
 	async (args, { dispatch }) => {
-		const res = await addbranchOfficeService(args.id);
+		const res = await removeBranchOfficeService(args.id);
 
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success)

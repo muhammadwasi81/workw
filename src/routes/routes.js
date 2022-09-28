@@ -54,10 +54,12 @@ export const routes = {
       path: `${ROUTES.FORMS.DEFAULT}`,
       component: lazy(() => import("../main/features/forms/view/index")),
     },
-    // {
-    // 		path: `${ROUTES.FORMS.SUBMIT_FORM}`,
-    // 		component: lazy(() => import("../main/features/forms/view/forms/SubmitForm/index.js")),
-    // 	},
+    {
+      path: `${ROUTES.FORMS.SUBMIT_FORM}`,
+      component: lazy(() =>
+        import("../main/features/forms/view/forms/SubmitForm/index.js")
+      ),
+    },
     {
       path: `${ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT}`,
       component: lazy(() =>

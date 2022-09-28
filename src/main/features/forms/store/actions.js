@@ -1,7 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
-import { addFormService, getAllFormsService } from "../services/service";
+import {
+  addFormService,
+  getAllFormsService,
+  GetFormByIdService,
+} from "../services/service";
 
 export const getAllForms = createAsyncThunk(
   "Form/getAllForms",
@@ -28,5 +32,18 @@ export const addForm = createAsyncThunk(
       message.error(res.statusText);
       return rejectWithValue(res.statusText);
     }
+  }
+);
+
+export const getFormById = createAsyncThunk(
+  "Department/getDepartmentById",
+  async (data) => {
+    const response = await GetFormByIdService(data);
+
+    // if (!response.responseCode) {
+    //   message.error("Something went wrong");
+    // }
+    // console.log("response data from actions", response.data);
+    return response.data;
   }
 );

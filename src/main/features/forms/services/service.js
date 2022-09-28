@@ -25,3 +25,14 @@ export const addFormService = (data) => {
       return res;
     });
 };
+
+export const GetFormByIdService = (id) => {
+  // console.log("ID FROM SERVICE", id);
+  return MasterConfig.get(`api/Form/GetFormById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};

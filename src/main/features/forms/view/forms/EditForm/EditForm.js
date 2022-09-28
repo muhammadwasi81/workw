@@ -46,7 +46,7 @@ let initialData = {
     user_type: 2,
   },
   approvals: [],
-  questions: [],
+  question: [],
 };
 
 const EditForm = (props) => {
@@ -54,7 +54,7 @@ const EditForm = (props) => {
   const dispatch = useDispatch();
   const [dataObj, setDataObj] = useState(initialData);
   const [formData, setFormData] = useState(null);
-  const [questions, setQuestions] = useState([]);
+  const [question, setQuestions] = useState([]);
   const [snackbarState, setSnackbarState] = useState({
     isOpen: false,
     Message: "",
@@ -75,7 +75,7 @@ const EditForm = (props) => {
           image: image[i],
         };
       });
-    let questionArray = questions.map((elem, index) => {
+    let questionArray = question.map((elem, index) => {
       return {
         id: createGuid(),
         formId: createGuid(),
@@ -87,12 +87,12 @@ const EditForm = (props) => {
       };
     });
     // console.log("****", questionArray);
-    setDataObj({ ...dataObj, questions: questionArray });
-  }, [questions]);
+    setDataObj({ ...dataObj, question: questionArray });
+  }, [question]);
 
   const dataGet = (values) => {
     // console.log("data getting from create form component", values);
-    setQuestions([...questions, values]);
+    setQuestions([...question, values]);
   };
 
   const createForm = () => {
@@ -122,7 +122,7 @@ const EditForm = (props) => {
   let setFormDataByType = (data) => {
     // console.log("data getting in set form by type****", data);
     // console.log("questions data map****", data.questions);
-    let filteredData = data.questions.map((item, index) => {
+    let filteredData = data.question.map((item, index) => {
       if (item.answerType === 2) {
         return {
           ...item,
@@ -170,7 +170,7 @@ const EditForm = (props) => {
     });
     // setSubmitForms(submitData);
     // console.log("filtered data", filteredData);
-    setFormData({ ...data, questions: filteredData });
+    setFormData({ ...data, question: filteredData });
     // console.log("formData", formData);
   };
   const handleChange = (items) => {
@@ -184,7 +184,7 @@ const EditForm = (props) => {
         sequence: index,
       };
     });
-    setFormData({ ...formData, questions: filteredData });
+    setFormData({ ...formData, question: filteredData });
   };
   if (!formData) return <div>Loading...</div>;
   return (
@@ -200,11 +200,11 @@ const EditForm = (props) => {
             isAcceptingResp={formData.acceptingResponse}
           />
           <DrangableQuestions
-            questions={formData.questions}
+            questions={formData.question}
             handleChange={handleSequenceChange}
           >
             {formData &&
-              formData.questions.map((item, index) => (
+              formData.question.map((item, index) => (
                 <>
                   {console.log("item radio with image", item)}
                   {item.localType === "radio" && (

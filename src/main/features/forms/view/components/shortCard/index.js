@@ -14,9 +14,8 @@ import "./style.css";
 import { ROUTES } from "../../../../../../utils/routes";
 
 function ListItem(props) {
-  console.log("props in short card", props);
-  const { item } = props;
-  // console.log(item.id);
+  const { item, id } = props;
+
   return (
     <>
       <SingleItem className="Card3 formShortCard">
@@ -41,7 +40,7 @@ function ListItem(props) {
           <Link to={ROUTES.FORMS.SUBMIT_FORM + "/dfdfdf"}>
             <Button className="ThemeBtn">Copy Link</Button>
           </Link>
-          <Link to={ROUTES.FORMS.SUBMIT_FORM + "/dfd"}>
+          <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
             <Button className="ThemeBtn">Attempt</Button>
           </Link>
         </div>

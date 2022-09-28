@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
 import VoucherFooter from './components/VoucherFooter';
 import CreateEntryHead from './components/createEntryTableHead';
@@ -13,6 +13,10 @@ import { createGuid } from '../../../../../utils/base';
 import { getAllAllowance } from '../../../allowance/store/actions';
 import { addMultipleEmployeeSalary } from '../../store/actions';
 import { useNavigate } from 'react-router-dom';
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import {salaryDictionary} from "../../../salary/localization/index";
+
 
 const CreateSalaryVoucher = ({ defaultRows }) => {
   const defaultEntry = {
@@ -29,6 +33,9 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
     description: "",
     id: createGuid()
   }
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salary_Dictionary } = salaryDictionary[userLanguage];
 
   const initialEntries = Array(defaultRows).fill(defaultEntry).map((item) => ({ ...item, id: createGuid() }));
   const [entries, setEntries] = useState(initialEntries);
@@ -135,11 +142,10 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
       <div className='bg-white p-4 rounded-md flex w-full justify-between mt-5 sticky bottom-2' >
 
         <div>
-          {/* <Button className='ThemeBtn mr-2' onClick={() => setEntries(Array(defaultRows).fill(defaultEntry))} >
-            Clear
-          </Button> */}
-          <Button className='ThemeBtn mr-2' onClick={handleSubmit} >
-            Create Salary
+          <Button className='ThemeBtn mr-2' onClick={() => setEntries(Array(defaultRows).fill(defaultEntry))} >
+          {salary_Dictionary.Clear}
+          </Button>
+          <Button className='ThemeBtn mr-2' onClick={handleSubmit} >{salary_Dictionary.CreateSalary}
           </Button>
         </div>
 

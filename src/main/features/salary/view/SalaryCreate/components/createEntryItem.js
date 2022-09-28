@@ -1,12 +1,14 @@
 import { DatePicker, Select } from 'antd';
 import { Option } from 'antd/lib/mentions';
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 import { getAllEmployees } from '../../../../../../utils/Shared/store/actions';
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { ALLOWANCE_ENUM } from '../../../../allowance/view/enum';
 import { calculateAllowance } from '../../../utils/constant';
+import { LanguageChangeContext } from '../../../../../../utils/localization/localContext/LocalContext';
+import { salaryDictionary } from '../../../localization';
 
 const CreateEntryItem = ({
   index,
@@ -23,6 +25,7 @@ const CreateEntryItem = ({
   const handleInputChange = (e) => {
     handleChange(e.target.value, e.target.name, index)
   }
+
   const onEmployeeSelect = (row) => {
     let { gradeId, grade, id } = row[0];
     let { totalAllowance, totalDeductions, details } = calculateAllowance(allowanceData, gradeId, value.basicSalary);
@@ -55,6 +58,9 @@ const CreateEntryItem = ({
       ...tempValue
     }, index)
   }
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salary_Dictionary } = salaryDictionary[userLanguage];
+
   return (
     <tr>
       <td>
@@ -63,7 +69,7 @@ const CreateEntryItem = ({
       <td className="text-center salaryDatePicker" >
         <DatePicker
           value={value.effectiveDate}
-          onChange={(value) => handleChange(value, "effectiveDate", index)}
+          onChange={(value) => handleChange(value,"EffectiveDate", index)}
         />
       </td>
       <td>
@@ -74,7 +80,7 @@ const CreateEntryItem = ({
           canFetchNow={employeesShortData && employeesShortData.length > 0}
           fetchData={fetchEmployeesShort}
           sliceName="employeeShort"
-          placeholder={"Employee"}
+          placeholder = {salary_Dictionary.Employee}
           isObject={true}
           size={"medium"}
           loadDefaultData={false}
@@ -94,7 +100,7 @@ const CreateEntryItem = ({
             );
           }}
           dataVal={[]}
-          name="Employee"
+          name= {salary_Dictionary.Employee}
           showSearch={true}
         />
       </td>
@@ -102,7 +108,7 @@ const CreateEntryItem = ({
         <input className='text-[#a7a7a7] font-bold' value={value.grade} disabled={true} />
       </td>
       <td>
-        <input name="basicSalary" onChange={(e) => onChangeSalary(e.target.value)}
+        <input name = {salary_Dictionary.BasicSalary} onChange={(e) => onChangeSalary(e.target.value)}
           value={value.basicSalary} />
       </td>
       <td>
@@ -118,10 +124,10 @@ const CreateEntryItem = ({
         <CustomSelect
           style={{ marginBottom: "0px" }}
           data={employeesData}
-          selectedData={(value, row) => handleChange(row.map(item => ({ approverId: item.id })), "approvers", index)}
+          selectedData={(value, row) => handleChange(row.map(item => ({ approverId: item.id })), salary_Dictionary.Approvers, index)}
           canFetchNow={employeesData && employeesData.length > 0}
           fetchData={fetchEmployees}
-          placeholder={"Approvers"}
+          placeholder= {salary_Dictionary.Approvers}
           mode={"multiple"}
           isObject={true}
           size="small"
@@ -142,12 +148,12 @@ const CreateEntryItem = ({
             );
           }}
           dataVal={[]}
-          name="approvers"
+          name={salary_Dictionary.Approvers}
           showSearch={true}
         />
       </td>
       <td>
-        <input name="description" onChange={handleInputChange}
+        <input name={salary_Dictionary.Descrption} onChange={handleInputChange}
           value={value.description} />
       </td>
 

@@ -7,6 +7,7 @@ import {
 import { Button } from "antd";
 import { ROUTES } from "../../../../../utils/routes";
 import SalaryList from "./salaryList";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getAllEmployeeSalary } from "../../store/actions";
@@ -14,8 +15,14 @@ import TopBar from "../../../../sharedComponents/topBar/topBar";
 import { Table } from "../../../../sharedComponents/customTable";
 import { useSelector } from "react-redux";
 import { salaryTableColumn } from "./tableColumns";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import {salaryDictionary} from "../../../salary/localization/index";
 
 function Salaries() {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salary_Dictionary } = salaryDictionary[userLanguage];
+
   const listData = useSelector((state) => state.salarySlice.salaryList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,7 +32,8 @@ function Salaries() {
 
   const items = [
     {
-      name: "Salary",
+      name: salary_Dictionary.Salary,
+     
       to: `${ROUTES.SALARY.ROOT}`,
       renderButton: [1],
     },
@@ -36,22 +44,26 @@ function Salaries() {
       render: (
         <Button className="ThemeBtn" onClick={() => navigate("create")}>
           {" "}
-          Create Salary{" "}
+          {salary_Dictionary.CreateSalary}{" "}
+        
         </Button>
       ),
     },
   ];
   const filterButtons = [
     {
-      name: "Salaries",
+      name: salary_Dictionary.Salaries,
+      
       onClick: () => setFilterType(0),
     },
     {
-      name: "Created By Me",
+      name: salary_Dictionary.CreatedByMe,
+     
       onClick: () => setFilterType(1),
     },
     {
-      name: "For Approval",
+      name: salary_Dictionary.ForApproval,
+    
       onClick: () => setFilterType(2),
     },
   ];
@@ -80,8 +92,8 @@ function Salaries() {
         buttons={filterButtons}
         segment={{
           onSegment,
-          label1: "List",
-          label2: "Table",
+          label1: salary_Dictionary.List ,           
+          label2: salary_Dictionary.Table,          
         }}
       />
       <ContBody>{render[viewType]}</ContBody>

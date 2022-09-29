@@ -69,12 +69,14 @@ const EditForm = (props) => {
   }, [dataObj]);
 
   useEffect(() => {
-    const append = (answers, file) =>
-      answers.map((x, i) => {
+    const append = (answers, fileList) =>
+      answers.map((x, index) => {
+        let image = fileList.filter((it) => it.index === index)[0]?.image
+          ?.originFileObj;
         return {
           answer: x,
           image: {
-            file: file,
+            file: image,
             id: defaultUiid,
           },
         };
@@ -89,7 +91,8 @@ const EditForm = (props) => {
         question: elem.Question,
         createBy: user.id,
         answers: elem.options
-          ? append(elem.options, elem.fileList[index]?.originFileObj)
+          ? // ? append(elem.options, elem.fileList[index]?.originFileObj)
+            append(elem.options, elem.fileList)
           : [],
       };
     });
@@ -143,8 +146,8 @@ const EditForm = (props) => {
           sequence: index,
         };
       } else if (item.answerType === 1) {
-        // console.log(item);
-        if (item.fileList) {
+        console.log("item", item);
+        if (item.answers[index]?.image?.file) {
           return {
             ...item,
             localType: "radioWithImage",

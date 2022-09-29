@@ -18,8 +18,15 @@ const QuestionWithType = (props) => {
   const [fileList, setFileList] = useState([]);
 
   const handleImageChange = (info, index, action) => {
+    console.log("index", index);
     if (!fileList[index]) {
-      setFileList([...fileList, info.fileList[0]]);
+      setFileList([
+        ...fileList,
+        {
+          image: info.fileList[0],
+          index,
+        },
+      ]);
     }
   };
 
@@ -30,19 +37,22 @@ const QuestionWithType = (props) => {
   const onFinish = (values) => {
     console.log("values", values);
     console.log("fileList", fileList);
+    let data = {};
     if (values.options) {
-      var data = {
+      data = {
         ...values,
         fileList: fileList,
       };
     } else {
-      var data = {
+      data = {
         ...values,
         fileList: fileList,
         options: [],
       };
     }
+    console.log(data, "data here console");
     props.dataSend(data);
+    form.resetFields();
   };
 
   return (

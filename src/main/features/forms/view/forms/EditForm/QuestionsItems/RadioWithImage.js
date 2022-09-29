@@ -4,7 +4,19 @@ import React from "react";
 const RadioWithImage = (props) => {
   const { question, handleChange, index, disableSubmit } = props;
   const { answers } = question;
-  // console.log("props radio with immage", props);
+  console.log("props radio with immage", props);
+
+  const getBase64 = (file, cb) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      cb(reader.result);
+    };
+    reader.onerror = function(error) {
+      console.log("Error: ", error);
+    };
+  };
+
   return (
     <>
       <div className="c-row txt-fields bg-clr p_15 d-flex">
@@ -22,9 +34,12 @@ const RadioWithImage = (props) => {
                   <img
                     src={
                       image
-                        ? image
+                        ? (window.URL || window.webkitURL).createObjectURL(
+                            image.file
+                          )
                         : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
                     }
+                    // src={{typeof image === 'string' ? image : getBase64(image, (result)=>  result)}}
                     alt=""
                   />
                   <div className="flex-item mt_10">

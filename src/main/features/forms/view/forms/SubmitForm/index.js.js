@@ -235,8 +235,9 @@ const SubmitForm = (props) => {
           sequence: index,
         };
       } else if (item.answerType === 1) {
-        // console.log(item);
-        if (item.fileList) {
+        console.log("item", item);
+        //check image available
+        if (item.answers[index]?.image?.length > 1) {
           return {
             ...item,
             localType: "radioWithImage",

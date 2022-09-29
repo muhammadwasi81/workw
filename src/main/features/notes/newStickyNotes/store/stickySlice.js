@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { createGuid } from "../../../../../utils/base";
+import { createSlice,isPending, isRejected } from "@reduxjs/toolkit";
+import { createGuid,STRINGS } from "../../../../../utils/base";
+import { addSticky } from "./actions";
 
 const defaultSticky = {
   title: "Test Title here",
@@ -40,10 +41,22 @@ export const stickySlice = createSlice({
     handleChangeNote: (state, action) => {
       let updatedNote = action.payload;
       let currentIndex = state.listArray.findIndex(it => it.id === updatedNote.id);
+      console.log("current index",currentIndex);
       state.listArray[currentIndex] = updatedNote;
     }
   },
+
+  extraReducers:(builder)=>{
+    builder
+    .addCase(addSticky.fulfilled, (state, { payload }) => {
+      console.log(payload)
+      state.loader = false;
+      state.success = true;
+      state.listArray = [...state.listArray, payload];
+    });
+  }
 });
+  
 export const {
   closeSticky,
   addStickyNote,

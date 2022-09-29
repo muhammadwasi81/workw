@@ -17,6 +17,10 @@ import NewStickyNote from "./NewStickyNote";
 import { useSelector, useDispatch } from "react-redux";
 import { closeSticky, addStickyNote, openClickedSticky, showStickyNote} from "../../store/stickySlice";
 
+// import sticky note services
+import {addStickyNotesService} from "../../services/service";
+import { addSticky } from "../../store/actions";
+import NoteList from "../../../NoteList";
 // const { Title } = Typography;
 
 const StickyContainer = () => {
@@ -51,7 +55,8 @@ const StickyContainer = () => {
   // });
 
   const addStickyHandler = () => {
-    dispatch(addStickyNote());
+    console.log("Calling")
+    dispatch(addSticky({}));
   };
 
   // ********minimize handler for sticky container********
@@ -70,7 +75,9 @@ const StickyContainer = () => {
   const openClickedNote=(note)=>{
     console.log("clicked note");
     dispatch(showStickyNote(note.id));
+
   }
+  console.log(notesList)
   return (
     <>
       <Draggable defaultPosition={{ x: 11, y: 456 }}>

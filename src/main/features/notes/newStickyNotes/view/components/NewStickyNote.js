@@ -12,7 +12,8 @@ import {
   PictureOutlined,
 } from "@ant-design/icons";
 import "../../style.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { handleChangeNote } from "../../store/stickySlice";
 
 // const axis = {
 //   x_axis: String(Math.floor(Math.random() * 40) + 12) + "%",
@@ -21,7 +22,10 @@ import { useDispatch } from "react-redux";
 
 const { TextArea } = Input;
 
-const NewStickyNote = () => {
+const NewStickyNote = ({ item }) => {
+  const dispatch = useDispatch();
+
+ 
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
     <Menu
@@ -68,10 +72,10 @@ const NewStickyNote = () => {
       ]}
     />
   );
-  const dispatch = useDispatch()
+
   const handleChange = (e) => {
-    
-  }
+    dispatch(handleChangeNote());
+  };
 
   return (
     <>
@@ -124,7 +128,9 @@ const NewStickyNote = () => {
             />
           </div>
           <div className="textArea_container">
-            <TextArea placeholder="Take a note" autoSize
+            <TextArea
+              placeholder="Take a note"
+              autoSize
               defaultValue={item.description}
               onChange={handleChange}
             />

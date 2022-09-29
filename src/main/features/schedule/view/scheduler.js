@@ -120,11 +120,15 @@ function Scheduler({ feed = false }) {
 							},
 						},
 					}}
-					headerToolbar={{
-						left: "timeGridDay prev next today",
-						center: "title,myCustomButton",
-						right: "timeGridWeek dayGridMonth",
-					}}
+					headerToolbar={
+						feed
+							? { start: "title myCustomButton" }
+							: {
+									left: "timeGridDay prev next today",
+									center: "title,myCustomButton",
+									right: "timeGridWeek dayGridMonth",
+							  }
+					}
 					eventClick={info => {
 						setId(parseInt(info.event._def.publicId));
 						dispatch(toggleEventDetailComposer());
@@ -181,19 +185,22 @@ function Scheduler({ feed = false }) {
 					// datesSet={(args) => console.log("###datesSet:", args)}
 					//   dateClick={handleDateClick}
 				/>
-
-				<div
-					className={
-						isCalendarOpen ? "site-calendar open" : "site-calendar "
-					}
-				>
-					<Calendar
-						fullscreen={false}
-						onChange={onChange}
-						onPanelChange={() => {
-							isPanelChange = true;
-						}}
-					/>
+				<div className="flex justify-center">
+					<div
+						className={
+							isCalendarOpen
+								? "site-calendar open"
+								: "site-calendar "
+						}
+					>
+						<Calendar
+							fullscreen={false}
+							onChange={onChange}
+							onPanelChange={() => {
+								isPanelChange = true;
+							}}
+						/>
+					</div>
 				</div>
 			</div>
 		</>

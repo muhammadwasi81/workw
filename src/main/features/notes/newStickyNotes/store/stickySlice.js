@@ -9,38 +9,49 @@ const defaultSticky = {
   isOpen: true,
 };
 
+const openSticky={
+  id:createGuid(),
+  title:"",
+  description:"",
+}
 export const stickySlice = createSlice({
   name: "StickNoteSlice",
   initialState: {
     open: false,
     listArray: [],
+    incrementNotes:[],
   },
   reducers: {
     closeSticky: (state) => {
       state.open = false;
     },
-    addStickyNote: (state, action) => {
+    addStickyNote: (state) => {
       state.listArray = [
         ...state.listArray,
         defaultSticky
       ];
-      // .push({
-      //   id,
-      //   title,
-      //   description,
-      //   privacyId,
-      //   isOpen: true,
-      // });
     },
     toggleStickyNote: (state) => {
       state.open = !state.open;
-      console.log("toggleStikcy", state);
+      // console.log("toggleStikcy", state);
     },
+    openClickedSticky:(state,action)=>{
+      const listId=action.payload;
+      let existNotes=incrementNotes.map((item)=>item.id);
+      // console.log("exist Notes",existNotes);
+      if(!existNotes.includes(listId.id)){
+        state.incrementNotes=[
+          ...state.incrementNotes,
+          openSticky
+        ]
+      }
+    }
   },
 });
 export const {
   closeSticky,
   addStickyNote,
   toggleStickyNote,
+  openClickedSticky,
 } = stickySlice.actions;
 export default stickySlice.reducer;

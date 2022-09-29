@@ -106,6 +106,7 @@ function NotificationBar() {
               padding: "0 5px",
               outline: "none",
             }}
+            className="notificationBar_input"
           />
         )}
         <li className="list__item">

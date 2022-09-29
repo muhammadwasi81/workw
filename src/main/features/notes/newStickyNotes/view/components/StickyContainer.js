@@ -9,22 +9,22 @@ import {
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import CustomCard from "./CustomCard";
-import SearchBox from "./SearchBox";
+// import SearchBox from "./SearchBox";
 import "../../style.css";
 import NewStickyNote from "./NewStickyNote";
 
 // *******import redux*******
 import { useSelector, useDispatch } from "react-redux";
-import { closeSticky, addStickyNote } from "../../store/stickySlice";
+import { closeSticky, addStickyNote, openClickedSticky} from "../../store/stickySlice";
 
 // const { Title } = Typography;
 
 const StickyContainer = () => {
   const dispatch = useDispatch();
-  const sticky = useSelector((state) => {
+  const sticky_note = useSelector((state) => {
     return state.stickySlice.listArray;
   });
-  console.log("stikcy note data", sticky);
+  // console.log("stikcy note data", sticky_note);
 
   // *********state for sticky notes*******
   const [minimize, setMinimize] = useState(true);
@@ -33,9 +33,22 @@ const StickyContainer = () => {
   // ********search handler***********
   const searchHandler = (e) => {
     const searchValue = e.target.value;
+    // console.log(searchValue);
+    setSearch(searchValue);
     console.log(searchValue);
-    setSearch("saerch field", search);
   };
+
+  // *****search filter*****
+  const filteredData = sticky_note.filter((list) => {
+    if (search === "") {
+      return list;
+    } else {
+      return Object.values(list)
+        .join(" ")
+        .toLowerCase()
+        .includes(search.toLowerCase());
+    }
+  });
 
   const addStickyHandler = () => {
     dispatch(addStickyNote());
@@ -44,14 +57,20 @@ const StickyContainer = () => {
   // ********minimize handler for sticky container********
   const minimizeHandler = () => {
     setMinimize(!minimize);
-    console.log(minimize);
+    // console.log(minimize);
   };
 
   // *****close Sticky handler*****
   const closeHandler = () => {
     dispatch(closeSticky());
   };
-  // console.log("minimization", minimize);
+
+
+  // *******open clicked sticky note********
+  const openClickedNote=()=>{
+    console.log("clicked note");
+    dispatch(openClickedSticky());
+  }
   return (
     <>
       <Draggable defaultPosition={{ x: 11, y: 456 }}>
@@ -69,18 +88,27 @@ const StickyContainer = () => {
           </div>
 
           {/* <SearchBox /> */}
-          <Input
-            placeholder="Search"
-            type="text"
-            style={{ width: "300px" }}
-            onChange={() => searchHandler(e)}
-            prefix={<SearchOutlined />}
-          />
-          <CustomCard title="sanjna" cardContent="Miletap" />
-          <CustomCard
-            title="How to Draw professional Wireframe"
-            cardContent="Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap"
-          />
+          <div className="search_Box">
+            <Input
+              placeholder="Search"
+              style={{ width: "300px" }}
+              onChange={searchHandler}
+              prefix={<SearchOutlined />}
+            />
+          </div>
+          {filteredData.length > 0
+            ? filteredData.map((list) => {
+                return (
+                  <>
+                    <CustomCard title="sanjna" cardContent="Miletap" onDoubleClick={openClickedNote}/>
+                    <CustomCard
+                      title="How to Draw professional Wireframe"
+                      cardContent="Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap"
+                    />
+                  </>
+                );
+              })
+            : "Nothing"}
         </div>
       </Draggable>
     </>

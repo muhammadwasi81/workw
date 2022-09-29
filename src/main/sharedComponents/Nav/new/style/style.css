@@ -319,12 +319,12 @@
   display: none;
 }
 
-.notificationBar input {
+.notificationBar_input {
   width: 0;
   transition: 1s;
 }
 
-.notificationBar.open input {
+.notificationBar.open .notificationBar_input {
   width: 90%;
 }
 

@@ -306,6 +306,9 @@ const urdu = {
     Experience: "Experience",
   },
   administration: {
+    subsidiary: "ماتحت ادارہ",
+    Tax_Slabs: "Tax Slabs",
+    Fiscal_Year: "مالی سال",
     Default_Hiring_Criteria: "پہلے سے طے شدہ ملازمت کے معیار",
     Complain_Category: "شکایت کا زمرہ",
     Payroll_Group: "پے رول گروپ",

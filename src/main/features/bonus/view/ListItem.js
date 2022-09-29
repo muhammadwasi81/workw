@@ -14,7 +14,9 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { bonusDictionary } = bonusDictionaryList[userLanguage];
 
-  const { creator, createDate, member, approvers, amount, status, referenceNo, disburseAmount } = props.item;
+  const { creator, createDate, member, approvers, amount, status, referenceNo } = props.item;
+
+  const localTime = moment.utc(createDate).local().format();
 
   return (
     <SingleItem onClick={props.onClick}>
@@ -24,22 +26,18 @@ function ListItem(props) {
           <UserInfo
             avatarSrc={creator.image}
             name={creator.name}
-            Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+            Subline={<SublineDesigWithTime designation={creator?.designation ? creator?.designation : ""} time={moment(localTime).fromNow()} />}
           />
         </div>
         <div className="right">
           <Tag className="IdTag">{referenceNo}</Tag>
-          <StatusTag status={status}></StatusTag>
+          <StatusTag status={status && status}></StatusTag>
         </div>
       </ItemHeader>
       <div className="cardSections" style={{ marginTop: "20px" }}>
         <div className="cardSectionItem">
           <div className="cardSection__title">{"Amount"}</div>
           <div className="cardSection__body">{amount}</div>
-        </div>
-        <div className="cardSectionItem">
-          <div className="cardSection__title">{"Disburse Amount"}</div>
-          <div className="cardSection__body">{disburseAmount}</div>
         </div>
         <div className="cardSectionItem">
           <div className="cardSection__title">{"Member"}</div>

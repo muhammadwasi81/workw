@@ -22,7 +22,6 @@ function TravelDetail(props) {
 	);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		console.log("dispatch");
 		dispatch(getTravelById(travelId));
 	}, []);
 

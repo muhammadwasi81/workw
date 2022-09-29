@@ -15,6 +15,8 @@ const turkish = {
 			desc: "Tanım",
 			upload: "Yüklemek",
 			update: "Güncelleme",
+			public: "Public",
+			private: "Private",
 		},
 		placeHolders: {
 			namePh: "İsim giriniz",
@@ -35,6 +37,16 @@ const turkish = {
 			expenses: "Masraflar",
 			documents: "دستاویزات",
 			members: "Üyeler",
+		},
+		features: {
+			features: "Features",
+			newsFeed: "News Feed",
+			schedule: "Schedule",
+			workBoard: "Work Board",
+			document: "Document",
+			expenses: "Expenses",
+			task: "Task",
+			travel: "Travel",
 		},
 	},
 	/*** Define language write side ***/

@@ -1,32 +1,82 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tabs } from "antd";
 import "./tab.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 const { TabPane } = Tabs;
-const onChange = key => {
-	// console.log(key);
-};
 function Tab(props) {
-	const { panes } = props;
+	const { panes, canChangeRoute = false, onChange, defaultPath } = props;
+	// const [defaultPath, setDefaultPath] = useState("");
+	// const onChange = key => {
+	// 	if (canChangeRoute) {
+	// 		navigate(key);
+	// 	}
+	// };
+	// const navigate = useNavigate();
+	// const location = useLocation();
+	// const { pathname } = location;
+
+	// useEffect(() => {
+	// 	if (canChangeRoute) {
+	// 		setDefaultPath(pathname.split("_")[0]);
+	// 	}
+	// }, [pathname]);
+
 	return (
-		<Tabs
-			defaultActiveKey="0"
-			onChange={onChange}
-			className="custom_tab"
-			tabBarStyle={{
-				background: "white",
-				padding: "2px 5px",
-				borderRadius: "10px",
-				color: "var(--primary_theme_color_green)",
-				fontWeight: "bold",
-			}}
-			dir={props.dir}
-		>
-			{panes.map(pane => (
-				<TabPane tab={pane.title} key={pane.key}>
-					{pane.content}
-				</TabPane>
-			))}
-		</Tabs>
+		<>
+			{canChangeRoute ? (
+				<Tabs
+					activeKey={canChangeRoute ? defaultPath : ""}
+					onChange={onChange}
+					className="custom_tab"
+					tabBarStyle={{
+						background: "white",
+						padding: "2px 5px",
+						borderRadius: "10px",
+						color: "var(--primary_theme_color_green)",
+						fontWeight: "bold",
+					}}
+					dir={props.dir}
+				>
+					{panes?.map(pane => {
+						return (
+							<TabPane
+								tab={pane.featureName}
+								key={pane.featureId}
+							>
+								{pane.content}
+							</TabPane>
+						);
+					})}
+				</Tabs>
+			) : (
+				<Tabs
+					// defaultActiveKey={canChangeRoute ? defaultPath : ""}
+					// activeKey={canChangeRoute ? defaultPath : ""}
+					// onChange={onChange}
+					className="custom_tab"
+					tabBarStyle={{
+						background: "white",
+						padding: "2px 5px",
+						borderRadius: "10px",
+						color: "var(--primary_theme_color_green)",
+						fontWeight: "bold",
+					}}
+					dir={props.dir}
+				>
+					{panes?.map(pane => {
+						return (
+							<TabPane
+								tab={pane.featureName}
+								key={pane.featureId}
+							>
+								{pane.content}
+							</TabPane>
+						);
+					})}
+				</Tabs>
+			)}
+		</>
 	);
 }
 

@@ -45,23 +45,23 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     personalEmail: "",
     nic: "",
     phoneNo: "",
-    designationId: "",
-    managerId: "",
-    gradeId: "",
-    countryId: "",
+    designationId: [],
+    managerId: [],
+    gradeId: [],
+    countryId: [],
     cityId: [],
     probationPeriod: "",
     birthDate: "",
     joinDate: "",
-    genderId: "",
-    maritalStatusId: "",
-    officeTimingId: "",
-    accessRoleId: "",
-    employeeNo: "",
-    employmentTypeId: "",
+    genderId: [],
+    maritalStatusId: [],
+    officeTimingId: [],
+    accessRoleId: [],
+    employeeNo: [],
+    employmentTypeId: [],
   };
   const [initialValues, setInitialValues] = useState(initialState);
-  const [userTypeValue, setUserTypeValue] = useState("");
+  const [userTypeValue, setUserTypeValue] = useState([]);
   const { countries, cities, designations } = useSelector(
     (state) => state.sharedSlice
   );
@@ -541,6 +541,50 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
                 </Option>
               ))}
           </Select>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="department"
+          label={labels.department}
+        >
+          <Input placeholder={placeholder.department}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="subsidiary"
+          label={labels.subsidiary}
+        >
+          <Input placeholder={placeholder.subsidiary}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="payroll"
+          label={labels.payroll}
+        >
+          <Input placeholder={placeholder.payroll}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="subsidiaryOffice"
+          label={labels.subsidiaryOffice}
+        >
+          <Input placeholder={placeholder.subsidiaryOffice}></Input>
         </Form.Item>
       </Form>
       <div className={isEdit ? "editButtons" : "buttons"}>

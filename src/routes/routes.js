@@ -13,7 +13,8 @@ export const routes = {
   // Private Route Here
   Private: [
     {
-      path: ROUTES.USER.TIMELINE.DEFAULT,
+      path: `${ROUTES.USER.DEFAULT}:id`,
+      // path: `${ROUTES.USER.DEFAULT}:id/*`,
       component: lazy(() => import("../main/features/profile/Profile")),
     },
     {
@@ -54,6 +55,10 @@ export const routes = {
       path: `${ROUTES.FORMS.DEFAULT}`,
       component: lazy(() => import("../main/features/forms/view/index")),
     },
+    // {
+    // 		path: `${ROUTES.FORMS.SUBMIT_FORM}`,
+    // 		component: lazy(() => import("../main/features/forms/view/forms/SubmitForm/index.js")),
+    // 	},
     {
       path: `${ROUTES.FORMS.SUBMIT_FORM}`,
       component: lazy(() =>
@@ -113,7 +118,7 @@ export const routes = {
       component: lazy(() => import("../main/features/projects/index")),
     },
     {
-      path: `${ROUTES.PROJECT.DETAIL}`,
+      path: `${ROUTES.PROJECT.DEFAULT}/:id`,
       component: lazy(() =>
         import("../main/features/projects/ProjectDetails/ProjectDetails")
       ),
@@ -123,7 +128,7 @@ export const routes = {
       component: lazy(() => import("../main/features/groups/index")),
     },
     {
-      path: `${ROUTES.GROUP.DETAIL}`,
+      path: `${ROUTES.GROUP.DEFAULT}/:id`,
       component: lazy(() =>
         import("../main/features/groups/GroupDetails/GroupDetails")
       ),

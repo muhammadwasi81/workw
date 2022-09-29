@@ -15,6 +15,8 @@ const hindi = {
 			desc: "विवरण",
 			upload: "डालना",
 			update: "अद्यतन",
+			public: "Public",
+			private: "Private",
 		},
 		placeHolders: {
 			namePh: "नाम दर्ज",
@@ -35,6 +37,16 @@ const hindi = {
 			expenses: "खर्च",
 			documents: "दस्तावेज़",
 			members: "सदस्यों",
+		},
+		features: {
+			features: "Features",
+			newsFeed: "News Feed",
+			schedule: "Schedule",
+			workBoard: "Work Board",
+			document: "Document",
+			expenses: "Expenses",
+			task: "Task",
+			travel: "Travel",
 		},
 	},
 	/*** Define language write side ***/

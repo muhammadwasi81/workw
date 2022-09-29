@@ -6,6 +6,7 @@ import FormHeader from "./FormHeader";
 import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
 import TextFields from "./QuestionsItems/TextFields";
+import { defaultUiid } from "../../../../../../utils/Shared/enums/enums";
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
 import "./editForm.css";
 import DrangableQuestions from "./DragableItems";
@@ -68,22 +69,28 @@ const EditForm = (props) => {
   }, [dataObj]);
 
   useEffect(() => {
-    const append = (answers, image) =>
+    const append = (answers, file) =>
       answers.map((x, i) => {
         return {
-          option: x,
-          image: image[i],
+          answer: x,
+          image: {
+            file: file,
+            id: defaultUiid,
+          },
         };
       });
     let questionArray = question.map((elem, index) => {
+      console.log("element", elem);
       return {
-        id: createGuid(),
-        formId: createGuid(),
+        // id: createGuid(),
+        // formId: createGuid(),
         answerType: elem.answerType,
         sequence: index,
         question: elem.Question,
         createBy: user.id,
-        answers: elem.options && append(elem.options, elem.fileList),
+        answers: elem.options
+          ? append(elem.options, elem.fileList[index]?.originFileObj)
+          : [],
       };
     });
     // console.log("****", questionArray);
@@ -91,7 +98,7 @@ const EditForm = (props) => {
   }, [question]);
 
   const dataGet = (values) => {
-    // console.log("data getting from create form component", values);
+    console.log("data getting from create form component", values);
     setQuestions([...question, values]);
   };
 
@@ -106,7 +113,7 @@ const EditForm = (props) => {
     let payload = {
       ...dataObj,
       id: createGuid(),
-      subject: values.subject,
+      name: values.subject,
       description: values.description,
       approvers: modifySelectData(values.approvers).map((el, index) => {
         return {

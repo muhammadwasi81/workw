@@ -55,7 +55,7 @@ const formSlice = createSlice({
         state.createLoader = false;
       })
       .addCase(getFormById.fulfilled, (state, { payload }) => {
-        // console.log("GetFormById payload", payload.data);
+        console.log("GetFormById payload", payload.data);
         state.formDetail = payload.data;
         state.loader = false;
       })

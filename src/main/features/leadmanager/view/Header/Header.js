@@ -20,18 +20,10 @@ function Header({ dictionary, direction }) {
 	const dispatch = useDispatch();
 	const { createTextBtn, dashboard, labels } = dictionary;
 	const { createGrp, updateGrp } = labels;
-	const {
-		loading,
-		success,
-		isComposerOpen,
-		isEditComposer,
-		// leadManagerDetail,
-		// isComposerDataLoading,
-	} = useSelector(state => state.leadMangerSlice);
+	const { loading, success, isComposerOpen, isEditComposer } = useSelector(
+		state => state.leadMangerSlice
+	);
 
-	const [composerName, setComposerName] = useState(createGrp);
-	// const [composerData, setComposerData] = useState(initialComposerData);
-	// const isEdited = isEditComposer;
 	const items = [
 		{
 			name: dashboard,
@@ -40,53 +32,33 @@ function Header({ dictionary, direction }) {
 		},
 	];
 	const handleOpenDrawer = isOpen => {
-		// setComposerName(createGrp);
 		dispatch(handleComposer({ isOpen }));
 	};
-
-	useEffect(() => {
-		if (isEditComposer) setComposerName(updateGrp);
-	}, [isEditComposer]);
-
-	// useEffect(() => {
-	// 	if (isEditComposer && leadManagerDetail && !isComposerDataLoading) {
-	// 		setComposerData(leadManagerDetail);
-	// 	} else {
-	// 		setComposerData(initialComposerData);
-	// 	}
-	// }, [
-	// 	isComposerOpen,
-	// 	isEditComposer,
-	// 	leadManagerDetail,
-	// 	isComposerDataLoading,
-	// ]);
 
 	const buttons = [
 		{
 			// buttonText: createTextBtn,
-			onClick: () => handleOpenDrawer(true),
+			// onClick: () => handleOpenDrawer(true),
 			render: (
 				<SideDrawer
 					children={
 						<BoardComposer
 							isEdit={isEditComposer}
-							btnText={composerName}
 							loading={loading}
 							dictionary={dictionary}
 							direction={direction}
+							labels={labels}
 						/>
 					}
-					title={composerName}
+					title={isEditComposer ? updateGrp : createGrp}
 					buttonText={createTextBtn}
 					isAccessDrawer={true}
-					// setOpenDrawer={handleOpenDrawer}
 					openDrawer={isComposerOpen}
 					success={success}
 					handleClose={() => {
-						dispatch(resetLeadManagerDetail());
 						setTimeout(() => {
-							setComposerName(createGrp);
-						}, 1000);
+							dispatch(resetLeadManagerDetail());
+						}, 100);
 					}}
 				/>
 			),

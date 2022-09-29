@@ -16,11 +16,13 @@ function BoardComposer({
 	dataLoading = false,
 	dictionary,
 	direction,
+	// labels,
 }) {
 	const leadDetail = useSelector(
 		state => state.leadMangerSlice.leadManagerDetail
 	);
 	const { placeHolder, labels } = dictionary;
+	const { createGrp, updateGrp } = labels;
 	const [form] = Form.useForm();
 	const userId = useSelector(state => state.userSlice.user.id);
 	const dispatch = useDispatch();
@@ -188,7 +190,7 @@ function BoardComposer({
 								size="large"
 								loading={loading}
 							>
-								{btnText}
+								{isEdit ? updateGrp : createGrp}
 							</Button>
 						</>
 					)}

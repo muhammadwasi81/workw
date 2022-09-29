@@ -16,7 +16,7 @@ import { getAllSchedule } from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { useSelector } from "react-redux";
 
-function Scheduler() {
+function Scheduler({ feed = false }) {
 	const [id, setId] = useState("");
 	const [calendatView, setCalendatView] = useState("");
 	const [todayDate, setTodayDate] = useState(new Date());

@@ -59,7 +59,7 @@ const NewsFeed = ({
 						}}
 					>
 						<div className="schedule" style={{ height: "60%" }}>
-							<Scheduler />
+							<Scheduler feed={true} />
 						</div>
 					</div>
 				)}

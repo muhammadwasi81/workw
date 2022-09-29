@@ -225,6 +225,10 @@ export const routes = {
 			path: `${ROUTES.CAREER.DEFAULT}`,
 			component: lazy(() => import("../main/features/careers/view/")),
 		},
+		{
+			path: `${ROUTES.JOBS.DEFAULT}`,
+			component: lazy(() => import("../main/features/jobs/view/index")),
+		},
 		// {
 		// 	path: `${ROUTES.CAREER.JOB_DETAIL}`,
 		// 	component: lazy(() =>

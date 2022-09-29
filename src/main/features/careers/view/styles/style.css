@@ -72,3 +72,10 @@
   min-width: 270px;
   margin: 5px 0;
 }
+._candidateList{
+  margin-top: 20px;
+}
+._candidateList .ant-tabs-nav{
+  position: sticky;
+  top: 0;
+}

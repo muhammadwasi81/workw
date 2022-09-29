@@ -1,11 +1,13 @@
 import React from "react";
 import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import Header from "./Header/index";
 import CareersListView from "./CareersListView";
 
-function Careers() {
+function PublicJobs() {
   return (
     <>
       <TabbableContainer>
+        {/* <Header /> */}
         <ContBody>
           <CareersListView />
         </ContBody>
@@ -14,4 +16,4 @@ function Careers() {
   );
 }
 
-export default Careers;
+export default PublicJobs;

@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Careers from "./Careers";
 import "../view/styles/style.css";
-import JobDetails from "../view/MyCareersListView/DetailView/index";
+import JobDetails from "./DetailView/index";
 
 function Index() {
   return (

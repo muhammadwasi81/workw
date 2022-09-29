@@ -1,23 +1,21 @@
 import React from "react";
 import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import TopBar from "./Header/filterBar";
-import Header from "./Header/header";
+// import TopBar from "./Header/filterBar";
+import Header from "./Header/index";
 import CareersListView from "./CareersListView";
-import MyCareersListView from "./MyCareersListView";
 
-function Careers() {
+function Jobs() {
   return (
     <>
       <TabbableContainer>
         <Header />
-        <TopBar />
+        {/* <TopBar /> */}
         <ContBody>
-          <MyCareersListView />
-          {/* <CareersListView /> */}
+          <CareersListView />
         </ContBody>
       </TabbableContainer>
     </>
   );
 }
 
-export default Careers;
+export default Jobs;

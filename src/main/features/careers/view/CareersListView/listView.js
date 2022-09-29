@@ -9,7 +9,7 @@ function ListView() {
       </div> */}
       <div className="listView pt-3" >
         {
-          [1].length !== 0 && [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]?.map((item) =>
+          [1].length !== 0 && [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]?.map((item) =>
             <ListItem item={item} />)
         }
       </div>

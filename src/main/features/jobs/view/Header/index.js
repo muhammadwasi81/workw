@@ -1,36 +1,18 @@
 import React from "react";
-import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
-import Composer from "../Composer/index";
 import MainHeader from "../../../../layout/header/index";
 
 const Header = () => {
   const items = [
     {
-      name: "Careers",
-      to: `/careers`,
-      renderButton: [1],
+      name: "Job Board",
+      to: `/public/job_board`,
+      renderButton: []
     },
   ];
   return (
-    <>
       <MainHeader
-        buttons={[
-          {
-            buttonText: "Create Department",
-            render: (
-              <SideDrawer
-                title={"Create Job"}
-                buttonText={"Create Job"}
-                isAccessDrawer={false}
-              >
-                <Composer />
-              </SideDrawer>
-            ),
-          },
-        ]}
         items={items}
       />
-    </>
   );
 };
 

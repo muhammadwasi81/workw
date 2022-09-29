@@ -2,24 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createGuid } from "../../../../../utils/base";
 
 const defaultSticky = {
-  id:createGuid(),
-  title:"",
-  description:"",
-  privacyId:"",
-  isOpen: true,
+  title: "Test Title here",
+  description: "Description here",
+  privacyId: "",
+  isOpen: false,
 };
 
-const openSticky={
-  id:createGuid(),
-  title:"",
-  description:"",
-}
 export const stickySlice = createSlice({
   name: "StickNoteSlice",
   initialState: {
     open: false,
     listArray: [],
-    incrementNotes:[],
+    incrementNotes: [],
   },
   reducers: {
     closeSticky: (state) => {
@@ -28,23 +22,25 @@ export const stickySlice = createSlice({
     addStickyNote: (state) => {
       state.listArray = [
         ...state.listArray,
-        defaultSticky
+        {
+          id: createGuid(),
+          ...defaultSticky
+        }
       ];
     },
     toggleStickyNote: (state) => {
       state.open = !state.open;
-      // console.log("toggleStikcy", state);
     },
-    openClickedSticky:(state,action)=>{
-      const listId=action.payload;
-      let existNotes=incrementNotes.map((item)=>item.id);
-      // console.log("exist Notes",existNotes);
-      if(!existNotes.includes(listId.id)){
-        state.incrementNotes=[
-          ...state.incrementNotes,
-          openSticky
-        ]
-      }
+    showStickyNote: (state, action) => {
+      let selectedId = action.payload;
+      let currentIndex = state.listArray.findIndex(it => it.id === selectedId);
+      console.log(currentIndex, "currentIndex", selectedId);
+      state.listArray[currentIndex].isOpen = true;
+    },
+    handleChangeNote: (state, action) => {
+      let updatedNote = action.payload;
+      let currentIndex = state.listArray.findIndex(it => it.id === updatedNote.id);
+      state.listArray[currentIndex] = updatedNote;
     }
   },
 });
@@ -52,6 +48,7 @@ export const {
   closeSticky,
   addStickyNote,
   toggleStickyNote,
-  openClickedSticky,
+  showStickyNote,
+  handleChangeNote
 } = stickySlice.actions;
 export default stickySlice.reducer;

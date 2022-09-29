@@ -15,13 +15,13 @@ import NewStickyNote from "./NewStickyNote";
 
 // *******import redux*******
 import { useSelector, useDispatch } from "react-redux";
-import { closeSticky, addStickyNote, openClickedSticky} from "../../store/stickySlice";
+import { closeSticky, addStickyNote, openClickedSticky, showStickyNote} from "../../store/stickySlice";
 
 // const { Title } = Typography;
 
 const StickyContainer = () => {
   const dispatch = useDispatch();
-  const sticky_note = useSelector((state) => {
+  const notesList = useSelector((state) => {
     return state.stickySlice.listArray;
   });
   // console.log("stikcy note data", sticky_note);
@@ -39,16 +39,16 @@ const StickyContainer = () => {
   };
 
   // *****search filter*****
-  const filteredData = sticky_note.filter((list) => {
-    if (search === "") {
-      return list;
-    } else {
-      return Object.values(list)
-        .join(" ")
-        .toLowerCase()
-        .includes(search.toLowerCase());
-    }
-  });
+  // const filteredData = sticky_note.filter((list) => {
+  //   if (search === "") {
+  //     return list;
+  //   } else {
+  //     return Object.values(list)
+  //       .join(" ")
+  //       .toLowerCase()
+  //       .includes(search.toLowerCase());
+  //   }
+  // });
 
   const addStickyHandler = () => {
     dispatch(addStickyNote());
@@ -67,9 +67,9 @@ const StickyContainer = () => {
 
 
   // *******open clicked sticky note********
-  const openClickedNote=()=>{
+  const openClickedNote=(note)=>{
     console.log("clicked note");
-    dispatch(openClickedSticky());
+    dispatch(showStickyNote(note.id));
   }
   return (
     <>
@@ -96,18 +96,10 @@ const StickyContainer = () => {
               prefix={<SearchOutlined />}
             />
           </div>
-          {filteredData.length > 0
-            ? filteredData.map((list) => {
-                return (
-                  <>
-                    <CustomCard title="sanjna" cardContent="Miletap" onDoubleClick={openClickedNote}/>
-                    <CustomCard
-                      title="How to Draw professional Wireframe"
-                      cardContent="Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap Miletap"
-                    />
-                  </>
-                );
-              })
+          {notesList.length > 0
+            ? notesList.map((item) =>
+                    <CustomCard item={item} onDoubleClick={openClickedNote}/>
+               )
             : "Nothing"}
         </div>
       </Draggable>

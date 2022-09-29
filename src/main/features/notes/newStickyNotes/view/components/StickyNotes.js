@@ -17,9 +17,9 @@ function StickyNotes() {
   console.log("sticky notesss",stickynote);
   return (
     <>
-      {stickynote.map((item, index) => (
+      {stickynote.filter(it=>it.isOpen).map((item, index) => (
         // <Draggable defaultPosition={{ x: 12, y: 450 }} key={index}>
-          <NewStickyNote />
+          <NewStickyNote item={item} />
         // </Draggable>
       ))}
       <StickyContainer />

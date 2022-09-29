@@ -5,7 +5,7 @@ import Draggable from "react-draggable";
 import { DeleteOutlined } from "@ant-design/icons";
 import "../../style.css";
 
-const CustomCard = ({ title, cardContent,onDoubleClick }) => {
+const CustomCard = ({ item, onDoubleClick }) => {
   //********current date in sticky notes********
   const current = new Date();
   const time = current.toLocaleTimeString("en-US", {
@@ -28,14 +28,14 @@ const CustomCard = ({ title, cardContent,onDoubleClick }) => {
   return (
     <>
       <Card
-      // onClick={openNoteList}
-      onDoubleClick={onDoubleClick}
+        // onClick={openNoteList}
+        onDoubleClick={() => onDoubleClick(item)}
         size="small"
-        title={title}
+        title={item.title}
         hoverable
         bordered
-        headStyle={{ fontWeight: "bold",fontSize:"14px" }}
-        bodyStyle={{padding: "0"}}
+        headStyle={{ fontWeight: "bold", fontSize: "14px" }}
+        bodyStyle={{ padding: "0" }}
         extra={[
           <div className="time_delete">
             <p className="sticky_time">{time}</p>
@@ -51,7 +51,7 @@ const CustomCard = ({ title, cardContent,onDoubleClick }) => {
           borderRadius: "5px",
         }}
       >
-        <p className="sticky_content">{cardContent}</p>
+        <p className="sticky_content">{item.description}</p>
         <p className="sticky_date">{date}</p>
       </Card>
     </>

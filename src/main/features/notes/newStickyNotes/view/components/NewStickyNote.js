@@ -12,6 +12,7 @@ import {
   PictureOutlined,
 } from "@ant-design/icons";
 import "../../style.css";
+import { useDispatch } from "react-redux";
 
 // const axis = {
 //   x_axis: String(Math.floor(Math.random() * 40) + 12) + "%",
@@ -67,6 +68,11 @@ const NewStickyNote = () => {
       ]}
     />
   );
+  const dispatch = useDispatch()
+  const handleChange = (e) => {
+    
+  }
+
   return (
     <>
       <Draggable defaultPosition={{ x: 12, y: 450 }}>
@@ -118,7 +124,10 @@ const NewStickyNote = () => {
             />
           </div>
           <div className="textArea_container">
-            <TextArea placeholder="Take a note" autoSize />
+            <TextArea placeholder="Take a note" autoSize
+              defaultValue={item.description}
+              onChange={handleChange}
+            />
           </div>
         </div>
       </Draggable>

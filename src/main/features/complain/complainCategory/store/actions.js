@@ -9,6 +9,7 @@ import {
 	addComplainCategoryService,
 	getAllComplainCategoryService,
 	removeComplainCategoryService,
+	updateComplainCategoryService,
 } from "../services/service";
 
 export const getAllComplainCategory = createAsyncThunk(
@@ -47,11 +48,11 @@ export const addComplainCategory = createAsyncThunk(
 export const updateComplainCategory = createAsyncThunk(
 	"ComplainCategory/updateComplainCategory",
 	async (args, { dispatch }) => {
-		const res = await updateComplainCategory(args);
-
+		const res = await updateComplainCategoryService(args);
+		console.log(res, "HELLO JEE")
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success)
-				res.message = "Complain Category updated successfully!";
+				message.success("Complain Category updated successfully!")
 			responseMessage({ dispatch, data: res });
 		} else {
 			responseMessage({

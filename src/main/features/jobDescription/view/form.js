@@ -15,21 +15,21 @@ import {
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 
 export default function JobDescriptionForm({ data, onSubmit, loading }) {
+  const dispatch = useDispatch();
   const { Option } = Select;  
   const [designationId, setDesignationId] = useState("");
   const [form, setForm] = useState(data);
 
   const { designations } = useSelector((state) => state.designationSlice);
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getAllDesignation());
   }, []);
 
+  console.log(designations, "HELLO DESI")
+
   const  handleChange = (value) =>  {
     const x = designations.filter((item) => item.id === value)
-    // console.log({...form, name: x[0].name, designationId: x[0].id}, "asdasdasdasdasdas")
     setForm({...form, designationId: x[0].id})
     
   }
@@ -37,7 +37,6 @@ export default function JobDescriptionForm({ data, onSubmit, loading }) {
   useEffect(() => {
     setForm(data);
   }, [data]);
-  console.log(form, "form")
   return (
     <FormContainer>
       <FormHeader>Job Description</FormHeader>
@@ -46,19 +45,31 @@ export default function JobDescriptionForm({ data, onSubmit, loading }) {
           <FormLabel>
             Designation
           </FormLabel>
+          {/* <Select
+                showSearch
+                style={{ width: "100%" }}
+                placeholder="Select Grade"
+                optionFilterProp="children"
+                onChange={handelChangeGrade}
+                value={form.gradeId}
+                name="gradeId"
+                size="large"
+              >
+                {grades.map((item) => (
+                  <Select.Option value={item.id}>{item.name}</Select.Option>
+                ))}
+            </Select> */}
           <Select
             showSearch
             style={{ width: "100%" }}
             placeholder="Select Designation"
             optionFilterProp="children"
-            // onChange={(value) => setDesignation(value)}
             onChange={handleChange}
-            // filterOption={(input, option) =>
-            //   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            // }
+            value={form.designationId}
+            name="designationId"
           >
             {designations.map((item) => (
-              <Select.Option value={item.id}>{item.name}</Select.Option>
+              <Select.Option value={item.id}>{item.description}</Select.Option>
             ))}
           </Select>
         </FormInput>

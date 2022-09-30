@@ -26,8 +26,6 @@ export default function JobDescriptionForm({ data, onSubmit, loading }) {
     dispatch(getAllDesignation());
   }, []);
 
-  console.log(designations, "HELLO DESI")
-
   const  handleChange = (value) =>  {
     const x = designations.filter((item) => item.id === value)
     setForm({...form, designationId: x[0].id})
@@ -45,20 +43,6 @@ export default function JobDescriptionForm({ data, onSubmit, loading }) {
           <FormLabel>
             Designation
           </FormLabel>
-          {/* <Select
-                showSearch
-                style={{ width: "100%" }}
-                placeholder="Select Grade"
-                optionFilterProp="children"
-                onChange={handelChangeGrade}
-                value={form.gradeId}
-                name="gradeId"
-                size="large"
-              >
-                {grades.map((item) => (
-                  <Select.Option value={item.id}>{item.name}</Select.Option>
-                ))}
-            </Select> */}
           <Select
             showSearch
             style={{ width: "100%" }}

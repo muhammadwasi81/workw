@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
@@ -17,18 +18,22 @@ export default function CustomApprovalCategory() {
   };
 
   const onSubmit = (e) => {
-    if (!e.id) {
-      dispatch(addCustomApprovalCategory(e));
+    if (e.description === "") {
+      message.error("Please fill all required fields")
+    } else {
+      if (!e.id) {
+        dispatch(addCustomApprovalCategory(e));
+        setcustomApprovalCategory(initialState);
+        return;
+      }
+      dispatch(updateCustomApprovalCategory(e));
       setcustomApprovalCategory(initialState);
-      return;
     }
-    dispatch(updateCustomApprovalCategory(e));
-    setcustomApprovalCategory(initialState);
   };
   return (
     <AdminContainer>
       <CustomApprovalCategoryForm data={customApprovalCategory} onSubmit={onSubmit} loading={loader} />
-      <CustomApprovalCategoryTable 
+      <CustomApprovalCategoryTable
         handleEdit={setcustomApprovalCategory}
         handleDelete={handleDelete}
         actionRights={[1, 2]}

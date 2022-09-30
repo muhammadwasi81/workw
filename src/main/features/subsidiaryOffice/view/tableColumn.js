@@ -8,7 +8,11 @@ const Edit = (handleEdit, row, setClearButton) => {
       onClick={(e) => {
         handleEdit({
           id: row.id,
-          branchTitle: row.branchTitle,
+          name: row.name,
+          branchId: row.branchId,
+          address: row.address,
+          lat: row.lat,
+          lng: row.lng,
         }); 
         setClearButton(true)
       }

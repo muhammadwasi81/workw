@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
 import { responseCode } from "../../../../../services/enums/responseCode";
 import {
   responseMessage,
@@ -24,24 +25,19 @@ export const getAllQuestion = createAsyncThunk(
 );
 
 export const addQuestion = createAsyncThunk(
-  "appraisalQuestion/addQuestion",
-  async (args, { dispatch, getState }) => {
-    const res = await addAppraisalQuestionService(args);
-
-    if (res.responseCode) {
-      if (res.responseCode === responseCode.Success)
-        res.message = "Appraisal Question added successfully!";
-      responseMessage({ dispatch, data: res });
-    } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
-    }
-
-    return res;
-  }
+	"appraisalQuestion/addQuestion",
+	async (args, { dispatch }) => {
+		const res = await addAppraisalQuestionService(args);
+		if (res.responseCode && res.responseCode === responseCode.Success) {
+			message.success("Appraisal Question added successfully!")
+			responseMessage({ dispatch, data: res });
+		} else {
+			message.error(res.message)
+		}
+		return res;
+	}
 );
+
 
 export const updateQuestion = createAsyncThunk(
   "appraisalQuestion/updateQuestion",

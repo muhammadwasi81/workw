@@ -1,5 +1,6 @@
 import { message } from "antd";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
 import {
@@ -21,6 +22,8 @@ export default function Subsidiary() {
 	const [clearButton, setClearButton] = useState(false);
 
 	const dispatch = useDispatch();
+
+  const { loader } = useSelector((state) => state.subsidiarySlice);
 
 	const handleDelete = e => {
 		dispatch(removeBranch(e));
@@ -44,7 +47,7 @@ export default function Subsidiary() {
   };
   return (
     <AdminContainer>
-      <Form clearButton={clearButton} setClearButton={setClearButton} data={subsidiary} onSubmit={onSubmit} />
+      <Form clearButton={clearButton} setClearButton={setClearButton} data={subsidiary} onSubmit={onSubmit} loading={loader} />
       <TableView
         handleEdit={setSubsidiary}
         setClearButton={setClearButton}

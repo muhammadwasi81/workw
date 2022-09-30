@@ -6,7 +6,7 @@ const Edit = (handleEdit, row) => {
       onClick={(e) =>
         handleEdit({
           id: row.id,
-          name: row.name,
+          designationId: row.designationId,
           description: row.description,
         })
       }
@@ -25,7 +25,7 @@ export const tableColumn = (
   rights
 ) => {
   return [
-    { title: "Name", dataIndex: "name", width: "20%" },
+    // { title: "Name", dataIndex: "name", width: "20%" },
     { title: "Description", dataIndex: "description", width: "20%" },
     removeButtons
       ? {}

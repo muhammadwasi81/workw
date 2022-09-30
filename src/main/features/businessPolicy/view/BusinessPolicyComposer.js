@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, message, Select } from "antd";
 import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import ReactQuill from "react-quill"
@@ -53,10 +53,14 @@ function BusinessPolicyComposer({editData}) {
 		dictionaryList[userLanguage];
 
 	const onFinish = values => {
-		if (editData) {
-			 dispatch(updateBusinessPolicy({...values, id: editData.id}))
+		if (values.name.length > 20) {
+			message.error("Name characters limit exeeded")
 		} else {
-			dispatch(addBusinessPolicy(values))
+			if (editData) {
+				dispatch(updateBusinessPolicy({...values, id: editData.id}))
+		   } else {
+			   dispatch(addBusinessPolicy(values))
+		   }
 		}
 	};
 
@@ -125,9 +129,10 @@ function BusinessPolicyComposer({editData}) {
 						},
 					]}
 						label={
-							<FormLabel>{"Desription"}</FormLabel>
+							<FormLabel>{"Description"}</FormLabel>
 						} >
 						<ReactQuill
+							style={{overflow: "hidden"}}
 							className="ReactQuill"
 							onChange={(e) => console.log(e)}
 							modules={modules}

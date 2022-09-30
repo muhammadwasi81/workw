@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import {
 	responseMessage,
@@ -30,65 +31,14 @@ export const getAllOfficeTimingGroups = createAsyncThunk(
 
 export const addOfficeTimingGroup = createAsyncThunk(
 	"OfficeTimingGroup/addOfficeTimingGroup",
-	async (args, { dispatch, getState }) => {
-		console.log(args, "ssss");
+	async (args, { dispatch }) => {
 		const res = await addOfficeTimingService(args);
-
-		if (res.responseCode) {
-			if (res.responseCode === responseCode.Success)
-				res.message = "Office Timing Group added successfully!";
+		if (res.responseCode && res.responseCode === responseCode.Success) {
+			message.success("Office Timing Group added successfully!")
 			responseMessage({ dispatch, data: res });
 		} else {
-			responseMessage({
-				dispatch: dispatch,
-				type: responseMessageType.ApiFailure,
-			});
+			message.error(res.message)
 		}
-
 		return res;
-	}
-);
-
-export const updateGrade = createAsyncThunk(
-	"grade/updateGrade",
-	async (args, { dispatch, getState }) => {
-		return await AxiosConfig.put(`${API_PREFIX}updategrade`, args)
-			.then(res => {
-				if (res.data.responseCode === responseCode.Success)
-					res.data.message = "Grade updated successfully!";
-				responseMessage({ dispatch, data: res.data });
-				return res.data;
-			})
-			.catch(err => {
-				responseMessage({
-					dispatch: dispatch,
-					type: responseMessageType.ApiFailure,
-				});
-				return err;
-			});
-	}
-);
-
-export const removeGrade = createAsyncThunk(
-	"grade/removeGrade",
-	async (args, { dispatch, getState }) => {
-		return await AxiosConfig.delete(
-			`${API_PREFIX}removegrade?id=${args.id}`
-		)
-			.then(res => {
-				if (res.data.responseCode === responseCode.Success) {
-					res.data.message = "Grade removed successfully!";
-					dispatch(gradeDeleted(args));
-				}
-				responseMessage({ dispatch, data: res.data });
-				return res.data;
-			})
-			.catch(err => {
-				responseMessage({
-					dispatch: dispatch,
-					type: responseMessageType.ApiFailure,
-				});
-				return err;
-			});
 	}
 );

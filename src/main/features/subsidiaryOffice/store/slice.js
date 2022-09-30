@@ -1,6 +1,7 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addBranch, getAllBranch, updateBranch } from "./actions.js";
+import { addBranchService } from "../../subsidiary/services/service.js";
+import { addBranch, addBranchOffice, getAllBranchOffice, updateBranch } from "./actions.js";
 
 const initialState = {
   items: [],
@@ -8,21 +9,21 @@ const initialState = {
   loader: false,
 };
 
-const subsidiarySlice = createSlice({
+const subsidiaryOfficeSlice = createSlice({
   name: "items",
   initialState,
   reducers: {
-    BranchDeleted: (state, { payload }) => {
+    BranchOfficeDeleted: (state, { payload }) => {
       state.items = state.items.filter((e) => e.id !== payload.id);
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllBranch.fulfilled, (state, { payload }) => {
+      .addCase(getAllBranchOffice.fulfilled, (state, { payload }) => {
         state.loadingData = false;
         state.items = payload.data;
       })
-      .addCase(addBranch.fulfilled, (state, { payload }) => {
+      .addCase(addBranchOffice.fulfilled, (state, { payload }) => {
         state.loader = false;
         if (payload.responseCode === responseCode.Success)
           state.items.push(payload.data);
@@ -33,14 +34,14 @@ const subsidiarySlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addBranch, updateBranch]), (state) => {
+      .addMatcher(isPending(...[addBranchOffice, updateBranch]), (state) => {
         state.loader = true;
       })
-      .addMatcher(isPending(...[getAllBranch]), (state) => {
+      .addMatcher(isPending(...[getAllBranchOffice]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(
-        isRejected(...[getAllBranch, addBranch, updateBranch]),
+        isRejected(...[getAllBranchOffice, addBranchOffice, updateBranch]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
@@ -49,5 +50,5 @@ const subsidiarySlice = createSlice({
   },
 });
 
-export const { BranchDeleted } = subsidiarySlice.actions;
-export default subsidiarySlice.reducer;
+export const { BranchOfficeDeleted } = subsidiaryOfficeSlice.actions;
+export default subsidiaryOfficeSlice.reducer;

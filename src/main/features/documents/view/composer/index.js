@@ -10,42 +10,75 @@ import MilePad from "./milePad";
 import Mileshow from "./mileshow";
 import UploadDocuments from "./uploadDocuments";
 
-const DocumentComposers = () => {
-    const dispatch = useDispatch();
-    const composerState = useSelector(state => state.documentSlice.isOpenComposers);
-    let { folder, mileboard, milegrid, milepad, mileshow, upload } = composerState;
-    const handleCloseComposer = (key) => {
-        dispatch(handleCloseDocComposer(key));
-        dispatch(uploadFileByDrop([]));
-    }
-    return (
-        <>
-            <MileBoard
-                isOpen={mileboard}
-                handleClose={() => handleCloseComposer(DocsComposerEnums.mileboard)}
-            />
-            <MilePad
-                isOpen={milepad}
-                handleClose={() => handleCloseComposer(DocsComposerEnums.milepad)}
-            />
-            <MileGrid
-                isOpen={milegrid}
-                handleClose={() => handleCloseComposer(DocsComposerEnums.milegrid)}
-            />
-            <Mileshow
-                isOpen={mileshow}
-                handleClose={() => handleCloseComposer(DocsComposerEnums.mileshow)}
-            />
-            <UploadDocuments
-                isOpen={upload}
-                handleClose={() => handleCloseComposer(DocsComposerEnums.upload)}
-            />
-            <CreateFolder
-                isOpen={folder}
-                handleClose={() => handleCloseComposer(DocsComposerEnums.folder)}
-            />
-        </>
-    );
+const DocumentComposers = ({ referenceId, referenceType }) => {
+	const dispatch = useDispatch();
+	const composerState = useSelector(
+		state => state.documentSlice.isOpenComposers
+	);
+	let {
+		folder,
+		mileboard,
+		milegrid,
+		milepad,
+		mileshow,
+		upload,
+	} = composerState;
+	const handleCloseComposer = key => {
+		dispatch(handleCloseDocComposer(key));
+		dispatch(uploadFileByDrop([]));
+	};
+	return (
+		<>
+			<MileBoard
+				isOpen={mileboard}
+				handleClose={() =>
+					handleCloseComposer(DocsComposerEnums.mileboard)
+				}
+				referenceId={referenceId}
+				referenceType={referenceType}
+			/>
+			<MilePad
+				isOpen={milepad}
+				handleClose={() =>
+					handleCloseComposer(DocsComposerEnums.milepad)
+				}
+				referenceId={referenceId}
+				referenceType={referenceType}
+			/>
+			<MileGrid
+				isOpen={milegrid}
+				handleClose={() =>
+					handleCloseComposer(DocsComposerEnums.milegrid)
+				}
+				referenceId={referenceId}
+				referenceType={referenceType}
+			/>
+			<Mileshow
+				isOpen={mileshow}
+				handleClose={() =>
+					handleCloseComposer(DocsComposerEnums.mileshow)
+				}
+				referenceId={referenceId}
+				referenceType={referenceType}
+			/>
+			<UploadDocuments
+				isOpen={upload}
+				handleClose={() =>
+					handleCloseComposer(DocsComposerEnums.upload)
+				}
+				referenceId={referenceId}
+				referenceType={referenceType}
+			/>
+			<CreateFolder
+				isOpen={folder}
+				handleClose={() =>
+					handleCloseComposer(DocsComposerEnums.folder)
+				}
+				referenceId={referenceId}
+				referenceType={referenceType}
+			/>
+		</>
+	);
 };
 
 export default DocumentComposers;

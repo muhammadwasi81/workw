@@ -36,6 +36,8 @@ function RewardDetailCard(props) {
         props.id && dispatch(GetRewardById(props.id));
     }, [props.id]);
 
+    console.log(updatedStatus, "UPDATE STATUS")
+
     const {
         creator,
         name,
@@ -137,7 +139,6 @@ function RewardDetailCard(props) {
                             </div>
                         </div>
                     </div>
-                    {/* <RemarksApproval data={approvers} title="Approvals" /> */}
                     <RemarksApproval 
                         module={ApprovalsModule.RewardApproval}
                         status={status}
@@ -145,7 +146,7 @@ function RewardDetailCard(props) {
                             setUpdatedStatus(statusChanged)
                         }
                         data={approvers}
-                        title="Approvals"
+                        title="Approvers"
                     />
                 </div>
             )}

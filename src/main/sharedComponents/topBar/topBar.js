@@ -10,106 +10,118 @@ import { isEmptyObj } from "../../../utils/base";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
 
-const TopBar = ({ filter, onSearch, segment, buttons, component, style }) => {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, Direction } = dictionaryList[userLanguage];
-  const { onFilter, ...rest } = filter;
-  const { onSegment, label1, label2 } = segment;
-  const [activeButtons, setActiveButtons] = useState(
-    buttons.map((item, index) => (index === 0 ? true : false))
-  );
-  let classes = "topBar ";
-  classes += Direction === "rtl" ? "rtl" : "";
-  return (
-    <div className={classes} style={style}>
-      <div className="topBar__inner">
-        <div className="searchBox">
-          <SearchInput
-            icon={<SearchOutlined />}
-            placeholder={sharedLabels.Search}
-            size="larger"
-            onChange={(e) => {
-              onSearch(e.target.value);
-            }}
-          />
-        </div>
-        <div className="topBar__buttons">
-          {buttons.map(({ name, onClick, icon, to }, index) => (
-            <Button
-              onClick={() => {
-                onClick(to);
-                const actives = activeButtons.map((item, key) => {
-                  if (index === key) {
-                    return (item = !item);
-                  } else {
-                    return (item = false);
-                  }
-                });
+const TopBar = ({
+	filter,
+	onSearch,
+	segment,
+	buttons,
+	component,
+	style,
+	width,
+}) => {
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { sharedLabels, Direction } = dictionaryList[userLanguage];
+	const { onFilter, ...rest } = filter;
+	const { onSegment, label1, label2 } = segment;
+	const [activeButtons, setActiveButtons] = useState(
+		buttons.map((item, index) => (index === 0 ? true : false))
+	);
+	let classes = "topBar " + width;
+	classes += Direction === "rtl" ? "rtl" : "";
+	return (
+		<div className={classes} style={style}>
+			<div className="topBar__inner">
+				<div className="searchBox">
+					<SearchInput
+						icon={<SearchOutlined />}
+						placeholder={sharedLabels.Search}
+						size="larger"
+						onChange={e => {
+							onSearch(e.target.value);
+						}}
+					/>
+				</div>
+				<div className="topBar__buttons">
+					{buttons.map(({ name, onClick, icon, to }, index) => (
+						<Button
+							onClick={() => {
+								onClick(to);
+								const actives = activeButtons.map(
+									(item, key) => {
+										if (index === key) {
+											return (item = !item);
+										} else {
+											return (item = false);
+										}
+									}
+								);
 
-                setActiveButtons(actives);
-              }}
-              key={index}
-              className={
-                activeButtons[index] ? "primaryBtn active" : "primaryBtn "
-              }
-            >
-              {name}
-              {icon && icon}
-            </Button>
-          ))}
-          {component}
-        </div>
-      </div>
-      <div className="searchButtons">
-        {!isEmptyObj(filter) && (
-          <FilterSearchButton onFilter={onFilter} {...rest} />
-        )}
-        {!isEmptyObj(segment) && (
-          <Segmented
-            onChange={(value) => {
-              onSegment(value);
-            }}
-            options={[
-              {
-                label: label1,
-                value: label1,
-                icon: <BarsOutlined />,
-              },
-              {
-                label: label2,
-                value: label2,
-                icon: <AppstoreOutlined />,
-              },
-            ]}
-          />
-        )}
-      </div>
-    </div>
-  );
+								setActiveButtons(actives);
+							}}
+							key={index}
+							className={
+								activeButtons[index]
+									? "primaryBtn active"
+									: "primaryBtn "
+							}
+						>
+							{name}
+							{icon && icon}
+						</Button>
+					))}
+					{component}
+				</div>
+			</div>
+			<div className="searchButtons">
+				{!isEmptyObj(filter) && (
+					<FilterSearchButton onFilter={onFilter} {...rest} />
+				)}
+				{!isEmptyObj(segment) && (
+					<Segmented
+						onChange={value => {
+							onSegment(value);
+						}}
+						options={[
+							{
+								label: label1,
+								value: label1,
+								icon: <BarsOutlined />,
+							},
+							{
+								label: label2,
+								value: label2,
+								icon: <AppstoreOutlined />,
+							},
+						]}
+					/>
+				)}
+			</div>
+		</div>
+	);
 };
 TopBar.propTypes = {
-  filter: PropTypes.shape({
-    onFilter: PropTypes.func,
-    select1: PropTypes.array,
-    select2: PropTypes.array,
-  }),
-  buttons: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      onClick: PropTypes.func,
-      icon: PropTypes.elementType,
-    })
-  ),
-  segment: PropTypes.shape({
-    onSegment: PropTypes.func,
-    label1: PropTypes.array,
-    label2: PropTypes.array,
-  }),
-  onSearch: PropTypes.func,
+	filter: PropTypes.shape({
+		onFilter: PropTypes.func,
+		select1: PropTypes.array,
+		select2: PropTypes.array,
+	}),
+	buttons: PropTypes.arrayOf(
+		PropTypes.shape({
+			name: PropTypes.string,
+			onClick: PropTypes.func,
+			icon: PropTypes.elementType,
+		})
+	),
+	segment: PropTypes.shape({
+		onSegment: PropTypes.func,
+		label1: PropTypes.array,
+		label2: PropTypes.array,
+	}),
+	onSearch: PropTypes.func,
 };
 TopBar.defaultProps = {
-  filter: {},
-  segment: {},
-  buttons: [],
+	filter: {},
+	segment: {},
+	buttons: [],
 };
 export default TopBar;

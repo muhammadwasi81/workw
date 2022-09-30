@@ -23,6 +23,16 @@ import { resetGroupDetail } from "../store/slice";
 import { EditOutlined } from "@ant-design/icons";
 import { Drawer } from "antd";
 import Composer from "../UI/Composer";
+import NewsFeed from "../../feed/ui";
+import Task from "../../task/view/Task";
+import Expenses from "../../expense";
+import { ExpenseReferenceTypeEnum } from "../../expense/enums";
+import { TaskReferenceTypeEnum } from "../../task/enums/enum";
+import { PostReferenceType } from "../../feed/utils/constants";
+import { DocumentReferenceTypeEnum } from "../../documents/view/enum";
+import WorkBoard from "../../workboard";
+import { WorkBoardReferenceTypeEnum } from "../../workboard/enum";
+import Documents from "../../documents/view/documents";
 
 function GroupDetails() {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -53,11 +63,54 @@ function GroupDetails() {
 		});
 		setFeatures(temp);
 	}, [detail]);
+
+	const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;
 	const featuresComp = {
-		11: (
-			<Travel
-				referenceType={FeaturesEnum.Group}
+		1: (
+			<NewsFeed
+				referenceType={PostReferenceType.GROUP}
 				referenceId={id}
+				backButton={false}
+				isScheduler={false}
+				isCheckedIn={false}
+				width={"!w-full"}
+				routeLink={defaultRoute}
+			/>
+		),
+		6: (
+			<Task
+				referenceType={TaskReferenceTypeEnum.Group}
+				referenceId={id}
+				width={"!w-full"}
+				routeLink={defaultRoute}
+				backButton={false}
+			/>
+		),
+		7: (
+			<WorkBoard
+				referenceType={WorkBoardReferenceTypeEnum.Group}
+				referenceId={id}
+				width={"!w-full"}
+				routeLink={defaultRoute}
+				backButton={false}
+			/>
+		),
+		9: (
+			<Expenses
+				referenceType={ExpenseReferenceTypeEnum.Group}
+				referenceId={id}
+				width={"!w-full"}
+				routeLink={defaultRoute}
+				backButton={false}
+			/>
+		),
+		10: <>Schedule</>,
+		12: (
+			<Documents
+				referenceType={DocumentReferenceTypeEnum.Group}
+				referenceId={id}
+				width={"!w-full"}
+				routeLink={defaultRoute}
 				backButton={false}
 			/>
 		),
@@ -114,7 +167,7 @@ function GroupDetails() {
 				<Header items={items} buttons={buttons} />
 				<ContBody className="!block" direction={Direction}>
 					<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
-						<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll mt-10">
+						<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll ">
 							<CoverImage image={detail?.image} />
 							<CoverDetail detail={detail} key={detail} />
 							<Tab

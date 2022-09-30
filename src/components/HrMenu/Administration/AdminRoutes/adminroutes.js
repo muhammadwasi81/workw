@@ -15,12 +15,17 @@ import OfficeTiming from "../../../../main/features/officeTimings/view/index";
 import CustomApprovalCategory from "../../../../main/features/customApprovalCategory/view";
 import WargningCategory from "../../../../main/features/warning/warningCategory/view";
 import AccessRole from "../../../../main/features/accessRole/view/AccessRole";
+import TaxSlab from "../../../../main/features/taxSlabs/view";
 
 const AdminRoutes = () => {
 	return (
 		<Routes>
 			<Route path={"/"} element={<AccessRole />} />
 			<Route path={ROUTES.ADMINISTRATOR.GRADE} element={<Grade />} />
+			<Route
+				path={ROUTES.ADMINISTRATOR.TAX_SLAB}
+				element={<TaxSlab />}
+			/>
 			<Route
 				path={ROUTES.ADMINISTRATOR.DESIGNATION}
 				element={<Designation />}

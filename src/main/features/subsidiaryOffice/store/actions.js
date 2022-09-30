@@ -6,16 +6,16 @@ import {
 	responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 import {
-	addBranchService,
-	getAllBranchService,
-	removeBranchService,
+	addbranchOfficeService,
+	getAllBranchOfficeService,
+	removeBranchOfficeService,
 	updateBranchService,
 } from "../services/service";
 
-export const getAllBranch = createAsyncThunk(
-	"Branch/getAlBranch",
+export const getAllBranchOffice = createAsyncThunk(
+	"BranchOffice/getAlBranchOffice",
 	async (args, { dispatch }) => {
-		const res = await getAllBranchService();
+		const res = await getAllBranchOfficeService();
 		if (!res.responseCode) {
 			responseMessage({
 				dispatch: dispatch,
@@ -26,13 +26,13 @@ export const getAllBranch = createAsyncThunk(
 	}
 );
 
-export const addBranch = createAsyncThunk(
-	"Branch/addBranch",
+export const addBranchOffice = createAsyncThunk(
+	"BranchOffice/addBranchOffice",
 	async (args, { dispatch }) => {
-		const res = await addBranchService(args);
+		const res = await addbranchOfficeService(args);
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success) {
-				message.success("Subsidiary added successfully!")
+				message.success("Subsidiary Office added successfully!")
 				responseMessage({ dispatch, data: res });
 				return res
 			} else {
@@ -64,10 +64,10 @@ export const updateBranch = createAsyncThunk(
 	}
 );
 
-export const removeBranch = createAsyncThunk(
-	"Branch/removeBranch",
+export const removeBranchOffice = createAsyncThunk(
+	"BranchOffice/removeBranchOffice",
 	async (args, { dispatch }) => {
-		const res = await removeBranchService(args.id);
+		const res = await removeBranchOfficeService(args.id);
 
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success)

@@ -35,7 +35,11 @@ export const tableColumn = (
   setClearButton
 ) => {
   return [
-    { title: "Title", dataIndex: "branchTitle", width: "20%", key: 1 },
+    { title: "Name", dataIndex: "name", width: "20%", key: 1 },
+    { title: "Branch", dataIndex: "branchName", width: "15%", key: 2 },
+    { title: "Address", dataIndex: "address", width: "20%", key: 3 },
+    { title: "Latitude", dataIndex: "lat", width: "10%", key: 4 },
+    { title: "Longitude", dataIndex: "lng", width: "10%", key: 5 },
     removeButtons
       ? {}
       : {

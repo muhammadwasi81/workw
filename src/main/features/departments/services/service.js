@@ -13,8 +13,9 @@ export const getAllDepartmentService = (data) => {
 };
 
 export const addDepartmentService = (data) => {
+  console.log("data in service ", data);
   const formData = jsonToFormData(data);
-  // console.log("formdatatoFormdata", formData);
+  console.log("formdatatoFormdata", formData);
   return MasterConfig.post(`api/Department/AddDepartment`, formData)
     .then((res) => {
       // console.log(res, "response from dept service");

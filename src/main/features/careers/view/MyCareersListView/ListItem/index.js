@@ -1,13 +1,13 @@
 import { Button, Image } from "antd";
 import React from "react";
-import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../../utils/base";
+import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import { getNameForImage } from "../../../../../../utils/base";
 import ProImage from "../../../../../content/NewContent/careers/proImage.svg";
 import moment from "moment";
-import { ItemContent, ItemHeader, SingleItem } from "../../../../sharedComponents/Card/CardStyle";
+import { ItemContent, ItemHeader, SingleItem } from "../../../../../sharedComponents/Card/CardStyle";
 import { Link } from "react-router-dom";
-import { ROUTES } from "../../../../../utils/routes";
+import { ROUTES } from "../../../../../../utils/routes";
 
 function ListItem(props) {
   return (

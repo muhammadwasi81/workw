@@ -97,7 +97,9 @@ class SingleUpload extends React.Component {
 			previewTitle,
 			defaultFileList,
 		} = this.state;
-		const uploadButton = (
+		
+		const uploadButton = this.props.uploadButton !== undefined ? this.props.uploadButton :
+		(
 			<div className="px-1">
 				<PlusOutlined />
 				<div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
@@ -117,6 +119,7 @@ class SingleUpload extends React.Component {
 					multiple={this.props.multiple}
 					// maxCount={1}
 					defaultFileList={defaultFileList}
+					ref={this.props.inputRef}
 				>
 					{this.props.multiple
 						? uploadButton

@@ -31,13 +31,13 @@ const ConversationListItem = ({ conversation }) => {
 	// TODO: Conditionally get profileImage & profileName behalf of ChatId
 	const profileImage =
 		chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT
-			? chatWith.image
+			? chatWith?.image
 			: chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
 			? imageId
 			: "";
 	const profileName =
 		chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT
-			? chatWith.name
+			? chatWith?.name
 			: chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
 			? name
 			: "";
@@ -60,9 +60,7 @@ const ConversationListItem = ({ conversation }) => {
 			})
 		);
 	};
-	let lastMsgTime = !moment(new Date()).isAfter(lastUpdate)
-		? moment(lastUpdate).format("LT")
-		: moment(lastUpdate).format("LL");
+	let lastMsgTime = moment(lastUpdate).fromNow();
 
 	return (
 		<div className="ConversationListItem" onClick={handleItemClick}>
@@ -81,10 +79,10 @@ const ConversationListItem = ({ conversation }) => {
 					<div className="ItemLastMsgTime">{lastMsgTime}</div>
 				</div>
 			</div>
-			<div className="ItemIcon">
-				<Badge count={1} />
+			{/* <div className="ItemIcon"> */}
+				{/* <Badge count={1} /> */}
 				{/* <Avatar src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"} name={""} size={20} round={true} /> */}
-			</div>
+			{/* </div> */}
 		</div>
 	);
 };

@@ -527,6 +527,21 @@ animation:0.1s visibleDelay 0.4s forwards;
 .memberCard__body p:nth-child(2) {
   font-size: 11px;
 }
+.messengerUpload{
+  position: absolute;
+  bottom: 50px;
+}
+.messengerUpload .ant-upload-select{
+  height: 60px !important;
+  width: 60px !important;
+  margin-left: 10px;
+}
+.messengerUpload .ant-upload{
+  font-size: 11px;
+}
+
+
+
 
 @keyframes visibleDelay {
   from {

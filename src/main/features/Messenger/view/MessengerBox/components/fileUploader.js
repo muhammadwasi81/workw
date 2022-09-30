@@ -1,9 +1,21 @@
-import React from "react";
+import { Form } from "antd";
+import React, { useRef } from "react";
+import SingleUpload from "../../../../../sharedComponents/Upload/singleUpload";
 
-function FileUploader(props) {
+function FileUploader({inputRef}) {
 	return (
-		<div style={{ position: "absolute", bottom: "65px" }}>
-			<h1>jksdjkkdj</h1>
+		<div className="messengerUpload">
+			<Form.Item area="true">
+				<SingleUpload
+					handleImageUpload={(data) => { console.log(data, "Files") }}
+					img="Add Image"
+					position="flex-start"
+					uploadText={"Upload"}
+					multiple={true}
+					inputRef={inputRef}
+					uploadButton={null}
+					/>
+			</Form.Item>
 		</div>
 	);
 }

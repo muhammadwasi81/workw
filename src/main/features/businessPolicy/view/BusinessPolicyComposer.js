@@ -17,14 +17,14 @@ const modules = {
 		[{ 'font': [] }],
 		[{ 'size': ['small', false, 'large', 'huge'] }],
 		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-		['bold', 'italic', 'underline', 'link', 'image'],
+		['bold', 'italic', 'underline'],
 		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
-		[{ 'script': 'sub' }, { 'script': 'super' }],
+		// [{ 'script': 'sub' }, { 'script': 'super' }],
 		//[{ 'indent': '-1'}, { 'indent': '+1' }],
 		[{ 'direction': 'rtl' }],
 		[{ 'align': ['center'] }],
 		[{ 'color': [] }, { 'background': [] }],
-		['clean']
+		// ['clean']
 	]
 }
 const formats = {
@@ -32,14 +32,14 @@ const formats = {
 		[{ 'font': [] }],
 		[{ 'size': ['small', false, 'large', 'huge'] }],
 		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-		['bold', 'italic', 'underline', 'link', 'image'],
+		['bold', 'italic', 'underline'],
 		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
-		[{ 'script': 'sub' }, { 'script': 'super' }],
+		// [{ 'script': 'sub' }, { 'script': 'super' }],
 		//[{ 'indent': '-1'}, { 'indent': '+1' }],
 		[{ 'direction': 'rtl' }],
 		[{ 'align': ['center'] }],
 		[{ 'color': [] }, { 'background': [] }],
-		['clean']
+		// ['clean']
 	]
 }
 

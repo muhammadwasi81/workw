@@ -14,6 +14,7 @@ import FileUploader from "../components/fileUploader";
 const MessengerBottom = ({ isOpenProfile }) => {
   const dispatch = useDispatch();
   const msgInpRef = useRef();
+  let fileInputRef = useRef();
   const messengerDetail = useSelector(
     (state) => state.MessengerSlice.currentMessenger
   );
@@ -35,6 +36,9 @@ const MessengerBottom = ({ isOpenProfile }) => {
     e.target.value = "";
   };
   const handleClickEmoji = () => setIsOpenEmoji(!isOpenEmoji);
+  const handleClickAttachment = () => {
+    fileInputRef.current.upload.uploader.onClick()
+  }
   const onSelectEmoji = (emoji) => {
     msgInpRef.current.value += emoji.native;
     msgInpRef.current.focus();
@@ -42,7 +46,7 @@ const MessengerBottom = ({ isOpenProfile }) => {
   return (
     <>
       {/* <VoiceNotes /> */}
-    <FileUploader />
+    <FileUploader inputRef={fileInputRef}/>
       {isOpenEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
       <div className={"MessengerBottom " + (isOpenProfile ? "blur-bg" : "")}>
         <div className="MessengerInputHandler">
@@ -53,7 +57,12 @@ const MessengerBottom = ({ isOpenProfile }) => {
               alt=""
               onClick={handleClickEmoji}
             />
-            <img className="actionBtn" src={attachmentIcon} alt="" />
+            <img 
+            className="actionBtn" 
+            src={attachmentIcon} 
+            alt=""
+            onClick={handleClickAttachment}
+            />
           </div>
         </div>
         <div className="MessengerInputCont">
@@ -69,11 +78,11 @@ const MessengerBottom = ({ isOpenProfile }) => {
             </div>
           </div>
         </div>
-        {/* <div className="MessengerInputHandler">
+        <div className="MessengerInputHandler">
           <div>
             <VoiceNotes />
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );

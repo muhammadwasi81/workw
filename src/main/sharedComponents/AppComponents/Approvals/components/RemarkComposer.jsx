@@ -3,7 +3,7 @@ import React, { useState, useId, useRef, useEffect, useContext } from "react";
 import Avatar from "../../../Avatar/avatarOLD";
 import { SmileOutlined, PictureOutlined } from "@ant-design/icons";
 import FilePreview from "../../../FilePreview";
-import EmojiPicker from "../../../../features/Messenger/view/MessengerBox/helpers/emojiPicker";
+import EmojiPicker from "../../../../features/Messenger/view/MessengerBox/components/emojiPicker";
 import { useSelector } from "react-redux";
 import { ApprovalStatus } from "../enums";
 import RemarkStatus from "./RemarkStatus";

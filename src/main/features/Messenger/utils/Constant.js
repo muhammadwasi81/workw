@@ -10,27 +10,3 @@ export const MESSENGER_ENUMS = {
 
 
 
-
-const notes = [
-    {
-
-    },
-    {
-dfdfddffddf
-    },
-    {
-
-    }
-
-]
-
-
-// Add => notes.push(default)
-
-
-// notes.map(item =><component item={item}>)
-
-
-
-
-

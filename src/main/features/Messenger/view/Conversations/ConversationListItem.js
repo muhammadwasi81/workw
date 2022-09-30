@@ -31,13 +31,13 @@ const ConversationListItem = ({ conversation }) => {
 	// TODO: Conditionally get profileImage & profileName behalf of ChatId
 	const profileImage =
 		chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT
-			? chatWith.image
+			? chatWith?.image
 			: chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
 			? imageId
 			: "";
 	const profileName =
 		chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT
-			? chatWith.name
+			? chatWith?.name
 			: chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
 			? name
 			: "";

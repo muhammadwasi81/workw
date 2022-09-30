@@ -6,9 +6,10 @@ import sendIcon from "../../../../../../content/NewContent/Messenger/send.svg";
 // import { sendMessage } from '../../store/messengerSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { sendChatMessage } from "../../../store/actions";
-import EmojiPicker from "../helpers/emojiPicker";
-import VoiceNotes from "../helpers/voiceNotes";
+import EmojiPicker from "../components/emojiPicker";
+import VoiceNotes from "../components/voiceNotes";
 import { createGuid } from "../../../../../../utils/base";
+import FileUploader from "../components/fileUploader";
 
 const MessengerBottom = ({ isOpenProfile }) => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const MessengerBottom = ({ isOpenProfile }) => {
   return (
     <>
       {/* <VoiceNotes /> */}
-
+    <FileUploader />
       {isOpenEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
       <div className={"MessengerBottom " + (isOpenProfile ? "blur-bg" : "")}>
         <div className="MessengerInputHandler">
@@ -68,11 +69,11 @@ const MessengerBottom = ({ isOpenProfile }) => {
             </div>
           </div>
         </div>
-        <div className="MessengerInputHandler">
+        {/* <div className="MessengerInputHandler">
           <div>
             <VoiceNotes />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

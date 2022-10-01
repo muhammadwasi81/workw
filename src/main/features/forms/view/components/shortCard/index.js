@@ -12,10 +12,11 @@ import { Link } from "react-router-dom";
 import { Button } from "antd";
 import "./style.css";
 import { ROUTES } from "../../../../../../utils/routes";
+import { useSelector } from "react-redux";
 
 function ListItem(props) {
+  const { user } = useSelector((state) => state.userSlice);
   const { item, id } = props;
-
   return (
     <>
       <SingleItem className="Card3 formShortCard">
@@ -40,9 +41,12 @@ function ListItem(props) {
           <Link to={ROUTES.FORMS.SUBMIT_FORM + "/dfdfdf"}>
             <Button className="ThemeBtn">Copy Link</Button>
           </Link>
-          <Link to={ROUTES.FORMS.EDIT_FORM + `/?id=${id}`}>
-            <Button className="ThemeBtn">Edit</Button>
-          </Link>
+          {item.creator.id === user.id && (
+            <Link to={ROUTES.FORMS.EDIT_FORM + `/?id=${id}`}>
+              <Button className="ThemeBtn">Edit</Button>
+            </Link>
+          )}
+
           <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
             <Button className="ThemeBtn">Attempt</Button>
           </Link>

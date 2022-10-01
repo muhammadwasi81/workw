@@ -265,13 +265,16 @@ const SubmitForm = (props) => {
         };
       } else if (item.answerType === 1) {
         //check image available
+        console.log("items in submit form", item);
         if (item.answers[index]?.image?.length > 1) {
+          console.log("worksss");
           return {
             ...item,
             localType: "radioWithImage",
             sequence: index,
           };
         } else {
+          console.log("not working");
           return {
             ...item,
             localType: "radio",

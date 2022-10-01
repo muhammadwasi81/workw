@@ -1,5 +1,11 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addForm, getAllForms, getFormById, submitForm } from "./actions";
+import {
+  addForm,
+  getAllForms,
+  getFormById,
+  submitForm,
+  updateForm,
+} from "./actions";
 
 const initialState = {
   forms: [],
@@ -55,6 +61,13 @@ const formSlice = createSlice({
         }
         state.success = true;
         state.createLoader = false;
+      })
+      .addCase(updateForm.fulfilled, (state, { payload }) => {
+        // console.log(payload, "payload of update appraisal question");
+        state.loader = false;
+        state.forms = state.forms.map((x) =>
+          x.id === payload.data.data.id ? payload.data.data : x
+        );
       })
       .addCase(submitForm.fulfilled, (state, { payload }) => {
         console.log("*****payload data*********", payload.data);

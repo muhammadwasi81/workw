@@ -2,7 +2,13 @@ import React from "react";
 // import DragHandleIcon from '@material-ui/icons/DragHandle';
 
 const Radio = (props) => {
-  const { question, handleRadioChange, index, disableSubmit } = props;
+  const {
+    question,
+    handleRadioChange,
+    index,
+    disableSubmit,
+    handleChange,
+  } = props;
   const { answers } = question;
 
   console.log("radio", props);
@@ -17,7 +23,12 @@ const Radio = (props) => {
               <img src={question.image} />{" "}
             </div>
           )}
-          <h1 className="row-tlt">{question.question}</h1>
+          {/* <h1 className="row-tlt">{question.question}</h1> */}
+          <input
+            className="required label w-full"
+            defaultValue={question.question}
+            onChange={handleChange}
+          />
           {answers.map(({ answer, id }, i) => (
             <div key={i} className="radio-wrapper mb_10">
               <label htmlFor="">
@@ -37,7 +48,12 @@ const Radio = (props) => {
                   value={id}
                   disabled={disableSubmit}
                 />
-                <h3 className="f-bold">{answer}</h3>
+                {/* <h3 className="f-bold">{answer}</h3> */}
+                <input
+                  className="required label w-full"
+                  defaultValue={answer}
+                  onChange={handleChange}
+                />
               </label>
             </div>
           ))}

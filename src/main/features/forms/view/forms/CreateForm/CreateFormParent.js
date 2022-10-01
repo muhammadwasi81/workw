@@ -203,7 +203,7 @@ export const CreateFormParent = (props) => {
             {formData &&
               formData.question.map((item, index) => (
                 <>
-                  {console.log("item radio with image", item)}
+                  {/* {console.log("item radio with image", item)} */}
                   {item.localType === "radio" && (
                     <Radio
                       handleRadioChange={handleChange}

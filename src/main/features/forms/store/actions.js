@@ -6,6 +6,7 @@ import {
   submitFormService,
   getAllFormsService,
   GetFormByIdService,
+  updateFormService,
 } from "../services/service";
 
 export const getAllForms = createAsyncThunk(
@@ -48,6 +49,24 @@ export const submitForm = createAsyncThunk(
       message.error(res.statusText);
       return rejectWithValue(res.statusText);
     }
+  }
+);
+
+export const updateForm = createAsyncThunk(
+  "Form/updateForm",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    // console.log(data, "data in update async");
+    const res = await updateFormService(data);
+
+    if (res.data.responseCode) {
+      if (res.data.responseCode === responseCode.Success)
+        message.success("Appraisal updated successfully!");
+    } else {
+      message.error(res.statusText);
+      return rejectWithValue(res.statusText);
+    }
+
+    return res;
   }
 );
 

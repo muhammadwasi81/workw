@@ -12,10 +12,15 @@ const RadioWithImage = (props) => {
         <div className="flex-1">
           {question.image && (
             <div className="QuesImg">
-              <img src={question.image} />{" "}
+              <img src={question.image} />
             </div>
           )}
-          <h1 className="row-tlt">{question.question}</h1>
+          {/* <h1 className="row-tlt">{question.question}</h1> */}
+          <input
+            className="required label w-full"
+            defaultValue={question.question}
+            onChange={handleChange}
+          />
           <div className="flex-row">
             {answers.map(({ answer, id, image }, i) => (
               <div className="aspect-ratio">
@@ -42,7 +47,8 @@ const RadioWithImage = (props) => {
                       }
                       name="label"
                       type="radio"
-                      disabled={disableSubmit}
+                      // disabled={disableSubmit}
+                      disabled={true}
                     />{" "}
                     <h3 className="ml_10 f-bold">{answer}</h3>
                   </div>

@@ -26,6 +26,19 @@ export const addFormService = (data) => {
     });
 };
 
+export const updateFormService = (data) => {
+  console.log("data from form", data);
+  const formData = jsonToFormData(data);
+  return MasterConfig.put(`api/Form/UpdateForm`, formData)
+    .then((res) => {
+      // console.log(res, "response from dept service");
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
 export const submitFormService = (data) => {
   console.log("data from form", data);
   // const formData = jsonToFormData(data);

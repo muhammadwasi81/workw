@@ -159,8 +159,8 @@ const EditForm = (props) => {
           sequence: index,
         };
       } else if (item.answerType === 1) {
-        console.log("item", item);
         if (item.answers[index]?.image?.length > 1) {
+          console.log("item with radio");
           return {
             ...item,
             localType: "radioWithImage",

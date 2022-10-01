@@ -89,7 +89,7 @@ justify-content: space-between;
   border: none;
   resize: both;
   overflow: auto;
-  width: 200px;
+  width: 300px;
   bottom: auto;
   right: auto;
   max-width: 600px;
@@ -100,6 +100,30 @@ justify-content: space-between;
   position: absolute;
   border-radius: 5px;
   cursor: move;
+}
+.stickyNoteItem-textarea{
+  flex: 1;
+  width: inherit;
+  max-width: 300px;
+  max-height: 600px;
+  outline: none;
+  border: none;
+  margin: 0;
+  font-size: 16px;
+  resize: none;
+  padding: 5px;
+}
+.ql-toolbar.ql-snow+.ql-container.ql-snow {
+  height: max-content !important;
+}
+
+div[contenteditable="true"] {
+  height: 75px !important;
+  overflow-y: auto !important;
+}
+
+.ql-container.ql-snow {
+  border: none !important;
 }
 .stickyNote_container .ant-input{
   outline: 0;
@@ -157,28 +181,30 @@ justify-content: space-between;
   overflow-y: hidden;
   white-space: nowrap;
   padding: 14px;
+  margin-top: 10px;
   justify-content: space-between;
  }
  .image{
-  width:90px !important ;
-   height:50 !important;
+  width:50px !important ;
+   height:40 !important;
    border-radius: 12px;
    margin: 3px;
  }
 
   /* *****************sticky color styling***************** */
   .menu__popUp{
-  background: #fdfdfd;
+  /* background: #fdfdfd; */
   display: flex;
-  width: 20%;
+  width: 200px;
   flex-direction: column;
+  cursor: pointer;
   position: absolute;
   z-index: 2;
   border: 1px solid #d2d2d2;
   }
   .color___LIST{
     display: flex;
-    height: 30px;
+     height: 30px;
   }
 
  /* ****************detailed sticky note container container****************** */

@@ -3,9 +3,32 @@ import { CloseOutlined, DeleteOutlined } from "@ant-design/icons";
 import "../../style.css";
 import {} from "antd";
 import "antd/dist/antd.css";
+import { useDispatch, useSelector } from "react-redux";
+import {  selectStickyNoteColor, closeStickyNoteColor} from "../../store/stickySlice";
 
-const StickyColor = () => {
-  const selectColorHandler = () => {};
+
+const StickyColor = ({item}) => {
+  const dispatch=useDispatch();
+  const color=useSelector((state)=>state.stickySlice.colorPicker);
+
+  console.log(item);
+
+
+  const selectColorHandler = (e) => {
+    console.log("clicked");
+    console.log(item);
+
+
+    const colorValue = e.target.getAttribute("value");
+    console.log(colorValue);
+    const id=item.id;
+    console.log("idddd",id);
+    dispatch(selectStickyNoteColor({colorValue,id}));
+  };
+
+  const closeColorHandler=()=>{
+    dispatch(closeStickyNoteColor());
+  }
   const colors = [
     "rgb(208, 235, 253)",
     "rgba(205, 241, 205, 0.77)",
@@ -20,28 +43,28 @@ const StickyColor = () => {
     <>
       <div
         className="menu__popUp"
-        //   style={{ display: !color ? "initial" : "none" }}
+        // style={{ display: !color ? "initial" : "none" }}
       >
         <div className="color___LIST">
           {colors.map((colors) => (
             <div
               key={colors}
               onClick={selectColorHandler}
-              style={{ backgroundColor: colors, width: "100%" }}
+              style={{ backgroundColor: colors,width: "100%" }}
               value={colors}
             ></div>
           ))}
         </div>
-        <div className="note__iconHOVER-dlt">
+        {/* <div className="note__iconHOVER-dlt">
           <div>
             <DeleteOutlined />
           </div>
           Delete Note
-        </div>
+        </div> */}
         <hr />
         <div className="note__iconHOVER-dlt">
           <div>
-            <CloseOutlined />
+            <CloseOutlined onClick={closeColorHandler} />
           </div>
           Close Colors
         </div>

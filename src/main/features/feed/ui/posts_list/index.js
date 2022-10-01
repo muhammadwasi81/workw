@@ -3,35 +3,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllFeed } from "../../store/actions";
 import { useEffect } from "react";
 import PostSkeleton from "./post/skeleton/post";
+import { ReactionModuleEnum } from "../../../../../utils/Shared/enums/enums";
 
-function PostsList({ referenceType = 1, referenceId }) {
-  const { userSlice, feedSlice } = useSelector((state) => state);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(
-      getAllFeed({
-        pageNo: 1,
-        pageSize: 20,
-        search: "",
-        referenceId: referenceId ? referenceId : userSlice.user.id,
-        referenceType,
-        filterType: 1,
-      })
-    );
-  }, []);
+function PostsList({ referenceType, referenceId, reactionModule }) {
+	const { userSlice, feedSlice } = useSelector(state => state);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(
+			getAllFeed({
+				pageNo: 1,
+				pageSize: 20,
+				search: "",
+				referenceId: referenceId ? referenceId : userSlice.user.id,
+				referenceType,
+				filterType: 1,
+			})
+		);
+	}, []);
 
-  if (feedSlice.allFeed.loading) return <PostSkeleton />;
-  return (
-    <div className="newsList ">
-      {!feedSlice.allFeed.posts.length > 0 ? (
-        <p>No Posts</p>
-      ) : (
-        feedSlice.allFeed.posts.map((post) => (
-          <PostItem post={post} viewAllComments={true} />
-        ))
-      )}
-    </div>
-  );
+	if (feedSlice.allFeed.loading) return <PostSkeleton />;
+	return (
+		<div className="newsList ">
+			{!feedSlice.allFeed.posts.length > 0 ? (
+				<p>No Posts</p>
+			) : (
+				feedSlice.allFeed.posts.map(post => (
+					<PostItem
+						post={post}
+						viewAllComments={true}
+						referenceType={referenceType}
+						referenceId={referenceId}
+						reactionModule={reactionModule}
+					/>
+				))
+			)}
+		</div>
+	);
 }
 
 export default PostsList;

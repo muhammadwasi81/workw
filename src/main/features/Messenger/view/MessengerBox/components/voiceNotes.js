@@ -3,7 +3,7 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import voiceGreyIcon from "../../../../../../content/NewContent/Messenger/voiceGrey.svg";
 import voiceRedIcon from "../../../../../../content/NewContent/Messenger/voiceRed.svg";
 import pauseRedIcon from "../../../../../../content/NewContent/Messenger/pauseRed.svg";
-import recordIcon from "../../../../../../content/NewContent/Messenger/record.png";
+import VoiceTimer from "./voiceTimer";
 
 function VoiceNotes(props) {
     useEffect(() => {
@@ -20,7 +20,7 @@ function VoiceNotes(props) {
     const onStopRecording = (blobURL, blob) => {
         console.log(blobToFile(blob, "Voice"), "Stop Recording");
     }
-    const { status, startRecording, stopRecording, mediaBlobUrl, pauseRecording } =
+    const { status, startRecording, stopRecording, mediaBlobUrl, pauseRecording, clearBlobUrl } =
         useReactMediaRecorder({ audio: true, onStart: onStartRecording, onStop: onStopRecording });
 
     return (
@@ -30,13 +30,15 @@ function VoiceNotes(props) {
         }} >
             <p>{status}</p>
             {status === "recording" && <div style={{ display: "flex", alignItems: "center" }} >
-                <img style={{ height: "15px", margin: "0 0px 0 10px" }} src={recordIcon} />
-                <div style={{ margin: "0 20px 0 10px" }}>00.02</div>
-                {/* <button onClick={pauseRecording}>
-                    <img src={pauseRedIcon} style={{ height: "22px", margin: "0 10px" }} />
-                </button> */}
-                <button onClick={stopRecording}>
-                    <img src={voiceRedIcon} style={{ height: "22px", margin: "0 10px" }} />
+
+                <VoiceTimer />
+
+                <button className="ThemeBtn" onClick={clearBlobUrl}>
+                    Delete
+                </button>
+                <button className="ThemeBtn" onClick={stopRecording}>
+                    Send
+                    {/* <img src={voiceRedIcon} style={{ height: "22px", margin: "0 10px" }} /> */}
                 </button>
             </div>}
 

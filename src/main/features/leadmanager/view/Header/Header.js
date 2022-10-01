@@ -37,8 +37,6 @@ function Header({ dictionary, direction }) {
 
 	const buttons = [
 		{
-			// buttonText: createTextBtn,
-			// onClick: () => handleOpenDrawer(true),
 			render: (
 				<SideDrawer
 					children={

@@ -15,6 +15,7 @@ function WorkBoardDashboard({
 	isTableView,
 	referenceType = WorkBoardReferenceTypeEnum.General,
 	referenceId = defaultUiid,
+	onChange,
 }) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -22,17 +23,17 @@ function WorkBoardDashboard({
 		state => state.trelloSlice.workboardsList
 	);
 	const loader = useSelector(state => state.trelloSlice.loader);
-	useEffect(() => {
-		dispatch(
-			getAllWorkBoard({
-				pageNo: 1,
-				pageSize: 20,
-				search: "",
-				referenceId,
-				referenceType,
-			})
-		);
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(
+	// 		getAllWorkBoard({
+	// 			pageNo: 1,
+	// 			pageSize: 20,
+	// 			search: "",
+	// 			referenceId,
+	// 			referenceType,
+	// 		})
+	// 	);
+	// }, []);
 
 	const onRow = (record, rowIndex) => {
 		return {
@@ -49,9 +50,7 @@ function WorkBoardDashboard({
 
 	return (
 		<>
-			{loader ? (
-				<Spinner />
-			) : !isTableView ? (
+			{!isTableView ? (
 				<CardWrapper2>
 					{workboardsListData.map(data => (
 						<WorkBoardCard data={data} />
@@ -61,7 +60,7 @@ function WorkBoardDashboard({
 				<Table
 					columns={tableColumn()}
 					dragable={true}
-					// handleChange={handleChange}
+					handleChange={onChange}
 					// onPageChange={onPageChange}
 					onRow={onRow}
 					data={workboardsListData ? workboardsListData : []}

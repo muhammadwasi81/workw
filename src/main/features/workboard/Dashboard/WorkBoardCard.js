@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getWorkboardById } from "../store/action";
 import { useDispatch } from "react-redux";
-import { handleBoardComposer } from "../store/slice";
+import { handleBoardComposer, updaateWorkboardById } from "../store/slice";
 function WorkBoardCard({ data }) {
 	const { Meta } = Card;
 	const navigate = useNavigate();
@@ -65,7 +65,7 @@ function WorkBoardCard({ data }) {
 							onClick={e => {
 								e.preventDefault();
 								e.stopPropagation();
-								dispatch(getWorkboardById(data.id));
+								dispatch(updaateWorkboardById(data.id));
 								dispatch(
 									handleBoardComposer({
 										isEdit: true,

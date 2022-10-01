@@ -2,7 +2,7 @@ import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "api/LeadManager/";
 const API_SECTION_PREFIX = "api/LeadManagerSection/";
 const API_LEAD_MANAGER_PREFIX = "api/LeadManagerDetail/";
-const API_LEAD_MANAGER_CONTACT_PREFIX = "api/LeadManagerContact/";
+const API_LEAD_MANAGER_CONTACT_PREFIX = "api/LeadManagerDetailContact/";
 
 export const addLeadManagerService = data => {
 	return MasterConfig.post(`${API_PREFIX}AddLeadManager`, data)
@@ -93,7 +93,7 @@ export const getLeadManagerSectionDetailByIdService = id => {
 
 export const addLeadManagerContactService = data => {
 	return MasterConfig.post(
-		`${API_LEAD_MANAGER_CONTACT_PREFIX}AddLeadManagerContact`,
+		`${API_LEAD_MANAGER_CONTACT_PREFIX}AddLeadManagerDetailContact`,
 		data
 	)
 		.then(res => {
@@ -119,7 +119,7 @@ export const updateLeadManagerDetailService = data => {
 
 export const getLeadManagerContactDetailService = id => {
 	return MasterConfig.get(
-		`${API_LEAD_MANAGER_CONTACT_PREFIX}GetLeadManagerContactById?id=${id}`
+		`${API_LEAD_MANAGER_CONTACT_PREFIX}GetLeadManagerDetailContactById?id=${id}`
 	)
 		.then(res => {
 			return res.data;
@@ -131,7 +131,7 @@ export const getLeadManagerContactDetailService = id => {
 
 export const updateLeadManagerContactService = data => {
 	return MasterConfig.put(
-		`${API_LEAD_MANAGER_CONTACT_PREFIX}UpdateLeadManagerContact`,
+		`${API_LEAD_MANAGER_CONTACT_PREFIX}UpdateLeadManagerDetailContact`,
 		data
 	)
 		.then(res => {

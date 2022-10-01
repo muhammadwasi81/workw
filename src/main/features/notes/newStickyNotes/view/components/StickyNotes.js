@@ -20,8 +20,6 @@ function StickyNotes() {
         // </Draggable>
       ))}
       <StickyContainer />
-      {/* <StickyColor/> */}
-      {/* </Provider> */}
     </>
   );
 }

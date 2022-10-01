@@ -95,7 +95,7 @@ const StickyContainer = () => {
           </div>
 
           {/* <SearchBox /> */}
-          <div className="search_Box">
+          <div className={`search_Box ${!minimize ? "minimize" : ""}`}>
             <Input
               placeholder="Search"
               style={{ width: "300px" }}
@@ -103,11 +103,13 @@ const StickyContainer = () => {
               prefix={<SearchOutlined />}
             />
           </div>
+          
           {notesList.length > 0
             ? notesList.map((item) =>
                     <CustomCard item={item} onDoubleClick={openClickedNote}/>
                )
             : "Nothing"}
+          
         </div>
       </Draggable>
     </>

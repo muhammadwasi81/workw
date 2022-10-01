@@ -11,12 +11,12 @@ const StickyColor = ({item}) => {
   const dispatch=useDispatch();
   const color=useSelector((state)=>state.stickySlice.colorPicker);
 
-  console.log(item);
+  console.log(item, "ITem Heree");
 
 
   const selectColorHandler = (e) => {
-    console.log("clicked");
-    console.log(item);
+    // console.log("clicked");
+    // console.log(item);
 
 
     const colorValue = e.target.getAttribute("value");

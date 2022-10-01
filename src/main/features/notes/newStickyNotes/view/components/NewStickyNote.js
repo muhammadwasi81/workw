@@ -38,7 +38,7 @@ const NewStickyNote = ({ item }) => {
     // dispatch(openColorPicker());
   };
 
-const NewStickyNote = ({item}) => {
+// const NewStickyNote = ({item}) => {
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
     <Menu
@@ -119,7 +119,7 @@ const NewStickyNote = ({item}) => {
           // style={{ display: !openColor ? "initial" : "none" }}
         >
           <div className="stickyNote_header">
-          {openColor && <StickyColor id={item.id} />}
+          {openColor && <StickyColor item={item} />}
             <p>Title</p>
             {/* <Input placeholder="Title" style={{backroundColor:"#0f4c81"}} /> */}
 

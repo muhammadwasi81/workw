@@ -26,6 +26,20 @@ export const addFormService = (data) => {
     });
 };
 
+export const submitFormService = (data) => {
+  console.log("data from form", data);
+  // const formData = jsonToFormData(data);
+  console.log("formdatatoFormdata", data);
+  return MasterConfig.post(`api/Form/AddFormAttempt`, data)
+    .then((res) => {
+      console.log(res, "response from dept service");
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
 export const GetFormByIdService = (id) => {
   // console.log("ID FROM SERVICE", id);
   return MasterConfig.get(`api/Form/GetFormById?id=${id}`)

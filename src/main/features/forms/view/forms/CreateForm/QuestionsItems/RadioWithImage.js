@@ -23,7 +23,9 @@ const RadioWithImage = (props) => {
                   <img
                     src={
                       image
-                        ? image
+                        ? (window.URL || window.webkitURL).createObjectURL(
+                            image.file
+                          )
                         : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
                     }
                     // src={{typeof image === 'string' ? image : getBase64(image, (result)=>  result)}}

@@ -3,6 +3,7 @@ import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import {
   addFormService,
+  submitFormService,
   getAllFormsService,
   GetFormByIdService,
 } from "../services/service";
@@ -26,6 +27,21 @@ export const addForm = createAsyncThunk(
     const res = await addFormService(data);
     if (res.data?.responseCode === responseCode.Success) {
       message.success("Form Created");
+      console.log("res from actions", res);
+      return res;
+    } else {
+      message.error(res.statusText);
+      return rejectWithValue(res.statusText);
+    }
+  }
+);
+
+export const submitForm = createAsyncThunk(
+  "Form/SubmitForm",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await submitFormService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Form Submitted");
       console.log("res from actions", res);
       return res;
     } else {

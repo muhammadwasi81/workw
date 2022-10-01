@@ -33,12 +33,15 @@ function ListItem(props) {
         </ItemHeader>
         <ItemContent className="ItemContent">
           <h3>{item.subject}</h3>
-          <p>{item.description}</p>
+          {/* <p>{item.description}</p> */}
           <h3>FR-00032</h3>
         </ItemContent>
         <div className="ItemFooter">
           <Link to={ROUTES.FORMS.SUBMIT_FORM + "/dfdfdf"}>
             <Button className="ThemeBtn">Copy Link</Button>
+          </Link>
+          <Link to={ROUTES.FORMS.EDIT_FORM + `/?id=${id}`}>
+            <Button className="ThemeBtn">Edit</Button>
           </Link>
           <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
             <Button className="ThemeBtn">Attempt</Button>

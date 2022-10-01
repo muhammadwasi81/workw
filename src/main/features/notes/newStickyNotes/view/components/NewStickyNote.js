@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 
 const { TextArea } = Input;
 
-const NewStickyNote = () => {
+const NewStickyNote = ({item}) => {
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
     <Menu

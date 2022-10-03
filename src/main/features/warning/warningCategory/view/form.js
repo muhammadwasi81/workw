@@ -14,15 +14,12 @@ import {
 export default function WarningCategoryForm({ data, onSubmit, loading, setClearButton, clearButton  }) {
   const [form, setForm] = useState(data);
 
-  console.log(clearButton)
-
   const handleClear = (e) => {
       setForm({...form, description: "", name: ""})
       setClearButton(false)
   }
 
   const handelChangeName = (e) => {
-    console.log(e.target.value)
     if (e.target.value.length > 0) {
       setClearButton(true)
     } else {

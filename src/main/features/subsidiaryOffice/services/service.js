@@ -11,7 +11,15 @@ export const getAllBranchOfficeService = () => {
 };
 
 export const addbranchOfficeService = args => {
-	return MasterConfig.post(`api/BranchOffice/AddBranchOffice`, args)
+	return MasterConfig.post(`api/BranchOffice/AddBranchOffice`, {
+		id: "a46a5d1e-ce2d-4e60-868e-c7461d109a71",
+		branchId: "b2078de1-a1ed-4aea-a959-7a9ef030f7f7",
+		name: "Salman",
+		address: "string",
+		lat: 0,
+		lng: 0,
+		isDefault: true
+	})
 		.then(res => {
 			return res.data;
 		})
@@ -20,7 +28,7 @@ export const addbranchOfficeService = args => {
 		});
 };
 export const updateBranchService = args => {
-	return MasterConfig.put(`api/Branch/UpdateBranch`, args)
+	return MasterConfig.put(`api/BranchOffice/UpdateBranchOffice`, args)
 		.then(res => {
 			return res.data;
 		})

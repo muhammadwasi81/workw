@@ -15,8 +15,9 @@ function StickyNotes() {
   return (
     <>
       {stickynote.filter(it=>it.isOpen).map((item, index) => (
+        
         // <Draggable defaultPosition={{ x: 12, y: 450 }} key={index}>
-          <NewStickyNote item={item} />
+          <NewStickyNote item={item} index={item.id}/>
         // </Draggable>
       ))}
       <StickyContainer />

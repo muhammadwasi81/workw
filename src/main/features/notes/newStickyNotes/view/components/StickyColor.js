@@ -1,42 +1,43 @@
-import React from "react";
+import React,{useState} from "react";
 import { CloseOutlined, DeleteOutlined } from "@ant-design/icons";
 import "../../style.css";
 import {} from "antd";
 import "antd/dist/antd.css";
 import { useDispatch, useSelector } from "react-redux";
+import {getColorCodeAction} from "../../store/actions";
 import {  selectStickyNoteColor, closeStickyNoteColor} from "../../store/stickySlice";
 
 
 const StickyColor = ({item}) => {
   const dispatch=useDispatch();
-  const color=useSelector((state)=>state.stickySlice.colorPicker);
+  // const color=useSelector((state)=>state.stickySlice.colorCode);
+  // console.log("COLORSSSSSS",color);
 
-  console.log(item, "ITem Heree");
 
 
   const selectColorHandler = (e) => {
     // console.log("clicked");
     // console.log(item);
-
-
     const colorValue = e.target.getAttribute("value");
     console.log(colorValue);
-    const id=item.id;
-    console.log("idddd",id);
-    dispatch(selectStickyNoteColor({colorValue,id}));
+    // const id=item.id;
+    // console.log("idddd",id);
+    dispatch(getColorCodeAction({...item,colorCode:colorValue,}));
+    console.log("COLOR VALUE",colorValue);
+console.log("color codeeeeeee",item.colorCode);
   };
 
   const closeColorHandler=()=>{
     dispatch(closeStickyNoteColor());
   }
   const colors = [
-    "rgb(208, 235, 253)",
-    "rgba(205, 241, 205, 0.77)",
-    "rgb(241, 211, 217)",
-    "rgb(251, 251, 232)",
-    "rgb(241, 241, 241)",
-    "rgb(255, 255, 255)",
-    "rgb(255, 250, 243)",
+    "#FDEBD0",
+    "#cdf1cd",
+    "#f1d3d9",
+    "#fbfbe8",
+    "#f1f1f1",
+    "#ffffff",
+    "#fffaf3",
   ];
 
   return (
@@ -62,9 +63,9 @@ const StickyColor = ({item}) => {
           Delete Note
         </div> */}
         <hr />
-        <div className="note__iconHOVER-dlt">
+        <div className="note__iconHOVER-dlt" onClick={closeColorHandler}>
           <div>
-            <CloseOutlined onClick={closeColorHandler} />
+           <CloseOutlined  />
           </div>
           Close Colors
         </div>

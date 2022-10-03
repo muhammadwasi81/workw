@@ -13,15 +13,11 @@ import {
 } from "@ant-design/icons";
 import "../../style.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  handleChangeNote,
-  closeStickyNote,
-  deleteStickyNote,
-  openColorPicker,
-} from "../../store/stickySlice";
+import { handleChangeNote, closeStickyNote, closeStickyNoteColor,addImage, targetTitleVal, targetStickyDescription } from "../../store/stickySlice";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import StickyColor from "./StickyColor";
+import { deleteStickyAction, getStickyNoteTitleAction,getStickyNoteDescAction } from "../../store/actions";
 
 // const axis = {
 //   x_axis: String(Math.floor(Math.random() * 40) + 12) + "%",
@@ -30,15 +26,37 @@ import StickyColor from "./StickyColor";
 
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(false);
+  const [title,setTitle]=useState();
+  const [images,setImage]=useState([]);
   const dispatch = useDispatch();
 
   const openColorHandler = () => {
     setOpenColor(true);
-    console.log(openColor);
-    // dispatch(openColorPicker());
+    console.log("open color", openColor);
   };
 
-// const NewStickyNote = ({item}) => {
+  const bgColor = useSelector((state) => {
+    return state.stickySlice.bgColor;
+  });
+  // console.log(bgColor,"BG COLOR");
+
+
+  
+  const uploadImageHandler = (e) => {
+    const image = e.target.files[0];
+    console.log(image);
+    const url = URL.createObjectURL(image);
+    setImage(url);
+    // console.log(url);
+    // const id = item.id;
+    // console.log("ID",id);
+    // dispatch(addImage({ url, id }));
+    console.log(url,"add images");
+    console.log(images,"IMAGE STATE");
+  };
+
+  let imgSrc=item.img;
+  console.log("ADD IMAGES",imgSrc);
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
     <Menu
@@ -70,17 +88,28 @@ const NewStickyNote = ({ item }) => {
           key: "1",
         },
         {
-          label: <a onClick={openColorHandler} >Color</a>,
+          label: (
+            <div>
+              <a style={{ textDecoration: "none", color: "Black" }}>Color</a>
+              <div>{openColor && <StickyColor item={item} />}</div>
+            </div>
+          ),
 
-          icon: [<HighlightOutlined onClick={openColorHandler} />],
+          icon: <HighlightOutlined onClick={openColorHandler} />,
           key: "2",
         },
       ]}
     />
   );
 
+  let stickyText;
   const handleChange = (e) => {
-    dispatch(handleChangeNote());
+    console.log(e);
+    stickyText = e;
+    console.log("stickyTexr",stickyText);
+    const id=item.id
+    dispatch(getStickyNoteDescAction({...item, description:stickyText}));
+    
   };
 
   const closeStickyNotes = () => {
@@ -88,13 +117,23 @@ const NewStickyNote = ({ item }) => {
   };
 
   const deleteStickyNotes = () => {
-    dispatch(deleteStickyNote(item.id));
+    dispatch(deleteStickyAction(item.id));
+    console.log("deleted", item.id);
   };
+let stickyTitle;
+  const getTitleValue=(e)=>{
+    stickyTitle = e.target.value;
+    setTitle(e.target.value);
+    // const id=item.id;
+    dispatch(getStickyNoteTitleAction({ ...item,title:stickyTitle })); 
+   console.log("TITLEE",item.title);
+  }
 
   const modules = {
     toolbar: [
       ["bold", "italic", "underline"],
       [{ list: "ordered" }, { list: "bullet" }],
+      [],
     ],
   };
   const formats = {
@@ -118,9 +157,17 @@ const NewStickyNote = ({ item }) => {
           className="stickyNote_container"
           // style={{ display: !openColor ? "initial" : "none" }}
         >
-          <div className="stickyNote_header">
-          {openColor && <StickyColor item={item} />}
-            <p>Title</p>
+          <div
+            className="stickyNote_header"
+            style={{ backgroundColor: item.colorCode }}
+          >
+            <input
+              placeholder="Title"
+              onChange={getTitleValue}
+              defaultValue={item.title}
+              style={{ backgroundColor: item.colorCode }}
+              className="sticky_titleContainer"
+            />
             {/* <Input placeholder="Title" style={{backroundColor:"#0f4c81"}} /> */}
 
             {/* ******Drop Down menu (color, copy, share) on three dot****** */}
@@ -138,7 +185,6 @@ const NewStickyNote = ({ item }) => {
           </div>
 
           {/* *******Insert text area and image********* */}
-          {/* <PictureOutlined className="image_icon" /> */}
 
           <div className="textArea_container">
             <ReactQuill
@@ -147,36 +193,28 @@ const NewStickyNote = ({ item }) => {
               formats={formats}
               className={"stickyNoteItem-textarea"}
               placeholder="Take a Note"
-              value={item.description}
+              defaultValue={item.description}
             />
+            <div className="img-input-container">
+              <PictureOutlined className="image_icon" />
+              <input
+                type="file"
+                onChange={uploadImageHandler}
+                className="img-input"
+              />
+            </div>
           </div>
 
           {/* **********Insert images******** */}
           <div className="image_body">
+            {images.map((item)=>{
             <Image
               preview={false}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+              src={images}
               alt="something.png"
               className="image"
             />
-            <Image
-              preview={false}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              alt="something.png"
-              className="image"
-            />
-            <Image
-              preview={false}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              alt="something.png"
-              className="image"
-            />
-            <Image
-              preview={false}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              alt="something.png"
-              className="image"
-            />
+          })}
           </div>
         </div>
       </Draggable>

@@ -1,13 +1,15 @@
 import { createSlice,isPending, isRejected } from "@reduxjs/toolkit";
 import { createGuid,STRINGS } from "../../../../../utils/base";
-import { addSticky } from "./actions";
+import { addSticky,deleteStickyAction,getAllStickyNotesAction,getColorCodeAction,getStickyNoteTitleAction,getStickyNoteDescAction } from "./actions";
 
 const defaultSticky = {
- 
-  title: "Test Title here",
-  description: "Description here",
+  id:1,
+  title: "",
+  description: "",
   privacyId: "",
   isOpen: false,
+  colorCode:""
+ 
 };
 
 export const stickySlice = createSlice({
@@ -18,7 +20,7 @@ export const stickySlice = createSlice({
     incrementNotes: [],
     colorPicker: true,
     bgColor: "",
-
+    openImageSrc: "",
   },
   reducers: {
     closeSticky: (state) => {
@@ -35,7 +37,6 @@ export const stickySlice = createSlice({
       state.listArray = [
         ...state.listArray,
         {
-          id: createGuid(),
           ...defaultSticky
         }
       ];
@@ -56,28 +57,57 @@ export const stickySlice = createSlice({
       state.listArray[currentIndex] = updatedNote;
     },
     deleteStickyNote:(state,action)=>{
-      const id = action.payload;
+      const id = action.payload.id;
      state.listArray = state.listArray.filter(
        (list) => list.id !== id);
    },
+   addImage:(state,action)=>{
+    const values = action.payload;
+    const sticky = state.listArray.find((item) => item.id === values.id);
+    // const noteList = state.listArray.find((item) => item.id === values.id);
+    sticky.img.push(values.imag);
+    // console.img.log("STICKY",sticky);
+    // noteList.push(values.img);
+   },
 
    // ********color picker********
-  //  openColorPicker:(state)=>{
-  //   state.colorPicker = true;
-  //  },
+  
    selectStickyNoteColor:(state,action)=>{
     const color = action.payload;
       const stickyObject = state.listArray.find(
         (stickyNotes) => stickyNotes.id === color.id
       );
+    
       stickyObject.bgColor = color.colorValue;
+    
       const listObject = state.listArray.find((list) => list.id === color.id);
       listObject.bgColor = color.colorValue;
+     
+
    },
    closeStickyNoteColor:(state)=>{
     state.colorPicker = false;
-
    },
+   targetTitleVal: (state, action) => {
+    const val = action.payload;
+    console.log("valueee",val);
+    const listObj = state.listArray.find((list) => list.id === val.id);
+    listObj.title = val.stickyTitle;
+  },
+  targetStickyDescription:(state,action)=>{
+    const val = action.payload;
+      const listObj = state.listArray.find((list) => list.id === val.id);
+      const stickyObj = state.listArray.find(
+        (notes) => notes.id === val.id
+      );
+      const listText =
+        val.stickyText === ""
+          ? (listObj.text = "Take a Note...")
+          : val.stickyText;
+      listObj.text = listText;
+      stickyObj.textArea_value = val.stickyText;
+  }
+
   },
 
   extraReducers:(builder)=>{
@@ -87,7 +117,38 @@ export const stickySlice = createSlice({
       state.loader = false;
       state.success = true;
       state.listArray = [...state.listArray, payload];
-    });
+    })
+   .addCase(deleteStickyAction.fulfilled,(state)=>{
+    state.loader = false;
+    state.success = true;
+   })
+   .addCase(getAllStickyNotesAction.fulfilled,(state,action)=>{
+    state.listArray =action.payload;
+   })
+   .addCase(getColorCodeAction.fulfilled,(state,{payload})=>{
+    state.loader=false;
+    state.success=true;
+    // state.listArray=action.payload;
+    state.listArray=[...state.listArray,payload];
+    console.log(state,"COLOR STATE")
+   })
+   .addCase(getStickyNoteTitleAction.fulfilled,(state,{payload})=>{
+    state.loader=false;
+    state.success=true;
+    // state.listArray=action.payload;
+    state.listArray=[...state.listArray,payload];
+    console.log(state,"title STATE")
+   })
+
+   .addCase(getStickyNoteDescAction.fulfilled,(state,{payload})=>{
+    state.loader=false;
+    state.success=true;
+    // state.listArray=action.payload;
+    state.listArray=[...state.listArray,payload];
+    console.log(state,"DEsc STATE")
+   })
+   
+
   }
 });
   
@@ -101,6 +162,8 @@ export const {
   deleteStickyNote,
   selectStickyNoteColor,
   closeStickyNoteColor,
-  openColorPicker,
+  targetTitleVal,
+  targetStickyDescription,
+  addImage,
 } = stickySlice.actions;
 export default stickySlice.reducer;

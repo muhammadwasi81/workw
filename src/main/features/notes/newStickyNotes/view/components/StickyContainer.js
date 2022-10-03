@@ -12,27 +12,34 @@ import CustomCard from "./CustomCard";
 // import SearchBox from "./SearchBox";
 import "../../style.css";
 import NewStickyNote from "./NewStickyNote";
-
 // *******import redux*******
 import { useSelector, useDispatch } from "react-redux";
 import { closeSticky, addStickyNote, openClickedSticky, showStickyNote} from "../../store/stickySlice";
-
-// import sticky note services
-import {addStickyNotesService} from "../../services/service";
-import { addSticky } from "../../store/actions";
+// import sticky note actions
+import { addSticky,getAllStickyNotesAction } from "../../store/actions";
 import NoteList from "../../../NoteList";
-// const { Title } = Typography;
+
 
 const StickyContainer = () => {
+
+
+  // *********state for sticky notes*******
+  const [minimize, setMinimize] = useState(true);
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
+
+  // const color=useSelector((state)=>state.stickySlice.colorCode);
+  // console.log("COLORSSSSSS",color);
+
+  // ****get redux data for sticky notes*****
   const notesList = useSelector((state) => {
     return state.stickySlice.listArray;
   });
   // console.log("stikcy note data", sticky_note);
 
-  // *********state for sticky notes*******
-  const [minimize, setMinimize] = useState(true);
-  const [search, setSearch] = useState("");
+  useEffect(()=>{
+    dispatch(getAllStickyNotesAction({}));
+  },[])
 
   // ********search handler***********
   const searchHandler = (e) => {
@@ -43,7 +50,7 @@ const StickyContainer = () => {
   };
 
   // *****search filter*****
-  // const filteredData = sticky_note.filter((list) => {
+  // const filteredData = item.filter((list) => {
   //   if (search === "") {
   //     return list;
   //   } else {
@@ -103,13 +110,14 @@ const StickyContainer = () => {
               prefix={<SearchOutlined />}
             />
           </div>
-          
+          {/* <div className="noteList-container"> */}
           {notesList.length > 0
             ? notesList.map((item) =>
                     <CustomCard item={item} onDoubleClick={openClickedNote}/>
                )
             : "Nothing"}
           
+        {/* </div> */}
         </div>
       </Draggable>
     </>

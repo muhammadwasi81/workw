@@ -16,6 +16,7 @@ const QuestionWithType = (props) => {
   const [question, setQuestion] = useState(" ");
   const [questionType, setQuestionType] = useState(3);
   const [fileList, setFileList] = useState([]);
+  const [quesionImage, setQuestionImage] = useState();
 
   const handleImageChange = (info, index, action) => {
     console.log("index", index);
@@ -28,6 +29,11 @@ const QuestionWithType = (props) => {
         },
       ]);
     }
+  };
+
+  const handleQuestionImageChange = (info) => {
+    console.log("image", info);
+    setQuestionImage(info.fileList[0]);
   };
 
   const onQuestionTypeChange = (value) => {
@@ -48,6 +54,7 @@ const QuestionWithType = (props) => {
         ...values,
         fileList: fileList,
         options: [],
+        image: quesionImage && quesionImage,
       };
     }
     console.log(data, "data here console");
@@ -57,9 +64,22 @@ const QuestionWithType = (props) => {
 
   return (
     <Form onFinish={onFinish} form={form}>
-      <Form.Item name="Question">
-        <Input placeholder="Question.." />
-      </Form.Item>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Form.Item name="Question">
+          <Input placeholder="Question.." style={{ width: "40em" }} />
+        </Form.Item>
+        <Form.Item className="optionClass">
+          <Upload
+            onChange={(info) => handleQuestionImageChange(info)}
+            accept="*"
+            beforeUpload={() => false}
+            multiple={false}
+            defaultFileList={[]}
+          >
+            <Button icon={<UploadOutlined />}></Button>
+          </Upload>
+        </Form.Item>
+      </div>
       <Form.Item name="answerType">
         <Select
           placeholder="Select Answer Type"

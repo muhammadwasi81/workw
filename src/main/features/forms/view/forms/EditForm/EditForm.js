@@ -197,9 +197,21 @@ const EditForm = (props) => {
     // console.log("formData", formData);
   };
 
-  const handleChange = (items) => {
-    console.log(items);
+  const handleChange = (e) => {
+    console.log("change items", e.target.value);
+    //TODO: setState for fields
   };
+
+  const handeChangeTitle = (e) => {
+    console.log("change title", e.target.value);
+    //TODO: setState for fields
+  };
+
+  const handleChangeDescription = (e) => {
+    console.log("change Description", e.target.value);
+    //TODO: setState for fields
+  };
+
   const handleSequenceChange = (items) => {
     console.log(items);
     let filteredData = items.map((item, index) => {
@@ -222,6 +234,8 @@ const EditForm = (props) => {
             title={formData.subject}
             description={formData.description}
             isAcceptingResp={formData.acceptingResponse}
+            handleChangeTitle={handeChangeTitle}
+            handleDescriptionChange={handleChangeDescription}
           />
           <DrangableQuestions
             questions={formData.question}
@@ -264,6 +278,7 @@ const EditForm = (props) => {
                 </>
               ))}
           </DrangableQuestions>
+          <Button type="primary">Edit Form</Button>
         </div>
       </div>
     </>

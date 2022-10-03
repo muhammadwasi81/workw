@@ -11,7 +11,7 @@ const Radio = (props) => {
   } = props;
   const { answers } = question;
 
-  console.log("radio", props);
+  // console.log("radio", props);
 
   return (
     <>

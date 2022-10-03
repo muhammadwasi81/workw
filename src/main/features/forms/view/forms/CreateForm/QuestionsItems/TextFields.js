@@ -5,6 +5,7 @@ import { HolderOutlined } from "@ant-design/icons";
 const TextFields = (props) => {
   const { type, fieldData, handleChange, index } = props;
   const [isImage, setIsImage] = useState(false);
+  console.log(fieldData);
   return (
     <>
       <div className="c-row txt-fields bg-clr p_15 flex">
@@ -12,7 +13,11 @@ const TextFields = (props) => {
           <div>
             {fieldData.image && (
               <div className="QuesImg" style={{ width: "50px" }}>
-                <img src={fieldData.image} />{" "}
+                <img
+                  src={(window.URL || window.webkitURL).createObjectURL(
+                    fieldData?.image?.file
+                  )}
+                />{" "}
               </div>
             )}
             <input

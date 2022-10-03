@@ -91,6 +91,7 @@ export const CreateFormParent = (props) => {
         answerType: elem.answerType,
         sequence: index,
         question: elem.Question,
+        image: { file: elem.image.originFileObj },
         createBy: user.id,
         answers: elem.options
           ? // ? append(elem.options, elem.fileList[index]?.originFileObj)
@@ -106,12 +107,6 @@ export const CreateFormParent = (props) => {
     console.log("data getting from create form component", values);
     setQuestions([...question, values]);
   };
-
-  // const createForm = () => {
-  //   // console.log("create form done!!!!");
-  //   // console.log("data object", dataObj);
-  //   dispatch(addForm(dataObj));
-  // };
 
   const subDescriptionGet = (values) => {
     // console.log("sub description", values);

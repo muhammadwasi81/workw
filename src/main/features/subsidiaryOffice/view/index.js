@@ -32,7 +32,7 @@ export default function SubsidiaryOffice() {
         setClearButton(true)
         return;
       }
-      dispatch(updateBranch(e));
+      dispatch(updateBranch({...e, isDefault: true}));
 
       setSubsidiary(initialState);
     }

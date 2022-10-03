@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminContainer } from "../../../../../components/HrMenu/Administration/StyledComponents/admin";
@@ -18,27 +19,31 @@ export default function RewardCategory() {
   };
 
   const onSubmit = (e) => {
-    if (!e.id) {
-      dispatch(addRewardCategory(e));
+    if (e.name === "" || e.description === "") {
+      message.error("Please fill all required fields")
+    } else {
+      if (!e.id) {
+        dispatch(addRewardCategory(e));
+        setRewardCategory(initialState);
+        setClearButton(true)
+        return;
+      }
+      dispatch(updateRewardCategory(e));
       setRewardCategory(initialState);
-      setClearButton(true)
-      return;
     }
-    dispatch(updateRewardCategory(e));
-    setRewardCategory(initialState);
   };
   return (
     <AdminContainer>
-      <RewardCategoryForm 
-        clearButton={clearButton} 
-        setClearButton={setClearButton} 
-        data={rewardCategory} 
-        onSubmit={onSubmit} 
-        loading={loader} 
+      <RewardCategoryForm
+        clearButton={clearButton}
+        setClearButton={setClearButton}
+        data={rewardCategory}
+        onSubmit={onSubmit}
+        loading={loader}
       />
-      <RewardCategoryTable 
-         setClearButton={setClearButton}
-         clearButton={clearButton}
+      <RewardCategoryTable
+        setClearButton={setClearButton}
+        clearButton={clearButton}
         handleEdit={setRewardCategory}
         handleDelete={handleDelete}
         actionRights={[1, 2]}

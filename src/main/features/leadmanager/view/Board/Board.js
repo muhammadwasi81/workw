@@ -23,6 +23,7 @@ import ContactDetail from "./ContactDetail";
 import ContactDetailSkeleton from "../../UI/Skeleton/ContactDetailSkeleton";
 import { moveDetail, moveSection } from "../../store/slice";
 import AssignMemberModal from "../Modal/AssignMemberModal";
+import BoardTopBar from "./BoardTopBar/BoardTopBar";
 
 function Board() {
 	const [openSectionDetailModal, setOpenSectionDetailModal] = useState(false);
@@ -32,9 +33,9 @@ function Board() {
 	const [selectedMembers, setSelectedMembers] = useState([]);
 	const { id } = useParams();
 	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getLeadManagerById(id));
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(getLeadManagerById(id));
+	// }, []);
 
 	const leadManagerDetail = useSelector(
 		state => state.leadMangerSlice.leadManagerDetail
@@ -112,15 +113,6 @@ function Board() {
 			);
 		}
 	};
-	const items = [
-		{
-			name: leadManagerDetail && leadManagerDetail.name,
-			to: `${ROUTES.LEAD_MANAGER.LEAD_GROUP_DETAIL}${id}`,
-			onClick: () => {
-				dispatch(getLeadManagerById(id));
-			},
-		},
-	];
 
 	const handleSectionDetailModal = () => {
 		setOpenSectionDetailModal(!openSectionDetailModal);
@@ -163,7 +155,6 @@ function Board() {
 
 	return (
 		<>
-			<Header items={items} />
 			<TabbableContainer className="">
 				<ContBody className="!block">
 					<DragDropContext onDragEnd={handleDragEnd}>

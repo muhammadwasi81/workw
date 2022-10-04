@@ -21,7 +21,11 @@ import {
 import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
 import ContactDetail from "./ContactDetail";
 import ContactDetailSkeleton from "../../UI/Skeleton/ContactDetailSkeleton";
-import { moveDetail, moveSection } from "../../store/slice";
+import {
+	handleAssignMemberModal,
+	moveDetail,
+	moveSection,
+} from "../../store/slice";
 import AssignMemberModal from "../Modal/AssignMemberModal";
 import BoardTopBar from "./BoardTopBar/BoardTopBar";
 
@@ -51,6 +55,10 @@ function Board() {
 	);
 	const leadManagerSectionDetailData = useSelector(
 		state => state.leadMangerSlice.leadManagerSectionDetailData
+	);
+
+	const isAssignMemberModalOpen = useSelector(
+		state => state.leadMangerSlice.isAssignMemberModalOpen
 	);
 
 	// const contactUpdate = useSelector(
@@ -113,14 +121,12 @@ function Board() {
 			);
 		}
 	};
-
 	const handleSectionDetailModal = () => {
 		setOpenSectionDetailModal(!openSectionDetailModal);
 	};
 	const handleContactDetailModal = () => {
 		setOpenContactDetailModal(!openContactDetailModal);
 	};
-
 	const handleMemberModal = () => {
 		setOpenMemeberModal(!openMemeberModal);
 	};
@@ -231,16 +237,22 @@ function Board() {
 				className={""}
 			/>
 			<CustomModal
-				isModalVisible={openMemeberModal}
-				onCancel={handleMemberModal}
+				isModalVisible={isAssignMemberModalOpen}
+				onCancel={() => {
+					dispatch(handleAssignMemberModal());
+				}}
 				title="Assign Members"
 				footer={null}
 				centered={true}
 				children={
 					<AssignMemberModal
+						defaultData={leadManagerDetail?.members}
 						onChange={handleSelectedMembers}
 						placeholder="Search Members"
 						selectedMembers={selectedMembers}
+						isPrivate={
+							leadManagerDetail?.privacyId === 1 ? true : false
+						}
 						handleDeleteMember={handleDeleteMember}
 					/>
 				}

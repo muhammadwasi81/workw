@@ -11,11 +11,18 @@ import { leadSectionEnum } from "../../../../enum/enum";
 function SectionForm(props) {
 	const Option = Select;
 	const loading = useSelector(state => state.leadMangerSlice.loading);
+	const leadManagerDetail = useSelector(
+		state => state.leadMangerSlice.leadManagerDetail
+	);
+	// console.log('leadManagerDetail?.leadManagerDetail?.sections',);
 	return (
 		<div className="bg-white p-3 rounded-sm">
 			<Form
 				name="basic"
-				initialValues={{ typeId: 1, sectionId: 1 }}
+				initialValues={{
+					typeId: 1,
+					sectionId: leadManagerDetail?.sections[0].id,
+				}}
 				layout={"vertical"}
 				onFinish={props.onFinish}
 				autoComplete="off"
@@ -92,7 +99,7 @@ function SectionForm(props) {
 				{props.list && (
 					<Form.Item name="sectionId" label="Section">
 						<Select>
-							{leadSectionEnum.map(leadSection => (
+							{leadManagerDetail?.sections.map(leadSection => (
 								<Option
 									value={leadSection.id}
 									key={leadSection.id}

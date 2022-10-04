@@ -34,7 +34,7 @@ function SectionDetail(props) {
 	const { data } = props;
 
 	const [image, setImage] = useState(
-		data.image
+		data?.image
 			? data.image
 			: "https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
 	);
@@ -54,7 +54,7 @@ function SectionDetail(props) {
 	};
 
 	return (
-		<div className="flex gap-5">
+		<div className="gap-5 flex flex-col 2xl:flex-row  ">
 			<section className="flex flex-col gap-3 basis-7/12">
 				<div className="overflow-hidden relative h-[200px]">
 					<img
@@ -247,8 +247,8 @@ function SectionDetail(props) {
 							}
 						>
 							<div className="max-h-60 overflow-y-auto flex flex-col gap-3">
-								{data.contacts.length > 0 ? (
-									data.contacts.map(contact => (
+								{data?.contacts.length > 0 ? (
+									data?.contacts.map(contact => (
 										<div
 											className="bg-white rounded-lg p-2 cursor-pointer hover:bg-primary-color group text-black hover:text-white transition "
 											onClick={() => {
@@ -312,7 +312,7 @@ function SectionDetail(props) {
 
 				<div className="bg-white rounded-xl py-2 max-h-96 overflow-y-auto">
 					<CommentWrapper
-						referenceId={data.id}
+						referenceId={data?.id}
 						isCommentLoad={true}
 						module={7}
 						loadSkeleton={true}

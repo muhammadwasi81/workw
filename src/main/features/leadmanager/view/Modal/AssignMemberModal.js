@@ -1,69 +1,58 @@
 import { CloseCircleOutlined } from "@ant-design/icons";
-import { Avatar } from "antd";
+import { Avatar, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getNameForImage } from "../../../../../utils/base";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
-import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+// import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 // import { getNameForImage } from "../../../../utils/base";
 // import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 // import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 
 function AssignMemberModal({
 	onChange,
-	defaultData,
+	defaultData = [],
 	placeholder = "Search",
 	selectedMembers = [],
 	handleDeleteMember = () => {},
 }) {
-	const dispatch = useDispatch();
-	const [value, setValue] = useState([]);
-	const employees = useSelector(state => state.sharedSlice.employees);
-	useEffect(() => {
-		fetchEmployees("", 0);
-	}, []);
+	const Option = Select;
 
-	useEffect(() => {
-		setValue(defaultData);
-	}, [defaultData]);
-
-	const fetchEmployees = (text, pgNo) => {
-		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	const handleSelectChange = value => {
+		const filterArrOfObj = defaultData.filter(
+			val => val.memberId === value
+		);
+		onChange("", filterArrOfObj);
 	};
-
-	const selectedData = (data, obj) => {
-		setValue(data);
-		onChange(data, obj);
-	};
-
 	return (
 		<>
-			<MemberSelect
-				data={employees}
-				selectedData={selectedData}
-				canFetchNow={employees && employees.length > 0}
-				fetchData={fetchEmployees}
-				placeholder={placeholder}
-				mode={""}
-				isObject={true}
-				loadDefaultData={false}
-				formItem={false}
-				emptyStateAfterSelect={true}
-				optionComponent={opt => {
-					return (
-						<>
-							<Avatar src={opt.image} className="!bg-black">
-								{getNameForImage(opt.name)}
-							</Avatar>
-							{opt.name}
-						</>
-					);
+			<Select
+				size="large"
+				value={[]}
+				onChange={value => {
+					handleSelectChange(value);
 				}}
-				dataVal={value}
-				name="members"
+				className="w-full"
+				placeholder={placeholder}
 				showSearch={true}
-			/>
+				optionFilterProp="children"
+			>
+				{defaultData.map(data => (
+					<>
+						<Option key={data.member.id} value={data.member.id}>
+							<Avatar
+								src={data.member.image}
+								className="!bg-black !mr-3"
+							>
+								{getNameForImage(data.member.name)}
+							</Avatar>
+							{data.member.name}
+						</Option>
+					</>
+				))}
+			</Select>
+
 			<hr />
 			<div className="max-h-96 overflow-y-auto">
 				{selectedMembers.map(element => (

@@ -4,7 +4,7 @@ import { ROUTES } from "../../../../../utils/routes";
 import LayoutHeader from "../../../../layout/header";
 import BoardComposer from "../Composer/BoardComposer";
 import { useSelector, useDispatch } from "react-redux";
-import { handleComposer } from "../../store/slice";
+import { handleComposer, resetLeadManagerDetail } from "../../store/slice";
 // import { handleBoardComposer } from "../store/slice";
 
 const initialComposerData = {
@@ -20,19 +20,9 @@ function Header({ dictionary, direction }) {
 	const dispatch = useDispatch();
 	const { createTextBtn, dashboard, labels } = dictionary;
 	const { createGrp, updateGrp } = labels;
-	const {
-		loading,
-		success,
-		isComposerOpen,
-		isEditComposer,
-		leadManagerDetail,
-		isComposerDataLoading,
-	} = useSelector(state => state.leadMangerSlice);
-
-	const [composerData, setComposerData] = useState(initialComposerData);
-	// console.log("composerData", leadManagerDetail);
-	const isEdited = isEditComposer;
-	// const [isEdited, setIsEdited] = useState(false);
+	const { loading, success, isComposerOpen, isEditComposer } = useSelector(
+		state => state.leadMangerSlice
+	);
 
 	const items = [
 		{
@@ -45,41 +35,31 @@ function Header({ dictionary, direction }) {
 		dispatch(handleComposer({ isOpen }));
 	};
 
-	useEffect(() => {
-		if (isEditComposer && leadManagerDetail && !isComposerDataLoading) {
-			setComposerData(leadManagerDetail);
-		} else {
-			setComposerData(initialComposerData);
-		}
-	}, [
-		isComposerOpen,
-		isEditComposer,
-		leadManagerDetail,
-		isComposerDataLoading,
-	]);
-
 	const buttons = [
 		{
-			buttonText: createTextBtn,
-			onClick: () => handleOpenDrawer(true),
+			// buttonText: createTextBtn,
+			// onClick: () => handleOpenDrawer(true),
 			render: (
 				<SideDrawer
 					children={
 						<BoardComposer
-							isEdit={isEdited}
-							composerData={composerData}
-							dataLoading={isComposerDataLoading}
+							isEdit={isEditComposer}
 							loading={loading}
 							dictionary={dictionary}
 							direction={direction}
+							labels={labels}
 						/>
 					}
-					title={isEdited ? updateGrp : createGrp}
+					title={isEditComposer ? updateGrp : createGrp}
 					buttonText={createTextBtn}
 					isAccessDrawer={true}
-					setOpenDrawer={handleOpenDrawer}
 					openDrawer={isComposerOpen}
 					success={success}
+					handleClose={() => {
+						setTimeout(() => {
+							dispatch(resetLeadManagerDetail());
+						}, 100);
+					}}
 				/>
 			),
 		},

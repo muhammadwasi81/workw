@@ -1,7 +1,10 @@
 import React from "react";
 import { CardWrapper2 } from "../../../../../sharedComponents/Card/CardStyle";
 import { getLeadManagerById } from "../../../store/actions";
-import { handleComposer } from "../../../store/slice";
+import {
+	getLeadManagerGroupDetailById,
+	handleComposer,
+} from "../../../store/slice";
 import DashboardCardLayout from "../../../UI/DashboardCard/DashboardCardLayout";
 
 function GridView({
@@ -22,7 +25,7 @@ function GridView({
 						}
 						loading={loading}
 						handleUpdate={() => {
-							dispatch(getLeadManagerById(manager.id));
+							dispatch(getLeadManagerGroupDetailById(manager.id));
 							dispatch(
 								handleComposer({ isOpen: true, isEdit: true })
 							);

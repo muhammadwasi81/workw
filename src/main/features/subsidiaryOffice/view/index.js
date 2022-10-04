@@ -22,7 +22,6 @@ export default function SubsidiaryOffice() {
 
 
   const onSubmit = (e) => {
-    console.log(e, "FINALL VALUESSS")
     if (e.name === "" || e.address === "") {
       message.error("Please fill all required fields")
     } else {
@@ -33,7 +32,6 @@ export default function SubsidiaryOffice() {
         return;
       }
       dispatch(updateBranch({...e, isDefault: true}));
-
       setSubsidiary(initialState);
     }
   };

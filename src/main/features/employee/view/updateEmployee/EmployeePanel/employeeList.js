@@ -36,7 +36,7 @@ const EmployeeList = ({ id }) => {
                     navigate(to(userId));
                   }}
                 >
-                  {IconName}
+                  {IconName} 
                   {!isTabletOrMobile && employee[displayName]}
                 </Link>
               </Tooltip>

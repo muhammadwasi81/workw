@@ -403,6 +403,7 @@ const en = {
     Experience: "Experience",
     Rebate: "Rebate",
     Salary: "Salary",
+    Leaves: "Leaves",
   },
   administration: {
     Subsidiary_Office: "Subsidiary Office",

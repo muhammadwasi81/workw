@@ -10,11 +10,8 @@ import { useDispatch,useSelector } from "react-redux";
 
 
 const CustomCard = ({ item, onDoubleClick }) => {
-  console.log("COLORCODEEEEEE",item.colorCode);
   const dispatch=useDispatch();
 
-  const color=useSelector((state)=>state.stickySlice.colorCode);
-  console.log("COLORSSSSSS",color);
   //********current date in sticky notes********
   const current = new Date();
   const time = current.toLocaleTimeString("en-US", {
@@ -30,16 +27,13 @@ const CustomCard = ({ item, onDoubleClick }) => {
     (current.getMonth() + 1) +
     "/" +
     current.getDate();
-  console.log(dates);
 
   const [date, setDate] = useState(dates);
 
   const deleteStickyNoteHandler=()=>{
     dispatch(deleteStickyAction(item.id));
-    console.log("deleted",item.id);
   }
-//  const colorCodee=item.colorCode;
-//  console.log(colorCodee,"COLORSSSS");
+
   return (
     <>
       <Card
@@ -51,7 +45,7 @@ const CustomCard = ({ item, onDoubleClick }) => {
         bordered
         
         headStyle={{ fontWeight: "bold", fontSize: "14px" }}
-        bodyStyle={{ padding: "0" }}
+        bodyStyle={{ padding: "1" }}
         extra={[
           <div className="time_delete">
             <p className="sticky_time">{time}</p>
@@ -59,8 +53,9 @@ const CustomCard = ({ item, onDoubleClick }) => {
           </div>,
         ]}
         style={{
-          width: 300,
-          // height:120,
+          width: 290,
+          height:100,
+          maxHeight:200,
           marginLeft: "10px",
           marginTop: "10px",
           // alignItems:"center",
@@ -68,9 +63,9 @@ const CustomCard = ({ item, onDoubleClick }) => {
           backgroundColor:item.colorCode,
         }}
       >
-        <p className="sticky_content">
-          {item.description}
-          </p>
+        <div className="sticky_content" dangerouslySetInnerHTML={{__html:item.description}} />
+          {/* {item.description} */}
+          {/* </div> */}
         <p className="sticky_date">{date}</p>
       </Card>
     </>

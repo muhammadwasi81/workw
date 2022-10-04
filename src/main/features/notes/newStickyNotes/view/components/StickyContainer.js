@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Input } from "antd";
 import Draggable from "react-draggable";
 import {
@@ -14,22 +14,21 @@ import "../../style.css";
 import NewStickyNote from "./NewStickyNote";
 // *******import redux*******
 import { useSelector, useDispatch } from "react-redux";
-import { closeSticky, addStickyNote, openClickedSticky, showStickyNote} from "../../store/stickySlice";
+import {
+  closeSticky,
+  addStickyNote,
+  openClickedSticky,
+  showStickyNote,
+} from "../../store/stickySlice";
 // import sticky note actions
-import { addSticky,getAllStickyNotesAction } from "../../store/actions";
+import { addSticky, getAllStickyNotesAction,searchTitleDescAction } from "../../store/actions";
 import NoteList from "../../../NoteList";
 
-
 const StickyContainer = () => {
-
-
   // *********state for sticky notes*******
   const [minimize, setMinimize] = useState(true);
-  const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
 
-  // const color=useSelector((state)=>state.stickySlice.colorCode);
-  // console.log("COLORSSSSSS",color);
+  const dispatch = useDispatch();
 
   // ****get redux data for sticky notes*****
   const notesList = useSelector((state) => {
@@ -37,32 +36,20 @@ const StickyContainer = () => {
   });
   // console.log("stikcy note data", sticky_note);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getAllStickyNotesAction({}));
-  },[])
+  }, []);
 
   // ********search handler***********
   const searchHandler = (e) => {
     const searchValue = e.target.value;
-    // console.log(searchValue);
-    setSearch(searchValue);
-    console.log(searchValue);
+    dispatch(getAllStickyNotesAction({search:searchValue}));
   };
 
-  // *****search filter*****
-  // const filteredData = item.filter((list) => {
-  //   if (search === "") {
-  //     return list;
-  //   } else {
-  //     return Object.values(list)
-  //       .join(" ")
-  //       .toLowerCase()
-  //       .includes(search.toLowerCase());
-  //   }
-  // });
+  
 
   const addStickyHandler = () => {
-    console.log("Calling")
+    console.log("Calling");
     dispatch(addSticky({}));
   };
 
@@ -77,14 +64,11 @@ const StickyContainer = () => {
     dispatch(closeSticky());
   };
 
-
   // *******open clicked sticky note********
-  const openClickedNote=(note)=>{
-    console.log("clicked note");
+  const openClickedNote = (note) => {
     dispatch(showStickyNote(note.id));
-
-  }
-  console.log(notesList)
+  };
+  // console.log(notesList)
   return (
     <>
       <Draggable defaultPosition={{ x: 11, y: 456 }}>
@@ -97,27 +81,27 @@ const StickyContainer = () => {
             <p className="heading">Sticky Notes</p>
             <div className="right_Icons">
               <MinusOutlined onClick={minimizeHandler} />
-              <CloseOutlined onClick={closeHandler} />
+              <CloseOutlined onClick={closeHandler} className="margin_Icon"/>
             </div>
           </div>
 
           {/* <SearchBox /> */}
-          <div className={`search_Box ${!minimize ? "minimize" : ""}`}>
+          <div className={`search_Box ${!minimize ? "hide" : ""}`}>
             <Input
               placeholder="Search"
+              // value={search}
               style={{ width: "300px" }}
               onChange={searchHandler}
               prefix={<SearchOutlined />}
             />
           </div>
-          {/* <div className="noteList-container"> */}
-          {notesList.length > 0
-            ? notesList.map((item) =>
-                    <CustomCard item={item} onDoubleClick={openClickedNote}/>
-               )
-            : "Nothing"}
-          
-        {/* </div> */}
+          <div className={`noteList-container ${!minimize ? "hide" : ""}`}>
+            {notesList.length >0
+              ? notesList.map((item) => (
+                <CustomCard item={item} onDoubleClick={openClickedNote} />
+                ))
+              : <div><h2>No Notes Found!</h2></div>}
+          </div>
         </div>
       </Draggable>
     </>

@@ -15,16 +15,23 @@ const addSticky_SD = (data) => {
     }
   }
 
+  const saerchSticky_SD=(data)=>{
+    return{
+      "search":data.search?data.search:"",
+    }
+      
+  }
+
   
 
 export const addSticky=createAsyncThunk(
     "stickySlice/addSticky",
     async (payload, { rejectWithValue, dispatch }) => {
-        console.log(payload, "ACTION START add sticky")
+        // console.log(payload, "ACTION START add sticky")
  
         let request = addSticky_SD(payload)
         // const formdataRequest = jsonToFormData(request);
-        console.log(request, "ACTION")
+        // console.log(request, "ACTION")
     
         const response = await addStickyNotesService(request);
         console.log(response)
@@ -46,25 +53,23 @@ export const addSticky=createAsyncThunk(
 export const getColorCodeAction=createAsyncThunk(
   "stickySlice/getColorCodeAction",
   async (payload, { rejectWithValue, dispatch }) => {
-      console.log(payload, "ACTION START COLOR")
+      // console.log(payload, "ACTION START COLOR")
 
       let request = addSticky_SD(payload)
       const formdataRequest = jsonToFormData(request);
-      console.log(formdataRequest, "COLOR ACTION")
+      // console.log(formdataRequest, "COLOR ACTION")
   
       const response = await addStickyNotesService(formdataRequest);
-      console.log(response,"COLOR RESPONSE")
+      // console.log(response,"COLOR RESPONSE")
       switch (response.type) {
         case ResponseType.ERROR:
           return rejectWithValue(response.errorMessage);
         case ResponseType.SUCCESS:
-          // dispatch(selectStickyNoteColor({colorCode:request,id:request}))
-          // console.log(type,"color type added");
-          dispatch(openNotification({
-            message: "Sticky color added Successfully!",
-            type: "success",
-          //   duration: 2
-          }))
+          // dispatch(openNotification({
+          //   message: "Sticky color added Successfully!",
+          //   type: "success",
+          // //   duration: 2
+          // }))
           return response.data;
         default:
           return;
@@ -87,13 +92,12 @@ export const getStickyNoteTitleAction=createAsyncThunk(
         case ResponseType.ERROR:
           return rejectWithValue(response.errorMessage);
         case ResponseType.SUCCESS:
-          dispatch(targetTitleVal())
           // console.log(type,"title type added");
-          dispatch(openNotification({
-            message: "Title added Successfully!",
-            type: "success",
-          //   duration: 2
-          }))
+          // dispatch(openNotification({
+          //   message: "Title added Successfully!",
+          //   type: "success",
+          // //   duration: 2
+          // }))
           return response.data;
         default:
           return;
@@ -101,58 +105,31 @@ export const getStickyNoteTitleAction=createAsyncThunk(
     }
 )
 
-// export const getStickyNoteImageAction=createAsyncThunk(
-//   "stickySlice/getStickyNoteTitleAction",
-//   async (payload, { rejectWithValue, dispatch }) => {
-//       console.log(payload, "ACTIon tITLE value")
 
-//       let request = addSticky_SD(payload)
-//       const formdataRequest = jsonToFormData(request);
-//       console.log(formdataRequest, "Title ACTION")
-  
-//       const response = await addStickyNotesService(formdataRequest);
-//       console.log(response,"Title RESPONSE")
-//       switch (response.type) {
-//         case ResponseType.ERROR:
-//           return rejectWithValue(response.errorMessage);
-//         case ResponseType.SUCCESS:
-//           dispatch(targetTitleVal())
-//           // console.log(type,"title type added");
-//           dispatch(openNotification({
-//             message: "Title added Successfully!",
-//             type: "success",
-//           //   duration: 2
-//           }))
-//           return response.data;
-//         default:
-//           return;
-//       }
-//     }
-// )
 
 
 export const getStickyNoteDescAction=createAsyncThunk(
   "stickySlice/getStickyNoteDescAction",
   async (payload, { rejectWithValue, dispatch }) => {
-      console.log(payload, "ACTIon Desc value")
+      // console.log(payload, "ACTIon Desc value")
 
       let request = addSticky_SD(payload)
       const formdataRequest = jsonToFormData(request);
-      console.log(formdataRequest, "Desc ACTION")
+      // console.log(formdataRequest, "Desc ACTION")
   
       const response = await addStickyNotesService(formdataRequest);
-      console.log(response,"DEsc RESPONSE")
+      // console.log(response,"DEsc RESPONSE")
       switch (response.type) {
         case ResponseType.ERROR:
           return rejectWithValue(response.errorMessage);
         case ResponseType.SUCCESS:
-        dispatch( targetStickyDescription())
+        
           // console.log(type,"title type added");
-          dispatch(openNotification({
-            message: "Desc added Successfully!",
-            type: "success",
-          //   duration: 2
-          }))
+          // dispatch(openNotification({
+          //   message: "Desc added Successfully!",
+          //   type: "success",
+          // //   duration: 2
+          // }))
           return response.data;
         default:
           return;
@@ -163,7 +140,7 @@ export const getStickyNoteDescAction=createAsyncThunk(
 export const getAllStickyNotesAction=createAsyncThunk(
   "stickySlice/getAllStickyNotesAction",
   async (request, { rejectWithValue }) => {
-    console.log(request, "GET REQUEST")
+    // console.log(request, "GET REQUEST")
     const response = await getAllStickyNotesService(request);
     switch (response.type) {
       case ResponseType.ERROR:
@@ -176,6 +153,34 @@ export const getAllStickyNotesAction=createAsyncThunk(
   }
 )
 
+export const searchTitleDescAction=createAsyncThunk(
+  "stickySlice/searchTitleDescAction",
+  async (payload, { rejectWithValue }) => {
+      console.log(payload, "ACTIon search value")
+
+      let request = saerchSticky_SD(payload)
+      // console.log(formdataRequest, "Desc ACTION")
+  
+      const response = await getAllStickyNotesService(request);
+      // console.log(response,"DEsc RESPONSE")
+      switch (response.type) {
+        case ResponseType.ERROR:
+          return rejectWithValue(response.errorMessage);
+        case ResponseType.SUCCESS:
+        
+          // console.log(type,"title type added");
+          // dispatch(openNotification({
+          //   message: "Desc added Successfully!",
+          //   type: "success",
+          // //   duration: 2
+          // }))
+          return response.data;
+        default:
+          return;
+      }
+    }
+)
+
 export const deleteStickyAction=createAsyncThunk("stickySlice/deleteStickyAction",
 async (request, { rejectWithValue,dispatch }) => {
   // console.log(request, "DELETE REQUEST")
@@ -186,15 +191,19 @@ async (request, { rejectWithValue,dispatch }) => {
       return rejectWithValue(response.errorMessage);
     case ResponseType.SUCCESS:
       dispatch(deleteStickyNote({id:request}))
-      dispatch(openNotification({
-        message: "Sticky Note Delete Successfully!",
-        type: "success",
-      //   duration: 2
-      }))
+      // dispatch(openNotification({
+      //   message: "Sticky Note Delete Successfully!",
+      //   type: "success",
+      // //   duration: 2
+      // }))
       return response.data;
     default:
       return;
   }
 }
 )
+
+
+
+
 

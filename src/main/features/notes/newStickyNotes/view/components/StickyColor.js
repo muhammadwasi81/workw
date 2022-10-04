@@ -5,30 +5,25 @@ import {} from "antd";
 import "antd/dist/antd.css";
 import { useDispatch, useSelector } from "react-redux";
 import {getColorCodeAction} from "../../store/actions";
-import {  selectStickyNoteColor, closeStickyNoteColor} from "../../store/stickySlice";
+import {  selectStickyNoteColor} from "../../store/stickySlice";
 
 
 const StickyColor = ({item}) => {
+  const [closeColor,setCloseColor]=useState(true);
   const dispatch=useDispatch();
-  // const color=useSelector((state)=>state.stickySlice.colorCode);
-  // console.log("COLORSSSSSS",color);
 
 
-
+  // ******select color handler*****
   const selectColorHandler = (e) => {
-    // console.log("clicked");
-    // console.log(item);
     const colorValue = e.target.getAttribute("value");
-    console.log(colorValue);
-    // const id=item.id;
-    // console.log("idddd",id);
+    const id=item.id;
+    dispatch(selectStickyNoteColor({id,colorValue}));
     dispatch(getColorCodeAction({...item,colorCode:colorValue,}));
-    console.log("COLOR VALUE",colorValue);
-console.log("color codeeeeeee",item.colorCode);
+
   };
 
   const closeColorHandler=()=>{
-    dispatch(closeStickyNoteColor());
+    setCloseColor(false);
   }
   const colors = [
     "#FDEBD0",
@@ -42,6 +37,7 @@ console.log("color codeeeeeee",item.colorCode);
 
   return (
     <>
+     {closeColor &&
       <div
         className="menu__popUp"
         // style={{ display: !color ? "initial" : "none" }}
@@ -63,14 +59,15 @@ console.log("color codeeeeeee",item.colorCode);
           Delete Note
         </div> */}
         <hr />
-        <div className="note__iconHOVER-dlt" onClick={closeColorHandler}>
+   <div className="note__iconHOVER-dlt" onClick={closeColorHandler}>
           <div>
            <CloseOutlined  />
           </div>
           Close Colors
         </div>
-        <hr />
+        
       </div>
+}
     </>
   );
 };

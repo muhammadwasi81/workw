@@ -13,11 +13,22 @@ import {
 } from "@ant-design/icons";
 import "../../style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { handleChangeNote, closeStickyNote, closeStickyNoteColor,addImage, targetTitleVal, targetStickyDescription } from "../../store/stickySlice";
+import {
+  handleChangeNote,
+  closeStickyNote,
+  closeStickyNoteColor,
+  addImage,
+  targetTitleVal,
+  targetStickyDescription,
+} from "../../store/stickySlice";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import StickyColor from "./StickyColor";
-import { deleteStickyAction, getStickyNoteTitleAction,getStickyNoteDescAction } from "../../store/actions";
+import {
+  deleteStickyAction,
+  getStickyNoteTitleAction,
+  getStickyNoteDescAction,
+} from "../../store/actions";
 
 // const axis = {
 //   x_axis: String(Math.floor(Math.random() * 40) + 12) + "%",
@@ -25,23 +36,15 @@ import { deleteStickyAction, getStickyNoteTitleAction,getStickyNoteDescAction } 
 // };
 
 const NewStickyNote = ({ item }) => {
-  const [openColor, setOpenColor] = useState(false);
-  const [title,setTitle]=useState();
-  const [images,setImage]=useState([]);
+  const [openColor, setOpenColor] = useState(true);
+  const [title, setTitle] = useState();
+  const [images, setImage] = useState([]);
   const dispatch = useDispatch();
 
   const openColorHandler = () => {
     setOpenColor(true);
-    console.log("open color", openColor);
   };
 
-  const bgColor = useSelector((state) => {
-    return state.stickySlice.bgColor;
-  });
-  // console.log(bgColor,"BG COLOR");
-
-
-  
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
     console.log(image);
@@ -51,12 +54,10 @@ const NewStickyNote = ({ item }) => {
     // const id = item.id;
     // console.log("ID",id);
     // dispatch(addImage({ url, id }));
-    console.log(url,"add images");
-    console.log(images,"IMAGE STATE");
+    console.log(url, "add images");
+    console.log(images, "IMAGE STATE");
   };
 
-  let imgSrc=item.img;
-  console.log("ADD IMAGES",imgSrc);
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
     <Menu
@@ -90,12 +91,12 @@ const NewStickyNote = ({ item }) => {
         {
           label: (
             <div>
-              <a style={{ textDecoration: "none", color: "Black" }}>Color</a>
-              <div>{openColor && <StickyColor item={item} />}</div>
+              {/* <a style={{ textDecoration: "none", color: "Black" }}>Color</a> */}
+              {openColor && <StickyColor item={item} />}
             </div>
           ),
 
-          icon: <HighlightOutlined onClick={openColorHandler} />,
+          // icon: <HighlightOutlined onClick={openColorHandler} />,
           key: "2",
         },
       ]}
@@ -104,12 +105,10 @@ const NewStickyNote = ({ item }) => {
 
   let stickyText;
   const handleChange = (e) => {
-    console.log(e);
     stickyText = e;
-    console.log("stickyTexr",stickyText);
-    const id=item.id
-    dispatch(getStickyNoteDescAction({...item, description:stickyText}));
-    
+    const id = item.id;
+    dispatch(targetStickyDescription({ id, stickyText }));
+    dispatch(getStickyNoteDescAction({ ...item, description: stickyText }));
   };
 
   const closeStickyNotes = () => {
@@ -118,16 +117,15 @@ const NewStickyNote = ({ item }) => {
 
   const deleteStickyNotes = () => {
     dispatch(deleteStickyAction(item.id));
-    console.log("deleted", item.id);
   };
-let stickyTitle;
-  const getTitleValue=(e)=>{
+  let stickyTitle;
+  const getTitleValue = (e) => {
     stickyTitle = e.target.value;
     setTitle(e.target.value);
-    // const id=item.id;
-    dispatch(getStickyNoteTitleAction({ ...item,title:stickyTitle })); 
-   console.log("TITLEE",item.title);
-  }
+    const id = item.id;
+    dispatch(targetTitleVal({ id, stickyTitle }));
+    dispatch(getStickyNoteTitleAction({ ...item, title: stickyTitle }));
+  };
 
   const modules = {
     toolbar: [
@@ -175,12 +173,12 @@ let stickyTitle;
               <Dropdown overlay={menu}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    <EllipsisOutlined />
+                    <EllipsisOutlined className="margin_Icon"/>
                   </Space>
                 </a>
               </Dropdown>
-              <DeleteOutlined onClick={deleteStickyNotes} />
-              <CloseOutlined onClick={closeStickyNotes} />
+              <DeleteOutlined onClick={deleteStickyNotes} className="margin_Icon"/>
+              <CloseOutlined onClick={closeStickyNotes} className="margin_Icon" />
             </div>
           </div>
 
@@ -195,26 +193,28 @@ let stickyTitle;
               placeholder="Take a Note"
               defaultValue={item.description}
             />
-            <div className="img-input-container">
+            {/* <div className="img-input-container">
               <PictureOutlined className="image_icon" />
               <input
                 type="file"
                 onChange={uploadImageHandler}
                 className="img-input"
               />
-            </div>
-          </div>
+            </div> */}
 
-          {/* **********Insert images******** */}
-          <div className="image_body">
-            {images.map((item)=>{
-            <Image
-              preview={false}
-              src={images}
-              alt="something.png"
-              className="image"
-            />
-          })}
+            {/* **********Insert images******** */}
+            <div className="image_body">
+              {images.length > 0
+                ? images.map((item) => {
+                    <Image
+                      preview={false}
+                      src={images}
+                      alt="something.png"
+                      className="image"
+                    />;
+                  })
+                : ""}
+            </div>
           </div>
         </div>
       </Draggable>

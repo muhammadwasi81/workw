@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 function StickyNotes() {
   const stickynote=useSelector((state)=>{return state.stickySlice.listArray})
-  console.log("sticky notesss",stickynote);
   return (
     <>
       {stickynote.filter(it=>it.isOpen).map((item, index) => (

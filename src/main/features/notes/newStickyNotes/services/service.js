@@ -27,12 +27,12 @@ export const addStickyNotesService=async(request)=>{
 
 export const getAllStickyNotesService=async(data)=>{
 	let request = getAllSticky_SD(data)
-	console.log(request,"GET ALL STICKY");
+	// console.log(request,"GET ALL STICKY");
 	try {
 		const {
 			data: { responseCode, data, message },
 		} = await Config.post(`api/StickyNotes/GetAllStickyNotes`,request);
-		console.log("GET ALL STICKY DATA",data);
+		// console.log("GET ALL STICKY DATA",data);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
@@ -47,7 +47,8 @@ export const deleteStickyNoteService=async(id)=>{
 		if(responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	}
-	catch(e){
+	catch(e)
+	{
 		return ResponseResultError(e);
 	}
 }

@@ -15,6 +15,7 @@ import {
 	getLeadManagerContactDetailService,
 	getLeadManagerSectionByIdService,
 	getLeadManagerSectionDetailByIdService,
+	LeadManagerDetailAssignToService,
 	moveLeadManagerDetailService,
 	moveLeadManagerSectionService,
 	updateLeadManagerContactService,
@@ -307,6 +308,18 @@ export const moveLeadManagerDetail = createAsyncThunk(
 					duration: 2,
 				})
 			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const addLeadManagerAssignTo = createAsyncThunk(
+	"addLeadManagerAssignTo",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await LeadManagerDetailAssignToService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
 			return rejectWithValue(res.message);
 		}
 	}

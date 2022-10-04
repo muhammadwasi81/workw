@@ -41,11 +41,21 @@ const initialState = {
 	contactDetail: null,
 	isContactUpdated: false,
 	contactDataUpdating: false,
+	isAssignMemberModalOpen: false,
+	assignToMemberId: "",
+	isContactModalOpen: false,
 };
 const leadMangerSlice = createSlice({
 	name: "leadManager",
 	initialState,
 	reducers: {
+		handleAssignMemberModal(state, { payload }) {
+			state.assignToMemberId = payload.id;
+			state.isAssignMemberModalOpen = !state.isAssignMemberModalOpen;
+		},
+		handleContactDetailModal(state, { payload }) {
+			state.isContactModalOpen = !state.isContactModalOpen;
+		},
 		handleComposer(state, { payload }) {
 			const { isOpen, isEdit } = payload;
 			// console.log("isopen", isOpen);
@@ -302,6 +312,8 @@ export const {
 	resetLeadManagerDetail,
 	resetContactDetail,
 	getLeadManagerGroupDetailById,
+	handleAssignMemberModal,
+	handleContactDetailModal,
 } = leadMangerSlice.actions;
 
 export default leadMangerSlice.reducer;

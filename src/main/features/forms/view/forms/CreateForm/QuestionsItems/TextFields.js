@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 // import DragHandleIcon from '@material-ui/icons/DragHandle';
-import { HolderOutlined } from "@ant-design/icons";
+import { HolderOutlined, CloseSquareOutlined } from "@ant-design/icons";
 
 const TextFields = (props) => {
-  const { type, fieldData, handleChange, index } = props;
+  const { type, fieldData, handleChange, index, removeQuestion } = props;
   const [isImage, setIsImage] = useState(false);
   console.log(fieldData);
   return (
@@ -11,7 +11,7 @@ const TextFields = (props) => {
       <div className="c-row txt-fields bg-clr p_15 flex">
         <div className="flex-1">
           <div>
-            {fieldData.image && (
+            {fieldData.image.file && (
               <div className="QuesImg" style={{ width: "50px" }}>
                 <img
                   src={(window.URL || window.webkitURL).createObjectURL(
@@ -33,11 +33,13 @@ const TextFields = (props) => {
           />
         </div>
 
-        <div>
-          <button>Question Type</button>
-        </div>
-
-        <div className="dragIcon">
+        <div
+          className="dragIcon"
+          style={{ justifyContent: "space-between", flexDirection: "column" }}
+        >
+          <button onClick={() => removeQuestion(index)}>
+            <CloseSquareOutlined style={{ fontSize: "150%" }} />
+          </button>
           <HolderOutlined />
         </div>
       </div>

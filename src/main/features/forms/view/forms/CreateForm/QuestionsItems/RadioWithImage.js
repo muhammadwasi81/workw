@@ -1,8 +1,15 @@
 import React from "react";
 // import DragHandleIcon from '@material-ui/icons/DragHandle';
+import { CloseSquareOutlined } from "@ant-design/icons";
 
 const RadioWithImage = (props) => {
-  const { question, handleChange, index, disableSubmit } = props;
+  const {
+    question,
+    handleChange,
+    index,
+    disableSubmit,
+    removeQuestion,
+  } = props;
   const { answers } = question;
   console.log("props radio with immage", props);
 
@@ -15,7 +22,13 @@ const RadioWithImage = (props) => {
               <img src={question.image} />{" "}
             </div>
           )}
-          <h1 className="row-tlt">{question.question}</h1>
+          <div>
+            <h1 className="row-tlt">{question.question}</h1>
+            <button onClick={() => removeQuestion(index)}>
+              <CloseSquareOutlined style={{ fontSize: "150%" }} />
+            </button>
+          </div>
+
           <div className="flex-row">
             {answers.map(({ answer, id, image }, i) => (
               <div className="aspect-ratio">

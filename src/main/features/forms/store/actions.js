@@ -60,7 +60,7 @@ export const updateForm = createAsyncThunk(
 
     if (res.data.responseCode) {
       if (res.data.responseCode === responseCode.Success)
-        message.success("Appraisal updated successfully!");
+        message.success("Form updated successfully!");
     } else {
       message.error(res.statusText);
       return rejectWithValue(res.statusText);

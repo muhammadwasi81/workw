@@ -84,14 +84,15 @@ export const CreateFormParent = (props) => {
         };
       });
     let questionArray = question.map((elem, index) => {
-      console.log("element", elem);
+      // console.log("element", elem);
+      console.log(elem);
       return {
         // id: createGuid(),
         // formId: createGuid(),
         answerType: elem.answerType,
         sequence: index,
         question: elem.Question,
-        image: { file: elem.image.originFileObj },
+        image: { file: elem.image && elem.image?.originFileObj },
         createBy: user.id,
         answers: elem.options
           ? // ? append(elem.options, elem.fileList[index]?.originFileObj)
@@ -165,9 +166,29 @@ export const CreateFormParent = (props) => {
     setFormData({ ...data, question: filteredData });
     // console.log("formData", formData);
   };
+
+  const removeQuestion = (i) => {
+    console.log(i);
+    const data = [...formData.question];
+    console.log(data, "data");
+    //REMOVE QUESTION FROM ARRAY AND SET SEQUENCE
+    data.splice(i, 1);
+    console.log("filtered data", data);
+    //UPDATE THE DATA IN STATE
+    let filteredData = data.map((item, index) => {
+      return {
+        ...item,
+        sequence: index,
+      };
+    });
+    console.log("filtered data", filteredData);
+    setQuestions(filteredData);
+  };
+
   const handleChange = (items) => {
     console.log(items);
   };
+
   const handleSequenceChange = (items) => {
     console.log(items);
     let filteredData = items.map((item, index) => {
@@ -204,6 +225,7 @@ export const CreateFormParent = (props) => {
                       handleRadioChange={handleChange}
                       question={item}
                       index={index}
+                      removeQuestion={(index) => removeQuestion(index)}
                     />
                   )}
                   {item.localType === "radioWithImage" && (
@@ -211,6 +233,7 @@ export const CreateFormParent = (props) => {
                       handleChange={handleChange}
                       question={item}
                       index={index}
+                      removeQuestion={(index) => removeQuestion(index)}
                     />
                   )}
                   {item.localType === "text" && (
@@ -219,6 +242,7 @@ export const CreateFormParent = (props) => {
                       fieldData={item}
                       index={index}
                       type="text"
+                      removeQuestion={(index) => removeQuestion(index)}
                     />
                   )}
                   {item.localType === "number" && (
@@ -227,6 +251,7 @@ export const CreateFormParent = (props) => {
                       fieldData={item}
                       index={index}
                       type="number"
+                      removeQuestion={(index) => removeQuestion(index)}
                     />
                   )}
                 </>

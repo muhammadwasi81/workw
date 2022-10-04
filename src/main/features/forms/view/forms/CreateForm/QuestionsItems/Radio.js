@@ -1,8 +1,15 @@
 import React from "react";
 // import DragHandleIcon from '@material-ui/icons/DragHandle';
+import { CloseSquareOutlined } from "@ant-design/icons";
 
 const Radio = (props) => {
-  const { question, handleRadioChange, index, disableSubmit } = props;
+  const {
+    question,
+    handleRadioChange,
+    index,
+    disableSubmit,
+    removeQuestion,
+  } = props;
   const { answers } = question;
 
   console.log("radio", props);
@@ -17,7 +24,13 @@ const Radio = (props) => {
               <img src={question.image} />{" "}
             </div>
           )}
-          <h1 className="row-tlt">{question.question}</h1>
+          <div className="flex">
+            <h1 className="row-tlt">{question.question}</h1>
+            <button onClick={() => removeQuestion(index)}>
+              <CloseSquareOutlined style={{ fontSize: "150%" }} />
+            </button>
+          </div>
+
           {answers.map(({ answer, id }, i) => (
             <div key={i} className="radio-wrapper mb_10">
               <label htmlFor="">

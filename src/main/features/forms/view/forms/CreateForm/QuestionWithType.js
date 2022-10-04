@@ -48,6 +48,7 @@ const QuestionWithType = (props) => {
       data = {
         ...values,
         fileList: fileList,
+        image: quesionImage && quesionImage,
       };
     } else {
       data = {

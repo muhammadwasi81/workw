@@ -21,7 +21,7 @@ const Assets = () => {
 
   const items = [
     {
-      name: 'Salary',
+      name: 'Assets',
       to: `${ROUTES.ASSETS}`,
       renderButton: [1],
     },

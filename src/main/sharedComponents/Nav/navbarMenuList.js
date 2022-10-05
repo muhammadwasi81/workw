@@ -356,7 +356,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.assets,
       counter: 0,
       icon: assetsIcon,
-      to: ROUTES.REQUISITION.ASSETS,
+      to: ROUTES.ASSETS.DEFAULT,
       isActive: true,
       key: label.navMenuLabel.inventory,
     },

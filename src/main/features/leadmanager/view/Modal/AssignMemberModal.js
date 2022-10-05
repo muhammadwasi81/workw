@@ -53,7 +53,7 @@ function AssignMemberModal({
 				))}
 			</Select>
 
-			<hr />
+			<hr className="my-2" />
 			<div className="max-h-96 overflow-y-auto">
 				{selectedMembers.map(element => (
 					<div className="flex justify-between border-b py-3 border-b-neutral-300">

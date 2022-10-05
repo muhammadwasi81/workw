@@ -8,7 +8,12 @@ import {
 } from "@ant-design/icons";
 import { Button } from "antd";
 
-function BoardTopBar({ handleView, topBar, handleSearch }) {
+function BoardTopBar({
+	handleView,
+	topBar,
+	handleSearch,
+	onEmailClick = () => {},
+}) {
 	return (
 		<TopBar
 			onSearch={value => {
@@ -20,7 +25,11 @@ function BoardTopBar({ handleView, topBar, handleSearch }) {
 			// 	</div>
 			// }
 			rightButtons={[
-				{ name: "Email", icon: <MailOutlined />, onClick: () => {} },
+				{
+					name: "Email",
+					icon: <MailOutlined />,
+					onClick: onEmailClick,
+				},
 			]}
 			buttons={[]}
 			// filter={{

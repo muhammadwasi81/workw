@@ -89,7 +89,7 @@ function SectionDetail(props) {
 					<Tooltip title="Select Assign Members">
 						<PlusCircleFilled
 							className="!text-[20px] !cursor-pointer !text-primary-color"
-							onClick={props.handleMemberModal}
+							onClick={() => props.handleMemberModal(data.id)}
 						/>
 					</Tooltip>
 					{/* <div className="flex justify-end">

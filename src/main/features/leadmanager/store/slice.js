@@ -43,7 +43,10 @@ const initialState = {
 	contactDataUpdating: false,
 	isAssignMemberModalOpen: false,
 	assignToMemberId: "",
-	isContactModalOpen: false,
+	contactModal: {
+		isOpen: false,
+		add: false,
+	},
 };
 const leadMangerSlice = createSlice({
 	name: "leadManager",
@@ -54,16 +57,11 @@ const leadMangerSlice = createSlice({
 			state.isAssignMemberModalOpen = !state.isAssignMemberModalOpen;
 		},
 		handleContactDetailModal(state, { payload }) {
-			state.isContactModalOpen = !state.isContactModalOpen;
+			state.contactModal.isOpen = payload.open;
+			state.contactModal.add = payload.add;
 		},
 		handleComposer(state, { payload }) {
 			const { isOpen, isEdit } = payload;
-			// console.log("isopen", isOpen);
-			// console.log("isedit", isEdit);
-			// if (isEdit) {
-			// } else {
-			// 	state.isEditComposer = false;
-			// }
 			state.isEditComposer = isEdit;
 			state.isComposerOpen = isOpen;
 		},

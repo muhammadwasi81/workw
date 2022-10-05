@@ -9,6 +9,7 @@ import {
 	addLeadManagerContactService,
 	addLeadManagerDetailService,
 	addLeadManagerService,
+	deleteLeadManagerDetailAssignToService,
 	getAllLeadManagerPagingService,
 	getAllLeadManagerService,
 	getLeadManagerByIdService,
@@ -318,6 +319,26 @@ export const addLeadManagerAssignTo = createAsyncThunk(
 	async (data, { dispatch, getState, rejectWithValue }) => {
 		const res = await LeadManagerDetailAssignToService(data);
 		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const deleteLeadManagerDetailAssignTo = createAsyncThunk(
+	"deleteLeadManagerDetailAssignTo",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await deleteLeadManagerDetailAssignToService(data);
+		if (res.responseCode === responseCode.Success) {
+			// dispatch(
+			// 	openNotification({
+			// 		message: "Lead Manager Contact Deleted Successfully!",
+			// 		type: "success",
+			// 		duration: 2,
+			// 	})
+			// );
+
 			return res;
 		} else {
 			return rejectWithValue(res.message);

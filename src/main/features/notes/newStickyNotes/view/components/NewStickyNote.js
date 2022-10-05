@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Dropdown, Menu, Space, Col, Row, Image } from "antd";
+import { Dropdown, Menu, Space, Image } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
 import {
@@ -12,12 +12,9 @@ import {
   PictureOutlined,
 } from "@ant-design/icons";
 import "../../style.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  handleChangeNote,
   closeStickyNote,
-  closeStickyNoteColor,
-  addImage,
   targetTitleVal,
   targetStickyDescription,
 } from "../../store/stickySlice";
@@ -30,10 +27,7 @@ import {
   getStickyNoteDescAction,
 } from "../../store/actions";
 
-// const axis = {
-//   x_axis: String(Math.floor(Math.random() * 40) + 12) + "%",
-//   y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
-// };
+
 
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
@@ -103,6 +97,7 @@ const NewStickyNote = ({ item }) => {
     />
   );
 
+  // ********sticky note description handler******
   let stickyText;
   const handleChange = (e) => {
     stickyText = e;
@@ -118,6 +113,8 @@ const NewStickyNote = ({ item }) => {
   const deleteStickyNotes = () => {
     dispatch(deleteStickyAction(item.id));
   };
+
+  // ******sticky note title handler******
   let stickyTitle;
   const getTitleValue = (e) => {
     stickyTitle = e.target.value;
@@ -127,6 +124,9 @@ const NewStickyNote = ({ item }) => {
     dispatch(getStickyNoteTitleAction({ ...item, title: stickyTitle }));
   };
 
+
+
+  // *******modules and formats for React quil******
   const modules = {
     toolbar: [
       ["bold", "italic", "underline"],
@@ -166,7 +166,6 @@ const NewStickyNote = ({ item }) => {
               style={{ backgroundColor: item.colorCode }}
               className="sticky_titleContainer"
             />
-            {/* <Input placeholder="Title" style={{backroundColor:"#0f4c81"}} /> */}
 
             {/* ******Drop Down menu (color, copy, share) on three dot****** */}
             <div className="leftNote_Icon">

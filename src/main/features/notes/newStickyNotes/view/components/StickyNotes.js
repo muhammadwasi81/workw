@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import NewStickyNote from "./NewStickyNote";
 import StickyContainer from "./StickyContainer";
 import Draggable from "react-draggable";
-import DetailedStickyNote from "./DetailedStickyNote";
-import StickyColor from "./StickyColor";
+
 
 // *********import redux*********
 import { useSelector, useDispatch } from "react-redux";

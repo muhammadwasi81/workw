@@ -7,7 +7,6 @@ import {
   getColorCodeAction,
   getStickyNoteTitleAction,
   getStickyNoteDescAction,
-  searchTitleDescAction,
 } from "./actions";
 
 const defaultSticky = {
@@ -149,11 +148,7 @@ export const stickySlice = createSlice({
         // state.listArray = [...state.listArray, payload];
         // console.log(state, "DEsc STATE");
       })
-      .addCase(searchTitleDescAction.fulfilled,(state,{payload})=>{
-        state.loader=false;
-        state.success=true;
-        state.listArray=[...state.listArray,payload];
-      })
+      
   },
 });
 

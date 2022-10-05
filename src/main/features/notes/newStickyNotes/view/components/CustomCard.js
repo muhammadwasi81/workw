@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Card } from "antd";
 import "antd/dist/antd.css";
-import Draggable from "react-draggable";
 import { DeleteOutlined } from "@ant-design/icons";
 import "../../style.css";
 import { deleteStickyAction } from "../../store/actions";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 
 
@@ -65,7 +64,6 @@ const CustomCard = ({ item, onDoubleClick }) => {
       >
         <div className="sticky_content" dangerouslySetInnerHTML={{__html:item.description}} />
           {/* {item.description} */}
-          {/* </div> */}
         <p className="sticky_date">{date}</p>
       </Card>
     </>

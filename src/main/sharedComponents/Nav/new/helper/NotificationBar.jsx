@@ -20,7 +20,6 @@ import Approvals from "../../../../features/approval/view/SideBarApproval/sideBa
 import Notifications from "../../../../features/notifiation/view/index";
 import OpenImage from "../../../../features/notes/OpenImage";
 import StickyContainer from "../../../../features/notes/newStickyNotes/view/components/StickyNotes";
-import DetailedStickyNote from "../../../../features/notes/newStickyNotes/view/components/DetailedStickyNote";
 // const Approvals = () => {
 //   return "Approvals";
 // };

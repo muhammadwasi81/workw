@@ -9,20 +9,16 @@ import {
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import CustomCard from "./CustomCard";
-// import SearchBox from "./SearchBox";
 import "../../style.css";
-import NewStickyNote from "./NewStickyNote";
 // *******import redux*******
 import { useSelector, useDispatch } from "react-redux";
 import {
   closeSticky,
-  addStickyNote,
-  openClickedSticky,
   showStickyNote,
 } from "../../store/stickySlice";
 // import sticky note actions
 import { addSticky, getAllStickyNotesAction,searchTitleDescAction } from "../../store/actions";
-import NoteList from "../../../NoteList";
+
 
 const StickyContainer = () => {
   // *********state for sticky notes*******
@@ -47,7 +43,7 @@ const StickyContainer = () => {
   };
 
   
-
+//*****add sticky notes in sticky container*****
   const addStickyHandler = () => {
     console.log("Calling");
     dispatch(addSticky({}));
@@ -89,7 +85,6 @@ const StickyContainer = () => {
           <div className={`search_Box ${!minimize ? "hide" : ""}`}>
             <Input
               placeholder="Search"
-              // value={search}
               style={{ width: "300px" }}
               onChange={searchHandler}
               prefix={<SearchOutlined />}

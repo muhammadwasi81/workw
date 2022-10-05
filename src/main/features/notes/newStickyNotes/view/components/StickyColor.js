@@ -1,9 +1,9 @@
 import React,{useState} from "react";
-import { CloseOutlined, DeleteOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import "../../style.css";
 import {} from "antd";
 import "antd/dist/antd.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {getColorCodeAction} from "../../store/actions";
 import {  selectStickyNoteColor} from "../../store/stickySlice";
 
@@ -52,13 +52,8 @@ const StickyColor = ({item}) => {
             ></div>
           ))}
         </div>
-        {/* <div className="note__iconHOVER-dlt">
-          <div>
-            <DeleteOutlined />
-          </div>
-          Delete Note
-        </div> */}
-        <hr />
+       
+   
    <div className="note__iconHOVER-dlt" onClick={closeColorHandler}>
           <div>
            <CloseOutlined  />

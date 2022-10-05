@@ -7,9 +7,9 @@ import { getAllEmployeeShort } from "../../../../../utils/Shared/store/actions";
 
 function MemberList({
   allMembers = [],
-  onMember,
+  onMemberSelect,
+  onMemberRemove,
   selectedMembers,
-  currentMember,
 }) {
   const dispatch = useDispatch();
 
@@ -22,44 +22,24 @@ function MemberList({
             dispatch(
               getAllEmployeeShort({
                 pageNo: "1",
-                search: e.target.value,
+                text: e.target.value,
               })
             );
           }}
         />
       </div>
-      {selectedMembers.length > 0 && (
-        <div className="selectedMembers">
-          <Divider>Selected {selectedMembers.length}</Divider>
-          {selectedMembers.map(({ name, designation, image, id }) => {
-            return (
-              <MemberCard
-                onMember={onMember}
-                name={name}
-                designation={designation}
-                image={image}
-                id={id}
-                key={id}
-                isChecked={true}
-              />
-            );
-          })}
-        </div>
-      )}
       <Divider>Contacts</Divider>
       <div className="contact" style={{ position: "relative" }}>
-        {allMembers.map(({ name, designation, image, id }) => {
-          if (!selectedMembers.find((o) => o.id === id))
-            return (
-              <MemberCard
-                onMember={onMember}
-                name={name}
-                designation={designation}
-                image={image}
-                id={id}
-                key={id}
-              />
-            );
+        {allMembers.map((item) => {
+          return (
+            <MemberCard
+              onMemberSelect={onMemberSelect}
+              onMemberRemove={onMemberRemove}
+              item={item}
+              key={item.id}
+              isChecked={selectedMembers.includes(item.id)}
+            />
+          );
         })}
       </div>
     </div>

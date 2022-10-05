@@ -3,6 +3,8 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import voiceGreyIcon from "../../../../../../content/NewContent/Messenger/voiceGrey.svg";
 import voiceRedIcon from "../../../../../../content/NewContent/Messenger/voiceRed.svg";
 import pauseRedIcon from "../../../../../../content/NewContent/Messenger/pauseRed.svg";
+import sendIcon from "../../../../../../content/NewContent/Messenger/sendRound.svg";
+import deleteIcon from "../../../../../../content/NewContent/Messenger/delete.svg";
 import VoiceTimer from "./voiceTimer";
 
 function VoiceNotes(props) {
@@ -28,17 +30,18 @@ function VoiceNotes(props) {
             display: "flex", backgroundColor: "rgb(244, 244, 244)", borderRadius: "7px",
             height: "40px", alignItems: "center"
         }} >
-            <p>{status}</p>
+            {/* <p>{status}</p> */}
             {status === "recording" && <div style={{ display: "flex", alignItems: "center" }} >
 
+
+                <button onClick={clearBlobUrl}>
+                    <img src={deleteIcon} style={{ height: "17px", margin: "0 5px 0 10px" }} />
+                </button>
                 <VoiceTimer />
 
-                <button className="ThemeBtn" onClick={clearBlobUrl}>
-                    Delete
-                </button>
-                <button className="ThemeBtn" onClick={stopRecording}>
-                    Send
-                    {/* <img src={voiceRedIcon} style={{ height: "22px", margin: "0 10px" }} /> */}
+                <button onClick={stopRecording}>
+                    {/* Send */}
+                    <img src={sendIcon} style={{ height: "22px", margin: "0 10px" }} />
                 </button>
             </div>}
 

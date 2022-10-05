@@ -3,35 +3,32 @@ import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import checkIcon from "../../../../../content/NewContent/Messenger/check-outline.svg";
 import { CloseOutlined } from "@ant-design/icons";
 function MemberCard({
-  id,
-  name,
-  designation,
-  image,
-  onMember,
+ item,
+  onMemberSelect,
+  onMemberRemove,
   isChecked,
   extraClassName,
 }) {
-  const [checked, setChecked] = useState(false);
 
   return (
     <div
-      className={`memberCard ${extraClassName && extraClassName}`}
+      className={`memberCard ${extraClassName && extraClassName} px-5`}
       onClick={() => {
-        setChecked(!checked);
-        onMember({ id, name, designation, image });
+        isChecked ? onMemberRemove(item) :  onMemberSelect(item);
       }}
-      s
     >
       <div className="memberCard__header">
-        <Avatar width={"2.2rem"} height={"2.2rem"} round src={image}></Avatar>
+        <Avatar width={"2.2rem"} height={"2.2rem"} round src={item.image}></Avatar>
       </div>
       <div className="memberCard__body">
-        <p>{name}</p>
-        <p>{designation}</p>
+        <p>{item.name}</p>
+        <p>{item.designation}</p>
       </div>
       <div className="memberCard__footer">
         <div className={`radio ${isChecked ? "checked" : ""}`}>
-          {isChecked && <CloseOutlined />}
+         
+          {/* {isChecked && <CloseOutlined />} */}
+          {isChecked && <img src={checkIcon}/> }
         </div>
       </div>
     </div>

@@ -17,8 +17,6 @@ function DetailedView(props) {
     // props.id && dispatch(GetRewardById(props.id));
   // }, [props.id]);
 
-  console.log(rewardDetail, "rewardDetail");
-
   const isTablet = false;
 
   return (

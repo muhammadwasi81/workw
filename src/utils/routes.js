@@ -54,6 +54,7 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/forms/*`,
     ROOT: `${DOMAIN_PREFIX}/forms`,
     SUBMIT_FORM: `${DOMAIN_PREFIX}/submitForm`,
+    EDIT_FORM: `${DOMAIN_PREFIX}/editForm`,
     CREATE_FORM: `create`,
   },
   JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
@@ -275,6 +276,7 @@ export const ROUTES = {
     INFO: `info/*`,
     BANK_DETAIL: 'info/bankDetail/:id',
     BASIC_INFO: 'info/basicInfo/:id',
+    USER_LEAVES: 'info/leaves/:id',
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
@@ -334,7 +336,6 @@ export const ROUTES = {
   REQUISITION: {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
     REQUISITION: `${DOMAIN_PREFIX}/requisition`,
-    ASSETS: `${DOMAIN_PREFIX}/assets`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
 

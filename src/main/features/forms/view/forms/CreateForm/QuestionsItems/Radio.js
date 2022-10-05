@@ -1,7 +1,6 @@
 import React from "react";
 // import DragHandleIcon from '@material-ui/icons/DragHandle';
-import { HolderOutlined, CloseSquareOutlined } from "@ant-design/icons";
-import SingleUpload from "../../../../../../sharedComponents/Upload/singleUpload";
+import { CloseSquareOutlined } from "@ant-design/icons";
 
 const Radio = (props) => {
   const {
@@ -9,10 +8,7 @@ const Radio = (props) => {
     handleRadioChange,
     index,
     disableSubmit,
-    handleChange,
     removeQuestion,
-    handleQuestionImageChange,
-    handleOptionsChange,
   } = props;
   const { answers } = question;
 
@@ -23,29 +19,17 @@ const Radio = (props) => {
       <div className="c-row txt-fields bg-clr p_15 d-flex">
         {/* img here */}
         <div className="flex-1">
-          {question.image && (
-            // <div className="QuesImg">
-            //   <img src={question.image} />{" "}
-            // </div>
-            <SingleUpload
-              handleImageUpload={(info) => handleQuestionImageChange(info)}
-              img="Add Image"
-              position="flex-start"
-              uploadText={"Upload"}
-              url={
-                question
-                  ? question.image
-                  : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
-              }
-            />
+          {question.image.file && (
+            <div className="QuesImg ">
+              <img
+                src={(window.URL || window.webkitURL).createObjectURL(
+                  question?.image.file
+                )}
+              />{" "}
+            </div>
           )}
-          {/* <h1 className="row-tlt">{question.question}</h1> */}
-          <div className="flex">
-            <input
-              className="required label w-full"
-              defaultValue={question.question}
-              onChange={handleChange}
-            />
+          <div className="flex" style={{ justifyContent: "space-between" }}>
+            <h1 className="row-tlt">{question.question}</h1>
             <button onClick={() => removeQuestion(index)}>
               <CloseSquareOutlined style={{ fontSize: "150%" }} />
             </button>
@@ -70,18 +54,13 @@ const Radio = (props) => {
                   value={id}
                   disabled={disableSubmit}
                 />
-                {/* <h3 className="f-bold">{answer}</h3> */}
-                <input
-                  className="required label w-full"
-                  defaultValue={answer}
-                  onChange={(e) => handleOptionsChange(e, i)}
-                />
+                <h3 className="f-bold">{answer}</h3>
               </label>
             </div>
           ))}
-          {/* <div className="flex-end">
-            <button className="clr-sec">Clear Section</button>
-          </div> */}
+          <div className="flex-end">
+            {/* <button className="clr-sec">Clear Section</button> */}
+          </div>
         </div>
         <div className="dragIcon">{/* <DragHandleIcon /> */}</div>
       </div>

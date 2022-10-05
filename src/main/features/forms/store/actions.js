@@ -3,8 +3,10 @@ import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import {
   addFormService,
+  submitFormService,
   getAllFormsService,
   GetFormByIdService,
+  updateFormService,
 } from "../services/service";
 
 export const getAllForms = createAsyncThunk(
@@ -32,6 +34,39 @@ export const addForm = createAsyncThunk(
       message.error(res.statusText);
       return rejectWithValue(res.statusText);
     }
+  }
+);
+
+export const submitForm = createAsyncThunk(
+  "Form/SubmitForm",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await submitFormService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Form Submitted");
+      console.log("res from actions", res);
+      return res;
+    } else {
+      message.error(res.statusText);
+      return rejectWithValue(res.statusText);
+    }
+  }
+);
+
+export const updateForm = createAsyncThunk(
+  "Form/updateForm",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    // console.log(data, "data in update async");
+    const res = await updateFormService(data);
+
+    if (res.data.responseCode) {
+      if (res.data.responseCode === responseCode.Success)
+        message.success("Form updated successfully!");
+    } else {
+      message.error(res.statusText);
+      return rejectWithValue(res.statusText);
+    }
+
+    return res;
   }
 );
 

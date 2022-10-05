@@ -66,6 +66,12 @@ export const routes = {
       ),
     },
     {
+      path: `${ROUTES.FORMS.EDIT_FORM}`,
+      component: lazy(() =>
+        import("../main/features/forms/view/forms/EditForm/EditForm")
+      ),
+    },
+    {
       path: `${ROUTES.FINANCE.CHART_OF_ACCOUNT.DEFAULT}`,
       component: lazy(() =>
         import("../main/features/chartOfAccount/view/index")

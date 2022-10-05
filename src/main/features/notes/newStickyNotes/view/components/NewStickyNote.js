@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dropdown, Menu, Space, Image } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
@@ -26,12 +26,16 @@ import {
   getStickyNoteTitleAction,
   getStickyNoteDescAction,
 } from "../../store/actions";
+import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
 
 
 
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
-  const [title, setTitle] = useState();
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
+  const tilteDebounce = useDebounce(title, 500);
+  const descriptionDebounce = useDebounce(description, 500);
   const [images, setImage] = useState([]);
   const dispatch = useDispatch();
 
@@ -97,14 +101,17 @@ const NewStickyNote = ({ item }) => {
     />
   );
 
+  useEffect(() => {
+    if (tilteDebounce)
+      setTitleValue(tilteDebounce)
+  }, [tilteDebounce]);
+  useEffect(() => {
+    if (descriptionDebounce)
+      setDescriptionValue(descriptionDebounce)
+  }, [descriptionDebounce]);
+
+
   // ********sticky note description handler******
-  let stickyText;
-  const handleChange = (e) => {
-    stickyText = e;
-    const id = item.id;
-    dispatch(targetStickyDescription({ id, stickyText }));
-    dispatch(getStickyNoteDescAction({ ...item, description: stickyText }));
-  };
 
   const closeStickyNotes = () => {
     dispatch(closeStickyNote(item.id));
@@ -115,15 +122,16 @@ const NewStickyNote = ({ item }) => {
   };
 
   // ******sticky note title handler******
-  let stickyTitle;
-  const getTitleValue = (e) => {
-    stickyTitle = e.target.value;
-    setTitle(e.target.value);
+  const setTitleValue = (value) => {
     const id = item.id;
-    dispatch(targetTitleVal({ id, stickyTitle }));
-    dispatch(getStickyNoteTitleAction({ ...item, title: stickyTitle }));
+    dispatch(targetTitleVal({ id, value }));
+    dispatch(getStickyNoteTitleAction({ ...item, title: value }));
   };
-
+  const setDescriptionValue = (value) => {
+    const id = item.id;
+    dispatch(targetStickyDescription({ id, value }));
+    dispatch(getStickyNoteDescAction({ ...item, description: value }));
+  };
 
 
   // *******modules and formats for React quil******
@@ -150,18 +158,18 @@ const NewStickyNote = ({ item }) => {
 
   return (
     <>
-      <Draggable defaultPosition={{ x: 12, y: 450 }}>
+      <Draggable defaultPosition={{ x: 12, y: 450 }} handle=".handle">
         <div
           className="stickyNote_container"
-          // style={{ display: !openColor ? "initial" : "none" }}
+        // style={{ display: !openColor ? "initial" : "none" }}
         >
           <div
-            className="stickyNote_header"
+            className="stickyNote_header handle"
             style={{ backgroundColor: item.colorCode }}
           >
             <input
               placeholder="Title"
-              onChange={getTitleValue}
+              onChange={(e)=>setTitle(e.target.value)}
               defaultValue={item.title}
               style={{ backgroundColor: item.colorCode }}
               className="sticky_titleContainer"
@@ -172,11 +180,11 @@ const NewStickyNote = ({ item }) => {
               <Dropdown overlay={menu}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    <EllipsisOutlined className="margin_Icon"/>
+                    <EllipsisOutlined className="margin_Icon" />
                   </Space>
                 </a>
               </Dropdown>
-              <DeleteOutlined onClick={deleteStickyNotes} className="margin_Icon"/>
+              <DeleteOutlined onClick={deleteStickyNotes} className="margin_Icon" />
               <CloseOutlined onClick={closeStickyNotes} className="margin_Icon" />
             </div>
           </div>
@@ -185,35 +193,35 @@ const NewStickyNote = ({ item }) => {
 
           <div className="textArea_container">
             <ReactQuill
-              onChange={handleChange}
+              onChange={(value)=>setDescription(value)}
               modules={modules}
               formats={formats}
               className={"stickyNoteItem-textarea"}
               placeholder="Take a Note"
               defaultValue={item.description}
             />
-            {/* <div className="img-input-container">
+            <div className="img-input-container">
               <PictureOutlined className="image_icon" />
               <input
                 type="file"
                 onChange={uploadImageHandler}
                 className="img-input"
               />
-            </div> */}
+            </div>
 
             {/* **********Insert images******** */}
-            <div className="image_body">
-              {images.length > 0
-                ? images.map((item) => {
-                    <Image
-                      preview={false}
-                      src={images}
-                      alt="something.png"
-                      className="image"
-                    />;
-                  })
-                : ""}
-            </div>
+            {images.length > 0
+              ? <div className="image_body">
+                {images.map((item) => {
+                  <Image
+                    preview={false}
+                    src={images}
+                    alt="something.png"
+                    className="image"
+                  />;
+                })}
+
+              </div> : ""}
           </div>
         </div>
       </Draggable>

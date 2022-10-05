@@ -99,13 +99,13 @@ export const stickySlice = createSlice({
       const val = action.payload;
       console.log("valueee", val);
       const listObj = state.listArray.find((list) => list.id === val.id);
-      listObj.title = val.stickyTitle;
+      listObj.title = val.value;
     },
     targetStickyDescription: (state, action) => {
       const val = action.payload;
       const listObj = state.listArray.find((list) => list.id === val.id);
       // state.listArray[index].description = val.stickyText 
-      listObj.description = val.stickyText
+      listObj.description = val.value
       // console.log(current(listObj));
      
     },
@@ -126,20 +126,20 @@ export const stickySlice = createSlice({
       .addCase(getAllStickyNotesAction.fulfilled, (state, action) => {
         state.listArray = action.payload;
       })
-      .addCase(getColorCodeAction.fulfilled, (state, { payload }) => {
-        state.loader = false;
-        state.success = true;
-        // state.listArray=action.payload;
-        state.listArray = [...state.listArray, payload];
-        // console.log(state, "COLOR STATE");
-      })
-      .addCase(getStickyNoteTitleAction.fulfilled, (state, { payload }) => {
-        state.loader = false;
-        state.success = true;
-        // state.listArray=action.payload;
-        state.listArray = [...state.listArray, payload];
-        // console.log(state, "title STATE");
-      })
+      // .addCase(getColorCodeAction.fulfilled, (state, { payload }) => {
+      //   state.loader = false;
+      //   state.success = true;
+      //   // state.listArray=action.payload;
+      //   state.listArray = [...state.listArray, payload];
+      //   // console.log(state, "COLOR STATE");
+      // })
+      // .addCase(getStickyNoteTitleAction.fulfilled, (state, { payload }) => {
+      //   state.loader = false;
+      //   state.success = true;
+      //   // state.listArray=action.payload;
+      //   state.listArray = [...state.listArray, payload];
+      //   // console.log(state, "title STATE");
+      // })
 
       .addCase(getStickyNoteDescAction.fulfilled, (state, { payload }) => {
         // state.loader = false;

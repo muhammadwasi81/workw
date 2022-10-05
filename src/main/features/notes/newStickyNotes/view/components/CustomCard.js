@@ -5,6 +5,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import "../../style.css";
 import { deleteStickyAction } from "../../store/actions";
 import { useDispatch } from "react-redux";
+import moment from "moment";
 
 
 
@@ -12,22 +13,9 @@ const CustomCard = ({ item, onDoubleClick }) => {
   const dispatch=useDispatch();
 
   //********current date in sticky notes********
-  const current = new Date();
-  const time = current.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  // console.log(time);
-
-  //**********Current time in sticky notes*********
-  let dates =
-    current.getFullYear() +
-    "/" +
-    (current.getMonth() + 1) +
-    "/" +
-    current.getDate();
-
-  const [date, setDate] = useState(dates);
+  let notesTime = !moment(new Date()).isAfter(item.createDate)
+		? moment(item.createDate).format("LT")
+		: moment(item.createDate).format("MMM Do");
 
   const deleteStickyNoteHandler=()=>{
     dispatch(deleteStickyAction(item.id));
@@ -36,7 +24,6 @@ const CustomCard = ({ item, onDoubleClick }) => {
   return (
     <>
       <Card
-        // onClick={openNoteList}
         onDoubleClick={() => onDoubleClick(item)}
         size="small"
         title={item.title}
@@ -47,14 +34,14 @@ const CustomCard = ({ item, onDoubleClick }) => {
         bodyStyle={{ padding: "1" }}
         extra={[
           <div className="time_delete">
-            <p className="sticky_time">{time}</p>
+            <p className="sticky_time text-xs">{notesTime}</p>
             <DeleteOutlined style={{ fontSize: "12px", marginLeft: "5px" }} onClick={deleteStickyNoteHandler}/>
           </div>,
         ]}
         style={{
           width: 290,
-          height:100,
-          maxHeight:200,
+          // height:100,
+          // maxHeight:200,
           marginLeft: "10px",
           marginTop: "10px",
           // alignItems:"center",
@@ -63,8 +50,7 @@ const CustomCard = ({ item, onDoubleClick }) => {
         }}
       >
         <div className="sticky_content" dangerouslySetInnerHTML={{__html:item.description}} />
-          {/* {item.description} */}
-        <p className="sticky_date">{date}</p>
+
       </Card>
     </>
   );

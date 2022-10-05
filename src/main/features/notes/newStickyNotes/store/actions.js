@@ -12,15 +12,15 @@ const addSticky_SD = (data) => {
       "description": data.description ? data.description : "",
       "privacyId": data.privacyId ? data.privacyId : 1,
       "colorCode":data.colorCode?data.colorCode:"",
+      "attchments":data.attchments?data.attchments:[],
+      // {
+// id:dssdds,
+// file:{}
+      // }
     }
   }
 
-  const saerchSticky_SD=(data)=>{
-    return{
-      "search":data.search?data.search:"",
-    }
-      
-  }
+  
 
   
 

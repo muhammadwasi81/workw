@@ -67,7 +67,6 @@ class SingleUpload extends React.Component {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
-
     this.setState({
       previewImage: file.url || file.preview,
       previewVisible: true,
@@ -119,6 +118,72 @@ class SingleUpload extends React.Component {
           multiple={this.props.multiple}
           // maxCount={1}
           defaultFileList={defaultFileList}
+        >
+          {this.props.multiple
+            ? uploadButton
+            : fileList.length === 1
+            ? null
+            : uploadButton}
+        </Upload>
+        <Modal
+          visible={previewVisible}
+          title={previewTitle}
+          footer={null}
+          onCancel={this.handleCancel}
+        >
+          <img alt="example" style={{ width: "100%" }} src={previewImage} />
+        </Modal>
+      </>
+    );
+  }
+
+  handleChange = (info) => {
+    let { fileList } = info;
+    const status = info.file.status;
+    if (status !== "uploading") {
+      // console.log(info.file, info.fileList);
+    }
+    if (status === "done") {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+    this.setState({ fileList });
+    this.props.handleImageUpload(fileList);
+  };
+  render() {
+    const {
+      previewVisible,
+      previewImage,
+      fileList,
+      previewTitle,
+      defaultFileList,
+    } = this.state;
+
+    const uploadButton =
+      this.props.uploadButton !== undefined ? (
+        this.props.uploadButton
+      ) : (
+        <div className="px-1">
+          <PlusOutlined />
+          <div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
+        </div>
+      );
+    // console.log(this.props.multiple);
+    return (
+      <>
+        <Upload
+          listType="picture-card"
+          fileList={fileList}
+          onPreview={this.handlePreview}
+          onChange={this.handleChange}
+          className={`uploadImg ${this.props.position}`}
+          accept="*"
+          beforeUpload={() => false}
+          multiple={this.props.multiple}
+          // maxCount={1}
+          defaultFileList={defaultFileList}
+          ref={this.props.inputRef}
         >
           {this.props.multiple
             ? uploadButton

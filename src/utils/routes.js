@@ -276,6 +276,7 @@ export const ROUTES = {
     INFO: `info/*`,
     BANK_DETAIL: "info/bankDetail/:id",
     BASIC_INFO: "info/basicInfo/:id",
+    USER_LEAVES: "info/leaves/:id",
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
@@ -555,13 +556,11 @@ export const ROUTES = {
     DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
     CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
   },
-
   TASK: {
     DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
     ROOT: `${DOMAIN_PREFIX}/tasks`,
     DETAIL: `tasks/taskDetail/:id`,
   },
-
   REWARDS: {
     DEFAULT: `${DOMAIN_PREFIX}/rewards`,
     REWARD: `${DOMAIN_PREFIX}/rewards`,
@@ -593,7 +592,11 @@ export const ROUTES = {
     JOB_DETAIL: `${DOMAIN_PREFIX}/jobdetail`,
     CAREERLINK: `${DOMAIN_PREFIX}/careers`,
   },
-
+  JOBS: {
+    DEFAULT: `${DOMAIN_PREFIX}/jobBoard/*`,
+    ROOT: `${DOMAIN_PREFIX}/jobBoard`,
+    PUBLIC: `${DOMAIN_PREFIX}/public/jobBoard`,
+  },
   WORKBOARD: {
     DEFAULT: `${DOMAIN_PREFIX}/workboard`,
     DASHBOARD: `${DOMAIN_PREFIX}/workboard/dashboard`,
@@ -602,7 +605,6 @@ export const ROUTES = {
     TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board/:id`,
     MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
   },
-
   BONUS: {
     DEFAULT: `${DOMAIN_PREFIX}/bonus`,
   },

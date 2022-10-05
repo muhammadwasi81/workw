@@ -20,7 +20,7 @@ export const addbranchOfficeService = args => {
 		});
 };
 export const updateBranchService = args => {
-	return MasterConfig.put(`api/Branch/UpdateBranch`, args)
+	return MasterConfig.put(`api/BranchOffice/UpdateBranchOffice`, args)
 		.then(res => {
 			return res.data;
 		})

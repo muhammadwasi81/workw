@@ -180,6 +180,10 @@ export const routes = {
         import("../main/features/promotion/view/Promotions")
       ),
     },
+    {
+			path: `${ROUTES.JOBS.DEFAULT}`,
+			component: lazy(() => import("../main/features/jobs/view/index")),
+		},
 
     //Hr Router
     {

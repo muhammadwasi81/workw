@@ -30,10 +30,10 @@ export default function ComplainCategory() {
         return;
       }
       dispatch(updateComplainCategory(e));
-
       setComplainCategory(initialState);
     }
   };
+
   return (
     <AdminContainer>
       <Form clearButton={clearButton} setClearButton={setClearButton} data={complainCategory} onSubmit={onSubmit} loading={loader} />

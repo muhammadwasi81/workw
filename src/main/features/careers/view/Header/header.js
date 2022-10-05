@@ -1,6 +1,6 @@
 import React from "react";
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
-import Composer from "../Composer/index";
+import Composer from "../Composers/index";
 import MainHeader from "../../../../layout/header/index";
 
 const Header = () => {

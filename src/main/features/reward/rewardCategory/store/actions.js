@@ -1,4 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
+import MasterConfig from "../../../../../utils/services/MasterConfig";
 import { responseCode } from "../../../../../services/enums/responseCode";
 import {
   responseMessage,
@@ -31,9 +33,12 @@ export const addRewardCategory = createAsyncThunk(
     const res = await addRewardCategoryService(args);
 
     if (res.responseCode) {
-      if (res.responseCode === responseCode.Success)
-        res.message = "Reward Category added successfully!";
-      responseMessage({ dispatch, data: res });
+      if (res.responseCode === responseCode.Success) {
+        message.success("Reward Category added successfully!")
+        responseMessage({ dispatch, data: res });
+      } else {
+        message.error(res.message)
+      }
     } else {
       responseMessage({
         dispatch: dispatch,
@@ -48,12 +53,15 @@ export const addRewardCategory = createAsyncThunk(
 export const updateRewardCategory = createAsyncThunk(
   "rewardcategory/updaterewardcategory",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.put(`${API_PREFIX}updaterewardcategory`, args)
+    return await MasterConfig.put(`api/rewardcategory/updaterewardcategory`, args)
       .then((res) => {
-        if (res.data.responseCode === responseCode.Success)
-          res.data.message = "Reward Category updated successfully!";
-        responseMessage({ dispatch, data: res.data });
-        return res.data;
+        if (res.data.responseCode === responseCode.Success) {
+          message.success("Reward Category updated successfully!")
+          responseMessage({ dispatch, data: res.data });
+          return res.data;
+        } else {
+          message.error(res.data.message)
+        }
       })
       .catch((err) => {
         responseMessage({
@@ -68,11 +76,13 @@ export const updateRewardCategory = createAsyncThunk(
 export const removeRewardCategory = createAsyncThunk(
   "rewardcategory/removerewardcategory",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.delete(`${API_PREFIX}removerewardcategory?id=${args.id}`)
+    return await MasterConfig.delete(`api/rewardcategory/removerewardcategory?id=${args.id}`)
       .then((res) => {
         if (res.data.responseCode === responseCode.Success) {
-          res.data.message = "Reward Category removed successfully!";
+          message.success("Reward Category removed successfully!")
           dispatch(rewardCategoryDeleted(args));
+        } else {
+          message.error(res.message)
         }
         responseMessage({ dispatch, data: res.data });
         return res.data;

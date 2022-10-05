@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminContainer } from "../../../../../components/HrMenu/Administration/StyledComponents/admin";
@@ -19,19 +20,22 @@ export default function WargningCategory() {
   };
 
   const onSubmit = (e) => {
-    if (!e.id) {
-      dispatch(addWarningCategory(e));
+    if (e.name === "" || e.description === "") {
+      message.error("Please fill all required fields")
+    } else {
+      if (!e.id) {
+        dispatch(addWarningCategory(e));
+        setWarnigCategory(initialState);
+        setClearButton(true)
+        return;
+      }
+      dispatch(updateWarningCategory(e));
       setWarnigCategory(initialState);
-      setClearButton(true)
-      return;
     }
-    dispatch(updateWarningCategory(e));
-    
-    setWarnigCategory(initialState);
   };
   return (
     <AdminContainer>
-      <WarningCategoryForm 
+      <WarningCategoryForm
         clearButton={clearButton}
         setClearButton={setClearButton}
         data={warningCategory}

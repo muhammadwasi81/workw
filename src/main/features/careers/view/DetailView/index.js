@@ -3,10 +3,11 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import Header from "../../view/Header/index";
-import Card from "./Card";
+import Header from "../../view/Header/header";
+import Card from "./ShortDetailCard";
 import styled from "styled-components";
 import "../styles/style.css";
+import CandidateList from "./CandidateListView";
 
 function JobDetails() {
   return (
@@ -15,6 +16,7 @@ function JobDetails() {
       <ContBody>
         <CardWrapper>
           <Card />
+          <CandidateList />
         </CardWrapper>
       </ContBody>
     </TabbableContainer>

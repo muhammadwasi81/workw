@@ -29,7 +29,6 @@ const Projects = () => {
 		userLanguage
 	];
 	const { createTextBtn, topBar } = projectsDictionary;
-
 	const { projects, loader } = useSelector(state => state.projectSlice);
 
 	useEffect(() => {

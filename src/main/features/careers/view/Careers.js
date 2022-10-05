@@ -1,10 +1,9 @@
 import React from "react";
 import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import TopBar from "../view/TopBar/index";
-import Header from "../view/Header/index";
-import ListItem from "./ListItem/index";
-import { CardWrapper3 } from "../../../sharedComponents/Card/CardStyle";
+import TopBar from "./Header/filterBar";
+import Header from "./Header/header";
 import CareersListView from "./CareersListView";
+import MyCareersListView from "./MyCareersListView";
 
 function Careers() {
   return (
@@ -13,17 +12,8 @@ function Careers() {
         <Header />
         <TopBar />
         <ContBody>
-          <CareersListView />
-          {/* 
-          <CardWrapper3>
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-          </CardWrapper3> 
-          */}
-
+          <MyCareersListView />
+          {/* <CareersListView /> */}
         </ContBody>
       </TabbableContainer>
     </>

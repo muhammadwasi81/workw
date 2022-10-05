@@ -14,10 +14,11 @@ const MessengerListItem = ({
 		messageType,
 		attachments,
 		messageByMe,
-		messageStatuses,
+		status
+		// messageStatuses,
 	} = messgeItem;
 	const { chatType } = messengerDetail;
-	const messageStatus = getMessageStatus(chatType, messageStatuses);
+	// const messageStatus = getMessageStatus(chatType, messageStatuses);
 
 	return (
 		<div
@@ -37,7 +38,7 @@ const MessengerListItem = ({
 				/>
 			</div>
 			<div className="MessageBubble">{message}</div>
-			{messageStatus}
+			{messageByMe && status}
 		</div>
 	);
 };

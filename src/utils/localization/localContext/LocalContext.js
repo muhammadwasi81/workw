@@ -1,30 +1,27 @@
-import React, {createContext, useState} from "react";
-import {dictionaryList} from "../languages";
-import {useSelector} from "react-redux";
-
+import React, { createContext, useState } from 'react';
+import { dictionaryList } from '../languages';
+import { useSelector } from 'react-redux';
 
 export const LanguageChangeContext = createContext({
-    userLanguage: "en",
-    dictionary: dictionaryList
-})
+  userLanguage: 'en',
+  dictionary: dictionaryList,
+});
 
+export const LanguageProvider = ({ children }) => {
+  const [userLanguage, setUserLanguage] = useState('en');
 
-export const LanguageProvider = ({children}) => {
-    const [userLanguage, setUserLanguage] = useState('en');
-
-
-    const provider = {
-        userLanguage,
-        dictionary: dictionaryList[userLanguage],
-        userLanguageChange: selected => {
-            const newLanguage = dictionaryList[selected] ? selected : "en"
-            setUserLanguage(newLanguage);
-            window.localStorage.setItem('rcml-lang', newLanguage)
-        }
-    }
-    return (
-        <LanguageChangeContext.Provider value={provider}>
-            {children}
-        </LanguageChangeContext.Provider>
-    )
-}
+  const provider = {
+    userLanguage,
+    dictionary: dictionaryList[userLanguage],
+    userLanguageChange: (selected) => {
+      const newLanguage = dictionaryList[selected] ? selected : 'en';
+      setUserLanguage(newLanguage);
+      window.localStorage.setItem('rcml-lang', newLanguage);
+    },
+  };
+  return (
+    <LanguageChangeContext.Provider value={provider}>
+      {children}
+    </LanguageChangeContext.Provider>
+  );
+};

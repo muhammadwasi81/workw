@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { TabbableContainer, ContBody } from "../../../layout/GridStyle";
-import Header from "../../../layout/header";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { requisitionDictionaryList } from "../localization";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import Composer from "./composer";
-import ListView from "./ListView";
-import DetailedView from "./DetailedView";
-import { CloseDetailView } from "../../../../store/appReducer/resignationSlice";
-import { Table } from "../../../sharedComponents/customTable";
-import { tableColumn } from "./TableColumn";
+import React, { useContext, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { TabbableContainer, ContBody } from '../../../layout/GridStyle';
+import Header from '../../../layout/header';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { requisitionDictionaryList } from '../localization';
+import TopBar from '../../../sharedComponents/topBar/topBar';
+import Composer from './composer';
+import ListView from './ListView';
+import DetailedView from './DetailedView';
+import { CloseDetailView } from '../../../../store/appReducer/resignationSlice';
+import { Table } from '../../../sharedComponents/customTable';
+import { tableColumn } from './TableColumn';
 
 function Requisition() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -22,7 +22,7 @@ function Requisition() {
 
   const [tableView, setTableView] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [filter, setFilter] = useState({ filterType: 0, search: '' });
 
   const closeDetailView = () => {
     dispatch(CloseDetailView());
@@ -33,7 +33,7 @@ function Requisition() {
       <Header
         buttons={[
           {
-            buttonText: "Create Resignation",
+            buttonText: 'Create Resignation',
             // onClick: () => setVisible(true),
             render: (
               <SideDrawer
@@ -53,15 +53,15 @@ function Requisition() {
         }}
         buttons={[
           {
-            name: "Requisition",
+            name: 'Requisition',
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: "For Approval",
+            name: 'For Approval',
             onClick: () => setFilter({ filterType: 1 }),
           },
           {
-            name: "Requisition To Me",
+            name: 'Requisition To Me',
             onClick: () => setFilter({ filterType: 2 }),
           },
         ]}
@@ -70,14 +70,14 @@ function Requisition() {
         }}
         segment={{
           onSegment: (value) => {
-            if (value === "Table") {
+            if (value === 'Table') {
               setTableView(true);
             } else {
               setTableView(false);
             }
           },
-          label1: "List",
-          label2: "Table",
+          label1: 'List',
+          label2: 'Table',
         }}
       />
 

@@ -54,8 +54,6 @@ function UserLeave() {
   const {
     employee: { basicdetails },
   } = useSelector((state) => state.employeeSlice);
-  console.log(id, "ID")
-  console.log(basicdetails, "dataa employee kaa yahan aa raha hay")
 
   return (
     <div className="userLeavesTable">

@@ -27,7 +27,7 @@ function ListItem(props) {
             Subline={
               <SublineDesigWithTime
                 designation={item.creator.designation}
-                time={moment(item.creatDate).fromNow()}
+                time={moment(item.createDate).fromNow()}
               />
             }
           />
@@ -35,7 +35,7 @@ function ListItem(props) {
         <ItemContent className="ItemContent">
           <h3>{item.subject}</h3>
           {/* <p>{item.description}</p> */}
-          <h3>FR-00032</h3>
+          <h3>{item.referenceNo}</h3>
         </ItemContent>
         <div className="ItemFooter">
           <Link to={ROUTES.FORMS.SUBMIT_FORM + "/dfdfdf"}>

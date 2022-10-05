@@ -8,23 +8,13 @@ const FormHeader = (props) => {
     handleChangeEmail,
     disableSubmit,
     isAcceptingResp,
-    handleChangeTitle,
-    handleDescriptionChange,
   } = props;
   return (
     <>
       <div className="c-row bg-clr editForm">
         <div className="f-head-item p_15">
-          <input
-            className="e-tlt"
-            defaultValue={title}
-            onChange={handleChangeTitle}
-          />
-          <input
-            className="e-desc f-bold"
-            defaultValue={description}
-            onChange={handleDescriptionChange}
-          />
+          <input className="e-tlt" defaultValue={title} />
+          <input className="e-desc f-bold" defaultValue={description} />
         </div>
         <div className="p_15 f-head-main">
           <div className="flex-between wrap">

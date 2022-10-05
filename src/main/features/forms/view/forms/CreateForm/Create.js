@@ -15,7 +15,7 @@ import { CloseOutlined } from "@ant-design/icons";
 const { TextArea } = Input;
 const { Option } = Select;
 
-const CreateForm = (props) => {
+const Create = (props) => {
   const [form] = Form.useForm();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -73,7 +73,7 @@ const CreateForm = (props) => {
             rules={[
               {
                 required: true,
-                message: "Please input your username!",
+                message: "Please input your Subject!",
               },
             ]}
           >
@@ -125,4 +125,4 @@ const CreateForm = (props) => {
   );
 };
 
-export default CreateForm;
+export default Create;

@@ -27,7 +27,7 @@ export const addFormService = (data) => {
 };
 
 export const updateFormService = (data) => {
-  console.log("data from form", data);
+  console.log("data from form service", data);
   const formData = jsonToFormData(data);
   return MasterConfig.put(`api/Form/UpdateForm`, formData)
     .then((res) => {

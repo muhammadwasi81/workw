@@ -17,12 +17,16 @@ const RadioWithImage = (props) => {
     <>
       <div className="c-row txt-fields bg-clr p_15 d-flex">
         <div className="flex-1">
-          {question.image && (
+          {question.image.file && (
             <div className="QuesImg">
-              <img src={question.image} />{" "}
+              <img
+                src={(window.URL || window.webkitURL).createObjectURL(
+                  question?.image.file
+                )}
+              />{" "}
             </div>
           )}
-          <div>
+          <div className="flex" style={{ justifyContent: "space-between" }}>
             <h1 className="row-tlt">{question.question}</h1>
             <button onClick={() => removeQuestion(index)}>
               <CloseSquareOutlined style={{ fontSize: "150%" }} />

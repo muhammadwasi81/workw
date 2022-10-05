@@ -6,7 +6,7 @@ import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import TextFields from "./QuestionsItems/TextFields";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { defaultUiid } from "../../../../../../utils/Shared/enums/enums";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import { updateForm } from "../../../store/actions";
@@ -55,6 +55,7 @@ let initialData = {
 
 const EditForm = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [employeesData, setEmployeesData] = useState([]);
@@ -203,10 +204,14 @@ const EditForm = (props) => {
     // console.log("formData", formData);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e, index) => {
     console.log("change items", e.target.value);
+    console.log("index", index);
 
     //TODO: setState for fields
+    let updatedFormData = { ...formData };
+    updatedFormData.question[index].question = e.target.value;
+    setFormData(updatedFormData);
   };
 
   const handleChangeTitle = (e) => {
@@ -251,6 +256,8 @@ const EditForm = (props) => {
     console.log(opIndex, "option index");
     console.log(quesIndex, "question index");
 
+    console.log(info.length, "info length");
+
     //TODO:  here we have both index and info we will set this data in state for edit purpose
     console.log("form data options updates start");
     let updatedFormData = { ...formData };
@@ -261,7 +268,12 @@ const EditForm = (props) => {
       answers: updatedFormData.question[quesIndex].answers.map(
         (item, ansIndex) => ({
           ...item,
-          image: ansIndex === opIndex ? info[0].originFileObj : item.image,
+          image:
+            ansIndex === opIndex
+              ? info.length >= 1
+                ? { file: info[0].originFileObj }
+                : ""
+              : item.image,
         })
       ),
     };
@@ -318,6 +330,7 @@ const EditForm = (props) => {
     console.log("edit console start");
     dispatch(updateForm(formData));
     console.log("dispatch complete");
+    navigate(-1);
   };
 
   if (!formData) return <div>Loading...</div>;
@@ -371,15 +384,12 @@ const EditForm = (props) => {
                 <>
                   {item.localType === "radio" && (
                     <Radio
-                      handleRadioChange={handleChange}
+                      handleRadioChange={(e) => handleChange(e, index)}
                       question={item}
                       index={index}
                       removeQuestion={(index) => removeQuestion(index)}
                       handleQuestionImageChange={(info) =>
                         handleQuestionImageChange(info, index)
-                      }
-                      handleOptionImageChange={(info, i) =>
-                        handleOptionImageChange(info, i, index)
                       }
                       handleOptionsChange={(e, i) =>
                         handleOptionsChange(e, i, index)
@@ -388,7 +398,7 @@ const EditForm = (props) => {
                   )}
                   {item.localType === "radioWithImage" && (
                     <RadioWithImage
-                      handleChange={handleChange}
+                      handleChange={(e) => handleChange(e, index)}
                       question={item}
                       index={index}
                       removeQuestion={(index) => removeQuestion(index)}
@@ -398,11 +408,14 @@ const EditForm = (props) => {
                       handleOptionsChange={(e, i) =>
                         handleOptionsChange(e, i, index)
                       }
+                      handleOptionImageChange={(info, i) =>
+                        handleOptionImageChange(info, i, index)
+                      }
                     />
                   )}
                   {item.localType === "text" && (
                     <TextFields
-                      handleChange={handleChange}
+                      handleChange={(e) => handleChange(e, index)}
                       fieldData={item}
                       index={index}
                       type="text"
@@ -414,7 +427,7 @@ const EditForm = (props) => {
                   )}
                   {item.localType === "number" && (
                     <TextFields
-                      handleChange={handleChange}
+                      handleChange={(e) => handleChange(e, index)}
                       fieldData={item}
                       index={index}
                       type="number"

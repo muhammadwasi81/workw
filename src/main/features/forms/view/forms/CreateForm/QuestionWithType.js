@@ -62,7 +62,7 @@ const QuestionWithType = (props) => {
     console.log(data, "data here console");
     props.dataSend(data);
     form.resetFields();
-    form.optionClass.resetFields();
+    setQuestionImage(null);
   };
 
   return (
@@ -81,7 +81,7 @@ const QuestionWithType = (props) => {
             >
               <Input placeholder="Question.." style={{ width: "40em" }} />
             </Form.Item>
-            <Form.Item className="optionClass">
+            <Form.Item className="optionClass" name="questionImage">
               <Upload
                 onChange={(info) => handleQuestionImageChange(info)}
                 accept="*"

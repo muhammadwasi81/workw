@@ -54,7 +54,11 @@ export const tableColumns = (sections, handleMemberModal) => {
 			title: "Section",
 			dataIndex: "sectionId",
 			render: (sectionId, record, index) => (
-				<LeadSectionSelect detail={record} sections={sections} />
+				<LeadSectionSelect
+					detail={record}
+					sections={sections}
+					index={index}
+				/>
 			),
 			width: 200,
 		},

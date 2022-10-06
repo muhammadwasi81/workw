@@ -90,6 +90,7 @@ const leadMangerSlice = createSlice({
 			state.leadManagerDetail.sections = newLists;
 		},
 		moveDetail(state, { payload }) {
+			console.log("move detail", payload);
 			const {
 				oldCardIndex,
 				newCardIndex,

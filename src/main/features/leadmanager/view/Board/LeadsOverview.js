@@ -16,7 +16,9 @@ import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
 import {
 	handleAssignMemberModal,
 	handleContactDetailModal,
+	moveDetail,
 } from "../../store/slice";
+import LeadSectionSelect from "../../UI/Select/LeadSectionSelect";
 function LeadsOverview() {
 	const Option = Select;
 	const [toggleForm, setToggleForm] = useState(false);
@@ -56,16 +58,32 @@ function LeadsOverview() {
 		setToggleForm(!toggleForm);
 	};
 
-	const handleSectionChange = (currentSectionId, targetSectionId) => {
+	const handleSectionChange = (
+		currentSectionId,
+		targetSectionId,
+		currentIndex
+	) => {
+		console.log("current section id: ", currentSectionId);
+		console.log("target section id:", targetSectionId);
+		console.log("currentIndex:", currentIndex);
+		dispatch(
+			moveDetail({
+				sourceListId: currentSectionId,
+				destListId: targetSectionId,
+				oldCardIndex: currentIndex,
+				newCardIndex: 0,
+			})
+		);
 		dispatch(
 			moveLeadManagerDetail({
 				currentSectionId,
 				targetSectionId,
-				currentIndexNo: 1,
+				currentIndexNo: Number(currentIndex) + 1,
 				targetIndexNo: 1,
 			})
 		);
 	};
+	// console.log("leadManagerDetail", leadManagerDetail);
 	return (
 		<>
 			<div className="flex flex-1 gap-10 my-5 ">
@@ -83,116 +101,132 @@ function LeadsOverview() {
 						/>
 					)}
 					<div className="rounded">
-						{leadManagerDetail?.sections.map(detail => (
+						{leadManagerDetail?.sections?.map(detail => (
 							<>
-								{detail.details.map(det => (
-									<div
-										className="mb-2 px-3 py-2 rounded text-white cursor-pointer"
-										style={{ background: detail.colorCode }}
-										onClick={() => {
-											setOpenDetail(true);
-											setLeadDetailId(det.id);
-										}}
-									>
-										<div className="flex items-center gap-3">
-											<Avatar
-												src={det.image}
+								{detail?.details?.map((det, index) => {
+									console.log("detail map", detail);
+									return (
+										<div
+											className="mb-2 px-3 py-2 rounded text-white cursor-pointer"
+											style={{
+												background: detail?.colorCode,
+											}}
+											onClick={() => {
+												setOpenDetail(true);
+												setLeadDetailId(det?.id);
+											}}
+										>
+											<div className="flex items-center gap-3">
+												{/* <Avatar
+												src={det?.image}
 												className="!bg-black !min-w-[32px]"
 											>
-												{getNameForImage(det.name)}
-											</Avatar>
+												{getNameForImage(det?.name)}
+											</Avatar> */}
 
-											<div className="flex flex-col gap-3 w-full">
-												<div className="flex justify-between">
-													<div className="flex flex-col gap-2">
-														<div>{det.name}</div>
-														<div className="text-xs">
-															<p className="!m-0 truncate w-[80%]">
-																{det.address}
-															</p>
+												<div className="flex flex-col gap-3 w-full">
+													<div className="flex justify-between">
+														<div className="flex flex-col gap-2">
+															<div>
+																{det?.name}
+															</div>
+															<div className="text-xs">
+																<p className="!m-0 truncate w-[80%]">
+																	{
+																		det?.address
+																	}
+																</p>
+															</div>
 														</div>
-													</div>
-													<div
-														className="p-[10px] bg-neutral-100 h-min rounded flex justify-center items-center font-bold"
-														style={{
-															color:
-																detail.colorCode,
-														}}
-													>
-														{det.typeId === 1
-															? "Business"
-															: "Individual"}
-													</div>
-												</div>
-												<div className="flex items-center justify-between">
-													<Tooltip title="Select Assign Members">
 														<div
-															className="bg-primary-color rounded-full p-1 flex items-center"
-															onClick={e => {
-																e.stopPropagation();
-																e.preventDefault();
-																dispatch(
-																	handleAssignMemberModal(
-																		{
-																			id:
-																				det.id,
-																		}
-																	)
-																);
+															className="p-[10px] bg-neutral-100 h-min rounded flex justify-center items-center font-bold"
+															style={{
+																color:
+																	detail.colorCode,
 															}}
 														>
-															<PlusOutlined className="!text-[15px] !cursor-pointer !text-white" />
+															{det.typeId === 1
+																? "Business"
+																: "Individual"}
 														</div>
-													</Tooltip>
-													<div>
-														<Select
-															defaultValue={
-																det?.sectionId
-															}
-															dropdownStyle={{
-																minWidth:
-																	"max-content",
-															}}
-															onClick={e => {
-																e.stopPropagation();
-																e.preventDefault();
-															}}
-															onChange={value => {
-																handleSectionChange(
-																	det?.sectionId,
-																	value
-																);
-															}}
-														>
-															{leadManagerDetail?.sections.map(
-																leadSection => (
-																	<Option
-																		value={
-																			leadSection.id
-																		}
-																		key={
-																			leadSection.id
-																		}
-																	>
-																		<Tag
-																			color={
-																				leadSection.colorCode
+													</div>
+													<div className="flex items-center justify-between">
+														<Tooltip title="Select Assign Members">
+															<div
+																className="bg-primary-color rounded-full p-1 flex items-center"
+																onClick={e => {
+																	e.stopPropagation();
+																	e.preventDefault();
+																	dispatch(
+																		handleAssignMemberModal(
+																			{
+																				id:
+																					det?.id,
+																			}
+																		)
+																	);
+																}}
+															>
+																<PlusOutlined className="!text-[15px] !cursor-pointer !text-white" />
+															</div>
+														</Tooltip>
+														<div>
+															<Select
+																defaultValue={
+																	det?.sectionId
+																}
+																dropdownStyle={{
+																	minWidth:
+																		"max-content",
+																}}
+																onClick={e => {
+																	e.stopPropagation();
+																	e.preventDefault();
+																}}
+																onChange={value => {
+																	handleSectionChange(
+																		det?.sectionId,
+																		value,
+																		index
+																	);
+																}}
+															>
+																{leadManagerDetail?.sections.map(
+																	leadSection => (
+																		<Option
+																			value={
+																				leadSection.id
+																			}
+																			key={
+																				leadSection.id
 																			}
 																		>
-																			{
-																				leadSection.name
-																			}
-																		</Tag>
-																	</Option>
-																)
-															)}
-														</Select>
+																			<Tag
+																				color={
+																					leadSection.colorCode
+																				}
+																			>
+																				{
+																					leadSection.name
+																				}
+																			</Tag>
+																		</Option>
+																	)
+																)}
+															</Select>
+															{/* <LeadSectionSelect
+															detail={det}
+															sections={
+																leadManagerDetail?.sections
+															}
+														/> */}
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								))}
+									);
+								})}
 							</>
 						))}
 					</div>

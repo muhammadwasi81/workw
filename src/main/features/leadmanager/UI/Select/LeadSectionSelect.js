@@ -2,15 +2,31 @@ import React from "react";
 import { Select, Tag } from "antd";
 import { useDispatch } from "react-redux";
 import { moveLeadManagerDetail } from "../../store/actions";
+import { moveDetail } from "../../store/slice";
 
-function LeadSectionSelect({ detail, sections }) {
+function LeadSectionSelect({ detail, sections, currentIndex }) {
 	const dispatch = useDispatch();
-	const handleSectionChange = (currentSectionId, targetSectionId) => {
+	const handleSectionChange = (
+		currentSectionId,
+		targetSectionId
+		// currentIndex
+	) => {
+		// console.log("current section id: ", currentSectionId);
+		// console.log("target section id:", targetSectionId);
+		// console.log("currentIndex:", currentIndex);
+		dispatch(
+			moveDetail({
+				sourceListId: currentSectionId,
+				destListId: targetSectionId,
+				oldCardIndex: currentIndex,
+				newCardIndex: 0,
+			})
+		);
 		dispatch(
 			moveLeadManagerDetail({
 				currentSectionId,
 				targetSectionId,
-				currentIndexNo: 1,
+				currentIndexNo: Number(currentIndex) + 1,
 				targetIndexNo: 1,
 			})
 		);
@@ -28,7 +44,11 @@ function LeadSectionSelect({ detail, sections }) {
 					e.preventDefault();
 				}}
 				onChange={value => {
-					handleSectionChange(detail?.sectionId, value);
+					handleSectionChange(
+						detail?.sectionId,
+						value
+						// detail?.indexNo
+					);
 				}}
 			>
 				{sections.map(leadSection => (

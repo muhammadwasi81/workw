@@ -8,7 +8,6 @@ function CreateChat({ onClose, visible }) {
   const dispatch = useDispatch();
   const { employeeShort: members } = useSelector((state) => state.sharedSlice);
   const [selectedMembers, setSelectedMembers] = useState([]);
-  const [currentMember, setCurrentMember] = useState({});
   useEffect(() => {
     dispatch(
       getAllEmployeeShort({
@@ -17,20 +16,16 @@ function CreateChat({ onClose, visible }) {
       })
     );
   }, []);
-  const handleMember = (member) => {
-    setCurrentMember(member);
-    setSelectedMembers((preValues) => {
-      if (!preValues.find((o) => o.id === member.id)) {
-        return [...preValues, member];
-      } else {
-        const filterSelectedMember = selectedMembers.filter(({ id }) => {
-          return id !== member.id;
-        });
-
-        return [...filterSelectedMember];
-      }
-    });
+  const onMemberSelect = (member) => {
+    setSelectedMembers([
+      ...selectedMembers,
+      member.id
+    ])
   };
+  const onMemberRemove = (member) => {
+    setSelectedMembers(selectedMembers.filter(it => it !== member.id))
+  }
+  console.log(selectedMembers, "Member Here");
 
   return (
     <Drawer
@@ -39,22 +34,28 @@ function CreateChat({ onClose, visible }) {
       visible={visible}
       className="createChat"
       width={500}
+      destroyOnClose={true}
     >
-      <div className="createChat__header">
-        <SingleUpload
-          //   handleImageUpload={}
-          uploadText={""}
-          multiple={false}
-        />
-        <Input placeholder="Name Your Group" />
-      </div>
-      <div className="createChat__body">
-        <MemberList
-          allMembers={members}
-          onMember={handleMember}
-          selectedMembers={selectedMembers}
-          currentMember={currentMember}
-        />
+      <div className="bg-white m-2 rounded-md">
+        <div className="createChat__header">
+          <SingleUpload
+            //   handleImageUpload={}
+            uploadText={""}
+            multiple={false}
+          />
+          <Input placeholder="Name Your Group" />
+        </div>
+        <div className="createChat__body">
+          <MemberList
+            allMembers={members}
+            onMemberSelect={onMemberSelect}
+            onMemberRemove={onMemberRemove}
+            selectedMembers={selectedMembers}
+          />
+        </div>
+        <div className="" >
+          
+        </div>
       </div>
     </Drawer>
   );

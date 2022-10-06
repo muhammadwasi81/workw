@@ -19,8 +19,9 @@ import {
 	moveDetail,
 } from "../../store/slice";
 import LeadSectionSelect from "../../UI/Select/LeadSectionSelect";
+import AvatarGroup from "../../../../sharedComponents/Avatar/avatar";
 function LeadsOverview() {
-	const Option = Select;
+	const { Option } = Select;
 	const [toggleForm, setToggleForm] = useState(false);
 	const [leadDetailId, setLeadDetailId] = useState("");
 	const [openDetail, setOpenDetail] = useState(false);
@@ -104,7 +105,7 @@ function LeadsOverview() {
 						{leadManagerDetail?.sections?.map(detail => (
 							<>
 								{detail?.details?.map((det, index) => {
-									console.log("detail map", detail);
+									// console.log("detail map", detail);
 									return (
 										<div
 											className="mb-2 px-3 py-2 rounded text-white cursor-pointer"
@@ -117,12 +118,12 @@ function LeadsOverview() {
 											}}
 										>
 											<div className="flex items-center gap-3">
-												{/* <Avatar
-												src={det?.image}
-												className="!bg-black !min-w-[32px]"
-											>
-												{getNameForImage(det?.name)}
-											</Avatar> */}
+												<Avatar
+													src={det?.image}
+													className="!bg-black !min-w-[32px]"
+												>
+													{getNameForImage(det?.name)}
+												</Avatar>
 
 												<div className="flex flex-col gap-3 w-full">
 													<div className="flex justify-between">
@@ -131,7 +132,7 @@ function LeadsOverview() {
 																{det?.name}
 															</div>
 															<div className="text-xs">
-																<p className="!m-0 truncate w-[80%]">
+																<p className="!m-0 truncate max-w-[200px]">
 																	{
 																		det?.address
 																	}
@@ -151,6 +152,12 @@ function LeadsOverview() {
 														</div>
 													</div>
 													<div className="flex items-center justify-between">
+														<AvatarGroup
+															heading={"Members"}
+															membersData={
+																det?.members
+															}
+														/>
 														<Tooltip title="Select Assign Members">
 															<div
 																className="bg-primary-color rounded-full p-1 flex items-center"

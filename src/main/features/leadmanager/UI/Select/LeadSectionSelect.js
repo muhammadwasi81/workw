@@ -31,7 +31,7 @@ function LeadSectionSelect({ detail, sections, currentIndex }) {
 			})
 		);
 	};
-	const Option = Select;
+	const { Option } = Select;
 	return (
 		<div>
 			<Select

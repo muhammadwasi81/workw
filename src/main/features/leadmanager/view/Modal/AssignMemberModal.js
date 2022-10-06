@@ -17,7 +17,7 @@ function AssignMemberModal({
 	selectedMembers = [],
 	handleDeleteMember = () => {},
 }) {
-	const Option = Select;
+	const { Option } = Select;
 
 	const handleSelectChange = value => {
 		const filterArrOfObj = defaultData.filter(

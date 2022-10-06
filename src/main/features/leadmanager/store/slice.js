@@ -90,7 +90,7 @@ const leadMangerSlice = createSlice({
 			state.leadManagerDetail.sections = newLists;
 		},
 		moveDetail(state, { payload }) {
-			console.log("move detail", payload);
+			// console.log("move detail", payload);
 			const {
 				oldCardIndex,
 				newCardIndex,
@@ -108,6 +108,12 @@ const leadMangerSlice = createSlice({
 			const sectionIndex = state.leadManagerDetail.sections.findIndex(
 				section => section.id === sourceListId
 			);
+			sourceSection.details[0].sectionId = destinationsSection.id;
+			// console.log(
+			// 	"sourceSection.details",
+			// 	current(sourceSection.details),
+			// 	current(destinationsSection)
+			// );
 
 			if (sourceListId === destListId) {
 				const newTodos = sourceSection.details;

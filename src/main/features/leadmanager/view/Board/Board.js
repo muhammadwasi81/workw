@@ -33,15 +33,15 @@ function Board() {
 	const leadManagerDetail = useSelector(
 		state => state.leadMangerSlice.leadManagerDetail
 	);
-	const isSectionDetailLoading = useSelector(
-		state => state.leadMangerSlice.isSectionDetailLoading
-	);
+	// const isSectionDetailLoading = useSelector(
+	// 	state => state.leadMangerSlice.isSectionDetailLoading
+	// );
 
-	const leadManagerSectionDetailData = useSelector(
-		state => state.leadMangerSlice.leadManagerSectionDetailData
-	);
+	// const leadManagerSectionDetailData = useSelector(
+	// 	state => state.leadMangerSlice.leadManagerSectionDetailData
+	// );
 
-	const loading = useSelector(state => state.leadMangerSlice.loading);
+	// const loading = useSelector(state => state.leadMangerSlice.loading);
 
 	const handleDragEnd = ({ source, destination, type }) => {
 		if (!destination) return;
@@ -91,6 +91,7 @@ function Board() {
 	// const handleSectionDetailModal = () => {
 
 	// };
+	// console.log("leadManagerDetail", leadManagerDetail);
 
 	return (
 		<>

@@ -27,6 +27,15 @@ import { resetProjectDetail } from "../store/slice";
 import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
 import WorkBoard from "../../workboard";
 import { TravelReferenceTypeEnum } from "../enum/enums";
+import { PostReferenceType } from "../../feed/utils/constants";
+import { TaskReferenceTypeEnum } from "../../task/enums/enum";
+import { WorkBoardReferenceTypeEnum } from "../../workboard/enum";
+import { ExpenseReferenceTypeEnum } from "../../expense/enums";
+import { DocumentReferenceTypeEnum } from "../../documents/view/enum";
+import NewsFeed from "../../feed/ui";
+import Task from "../../task/view/Task";
+import Expenses from "../../expense";
+import Documents from "../../documents/view/documents";
 
 function ProjectDetails() {
 	const params = useParams();
@@ -91,7 +100,47 @@ function ProjectDetails() {
 		},
 	];
 
+	const defaultRoute = ROUTES.PROJECT.DEFAULT + "/" + id;
 	const featuresComp = {
+		1: (
+			<NewsFeed
+				referenceType={PostReferenceType.PROJECTS}
+				referenceId={id}
+				backButton={false}
+				isScheduler={false}
+				isCheckedIn={false}
+				width={"!w-full"}
+				routeLink={defaultRoute}
+			/>
+		),
+		6: (
+			<Task
+				referenceType={TaskReferenceTypeEnum.Project}
+				referenceId={id}
+				width={"!w-full"}
+				routeLink={defaultRoute}
+				backButton={false}
+			/>
+		),
+		7: (
+			<WorkBoard
+				referenceType={WorkBoardReferenceTypeEnum.Project}
+				referenceId={id}
+				width={"!w-full"}
+				routeLink={defaultRoute}
+				backButton={false}
+			/>
+		),
+		9: (
+			<Expenses
+				referenceType={ExpenseReferenceTypeEnum.Project}
+				referenceId={id}
+				width={"!w-full"}
+				routeLink={defaultRoute}
+				backButton={false}
+			/>
+		),
+		10: <>Schedule</>,
 		11: (
 			<Travel
 				referenceType={TravelReferenceTypeEnum.Project}
@@ -99,10 +148,12 @@ function ProjectDetails() {
 				backButton={false}
 			/>
 		),
-		7: (
-			<WorkBoard
-				referenceType={FeaturesEnum.Project}
+		12: (
+			<Documents
+				referenceType={DocumentReferenceTypeEnum.Project}
 				referenceId={id}
+				width={"!w-full"}
+				routeLink={defaultRoute}
 				backButton={false}
 			/>
 		),

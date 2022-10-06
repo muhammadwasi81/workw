@@ -1,6 +1,11 @@
 const turkish = {
   employeesDictionary: {
     placeholders: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       fName: "Ad Girin",
       lName: "Soyadı Girin",
       fatherName: "Baba Adı Girin",
@@ -41,6 +46,11 @@ const turkish = {
       sortCode: "E-posta Girin7",
     },
     EmployeeForm: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       AddImage: "Resim Ekle",
       FirstName: "Ad",
       LastName: "Soyadı",
@@ -102,6 +112,7 @@ const turkish = {
       City: "Derece2",
     },
     WorkExperienceForm: {
+      organization: "Organization",
       WorkExperienceInfo: "Derece3",
       Employer: "Derece4",
       Position: "Derece5",

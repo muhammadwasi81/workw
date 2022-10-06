@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { set } from "lodash";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,26 +21,30 @@ export default function SalaryHeader() {
   };
 
   const onSubmit = (e) => {
-    if (!e.id) {
-      dispatch(addSalaryHeader(e));
+    if (e.description === "") {
+      message.error("Please fill all required fields")
+    } else {
+      if (!e.id) {
+        dispatch(addSalaryHeader(e));
+        setSalaryHeader(initialState);
+        setClearButton(true)
+        return;
+      }
+      dispatch(updateSalaryHeader(e));
       setSalaryHeader(initialState);
-      setClearButton(true)
-      return;
     }
-    dispatch(updateSalaryHeader(e));
-    setSalaryHeader(initialState);
   };
   return (
     <AdminContainer>
-      <SalaryHeaderForm 
-        clearButton={clearButton} 
-        setClearButton={setClearButton} 
-        data={salaryHeader} 
-        onSubmit={onSubmit} 
+      <SalaryHeaderForm
+        clearButton={clearButton}
+        setClearButton={setClearButton}
+        data={salaryHeader}
+        onSubmit={onSubmit}
         loading={loader} />
-      <SalaryHeaderTable 
-        clearButton={clearButton} 
-        setClearButton={setClearButton} 
+      <SalaryHeaderTable
+        clearButton={clearButton}
+        setClearButton={setClearButton}
         handleEdit={setSalaryHeader}
         handleDelete={handleDelete}
         actionRights={[1, 2]}

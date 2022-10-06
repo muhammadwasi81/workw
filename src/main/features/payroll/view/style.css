@@ -1,6 +1,5 @@
-.cardSections {
+/* .cardSections {
     display: flex;
-    /* justify-content: space-around; */
     gap: 6px;
     flex-wrap: wrap;
     background: #f4f4f4;
@@ -18,13 +17,15 @@
     font-size: 12px;
     font-weight: 600;
     color: var(--currentThemeColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cardSectionItem {
     min-width: 100px;
     flex: 1;
     margin: 5px 0;
-    /* background-color: red; */
     border-right: 1px solid rgb(222, 222, 222);
     text-align: center;
 }
@@ -43,4 +44,7 @@
 .createEntryTable input{
     width: 100%;
 }
-
+ */
+ .payrollApprovers .ant-select-selector{
+    min-height: 31px;
+ }

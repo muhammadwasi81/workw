@@ -9,7 +9,12 @@ const Edit = (handleEdit, row, setClearButton) => {
         handleEdit({
           id: row.id,
           name: row.name,
+          value: row.value,
           description: row.description,
+          allowanceType: row.allowanceType,
+          allowanceUnit: row.allowanceUnit,
+          isTaxable: row.isTaxable,
+          // gradeId: row.gradeId,
         }); 
         setClearButton(true)
       }
@@ -56,7 +61,6 @@ export const tableColumn = (
         return text === 1 ? "Benefit" : "Deduction" 
       }
     },
-    { title: "", dataIndex: "", width: "20%" },
     { title:  
       "Is Taxable",
       dataIndex: "isTaxable",

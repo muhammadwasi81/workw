@@ -1,4 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
+import MasterConfig from "../../../../../utils/services/MasterConfig";
 import { responseCode } from "../../../../../services/enums/responseCode";
 import {
   responseMessage,
@@ -26,20 +28,15 @@ export const getAllLeaveType = createAsyncThunk(
 );
 
 export const addLeaveType = createAsyncThunk(
-  "leavetype/addleavetype",
-  async (args, { dispatch, getState }) => {
+  "leaves/addLeave",
+  async (args, { dispatch }) => {
     const res = await addLeaveTypeService(args);
-    if (res.responseCode) {
-      if (res.responseCode === responseCode.Success)
-        res.message = "Leave Type added successfully!";
+    if (res.responseCode && res.responseCode === responseCode.Success) {
+      message.success("Leave Created!")
       responseMessage({ dispatch, data: res });
     } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
+      message.error(res.message)
     }
-
     return res;
   }
 );
@@ -47,18 +44,17 @@ export const addLeaveType = createAsyncThunk(
 export const updateLeaveType = createAsyncThunk(
   "leavetype/updateleavetype",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.put(`${API_PREFIX}updateleavetype`, args)
+    return await MasterConfig.put(`api/leavetype/updateleavetype`, args)
       .then((res) => {
-        if (res.data.responseCode === responseCode.Success)
-          res.data.message = "Leave Type updated successfully!";
-        responseMessage({ dispatch, data: res.data });
-        return res.data;
+        if (res.data.responseCode === responseCode.Success) {
+          message.success("Leave Type updated successfully!")
+          return res.data;
+        } if (res.data.responseCode === 1006) {
+          message.error("Leave Type already exist")
+        }
       })
       .catch((err) => {
-        responseMessage({
-          dispatch: dispatch,
-          type: responseMessageType.ApiFailure,
-        });
+        message.error("Something Went Wrong!")
         return err;
       });
   }
@@ -67,20 +63,16 @@ export const updateLeaveType = createAsyncThunk(
 export const removeLeaveType = createAsyncThunk(
   "leavetype/removeleavetype",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.delete(`${API_PREFIX}removeleavetype?id=${args.id}`)
+    return await MasterConfig.delete(`api/leaveType/removeleavetype?id=${args.id}`)
       .then((res) => {
         if (res.data.responseCode === responseCode.Success) {
-          res.data.message = "Leave Type removed successfully!";
           dispatch(leaveTypeDeleted(args));
+          message.success("Leave Type removed successfully!");
         }
-        responseMessage({ dispatch, data: res.data });
         return res.data;
       })
       .catch((err) => {
-        responseMessage({
-          dispatch: dispatch,
-          type: responseMessageType.ApiFailure,
-        });
+        message.err(err.message)
         return err;
       });
   }

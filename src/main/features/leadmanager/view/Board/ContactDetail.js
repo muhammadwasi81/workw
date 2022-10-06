@@ -11,7 +11,7 @@ import {
 } from "../../store/actions";
 const { Option } = Select;
 function ContactDetail(props) {
-	const [image, setImage] = useState();
+	const [image, setImage] = useState("");
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const prefixSelector = (
@@ -23,12 +23,16 @@ function ContactDetail(props) {
 			</Select>
 		</Form.Item>
 	);
-
+	useEffect(() => {
+		setImage("");
+	}, []);
+	const { isContactUpdated, contactDetail } = props;
 	const onFinish = value => {
 		let imageObj = {
+			// id: DEFAULT_GUID,
 			id: !isContactUpdated
 				? DEFAULT_GUID
-				: typeof image === String
+				: typeof image === "string"
 				? props.contactDetail.imageId
 				: DEFAULT_GUID,
 			file: image,
@@ -36,18 +40,24 @@ function ContactDetail(props) {
 		// if (props.contactDetail.imageId !== DEFAULT_GUID) {
 		// 	imageObj = { ...imageObj, id: props.contactDetail.imageId };
 		// }
-		if (!props.isContactUpdated) {
+		if (!isContactUpdated) {
 			dispatch(
 				addLeadManagerContact(
 					jsonToFormData({
 						image: { ...imageObj },
 						...value,
-						id: props.data.id,
+						detailId: props.data.id,
 					})
 				)
 			);
 			return;
 		}
+		// console.log("image", typeof image);
+		// if (typeof image === "string") {
+		// 	console.log("true");
+		// } else {
+		// 	console.log("false");
+		// }
 		dispatch(
 			updateLeadManagerContact(
 				jsonToFormData({
@@ -59,7 +69,7 @@ function ContactDetail(props) {
 			)
 		);
 	};
-	const { isContactUpdated, contactDetail } = props;
+
 	useEffect(() => {
 		if (isContactUpdated) {
 			form.setFieldsValue({ ...contactDetail });
@@ -139,9 +149,7 @@ function ContactDetail(props) {
 						}}
 						// uploadText={labels.uploadCvr}
 						// multiple={false}
-						url={
-							props.contactDetail ? props.contactDetail.image : ""
-						}
+						url={image}
 						position={"justify-end item-end"}
 					/>
 				</div>

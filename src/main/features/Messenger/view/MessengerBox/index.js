@@ -5,8 +5,8 @@ import { getAllMessages } from '../../store/actions';
 import MessengerBottom from './body/MessengerBottom';
 import MessengerHead from './body/MessengerHead';
 import MessengerList from './body/MessengerList';
-import MessengerProfile from './helpers/MessengerProfile';
-import EmptyMessenger from './helpers/EmptyMessenger';
+import MessengerProfile from './components/MessengerProfile';
+import EmptyMessenger from './components/EmptyMessenger';
 
 const MessengerBox = () => {
     const dispatch = useDispatch();

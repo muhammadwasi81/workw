@@ -14,8 +14,7 @@ import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedS
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import { modifySelectData } from "../../../../../utils/base";
 
-const CreateMilepad = ({ isOpen, handleClose }) => {
-
+const CreateMilepad = ({ isOpen, handleClose, referenceId, referenceType }) => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
@@ -64,32 +63,40 @@ const CreateMilepad = ({ isOpen, handleClose }) => {
 		setPrivacyId(value);
 	};
 
-	const onFinish = (values) => {
+	const onFinish = values => {
 		console.log(values);
 		let readers = values.readers ? modifySelectData(values.readers) : [];
-		let collaborators = values.collaborators ? modifySelectData(values.collaborators) : [];
+		let collaborators = values.collaborators
+			? modifySelectData(values.collaborators)
+			: [];
 		let members = [
-			...readers.map((item) => ({
+			...readers.map(item => ({
 				memberId: item,
 				memberType: 1,
-				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER,
 			})),
-			...collaborators.map((item) => ({
+			...collaborators.map(item => ({
 				memberId: item,
 				memberType: 1,
-				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.COLLABRATOR
-			}))
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.COLLABRATOR,
+			})),
 		];
 		let payload = {
 			name: values.name,
 			description: values.description,
-			approvers: values.approvers ? modifySelectData(values.approvers).map((item) => ({ approverId: item })) : [],
+			approvers: values.approvers
+				? modifySelectData(values.approvers).map(item => ({
+						approverId: item,
+				  }))
+				: [],
 			members: members,
 			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.pad,
-			privacyId: privacyId
-		}
-		dispatch(addDocument({ payload, form }))
+			privacyId: privacyId,
+			referenceId,
+			referenceType,
+		};
+		dispatch(addDocument({ payload, form }));
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -98,7 +105,8 @@ const CreateMilepad = ({ isOpen, handleClose }) => {
 
 	return (
 		<>
-			<SideDrawer title={"Create Milepad"}
+			<SideDrawer
+				title={"Create Milepad"}
 				isDisable={true}
 				isOpen={isOpen}
 				isAccessDrawer={false}
@@ -134,20 +142,15 @@ const CreateMilepad = ({ isOpen, handleClose }) => {
 						<TextInput placeholder={"Enter Name"} />
 					</Form.Item>
 
-					<Form.Item
-						label={"Description"}
-						name="description"
-					>
-						<Input.TextArea
-							placeholder={"Enter Description"}
-						/>
+					<Form.Item label={"Description"} name="description">
+						<Input.TextArea placeholder={"Enter Description"} />
 					</Form.Item>
 
 					<Form.Item
 						name="approvers"
 						label={"Approvers"}
 						showSearch={true}
-						style={{marginBottom: "0px"}}
+						style={{ marginBottom: "0px" }}
 					>
 						<CustomSelect
 							style={{ marginBottom: "0px" }}
@@ -183,7 +186,7 @@ const CreateMilepad = ({ isOpen, handleClose }) => {
 						name="collaborator"
 						label={"Collaborators"}
 						showSearch={true}
-						style={{marginBottom: "0px"}}
+						style={{ marginBottom: "0px" }}
 					>
 						<CustomSelect
 							style={{ marginBottom: "0px" }}
@@ -215,12 +218,12 @@ const CreateMilepad = ({ isOpen, handleClose }) => {
 						/>
 					</Form.Item>
 
-					{privacyId === PostPrivacyType.PRIVATE &&
+					{privacyId === PostPrivacyType.PRIVATE && (
 						<Form.Item
 							name="readers"
 							label={"Readers"}
 							showSearch={true}
-							style={{marginBottom: "0px"}}
+							style={{ marginBottom: "0px" }}
 						>
 							<CustomSelect
 								style={{ marginBottom: "0px" }}
@@ -251,7 +254,7 @@ const CreateMilepad = ({ isOpen, handleClose }) => {
 								showSearch={true}
 							/>
 						</Form.Item>
-					}
+					)}
 					<Form.Item>
 						<div className="flex items-center gap-2">
 							<PrivacyOptions

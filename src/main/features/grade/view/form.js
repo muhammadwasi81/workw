@@ -19,21 +19,12 @@ export default function GradeForm({
 	clearButton,
 }) {
 	const [form, setForm] = useState(data);
-
-	console.log(clearButton);
-
 	const handleClear = e => {
 		setForm({ ...form, description: "", name: "" });
-		// if ({...form, name: e.length > 0}) {
-		//     setClearButton(true)
-		// } else if ({...form, name: e.length == 0}) {
-		//     setClearButton(false)
-		// }
 		setClearButton(false);
 	};
 
 	const handelChangeName = e => {
-		// console.log(e.target.value)
 		if (e.target.value.length > 0) {
 			setClearButton(true);
 		} else {
@@ -102,7 +93,7 @@ export default function GradeForm({
 							onSubmit(form);
 							setClearButton(false);
 						}}
-						// loading={loading}
+						loading={loading}
 					>
 						Add Grade
 					</FormButton>

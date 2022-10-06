@@ -17,3 +17,8 @@
 .custom_member_collapse .ant-list-item-meta-description{
     line-height: 1;
 }
+
+.custom_member_collapse .ant-collapse>.ant-collapse-item:last-child,
+.ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header {
+  /* padding: 12px 40px 12px 16px !important; */
+}

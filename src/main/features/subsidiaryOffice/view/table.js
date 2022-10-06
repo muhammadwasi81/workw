@@ -2,8 +2,8 @@ import { Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
-import { getAllBranch, getAllDefaultHiringCriteria, removeBranch, removeComplainCategory, removeDefaultHiringCriteria, removePayrollGroup } from "../store/actions";
-import { BranchDeleted, DefaultHiringCriteriaDeleted, PayrollGroupDeleted } from "../store/slice";
+import { getAllBranchOffice, removeBranchOffice } from "../store/actions";
+import { BranchOfficeDeleted } from "../store/slice";
 import { tableColumn } from "./tableColumn";
 
 export default function TableView({
@@ -12,18 +12,20 @@ export default function TableView({
   actionRights = [],
   setClearButton 
 }) {
-  const { items, loadingData } = useSelector((state) => state.subsidiarySlice);
+  const { items, loadingData } = useSelector((state) => state.subsidiaryOfficeSlice);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllBranch());
+    dispatch((getAllBranchOffice()));
   }, []);
+
+  console.log(items,)
 
   const [id, setId] = useState()
 
   const onSuccess = (e) => {
     setId(null)
-    dispatch(BranchDeleted(e))
+    dispatch(BranchOfficeDeleted(e))
     setClearButton(true)
   }
 
@@ -33,7 +35,7 @@ export default function TableView({
 
   const handleDelete = (e) => {
     setId(e.id)
-    dispatch(removeBranch(e)).then(() => onSuccess(e), onError);
+    dispatch(removeBranchOffice(e)).then(() => onSuccess(e), onError);
     
   }
 

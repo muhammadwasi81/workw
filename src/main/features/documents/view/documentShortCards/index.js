@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { createGuid } from "../../../../../utils/base.js";
 import BreadCumbs from "../components/breadcumb/index.js";
 import PreviewModal from "../components/modal/index.js";
 import ShortCard from "../components/shortCard/index.js";
@@ -8,9 +9,10 @@ import './style.css';
 
 const DocumentShortCards = (props) => {
   const breadCumbsState = useSelector(state => state.documentSlice.breadCumbPath);
-  const loader = useSelector(state => state.documentSlice.loader);
-  // const [isOpenPreview, setIsOpenPreview] = useState(false);
+  const loader = useSelector(state => state.documentSlice.listLoader);
   const [previewPath, setPreviewPath] = useState(false);
+  const listData = useSelector(state => state.documentSlice.listData);
+
   const handlePreview = (item) => {
     setPreviewPath(item)
   }
@@ -24,20 +26,20 @@ const DocumentShortCards = (props) => {
         data={breadCumbsState}
       />
       <div className="d_AllShortCard" >
-        <DocSceleton type="short" isActive={loader}/>
+        <DocSceleton type="short" isActive={loader} />
         {
-          props.data.map((item, index) => (
+          listData.map((item, index) => (
             <ShortCard
               data={item}
               handlePreview={handlePreview}
-              key={item.id}
+              key={createGuid()}
             />
           ))
         }
         <PreviewModal
-         previewItem={previewPath}
-         handleClose={handleClose} />
-         {/* {
+          previewItem={previewPath}
+          handleClose={handleClose} />
+        {/* {
           previewPath &&  <iframe src={previewPath?.path} title="description"
           width='500px'
           height='500px' frameBorder='0'></iframe>

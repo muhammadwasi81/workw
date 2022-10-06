@@ -14,7 +14,6 @@ import {
 } from "../../../../utils/Shared/enums/enums";
 import { useDispatch } from "react-redux";
 import {
-  getAllDefaultDesignation,
   getAllEmployees,
   getCities,
   getCountries,
@@ -28,6 +27,7 @@ import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSele
 import { getNameForImage } from "../../../../utils/base";
 import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
 import { resetBasicdetails } from "../store/slice";
+import { getAllDesignation } from "../../designation/store/actions";
 const { Option } = Select;
 
 const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
@@ -45,25 +45,28 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     personalEmail: "",
     nic: "",
     phoneNo: "",
-    designationId: "",
-    managerId: "",
-    gradeId: "",
-    countryId: "",
+    designationId: [],
+    managerId: [],
+    gradeId: [],
+    countryId: [],
     cityId: [],
     probationPeriod: "",
     birthDate: "",
     joinDate: "",
-    genderId: "",
-    maritalStatusId: "",
-    officeTimingId: "",
-    accessRoleId: "",
-    employeeNo: "",
-    employmentTypeId: "",
+    genderId: [],
+    maritalStatusId: [],
+    officeTimingId: [],
+    accessRoleId: [],
+    employeeNo: [],
+    employmentTypeId: [],
   };
   const [initialValues, setInitialValues] = useState(initialState);
-  const [userTypeValue, setUserTypeValue] = useState("");
-  const { countries, cities, designations } = useSelector(
+  const [userTypeValue, setUserTypeValue] = useState([]);
+  const { countries, cities } = useSelector(
     (state) => state.sharedSlice
+  );
+  const { designations } = useSelector(
+    (state) => state.designationSlice
   );
   const { grades } = useSelector((state) => state.gradeSlice);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -77,6 +80,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
+
+  console.log(designations, "DESIGNATION")
+
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -113,7 +119,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
       if (!countries.length) dispatch(getCountries());
       if (!cities.length) fetchCityData("", 0);
     }
-    if (!designations.length) dispatch(getAllDefaultDesignation());
+    if (!designations.length) dispatch(getAllDesignation());
     if (!grades.length) dispatch(getAllGrades());
     if (!officeTimingGroups.length) dispatch(getAllOfficeTimingGroups());
     if (!accessRoles.length) {
@@ -274,7 +280,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
             size="large"
             showSearch={true}
-            placeholder="select your gender"
+            placeholder="select your Designation"
           >
             {designations?.map((designation) => (
               <Option key={designation.id} value={designation.id}>
@@ -541,6 +547,50 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
                 </Option>
               ))}
           </Select>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="department"
+          label={labels.department}
+        >
+          <Input placeholder={placeholder.department}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="subsidiary"
+          label={labels.subsidiary}
+        >
+          <Input placeholder={placeholder.subsidiary}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="payroll"
+          label={labels.payroll}
+        >
+          <Input placeholder={placeholder.payroll}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="subsidiaryOffice"
+          label={labels.subsidiaryOffice}
+        >
+          <Input placeholder={placeholder.subsidiaryOffice}></Input>
         </Form.Item>
       </Form>
       <div className={isEdit ? "editButtons" : "buttons"}>

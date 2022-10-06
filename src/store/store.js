@@ -15,7 +15,9 @@ import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarCh
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
 import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
+import taxSlabSlice from "../main/features/taxSlabs/store/slice";
 import subsidiarySlice from "../main/features/subsidiary/store/slice";
+import subsidiaryOfficeSlice from "../main/features/subsidiaryOffice/store/slice";
 import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
@@ -51,6 +53,7 @@ import stickyNotesSlice from "./appReducer/stickyNotesSlice";
 import userSlice from "./appReducer/userSlice";
 import sharedSlice from "../utils/Shared/store/slice";
 import accessRolesSlice from "../main/features/accessRole/store/slice";
+import fiscalYearSlice from "../main/features/fiscalYear/store/slice";
 import travelSlice from "../main/features/travel/store/slice";
 import feedSlice from "../main/features/feed/store/slice";
 import NoteSlice from "./appReducer/NoteSlice";
@@ -70,6 +73,8 @@ import voucherSlice from "../main/features/voucher/store/slice";
 import scheduleSlice from "../main/features/schedule/store/slice";
 import attendanceSlice from "../main/features/attendance/store/slice";
 import stickySlice from "../main/features/notes/newStickyNotes/store/stickySlice";
+import formSlice from "../main/features/forms/store/slice";
+import payrollSlice from "../main/features/payroll/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -93,6 +98,7 @@ const reducers = combineReducers({
   defaultHiringCriteriaSlice,
   complainCategorySlice,
   payrollGroupSlice,
+  fiscalYearSlice,
   customApprovalCategorySlice,
   rewardCategorySlice,
   rewardSlice,
@@ -108,6 +114,7 @@ const reducers = combineReducers({
   gradeSlice,
   emailConfigurationSlice,
   salaryHeaderSlice,
+  taxSlabSlice,
   expenseHeaderSlice,
   appraisalSlice,
   allowanceSlice,
@@ -132,10 +139,13 @@ const reducers = combineReducers({
   chartOfAccountsSlice,
   leadMangerSlice,
   groupSlice,
+  subsidiaryOfficeSlice,
   callingSlice,
   voucherSlice,
   salarySlice,
-  stickySlice
+  stickySlice,
+  formSlice,
+  payrollSlice,
 });
 
 const persistConfig = {

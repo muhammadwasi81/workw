@@ -247,6 +247,14 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     {
+      name: "Job Board",
+      counter: 0,
+      icon: voucherIcon,
+      to: ROUTES.JOBS.ROOT,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
       name: label.navMenuLabel.careers,
       counter: 0,
       icon: career,

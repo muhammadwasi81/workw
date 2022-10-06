@@ -15,7 +15,7 @@ const initialComposerData = {
 	image: "",
 };
 
-function Header() {
+function Header({ width, routeLink, backButton }) {
 	const dispatch = useDispatch();
 	const [composerData, setComposerData] = useState(initialComposerData);
 	const workboardDetail = useSelector(
@@ -33,8 +33,8 @@ function Header() {
 
 	const items = [
 		{
-			name: "Dashboard",
-			to: `${ROUTES.WORKBOARD.DEFAULT}`,
+			name: "Workboard Dashboard",
+			to: routeLink ? routeLink : `${ROUTES.WORKBOARD.DEFAULT}`,
 			renderButton: [1],
 		},
 	];
@@ -79,7 +79,14 @@ function Header() {
 			),
 		},
 	];
-	return <LayoutHeader items={items} buttons={buttons} />;
+	return (
+		<LayoutHeader
+			items={items}
+			buttons={buttons}
+			width={width}
+			backButton={backButton}
+		/>
+	);
 }
 
 export default Header;

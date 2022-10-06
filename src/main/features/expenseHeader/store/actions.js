@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 import {
   responseMessage,
   responseMessageType,
@@ -7,6 +8,7 @@ import {
 import AxiosConfig from "../../../../utils/services/AxiosConfig";
 import { addExpenseHeaderService, getAllExpenseHeaderService } from "../services/service";
 import { expenseDeleted } from "./slice";
+import { message } from "antd";
 
 const API_PREFIX = "konnectapi/api/expenseheader/";
 
@@ -31,16 +33,13 @@ export const addExpense = createAsyncThunk(
     const res = await addExpenseHeaderService(args);
 
     if (res.responseCode) {
-      if (res.responseCode === responseCode.Success)
-        res.message = "Expense added successfully!";
-      responseMessage({ dispatch, data: res });
-    } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
+      if (res.responseCode === responseCode.Success) {
+        message.success("Expense added successfully!")
+        return res
+      } else {
+        message.error(res.message)
+      }
     }
-
     return res;
   }
 );
@@ -48,12 +47,15 @@ export const addExpense = createAsyncThunk(
 export const updateExpense = createAsyncThunk(
   "expenseheader/updateExpense",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.put(`${API_PREFIX}updateexpense`, args)
+    return await MasterConfig.put(`api/ExpenseHeader/UpdateExpenseHeader`, args)
       .then((res) => {
-        if (res.data.responseCode === responseCode.Success)
-          res.data.message = "Expense updated successfully!";
-        responseMessage({ dispatch, data: res.data });
-        return res.data;
+        if (res.data.responseCode === responseCode.Success) {
+          message.success("Expense updated successfully!")
+          return res.data;
+        } else {
+          message.error(res.message)
+          return res.data;
+        }
       })
       .catch((err) => {
         responseMessage({
@@ -66,15 +68,14 @@ export const updateExpense = createAsyncThunk(
 );
 
 export const removeExpense = createAsyncThunk(
-  "expenseheader/removeExpense",
+  "expenseheader/removeExpenseHeader",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.delete(`${API_PREFIX}removeexpense?id=${args.id}`)
+    return await MasterConfig.delete(`api/expenseHeader/removeexpenseHeader?id=${args.id}`)
       .then((res) => {
         if (res.data.responseCode === responseCode.Success) {
-          res.data.message = "Expense removed successfully!";
+          message.success("Expense Header removed successfully!")
           dispatch(expenseDeleted(args));
         }
-        responseMessage({ dispatch, data: res.data });
         return res.data;
       })
       .catch((err) => {

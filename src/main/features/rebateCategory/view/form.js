@@ -112,7 +112,7 @@ export default function RebateCategoryForm({
 						className="radioGroup"
 						value={form.rebateType}
 					>
-						<Radio value={1}>Baisc</Radio>
+						<Radio value={1}>Basic</Radio>
 						<Radio value={2}>Tax</Radio>
 						<Radio value={3}>Full Amount</Radio>
 					</Radio.Group>

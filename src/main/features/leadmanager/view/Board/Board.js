@@ -22,11 +22,14 @@ import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
 import ContactDetail from "./ContactDetail";
 import ContactDetailSkeleton from "../../UI/Skeleton/ContactDetailSkeleton";
 import { moveDetail, moveSection } from "../../store/slice";
+import AssignMemberModal from "../Modal/AssignMemberModal";
 
 function Board() {
 	const [openSectionDetailModal, setOpenSectionDetailModal] = useState(false);
 	const [openContactDetailModal, setOpenContactDetailModal] = useState(false);
+	const [openMemeberModal, setOpenMemeberModal] = useState(false);
 	const [isContactUpdated, setIsContactUpdated] = useState(false);
+	const [selectedMembers, setSelectedMembers] = useState([]);
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -49,12 +52,12 @@ function Board() {
 		state => state.leadMangerSlice.leadManagerSectionDetailData
 	);
 
-	const contactUpdate = useSelector(
-		state => state.leadMangerSlice.isContactUpdated
-	);
+	// const contactUpdate = useSelector(
+	// 	state => state.leadMangerSlice.isContactUpdated
+	// );
 	const loading = useSelector(state => state.leadMangerSlice.loading);
-	const contactDetaUpdating = useSelector(
-		state => state.leadMangerSlice.contactDetaUpdating
+	const contactDataUpdating = useSelector(
+		state => state.leadMangerSlice.contactDataUpdating
 	);
 	const success = useSelector(state => state.leadMangerSlice.success);
 
@@ -86,11 +89,11 @@ function Board() {
 			source.index !== destination.index ||
 			source.droppableId !== destination.droppableId
 		) {
-			console.log("move card");
-			console.log("sourceListId", source.droppableId);
-			console.log("destListId", destination.droppableId);
-			console.log("oldCardIndex", source.index);
-			console.log("newCardIndex", destination.index);
+			// console.log("move card");
+			// console.log("sourceListId", source.droppableId);
+			// console.log("destListId", destination.droppableId);
+			// console.log("oldCardIndex", source.index);
+			// console.log("newCardIndex", destination.index);
 			dispatch(
 				moveDetail({
 					sourceListId: source.droppableId,
@@ -126,6 +129,28 @@ function Board() {
 		setOpenContactDetailModal(!openContactDetailModal);
 	};
 
+	const handleMemberModal = () => {
+		setOpenMemeberModal(!openMemeberModal);
+	};
+	const getUniqueListBy = (arr, key) => {
+		return [...new Map(arr.map(item => [item[key], item])).values()];
+	};
+	const handleSelectedMembers = (val, obj) => {
+		const tempObj = obj.map(member => {
+			return {
+				...member,
+				admin: false,
+			};
+		});
+		let unique = getUniqueListBy([...selectedMembers, ...tempObj], "id");
+		setSelectedMembers([...unique]);
+	};
+	const handleDeleteMember = id => {
+		let filteredMembers = selectedMembers.filter(
+			member => member.id !== id
+		);
+		setSelectedMembers([...filteredMembers]);
+	};
 	const onClickContact = value => {
 		setIsContactUpdated(value);
 	};
@@ -184,6 +209,7 @@ function Board() {
 					) : (
 						<SectionDetail
 							handleContactDetailModal={handleContactDetailModal}
+							handleMemberModal={handleMemberModal}
 							data={leadManagerSectionDetailData}
 							onClickContact={onClickContact}
 							loading={loading}
@@ -207,9 +233,25 @@ function Board() {
 							isContactUpdated={isContactUpdated}
 							data={leadManagerSectionDetailData}
 							contactDetail={contactDetail}
-							loading={contactDetaUpdating}
+							loading={contactDataUpdating}
 						/>
 					)
+				}
+				className={""}
+			/>
+			<CustomModal
+				isModalVisible={openMemeberModal}
+				onCancel={handleMemberModal}
+				title="Assign Members"
+				footer={null}
+				centered={true}
+				children={
+					<AssignMemberModal
+						onChange={handleSelectedMembers}
+						placeholder="Search Members"
+						selectedMembers={selectedMembers}
+						handleDeleteMember={handleDeleteMember}
+					/>
 				}
 				className={""}
 			/>

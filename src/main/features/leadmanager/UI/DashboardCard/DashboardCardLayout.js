@@ -20,21 +20,28 @@ function DashboardCardLayout({
 	return (
 		<>
 			<Card
+				// cover={
+				// 	!loading ? (
+				// 		<img
+				// 			alt="example"
+				// 			className="object-cover"
+				// 			src={data.image ? data.image : defaultImg}
+				// 		/>
+				// 	) : (
+				// 		<Skeleton.Image className="ant-skeleton-active" />
+				// 	)
+				// }
 				cover={
-					!loading ? (
-						<img
-							alt="example"
-							className="object-cover"
-							src={data.image ? data.image : defaultImg}
-						/>
-					) : (
-						<Skeleton.Image className="ant-skeleton-active" />
-					)
+					<img
+						alt="example"
+						className="object-cover"
+						src={data.image ? data.image : defaultImg}
+					/>
 				}
 				className="Card2"
 				hoverable
 				onClick={onClick}
-				loading={loading}
+				// loading={loading}
 			>
 				<Meta
 					className="w-full"

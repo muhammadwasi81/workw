@@ -6,7 +6,7 @@ import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { getAllEmployees } from "../../../../utils/Shared/store/actions";
+import { getAllEmployees, getEmployeeSalary } from "../../../../utils/Shared/store/actions";
 
 
 const initialState = {
@@ -45,6 +45,10 @@ const Composer = (props) => {
   const [amountType, setAmountType] = useState(false)
 
   const employees = useSelector(state => state.sharedSlice.employees);
+  const salary = useSelector(state => state.sharedSlice.employeeSalary);
+  const [employeeID, setEmployeeId] = useState("null")
+
+  console.log(salary, "SALARYYYY")
 
   const selectedData = (data, obj) => {
     setValue(data);
@@ -69,6 +73,12 @@ const Composer = (props) => {
     members: [],
     memberType: null,
   });
+
+  useEffect(() => {
+    console.log("FIRSTTTTT")
+    dispatch(getEmployeeSalary({id: "5bda8756-f7ca-4284-be89-6228fa1dfc13"}))
+    console.log("seconddddd")
+  }, []);
 
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {

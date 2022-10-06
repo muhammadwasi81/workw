@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../../../layout/header";
 import {
   ContBody,
@@ -8,9 +8,12 @@ import { Button } from "antd";
 import { ROUTES } from "../../../../../utils/routes";
 import PayrollList from "./payrollList";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getAllPayroll } from "../../store/actions";
 
 function Payroll() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
   const items = [
     {
       name: "Payroll",
@@ -18,7 +21,6 @@ function Payroll() {
       renderButton: [1],
     },
   ]; 
-
   const buttons = [
     {
       buttonText: "",
@@ -27,7 +29,9 @@ function Payroll() {
       ),
     },
   ];
-
+  useEffect(()=>{
+    dispatch(getAllPayroll())
+  }, [])
   const render = {
     List: <PayrollList />,
     // Table: <ExpenseTableView />,

@@ -4,7 +4,10 @@ import TextInput from "../../../../sharedComponents/Input/TextInput";
 import Select from "../../../../sharedComponents/Select/Select";
 import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
-import { getAllEmployees, uploadImage } from "../../../../../utils/Shared/store/actions";
+import {
+	getAllEmployees,
+	uploadImage,
+} from "../../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
@@ -16,8 +19,7 @@ import { useSelector } from "react-redux";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 
-const CreateUpload = ({ isOpen, handleClose }) => {
-
+const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [attachment, setAttachment] = useState(null);
@@ -26,7 +28,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 	const [value, setValue] = useState([]);
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-
+	const loader = useSelector(state => state.documentSlice.loader);
 	const ParentId = useSelector(state => state.documentSlice.parentId);
 	const employees = useSelector(state => state.sharedSlice.employees);
 
@@ -71,68 +73,78 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 		setPrivacyId(value);
 	};
 	const defaultFiles = useSelector(state => state.documentSlice.defaultFiles);
-	console.log(defaultFiles, "defaultFiles")
 	useEffect(() => {
-		let defaultFileName = defaultFiles.map((item) => item.name);
-		setFileNames(defaultFileName)
-		console.log(defaultFileName, "MOUNT")
-	}, [defaultFiles])
+		let defaultFileName = defaultFiles.map(item => item.name);
+		setFileNames(defaultFileName);
+		console.log(defaultFileName, "MOUNT");
+	}, [defaultFiles]);
 
-	const onFinish = (values) => {
-		console.log(values)
+	const onFinish = values => {
+		console.log(values);
 		let readers = values.readers ? modifySelectData(values.readers) : [];
-		let collaborators = values.collaborators ? modifySelectData(values.collaborators) : [];
+		let collaborators = values.collaborators
+			? modifySelectData(values.collaborators)
+			: [];
 		let members = [
-			...readers.map((item) => ({
+			...readers.map(item => ({
 				memberId: item,
 				memberType: 1,
-				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER,
 			})),
-			...collaborators.map((item) => ({
+			...collaborators.map(item => ({
 				memberId: item,
 				memberType: 1,
-				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.COLLABRATOR
-			}))
+				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.COLLABRATOR,
+			})),
 		];
 		let payload = {
+			referenceId,
+			referenceType,
 			name: values.name,
 			description: values.description,
-			approvers: values.approvers ? modifySelectData(values.approvers).map((item) => ({ approverId: item })) : [],
+			approvers: values.approvers
+				? modifySelectData(values.approvers).map(item => ({
+						approverId: item,
+				  }))
+				: [],
 			members: members,
 			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.attachment,
 			privacyId: privacyId,
-			attachments: defaultFiles.length === 0 ?
-				[
-					{
-						documentName: values.name,
-						attachment: {
-							id: STRINGS.DEFAULTS.guid,
-							file: attachment[0].originFileObj,
-						}
-					}
-				] :
-				defaultFiles.length === 1 ?
-					[
-						{
-							documentName: values.name,
-							attachment: {
-								id: STRINGS.DEFAULTS.guid,
-								file: defaultFiles[0]
-							}
-						}
-					] :
-					defaultFiles.length > 1 ?
-						[...defaultFiles.map((item, index) => ({
-							documentName: fileNames[index],
-							attachment: {
-								id: STRINGS.DEFAULTS.guid,
-								file: item,
-							}
-						}))]
-						: []
-		}
-		dispatch(addDocument({ payload, form }))
+			attachments:
+				defaultFiles.length === 0
+					? [
+							{
+								documentName: values.name,
+								attachment: {
+									id: STRINGS.DEFAULTS.guid,
+									file: attachment[0].originFileObj,
+								},
+							},
+					  ]
+					: defaultFiles.length === 1
+					? [
+							{
+								documentName: values.name,
+								attachment: {
+									id: STRINGS.DEFAULTS.guid,
+									file: defaultFiles[0],
+								},
+							},
+					  ]
+					: defaultFiles.length > 1
+					? [
+							...defaultFiles.map((item, index) => ({
+								documentName: fileNames[index],
+								attachment: {
+									id: STRINGS.DEFAULTS.guid,
+									file: item,
+								},
+							})),
+					  ]
+					: [],
+		};
+		dispatch(addDocument({ payload, form }));
 	};
 	const handleNameChange = (value, index) => {
 		let tempFileNames = [...fileNames];
@@ -143,10 +155,10 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 	const onFinishFailed = errorInfo => {
 		console.log("Failed:", errorInfo);
 	};
-	console.log(fileNames)
 	return (
 		<>
-			<SideDrawer title={"Upload"}
+			<SideDrawer
+				title={"Upload"}
 				isDisable={true}
 				isOpen={isOpen}
 				isAccessDrawer={false}
@@ -182,13 +194,8 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 						<TextInput placeholder={"Enter Name"} />
 					</Form.Item>
 
-					<Form.Item
-						label={"Description"}
-						name="description"
-					>
-						<Input.TextArea
-							placeholder={"Enter Description"}
-						/>
+					<Form.Item label={"Description"} name="description">
+						<Input.TextArea placeholder={"Enter Description"} />
 					</Form.Item>
 
 					<Form.Item
@@ -196,7 +203,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 						label={"Approvers"}
 						showSearch={true}
 						style={{ marginBottom: "0px" }}
-					// direction={Direction}
+						// direction={Direction}
 					>
 						<CustomSelect
 							style={{ marginBottom: "0px" }}
@@ -225,8 +232,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 							dataVal={value}
 							name="approvers"
 							showSearch={true}
-						// direction={Direction}
-
+							// direction={Direction}
 						/>
 					</Form.Item>
 
@@ -234,8 +240,8 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 						name="collaborators"
 						label={"Collaborators"}
 						showSearch={true}
-						style={{marginBottom: "0px"}}
-					// direction={Direction}
+						style={{ marginBottom: "0px" }}
+						// direction={Direction}
 					>
 						<CustomSelect
 							style={{ marginBottom: "0px" }}
@@ -267,48 +273,54 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 						/>
 					</Form.Item>
 
-					{defaultFiles.length === 0 && <Form.Item area="true">
-						<SingleUpload
-							handleImageUpload={handleImageUpload}
-							img="Add Image"
-							position="flex-start"
-							uploadText={"Upload"}
-						/>
-					</Form.Item>}
-					{
-						defaultFiles.length > 1 &&
+					{defaultFiles.length === 0 && (
+						<Form.Item area="true">
+							<SingleUpload
+								handleImageUpload={handleImageUpload}
+								img="Add Image"
+								position="flex-start"
+								uploadText={"Upload"}
+							/>
+						</Form.Item>
+					)}
+					{defaultFiles.length > 1 && (
 						<div className="mt-8 w-full">
-							{
-								defaultFiles.map((item, index) =>
-									<div className="flex mt-4 w-full" >
-										<div className="flex-1 flex items-center" >
-											<TextInput placeholder={"Enter Name"}
-												value={fileNames[index]}
-												onChange={(value) => handleNameChange(value, index)}
-											/>
-										</div>
-										<div className="w-[100px] ml-4 cursor-pointer" >
-											<img className="h-[50px] rounded-md m-auto" src={item.src} />
-										</div>
-
+							{defaultFiles.map((item, index) => (
+								<div className="flex mt-4 w-full">
+									<div className="flex-1 flex items-center">
+										<TextInput
+											placeholder={"Enter Name"}
+											value={fileNames[index]}
+											onChange={value =>
+												handleNameChange(value, index)
+											}
+										/>
 									</div>
-								)
-							}
+									<div className="w-[100px] ml-4 cursor-pointer">
+										<img
+											className="h-[50px] rounded-md m-auto"
+											src={item.src}
+										/>
+									</div>
+								</div>
+							))}
 						</div>
-					}
-					{
-						defaultFiles.length === 1 &&
-						<div className="w-[100px] ml-4 cursor-pointer" >
-							<img className="h-[100px] rounded-md mb-6" src={defaultFiles[0].src} />
+					)}
+					{defaultFiles.length === 1 && (
+						<div className="w-[100px] ml-4 cursor-pointer">
+							<img
+								className="h-[100px] rounded-md mb-6"
+								src={defaultFiles[0].src}
+							/>
 						</div>
-					}
+					)}
 
-					{privacyId === PostPrivacyType.PRIVATE &&
+					{privacyId === PostPrivacyType.PRIVATE && (
 						<Form.Item
 							name="readers"
 							label={"Readers"}
 							showSearch={true}
-						// direction={Direction}
+							// direction={Direction}
 						>
 							<CustomSelect
 								style={{ marginBottom: "0px" }}
@@ -339,7 +351,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 								showSearch={true}
 							/>
 						</Form.Item>
-					}
+					)}
 					<Form.Item>
 						<div className="flex items-center gap-2">
 							<PrivacyOptions
@@ -353,6 +365,7 @@ const CreateUpload = ({ isOpen, handleClose }) => {
 								block
 								htmlType="submit"
 								title={"Create Milepad"}
+								loading={loader}
 							>
 								{" "}
 								{"Create"}{" "}

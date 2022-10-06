@@ -45,6 +45,18 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.DESIGNATION,
   },
   {
+    IconName: <RiMedal2Line size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Tax_Slabs",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.TAX_SLAB,
+  },
+  {
+    IconName: <AiFillLike size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Appraisal",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.APPRASIAL,
+  },
+  {
     IconName: <AiFillLike size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Appraisal",
     classObj: "button",

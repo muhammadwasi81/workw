@@ -12,6 +12,7 @@ import { Form, Input, Avatar, Select, Button, Space } from "antd";
 // import SingleUpload from "../../../../../sharedComponents/Upload/singleUpload";
 import QuestionWithType from "./QuestionWithType";
 import { CloseOutlined } from "@ant-design/icons";
+import "./createForm.css";
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -68,51 +69,54 @@ const Create = (props) => {
           autoComplete="off"
           form={form}
         >
-          <Form.Item
-            name="subject"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Subject!",
-              },
-            ]}
-          >
-            <Input placeholder="Subject" />
-          </Form.Item>
-          <Form.Item name="description">
-            <TextArea placeholder="Description" rows={4} />
-          </Form.Item>
-          <Form.Item label="Approvers" name="approvers">
-            <MemberSelect
-              name="Approvers"
-              mode="multiple"
-              formItem={false}
-              isObject={true}
-              data={firstTimeEmpData}
-              canFetchNow={isFirstTimeDataLoaded}
-              fetchData={fetchEmployees}
-              placeholder="Select Approvers"
-              selectedData={(_, obj) => {
-                setEmployeesData([...obj]);
-              }}
-              optionComponent={(opt) => {
-                return (
-                  <>
-                    <Avatar src={opt.image} className="!bg-black">
-                      {getNameForImage(opt.name)}
-                    </Avatar>
-                    {opt.name}
-                  </>
-                );
-              }}
-            />
-          </Form.Item>
-          {/* {console.log("data", data)} */}
+          <div className="c-row bg-clr editForm">
+            <div className="f-head-item p_15">
+              <Form.Item
+                name="subject"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your Subject!",
+                  },
+                ]}
+              >
+                <Input placeholder="Title" />
+              </Form.Item>
+              <Form.Item name="description">
+                <TextArea placeholder="Description" rows={4} />
+              </Form.Item>
+              <Form.Item name="approvers">
+                <MemberSelect
+                  name="Approvers"
+                  mode="multiple"
+                  formItem={false}
+                  isObject={true}
+                  data={firstTimeEmpData}
+                  canFetchNow={isFirstTimeDataLoaded}
+                  fetchData={fetchEmployees}
+                  placeholder="Select Approvers"
+                  selectedData={(_, obj) => {
+                    setEmployeesData([...obj]);
+                  }}
+                  optionComponent={(opt) => {
+                    return (
+                      <>
+                        <Avatar src={opt.image} className="!bg-black">
+                          {getNameForImage(opt.name)}
+                        </Avatar>
+                        {opt.name}
+                      </>
+                    );
+                  }}
+                />
+              </Form.Item>
+            </div>
+          </div>
           <QuestionWithType dataSend={(values) => dataGet(values)} />
-
           <Form.Item>
             <Button
-              type="primary"
+              className="btn"
+              // type="primary"
               htmlType="submit"
               disabled={!createLoader ? false : true}
             >

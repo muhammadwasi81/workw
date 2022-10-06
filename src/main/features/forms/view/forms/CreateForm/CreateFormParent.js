@@ -207,11 +207,15 @@ export const CreateFormParent = (props) => {
           <img src={BusinessLogo} />
         </div>
         <div className="center-fix">
-          <FormHeader
+          <Create
+            dataSend={(values) => dataGet(values)}
+            subDescriptionSend={(values) => subDescriptionGet(values)}
+          />
+          {/* <FormHeader
             title={formData.subject}
             description={formData.description}
             isAcceptingResp={formData.acceptingResponse}
-          />
+          /> */}
           <DrangableQuestions
             questions={formData.question}
             handleChange={handleSequenceChange}
@@ -257,10 +261,6 @@ export const CreateFormParent = (props) => {
                 </>
               ))}
           </DrangableQuestions>
-          <Create
-            dataSend={(values) => dataGet(values)}
-            subDescriptionSend={(values) => subDescriptionGet(values)}
-          />
         </div>
       </div>
     </>

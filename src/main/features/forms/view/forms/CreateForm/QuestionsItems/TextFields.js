@@ -20,10 +20,13 @@ const TextFields = (props) => {
                 />{" "}
               </div>
             )}
-            <input
+            {/* <input
               className="required label w-full"
               defaultValue={fieldData.question}
-            />
+            /> */}
+            <label className="required label" htmlFor="">
+              {fieldData.question}
+            </label>
           </div>
           <input
             disabled={true}

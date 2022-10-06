@@ -133,7 +133,6 @@ export const newStickySlice = createSlice({
       const values = action.payload;
       const sticky = state.incrementArray.find((item) => item.id === values.id);
       const noteList = state.listArray.find((item) => item.id === values.id);
-
       sticky.img.push(values.abc);
       noteList.img.push(values.abc);
     },

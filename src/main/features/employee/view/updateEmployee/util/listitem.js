@@ -37,4 +37,9 @@ export const listitem = [
     classObj: "button",
     to: (id) => `/employees/info/salary/${id}`,
   },
+  {
+    displayName: "Leaves",
+    classObj: "button",
+    to: (id) => `/employees/info/leaves/${id}`,
+  },
 ];

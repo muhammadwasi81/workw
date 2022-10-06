@@ -1,5 +1,6 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
+	getEmployeeSalary,
 	getCities,
 	getCountries,
 	getAllDefaultDesignation,
@@ -20,6 +21,7 @@ const initialState = {
 	countries: [],
 	cities: [],
 	designations: [],
+	employeeSalary: [],
 	userTypes: [],
 	userTitles: [],
 	genders: [],
@@ -53,6 +55,10 @@ const sharedSlice = createSlice({
 		builder
 			.addCase(getCountries.fulfilled, (state, { payload }) => {
 				state.countries = payload.data;
+				state.loadingData = false;
+			})
+			.addCase(getEmployeeSalary.fulfilled, (state, { payload }) => {
+				state.employeeSalary = payload.data;
 				state.loadingData = false;
 			})
 			.addCase(getAllEmployees.fulfilled, (state, { payload }) => {

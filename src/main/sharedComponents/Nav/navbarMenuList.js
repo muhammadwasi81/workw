@@ -38,6 +38,7 @@ import reportIcon from "../../../content/NewContent/report/report.svg";
 import documentIcon from "../../../content/NewContent/Documents/file/folder.svg";
 import voucherIcon from "../../../content/NewContent/voucher/voucher.svg";
 import requisitionIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg";
+import assetsIcon from "../../../content/svg/menu/newNavBarIcon/assets.svg";
 
 import { DOMAIN_PREFIX } from "../../../utils/routes";
 const NavMenuList = () => {
@@ -355,6 +356,15 @@ const NavMenuList = () => {
 			counter: 0,
 			icon: requisitionIcon,
 			to: ROUTES.REQUISITION.REQUISITION,
+			isActive: true,
+			key: label.navMenuLabel.inventory,
+		},
+		// TODO:// ASSETS MODULE
+		{
+			name: label.navMenuLabel.assets,
+			counter: 0,
+			icon: assetsIcon,
+			to: ROUTES.ASSETS.DEFAULT,
 			isActive: true,
 			key: label.navMenuLabel.inventory,
 		},

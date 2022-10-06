@@ -11,26 +11,32 @@ import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
 import TextFields from "./QuestionsItems/TextFields";
 import { useSearchParams } from "react-router-dom";
-import { getFormById } from "../../../store/actions";
+import {
+  getFormById,
+  submitForm as submitFormAction,
+} from "../../../store/actions";
 import { CardWrapper2 } from "../../../../../sharedComponents/Card/CardStyle";
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
 import BusinessLogo from "../../../../../../content/systemLogo.png";
 import "./SubmitForm.css";
+
+let initialData = {
+  formId: "",
+  userId: "",
+  email: "",
+  attempt: [],
+};
 
 const SubmitForm = (props) => {
   const dispatch = useDispatch();
   const { disableSubmit } = props;
   let { id } = useParams();
   const [searchParams] = useSearchParams();
-  const { formDetail, forms, loader } = useSelector((state) => state.formSlice);
-  // const formSlice = useSelector((state) => state.formSlice);
-
-  // console.log("id getting from params", searchParams.get("id"));
-  // console.log("props in short card", props);
   const [userEmail, setUserEmail] = useState("");
   const [formStatus, setStatus] = useState("");
   const [formData, setFormData] = useState({});
-  const [submitForm, setSubmitForms] = useState([]);
+  const [submitForm, setSubmitForms] = useState(initialData);
+  const [attempt, setAttempt] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
   const [snackbarState, setSnackbarState] = useState({
     isOpen: false,
@@ -38,11 +44,14 @@ const SubmitForm = (props) => {
     variant: "error",
   });
 
-  //TODO: here we will get forms by ID
+  const { formDetail } = useSelector((state) => state.formSlice);
+  const { user } = useSelector((state) => state.userSlice);
+
   useEffect(() => {
     console.log("dispatch works for getting data from api");
     const id = searchParams.get("id");
     dispatch(getFormById(id));
+    console.log("formDetail", formDetail);
   }, []);
 
   // useEffect(() => {
@@ -216,11 +225,31 @@ const SubmitForm = (props) => {
     console.log("***", formDetail);
     if (Object.keys(formDetail).length > 1) {
       setFormDataByType(formDetail);
+      setSubmitForms({
+        ...submitForm,
+        formId: formDetail?.id,
+        email: formDetail?.creator?.email,
+        userId: user?.id,
+        attempt: formDetail?.question.map((el, index) => {
+          return {
+            questionId: el.id,
+            answer:
+              el.answers.length > 1
+                ? el.answers.map((el, index) => {
+                    return {
+                      answer: el.id,
+                      questionId: el.questionId,
+                    };
+                  })
+                : "",
+          };
+        }),
+      });
     }
   }, [formDetail]);
 
   let setFormDataByType = (data) => {
-    console.log("data send form parameter***", data);
+    // console.log("data send form parameter***", data);
     let filteredData = data.question.map((item, index) => {
       if (item.answerType === 2) {
         return {
@@ -235,15 +264,17 @@ const SubmitForm = (props) => {
           sequence: index,
         };
       } else if (item.answerType === 1) {
-        console.log("item", item);
         //check image available
+        console.log("items in submit form", item);
         if (item.answers[index]?.image?.length > 1) {
+          console.log("worksss");
           return {
             ...item,
             localType: "radioWithImage",
             sequence: index,
           };
         } else {
+          console.log("not working");
           return {
             ...item,
             localType: "radio",
@@ -268,10 +299,10 @@ const SubmitForm = (props) => {
         // }
       }
     });
-    console.log("Filtered data", filteredData);
+    // console.log("Filtered data", filteredData);
     // setFormData({ formDetail, question: filteredData });
     setFormData({ ...formDetail, question: filteredData });
-    console.log("Form data", formData);
+    // console.log("Form data", formData);
   };
 
   // let setFormDataByType = (data) => {
@@ -309,50 +340,62 @@ const SubmitForm = (props) => {
   //   setFormData({ ...data, questions: filteredData });
   // };
   let handleChange = (value, index, id, answerType) => {
-    let updatedQuestions = [...submitForm];
-    if (updatedQuestions[index].id === id) {
-      if (answerType === "text" || answerType === "number") {
-        updatedQuestions[index].answer = value;
-      } else if (answerType === "radio" || answerType === "radioWithImage") {
-        updatedQuestions[index].answer_id = value;
+    console.log("console value change", value);
+    console.log("console value change index", index);
+    console.log("question id", id);
+    console.log(" answertype", answerType);
+    let updateAnswers = [...submitForm.attempt];
+    if (updateAnswers[index].questionId === id) {
+      if (!Array.isArray(updateAnswers[index].answer)) {
+        updateAnswers[index].answer = value;
+      } else {
+        updateAnswers[index].answer_id = value;
       }
     }
-    setSubmitForms([...updatedQuestions]);
+    setSubmitForms({ ...formData, attempt: updateAnswers });
   };
-  const handleSubmit = () => {
-    let payload = {
-      form_id: id,
-      // user_id: !!localStorage.getItem(STRINGS.STORAGE.token) ? getUserDataFromStorage(STRINGS.STORAGE.user_id) : "",
-      user_id: "",
-      // email: !!localStorage.getItem(STRINGS.STORAGE.token) ? getUserDataFromStorage(STRINGS.STORAGE.email) : userEmail,
-      email: userEmail,
-      questions: submitForm.map((item) => {
-        return {
-          ...item,
-          question_id: item.id,
-        };
-      }),
-    };
-    let emptyFields = payload.questions.filter(
-      (it) =>
-        it.answer.length === 0 &&
-        (it.answer_id === STRINGS.DEFAULTS.guid || it.answer_id.length === 0)
-    );
 
-    if (emptyFields.length === 0) {
-      // API.FORM.addFormAttempt(payload).then(({ status, data, error }) => {
-      //   if (status) {
-      //     setIsSubmited(true)
-      //   }
-      // })
-    } else {
-      setSnackbarState({
-        isOpen: true,
-        Message: "Please fill all required fields",
-        variant: "error",
-      });
-    }
+  const handleSubmit = () => {
+    let payload = submitForm;
+    console.log(payload);
+    //sending data to api
+    dispatch(submitFormAction(payload));
   };
+
+  // const handleSubmit = () => {
+  //   let payload = {
+  //     form_id: id,
+  //     // user_id: !!localStorage.getItem(STRINGS.STORAGE.token) ? getUserDataFromStorage(STRINGS.STORAGE.user_id) : "",
+  //     user_id: "",
+  //     // email: !!localStorage.getItem(STRINGS.STORAGE.token) ? getUserDataFromStorage(STRINGS.STORAGE.email) : userEmail,
+  //     email: userEmail,
+  //     questions: submitForm.map((item) => {
+  //       return {
+  //         ...item,
+  //         question_id: item.id,
+  //       };
+  //     }),
+  //   };
+  //   let emptyFields = payload.questions.filter(
+  //     (it) =>
+  //       it.answer.length === 0 &&
+  //       (it.answer_id === STRINGS.DEFAULTS.guid || it.answer_id.length === 0)
+  //   );
+
+  //   if (emptyFields.length === 0) {
+  //     // API.FORM.addFormAttempt(payload).then(({ status, data, error }) => {
+  //     //   if (status) {
+  //     //     setIsSubmited(true)
+  //     //   }
+  //     // })
+  //   } else {
+  //     setSnackbarState({
+  //       isOpen: true,
+  //       Message: "Please fill all required fields",
+  //       variant: "error",
+  //     });
+  //   }
+  // };
   if (!formData) return <MessagePage message={formStatus} />;
   if (isSubmited) return <MessagePage message="Thank you for your Response" />;
 
@@ -412,9 +455,7 @@ const SubmitForm = (props) => {
                 </>
               ))}
             <div className="flex-between mt_10">
-              {!disableSubmit && (
-                <button onClick={() => handleSubmit(submitForm)}>Submit</button>
-              )}
+              {!disableSubmit && <button onClick={handleSubmit}>Submit</button>}
               {/* <button> Clear Form</button> */}
             </div>
             <div className="poweredBy">

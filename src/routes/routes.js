@@ -64,6 +64,18 @@ export const routes = {
 		// 		component: lazy(() => import("../main/features/forms/view/forms/SubmitForm/index.js")),
 		// 	},
 		{
+			path: `${ROUTES.FINANCE.TRANSACTION.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/transaction/view/index")
+			),
+		},
+		{
+			path: `${ROUTES.ASSETS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/assets/view/assets")
+			),
+		},
+		{
 			path: `${ROUTES.FORMS.SUBMIT_FORM}`,
 			component: lazy(() =>
 				import("../main/features/forms/view/forms/SubmitForm/index.js")

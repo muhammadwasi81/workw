@@ -8,7 +8,7 @@ import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/check_lis
 import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/sticky_notes.svg";
 import Notes from "../../../../features/notes/Notes";
 import NewStickyNote from "../../../../features/notes/NewStickyNote";
-import { toggleStickyNote } from "../../../../../store/appReducer/newStickySlice";
+import { toggleStickyNote } from "../../../../features/notes/newStickyNotes/store/stickySlice";
 import { setNotificationStatus } from "../../../../../store/appReducer/responsiveSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -19,6 +19,7 @@ import NotificationModal from "./NavComposer";
 import Approvals from "../../../../features/approval/view/SideBarApproval/sideBarAppovals";
 import Notifications from "../../../../features/notifiation/view/index";
 import OpenImage from "../../../../features/notes/OpenImage";
+import StickyContainer from "../../../../features/notes/newStickyNotes/view/components/StickyNotes";
 // const Approvals = () => {
 //   return "Approvals";
 // };
@@ -73,15 +74,15 @@ function NotificationBar() {
   classes += isSearch ? "open" : "";
 
   // Sticky Note
-  const toggleNote = useSelector((state) => state.newStickySlice.open);
+  const toggleNote = useSelector((state) => state.stickySlice.open);
 
   const stickyNoteHandler = () => {
     dispatch(toggleStickyNote());
   };
 
-  const incrementStickyNote = useSelector(
-    (state) => state.newStickySlice.incrementArray
-  );
+  // const incrementStickyNote = useSelector(
+  //   (state) => state.newStickySlice.incrementArray
+  // );
 
   const openImg = useSelector((state) => state.newStickySlice.openImg);
   // console.log(incrementStickyNote);
@@ -104,6 +105,7 @@ function NotificationBar() {
               padding: "0 5px",
               outline: "none",
             }}
+            className="notificationBar_input"
           />
         )}
         <li className="list__item">
@@ -122,8 +124,9 @@ function NotificationBar() {
         <li className="list__item">
           <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
         </li>
-        {toggleNote && <Notes stickyNoteTitle={title} />}
-        {incrementStickyNote.map((increment) => (
+        {/* {toggleNote && <Notes stickyNoteTitle={title} />} */}
+        {toggleNote && <StickyContainer />}
+        {/* {incrementStickyNote.map((increment) => (
           <NewStickyNote
             key={increment.id}
             id={increment.id}
@@ -142,7 +145,7 @@ function NotificationBar() {
             onGetTitleVal={titleVal}
             img={increment.img}
           />
-        ))}
+        ))} */}
         <li
           className="list__item"
           onClick={() => {

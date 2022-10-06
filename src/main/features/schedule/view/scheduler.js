@@ -16,7 +16,7 @@ import { getAllSchedule } from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { useSelector } from "react-redux";
 
-function Scheduler() {
+function Scheduler({ feed = false }) {
 	const [id, setId] = useState("");
 	const [calendatView, setCalendatView] = useState("");
 	const [todayDate, setTodayDate] = useState(new Date());
@@ -120,11 +120,15 @@ function Scheduler() {
 							},
 						},
 					}}
-					headerToolbar={{
-						left: "timeGridDay prev next today",
-						center: "title,myCustomButton",
-						right: "timeGridWeek dayGridMonth",
-					}}
+					headerToolbar={
+						feed
+							? { start: "title myCustomButton" }
+							: {
+									left: "timeGridDay prev next today",
+									center: "title,myCustomButton",
+									right: "timeGridWeek dayGridMonth",
+							  }
+					}
 					eventClick={info => {
 						setId(parseInt(info.event._def.publicId));
 						dispatch(toggleEventDetailComposer());
@@ -181,19 +185,22 @@ function Scheduler() {
 					// datesSet={(args) => console.log("###datesSet:", args)}
 					//   dateClick={handleDateClick}
 				/>
-
-				<div
-					className={
-						isCalendarOpen ? "site-calendar open" : "site-calendar "
-					}
-				>
-					<Calendar
-						fullscreen={false}
-						onChange={onChange}
-						onPanelChange={() => {
-							isPanelChange = true;
-						}}
-					/>
+				<div className="flex justify-center">
+					<div
+						className={
+							isCalendarOpen
+								? "site-calendar open"
+								: "site-calendar "
+						}
+					>
+						<Calendar
+							fullscreen={false}
+							onChange={onChange}
+							onPanelChange={() => {
+								isPanelChange = true;
+							}}
+						/>
+					</div>
 				</div>
 			</div>
 		</>

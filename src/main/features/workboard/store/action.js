@@ -41,13 +41,7 @@ export const addWorkBoard = createAsyncThunk(
 					duration: 2,
 				})
 			);
-			dispatch(
-				getAllWorkBoard({
-					pageNo: 0,
-					pageSize: 0,
-					search: "",
-				})
-			);
+
 			return res;
 		} else {
 			dispatch(
@@ -91,13 +85,6 @@ export const updateWorkBoard = createAsyncThunk(
 					message: "WorkBoard Updated Successfully!",
 					type: "success",
 					duration: 2,
-				})
-			);
-			dispatch(
-				getAllWorkBoard({
-					pageNo: 0,
-					pageSize: 0,
-					search: "",
 				})
 			);
 			return res;

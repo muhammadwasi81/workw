@@ -43,6 +43,7 @@ const initialState = {
 	contactDataUpdating: false,
 	isAssignMemberModalOpen: false,
 	assignToMemberId: "",
+	isSectionModalOpen: false,
 	contactModal: {
 		isOpen: false,
 		add: false,
@@ -55,6 +56,9 @@ const leadMangerSlice = createSlice({
 		handleAssignMemberModal(state, { payload }) {
 			state.assignToMemberId = payload.id;
 			state.isAssignMemberModalOpen = !state.isAssignMemberModalOpen;
+		},
+		handleSectionDetailModal(state, { payload }) {
+			state.isSectionModalOpen = !state.isSectionModalOpen;
 		},
 		handleContactDetailModal(state, { payload }) {
 			state.contactModal.isOpen = payload.open;
@@ -165,6 +169,19 @@ const leadMangerSlice = createSlice({
 			.addCase(
 				updateLeadManagerDetail.fulfilled,
 				(state, { payload }) => {
+					// console.log("payload updated", payload);
+					// state.leadManagerSectionDetailData = payload.data;
+					const sectionIndex = state.leadManagerDetail.sections.findIndex(
+						section => section.id === payload.data.sectionId
+					);
+					const detailIndex = state.leadManagerDetail.sections[
+						sectionIndex
+					].details.findIndex(
+						details => details.id === payload.data.id
+					);
+					state.leadManagerDetail.sections[sectionIndex].details[
+						detailIndex
+					] = payload.data;
 					state.success = true;
 					state.loading = false;
 				}
@@ -312,6 +329,7 @@ export const {
 	getLeadManagerGroupDetailById,
 	handleAssignMemberModal,
 	handleContactDetailModal,
+	handleSectionDetailModal,
 } = leadMangerSlice.actions;
 
 export default leadMangerSlice.reducer;

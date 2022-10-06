@@ -107,7 +107,9 @@ function LeadsOverview() {
 													<div className="flex flex-col gap-2">
 														<div>{det.name}</div>
 														<div className="text-xs">
-															{det.address}
+															<p className="!m-0 truncate w-[80%]">
+																{det.address}
+															</p>
 														</div>
 													</div>
 													<div
@@ -124,22 +126,22 @@ function LeadsOverview() {
 												</div>
 												<div className="flex items-center justify-between">
 													<Tooltip title="Select Assign Members">
-														<div className="bg-primary-color rounded-full p-1 flex items-center">
-															<PlusOutlined
-																className="!text-[15px] !cursor-pointer !text-white"
-																onClick={e => {
-																	e.stopPropagation();
-																	e.preventDefault();
-																	dispatch(
-																		handleAssignMemberModal(
-																			{
-																				id:
-																					det.id,
-																			}
-																		)
-																	);
-																}}
-															/>
+														<div
+															className="bg-primary-color rounded-full p-1 flex items-center"
+															onClick={e => {
+																e.stopPropagation();
+																e.preventDefault();
+																dispatch(
+																	handleAssignMemberModal(
+																		{
+																			id:
+																				det.id,
+																		}
+																	)
+																);
+															}}
+														>
+															<PlusOutlined className="!text-[15px] !cursor-pointer !text-white" />
 														</div>
 													</Tooltip>
 													<div>

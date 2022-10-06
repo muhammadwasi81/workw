@@ -27,11 +27,14 @@ import {
 	updateLeadManagerDetail,
 } from "../../store/actions";
 import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
+import { ids } from "webpack";
+import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
+import { DEFAULT_GUID } from "../../../../../utils/constants";
 
 const { Panel } = Collapse;
 
 function SectionDetail(props) {
-	const { data } = props;
+	const { data, isSectionDetailLoading } = props;
 
 	const [image, setImage] = useState(
 		data?.image
@@ -44,7 +47,13 @@ function SectionDetail(props) {
 		dispatch(
 			updateLeadManagerDetail(
 				jsonToFormData({
-					image: { id: data.imageId, file: image ? image : null },
+					image: {
+						id:
+							typeof image === "object"
+								? DEFAULT_GUID
+								: data.imageId,
+						file: image ? image : null,
+					},
 					...values,
 					id: data.id,
 					sectionId: data.sectionId,
@@ -52,6 +61,9 @@ function SectionDetail(props) {
 			)
 		);
 	};
+	if (isSectionDetailLoading && !data) {
+		return <SectionDetailSkeleton />;
+	}
 
 	return (
 		<div className="gap-5 flex flex-col 2xl:flex-row  ">

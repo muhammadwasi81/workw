@@ -20,6 +20,7 @@ import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
 import {
 	handleAssignMemberModal,
 	handleContactDetailModal,
+	handleSectionDetailModal,
 	moveDetail,
 	moveSection,
 } from "../../store/slice";
@@ -87,9 +88,9 @@ function Board() {
 			);
 		}
 	};
-	const handleSectionDetailModal = () => {
-		setOpenSectionDetailModal(!openSectionDetailModal);
-	};
+	// const handleSectionDetailModal = () => {
+
+	// };
 
 	return (
 		<>
@@ -111,9 +112,11 @@ function Board() {
 											section={section}
 											index={index}
 											key={section.id}
-											handleSectionDetailModal={
-												handleSectionDetailModal
-											}
+											handleSectionDetailModal={() => {
+												dispatch(
+													handleSectionDetailModal()
+												);
+											}}
 										/>
 									)
 								)}
@@ -123,7 +126,7 @@ function Board() {
 				</Droppable>
 			</DragDropContext>
 
-			<CustomModal
+			{/* <CustomModal
 				isModalVisible={openSectionDetailModal}
 				onCancel={handleSectionDetailModal}
 				width={"60%"}
@@ -163,7 +166,7 @@ function Board() {
 					)
 				}
 				className={""}
-			/>
+			/> */}
 		</>
 	);
 }

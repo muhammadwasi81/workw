@@ -1,51 +1,62 @@
+import { PlusCircleFilled } from "@ant-design/icons";
+import { Tooltip } from "antd";
+import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
-export const tableColumns = () => {
+import LeadSectionSelect from "../../../UI/Select/LeadSectionSelect";
+export const tableColumns = (sections, handleMemberModal) => {
 	return [
 		{
 			title: "Name",
-			dataIndex: "details",
-			sort: true,
+			dataIndex: "name",
+			// sort: true,
 			width: 200,
 			// ellipsis: true,
-			render: details => console.log("details", details),
+			// render: details => console.log("details", details),
 		},
 		{
 			title: "Address",
 			dataIndex: "address",
-			sort: true,
+			// sort: true,
 			// tag: true,
 			// render: status => <StatusTag status={status} />,
 			width: 200,
 		},
 		{
-			title: "adfasfd",
-			dataIndex: "subject",
+			title: "Type",
+			dataIndex: "typeId",
 			width: 200,
+			render: typeId => (typeId === 1 ? "Business" : "Individual"),
 		},
 		{
-			title: "dsfadf",
-			dataIndex: "description",
+			title: "Members",
+			dataIndex: ["members"],
 			width: 200,
-			ellipsis: true,
+			render: (members, { id }, index) => {
+				return (
+					<div className="flex gap-2 items-center">
+						<Avatar heading="Members" membersData={members} />
+						<Tooltip title="Select Assign Members">
+							<PlusCircleFilled
+								className="!text-[20px] !cursor-pointer !text-primary-color "
+								onClick={e => {
+									e.stopPropagation();
+									e.preventDefault();
+									handleMemberModal(id);
+								}}
+							/>
+						</Tooltip>
+					</div>
+				);
+			},
+			// ellipsis: true,
 		},
 		{
-			title: "dfafsdfadsf",
-			dataIndex: "agentStatus",
-			// render: status => <StatusTag status={status} />,
-			// tag: true,
+			title: "Section",
+			dataIndex: "sectionId",
+			render: (sectionId, record, index) => (
+				<LeadSectionSelect detail={record} sections={sections} />
+			),
 			width: 200,
 		},
-		// {
-		// 	title: ,
-		// 	key: "action",
-		// 	action: true,
-		// 	customAction: true,
-		// 	actions: ["edit"],
-		// 	key: "6",
-		// 	width: 100,
-		// 	render: (_, row) => {
-		// 		return Edit(handleEdit, row);
-		// 	},
-		// },
 	];
 };

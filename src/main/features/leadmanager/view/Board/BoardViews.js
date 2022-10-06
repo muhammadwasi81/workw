@@ -16,14 +16,17 @@ import {
 import {
 	handleAssignMemberModal,
 	handleContactDetailModal,
+	handleSectionDetailModal,
 } from "../../store/slice";
 import ContactDetailSkeleton from "../../UI/Skeleton/ContactDetailSkeleton";
+import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
 import ComposeEmail from "../Email/ComposeEmail";
 import AssignMemberModal from "../Modal/AssignMemberModal";
 import Board from "./Board";
 import BoardTopBar from "./BoardTopBar/BoardTopBar";
 import ContactDetail from "./ContactDetail";
 import LeadsOverview from "./LeadsOverview";
+import SectionDetail from "./SectionDetail";
 import BoardTable from "./Table/BoardTable";
 
 function BoardViews() {
@@ -39,6 +42,9 @@ function BoardViews() {
 	const contactDetail = useSelector(
 		state => state.leadMangerSlice.contactDetail
 	);
+	const isSectionDetailLoading = useSelector(
+		state => state.leadMangerSlice.isSectionDetailLoading
+	);
 	const leadManagerSectionDetailData = useSelector(
 		state => state.leadMangerSlice.leadManagerSectionDetailData
 	);
@@ -52,15 +58,27 @@ function BoardViews() {
 	const isAssignMemberModalOpen = useSelector(
 		state => state.leadMangerSlice.isAssignMemberModalOpen
 	);
+	const isSectionModalOpen = useSelector(
+		state => state.leadMangerSlice.isSectionModalOpen
+	);
 	const assignToMemberId = useSelector(
 		state => state.leadMangerSlice.assignToMemberId
+	);
+	const loading = useSelector(state => state.leadMangerSlice.loading);
+
+	const leadManagerDetail = useSelector(
+		state => state.leadMangerSlice.leadManagerDetail
 	);
 	useEffect(() => {
 		dispatch(getLeadManagerById(id));
 	}, []);
-	const leadManagerDetail = useSelector(
-		state => state.leadMangerSlice.leadManagerDetail
-	);
+
+	useEffect(() => {
+		if (success) {
+			closeContactDetailModal();
+		}
+	}, [success]);
+
 	const items = [
 		{
 			name: leadManagerDetail && leadManagerDetail.name,
@@ -106,11 +124,6 @@ function BoardViews() {
 		);
 	};
 
-	useEffect(() => {
-		if (success) {
-			closeContactDetailModal();
-		}
-	}, [success]);
 	return (
 		<div>
 			<Header items={items} />
@@ -183,6 +196,44 @@ function BoardViews() {
 				children={<ComposeEmail />}
 				className={"rounded-lg"}
 				width={"50%"}
+			/>
+			<CustomModal
+				isModalVisible={isSectionModalOpen}
+				onCancel={() => dispatch(handleSectionDetailModal())}
+				width={"60%"}
+				title="Details"
+				footer={null}
+				className={""}
+				children={
+					<SectionDetail
+						isSectionDetailLoading={isSectionDetailLoading}
+						handleContactDetailModal={() => {
+							dispatch(
+								handleContactDetailModal({
+									open: true,
+									add: false,
+								})
+							);
+						}}
+						handleMemberModal={id => {
+							dispatch(
+								handleAssignMemberModal({
+									id,
+								})
+							);
+						}}
+						data={leadManagerSectionDetailData}
+						onClickContact={value => {
+							dispatch(
+								handleContactDetailModal({
+									open: true,
+									add: value,
+								})
+							);
+						}}
+						loading={loading}
+					/>
+				}
 			/>
 		</div>
 	);

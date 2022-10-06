@@ -13,6 +13,13 @@ const MyCareersListView = () => {
             <ListItem />
             <ListItem />
             <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
+            <ListItem />
         </CardWrapper>
     )
 }

@@ -13,7 +13,7 @@ const jobDescriptionSlice = createSlice({
   initialState,
   reducers: {
     JobDescriptionDeleted: (state, { payload }) => {
-      state.JobDescriptions = state.JobDescriptions.filter((e) => e.id !== payload.id);
+      state.jobDescriptions = state.jobDescriptions.filter((e) => e.id !== payload.id);
     },
   },
   extraReducers: (builder) => {

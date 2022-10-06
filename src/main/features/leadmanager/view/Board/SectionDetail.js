@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { Avatar, Button, Collapse, Form, Input, Radio, Tag } from "antd";
+import {
+	Avatar,
+	Button,
+	Collapse,
+	Form,
+	Input,
+	Radio,
+	Tag,
+	Tooltip,
+} from "antd";
 import { FaGlobe, FaUserAlt, FaUserPlus } from "react-icons/fa";
 import {
 	CalendarOutlined,
 	EnvironmentFilled,
 	MailFilled,
 	PhoneFilled,
+	PlusCircleFilled,
 } from "@ant-design/icons";
 
 import "./sectionDetail.css";
@@ -72,6 +82,18 @@ function SectionDetail(props) {
 							Upload Image
 						</div>
 					</UploadBgImg>
+				</div>
+				<div className="flex justify-between">
+					<div></div>
+					<div></div>
+					<Tooltip title="Select Assign Members">
+						<PlusCircleFilled
+							className="!text-[20px] !cursor-pointer !text-primary-color"
+							onClick={props.handleMemberModal}
+						/>
+					</Tooltip>
+					{/* <div className="flex justify-end">
+					</div> */}
 				</div>
 				<Form
 					name="basic"
@@ -210,17 +232,17 @@ function SectionDetail(props) {
 							className=" site-collapse-custom-panel "
 							showArrow={false}
 							extra={
-								<div className="p-2 rounded-lg bg-white hover:bg-neutral-200 transition">
-									<FaUserPlus
-										className="!text-primary-color !text-base"
-										onClick={e => {
-											e.preventDefault();
-											e.stopPropagation();
+								<div
+									className="p-2 rounded-lg bg-white hover:bg-neutral-200 transition"
+									onClick={e => {
+										e.preventDefault();
+										e.stopPropagation();
 
-											props.handleContactDetailModal();
-											props.onClickContact(false);
-										}}
-									/>
+										props.handleContactDetailModal();
+										props.onClickContact(false);
+									}}
+								>
+									<FaUserPlus className="!text-primary-color !text-base" />
 								</div>
 							}
 						>

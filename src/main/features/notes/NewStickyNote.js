@@ -97,6 +97,7 @@ const NewStickyNote = (props) => {
   const imageHandler = (e) => {
     const image = e.target.files[0];
     const abc = URL.createObjectURL(image);
+    
     const id = props.id;
     dispatch(addImage({ abc, id }));
   };

@@ -85,9 +85,12 @@ export default function Form({
 	};
 
 	useEffect(() => {
-		getLocation();
 		setForm(data);
 	}, [data]);
+
+	useEffect(() => {
+		getLocation();
+	}, [])
 	return (
 		<FormContainer>
 			<FormHeader>Subsidiary Office</FormHeader>
@@ -103,6 +106,7 @@ export default function Form({
 				<FormInput>
 					<FormLabel>Address</FormLabel>
 					<Input.TextArea
+						value={form.address}
 						placeholder={"Enter Address"}
 						onChange={hadnelAddress}
 					/>
@@ -127,8 +131,6 @@ export default function Form({
 				<FormInput>
 					<FormLabel>Latitude</FormLabel>
 					<Input
-						// value={form.lat}
-						// onChange={handelChangeName}
 						value={form.lat}
 						disabled
 					/>
@@ -136,8 +138,6 @@ export default function Form({
 				<FormInput>
 					<FormLabel>longitude</FormLabel>
 					<Input
-						// value={form.lng}
-						// onChange={handelChangeName}
 						value={form.lng}
 						disabled
 					/>

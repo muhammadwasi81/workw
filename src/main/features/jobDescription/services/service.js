@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllJobDescriptionService = () => {
-  return MasterConfig.get(`api/designation/GetAllDesignation`) 
+  return MasterConfig.get(`api/JobDescription/GetAllJobDescription`) 
     .then((res) => {
       return res.data;
     })
@@ -12,7 +12,7 @@ export const getAllJobDescriptionService = () => {
 
 
 export const addJobDescriptionService = (args) => {
-  return MasterConfig.post(`api/designation/addDesignation`, args)
+  return MasterConfig.post(`api/JobDescription/AddJobDescription`, args)
     .then((res) => {
       return res.data;
     })

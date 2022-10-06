@@ -1,5 +1,6 @@
 import { message } from "antd";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
 import { addBranchOffice, removeBranchOffice, updateBranch} from "../store/actions";
@@ -13,12 +14,14 @@ export default function SubsidiaryOffice() {
 
 	const dispatch = useDispatch();
 
+  // const { loader } = useSelector((state) => state.subsidiaryOfficeSlice);
+
   const handleDelete = (e) => {
     dispatch(removeBranchOffice(e));
   };
 
+
   const onSubmit = (e) => {
-    console.log(e, "FINALL VALUESSS")
     if (e.name === "" || e.address === "") {
       message.error("Please fill all required fields")
     } else {
@@ -28,8 +31,7 @@ export default function SubsidiaryOffice() {
         setClearButton(true)
         return;
       }
-      dispatch(updateBranch(e));
-
+      dispatch(updateBranch({...e, isDefault: true}));
       setSubsidiary(initialState);
     }
   };

@@ -14,14 +14,12 @@ export default function JobDescriptionTable({
   const { jobDescriptions, loadingData } = useSelector((state) => state.jobDescriptionSlice);
 
   const dispatch = useDispatch();
-  console.log(jobDescriptions, "Job12")
   useEffect(() => {
     dispatch(getAllJobDescription());
   }, []);
 
   return (
     <AdminTable
-      // scroll={{ x: 1500, y: 300 }}
       columns={tableColumn(
         handleEdit,
         handleDelete,

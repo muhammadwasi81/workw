@@ -44,7 +44,7 @@ export default function Form({
 				<FormInput>
 					<FormLabel>Name</FormLabel>
 					<Input
-						placeholder={"Enter Category Name"}
+						placeholder={"Enter Group Name"}
 						value={form.name}
 						onChange={handelChangeName}
 					/>

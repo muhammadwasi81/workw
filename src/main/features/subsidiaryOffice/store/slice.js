@@ -25,8 +25,7 @@ const subsidiaryOfficeSlice = createSlice({
       })
       .addCase(addBranchOffice.fulfilled, (state, { payload }) => {
         state.loader = false;
-        if (payload.responseCode === responseCode.Success)
-          state.items.push(payload.data);
+        state.items.push(payload.data);
       })
       .addCase(updateBranch.fulfilled, (state, { payload }) => {
         state.loader = false;

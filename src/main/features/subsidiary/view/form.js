@@ -76,7 +76,7 @@ export default function Form({
 							onSubmit(form);
 							setClearButton(false);
 						}}
-						loading={loading}
+						// loading={loading}
 					>
 						Add
 					</FormButton>

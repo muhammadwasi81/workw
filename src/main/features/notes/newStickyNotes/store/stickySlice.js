@@ -7,6 +7,7 @@ import {
   getColorCodeAction,
   getStickyNoteTitleAction,
   getStickyNoteDescAction,
+  getStickyAttachmentAction
 } from "./actions";
 
 const defaultSticky = {
@@ -16,6 +17,7 @@ const defaultSticky = {
   privacyId: "",
   isOpen: false,
   colorCode: "",
+  attachments:[],
   // search:"",
 };
 
@@ -24,10 +26,8 @@ export const stickySlice = createSlice({
   initialState: {
     open: false,
     listArray: [],
-    incrementNotes: [],
     colorPicker: true,
     bgColor: "",
-    openImageSrc: "",
   },
   reducers: {
     closeSticky: (state) => {
@@ -75,11 +75,12 @@ export const stickySlice = createSlice({
     },
     addImage: (state, action) => {
       const values = action.payload;
+      console.log(values,"VALUES");
+      // const id=createGuid();
       const sticky = state.listArray.find((item) => item.id === values.id);
-      // const noteList = state.listArray.find((item) => item.id === values.id);
-      sticky.img.push(values.imag);
-      // console.img.log("STICKY",sticky);
-      // noteList.push(values.img);
+      console.log("IMAGES REDUX",sticky);
+      sticky.attachments.push(values.images);
+      console.log(values,"VALUES AFTER PUSH");
     },
 
     // ********color picker********
@@ -126,27 +127,29 @@ export const stickySlice = createSlice({
       .addCase(getAllStickyNotesAction.fulfilled, (state, action) => {
         state.listArray = action.payload;
       })
-      // .addCase(getColorCodeAction.fulfilled, (state, { payload }) => {
-      //   state.loader = false;
-      //   state.success = true;
-      //   // state.listArray=action.payload;
-      //   state.listArray = [...state.listArray, payload];
-      //   // console.log(state, "COLOR STATE");
-      // })
-      // .addCase(getStickyNoteTitleAction.fulfilled, (state, { payload }) => {
-      //   state.loader = false;
-      //   state.success = true;
-      //   // state.listArray=action.payload;
-      //   state.listArray = [...state.listArray, payload];
-      //   // console.log(state, "title STATE");
-      // })
+    
 
       .addCase(getStickyNoteDescAction.fulfilled, (state, { payload }) => {
-        // state.loader = false;
-        // state.success = true;
-        // state.listArray=action.payload;
-        // state.listArray = [...state.listArray, payload];
-        // console.log(state, "DEsc STATE");
+      
+      })
+      .addCase(getStickyAttachmentAction.fulfilled,(state,action)=>{
+        let data = action.payload;
+
+        state.loader = false;
+        state.success = true;
+        let currentIndex = state.listArray.findIndex(
+          (it) => it.id === data.id
+        );
+        console.log("current index", currentIndex);
+        state.listArray[currentIndex] = {
+          ...data,
+          attachments:[
+            ...state.listArray[currentIndex].attachments,
+            ...data.attachments
+          ],
+          isOpen:true
+        };
+
       })
       
   },

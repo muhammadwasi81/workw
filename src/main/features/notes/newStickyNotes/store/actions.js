@@ -12,7 +12,7 @@ const addSticky_SD = (data) => {
       "description": data.description ? data.description : "",
       "privacyId": data.privacyId ? data.privacyId : 1,
       "colorCode":data.colorCode?data.colorCode:"",
-      "attchments":data.attchments?data.attchments:[],
+      "attachments":data.attachments?data.attachments:[],
       // {
 // id:dssdds,
 // file:{}
@@ -108,6 +108,27 @@ export const getStickyNoteDescAction=createAsyncThunk(
   
       const response = await addStickyNotesService(formdataRequest);
       // console.log(response,"DEsc RESPONSE")
+      switch (response.type) {
+        case ResponseType.ERROR:
+          return rejectWithValue(response.errorMessage);
+        case ResponseType.SUCCESS:
+          return response.data;
+        default:
+          return;
+      }
+    }
+)
+export const getStickyAttachmentAction=createAsyncThunk(
+  "stickySlice/getStickyAttachmentAction",
+  async (payload, { rejectWithValue, dispatch }) => {
+      console.log(payload, "ACTIon images value")
+
+      let request = addSticky_SD(payload)
+      const formdataRequest = jsonToFormData(request);
+      console.log(formdataRequest, "images ACTION")
+  
+      const response = await addStickyNotesService(formdataRequest);
+      console.log(response,"images RESPONSE")
       switch (response.type) {
         case ResponseType.ERROR:
           return rejectWithValue(response.errorMessage);

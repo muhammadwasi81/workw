@@ -39,10 +39,10 @@ const CustomCard = ({ item, onDoubleClick }) => {
           </div>,
         ]}
         style={{
-          width: 290,
+          width: 297,
           // height:100,
           // maxHeight:200,
-          marginLeft: "10px",
+          marginLeft: "4px",
           marginTop: "10px",
           // alignItems:"center",
           borderRadius: "5px",

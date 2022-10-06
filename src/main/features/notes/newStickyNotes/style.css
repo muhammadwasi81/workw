@@ -112,6 +112,7 @@
 
 /* *********styling of sticky container*********** */
 .stickyNote_container {
+  box-shadow: 0px 0px 2px 0px #898989;
   display: flex;
   z-index: 10;
   flex-direction: column;

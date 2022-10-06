@@ -18,11 +18,15 @@ import {
 } from "../../store/stickySlice";
 // import sticky note actions
 import { addSticky, getAllStickyNotesAction,searchTitleDescAction } from "../../store/actions";
+import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
+
 
 
 const StickyContainer = () => {
   // *********state for sticky notes*******
   const [minimize, setMinimize] = useState(true);
+  const [search,setSearch]=useState(null);
+  const searchDebounce = useDebounce(search, 500);
 
   const dispatch = useDispatch();
 
@@ -36,10 +40,15 @@ const StickyContainer = () => {
     dispatch(getAllStickyNotesAction({}));
   }, []);
 
+  useEffect(()=>{
+    if(searchDebounce)
+     searchHandler(searchDebounce)
+  },[searchDebounce])
+
   // ********search handler***********
-  const searchHandler = (e) => {
-    const searchValue = e.target.value;
-    dispatch(getAllStickyNotesAction({search:searchValue}));
+  const searchHandler = (value) => {
+    
+    dispatch(getAllStickyNotesAction({search:value}));
   };
 
   
@@ -86,7 +95,7 @@ const StickyContainer = () => {
             <Input
               placeholder="Search"
               style={{ width: "300px" }}
-              onChange={searchHandler}
+              onChange={(e)=>setSearch(e.target.value)}
               prefix={<SearchOutlined />}
             />
           </div>

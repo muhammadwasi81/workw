@@ -17,6 +17,7 @@ import {
   closeStickyNote,
   targetTitleVal,
   targetStickyDescription,
+  addImage,
 } from "../../store/stickySlice";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -25,10 +26,10 @@ import {
   deleteStickyAction,
   getStickyNoteTitleAction,
   getStickyNoteDescAction,
+  getStickyAttachmentAction,
 } from "../../store/actions";
 import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
-
-
+import { createGuid } from "../../../../../../utils/base";
 
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
@@ -39,21 +40,33 @@ const NewStickyNote = ({ item }) => {
   const [images, setImage] = useState([]);
   const dispatch = useDispatch();
 
-  const openColorHandler = () => {
-    setOpenColor(true);
-  };
+  // const openColorHandler = () => {
+  //   setOpenColor(true);
+  // };
 
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
-    console.log(image);
-    const url = URL.createObjectURL(image);
-    setImage(url);
-    // console.log(url);
-    // const id = item.id;
+    console.log(image, "IMG");
+    // const imagess = URL.createObjectURL(image);
+    // setImage(images);
+    // console.log(imagess,"IMAGESSSSS");
+    const id = item.id;
     // console.log("ID",id);
-    // dispatch(addImage({ url, id }));
-    console.log(url, "add images");
-    console.log(images, "IMAGE STATE");
+    //console.log(images, "IMAGE STATE");
+    // dispatch(addImage({imagess,id}))
+    dispatch(
+      getStickyAttachmentAction({
+        attachments: [{ file: image, id: createGuid() }],
+        id,
+      })
+    );
+    //   dispatch(getStickyAttachmentAction({
+    //     id,
+    //     attachments:image.map((item)=>({
+    //       file:item,
+    //       id:createGuid()
+    //     }))
+    //   }))
   };
 
   // ********dropdown menu (color, copy, share) in three dot*********
@@ -102,14 +115,11 @@ const NewStickyNote = ({ item }) => {
   );
 
   useEffect(() => {
-    if (tilteDebounce)
-      setTitleValue(tilteDebounce)
+    if (tilteDebounce) setTitleValue(tilteDebounce);
   }, [tilteDebounce]);
   useEffect(() => {
-    if (descriptionDebounce)
-      setDescriptionValue(descriptionDebounce)
+    if (descriptionDebounce) setDescriptionValue(descriptionDebounce);
   }, [descriptionDebounce]);
-
 
   // ********sticky note description handler******
 
@@ -130,9 +140,8 @@ const NewStickyNote = ({ item }) => {
   const setDescriptionValue = (value) => {
     const id = item.id;
     dispatch(targetStickyDescription({ id, value }));
-    dispatch(getStickyNoteDescAction({ ...item, description: value }));
+    dispatch(getStickyNoteDescAction({ ...item, attachments:[],description: value }));
   };
-
 
   // *******modules and formats for React quil******
   const modules = {
@@ -155,21 +164,21 @@ const NewStickyNote = ({ item }) => {
       ["clean"],
     ],
   };
-
+  const imgSrc = item.attachments;
+  console.log(imgSrc, "image from redux");
   return (
     <>
       <Draggable defaultPosition={{ x: 12, y: 450 }} handle=".handle">
         <div
           className="stickyNote_container"
-        // style={{ display: !openColor ? "initial" : "none" }}
+          // style={{ display: !openColor ? "initial" : "none" }}
         >
-          <div
-            className="stickyNote_header handle"
+          <div className="stickyNote_header handle"
             style={{ backgroundColor: item.colorCode }}
           >
             <input
               placeholder="Title"
-              onChange={(e)=>setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
               defaultValue={item.title}
               style={{ backgroundColor: item.colorCode }}
               className="sticky_titleContainer"
@@ -184,8 +193,14 @@ const NewStickyNote = ({ item }) => {
                   </Space>
                 </a>
               </Dropdown>
-              <DeleteOutlined onClick={deleteStickyNotes} className="margin_Icon" />
-              <CloseOutlined onClick={closeStickyNotes} className="margin_Icon" />
+              <DeleteOutlined
+                onClick={deleteStickyNotes}
+                className="margin_Icon"
+              />
+              <CloseOutlined
+                onClick={closeStickyNotes}
+                className="margin_Icon"
+              />
             </div>
           </div>
 
@@ -193,7 +208,7 @@ const NewStickyNote = ({ item }) => {
 
           <div className="textArea_container">
             <ReactQuill
-              onChange={(value)=>setDescription(value)}
+              onChange={(value) => setDescription(value)}
               modules={modules}
               formats={formats}
               className={"stickyNoteItem-textarea"}
@@ -201,28 +216,27 @@ const NewStickyNote = ({ item }) => {
               defaultValue={item.description}
             />
             <div className="img-input-container">
-              <PictureOutlined className="image_icon" />
+              <PictureOutlined className="image_icon text-[20px]" />
               <input
                 type="file"
+                // multiple={true}
                 onChange={uploadImageHandler}
                 className="img-input"
               />
             </div>
-
-            {/* **********Insert images******** */}
-            {images.length > 0
-              ? <div className="image_body">
-                {images.map((item) => {
-                  <Image
-                    preview={false}
-                    src={images}
-                    alt="something.png"
-                    className="image"
-                  />;
-                })}
-
-              </div> : ""}
           </div>
+          {/* **********Insert images******** */}
+          {imgSrc.length > 0 ? (
+            <div className="image_body">
+              {imgSrc.map((item, index) => {
+                return (
+                  <Image key={item.id} preview={true} src={item.path} className="image" />
+                );
+              })}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </Draggable>
     </>

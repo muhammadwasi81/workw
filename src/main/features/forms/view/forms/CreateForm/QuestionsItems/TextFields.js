@@ -40,9 +40,9 @@ const TextFields = (props) => {
           className="dragIcon"
           style={{ justifyContent: "space-between", flexDirection: "column" }}
         >
-          <button onClick={() => removeQuestion(index)}>
+          <div onClick={() => removeQuestion(index)}>
             <CloseSquareOutlined style={{ fontSize: "150%" }} />
-          </button>
+          </div>
           <HolderOutlined />
         </div>
       </div>

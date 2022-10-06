@@ -20,6 +20,7 @@ const QuestionWithType = (props) => {
 
   const handleImageChange = (info, index, action) => {
     console.log("index", index);
+    console.log(info);
     if (!fileList[index]) {
       setFileList([
         ...fileList,
@@ -42,7 +43,7 @@ const QuestionWithType = (props) => {
 
   const onFinish = (values) => {
     console.log("values", values);
-    console.log("fileList", fileList);
+    console.log("fileList onfinish", fileList);
     let data = {};
     if (values.options) {
       data = {

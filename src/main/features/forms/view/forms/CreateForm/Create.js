@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import DrangableQuestions from "./DragableItems";
+import RadioWithImage from "./QuestionsItems/RadioWithImage";
+import TextFields from "./QuestionsItems/TextFields";
+import Radio from "./QuestionsItems/Radio";
 import moment from "moment";
 import {
   createGuid,
@@ -20,7 +24,8 @@ const Create = (props) => {
   const [form] = Form.useForm();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-
+  console.log("props in create component", props);
+  const { removeQuestion, formData, handleSequenceChange } = props;
   const { createLoader } = useSelector((state) => state.formSlice);
 
   const {
@@ -113,12 +118,57 @@ const Create = (props) => {
             </div>
           </div>
           <QuestionWithType dataSend={(values) => dataGet(values)} />
-          <Form.Item>
+          <DrangableQuestions
+            questions={formData.question}
+            handleChange={handleSequenceChange}
+          >
+            {formData &&
+              formData.question.map((item, index) => (
+                <>
+                  {/* {console.log("item radio with image", item)} */}
+                  {item.localType === "radio" && (
+                    <Radio
+                      // handleRadioChange={handleChange}
+                      question={item}
+                      index={index}
+                      removeQuestion={(index) => removeQuestion(index)}
+                    />
+                  )}
+                  {item.localType === "radioWithImage" && (
+                    <RadioWithImage
+                      // handleChange={handleChange}
+                      question={item}
+                      index={index}
+                      removeQuestion={(index) => removeQuestion(index)}
+                    />
+                  )}
+                  {item.localType === "text" && (
+                    <TextFields
+                      // handleChange={handleChange}
+                      fieldData={item}
+                      index={index}
+                      type="text"
+                      removeQuestion={(index) => removeQuestion(index)}
+                    />
+                  )}
+                  {item.localType === "number" && (
+                    <TextFields
+                      // handleChange={handleChange}
+                      fieldData={item}
+                      index={index}
+                      type="number"
+                      removeQuestion={(index) => removeQuestion(index)}
+                    />
+                  )}
+                </>
+              ))}
+          </DrangableQuestions>
+          <Form.Item className="flex justify-end">
             <Button
               className="btn"
               // type="primary"
               htmlType="submit"
-              disabled={!createLoader ? false : true}
+              disabled={createLoader ? true : false}
             >
               Submit Form
             </Button>

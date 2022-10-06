@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Create from "./Create";
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
 import "../EditForm/editForm.css";
-import DrangableQuestions from "./DragableItems";
+
 import {
   createGuid,
   modifySelectData,
@@ -110,7 +110,7 @@ export const CreateFormParent = (props) => {
   };
 
   const subDescriptionGet = (values) => {
-    // console.log("sub description", values);
+    console.log("sub description", values);
     let payload = {
       ...dataObj,
       id: createGuid(),
@@ -124,6 +124,7 @@ export const CreateFormParent = (props) => {
     };
     setDataObj(payload);
     // console.log("final data to be send to api****", payload);
+    console.log("dispatch actions");
     dispatch(addForm(payload));
     navigate(-1);
   };
@@ -210,57 +211,15 @@ export const CreateFormParent = (props) => {
           <Create
             dataSend={(values) => dataGet(values)}
             subDescriptionSend={(values) => subDescriptionGet(values)}
+            removeQuestion={removeQuestion}
+            handleSequenceChange={handleSequenceChange}
+            formData={formData}
           />
           {/* <FormHeader
             title={formData.subject}
             description={formData.description}
             isAcceptingResp={formData.acceptingResponse}
           /> */}
-          <DrangableQuestions
-            questions={formData.question}
-            handleChange={handleSequenceChange}
-          >
-            {formData &&
-              formData.question.map((item, index) => (
-                <>
-                  {/* {console.log("item radio with image", item)} */}
-                  {item.localType === "radio" && (
-                    <Radio
-                      handleRadioChange={handleChange}
-                      question={item}
-                      index={index}
-                      removeQuestion={(index) => removeQuestion(index)}
-                    />
-                  )}
-                  {item.localType === "radioWithImage" && (
-                    <RadioWithImage
-                      handleChange={handleChange}
-                      question={item}
-                      index={index}
-                      removeQuestion={(index) => removeQuestion(index)}
-                    />
-                  )}
-                  {item.localType === "text" && (
-                    <TextFields
-                      handleChange={handleChange}
-                      fieldData={item}
-                      index={index}
-                      type="text"
-                      removeQuestion={(index) => removeQuestion(index)}
-                    />
-                  )}
-                  {item.localType === "number" && (
-                    <TextFields
-                      handleChange={handleChange}
-                      fieldData={item}
-                      index={index}
-                      type="number"
-                      removeQuestion={(index) => removeQuestion(index)}
-                    />
-                  )}
-                </>
-              ))}
-          </DrangableQuestions>
         </div>
       </div>
     </>

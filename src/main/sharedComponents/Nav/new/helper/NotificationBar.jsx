@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import sunIcon from "../../../../../content/svg/menu/newNavBarIcon/new/sun.svg";
-import moonIcon from "../../../../../content/svg/menu/newNavBarIcon/new/moon.svg";
-import addUser from "../../../../../content/svg/menu/newNavBarIcon/new/userAccount.svg";
+import sunIcon from "../../../../../content/svg/menu/newNavBarIcon/new/dark_mode.svg";
+import moonIcon from "../../../../../content/svg/menu/newNavBarIcon/new/light_mode.svg";
+import addUser from "../../../../../content/svg/menu/newNavBarIcon/new/add_user.svg";
 import search from "../../../../../content/svg/menu/newNavBarIcon/new/search.svg";
-import notification from "../../../../../content/svg/menu/newNavBarIcon/new/notification.svg";
-import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/rewards.svg";
-import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/stickyNotes.svg";
+import notification from "../../../../../content/svg/menu/newNavBarIcon/new/ring.svg";
+import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/check_list.svg";
+import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/sticky_notes.svg";
 import Notes from "../../../../features/notes/Notes";
 import NewStickyNote from "../../../../features/notes/NewStickyNote";
 import { toggleStickyNote } from "../../../../../store/appReducer/newStickySlice";

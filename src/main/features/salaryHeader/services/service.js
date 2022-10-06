@@ -1,6 +1,7 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
 const API_PREFIX = "konnectapi/api/salaryheader/";
+
 export const getAllSalaryHeaderService = () => {
   return MasterConfig.get(`api/salaryheader/getallsalaryheader`)
     .then((res) => {

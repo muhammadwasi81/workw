@@ -74,6 +74,7 @@ import scheduleSlice from "../main/features/schedule/store/slice";
 import attendanceSlice from "../main/features/attendance/store/slice";
 import formSlice from "../main/features/forms/store/slice";
 import payrollSlice from "../main/features/payroll/store/slice";
+import careerSlice from "../main/features/careers/view/DetailView/store/careerSlice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -144,6 +145,7 @@ const reducers = combineReducers({
   salarySlice,
   formSlice,
   payrollSlice,
+  careerSlice,
 });
 
 const persistConfig = {

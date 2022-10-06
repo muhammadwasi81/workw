@@ -12,12 +12,14 @@ import { dictionaryList } from "../../../utils/localization/languages";
 
 const TopBar = ({
 	filter,
+	rightButtons,
 	onSearch,
 	segment,
 	buttons,
 	component,
 	style,
 	width,
+	options = null,
 }) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { sharedLabels, Direction } = dictionaryList[userLanguage];
@@ -76,23 +78,45 @@ const TopBar = ({
 				{!isEmptyObj(filter) && (
 					<FilterSearchButton onFilter={onFilter} {...rest} />
 				)}
+				{rightButtons &&
+					rightButtons.map(
+						({ name, onClick, icon, className }, index) => (
+							<Button
+								onClick={onClick}
+								type={"text"}
+								key={index}
+								className={
+									"!flex !items-center !bg-neutral-100 !rounded hover:!bg-primary-color !font-semibold hover:!text-white " +
+									className
+								}
+								icon={icon}
+							>
+								{name}
+								{/* {icon && icon} */}
+							</Button>
+						)
+					)}
 				{!isEmptyObj(segment) && (
 					<Segmented
 						onChange={value => {
 							onSegment(value);
 						}}
-						options={[
-							{
-								label: label1,
-								value: label1,
-								icon: <BarsOutlined />,
-							},
-							{
-								label: label2,
-								value: label2,
-								icon: <AppstoreOutlined />,
-							},
-						]}
+						options={
+							options
+								? options
+								: [
+										{
+											label: label1,
+											value: label1,
+											icon: <BarsOutlined />,
+										},
+										{
+											label: label2,
+											value: label2,
+											icon: <AppstoreOutlined />,
+										},
+								  ]
+						}
 					/>
 				)}
 			</div>

@@ -27,7 +27,6 @@ import {
 	updateLeadManagerDetail,
 } from "../../store/actions";
 import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
-import { ids } from "webpack";
 import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
 import { DEFAULT_GUID } from "../../../../../utils/constants";
 

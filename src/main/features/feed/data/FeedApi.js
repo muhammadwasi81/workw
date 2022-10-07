@@ -52,6 +52,21 @@ export const feedReaction = async request => {
 	}
 };
 
+export const feedFavorite = async request => {
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.get(
+			`api/Feed/AddFeedFavoriteMark?feedId=${request.id}&isPinned=${request.isPinned}`,
+			request
+		);
+		if (responseCode === 1001) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+
 export const savePollResponseService = async request => {
 	try {
 		const {

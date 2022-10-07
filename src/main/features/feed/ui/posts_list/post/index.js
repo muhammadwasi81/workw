@@ -31,6 +31,7 @@ const Post = ({
 	return (
 		<div className="post">
 			<PostHeader
+				id={id}
 				privacyId={privacyId}
 				creator={creator}
 				isPinnedPost={isPinnedPost}

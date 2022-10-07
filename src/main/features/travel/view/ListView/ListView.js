@@ -13,6 +13,7 @@ import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import TravelDetail from "../TravelDetail/TravelDetail";
 import { useDispatch } from "react-redux";
 import { resetTravelDetail } from "../../store/slice";
+import Attachments from "../UI/Attachments";
 
 function ListView(props) {
 	const { labels } = props;
@@ -75,6 +76,11 @@ function ListView(props) {
 											{data.description}
 										</div>
 									</div>
+									{/* attachments */}
+									<Attachments
+										data={data.attachments}
+										key={data}
+									/>
 								</div>
 								<div className="bg-[#F6F7F9] mt-3 p-3 px-9 rounded flex items-center justify-between relative overflow-auto ">
 									<div className="flex gap-3 items-center min-w-[200px]">

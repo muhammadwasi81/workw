@@ -89,7 +89,7 @@ export const CreateFormParent = (props) => {
       return {
         // id: createGuid(),
         // formId: createGuid(),
-        answerType: elem.answerType,
+        formAnswerType: elem.formAnswerType,
         sequence: index,
         question: elem.Question,
         image: { file: elem.image && elem.image?.originFileObj },
@@ -133,19 +133,20 @@ export const CreateFormParent = (props) => {
     // console.log("data getting in set form by type****", data);
     // console.log("questions data map****", data.questions);
     let filteredData = data.question.map((item, index) => {
-      if (item.answerType === 2) {
+      console.log(item, "item type");
+      if (item.formAnswerType === 2) {
         return {
           ...item,
           localType: "number",
           sequence: index,
         };
-      } else if (item.answerType === 3) {
+      } else if (item.formAnswerType === 3) {
         return {
           ...item,
           localType: "text",
           sequence: index,
         };
-      } else if (item.answerType === 1) {
+      } else if (item.formAnswerType === 1) {
         console.log("item", item);
         if (item.answers[index]?.image?.file) {
           return {

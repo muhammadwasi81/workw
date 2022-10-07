@@ -93,7 +93,7 @@ const QuestionWithType = (props) => {
               </Upload>
             </Form.Item>
           </div>
-          <Form.Item name="answerType">
+          <Form.Item name="formAnswerType">
             <Select
               placeholder="Select Answer Type"
               onChange={onQuestionTypeChange}

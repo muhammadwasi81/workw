@@ -11,6 +11,8 @@ import {
 	StarFilled,
 	StarOutlined,
 } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { favoriteFeed } from "../../../../store/actions";
 
 const PostHeader = ({
 	creator = {},
@@ -18,8 +20,10 @@ const PostHeader = ({
 	isPinnedPost,
 	createDate,
 	privacyId,
+	id,
 }) => {
 	const { image, name, designation } = creator;
+	const dispatch = useDispatch();
 	const privacy = {
 		1: <img src={publicIcon} alt="#" />,
 		2: <LockOutlined style={{ color: "#797f85", fontSize: "12px" }} />,
@@ -27,6 +31,7 @@ const PostHeader = ({
 	};
 	var ts = moment.utc(createDate);
 	ts.local().format("D-MMM-Y");
+	// console.log("isPinnedPost", isPinnedPost, id);
 	return (
 		<div className="post-header">
 			{/*<HeadingNew />*/}
@@ -80,9 +85,17 @@ const PostHeader = ({
 					</div>
 				</div>
 			</div>
-			<div className="pinned-post" onClick={() => isPinnedPost(false)}>
-				<StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
-				{/* <StarFilled className="!text-[18px] !text-primary-color cursor-pointer" /> */}
+			<div
+				className="pinned-post"
+				onClick={() =>
+					dispatch(favoriteFeed({ isPinned: !isPinnedPost, id }))
+				}
+			>
+				{isPinnedPost ? (
+					<StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
+				) : (
+					<StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
+				)}
 				{/* <img
 					alt="#"
 					// style={

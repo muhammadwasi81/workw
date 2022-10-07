@@ -3,6 +3,7 @@ import { PollType, PostType } from "../utils/constants";
 import ValidateCreatePost from "../utils/ValidateCreatePost";
 import SavePostRequestDto from "../data/model/SavePostRequestDto";
 import {
+	feedFavorite,
 	feedReaction,
 	getAllFeedServices,
 	getFeedByIdServices,
@@ -72,6 +73,20 @@ export const addReaction = createAsyncThunk(
 				return rejectWithValue(response.errorMessage);
 			case ResponseType.SUCCESS:
 				return response.data;
+		}
+	}
+);
+export const favoriteFeed = createAsyncThunk(
+	"feedSlice/addPostReaction",
+	async (data, { _, rejectWithValue }) => {
+		const response = await feedFavorite(data);
+
+		// eslint-disable-next-line default-case
+		switch (response.type) {
+			case ResponseType.ERROR:
+				return rejectWithValue(response.errorMessage);
+			case ResponseType.SUCCESS:
+				return { data: response.data, id: data.id };
 		}
 	}
 );

@@ -20,11 +20,13 @@ import {
   JobTypeEnum,
 } from "../../utils/enums";
 import { getAllDefaultHiringCriteriaService } from "../../defaultHiringCriteria/services/service";
+import { getAllDesignation } from "../../../designation/store/actions";
+import { addCareer } from "../../store/action";
 
 const Composer = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [designation, setDesignation] = useState([]);
+  // const [designation, setDesignation] = useState([]);
   const [department, setDepartment] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -33,10 +35,15 @@ const Composer = () => {
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
-  const getDesigantion = async () => {
-    const { responseCode, data } = await getAllJobDescriptionService();
-    if (responseCode === 1001) setDesignation(data);
-  };
+
+  const {
+    designationSlice: { designations },
+  } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(getAllDesignation());
+  }, []);
+
   const getDepartment = async () => {
     const { responseCode, data } = await getAllDepartmentService();
     if (responseCode === 1001) setDepartment(data);
@@ -76,13 +83,18 @@ const Composer = () => {
   useEffect(() => {
     if (!cities.length) fetchCityData("", 0);
     fetchEmployees("", 0);
-    getDesigantion();
+    // getDesigantion();
     getDepartment();
     getReviewCriteria();
   }, []);
 
   const onFinish = (values) => {
     console.log(values, "values");
+    let payload = {
+      ...values,
+      endDate:values.endDate._d
+    }
+    dispatch(addCareer(payload))
     // form.resetFields();
   };
 
@@ -107,7 +119,7 @@ const Composer = () => {
           ]}
         >
           <Select placeholder={"Select Designtion"} size="large">
-            {designation.map((item) => (
+            {designations.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {item.name}
               </Select.Option>
@@ -556,7 +568,7 @@ const Composer = () => {
 
         <Form.Item area="true" label="Attachment">
           <SingleUpload
-            handleImageUpload={() => {}}
+            handleImageUpload={() => { }}
             img="Add Image"
             position="flex-start"
             uploadText={"Upload"}

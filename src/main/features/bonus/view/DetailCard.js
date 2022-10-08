@@ -100,7 +100,7 @@ function BonusDetailCard(props) {
                     </div>
                     {/* <RemarksApproval data={approvers} title="Approvers" /> */}
                     <RemarksApproval
-                        module={ApprovalsModule.RewardApproval}
+                        module={ApprovalsModule.BonusApproval}
                         status={status}
                         onStatusChanged={statusChanged =>
                             setUpdatedStatus(statusChanged)

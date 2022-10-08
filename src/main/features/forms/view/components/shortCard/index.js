@@ -16,10 +16,15 @@ import { useSelector } from "react-redux";
 
 function ListItem(props) {
   const { user } = useSelector((state) => state.userSlice);
-  const { item, id } = props;
+  const { item, id, onListItem = () => {} } = props;
   return (
     <>
-      <SingleItem className="Card3 formShortCard">
+      <SingleItem
+        className="Card3 formShortCard"
+        onClick={() => {
+          onListItem(props.item.id);
+        }}
+      >
         <ItemHeader className="ItemHeader">
           <UserInfo
             avatarSrc={item.creator.image}

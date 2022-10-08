@@ -16,7 +16,6 @@ const Forms = (props) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [search, setSearch] = useState("");
   const [tableView, setTableView] = useState(false);
-
   const { forms } = useSelector((state) => state.formSlice);
 
   const dispatch = useDispatch();

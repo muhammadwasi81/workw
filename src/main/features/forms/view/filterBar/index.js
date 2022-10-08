@@ -26,6 +26,18 @@ const FilterBar = (props) => {
       })
     );
   }, [filter, search]);
+  // console.log(props, "props filter bar");
+
+  const onSegment = (value) => {
+    if (value === "Table") {
+      // setTableView(true);
+      props.onSegment(true);
+    } else {
+      // setTableView(false);
+      // props.tableView = tableView;
+      props.onSegment(false);
+    }
+  };
 
   return (
     <TopBar
@@ -53,13 +65,19 @@ const FilterBar = (props) => {
       //   onFilter: () => {},
       // }}
       segment={{
-        onSegment: (value) => {
-          if (value === "Table") {
-            // setTableView(true);
-          } else {
-            // setTableView(false);
-          }
-        },
+        // onSegment: (value) => {
+        //   if (value === "Table") {
+        //     console.log("table view");
+        //     // setTableView(true);
+        //     // props.tableView(tableView);
+        //   } else {
+        //     console.log("List View view");
+        //     // setTableView(false);
+        //     // props.tableView = tableView;
+        //     // props.tableView(tableView);
+        //   }
+        // },
+        onSegment: (val) => onSegment(val),
         label1: "List",
         label2: "Table",
       }}

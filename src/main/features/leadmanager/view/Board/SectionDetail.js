@@ -27,14 +27,16 @@ import {
 	updateLeadManagerDetail,
 } from "../../store/actions";
 import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
+import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
+import { DEFAULT_GUID } from "../../../../../utils/constants";
 
 const { Panel } = Collapse;
 
 function SectionDetail(props) {
-	const { data } = props;
+	const { data, isSectionDetailLoading } = props;
 
 	const [image, setImage] = useState(
-		data.image
+		data?.image
 			? data.image
 			: "https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
 	);
@@ -44,7 +46,13 @@ function SectionDetail(props) {
 		dispatch(
 			updateLeadManagerDetail(
 				jsonToFormData({
-					image: { id: data.imageId, file: image ? image : null },
+					image: {
+						id:
+							typeof image === "object"
+								? DEFAULT_GUID
+								: data.imageId,
+						file: image ? image : null,
+					},
 					...values,
 					id: data.id,
 					sectionId: data.sectionId,
@@ -52,9 +60,12 @@ function SectionDetail(props) {
 			)
 		);
 	};
+	if (isSectionDetailLoading && !data) {
+		return <SectionDetailSkeleton />;
+	}
 
 	return (
-		<div className="flex gap-5">
+		<div className="gap-5 flex flex-col 2xl:flex-row  ">
 			<section className="flex flex-col gap-3 basis-7/12">
 				<div className="overflow-hidden relative h-[200px]">
 					<img
@@ -89,7 +100,7 @@ function SectionDetail(props) {
 					<Tooltip title="Select Assign Members">
 						<PlusCircleFilled
 							className="!text-[20px] !cursor-pointer !text-primary-color"
-							onClick={props.handleMemberModal}
+							onClick={() => props.handleMemberModal(data.id)}
 						/>
 					</Tooltip>
 					{/* <div className="flex justify-end">
@@ -247,8 +258,8 @@ function SectionDetail(props) {
 							}
 						>
 							<div className="max-h-60 overflow-y-auto flex flex-col gap-3">
-								{data.contacts.length > 0 ? (
-									data.contacts.map(contact => (
+								{data?.contacts.length > 0 ? (
+									data?.contacts.map(contact => (
 										<div
 											className="bg-white rounded-lg p-2 cursor-pointer hover:bg-primary-color group text-black hover:text-white transition "
 											onClick={() => {
@@ -312,7 +323,7 @@ function SectionDetail(props) {
 
 				<div className="bg-white rounded-xl py-2 max-h-96 overflow-y-auto">
 					<CommentWrapper
-						referenceId={data.id}
+						referenceId={data?.id}
 						isCommentLoad={true}
 						module={7}
 						loadSkeleton={true}

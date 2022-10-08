@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { STRINGS } from "../../../../utils/base";
-import { getAllChats, getAllMessages, searchConversation, sendChatMessage } from "./actions";
+import { createChat, getAllChats, getAllMessages, searchConversation, sendChatMessage } from "./actions";
 
 
 const initialState = {
@@ -51,6 +51,12 @@ export const messengerSlice = createSlice({
          })
          .addCase(getAllMessages.fulfilled, (state, { payload }) => {
             state.MessengerList[state.currentMessenger.chatId] = payload.data
+         })
+         .addCase(createChat.fulfilled, (state, { payload }) => {
+            console.log(payload, "payload")
+            state.Conversations = [
+               ...(state.Conversations ? state.Conversations : []), 
+               payload] 
          })
    }
 })

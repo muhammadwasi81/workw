@@ -13,6 +13,7 @@ const Radio = (props) => {
     removeQuestion,
     handleQuestionImageChange,
     handleOptionsChange,
+    handleOptionImageChange,
   } = props;
   const { answers } = question;
 
@@ -23,7 +24,7 @@ const Radio = (props) => {
       <div className="c-row txt-fields bg-clr p_15 d-flex">
         {/* img here */}
         <div className="flex-1">
-          {question.image && (
+          {question.image ? (
             // <div className="QuesImg">
             //   <img src={question.image} />{" "}
             // </div>
@@ -38,6 +39,13 @@ const Radio = (props) => {
                   : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
               }
             />
+          ) : (
+            <SingleUpload
+              handleImageUpload={(info) => handleQuestionImageChange(info)}
+              img="Add Image"
+              position="flex-start"
+              uploadText={"Upload"}
+            />
           )}
           {/* <h1 className="row-tlt">{question.question}</h1> */}
           <div className="flex">
@@ -51,34 +59,59 @@ const Radio = (props) => {
             </button>
           </div>
 
-          {answers.map(({ answer, id }, i) => (
-            <div key={i} className="radio-wrapper mb_10">
-              <label htmlFor="">
-                <input
-                  onChange={(e) =>
-                    handleRadioChange(
-                      e.target.value,
-                      index,
-                      question.id,
-                      question.localType
-                    )
-                  }
-                  className="styled-radio mr_10"
-                  type="radio"
-                  name="radio"
-                  id="radio1"
-                  value={id}
-                  disabled={disableSubmit}
-                />
-                {/* <h3 className="f-bold">{answer}</h3> */}
-                <input
-                  className="required label w-full"
-                  defaultValue={answer}
-                  onChange={(e) => handleOptionsChange(e, i)}
-                />
-              </label>
-            </div>
-          ))}
+          <div className="flex-row">
+            {answers.map(({ answer, id, image }, i) => (
+              <div className="aspect-ratio">
+                <label key={i} className="label-box">
+                  {/* <img
+                    src={
+                      image
+                        ? image
+                        : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
+                    }
+                    // src={{typeof image === 'string' ? image : getBase64(image, (result)=>  result)}}
+                    alt=""
+                  /> */}
+                  <SingleUpload
+                    handleImageUpload={(info) =>
+                      handleOptionImageChange(info, i)
+                    }
+                    img="Add Image"
+                    position="flex-start"
+                    uploadText={"Upload"}
+                    url={
+                      image
+                        ? image
+                        : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
+                    }
+                  />
+                  <div className="flex-item mt_10">
+                    <input
+                      value={id}
+                      onChange={(e) =>
+                        handleChange(
+                          e.target.value,
+                          index,
+                          question.id,
+                          question.localType
+                        )
+                      }
+                      name="label"
+                      type="radio"
+                      // disabled={disableSubmit}
+                      disabled={true}
+                    />{" "}
+                    {/* <h3 className="ml_10 f-bold">{answer}</h3> */}
+                    <input
+                      className="ml_10 f-bold"
+                      defaultValue={answer}
+                      onChange={(e) => handleOptionsChange(e, i)}
+                    />
+                  </div>
+                </label>
+              </div>
+            ))}
+          </div>
           {/* <div className="flex-end">
             <button className="clr-sec">Clear Section</button>
           </div> */}

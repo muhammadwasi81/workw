@@ -7,84 +7,85 @@ import CommentComposer from "./Composer";
 import { getAllComment } from "./services";
 
 function CommentWrapper({
-  initailComments = [],
-  referenceId,
-  module = 1,
-  commentRequestSuccess,
-  placeHolder,
-  isCommentLoad = false,
-  initialMentions = [],
-  placeHolderReply,
-  loadSkeleton = false,
+	initailComments = [],
+	referenceId,
+	module = 1,
+	commentRequestSuccess,
+	placeHolder,
+	isCommentLoad = false,
+	initialMentions = [],
+	placeHolderReply,
+	loadSkeleton = false,
 }) {
-  const [comments, setComments] = useState([]);
-  useEffect(() => {
-    if (initailComments.length > 0) {
-      setComments([...initailComments]);
-    }
-  }, [initailComments]);
+	const [comments, setComments] = useState([]);
+	useEffect(() => {
+		if (initailComments.length > 0) {
+			setComments([...initailComments]);
+		}
+	}, [initailComments]);
 
-  useEffect(() => {
-    isCommentLoad && getComments(referenceId, STRINGS.DEFAULTS.guid, module);
-  }, []);
+	useEffect(() => {
+		isCommentLoad &&
+			getComments(referenceId, STRINGS.DEFAULTS.guid, module);
+	}, []);
 
-  const getComments = async (referenceId, parentId, module) => {
-    const response = await getAllComment(referenceId, parentId, module);
-    setComments([...response]);
-  };
+	const getComments = async (referenceId, parentId, module) => {
+		const response = await getAllComment(referenceId, parentId, module);
+		setComments([...response]);
+	};
 
-  if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
+	if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
 
-  return (
-    <div className="commentWrapper">
-      <CommentComposer
-        referenceId={referenceId}
-        placeHolder={placeHolder}
-        module={module}
-        commentRequestSuccess={(comment) => {
-          setComments((preValue) => [...preValue, comment]);
-          commentRequestSuccess && commentRequestSuccess(comment);
-        }}
-      />
-      <div className="comments">
-        {comments.map(
-          ({
-            type,
-            comment,
-            creator,
-            createDate,
-            id: commentID,
-            referenceId,
-            mentions: mentionedUser,
-          }) => {
-            const { designation, name, image } = creator;
-            return (
-              <CommentItem
-                placeHolderReply={placeHolderReply}
-                initialMentions={initialMentions}
-                mentionedUser={mentionedUser}
-                module={module}
-                comment={{
-                  content: comment,
-                  parentId: commentID,
-                  referenceId: referenceId,
-                  type,
-                  createDate,
-                  youLikeType: 0,
-                  likeCounter: 0,
-                  creator: {
-                    name,
-                    image,
-                    designation,
-                  },
-                }}
-              />
-            );
-          }
-        )}
-      </div>
-    </div>
-  );
+	return (
+		<div className="commentWrapper">
+			<CommentComposer
+				referenceId={referenceId}
+				placeHolder={placeHolder}
+				module={module}
+				commentRequestSuccess={comment => {
+					setComments(preValue => [...preValue, comment]);
+					commentRequestSuccess && commentRequestSuccess(comment);
+				}}
+			/>
+			<div className="comments">
+				{comments.map(
+					({
+						type,
+						comment,
+						creator,
+						createDate,
+						id: commentID,
+						referenceId,
+						mentions: mentionedUser,
+					}) => {
+						const { designation, name, image } = creator;
+						return (
+							<CommentItem
+								placeHolderReply={placeHolderReply}
+								initialMentions={initialMentions}
+								mentionedUser={mentionedUser}
+								module={module}
+								comment={{
+									content: comment,
+									parentId: commentID,
+									referenceId: referenceId,
+									type,
+									createDate,
+									youLikeType: 0,
+									likeCounter: 0,
+									creator: {
+										name,
+										image,
+										designation,
+									},
+								}}
+							/>
+						);
+					}
+				)}
+			</div>
+		</div>
+	);
 }
 
 export default CommentWrapper;

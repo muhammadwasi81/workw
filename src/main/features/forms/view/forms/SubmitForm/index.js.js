@@ -249,21 +249,21 @@ const SubmitForm = (props) => {
   }, [formDetail]);
 
   let setFormDataByType = (data) => {
-    // console.log("data send form parameter***", data);
+    console.log("data send form parameter***", data);
     let filteredData = data.question.map((item, index) => {
-      if (item.answerType === 2) {
+      if (item.formAnswerType === 2) {
         return {
           ...item,
           localType: "number",
           sequence: index,
         };
-      } else if (item.answerType === 3) {
+      } else if (item.formAnswerType === 3) {
         return {
           ...item,
           localType: "text",
           sequence: index,
         };
-      } else if (item.answerType === 1) {
+      } else if (item.formAnswerType === 1) {
         //check image available
         console.log("items in submit form", item);
         if (item.answers[index]?.image?.length > 1) {
@@ -299,7 +299,7 @@ const SubmitForm = (props) => {
         // }
       }
     });
-    // console.log("Filtered data", filteredData);
+    console.log("Filtered data", filteredData);
     // setFormData({ formDetail, question: filteredData });
     setFormData({ ...formDetail, question: filteredData });
     // console.log("Form data", formData);

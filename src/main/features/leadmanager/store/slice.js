@@ -41,19 +41,31 @@ const initialState = {
 	contactDetail: null,
 	isContactUpdated: false,
 	contactDataUpdating: false,
+	isAssignMemberModalOpen: false,
+	assignToMemberId: "",
+	isSectionModalOpen: false,
+	contactModal: {
+		isOpen: false,
+		add: false,
+	},
 };
 const leadMangerSlice = createSlice({
 	name: "leadManager",
 	initialState,
 	reducers: {
+		handleAssignMemberModal(state, { payload }) {
+			state.assignToMemberId = payload.id;
+			state.isAssignMemberModalOpen = !state.isAssignMemberModalOpen;
+		},
+		handleSectionDetailModal(state, { payload }) {
+			state.isSectionModalOpen = !state.isSectionModalOpen;
+		},
+		handleContactDetailModal(state, { payload }) {
+			state.contactModal.isOpen = payload.open;
+			state.contactModal.add = payload.add;
+		},
 		handleComposer(state, { payload }) {
 			const { isOpen, isEdit } = payload;
-			// console.log("isopen", isOpen);
-			// console.log("isedit", isEdit);
-			// if (isEdit) {
-			// } else {
-			// 	state.isEditComposer = false;
-			// }
 			state.isEditComposer = isEdit;
 			state.isComposerOpen = isOpen;
 		},
@@ -78,6 +90,7 @@ const leadMangerSlice = createSlice({
 			state.leadManagerDetail.sections = newLists;
 		},
 		moveDetail(state, { payload }) {
+			// console.log("move detail", payload);
 			const {
 				oldCardIndex,
 				newCardIndex,
@@ -95,6 +108,12 @@ const leadMangerSlice = createSlice({
 			const sectionIndex = state.leadManagerDetail.sections.findIndex(
 				section => section.id === sourceListId
 			);
+			sourceSection.details[0].sectionId = destinationsSection.id;
+			// console.log(
+			// 	"sourceSection.details",
+			// 	current(sourceSection.details),
+			// 	current(destinationsSection)
+			// );
 
 			if (sourceListId === destListId) {
 				const newTodos = sourceSection.details;
@@ -157,6 +176,19 @@ const leadMangerSlice = createSlice({
 			.addCase(
 				updateLeadManagerDetail.fulfilled,
 				(state, { payload }) => {
+					// console.log("payload updated", payload);
+					// state.leadManagerSectionDetailData = payload.data;
+					const sectionIndex = state.leadManagerDetail.sections.findIndex(
+						section => section.id === payload.data.sectionId
+					);
+					const detailIndex = state.leadManagerDetail.sections[
+						sectionIndex
+					].details.findIndex(
+						details => details.id === payload.data.id
+					);
+					state.leadManagerDetail.sections[sectionIndex].details[
+						detailIndex
+					] = payload.data;
 					state.success = true;
 					state.loading = false;
 				}
@@ -302,6 +334,9 @@ export const {
 	resetLeadManagerDetail,
 	resetContactDetail,
 	getLeadManagerGroupDetailById,
+	handleAssignMemberModal,
+	handleContactDetailModal,
+	handleSectionDetailModal,
 } = leadMangerSlice.actions;
 
 export default leadMangerSlice.reducer;

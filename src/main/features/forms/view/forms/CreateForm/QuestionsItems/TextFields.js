@@ -20,10 +20,13 @@ const TextFields = (props) => {
                 />{" "}
               </div>
             )}
-            <input
+            {/* <input
               className="required label w-full"
               defaultValue={fieldData.question}
-            />
+            /> */}
+            <label className="required label" htmlFor="">
+              {fieldData.question}
+            </label>
           </div>
           <input
             disabled={true}
@@ -37,9 +40,9 @@ const TextFields = (props) => {
           className="dragIcon"
           style={{ justifyContent: "space-between", flexDirection: "column" }}
         >
-          <button onClick={() => removeQuestion(index)}>
+          <div onClick={() => removeQuestion(index)}>
             <CloseSquareOutlined style={{ fontSize: "150%" }} />
-          </button>
+          </div>
           <HolderOutlined />
         </div>
       </div>

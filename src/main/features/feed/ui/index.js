@@ -11,12 +11,16 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { useContext } from "react";
 import { FeedDictionary } from "../localization";
 import Scheduler from "../../schedule/view/scheduler";
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import {
+	defaultUiid,
+	ReactionModuleEnum,
+} from "../../../../utils/Shared/enums/enums";
 import { PostReferenceType } from "../utils/constants";
 
 const NewsFeed = ({
 	referenceType = PostReferenceType.MAIN_FEED,
 	referenceId = defaultUiid,
+	reactionModule = ReactionModuleEnum.Feed,
 	isScheduler = true,
 	isCheckedIn,
 	width = "",
@@ -46,6 +50,7 @@ const NewsFeed = ({
 						<PostsList
 							referenceType={referenceType}
 							referenceId={referenceId}
+							reactionModule={reactionModule}
 						/>
 					</div>
 				</div>
@@ -59,7 +64,7 @@ const NewsFeed = ({
 						}}
 					>
 						<div className="schedule" style={{ height: "60%" }}>
-							<Scheduler />
+							<Scheduler feed={true} />
 						</div>
 					</div>
 				)}

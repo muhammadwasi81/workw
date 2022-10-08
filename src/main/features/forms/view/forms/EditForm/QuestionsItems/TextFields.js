@@ -13,13 +13,13 @@ const TextFields = (props) => {
     handleQuestionImageChange,
   } = props;
   const [isImage, setIsImage] = useState(false);
-  // console.log("field data", fieldData);
+  console.log("console textfields", props);
   return (
     <>
       <div className="c-row txt-fields bg-clr p_15 flex">
         <div className="flex-1">
           <div>
-            {fieldData.image && (
+            {fieldData.image ? (
               // <div className="QuesImg" style={{ width: "50px" }}>
               //   <img src={fieldData.image} />{" "}
               // </div>
@@ -33,6 +33,13 @@ const TextFields = (props) => {
                     ? fieldData.image
                     : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
                 }
+              />
+            ) : (
+              <SingleUpload
+                handleImageUpload={(info) => handleQuestionImageChange(info)}
+                img="Add Image"
+                position="flex-start"
+                uploadText={"Upload"}
               />
             )}
             <input

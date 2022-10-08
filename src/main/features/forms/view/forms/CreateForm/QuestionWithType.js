@@ -20,6 +20,7 @@ const QuestionWithType = (props) => {
 
   const handleImageChange = (info, index, action) => {
     console.log("index", index);
+    console.log(info);
     if (!fileList[index]) {
       setFileList([
         ...fileList,
@@ -42,7 +43,7 @@ const QuestionWithType = (props) => {
 
   const onFinish = (values) => {
     console.log("values", values);
-    console.log("fileList", fileList);
+    console.log("fileList onfinish", fileList);
     let data = {};
     if (values.options) {
       data = {
@@ -61,7 +62,7 @@ const QuestionWithType = (props) => {
     console.log(data, "data here console");
     props.dataSend(data);
     form.resetFields();
-    form.optionClass.resetFields();
+    setQuestionImage(null);
   };
 
   return (
@@ -80,7 +81,7 @@ const QuestionWithType = (props) => {
             >
               <Input placeholder="Question.." style={{ width: "40em" }} />
             </Form.Item>
-            <Form.Item className="optionClass">
+            <Form.Item className="optionClass" name="questionImage">
               <Upload
                 onChange={(info) => handleQuestionImageChange(info)}
                 accept="*"
@@ -92,7 +93,7 @@ const QuestionWithType = (props) => {
               </Upload>
             </Form.Item>
           </div>
-          <Form.Item name="answerType">
+          <Form.Item name="formAnswerType">
             <Select
               placeholder="Select Answer Type"
               onChange={onQuestionTypeChange}

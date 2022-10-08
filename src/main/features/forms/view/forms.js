@@ -7,12 +7,17 @@ import {
 import FilterBar from "./filterBar";
 // import FormDetailCards from "./formDetailCards";
 import FormShortCard from "./formShortCards";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Table } from "../../../sharedComponents/customTable";
 import { getAllForms } from "../store/actions";
+import { tableColumn } from "../TableColumn";
 
-const Forms = () => {
+const Forms = (props) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [search, setSearch] = useState("");
+  const [tableView, setTableView] = useState(false);
+  const { forms } = useSelector((state) => state.formSlice);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,12 +30,25 @@ const Forms = () => {
     );
   }, [filter, search]);
 
+  const setView = (val) => {
+    console.log("set table value");
+    setTableView(val);
+  };
+
   return (
     <TabbableContainer>
       <Header />
-      <FilterBar />
+      <FilterBar onSegment={(val) => setView(val)} />
       <ContBody>
-        <FormShortCard />
+        {tableView && (
+          <Table
+            columns={tableColumn()}
+            dragable={true}
+            data={forms ? forms : []}
+          />
+        )}
+
+        {!tableView && <FormShortCard />}
       </ContBody>
     </TabbableContainer>
   );

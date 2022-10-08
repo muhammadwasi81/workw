@@ -21,7 +21,7 @@ const RadioWithImage = (props) => {
     <>
       <div className="c-row txt-fields bg-clr p_15 d-flex">
         <div className="flex-1">
-          {question.image && (
+          {question.image ? (
             // <div className="QuesImg">
             //   <img src={question.image} />
             // </div>
@@ -35,6 +35,13 @@ const RadioWithImage = (props) => {
                   ? question.image
                   : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
               }
+            />
+          ) : (
+            <SingleUpload
+              handleImageUpload={(info) => handleQuestionImageChange(info)}
+              img="Add Image"
+              position="flex-start"
+              uploadText={"Upload"}
             />
           )}
           {/* <h1 className="row-tlt">{question.question}</h1> */}

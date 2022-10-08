@@ -6,7 +6,7 @@ import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import TextFields from "./QuestionsItems/TextFields";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, useParams } from "react-router-dom";
 import { defaultUiid } from "../../../../../../utils/Shared/enums/enums";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import { updateForm } from "../../../store/actions";
@@ -54,9 +54,11 @@ let initialData = {
 };
 
 const EditForm = (props) => {
+  console.log(useParams())
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
+  const { id } = useParams();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [employeesData, setEmployeesData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -82,7 +84,7 @@ const EditForm = (props) => {
   useEffect(() => {
     //getformbyid data for edit
 
-    const id = searchParams.get("id");
+    // const id = searchParams.get("id");
     dispatch(getFormById(id));
     fetchEmployees("", 0);
   }, []);
@@ -332,7 +334,26 @@ const EditForm = (props) => {
     navigate(-1);
   };
 
-  if (!formData) return <div>Loading...</div>;
+  if (!formData) return <div>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    Loading...</div>;
   console.log("formdata", formData);
   return (
     <>

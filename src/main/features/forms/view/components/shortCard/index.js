@@ -47,7 +47,8 @@ function ListItem(props) {
             <Button className="ThemeBtn">Copy Link</Button>
           </Link>
           {item.creator.id === user.id && (
-            <Link to={ROUTES.FORMS.EDIT_FORM + `/?id=${id}`}>
+            // <Link to={ROUTES.FORMS.EDIT_FORM + `/?id=${id}`}>
+            <Link to={ROUTES.FORMS.ROOT + ROUTES.FORMS.EDIT_FORM + `/${id}`}>
               <Button className="ThemeBtn">Edit</Button>
             </Link>
           )}

@@ -21,7 +21,7 @@ const initialState = {
 	countries: [],
 	cities: [],
 	designations: [],
-	employeeSalary: [],
+	employeeSalary: "",
 	userTypes: [],
 	userTitles: [],
 	genders: [],
@@ -58,7 +58,9 @@ const sharedSlice = createSlice({
 				state.loadingData = false;
 			})
 			.addCase(getEmployeeSalary.fulfilled, (state, { payload }) => {
-				state.employeeSalary = payload.data;
+				let x = payload.data.map((element, i) => {return element.netSalary})
+				let data = x.length > 0 ? x[0] : ""
+				state.employeeSalary = data;
 				state.loadingData = false;
 			})
 			.addCase(getAllEmployees.fulfilled, (state, { payload }) => {
@@ -94,7 +96,6 @@ const sharedSlice = createSlice({
 				state.loadingData = false;
 			})
 			.addCase(uploadImage.fulfilled, (state, { payload }) => {
-				// console.log("payload", payload.data[0].id);
 				state.imageIds.push(payload.data[0].id);
 				state.isUploaded = true;
 				state.loader = false;

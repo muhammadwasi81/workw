@@ -1,4 +1,8 @@
-import Config from "../../../../utils/services/MessengerConfig";
+import { responseCode as responseCodeEnum } from "../../../../services/enums/responseCode";
+import { ResponseResultError, ResponseResultSuccess } from "../../../../utils/api/ResponseResult";
+import { jsonToFormData } from "../../../../utils/base";
+import Config from "../../../../utils/services/MasterConfig";
+import { messengerDTO } from "./dto";
 
 export const getAllChatsService = () => {
 	console.log("getAllChat");
@@ -24,3 +28,21 @@ export const searchConversationService = (search, pageNo) => {
 		.then(res => res.data)
 		.catch(err => err);
 };
+
+const createChat = async (data) => {
+	// let request = messengerDTO.createChat(data);
+	let formDataRequest = jsonToFormData(data);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/createChat`, formDataRequest);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+
+export const MessengerService = {
+	createChat,
+}

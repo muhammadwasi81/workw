@@ -19,12 +19,7 @@ const FilterBar = (props) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    dispatch(
-      getAllForms({
-        filter,
-        search,
-      })
-    );
+    dispatch(getAllForms(filter));
   }, [filter, search]);
   // console.log(props, "props filter bar");
 
@@ -41,7 +36,9 @@ const FilterBar = (props) => {
 
   return (
     <TopBar
-      onSearch={(value) => setSearch(value)}
+      onSearch={(value) => {
+        setFilter({ ...filter, search: value });
+      }}
       buttons={[
         {
           name: "All Forms",

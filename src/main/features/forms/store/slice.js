@@ -59,7 +59,7 @@ const formSlice = createSlice({
 
           // console.log("after adding", state.departments);
         }
-        state.success = true;
+        state.createSuccess = true;
         state.createLoader = false;
       })
       .addCase(updateForm.fulfilled, (state, { payload }) => {

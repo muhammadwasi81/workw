@@ -30,9 +30,9 @@ const Radio = (props) => {
           )}
           <div className="flex" style={{ justifyContent: "space-between" }}>
             <h1 className="row-tlt">{question.question}</h1>
-            <button onClick={() => removeQuestion(index)}>
+            <div onClick={() => removeQuestion(index)}>
               <CloseSquareOutlined style={{ fontSize: "150%" }} />
-            </button>
+            </div>
           </div>
 
           {answers.map(({ answer, id }, i) => (

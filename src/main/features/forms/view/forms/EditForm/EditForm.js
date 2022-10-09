@@ -21,6 +21,7 @@ import {
 } from "../../../../../../utils/base";
 import BusinessLogo from "../../../../../../content/systemLogo.png";
 import { addForm, getFormById } from "../../../store/actions";
+import QuestionWithType from "../CreateForm/QuestionWithType";
 
 let initialData = {
   id: "",
@@ -327,6 +328,11 @@ const EditForm = (props) => {
     setFormData({ ...formData, question: filteredData });
   };
 
+  const dataGet = (values) => {
+    console.log("data get in create form", values);
+    //TODO: modify this data like questions and append it with questions data
+  };
+
   const onEdit = () => {
     console.log("edit console start");
     dispatch(updateForm(formData));
@@ -377,6 +383,7 @@ const EditForm = (props) => {
               }}
             />
           </Form.Item> */}
+          <QuestionWithType dataSend={(values) => dataGet(values)} />
           <DrangableQuestions
             questions={formData.question}
             handleChange={handleSequenceChange}

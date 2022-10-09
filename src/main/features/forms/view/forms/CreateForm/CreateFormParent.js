@@ -89,7 +89,6 @@ export const CreateFormParent = (props) => {
       console.log("element", elem);
 
       if (!("fileList" in elem)) {
-        console.log("length", elem?.answers?.answer);
         console.log("this works");
         return elem;
       } else {

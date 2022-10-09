@@ -71,36 +71,48 @@ export const CreateFormParent = (props) => {
   }, [dataObj]);
 
   useEffect(() => {
+    console.log("useEffect works when question is update", question);
     const append = (answers, fileList) =>
       answers.map((x, index) => {
-        let image = fileList.filter((it) => it.index === index)[0]?.image
-          ?.originFileObj;
+        let image =
+          fileList &&
+          fileList?.filter((it) => it.index === index)[0]?.image?.originFileObj;
         return {
           answer: x,
           image: {
-            file: image,
+            file: image && image,
             id: defaultUiid,
           },
         };
       });
     let questionArray = question.map((elem, index) => {
-      // console.log("element", elem);
-      console.log(elem);
-      return {
-        // id: createGuid(),
-        // formId: createGuid(),
-        formAnswerType: elem.formAnswerType,
-        sequence: index,
-        question: elem.Question,
-        image: { file: elem.image && elem.image?.originFileObj },
-        createBy: user.id,
-        answers: elem.options
-          ? // ? append(elem.options, elem.fileList[index]?.originFileObj)
-            append(elem.options, elem.fileList)
-          : [],
-      };
+      console.log("element", elem);
+
+      if (!("fileList" in elem)) {
+        console.log("length", elem?.answers?.answer);
+        console.log("this works");
+        return elem;
+      } else {
+        // console.log(elem);
+        return {
+          // id: createGuid(),
+          // formId: createGuid(),
+          formAnswerType: elem.formAnswerType,
+          sequence: index,
+          question: elem.question,
+          image: {
+            file:
+              elem.image &&
+              (elem.image?.originFileObj
+                ? elem.image?.originFileObj
+                : elem.image.file),
+          },
+          createBy: user.id,
+          answers: elem.fileList ? append(elem.answers, elem?.fileList) : [],
+        };
+      }
     });
-    // console.log("****", questionArray);
+    console.log("****", questionArray);
     setDataObj({ ...dataObj, question: questionArray });
   }, [question]);
 
@@ -131,7 +143,7 @@ export const CreateFormParent = (props) => {
 
   let setFormDataByType = (data) => {
     // console.log("data getting in set form by type****", data);
-    // console.log("questions data map****", data.questions);
+    console.log("questions data map****", data);
     let filteredData = data.question.map((item, index) => {
       console.log(item, "item type");
       if (item.formAnswerType === 2) {
@@ -147,7 +159,7 @@ export const CreateFormParent = (props) => {
           sequence: index,
         };
       } else if (item.formAnswerType === 1) {
-        console.log("item", item);
+        // console.log("item", item);
         if (item.answers[index]?.image?.file) {
           return {
             ...item,
@@ -170,20 +182,20 @@ export const CreateFormParent = (props) => {
   };
 
   const removeQuestion = (i) => {
-    console.log(i);
+    console.log("remove question ii", i);
     const data = [...formData.question];
     console.log(data, "data");
     //REMOVE QUESTION FROM ARRAY AND SET SEQUENCE
     data.splice(i, 1);
     console.log("filtered data", data);
-    //UPDATE THE DATA IN STATE
+    // //UPDATE THE DATA IN STATE
     let filteredData = data.map((item, index) => {
       return {
         ...item,
         sequence: index,
       };
     });
-    console.log("filtered data", filteredData);
+    console.log("new filter data", filteredData);
     setQuestions(filteredData);
   };
 

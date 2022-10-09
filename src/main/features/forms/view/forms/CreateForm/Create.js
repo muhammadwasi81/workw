@@ -24,7 +24,7 @@ const Create = (props) => {
   const [form] = Form.useForm();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-  console.log("props in create component", props);
+  // console.log("props in create component", props);
   const { removeQuestion, formData, handleSequenceChange } = props;
   const { createLoader } = useSelector((state) => state.formSlice);
 
@@ -125,7 +125,7 @@ const Create = (props) => {
             {formData &&
               formData.question.map((item, index) => (
                 <>
-                  {console.log("item radio with image", item)}
+                  {/* {console.log("item radio with image", item)} */}
                   {item.localType === "radio" && (
                     <Radio
                       // handleRadioChange={handleChange}

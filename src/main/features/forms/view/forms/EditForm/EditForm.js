@@ -54,7 +54,7 @@ let initialData = {
 };
 
 const EditForm = (props) => {
-  console.log(useParams())
+  console.log(useParams());
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const [searchParams] = useSearchParams();
@@ -334,26 +334,8 @@ const EditForm = (props) => {
     navigate(-1);
   };
 
-  if (!formData) return <div>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    Loading...</div>;
+  if (!formData) return;
+  <div>Loading...</div>;
   console.log("formdata", formData);
   return (
     <>

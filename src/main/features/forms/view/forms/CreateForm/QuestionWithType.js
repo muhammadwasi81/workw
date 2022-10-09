@@ -45,7 +45,7 @@ const QuestionWithType = (props) => {
     console.log("values", values);
     console.log("fileList onfinish", fileList);
     let data = {};
-    if (values.options) {
+    if (values.answers) {
       data = {
         ...values,
         fileList: fileList,
@@ -55,7 +55,7 @@ const QuestionWithType = (props) => {
       data = {
         ...values,
         fileList: fileList,
-        options: [],
+        answers: [],
         image: quesionImage && quesionImage,
       };
     }
@@ -63,6 +63,7 @@ const QuestionWithType = (props) => {
     props.dataSend(data);
     form.resetFields();
     setQuestionImage(null);
+    setFileList([]);
   };
 
   return (
@@ -71,7 +72,7 @@ const QuestionWithType = (props) => {
         <div className="f-head-item p_15">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Form.Item
-              name="Question"
+              name="question"
               rules={[
                 {
                   required: true,
@@ -105,7 +106,7 @@ const QuestionWithType = (props) => {
             </Select>
           </Form.Item>
           {questionType === 1 && (
-            <Form.List name="options">
+            <Form.List name="answers">
               {(fields, { add, remove }, { errors }) => (
                 <>
                   {fields.map((field, index) => (

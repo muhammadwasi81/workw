@@ -96,7 +96,7 @@ export const CreateFormParent = (props) => {
         return {
           // id: createGuid(),
           // formId: createGuid(),
-          answerType: elem.formAnswerType,
+          answerType: elem.answerType,
           sequence: index,
           question: elem.question,
           image: {

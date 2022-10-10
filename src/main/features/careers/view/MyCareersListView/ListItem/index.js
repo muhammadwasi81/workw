@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button, Image } from "antd";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
@@ -13,11 +13,13 @@ import {
 import { Link } from "react-router-dom";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import JobDetails from "../../DetailView/DetailComposer/JobDetails";
+import { useDispatch } from "react-redux";
+import { getAllCareerAction } from "../../DetailView/store/action";
 
-function ListItem(props) {
+function ListItem({ item, onClick }) {
   return (
     <>
-      <SingleItem onClick={props.onClick}>
+      <SingleItem onClick={onClick}>
         <ItemHeader className="ItemHeader">
           <div className="flex items-center gap-3">
             <Avatar
@@ -29,17 +31,19 @@ function ListItem(props) {
               round={true}
             />
             <div className="font-bold text-[15px] text-primary-color">
-              Miletap
+              {/* Miltap */}
+              {item.department}
             </div>
           </div>
         </ItemHeader>
         <ItemContent className="!h-[100px] !max-h-[100px]">
           <div className="font-bold text-[14px] text-primary-color">
-            {" "}
-            React Js Developer{" "}
+            {/* {" "}
+            React Js Developer */}
+            {item.designation}
           </div>
           <p className="careersDescShort">
-            Karachi, Pakistan - Full Time Karachi, Pakistan - Full Time Karachi,
+            {/* Karachi, Pakistan - Full Time Karachi, Pakistan - Full Time Karachi,
             Pakistan - Full Time Karachi, Pakistan - Full Time Karachi, Pakistan
             - Full Time Karachi, Pakistan - Full TimeKarachi, Pakistan - Full
             TimeKarachi, Pakistan - Full TimeKarachi, Pakistan - Full
@@ -48,7 +52,8 @@ function ListItem(props) {
             Pakistan - Full TimeKarachi, Pakistan - Full TimeKarachi, Pakistan -
             Full TimeKarachi, Pakistan - Full Time Karachi, Pakistan - Full
             TimeKarachi, Pakistan - Full TimeKarachi, Pakistan - Full
-            TimeKarachi, Pakistan - Full Time{" "}
+            TimeKarachi, Pakistan - Full Time */}
+            {item.description}
           </p>
         </ItemContent>
       </SingleItem>

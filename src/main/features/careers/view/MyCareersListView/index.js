@@ -1,20 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CardWrapper } from "../../../../sharedComponents/Card/CardStyle";
 import JobDetails from "../../view/DetailView/DetailComposer/JobDetails";
 import ListItem from "./ListItem";
-const MyCareersListView = (props) => {
+import { useDispatch, useSelector } from "react-redux";
+import { DatePicker, Modal } from "antd";
+import "antd/dist/antd.css";
+import { getAllCareerAction } from "../DetailView/store/action";
+
+const MyCareersListView = () => {
   const [openDetail, setOpenDetail] = useState(false);
+
+  const careers = useSelector((state) => {
+    return state.careerSlice.careerList;
+  });
+  console.log(careers, "CAREERS");
 
   const openJobDetailHandler = () => {
     setOpenDetail(true);
   };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllCareerAction({}));
+  }, []);
   return (
     <>
       <CardWrapper>
-        {openDetail && <JobDetails />}
+        {openDetail && (
+          // <Modal>
+          <JobDetails />
+          // </Modal>
+        )}
+        {careers.length > 0 ? (
+          careers.map((item) => (
+            <ListItem onClick={() => openJobDetailHandler()} item={item} />
+          ))
+        ) : (
+          <div>
+            <h2>No Careers Found!</h2>
+          </div>
+        )}
 
-        <ListItem onClick={() => openJobDetailHandler(props.id)} />
-
+        {/* <ListItem />
         <ListItem />
         <ListItem />
         <ListItem />
@@ -27,8 +54,7 @@ const MyCareersListView = (props) => {
         <ListItem />
         <ListItem />
         <ListItem />
-        <ListItem />
-        <ListItem />
+        <ListItem /> */}
       </CardWrapper>
     </>
   );

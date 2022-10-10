@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../../../services/enums/responseCode";
+import { ResponseType } from "../../../../../../utils/api/ResponseResult";
+
 import {
   responseMessage,
   responseMessageType,
@@ -10,16 +12,18 @@ import { getAllCareerService } from "../service/service";
 
 export const getAllCareerAction = createAsyncThunk(
   "careerslice/ getAllCareerAction",
-  async (args, { dispatch, getState }) => {
-    const res = await getAllCareerService();
-    console.log(res, "RESPONSE");
+  async (request, { rejectWithValue }) => {
+    console.log(request, "GET REQUEST career");
+    const response = await getAllCareerService({ request });
+    console.log(request, "GET REQUEST career 22");
 
-    if (!res.responseCode) {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
     }
-    return res;
   }
 );

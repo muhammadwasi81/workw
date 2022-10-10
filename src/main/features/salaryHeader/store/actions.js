@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 import {
   responseMessage,
   responseMessageType,
@@ -31,15 +33,13 @@ export const addSalaryHeader = createAsyncThunk(
     const res = await addSalaryHeaderService(args);
 
     if (res.responseCode) {
-      if (res.responseCode === responseCode.Success)
-        res.message = "Salary Header added successfully!";
-      responseMessage({ dispatch, data: res });
-    } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
-    }
+      if (res.responseCode === responseCode.Success) {
+        message.success("Salary Header added successfully!")
+        return res
+      } else {
+        message.error(res.message)
+      }
+    } 
 
     return res;
   }
@@ -48,12 +48,14 @@ export const addSalaryHeader = createAsyncThunk(
 export const updateSalaryHeader = createAsyncThunk(
   "salaryheader/updateSalaryHeader",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.put(`${API_PREFIX}updatesalaryheader`, args)
+    return await MasterConfig.put(`api/SalaryHeader/updatesalaryheader`, args)
       .then((res) => {
-        if (res.data.responseCode === responseCode.Success)
-          res.data.message = "Salary Header updated successfully!";
-        responseMessage({ dispatch, data: res.data });
-        return res.data;
+        if (res.data.responseCode === responseCode.Success) {
+          message.success("Salary Header updated successfully!")
+          return res.data
+        } else {
+          message.error(res.message)
+        }
       })
       .catch((err) => {
         responseMessage({
@@ -68,14 +70,14 @@ export const updateSalaryHeader = createAsyncThunk(
 export const removeSalaryHeader = createAsyncThunk(
   "salaryheader/removeSalaryHeader",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.delete(`${API_PREFIX}removesalaryheader?id=${args.id}`)
+    return await MasterConfig.delete(`api/SalaryHeader/removesalaryheader?id=${args.id}`)
       .then((res) => {
-        if (res.data.responseCode === responseCode.Success) {
-          res.data.message = "Salary Header removed successfully!";
-          dispatch(salaryHeaderDeleted(args));
+        if (res.data.responseCode === responseCode.Success) { 
+            message.success("Salary Header removed successfully!")
+            return res.data;
+        } else {
+          message.error(res.message)
         }
-        responseMessage({ dispatch, data: res.data });
-        return res.data;
       })
       .catch((err) => {
         responseMessage({

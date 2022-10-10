@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { STRINGS } from "../../../../utils/base";
-import { getAllChats, getAllMessages, sendChatMessage } from "./actions";
+import { createChat, getAllChats, getAllMessages, searchConversation, sendChatMessage } from "./actions";
 
 
 const initialState = {
@@ -30,6 +30,7 @@ export const messengerSlice = createSlice({
          state.mobileIsopenChat = action.payload
       },
       handleMessengerItemClick: (state, action) => {
+         console.log("Payload", action.payload)
          state.currentMessenger = action.payload
       },
       handleAppendMessage: (state, action) => {
@@ -42,11 +43,20 @@ export const messengerSlice = createSlice({
          .addCase(getAllChats.fulfilled, (state, { payload }) => {
             state.Conversations = payload.data
          })
+         .addCase(searchConversation.fulfilled, (state, { payload }) => {
+            state.Conversations = payload.data
+         })
          .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
             state.MessengerList[state.currentMessenger.chatId] = [...state.MessengerList[state.currentMessenger.chatId], payload.data]
          })
          .addCase(getAllMessages.fulfilled, (state, { payload }) => {
             state.MessengerList[state.currentMessenger.chatId] = payload.data
+         })
+         .addCase(createChat.fulfilled, (state, { payload }) => {
+            console.log(payload, "payload")
+            state.Conversations = [
+               ...(state.Conversations ? state.Conversations : []), 
+               payload] 
          })
    }
 })

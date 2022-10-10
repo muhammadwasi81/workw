@@ -37,7 +37,6 @@ export default function Form({
 		
 		setForm(data);
 	}, [data]);
-	console.log(data, "dtaaa")
 	return (
 		<FormContainer>
 			<FormHeader>Subsidiary</FormHeader>
@@ -77,7 +76,7 @@ export default function Form({
 							onSubmit(form);
 							setClearButton(false);
 						}}
-						loading={loading}
+						// loading={loading}
 					>
 						Add
 					</FormButton>

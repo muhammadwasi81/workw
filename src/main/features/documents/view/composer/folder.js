@@ -13,8 +13,7 @@ import { addDocument } from "../../store/actions";
 import { DOCUMENT_ENUM } from "../../constant";
 import { useSelector } from "react-redux";
 
-const CreateFolder = ({ isOpen, handleClose }) => {
-
+const CreateFolder = ({ isOpen, handleClose, referenceId, referenceType }) => {
 	const dispatch = useDispatch();
 	const loader = useSelector(state => state.documentSlice.loader);
 	const ParentId = useSelector(state => state.documentSlice.parentId);
@@ -24,20 +23,24 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 		setPrivacyId(value);
 	};
 
-	const onFinish = (values) => {
+	const onFinish = values => {
 		let payload = {
 			name: values.name,
 			description: values.description,
-			members: values.readers ? values.readers.map((item) => ({
-				memberId: item,
-				memberType: 1,
-				memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER
-			})) : [],
+			members: values.readers
+				? values.readers.map(item => ({
+						memberId: item,
+						memberType: 1,
+						memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER,
+				  }))
+				: [],
 			parentId: ParentId,
 			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.folder,
-			privacyId: privacyId
-		}
-		dispatch(addDocument({ payload, form }))
+			privacyId: privacyId,
+			referenceId,
+			referenceType,
+		};
+		dispatch(addDocument({ payload, form }));
 		// form.resetFields();
 	};
 
@@ -47,7 +50,8 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 
 	return (
 		<>
-			<SideDrawer title={"Create Folder"}
+			<SideDrawer
+				title={"Create Folder"}
 				isDisable={true}
 				isOpen={isOpen}
 				isAccessDrawer={false}
@@ -83,21 +87,16 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 						<TextInput placeholder={"Enter Name"} />
 					</Form.Item>
 
-					<Form.Item
-						label={"Description"}
-						name="description"
-					>
-						<Input.TextArea
-							placeholder={"Enter Description"}
-						/>
+					<Form.Item label={"Description"} name="description">
+						<Input.TextArea placeholder={"Enter Description"} />
 					</Form.Item>
 
-					{privacyId === PostPrivacyType.PRIVATE &&
+					{privacyId === PostPrivacyType.PRIVATE && (
 						<Form.Item
 							name="readers"
 							label={"Readers"}
 							showSearch={true}
-						// direction={Direction}
+							// direction={Direction}
 						>
 							<NewCustomSelect
 								name="readers"
@@ -110,7 +109,7 @@ const CreateFolder = ({ isOpen, handleClose }) => {
 								placeholder={"Select Readers"}
 							/>
 						</Form.Item>
-					}
+					)}
 					<Form.Item>
 						<div className="flex items-center gap-2">
 							<PrivacyOptions

@@ -6,7 +6,7 @@ import DropDownMenu from "./DropDownMenu";
 import { PlusOutlined, LeftOutlined } from "@ant-design/icons";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
-function Header({ items, buttons, backButton }) {
+function Header({ items, buttons, backButton, width }) {
 	const { pathname, search } = useLocation();
 	const [activeLinks, setActiveLinks] = useState(items.map(() => false));
 	const env = process.env.NODE_ENV === "development";
@@ -78,7 +78,7 @@ function Header({ items, buttons, backButton }) {
 			}
 		}
 	};
-	let classes = "header ";
+	let classes = `header ${width}`;
 	classes += Direction === "rtl" ? "rtl" : "";
 	return (
 		<div className={classes}>

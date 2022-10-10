@@ -4,21 +4,21 @@ import $ from 'jquery';
 import {useDispatch, useSelector} from "react-redux";
 import {closeStickyNotes, openStickyNotes} from "../../../store/appReducer/stickyNotesSlice";
 
-function StickyNotes() {
-    const dispatch = useDispatch();
-    const {open} = useSelector(state => state.stickyNotesSlice);
-    return (
-        <div className="toggle-menu">
-            <div className="toggle-label no-act" style={{margin: "0px 6px"}} onClick={() => {
-                $('.toggle-menu').removeClass('on');
-                $('.nav').css({'z-index': 0});
-                if (!open) dispatch(openStickyNotes()); else dispatch(closeStickyNotes());
-            }}><i className="ic-notes"/></div>
-        </div>
-    )
-}
+// function StickyNotes() {
+//     const dispatch = useDispatch();
+//     const {open} = useSelector(state => state.stickyNotesSlice);
+//     return (
+//         <div className="toggle-menu">
+//             <div className="toggle-label no-act" style={{margin: "0px 6px"}} onClick={() => {
+//                 $('.toggle-menu').removeClass('on');
+//                 $('.nav').css({'z-index': 0});
+//                 if (!open) dispatch(openStickyNotes()); else dispatch(closeStickyNotes());
+//             }}><i className="ic-notes"/></div>
+//         </div>
+//     )
+// }
 
-export default StickyNotes;
+// export default StickyNotes;
 
 /*
 import React, {Component} from 'react';

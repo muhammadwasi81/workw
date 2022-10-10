@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
-export const getAllBranchService = () => {
-	return MasterConfig.get(`api/Branch/GetAllBranch`)
+export const getAllBranchOfficeService = () => {
+	return MasterConfig.get(`api/BranchOffice/GetAllBranchOffice`)
 		.then(res => {
 			return res.data;
 		})
@@ -10,8 +10,8 @@ export const getAllBranchService = () => {
 		});
 };
 
-export const addBranchService = args => {
-	return MasterConfig.post(`api/Branch/AddBranch`, args)
+export const addbranchOfficeService = args => {
+	return MasterConfig.post(`api/BranchOffice/AddBranchOffice`, args)
 		.then(res => {
 			return res.data;
 		})
@@ -20,7 +20,7 @@ export const addBranchService = args => {
 		});
 };
 export const updateBranchService = args => {
-	return MasterConfig.put(`api/Branch/UpdateBranch`, args)
+	return MasterConfig.put(`api/BranchOffice/UpdateBranchOffice`, args)
 		.then(res => {
 			return res.data;
 		})
@@ -28,8 +28,8 @@ export const updateBranchService = args => {
 			return err;
 		});
 };
-export const removeBranchService = id => {
-	return MasterConfig.delete(`api/Branch/RemoveBranch?id=${id}`)
+export const removeBranchOfficeService = id => {
+	return MasterConfig.delete(`api/BranchOffice/RemoveBranchOffice?id=${id}`)
 		.then(res => {
 			return res.data;
 		})

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Input, Radio } from "antd";
+import { Button, Form, Input, Radio, Select, Tag } from "antd";
 import { BiPencil, BiWorld } from "react-icons/bi";
 import {
 	EnvironmentOutlined,
@@ -7,13 +7,22 @@ import {
 	PhoneOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import { leadSectionEnum } from "../../../../enum/enum";
 function SectionForm(props) {
+	const Option = Select;
 	const loading = useSelector(state => state.leadMangerSlice.loading);
+	const leadManagerDetail = useSelector(
+		state => state.leadMangerSlice.leadManagerDetail
+	);
+	// console.log('leadManagerDetail?.leadManagerDetail?.sections',);
 	return (
 		<div className="bg-white p-3 rounded-sm">
 			<Form
 				name="basic"
-				initialValues={{ typeId: 1 }}
+				initialValues={{
+					typeId: 1,
+					sectionId: leadManagerDetail?.sections[0].id,
+				}}
 				layout={"vertical"}
 				onFinish={props.onFinish}
 				autoComplete="off"
@@ -87,6 +96,22 @@ function SectionForm(props) {
 						<Radio value={2}> Individual</Radio>
 					</Radio.Group>
 				</Form.Item>
+				{props.list && (
+					<Form.Item name="sectionId" label="Section">
+						<Select>
+							{leadManagerDetail?.sections.map(leadSection => (
+								<Option
+									value={leadSection.id}
+									key={leadSection.id}
+								>
+									<Tag color={leadSection.colorCode}>
+										{leadSection.name}
+									</Tag>
+								</Option>
+							))}
+						</Select>
+					</Form.Item>
+				)}
 				<Form.Item>
 					<div className="flex items-end gap-2 justify-end">
 						<Button

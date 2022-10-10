@@ -12,11 +12,15 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import moment from "moment";
 import { cancelBonus, GetBonusById } from "../store/actions";
-import { ApprovalStatus } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import {
+    ApprovalsModule,
+    ApprovalStatus,
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
 
 function BonusDetailCard(props) {
     const { userLanguage } = useContext(LanguageChangeContext);
     const { Direction, bonusDictionary } = bonusDictionaryList[userLanguage];
+    const [updatedStatus, setUpdatedStatus] = useState();
 
     const { bonusDetail } = useSelector((state) => state.bonusSlice);
     const { user } = useSelector(state => state.userSlice);
@@ -57,7 +61,9 @@ function BonusDetailCard(props) {
                             </div>
                             <div className="right">
                                 <Tag className="IdTag">TRA-000085</Tag>
-                                <StatusTag status={status}></StatusTag>
+                                <StatusTag
+                                    status={updatedStatus?.Approvals}
+                                ></StatusTag>
                                 {
                                     userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
                                         "" : ""
@@ -68,10 +74,6 @@ function BonusDetailCard(props) {
                             <div className="cardSectionItem">
                                 <div className="cardSection__title">{"Amount"}</div>
                                 <div className="cardSection__body">{amount}</div>
-                            </div>
-                            <div className="cardSectionItem">
-                                <div className="cardSection__title">{"Disburse Amount"}</div>
-                                <div className="cardSection__body">{disburseAmount}</div>
                             </div>
                             <div className="cardSectionItem">
                                 <div className="cardSection__title">{"Member"}</div>
@@ -96,7 +98,16 @@ function BonusDetailCard(props) {
                             </div>
                         </div>
                     </div>
-                    <RemarksApproval data={approvers} title="Approvals" />
+                    {/* <RemarksApproval data={approvers} title="Approvers" /> */}
+                    <RemarksApproval
+                        module={ApprovalsModule.BonusApproval}
+                        status={status}
+                        onStatusChanged={statusChanged =>
+                            setUpdatedStatus(statusChanged)
+                        }
+                        data={approvers}
+                        title="Approvers"
+                    />
                 </div>
             )}
         </>

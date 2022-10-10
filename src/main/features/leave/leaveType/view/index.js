@@ -1,7 +1,8 @@
+import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminContainer } from "../../../../sharedComponents/StyledComponents/admin";
-import {addLeaveType, removeLeaveType, updateGrade, updateLeaveType } from "../store/actions";
+import { addLeaveType, removeLeaveType, updateGrade, updateLeaveType } from "../store/actions";
 import LeaveTypeForm from "./form.js";
 import LeaveTypeTable from "./table.js";
 
@@ -18,26 +19,30 @@ export default function LeaveType() {
   };
 
   const onSubmit = (e) => {
-    if (!e.id) {
-      dispatch(addLeaveType(e));
+    if (e.name === "" || e.description === "") {
+      message.error("Please fill all required fields")
+    } else {
+      if (!e.id) {
+        dispatch(addLeaveType(e));
+        setLeaveType(initialState);
+        setClearButton(true)
+        return;
+      }
+      dispatch(updateLeaveType(e));
       setLeaveType(initialState);
-      setClearButton(true)
-      return;
     }
-    dispatch(updateLeaveType(e));
-    setLeaveType(initialState);
   };
   return (
     <AdminContainer>
-      <LeaveTypeForm 
-        clearButton={clearButton} 
-        setClearButton={setClearButton} 
-        data={leaveTypes} 
-        onSubmit={onSubmit} 
-        loading={loader} 
+      <LeaveTypeForm
+        clearButton={clearButton}
+        setClearButton={setClearButton}
+        data={leaveTypes}
+        onSubmit={onSubmit}
+        loading={loader}
       />
       <LeaveTypeTable
-        clearButton={clearButton} 
+        clearButton={clearButton}
         setClearButton={setClearButton}
         handleEdit={setLeaveType}
         handleDelete={handleDelete}

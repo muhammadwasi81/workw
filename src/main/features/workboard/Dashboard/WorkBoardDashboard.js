@@ -2,29 +2,38 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../utils/routes";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
 import { Table } from "../../../sharedComponents/customTable";
 import Spinner from "../../../sharedComponents/spinner/spinner";
+import { WorkBoardReferenceTypeEnum } from "../enum";
 import { getAllWorkBoard } from "../store/action";
 import { tableColumn } from "./tableColumns";
 import WorkBoardCard from "./WorkBoardCard";
 
-function WorkBoardDashboard({ isTableView, referenceType, referenceId }) {
+function WorkBoardDashboard({
+	isTableView,
+	referenceType = WorkBoardReferenceTypeEnum.General,
+	referenceId = defaultUiid,
+	onChange,
+}) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const workboardsListData = useSelector(
 		state => state.trelloSlice.workboardsList
 	);
 	const loader = useSelector(state => state.trelloSlice.loader);
-	useEffect(() => {
-		dispatch(
-			getAllWorkBoard({
-				pageNo: 1,
-				pageSize: 20,
-				search: "",
-			})
-		);
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(
+	// 		getAllWorkBoard({
+	// 			pageNo: 1,
+	// 			pageSize: 20,
+	// 			search: "",
+	// 			referenceId,
+	// 			referenceType,
+	// 		})
+	// 	);
+	// }, []);
 
 	const onRow = (record, rowIndex) => {
 		return {
@@ -41,9 +50,7 @@ function WorkBoardDashboard({ isTableView, referenceType, referenceId }) {
 
 	return (
 		<>
-			{loader ? (
-				<Spinner />
-			) : !isTableView ? (
+			{!isTableView ? (
 				<CardWrapper2>
 					{workboardsListData.map(data => (
 						<WorkBoardCard data={data} />
@@ -53,7 +60,7 @@ function WorkBoardDashboard({ isTableView, referenceType, referenceId }) {
 				<Table
 					columns={tableColumn()}
 					dragable={true}
-					// handleChange={handleChange}
+					handleChange={onChange}
 					// onPageChange={onPageChange}
 					onRow={onRow}
 					data={workboardsListData ? workboardsListData : []}

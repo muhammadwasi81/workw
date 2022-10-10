@@ -4,6 +4,7 @@ import { responseMessage, responseMessageType } from "../../../../services/slice
 import { addCustomApprovalCategoryService, getAllCustomApprovalCategoryService } from "../services/service";
 import { customApprovalCategoryDeleted } from "./slice";
 import MasterConfig from "../../../../utils/services/MasterConfig";
+import { message } from "antd";
 
 export const getAllCustomApprovalCategory = createAsyncThunk(
   "CustomApprovalCategory/getAllCustomApprovalCategory",
@@ -26,8 +27,12 @@ export const addCustomApprovalCategory = createAsyncThunk(
     const res = await addCustomApprovalCategoryService(args);
 
     if (res.responseCode) {
-      if (res.responseCode === responseCode.Success) res.message = "Custom Approval Category added successfully!";
-      responseMessage({ dispatch, data: res });
+      if (res.responseCode === responseCode.Success) {
+        message.success("Custom Approval Category added successfully!")
+        return res
+      } else {
+        message.error(res.message)
+      }
     } else {
       responseMessage({
         dispatch: dispatch,

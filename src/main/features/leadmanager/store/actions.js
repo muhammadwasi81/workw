@@ -9,12 +9,14 @@ import {
 	addLeadManagerContactService,
 	addLeadManagerDetailService,
 	addLeadManagerService,
+	deleteLeadManagerDetailAssignToService,
 	getAllLeadManagerPagingService,
 	getAllLeadManagerService,
 	getLeadManagerByIdService,
 	getLeadManagerContactDetailService,
 	getLeadManagerSectionByIdService,
 	getLeadManagerSectionDetailByIdService,
+	LeadManagerDetailAssignToService,
 	moveLeadManagerDetailService,
 	moveLeadManagerSectionService,
 	updateLeadManagerContactService,
@@ -32,13 +34,6 @@ export const addLeadManager = createAsyncThunk(
 					message: "LeadManager Created Successfully",
 					type: "success",
 					duration: 2,
-				})
-			);
-			dispatch(
-				getAllLeadManager({
-					pageNo: 1,
-					pageSize: 20,
-					search: "",
 				})
 			);
 			return res;
@@ -314,6 +309,38 @@ export const moveLeadManagerDetail = createAsyncThunk(
 					duration: 2,
 				})
 			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const addLeadManagerAssignTo = createAsyncThunk(
+	"addLeadManagerAssignTo",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await LeadManagerDetailAssignToService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const deleteLeadManagerDetailAssignTo = createAsyncThunk(
+	"deleteLeadManagerDetailAssignTo",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await deleteLeadManagerDetailAssignToService(data);
+		if (res.responseCode === responseCode.Success) {
+			// dispatch(
+			// 	openNotification({
+			// 		message: "Lead Manager Contact Deleted Successfully!",
+			// 		type: "success",
+			// 		duration: 2,
+			// 	})
+			// );
+
+			return res;
+		} else {
 			return rejectWithValue(res.message);
 		}
 	}

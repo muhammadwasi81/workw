@@ -1,5 +1,6 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
+	getEmployeeSalary,
 	getCities,
 	getCountries,
 	getAllDefaultDesignation,
@@ -20,6 +21,7 @@ const initialState = {
 	countries: [],
 	cities: [],
 	designations: [],
+	employeeSalary: "",
 	userTypes: [],
 	userTitles: [],
 	genders: [],
@@ -55,6 +57,12 @@ const sharedSlice = createSlice({
 				state.countries = payload.data;
 				state.loadingData = false;
 			})
+			.addCase(getEmployeeSalary.fulfilled, (state, { payload }) => {
+				let x = payload.data.map((element, i) => {return element.netSalary})
+				let data = x.length > 0 ? x[0] : ""
+				state.employeeSalary = data;
+				state.loadingData = false;
+			})
 			.addCase(getAllEmployees.fulfilled, (state, { payload }) => {
 				state.employees = payload.data;
 				state.loader = false;
@@ -88,7 +96,6 @@ const sharedSlice = createSlice({
 				state.loadingData = false;
 			})
 			.addCase(uploadImage.fulfilled, (state, { payload }) => {
-				// console.log("payload", payload.data[0].id);
 				state.imageIds.push(payload.data[0].id);
 				state.isUploaded = true;
 				state.loader = false;

@@ -1,18 +1,37 @@
-.editForm .e-tlt{
+.editForm .e-tlt {
   font-size: 30px;
   font-weight: bold;
   height: max-content;
 }
-.editForm .e-desc{
+.editForm .e-desc {
   font-size: 14px;
   font-weight: bold;
 }
-.dragIcon{
+.dragIcon {
   width: 30px;
   display: flex;
   justify-content: right;
   align-items: center;
 }
-.dragIcon > span{
+.dragIcon > span {
   font-size: 20px;
+}
+
+.optionClass {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.optionClass .ant-upload-list-item-name {
+  display: none;
+}
+
+.optionClass .ant-form-item {
+  margin-bottom: 0;
+}
+
+.optionClass .ant-form-item-control-input-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

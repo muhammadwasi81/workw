@@ -19,7 +19,6 @@ export const AdminTable = styled(Table)`
     background: #f2f2f2;
   }
   table {
-    width: 100px !important;
     overflow: scroll;
   }
   && thead tr th {

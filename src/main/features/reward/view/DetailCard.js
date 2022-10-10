@@ -24,7 +24,7 @@ function RewardDetailCard(props) {
     const { rewardDictionary } = rewardDictionaryList[userLanguage];
     const { rewardDetail } = useSelector((state) => state.rewardSlice);
     const { user } = useSelector(state => state.userSlice);
-    const [updatedStatus, setUpdatedStatus] = useState();
+    const [updatedStatus, setUpdatedStatus] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -35,6 +35,8 @@ function RewardDetailCard(props) {
     useEffect(() => {
         props.id && dispatch(GetRewardById(props.id));
     }, [props.id]);
+
+    console.log(updatedStatus, "UPDATE STATUS")
 
     const {
         creator,
@@ -73,7 +75,7 @@ function RewardDetailCard(props) {
                         <div className="right">
                             <Tag className="IdTag">{referenceNo}</Tag>
                             <StatusTag
-                                status={updatedStatus?.Approvals}
+                                status={updatedStatus ? updatedStatus.Approvers :status}
                             ></StatusTag>
                             {
                                 userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
@@ -89,7 +91,7 @@ function RewardDetailCard(props) {
                             <Image preview={false} width={60} src={image === "" ? RewardDefaultIcon : image} />
                         </div>
                     </ItemContent>
-                    <div className="cardSections">
+                    <div className='cardSections'>
                         <div className="cardSectionItem">
                             <div className="cardSection__title">{"Category"}</div>
                             <div className="cardSection__body">{category}</div>
@@ -137,15 +139,16 @@ function RewardDetailCard(props) {
                             </div>
                         </div>
                     </div>
-                    {/* <RemarksApproval data={approvers} title="Approvals" /> */}
                     <RemarksApproval 
                         module={ApprovalsModule.RewardApproval}
                         status={status}
-                        onStatusChanged={statusChanged =>
+                        onStatusChanged={statusChanged =>{
                             setUpdatedStatus(statusChanged)
+                            console.log(statusChanged)
+                        }
                         }
                         data={approvers}
-                        title="Approvals"
+                        title="Approvers"
                     />
                 </div>
             )}

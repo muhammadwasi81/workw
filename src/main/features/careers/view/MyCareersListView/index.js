@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CardWrapper } from "../../../../sharedComponents/Card/CardStyle";
-import JobDetails from "../../view/DetailView/DetailComposer/JobDetails";
+import JobDetails from "../../view/DetailView/detailComposer/JobDetails";
 import ListItem from "./ListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { DatePicker, Modal } from "antd";
@@ -31,8 +31,8 @@ const MyCareersListView = () => {
           <JobDetails />
           // </Modal>
         )}
-        {careers.length > 0 ? (
-          careers.map((item) => (
+        {[].length > 0 ? (
+          [].map((item) => (
             <ListItem onClick={() => openJobDetailHandler()} item={item} />
           ))
         ) : (

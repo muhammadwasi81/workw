@@ -92,7 +92,9 @@ const Composer = () => {
     console.log(values, "values");
     let payload = {
       ...values,
-      endDate:values.endDate._d
+      endDate:values.endDate.format(),
+      members:values.members.map(memberId=>({memberId})),
+      approvers:values.approvers.map(approverId=>({approverId}))
     }
     dispatch(addCareer(payload))
     // form.resetFields();

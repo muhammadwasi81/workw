@@ -12,7 +12,7 @@ import {
 } from "../../../../../sharedComponents/Card/CardStyle";
 import { Link } from "react-router-dom";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
-import JobDetails from "../../DetailView/DetailComposer/JobDetails";
+// import JobDetails from "../../DetailView/DetailComposer/JobDetails";
 import { useDispatch } from "react-redux";
 import { getAllCareerAction } from "../../DetailView/store/action";
 

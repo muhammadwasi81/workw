@@ -58,18 +58,10 @@ const RadioWithImage = (props) => {
 
           <div className="flex-row">
             {answers.map(({ answer, id, image }, i) => (
-              <div className="aspect-ratio">
-                <label key={i} className="label-box">
-                  {/* <img
-                    src={
-                      image
-                        ? image
-                        : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
-                    }
-                    // src={{typeof image === 'string' ? image : getBase64(image, (result)=>  result)}}
-                    alt=""
-                  /> */}
+              <div className="aspect-ratio" key={i}>
+                <label className="label-box">
                   <SingleUpload
+                    key={i}
                     handleImageUpload={(info) =>
                       handleOptionImageChange(info, i)
                     }

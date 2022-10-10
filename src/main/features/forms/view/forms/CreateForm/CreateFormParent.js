@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import FormHeader from "../EditForm/FormHeader";
 import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
@@ -96,7 +96,7 @@ export const CreateFormParent = (props) => {
         return {
           // id: createGuid(),
           // formId: createGuid(),
-          formAnswerType: elem.formAnswerType,
+          answerType: elem.answerType,
           sequence: index,
           question: elem.question,
           image: {
@@ -135,9 +135,13 @@ export const CreateFormParent = (props) => {
     };
     setDataObj(payload);
     // console.log("final data to be send to api****", payload);
-    console.log("dispatch actions");
-    dispatch(addForm(payload));
-    navigate(-1);
+    if (payload.question.length >= 1) {
+      console.log("dispatch actions");
+      dispatch(addForm(payload));
+      navigate(-1);
+    } else {
+      message.error("can't submit without questions");
+    }
   };
 
   let setFormDataByType = (data) => {
@@ -145,19 +149,19 @@ export const CreateFormParent = (props) => {
     console.log("questions data map****", data);
     let filteredData = data.question.map((item, index) => {
       console.log(item, "item type");
-      if (item.formAnswerType === 2) {
+      if (item.answerType === 2) {
         return {
           ...item,
           localType: "number",
           sequence: index,
         };
-      } else if (item.formAnswerType === 3) {
+      } else if (item.answerType === 3) {
         return {
           ...item,
           localType: "text",
           sequence: index,
         };
-      } else if (item.formAnswerType === 1) {
+      } else if (item.answerType === 1) {
         // console.log("item", item);
         if (item.answers[index]?.image?.file) {
           return {

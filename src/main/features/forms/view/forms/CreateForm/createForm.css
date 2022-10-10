@@ -1,7 +1,3 @@
-.ant-input:placeholder-shown {
-  border: none;
-}
-
 .btn {
   color: #fff;
   background: var(--currentThemeColor);

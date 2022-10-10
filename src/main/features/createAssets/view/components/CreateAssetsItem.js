@@ -1,28 +1,22 @@
-import { DatePicker, Select } from 'antd';
+import { Select } from 'antd';
 import { Option } from 'antd/lib/mentions';
-import React, { useState } from 'react';
-import { DeleteOutlined } from '@ant-design/icons';
-import { getAllEmployees } from '../../../../../../utils/Shared/store/actions';
-import Avatar from '../../../../../sharedComponents/Avatar/avatarOLD';
-import CustomSelect from '../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { ALLOWANCE_ENUM } from '../../../../allowance/view/enum';
-import { calculateAllowance } from '../../../utils/constant';
+import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
+import { calculateAllowance } from '../../../salary/utils/constant';
+import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 
-const CreateEntryItem = ({
+const CreateAssetsItem = ({
   index,
+  accounts,
+  handleRemoveRow,
   handleChange,
   handleRowChange,
-  handleRemoveRow,
   value,
-  fetchEmployees = () => {},
-  employeesData = [],
-  fetchEmployeesShort = () => {},
-  employeesShortData = [],
   allowanceData = [],
+  employeesShortData = [],
+  employeesData = [],
+  fetchEmployees = () => {},
+  fetchEmployeesShort = () => {},
 }) => {
-  const handleInputChange = (e) => {
-    handleChange(e.target.value, e.target.name, index);
-  };
   const onEmployeeSelect = (row) => {
     let { gradeId, grade, id } = row[0];
     let { totalAllowance, totalDeductions, details } = calculateAllowance(
@@ -47,36 +41,88 @@ const CreateEntryItem = ({
       index
     );
   };
-  const onChangeSalary = (salaryInput) => {
-    let { totalAllowance, totalDeductions, details } = calculateAllowance(
-      allowanceData,
-      value.gradeId,
-      salaryInput
-    );
-    let tempValue = {
-      ...value,
-      details,
-      allowance: totalAllowance,
-      basicSalary: Number(salaryInput),
-      deduction: totalDeductions,
-      netSalary: Number(salaryInput) + totalAllowance - totalDeductions,
-    };
-    handleRowChange(
-      {
-        ...tempValue,
-      },
-      index
-    );
+
+  const inventoryHandler = (accId) => {
+    console.log(`eewewe`);
+    handleChange(accId, 'accountId', index);
+  };
+  const onDr_Cr_Change = (typeId) => {
+    handleChange(typeId, 'dr_cr', index);
+  };
+
+  const handleInputChange = (e) => {
+    handleChange(e.target.value, e.target.name, index);
   };
   return (
     <tr>
       <td>{index + 1}</td>
-      <td className="text-center salaryDatePicker">
-        <DatePicker
-          value={value.effectiveDate}
-          onChange={(value) => handleChange(value, 'effectiveDate', index)}
+      <td>
+        <input
+          name="inventoryName"
+          onChange={handleInputChange}
+          value={value.inventoryName}
         />
       </td>
+      <td>
+        <input
+          name="inventoryValue"
+          onChange={handleInputChange}
+          value={value.inventoryValue}
+        />
+      </td>
+      <td>
+        <input
+          className="w-full"
+          name="serialNo"
+          onChange={handleInputChange}
+          value={value.serialNo}
+        />
+      </td>
+      <td>
+        <Select
+          optionFilterProp="children"
+          onChange={inventoryHandler}
+          style={{ width: '100%' }}
+          filterOption={(input, option) =>
+            option.children.toLowerCase().includes(input.toLowerCase())
+          }
+          value={value.inventoryCategory}
+        >
+          {[
+            { label: 'Graphic', value: 1 },
+            { label: 'Mouse', value: 2 },
+            { label: 'Keyboard', value: 3 },
+            { label: 'Charger', value: 4 },
+            { label: 'MacBook', value: 5 },
+            { label: 'Cable', value: 6 },
+            { label: 'Laptop', value: 7 },
+            { label: 'USB', value: 8 },
+            { label: 'Mobile', value: 9 },
+            { label: 'Headphones', value: 10 },
+          ].map(({ label, value }) => (
+            <Option value={value}>{label}</Option>
+          ))}
+        </Select>
+      </td>
+      <td>
+        <Select
+          optionFilterProp="children"
+          onChange={inventoryHandler}
+          style={{ width: '100%' }}
+          filterOption={(input, option) =>
+            option.children.toLowerCase().includes(input.toLowerCase())
+          }
+          value={value.inventoryType}
+        >
+          {[
+            { label: 'Non Consumable', value: 1 },
+            { label: 'Consumable', value: 2 },
+          ].map(({ label, value }) => (
+            <Option value={value}>{label}</Option>
+          ))}
+        </Select>
+      </td>
+      {/* TODO: SALARY WALA */}
       <td>
         <CustomSelect
           style={{ marginBottom: '0px' }}
@@ -107,41 +153,6 @@ const CreateEntryItem = ({
           dataVal={[]}
           name="Employee"
           showSearch={true}
-        />
-      </td>
-      <td>
-        <input
-          className="text-[#a7a7a7] font-bold"
-          value={value.grade}
-          disabled={true}
-        />
-      </td>
-      <td>
-        <input
-          name="basicSalary"
-          onChange={(e) => onChangeSalary(e.target.value)}
-          value={value.basicSalary}
-        />
-      </td>
-      <td>
-        <input
-          className="text-[#a7a7a7] font-bold"
-          value={value.allowance}
-          disabled={true}
-        />
-      </td>
-      <td>
-        <input
-          className="text-[#a7a7a7] font-bold"
-          value={value.deduction}
-          disabled={true}
-        />
-      </td>
-      <td>
-        <input
-          className="text-[#a7a7a7] font-bold"
-          value={value.netSalary}
-          disabled={true}
         />
       </td>
       <td className="removeMargin">
@@ -182,18 +193,8 @@ const CreateEntryItem = ({
           showSearch={true}
         />
       </td>
-      <td>
-        <input
-          name="description"
-          onChange={handleInputChange}
-          value={value.description}
-        />
-      </td>
-
-      <td onClick={() => handleRemoveRow(index)}>
-        <DeleteOutlined />
-      </td>
     </tr>
   );
 };
-export default CreateEntryItem;
+
+export default CreateAssetsItem;

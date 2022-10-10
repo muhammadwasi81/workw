@@ -9,11 +9,10 @@ const Edit = (handleEdit, row, setClearButton) => {
       onClick={(e) => {
         handleEdit({
           id: row.id,
-          name: row.name,
-          branchId: row.branchId,
-          address: row.address,
-          lat: row.lat,
-          lng: row.lng,
+          categoryName: row.categoryName,
+          description: row.description,
+          accountType: row.accountType,
+          parentAccount: row.parentAccount,
         });
         setClearButton(true);
       }}
@@ -24,7 +23,7 @@ const Edit = (handleEdit, row, setClearButton) => {
 const Delete = (handleDelete, row) => {
   return (
     <Popconfirm
-      title="Sure to delete?"
+      title="Are you sure want to delete?"
       onConfirm={(e) => handleDelete({ id: row.id })}
     >
       <DeleteFilled style={{ color: '#1b5669' }} />
@@ -41,11 +40,21 @@ export const tableColumn = (
   setClearButton
 ) => {
   return [
-    { title: 'Name', dataIndex: 'name', width: '20%', key: 1 },
-    { title: 'Branch', dataIndex: 'branchName', width: '15%', key: 2 },
-    { title: 'Address', dataIndex: 'address', width: '20%', key: 3 },
-    { title: 'Latitude', dataIndex: 'lat', width: '10%', key: 4 },
-    { title: 'Longitude', dataIndex: 'lng', width: '10%', key: 5 },
+    // { title: 'Category Name', dataIndex: 'name', width: '20%', key: 1 },
+    // { title: 'Description', dataIndex: 'branchName', width: '15%', key: 2 },
+    // { title: 'Account Type', dataIndex: 'address', width: '20%', key: 3 },
+    // { title: 'parent Account', dataIndex: 'lat', width: '20%', key: 4 },
+    // { title: 'Longitude', dataIndex: 'lng', width: '10%', key: 5 },
+
+    { title: 'Category Name', dataIndex: 'categoryName', width: '20%', key: 1 },
+    { title: 'Description', dataIndex: 'description', width: '20%', key: 2 },
+    { title: 'Account Type', dataIndex: 'accountType', width: '25%', key: 3 },
+    {
+      title: 'Parent Account',
+      dataIndex: 'parentAccount',
+      width: '25%',
+      key: 4,
+    },
     removeButtons
       ? {}
       : {

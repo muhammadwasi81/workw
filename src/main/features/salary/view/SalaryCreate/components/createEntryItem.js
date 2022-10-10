@@ -127,7 +127,7 @@ const CreateEntryItem = ({
           selectedData={(value, row) => handleChange(row.map(item => ({ approverId: item.id })), salary_Dictionary.Approvers, index)}
           canFetchNow={employeesData && employeesData.length > 0}
           fetchData={fetchEmployees}
-          placeholder= {salary_Dictionary.Approvers}
+          placeholder = {salary_Dictionary.Approvers}
           mode={"multiple"}
           isObject={true}
           size="small"

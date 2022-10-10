@@ -42,7 +42,6 @@ function SalaryListItem(props) {
     user
   } = props.item;
 
-
   return (
     <>
       <SingleItem onClick={()=>props.onClick(id)}>

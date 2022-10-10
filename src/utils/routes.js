@@ -332,8 +332,10 @@ export const ROUTES = {
 		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
 	},
 	REQUISITION: {
-		DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
-		REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+		//DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+		//REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+		DEFAULT: `${DOMAIN_PREFIX}/RequisitionCards/*`,
+		REQUISITION: `${DOMAIN_PREFIX}/RequisitionCards`,
 		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
 	},
 

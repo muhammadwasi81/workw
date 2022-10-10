@@ -9,8 +9,6 @@ import {salaryDictionary} from "../../../salary/localization/index";
 
 export const salaryTableColumn = () => {
 
-	
-
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { salary_Dictionary } = salaryDictionary[userLanguage];
   

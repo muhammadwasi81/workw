@@ -251,12 +251,22 @@ export const routes = {
 				import("../main/features/resignation/view/index")
 			),
 		},
+		// {
+		// 	path: `${ROUTES.REQUISITION.DEFAULT}`,
+		// 	component: lazy(() =>
+		// 		import("../main/features/requisition/view/requisition")
+		// 	),
+		// },
+
 		{
 			path: `${ROUTES.REQUISITION.DEFAULT}`,
 			component: lazy(() =>
-				import("../main/features/requisition/view/requisition")
+				//import("../main/features/view/Requisition/RequisitionCards")
+				import("../main/features/newRequisition/view/Requisition/RequisitionCards")
 			),
 		},
+
+
 		{
 			path: `${ROUTES.SALARY.DEFAULT}`,
 			component: lazy(() => import("../main/features/salary/view/index")),

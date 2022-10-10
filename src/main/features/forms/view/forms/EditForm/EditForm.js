@@ -21,6 +21,7 @@ import {
 } from "../../../../../../utils/base";
 import BusinessLogo from "../../../../../../content/systemLogo.png";
 import { addForm, getFormById } from "../../../store/actions";
+import QuestionWithType from "../CreateForm/QuestionWithType";
 
 let initialData = {
   id: "",
@@ -54,7 +55,7 @@ let initialData = {
 };
 
 const EditForm = (props) => {
-  console.log(useParams())
+  console.log(useParams());
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const [searchParams] = useSearchParams();
@@ -62,7 +63,7 @@ const EditForm = (props) => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [employeesData, setEmployeesData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-  const [dataObj, setDataObj] = useState(initialData);
+  const [dataObj, setDataObj] = useState([]);
   const [formData, setFormData] = useState(null);
   const [question, setQuestions] = useState([]);
 
@@ -100,70 +101,17 @@ const EditForm = (props) => {
     console.log("useEffect works when component update");
     // console.log("***", formDetail);
     if (Object.keys(formDetail).length > 1) {
-      setFormDataByType(formDetail);
+      setDataObj(formDetail);
+      // setFormDataByType(formDetail);
     }
   }, [formDetail]);
 
-  // useEffect(() => {
-  //   const append = (answers, fileList) =>
-  //     answers.map((x, index) => {
-  //       let image = fileList.filter((it) => it.index === index)[0]?.image
-  //         ?.originFileObj;
-  //       return {
-  //         answer: x,
-  //         image: {
-  //           file: image,
-  //           id: defaultUiid,
-  //         },
-  //       };
-  //     });
-  //   let questionArray = question.map((elem, index) => {
-  //     console.log("element", elem);
-  //     return {
-  //       // id: createGuid(),
-  //       // formId: createGuid(),
-  //       answerType: elem.answerType,
-  //       sequence: index,
-  //       question: elem.Question,
-  //       createBy: user.id,
-  //       answers: elem.options
-  //         ? // ? append(elem.options, elem.fileList[index]?.originFileObj)
-  //           append(elem.options, elem.fileList)
-  //         : [],
-  //     };
-  //   });
-  //   // console.log("****", questionArray);
-  //   setDataObj({ ...dataObj, question: questionArray });
-  // }, [question]);
-
-  // const dataGet = (values) => {
-  //   console.log("data getting from create form component", values);
-  //   setQuestions([...question, values]);
-  // };
-
-  // const createForm = () => {
-  //   // console.log("create form done!!!!");
-  //   // console.log("data object", dataObj);
-  //   dispatch(addForm(dataObj));
-  // };
-
-  // const subDescriptionGet = (values) => {
-  //   // console.log("sub description", values);
-  //   let payload = {
-  //     ...dataObj,
-  //     id: createGuid(),
-  //     name: values.subject,
-  //     description: values.description,
-  //     approvers: modifySelectData(values.approvers).map((el, index) => {
-  //       return {
-  //         approverId: el,
-  //       };
-  //     }),
-  //   };
-  //   setDataObj(payload);
-  //   // console.log("final data to be send to api****", payload);
-  //   dispatch(addForm(payload));
-  // };
+  useEffect(() => {
+    console.log("use effect works when data object change****", dataObj);
+    if (Object.keys(dataObj).length > 1) {
+      setFormDataByType(dataObj);
+    }
+  }, [dataObj]);
 
   let setFormDataByType = (data) => {
     console.log("data getting in set form by type****", data);
@@ -327,6 +275,44 @@ const EditForm = (props) => {
     setFormData({ ...formData, question: filteredData });
   };
 
+  const dataGet = (values) => {
+    const append = (answers, fileList) =>
+      answers.map((x, index) => {
+        let image =
+          fileList &&
+          fileList?.filter((it) => it.index === index)[0]?.image?.originFileObj;
+        return {
+          answer: x,
+          image: {
+            file: image && image,
+            id: defaultUiid,
+          },
+        };
+      });
+
+    let ques = {
+      formAnswerType: values.formAnswerType,
+      // sequence: index,
+      question: values.question,
+      image: {
+        file:
+          values.image &&
+          (values.image?.originFileObj
+            ? values.image?.originFileObj
+            : values.image.file),
+      },
+      createBy: user.id,
+      answers: values.fileList ? append(values.answers, values?.fileList) : [],
+    };
+    console.log(ques, "new question");
+
+    //TODO: append question in dataObj
+    let data = [...dataObj.question];
+    console.log(data, "data spread");
+    data.push(ques);
+    setDataObj({ ...dataObj, question: data });
+  };
+
   const onEdit = () => {
     console.log("edit console start");
     dispatch(updateForm(formData));
@@ -334,26 +320,8 @@ const EditForm = (props) => {
     navigate(-1);
   };
 
-  if (!formData) return <div>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
-    Loading...</div>;
+  if (!formData) return;
+  <div>Loading...</div>;
   console.log("formdata", formData);
   return (
     <>
@@ -395,6 +363,7 @@ const EditForm = (props) => {
               }}
             />
           </Form.Item> */}
+          <QuestionWithType dataSend={(values) => dataGet(values)} />
           <DrangableQuestions
             questions={formData.question}
             handleChange={handleSequenceChange}

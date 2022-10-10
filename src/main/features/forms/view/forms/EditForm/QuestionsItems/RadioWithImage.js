@@ -51,9 +51,9 @@ const RadioWithImage = (props) => {
               defaultValue={question.question}
               onChange={handleChange}
             />
-            <button onClick={() => removeQuestion(index)}>
+            <div onClick={() => removeQuestion(index)}>
               <CloseSquareOutlined style={{ fontSize: "150%" }} />
-            </button>
+            </div>
           </div>
 
           <div className="flex-row">

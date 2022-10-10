@@ -1,39 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
+import { LanguageChangeContext } from '../../../../../../utils/localization/localContext/LocalContext';
+import { salaryDictionary } from '../../../localization';
 
 const CreateEntryHead = () => {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salary_Dictionary } = salaryDictionary[userLanguage];
+
 
   return (
     <thead>
       <tr className='whitespace-nowrap' >
         <th style={{ minWidth: "50px" }} >
-          S.No.
+        {salary_Dictionary.SNo}
         </th>
         <th style={{ minWidth: "130px" }}>
-          Effective Date
+        {salary_Dictionary.EffectiveDate}
         </th>
         <th style={{ minWidth: "230px" }}>
-          Employee
+        {salary_Dictionary.Employee}
         </th>
         <th style={{ minWidth: "170px" }}>
-          Grade
+        {salary_Dictionary.Grade}
         </th>
         <th style={{ minWidth: "150px" }}>
-          Basic Salary
+        {salary_Dictionary.BasicSalary}
         </th>
         <th style={{ minWidth: "150px" }}>
-          Allowances
+        {salary_Dictionary.Allowances}
         </th>
         <th style={{ minWidth: "150px" }}>
-          Deductions
+        {salary_Dictionary.Deductions}
         </th>
         <th style={{ minWidth: "150px" }}>
-          Net Salary
+        {salary_Dictionary.NetSalary}
         </th>
         <th style={{ minWidth: "300px" }}>
-          Approvers
+        {salary_Dictionary.Approvers}
         </th>
         <th style={{ minWidth: "250px" }}>
-          Descrption
+        {salary_Dictionary.Descrption}
         </th>
         <th style={{ minWidth: "45px" }}>
         </th>

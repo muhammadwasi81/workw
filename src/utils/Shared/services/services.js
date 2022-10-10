@@ -30,7 +30,6 @@ export const getCitiesService = (obj) => {
 };
 
 export const getEmployeeSalaryService = (data) => {
-  console.log(data, "DATAAAA")
   return MasterConfig.get(`api/EmployeeSalary/EmployeeSalaryGetByEmployeeId?id=${data.id}`)
     .then((res) => {
       return res.data;

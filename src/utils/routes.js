@@ -337,6 +337,7 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
     REQUISITION: `${DOMAIN_PREFIX}/requisition`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+    CREATE_VOUCHERS: `${DOMAIN_PREFIX}/createasset`,
   },
 
   REWARDS: {
@@ -363,6 +364,13 @@ export const ROUTES = {
     LEAVE: `${DOMAIN_PREFIX}/leaves/`,
     APPROVALS: `leaves/approvals`,
   },
+  REQUISITION: {
+		//DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+		//REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+		DEFAULT: `${DOMAIN_PREFIX}/RequisitionCards/*`,
+		REQUISITION: `${DOMAIN_PREFIX}/RequisitionCards`,
+		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+	},
   //   EMPLOYEES: {
   //     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
   //     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
@@ -390,6 +398,7 @@ export const ROUTES = {
     ADMINISTRATION: `${DOMAIN_PREFIX}/administrator/`,
     BUSINESS_LOGO: `businessLogo`,
     REBATE_CATEGORY: `rebateCategory`,
+    ASSETS_CATEGORY: `assetsCategory`,
     DEFAULT_HIRING_CRITERIA: `defaultHiringCriteria`,
     SUBSIDIARY_OFFICE: `subsidiaryOffice`,
     SUBSIDIARY: `subsidiary`,

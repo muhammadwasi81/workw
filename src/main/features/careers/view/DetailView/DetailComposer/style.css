@@ -1,0 +1,22 @@
+/* .job-container{
+    width: 300px;
+    height:500px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    position:absolute;
+} */
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.btn-container {
+  margin: 5px !important;
+}
+.icon-btn {
+  background-color: greenyellow;
+  border-color: greenyellow !important;
+  margin: 10px;
+}

@@ -54,7 +54,6 @@ export const getCities = createAsyncThunk(
 export const getEmployeeSalary = createAsyncThunk(
   "getEmployeeSalary",
   async (data, { dispatch, getState }) => {
-    console.log(data, "HELLO JEJEEEEE")
     const res = await getEmployeeSalaryService(data)
     if (!res.responseCode) {
       responseMessage({

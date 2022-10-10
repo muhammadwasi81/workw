@@ -1,12 +1,14 @@
 import { DatePicker, Select } from 'antd';
 import { Option } from 'antd/lib/mentions';
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 import { getAllEmployees } from '../../../../../../utils/Shared/store/actions';
 import Avatar from '../../../../../sharedComponents/Avatar/avatarOLD';
 import CustomSelect from '../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { ALLOWANCE_ENUM } from '../../../../allowance/view/enum';
 import { calculateAllowance } from '../../../utils/constant';
+import { LanguageChangeContext } from '../../../../../../utils/localization/localContext/LocalContext';
+import { salaryDictionary } from '../../../localization';
 
 const CreateEntryItem = ({
   index,
@@ -105,7 +107,7 @@ const CreateEntryItem = ({
             );
           }}
           dataVal={[]}
-          name="Employee"
+          name= {salary_Dictionary.Employee}
           showSearch={true}
         />
       </td>
@@ -178,7 +180,7 @@ const CreateEntryItem = ({
             );
           }}
           dataVal={[]}
-          name="approvers"
+          name={salary_Dictionary.Approvers}
           showSearch={true}
         />
       </td>

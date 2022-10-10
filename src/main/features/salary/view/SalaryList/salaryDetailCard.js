@@ -19,7 +19,15 @@ import AllowanceDetail from "./allowanceDetail";
 import RemarksApproval from "../../../../sharedComponents/AppComponents/Approvals/view";
 import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import {salaryDictionary} from "../../../salary/localization/index";
+
+
 function SalaryDetailCard(props) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salary_Dictionary } = salaryDictionary[userLanguage];
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (props.id) dispatch(getEmployeeSalaryDetail(props.id));
@@ -72,7 +80,7 @@ function SalaryDetailCard(props) {
 
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Salary For</div>
+            <div className="cardSection__title">{salary_Dictionary.SalaryFor}</div>  
             <div className="cardSection__body">{user.name}</div>
           </div>
           <div className="cardSectionItem">
@@ -82,7 +90,7 @@ function SalaryDetailCard(props) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Basic Salary</div>
+            <div className="cardSection__title">{salary_Dictionary.BasicSalary}</div>  
             <div className="cardSection__body">{basicSalary}</div>
           </div>
         </div>

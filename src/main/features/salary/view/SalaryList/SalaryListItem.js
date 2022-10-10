@@ -14,7 +14,14 @@ import {
 import { useDispatch } from 'react-redux';
 import Avatar from '../../../../sharedComponents/Avatar/avatar';
 
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import {salaryDictionary} from "../../../salary/localization/index";
+
 function SalaryListItem(props) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salary_Dictionary } = salaryDictionary[userLanguage];
+
   const disptach = useDispatch();
   const {
     creator = {
@@ -71,7 +78,7 @@ function SalaryListItem(props) {
 
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Salary For</div>
+            <div className="cardSection__title">{salary_Dictionary.SalaryFor}</div>      
             <div className="cardSection__body">{user.name}</div>
           </div>
           <div className="cardSectionItem">
@@ -81,15 +88,15 @@ function SalaryListItem(props) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Basic Salary</div>
+            <div className="cardSection__title">{salary_Dictionary.BasicSalary}</div>           
             <div className="cardSection__body">{basicSalary}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Net Salary</div>
+            <div className="cardSection__title">{salary_Dictionary.NetSalary}</div>             
             <div className="cardSection__body">{netSalary}</div>
           </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">Approvers</div>
+          <div className="cardSectionItem"> 
+            <div className="cardSection__title">{salary_Dictionary.Approvers}</div>              
             <div className="cardSection__body">
               <Avatar
                 isAvatarGroup={true}

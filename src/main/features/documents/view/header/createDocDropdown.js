@@ -21,7 +21,7 @@ const CreateDocDropdown = () => {
     }
     const CreateOptions = [
         {
-            label: documentDictionary.NewFolder,
+            label:documentDictionary.NewFolder,
             key: "folder",
             icon:<img width="17px" alt="" src={folderIcon} />,
             onClick:handleChange

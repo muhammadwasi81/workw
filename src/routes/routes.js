@@ -34,8 +34,8 @@ export const routes = {
       component: lazy(() => import('../main/features/schedule/routes/')),
     },
     // {
-    //   path: `${ROUTES.MAIL.DEFAULT}`,
-    //   component: lazy(() => import("../components/MainMenu/Mail/")),
+    // 	path: `${ROUTES.MAIL.DEFAULT}`,
+    // 	component: lazy(() => import("../main/features/mail/")),
     // },
     {
       path: ROUTES.CUSTOM_APPROVALS.DEFAULT,
@@ -60,15 +60,17 @@ export const routes = {
     // 		component: lazy(() => import("../main/features/forms/view/forms/SubmitForm/index.js")),
     // 	},
     {
+      path: `${ROUTES.FINANCE.TRANSACTION.DEFAULT}`,
+      component: lazy(() => import('../main/features/transaction/view/index')),
+    },
+    {
+      path: `${ROUTES.ASSETS.DEFAULT}`,
+      component: lazy(() => import('../main/features/assets/view/assets')),
+    },
+    {
       path: `${ROUTES.FORMS.SUBMIT_FORM}`,
       component: lazy(() =>
         import('../main/features/forms/view/forms/SubmitForm/index.js')
-      ),
-    },
-    {
-      path: `${ROUTES.FORMS.EDIT_FORM}`,
-      component: lazy(() =>
-        import('../main/features/forms/view/forms/EditForm/EditForm')
       ),
     },
     {
@@ -154,7 +156,7 @@ export const routes = {
     {
       path: `${ROUTES.LEAD_MANAGER.LEAD_DETAIL}`,
       component: lazy(() =>
-        import('../main/features/leadmanager/view/Board/Board')
+        import('../main/features/leadmanager/view/Board/BoardViews')
       ),
     },
     {
@@ -246,12 +248,6 @@ export const routes = {
       path: `${ROUTES.REQUISITION.DEFAULT}`,
       component: lazy(() =>
         import('../main/features/requisition/view/requisition')
-      ),
-    },
-    {
-      path: `${ROUTES.REQUISITION.CREATE_VOUCHERS}`,
-      component: lazy(() =>
-        import('../main/features/createAssets/view/AssetsEntry')
       ),
     },
     {
@@ -356,12 +352,6 @@ export const routes = {
       path: `${ROUTES.ADMINISTRATOR.WARNING_CATEGORY},`,
       component: lazy(() => {
         import('../main/features/warning/warningCategory/view');
-      }),
-    },
-    {
-      path: `${ROUTES.ADMINISTRATOR.ASSETS_CATEGORY},`,
-      component: lazy(() => {
-        import('../main/features/assetsCategory/view/index');
       }),
     },
   ],

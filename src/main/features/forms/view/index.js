@@ -14,7 +14,7 @@ const Index = () => {
         path={`${ROUTES.FORMS.CREATE_FORM}`}
         element={<CreateFormParent />}
       />
-      <Route path={`${ROUTES.FORMS.EDIT_FORM}`} element={<EditForm />} />
+      <Route path={`${ROUTES.FORMS.EDIT_FORM}/:id`} element={<EditForm />} />
       <Route element={<BrokenPage />} />
     </Routes>
   );

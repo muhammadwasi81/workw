@@ -1,57 +1,57 @@
-import React, { useContext, useEffect, useState } from "react";
-import Header from "../../../../layout/header";
+import React, { useContext, useEffect, useState } from 'react';
+import Header from '../../../../layout/header';
 import {
   ContBody,
   TabbableContainer,
-} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Button } from "antd";
-import { ROUTES } from "../../../../../utils/routes";
-import SalaryList from "./salaryList";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getAllEmployeeSalary } from "../../store/actions";
-import TopBar from "../../../../sharedComponents/topBar/topBar";
-import { Table } from "../../../../sharedComponents/customTable";
-import { useSelector } from "react-redux";
-import { salaryTableColumn } from "./tableColumns";
+} from '../../../../sharedComponents/AppComponents/MainFlexContainer';
+import { Button } from 'antd';
+import { ROUTES } from '../../../../../utils/routes';
+import SalaryList from './salaryList';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getAllEmployeeSalary } from '../../store/actions';
+import TopBar from '../../../../sharedComponents/topBar/topBar';
+import { Table } from '../../../../sharedComponents/customTable';
+import { useSelector } from 'react-redux';
+import { salaryTableColumn } from './tableColumns';
 
 function Salaries() {
   const listData = useSelector((state) => state.salarySlice.salaryList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [filterType, setFilterType] = useState(0);
-  const [viewType, setViewType] = useState("List");
-  const [search, setSearch] = useState("");
+  const [viewType, setViewType] = useState('List');
+  const [search, setSearch] = useState('');
 
   const items = [
     {
-      name: "Salary",
+      name: 'Salary',
       to: `${ROUTES.SALARY.ROOT}`,
       renderButton: [1],
     },
   ];
   const buttons = [
     {
-      buttonText: "",
+      buttonText: '',
       render: (
-        <Button className="ThemeBtn" onClick={() => navigate("create")}>
-          {" "}
-          Create Salary{" "}
+        <Button className="ThemeBtn" onClick={() => navigate('create')}>
+          {' '}
+          Create Salary{' '}
         </Button>
       ),
     },
   ];
   const filterButtons = [
     {
-      name: "Salaries",
+      name: 'Salaries',
       onClick: () => setFilterType(0),
     },
     {
-      name: "Created By Me",
+      name: 'Created By Me',
       onClick: () => setFilterType(1),
     },
     {
-      name: "For Approval",
+      name: 'For Approval',
       onClick: () => setFilterType(2),
     },
   ];
@@ -80,8 +80,8 @@ function Salaries() {
         buttons={filterButtons}
         segment={{
           onSegment,
-          label1: "List",
-          label2: "Table",
+          label1: 'List',
+          label2: 'Table',
         }}
       />
       <ContBody>{render[viewType]}</ContBody>

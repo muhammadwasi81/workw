@@ -3,14 +3,14 @@ import React from "react";
 import { privacyOption } from "../../../utils/Shared/enums/enums";
 import { BiWorld } from "react-icons/bi";
 import { HiLockClosed } from "react-icons/hi";
-function PublicPrivateIcon({ id }) {
+function PublicPrivateIcon({ id, className = "" }) {
 	switch (id) {
 		case privacyOption.Public:
-			return <BiWorld />;
+			return <BiWorld className={className} />;
 		case privacyOption.Private:
-			return <HiLockClosed />;
+			return <HiLockClosed className={className} />;
 		default:
-			return <BiWorld />;
+			return <BiWorld className={className} />;
 	}
 }
 

@@ -124,13 +124,13 @@ const en = {
     bonus: 'Bonus',
     resignations: 'Resignations',
     requisition: 'Requisition',
+    assets: 'Assets',
     rewards: 'Rewards',
     businessPolicy: 'Business Policy',
     form: 'Form',
     ledgerReport: 'Ledger Report',
     salary: 'Salary',
     payroll: 'Payroll',
-    createAssets: 'Create Assets',
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -333,7 +333,6 @@ const en = {
     Reward_Category: 'Reward Category',
     Warning_Category: 'Warning Category',
     Rebate_Category: 'Rebate Category',
-    Assets_Category: 'Assets Category',
     Form: {
       Description: 'Description',
       Add: 'Add',
@@ -418,7 +417,6 @@ const en = {
     Payroll_Group: 'Payroll Group',
     Business_Policy: 'Business Policy',
     Rebate_Category: 'Rebate Category',
-    Assets_Category: 'Assets Category',
     AccessRole: 'Access Role',
     Grade: 'Grade',
     Designation: 'Designation',

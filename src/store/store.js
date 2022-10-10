@@ -28,6 +28,7 @@ import complainCategorySlice from "../main/features/complain/complainCategory/st
 import defaultHiringCriteriaSlice from "../main/features/careers/defaultHiringCriteria/store/slice";
 import warningSlice from "../main/features/warning/store/slice";
 import departmentSlice from "../main/features/departments/store/slice";
+import careerSlice from "../main/features/careers/store/slice";
 import leaveTypeSlice from "../main/features/leave/leaveType/store/slice";
 import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";
 import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
@@ -72,6 +73,7 @@ import resignationSlice from "./appReducer/resignationSlice";
 import voucherSlice from "../main/features/voucher/store/slice";
 import scheduleSlice from "../main/features/schedule/store/slice";
 import attendanceSlice from "../main/features/attendance/store/slice";
+import stickySlice from "../main/features/notes/newStickyNotes/store/stickySlice";
 import formSlice from "../main/features/forms/store/slice";
 import payrollSlice from "../main/features/payroll/store/slice";
 // import thunk from "redux-thunk";
@@ -103,6 +105,7 @@ const reducers = combineReducers({
   rewardSlice,
   complainSlice,
   departmentSlice,
+  careerSlice,
   projectSlice,
   customApprovalSlice,
   warningSlice,
@@ -142,6 +145,7 @@ const reducers = combineReducers({
   callingSlice,
   voucherSlice,
   salarySlice,
+  stickySlice,
   formSlice,
   payrollSlice,
 });

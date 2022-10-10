@@ -11,3 +11,4 @@ function EmojiPicker(props) {
 	return <div className="emojiCont" ref={ref} />;
 }
 export default EmojiPicker;
+

@@ -251,19 +251,19 @@ const SubmitForm = (props) => {
   let setFormDataByType = (data) => {
     console.log("data send form parameter***", data);
     let filteredData = data.question.map((item, index) => {
-      if (item.formAnswerType === 2) {
+      if (item.answerType === 2) {
         return {
           ...item,
           localType: "number",
           sequence: index,
         };
-      } else if (item.formAnswerType === 3) {
+      } else if (item.answerType === 3) {
         return {
           ...item,
           localType: "text",
           sequence: index,
         };
-      } else if (item.formAnswerType === 1) {
+      } else if (item.answerType === 1) {
         //check image available
         console.log("items in submit form", item);
         if (item.answers[index]?.image?.length > 1) {

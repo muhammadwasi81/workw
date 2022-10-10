@@ -109,7 +109,7 @@ const QuestionWithType = (props) => {
             </Form.Item>
           </div>
           <Form.Item
-            name="formAnswerType"
+            name="answerType"
             rules={[
               {
                 required: true,

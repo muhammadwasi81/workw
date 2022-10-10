@@ -84,8 +84,6 @@ const EditForm = (props) => {
 
   useEffect(() => {
     //getformbyid data for edit
-
-    // const id = searchParams.get("id");
     dispatch(getFormById(id));
     fetchEmployees("", 0);
   }, []);
@@ -99,10 +97,8 @@ const EditForm = (props) => {
 
   useEffect(() => {
     console.log("useEffect works when component update");
-    // console.log("***", formDetail);
     if (Object.keys(formDetail).length > 1) {
       setDataObj(formDetail);
-      // setFormDataByType(formDetail);
     }
   }, [formDetail]);
 
@@ -115,22 +111,21 @@ const EditForm = (props) => {
 
   let setFormDataByType = (data) => {
     console.log("data getting in set form by type****", data);
-    // console.log("questions data map****", data.questions);
     let filteredData = data?.question.map((item, index) => {
       console.log("filtering data");
-      if (item.formAnswerType === 2) {
+      if (item.answerType === 2) {
         return {
           ...item,
           localType: "number",
           sequence: index,
         };
-      } else if (item.formAnswerType === 3) {
+      } else if (item.answerType === 3) {
         return {
           ...item,
           localType: "text",
           sequence: index,
         };
-      } else if (item.formAnswerType === 1) {
+      } else if (item.answerType === 1) {
         if (item.answers[index]?.image?.length > 1) {
           console.log("item with radio");
           return {
@@ -158,21 +153,21 @@ const EditForm = (props) => {
     console.log("index", index);
 
     //TODO: setState for fields
-    let updatedFormData = { ...formData };
+    let updatedFormData = { ...dataGet };
     updatedFormData.question[index].question = e.target.value;
-    setFormData(updatedFormData);
+    setDataObj(updatedFormData);
   };
 
   const handleChangeTitle = (e) => {
     console.log("change title", e.target.value);
     //TODO: setState for fields
-    setFormData({ ...formData, subject: e.target.value });
+    setDataObj({ ...dataObj, subject: e.target.value });
   };
 
   const handleChangeDescription = (e) => {
     console.log("change Description", e.target.value);
     //TODO: setState for fields
-    setFormData({ ...formData, description: e.target.value });
+    setDataObj({ ...dataObj, description: e.target.value });
   };
 
   const handleSequenceChange = (items) => {
@@ -183,7 +178,7 @@ const EditForm = (props) => {
         sequence: index,
       };
     });
-    setFormData({ ...formData, question: filteredData });
+    setDataObj({ ...dataObj, question: filteredData });
   };
 
   const handleQuestionImageChange = (info, index) => {
@@ -192,11 +187,11 @@ const EditForm = (props) => {
 
     //TODO:  here we have both index and info we will set this data in state for edit purpose
     console.log("form data updates start");
-    let updatedFormData = { ...formData };
+    let updatedFormData = { ...dataObj };
     console.log(info.length, "length");
     updatedFormData.question[index].image =
       typeof info[0] === "object" ? { file: info[0].originFileObj } : {};
-    setFormData(updatedFormData);
+    setDataObj(updatedFormData);
     console.log("form data updates end");
   };
 
@@ -209,7 +204,7 @@ const EditForm = (props) => {
 
     //TODO:  here we have both index and info we will set this data in state for edit purpose
     console.log("form data options updates start");
-    let updatedFormData = { ...formData };
+    let updatedFormData = { ...dataObj };
     console.log(updatedFormData.question[quesIndex].answers[opIndex].image);
 
     updatedFormData.question[quesIndex] = {
@@ -227,7 +222,7 @@ const EditForm = (props) => {
       ),
     };
     console.log(updatedFormData.question);
-    setFormData(updatedFormData);
+    setDataObj(updatedFormData);
     console.log(updatedFormData, "questiondata");
     console.log("form data options updates end");
   };
@@ -239,7 +234,7 @@ const EditForm = (props) => {
 
     //TODO:  here we have both index and info we will set this data in state for edit purpose
     console.log("form data options updates start");
-    let updatedFormData = { ...formData };
+    let updatedFormData = { ...dataObj };
     console.log(updatedFormData.question[quesIndex].answers[opIndex].image);
 
     updatedFormData.question[quesIndex] = {
@@ -252,7 +247,7 @@ const EditForm = (props) => {
       ),
     };
     console.log(updatedFormData.question);
-    setFormData(updatedFormData);
+    setDataObj(updatedFormData);
     console.log(updatedFormData, "questiondata");
     console.log("form data options updates end");
   };
@@ -272,7 +267,7 @@ const EditForm = (props) => {
       };
     });
 
-    setFormData({ ...formData, question: filteredData });
+    setDataObj({ ...dataObj, question: filteredData });
   };
 
   const dataGet = (values) => {
@@ -291,7 +286,7 @@ const EditForm = (props) => {
       });
 
     let ques = {
-      formAnswerType: values.formAnswerType,
+      answerType: values.answerType,
       // sequence: index,
       question: values.question,
       image: {

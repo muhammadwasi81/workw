@@ -1,23 +1,23 @@
-import { Button, Image, Tag } from 'antd';
-import React, { useContext, useEffect } from 'react';
-import UserInfo from '../../../../sharedComponents/UserShortInfo/UserInfo';
-import SublineDesigWithTime from '../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
-import StatusTag from '../../../../sharedComponents/Tag/StatusTag';
+import { Button, Image, Tag } from "antd";
+import React, { useContext, useEffect } from "react";
+import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 // import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import RewardDefaultIcon from '../../../../../content/svg/menu/rewardIcon.svg';
-import moment from 'moment';
+import RewardDefaultIcon from "../../../../../content/svg/menu/rewardIcon.svg";
+import moment from "moment";
 import {
   ItemContent,
   ItemHeader,
   SingleItem,
-} from '../../../../sharedComponents/Card/CardStyle';
-import { useDispatch } from 'react-redux';
-import Avatar from '../../../../sharedComponents/Avatar/avatar';
-import { getEmployeeSalaryDetail } from '../../store/actions';
-import { useSelector } from 'react-redux';
-import AllowanceDetail from './allowanceDetail';
-import RemarksApproval from '../../../../sharedComponents/AppComponents/Approvals/view';
-import { ApprovalsModule } from '../../../../sharedComponents/AppComponents/Approvals/enums';
+} from "../../../../sharedComponents/Card/CardStyle";
+import { useDispatch } from "react-redux";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
+import { getEmployeeSalaryDetail } from "../../store/actions";
+import { useSelector } from "react-redux";
+import AllowanceDetail from "./allowanceDetail";
+import RemarksApproval from "../../../../sharedComponents/AppComponents/Approvals/view";
+import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 
 function SalaryDetailCard(props) {
   const dispatch = useDispatch();
@@ -33,10 +33,10 @@ function SalaryDetailCard(props) {
     basicSalary,
     details,
     netSalary,
-    description = 'Salary Description here',
+    description = "Salary Description here",
     approvers = [{}],
     status = 1,
-    referenceNo = 'SAR-10001',
+    referenceNo = "SAR-10001",
     createDate = moment(),
     effectiveDate = moment(),
     user,
@@ -51,7 +51,7 @@ function SalaryDetailCard(props) {
               name={creator.name}
               Subline={
                 <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : ''}
+                  designation={creator.designation ? creator.designation : ""}
                   time={moment(createDate).fromNow()}
                 />
               }
@@ -78,7 +78,7 @@ function SalaryDetailCard(props) {
           <div className="cardSectionItem">
             <div className="cardSection__title">Effective Date</div>
             <div className="cardSection__body">
-              {moment(effectiveDate).format('Do MMM YY')}
+              {moment(effectiveDate).format("Do MMM YY")}
             </div>
           </div>
           <div className="cardSectionItem">

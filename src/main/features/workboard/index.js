@@ -1,6 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { defaultUiid } from "../../../utils/Shared/enums/enums";
+import useDebounce from "../../../utils/Shared/helper/use-debounce";
 import {
 	ContBody,
 	TabbableContainer,
@@ -8,6 +10,7 @@ import {
 import WorkBoardDashboard from "./Dashboard/WorkBoardDashboard";
 import { WorkBoardReferenceTypeEnum } from "./enum";
 import { WorkBoardDictionary } from "./localization";
+import { getAllWorkBoard } from "./store/action";
 import Header from "./UI/Header";
 import WorkBoardTopBar from "./UI/WorkBoardTopBar";
 
@@ -24,6 +27,44 @@ function WorkBoard({
 	];
 	const { topBar } = WorkBoardDictionaryList;
 	const [isTableView, setIsTableView] = useState(false);
+	const [search, setSearch] = useState("");
+	const [api, setApi] = useState({
+		pageNo: 1,
+		pageSize: 20,
+		sortBy: 1,
+		search: "",
+		referenceId,
+		referenceType,
+	});
+	const searchVal = useDebounce(api.search, 500);
+	const dispatch = useDispatch();
+	const { pageNo, pageSize, sortBy } = api;
+	useEffect(() => {
+		dispatch(getAllWorkBoard(api));
+	}, [searchVal, pageNo, pageSize, sortBy, dispatch]);
+
+	const handleColumnSorting = (pagination, filters, sorter) => {
+		const { current, pageSize } = pagination;
+		setApi(prevState => ({
+			...prevState,
+			pageSize,
+			pageNo: current,
+		}));
+
+		const { order } = sorter;
+		if (order === "ascend") {
+			setApi(prevState => ({
+				...prevState,
+				sortBy: 2,
+			}));
+
+			return;
+		}
+		setApi(prevState => ({
+			...prevState,
+			sortBy: 1,
+		}));
+	};
 
 	return (
 		<>
@@ -37,6 +78,12 @@ function WorkBoard({
 					handleView={isTable => {
 						setIsTableView(isTable);
 					}}
+					handleSearch={value => {
+						setApi(prevState => ({
+							...prevState,
+							search: value,
+						}));
+					}}
 					topBar={topBar}
 					width={width}
 				/>
@@ -45,6 +92,7 @@ function WorkBoard({
 						isTableView={isTableView}
 						referenceType={referenceType}
 						referenceId={referenceId}
+						onChange={handleColumnSorting}
 					/>
 				</ContBody>
 			</TabbableContainer>

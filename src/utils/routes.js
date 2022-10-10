@@ -337,6 +337,7 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
     REQUISITION: `${DOMAIN_PREFIX}/requisition`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+    CREATE_VOUCHERS: `${DOMAIN_PREFIX}/createasset`,
   },
 
   REWARDS: {
@@ -390,6 +391,7 @@ export const ROUTES = {
     ADMINISTRATION: `${DOMAIN_PREFIX}/administrator/`,
     BUSINESS_LOGO: `businessLogo`,
     REBATE_CATEGORY: `rebateCategory`,
+    ASSETS_CATEGORY: `assetsCategory`,
     DEFAULT_HIRING_CRITERIA: `defaultHiringCriteria`,
     SUBSIDIARY_OFFICE: `subsidiaryOffice`,
     SUBSIDIARY: `subsidiary`,

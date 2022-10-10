@@ -1,16 +1,25 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
-import { addRebateCategory, getAllRebateCategories, removeRebateCategory, updateRebateCategory } from "../store/actions";
-import RebateCategoryTable from "./table.js";
-import RebateCategoryForm from "./form"
-import { message } from "antd";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import {
+  addRebateCategory,
+  getAllRebateCategories,
+  removeRebateCategory,
+  updateRebateCategory,
+} from '../store/actions';
+import RebateCategoryTable from './table.js';
+import RebateCategoryForm from './form';
+import { message } from 'antd';
 
-export default function RebateCategory() {
-  const initialState = { name: "", maxPercentage: "", maxAmount: "", rebateType: "" };
+export default function AssetsCategory() {
+  const initialState = {
+    name: '',
+    maxPercentage: '',
+    maxAmount: '',
+    rebateType: '',
+  };
   const [rebateCategories, setRebateCategories] = useState(initialState);
-  const [clearButton, setClearButton] = useState(false)
-
+  const [clearButton, setClearButton] = useState(false);
 
   const dispatch = useDispatch();
   const { loader } = useSelector((state) => state.rebateCategorySlice);
@@ -20,13 +29,13 @@ export default function RebateCategory() {
   };
 
   const onSubmit = (e) => {
-    if (e.name === "" || e.description === "") {
-      message.error("Please fill required fields")
+    if (e.name === '' || e.description === '') {
+      message.error('Please fill required fields');
     } else {
       if (!e.id) {
         dispatch(addRebateCategory(e));
         setRebateCategories(initialState);
-        setClearButton(true)
+        setClearButton(true);
         return;
       }
       dispatch(updateRebateCategory(e));
@@ -36,7 +45,13 @@ export default function RebateCategory() {
 
   return (
     <AdminContainer>
-      <RebateCategoryForm clearButton={clearButton} setClearButton={setClearButton} data={rebateCategories} onSubmit={onSubmit} loading={loader} />
+      <RebateCategoryForm
+        clearButton={clearButton}
+        setClearButton={setClearButton}
+        data={rebateCategories}
+        onSubmit={onSubmit}
+        loading={loader}
+      />
       <RebateCategoryTable
         handleEdit={setRebateCategories}
         setClearButton={setClearButton}

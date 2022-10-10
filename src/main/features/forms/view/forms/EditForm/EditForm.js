@@ -6,7 +6,7 @@ import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import TextFields from "./QuestionsItems/TextFields";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, useParams } from "react-router-dom";
 import { defaultUiid } from "../../../../../../utils/Shared/enums/enums";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import { updateForm } from "../../../store/actions";
@@ -54,9 +54,11 @@ let initialData = {
 };
 
 const EditForm = (props) => {
+  console.log(useParams())
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
+  const { id } = useParams();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [employeesData, setEmployeesData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -70,8 +72,6 @@ const EditForm = (props) => {
     sharedSlice: { employees },
   } = useSelector((state) => state);
 
-  console.log("props in edit form", props);
-
   // useEffect(() => {
   //   // console.log("use effect works when data object change****");
   //   setFormDataByType(dataObj);
@@ -84,7 +84,7 @@ const EditForm = (props) => {
   useEffect(() => {
     //getformbyid data for edit
 
-    const id = searchParams.get("id");
+    // const id = searchParams.get("id");
     dispatch(getFormById(id));
     fetchEmployees("", 0);
   }, []);
@@ -97,7 +97,7 @@ const EditForm = (props) => {
   }, [employees]);
 
   useEffect(() => {
-    // console.log("useEffect works when component update");
+    console.log("useEffect works when component update");
     // console.log("***", formDetail);
     if (Object.keys(formDetail).length > 1) {
       setFormDataByType(formDetail);
@@ -166,22 +166,23 @@ const EditForm = (props) => {
   // };
 
   let setFormDataByType = (data) => {
-    // console.log("data getting in set form by type****", data);
+    console.log("data getting in set form by type****", data);
     // console.log("questions data map****", data.questions);
-    let filteredData = data.question.map((item, index) => {
-      if (item.answerType === 2) {
+    let filteredData = data?.question.map((item, index) => {
+      console.log("filtering data");
+      if (item.formAnswerType === 2) {
         return {
           ...item,
           localType: "number",
           sequence: index,
         };
-      } else if (item.answerType === 3) {
+      } else if (item.formAnswerType === 3) {
         return {
           ...item,
           localType: "text",
           sequence: index,
         };
-      } else if (item.answerType === 1) {
+      } else if (item.formAnswerType === 1) {
         if (item.answers[index]?.image?.length > 1) {
           console.log("item with radio");
           return {
@@ -199,7 +200,7 @@ const EditForm = (props) => {
       }
     });
     // setSubmitForms(submitData);
-    // console.log("filtered data", filteredData);
+    console.log("filtered data", filteredData);
     setFormData({ ...data, question: filteredData });
     // console.log("formData", formData);
   };
@@ -246,7 +247,7 @@ const EditForm = (props) => {
     let updatedFormData = { ...formData };
     console.log(info.length, "length");
     updatedFormData.question[index].image =
-      typeof info[0] === "object" ? info[0].originFileObj : {};
+      typeof info[0] === "object" ? { file: info[0].originFileObj } : {};
     setFormData(updatedFormData);
     console.log("form data updates end");
   };
@@ -333,7 +334,26 @@ const EditForm = (props) => {
     navigate(-1);
   };
 
-  if (!formData) return <div>Loading...</div>;
+  if (!formData) return <div>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    <h1>dskjkskjskjdsksd hdsjhjshjdsh hsjhdjshjdhs sjhjdhsjhd</h1>
+    Loading...</div>;
   console.log("formdata", formData);
   return (
     <>
@@ -393,6 +413,9 @@ const EditForm = (props) => {
                       }
                       handleOptionsChange={(e, i) =>
                         handleOptionsChange(e, i, index)
+                      }
+                      handleOptionImageChange={(info, i) =>
+                        handleOptionImageChange(info, i, index)
                       }
                     />
                   )}

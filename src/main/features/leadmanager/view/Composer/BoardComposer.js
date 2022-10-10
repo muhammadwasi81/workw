@@ -10,13 +10,11 @@ import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 import { addLeadManager, updateLeadManager } from "../../store/actions";
 import { useSelector } from "react-redux";
 function BoardComposer({
-	btnText,
 	isEdit,
 	loading,
 	dataLoading = false,
 	dictionary,
 	direction,
-	// labels,
 }) {
 	const leadDetail = useSelector(
 		state => state.leadMangerSlice.leadManagerDetail

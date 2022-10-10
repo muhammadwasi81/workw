@@ -205,3 +205,16 @@ export const FeaturesEnum = {
 	MyTeam: 39,
 	Grade: 40,
 };
+
+export const ReactionModuleEnum = {
+	Feed: 1,
+	UserTask: 2,
+	FeedComment: 3,
+	WorkBoard: 4,
+	WorkBoardTodo: 5,
+	Document: 6,
+	LeadManager: 7,
+	LeadManagerDetail: 8,
+	LeadManagerDetailContact: 9,
+	ScheduleComment: 10,
+};

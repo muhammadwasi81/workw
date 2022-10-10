@@ -84,6 +84,15 @@
   display: flex;
   align-items: center;
 }
+.headerBtn {
+  color: #fff;
+  background: var(--currentThemeColor);
+  border-color: transparent;
+  border-radius: 4px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+}
 
 .header .right a.headerBtn {
   font-size: 12px;

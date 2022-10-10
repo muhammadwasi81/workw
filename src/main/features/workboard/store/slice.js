@@ -282,12 +282,6 @@ const trelloSlice = createSlice({
 		handleBoardComposer(state, { payload }) {
 			state.isComposerEdit = payload.isEdit;
 			state.isComposerVisible = payload.isVisible;
-			if (!state.isComposerVisible) {
-				state.workboardDetail = null;
-				// state.composerData = state.workboardDetail;
-				return;
-			}
-			state.composerData = initialComposerData;
 		},
 		openSectionDetail(state, { payload }) {
 			if (payload.type === "open") {
@@ -326,6 +320,16 @@ const trelloSlice = createSlice({
 			].labels = labelObj;
 			state.todoDetail.labels = labelObj;
 		},
+		updaateWorkboardById(state, { payload }) {
+			state.workboardDetail = state.workboardsList.find(
+				list => list.id === payload
+			);
+		},
+		resetComposerDetail(state, { payload }) {
+			state.workboardDetail = null;
+			state.isComposerEdit = false;
+			state.isComposerVisible = false;
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -339,8 +343,10 @@ const trelloSlice = createSlice({
 				state.loader = false;
 				state.success = true;
 				state.error = false;
-				console.log("updated");
-				// state.workboardsList.unshift(payload.data);
+				const updatedWorkboardIndex = state.workboardsList.findIndex(
+					workboard => workboard.id === payload.data.id
+				);
+				state.workboardsList[updatedWorkboardIndex] = payload.data;
 			})
 			.addCase(getAllWorkBoard.fulfilled, (state, { payload }) => {
 				state.workboardsList = payload.data;
@@ -349,10 +355,6 @@ const trelloSlice = createSlice({
 			})
 			.addCase(getWorkboardById.fulfilled, (state, { payload }) => {
 				state.workboardDetail = payload.data;
-				// if (state.isComposerEdit) {
-				// 	handleBoardComposer({ isEdit: true, isVisible: true });
-				// }
-				// state.composerData = payload.data;
 				state.loader = false;
 				state.error = false;
 			})
@@ -586,6 +588,8 @@ export const {
 	updateSectionTodoDesc,
 	moveSectionTodo,
 	updateWorkBoardTodoLabel,
+	updaateWorkboardById,
+	resetComposerDetail,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

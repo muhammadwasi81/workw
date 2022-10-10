@@ -28,6 +28,7 @@ import complainCategorySlice from "../main/features/complain/complainCategory/st
 import defaultHiringCriteriaSlice from "../main/features/careers/defaultHiringCriteria/store/slice";
 import warningSlice from "../main/features/warning/store/slice";
 import departmentSlice from "../main/features/departments/store/slice";
+import careerSlice from "../main/features/careers/store/slice";
 import leaveTypeSlice from "../main/features/leave/leaveType/store/slice";
 import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";
 import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
@@ -105,6 +106,7 @@ const reducers = combineReducers({
   rewardSlice,
   complainSlice,
   departmentSlice,
+  careerSlice,
   projectSlice,
   customApprovalSlice,
   warningSlice,

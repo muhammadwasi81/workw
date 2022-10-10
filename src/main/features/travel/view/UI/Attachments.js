@@ -1,6 +1,11 @@
 import React from "react";
+// import { useSelector } from "react-redux";
+// import CustomModal from "../../../workboard/Modal/CustomModal";
+import { fileExtentionPreview } from "../../utils/fileExtentionHelper";
+// import AttachmentsCarrousel from "../AttachmentsCarrousel/AttachmentsCarrousel";
 
-function Attachments({ data }) {
+function Attachments({ data = [], toShow = 1, onClick }) {
+	// const [isVisible, setIsVisible] = useState(false);
 	return (
 		<>
 			{data.length > 0 && (
@@ -9,28 +14,38 @@ function Attachments({ data }) {
 					onClick={e => {
 						e.preventDefault();
 						e.stopPropagation();
+						onClick();
 					}}
 				>
 					<div
 						className={`grid ${data.length > 1 &&
 							"grid-cols-2"}  gap-2`}
 					>
-						<img
-							className="w-[100px] h-[100px]"
-							src={data[0].path}
-							alt={data[0].attachmentName}
-							key={data[0].id}
-						/>
-						{data.length > 1 && (
+						{data.map((item, index) => {
+							if (index < toShow) {
+								return (
+									<img
+										className="w-[100px] h-[100px] object-cover"
+										src={fileExtentionPreview(item.path)}
+										alt={item.attachmentName}
+										key={item.id}
+									/>
+								);
+							}
+						})}
+
+						{data.length > toShow && (
 							<div className="relative">
 								<div className="absolute bottom-0 w-full h-full text-white font-extrabold bg-[#707070] flex justify-center items-center bg-opacity-60 text-[25px]">
-									+ {data.length - 1}
+									+ {data.length - toShow}
 								</div>
 								<img
 									className="w-[100px] h-[100px] object-cover"
-									src={data[1].path}
-									alt={data[1].attachmentName}
-									key={data[1].id}
+									src={fileExtentionPreview(
+										data[toShow].path
+									)}
+									alt={data[toShow].attachmentName}
+									key={data[toShow].id}
 								/>
 							</div>
 						)}

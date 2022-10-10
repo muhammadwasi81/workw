@@ -39,7 +39,7 @@ const RadioWithImage = (props) => {
                 <label key={i} className="label-box">
                   <img
                     src={
-                      image
+                      image.file
                         ? (window.URL || window.webkitURL).createObjectURL(
                             image.file
                           )

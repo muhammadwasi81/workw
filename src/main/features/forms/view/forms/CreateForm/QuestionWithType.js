@@ -18,10 +18,20 @@ const QuestionWithType = (props) => {
   const [fileList, setFileList] = useState([]);
   const [quesionImage, setQuestionImage] = useState();
 
-  const handleImageChange = (info, index, action) => {
+  const handleImageChange = (info, index) => {
     console.log("index", index);
     console.log(info);
+    if (info.file?.status === "removed") {
+      console.log("removed console");
+      let fileLists = [...fileList];
+      console.log(fileLists);
+      fileLists.splice(index, 1);
+      console.log(fileLists);
+      setFileList(fileLists);
+      return;
+    }
     if (!fileList[index]) {
+      console.log("add console");
       setFileList([
         ...fileList,
         {
@@ -31,6 +41,10 @@ const QuestionWithType = (props) => {
       ]);
     }
   };
+
+  useEffect(() => {
+    console.log(fileList);
+  }, [fileList]);
 
   const handleQuestionImageChange = (info) => {
     console.log("image", info);
@@ -94,7 +108,15 @@ const QuestionWithType = (props) => {
               </Upload>
             </Form.Item>
           </div>
-          <Form.Item name="formAnswerType">
+          <Form.Item
+            name="formAnswerType"
+            rules={[
+              {
+                required: true,
+                message: "Please Select your Answer type!",
+              },
+            ]}
+          >
             <Select
               placeholder="Select Answer Type"
               onChange={onQuestionTypeChange}

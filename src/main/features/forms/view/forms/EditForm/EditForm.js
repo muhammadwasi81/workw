@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Avatar, Form } from "antd";
+import { Button, Avatar, Form, message } from "antd";
 import FormHeader from "./FormHeader";
 import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
@@ -66,6 +66,7 @@ const EditForm = (props) => {
   const [dataObj, setDataObj] = useState([]);
   const [formData, setFormData] = useState(null);
   const [question, setQuestions] = useState([]);
+  const [error, setError] = useState(false);
 
   const { user } = useSelector((state) => state.userSlice);
   const { formDetail, loader } = useSelector((state) => state.formSlice);
@@ -309,10 +310,14 @@ const EditForm = (props) => {
   };
 
   const onEdit = () => {
-    console.log("edit console start");
-    dispatch(updateForm(formData));
-    console.log("dispatch complete");
-    navigate(-1);
+    if (formData.question.length >= 1) {
+      console.log("edit console start");
+      dispatch(updateForm(formData));
+      console.log("dispatch complete");
+      navigate(-1);
+    } else {
+      message.error("can't Edit without questions");
+    }
   };
 
   if (!formData) return;

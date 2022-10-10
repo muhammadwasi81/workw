@@ -360,6 +360,7 @@ const SubmitForm = (props) => {
     console.log(payload);
     //sending data to api
     dispatch(submitFormAction(payload));
+    setIsSubmited(true);
   };
 
   // const handleSubmit = () => {

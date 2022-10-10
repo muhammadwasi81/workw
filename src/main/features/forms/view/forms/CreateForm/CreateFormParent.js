@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import FormHeader from "../EditForm/FormHeader";
 import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
@@ -135,9 +135,13 @@ export const CreateFormParent = (props) => {
     };
     setDataObj(payload);
     // console.log("final data to be send to api****", payload);
-    console.log("dispatch actions");
-    dispatch(addForm(payload));
-    navigate(-1);
+    if (payload.question.length >= 1) {
+      console.log("dispatch actions");
+      dispatch(addForm(payload));
+      navigate(-1);
+    } else {
+      message.error("can't submit without questions");
+    }
   };
 
   let setFormDataByType = (data) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CardWrapper } from "../../../../sharedComponents/Card/CardStyle";
-import JobDetails from "../../view/DetailView/detailComposer/JobDetails";
+import JobDetails from "../../view/DetailView/DetailComposer/JobDetails";
 import ListItem from "./ListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { DatePicker, Modal } from "antd";

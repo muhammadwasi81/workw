@@ -12,7 +12,7 @@ const FormHeader = (props) => {
   return (
     <>
       <div className="c-row bg-clr editForm">
-        <div className="f-head-item p_15">
+        <div className="f-head-item p_15 flex flex-col">
           <input className="e-tlt" defaultValue={title} />
           <input className="e-desc f-bold" defaultValue={description} />
         </div>

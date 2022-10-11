@@ -16,6 +16,7 @@ import {
 	ReactionModuleEnum,
 } from "../../../../utils/Shared/enums/enums";
 import { PostReferenceType } from "../utils/constants";
+import Scroll from "../../../sharedComponents/ScrollSelect/infinteScoll";
 
 const NewsFeed = ({
 	referenceType = PostReferenceType.MAIN_FEED,
@@ -47,6 +48,7 @@ const NewsFeed = ({
 							referenceType={referenceType}
 							referenceId={referenceId}
 						/>
+
 						<PostsList
 							referenceType={referenceType}
 							referenceId={referenceId}

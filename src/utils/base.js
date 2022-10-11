@@ -298,6 +298,10 @@ export const STRINGS = {
 				DEFAULT: `${DOMAIN_PREFIX}/rewards`,
 				APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
 			},
+			REQUISITION: {
+				DEFAULT: `${DOMAIN_PREFIX}/requisition`,
+				APPROVALS: `${DOMAIN_PREFIX}/requisition/approvals`,
+			},
 			RESIGNATIONS: {
 				DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
 			},

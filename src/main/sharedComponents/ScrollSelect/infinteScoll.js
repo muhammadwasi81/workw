@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "./style.css";
@@ -16,8 +17,6 @@ export default class Scroll extends React.Component {
 	};
 
 	componentDidMount() {
-		// const root = document.getElementById("app");
-		// console.log("root", root);
 		//set height
 		console.log(
 			"parent height ",
@@ -28,22 +27,9 @@ export default class Scroll extends React.Component {
 			height: document.getElementsByClassName("scroll_dropdown")[0]
 				.offsetParent.offsetHeight,
 		});
-		// this.setState({
-		// 	height: document.getElementsByClassName("scroll_dropdown")[0]
-		// 		.offsetHeight,
-		// });
 	}
 
 	fetchMoreData = () => {
-		// a fake async api call like which sends
-		// 20 more records in 1.5 secs
-		// setTimeout(() => {
-		// 	this.setState({
-		// 		items: this.state.items.concat(Array.from({ length: 20 })),
-		// 	});
-		// }, 1500);
-		//increase the number of page by 1
-		console.log("fetch more data");
 		this.setState({
 			page: this.state.page + 1,
 		});
@@ -51,7 +37,6 @@ export default class Scroll extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.page !== this.state.page) {
-			// console.log("callback");
 			this.props.fetchMoreData(this.state.page);
 		}
 	}
@@ -63,24 +48,46 @@ export default class Scroll extends React.Component {
 		return false;
 	};
 
+	//jab loading na ho or hasmore true ho
+
 	render() {
 		return (
-			<div className="scroll_dropdown " id="scrollableDiv">
+			<div className="scroll_dropdown mb-4" id="scrollableDiv">
 				<InfiniteScroll
 					dataLength={this.props.data.length}
 					next={this.fetchMoreData}
-					hasMore={true}
+					hasMore={this.hasMoreData()}
 					inverse={this.props.inverse || false}
 					loader={
-						this.props.loader || (
-							<p style={{ textAlign: "center" }}>
+						(
+							<>
+								{this.props.loader}
+								{!this.props.isLoading && this.hasMoreData() && (
+									<div className="flex justify-center">
+										<Button
+											className="ThemeBtn"
+											loading={this.props.isLoading}
+											onClick={this.fetchMoreData}
+										>
+											Load More
+										</Button>
+									</div>
+								)}
+							</>
+						) || (
+							<p
+								style={{
+									textAlign: "center",
+								}}
+							>
 								<b>Loading...</b>
 							</p>
 						)
 					}
 					height={this.state.height}
 					endMessage={
-						!this.props.isLoading && (
+						!this.props.isLoading &&
+						!this.hasMoreData() && (
 							<p style={{ textAlign: "center" }}>
 								<b>
 									{this.props.endMessage ||

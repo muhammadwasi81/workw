@@ -462,6 +462,11 @@ export const ROUTES = {
     ROOT: `${DOMAIN_PREFIX}/salary`,
     CREATE: `${DOMAIN_PREFIX}/create`,
   },
+  QOUTATION: {
+    DEFAULT: `${DOMAIN_PREFIX}/quotation/*`,
+    ROOT: `${DOMAIN_PREFIX}/quotation`,
+    CREATE: `${DOMAIN_PREFIX}/create`,
+  },
   PAYROLL: {
     DEFAULT: `${DOMAIN_PREFIX}/payroll/*`,
     ROOT: `${DOMAIN_PREFIX}/payroll`,

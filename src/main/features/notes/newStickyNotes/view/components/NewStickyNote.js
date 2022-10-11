@@ -140,7 +140,9 @@ const NewStickyNote = ({ item }) => {
   const setDescriptionValue = (value) => {
     const id = item.id;
     dispatch(targetStickyDescription({ id, value }));
-    dispatch(getStickyNoteDescAction({ ...item, attachments:[],description: value }));
+    dispatch(
+      getStickyNoteDescAction({ ...item, attachments: [], description: value })
+    );
   };
 
   // *******modules and formats for React quil******
@@ -165,7 +167,7 @@ const NewStickyNote = ({ item }) => {
     ],
   };
   const imgSrc = item.attachments;
-  console.log(imgSrc, "image from redux");
+  // console.log(imgSrc, "image from redux");
   return (
     <>
       <Draggable defaultPosition={{ x: 12, y: 450 }} handle=".handle">
@@ -173,7 +175,8 @@ const NewStickyNote = ({ item }) => {
           className="stickyNote_container"
           // style={{ display: !openColor ? "initial" : "none" }}
         >
-          <div className="stickyNote_header handle"
+          <div
+            className="stickyNote_header handle"
             style={{ backgroundColor: item.colorCode }}
           >
             <input
@@ -230,7 +233,12 @@ const NewStickyNote = ({ item }) => {
             <div className="image_body">
               {imgSrc.map((item, index) => {
                 return (
-                  <Image key={item.id} preview={true} src={item.path} className="image" />
+                  <Image
+                    key={item.id}
+                    preview={true}
+                    src={item.path}
+                    className="image"
+                  />
                 );
               })}
             </div>

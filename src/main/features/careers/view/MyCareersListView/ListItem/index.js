@@ -14,10 +14,12 @@ import {
 import { Link } from "react-router-dom";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
+import { CareerStatusEnum, CareerLevelTypeEnum } from "../../../utils/enums";
 import { useDispatch } from "react-redux";
 
 function ListItem({ item, onClick }) {
   console.log(item, "description");
+  const { jobTypeId, createDate } = item;
   return (
     <>
       <SingleItem onClick={onClick}>
@@ -53,13 +55,26 @@ function ListItem({ item, onClick }) {
         </div> */}
         <div className="flex justify-between">
           <div className="flex gap-x-8">
-            <p className="careerFooterText">Karachi, Pakistan - FullTime</p>
+            <p className="careerFooterText">
+              Karachi, Pakistan -{" "}
+              {CareerLevelTypeEnum.map((item) => {
+                if (item.value === jobTypeId) {
+                  return item.label;
+                }
+              })}
+            </p>
             <p className="careerFooterText flex gap-x-2 items-baseline">
               <FieldTimeOutlined />
-              <p> 4 Days ago</p>
+              <p>{moment(createDate).fromNow()}</p>
             </p>
           </div>
-          <p className="careersDescShort">Expired</p>
+          <p className="careersDescShort">
+            {CareerStatusEnum.map((item) => {
+              if (item.value === jobTypeId) {
+                return item.label;
+              }
+            })}
+          </p>
         </div>
       </SingleItem>
     </>

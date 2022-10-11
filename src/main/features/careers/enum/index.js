@@ -7,6 +7,12 @@ export const CareerApplicantStatusEnum = {
   MayBe: 6,
 };
 
+// export const CareerApplicantStatusLabels = {
+//   {
+//     Applicants:
+//   }
+// }
+
 export const CareerFilterEnum = {
   All: 0,
   MyCareers: 1,

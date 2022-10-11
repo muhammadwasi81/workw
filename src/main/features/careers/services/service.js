@@ -21,8 +21,9 @@ export const addCareerService = async (data) => {
     const {
       data: { responseCode, data, message },
     } = await Config.post(`api/Career/AddCareer`, formData);
-    if (responseCode === responseCodeEnum.Success)
+    if (responseCode === responseCodeEnum.Success) {
       return ResponseResultSuccess(data);
+    }
     return ResponseResultError(message);
   } catch (e) {
     return ResponseResultError(e);

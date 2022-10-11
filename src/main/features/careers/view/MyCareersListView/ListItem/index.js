@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Button, Image } from "antd";
+import { FieldTimeOutlined } from "@ant-design/icons";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../../../utils/base";
@@ -31,7 +32,6 @@ function ListItem({ item, onClick }) {
               round={true}
             />
             <div className="font-bold text-[15px] text-primary-color">
-              {/* Miltap */}
               {item.department}
             </div>
           </div>
@@ -42,20 +42,25 @@ function ListItem({ item, onClick }) {
             React Js Developer */}
             {item.designation}
           </div>
-          <p className="careersDescShort">
-            {/* Karachi, Pakistan - Full Time Karachi, Pakistan - Full Time Karachi,
-            Pakistan - Full Time Karachi, Pakistan - Full Time Karachi, Pakistan
-            - Full Time Karachi, Pakistan - Full TimeKarachi, Pakistan - Full
-            TimeKarachi, Pakistan - Full TimeKarachi, Pakistan - Full
-            TimeKarachi, Pakistan - Full TimeKarachi, Pakistan - Full Time
-            Karachi, Pakistan - Full TimeKarachi, Pakistan - Full TimeKarachi,
-            Pakistan - Full TimeKarachi, Pakistan - Full TimeKarachi, Pakistan -
-            Full TimeKarachi, Pakistan - Full Time Karachi, Pakistan - Full
-            TimeKarachi, Pakistan - Full TimeKarachi, Pakistan - Full
-            TimeKarachi, Pakistan - Full Time */}
-            {item.description}
-          </p>
+          <p className="careersDescShort">{item.description}</p>
         </ItemContent>
+        {/* <div>
+          {item.city} 
+          {item.country}
+           {item.jobTypeId}
+            
+          {item.createDate}
+        </div> */}
+        <div className="flex justify-between">
+          <div className="flex gap-x-8">
+            <p className="careerFooterText">Karachi, Pakistan - FullTime</p>
+            <p className="careerFooterText flex gap-x-2 items-baseline">
+              <FieldTimeOutlined />
+              <p> 4 Days ago</p>
+            </p>
+          </div>
+          <p className="careersDescShort">Expired</p>
+        </div>
       </SingleItem>
     </>
   );

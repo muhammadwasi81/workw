@@ -13,37 +13,25 @@ import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import "./style.css";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+
 const JobDetails = () => {
+  const jobDesc = useSelector((state) => {
+    return state.careerSlice.careerDetail;
+  });
+  console.log(jobDesc, "JOB DETAILLLLLL");
+
+  let notesTime = !moment(new Date()).fromNow(jobDesc.createDate)
+    ? moment(jobDesc.createDate).format("LT")
+    : moment(jobDesc.createDate).format("MMM Do YYYY");
   return (
     <>
-      {/* <SingleItem>
-        <ItemHeader>
-          <div className="user-info">
-            <UserInfo avatarSrc={"Sanjna"} name={"sanjna"} />
-            <div className="btn-container">
-              <StatusTag>Approved</StatusTag>
-              <Button type="primary" className="icon-btn" shape="round">
-                Icon
-              </Button>
-            </div>
-          </div>
-        </ItemHeader>
-        <Divider />
-        <div className="job-description">
-          <h1>JOB NAME</h1>
-          <h1>Job Description</h1>
-          <p>
-            something something something something something something
-            something something
-          </p>
-        </div>
-      </SingleItem> */}
-      <SingleItem onClick={() => {}}>
+      <SingleItem>
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={undefined}
-              name={"creator name"}
+              avatarSrc={jobDesc.creator?.image}
+              name={jobDesc.creator?.name}
               // Subline={
               //   <SublineDesigWithTime
               //     designation={
@@ -63,24 +51,42 @@ const JobDetails = () => {
             </Button>
           </div>
         </ItemHeader>
-        <div className="description w-full pt-3 pb-5 h-[100px]">
-          <h1>Job Name</h1>
-          <h1>Job description</h1>
-          {"".length > 0 ? <p>{"jjdskjsjsjk"}</p> : <p> No description </p>}
+        <div className="font-bold text-[14px] text-primary-color  pt-3 pb-3">
+          {/* {" "}
+            React Js Developer */}
+          {jobDesc.designation}
+        </div>
+
+        <div className="font-bold text-[14px] text-primary-color  pt-3 pb-0">
+          {/* {" "}
+            React Js Developer */}
+          Job Description
+        </div>
+        <div className="description w-full pt-2 pb-3 h-[100px]">
+          {/* <h1>Job description</h1> */}
+          {jobDesc.description?.length > 0 ? (
+            <p>{jobDesc.description}</p>
+          ) : (
+            <p> No description </p>
+          )}
         </div>
 
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">Salary Range</div>
-            <div className="cardSection__body">{"Rs-35000-50000"}</div>
+            <div className="cardSection__body">{`Rs:${jobDesc.minSalary}-${jobDesc.maxSalary}`}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Experienced Required</div>
-            <div className="cardSection__body">{"1 Years of experienced"}</div>
+            <div className="cardSection__body">{`${jobDesc.experience} Years of experienced`}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Applicants</div>
             <div className="cardSection__body">{"50"}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Job Expires</div>
+            <div className="cardSection__body">{notesTime}</div>
           </div>
         </div>
       </SingleItem>

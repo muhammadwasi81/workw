@@ -5,7 +5,7 @@ import { HolderOutlined, CloseSquareOutlined } from "@ant-design/icons";
 const TextFields = (props) => {
   const { type, fieldData, handleChange, index, removeQuestion } = props;
   const [isImage, setIsImage] = useState(false);
-  console.log(fieldData);
+  // console.log(fieldData);
   return (
     <>
       <div className="c-row txt-fields bg-clr p_15 flex">

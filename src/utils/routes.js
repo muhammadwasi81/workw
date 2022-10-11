@@ -371,11 +371,8 @@ export const ROUTES = {
     APPROVALS: `leaves/approvals`,
   },
   REQUISITION: {
-    //DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
-    //REQUISITION: `${DOMAIN_PREFIX}/requisition`,
-    DEFAULT: `${DOMAIN_PREFIX}/RequisitionCards/*`,
-    REQUISITION: `${DOMAIN_PREFIX}/RequisitionCards`,
-    APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+    DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+    REQUISITION: `${DOMAIN_PREFIX}/requisition`,
   },
   //   EMPLOYEES: {
   //     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
@@ -436,6 +433,7 @@ export const ROUTES = {
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
   },
+
   LOAN: {
     DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
     LOAN: `${DOMAIN_PREFIX}/loan`,
@@ -468,6 +466,11 @@ export const ROUTES = {
   SALARY: {
     DEFAULT: `${DOMAIN_PREFIX}/salary/*`,
     ROOT: `${DOMAIN_PREFIX}/salary`,
+    CREATE: `${DOMAIN_PREFIX}/create`,
+  },
+  QOUTATION: {
+    DEFAULT: `${DOMAIN_PREFIX}/quotation/*`,
+    ROOT: `${DOMAIN_PREFIX}/quotation`,
     CREATE: `${DOMAIN_PREFIX}/create`,
   },
   PAYROLL: {
@@ -581,6 +584,11 @@ export const ROUTES = {
     REWARD: `${DOMAIN_PREFIX}/rewards`,
     APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
   },
+  //****by SANJANA****
+  TEAMS: {
+    DEFAULT: `${DOMAIN_PREFIX}/teams`,
+  },
+
   COMPLAINS: {
     DEFAULT: `${DOMAIN_PREFIX}/complains`,
     COMPLAIN: `${DOMAIN_PREFIX}/complains`,

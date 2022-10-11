@@ -14,18 +14,18 @@ import { Link } from "react-router-dom";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
 import { useDispatch } from "react-redux";
-import { getAllCareerAction } from "../../DetailView/store/action";
 
 function ListItem({ item, onClick }) {
+  console.log(item, "description");
   return (
     <>
       <SingleItem onClick={onClick}>
         <ItemHeader className="ItemHeader">
           <div className="flex items-center gap-3">
             <Avatar
-              src={undefined}
+              src={item.creator?.image}
               className="addPostAvatar"
-              name={"Test Test"}
+              name={item.creator?.name}
               width={40}
               height={40}
               round={true}

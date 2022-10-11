@@ -68,6 +68,18 @@ export const routes = {
       component: lazy(() => import('../main/features/assets/view/assets')),
     },
     {
+      path: `${ROUTES.CREATE_ASSETS.DEFAULT}`,
+      component: lazy(() =>
+        import('../main/features/createAssets/view/AssetsEntry')
+      ),
+    },
+    {
+      path: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
+      component: lazy(() =>
+        import('../main/features/RequestListItems/view/index')
+      ),
+    },
+    {
       path: `${ROUTES.FORMS.SUBMIT_FORM}`,
       component: lazy(() =>
         import('../main/features/forms/view/forms/SubmitForm/index.js')
@@ -245,19 +257,21 @@ export const routes = {
       component: lazy(() => import('../main/features/resignation/view/index')),
     },
     // {
-		// 	path: `${ROUTES.REQUISITION.DEFAULT}`,
-		// 	component: lazy(() =>
-		// 		import("../main/features/requisition/view/requisition")
-		// 	),
-		// },
+    // 	path: `${ROUTES.REQUISITION.DEFAULT}`,
+    // 	component: lazy(() =>
+    // 		import("../main/features/requisition/view/requisition")
+    // 	),
+    // },
 
-		{
-			path: `${ROUTES.REQUISITION.DEFAULT}`,
-			component: lazy(() =>
-				//import("../main/features/view/Requisition/RequisitionCards")
-				import("../main/features/newRequisition/view/Requisition/RequisitionCards")
-			),
-		},
+    {
+      path: `${ROUTES.REQUISITION.DEFAULT}`,
+      component: lazy(() =>
+        //import("../main/features/view/Requisition/RequisitionCards")
+        import(
+          '../main/features/newRequisition/view/Requisition/RequisitionCards'
+        )
+      ),
+    },
     {
       path: `${ROUTES.SALARY.DEFAULT}`,
       component: lazy(() => import('../main/features/salary/view/index')),

@@ -32,7 +32,6 @@ const AssetsCategoryForm = ({
   const [form, setForm] = useState(data);
   console.log(form, 'data');
 
-  // TODO:// LISTDATA FOR SELECT DROPDOWN
   const { listData } = useSelector((state) => state.chartOfAccountsSlice);
 
   useEffect(() => {
@@ -42,10 +41,10 @@ const AssetsCategoryForm = ({
   const handleClear = () => {
     setForm({
       ...form,
+      name: '',
       description: '',
-      categoryName: '',
-      accType: '',
-      parentType: '',
+      accountId: '',
+      parentId: '',
     });
     setClearButton(false);
   };
@@ -55,7 +54,7 @@ const AssetsCategoryForm = ({
     } else {
       setClearButton(false);
     }
-    setForm({ ...form, categoryName: e.target.value });
+    setForm({ ...form, name: e.target.value });
   };
 
   const handleDescription = (e) => {
@@ -72,7 +71,7 @@ const AssetsCategoryForm = ({
     } else {
       setClearButton(false);
     }
-    setForm({ ...form, accType: e, parentType: undefined });
+    setForm({ ...form, accountId: e, parentId: undefined });
   };
 
   useEffect(() => {
@@ -87,7 +86,7 @@ const AssetsCategoryForm = ({
           <FormLabel>Category Name</FormLabel>
           <Input
             placeholder={'Category Name'}
-            value={form.categoryName}
+            value={form.name}
             onChange={handelChangeName}
           />
         </FormInput>
@@ -99,44 +98,49 @@ const AssetsCategoryForm = ({
             onChange={handleDescription}
           />
         </FormInput>
-        <FormInput>
-          <FormLabel>Account Type</FormLabel>
-          <Select
-            showSearch
-            style={{ width: '100%' }}
-            placeholder="Select Type"
-            defaultValue={form.accType}
-            optionFilterProp="children"
-            onChange={handelChangeBranch}
-            value={form.accType}
-            size="large"
-          >
-            {accountTypes.map((item, i) => (
-              <Select.Option value={item.id} key={i}>
-                {item.label}
-              </Select.Option>
-            ))}
-          </Select>
-        </FormInput>
-        <FormInput>
-          <FormLabel>Parent Account</FormLabel>
-          <Select
-            showSearch
-            style={{ width: '100%' }}
-            placeholder="Select Parent"
-            defaultValue={form.parentType}
-            optionFilterProp="children"
-            onChange={(e) => setForm({ ...form, parentType: e })}
-            value={form.parentType}
-            size="large"
-          >
-            {listData.map((item, i) => (
-              <Select.Option value={item.id} key={i}>
-                {item.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </FormInput>
+        {!data.parentId ? (
+          <FormInput>
+            <FormLabel>Account Type</FormLabel>
+            <Select
+              showSearch
+              style={{ width: '100%' }}
+              placeholder="Select Type"
+              defaultValue={form.accountId}
+              optionFilterProp="children"
+              onChange={handelChangeBranch}
+              value={form.accountId}
+              size="large"
+            >
+              {accountTypes.map((item, i) => (
+                <Select.Option value={item.id} key={i}>
+                  {item.label}
+                </Select.Option>
+              ))}
+            </Select>
+          </FormInput>
+        ) : null}
+
+        {!data.accountId ? (
+          <FormInput>
+            <FormLabel>Parent Account</FormLabel>
+            <Select
+              showSearch
+              style={{ width: '100%' }}
+              placeholder="Select Parent"
+              defaultValue={form.parentId}
+              optionFilterProp="children"
+              onChange={(e) => setForm({ ...form, parentId: e })}
+              value={form.parentId}
+              size="large"
+            >
+              {listData.map((item, i) => (
+                <Select.Option value={item.id} key={i}>
+                  {item.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </FormInput>
+        ) : null}
       </FormInputContainer>
       <FormButtonContainer>
         {form.id ? (

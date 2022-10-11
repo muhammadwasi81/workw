@@ -14,7 +14,7 @@ const AssetsEntry = () => {
           items={[
             {
               name: 'Create Assets',
-              to: ROUTES.REQUISITION.CREATE_VOUCHERS,
+              to: ROUTES.CREATE_ASSETS.DEFAULT,
             },
           ]}
         />

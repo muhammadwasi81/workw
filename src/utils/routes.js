@@ -80,6 +80,12 @@ export const ROUTES = {
   ASSETS: {
     DEFAULT: `${DOMAIN_PREFIX}/assets`,
   },
+  CREATE_ASSETS: {
+    DEFAULT: `${DOMAIN_PREFIX}/createAssets`,
+  },
+  REQUEST_LIST_ITEM: {
+    DEFAULT: `${DOMAIN_PREFIX}/listItems`,
+  },
   PROJECT: {
     DEFAULT: `${DOMAIN_PREFIX}/projects`,
     // DETAIL: `project-detail`,
@@ -365,12 +371,12 @@ export const ROUTES = {
     APPROVALS: `leaves/approvals`,
   },
   REQUISITION: {
-		//DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
-		//REQUISITION: `${DOMAIN_PREFIX}/requisition`,
-		DEFAULT: `${DOMAIN_PREFIX}/RequisitionCards/*`,
-		REQUISITION: `${DOMAIN_PREFIX}/RequisitionCards`,
-		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
-	},
+    //DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+    //REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+    DEFAULT: `${DOMAIN_PREFIX}/RequisitionCards/*`,
+    REQUISITION: `${DOMAIN_PREFIX}/RequisitionCards`,
+    APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+  },
   //   EMPLOYEES: {
   //     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
   //     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,

@@ -368,6 +368,24 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.inventory,
     },
+    // TODO:// CREATE ASSETS
+    {
+      name: label.navMenuLabel.createAssets,
+      counter: 0,
+      icon: assetsIcon,
+      to: ROUTES.CREATE_ASSETS.DEFAULT,
+      isActive: true,
+      key: label.navMenuLabel.inventory,
+    },
+    // TODO:// REQUESTLISTITEMS MODULE
+    {
+      name: label.navMenuLabel.requestListItems,
+      counter: 0,
+      icon: assetsIcon,
+      to: ROUTES.REQUEST_LIST_ITEM.DEFAULT,
+      isActive: true,
+      key: label.navMenuLabel.inventory,
+    },
     {
       name: label.navMenuLabel.companies,
       counter: 0,

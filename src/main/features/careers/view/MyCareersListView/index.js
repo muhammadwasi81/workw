@@ -5,20 +5,33 @@ import ListItem from "./ListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { DatePicker, Modal } from "antd";
 import "antd/dist/antd.css";
-import { getAllCareerAction } from "../DetailView/store/action";
+import {
+  getAllCareerAction,
+  getCareerByIdAction,
+} from "../../../../features/careers/store/action";
 
 const MyCareersListView = () => {
   const [openDetail, setOpenDetail] = useState(false);
 
   const careers = useSelector((state) => {
-    return state.careerSlice.careerList;
+    return state.careerSlice.items;
   });
-  console.log(careers, "CAREERS");
+  // console.log(careers, "CAREERS");
 
-  const openJobDetailHandler = () => {
-    setOpenDetail(true);
-  };
   const dispatch = useDispatch();
+
+  const openJobDetailHandler = (id) => {
+    setOpenDetail(true);
+    dispatch(getCareerByIdAction(id));
+  };
+
+  const handleOk = () => {
+    setOpenDetail(false);
+  };
+
+  const handleCancel = () => {
+    setOpenDetail(false);
+  };
 
   useEffect(() => {
     dispatch(getAllCareerAction({}));
@@ -27,34 +40,28 @@ const MyCareersListView = () => {
     <>
       <CardWrapper>
         {openDetail && (
-          // <Modal>
-          <JobDetails />
-          // </Modal>
+          <Modal
+            open={openDetail}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={null}
+          >
+            <JobDetails />
+          </Modal>
         )}
-        {[].length > 0 ? (
-          [].map((item) => (
-            <ListItem onClick={() => openJobDetailHandler()} item={item} />
+        {careers.length > 0 ? (
+          careers.map((item) => (
+            // <h1>jksdjkkjsdkj</h1>
+            <ListItem
+              onClick={() => openJobDetailHandler(item.id)}
+              item={item}
+            />
           ))
         ) : (
           <div>
             <h2>No Careers Found!</h2>
           </div>
         )}
-
-        {/* <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem /> */}
       </CardWrapper>
     </>
   );

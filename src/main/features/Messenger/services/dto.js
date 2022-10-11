@@ -8,7 +8,15 @@ const createChat = (data) => {
 		"members": data.members ? data.members : []
 	}
 }
+const getAllConversations = (data) => {
+	return {
+		"pageNo": 1,
+		"pageSize": 20,
+		"search": ""
+	}
+}
 
 export const messengerDTO = {
-    createChat
+	createChat,
+	getAllConversations
 }

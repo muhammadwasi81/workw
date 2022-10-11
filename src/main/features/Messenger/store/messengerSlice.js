@@ -40,9 +40,7 @@ export const messengerSlice = createSlice({
 
    extraReducers: (builder) => {
       builder
-         .addCase(getAllChats.fulfilled, (state, { payload }) => {
-            state.Conversations = payload.data
-         })
+        
          .addCase(searchConversation.fulfilled, (state, { payload }) => {
             state.Conversations = payload.data
          })
@@ -52,8 +50,13 @@ export const messengerSlice = createSlice({
          .addCase(getAllMessages.fulfilled, (state, { payload }) => {
             state.MessengerList[state.currentMessenger.chatId] = payload.data
          })
-         .addCase(createChat.fulfilled, (state, { payload }) => {
+
+
+         .addCase(getAllChats.fulfilled, (state, { payload }) => {
             console.log(payload, "payload")
+            state.Conversations = payload
+         })
+         .addCase(createChat.fulfilled, (state, { payload }) => {
             state.Conversations = [
                ...(state.Conversations ? state.Conversations : []), 
                payload] 

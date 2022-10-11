@@ -2244,7 +2244,7 @@ export function buildFormData(formData, data, parentKey) {
 		});
 	} else {
 		const value = data == null ? "" : data;
-		formData.append(parentKey, value);
+		value !== undefined && formData.append(parentKey, value);
 	}
 }
 

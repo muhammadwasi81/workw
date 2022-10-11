@@ -57,7 +57,7 @@ export const getAllFeed = createAsyncThunk(
 			case ResponseType.ERROR:
 				return rejectWithValue(response.errorMessage);
 			case ResponseType.SUCCESS:
-				return response.data;
+				return { data: response.data, pageNo: data.pageNo };
 		}
 	}
 );

@@ -16,9 +16,11 @@ export default class Scroll extends React.Component {
 	};
 
 	componentDidMount() {
+		// const root = document.getElementById("app");
+		// console.log("root", root);
 		//set height
 		console.log(
-			"dsfdsf",
+			"parent height ",
 			document.getElementsByClassName("scroll_dropdown")[0].offsetParent
 				.offsetHeight
 		);
@@ -26,6 +28,10 @@ export default class Scroll extends React.Component {
 			height: document.getElementsByClassName("scroll_dropdown")[0]
 				.offsetParent.offsetHeight,
 		});
+		// this.setState({
+		// 	height: document.getElementsByClassName("scroll_dropdown")[0]
+		// 		.offsetHeight,
+		// });
 	}
 
 	fetchMoreData = () => {
@@ -36,9 +42,8 @@ export default class Scroll extends React.Component {
 		// 		items: this.state.items.concat(Array.from({ length: 20 })),
 		// 	});
 		// }, 1500);
-
 		//increase the number of page by 1
-		// console.log("fetch more data");
+		console.log("fetch more data");
 		this.setState({
 			page: this.state.page + 1,
 		});
@@ -49,29 +54,43 @@ export default class Scroll extends React.Component {
 			// console.log("callback");
 			this.props.fetchMoreData(this.state.page);
 		}
-		// if (
-		// 	JSON.stringify(prevProps.data) !==
-		// 		JSON.stringify(this.props.data) &&
-		// 	this.props.data?.length > 0
-		// ) {
-		// 	this.fetchMoreData();
-		// }
 	}
+
+	hasMoreData = () => {
+		if (this.props.data.length - 20 * (this.state.page - 1) > 19) {
+			return true;
+		}
+		return false;
+	};
 
 	render() {
 		return (
-			<div className="scroll_dropdown">
+			<div className="scroll_dropdown " id="scrollableDiv">
 				<InfiniteScroll
 					dataLength={this.props.data.length}
 					next={this.fetchMoreData}
 					hasMore={true}
-					loader={<h4>Loading...</h4>}
+					inverse={this.props.inverse || false}
+					loader={
+						this.props.loader || (
+							<p style={{ textAlign: "center" }}>
+								<b>Loading...</b>
+							</p>
+						)
+					}
 					height={this.state.height}
 					endMessage={
-						<p style={{ textAlign: "center" }}>
-							<b>Yay! You have seen it all</b>
-						</p>
+						!this.props.isLoading && (
+							<p style={{ textAlign: "center" }}>
+								<b>
+									{this.props.endMessage ||
+										"Yay! You have seen it all"}
+								</b>
+							</p>
+						)
 					}
+					scrollThreshold={"100%"}
+					scrollableTarget="scrollableDiv"
 				>
 					{this.props.children}
 				</InfiniteScroll>

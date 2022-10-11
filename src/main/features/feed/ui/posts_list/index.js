@@ -9,7 +9,6 @@ import Scroll from "../../../../sharedComponents/ScrollSelect/infinteScoll";
 function PostsList({ referenceType, referenceId, reactionModule }) {
 	const { userSlice, feedSlice } = useSelector(state => state);
 	const [pageNo, setPageNo] = useState(1);
-	const [feed, setFeed] = useState([]);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(
@@ -25,35 +24,37 @@ function PostsList({ referenceType, referenceId, reactionModule }) {
 	}, [pageNo]);
 	const { posts } = feedSlice.allFeed;
 
-	useEffect(() => {
-		setFeed([...feed, ...posts]);
-	}, [JSON.stringify(posts)]);
-
-	// if (feedSlice.allFeed.loading) return <PostSkeleton />;
+	if (feedSlice.allFeed.loading && posts.length === 0)
+		return <PostSkeleton />;
 	return (
-		<Scroll
-			data={feed}
-			fetchMoreData={pageNo => {
-				setPageNo(pageNo);
-			}}
-			height={981}
-		>
-			<div className="newsList ">
-				{!feed.length > 0 ? (
-					<p>No Posts</p>
-				) : (
-					feed.map(post => (
+		<div className="newsList">
+			{!posts.length > 0 ? (
+				<p style={{ textAlign: "center" }}>
+					<b>No Posts...</b>
+				</p>
+			) : (
+				<Scroll
+					// isLoading={feedSlice.allFeed.loading}
+					data={posts}
+					fetchMoreData={pageNo => {
+						setPageNo(pageNo);
+					}}
+					loader={<PostSkeleton />}
+					endMessage={"No more posts..."}
+				>
+					{posts.map((post, index) => (
 						<PostItem
+							key={index}
 							post={post}
 							viewAllComments={true}
 							referenceType={referenceType}
 							referenceId={referenceId}
 							reactionModule={reactionModule}
 						/>
-					))
-				)}
-			</div>
-		</Scroll>
+					))}
+				</Scroll>
+			)}
+		</div>
 	);
 }
 

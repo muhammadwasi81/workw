@@ -2234,7 +2234,6 @@ export function buildFormData(formData, data, parentKey) {
 			buildFormData(
 				formData,
 				data[key],
-				// parentKey ? `${parentKey}[${key}]` : key
 				parentKey
 					? !isNaN(Number(key))
 						? `${parentKey}[${key}]`
@@ -2243,8 +2242,8 @@ export function buildFormData(formData, data, parentKey) {
 			);
 		});
 	} else {
-		const value = data == null ? "" : data;
-		formData.append(parentKey, value);
+		// const value = data == null ? "" : data;
+		data !== undefined && data !== null && formData.append(parentKey, data);
 	}
 }
 

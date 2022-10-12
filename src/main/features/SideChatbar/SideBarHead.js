@@ -35,32 +35,32 @@ export const SideBarHead = () => {
 					label: createRoom,
 					onClick: () => dispatch(handleCreateRoomModal()),
 				},
-				{
-					key: "2",
-					label: instantCall,
-					onClick: async () => {
-						try {
-							const response = await fetch(
-								"https://call.workw.com/api/createroomlink",
-								{
-									method: "POST", // *GET, POST, PUT, DELETE, etc.
-									headers: {
-										"Content-Type": "application/json",
-									},
-									body: JSON.stringify({
-										initializerName: user.name,
-										meetingType: "public",
-										receiverIds: [],
-									}),
-								}
-							);
-							const { data } = await response.json();
-							intilizeCallwindow(data);
-						} catch (e) {
-							message.error(e.message);
-						}
-					},
-				},
+				// {
+				// 	key: "2",
+				// 	label: instantCall,
+				// 	onClick: async () => {
+				// 		try {
+				// 			const response = await fetch(
+				// 				"https://call.workw.com/api/createroomlink",
+				// 				{
+				// 					method: "POST", // *GET, POST, PUT, DELETE, etc.
+				// 					headers: {
+				// 						"Content-Type": "application/json",
+				// 					},
+				// 					body: JSON.stringify({
+				// 						initializerName: user.name,
+				// 						meetingType: "public",
+				// 						receiverIds: [],
+				// 					}),
+				// 				}
+				// 			);
+				// 			const { data } = await response.json();
+				// 			intilizeCallwindow(data);
+				// 		} catch (e) {
+				// 			message.error(e.message);
+				// 		}
+				// 	},
+				// },
 			]}
 		/>
 	);

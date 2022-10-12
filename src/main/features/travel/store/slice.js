@@ -8,6 +8,10 @@ const initialState = {
 	success: false,
 	isAdded: false,
 	error: false,
+	attachments: {
+		isAttachmentModalOpen: false,
+		attachmentsData: [],
+	},
 };
 
 const travelSlice = createSlice({
@@ -16,6 +20,11 @@ const travelSlice = createSlice({
 	reducers: {
 		resetTravelDetail(state, { payload }) {
 			state.travelDetail = null;
+		},
+		handleAttachmentModal(state, { payload }) {
+			state.attachments.isAttachmentModalOpen = !state.attachments
+				.isAttachmentModalOpen;
+			state.attachments.attachmentsData = payload;
 		},
 	},
 	extraReducers: builder => {
@@ -30,12 +39,18 @@ const travelSlice = createSlice({
 				// console.log("travel fullfilled slice");
 				state.loader = false;
 				state.success = true;
-				state.travels = payload.data;
+				const { data, pageNo } = payload;
+				if (pageNo === 1) {
+					state.travels = data;
+				} else {
+					state.travels = state.travels.concat(data);
+				}
 			})
 			.addCase(getTravelById.fulfilled, (state, { payload }) => {
 				// console.log("travel fullfilled slice");
 				state.loader = false;
 				state.success = true;
+
 				state.travelDetail = payload.data;
 			})
 			.addMatcher(
@@ -56,5 +71,5 @@ const travelSlice = createSlice({
 	},
 });
 
-export const { resetTravelDetail } = travelSlice.actions;
+export const { resetTravelDetail, handleAttachmentModal } = travelSlice.actions;
 export default travelSlice.reducer;

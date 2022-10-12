@@ -12,12 +12,22 @@ import moment from "moment";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import TravelDetail from "../TravelDetail/TravelDetail";
 import { useDispatch } from "react-redux";
-import { resetTravelDetail } from "../../store/slice";
+import { handleAttachmentModal, resetTravelDetail } from "../../store/slice";
+import Attachments from "../UI/Attachments";
+import CustomModal from "../../../workboard/Modal/CustomModal";
+import AttachmentsCarrousel from "../AttachmentsCarrousel/AttachmentsCarrousel";
+import { useSelector } from "react-redux";
 
 function ListView(props) {
 	const { labels } = props;
 	const [visible, setVisible] = useState(false);
 	const [travelId, setTravelId] = useState("");
+	const isAttachmentModalOpen = useSelector(
+		state => state.travelSlice.attachments.isAttachmentModalOpen
+	);
+	const data = useSelector(
+		state => state.travelSlice.attachments.attachmentsData
+	);
 
 	const dispatch = useDispatch();
 	const showDrawer = id => {
@@ -38,9 +48,6 @@ function ListView(props) {
 							className="flex bg-white flex-col gap-2 rounded-xl cursor-pointer overflow-hidden hover:shadow-lg duration-300"
 							onClick={() => {
 								showDrawer(data.id);
-								// navigate(
-								// 	`${ROUTES.TRAVEL.TREAVELDETAIL}${data.id}`
-								// );
 							}}
 						>
 							<div className="p-3 sm:p-5">
@@ -74,6 +81,20 @@ function ListView(props) {
 											</span>
 											{data.description}
 										</div>
+									</div>
+									{/* attachments */}
+									<div>
+										<Attachments
+											data={data.attachments}
+											key={data}
+											onClick={() => {
+												dispatch(
+													handleAttachmentModal(
+														data.attachments
+													)
+												);
+											}}
+										/>
 									</div>
 								</div>
 								<div className="bg-[#F6F7F9] mt-3 p-3 px-9 rounded flex items-center justify-between relative overflow-auto ">
@@ -173,6 +194,23 @@ function ListView(props) {
 			>
 				<TravelDetail travelId={travelId} />
 			</Drawer>
+			<div
+				onClick={e => {
+					e.preventDefault();
+					e.stopPropagation();
+				}}
+			>
+				<CustomModal
+					isModalVisible={isAttachmentModalOpen}
+					footer={null}
+					width={"80%"}
+					className="attachmentModal"
+					onCancel={() => dispatch(handleAttachmentModal([]))}
+					children={
+						<AttachmentsCarrousel attachments={data} key={data} />
+					}
+				/>
+			</div>
 		</div>
 	);
 }

@@ -6,7 +6,7 @@ import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { getAllEmployees } from "../../../../utils/Shared/store/actions";
+import { getAllEmployees, getEmployeeSalary } from "../../../../utils/Shared/store/actions";
 
 
 const initialState = {
@@ -45,22 +45,28 @@ const Composer = (props) => {
   const [amountType, setAmountType] = useState(false)
 
   const employees = useSelector(state => state.sharedSlice.employees);
+  const salary = useSelector(state => state.sharedSlice.employeeSalary);
+  const [netsalary, setNetSalary] = useState(90)
+  const [employeeID, setEmployeeId] = useState(null)
+
+  useEffect(() => {
+    fetchEmployees("", 0);
+    // setNetSalary(salary)
+  }, []);
 
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
+    dispatch(getEmployeeSalary({ id: "F02C12DA-13D6-4052-ABFF-06D928D6EC41" }))
   };
-  useEffect(() => {
-    fetchEmployees("", 0);
-  }, []);
 
   const handleMember = val => {
     setNewState({
       ...newState,
       members: [...val],
     });
+    // setNetSalary(salary)
   };
-
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
@@ -105,7 +111,6 @@ const Composer = (props) => {
   };
 
   const handleType = (e) => {
-    console.log(e.target.value, "HELLO I AM RADIO")
     let type = e.target.value;
     if (type === 2) {
       setAmountType(true)
@@ -170,9 +175,13 @@ const Composer = (props) => {
         </Form.Item>
 
         <div className="flex justify-between gap-4">
-          <div className="w-full">
+          <div className="" style={{ width: "100px" }}>
             <Form.Item label={"Net Salary"} name="netsalary">
-              <Input disabled size="large" />
+              {
+                <p style={{ marginTop: "5px" }}>
+                  {salary}
+                </p>
+              }
             </Form.Item>
           </div>
           <div className="w-full">

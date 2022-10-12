@@ -1,0 +1,27 @@
+.attachment {
+	/* height: 120px; */
+	padding: 10px;
+	cursor: pointer;
+}
+
+.attachment .swiper-wrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.attachment .swiper-slide-thumb-active {
+	border: 2px solid var(--currentThemeColor) !important;
+}
+
+.attachment .swiper-slide {
+	border: 2px solid transparent;
+}
+
+.attachment .swiper-slide:hover {
+	border: 2px solid var(--currentThemeColor);
+	transition: 0.5s;
+}
+
+.attachmentModal .ant-modal-body{
+	padding-top: 45px;
+}

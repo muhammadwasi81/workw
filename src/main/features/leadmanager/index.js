@@ -11,6 +11,7 @@ import { LanguageChangeContext } from "../../../utils/localization/localContext/
 import { useDispatch, useNavigate, useSelector } from "react-redux";
 import { getAllLeadManager } from "./store/actions";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import Spinner from "../../sharedComponents/spinner/spinner";
 
 function LeadManager() {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -28,7 +29,7 @@ function LeadManager() {
 	const leadManagerData = useSelector(
 		state => state.leadMangerSlice.leadManagersData
 	);
-	// const loading = useSelector(state => state.leadMangerSlice.loading);
+	const loading = useSelector(state => state.leadMangerSlice.loading);
 	useEffect(() => {
 		dispatch(
 			getAllLeadManager({
@@ -67,12 +68,16 @@ function LeadManager() {
 				topBar={topBar}
 			/>
 			<ContBody className="!block" direction={Direction}>
-				<LeadDashboard
-					isTableView={isTableView}
-					dictionary={LeadManagerDictionaryList}
-					data={leadManagerData}
-					onChange={handleColumnSorting}
-				/>
+				{loading ? (
+					<Spinner />
+				) : (
+					<LeadDashboard
+						isTableView={isTableView}
+						dictionary={LeadManagerDictionaryList}
+						data={leadManagerData}
+						onChange={handleColumnSorting}
+					/>
+				)}
 			</ContBody>
 		</TabbableContainer>
 	);

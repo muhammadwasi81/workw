@@ -19,6 +19,7 @@ import {
   getAllComplainCategoryService,
   getAllEmployeeService,
   getAllEmployeeShortService,
+  getEmployeeSalaryService,
 } from "../services/services";
 
 export const getCountries = createAsyncThunk(
@@ -49,6 +50,20 @@ export const getCities = createAsyncThunk(
     return res;
   }
 );
+
+export const getEmployeeSalary = createAsyncThunk(
+  "getEmployeeSalary",
+  async (data, { dispatch, getState }) => {
+    const res = await getEmployeeSalaryService(data)
+    if (!res.responseCode) {
+      responseMessage({
+        dispatch: dispatch,
+        type:  responseMessageType.ApiFailure
+      })
+    }
+    return res
+  }
+)
 
 export const getAllDefaultDesignation = createAsyncThunk(
   "getDefaultDesignation",

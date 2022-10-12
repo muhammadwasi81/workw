@@ -18,6 +18,7 @@ const ConversationListItem = ({ conversation }) => {
 		id = STRINGS.DEFAULTS.guid,
 		imageId = "",
 		name = "",
+		image = "",
 		chatType = MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT,
 		chatWith = {
 			name: "",
@@ -31,16 +32,18 @@ const ConversationListItem = ({ conversation }) => {
 	// TODO: Conditionally get profileImage & profileName behalf of ChatId
 	const profileImage =
 		chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT
-			? chatWith.image
-			: chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
-			? imageId
-			: "";
+			? chatWith?.image
+			: image
+	// : chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
+	// ? image
+	// : "";
 	const profileName =
 		chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT
-			? chatWith.name
-			: chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
-			? name
-			: "";
+			? chatWith?.name
+			: name
+	// : chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
+	// ? name
+	// : "";
 
 	const handleItemClick = () => {
 		// TODO: handleIsopenChat for manage Mobile Chat view;
@@ -60,9 +63,7 @@ const ConversationListItem = ({ conversation }) => {
 			})
 		);
 	};
-	let lastMsgTime = !moment(new Date()).isAfter(lastUpdate)
-		? moment(lastUpdate).format("LT")
-		: moment(lastUpdate).format("LL");
+	let lastMsgTime = moment(lastUpdate).fromNow();
 
 	return (
 		<div className="ConversationListItem" onClick={handleItemClick}>
@@ -81,10 +82,10 @@ const ConversationListItem = ({ conversation }) => {
 					<div className="ItemLastMsgTime">{lastMsgTime}</div>
 				</div>
 			</div>
-			<div className="ItemIcon">
-				<Badge count={1} />
-				{/* <Avatar src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"} name={""} size={20} round={true} /> */}
-			</div>
+			{/* <div className="ItemIcon"> */}
+			{/* <Badge count={1} /> */}
+			{/* <Avatar src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"} name={""} size={20} round={true} /> */}
+			{/* </div> */}
 		</div>
 	);
 };

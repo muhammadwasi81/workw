@@ -9,7 +9,6 @@ import { MessengerContainer } from "./style/SideChatBar.style";
 const Index = () => {
 	const { isMobileScreen } = useSelector(state => state.responsiveSlice);
 	const isOpenMessenger = useSelector(state => state.MessengerSlice.mobileIsopenChat);
-
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getAllChats());

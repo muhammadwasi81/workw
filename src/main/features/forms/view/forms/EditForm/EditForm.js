@@ -1,241 +1,441 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Avatar, Form, message } from "antd";
 import FormHeader from "./FormHeader";
 import Radio from "./QuestionsItems/Radio";
 import RadioWithImage from "./QuestionsItems/RadioWithImage";
+import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import TextFields from "./QuestionsItems/TextFields";
+import { useSearchParams, useNavigate, useParams } from "react-router-dom";
+import { defaultUiid } from "../../../../../../utils/Shared/enums/enums";
+import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
+import { updateForm } from "../../../store/actions";
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
 import "./editForm.css";
 import DrangableQuestions from "./DragableItems";
-import { STRINGS } from "../../../../../../utils/base";
-// import DragHandleIcon from '@material-ui/icons/DragHandle';
+import {
+  createGuid,
+  modifySelectData,
+  STRINGS,
+  getNameForImage,
+} from "../../../../../../utils/base";
+import BusinessLogo from "../../../../../../content/systemLogo.png";
+import { addForm, getFormById } from "../../../store/actions";
+import QuestionWithType from "../CreateForm/QuestionWithType";
+
+let initialData = {
+  id: "",
+  name: "",
+  description: "",
+  acceptingResponse: true,
+  business_id: "",
+  businessLogo:
+    "https://Konnect.im/upload/2021/12/440ba960-2b69-43d4-90f2-754824fd8a40.png",
+  status: 1,
+  approverStatus: 2,
+  ref_no: "FRM-000042",
+  createBy: "",
+  createDate: "",
+  creator: {
+    id: "",
+    name: "",
+    profile_picture: "",
+    designation: "",
+    email: "",
+    userStatus: 1,
+    userStatusDatetime: "",
+    type: 1,
+    isActive: true,
+    isDisable: false,
+    business_id: "",
+    user_type: 2,
+  },
+  approvals: [],
+  question: [],
+};
 
 const EditForm = (props) => {
-  let { id } = useParams();
+  console.log(useParams());
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const [searchParams] = useSearchParams();
+  const { id } = useParams();
+  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [employeesData, setEmployeesData] = useState([]);
+  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [dataObj, setDataObj] = useState([]);
   const [formData, setFormData] = useState(null);
-  const [snackbarState, setSnackbarState] = useState({ isOpen: false, Message: "", variant: "error" });
-  useEffect(() => {
-    let data = {
-      "id": "c54f223b-46d0-40d8-85d3-9fd8257d2d02",
-      "name": "Party Invite",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis sem odio. Sed commodo vestibulum leo, sit amet tempus odio consectetur in.",
-      "acceptingResponse": true,
-      "business_id": "32bd41c4-ec31-411f-9633-0b4801edbf3f",
-      "businessLogo": "https://Konnect.im/upload/2021/12/440ba960-2b69-43d4-90f2-754824fd8a40.png",
-      "status": 1,
-      "approverStatus": 2,
-      "ref_no": "FRM-000042",
-      "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-      "createDate": "1658748266000",
-      "creator": {
-        "id": "fab583c7-7ebb-4993-b40b-cad65768247b",
-        "name": "Abu Bakar",
-        "profile_picture": "https://Konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-        "designation": "",
-        "email": "abubakr@miletap.com",
-        "userStatus": 1,
-        "userStatusDatetime": "",
-        "type": 1,
-        "isActive": true,
-        "isDisable": false,
-        "business_id": "32bd41c4-ec31-411f-9633-0b4801edbf3f",
-        "user_type": 2
-      },
-      "approvals": [],
-      "questions": [
-        {
-          "id": "577bc117-1883-4790-bb5e-ecfa8a97f157",
-          "form_id": "c54f223b-46d0-40d8-85d3-9fd8257d2d02",
-          "question": "What is your name?",
-          "sequence": 0,
-          "answerType": 3,
-          "isRequired": true,
-          "image_id": "00000000-0000-0000-0000-000000000000",
-          "image": "",
-          "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-          "createDate": "1658748266000",
-          "answers": []
-        },
-        {
-          "id": "f4c959f1-4d95-443c-981a-6b5866703eac",
-          "form_id": "c54f223b-46d0-40d8-85d3-9fd8257d2d02",
-          "question": "Can you attend?",
-          "sequence": 1,
-          "answerType": 1,
-          "isRequired": true,
-          "image_id": "00000000-0000-0000-0000-000000000000",
-          "image": "",
-          "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-          "createDate": "1658748266000",
-          "answers": [
-            {
-              "id": "1aa57264-8488-42fd-b460-492d1eab9e64",
-              "question_id": "f4c959f1-4d95-443c-981a-6b5866703eac",
-              "answer": "One",
-              "image_id": "00000000-0000-0000-0000-000000000000",
-              "image": "",
-              "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-              "createDate": "1658748266000"
-            },
-            {
-              "id": "8cd7ed3a-5be9-4586-98e4-555aae8d474e",
-              "question_id": "f4c959f1-4d95-443c-981a-6b5866703eac",
-              "answer": "Sorry, can't make it",
-              "image_id": "00000000-0000-0000-0000-000000000000",
-              "image": "",
-              "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-              "createDate": "1658748266000"
-            }
-          ]
-        },
-        {
-          "id": "c4c60b80-b4ad-45a5-9968-432a5b73988a",
-          "form_id": "c54f223b-46d0-40d8-85d3-9fd8257d2d02",
-          "question": "How many of you are attending?",
-          "sequence": 2,
-          "answerType": 3,
-          "isRequired": true,
-          "image_id": "00000000-0000-0000-0000-000000000000",
-          "image": "",
-          "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-          "createDate": "1658748266000",
-          "answers": []
-        },
-        {
-          "id": "88cd1dab-687d-4af3-8161-53088311a736",
-          "form_id": "c54f223b-46d0-40d8-85d3-9fd8257d2d02",
-          "question": "Select Best Image here",
-          "sequence": 3,
-          "answerType": 1,
-          "isRequired": true,
-          "image_id": "00000000-0000-0000-0000-000000000000",
-          "image": "",
-          "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-          "createDate": "1658748266000",
-          "answers": [
-            {
-              "id": "124fe865-1b9b-4a66-932c-0120c47204b8",
-              "question_id": "88cd1dab-687d-4af3-8161-53088311a736",
-              "answer": "Two",
-              "image_id": "b904bf1f-ad03-43be-7ac5-e3c34e5714a3",
-              "image": "https://Konnect.im/upload/2022/7/ada9cb78-f8cb-47a9-b21c-05432820b4f9.png",
-              "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-              "createDate": "1658748266000"
-            },
-            {
-              "id": "5bbd1a8c-7182-4e6c-ba2f-0992cc7db83d",
-              "question_id": "88cd1dab-687d-4af3-8161-53088311a736",
-              "answer": "Four",
-              "image_id": "516472f6-6b49-4ce8-9e40-5f3777a70e36",
-              "image": "https://Konnect.im/upload/2022/7/be561718-280a-4f9b-85d4-aa30b94dc68e.png",
-              "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-              "createDate": "1658748266000"
-            },
-            {
-              "id": "3ad0cb24-d5cc-4cc7-8d81-8a69cab83b8e",
-              "question_id": "88cd1dab-687d-4af3-8161-53088311a736",
-              "answer": "One",
-              "image_id": "e99d0bf1-4856-4999-9488-511f12073535",
-              "image": "https://Konnect.im/upload/2022/7/7d3ffbf7-b12d-42eb-abfd-49c4a59e341b.png",
-              "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-              "createDate": "1658748266000"
-            },
-            {
-              "id": "03c17929-a5c8-419b-b03c-d85ad2e68731",
-              "question_id": "88cd1dab-687d-4af3-8161-53088311a736",
-              "answer": "Three",
-              "image_id": "874e298c-6fc3-4693-6f40-d35306498e0c",
-              "image": "https://Konnect.im/upload/2022/7/f8ea7d0f-9a16-4b84-9f62-a896f382d6fa.png",
-              "createBy": "fab583c7-7ebb-4993-b40b-cad65768247b",
-              "createDate": "1658748266000"
-            }
-          ]
-        }
-      ]
-    }
-    setFormDataByType(data)
+  const [question, setQuestions] = useState([]);
+  const [error, setError] = useState(false);
 
+  const { user } = useSelector((state) => state.userSlice);
+  const { formDetail, loader } = useSelector((state) => state.formSlice);
+  const {
+    sharedSlice: { employees },
+  } = useSelector((state) => state);
+
+  // useEffect(() => {
+  //   // console.log("use effect works when data object change****");
+  //   setFormDataByType(dataObj);
+  // }, [dataObj]);
+
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
+
+  useEffect(() => {
+    //getformbyid data for edit
+    dispatch(getFormById(id));
+    fetchEmployees("", 0);
   }, []);
+
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+    }
+  }, [employees]);
+
+  useEffect(() => {
+    console.log("useEffect works when component update");
+    if (Object.keys(formDetail).length > 1) {
+      setDataObj(formDetail);
+    }
+  }, [formDetail]);
+
+  useEffect(() => {
+    console.log("use effect works when data object change****", dataObj);
+    if (Object.keys(dataObj).length > 1) {
+      setFormDataByType(dataObj);
+    }
+  }, [dataObj]);
+
   let setFormDataByType = (data) => {
-    let filteredData = data.questions.map((item) => {
-      if (item.answerType === 4) {
+    console.log("data getting in set form by type****", data);
+    let filteredData = data?.question.map((item, index) => {
+      console.log("filtering data");
+      if (item.answerType === 2) {
         return {
           ...item,
-          localType: "number"
-        }
-      }
-      else if (item.answerType === 3) {
+          localType: "number",
+          sequence: index,
+        };
+      } else if (item.answerType === 3) {
         return {
           ...item,
-          localType: "text"
-        }
-      }
-      else if (item.answerType === 1 && "radioWithImage") {
-        let isRadioWithImg = item.answers.filter(it => it.image_id !== STRINGS.DEFAULTS.guid);
-        if (isRadioWithImg.length === 0) {
+          localType: "text",
+          sequence: index,
+        };
+      } else if (item.answerType === 1) {
+        if (item.answers[index]?.image?.length > 1) {
+          console.log("item with radio");
           return {
             ...item,
-            localType: "radio"
-          }
-        }
-        else {
+            localType: "radioWithImage",
+            sequence: index,
+          };
+        } else {
           return {
             ...item,
-            localType: "radioWithImage"
-          }
+            localType: "radio",
+            sequence: index,
+          };
         }
       }
     });
     // setSubmitForms(submitData);
-    setFormData({ ...data, questions: filteredData });
+    console.log("filtered data", filteredData);
+    setFormData({ ...data, question: filteredData });
+    // console.log("formData", formData);
   };
-  const handleChange = (items) => {
-    console.log(items)
-  }
+
+  const handleChange = (e, index) => {
+    console.log("change items", e.target.value);
+    console.log("index", index);
+
+    //TODO: setState for fields
+    let updatedFormData = { ...dataGet };
+    updatedFormData.question[index].question = e.target.value;
+    setDataObj(updatedFormData);
+  };
+
+  const handleChangeTitle = (e) => {
+    console.log("change title", e.target.value);
+    //TODO: setState for fields
+    setDataObj({ ...dataObj, subject: e.target.value });
+  };
+
+  const handleChangeDescription = (e) => {
+    console.log("change Description", e.target.value);
+    //TODO: setState for fields
+    setDataObj({ ...dataObj, description: e.target.value });
+  };
+
   const handleSequenceChange = (items) => {
-    console.log(items)
+    console.log(items);
     let filteredData = items.map((item, index) => {
       return {
         ...item,
-        sequence: index
-      }
+        sequence: index,
+      };
     });
-    setFormData({ ...formData, questions: filteredData })
-  }
-  console.log(formData)
-  if (!formData)
-    return <div>Loading...</div>
+    setDataObj({ ...dataObj, question: filteredData });
+  };
+
+  const handleQuestionImageChange = (info, index) => {
+    console.log("handleimagechange", info[0]);
+    console.log("handleimagechangeindex", index);
+
+    //TODO:  here we have both index and info we will set this data in state for edit purpose
+    console.log("form data updates start");
+    let updatedFormData = { ...dataObj };
+    console.log(info.length, "length");
+    updatedFormData.question[index].image =
+      typeof info[0] === "object" ? { file: info[0].originFileObj } : {};
+    setDataObj(updatedFormData);
+    console.log("form data updates end");
+  };
+
+  const handleOptionImageChange = (info, opIndex, quesIndex) => {
+    console.log(info, "info");
+    console.log(opIndex, "option index");
+    console.log(quesIndex, "question index");
+
+    console.log(info.length, "info length");
+
+    //TODO:  here we have both index and info we will set this data in state for edit purpose
+    console.log("form data options updates start");
+    let updatedFormData = { ...dataObj };
+    console.log(updatedFormData.question[quesIndex].answers[opIndex].image);
+
+    updatedFormData.question[quesIndex] = {
+      ...updatedFormData.question[quesIndex],
+      answers: updatedFormData.question[quesIndex].answers.map(
+        (item, ansIndex) => ({
+          ...item,
+          image:
+            ansIndex === opIndex
+              ? info.length >= 1
+                ? { file: info[0].originFileObj }
+                : ""
+              : item.image,
+        })
+      ),
+    };
+    console.log(updatedFormData.question);
+    setDataObj(updatedFormData);
+    console.log(updatedFormData, "questiondata");
+    console.log("form data options updates end");
+  };
+
+  const handleOptionsChange = (e, opIndex, quesIndex) => {
+    console.log(e.target.value, "info");
+    console.log(opIndex, "option index");
+    console.log(quesIndex, "question index");
+
+    //TODO:  here we have both index and info we will set this data in state for edit purpose
+    console.log("form data options updates start");
+    let updatedFormData = { ...dataObj };
+    console.log(updatedFormData.question[quesIndex].answers[opIndex].image);
+
+    updatedFormData.question[quesIndex] = {
+      ...updatedFormData.question[quesIndex],
+      answers: updatedFormData.question[quesIndex].answers.map(
+        (item, ansIndex) => ({
+          ...item,
+          answer: ansIndex === opIndex ? e.target.value : item.answer,
+        })
+      ),
+    };
+    console.log(updatedFormData.question);
+    setDataObj(updatedFormData);
+    console.log(updatedFormData, "questiondata");
+    console.log("form data options updates end");
+  };
+
+  const removeQuestion = (i) => {
+    console.log(i);
+    const data = [...formData.question];
+    console.log(data, "data");
+    //REMOVE QUESTION FROM ARRAY AND SET SEQUENCE
+    data.splice(i, 1);
+    console.log("filtered data", data);
+    //UPDATE THE DATA IN STATE
+    let filteredData = data.map((item, index) => {
+      return {
+        ...item,
+        sequence: index,
+      };
+    });
+
+    setDataObj({ ...dataObj, question: filteredData });
+  };
+
+  const dataGet = (values) => {
+    const append = (answers, fileList) =>
+      answers.map((x, index) => {
+        let image =
+          fileList &&
+          fileList?.filter((it) => it.index === index)[0]?.image?.originFileObj;
+        return {
+          answer: x,
+          image: {
+            file: image && image,
+            id: defaultUiid,
+          },
+        };
+      });
+
+    let ques = {
+      answerType: values.answerType,
+      // sequence: index,
+      question: values.question,
+      image: {
+        file:
+          values.image &&
+          (values.image?.originFileObj
+            ? values.image?.originFileObj
+            : values.image.file),
+      },
+      createBy: user.id,
+      answers: values.fileList ? append(values.answers, values?.fileList) : [],
+    };
+    console.log(ques, "new question");
+
+    //TODO: append question in dataObj
+    let data = [...dataObj.question];
+    console.log(data, "data spread");
+    data.push(ques);
+    setDataObj({ ...dataObj, question: data });
+  };
+
+  const onEdit = () => {
+    if (formData.question.length >= 1) {
+      console.log("edit console start");
+      dispatch(updateForm(formData));
+      console.log("dispatch complete");
+      navigate(-1);
+    } else {
+      message.error("can't Edit without questions");
+    }
+  };
+
+  if (!formData) return;
+  <div>Loading...</div>;
+  console.log("formdata", formData);
   return (
     <>
       <div className="submit-form-wrap">
-        <div className="formCompanyLogo" ><img src={formData.businessLogo} /></div>
+        <div className="formCompanyLogo">
+          <img src={BusinessLogo} />
+        </div>
         <div className="center-fix">
           <FormHeader
-            title={formData.name}
+            title={formData.subject}
             description={formData.description}
-            isAcceptingResp={formData.acceptingResponse} />
-          <DrangableQuestions questions={formData.questions}
+            isAcceptingResp={formData.acceptingResponse}
+            handleChangeTitle={handleChangeTitle}
+            handleDescriptionChange={handleChangeDescription}
+          />
+          {/* <Form.Item label="Approvers" name="approvers">
+            <MemberSelect
+              name="Approvers"
+              mode="multiple"
+              formItem={false}
+              isObject={true}
+              onChange={(e) => console.log(e)}
+              data={firstTimeEmpData}
+              canFetchNow={isFirstTimeDataLoaded}
+              fetchData={fetchEmployees}
+              placeholder="Select Approvers"
+              selectedData={(_, obj) => {
+                setEmployeesData([...obj]);
+              }}
+              optionComponent={(opt) => {
+                return (
+                  <>
+                    <Avatar src={opt.image} className="!bg-black">
+                      {getNameForImage(opt.name)}
+                    </Avatar>
+                    {opt.name}
+                  </>
+                );
+              }}
+            />
+          </Form.Item> */}
+          <QuestionWithType dataSend={(values) => dataGet(values)} />
+          <DrangableQuestions
+            questions={formData.question}
             handleChange={handleSequenceChange}
           >
-            {formData && formData.questions.map((item, index) => (
-              <>
-                {item.localType === "radio" && <Radio handleRadioChange={handleChange} question={item} index={index} />}
-                {item.localType === "radioWithImage" && <RadioWithImage handleChange={handleChange} question={item} index={index} />}
-                {item.localType === "text" && <TextFields handleChange={handleChange} fieldData={item} index={index} type="text" />}
-                {item.localType === "number" && <TextFields handleChange={handleChange} fieldData={item} index={index} type="number" />}
-              </>
-            ))}
+            {formData &&
+              formData.question.map((item, index) => (
+                <>
+                  {item.localType === "radio" && (
+                    <Radio
+                      handleRadioChange={(e) => handleChange(e, index)}
+                      question={item}
+                      index={index}
+                      removeQuestion={(index) => removeQuestion(index)}
+                      handleQuestionImageChange={(info) =>
+                        handleQuestionImageChange(info, index)
+                      }
+                      handleOptionsChange={(e, i) =>
+                        handleOptionsChange(e, i, index)
+                      }
+                      handleOptionImageChange={(info, i) =>
+                        handleOptionImageChange(info, i, index)
+                      }
+                    />
+                  )}
+                  {item.localType === "radioWithImage" && (
+                    <RadioWithImage
+                      handleChange={(e) => handleChange(e, index)}
+                      question={item}
+                      index={index}
+                      removeQuestion={(index) => removeQuestion(index)}
+                      handleQuestionImageChange={(info) =>
+                        handleQuestionImageChange(info, index)
+                      }
+                      handleOptionsChange={(e, i) =>
+                        handleOptionsChange(e, i, index)
+                      }
+                      handleOptionImageChange={(info, i) =>
+                        handleOptionImageChange(info, i, index)
+                      }
+                    />
+                  )}
+                  {item.localType === "text" && (
+                    <TextFields
+                      handleChange={(e) => handleChange(e, index)}
+                      fieldData={item}
+                      index={index}
+                      type="text"
+                      removeQuestion={(index) => removeQuestion(index)}
+                      handleQuestionImageChange={(info) =>
+                        handleQuestionImageChange(info, index)
+                      }
+                    />
+                  )}
+                  {item.localType === "number" && (
+                    <TextFields
+                      handleChange={(e) => handleChange(e, index)}
+                      fieldData={item}
+                      index={index}
+                      type="number"
+                      removeQuestion={(index) => removeQuestion(index)}
+                      handleQuestionImageChange={(info) =>
+                        handleQuestionImageChange(info, index)
+                      }
+                    />
+                  )}
+                </>
+              ))}
           </DrangableQuestions>
+          <Button type="primary" onClick={onEdit}>
+            Edit Form
+          </Button>
         </div>
-        {/* <div>
-          <CustomizedSnackbars
-            isOpen={snackbarState.isOpen}
-            cancel={() => setSnackbarState({ ...snackbarState, isOpen: false })}
-            variant={snackbarState.variant}
-            message={snackbarState.Message}
-            duration={2000}
-          />
-        </div> */}
       </div>
     </>
   );

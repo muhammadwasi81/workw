@@ -3,6 +3,7 @@ import urdu from "./urdu";
 import arabic from "./arabic";
 import hindi from "./hindi";
 import turkish from "./turkish";
+
 export const requisitionDictionaryList = { en, urdu, arabic, hindi, turkish };
 
 export const languageOptions = {

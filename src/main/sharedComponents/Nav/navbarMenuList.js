@@ -38,6 +38,7 @@ import reportIcon from "../../../content/NewContent/report/report.svg";
 import documentIcon from "../../../content/NewContent/Documents/file/folder.svg";
 import voucherIcon from "../../../content/NewContent/voucher/voucher.svg";
 import requisitionIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg";
+import assetsIcon from "../../../content/svg/menu/newNavBarIcon/assets.svg";
 
 import { DOMAIN_PREFIX } from "../../../utils/routes";
 const NavMenuList = () => {
@@ -102,6 +103,14 @@ const NavMenuList = () => {
       isActive: 3,
       key: label.navMenuLabel.menu,
     },
+    // {
+    // 	name: label.navMenuLabel.mailBox,
+    // 	counter: 0,
+    // 	to: ROUTES.MAIL.DEFAULT,
+    // 	icon: mailsIcon,
+    // 	isActive: 3,
+    // 	key: label.navMenuLabel.menu,
+    // },
     {
       name: label.navMenuLabel.leadManager,
       counter: 0,
@@ -182,6 +191,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
+
     {
       name: label.navMenuLabel.tasks,
       counter: 0,
@@ -230,6 +240,15 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
+    // *****BY SANJNA****
+    // {
+    //   name: label.navMenuLabel.teams,
+    //   counter: 0,
+    //   icon: teamIcon,
+    //   to: ROUTES.TEAMS.TEAM,
+    //   isActive: true,
+    //   key: label.navMenuLabel.hr,
+    // },
     {
       name: label.navMenuLabel.leaves,
       counter: 0,
@@ -247,6 +266,14 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     {
+      name: "Job Board",
+      counter: 0,
+      icon: voucherIcon,
+      to: ROUTES.JOBS.ROOT,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
       name: label.navMenuLabel.careers,
       counter: 0,
       icon: career,
@@ -258,6 +285,14 @@ const NavMenuList = () => {
       name: label.navMenuLabel.chartOfAccount,
       counter: 0,
       to: ROUTES.FINANCE.CHART_OF_ACCOUNT.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.Quatation,
+      counter: 0,
+      to: ROUTES.QOUTATION.ROOT,
       icon: coaIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
@@ -342,6 +377,15 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.inventory,
     },
+    // TODO:// ASSETS MODULE
+    {
+      name: label.navMenuLabel.assets,
+      counter: 0,
+      icon: assetsIcon,
+      to: ROUTES.ASSETS.DEFAULT,
+      isActive: true,
+      key: label.navMenuLabel.inventory,
+    },
     {
       name: label.navMenuLabel.companies,
       counter: 0,
@@ -350,7 +394,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.workWiseCompanies,
     },
-    
+
     // {
     //   name: label.navMenuLabel.businessPolicy,
     //   counter: 0,

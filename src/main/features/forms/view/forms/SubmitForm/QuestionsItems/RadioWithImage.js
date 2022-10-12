@@ -3,26 +3,45 @@ import React from "react";
 const RadioWithImage = (props) => {
   const { question, handleChange, index, disableSubmit } = props;
   const { answers } = question;
+  console.log("console. radiowithimage props", props);
   return (
     <>
       <div className="c-row txt-fields bg-clr p_15">
-        {
-          question.image && <div className="QuesImg" ><img src={question.image} /> </div>
-        }
+        {question.image && (
+          <div className="QuesImg">
+            <img src={question.image} />{" "}
+          </div>
+        )}
         <h1 className="row-tlt">{question.question}</h1>
         <div className="flex-row">
           {answers.map(({ answer, id, image }, i) => (
             <div className="aspect-ratio">
               <label key={i} className="label-box">
-                <div className="pollImage" >
+                <div className="pollImage">
                   <img
-                    src={image ? image : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"}
+                    src={
+                      image
+                        ? image
+                        : "https://asvs.in/wp-content/uploads/2017/08/dummy.png"
+                    }
                     alt=""
                   />
                 </div>
                 <div className="flex-item mt_10">
-                  <input value={id} onChange={(e) => handleChange(e.target.value, index, question.id, question.localType)} name="label" type="radio"
-                    disabled={disableSubmit} />{" "}
+                  <input
+                    value={id}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value,
+                        index,
+                        question.id,
+                        question.localType
+                      )
+                    }
+                    name="label"
+                    type="radio"
+                    disabled={disableSubmit}
+                  />{" "}
                   <h3 className="ml_10 f-bold">{answer}</h3>
                 </div>
               </label>

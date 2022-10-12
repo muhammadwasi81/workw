@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 import {
   responseMessage,
   responseMessageType,
@@ -11,7 +13,7 @@ import { jobDescriptionDeleted } from "./slice";
 const API_PREFIX = "konnectapi/api/Designation/";
 
 export const getAllJobDescription = createAsyncThunk(
-  "Designation/getAllDesignation",
+  "JobDescription/getAllJobDescription",
   async (args, { dispatch, getState }) => {
     const res = await getAllJobDescriptionService();
 
@@ -26,20 +28,20 @@ export const getAllJobDescription = createAsyncThunk(
 );
 
 export const addJobDescription = createAsyncThunk(
-  "Designation/addDesignation",
+  "JobDescription/addJobDescription",
   async (args, { dispatch, getState }) => {
     const res = await addJobDescriptionService(args);
-    console.log(args,"args")
+    console.log(args, "args")
 
     if (res.responseCode) {
-      if (res.responseCode === responseCode.Success)
-        res.message = "Job Description added successfully!";
-      responseMessage({ dispatch, data: res });
+      if (res.responseCode === responseCode.Success) {
+        message.success("Job Description added successfully!")
+        responseMessage({ dispatch, data: res });
+      } else {
+        message.error(res.message)
+      }
     } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
+      message.error("Something went wrong")
     }
 
     return res;
@@ -49,12 +51,18 @@ export const addJobDescription = createAsyncThunk(
 export const updateJobDescription = createAsyncThunk(
   "Designation/updateDesignation",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.put(`${API_PREFIX}updateDesignation`, args)
+    return await MasterConfig.put(`api/JobDescription/updateJobDescription`, args)
       .then((res) => {
-        if (res.data.responseCode === responseCode.Success)
-          res.data.message = "Job Description updated successfully!";
-        responseMessage({ dispatch, data: res.data });
-        return res.data;
+        console.log(res.data.message, "RESPONE DASDASDAADS")
+        if (res.data.responseCode) {
+          if (res.data.responseCode === responseCode.Success) {
+            message.success("Job Description updated successfully")
+            responseMessage({ dispatch, data: res.data });
+            return res.data;
+          } else {
+            message.error(res.data.message)
+          }
+        } 
       })
       .catch((err) => {
         responseMessage({
@@ -67,22 +75,22 @@ export const updateJobDescription = createAsyncThunk(
 );
 
 export const removeJobDescription = createAsyncThunk(
-  "Designation/removeDesignation",
+  "JobDescription/removeJobDescription",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.delete(`${API_PREFIX}removeDesignation?id=${args.id}`)
+    return await MasterConfig.delete(`api/JobDescription/removeJobDescription?id=${args.id}`)
       .then((res) => {
-        if (res.data.responseCode === responseCode.Success) {
-          res.data.message = "Job Description removed successfully!";
-          dispatch(jobDescriptionDeleted(args));
+        if (res.data.responseCode) {
+          if (res.data.responseCode === responseCode.Success) {
+            message.success("Job Description removed successfully!")
+            dispatch(jobDescriptionDeleted(args));
+            return res.data;
+          } else {
+            message.error(res.message)
+          }
         }
-        responseMessage({ dispatch, data: res.data });
-        return res.data;
       })
       .catch((err) => {
-        responseMessage({
-          dispatch: dispatch,
-          type: responseMessageType.ApiFailure,
-        });
+        // message.error("Something went wrong")
         return err;
       });
   }

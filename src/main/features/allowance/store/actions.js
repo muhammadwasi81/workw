@@ -1,15 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 import {
   responseMessage,
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
 import { addAllowanceService, getAllAllowanceService } from "../services/service";
 import { allowanceDeleted } from "./slice";
-import MasterConfig from "../../../../utils/services/MasterConfig";
-
-const API_PREFIX = "konnectapi/api/allowance/";
+import { message } from "antd";
 
 export const getAllAllowance = createAsyncThunk(
   "allowance/GetAllAllowance",
@@ -32,16 +30,14 @@ export const addAllowance = createAsyncThunk(
     const res = await addAllowanceService(args);
 
     if (res.responseCode) {
-      if (res.responseCode === responseCode.Success)
-        res.message = "Allowance added successfully!";
-      responseMessage({ dispatch, data: res });
+      if (res.responseCode === responseCode.Success) {
+        message.success("Allowance added successfully!")
+      } else {
+        message.error(res.message)
+      }
     } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
+      message.error("Something went wrong")
     }
-
     return res;
   }
 );
@@ -51,10 +47,16 @@ export const updateAllowance = createAsyncThunk(
   async (args, { dispatch, getState }) => {
     return await MasterConfig.put(`api/allowance/updateAllowance`, args)
       .then((res) => {
-        if (res.data.responseCode === responseCode.Success)
-          res.data.message = "Allowance updated successfully!";
-        responseMessage({ dispatch, data: res.data });
-        return res.data;
+        if (res.responseCode) {
+          if (res.data.responseCode === responseCode.Success) {
+            message.success("Allowance updated successfully!")
+            return res.data;
+          } else {
+            message.error(res.message)
+          } 
+        } else {
+          message.error("Something went wrong")
+        }
       })
       .catch((err) => {
         responseMessage({
@@ -69,11 +71,13 @@ export const updateAllowance = createAsyncThunk(
 export const removeAllowance = createAsyncThunk(
   "allowance/removeallowance",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.delete(`${API_PREFIX}removeallowance?id=${args.id}`)
+    return await MasterConfig.delete(`api/allowance/removeallowance?id=${args.id}`)
       .then((res) => {
         if (res.data.responseCode === responseCode.Success) {
-          res.data.message = "Allowance removed successfully!";
+          message.success("Allowance removed successfully!")
           dispatch(allowanceDeleted(args));
+        } else {
+          message.error(res.message)
         }
         responseMessage({ dispatch, data: res.data });
         return res.data;

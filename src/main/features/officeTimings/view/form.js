@@ -99,9 +99,6 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
     }
 
 
-    console.log(oldDetails, "old details")
-
-
     setForm({ ...form, details: oldDetails })
 
   }

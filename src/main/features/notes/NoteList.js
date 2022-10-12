@@ -9,6 +9,7 @@ import {
 const NoteList = (props) => {
   const dispatch = useDispatch();
   const [dotsIsVisible, setDotsIsVisible] = useState(false);
+  
   const decrementStickyNoteHandler = () => {
     dispatch(decrementStickyNote(props.id));
   };

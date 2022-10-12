@@ -196,10 +196,10 @@
 }
 
 div[contenteditable="true"] {
-  height: 75px !important;
+  height: 250px !important;
   overflow-y: auto !important;
 }
 
-.ql-container.ql-snow {
+/* .ql-container.ql-snow {
   border: none !important;
-}
+} */

@@ -33,14 +33,14 @@ function ProjectDetails() {
   const { image, description, id } = departmentDetail;
   const panes = [
     {
-      title: `Description`,
+      featureName: `Description`,
       content: <div>{descrip}</div>,
-      key: 0,
+      featureId: 0,
     },
     {
-      title: `Appraisals`,
+      featureName: `Appraisals`,
       content: <Appraisal />,
-      key: 1,
+      featureId: 1,
     },
     // {
     //   title: `Workboard`,

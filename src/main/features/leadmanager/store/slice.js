@@ -12,6 +12,7 @@ import {
 	getLeadManagerSectionById,
 	updateLeadManager,
 	updateLeadManagerContact,
+	updateLeadManagerDetail,
 } from "./actions";
 
 const initialComposerData = {
@@ -39,20 +40,47 @@ const initialState = {
 	isContactDetailLoading: false,
 	contactDetail: null,
 	isContactUpdated: false,
-	contactDetaUpdating: false,
+	contactDataUpdating: false,
+	isAssignMemberModalOpen: false,
+	assignToMemberId: "",
+	isSectionModalOpen: false,
+	contactModal: {
+		isOpen: false,
+		add: false,
+	},
 };
 const leadMangerSlice = createSlice({
 	name: "leadManager",
 	initialState,
 	reducers: {
+		handleAssignMemberModal(state, { payload }) {
+			state.assignToMemberId = payload.id;
+			state.isAssignMemberModalOpen = !state.isAssignMemberModalOpen;
+		},
+		handleSectionDetailModal(state, { payload }) {
+			state.isSectionModalOpen = !state.isSectionModalOpen;
+		},
+		handleContactDetailModal(state, { payload }) {
+			state.contactModal.isOpen = payload.open;
+			state.contactModal.add = payload.add;
+		},
 		handleComposer(state, { payload }) {
 			const { isOpen, isEdit } = payload;
-			if (isEdit) {
-				state.isEditComposer = isEdit;
-			} else {
-				state.isEditComposer = false;
-			}
+			state.isEditComposer = isEdit;
 			state.isComposerOpen = isOpen;
+		},
+		getLeadManagerGroupDetailById(state, { payload }) {
+			state.leadManagerDetail = state.leadManagersData.find(
+				manager => manager.id === payload
+			);
+		},
+		resetLeadManagerDetail(state, { payload }) {
+			state.leadManagerDetail = null;
+			state.isEditComposer = false;
+			state.isComposerOpen = false;
+		},
+		resetContactDetail(state, { payload }) {
+			state.contactDetail = null;
 		},
 		moveSection(state, { payload }) {
 			const { oldListIndex, newListIndex } = payload;
@@ -62,6 +90,7 @@ const leadMangerSlice = createSlice({
 			state.leadManagerDetail.sections = newLists;
 		},
 		moveDetail(state, { payload }) {
+			// console.log("move detail", payload);
 			const {
 				oldCardIndex,
 				newCardIndex,
@@ -79,6 +108,12 @@ const leadMangerSlice = createSlice({
 			const sectionIndex = state.leadManagerDetail.sections.findIndex(
 				section => section.id === sourceListId
 			);
+			sourceSection.details[0].sectionId = destinationsSection.id;
+			// console.log(
+			// 	"sourceSection.details",
+			// 	current(sourceSection.details),
+			// 	current(destinationsSection)
+			// );
 
 			if (sourceListId === destListId) {
 				const newTodos = sourceSection.details;
@@ -98,6 +133,7 @@ const leadMangerSlice = createSlice({
 	extraReducers: builder => {
 		builder
 			.addCase(addLeadManager.fulfilled, (state, { payload }) => {
+				state.leadManagersData.unshift(payload.data);
 				state.loading = false;
 				state.success = true;
 			})
@@ -120,6 +156,12 @@ const leadMangerSlice = createSlice({
 				}
 			)
 			.addCase(updateLeadManager.fulfilled, (state, { payload }) => {
+				// console.log("update lead manager", payload.data);
+				const { data } = payload;
+				const updatedManagerIndex = state.leadManagersData.findIndex(
+					manager => manager.id === data.id
+				);
+				state.leadManagersData[updatedManagerIndex] = data;
 				state.success = true;
 				state.loading = false;
 			})
@@ -129,6 +171,26 @@ const leadMangerSlice = createSlice({
 					state.success = true;
 					state.loading = false;
 					state.leadManagerSections = payload.data;
+				}
+			)
+			.addCase(
+				updateLeadManagerDetail.fulfilled,
+				(state, { payload }) => {
+					// console.log("payload updated", payload);
+					// state.leadManagerSectionDetailData = payload.data;
+					const sectionIndex = state.leadManagerDetail.sections.findIndex(
+						section => section.id === payload.data.sectionId
+					);
+					const detailIndex = state.leadManagerDetail.sections[
+						sectionIndex
+					].details.findIndex(
+						details => details.id === payload.data.id
+					);
+					state.leadManagerDetail.sections[sectionIndex].details[
+						detailIndex
+					] = payload.data;
+					state.success = true;
+					state.loading = false;
 				}
 			)
 			.addCase(addLeadManagerDetail.fulfilled, (state, { payload }) => {
@@ -164,7 +226,7 @@ const leadMangerSlice = createSlice({
 				state.success = true;
 				state.leadManagerSectionDetailData.contacts.push(data);
 				state.isContactUpdated = true;
-				state.contactDetaUpdating = false;
+				state.contactDataUpdating = false;
 				// console.log("payload data", payload.data);
 			})
 			.addCase(
@@ -181,7 +243,7 @@ const leadMangerSlice = createSlice({
 					] = data;
 
 					state.isContactUpdated = true;
-					state.contactDetaUpdating = false;
+					state.contactDataUpdating = false;
 				}
 			)
 
@@ -190,7 +252,7 @@ const leadMangerSlice = createSlice({
 				state.contactDetail = null;
 			})
 			.addMatcher(isPending(getLeadManagerById), state => {
-				state.isComposerDataLoading = true;
+				// state.isComposerDataLoading = true;
 				state.leadManagerDetail = null;
 			})
 			.addMatcher(isPending(getLeadManagerDetailById), state => {
@@ -202,9 +264,20 @@ const leadMangerSlice = createSlice({
 				isPending(...[updateLeadManagerContact, addLeadManagerContact]),
 				state => {
 					state.isContactUpdated = false;
-					// state.loading = true;
+					state.contactDataUpdating = true;
 					state.success = false;
-					state.contactDetaUpdating = true;
+					state.error = false;
+				}
+			)
+			.addMatcher(
+				isRejected(
+					...[updateLeadManagerContact, addLeadManagerContact]
+				),
+				state => {
+					state.isContactUpdated = false;
+					state.contactDataUpdating = false;
+					state.success = false;
+					state.error = true;
 				}
 			)
 			.addMatcher(
@@ -216,6 +289,7 @@ const leadMangerSlice = createSlice({
 						updateLeadManager,
 						getLeadManagerSectionById,
 						addLeadManagerDetail,
+						updateLeadManagerDetail,
 						// updateLeadManagerContact,
 						// addLeadManagerContact,
 						// deleteLeadManagerContact,
@@ -235,9 +309,11 @@ const leadMangerSlice = createSlice({
 						getAllLeadManagerPaging,
 						updateLeadManager,
 						getLeadManagerSectionById,
+						getLeadManagerById,
 						addLeadManagerDetail,
 						// updateLeadManagerContact,
 						// addLeadManagerContact,
+						updateLeadManagerDetail,
 						// deleteLeadManagerContact,
 					]
 				),
@@ -245,6 +321,7 @@ const leadMangerSlice = createSlice({
 					state.loading = false;
 					state.success = false;
 					state.error = true;
+					// state.contactDataUpdating = false;
 				}
 			);
 	},
@@ -254,6 +331,12 @@ export const {
 	handleComposer,
 	moveSection,
 	moveDetail,
+	resetLeadManagerDetail,
+	resetContactDetail,
+	getLeadManagerGroupDetailById,
+	handleAssignMemberModal,
+	handleContactDetailModal,
+	handleSectionDetailModal,
 } = leadMangerSlice.actions;
 
 export default leadMangerSlice.reducer;

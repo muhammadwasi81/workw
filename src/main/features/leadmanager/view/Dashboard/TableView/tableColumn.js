@@ -34,23 +34,23 @@ export const tableColumn = (dictionary, data) => {
 			ellipsis: true,
 			sort: true,
 		},
-		{
-			title: "Action",
-			key: "action",
-			render: (text, record, index) => (
-				<div
-					onClick={e => {
-						e.preventDefault();
-						e.stopPropagation();
-						console.log("text", text);
-						console.log("record", record);
-						console.log("index", index);
-						console.log("data", data);
-					}}
-				>
-					Delete
-				</div>
-			),
-		},
+		// {
+		// 	title: "Action",
+		// 	key: "action",
+		// 	render: (text, record, index) => (
+		// 		<div
+		// 			onClick={e => {
+		// 				e.preventDefault();
+		// 				e.stopPropagation();
+		// 				// console.log("text", text);
+		// 				// console.log("record", record);
+		// 				// console.log("index", index);
+		// 				// console.log("data", data);
+		// 			}}
+		// 		>
+		// 			Delete
+		// 		</div>
+		// 	),
+		// },
 	];
 };

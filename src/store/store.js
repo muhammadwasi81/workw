@@ -12,6 +12,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
 import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
+import requisitionSlice from "../main/features/requisition/store/slice";
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
 import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
@@ -28,6 +29,7 @@ import complainCategorySlice from "../main/features/complain/complainCategory/st
 import defaultHiringCriteriaSlice from "../main/features/careers/defaultHiringCriteria/store/slice";
 import warningSlice from "../main/features/warning/store/slice";
 import departmentSlice from "../main/features/departments/store/slice";
+import careerSlice from "../main/features/careers/store/slice";
 import leaveTypeSlice from "../main/features/leave/leaveType/store/slice";
 import expenseHeaderSlice from "../main/features/expenseHeader/store/slice";
 import salaryHeaderSlice from "../main/features/salaryHeader/store/slice";
@@ -72,6 +74,8 @@ import resignationSlice from "./appReducer/resignationSlice";
 import voucherSlice from "../main/features/voucher/store/slice";
 import scheduleSlice from "../main/features/schedule/store/slice";
 import attendanceSlice from "../main/features/attendance/store/slice";
+import stickySlice from "../main/features/notes/newStickyNotes/store/stickySlice";
+import formSlice from "../main/features/forms/store/slice";
 import payrollSlice from "../main/features/payroll/store/slice";
 // import thunk from "redux-thunk";
 
@@ -98,10 +102,12 @@ const reducers = combineReducers({
   payrollGroupSlice,
   fiscalYearSlice,
   customApprovalCategorySlice,
+  requisitionSlice,
   rewardCategorySlice,
   rewardSlice,
   complainSlice,
   departmentSlice,
+  careerSlice,
   projectSlice,
   customApprovalSlice,
   warningSlice,
@@ -141,7 +147,9 @@ const reducers = combineReducers({
   callingSlice,
   voucherSlice,
   salarySlice,
-  payrollSlice
+  stickySlice,
+  formSlice,
+  payrollSlice,
 });
 
 const persistConfig = {

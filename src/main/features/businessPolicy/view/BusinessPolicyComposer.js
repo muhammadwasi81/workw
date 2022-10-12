@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, message, Select } from "antd";
 import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import ReactQuill from "react-quill"
@@ -17,14 +17,14 @@ const modules = {
 		[{ 'font': [] }],
 		[{ 'size': ['small', false, 'large', 'huge'] }],
 		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-		['bold', 'italic', 'underline', 'link', 'image'],
+		['bold', 'italic', 'underline'],
 		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
-		[{ 'script': 'sub' }, { 'script': 'super' }],
+		// [{ 'script': 'sub' }, { 'script': 'super' }],
 		//[{ 'indent': '-1'}, { 'indent': '+1' }],
 		[{ 'direction': 'rtl' }],
 		[{ 'align': ['center'] }],
 		[{ 'color': [] }, { 'background': [] }],
-		['clean']
+		// ['clean']
 	]
 }
 const formats = {
@@ -32,14 +32,14 @@ const formats = {
 		[{ 'font': [] }],
 		[{ 'size': ['small', false, 'large', 'huge'] }],
 		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-		['bold', 'italic', 'underline', 'link', 'image'],
+		['bold', 'italic', 'underline'],
 		[{ 'list': 'ordered' }, { 'list': 'bullet' }],
-		[{ 'script': 'sub' }, { 'script': 'super' }],
+		// [{ 'script': 'sub' }, { 'script': 'super' }],
 		//[{ 'indent': '-1'}, { 'indent': '+1' }],
 		[{ 'direction': 'rtl' }],
 		[{ 'align': ['center'] }],
 		[{ 'color': [] }, { 'background': [] }],
-		['clean']
+		// ['clean']
 	]
 }
 
@@ -53,10 +53,14 @@ function BusinessPolicyComposer({editData}) {
 		dictionaryList[userLanguage];
 
 	const onFinish = values => {
-		if (editData) {
-			 dispatch(updateBusinessPolicy({...values, id: editData.id}))
+		if (values.name.length > 20) {
+			message.error("Name characters limit exeeded")
 		} else {
-			dispatch(addBusinessPolicy(values))
+			if (editData) {
+				dispatch(updateBusinessPolicy({...values, id: editData.id}))
+		   } else {
+			   dispatch(addBusinessPolicy(values))
+		   }
 		}
 	};
 
@@ -125,9 +129,10 @@ function BusinessPolicyComposer({editData}) {
 						},
 					]}
 						label={
-							<FormLabel>{"Desription"}</FormLabel>
+							<FormLabel>{"Description"}</FormLabel>
 						} >
 						<ReactQuill
+							style={{overflow: "hidden"}}
 							className="ReactQuill"
 							onChange={(e) => console.log(e)}
 							modules={modules}

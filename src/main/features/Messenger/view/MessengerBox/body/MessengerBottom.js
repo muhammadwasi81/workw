@@ -6,13 +6,15 @@ import sendIcon from "../../../../../../content/NewContent/Messenger/send.svg";
 // import { sendMessage } from '../../store/messengerSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { sendChatMessage } from "../../../store/actions";
-import EmojiPicker from "../helpers/emojiPicker";
-import VoiceNotes from "../helpers/voiceNotes";
+import EmojiPicker from "../components/emojiPicker";
+import VoiceNotes from "../components/voiceNotes";
 import { createGuid } from "../../../../../../utils/base";
+import FileUploader from "../components/fileUploader";
 
 const MessengerBottom = ({ isOpenProfile }) => {
   const dispatch = useDispatch();
   const msgInpRef = useRef();
+  let fileInputRef = useRef();
   const messengerDetail = useSelector(
     (state) => state.MessengerSlice.currentMessenger
   );
@@ -34,6 +36,9 @@ const MessengerBottom = ({ isOpenProfile }) => {
     e.target.value = "";
   };
   const handleClickEmoji = () => setIsOpenEmoji(!isOpenEmoji);
+  const handleClickAttachment = () => {
+    fileInputRef.current.upload.uploader.onClick()
+  }
   const onSelectEmoji = (emoji) => {
     msgInpRef.current.value += emoji.native;
     msgInpRef.current.focus();
@@ -41,7 +46,7 @@ const MessengerBottom = ({ isOpenProfile }) => {
   return (
     <>
       {/* <VoiceNotes /> */}
-
+    <FileUploader inputRef={fileInputRef}/>
       {isOpenEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
       <div className={"MessengerBottom " + (isOpenProfile ? "blur-bg" : "")}>
         <div className="MessengerInputHandler">
@@ -52,7 +57,12 @@ const MessengerBottom = ({ isOpenProfile }) => {
               alt=""
               onClick={handleClickEmoji}
             />
-            <img className="actionBtn" src={attachmentIcon} alt="" />
+            <img 
+            className="actionBtn" 
+            src={attachmentIcon} 
+            alt=""
+            onClick={handleClickAttachment}
+            />
           </div>
         </div>
         <div className="MessengerInputCont">

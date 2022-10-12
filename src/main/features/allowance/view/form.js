@@ -119,7 +119,7 @@ export default function AllowanceForm({ data, onSubmit, loading, setClearButton,
                   :
                   <>
                     <FormLabel>Amount</FormLabel>
-                    <Input onChange={handelChangeAmount} value={form.value} placeholder={"Enter Amount"} size="large" />
+                    <InputNumber onChange={handelChangeAmount} value={form.value} placeholder={"Enter Amount"} size="large" style={{width: "100%"}} />
                   </>
               }
             </AllowncesFormInput>

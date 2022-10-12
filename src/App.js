@@ -37,6 +37,9 @@ import { InitMessengerSocket } from "./utils/InitSocket";
 import MainNotification from "./main/sharedComponents/Notification/Notification";
 import SubmitForm from "./main/features/forms/view/forms/SubmitForm/index.js";
 import { openNotification } from "./utils/Shared/store/slice";
+import Careers from "./main/features/careers/view/Careers";
+import PublicJobs from "./main/features/jobs/view/PublicJobs";
+import Jobs from "./main/features/jobs/view/Jobs";
 
 const App = () => {
 	const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -125,7 +128,10 @@ const App = () => {
 								path={`${ROUTES.FORMS.SUBMIT_FORM}/:id`}
 								element={<SubmitForm />}
 							/>
-
+							<Route
+								path={`${ROUTES.JOBS.PUBLIC}`}
+								element={<PublicJobs />}
+							/>
 							{/*****Public Route******/}
 							<Route
 								path={ROUTES.ROOT}

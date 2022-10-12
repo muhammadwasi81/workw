@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { CardWrapper } from "../../../../sharedComponents/Card/CardStyle";
+import {
+  CardWrapper,
+  CardWrapperCareers,
+} from "../../../../sharedComponents/Card/CardStyle";
 import JobDetails from "../../view/DetailView/DetailComposer/JobDetails";
 import ListItem from "./ListItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,11 +19,15 @@ const MyCareersListView = () => {
   const careers = useSelector((state) => {
     return state.careerSlice.items;
   });
-  // console.log(careers, "CAREERS");
+  const { currentTab } = useSelector((state) => {
+    return state.careerSlice;
+  });
+  console.log(careers, "CAREERS");
 
   const dispatch = useDispatch();
 
   const openJobDetailHandler = (id) => {
+    console.log(id, "******");
     setOpenDetail(true);
     dispatch(getCareerByIdAction(id));
   };
@@ -33,18 +40,28 @@ const MyCareersListView = () => {
     setOpenDetail(false);
   };
 
-  useEffect(() => {
-    dispatch(getAllCareerAction({}));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllCareerAction({}));
+  // }, []);
+  console.log(currentTab, "adasds");
+
   return (
     <>
-      <CardWrapper>
+      <CardWrapper
+        style={{
+          gridTemplateColumns:
+            currentTab === "myCareers"
+              ? "repeat(auto-fill,minmax(30rem,1fr))"
+              : "repeat(auto-fill,minmax(27rem,1fr))",
+        }}
+      >
         {openDetail && (
           <Modal
             open={openDetail}
             onOk={handleOk}
             onCancel={handleCancel}
             footer={null}
+            width={"50%"}
           >
             <JobDetails />
           </Modal>

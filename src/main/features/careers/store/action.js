@@ -12,14 +12,27 @@ import {
 
 export const addCareer = createAsyncThunk(
   "Career/addCareer",
-  async (data, { rejectWithValue }) => {
+  async (data, { dispatch, rejectWithValue }) => {
     const res = await addCareerService(data);
-    console.log(res.data.message, "FROM CAREER RESPONSE");
+    console.log(res, "FROM CAREER RESPONSE");
 
     switch (res.type) {
       case ResponseType.ERROR:
+        dispatch(
+          openNotification({
+            message: res.errorMessage,
+            type: "error",
+          })
+        );
         return rejectWithValue(res.errorMessage);
       case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            message: "Document Create Successfully",
+            type: "success",
+            duration: 2,
+          })
+        );
         return res.data;
       default:
         return;

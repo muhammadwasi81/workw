@@ -13,6 +13,7 @@ const defaultCareer = {
 const initialState = {
   success: false,
   items: [],
+  currentTab: "careers",
   drawerOpen: false,
   careerDetail: {},
 };
@@ -31,6 +32,9 @@ const careerSlice = createSlice({
           ...defaultCareer,
         },
       ];
+    },
+    handleChangeTab: (state, { payload: tab }) => {
+      state.currentTab = tab;
     },
   },
   extraReducers: (builder) => {
@@ -52,5 +56,9 @@ const careerSlice = createSlice({
   },
 });
 
-export const { handleOpenComposer, addCareerList } = careerSlice.actions;
+export const {
+  handleOpenComposer,
+  addCareerList,
+  handleChangeTab,
+} = careerSlice.actions;
 export default careerSlice.reducer;

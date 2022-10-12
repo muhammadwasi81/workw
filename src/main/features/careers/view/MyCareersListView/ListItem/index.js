@@ -35,7 +35,7 @@ function ListItem({ item, onClick }) {
               round={true}
             />
             <div className="font-bold text-[15px] text-primary-color">
-              {item.department}
+              {item.designation}
             </div>
           </div>
         </ItemHeader>
@@ -43,7 +43,8 @@ function ListItem({ item, onClick }) {
           <div className="font-bold text-[14px] text-primary-color">
             {/* {" "}
             React Js Developer */}
-            {item.designation}
+
+            {item.department}
           </div>
           <p className="careersDescShort">{item.description}</p>
         </ItemContent>

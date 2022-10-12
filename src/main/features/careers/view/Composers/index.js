@@ -119,6 +119,7 @@ const Composer = () => {
           userId: el,
         };
       }),
+      skills: values.skills.join(),
     };
     dispatch(addCareer(payload));
     form.resetFields();
@@ -431,7 +432,7 @@ const Composer = () => {
           rules={[{ required: true }]}
         />
         <Form.Item
-          name="skillTags"
+          name="skills"
           label="Skills"
           rules={[
             {

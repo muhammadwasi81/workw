@@ -25,11 +25,19 @@ const JobDetails = () => {
     country,
     createDate,
     description,
+    designation,
+    department,
     skills,
     creator,
+    minSalary,
+    maxSalary,
+    experience,
+    endDate,
   } = careerDetail;
-  const { name, image, designation } = creator;
+  // const { name, image, designation } = creator;
   // console.log(jobDesc, "JOB DETAILLLLLL");
+
+  const skillsArray = skills?.split(",");
 
   let notesTime = !moment(new Date()).fromNow(createDate)
     ? moment(createDate).format("LT")
@@ -39,13 +47,13 @@ const JobDetails = () => {
       <div className="item-card careersQuickDetail">
         <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
           <div>
-            <Avatar size={45} src={image} />
+            <Avatar size={45} src={creator?.image} />
           </div>
           <div className="flex-1">
             <div className="text-[16px] font-bold text-sky-900">
               {designation}
             </div>
-            <div className="font-bold">Miletap</div>
+            <div className="font-bold">{department}</div>
             <div className="text-xs">
               Karachi, Pakistan - {moment(createDate).fromNow()}
             </div>
@@ -67,9 +75,8 @@ const JobDetails = () => {
           <div className="font-bold">Skills Required</div>
           <div>
             {skills
-              ? skills?.map((item, index) => {
-                  return;
-                  <Tag className="LinkTag">{item}</Tag>;
+              ? skillsArray?.map((item, index) => {
+                  return <Tag className="LinkTag">{item}</Tag>;
                 })
               : null}
             {/*  <Tag className="LinkTag">{"React.js"}</Tag>
@@ -83,32 +90,39 @@ const JobDetails = () => {
 
         <div className="cardSections mt-10">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Salary For</div>
-            <div className="cardSection__body">{"user.name"}</div>
+            <div className="cardSection__title">Salary Range</div>
+            <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>
           </div>
-          <div className="cardSectionItem">
+          {/* <div className="cardSectionItem">
             <div className="cardSection__title">Effective Date</div>
             <div className="cardSection__body">
               {moment("09-22-2022").format("Do MMM YY")}
             </div>
-          </div>
-          <div className="cardSectionItem">
+          </div> */}
+          {/* <div className="cardSectionItem">
             <div className="cardSection__title">Basic Salary</div>
             <div className="cardSection__body">{"basicSalary"}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Salary For</div>
             <div className="cardSection__body">{"user.name"}</div>
-          </div>
+          </div> */}
           <div className="cardSectionItem">
             <div className="cardSection__title">Effective Date</div>
             <div className="cardSection__body">
-              {moment("09-22-2022").format("Do MMM YY")}
+              {moment(createDate).format("Do MMM YY")}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Basic Salary</div>
-            <div className="cardSection__body">{"basicSalary"}</div>
+            <div className="cardSection__title">Experience Required</div>
+            <div className="cardSection__body">{experience}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Job Expires</div>
+            <div className="cardSection__body">
+              {" "}
+              {moment(endDate).format("Do MMM YY")}
+            </div>
           </div>
         </div>
       </div>

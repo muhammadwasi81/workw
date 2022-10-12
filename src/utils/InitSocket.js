@@ -5,7 +5,8 @@ import { servicesUrls } from "./services/baseURLS";
 import { openNotification } from "./Shared/store/slice";
 
 export const InitMessengerSocket = (dispatch, Accesstoken) => {
-	const URL = `${servicesUrls.messenger}hubs/messenger`;
+	// const URL = `${servicesUrls.messenger}hubs/messenger`;
+	const URL = `${servicesUrls.master}hub/notificationHub`;
 	let connection = new HubConnectionBuilder()
 		.withUrl(URL, {
 			accessTokenFactory: () => Accesstoken,

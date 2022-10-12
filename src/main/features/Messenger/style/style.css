@@ -39,14 +39,14 @@
 .ConversationListHead>.HeadName {
   font-size: 18px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
 }
 
 .ConversationListHead>.HeadIcon {
   width: 40px;
   font-size: 30px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
   text-align: center;
   cursor: pointer;
 }
@@ -78,13 +78,6 @@
   margin: 0 5px;
 }
 
-.MessengerInput>div>input {
-  background: transparent;
-  height: 100%;
-  width: 83%;
-  border: none;
-  margin: 0 10px;
-}
 
 .MessengerInput>div>input {
   background: transparent;
@@ -92,7 +85,7 @@
   width: 100%;
   border: none;
   margin: 0 10px;
-  padding-left: 15px;
+  /* padding-left: 15px; */
 }
 
 .ConversationListSearch>div>img {
@@ -190,7 +183,7 @@ input:focus {
 .MessengerHeadName>div {
   font-size: 18px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
   padding-left: 10px;
 }
 
@@ -202,13 +195,13 @@ input:focus {
 .MessengerProfile .user .name {
   font-size: 18px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
 }
 
 .MessengerProfile .user .desc {
   font-size: 14px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
 }
 
 .MessengerProfile .actions {
@@ -296,7 +289,7 @@ input:focus {
 
 .MessengerListItem-ME>.MessageBubble {
   border-radius: 15px 0px 15px 15px;
-  background: rgb(26, 86, 105);
+  background: var(--currentThemeColor);
   color: rgb(221, 221, 221);
 }
 
@@ -334,7 +327,7 @@ input:focus {
   content: "";
   position: absolute;
   border-bottom: 10px solid transparent;
-  border-left: 10px solid rgb(26, 86, 105);
+  border-left: 10px solid var(--currentThemeColor);
   top: 0;
   right: -10px;
 }

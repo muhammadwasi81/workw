@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { sendChatMessage } from "../../../store/actions";
 import EmojiPicker from "../components/emojiPicker";
 import VoiceNotes from "../components/voiceNotes";
-import { createGuid } from "../../../../../../utils/base";
+import { createGuid, STRINGS } from "../../../../../../utils/base";
 import FileUploader from "../components/fileUploader";
 
 const MessengerBottom = ({ isOpenProfile }) => {
@@ -19,9 +19,13 @@ const MessengerBottom = ({ isOpenProfile }) => {
     (state) => state.MessengerSlice.currentMessenger
   );
   const [isOpenEmoji, setIsOpenEmoji] = useState(false);
-  const handleMsgSend = (e) => {
-    setIsOpenEmoji(false);
+  const [voiceNoteFile, setVoiceNoteFile] = useState(null);
+  const [attchmentFiles, setAttchmentFiles] = useState([]);
+
+  const createPayload = (text) => {
     const { chatId, chatType, members } = messengerDetail;
+    const attachments = voiceNoteFile ? [voiceNoteFile] : attchmentFiles;
+
     const payload = {
       chatId: chatId,
       members: members.map((mem) => {
@@ -29,16 +33,39 @@ const MessengerBottom = ({ isOpenProfile }) => {
           memberId: mem.id,
         };
       }),
-      message: e.target.value,
+      message: text,
       messageId: createGuid(),
+      attachments: attachments.map(file => ({
+        file,
+        id: STRINGS.DEFAULTS.guid
+      }))
     };
+    return payload
+  }
+
+  const handleMsgSend = (e) => {
+    if (!e.target.value.length)
+      return null;
+
+    setIsOpenEmoji(false);
+    let payload = createPayload(e.target.value);
     dispatch(sendChatMessage(payload));
     e.target.value = "";
   };
   const handleClickEmoji = () => setIsOpenEmoji(!isOpenEmoji);
+
   const handleClickAttachment = () => {
     fileInputRef.current.upload.uploader.onClick()
   }
+
+  const handleUpload = (files) => {
+    setAttchmentFiles(files)
+  }
+
+  const handleVoiceSend = (file) => {
+    setVoiceNoteFile(file)
+  }
+
   const onSelectEmoji = (emoji) => {
     msgInpRef.current.value += emoji.native;
     msgInpRef.current.focus();
@@ -46,7 +73,7 @@ const MessengerBottom = ({ isOpenProfile }) => {
   return (
     <>
       {/* <VoiceNotes /> */}
-    <FileUploader inputRef={fileInputRef}/>
+      <FileUploader inputRef={fileInputRef} handleUpload={handleUpload} />
       {isOpenEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
       <div className={"MessengerBottom " + (isOpenProfile ? "blur-bg" : "")}>
         <div className="MessengerInputHandler">
@@ -57,11 +84,11 @@ const MessengerBottom = ({ isOpenProfile }) => {
               alt=""
               onClick={handleClickEmoji}
             />
-            <img 
-            className="actionBtn" 
-            src={attachmentIcon} 
-            alt=""
-            onClick={handleClickAttachment}
+            <img
+              className="actionBtn"
+              src={attachmentIcon}
+              alt=""
+              onClick={handleClickAttachment}
             />
           </div>
         </div>
@@ -80,7 +107,7 @@ const MessengerBottom = ({ isOpenProfile }) => {
         </div>
         <div className="MessengerInputHandler">
           <div>
-            <VoiceNotes />
+            <VoiceNotes handleVoiceSend={handleVoiceSend} />
           </div>
         </div>
       </div>

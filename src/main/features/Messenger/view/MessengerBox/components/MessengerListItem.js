@@ -19,7 +19,7 @@ const MessengerListItem = ({
 	} = messgeItem;
 	const { chatType } = messengerDetail;
 	// const messageStatus = getMessageStatus(chatType, messageStatuses);
-
+	// console.log(window.webkitURL.createObjectURL(attachments[0].file))
 	return (
 		<div
 			id={id}
@@ -37,7 +37,10 @@ const MessengerListItem = ({
 					round={true}
 				/>
 			</div>
-			<div className="MessageBubble">{message}</div>
+			<div className="MessageBubble">
+				{attachments.map(item => <img src={item.path} />)}
+				{message}
+			</div>
 			{messageByMe && status}
 		</div>
 	);

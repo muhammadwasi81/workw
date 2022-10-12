@@ -77,13 +77,6 @@
   margin: 0 5px;
 }
 
-.MessengerInput>div>input {
-  background: transparent;
-  height: 100%;
-  width: 83%;
-  border: none;
-  margin: 0 10px;
-}
 
 .MessengerInput>div>input {
   background: transparent;
@@ -91,7 +84,7 @@
   width: 100%;
   border: none;
   margin: 0 10px;
-  padding-left: 15px;
+  /* padding-left: 15px; */
 }
 
 .ConversationListSearch>div>img {

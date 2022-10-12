@@ -4,7 +4,7 @@ import { Button, Image } from "antd";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../../../utils/base";
+import { getNameForImage, getEnumValue } from "../../../../../../utils/base";
 import moment from "moment";
 import {
   ItemContent,
@@ -19,7 +19,8 @@ import { useDispatch } from "react-redux";
 
 function ListItem({ item, onClick }) {
   console.log(item, "description");
-  const { jobTypeId, createDate } = item;
+  const { jobTypeId, createDate, status } = item;
+
   return (
     <>
       <SingleItem onClick={onClick}>
@@ -70,7 +71,7 @@ function ListItem({ item, onClick }) {
           </div>
           <p className="careersDescShort">
             {CareerStatusEnum.map((item) => {
-              if (item.value === jobTypeId) {
+              if (item.value === status) {
                 return item.label;
               }
             })}

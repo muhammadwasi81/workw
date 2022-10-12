@@ -97,3 +97,28 @@
   font-weight: 700;
   color: #757d86;
 }
+
+.item-card {
+  width: 100%;
+  height: min-content;
+  border: 1px solid #ebebeb;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%);
+  text-decoration: none;
+  transition: 0.3s;
+  animation: bottomToTop 0.7s ease;
+}
+
+.careersQuickDetail {
+  box-shadow: 0px 0px 8px 2px #eeeeee !important;
+  border-radius: 8px !important;
+  border: none !important;
+  padding-left: 17px !important;
+  padding-right: 10px !important;
+}

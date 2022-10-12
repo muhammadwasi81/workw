@@ -21,6 +21,7 @@ const MyCareersListView = () => {
   const dispatch = useDispatch();
 
   const openJobDetailHandler = (id) => {
+    console.log(id, "******");
     setOpenDetail(true);
     dispatch(getCareerByIdAction(id));
   };
@@ -45,6 +46,7 @@ const MyCareersListView = () => {
             onOk={handleOk}
             onCancel={handleCancel}
             footer={null}
+            width={"50%"}
           >
             <JobDetails />
           </Modal>

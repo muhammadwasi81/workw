@@ -290,6 +290,14 @@ const NavMenuList = () => {
       key: label.navMenuLabel.finance,
     },
     {
+      name: label.navMenuLabel.Quatation,
+      counter: 0,
+      to: ROUTES.QOUTATION.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
       name: label.navMenuLabel.voucher,
       counter: 0,
       to: ROUTES.FINANCE.VOUCHER.ROOT,

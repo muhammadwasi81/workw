@@ -41,6 +41,12 @@ const assetsCategorySlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
         console.log(payload, 'updateAssetCategory slice');
+        // if item is already existed show error message
+        if (state.assetsData.find((x) => x.id === payload.data.id)) {
+          state.assetsData = state.assetsData.map((x) =>
+            x.id === payload.data.id ? payload.data : x
+          );
+        }
       })
       .addMatcher(
         isPending(...[addAssetCategory, updateAssetCategory]),

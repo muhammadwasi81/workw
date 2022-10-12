@@ -26,11 +26,16 @@ const AssetsCategory = () => {
       dispatch(updateAssetCategory(e));
       setAssets(initialState);
     } else {
-      dispatch(addAssetCategory(e));
+      const payload = {
+        name: e.name,
+        description: e.description,
+        accountName: e.accountName,
+        parentId: e.parentId,
+      };
+      dispatch(addAssetCategory(payload));
       setAssets(initialState);
     }
   };
-
   const handleDelete = (e) => {
     alert('delete');
   };

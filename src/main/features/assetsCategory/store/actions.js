@@ -51,6 +51,7 @@ export const updateAssetCategory = createAsyncThunk(
       if (res.responseCode === responseCode.Success)
         res.message = 'Asset Category updated successfully!';
       responseMessage({ dispatch, data: res });
+      if (res.responseCode === responseCode.Error) message.error(res.message);
     } else {
       responseMessage({
         dispatch: dispatch,

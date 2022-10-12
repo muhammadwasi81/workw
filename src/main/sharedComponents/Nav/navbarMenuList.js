@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
 import { ROUTES } from "../../../utils/routes";
@@ -23,19 +23,29 @@ import payRollIcon from "../../../content/svg/menu/newNavBarIcon/Payroll.svg";
 import employeeIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg";
 import administrator from "../../../content/svg/menu/newNavBarIcon/Administration.svg";
 import appraisalsIcon from "../../../content/svg/menu/newNavBarIcon/Appraisals.svg";
-import departmentIcon from "../../../content/svg/menu/newNavBarIcon/Departments.svg";
 import leavesIcon from "../../../content/svg/menu/newNavBarIcon/Leaves.svg";
+import companyIcon from "../../../content/svg/menu/newNavBarIcon/companies.svg";
 import loanIcon from "../../../content/svg/menu/newNavBarIcon/Loan.svg";
 import holiday_event from "../../../content/svg/menu/newNavBarIcon/Holidays.svg";
 import career from "../../../content/svg/menu/newNavBarIcon/Career.svg";
 import resignation from "../../../content/svg/menu/newNavBarIcon/resignation.svg";
 import rewardIcon from "../../../content/svg/menu/rewardIcon.svg";
 import complainIcon from "../../../content/svg/menu/newNavBarIcon/complainIcon.svg";
+import departmentIcon from "../../../content/NewContent/department/departmentIcon.svg";
+import bonusIcon from "../../../content/NewContent/bonus/bonus.svg";
+import coaIcon from "../../../content/NewContent/chartOfAccount/coa.svg";
+import reportIcon from "../../../content/NewContent/report/report.svg";
+import documentIcon from "../../../content/NewContent/Documents/file/folder.svg";
+import voucherIcon from "../../../content/NewContent/voucher/voucher.svg";
+import requisitionIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg";
+import assetsIcon from "../../../content/svg/menu/newNavBarIcon/assets.svg";
+
 import { DOMAIN_PREFIX } from "../../../utils/routes";
 const NavMenuList = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
   const { Direction } = dictionaryList[userLanguage];
+
   const navMenuData = [
     {
       name: label.navMenuLabel.feed,
@@ -44,69 +54,22 @@ const NavMenuList = () => {
       icon: newsIcon,
       isActive: 1,
     },
-    // {
-    // 	name: label.navMenuLabel.mailBox,
-    // 	counter: 0,
-    // 	to: `${ROUTES.MAIL.DEFAULT}/INBOX`,
-    // 	icon: mailsIcon,
-    // 	isActive: 2,
-    // },
     {
-      name: label.navMenuLabel.messenger,
+      name: label.navMenuLabel.expense,
       counter: 0,
-      to: ROUTES.MESSENGER.DEFAULT,
-      icon: messengerIcon,
-      isActive: 3,
+      to: `${ROUTES.EXPENSES.EXPENSES}?f=my`,
+      icon: expensesIcon,
+      isActive: 10,
+      key: label.navMenuLabel.hr,
     },
-    // {
-    // 	name: label.navMenuLabel.groups,
-    // 	counter: 0,
-    // 	to: ROUTES.GROUP.DEFAULT,
-    // 	icon: groupsIcon,
-    // 	isActive: 4,
-    // },
-    // {
-    // 	name: label.navMenuLabel.projects,
-    // 	counter: 0,
-    // 	to: ROUTES.PROJECT.DEFAULT,
-    // 	icon: projectsIcon,
-    // 	isActive: 5,
-    // },
-    // {
-    // 	name: label.navMenuLabel.tasks,
-    // 	counter: 0,
-    // 	to: `${ROUTES.TASKS}`,
-    // 	icon: taskIcon,
-    // 	isActive: 6,
-    // },
-    // {
-    // 	name: label.navMenuLabel.workBoard,
-    // 	counter: 0,
-    // 	to: ROUTES.TODO.DEFAULT,
-    // 	icon: todoBoard,
-    // 	isActive: 7,
-    // },
-    // {
-    // 	name: label.navMenuLabel.leadManager,
-    // 	counter: 0,
-    // 	to: ROUTES.LEAD_MANAGER.DEFAULT,
-    // 	icon: contactManagerIcon,
-    // 	isActive: 8,
-    // },
-    // {
-    // 	name: label.navMenuLabel.schedules,
-    // 	counter: 0,
-    // 	to: `${ROUTES.SCHEDULES}?f=cal`,
-    // 	icon: schedulesIcon,
-    // 	isActive: 9,
-    // },
-    // {
-    // 	name: label.navMenuLabel.expense,
-    // 	counter: 0,
-    // 	to: `${ROUTES.EXPENSES}?f=my`,
-    // 	icon: expensesIcon,
-    // 	isActive: 10,
-    // },
+    {
+      name: label.navMenuLabel.travel,
+      counter: 0,
+      to: `${ROUTES.TRAVELS}`,
+      icon: travelIcon,
+      isActive: 11,
+      key: label.navMenuLabel.hr,
+    },
     {
       name: label.navMenuLabel.travel,
       counter: 0,
@@ -114,57 +77,24 @@ const NavMenuList = () => {
       icon: travelIcon,
       isActive: 11,
     },
-    // {
-    // 	name: label.navMenuLabel.docsArchives,
-    // 	counter: 0,
-    // 	to: ROUTES.DOCUMENTS.DEFAULT,
-    // 	icon: documentsIcon,
-    // 	isActive: 12,
-    // },
-    // {
-    // 	name: label.navMenuLabel.eLearning,
-    // 	counter: 0,
-    // 	to: ROUTES.E_LEARNING.DEFAULT,
-    // 	icon: eLearningIcon,
-    // 	isActive: 13,
-    // },
-    // {
-    // 	name: label.navMenuLabel.inventory,
-    // 	counter: 0,
-    // 	to: `${ROUTES.INVENTORY.DEFAULT}?f=assets`,
-    // 	icon: inventory,
-    // 	isActive: 14,
-    // },
-    // {
-    // 	name: label.navMenuLabel.customApproval,
-    // 	counter: 0,
-    // 	to: `${ROUTES.CUSTOM_APPROVALS}?f=my`,
-    // 	icon: customApprovalIcon,
-    // 	isActive: 15,
-    // },
   ];
   const navHrMenuData = [
-    // {
-    // 	name: label.navMenuLabel.myTeam,
-    // 	counter: 0,
-    // 	icon: teamIcon,
-    // 	to: ROUTES.ATTENDANCE.DEFAULT,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.orgChart,
-    // 	counter: 0,
-    // 	icon: orgChartIcon,
-    // 	to: ROUTES.HR.CHART,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.payroll,
-    // 	counter: 0,
-    // 	icon: payRollIcon,
-    // 	to: ROUTES.PAYROLL.DEFAULT,
-    // 	isActive: true,
-    // },
+    {
+      name: label.navMenuLabel.feed,
+      counter: 0,
+      to: DOMAIN_PREFIX,
+      icon: newsIcon,
+      isActive: 1,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.Schedules,
+      counter: 0,
+      to: ROUTES.SCHEDULES,
+      icon: schedulesIcon,
+      isActive: 1,
+      key: label.navMenuLabel.menu,
+    },
     {
       name: label.navMenuLabel.messenger,
       counter: 0,
@@ -173,20 +103,44 @@ const NavMenuList = () => {
       isActive: 3,
       key: label.navMenuLabel.menu,
     },
+    // {
+    // 	name: label.navMenuLabel.mailBox,
+    // 	counter: 0,
+    // 	to: ROUTES.MAIL.DEFAULT,
+    // 	icon: mailsIcon,
+    // 	isActive: 3,
+    // 	key: label.navMenuLabel.menu,
+    // },
+    {
+      name: label.navMenuLabel.leadManager,
+      counter: 0,
+      to: ROUTES.LEAD_MANAGER.DEFAULT,
+      icon: contactManagerIcon,
+      isActive: 8,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.customApprovals,
+      counter: 0,
+      to: ROUTES.CUSTOM_APPROVALS.DEFAULT,
+      icon: customApprovalIcon,
+      isActive: 4,
+      key: label.navMenuLabel.menu,
+    },
     {
       name: label.navMenuLabel.travel,
       counter: 0,
       to: `${ROUTES.TRAVELS}?f=trv`,
       icon: travelIcon,
       isActive: 11,
-      key: label.navMenuLabel.hr,
+      key: label.navMenuLabel.menu,
     },
     {
-      name: label.navMenuLabel.feed,
+      name: label.navMenuLabel.docsArchives,
       counter: 0,
-      to: DOMAIN_PREFIX,
-      icon: newsIcon,
-      isActive: 1,
+      to: ROUTES.DOCUMENTS.DOCUMENT,
+      icon: documentIcon,
+      // isActive: 6,
       key: label.navMenuLabel.menu,
     },
     {
@@ -198,6 +152,38 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     {
+      name: label.navMenuLabel.projects,
+      counter: 0,
+      to: ROUTES.PROJECT.DEFAULT,
+      icon: projectsIcon,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.workBoard,
+      counter: 0,
+      to: ROUTES.TODO.DEFAULT,
+      icon: todoBoard,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.groups,
+      counter: 0,
+      to: ROUTES.GROUP.DEFAULT,
+      icon: groupsIcon,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.expense,
+      counter: 0,
+      to: `${ROUTES.EXPENSES.EXPENSES}?f=my`,
+      icon: expensesIcon,
+      isActive: 10,
+      key: label.navMenuLabel.menu,
+    },
+    {
       name: label.navMenuLabel.administration,
       counter: 0,
       icon: administrator,
@@ -205,68 +191,36 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
-    // {
-    // 	name: label.navMenuLabel.appraisals,
-    // 	counter: 0,
-    // 	icon: appraisalsIcon,
-    // 	to: ROUTES.HR.APPRAISALS.DEFAULT,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.departments,
-    // 	counter: 0,
-    // 	icon: departmentIcon,
-    // 	to: ROUTES.HR.DEPARTMENTS,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.leaves,
-    // 	counter: 0,
-    // 	icon: leavesIcon,
-    // 	to: ROUTES.HR.LEAVES,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.loan,
-    // 	counter: 0,
-    // 	icon: loanIcon,
-    // 	to: `${ROUTES.LOAN}?f=my`,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.holidays,
-    // 	counter: 0,
-    // 	icon: holiday_event,
-    // 	to: ROUTES.HR.HOLIDAYS,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.careers,
-    // 	counter: 0,
-    // 	icon: career,
-    // 	to: ROUTES.HR.CAREER.DEFAULT,
-    // 	isActive: true,
-    // },
-    // {
-    // {
-    // 	name: label.navMenuLabel.bonus,
-    // 	counter: 0,
-    // 	icon: loanIcon,
-    // 	to: ROUTES.HR.BONUS.DEFAULT,
-    // 	isActive: true,
-    // },
-    // {
-    // 	name: label.navMenuLabel.resignations,
-    // 	counter: 0,
-    // 	icon: resignation,
-    // 	to: ROUTES.HR.RESIGNATIONS.DEFAULT,
-    // 	isActive: true,
-    // },
+
+    {
+      name: label.navMenuLabel.tasks,
+      counter: 0,
+      to: `${ROUTES.TASK.ROOT}`,
+      icon: taskIcon,
+      isActive: 6,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.promotions,
+      counter: 0,
+      to: `${ROUTES.PROMOTION}`,
+      icon: customApprovalIcon,
+      isActive: 7,
+      key: label.navMenuLabel.hr,
+    },
     {
       name: label.navMenuLabel.warnings,
       counter: 0,
       icon: career,
       to: ROUTES.WARNINGS.WARNING,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: label.navMenuLabel.bonus,
+      counter: 0,
+      icon: bonusIcon,
+      to: ROUTES.BONUS.DEFAULT,
       isActive: true,
       key: label.navMenuLabel.hr,
     },
@@ -286,6 +240,15 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
+    // *****BY SANJNA****
+    // {
+    //   name: label.navMenuLabel.teams,
+    //   counter: 0,
+    //   icon: teamIcon,
+    //   to: ROUTES.TEAMS.TEAM,
+    //   isActive: true,
+    //   key: label.navMenuLabel.hr,
+    // },
     {
       name: label.navMenuLabel.leaves,
       counter: 0,
@@ -294,6 +257,152 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
+    {
+      name: label.navMenuLabel.departments,
+      counter: 0,
+      icon: departmentIcon,
+      to: ROUTES.DEPARTMENTS.DEPARTMENT,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: "Job Board",
+      counter: 0,
+      icon: voucherIcon,
+      to: ROUTES.JOBS.ROOT,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.careers,
+      counter: 0,
+      icon: career,
+      to: ROUTES.CAREER.CAREERLINK,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: label.navMenuLabel.chartOfAccount,
+      counter: 0,
+      to: ROUTES.FINANCE.CHART_OF_ACCOUNT.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.Quatation,
+      counter: 0,
+      to: ROUTES.QOUTATION.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.voucher,
+      counter: 0,
+      to: ROUTES.FINANCE.VOUCHER.ROOT,
+      icon: voucherIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.transaction,
+      counter: 0,
+      to: ROUTES.FINANCE.TRANSACTION.ROOT,
+      icon: taskIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.ledgerReport,
+      counter: 0,
+      to: ROUTES.FINANCE.REPORT.ROOT,
+      icon: reportIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.payroll,
+      counter: 0,
+      to: ROUTES.PAYROLL.ROOT,
+      icon: reportIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.salary,
+      counter: 0,
+      to: ROUTES.SALARY.ROOT,
+      icon: reportIcon,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: label.navMenuLabel.businessPolicy,
+      counter: 0,
+      to: ROUTES.BUSINESS_POLICY.DEFAULT,
+      icon: reportIcon,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.form,
+      counter: 0,
+      to: ROUTES.FORMS.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
+      name: label.navMenuLabel.loan,
+      counter: 0,
+      icon: loanIcon,
+      to: ROUTES.LOAN.LOAN,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: label.navMenuLabel.resignations,
+      counter: 0,
+      icon: resignation,
+      to: ROUTES.RESIGNATION.RESIGNATION,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
+    {
+      name: label.navMenuLabel.requisition,
+      counter: 0,
+      icon: requisitionIcon,
+      to: ROUTES.REQUISITION.REQUISITION,
+      isActive: true,
+      key: label.navMenuLabel.inventory,
+    },
+    // TODO:// ASSETS MODULE
+    {
+      name: label.navMenuLabel.assets,
+      counter: 0,
+      icon: assetsIcon,
+      to: ROUTES.ASSETS.DEFAULT,
+      isActive: true,
+      key: label.navMenuLabel.inventory,
+    },
+    {
+      name: label.navMenuLabel.companies,
+      counter: 0,
+      icon: companyIcon,
+      to: "/companies",
+      isActive: true,
+      key: label.navMenuLabel.workWiseCompanies,
+    },
+
+    // {
+    //   name: label.navMenuLabel.businessPolicy,
+    //   counter: 0,
+    //   to: ROUTES.BUSINESS_POLICY.DEFAULT,
+    //   icon: reportIcon,
+    //   isActive: true,
+    //   key: label.navMenuLabel.menu,
+    // },
   ];
   return { navMenuData, navHrMenuData };
 };

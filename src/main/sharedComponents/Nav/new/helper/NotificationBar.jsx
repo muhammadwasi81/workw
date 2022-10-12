@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import sunIcon from "../../../../../content/svg/menu/newNavBarIcon/new/sun.svg";
-import moonIcon from "../../../../../content/svg/menu/newNavBarIcon/new/moon.svg";
-import addUser from "../../../../../content/svg/menu/newNavBarIcon/new/userAccount.svg";
+import sunIcon from "../../../../../content/svg/menu/newNavBarIcon/new/dark_mode.svg";
+import moonIcon from "../../../../../content/svg/menu/newNavBarIcon/new/light_mode.svg";
+import addUser from "../../../../../content/svg/menu/newNavBarIcon/new/add_user.svg";
 import search from "../../../../../content/svg/menu/newNavBarIcon/new/search.svg";
-import notification from "../../../../../content/svg/menu/newNavBarIcon/new/notification.svg";
-import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/rewards.svg";
-import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/stickyNotes.svg";
+import notification from "../../../../../content/svg/menu/newNavBarIcon/new/ring.svg";
+import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/check_list.svg";
+import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/sticky_notes.svg";
+import Notes from "../../../../features/notes/Notes";
+import NewStickyNote from "../../../../features/notes/NewStickyNote";
+import { toggleStickyNote } from "../../../../features/notes/newStickyNotes/store/stickySlice";
 import { setNotificationStatus } from "../../../../../store/appReducer/responsiveSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -13,78 +16,18 @@ import {
   enable as enableDarkMode,
 } from "darkreader";
 import NotificationModal from "./NavComposer";
-const Approvals = () => {
-  return "Approvals";
-};
-const Notifications = () => {
-  return (
-    <>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-      <p>notification</p>
-    </>
-  );
-};
+import Approvals from "../../../../features/approval/view/SideBarApproval/sideBarAppovals";
+import Notifications from "../../../../features/notifiation/view/index";
+import OpenImage from "../../../../features/notes/OpenImage";
+import StickyContainer from "../../../../features/notes/newStickyNotes/view/components/StickyNotes";
+// const Approvals = () => {
+//   return "Approvals";
+// };
+
 function NotificationBar() {
   const [isSearch, setIsSearch] = useState(false);
   const [currentNotification, setCurrentNotification] = useState("");
-  const renderNotification = {
+  const renderModal = {
     ["approval"]: <Approvals />,
     ["notification"]: <Notifications />,
   };
@@ -130,6 +73,27 @@ function NotificationBar() {
   let classes = "notificationBar ";
   classes += isSearch ? "open" : "";
 
+  // Sticky Note
+  const toggleNote = useSelector((state) => state.stickySlice.open);
+
+  const stickyNoteHandler = () => {
+    dispatch(toggleStickyNote());
+  };
+
+  // const incrementStickyNote = useSelector(
+  //   (state) => state.newStickySlice.incrementArray
+  // );
+
+  const openImg = useSelector((state) => state.newStickySlice.openImg);
+  // console.log(incrementStickyNote);
+
+  //console.log(closeAllSticky);
+  //const closeStickyNote = useSelector((state) => state.stickyNotesSlice.open);
+  const [title, setTitle] = useState("");
+  const titleVal = (titleVal) => {
+    setTitle(titleVal);
+  };
+
   return (
     <div className={classes}>
       <ul className="list">
@@ -141,6 +105,7 @@ function NotificationBar() {
               padding: "0 5px",
               outline: "none",
             }}
+            className="notificationBar_input"
           />
         )}
         <li className="list__item">
@@ -157,9 +122,30 @@ function NotificationBar() {
           <img src={addUser} alt="" />
         </li>
         <li className="list__item">
-          <img src={stickyNotes} alt="" />
+          <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
         </li>
-
+        {/* {toggleNote && <Notes stickyNoteTitle={title} />} */}
+        {toggleNote && <StickyContainer />}
+        {/* {incrementStickyNote.map((increment) => (
+          <NewStickyNote
+            key={increment.id}
+            id={increment.id}
+            title={increment.title}
+            titleVal={increment.titleVal}
+            textAreaPlaceholder={increment.textArea_placeholder}
+            textAreaValue={
+              increment.textArea_value === "Take a Note..."
+                ? ""
+                : increment.textArea_value
+            }
+            x_axis={increment.x_axis}
+            y_axis={increment.y_axis}
+            open={increment.open}
+            titleBg={increment.bgColor}
+            onGetTitleVal={titleVal}
+            img={increment.img}
+          />
+        ))} */}
         <li
           className="list__item"
           onClick={() => {
@@ -184,8 +170,9 @@ function NotificationBar() {
         isVisible={notifcationStatus}
         onClose={toggleNotification}
       >
-        {renderNotification[currentNotification]}
+        {renderModal[currentNotification]}
       </NotificationModal>
+      {openImg && <OpenImage />}
     </div>
   );
 }

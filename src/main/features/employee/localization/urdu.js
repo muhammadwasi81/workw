@@ -1,6 +1,11 @@
 const urdu = {
   employeesDictionary: {
     placeholders: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
       fName: "پہلا نام درج کریں",
       lName: "آخری نام درج کریں",
       fatherName: "والد کا نام درج کریں",
@@ -42,6 +47,12 @@ const urdu = {
       sortCode: "ترتیب کوڈ درج کریں",
     },
     EmployeeForm: {
+      organization: "Organization",
+      department: "Department",
+      subsidiary: "Subsidiary",
+      subsidiaryOffice: "Subsidiary Office",
+      payroll: "Payroll ",
+      UpdateBasicInfo: "Update BasicInfo",
       AddImage: "تصویر شامل کریں",
       FirstName: "پہلا نام",
       LastName: "آخری نام",
@@ -78,8 +89,12 @@ const urdu = {
       Number: "نمبر",
       Relation: "رشتہ",
       AddMoreEmergency: "مزید ایمرجنسی شامل کریں",
+      AddEmergency: "ایمرجنسی شامل کریں",
     },
     EducationForm: {
+      BasicInfo: "Basic Info",
+      AddEducation: "Add Education",
+      UpdateEducation: "Update Education",
       EducationInfo: "تعلیمی معلومات",
       Degree: "ڈگری",
       Institute: "انسٹی ٹیوٹ",
@@ -90,11 +105,12 @@ const urdu = {
       ObtainedMarks: "مارکس حاصل کئے",
       Present: "موجودہ",
       Attachments: "ملحقات",
-      AddMoreEducation: "مزید تعلیم شامل کریں",
+      AddEducation: "مزید تعلیم شامل کریں",
       City: "شہر",
       Upload: "اپ لوڈ",
     },
     WorkExperienceForm: {
+      organization: "Organization",
       WorkExperienceInfo: "کام کے تجربے کی معلومات",
       Employer: "آجر",
       Position: "پوزیشن",
@@ -103,8 +119,10 @@ const urdu = {
       StartDate: "شروع کرنے کی تاریخ",
       Present: "موجودہ",
       AddMoreExperience: "مزید تجربہ شامل کریں",
+      AddExperience: "تجربہ شامل کریں",
       EmploymentType: "ملازمت کی قسم",
       City: "شہر",
+      UpdateExperience: "Update Experience",
     },
     UserForm: {
       UserRights: "صارف کے حقوق",
@@ -112,6 +130,7 @@ const urdu = {
       UserRole: "صارف کا کردار",
     },
     BankForm: {
+      updateBank: "Update Bank",
       BankInfo: "بینک کی معلومات",
       BankName: "بینک کا نام",
       AccountTitle: "اکاؤنٹ ٹائٹل",
@@ -122,13 +141,14 @@ const urdu = {
       City: "شہر",
       Country: "ملک",
       AddMoreBank: "مزید بینک شامل کریں",
+      AddBank: "بینک شامل کریں",
     },
     EmployeeList: {
       number: "نمبر",
       email: "ای میل",
       designation: "عہدہ",
     },
-    submit: "جمع کرائیں",
+    AddEmployee: "Add Employee",
   },
   /*** Define language write side ***/
   Direction: "rtl",

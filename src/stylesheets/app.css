@@ -3,30 +3,42 @@
 @tailwind components;
 @tailwind utilities; */
 
+.workboard_upload .ant-upload {
+  width: 100%;
+}
+
+.ant-message-custom-content.ant-message-error{
+  display: flex; 
+  align-items: center;
+}
+
 .ant-btn-primary {
-  /*background-color: #1b5669 !important;*/
+  /*background: var(--currentThemeColor) !important;*/
   /*border: none !important;*/
   /*border-radius: 4px !important;*/
-  border-color: #1b5669 !important;
+  border-color: var(--currentThemeColor) !important;
 }
+
 .list-item::marker {
   display: none !important;
 }
+
 .ant-btn-default {
   /*border: none !important;*/
   /*border-radius: 9px !important;*/
-  border-color: #1b5669 !important;
+  border-color: var(--currentThemeColor) !important;
   /*border-radius: 4px !important;*/
 }
 
-.ant-btn:hover,
+/* .ant-btn:hover,
 .ant-btn:focus {
   border-color: #1b5669 !important;
-}
+} */
 
 .btn-hover:hover {
   color: unset !important;
 }
+
 /*** ant design shared components override styling ***/
 
 .main-app-style {
@@ -54,18 +66,19 @@
   align-items: flex-end;
   margin-left: 9px;
 }
+
 /* 
 .ant-table-container  {
-	background-color: #f6f6f9;
+	background: #f6f6f9;
 } */
 
-.mem > .us-img {
+.mem>.us-img {
   width: 27px;
   height: 27px;
   border-radius: 50%;
   margin-left: -13px;
   border: 2px solid #fff;
-  background-color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.8);
   color: #fff;
   display: flex;
   align-items: center;
@@ -76,8 +89,9 @@
 .SummaryMembers {
   margin-left: 20px !important;
 }
+
 .section {
-  background-color: #f6f6f9;
+  background: #f6f6f9;
 }
 
 .cont-body {
@@ -104,20 +118,23 @@
 .ic-txt-btn.sc {
   -webkit-text-stroke: 1px #01ae3a;
 }
+
 .ic-txt-btn.dg {
   -webkit-text-stroke: 1px #f33;
 }
+
 .ic-txt-btn.dg:hover {
-  background-color: rgba(255, 51, 51, 0.11);
+  background: rgba(255, 51, 51, 0.11);
 }
 
 .ic-txt-btn.sc:hover {
-  background-color: rgba(1, 174, 58, 0.11);
+  background: rgba(1, 174, 58, 0.11);
 }
+
 /* .tabbable-container > .cont-body{
     overflow: unset !important;
 } */
-.tabbable-container > .cont-body > .lf-col {
+.tabbable-container>.cont-body>.lf-col {
   overflow: auto;
   scroll-behavior: smooth;
 }
@@ -136,32 +153,32 @@
     width: 100%;
   }
 
-  .tabbable-container > .cont-header > .menu > .li {
+  .tabbable-container>.cont-header>.menu>.li {
     padding: 7px;
   }
 
-  .tabbable-container > .cont-header {
+  .tabbable-container>.cont-header {
     width: 100%;
   }
 
-  .tabbable-container > .cont-body {
+  .tabbable-container>.cont-body {
     width: 100%;
   }
 
-  .tabbable-container > .cont-header {
+  .tabbable-container>.cont-header {
     margin-top: 10px;
     font-size: 12px;
     width: 100% !important;
   }
 
-  .tabbable-container > .cont-header-rtl {
+  .tabbable-container>.cont-header-rtl {
     margin-top: 33px;
     font-size: 12px;
     padding-right: unset;
     width: 100% !important;
   }
 
-  .tabbable-container > .cont-body > .lf-col {
+  .tabbable-container>.cont-body>.lf-col {
     height: unset;
   }
 }
@@ -171,9 +188,11 @@
 iframe {
   display: none;
 }
+
 .WarningMainDiv {
   padding-top: 9px;
 }
+
 .travel-item-content h3 {
   font-weight: 600;
   color: black;
@@ -181,34 +200,51 @@ iframe {
   font-size: 18px;
   margin-bottom: 0px;
 }
+
 .ThemeBtn {
-  background-color: #1b5669 !important;
+  background: var(--currentThemeColor) !important;
   color: white !important;
   border-radius: 5px !important;
 }
+
+.ThemeBtnDelete {
+  background: red !important;
+  color: white !important;
+  border-radius: 5px !important;
+  border-color: red !important;
+}
+
 .lowPriorityBtn {
-  background-color: #01ae3a !important;
+  background: #01ae3a !important;
   color: white !important;
   border-radius: 5px !important;
 }
+
 .mediumPriorityBtn {
-  background-color: orange !important;
+  background: orange !important;
   color: white !important;
   border-radius: 5px !important;
 }
+
 .highPriorityBtn {
-  background-color: #f33 !important;
+  background: #f33 !important;
   color: white !important;
   border-radius: 4px !important;
 }
+
 .ant-form-item {
-  margin-bottom: 15px !important;
+  margin-bottom: 15px;
 }
 
 .WarningFilterForm {
   margin-left: 7px;
   padding-bottom: 10px;
   text-align: center;
+}
+
+.ant-modal.rtl .ant-modal-close {
+  right: auto;
+  left: 0;
 }
 
 /* SALMAN CSS END */
@@ -232,12 +268,15 @@ iframe {
 .w-0 {
   width: 0px;
 }
+
 .p-0 {
   padding: 0px;
 }
+
 .w-auto {
   width: auto;
 }
+
 /* .flex {
 	display: flex;
 }
@@ -279,6 +318,7 @@ iframe {
   padding: 2px 5px;
   border-radius: 5px;
 }
+
 /* .text-20 {
 	font-size: 20px;
 }
@@ -338,27 +378,74 @@ iframe {
 	word-break: break-all;
    } */
 :root {
-  --primary_theme_color_green: #1a5669;
+  /* --currentThemeColor: #1a5669; */
+  --currentThemeColor: #526bb1;
+  /* --themeColorGreen: #64c4b2;
+  --themeColorSkyBlue: #45c6ee;
+  --themeColorDarkBlue: #526bb1;
+  --themeColorPink: #e8137b;
+  --themeColorYellow: #f7d447; */
+
 }
 
-.ant-select-selection-item-content img {
+.ant-select-selection-item-content img, .ant-select-selection-item-content .ant-avatar, .ant-select-selector .ant-avatar{
   display: none !important;
 }
+
+
 .defaultNotification {
-  background-color: var(--primary_theme_color_green);
+  background: var(--currentThemeColor);
   color: white;
   border-radius: 10px;
 }
-.drawerSecondary .ant-drawer-body {
-  background: #eef2f4;
+
+.defaultNotification .ant-notification-notice-message {
+  margin: 0px !important;
 }
-.drawerSecondary .ant-drawer-body > div {
+
+.defaultNotification .ant-notification-notice-icon {
+  top: 9px;
+  left: 12px;
+}
+
+.drawerSecondary .ant-drawer-body, .ant-drawer-body {
+  background: #f4f4f4;
+}
+
+.drawerSecondary .ant-drawer-body>div {
   background: #fff;
   border-radius: 4px;
-  padding: 12px;
-  box-shadow: 0px 0px 5px 0px #ccc;
+  padding: 15px;
+  /* box-shadow: 0px 0px 5px 0px #ccc; */
 }
-.ant-drawer {
+
+/* .drawerSecondary .ant-drawer-body > .detailedViewComposer {
+  background: #fff;
+  border-radius: 4px;
+  padding: 15px;
+} */
+.approvalDetail .detailedViewComposer {
+  background: #fff;
+  border-radius: 4px;
+  padding: 15px;
+  /* box-shadow: 0px 0px 5px 0px #ccc; */
+}
+
+.drawerSecondary .ant-drawer-body>form {
+  background: #fff;
+  border-radius: 4px;
+  padding: 15px;
+  /* box-shadow: 0px 0px 5px 0px #ccc; */
+}
+
+.ant-form.rtl .ant-form-item-label{
+  text-align: right;
+}
+.ant-form.ltr .ant-form-item-label{
+  text-align: left;
+}
+
+/* .ant-drawer {
   z-index: 10001;
 }
 
@@ -367,5 +454,5 @@ iframe {
 }
 .ant-modal-wrap {
   z-index: 1000111;
-}
+} */
 /* Danish css end */

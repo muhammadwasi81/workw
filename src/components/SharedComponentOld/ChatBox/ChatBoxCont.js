@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import MessengerList from "../../MainMenu/Messenger/MessengerList";
+import MessengerList from "../../../main/features/Messenger/view/MessengerBox/body/MessengerList";
 import ChatBox from "./ChatBox";
 import ChatBoxFoot from "./ChatBoxFoot";
 import ChatBoxHead from "./ChatBoxHead";
@@ -11,7 +11,7 @@ const ChatBoxCont = (props) => {
     return (
         <div className="ChatBoxCont" >
             {
-                [1, 2, 3].map((val) => (
+                [].map((val) => (
                     <ChatBox>
                         <ChatBoxHead />
                         <MessengerList isChatBox={true} messageList={messageList.chatId} />

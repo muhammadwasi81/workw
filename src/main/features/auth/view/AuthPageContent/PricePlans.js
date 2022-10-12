@@ -9,7 +9,7 @@ function PricePlans() {
           textAlign: "center",
           fontWeight: "bold",
           margin: "0px",
-          color: "#1A5669",
+          color: "var(--currentThemeColor)",
           marginTop: "20px",
         }}
       >
@@ -65,7 +65,7 @@ function PricePlans() {
                   borderRadius: "5px",
                   fontWeight: "bold",
                   color: "white",
-                  backgroundColor: "#1A5669",
+                  backgroundColor: "var(--currentThemeColor)",
                 }}
                 block
               >
@@ -76,7 +76,10 @@ function PricePlans() {
           <Col xs={24} sm={8} lg={8}>
             <div
               className="basic-price-card"
-              style={{ backgroundColor: "#1A5669", color: "white" }}
+              style={{
+                backgroundColor: "var(--currentThemeColor)",
+                color: "white",
+              }}
             >
               <h3
                 className="price-card-heading "
@@ -122,7 +125,7 @@ function PricePlans() {
                 style={{
                   borderRadius: "5px",
                   fontWeight: "bold",
-                  color: "#1A5669",
+                  color: "var(--currentThemeColor)",
                 }}
                 block
               >
@@ -167,7 +170,7 @@ function PricePlans() {
                   borderRadius: "5px",
                   fontWeight: "bold",
                   color: "white",
-                  backgroundColor: "#1A5669",
+                  backgroundColor: "var(--currentThemeColor)",
                 }}
                 block
               >

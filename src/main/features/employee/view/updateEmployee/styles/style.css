@@ -1,0 +1,18 @@
+.updateFormsBody {
+    width: 100%;
+    background: white;
+    padding-top: 15px;
+    overflow: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 20px 30px;
+}
+
+.updateFormsBody .employeeForm {
+    margin: 0;
+    padding: 0;
+}
+
+.updateFormsBody .ant-divider-horizontal {
+    margin-top: 0;
+}

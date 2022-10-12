@@ -1,40 +1,43 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Avatar } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
-// import Button from "../../../../components/SharedComponent/button/index";
 import Select from "../../../sharedComponents/Select/Select";
 import { useSelector, useDispatch } from "react-redux";
-import { getRewardCategory } from "../../../../utils/Shared/store/actions";
-import { addReward } from "../store/actions";
+import {
+	getAllEmployees,
+	getRewardCategory,
+} from "../../../../utils/Shared/store/actions";
+import { addReward, getAllRewards } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import {rewardDictionaryList} from "../localization/index";
+import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { uploadImage } from "../../../../utils/Shared/store/actions";
-import NewCustomSelect from "../../employee/view/newCustomSelect";
+import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getNameForImage, STRINGS } from "../../../../utils/base";
+import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 
 const initialState = {
-	id : "",
+	id: "",
 	name: "",
 	reason: "",
 	description: "",
 	categoryId: "",
 	imageId: "",
 	members: [
-	  {
-		memberId: "",
-		memberType: 1
-	  }
+		{
+			memberId: "",
+			memberType: 1,
+		},
 	],
 	approvers: [
-	  {
-		approverId: "",
-		approverType: 0,
-		isDefault: true,
-		status: 1,
-		email: ""
-	  }
-	]
-  }
+		{
+			approverId: "",
+			approverType: 0,
+			isDefault: true,
+			status: 1,
+			email: "",
+		},
+	],
+};
 
 const Composer = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -43,60 +46,109 @@ const Composer = props => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [profileImage, setProfileImage] = useState(null);
-	const { rewardCategories } = useSelector(state => state.sharedSlice);
-
 	const [state, setState] = useState(initialState);
+	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+	const [value, setValue] = useState([]);
 
+	const { rewardCategories } = useSelector(state => state.sharedSlice);
+	const { success } = useSelector(state => state.rewardSlice);
+	const employees = useSelector(state => state.sharedSlice.employees);
 
+	const selectedData = (data, obj) => {
+		setValue(data);
+		handleMember(obj);
+		// setMembers(obj);
+		// onChange(data, obj);
+	};
+	useEffect(() => {
+		fetchEmployees("", 0);
+	}, []);
 
 	useEffect(() => {
 		dispatch(getRewardCategory());
-		// dispatch(getAllEmployee());
-		// console.log(employeesList, "EMPLOYEES")
+	}, []);
+
+	const handleMember = val => {
+		setNewState({
+			...newState,
+			members: [...val],
+		});
+	};
+
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
+
+	const [newState, setNewState] = useState({
+		members: [],
+		memberType: null,
+	});
+
+	useEffect(() => {
+		if (employees.length > 0 && !isFirstTimeDataLoaded) {
+			setIsFirstTimeDataLoaded(true);
+			setFirstTimeEmpData(employees);
+		}
+	}, [employees]);
+
+	useEffect(() => {
+		if (employees.length !== 0) {
+			dispatch(emptyEmployeesData());
+			setIsFirstTimeDataLoaded(false);
+		}
+		dispatch(getRewardCategory());
 	}, []);
 
 	const handleImageUpload = data => {
 		setProfileImage(data);
 	};
 
-	const onFinish = values => {
-		form.resetFields();
-
-		dispatch(uploadImage(profileImage)).then(x => {
-			// console.log(
-			// 	x.payload.data[0].id,
-			// 	"Hurry i got image if from server"
-			// );
-			console.log(x, "FIRST ONE")
-			let photoId = x.payload.data[0].id;
-
-			let approvers = values.approvers.map(approver => {
+	const onFinish = (values) => {
+		let approvers = [];
+		let members = [];
+		if (typeof values.approvers === 'string') {
+			approvers.push({
+				approverId: values.approvers
+			})
+		}
+		else {
+			approvers = values.approvers.map((approver) => {
 				return {
-					approverId: approver,
-					approverType: 0,
-					isDefault: true,
-					status: 0,
-					email: "",
+					approverId: approver
 				};
 			});
-			let members = values.members.map(approver => {
+		}
+		if (typeof values.members === 'string') {
+			members.push({
+				memberId: values.members
+			})
+		} else {
+			members = values.members.map((memeber) => {
 				return {
-					approverId: approver,
-					approverType: 0,
-					isDefault: true,
-					status: 0,
-					email: "",
+					memberId: memeber
 				};
 			});
+		}
 
-			let payload = { ...values, imageId: photoId, approvers, members };
+		let image = {
+			id: STRINGS.DEFAULTS.guid,
+			file: profileImage && profileImage[0]?.originFileObj,
+		};
 
-			dispatch(addReward(payload));
-			console.log(payload, "FINALLLLL")
-			// console.log(payload, "Final Data");
-		});
-
+		if (Object.keys(image).length > 0) {
+			let payload = { ...values, approvers, members, image };
+			dispatch(addReward(payload));	
+		} else {
+			let payload = { ...values, approvers, members };
+			dispatch(addReward(payload));	
+		}
 	};
+	useEffect(() => {
+		if (success) {
+		  form.resetFields();
+		}
+	  }, [success]);
 
 	const onFinishFailed = errorInfo => {
 		console.log("Failed:", errorInfo);
@@ -119,8 +171,27 @@ const Composer = props => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
-				// className={Direction === "ltr" ? "align-right" : ""}
 			>
+				<Form.Item
+					label={"Reward Category"}
+					name="categoryId"
+					rules={[
+						{
+							required: true,
+							message: "Please Select Category",
+						},
+					]}
+				>
+					<Select
+						data={rewardCategories}
+						placeholder={"Select Category"}
+						style={{
+							width: "100%",
+							borderRadius: "5px",
+						}}
+						size="large"
+					/>
+				</Form.Item>
 				<Form.Item
 					label={rewardDictionary.name}
 					name="name"
@@ -130,33 +201,8 @@ const Composer = props => {
 							required: true,
 							message: rewardDictionary.pleaseEnterRewardName,
 						},
-					]}
-				>
+					]}>
 					<TextInput placeholder={rewardDictionary.enterRewardName} />
-				</Form.Item>
-
-				<Form.Item
-					label={rewardDictionary.category}
-					name="categoryId"
-					rules={[
-						{
-							required: true,
-							message: "Please Enter Category",
-						},
-					]}
-				>
-					<Select
-						// value={
-						//   "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-						// }
-						data={rewardCategories}
-						placeholder={rewardDictionary.category}
-						style={{
-							width: "100%",
-							borderRadius: "5px",
-						}}
-						size="large"
-					/>
 				</Form.Item>
 
 				<Form.Item
@@ -169,7 +215,9 @@ const Composer = props => {
 						},
 					]}
 				>
-					<TextInput placeholder={rewardDictionary.enterRewardReason} />
+					<TextInput
+						placeholder={rewardDictionary.enterRewardReason}
+					/>
 				</Form.Item>
 
 				<Form.Item
@@ -177,17 +225,42 @@ const Composer = props => {
 					label={rewardDictionary.rewardTo}
 					showSearch={true}
 					direction={Direction}
-					rules={[{ required: true }]}
+					style={{ marginBottom: "0px" }}
 				>
-					<NewCustomSelect
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={rewardDictionary.selectMember}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
 						name="members"
-						label={rewardDictionary.members}
 						showSearch={true}
 						direction={Direction}
-						mode="multiple"
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={rewardDictionary.selectMember}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
 					/>
 				</Form.Item>
 
@@ -196,20 +269,45 @@ const Composer = props => {
 					label={rewardDictionary.approvers}
 					showSearch={true}
 					direction={Direction}
-					rules={[{ required: true }]}
+					style={{ marginBottom: "0px" }}
 				>
-					<NewCustomSelect
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={rewardDictionary.selectMember}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
 						name="approvers"
-						label={rewardDictionary.approvers}
 						showSearch={true}
 						direction={Direction}
-						mode="multiple"
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={rewardDictionary.approvers}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Approver",
+							},
+						]}
 					/>
 				</Form.Item>
-				
+
 				<Form.Item
 					label={rewardDictionary.description}
 					name="description"
@@ -220,7 +318,9 @@ const Composer = props => {
 						},
 					]}
 				>
-					<Input.TextArea placeholder={rewardDictionary.enterDescription} />
+					<Input.TextArea
+						placeholder={rewardDictionary.enterDescription}
+					/>
 				</Form.Item>
 
 				<Form.Item area="true">

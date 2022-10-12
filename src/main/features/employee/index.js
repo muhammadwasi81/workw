@@ -2,46 +2,39 @@ import React, { useContext, useState } from "react";
 import { ROUTES } from "../../../utils/routes";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
-import { ContBody, HeaderMenuContainer, TabbableContainer } from "../../sharedComponents/AppComponents/MainFlexContainer";
-import { ContainerHeader } from "../../sharedComponents/AppComponents/MainHeader";
-import HeaderNavLink from "../../sharedComponents/AppComponents/MainHeader/HeaderNavLink";
-import LinkButton from "../../sharedComponents/LinkButton/LinkButton";
-import { PlusOutlined, RightOutlined } from "@ant-design/icons";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../sharedComponents/AppComponents/MainFlexContainer";
+import { PlusOutlined } from "@ant-design/icons";
 import EmployeeRoutes from "./routes/employeeRoutes";
-import { useNavigate, useLocation } from "react-router-dom";
-import { LeftOutlined } from "@ant-design/icons";
-import styled from "styled-components";
+import { buttonsEnum } from "./enum/enum";
+import Header from "../../layout/header";
+
 const Index = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, Direction } = dictionaryList[userLanguage];
+  const { sharedLabels } = dictionaryList[userLanguage];
   const label = dictionaryList[userLanguage];
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
 
-  // const urlLength = pathname.split("/").length;
-  const BackButton = styled.button`
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  `;
-
+  const items = [
+    {
+      name: label.appHeader.employee.employees,
+      to: ROUTES.EMPLOYEES.EMPLOYEELINK,
+      renderButton: buttonsEnum.employee,
+    },
+  ];
+  const buttons = [
+    {
+      buttonText: sharedLabels.AddEmployee,
+      onClick: () => {},
+      to: ROUTES.EMPLOYEES.ADD,
+      icon: <PlusOutlined />,
+    },
+  ];
   return (
     <TabbableContainer>
-      <ContainerHeader>
-        <HeaderMenuContainer>
-          {pathname !== "/employees" && (
-            <BackButton onClick={() => navigate(-1)}>
-              {Direction === "ltr" && <LeftOutlined />}
-              {sharedLabels.Back}
-              {Direction === "rtl" && <RightOutlined />}
-            </BackButton>
-          )}
-          <HeaderNavLink activeName={"Employees"} to={ROUTES.EMPLOYEES.EMPLOYEELINK} isDefault={true} linkName={label.appHeader.employee.employees} />
-        </HeaderMenuContainer>
-        {pathname !== "/employees/add" && (
-          <LinkButton to={ROUTES.EMPLOYEES.ADD} text={sharedLabels.AddEmployee} icon={<PlusOutlined />} style={{ margin: "0 10px" }} />
-        )}
-      </ContainerHeader>
+      <Header items={items} buttons={buttons} />
+
       <ContBody>
         <EmployeeRoutes />
       </ContBody>

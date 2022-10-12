@@ -6,21 +6,31 @@ import { groupByKey } from "../../../../../utils/base";
 import { DOMAIN_PREFIX } from "../../../../../utils/routes";
 import NavMenuList from "../../navbarMenuList";
 import ReactDragListView from "react-drag-listview";
+import { Collapse } from "antd";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
+import {
+  CaretRightOutlined,
+  MenuUnfoldOutlined,
+  UsergroupAddOutlined,
+  FileDoneOutlined,
+  GlobalOutlined,
+  SafetyCertificateOutlined,
+} from "@ant-design/icons";
+const { Panel } = Collapse;
+
 function Menu() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction } = dictionaryList[userLanguage];
+  const { Direction, navMenuLabel } = dictionaryList[userLanguage];
   const { pathname } = useLocation();
   let { navHrMenuData } = NavMenuList();
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
   const groupedMenuItems = groupByKey(navHrMenuData, "key");
   const [data, setData] = useState(groupedMenuItems);
   let currentCategory = "";
-
   useEffect(() => {
     setData(groupedMenuItems);
-  }, [Direction]);
+  }, [Direction, navMenuLabel]);
 
   const activeTab = (isActive, path) => {
     return isActive
@@ -32,6 +42,44 @@ function Menu() {
       : pathname.split("/").includes(path.split("/")[1])
       ? "on"
       : "";
+  };
+
+  const renderIcons = {
+    Menu: (
+      <MenuUnfoldOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
+    HR: (
+      <UsergroupAddOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
+    Finance: (
+      <FileDoneOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
+    "Workwise Companies": (
+      <GlobalOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
+    Inventory: (
+      <SafetyCertificateOutlined
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
+    ),
   };
 
   const dragProps = {
@@ -46,63 +94,75 @@ function Menu() {
   };
   return (
     <div className="menu">
-      {Object.keys(data).map((key) => {
+      {Object.keys(data).map((key, ObjIndex) => {
         return (
           <>
-            <span>{key}</span>
-            <ReactDragListView {...dragProps}>
-              {data[key].map(({ name, to: path, icon }, index) => {
-                // eslint-disable-next-line no-lone-blocks
+            <Collapse
+              expandIconPosition="end"
+              className="MenuCollapse"
+              defaultActiveKey={ObjIndex === 0 && ["1"]}
+              onChange={() => {}}
+              expandIcon={({ isActive }) => (
+                <CaretRightOutlined rotate={isActive ? 90 : 0} />
+              )}
+            >
+              <Panel header={key} key="1" extra={renderIcons[key]}>
+                {/* <span>{key}</span> */}
+                <ReactDragListView {...dragProps}>
+                  {data[key].map(({ name, to: path, icon }, index) => {
+                    // eslint-disable-next-line no-lone-blocks
 
-                return !navBarStatus ? (
-                  <Tooltip
-                    title={name}
-                    color={"#fff"}
-                    placement="right"
-                    key={index}
-                    overlayClassName=""
-                  >
-                    <div
-                      className="menu-item"
-                      onDrag={() => {
-                        currentCategory = key;
-                      }}
-                    >
-                      <NavLink
-                        className={({ isActive }) => {
-                          return activeTab(isActive, path);
-                        }}
-                        to={path}
+                    return !navBarStatus ? (
+                      <Tooltip
+                        title={name}
+                        color={""}
+                        placement="right"
+                        key={index}
+                        overlayClassName=""
                       >
-                        <div className="icon">
-                          <img src={icon} alt="#" />
+                        <div
+                          className="menu-item"
+                          onDrag={() => {
+                            currentCategory = key;
+                          }}
+                        >
+                          <NavLink
+                            className={({ isActive }) => {
+                              return activeTab(isActive, path);
+                            }}
+                            to={path}
+                          >
+                            <div className="icon">
+                              <img src={icon} alt="#" />
+                            </div>
+                            <p>{name}</p>
+                          </NavLink>
                         </div>
-                        <p>{name}</p>
-                      </NavLink>
-                    </div>
-                  </Tooltip>
-                ) : (
-                  <div
-                    className="menu-item"
-                    onDrag={() => {
-                      currentCategory = key;
-                    }}
-                  >
-                    <NavLink
-                      className={({ isActive }) => {
-                        return activeTab(isActive, path);
-                      }}
-                      to={path}
-                    >
-                      <div className="icon">
-                        <img src={icon} alt="#" />
+                      </Tooltip>
+                    ) : (
+                      <div
+                        className="menu-item"
+                        onDrag={() => {
+                          currentCategory = key;
+                        }}
+                      >
+                        <NavLink
+                          className={({ isActive }) => {
+                            return activeTab(isActive, path);
+                          }}
+                          to={path}
+                        >
+                          <div className="icon">
+                            <img src={icon} alt="#" />
+                          </div>
+                          <p>{name}</p>
+                        </NavLink>
                       </div>
-                      <p>{name}</p>
-                    </NavLink>
-                  </div>
-                );
-              })}
-            </ReactDragListView>
+                    );
+                  })}
+                </ReactDragListView>
+              </Panel>
+            </Collapse>
           </>
         );
       })}

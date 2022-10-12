@@ -13,8 +13,8 @@ const UserSearchable = (props) => {
   }, []);
 
   const handleChange = (e) => {
-    setOptions([...options.filter((option) => !e.includes(option.name))]);
-    const selectedItem = data.filter((option) => e.includes(option.name));
+    setOptions([...options.filter((option) => !e.includes(option.id))]);
+    const selectedItem = data.filter((option) => e.includes(option.id));
     onChange(selectedItem);
   };
 
@@ -32,16 +32,15 @@ const UserSearchable = (props) => {
         onChange={handleChange}
         mode="multiple"
         style={{ width: "100%" }}
-        placeholder="Write name"
-        optionLabelProp="label">
+        placeholder={props.placeholder}
+        optionLabelProp="label"
+      >
         {options?.map((res, i) => (
-          <Option key={i} value={res.name} label={res.name}>
+          <Option key={i} value={res.id} label={res.name}>
             <ShortProfile
               name={res.name}
               jobTitle={res.jobTitle}
-              userIcon={
-                "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-              }
+              userIcon={res.image}
             />
           </Option>
         ))}

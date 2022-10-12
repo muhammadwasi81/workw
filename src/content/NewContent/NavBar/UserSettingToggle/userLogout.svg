@@ -1,3 +1,3 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="33.081" height="29.791" viewBox="0 0 33.081 29.791">
-  <path id="Icon_open-account-logout" data-name="Icon open-account-logout" d="M21.785.877V3.495H3.652V28.08H22.5v2.588H.8V.877ZM27,9.74l6.877,5.791L27,21.627V17H9V13.5H27Z" transform="translate(-0.796 -0.877)" fill="#1a5669"/>
+  <path id="Icon_open-account-logout" data-name="Icon open-account-logout" d="M21.785.877V3.495H3.652V28.08H22.5v2.588H.8V.877ZM27,9.74l6.877,5.791L27,21.627V17H9V13.5H27Z" transform="translate(-0.796 -0.877)" fill="var(--currentThemeColor)"/>
 </svg>

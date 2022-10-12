@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="21.696" height="4.294" viewBox="0 0 21.696 4.294">
   <g id="Icon_ionic-ios-more" data-name="Icon ionic-ios-more" transform="translate(-4.5 -15.328)">
-    <path id="Path_930" data-name="Path 930" d="M17.461,15.328a2.147,2.147,0,1,0,2.147,2.147,2.146,2.146,0,0,0-2.147-2.147Z" transform="translate(-2.124)" fill="#1a5669"/>
-    <path id="Path_931" data-name="Path 931" d="M6.647,15.328a2.147,2.147,0,1,0,2.147,2.147,2.146,2.146,0,0,0-2.147-2.147Z" fill="#1a5669"/>
-    <path id="Path_932" data-name="Path 932" d="M28.3,15.328a2.147,2.147,0,1,0,2.147,2.147A2.146,2.146,0,0,0,28.3,15.328Z" transform="translate(-4.254)" fill="#1a5669"/>
+    <path id="Path_930" data-name="Path 930" d="M17.461,15.328a2.147,2.147,0,1,0,2.147,2.147,2.146,2.146,0,0,0-2.147-2.147Z" transform="translate(-2.124)" fill="var(--currentThemeColor)"/>
+    <path id="Path_931" data-name="Path 931" d="M6.647,15.328a2.147,2.147,0,1,0,2.147,2.147,2.146,2.146,0,0,0-2.147-2.147Z" fill="var(--currentThemeColor)"/>
+    <path id="Path_932" data-name="Path 932" d="M28.3,15.328a2.147,2.147,0,1,0,2.147,2.147A2.146,2.146,0,0,0,28.3,15.328Z" transform="translate(-4.254)" fill="var(--currentThemeColor)"/>
   </g>
 </svg>

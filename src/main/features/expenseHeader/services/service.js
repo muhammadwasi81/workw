@@ -1,8 +1,7 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
-const API_PREFIX = "konnectapi/api/expenseheader/";
 export const getAllExpenseHeaderService = () => {
-  return AxiosConfig.get(`${API_PREFIX}getallexpense`)
+  return MasterConfig.get(`api/ExpenseHeader/GetAllExpenseHeader`)
     .then((res) => {
       return res.data;
     })
@@ -12,7 +11,7 @@ export const getAllExpenseHeaderService = () => {
 };
 
 export const addExpenseHeaderService = (args) => {
-  return AxiosConfig.post(`${API_PREFIX}addexpense`, args)
+  return MasterConfig.post(`api/ExpenseHeader/addexpenseHeader`, args)
     .then((res) => {
       return res.data;
     })

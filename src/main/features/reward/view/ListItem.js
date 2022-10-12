@@ -4,15 +4,18 @@ import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
 import moment from "moment";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import { useDispatch } from "react-redux";
+import { data } from "jquery";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
+  const disptach = useDispatch();
 
   const {
     creator,
@@ -22,110 +25,86 @@ function ListItem(props) {
     reason,
     category,
     members = [],
-    approvers,
+    approvers = [],
     status,
     referenceNo,
     createDate,
   } = props.item;
 
-  // console.log(props.item, "imagessss")
+  const localTime = moment.utc(createDate).local().format();
+
   return (
     <>
-      <SingleItem>
-        <div
-          className="new"
-          id={props.id}
-          onClick={() => {
-            props.getRewardId(props.id);
-          }}></div>
+      <SingleItem onClick={props.onClick}>
+        <div className="new" id={props.id}></div>
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={creator.image}
-              name={creator.name}
-              Subline={<SublineDesigWithTime designation={creator.designation} time={moment(createDate).format("DD/MM/YYYY")} />}
+              avatarSrc={creator?.image}
+              name={creator?.name}
+              Subline={<SublineDesigWithTime designation={creator?.designation ? creator?.designation : ""} time={moment(localTime).fromNow()} />}
             />
           </div>
           <div className="right">
-            <Tag className="IdTag">{referenceNo}</Tag>
-            <StatusTag status={status}></StatusTag>
+            <Tag className="IdTag">
+              {referenceNo && referenceNo}</Tag>
+            <StatusTag status={status && status}></StatusTag>
           </div>
         </ItemHeader>
-        <ItemContent>
-          <p>{description}</p>
-        </ItemContent>
-        <div className="ListItemInner">
-          <div className="ItemDetails">
-            <div className="innerDiv">
-              <h3>{rewardDictionary.name}</h3>
-              <p>{name}</p>
-            </div>
-            <div className="innerDiv">
-              <h3>{rewardDictionary.category}</h3>
-              <Tag className="categoryTag">{category}</Tag>
-            </div>
-            <div className="innerDiv">
-              <h3>{rewardDictionary.reason}</h3>
-              <p>{reason}</p>
-            </div>
-            <div className="innerDiv">
-              <h3>{rewardDictionary.rewardTo}</h3>
-              {/* {props.members} */}
-              <div className="mem">
-                {members.map((val, i) => {
-                  if (i > 2) return "";
-                  let { member = { image: "", name: "" } } = val;
-                  return member && member.image ? (
-                    <div
-                      key={`grpmem${i}`}
-                      className="us-img"
-                      style={{
-                        backgroundImage: `url(${member.image})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "100% 100%",
-                      }}
-                    />
-                  ) : (
-                    <div key={`grpmem${i}`} className="us-img">
-                      {getNameForImage(member ? member.name : "")}
-                    </div>
-                  );
-                })}
-                {members ? members.length > 2 ? <div className="us-img">{members && members.length - 2}+</div> : "" : null}
-              </div>
-            </div>
-            <div className="approversBox">
-              <h3>{rewardDictionary.approvers}</h3>
-              <div className="mem">
-                {approvers &&
-                  approvers.map((val, i) => {
-                    if (i > 2) return "";
-                    let { approver } = val;
-                    return (
-                      approver &&
-                      (approver.image ? (
-                        <div
-                          key={`grpmem${i}`}
-                          className="us-img"
-                          style={{
-                            backgroundImage: `url(${approver.image})`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "100% 100%",
-                          }}
-                        />
-                      ) : (
-                        <div key={`grpmem${i}`} className="us-img">
-                          {getNameForImage(approver.name)}
-                        </div>
-                      ))
-                    );
-                  })}
-                {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
-              </div>
-            </div>
+        <ItemContent className="flex">
+          <div className="description w-full">
+            <p>{description}</p>
           </div>
           <div className="attachmentBox">
-            <Image preview={false} width={100} src={image === "" ? RewardDefaultIcon : image} />
+            <Image preview={false} width={60} height={60} src={image === "" ? RewardDefaultIcon : image} />
+          </div>
+        </ItemContent>
+        <div className="cardSections">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Category"}</div>
+            <div className="cardSection__body">{category}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Name"}</div>
+            <div className="cardSection__body">
+              {name}
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Reason"}</div>
+            <div className="cardSection__body">
+              {reason}
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{rewardDictionary.rewardTo}</div>
+            <div className="cardSection__body">
+              {members &&
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Members"}
+                  membersData={members}
+                  text={"Members"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              }
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{rewardDictionary.approvers}</div>
+            <div className="cardSection__body">
+              {approvers &&
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers ? approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              }
+            </div>
           </div>
         </div>
       </SingleItem>

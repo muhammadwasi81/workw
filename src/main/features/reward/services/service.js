@@ -1,3 +1,4 @@
+import { jsonToFormData } from "../../../../utils/base";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllRewardService = data => {
@@ -10,8 +11,9 @@ export const getAllRewardService = data => {
 		});
 };
 
-export const addRewardService = data => {
-	return MasterConfig.post(`api/Reward/AddReward`, data)
+export const addRewardService = async(data) => {
+	const formData = jsonToFormData(data);
+	return MasterConfig.post(`api/Reward/AddReward`, formData)
 		.then(res => {
 			return res;
 		})
@@ -21,8 +23,17 @@ export const addRewardService = data => {
 };
 
 export const GetRewardByIdService = id => {
-	console.log("ID FROM SERVICE", id)
 	return MasterConfig.get(`api/Reward/GetRewardById?id=${id}`)
+		.then(res => {
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
+};
+
+export const cancelRewardService = id => {
+	return MasterConfig.delete(`api/Reward/RewardCancel?rewardId=${id}`)
 		.then(res => {
 			return res;
 		})

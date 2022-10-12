@@ -1,41 +1,41 @@
-.employeeSubmitButton {
-	align-self: flex-end;
-	margin-right: 70px;
-	margin-top: 20px;
+/* .employeeSubmitButton {
+  align-self: flex-end;
+  margin-right: 70px;
+  margin-top: 20px;
 }
 
 .employeeFormImage {
-	width: 90px;
-	height: 90px;
+  width: 90px;
+  height: 90px;
 }
 
 .epmloyeeDeleteIcon {
-	font-size: 20px;
-	color: #1a5669;
+  font-size: 20px;
+  color: var(--currentThemeColor);
 }
 
 @media screen and (min-width: 1700px) {
-	.residentialAddress {
-		grid-area: 3/ 1 / span 1 / span 2;
-	}
+  .residentialAddress {
+    grid-area: 3/ 1 / span 1 / span 2;
+  }
 
-	.permenantAddress {
-		grid-area: 3/ 3 / span 1 / span 2;
-	}
+  .permenantAddress {
+    grid-area: 3/ 3 / span 1 / span 2;
+  }
 }
-@media screen and (max-width:700px) {
-	.uploadImg
-	{
-		justify-content: center;
-	}
+
+@media screen and (max-width: 700px) {
+  .uploadImg {
+    justify-content: center;
+  }
 }
 
 .newCustomSelect {
-	width: 100%;
+  width: 100%;
 }
 
 .formItem_userTitle {
-	margin-bottom: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 /* 
@@ -60,12 +60,84 @@
 	order: 3;
 } */
 
-.employeeForm>:nth-child(1) {
-	order: 1;
+/* .employeeForm> :nth-child(1) {
+  order: 1;
 }
-.ant-form .ant-form-item .ant-form-item-control, .ant-form .ant-form-item .ant-form-item-label{
-	flex: none;
+
+.employeeForm .ant-form .ant-form-item .ant-form-item-control,
+.employeeForm .ant-form .ant-form-item .ant-form-item-label {
+  flex: none;
 }
-.ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item, .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-placeholder, .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector:after{
-	font-weight: 400;
+
+.employeeForm .ant-col .ant-form-item-label {
+  text-align: inherit !important;
+  font-weight: 500;
+}
+
+.employeeForm .ant-form-horizontal .ant-form-item-label {
+  text-align: start;
+} */
+.employeeCard {
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.employeeCard__header {
+  margin-bottom: 10px;
+}
+
+.employeeCard__header--img .ant-avatar {
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  background-color: #000;
+}
+
+.employeeCard__body p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--currentThemeColor);
+  text-transform: capitalize;
+}
+
+.employeeCard__body span {
+  font-size: 10px;
+  color-scheme: #ccc;
+  display: block;
+  line-height: 1;
+}
+
+.employeeCard__body .buttonGroup {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.employeeCard__body .buttonGroup button {
+  height: 26px;
+  display: flex;
+  align-items: center;
+
+}
+
+.employeeCard__body .ThemeBtn.disable {
+  background: #ab2a2a !important;
+  border-color: #ab2a2a !important;
+}
+
+.empolyeesListContainer {
+  display: grid;
+  margin-top: 5px;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  height: fit-content;
+  width: 100%;
+}
+
+.empolyeesListContainer.rtl {
+  direction: rtl;
 }

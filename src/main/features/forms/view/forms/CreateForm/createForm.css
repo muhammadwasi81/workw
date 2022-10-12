@@ -1,0 +1,13 @@
+.btn {
+  color: #fff;
+  background: var(--currentThemeColor);
+  border-color: transparent;
+  border-radius: 4px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.btn :hover {
+  all: none;
+}

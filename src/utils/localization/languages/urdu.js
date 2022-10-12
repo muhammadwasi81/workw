@@ -3,6 +3,10 @@ const urdu = {
 
   /*** add all shared labels like send, ok, cancel, etc ***/
   sharedLabels: {
+    Delete: "Delete",
+    Edit: "Edit",
+    Hindi: "Hindi",
+    theme: "خیالیہ",
     awardTo: "کو ایوارڈ",
     inprogress: "جاری ہے",
     filter: "فلٹر",
@@ -60,8 +64,11 @@ const urdu = {
     Settings: "ترتیبات",
     Logout: "لاگ آوٹ",
     SelectLanguage: "زبان منتخب کریں",
-    English: "انگریزی ",
+    English: "English ",
     Urdu: "اردو",
+    Arabic: "عربي",
+    Table: "ٹیبل",
+    List: "فہرست",
   },
 
   /*** Main Menu ***/
@@ -100,6 +107,10 @@ const urdu = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
+    Schedules: "Schedules",
+    workWiseCompanies: "کام کے لحاظ سے کمپنیاں",
+    promotions: "پروموشنز",
+    customApprovals: "حسب ضرورت منظوری",
     feed: "نیوز فیڈ",
     messenger: "میسنجر",
     mailBox: "میل باکس",
@@ -122,6 +133,7 @@ const urdu = {
     administration: "انتظامیہ",
     appraisals: "تشخیص",
     departments: "محکمے",
+    loan: "قرض",
     leaves: "چھٹی",
     loan: "قرضے",
     holidays: "چھٹیاں",
@@ -137,7 +149,18 @@ const urdu = {
     complains: "شکایت",
     bonus: "انعام",
     resignations: "استعفی",
+    requisition: "درخواست",
     rewards: "انعامات",
+    businessPolicy: "کاروباری پالیسی",
+    form: "فارم",
+    finance: "مالیات",
+    chartOfAccount: "اکاؤنٹ کا چارٹ",
+    report: "رپورٹ",
+    voucher: "واؤچر",
+    transaction: "لین دین",
+    ledgerReport: "لیجر رپورٹ",
+    salary: "تنخواہ",
+    payroll: "پے رول",
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -163,6 +186,7 @@ const urdu = {
     Task: {
       myTask: "میرے کام",
       assignedByMe: "میری طرف سے تفویض کردہ",
+      createdByMe: "میری طرف سے تفویض کردہ",
       teamTask: "ٹیم ٹاسک",
       dashboard: "ڈیش بورڈ",
     },
@@ -178,6 +202,7 @@ const urdu = {
       scheduleInterviews: "انٹرویو کا شیڈول",
     },
     expense: {
+      expenses: "اخراجات",
       forApprovals: "منظوریوں کے لیے",
       myExpenses: "میرے اخراجات",
       forExecution: "عملدرآمد کے لیے",
@@ -272,8 +297,24 @@ const urdu = {
   myTeam: {},
   orgChart: {},
   payroll: {},
-  employee: {},
+  employee: {
+    Basic_Info: "Basic Information",
+    Email_Configuration: "Email Configuration",
+    Bank_Detail: "Bank Detail",
+    Education: "Education",
+    Emergency_Info: "Emergency Information",
+    Experience: "Experience",
+  },
   administration: {
+    subsidiary: "ماتحت ادارہ",
+    Tax_Slabs: "Tax Slabs",
+    Fiscal_Year: "مالی سال",
+    Default_Hiring_Criteria: "پہلے سے طے شدہ ملازمت کے معیار",
+    Complain_Category: "شکایت کا زمرہ",
+    Payroll_Group: "پے رول گروپ",
+    Business_Logo: "کاروبار کا لوگو",
+    Rebate_Category: "چھوٹ کی قسم",
+    Business_Policy: "کاروباری پالیسی",
     AccessRole: "رسائی کا کردار",
     Grade: "گریڈ",
     Designation: "عہدہ",

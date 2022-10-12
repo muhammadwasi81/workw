@@ -1,0 +1,21 @@
+.BusinessPolicyView h2 {
+    color: var(--currentThemeColor);
+    font-size: 20px;
+}
+
+.BusinessPolicyView .anticon {
+    color: var(--currentThemeColor);
+    font-size: 16px;
+}
+
+.BusinessPolicyView .anticon-edit {
+    margin-right: 8px;
+}
+
+.BusinessPolicyView .anticon-plus {
+    display: none;
+}
+
+.businessPolicyForm .ant-form-item {
+    margin-bottom: 12px;
+}

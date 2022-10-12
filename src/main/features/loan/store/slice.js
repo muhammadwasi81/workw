@@ -1,61 +1,70 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addLoan, getAllLoan, getLoanById } from "./actions";
-import { loanPurposeEnum } from "../constant";
-const formInitialState = {
-  id: "",
-  currencyId: "",
-  amount: 0,
-  deduction: 0,
-  loanTenure: 0,
-  description: "",
-  deadline: new Date(),
-  purposeId: loanPurposeEnum.Personal,
-  imageId: "",
-  userId: "",
-  approvers: [],
-};
+import { addLoan, getAllLoans, GetLoanById } from "./actions";
+
 const initialState = {
-  loans: [],
-  loadingData: false,
-  loader: true,
-  loanDetail: null,
-  loanForm: formInitialState,
+  editData: null,
+  loanData: [],
+  success: false,
+  loader: false,
+  error: false,
+  isCreateComposer: false,
+  loanDetail: {},
+  loanList: [],
 };
 
-const loanSlice = createSlice({
-  name: "loan",
+const LoanSlice = createSlice({
+  name: "loans",
   initialState,
   reducers: {
-    setLoanForm: (state, action) => {
-      state.loanForm = action.payload;
-    },
-    resetLoanForm: (state, action) => {
-      state.loanForm = formInitialState;
+    toggleCreateComposer: (state, payload) => {
+      state.isCreateComposer = !state.isCreateComposer;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getAllLoan.fulfilled, (state, action) => {
-      state.loans = action.payload ? action.payload : [];
-      state.loader = false;
-    });
-
-    builder.addCase(getLoanById.fulfilled, (state, action) => {
-      state.loanDetail = action.payload.data;
-    });
-
     builder
+      .addCase(getAllLoans.fulfilled, (state, { payload }) => {
+        // console.log("****************", payload);
+        state.loanList = payload ? payload : [];
+        state.loader = false;
+        // state.success = true;
+      })
+      .addCase(GetLoanById.fulfilled, (state, { payload }) => {
+        console.log("getLoanById payload", payload.data);
+        state.loanDetail = payload.data;
+        state.loading = false;
+      })
       .addCase(addLoan.fulfilled, (state, { payload }) => {
-        state.loanData = payload;
-        return state;
+        if (payload.data.data) {
+          state.loanList.unshift(payload.data.data);
+          state.isCreateComposer = true;
+        }
+        // state.success = true;
+        // console.log(payload);
+        // state.loanList = [...state.loanList, payload.data.data];
       })
-      .addMatcher(isPending(...[getAllLoan]), (state) => {
+      .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
       })
-      .addMatcher(isRejected(...[getAllLoan]), (state) => {
-        state.loader = true;
+      // .addMatcher(isPending(...[GetLoanById]), (state) => {
+      //   state.loanDetail = {};
+      // })
+      // .addMatcher(isRejected(...[GetLoanById]), (state) => {
+      //   state.loanDetail = {};
+      // })
+      .addMatcher(isPending(...[addLoan]), (state) => {
+        state.success = true;
+      })
+      .addMatcher(isRejected(...[addLoan]), (state) => {
+        state.success = false;
       });
+    //   .addMatcher(isPending(...[getAllLoans]), (state) => {
+    //     state.loader = true;
+    //   })
+    //   .addMatcher(isRejected(...[getAllLoans]), (state) => {
+    //     state.loader = true;
+    //   });
   },
 });
 
-export const { setLoanForm } = loanSlice.actions;
-export default loanSlice.reducer;
+export const { toggleCreateComposer } = LoanSlice.actions;
+export default LoanSlice.reducer;

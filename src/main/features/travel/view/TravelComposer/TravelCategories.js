@@ -1,4 +1,4 @@
-export const travelCategoryData = [
+export const travelCategoryData = travel => [
 	{
 		id: 1,
 		image: (
@@ -17,7 +17,7 @@ export const travelCategoryData = [
 				/>
 			</svg>
 		),
-		name: "By Plane",
+		name: travel.plane,
 	},
 	{
 		id: 2,
@@ -31,12 +31,6 @@ export const travelCategoryData = [
 				viewBox="0 0 43.416 43.416"
 			>
 				<path
-					id="Path_1626"
-					data-name="Path 1626"
-					d="M0,0H43.416V43.416H0Z"
-					fill="none"
-				/>
-				<path
 					id="Path_1627"
 					data-name="Path 1627"
 					d="M5.618,18V6.427A1.809,1.809,0,0,1,7.427,4.618h9.045V1h7.236V4.618h9.045a1.809,1.809,0,0,1,1.809,1.809V18l1.965.59a1.809,1.809,0,0,1,1.234,2.171L35.018,31.742a9.031,9.031,0,0,1-7.692-3.607,9.045,9.045,0,0,1-14.472,0,9.031,9.031,0,0,1-7.692,3.607L2.42,20.765a1.809,1.809,0,0,1,1.234-2.171Zm3.618-1.085L20.09,13.663l4.982,1.494,3.273.982,2.6.78V8.236H9.236v8.683ZM5.618,35.371a10.814,10.814,0,0,0,7.236-2.764,10.853,10.853,0,0,0,14.472,0,10.814,10.814,0,0,0,7.236,2.764H38.18v3.618H34.562a14.405,14.405,0,0,1-7.236-1.936,14.493,14.493,0,0,1-14.472,0,14.405,14.405,0,0,1-7.236,1.936H2V35.371Z"
@@ -45,7 +39,7 @@ export const travelCategoryData = [
 				/>
 			</svg>
 		),
-		name: "By Ship",
+		name: travel.ship,
 	},
 	{
 		id: 3,
@@ -64,7 +58,7 @@ export const travelCategoryData = [
 				/>
 			</svg>
 		),
-		name: "By Bus",
+		name: travel.bus,
 	},
 	{
 		id: 4,
@@ -85,6 +79,6 @@ export const travelCategoryData = [
 				/>
 			</svg>
 		),
-		name: "By Train",
+		name: travel.train,
 	},
 ];

@@ -1,13 +1,14 @@
 import React from "react";
-import Avatar from "../Avatar/avatar";
+import Avatar from "../Avatar/avatarOLD";
+import "./style.css";
 
 const UserInfo = (props) => {
-  const { name, avatarSrc, Subline } = props;
+  const { name, avatarSrc, Subline, nameStyle = {}, avatarSize = 44 } = props;
   return (
     <div className="userInfo" style={{ display: "flex" }}>
-      <Avatar src={avatarSrc} className="addPostAvatar" name={name} width={44} height={44} round={true} />
-      <div className="avatar-name" style={{ marginLeft: "6px" }}>
-        <div className="name">{name}</div>
+      <Avatar src={avatarSrc} className="addPostAvatar" name={name} width={avatarSize} height={avatarSize} round={true} />
+      <div className="avatar-name" style={{ marginLeft: "4px" }}>
+        <div className="name" style={{ ...nameStyle }} >{name}</div>
         {Subline}
       </div>
     </div>

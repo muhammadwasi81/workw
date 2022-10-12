@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import building from "../../../../../content/png/building.jpg";
 
 export default function Avatar({ onChange }) {
   const imageUrl = useRef();
@@ -14,7 +15,7 @@ export default function Avatar({ onChange }) {
         className="uploadbutton"
       />
       <img
-        src="https://konnect.im/static/media/world.f69f1142.svg"
+        src={building}
         alt="avatar"
         style={{ width: "100%", height: "100%", borderRadius: "10px" }}
       />

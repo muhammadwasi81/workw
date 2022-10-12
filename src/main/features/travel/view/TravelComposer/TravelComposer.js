@@ -1,19 +1,10 @@
-import {
-	Button,
-	Carousel,
-	Checkbox,
-	DatePicker,
-	Form,
-	Input,
-	Typography,
-} from "antd";
+import { Button, Carousel, Form, Typography, Avatar } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import TextAreaInput from "../../../../sharedComponents/Input/TextArea";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
-import NewCustomSelect from "../../../employee/view/newCustomSelect";
 import TravelCard from "../UI/TravelCard";
 import TravelDetailCard from "../UI/TravelDetailCard";
-import TravelDetail from "./TravelDetail";
+import TravelComposerDetail from "./TravelComposerDetail";
 import moment from "moment";
 import * as S from "../../../employee/Styles/employee.style";
 import "./travel.css";
@@ -26,6 +17,13 @@ import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addTravel } from "../../store/actions";
+import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
+import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
+import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import {
+	getAllEmployees,
+	getCities,
+} from "../../../../../utils/Shared/store/actions";
 
 const initialState = {
 	subject: "",
@@ -36,9 +34,6 @@ const initialState = {
 	cities: [],
 	specialRequest: "",
 	id: defaultUiid,
-	status: 0,
-	approverStatus: 0,
-	agentStatus: 0,
 	referenceId: defaultUiid,
 	referenceType: 0,
 	attachments: [],
@@ -61,6 +56,8 @@ const initialTravelDetailState = {
 };
 
 function TravelComposer(props) {
+	const { label } = props;
+	const { labels, placeHolder, travelBy } = label;
 	const [form] = Form.useForm();
 	const [state, setState] = useState(initialState);
 	const [stateCard, setStateCard] = useState(initialTravelDetailState);
@@ -69,12 +66,34 @@ function TravelComposer(props) {
 	const [docsData, setDocsData] = useState(null);
 	const [isSubmit, setIsSubmit] = useState(false);
 	const [travelDetails, setTravelDetails] = useState([]);
-	const { loader } = useSelector(state => state.travelSlice);
+	const { loader, success } = useSelector(state => state.travelSlice);
 
 	const isTablet = useMediaQuery({ maxWidth: 650 });
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
 	const dispatch = useDispatch();
+	const employees = useSelector(state => state.sharedSlice.employees);
+	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+	useEffect(() => {
+		if (employees.length > 0 && !isFirstTimeDataLoaded) {
+			setIsFirstTimeDataLoaded(true);
+			setFirstTimeEmpData(employees);
+		}
+	}, [employees]);
+	useEffect(() => {
+		fetchEmployees("", 1);
+		fetchCityData("", 0);
+	}, []);
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
+	const fetchCityData = (text, pgNo) => {
+		dispatch(getCities({ textData: text, page: pgNo }));
+	};
+	const selectedData = (data, obj) => {
+		console.log("wrapper select data", data, obj);
+	};
 	const onInputFieldChange = (value, name) => {
 		setState({
 			...state,
@@ -86,7 +105,6 @@ function TravelComposer(props) {
 	};
 
 	const onFinish = values => {
-		// console.log("values", values);
 		let cities = travelDetails.map(travel => {
 			return {
 				id: defaultUiid,
@@ -128,6 +146,15 @@ function TravelComposer(props) {
 			};
 		});
 		const { subject, description, specialRequest } = values;
+		let attachments = [];
+		if (docsData && docsData.length > 0) {
+			attachments = docsData.map(file => {
+				return {
+					id: defaultUiid,
+					file: file.originFileObj,
+				};
+			});
+		}
 		setState(prevState => ({
 			...prevState,
 			subject,
@@ -136,6 +163,7 @@ function TravelComposer(props) {
 			approvers,
 			agents,
 			cities,
+			attachments,
 		}));
 		setIsSubmit(true);
 		// console.log("docsData", docsData);
@@ -210,12 +238,12 @@ function TravelComposer(props) {
 	const handleDocsUpload = data => {
 		setDocsData(data);
 	};
-	// useEffect(() => {
-	// 	console.log("state", state);
-	// }, [state]);
+
 	useEffect(() => {
 		if (isSubmit) {
-			dispatch(addTravel(state));
+			dispatch(addTravel(jsonToFormData(state)));
+			form.resetFields();
+			setTravelDetails([]);
 			setIsSubmit(false);
 		}
 	}, [isSubmit]);
@@ -226,10 +254,11 @@ function TravelComposer(props) {
 			onFinish={onFinish}
 			layout="vertical"
 			form={form}
+			dir={Direction}
 		>
 			<S.FormItem
 				name="subject"
-				label={<Typography level={5}>Subject</Typography>}
+				label={<Typography level={5}>{labels.subject}</Typography>}
 				rules={[
 					{ required: true, message: "Please input your subject!" },
 				]}
@@ -238,15 +267,14 @@ function TravelComposer(props) {
 				<div className="input-row">
 					<TextInput
 						name="subject"
-						placeholder="Subject"
-						value={state.subject}
+						placeholder={placeHolder.subjectPh}
 						onChange={onInputFieldChange}
 					/>
 				</div>
 			</S.FormItem>
 			<S.FormItem
 				name="description"
-				label={<Typography level={5}>Description</Typography>}
+				label={<Typography level={5}>{labels.description}</Typography>}
 				rules={[
 					{
 						required: true,
@@ -259,49 +287,70 @@ function TravelComposer(props) {
 					<TextAreaInput
 						name="description"
 						style={{ borderRadius: "5px" }}
-						placeholder="Description"
+						placeholder={placeHolder.DescPh}
 						rows={4}
 						onChange={onInputFieldChange}
 					/>
 				</div>
 			</S.FormItem>
-			<S.FormItem
+
+			<MemberSelect
+				data={firstTimeEmpData}
+				selectedData={value => {}}
+				canFetchNow={isFirstTimeDataLoaded}
+				fetchData={fetchEmployees}
+				placeholder={placeHolder.approversPh}
+				mode={"multiple"}
+				isObject={true}
+				loadDefaultData={false}
+				optionComponent={opt => {
+					return (
+						<>
+							<Avatar src={opt.image} className="!bg-black">
+								{getNameForImage(opt.name)}
+							</Avatar>
+							{opt.name}
+						</>
+					);
+				}}
+				dataVal={[]}
 				name="approvers"
-				label={<Typography level={5}>Approvers</Typography>}
+				showSearch={true}
+				direction={Direction}
 				rules={[
 					{ required: true, message: "Please select approvers!" },
 				]}
-				direction={Direction}
-			>
-				<NewCustomSelect
-					name="approvers"
-					label="Approvers"
-					showSearch={true}
-					endPoint="api/Reference/GetAllUserReference"
-					requestType="get"
-					placeholder="Search Approvers To Select"
-					mode="multiple"
-					showImage={true}
-				/>
-			</S.FormItem>
+				label={<Typography level={5}>{labels.approvers}</Typography>}
+			/>
 
-			<S.FormItem
+			<MemberSelect
+				data={firstTimeEmpData}
+				selectedData={value => {}}
+				canFetchNow={isFirstTimeDataLoaded}
+				fetchData={fetchEmployees}
+				placeholder={placeHolder.agentPh}
+				mode={"multiple"}
+				isObject={true}
+				loadDefaultData={false}
+				optionComponent={opt => {
+					return (
+						<>
+							<Avatar src={opt.image} className="!bg-black">
+								{getNameForImage(opt.name)}
+							</Avatar>
+							{opt.name}
+						</>
+					);
+				}}
+				dataVal={[]}
 				name="agents"
-				label={<Typography level={5}>Agent</Typography>}
-				rules={[{ required: true, message: "Please select agents!" }]}
+				showSearch={true}
 				direction={Direction}
-			>
-				<NewCustomSelect
-					name="agents"
-					label={"Agent"}
-					showSearch={true}
-					endPoint="api/Reference/GetAllUserReference"
-					requestType="get"
-					placeholder="Search Agents To Select"
-					mode="tags"
-				/>
-			</S.FormItem>
-			<TravelDetail
+				rules={[{ required: true, message: "Please select agents!" }]}
+				label={<Typography level={5}>{labels.agent}</Typography>}
+			/>
+
+			<TravelComposerDetail
 				addTravelDetails={addTravelDetails}
 				errors={errors}
 				setErrors={setErrors}
@@ -312,6 +361,8 @@ function TravelComposer(props) {
 				submit={submit}
 				setSubmit={setSubmit}
 				travelDetails={travelDetails}
+				labels={label}
+				fetchCityData={fetchCityData}
 			/>
 			<TravelCard>
 				<Carousel
@@ -329,6 +380,7 @@ function TravelComposer(props) {
 								travel={travel}
 								index={index}
 								onClick={onClick}
+								isCloseable={true}
 							/>
 						</div>
 					))}
@@ -336,11 +388,11 @@ function TravelComposer(props) {
 			</TravelCard>
 			<S.FormItem name="specialRequest" direction={Direction}>
 				<div className="input-row">
-					<Typography level={5}>Special Request</Typography>
+					<Typography level={5}>{labels.specialRequest}</Typography>
 					<TextAreaInput
 						name="specialRequests"
 						style={{ borderRadius: "5px" }}
-						placeholder="Write Special Request Here"
+						placeholder={placeHolder.specialRequestPh}
 						rows={4}
 						onChange={onInputFieldChange}
 					/>
@@ -348,10 +400,10 @@ function TravelComposer(props) {
 			</S.FormItem>
 			<S.FormItem direction={Direction}>
 				<div className="input-row">
-					<Typography level={5}>Attachments</Typography>
+					<Typography level={5}>{labels.attachments}</Typography>
 					<SingleUpload
 						handleImageUpload={handleDocsUpload}
-						uploadText={"Upload"}
+						uploadText={labels.upload}
 						multiple={true}
 						position={"flex-start"}
 					/>
@@ -367,7 +419,7 @@ function TravelComposer(props) {
 				// htmlType="submit"
 				onClick={onFormSubmit}
 			>
-				Create Expense
+				{labels.createExpense}
 			</Button>
 		</Form>
 	);

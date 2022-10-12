@@ -1,0 +1,20 @@
+.chartOfAccountBody .tgrid-column-header-text-wrapper {
+    padding: 6px 5px 0px 5px !important;
+}
+
+.chartOfAccountBody .tgrid-header-table {
+    background: var(--currentThemeColor);
+}
+
+.chartOfAccountBody .tgrid-column-header-text {
+    color: white;
+}
+
+.chartOfAccountBody .tgrid {
+    height: max-content;
+    background-color: white;
+}
+
+.chartOfAccountBody tbody tr:nth-child(even) {
+    background: rgb(249, 249, 249);
+}

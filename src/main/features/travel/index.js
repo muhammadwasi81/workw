@@ -1,14 +1,14 @@
 import React from "react";
-import CustomTopBar from "./view/CustomTopBar";
+// import ExampleAntdCustomSelect from "../../sharedComponents/AntdCustomSelects";
 import Travel from "./view/Travel";
 
 function Index() {
-  return (
-    <>
-      {/* <CustomTopBar /> */}
-      <Travel />
-    </>
-  );
+	return (
+		<>
+			{/* <ExampleAntdCustomSelect /> */}
+			<Travel />;
+		</>
+	);
 }
 
 export default Index;

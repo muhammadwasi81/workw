@@ -1,48 +1,45 @@
 import React, { useContext } from "react";
-import { CommentOutlined } from "@ant-design/icons";
-import CustomButton from "../../../sharedComponents/button";
-import { EmployeeCardCustom } from "../Styles/employee.style";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import { employeeDictionaryList } from "../localization/index";
-function EmployeeCard({ image, name, email, designation, empNum }) {
+
+import { EditOutlined, UserDeleteOutlined } from "@ant-design/icons";
+import { Avatar, Button } from "antd";
+import { getNameForImage } from "../../../../utils/base";
+import { useNavigate } from "react-router-dom";
+function EmployeeCard({ employees: { image, name, email, designation, id } }) {
+  const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
-  const { employeesDictionary } = employeeDictionaryList[userLanguage];
-  const value = employeesDictionary.EmployeeList;
+
   return (
-    <EmployeeCardCustom>
-      <div className="employeeCard__img">
-        <img src={image || "https://joeschmoe.io/api/v1/random"} alt="" />
+    <div className="employeeCard">
+      <div className="employeeCard__header">
+        <div className="employeeCard__header--img">
+          <Avatar className="" src={image ? image : ""}>
+            {getNameForImage(name ? name : "Unknown User")}
+          </Avatar>
+        </div>
       </div>
       <div className="employeeCard__body">
         <p>{name}</p>
-        <div>
-          <span>{value.number}:</span>
-          {empNum}
-        </div>
-        <div>
-          <span>{value.email}:</span> {email}
-        </div>
-        <div>
-          <span>{value.designation}:</span>
-          {designation}
-        </div>
+        <span>{designation || "No Desigation"}</span>
+        <span>{email}</span>
         <div className="buttonGroup">
-          <CustomButton
-            title={sharedLabels.Disable}
-            buttonClass=" tag_expense_btn font_bold dangerBtn "
-          />
-          <CustomButton
-            title={sharedLabels.Update}
-            buttonClass="ThemeBtn tag_expense_btn font_bold "
-          />
+          <Button
+            icon={<EditOutlined />}
+            className="ThemeBtn"
+            onClick={() => {
+              navigate(`info/basicInfo/${id}`);
+            }}
+          >
+            {sharedLabels.Update}
+          </Button>
+          <Button icon={<UserDeleteOutlined />} className="ThemeBtn disable">
+            {sharedLabels.Disable}
+          </Button>
         </div>
       </div>
-      <div className="employeeCard__footer">
-        <CommentOutlined />
-      </div>
-    </EmployeeCardCustom>
+    </div>
   );
 }
 

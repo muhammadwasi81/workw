@@ -1,0 +1,15 @@
+
+.site-collapse-custom-panel .ant-collapse-header{
+  padding: 12px !important;
+  align-items: center !important;
+  background: var(--currentThemeColor);
+  border-radius: 10px !important;
+}
+.site-collapse-custom-panel .ant-collapse-content-box{
+  /* display: flex; */
+  padding: 12px 0px !important;
+  /* display: flex;
+  flex-direction: column;
+  gap: 10px; */
+  
+}

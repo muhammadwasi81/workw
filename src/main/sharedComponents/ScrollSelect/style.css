@@ -1,10 +1,11 @@
-.scroll_select_main {
-}
-.scroll_select_container {
+.scroll_select_main {}
+
+/* .scroll_select_container {
 	width: 100%;
-}
+} */
+
 .scroll_select_input_container {
-	align-items: center;
+	/* align-items: center; */
 	/* display: inline-block; */
 	/* position: relative;
 	width: 100%;
@@ -13,13 +14,14 @@
 	color: #000000d9;
 	font-size: 14px;
 	line-height: 1.5715;
-	background-color: #fff;
+	background: #fff;
 	background-image: none;
 	border: 1px solid #d9d9d9;
 	border-radius: 2px;
 	transition: all 0.3s;
 	display: inline-flex; */
 }
+
 /* .scroll_select_input {
 	padding: 0;
 	border: none;
@@ -37,14 +39,14 @@
 	color: #000000d9;
 	font-size: 14px;
 	line-height: 1.5715;
-	background-color: #fff;
+	background: #fff;
 	background-image: none;
 	border: 1px solid #d9d9d9;
 	border-radius: 2px;
 	transition: all 0.3s;
 } */
 
-.scroll_select_icon {
+/* .scroll_select_icon {
 	display: inline-block;
 	color: inherit;
 	font-style: normal;
@@ -66,11 +68,12 @@
 	text-align: center;
 	pointer-events: none;
 }
+
 .placeholder_hidden {
 	visibility: hidden;
-}
+} */
 
-.scroll_dropdown {
+/* .scroll_dropdown {
 	background: white;
 	border-radius: 5px;
 	z-index: 10000;
@@ -79,10 +82,11 @@
 	margin-top: 7px;
 	position: absolute;
 	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-	/* transform: translateY(2em); */
+	transform: translateY(2em);
 	transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s,
 		z-index 0s linear 0.01s;
-}
+} */
+
 /* .scroll_select_input:focus .scroll_dropdown,
 .scroll_select_input:focus-within .scroll_dropdown,
 .scroll_select_input:hover .scroll_dropdown {

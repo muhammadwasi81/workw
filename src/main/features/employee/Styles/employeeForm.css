@@ -1,0 +1,117 @@
+.employeeForm {
+    padding: 0 30px;
+    /* margin-top: 2rem; */
+}
+
+.employeeForm.rtl {
+    direction: rtl;
+}
+
+.employeeForm.rtl .ant-form-item-label {
+    text-align: right;
+}
+
+.employeeForm.rtl .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional):before {
+    position: absolute;
+    left: -10px;
+}
+
+.employeeForm .ant-divider-horizontal.ant-divider-with-text:after,
+.employeeForm .ant-divider-horizontal.ant-divider-with-text::before {
+    border-color: #d7d6d6;
+}
+
+.employeeForm .ant-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    column-gap: 25px;
+}
+
+.employeeForm .ant-input {
+    height: 40px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.employeeForm .ant-form-item-label {
+    font-weight: 600;
+    padding-bottom: 2px;
+}
+
+.employeeForm .btn.addMore {
+    margin-top: 18px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.employeeForm .btn.ThemeBtn {
+    display: flex;
+    align-items: center;
+}
+
+.employeeForm .ant-divider-inner-text {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.employeeForm .ant-picker-large {
+    width: 100%;
+}
+
+.employeeForm .editButtons {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+}
+
+.employeeForm .ant-table-cell {
+    padding: 5px 10px;
+}
+
+.employeeForm .editButtons .addMore {
+    margin-left: 0;
+
+}
+
+.employeeForm .ant-checkbox-wrapper-in-form-item {
+    margin-top: 40px;
+}
+
+.employeeForm .dates {
+    display: flex;
+    gap: 20px;
+}
+
+.employeeForm .dates .ant-form-item:first-child {
+    width: 100%;
+}
+
+.employeeForm.basicInfo .titleSelect {
+    margin: 0;
+}
+
+.employeeForm.basicInfo .titleSelect .ant-select-selector:hover {
+    border: none;
+}
+
+.addEmployeeForm {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    align-self: stretch;
+    overflow: scroll;
+    margin-bottom: 5px;
+
+
+}
+
+.addEmployeeForm .ThemeBtn {
+    margin-left: auto;
+    display: block;
+    margin-right: 27px;
+    margin-bottom: 20px;
+    margin-top: 30px
+}

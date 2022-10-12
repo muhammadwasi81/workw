@@ -9,7 +9,12 @@ const Edit = (handleEdit, row, setClearButton) => {
         handleEdit({
           id: row.id,
           name: row.name,
+          value: row.value,
           description: row.description,
+          allowanceType: row.allowanceType,
+          allowanceUnit: row.allowanceUnit,
+          isTaxable: row.isTaxable,
+          // gradeId: row.gradeId,
         }); 
         setClearButton(true)
       }
@@ -36,10 +41,26 @@ export const tableColumn = (
   setClearButton
 ) => {
   return [
-    { title: "Name", dataIndex: "name", width: "15%" },
-    { title: "Description", dataIndex: "description", width: "15%" },
-    { title: "Allowance Type", dataIndex: "allowanceType", width: "20%" },
-    { title: "Allowance Unit", dataIndex: "allowanceUnit", width: "20%" },
+    { title: "Name", className:"name", dataIndex: "name", width: "5%" },
+    // { title: "Description", dataIndex: "description", width: "5%" },
+    { title: "Grade", dataIndex: "gradeName", width: "5%" },
+    { title: "Amount", dataIndex: "value", width: "5%" },
+    { title:  
+      "Allowance Type",
+      dataIndex: "allowanceType",
+      width: "20%",
+      render: (text, row) => {
+        return text === 1 ? "Percent" : "Amount" 
+      }
+    },
+    { title:  
+      "Allowance Unit",
+      dataIndex: "allowanceUnit",
+      width: "20%",
+      render: (text, row) => {
+        return text === 1 ? "Benefit" : "Deduction" 
+      }
+    },
     { title:  
       "Is Taxable",
       dataIndex: "isTaxable",

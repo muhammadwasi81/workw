@@ -1,36 +1,37 @@
 canvas {
-    /* bottom: 0;
+  /* bottom: 0;
     left: 0;
     margin: auto;
     position: absolute;
     right: 0;
     top: 0; */
-    /*order: 1px solid #1a5669;*/
-  }
-  
-  .dot1{
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    background:#1a5669;
-    position:absolute;
-  }
-  .vertical-line {
-    border-left: thick solid #1a5669;
-    height: 90%;
-    top: 5%;
-    color:#1a5669;
-    background:#1a5669;
-    position: relative;
-    right:5%;
-    z-index: 999;
-  }
-  
-  .line-container {
-    height: 90%;
-    top: 5%;
-    background:#1a5669;
-    position: absolute;
-    right:5%;
-    z-index:9999;
-  }
+  /*order: 1px solid var(--currentThemeColor);*/
+}
+
+.dot1 {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background: var(--currentThemeColor);
+  position: absolute;
+}
+
+.vertical-line {
+  border-left: thick solid var(--currentThemeColor);
+  height: 90%;
+  top: 5%;
+  color: var(--currentThemeColor);
+  background: var(--currentThemeColor);
+  position: relative;
+  right: 5%;
+  z-index: 999;
+}
+
+.line-container {
+  height: 90%;
+  top: 5%;
+  background: var(--currentThemeColor);
+  position: absolute;
+  right: 5%;
+  z-index: 9999;
+}

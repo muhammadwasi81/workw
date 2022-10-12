@@ -1,0 +1,14 @@
+.designation {
+  margin-right: 4px;
+  color: #9a9390;
+  white-space: nowrap;
+}
+
+.time {
+  color: #9a9390;
+}
+
+.name {
+  color: var(--currentThemeColor);
+  font-weight: 600;
+}

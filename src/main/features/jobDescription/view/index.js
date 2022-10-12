@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
@@ -6,7 +7,7 @@ import JobDescriptionForm from "./form.js";
 import JobDescriptionTable from "./table.js";
 
 export default function JobDescription() {
-  const initialState = { name: "", designation: "" };
+  const initialState = { designationId: "", description: "" };
   const [jobDescription, setJobDescription] = useState(initialState);
 
   const dispatch = useDispatch();
@@ -17,23 +18,27 @@ export default function JobDescription() {
   };
 
   const onSubmit = (e) => {
-    if (!e.id) {
-      dispatch(addJobDescription(e));
+    if (e.description === "") {
+      message.error("Please fill required fields")
+    } else {
+      if (!e.id) {
+        dispatch(addJobDescription(e));
+        setJobDescription(initialState);
+        return;
+      }
+      dispatch(updateJobDescription(e));
       setJobDescription(initialState);
-      return;
     }
-    dispatch(updateJobDescription(e));
-    setJobDescription(initialState);
   };
   return (
     <AdminContainer>
       <JobDescriptionForm data={jobDescription} onSubmit={onSubmit} loading={loader} />
-      <JobDescriptionTable 
+      <JobDescriptionTable
         handleEdit={setJobDescription}
         handleDelete={handleDelete}
         actionRights={[1, 2]}
       />
-      
+
     </AdminContainer>
   );
 }

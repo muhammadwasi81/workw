@@ -34,9 +34,8 @@ export const device = {
 
 export const Container = styled(Form)`
   width: 100%;
-  background-color: white;
+  background: white;
   border-radius: 10px;
-  margin-top: 20px;
   overflow: scroll;
   display: flex;
   flex-direction: column;
@@ -78,15 +77,24 @@ export const ContentDivider = styled(Divider)`
 // //addemployee basic info form
 export const FormItem = styled(Form.Item)`
   width: 100%;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   flex-direction: column !important;
   & > div:first-child {
     display: flex;
     border: none;
-    color: #1a5669;
-    font-weight: bold;
+    color: var(--currentThemeColor);
+    // font-weight: bold;
+    flex-direction: column;
     font-size: 13px;
     white-space: nowrap;
+  }
+  & .ant-typography {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  & .ant-form-item-label {
+    text-align: start;
+    font-weight: 600;
   }
   & .ant-form-item-required {
     ${(props) => props.direction === "rtl" && "flex-direction: row-reverse"}
@@ -108,7 +116,6 @@ export const FormItem = styled(Form.Item)`
   ${(props) =>
     props.area
       ? css`
-          grid-area: 1/-2 / span 2 / span 1;
           justify-self: flex-end;
         `
       : ""};
@@ -119,8 +126,7 @@ export const BasicForm = styled.div`
   display: grid;
   margin-top: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  row-gap: 5px;
-  column-gap: 15px;
+  column-gap: 25px;
   direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
   ${Form.Item} {
     justify-content: ${(props) =>
@@ -133,9 +139,7 @@ export const BasicForm = styled.div`
       props.direction === "ltr" ? "1px solid #d9d9d9" : "0"};
   }
 `;
-//label
 
-export const LabelText = styled.label``;
 export const ImageUpload = styled(Upload)`
   display: flex;
   justify-content: flex-end;
@@ -182,9 +186,8 @@ export const CustomSpace = styled(Space)`
   align-items: flex-start;
   .ant-space-item:last-child {
     align-self: center;
-    margin-top:1rem
+    margin-top: 1rem;
   }
-}
 `;
 export const AddMoreDiv = styled.div`
   display: flex;
@@ -200,7 +203,7 @@ export const EFormItem = styled(Form.Item)`
     display: flex;
     direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
     border: none;
-    color: #1a5669;
+    color: var(--currentThemeColor);
     font-weight: bold;
     font-size: 13px;
     white-space: nowrap;
@@ -229,12 +232,13 @@ export const ButtonContainer = styled.div`
     display: flex;
     align-items: center;
   }
+  width: 100%;
 `;
 export const EButton = styled(Button)`
   margin-right: 10px;
   margin-bottom: 10px;
   border-radius: 5px !important;
-  width: 12.4rem !important;
+  width: auto !important;
 `;
 export const EmployeeCardCustom = styled.div`
   display: flex;
@@ -246,10 +250,12 @@ export const EmployeeCardCustom = styled.div`
   border: 1px solid transparent;
   cursor: pointer;
   .employeeCard__img {
-    width: 12rem;
+    width: 10rem;
+    height: 10rem;
     img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
   .employeeCard__body {
@@ -306,7 +312,7 @@ export const AllEmpolyeeContainer = styled.div`
   display: grid;
   margin-top: 5px;
   gap: 0.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
   height: fit-content;
   direction: ${(props) => (props.direction === "ltr" ? "ltr" : "rtl")};
   ${EmployeeCardCustom} {

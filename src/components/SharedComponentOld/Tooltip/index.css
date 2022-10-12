@@ -1,28 +1,27 @@
 .Tooltip-bx {
-    position: relative;
-    display: inline-block;
-    left: -45px;
-    top: 20px;
+  position: relative;
+  display: inline-block;
+  left: -45px;
+  top: 20px;
 }
 
-.Tooltip-bx > .tooltiptext {
-    /*background-color: dimgrey;*/
-    color: #fff;
-    font-size: 8px;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px;
-    white-space: nowrap;
-    position: absolute;
-    z-index: 1;
+.Tooltip-bx>.tooltiptext {
+  /*background: dimgrey;*/
+  color: #fff;
+  font-size: 8px;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  white-space: nowrap;
+  position: absolute;
+  z-index: 1;
 }
 
 .ant-tooltip-inner {
-    color: #1A5669 !important;
-    /*background-color: #FFFFFF !important;*/
+  color: var(--currentThemeColor) !important;
+  /*background: #FFFFFF !important;*/
 }
 
-.ant-tooltip-arrow-content{
-    /*background-color: #FFFFFF !important;*/
+.ant-tooltip-arrow-content {
+  /*background: #FFFFFF !important;*/
 }
-

@@ -4,24 +4,25 @@ import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import DefaultAttachment from "../../../../content/NewContent/complain/DefaultAttachment.svg";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import moment from "moment";
+import "./complain.css"
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
 
-  const { creator, description, category, members = [], approvers, status } = props.item;
-
-  // console.log(props.item, "imagessss")
+  const { creator, description, image = DefaultAttachment, category, createDate, members = [], approvers, status } = props.item;
   return (
-    <SingleItem>
+    <SingleItem className="ComplainListItem">
       <div
         className="new"
         id={props.id}
         onClick={() => {
-          props.getRewardId(props.id);
+          props.getComplainById(props.id);
         }}
       />
       <ItemHeader>
@@ -30,7 +31,7 @@ function ListItem(props) {
             <UserInfo
               avatarSrc={creator.image}
               name={creator.name}
-              Subline={<SublineDesigWithTime designation={creator.designation} time="7 days ago" />}
+              Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
             />
           </div>
           <div className="right">
@@ -39,67 +40,46 @@ function ListItem(props) {
           </div>
         </div>
       </ItemHeader>
-      <ItemContent>
-        <p>{description}</p>
-      </ItemContent>
-      <div className="ListItemInner">
-        <div className="ItemDetails">
-          <div className="innerDiv">
-            <h3>{complainDictionary.category}</h3>
-            <Tag className="IdTag">{category}</Tag>
-          </div>
-          <div className="innerDiv">
-            <h3>{complainDictionary.complainOf}</h3>
-            {/* {props.members} */}
-            <div className="mem">
-              {members.map((val, i) => {
-                if (i > 2) return "";
-                let { member = { image: "", name: "" } } = val;
-                return member && member.image ? (
-                  <div
-                    key={`grpmem${i}`}
-                    className="us-img"
-                    style={{
-                      backgroundImage: `url(${member.image})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "100% 100%",
-                    }}
-                  />
-                ) : (
-                  <div key={`grpmem${i}`} className="us-img">
-                    {getNameForImage(member ? member.name : "")}
-                  </div>
-                );
-              })}
-              {members ? members.length > 2 ? <div className="us-img">{members && members.length - 2}+</div> : "" : null}
-            </div>
-          </div>
-          <div className="approversBox">
-            <h3>{complainDictionary.approvers}</h3>
-            <div className="mem">
-              {approvers.map((val, i) => {
-                if (i > 2) return "";
-                let { approver } = val;
-                return approver.image ? (
-                  <div
-                    key={`grpmem${i}`}
-                    className="us-img"
-                    style={{
-                      backgroundImage: `url(${approver.image})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "100% 100%",
-                    }}
-                  />
-                ) : (
-                  <div key={`grpmem${i}`} className="us-img">
-                    {getNameForImage(approver.name)}
-                  </div>
-                );
-              })}
-              {approvers ? approvers.length > 2 ? <div className="us-img">{approvers && props.approvers - 2}+</div> : "" : null}
-            </div>
-          </div>
+      <ItemContent className="flex description">
+        <div className="description w-full">
+          <p>{description}</p>
         </div>
+      </ItemContent>
+      <div className="cardSections">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Category"}</div>
+            <div className="cardSection__body">{category}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{complainDictionary.complainOf}</div>
+            <div className="cardSection__body">
+              { members &&
+                <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Members"}
+                membersData={members ? members : []}
+                text={"Members"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+              }
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{complainDictionary.approvers}</div>
+            <div className="cardSection__body">
+              {approvers &&
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers ? approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              }
+            </div>
+          </div>
       </div>
     </SingleItem>
   );

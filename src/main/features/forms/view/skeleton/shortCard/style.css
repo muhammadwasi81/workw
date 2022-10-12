@@ -1,0 +1,32 @@
+.d_ShortCard {
+    height: 150px;
+    background: white;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 0px 10px;
+}
+
+.d_ShortCard_Child1 {
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.d_ShortCard_Child1>img {
+    height: 15px;
+}
+
+.d_ShortCard_Child2 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d_ShortCard_Child3 {
+    height: 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}

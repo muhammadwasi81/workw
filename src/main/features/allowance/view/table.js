@@ -49,6 +49,7 @@ export default function GradeTable({
         id,
         setClearButton
       )}
+      className="allowanceTable"
       dataSource={allowances}
       pagination={false}
       rowKey="id"

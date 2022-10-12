@@ -10,9 +10,12 @@ export const getAllLoanService = (data) => {
     });
 };
 
+//working
 export const addLoanService = (data) => {
   return MasterConfig.post(`api/Loan/AddLoan`, data)
     .then((res) => {
+      console.log("data in service function", data);
+      // console.log(res.data);
       return res;
     })
     .catch((res) => {
@@ -20,7 +23,8 @@ export const addLoanService = (data) => {
     });
 };
 
-export const getLoanByIdService = (id) => {
+export const GetLoanByIdService = (id) => {
+  console.log("ID FROM SERVICE", id);
   return MasterConfig.get(`api/Loan/GetLoanById?id=${id}`)
     .then((res) => {
       return res;

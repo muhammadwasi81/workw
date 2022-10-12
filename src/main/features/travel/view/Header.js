@@ -1,43 +1,48 @@
-import React from "react";
-import { HeaderMenuContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { ContainerHeader } from "../../../sharedComponents/AppComponents/MainHeader";
-import HeaderNavLink from "../../../sharedComponents/AppComponents/MainHeader/HeaderNavLink";
+import React, { useState } from "react";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import TravelComposer from "./TravelComposer/TravelComposer";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
-function Header(props) {
-  const { label } = props;
-  return (
-    // <ContainerHeader>
-    // 	<HeaderMenuContainer>
-    // 		<HeaderNavLink
-    // 			activeName={"travel"}
-    // 			to={}
-    // 			isDefault={true}
-    // 			linkName={}
-    // 		/>
-    // 	</HeaderMenuContainer>
+import { buttonsEnum } from "../enums/enums";
+import NewTravelComposer from "./TravelComposer/NewTravelComposer";
 
-    // 	<div className="right-menu">
-    // 		<div className="travel_drawer">
-    // 			<SideDrawer
-    // 				children={<TravelComposer />}
-    // 				title="Create Travel Expense"
-    // 				buttonText="Create Travel"
-    // 				isAccessDrawer={false}
-    // 			/>
-    // 		</div>
-    // 	</div>
-    // </ContainerHeader>
-    <LayoutHeader
-      items={[
-        { name: label.appHeader.travel.travels, to: ROUTES.TRAVEL.DEFAULT },
-        { name: "asdsa", to: "333" },
-        { name: "aas", to: "333" },
-      ]}
-    />
-  );
+function Header(props) {
+	const { label, backButton, route, referenceId, referenceType } = props;
+	const [visible, setVisible] = useState(false);
+	const { success } = props;
+	const items = [
+		{
+			name: label.travels,
+			to: route ? route : `${ROUTES.TRAVEL.DEFAULT}?f=trv`,
+			renderButton: buttonsEnum.travel,
+		},
+	];
+	const buttons = [
+		{
+			buttonText: label.createTextBtn,
+			onClick: () => setVisible(true),
+			render: (
+				<SideDrawer
+					children={
+						<NewTravelComposer
+							label={label}
+							referenceId={referenceId}
+							referenceType={referenceType}
+						/>
+					}
+					title={label.labels.createTravel}
+					buttonText={label.createTextBtn}
+					isAccessDrawer={true}
+					setOpenDrawer={setVisible}
+					setIsEdited={() => {}}
+					openDrawer={visible}
+					success={success}
+				/>
+			),
+		},
+	];
+	return (
+		<LayoutHeader items={items} buttons={buttons} backButton={backButton} />
+	);
 }
 
 export default Header;

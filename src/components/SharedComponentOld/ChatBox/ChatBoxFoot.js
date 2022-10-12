@@ -44,7 +44,7 @@ const ChatBoxFoot = (props) => {
                             IconSize={15}
                         />
                     </div>
-                    <div>
+                    {/* <div>
                         <SharedButton
                             type="default"
                             shape="circle"
@@ -53,7 +53,7 @@ const ChatBoxFoot = (props) => {
                             icon={attachmentIcon}
                             IconSize={15}
                         />
-                    </div>
+                    </div> */}
                     <div>
                         <SharedButton
                             type="default"

@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
@@ -17,22 +18,26 @@ export default function Designation() {
   };
 
   const onSubmit = (e) => {
-    if (!e.id) {
-      dispatch(addDesignation(e));
+    if (e.name === "" || e.description === "") {
+      message.error("Please fill all required fields")
+    } else {
+      if (!e.id) {
+        dispatch(addDesignation(e));
+        setDesignations(initialState);
+        return;
+      }
+      dispatch(updateDesignation(e));
       setDesignations(initialState);
-      return;
     }
-    dispatch(updateDesignation(e));
-    setDesignations(initialState);
-  };
-  return (
-    <AdminContainer>
-      <DesignationForm data={designations} onSubmit={onSubmit} loading={loader} />
-      <DesignationTable 
-        handleEdit={setDesignations}
-        handleDelete={handleDelete}
-        actionRights={[1, 2]}
-      />
-    </AdminContainer>
-  );
-}
+  }
+    return (
+      <AdminContainer>
+        <DesignationForm data={designations} onSubmit={onSubmit} loading={loader} />
+        <DesignationTable
+          handleEdit={setDesignations}
+          handleDelete={handleDelete}
+          actionRights={[1, 2]}
+        />
+      </AdminContainer>
+    );
+  }

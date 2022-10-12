@@ -1,11 +1,15 @@
 {
   "name": "konnectv4-tailwindcss",
-  "version": "0.1.0",   
+  "version": "0.1.0",
   "private": true,
-  "homepage": "/konnect/",
   "dependencies": {
     "@ant-design/charts": "^1.3.6",
     "@emoji-mart/data": "^1.0.1",
+    "@fullcalendar/core": "^5.11.3",
+    "@fullcalendar/daygrid": "^5.11.3",
+    "@fullcalendar/interaction": "^5.11.3",
+    "@fullcalendar/react": "^5.11.2",
+    "@fullcalendar/timegrid": "^5.11.3",
     "@microsoft/signalr": "^6.0.5",
     "@reduxjs/toolkit": "^1.8.1",
     "@stripe/react-stripe-js": "^1.7.2",
@@ -24,27 +28,37 @@
     "prop-types": "^15.8.1",
     "quill": "^1.3.7",
     "react": "^18.1.0",
+    "react-beautiful-dnd": "^13.1.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-detect-offline": "^2.4.5",
+    "react-dnd": "^16.0.1",
     "react-dom": "^18.1.0",
+    "react-drag-drop-container": "^6.1.1",
     "react-drag-listview": "0.1.8",
+    "react-draggable": "^4.4.5",
     "react-icons": "^4.3.1",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-media-recorder": "^1.6.6",
     "react-medium-image-zoom": "^4.3.7",
     "react-phone-input-2": "^2.15.0",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.1",
     "react-responsive": "^9.0.0-beta.6",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-treelist": "^1.2.0",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.5",
     "swiper": "^8.1.4",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "local-build": ""
   },
   "eslintConfig": {
     "extends": [
@@ -66,7 +80,9 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
+    "jest": "^28.1.3",
     "postcss": "^8.4.13",
+    "react-test-renderer": "^18.2.0",
     "tailwindcss": "^3.0.24"
   },
   "resolutions": {

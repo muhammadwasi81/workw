@@ -1,0 +1,87 @@
+.post-model {
+  width: 100% !important;
+}
+
+.post-model>.ant-modal>.ant-modal-content {
+  width: 100% !important;
+  margin: 0;
+  top: 0;
+  background: rgba(129, 130, 133, 0.7) !important;
+  backdrop-filter: blur(10px);
+}
+
+.post-model.ant-modal {
+  max-width: 100% !important;
+  padding: 0;
+  height: 100%;
+  margin: 0 !important;
+}
+
+.post-model .ant-modal-body {
+  /* height: calc(100vh-0px); */
+  padding: 0;
+  height: 100%;
+}
+
+.post-model .ant-modal-close {
+  left: 0;
+  right: auto;
+}
+
+.post-model .ant-modal-close .ant-modal-close-x {
+  color: #a6a6a6;
+  font-size: 22px;
+}
+
+.post-model .post-footer .commentWrapper>.commentComposer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.post-model .post>.post-header>.pinned-post {
+  display: none;
+}
+
+.ant-modal-content {
+  height: 100%;
+}
+
+.post-section .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.slider-container .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-container {
+  height: 100%;
+  width: 100%;
+}
+
+.slides {
+  height: calc(100% - 120px);
+  padding: 10px;
+}
+
+.thumbnails {
+  height: 120px;
+  padding: 10px;
+}
+
+.thumbnails .swiper-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.thumbnails .swiper-slide-thumb-active {
+  border: 2px solid White !important;
+}
+
+.thumbnails .swiper-slide {
+  border: 2px solid transparent;
+}

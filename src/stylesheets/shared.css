@@ -1,25 +1,31 @@
 .warning-content h4 {
-  color: #1a5669;
+  color: var(--currentThemeColor);
   font-size: 17px;
 }
+
 .ApproversDiv {
-  background-color: white;
+  background: white;
   margin-top: 17px;
 }
+
 .ApprovalCollapse {
   margin-bottom: 14px;
 }
+
 .ApproversHeading h5 {
   margin-top: 7px;
 }
+
 .ApproversHeading {
   padding-top: 8px;
   padding-bottom: 8px;
 }
+
 .WarningFilterForm h2 {
-  color: #1a5669;
+  color: var(--currentThemeColor);
   margin: 0px;
 }
+
 .AttachmentGridView {
   /* width: 188px; */
   display: flex;
@@ -28,15 +34,18 @@
   overflow: hidden;
   position: relative;
 }
+
 .SingleAttachmentView {
   margin: 2px;
 }
+
 .SingleAttachmentView img {
   width: 90px;
   height: 90px;
 }
+
 .AttachmentViewShutter {
-  background-color: #00000080;
+  background: #00000080;
   height: 90px;
   width: 90px;
   position: absolute;
@@ -49,20 +58,91 @@
   align-items: center;
   justify-content: center;
 }
+
 .progressCard {
   padding: 15px 5px;
   border: 1px solid #f0f0f0;
   border-radius: 8px;
   margin: 5px;
 }
+
 .progress-checkbox {
   font-size: 10px !important;
   margin-left: 4px !important;
 }
+
 .task-rigth-progress {
   margin-top: 10px !important;
 }
+
 .taskProgressArrow {
   margin-right: 10px;
   margin-top: 5px;
 }
+.reportFilter {
+  background: #ffffff;
+  margin-top: 15px;
+  padding: 8px 5px;
+  min-height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-radius: 5px;
+  width: calc(100% - 80px);
+}
+
+/*  Card 0.3 Start   */
+
+.cardSections {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 10px 10px;
+}
+/* .cardSections::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  background-color: red;
+  right: 0;
+} */
+
+.cardSection__title {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgb(136, 136, 136);
+}
+
+.cardSection__body {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--currentThemeColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardSectionItem {
+  min-width: 100px;
+  flex: 1;
+  margin: 5px 0;
+  border-right: 1px solid rgb(222, 222, 222);
+  text-align: center;
+}
+
+.cardSections> :last-child {
+  border: none;
+}
+
+.removeMargin .ant-form-item {
+  margin-bottom: 0px !important;
+}
+.salaryDatePicker .ant-picker{
+  background-color: transparent;
+  border: none;
+}
+
+/* Card 0.3 END  */

@@ -1,0 +1,57 @@
+/* .header {
+  background: #ffffff;
+  box-shadow: 0 12px 6px -12px #bbbbbb;
+  min-height: 50px;
+  padding: 0 20px;
+  width: calc(100% - 80px);
+}
+.btn {
+  background: var(--currentThemeColor);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  border: solid 1px;
+}
+.header button {
+  padding: 4px 15px;
+  font-size: 14px;
+  margin-left: auto;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  padding: 5px 10px;
+  margin-top: 8px;
+  width: calc(100% - 80px);
+}
+.nav_inner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.search {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #0000000f;
+  min-width: 200px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+} */
+
+.loanCardWrapper {
+  display: grid;
+  gap: 0.5rem;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  height: fit-content;
+}
+
+.loandetail {
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 10px 20px;
+}

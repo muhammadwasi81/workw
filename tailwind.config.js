@@ -3,9 +3,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-color": "#1a5669",
+        "primary-color": "var(--currentThemeColor)",
         smoke: "#f4f4f4",
-        "primary-ref-tag": "#DEE5E8",
+        "primary-ref-tag": "#ededed",
       },
       width: {
         "90p": "90%",
@@ -20,6 +20,14 @@ module.exports = {
         "99p": "99%",
       },
     },
+    // screens: {
+    // 	// tablet: "640px",
+    // 	// => @media (min-width: 640px) { ... }
+    // 	// laptop: "1024px",
+    // 	// => @media (min-width: 1024px) { ... }
+    // 	// desktop: "1280px",
+    // 	// => @media (min-width: 1280px) { ... }
+    // },
   },
   plugins: [],
 };

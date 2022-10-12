@@ -1,128 +1,156 @@
-import { Button, Progress, Tag } from "antd";
-import React, { useContext } from "react";
-// import WarningApprovel from "../WarningApprovel";
+import { Progress } from "antd";
+import React, { useContext, useEffect, useState } from "react";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { Rate } from "antd";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage, STRINGS } from "../../../../../utils/base";
-import { NavLink } from "react-router-dom";
+import moment from "moment";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
+import { taskDictionary } from "../../localization";
+import { getPriorityLabel } from "../../utils/enum/enum";
+import TaskMembers from "../TaskDetail/taskMembers";
+import { postUserTaskRating } from "../../utils/services/service";
 
-const dummyMember = [
-  {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-  {
-    profile_picture: "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg",
-    name: "Abu Bakar",
-  },
-];
-
-function TaskListItem() {
+function TaskListItem({
+  item,
+  isTaskMember = false,
+  onTask = () => {},
+  isRatingDisable = true,
+  changeOnProgress,
+  progress,
+}) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, Direction } = dictionaryList[userLanguage];
+  const { Direction } = dictionaryList[userLanguage];
+  const [rating, setRating] = useState("");
+  const { taskDictionaryList } = taskDictionary[userLanguage];
+  const [isMount, setIsMount] = useState(false);
+  const { labels } = taskDictionaryList;
+  const {
+    id,
+    subject,
+    description,
+    referenceNo,
+    ratingAssign,
+    priority,
+    startDate,
+    endDate,
+    progress: progressed,
+    members = [],
+    creator,
+  } = item;
 
+  let classes = "card-list-item ";
+  classes += Direction === "rtl" ? "rtl" : "ltr";
+  const { color, label } = getPriorityLabel(labels, priority);
+
+  useEffect(() => {
+    if (isMount) {
+      if (!isRatingDisable) handleRating(id, rating);
+    }
+  }, [rating]);
+
+  useEffect(() => {
+    setIsMount(true);
+  }, []);
+
+  const handleRating = async (id, rating) => {
+    await postUserTaskRating(id, rating);
+  };
+  console.log(progress ? progress : progressed, "condition");
   return (
-    <div className="card-list-item mt-40 flex">
-      <p className="text-xl">salman ahmed qureshi</p>
+    <div className={classes} onClick={() => onTask(id)}>
       <div className="card-item-header">
         <div className="left">
           <UserInfo
-            avatarSrc="https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-            name="Abu Bakar"
-            Subline={<SublineDesigWithTime designation="ReactJs Developer" time="2 days ago" />}
+            avatarSrc={creator?.image}
+            name={creator?.name}
+            Subline={
+              <SublineDesigWithTime
+                designation={
+                  creator?.designation ? creator?.designation : "Not Designated"
+                }
+                // time="2 days ago"
+              />
+            }
           />
         </div>
 
         <div className="right">
-          <Button className="ThemeBtn">{sharedLabels.inprogress}</Button>
-          <Button className="highPriorityBtn">{"High"}</Button>
+          <div className="rating">
+            <Rate
+              allowHalf
+              defaultValue={ratingAssign}
+              disabled={isRatingDisable || progress !== 100}
+              onChange={(value) => setRating(value)}
+            />
+          </div>
+          <div className="labels">
+            <span className="taskID">{referenceNo}</span>
+            <span className="priority " style={{ backgroundColor: color }}>
+              {label}
+            </span>
+          </div>
         </div>
       </div>
-      <NavLink to={`${STRINGS.ROUTES.TASK.DETAIL}/${"test"}`}>
-        <div>
-          <div className="card-item-body-main">
-            <div className="card-item-body">
-              <div className="left">
-                <div className="card-Title-1">Lorem ipsum dolor sit amet adipisicing elit.</div>
-                <p className="card-desc-1">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, quos aut! Cumque minus reprehenderit vero exercitationem repellat
-                  quae voluptatibus! Tempore odit minima
-                </p>
-              </div>
 
-              <div className="right">
-                <div>
-                  <div className="ratingTitle"> Rating</div>
-                  <div>
-                    {" "}
-                    <Rate allowHalf defaultValue={2.5} />
-                  </div>
-                </div>
-              </div>
+      <div>
+        <div className="card-item-body-main">
+          <div className="card-item-body">
+            <div className="left">
+              <div className="card-Title-1">{subject}</div>
+              <p className="card-desc-1">{description}</p>
             </div>
 
-            <div className="card-column-view">
-              <div className="card-column-item">
-                <div className="column-item-head"> Assign to </div>
-                <div className="SummaryMembers">
-                  <div className="mem">
-                    {dummyMember.map((val, i) => {
-                      if (i > 2) return "";
-                      return val.profile_picture ? (
-                        <div
-                          key={`grpmem${i}`}
-                          className="us-img"
-                          style={{
-                            backgroundImage: `url(${val.profile_picture})`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "100% 100%",
-                          }}
-                        />
-                      ) : (
-                        <div key={`grpmem${i}`} className="us-img">
-                          {getNameForImage(val.name)}
-                        </div>
-                      );
-                    })}
-                    {dummyMember ? dummyMember.length > 2 ? <div className="us-img">{dummyMember && dummyMember.length - 2}+</div> : "" : null}
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="column-item-head"> Predecessor </div>
-                <div className="st-tag"> Helpers UI </div>
-              </div>
-              <div>
-                <div className="column-item-head"> Start Date </div>
-                <div className="st-tag"> Mon, Oct 14, 2021 </div>
-              </div>
-              <div>
-                <div className="column-item-head"> End Date </div>
-                <div className="st-tag"> Mon, Oct 14, 2021 </div>
+            <div className="right">
+              {isTaskMember && (
+                <TaskMembers
+                  members={members}
+                  changeOnProgress={changeOnProgress}
+                />
+              )}
+            </div>
+          </div>
+          <div>
+            <Progress
+              strokeColor="#526bb1"
+              percent={progress ? progress : progressed}
+            />
+          </div>
+          <div className="cardSections">
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.startDate}</div>
+              <div className="cardSection__body">
+                {moment(startDate).format("ddd,MMM DD,YYYY")}
               </div>
             </div>
-
-            <div>
-              <Progress strokeColor="#1b5669" percent={80} />
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.endtDate}</div>
+              <div className="cardSection__body">
+                {moment(endDate).format("ddd,MMM DD,YYYY")}
+              </div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.predecessor}</div>
+              <div className="cardSection__body">Predecessor</div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.assignTo}</div>
+              <div className="cardSection__body">
+                {members && (
+                  <Avatar
+                    isAvatarGroup={true}
+                    isTag={false}
+                    heading={"Members"}
+                    membersData={members}
+                    image={"https://joeschmoe.io/api/v1/random"}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </NavLink>
+      </div>
     </div>
   );
 }

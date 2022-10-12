@@ -1,42 +1,28 @@
-import { useContext } from "react";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { loanDictionaryList } from "../localization/index";
-
-export const loanPurposeEnum = {
-	Vehicle: 1,
-	Personal: 2,
-	Wedding: 3,
-	Medical: 4,
-	Education: 5,
-	House: 6,
-	Other: 7,
+export const LoanFilterSortEnum = {
+  CreateDateDesc: 1,
+  CreateDateAsc: 2,
 };
 
-export function LoanPurposeList() {
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { loanDictionary } = loanDictionaryList[userLanguage];
-	return [
-		{
-			id: loanPurposeEnum.Vehicle,
-			name: loanDictionary.loanPurpose.vehicle,
-		},
-		{
-			id: loanPurposeEnum.Personal,
-			name: loanDictionary.loanPurpose.personal,
-		},
-		{
-			id: loanPurposeEnum.Wedding,
-			name: loanDictionary.loanPurpose.wedding,
-		},
-		{
-			id: loanPurposeEnum.Medical,
-			name: loanDictionary.loanPurpose.medical,
-		},
-		{
-			id: loanPurposeEnum.Education,
-			name: loanDictionary.loanPurpose.education,
-		},
-		{ id: loanPurposeEnum.House, name: loanDictionary.loanPurpose.house },
-		{ id: loanPurposeEnum.Other, name: loanDictionary.loanPurpose.other },
-	];
-}
+export const LoanFilterTypeEnum = {
+  All: 0,
+  CreatedByMeAndLoanOfMe: 1,
+  ForApproval: 2,
+};
+
+export const LoanPurposeEnum = {
+  Personal: 1,
+  Wedding: 2,
+  Medical: 3,
+  Education: 4,
+  House: 5,
+  Vehicle: 6,
+  Other: 7,
+};
+
+export const LoanStatusEnum = {
+  InProcess: 1,
+  Approved: 2,
+  Declined: 3,
+  Cancelled: 4,
+  LoanDispursed: 5,
+};

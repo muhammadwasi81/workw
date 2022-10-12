@@ -7,6 +7,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  gap: 10px;
 }
 
 .composer-wrapper .avatar-wrapper img {
@@ -16,6 +17,7 @@
   object-fit: cover;
   margin: 0 10px 0 0;
 }
+
 .composer-wrapper .avatar-wrapper h3 {
   margin: 0;
   font-weight: 500;
@@ -45,11 +47,12 @@
 .composer-wrapper button {
   font-size: 14px;
   border: none;
-  background-color: transparent;
+  background: transparent;
   margin: 0px 4px 15px 4px;
   padding: 0;
   cursor: pointer;
 }
+
 .composer-wrapper button:first-child {
   margin-left: 0;
 }
@@ -61,7 +64,7 @@
   border: 1px solid #e2e8f6;
 }
 
-.composer-wrapper .select-users > div {
+.composer-wrapper .select-users>div {
   flex: 1;
 }
 
@@ -84,6 +87,7 @@
 .composer-wrapper .select-users .c-multi-select div {
   border-radius: 0 !important;
 }
+
 .composer-wrapper .select-users .c-multi-select .ant-select-selector {
   border: unset !important;
   box-shadow: unset !important;
@@ -95,7 +99,7 @@
   margin: 10px 0;
 }
 
-.composer-wrapper .preview-file > div {
+.composer-wrapper .preview-file>div {
   margin-right: 10px;
 }
 
@@ -106,6 +110,7 @@
   margin-top: -15px;
   padding-top: 15px;
 }
+
 .composer-wrapper .uploader .options {
   position: relative;
   display: flex;
@@ -118,26 +123,31 @@
   margin-top: 15px;
   cursor: pointer;
 }
+
 .composer-wrapper .uploader .options:first-child {
   margin-left: 0;
 }
 
 .composer-wrapper .uploader .options:hover {
-  background-color: #ececec;
-  transition: background-color 0.2ms ease-in;
+  background: #ececec;
+  transition: background 0.2ms ease-in;
 }
+
 .composer-wrapper .uploader .options .wrapper img {
   width: 18px;
   height: 18px;
   margin-right: 4px;
 }
+
 .composer-wrapper .uploader .options .wrapper span {
   font-size: 16px;
 }
+
 .composer-wrapper .uploader .options .wrapper {
   display: flex;
   align-items: center;
 }
+
 .composer-wrapper .uploader .options input {
   opacity: 0;
   position: absolute;
@@ -145,7 +155,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: red;
+  background: red;
   cursor: pointer;
 }
 
@@ -158,7 +168,7 @@
 .composer-wrapper .submit-wrapper .post-form {
   width: 100%;
   height: 36px;
-  background-color: #345e95;
+  background: #345e95;
   border-radius: 6px;
   border: none;
   color: #fff;
@@ -174,6 +184,7 @@
   user-select: none;
   margin-left: 10px;
 }
+
 .composer-wrapper .submit-wrapper .dropdown-button {
   width: 36px;
   height: 36px;
@@ -186,6 +197,7 @@
   cursor: pointer;
   border: none;
 }
+
 .composer-wrapper .submit-wrapper .dropdown-button img {
   width: 16px;
   height: 16px;
@@ -202,23 +214,27 @@
   left: 0;
   margin-top: 4px;
 }
-.dropdown-wrapper > div {
+
+.dropdown-wrapper>div {
   display: flex;
   display: -webkit-flex;
   align-items: center;
   padding: 4px 5px;
   width: 100%;
 }
-.dropdown-wrapper > div:hover {
-  background-color: #e0e0e0;
-  transition: background-color 0.2ms ease-in;
+
+.dropdown-wrapper>div:hover {
+  background: #e0e0e0;
+  transition: background 0.2ms ease-in;
 }
-.dropdown-wrapper > div img {
+
+.dropdown-wrapper>div img {
   width: 14px;
   height: 14px;
   margin-right: 8px;
 }
-.dropdown-wrapper > div span {
+
+.dropdown-wrapper>div span {
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;

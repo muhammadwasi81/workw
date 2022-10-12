@@ -1,15 +1,15 @@
-.ant-drawer-title{
+.ant-drawer-title {
     font-size: inherit !important;
 }
 
-.drawerBtn{
-    background: var(--primary_theme_color_green) !important;
+.drawerBtn {
+    background: var(--currentThemeColor) !important;
     border-radius: 4px !important;
     display: flex !important;
     align-items: center;
+    font-size: 14px;
     justify-content: center;
 }
-
 .CompBtnMobile {
     position: absolute !important;
     bottom: 100px;
@@ -19,12 +19,13 @@
     padding: 0px !important;
     height: 40px !important;
     width: 40px !important;
-    box-shadow: 0 0 20px 9px #d1d4d5 !important;
+    box-shadow: 0 0 5px #d1d4d5 !important;
 }
+
 .CompBtnMobile span:nth-child(2) {
     display: none;
 }
 
 .ant-col-24.ant-form-item-label {
-    padding: 0px 0px 0px !important;    
+    padding: 0px 0px 0px !important;
 }

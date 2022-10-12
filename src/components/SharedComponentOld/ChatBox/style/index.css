@@ -1,87 +1,100 @@
-.ChatBoxCont{
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-    position: absolute;
-    height: 450px;
-    width: 76%;
-    bottom: 0px;
-    right: 100px;
+.ChatBoxCont {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  position: absolute;
+  height: 450px;
+  width: 76%;
+  bottom: 0px;
+  right: 100px;
 }
-.ChatBox{
-    width: 328px;
-    border-radius: 10px 10px 0 0;
-    height: inherit;
-    margin: 0 10px;
-    background-color: white;
-    z-index: 1;
-    box-shadow: 0px 0px 8px 2px #92929273;
 
+.ChatBox {
+  width: 328px;
+  border-radius: 10px 10px 0 0;
+  height: inherit;
+  margin: 0 10px;
+  background: white;
+  z-index: 1;
+  box-shadow: 0px 0px 8px 2px #92929273;
 }
-.ChatBoxHead{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 45px;
-    border-radius: inherit;
-    background: #1A5669;
-    color: white;
-    align-items: center;
-    padding: 0 7px;
+
+.ChatBoxHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 45px;
+  border-radius: inherit;
+  background: var(--currentThemeColor);
+  color: white;
+  align-items: center;
+  padding: 0 7px;
 }
-.ChatBoxHead > div {
-    display: flex;
-    align-items: center;
+
+.ChatBoxHead>div {
+  display: flex;
+  align-items: center;
 }
-.ChatBoxName{
-    padding-left: 2px;
+
+.ChatBoxName {
+  padding-left: 2px;
 }
-.ChatBoxName > div{
-    margin-right: 5px;
+
+.ChatBoxName>div {
+  margin-right: 5px;
 }
-.ChatBoxMsgCont{
-    height:calc(100% - 90px);
+
+.ChatBoxMsgCont {
+  height: calc(100% - 90px);
 }
-.ChatBoxFoot{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 45px;
-    /* background-color: thistle; */
+
+.ChatBoxFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 45px;
+  /* background: thistle; */
 }
-.ChatBoxInput{
-    flex: 3;
-    padding: 10px;
+
+.ChatBoxInput {
+  flex: 3;
+  padding: 10px;
 }
-.ChatBoxInput > div{
-    background-color: rgb(244, 244, 244);
-    border-radius: 7px;
-    height: 30px;
-    margin: 3px;
-    color: #1A5669;
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: right;
+
+.ChatBoxInput>div {
+  background: rgb(244, 244, 244);
+  border-radius: 7px;
+  height: 30px;
+  margin: 3px;
+  color: var(--currentThemeColor);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
-.ChatBoxInput > div > input{
-    background-color: transparent;
-    height: 100%;
-    width: 100%;
-    border: none;
-    margin: 0 10px;
-    padding-left: 15px;
+
+.ChatBoxInput>div>input {
+  background: transparent;
+  height: 100%;
+  width: 100%;
+  border: none;
+  margin: 0 10px;
+  padding-left: 15px;
 }
-.ChatBoxInputHandler{
-    width: 100px;
-    display: flex;
+
+.ChatBoxInputHandler {
+  width: 100px;
+  display: flex;
 }
-.ChatBoxMessages{
-    height: calc(100% - 90px) !important;
+
+.ChatBoxMessages {
+  height: calc(100% - 90px) !important;
 }
-.ChatBoxMessages > .MessengerListItem-ME{
-    margin-top: 10px !important;
+
+.ChatBoxMessages>.MessengerListItem-ME {
+  margin-top: 10px !important;
 }
-.ChatBoxMessages > .MessengerListItem{
-    margin-top: 10px !important;
+
+.ChatBoxMessages>.MessengerListItem {
+  margin-top: 10px !important;
 }

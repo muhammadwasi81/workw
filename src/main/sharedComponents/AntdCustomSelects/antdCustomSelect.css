@@ -1,0 +1,10 @@
+/* .antd_custom_select .ant-badge{
+    display: none;
+} */
+
+.ant-select-selection-item .ant-badge{
+    display: none;
+}
+.ant-select-item-option-state .anticon-check{
+    display: none;
+}

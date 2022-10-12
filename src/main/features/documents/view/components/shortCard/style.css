@@ -1,0 +1,68 @@
+/* .d_ShortCard {
+    height: 150px;
+    background: white;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 0px 10px;
+    min-width: 10rem;
+    cursor: pointer;
+} */
+
+.d_ShortCard_Child1 {
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.d_ShortCard_Child1>img {
+    height: 15px;
+}
+
+.d_ShortCard_Child2 {
+    /* flex: 1 1; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    /* height: 250px; */
+    margin: 0 auto;
+}
+
+.fileName div {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 13px;
+    overflow: hidden;
+    width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.d_ShortCard_Child2 img {
+    width: 100%;
+}
+
+.d_ShortCard_Child3 {
+    height: 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.doc_detail_media .d_ShortCard_Child2 {
+    width: 100px;
+}
+.downloadBtn {
+    justify-content: center;
+    display: flex;
+    padding: 11px 0px 0px 0px;
+}
+.downloadBtn {
+    font-size: 10px;
+    padding: 4px 9px;
+    height: 24px;
+}
+.privacyStatus {
+    position: relative;
+    top: -6px;
+}

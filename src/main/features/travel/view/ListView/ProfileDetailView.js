@@ -4,19 +4,22 @@ import moment from "moment";
 import { BiWorld } from "react-icons/bi";
 import { LockOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
+import { getNameForImage } from "../../../../../utils/base";
 
 function ProfileDetailView(props) {
 	return (
 		<div className="flex items-center gap-1">
-			<Avatar src={props.profileImgSrc} size={props.profileImgSize} />
+			<Avatar src={props.profileImgSrc} size={props.profileImgSize}>
+				{getNameForImage(props.name)}
+			</Avatar>
 			<div>
 				<span className="text-primary-color font-bold text-sm">
 					{props.name}
 				</span>
-				<span className="flex items-center text-center">
-					{props.destination}&nbsp;<span>.</span>&nbsp;
+				<span className="flex items-center text-center text-xs text-slate-500">
+					{props.destination}&nbsp;&#9679;&nbsp;
 					{moment(props.createDate).fromNow()}
-					&nbsp;.&nbsp;
+					&nbsp;&#9679;&nbsp;
 					{props.isPublic ? <BiWorld /> : <LockOutlined />}
 				</span>
 			</div>

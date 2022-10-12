@@ -19,6 +19,7 @@ import {
   getAllComplainCategoryService,
   getAllEmployeeService,
   getAllEmployeeShortService,
+  getEmployeeSalaryService,
 } from "../services/services";
 
 export const getCountries = createAsyncThunk(
@@ -49,6 +50,20 @@ export const getCities = createAsyncThunk(
     return res;
   }
 );
+
+export const getEmployeeSalary = createAsyncThunk(
+  "getEmployeeSalary",
+  async (data, { dispatch, getState }) => {
+    const res = await getEmployeeSalaryService(data)
+    if (!res.responseCode) {
+      responseMessage({
+        dispatch: dispatch,
+        type:  responseMessageType.ApiFailure
+      })
+    }
+    return res
+  }
+)
 
 export const getAllDefaultDesignation = createAsyncThunk(
   "getDefaultDesignation",
@@ -107,8 +122,8 @@ export const getAllGenders = createAsyncThunk(
 export const getAllEmployeeShort = createAsyncThunk(
   "getAllEmployeeShort",
   async (args, { dispatch, getState }) => {
-    const { pageNo, search } = args;
-    const res = await getAllEmployeeShortService(pageNo, search);
+    const { text, pageNo, search } = args;
+    const res = await getAllEmployeeShortService(pageNo, text);
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
@@ -121,8 +136,9 @@ export const getAllEmployeeShort = createAsyncThunk(
 export const getAllEmployees = createAsyncThunk(
   "getAllEmployee",
   async (args, { dispatch, getState }) => {
-    console.log(args);
-    const res = await getAllEmployeeService();
+    const { text, pgNo, pgSize } = args;
+    const res = await getAllEmployeeService(text, pgNo, pgSize);
+
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
@@ -174,7 +190,7 @@ export const getAllEmployeeTypes = createAsyncThunk(
 export const uploadImage = createAsyncThunk(
   "Upload/UploadFiles",
   async (data) => {
-    // console.log("data from component", data);
+    console.log("data from component", data);
 
     const response = await uploadImageService(data);
     return response.data;

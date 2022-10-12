@@ -1,9 +1,11 @@
 // import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import { jsonToFormData } from "../../../../utils/base";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "api/Employee/";
 
 export const addEmployeeService = data => {
-	return MasterConfig.post(`${API_PREFIX}AddEmployee`, data)
+	const formData = jsonToFormData(data);
+	return MasterConfig.post(`${API_PREFIX}AddEmployee`, formData)
 		.then(res => {
 			return res.data;
 		})

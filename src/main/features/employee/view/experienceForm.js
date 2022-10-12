@@ -1,389 +1,356 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { DatePicker, Checkbox, Typography } from "antd";
-import React, { useCallback, useContext, useEffect } from "react";
+import { PlusOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  Avatar,
+  Button,
+  Checkbox,
+  DatePicker,
+  Divider,
+  Form,
+  Input,
+  Select,
+  Table,
+} from "antd";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { employeeDictionaryList } from "../localization/index";
+import "../Styles/employeeForm.css";
 import { employmentType } from "../../../../utils/Shared/enums/enums";
-import TextInput from "../../../sharedComponents/Input/TextInput";
-import * as S from "../Styles/employee.style";
-import NewCustomSelect from "./newCustomSelect";
-import SharedSelect from "../../../sharedComponents/Select/Select";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getUserWorkExperience } from "../../experienceInfo/store/actions";
+import moment from "moment";
+import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
+import { getNameForImage } from "../../../../utils/base";
+import { getCities } from "../../../../utils/Shared/store/actions";
+import { resetEmergencydetails } from "../store/slice";
+
 const { RangePicker } = DatePicker;
 
-const ExperienceForm = ({ experienceInfo, onExperienceInfo }) => {
+const { Option } = Select;
+const EmergencyForm = ({ mode, id }) => {
+  const isEdit = mode === "edit";
+  const dispatch = useDispatch();
+  const [workInfo, setWorkInfo] = useState([]);
+  const [form] = Form.useForm();
+  Object.defineProperty(form, "values", {
+    value: function() {
+      return workInfo.map((item) => {
+        return {
+          ...item,
+          startDate: moment(item[0]?.startEndDate?._ds)?.format(),
+          endDate: item?.isPresent
+            ? ""
+            : moment(item[1]?.startEndDate?._ds)?.format(),
+        };
+      });
+    },
+    writable: true,
+    enumerable: true,
+    configurable: true,
+  });
+  const [city, setCity] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, employees, Direction } = dictionaryList[userLanguage];
-  const value = employees.WorkExperienceForm;
-  const [cities, setCities] = useState({});
-  const placeholder = employees.placeholders;
-  const [present, setPresent] = useState(false);
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [state, setState] = useState({
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const [isPresent, setIsPresent] = useState(false);
+  const { employeesDictionary, Direction } = employeeDictionaryList[
+    userLanguage
+  ];
+  const {
+    employee: { experiencedetails },
+    success,
+  } = useSelector((state) => state.employeeSlice);
+  const initialState = {
     position: "",
-    employmentTypeId: "",
-    cityId: "",
-    start: "",
-    start_end: "",
-  });
-  const [error, setError] = useState({
-    position: false,
-    empType: false,
-    cityId: false,
-    start: false,
-    start_end: false,
-  });
-  const checkValidation = () => {
-    if (!state.position) {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        position: true,
-      }));
-    } else {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        position: false,
-      }));
-    }
-    if (!state.employmentTypeId) {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        empType: true,
-      }));
-    } else {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        empType: false,
-      }));
-    }
-    if (!state.start_end && !present) {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        start_end: true,
-      }));
-    } else {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        start_end: false,
-      }));
-    }
-    if (!state.cityId) {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        cityId: true,
-      }));
-    } else {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        cityId: false,
-      }));
-    }
-    if (!state.start && present) {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        start: true,
-      }));
-    } else {
-      setError((prevErrors) => ({
-        ...prevErrors,
-        start: false,
-      }));
-    }
+    employmentTypeId: [],
+    cityId: [],
+    startDate: "",
+    isPresent: false,
   };
-  const handleChange = useCallback((value, name) => {
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const [initialValues, setInitialValues] = useState(initialState);
+  const labels = employeesDictionary.WorkExperienceForm;
+  const placeholder = employeesDictionary.placeholders;
+  const { cities } = useSelector((state) => state.sharedSlice);
+
+  useEffect(() => {
+    form.setFieldsValue(initialValues);
+    if (isEdit) setIsPresent(initialValues.isPresent);
+  }, [initialValues, form]);
+
+  useEffect(() => {
+    if (isEdit) {
+      dispatch(getUserWorkExperience(id));
+      if (!cities.length) fetchCityData("", 0);
+    }
+
+    return () => {
+      dispatch(resetEmergencydetails());
+    };
   }, []);
-  const onChange = (value, dateString, name) => {
-    setState({
-      ...state,
-      [name]: dateString,
-    });
+
+  useEffect(() => {
+    if (success) setWorkInfo([]);
+  }, [success]);
+
+  useEffect(() => {
+    if (isEdit)
+      setWorkInfo(
+        experiencedetails?.map((item) => {
+          return {
+            ...item,
+            startDate: item.isPresent
+              ? moment(item.startDate)
+              : [moment(item.startDate), moment(item.endDate)],
+          };
+        })
+      );
+  }, [experiencedetails]);
+
+  const fetchCityData = (text, pgNo) => {
+    dispatch(getCities({ textData: text, page: pgNo }));
+  };
+  const handleUpdate = () => {
+    console.log("handle udpate");
+  };
+  const handleAddMore = async () => {
+    form.submit();
+    try {
+      const isValidation = await form.validateFields();
+      if (isValidation)
+        setWorkInfo((preValues) => [...preValues, form.getFieldsValue()]);
+      form.resetFields();
+      setIsPresent(false);
+      setInitialValues(initialState);
+    } catch (e) {}
+  };
+
+  const handleRowChange = (rowIndex) => {
+    setInitialValues(workInfo[rowIndex]);
+    const workInfoArr = [...workInfo];
+    workInfoArr.splice(rowIndex, 1);
+    setWorkInfo(workInfoArr);
   };
   const columns = [
     {
-      title: value.Position,
+      title: labels.Position,
       dataIndex: "position",
       key: "position",
     },
 
     {
-      title: value.EmploymentType,
+      title: labels.EmploymentType,
       dataIndex: "employmentTypeId",
       key: "employmentTypeId",
       render: (value) => {
-        return employmentType[value - 1].name;
+        return employmentType[value - 1]?.name;
       },
     },
     {
-      title: value.City,
+      title: labels.City,
       dataIndex: "cityId",
       key: "cityId",
       render: (value) => {
-        return cities[value];
+        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
       },
     },
     {
-      title: value.StartEndDate,
-      dataIndex: "start_end",
-      key: "start_end",
-      render: (value, row, index) => {
-        return experienceInfo[index].start_end.length !== 0
-          ? `${experienceInfo[index].start_end[0]} - ${experienceInfo[index].start_end[1]}`
-          : `${experienceInfo[index].start} -  Present`;
+      title: labels.StartEndDate,
+      dataIndex: "startDate",
+      key: "startDate",
+      render: (value, row) => {
+        return value?.length
+          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
+              row.startDate[1]
+            ).format("YYYY/MM/DD")}`
+          : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
       },
     },
 
     {
       title: sharedLabels.action,
-      render: (value) => {
+      render: (value, __, rowIndex) => {
         return (
           <a
-            href="asdasd"
+            href=" "
             onClick={(e) => {
+              console.log(rowIndex, "rowIndex");
               e.preventDefault();
-              const index = experienceInfo.findIndex((object) => {
-                return object === value;
-              });
-              const filterArray = experienceInfo.filter((value, i) => {
-                if (index !== i) return value;
-              });
-              onExperienceInfo(filterArray);
+              if (isEdit) {
+                handleRowChange(rowIndex);
+                console.log("edit");
+              } else {
+                console.log("delete");
+
+                const filterArray = workInfo.filter((value, i) => {
+                  if (rowIndex !== i) return value;
+                });
+                setWorkInfo(filterArray);
+              }
             }}
           >
-            {sharedLabels.Delete}
+            {isEdit ? sharedLabels.Edit : sharedLabels.Delete}
           </a>
         );
       },
     },
   ];
-  useEffect(() => {
-    if (isSubmit) {
-      if (
-        !error.position &&
-        !error.empType &&
-        !error.cityId &&
-        !error.start &&
-        (!error.start_end || error.start)
-      ) {
-        handleInfoArray(true);
-      }
-    }
-  }, [error, isSubmit]);
 
-  const handleInfoArray = (isSubmit) => {
-    if (isSubmit) {
-      onExperienceInfo((preValues) => [...preValues, state]);
-      setIsSubmit(false);
-      setState({
-        position: "",
-        employmentTypeId: "",
-        cityId: "",
-        start: "",
-        start_end: "",
-      });
-    }
-  };
+  let classes = "employeeForm workInfo ";
+  classes += Direction === "ltr" ? "ltr" : "rtl";
   return (
-    <>
-      <S.ContentDivider orientation={Direction === "ltr" ? "left" : "right"}>
-        {value.WorkExperienceInfo}
-      </S.ContentDivider>
+    <div className={classes}>
+      <Divider orientation="left"> {labels.WorkExperienceInfo}</Divider>
+      <Form
+        name="workInfo"
+        form={form}
+        layout={"vertical"}
+        initialValues={initialValues}
+      >
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="position"
+          label={labels.Position}
+        >
+          <Input placeholder={placeholder.position}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="organization"
+          label={labels.organization}
+        >
+          <Input placeholder={placeholder.organization}></Input>
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          name="employmentTypeId"
+          label={labels.EmploymentType}
+        >
+          <Select placeholder={placeholder.empType} size="large">
+            {employmentType.map((item) => (
+              <Option key={item.id} value={item.id}>
+                {item.name}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
 
-      <>
-        <S.AddMoreDiv>
-          <S.CustomSpace align="baseline" direction={Direction}>
-            <S.FormItem direction={Direction}>
-              <div className="input-row">
-                <Typography level={5} className="required_typography">
-                  {value.Position}:
-                </Typography>
-                <TextInput
-                  placeholder={placeholder.position}
-                  name="position"
-                  onChange={(value) => {
-                    handleChange(value, "position");
-                  }}
-                  error={error.position}
-                  value={state.position}
-                  size="large"
-                />
-                {error.position && (
-                  <div style={{ color: "red", fontWeight: 400 }}>
-                    Please enter Position.
-                  </div>
-                )}
-              </div>
-            </S.FormItem>
-            <div className="input-row">
-              <Typography
-                level={5}
-                className="required_typography"
-                style={{ fontWeight: 600 }}
-              >
-                {value.EmploymentType}:
-              </Typography>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "0px",
-                  flexDirection: "column",
-                }}
-              >
-                <S.FormItem name="employmentTypeId" direction={Direction}>
-                  <SharedSelect
-                    data={employmentType}
-                    placeholder={placeholder.empType}
-                    size={"large"}
-                    status={error.empType ? "error" : ""}
-                    onChange={(value) => {
-                      setState((prevValues) => ({
-                        ...prevValues,
-                        employmentTypeId: value,
-                      }));
-                    }}
-                  />
+        <CitySelect
+          data={cities}
+          selectedData={(val, obj) => {
+            setCity((preValues) => [...preValues, ...obj]);
+          }}
+          canFetchNow={cities && cities.length > 0}
+          fetchData={fetchCityData}
+          optionComponent={(opt) => {
+            return (
+              <>
+                <Avatar src={opt.image} className="!bg-black">
+                  {getNameForImage(opt.name)}
+                </Avatar>
+                {opt.name + " - " + opt.country}
+              </>
+            );
+          }}
+          defaultKey={"id"}
+          isObject={true}
+          placeholder={placeholder.searchToSelect}
+          size="large"
+          name="cityId"
+          label={labels.City}
+          rules={[{ required: true }]}
+        />
 
-                  {error.empType && (
-                    <div style={{ color: "red", fontWeight: 400 }}>
-                      Please select Employment Type.
-                    </div>
-                  )}
-                </S.FormItem>
-              </div>
-            </div>
-
-            <div className="input-row">
-              <Typography
-                level={5}
-                className="required_typography"
-                style={{ fontWeight: 600 }}
-              >
-                {value.City}:
-              </Typography>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "0px",
-                  flexDirection: "column",
-                }}
-              >
-                <NewCustomSelect
-                  valueObject={true}
-                  name="cityId"
-                  showSearch={true}
-                  status={error.cityId ? "error" : ""}
-                  endPoint="/api/Utility/GetAllCities"
-                  placeholder="Select City"
-                  requestType="post"
-                  onChange={(value) => {
-                    const { id, name } = JSON.parse(value);
-                    setCities((prevValues) => ({
-                      prevValues,
-                      [id]: name,
-                    }));
-                    setState((prevValues) => ({
-                      ...prevValues,
-                      cityId: id,
-                    }));
-                  }}
-                />
-                {error.cityId && (
-                  <div style={{ color: "red", fontWeight: 400 }}>
-                    Please select city.
-                  </div>
-                )}
-              </div>
-            </div>
-            {!present && (
-              <div className="input-row">
-                <Typography level={5} style={{ fontWeight: 600 }}>
-                  {value.StartEndDate}:
-                </Typography>
-                <div>
-                  <RangePicker
-                    format={"DD/MM/YYYY"}
-                    placeholder={[placeholder.sDate, placeholder.eDate]}
-                    status={error.start_end ? "error" : ""}
-                    onChange={(value, dateString) => {
-                      onChange(value, dateString, "start_end");
-                    }}
-                  />
-                  {error.start_end && (
-                    <div style={{ color: "red", fontWeight: 400 }}>
-                      Please enter Start/End Date.
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {present && (
-              <div className="input-row">
-                <Typography level={5} style={{ fontWeight: 600 }}>
-                  {value.StartDate}:
-                </Typography>
-                <div>
-                  <DatePicker
-                    format={"DD/MM/YYYY"}
-                    placeholder={value.start}
-                    status={error.start ? "error" : ""}
-                    onChange={(value, dateString) => {
-                      onChange(value, dateString, "start");
-                    }}
-                  />
-                  {error.start && (
-                    <div style={{ color: "red", fontWeight: 400 }}>
-                      Please enter Start Date.
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-            <Checkbox
-              checked={present}
-              onChange={() => {
-                setPresent(!present);
-                setState((preValues) => ({
-                  ...preValues,
-                  start_end: "",
-                  start: "",
-                }));
-              }}
+        <div className="dates">
+          {!isPresent && (
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              name="startDate"
+              label={labels.StartEndDate}
             >
-              {value.Present}
-            </Checkbox>
-          </S.CustomSpace>
-          <S.ButtonContainer>
-            <S.EButton
-              type="dashed"
-              onClick={() => {
-                checkValidation();
-                setIsSubmit(true);
-              }}
-              block
-              icon={<PlusOutlined />}
-            >
-              {value.AddMoreExperience}
-            </S.EButton>
-          </S.ButtonContainer>
-          {experienceInfo.length > 0 && (
-            <S.Customtable
-              direction={Direction}
-              dataSource={experienceInfo}
-              columns={columns}
-              pagination={false}
-              style={{ margin: "2rem" }}
-            />
+              <RangePicker
+                getPopupContainer={(trigger) => trigger.parentNode}
+                size="large"
+                format={"DD/MM/YYYY"}
+                placeholder={[placeholder.sDate, placeholder.eDate]}
+              />
+            </Form.Item>
           )}
-        </S.AddMoreDiv>
 
-        {/* <S.FormContainer type="constant"></S.FormContainer> */}
-      </>
-    </>
+          {isPresent && (
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              name="startDate"
+              label={labels.StartDate}
+            >
+              <DatePicker
+                getPopupContainer={(trigger) => trigger.parentNode}
+                format={"DD/MM/YYYY"}
+                placeholder={labels.start}
+                size="large"
+              />
+            </Form.Item>
+          )}
+
+          <Form.Item name="isPresent" valuePropName="checked">
+            <Checkbox
+              onChange={() => {
+                setIsPresent(!isPresent);
+                form.setFieldValue("startDate", "");
+                form.setFieldValue("startEndDate", "");
+              }}
+            >
+              {labels.Present}
+            </Checkbox>
+          </Form.Item>
+        </div>
+      </Form>
+      <div className={isEdit ? "editButtons" : "buttons"}>
+        <Button
+          type="dashed"
+          className="btn addMore"
+          icon={<PlusOutlined />}
+          onClick={handleAddMore}
+        >
+          {labels.AddExperience}
+        </Button>
+
+        {isEdit && (
+          <Button
+            className="btn ThemeBtn"
+            icon={<EditOutlined />}
+            onClick={handleUpdate}
+          >
+            {labels.UpdateExperience}
+          </Button>
+        )}
+      </div>
+
+      {workInfo.length > 0 && (
+        <Table columns={columns} dragable={true} dataSource={workInfo} />
+      )}
+    </div>
   );
 };
 
-export default ExperienceForm;
+export default EmergencyForm;

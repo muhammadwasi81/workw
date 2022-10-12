@@ -34,9 +34,9 @@ const MyCareersListView = () => {
     setOpenDetail(false);
   };
 
-  useEffect(() => {
-    dispatch(getAllCareerAction({}));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllCareerAction({}));
+  // }, []);
   return (
     <>
       <CardWrapper>

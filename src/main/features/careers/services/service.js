@@ -7,6 +7,7 @@ import {
 import { responseCode as responseCodeEnum } from "../../../../services/enums/responseCode";
 
 const career_data = (data) => {
+  console.log(data);
   return {
     pageNo: data.request.pageNo ? data.request.pageNo : 1,
     pageSize: data.request.pageSize ? data.request.pageSize : 50,

@@ -99,7 +99,12 @@ export const feedSlice = createSlice({
 		});
 		builder
 			.addMatcher(isFulfilled(...[getAllFeed]), (state, { payload }) => {
-				state.allFeed.posts = payload;
+				const { data, pageNo } = payload;
+				if (pageNo === 1) {
+					state.allFeed.posts = data;
+				} else {
+					state.allFeed.posts = state.allFeed.posts.concat(data);
+				}
 				state.allFeed.loading = false;
 			})
 			.addMatcher(isPending(...[getAllFeed]), state => {

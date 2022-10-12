@@ -8,7 +8,7 @@ import {
   Select,
   Table,
 } from "antd";
-import React, { useEffect, useState,useContext} from "react";
+import React, { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import moment from "moment/moment";
 import { getAllSalaryHeaderService } from "../../../salaryHeader/services/service";
@@ -18,14 +18,7 @@ import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedS
 import { getNameForImage } from "../../../../../utils/base";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import {salaryDictionary} from "../../../salary/localization/index";
-
 function SalaryEmployee() {
-
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { salary_Dictionary } = salaryDictionary[userLanguage];
-
   const [form] = Form.useForm();
   const [salaryEmployee, setSalaryEmployee] = useState([]);
   const [salaryHeader, setSalaryHeader] = useState([]);
@@ -72,61 +65,61 @@ function SalaryEmployee() {
   }, []);
   const columns = [
     {
-      title: salary_Dictionary.EffectiveDate,
-      dataIndex: salary_Dictionary.EffectiveDate,
+      title: "Effective Date",
+      dataIndex: "effectiveDate",
       ellipsis: true,
-      key: salary_Dictionary.EffectiveDate,
+      key: "effectiveDate",
       render: (value) => {
         return moment(value).format("YYYY/MM/DD");
       },
     },
     {
-      title: salary_Dictionary.SalaryHeaders,
-      dataIndex: salary_Dictionary.SalaryHeaders,
+      title: "Salary Headers",
+      dataIndex: "salaryHeaders",
       ellipsis: true,
-      key: salary_Dictionary.SalaryHeaders,
+      key: "salaryHeaders",
       render: (value, _, index) => {
         return salaryHeader.filter((item) => item.id === value)[index]?.name;
       },
     },
     {
-      title:salary_Dictionary.BasicSalary,                    
-      dataIndex: salary_Dictionary.BasicSalary, 
+      title: "Basic Salary",
+      dataIndex: "basicSalary",
       ellipsis: true,
-      key: salary_Dictionary.BasicSalary, 
+      key: "basicSalary",
     },
     {
-      title: salary_Dictionary.Approvers, 
-      dataIndex: salary_Dictionary.Approvers, 
+      title: "Approvers",
+      dataIndex: "approvers",
       ellipsis: true,
-      key: salary_Dictionary.Approvers, 
+      key: "approvers",
       render: (value, _, index) => {
         return employeesData.filter((item) => item.id === value)[index]?.name;
       },
     },
     {
-      title: salary_Dictionary.Check, 
-      dataIndex: salary_Dictionary.Check, 
+      title: "Check",
+      dataIndex: "check",
       ellipsis: true,
-      key: salary_Dictionary.Check, 
+      key: "check",
     },
     {
-      title:salary_Dictionary.GrossSalary, 
-      dataIndex: salary_Dictionary.GrossSalary, 
+      title: "Gross Salary",
+      dataIndex: "grossSalary",
       ellipsis: true,
-      key: salary_Dictionary.GrossSalary, 
+      key: "grossSalary",
     },
     {
-      title: salary_Dictionary.NetSalary, 
-      dataIndex: salary_Dictionary.NetSalary,
+      title: "Net Salary",
+      dataIndex: "netSalary",
       ellipsis: true,
-      key: salary_Dictionary.NetSalary,
+      key: "netSalary",
     },
     {
-      title: salary_Dictionary.Descrption,
-      dataIndex: salary_Dictionary.Descrption,
+      title: "Description",
+      dataIndex: "description",
       ellipsis: true,
-      key: salary_Dictionary.Descrption,
+      key: "description",
     },
   ];
 
@@ -145,21 +138,21 @@ function SalaryEmployee() {
 
   return (
     <div className="employeeForm">
-      <Divider orientation="left">{salary_Dictionary.SalaryInfo}</Divider>
+      <Divider orientation="left">Salary Info</Divider>
       <Form layout={"vertical"} form={form} initialValues={initialValues}>
         <Form.Item
-          name = {salary_Dictionary.EffectiveDate}
-          label=  {salary_Dictionary.EffectiveDate}
+          name="effectiveDate"
+          label={"Effective Date"}
           rules={[{ required: true }]}
         >
-          <DatePicker placeholder = {salary_Dictionary.SelectDate} size="large"></DatePicker>
+          <DatePicker placeholder="Select Date" size="large"></DatePicker>
         </Form.Item>
         <Form.Item
-          name =  {salary_Dictionary.SalaryHeaders}
-          label = {salary_Dictionary.SalaryHeaders}
+          name="salaryHeaders"
+          label={"Salary Headers"}
           rules={[{ required: true }]}
         >
-          <Select placeholder= {salary_Dictionary.SelectSalaryHeaders} size="large">
+          <Select placeholder=" Select Salary Headers" size="large">
             {salaryHeader.map((item) => (
               <Select.Option value={item.id} key={item.id}>
                 {item.name}
@@ -168,26 +161,26 @@ function SalaryEmployee() {
           </Select>
         </Form.Item>
         <Form.Item
-          name = {salary_Dictionary.BasicSalary}
-          label= {salary_Dictionary.BasicSalary}
+          name="basicSalary"
+          label={"Basic Salary"}
           rules={[{ required: true }]}
         >
-          <Input type="number" placeholder= {salary_Dictionary.BasicSalary} ></Input>
+          <Input type="number" placeholder="Basic Salary"></Input>
         </Form.Item>
         <Form.Item
-          name = {salary_Dictionary.Approvers}
-          label= {salary_Dictionary.Approvers}
+          name="approvers"
+          label={"Approvers"}
           rules={[{ required: true }]}
         >
           <MemberSelect
-            name= {salary_Dictionary.Approvers}
-            mode= "multiple"
+            name="approvers"
+            mode="multiple"
             formitem={false}
             isObject={true}
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder= {salary_Dictionary.Approvers}
+            placeholder={"Select Approvers"}
             selectedData={(_, obj) => {
               setEmployeesData([...obj]);
             }}
@@ -203,29 +196,29 @@ function SalaryEmployee() {
             }}
           />
         </Form.Item>
-        <Form.Item name= {salary_Dictionary.Check} label= {salary_Dictionary.Check} rules={[{ required: true }]}>
-          <Input type="number" placeholder= {salary_Dictionary.Check} ></Input>
+        <Form.Item name="check" label={"Check"} rules={[{ required: true }]}>
+          <Input type="number" placeholder="Check"></Input>
         </Form.Item>
         <Form.Item
-          name= {salary_Dictionary.GrossSalary}
-          label = {salary_Dictionary.GrossSalary}
+          name="grossSalary"
+          label={"Gross Salary"}
           rules={[{ required: true }]}
         >
-          <Input type="number" placeholder= {salary_Dictionary.GrossSalary} ></Input>
+          <Input type="number" placeholder="Gross Salary"></Input>
         </Form.Item>
         <Form.Item
-          name= {salary_Dictionary.NetSalary}
-          label= {salary_Dictionary.NetSalary}
+          name="netSalary"
+          label={"Net Salary"}
           rules={[{ required: true }]}
         >
-          <Input type="number" placeholder= {salary_Dictionary.NetSalary} ></Input>
+          <Input type="number" placeholder="Net Salary"></Input>
         </Form.Item>
         <Form.Item
-          name= {salary_Dictionary.Descrption}
-          label= {salary_Dictionary.Descrption}
+          name="description"
+          label={"Description"}
           rules={[{ required: true }]}
         >
-          <Input.TextArea placeholder= {salary_Dictionary.EnterDescription} ></Input.TextArea>
+          <Input.TextArea placeholder="Enter Description"></Input.TextArea>
         </Form.Item>
       </Form>
       <div className="buttons">
@@ -235,7 +228,7 @@ function SalaryEmployee() {
           icon={<EditOutlined />}
           onClick={handleSubmit}
         >
-         {salary_Dictionary.AddSalary}
+          Add Salary
         </Button>
       </div>
       {salaryEmployee.length > 0 && (

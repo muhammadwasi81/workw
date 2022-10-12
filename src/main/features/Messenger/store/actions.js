@@ -4,19 +4,7 @@ import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { STRINGS } from "../../../../utils/base";
 import { getAllChatsService, getAllMessageService, MessengerService, searchConversationService, sendMessageService } from "../services/service";
 
-export const getAllChats = createAsyncThunk(
-  "messenger/getAllChats",
-  async (args, { dispatch }) => {
-    const res = await getAllChatsService();
-    if (!res.responseCode) {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
-    }
-    return res;
-  }
-);
+
 export const sendChatMessage = createAsyncThunk(
   "messenger/sendChatMessage",
   async (
@@ -73,6 +61,21 @@ export const createChat = createAsyncThunk(
   "messenger/createChat",
   async (request, { rejectWithValue }) => {
     const response = await MessengerService.createChat(request);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getAllChats = createAsyncThunk(
+  "messenger/getAllChats",
+  async (request, { rejectWithValue }) => {
+    const response = await MessengerService.getAllChat(request);
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

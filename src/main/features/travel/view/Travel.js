@@ -21,6 +21,8 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import { TravelDictionary } from "../localization";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import { TravelReferenceTypeEnum } from "../../projects/enum/enums";
+import Scroll from "../../../sharedComponents/ScrollSelect/infinteScoll";
+import { Skeleton } from "antd";
 
 // const initialTableFilter = {
 // 	pageNo: 1,
@@ -212,11 +214,29 @@ function Travel({
 						// onActionClick={onActionClick}
 					/>
 				) : (
-					<ListView
+					<Scroll
+						isLoading={loader}
 						data={travels}
-						loader={loader}
-						labels={headings}
-					/>
+						fetchMoreData={pageNo => {
+							setPageNo(pageNo);
+						}}
+						loader={[0, 0, 0].map(() => (
+							<Skeleton
+								active
+								avatar
+								paragraph={{
+									rows: 4,
+								}}
+							/>
+						))}
+						endMessage={"No more travels..."}
+					>
+						<ListView
+							data={travels}
+							loader={loader}
+							labels={headings}
+						/>
+					</Scroll>
 				)}
 			</ContBody>
 		</TabContainer>

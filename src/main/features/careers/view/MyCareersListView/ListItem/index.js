@@ -18,14 +18,24 @@ import { CareerStatusEnum, CareerLevelTypeEnum } from "../../../utils/enums";
 import { useDispatch } from "react-redux";
 
 function ListItem({ item, onClick }) {
-  console.log(item, "description");
-  const { jobTypeId, createDate, status } = item;
+  // console.log(item, "description");
+  const { jobTypeId, createDate, status, image } = item;
 
   return (
     <>
       <SingleItem onClick={onClick}>
         <ItemHeader className="ItemHeader">
           <div className="flex items-center gap-3">
+            {/* {image.length > 1 && (
+              <Avatar
+                src={item.creator?.image}
+                className="addPostAvatar"
+                name={item.creator?.name}
+                width={40}
+                height={40}
+                round={true}
+              />
+            )} */}
             <Avatar
               src={item.creator?.image}
               className="addPostAvatar"

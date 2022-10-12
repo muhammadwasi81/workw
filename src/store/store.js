@@ -12,6 +12,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
 import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
+import requisitionSlice from "../main/features/requisition/store/slice";
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
 import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
@@ -101,6 +102,7 @@ const reducers = combineReducers({
   payrollGroupSlice,
   fiscalYearSlice,
   customApprovalCategorySlice,
+  requisitionSlice,
   rewardCategorySlice,
   rewardSlice,
   complainSlice,

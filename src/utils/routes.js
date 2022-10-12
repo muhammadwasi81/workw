@@ -365,12 +365,9 @@ export const ROUTES = {
     APPROVALS: `leaves/approvals`,
   },
   REQUISITION: {
-    //DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
-    //REQUISITION: `${DOMAIN_PREFIX}/requisition`,
-    DEFAULT: `${DOMAIN_PREFIX}/RequisitionCards/*`,
-    REQUISITION: `${DOMAIN_PREFIX}/RequisitionCards`,
-    APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
-  },
+		DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+		REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+	},
   //   EMPLOYEES: {
   //     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
   //     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
@@ -463,6 +460,11 @@ export const ROUTES = {
   SALARY: {
     DEFAULT: `${DOMAIN_PREFIX}/salary/*`,
     ROOT: `${DOMAIN_PREFIX}/salary`,
+    CREATE: `${DOMAIN_PREFIX}/create`,
+  },
+  QOUTATION: {
+    DEFAULT: `${DOMAIN_PREFIX}/quotation/*`,
+    ROOT: `${DOMAIN_PREFIX}/quotation`,
     CREATE: `${DOMAIN_PREFIX}/create`,
   },
   PAYROLL: {

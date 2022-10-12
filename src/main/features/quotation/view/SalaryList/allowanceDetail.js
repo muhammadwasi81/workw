@@ -1,16 +1,9 @@
-import React,{useContext} from "react";
+import React from "react";
 import { Collapse } from "antd";
 import { ALLOWANCE_ENUM } from "../../../allowance/view/enum";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import {salaryDictionary} from "../../../salary/localization/index";
 const { Panel } = Collapse;
 
-
 const AllowanceDetail = ({ details }) => {
-
-    const { userLanguage } = useContext(LanguageChangeContext);
-    const { salary_Dictionary } = salaryDictionary[userLanguage];
-
     return (
         <div className="mt-5">
             <Collapse>
@@ -20,13 +13,13 @@ const AllowanceDetail = ({ details }) => {
                             <thead>
                                 <tr>
                                     <th className="!py-1 !px-2 text-left">
-                                       {salary_Dictionary.Allowance}
+                                        Allowance
                                     </th>
                                     <th className="w-[160px] !py-1 !px-2 text-left">
-                                        {salary_Dictionary.Type}
+                                        Type
                                     </th>
                                     <th className="w-[160px] !py-1 !px-2 text-left">
-                                       {salary_Dictionary.Amount}
+                                        Amount
                                     </th>
                                 </tr>
                             </thead>

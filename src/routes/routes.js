@@ -250,25 +250,27 @@ export const routes = {
       path: `${ROUTES.RESIGNATION.DEFAULT}`,
       component: lazy(() => import("../main/features/resignation/view/index")),
     },
-    // {
-    // 	path: `${ROUTES.REQUISITION.DEFAULT}`,
-    // 	component: lazy(() =>
-    // 		import("../main/features/requisition/view/requisition")
-    // 	),
-    // },
-
     {
       path: `${ROUTES.REQUISITION.DEFAULT}`,
       component: lazy(() =>
-        //import("../main/features/view/Requisition/RequisitionCards")
-        import(
-          "../main/features/newRequisition/view/Requisition/RequisitionCards"
-        )
+        import("../main/features/requisition/view/requisition")
       ),
     },
+
+    // {
+    // 	path: `${ROUTES.REQUISITION.DEFAULT}`,
+    // 	component: lazy(() =>
+    // 		//import("../main/features/view/Requisition/RequisitionCards")
+    // 		import("../main/features/newRequisition/view/Requisition/RequisitionCards")
+    // 	),
+    // },
     {
       path: `${ROUTES.SALARY.DEFAULT}`,
       component: lazy(() => import("../main/features/salary/view/index")),
+    },
+    {
+      path: `${ROUTES.QOUTATION.ROOT}`,
+      component: lazy(() => import("../main/features/quotation/view/index")),
     },
     {
       path: `${ROUTES.PAYROLL.DEFAULT}`,

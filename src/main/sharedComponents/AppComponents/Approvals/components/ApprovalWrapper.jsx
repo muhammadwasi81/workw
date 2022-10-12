@@ -12,8 +12,8 @@ function ApprovalWrapper({
 }) {
   return (
     <div className="approvalWrapper">
-      <div className="approvalWrapper__header">
-        <h6>{title}</h6>
+      <div className="!p-0 approvalWrapper__header">
+        <h6 className="">{title}</h6>
         <ul className="list">
           <li className="list__item">
             <ReloadOutlined />

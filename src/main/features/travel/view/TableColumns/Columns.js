@@ -51,18 +51,18 @@ export const tableColumns = (handleEdit, Direction, table) => {
 			// tag: true,
 			width: 200,
 		},
-		{
-			title: table.actions,
-			key: "action",
-			action: true,
-			customAction: true,
-			actions: ["edit"],
-			key: "6",
-			width: 100,
-			render: (_, row) => {
-				return Edit(handleEdit, row);
-			},
-		},
+		// {
+		// 	title: table.actions,
+		// 	key: "action",
+		// 	action: true,
+		// 	customAction: true,
+		// 	actions: ["edit"],
+		// 	key: "6",
+		// 	width: 100,
+		// 	render: (_, row) => {
+		// 		return Edit(handleEdit, row);
+		// 	},
+		// },
 	];
 	// let columns = [...defaultColumns].reverse();
 	// return Direction === "ltr" ? defaultColumns : columns;

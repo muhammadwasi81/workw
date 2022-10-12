@@ -52,7 +52,7 @@ export default class Scroll extends React.Component {
 
 	render() {
 		return (
-			<div className="scroll_dropdown mb-4" id="scrollableDiv">
+			<div className="scroll_dropdown " id="scrollableDiv">
 				<InfiniteScroll
 					dataLength={this.props.data.length}
 					next={this.fetchMoreData}

@@ -93,20 +93,6 @@ const JobDetails = () => {
             <div className="cardSection__title">Salary Range</div>
             <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>
           </div>
-          {/* <div className="cardSectionItem">
-            <div className="cardSection__title">Effective Date</div>
-            <div className="cardSection__body">
-              {moment("09-22-2022").format("Do MMM YY")}
-            </div>
-          </div> */}
-          {/* <div className="cardSectionItem">
-            <div className="cardSection__title">Basic Salary</div>
-            <div className="cardSection__body">{"basicSalary"}</div>
-          </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">Salary For</div>
-            <div className="cardSection__body">{"user.name"}</div>
-          </div> */}
           <div className="cardSectionItem">
             <div className="cardSection__title">Effective Date</div>
             <div className="cardSection__body">

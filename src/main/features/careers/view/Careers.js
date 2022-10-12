@@ -37,7 +37,7 @@ function Careers() {
 
   let RenderTab = {
     careers: <MyCareersListView />,
-    myCareers: <div>data check</div>,
+    myCareers: <MyCareersListView />,
     forApprovals: <MyCareersListView />,
   };
 

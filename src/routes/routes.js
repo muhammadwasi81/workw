@@ -205,7 +205,7 @@ export const routes = {
     //*****by SANJANA****
     {
       path: `${ROUTES.TEAMS.DEFAULT}`,
-      component: lazy(() => import("../main/features/team/view/Team")),
+      component: lazy(() => import("../main/features/team/routes/teamRoutes")),
     },
 
     {

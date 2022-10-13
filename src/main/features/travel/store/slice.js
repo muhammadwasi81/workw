@@ -39,12 +39,18 @@ const travelSlice = createSlice({
 				// console.log("travel fullfilled slice");
 				state.loader = false;
 				state.success = true;
-				state.travels = payload.data;
+				const { data, pageNo } = payload;
+				if (pageNo === 1) {
+					state.travels = data;
+				} else {
+					state.travels = state.travels.concat(data);
+				}
 			})
 			.addCase(getTravelById.fulfilled, (state, { payload }) => {
 				// console.log("travel fullfilled slice");
 				state.loader = false;
 				state.success = true;
+
 				state.travelDetail = payload.data;
 			})
 			.addMatcher(

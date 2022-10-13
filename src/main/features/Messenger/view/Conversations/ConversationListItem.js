@@ -33,17 +33,11 @@ const ConversationListItem = ({ conversation }) => {
 	const profileImage =
 		chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT
 			? chatWith?.image
-			: image
-	// : chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
-	// ? image
-	// : "";
+			: image;
 	const profileName =
 		chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT
 			? chatWith?.name
-			: name
-	// : chatType === MESSENGER_ENUMS.CHAT_TYPES.GROUP_CHAT
-	// ? name
-	// : "";
+			: name;
 
 	const handleItemClick = () => {
 		// TODO: handleIsopenChat for manage Mobile Chat view;

@@ -5,7 +5,11 @@ import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { getAllJobDescriptionService } from "../../../jobDescription/services/service";
 import { getAllDepartmentService } from "../../../departments/services/service";
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { createGuid, getNameForImage } from "../../../../../utils/base";
+import {
+  createGuid,
+  getNameForImage,
+  modifySelectData,
+} from "../../../../../utils/base";
 import { useSelector } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
 import {
@@ -92,12 +96,33 @@ const Composer = () => {
     console.log(values, "values");
     let payload = {
       ...values,
-      endDate:values.endDate.format(),
-      members:values.members.map(memberId=>({memberId})),
-      approvers:values.approvers.map(approverId=>({approverId}))
-    }
-    dispatch(addCareer(payload))
-    // form.resetFields();
+      endDate: values.endDate.format(),
+      members: modifySelectData(values.members).map((el, index) => {
+        return {
+          memberId: el,
+        };
+      }),
+      approvers: modifySelectData(values.approvers).map((el, index) => {
+        return {
+          approverId: el,
+        };
+      }),
+      postInterviewers: modifySelectData(values.postInterviewers).map(
+        (el, index) => {
+          return {
+            userId: el,
+          };
+        }
+      ),
+      interviewers: modifySelectData(values.interviewers).map((el, index) => {
+        return {
+          userId: el,
+        };
+      }),
+      skills: values.skills.join(),
+    };
+    dispatch(addCareer(payload));
+    form.resetFields();
   };
 
   return (
@@ -407,7 +432,7 @@ const Composer = () => {
           rules={[{ required: true }]}
         />
         <Form.Item
-          name="skillTags"
+          name="skills"
           label="Skills"
           rules={[
             {
@@ -570,7 +595,7 @@ const Composer = () => {
 
         <Form.Item area="true" label="Attachment">
           <SingleUpload
-            handleImageUpload={() => { }}
+            handleImageUpload={() => {}}
             img="Add Image"
             position="flex-start"
             uploadText={"Upload"}

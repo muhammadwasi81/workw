@@ -1,5 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { addCareer, getAllCareerAction, getCareerByIdAction } from "./action";
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import {
+  addCareer,
+  getAllCareerAction,
+  getCareerByIdAction,
+  addCareerApplicant,
+  getAllCareerApplicant,
+} from "./action";
 
 const defaultCareer = {
   id: 1,
@@ -13,8 +19,10 @@ const defaultCareer = {
 const initialState = {
   success: false,
   items: [],
+  currentTab: "careers",
   drawerOpen: false,
   careerDetail: {},
+  careerApplicants: [],
 };
 
 const careerSlice = createSlice({
@@ -32,6 +40,9 @@ const careerSlice = createSlice({
         },
       ];
     },
+    handleChangeTab: (state, { payload: tab }) => {
+      state.currentTab = tab;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -39,6 +50,17 @@ const careerSlice = createSlice({
         state.drawerOpen = false;
         state.success = true;
         state.items = [...state.items, payload.data.data];
+      })
+      .addCase(addCareerApplicant.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        // if (payload.data.data) {
+        //   state.loanList.unshift(payload.data.data);
+        //   state.isCreateComposer = true;
+        // }
+      })
+      .addCase(getAllCareerApplicant.fulfilled, (state, { payload }) => {
+        // state.careerApplicants = payload;
+        console.log(payload);
       })
       .addCase(getAllCareerAction.fulfilled, (state, { payload }) => {
         state.items = payload;
@@ -48,9 +70,16 @@ const careerSlice = createSlice({
         state.careerDetail = payload;
 
         console.log(state.careerDetail, "STATE ITEMS");
+      })
+      .addMatcher(isPending(...[addCareerApplicant]), (state) => {
+        console.log("pending applied");
       });
   },
 });
 
-export const { handleOpenComposer, addCareerList } = careerSlice.actions;
+export const {
+  handleOpenComposer,
+  addCareerList,
+  handleChangeTab,
+} = careerSlice.actions;
 export default careerSlice.reducer;

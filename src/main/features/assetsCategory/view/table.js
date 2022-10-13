@@ -1,45 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
-import {
-  getAllBranchOffice,
-  removeBranchOffice,
-} from '../../subsidiaryOffice/store/actions';
-import { BranchOfficeDeleted } from '../../subsidiaryOffice/store/slice';
 import { tableColumn } from './TableColumn';
 import { Skeleton } from 'antd';
+import { getAllAssetCategories } from '../store/actions.js';
 
 const AssetsTableView = ({
   handleEdit,
-  removeButtons,
+  handleDelete,
   actionRights = [],
   setClearButton,
+  removeButtons,
+  id,
 }) => {
   const dispatch = useDispatch();
-  const { items, loadingData } = useSelector(
-    (state) => state.subsidiaryOfficeSlice
+  const { assetsData, loadingData } = useSelector(
+    (state) => state.assetsCategorySlice
   );
 
   useEffect(() => {
-    dispatch(getAllBranchOffice());
+    dispatch(getAllAssetCategories());
   }, []);
-
-  const [id, setId] = useState();
-
-  const onSuccess = (e) => {
-    setId(null);
-    dispatch(BranchOfficeDeleted(e));
-    setClearButton(true);
-  };
-
-  const onError = () => {
-    setId(null);
-  };
-
-  const handleDelete = (e) => {
-    setId(e.id);
-    dispatch(removeBranchOffice(e)).then(() => onSuccess(e), onError);
-  };
 
   return (
     <>
@@ -49,10 +30,10 @@ const AssetsTableView = ({
           handleDelete,
           removeButtons,
           actionRights,
-          id,
-          setClearButton
+          setClearButton,
+          id
         )}
-        dataSource={items}
+        dataSource={assetsData}
         pagination={false}
         rowKey="id"
         scroll={{ x: true }}

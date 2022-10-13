@@ -76,6 +76,18 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.CREATE_ASSETS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/createAssets/view/AssetsEntry")
+			),
+		},
+		{
+			path: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/RequestListItems/view/index")
+			),
+		},
+		{
 			path: `${ROUTES.FORMS.SUBMIT_FORM}`,
 			component: lazy(() =>
 				import("../main/features/forms/view/forms/SubmitForm/index.js")
@@ -208,7 +220,12 @@ export const routes = {
 			path: `${ROUTES.JOBS.DEFAULT}`,
 			component: lazy(() => import("../main/features/jobs/view/index")),
 		},
-
+		{
+			path: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/RequestListItems/view/index")
+			),
+		},
 		//Hr Router
 		{
 			path: `${ROUTES.EMPLOYEES_INFO.DEFAULT}`,
@@ -229,7 +246,9 @@ export const routes = {
 		//*****by SANJANA****
 		{
 			path: `${ROUTES.TEAMS.DEFAULT}`,
-			component: lazy(() => import("../main/features/team/view/Team")),
+			component: lazy(() =>
+				import("../main/features/team/routes/teamRoutes")
+			),
 		},
 
 		{
@@ -296,10 +315,10 @@ export const routes = {
 		// },
 		{
 			path: `${ROUTES.SALARY.DEFAULT}`,
-			component: lazy(() => import("../main/features/salary/view/index")),
+			component: lazy(() => import("../main/features/salary/view/")),
 		},
 		{
-			path: `${ROUTES.QOUTATION.ROOT}`,
+			path: `${ROUTES.QOUTATION.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/quotation/view/index")
 			),

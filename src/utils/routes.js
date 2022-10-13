@@ -80,6 +80,12 @@ export const ROUTES = {
 	ASSETS: {
 		DEFAULT: `${DOMAIN_PREFIX}/assets`,
 	},
+	CREATE_ASSETS: {
+		DEFAULT: `${DOMAIN_PREFIX}/createAssets`,
+	},
+	REQUEST_LIST_ITEM: {
+		DEFAULT: `${DOMAIN_PREFIX}/listItems`,
+	},
 	PROJECT: {
 		DEFAULT: `${DOMAIN_PREFIX}/projects`,
 		// DETAIL: `project-detail`,
@@ -584,6 +590,19 @@ export const ROUTES = {
 	//****by SANJANA****
 	TEAMS: {
 		DEFAULT: `${DOMAIN_PREFIX}/teams`,
+		TEAM: `${DOMAIN_PREFIX}/teams/`,
+		ATTENDENCE: `attendence`,
+		CHECK_IN: `checkIn`,
+		LEAVES: `leaves`,
+		REWARDS: `rewards`,
+		APPRAISALS: `appraisals`,
+		WARNING: `warning`,
+		COMPLAIN: `complain`,
+		COURSES: `courses`,
+		EDUCATION: `education`,
+		EXPERIENCE: `experience`,
+		LOAN: `loan`,
+		ACTIVITY_LOG: `activityLog`,
 	},
 
 	COMPLAINS: {

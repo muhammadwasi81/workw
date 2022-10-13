@@ -3,33 +3,41 @@ import { AdminContainer } from '../../../../components/HrMenu/Administration/Sty
 import AssetsCategoryForm from './form';
 import { message } from 'antd';
 import AssetsTableView from './table';
+import { useDispatch } from 'react-redux';
+import { addAssetCategory, updateAssetCategory } from '../store/actions.js';
 
 const AssetsCategory = () => {
+  const dispatch = useDispatch();
+
   const initialState = {
-    categoryName: '',
+    name: '',
     description: '',
-    accType: '',
-    parentType: '',
+    accountId: '',
+    parentName: '',
   };
   const [clearButton, setClearButton] = useState(false);
   const [assets, setAssets] = useState(initialState);
 
-  const submitHandler = (e) => {
-    if (!e.categoryName || !e.description) {
+  const handleSubmit = (e) => {
+    if (!e.name || !e.description) {
       message.error('Please fill all required fields');
-    } else {
-      if (!e.id) {
-        // dispatch(addBranchOffice(e));
-        setAssets(initialState);
-        setClearButton(true);
-      }
     }
-    console.log('submit handler', assets);
-    setAssets({ ...assets });
+    if (e.id) {
+      dispatch(updateAssetCategory(e));
+      setAssets(initialState);
+    } else {
+      const payload = {
+        name: e.name,
+        description: e.description,
+        accountName: e.accountName,
+        parentId: e.parentId,
+      };
+      dispatch(addAssetCategory(payload));
+      setAssets(initialState);
+    }
   };
-
-  const handleDelete = () => {
-    alert('delete triggered');
+  const handleDelete = (e) => {
+    alert('delete');
   };
   return (
     <>
@@ -38,13 +46,13 @@ const AssetsCategory = () => {
           clearButton={clearButton}
           setClearButton={setClearButton}
           data={assets}
-          onSubmit={submitHandler}
+          onSubmit={handleSubmit}
         />
         <AssetsTableView
           handleEdit={setAssets}
           setClearButton={setClearButton}
-          handleDelete={handleDelete}
           actionRights={[1, 2]}
+          handleDelete={handleDelete}
         />
       </AdminContainer>
     </>

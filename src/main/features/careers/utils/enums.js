@@ -108,3 +108,30 @@ export const CareerLevelTypeEnum = [
     value: 6,
   },
 ];
+
+export const CareerStatusEnum = [
+  {
+    label: "InProcess",
+    value: 1,
+  },
+  {
+    label: "Approved",
+    value: 2,
+  },
+  {
+    label: "Decline",
+    value: 3,
+  },
+  {
+    label: "Cancelled",
+    value: 4,
+  },
+  {
+    label: "Available",
+    value: 5,
+  },
+  {
+    label: "Expired",
+    value: 2,
+  },
+];

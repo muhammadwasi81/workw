@@ -9,15 +9,28 @@ import {
 import { Table } from '../../../sharedComponents/customTable';
 import { salaryTableColumn } from '../../salary/view/SalaryList/tableColumns';
 import { getAllEmployeeSalary } from '../../salary/store/actions';
+import { getAllRequestListItems } from '../store/action';
 import { ROUTES } from '../../../../utils/routes';
 import RequestList from './requestList';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import RequestListComposer from './composer/RequestListComposer';
+import { ListTableColumn } from './tableColumn';
 
 const Index = () => {
   const dispatch = useDispatch();
-  const listData = useSelector((state) => state.salarySlice.salaryList);
+
+  const { requestItems } = useSelector((state) => state.requestItemSlice);
+  console.log(requestItems, 'Add requestItem index.js');
+
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');
+
+  // TODO: Change this to request slice when it is ready
+  const {
+    taskList: { list },
+    success,
+  } = useSelector((state) => state.taskSlice);
 
   const items = [
     {
@@ -40,6 +53,16 @@ const Index = () => {
   const onSearch = (value) => setSearch(value);
   const onSegment = (value) => setViewType(value);
 
+  const payloadData = {
+    pageNo: 1,
+    pageSize: 20,
+    search: '',
+  };
+
+  useEffect(() => {
+    dispatch(getAllRequestListItems(payloadData));
+  }, [filterType, search]);
+
   useEffect(() => {
     dispatch(
       getAllEmployeeSalary({
@@ -49,17 +72,33 @@ const Index = () => {
     );
   }, [filterType, search]);
 
+  const buttons = [
+    {
+      buttonText: 'Create Request',
+      render: (
+        <SideDrawer
+          success={success}
+          isAccessDrawer={true}
+          openDrawer={success}
+          children={<RequestListComposer />}
+          title="Create Request"
+          buttonText="Create Request"
+        />
+      ),
+    },
+  ];
+
   const render = {
-    List: <RequestList data={listData} />,
+    List: <RequestList data={requestItems} />,
     Table: (
-      <Table columns={salaryTableColumn()} dragable={true} data={listData} />
+      <Table columns={ListTableColumn()} dragable={true} data={requestItems} />
     ),
   };
 
   return (
     <>
       <TabbableContainer>
-        <Header items={items} />
+        <Header items={items} buttons={buttons} />
         <TopBar
           onSearch={onSearch}
           buttons={filterButtons}

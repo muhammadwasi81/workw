@@ -1,5 +1,5 @@
 import { Drawer } from 'antd';
-import RequestDetailedCard from './requestDetailedCard';
+import RequestDetailCard from './requestDetailedCard';
 
 const RequestDetailedView = (props) => {
   return (
@@ -11,10 +11,11 @@ const RequestDetailedView = (props) => {
       height={'85%'}
       placement={'right'}
       onClose={props.onClose}
-      visible={!!props.id}
+      // visible={!!props.id}
+      visible={true}
       className="drawerSecondary"
     >
-      <RequestDetailedCard id={props.id} />
+      <RequestDetailCard id={props.id} />
     </Drawer>
   );
 };

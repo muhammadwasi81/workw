@@ -23,17 +23,13 @@ const RequestListItems = (props) => {
       type: 1,
       userTypeId: 2,
     },
-    basicSalary,
-    netSalary,
-    description = 'Salary Description here',
     approvers = [{}],
     status = 1,
-    referenceNo = 'SAR-10001',
     createDate = moment(),
-    effectiveDate = moment(),
-    id,
-    user,
   } = props.item;
+
+  const { categoryId, quantity, referenceNo, id } = props.item;
+
   return (
     <SingleItem onClick={() => props.onClick(id)}>
       <ItemHeader>
@@ -50,36 +46,22 @@ const RequestListItems = (props) => {
           />
         </div>
         <div className="right">
-          <Tag className="IdTag">{referenceNo}</Tag>
+          <Tag className="IdTag">{creator.referenceNo}</Tag>
           <StatusTag status={status}></StatusTag>
         </div>
       </ItemHeader>
-      <div className="description w-full pt-3 pb-5 h-[100px]">
-        {description.length > 0 ? (
-          <p>{description}</p>
-        ) : (
-          <p> No description </p>
-        )}
-      </div>
-
-      <div className="cardSections">
+      <div className="cardSections" style={{ marginTop: '30px' }}>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Salary For</div>
-          <div className="cardSection__body">{user.name}</div>
+          <div className="cardSection__title">Category Name</div>
+          <div className="cardSection__body">{categoryId}</div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Effective Date</div>
-          <div className="cardSection__body">
-            {moment(effectiveDate).format('Do MMM YY')}
-          </div>
+          <div className="cardSection__title">Qty</div>
+          <div className="cardSection__body">{quantity}</div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Basic Salary</div>
-          <div className="cardSection__body">{basicSalary}</div>
-        </div>
-        <div className="cardSectionItem">
-          <div className="cardSection__title">Net Salary</div>
-          <div className="cardSection__body">{netSalary}</div>
+          <div className="cardSection__title">Ref No</div>
+          <div className="cardSection__body">{referenceNo}</div>
         </div>
         <div className="cardSectionItem">
           <div className="cardSection__title">Approvers</div>

@@ -14,7 +14,7 @@ import {
 import { useDispatch } from 'react-redux';
 import Avatar from '../../../../sharedComponents/Avatar/avatar';
 
-function SalaryListItem(props) {
+function QuotationListItem(props) {
   const disptach = useDispatch();
   const {
     creator = {
@@ -104,4 +104,4 @@ function SalaryListItem(props) {
   );
 }
 
-export default SalaryListItem;
+export default QuotationListItem;

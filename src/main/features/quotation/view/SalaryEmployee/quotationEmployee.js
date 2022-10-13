@@ -18,7 +18,7 @@ import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedS
 import { getNameForImage } from "../../../../../utils/base";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 
-function SalaryEmployee() {
+function QuotationEmployee() {
   const [form] = Form.useForm();
   const [salaryEmployee, setSalaryEmployee] = useState([]);
   const [salaryHeader, setSalaryHeader] = useState([]);
@@ -244,4 +244,4 @@ function SalaryEmployee() {
   );
 }
 
-export default SalaryEmployee;
+export default QuotationEmployee;

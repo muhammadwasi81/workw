@@ -126,6 +126,8 @@ const en = {
     resignations: 'Resignations',
     requisition: 'Requisitions',
     assets: 'Assets',
+    createAssets: 'Create Assets',
+    requestListItems: 'Request List Items',
     rewards: 'Rewards',
     businessPolicy: 'Business Policies',
     form: 'Forms',

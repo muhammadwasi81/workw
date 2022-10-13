@@ -6,17 +6,17 @@ import {
 } from '../../../../sharedComponents/AppComponents/MainFlexContainer';
 import { Button } from 'antd';
 import { ROUTES } from '../../../../../utils/routes';
-import SalaryList from './salaryList';
+import QuotationList from './quotationList';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getAllEmployeeSalary } from '../../store/actions';
 import TopBar from '../../../../sharedComponents/topBar/topBar';
 import { Table } from '../../../../sharedComponents/customTable';
 import { useSelector } from 'react-redux';
-import { salaryTableColumn } from './tableColumns';
+import { quotationTableColumn } from './tableColumns';
 
-function Salaries() {
-  const listData = useSelector((state) => state.salarySlice.salaryList);
+function Quotations() {
+  const listData = useSelector((state) => state.quotationSlice.quotationList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [filterType, setFilterType] = useState(0);
@@ -25,8 +25,8 @@ function Salaries() {
 
   const items = [
     {
-      name: 'Salary',
-      to: `${ROUTES.SALARY.ROOT}`,
+      name: 'Qoutation',
+      to: `${ROUTES.QOUTATION.ROOT}`,
       renderButton: [1],
     },
   ];
@@ -36,14 +36,14 @@ function Salaries() {
       render: (
         <Button className="ThemeBtn" onClick={() => navigate('create')}>
           {' '}
-          Create Salary{' '}
+          Create Quotation{' '}
         </Button>
       ),
     },
   ];
   const filterButtons = [
     {
-      name: 'Salaries',
+      name: 'Quotations',
       onClick: () => setFilterType(0),
     },
     {
@@ -67,9 +67,9 @@ function Salaries() {
   }, [filterType, search]);
 
   const render = {
-    List: <SalaryList data={listData} />,
+    List: <QuotationList data={listData} />,
     Table: (
-      <Table columns={salaryTableColumn()} dragable={true} data={listData} />
+      <Table columns={quotationTableColumn()} dragable={true} data={listData} />
     ),
   };
   return (
@@ -89,4 +89,4 @@ function Salaries() {
   );
 }
 
-export default Salaries;
+export default Quotations;

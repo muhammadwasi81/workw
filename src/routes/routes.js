@@ -266,10 +266,10 @@ export const routes = {
     // },
     {
       path: `${ROUTES.SALARY.DEFAULT}`,
-      component: lazy(() => import("../main/features/salary/view/index")),
+      component: lazy(() => import("../main/features/salary/view/")),
     },
     {
-      path: `${ROUTES.QOUTATION.ROOT}`,
+      path: `${ROUTES.QOUTATION.DEFAULT}`,
       component: lazy(() => import("../main/features/quotation/view/index")),
     },
     {

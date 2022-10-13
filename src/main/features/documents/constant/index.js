@@ -11,7 +11,7 @@ export const fileTypes = [
     title: "Milepad",
     description: "32 Files",
     icon: milepadIcon
-  },
+  }, 
   {
     title: "Mileshow",
     description: "32 Files",

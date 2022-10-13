@@ -1,6 +1,6 @@
 import React from "react";
 import { Drawer } from "antd";
-import SalaryDetailCard from "./salaryDetailCard";
+import QuotationDetailCard from "./quotationDetailCard";
 
 function SalaryDetailedView(props) {
   const isTablet = false;
@@ -14,7 +14,7 @@ function SalaryDetailedView(props) {
       onClose={props.onClose}
       visible={!!props.id}
       className="drawerSecondary">
-      <SalaryDetailCard  id={props.id}/>
+      <QuotationDetailCard  id={props.id}/>
     </Drawer>
   );
 }

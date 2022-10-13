@@ -14,7 +14,7 @@ import { getAllAllowance } from '../../../allowance/store/actions';
 import { addMultipleEmployeeSalary } from '../../store/actions';
 import { useNavigate } from 'react-router-dom';
 
-const CreateSalaryVoucher = ({ defaultRows }) => {
+const CreateQoutationVoucher = ({ defaultRows }) => {
   const defaultEntry = {
     effectiveDate: moment(),
     userId: "",
@@ -95,7 +95,7 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
 
   const handleSubmit = () => {
     let filteredEntries = entries.filter(item => item.userId)
-    dispatch(addMultipleEmployeeSalary({ navigate: navigate, salaries: filteredEntries }));
+    // dispatch(addMultipleEmployeeSalary({ navigate: navigate, salaries: filteredEntries }));
   }
   return (
     <div className='createEntryTable' >
@@ -139,7 +139,7 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
             Clear
           </Button> */}
           <Button className='ThemeBtn mr-2' onClick={handleSubmit} >
-            Create Salary
+            Create Qoutation
           </Button>
         </div>
 
@@ -152,4 +152,4 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
     </div>
   )
 }
-export default CreateSalaryVoucher;
+export default CreateQoutationVoucher;

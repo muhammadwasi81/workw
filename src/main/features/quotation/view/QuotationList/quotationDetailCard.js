@@ -4,7 +4,6 @@ import UserInfo from '../../../../sharedComponents/UserShortInfo/UserInfo';
 import SublineDesigWithTime from '../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
 import StatusTag from '../../../../sharedComponents/Tag/StatusTag';
 // import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import RewardDefaultIcon from '../../../../../content/svg/menu/rewardIcon.svg';
 import moment from 'moment';
 import {
   ItemContent,
@@ -19,14 +18,14 @@ import AllowanceDetail from './allowanceDetail';
 import RemarksApproval from '../../../../sharedComponents/AppComponents/Approvals/view';
 import { ApprovalsModule } from '../../../../sharedComponents/AppComponents/Approvals/enums';
 
-function SalaryDetailCard(props) {
+function QuotationDetailCard(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (props.id) dispatch(getEmployeeSalaryDetail(props.id));
   }, [props.id]);
 
-  const salaryDetail = useSelector((state) => state.salarySlice.salaryDetail);
-  if (!salaryDetail) return <></>;
+  const quotationDetail = useSelector((state) => state.quotationSlice.quotationDetail);
+  if (!quotationDetail) return <></>;
 
   const {
     creator,
@@ -40,7 +39,7 @@ function SalaryDetailCard(props) {
     createDate = moment(),
     effectiveDate = moment(),
     user,
-  } = salaryDetail;
+  } = quotationDetail;
   return (
     <>
       <SingleItem onClick={props.onClick}>
@@ -100,4 +99,4 @@ function SalaryDetailCard(props) {
   );
 }
 
-export default SalaryDetailCard;
+export default QuotationDetailCard;

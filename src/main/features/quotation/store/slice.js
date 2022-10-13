@@ -6,16 +6,16 @@ const initialState = {
    success: false,
    loader: false,
    error: false,
-   salaryDetail: null,
-   salaryList: [],
+   quotationDetail: null,
+   quotationList: [],
 };
 
-export const VoucherSlice = createSlice({
-   name: 'EmployeeSalary',
+export const quotationSlice = createSlice({
+   name: 'Quotation',
    initialState: initialState,
    reducers: {
       clearSalaryDetail: (state) => {
-         state.salaryDetail = null;
+         state.quotationDetail = null;
       }
    },
 
@@ -24,15 +24,15 @@ export const VoucherSlice = createSlice({
          .addCase(addMultipleEmployeeSalary.fulfilled, (state, { payload }) => {
             state.loader = false;
             state.success = true;
-            state.salaryList = [...state.salaryList, ...payload]
+            state.quotationList = [...state.quotationList, ...payload]
          })
          .addCase(getEmployeeSalaryDetail.fulfilled, (state, { payload }) => {
-            state.salaryDetail = payload;
+            state.quotationDetail = payload;
             state.loader = false;
             state.success = true;
          })
          .addCase(getAllEmployeeSalary.fulfilled, (state, { payload }) => {
-            state.salaryList = payload.data;
+            state.quotationList = payload.data;
             state.loader = false;
             state.success = true;
          })
@@ -48,5 +48,5 @@ export const VoucherSlice = createSlice({
          );
    }
 })
-export const { clearSalaryDetail } = VoucherSlice.actions;
-export default VoucherSlice.reducer;
+export const { clearSalaryDetail } = quotationSlice.actions;
+export default quotationSlice.reducer;

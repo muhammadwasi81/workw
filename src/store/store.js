@@ -18,6 +18,7 @@ import gradeSlice from '../main/features/grade/store/slice';
 import rebateCategorySlice from '../main/features/rebateCategory/store/slice';
 import taxSlabSlice from '../main/features/taxSlabs/store/slice';
 import subsidiarySlice from '../main/features/subsidiary/store/slice';
+import quotationSlice from '../main/features/quotation/store/slice';
 import subsidiaryOfficeSlice from '../main/features/subsidiaryOffice/store/slice';
 import employeeSlice from '../main/features/employee/store/slice';
 import officeTimingSlice from '../main/features/officeTimings/store/slice';
@@ -77,8 +78,8 @@ import attendanceSlice from '../main/features/attendance/store/slice';
 import stickySlice from '../main/features/notes/newStickyNotes/store/stickySlice';
 import formSlice from '../main/features/forms/store/slice';
 import payrollSlice from '../main/features/payroll/store/slice';
-import assetsCategorySlice from '../main/features/assetsCategory/store/slice';
 import requestItemSlice from '../main/features/RequestListItems/store/slice';
+import assetsCategorySlice from '../main/features/assetsCategory/store/slice';
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -105,6 +106,7 @@ const reducers = combineReducers({
   fiscalYearSlice,
   customApprovalCategorySlice,
   requisitionSlice,
+  quotationSlice,
   rewardCategorySlice,
   rewardSlice,
   complainSlice,

@@ -9,6 +9,7 @@ import {
   getAllCareerService,
   getAllCareerBYIdService,
   addCareerApplicantService,
+  getAllCareerApplicantService,
 } from "../services/service";
 
 export const addCareer = createAsyncThunk(
@@ -76,6 +77,24 @@ export const getAllCareerAction = createAsyncThunk(
   async (request, { rejectWithValue }) => {
     console.log(request, "GET REQUEST career");
     const response = await getAllCareerService({ request });
+    console.log(request, "GET REQUEST career 22");
+
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getAllCareerApplicant = createAsyncThunk(
+  "careerslice/ getAllCareerApplicant",
+  async (request, { rejectWithValue }) => {
+    console.log(request, "GET REQUEST career");
+    const response = await getAllCareerApplicantService({ request });
     console.log(request, "GET REQUEST career 22");
 
     switch (response.type) {

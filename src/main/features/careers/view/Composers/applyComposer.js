@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button, Drawer, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { addCareerApplicant } from "../../store/action";

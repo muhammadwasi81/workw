@@ -63,6 +63,19 @@ export const getAllCareerService = async (data) => {
   }
 };
 
+export const getAllCareerApplicantService = async (data) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Career/GetAllCareer`, data);
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
 export const getAllCareerBYIdService = async (id) => {
   try {
     const {

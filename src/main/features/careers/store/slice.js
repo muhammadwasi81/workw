@@ -4,6 +4,7 @@ import {
   getAllCareerAction,
   getCareerByIdAction,
   addCareerApplicant,
+  getAllCareerApplicant,
 } from "./action";
 
 const defaultCareer = {
@@ -21,6 +22,7 @@ const initialState = {
   currentTab: "careers",
   drawerOpen: false,
   careerDetail: {},
+  careerApplicants: [],
 };
 
 const careerSlice = createSlice({
@@ -49,7 +51,17 @@ const careerSlice = createSlice({
         state.success = true;
         state.items = [...state.items, payload.data.data];
       })
-      .addCase(addCareerApplicant.fulfilled, (state, { payload }) => {})
+      .addCase(addCareerApplicant.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        // if (payload.data.data) {
+        //   state.loanList.unshift(payload.data.data);
+        //   state.isCreateComposer = true;
+        // }
+      })
+      .addCase(getAllCareerApplicant.fulfilled, (state, { payload }) => {
+        // state.careerApplicants = payload;
+        console.log(payload);
+      })
       .addCase(getAllCareerAction.fulfilled, (state, { payload }) => {
         state.items = payload;
       })

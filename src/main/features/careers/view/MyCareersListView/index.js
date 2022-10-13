@@ -13,9 +13,11 @@ import {
   getAllCareerAction,
   getCareerByIdAction,
 } from "../../../../features/careers/store/action";
+import { useNavigate } from "react-router-dom";
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 
 const MyCareersListView = () => {
+  const navigate = useNavigate();
   const [openDetail, setOpenDetail] = useState(false);
   const [applyDrawer, setApplyDrawer] = useState(false);
   const [id, setId] = useState();
@@ -40,6 +42,7 @@ const MyCareersListView = () => {
     console.log(id, "my Career Id");
     //TODO: dispatch action to get career by id and applicants
     dispatch(getCareerByIdAction(id));
+    navigate(`jobdetail/${id}`);
   };
 
   const handleOk = () => {

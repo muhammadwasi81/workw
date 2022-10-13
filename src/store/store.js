@@ -18,6 +18,7 @@ import gradeSlice from "../main/features/grade/store/slice";
 import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
 import taxSlabSlice from "../main/features/taxSlabs/store/slice";
 import subsidiarySlice from "../main/features/subsidiary/store/slice";
+import quotationSlice from "../main/features/quotation/store/slice";
 import subsidiaryOfficeSlice from "../main/features/subsidiaryOffice/store/slice";
 import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
@@ -103,6 +104,7 @@ const reducers = combineReducers({
   fiscalYearSlice,
   customApprovalCategorySlice,
   requisitionSlice,
+  quotationSlice,
   rewardCategorySlice,
   rewardSlice,
   complainSlice,

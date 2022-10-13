@@ -1,17 +1,17 @@
-import { Skeleton } from "antd";
-import { removeData } from "jquery";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
-import { getAllGrades, removeGrade } from "../store/actions";
-import { gradeDeleted } from "../store/slice";
-import { tableColumn } from "./tableColumn";
+import { Skeleton } from 'antd';
+import { removeData } from 'jquery';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
+import { getAllGrades, removeGrade } from '../store/actions';
+import { gradeDeleted } from '../store/slice';
+import { tableColumn } from './tableColumn';
 
 export default function GradeTable({
   handleEdit,
   removeButtons,
   actionRights = [],
-  setClearButton
+  setClearButton,
 }) {
   const { grades, loadingData } = useSelector((state) => state.gradeSlice);
 
@@ -20,24 +20,23 @@ export default function GradeTable({
     dispatch(getAllGrades());
   }, []);
 
-  const [id, setId] = useState()
+  const [id, setId] = useState();
 
   const onSuccess = (e) => {
     console.log(e.id);
-    setId(null)
-    dispatch(gradeDeleted(e))
-    setClearButton(true)
-  }
+    setId(null);
+    dispatch(gradeDeleted(e));
+    setClearButton(true);
+  };
 
   const onError = () => {
-    setId(null)
-  }
+    setId(null);
+  };
 
   const handleDelete = (e) => {
-    setId(e.id)
+    setId(e.id);
     dispatch(removeGrade(e)).then(() => onSuccess(e), onError);
-    
-  }
+  };
 
   return (
     <AdminTable
@@ -65,7 +64,7 @@ export default function GradeTable({
               loading={loadingData}
               round="true"
               shape="circle"
-              style={{ width: "100%", marginBottom: 2 }}
+              style={{ width: '100%', marginBottom: 2 }}
             />
           ),
         }

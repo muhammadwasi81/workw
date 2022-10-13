@@ -1,5 +1,5 @@
-export let DOMAIN_PREFIX = "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "" : "";
+export let DOMAIN_PREFIX = '';
+DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '' : '';
 
 export const ROUTES = {
   SEARCH: {
@@ -79,6 +79,12 @@ export const ROUTES = {
   },
   ASSETS: {
     DEFAULT: `${DOMAIN_PREFIX}/assets`,
+  },
+  CREATE_ASSETS: {
+    DEFAULT: `${DOMAIN_PREFIX}/createAssets`,
+  },
+  REQUEST_LIST_ITEM: {
+    DEFAULT: `${DOMAIN_PREFIX}/listItems`,
   },
   PROJECT: {
     DEFAULT: `${DOMAIN_PREFIX}/projects`,
@@ -274,9 +280,9 @@ export const ROUTES = {
     ADD: `add`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
     INFO: `info/*`,
-    BANK_DETAIL: "info/bankDetail/:id",
-    BASIC_INFO: "info/basicInfo/:id",
-    USER_LEAVES: "info/leaves/:id",
+    BANK_DETAIL: 'info/bankDetail/:id',
+    BASIC_INFO: 'info/basicInfo/:id',
+    USER_LEAVES: 'info/leaves/:id',
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
@@ -365,9 +371,9 @@ export const ROUTES = {
     APPROVALS: `leaves/approvals`,
   },
   REQUISITION: {
-		DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
-		REQUISITION: `${DOMAIN_PREFIX}/requisition`,
-	},
+    DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+    REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+  },
   //   EMPLOYEES: {
   //     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
   //     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,

@@ -1,22 +1,20 @@
 import React from "react";
-import { Skeleton } from "antd";
+import moment from "moment";
 import "../styles/event.css";
 import Event from "./event";
-function EventWrapper({ data, heading = "Events", loading = false }) {
-	console.log("data", data);
-
-	// if (loading) {
-	// 	return <Skeleton.Input active size block />;
-	// }
+function UpcomingEvents({ heading, data }) {
+	let tomorrow = moment()
+		.add(1, "days")
+		.format("DD MMMM YYYY")
+		.toString();
+	console.log("tomorrow", tomorrow);
 	return (
 		<div className="eventWrapper">
 			<div className="eventWrapper__header">
 				<p>{heading}</p>
 			</div>
 			<div className="eventWrapper__body">
-				{loading ? (
-					<Skeleton.Input active size block />
-				) : data?.length > 0 ? (
+				{data?.length > 0 ? (
 					data?.map(event => <Event data={event} />)
 				) : (
 					<span className="font-semibold">
@@ -28,4 +26,4 @@ function EventWrapper({ data, heading = "Events", loading = false }) {
 	);
 }
 
-export default EventWrapper;
+export default UpcomingEvents;

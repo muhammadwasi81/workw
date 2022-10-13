@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { STRINGS } from "../../../../utils/base";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import HeaderLayout from "../../../layout/header";
 import CreateSchedule from "../view/createSchedule";
 import { useSelector } from "react-redux";
+import { ROUTES } from "../../../../utils/routes";
 function Header() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appHeader, sharedLabels } = dictionaryList[userLanguage];
@@ -13,17 +13,17 @@ function Header() {
   const items = [
     {
       name: "Calendar",
-      to: `${STRINGS.ROUTES.SCHEDULES}`,
+      to: `?f=cal`,
       renderButton: [1],
     },
     {
       name: "Schedule",
-      to: `${STRINGS.ROUTES.SCHEDULES}s`,
+      to: `?f=sc`,
       renderButton: [1],
     },
     {
       name: "Schedule Interviews",
-      to: `${STRINGS.ROUTES.SCHEDULES}s`,
+      to: `?f=si`,
       renderButton: [1],
     },
   ];

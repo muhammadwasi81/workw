@@ -19,10 +19,10 @@ const MessengerBottom = ({ isOpenProfile }) => {
     (state) => state.MessengerSlice.currentMessenger
   );
   const [isOpenEmoji, setIsOpenEmoji] = useState(false);
-  const [voiceNoteFile, setVoiceNoteFile] = useState(null);
+  // const [voiceNoteFile, setVoiceNoteFile] = useState(null);
   const [attchmentFiles, setAttchmentFiles] = useState([]);
 
-  const createPayload = (text) => {
+  const createPayload = (text, voiceNoteFile=null) => {
     const { chatId, chatType, members } = messengerDetail;
     const attachments = voiceNoteFile ? [voiceNoteFile] : attchmentFiles;
 
@@ -35,6 +35,7 @@ const MessengerBottom = ({ isOpenProfile }) => {
       }),
       message: text,
       messageId: createGuid(),
+      messageType:!!voiceNoteFile ? "voice" : 1,
       attachments: attachments.map(file => ({
         file,
         id: STRINGS.DEFAULTS.guid
@@ -44,11 +45,11 @@ const MessengerBottom = ({ isOpenProfile }) => {
   }
 
   const handleMsgSend = (e) => {
-    if (!e.target.value.length)
+    let payload = createPayload(e.target.value);
+    if (!payload.message && payload.attachments.length === 0)
       return null;
 
     setIsOpenEmoji(false);
-    let payload = createPayload(e.target.value);
     dispatch(sendChatMessage(payload));
     e.target.value = "";
   };
@@ -63,7 +64,9 @@ const MessengerBottom = ({ isOpenProfile }) => {
   }
 
   const handleVoiceSend = (file) => {
-    setVoiceNoteFile(file)
+    // setVoiceNoteFile(file);
+    let payload = createPayload("", file);
+    dispatch(sendChatMessage(payload))
   }
 
   const onSelectEmoji = (emoji) => {

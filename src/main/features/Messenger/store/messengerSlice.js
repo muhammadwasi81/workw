@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { STRINGS } from "../../../../utils/base";
+import { createGuid, STRINGS } from "../../../../utils/base";
 import { createChat, getAllChats, getAllMessages, searchConversation, sendChatMessage } from "./actions";
 
 
@@ -14,7 +14,11 @@ const initialState = {
    },
    currentChatBoxes: [],
    MessengerList: {},
-   Conversations: null
+   Conversations: [
+      {
+         id:createGuid()
+      }
+   ]
 };
 
 export const messengerSlice = createSlice({

@@ -134,6 +134,8 @@ input:focus {
 
 .ItemLastMsgCont {
   display: flex;
+  justify-content: space-between;
+  margin-right: 5px;
 }
 
 .ItemLastMsgCont>.ItemLastMsg {
@@ -154,6 +156,7 @@ input:focus {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  text-align: right;
 }
 
 .MessengerBox {
@@ -279,16 +282,16 @@ input:focus {
   color: black;
   width: max-content;
   margin: 0 10px;
-  padding: 10px 15px;
+  padding: 10px 10px;
   font-size: 13px;
   max-width: 350px;
   word-wrap: break-word;
-  border-radius: 0px 15px 15px 15px;
+  border-radius: 0px 10px 10px 10px;
   position: relative;
 }
 
 .MessengerListItem-ME>.MessageBubble {
-  border-radius: 15px 0px 15px 15px;
+  border-radius: 10px 0px 10px 10px;
   background: var(--currentThemeColor);
   color: rgb(221, 221, 221);
 }
@@ -538,7 +541,12 @@ animation:0.1s visibleDelay 0.4s forwards;
   animation-iteration-count:infinite;
   /* animation-fill-mode: forwards; */
 }
-
+audio::-webkit-media-controls-panel {
+  background-color: var(--currentThemeColor) !important;
+}
+audio::-webkit-media-controls-mute-button, audio::-webkit-media-controls-play-button{
+  /* background-color: red !important; */
+}
 
 
 @keyframes visibleDelay {

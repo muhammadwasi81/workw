@@ -32,7 +32,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/Messenger/")),
 		},
 		{
-			path: ROUTES.SCHEDULES,
+			path: ROUTES.SCHEDULES.DEFAULT,
 			component: lazy(() => import("../main/features/schedule/routes/")),
 		},
 		// {

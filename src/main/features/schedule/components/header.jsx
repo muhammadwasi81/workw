@@ -13,17 +13,17 @@ function Header() {
   const items = [
     {
       name: "Calendar",
-      to: `${ROUTES.SCHEDULES}`,
+      to: `?f=cal`,
       renderButton: [1],
     },
     {
       name: "Schedule",
-      to: `${ROUTES.SCHEDULES}s`,
+      to: `?f=sc`,
       renderButton: [1],
     },
     {
       name: "Schedule Interviews",
-      to: `${ROUTES.SCHEDULES}s`,
+      to: `?f=si`,
       renderButton: [1],
     },
   ];

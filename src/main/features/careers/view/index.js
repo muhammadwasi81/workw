@@ -8,7 +8,7 @@ function Index() {
   return (
     <Routes>
       <Route path="/" element={<Careers />} />
-      <Route path="jobdetail" element={<JobDetails />} />
+      <Route path="jobdetail/:id" element={<JobDetails />} />
     </Routes>
   );
 }

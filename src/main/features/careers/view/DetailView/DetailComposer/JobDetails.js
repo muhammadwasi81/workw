@@ -15,7 +15,7 @@ import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 
-const JobDetails = () => {
+const JobDetails = (props) => {
   const careerDetail = useSelector((state) => {
     return state.careerSlice.careerDetail;
   });
@@ -59,7 +59,9 @@ const JobDetails = () => {
             </div>
           </div>
           <div className="linkDiv">
-            <Tag className="LinkTag ThemeBtn">{"Apply Now"}</Tag>
+            <Tag className="LinkTag ThemeBtn" onClick={() => props.apply()}>
+              {"Apply Now"}
+            </Tag>
             <Tag className="LinkTag ThemeBtn">
               <LinkOutlined /> {"Copy Link"}
             </Tag>

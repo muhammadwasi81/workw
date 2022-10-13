@@ -1,5 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { addCareer, getAllCareerAction, getCareerByIdAction } from "./action";
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import {
+  addCareer,
+  getAllCareerAction,
+  getCareerByIdAction,
+  addCareerApplicant,
+} from "./action";
 
 const defaultCareer = {
   id: 1,
@@ -44,6 +49,7 @@ const careerSlice = createSlice({
         state.success = true;
         state.items = [...state.items, payload.data.data];
       })
+      .addCase(addCareerApplicant.fulfilled, (state, { payload }) => {})
       .addCase(getAllCareerAction.fulfilled, (state, { payload }) => {
         state.items = payload;
       })
@@ -52,6 +58,9 @@ const careerSlice = createSlice({
         state.careerDetail = payload;
 
         console.log(state.careerDetail, "STATE ITEMS");
+      })
+      .addMatcher(isPending(...[addCareerApplicant]), (state) => {
+        console.log("pending applied");
       });
   },
 });

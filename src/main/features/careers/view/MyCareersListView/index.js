@@ -6,15 +6,19 @@ import {
 import JobDetails from "../../view/DetailView/DetailComposer/JobDetails";
 import ListItem from "./ListItem";
 import { useDispatch, useSelector } from "react-redux";
+import ApplyComposer from "../Composers/applyComposer";
 import { DatePicker, Modal } from "antd";
 import "antd/dist/antd.css";
 import {
   getAllCareerAction,
   getCareerByIdAction,
 } from "../../../../features/careers/store/action";
+import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 
 const MyCareersListView = () => {
   const [openDetail, setOpenDetail] = useState(false);
+  const [applyDrawer, setApplyDrawer] = useState(false);
+  const [id, setId] = useState();
 
   const careers = useSelector((state) => {
     return state.careerSlice.items;
@@ -22,13 +26,19 @@ const MyCareersListView = () => {
   const { currentTab } = useSelector((state) => {
     return state.careerSlice;
   });
-  console.log(careers, "CAREERS");
 
   const dispatch = useDispatch();
 
   const openJobDetailHandler = (id) => {
     console.log(id, "******");
+    setId(id);
     setOpenDetail(true);
+    dispatch(getCareerByIdAction(id));
+  };
+
+  const openMyCareerDetail = (id) => {
+    console.log(id, "my Career Id");
+    //TODO: dispatch action to get career by id and applicants
     dispatch(getCareerByIdAction(id));
   };
 
@@ -40,13 +50,23 @@ const MyCareersListView = () => {
     setOpenDetail(false);
   };
 
-  // useEffect(() => {
-  //   dispatch(getAllCareerAction({}));
-  // }, []);
-  console.log(currentTab, "adasds");
+  const applyJob = () => {
+    console.log("apply works");
+    setApplyDrawer(true);
+    setOpenDetail(false);
+  };
+
+  const handleDrawerClose = () => {
+    setApplyDrawer(false);
+  };
 
   return (
     <>
+      <ApplyComposer
+        visible={applyDrawer}
+        onClose={handleDrawerClose}
+        id={id}
+      />
       <CardWrapper
         style={{
           gridTemplateColumns:
@@ -63,14 +83,15 @@ const MyCareersListView = () => {
             footer={null}
             width={"50%"}
           >
-            <JobDetails />
+            <JobDetails apply={applyJob} />
           </Modal>
         )}
+
         {careers.length > 0 ? (
           careers.map((item) => (
-            // <h1>jksdjkkjsdkj</h1>
             <ListItem
               onClick={() => openJobDetailHandler(item.id)}
+              onClickMyCareer={() => openMyCareerDetail(item.id)}
               item={item}
             />
           ))

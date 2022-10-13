@@ -8,6 +8,7 @@ import {
   addCareerService,
   getAllCareerService,
   getAllCareerBYIdService,
+  addCareerApplicantService,
 } from "../services/service";
 
 export const addCareer = createAsyncThunk(
@@ -29,6 +30,36 @@ export const addCareer = createAsyncThunk(
         dispatch(
           openNotification({
             message: "Document Create Successfully",
+            type: "success",
+            duration: 2,
+          })
+        );
+        return res.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const addCareerApplicant = createAsyncThunk(
+  "Career/addCareerApplicant",
+  async (data, { dispatch, rejectWithValue }) => {
+    const res = await addCareerApplicantService(data);
+    console.log(res, "FROM CAREER RESPONSE");
+
+    switch (res.type) {
+      case ResponseType.ERROR:
+        dispatch(
+          openNotification({
+            message: res.errorMessage,
+            type: "error",
+          })
+        );
+        return rejectWithValue(res.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            message: "Job Applied Successfully",
             type: "success",
             duration: 2,
           })

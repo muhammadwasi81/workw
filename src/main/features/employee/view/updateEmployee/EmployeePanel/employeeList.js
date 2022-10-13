@@ -12,6 +12,7 @@ import { Tooltip } from "antd";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../../utils/localization/languages";
 import { useNavigate } from "react-router-dom";
+
 const EmployeeList = ({ id }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { employee } = dictionaryList[userLanguage];
@@ -36,7 +37,7 @@ const EmployeeList = ({ id }) => {
                     navigate(to(userId));
                   }}
                 >
-                  {IconName} 
+                  {IconName}
                   {!isTabletOrMobile && employee[displayName]}
                 </Link>
               </Tooltip>

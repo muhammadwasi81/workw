@@ -198,7 +198,12 @@ export const routes = {
       path: `${ROUTES.JOBS.DEFAULT}`,
       component: lazy(() => import('../main/features/jobs/view/index')),
     },
-
+  {
+      path: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
+      component: lazy(() =>
+        import('../main/features/RequestListItems/view/index')
+      ),
+    },
     //Hr Router
     {
       path: `${ROUTES.EMPLOYEES_INFO.DEFAULT}`,
@@ -217,7 +222,7 @@ export const routes = {
     //*****by SANJANA****
     {
       path: `${ROUTES.TEAMS.DEFAULT}`,
-      component: lazy(() => import('../main/features/team/view/Team')),
+      component: lazy(() => import("../main/features/team/routes/teamRoutes")),
     },
 
     {
@@ -265,7 +270,11 @@ export const routes = {
     {
       path: `${ROUTES.REQUISITION.DEFAULT}`,
       component: lazy(() =>
+<<<<<<< HEAD
         import('../main/features/requisition/view/Requisition')
+=======
+        import("../main/features/requisition/view/requisition")
+>>>>>>> 020e98dfdcd67bdac82f6f045d29b136f4f1b08a
       ),
     },
 

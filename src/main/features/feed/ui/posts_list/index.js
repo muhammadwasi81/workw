@@ -34,7 +34,7 @@ function PostsList({ referenceType, referenceId, reactionModule }) {
 				</p>
 			) : (
 				<Scroll
-					// isLoading={feedSlice.allFeed.loading}
+					isLoading={feedSlice.allFeed.loading}
 					data={posts}
 					fetchMoreData={pageNo => {
 						setPageNo(pageNo);

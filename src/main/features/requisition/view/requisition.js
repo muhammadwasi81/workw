@@ -9,7 +9,7 @@ import { Skeleton, Modal } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import ListItem from "./ListItem";
-import Composer from "./Composer";
+import Composer from "./composer";
 import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -47,102 +47,116 @@ const Requisition = props => {
 	useEffect(() => {
 		dispatch(getAllRequisition(filter));
 	}, [filter]);
-	
-	
-  return (
-    <>
-      <TabbableContainer className="">
-        <Header
-          buttons={[
-            {
-              buttonText: "Create Travel",
-              render: (
-                <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
-                  Create Requisition
-                </Button> 
-              ),
-            },
-          ]}
-        />
-        <TopBar
-          onSearch={(value) => {
-            setFilter({ ...filter, search: value })
-          }}
-          buttons={[
-            {
-              name: "Requisitions",
-              onClick: () => setFilter({ filterType: 0 }),
-            }
-          ]}
-          segment={{
-            onSegment: (value) => {
-              if (value === "Table") {
-                setTableView(true);
-              } else {
-                setTableView(false);
-              }
-            },
-            label1: "List",
-            label2: "Table",
-          }}
-        />
-        <ContBody>
-          {items?.length > 0 ? (
-            tableView ? (
-              <Table
-                columns={tableColumn()}
-                dragable={true}
-                data={items}
-              />
-            ) : (
-              <>
-                {loader ? (
-                  <>
-                    <Skeleton avatar paragraph={{ rows: 4 }} />
-                  </>
-                ) : (
-                  <CardWrapper>
-                    {items.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
-                        </>
-                      );
-                    })}
-                  </CardWrapper>
-                )}
-              </>
-            )
-          ) : (
-            <Skeleton avatar paragraph={{ rows: 4 }} />
-          )}
-        </ContBody>
-        {<DetailedView onClose={onClose} id={detailId} />}   
 
-        <Drawer
-          title={
-            <h1
-              style={{
-                fontSize: "20px",
-                margin: 0,
-              }}
-            >
-              Create Requisition
-            </h1>
-          }
-          width="768"
-          onClose={() => {
-            dispatch(handleOpenComposer(false))
-          }}
-          visible={drawerOpen}
-          destroyOnClose={true}
-          className="detailedViewComposer drawerSecondary"
-        >
-          <Composer />
-        </Drawer>
-      </TabbableContainer>
-    </>
-  );
+	return (
+		<>
+			<TabbableContainer className="">
+				<Header
+					buttons={[
+						{
+							buttonText: "Create Travel",
+							render: (
+								<Button
+									className="ThemeBtn"
+									onClick={() =>
+										dispatch(handleOpenComposer(true))
+									}
+								>
+									Create Requisition
+								</Button>
+							),
+						},
+					]}
+				/>
+				<TopBar
+					onSearch={value => {
+						setFilter({ ...filter, search: value });
+					}}
+					buttons={[
+						{
+							name: "Requisitions",
+							onClick: () => setFilter({ filterType: 0 }),
+						},
+					]}
+					segment={{
+						onSegment: value => {
+							if (value === "Table") {
+								setTableView(true);
+							} else {
+								setTableView(false);
+							}
+						},
+						label1: "List",
+						label2: "Table",
+					}}
+				/>
+				<ContBody>
+					{items?.length > 0 ? (
+						tableView ? (
+							<Table
+								columns={tableColumn()}
+								dragable={true}
+								data={items}
+							/>
+						) : (
+							<>
+								{loader ? (
+									<>
+										<Skeleton
+											avatar
+											paragraph={{ rows: 4 }}
+										/>
+									</>
+								) : (
+									<CardWrapper>
+										{items.map((item, index) => {
+											return (
+												<>
+													<ListItem
+														item={item}
+														id={item.id}
+														key={index}
+														onClick={() =>
+															setDetailId(item.id)
+														}
+													/>
+												</>
+											);
+										})}
+									</CardWrapper>
+								)}
+							</>
+						)
+					) : (
+						<Skeleton avatar paragraph={{ rows: 4 }} />
+					)}
+				</ContBody>
+				{<DetailedView onClose={onClose} id={detailId} />}
+
+				<Drawer
+					title={
+						<h1
+							style={{
+								fontSize: "20px",
+								margin: 0,
+							}}
+						>
+							Create Requisition
+						</h1>
+					}
+					width="768"
+					onClose={() => {
+						dispatch(handleOpenComposer(false));
+					}}
+					visible={drawerOpen}
+					destroyOnClose={true}
+					className="detailedViewComposer drawerSecondary"
+				>
+					<Composer />
+				</Drawer>
+			</TabbableContainer>
+		</>
+	);
 };
 
 export default Requisition;

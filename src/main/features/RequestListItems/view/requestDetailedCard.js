@@ -5,7 +5,6 @@ import {
   ItemHeader,
   SingleItem,
 } from '../../../sharedComponents/Card/CardStyle';
-import StatusTag from '../../../sharedComponents/Tag/StatusTag';
 import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
 import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
 import { getRequestListItemsById } from '../store/action';
@@ -14,21 +13,28 @@ import { ApprovalsModule } from '../../../sharedComponents/AppComponents/Approva
 
 const RequestDetailCard = (props) => {
   const dispatch = useDispatch();
-  const { requestItems } = useSelector((state) => state.requestItemSlice);
-  console.log(requestItems, 'Add requestItem');
+  const requestDetails = useSelector((state) => state.requestItemSlice);
+  console.log(requestDetails.requestItemDetail.quantity, 'requestDetails');
 
   useEffect(() => {
     if (props.id) dispatch(getRequestListItemsById(props.id));
     console.log(props.id, 'props.id');
   }, [props.id]);
 
-  const salaryDetail = useSelector((state) => state.salarySlice.salaryDetail);
-  if (!salaryDetail) return <></>;
+  if (!requestDetails) return <></>;
 
-  if (!requestItems) return <></>;
-
-  const { creator, createDate = moment(), approvers = [{}] } = salaryDetail;
-  const requestItem = requestItems.find((item) => item.id === props.id);
+  const creator = {
+    businessId: 'cfe50d8d-7c47-4abb-9154-661daf129cec',
+    designation: '',
+    email: 'owais@miletap.com',
+    id: '77546782-aa7a-4984-9388-5fd044c0fb11',
+    image:
+      'https://58.65.211.234:4436/Resources\\cfe50d8d-7c47-4abb-9154-661daf129cec\\Images\\45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg',
+    name: 'Owais Shaikh',
+    type: 1,
+    userTypeId: 2,
+    createDate: moment(),
+  };
 
   return (
     <SingleItem onClick={props.onClick}>
@@ -40,29 +46,35 @@ const RequestDetailCard = (props) => {
             Subline={
               <SublineDesigWithTime
                 designation={creator.designation ? creator.designation : ''}
-                time={moment(createDate).fromNow()}
+                time={moment(creator.createDate).fromNow()}
               />
             }
           />
         </div>
       </ItemHeader>
-      <div className="cardSections">
+      <div className="cardSections" style={{ marginTop: '20px' }}>
         <div className="cardSectionItem">
           <div className="cardSection__title">Category</div>
-          <div className="cardSection__body">{requestItem.categoryId}</div>
+          <div className="cardSection__body">
+            {requestDetails.requestItemDetail.categoryId}
+          </div>
         </div>
         <div className="cardSectionItem">
           <div className="cardSection__title">Quantity</div>
-          <div className="cardSection__body">{requestItem.quantity}</div>
+          <div className="cardSection__body">
+            {requestDetails.requestItemDetail.quantity}
+          </div>
         </div>
         <div className="cardSectionItem">
           <div className="cardSection__title">Ref No</div>
-          <div className="cardSection__body">{requestItem.referenceNo}</div>
+          <div className="cardSection__body">
+            {requestDetails.requestItemDetail.referenceNo}
+          </div>
         </div>
       </div>
 
       <RemarksApproval
-        data={approvers}
+        data={requestDetails.requestItemDetail.approvers}
         title="Approvals"
         module={ApprovalsModule.SalaryApproval}
         onStatusChanged={() => {}}

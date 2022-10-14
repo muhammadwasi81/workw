@@ -11,8 +11,7 @@ const RequestDetailedView = (props) => {
       height={'85%'}
       placement={'right'}
       onClose={props.onClose}
-      // visible={!!props.id}
-      visible={true}
+      visible={!!props.id}
       className="drawerSecondary"
     >
       <RequestDetailCard id={props.id} />

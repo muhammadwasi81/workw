@@ -3,6 +3,12 @@ import Avatar from '../../../sharedComponents/Avatar/avatarOLD';
 export const ListTableColumn = () => {
   return [
     {
+      title: 'Category',
+      dataIndex: 'categoryId',
+      ellipsis: true,
+      sort: true,
+    },
+    {
       title: 'Reference No',
       dataIndex: 'referenceNo',
       ellipsis: true,

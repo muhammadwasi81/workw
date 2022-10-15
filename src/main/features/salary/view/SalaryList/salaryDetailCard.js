@@ -32,7 +32,6 @@ function SalaryDetailCard(props) {
     creator,
     basicSalary,
     details,
-    netSalary,
     description = 'Salary Description here',
     approvers = [{}],
     status = 1,

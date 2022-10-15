@@ -7,8 +7,6 @@ import {
   TabbableContainer,
 } from '../../../sharedComponents/AppComponents/MainFlexContainer';
 import { Table } from '../../../sharedComponents/customTable';
-import { salaryTableColumn } from '../../salary/view/SalaryList/tableColumns';
-import { getAllEmployeeSalary } from '../../salary/store/actions';
 import { getAllRequestListItems } from '../store/action';
 import { ROUTES } from '../../../../utils/routes';
 import RequestList from './requestList';
@@ -26,7 +24,6 @@ const Index = () => {
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');
 
-  // TODO: Change this to request slice when it is ready
   const {
     taskList: { list },
     success,
@@ -60,16 +57,7 @@ const Index = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllRequestListItems(payloadData));
-  }, [filterType, search]);
-
-  useEffect(() => {
-    dispatch(
-      getAllEmployeeSalary({
-        filterType,
-        search,
-      })
-    );
+    dispatch(getAllRequestListItems({ payloadData, filterType, search }));
   }, [filterType, search]);
 
   const buttons = [

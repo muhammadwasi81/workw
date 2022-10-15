@@ -72,3 +72,12 @@ export const reactionDescription = {
 	[ReactionType.Celebrate]: "Celebrate",
 	[ReactionType.Curious]: "Curious",
 };
+
+export const reactionColor = {
+	[ReactionType.Like]: "var(--currentThemeColor)",
+	[ReactionType.Love]: "#ef5350",
+	[ReactionType.NoReaction]: "",
+	[ReactionType.Support]: "#5ea180",
+	[ReactionType.Celebrate]: "#7986cb",
+	[ReactionType.Curious]: "#fb8c00",
+};

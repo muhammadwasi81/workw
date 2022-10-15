@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ContBody,
   TabbableContainer,
@@ -9,9 +9,12 @@ import Header from "./Header/header";
 import CareersListView from "./CareersListView";
 import { getAllCareerAction } from "../store/action";
 import MyCareersListView from "./MyCareersListView";
+import CareerCard from "./CareersCard/index";
+import MyCareerCard from "./MyCareerCard/index";
 
 function Careers() {
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
+  const [view, setView] = useState("List");
   console.log(CurrentTab);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,16 +39,20 @@ function Careers() {
   }, [CurrentTab]);
 
   let RenderTab = {
-    careers: <MyCareersListView />,
-    myCareers: <MyCareersListView />,
-    forApprovals: <MyCareersListView />,
+    careers: <CareerCard view={view} />,
+    myCareers: <MyCareerCard view={view} />,
+    forApprovals: <CareerCard view={view} />,
+  };
+
+  const segmentChange = (val) => {
+    setView(val);
   };
 
   return (
     <>
       <TabbableContainer>
         <Header />
-        <TopBar />
+        <TopBar segment={(val) => segmentChange(val)} />
         <ContBody>
           {RenderTab[CurrentTab]}
           {/* <CareersListView /> */}

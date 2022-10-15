@@ -9,16 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import ApplyComposer from "../Composers/applyComposer";
 import { DatePicker, Modal, Skeleton } from "antd";
 import "antd/dist/antd.css";
-import {
-  getAllCareerAction,
-  getCareerByIdAction,
-} from "../../../../features/careers/store/action";
+import { getAllCareerAction, getCareerByIdAction } from "../../store/action";
 import { useNavigate } from "react-router-dom";
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import { tableColumn } from "../TableColumn";
 import { Table } from "../../../../sharedComponents/customTable";
 
-const MyCareersListView = (props) => {
+const MyCareerCard = (props) => {
   const navigate = useNavigate();
   const [openDetail, setOpenDetail] = useState(false);
   const [applyDrawer, setApplyDrawer] = useState(false);
@@ -80,7 +77,11 @@ const MyCareersListView = (props) => {
         onClose={handleDrawerClose}
         id={id}
       />
-      <CardWrapper>
+      <CardWrapper
+        style={{
+          gridTemplateColumns: "repeat(auto-fill,minmax(30rem,1fr))",
+        }}
+      >
         {openDetail && (
           <Modal
             open={openDetail}
@@ -129,4 +130,4 @@ const MyCareersListView = (props) => {
     </>
   );
 };
-export default MyCareersListView;
+export default MyCareerCard;

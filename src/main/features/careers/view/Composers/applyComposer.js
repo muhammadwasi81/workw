@@ -85,7 +85,7 @@ const ApplyComposer = (props) => {
           </Form.Item>
           <Form.Item
             label={"Phone Number"}
-            name="phone"
+            name="phoneNumber"
             rules={[
               {
                 required: true,

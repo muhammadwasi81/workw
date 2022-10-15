@@ -7,7 +7,7 @@ import JobDetails from "../../view/DetailView/DetailComposer/JobDetails";
 import ListItem from "./ListItem";
 import { useDispatch, useSelector } from "react-redux";
 import ApplyComposer from "../Composers/applyComposer";
-import { DatePicker, Modal } from "antd";
+import { DatePicker, Modal, Skeleton } from "antd";
 import "antd/dist/antd.css";
 import {
   getAllCareerAction,
@@ -25,6 +25,7 @@ const MyCareersListView = () => {
   const careers = useSelector((state) => {
     return state.careerSlice.items;
   });
+  const { loader } = useSelector((state) => state.careerSlice);
   const { currentTab } = useSelector((state) => {
     return state.careerSlice;
   });
@@ -89,19 +90,26 @@ const MyCareersListView = () => {
             <JobDetails apply={applyJob} />
           </Modal>
         )}
-
-        {careers.length > 0 ? (
-          careers.map((item) => (
-            <ListItem
-              onClick={() => openJobDetailHandler(item.id)}
-              onClickMyCareer={() => openMyCareerDetail(item.id)}
-              item={item}
-            />
+        {loader ? (
+          [...Array(15)].map((item) => (
+            <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
           ))
         ) : (
-          <div>
-            <h2>No Careers Found!</h2>
-          </div>
+          <>
+            {careers.length > 0 ? (
+              careers.map((item) => (
+                <ListItem
+                  onClick={() => openJobDetailHandler(item.id)}
+                  onClickMyCareer={() => openMyCareerDetail(item.id)}
+                  item={item}
+                />
+              ))
+            ) : (
+              <div>
+                <h2>No Careers Found!</h2>
+              </div>
+            )}
+          </>
         )}
       </CardWrapper>
     </>

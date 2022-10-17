@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { STRINGS } from "../../../../utils/base";
+import { createGuid, STRINGS } from "../../../../utils/base";
 import { createChat, getAllChats, getAllMessages, searchConversation, sendChatMessage } from "./actions";
 
 
@@ -14,7 +14,11 @@ const initialState = {
    },
    currentChatBoxes: [],
    MessengerList: {},
-   Conversations: null
+   Conversations: [
+      {
+         id:createGuid()
+      }
+   ]
 };
 
 export const messengerSlice = createSlice({
@@ -33,19 +37,19 @@ export const messengerSlice = createSlice({
          console.log("Payload", action.payload)
          state.currentMessenger = action.payload
       },
-      handleAppendMessage: (state, action) => {
+      handleAppendMessage: (state, { payload }) => {
+         let currentChatMessages = state.MessengerList[state.currentMessenger.chatId] ?
+            state.MessengerList[state.currentMessenger.chatId] : [];
+         // Append Last Message in MessengerList
+         state.MessengerList[state.currentMessenger.chatId] = [...currentChatMessages, payload]
          // state.currentMessenger = action.payload
       },
    },
 
    extraReducers: (builder) => {
       builder
-        
          .addCase(searchConversation.fulfilled, (state, { payload }) => {
             state.Conversations = payload.data
-         })
-         .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
-            state.MessengerList[state.currentMessenger.chatId] = [...state.MessengerList[state.currentMessenger.chatId], payload.data]
          })
          .addCase(getAllMessages.fulfilled, (state, { payload }) => {
             state.MessengerList[state.currentMessenger.chatId] = payload.data
@@ -53,16 +57,25 @@ export const messengerSlice = createSlice({
 
 
          .addCase(getAllChats.fulfilled, (state, { payload }) => {
-            console.log(payload, "payload")
             state.Conversations = payload
          })
          .addCase(createChat.fulfilled, (state, { payload }) => {
             state.Conversations = [
-               ...(state.Conversations ? state.Conversations : []), 
-               payload] 
+               ...(state.Conversations ? state.Conversations : []),
+               payload
+            ]
+         })
+         .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
+            // let currentChatMessages = state.MessengerList[state.currentMessenger.chatId] ?
+            //    state.MessengerList[state.currentMessenger.chatId] : [];
+            // // Append Last Message in MessengerList
+            // state.MessengerList[state.currentMessenger.chatId] = [...currentChatMessages, {
+            //    ...payload,
+            //    messageByMe: true
+            // }]
          })
    }
 })
 
-export const { handleIsopenChat, handleMessengerItemClick, receiveChatMessage } = messengerSlice.actions
+export const { handleIsopenChat, handleMessengerItemClick, receiveChatMessage, handleAppendMessage } = messengerSlice.actions
 export default messengerSlice.reducer;

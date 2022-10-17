@@ -241,14 +241,14 @@ const NavMenuList = () => {
 			key: label.navMenuLabel.hr,
 		},
 		// *****BY SANJNA****
-		// {
-		//   name: label.navMenuLabel.teams,
-		//   counter: 0,
-		//   icon: teamIcon,
-		//   to: ROUTES.TEAMS.TEAM,
-		//   isActive: true,
-		//   key: label.navMenuLabel.hr,
-		// },
+		{
+		  name: label.navMenuLabel.teams,
+		  counter: 0,
+		  icon: teamIcon,
+		  to: ROUTES.TEAMS.TEAM,
+		  isActive: true,
+		  key: label.navMenuLabel.hr,
+		},
 		{
 			name: label.navMenuLabel.leaves,
 			counter: 0,

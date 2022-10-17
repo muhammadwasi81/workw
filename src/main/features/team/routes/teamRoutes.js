@@ -4,6 +4,7 @@ import TeamList from "../view/TeamList";
 import { ROUTES } from "../../../../utils/routes";
 import { BrokenPage } from "../../../../utils/base";
 import TeamUpdate from "../view/UpdateTeam/TeamPannel";
+import TeamRoutes from "../view/UpdateTeam/TeamRoutes/routes";
 import MyTeam from "..";
 
 function teamRoutes() {

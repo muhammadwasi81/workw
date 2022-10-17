@@ -30,7 +30,7 @@ const TeamCard = ({ image, name, designation, email, id }) => {
               // icon={<EditOutlined />}
               className="ThemeBtn"
               onClick={() => {
-                navigate(`info/attendence/${id}`);
+                navigate(`info/attendence`);
               }}
             >
               Detail

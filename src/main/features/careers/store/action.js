@@ -95,7 +95,7 @@ export const getAllCareerApplicant = createAsyncThunk(
   async (request, { rejectWithValue }) => {
     console.log(request, "GET REQUEST career");
     const response = await getAllCareerApplicantService({ request });
-    console.log(request, "GET REQUEST career 22");
+    console.log(response, "GET REQUEST career applicant");
 
     switch (response.type) {
       case ResponseType.ERROR:

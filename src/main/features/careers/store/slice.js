@@ -23,6 +23,7 @@ const initialState = {
   drawerOpen: false,
   careerDetail: {},
   careerApplicants: [],
+  loader: false,
 };
 
 const careerSlice = createSlice({
@@ -59,11 +60,12 @@ const careerSlice = createSlice({
         // }
       })
       .addCase(getAllCareerApplicant.fulfilled, (state, { payload }) => {
-        // state.careerApplicants = payload;
-        console.log(payload);
+        state.careerApplicants = payload;
+        // console.log(payload);
       })
       .addCase(getAllCareerAction.fulfilled, (state, { payload }) => {
         state.items = payload;
+        state.loader = false;
       })
       .addCase(getCareerByIdAction.fulfilled, (state, { payload }) => {
         console.log(payload, "payload STATE ITEMS");
@@ -73,6 +75,9 @@ const careerSlice = createSlice({
       })
       .addMatcher(isPending(...[addCareerApplicant]), (state) => {
         console.log("pending applied");
+      })
+      .addMatcher(isPending(...[getAllCareerAction]), (state) => {
+        state.loader = true;
       });
   },
 });

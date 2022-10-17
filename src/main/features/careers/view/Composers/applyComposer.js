@@ -13,7 +13,7 @@ const ApplyComposer = (props) => {
     console.log(values, "values in onfinish", props.id);
     const payload = {
       ...values,
-      id: props.id,
+      careerId: props.id,
     };
     dispatch(addCareerApplicant(payload));
     // console.log(props.id);
@@ -85,7 +85,7 @@ const ApplyComposer = (props) => {
           </Form.Item>
           <Form.Item
             label={"Phone Number"}
-            name="phone"
+            name="phoneNumber"
             rules={[
               {
                 required: true,

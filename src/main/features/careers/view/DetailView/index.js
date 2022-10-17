@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from "../../view/Header/header";
 import Card from "./ShortDetailCard";
 import styled from "styled-components";
-import { getAllCareerApplicant } from "../../store/action";
+import { getAllCareerApplicant, getCareerByIdAction } from "../../store/action";
 import "../styles/style.css";
 import CandidateList from "./CandidateListView";
 import { useParams } from "react-router-dom";
@@ -20,11 +20,12 @@ function JobDetails() {
   });
 
   useEffect(() => {
-    console.log("useEffect works");
+    console.log("useEffect works in detail");
     const payload = {
       careerIds: [id],
     };
     dispatch(getAllCareerApplicant(payload));
+    dispatch(getCareerByIdAction(id));
   }, []);
 
   // console.log(careerDetail);
@@ -36,7 +37,7 @@ function JobDetails() {
       <Header />
       <ContBody>
         <CardWrapper>
-          <Card data={careerDetail} />
+          <Card />
           <CandidateList />
         </CardWrapper>
       </ContBody>

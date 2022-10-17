@@ -46,12 +46,19 @@ const PostFooter = ({
 	} = Post;
 
 	const handleAddReaction = (reactionType, id) => {
-		console.log("reactionType", reactionType, id);
+		// console.log("reactionType", reactionType, id);
 		if (reactionType === 0) {
 			dispatch(
 				addFeedReaction({
 					referenceId: id,
 					reactionMode: "click",
+					reactionType: 1,
+				})
+			);
+			dispatch(
+				addReaction({
+					referenceId: id,
+					reactionModule,
 					reactionType: 1,
 				})
 			);
@@ -64,35 +71,29 @@ const PostFooter = ({
 				reactionType,
 			})
 		);
-		// dispatch(
-		// 	addReaction({
-		// 		referenceId: id,
-		// 		reactionModule,
-		// 		reactionType: e,
-		// 	})
-		// );
+		dispatch(
+			addReaction({
+				referenceId: id,
+				reactionModule,
+				reactionType: 0,
+			})
+		);
 	};
 
 	return (
 		<div className="post-footer">
-			<div className="post-count">
+			<div className="post-count h-[20px]">
 				<div className="reactionCount">
 					<span>
-						{ReactionType.Like === reactionType ? (
-							<span className="text-primary-color ">
-								{reactions[reactionType]}
-							</span>
-						) : (
-							<img
-								// className={
-								// 	ReactionType.NoReaction === reactionType
-								// 		? " w-[20px] h-[30px]"
-								// 		: " w-[30px] h-[30px]"
-								// }
-								src={reactions[reactionType]}
-								alt={reactionDescription[reactionType]}
-							/>
-						)}
+						<img
+							// className={
+							// 	ReactionType.NoReaction === reactionType
+							// 		? " w-[20px] h-[30px]"
+							// 		: " w-[30px] h-[30px]"
+							// }
+							src={reactions[reactionType]}
+							alt={reactionDescription[reactionType]}
+						/>
 					</span>
 					{/* <img src={reactions[reactionType]} alt="" /> */}
 					<a href={reactionCount}>{reactionCount}</a>
@@ -129,22 +130,16 @@ const PostFooter = ({
 							onClick={() => handleAddReaction(reactionType, id)}
 						>
 							<span>
-								{ReactionType.Like === reactionType ? (
-									<span className="text-primary-color w-[20px] h-[30px]">
-										{reactions[reactionType]}
-									</span>
-								) : (
-									<img
-										className={
-											ReactionType.NoReaction ===
-											reactionType
-												? " w-[20px] h-[30px]"
-												: " w-[30px] h-[30px]"
-										}
-										src={reactions[reactionType]}
-										alt={reactionDescription[reactionType]}
-									/>
-								)}
+								<img
+									className={
+										ReactionType.Like === reactionType ||
+										ReactionType.NoReaction === reactionType
+											? "w-[20px] h-[30px]"
+											: " w-[30px] h-[30px]"
+									}
+									src={reactions[reactionType]}
+									alt={reactionDescription[reactionType]}
+								/>
 							</span>
 							<div
 								className={`text-[${reactionColor[reactionType]}]`}
@@ -178,7 +173,7 @@ const PostFooter = ({
 					dispatch(feedSlice.actions.onSaveComment({ comment }))
 				}
 			/>
-			{viewAllComments && comments.length > 3 && (
+			{commentCount > 3 && (
 				<p
 					className="viewComments"
 					onClick={() => {

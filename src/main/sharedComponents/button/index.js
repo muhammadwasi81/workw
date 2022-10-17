@@ -3,7 +3,7 @@ import { Button, Badge } from "antd";
 import AntTooltip from "../Tooltip/AntTooltip";
 import { useMediaQuery } from "react-responsive";
 
-const Index = ({
+const SharedButton = ({
   type,
   shape,
   icon,
@@ -64,4 +64,4 @@ const Index = ({
   );
 };
 
-export default Index;
+export default SharedButton;

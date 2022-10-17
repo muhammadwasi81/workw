@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import bell from "../../../../content/svg/topMenu/mobileNotificationIcon.svg";
 import SharedButton from "../../button";
 import ApprovalIcon from "../../../../content/svg/topMenu/mobileapprovalIcon.svg";
@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Popover } from "antd";
 import Notification from "./notification/";
 import Approvals from "./approvals/";
+import { useLocation } from "react-router-dom";
 
 const Index = () => {
   const [darkMode, setDarkMode] = useState(window.localStorage.getItem("darkMode") === "1");
@@ -31,12 +32,22 @@ const Index = () => {
     window.localStorage.setItem("darkMode", status ? "1" : "0");
   };
   const dispatch = useDispatch();
+  const location = useLocation();
+  const [isHide, setIsHide] = useState(false);
   const { sideBarChatStatus } = useSelector((state) => state.sideBarChatSlice);
   const [showNotification, setShowNotification] = useState(false);
   const [showApprovals, setShowApprovals] = useState(false);
 
+  useEffect(() => {
+		if (location.pathname.includes("/messenger")) {
+			setIsHide(true);
+		} else setIsHide(false);
+	}, [location]);
+
   return (
-    <div className="bottomNavigationTab">
+    <div className="bottomNavigationTab"
+    style={{ display: isHide ? "none" : "block" }}
+    >
       <div className="bottom-tab-Item" onClick={() => setShowNotification(true)}>
         <SharedButton
           type="default"

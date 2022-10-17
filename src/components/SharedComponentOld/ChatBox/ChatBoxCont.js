@@ -6,15 +6,17 @@ import ChatBoxFoot from "./ChatBoxFoot";
 import ChatBoxHead from "./ChatBoxHead";
 import './style/index.css';
 
-const ChatBoxCont = (props) => {
+const ChatBoxCont = ({ isHide }) => {
     const messageList = useSelector((state) => state.MessengerSlice.MessengerList)
     return (
-        <div className="ChatBoxCont" >
+        <div className="ChatBoxCont"
+            style={{ display: isHide ? "none" : "flex" }}
+        >
             {
-                [].map((val) => (
+                [1, 1, 1].map((val) => (
                     <ChatBox>
                         <ChatBoxHead />
-                        <MessengerList isChatBox={true} messageList={messageList.chatId} />
+                        <MessengerList isChatBox={true} messageList={messageList["f8f9133b-e3d8-4692-75f4-8fdab58fcd0d"]} />
                         <ChatBoxFoot />
                     </ChatBox>
                 )

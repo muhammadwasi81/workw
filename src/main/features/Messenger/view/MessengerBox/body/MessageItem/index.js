@@ -4,6 +4,7 @@ import Avatar from "../../../../../../sharedComponents/Avatar/avatarOLD";
 import Attachments from "../../../../../travel/view/UI/Attachments";
 import { getMessageStatus } from "../../../../utils/Functions";
 import MessageProfile from "./messageProfile";
+import MessageStatusView, { getIconByStatus } from "./messageStatusView";
 
 const MessengerListItem = ({
 	messgeItem,
@@ -21,10 +22,9 @@ const MessengerListItem = ({
 	const { chatType } = messengerDetail;
 
 	return (
-		<div id={id} className={ !messageByMe ? "MessengerListItem" : "MessengerListItem-ME" } >
+		<div id={id} className={!messageByMe ? "MessengerListItem" : "MessengerListItem-ME"} >
 			<MessageProfile />
 			<div className="MessageBubble">
-				{/* {attachments.map(item => <img src={item.path} />)} */}
 				{
 					messageType === 'voice' &&
 					<audio controls>
@@ -44,10 +44,15 @@ const MessengerListItem = ({
 						// );
 					}}
 				/>}
-				{message}
-			</div>
-			<div>
-				{messageByMe && status}
+				<div className="flex items-end flex-col" >
+					<div className="textMsgArea">
+						{message}
+					</div>
+					<MessageStatusView
+						messageByMe={messageByMe}
+						status={status}
+					/>
+				</div>
 			</div>
 		</div>
 	);

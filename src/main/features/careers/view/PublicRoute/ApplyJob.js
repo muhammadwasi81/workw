@@ -1,27 +1,35 @@
-import React, { useState } from "react";
-import { Button, Divider, Tag, Avatar, message } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Divider, Tag, Avatar } from "antd";
 import "antd/dist/antd.css";
-import JobHeader from "./JobHeader";
-import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
+import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 import {
   ItemContent,
   ItemHeader,
   SingleItem,
-} from "../../../../../sharedComponents/Card/CardStyle";
-import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
+} from "../../../../sharedComponents/Card/CardStyle";
 import { LinkOutlined } from "@ant-design/icons";
 import "./style.css";
-import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { ROUTES } from "../../../../../../utils/routes";
+import { getCareerByIdAction } from "../../store/action";
+import { useParams } from "react-router-dom";
+import ApplyComposer from "../Composers/applyComposer";
 
 const JobDetails = (props) => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    //call career by id function
+    dispatch(getCareerByIdAction(id));
+  }, []);
+
+  console.log(id, "id");
   const careerDetail = useSelector((state) => {
     return state.careerSlice.careerDetail;
   });
-  const [copy, setCopy] = useState(false);
 
   const {
     city,
@@ -36,51 +44,43 @@ const JobDetails = (props) => {
     maxSalary,
     experience,
     endDate,
-    id,
   } = careerDetail;
 
-  console.log("career detail", careerDetail);
+  console.log(careerDetail, "career detail in apply job");
 
-  const copyfunc = () => {
-    setCopy(true);
+  const handleDrawerClose = () => {
+    setVisible(false);
   };
-  // const { name, image, designation } = creator;
-  // console.log(jobDesc, "JOB DETAILLLLLL");
 
   const skillsArray = skills?.split(",");
 
-  let notesTime = !moment(new Date()).fromNow(createDate)
-    ? moment(createDate).format("LT")
-    : moment(createDate).format("MMM Do YYYY");
+  //   let notesTime = !moment(new Date()).fromNow(createDate)
+  //     ? moment(createDate).format("LT")
+  //     : moment(createDate).format("MMM Do YYYY");
   return (
     <>
-      {copy && message.success("Copied")}
-      <div className="item-card careersQuickDetail">
+      <ApplyComposer visible={visible} onClose={handleDrawerClose} id={id} />
+      <div className="item careersQuickDetail">
         <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
           <div>
             <Avatar size={45} src={creator?.image} />
           </div>
           <div className="flex-1">
             <div className="text-[16px] font-bold text-sky-900">
-              {designation}
+              {"designation"}
             </div>
             <div className="font-bold">{department}</div>
             <div className="text-xs">
-              Karachi, Pakistan - {moment(createDate).fromNow()}
+              {city}, {country} - {moment(createDate).fromNow()}
             </div>
           </div>
           <div className="linkDiv">
-            <Tag className="LinkTag ThemeBtn" onClick={() => props.apply()}>
+            <Tag className="LinkTag ThemeBtn" onClick={() => setVisible(true)}>
               {"Apply Now"}
             </Tag>
-            <CopyToClipboard
-              text={`${window.location.origin}${ROUTES.CAREER.APPLYJOB}/${id}`}
-              onCopy={copyfunc}
-            >
-              <Tag className="LinkTag ThemeBtn">
-                <LinkOutlined /> {"Copy Link"}
-              </Tag>
-            </CopyToClipboard>
+            {/* <Tag className="LinkTag ThemeBtn">
+              <LinkOutlined /> {"Copy Link"}
+            </Tag> */}
           </div>
         </div>
 
@@ -97,12 +97,6 @@ const JobDetails = (props) => {
                   return <Tag className="LinkTag">{item}</Tag>;
                 })
               : null}
-            {/*  <Tag className="LinkTag">{"React.js"}</Tag>
-            <Tag className="LinkTag">{"React Native"}</Tag>
-             <Tag className="LinkTag">{"Node.js"}</Tag>
-             <Tag className="LinkTag">{"Mongo db"}</Tag>
-             <Tag className="LinkTag">{"Express.js"}</Tag>
-             <Tag className="LinkTag">{"Next.js"}</Tag> */}
           </div>
         </div>
 

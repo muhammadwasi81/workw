@@ -54,8 +54,8 @@ function TeamActivities({ id }) {
                     }}
                   >
                     {IconName}
+
                     {!isTabletOrMobile && displayName}
-                    {/* {!isTabletOrMobile && team[displayName]} */}
                   </Link>
                 </Tooltip>
               </Item>

@@ -4,7 +4,7 @@ import CommentIcon from "../../../../../../../content/NewContent/NewsFeed/svg/co
 import ShareIcon from "../../../../../../../content/NewContent/NewsFeed/svg/share.svg";
 import Reactions from "../../../../../../sharedComponents/reactionBox/index";
 import { useDispatch } from "react-redux";
-import { feedSlice } from "../../../../store/slice";
+import { addFeedReaction, feedSlice } from "../../../../store/slice";
 import { Link, useNavigate } from "react-router-dom";
 import CommentWrapper from "../../../../../../sharedComponents/Comment/CommentWrapper";
 import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
@@ -12,7 +12,11 @@ import { FeedDictionary } from "../../../../localization";
 import { ROUTES } from "../../../../../../../utils/routes";
 import { ReactionType } from "../../../../utils/constants";
 
-import { reactionDescription, reactions } from "../../../reactions/reactions";
+import {
+	reactionColor,
+	reactionDescription,
+	reactions,
+} from "../../../reactions/reactions";
 import { addReaction } from "../../../../store/actions";
 
 const PostFooter = ({
@@ -26,6 +30,7 @@ const PostFooter = ({
 	referenceType,
 	referenceId,
 	reactionModule,
+	reactionType,
 }) => {
 	const dispatch = useDispatch();
 	let navigate = useNavigate();
@@ -40,11 +45,57 @@ const PostFooter = ({
 		WriteYourReplyHere,
 	} = Post;
 
+	const handleAddReaction = (reactionType, id) => {
+		// console.log("reactionType", reactionType, id);
+		if (reactionType === 0) {
+			dispatch(
+				addFeedReaction({
+					referenceId: id,
+					reactionMode: "click",
+					reactionType: 1,
+				})
+			);
+			dispatch(
+				addReaction({
+					referenceId: id,
+					reactionModule,
+					reactionType: 1,
+				})
+			);
+			return;
+		}
+		dispatch(
+			addFeedReaction({
+				referenceId: id,
+				reactionMode: "click",
+				reactionType,
+			})
+		);
+		dispatch(
+			addReaction({
+				referenceId: id,
+				reactionModule,
+				reactionType: 0,
+			})
+		);
+	};
+
 	return (
 		<div className="post-footer">
-			<div className="post-count">
+			<div className="post-count h-[20px]">
 				<div className="reactionCount">
-					<img src={LikeIcon} alt="" />
+					<span>
+						<img
+							// className={
+							// 	ReactionType.NoReaction === reactionType
+							// 		? " w-[20px] h-[30px]"
+							// 		: " w-[30px] h-[30px]"
+							// }
+							src={reactions[reactionType]}
+							alt={reactionDescription[reactionType]}
+						/>
+					</span>
+					{/* <img src={reactions[reactionType]} alt="" /> */}
 					<a href={reactionCount}>{reactionCount}</a>
 				</div>
 				<div className="commentCount">
@@ -59,6 +110,13 @@ const PostFooter = ({
 						direction={Direction}
 						onUpdate={e => {
 							dispatch(
+								addFeedReaction({
+									referenceId: id,
+									reactionModule,
+									reactionType: e,
+								})
+							);
+							dispatch(
 								addReaction({
 									referenceId: id,
 									reactionModule,
@@ -67,25 +125,28 @@ const PostFooter = ({
 							);
 						}}
 					>
-						<div className={`btn on`}>
+						<div
+							className={`btn on`}
+							onClick={() => handleAddReaction(reactionType, id)}
+						>
 							<span>
-								{ReactionType.Like === 1 ? (
-									<span className="text-primary-color w-[20px] h-[30px]">
-										{reactions[1]}
-									</span>
-								) : (
-									<img
-										className={
-											ReactionType.NoReaction === 0
-												? " w-[20px] h-[30px]"
-												: " w-[30px] h-[30px]"
-										}
-										src={reactions[0]}
-										alt=""
-									/>
-								)}
+								<img
+									className={
+										ReactionType.Like === reactionType ||
+										ReactionType.NoReaction === reactionType
+											? "w-[20px] h-[30px]"
+											: " w-[30px] h-[30px]"
+									}
+									src={reactions[reactionType]}
+									alt={reactionDescription[reactionType]}
+								/>
 							</span>
-							<div> {reactionDescription[1]}</div>
+							<div
+								className={`text-[${reactionColor[reactionType]}]`}
+								style={{ color: reactionColor[reactionType] }}
+							>
+								{reactionDescription[reactionType]}
+							</div>
 						</div>
 					</Reactions>
 				</div>
@@ -112,7 +173,7 @@ const PostFooter = ({
 					dispatch(feedSlice.actions.onSaveComment({ comment }))
 				}
 			/>
-			{viewAllComments && comments.length > 3 && (
+			{commentCount > 3 && (
 				<p
 					className="viewComments"
 					onClick={() => {

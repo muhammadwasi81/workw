@@ -66,7 +66,7 @@ const JobDetails = (props) => {
             </div>
             <div className="font-bold">{department}</div>
             <div className="text-xs">
-              Karachi, Pakistan - {moment(createDate).fromNow()}
+              {city}, {country} - {moment(createDate).fromNow()}
             </div>
           </div>
           <div className="linkDiv">
@@ -114,18 +114,20 @@ const JobDetails = (props) => {
           <div className="cardSectionItem">
             <div className="cardSection__title">Effective Date</div>
             <div className="cardSection__body">
-              {moment(createDate).format("Do MMM YY")}
+              {createDate ? moment(createDate).format("Do MMM YY") : "-"}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Experience Required</div>
-            <div className="cardSection__body">{experience}</div>
+            <div className="cardSection__body">
+              {experience ? experience : "-"}
+            </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Job Expires</div>
             <div className="cardSection__body">
               {" "}
-              {moment(endDate).format("Do MMM YY")}
+              {endDate ? moment(endDate).format("Do MMM YY") : "-"}
             </div>
           </div>
         </div>

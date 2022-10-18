@@ -9,6 +9,7 @@ import {
   createGuid,
   getNameForImage,
   modifySelectData,
+  STRINGS,
 } from "../../../../../utils/base";
 import { useSelector } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
@@ -36,6 +37,7 @@ const Composer = (props) => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [reviewCriteria, setReviewCriteria] = useState([]);
+  const [attachments, setAttachment] = useState([]);
   const { cities } = useSelector((state) => state.sharedSlice);
   const {
     sharedSlice: { employees },
@@ -121,6 +123,9 @@ const Composer = (props) => {
         };
       }),
       skills: values.skills.join(),
+      image: [
+        { file: attachments[0].originFileObj, id: STRINGS.DEFAULTS.guid },
+      ],
     };
     dispatch(addCareer(payload));
     form.resetFields();
@@ -595,9 +600,11 @@ const Composer = (props) => {
           )}
         />
 
-        <Form.Item area="true" label="Attachment">
+        <Form.Item area="true" label="Attachment" name="attachment">
           <SingleUpload
-            handleImageUpload={() => {}}
+            handleImageUpload={(val) => {
+              setAttachment(val);
+            }}
             img="Add Image"
             position="flex-start"
             uploadText={"Upload"}

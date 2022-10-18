@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Drawer, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { addCareerApplicant } from "../../store/action";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
+import { STRINGS } from "../../../../../utils/base";
 
 const ApplyComposer = (props) => {
   const dispatch = useDispatch();
-  console.log(props);
+  const [attachments, setAttachment] = useState([]);
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log(values, "values in onfinish", props.id);
+    console.log(attachments[0].originFileObj);
     const payload = {
       ...values,
       careerId: props.id,
+      attachments: [
+        { file: attachments[0].originFileObj, id: STRINGS.DEFAULTS.guid },
+      ],
     };
     dispatch(addCareerApplicant(payload));
     form.resetFields();
@@ -169,9 +174,11 @@ const ApplyComposer = (props) => {
           <Form.Item label={"Cover Note"} name="note">
             <Input.TextArea size="large" placeholder={"Cover Note"} />
           </Form.Item>
-          <Form.Item area="true" label="Attachment">
+          <Form.Item area="true" label="Attachment" name="attachment">
             <SingleUpload
-              handleImageUpload={() => {}}
+              handleImageUpload={(val) => {
+                setAttachment(val);
+              }}
               img="Add Image"
               position="flex-start"
               uploadText={"Upload"}

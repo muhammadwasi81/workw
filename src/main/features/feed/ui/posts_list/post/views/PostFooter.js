@@ -44,7 +44,7 @@ const PostFooter = ({
 		WriteYourCommentHere,
 		WriteYourReplyHere,
 	} = Post;
-
+	// console.log("comments", comments);
 	const handleAddReaction = (reactionType, id) => {
 		// console.log("reactionType", reactionType, id);
 		if (reactionType === 0) {
@@ -86,16 +86,11 @@ const PostFooter = ({
 				<div className="reactionCount">
 					<span>
 						<img
-							// className={
-							// 	ReactionType.NoReaction === reactionType
-							// 		? " w-[20px] h-[30px]"
-							// 		: " w-[30px] h-[30px]"
-							// }
 							src={reactions[reactionType]}
 							alt={reactionDescription[reactionType]}
 						/>
 					</span>
-					{/* <img src={reactions[reactionType]} alt="" /> */}
+
 					<a href={reactionCount}>{reactionCount}</a>
 				</div>
 				<div className="commentCount">
@@ -105,7 +100,10 @@ const PostFooter = ({
 				</div>
 			</div>
 			<div className="post-events">
-				<div className={`btn on`}>
+				<div
+					className={`btn on`}
+					onClick={() => handleAddReaction(reactionType, id)}
+				>
 					<Reactions
 						direction={Direction}
 						onUpdate={e => {
@@ -124,11 +122,11 @@ const PostFooter = ({
 								})
 							);
 						}}
+						// onLikeBtnClick={() =>
+						// 	handleAddReaction(reactionType, id)
+						// }
 					>
-						<div
-							className={`btn on`}
-							onClick={() => handleAddReaction(reactionType, id)}
-						>
+						<div className={`btn on`}>
 							<span>
 								<img
 									className={

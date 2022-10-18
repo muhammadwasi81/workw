@@ -21,10 +21,10 @@ function CommentWrapper({
 	const [comments, setComments] = useState([]);
 	const { user } = useSelector(state => state.userSlice);
 	useEffect(() => {
-		if (initailComments.length > 0) {
-			setComments([...initailComments]);
-		}
-	}, [initailComments]);
+		setComments([...initailComments]);
+		// if (initailComments.length > 0) {
+		// }
+	}, [JSON.stringify(initailComments)]);
 
 	useEffect(() => {
 		isCommentLoad &&

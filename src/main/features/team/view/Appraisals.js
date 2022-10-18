@@ -27,8 +27,8 @@ function Appraisals() {
         bordered
         columns={columns}
         // dragable={true}
-        scroll={{ x: 500 }}
-        size="small"
+        // scroll={{ x: true }}
+        className="custom_table"
         dataSource={[
           {
             position: "one",

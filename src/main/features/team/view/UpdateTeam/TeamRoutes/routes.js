@@ -18,7 +18,7 @@ import "../../../Styles/team.css";
 const TeamRoutes = () => {
   return (
     <>
-      <div className="updateFormsBody">
+      <div className="updateFormsBody w-full">
         <Routes>
           <Route path={"attendence/:id"} element={<Attendence />} />
           <Route path={"check-in/:id"} element={<CheckIn />} />

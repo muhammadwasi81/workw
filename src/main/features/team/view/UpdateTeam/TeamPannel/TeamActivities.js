@@ -16,6 +16,7 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../../../../sharedComponents/AppComponents/MainFlexContainer";
+import "../../../Styles/table.css";
 
 function TeamActivities({ id }) {
   const { userLanguage } = useContext(LanguageChangeContext);

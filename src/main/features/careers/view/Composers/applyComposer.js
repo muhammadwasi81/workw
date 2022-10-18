@@ -16,7 +16,6 @@ const ApplyComposer = (props) => {
       careerId: props.id,
     };
     dispatch(addCareerApplicant(payload));
-    // console.log(props.id);
     form.resetFields();
     props.onClose();
   };

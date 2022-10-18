@@ -19,10 +19,10 @@ import Composer from "./Composers/index";
 function Careers() {
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
   const { drawerOpen } = useSelector((state) => state.careerSlice);
-  console.log(drawerOpen);
+  // console.log(drawerOpen);
   const [search, setSearch] = useState("");
   const [view, setView] = useState("List");
-  console.log(CurrentTab);
+  // console.log(CurrentTab);
   const dispatch = useDispatch();
   useEffect(() => {
     if (CurrentTab === "careers") {
@@ -68,13 +68,13 @@ function Careers() {
         <Header
           buttons={[
             {
-              buttonText: "Create Travel",
+              buttonText: "Create Career",
               render: (
                 <Button
                   className="ThemeBtn"
                   onClick={() => dispatch(handleOpenComposer(true))}
                 >
-                  Create Reward
+                  Create Career
                 </Button>
               ),
             },

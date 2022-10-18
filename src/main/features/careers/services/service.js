@@ -63,11 +63,16 @@ export const getAllCareerService = async (data) => {
   }
 };
 
-export const getAllCareerApplicantService = async (data) => {
+export const getAllCareerApplicantService = async (daa) => {
+  console.log(daa, "data in get all career applicants");
+  const payload = {
+    pageSize: 50,
+    careerIds: daa.request.careerIds,
+  };
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.post(`api/Career/GetAllCareer`, data);
+    } = await Config.post(`api/Career/GetAllCareerApplicant`, payload);
     if (responseCode === responseCodeEnum.Success)
       return ResponseResultSuccess(data);
     return ResponseResultError(message);

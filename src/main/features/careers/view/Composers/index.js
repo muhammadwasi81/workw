@@ -123,9 +123,7 @@ const Composer = (props) => {
         };
       }),
       skills: values.skills.join(),
-      image: [
-        { file: attachments[0].originFileObj, id: STRINGS.DEFAULTS.guid },
-      ],
+      image: { file: attachments[0].originFileObj, id: STRINGS.DEFAULTS.guid },
     };
     dispatch(addCareer(payload));
     form.resetFields();

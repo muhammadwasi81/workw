@@ -23,7 +23,7 @@ function Index(props) {
     <>
       <TopBar
         onSearch={(value) => {
-          setFilter({ ...filter, search: value });
+          props.onSearch(value);
         }}
         buttons={[
           {

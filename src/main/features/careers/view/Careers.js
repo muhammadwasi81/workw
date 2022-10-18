@@ -15,6 +15,7 @@ import ForApprovalCard from "./ForApprovalCard/index";
 
 function Careers() {
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
+  const [search, setSearch] = useState("");
   const [view, setView] = useState("List");
   console.log(CurrentTab);
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function Careers() {
       console.log("careers");
       let payload = {
         filterType: 0,
+        search: search,
       };
       dispatch(getAllCareerAction(payload));
     } else {
@@ -34,10 +36,11 @@ function Careers() {
             : CurrentTab === "forApprovals"
             ? 2
             : null,
+        search: search,
       };
       dispatch(getAllCareerAction(payload));
     }
-  }, [CurrentTab]);
+  }, [CurrentTab, search]);
 
   let RenderTab = {
     careers: <CareerCard view={view} />,
@@ -53,7 +56,10 @@ function Careers() {
     <>
       <TabbableContainer>
         <Header />
-        <TopBar segment={(val) => segmentChange(val)} />
+        <TopBar
+          segment={(val) => segmentChange(val)}
+          onSearch={(val) => setSearch(val)}
+        />
         <ContBody>{RenderTab[CurrentTab]}</ContBody>
       </TabbableContainer>
     </>

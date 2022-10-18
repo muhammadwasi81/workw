@@ -16,6 +16,7 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../../../../sharedComponents/AppComponents/MainFlexContainer";
+import "../../../Styles/table.css";
 
 function TeamActivities({ id }) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -54,8 +55,8 @@ function TeamActivities({ id }) {
                     }}
                   >
                     {IconName}
+
                     {!isTabletOrMobile && displayName}
-                    {/* {!isTabletOrMobile && team[displayName]} */}
                   </Link>
                 </Tooltip>
               </Item>

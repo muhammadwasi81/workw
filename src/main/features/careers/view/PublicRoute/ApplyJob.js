@@ -73,6 +73,7 @@ const JobDetails = (props) => {
             <div className="text-[16px] font-bold text-sky-900">
               {designation ? designation : "-"}
             </div>
+
             <div className="font-bold">{department}</div>
             <div className="text-xs">
               {city}, {country} - {moment(createDate).fromNow()}

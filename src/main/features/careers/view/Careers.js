@@ -11,6 +11,7 @@ import { getAllCareerAction } from "../store/action";
 import MyCareersListView from "./MyCareersListView";
 import CareerCard from "./CareersCard/index";
 import MyCareerCard from "./MyCareerCard/index";
+import ForApprovalCard from "./ForApprovalCard/index";
 
 function Careers() {
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
@@ -41,7 +42,7 @@ function Careers() {
   let RenderTab = {
     careers: <CareerCard view={view} />,
     myCareers: <MyCareerCard view={view} />,
-    forApprovals: <CareerCard view={view} />,
+    forApprovals: <ForApprovalCard view={view} />,
   };
 
   const segmentChange = (val) => {
@@ -53,10 +54,7 @@ function Careers() {
       <TabbableContainer>
         <Header />
         <TopBar segment={(val) => segmentChange(val)} />
-        <ContBody>
-          {RenderTab[CurrentTab]}
-          {/* <CareersListView /> */}
-        </ContBody>
+        <ContBody>{RenderTab[CurrentTab]}</ContBody>
       </TabbableContainer>
     </>
   );

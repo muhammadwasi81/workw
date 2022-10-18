@@ -69,27 +69,15 @@ function Experience() {
   ];
   return (
     <>
-      {experiencedetails.map((itm) => {
-        return (
-          <TeamTable
-            bordered
-            columns={columns}
-            // dragable={true}
-            // scroll={{ x: true }}
-            // size="small"
-            className="custom_table"
-            dataSource={[
-              {
-                position: itm.position,
-                employmentTypeId: itm.employmentTypeId,
-
-                cityId: itm.city,
-                startDate: itm.startDate,
-              },
-            ]}
-          />
-        );
-      })}
+      <TeamTable
+        bordered
+        columns={columns}
+        // dragable={true}
+        // scroll={{ x: true }}
+        // size="small"
+        className="custom_table"
+        dataSource={experiencedetails}
+      />
     </>
   );
 }

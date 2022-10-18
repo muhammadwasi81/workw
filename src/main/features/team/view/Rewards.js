@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
+import { getRewardsAction } from "../store/action";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import moment from "moment";
 
 function Rewards() {
+  const dispatch = useDispatch();
+  const { id } = useParams;
+  const {
+    team: { rewardsdetails },
+    success,
+  } = useSelector((state) => state.teamSlice);
+
+  useEffect(() => {
+    dispatch(getRewardsAction({}));
+  }, []);
   const columns = [
     {
       title: "Reference No.",
@@ -28,6 +42,13 @@ function Rewards() {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      render: (value, row) => {
+        return value?.length
+          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
+              row.startDate[1]
+            ).format("YYYY/MM/DD")}`
+          : `${moment(row.start).format("YYYY/MM/DD")}`;
+      },
     },
   ];
   return (
@@ -35,18 +56,8 @@ function Rewards() {
       <TeamTable
         bordered
         columns={columns}
-        // dragable={true}
-        // scroll={{ x: true }}
         className="custom_table"
-        dataSource={[
-          {
-            referenceNo: "bbb",
-            status: "0",
-            category: "bb",
-            name: "bbb",
-            date: "bbb",
-          },
-        ]}
+        dataSource={rewardsdetails}
       />
     </>
   );

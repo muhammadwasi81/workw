@@ -73,29 +73,15 @@ function Education() {
   ];
   return (
     <>
-      {educationdetails?.map((itm) => {
-        return (
-          <TeamTable
-            bordered
-            columns={columns}
-            // dragable={true}
-            // scroll={{ x: true }}
-            // size="small"
-            className="custom_table"
-            dataSource={[
-              {
-                degree: itm.degree,
-                institute: itm.institute,
-                city: itm.city,
-                description: itm.description,
-                obtainedMarks: itm.obtainedMarks,
-                totalMarks: itm.totalMarks,
-                startDate: itm.startDate,
-              },
-            ]}
-          />
-        );
-      })}
+      <TeamTable
+        bordered
+        columns={columns}
+        // dragable={true}
+        // scroll={{ x: true }}
+        // size="small"
+        className="custom_table"
+        dataSource={educationdetails}
+      />
     </>
   );
 }

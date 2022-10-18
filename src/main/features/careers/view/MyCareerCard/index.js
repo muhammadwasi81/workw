@@ -79,7 +79,7 @@ const MyCareerCard = (props) => {
       />
       <CardWrapper
         style={{
-          gridTemplateColumns: "repeat(auto-fill,minmax(30rem,1fr))",
+          gridTemplateColumns: "repeat(auto-fill,minmax(38rem,1fr))",
         }}
       >
         {openDetail && (

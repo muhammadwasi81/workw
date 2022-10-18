@@ -23,6 +23,8 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     maxSalary,
     experience,
     endDate,
+    city,
+    country,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
 
@@ -33,16 +35,6 @@ function ListItem({ item, onClick, onClickMyCareer }) {
       <SingleItem onClick={onClick}>
         <ItemHeader className="ItemHeader">
           <div className="flex items-center gap-3">
-            {/* {image.length > 1 && (
-              <Avatar
-                src={item.creator?.image}
-                className="addPostAvatar"
-                name={item.creator?.name}
-                width={40}
-                height={40}
-                round={true}
-              />
-            )} */}
             <Avatar
               src={item.creator?.image}
               className="addPostAvatar"
@@ -65,35 +57,27 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           </div>
           <p className="careersDescShort">{item.description}</p>
         </ItemContent>
-        {/* <div>
-          {item.city} 
-          {item.country}
-           {item.jobTypeId}
-            
-          {item.createDate}
-        </div> */}
+
         <div className="flex justify-between">
-          <div className="flex gap-x-8">
-            <p className="careerFooterText">
-              Karachi, Pakistan -{" "}
-              {CareerLevelTypeEnum.map((item) => {
-                if (item.value === jobTypeId) {
-                  return item.label;
-                }
-              })}
-            </p>
-            <p className="careerFooterText flex gap-x-2 items-baseline">
-              <FieldTimeOutlined />
-              <p>{moment(createDate).fromNow()}</p>
-            </p>
+          <div className="careerFooterText">
+            {city}, {country} -{" "}
+            {CareerLevelTypeEnum.map((item) => {
+              if (item.value === jobTypeId) {
+                return item.label;
+              }
+            })}
           </div>
-          <p className="careersDescShort">
+          <div className="careerFooterText flex gap-x-2 items-baseline">
+            <FieldTimeOutlined />
+            {moment(createDate).fromNow()}
+          </div>
+          <div className="careersDescShort">
             {CareerStatusEnum.map((item) => {
               if (item.value === status) {
                 return item.label;
               }
             })}
-          </p>
+          </div>
         </div>
       </SingleItem>
     </>

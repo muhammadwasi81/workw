@@ -56,7 +56,7 @@ const MyApprovalCard = (props) => {
       <ApprovalComposer visible={openDetail} onClose={handleCancel} id={id} />
       <CardWrapper
         style={{
-          gridTemplateColumns: "repeat(auto-fill,minmax(30rem,1fr))",
+          gridTemplateColumns: "repeat(auto-fill,minmax(38rem,1fr))",
         }}
       >
         {!table && (

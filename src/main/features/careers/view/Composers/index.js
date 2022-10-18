@@ -26,8 +26,9 @@ import {
 import { getAllDefaultHiringCriteriaService } from "../../defaultHiringCriteria/services/service";
 import { getAllDesignation } from "../../../designation/store/actions";
 import { addCareer } from "../../store/action";
+import { handleOpenComposer } from "../../store/slice";
 
-const Composer = () => {
+const Composer = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   // const [designation, setDesignation] = useState([]);
@@ -123,6 +124,7 @@ const Composer = () => {
     };
     dispatch(addCareer(payload));
     form.resetFields();
+    dispatch(handleOpenComposer(false));
   };
 
   return (

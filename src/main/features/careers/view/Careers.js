@@ -3,18 +3,23 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Drawer, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import TopBar from "./Header/filterBar";
-import Header from "./Header/header";
+import Header from "../../../layout/header/index";
 import CareersListView from "./CareersListView";
 import { getAllCareerAction } from "../store/action";
+import { handleOpenComposer } from "../store/slice";
 import MyCareersListView from "./MyCareersListView";
 import CareerCard from "./CareersCard/index";
 import MyCareerCard from "./MyCareerCard/index";
 import ForApprovalCard from "./ForApprovalCard/index";
+import Composer from "./Composers/index";
 
 function Careers() {
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
+  const { drawerOpen } = useSelector((state) => state.careerSlice);
+  console.log(drawerOpen);
   const [search, setSearch] = useState("");
   const [view, setView] = useState("List");
   console.log(CurrentTab);
@@ -52,15 +57,55 @@ function Careers() {
     setView(val);
   };
 
+  // const onClose = (val) => {
+  //   console.log("settng drawer close");
+  //   setDrawerOpen(val);
+  // };
+
   return (
     <>
       <TabbableContainer>
-        <Header />
+        <Header
+          buttons={[
+            {
+              buttonText: "Create Travel",
+              render: (
+                <Button
+                  className="ThemeBtn"
+                  onClick={() => dispatch(handleOpenComposer(true))}
+                >
+                  Create Reward
+                </Button>
+              ),
+            },
+          ]}
+        />
         <TopBar
           segment={(val) => segmentChange(val)}
           onSearch={(val) => setSearch(val)}
         />
         <ContBody>{RenderTab[CurrentTab]}</ContBody>
+        <Drawer
+          title={
+            <h1
+              style={{
+                fontSize: "20px",
+                margin: 0,
+              }}
+            >
+              Create Job
+            </h1>
+          }
+          width="768"
+          onClose={() => {
+            dispatch(handleOpenComposer(false));
+          }}
+          visible={drawerOpen}
+          destroyOnClose={true}
+          className="detailedViewComposer drawerSecondary"
+        >
+          <Composer />
+        </Drawer>
       </TabbableContainer>
     </>
   );

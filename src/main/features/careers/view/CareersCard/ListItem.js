@@ -32,7 +32,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
 
   return (
     <>
-      <SingleItem onClick={onClick}>
+      <SingleItem onClick={onClick} className="cursor-pointer">
         <ItemHeader className="ItemHeader">
           <div className="flex items-center gap-3">
             <Avatar

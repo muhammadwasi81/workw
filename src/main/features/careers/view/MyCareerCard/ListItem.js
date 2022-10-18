@@ -30,7 +30,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
 
   return (
     <>
-      <SingleItem onClick={onClickMyCareer}>
+      <SingleItem onClick={onClickMyCareer} className="cursor-pointer">
         <ItemHeader className="ItemHeader">
           <div className="flex items-center gap-3">
             {/* {image.length > 1 && (

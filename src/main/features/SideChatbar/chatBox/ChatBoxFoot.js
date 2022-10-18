@@ -13,60 +13,55 @@ const ChatBoxFoot = (props) => {
     const handleMsgSend = (e) => {
         dispatch(sendChatMessage(e.target.value))
     }
-  return(
-      <div className="ChatBoxFoot" >
-                <div className="ChatBoxInput" >
-                    <div>
-                    <input placeholder="Type a Message..." onKeyUp={(e)=>{
-                            if(e.keyCode === 13){
-                                handleMsgSend(e)
-                            }
-                        }} />
-                    </div>
+    return (
+        <div className="ChatBoxFoot" >
+            <div className="ChatBoxInputHandler" >
+                <div>
+                    <SharedButton
+                        type="default"
+                        shape="circle"
+                        size="small"
+                        onClick={() => { }}
+                        icon={faceIcon}
+                        IconSize={15}
+                    />
                 </div>
-                <div className="ChatBoxInputHandler" >
-                    <div>
-                        <SharedButton
-                            type="default"
-                            shape="circle"
-                            size="small"
-                            onClick={() => {}}
-                            icon={faceIcon}
-                            IconSize={15}
-                        />
-                    </div>
-                    <div>
-                        <SharedButton
-                            type="default"
-                            shape="circle"
-                            size="small"
-                            onClick={() => {}}
-                            icon={PictureIcon}
-                            IconSize={15}
-                        />
-                    </div>
-                    <div>
-                        <SharedButton
-                            type="default"
-                            shape="circle"
-                            size="small"
-                            onClick={() => {}}
-                            icon={attachmentIcon}
-                            IconSize={15}
-                        />
-                    </div>
-                    <div>
-                        <SharedButton
-                            type="default"
-                            shape="circle"
-                            size="small"
-                            onClick={() => {}}
-                            icon={sendIcon}
-                            IconSize={15}
-                        />
-                    </div>
+
+                <div>
+                    <SharedButton
+                        type="default"
+                        shape="circle"
+                        size="small"
+                        onClick={() => { }}
+                        // icon={PictureIcon}
+                        icon={attachmentIcon}
+                        className="mt-[2px]"
+                        IconSize={9}
+                    />
                 </div>
             </div>
-  )
+            <div className="ChatBoxInput" >
+                <div>
+                    <input placeholder="Type a Message..." onKeyUp={(e) => {
+                        if (e.keyCode === 13) {
+                            handleMsgSend(e)
+                        }
+                    }} />
+                </div>
+            </div>
+            <div className="" >
+                <div>
+                    <SharedButton
+                        type="default"
+                        shape="circle"
+                        size="small"
+                        onClick={() => { }}
+                        icon={sendIcon}
+                        IconSize={15}
+                    />
+                </div>
+            </div>
+        </div>
+    )
 }
 export default ChatBoxFoot;

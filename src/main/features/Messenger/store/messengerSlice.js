@@ -2,21 +2,38 @@ import { createSlice } from "@reduxjs/toolkit"
 import { createGuid, STRINGS } from "../../../../utils/base";
 import { createChat, getAllChats, getAllMessages, searchConversation, sendChatMessage } from "./actions";
 
-
+const defaultCurrentMessenger = {
+   chatId: STRINGS.DEFAULTS.guid,
+   profileImage: "",
+   name: "",
+   chatType: 1,
+   members: []
+};
 const initialState = {
    mobileIsopenChat: null,
-   currentMessenger: {
-      chatId: STRINGS.DEFAULTS.guid,
-      profileImage: "",
-      name: "",
-      chatType: 1,
-      members: []
-   },
+   currentMessenger: defaultCurrentMessenger,
    currentChatBoxes: [],
    MessengerList: {},
    Conversations: [
       {
-         id:createGuid()
+         id: createGuid(),
+         imageId: "",
+         image: "",
+         name: "Aqib Memon",
+         chatWith: {
+            name: "Aqib Memon",
+            image: "",
+         },
+      },
+      {
+         id: createGuid(),
+         imageId: "",
+         image: "",
+         name: "Salman Ahmed",
+         chatWith: {
+            name: "Salman Ahmed",
+            image: "",
+         },
       }
    ]
 };
@@ -30,12 +47,18 @@ export const messengerSlice = createSlice({
          state.MessengerList[chatMessage.chatId] = state.MessengerList[chatMessage.chatId] ?
             [...state.MessengerList[chatMessage.chatId], chatMessage] : [chatMessage]
       },
-      handleIsopenChat: (state, action) => {
-         state.mobileIsopenChat = action.payload
+      handleIsopenChat: (state, { payload }) => {
+         state.mobileIsopenChat = payload
       },
-      handleMessengerItemClick: (state, action) => {
-         console.log("Payload", action.payload)
-         state.currentMessenger = action.payload
+      handleMessengerItemClick: (state, { payload }) => {
+         state.currentMessenger = payload
+      },
+      handleChatBoxAppend: (state, { payload }) => {
+         console.log("Payload", payload);
+         let updatedChatBoxes = [...state.currentChatBoxes];
+         updatedChatBoxes = updatedChatBoxes.filter(item => item.chatId !== payload.chatId);
+         updatedChatBoxes = [...updatedChatBoxes, payload]
+         state.currentChatBoxes = updatedChatBoxes
       },
       handleAppendMessage: (state, { payload }) => {
          let currentChatMessages = state.MessengerList[state.currentMessenger.chatId] ?
@@ -77,5 +100,5 @@ export const messengerSlice = createSlice({
    }
 })
 
-export const { handleIsopenChat, handleMessengerItemClick, receiveChatMessage, handleAppendMessage } = messengerSlice.actions
+export const { handleIsopenChat, handleMessengerItemClick, receiveChatMessage, handleAppendMessage, handleChatBoxAppend } = messengerSlice.actions
 export default messengerSlice.reducer;

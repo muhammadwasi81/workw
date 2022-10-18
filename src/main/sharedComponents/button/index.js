@@ -56,8 +56,12 @@ const SharedButton = ({
         ) : null
       }
       size={size}
-      style={style}
-      className={`${buttonClass} ${isTablet && "CompBtnMobile w-fit"} `}
+      // style={style}
+      style={{
+        backgroundColor:"transparent",
+        border:"none"
+      }}
+      // className={`${buttonClass} ${isTablet && "CompBtnMobile w-fit"} `}
     >
       {title}
     </Button>

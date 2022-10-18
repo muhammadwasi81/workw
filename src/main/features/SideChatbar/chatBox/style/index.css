@@ -79,11 +79,12 @@
   width: 100%;
   border: none;
   margin: 0 10px;
-  padding-left: 15px;
+  padding-left: 10px;
 }
 
 .ChatBoxInputHandler {
-  width: 100px;
+  /* width: 100px; */
+  margin: 0 0px 0 10px;
   display: flex;
 }
 

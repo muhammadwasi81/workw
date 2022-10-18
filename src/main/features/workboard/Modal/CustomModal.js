@@ -16,7 +16,7 @@ function CustomModal({
 	return (
 		<Modal
 			title={title}
-			open={isModalVisible}
+			visible={isModalVisible}
 			centered={centered}
 			footer={footer}
 			destroyOnClose={destroyOnClose}

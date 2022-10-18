@@ -30,6 +30,7 @@ export const loginUser = createAsyncThunk(
 						refreshToken: data.data.refreshToken,
 					})
 				);
+				document.cookie = ""
 			}
 		} else {
 			message.error(STRINGS.SERVER_ERROR);

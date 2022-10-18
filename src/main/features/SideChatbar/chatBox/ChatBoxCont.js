@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import MessengerBottom from "../../Messenger/view/MessengerBox/body/MessengerBottom";
 import MessengerList from "../../Messenger/view/MessengerBox/body/MessengerList";
 // import MessengerList from "../../features/Messenger/view/MessengerBox/body/MessengerList";
 // import MessengerList from "../../MainMenu/Messenger/MessengerList";
@@ -9,20 +10,21 @@ import ChatBoxHead from "./ChatBoxHead";
 import './style/index.css';
 
 const ChatBoxCont = (props) => {
-    const messageList = useSelector((state) => state.MessengerSlice.MessengerList)
+    const messageList = useSelector((state) => state.MessengerSlice.MessengerList);
+    const currentChatBoxes = useSelector(state => state.MessengerSlice.currentChatBoxes);
     return (
-        <div className="ChatBoxCont" >
+        <div className="ChatBoxCont" onMou>
             {
-                [1, 2, 3].map((val) => (
+                currentChatBoxes.map((val) => (
                     <ChatBox>
                         <ChatBoxHead />
-                        <h2>ddfkj</h2>
                         <MessengerList
                             isChatBox={true}
                             messageList={messageList["4189c4d9-416e-4958-a202-a4d38c88c2d5"]}
                             isOpenProfile={false}
                             messengerDetail={{}}
                         />
+                        {/* <MessengerBottom /> */}
                         <ChatBoxFoot />
                     </ChatBox>
                 )

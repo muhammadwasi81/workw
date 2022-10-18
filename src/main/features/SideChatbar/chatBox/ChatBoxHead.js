@@ -21,6 +21,7 @@ const ChatBoxHead = (props) => {
                 shape="circle"
                 size="small"
                 onClick={() => {}}
+                className="mb-[3px]"
                 icon={mailMinimizeIcon}
                 IconSize={12}
             />

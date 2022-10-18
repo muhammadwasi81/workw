@@ -105,7 +105,7 @@ function ProjectDetails() {
 		1: (
 			<NewsFeed
 				referenceType={PostReferenceType.PROJECTS}
-				referenceId={id}
+				referenceId={id.trim()}
 				backButton={false}
 				isScheduler={false}
 				isCheckedIn={false}
@@ -116,7 +116,7 @@ function ProjectDetails() {
 		6: (
 			<Task
 				referenceType={TaskReferenceTypeEnum.Project}
-				referenceId={id}
+				referenceId={id.trim()}
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
@@ -125,7 +125,7 @@ function ProjectDetails() {
 		7: (
 			<WorkBoard
 				referenceType={WorkBoardReferenceTypeEnum.Project}
-				referenceId={id}
+				referenceId={id.trim()}
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
@@ -134,7 +134,7 @@ function ProjectDetails() {
 		9: (
 			<Expenses
 				referenceType={ExpenseReferenceTypeEnum.Project}
-				referenceId={id}
+				referenceId={id.trim()}
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
@@ -144,14 +144,14 @@ function ProjectDetails() {
 		11: (
 			<Travel
 				referenceType={TravelReferenceTypeEnum.Project}
-				referenceId={id}
+				referenceId={id.trim()}
 				backButton={false}
 			/>
 		),
 		12: (
 			<Documents
 				referenceType={DocumentReferenceTypeEnum.Project}
-				referenceId={id}
+				referenceId={id.trim()}
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}

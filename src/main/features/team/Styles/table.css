@@ -6,7 +6,12 @@
 
 .row-dragging td {
   padding: 16px;
+  /* width: 300px; */
 }
+
+/* .ant-table-thead > tr > th {
+  padding: 0px !important;
+} */
 
 .row-dragging .drag-visible {
   visibility: visible;
@@ -21,13 +26,13 @@ thead tr th {
   color: white !important;
 }
 
-.custom_table .ant-table-tbody>tr>td {
+.custom_table .ant-table-tbody > tr > td {
   padding: 5px 15px !important;
   height: 47px;
   font-size: 12px;
 }
 
-.custom_table .ant-table-thead>tr>th {
+.custom_table .ant-table-thead > tr > th {
   padding: 5px 15px !important;
   height: 37px;
   font-size: 12px;

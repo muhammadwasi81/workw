@@ -7,7 +7,7 @@ import { getNameForImage } from "../../../../utils/base";
 import { useNavigate } from "react-router-dom";
 import "../Styles/team.css";
 
-const TeamCard = ({ image, name, designation, email, id }) => {
+const TeamCard = ({ teams: { image, name, designation, email, id } }) => {
   const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];

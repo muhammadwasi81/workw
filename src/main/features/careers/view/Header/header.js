@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import Composer from "../Composers/index";
 import MainHeader from "../../../../layout/header/index";
+import { Button } from "antd";
+import { useDispatch } from "react-redux";
+import { handleOpenComposer } from "../../store/slice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [close, setClose] = useState(false);
   const items = [
     {

@@ -92,7 +92,7 @@ const NavMenuList = () => {
 			counter: 0,
 			to: ROUTES.SCHEDULES.LINK + "?f=cal",
 			icon: schedulesIcon,
-			isActive: 1,
+			isActive: true,
 			key: label.navMenuLabel.menu,
 		},
 		{
@@ -144,6 +144,14 @@ const NavMenuList = () => {
 			key: label.navMenuLabel.menu,
 		},
 		{
+			name: "L & D",
+			counter: 0,
+			icon: eLearningIcon,
+			to: ROUTES.ELearning.LINK,
+			isActive: true,
+			key: label.navMenuLabel.menu,
+		},
+		{
 			name: label.navMenuLabel.employee,
 			counter: 0,
 			icon: employeeIcon,
@@ -151,6 +159,7 @@ const NavMenuList = () => {
 			isActive: true,
 			key: label.navMenuLabel.hr,
 		},
+
 		{
 			name: label.navMenuLabel.projects,
 			counter: 0,

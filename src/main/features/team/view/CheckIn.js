@@ -4,20 +4,40 @@ import { TeamTable } from "./TaskTable/TeamTable";
 function CheckIn() {
   const columns = [
     {
-      title: "Position",
-      dataIndex: "position",
-      key: "position",
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
     },
 
     {
-      title: "EmploymentType",
-      dataIndex: "employmentTypeId",
-      key: "employmentTypeId",
+      title: "Time",
+      dataIndex: "time",
+      key: "time",
     },
     {
-      title: "City",
-      dataIndex: "cityId",
-      key: "cityId",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+    },
+    {
+      title: "Comments",
+      dataIndex: "comments",
+      key: "comments",
+    },
+    {
+      title: "Mood",
+      dataIndex: "mood",
+      key: "mood",
+    },
+    {
+      title: "Location",
+      dataIndex: "location",
+      key: "location",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
     },
   ];
   return (
@@ -26,13 +46,17 @@ function CheckIn() {
         bordered
         columns={columns}
         // dragable={true}
-        scroll={{ x: 500 }}
-        size="small"
+        // scroll={{ x: true }}
+        className="custom_table"
         dataSource={[
           {
-            position: "one",
-            employmentTypeId: "test Employee",
-            cityId: "test City",
+            date: "0",
+            time: "0",
+            status: "0",
+            comments: "kk",
+            mood: "satisfied",
+            location: "jjj",
+            action: "button",
           },
         ]}
         // dataSource={tableColumn()}

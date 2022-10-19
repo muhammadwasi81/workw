@@ -4,10 +4,14 @@ import {
   TabbableContainer,
 } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 import { useSelector, useDispatch } from "react-redux";
-import Header from "../../view/Header/header";
+// import Header from "../../view/Header/header";
+import Header from "../../../../layout/header/index";
+import { Drawer, Button } from "antd";
 import Card from "./ShortDetailCard";
 import styled from "styled-components";
+import Composer from "../Composers/index";
 import { getAllCareerApplicant, getCareerByIdAction } from "../../store/action";
+import { handleOpenComposer } from "../../store/slice";
 import "../styles/style.css";
 import CandidateList from "./CandidateListView";
 import { useParams } from "react-router-dom";
@@ -18,6 +22,7 @@ function JobDetails() {
   const { careerDetail } = useSelector((state) => {
     return state.careerSlice;
   });
+  const { drawerOpen } = useSelector((state) => state.careerSlice);
 
   useEffect(() => {
     console.log("useEffect works in detail");
@@ -34,13 +39,48 @@ function JobDetails() {
 
   return (
     <TabbableContainer>
-      <Header />
+      <Header
+        buttons={[
+          {
+            buttonText: "Create Career",
+            render: (
+              <Button
+                className="ThemeBtn"
+                onClick={() => dispatch(handleOpenComposer(true))}
+              >
+                Create Career
+              </Button>
+            ),
+          },
+        ]}
+      />
       <ContBody>
         <CardWrapper>
           <Card />
           <CandidateList />
         </CardWrapper>
       </ContBody>
+      <Drawer
+        title={
+          <h1
+            style={{
+              fontSize: "20px",
+              margin: 0,
+            }}
+          >
+            Create Job
+          </h1>
+        }
+        width="768"
+        onClose={() => {
+          dispatch(handleOpenComposer(false));
+        }}
+        visible={drawerOpen}
+        destroyOnClose={true}
+        className="detailedViewComposer drawerSecondary"
+      >
+        <Composer />
+      </Drawer>
     </TabbableContainer>
   );
 }

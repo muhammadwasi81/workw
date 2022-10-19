@@ -14,6 +14,7 @@ const career_data = (data) => {
     approverStatus: data.approverStatus ? data.approverStatus : [],
     filterType: data.request.filterType ? data.request.filterType : 0,
     sortBy: data.request.sortBy ? data.request.sortBy : 2,
+    search: data.request.search ? data.request.search : "",
   };
 };
 export const addCareerService = async (data) => {

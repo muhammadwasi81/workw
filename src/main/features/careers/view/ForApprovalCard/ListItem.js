@@ -12,7 +12,7 @@ import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
 
-function ListItem({ item, onClick, onClickMyCareer }) {
+function ListItem({ item, onClick, onClickApproval }) {
   // console.log(item, "description");
   const {
     jobTypeId,
@@ -26,11 +26,11 @@ function ListItem({ item, onClick, onClickMyCareer }) {
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
 
-  console.log("props", onClickMyCareer);
+  console.log("props", onClickApproval);
 
   return (
     <>
-      <SingleItem onClick={onClickMyCareer} className="cursor-pointer">
+      <SingleItem onClick={onClickApproval} className="cursor-pointer">
         <ItemHeader className="ItemHeader">
           <div className="flex items-center gap-3">
             {/* {image.length > 1 && (

@@ -86,7 +86,7 @@ const CareerCard = (props) => {
       >
         {openDetail && (
           <Modal
-            open={openDetail}
+            visible={openDetail}
             onOk={handleOk}
             onCancel={handleCancel}
             footer={null}

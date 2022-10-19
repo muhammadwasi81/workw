@@ -136,7 +136,7 @@ const Composer = () => {
         }
       ),
     };
-    // dispatch(addRequestListItems(payload));
+    dispatch(addRequestListItems(payload));
     form.resetFields();
     setState(initialState);
   };

@@ -376,6 +376,7 @@ export const ROUTES = {
 	REQUISITION: {
 		DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
 		REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+		DETAIL: `${DOMAIN_PREFIX}/requisition/requisitionDetail/:id`,
 	},
 	//   EMPLOYEES: {
 	//     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,

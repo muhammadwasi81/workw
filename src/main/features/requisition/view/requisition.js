@@ -9,11 +9,11 @@ import { Skeleton, Modal } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import ListItem from "./ListItem";
-import Composer from "./composer";
+import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllRequisition } from "../store/actions";
+import { getAllRequisition, GetRequisitionById } from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
@@ -21,8 +21,11 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
+import ListItemMyRequisition from "./myRequisition";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Requisition = props => {
+	const navigate = useNavigate();
 	const { visible } = props;
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
@@ -48,13 +51,21 @@ const Requisition = props => {
 		dispatch(getAllRequisition(filter));
 	}, [filter]);
 
+	const openMyRequisitionDetail = (id) => {
+		console.log(id, "my Career Id");
+		dispatch(GetRequisitionById(id));
+
+		navigate(`requisitionDetail/${id}`);
+		 console.log("WORKING FINE")
+	};
+
 	return (
 		<>
 			<TabbableContainer className="">
 				<Header
 					buttons={[
 						{
-							buttonText: "Create Travel",
+							buttonText: "Create Requisition",
 							render: (
 								<Button
 									className="ThemeBtn"
@@ -77,56 +88,40 @@ const Requisition = props => {
 							name: "Requisitions",
 							onClick: () => setFilter({ filterType: 0 }),
 						},
-					]}
-					segment={{
-						onSegment: value => {
-							if (value === "Table") {
-								setTableView(true);
-							} else {
-								setTableView(false);
-							}
+						{
+							name: "My Requisitions",
+							onClick: () => setFilter({ filterType: 1 }),
 						},
-						label1: "List",
-						label2: "Table",
-					}}
+					]}
 				/>
 				<ContBody>
 					{items?.length > 0 ? (
-						tableView ? (
-							<Table
-								columns={tableColumn()}
-								dragable={true}
-								data={items}
-							/>
-						) : (
-							<>
-								{loader ? (
+						<CardWrapper>
+							{items.map((item, index) => {
+								return (
 									<>
-										<Skeleton
-											avatar
-											paragraph={{ rows: 4 }}
-										/>
+										{
+											filter.filterType === 1 ?
+												<ListItemMyRequisition
+													item={item}
+													id={item.id}
+													key={index}
+													onClick={() => openMyRequisitionDetail(item.id)}
+												/>
+												:
+												<ListItem
+													item={item}
+													id={item.id}
+													key={index}
+													onClick={() =>
+														setDetailId(item.id)
+													}
+												/>
+										}
 									</>
-								) : (
-									<CardWrapper>
-										{items.map((item, index) => {
-											return (
-												<>
-													<ListItem
-														item={item}
-														id={item.id}
-														key={index}
-														onClick={() =>
-															setDetailId(item.id)
-														}
-													/>
-												</>
-											);
-										})}
-									</CardWrapper>
-								)}
-							</>
-						)
+								);
+							})}
+						</CardWrapper>
 					) : (
 						<Skeleton avatar paragraph={{ rows: 4 }} />
 					)}

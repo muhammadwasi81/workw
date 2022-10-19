@@ -305,6 +305,12 @@ export const routes = {
 				import("../main/features/requisition/view/requisition")
 			),
 		},
+		{
+			path: `${ROUTES.REQUISITION.DETAIL}`,
+			component: lazy(() =>
+				import("../main/features/requisition/view/myRequisitionDetail/index")
+			),
+		},
 
 		// {
 		// 	path: `${ROUTES.REQUISITION.DEFAULT}`,

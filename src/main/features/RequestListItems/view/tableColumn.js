@@ -1,10 +1,11 @@
-import Avatar from '../../../sharedComponents/Avatar/avatarOLD';
+import Avatar from '../../../sharedComponents/Avatar/avatar';
+import StatusTag from '../../../sharedComponents/Tag/StatusTag';
 
 export const ListTableColumn = () => {
   return [
     {
       title: 'Category',
-      dataIndex: 'categoryId',
+      dataIndex: 'category',
       ellipsis: true,
       sort: true,
     },
@@ -26,11 +27,30 @@ export const ListTableColumn = () => {
       ellipsis: true,
       render: (value) => (
         <Avatar
-          isAvatarGroup={true}
           heading={'approvers'}
-          membersData={value ? value : []}
+          isAvatarGroup={true}
+          membersData={value}
         />
       ),
+      sort: true,
+    },
+    {
+      title: 'Asset Controller',
+      dataIndex: 'assetController',
+      ellipsis: true,
+      render: (value) => (
+        <Avatar
+          heading={'approvers'}
+          isAvatarGroup={true}
+          membersData={value}
+        />
+      ),
+      sort: true,
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      render: (status) => <StatusTag status={status} />,
       sort: true,
     },
   ];

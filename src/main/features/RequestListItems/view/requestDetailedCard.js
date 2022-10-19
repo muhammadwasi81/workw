@@ -10,11 +10,12 @@ import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
 import { getRequestListItemsById } from '../store/action';
 import RemarksApproval from '../../../sharedComponents/AppComponents/Approvals/view';
 import { ApprovalsModule } from '../../../sharedComponents/AppComponents/Approvals/enums';
+import { Tag } from 'antd';
+import Avatar from '../../../sharedComponents/Avatar/avatar';
 
 const RequestDetailCard = (props) => {
   const dispatch = useDispatch();
   const requestDetails = useSelector((state) => state.requestItemSlice);
-  console.log(requestDetails.requestItemDetail.quantity, 'requestDetails');
 
   useEffect(() => {
     if (props.id) dispatch(getRequestListItemsById(props.id));
@@ -51,12 +52,17 @@ const RequestDetailCard = (props) => {
             }
           />
         </div>
+        <div className="right">
+          <Tag className="IdTag">
+            {requestDetails.requestItemDetail.referenceNo}
+          </Tag>
+        </div>
       </ItemHeader>
       <div className="cardSections" style={{ marginTop: '20px' }}>
         <div className="cardSectionItem">
           <div className="cardSection__title">Category</div>
           <div className="cardSection__body">
-            {requestDetails.requestItemDetail.categoryId}
+            {requestDetails.requestItemDetail.category}
           </div>
         </div>
         <div className="cardSectionItem">
@@ -66,9 +72,17 @@ const RequestDetailCard = (props) => {
           </div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Ref No</div>
+          <div className="cardSection__title">Asset Controller</div>
           <div className="cardSection__body">
-            {requestDetails.requestItemDetail.referenceNo}
+            <Avatar
+              isAvatarGroup={true}
+              heading={'approvers'}
+              membersData={
+                requestDetails.requestItemDetail.assetController
+                  ? requestDetails.requestItemDetail.assetController
+                  : []
+              }
+            />
           </div>
         </div>
       </div>
@@ -76,7 +90,7 @@ const RequestDetailCard = (props) => {
       <RemarksApproval
         data={requestDetails.requestItemDetail.approvers}
         title="Approvals"
-        module={ApprovalsModule.SalaryApproval}
+        module={ApprovalsModule.requestForItemsApproval}
         onStatusChanged={() => {}}
       />
     </SingleItem>

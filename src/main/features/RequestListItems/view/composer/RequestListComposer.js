@@ -10,6 +10,7 @@ import { customApprovalDictionaryList } from '../../../CustomApprovals/localizat
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { getAllAssetCategories } from '../../../assetsCategory/store/actions';
 import { addRequestListItems } from '../../store/action';
+import { modifySelectData } from '../../../../../utils/base';
 
 const initialState = {
   id: '',
@@ -50,6 +51,7 @@ const Composer = () => {
   const [value, setValue] = useState([]);
 
   const { assetsData } = useSelector((state) => state.assetsCategorySlice);
+  console.log(assetsData, 'assetsData');
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   useEffect(() => {
@@ -119,10 +121,24 @@ const Composer = () => {
       }
       console.log(values, 'values');
     }
-    let payload = { ...values, approvers, assetController };
-    dispatch(addRequestListItems(payload));
-
+    let payload = {
+      ...values,
+      approvers: modifySelectData(values.approvers).map((el, index) => {
+        return {
+          approverId: el,
+        };
+      }),
+      assetController: modifySelectData(values.assetController).map(
+        (el, index) => {
+          return {
+            approverId: el,
+          };
+        }
+      ),
+    };
+    // dispatch(addRequestListItems(payload));
     form.resetFields();
+    setState(initialState);
   };
 
   const onFinishFailed = (errorInfo) => {

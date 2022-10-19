@@ -17,22 +17,18 @@ import { ListTableColumn } from './tableColumn';
 const Index = () => {
   const dispatch = useDispatch();
 
-  const { requestItems } = useSelector((state) => state.requestItemSlice);
+  const { requestItems, success } = useSelector(
+    (state) => state.requestItemSlice
+  );
   console.log(requestItems, 'Add requestItem index.js');
 
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');
-
-  const {
-    taskList: { list },
-    success,
-  } = useSelector((state) => state.taskSlice);
-
   const items = [
     {
       name: 'Request List Items',
-      to: `${ROUTES.REQUEST_LIST_ITEM}`,
+      to: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
       renderButton: [1],
     },
   ];
@@ -43,8 +39,12 @@ const Index = () => {
       onClick: () => setFilterType(0),
     },
     {
-      name: 'Request For Items Approvals',
+      name: 'Created My be',
       onClick: () => setFilterType(1),
+    },
+    {
+      name: 'Request For Items Approvals',
+      onClick: () => setFilterType(2),
     },
   ];
   const onSearch = (value) => setSearch(value);

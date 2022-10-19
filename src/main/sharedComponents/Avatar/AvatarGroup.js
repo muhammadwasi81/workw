@@ -1,49 +1,49 @@
-import React from "react";
-import { Avatar, Tooltip } from "antd";
-import { getNameForImage } from "../../../utils/base";
+import React from 'react';
+import { Avatar, Tooltip } from 'antd';
+import { getNameForImage } from '../../../utils/base';
 // import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
 // import PropTypes from "prop-types";
 
 function AvatarGroup(props) {
-	return (
-		<div>
-			<Avatar.Group
-				maxCount={2}
-				maxPopoverTrigger="click"
-				size="small"
-				maxStyle={{
-					color: "#f56a00",
-					backgroundColor: "#fde3cf",
-					cursor: "pointer",
-				}}
-			>
-				{props.membersData.map(members => (
-					<Tooltip
-						title={
-							members[props.nestedObjProperty] !== null
-								? members[props.nestedObjProperty].name
-								: "Unknown User"
-						}
-						placement="top"
-					>
-						<Avatar
-							className="cursor-pointer !bg-black"
-							src={
-								members[props.nestedObjProperty] !== null &&
-								members[props.nestedObjProperty].image
-									? members[props.nestedObjProperty].image
-									: props.dummyImage
-							}
-						>
-							{getNameForImage(
-								members[props.nestedObjProperty] !== null
-									? members[props.nestedObjProperty].name
-									: "Unknown User"
-							)}
-						</Avatar>
-					</Tooltip>
-				))}
-				{/* <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+  return (
+    <div>
+      <Avatar.Group
+        maxCount={2}
+        maxPopoverTrigger="click"
+        size="small"
+        maxStyle={{
+          color: '#f56a00',
+          backgroundColor: '#fde3cf',
+          cursor: 'pointer',
+        }}
+      >
+        {props.membersData.map((members) => (
+          <Tooltip
+            title={
+              members[props.nestedObjProperty] !== null
+                ? members[props.nestedObjProperty]?.name
+                : 'Unknown User'
+            }
+            placement="top"
+          >
+            <Avatar
+              className="cursor-pointer !bg-black"
+              src={
+                members[props.nestedObjProperty] !== null &&
+                members[props.nestedObjProperty].image
+                  ? members[props.nestedObjProperty].image
+                  : props.dummyImage
+              }
+            >
+              {getNameForImage(
+                members[props.nestedObjProperty] !== null
+                  ? members[props.nestedObjProperty].name
+                  : 'Unknown User'
+              )}
+            </Avatar>
+          </Tooltip>
+        ))}
+        {/* <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
 				<Avatar
 					style={{
 						backgroundColor: "#f56a00",
@@ -65,9 +65,9 @@ function AvatarGroup(props) {
 					}}
 					icon={<AntDesignOutlined />}
 				/> */}
-			</Avatar.Group>
-		</div>
-	);
+      </Avatar.Group>
+    </div>
+  );
 }
 
 export default AvatarGroup;

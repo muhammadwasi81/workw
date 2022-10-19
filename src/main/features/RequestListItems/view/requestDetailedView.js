@@ -4,9 +4,7 @@ import RequestDetailCard from './requestDetailedCard';
 const RequestDetailedView = (props) => {
   return (
     <Drawer
-      title={
-        <h1 style={{ fontSize: '20px', margin: 0 }}>Request Detailed view</h1>
-      }
+      title={<h1 style={{ fontSize: '20px', margin: 0 }}>Detailed view</h1>}
       width="768"
       height={'85%'}
       placement={'right'}

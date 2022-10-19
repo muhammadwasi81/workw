@@ -80,6 +80,7 @@ import formSlice from '../main/features/forms/store/slice';
 import payrollSlice from '../main/features/payroll/store/slice';
 import requestItemSlice from '../main/features/RequestListItems/store/slice';
 import assetsCategorySlice from '../main/features/assetsCategory/store/slice';
+import AssetItemSlice from '../main/features/createAssets/store/slice';
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -156,6 +157,7 @@ const reducers = combineReducers({
   payrollSlice,
   assetsCategorySlice,
   requestItemSlice,
+  AssetItemSlice,
 });
 
 const persistConfig = {

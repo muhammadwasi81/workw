@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   ItemHeader,
   SingleItem,
@@ -8,7 +7,7 @@ import moment from 'moment';
 import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
 import { Tag } from 'antd';
 import StatusTag from '../../../sharedComponents/Tag/StatusTag';
-import Avatar from '../../../sharedComponents/Avatar/avatarOLD';
+import Avatar from '../../../sharedComponents/Avatar/avatar';
 
 const RequestListItems = (props) => {
   const {
@@ -23,12 +22,15 @@ const RequestListItems = (props) => {
       type: 1,
       userTypeId: 2,
     },
-    approvers = [{}],
-    status = 1,
     createDate = moment(),
+    category,
+    quantity,
+    status,
+    referenceNo,
+    id,
+    approvers = [{}],
+    assetController = [{}],
   } = props.item;
-
-  const { categoryId, quantity, referenceNo, id } = props.item;
 
   return (
     <SingleItem onClick={() => props.onClick(id)}>
@@ -46,22 +48,28 @@ const RequestListItems = (props) => {
           />
         </div>
         <div className="right">
-          <Tag className="IdTag">{creator.referenceNo}</Tag>
+          <Tag className="IdTag">{referenceNo}</Tag>
           <StatusTag status={status}></StatusTag>
         </div>
       </ItemHeader>
       <div className="cardSections" style={{ marginTop: '30px' }}>
         <div className="cardSectionItem">
           <div className="cardSection__title">Category Name</div>
-          <div className="cardSection__body">{categoryId}</div>
+          <div className="cardSection__body">{category}</div>
         </div>
         <div className="cardSectionItem">
           <div className="cardSection__title">Qty</div>
           <div className="cardSection__body">{quantity}</div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Ref No</div>
-          <div className="cardSection__body">{referenceNo}</div>
+          <div className="cardSection__title">Asset Controller</div>
+          <div className="cardSection__body">
+            <Avatar
+              isAvatarGroup={true}
+              heading={'approvers'}
+              membersData={assetController ? assetController : []}
+            />
+          </div>
         </div>
         <div className="cardSectionItem">
           <div className="cardSection__title">Approvers</div>

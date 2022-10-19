@@ -1,21 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import TeamCard from "./TeamCard";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useDispatch, useSelector } from "react-redux";
 import { Skeleton } from "antd";
-import { dictionaryList } from "../../../../utils/localization/languages";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import "../Styles/team.css";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
 import { getTeamsAction } from "../store/action";
+import TeamTableView from "./TeamTableView";
 
 function TeamList() {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
-  const dispatch = useDispatch();
-  const { sharedLabels } = dictionaryList[userLanguage];
-  const label = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.sharedLabels;
+
   const { teams, loader } = useSelector((state) => state.teamSlice);
-  console.log(teams, "TEAMS");
 
   useEffect(() => {
     dispatch(getTeamsAction());
@@ -50,8 +52,8 @@ function TeamList() {
             onSegment: (value) => {
               setView(value);
             },
-            label1: sharedLabels.List,
-            label2: sharedLabels.Table,
+            label1: labels.list,
+            label2: labels.table,
           }}
         />
         {view === "List" ? (
@@ -61,7 +63,7 @@ function TeamList() {
             })}
           </div>
         ) : (
-          "Table view"
+          <TeamTableView />
         )}
       </div>
     );

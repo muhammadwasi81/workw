@@ -1,45 +1,69 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
 import { getAllLoanAction } from "../store/action";
 import { useDispatch, useSelector } from "react-redux";
+import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
+
+import moment from "moment";
 
 function Loan() {
-  const dispatch = useDispatch(getAllLoanAction({}));
+  const dispatch = useDispatch();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.LoanTable;
+  const {
+    team: { loandetails },
+    success,
+  } = useSelector((state) => state.teamSlice);
 
   useEffect(() => {
-    dispatch();
+    dispatch(getAllLoanAction({}));
   }, []);
   const columns = [
     {
-      title: "Reference No.",
+      title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
+      sort: true,
     },
 
     {
-      title: "Status",
+      title: labels.Status,
       dataIndex: "status",
       key: "status",
+      render: (status) => <StatusTag status={status} />,
+      sort: true,
     },
     {
-      title: "Amount",
+      title: labels.Amount,
       dataIndex: "amount",
       key: "amount",
+      sort: true,
     },
     {
-      title: "Deduction Per Month",
+      title: labels.DeductionPerMonth,
       dataIndex: "deductionPerMonth",
       key: "deductionPerMonth",
+      sort: true,
     },
     {
-      title: "Deadline",
+      title: labels.Deadline,
       dataIndex: "deadline",
+      render: (deadline) => moment(deadline).format("DD MMM YYYY"),
       key: "deadline",
+      sort: true,
     },
     {
-      title: "Date",
+      title: labels.Date,
       dataIndex: "date",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "date",
+      sort: true,
     },
   ];
   return (
@@ -47,20 +71,8 @@ function Loan() {
       <TeamTable
         bordered
         columns={columns}
-        // dragable={true}
-        // scroll={{ x: true }}
         className="custom_table"
-        dataSource={[
-          {
-            referenceNo: "0000",
-            status: "pending",
-            amount: "9000",
-            deductionPerMonth: 900,
-            deadline: "Mon 2019",
-            date: "MOn 2019",
-          },
-        ]}
-        // dataSource={tableColumn()}
+        dataSource={loandetails}
       />
     </>
   );

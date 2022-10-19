@@ -210,9 +210,12 @@ const en = {
     },
 
     /*** hr menu ***/
-    team: {
-      teams: "My Team",
-    },
+    // team: {
+    //   teams: "My Team",
+    // },
+    // teamDetail: {
+    //   teamDetails: "Team Details",
+    // },
     payroll: {
       payroll: "payroll",
       payrollApproval: "Payroll Approval",

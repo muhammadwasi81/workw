@@ -73,3 +73,35 @@ export const getAllLoanService = async (request) => {
     return ResponseResultError(e);
   }
 };
+
+export const getAllComplainService = async (request) => {
+  // console.log(request, "REQUEST");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Complain/GetAllComplain`, request);
+    // console.log(responseCode, "REQUEST REWARD RESPONSE");
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+export const getAllWarningService = async (request) => {
+  // console.log(request, "REQUEST");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Warning/GetAllWarning`, request);
+    // console.log(responseCode, "REQUEST REWARD RESPONSE");
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};

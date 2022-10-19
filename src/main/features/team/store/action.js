@@ -6,6 +6,8 @@ import {
   getAllTeamsService,
   getAllRewardService,
   getAllLoanService,
+  getAllComplainService,
+  getAllWarningService,
 } from "../services/service";
 
 export const getTeamsAction = createAsyncThunk(
@@ -59,6 +61,52 @@ export const getAllLoanAction = createAsyncThunk(
   async (payload, { rejectWithValue, dispatch }) => {
     const response = await getAllLoanService(payload);
     console.log(response, "loan SERVICE");
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            // message: "Team added Successfully!",
+            type: "success",
+            //   duration: 2
+          })
+        );
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getAllComplainAction = createAsyncThunk(
+  "teamSlice/ getAllComplainAction",
+  async (payload, { rejectWithValue, dispatch }) => {
+    const response = await getAllComplainService(payload);
+    console.log(response, "complain SERVICE");
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            // message: "Team added Successfully!",
+            type: "success",
+            //   duration: 2
+          })
+        );
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getAllWarningAction = createAsyncThunk(
+  "teamSlice/getAllWarningAction ",
+  async (payload, { rejectWithValue, dispatch }) => {
+    const response = await getAllWarningService(payload);
+    console.log(response, "warning SERVICE");
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

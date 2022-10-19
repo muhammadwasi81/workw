@@ -1,26 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
 
 function Leaves() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.LeavesTable;
+
   const columns = [
     {
-      title: "Leave Type",
+      title: labels.LeaveType,
       dataIndex: "leaveType",
       key: "leaveType",
     },
 
     {
-      title: "Alloted",
+      title: labels.Alloted,
       dataIndex: "alloted",
       key: "alloted",
     },
     {
-      title: "Availed",
+      title: labels.Availed,
       dataIndex: "availed",
       key: "availed",
     },
     {
-      title: "Remaining",
+      title: labels.Remaining,
       dataIndex: "remaining",
       key: "remaining",
     },

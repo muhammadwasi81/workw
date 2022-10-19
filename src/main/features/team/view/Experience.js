@@ -1,25 +1,24 @@
 import React, { useEffect, useState, useContext } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { employeeDictionaryList } from "../../../features/employee/localization/index";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getUserWorkExperience } from "../../../features/experienceInfo/store/actions";
 import { useParams } from "react-router-dom";
 import { employmentType } from "../../../../utils/Shared/enums/enums";
-import { getCities } from "../../../../utils/Shared/store/actions";
 
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
 import moment from "moment";
 
 function Experience() {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.ExperienceTable;
+
   const { id } = useParams();
-  const { employeesDictionary, Direction } = employeeDictionaryList[
-    userLanguage
-  ];
-  const labels = employeesDictionary.WorkExperienceForm;
 
   const {
     employee: { experiencedetails },
@@ -72,9 +71,6 @@ function Experience() {
       <TeamTable
         bordered
         columns={columns}
-        // dragable={true}
-        // scroll={{ x: true }}
-        // size="small"
         className="custom_table"
         dataSource={experiencedetails}
       />

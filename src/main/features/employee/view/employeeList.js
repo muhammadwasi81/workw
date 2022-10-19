@@ -7,6 +7,7 @@ import { Skeleton } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import EmployeeTableView from "./employeeTableView";
+
 function EmployeeList() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import "./style.css";
 import { CareerStatusEnum } from "../../utils/enums";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
+import Attachments from "../../../travel/view/UI/Attachments";
+import CustomModal from "../../../workboard/Modal/CustomModal";
+import AttachmentsCarrousel from "../../../travel/view/AttachmentsCarrousel/AttachmentsCarrousel";
 
 const ApplicantDetail = (props) => {
+  const [isAttachmentModalOpen, setisAttachmentModalOpen] = useState(false);
   console.log(props);
   const {
     firstName,
@@ -16,7 +20,11 @@ const ApplicantDetail = (props) => {
     currentSalary,
     status,
     id,
+    attachments,
   } = props.data;
+
+  const { path } = attachments[0];
+  console.log(path);
   return (
     <>
       <div className="item careersQuickDetail">
@@ -36,9 +44,14 @@ const ApplicantDetail = (props) => {
           </div>
         </div>
         <div className="mt-4">
-          <a href={""} target="_blank">
+          {/* <a href={path} target="_blank">
             Download Resume
-          </a>
+          </a> */}
+          <Attachments
+            data={attachments}
+            key={{ data: attachments }}
+            onClick={() => setisAttachmentModalOpen(true)}
+          />
         </div>
         <div className="cardSections mt-10">
           <div className="cardSectionItem">
@@ -75,6 +88,26 @@ const ApplicantDetail = (props) => {
             isCommentLoad={true}
           />
         </div>
+      </div>
+      <div
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+      >
+        <CustomModal
+          isModalVisible={isAttachmentModalOpen}
+          footer={null}
+          width={"80%"}
+          className="attachmentModal"
+          onCancel={() => setisAttachmentModalOpen(false)}
+          children={
+            <AttachmentsCarrousel
+              attachments={attachments}
+              key={{ data: attachments }}
+            />
+          }
+        />
       </div>
     </>
   );

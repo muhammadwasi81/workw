@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Modal } from "antd";
 import { useSelector } from "react-redux";
 import ApplicantDetail from "./ApplicantDetail";
+import { tableColumn } from "./TableColumn";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
+import { Table } from "../../../../sharedComponents/customTable";
 
 const TabElement = () => {
   const { careerApplicants } = useSelector((state) => state.careerSlice);
@@ -15,6 +17,18 @@ const TabElement = () => {
     console.log(data, "data in function");
     setOpenDetail(true);
     setApplicantDetail(data);
+  };
+
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        getApplicant(record);
+      }, // click row
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
   };
 
   const handleOk = () => {
@@ -38,7 +52,13 @@ const TabElement = () => {
           <ApplicantDetail data={applicantDetail} />
         </Modal>
       )}
-      {careerApplicants.map((item, index) => {
+      <Table
+        columns={tableColumn()}
+        dragable={true}
+        data={careerApplicants ? careerApplicants : []}
+        onRow={onRow}
+      />
+      {/* {careerApplicants.map((item, index) => {
         return (
           <div
             className="bg-white flex justify-around rounded-lg h-9 items-center font-bold cursor-pointer"
@@ -51,7 +71,7 @@ const TabElement = () => {
             <StatusTag status={item.status} />
           </div>
         );
-      })}
+      })} */}
     </>
   );
 };

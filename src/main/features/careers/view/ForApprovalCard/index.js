@@ -56,7 +56,7 @@ const MyApprovalCard = (props) => {
       <ApprovalComposer visible={openDetail} onClose={handleCancel} id={id} />
       <CardWrapper
         style={{
-          gridTemplateColumns: "repeat(auto-fill,minmax(38rem,1fr))",
+          gridTemplateColumns: "repeat(auto-fill,minmax(35rem,1fr))",
         }}
       >
         {!table && (
@@ -84,15 +84,14 @@ const MyApprovalCard = (props) => {
             )}
           </>
         )}
-
-        {table && (
-          <Table
-            columns={tableColumn()}
-            dragable={true}
-            data={careers ? careers : []}
-          />
-        )}
       </CardWrapper>
+      {table && (
+        <Table
+          columns={tableColumn()}
+          dragable={true}
+          data={careers ? careers : []}
+        />
+      )}
     </>
   );
 };

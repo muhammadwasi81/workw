@@ -77,56 +77,58 @@ const MyCareerCard = (props) => {
         onClose={handleDrawerClose}
         id={id}
       />
-      <CardWrapper
-        style={{
-          gridTemplateColumns: "repeat(auto-fill,minmax(35rem,1fr))",
-        }}
-      >
-        {openDetail && (
-          <Modal
-            open={openDetail}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            footer={null}
-            width={"50%"}
-          >
-            <JobDetails apply={applyJob} />
-          </Modal>
-        )}
-        {!table && (
-          <>
-            {loader ? (
-              [...Array(15)].map((item) => (
-                <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
-              ))
-            ) : (
-              <>
-                {careers.length > 0 ? (
-                  careers.map((item) => (
-                    <ListItem
-                      onClick={() => openJobDetailHandler(item.id)}
-                      onClickMyCareer={() => openMyCareerDetail(item.id)}
-                      item={item}
-                    />
-                  ))
-                ) : (
-                  <div>
-                    <h2>No Careers Found!</h2>
-                  </div>
-                )}
-              </>
-            )}
-          </>
-        )}
+      {!table && (
+        <CardWrapper
+          style={{
+            gridTemplateColumns: "repeat(auto-fill,minmax(35rem,1fr))",
+          }}
+        >
+          {openDetail && (
+            <Modal
+              open={openDetail}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              footer={null}
+              width={"50%"}
+            >
+              <JobDetails apply={applyJob} />
+            </Modal>
+          )}
+          {!table && (
+            <>
+              {loader ? (
+                [...Array(15)].map((item) => (
+                  <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
+                ))
+              ) : (
+                <>
+                  {careers.length > 0 ? (
+                    careers.map((item) => (
+                      <ListItem
+                        onClick={() => openJobDetailHandler(item.id)}
+                        onClickMyCareer={() => openMyCareerDetail(item.id)}
+                        item={item}
+                      />
+                    ))
+                  ) : (
+                    <div>
+                      <h2>No Careers Found!</h2>
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </CardWrapper>
+      )}
 
-        {table && (
-          <Table
-            columns={tableColumn()}
-            dragable={true}
-            data={careers ? careers : []}
-          />
-        )}
-      </CardWrapper>
+      {table && (
+        <Table
+          columns={tableColumn()}
+          dragable={true}
+          data={careers ? careers : []}
+        />
+      )}
     </>
   );
 };

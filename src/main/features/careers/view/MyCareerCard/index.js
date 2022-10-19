@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   CardWrapper,
   CardWrapperCareers,
@@ -12,10 +12,14 @@ import "antd/dist/antd.css";
 import { getAllCareerAction, getCareerByIdAction } from "../../store/action";
 import { useNavigate } from "react-router-dom";
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization";
 import { tableColumn } from "../TableColumn";
 import { Table } from "../../../../sharedComponents/customTable";
 
 const MyCareerCard = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList } = CareerDictionary[userLanguage];
   const navigate = useNavigate();
   const [openDetail, setOpenDetail] = useState(false);
   const [applyDrawer, setApplyDrawer] = useState(false);
@@ -30,10 +34,12 @@ const MyCareerCard = (props) => {
     return state.careerSlice;
   });
 
+  const { labels } = CareerDictionaryList;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (props.view === "Table") {
+    if (props.view === labels.table) {
       setTable(true);
     } else {
       setTable(false);

@@ -12,13 +12,14 @@ const ApplyComposer = (props) => {
 
   const onFinish = (values) => {
     console.log(values, "values in onfinish", props.id);
-    console.log(attachments[0].originFileObj);
+    // console.log(attachments[0].originFileObj);
     const payload = {
       ...values,
       careerId: props.id,
-      attachments: [
-        { file: attachments[0].originFileObj, id: STRINGS.DEFAULTS.guid },
-      ],
+      attachments:
+        attachments.length === 0
+          ? attachments
+          : [{ file: attachments[0].originFileObj, id: STRINGS.DEFAULTS.guid }],
     };
     dispatch(addCareerApplicant(payload));
     form.resetFields();

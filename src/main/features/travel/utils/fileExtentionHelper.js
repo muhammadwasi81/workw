@@ -9,7 +9,9 @@ export const fileExtentionPreview = file => {
 	if (["svg", "png", "jpeg", "jpg", "gif"].includes(extention)) {
 		return file;
 		// return (window.URL || window.webkitURL).createObjectURL(file);
-	} else if (["doc", "docx"].includes(extention)) return word;
+	}
+	else if (file.split(":")[0] === 'blob') return file; 
+	else if (["doc", "docx"].includes(extention)) return word;
 	else if (["xls", "xlsx"].includes(extention)) return excel;
 	else if (["ppt", "pptx"].includes(extention)) return powerpoint;
 	// else if (["mp4", "avi", "mov"].includes(extention)) return <ImFilePlay />;

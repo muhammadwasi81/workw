@@ -90,7 +90,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.Schedules,
       counter: 0,
-      to: ROUTES.SCHEDULES,
+      to: ROUTES.SCHEDULES.LINK + "?f=cal",
       icon: schedulesIcon,
       isActive: 1,
       key: label.navMenuLabel.menu,
@@ -241,14 +241,14 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     // *****BY SANJNA****
-    // {
-    //   name: label.navMenuLabel.teams,
-    //   counter: 0,
-    //   icon: teamIcon,
-    //   to: ROUTES.TEAMS.TEAM,
-    //   isActive: true,
-    //   key: label.navMenuLabel.hr,
-    // },
+    {
+      name: "My Team",
+      counter: 0,
+      icon: teamIcon,
+      to: ROUTES.TEAMS.TEAM,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
     {
       name: label.navMenuLabel.leaves,
       counter: 0,

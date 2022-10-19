@@ -14,6 +14,7 @@ const career_data = (data) => {
     approverStatus: data.approverStatus ? data.approverStatus : [],
     filterType: data.request.filterType ? data.request.filterType : 0,
     sortBy: data.request.sortBy ? data.request.sortBy : 2,
+    search: data.request.search ? data.request.search : "",
   };
 };
 export const addCareerService = async (data) => {
@@ -63,11 +64,16 @@ export const getAllCareerService = async (data) => {
   }
 };
 
-export const getAllCareerApplicantService = async (data) => {
+export const getAllCareerApplicantService = async (daa) => {
+  console.log(daa, "data in get all career applicants");
+  const payload = {
+    pageSize: 50,
+    careerIds: daa.request.careerIds,
+  };
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.post(`api/Career/GetAllCareer`, data);
+    } = await Config.post(`api/Career/GetAllCareerApplicant`, payload);
     if (responseCode === responseCodeEnum.Success)
       return ResponseResultSuccess(data);
     return ResponseResultError(message);

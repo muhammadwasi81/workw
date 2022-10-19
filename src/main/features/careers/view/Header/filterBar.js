@@ -5,41 +5,40 @@ import { getAllCareerAction } from "../../store/action";
 import { handleChangeTab } from "../../store/slice";
 import { CareerFilterEnum } from "../../enum/index";
 
-function Index() {
+function Index(props) {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [search, setSearch] = useState("");
-  const [tableView, setTableView] = useState(false);
+  // const [tableView, setTableView] = useState(false);
 
   const handleTabChange = (tab) => {
     dispatch(handleChangeTab(tab));
+  };
+
+  const onSegmentChange = (val) => {
+    props.segment(val);
   };
 
   return (
     <>
       <TopBar
         onSearch={(value) => {
-          setFilter({ ...filter, search: value });
+          props.onSearch(value);
         }}
         buttons={[
           {
             name: "Careers",
             to: "careers",
             onClick: handleTabChange,
-            // onClick: () => setFilter({ filterType: CareerFilterEnum.All }),
           },
           {
             name: "My Careers",
             to: "myCareers",
             onClick: handleTabChange,
-            // onClick: () =>
-            //   setFilter({ filterType: CareerFilterEnum.MyCareers }),
           },
           {
             name: "For Approval",
             to: "forApprovals",
-            // onClick: () =>
-            //   setFilter({ filterType: CareerFilterEnum.ForApproval }),
             onClick: handleTabChange,
           },
         ]}
@@ -48,13 +47,14 @@ function Index() {
         //   onFilter: () => {},
         // }}
         segment={{
-          onSegment: (value) => {
-            if (value === "Table") {
-              setTableView(true);
-            } else {
-              setTableView(false);
-            }
-          },
+          // onSegment: (value) => {
+          //   if (value === "Table") {
+          //     setTableView(true);
+          //   } else {
+          //     setTableView(false);
+          //   }
+          // },
+          onSegment: (value) => onSegmentChange(value),
           label1: "List",
           label2: "Table",
         }}

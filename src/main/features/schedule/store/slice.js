@@ -4,6 +4,7 @@ import {
 	getAllCurrentSchedule,
 	getAllEventSchedule,
 	getAllSchedule,
+	getAllUpcomingSchedule,
 } from "./action";
 
 const scheduleSlice = createSlice({
@@ -16,6 +17,7 @@ const scheduleSlice = createSlice({
 		schedules: [],
 		eventSchedules: [],
 		currentSchedules: [],
+		upcomingSchedules: [],
 	},
 	reducers: {
 		toggleEventDetailComposer: (state, _) => {
@@ -44,6 +46,11 @@ const scheduleSlice = createSlice({
 				state.success = true;
 				state.currentSchedules = payload.data;
 			})
+			.addCase(getAllUpcomingSchedule.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.success = true;
+				state.upcomingSchedules = payload.data;
+			})
 			.addMatcher(
 				isPending(
 					...[
@@ -51,6 +58,7 @@ const scheduleSlice = createSlice({
 						getAllSchedule,
 						getAllEventSchedule,
 						getAllCurrentSchedule,
+						getAllUpcomingSchedule,
 					]
 				),
 				state => {
@@ -63,8 +71,8 @@ const scheduleSlice = createSlice({
 					...[
 						addSchedule,
 						getAllSchedule,
-						getAllEventSchedule,
-						getAllCurrentSchedule,
+						// getAllEventSchedule,
+						// getAllCurrentSchedule,
 					]
 				),
 				state => {

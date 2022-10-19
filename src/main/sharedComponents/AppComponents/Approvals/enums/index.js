@@ -14,13 +14,14 @@ export const ApprovalsModule = {
   RequisitionApproval: 23,
   RequisitionFinalApproval: 24,
   PromotionApproval: 14,
-  requestForItemsApproval: 13,
   RequestForItemApproval: 15,
   LoanApproval: 16,
   CustomApproval: 17,
   FormApproval: 18,
   SalaryApproval: 20,
-  PayrollApproval: 22,
+  PayrollApproval: 21,
+  CareerApproval: 22,
+  requestForItemsApproval: 13,
 };
 export const ApprovalStatus = {
   InProcess: 1,

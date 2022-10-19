@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   ContBody,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Drawer, Button } from "antd";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../localization";
 import { useDispatch, useSelector } from "react-redux";
 import TopBar from "./Header/filterBar";
 import Header from "../../../layout/header/index";
@@ -17,15 +19,19 @@ import ForApprovalCard from "./ForApprovalCard/index";
 import Composer from "./Composers/index";
 
 function Careers() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList } = CareerDictionary[userLanguage];
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
   const { drawerOpen } = useSelector((state) => state.careerSlice);
-  // console.log(drawerOpen);
   const [search, setSearch] = useState("");
   const [view, setView] = useState("List");
-  // console.log(CurrentTab);
+
+  const { labels } = CareerDictionaryList;
+  // console.log(labels);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    if (CurrentTab === "careers") {
+    if (CurrentTab === labels.careers) {
       console.log("careers");
       let payload = {
         filterType: 0,
@@ -36,9 +42,9 @@ function Careers() {
       console.log("careers");
       let payload = {
         filterType:
-          CurrentTab === "myCareers"
+          CurrentTab === labels.myCareers
             ? 1
-            : CurrentTab === "forApprovals"
+            : CurrentTab === labels.forApprovals
             ? 2
             : null,
         search: search,
@@ -68,13 +74,13 @@ function Careers() {
         <Header
           buttons={[
             {
-              buttonText: "Create Career",
+              buttonText: CareerDictionaryList.createTextBtn,
               render: (
                 <Button
                   className="ThemeBtn"
                   onClick={() => dispatch(handleOpenComposer(true))}
                 >
-                  Create Career
+                  {CareerDictionaryList.createTextBtn}
                 </Button>
               ),
             },

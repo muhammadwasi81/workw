@@ -120,14 +120,14 @@ const CareerCard = (props) => {
             )}
           </>
         )}
+        {table && (
+          <Table
+            columns={tableColumn()}
+            dragable={true}
+            data={careers ? careers : []}
+          />
+        )}
       </CardWrapper>
-      {table && (
-        <Table
-          columns={tableColumn()}
-          dragable={true}
-          data={careers ? careers : []}
-        />
-      )}
     </>
   );
 };

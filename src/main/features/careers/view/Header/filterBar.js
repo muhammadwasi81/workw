@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
 import { getAllCareerAction } from "../../store/action";
 import { handleChangeTab } from "../../store/slice";
 import { CareerFilterEnum } from "../../enum/index";
 
 function Index(props) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList } = CareerDictionary[userLanguage];
   const dispatch = useDispatch();
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [search, setSearch] = useState("");
   // const [tableView, setTableView] = useState(false);
+  const { labels } = CareerDictionaryList;
+  console.log(labels);
 
   const handleTabChange = (tab) => {
     dispatch(handleChangeTab(tab));
@@ -27,17 +33,17 @@ function Index(props) {
         }}
         buttons={[
           {
-            name: "Careers",
+            name: labels.careers,
             to: "careers",
             onClick: handleTabChange,
           },
           {
-            name: "My Careers",
+            name: labels.myCareer,
             to: "myCareers",
             onClick: handleTabChange,
           },
           {
-            name: "For Approval",
+            name: labels.forApproval,
             to: "forApprovals",
             onClick: handleTabChange,
           },
@@ -55,8 +61,8 @@ function Index(props) {
           //   }
           // },
           onSegment: (value) => onSegmentChange(value),
-          label1: "List",
-          label2: "Table",
+          label1: labels.list,
+          label2: labels.table,
         }}
       />
     </>

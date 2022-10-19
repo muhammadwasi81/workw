@@ -23,8 +23,8 @@ const ApplicantDetail = (props) => {
     attachments,
   } = props.data;
 
-  const { path } = attachments[0];
-  console.log(path);
+  // const { path } = attachments[0];
+  // console.log(path);
   return (
     <>
       <div className="item careersQuickDetail">
@@ -47,6 +47,7 @@ const ApplicantDetail = (props) => {
           {/* <a href={path} target="_blank">
             Download Resume
           </a> */}
+
           <Attachments
             data={attachments}
             key={{ data: attachments }}

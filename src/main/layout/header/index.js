@@ -92,7 +92,7 @@ function Header({ items, buttons, backButton, width }) {
 					{items.map(({ name, to, onClick = () => {} }, index) => (
 						<li className="list__item" key={index}>
 							<Link
-								to={'/'}
+								to={to}
 								onClick={() => onClick(name)}
 								className={activeLinks[index] ? "active" : ""}
 							>

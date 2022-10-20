@@ -2,21 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
 import moment from "moment";
 import { getEducationDetailByUser } from "../../../features/education/store/actions";
+
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import { employeeDictionaryList } from "../../../features/employee/localization/index";
+import { teamDictionaryList } from "../localization/index";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 function Education() {
   const dispatch = useDispatch();
+  const { id } = useParams();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
-  const { id } = useParams();
-  const { employeesDictionary, Direction } = employeeDictionaryList[
-    userLanguage
-  ];
-  const labels = employeesDictionary.EducationForm;
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.EducationTable;
 
   const {
     employee: { educationdetails },
@@ -73,29 +73,15 @@ function Education() {
   ];
   return (
     <>
-      {educationdetails?.map((itm) => {
-        return (
-          <TeamTable
-            bordered
-            columns={columns}
-            // dragable={true}
-            // scroll={{ x: true }}
-            // size="small"
-            className="custom_table"
-            dataSource={[
-              {
-                degree: itm.degree,
-                institute: itm.institute,
-                city: itm.city,
-                description: itm.description,
-                obtainedMarks: itm.obtainedMarks,
-                totalMarks: itm.totalMarks,
-                startDate: itm.startDate,
-              },
-            ]}
-          />
-        );
-      })}
+      <TeamTable
+        bordered
+        columns={columns}
+        // dragable={true}
+        // scroll={{ x: true }}
+        // size="small"
+        className="custom_table"
+        dataSource={educationdetails}
+      />
     </>
   );
 }

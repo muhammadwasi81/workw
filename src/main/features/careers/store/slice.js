@@ -48,9 +48,10 @@ const careerSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addCareer.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.drawerOpen = false;
         state.success = true;
-        state.items = [...state.items, payload.data.data];
+        state.items = [...state.items, payload];
       })
       .addCase(addCareerApplicant.fulfilled, (state, { payload }) => {
         console.log(payload);

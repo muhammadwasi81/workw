@@ -22,8 +22,29 @@ export const addRequisitionService = async(data) => {
 		});
 };
 
+export const addRequisitionOfferService = async(data) => {
+	const formData = jsonToFormData(data);
+	return MasterConfig.post(`api/Requisition/AddRequisitionOffer`, formData)
+		.then(res => {
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
+};
+
 export const GetRequisitionByIdService = id => {
 	return MasterConfig.get(`api/Requisition/GetRequisitionById?id=${id}`)
+		.then(res => {
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
+};
+
+export const GetAllRequisitionOfferService = data => {
+	return MasterConfig.post(`api/Requisition/GetAllRequisitionOffer`, data)
 		.then(res => {
 			return res;
 		})

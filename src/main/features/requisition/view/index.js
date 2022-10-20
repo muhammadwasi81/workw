@@ -1,19 +1,19 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { BrokenPage, STRINGS } from "../../../../utils/base";
 import { ROUTES } from "../../../../utils/routes";
+import RequisitionDetails from "./myRequisitionDetail";
 import Requisition from "./Requisition";
 
-const Index = () => {
+const Index = () => {   
   return (
-    <Switch>
-      <Route
-        exact
-        path={`${ROUTES.REQUISITION}`}
-        component={Requisition}
-      />
-      <Route component={BrokenPage} />
-    </Switch>
+    <>
+      <Routes>
+        <Route path="/" element={<Requisition />} />
+        {/* <Route path="requisitionDetail/:id" element={<RequisitionDetails />} /> */}
+        <Route component={<BrokenPage />} />
+      </Routes>
+    </>
   );
 };
 

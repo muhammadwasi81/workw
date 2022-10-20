@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, Button, Drawer, Form, Input } from "antd";
 import { useSelector } from "react-redux";
 import { FieldTimeOutlined } from "@ant-design/icons";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization";
 import RemarksApproval from "../../../../sharedComponents/AppComponents/Approvals/view";
 import {
   ItemHeader,
@@ -13,8 +15,10 @@ import moment from "moment";
 import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 
 const ApprovalComposer = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
   const { careerDetail } = useSelector((state) => state.careerSlice);
-
+  const { labels } = CareerDictionaryList;
   console.log(careerDetail, "dsfsd");
   const {
     creator,
@@ -37,14 +41,22 @@ const ApprovalComposer = (props) => {
     <>
       <Drawer
         title={
-          <h1 style={{ fontSize: "20px", margin: 0 }}>{"Career Detail"}</h1>
+          <h1
+            style={{
+              fontSize: "20px",
+              margin: 0,
+              textAlign: Direction === "ltr" ? "" : "end",
+            }}
+          >
+            {labels.careerdetail}
+          </h1>
         }
         width="768"
         // placement={
         //   (Direction === "ltr" ? "left" : "right",
         //   isTablet ? "bottom" : "right")
         // }
-        placement="right"
+        placement={Direction === "rtl" ? "left" : "right"}
         onClose={props.onClose}
         visible={props.visible}
         className="detailedViewComposer drawerSecondary"
@@ -119,21 +131,21 @@ const ApprovalComposer = (props) => {
           </div>
           <div className="cardSections mt-10">
             <div className="cardSectionItem">
-              <div className="cardSection__title">Salary Range</div>
+              <div className="cardSection__title">{labels.salaryRange}</div>
               <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">Effective Date</div>
+              <div className="cardSection__title">{labels.effectiveDate}</div>
               <div className="cardSection__body">
                 {moment(createDate).format("Do MMM YY")}
               </div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">Experience Required</div>
+              <div className="cardSection__title">{labels.experience}</div>
               <div className="cardSection__body">{experience}</div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">Job Expires</div>
+              <div className="cardSection__title">{labels.jobExpires}</div>
               <div className="cardSection__body">
                 {" "}
                 {moment(endDate).format("Do MMM YY")}
@@ -143,7 +155,7 @@ const ApprovalComposer = (props) => {
         </SingleItem>
         <RemarksApproval
           data={approvers}
-          title="Approvals"
+          title={labels.approvers}
           module={ApprovalsModule.CareerApproval}
           onStatusChanged={() => {}}
         />

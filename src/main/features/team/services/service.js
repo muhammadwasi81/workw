@@ -42,3 +42,66 @@ export const getAllTeamsService = async (request) => {
     return ResponseResultError(e);
   }
 };
+export const getAllRewardService = async (request) => {
+  // console.log(request, "REQUEST");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Reward/GetAllReward`, request);
+    console.log(responseCode, "REQUEST REWARD RESPONSE");
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+export const getAllLoanService = async (request) => {
+  // console.log(request, "REQUEST");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Loan/GetAllLoan`, request);
+    // console.log(responseCode, "REQUEST REWARD RESPONSE");
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+export const getAllComplainService = async (request) => {
+  // console.log(request, "REQUEST");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Complain/GetAllComplain`, request);
+    // console.log(responseCode, "REQUEST REWARD RESPONSE");
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+export const getAllWarningService = async (request) => {
+  // console.log(request, "REQUEST");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Warning/GetAllWarning`, request);
+    // console.log(responseCode, "REQUEST REWARD RESPONSE");
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};

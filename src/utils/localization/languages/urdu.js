@@ -161,6 +161,7 @@ const urdu = {
     ledgerReport: "لیجر رپورٹ",
     salary: "تنخواہ",
     payroll: "پے رول",
+    teams: "میری ٹیم",
   },
 
   /*** AppHeader only used in Component headerTab ***/

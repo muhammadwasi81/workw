@@ -1,27 +1,34 @@
 import { Image, Tag } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import { SingleItem } from "../../../../sharedComponents/Card/CardStyle";
 import { Skeleton } from "antd";
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization";
 import { getCareerByIdAction } from "../../store/action";
 import "../styles/style.css";
 import { EducationTypeEnum } from "../../utils/enums";
 import moment from "moment";
 
 function ShortDetailCard() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
   const { careerDetail } = useSelector((state) => state.careerSlice);
-
+  const { labels } = CareerDictionaryList;
   console.log(careerDetail); // set these in component
 
   return (
     <>
       <SingleItem>
         <div className="careersDetailCard">
-          <div className="cardLabel">Job DETAILS</div>
+          <div className="cardLabel">{labels.jobdetail}</div>
 
           <div className="careersSections">
             <div className="">
-              <div className="text-[14px] font-bold text-[grey]">JOB TITLE</div>
+              <div className="text-[14px] font-bold text-[grey]">
+                {labels.jobTitle}
+              </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.designation ? (
                   careerDetail?.designation
@@ -32,7 +39,7 @@ function ShortDetailCard() {
             </div>
             <div className="">
               <div className="text-[14px] font-bold text-[grey]">
-                CREATED BY
+                {labels.createdBy}
               </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.creator?.name ? (
@@ -43,7 +50,9 @@ function ShortDetailCard() {
               </div>
             </div>
             <div className="">
-              <div className="text-[14px] font-bold text-[grey]">Email</div>
+              <div className="text-[14px] font-bold text-[grey]">
+                {labels.email}
+              </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.creator?.email ? (
                   careerDetail?.creator?.email
@@ -54,7 +63,7 @@ function ShortDetailCard() {
             </div>
             <div className="">
               <div className="text-[14px] font-bold text-[grey]">
-                DEPARTMENT
+                {labels.department}
               </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.department ? (
@@ -66,7 +75,7 @@ function ShortDetailCard() {
             </div>
             <div className="">
               <div className="text-[14px] font-bold text-[grey]">
-                EDUCATION LEVEL
+                {labels.educationLevel}
               </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.educationId ? (
@@ -81,7 +90,9 @@ function ShortDetailCard() {
               </div>
             </div>
             <div className="">
-              <div className="text-[14px] font-bold text-[grey]">END DATE</div>
+              <div className="text-[14px] font-bold text-[grey]">
+                {labels.endDate}
+              </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.endDate ? (
                   moment(careerDetail?.endDate).format("Do MMM YY")
@@ -94,7 +105,7 @@ function ShortDetailCard() {
             </div>
             <div className="">
               <div className="text-[14px] font-bold text-[grey]">
-                MINIMUM SALARY
+                {labels.minSalary}
               </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.minSalary ? (
@@ -106,7 +117,7 @@ function ShortDetailCard() {
             </div>
             <div className="">
               <div className="text-[14px] font-bold text-[grey]">
-                MAXIMUM SALARY
+                {labels.maxSalary}
               </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.maxSalary ? (
@@ -118,7 +129,7 @@ function ShortDetailCard() {
             </div>
             <div className="">
               <div className="text-[14px] font-bold text-[grey]">
-                YEAR OF EXPERIENCE
+                {labels.yearOfExperience}
               </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.experience ? (

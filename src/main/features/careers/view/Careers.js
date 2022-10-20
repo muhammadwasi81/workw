@@ -17,21 +17,22 @@ import CareerCard from "./CareersCard/index";
 import MyCareerCard from "./MyCareerCard/index";
 import ForApprovalCard from "./ForApprovalCard/index";
 import Composer from "./Composers/index";
+import "../view/styles/style.css";
 
 function Careers() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { CareerDictionaryList } = CareerDictionary[userLanguage];
+  const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
   const { drawerOpen } = useSelector((state) => state.careerSlice);
   const [search, setSearch] = useState("");
+  const { labels } = CareerDictionaryList;
   const [view, setView] = useState("List");
 
-  const { labels } = CareerDictionaryList;
   // console.log(labels);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (CurrentTab === labels.careers) {
+    if (CurrentTab === "careers") {
       console.log("careers");
       let payload = {
         filterType: 0,
@@ -42,9 +43,9 @@ function Careers() {
       console.log("careers");
       let payload = {
         filterType:
-          CurrentTab === labels.myCareers
+          CurrentTab === "myCareers"
             ? 1
-            : CurrentTab === labels.forApprovals
+            : CurrentTab === "forApprovals"
             ? 2
             : null,
         search: search,
@@ -62,11 +63,6 @@ function Careers() {
   const segmentChange = (val) => {
     setView(val);
   };
-
-  // const onClose = (val) => {
-  //   console.log("settng drawer close");
-  //   setDrawerOpen(val);
-  // };
 
   return (
     <>
@@ -97,11 +93,13 @@ function Careers() {
               style={{
                 fontSize: "20px",
                 margin: 0,
+                textAlign: Direction === "ltr" ? "" : "end",
               }}
             >
-              Create Job
+              {labels.createJob}
             </h1>
           }
+          placement={Direction === "rtl" ? "left" : "right"}
           width="768"
           onClose={() => {
             dispatch(handleOpenComposer(false));

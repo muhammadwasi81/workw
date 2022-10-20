@@ -1,3 +1,16 @@
+.createCareerRight .ant-form-item {
+  margin-bottom: 5px;
+  text-align: right;
+}
+
+.createCareerRight .ant-form-item-label {
+  text-align: right;
+}
+
+.alignRight .ant-drawer-title {
+  text-align: right;
+}
+
 .createCareer .ant-form-item {
   margin-bottom: 5px;
 }

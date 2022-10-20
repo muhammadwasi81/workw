@@ -1,7 +1,7 @@
 import Avatar from '../../../sharedComponents/Avatar/avatar';
 import StatusTag from '../../../sharedComponents/Tag/StatusTag';
 
-export const ListTableColumn = () => {
+export const TableColumn = () => {
   return [
     {
       title: 'Category',
@@ -10,33 +10,20 @@ export const ListTableColumn = () => {
       sort: true,
     },
     {
-      title: 'Reference No',
-      dataIndex: 'referenceNo',
+      title: 'Quantity',
+      dataIndex: 'value',
       ellipsis: true,
       sort: true,
     },
     {
-      title: 'Quantity',
-      dataIndex: 'quantity',
+      title: 'Name',
+      dataIndex: 'name',
       ellipsis: true,
       sort: true,
     },
     {
       title: 'Approvers',
       dataIndex: 'approvers',
-      ellipsis: true,
-      render: (value) => (
-        <Avatar
-          heading={'approvers'}
-          isAvatarGroup={true}
-          membersData={value}
-        />
-      ),
-      sort: true,
-    },
-    {
-      title: 'Asset Controller',
-      dataIndex: 'assetController',
       ellipsis: true,
       render: (value) => (
         <Avatar

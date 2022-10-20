@@ -10,6 +10,7 @@ import { customApprovalDictionaryList } from '../../../CustomApprovals/localizat
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { getAllAssetCategories } from '../../../assetsCategory/store/actions';
 import { addRequestListItems } from '../../store/action';
+import { modifySelectData } from '../../../../../utils/base';
 
 const initialState = {
   id: '',
@@ -50,6 +51,7 @@ const Composer = () => {
   const [value, setValue] = useState([]);
 
   const { assetsData } = useSelector((state) => state.assetsCategorySlice);
+  console.log(assetsData, 'assetsData');
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   useEffect(() => {
@@ -119,9 +121,23 @@ const Composer = () => {
       }
       console.log(values, 'values');
     }
-    let payload = { ...values, approvers, assetController };
+    let payload = {
+      ...values,
+      approvers: modifySelectData(values.approvers).map((el, index) => {
+        return {
+          approverId: el,
+        };
+      }),
+      assetController: modifySelectData(values.assetController).map(
+        (el, index) => {
+          return {
+            approverId: el,
+          };
+        }
+      ),
+    };
     dispatch(addRequestListItems(payload));
-
+    setState(initialState);
     form.resetFields();
   };
 
@@ -153,7 +169,7 @@ const Composer = () => {
           rules={[
             {
               required: true,
-              message: 'Please Enter Category',
+              message: 'Please Select Category',
             },
           ]}
         >
@@ -179,7 +195,7 @@ const Composer = () => {
           rules={[
             {
               required: true,
-              message: 'type',
+              message: 'Please Select Type',
             },
           ]}
         >
@@ -297,7 +313,7 @@ const Composer = () => {
             rules={[
               {
                 required: true,
-                message: 'Please Select Approver',
+                message: 'Please Select Assets Controller',
               },
             ]}
           />

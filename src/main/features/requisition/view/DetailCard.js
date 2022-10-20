@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image, Button } from "antd";
+import { Drawer, Tag, Image, Button, message } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { requisitionDictionaryList } from "../localization/index";
@@ -18,6 +18,9 @@ import {
     ApprovalsModule,
     ApprovalStatus,
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { ROUTES } from "../../../../utils/routes";
+import { LinkOutlined } from "@ant-design/icons";
 
 function RequisitionDetailCard(props) {
     const { userLanguage } = useContext(LanguageChangeContext);
@@ -25,9 +28,10 @@ function RequisitionDetailCard(props) {
     const { Detail } = useSelector((state) => state.requisitionSlice);
     const { user } = useSelector(state => state.userSlice);
     const [updatedStatus, setUpdatedStatus] = useState(null);
+    const [copy, setCopy] = useState(false);
 
     const dispatch = useDispatch();
-
+    
     let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
     let userId = user.id
 
@@ -46,6 +50,7 @@ function RequisitionDetailCard(props) {
         finalApprovers,
         createDate,
         budget,
+        id,
         referenceNo,
         members = [],
         approvers,
@@ -59,10 +64,14 @@ function RequisitionDetailCard(props) {
         // dispatch(cancelReward(payload));
     }
 
+    const copyfunc = () => {
+        setCopy(true);
+    };
+
     const isTablet = false;
 
     return (
-        <>
+        <>  {copy && message.success("Copied")}
             {Detail.id && (
                 <div id={props.id} className="detailedViewComposer">
                     <ItemHeader>
@@ -77,6 +86,14 @@ function RequisitionDetailCard(props) {
                             <Tag className="IdTag">
                                 {referenceNo && referenceNo}</Tag>
                             <StatusTag status={status && status}></StatusTag>
+                            <CopyToClipboard
+                                text={`${window.location.origin}${ROUTES.REQUISITION.APPLYREQUISITION}/${id}`}
+                                onCopy={copyfunc}
+                            >
+                                <Tag className="LinkTag ThemeBtn">
+                                    <LinkOutlined /> {"Copy Link"}
+                                </Tag>
+                            </CopyToClipboard>
                         </div>
                     </ItemHeader>
                     <ItemContent className="flex">
@@ -89,36 +106,21 @@ function RequisitionDetailCard(props) {
                     </ItemContent>
                     <div className="cardSections">
                         <div className="cardSectionItem">
-                            <div className="cardSection__title">{"Budget"}</div>
+                            <div className="cardSection__title">{requisitionDictionary.Budget}</div>
                             <div className="cardSection__body">{budget}</div>
                         </div>
                         <div className="cardSectionItem">
-                            <div className="cardSection__title">{"Name"}</div>
+                            <div className="cardSection__title">{requisitionDictionary.name}</div>
                             <div className="cardSection__body">
                                 {name}
                             </div>
                         </div>
                         <div className="cardSectionItem">
-                            <div className="cardSection__title">{"Reason"}</div>
+                            <div className="cardSection__title">{requisitionDictionary.reason}</div>
                             <div className="cardSection__body">
                                 {reason}
                             </div>
                         </div>
-                        {/* <div className="cardSectionItem">
-            <div className="cardSection__title">{"Final Approvers"}</div>
-            <div className="cardSection__body">
-              {finalApprovers &&
-                <Avatar
-                  isAvatarGroup={true}
-                  isTag={false}
-                  heading={"finalApprovers"}
-                  membersData={finalApprovers}
-                  text={"finalApprovers"}
-                  image={"https://joeschmoe.io/api/v1/random"}
-                />
-              }
-            </div>
-          </div> */}
                         <div className="cardSectionItem">
                             <div className="cardSection__title">{requisitionDictionary.approvers}</div>
                             <div className="cardSection__body">
@@ -138,9 +140,9 @@ function RequisitionDetailCard(props) {
                     <RemarksApproval
                         module={ApprovalsModule.RequisitionApproval}
                         status={status}
-                        onStatusChanged={statusChanged => {setUpdatedStatus(statusChanged)}}
+                        onStatusChanged={statusChanged => { setUpdatedStatus(statusChanged) }}
                         data={approvers}
-                        title="Approvers"
+                        title={requisitionDictionary.approvers}
                     />
                     <RemarksApproval
                         module={ApprovalsModule.RequisitionFinalApproval}
@@ -151,7 +153,7 @@ function RequisitionDetailCard(props) {
                         }
                         }
                         data={finalApprovers}
-                        title="finalApprovers"
+                        title={requisitionDictionary.FinalApprovers}
                     />
                 </div>
             )}

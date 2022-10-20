@@ -1,5 +1,5 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
-import { createRoom } from "./action";
+import { createRoom, instantCall } from "./action";
 
 const initialState = {
 	isCreateRoomModalOpen: false,
@@ -13,7 +13,7 @@ const callingSlice = createSlice({
 	initialState,
 	reducers: {
 		handleCreateRoomModal(state, { payload }) {
-			state.isCreateRoomModalOpen = !state.isCreateRoomModalOpen;
+			state.isCreateRoomModalOpen = payload;
 			state.success = false;
 			state.loading = false;
 			state.error = false;
@@ -28,8 +28,19 @@ const callingSlice = createSlice({
 				state.error = false;
 				state.roomId = payload.data.roomId;
 			})
-			.addMatcher(isPending(createRoom), state => {
+			.addCase(instantCall.fulfilled, (state, { payload }) => {
+				state.loading = false;
+				state.success = true;
+				state.error = false;
+				state.roomId = payload.data.roomId;
+			})
+			.addMatcher(isPending(...[createRoom, instantCall]), state => {
 				state.loading = true;
+				state.success = false;
+				state.roomId = "";
+			})
+			.addMatcher(isRejected(...[createRoom, instantCall]), state => {
+				state.loading = false;
 				state.success = false;
 				state.roomId = "";
 			});

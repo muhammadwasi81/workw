@@ -502,7 +502,7 @@ export const ROUTES = {
 	},
 	//****by SANJANA****
 	TEAMS: {
-		DEFAULT: `${DOMAIN_PREFIX}/teams`,
+		DEFAULT: `${DOMAIN_PREFIX}/teams/*`,
 		TEAM: `${DOMAIN_PREFIX}/teams/`,
 		ATTENDENCE: `attendence`,
 		CHECK_IN: `checkIn`,
@@ -543,6 +543,7 @@ export const ROUTES = {
 		DEFAULT: `${DOMAIN_PREFIX}/careers/*`,
 		JOB_DETAIL: `${DOMAIN_PREFIX}/jobdetail`,
 		CAREERLINK: `${DOMAIN_PREFIX}/careers`,
+		APPLYJOB: `${DOMAIN_PREFIX}/applyjob`,
 	},
 	JOBS: {
 		DEFAULT: `${DOMAIN_PREFIX}/jobBoard/*`,

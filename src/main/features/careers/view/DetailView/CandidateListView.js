@@ -17,27 +17,27 @@ function CandidateListView(props) {
     {
       featureId: 1,
       featureName: `Short Listed`,
-      content: <div>Information div</div>,
+      content: <TabElement />,
     },
     {
       featureId: 2,
       featureName: `Rejected`,
-      content: <div>Information div</div>,
+      content: <TabElement />,
     },
     {
       featureId: 3,
       featureName: `Completed`,
-      content: <div>Information div</div>,
+      content: <TabElement />,
     },
     {
       featureId: 4,
       featureName: `Finalist`,
-      content: <div>Information div</div>,
+      content: <TabElement />,
     },
     {
       featureId: 5,
       featureName: `May be`,
-      content: <div>Information div</div>,
+      content: <TabElement />,
     },
   ];
   return (

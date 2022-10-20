@@ -9,6 +9,7 @@ import {
   createGuid,
   getNameForImage,
   modifySelectData,
+  STRINGS,
 } from "../../../../../utils/base";
 import { useSelector } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
@@ -26,8 +27,9 @@ import {
 import { getAllDefaultHiringCriteriaService } from "../../defaultHiringCriteria/services/service";
 import { getAllDesignation } from "../../../designation/store/actions";
 import { addCareer } from "../../store/action";
+import { handleOpenComposer } from "../../store/slice";
 
-const Composer = () => {
+const Composer = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   // const [designation, setDesignation] = useState([]);
@@ -35,6 +37,7 @@ const Composer = () => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [reviewCriteria, setReviewCriteria] = useState([]);
+  const [attachments, setAttachment] = useState([]);
   const { cities } = useSelector((state) => state.sharedSlice);
   const {
     sharedSlice: { employees },
@@ -120,9 +123,17 @@ const Composer = () => {
         };
       }),
       skills: values.skills.join(),
+      image:
+        attachments.length === 0
+          ? ""
+          : {
+              file: attachments[0].originFileObj,
+              id: STRINGS.DEFAULTS.guid,
+            },
     };
     dispatch(addCareer(payload));
     form.resetFields();
+    dispatch(handleOpenComposer(false));
   };
 
   return (
@@ -593,9 +604,11 @@ const Composer = () => {
           )}
         />
 
-        <Form.Item area="true" label="Attachment">
+        <Form.Item area="true" label="Attachment" name="attachment">
           <SingleUpload
-            handleImageUpload={() => {}}
+            handleImageUpload={(val) => {
+              setAttachment(val);
+            }}
             img="Add Image"
             position="flex-start"
             uploadText={"Upload"}

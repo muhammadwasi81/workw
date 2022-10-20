@@ -6,6 +6,7 @@ import { Skeleton } from "antd";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import "../Styles/team.css";
+import { getTeamsAction } from "../store/action";
 
 function TeamList() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -13,10 +14,17 @@ function TeamList() {
   const dispatch = useDispatch();
   const { sharedLabels } = dictionaryList[userLanguage];
   const label = dictionaryList[userLanguage];
+  const { teams, loader } = useSelector((state) => state.teamSlice);
+  console.log(teams, "TEAMS");
+
+  useEffect(() => {
+    dispatch(getTeamsAction());
+  }, []);
+
   const [view, setView] = useState("List");
   let classes = "teamListContainer  ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
-  if (false) {
+  if (loader) {
     return (
       <div className="teamListContainer">
         {[...Array(40)].map(() => (
@@ -38,11 +46,18 @@ function TeamList() {
           filter={{
             onFilter: () => {},
           }}
+          segment={{
+            onSegment: (value) => {
+              setView(value);
+            },
+            label1: sharedLabels.List,
+            label2: sharedLabels.Table,
+          }}
         />
         {view === "List" ? (
           <div className={classes}>
-            {[1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1].map((index) => {
-              return <TeamCard key={index} />;
+            {teams.map((team, index) => {
+              return <TeamCard teams={team} key={index} />;
             })}
           </div>
         ) : (

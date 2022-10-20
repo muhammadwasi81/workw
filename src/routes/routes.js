@@ -283,6 +283,12 @@ export const routes = {
 				import("../main/features/careers/view/DetailView/index")
 			),
 		},
+		// {
+		//   path: `${ROUTES.CAREER.APPLYJOB}/:id`,
+		//   component: lazy(() =>
+		//     import("../main/features/careers/view/PublicRoute/ApplyJob")
+		//   ),
+		// },
 		{
 			path: `${ROUTES.EXPENSES.DEFAULT}`,
 			component: lazy(() => import("../main/features/expense/routes/")),

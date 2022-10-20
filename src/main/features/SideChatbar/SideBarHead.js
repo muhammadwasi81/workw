@@ -10,6 +10,7 @@ import { LanguageChangeContext } from "../../../utils/localization/localContext/
 import CreateRoom from "../calling/components/createRoom/CreateRoom";
 import { sideChatBarList } from "./localization";
 import { handleCreateRoomModal } from "../calling/store/slice";
+import { instantCall } from "../calling/store/action";
 export const SideBarHead = () => {
 	const dispatch = useDispatch();
 	const isOpenChatBar = useSelector(
@@ -20,8 +21,8 @@ export const SideBarHead = () => {
 	);
 	const { user } = useSelector(state => state.userSlice);
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { createRoom, instantCall } = sideChatBarList[userLanguage];
-	const [visible, setVisible] = useState(false);
+	const { createRoom, instantCall: icall } = sideChatBarList[userLanguage];
+	// const [visible, setVisible] = useState(false);
 
 	const handleClick = () => {
 		dispatch(sideBarOpen(!isOpenChatBar));
@@ -33,49 +34,33 @@ export const SideBarHead = () => {
 				{
 					key: "1",
 					label: createRoom,
-					onClick: () => dispatch(handleCreateRoomModal()),
+					onClick: () => {
+						console.log("create room cliced");
+						dispatch(handleCreateRoomModal(true));
+					},
 				},
-				// {
-				// 	key: "2",
-				// 	label: instantCall,
-				// 	onClick: async () => {
-				// 		try {
-				// 			const response = await fetch(
-				// 				"https://call.workw.com/api/createroomlink",
-				// 				{
-				// 					method: "POST", // *GET, POST, PUT, DELETE, etc.
-				// 					headers: {
-				// 						"Content-Type": "application/json",
-				// 					},
-				// 					body: JSON.stringify({
-				// 						initializerName: user.name,
-				// 						meetingType: "public",
-				// 						receiverIds: [],
-				// 					}),
-				// 				}
-				// 			);
-				// 			const { data } = await response.json();
-				// 			intilizeCallwindow(data);
-				// 		} catch (e) {
-				// 			message.error(e.message);
-				// 		}
-				// 	},
-				// },
+				{
+					key: "2",
+					label: icall,
+					onClick: () => {
+						dispatch(instantCall({ isPrivate: false }));
+					},
+				},
 			]}
 		/>
 	);
-	const intilizeCallwindow = response => {
-		const windowURL = `https://call.workw.com/${response.roomId}`;
-		window.open(
-			windowURL,
-			"_blank",
-			"toolbar=1, scrollbars=1, resizable=1, width=" +
-				1015 +
-				", height=" +
-				800
-		);
-		// window.open(windowURL, "_blank").focus();
-	};
+	// const intilizeCallwindow = response => {
+	// 	const windowURL = `https://192.168.100.70:3300/${response.roomId}`;
+	// 	window.open(
+	// 		windowURL,
+	// 		"_blank",
+	// 		"toolbar=1, scrollbars=1, resizable=1, width=" +
+	// 			1015 +
+	// 			", height=" +
+	// 			800
+	// 	);
+	// 	// window.open(windowURL, "_blank").focus();
+	// };
 
 	return (
 		<>
@@ -99,7 +84,7 @@ export const SideBarHead = () => {
 				visible={isCreateRoomModalOpen}
 				// onOk={() => setVisible(false)}
 				onCancel={() => {
-					dispatch(handleCreateRoomModal());
+					dispatch(handleCreateRoomModal(false));
 				}}
 				width={1000}
 				footer={null}

@@ -86,7 +86,7 @@ const CareerCard = (props) => {
       >
         {openDetail && (
           <Modal
-            open={openDetail}
+            visible={openDetail}
             onOk={handleOk}
             onCancel={handleCancel}
             footer={null}
@@ -120,15 +120,14 @@ const CareerCard = (props) => {
             )}
           </>
         )}
-
-        {table && (
-          <Table
-            columns={tableColumn()}
-            dragable={true}
-            data={careers ? careers : []}
-          />
-        )}
       </CardWrapper>
+      {table && (
+        <Table
+          columns={tableColumn()}
+          dragable={true}
+          data={careers ? careers : []}
+        />
+      )}
     </>
   );
 };

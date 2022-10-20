@@ -1,6 +1,7 @@
 import { Skeleton } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { STRINGS } from "../../../utils/base";
 import CommentItem from "./commentItem";
 import CommentComposer from "./Composer";
@@ -18,11 +19,12 @@ function CommentWrapper({
 	loadSkeleton = false,
 }) {
 	const [comments, setComments] = useState([]);
+	const { user } = useSelector(state => state.userSlice);
 	useEffect(() => {
-		if (initailComments.length > 0) {
-			setComments([...initailComments]);
-		}
-	}, [initailComments]);
+		setComments([...initailComments]);
+		// if (initailComments.length > 0) {
+		// }
+	}, [JSON.stringify(initailComments)]);
 
 	useEffect(() => {
 		isCommentLoad &&
@@ -52,8 +54,12 @@ function CommentWrapper({
 					({
 						type,
 						comment,
-						creator,
-						createDate,
+						creator = {
+							designation: "",
+							name: user.name,
+							image: user.userImage,
+						},
+						createDate = new Date(),
 						id: commentID,
 						referenceId,
 						mentions: mentionedUser,

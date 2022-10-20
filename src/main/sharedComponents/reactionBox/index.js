@@ -41,6 +41,8 @@ export default class Reactions extends Component {
 		},
 		{ id: ReactionType.Curious, description: "Curious", img: searchIcon },
 	];
+
+	componentDidUpdate(prevProps, prevState) {}
 	render() {
 		const { open } = this.state;
 		// const items = this.props.items;
@@ -65,7 +67,7 @@ export default class Reactions extends Component {
 			display: "inline-block",
 			position: "absolute",
 			width: `${width}px`,
-			left: this.props.direction === "ltr" ? 0 : "auto",
+			left: this.props.direction === "ltr" ? "" : "auto",
 			right: this.props.direction === "ltr" ? "auto" : 0,
 			bottom: "calc( 100% + 4px )",
 			zIndex: "9999",
@@ -81,18 +83,36 @@ export default class Reactions extends Component {
 					img={item.img}
 					title={item.description}
 					show={open}
+					onReactionClick={() => this.toggleOpen(false)}
 				></IconContainer>
 			);
 		});
 
 		return (
 			<span
+				className="flex flex-1 justify-center"
 				style={optionsStyles}
-				onClick={() => this.toggleOpen(false)}
+				onClick={() => {
+					this.toggleOpen(false);
+				}}
+				// onMouseOver={() => {
+				// 	setTimeout(() => {
+				// 		this.toggleOpen(true);
+				// 	}, 1000);
+				// }}
+				// onMouseOut={() => {
+				// 	this.toggleOpen(false);
+				// }}
 				onMouseEnter={() => this.toggleOpen(true)}
 				onMouseLeave={() => this.toggleOpen(false)}
 			>
-				<ul style={elementsStyles}>{listItems}</ul>
+				<ul
+					style={elementsStyles}
+					className="flex flex-1 justify-center"
+					id="reaction"
+				>
+					{listItems}
+				</ul>
 				<div>{this.props.children}</div>
 			</span>
 		);

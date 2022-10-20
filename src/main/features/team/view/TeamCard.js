@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
+
 import { EditOutlined, UserDeleteOutlined } from "@ant-design/icons";
 import { Avatar, Button } from "antd";
 import { getNameForImage } from "../../../../utils/base";
@@ -8,9 +10,11 @@ import { useNavigate } from "react-router-dom";
 import "../Styles/team.css";
 
 const TeamCard = ({ teams: { image, name, designation, email, id } }) => {
-  const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.sharedLabels;
+
+  const navigate = useNavigate();
   return (
     <>
       <div className="teamCard">
@@ -33,7 +37,7 @@ const TeamCard = ({ teams: { image, name, designation, email, id } }) => {
                 navigate(`info/attendence/${id}`);
               }}
             >
-              Detail
+              {labels.detail}
             </Button>
           </div>
         </div>

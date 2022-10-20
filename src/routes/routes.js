@@ -65,7 +65,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.ASSETS.DEFAULT}`,
-      component: lazy(() => import('../main/features/assets/view/index')),
+      component: lazy(() => import('../main/features/assets/view/assets')),
     },
     {
       path: `${ROUTES.CREATE_ASSETS.DEFAULT}`,
@@ -122,6 +122,10 @@ export const routes = {
       component: lazy(() =>
         import('../main/features/travel/view/TravelDetail/TravelDetail')
       ),
+    },
+    {
+      path: `${ROUTES.ELearning.DEFAULT}`,
+      component: lazy(() => import('../main/features/eLearning/')),
     },
     {
       path: `${ROUTES.CAREER.JOB_BY_ID}`,
@@ -205,12 +209,12 @@ export const routes = {
       ),
     },
     //Hr Router
-    {
-      path: `${ROUTES.EMPLOYEES_INFO.DEFAULT}`,
-      component: lazy(() =>
-        import('../main/features/employee/view/updateEmployee')
-      ),
-    },
+    // {
+    // 	path: `${ROUTES.EMPLOYEES_INFO.DEFAULT}`,
+    // 	component: lazy(() =>
+    // 		import("../main/features/employee/view/updateEmployee")
+    // 	),
+    // },
     {
       path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
       component: lazy(() => import('../main/features/administration')),
@@ -251,12 +255,6 @@ export const routes = {
         import('../main/features/careers/view/DetailView/index')
       ),
     },
-    // {
-    //   path: `${ROUTES.CAREER.APPLYJOB}/:id`,
-    //   component: lazy(() =>
-    //     import("../main/features/careers/view/PublicRoute/ApplyJob")
-    //   ),
-    // },
     {
       path: `${ROUTES.EXPENSES.DEFAULT}`,
       component: lazy(() => import('../main/features/expense/routes/')),
@@ -277,6 +275,12 @@ export const routes = {
       path: `${ROUTES.REQUISITION.DEFAULT}`,
       component: lazy(() =>
         import('../main/features/requisition/view/requisition')
+      ),
+    },
+    {
+      path: `${ROUTES.REQUISITION.DETAIL}`,
+      component: lazy(() =>
+        import('../main/features/requisition/view/myRequisitionDetail/index')
       ),
     },
 

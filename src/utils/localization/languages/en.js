@@ -135,6 +135,7 @@ const en = {
     salary: "Salary",
     payroll: "Payroll",
     jobBoard: "Job Board",
+    teams: "My Team",
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -210,9 +211,12 @@ const en = {
     },
 
     /*** hr menu ***/
-    team: {
-      teams: "My Team",
-    },
+    // team: {
+    //   teams: "My Team",
+    // },
+    // teamDetail: {
+    //   teamDetails: "Team Details",
+    // },
     payroll: {
       payroll: "payroll",
       payrollApproval: "Payroll Approval",

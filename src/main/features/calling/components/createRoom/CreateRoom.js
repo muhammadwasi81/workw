@@ -121,18 +121,37 @@ export default function CreateRoom() {
 		if (fields.private && selectedMembers.length === 0) {
 			return message.error("Please add atleast one member.");
 		}
+		let externals = externalMembers.map(member => ({
+			admin: false,
+			external: true,
+			exteralEmail: member,
+			userId: null,
+		}));
+		let members = selectedMembers.map(member => ({
+			admin: member.admin,
+			exteral: false,
+			exteralEmail: null,
+			userId: member.id,
+		}));
+
 		let dataToSend = {
 			...fields,
-			receiverIds: [...selectedMembers],
-			externalMembers: [...externalMembers],
-			myData: {
-				image: user.userImage,
-				userId: user.id,
-				admin: true,
-				name: user.name,
-				email: user.email,
-			},
+			members: [...members, ...externals],
 		};
+		// console.log("data to send", dataToSend);
+
+		// let dataToSend = {
+		// 	...fields,
+		// 	receiverIds: [...selectedMembers],
+		// 	externalMembers: [...externalMembers],
+		// 	myData: {
+		// 		image: user.userImage,
+		// 		userId: user.id,
+		// 		admin: true,
+		// 		name: user.name,
+		// 		email: user.email,
+		// 	},
+		// };
 		dispatch(createRoom(dataToSend));
 	};
 	const [form] = Form.useForm();
@@ -174,7 +193,7 @@ export default function CreateRoom() {
 									>
 										add external members
 									</button>
-									<Form.Item label="Private" name="private">
+									<Form.Item label="Private" name="isPrivate">
 										<Switch size="small" />
 									</Form.Item>
 									{/* <Form.Item

@@ -1,22 +1,29 @@
-import React from "react";
-import { Table } from "../../../sharedComponents/customTable";
+import React, { useContext } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
 
 function Appraisals() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.AppraisalsTable;
+
   const columns = [
     {
-      title: "Position",
+      title: labels.Position,
       dataIndex: "position",
       key: "position",
     },
 
     {
-      title: "EmploymentType",
+      title: labels.EmployeeType,
       dataIndex: "employmentTypeId",
       key: "employmentTypeId",
     },
     {
-      title: "City",
+      title: labels.City,
       dataIndex: "cityId",
       key: "cityId",
     },
@@ -26,8 +33,6 @@ function Appraisals() {
       <TeamTable
         bordered
         columns={columns}
-        // dragable={true}
-        // scroll={{ x: true }}
         className="custom_table"
         dataSource={[
           {
@@ -36,7 +41,6 @@ function Appraisals() {
             cityId: "test City",
           },
         ]}
-        // dataSource={tableColumn()}
       />
     </>
   );

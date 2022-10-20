@@ -103,7 +103,7 @@ export const feedSlice = createSlice({
 			onFeedCreateSubmitAction.fulfilled,
 			(state, { payload }) => {
 				state.postCompose = composeInitialState;
-				state.allFeed.posts.unshift(payload);
+				state.allFeed.posts.unshift({ ...payload, reactionType: 0 });
 			}
 		);
 		builder.addCase(favoriteFeed.fulfilled, (state, { payload }) => {

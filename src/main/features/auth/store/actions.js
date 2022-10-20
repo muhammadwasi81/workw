@@ -30,6 +30,7 @@ export const loginUser = createAsyncThunk(
 						refreshToken: data.data.refreshToken,
 					})
 				);
+				document.cookie = `token=${data.data.accessToken}; path=/; secure; domain=." + "workw.com`;
 			}
 		} else {
 			message.error(STRINGS.SERVER_ERROR);

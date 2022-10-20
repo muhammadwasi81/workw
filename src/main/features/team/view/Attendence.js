@@ -1,44 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
-import { Button } from "antd";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
 
 function Attendence() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.AttendenceTable;
   const columns = [
     {
-      title: "Date",
+      title: labels.Date,
       dataIndex: "date",
       key: "date",
     },
 
     {
-      title: "Check In",
+      title: labels.CheckIn,
       dataIndex: "checkIn",
       key: "checkIn",
     },
     {
-      title: "Check Out",
+      title: labels.CheckOut,
       dataIndex: "checkOut",
       key: "checkOut",
     },
     {
-      title: "Late",
+      title: labels.Late,
       dataIndex: "late",
       key: "late",
     },
     {
-      title: "Duration",
+      title: labels.Duration,
       dataIndex: "duration",
       key: "duration",
     },
     {
-      title: "State",
+      title: labels.State,
       dataIndex: "state",
       key: "state",
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
     },
   ];
   return (
@@ -47,9 +48,6 @@ function Attendence() {
         bordered
         className="custom_table"
         columns={columns}
-        // dragable={true}
-        // scroll={{ x: 500 }}
-        // scroll={{ x: true }}
         dataSource={[
           {
             date: "Mon May 2020",
@@ -58,17 +56,8 @@ function Attendence() {
             late: "0",
             duration: "0",
             state: "0",
-            action: [
-              <Button
-                // icon={<EditOutlined />}
-                className="ThemeBtn"
-              >
-                Update
-              </Button>,
-            ],
           },
         ]}
-        // dataSource={tableColumn()}
       />
     </>
   );

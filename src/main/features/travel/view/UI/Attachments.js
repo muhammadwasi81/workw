@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import CustomModal from "../../../workboard/Modal/CustomModal";
 // import { useSelector } from "react-redux";
 // import CustomModal from "../../../workboard/Modal/CustomModal";
 import { fileExtentionPreview } from "../../utils/fileExtentionHelper";
+import AttachmentsCarrousel from "../AttachmentsCarrousel/AttachmentsCarrousel";
 // import AttachmentsCarrousel from "../AttachmentsCarrousel/AttachmentsCarrousel";
 
-function Attachments({ data = [], toShow = 1, onClick }) {
-	// const [isVisible, setIsVisible] = useState(false);
+function Attachments({ data = [], toShow = 1, isCarrousel = true }) {
+	const [isVisible, setIsVisible] = useState(false);
 	return (
 		<>
 			{data.length > 0 && (
@@ -14,7 +16,8 @@ function Attachments({ data = [], toShow = 1, onClick }) {
 					onClick={e => {
 						e.preventDefault();
 						e.stopPropagation();
-						onClick();
+						setIsVisible(true);
+						// onClick();
 					}}
 				>
 					<div
@@ -50,6 +53,30 @@ function Attachments({ data = [], toShow = 1, onClick }) {
 							</div>
 						)}
 					</div>
+				</div>
+			)}
+			{isCarrousel && (
+				<div
+					onClick={e => {
+						e.preventDefault();
+						e.stopPropagation();
+					}}
+				>
+					<CustomModal
+						isModalVisible={isVisible}
+						footer={null}
+						width={"80%"}
+						className="attachmentModal"
+						onCancel={() => {
+							setIsVisible(false);
+						}}
+						children={
+							<AttachmentsCarrousel
+								attachments={data}
+								key={data}
+							/>
+						}
+					/>
 				</div>
 			)}
 		</>

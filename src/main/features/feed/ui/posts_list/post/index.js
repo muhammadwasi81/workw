@@ -27,6 +27,7 @@ const Post = ({
 		comments,
 		commentCount,
 		reactionCount,
+		reactionType,
 	} = post;
 	return (
 		<div className="post">
@@ -55,6 +56,7 @@ const Post = ({
 				reactionModule={reactionModule}
 				referenceType={referenceType}
 				referenceId={referenceId}
+				reactionType={reactionType}
 			/>
 		</div>
 	);

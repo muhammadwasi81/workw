@@ -28,6 +28,8 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     maxSalary,
     experience,
     endDate,
+    city,
+    country,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
 
@@ -81,7 +83,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           <div className="flex justify-between">
             <div className="flex gap-x-8">
               <p className="careerFooterText">
-                Karachi, Pakistan -{" "}
+                {city}, {country} -{" "}
                 {CareerLevelTypeEnum.map((item) => {
                   if (item.value === jobTypeId) {
                     return item.label;

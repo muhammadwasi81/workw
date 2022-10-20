@@ -40,6 +40,7 @@ function SalaryListItem(props) {
     user,
   } = props.item;
 
+  console.log(props.item, 'salary ka');
   return (
     <>
       <SingleItem onClick={() => props.onClick(id)}>

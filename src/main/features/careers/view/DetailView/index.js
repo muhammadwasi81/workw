@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import {
   ContBody,
   TabbableContainer,
@@ -13,16 +13,23 @@ import Composer from "../Composers/index";
 import { getAllCareerApplicant, getCareerByIdAction } from "../../store/action";
 import { handleOpenComposer } from "../../store/slice";
 import "../styles/style.css";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization";
 import CandidateList from "./CandidateListView";
 import { useParams } from "react-router-dom";
 
 function JobDetails() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList } = CareerDictionary[userLanguage];
   const { id } = useParams();
   const dispatch = useDispatch();
   const { careerDetail } = useSelector((state) => {
     return state.careerSlice;
   });
   const { drawerOpen } = useSelector((state) => state.careerSlice);
+
+  const { labels } = CareerDictionaryList;
+  console.log(labels);
 
   useEffect(() => {
     console.log("useEffect works in detail");
@@ -42,13 +49,13 @@ function JobDetails() {
       <Header
         buttons={[
           {
-            buttonText: "Create Career",
+            buttonText: CareerDictionaryList.createTextBtn,
             render: (
               <Button
                 className="ThemeBtn"
                 onClick={() => dispatch(handleOpenComposer(true))}
               >
-                Create Career
+                {CareerDictionaryList.createTextBtn}
               </Button>
             ),
           },
@@ -68,7 +75,7 @@ function JobDetails() {
               margin: 0,
             }}
           >
-            Create Job
+            {CareerDictionaryList.createTextBtn}
           </h1>
         }
         width="768"

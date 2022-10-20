@@ -1,53 +1,40 @@
+import { useEffect } from 'react';
 import { Select } from 'antd';
 import { Option } from 'antd/lib/mentions';
 import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
-import { calculateAllowance } from '../../../salary/utils/constant';
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllAssetCategories } from '../../../assetsCategory/store/actions';
+import SingleUpload from '../../../../sharedComponents/Upload/singleUpload';
+import { warningDictionaryList } from '../../../allowance/warning/localization';
+import { UploadOutlined } from '@ant-design/icons';
+import '../style.css';
 
 const CreateAssetsItem = ({
   index,
-  accounts,
-  handleRemoveRow,
   handleChange,
-  handleRowChange,
+  handleImageUpload,
   value,
-  allowanceData = [],
   employeesShortData = [],
   employeesData = [],
   fetchEmployees = () => {},
   fetchEmployeesShort = () => {},
 }) => {
-  const onEmployeeSelect = (row) => {
-    let { gradeId, grade, id } = row[0];
-    let { totalAllowance, totalDeductions, details } = calculateAllowance(
-      allowanceData,
-      gradeId,
-      value.basicSalary
-    );
-    let tempValue = {
-      ...value,
-      userId: id,
-      details,
-      grade,
-      gradeId,
-      allowance: totalAllowance,
-      deduction: totalDeductions,
-      netSalary: value.basicSalary + totalAllowance - totalDeductions,
-    };
-    handleRowChange(
-      {
-        ...tempValue,
-      },
-      index
-    );
+  const dispatch = useDispatch();
+  const { assetsData } = useSelector((state) => state.assetsCategorySlice);
+
+  useEffect(() => {
+    dispatch(getAllAssetCategories());
+  }, []);
+
+  const onChangeCategory = (categoryId, index) => {
+    console.log(categoryId, `categoryId`);
+    handleChange(categoryId, 'category', index);
   };
 
-  const inventoryHandler = (accId) => {
-    console.log(`eewewe`);
-    handleChange(accId, 'accountId', index);
-  };
-  const onDr_Cr_Change = (typeId) => {
-    handleChange(typeId, 'dr_cr', index);
+  const onChangeType = (type, index) => {
+    console.log(`onChangeType`);
+    handleChange(type, 'type', index);
   };
 
   const handleInputChange = (e) => {
@@ -66,6 +53,7 @@ const CreateAssetsItem = ({
       <td>
         <input
           name="inventoryValue"
+          type={'number'}
           onChange={handleInputChange}
           value={value.inventoryValue}
         />
@@ -81,53 +69,62 @@ const CreateAssetsItem = ({
       <td>
         <Select
           optionFilterProp="children"
-          onChange={inventoryHandler}
+          onChange={(val) => onChangeCategory(val, index)}
           style={{ width: '100%' }}
           filterOption={(input, option) =>
             option.children.toLowerCase().includes(input.toLowerCase())
           }
-          value={value.inventoryCategory}
+          value={value.category}
         >
-          {[
-            { label: 'Graphic', value: 1 },
-            { label: 'Mouse', value: 2 },
-            { label: 'Keyboard', value: 3 },
-            { label: 'Charger', value: 4 },
-            { label: 'MacBook', value: 5 },
-            { label: 'Cable', value: 6 },
-            { label: 'Laptop', value: 7 },
-            { label: 'USB', value: 8 },
-            { label: 'Mobile', value: 9 },
-            { label: 'Headphones', value: 10 },
-          ].map(({ label, value }) => (
-            <Option value={value}>{label}</Option>
+          {assetsData.map((item) => (
+            <Select.Option key={item.id} value={item.id}>
+              {item.name}
+            </Select.Option>
           ))}
         </Select>
       </td>
       <td>
+        {/* TODO: Types */}
         <Select
           optionFilterProp="children"
-          onChange={inventoryHandler}
+          onChange={(val) => onChangeType(val, index)}
           style={{ width: '100%' }}
           filterOption={(input, option) =>
             option.children.toLowerCase().includes(input.toLowerCase())
           }
-          value={value.inventoryType}
+          value={value.type}
         >
           {[
-            { label: 'Non Consumable', value: 1 },
+            { label: 'Non-Consumable', value: 1 },
             { label: 'Consumable', value: 2 },
+            { label: 'Service', value: 3 },
           ].map(({ label, value }) => (
             <Option value={value}>{label}</Option>
           ))}
         </Select>
       </td>
-      {/* TODO: SALARY WALA */}
+      {/* TODO: IMAGE */}
+      <td>
+        <SingleUpload
+          handleImageUpload={handleImageUpload}
+          img="Add Image"
+          style={{ height: '50px', width: '100%' }}
+          uploadButton={<UploadOutlined />}
+          uploadText={warningDictionaryList.upload}
+        />
+      </td>
       <td>
         <CustomSelect
           style={{ marginBottom: '0px' }}
           data={employeesShortData}
-          selectedData={(value, row) => onEmployeeSelect(row)}
+          // selectedData={(value, row) => onEmployeeSelect(row)}
+          selectedData={(value, row) =>
+            handleChange(
+              row.map((item) => ({ handoverId: item.id })),
+              'approvers',
+              index
+            )
+          }
           canFetchNow={employeesShortData && employeesShortData.length > 0}
           fetchData={fetchEmployeesShort}
           sliceName="employeeShort"

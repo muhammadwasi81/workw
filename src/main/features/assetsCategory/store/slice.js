@@ -25,22 +25,19 @@ const assetsCategorySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllAssetCategories.fulfilled, (state, { payload }) => {
-        console.log(payload, 'getallAssetCategoriesSlice');
         state.loadingData = false;
         state.assetsData = payload;
       })
       .addCase(addAssetCategory.fulfilled, (state, { payload }) => {
         state.loader = false;
         if (payload.responseCode === responseCode.Success)
-          console.log(payload, 'addAssetCategory slice');
-        state.assetsData.push(payload.data);
+          state.assetsData.push(payload.data);
       })
       .addCase(updateAssetCategory.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.assetsData = state.assetsData.map((x) =>
           x.id === payload.data.id ? payload.data : x
         );
-        console.log(payload, 'updateAssetCategory slice');
         // if item is already existed show error message
         if (state.assetsData.find((x) => x.id === payload.data.id)) {
           state.assetsData = state.assetsData.map((x) =>

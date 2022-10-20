@@ -22,11 +22,11 @@ function ListItem(props) {
     name,
     description,
     image = RequistionDefaultIcon,
-    reason,
-    budget,
-    deadline,
-    finalApprovers = [],
-    approvers = [],
+    // reason,
+    // budget,
+    // deadline,
+    // finalApprovers = [],
+    // approvers = [],
     status,
     referenceNo,
     createDate,
@@ -60,7 +60,7 @@ function ListItem(props) {
             <Image preview={false} width={60} height={60} src={image === "" ? RequistionDefaultIcon : image} />
           </div>
         </ItemContent>
-        <div className="cardSections">
+        {/* <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">{"Budget"}</div>
             <div className="cardSection__body">{budget}</div>
@@ -77,21 +77,6 @@ function ListItem(props) {
               {reason}
             </div>
           </div>
-          {/* <div className="cardSectionItem">
-            <div className="cardSection__title">{"Final Approvers"}</div>
-            <div className="cardSection__body">
-              {finalApprovers &&
-                <Avatar
-                  isAvatarGroup={true}
-                  isTag={false}
-                  heading={"finalApprovers"}
-                  membersData={finalApprovers}
-                  text={"finalApprovers"}
-                  image={"https://joeschmoe.io/api/v1/random"}
-                />
-              }
-            </div>
-          </div> */}
           <div className="cardSectionItem">
             <div className="cardSection__title">{requisitionDictionary.approvers}</div>
             <div className="cardSection__body">
@@ -107,7 +92,7 @@ function ListItem(props) {
               }
             </div>
           </div>
-        </div>
+        </div> */}
       </SingleItem>
     </>
   );

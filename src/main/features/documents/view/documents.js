@@ -67,7 +67,7 @@ const Documents = ({
 		myDocuments: <DocumentDetailCards data={DetailListData} />,
 		forApprovals: <DocumentDetailCards data={DetailListData} />,
 	};
-	return (
+	return ( 
 		<TabbableContainer>
 			<Header
 				width={width}

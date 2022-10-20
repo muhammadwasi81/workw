@@ -21,6 +21,9 @@ export const ApprovalsModule = {
   SalaryApproval: 20,
   PayrollApproval: 21,
   CareerApproval: 22,
+  requestForItemsApproval: 13,
+  assetApproval: 27,
+  itemApproval: 26,
 };
 export const ApprovalStatus = {
   InProcess: 1,
@@ -43,40 +46,40 @@ export const getStatusLabelAndColor = (module, statusLabels) => {
   return {
     [ApprovalStatus.InProcess]: {
       label: statusLabels.InProcess,
-      color: "#1a5669",
+      color: '#1a5669',
     },
     [ApprovalStatus.Approved]: {
       label: statusLabels.Approved,
-      color: "#1ECB40",
+      color: '#1ECB40',
     },
     [ApprovalStatus.Declined]: {
       label: statusLabels.Declined,
-      color: "#FF0000",
+      color: '#FF0000',
     },
     [ApprovalStatus.Resend]: {
       label: statusLabels.Resend,
-      color: "#008eff",
+      color: '#008eff',
     },
     [ApprovalStatus.Inactive]: {
       label: statusLabels.Inactive,
-      color: "#1ECB40",
+      color: '#1ECB40',
     },
     [ApprovalStatus.NotRequired]: {
       label: statusLabels.NotRequired,
-      color: "#1ECB40",
+      color: '#1ECB40',
     },
     [ApprovalStatus.Cancelled]: {
       label: statusLabels.Cancelled,
-      color: "#1ECB40",
+      color: '#1ECB40',
     },
     [ApprovalStatus.ApprovalRequired]: {
       label: statusLabels.ApprovalRequired,
-      color: "#1ECB40",
+      color: '#1ECB40',
     },
     [ApprovalStatus.NoStatus]: {
-      label: "No Status",
-      color: "Red",
+      label: 'No Status',
+      color: 'Red',
     },
-    [ApprovalStatus.Hold]: { label: statusLabels.Hold, color: "#1a5669" },
+    [ApprovalStatus.Hold]: { label: statusLabels.Hold, color: '#1a5669' },
   };
 };

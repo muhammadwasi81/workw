@@ -1,0 +1,5 @@
+.uploadImg .ant-upload.ant-upload-select-picture-card {
+  width: 100px;
+  max-height: 31px;
+  margin-top: 5px;
+}

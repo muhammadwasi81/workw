@@ -1,33 +1,59 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
+import { getRewardsAction } from "../store/action";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
+
+import moment from "moment";
 
 function Rewards() {
+  const dispatch = useDispatch();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.RewardsTable;
+
+  const {
+    team: { rewardsdetails },
+    success,
+  } = useSelector((state) => state.teamSlice);
+
+  useEffect(() => {
+    dispatch(getRewardsAction({}));
+  }, []);
+
   const columns = [
     {
-      title: "Reference No.",
+      title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
     },
 
     {
-      title: "Status",
+      title: labels.Status,
       dataIndex: "status",
+      render: (status) => <StatusTag status={status} />,
       key: "status",
     },
     {
-      title: "Category",
+      title: labels.Category,
       dataIndex: "category",
       key: "category",
     },
     {
-      title: "Name",
+      title: labels.Name,
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Date",
+      title: labels.Date,
       dataIndex: "date",
       key: "date",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
     },
   ];
   return (
@@ -35,18 +61,8 @@ function Rewards() {
       <TeamTable
         bordered
         columns={columns}
-        // dragable={true}
-        // scroll={{ x: true }}
         className="custom_table"
-        dataSource={[
-          {
-            referenceNo: "bbb",
-            status: "0",
-            category: "bb",
-            name: "bbb",
-            date: "bbb",
-          },
-        ]}
+        dataSource={rewardsdetails}
       />
     </>
   );

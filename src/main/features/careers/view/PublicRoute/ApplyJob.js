@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Divider, Tag, Avatar } from "antd";
 import "antd/dist/antd.css";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
@@ -11,15 +11,22 @@ import { LinkOutlined } from "@ant-design/icons";
 import "./style.css";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import moment from "moment";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization";
 import { useDispatch, useSelector } from "react-redux";
 import { getCareerByIdAction } from "../../store/action";
 import { useParams } from "react-router-dom";
 import ApplyComposer from "../Composers/applyComposer";
 
-const JobDetails = (props) => {
+const ApplyJob = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList } = CareerDictionary[userLanguage];
   const { id } = useParams();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+
+  const { labels } = CareerDictionaryList;
+  console.log(labels);
 
   useEffect(() => {
     //call career by id function
@@ -53,6 +60,7 @@ const JobDetails = (props) => {
   };
 
   const handleDrawerOpen = () => {
+    console.log("handle drawer open");
     setVisible(true);
   };
 
@@ -136,4 +144,4 @@ const JobDetails = (props) => {
     </>
   );
 };
-export default JobDetails;
+export default ApplyJob;

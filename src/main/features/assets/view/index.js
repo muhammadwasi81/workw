@@ -2,19 +2,22 @@ import { useEffect, useState } from 'react';
 import TopBar from '../../../sharedComponents/topBar/topBar';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../../layout/header';
-import AssetsList from './assetsList';
 import {
   ContBody,
   TabbableContainer,
 } from '../../../sharedComponents/AppComponents/MainFlexContainer';
 import { Table } from '../../../sharedComponents/customTable';
-import { salaryTableColumn } from '../../salary/view/SalaryList/tableColumns';
-import { getAllEmployeeSalary } from '../../salary/store/actions';
 import { ROUTES } from '../../../../utils/routes';
+import { getAllAssetItems } from '../../createAssets/store/action';
+import AssetsList from './assetsList';
+import { TableColumn } from './tableColumn';
 
-const Assets = () => {
+const Index = () => {
   const dispatch = useDispatch();
-  const listData = useSelector((state) => state.salarySlice.salaryList);
+
+  const { assetItemList } = useSelector((state) => state.AssetItemSlice);
+  console.log(assetItemList, 'index.js list');
+
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');
@@ -22,41 +25,43 @@ const Assets = () => {
   const items = [
     {
       name: 'Assets',
-      to: `${ROUTES.ASSETS}`,
+      to: `${ROUTES.ASSETS.DEFAULT}`,
       renderButton: [1],
     },
   ];
 
   const filterButtons = [
     {
-      name: 'Assets',
+      name: 'Assets For Items',
       onClick: () => setFilterType(0),
     },
     {
-      name: 'Created By Me',
+      name: 'Created My be',
       onClick: () => setFilterType(1),
     },
     {
-      name: 'For Approval',
+      name: 'Assets For Items Approvals',
       onClick: () => setFilterType(2),
     },
   ];
+
   const onSearch = (value) => setSearch(value);
   const onSegment = (value) => setViewType(value);
 
+  const payloadData = {
+    pageNo: 1,
+    pageSize: 20,
+    search: '',
+  };
+
   useEffect(() => {
-    dispatch(
-      getAllEmployeeSalary({
-        filterType,
-        search,
-      })
-    );
+    dispatch(getAllAssetItems({ payloadData, filterType, search }));
   }, [filterType, search]);
 
   const render = {
-    List: <AssetsList data={listData} />,
+    List: <AssetsList data={assetItemList} />,
     Table: (
-      <Table columns={salaryTableColumn()} dragable={true} data={listData} />
+      <Table columns={TableColumn()} dragable={true} data={assetItemList} />
     ),
   };
 
@@ -79,4 +84,4 @@ const Assets = () => {
   );
 };
 
-export default Assets;
+export default Index;

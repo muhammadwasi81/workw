@@ -6,7 +6,6 @@ import RequestDetailedView from './requestDetailedView';
 import RequestListItems from './requestListItems';
 
 const RequestList = ({ data }) => {
-  console.log(data, 'data aa rha hai');
   const dispatch = useDispatch();
   const [itemId, setItemId] = useState(null);
 

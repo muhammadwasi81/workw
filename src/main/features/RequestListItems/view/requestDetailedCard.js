@@ -19,7 +19,6 @@ const RequestDetailCard = (props) => {
 
   useEffect(() => {
     if (props.id) dispatch(getRequestListItemsById(props.id));
-    console.log(props.id, 'props.id');
   }, [props.id]);
 
   if (!requestDetails) return <></>;
@@ -42,11 +41,15 @@ const RequestDetailCard = (props) => {
       <ItemHeader>
         <div className="left">
           <UserInfo
-            avatarSrc={creator.image}
-            name={creator.name}
+            avatarSrc={requestDetails.requestItemDetail.creator?.image}
+            name={requestDetails.requestItemDetail.creator?.name}
             Subline={
               <SublineDesigWithTime
-                designation={creator.designation ? creator.designation : ''}
+                designation={
+                  requestDetails.requestItemDetail.creator?.designation
+                    ? requestDetails.requestItemDetail.creator?.designation
+                    : ''
+                }
                 time={moment(creator.createDate).fromNow()}
               />
             }

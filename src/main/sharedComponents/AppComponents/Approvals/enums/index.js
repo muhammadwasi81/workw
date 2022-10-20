@@ -22,6 +22,8 @@ export const ApprovalsModule = {
   PayrollApproval: 21,
   CareerApproval: 22,
   requestForItemsApproval: 13,
+  assetApproval: 27,
+  itemApproval: 26,
 };
 export const ApprovalStatus = {
   InProcess: 1,

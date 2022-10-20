@@ -18,7 +18,6 @@ function Avatar(props) {
     props.membersData[0][objProperty] !== null &&
     props.membersData[0][objProperty] !== undefined &&
     props.membersData[0][objProperty].image;
-  console.log(image, 'image');
   // console.log("name", name);
   // console.log("membersdata", props.membersData);
   // console.log("image", image);

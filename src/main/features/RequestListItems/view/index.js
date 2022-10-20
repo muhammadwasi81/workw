@@ -20,11 +20,11 @@ const Index = () => {
   const { requestItems, success } = useSelector(
     (state) => state.requestItemSlice
   );
-  console.log(requestItems, 'Add requestItem index.js');
 
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');
+
   const items = [
     {
       name: 'Request List Items',

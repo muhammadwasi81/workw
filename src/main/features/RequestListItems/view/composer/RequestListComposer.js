@@ -137,8 +137,8 @@ const Composer = () => {
       ),
     };
     dispatch(addRequestListItems(payload));
-    form.resetFields();
     setState(initialState);
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -169,7 +169,7 @@ const Composer = () => {
           rules={[
             {
               required: true,
-              message: 'Please Enter Category',
+              message: 'Please Select Category',
             },
           ]}
         >
@@ -195,7 +195,7 @@ const Composer = () => {
           rules={[
             {
               required: true,
-              message: 'type',
+              message: 'Please Select Type',
             },
           ]}
         >
@@ -313,7 +313,7 @@ const Composer = () => {
             rules={[
               {
                 required: true,
-                message: 'Please Select Approver',
+                message: 'Please Select Assets Controller',
               },
             ]}
           />

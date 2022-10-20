@@ -1,26 +1,19 @@
-import { Button, DatePicker, message, Select } from 'antd';
-import { Option } from 'antd/lib/mentions';
-import moment from 'moment';
-import { useEffect } from 'react';
 import { useState } from 'react';
+import { Button, message } from 'antd';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllEmployees,
   getAllEmployeeShort,
-  uploadImage,
 } from '../../../../utils/Shared/store/actions';
-import { getAllAllowance } from '../../allowance/store/actions';
-import { getAllChartOfAccount } from '../../chartOfAccount/store/actions';
 import { addAssetItem } from '../store/action';
-import { voucherTypes } from '../../voucher/utils/constant';
-import CustomModal from '../../workboard/Modal/CustomModal';
+import { getAllAllowance } from '../../allowance/store/actions';
 import AssetsFooter from './components/AssetsFooter';
 import CreateAssetsItem from './components/CreateAssetsItem';
 import CreateAssetHead from './components/CreateAssetTableHead';
+import { DEFAULT_GUID } from '../../../../utils/constants';
 
-//TODO:// LATER ON WE HAVE DIFFERENT DATA
 const CreateAssetsEntryTable = () => {
-  // TODO:// EMPLOYEES KA FILHALL
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
   const [profileImage, setProfileImage] = useState(null);
@@ -73,12 +66,10 @@ const CreateAssetsEntryTable = () => {
     category: '',
     type: '',
     handover: '',
-    image: '',
   };
 
   const initialEntries = Array(defaultRows).fill(defaultEntry);
   const [entries, setEntries] = useState(initialEntries);
-  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const dispatch = useDispatch();
   const totalDiff = entries.reduce((a, c) => a + Number(c.inventoryValue), 0);
@@ -108,9 +99,10 @@ const CreateAssetsEntryTable = () => {
       serialNo: entries[0].serialNo,
       categoryId: entries[0].category,
       type: Number(entries[0].type),
-      image: entries[0].image.file,
-      // handover: entry.handover,
+      image: { id: DEFAULT_GUID, file: profileImage },
+      handover: entries[0].handover,
     };
+    console.log(payload, 'payload');
     return payload;
   };
 
@@ -118,14 +110,9 @@ const CreateAssetsEntryTable = () => {
     if (!entries[0].approvers) {
       return message.error('Please select Approvers');
     }
-    setEntries(initialEntries);
     let payload = createPayload();
     dispatch(addAssetItem(payload));
-    dispatch(uploadImage(profileImage)).then((x) => {
-      console.log(x, 'FIRST ONE');
-      let photoId = x.payload.data[0].id;
-      console.log(photoId, 'photoId');
-    });
+    setEntries(initialEntries);
   };
 
   return (
@@ -175,16 +162,6 @@ const CreateAssetsEntryTable = () => {
           </Button>
         </div>
         <AssetsFooter total={totalDiff} />
-        <CustomModal
-          isModalVisible={isOpenModal}
-          onCancel={() => setIsOpenModal(false)}
-          width={'70%'}
-          title="Assets Detail"
-          footer={null}
-          // children={
-          //   <VoucherPrint id={AllVouchers[AllVouchers.length - 1]?.id} />
-          // }
-        />
       </div>
     </div>
   );

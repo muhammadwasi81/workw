@@ -1,4 +1,5 @@
 import { createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit';
+import { message } from 'antd';
 import {
   responseMessage,
   responseMessageType,
@@ -14,20 +15,14 @@ import {
 } from '../service/service';
 
 export const getAllAssetItems = createAsyncThunk(
-  `AssetItem/getAllAssetItems`,
-  async (payload, { dispatch }) => {
-    const response = await getAllAssetItemService(payload);
-    console.log(response, 'getAllAssetItems action');
-    if (response.responseType === ResponseType.SUCCESS) {
+  'AssetItem/getAllAssetItem',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await getAllAssetItemService(payload);
+      console.log(response, 'response in action');
       return response.data;
-    } else {
-      dispatch(
-        openNotification({
-          message: responseMessage(response.responseType),
-          type: responseMessageType(response.responseType),
-        })
-      );
-      return isRejectedWithValue(response);
+    } catch (error) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -36,8 +31,9 @@ export const addAssetItem = createAsyncThunk(
   `AssetItem/addAssetItem`,
   async (payload, { dispatch }) => {
     const response = await addAssetItemService(payload);
-    console.log(response, 'addAssetItem action');
+    console.log(response, payload, 'addAssetItem action');
     if (response.responseType === ResponseType.SUCCESS) {
+      message.success('Asset Item Added Successfully');
       return response.data;
     } else {
       dispatch(
@@ -53,19 +49,26 @@ export const addAssetItem = createAsyncThunk(
 
 export const getAssetItemDetailById = createAsyncThunk(
   `AssetItem/getAssetItemDetailById`,
-  async (id, { dispatch }) => {
-    const response = await getAssetItemDetailByIdService(id);
-    console.log(response, 'getAssetItemDetailById action');
-    if (response.responseType === ResponseType.SUCCESS) {
+  async (id) => {
+    // const response = await getAssetItemDetailByIdService(id);
+    // if (response.responseType === ResponseType.SUCCESS) {
+    //   console.log(response, 'getAssetItemDetailById action');
+    //   return response.data;
+    // } else {
+    //   dispatch(
+    //     openNotification({
+    //       message: responseMessage(response.responseType),
+    //       type: responseMessageType(response.responseType),
+    //     })
+    //   );
+    //   return isRejectedWithValue(response);
+    // }
+    try {
+      const response = await getAssetItemDetailByIdService(id);
+      console.log(response.data, 'getAssetItemDetailById action');
       return response.data;
-    } else {
-      dispatch(
-        openNotification({
-          message: responseMessage(response.responseType),
-          type: responseMessageType(response.responseType),
-        })
-      );
-      return isRejectedWithValue(response);
+    } catch (error) {
+      return isRejectedWithValue(error);
     }
   }
 );

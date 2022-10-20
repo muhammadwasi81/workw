@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Select } from 'antd';
 import { Option } from 'antd/lib/mentions';
 import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
-import { calculateAllowance } from '../../../salary/utils/constant';
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAssetCategories } from '../../../assetsCategory/store/actions';
@@ -14,10 +13,8 @@ import '../style.css';
 const CreateAssetsItem = ({
   index,
   handleChange,
-  handleRowChange,
   handleImageUpload,
   value,
-  allowanceData = [],
   employeesShortData = [],
   employeesData = [],
   fetchEmployees = () => {},
@@ -29,31 +26,6 @@ const CreateAssetsItem = ({
   useEffect(() => {
     dispatch(getAllAssetCategories());
   }, []);
-
-  const onEmployeeSelect = (row) => {
-    let { gradeId, grade, id } = row[0];
-    let { totalAllowance, totalDeductions, details } = calculateAllowance(
-      allowanceData,
-      gradeId,
-      value.basicSalary
-    );
-    let tempValue = {
-      ...value,
-      userId: id,
-      details,
-      grade,
-      gradeId,
-      allowance: totalAllowance,
-      deduction: totalDeductions,
-      netSalary: value.basicSalary + totalAllowance - totalDeductions,
-    };
-    handleRowChange(
-      {
-        ...tempValue,
-      },
-      index
-    );
-  };
 
   const onChangeCategory = (categoryId, index) => {
     console.log(categoryId, `categoryId`);
@@ -145,7 +117,14 @@ const CreateAssetsItem = ({
         <CustomSelect
           style={{ marginBottom: '0px' }}
           data={employeesShortData}
-          selectedData={(value, row) => onEmployeeSelect(row)}
+          // selectedData={(value, row) => onEmployeeSelect(row)}
+          selectedData={(value, row) =>
+            handleChange(
+              row.map((item) => ({ handoverId: item.id })),
+              'approvers',
+              index
+            )
+          }
           canFetchNow={employeesShortData && employeesShortData.length > 0}
           fetchData={fetchEmployeesShort}
           sliceName="employeeShort"

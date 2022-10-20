@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import moment from "moment";
 import "./style.css";
 import { CareerStatusEnum } from "../../utils/enums";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization";
 import Attachments from "../../../travel/view/UI/Attachments";
 import CustomModal from "../../../workboard/Modal/CustomModal";
 import AttachmentsCarrousel from "../../../travel/view/AttachmentsCarrousel/AttachmentsCarrousel";
 
 const ApplicantDetail = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
+  const { labels } = CareerDictionaryList;
   const [isAttachmentModalOpen, setisAttachmentModalOpen] = useState(false);
   console.log(props);
   const {
@@ -23,8 +28,8 @@ const ApplicantDetail = (props) => {
     attachments,
   } = props.data;
 
-  const { path } = attachments[0];
-  console.log(path);
+  // const { path } = attachments[0];
+  // console.log(path);
   return (
     <>
       <div className="item careersQuickDetail">
@@ -47,6 +52,7 @@ const ApplicantDetail = (props) => {
           {/* <a href={path} target="_blank">
             Download Resume
           </a> */}
+
           <Attachments
             data={attachments}
             key={{ data: attachments }}
@@ -55,26 +61,26 @@ const ApplicantDetail = (props) => {
         </div>
         <div className="cardSections mt-10">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Expected Salary </div>
+            <div className="cardSection__title">{labels.expectedSalary} </div>
             <div className="cardSection__body">
               {expectedSalary ? `${expectedSalary} ` : "-"}
             </div>
           </div>
 
           <div className="cardSectionItem">
-            <div className="cardSection__title">Current Salary </div>
+            <div className="cardSection__title">{labels.currentSalary}</div>
             <div className="cardSection__body">
               {currentSalary ? `${currentSalary} ` : "-"}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Applied Data Date</div>
+            <div className="cardSection__title">{labels.appliedDate}</div>
             <div className="cardSection__body">
               {createDate ? moment(createDate).format("Do MMM YY") : "-"}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Experience</div>
+            <div className="cardSection__title">{labels.experience}</div>
             <div className="cardSection__body">
               {experience ? experience : "-"}
             </div>

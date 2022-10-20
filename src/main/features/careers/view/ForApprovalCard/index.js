@@ -54,37 +54,40 @@ const MyApprovalCard = (props) => {
   return (
     <>
       <ApprovalComposer visible={openDetail} onClose={handleCancel} id={id} />
-      <CardWrapper
-        style={{
-          gridTemplateColumns: "repeat(auto-fill,minmax(35rem,1fr))",
-        }}
-      >
-        {!table && (
-          <>
-            {loader ? (
-              [...Array(15)].map((item) => (
-                <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
-              ))
-            ) : (
-              <>
-                {careers.length > 0 ? (
-                  careers.map((item) => (
-                    <ListItem
-                      //   onClick={() => openJobDetailHandler(item.id)}
-                      onClickApproval={() => openMyCareerDetail(item.id)}
-                      item={item}
-                    />
-                  ))
-                ) : (
-                  <div>
-                    <h2>No Careers Found!</h2>
-                  </div>
-                )}
-              </>
-            )}
-          </>
-        )}
-      </CardWrapper>
+      {!table && (
+        <CardWrapper
+          style={{
+            gridTemplateColumns: "repeat(auto-fill,minmax(35rem,1fr))",
+          }}
+        >
+          {!table && (
+            <>
+              {loader ? (
+                [...Array(15)].map((item) => (
+                  <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
+                ))
+              ) : (
+                <>
+                  {careers.length > 0 ? (
+                    careers.map((item) => (
+                      <ListItem
+                        //   onClick={() => openJobDetailHandler(item.id)}
+                        onClickApproval={() => openMyCareerDetail(item.id)}
+                        item={item}
+                      />
+                    ))
+                  ) : (
+                    <div>
+                      <h2>No Careers Found!</h2>
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </CardWrapper>
+      )}
+
       {table && (
         <Table
           columns={tableColumn()}

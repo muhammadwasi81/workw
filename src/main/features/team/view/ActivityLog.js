@@ -1,26 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
 
 function ActivityLog() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.ActivityLogTbale;
   const columns = [
     {
-      title: "Date",
+      title: labels.Date,
       dataIndex: "date",
       key: "date",
     },
 
     {
-      title: "Login From",
+      title: labels.LoginFrom,
       dataIndex: "loginFrom",
       key: "loginFrom",
     },
     {
-      title: "Login IP",
+      title: labels.LoginIp,
       dataIndex: "loginIP",
       key: "loginIP",
     },
     {
-      title: "Location",
+      title: labels.Location,
       dataIndex: "location",
       key: "location",
     },
@@ -30,9 +37,6 @@ function ActivityLog() {
       <TeamTable
         bordered
         columns={columns}
-        // dragable={true}
-        // scroll={{ x: true }}
-        // size="small"
         className="custom_table"
         dataSource={[
           {

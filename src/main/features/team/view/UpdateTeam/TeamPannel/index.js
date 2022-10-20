@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import TeamActivities from "./TeamActivities";
 import { TeamPanelContainer } from "../../../Styles/team.style";
 import TeamRoutes from "../TeamRoutes/routes";
@@ -8,14 +8,23 @@ import {
   TabbableContainer,
 } from "../../../../../sharedComponents/AppComponents/MainFlexContainer";
 import Header from "../../../../../layout/header";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../../../utils/localization/languages";
+import { teamDictionaryList } from "../../../localization/index";
 
 function TeamUpdate() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.teamDetail;
+
   const { "*": id } = useParams();
   console.log(id, "ID");
   const userId = id.split("/")[1];
+
   const items = [
     {
-      name: "Team Details",
+      name: labels.teamDetails,
     },
   ];
   return (

@@ -6,6 +6,9 @@
   .reference_tag {
     @apply  !text-primary-color !border-none !py-1 !px-2 !flex !items-center !bg-primary-ref-tag !rounded !text-xs !font-bold !w-fit;
   }
+  .primary_btn{
+    @apply !flex !items-center !justify-between !w-[150px] !text-white !bg-primary-color !rounded-md;
+  }
 }
 
 *,

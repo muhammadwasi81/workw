@@ -66,7 +66,7 @@ function AddMember({
 				emptyStateAfterSelect={true}
 				formItem={false}
 				optionComponent={opt => {
-					console.log("option", opt);
+					// console.log("option", opt);
 					return (
 						<>
 							<Avatar src={opt.image} className="!bg-black">

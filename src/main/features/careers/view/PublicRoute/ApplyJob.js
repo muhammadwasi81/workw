@@ -18,9 +18,9 @@ import { getCareerByIdAction } from "../../store/action";
 import { useParams } from "react-router-dom";
 import ApplyComposer from "../Composers/applyComposer";
 
-const JobDetails = (props) => {
+const ApplyJob = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { CareerDictionaryList } = CareerDictionaryList[userLanguage];
+  const { CareerDictionaryList } = CareerDictionary[userLanguage];
   const { id } = useParams();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
@@ -60,6 +60,7 @@ const JobDetails = (props) => {
   };
 
   const handleDrawerOpen = () => {
+    console.log("handle drawer open");
     setVisible(true);
   };
 
@@ -143,4 +144,4 @@ const JobDetails = (props) => {
     </>
   );
 };
-export default JobDetails;
+export default ApplyJob;

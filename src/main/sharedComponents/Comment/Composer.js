@@ -6,6 +6,7 @@ import {
 	jsonToFormData,
 } from "../../../utils/base";
 import { DEFAULT_GUID } from "../../../utils/constants";
+import { defaultUiid } from "../../../utils/Shared/enums/enums";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
 import { getAllEmployeeService } from "../../../utils/Shared/services/services";
 import Avatar from "../Avatar/avatarOLD";
@@ -78,20 +79,23 @@ const CommentComposer = ({
 			referenceId,
 			parentId,
 			comment: title,
-			attachments: [],
+			attachments: [{ id: defaultUiid, file: state.attachmentFile }],
 			mentions,
 		};
 		if (event.keyCode === 13 || event.which === 13) {
 			event.preventDefault();
 			if (state.commentText.length > 0) {
+				console.log("state", state);
 				const prevText = state.commentText;
-				setState(preValue => ({
-					...preValue,
-					commentText: "",
-				}));
+				setState(defaultState);
+				// setState(preValue => ({
+				// 	...preValue,
+				// 	commentText: "",
+				// }));
+				commentRequestSuccess &&
+					commentRequestSuccess({ ...commentObj, ...state });
 				const response = await postComment(jsonToFormData(commentObj));
 				if (response) {
-					commentRequestSuccess && commentRequestSuccess(response);
 				} else {
 					setState(preValue => ({
 						...preValue,

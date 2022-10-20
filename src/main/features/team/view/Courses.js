@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { teamDictionaryList } from "../localization/index";
 
 function Courses() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.CoursesTable;
   const columns = [
     {
-      title: "Course Name",
+      title: labels.CourseName,
       dataIndex: "courseName",
       key: "courseName",
     },
 
     {
-      title: "Date",
+      title: labels.Date,
       dataIndex: "date",
       key: "date",
     },
@@ -20,8 +27,6 @@ function Courses() {
       <TeamTable
         bordered
         columns={columns}
-        // dragable={true}
-        // scroll={{ x: true }}
         className="custom_table"
         dataSource={[
           {
@@ -29,7 +34,6 @@ function Courses() {
             date: "Mon 2019",
           },
         ]}
-        // dataSource={tableColumn()}
       />
     </>
   );

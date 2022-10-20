@@ -1,14 +1,16 @@
 import { Image, Tag } from "antd";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SingleItem } from "../../../../sharedComponents/Card/CardStyle";
 import { Skeleton } from "antd";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
-// import "../styles/style.css";
-// import { EducationTypeEnum } from "../../utils/enums";
+import { requisitionDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import moment from "moment";
 
 function ShortCard() {
+    const { userLanguage } = useContext(LanguageChangeContext);
+	const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
     const { Detail } = useSelector((state) => state.requisitionSlice);
 
     console.log(Detail, "DETAIL REQUISITION"); // set these in component
@@ -17,11 +19,11 @@ function ShortCard() {
         <>
             <SingleItem>
                 <div className="careersDetailCard">
-                    <div className="cardLabel">Requisition Details</div>
+                    <div className="cardLabel">{requisitionDictionary.detail}</div>
                     <div className="careersSections">
                         <div className="">
                             <div className="text-[14px] font-bold text-[grey]">
-                                NAME
+                                {requisitionDictionary.name}
                             </div>
                             <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                                 {Detail?.name ? (
@@ -32,7 +34,7 @@ function ShortCard() {
                             </div>
                         </div>
                         <div className="">
-                            <div className="text-[14px] font-bold text-[grey]">BUDGET</div>
+                            <div className="text-[14px] font-bold text-[grey]">{requisitionDictionary.Budget}</div>
                             <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                                 {Detail?.budget ? (
                                     Detail?.budget
@@ -43,7 +45,7 @@ function ShortCard() {
                         </div>
                         <div className="">
                             <div className="text-[14px] font-bold text-[grey]">
-                                CREATED BY
+                                {requisitionDictionary.CreatedBy}
                             </div>
                             <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                                 {Detail?.creator?.name ? (
@@ -54,7 +56,7 @@ function ShortCard() {
                             </div>
                         </div>
                         <div className="">
-                            <div className="text-[14px] font-bold text-[grey]">Email</div>
+                            <div className="text-[14px] font-bold text-[grey]">{requisitionDictionary.Email}</div>
                             <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                                 {Detail?.creator?.email ? (
                                     Detail?.creator?.email
@@ -63,7 +65,7 @@ function ShortCard() {
                                 )}
                             </div>
                         </div>
-                        <div className="">
+                        {/* <div className="">
                             <div className="text-[14px] font-bold text-[grey]">
                                 REASON
                             </div>
@@ -74,10 +76,10 @@ function ShortCard() {
                                     <Skeleton.Input active={true} size="small" />
                                 )}
                             </div>
-                        </div>
+                        </div> */}
                         <div className="">
                             <div className="text-[14px] font-bold text-[grey]">
-                                APPROVERS
+                                {requisitionDictionary.approvers}
                             </div>
                             <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                                 <div className="cardSectionItem">

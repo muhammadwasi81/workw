@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ShortCard from "./shortCard.js";
 import styled from "styled-components";
-// import { getAllCareerApplicant, getCareerByIdAction } from "../../store/action";
 import "./style.css";
-// import CandidateList from "./CandidateListView";
 import { useParams } from "react-router-dom";
 import { ContBody } from "../../../../layout/GridStyle";
 import { GetAllRequisitionOffer, GetRequisitionById } from "../../store/actions";
@@ -14,9 +12,12 @@ import { handleOpenOfferComposer } from "../../store/slice";
 import { Button, Drawer } from "antd";
 import OfferList from "./offerList.js";
 import CreateOffer from "./createOffer.js";
-
+import { requisitionDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 function RequisitionDetails() {
+    const { userLanguage } = useContext(LanguageChangeContext);
+	const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
     const { id } = useParams();
     const dispatch = useDispatch();
     const { drawerOpenOffer } = useSelector(
@@ -24,7 +25,6 @@ function RequisitionDetails() {
 	);
 
     useEffect(() => {
-        console.log("useEffect works in detail");
         const payload = {
             Detail: [id],
         };
@@ -50,7 +50,7 @@ function RequisitionDetails() {
                                         dispatch(handleOpenOfferComposer(true))
                                     }
                                 >
-                                    Create Offer
+                                    {requisitionDictionary.CreateOffer}
                                 </Button>
                             ),
                         },
@@ -71,7 +71,7 @@ function RequisitionDetails() {
                             margin: 0,
                         }}
                     >
-                        Create Offer
+                        {requisitionDictionary.CreateOffer}
                     </h1>
                 }
                 width="768"

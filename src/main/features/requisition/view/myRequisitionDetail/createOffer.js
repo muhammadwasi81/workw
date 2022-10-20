@@ -6,7 +6,7 @@ import { addRequisitionOffer } from "../../store/actions";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { requisitionDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { getNameForImage, STRINGS } from "../../../../../utils/base";
+import { STRINGS } from "../../../../../utils/base";
 import { useParams } from "react-router-dom";
 
 const initialState = {
@@ -90,6 +90,8 @@ const CreateOffer = props => {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                className={Direction === "rtl" ? "labelRight" : ""}
+                style={{direction: Direction}}
             >
 
                 <Form.Item
@@ -99,23 +101,23 @@ const CreateOffer = props => {
                     rules={[
                         {
                             required: true,
-                            message: "Please Enter Name",
+                            message: requisitionDictionary.PleaseEnterRequisitionName,
                         },
                     ]}>
-                    <TextInput placeholder={"Please Enter Name"} />
+                    <TextInput placeholder={requisitionDictionary.PleaseEnterRequisitionName} />
                 </Form.Item>
 
                 <Form.Item
-                    label={"Email"}
+                    label={requisitionDictionary.Email}
                     name="email"
                     labelPosition="top"
                     rules={[
                         {
                             required: true,
-                            message: "Please Enter Email",
+                            message: requisitionDictionary.PleaseEnterEmail,
                         },
                     ]}>
-                    <TextInput placeholder={"Please Enter Email"} />
+                    <TextInput placeholder={requisitionDictionary.PleaseEnterEmail} />
                 </Form.Item>
 
                 <Form.Item
@@ -134,60 +136,60 @@ const CreateOffer = props => {
                 </Form.Item>
 
                 <Form.Item
-                    label={"Phone Number"}
+                    label={requisitionDictionary.PhoneNumber}
                     name="phoneNumber"
                     labelPosition="top"
                     rules={[
                         {
                             required: true,
-                            message: "Please Enter Contact Number",
+                            message: requisitionDictionary.PleaseEnterPhoneNumber,
                         },
                     ]}>
-                    <TextInput placeholder={"Please Enter Contact Number"} />
+                    <TextInput placeholder={requisitionDictionary.PleaseEnterPhoneNumber} />
                 </Form.Item>
 
                 <Form.Item
-                    label={"Business Name"}
+                    label={requisitionDictionary.BusinessName}
                     name="businessName"
                     labelPosition="top"
                     rules={[
                         {
                             required: true,
-                            message: "Please Enter Business Name",
+                            message: requisitionDictionary.PleaseEnterBusinessName,
                         },
                     ]}>
-                    <TextInput placeholder={"Please Enter Business Name"} />
+                    <TextInput placeholder={requisitionDictionary.PleaseEnterBusinessName} />
                 </Form.Item>
 
                 <Form.Item
-                    label={"Business Address"}
+                    label={requisitionDictionary.BusinessAddress}
                     name="businessAddress"
                     rules={[
                         {
                             required: true,
-                            message: "Please Enter Business Address",
+                            message: requisitionDictionary.PleaseEnterBusinessAddress,
                         },
                     ]}
                 >
                     <Input.TextArea
-                        placeholder={requisitionDictionary.enterDescription}
+                        placeholder={requisitionDictionary.PleaseEnterBusinessAddress}
                     />
                 </Form.Item>
 
                 <Form.Item
-                    label={"Offer"}
+                    label={requisitionDictionary.Offer}
                     name="offer"
                     rules={[
                         {
                             required: true,
-                            message: "Enter Offer",
+                            message: requisitionDictionary.PleaseEnterOffer,
                         },
                     ]}
                 >
                     <InputNumber
                         style={{ width: "100%" }}
                         size={'large'}
-                        placeholder={"Enter Offfer"}
+                        placeholder={requisitionDictionary.PleaseEnterOffer}
                     />
                 </Form.Item>
 
@@ -207,10 +209,10 @@ const CreateOffer = props => {
                         className="ThemeBtn"
                         block
                         htmlType="submit"
-                        title={"Create Requisition"}
+                        title={requisitionDictionary.CreateOffer}
                     >
                         {" "}
-                        {"Create Requisition"}{" "}
+                        {requisitionDictionary.CreateOffer}{" "}
                     </Button>
                 </Form.Item>
             </Form>

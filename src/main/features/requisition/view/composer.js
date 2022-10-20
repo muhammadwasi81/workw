@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
 	getAllEmployees,
 } from "../../../../utils/Shared/store/actions";
+import "./style.css"
 import { addRequisition } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { requisitionDictionaryList } from "../localization/index";
@@ -155,6 +156,7 @@ const Composer = props => {
 				labelCol={{
 					span: 24,
 				}}
+				style={{direction: Direction}}
 				wrapperCol={{
 					span: 24,
 				}}
@@ -164,19 +166,21 @@ const Composer = props => {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="off"
+				className={Direction === "rtl" ? "labelRight" : ""}
 			>
 
 				<Form.Item
 					label={requisitionDictionary.name}
 					name="name"
 					labelPosition="top"
+					style={{direction: Direction}}
 					rules={[
 						{
 							required: true,
-							message: "Please Enter Requisition Name",
+							message: requisitionDictionary.PleaseEnterRequisitionName,
 						},
 					]}>
-					<TextInput placeholder={"Please Enter Requisition Name"} />
+					<TextInput placeholder={requisitionDictionary.EnterRequisitionName} />
 				</Form.Item>
 
 				<Form.Item
@@ -195,19 +199,19 @@ const Composer = props => {
 				</Form.Item>
 
 				<Form.Item
-					label={"Budget"}
+					label={requisitionDictionary.Budget}
 					name="budget"
 					rules={[
 						{
 							required: true,
-							message: "Enter Budget",
+							message: requisitionDictionary.EnterBudget,
 						},
 					]}
 				>
 					<InputNumber
 						style={{ width: "100%" }}
 						size={'large'}
-						placeholder={"Enter Budget"}
+						placeholder={requisitionDictionary.EnterBudget}
 					/>
 				</Form.Item>
 
@@ -217,12 +221,12 @@ const Composer = props => {
 					rules={[
 						{
 							required: true,
-							message: "Enter Reason",
+							message: requisitionDictionary.EnterReason,
 						},
 					]}
 				>
 					<TextInput
-						placeholder={"Enter Reason"}
+						placeholder={requisitionDictionary.EnterReason}
 					/>
 				</Form.Item>
 
@@ -239,7 +243,7 @@ const Composer = props => {
 						selectedData={selectedData}
 						canFetchNow={isFirstTimeDataLoaded}
 						fetchData={fetchEmployees}
-						placeholder={"Select Approvers"}
+						placeholder={requisitionDictionary.selectApprovers}
 						mode={"multiple"}
 						isObject={true}
 						loadDefaultData={false}
@@ -264,7 +268,7 @@ const Composer = props => {
 						rules={[
 							{
 								required: true,
-								message: "Please Select Approver",
+								message: requisitionDictionary.PleaseSelectApprover,
 							},
 						]}
 					/>
@@ -272,7 +276,7 @@ const Composer = props => {
 
 				<Form.Item
 					name="finalApprovers"
-					label={"Final Approvers"}
+					label={requisitionDictionary.FinalApprovers}
 					showSearch={true}
 					direction={Direction}
 					style={{ marginBottom: "0px" }}
@@ -308,7 +312,7 @@ const Composer = props => {
 						rules={[
 							{
 								required: true,
-								message: "Please Select Final Approvers",
+								message: requisitionDictionary.PleaseSelectFinalApprovers,
 							},
 						]}
 					/>
@@ -330,10 +334,10 @@ const Composer = props => {
 						className="ThemeBtn"
 						block
 						htmlType="submit"
-						title={"Create Requisition"}
+						title={requisitionDictionary.createRequisition}
 					>
 						{" "}
-						{"Create Requisition"}{" "}
+						{requisitionDictionary.createRequisition}{" "}
 					</Button>
 				</Form.Item>
 			</Form>

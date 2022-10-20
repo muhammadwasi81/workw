@@ -346,6 +346,7 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
     REQUISITION: `${DOMAIN_PREFIX}/requisition`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+    APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
     CREATE_VOUCHERS: `${DOMAIN_PREFIX}/createasset`,
   },
 
@@ -377,6 +378,7 @@ export const ROUTES = {
 		DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
 		REQUISITION: `${DOMAIN_PREFIX}/requisition`,
 		DETAIL: `${DOMAIN_PREFIX}/requisition/requisitionDetail/:id`,
+    APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
 	},
 	//   EMPLOYEES: {
 	//     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,

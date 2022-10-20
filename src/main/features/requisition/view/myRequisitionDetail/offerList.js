@@ -1,32 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
+import { requisitionDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import Tab from "../../../../sharedComponents/Tab";
 import TabElement from "./Tabelement";
 const { TabPane } = Tab;
 
 function OfferList(props) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
   const { offers } = useSelector((state) => state.requisitionSlice);
-  console.log(offers, "OFFER BY ID");
+  
 
   const panes = [
     {
       featureId: 0,
-      featureName: `Offers`,
+      featureName: requisitionDictionary.Offers,
       content: <TabElement />,
     },
     {
       featureId: 1,
-      featureName: `Short List`,
+      featureName: requisitionDictionary.ShortList,
       content: <div>Information div</div>,
     },
     {
       featureId: 2,
-      featureName: `Declined`,
+      featureName: requisitionDictionary.Declined,
       content: <div>Declined div</div>,
     },
     {
       featureId: 3,
-      featureName: `Finalised`,
+      featureName: requisitionDictionary.Finalised,
       content: <div>Finalised div</div>,
     },
   ];

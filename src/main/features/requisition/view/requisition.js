@@ -5,30 +5,28 @@ import {
 	ContBody,
 	TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Skeleton, Modal } from "antd";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import { Skeleton } from "antd";
+import { requisitionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
+import "./style.css"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllRequisition, GetRequisitionById } from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
-import { tableColumn } from "./TableColumn";
-import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
-import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 import ListItemMyRequisition from "./myRequisition";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Requisition = props => {
 	const navigate = useNavigate();
 	const { visible } = props;
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
+	const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
 
 	const [tableView, setTableView] = useState(false);
 	const isTablet = useMediaQuery({ maxWidth: 800 });
@@ -37,7 +35,7 @@ const Requisition = props => {
 	const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
 	const dispatch = useDispatch();
-	const { items, loader, rewardDetail, drawerOpen } = useSelector(
+	const { items, drawerOpen } = useSelector(
 		state => state.requisitionSlice
 	);
 
@@ -56,7 +54,6 @@ const Requisition = props => {
 		dispatch(GetRequisitionById(id));
 
 		navigate(`requisitionDetail/${id}`);
-		 console.log("WORKING FINE")
 	};
 
 	return (
@@ -65,7 +62,7 @@ const Requisition = props => {
 				<Header
 					buttons={[
 						{
-							buttonText: "Create Requisition",
+							buttonText: requisitionDictionary.createRequisition,
 							render: (
 								<Button
 									className="ThemeBtn"
@@ -73,7 +70,7 @@ const Requisition = props => {
 										dispatch(handleOpenComposer(true))
 									}
 								>
-									Create Requisition
+									{requisitionDictionary.createRequisition}
 								</Button>
 							),
 						},
@@ -85,11 +82,11 @@ const Requisition = props => {
 					}}
 					buttons={[
 						{
-							name: "Requisitions",
+							name: requisitionDictionary.Requisitions,
 							onClick: () => setFilter({ filterType: 0 }),
 						},
 						{
-							name: "My Requisitions",
+							name: requisitionDictionary.MyRequisitions,
 							onClick: () => setFilter({ filterType: 1 }),
 						},
 					]}
@@ -136,7 +133,7 @@ const Requisition = props => {
 								margin: 0,
 							}}
 						>
-							Create Requisition
+							{requisitionDictionary.createRequisition}
 						</h1>
 					}
 					width="768"

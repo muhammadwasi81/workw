@@ -4,50 +4,48 @@ import closeMailIcon from './assests/closeMailIcon.svg';
 import mailResizeIcon from './assests/mailResizeIcon.svg';
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import SharedButton from "../../../sharedComponents/button";
+import { useDispatch } from "react-redux";
+import { handleExpendChatBox, handleMinimizeChatBox, handleRemoveChatBox } from "../../Messenger/store/messengerSlice";
 
-const ChatBoxHead = (props) => {
-
-  return(
-    <div className="ChatBoxHead">
-    <div className="ChatBoxName" >
-        <Avatar src="https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-            height={30} width={30} name="Abu Bakar" round />
-        <div>Abu Bakar</div>
-    </div>
-    <div>
-        <div>
-            <SharedButton
-                type="primary"
-                shape="circle"
-                size="small"
-                onClick={() => {}}
-                className="mb-[3px]"
-                icon={mailMinimizeIcon}
-                IconSize={12}
-            />
+const ChatBoxHead = ({ chat, index }) => {
+    let {
+        profileImage,
+        profileName,
+        chatId
+    } = chat;
+    const dispatch = useDispatch();
+    const handleClose = () => dispatch(handleRemoveChatBox(chat))
+    const handleMinimize = () => dispatch(handleMinimizeChatBox({ index }))
+    const handleExpend = () => dispatch(handleExpendChatBox({ index }))
+    return (
+        <div className="ChatBoxHead">
+            <div className="ChatBoxName" onClick={handleMinimize}>
+                <Avatar src={profileImage}
+                    height={30} width={30} name="Abu Bakar" round />
+                <div className="chatName" >{profileName}</div>
+            </div>
+            <div>
+                <div>
+                    <SharedButton
+                        onClick={handleMinimize}
+                        className="mb-[3px]"
+                        icon={mailMinimizeIcon}
+                    />
+                </div>
+                <div>
+                    <SharedButton
+                        onClick={handleExpend}
+                        icon={mailResizeIcon}
+                    />
+                </div>
+                <div>
+                    <SharedButton
+                        onClick={handleClose}
+                        icon={closeMailIcon}
+                    />
+                </div>
+            </div>
         </div>
-        <div>
-            <SharedButton
-                type="primary"
-                shape="circle"
-                size="small"
-                onClick={() => {}}
-                icon={mailResizeIcon}
-                IconSize={12}
-            />
-        </div>
-        <div>
-            <SharedButton
-                type="primary"
-                shape="circle"
-                size="small"
-                onClick={() => {} }
-                icon={closeMailIcon}
-                IconSize={12}
-            />
-        </div>
-    </div>
-</div>
-  )
+    )
 }
 export default ChatBoxHead;

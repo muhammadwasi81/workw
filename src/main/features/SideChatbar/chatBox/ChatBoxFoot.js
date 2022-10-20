@@ -8,11 +8,8 @@ import { useDispatch } from "react-redux";
 import { sendChatMessage } from "../../Messenger/store/actions";
 import SharedButton from "../../../sharedComponents/button";
 
-const ChatBoxFoot = (props) => {
-    const dispatch = useDispatch()
-    const handleMsgSend = (e) => {
-        dispatch(sendChatMessage(e.target.value))
-    }
+const ChatBoxFoot = ({handleSend}) => {
+   
     return (
         <div className="ChatBoxFoot" >
             <div className="ChatBoxInputHandler" >
@@ -44,7 +41,7 @@ const ChatBoxFoot = (props) => {
                 <div>
                     <input placeholder="Type a Message..." onKeyUp={(e) => {
                         if (e.keyCode === 13) {
-                            handleMsgSend(e)
+                            handleSend(e)
                         }
                     }} />
                 </div>

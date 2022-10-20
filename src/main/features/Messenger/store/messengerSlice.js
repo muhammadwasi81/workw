@@ -34,6 +34,16 @@ const initialState = {
             name: "Salman Ahmed",
             image: "",
          },
+      },
+      {
+         id: createGuid(),
+         imageId: "",
+         image: "",
+         name: "Danish Khan",
+         chatWith: {
+            name: "Danish Khan",
+            image: "",
+         },
       }
    ]
 };
@@ -53,18 +63,40 @@ export const messengerSlice = createSlice({
       handleMessengerItemClick: (state, { payload }) => {
          state.currentMessenger = payload
       },
+      handleRemoveChatBox: (state, { payload }) => {
+         let updatedChatBoxes = state.currentChatBoxes.filter(item => item.chatId !== payload.chatId);
+         state.currentChatBoxes = updatedChatBoxes;
+      },
+      handleMinimizeChatBox: (state, { payload }) => {
+         let { index } = payload;
+         let currentChatBox = state.currentChatBoxes[index].isMinimize;
+         let updatedStatus = currentChatBox === 0 ? 1 : currentChatBox === 1 ? 2 : 1;
+         state.currentChatBoxes[index].isMinimize = updatedStatus;
+         state.currentChatBoxes[index].isExtend = 0;
+      },
+      handleExpendChatBox: (state, { payload }) => {
+         let { index } = payload;
+         let currentChatBox = state.currentChatBoxes[index].isExtend;
+         let updatedStatus = currentChatBox === 0 ? 1 : currentChatBox === 1 ? 2 : 1;
+         state.currentChatBoxes[index].isExtend = updatedStatus;
+         state.currentChatBoxes[index].isMinimize = 0;
+      },
       handleChatBoxAppend: (state, { payload }) => {
          console.log("Payload", payload);
          let updatedChatBoxes = [...state.currentChatBoxes];
          updatedChatBoxes = updatedChatBoxes.filter(item => item.chatId !== payload.chatId);
-         updatedChatBoxes = [...updatedChatBoxes, payload]
+         updatedChatBoxes = [...updatedChatBoxes, {
+            ...payload,
+            isExtend: 0,
+            isMinimize: 0
+         }]
          state.currentChatBoxes = updatedChatBoxes
       },
       handleAppendMessage: (state, { payload }) => {
-         let currentChatMessages = state.MessengerList[state.currentMessenger.chatId] ?
-            state.MessengerList[state.currentMessenger.chatId] : [];
+         let currentChatMessages = state.MessengerList[payload.chatId] ?
+            state.MessengerList[payload.chatId] : [];
          // Append Last Message in MessengerList
-         state.MessengerList[state.currentMessenger.chatId] = [...currentChatMessages, payload]
+         state.MessengerList[payload.chatId] = [...currentChatMessages, payload]
          // state.currentMessenger = action.payload
       },
    },
@@ -77,8 +109,6 @@ export const messengerSlice = createSlice({
          .addCase(getAllMessages.fulfilled, (state, { payload }) => {
             state.MessengerList[state.currentMessenger.chatId] = payload.data
          })
-
-
          .addCase(getAllChats.fulfilled, (state, { payload }) => {
             state.Conversations = payload
          })
@@ -86,7 +116,7 @@ export const messengerSlice = createSlice({
             state.Conversations = [
                ...(state.Conversations ? state.Conversations : []),
                payload
-            ]
+            ];
          })
          .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
             // let currentChatMessages = state.MessengerList[state.currentMessenger.chatId] ?
@@ -100,5 +130,14 @@ export const messengerSlice = createSlice({
    }
 })
 
-export const { handleIsopenChat, handleMessengerItemClick, receiveChatMessage, handleAppendMessage, handleChatBoxAppend } = messengerSlice.actions
+export const { 
+   handleIsopenChat, 
+   handleMessengerItemClick, 
+   receiveChatMessage, 
+   handleAppendMessage, 
+   handleChatBoxAppend, 
+   handleRemoveChatBox, 
+   handleMinimizeChatBox,
+   handleExpendChatBox
+ } = messengerSlice.actions
 export default messengerSlice.reducer;

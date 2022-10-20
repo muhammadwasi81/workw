@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import MessengerListItem from './MessageItem';
+import "../../../style/style.css";
 
 // let isDidMount = true
-const MessengerList = ({ isChatBox = true, messageList, isOpenProfile, messengerDetail }) => {
-   const MyRef = useRef("myRef")
+const MessengerList = ({ isChatBox = true, isOpenProfile, messengerDetail }) => {
+   const messageList = useSelector((state) => state.MessengerSlice.MessengerList[messengerDetail.chatId]);
+   const MyRef = useRef("myRef");
    useEffect(() => {
       // if(isDidMount){
       //    isDidMount = false
@@ -23,7 +25,8 @@ const MessengerList = ({ isChatBox = true, messageList, isOpenProfile, messenger
                   <MessengerListItem
                      key={ind}
                      messgeItem={item}
-                     messengerDetail={messengerDetail} />
+                     messengerDetail={messengerDetail}
+                     isChatBox={isChatBox} />
                )
             })
          }

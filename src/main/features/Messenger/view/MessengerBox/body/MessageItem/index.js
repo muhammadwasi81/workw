@@ -9,6 +9,7 @@ import MessageStatusView, { getIconByStatus } from "./messageStatusView";
 const MessengerListItem = ({
 	messgeItem,
 	messengerDetail = { chatType: 1 },
+	isChatBox = false
 }) => {
 	// const dispatch = useDispatch();
 	const {
@@ -23,7 +24,10 @@ const MessengerListItem = ({
 
 	return (
 		<div id={id} className={!messageByMe ? "MessengerListItem" : "MessengerListItem-ME"} >
-			<MessageProfile />
+			<MessageProfile
+				isChatBox={isChatBox}
+				messageByMe={messageByMe}
+			/>
 			<div className="MessageBubble">
 				{
 					messageType === 'voice' &&

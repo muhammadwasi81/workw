@@ -1,11 +1,12 @@
 .ChatBoxCont {
   display: flex;
   flex-direction: row-reverse;
+  align-items: flex-end;
   justify-content: flex-start;
   position: absolute;
   height: 450px;
-  width: 76%;
-  bottom: 0px;
+  width: 90%;
+  bottom: 3px;
   right: 100px;
 }
 
@@ -38,10 +39,16 @@
 
 .ChatBoxName {
   padding-left: 2px;
+  width: calc(100% - 95px);
+  cursor: pointer;
 }
 
-.ChatBoxName>div {
-  margin-right: 5px;
+.ChatBoxName>.chatName {
+  margin: 0px 5px 0px 8px;
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ChatBoxMsgCont {
@@ -98,4 +105,73 @@
 
 .ChatBoxMessages>.MessengerListItem {
   margin-top: 10px !important;
+}
+
+.minimizeChatBox {
+  animation-name: minimizeChatBox;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.minimizeCloseChatBox {
+  animation-name: minimizeCloseChatBox;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+.extendChatBox{
+  animation-name: extendChatBox;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+.extendCloseChatBox{
+  animation-name: extendCloseChatBox;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes minimizeChatBox {
+  from {}
+
+  to {
+    height: 45px;
+    border-radius: 7px;
+    overflow: hidden;
+    width: 200px;
+  }
+}
+@keyframes minimizeCloseChatBox {
+  from {
+    height: 45px;
+    border-radius: 7px;
+    overflow: hidden;
+    width: 200px;
+  }
+
+  to {
+    height: 450px;
+    width: 328px;
+    border-radius: 10px 10px 0 0;
+  }
+}
+@keyframes extendChatBox {
+  from {
+    height: 450px;
+    width: 328px;
+  }
+
+  to {
+    height: 650px;
+    width: 428px;
+  }
+}
+@keyframes extendCloseChatBox {
+  from {
+    height: 650px;
+    width: 428px;
+  }
+
+  to {
+    height: 450px;
+    width: 328px;
+  }
 }

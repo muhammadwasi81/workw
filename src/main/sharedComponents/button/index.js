@@ -4,12 +4,12 @@ import AntTooltip from "../Tooltip/AntTooltip";
 import { useMediaQuery } from "react-responsive";
 
 const SharedButton = ({
-  type,
-  shape,
+  type="primary",
+  shape="circle",
   icon,
-  IconSize,
+  IconSize=12,
   title,
-  size,
+  size="small",
   style,
   onClick,
   IconColor,

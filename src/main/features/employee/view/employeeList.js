@@ -20,7 +20,7 @@ function EmployeeList() {
     dispatch(getAllEmployees());
   }, [dispatch]);
 
-  let classes = "empolyeesListContainer  ";
+  let classes = "empolyeesListContainer";
   classes += Direction === "ltr" ? "ltr" : "rtl";
   if (loader) {
     return (

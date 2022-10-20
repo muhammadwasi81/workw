@@ -135,6 +135,7 @@ const en = {
     salary: "Salary",
     payroll: "Payroll",
     jobBoard: "Job Board",
+    teams: "My Team",
   },
 
   /*** AppHeader only used in Component headerTab ***/

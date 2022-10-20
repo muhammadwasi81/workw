@@ -242,7 +242,7 @@ const NavMenuList = () => {
     },
     // *****BY SANJNA****
     {
-      name: "My Team",
+      name: label.navMenuLabel.teams,
       counter: 0,
       icon: teamIcon,
       to: ROUTES.TEAMS.TEAM,

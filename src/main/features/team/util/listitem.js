@@ -1,4 +1,5 @@
 import { ROUTES } from "../../../../utils/routes";
+import React from "react";
 import {
   CheckCircleOutlined,
   StarOutlined,
@@ -21,7 +22,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Attendence",
+    displayName: "attendence",
     classObj: "button",
     to: (id) => `/teams/info/attendence/${id}`,
   },
@@ -32,7 +33,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Check-In",
+    displayName: "checkIn",
     classObj: "button",
     to: (id) => `/teams/info/check-in/${id}`,
   },
@@ -43,7 +44,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Leaves",
+    displayName: "leaves",
     classObj: "button",
     to: (id) => `/teams/info/leaves/${id}`,
   },
@@ -54,7 +55,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Rewards",
+    displayName: "rewards",
     classObj: "button",
     to: (id) => `/teams/info/rewards/${id}`,
   },
@@ -65,7 +66,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Appraisals",
+    displayName: "appraisals",
     classObj: "button",
     to: (id) => `/teams/info/appraisals/${id}`,
   },
@@ -76,7 +77,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Warnings",
+    displayName: "warnings",
     classObj: "button",
     to: (id) => `/teams/info/warnings/${id}`,
   },
@@ -87,7 +88,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Complains",
+    displayName: "complains",
     classObj: "button",
     to: (id) => `/teams/info/complains/${id}`,
   },
@@ -98,7 +99,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Courses",
+    displayName: "courses",
     classObj: "button",
     to: (id) => `/teams/info/courses/${id}`,
   },
@@ -109,7 +110,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Education",
+    displayName: "education",
     classObj: "button",
     to: (id) => `/teams/info/education/${id}`,
   },
@@ -120,7 +121,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Experience",
+    displayName: "experience",
     classObj: "button",
     to: (id) => `/teams/info/experience/${id}`,
   },
@@ -131,7 +132,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Loan",
+    displayName: "loan",
     classObj: "button",
     to: (id) => `/teams/info/loan/${id}`,
   },
@@ -142,7 +143,7 @@ export const listitem = [
         color={"var(--currentThemeColor)"}
       />
     ),
-    displayName: "Activity Log",
+    displayName: "activityLog",
     classObj: "button",
     to: (id) => `/teams/info/activity-log/${id}`,
   },

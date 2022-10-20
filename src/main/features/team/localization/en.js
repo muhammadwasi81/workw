@@ -107,6 +107,25 @@ const en = {
       designation: "Designation",
       email: "Email",
     },
+
+    //******Team Activities labels name*******
+    teamActivities: {
+      attendence: "Attendence",
+      checkIn: "Check In",
+      leaves: "Leaves",
+      rewards: "Rewards",
+      appraisals: "Appraisals",
+      warnings: "Warnings",
+      complains: "Complains",
+      courses: "Courses",
+      education: "Education",
+      experience: "Experience",
+      loan: "Loan",
+      activityLog: "Activity Log",
+    },
   },
+
+  /*** Define language write side ***/
+  Direction: "ltr",
 };
 export default en;

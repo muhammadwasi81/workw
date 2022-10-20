@@ -5,7 +5,6 @@ import { Skeleton } from "antd";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import "../Styles/team.css";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
 import { getTeamsAction } from "../store/action";
 import TeamTableView from "./TeamTableView";
@@ -13,8 +12,7 @@ import TeamTableView from "./TeamTableView";
 function TeamList() {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction } = dictionaryList[userLanguage];
-  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const { teamDictionary, Direction } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.sharedLabels;
 
   const { teams, loader } = useSelector((state) => state.teamSlice);
@@ -24,11 +22,11 @@ function TeamList() {
   }, []);
 
   const [view, setView] = useState("List");
-  let classes = "teamListContainer  ";
+  let classes = "teamListContainer ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
   if (loader) {
     return (
-      <div className="teamListContainer">
+      <div className={classes}>
         {[...Array(40)].map(() => (
           <>
             <Skeleton.Avatar shape={"circle"} size={"large"} />

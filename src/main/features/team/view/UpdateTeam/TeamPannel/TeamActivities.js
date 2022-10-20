@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { listitem } from "../../../util/listitem";
 import { useMediaQuery } from "react-responsive";
 import { Tooltip } from "antd";
-import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../../../utils/localization/languages";
+
 import { useNavigate } from "react-router-dom";
 import {
   Link,
@@ -18,30 +17,25 @@ import {
 } from "../../../../../sharedComponents/AppComponents/MainFlexContainer";
 import "../../../Styles/table.css";
 
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { teamDictionaryList } from "../../../localization/index";
+
 function TeamActivities({ id }) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { team } = dictionaryList[userLanguage];
+  const { teamDictionary } = teamDictionaryList[userLanguage];
+  const labels = teamDictionary.teamActivities;
+
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const navigate = useNavigate();
   const userId = id.split("/")[1];
   const baseURL = id.split("/")[0];
 
-  const items = [
-    {
-      name: "My Team",
-      //   to: ROUTES.EMPLOYEES.EMPLOYEELINK,
-      //    renderButton: buttonsEnum.employee,
-    },
-  ];
-
   return (
     <>
-      {/* <TabbableContainer>
-        <Header items={items} /> */}
       <List>
         <AList className="admin_list">
           {listitem.map(({ displayName, to, IconName }) => {
-            console.log(displayName, "displayName");
+            // console.log(displayName, "displayName");
             return (
               <Item key={displayName} active={to(userId).includes(baseURL)}>
                 <Tooltip
@@ -56,7 +50,7 @@ function TeamActivities({ id }) {
                   >
                     {IconName}
 
-                    {!isTabletOrMobile && displayName}
+                    {!isTabletOrMobile && labels[displayName]}
                   </Link>
                 </Tooltip>
               </Item>
@@ -64,7 +58,6 @@ function TeamActivities({ id }) {
           })}
         </AList>
       </List>
-      {/* </TabbableContainer> */}
     </>
   );
 }

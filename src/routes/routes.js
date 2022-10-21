@@ -65,7 +65,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.ASSETS.DEFAULT}`,
-      component: lazy(() => import('../main/features/assets/view/assets')),
+      component: lazy(() => import('../main/features/assets/view/index')),
     },
     {
       path: `${ROUTES.CREATE_ASSETS.DEFAULT}`,

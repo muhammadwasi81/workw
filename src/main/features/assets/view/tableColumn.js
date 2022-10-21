@@ -29,7 +29,7 @@ export const TableColumn = () => {
         <Avatar
           heading={'approvers'}
           isAvatarGroup={true}
-          membersData={value}
+          membersData={value ? value : []}
         />
       ),
       sort: true,

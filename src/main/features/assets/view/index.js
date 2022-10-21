@@ -14,9 +14,7 @@ import { TableColumn } from './tableColumn';
 
 const Index = () => {
   const dispatch = useDispatch();
-
   const { assetItemList } = useSelector((state) => state.AssetItemSlice);
-  console.log(assetItemList, 'index.js list');
 
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
@@ -45,23 +43,33 @@ const Index = () => {
     },
   ];
 
-  const onSearch = (value) => setSearch(value);
-  const onSegment = (value) => setViewType(value);
-
   const payloadData = {
     pageNo: 1,
     pageSize: 20,
     search: '',
   };
 
+  const onSearch = (value) => setSearch(value);
+  const onSegment = (value) => setViewType(value);
+
   useEffect(() => {
-    dispatch(getAllAssetItems({ payloadData, filterType, search }));
+    dispatch(
+      getAllAssetItems({
+        payloadData,
+        filterType,
+        search,
+      })
+    );
   }, [filterType, search]);
 
   const render = {
     List: <AssetsList data={assetItemList} />,
     Table: (
-      <Table columns={TableColumn()} dragable={true} data={assetItemList} />
+      <Table
+        columns={TableColumn()}
+        dragable={true}
+        data={assetItemList ? assetItemList : []}
+      />
     ),
   };
 

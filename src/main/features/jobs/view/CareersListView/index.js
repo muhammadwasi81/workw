@@ -22,7 +22,7 @@ function CareersListView() {
   return (
     <div className="_careersMainListView ">
       <ListView />
-      <ApplyJob />
+      <ApplyJob isShowCopyBtn={true} />
     </div>
   );
 }

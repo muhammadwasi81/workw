@@ -11,6 +11,9 @@ export const getAllAssetItemService = async (payload = {}) => {
       `/api/InventoryItem/GetAllItem`,
       payload
     );
+    if (!response.data) {
+      return ResponseResultError('No Data Found');
+    }
     return response.data;
     // return ResponseResultSuccess(response.data);
   } catch (error) {

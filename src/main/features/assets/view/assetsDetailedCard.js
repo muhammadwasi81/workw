@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import { Tag } from 'antd';
-import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   ItemHeader,
   SingleItem,
 } from '../../../sharedComponents/Card/CardStyle';
+import moment from 'moment';
 import StatusTag from '../../../sharedComponents/Tag/StatusTag';
 import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
 import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
@@ -19,30 +18,32 @@ const AssetsDetailCard = (props) => {
 
   useEffect(() => {
     if (props.id) dispatch(getAssetItemDetailById(props.id));
-    console.log(props.id, 'getAssetItemDetailById props.id');
   }, [props.id]);
 
   const assetItemByUserId = useSelector((state) => state.AssetItemSlice);
   if (!assetItemByUserId) return <></>;
-  console.log(
-    assetItemByUserId.assetItemByUserId?.creator?.image,
-    'assetItemByUserId.assetItemByUserId.creator.image'
-  );
+
+  const creator = {
+    createDate: moment(),
+  };
+
   return (
     <SingleItem onClick={props.onClick}>
       <ItemHeader>
         <div className="left">
           <UserInfo
             avatarSrc={
-              assetItemByUserId.assetItemByUserId.image
-                ? assetItemByUserId.assetItemByUserId.image
+              assetItemByUserId.assetItemByUserId.creator?.image
+                ? assetItemByUserId.assetItemByUserId.creator?.image
                 : `https://58.65.211.234:4436/Resources\\cfe50d8d-7c47-4abb-9154-661daf129cec\\Images\\45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg`
             }
-            name={assetItemByUserId.assetItemByUserId.name}
+            name={assetItemByUserId.assetItemByUserId.creator?.name}
             Subline={
               <SublineDesigWithTime
-                designation={assetItemByUserId.assetItemByUserId.designation}
-                // time={moment(creator.createDate).fromNow()}
+                designation={
+                  assetItemByUserId.assetItemByUserId.creator?.designation
+                }
+                time={moment(creator.createDate).fromNow()}
               />
             }
           />

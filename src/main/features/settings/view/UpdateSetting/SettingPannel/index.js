@@ -11,7 +11,7 @@ function SettingUpdate() {
   return (
     <>
       <SettingPanelContainer>
-        <SettingList />
+        {/* <SettingList /> */}
         <SettingRoutes />
       </SettingPanelContainer>
     </>

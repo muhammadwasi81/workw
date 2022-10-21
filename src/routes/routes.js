@@ -20,7 +20,7 @@ export const routes = {
     {
       path: `${ROUTES.SETTINGS.DEFAULT}`,
       component: lazy(() =>
-        import("../main/features/settings/routes/SettingRoutes")
+        import("../main/features/settings")
       ),
     },
     {

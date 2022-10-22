@@ -1,57 +1,60 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Header from '../../../../layout/header';
+import React, { useContext, useEffect, useState } from "react";
+import Header from "../../../../layout/header";
 import {
   ContBody,
   TabbableContainer,
-} from '../../../../sharedComponents/AppComponents/MainFlexContainer';
-import { Button } from 'antd';
-import { ROUTES } from '../../../../../utils/routes';
-import QuotationList from './quotationList';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getAllEmployeeSalary } from '../../store/actions';
-import TopBar from '../../../../sharedComponents/topBar/topBar';
-import { Table } from '../../../../sharedComponents/customTable';
-import { useSelector } from 'react-redux';
-import { quotationTableColumn } from './tableColumns';
+} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Button, Modal } from "antd";
+import { ROUTES } from "../../../../../utils/routes";
+import QuotationList from "./quotationList";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getAllEmployeeSalary } from "../../store/actions";
+import TopBar from "../../../../sharedComponents/topBar/topBar";
+import { Table } from "../../../../sharedComponents/customTable";
+import { useSelector } from "react-redux";
+import TableView from "./TableViewComponent";
+import { quotationTableColumn } from "./tableColumns";
+import TableViewComponent from "./TableViewComponent";
 
 function Quotations() {
   const listData = useSelector((state) => state.quotationSlice.quotationList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [filterType, setFilterType] = useState(0);
-  const [viewType, setViewType] = useState('List');
-  const [search, setSearch] = useState('');
+  const [viewType, setViewType] = useState("List");
+  const [search, setSearch] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   const items = [
     {
-      name: 'Qoutation',
+      name: "Qoutation",
       to: `${ROUTES.QOUTATION.ROOT}`,
       renderButton: [1],
     },
   ];
   const buttons = [
     {
-      buttonText: '',
+      buttonText: "",
       render: (
-        <Button className="ThemeBtn" onClick={() => navigate('create')}>
-          {' '}
-          Create Quotation{' '}
+        <Button className="ThemeBtn" onClick={() => navigate("create")}>
+          {" "}
+          Create Quotation{" "}
         </Button>
       ),
     },
   ];
   const filterButtons = [
     {
-      name: 'Quotations',
+      name: "Quotations",
       onClick: () => setFilterType(0),
     },
     {
-      name: 'Created By Me',
+      name: "Created By Me",
       onClick: () => setFilterType(1),
     },
     {
-      name: 'For Approval',
+      name: "For Approval",
       onClick: () => setFilterType(2),
     },
   ];
@@ -66,26 +69,45 @@ function Quotations() {
     );
   }, [filterType, search]);
 
+  const onRow = () => {
+    console.log("on row click");
+    setOpenModal(true);
+  };
+
+  const handleCancel = () => {
+    setOpenModal(false);
+  };
+
   const render = {
     List: <QuotationList data={listData} />,
-    Table: (
-      <Table columns={quotationTableColumn()} dragable={true} data={listData} />
-    ),
+    Table: <TableViewComponent data={listData} />,
   };
   return (
-    <TabbableContainer>
-      <Header items={items} buttons={buttons} />
-      <TopBar
-        onSearch={onSearch}
-        buttons={filterButtons}
-        segment={{
-          onSegment,
-          label1: 'List',
-          label2: 'Table',
-        }}
-      />
-      <ContBody>{render[viewType]}</ContBody>
-    </TabbableContainer>
+    <>
+      <TabbableContainer>
+        <Header items={items} buttons={buttons} />
+        <TopBar
+          onSearch={onSearch}
+          buttons={filterButtons}
+          segment={{
+            onSegment,
+            label1: "List",
+            label2: "Table",
+          }}
+        />
+        <ContBody>{render[viewType]}</ContBody>
+      </TabbableContainer>
+      {/* {openModal && (
+        <Modal
+          visible={openModal}
+          onCancel={handleCancel}
+          footer={null}
+          width={"50%"}
+        >
+          <div>data</div>
+        </Modal>
+      )} */}
+    </>
   );
 }
 

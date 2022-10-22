@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Button, Divider, Tag, Avatar } from "antd";
+import { Button, Divider, Tag, Avatar, message } from "antd";
 import "antd/dist/antd.css";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 import {
@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCareerByIdAction } from "../../store/action";
 import { useParams } from "react-router-dom";
 import ApplyComposer from "../Composers/applyComposer";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { ROUTES } from "../../../../../utils/routes";
 
 const ApplyJob = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -24,19 +26,40 @@ const ApplyJob = (props) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const [careerData, setCareerData] = useState({});
+  // const [copy, setCopy] = useState(false);
 
   const { labels } = CareerDictionaryList;
-  console.log(labels);
+  // console.log(labels);
+  const careerDetail = useSelector((state) => {
+    return state.careerSlice.careerDetail;
+  });
+
+  const careers = useSelector((state) => {
+    return state.careerSlice.items;
+  });
 
   useEffect(() => {
     //call career by id function
     dispatch(getCareerByIdAction(id));
   }, []);
 
+  useEffect(() => {
+    //works at start to set first element from in state array
+    if (Object.keys(careers).length > 1) {
+      console.log(careers, "***");
+      setCareerData(careers[0]);
+    }
+  }, [careers]);
+
   console.log(id, "id");
-  const careerDetail = useSelector((state) => {
-    return state.careerSlice.careerDetail;
-  });
+
+  useEffect(() => {
+    console.log("useEffect works when component update");
+    if (Object.keys(careerDetail).length > 1) {
+      setCareerData(careerDetail);
+    }
+  }, [careerDetail]);
 
   const {
     city,
@@ -51,9 +74,9 @@ const ApplyJob = (props) => {
     maxSalary,
     experience,
     endDate,
-  } = careerDetail;
+  } = careerData;
 
-  console.log(careerDetail, "career detail in apply job");
+  // console.log(careerDetail, "career detail in apply job");
 
   const handleDrawerClose = () => {
     setVisible(false);
@@ -66,11 +89,13 @@ const ApplyJob = (props) => {
 
   const skillsArray = skills?.split(",");
 
-  //   let notesTime = !moment(new Date()).fromNow(createDate)
-  //     ? moment(createDate).format("LT")
-  //     : moment(createDate).format("MMM Do YYYY");
+  const copyfunc = () => {
+    setCopy(true);
+  };
+
   return (
     <>
+      {/* {copy && message.success("Copied")} */}
       <ApplyComposer visible={visible} onClose={handleDrawerClose} id={id} />
       <div className="item careersQuickDetail">
         <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
@@ -91,19 +116,26 @@ const ApplyJob = (props) => {
             <Tag className="LinkTag ThemeBtn" onClick={handleDrawerOpen}>
               {"Apply Now"}
             </Tag>
-            {/* <Tag className="LinkTag ThemeBtn">
-              <LinkOutlined /> {"Copy Link"}
-            </Tag> */}
+            {/* {props.isShowCopyBtn && (
+              <CopyToClipboard
+                text={`${window.location.origin}${ROUTES.CAREER.APPLYJOB}/${id}`}
+                onCopy={copyfunc}
+              >
+                <Tag className="LinkTag ThemeBtn">
+                  <LinkOutlined /> {labels.copyLink}
+                </Tag>
+              </CopyToClipboard>
+            )} */}
           </div>
         </div>
 
         <div className="mt-5">
-          <div className="font-bold">Job Description</div>
+          <div className="font-bold">{labels.jobDescription}</div>
           <div>{description}</div>
         </div>
 
         <div className="mt-5">
-          <div className="font-bold">Skills Required</div>
+          <div className="font-bold">{labels.skillsRequired}</div>
           <div>
             {skills
               ? skillsArray?.map((item, index) => {

@@ -50,7 +50,10 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
 
     setIsOpenEmoji(false);
     dispatch(sendChatMessage(payload));
+    console.log(fileInputRef, "fileInputRef")
+    fileInputRef.current.fileList = []
     e.target.value = "";
+    setAttchmentFiles([])
   };
   const handleClickEmoji = () => setIsOpenEmoji(!isOpenEmoji);
 

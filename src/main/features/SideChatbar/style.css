@@ -46,30 +46,45 @@
 }
 
 .sideBarHead {
-  height: 60px;
+  height: 50px;
+  padding: 1px;
 }
 
-.sideBarHead>.headIcon {
-  height: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px
+.sideBarHead .headIcon .anticon-video-camera svg {
+  font-size: 18px;
+  color: white;
 }
 
-.sideBarHead>.headIcon .anticon-video-camera svg {
-  font-size: 24px;
-  color: var(--currentThemeColor);
-}
-
-.headIcon>img {
+.headIcon img {
   height: 24px;
   cursor: pointer;
 }
-
+.headIcon {
+  background-color: var(--currentThemeColor);
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  display: flex;
+  /* justify-content: center; */
+  padding-left: 22px;
+  align-items: center;
+}
+.halfHeader{
+  min-width: 30px;
+}
+.fullHeader{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px 0 8px;
+  color: white;
+  font-weight: bold;
+  align-items: center;
+  white-space: nowrap;
+}
 .sideBarList {
   padding-top: 10px;
-  height: calc(100vh - 97px);
+  height: calc(100vh - 87px);
   overflow: auto;
   scroll-behavior: smooth;
 }
@@ -102,11 +117,12 @@
   font-size: 11px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-left: 10px;
 }
 
 .chatSearchBoxHalf>img {
-  height: 17px;
+  height: 12px;
+  margin-right: 5px;
 }
 
 .sideBarListName {
@@ -134,6 +150,9 @@
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
+.sideBarSearch input {
+  background-color: transparent;
+}
 
 .tabbable-container-rtl {
   align-items: flex-end;
@@ -142,7 +161,21 @@
 .hideMe {
   display: none;
 }
-
+.openSideBarHead{
+  animation-name: openSideBarHead;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.closeSideBarHead{
+  display: none;
+}
+@keyframes openSideBarHead {
+  from {
+  }
+  to {
+    padding-left: 10px;
+  }
+}
 @keyframes sideBarOpenAnimation {
   from {
     width: 80px;

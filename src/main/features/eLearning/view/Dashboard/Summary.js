@@ -1,7 +1,12 @@
 import React from "react";
+import DashboardLayout from "./Layout/DashboardLayout";
 
 function Summary() {
-	return <div>Summary</div>;
+	return (
+		<DashboardLayout>
+			<div>Summary</div>
+		</DashboardLayout>
+	);
 }
 
 export default Summary;

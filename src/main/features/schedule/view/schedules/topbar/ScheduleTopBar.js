@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import TopBar from "../../../../../sharedComponents/topBar/topBar";
 
-function ScheduleTopBar({
+export const ScheduleTopBar = ({
 	handleView = () => {},
-	topBar,
 	handleSearch = () => {},
 	setFilterType = () => {},
-}) {
-	// const [tableView, setTableView] = useState(false);
-	// handleView(tableView);
+}) => {
 	return (
 		<TopBar
 			onSearch={value => {
@@ -40,6 +37,4 @@ function ScheduleTopBar({
 			}}
 		/>
 	);
-}
-
-export default ScheduleTopBar;
+};

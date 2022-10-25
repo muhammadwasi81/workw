@@ -38,7 +38,7 @@ export const Index = () => {
 				style={{ display: isHide ? "none" : "block" }}
 				isMobileView={isMobileView}
 			>
-				<SideBarHead />
+				<SideBarHead sideBarStatus={sideBarStatus}/>
 				<SideBarList chatList={conversations} />
 				<SideBarSearch />
 			</SideChatBar>

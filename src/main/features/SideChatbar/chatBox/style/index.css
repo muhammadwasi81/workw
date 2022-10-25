@@ -5,9 +5,10 @@
   justify-content: flex-start;
   position: absolute;
   height: 450px;
-  width: 90%;
   bottom: 3px;
   right: 100px;
+  width: max-content;
+    max-width: 90%;
 }
 
 .ChatBox {

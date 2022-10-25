@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Select, Input } from "antd";
+import { Button, DatePicker, Form, Select, Input, InputNumber } from "antd";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -23,33 +23,14 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
     <div className="flex justify-between items-center my-2 bg-white px-4 py-2 rounded-md">
       <div className="flex justify-between items-center">
         <div className="mr-4  w-[170px]">
-          {/* <DatePicker
-            picker="month"
-            placeholder="Select month & year"
-            className="w-full"
-            defaultValue={moment()}
-            onChange={(value) =>
-              handleChange({
-                ...data,
-                month: value._d.getMonth() + 1,
-                year: value._d.getFullYear(),
-              })
-            }
-          /> */}
           <Input
             placeholder="Client Name"
             onChange={(e) => handleChange({ ...data, name: e.target.value })}
+            required={true}
           />
         </div>
 
         <div className="mr-4 w-[170px]">
-          {/* <div>Disperse Date</div> */}
-          {/* <DatePicker
-            placeholder="Disperse Date"
-            className="w-full"
-            value={data.disperseDate}
-            onChange={(val) => handleChange({ ...data, disperseDate: val })}
-          /> */}
           <Input
             placeholder="client@gmail.com"
             rules={[{ type: "email" }]}
@@ -58,18 +39,36 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
         </div>
 
         <div className="mr-4 w-[170px]">
-          {/* <div>Approvers</div> */}
-          {/* <CustomSelect
+          <Input
+            placeholder="Phone Number"
+            //  rules={[{ type: "number" }]}
+            onChange={(e) =>
+              handleChange({ ...data, phoneNumber: e.target.value })
+            }
+          />
+        </div>
+        <div className="mr-4 w-[170px]">
+          <CustomSelect
             data={employeesData}
+            style={{ height: "2rem" }}
             selectedData={(value, row) =>
-              handleChange({ ...data, approvers: row })
+              handleChange({
+                ...data,
+                approvers: row.map((el, i) => {
+                  return {
+                    approverId: el.id,
+                    email: el.email,
+                    approverType: 0,
+                  };
+                }),
+              })
             }
             canFetchNow={employeesData && employeesData.length > 0}
             fetchData={fetchEmployees}
             placeholder={"Approvers"}
             mode={"multiple"}
             isObject={true}
-            size="small"
+            size="medium"
             loadDefaultData={false}
             formItem={false}
             optionComponent={(opt) => {
@@ -89,23 +88,20 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
             dataVal={[]}
             name="approvers"
             showSearch={true}
-          /> */}
-          <Input
-            placeholder="Phone Number"
-            rules={[{ type: "number" }]}
-            onChange={(e) => handleChange({ ...data, email: e.target.value })}
           />
         </div>
         <div className="mr-4 w-[170px]">
           <DatePicker
             className="w-full"
-            // defaultValue={moment()}
+            locale="locale"
+            // onChange={(value, dateString) =>
+            //   handleChange({
+            //     ...data,
+            //     quotationDate: value._d.constructor(),
+            //   })
+            // }
             onChange={(value) =>
-              handleChange({
-                ...data,
-                month: value._d.getMonth() + 1,
-                year: value._d.getFullYear(),
-              })
+              handleChange({ ...data, quotationDate: value })
             }
           />
         </div>

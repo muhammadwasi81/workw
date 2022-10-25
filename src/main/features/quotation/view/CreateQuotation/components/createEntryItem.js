@@ -23,6 +23,7 @@ const CreateEntryItem = ({
   const handleInputChange = (e) => {
     handleChange(e.target.value, e.target.name, index);
   };
+
   const onEmployeeSelect = (row) => {
     let { gradeId, grade, id } = row[0];
     let { totalAllowance, totalDeductions, details } = calculateAllowance(
@@ -69,6 +70,35 @@ const CreateEntryItem = ({
       index
     );
   };
+
+  const onChangePrice = (price) => {
+    let tempValue = {
+      ...value,
+      price: price,
+    };
+    handleRowChange(
+      {
+        ...tempValue,
+      },
+      index
+    );
+  };
+
+  const onChangeQuantity = (quantity) => {
+    let tax = value.price * quantity * 0.005;
+    let tempValue = {
+      ...value,
+      quantity: quantity,
+      totalAmount: value.price * quantity + tax,
+    };
+    handleRowChange(
+      {
+        ...tempValue,
+      },
+      index
+    );
+  };
+
   return (
     <tr>
       <td>{index + 1}</td>
@@ -80,9 +110,8 @@ const CreateEntryItem = ({
         <input
           placeholder="Service/Item"
           // onChange={(value) => handleChange(value, "effectiveDate", index)}
-          onChange={(e) =>
-            console.log(e.target.value, `service/item at index ${index}`)
-          }
+          onChange={handleInputChange}
+          name="item"
         />
       </td>
       <td>
@@ -119,21 +148,22 @@ const CreateEntryItem = ({
         <input
           // className="text-[#a7a7a7] font-bold"
           placeholder="Price"
+          name="price"
           // value={value.grade}
           // disabled={true}
           type="number"
-          onChange={(e) =>
-            console.log(e.target.value, `price at index ${index}`)
-          }
+          onChange={(e) => onChangePrice(e.target.value)}
         />
       </td>
       <td>
         <input
           placeholder="Quantity"
           type="number"
-          onChange={(e) =>
-            console.log(e.target.value, `quantity at index ${index}`)
-          }
+          name="quantity"
+          // onChange={(e) =>
+          //   console.log(e.target.value, `quantity at index ${index}`)
+          // }
+          onChange={(e) => onChangeQuantity(e.target.value)}
         />
       </td>
       <td>
@@ -142,20 +172,20 @@ const CreateEntryItem = ({
           // type="number"
           value="0.5%"
           disabled={true}
-          onChange={(e) =>
-            console.log(e.target.value, `quantity at index ${index}`)
-          }
+          // onChange={(e) =>
+          //   console.log(e.target.value, `quantity at index ${index}`)
+          // }
         />
       </td>
       <td>
         <input
           placeholder="Total"
           //  type="number"
-          value="50,000"
+          value={value.totalAmount}
           disabled={true}
-          onChange={(e) =>
-            console.log(e.target.value, `quantity at index ${index}`)
-          }
+          // onChange={(e) =>
+          //   console.log(e.target.value, `quantity at index ${index}`)
+          // }
         />
       </td>
       {/* <td>

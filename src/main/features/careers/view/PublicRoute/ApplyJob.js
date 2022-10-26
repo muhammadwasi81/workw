@@ -89,12 +89,17 @@ const ApplyJob = (props) => {
 
   const skillsArray = skills?.split(",");
 
+  console.log(props);
+
   return (
     <>
       {/* {copy && message.success("Copied")} */}
       <ApplyComposer visible={visible} onClose={handleDrawerClose} id={id} />
       <div className="w-full m-auto">
-        <div className="item careersQuickDetail" style={{ width: props.width }}>
+        <div
+          className="item careersQuickDetail"
+          style={{ width: `${props.width}` }}
+        >
           <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
             <div>
               <Avatar size={45} src={creator?.image} />

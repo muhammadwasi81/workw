@@ -9,7 +9,7 @@ import { ROUTES } from "../../../../../utils/routes";
 import QuotationList from "./quotationList";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getAllEmployeeSalary } from "../../store/actions";
+import { getAllQuotation } from "../../store/actions";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
 import { Table } from "../../../../sharedComponents/customTable";
 import { useSelector } from "react-redux";
@@ -62,7 +62,7 @@ function Quotations() {
   const onSegment = (value) => setViewType(value);
   useEffect(() => {
     dispatch(
-      getAllEmployeeSalary({
+      getAllQuotation({
         filterType,
         search,
       })

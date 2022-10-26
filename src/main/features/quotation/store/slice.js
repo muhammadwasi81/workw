@@ -1,10 +1,5 @@
 import { createSlice, isPending } from "@reduxjs/toolkit";
-import {
-  createQuotation,
-  addMultipleEmployeeSalary,
-  getAllEmployeeSalary,
-  getEmployeeSalaryDetail,
-} from "./actions";
+import { createQuotation, getAllQuotation, getQuotationById } from "./actions";
 
 const initialState = {
   editData: null,
@@ -31,13 +26,12 @@ export const quotationSlice = createSlice({
         state.success = true;
         state.quotationList = [...state.quotationList, ...payload];
       })
-
-      .addCase(getEmployeeSalaryDetail.fulfilled, (state, { payload }) => {
+      .addCase(getQuotationById.fulfilled, (state, { payload }) => {
         state.quotationDetail = payload;
         state.loader = false;
         state.success = true;
       })
-      .addCase(getAllEmployeeSalary.fulfilled, (state, { payload }) => {
+      .addCase(getAllQuotation.fulfilled, (state, { payload }) => {
         state.quotationList = payload.data;
         state.loader = false;
         state.success = true;

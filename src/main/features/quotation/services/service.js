@@ -63,11 +63,11 @@ export const addMultipleQuotationService = async (payload) => {
 // 	}
 // };
 
-export const getEmployeeSalaryDetailService = async (id) => {
+export const getQuotationByIdService = async (id) => {
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.get(`api/EmployeeSalary/GetEmployeeSalaryById?id=${id}`);
+    } = await Config.get(`api/Quotation/GetQuotationById?id=${id}`);
     if (responseCode === 1001) return ResponseResultSuccess(data);
     return ResponseResultError(message);
   } catch (e) {
@@ -75,12 +75,11 @@ export const getEmployeeSalaryDetailService = async (id) => {
   }
 };
 
-export const getAllEmployeeSalaryService = async (payload = {}) => {
+export const getAllQuotationService = async (payload) => {
   try {
-    let request = getAllEmployeeSalary_dto(payload);
     const {
       data: { responseCode, data, message },
-    } = await Config.post(`api/EmployeeSalary/GetAllEmployeeSalary`, request);
+    } = await Config.post(`api/Quotation/GetAllQuotation`, payload);
     if (responseCode === 1001) return ResponseResultSuccess(data);
     return ResponseResultError(message);
   } catch (e) {

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { CardWrapper } from '../../../../sharedComponents/Card/CardStyle';
-import { clearSalaryDetail } from '../../store/slice';
-import QuotationDetailedView from './detailedView';
-import QuotationListItem from './QuotationListItem';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { CardWrapper } from "../../../../sharedComponents/Card/CardStyle";
+import { clearSalaryDetail } from "../../store/slice";
+import QuotationDetailedView from "./detailedView";
+import QuotationListItem from "./QuotationListItem";
 
 const QuotationList = ({ data }) => {
   const dispatch = useDispatch();

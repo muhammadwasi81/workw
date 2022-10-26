@@ -1,18 +1,22 @@
+import React from "react";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import React from "react";
 import { BsFileText } from "react-icons/bs";
-import WhiteCard from "../../../UI/WhiteCard";
-import { LevelsIcon, tag } from "../../Dashboard/Components/CourseCard";
-import DetailLayout from "../../Dashboard/Layout/DetailLayout";
-import DetailTabs from "../components/DetailTabs";
-import DetailPageTopDetail from "../components/UIElements/DetailHead";
-import ModulesList from "../components/UIElements/ModulesList";
+import WhiteCard from "../../../../../UI/WhiteCard";
+import { LevelsIcon, tag } from "../../../Components/CourseCard";
+import DetailLayout from "../../../Layout/DetailLayout";
+import DetailTabs from "../../../../Detail/components/DetailTabs";
+import DetailPageTopDetail from "../../../../Detail/components/UIElements/DetailHead";
+import ModulesList from "../../../../Detail/components/UIElements/ModulesList";
 import CourseAbout from "./CourseAbout";
 import CourseCurriculum from "./CourseCurriculum";
 import CourseQuizes from "./CourseQuizes";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CoursesDetail() {
+	const id = useParams().id;
+	const navigate = useNavigate();
+	// console.log("id", id);
 	const items = [
 		{
 			label: `About`,
@@ -30,10 +34,11 @@ function CoursesDetail() {
 			children: <CourseQuizes />,
 		},
 	];
+
 	return (
 		<DetailLayout>
 			<main className="flex flex-1 gap-10 h-full overflow-hidden">
-				<section className="flex basis-[75%] overflow-y-auto">
+				<section className="flex basis-[75%] overflow-y-auto detail_section">
 					<WhiteCard className="flex flex-col gap-5 w-full h-fit">
 						<DetailPageTopDetail
 							image={
@@ -50,7 +55,12 @@ function CoursesDetail() {
 						<DetailTabs items={items} />
 					</WhiteCard>
 				</section>
-				<section className="flex basis-[25%] overflow-y-auto h-fit">
+				<section
+					className="flex basis-[25%] overflow-y-auto h-fit"
+					onScroll={() => {
+						console.log("scroll");
+					}}
+				>
 					<WhiteCard className="flex flex-col gap-1 w-full">
 						<DetailPageTopDetail
 							image={
@@ -74,6 +84,9 @@ function CoursesDetail() {
 						<Button
 							className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
 							block
+							onClick={() =>
+								navigate(`/eLearning/courses/learn/${id}`)
+							}
 						>
 							Start
 						</Button>

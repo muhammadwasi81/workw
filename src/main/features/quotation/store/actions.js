@@ -1,59 +1,59 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
+import {
+  responseMessage,
+  responseMessageType,
+} from "../../../../services/slices/notificationSlice";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { openNotification } from "../../../../utils/Shared/store/slice";
-import { addMultipleEmployeeSalaryService, getAllEmployeeSalaryService, getEmployeeSalaryDetailService } from "../services/service";
+import {
+  addMultipleQuotationService,
+  getAllQuotationService,
+  getQuotationByIdService,
+} from "../services/service";
 import { ValidateAddMultipleSalary } from "../utils/validate";
 
-export const addMultipleEmployeeSalary = createAsyncThunk(
-  "EmployeeSalary/addMultipleEmployeeSalary",
-  async ({ navigate, salaries }, { rejectWithValue, dispatch }) => {
-    let validatePayload = ValidateAddMultipleSalary(salaries);
-    if (validatePayload.error) {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-        data: validatePayload
-      });
-      return rejectWithValue(validatePayload.message)
-    }
+export const createQuotation = createAsyncThunk(
+  "Quotation/createQuotation",
+  async (data, { dispatch, rejectWithValue }) => {
+    const res = await addMultipleQuotationService(data);
+    console.log(res, "FROM CAREER RESPONSE");
 
-    const response = await addMultipleEmployeeSalaryService(salaries);
-    switch (response.type) {
+    switch (res.type) {
       case ResponseType.ERROR:
-        responseMessage({
-          dispatch: dispatch,
-          type: responseMessageType.ApiFailure,
-          data: {
-            message: response.errorMessage
-          }
-        });
-        return rejectWithValue(response.errorMessage);
+        dispatch(
+          openNotification({
+            message: res.errorMessage,
+            type: "error",
+          })
+        );
+        return rejectWithValue(res.errorMessage);
       case ResponseType.SUCCESS:
-        dispatch(openNotification({
-          message: "Salary Create Successfully",
-          type: "success",
-          duration: 2
-        }))
-        navigate("/salary")
-        return response.data;
+        dispatch(
+          openNotification({
+            message: "Quotation Created Successfully",
+            type: "success",
+            duration: 2,
+          })
+        );
+        return res.data;
       default:
-        return null;
+        return;
     }
   }
 );
-export const getEmployeeSalaryDetail = createAsyncThunk(
+
+export const getQuotationById = createAsyncThunk(
   "EmployeeSalary/getEmployeeSalaryDetail",
   async (id, { rejectWithValue, dispatch }) => {
-    const response = await getEmployeeSalaryDetailService(id);
+    const response = await getQuotationByIdService(id);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({
           dispatch: dispatch,
           type: responseMessageType.ApiFailure,
           data: {
-            message: response.errorMessage
-          }
+            message: response.errorMessage,
+          },
         });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
@@ -64,18 +64,40 @@ export const getEmployeeSalaryDetail = createAsyncThunk(
   }
 );
 
-export const getAllEmployeeSalary = createAsyncThunk(
-  "EmployeeSalary/getAllEmployeeSalary",
-  async (data, { rejectWithValue, dispatch }) => {
-    const response = await getAllEmployeeSalaryService(data);
+export const getEmployeeSalaryDetail = createAsyncThunk(
+  "EmployeeSalary/getEmployeeSalaryDetail",
+  async (id, { rejectWithValue, dispatch }) => {
+    const response = await getEmployeeSalaryDetailService(id);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({
           dispatch: dispatch,
           type: responseMessageType.ApiFailure,
           data: {
-            message: response.errorMessage
-          }
+            message: response.errorMessage,
+          },
+        });
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getAllQuotation = createAsyncThunk(
+  "Quotation/getAllQuotation",
+  async (data, { rejectWithValue, dispatch }) => {
+    const response = await getAllQuotationService(data);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        responseMessage({
+          dispatch: dispatch,
+          type: responseMessageType.ApiFailure,
+          data: {
+            message: response.errorMessage,
+          },
         });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:

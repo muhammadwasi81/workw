@@ -7,7 +7,7 @@ import sendIcon from "../../../../../../content/NewContent/Messenger/sendRound.s
 import deleteIcon from "../../../../../../content/NewContent/Messenger/delete.svg";
 import VoiceTimer from "./voiceTimer";
 
-function VoiceNotes(props) {
+function VoiceNotes({handleVoiceSend}) {
     useEffect(() => {
     }, []);
     function blobToFile(theBlob, fileName) {
@@ -21,6 +21,7 @@ function VoiceNotes(props) {
     }
     const onStopRecording = (blobURL, blob) => {
         console.log(blobToFile(blob, "Voice"), "Stop Recording");
+        handleVoiceSend(blobToFile(blob, "Voice"))
     }
     const { status, startRecording, stopRecording, mediaBlobUrl, pauseRecording, clearBlobUrl } =
         useReactMediaRecorder({ audio: true, onStart: onStartRecording, onStop: onStopRecording });

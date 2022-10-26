@@ -1,13 +1,15 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addRequisition, getAllRequisition, GetRequisitionById } from "./actions";
+import { addRequisition, addRequisitionOffer, getAllRequisition, GetAllRequisitionOffer, GetRequisitionById } from "./actions";
 
 const initialState = {
   success: false,
   items: [],
+  offers: [],
   loadingData: false,
   loader: true,
   Detail: {},
   drawerOpen: false,
+  drawerOpenOffer: false,
   cancelReward: {}
 };
 
@@ -17,6 +19,9 @@ const requisitionSlice = createSlice({
   reducers: {
     handleOpenComposer: (state, { payload }) => {
       state.drawerOpen = payload
+    },
+    handleOpenOfferComposer: (state, { payload }) => {
+      state.drawerOpenOffer = payload
     },
   },
   extraReducers: (builder) => {
@@ -29,6 +34,10 @@ const requisitionSlice = createSlice({
       state.Detail = action.payload.data;
     });
 
+    builder.addCase(GetAllRequisitionOffer.fulfilled, (state, action) => {
+      state.offers = action.payload.data;
+    });
+
     // builder.addCase(cancelReward.fulfilled, (state, action) => {
     //   state.cancelReward = action.payload.data;
     // });
@@ -39,6 +48,11 @@ const requisitionSlice = createSlice({
         state.success = true
         state.items = [...state.items, payload.data.data];
       })
+    builder
+        .addCase(addRequisitionOffer.fulfilled, (state, {payload}) => {
+          state.drawerOpenOffer = false
+          state.success = true
+        })
       .addMatcher(isPending(...[getAllRequisition]), (state) => {
         state.loader = true;
       })
@@ -48,5 +62,5 @@ const requisitionSlice = createSlice({
   },
 });
 
-export const { handleOpenComposer } = requisitionSlice.actions;
+export const { handleOpenComposer, handleOpenOfferComposer } = requisitionSlice.actions;
 export default requisitionSlice.reducer;

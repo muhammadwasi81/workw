@@ -1,5 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { addCareer, getAllCareerAction, getCareerByIdAction } from "./action";
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import {
+  addCareer,
+  getAllCareerAction,
+  getCareerByIdAction,
+  addCareerApplicant,
+  getAllCareerApplicant,
+} from "./action";
 
 const defaultCareer = {
   id: 1,
@@ -16,6 +22,8 @@ const initialState = {
   currentTab: "careers",
   drawerOpen: false,
   careerDetail: {},
+  careerApplicants: [],
+  loader: false,
 };
 
 const careerSlice = createSlice({
@@ -40,18 +48,37 @@ const careerSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addCareer.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.drawerOpen = false;
         state.success = true;
-        state.items = [...state.items, payload.data.data];
+        state.items = [...state.items, payload];
+      })
+      .addCase(addCareerApplicant.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        // if (payload.data.data) {
+        //   state.loanList.unshift(payload.data.data);
+        //   state.isCreateComposer = true;
+        // }
+      })
+      .addCase(getAllCareerApplicant.fulfilled, (state, { payload }) => {
+        state.careerApplicants = payload;
+        // console.log(payload);
       })
       .addCase(getAllCareerAction.fulfilled, (state, { payload }) => {
         state.items = payload;
+        state.loader = false;
       })
       .addCase(getCareerByIdAction.fulfilled, (state, { payload }) => {
         console.log(payload, "payload STATE ITEMS");
         state.careerDetail = payload;
 
         console.log(state.careerDetail, "STATE ITEMS");
+      })
+      .addMatcher(isPending(...[addCareerApplicant]), (state) => {
+        console.log("pending applied");
+      })
+      .addMatcher(isPending(...[getAllCareerAction]), (state) => {
+        state.loader = true;
       });
   },
 });

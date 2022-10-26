@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Divider, Tag, Avatar } from "antd";
+import React, { useState, useContext } from "react";
+import { Button, Divider, Tag, Avatar, message } from "antd";
 import "antd/dist/antd.css";
 import JobHeader from "./JobHeader";
 import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
@@ -10,15 +10,24 @@ import {
 } from "../../../../../sharedComponents/Card/CardStyle";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import { LinkOutlined } from "@ant-design/icons";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../../localization";
 import "./style.css";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { ROUTES } from "../../../../../../utils/routes";
 
-const JobDetails = () => {
+const JobDetails = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList } = CareerDictionary[userLanguage];
   const careerDetail = useSelector((state) => {
     return state.careerSlice.careerDetail;
   });
+  const [copy, setCopy] = useState(false);
+
+  const { labels } = CareerDictionaryList;
 
   const {
     city,
@@ -33,17 +42,25 @@ const JobDetails = () => {
     maxSalary,
     experience,
     endDate,
+    id,
   } = careerDetail;
+
+  // console.log("career detail", careerDetail);
+
+  const copyfunc = () => {
+    setCopy(true);
+  };
   // const { name, image, designation } = creator;
   // console.log(jobDesc, "JOB DETAILLLLLL");
 
   const skillsArray = skills?.split(",");
 
-  let notesTime = !moment(new Date()).fromNow(createDate)
-    ? moment(createDate).format("LT")
-    : moment(createDate).format("MMM Do YYYY");
+  // let notesTime = !moment(new Date()).fromNow(createDate)
+  //   ? moment(createDate).format("LT")
+  //   : moment(createDate).format("MMM Do YYYY");
   return (
     <>
+      {copy && message.success("Copied")}
       <div className="item-card careersQuickDetail">
         <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
           <div>
@@ -55,24 +72,33 @@ const JobDetails = () => {
             </div>
             <div className="font-bold">{department}</div>
             <div className="text-xs">
-              Karachi, Pakistan - {moment(createDate).fromNow()}
+              {city}, {country} - {moment(createDate).fromNow()}
             </div>
           </div>
           <div className="linkDiv">
-            <Tag className="LinkTag ThemeBtn">{"Apply Now"}</Tag>
-            <Tag className="LinkTag ThemeBtn">
-              <LinkOutlined /> {"Copy Link"}
+            <Tag className="LinkTag ThemeBtn" onClick={() => props.apply()}>
+              {/* {"Apply Now"} */}
+              {labels.applyNow}
             </Tag>
+
+            <CopyToClipboard
+              text={`${window.location.origin}${ROUTES.CAREER.APPLYJOB}/${id}`}
+              onCopy={copyfunc}
+            >
+              <Tag className="LinkTag ThemeBtn">
+                <LinkOutlined /> {labels.copyLink}
+              </Tag>
+            </CopyToClipboard>
           </div>
         </div>
 
         <div className="mt-5">
-          <div className="font-bold">Job Description</div>
+          <div className="font-bold">{labels.jobdescription}</div>
           <div>{description}</div>
         </div>
 
         <div className="mt-5">
-          <div className="font-bold">Skills Required</div>
+          <div className="font-bold">{labels.skillsRequired}</div>
           <div>
             {skills
               ? skillsArray?.map((item, index) => {
@@ -90,24 +116,26 @@ const JobDetails = () => {
 
         <div className="cardSections mt-10">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Salary Range</div>
+            <div className="cardSection__title">{labels.salaryRange}</div>
             <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Effective Date</div>
+            <div className="cardSection__title">{labels.effectiveDate}</div>
             <div className="cardSection__body">
-              {moment(createDate).format("Do MMM YY")}
+              {createDate ? moment(createDate).format("Do MMM YY") : "-"}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Experience Required</div>
-            <div className="cardSection__body">{experience}</div>
+            <div className="cardSection__title">{labels.experience}</div>
+            <div className="cardSection__body">
+              {experience ? experience : "-"}
+            </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Job Expires</div>
+            <div className="cardSection__title">{labels.jobExpires}</div>
             <div className="cardSection__body">
               {" "}
-              {moment(endDate).format("Do MMM YY")}
+              {endDate ? moment(endDate).format("Do MMM YY") : "-"}
             </div>
           </div>
         </div>

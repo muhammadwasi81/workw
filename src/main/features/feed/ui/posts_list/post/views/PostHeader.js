@@ -13,6 +13,7 @@ import {
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { favoriteFeed } from "../../../../store/actions";
+import { addFeedFavourite } from "../../../../store/slice";
 
 const PostHeader = ({
 	creator = {},
@@ -87,9 +88,10 @@ const PostHeader = ({
 			</div>
 			<div
 				className="pinned-post"
-				onClick={() =>
-					dispatch(favoriteFeed({ isPinned: !isPinnedPost, id }))
-				}
+				onClick={() => {
+					dispatch(addFeedFavourite({ isPinned: !isPinnedPost, id }));
+					dispatch(favoriteFeed({ isPinned: !isPinnedPost, id }));
+				}}
 			>
 				{isPinnedPost ? (
 					<StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />

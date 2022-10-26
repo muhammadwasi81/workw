@@ -55,12 +55,12 @@ const createChat = async (data) => {
 	}
 };
 const sendMessage = async (data) => {
-	let request = messengerDTO.createChat(data);
+	let request = messengerDTO.sendMessage(data);
 	let formDataRequest = jsonToFormData(request);
 	try {
 		const {
 			data: { responseCode, data, message },
-		} = await Config.post(`api/chat/createChat`, formDataRequest);
+		} = await Config.post(`api/chat/sendChatMessage`, formDataRequest);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {

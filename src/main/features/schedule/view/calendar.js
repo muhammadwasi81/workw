@@ -4,7 +4,11 @@ import Scheduler from "./scheduler";
 import { Calendar as AntCalendar, Badge } from "antd";
 import "../styles/calender.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCurrentSchedule, getAllEventSchedule } from "../store/action";
+import {
+	getAllCurrentSchedule,
+	getAllEventSchedule,
+	getAllUpcomingSchedule,
+} from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { useEffect } from "react";
 import moment from "moment";
@@ -17,6 +21,10 @@ function Calendar() {
 	const currentSchedules = useSelector(
 		state => state.scheduleSlice.currentSchedules
 	);
+	const upcomingSchedules = useSelector(
+		state => state.scheduleSlice.upcomingSchedules
+	);
+	const loading = useSelector(state => state.scheduleSlice.loading);
 
 	useEffect(() => {
 		fetchAllEventSchedule(new Date(), new Date());
@@ -46,6 +54,7 @@ function Calendar() {
 
 	useEffect(() => {
 		fetchCurrentDateScedules(new Date());
+		fetchUpcomingScedules(new Date());
 	}, []);
 
 	const fetchCurrentDateScedules = value => {
@@ -58,6 +67,28 @@ function Calendar() {
 
 		dispatch(
 			getAllCurrentSchedule({
+				pageNo: 1,
+				pageSize: 20,
+				search: "",
+				sortBy: 1,
+				referenceId: defaultUiid,
+				referenceType: 0,
+				startDate,
+				endDate,
+			})
+		);
+	};
+
+	const fetchUpcomingScedules = value => {
+		const startDate = moment(value)
+			.add(1, "days")
+			.format();
+		const endDate = moment(value)
+			.add(8, "days")
+			.format();
+
+		dispatch(
+			getAllUpcomingSchedule({
 				pageNo: 1,
 				pageSize: 20,
 				search: "",
@@ -110,7 +141,18 @@ function Calendar() {
 					}}
 				/>
 				<div className="events">
-					<EventWrapper data={currentSchedules} />
+					<EventWrapper
+						data={currentSchedules}
+						loading={loading}
+						heading={"Today Events"}
+					/>
+				</div>
+				<div className="events">
+					<EventWrapper
+						loading={loading}
+						data={upcomingSchedules}
+						heading={"Upcoming Events"}
+					/>
 				</div>
 			</div>
 		</div>

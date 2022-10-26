@@ -11,7 +11,7 @@ import EmptyMessenger from './components/EmptyMessenger';
 const MessengerBox = () => {
     const dispatch = useDispatch();
     const messengerDetail = useSelector((state) => state.MessengerSlice.currentMessenger);
-    const messageList = useSelector((state) => state.MessengerSlice.MessengerList[messengerDetail.chatId]);
+    // const messageList = useSelector((state) => state.MessengerSlice.MessengerList[messengerDetail.chatId]);
     const [isOpenProfile, setIsOpenProfile] = useState(false);
     const isEmptyMessenger = messengerDetail.members.length === 0 && messengerDetail.chatId === STRINGS.DEFAULTS.guid;
     useEffect(() => {
@@ -26,14 +26,16 @@ const MessengerBox = () => {
                 isOpenProfile={isOpenProfile}
                 messengerDetail={messengerDetail} />
             <MessengerList
-                messageList={messageList}
                 isChatBox={false}
                 isOpenProfile={isOpenProfile}
                 messengerDetail={messengerDetail} />
             <MessengerBottom
-                isOpenProfile={isOpenProfile} />
+                isOpenProfile={isOpenProfile} 
+                messengerDetail={messengerDetail} />
             {isOpenProfile &&
-                <MessengerProfile hanldeClose={() => setIsOpenProfile(false)} />}
+                <MessengerProfile 
+                hanldeClose={() => setIsOpenProfile(false)} 
+                messengerDetail={messengerDetail} />}
         </div>
     )
 }

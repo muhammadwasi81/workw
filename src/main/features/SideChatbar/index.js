@@ -8,7 +8,7 @@ import "./style.css";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getAllChats } from "../Messenger/store/actions";
-import ChatBoxCont from "../../../components/SharedComponentOld/ChatBox/ChatBoxCont";
+import ChatBoxCont from "./chatBox/ChatBoxCont";
 export const Index = () => {
 	const sideBarStatus = useSelector(
 		state => state.sideBarChatSlice.sideBarChatStatus
@@ -38,11 +38,11 @@ export const Index = () => {
 				style={{ display: isHide ? "none" : "block" }}
 				isMobileView={isMobileView}
 			>
-				<SideBarHead />
+				<SideBarHead sideBarStatus={sideBarStatus}/>
 				<SideBarList chatList={conversations} />
 				<SideBarSearch />
 			</SideChatBar>
-			<ChatBoxCont />
+			<ChatBoxCont isHide={isHide}/>
 		</>
 	);
 };

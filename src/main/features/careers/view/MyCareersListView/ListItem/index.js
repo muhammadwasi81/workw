@@ -17,7 +17,7 @@ import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
 
-function ListItem({ item, onClick }) {
+function ListItem({ item, onClick, onClickMyCareer }) {
   // console.log(item, "description");
   const {
     jobTypeId,
@@ -28,10 +28,12 @@ function ListItem({ item, onClick }) {
     maxSalary,
     experience,
     endDate,
+    city,
+    country,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
 
-  console.log("currernt tab", currentTab);
+  console.log("props", onClickMyCareer);
 
   return (
     <>
@@ -81,7 +83,7 @@ function ListItem({ item, onClick }) {
           <div className="flex justify-between">
             <div className="flex gap-x-8">
               <p className="careerFooterText">
-                Karachi, Pakistan -{" "}
+                {city}, {country} -{" "}
                 {CareerLevelTypeEnum.map((item) => {
                   if (item.value === jobTypeId) {
                     return item.label;
@@ -103,7 +105,7 @@ function ListItem({ item, onClick }) {
           </div>
         </SingleItem>
       ) : (
-        <SingleItem onClick={onClick}>
+        <SingleItem onClick={onClickMyCareer}>
           <ItemHeader className="ItemHeader">
             <div className="flex items-center gap-3">
               {/* {image.length > 1 && (

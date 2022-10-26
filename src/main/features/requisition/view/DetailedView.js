@@ -9,7 +9,7 @@ import DetailCard from "./DetailCard";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, rewardDictionary } = requisitionDictionaryList[userLanguage];
+  const { Direction, requisitionDictionary } = requisitionDictionaryList[userLanguage];
   const { requisitionDetail } = useSelector((state) => state.requisitionSlice);
   // const dispatch = useDispatch();
   // useEffect(() => {
@@ -21,7 +21,7 @@ function DetailedView(props) {
 
   return (
     <Drawer
-      title={<h1 style={{ fontSize: "20px", margin: 0 }}>{"Detail"}</h1>}
+      title={<h1 style={{ fontSize: "20px", margin: 0 }}>{requisitionDictionary.detail}</h1>}
       width="768"
       height={"85%"}
       placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}

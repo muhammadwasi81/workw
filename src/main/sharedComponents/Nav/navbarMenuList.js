@@ -90,9 +90,9 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.Schedules,
       counter: 0,
-      to: ROUTES.SCHEDULES,
+      to: ROUTES.SCHEDULES.LINK + "?f=cal",
       icon: schedulesIcon,
-      isActive: 1,
+      isActive: true,
       key: label.navMenuLabel.menu,
     },
     {
@@ -144,6 +144,14 @@ const NavMenuList = () => {
       key: label.navMenuLabel.menu,
     },
     {
+      name: "L & D",
+      counter: 0,
+      icon: eLearningIcon,
+      to: ROUTES.ELearning.LINK,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+    },
+    {
       name: label.navMenuLabel.employee,
       counter: 0,
       icon: employeeIcon,
@@ -151,6 +159,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
+
     {
       name: label.navMenuLabel.projects,
       counter: 0,
@@ -241,14 +250,14 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     // *****BY SANJNA****
-    // {
-    //   name: label.navMenuLabel.teams,
-    //   counter: 0,
-    //   icon: teamIcon,
-    //   to: ROUTES.TEAMS.TEAM,
-    //   isActive: true,
-    //   key: label.navMenuLabel.hr,
-    // },
+    {
+      name: "My Team",
+      counter: 0,
+      icon: teamIcon,
+      to: ROUTES.TEAMS.TEAM,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
     {
       name: label.navMenuLabel.leaves,
       counter: 0,
@@ -383,6 +392,24 @@ const NavMenuList = () => {
       counter: 0,
       icon: assetsIcon,
       to: ROUTES.ASSETS.DEFAULT,
+      isActive: true,
+      key: label.navMenuLabel.inventory,
+    },
+    // TODO:// CREATE ASSETS
+    {
+      name: label.navMenuLabel.createAssets,
+      counter: 0,
+      icon: assetsIcon,
+      to: ROUTES.CREATE_ASSETS.DEFAULT,
+      isActive: true,
+      key: label.navMenuLabel.inventory,
+    },
+    // TODO:// REQUESTLISTITEMS MODULE
+    {
+      name: label.navMenuLabel.requestListItems,
+      counter: 0,
+      icon: assetsIcon,
+      to: ROUTES.REQUEST_LIST_ITEM.DEFAULT,
       isActive: true,
       key: label.navMenuLabel.inventory,
     },

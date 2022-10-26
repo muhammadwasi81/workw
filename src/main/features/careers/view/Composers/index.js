@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Avatar, Button, DatePicker, Form, Input, List, Select } from "antd";
 import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
@@ -9,6 +9,7 @@ import {
   createGuid,
   getNameForImage,
   modifySelectData,
+  STRINGS,
 } from "../../../../../utils/base";
 import { useSelector } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
@@ -16,6 +17,8 @@ import {
   getAllEmployees,
   getCities,
 } from "../../../../../utils/Shared/store/actions";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization";
 import CitySelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
 import {
   CareerLevelTypeEnum,
@@ -26,8 +29,11 @@ import {
 import { getAllDefaultHiringCriteriaService } from "../../defaultHiringCriteria/services/service";
 import { getAllDesignation } from "../../../designation/store/actions";
 import { addCareer } from "../../store/action";
+import { handleOpenComposer } from "../../store/slice";
 
-const Composer = () => {
+const Composer = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   // const [designation, setDesignation] = useState([]);
@@ -35,7 +41,10 @@ const Composer = () => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [reviewCriteria, setReviewCriteria] = useState([]);
+  const [attachments, setAttachment] = useState([]);
   const { cities } = useSelector((state) => state.sharedSlice);
+
+  const { labels, placeHolder } = CareerDictionaryList;
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -120,9 +129,17 @@ const Composer = () => {
         };
       }),
       skills: values.skills.join(),
+      image:
+        attachments.length === 0
+          ? ""
+          : {
+              file: attachments[0].originFileObj,
+              id: STRINGS.DEFAULTS.guid,
+            },
     };
     dispatch(addCareer(payload));
     form.resetFields();
+    dispatch(handleOpenComposer(false));
   };
 
   return (
@@ -130,13 +147,15 @@ const Composer = () => {
       <Form
         form={form}
         name="createCareer"
-        className="createCareer"
+        className={Direction === "rtl" ? "createCareerRight" : "createCareer"}
         // initialValues={initialState}
         onFinish={onFinish}
         layout="vertical"
+        // style={{ direction: Direction }}
+        style={{ direction: Direction }}
       >
         <Form.Item
-          label={"Designation"}
+          label={labels.designation}
           name="designationId"
           rules={[
             {
@@ -145,7 +164,7 @@ const Composer = () => {
             },
           ]}
         >
-          <Select placeholder={"Select Designtion"} size="large">
+          <Select placeholder={placeHolder.selectDesignation} size="large">
             {designations.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {item.name}
@@ -154,7 +173,7 @@ const Composer = () => {
           </Select>
         </Form.Item>
         <Form.Item
-          label={"Job Description"}
+          label={labels.jobdescription}
           name="description"
           rules={[
             {
@@ -163,17 +182,17 @@ const Composer = () => {
             },
           ]}
         >
-          <Input.TextArea placeholder={"Job Description"} />
+          <Input.TextArea placeholder={labels.jobdescription} />
         </Form.Item>
         <div className="salaryRangeInputs">
           <Form.Item
-            label="Range Of Salary"
+            label={labels.salaryRange}
             style={{
               marginBottom: 0,
             }}
           >
             <Form.Item
-              name="minSalary"
+              name={"minSalary"}
               rules={[
                 {
                   required: true,
@@ -186,12 +205,12 @@ const Composer = () => {
             >
               <Input
                 size="large"
-                placeholder="Enter Minimum Salary"
+                placeholder={placeHolder.enterMinSalary}
                 type="number"
               />
             </Form.Item>
             <Form.Item
-              name="maxSalary"
+              name={"maxSalary"}
               rules={[
                 {
                   required: true,
@@ -205,14 +224,14 @@ const Composer = () => {
             >
               <Input
                 size="large"
-                placeholder="Enter Maximum Salary"
+                placeholder={placeHolder.enterMaxSalary}
                 type="number"
               />
             </Form.Item>
           </Form.Item>
         </div>
         <Form.Item
-          label={"Department"}
+          label={labels.department}
           name="departmentId"
           rules={[
             {
@@ -221,7 +240,7 @@ const Composer = () => {
             },
           ]}
         >
-          <Select placeholder={"Select Department"} size="large">
+          <Select placeholder={placeHolder.selectDepartment} size="large">
             {department.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {item.name}
@@ -230,7 +249,7 @@ const Composer = () => {
           </Select>
         </Form.Item>
         <Form.Item
-          label={"Supervisor"}
+          label={labels.supervisor}
           name="managerId"
           rules={[
             {
@@ -243,7 +262,7 @@ const Composer = () => {
             name="managerId"
             mode="multiple"
             formitem={false}
-            placeholder={"Select Supervisor"}
+            placeholder={placeHolder.selectSupervisor}
             isObject={true}
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -261,7 +280,7 @@ const Composer = () => {
           />
         </Form.Item>
         <Form.Item
-          label={"Interviewers"}
+          label={labels.interviewers}
           name="interviewers"
           rules={[
             {
@@ -274,7 +293,7 @@ const Composer = () => {
             name="interviewers"
             mode="multiple"
             formitem={false}
-            placeholder={"Select Interviewers"}
+            placeholder={placeHolder.selectInterviewers}
             isObject={true}
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -292,7 +311,7 @@ const Composer = () => {
           />
         </Form.Item>
         <Form.Item
-          label={"Post Interviewers"}
+          label={labels.postInterviewers}
           name="postInterviewers"
           rules={[
             {
@@ -305,7 +324,7 @@ const Composer = () => {
             name="postInterviewers"
             mode="multiple"
             formitem={false}
-            placeholder={"Select Post Interviewers"}
+            placeholder={placeHolder.selectPostInterviewers}
             isObject={true}
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -323,7 +342,7 @@ const Composer = () => {
           />
         </Form.Item>
         <Form.Item
-          label={"Hiring Buddy"}
+          label={labels.hiringBuddy}
           name="hiringBuddyId"
           rules={[
             {
@@ -336,7 +355,7 @@ const Composer = () => {
             name="hiringBuddyId"
             mode="multiple"
             formitem={false}
-            placeholder={"Select Buddy"}
+            placeholder={placeHolder.hiringBuddy}
             isObject={true}
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -355,14 +374,14 @@ const Composer = () => {
         </Form.Item>
         <Form.Item
           name="members"
-          label={"Job Viewer"}
+          label={labels.jobviewer}
           rules={[{ required: true }]}
         >
           <MemberSelect
             name="members"
             mode="multiple"
             formitem={false}
-            placeholder={"Select Members"}
+            placeholder={placeHolder.selectJobviewer}
             isObject={true}
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -381,7 +400,7 @@ const Composer = () => {
         </Form.Item>
         <Form.Item
           name="approvers"
-          label={"Approvers"}
+          label={labels.approvers}
           showSearch={true}
           rules={[{ required: true }]}
         >
@@ -389,7 +408,7 @@ const Composer = () => {
             name="approvers"
             mode="multiple"
             formitem={false}
-            placeholder={"Select Approvers"}
+            placeholder={placeHolder.selectApprovers}
             isObject={true}
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -425,39 +444,43 @@ const Composer = () => {
           }}
           defaultKey={"id"}
           isObject={true}
-          placeholder={"Select City"}
+          placeholder={placeHolder.selectCity}
           size="large"
           name="cityId"
-          label={"City"}
+          label={labels.city}
           rules={[{ required: true }]}
         />
         <Form.Item
           name="skills"
-          label="Skills"
+          label={labels.skills}
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <Select size="large" placeholder="Add Skills" mode="tags" />
+          <Select
+            size="large"
+            placeholder={placeHolder.addSkills}
+            mode="tags"
+          />
         </Form.Item>
         <Form.Item
-          name="experience"
-          label="Experience (Years)"
+          name={"experience"}
+          label={labels.experienceLabel}
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <Input size="large" placeholder="Write Years" type="number" />
+          <Input size="large" placeholder={labels.experience} type="number" />
         </Form.Item>
 
         <div className="w-full flex gap-3 mb-2">
           <Form.Item
             className="w-2/4"
-            label={"Job Type"}
+            label={labels.jobType}
             name="jobType"
             rules={[
               {
@@ -466,7 +489,7 @@ const Composer = () => {
               },
             ]}
           >
-            <Select placeholder={"Select Job Type"} size="large">
+            <Select placeholder={placeHolder.selectJobType} size="large">
               {JobTypeEnum.map((item) => (
                 <Select.Option key={item.value} value={item.value}>
                   {item.label}
@@ -476,7 +499,7 @@ const Composer = () => {
           </Form.Item>
           <Form.Item
             className="w-2/4"
-            label={"Job Shift"}
+            label={labels.jobShift}
             name="jobShift"
             rules={[
               {
@@ -485,7 +508,7 @@ const Composer = () => {
               },
             ]}
           >
-            <Select placeholder={"Select Job Shift"} size="large">
+            <Select placeholder={placeHolder.selectJobshift} size="large">
               {JobShiftTypeEnum.map((item) => (
                 <Select.Option key={item.value} value={item.value}>
                   {item.label}
@@ -498,7 +521,7 @@ const Composer = () => {
         <div className="w-full flex gap-3 mb-2">
           <Form.Item
             className="w-2/4"
-            label={"Education"}
+            label={labels.education}
             name="education"
             rules={[
               {
@@ -507,7 +530,7 @@ const Composer = () => {
               },
             ]}
           >
-            <Select placeholder={"Please Select Education"} size="large">
+            <Select placeholder={placeHolder.selectEducation} size="large">
               {EducationTypeEnum.map((item) => (
                 <Select.Option key={item.value} value={item.value}>
                   {item.label}
@@ -517,7 +540,7 @@ const Composer = () => {
           </Form.Item>
           <Form.Item
             className="w-2/4"
-            label={"Career Level"}
+            label={labels.careerLevel}
             name="careerLevel"
             rules={[
               {
@@ -526,7 +549,7 @@ const Composer = () => {
               },
             ]}
           >
-            <Select placeholder={"Select Career Level"} size="large">
+            <Select placeholder={placeHolder.selectCareerLevel} size="large">
               {CareerLevelTypeEnum.map((item) => (
                 <Select.Option key={item.value} value={item.value}>
                   {item.label}
@@ -538,7 +561,7 @@ const Composer = () => {
 
         <Form.Item
           name="endDate"
-          label="End Date"
+          label={labels.endDate}
           rules={[
             {
               required: true,
@@ -548,16 +571,16 @@ const Composer = () => {
           <DatePicker
             size="large"
             className="w-full"
-            placeholder="Select End Date"
+            placeholder={placeHolder.selectEndDate}
           />
         </Form.Item>
         <div className="flex items-end gap-2">
           <Form.Item
-            label={"Review Criteria"}
+            label={labels.reviewCriteria}
             className="w-full"
             name="reviewCriteria"
           >
-            <Input placeholder={"Enter Review Criteria"} size="large" />
+            <Input placeholder={placeHolder.reviewcriteria} size="large" />
           </Form.Item>
           <Button
             icon={<PlusOutlined />}
@@ -593,12 +616,14 @@ const Composer = () => {
           )}
         />
 
-        <Form.Item area="true" label="Attachment">
+        <Form.Item area="true" label={labels.attachments} name="attachment">
           <SingleUpload
-            handleImageUpload={() => {}}
+            handleImageUpload={(val) => {
+              setAttachment(val);
+            }}
             img="Add Image"
             position="flex-start"
-            uploadText={"Upload"}
+            uploadText={labels.upload}
           />
         </Form.Item>
         <Form.Item>
@@ -609,7 +634,7 @@ const Composer = () => {
             block
             htmlType="submit"
           >
-            Create Job
+            {labels.createJob}
           </Button>
         </Form.Item>
       </Form>

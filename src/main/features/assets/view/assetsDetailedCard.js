@@ -1,90 +1,96 @@
 import { useEffect } from 'react';
-import { Tag } from 'antd';
-import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   ItemHeader,
   SingleItem,
 } from '../../../sharedComponents/Card/CardStyle';
+import moment from 'moment';
 import StatusTag from '../../../sharedComponents/Tag/StatusTag';
 import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
 import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
-import { getEmployeeSalaryDetail } from '../../salary/store/actions';
 import RemarksApproval from '../../../sharedComponents/AppComponents/Approvals/view/index';
 import { ApprovalsModule } from '../../../sharedComponents/AppComponents/Approvals/enums';
+import { getAssetItemDetailById } from '../../createAssets/store/action';
+import Avatar from '../../../sharedComponents/Avatar/avatar';
 
 const AssetsDetailCard = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (props.id) dispatch(getEmployeeSalaryDetail(props.id));
+    if (props.id) dispatch(getAssetItemDetailById(props.id));
   }, [props.id]);
 
-  const salaryDetail = useSelector((state) => state.salarySlice.salaryDetail);
-  if (!salaryDetail) return <></>;
-  const {
-    creator,
-    basicSalary,
-    details,
-    netSalary,
-    description = 'Salary Description here',
-    approvers = [{}],
-    status = 1,
-    referenceNo = 'SAR-10001',
-    createDate = moment(),
-    effectiveDate = moment(),
-    user,
-  } = salaryDetail;
+  const assetItemByUserId = useSelector((state) => state.AssetItemSlice);
+  if (!assetItemByUserId) return <></>;
+
+  const creator = {
+    createDate: moment(),
+  };
 
   return (
     <SingleItem onClick={props.onClick}>
       <ItemHeader>
         <div className="left">
           <UserInfo
-            avatarSrc={creator.image}
-            name={creator.name}
+            avatarSrc={
+              assetItemByUserId.assetItemByUserId.creator?.image
+                ? assetItemByUserId.assetItemByUserId.creator?.image
+                : `https://58.65.211.234:4436/Resources\\cfe50d8d-7c47-4abb-9154-661daf129cec\\Images\\45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg`
+            }
+            name={assetItemByUserId.assetItemByUserId.creator?.name}
             Subline={
               <SublineDesigWithTime
-                designation={creator.designation ? creator.designation : ''}
-                time={moment(createDate).fromNow()}
+                designation={
+                  assetItemByUserId.assetItemByUserId.creator?.designation
+                }
+                time={moment(creator.createDate).fromNow()}
               />
             }
           />
         </div>
         <div className="right">
-          <Tag className="IdTag">{referenceNo}</Tag>
-          <StatusTag status={status}></StatusTag>
+          <StatusTag className="IdTag">
+            {assetItemByUserId.assetItemByUserId.status}
+          </StatusTag>
         </div>
       </ItemHeader>
-      <div className="description w-full pt-3 pb-5 h-[100px]">
-        {description.length > 0 ? (
-          <p>{description}</p>
-        ) : (
-          <p> No description </p>
-        )}
-      </div>
-
-      <div className="cardSections">
+      <div className="cardSections" style={{ marginTop: '20px' }}>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Salary For</div>
-          <div className="cardSection__body">{user.name}</div>
-        </div>
-        <div className="cardSectionItem">
-          <div className="cardSection__title">Effective Date</div>
+          <div className="cardSection__title">Category</div>
           <div className="cardSection__body">
-            {moment(effectiveDate).format('Do MMM YY')}
+            {assetItemByUserId.assetItemByUserId.category}
           </div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Basic Salary</div>
-          <div className="cardSection__body">{basicSalary}</div>
+          <div className="cardSection__title">Value</div>
+          <div className="cardSection__body">
+            {assetItemByUserId.assetItemByUserId.value}
+          </div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">Name</div>
+          <div className="cardSection__body">
+            {assetItemByUserId.assetItemByUserId.name}
+          </div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">Approvers</div>
+          <Avatar
+            isAvatarGroup={true}
+            heading={'approvers'}
+            membersData={
+              assetItemByUserId.assetItemByUserId.approvers
+                ? assetItemByUserId.assetItemByUserId.approvers
+                : []
+            }
+          />
         </div>
       </div>
 
       <RemarksApproval
-        data={approvers}
+        data={assetItemByUserId.assetItemByUserId.approvers}
         title="Approvals"
-        module={ApprovalsModule.SalaryApproval}
+        module={ApprovalsModule?.assetApproval}
         onStatusChanged={() => {}}
       />
     </SingleItem>

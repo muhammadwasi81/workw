@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import mobileBarIcon from "../../../content/svg/topMenu/mobileBarIcon.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,13 +7,21 @@ import { navBarOpen } from "../../../store/appReducer/responsiveSlice";
 import { MainTopMenuHolder } from "./topMenu.style";
 import mailSearch from "../Mail/assests/mailSearch.svg";
 import SearchInput from "../searchBox/SearchInput";
+import { useLocation } from "react-router-dom";
 
 const TopMenuBar = () => {
   const dispatch = useDispatch();
+	const location = useLocation();
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
   const { isMobileScreen } = useSelector((state) => state.responsiveSlice);
+  const [isHide, setIsHide] = useState(false);
   const icon = <img src={mailSearch} width={isMobileScreen ? 15 : 18} height={isMobileScreen ? 15 : 18} alt={"mailSearch"} />;
 
+  // useEffect(() => {
+	// 	if (location.pathname.includes("/messenger")) {
+	// 		setIsHide(true);
+	// 	} else setIsHide(false);
+	// }, [location]);
   // const sideBarStatus = useSelector((state) => state.sideBarChatSlice.sideBarChatStatus)
   // const [darkMode, setDarkMode] = useState(window.localStorage.getItem('darkMode') === '1')
 
@@ -28,7 +36,7 @@ const TopMenuBar = () => {
   // }
 
   return (
-    <div className="maintopMenu">
+    <div className="maintopMenu" >
       <MainTopMenuHolder>
         <div onClick={() => dispatch(navBarOpen(!navBarStatus))}>
           <img alt="mobileMenuButton" src={mobileBarIcon} style={{ height: "15px", width: "17px" }} />

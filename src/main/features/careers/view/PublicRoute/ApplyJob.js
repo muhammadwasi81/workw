@@ -17,8 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCareerByIdAction } from "../../store/action";
 import { useParams } from "react-router-dom";
 import ApplyComposer from "../Composers/applyComposer";
-// import CopyToClipboard from "react-copy-to-clipboard";
-// import { ROUTES } from "../../../../../utils/routes";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { ROUTES } from "../../../../../utils/routes";
 
 const ApplyJob = props => {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -83,15 +83,13 @@ const ApplyJob = props => {
 	};
 
 	const handleDrawerOpen = () => {
-		// console.log("handle drawer open");
+		console.log("handle drawer open");
 		setVisible(true);
 	};
 
 	const skillsArray = skills?.split(",");
 
-	// const copyfunc = () => {
-	//   setCopy(true);
-	// };
+	console.log(props);
 
 	return (
 		<>
@@ -101,29 +99,34 @@ const ApplyJob = props => {
 				onClose={handleDrawerClose}
 				id={id}
 			/>
-			<div className="item careersQuickDetail">
-				<div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
-					<div>
-						<Avatar size={45} src={creator?.image} />
-					</div>
-					<div className="flex-1">
-						<div className="text-[16px] font-bold text-sky-900">
-							{designation ? designation : "-"}
+			<div className="w-full m-auto">
+				<div
+					className="item careersQuickDetail"
+					style={{ width: `${props.width}` }}
+				>
+					<div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
+						<div>
+							<Avatar size={45} src={creator?.image} />
 						</div>
+						<div className="flex-1">
+							<div className="text-[16px] font-bold text-sky-900">
+								{designation ? designation : "-"}
+							</div>
 
-						<div className="font-bold">{department}</div>
-						<div className="text-xs">
-							{city}, {country} - {moment(createDate).fromNow()}
+							<div className="font-bold">{department}</div>
+							<div className="text-xs">
+								{city}, {country} -{" "}
+								{moment(createDate).fromNow()}
+							</div>
 						</div>
-					</div>
-					<div className="linkDiv">
-						<Tag
-							className="LinkTag ThemeBtn"
-							onClick={handleDrawerOpen}
-						>
-							{"Apply Now"}
-						</Tag>
-						{/* {props.isShowCopyBtn && (
+						<div className="linkDiv">
+							<Tag
+								className="LinkTag ThemeBtn"
+								onClick={handleDrawerOpen}
+							>
+								{"Apply Now"}
+							</Tag>
+							{/* {props.isShowCopyBtn && (
               <CopyToClipboard
                 text={`${window.location.origin}${ROUTES.CAREER.APPLYJOB}/${id}`}
                 onCopy={copyfunc}
@@ -133,57 +136,69 @@ const ApplyJob = props => {
                 </Tag>
               </CopyToClipboard>
             )} */}
+						</div>
 					</div>
-				</div>
 
-				<div className="mt-5">
-					<div className="font-bold">{labels.jobDescription}</div>
-					<div>{description}</div>
-				</div>
+					<div className="mt-5">
+						<div className="font-bold">{labels.jobDescription}</div>
+						<div>{description}</div>
+					</div>
 
-				<div className="mt-5">
-					<div className="font-bold">{labels.skillsRequired}</div>
-					<div>
-						{skills
-							? skillsArray?.map((item, index) => {
-									return (
-										<Tag className="LinkTag">{item}</Tag>
-									);
-							  })
-							: null}
+					<div className="mt-5">
+						<div className="font-bold">{labels.skillsRequired}</div>
+						<div>
+							{skills
+								? skillsArray?.map((item, index) => {
+										return (
+											<Tag className="LinkTag">
+												{item}
+											</Tag>
+										);
+								  })
+								: null}
+						</div>
 					</div>
-				</div>
 
-				<div className="cardSections mt-10">
-					<div className="cardSectionItem">
-						<div className="cardSection__title">Salary Range</div>
-						<div className="cardSection__body">
-							{minSalary ? `${minSalary} - ${maxSalary} ` : "-"}
+					<div className="cardSections mt-10">
+						<div className="cardSectionItem">
+							<div className="cardSection__title">
+								Salary Range
+							</div>
+							<div className="cardSection__body">
+								{minSalary
+									? `${minSalary} - ${maxSalary} `
+									: "-"}
+							</div>
 						</div>
-					</div>
-					<div className="cardSectionItem">
-						<div className="cardSection__title">Effective Date</div>
-						<div className="cardSection__body">
-							{createDate
-								? moment(createDate).format("Do MMM YY")
-								: "-"}
+						<div className="cardSectionItem">
+							<div className="cardSection__title">
+								Effective Date
+							</div>
+							<div className="cardSection__body">
+								{createDate
+									? moment(createDate).format("Do MMM YY")
+									: "-"}
+							</div>
+							s
 						</div>
-					</div>
-					<div className="cardSectionItem">
-						<div className="cardSection__title">
-							Experience Required
+						<div className="cardSectionItem">
+							<div className="cardSection__title">
+								Experience Required
+							</div>
+							<div className="cardSection__body">
+								{experience ? experience : "-"}
+							</div>
 						</div>
-						<div className="cardSection__body">
-							{experience ? experience : "-"}
-						</div>
-					</div>
-					<div className="cardSectionItem">
-						<div className="cardSection__title">Job Expires</div>
-						<div className="cardSection__body">
-							{" "}
-							{endDate
-								? moment(endDate).format("Do MMM YY")
-								: "-"}
+						<div className="cardSectionItem">
+							<div className="cardSection__title">
+								Job Expires
+							</div>
+							<div className="cardSection__body">
+								{" "}
+								{endDate
+									? moment(endDate).format("Do MMM YY")
+									: "-"}
+							</div>
 						</div>
 					</div>
 				</div>

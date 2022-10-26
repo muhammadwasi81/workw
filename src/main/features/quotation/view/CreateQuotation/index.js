@@ -1,7 +1,10 @@
 import React from "react";
 import { ROUTES } from "../../../../../utils/routes";
 import Header from "../../../../layout/header";
-import { ContBody, TabbableContainer } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 import CreateQuotationVoucher from "./createSalaryVoucher";
 const Index = () => {
   return (
@@ -9,9 +12,9 @@ const Index = () => {
       <Header
         items={[
           {
-            name: "Create Qoutation",
-            to: ROUTES.QOUTATION.ROOT + "/create"
-          }
+            name: "Create Quotation",
+            to: ROUTES.QOUTATION.ROOT + "/create",
+          },
         ]}
       />
       <ContBody>

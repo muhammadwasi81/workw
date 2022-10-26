@@ -6,23 +6,26 @@ import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 export const quotationTableColumn = () => {
   return [
     {
-      title: "Reference No",
-      dataIndex: "referenceNo",
+      title: "Client's Name",
+      dataIndex: "name",
+      ellipsis: true,
+      sort: true,
+    },
+    {
+      title: "Client's Email",
+      dataIndex: "email",
+      ellipsis: true,
+      sort: true,
+    },
+    {
+      title: "Phone Number",
+      dataIndex: "phoneNumber",
       ellipsis: true,
       sort: true,
     },
     {
       title: "Creator",
       dataIndex: "creator",
-      ellipsis: true,
-      render: (creator) => (
-        <TagAvatar text={creator.name} img={creator.image} />
-      ),
-      sort: true,
-    },
-    {
-      title: "Salary For",
-      dataIndex: "user",
       ellipsis: true,
       render: (creator) => (
         <TagAvatar text={creator.name} img={creator.image} />
@@ -43,21 +46,9 @@ export const quotationTableColumn = () => {
       sort: true,
     },
     {
-      title: "Basic Salary",
-      dataIndex: "basicSalary",
-      ellipsis: true,
-      sort: true,
-    },
-    {
-      title: "NetSalary",
-      dataIndex: "netSalary",
-      ellipsis: true,
-      sort: true,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      render: (status) => <StatusTag status={status} />,
+      title: "QuotationDate",
+      dataIndex: "quotationDate",
+      render: (i) => moment(i.quotationDate).format("DD MMM YYYY"),
       sort: true,
     },
   ];

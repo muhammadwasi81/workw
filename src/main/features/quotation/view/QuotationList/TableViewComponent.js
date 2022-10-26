@@ -42,7 +42,7 @@ const TableViewComponent = ({ data }) => {
           footer={null}
           width={"50%"}
         >
-          <QuotationDetail details={details} />
+          <QuotationDetail quotationDetails={details} />
         </Modal>
       )}
     </>

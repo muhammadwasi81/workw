@@ -22,13 +22,13 @@ function Quotations() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [filterType, setFilterType] = useState(0);
-  const [viewType, setViewType] = useState("List");
+  const [viewType, setViewType] = useState("Table");
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
   const items = [
     {
-      name: "Qoutation",
+      name: "Quotation",
       to: `${ROUTES.QOUTATION.ROOT}`,
       renderButton: [1],
     },
@@ -91,8 +91,8 @@ function Quotations() {
           buttons={filterButtons}
           segment={{
             onSegment,
-            label1: "List",
-            label2: "Table",
+            label1: "Table",
+            label2: "List",
           }}
         />
         <ContBody>{render[viewType]}</ContBody>

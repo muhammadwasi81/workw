@@ -83,12 +83,14 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
     if (quotationClientDetails.clientDetails.length === 1) {
       if (prevState.quotationClientDetails !== quotationClientDetails) {
         dispatch(createClientQuotation(quotationClientDetails));
+        navigate(-1);
       }
     }
     //TODO: check
     if (quotationClientDetails.clientDetails.length > 1) {
       if (prevState.quotationClientDetails !== quotationClientDetails) {
         dispatch(createClientQuotation(quotationClientDetails));
+        navigate(-1);
       }
     }
   }, [quotationClientDetails.clientDetails]);

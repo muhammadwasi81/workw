@@ -43,7 +43,6 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
     email: "",
     phoneNumber: "",
     quotationDate: "",
-    //TODO: approvers Id to be set for post API
     approvers: [],
     details: [],
   };
@@ -56,7 +55,7 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   const [isFirstTime, setIsFirstTime] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
   const [quotationDetails, setQuotationDetails] = useState(initialState);
-  const success = useSelector((state) => state.voucherSlice.success);
+  const success = useSelector((state) => state.quotationSlice.success);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const employeesData = useSelector((state) => state.sharedSlice.employees);
@@ -81,12 +80,14 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
     if (quotationDetails.details.length === 1) {
       if (prevState.quotationDetails !== quotationDetails) {
         dispatch(createQuotation(quotationDetails));
+        navigate(-1);
       }
     }
     //TODO: check
     if (quotationDetails.details.length > 1) {
       if (prevState.quotationDetails !== quotationDetails) {
         dispatch(createQuotation(quotationDetails));
+        navigate(-1);
       }
     }
   }, [quotationDetails.details]);

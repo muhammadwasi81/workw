@@ -127,6 +127,14 @@ export const routes = {
       path: `${ROUTES.ELearning.DEFAULT}`,
       component: lazy(() => import("../main/features/eLearning/")),
     },
+    // {
+    // 	path: `${ROUTES.ELearning.DEFAULT + " courses/:id"}`,
+    // 	component: lazy(() =>
+    // 		import(
+    // 			"../main/features/eLearning/view/Detail/CourseDetail/CoursesDetail"
+    // 		)
+    // 	),
+    // },
     {
       path: `${ROUTES.CAREER.JOB_BY_ID}`,
       component: lazy(() =>
@@ -296,14 +304,8 @@ export const routes = {
       component: lazy(() => import("../main/features/salary/view/")),
     },
     {
-      path: `${ROUTES.QUOTATION.DEFAULT}`,
+      path: `${ROUTES.QOUTATION.DEFAULT}`,
       component: lazy(() => import("../main/features/quotation/view/index")),
-    },
-    {
-      path: `${ROUTES.QUOTATIONCLIENT.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/quotationClient/view/index")
-      ),
     },
     {
       path: `${ROUTES.PAYROLL.DEFAULT}`,

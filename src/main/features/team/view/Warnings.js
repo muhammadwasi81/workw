@@ -8,6 +8,7 @@ import "../Styles/table.css";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
+import { useParams } from "react-router-dom";
 
 function Warnings() {
   const dispatch = useDispatch();
@@ -19,9 +20,10 @@ function Warnings() {
     team: { warningdetails },
     success,
   } = useSelector((state) => state.teamSlice);
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAllWarningAction({}));
+    dispatch(getAllWarningAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
   }, []);
   const columns = [
     {
@@ -43,9 +45,9 @@ function Warnings() {
     },
     {
       title: labels.Date,
-      dataIndex: "date",
+      dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
-      key: "date",
+      key: "createDate",
     },
   ];
   return (

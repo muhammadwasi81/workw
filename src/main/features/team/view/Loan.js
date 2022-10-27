@@ -3,12 +3,11 @@ import { TeamTable } from "./TaskTable/TeamTable";
 import { getAllLoanAction } from "../store/action";
 import { useDispatch, useSelector } from "react-redux";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
-
 import moment from "moment";
+import { useParams } from "react-router-dom";
 
 function Loan() {
   const dispatch = useDispatch();
@@ -21,8 +20,10 @@ function Loan() {
     success,
   } = useSelector((state) => state.teamSlice);
 
+  const { id } = useParams();
+
   useEffect(() => {
-    dispatch(getAllLoanAction({}));
+    dispatch(getAllLoanAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
   }, []);
   const columns = [
     {

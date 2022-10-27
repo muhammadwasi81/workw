@@ -4,8 +4,8 @@ import {
   Link,
   Item,
   List,
-  AdminList as AList,
-} from "../../../styles/setting.style";
+  SettingList as AList,
+} from "../../../styles/setting.style.js";
 import { useMediaQuery } from "react-responsive";
 import { Tooltip } from "antd";
 

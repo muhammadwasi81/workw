@@ -7,7 +7,7 @@ import BasicInfo from "../view/BasicInfo";
 function SettingRoutes() {
   return (
     <>
-      <div className="updateFormsBody">
+      <div className="updateFormsBody w-full">
         <Routes>
           <Route path="changePassword/" element={<ChangePassword />} />
           <Route path="basicInfo/" element={<BasicInfo />} />

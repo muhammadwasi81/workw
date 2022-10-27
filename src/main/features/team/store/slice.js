@@ -5,6 +5,8 @@ import {
   getAllLoanAction,
   getAllComplainAction,
   getAllWarningAction,
+  getAllLeaveAction,
+  getAllCheckInAction,
 } from "./action";
 
 const initialState = {
@@ -14,6 +16,8 @@ const initialState = {
     loandetails: [],
     complaindetails: [],
     warningdetails: [],
+    leavedetails: [],
+    checkIndetails: [],
   },
   loader: false,
   success: false,
@@ -35,7 +39,7 @@ const teamSlice = createSlice({
         state.team.rewardsdetails = payload;
         state.loader = false;
         state.success = true;
-        // console.log(payload, "REWARDS");
+        console.log(payload, "REWARDS");
       })
       .addCase(getAllLoanAction.fulfilled, (state, { payload }) => {
         state.team.loandetails = payload;
@@ -54,6 +58,18 @@ const teamSlice = createSlice({
         state.loader = false;
         state.success = true;
         console.log(payload, "warning");
+      })
+      .addCase(getAllLeaveAction.fulfilled, (state, { payload }) => {
+        state.team.leavedetails = payload;
+        state.loader = false;
+        state.success = true;
+        console.log(payload, "leavessss");
+      })
+      .addCase(getAllCheckInAction.fulfilled, (state, { payload }) => {
+        state.team.checkIndetails = payload;
+        state.loader = false;
+        state.success = true;
+        console.log(payload, "CheckIn");
       });
   },
 });

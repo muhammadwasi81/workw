@@ -34,7 +34,6 @@ function TeamUpdate() {
           <Header items={items} />
           <ContBody>
             <TeamActivities id={id} />
-
             <TeamRoutes />
           </ContBody>
         </TabbableContainer>

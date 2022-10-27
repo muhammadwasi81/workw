@@ -1,36 +1,53 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllLeaveAction } from "../store/action";
+import { useParams } from "react-router-dom";
+import moment from "moment";
 
 function Leaves() {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.LeavesTable;
 
+  const {
+    team: { leavedetails },
+    success,
+  } = useSelector((state) => state.teamSlice);
+  const { id } = useParams();
+  console.log(id, "iddd");
+
+  useEffect(() => {
+    dispatch(getAllLeaveAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
+  }, []);
   const columns = [
     {
-      title: labels.LeaveType,
-      dataIndex: "leaveType",
-      key: "leaveType",
+      title: labels.leaveTypeName,
+      dataIndex: "leaveTypeName",
+      key: "leaveTypeName",
     },
 
     {
-      title: labels.Alloted,
-      dataIndex: "alloted",
-      key: "alloted",
+      title: labels.startDate,
+      dataIndex: "startDate",
+      key: "startDate",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
     },
     {
-      title: labels.Availed,
-      dataIndex: "availed",
-      key: "availed",
+      title: labels.endDate,
+      dataIndex: "endDate",
+      key: "endDate",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
     },
     {
-      title: labels.Remaining,
-      dataIndex: "remaining",
-      key: "remaining",
+      title: labels.description,
+      dataIndex: "description",
+      key: "description",
     },
   ];
   return (
@@ -41,14 +58,7 @@ function Leaves() {
         // dragable={true}
         // scroll={{ x: true }}
         className="custom_table"
-        dataSource={[
-          {
-            leaveType: "0",
-            alloted: "0",
-            availed: "0",
-            remaining: "0",
-          },
-        ]}
+        dataSource={leavedetails}
       />
     </>
   );

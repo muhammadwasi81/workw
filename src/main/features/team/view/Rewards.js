@@ -16,6 +16,7 @@ function Rewards() {
   const { sharedLabels } = dictionaryList[userLanguage];
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.RewardsTable;
+  const { id } = useParams();
 
   const {
     team: { rewardsdetails },
@@ -23,7 +24,7 @@ function Rewards() {
   } = useSelector((state) => state.teamSlice);
 
   useEffect(() => {
-    dispatch(getRewardsAction({}));
+    dispatch(getRewardsAction(id));
   }, []);
 
   const columns = [

@@ -18,6 +18,10 @@ export const routes = {
       component: lazy(() => import("../main/features/profile/Profile")),
     },
     {
+      path: `${ROUTES.SETTINGS.DEFAULT}`,
+      component: lazy(() => import("../main/features/settings")),
+    },
+    {
       path: ROUTES.ROOT,
       component: lazy(() => import("../main/features/feed/ui/index")),
     },

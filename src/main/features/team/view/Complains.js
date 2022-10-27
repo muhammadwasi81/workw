@@ -7,6 +7,7 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
+import { useParams } from "react-router-dom";
 
 function Complains() {
   const dispatch = useDispatch();
@@ -14,14 +15,14 @@ function Complains() {
   const { sharedLabels } = dictionaryList[userLanguage];
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.ComplainsTable;
-
+  const { id } = useParams();
   const {
     team: { complaindetails },
     success,
   } = useSelector((state) => state.teamSlice);
 
   useEffect(() => {
-    dispatch(getAllComplainAction({}));
+    dispatch(getAllComplainAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
   }, []);
   const columns = [
     {
@@ -43,9 +44,9 @@ function Complains() {
     },
     {
       title: labels.Date,
-      dataIndex: "date",
+      dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
-      key: "date",
+      key: "createDate",
     },
   ];
   return (

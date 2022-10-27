@@ -6,26 +6,6 @@ import {
 import Config from "../../../../utils/services/MasterConfig";
 import { responseCode as responseCodeEnum } from "../../../../services/enums/responseCode";
 
-// const getAllTeam_TD = (data) => {
-//   return {
-//     pageNo: data.pageNo ? data.pageNo : 1,
-//     pageSize: data.pageSize ? data.pageSize : 20,
-//     search: data.search ? data.search : "",
-//   };
-// };
-// export const addTeamService = async (request) => {
-//   try {
-//     const {
-//       data: { responseCode, data, message },
-//     } = await Config.post(`api/Employee/AddEmployee`, request);
-//     if (responseCode === responseCodeEnum.Success)
-//       return ResponseResultSuccess(data);
-//     return ResponseResultError(message);
-//   } catch (e) {
-//     return ResponseResultError(e);
-//   }
-// };
-
 export const getAllTeamsService = async (request) => {
   // let request = getAllTeam_TD(data);
   // console.log(request, "REQUEST TEAM");
@@ -42,13 +22,12 @@ export const getAllTeamsService = async (request) => {
     return ResponseResultError(e);
   }
 };
-export const getAllRewardService = async (request) => {
+export const getAllRewardService = async (id) => {
   // console.log(request, "REQUEST");
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.post(`api/Reward/GetAllReward`, request);
-    console.log(responseCode, "REQUEST REWARD RESPONSE");
+    } = await Config.get(`api/Reward/GetRewardUserById?userId=${id}`);
 
     if (responseCode === responseCodeEnum.Success)
       return ResponseResultSuccess(data);
@@ -58,12 +37,27 @@ export const getAllRewardService = async (request) => {
   }
 };
 
-export const getAllLoanService = async (request) => {
+export const getAllLoanService = async (id) => {
   // console.log(request, "REQUEST");
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.post(`api/Loan/GetAllLoan`, request);
+    } = await Config.get(`api/Loan/GetLoanUserById?userId=${id}`);
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+export const getAllComplainService = async (id) => {
+  // console.log(request, "REQUEST");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(`api/Complain/GetComplainUserById?userId=${id}`);
     // console.log(responseCode, "REQUEST REWARD RESPONSE");
 
     if (responseCode === responseCodeEnum.Success)
@@ -74,12 +68,12 @@ export const getAllLoanService = async (request) => {
   }
 };
 
-export const getAllComplainService = async (request) => {
+export const getAllWarningService = async (id) => {
   // console.log(request, "REQUEST");
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.post(`api/Complain/GetAllComplain`, request);
+    } = await Config.get(`api/Warning/GetWarningUserById?userId=${id}`);
     // console.log(responseCode, "REQUEST REWARD RESPONSE");
 
     if (responseCode === responseCodeEnum.Success)
@@ -89,14 +83,31 @@ export const getAllComplainService = async (request) => {
     return ResponseResultError(e);
   }
 };
-
-export const getAllWarningService = async (request) => {
-  // console.log(request, "REQUEST");
+export const getAllLeaveService = async (id) => {
   try {
+    console.log(id, "REQUEST Leave RESPONSE");
     const {
       data: { responseCode, data, message },
-    } = await Config.post(`api/Warning/GetAllWarning`, request);
-    // console.log(responseCode, "REQUEST REWARD RESPONSE");
+    } = await Config.get(`api/Leave/GetLeaveUserById?userId=${id}`);
+    console.log(data, "REQUEST Leave RESPONSE");
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+export const getAllCheckInService = async (id) => {
+  try {
+    console.log(id, "REQUEST Leave RESPONSE");
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(
+      `api/Attendance/GetAttendanceCheckInUserById?userId=${id}`
+    );
+    console.log(data, "REQUEST check in RESPONSE");
 
     if (responseCode === responseCodeEnum.Success)
       return ResponseResultSuccess(data);

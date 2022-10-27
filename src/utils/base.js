@@ -278,7 +278,7 @@ export const STRINGS = {
 				DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
 				INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
 			},
-			SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
+			SETTINGS: `${DOMAIN_PREFIX}/settings`,
 			NOTES: `${DOMAIN_PREFIX}/user/notes`,
 		},
 		CALL: {

@@ -33,10 +33,10 @@ const en = {
       Location: "Location",
     },
     LeavesTable: {
-      LeaveType: "Leave Type",
-      Alloted: "Alloted",
-      Availed: "Availed",
-      Remaining: "Remaining",
+      leaveTypeName: "Leave Type Name",
+      startDate: "Start Date",
+      endDate: "End Date",
+      description: "Description",
     },
     RewardsTable: {
       ReferenceNo: "Reference No.",

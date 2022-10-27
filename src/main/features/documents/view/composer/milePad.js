@@ -31,6 +31,8 @@ const CreateMilepad = ({ isOpen, handleClose, referenceId, referenceType }) => {
 		handleMember(obj);
 		// setMembers(obj);
 		// onChange(data, obj);
+		// this.setState({abc:"abc"},(state)=>{})
+		// console(abc)
 	};
 	useEffect(() => {
 		fetchEmployees("", 0);

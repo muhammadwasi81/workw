@@ -36,17 +36,13 @@ const MessengerListItem = ({
 						Your browser does not support the audio tag.
 					</audio>
 				}
-				{!(messageType === 'voice') && <Attachments
+				{!(messageType === 'voice') && 
+				<Attachments
 					data={attachments}
 					key={{ data: attachments }}
 					toShow={3}
-					onClick={() => {
-						// dispatch(
-						// 	handleAttachmentModal(
-						// 		{data:attachments}
-						// 	)
-						// );
-					}}
+					onClick={() => {}}
+					size={isChatBox ? "75px" : "100px"}
 				/>}
 				<div className="flex items-end flex-col" >
 					<div className="textMsgArea">

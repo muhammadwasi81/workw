@@ -300,6 +300,10 @@ export const routes = {
       component: lazy(() => import('../main/features/quotation/view/index')),
     },
     {
+      path: `${ROUTES.COMPANIES.DEFAULT}`,
+      component: lazy(() => import('../main/features/companies/index')),
+    },
+    {
       path: `${ROUTES.PAYROLL.DEFAULT}`,
       component: lazy(() => import('../main/features/payroll/view/index')),
     },

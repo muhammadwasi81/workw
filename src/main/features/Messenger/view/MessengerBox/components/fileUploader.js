@@ -2,7 +2,7 @@ import { Form } from "antd";
 import React, { useRef } from "react";
 import SingleUpload from "../../../../../sharedComponents/Upload/singleUpload";
 
-function FileUploader({inputRef, handleUpload}) {
+function FileUploader({inputRef, handleUpload, fileList}) {
 	return (
 		<div className="messengerUpload">
 			<Form.Item area="true">
@@ -16,6 +16,7 @@ function FileUploader({inputRef, handleUpload}) {
 					multiple={true}
 					inputRef={inputRef}
 					uploadButton={null}
+					localFileList={fileList}
 					/>
 			</Form.Item>
 		</div>

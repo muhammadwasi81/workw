@@ -7,7 +7,7 @@ export const SideBarSearch = () => {
     <div className="sideBarSearch" >
      <div className="chatSearchBoxHalf" >
        <img src={searchIcon} alt="" />
-       <div>Search</div>
+       <input placeholder="Search" />
      </div>
     </div>
   )

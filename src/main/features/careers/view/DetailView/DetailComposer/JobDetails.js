@@ -55,9 +55,9 @@ const JobDetails = (props) => {
 
   const skillsArray = skills?.split(",");
 
-  let notesTime = !moment(new Date()).fromNow(createDate)
-    ? moment(createDate).format("LT")
-    : moment(createDate).format("MMM Do YYYY");
+  // let notesTime = !moment(new Date()).fromNow(createDate)
+  //   ? moment(createDate).format("LT")
+  //   : moment(createDate).format("MMM Do YYYY");
   return (
     <>
       {copy && message.success("Copied")}
@@ -80,6 +80,7 @@ const JobDetails = (props) => {
               {/* {"Apply Now"} */}
               {labels.applyNow}
             </Tag>
+
             <CopyToClipboard
               text={`${window.location.origin}${ROUTES.CAREER.APPLYJOB}/${id}`}
               onCopy={copyfunc}

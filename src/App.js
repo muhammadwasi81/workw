@@ -103,7 +103,7 @@ const App = () => {
               <Route path={ROUTES.AUTH.SIGN_IN} element={<Auth />} />
               <Route
                 path={`${ROUTES.CAREER.APPLYJOB}/:id`}
-                element={<ApplyJob />}
+                element={<ApplyJob width="50%" />}
               />
               <Route
                 path={`${ROUTES.REQUISITION.APPLYREQUISITION}/:id`}
@@ -148,7 +148,9 @@ const App = () => {
                     element={<route.component />}
                   />
                 ))}
-                <Route path={"*"} element={<Navigate to={ROUTES.HOME} />} />
+                <Route
+                  path={"*"}
+                  element={<Navigate to={ROUTES.HOME} />} />
               </Route>
               <Route
                 path={"*"}

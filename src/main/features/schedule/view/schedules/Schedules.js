@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Avatar } from 'antd';
 import React from 'react';
 import Tab from '../../../../sharedComponents/Tab';
@@ -5,6 +6,13 @@ import ScheduleCard from '../../UI/ScheduleCard';
 import Approval from '../../../../sharedComponents/AppComponents/Approvals/view';
 import Event from '../event';
 import EventDetail from '../../UI/EventDetail';
+=======
+import React from "react";
+import Tab from "../../../../sharedComponents/Tab";
+import ScheduleCard from "../../UI/ScheduleCard";
+import Approval from "../../../../sharedComponents/AppComponents/Approvals/view";
+import EventDetail from "../../UI/EventDetail";
+>>>>>>> 5025d3abfff23bd2dc4573158e05e33d856aaf3e
 
 function MySchedules() {
   const panes = [

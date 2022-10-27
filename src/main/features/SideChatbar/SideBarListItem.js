@@ -59,7 +59,7 @@ export const SideBarListItem = ({ item }) => {
   return (
     <div className="sideBarListItem" onClick={handleItemClick}>
       <div className="sideBarListAvatar" >
-        <Avatar src={profileImage} name={profileName} size={40} round={true} counter={1} />
+        <Avatar src={profileImage} name={profileName} size={35} round={true}  />
       </div>
       <div className={`sideBarListName ${sideBarChatIsDefault ? "hideMe" : !sideBarStatus ? "hideSideBarItem" : "unHideSideBarItem"}`}>
         {profileName}

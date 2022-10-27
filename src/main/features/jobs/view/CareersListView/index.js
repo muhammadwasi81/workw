@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCareerAction } from "../../../careers/store/action";
 import "./style.css";
 import "../../../businessPolicy/view/businessPolicyMain/style.css";
-import ApplyJob from "../../../careers/view/PublicRoute/ApplyJob";
+import DetailedView from "./DetailedView";
 
 function CareersListView() {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function CareersListView() {
   return (
     <div className="_careersMainListView ">
       <ListView />
-      <ApplyJob />
+      <DetailedView />
     </div>
   );
 }

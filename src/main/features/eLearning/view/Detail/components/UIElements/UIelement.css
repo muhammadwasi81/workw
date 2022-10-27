@@ -1,0 +1,33 @@
+.custom_video_checkbox .ant-checkbox-inner{
+    /* border-radius: 100%; */
+    /* width: 18px;
+    height: 18px; */
+}
+.ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner::after {
+    border-color: white
+}
+
+.custom_video_checkbox .ant-checkbox-inner:hover{
+    /* border: none; */
+}
+
+.custom_video_checkbox .ant-checkbox-inner::after{
+    /* border-radius: 100%; */
+    /* left: 7px; */
+    /* width: 25px;
+    height: 25px; */
+}
+
+.content_collapse .ant-collapse-content-box{
+    padding: 0px;
+    
+}
+
+.video_arrow{
+    transform: translateX(-2.8rem);
+    transition: transform 400ms cubic-bezier(.2,0,.38,.9);
+}
+
+.video_arrow:hover{
+    transform: translateX(-100%);
+}

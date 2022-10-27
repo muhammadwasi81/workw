@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   ContBody,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Drawer, Button } from "antd";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../localization";
 import { useDispatch, useSelector } from "react-redux";
 import TopBar from "./Header/filterBar";
 import Header from "../../../layout/header/index";
@@ -15,14 +17,19 @@ import CareerCard from "./CareersCard/index";
 import MyCareerCard from "./MyCareerCard/index";
 import ForApprovalCard from "./ForApprovalCard/index";
 import Composer from "./Composers/index";
+import "../view/styles/style.css";
 
 function Careers() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
   const { drawerOpen } = useSelector((state) => state.careerSlice);
-  // console.log(drawerOpen);
   const [search, setSearch] = useState("");
+  const { labels } = CareerDictionaryList;
   const [view, setView] = useState("List");
-  // console.log(CurrentTab);
+
+  // console.log(labels);
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (CurrentTab === "careers") {
@@ -57,24 +64,19 @@ function Careers() {
     setView(val);
   };
 
-  // const onClose = (val) => {
-  //   console.log("settng drawer close");
-  //   setDrawerOpen(val);
-  // };
-
   return (
     <>
       <TabbableContainer>
         <Header
           buttons={[
             {
-              buttonText: "Create Career",
+              buttonText: CareerDictionaryList.createTextBtn,
               render: (
                 <Button
                   className="ThemeBtn"
                   onClick={() => dispatch(handleOpenComposer(true))}
                 >
-                  Create Career
+                  {CareerDictionaryList.createTextBtn}
                 </Button>
               ),
             },
@@ -91,11 +93,13 @@ function Careers() {
               style={{
                 fontSize: "20px",
                 margin: 0,
+                textAlign: Direction === "ltr" ? "" : "end",
               }}
             >
-              Create Job
+              {labels.createJob}
             </h1>
           }
+          placement={Direction === "rtl" ? "left" : "right"}
           width="768"
           onClose={() => {
             dispatch(handleOpenComposer(false));

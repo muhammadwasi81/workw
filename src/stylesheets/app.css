@@ -3,6 +3,14 @@
 @tailwind components;
 @tailwind utilities; */
 
+.ant-radio-checked .ant-radio-inner{
+  border-color: #526BB1 !important;
+
+}
+.ant-radio-inner::after{
+  background-color: #526BB1 !important;
+}
+
 .workboard_upload .ant-upload {
   width: 100%;
 }
@@ -12,17 +20,28 @@
   align-items: center;
 }
 
-.ant-btn-primary {
-  /*background: var(--currentThemeColor) !important;*/
-  /*border: none !important;*/
-  /*border-radius: 4px !important;*/
-  border-color: var(--currentThemeColor) !important;
+.header .ant-btn-primary {
+  padding: 16px;
+  background: var(--currentThemeColor);
+  border: none;
+  border-radius: 4px;
+  border-color: var(--currentThemeColor);
 }
 
 .list-item::marker {
   display: none !important;
 }
-
+.defaultBtn{
+  background-color: transparent;
+  border: unset;
+  box-shadow: none;
+}
+.defaultBtn:hover{
+  background-color: transparent;
+}
+.defaultBtn:focus{
+  background-color: transparent;
+}
 .ant-btn-default {
   /*border: none !important;*/
   /*border-radius: 9px !important;*/

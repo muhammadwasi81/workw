@@ -40,6 +40,7 @@ function SalaryDetailCard(props) {
     effectiveDate = moment(),
     user,
   } = salaryDetail;
+  console.log(salaryDetail, 'salaryDetail');
   return (
     <>
       <SingleItem onClick={props.onClick}>

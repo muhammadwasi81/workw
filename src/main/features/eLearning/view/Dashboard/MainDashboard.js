@@ -2,7 +2,13 @@ import React from "react";
 import DashboardOverview from "./UI/DashboardOverview";
 import Tab from "../../../../sharedComponents/Tab";
 import "../../styles/dashboard.css";
-import Courses from "./Courses/Courses";
+import Courses from "./Sections/Courses/Courses";
+import Ebooks from "./Sections/Ebooks/Ebooks";
+import Quizes from "./Sections/Quizes/Quizes";
+import TedTalk from "./Sections/TedTalks/TedTalk";
+import Article from "./Sections/Articles/Article";
+import Videos from "./Sections/Videos/Videos";
+import DashboardLayout from "./Layout/DashboardLayout";
 
 function MainDashboard() {
 	const panes = [
@@ -14,34 +20,36 @@ function MainDashboard() {
 		{
 			featureName: "eBooks",
 			featureId: 1,
-			content: "ebook",
+			content: <Ebooks />,
 		},
 		{
 			featureName: "Quizzes",
 			featureId: 2,
-			content: "Quizzes",
+			content: <Quizes />,
 		},
 		{
 			featureName: "TedTalks",
 			featureId: 3,
-			content: "TedTalks",
+			content: <TedTalk />,
 		},
 		{
 			featureName: "Articles",
 			featureId: 4,
-			content: "articles",
+			content: <Article />,
 		},
 		{
 			featureName: "Videos",
 			featureId: 5,
-			content: "videos",
+			content: <Videos />,
 		},
 	];
 	return (
-		<div className="overflow-hidden flex flex-col gap-3">
-			<DashboardOverview />
-			<Tab panes={panes} className={"elearning-dashboard__tab"} />
-		</div>
+		<DashboardLayout>
+			<div className="overflow-hidden flex flex-col gap-3">
+				<DashboardOverview />
+				<Tab panes={panes} className={"elearning-dashboard__tab"} />
+			</div>
+		</DashboardLayout>
 	);
 }
 

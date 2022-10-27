@@ -10,19 +10,17 @@ import EmojiPicker from "../components/emojiPicker";
 import VoiceNotes from "../components/voiceNotes";
 import { createGuid, STRINGS } from "../../../../../../utils/base";
 import FileUploader from "../components/fileUploader";
+import ChatBoxFooter from "../../../../SideChatbar/chatBox/ChatBoxFoot";
 
-const MessengerBottom = ({ isOpenProfile }) => {
+const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
   const dispatch = useDispatch();
   const msgInpRef = useRef();
   let fileInputRef = useRef();
-  const messengerDetail = useSelector(
-    (state) => state.MessengerSlice.currentMessenger
-  );
   const [isOpenEmoji, setIsOpenEmoji] = useState(false);
   // const [voiceNoteFile, setVoiceNoteFile] = useState(null);
   const [attchmentFiles, setAttchmentFiles] = useState([]);
 
-  const createPayload = (text, voiceNoteFile=null) => {
+  const createPayload = (text, voiceNoteFile = null) => {
     const { chatId, chatType, members } = messengerDetail;
     const attachments = voiceNoteFile ? [voiceNoteFile] : attchmentFiles;
 
@@ -35,7 +33,7 @@ const MessengerBottom = ({ isOpenProfile }) => {
       }),
       message: text,
       messageId: createGuid(),
-      messageType:!!voiceNoteFile ? "voice" : 1,
+      messageType: !!voiceNoteFile ? "voice" : 1,
       attachments: attachments.map(file => ({
         file,
         id: STRINGS.DEFAULTS.guid
@@ -46,12 +44,14 @@ const MessengerBottom = ({ isOpenProfile }) => {
 
   const handleMsgSend = (e) => {
     let payload = createPayload(e.target.value);
+    console.log(messengerDetail, "messengerDetail")
     if (!payload.message && payload.attachments.length === 0)
       return null;
 
     setIsOpenEmoji(false);
     dispatch(sendChatMessage(payload));
     e.target.value = "";
+    setAttchmentFiles([])
   };
   const handleClickEmoji = () => setIsOpenEmoji(!isOpenEmoji);
 
@@ -73,11 +73,27 @@ const MessengerBottom = ({ isOpenProfile }) => {
     msgInpRef.current.value += emoji.native;
     msgInpRef.current.focus();
   };
+
+  if (isChatBoxView) {
+    return (
+      <ChatBoxFooter
+        handleSend={handleMsgSend}
+        onSelectEmoji={onSelectEmoji}
+        handleClickAttachment={handleClickAttachment}
+        msgInpRef={msgInpRef}
+        FileUploader={
+          <FileUploader
+            inputRef={fileInputRef}
+            handleUpload={handleUpload}
+            fileList={attchmentFiles} />
+        }
+      />
+    )
+  }
+
   return (
     <>
       {/* <VoiceNotes /> */}
-      <FileUploader inputRef={fileInputRef} handleUpload={handleUpload} />
-      {isOpenEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
       <div className={"MessengerBottom " + (isOpenProfile ? "blur-bg" : "")}>
         <div className="MessengerInputHandler">
           <div>
@@ -114,6 +130,14 @@ const MessengerBottom = ({ isOpenProfile }) => {
           </div>
         </div>
       </div>
+      <FileUploader
+        inputRef={fileInputRef}
+        handleUpload={handleUpload}
+        fileList={attchmentFiles} />
+      {isOpenEmoji &&
+        <EmojiPicker
+          onSelect={onSelectEmoji} />}
+
     </>
   );
 };

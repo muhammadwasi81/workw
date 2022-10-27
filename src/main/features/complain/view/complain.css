@@ -98,13 +98,13 @@
 .item-content h4 {
   font-weight: bold;
   margin: 0;
-}
+} 
 
 .ant-btn-primary {
-  background: #1b5669 !important;
-  border: none !important;
-  border-radius: 4px !important;
-  border-color: #1b5669 !important;
+  /* background: #1b5669;
+  border: none;
+  border-radius: 4px;
+  border-color: #1b5669; */
 }
 
 .grid-item {

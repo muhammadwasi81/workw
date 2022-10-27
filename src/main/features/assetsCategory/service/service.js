@@ -1,9 +1,8 @@
 import MasterConfig from '../../../../utils/services/MasterConfig';
 
 export const getAllAssetCategoriesService = () => {
-  return MasterConfig.get(`api/Asset/GetAllItemCategory`)
+  return MasterConfig.get(`api/InventoryAsset/GetAllItemCategory`)
     .then((res) => {
-      console.log(res.data, 'getAllAssetsCategories services');
       return res.data;
     })
     .catch((err) => {
@@ -12,9 +11,8 @@ export const getAllAssetCategoriesService = () => {
 };
 
 export const addAssetCategoryService = (args) => {
-  return MasterConfig.post(`api/Asset/AddItemCategory`, args)
+  return MasterConfig.post(`api/InventoryAsset/AddItemCategory`, args)
     .then((res) => {
-      console.log(res.data, 'addAssetCategory');
       return res.data;
     })
     .catch((err) => {
@@ -23,9 +21,8 @@ export const addAssetCategoryService = (args) => {
 };
 
 export const updateAssetCategoryService = (args) => {
-  return MasterConfig.put(`api/Asset/UpdateItemCategory`, args)
+  return MasterConfig.put(`api/InventoryAsset/UpdateItemCategory`, args)
     .then((res) => {
-      console.log(res.data, 'updateAssetCategory');
       return res.data;
     })
     .catch((err) => {

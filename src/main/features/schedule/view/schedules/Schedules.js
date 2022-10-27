@@ -1,10 +1,7 @@
-import { Avatar } from "antd";
 import React from "react";
 import Tab from "../../../../sharedComponents/Tab";
 import ScheduleCard from "../../UI/ScheduleCard";
-import ScheduleTopBar from "./topbar/ScheduleTopBar";
 import Approval from "../../../../sharedComponents/AppComponents/Approvals/view";
-import Event from "../event";
 import EventDetail from "../../UI/EventDetail";
 
 function MySchedules() {

@@ -41,6 +41,7 @@ import Careers from "./main/features/careers/view/Careers";
 import PublicJobs from "./main/features/jobs/view/PublicJobs";
 import Jobs from "./main/features/jobs/view/Jobs";
 import ApplyJob from "./main/features/careers/view/PublicRoute/ApplyJob";
+import ApplyRequisition from "./main/features/requisition/view/publicRoutes/ApplyRequisition";
 
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -102,7 +103,11 @@ const App = () => {
               <Route path={ROUTES.AUTH.SIGN_IN} element={<Auth />} />
               <Route
                 path={`${ROUTES.CAREER.APPLYJOB}/:id`}
-                element={<ApplyJob />}
+                element={<ApplyJob width="50%" />}
+              />
+              <Route
+                path={`${ROUTES.REQUISITION.APPLYREQUISITION}/:id`}
+                element={<ApplyRequisition />}
               />
               <Route
                 path={ROUTES.AUTH.INDIVIDUAL_SIGN_IN}
@@ -143,7 +148,9 @@ const App = () => {
                     element={<route.component />}
                   />
                 ))}
-                <Route path={"*"} element={<Navigate to={ROUTES.HOME} />} />
+                <Route
+                  path={"*"}
+                  element={<Navigate to={ROUTES.HOME} />} />
               </Route>
               <Route
                 path={"*"}

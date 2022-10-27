@@ -304,8 +304,14 @@ export const routes = {
       component: lazy(() => import("../main/features/salary/view/")),
     },
     {
-      path: `${ROUTES.QOUTATION.DEFAULT}`,
+      path: `${ROUTES.QUOTATION.DEFAULT}`,
       component: lazy(() => import("../main/features/quotation/view/index")),
+    },
+    {
+      path: `${ROUTES.QUOTATIONCLIENT.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/quotationClient/view/index")
+      ),
     },
     {
       path: `${ROUTES.PAYROLL.DEFAULT}`,

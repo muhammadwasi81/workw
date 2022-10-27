@@ -8,7 +8,6 @@ import { getAllAssetCategories } from '../../../assetsCategory/store/actions';
 import SingleUpload from '../../../../sharedComponents/Upload/singleUpload';
 import { warningDictionaryList } from '../../../allowance/warning/localization';
 import { UploadOutlined } from '@ant-design/icons';
-import '../style.css';
 
 const CreateAssetsItem = ({
   index,
@@ -41,7 +40,7 @@ const CreateAssetsItem = ({
     handleChange(e.target.value, e.target.name, index);
   };
   return (
-    <tr>
+    <tr className="tableWrapper">
       <td>{index + 1}</td>
       <td>
         <input
@@ -84,7 +83,6 @@ const CreateAssetsItem = ({
         </Select>
       </td>
       <td>
-        {/* TODO: Types */}
         <Select
           optionFilterProp="children"
           onChange={(val) => onChangeType(val, index)}
@@ -103,12 +101,11 @@ const CreateAssetsItem = ({
           ))}
         </Select>
       </td>
-      {/* TODO: IMAGE */}
       <td>
         <SingleUpload
+          style={{ width: '100px', maxHeight: '31px', marginTop: '5px' }}
           handleImageUpload={handleImageUpload}
           img="Add Image"
-          style={{ height: '50px', width: '100%' }}
           uploadButton={<UploadOutlined />}
           uploadText={warningDictionaryList.upload}
         />

@@ -12,6 +12,7 @@ import {
   getAssetItemDetailByIdService,
   getAllAssetItemByUserIdService,
   getAllAssetItemByPaging,
+  updateAssetItemService,
 } from '../service/service';
 
 export const getAllAssetItems = createAsyncThunk(
@@ -50,19 +51,6 @@ export const addAssetItem = createAsyncThunk(
 export const getAssetItemDetailById = createAsyncThunk(
   `AssetItem/getAssetItemDetailById`,
   async (id) => {
-    // const response = await getAssetItemDetailByIdService(id);
-    // if (response.responseType === ResponseType.SUCCESS) {
-    //   console.log(response, 'getAssetItemDetailById action');
-    //   return response.data;
-    // } else {
-    //   dispatch(
-    //     openNotification({
-    //       message: responseMessage(response.responseType),
-    //       type: responseMessageType(response.responseType),
-    //     })
-    //   );
-    //   return isRejectedWithValue(response);
-    // }
     try {
       const response = await getAssetItemDetailByIdService(id);
       console.log(response.data, 'getAssetItemDetailById action');
@@ -73,12 +61,36 @@ export const getAssetItemDetailById = createAsyncThunk(
   }
 );
 
+// TODO: update action for asset item
 export const getAllAssetItemByUserId = createAsyncThunk(
   `AssetItem/getAllAssetItemByUserId`,
   async (id, { dispatch }) => {
     const response = await getAllAssetItemByUserIdService(id);
     console.log(response, 'getAllAssetItemByUserId action');
     if (response.responseType === ResponseType.SUCCESS) {
+      console.log(response, 'get single user ka response');
+      return response.data;
+    } else {
+      dispatch(
+        openNotification({
+          message: responseMessage(response.responseType),
+          type: responseMessageType(response.responseType),
+        })
+      );
+      return isRejectedWithValue(response);
+    }
+  }
+);
+
+// TODO: update action for asset item
+export const updateAssetItems = createAsyncThunk(
+  `AssetItem/updateAssetItemService`,
+  async (payload, { dispatch }) => {
+    const response = await updateAssetItemService(payload);
+    console.log(response, 'updateAssetItemService action');
+    if (response.responseType === ResponseType.SUCCESS) {
+      console.log('update API ka response');
+      message.success('Asset Item Updated Successfully');
       return response.data;
     } else {
       dispatch(

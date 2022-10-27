@@ -1,4 +1,5 @@
 import { createSlice, isPending } from '@reduxjs/toolkit';
+import { updateAssetItemService } from '../service/service';
 import {
   getAllAssetItems,
   addAssetItem,
@@ -44,9 +45,16 @@ export const AssetItemSlice = createSlice({
         console.log(payload.data, 'getAssetItemDetailByIdSlice');
       })
       .addCase(getAllAssetItemByUserId.fulfilled, (state, { payload }) => {
+        state.assetItemByUserId = payload.data;
+        state.loader = false;
+        state.success = true;
+        console.log(payload.data, 'getAllAssetItemByUserId');
+      })
+      .addCase(updateAssetItemService.fulfilled, (state, { payload }) => {
         state.assetItemByUserId = payload;
         state.loader = false;
         state.success = true;
+        console.log(payload, 'updateAssetItemSlice');
       })
       .addCase(getAllAssetItemByPagination.fulfilled, (state, { payload }) => {
         state.assetItemByPagination = payload;

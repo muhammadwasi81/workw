@@ -82,6 +82,7 @@ import requestItemSlice from '../main/features/RequestListItems/store/slice';
 import assetsCategorySlice from '../main/features/assetsCategory/store/slice';
 import AssetItemSlice from '../main/features/createAssets/store/slice';
 import teamSlice from '../main/features/team/store/slice';
+import inventoryAssetSlice from '../main/features/assets/store/slice';
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -160,6 +161,7 @@ const reducers = combineReducers({
   AssetItemSlice,
   requestItemSlice,
   teamSlice,
+  inventoryAssetSlice,
 });
 
 const persistConfig = {

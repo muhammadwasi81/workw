@@ -19,8 +19,8 @@ const AssetsCategory = () => {
   const [assets, setAssets] = useState(initialState);
 
   const handleSubmit = (e) => {
-    if (!e.name || !e.description) {
-      message.error('Please fill all required fields');
+    if (!e.name || !e.description || !e.accountId || !e.parentName) {
+      return message.error('Please fill all required fields');
     }
     if (e.id) {
       dispatch(updateAssetCategory(e));
@@ -37,7 +37,7 @@ const AssetsCategory = () => {
     }
   };
   const handleDelete = (e) => {
-    alert('delete');
+    message.success('Deleted Successfully');
   };
   return (
     <>

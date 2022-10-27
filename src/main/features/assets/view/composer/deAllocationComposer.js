@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select, Table } from 'antd';
+import { Button, Form } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
@@ -6,7 +6,6 @@ import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
 import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
 import { customApprovalDictionaryList } from '../../../CustomApprovals/localization';
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-
 import { modifySelectData } from '../../../../../utils/base';
 import {
   getAllAssetItemByUserId,
@@ -42,14 +41,9 @@ const AssetDeAllocationComposer = () => {
   const [value, setValue] = useState([]);
 
   const employees = useSelector((state) => state.sharedSlice.employees);
-  console.log(employees, 'employees');
-
   const { inventoryAssets } = useSelector((state) => state.inventoryAssetSlice);
-  console.log(inventoryAssets, 'inventoryAssets in deallocation');
-  const { AssetItemSlice } = useSelector(
-    (state) => state.AssetItemSlice.assetItemByUserId
-  );
-  console.log(AssetItemSlice, 'AssetItemSlice');
+  const { assetItemList } = useSelector((state) => state.AssetItemSlice);
+  console.log(assetItemList, 'assetItemList');
 
   const selectedData = (data, obj) => {
     setValue(data);
@@ -66,24 +60,15 @@ const AssetDeAllocationComposer = () => {
     });
   };
 
-  const fetchEmployees = (text, pgNo) => {
+  const fetchEmployees = (text, pgNo, id) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+    // call getAllAssetItemByUserId here and pass id as a parameter
+    dispatch(getAllAssetItemByUserId(id));
   };
-
-  // const data = {
-  //   pageNo: 1,
-  //   pageSize: 20,
-  //   search: '',
-  // };
-
-  useEffect(() => {
-    dispatch(getAllAssetItemByUserId());
-  }, []);
 
   const [newState, setNewState] = useState({
     assetItems: [],
   });
-  console.log(newState, 'newState');
 
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
@@ -91,8 +76,6 @@ const AssetDeAllocationComposer = () => {
       setFirstTimeEmpData(employees);
     }
   }, [employees]);
-
-  console.log(value, 'value');
 
   const onFinish = (values) => {
     // let assetItems = [];
@@ -107,13 +90,7 @@ const AssetDeAllocationComposer = () => {
     //     };
     //   });
     // }
-    let payload = {
-      assetItems: modifySelectData(values.assetItems).map((el, index) => {
-        return {
-          itemId: el,
-        };
-      }),
-    };
+    let payload = {};
     console.log('de-payload', payload);
     // TODO: Later on we have to patch different APIs
     dispatch(updateAssetItems(payload));
@@ -186,29 +163,28 @@ const AssetDeAllocationComposer = () => {
           />
         </Form.Item>
 
-        <Form.Item>
-          <table>
-            <thead>
-              <th>
-                <td>Category Name</td>
-                <td>Asset</td>
-                <td>Serial No</td>
-                <td>Select Status</td>
-              </th>
-            </thead>
-            <tbody>
-              {inventoryAssets.map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{item.category}</td>
-                    <td>{item.name}</td>
-                    <td>{item.serialNo}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Form.Item>
+        <table>
+          <thead>
+            <th>
+              <td>Category Name</td>
+              <td>Asset</td>
+              <td>Serial No</td>
+              <td>Select Status</td>
+            </th>
+          </thead>
+          <tbody>
+            {inventoryAssets.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{item.category}</td>
+                  <td>{item.name}</td>
+                  <td>{item.serialNo}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+
         <Form.Item>
           <Button
             type="primary"

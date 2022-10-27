@@ -1,11 +1,11 @@
 import { createSlice, isPending } from '@reduxjs/toolkit';
-import { updateAssetItemService } from '../service/service';
 import {
   getAllAssetItems,
   addAssetItem,
   getAllAssetItemByUserId,
   getAssetItemDetailById,
   getAllAssetItemByPagination,
+  updateAssetItems,
 } from './action';
 
 const initialState = {
@@ -39,19 +39,19 @@ export const AssetItemSlice = createSlice({
         console.log(payload, 'addAssetItemSlice');
       })
       .addCase(getAssetItemDetailById.fulfilled, (state, { payload }) => {
-        state.assetItemByUserId = payload.data;
+        state.assetItemByUserId = payload;
         state.loader = false;
         state.success = true;
-        console.log(payload.data, 'getAssetItemDetailByIdSlice');
+        console.log(payload, 'getAssetItemDetailByIdSlice');
       })
       .addCase(getAllAssetItemByUserId.fulfilled, (state, { payload }) => {
-        state.assetItemByUserId = payload.data;
+        state.assetItemByUserId = payload;
         state.loader = false;
         state.success = true;
-        console.log(payload.data, 'getAllAssetItemByUserId');
+        console.log(payload, 'getAllAssetItemByUserId');
       })
-      .addCase(updateAssetItemService.fulfilled, (state, { payload }) => {
-        state.assetItemByUserId = payload;
+      .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
+        state.assetItemList = payload;
         state.loader = false;
         state.success = true;
         console.log(payload, 'updateAssetItemSlice');
@@ -70,6 +70,7 @@ export const AssetItemSlice = createSlice({
             getAssetItemDetailById,
             getAllAssetItemByUserId,
             getAllAssetItemByPagination,
+            updateAssetItems,
           ]
         ),
         (state) => {

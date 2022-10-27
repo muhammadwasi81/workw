@@ -21,7 +21,7 @@ function EmployeeList() {
   }, [dispatch]);
 
   let classes = "empolyeesListContainer";
-  classes += Direction === "ltr" ? "ltr" : "rtl";
+  classes += Direction === " ltr" ? " ltr" : " rtl";
   if (loader) {
     return (
       <div className="empolyeesListContainer">

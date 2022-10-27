@@ -6,8 +6,8 @@ import "./styles/style.css";
 import Header from "./components/header";
 import Calendar from "./view/calendar";
 import { useSearchParams } from "react-router-dom";
-import MySchedules from "./view/Schedules/Schedules";
-import { ScheduleTopBar } from "./view/Schedules/topbar/ScheduleTopBar";
+import MySchedules from "./view/schedules/Schedules";
+import { ScheduleTopBar } from "./view/schedules/topbar/ScheduleTopBar";
 
 function Schedules() {
 	const [searchParams] = useSearchParams();

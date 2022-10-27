@@ -100,7 +100,7 @@ function Menu() {
             <Collapse
               expandIconPosition="end"
               className="MenuCollapse"
-              defaultActiveKey={ObjIndex === 0 && ["1"]}
+              defaultActiveKey={ ["1", "2", "3", "4", "5"]}
               onChange={() => {}}
               expandIcon={({ isActive }) => (
                 <CaretRightOutlined rotate={isActive ? 90 : 0} />

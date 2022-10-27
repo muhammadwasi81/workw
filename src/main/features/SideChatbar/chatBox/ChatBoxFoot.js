@@ -1,36 +1,33 @@
-import React from "react";
-// import SharedButton from "../button";
+import React, { useState } from "react";
 import faceIcon from './assests/face.svg';
 import PictureIcon from './assests/picture.svg';
 import attachmentIcon from './assests/attachment.svg';
 import sendIcon from './assests/send.svg';
-import { useDispatch } from "react-redux";
-import { sendChatMessage } from "../../Messenger/store/actions";
 import SharedButton from "../../../sharedComponents/button";
+import EmojiPicker from "../../Messenger/view/MessengerBox/components/emojiPicker";
 
-const ChatBoxFoot = ({handleSend}) => {
-   
+const ChatBoxFoot = ({ 
+    handleSend, 
+    FileUploader, 
+    handleClickAttachment, 
+    onSelectEmoji, 
+    msgInpRef 
+}) => {
+    const [isOpenEmoji, setIsOpenEmoji] = useState(false);
     return (
         <div className="ChatBoxFoot" >
             <div className="ChatBoxInputHandler" >
                 <div>
                     <SharedButton
-                        type="default"
-                        shape="circle"
-                        size="small"
-                        onClick={() => { }}
+                        onClick={() => setIsOpenEmoji(!isOpenEmoji)}
                         icon={faceIcon}
                         IconSize={15}
                     />
-                </div>
 
+                </div>
                 <div>
                     <SharedButton
-                        type="default"
-                        shape="circle"
-                        size="small"
-                        onClick={() => { }}
-                        // icon={PictureIcon}
+                        onClick={handleClickAttachment}
                         icon={attachmentIcon}
                         className="mt-[2px]"
                         IconSize={9}
@@ -39,25 +36,33 @@ const ChatBoxFoot = ({handleSend}) => {
             </div>
             <div className="ChatBoxInput" >
                 <div>
-                    <input placeholder="Type a Message..." onKeyUp={(e) => {
-                        if (e.keyCode === 13) {
-                            handleSend(e)
-                        }
-                    }} />
+                    <input
+                        placeholder="Type a Message..."
+                        ref={msgInpRef}
+                        onKeyUp={(e) => {
+                            if (e.keyCode === 13) {
+                                handleSend(e);
+                                setIsOpenEmoji(false)
+                                e.target.value = "";
+                            }
+                        }} />
                 </div>
             </div>
             <div className="" >
                 <div>
                     <SharedButton
-                        type="default"
-                        shape="circle"
-                        size="small"
                         onClick={() => { }}
                         icon={sendIcon}
                         IconSize={15}
                     />
                 </div>
             </div>
+            {isOpenEmoji &&
+                <EmojiPicker
+                    onSelect={onSelectEmoji}
+                    position={{ left: "0px", bottom: "45px" }}
+                />}
+            {FileUploader}
         </div>
     )
 }

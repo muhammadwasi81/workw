@@ -148,7 +148,9 @@ const App = () => {
                     element={<route.component />}
                   />
                 ))}
-                <Route path={"*"} element={<Navigate to={ROUTES.HOME} />} />
+                <Route
+                  path={"*"}
+                  element={<Navigate to={ROUTES.HOME} />} />
               </Route>
               <Route
                 path={"*"}

@@ -32,17 +32,18 @@ export const Index = () => {
 	let isMobileView = window.innerWidth < 800;
 	return (
 		<>
-			<SideChatBar
-				sideBarStatus={sideBarStatus}
-				isDefault={sideBarChatIsDefault}
-				style={{ display: isHide ? "none" : "block" }}
-				isMobileView={isMobileView}
-			>
-				<SideBarHead sideBarStatus={sideBarStatus}/>
-				<SideBarList chatList={conversations} />
-				<SideBarSearch />
-			</SideChatBar>
-			<ChatBoxCont isHide={isHide}/>
+			<div style={{ display: isHide ? "none" : "block" }}>
+				<SideChatBar
+					sideBarStatus={sideBarStatus}
+					isDefault={sideBarChatIsDefault}
+					isMobileView={isMobileView}
+				>
+					<SideBarHead sideBarStatus={sideBarStatus} />
+					<SideBarList chatList={conversations} />
+					<SideBarSearch />
+				</SideChatBar>
+				<ChatBoxCont isHide={isHide} />
+			</div>
 		</>
 	);
 };

@@ -6,7 +6,7 @@ import { fileExtentionPreview } from "../../utils/fileExtentionHelper";
 import AttachmentsCarrousel from "../AttachmentsCarrousel/AttachmentsCarrousel";
 // import AttachmentsCarrousel from "../AttachmentsCarrousel/AttachmentsCarrousel";
 
-function Attachments({ data = [], toShow = 1, isCarrousel = true }) {
+function Attachments({ data = [], toShow = 1, isCarrousel = true, size = "100px" }) {
 	const [isVisible, setIsVisible] = useState(false);
 	return (
 		<>
@@ -28,7 +28,8 @@ function Attachments({ data = [], toShow = 1, isCarrousel = true }) {
 							if (index < toShow) {
 								return (
 									<img
-										className="w-[100px] h-[100px] object-cover"
+										className={`object-cover`}
+										style={{ height: size, width: size }}
 										src={fileExtentionPreview(item.path)}
 										alt={item.attachmentName}
 										key={item.id}
@@ -43,7 +44,8 @@ function Attachments({ data = [], toShow = 1, isCarrousel = true }) {
 									+ {data.length - toShow}
 								</div>
 								<img
-									className="w-[100px] h-[100px] object-cover"
+									className={`object-cover`}
+									style={{ height: size, width: size }}
 									src={fileExtentionPreview(
 										data[toShow].path
 									)}

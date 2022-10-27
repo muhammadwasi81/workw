@@ -7,8 +7,8 @@ import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
   addMultipleQuotationClientService,
-  getAllQuotationService,
-  getQuotationByIdService,
+  getAllQuotationClientService,
+  getQuotationClientByIdService,
 } from "../services/service";
 
 export const createClientQuotation = createAsyncThunk(
@@ -41,10 +41,10 @@ export const createClientQuotation = createAsyncThunk(
   }
 );
 
-export const getQuotationById = createAsyncThunk(
-  "EmployeeSalary/getEmployeeSalaryDetail",
+export const getQuotationClientById = createAsyncThunk(
+  "QuotationClient/getQuotationClientById",
   async (id, { rejectWithValue, dispatch }) => {
-    const response = await getQuotationByIdService(id);
+    const response = await getQuotationClientByIdService(id);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({
@@ -63,10 +63,10 @@ export const getQuotationById = createAsyncThunk(
   }
 );
 
-export const getAllQuotation = createAsyncThunk(
-  "Quotation/getAllQuotation",
+export const getAllQuotationClient = createAsyncThunk(
+  "QuotationClient/getAllQuotationClient",
   async (data, { rejectWithValue, dispatch }) => {
-    const response = await getAllQuotationService(data);
+    const response = await getAllQuotationClientService(data);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({

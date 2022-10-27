@@ -42,7 +42,7 @@ export const createQuotation = createAsyncThunk(
 );
 
 export const getQuotationById = createAsyncThunk(
-  "EmployeeSalary/getEmployeeSalaryDetail",
+  "Quotation/getQuotationById",
   async (id, { rejectWithValue, dispatch }) => {
     const response = await getQuotationByIdService(id);
     switch (response.type) {

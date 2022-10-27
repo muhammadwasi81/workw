@@ -12,7 +12,7 @@ import {
 } from "../../../../sharedComponents/Card/CardStyle";
 import { useDispatch } from "react-redux";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import { getQuotationById } from "../../store/actions";
+import { getQuotationClientById } from "../../store/actions";
 import { useSelector } from "react-redux";
 import AllowanceDetail from "./allowanceDetail";
 import RemarksApproval from "../../../../sharedComponents/AppComponents/Approvals/view";
@@ -21,25 +21,25 @@ import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Appr
 function QuotationDetailCard(props) {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (props.id) dispatch(getQuotationById(props.id));
+    if (props.id) dispatch(getQuotationClientById(props.id));
   }, [props.id]);
 
-  const quotationDetail = useSelector(
-    (state) => state.quotationSlice.quotationDetail
+  const quotationClientDetail = useSelector(
+    (state) => state.quotationClientSlice.quotationClientDetail
   );
-  if (!quotationDetail) return <></>;
+  if (!quotationClientDetail) return <></>;
 
   const {
     creator,
-    details,
+    clientDetails,
     email,
     name,
     phoneNumber,
-    quotationDate,
+    quotationclientDate,
     approvers,
     createDate,
-  } = quotationDetail;
-  console.log(quotationDetail, "Quotation detail");
+  } = quotationClientDetail;
+  console.log(quotationClientDetail, "Quotation detail");
   return (
     <>
       <SingleItem onClick={props.onClick}>
@@ -83,7 +83,7 @@ function QuotationDetailCard(props) {
             {/**
      //Map data of row wise from data     
   */}{" "}
-            {details.map((el, i) => {
+            {clientDetails.map((el, i) => {
               return (
                 <tr
                   className="text-center text-sm"
@@ -114,12 +114,12 @@ function QuotationDetailCard(props) {
           </div>
         </div>
 
-        <AllowanceDetail details={details} />
+        <AllowanceDetail details={clientDetails} />
 
         <RemarksApproval
           data={approvers}
           title="Approvals"
-          module={ApprovalsModule.SalaryApproval}
+          module={ApprovalsModule.quotationClient}
           onStatusChanged={() => {}}
         />
       </SingleItem>

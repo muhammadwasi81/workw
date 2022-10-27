@@ -26,7 +26,7 @@ const TableViewComponent = ({ data }) => {
       onMouseLeave: (event) => {}, // mouse leave row
     };
   };
-
+  console.log(data);
   return (
     <>
       <Table

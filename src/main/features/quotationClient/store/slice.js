@@ -1,8 +1,8 @@
 import { createSlice, isPending } from "@reduxjs/toolkit";
 import {
   createClientQuotation,
-  getAllQuotation,
-  getQuotationById,
+  getAllQuotationClient,
+  getQuotationClientById,
 } from "./actions";
 
 const initialState = {
@@ -30,12 +30,12 @@ export const quotationClientSlice = createSlice({
         state.success = true;
         state.quotationClientList = [...state.quotationClientList, ...payload];
       })
-      .addCase(getQuotationById.fulfilled, (state, { payload }) => {
+      .addCase(getQuotationClientById.fulfilled, (state, { payload }) => {
         state.quotationClientDetail = payload;
         state.loader = false;
         state.success = true;
       })
-      .addCase(getAllQuotation.fulfilled, (state, { payload }) => {
+      .addCase(getAllQuotationClient.fulfilled, (state, { payload }) => {
         state.quotationClientList = payload.data;
         state.loader = false;
         state.success = true;

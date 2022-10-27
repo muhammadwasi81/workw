@@ -46,8 +46,8 @@ export const quotationTableColumn = () => {
       sort: true,
     },
     {
-      title: "QuotationDate",
-      dataIndex: "quotationDate",
+      title: "QuotationClientDate",
+      dataIndex: "quotationClientDate",
       render: (i) => moment(i.quotationDate).format("DD MMM YYYY"),
       sort: true,
     },

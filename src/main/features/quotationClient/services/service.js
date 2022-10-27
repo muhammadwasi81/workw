@@ -63,11 +63,11 @@ export const addMultipleQuotationClientService = async (payload) => {
 // 	}
 // };
 
-export const getQuotationByIdService = async (id) => {
+export const getQuotationClientByIdService = async (id) => {
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.get(`api/Quotation/GetQuotationById?id=${id}`);
+    } = await Config.get(`api/Quotation/GetQuotationClientById?id=${id}`);
     if (responseCode === 1001) return ResponseResultSuccess(data);
     return ResponseResultError(message);
   } catch (e) {
@@ -75,11 +75,11 @@ export const getQuotationByIdService = async (id) => {
   }
 };
 
-export const getAllQuotationService = async (payload) => {
+export const getAllQuotationClientService = async (payload) => {
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.post(`api/Quotation/GetAllQuotation`, payload);
+    } = await Config.post(`api/Quotation/GetAllQuotationClient`, payload);
     if (responseCode === 1001) return ResponseResultSuccess(data);
     return ResponseResultError(message);
   } catch (e) {

@@ -7,7 +7,9 @@ function SalaryDetailedView(props) {
 
   return (
     <Drawer
-      title={<h1 style={{ fontSize: "20px", margin: 0 }}>Quotation Detail</h1>}
+      title={
+        <h1 style={{ fontSize: "20px", margin: 0 }}>Quotation Client Detail</h1>
+      }
       width="768"
       height={"85%"}
       placement={"right"}

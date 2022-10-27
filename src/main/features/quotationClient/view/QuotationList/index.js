@@ -9,7 +9,7 @@ import { ROUTES } from "../../../../../utils/routes";
 import QuotationList from "./quotationList";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getAllQuotation } from "../../store/actions";
+import { getAllQuotationClient } from "../../store/actions";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
 import { Table } from "../../../../sharedComponents/customTable";
 import { useSelector } from "react-redux";
@@ -18,7 +18,9 @@ import { quotationTableColumn } from "./tableColumns";
 import TableViewComponent from "./TableViewComponent";
 
 function Quotations() {
-  const listData = useSelector((state) => state.quotationSlice.quotationList);
+  const listData = useSelector(
+    (state) => state.quotationClientSlice.quotationClientList
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [filterType, setFilterType] = useState(0);
@@ -62,7 +64,7 @@ function Quotations() {
   const onSegment = (value) => setViewType(value);
   useEffect(() => {
     dispatch(
-      getAllQuotation({
+      getAllQuotationClient({
         filterType,
         search,
       })

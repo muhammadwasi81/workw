@@ -119,7 +119,7 @@ function QuotationDetailCard(props) {
         <RemarksApproval
           data={approvers}
           title="Approvals"
-          module={ApprovalsModule.SalaryApproval}
+          module={ApprovalsModule.quotation}
           onStatusChanged={() => {}}
         />
       </SingleItem>

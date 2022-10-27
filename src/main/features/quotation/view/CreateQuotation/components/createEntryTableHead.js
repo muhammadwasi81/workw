@@ -1,29 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const CreateEntryHead = () => {
-
   return (
     <thead>
-      <tr className='whitespace-nowrap' >
-        <th style={{ minWidth: "50px" }} >
-          S.No.
-        </th>
-        <th style={{ minWidth: "130px" }}>
-          Effective Date
-        </th>
-        <th style={{ minWidth: "230px" }}>
-          Employee
-        </th>
-        <th style={{ minWidth: "170px" }}>
-          Grade
-        </th>
-        <th style={{ minWidth: "150px" }}>
-          Basic Salary
-        </th>
-        <th style={{ minWidth: "150px" }}>
-          Allowances
-        </th>
-        <th style={{ minWidth: "150px" }}>
+      <tr className="whitespace-nowrap">
+        <th style={{ minWidth: "6%" }}>S.No.</th>
+        <th style={{ minWidth: "40%" }}>Service/Item</th>
+        <th style={{ minWidth: "10%" }}>Price</th>
+        <th style={{ minWidth: "6%" }}>Quantity</th>
+        <th style={{ minWidth: "16%" }}>Tax</th>
+        <th style={{ minWidth: "16%" }}>Total Amount</th>
+        {/* <th style={{ minWidth: "150px" }}>
           Deductions
         </th>
         <th style={{ minWidth: "150px" }}>
@@ -34,11 +21,10 @@ const CreateEntryHead = () => {
         </th>
         <th style={{ minWidth: "250px" }}>
           Descrption
-        </th>
-        <th style={{ minWidth: "45px" }}>
-        </th>
+        </th>*/}
+        <th style={{ minWidth: "6%" }}></th>
       </tr>
     </thead>
-  )
-}
+  );
+};
 export default CreateEntryHead;

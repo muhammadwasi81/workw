@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24.5" height="24.5" viewBox="0 0 24.5 24.5">
+  <g id="Group_8099" data-name="Group 8099" transform="translate(-147.94 -95)">
+    <path id="Path_3403" data-name="Path 3403" d="M14.5,4A10.5,10.5,0,1,1,4,14.5,10.5,10.5,0,0,1,14.5,4m0-1.75A12.25,12.25,0,1,0,26.75,14.5,12.25,12.25,0,0,0,14.5,2.25Z" transform="translate(145.69 92.75)"/>
+    <g id="reader-outline" transform="translate(148.539 97.504)">
+      <path id="Path_3407" data-name="Path 3407" d="M8.22,3.375h6.861a1.47,1.47,0,0,1,1.47,1.47v9.8a1.47,1.47,0,0,1-1.47,1.47H8.22a1.47,1.47,0,0,1-1.47-1.47v-9.8A1.47,1.47,0,0,1,8.22,3.375Z" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_3408" data-name="Path 3408" d="M12.375,9h3.8" transform="translate(-2.475 -2.004)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_3409" data-name="Path 3409" d="M12.375,14.625h3.8" transform="translate(-2.474 -5.629)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_3410" data-name="Path 3410" d="M12.375,20.25h3" transform="translate(-2.474 -9.254)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

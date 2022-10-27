@@ -84,7 +84,7 @@ const en = {
     messenger: "Messenger",
     chartOfAccount: "Chart of Accounts",
     voucher: "Vouchers",
-    Quatation: "Quatations",
+    Quotation: "Quotations",
     transaction: "Transactions",
     report: "Report",
     mailBox: "Mail Box",

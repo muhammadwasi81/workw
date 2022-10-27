@@ -36,13 +36,15 @@ function Chart() {
 		responsive: true,
 		plugins: {
 			legend: {
-				position: "left",
+				position: "top",
 				display: false,
 			},
 			title: {
 				display: true,
 				text: "Activity",
-				position: "left",
+				position: "top",
+				align: "start",
+				color: "#526bb1",
 			},
 		},
 	};

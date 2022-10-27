@@ -1,30 +1,22 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import {
-	ContBody,
-	TabbableContainer,
-} from "../../sharedComponents/AppComponents/MainFlexContainer";
 import MainDashboard from "./view/Dashboard/MainDashboard";
+import CourseContent from "./view/Dashboard/Sections/Courses/CourseDetail/CourseContent";
+import CoursesDetail from "./view/Dashboard/Sections/Courses/CourseDetail/CoursesDetail";
 import Summary from "./view/Dashboard/Summary";
 import TeamDahsboard from "./view/Dashboard/TeamDahsboard";
-import Header from "./view/Header/Header";
 
 function ELearning() {
 	return (
 		<>
-			<TabbableContainer>
-				<Header />
-				<ContBody className="!block">
-					<Routes>
-						<Route path="/" element={<MainDashboard />} />
-						<Route
-							path="teamDashboard"
-							element={<TeamDahsboard />}
-						/>
-						<Route path="summary" element={<Summary />} />
-					</Routes>
-				</ContBody>
-			</TabbableContainer>
+			<Routes>
+				<Route path="/" element={<MainDashboard />} />
+				<Route path="teamDashboard" element={<TeamDahsboard />} />
+				<Route path="summary" element={<Summary />} />
+				<Route path="courses/:id" element={<CoursesDetail />} />
+				<Route path="courses/learn/:id" element={<CourseContent />} />
+				<Route path="*" element={<div>No page exist</div>} />
+			</Routes>
 		</>
 	);
 }

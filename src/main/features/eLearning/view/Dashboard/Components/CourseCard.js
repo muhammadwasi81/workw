@@ -6,21 +6,25 @@ import master from "../../../../../../content/NewContent/eLearning/master.svg";
 import intermediate from "../../../../../../content/NewContent/eLearning/intermediate.svg";
 import WhiteCard from "../../../UI/WhiteCard";
 import BoxThumnail from "../UI/BoxThumnail";
+import { useNavigate } from "react-router-dom";
 
+export const LevelsIcon = {
+	1: <img src={beginner} alt="beginner" />,
+	2: <img src={intermediate} alt="intermediate" />,
+	3: <img src={master} alt="master" />,
+};
+export const tag = {
+	1: "Beginner",
+	2: "Intermediate",
+	3: "Advance",
+};
 function CourseCard() {
-	const tag = {
-		1: "Beginner",
-		2: "Intermediate",
-		3: "Advance",
-	};
-	const LevelsIcon = {
-		1: <img src={beginner} alt="beginner" />,
-		2: <img src={intermediate} alt="intermediate" />,
-		3: <img src={master} alt="master" />,
-	};
+	const navigate = useNavigate();
 	return (
 		<WhiteCard
-			onClick={() => {}}
+			onClick={() => {
+				navigate("courses/123");
+			}}
 			className="cursor-pointer hover:shadow-lg transition-all"
 		>
 			<div className="flex flex-col gap-1">

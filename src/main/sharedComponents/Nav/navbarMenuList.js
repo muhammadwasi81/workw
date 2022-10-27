@@ -299,7 +299,7 @@ const NavMenuList = () => {
       key: label.navMenuLabel.finance,
     },
     {
-      name: label.navMenuLabel.Quatation,
+      name: label.navMenuLabel.Quotation,
       counter: 0,
       to: ROUTES.QOUTATION.ROOT,
       icon: coaIcon,

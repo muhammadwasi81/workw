@@ -18,15 +18,10 @@ export const routes = {
       component: lazy(() => import("../main/features/profile/Profile")),
     },
     {
-<<<<<<< HEAD
       path: `${ROUTES.SETTINGS.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/settings")
-      ),
+      component: lazy(() => import("../main/features/settings")),
     },
     {
-=======
->>>>>>> fee82165af17e650c65f1c6e78ba569545f66570
       path: ROUTES.ROOT,
       component: lazy(() => import("../main/features/feed/ui/index")),
     },
@@ -74,11 +69,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.ASSETS.DEFAULT}`,
-<<<<<<< HEAD
-      component: lazy(() => import("../main/features/assets/view/assets")),
-=======
       component: lazy(() => import("../main/features/assets/view/index")),
->>>>>>> fee82165af17e650c65f1c6e78ba569545f66570
     },
     {
       path: `${ROUTES.CREATE_ASSETS.DEFAULT}`,
@@ -140,8 +131,6 @@ export const routes = {
       path: `${ROUTES.ELearning.DEFAULT}`,
       component: lazy(() => import("../main/features/eLearning/")),
     },
-<<<<<<< HEAD
-=======
     // {
     // 	path: `${ROUTES.ELearning.DEFAULT + " courses/:id"}`,
     // 	component: lazy(() =>
@@ -150,7 +139,6 @@ export const routes = {
     // 		)
     // 	),
     // },
->>>>>>> fee82165af17e650c65f1c6e78ba569545f66570
     {
       path: `${ROUTES.CAREER.JOB_BY_ID}`,
       component: lazy(() =>
@@ -279,15 +267,6 @@ export const routes = {
         import("../main/features/careers/view/DetailView/index")
       ),
     },
-<<<<<<< HEAD
-    // {
-    //   path: `${ROUTES.CAREER.APPLYJOB}/:id`,
-    //   component: lazy(() =>
-    //     import("../main/features/careers/view/PublicRoute/ApplyJob")
-    //   ),
-    // },
-=======
->>>>>>> fee82165af17e650c65f1c6e78ba569545f66570
     {
       path: `${ROUTES.EXPENSES.DEFAULT}`,
       component: lazy(() => import("../main/features/expense/routes/")),
@@ -310,15 +289,12 @@ export const routes = {
         import("../main/features/requisition/view/requisition")
       ),
     },
-<<<<<<< HEAD
-=======
     {
       path: `${ROUTES.REQUISITION.DETAIL}`,
       component: lazy(() =>
         import("../main/features/requisition/view/myRequisitionDetail/index")
       ),
     },
->>>>>>> fee82165af17e650c65f1c6e78ba569545f66570
 
     // {
     // 	path: `${ROUTES.REQUISITION.DEFAULT}`,

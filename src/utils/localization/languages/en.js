@@ -85,6 +85,7 @@ const en = {
     chartOfAccount: "Chart of Accounts",
     voucher: "Vouchers",
     Quotation: "Quotations",
+    QuotationClient: "Quotation Client",
     transaction: "Transactions",
     report: "Report",
     mailBox: "Mail Box",

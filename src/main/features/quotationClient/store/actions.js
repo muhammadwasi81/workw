@@ -6,15 +6,15 @@ import {
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
-  addMultipleQuotationService,
-  getAllQuotationService,
-  getQuotationByIdService,
+  addMultipleQuotationClientService,
+  getAllQuotationClientService,
+  getQuotationClientByIdService,
 } from "../services/service";
 
-export const createQuotation = createAsyncThunk(
-  "Quotation/createQuotation",
+export const createClientQuotation = createAsyncThunk(
+  "QuotationClient/createQuotationClient",
   async (data, { dispatch, rejectWithValue }) => {
-    const res = await addMultipleQuotationService(data);
+    const res = await addMultipleQuotationClientService(data);
     console.log(res, "FROM CAREER RESPONSE");
 
     switch (res.type) {
@@ -41,10 +41,10 @@ export const createQuotation = createAsyncThunk(
   }
 );
 
-export const getQuotationById = createAsyncThunk(
-  "Quotation/getQuotationById",
+export const getQuotationClientById = createAsyncThunk(
+  "QuotationClient/getQuotationClientById",
   async (id, { rejectWithValue, dispatch }) => {
-    const response = await getQuotationByIdService(id);
+    const response = await getQuotationClientByIdService(id);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({
@@ -63,10 +63,10 @@ export const getQuotationById = createAsyncThunk(
   }
 );
 
-export const getAllQuotation = createAsyncThunk(
-  "Quotation/getAllQuotation",
+export const getAllQuotationClient = createAsyncThunk(
+  "QuotationClient/getAllQuotationClient",
   async (data, { rejectWithValue, dispatch }) => {
-    const response = await getAllQuotationService(data);
+    const response = await getAllQuotationClientService(data);
     switch (response.type) {
       case ResponseType.ERROR:
         responseMessage({

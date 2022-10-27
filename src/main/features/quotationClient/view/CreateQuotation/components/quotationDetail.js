@@ -15,7 +15,7 @@ const QuotationDetail = ({ quotationDetails }) => {
   const {
     createDate,
     creator,
-    details,
+    clientDetails,
     email,
     name,
     id,
@@ -74,7 +74,7 @@ const QuotationDetail = ({ quotationDetails }) => {
             <th>Quantity</th>
             <th>Tax</th>
           </tr>{" "}
-          {details.map((el, i) => {
+          {clientDetails.map((el, i) => {
             return (
               <tr
                 className="text-center text-sm"

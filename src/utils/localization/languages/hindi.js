@@ -83,6 +83,8 @@ const hindi = {
     messenger: "मैसेंजर",
     chartOfAccount: "खाता का चार्ट",
     voucher: "वाउचर",
+    Quotation: "उद्धरण",
+    QuotationClient: "कोटेशन क्लाइंट",
     transaction: "लेनदेन",
     report: "रिपोर्ट",
     mailBox: "मेल बॉक्स",

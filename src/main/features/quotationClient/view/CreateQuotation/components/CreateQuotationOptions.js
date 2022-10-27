@@ -27,7 +27,6 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
             placeholder="Client Name"
             onChange={(e) => handleChange({ ...data, name: e.target.value })}
             required={true}
-            value={data.name}
           />
         </div>
 
@@ -36,7 +35,6 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
             placeholder="client@gmail.com"
             rules={[{ type: "email" }]}
             onChange={(e) => handleChange({ ...data, email: e.target.value })}
-            value={data.email}
           />
         </div>
 
@@ -47,7 +45,6 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
             onChange={(e) =>
               handleChange({ ...data, phoneNumber: e.target.value })
             }
-            value={data.phoneNumber}
           />
         </div>
         <div className="mr-4 w-[170px]">
@@ -97,8 +94,14 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
           <DatePicker
             className="w-full"
             locale="locale"
+            // onChange={(value, dateString) =>
+            //   handleChange({
+            //     ...data,
+            //     quotationDate: value._d.constructor(),
+            //   })
+            // }
             onChange={(value) =>
-              handleChange({ ...data, quotationDate: value })
+              handleChange({ ...data, quotationClientDate: value })
             }
           />
         </div>

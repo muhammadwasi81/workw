@@ -6,15 +6,15 @@ import {
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
-  addMultipleQuotationService,
+  addMultipleQuotationClientService,
   getAllQuotationService,
   getQuotationByIdService,
 } from "../services/service";
 
-export const createQuotation = createAsyncThunk(
-  "Quotation/createQuotation",
+export const createClientQuotation = createAsyncThunk(
+  "QuotationClient/createQuotationClient",
   async (data, { dispatch, rejectWithValue }) => {
-    const res = await addMultipleQuotationService(data);
+    const res = await addMultipleQuotationClientService(data);
     console.log(res, "FROM CAREER RESPONSE");
 
     switch (res.type) {

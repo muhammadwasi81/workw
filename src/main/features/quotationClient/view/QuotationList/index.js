@@ -28,8 +28,8 @@ function Quotations() {
 
   const items = [
     {
-      name: "Quotation",
-      to: `${ROUTES.QUOTATION.ROOT}`,
+      name: "Quotation Client",
+      to: `${ROUTES.QUOTATIONCLIENT.ROOT}`,
       renderButton: [1],
     },
   ];
@@ -39,7 +39,7 @@ function Quotations() {
       render: (
         <Button className="ThemeBtn" onClick={() => navigate("create")}>
           {" "}
-          Create Quotation{" "}
+          Create Quotation Client{" "}
         </Button>
       ),
     },

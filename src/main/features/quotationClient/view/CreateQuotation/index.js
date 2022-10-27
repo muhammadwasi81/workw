@@ -12,7 +12,7 @@ const Index = () => {
       <Header
         items={[
           {
-            name: "Create Quotation",
+            name: "Create Quotation Client",
             to: ROUTES.QUOTATION.ROOT + "/create",
           },
         ]}

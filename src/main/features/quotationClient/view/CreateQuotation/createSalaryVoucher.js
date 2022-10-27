@@ -14,12 +14,21 @@ import {
 } from "../../../../../utils/Shared/store/actions";
 import { createGuid } from "../../../../../utils/base";
 import { getAllAllowance } from "../../../allowance/store/actions";
-import { createQuotation } from "../../store/actions";
+import { createClientQuotation } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import CreateQuotationOptions from "./components/CreateQuotationOptions";
 import getStoredState from "redux-persist/es/getStoredState";
 
+// function usePrevious(value) {
+//   const ref = useRef();
+//   useEffect(() => {
+//     ref.current = value;
+//   });
+//   return ref.current;
+// }
+
 const CreateQoutationVoucher = ({ defaultRows }) => {
+  // const ref = useRef();
   const defaultEntry = {
     item: "",
     price: 0,
@@ -29,23 +38,14 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
     id: createGuid(),
   };
 
-  // const initialState = {
-  //   month: new Date().getMonth() + 1,
-  //   year: new Date().getFullYear(),
-  //   description: "",
-  //   total: 0,
-  //   approvers: [],
-  //   disperseDate: moment(),
-  // };
-
   let initialState = {
     name: "",
     email: "",
     phoneNumber: "",
-    quotationDate: "",
+    quotationClientDate: "",
     //TODO: approvers Id to be set for post API
     approvers: [],
-    details: [],
+    clientDetails: [],
   };
 
   const initialEntries = Array(defaultRows)
@@ -55,7 +55,9 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [quotationDetails, setQuotationDetails] = useState(initialState);
+  const [quotationClientDetails, setquotationClientDetails] = useState(
+    initialState
+  );
   const success = useSelector((state) => state.voucherSlice.success);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -71,25 +73,25 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
     }
   }, [entries]);
 
-  const prevState = useRef({ quotationDetails }).current;
+  const prevState = useRef({ quotationClientDetails }).current;
 
   useEffect(() => {
     console.log("details change");
-    console.log(prevState.quotationDetails);
-    console.log(quotationDetails);
+    console.log(prevState.quotationClientDetails);
+    console.log(quotationClientDetails);
     //TODO: check initial data is empty
-    if (quotationDetails.details.length === 1) {
-      if (prevState.quotationDetails !== quotationDetails) {
-        dispatch(createQuotation(quotationDetails));
+    if (quotationClientDetails.clientDetails.length === 1) {
+      if (prevState.quotationClientDetails !== quotationClientDetails) {
+        dispatch(createClientQuotation(quotationClientDetails));
       }
     }
     //TODO: check
-    if (quotationDetails.details.length > 1) {
-      if (prevState.quotationDetails !== quotationDetails) {
-        dispatch(createQuotation(quotationDetails));
+    if (quotationClientDetails.clientDetails.length > 1) {
+      if (prevState.quotationClientDetails !== quotationClientDetails) {
+        dispatch(createClientQuotation(quotationClientDetails));
       }
     }
-  }, [quotationDetails.details]);
+  }, [quotationClientDetails.clientDetails]);
 
   useEffect(() => {
     fetchEmployees();
@@ -147,23 +149,24 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   const handleSubmit = () => {
     let filteredEntries = entries.filter((item) => item.item);
     // console.log(filteredEntries);
-    setQuotationDetails({ ...quotationDetails, details: filteredEntries }, () =>
-      console.log("***", quotationDetails)
-    );
-    // console.log(quotationDetails);
-    if (quotationDetails.name.length === 0) {
+    setquotationClientDetails({
+      ...quotationClientDetails,
+      clientDetails: filteredEntries,
+    });
+    // console.log(quotationClientDetails);
+    if (quotationClientDetails.name.length === 0) {
       message.error(`Client's Name Required`);
       return;
     }
-    if (quotationDetails.email.length === 0) {
+    if (quotationClientDetails.email.length === 0) {
       message.error(`Client's email Required`);
       return;
     }
-    if (quotationDetails.phoneNumber.length === 0) {
+    if (quotationClientDetails.phoneNumber.length === 0) {
       message.error(`Client's Phone Required`);
       return;
     }
-    if (quotationDetails.approvers.length === 0) {
+    if (quotationClientDetails.approvers.length === 0) {
       message.error(`Approvers Required`);
       return;
     }
@@ -171,8 +174,8 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   return (
     <div className="createEntryTable">
       <CreateQuotationOptions
-        data={quotationDetails}
-        handleChange={(value) => setQuotationDetails(value)}
+        data={quotationClientDetails}
+        handleChange={(value) => setquotationClientDetails(value)}
       />
       <div className="bg-white p-4 rounded-md ">
         <div className="overflow-x-auto">

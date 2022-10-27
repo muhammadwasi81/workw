@@ -301,7 +301,15 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.Quotation,
       counter: 0,
-      to: ROUTES.QOUTATION.ROOT,
+      to: ROUTES.QUOTATION.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.QuotationClient,
+      counter: 0,
+      to: ROUTES.QUOTATIONCLIENT.ROOT,
       icon: coaIcon,
       isActive: true,
       key: label.navMenuLabel.finance,

@@ -36,19 +36,32 @@ const addMultipleEmployeeSalary_dto = (data = []) => {
   }));
 };
 
-export const addMultipleQuotationService = async (payload) => {
+export const addMultipleQuotationClientService = async (payload) => {
   console.log(payload);
   try {
     // let request = addMultipleEmployeeSalary_dto(payload);
     const {
       data: { responseCode, data, message },
-    } = await Config.post(`api/Quotation/addQuotation`, payload);
+    } = await Config.post(`api/Quotation/AddQuotationClient`, payload);
     if (responseCode === 1001) return ResponseResultSuccess(data);
     return ResponseResultError(message);
   } catch (e) {
     return ResponseResultError(e);
   }
 };
+
+// export const addMultipleEmployeeSalaryService = async (payload) => {
+// 	try {
+// 		let request = addMultipleEmployeeSalary_dto(payload);
+// 		const {
+// 			data: { responseCode, data, message },
+// 		} = await Config.post(`api/EmployeeSalary/addEmployeeSalary`, request);
+// 		if (responseCode === 1001) return ResponseResultSuccess(data);
+// 		return ResponseResultError(message);
+// 	} catch (e) {
+// 		return ResponseResultError(e);
+// 	}
+// };
 
 export const getQuotationByIdService = async (id) => {
   try {
@@ -63,7 +76,6 @@ export const getQuotationByIdService = async (id) => {
 };
 
 export const getAllQuotationService = async (payload) => {
-  console.log(payload);
   try {
     const {
       data: { responseCode, data, message },

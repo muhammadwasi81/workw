@@ -27,7 +27,6 @@ const AssetsListItem = (props) => {
     id,
     approvers = [{}],
     value,
-    status,
   } = props.item;
 
   return (
@@ -47,7 +46,7 @@ const AssetsListItem = (props) => {
             />
           </div>
           <div className="right">
-            <StatusTag status={status}></StatusTag>
+            <StatusTag status={creator.status}></StatusTag>
           </div>
         </ItemHeader>
         <div className="cardSections" style={{ marginTop: '30px' }}>

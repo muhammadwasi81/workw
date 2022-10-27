@@ -5,6 +5,7 @@ import {
   getAllAssetItemByUserId,
   getAssetItemDetailById,
   getAllAssetItemByPagination,
+  updateAssetItems,
 } from './action';
 
 const initialState = {
@@ -38,15 +39,22 @@ export const AssetItemSlice = createSlice({
         console.log(payload, 'addAssetItemSlice');
       })
       .addCase(getAssetItemDetailById.fulfilled, (state, { payload }) => {
-        state.assetItemByUserId = payload.data;
+        state.assetItemByUserId = payload;
         state.loader = false;
         state.success = true;
-        console.log(payload.data, 'getAssetItemDetailByIdSlice');
+        console.log(payload, 'getAssetItemDetailByIdSlice');
       })
       .addCase(getAllAssetItemByUserId.fulfilled, (state, { payload }) => {
         state.assetItemByUserId = payload;
         state.loader = false;
         state.success = true;
+        console.log(payload, 'getAllAssetItemByUserId');
+      })
+      .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
+        state.assetItemList = payload;
+        state.loader = false;
+        state.success = true;
+        console.log(payload, 'updateAssetItemSlice');
       })
       .addCase(getAllAssetItemByPagination.fulfilled, (state, { payload }) => {
         state.assetItemByPagination = payload;
@@ -62,6 +70,7 @@ export const AssetItemSlice = createSlice({
             getAssetItemDetailById,
             getAllAssetItemByUserId,
             getAllAssetItemByPagination,
+            updateAssetItems,
           ]
         ),
         (state) => {

@@ -11,10 +11,29 @@ import { ROUTES } from '../../../../utils/routes';
 import { getAllAssetItems } from '../../createAssets/store/action';
 import AssetsList from './assetsList';
 import { TableColumn } from './tableColumn';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import AssetComposer from './composer/assetAllocationComposer';
+import { getAllInventoryAsset } from '../store/action';
+import AssetDeAllocationComposer from './composer/deAllocationComposer';
 
 const Index = () => {
   const dispatch = useDispatch();
   const { assetItemList } = useSelector((state) => state.AssetItemSlice);
+  console.log(assetItemList, 'assetItemList');
+
+  const { inventoryAssets, success } = useSelector(
+    (state) => state.inventoryAssetSlice
+  );
+
+  const data = {
+    pageNo: 1,
+    pageSize: 20,
+    search: '',
+  };
+
+  useEffect(() => {
+    dispatch(getAllInventoryAsset(data));
+  }, []);
 
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
@@ -24,7 +43,7 @@ const Index = () => {
     {
       name: 'Assets',
       to: `${ROUTES.ASSETS.DEFAULT}`,
-      renderButton: [1],
+      renderButton: [1, 2],
     },
   ];
 
@@ -38,7 +57,7 @@ const Index = () => {
       onClick: () => setFilterType(1),
     },
     {
-      name: 'Assets For Items Approvals',
+      name: 'Assets Items Approvals',
       onClick: () => setFilterType(2),
     },
   ];
@@ -62,6 +81,35 @@ const Index = () => {
     );
   }, [filterType, search]);
 
+  const buttons = [
+    {
+      buttonText: 'Assets Allocation',
+      render: (
+        <SideDrawer
+          success={success}
+          isAccessDrawer={true}
+          openDrawer={success}
+          children={<AssetComposer />}
+          title="Add Assets Allocation"
+          buttonText="Assets Allocation"
+        />
+      ),
+    },
+    {
+      buttonText: 'De-allocation',
+      render: (
+        <SideDrawer
+          success={success}
+          isAccessDrawer={true}
+          openDrawer={success}
+          children={<AssetDeAllocationComposer />}
+          title="De-Allocated Assets"
+          buttonText="De-Allocation"
+        />
+      ),
+    },
+  ];
+
   const render = {
     List: <AssetsList data={assetItemList} />,
     Table: (
@@ -76,7 +124,7 @@ const Index = () => {
   return (
     <>
       <TabbableContainer>
-        <Header items={items} />
+        <Header items={items} buttons={buttons} />
         <TopBar
           onSearch={onSearch}
           buttons={filterButtons}

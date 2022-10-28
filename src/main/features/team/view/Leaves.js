@@ -48,6 +48,7 @@ function Leaves() {
       title: labels.description,
       dataIndex: "description",
       key: "description",
+      className: "decription",
     },
   ];
   return (

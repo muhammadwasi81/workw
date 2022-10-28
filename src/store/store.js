@@ -79,11 +79,11 @@ import attendanceSlice from "../main/features/attendance/store/slice";
 import stickySlice from "../main/features/notes/newStickyNotes/store/stickySlice";
 import formSlice from "../main/features/forms/store/slice";
 import payrollSlice from "../main/features/payroll/store/slice";
-// import requestItemSlice from "../main/features/RequestListItems/store/slice";
-// import assetsCategorySlice from "../main/features/assetsCategory/store/slice";
-// import AssetItemSlice from "../main/features/createAssets/store/slice";
-// import teamSlice from "../main/features/team/store/slice";
-// import inventoryAssetSlice from "../main/features/assets/store/slice";
+import requestItemSlice from "../main/features/RequestListItems/store/slice";
+import assetsCategorySlice from "../main/features/assetsCategory/store/slice";
+import AssetItemSlice from "../main/features/createAssets/store/slice";
+import teamSlice from "../main/features/team/store/slice";
+import inventoryAssetSlice from "../main/features/assets/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -159,11 +159,11 @@ const reducers = combineReducers({
   stickySlice,
   formSlice,
   payrollSlice,
-  // assetsCategorySlice,
-  // AssetItemSlice,
-  // requestItemSlice,
-  // teamSlice,
-  // inventoryAssetSlice,
+  assetsCategorySlice,
+  AssetItemSlice,
+  requestItemSlice,
+  teamSlice,
+  inventoryAssetSlice,
 });
 
 const persistConfig = {

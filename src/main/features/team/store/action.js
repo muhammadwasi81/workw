@@ -149,7 +149,7 @@ export const getAllLeaveAction = createAsyncThunk(
 );
 
 export const getAllCheckInAction = createAsyncThunk(
-  "teamSlice/getAllLeaveAction",
+  "teamSlice/getAllCheckInAction",
   async (id, { rejectWithValue, dispatch }) => {
     const response = await getAllCheckInService(id);
     console.log(id, "CheckIn SERVICE");

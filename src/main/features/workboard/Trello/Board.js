@@ -29,7 +29,7 @@ import DateModal from "../Modal/DateModal";
 import BoardTopBar from "./BoardTopBar/TopBar";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { WorkBoardDictionary } from "../localization";
-import Spinner from "../../../sharedComponents/spinner/spinner";
+// import Spinner from "../../../sharedComponents/spinner/spinner";
 import { Table } from "../../../sharedComponents/customTable";
 import { sectionTableColumn } from "./tableColumns";
 
@@ -45,6 +45,7 @@ function Board() {
 
 	const dispatch = useDispatch();
 	const { id } = useParams();
+	console.log("id", id);
 	useEffect(() => {
 		dispatch(getWorkboardById(id));
 		dispatch(

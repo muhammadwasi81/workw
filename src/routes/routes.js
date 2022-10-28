@@ -164,7 +164,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/projects/index")),
 		},
 		{
-			path: `${ROUTES.PROJECT.DEFAULT}/:id`,
+			path: `${ROUTES.PROJECT.DEFAULT}/:projectId`,
 			component: lazy(() =>
 				import(
 					"../main/features/projects/ProjectDetails/ProjectDetails"
@@ -172,15 +172,29 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.PROJECT.DEFAULT}/:projectId/workboard/board/:id`,
+			component: lazy(() =>
+				import("../main/features/workboard/Trello/Board")
+			),
+		},
+		{
 			path: `${ROUTES.GROUP.DEFAULT}`,
 			component: lazy(() => import("../main/features/groups/index")),
 		},
 		{
-			path: `${ROUTES.GROUP.DEFAULT}/:id`,
+			path: `${ROUTES.GROUP.DEFAULT}/:groupId`,
 			component: lazy(() =>
 				import("../main/features/groups/GroupDetails/GroupDetails")
 			),
 		},
+
+		{
+			path: `${ROUTES.GROUP.DEFAULT}/:groupId/workboard/board/:id`,
+			component: lazy(() =>
+				import("../main/features/workboard/Trello/Board")
+			),
+		},
+
 		{
 			path: `${ROUTES.WORKBOARD.DEFAULT}`,
 			component: lazy(() => import("../main/features/workboard/index")),

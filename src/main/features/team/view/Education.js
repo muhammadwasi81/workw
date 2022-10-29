@@ -39,14 +39,16 @@ function Education() {
       key: "institute",
     },
     {
-      title: labels.City,
-      dataIndex: "city",
-      key: "city",
-    },
-    {
-      title: labels.Description,
-      dataIndex: "description",
-      key: "description",
+      title: labels.StartEndDate,
+      dataIndex: " startDate",
+      key: " startDate",
+      render: (value, row) => {
+        return value?.length
+          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
+              row.startDate[1]
+            ).format("YYYY/MM/DD")}`
+          : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
+      },
     },
     {
       title: labels.ObtainedMarks,
@@ -59,16 +61,14 @@ function Education() {
       key: "totalMarks",
     },
     {
-      title: labels.StartEndDate,
-      dataIndex: " startDate",
-      key: " startDate",
-      render: (value, row) => {
-        return value?.length
-          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
-              row.startDate[1]
-            ).format("YYYY/MM/DD")}`
-          : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
-      },
+      title: labels.Description,
+      dataIndex: "description",
+      key: "description",
+    },
+    {
+      title: labels.City,
+      dataIndex: "city",
+      key: "city",
     },
   ];
   return (

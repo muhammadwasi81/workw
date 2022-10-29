@@ -30,23 +30,23 @@ function Complains() {
       dataIndex: "referenceNo",
       key: "referenceNo",
     },
-
     {
-      title: labels.Status,
-      dataIndex: "status",
-      render: (status) => <StatusTag status={status} />,
-      key: "status",
+      title: labels.Date,
+      dataIndex: "createDate",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
+      key: "createDate",
     },
     {
       title: labels.Category,
       dataIndex: "category",
       key: "category",
     },
+
     {
-      title: labels.Date,
-      dataIndex: "createDate",
-      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
-      key: "createDate",
+      title: labels.Status,
+      dataIndex: "status",
+      render: (status) => <StatusTag status={status} />,
+      key: "status",
     },
   ];
   return (

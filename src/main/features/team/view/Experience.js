@@ -46,14 +46,6 @@ function Experience() {
       },
     },
     {
-      title: labels.City,
-      dataIndex: "cityId",
-      key: "cityId",
-      render: (value) => {
-        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
-      },
-    },
-    {
       title: labels.StartEndDate,
       dataIndex: "startDate",
       key: "startDate",
@@ -63,6 +55,14 @@ function Experience() {
               row.startDate[1]
             ).format("YYYY/MM/DD")}`
           : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
+      },
+    },
+    {
+      title: labels.City,
+      dataIndex: "cityId",
+      key: "cityId",
+      render: (value) => {
+        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
       },
     },
   ];

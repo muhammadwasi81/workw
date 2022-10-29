@@ -32,12 +32,11 @@ function Loan() {
       key: "referenceNo",
       sort: true,
     },
-
     {
-      title: labels.Status,
-      dataIndex: "status",
-      key: "status",
-      render: (status) => <StatusTag status={status} />,
+      title: labels.Date,
+      dataIndex: "date",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
+      key: "date",
       sort: true,
     },
     {
@@ -59,11 +58,12 @@ function Loan() {
       key: "deadline",
       sort: true,
     },
+
     {
-      title: labels.Date,
-      dataIndex: "date",
-      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
-      key: "date",
+      title: labels.Status,
+      dataIndex: "status",
+      key: "status",
+      render: (status) => <StatusTag status={status} />,
       sort: true,
     },
   ];

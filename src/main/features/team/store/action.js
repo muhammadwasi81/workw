@@ -39,7 +39,7 @@ export const getRewardsAction = createAsyncThunk(
   "teamSlice/getRewardsAction",
   async (id, { rejectWithValue, dispatch }) => {
     const response = await getAllRewardService(id);
-    console.log(id, "rewards SERVICE");
+    console.log(id, "rewards action");
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

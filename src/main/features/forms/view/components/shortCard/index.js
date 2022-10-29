@@ -46,12 +46,12 @@ function ListItem(props) {
           <Link to={ROUTES.FORMS.SUBMIT_FORM + "/dfdfdf"}>
             <Button className="ThemeBtn">Copy Link</Button>
           </Link>
-          {item.creator.id === user.id && (
+          {/* {item.creator.id === user.id && (
             // <Link to={ROUTES.FORMS.EDIT_FORM + `/?id=${id}`}>
             <Link to={ROUTES.FORMS.ROOT + ROUTES.FORMS.EDIT_FORM + `/${id}`}>
               <Button className="ThemeBtn">Edit</Button>
             </Link>
-          )}
+          )} */}
 
           <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
             <Button className="ThemeBtn">Attempt</Button>

@@ -7,6 +7,7 @@ const initialState = {
   success: false,
   loader: false,
   error: false,
+  createLoader: false,
   isCreateComposer: false,
   loanDetail: {},
   loanList: [],
@@ -17,6 +18,7 @@ const LoanSlice = createSlice({
   initialState,
   reducers: {
     toggleCreateComposer: (state, payload) => {
+      console.log("toggle works");
       state.isCreateComposer = !state.isCreateComposer;
     },
   },
@@ -31,38 +33,34 @@ const LoanSlice = createSlice({
       .addCase(GetLoanById.fulfilled, (state, { payload }) => {
         console.log("getLoanById payload", payload.data);
         state.loanDetail = payload.data;
-        state.loading = false;
+        state.loader = false;
       })
       .addCase(addLoan.fulfilled, (state, { payload }) => {
-        if (payload.data.data) {
-          state.loanList.unshift(payload.data.data);
-          state.isCreateComposer = true;
-        }
-        // state.success = true;
-        // console.log(payload);
-        // state.loanList = [...state.loanList, payload.data.data];
+        console.log("add loan slice ", payload.data);
+        state.loanList.unshift(payload.data);
+        state.createLoader = false;
+        state.success = true;
+        state.isCreateComposer = false;
+        // if (payload.data.length > 1) {
+        //   state.loanList.unshift(payload.data);
+        //   state.createLoader = false;
+        //   state.success = true;
+        //   state.isCreateComposer = false;
+        // }
       })
       .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
       })
-      // .addMatcher(isPending(...[GetLoanById]), (state) => {
-      //   state.loanDetail = {};
-      // })
-      // .addMatcher(isRejected(...[GetLoanById]), (state) => {
-      //   state.loanDetail = {};
-      // })
+
       .addMatcher(isPending(...[addLoan]), (state) => {
-        state.success = true;
+        state.createLoader = true;
       })
       .addMatcher(isRejected(...[addLoan]), (state) => {
         state.success = false;
+      })
+      .addMatcher(isPending(...[addLoan]), (state) => {
+        state.createLoader = true;
       });
-    //   .addMatcher(isPending(...[getAllLoans]), (state) => {
-    //     state.loader = true;
-    //   })
-    //   .addMatcher(isRejected(...[getAllLoans]), (state) => {
-    //     state.loader = true;
-    //   });
   },
 });
 

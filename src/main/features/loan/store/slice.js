@@ -18,7 +18,6 @@ const LoanSlice = createSlice({
   initialState,
   reducers: {
     toggleCreateComposer: (state, payload) => {
-      console.log("toggle works");
       state.isCreateComposer = !state.isCreateComposer;
     },
   },

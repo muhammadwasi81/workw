@@ -20,6 +20,7 @@ import { LoanFilterTypeEnum } from "./enum/index";
 import getStoredState from "redux-persist/es/getStoredState";
 import { getAllLoans } from "./store/actions";
 import { Drawer, Button } from "antd";
+import { ROUTES } from "../../../utils/routes";
 
 function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -37,6 +38,14 @@ function Index() {
 
   // const [detailViewIsVisible, setDetailViewIsVisible] = useState(true);
 
+  const items = [
+    {
+      name: "Loans",
+      to: `${ROUTES.LOAN.LOAN}`,
+      renderButton: [1],
+    },
+  ];
+
   useEffect(() => {
     dispatch(
       getAllLoans({
@@ -53,10 +62,11 @@ function Index() {
 
   const onSearch = (value) => setSearch(value);
   const onSegment = (value) => setViewType(value);
-  console.log("iscerate***", isCreateComposer);
+
   return (
     <TabbableContainer>
       <Header
+        items={items}
         buttons={[
           {
             buttonText: loanDictionaryList.createLoan,
@@ -64,7 +74,6 @@ function Index() {
               <Button
                 className="ThemeBtn"
                 onClick={() => {
-                  console.log("toggle works when clicked");
                   dispatch(toggleCreateComposer());
                 }}
               >

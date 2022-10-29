@@ -23,11 +23,12 @@ export const getAllTeamsService = async (request) => {
   }
 };
 export const getAllRewardService = async (id) => {
-  // console.log(request, "REQUEST");
+  console.log(id, "REQUEST");
   try {
     const {
       data: { responseCode, data, message },
     } = await Config.get(`api/Reward/GetRewardUserById?userId=${id}`);
+    console.log(responseCode, "response code");
 
     if (responseCode === responseCodeEnum.Success)
       return ResponseResultSuccess(data);

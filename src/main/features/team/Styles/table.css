@@ -27,11 +27,16 @@ thead tr th {
 }
 
 .custom_table .ant-table-tbody > tr > td {
-  padding: 5px 15px !important;
+  padding: 5px 16px !important;
   height: 47px;
   font-size: 12px;
 }
-
+.custom_table .longDsc {
+  max-width: 122px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .custom_table .ant-table-thead > tr > th {
   padding: 5px 15px !important;
   height: 37px;
@@ -50,7 +55,7 @@ thead tr th {
 .custom_table.rtl .ant-table-thead,
 .custom_table.rtl .ant-table-tbody {
   direction: rtl !important;
-  text-align: right !important;
+  text-align: center !important;
 }
 
 .custom_table.ltr .ant-table-tbody,

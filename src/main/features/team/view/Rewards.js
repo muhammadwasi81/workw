@@ -33,17 +33,11 @@ function Rewards() {
       dataIndex: "referenceNo",
       key: "referenceNo",
     },
-
     {
-      title: labels.Status,
-      dataIndex: "status",
-      render: (status) => <StatusTag status={status} />,
-      key: "status",
-    },
-    {
-      title: labels.Category,
-      dataIndex: "category",
-      key: "category",
+      title: labels.Date,
+      dataIndex: "date",
+      key: "date",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
     },
     {
       title: labels.Name,
@@ -51,10 +45,15 @@ function Rewards() {
       key: "name",
     },
     {
-      title: labels.Date,
-      dataIndex: "date",
-      key: "date",
-      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
+      title: labels.Category,
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: labels.Status,
+      dataIndex: "status",
+      render: (status) => <StatusTag status={status} />,
+      key: "status",
     },
   ];
   return (

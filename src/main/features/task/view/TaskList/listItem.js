@@ -79,7 +79,6 @@ function TaskListItem({
         <div className="right">
           <div className="rating">
             <Rate
-              allowHalf
               defaultValue={ratingAssign}
               disabled={isRatingDisable || progress !== 100}
               onChange={(value) => setRating(value)}

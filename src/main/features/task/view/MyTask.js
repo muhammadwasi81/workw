@@ -13,7 +13,6 @@ function MyTask({ referenceId, referenceType }) {
 	const [visible, setVisible] = useState(false);
 	const [id, setId] = useState("");
 	const handleCard = id => {
-		console.log("handleCard", "handleCard");
 		setId(id);
 		setVisible(true);
 	};

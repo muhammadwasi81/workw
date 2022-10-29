@@ -7,32 +7,38 @@ import UsersIconYellow from '../../../../../../../content/svg/companies/usersYel
 import employeeIcon from "../../../../../../../content/svg/menu/newNavBarIcon/Employees.svg";
 import WhiteCard from '../../../../UI/WhiteCard';
 
-const UsersBoard = ({item}) => {
-    let { total, nonLogin, nonActive, disable, active } = item;
+const UsersBoard = ({ item }) => {
+    let {
+        total = 150,
+        nonLogin = 50,
+        nonActive = 70,
+        disable = 20,
+        active = 40
+    } = item;
     return (
         <div className="c-dash-item" style={{ flex: 1 }}>
             <WhiteCard className='myPaper' style={{ padding: "20px 10px", margin: "10px", textAlign: "center" }}>
                 <div className='userItem' >
                     <div className='totalUsers'>
                         <img src={employeeIcon} className="userIcon" />
-                        <div>{total} Total Users</div>
+                        <div className='dash-text'>{total} Total Users</div>
                     </div>
                     <div className='otherUsers'>
                         <div className='otherUser userGreen'>
                             <img src={UsersIconGreen} className="userIcon" />
-                            <div>{active} Active</div>
+                            <div className='dash-text'>{active} Active</div>
                         </div>
                         <div className='otherUser userGrey'>
                             <img src={UsersIconGrey} className="userIcon" />
-                            <div>{disable} Disabled</div>
+                            <div className='dash-text'>{disable} Disabled</div>
                         </div>
                         <div className='otherUser userYellow'>
                             <img src={UsersIconYellow} className="userIcon" />
-                            <div>{nonLogin} Non-Login</div>
+                            <div className='dash-text'>{nonLogin} Non-Login</div>
                         </div>
                         <div className='otherUser userRed'>
                             <img src={UsersIconRed} className="userIcon" />
-                            <div>{nonActive} Deleted</div>
+                            <div className='dash-text'>{nonActive} Deleted</div>
                         </div>
                     </div>
                 </div>

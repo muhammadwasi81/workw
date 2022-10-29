@@ -33,6 +33,7 @@ function Task({
 		filterType: 2,
 		pageNo: 1,
 		pageSize: 20,
+		search: ""
 	};
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { appHeader, sharedLabels, navMenuLabel } = dictionaryList[
@@ -41,6 +42,7 @@ function Task({
 	const { taskDictionaryList } = taskDictionary[userLanguage];
 	const [filterType, setFilterType] = useState(2);
 	const [tableView, setTableView] = useState(false);
+	const [search, setSearch] = useState("");
 	const dispatch = useDispatch();
 	const {
 		taskList: { list },
@@ -53,9 +55,10 @@ function Task({
 				filterType,
 				referenceId,
 				referenceType,
+				search
 			})
 		);
-	}, [filterType]);
+	}, [filterType, search]);
 
 	const items = [
 		{
@@ -96,7 +99,7 @@ function Task({
 			<TopBar
 				width={width}
 				onSearch={value => {
-					console.log(value);
+					setSearch(value);
 				}}
 				// filter={{
 				//   onFilter: () => {},

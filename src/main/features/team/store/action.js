@@ -129,7 +129,7 @@ export const getAllLeaveAction = createAsyncThunk(
   "teamSlice/getAllLeaveAction",
   async (id, { rejectWithValue, dispatch }) => {
     const response = await getAllLeaveService(id);
-    console.log(id, "Leaves SERVICE");
+    console.log(id, "Leaves Service");
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

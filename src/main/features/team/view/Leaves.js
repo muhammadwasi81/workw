@@ -30,18 +30,21 @@ function Leaves() {
       title: labels.leaveTypeName,
       dataIndex: "leaveTypeName",
       key: "leaveTypeName",
+      className: "leaveType",
     },
 
     {
       title: labels.startDate,
       dataIndex: "startDate",
       key: "startDate",
+      className: "dateTime",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
     },
     {
       title: labels.endDate,
       dataIndex: "endDate",
       key: "endDate",
+      className: "dateTime",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
     },
     {

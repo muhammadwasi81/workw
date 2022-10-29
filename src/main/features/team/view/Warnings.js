@@ -30,18 +30,21 @@ function Warnings() {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
+      className: "referenceNo",
     },
     {
       title: labels.Date,
       dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "createDate",
+      className: "dateTime",
     },
 
     {
       title: labels.Category,
       dataIndex: "category",
       key: "category",
+      className: "category",
     },
 
     {

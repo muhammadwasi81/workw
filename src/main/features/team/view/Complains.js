@@ -29,10 +29,12 @@ function Complains() {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
+      className: "referenceNo",
     },
     {
       title: labels.Date,
       dataIndex: "createDate",
+      className: "dateTime",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "createDate",
     },
@@ -40,6 +42,7 @@ function Complains() {
       title: labels.Category,
       dataIndex: "category",
       key: "category",
+      className: "category",
     },
 
     {

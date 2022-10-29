@@ -30,6 +30,7 @@ function Loan() {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
+      className: "referenceNo",
       sort: true,
     },
     {
@@ -37,18 +38,21 @@ function Loan() {
       dataIndex: "date",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "date",
+      className: "dateTime",
       sort: true,
     },
     {
       title: labels.Amount,
       dataIndex: "amount",
       key: "amount",
+      className: "totalAmount",
       sort: true,
     },
     {
       title: labels.DeductionPerMonth,
       dataIndex: "deductionPerMonth",
       key: "deductionPerMonth",
+      className: "deduction",
       sort: true,
     },
     {
@@ -56,6 +60,7 @@ function Loan() {
       dataIndex: "deadline",
       render: (deadline) => moment(deadline).format("DD MMM YYYY"),
       key: "deadline",
+      className: "dateTime",
       sort: true,
     },
 

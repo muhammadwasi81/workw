@@ -12,7 +12,9 @@ export const getAllTeamsService = async (request) => {
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.get(`api/Employee/GetAllEmployeeShort`, request);
+    } = await Config.get(
+      `api/Employee/GetAllEmployeeShort?search=${request.search}`
+    );
     // console.log(responseCode, "REQUEST TEAM RESPONSE");
 
     if (responseCode === responseCodeEnum.Success)

@@ -203,6 +203,12 @@ export const routes = {
       path: `${ROUTES.HR.BONUS.DEFAULT}`,
       component: lazy(() => import("../main/features/bonus/view/Bonus")),
     },
+    {
+      path: `${ROUTES.HR.APPRAISALS.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/appraisalModule/view/appraisal")
+      ),
+    },
 
     {
       path: `${ROUTES.PROMOTION}`,

@@ -166,10 +166,7 @@ const NewStickyNote = ({ item }) => {
         defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
       >
-        <div
-          className="stickyNote_container"
-          // style={{ display: !openColor ? "initial" : "none" }}
-        >
+        <div className="stickyNote_container">
           <div
             className="stickyNote_header handle"
             style={{ backgroundColor: item.colorCode }}

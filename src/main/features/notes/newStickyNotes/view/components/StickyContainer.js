@@ -10,6 +10,8 @@ import {
 import "antd/dist/antd.css";
 import CustomCard from "./CustomCard";
 import "../../style.css";
+import Nodata from "../../../../../../content/NewContent/eLearning/no_data.svg";
+
 // *******import redux*******
 import { useSelector, useDispatch } from "react-redux";
 import { closeSticky, showStickyNote } from "../../store/stickySlice";
@@ -39,13 +41,18 @@ const StickyContainer = () => {
     dispatch(getAllStickyNotesAction({}));
   }, []);
 
-  useEffect(() => {
-    if (searchDebounce) searchHandler(searchDebounce);
-  }, [searchDebounce]);
+  // useEffect(() => {
+  //   if (searchDebounce) searchHandler(searchDebounce);
+  // }, [searchDebounce]);
 
   // ********search handler***********
-  const searchHandler = (value) => {
-    dispatch(getAllStickyNotesAction({ search: value }));
+  const searchHandler = (e) => {
+    let value = e.target.value;
+    if (search == "") {
+      return notesList;
+    } else {
+      dispatch(getAllStickyNotesAction({ search: value }));
+    }
   };
 
   //*****add sticky notes in sticky container*****
@@ -80,7 +87,7 @@ const StickyContainer = () => {
         handle=".handle"
       >
         <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>
-          <div className="sticky-header">
+          <div className="sticky-header handle">
             <div className="left_Icon">
               <PlusOutlined onClick={addStickyHandler} />
             </div>
@@ -88,7 +95,7 @@ const StickyContainer = () => {
             <p className="heading">Sticky Notes</p>
             <div className="right_Icons">
               <MinusOutlined onClick={minimizeHandler} />
-              <CloseOutlined onClick={closeHandler} className="margin_Icon" />
+              <CloseOutlined onClick={closeHandler} className="close_Icon" />
             </div>
           </div>
 
@@ -97,7 +104,7 @@ const StickyContainer = () => {
             <Input
               placeholder="Search"
               // style={{ width: "300px" }}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={searchHandler}
               prefix={<SearchOutlined />}
             />
           </div>
@@ -107,8 +114,8 @@ const StickyContainer = () => {
                 <CustomCard item={item} onDoubleClick={openClickedNote} />
               ))
             ) : (
-              <div>
-                <h2>No Notes Found!</h2>
+              <div className="flex items-center justify-center  ">
+                <img src={Nodata} width={200} />
               </div>
             )}
           </div>

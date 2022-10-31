@@ -23,7 +23,7 @@ function Loan() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAllLoanAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
+    dispatch(getAllLoanAction(id));
   }, []);
   const columns = [
     {

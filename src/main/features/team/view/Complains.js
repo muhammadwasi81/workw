@@ -22,7 +22,7 @@ function Complains() {
   } = useSelector((state) => state.teamSlice);
 
   useEffect(() => {
-    dispatch(getAllComplainAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
+    dispatch(getAllComplainAction(id));
   }, []);
   const columns = [
     {

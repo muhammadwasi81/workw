@@ -23,7 +23,7 @@ function Warnings() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAllWarningAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
+    dispatch(getAllWarningAction(id));
   }, []);
   const columns = [
     {

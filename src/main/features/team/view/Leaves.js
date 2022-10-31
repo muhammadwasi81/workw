@@ -20,10 +20,9 @@ function Leaves() {
     success,
   } = useSelector((state) => state.teamSlice);
   const { id } = useParams();
-  console.log(id, "iddd");
 
   useEffect(() => {
-    dispatch(getAllLeaveAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
+    dispatch(getAllLeaveAction(id));
   }, []);
   const columns = [
     {

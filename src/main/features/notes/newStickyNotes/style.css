@@ -34,6 +34,9 @@
   margin-top: 10px;
   font-size: 15px;
 }
+.close_Icon {
+  margin: 2px;
+}
 
 /* *********styling of card in container********** */
 .right_Icons {
@@ -48,6 +51,7 @@
 
 .margin_Icon {
   margin: 2px;
+  color: black;
 }
 
 .time_delete {
@@ -165,9 +169,9 @@ input:focus {
   height: max-content !important;
 }
 
-div[contenteditable="true"] {
+/* div[contenteditable="true"] {
   height: 200px !important;
-}
+} */
 
 .ql-container.ql-snow {
   border: none !important;

@@ -46,6 +46,17 @@ class SingleUpload extends React.Component {
         })
       );
     }
+    if (prevProps.url !== this.props.url && this.props.url.length > 0) {
+      this.setState(
+        produce((state) => {
+          state.fileList = [{ url: this.props.url }];
+        })
+      );
+    }
+    console.log(this.props.localFileList, "this.props.localFileList");
+    if (this.props.localFileList && prevProps.localFileList.length !== this.props.localFileList.length && this.props.localFileList.length === 0) {
+      this.setState({fileList:[]})
+    }
   }
 
   componentWillUnmount() {
@@ -108,7 +119,7 @@ class SingleUpload extends React.Component {
           <div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
         </div>
       );
-    // console.log(this.props.multiple);
+    console.log(this.state.fileList, "this.state.fileList");
     return (
       <>
         <Upload
@@ -127,8 +138,8 @@ class SingleUpload extends React.Component {
           {this.props.multiple
             ? uploadButton
             : fileList.length === 1
-            ? null
-            : uploadButton}
+              ? null
+              : uploadButton}
         </Upload>
         <Modal
           visible={previewVisible}
@@ -150,11 +161,13 @@ SingleUpload.propTypes = {
   uploadText: PropTypes.string,
   position: PropTypes.string,
   url: PropTypes.string,
+  localFileList: PropTypes.array,
 };
 SingleUpload.defaultProps = {
   multiple: false,
-  handleImageUpload: () => {},
+  handleImageUpload: () => { },
   uploadText: "Upload",
   position: "justify-end",
   url: "",
+  localFileList: null
 };

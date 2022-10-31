@@ -82,6 +82,8 @@ const turkish = {
     messenger: "haberci",
     chartOfAccount: "Hesap Planı",
     voucher: "Fiş",
+    Quotation: "Alıntı yapmak",
+    QuotationClient: "Teklif İstemcisi",
     transaction: "İşlem",
     report: "Rapor",
     mailBox: "Posta Kutusu",

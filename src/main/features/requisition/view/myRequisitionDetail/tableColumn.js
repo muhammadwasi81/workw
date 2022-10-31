@@ -1,51 +1,48 @@
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-import { requisitionDictionaryList } from "../../localization/index";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { useContext } from "react";
+import StatusTag from '../../../../sharedComponents/Tag/StatusTag';
+import { requisitionDictionaryList } from '../../localization/index';
 
-export const tableColumn = () => {
-  const { userLanguage } = useContext(LanguageChangeContext);
-	const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
+export const tableColumn = (userLanguage) => {
+  const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
   return [
     {
       title: requisitionDictionary.name,
-      dataIndex: "name",
+      dataIndex: 'name',
       ellipsis: true,
       sort: true,
     },
     {
       title: requisitionDictionary.PhoneNumber,
-      dataIndex: "phoneNumber",
+      dataIndex: 'phoneNumber',
       ellipsis: true,
       sort: true,
     },
     {
       title: requisitionDictionary.Email,
-      dataIndex: "email",
+      dataIndex: 'email',
       ellipsis: true,
       sort: true,
     },
     {
       title: requisitionDictionary.Offer,
-      dataIndex: "offer",
+      dataIndex: 'offer',
       ellipsis: true,
       sort: true,
     },
     {
       title: requisitionDictionary.BusinessName,
-      dataIndex: "businessName",
+      dataIndex: 'businessName',
       ellipsis: true,
       sort: true,
     },
     {
-        title: requisitionDictionary.BusinessAddress,
-        dataIndex: "businessAddress",
-        ellipsis: true,
-        sort: true,
-      },
+      title: requisitionDictionary.BusinessAddress,
+      dataIndex: 'businessAddress',
+      ellipsis: true,
+      sort: true,
+    },
     {
       title: requisitionDictionary.Status,
-      dataIndex: "status",
+      dataIndex: 'status',
       ellipsis: true,
       render: (status) => <StatusTag status={status} />,
     },

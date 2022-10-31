@@ -159,7 +159,14 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
-
+    {
+      name: label.navMenuLabel.appraisals,
+      counter: 0,
+      icon: appraisalsIcon,
+      to: ROUTES.HR.APPRAISALS.DEFAULT,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
     {
       name: label.navMenuLabel.projects,
       counter: 0,
@@ -299,9 +306,17 @@ const NavMenuList = () => {
       key: label.navMenuLabel.finance,
     },
     {
-      name: label.navMenuLabel.Quatation,
+      name: label.navMenuLabel.Quotation,
       counter: 0,
-      to: ROUTES.QOUTATION.ROOT,
+      to: ROUTES.QUOTATION.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.finance,
+    },
+    {
+      name: label.navMenuLabel.QuotationClient,
+      counter: 0,
+      to: ROUTES.QUOTATIONCLIENT.ROOT,
       icon: coaIcon,
       isActive: true,
       key: label.navMenuLabel.finance,

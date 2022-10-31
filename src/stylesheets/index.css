@@ -1430,6 +1430,7 @@ a.item-card:hover {
   display: flex;
   align-items: center;
   margin-bottom: 12px;
+  word-break: break-all;
 }
 
 .item-card .row:nth-last-child(1) {

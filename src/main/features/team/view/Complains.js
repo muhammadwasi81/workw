@@ -7,6 +7,7 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
+import { useParams } from "react-router-dom";
 
 function Complains() {
   const dispatch = useDispatch();
@@ -14,20 +15,34 @@ function Complains() {
   const { sharedLabels } = dictionaryList[userLanguage];
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.ComplainsTable;
-
+  const { id } = useParams();
   const {
     team: { complaindetails },
     success,
   } = useSelector((state) => state.teamSlice);
 
   useEffect(() => {
-    dispatch(getAllComplainAction({}));
+    dispatch(getAllComplainAction(id));
   }, []);
   const columns = [
     {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
+      className: "referenceNo",
+    },
+    {
+      title: labels.Date,
+      dataIndex: "createDate",
+      className: "dateTime",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
+      key: "createDate",
+    },
+    {
+      title: labels.Category,
+      dataIndex: "category",
+      key: "category",
+      className: "category",
     },
 
     {
@@ -35,17 +50,6 @@ function Complains() {
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       key: "status",
-    },
-    {
-      title: labels.Category,
-      dataIndex: "category",
-      key: "category",
-    },
-    {
-      title: labels.Date,
-      dataIndex: "date",
-      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
-      key: "date",
     },
   ];
   return (

@@ -23,25 +23,28 @@ function Warnings() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAllWarningAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
+    dispatch(getAllWarningAction(id));
   }, []);
   const columns = [
     {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
+      className: "referenceNo",
     },
     {
       title: labels.Date,
       dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "createDate",
+      className: "dateTime",
     },
 
     {
       title: labels.Category,
       dataIndex: "category",
       key: "category",
+      className: "category",
     },
 
     {

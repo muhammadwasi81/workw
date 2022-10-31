@@ -37,6 +37,42 @@ thead tr th {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.custom_table .dateTime {
+  width: 120px;
+}
+.custom_table .status {
+  width: 110px;
+}
+.custom_table .moodCls {
+  width: 150px;
+}
+.custom_table .leaveType {
+  width: 150px;
+}
+.custom_table .referenceNo {
+  width: 150px;
+}
+.custom_table .category {
+  width: 190px;
+}
+.custom_table .experience {
+  width: 190px;
+}
+.custom_table .totalAmount {
+  width: 150px;
+}
+.custom_table .deduction {
+  width: 170px;
+}
+.custom_table .designationStyle {
+  width: 170px;
+}
+.custom_table .name {
+  max-width: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .custom_table .ant-table-thead > tr > th {
   padding: 5px 15px !important;
   height: 37px;

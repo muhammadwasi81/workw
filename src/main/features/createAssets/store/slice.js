@@ -2,15 +2,16 @@ import { createSlice, isPending } from '@reduxjs/toolkit';
 import {
   getAllAssetItems,
   addAssetItem,
-  getAllAssetItemByUserId,
   getAssetItemDetailById,
   getAllAssetItemByPagination,
   updateAssetItems,
+  getAssetItemByUserId,
 } from './action';
 
 const initialState = {
   assetItemList: [],
   assetItemByUserId: [],
+  assetItemByUserIdv2: {},
   loader: false,
   success: false,
   error: false,
@@ -39,13 +40,13 @@ export const AssetItemSlice = createSlice({
         console.log(payload, 'addAssetItemSlice');
       })
       .addCase(getAssetItemDetailById.fulfilled, (state, { payload }) => {
-        state.assetItemByUserId = payload;
+        state.assetItemByUserId = payload.data;
         state.loader = false;
         state.success = true;
-        console.log(payload, 'getAssetItemDetailByIdSlice');
+        console.log(payload.data, 'getAssetItemDetailByIdSlice');
       })
-      .addCase(getAllAssetItemByUserId.fulfilled, (state, { payload }) => {
-        state.assetItemByUserId = payload;
+      .addCase(getAssetItemByUserId.fulfilled, (state, { payload }) => {
+        state.assetItemByUserIdv2 = payload;
         state.loader = false;
         state.success = true;
         console.log(payload, 'getAllAssetItemByUserId');
@@ -68,7 +69,7 @@ export const AssetItemSlice = createSlice({
             getAllAssetItems,
             addAssetItem,
             getAssetItemDetailById,
-            getAllAssetItemByUserId,
+            getAssetItemByUserId,
             getAllAssetItemByPagination,
             updateAssetItems,
           ]

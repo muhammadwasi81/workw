@@ -8,6 +8,7 @@ import { getAllAssetCategories } from '../../../assetsCategory/store/actions';
 import SingleUpload from '../../../../sharedComponents/Upload/singleUpload';
 import { warningDictionaryList } from '../../../allowance/warning/localization';
 import { UploadOutlined } from '@ant-design/icons';
+import '../styles.css';
 
 const CreateAssetsItem = ({
   index,
@@ -101,9 +102,8 @@ const CreateAssetsItem = ({
           ))}
         </Select>
       </td>
-      <td>
+      <td className="uploadWrapper">
         <SingleUpload
-          style={{ width: '100px', maxHeight: '31px', marginTop: '5px' }}
           handleImageUpload={handleImageUpload}
           img="Add Image"
           uploadButton={<UploadOutlined />}

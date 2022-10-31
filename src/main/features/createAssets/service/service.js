@@ -48,10 +48,11 @@ export const getAssetItemDetailByIdService = async (id) => {
 // TODO: GET SINGLE ITEM FOR SINGLE USER
 export const getAllAssetItemByUserIdService = async (id) => {
   try {
+    console.log(id, 'id in service');
     const response = await Config.get(
       `/api/InventoryItem/GetAllItemByUserId?id=${id}`
     );
-    console.log(response, 'single person data');
+    console.log(response.data, id, 'single person data service');
     return ResponseResultSuccess(response.data);
   } catch (error) {
     return ResponseResultError(error);

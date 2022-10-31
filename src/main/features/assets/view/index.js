@@ -19,7 +19,6 @@ import AssetDeAllocationComposer from './composer/deAllocationComposer';
 const Index = () => {
   const dispatch = useDispatch();
   const { assetItemList } = useSelector((state) => state.AssetItemSlice);
-  console.log(assetItemList, 'assetItemList');
 
   const { inventoryAssets, success } = useSelector(
     (state) => state.inventoryAssetSlice

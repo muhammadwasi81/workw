@@ -8,7 +8,7 @@ import { customApprovalDictionaryList } from '../../../CustomApprovals/localizat
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { modifySelectData } from '../../../../../utils/base';
 import {
-  getAllAssetItemByUserId,
+  getAssetItemByUserId,
   updateAssetItems,
 } from '../../../createAssets/store/action';
 
@@ -20,18 +20,14 @@ const initialState = {
   assetItems: [
     {
       id: '',
-      assetId: '',
-      itemId: '',
-      name: '',
+      status: '',
     },
   ],
 };
 
 const AssetDeAllocationComposer = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
-    userLanguage
-  ];
+  const { Direction } = customApprovalDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -40,15 +36,30 @@ const AssetDeAllocationComposer = () => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
+  const assetItemByUserIdv2 = useSelector((state) => state.AssetItemSlice);
+  console.log(assetItemByUserIdv2, 'assetItemByUserIdv2');
+  // const [itemsDeteils, setItemsDeteils] = useState([assetItemByUserIdv2]);
+
   const employees = useSelector((state) => state.sharedSlice.employees);
-  const { inventoryAssets } = useSelector((state) => state.inventoryAssetSlice);
-  const { assetItemList } = useSelector((state) => state.AssetItemSlice);
-  console.log(assetItemList, 'assetItemList');
 
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
+    handleData(data);
+    // handleAssetItem(obj);
   };
+
+  //  using getAssetItemByUserId function from slice.js get data
+  const handleData = (id) => {
+    console.log(id, 'id');
+    dispatch(getAssetItemByUserId('3fa85f64-5717-4562-b3fc-2c963f66afa6'));
+  };
+
+  // useEffect(() => {
+  //   Object.keys(assetItemByUserIdv2).length > 0 &&
+  //     setItemsDeteils([...itemsDeteils, assetItemByUserIdv2]);
+  // }, [assetItemByUserIdv2]);
+
   useEffect(() => {
     fetchEmployees('', 0);
   }, []);
@@ -60,10 +71,21 @@ const AssetDeAllocationComposer = () => {
     });
   };
 
-  const fetchEmployees = (text, pgNo, id) => {
-    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
-    // call getAllAssetItemByUserId here and pass id as a parameter
-    dispatch(getAllAssetItemByUserId(id));
+  const handleAssetItem = (val) => {
+    setNewState({
+      ...newState,
+      assetItems: [...val],
+    });
+  };
+
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(
+      getAllEmployees({
+        text,
+        pgNo,
+        pgSize: 20,
+      })
+    );
   };
 
   const [newState, setNewState] = useState({
@@ -90,10 +112,11 @@ const AssetDeAllocationComposer = () => {
     //     };
     //   });
     // }
+
     let payload = {};
     console.log('de-payload', payload);
     // TODO: Later on we have to patch different APIs
-    dispatch(updateAssetItems(payload));
+    // dispatch(updateAssetItems(payload));
     setState(initialState);
     form.resetFields();
   };
@@ -128,7 +151,9 @@ const AssetDeAllocationComposer = () => {
         >
           <CustomSelect
             mode={'multiple'}
-            style={{ marginBottom: '0px' }}
+            style={{
+              marginBottom: '0px',
+            }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -172,7 +197,7 @@ const AssetDeAllocationComposer = () => {
               <td>Select Status</td>
             </th>
           </thead>
-          <tbody>
+          {/* <tbody>
             {inventoryAssets.map((item, index) => {
               return (
                 <tr key={index}>
@@ -182,7 +207,7 @@ const AssetDeAllocationComposer = () => {
                 </tr>
               );
             })}
-          </tbody>
+          </tbody> */}
         </table>
 
         <Form.Item>

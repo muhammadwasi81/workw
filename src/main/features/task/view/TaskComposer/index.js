@@ -243,9 +243,8 @@ function TaskComposer({
 					rules={[
 						{
 							required: true,
-							message: `Please select ${
-								type === "2" ? "Projects" : "Groups"
-							}!`,
+							message: `Please select ${type === "2" ? "Projects" : "Groups"
+								}!`,
 						},
 					]}
 				>
@@ -404,6 +403,7 @@ function TaskComposer({
 				<RangePicker
 					getPopupContainer={trigger => trigger.parentNode}
 					placeholder={[placeHolder.startDate, placeHolder.endtDate]}
+					disabledDate={(current) => current && current.valueOf() < Date.now()}
 				/>
 			</Form.Item>
 			<Form.Item

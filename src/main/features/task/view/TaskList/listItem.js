@@ -11,11 +11,12 @@ import { taskDictionary } from "../../localization";
 import { getPriorityLabel } from "../../utils/enum/enum";
 import TaskMembers from "../TaskDetail/taskMembers";
 import { postUserTaskRating } from "../../utils/services/service";
+import Attachments from "../../../travel/view/UI/Attachments";
 
 function TaskListItem({
   item,
   isTaskMember = false,
-  onTask = () => {},
+  onTask = () => { },
   isRatingDisable = true,
   changeOnProgress,
   progress,
@@ -38,6 +39,7 @@ function TaskListItem({
     progress: progressed,
     members = [],
     creator,
+    attachments
   } = item;
 
   let classes = "card-list-item ";
@@ -70,7 +72,7 @@ function TaskListItem({
                 designation={
                   creator?.designation ? creator?.designation : "Not Designated"
                 }
-                // time="2 days ago"
+              // time="2 days ago"
               />
             }
           />
@@ -99,15 +101,25 @@ function TaskListItem({
             <div className="left">
               <div className="card-Title-1">{subject}</div>
               <p className="card-desc-1">{description}</p>
+
             </div>
 
-            <div className="right">
+            <div className="right !min-w-max">
               {isTaskMember && (
                 <TaskMembers
                   members={members}
                   changeOnProgress={changeOnProgress}
                 />
               )}
+              <div className="!w-max m-4 ml-auto">
+                <Attachments
+                  data={attachments}
+                  key={{ data: attachments }}
+                  toShow={3}
+                  onClick={() => { }}
+                  size={"50px"}
+                />
+              </div>
             </div>
           </div>
           <div>
@@ -129,10 +141,10 @@ function TaskListItem({
                 {moment(endDate).format("ddd,MMM DD,YYYY")}
               </div>
             </div>
-            <div className="cardSectionItem">
+            {/* <div className="cardSectionItem">
               <div className="cardSection__title">{labels.predecessor}</div>
               <div className="cardSection__body">Predecessor</div>
-            </div>
+            </div> */}
             <div className="cardSectionItem">
               <div className="cardSection__title">{labels.assignTo}</div>
               <div className="cardSection__body">

@@ -32,7 +32,7 @@ function Task({
 	let defaultFilter = {
 		filterType: 2,
 		pageNo: 1,
-		pageSize: 20,
+		pageSize: 40,
 		search: ""
 	};
 	const { userLanguage } = useContext(LanguageChangeContext);

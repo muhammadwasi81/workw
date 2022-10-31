@@ -126,8 +126,7 @@ function Scheduler({ feed = false }) {
 							: {
 									left: "timeGridDay prev next today",
 									center: "title,myCustomButton",
-									right:
-										"timeGridWeek dayGridMonth basicWeek basicDay",
+									right: "timeGridWeek dayGridMonth",
 							  }
 					}
 					eventClick={info => {
@@ -145,7 +144,7 @@ function Scheduler({ feed = false }) {
 					// eventMaxStack={3}
 					selectable={true}
 					dayHeaders={true}
-					allDaySlot={true}
+					allDaySlot={false}
 					// allDaySlot={true}
 					// allDay={true}
 					dayMaxEventRows={true}
@@ -160,35 +159,35 @@ function Scheduler({ feed = false }) {
 					slotDuration={"00:15:00"}
 					slotLabelFormat={{ hour: "numeric", minute: "numeric" }}
 					views={{
-						allDay: true,
-						allDaySlot: true,
+						// allDay: true,
+						// allDaySlot: true,
 						month: {
-							allDay: true,
-							allDaySlot: true,
+							// allDay: true,
+							// allDaySlot: true,
 							type: "dayGridMonth",
 							buttonText: "Month",
 							dayMaxEventRows: 2,
 						},
 						week: {
-							allDay: true,
-							allDaySlot: true,
+							// allDay: true,
+							// allDaySlot: true,
 							type: "dayGridWeek",
 							duration: { days: 7 },
 							buttonText: "Week",
 							eventMaxStack: 2,
 						},
 						day: {
-							allDay: true,
-							allDaySlot: true,
+							// allDay: true,
+							// allDaySlot: true,
 							type: "timeGrid",
 							duration: { days: 1 },
 							buttonText: "Day",
 							eventMaxStack: 3,
 						},
-						schedules: {
-							allDaySlot: true,
-							allDay: true,
-						},
+						// schedules: {
+						// 	allDaySlot: true,
+						// 	allDay: true,
+						// },
 
 						// listMonth: {
 						// 	buttonText: "List",

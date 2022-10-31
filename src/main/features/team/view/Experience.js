@@ -35,11 +35,13 @@ function Experience() {
       title: labels.Position,
       dataIndex: "position",
       key: "position",
+      className: "experience",
     },
 
     {
       title: labels.EmploymentType,
       dataIndex: "employmentTypeId",
+      className: "experience",
       key: "employmentTypeId",
       render: (value) => {
         return employmentType[value - 1]?.name;
@@ -49,6 +51,7 @@ function Experience() {
       title: labels.StartEndDate,
       dataIndex: "startDate",
       key: "startDate",
+      className: "experience",
       render: (value, row) => {
         return value?.length
           ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(

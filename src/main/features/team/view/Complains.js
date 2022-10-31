@@ -22,17 +22,19 @@ function Complains() {
   } = useSelector((state) => state.teamSlice);
 
   useEffect(() => {
-    dispatch(getAllComplainAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
+    dispatch(getAllComplainAction(id));
   }, []);
   const columns = [
     {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
+      className: "referenceNo",
     },
     {
       title: labels.Date,
       dataIndex: "createDate",
+      className: "dateTime",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "createDate",
     },
@@ -40,6 +42,7 @@ function Complains() {
       title: labels.Category,
       dataIndex: "category",
       key: "category",
+      className: "category",
     },
 
     {

@@ -15,7 +15,7 @@ import {
 export const getTeamsAction = createAsyncThunk(
   "teamSlice/getTeamsAction",
   async (payload, { rejectWithValue, dispatch }) => {
-    const response = await getAllTeamsService();
+    const response = await getAllTeamsService(payload);
     // console.log(response, "TEAM SERVICE");
     switch (response.type) {
       case ResponseType.ERROR:

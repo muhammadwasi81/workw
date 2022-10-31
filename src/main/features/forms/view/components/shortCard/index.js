@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import ProImage from "../../../../../../content/NewContent/careers/proImage.svg";
@@ -9,7 +9,7 @@ import {
   SingleItem,
 } from "../../../../../sharedComponents/Card/CardStyle";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import "./style.css";
 import { ROUTES } from "../../../../../../utils/routes";
 import { useSelector } from "react-redux";
@@ -17,8 +17,15 @@ import { useSelector } from "react-redux";
 function ListItem(props) {
   const { user } = useSelector((state) => state.userSlice);
   const { item, id, onListItem = () => {} } = props;
+  const [copy, setCopy] = useState(false);
+
+  const copyfunc = () => {
+    setCopy(true);
+  };
+
   return (
     <>
+      {copy && message.success("Copied")}
       <SingleItem
         className="Card3 formShortCard"
         onClick={() => {
@@ -43,9 +50,28 @@ function ListItem(props) {
           <h3>{item.referenceNo}</h3>
         </ItemContent>
         <div className="ItemFooter">
-          <Link to={ROUTES.FORMS.SUBMIT_FORM + "/dfdfdf"}>
+          <Button
+            className="ThemeBtn"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setCopy(false);
+              {
+                navigator.clipboard.writeText(
+                  `${window.location.origin}${ROUTES.FORMS.SUBMIT_FORM}` +
+                    `/?id=${id}`
+                );
+              }
+              console.log("clicked");
+              setCopy(true);
+            }}
+          >
+            Copy Link
+          </Button>
+
+          {/* <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
             <Button className="ThemeBtn">Copy Link</Button>
-          </Link>
+          </Link> */}
           {/* {item.creator.id === user.id && (
             // <Link to={ROUTES.FORMS.EDIT_FORM + `/?id=${id}`}>
             <Link to={ROUTES.FORMS.ROOT + ROUTES.FORMS.EDIT_FORM + `/${id}`}>

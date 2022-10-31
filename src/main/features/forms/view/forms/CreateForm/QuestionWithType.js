@@ -110,17 +110,19 @@ const QuestionWithType = (props) => {
           </div>
           <Form.Item
             name="answerType"
-            rules={[
-              {
-                required: true,
-                message: "Please Select your Answer type!",
-              },
-            ]}
+            initialValue={3}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please Select your Answer type!",
+            //   },
+            // ]}
           >
             <Select
               placeholder="Select Answer Type"
               onChange={onQuestionTypeChange}
               allowClear
+              defaultValue={3}
             >
               <Option value={3}>Text</Option>
               <Option value={2}>Number</Option>

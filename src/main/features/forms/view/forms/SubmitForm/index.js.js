@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { STRINGS } from "../../../../../../utils/base";
-import { Skeleton } from "antd";
+import { message, Skeleton } from "antd";
 // import { getUserDataFromStorage, STRINGS } from "../../../utils/base";
 // import { API } from "../../../utils/services";
 import { MessagePage } from "./congratsPage";
@@ -358,9 +358,29 @@ const SubmitForm = (props) => {
   const handleSubmit = () => {
     let payload = submitForm;
     console.log(payload);
+    /**TODO: check answer length is empty
+     * check if answer is radio option
+     */
+    const data = payload.attempt.map((el, i) => {
+      if (!Array.isArray(el.answer)) {
+        if (el.answer.length === 0) {
+          console.log("answer not provided");
+          return null;
+        }
+      } else {
+        console.log("answer is radio");
+        if (el.answer_id.length === 0) {
+          console.log("radio not submit");
+          return null;
+        }
+      }
+      return payload;
+    });
     //sending data to api
-    dispatch(submitFormAction(payload));
-    setIsSubmited(true);
+    if (data) {
+      dispatch(submitFormAction(data));
+      setIsSubmited(true);
+    }
   };
 
   // const handleSubmit = () => {
@@ -415,7 +435,6 @@ const SubmitForm = (props) => {
               // handleChangeEmail={(e) => setUserEmail(e.target.value)}
               // disableSubmit={disableSubmit}
             />
-
             {formData &&
               formData.question.map((item, index) => (
                 <>
@@ -425,6 +444,7 @@ const SubmitForm = (props) => {
                       question={item}
                       index={index}
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
                   {item.localType === "radioWithImage" && (
@@ -433,6 +453,7 @@ const SubmitForm = (props) => {
                       question={item}
                       index={index}
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
                   {item.localType === "text" && (
@@ -442,6 +463,7 @@ const SubmitForm = (props) => {
                       index={index}
                       type="text"
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
                   {item.localType === "number" && (
@@ -451,12 +473,17 @@ const SubmitForm = (props) => {
                       index={index}
                       type="number"
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
                 </>
               ))}
             <div className="flex-between mt_10">
-              {!disableSubmit && <button onClick={handleSubmit}>Submit</button>}
+              {!disableSubmit && (
+                <button onClick={handleSubmit} type="submit">
+                  Submit
+                </button>
+              )}
               {/* <button> Clear Form</button> */}
             </div>
             <div className="poweredBy">

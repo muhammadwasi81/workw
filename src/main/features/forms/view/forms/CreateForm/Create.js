@@ -190,7 +190,7 @@ const Create = (props) => {
               htmlType="submit"
               disabled={createLoader ? true : false}
             >
-              Submit Form
+              Create Form
             </Button>
           </Form.Item>
         </Form>

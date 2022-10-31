@@ -87,7 +87,12 @@ const Create = (props) => {
                   },
                 ]}
               >
-                <Input placeholder="Title" />
+                <TextArea
+                  showCount
+                  maxLength={20}
+                  placeholder="Title"
+                  rows={1}
+                />
               </Form.Item>
               <Form.Item
                 name="description"
@@ -99,7 +104,12 @@ const Create = (props) => {
                   },
                 ]}
               >
-                <TextArea placeholder="Description" rows={4} />
+                <TextArea
+                  showCount
+                  maxLength={100}
+                  placeholder="Description"
+                  rows={4}
+                />
               </Form.Item>
               <Form.Item
                 name="approvers"

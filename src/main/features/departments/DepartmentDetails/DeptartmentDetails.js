@@ -87,7 +87,9 @@ function ProjectDetails() {
   // console.log("department Details*******", departmentDetail);
   return (
     <TabContainer>
-      <LayoutHeader items={items} buttons={buttons} />
+      {/* <LayoutHeader items={items} buttons={buttons} /> */}
+      <LayoutHeader items={items} />
+
       <ContBody>
         <div className="flex flex-row gap-5  h-[calc(100vh_-_60px)] w-full">
           <div className="rounded-xl basis-12/12 flex flex-col gap-5 overflow-scroll w-full">

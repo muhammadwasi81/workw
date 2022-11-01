@@ -36,9 +36,8 @@ const AssetDeAllocationComposer = () => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
-  const assetItemByUserIdv2 = useSelector((state) => state.AssetItemSlice);
-  console.log(assetItemByUserIdv2, 'assetItemByUserIdv2');
-  // const [itemsDeteils, setItemsDeteils] = useState([assetItemByUserIdv2]);
+  const assetItemByUserId = useSelector((state) => state.AssetItemSlice);
+  console.log(assetItemByUserId, 'assetItemByUserId');
 
   const employees = useSelector((state) => state.sharedSlice.employees);
 
@@ -46,32 +45,19 @@ const AssetDeAllocationComposer = () => {
     setValue(data);
     handleMember(obj);
     handleData(data);
-    // handleAssetItem(obj);
   };
 
-  //  using getAssetItemByUserId function from slice.js get data
   const handleData = (id) => {
     console.log(id, 'id');
-    dispatch(getAssetItemByUserId('3fa85f64-5717-4562-b3fc-2c963f66afa6'));
+    dispatch(getAssetItemByUserId(id));
   };
-
-  // useEffect(() => {
-  //   Object.keys(assetItemByUserIdv2).length > 0 &&
-  //     setItemsDeteils([...itemsDeteils, assetItemByUserIdv2]);
-  // }, [assetItemByUserIdv2]);
 
   useEffect(() => {
     fetchEmployees('', 0);
   }, []);
 
   const handleMember = (val) => {
-    setNewState({
-      ...newState,
-      assetItems: [...val],
-    });
-  };
-
-  const handleAssetItem = (val) => {
+    console.log(val, 'val');
     setNewState({
       ...newState,
       assetItems: [...val],
@@ -145,15 +131,12 @@ const AssetDeAllocationComposer = () => {
       >
         <Form.Item
           name="handoverId"
-          label="Select Members"
+          label="Handover"
           showSearch={true}
           direction={Direction}
         >
           <CustomSelect
-            mode={'multiple'}
-            style={{
-              marginBottom: '0px',
-            }}
+            style={{ marginBottom: '0px' }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}

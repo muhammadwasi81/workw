@@ -11,7 +11,6 @@ import {
 const initialState = {
   assetItemList: [],
   assetItemByUserId: [],
-  assetItemByUserIdv2: {},
   loader: false,
   success: false,
   error: false,
@@ -46,10 +45,10 @@ export const AssetItemSlice = createSlice({
         console.log(payload.data, 'getAssetItemDetailByIdSlice');
       })
       .addCase(getAssetItemByUserId.fulfilled, (state, { payload }) => {
-        state.assetItemByUserIdv2 = payload;
+        state.assetItemByUserId = payload;
         state.loader = false;
         state.success = true;
-        console.log(payload, 'getAllAssetItemByUserId');
+        console.log(payload, 'getAllAssetItemByUserId slice');
       })
       .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
         state.assetItemList = payload;

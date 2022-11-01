@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import {
   ResponseResultError,
   ResponseResultSuccess,
@@ -11,6 +12,7 @@ export const getAllAssetItemService = async (payload = {}) => {
       `/api/InventoryItem/GetAllItem`,
       payload
     );
+    console.log(response.data, 'getAllAssetItemService');
     if (!response.data) {
       return ResponseResultError('No Data Found');
     }
@@ -26,6 +28,7 @@ export const addAssetItemService = async (payload = {}) => {
   const formData = jsonToFormData(payload);
   try {
     const response = await Config.post(`/api/InventoryItem/AddItem`, formData);
+    message.success('Asset Item Added Successfully');
     console.log(response, 'addAssetItemService');
     return ResponseResultSuccess(response.data);
   } catch (error) {

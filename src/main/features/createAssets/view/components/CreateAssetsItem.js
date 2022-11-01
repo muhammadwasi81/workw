@@ -114,11 +114,10 @@ const CreateAssetsItem = ({
         <CustomSelect
           style={{ marginBottom: '0px' }}
           data={employeesShortData}
-          // selectedData={(value, row) => onEmployeeSelect(row)}
           selectedData={(value, row) =>
             handleChange(
               row.map((item) => ({ handoverId: item.id })),
-              'approvers',
+              'handoverId',
               index
             )
           }

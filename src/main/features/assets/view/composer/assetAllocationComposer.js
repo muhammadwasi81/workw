@@ -36,8 +36,9 @@ const initialState = {
 
 const AssetComposer = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, customApprovalDictionary } =
-    customApprovalDictionaryList[userLanguage];
+  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
+    userLanguage
+  ];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -118,6 +119,15 @@ const AssetComposer = () => {
   }, [employees, inventoryAssets]);
 
   const onFinish = (values) => {
+    if (
+      !values.description ||
+      !values.handoverId ||
+      !values.approvers ||
+      !values.assetItems
+    ) {
+      return message.error('Please fill all fields');
+    }
+
     let approvers = [];
     let assetItems = [];
 

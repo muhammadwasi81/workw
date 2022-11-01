@@ -233,7 +233,8 @@ const SubmitForm = (props) => {
         attempt: formDetail?.question.map((el, index) => {
           return {
             questionId: el.id,
-            answer: el.answers.length > 1 ? { answer_id: "" } : "",
+            // answer: el.answers.length > 1 ? { answer_id: "" } : "",
+            answer: "",
           };
         }),
       });
@@ -352,26 +353,22 @@ const SubmitForm = (props) => {
     /**TODO: check answer length is empty
      * check if answer is radio option
      */
-    // const data = payload.attempt.map((el, i) => {
-    //   if (!Array.isArray(el.answer)) {
-    //     if (el.answer.length === 0) {
-    //       console.log("answer not provided");
-    //       return null;
-    //     }
-    //   } else {
-    //     console.log("answer is radio");
-    //     if (el.answer_id.length === 0) {
-    //       console.log("radio not submit");
-    //       return null;
-    //     }
-    //   }
-    //   return payload;
-    // });
+    const dataCheck = payload.attempt.map((el, index) => {
+      if (el.answer.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    console.log(dataCheck);
+
     //sending data to api
-    // if (data) {
-    dispatch(submitFormAction(payload));
-    setIsSubmited(true);
-    // }
+    if (!dataCheck.some((el) => el === false)) {
+      dispatch(submitFormAction(payload));
+      setIsSubmited(true);
+    } else {
+      message.error("Please Fill All the fields");
+    }
   };
 
   // const handleSubmit = () => {

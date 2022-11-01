@@ -90,7 +90,7 @@ const AssetsDetailCard = (props) => {
       <RemarksApproval
         data={assetItemByUserId.assetItemByUserId.approvers}
         title="Approvals"
-        module={ApprovalsModule?.assetApproval}
+        module={ApprovalsModule?.ItemApproval}
         onStatusChanged={() => {}}
       />
     </SingleItem>

@@ -36,8 +36,7 @@ const AssetDeAllocationComposer = () => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
-  const assetItemByUserId = useSelector((state) => state.AssetItemSlice);
-  console.log(assetItemByUserId, 'assetItemByUserId');
+  const { assetItemList } = useSelector((state) => state.AssetItemSlice);
 
   const employees = useSelector((state) => state.sharedSlice.employees);
 
@@ -50,8 +49,6 @@ const AssetDeAllocationComposer = () => {
 
   const handleData = (id) => {
     console.log(id, 'id');
-    // send handover id to get asset items
-
     dispatch(getAssetItemByUserId(id));
   };
 

@@ -228,7 +228,7 @@ const SubmitForm = (props) => {
       setSubmitForms({
         ...submitForm,
         formId: formDetail?.id,
-        email: formDetail?.creator?.email,
+        // email: formDetail?.creator?.email,
         userId: user?.id,
         attempt: formDetail?.question.map((el, index) => {
           return {
@@ -332,10 +332,10 @@ const SubmitForm = (props) => {
   //   setFormData({ ...data, questions: filteredData });
   // };
   let handleChange = (value, index, id, answerType) => {
-    console.log("console value change", value);
-    console.log("console value change index", index);
-    console.log("question id", id);
-    console.log(" answertype", answerType);
+    // console.log("console value change", value);
+    // console.log("console value change index", index);
+    // console.log("question id", id);
+    // console.log(" answertype", answerType);
     let updateAnswers = [...submitForm.attempt];
     if (updateAnswers[index].questionId === id) {
       if (!Array.isArray(updateAnswers[index].answer)) {
@@ -349,7 +349,7 @@ const SubmitForm = (props) => {
 
   const handleSubmit = () => {
     let payload = submitForm;
-    console.log(payload);
+    // console.log(payload);
     /**TODO: check answer length is empty
      * check if answer is radio option
      */
@@ -360,7 +360,7 @@ const SubmitForm = (props) => {
         return true;
       }
     });
-    console.log(dataCheck);
+    // console.log(dataCheck);
 
     //sending data to api
     if (!dataCheck.some((el) => el === false)) {
@@ -425,7 +425,9 @@ const SubmitForm = (props) => {
               title={formData.subject}
               description={formData.description}
               isAcceptingResp={formData.acceptingResponse}
-              // handleChangeEmail={(e) => setUserEmail(e.target.value)}
+              handleChangeEmail={(e) =>
+                setSubmitForms({ ...submitForm, email: e.target.value })
+              }
               // disableSubmit={disableSubmit}
             />
             {formData &&

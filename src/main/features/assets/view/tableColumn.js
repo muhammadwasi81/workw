@@ -51,25 +51,19 @@ export const TableColumn = () => {
       ellipsis: true,
       sort: true,
     },
-    {
-      title: 'Description',
-      dataIndex: 'description',
-      ellipsis: true,
-      sort: true,
-    },
-    {
-      title: 'Allocated to',
-      dataIndex: 'handover',
-      ellipsis: true,
-      render: (value) => (
-        <Avatar
-          heading={'handover'}
-          isAvatarGroup={true}
-          membersData={value ? value : []}
-        />
-      ),
-      sort: true,
-    },
+    // {
+    //   title: 'Allocated to',
+    //   dataIndex: 'handover',
+    //   ellipsis: true,
+    //   render: (value) => (
+    //     <Avatar
+    //       heading={'handover'}
+    //       isAvatarGroup={true}
+    //       membersData={value ? value : []}
+    //     />
+    //   ),
+    //   sort: true,
+    // },
     {
       title: 'Approvers',
       dataIndex: 'approvers',

@@ -55,11 +55,6 @@ const Index = () => {
     pageNo: 1,
     pageSize: 20,
     search: '',
-    // pageNo: 1,
-    // pageSize: 20,
-    // search: '',
-    // approverStatus: [],
-    // sortBy: 1,
   };
 
   useEffect(() => {
@@ -98,11 +93,7 @@ const Index = () => {
   const render = {
     List: <AssetsList data={assetItemList} />,
     Table: (
-      <Table
-        columns={TableColumn()}
-        dragable={true}
-        data={assetItemList ? assetItemList : []}
-      />
+      <Table columns={TableColumn()} dragable={true} data={assetItemList} />
     ),
   };
 

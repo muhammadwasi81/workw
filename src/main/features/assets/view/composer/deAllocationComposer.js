@@ -42,6 +42,7 @@ const AssetDeAllocationComposer = () => {
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   const selectedData = (data, obj) => {
+    console.log('data', data);
     setValue(data);
     handleMember(obj);
     handleData(data);
@@ -49,6 +50,8 @@ const AssetDeAllocationComposer = () => {
 
   const handleData = (id) => {
     console.log(id, 'id');
+    // send handover id to get asset items
+
     dispatch(getAssetItemByUserId(id));
   };
 
@@ -171,26 +174,36 @@ const AssetDeAllocationComposer = () => {
           />
         </Form.Item>
 
-        <table>
+        <table
+          style={{
+            border: '1px solid #000',
+            width: '100%',
+            borderCollapse: 'collapse',
+          }}
+        >
           <thead>
-            <th>
-              <td>Category Name</td>
-              <td>Asset</td>
-              <td>Serial No</td>
-              <td>Select Status</td>
-            </th>
+            <tr>
+              <th>Category Name</th>
+              <th>Asset</th>
+              <th>Serial No</th>
+              <th>Select Status</th>
+            </tr>
           </thead>
-          {/* <tbody>
-            {inventoryAssets.map((item, index) => {
+          <tbody>
+            {employees.map((item, index) => {
               return (
-                <tr key={index}>
-                  <td>{item.category}</td>
+                <tr
+                  key={index}
+                  style={{ textAlign: 'center', border: '1px solid #eee' }}
+                >
+                  <td>{item.userTypeId}</td>
                   <td>{item.name}</td>
-                  <td>{item.serialNo}</td>
+                  <td>{item.type}</td>
+                  <td>{item.email}</td>
                 </tr>
               );
             })}
-          </tbody> */}
+          </tbody>
         </table>
 
         <Form.Item>

@@ -7,6 +7,7 @@ import { LanguageChangeContext } from "../../../utils/localization/localContext/
 import { ExpenseDictionary, LoanDictionary } from "./localization";
 import { getAllLoans } from "./store/actions";
 import { Skeleton } from "antd";
+import Notdata from "../../../content/NewContent/eLearning/no_data.svg";
 import { ContBody } from "../../sharedComponents/AppComponents/MainFlexContainer";
 import DetailedView from "./DetailedView";
 
@@ -42,40 +43,38 @@ const ListView = ({ filter }) => {
   }, [filter.filterType]);
 
   return (
-    <div className="loanCardWrapper" style={{ direction: Direction }}>
-      {loader
-        ? [...Array(3)].map((item) => (
+    <>
+      <div className="loanCardWrapper" style={{ direction: Direction }}>
+        {loader ? (
+          [...Array(15)].map((item) => (
             <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
           ))
-        : loanList.map((item) => {
-            return (
-              <ListItem
-                id={item.id}
-                item={item}
-                onListItem={handleDrawerOpen}
-                visible={visible}
-              />
-            );
-          })}
-      <DetailedView id={id} visible={visible} onClose={handleDrawerClose} />
-    </div>
-  );
+        ) : (
+          <>
+            {loanList.length === 0
+              ? null
+              : loanList.map((item) => {
+                  return (
+                    <ListItem
+                      id={item.id}
+                      item={item}
+                      onListItem={handleDrawerOpen}
+                      visible={visible}
+                    />
+                  );
+                })}
+          </>
+        )}
 
-  // if (loader)
-  //   return [...Array(6)].map((item) => (
-  //     <>
-  //       <Skeleton avatar />
-  //     </>
-  //   ));
-  // return (
-  //   <CardWrapper>
-  //     {loanList.map((item) => (
-  //       // console.log(item)
-  //       <ListItem id={item.id} item={item} onListItem={handleDrawerOpen} />
-  //     ))}
-  //     <DetailedView visible={visible} onClose={handleDrawerClose} />
-  //   </CardWrapper>
-  // );
+        <DetailedView id={id} visible={visible} onClose={handleDrawerClose} />
+      </div>
+      {!loader && loanList.length === 0 && (
+        <div className="flex items-center justify-center h-full">
+          <img src={Notdata} />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default ListView;

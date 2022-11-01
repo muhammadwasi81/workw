@@ -1,7 +1,7 @@
 import React from "react";
 
 const RadioWithImage = (props) => {
-  const { question, handleChange, index, disableSubmit } = props;
+  const { question, handleChange, index, disableSubmit, required } = props;
   const { answers } = question;
   console.log("console. radiowithimage props", props);
   return (

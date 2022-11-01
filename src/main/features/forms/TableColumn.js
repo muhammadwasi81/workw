@@ -19,6 +19,7 @@ export const tableColumn = () => {
     {
       title: "Description",
       dataIndex: "description",
+      ellipsis: true,
     },
     {
       title: "Creator",

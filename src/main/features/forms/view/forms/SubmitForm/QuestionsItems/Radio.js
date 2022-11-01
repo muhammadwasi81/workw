@@ -1,7 +1,7 @@
 import React from "react";
 
 const Radio = (props) => {
-  const { question, handleRadioChange, index, disableSubmit } = props;
+  const { question, handleRadioChange, index, disableSubmit, required } = props;
   const { answers } = question;
   console.log("radio", props);
 

@@ -233,15 +233,7 @@ const SubmitForm = (props) => {
         attempt: formDetail?.question.map((el, index) => {
           return {
             questionId: el.id,
-            answer:
-              el.answers.length > 1
-                ? el.answers.map((el, index) => {
-                    return {
-                      answer: el.id,
-                      questionId: el.questionId,
-                    };
-                  })
-                : "",
+            answer: el.answers.length > 1 ? { answer_id: "" } : "",
           };
         }),
       });
@@ -300,7 +292,6 @@ const SubmitForm = (props) => {
       }
     });
     console.log("Filtered data", filteredData);
-    // setFormData({ formDetail, question: filteredData });
     setFormData({ ...formDetail, question: filteredData });
     // console.log("Form data", formData);
   };
@@ -352,7 +343,7 @@ const SubmitForm = (props) => {
         updateAnswers[index].answer_id = value;
       }
     }
-    setSubmitForms({ ...formData, attempt: updateAnswers });
+    setSubmitForms({ ...submitForm, attempt: updateAnswers });
   };
 
   const handleSubmit = () => {
@@ -361,26 +352,26 @@ const SubmitForm = (props) => {
     /**TODO: check answer length is empty
      * check if answer is radio option
      */
-    const data = payload.attempt.map((el, i) => {
-      if (!Array.isArray(el.answer)) {
-        if (el.answer.length === 0) {
-          console.log("answer not provided");
-          return null;
-        }
-      } else {
-        console.log("answer is radio");
-        if (el.answer_id.length === 0) {
-          console.log("radio not submit");
-          return null;
-        }
-      }
-      return payload;
-    });
+    // const data = payload.attempt.map((el, i) => {
+    //   if (!Array.isArray(el.answer)) {
+    //     if (el.answer.length === 0) {
+    //       console.log("answer not provided");
+    //       return null;
+    //     }
+    //   } else {
+    //     console.log("answer is radio");
+    //     if (el.answer_id.length === 0) {
+    //       console.log("radio not submit");
+    //       return null;
+    //     }
+    //   }
+    //   return payload;
+    // });
     //sending data to api
-    if (data) {
-      dispatch(submitFormAction(data));
-      setIsSubmited(true);
-    }
+    // if (data) {
+    dispatch(submitFormAction(payload));
+    setIsSubmited(true);
+    // }
   };
 
   // const handleSubmit = () => {
@@ -418,7 +409,12 @@ const SubmitForm = (props) => {
   //   }
   // };
   if (!formData) return <MessagePage message={formStatus} />;
-  if (isSubmited) return <MessagePage message="Thank you for your Response" />;
+  if (isSubmited)
+    return (
+      <div className="w-full h-full flex m-auto justify-center items-center">
+        <MessagePage message="Thank you for your Response" />
+      </div>
+    );
 
   return (
     <>
@@ -494,7 +490,13 @@ const SubmitForm = (props) => {
             </div>
           </div>
         ) : (
-          <div>no data</div>
+          <div className="center-fix">
+            {[...Array(5)].map((item) => (
+              <div className="c-row txt-fields bg-clr p_15">
+                <Skeleton active />
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </>

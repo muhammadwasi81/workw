@@ -83,7 +83,7 @@ const Create = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Subject!",
+                    message: "Please input your Title!",
                   },
                 ]}
               >

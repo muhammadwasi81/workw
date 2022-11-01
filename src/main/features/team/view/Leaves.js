@@ -20,34 +20,37 @@ function Leaves() {
     success,
   } = useSelector((state) => state.teamSlice);
   const { id } = useParams();
-  console.log(id, "iddd");
 
   useEffect(() => {
-    dispatch(getAllLeaveAction("D3202659-8910-410F-93D5-2C7D8B39A2D5"));
+    dispatch(getAllLeaveAction(id));
   }, []);
   const columns = [
     {
       title: labels.leaveTypeName,
       dataIndex: "leaveTypeName",
       key: "leaveTypeName",
+      className: "leaveType",
     },
 
     {
       title: labels.startDate,
       dataIndex: "startDate",
       key: "startDate",
+      className: "dateTime",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
     },
     {
       title: labels.endDate,
       dataIndex: "endDate",
       key: "endDate",
+      className: "dateTime",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
     },
     {
       title: labels.description,
       dataIndex: "description",
       key: "description",
+      className: "longDsc",
     },
   ];
   return (

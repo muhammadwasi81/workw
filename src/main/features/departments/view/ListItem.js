@@ -40,6 +40,7 @@ function ListItem(props) {
     members = [],
     approvers,
   } = props.item;
+
   const navigate = useNavigate();
   return (
     <>
@@ -58,7 +59,14 @@ function ListItem(props) {
           });
         }}
       >
-        <Meta title={name} description={description} />
+        <Meta
+          title={name}
+          description={
+            description.length > 40
+              ? description.substring(0, 40) + "..."
+              : description
+          }
+        />
         <div className="approversBox">
           <Avatar
             isAvatarGroup={true}

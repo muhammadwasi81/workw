@@ -19,13 +19,16 @@ import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
-import { Avatar, Card, Space } from "antd";
+import { Avatar, Card, Space, Button, Drawer } from "antd";
+import { toggleCreateComposer } from "../store/slice";
 const { Meta } = Card;
 
 const Department = (props) => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { departmentDictionary } = departmentDictionaryList[userLanguage];
+  const { departmentDictionary, Direction } = departmentDictionaryList[
+    userLanguage
+  ];
 
   const [loading, setLoading] = useState(true);
   const [tableView, setTableView] = useState(false);
@@ -34,9 +37,12 @@ const Department = (props) => {
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
-  const { departments, loader, departmentDetail } = useSelector(
-    (state) => state.departmentSlice
-  );
+  const {
+    departments,
+    loader,
+    departmentDetail,
+    isCreateComposer,
+  } = useSelector((state) => state.departmentSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -63,15 +69,16 @@ const Department = (props) => {
           buttons={[
             {
               buttonText: "Create Department",
-              // onClick: () => setVisible(true),
+
               render: (
-                <SideDrawer
-                  title={departmentDictionary.createDepartment}
-                  buttonText={departmentDictionary.createDepartment}
-                  isAccessDrawer={false}
+                <Button
+                  className="ThemeBtn"
+                  onClick={() => {
+                    dispatch(toggleCreateComposer());
+                  }}
                 >
-                  <Composer />
-                </SideDrawer>
+                  {departmentDictionary.createDepartment}
+                </Button>
               ),
             },
           ]}
@@ -166,9 +173,29 @@ const Department = (props) => {
             </CardWrapper2>
           )}
         </ContBody>
-        {/* {departmentDetail && (
-          <DetailedView onClose={onClose} visible={visible} />
-        )} */}
+        <Drawer
+          title={
+            <h1
+              style={{
+                fontSize: "20px",
+                margin: 0,
+                textAlign: Direction === "ltr" ? "" : "end",
+              }}
+            >
+              {departmentDictionary.createDepartment}
+            </h1>
+          }
+          placement={Direction === "rtl" ? "left" : "right"}
+          width="768"
+          onClose={() => {
+            dispatch(toggleCreateComposer());
+          }}
+          visible={isCreateComposer}
+          destroyOnClose={true}
+          className="detailedViewComposer drawerSecondary"
+        >
+          <Composer />
+        </Drawer>
       </TabbableContainer>
     </>
   );

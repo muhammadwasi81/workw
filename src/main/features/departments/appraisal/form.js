@@ -64,7 +64,7 @@ export default function Appraisal({
                 setClearButton(false);
               }}
             >
-              Save Grade
+              Save Appraisal Question
             </FormButton>
           </>
         ) : (
@@ -79,7 +79,7 @@ export default function Appraisal({
             }}
             // loading={loading}
           >
-            Add Grade
+            Add Appraisal Question
           </FormButton>
         )}
         {/* <FormButton

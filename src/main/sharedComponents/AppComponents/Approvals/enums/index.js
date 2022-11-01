@@ -36,6 +36,7 @@ export const ApprovalsModule = {
   QuotationApproval: 35,
   QuotationClientApproval: 36,
 };
+
 export const ApprovalStatus = {
   InProcess: 1,
   Approved: 2,

@@ -13,6 +13,7 @@ import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
+import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 
 function ListItem({ item, onClick, onClickMyCareer }) {
   // console.log(item, "description");
@@ -60,6 +61,9 @@ function ListItem({ item, onClick, onClickMyCareer }) {
               {item.designation}
             </div>
           </div>
+          <div>
+            <StatusTag status={status} />
+          </div>
         </ItemHeader>
         <ItemContent className="!h-[100px] !max-h-[100px]">
           <div className="font-bold text-[14px] text-primary-color">
@@ -92,13 +96,13 @@ function ListItem({ item, onClick, onClickMyCareer }) {
               <p>{moment(createDate).fromNow()}</p>
             </p>
           </div>
-          <p className="careersDescShort">
+          {/* <p className="careersDescShort">
             {CareerStatusEnum.map((item) => {
               if (item.value === status) {
                 return item.label;
               }
             })}
-          </p>
+          </p> */}
         </div>
         <div className="cardSections mt-10">
           <div className="cardSectionItem">

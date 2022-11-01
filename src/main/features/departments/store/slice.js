@@ -13,6 +13,7 @@ const initialState = {
   departments: [],
   loadingData: false,
   createLoader: false,
+  isCreateComposer: false,
   loader: false,
   success: false,
   error: false,
@@ -26,10 +27,12 @@ const departmentSlice = createSlice({
   initialState,
   reducers: {
     appraisalQuestionDeleted: (state, { payload }) => {
-      // console.log(payload, "********delet reducer");
       state.appraisalQuestion = state.appraisalQuestion.filter(
         (e) => e.id !== payload
       );
+    },
+    toggleCreateComposer: (state, payload) => {
+      state.isCreateComposer = !state.isCreateComposer;
     },
   },
   extraReducers: (builder) => {
@@ -47,6 +50,7 @@ const departmentSlice = createSlice({
           // console.log("after adding", state.departments);
         }
         state.success = true;
+        state.createLoader = false;
       })
       .addCase(getDepartmentById.fulfilled, (state, { payload }) => {
         // console.log("GetDepartmentById payload", payload.data);
@@ -84,11 +88,13 @@ const departmentSlice = createSlice({
       )
       .addMatcher(isPending(...[addDepartment]), (state) => {
         // console.log("its pending");
+        state.success = false;
         state.createLoader = true;
+        state.isCreateComposer = false;
       })
       .addMatcher(isPending(...[getAllDepartments]), (state) => {
         // console.log("its pending");
-        state.createLoader = true;
+        state.loader = true;
       })
       .addMatcher(
         isPending(...[updateDepartmentAppraisalQuestion]),
@@ -97,7 +103,9 @@ const departmentSlice = createSlice({
           state.createLoader = true;
         }
       )
-
+      .addMatcher(isRejected(...[addDepartment]), (state) => {
+        state.createLoader = false;
+      })
       .addMatcher(isRejected(...[getAllDepartments]), (state) => {
         state.loader = true;
       })
@@ -108,5 +116,8 @@ const departmentSlice = createSlice({
   },
 });
 
-export const { appraisalQuestionDeleted } = departmentSlice.actions;
+export const {
+  appraisalQuestionDeleted,
+  toggleCreateComposer,
+} = departmentSlice.actions;
 export default departmentSlice.reducer;

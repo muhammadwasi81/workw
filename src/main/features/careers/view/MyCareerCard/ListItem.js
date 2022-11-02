@@ -8,12 +8,13 @@ import {
 } from "../../../../sharedComponents/Card/CardStyle";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
-
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+// import Avatar from "../../../../sharedComponents/Avatar/avatar";
+import { Avatar, Image, Tooltip } from "antd";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
+import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
 function ListItem({ item, onClick, onClickMyCareer }) {
   // console.log(item, "description");
@@ -23,11 +24,19 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     jobTypeId,
     createDate,
     status,
+    city,
+    country,
+    designation,
     image,
     minSalary,
+    description,
     maxSalary,
     experience,
     endDate,
+    members,
+    interviewers,
+    referenceNo,
+    postInterviewers,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
@@ -37,18 +46,8 @@ function ListItem({ item, onClick, onClickMyCareer }) {
   return (
     <>
       <SingleItem onClick={onClickMyCareer} className="cursor-pointer">
-        <ItemHeader className="ItemHeader">
+        {/* <ItemHeader className="ItemHeader">
           <div className="flex items-center gap-3">
-            {/* {image.length > 1 && (
-              <Avatar
-                src={item.creator?.image}
-                className="addPostAvatar"
-                name={item.creator?.name}
-                width={40}
-                height={40}
-                round={true}
-              />
-            )} */}
             <Avatar
               src={item.creator?.image}
               className="addPostAvatar"
@@ -64,15 +63,33 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           <div>
             <StatusTag status={status} />
           </div>
-        </ItemHeader>
+        </ItemHeader> */}
+        <CardProfileTopView
+          profileImgSrc={
+            item.creator && item.creator.image.length > 0
+              ? item.creator.image
+              : "https://joeschmoe.io/api/v1/random"
+          }
+          createDate={item.createDate}
+          isPublic={true}
+          name={item.creator && item.creator.name}
+          destination={
+            item.creator && item.creator.designation
+              ? item.creator.designation
+              : "Not Designated"
+          }
+          refNo={referenceNo}
+          status={item.status}
+          profileImgSize={40}
+        />
         <ItemContent className="!h-[100px] !max-h-[100px]">
           <div className="font-bold text-[14px] text-primary-color">
-            {/* {" "}
-            React Js Developer */}
-
-            {item.department}
+            {designation}
           </div>
-          <p className="careersDescShort">{item.description}</p>
+          <p className="careerFooterText">
+            {city}, {country}
+          </p>
+          <p className="careersDescShort">{description}</p>
         </ItemContent>
         {/* <div>
           {item.city} 
@@ -81,29 +98,24 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             
           {item.createDate}
         </div> */}
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <div className="flex gap-x-8">
             <p className="careerFooterText">
-              Karachi, Pakistan -{" "}
-              {CareerLevelTypeEnum.map((item) => {
-                if (item.value === jobTypeId) {
-                  return item.label;
-                }
-              })}
+              {city}, {country} -{" "}
             </p>
             <p className="careerFooterText flex gap-x-2 items-baseline">
               <FieldTimeOutlined />
               <p>{moment(createDate).fromNow()}</p>
             </p>
           </div>
-          {/* <p className="careersDescShort">
+           <p className="careersDescShort">
             {CareerStatusEnum.map((item) => {
               if (item.value === status) {
                 return item.label;
               }
             })}
-          </p> */}
-        </div>
+          </p> 
+        </div> */}
         <div className="cardSections mt-10">
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.salaryRange}</div>
@@ -126,6 +138,76 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             <div className="cardSection__body">
               {" "}
               {moment(endDate).format("Do MMM YY")}
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Members</div>
+            <div className="cardSection__body">
+              {" "}
+              <Avatar.Group maxCount={2}>
+                {members &&
+                  members.map((el, i) => {
+                    return (
+                      <>
+                        <Tooltip title={el.member.name} placement="top">
+                          <Avatar
+                            src={
+                              el.member.image
+                                ? el.member.image
+                                : "https://joeschmoe.io/api/v1/random"
+                            }
+                          />
+                        </Tooltip>
+                      </>
+                    );
+                  })}
+              </Avatar.Group>
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">InterViewers</div>
+            <div className="cardSection__body">
+              <Avatar.Group maxCount={2}>
+                {interviewers &&
+                  interviewers.map((el, i) => {
+                    return (
+                      <>
+                        <Tooltip title={el.user.name} placement="top">
+                          <Avatar
+                            src={
+                              el.user.image
+                                ? el.user.image
+                                : "https://joeschmoe.io/api/v1/random"
+                            }
+                          />
+                        </Tooltip>
+                      </>
+                    );
+                  })}
+              </Avatar.Group>
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Post Interviewers</div>
+            <div className="cardSection__body">
+              <Avatar.Group maxCount={2}>
+                {postInterviewers &&
+                  postInterviewers.map((el, i) => {
+                    return (
+                      <>
+                        <Tooltip title={el.user.name} placement="top">
+                          <Avatar
+                            src={
+                              el.user.image
+                                ? el.user.image
+                                : "https://joeschmoe.io/api/v1/random"
+                            }
+                          />
+                        </Tooltip>
+                      </>
+                    );
+                  })}
+              </Avatar.Group>
             </div>
           </div>
         </div>

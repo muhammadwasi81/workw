@@ -8,7 +8,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { CareerDictionary } from "../localization";
 import { useDispatch, useSelector } from "react-redux";
 import TopBar from "./Header/filterBar";
-import Header from "../../../layout/header/index";
+import Header from "../../../layout/header";
 import CareersListView from "./CareersListView";
 import { getAllCareerAction } from "../store/action";
 import { handleOpenComposer } from "../store/slice";
@@ -17,6 +17,7 @@ import CareerCard from "./CareersCard/index";
 import MyCareerCard from "./MyCareerCard/index";
 import ForApprovalCard from "./ForApprovalCard/index";
 import Composer from "./Composers/index";
+import { ROUTES } from "../../../../utils/routes";
 import "../view/styles/style.css";
 
 function Careers() {
@@ -28,7 +29,13 @@ function Careers() {
   const { labels } = CareerDictionaryList;
   const [view, setView] = useState("List");
 
-  // console.log(labels);
+  const items = [
+    {
+      name: "Careers",
+      to: `${ROUTES.CAREER.CAREERLINK}`,
+      renderButton: [1],
+    },
+  ];
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -66,6 +73,7 @@ function Careers() {
     <>
       <TabbableContainer>
         <Header
+          items={items}
           buttons={[
             {
               buttonText: CareerDictionaryList.createTextBtn,

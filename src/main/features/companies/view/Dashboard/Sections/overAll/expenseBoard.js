@@ -11,8 +11,8 @@ const ExpenseBoard = ({ item }) => {
                 <div className='expenseItem' >
                     <div className='totalUsers'>
                         <img src={expensesIcon} className="userIcon" />
-                        <div>{String((totalAmount)).replace(/(.)(?=(\d{3})+$)/g, '$1,')} Expenses Managed</div>
-                        <div style={{ marginTop: "20px", fontSize: "30px" }} >{totalCount} Count</div>
+                        <div className='dash-text'>{String((totalAmount)).replace(/(.)(?=(\d{3})+$)/g, '$1,')} Expenses Managed</div>
+                        <div className='dash-text' style={{ marginTop: "20px", fontSize: "30px" }} >{totalCount} Count</div>
                     </div>
                 </div>
             </WhiteCard>

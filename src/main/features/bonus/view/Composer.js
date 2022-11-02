@@ -45,11 +45,12 @@ const Composer = (props) => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [amountType, setAmountType] = useState(false);
-
   const employees = useSelector((state) => state.sharedSlice.employees);
   const salary = useSelector((state) => state.sharedSlice.employeeSalary);
   const [netsalary, setNetSalary] = useState(90);
   const [employeeID, setEmployeeId] = useState(null);
+  const [prercentage, setPercentage] = useState();
+  const [amount, setAmount] = useState();
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -109,11 +110,16 @@ const Composer = (props) => {
     console.log("Failed:", errorInfo);
   };
 
-  // useEffect(() => {
-  //   if (value === 2) {
-  //     setValue("");
-  //   }
-  // }, [value]);
+  useEffect(() => {
+    if (value === 1) {
+      setAmount("");
+      console.log("valueeee", value);
+    } else if (value === 2) {
+      setPercentage("");
+      console.log(value, "valuee2");
+    }
+  }, [value]);
+
   const handleType = (e) => {
     let type = e.target.value;
     setValue(type);
@@ -228,8 +234,10 @@ const Composer = (props) => {
                   parser={(value) => value.replace("%", "")}
                   formatter={(value) => `${value}%`}
                   defaultValue=""
+                  // type={"number"}
                   placeholder="0%"
                   size="large"
+                  value={prercentage}
                   style={{ width: "100%" }}
                 />
               ) : (
@@ -237,8 +245,10 @@ const Composer = (props) => {
                 <InputNumber
                   // parser={(value) => value.replace("0", "")}
                   // formatter={(value) => `${value}`}
+                  type={"number"}
                   placeholder="0"
                   size="large"
+                  value={amount}
                   style={{ width: "100%" }}
                 />
               )}

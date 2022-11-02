@@ -15,6 +15,7 @@ const initialState = {
   bonusDetail: {},
   drawerOpen: false,
   cancelReward: {},
+  cancelBonuss: {},
 };
 
 const bonusSlice = createSlice({
@@ -36,14 +37,16 @@ const bonusSlice = createSlice({
     });
 
     builder.addCase(cancelBonus.fulfilled, (state, action) => {
-      state.cancelBonus = action.payload.data;
+      state.cancelBonuss = action.payload.data;
+      console.log(action.payload.data, "payloadhhh cancel bonus");
+
+      console.log(state.cancelBonuss, "cancel bonusss");
     });
 
     builder
       .addCase(addBonus.fulfilled, (state, { payload }) => {
         // state.warningData = payload;
         state.bonuses = [payload.data.data, ...state.bonuses];
-
         state.drawerOpen = false;
         return state;
       })

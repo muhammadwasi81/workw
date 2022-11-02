@@ -20,6 +20,8 @@ import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
+import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
 
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -47,9 +49,17 @@ const Bonus = (props) => {
   useEffect(() => {
     dispatch(getAllBonus(filter));
   }, [filter]);
+  const items = [
+    {
+      name: "Bonus",
+      renderButton: [1],
+      to: `${ROUTES.BONUS.DEFAULT}`,
+    },
+  ];
   return (
     <TabbableContainer className="max-width-1190">
       <Header
+        items={items}
         buttons={[
           {
             buttonText: "Create Bonus",
@@ -130,7 +140,9 @@ const Bonus = (props) => {
             </>
           )
         ) : (
-          "Data not found"
+          <div className="flex items-center justify-center h-full w-full">
+            <img src={Nodata} />
+          </div>
         )}
       </ContBody>
       {<DetailedView onClose={onClose} id={detailId} />}

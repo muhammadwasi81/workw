@@ -313,14 +313,14 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.finance,
     },
-    {
-      name: label.navMenuLabel.QuotationClient,
-      counter: 0,
-      to: ROUTES.QUOTATIONCLIENT.ROOT,
-      icon: coaIcon,
-      isActive: true,
-      key: label.navMenuLabel.finance,
-    },
+    // {
+    //   name: label.navMenuLabel.QuotationClient,
+    //   counter: 0,
+    //   to: ROUTES.QUOTATIONCLIENT.ROOT,
+    //   icon: coaIcon,
+    //   isActive: true,
+    //   key: label.navMenuLabel.finance,
+    // },
     {
       name: label.navMenuLabel.voucher,
       counter: 0,

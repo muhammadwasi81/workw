@@ -1,7 +1,14 @@
 import React from "react";
 
 const TextFields = (props) => {
-  const { type, fieldData, handleChange, index, disableSubmit } = props;
+  const {
+    type,
+    fieldData,
+    handleChange,
+    index,
+    disableSubmit,
+    required,
+  } = props;
   return (
     <>
       <div className="c-row txt-fields bg-clr p_15">

@@ -11,7 +11,7 @@ import TopBar from "./Header/filterBar";
 import Header from "../../../layout/header";
 import CareersListView from "./CareersListView";
 import { getAllCareerAction } from "../store/action";
-import { handleOpenComposer } from "../store/slice";
+import { handleChangeTab, handleOpenComposer } from "../store/slice";
 import MyCareersListView from "./MyCareersListView";
 import CareerCard from "./CareersCard/index";
 import MyCareerCard from "./MyCareerCard/index";
@@ -36,6 +36,12 @@ function Careers() {
       renderButton: [1],
     },
   ];
+
+  useEffect(() => {
+    if (CurrentTab !== "careers") {
+      dispatch(handleChangeTab("careers"));
+    }
+  }, []);
 
   const dispatch = useDispatch();
   useEffect(() => {

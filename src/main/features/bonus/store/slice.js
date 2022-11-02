@@ -1,5 +1,12 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addBonus, addWarning, cancelBonus, getAllBonus, GetBonusById, GetPromotionById } from "./actions";
+import {
+  addBonus,
+  addWarning,
+  cancelBonus,
+  getAllBonus,
+  GetBonusById,
+  GetPromotionById,
+} from "./actions";
 
 const initialState = {
   bonuses: [],
@@ -7,7 +14,7 @@ const initialState = {
   loader: true,
   bonusDetail: {},
   drawerOpen: false,
-  cancelReward: {}
+  cancelReward: {},
 };
 
 const bonusSlice = createSlice({
@@ -15,7 +22,7 @@ const bonusSlice = createSlice({
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
-      state.drawerOpen = payload
+      state.drawerOpen = payload;
     },
   },
   extraReducers: (builder) => {
@@ -33,11 +40,13 @@ const bonusSlice = createSlice({
     });
 
     builder
-        .addCase(addBonus.fulfilled, (state, { payload }) => {
-          state.warningData = payload;
-          state.drawerOpen = false
-          return state;
-        })
+      .addCase(addBonus.fulfilled, (state, { payload }) => {
+        // state.warningData = payload;
+        state.bonuses = [payload.data.data, ...state.bonuses];
+
+        state.drawerOpen = false;
+        return state;
+      })
       .addMatcher(isPending(...[getAllBonus]), (state) => {
         state.loader = true;
       })
@@ -47,5 +56,5 @@ const bonusSlice = createSlice({
   },
 });
 
-export const {handleOpenComposer} = bonusSlice.actions;
+export const { handleOpenComposer } = bonusSlice.actions;
 export default bonusSlice.reducer;

@@ -6,7 +6,11 @@ import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+  ItemContent,
+  ItemHeader,
+  SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
 
@@ -14,9 +18,20 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { bonusDictionary } = bonusDictionaryList[userLanguage];
 
-  const { creator, createDate, member, approvers, amount, status, referenceNo } = props.item;
+  const {
+    creator,
+    createDate,
+    member,
+    approvers,
+    amount,
+    status,
+    referenceNo,
+  } = props.item;
 
-  const localTime = moment.utc(createDate).local().format();
+  const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
 
   return (
     <SingleItem onClick={props.onClick}>
@@ -26,7 +41,12 @@ function ListItem(props) {
           <UserInfo
             avatarSrc={creator.image}
             name={creator.name}
-            Subline={<SublineDesigWithTime designation={creator?.designation ? creator?.designation : ""} time={moment(localTime).fromNow()} />}
+            Subline={
+              <SublineDesigWithTime
+                designation={creator?.designation ? creator?.designation : ""}
+                time={moment(localTime).fromNow()}
+              />
+            }
           />
         </div>
         <div className="right">
@@ -40,15 +60,13 @@ function ListItem(props) {
           <div className="cardSection__body">{amount}</div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">{"Member"}</div>
-          <div className="cardSection__body">
-            {member && member.name}
-          </div>
+          <div className="cardSection__title">{"Bonus To"}</div>
+          <div className="cardSection__body">{member && member.name}</div>
         </div>
         <div className="cardSectionItem">
           <div className="cardSection__title">{bonusDictionary.approvers}</div>
           <div className="cardSection__body">
-            {approvers &&
+            {approvers && (
               <Avatar
                 isAvatarGroup={true}
                 isTag={false}
@@ -57,7 +75,7 @@ function ListItem(props) {
                 text={"Approvers"}
                 image={"https://joeschmoe.io/api/v1/random"}
               />
-            }
+            )}
           </div>
         </div>
       </div>

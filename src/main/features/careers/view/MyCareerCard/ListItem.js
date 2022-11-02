@@ -37,6 +37,8 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     interviewers,
     referenceNo,
     postInterviewers,
+    manager,
+    approvers,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
@@ -141,6 +143,24 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </div>
           <div className="cardSectionItem">
+            <div className="cardSection__title">Manager</div>
+            <div className="cardSection__body">
+              {manager && (
+                <>
+                  <Tooltip title={manager.name} placement="top">
+                    <Avatar
+                      src={
+                        manager.image
+                          ? manager.image
+                          : "https://joeschmoe.io/api/v1/random"
+                      }
+                    />
+                  </Tooltip>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="cardSectionItem">
             <div className="cardSection__title">Members</div>
             <div className="cardSection__body">
               {" "}
@@ -200,6 +220,29 @@ function ListItem({ item, onClick, onClickMyCareer }) {
                             src={
                               el.user.image
                                 ? el.user.image
+                                : "https://joeschmoe.io/api/v1/random"
+                            }
+                          />
+                        </Tooltip>
+                      </>
+                    );
+                  })}
+              </Avatar.Group>
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Approvers</div>
+            <div className="cardSection__body">
+              <Avatar.Group maxCount={2}>
+                {approvers &&
+                  approvers.map((el, i) => {
+                    return (
+                      <>
+                        <Tooltip title={el.approver.name} placement="top">
+                          <Avatar
+                            src={
+                              el.approver.image
+                                ? el.approver.image
                                 : "https://joeschmoe.io/api/v1/random"
                             }
                           />

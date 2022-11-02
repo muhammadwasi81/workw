@@ -56,6 +56,7 @@ const careerSlice = createSlice({
         console.log(payload);
         state.drawerOpen = false;
         state.success = true;
+        state.loader = false;
         // state.items = [...state.items, payload];
         state.items.unshift(payload);
       })

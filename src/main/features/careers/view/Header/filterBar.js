@@ -15,7 +15,7 @@ function Index(props) {
   const [search, setSearch] = useState("");
   // const [tableView, setTableView] = useState(false);
   const { labels } = CareerDictionaryList;
-  console.log(labels);
+  // console.log(labels);
 
   const handleTabChange = (tab) => {
     dispatch(handleChangeTab(tab));

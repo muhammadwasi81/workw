@@ -29,7 +29,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
 
-  console.log("props", onClickMyCareer);
+  // console.log("props", onClickMyCareer);
 
   return (
     <>

@@ -33,14 +33,12 @@ function Careers() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (CurrentTab === "careers") {
-      console.log("careers");
       let payload = {
         filterType: 0,
         search: search,
       };
       dispatch(getAllCareerAction(payload));
     } else {
-      console.log("careers");
       let payload = {
         filterType:
           CurrentTab === "myCareers"

@@ -23,6 +23,10 @@
   background: #e8e7e7;
 }
 
+.remarksInput {
+  width: 100%;
+}
+
 .approval__body-header .left {
   display: flex;
   justify-content: center;

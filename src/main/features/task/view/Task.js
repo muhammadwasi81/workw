@@ -110,7 +110,7 @@ function Task({
 						onClick: () => setFilterType(2),
 					},
 					{
-						name: appHeader.Task.createdByMe,
+						name: appHeader.Task.assignedByMe,
 						onClick: () => setFilterType(1),
 					},
 					{

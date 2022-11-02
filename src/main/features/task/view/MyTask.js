@@ -5,11 +5,10 @@ import { groupByKey } from "../../../../utils/base";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import TaskDetail from "./TaskDetail/TaskDetail";
+import Scroll from "../../../sharedComponents/ScrollSelect/infinteScoll";
 const { Panel } = Collapse;
 function MyTask({ referenceId, referenceType }) {
-	const {
-		taskList: { loading, list },
-	} = useSelector(state => state.taskSlice);
+	const { taskList: { loading, list } } = useSelector(state => state.taskSlice);
 	const [visible, setVisible] = useState(false);
 	const [id, setId] = useState("");
 	const handleCard = id => {
@@ -38,39 +37,50 @@ function MyTask({ referenceId, referenceType }) {
 	const groupDate = groupByKey(filteredList, "startDateOnly");
 	return (
 		<>
-			{Object.keys(groupDate).map(item => {
-				return (
-					<Collapse
-						key={item}
-						defaultActiveKey={["1"]}
-						className="myTask"
-						ghost={true}
-						accordion={false}
-					>
-						<Panel
-							header={
-								<Divider style={{ margin: "0 0 10px 0" }}>
-									{item}
-									{/* {moment(item).format("MMMM Do YYYY")} */}
-								</Divider>
-							}
-							key="1"
+			<Scroll
+				isLoading={false}
+				data={filteredList}
+				fetchMoreData={pageNo => {
+					console.log(pageNo)
+					// setPageNo(pageNo);
+				}}
+				loader={<Skeleton avatar />}
+				endMessage={"No more posts..."}
+			>
+				{Object.keys(groupDate).map(item => {
+					return (
+						<Collapse
+							key={item}
+							defaultActiveKey={["1"]}
+							className="myTask"
+							ghost={true}
+							accordion={false}
 						>
-							<div className="taskItemContainer">
-								{groupDate[item].map(task => {
-									return (
-										<TaskListItem
-											key={task.id}
-											item={task}
-											onTask={handleCard}
-										/>
-									);
-								})}
-							</div>
-						</Panel>
-					</Collapse>
-				);
-			})}
+							<Panel
+								header={
+									<Divider style={{ margin: "0 0 10px 0" }}>
+										{item}
+										{/* {moment(item).format("MMMM Do YYYY")} */}
+									</Divider>
+								}
+								key="1"
+							>
+								<div className="taskItemContainer">
+									{groupDate[item].map(task => {
+										return (
+											<TaskListItem
+												key={task.id}
+												item={task}
+												onTask={handleCard}
+											/>
+										);
+									})}
+								</div>
+							</Panel>
+						</Collapse>
+					);
+				})}
+			</Scroll>
 			<TaskDetail id={id} visible={visible} onClose={handleDrawerClose} />
 		</>
 	);

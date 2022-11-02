@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Drawer, Image, Button } from "antd";
 import { useSelector } from "react-redux";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import { Tag } from "antd";
@@ -68,6 +69,7 @@ function PromotionDetail(props) {
 				<div className="right">
 					<Tag className="IdTag">TRA-000085</Tag>
 					<StatusTag status={updatedStatus?.Approvals}></StatusTag>
+					<Button className="ThemeBtn">Cancel</Button>
 				</div>
 			</div>
 			<div className="item-content">
@@ -111,7 +113,7 @@ function PromotionDetail(props) {
 				</div>
 			</div>
 			<RemarksApproval
-				module={ApprovalsModule.RewardApproval}
+				module={ApprovalsModule.PromotionApproval}
 				status={promotionDetail?.status}
 				onStatusChanged={statusChanged =>
 					setUpdatedStatus(statusChanged)

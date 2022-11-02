@@ -29,6 +29,7 @@ const promotionSlice = createSlice({
 
     builder
         .addCase(addPromotion.fulfilled, (state, { payload }) => {
+          state.promotions=[payload.data.data,...state.promotions]
           state.drawerOpen = false;
           return state;
         })

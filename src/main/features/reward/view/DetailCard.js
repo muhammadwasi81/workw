@@ -78,7 +78,8 @@ function RewardDetailCard(props) {
                                 status={updatedStatus ? updatedStatus.Approvers :status}
                             ></StatusTag>
                             {
-                                userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
+                                userId === creator.id ? status != Declined && status != Resend && status != Approved ? 
+                                <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
                                     "" : ""
                             }
                         </div>

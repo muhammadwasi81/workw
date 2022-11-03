@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
-import { getAllPromotionService, GetPromotionByIdService, addPromotionService } from "../services/service";
+import { getAllPromotionService, GetPromotionByIdService, addPromotionService,cancelPromotionService } from "../services/service";
 
 export const getAllPromotions = createAsyncThunk("Promotion/GetAllPromotion", async (data) => {
   const response = await getAllPromotionService(data);
@@ -29,3 +29,9 @@ export const GetPromotionById = createAsyncThunk("Promotion/GetPromotionById'", 
   console.log("MY ID", id);
   return response.data;
 });
+
+export const cancelPromotion = createAsyncThunk("promotions/cancelPromotion", async (id, { dispatch, setState }) => {
+  const response = await cancelPromotionService(id);
+  return response;
+});
+

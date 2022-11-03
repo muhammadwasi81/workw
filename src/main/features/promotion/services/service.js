@@ -29,3 +29,13 @@ export const GetPromotionByIdService = (id) => {
       return res;
     });
 };
+
+export const cancelPromotionService = id => {
+	return MasterConfig.delete(`api/Promotion/PromotionCancel?promotionId=${id}`)
+		.then(res => {
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
+};

@@ -7,35 +7,42 @@ import WhiteCard from '../../../../UI/WhiteCard';
 import mileSlidefile from '../../../../../../../content/svg/doc/mile-presentation.svg';
 
 const DocBoard = ({ item }) => {
-    let { total, mileboard, milegrid, milepad, mileslide, otherDocument } = item;
+    let {
+        total = 100,
+        mileboard = 20,
+        milegrid = 30,
+        milepad = 15,
+        mileslide = 20,
+        otherDocument = 15
+    } = item;
     return (
         <div className="c-dash-item">
             <WhiteCard className='myPaper'>
                 <div className='docItem' >
                     <div className='totalUsers'>
                         <img src={docIcon} className="userIcon" />
-                        <div>{total} Documents Managed</div>
+                        <div className='dash-text'>{total} Documents Managed</div>
                     </div>
                     <div className='otherUsers'>
-                        <div className='otherUser userGreen'>
+                        <div className='otherUser'>
                             <img src={ic_plain_text} className="userIcon" />
-                            <div>{milepad} Milepad</div>
+                            <div className='dash-text'>{milepad} Milepad</div>
                         </div>
-                        <div className='otherUser userGrey'>
+                        <div className='otherUser'>
                             <img src={gridfile} className="userIcon" />
-                            <div>{milegrid} Milegrid</div>
+                            <div className='dash-text'>{milegrid} Milegrid</div>
                         </div>
-                        <div className='otherUser userRed'>
+                        <div className='otherUser'>
                             <img src={whiteBoardfile} className="userIcon" />
-                            <div>{mileboard} Mileboard</div>
+                            <div className='dash-text'>{mileboard} Mileboard</div>
                         </div>
-                        <div className='otherUser userYellow'>
+                        <div className='otherUser'>
                             <img src={mileSlidefile} className="userIcon" />
-                            <div>{mileslide} Mileslide</div>
+                            <div className='dash-text'>{mileslide} Mileslide</div>
                         </div>
                         <div className='otherUser'>
                             <img src={docIcon} className="userIcon" />
-                            <div>{otherDocument} Others</div>
+                            <div className='dash-text'>{otherDocument} Others</div>
                         </div>
                     </div>
                 </div>

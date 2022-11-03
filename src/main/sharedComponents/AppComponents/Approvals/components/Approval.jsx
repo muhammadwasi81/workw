@@ -33,6 +33,7 @@ function Approval({
       setFiles((prevValue) => [...prevValue, e.target.files[0]]);
     }
   };
+
   const handleDelete = (deleteFile) => {
     const allFiles = files.filter((file, index) => index !== deleteFile);
     setFiles(allFiles);

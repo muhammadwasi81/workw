@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { STRINGS } from "../../../../../../utils/base";
-import { Skeleton } from "antd";
+import { message, Skeleton } from "antd";
 // import { getUserDataFromStorage, STRINGS } from "../../../utils/base";
 // import { API } from "../../../utils/services";
 import { MessagePage } from "./congratsPage";
@@ -228,20 +228,13 @@ const SubmitForm = (props) => {
       setSubmitForms({
         ...submitForm,
         formId: formDetail?.id,
-        email: formDetail?.creator?.email,
+        // email: formDetail?.creator?.email,
         userId: user?.id,
         attempt: formDetail?.question.map((el, index) => {
           return {
             questionId: el.id,
-            answer:
-              el.answers.length > 1
-                ? el.answers.map((el, index) => {
-                    return {
-                      answer: el.id,
-                      questionId: el.questionId,
-                    };
-                  })
-                : "",
+            // answer: el.answers.length > 1 ? { answer_id: "" } : "",
+            answer: "",
           };
         }),
       });
@@ -300,7 +293,6 @@ const SubmitForm = (props) => {
       }
     });
     console.log("Filtered data", filteredData);
-    // setFormData({ formDetail, question: filteredData });
     setFormData({ ...formDetail, question: filteredData });
     // console.log("Form data", formData);
   };
@@ -340,10 +332,10 @@ const SubmitForm = (props) => {
   //   setFormData({ ...data, questions: filteredData });
   // };
   let handleChange = (value, index, id, answerType) => {
-    console.log("console value change", value);
-    console.log("console value change index", index);
-    console.log("question id", id);
-    console.log(" answertype", answerType);
+    // console.log("console value change", value);
+    // console.log("console value change index", index);
+    // console.log("question id", id);
+    // console.log(" answertype", answerType);
     let updateAnswers = [...submitForm.attempt];
     if (updateAnswers[index].questionId === id) {
       if (!Array.isArray(updateAnswers[index].answer)) {
@@ -352,15 +344,31 @@ const SubmitForm = (props) => {
         updateAnswers[index].answer_id = value;
       }
     }
-    setSubmitForms({ ...formData, attempt: updateAnswers });
+    setSubmitForms({ ...submitForm, attempt: updateAnswers });
   };
 
   const handleSubmit = () => {
     let payload = submitForm;
-    console.log(payload);
+    // console.log(payload);
+    /**TODO: check answer length is empty
+     * check if answer is radio option
+     */
+    const dataCheck = payload.attempt.map((el, index) => {
+      if (el.answer.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    // console.log(dataCheck);
+
     //sending data to api
-    dispatch(submitFormAction(payload));
-    setIsSubmited(true);
+    if (!dataCheck.some((el) => el === false)) {
+      dispatch(submitFormAction(payload));
+      setIsSubmited(true);
+    } else {
+      message.error("Please Fill All the fields");
+    }
   };
 
   // const handleSubmit = () => {
@@ -398,7 +406,12 @@ const SubmitForm = (props) => {
   //   }
   // };
   if (!formData) return <MessagePage message={formStatus} />;
-  if (isSubmited) return <MessagePage message="Thank you for your Response" />;
+  if (isSubmited)
+    return (
+      <div className="w-full h-full flex m-auto justify-center items-center">
+        <MessagePage message="Thank you for your Response" />
+      </div>
+    );
 
   return (
     <>
@@ -412,10 +425,11 @@ const SubmitForm = (props) => {
               title={formData.subject}
               description={formData.description}
               isAcceptingResp={formData.acceptingResponse}
-              // handleChangeEmail={(e) => setUserEmail(e.target.value)}
+              handleChangeEmail={(e) =>
+                setSubmitForms({ ...submitForm, email: e.target.value })
+              }
               // disableSubmit={disableSubmit}
             />
-
             {formData &&
               formData.question.map((item, index) => (
                 <>
@@ -425,6 +439,7 @@ const SubmitForm = (props) => {
                       question={item}
                       index={index}
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
                   {item.localType === "radioWithImage" && (
@@ -433,6 +448,7 @@ const SubmitForm = (props) => {
                       question={item}
                       index={index}
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
                   {item.localType === "text" && (
@@ -442,6 +458,7 @@ const SubmitForm = (props) => {
                       index={index}
                       type="text"
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
                   {item.localType === "number" && (
@@ -451,12 +468,17 @@ const SubmitForm = (props) => {
                       index={index}
                       type="number"
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
                 </>
               ))}
             <div className="flex-between mt_10">
-              {!disableSubmit && <button onClick={handleSubmit}>Submit</button>}
+              {!disableSubmit && (
+                <button onClick={handleSubmit} type="submit">
+                  Submit
+                </button>
+              )}
               {/* <button> Clear Form</button> */}
             </div>
             <div className="poweredBy">
@@ -467,7 +489,13 @@ const SubmitForm = (props) => {
             </div>
           </div>
         ) : (
-          <div>no data</div>
+          <div className="center-fix">
+            {[...Array(5)].map((item) => (
+              <div className="c-row txt-fields bg-clr p_15">
+                <Skeleton active />
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </>

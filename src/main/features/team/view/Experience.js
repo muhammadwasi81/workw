@@ -35,14 +35,29 @@ function Experience() {
       title: labels.Position,
       dataIndex: "position",
       key: "position",
+      className: "experience",
     },
 
     {
       title: labels.EmploymentType,
       dataIndex: "employmentTypeId",
+      className: "experience",
       key: "employmentTypeId",
       render: (value) => {
         return employmentType[value - 1]?.name;
+      },
+    },
+    {
+      title: labels.StartEndDate,
+      dataIndex: "startDate",
+      key: "startDate",
+      className: "experience",
+      render: (value, row) => {
+        return value?.length
+          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
+              row.startDate[1]
+            ).format("YYYY/MM/DD")}`
+          : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
       },
     },
     {
@@ -51,18 +66,6 @@ function Experience() {
       key: "cityId",
       render: (value) => {
         return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
-      },
-    },
-    {
-      title: labels.StartEndDate,
-      dataIndex: "startDate",
-      key: "startDate",
-      render: (value, row) => {
-        return value?.length
-          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
-              row.startDate[1]
-            ).format("YYYY/MM/DD")}`
-          : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
       },
     },
   ];

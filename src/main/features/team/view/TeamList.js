@@ -10,18 +10,22 @@ import { getTeamsAction } from "../store/action";
 import TeamTableView from "./TeamTableView";
 
 function TeamList() {
+  const [view, setView] = useState("List");
+  const [search, setSearch] = useState(null);
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { teamDictionary, Direction } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.sharedLabels;
 
   const { teams, loader } = useSelector((state) => state.teamSlice);
-
   useEffect(() => {
     dispatch(getTeamsAction());
   }, []);
 
-  const [view, setView] = useState("List");
+  const searchHandler = (value) => {
+    dispatch(getTeamsAction({ search: value }));
+    console.log(value, "valueee");
+  };
   let classes = "teamListContainer ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
   if (loader) {
@@ -40,12 +44,7 @@ function TeamList() {
       <div style={{ flexDirection: "column", width: "100%" }}>
         <TopBar
           style={{ margin: 0, width: "100%" }}
-          onSearch={(value) => {
-            console.log(value);
-          }}
-          filter={{
-            onFilter: () => {},
-          }}
+          onSearch={(value) => searchHandler(value)}
           segment={{
             onSegment: (value) => {
               setView(value);

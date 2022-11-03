@@ -216,6 +216,12 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.HR.APPRAISALS.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/appraisalModule/view/appraisal")
+			),
+		},
+		{
 			path: `${ROUTES.WARNINGS.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/warning/view/Warning")
@@ -370,6 +376,10 @@ export const routes = {
 			component: lazy(() =>
 				import("../main/features/payroll/view/index")
 			),
+		},
+		{
+			path: `${ROUTES.COMPANIES.DEFAULT}`,
+			component: lazy(() => import("../main/features/companies/index")),
 		},
 	],
 	AdminRoutes: [

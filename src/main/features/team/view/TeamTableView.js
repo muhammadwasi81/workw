@@ -17,16 +17,19 @@ function TeamTableView() {
       title: labels.name,
       dataIndex: "name",
       key: "name",
+      className: "name",
     },
     {
       title: labels.designation,
       dataIndex: "designation",
       key: "designation",
+      className: "designationStyle",
     },
     {
       title: labels.email,
       dataIndex: "email",
       key: "email",
+      className: "emailStyle",
     },
   ];
   return (

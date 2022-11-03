@@ -33,7 +33,7 @@ const en = {
       Location: "Location",
     },
     LeavesTable: {
-      leaveTypeName: "Leave Type Name",
+      leaveTypeName: "Leave Type",
       startDate: "Start Date",
       endDate: "End Date",
       description: "Description",

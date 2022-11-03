@@ -6,8 +6,10 @@ import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { getAllEmployees, getEmployeeSalary } from "../../../../utils/Shared/store/actions";
-
+import {
+  getAllEmployees,
+  getEmployeeSalary,
+} from "../../../../utils/Shared/store/actions";
 
 const initialState = {
   id: "",
@@ -42,12 +44,13 @@ const Composer = (props) => {
   const [privacyId, setPrivacyId] = useState(1);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-  const [amountType, setAmountType] = useState(false)
-
-  const employees = useSelector(state => state.sharedSlice.employees);
-  const salary = useSelector(state => state.sharedSlice.employeeSalary);
-  const [netsalary, setNetSalary] = useState(90)
-  const [employeeID, setEmployeeId] = useState(null)
+  const [amountType, setAmountType] = useState(false);
+  const employees = useSelector((state) => state.sharedSlice.employees);
+  const salary = useSelector((state) => state.sharedSlice.employeeSalary);
+  const [netsalary, setNetSalary] = useState(90);
+  const [employeeID, setEmployeeId] = useState(null);
+  const [prercentage, setPercentage] = useState();
+  const [amount, setAmount] = useState();
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -57,10 +60,10 @@ const Composer = (props) => {
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
-    dispatch(getEmployeeSalary({ id: "F02C12DA-13D6-4052-ABFF-06D928D6EC41" }))
+    dispatch(getEmployeeSalary({ id: "F02C12DA-13D6-4052-ABFF-06D928D6EC41" }));
   };
 
-  const handleMember = val => {
+  const handleMember = (val) => {
     setNewState({
       ...newState,
       members: [...val],
@@ -83,19 +86,16 @@ const Composer = (props) => {
     }
   }, [employees]);
 
-
   const onFinish = (values) => {
-
     let approvers = [];
-    if (typeof values.approvers === 'string') {
+    if (typeof values.approvers === "string") {
       approvers.push({
-        approverId: values.approvers
-      })
-    }
-    else {
+        approverId: values.approvers,
+      });
+    } else {
       approvers = values.approvers.map((approver) => {
         return {
-          approverId: approver
+          approverId: approver,
         };
       });
     }
@@ -110,14 +110,25 @@ const Composer = (props) => {
     console.log("Failed:", errorInfo);
   };
 
+  useEffect(() => {
+    if (value === 1) {
+      setAmount("");
+      console.log("valueeee", value);
+    } else if (value === 2) {
+      setPercentage("");
+      console.log(value, "valuee2");
+    }
+  }, [value]);
+
   const handleType = (e) => {
     let type = e.target.value;
+    setValue(type);
     if (type === 2) {
-      setAmountType(true)
+      console.log(type, "type");
+      setAmountType(true);
     } else {
-      setAmountType(false)
+      setAmountType(false);
     }
-    setValue(e);
   };
 
   return (
@@ -136,8 +147,14 @@ const Composer = (props) => {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        autoComplete="off">
-        <Form.Item name="memberId" label={bonusDictionary.bonusTo} showSearch={true} direction={Direction}>
+        autoComplete="off"
+      >
+        <Form.Item
+          name="memberId"
+          label={bonusDictionary.bonusTo}
+          showSearch={true}
+          direction={Direction}
+        >
           <CustomSelect
             style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
@@ -147,7 +164,7 @@ const Composer = (props) => {
             placeholder={"Select Members"}
             isObject={true}
             loadDefaultData={false}
-            optionComponent={opt => {
+            optionComponent={(opt) => {
               return (
                 <>
                   <Avatar
@@ -177,11 +194,7 @@ const Composer = (props) => {
         <div className="flex justify-between gap-4">
           <div className="" style={{ width: "100px" }}>
             <Form.Item label={"Net Salary"} name="netsalary">
-              {
-                <p style={{ marginTop: "5px" }}>
-                  {salary}
-                </p>
-              }
+              {<p style={{ marginTop: "5px" }}>{salary}</p>}
             </Form.Item>
           </div>
           <div className="w-full">
@@ -193,9 +206,12 @@ const Composer = (props) => {
                   required: true,
                   message: "Please Select Type",
                 },
-              ]}>
+              ]}
+            >
               <Radio.Group onChange={handleType} value={value}>
-                <Radio value={1}>Percent</Radio>
+                <Radio value={1} defaultChecked={value === 1}>
+                  Percent
+                </Radio>
                 <Radio value={2}>Amount</Radio>
               </Radio.Group>
             </Form.Item>
@@ -211,23 +227,41 @@ const Composer = (props) => {
                   required: true,
                   message: "Please Enter Amount",
                 },
-              ]}>
-              {
-                amountType == false ?
-                  <InputNumber
-                    formatter={(value) => `${value}%`}
-                    parser={(value) => value.replace('%', '')}
-                    placeholder="0"
-                    size="large"
-                    style={{ width: "100%" }}
-                  />
-                  :
-                  <Input placeholder="0" size="large" />
-              }
+              ]}
+            >
+              {amountType === false ? (
+                <InputNumber
+                  parser={(value) => value.replace("%", "")}
+                  formatter={(value) => `${value}%`}
+                  defaultValue=""
+                  // type={"number"}
+                  placeholder="0%"
+                  size="large"
+                  value={prercentage}
+                  style={{ width: "100%" }}
+                />
+              ) : (
+                // <Input placeholder="0" size="large" />
+                <InputNumber
+                  // parser={(value) => value.replace("0", "")}
+                  // formatter={(value) => `${value}`}
+                  type={"number"}
+                  placeholder="0"
+                  size="large"
+                  value={amount}
+                  style={{ width: "100%" }}
+                />
+              )}
             </Form.Item>
           </div>
         </div>
-        <Form.Item name="approvers" label={bonusDictionary.approvers} showSearch={true} direction={Direction} rules={[{ required: true }]}>
+        <Form.Item
+          name="approvers"
+          label={bonusDictionary.approvers}
+          showSearch={true}
+          direction={Direction}
+          rules={[{ required: true }]}
+        >
           <CustomSelect
             style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
@@ -238,7 +272,7 @@ const Composer = (props) => {
             mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
-            optionComponent={opt => {
+            optionComponent={(opt) => {
               return (
                 <>
                   <Avatar
@@ -266,7 +300,14 @@ const Composer = (props) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={bonusDictionary.create}>
+          <Button
+            type="primary"
+            size="large"
+            className="ThemeBtn"
+            block
+            htmlType="submit"
+            title={bonusDictionary.create}
+          >
             {" "}
             {bonusDictionary.create}{" "}
           </Button>

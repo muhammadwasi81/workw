@@ -84,6 +84,7 @@ import assetsCategorySlice from "../main/features/assetsCategory/store/slice";
 import AssetItemSlice from "../main/features/createAssets/store/slice";
 import teamSlice from "../main/features/team/store/slice";
 import inventoryAssetSlice from "../main/features/assets/store/slice";
+import appraisalModuleSlice from "../main/features/appraisalModule/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -164,6 +165,7 @@ const reducers = combineReducers({
   requestItemSlice,
   teamSlice,
   inventoryAssetSlice,
+  appraisalModuleSlice,
 });
 
 const persistConfig = {

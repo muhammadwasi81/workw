@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react';
-import SearchInput from '../searchBox/SearchInput';
-import { SearchOutlined } from '@ant-design/icons';
-import './style.css';
-import { Button, Segmented } from 'antd';
-import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
-import FilterSearchButton from '../FilterSearch/index';
-import PropTypes from 'prop-types';
-import { isEmptyObj } from '../../../utils/base';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import { dictionaryList } from '../../../utils/localization/languages';
+import React, { useContext, useState } from "react";
+import SearchInput from "../searchBox/SearchInput";
+import { SearchOutlined } from "@ant-design/icons";
+import "./style.css";
+import { Button, Segmented } from "antd";
+import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
+import FilterSearchButton from "../FilterSearch/index";
+import PropTypes from "prop-types";
+import { isEmptyObj } from "../../../utils/base";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../utils/localization/languages";
 
 const TopBar = ({
   filter,
@@ -28,8 +28,8 @@ const TopBar = ({
   const [activeButtons, setActiveButtons] = useState(
     buttons.map((item, index) => (index === 0 ? true : false))
   );
-  let classes = 'topBar ' + width;
-  classes += Direction === 'rtl' ? 'rtl' : '';
+  let classes = "topBar " + width;
+  classes += Direction === "rtl" ? "rtl" : "";
   return (
     <div className={classes} style={style}>
       <div className="topBar__inner">
@@ -60,7 +60,7 @@ const TopBar = ({
               }}
               key={index}
               className={
-                activeButtons[index] ? 'primaryBtn active' : 'primaryBtn '
+                activeButtons[index] ? "primaryBtn active" : "primaryBtn "
               }
             >
               {name}
@@ -78,10 +78,10 @@ const TopBar = ({
           rightButtons.map(({ name, onClick, icon, className }, index) => (
             <Button
               onClick={onClick}
-              type={'text'}
+              type={"text"}
               key={index}
               className={
-                '!flex !items-center !bg-neutral-100 !rounded hover:!bg-primary-color !font-semibold hover:!text-white ' +
+                "!flex !items-center !bg-neutral-100 !rounded hover:!bg-primary-color !font-semibold hover:!text-white " +
                 className
               }
               icon={icon}

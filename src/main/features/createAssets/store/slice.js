@@ -14,6 +14,7 @@ const initialState = {
   loader: false,
   success: false,
   error: false,
+  modalSuccess: false,
 };
 
 export const AssetItemSlice = createSlice({
@@ -45,15 +46,15 @@ export const AssetItemSlice = createSlice({
         console.log(payload.data, 'getAssetItemDetailByIdSlice');
       })
       .addCase(getAssetItemByUserId.fulfilled, (state, { payload }) => {
-        state.assetItemByUserId = payload;
+        state.assetItemByUserId = payload.data;
         state.loader = false;
         state.success = true;
-        console.log(payload, 'getAllAssetItemByUserId slice');
+        console.log(payload.data, 'getAllAssetItemByUserId slice');
       })
       .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
         state.assetItemList = payload;
         state.loader = false;
-        state.success = true;
+        state.modalSuccess = true;
         console.log(payload, 'updateAssetItemSlice');
       })
       .addCase(getAllAssetItemByPagination.fulfilled, (state, { payload }) => {

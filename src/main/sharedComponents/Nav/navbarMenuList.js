@@ -19,7 +19,7 @@ import inventory from '../../../content/svg/menu/newNavBarIcon/Inventory.svg';
 import customApprovalIcon from '../../../content/svg/menu/newNavBarIcon/Custom Approval.svg';
 import teamIcon from '../../../content/svg/menu/newNavBarIcon/My Team.svg';
 import orgChartIcon from '../../../content/svg/menu/newNavBarIcon/Org Chart.svg';
-import payRollIcon from '../../../content/svg/menu/newNavBarIcon/Payroll.svg';
+import payrollIcon from '../../../content/svg/menu/newNavBarIcon/PayrolIcon.svg';
 import employeeIcon from '../../../content/svg/menu/newNavBarIcon/Employees.svg';
 import administrator from '../../../content/svg/menu/newNavBarIcon/Administration.svg';
 import appraisalsIcon from '../../../content/svg/menu/newNavBarIcon/Appraisals.svg';
@@ -41,6 +41,8 @@ import requisitionIcon from '../../../content/svg/menu/newNavBarIcon/Employees.s
 import assetsIcon from '../../../content/svg/menu/newNavBarIcon/assets.svg';
 import createAssetsIcon from '../../../content/svg/menu/newNavBarIcon/createassets.svg';
 import requestListIcon from '../../../content/svg/menu/newNavBarIcon/requestItemIcon.svg';
+import quotationIcon from '../../../content/svg/menu/newNavBarIcon/quotationsIcon.svg';
+import chartAccountIcon from '../../../content/svg/menu/newNavBarIcon/chartAccountsIcon.svg';
 
 import { DOMAIN_PREFIX } from '../../../utils/routes';
 const NavMenuList = () => {
@@ -303,7 +305,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.chartOfAccount,
       counter: 0,
       to: ROUTES.FINANCE.CHART_OF_ACCOUNT.ROOT,
-      icon: coaIcon,
+      icon: chartAccountIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
     },
@@ -311,7 +313,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.Quotation,
       counter: 0,
       to: ROUTES.QUOTATION.ROOT,
-      icon: coaIcon,
+      icon: quotationIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
     },
@@ -351,7 +353,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.payroll,
       counter: 0,
       to: ROUTES.PAYROLL.ROOT,
-      icon: reportIcon,
+      icon: payrollIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
     },
@@ -418,6 +420,15 @@ const NavMenuList = () => {
       counter: 0,
       icon: createAssetsIcon,
       to: ROUTES.CREATE_ASSETS.DEFAULT,
+      isActive: true,
+      key: label.navMenuLabel.inventory,
+    },
+    // TODO:// CREATE Table List
+    {
+      name: label.navMenuLabel.assetsList,
+      counter: 0,
+      icon: createAssetsIcon,
+      to: ROUTES.ASSETS_TABLE_LIST.DEFAULT,
       isActive: true,
       key: label.navMenuLabel.inventory,
     },

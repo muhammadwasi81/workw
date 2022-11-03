@@ -17,7 +17,9 @@ import AssetDeAllocationComposer from './composer/deAllocationComposer';
 
 const Index = () => {
   const dispatch = useDispatch();
-  const { assetItemList } = useSelector((state) => state.AssetItemSlice);
+  const { assetItemList, modalSuccess } = useSelector(
+    (state) => state.AssetItemSlice
+  );
 
   const { success } = useSelector((state) => state.inventoryAssetSlice);
 
@@ -35,16 +37,12 @@ const Index = () => {
 
   const filterButtons = [
     {
-      name: 'Assets For Items',
+      name: 'Created My be',
       onClick: () => setFilterType(0),
     },
     {
-      name: 'Created My be',
-      onClick: () => setFilterType(1),
-    },
-    {
       name: 'Assets Items Approvals',
-      onClick: () => setFilterType(2),
+      onClick: () => setFilterType(1),
     },
   ];
 
@@ -79,9 +77,9 @@ const Index = () => {
       buttonText: 'De-allocation',
       render: (
         <SideDrawer
-          success={success}
+          success={modalSuccess}
           isAccessDrawer={true}
-          openDrawer={success}
+          openDrawer={modalSuccess}
           children={<AssetDeAllocationComposer />}
           title="De-Allocated Assets"
           buttonText="De-Allocation"

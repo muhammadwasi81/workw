@@ -34,6 +34,7 @@ const CreateAssetsItem = ({
 
   const onChangeType = (type, index) => {
     console.log(`onChangeType`);
+
     handleChange(type, 'type', index);
   };
 

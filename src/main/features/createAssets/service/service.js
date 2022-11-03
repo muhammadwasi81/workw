@@ -63,11 +63,14 @@ export const getAllAssetItemByUserIdService = async (id) => {
 };
 
 // TODO: ITEMS TO UPDATE FOR USERS
-export const updateAssetItemService = async (payload = {}) => {
+export const updateAssetItemService = async (payload) => {
   try {
-    const response = await Config.post(`/api/InventoryItem/UpdateItemStatus`, {
-      params: payload,
-    });
+    const response = await Config.post(
+      `/api/InventoryItem/UpdateItemStatus`,
+      payload
+    );
+    message.success('Asset Item Updated Successfully');
+    console.log(payload, 'payload in service');
     console.log(response, 'updateAssetItemService');
     return ResponseResultSuccess(response.data);
   } catch (error) {

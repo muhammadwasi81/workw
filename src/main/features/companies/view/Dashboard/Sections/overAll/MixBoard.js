@@ -11,27 +11,32 @@ import contactManagerIcon from "../../../../../../../content/svg/menu/newNavBarI
 import WhiteCard from '../../../../UI/WhiteCard';
 
 const MixBoard = ({ item }) => {
-    let { group, lead, project, task } = item;
+    let {
+        group = 95,
+        lead = 85,
+        project = 90,
+        task = 80
+    } = item;
     return (
         <div className="c-dash-item">
-            <WhiteCard>
+            <WhiteCard className='myPaper'>
                 <div className='extraItem' >
                     <div className='otherExtras'>
                         <div className='otherExtra userGrey'>
                             <img src={groupsIcon} className="userIcon" />
-                            <div>{group} Groups Managed</div>
+                            <div className='dash-text'>{group} Groups Managed</div>
                         </div>
                         <div className='otherExtra userGrey'>
                             <img src={projectsIcon} className="userIcon" />
-                            <div>{project} Projects Managed</div>
+                            <div className='dash-text'>{project} Projects Managed</div>
                         </div>
                         <div className='otherExtra userGrey'>
                             <img src={taskIcon} className="userIcon" />
-                            <div>{task} Tasks Managed</div>
+                            <div className='dash-text'>{task} Tasks Managed</div>
                         </div>
                         <div className='otherExtra userGrey'>
                             <img src={contactManagerIcon} className="userIcon" />
-                            <div>{lead} Leads Managed</div>
+                            <div className='dash-text'>{lead} Leads Managed</div>
                         </div>
                     </div>
                 </div>

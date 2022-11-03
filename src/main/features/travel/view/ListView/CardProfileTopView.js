@@ -13,6 +13,7 @@ function CardProfileTopView(props) {
 				isPublic={props.isPublic}
 				name={props.name}
 				destination={props.destination}
+				showIcon={props.showIcon}
 			/>
 			<CardStatusTagView refNo={props.refNo} status={props.status} />
 		</div>

@@ -11,7 +11,7 @@ const en = {
 		placeHolder: {
 			grpNamePH: "Enter group name",
 			grpNameDescPH: "Enter group description",
-			serachMembersPH: "Search membres",
+			serachMembersPH: "Search members",
 		},
 		labels: {
 			update: "Update",

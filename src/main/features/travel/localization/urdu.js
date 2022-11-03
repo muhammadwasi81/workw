@@ -67,6 +67,7 @@ const urdu = {
 			description: "تفصیل",
 			agentStatus: "ایجنٹ کی حیثیت",
 			actions: "اعمال",
+			createDate: "تشکیل کی تاریخ",
 		},
 	},
 	Direction: "rtl",

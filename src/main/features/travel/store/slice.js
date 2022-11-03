@@ -26,6 +26,9 @@ const travelSlice = createSlice({
 				.isAttachmentModalOpen;
 			state.attachments.attachmentsData = payload;
 		},
+		resetTravelData(state, { payload }) {
+			state.travels = [];
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -71,5 +74,9 @@ const travelSlice = createSlice({
 	},
 });
 
-export const { resetTravelDetail, handleAttachmentModal } = travelSlice.actions;
+export const {
+	resetTravelDetail,
+	handleAttachmentModal,
+	resetTravelData,
+} = travelSlice.actions;
 export default travelSlice.reducer;

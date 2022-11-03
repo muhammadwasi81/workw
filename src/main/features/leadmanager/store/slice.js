@@ -48,6 +48,7 @@ const initialState = {
 		isOpen: false,
 		add: false,
 	},
+	composeEmail: false,
 };
 const leadMangerSlice = createSlice({
 	name: "leadManager",
@@ -56,6 +57,9 @@ const leadMangerSlice = createSlice({
 		handleAssignMemberModal(state, { payload }) {
 			state.assignToMemberId = payload.id;
 			state.isAssignMemberModalOpen = !state.isAssignMemberModalOpen;
+		},
+		handleComposeEmail(state, { payload }) {
+			state.composeEmail = payload;
 		},
 		handleSectionDetailModal(state, { payload }) {
 			state.isSectionModalOpen = !state.isSectionModalOpen;
@@ -156,7 +160,6 @@ const leadMangerSlice = createSlice({
 				}
 			)
 			.addCase(updateLeadManager.fulfilled, (state, { payload }) => {
-				// console.log("update lead manager", payload.data);
 				const { data } = payload;
 				const updatedManagerIndex = state.leadManagersData.findIndex(
 					manager => manager.id === data.id
@@ -337,6 +340,7 @@ export const {
 	handleAssignMemberModal,
 	handleContactDetailModal,
 	handleSectionDetailModal,
+	handleComposeEmail,
 } = leadMangerSlice.actions;
 
 export default leadMangerSlice.reducer;

@@ -72,12 +72,6 @@ export const routes = {
       component: lazy(() => import('../main/features/assets/view/index')),
     },
     {
-      path: `${ROUTES.ASSETS_TABLE_LIST.DEFAULT}`,
-      component: lazy(() =>
-        import('../main/features/assetsTableList/view/index')
-      ),
-    },
-    {
       path: `${ROUTES.CREATE_ASSETS.DEFAULT}`,
       component: lazy(() =>
         import('../main/features/createAssets/view/AssetsEntry')
@@ -160,21 +154,31 @@ export const routes = {
       component: lazy(() => import('../main/features/projects/index')),
     },
     {
-      path: `${ROUTES.PROJECT.DEFAULT}/:id`,
+      path: `${ROUTES.PROJECT.DEFAULT}/:projectId`,
       component: lazy(() =>
         import('../main/features/projects/ProjectDetails/ProjectDetails')
       ),
+    },
+    {
+      path: `${ROUTES.PROJECT.DEFAULT}/:projectId/workboard/board/:id`,
+      component: lazy(() => import('../main/features/workboard/Trello/Board')),
     },
     {
       path: `${ROUTES.GROUP.DEFAULT}`,
       component: lazy(() => import('../main/features/groups/index')),
     },
     {
-      path: `${ROUTES.GROUP.DEFAULT}/:id`,
+      path: `${ROUTES.GROUP.DEFAULT}/:groupId`,
       component: lazy(() =>
         import('../main/features/groups/GroupDetails/GroupDetails')
       ),
     },
+
+    {
+      path: `${ROUTES.GROUP.DEFAULT}/:groupId/workboard/board/:id`,
+      component: lazy(() => import('../main/features/workboard/Trello/Board')),
+    },
+
     {
       path: `${ROUTES.WORKBOARD.DEFAULT}`,
       component: lazy(() => import('../main/features/workboard/index')),
@@ -194,6 +198,12 @@ export const routes = {
       ),
     },
     {
+      path: `${ROUTES.HR.APPRAISALS.DEFAULT}`,
+      component: lazy(() =>
+        import('../main/features/appraisalModule/view/appraisal')
+      ),
+    },
+    {
       path: `${ROUTES.WARNINGS.DEFAULT}`,
       component: lazy(() => import('../main/features/warning/view/Warning')),
     },
@@ -208,12 +218,6 @@ export const routes = {
     {
       path: `${ROUTES.HR.BONUS.DEFAULT}`,
       component: lazy(() => import('../main/features/bonus/view/Bonus')),
-    },
-    {
-      path: `${ROUTES.HR.APPRAISALS.DEFAULT}`,
-      component: lazy(() =>
-        import('../main/features/appraisalModule/view/appraisal')
-      ),
     },
 
     {
@@ -332,6 +336,10 @@ export const routes = {
     {
       path: `${ROUTES.PAYROLL.DEFAULT}`,
       component: lazy(() => import('../main/features/payroll/view/index')),
+    },
+    {
+      path: `${ROUTES.COMPANIES.DEFAULT}`,
+      component: lazy(() => import('../main/features/companies/index')),
     },
   ],
   AdminRoutes: [

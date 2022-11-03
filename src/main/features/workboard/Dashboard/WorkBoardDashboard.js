@@ -18,7 +18,7 @@ function WorkBoardDashboard({
 	onChange,
 }) {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 	const workboardsListData = useSelector(
 		state => state.trelloSlice.workboardsList
 	);

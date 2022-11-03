@@ -1,25 +1,30 @@
 import {
   ContBody,
   TabbableContainer,
-} from '../../sharedComponents/AppComponents/MainFlexContainer';
-import './styles/style.css';
-import Header from './components/header';
-import Calendar from './view/calendar';
-import { useSearchParams } from 'react-router-dom';
-import MySchedules from './view/schedules/Schedules';
-import { ScheduleTopBar } from './view/schedules/topbar/ScheduleTopBar';
+} from "../../sharedComponents/AppComponents/MainFlexContainer";
+import "./styles/style.css";
+import Header from "./components/header";
+import Calendar from "./view/calendar";
+import { useSearchParams } from "react-router-dom";
+import MySchedules from "./view/schedules/Schedules";
+import { ScheduleTopBar } from "./view/schedules/topbar/ScheduleTopBar";
+import { useSelector, useDispatch } from "react-redux";
+import { Button, Drawer } from "antd";
 
 function Schedules() {
   const [searchParams] = useSearchParams();
-  let param = searchParams.get('f');
+  const dispatch = useDispatch();
+  let param = searchParams.get("f");
+  const { drawerOpen } = useSelector((state) => state.scheduleSlice);
+
   return (
     <TabbableContainer>
       <Header />
       <ScheduleTopBar />
-      <ContBody style={{ display: 'block' }}>
-        {param === 'cal' ? (
+      <ContBody style={{ display: "block" }}>
+        {param === "cal" ? (
           <Calendar />
-        ) : param === 'sc' ? (
+        ) : param === "sc" ? (
           <MySchedules />
         ) : (
           <>div</>

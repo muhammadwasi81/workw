@@ -6,10 +6,11 @@ import HeaderLayout from "../../../layout/header";
 import CreateSchedule from "../view/createSchedule";
 import { useSelector } from "react-redux";
 import { ROUTES } from "../../../../utils/routes";
+// import { handleOpenComposer } from "../store/slice";
 function Header() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appHeader, sharedLabels } = dictionaryList[userLanguage];
-  const success = useSelector(state => state.scheduleSlice.success);
+  const success = useSelector((state) => state.scheduleSlice.success);
   const items = [
     {
       name: "Calendar",
@@ -29,6 +30,7 @@ function Header() {
   ];
   const buttons = [
     {
+      buttonText: "Create Schedule",
       render: (
         <SideDrawer
           buttonText="Create Schedule"
@@ -38,7 +40,7 @@ function Header() {
           //   buttonText={ExpenseDictionaryList.createTextBtn}
           //   success={isCreateComposer}
           //   setOpenDrawer={() => dispatch(toggleCreateComposer())}
-            isAccessDrawer={true}
+          isAccessDrawer={true}
           //   openDrawer={isCreateComposer}
           //   setIsEdited={() => {}}
         />

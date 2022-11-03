@@ -1,4 +1,5 @@
 import { EditFilled } from "@ant-design/icons";
+import moment from "moment";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 const Edit = (handleEdit, row) => {
 	return (
@@ -43,6 +44,14 @@ export const tableColumns = (handleEdit, Direction, table) => {
 			dataIndex: "description",
 			width: 200,
 			ellipsis: true,
+		},
+		{
+			title: table.createDate,
+			dataIndex: "createDate",
+			render: i => moment(i.createDate).format("DD MMM YYYY"),
+			ellipsis: true,
+			width: 200,
+			// sort: true,
 		},
 		{
 			title: table.agentStatus,

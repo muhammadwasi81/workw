@@ -68,6 +68,7 @@ const arabic = {
 			description: "وصف",
 			agentStatus: "حالة الوكيل",
 			actions: "أجراءات",
+			createDate: "تاريخ الإنشاء",
 		},
 	},
 	Direction: "rtl",

@@ -31,7 +31,7 @@ const Promotion = props => {
 
 	const [visible, setVisible] = useState(false);
 
-	const [filter, setFilter] = useState({ filterType: 0, search: "" });
+	const [filter, setFilter] = useState({ filterType: 0, search: "" , sortBy:1});
 
 	const { promotions, loader, promotionDetail, drawerOpen } = useSelector(
 		state => state.promotionSlice
@@ -86,7 +86,7 @@ const Promotion = props => {
 						onClick: () => setFilter({ filterType: 2 }),
 					},
 					{
-						name: "Promotion For Me",
+						name: "Promotion To Me",
 						onClick: () => setFilter({ filterType: 3 }),
 					},
 				]}

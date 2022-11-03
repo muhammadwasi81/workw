@@ -32,29 +32,32 @@ function Rewards() {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
-    },
-
-    {
-      title: labels.Status,
-      dataIndex: "status",
-      render: (status) => <StatusTag status={status} />,
-      key: "status",
-    },
-    {
-      title: labels.Category,
-      dataIndex: "category",
-      key: "category",
-    },
-    {
-      title: labels.Name,
-      dataIndex: "name",
-      key: "name",
+      className: "referenceNo",
     },
     {
       title: labels.Date,
       dataIndex: "date",
       key: "date",
+      className: "dateTime",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
+    },
+    {
+      title: labels.Name,
+      dataIndex: "name",
+      key: "name",
+      className: "name",
+    },
+    {
+      title: labels.Category,
+      dataIndex: "category",
+      key: "category",
+      className: "category",
+    },
+    {
+      title: labels.Status,
+      dataIndex: "status",
+      render: (status) => <StatusTag status={status} />,
+      key: "status",
     },
   ];
   return (

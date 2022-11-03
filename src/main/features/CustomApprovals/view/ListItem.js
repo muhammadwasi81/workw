@@ -8,17 +8,34 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import customApprovalIcon from "../../../../content/svg/menu/newNavBarIcon/Custom Approval.svg";
 import { PieChartOutlined } from "@ant-design/icons";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+  ItemContent,
+  ItemHeader,
+  SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 import moment from "moment";
 import { Category } from "emoji-mart";
 import { AttachmentType } from "../../documents/constant";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[userLanguage];
+  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
+    userLanguage
+  ];
 
-  const { creator, description, image = customApprovalIcon, approvers = [], status, referenceNo, category, value, createDate, attachments } = props.item;
-
+  const {
+    creator,
+    description,
+    image = customApprovalIcon,
+    approvers = [],
+    status,
+    referenceNo,
+    category,
+    value,
+    createDate,
+    attachments,
+    subject,
+  } = props.item;
   return (
     <>
       <SingleItem>
@@ -27,13 +44,19 @@ function ListItem(props) {
           id={props.id}
           onClick={() => {
             props.getCustomApprovalId(props.id);
-          }}></div>
+          }}
+        ></div>
         <ItemHeader>
           <div className="left">
             <UserInfo
               avatarSrc={creator.image}
               name={creator.name}
-              Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+              Subline={
+                <SublineDesigWithTime
+                  designation={creator.designation ? creator.designation : ""}
+                  time={moment(createDate).fromNow()}
+                />
+              }
             />
           </div>
           <div className="right">
@@ -45,18 +68,17 @@ function ListItem(props) {
           <div className="description w-full">
             <p>{description}</p>
           </div>
-          <div className="attachmentBox" style={{width: "75px"}}>
-            {
-              attachments.map((i) => {
-                return <img
-                  width={"100%"}
-                  src={i.path}
-                />
-              })
-            }
+          <div className="attachmentBox" style={{ width: "75px" }}>
+            {attachments.map((i) => {
+              return <img width={"100%"} src={i.path} />;
+            })}
           </div>
         </ItemContent>
         <div className="cardSections">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Subject"}</div>
+            <div className="cardSection__body">{subject}</div>
+          </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">{"Category"}</div>
             <div className="cardSection__body">{category}</div>
@@ -70,9 +92,11 @@ function ListItem(props) {
           <div className="cardSection__body">{customApprovalDictionary.days}</div>
         </div> */}
           <div className="cardSectionItem">
-            <div className="cardSection__title">{customApprovalDictionary.approvers}</div>
-            <div className="cardSection__body" >
-              {approvers &&
+            <div className="cardSection__title">
+              {customApprovalDictionary.approvers}
+            </div>
+            <div className="cardSection__body">
+              {approvers && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
@@ -81,11 +105,10 @@ function ListItem(props) {
                   text={"Approvers"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
-              }
+              )}
             </div>
           </div>
         </div>
-
       </SingleItem>
     </>
   );

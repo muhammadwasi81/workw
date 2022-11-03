@@ -33,6 +33,8 @@ import { DocumentReferenceTypeEnum } from "../../documents/view/enum";
 import WorkBoard from "../../workboard";
 import { WorkBoardReferenceTypeEnum } from "../../workboard/enum";
 import Documents from "../../documents/view/documents";
+import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
+import { handleComposeEmail } from "../../leadmanager/store/slice";
 
 function GroupDetails() {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -43,7 +45,7 @@ function GroupDetails() {
 	const detail = useSelector(state => state.groupSlice.groupDetail);
 	const [features, setFeatures] = useState([]);
 	const [open, setOpen] = useState(false);
-	const { id } = params;
+	const { groupId: id } = params;
 	useEffect(() => {
 		dispatch(getGroupById(id));
 	}, [id]);
@@ -180,7 +182,13 @@ function GroupDetails() {
 
 						<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
 							<WhiteCard>
-								<MemberCollapse data={detail?.members} />
+								<MemberCollapse
+									isEmail={true}
+									onEmailClick={() => {
+										dispatch(handleComposeEmail(true));
+									}}
+									data={detail?.members}
+								/>
 							</WhiteCard>
 						</div>
 					</div>
@@ -201,6 +209,7 @@ function GroupDetails() {
 					id={id}
 				/>
 			</Drawer>
+			<ComposeEmail />
 		</>
 	);
 }

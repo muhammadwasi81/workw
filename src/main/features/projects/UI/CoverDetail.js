@@ -1,9 +1,14 @@
 import React from "react";
-import { InfoCircleOutlined, LockOutlined } from "@ant-design/icons";
+import {
+	CalendarOutlined,
+	InfoCircleOutlined,
+	LockOutlined,
+} from "@ant-design/icons";
 import { Popover, Tooltip } from "antd";
 import { BiWorld } from "react-icons/bi";
 import { FaLock } from "react-icons/fa";
 import WhiteCard from "./WhiteCard";
+import moment from "moment";
 
 function CoverDetail({ detail }) {
 	return (
@@ -33,11 +38,22 @@ function CoverDetail({ detail }) {
 						{detail?.description}
 					</span>
 				</div>
-				<div className="text-black text-base font-bold flex items-center gap-2">
-					<Popover content={`Created by: ${detail?.creator.name}`}>
-						<InfoCircleOutlined className="cursor-pointer" />
-					</Popover>
-					<span>Created by: {detail?.creator.name}</span>
+				<div>
+					<div className="text-black text-base font-bold flex items-center gap-2">
+						<Popover
+							content={`Created by: ${detail?.creator.name}`}
+						>
+							<InfoCircleOutlined className="cursor-pointer" />
+						</Popover>
+						<span>Created by: {detail?.creator.name}</span>
+					</div>
+					<div className="flex items-center gap-2">
+						<CalendarOutlined />
+						<p className="!mb-0 text-sm">
+							Created at:{" "}
+							{moment(detail?.createDate).format("MMMM d, YYYY")}
+						</p>
+					</div>
 				</div>
 			</div>
 		</WhiteCard>

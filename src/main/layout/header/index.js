@@ -50,6 +50,7 @@ function Header({ items, buttons, backButton, width }) {
 			: buttons;
 
 	const renderButton = (button, index) => {
+		console.log("button", button);
 		const { onClick, icon, buttonText, to, render } = button;
 		if (render) {
 			return render;

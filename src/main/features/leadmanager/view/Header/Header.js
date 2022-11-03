@@ -4,7 +4,12 @@ import { ROUTES } from "../../../../../utils/routes";
 import LayoutHeader from "../../../../layout/header";
 import BoardComposer from "../Composer/BoardComposer";
 import { useSelector, useDispatch } from "react-redux";
-import { handleComposer, resetLeadManagerDetail } from "../../store/slice";
+import {
+	handleComposeEmail,
+	handleComposer,
+	resetLeadManagerDetail,
+} from "../../store/slice";
+import { MailOutlined } from "@ant-design/icons";
 // import { handleBoardComposer } from "../store/slice";
 
 const initialComposerData = {
@@ -28,7 +33,7 @@ function Header({ dictionary, direction }) {
 		{
 			name: dashboard,
 			to: `${ROUTES.LEAD_MANAGER.DEFAULT}`,
-			renderButton: [1],
+			renderButton: [1, 2],
 		},
 	];
 	const handleOpenDrawer = isOpen => {
@@ -36,6 +41,14 @@ function Header({ dictionary, direction }) {
 	};
 
 	const buttons = [
+		{
+			buttonText: "Email",
+			onClick: () => {
+				dispatch(handleComposeEmail(true));
+			},
+			icon: <MailOutlined />,
+		},
+
 		{
 			render: (
 				<SideDrawer

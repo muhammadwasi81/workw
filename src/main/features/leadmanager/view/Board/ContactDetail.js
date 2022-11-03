@@ -128,7 +128,17 @@ function ContactDetail(props) {
 				</div>
 				<div></div>
 
-				<Form.Item label={"Name"} name="name" className="w-full">
+				<Form.Item
+					label={"Name"}
+					name="name"
+					className="w-full"
+					rules={[
+						{
+							required: true,
+							message: "Please enter name!",
+						},
+					]}
+				>
 					<Input
 						placeholder="Write name"
 						addonBefore={prefixSelector}
@@ -155,10 +165,30 @@ function ContactDetail(props) {
 				</div>
 			</div>
 			<div className="grid grid-cols-2 gap-x-5">
-				<Form.Item label={"Phone"} name="phoneNumber" className="">
+				<Form.Item
+					label={"Phone"}
+					name="phoneNumber"
+					className=""
+					rules={[
+						{
+							required: true,
+							message: "Please enter phone number!",
+						},
+					]}
+				>
 					<Input placeholder="Write phone number" />
 				</Form.Item>
-				<Form.Item label={"Email"} name="email" className="">
+				<Form.Item
+					label={"Email"}
+					name="email"
+					className=""
+					rules={[
+						{
+							required: true,
+							message: "Please enter valid email!",
+						},
+					]}
+				>
 					<Input placeholder="Write email address" type={"email"} />
 				</Form.Item>
 				<Form.Item
@@ -188,8 +218,14 @@ function ContactDetail(props) {
 					label={"Description"}
 					name="description"
 					className=""
+					rules={[
+						{
+							required: true,
+							message: "Please enter description!",
+						},
+					]}
 				>
-					<Input placeholder="Write designation" />
+					<Input placeholder="Write description" />
 				</Form.Item>
 			</div>
 			{props.isContactUpdated && (

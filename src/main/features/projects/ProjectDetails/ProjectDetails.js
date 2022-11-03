@@ -48,10 +48,10 @@ function ProjectDetails() {
 	];
 	const { updateTextBtn } = projectsDictionary;
 	const [open, setOpen] = useState(false);
-	const { id } = params;
+	const { projectId } = params;
 	useEffect(() => {
-		dispatch(getProjectById(id));
-	}, [id]);
+		dispatch(getProjectById(projectId));
+	}, [projectId]);
 
 	useEffect(() => {
 		return () => {
@@ -75,7 +75,7 @@ function ProjectDetails() {
 			content: (
 				<Travel
 					referenceType={TravelReferenceTypeEnum.Project}
-					referenceId={id}
+					referenceId={projectId}
 					backButton={false}
 				/>
 			),
@@ -100,12 +100,12 @@ function ProjectDetails() {
 		},
 	];
 
-	const defaultRoute = ROUTES.PROJECT.DEFAULT + "/" + id;
+	const defaultRoute = ROUTES.PROJECT.DEFAULT + "/" + projectId;
 	const featuresComp = {
 		1: (
 			<NewsFeed
 				referenceType={PostReferenceType.PROJECTS}
-				referenceId={id.trim()}
+				referenceId={projectId.trim()}
 				backButton={false}
 				isScheduler={false}
 				isCheckedIn={false}
@@ -116,7 +116,7 @@ function ProjectDetails() {
 		6: (
 			<Task
 				referenceType={TaskReferenceTypeEnum.Project}
-				referenceId={id.trim()}
+				referenceId={projectId.trim()}
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
@@ -125,7 +125,7 @@ function ProjectDetails() {
 		7: (
 			<WorkBoard
 				referenceType={WorkBoardReferenceTypeEnum.Project}
-				referenceId={id.trim()}
+				referenceId={projectId.trim()}
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
@@ -134,7 +134,7 @@ function ProjectDetails() {
 		9: (
 			<Expenses
 				referenceType={ExpenseReferenceTypeEnum.Project}
-				referenceId={id.trim()}
+				referenceId={projectId.trim()}
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
@@ -144,14 +144,14 @@ function ProjectDetails() {
 		11: (
 			<Travel
 				referenceType={TravelReferenceTypeEnum.Project}
-				referenceId={id.trim()}
+				referenceId={projectId.trim()}
 				backButton={false}
 			/>
 		),
 		12: (
 			<Documents
 				referenceType={DocumentReferenceTypeEnum.Project}
-				referenceId={id.trim()}
+				referenceId={projectId.trim()}
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
@@ -168,7 +168,11 @@ function ProjectDetails() {
 						<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
 							<CoverImage image={detail?.image || ProjectCover} />
 							<CoverDetail detail={detail} />
-							<Tab panes={features} id={id} features={panes} />
+							<Tab
+								panes={features}
+								id={projectId}
+								features={panes}
+							/>
 						</div>
 
 						<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
@@ -191,7 +195,7 @@ function ProjectDetails() {
 					buttonText={updateTextBtn}
 					detail={detail}
 					update={true}
-					id={id}
+					id={projectId}
 				/>
 			</Drawer>
 		</>

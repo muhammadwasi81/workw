@@ -18,6 +18,7 @@ export default class Scroll extends React.Component {
 
 	componentDidMount() {
 		//set height
+
 		console.log(
 			"parent height ",
 			document.getElementsByClassName("scroll_dropdown")[0].offsetParent
@@ -29,17 +30,42 @@ export default class Scroll extends React.Component {
 		});
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (
+			prevProps.data.length !== this.props.data.length &&
+			this.state.page !== 1
+		) {
+			// console.log(
+			// 	(this.state.page - 1) * 20 >= this.props.data.length,
+			// 	"Yahoooo"
+			// );
+			// console.log(this.state.page, "Yahoooo page");
+			// console.log(this.props.data.length, "Yahoooo length");
+
+			//we have calculating data length to reset the page to 1
+			if ((this.state.page - 1) * 20 >= this.props.data.length) {
+				// console.log("true");
+				this.setState({
+					page: 1,
+				});
+			}
+			// if (this.props.data.length - (this.state.page - 1) * 20 <= 20) {
+			// 	this.setState({
+			// 		page: 1,
+			// 	});
+			// }
+		}
+
+		if (prevState.page !== this.state.page) {
+			this.props.fetchMoreData(this.state.page);
+		}
+	}
+
 	fetchMoreData = () => {
 		this.setState({
 			page: this.state.page + 1,
 		});
 	};
-
-	componentDidUpdate(prevProps, prevState) {
-		if (prevState.page !== this.state.page) {
-			this.props.fetchMoreData(this.state.page);
-		}
-	}
 
 	hasMoreData = () => {
 		if (this.props.data.length - 20 * (this.state.page - 1) > 19) {

@@ -7,26 +7,33 @@ import { ROUTES } from "../../../../utils/routes";
 const { Meta } = Card;
 
 function ListItem(props) {
-	const {
-		name,
-		description,
-		image = ProjectDefaultImage,
-		members = [],
-	} = props.item;
+	const { name, description, image, members = [] } = props.item;
 	const navigate = useNavigate();
 	return (
 		<>
 			<Card
 				className={"Card2"}
 				cover={
-					<img alt="example" className="object-cover" src={image} />
+					<img
+						alt="example"
+						className="object-cover"
+						src={image || ProjectDefaultImage}
+					/>
 				}
 				hoverable
 				onClick={e => {
 					navigate(`${ROUTES.PROJECT.DEFAULT}/${props.id} `);
 				}}
 			>
-				<Meta title={name} description={description} />
+				<Meta
+					title={name}
+					description={
+						<p className="overflow-hidden whitespace-nowrap text-ellipsis">
+							{description}
+						</p>
+					}
+					className="overflow-hidden whitespace-nowrap text-ellipsis"
+				/>
 				<Avatar
 					isAvatarGroup={true}
 					isTag={false}

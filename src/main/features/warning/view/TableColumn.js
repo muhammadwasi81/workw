@@ -46,7 +46,7 @@ export const tableColumn = () => {
     },
 
     {
-      title: "Reward To",
+      title: "Warning To",
       dataIndex: "members",
       ellipsis: true,
       render: (member) => <Avatar membersData={member} heading={"Members"} />,

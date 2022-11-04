@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Drawer, Tag } from "antd";
-import { useSelector } from "react-redux";
+import { Button, Drawer, Tag } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -12,16 +12,28 @@ import DefaultAttachment from "../../../../content/NewContent/warning/warningsDe
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
 import { ItemContent, ItemHeader } from "../../../sharedComponents/Card/CardStyle";
+import { cancelWarning } from "../store/actions";
+import { ApprovalStatus } from "../../../sharedComponents/AppComponents/Approvals/enums";
 
 function DetailedView(props) {
+  const dispatch = useDispatch()
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, Direction, complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
-
+  const { user } = useSelector(state => state.userSlice);
   const { warningDetail } = useSelector((state) => state.warningSlice);
 
-  const { creator, description, image = DefaultAttachment, category, status, createDate, members = [], approvers, referenceNo } = warningDetail;
+  const { id, creator, description, image = DefaultAttachment, category, status, createDate, members = [], approvers, referenceNo } = warningDetail;
+  let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
+  let userId = user.id
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
+
+  const handleCancel = (e, payload) => {
+    // e.preventDefault()
+    // e.stopPropagation();
+    console.log(e, payload, "PAYLOADDDD!!!!")
+    dispatch(cancelWarning(payload));
+}
 
   return (
     <Drawer
@@ -43,6 +55,10 @@ function DetailedView(props) {
           <div className="right">
             <Tag className="IdTag">{referenceNo}</Tag>
             <StatusTag status={status}></StatusTag>
+            {
+              userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => console.log(props.id, "IDDDDDD")}>Cancel</Button> :
+              "" : ""
+            }
           </div>
         </ItemHeader>
         <ItemContent className="flex">
@@ -87,7 +103,7 @@ function DetailedView(props) {
           </div>
         
         </div>
-      <RemarksApproval data={approvers} title="Approvals" />
+      <RemarksApproval data={approvers} title="Approvers" />
     </div>
     </Drawer >
   );

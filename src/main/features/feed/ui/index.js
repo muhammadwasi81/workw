@@ -64,11 +64,13 @@ const NewsFeed = ({
 						minHeight: "auto",
 					}}
 				>
-					<QuickOptions />
 					{isScheduler && (
-						<div className="schedule" style={{ height: "60%" }}>
-							<Scheduler feed={true} />
-						</div>
+						<>
+							<QuickOptions />
+							<div className="schedule" style={{ height: "60%" }}>
+								<Scheduler feed={true} />
+							</div>
+						</>
 					)}
 				</div>
 			</ContBody>

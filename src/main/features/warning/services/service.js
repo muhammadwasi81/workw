@@ -29,3 +29,13 @@ export const GetWarningByIdService = id => {
 			return res;
 		});
 };
+
+export const cancelWarningervice = id => {
+	return MasterConfig.delete(`api/Warning/WarningCancel?warningId=${id}`)
+		.then(res => {
+			return res;
+		})
+		.catch(res => {
+			return res;
+		});
+};

@@ -16,6 +16,7 @@ import {
 	ReactionModuleEnum,
 } from "../../../../utils/Shared/enums/enums";
 import { PostReferenceType } from "../utils/constants";
+import QuickOptions from "./quickOptions";
 
 const NewsFeed = ({
 	referenceType = PostReferenceType.MAIN_FEED,
@@ -47,6 +48,7 @@ const NewsFeed = ({
 							referenceType={referenceType}
 							referenceId={referenceId}
 						/>
+
 						<PostsList
 							referenceType={referenceType}
 							referenceId={referenceId}
@@ -54,20 +56,21 @@ const NewsFeed = ({
 						/>
 					</div>
 				</div>
-				{isScheduler && (
-					<div
-						className="rt-col"
-						style={{
-							display: "block",
-							height: "auto",
-							minHeight: "auto",
-						}}
-					>
+				<div
+					className="rt-col"
+					style={{
+						display: "block",
+						height: "auto",
+						minHeight: "auto",
+					}}
+				>
+					<QuickOptions />
+					{isScheduler && (
 						<div className="schedule" style={{ height: "60%" }}>
 							<Scheduler feed={true} />
 						</div>
-					</div>
-				)}
+					)}
+				</div>
 			</ContBody>
 		</TabbableContainer>
 	);

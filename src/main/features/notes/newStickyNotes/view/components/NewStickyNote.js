@@ -46,27 +46,15 @@ const NewStickyNote = ({ item }) => {
 
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
-    console.log(image, "IMG");
-    // const imagess = URL.createObjectURL(image);
-    // setImage(images);
-    // console.log(imagess,"IMAGESSSSS");
     const id = item.id;
-    // console.log("ID",id);
-    //console.log(images, "IMAGE STATE");
-    // dispatch(addImage({imagess,id}))
     dispatch(
       getStickyAttachmentAction({
         attachments: [{ file: image, id: createGuid() }],
         id,
+        description,
+        title,
       })
     );
-    //   dispatch(getStickyAttachmentAction({
-    //     id,
-    //     attachments:image.map((item)=>({
-    //       file:item,
-    //       id:createGuid()
-    //     }))
-    //   }))
   };
 
   // ********dropdown menu (color, copy, share) in three dot*********
@@ -140,7 +128,9 @@ const NewStickyNote = ({ item }) => {
   const setDescriptionValue = (value) => {
     const id = item.id;
     dispatch(targetStickyDescription({ id, value }));
-    dispatch(getStickyNoteDescAction({ ...item, attachments:[],description: value }));
+    dispatch(
+      getStickyNoteDescAction({ ...item, attachments: [], description: value })
+    );
   };
 
   // *******modules and formats for React quil******
@@ -165,15 +155,20 @@ const NewStickyNote = ({ item }) => {
     ],
   };
   const imgSrc = item.attachments;
-  console.log(imgSrc, "image from redux");
+  const axis = {
+    x_axis: Math.floor(Math.random() * 40) + 250,
+    y_axis: Math.floor(Math.random() * 40) + 150,
+  };
+
   return (
     <>
-      <Draggable defaultPosition={{ x: 12, y: 450 }} handle=".handle">
-        <div
-          className="stickyNote_container"
-          // style={{ display: !openColor ? "initial" : "none" }}
-        >
-          <div className="stickyNote_header handle"
+      <Draggable
+        defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
+        handle=".handle"
+      >
+        <div className="stickyNote_container">
+          <div
+            className="stickyNote_header handle"
             style={{ backgroundColor: item.colorCode }}
           >
             <input
@@ -230,7 +225,12 @@ const NewStickyNote = ({ item }) => {
             <div className="image_body">
               {imgSrc.map((item, index) => {
                 return (
-                  <Image key={item.id} preview={true} src={item.path} className="image" />
+                  <Image
+                    key={item.id}
+                    preview={true}
+                    src={item.path}
+                    className="image"
+                  />
                 );
               })}
             </div>

@@ -32,7 +32,6 @@ function SalaryDetailCard(props) {
     creator,
     basicSalary,
     details,
-    netSalary,
     description = 'Salary Description here',
     approvers = [{}],
     status = 1,
@@ -41,6 +40,7 @@ function SalaryDetailCard(props) {
     effectiveDate = moment(),
     user,
   } = salaryDetail;
+  console.log(salaryDetail, 'salaryDetail');
   return (
     <>
       <SingleItem onClick={props.onClick}>

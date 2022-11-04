@@ -17,74 +17,76 @@ import { useDispatch } from "react-redux";
 import { getAllGrades } from "../../grade/store/actions";
 import { number } from "prop-types";
 
-export default function AllowanceForm({ data, onSubmit, loading, setClearButton, clearButton }) {
+export default function AllowanceForm({
+  data,
+  onSubmit,
+  loading,
+  setClearButton,
+  clearButton,
+}) {
   const dispatch = useDispatch();
   const [value, setValue] = useState(1);
   const [form, setForm] = useState(data);
-  const [amountType, setAmountType] = useState(false)
+  const [amountType, setAmountType] = useState(false);
 
-  const { grades } = useSelector(
-    state => state.gradeSlice
-  );
-
+  const { grades } = useSelector((state) => state.gradeSlice);
 
   const handleClear = (e) => {
-    setForm({ ...form, description: "", name: "", gradeId: null, value: "" })
-    setClearButton(false)
-  }
+    setForm({ ...form, description: "", name: "", gradeId: null, value: "" });
+    setClearButton(false);
+  };
 
   const handelChangeName = (e) => {
     if (e.target.value.length > 0) {
-      setClearButton(true)
+      setClearButton(true);
     } else {
-      setClearButton(false)
+      setClearButton(false);
     }
-    setForm({ ...form, name: e.target.value })
-  }
+    setForm({ ...form, name: e.target.value });
+  };
 
   const handelChangeAmount = (value) => {
     if (value.length > 0) {
-      setClearButton(true)
+      setClearButton(true);
     } else {
-      setClearButton(false)
+      setClearButton(false);
     }
-    setForm({ ...form, value })
-  }
+    setForm({ ...form, value });
+  };
 
   const handelChangeDescription = (e) => {
     if (e.target.value.length > 0) {
-      setClearButton(true)
+      setClearButton(true);
     } else {
-      setClearButton(false)
+      setClearButton(false);
     }
-    setForm({ ...form, description: e.target.value })
-  }
+    setForm({ ...form, description: e.target.value });
+  };
 
   const handelChangeGrade = (value) => {
     if (value.length > 0) {
-      setClearButton(true)
+      setClearButton(true);
     } else {
-      setClearButton(false)
+      setClearButton(false);
     }
-    const x = grades.filter((item) => item.id === value)
-    setForm({ ...form, gradeId: x[0].id })
-
-  }
+    const x = grades.filter((item) => item.id === value);
+    setForm({ ...form, gradeId: x[0].id });
+  };
 
   const handleType = (e) => {
     setForm({ ...form, allowanceType: e.target.value });
     let type = e.target.value;
     if (type === 2) {
-      setAmountType(true)
+      setAmountType(true);
     } else {
-      setAmountType(false)
+      setAmountType(false);
     }
     setValue(e);
   };
 
   useEffect(() => {
     setForm(data);
-    dispatch(getAllGrades())
+    dispatch(getAllGrades());
   }, [data]);
 
   return (
@@ -102,26 +104,31 @@ export default function AllowanceForm({ data, onSubmit, loading, setClearButton,
               />
             </AllowncesFormInput>
             <AllowncesFormInput>
-              {
-                amountType == false ?
-                  <>
-                    <FormLabel>Percent</FormLabel>
-                    <InputNumber
-                      onChange={handelChangeAmount}
-                      value={form.value}
-                      formatter={(value) => `${value}%`}
-                      parser={(value) => value.replace('%', '')}
-                      placeholder="0"
-                      size="large"
-                      style={{ width: "100%" }}
-                    />
-                  </>
-                  :
-                  <>
-                    <FormLabel>Amount</FormLabel>
-                    <InputNumber onChange={handelChangeAmount} value={form.value} placeholder={"Enter Amount"} size="large" style={{width: "100%"}} />
-                  </>
-              }
+              {amountType == false ? (
+                <>
+                  <FormLabel>Percent</FormLabel>
+                  <InputNumber
+                    onChange={handelChangeAmount}
+                    value={form.value}
+                    formatter={(value) => `${value}%`}
+                    parser={(value) => value.replace("%", "")}
+                    placeholder="0"
+                    size="large"
+                    style={{ width: "100%" }}
+                  />
+                </>
+              ) : (
+                <>
+                  <FormLabel>Amount</FormLabel>
+                  <InputNumber
+                    onChange={handelChangeAmount}
+                    value={form.value}
+                    placeholder={"Enter Amount"}
+                    size="large"
+                    style={{ width: "100%" }}
+                  />
+                </>
+              )}
             </AllowncesFormInput>
             <AllowncesFormInput>
               <FormLabel>Description</FormLabel>
@@ -149,7 +156,14 @@ export default function AllowanceForm({ data, onSubmit, loading, setClearButton,
               </Select>
             </AllowncesFormInput>
           </Col>
-          <Col lg={22} md={24} xl={10} sm={24} xs={24} style={{ paddingTop: 27, }}>
+          <Col
+            lg={22}
+            md={24}
+            xl={10}
+            sm={24}
+            xs={24}
+            style={{ paddingTop: 27 }}
+          >
             <div className="radioContainer">
               <Radio.Group
                 onChange={handleType}
@@ -189,20 +203,8 @@ export default function AllowanceForm({ data, onSubmit, loading, setClearButton,
         </Row>
       </FormInputContainer>
       <FormButtonContainer>
-        {
-          form.id ?
-            <>
-              <FormButton
-                type="primary"
-                size="medium"
-                style={{}}
-                className="formBtn"
-                onClick={(e) => { onSubmit({ ...form, value: Number(form.value) }); setClearButton(false) }}
-              >
-                Save Allowance
-              </FormButton>
-            </>
-            :
+        {form.id ? (
+          <>
             <FormButton
               type="primary"
               size="medium"
@@ -210,15 +212,28 @@ export default function AllowanceForm({ data, onSubmit, loading, setClearButton,
               className="formBtn"
               onClick={(e) => {
                 onSubmit({ ...form, value: Number(form.value) });
-                setClearButton(false)
+                setClearButton(false);
               }}
-            // loading={loading}
             >
-              Add Allowance
+              Save Allowance
             </FormButton>
-        }
-        {
-          clearButton &&
+          </>
+        ) : (
+          <FormButton
+            type="primary"
+            size="medium"
+            style={{}}
+            className="formBtn"
+            onClick={(e) => {
+              onSubmit({ ...form, value: Number(form.value) });
+              setClearButton(false);
+            }}
+            // loading={loading}
+          >
+            Add Allowance
+          </FormButton>
+        )}
+        {clearButton && (
           <FormButton
             type="primary"
             size="medium"
@@ -228,7 +243,7 @@ export default function AllowanceForm({ data, onSubmit, loading, setClearButton,
           >
             Clear
           </FormButton>
-        }
+        )}
       </FormButtonContainer>
     </FormContainer>
   );

@@ -1,13 +1,23 @@
 import React from "react";
 import { Collapse, List } from "antd";
-import { DownOutlined, PlusCircleFilled } from "@ant-design/icons";
-import { FaUserLock } from "react-icons/fa";
-import WhiteCard from "../../features/projects/UI/WhiteCard";
+import {
+	DownOutlined,
+	MailOutlined,
+	PlusCircleFilled,
+} from "@ant-design/icons";
+// import { FaUserLock } from "react-icons/fa";
+// import WhiteCard from "../../features/projects/UI/WhiteCard";
 import "./memberCollapse.css";
 import Avatar from "../Avatar/avatarOLD";
 const { Panel } = Collapse;
 
-function MemberCollapse({ handleAdd, data = [], ghost = true }) {
+function MemberCollapse({
+	handleAdd,
+	data = [],
+	ghost = true,
+	isEmail = false,
+	onEmailClick = () => {},
+}) {
 	const onChange = key => {
 		// console.log(key);
 	};
@@ -39,15 +49,25 @@ function MemberCollapse({ handleAdd, data = [], ghost = true }) {
 					</div>
 				}
 				className="custom_member_collapse"
-				// extra={
-				// 	<PlusCircleFilled
-				// 		onClick={event => {
-				// 			event.stopPropagation();
-				// 			handleAdd();
-				// 		}}
-				// 		className="text-xl font-bold !text-primary-color mr-2"
-				// 	/>
-				// }
+				extra={
+					isEmail && (
+						<div
+							onClick={event => {
+								event.stopPropagation();
+								onEmailClick();
+							}}
+						>
+							<MailOutlined className="p-2 rounded-full bg-primary-color !text-white " />
+						</div>
+					)
+					// <PlusCircleFilled
+					// 	onClick={event => {
+					// 		event.stopPropagation();
+					// 		handleAdd();
+					// 	}}
+					// 	className="text-xl font-bold !text-primary-color mr-2"
+					// />
+				}
 				key="1"
 			>
 				<List
@@ -60,8 +80,8 @@ function MemberCollapse({ handleAdd, data = [], ghost = true }) {
 								<List.Item.Meta
 									avatar={
 										<Avatar
-											name={item.member.name}
-											src={item.member.image}
+											name={item.member?.name}
+											src={item.member?.image}
 											round={true}
 											width={"30px"}
 											height={"30px"}
@@ -75,8 +95,8 @@ function MemberCollapse({ handleAdd, data = [], ghost = true }) {
 									}
 									description={
 										<span className="text-gray-500 text-xs ">
-											{item.member.designation
-												? item.member.designation
+											{item.member?.designation
+												? item.member?.designation
 												: "No designation"}
 										</span>
 									}

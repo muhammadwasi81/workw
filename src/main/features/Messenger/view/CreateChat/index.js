@@ -42,7 +42,7 @@ function CreateChat({ onClose, visible }) {
     let image = state.profileImage ? {
       id: STRINGS.DEFAULTS.guid,
       file: state.profileImage
-    } : null;
+    } : undefined;
     let members = selectedMembers.map(memberId => ({ memberId }));
     let chatType = members.length > 1 ? 2 : 1;
     let payload = {

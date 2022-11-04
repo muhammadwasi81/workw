@@ -75,21 +75,43 @@ export const feedSlice = createSlice({
 		toggleComposerVisibility,
 		onSaveComment,
 		clearSinglePost,
+		addFeedFavourite(state, { payload }) {
+			const feed = state.allFeed.posts.find(
+				feed => feed.id === payload.id
+			);
+			feed.isPinnedPost = !feed.isPinnedPost;
+		},
+		addFeedReaction(state, { payload }) {
+			const { reactionMode, referenceId, reactionType } = payload;
+			const feed = state.allFeed.posts.find(
+				feed => feed.id === referenceId
+			);
+			if (reactionMode && reactionMode === "click") {
+				// feed.reactionType===reactionType
+				if (feed.reactionType === reactionType) {
+					feed.reactionType = 0;
+					feed.reactionCount = feed.reactionCount - 1;
+					return;
+				}
+			}
+			feed.reactionCount = 1;
+			feed.reactionType = reactionType;
+		},
 	},
 	extraReducers: builder => {
 		builder.addCase(
 			onFeedCreateSubmitAction.fulfilled,
 			(state, { payload }) => {
 				state.postCompose = composeInitialState;
-				state.allFeed.posts.unshift(payload);
+				state.allFeed.posts.unshift({ ...payload, reactionType: 0 });
 			}
 		);
 		builder.addCase(favoriteFeed.fulfilled, (state, { payload }) => {
 			// console.log("payload", payload);
-			const feed = state.allFeed.posts.find(
-				feed => feed.id === payload.id
-			);
-			feed.isPinnedPost = !feed.isPinnedPost;
+			// const feed = state.allFeed.posts.find(
+			// 	feed => feed.id === payload.id
+			// );
+			// feed.isPinnedPost = !feed.isPinnedPost;
 		});
 		builder.addCase(onFeedCreateSubmitAction.pending, (state, _) => {
 			state.postCompose.loading = true;
@@ -99,7 +121,17 @@ export const feedSlice = createSlice({
 		});
 		builder
 			.addMatcher(isFulfilled(...[getAllFeed]), (state, { payload }) => {
-				state.allFeed.posts = payload;
+				const { data, pageNo } = payload;
+				let feedData = data.map((data, i) => ({
+					...data,
+					reactionType: 0,
+				}));
+				// console.log("feedData", feedData);
+				if (pageNo === 1) {
+					state.allFeed.posts = feedData;
+				} else {
+					state.allFeed.posts = state.allFeed.posts.concat(feedData);
+				}
 				state.allFeed.loading = false;
 			})
 			.addMatcher(isPending(...[getAllFeed]), state => {
@@ -122,7 +154,7 @@ export const feedSlice = createSlice({
 			});
 		builder
 			.addMatcher(isFulfilled(...[getFeedById]), (state, { payload }) => {
-				state.singlePost = payload;
+				state.singlePost = { ...payload, reactionType: 0 };
 				state.loading = false;
 			})
 			.addMatcher(isPending(...[getFeedById]), state => {
@@ -146,4 +178,5 @@ export const feedSlice = createSlice({
 			});
 	},
 });
+export const { addFeedFavourite, addFeedReaction } = feedSlice.actions;
 export default feedSlice.reducer;

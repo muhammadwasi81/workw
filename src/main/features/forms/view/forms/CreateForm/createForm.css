@@ -1,7 +1,3 @@
-.ant-input:placeholder-shown {
-  border: none;
-}
-
 .btn {
   color: #fff;
   background: var(--currentThemeColor);
@@ -14,4 +10,7 @@
 
 .btn :hover {
   all: none;
+}
+.editForm .ant-upload-list-item-card-actions-btn {
+  opacity: 1 !important;
 }

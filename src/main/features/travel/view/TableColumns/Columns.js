@@ -1,4 +1,5 @@
 import { EditFilled } from "@ant-design/icons";
+import moment from "moment";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 const Edit = (handleEdit, row) => {
 	return (
@@ -45,24 +46,32 @@ export const tableColumns = (handleEdit, Direction, table) => {
 			ellipsis: true,
 		},
 		{
+			title: table.createDate,
+			dataIndex: "createDate",
+			render: i => moment(i.createDate).format("DD MMM YYYY"),
+			ellipsis: true,
+			width: 200,
+			// sort: true,
+		},
+		{
 			title: table.agentStatus,
 			dataIndex: "agentStatus",
 			render: status => <StatusTag status={status} />,
 			// tag: true,
 			width: 200,
 		},
-		{
-			title: table.actions,
-			key: "action",
-			action: true,
-			customAction: true,
-			actions: ["edit"],
-			key: "6",
-			width: 100,
-			render: (_, row) => {
-				return Edit(handleEdit, row);
-			},
-		},
+		// {
+		// 	title: table.actions,
+		// 	key: "action",
+		// 	action: true,
+		// 	customAction: true,
+		// 	actions: ["edit"],
+		// 	key: "6",
+		// 	width: 100,
+		// 	render: (_, row) => {
+		// 		return Edit(handleEdit, row);
+		// 	},
+		// },
 	];
 	// let columns = [...defaultColumns].reverse();
 	// return Direction === "ltr" ? defaultColumns : columns;

@@ -12,6 +12,8 @@ import {
 	ApprovalStatus,
 } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import NewTravelDetailCard from "../UI/NewTravelDetailCard";
+import { fileExtentionPreview } from "../../utils/fileExtentionHelper";
+import { handleAttachmentModal } from "../../store/slice";
 
 function TravelDetail(props) {
 	const { travelId } = props;
@@ -75,6 +77,7 @@ function TravelDetail(props) {
 							refNo={travelDetail && travelDetail.referenceNo}
 							status={status || travelDetail?.status}
 							profileImgSize={40}
+							showIcon={false}
 						/>
 						<div className="flex justify-between flex-col gap-3">
 							<div className="flex flex-col gap-1">
@@ -90,9 +93,9 @@ function TravelDetail(props) {
 								</span>
 							</div>
 							<div>
-								<h3 className=" text-primary-color font-semibold">
+								{/* <h3 className=" text-primary-color font-semibold">
 									{headings.desctination}
-								</h3>
+								</h3> */}
 								<div
 									className={`flex overflow-x-auto gap-5 ${travelDetail
 										?.cities.length === 1 &&
@@ -112,8 +115,38 @@ function TravelDetail(props) {
 										)}
 								</div>
 							</div>
+							<div className="">
+								<hr className="border-t-[2px]" />
+								<h6 className="text-[16px] font-semibold py-2">
+									Attachments
+								</h6>
+								<div
+									className="flex gap-4 items-center overflow-auto cursor-pointer"
+									onClick={() =>
+										dispatch(
+											handleAttachmentModal(
+												travelDetail?.attachments
+											)
+										)
+									}
+								>
+									{travelDetail?.attachments.map(file => (
+										<div className="rounded-lg h-[80px] w-[80px]  min-w-[80px] border overflow-hidden">
+											<img
+												className=" object-cover h-full w-full"
+												src={fileExtentionPreview(
+													file.path
+												)}
+												alt={file.id}
+												key={file.id}
+											/>
+										</div>
+									))}
+								</div>
+							</div>
 							<div>
 								<hr className="border-t-[2px]" />
+
 								<Approval
 									title={"Approvers"}
 									module={ApprovalsModule.TravelApproval}

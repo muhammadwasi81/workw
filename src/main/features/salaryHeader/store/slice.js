@@ -1,6 +1,10 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addSalaryHeader, getAllSalaryHeader, updateSalaryHeader } from "./actions.js";
+import {
+  addSalaryHeader,
+  getAllSalaryHeader,
+  updateSalaryHeader,
+} from "./actions.js";
 
 const initialState = {
   salaryHeaders: [],
@@ -13,7 +17,9 @@ const salaryHeaderSlice = createSlice({
   initialState,
   reducers: {
     salaryHeaderDeleted: (state, { payload }) => {
-      state.salaryHeaders = state.salaryHeaders.filter((e) => e.id !== payload.id);
+      state.salaryHeaders = state.salaryHeaders.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -33,14 +39,19 @@ const salaryHeaderSlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addSalaryHeader, updateSalaryHeader]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[addSalaryHeader, updateSalaryHeader]),
+        (state) => {
+          state.loader = true;
+        }
+      )
       .addMatcher(isPending(...[getAllSalaryHeader]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(
-        isRejected(...[getAllSalaryHeader, addSalaryHeader, updateSalaryHeader]),
+        isRejected(
+          ...[getAllSalaryHeader, addSalaryHeader, updateSalaryHeader]
+        ),
         (state) => {
           state.loader = false;
           state.loadingData = false;

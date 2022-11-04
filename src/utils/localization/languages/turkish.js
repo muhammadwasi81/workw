@@ -82,6 +82,8 @@ const turkish = {
     messenger: "haberci",
     chartOfAccount: "Hesap Planı",
     voucher: "Fiş",
+    Quotation: "Alıntı yapmak",
+    QuotationClient: "Teklif İstemcisi",
     transaction: "İşlem",
     report: "Rapor",
     mailBox: "Posta Kutusu",
@@ -125,6 +127,7 @@ const turkish = {
     rewards: "ödüller",
     businessPolicy: "iş politikası",
     form: "biçim",
+    teams: "Benim takımım",
   },
 
   /*** AppHeader only used in Component headerTab ***/

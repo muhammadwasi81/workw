@@ -12,11 +12,14 @@ import {
 import storage from "redux-persist/lib/storage";
 import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
 import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
+import requisitionSlice from "../main/features/requisition/store/slice";
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
 import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
 import taxSlabSlice from "../main/features/taxSlabs/store/slice";
 import subsidiarySlice from "../main/features/subsidiary/store/slice";
+import quotationSlice from "../main/features/quotation/store/slice";
+import quotationClientSlice from "../main/features/quotationClient/store/slice";
 import subsidiaryOfficeSlice from "../main/features/subsidiaryOffice/store/slice";
 import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
@@ -76,6 +79,12 @@ import attendanceSlice from "../main/features/attendance/store/slice";
 import stickySlice from "../main/features/notes/newStickyNotes/store/stickySlice";
 import formSlice from "../main/features/forms/store/slice";
 import payrollSlice from "../main/features/payroll/store/slice";
+import requestItemSlice from "../main/features/RequestListItems/store/slice";
+import assetsCategorySlice from "../main/features/assetsCategory/store/slice";
+import AssetItemSlice from "../main/features/createAssets/store/slice";
+import teamSlice from "../main/features/team/store/slice";
+import inventoryAssetSlice from "../main/features/assets/store/slice";
+import appraisalModuleSlice from "../main/features/appraisalModule/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -101,6 +110,9 @@ const reducers = combineReducers({
   payrollGroupSlice,
   fiscalYearSlice,
   customApprovalCategorySlice,
+  requisitionSlice,
+  quotationSlice,
+  quotationClientSlice,
   rewardCategorySlice,
   rewardSlice,
   complainSlice,
@@ -148,6 +160,12 @@ const reducers = combineReducers({
   stickySlice,
   formSlice,
   payrollSlice,
+  assetsCategorySlice,
+  AssetItemSlice,
+  requestItemSlice,
+  teamSlice,
+  inventoryAssetSlice,
+  appraisalModuleSlice,
 });
 
 const persistConfig = {

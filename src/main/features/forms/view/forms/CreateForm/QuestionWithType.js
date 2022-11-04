@@ -18,10 +18,20 @@ const QuestionWithType = (props) => {
   const [fileList, setFileList] = useState([]);
   const [quesionImage, setQuestionImage] = useState();
 
-  const handleImageChange = (info, index, action) => {
+  const handleImageChange = (info, index) => {
     console.log("index", index);
     console.log(info);
+    if (info.file?.status === "removed") {
+      console.log("removed console");
+      let fileLists = [...fileList];
+      console.log(fileLists);
+      fileLists.splice(index, 1);
+      console.log(fileLists);
+      setFileList(fileLists);
+      return;
+    }
     if (!fileList[index]) {
+      console.log("add console");
       setFileList([
         ...fileList,
         {
@@ -31,6 +41,10 @@ const QuestionWithType = (props) => {
       ]);
     }
   };
+
+  useEffect(() => {
+    console.log(fileList);
+  }, [fileList]);
 
   const handleQuestionImageChange = (info) => {
     console.log("image", info);
@@ -45,7 +59,7 @@ const QuestionWithType = (props) => {
     console.log("values", values);
     console.log("fileList onfinish", fileList);
     let data = {};
-    if (values.options) {
+    if (values.answers) {
       data = {
         ...values,
         fileList: fileList,
@@ -55,7 +69,7 @@ const QuestionWithType = (props) => {
       data = {
         ...values,
         fileList: fileList,
-        options: [],
+        answers: [],
         image: quesionImage && quesionImage,
       };
     }
@@ -63,6 +77,7 @@ const QuestionWithType = (props) => {
     props.dataSend(data);
     form.resetFields();
     setQuestionImage(null);
+    setFileList([]);
   };
 
   return (
@@ -71,7 +86,7 @@ const QuestionWithType = (props) => {
         <div className="f-head-item p_15">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Form.Item
-              name="Question"
+              name="question"
               rules={[
                 {
                   required: true,
@@ -93,11 +108,21 @@ const QuestionWithType = (props) => {
               </Upload>
             </Form.Item>
           </div>
-          <Form.Item name="formAnswerType">
+          <Form.Item
+            name="answerType"
+            initialValue={3}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please Select your Answer type!",
+            //   },
+            // ]}
+          >
             <Select
               placeholder="Select Answer Type"
               onChange={onQuestionTypeChange}
               allowClear
+              defaultValue={3}
             >
               <Option value={3}>Text</Option>
               <Option value={2}>Number</Option>
@@ -105,7 +130,7 @@ const QuestionWithType = (props) => {
             </Select>
           </Form.Item>
           {questionType === 1 && (
-            <Form.List name="options">
+            <Form.List name="answers">
               {(fields, { add, remove }, { errors }) => (
                 <>
                   {fields.map((field, index) => (

@@ -1,0 +1,187 @@
+.dashboardContainer{
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  margin: auto;
+}
+.flexContainer{
+   flex: 3;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+.flexRow{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.c-dash-item{
+    flex: 1;
+}
+.c-dash-item > .myPaper{
+    padding: 20px 10px;
+    margin: 10px;
+    text-align: center; 
+}
+.c-dash-item > .myPaper > .userItem {
+    height: 245px;
+ }
+ .c-dash-item > .myPaper > .postItem {
+    height: 245px;
+}
+.c-dash-item > .myPaper > .extraItem {
+   height: 550px;
+   padding: 18px 25px;
+}
+.c-dash-item img {
+   display: inline-block;
+}
+.c-dash-item > .myPaper > .expenseItem {
+   height: 245px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.c-dash-item > .myPaper > .docItem {
+   height: 245px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.c-dash-item > .myPaper > .userItem > .totalUsers {
+    font-size: 18px;
+ }
+ .c-dash-item > .myPaper > .docItem > .totalUsers {
+   font-size: 18px;
+}
+.c-dash-item > .myPaper > .userItem > .totalUsers > .userIcon{
+   width: 90px;
+   margin-bottom: 5px;
+}
+.c-dash-item .dash-text{
+   font-weight: bold;
+   color: var(--currentThemeColor);
+   /* color: rgb(105, 105, 105); */
+
+}
+.c-dash-item > .myPaper > .userItem > .otherUsers {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+ }
+ .c-dash-item > .myPaper > .docItem > .otherUsers {
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+ 
+ .userGreen{
+     color: #61d66a;
+ }
+ .userRed{
+    color: #cf3434;
+}
+.userGrey{
+    color: grey;
+}
+.userYellow{
+    color: #dbd63e;
+}
+.userYellow{
+    color: #dbd63e;
+}
+ .c-dash-item > .myPaper > .userItem > .otherUsers > .otherUser {
+    width: 50%;
+    font-size: 15px;
+ }
+ .c-dash-item > .myPaper > .userItem > .otherUsers > .otherUser > img{
+    width: 50px;
+ }
+
+ .c-dash-item > .myPaper > .postItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+ }
+ .c-dash-item > .myPaper > .postItem > .totalPosts{
+    margin: 0 10px;
+    font-size: 22px;
+ }
+ .c-dash-item > .myPaper > .postItem > .otherPosts{
+   display: flex;
+}
+ .c-dash-item > .myPaper > .postItem > .otherPosts > .otherPost{
+    margin: 10px 20px;
+    font-size: 15px;
+ }
+ .c-dash-item > .myPaper > .postItem > .otherPosts > .otherPost > img{
+    width: 45px;
+    margin-bottom: 5px;
+ }
+ .c-dash-item > .myPaper > .postItem > .totalPosts > img{
+   width: 80px;
+   margin-bottom: 5px;
+}
+.c-dash-item > .myPaper > .extraItem > .otherExtras{
+   display: flex;
+   justify-content: space-between;
+   flex-direction: column;
+   height: 100%;
+   font-size: 18px;
+   line-height: 1.2;
+}
+.c-dash-item > .myPaper > .extraItem > .otherExtras > .otherExtra > img{
+   width: 60px;
+   margin-bottom: 15px;
+}
+.c-dash-item > .myPaper > .expenseItem > .totalUsers > img{
+   width: 80px;
+   margin-bottom: 15px;
+}
+.c-dash-item > .myPaper > .expenseItem > .totalUsers{
+   font-size: 22px;
+}
+.c-dash-item > .myPaper > .docItem > .totalUsers > img{
+   width: 60px;
+   margin-bottom: 5px;
+}
+.c-dash-item > .myPaper > .docItem > .otherUsers > .otherUser{
+   width: 18%;
+    margin: 5px 12px;
+}
+.c-dash-item > .myPaper > .docItem > .otherUsers > .otherUser > img{
+   height: 32px;
+}
+
+@media screen and (max-width: 1080px) {
+   .c-dash-item > .myPaper > .docItem > .otherUsers > .otherUser{
+      width: 50px;
+       margin: 5px 12px;
+       font-size: 13px;
+   } 
+}
+@media screen and (max-width: 1000px) {
+   .dashboardContainer{
+      flex-direction: column-reverse;
+      margin-top: 30px;
+   }
+   .c-dash-item > .myPaper > .extraItem > .otherExtras{
+      flex-direction: row;
+   }
+   .c-dash-item > .myPaper > .extraItem{
+      height: unset;
+   }
+   .c-dash-item > .myPaper > .extraItem > .otherExtras > .otherExtra{
+      margin: 0 10px;
+   }
+}
+@media screen and (max-width: 600px) {
+   .c-dash-item{
+      flex: unset;
+      width: 100%;
+   }
+}

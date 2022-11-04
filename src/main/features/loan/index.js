@@ -19,131 +19,154 @@ import { tableColumn } from "./TableColumn";
 import { LoanFilterTypeEnum } from "./enum/index";
 import getStoredState from "redux-persist/es/getStoredState";
 import { getAllLoans } from "./store/actions";
+import { Drawer, Button } from "antd";
+import { ROUTES } from "../../../utils/routes";
 
 function Index() {
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { loanDictionaryList } = LoanDictionary[userLanguage];
-	const dispatch = useDispatch();
-	const { loanList, listItem, isCreateComposer } = useSelector(
-		state => state.loanSlice
-	);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { loanDictionaryList, Direction } = LoanDictionary[userLanguage];
+  const dispatch = useDispatch();
+  const { loanList, listItem, isCreateComposer } = useSelector(
+    (state) => state.loanSlice
+  );
 
-	const [tableView, setTableView] = useState(false);
-	const [viewType, setViewType] = useState("List");
-	const [search, setSearch] = useState("");
+  const [tableView, setTableView] = useState(false);
+  const [viewType, setViewType] = useState("List");
+  const [search, setSearch] = useState("");
 
-	const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
-	// const [detailViewIsVisible, setDetailViewIsVisible] = useState(true);
+  // const [detailViewIsVisible, setDetailViewIsVisible] = useState(true);
 
-	// useEffect(() => {
-	//   dispatch(getAllRewards(filter));
-	// }, [filter]);
+  const items = [
+    {
+      name: "Loans",
+      to: `${ROUTES.LOAN.LOAN}`,
+      renderButton: [1],
+    },
+  ];
 
-	useEffect(() => {
-		dispatch(
-			getAllLoans({
-				filter,
-				search,
-			})
-		);
-	}, [filter, search]);
+  useEffect(() => {
+    dispatch(
+      getAllLoans({
+        filter,
+        search,
+      })
+    );
+  }, [filter, search]);
 
-	const closeDetailView = () => {
-		dispatch(CloseDetailView());
-		// setDetailViewIsVisible(false);
-	};
+  const closeDetailView = () => {
+    dispatch(CloseDetailView());
+    // setDetailViewIsVisible(false);
+  };
 
-	const onSearch = value => setSearch(value);
-	const onSegment = value => setViewType(value);
-	console.log("iscerate***", isCreateComposer);
-	return (
-		<TabbableContainer>
-			<Header
-				buttons={[
-					{
-						buttonText: "Create Loan",
-						// onClick: () => setVisible(true),
-						render: (
-							<SideDrawer
-								title={loanDictionaryList.createLoan}
-								buttonText={loanDictionaryList.createLoan}
-								success={isCreateComposer}
-								setOpenDrawer={() =>
-									dispatch(toggleCreateComposer())
-								}
-								isAccessDrawer={true}
-								openDrawer={isCreateComposer}
-								setIsEdited={() => {}}
-							>
-								<Composer />
-							</SideDrawer>
-						),
-					},
-				]}
-			/>
-			<TopBar
-				onSearch={onSearch}
-				buttons={[
-					{
-						name: "Loans",
-						onClick: () =>
-							setFilter({ filterType: LoanFilterTypeEnum.All }),
-					},
-					{
-						name: "For Approval",
-						onClick: () =>
-							setFilter({
-								filterType: LoanFilterTypeEnum.ForApproval,
-							}),
-					},
-					{
-						name: "Loans To Me",
-						onClick: () =>
-							setFilter({
-								filterType:
-									LoanFilterTypeEnum.CreatedByMeAndLoanOfMe,
-							}),
-					},
-				]}
-				filter={{
-					onFilter: () => {},
-				}}
-				segment={{
-					onSegment: value => {
-						if (value === "Table") {
-							setTableView(true);
-							console.log(tableView);
-						} else {
-							setTableView(false);
-						}
-					},
-					label1: "List",
-					label2: "Table",
-				}}
-			/>
+  const onSearch = (value) => setSearch(value);
+  const onSegment = (value) => setViewType(value);
 
-			<ContBody className="!block">
-				{tableView && (
-					<Table
-						columns={tableColumn()}
-						dragable={true}
-						data={loanList ? loanList : []}
-					/>
-				)}
+  return (
+    <TabbableContainer>
+      <Header
+        items={items}
+        buttons={[
+          {
+            buttonText: loanDictionaryList.createLoan,
+            render: (
+              <Button
+                className="ThemeBtn"
+                onClick={() => {
+                  dispatch(toggleCreateComposer());
+                }}
+              >
+                {loanDictionaryList.createLoan}
+              </Button>
+            ),
+          },
+        ]}
+      />
+      <TopBar
+        onSearch={onSearch}
+        buttons={[
+          {
+            name: "Loans",
+            onClick: () => setFilter({ filterType: LoanFilterTypeEnum.All }),
+          },
+          {
+            name: "For Approval",
+            onClick: () =>
+              setFilter({
+                filterType: LoanFilterTypeEnum.ForApproval,
+              }),
+          },
+          {
+            name: "Loans To Me",
+            onClick: () =>
+              setFilter({
+                filterType: LoanFilterTypeEnum.CreatedByMeAndLoanOfMe,
+              }),
+          },
+        ]}
+        // filter={{
+        // 	onFilter: () => {},
+        // }}
+        segment={{
+          onSegment: (value) => {
+            if (value === "Table") {
+              setTableView(true);
+              console.log(tableView);
+            } else {
+              setTableView(false);
+            }
+          },
+          label1: "List",
+          label2: "Table",
+        }}
+      />
 
-				{/* {!tableView && <ListBoxes />} */}
+      <ContBody className="!block">
+        {tableView && (
+          <Table
+            columns={tableColumn()}
+            dragable={true}
+            data={loanList ? loanList : []}
+          />
+        )}
 
-				{!tableView && <ListView filter={filter} />}
-				{/* 
+        {/* {!tableView && <ListBoxes />} */}
+
+        {!tableView && <ListView filter={filter} />}
+        {/* 
         {render[view]}
         {render[viewType]} */}
-			</ContBody>
-			{/* {listItem && (
+      </ContBody>
+      {/* {listItem && (
 				<DetailedView onClose={closeDetailView} visible={listItem} />
 			)} */}
-		</TabbableContainer>
-	);
+
+      <Drawer
+        title={
+          <h1
+            style={{
+              fontSize: "20px",
+              margin: 0,
+              textAlign: Direction === "ltr" ? "" : "end",
+            }}
+          >
+            {loanDictionaryList.createLoan}
+          </h1>
+        }
+        placement={Direction === "rtl" ? "left" : "right"}
+        width="768"
+        onClose={() => {
+          dispatch(toggleCreateComposer());
+        }}
+        visible={isCreateComposer}
+        destroyOnClose={true}
+        className="detailedViewComposer drawerSecondary"
+      >
+        <Composer />
+      </Drawer>
+    </TabbableContainer>
+  );
 }
 
 export default Index;

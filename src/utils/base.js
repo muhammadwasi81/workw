@@ -278,7 +278,7 @@ export const STRINGS = {
 				DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
 				INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
 			},
-			SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
+			SETTINGS: `${DOMAIN_PREFIX}/settings`,
 			NOTES: `${DOMAIN_PREFIX}/user/notes`,
 		},
 		CALL: {
@@ -297,6 +297,10 @@ export const STRINGS = {
 			REWARDS: {
 				DEFAULT: `${DOMAIN_PREFIX}/rewards`,
 				APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
+			},
+			REQUISITION: {
+				DEFAULT: `${DOMAIN_PREFIX}/requisition`,
+				APPROVALS: `${DOMAIN_PREFIX}/requisition/approvals`,
 			},
 			RESIGNATIONS: {
 				DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
@@ -2234,7 +2238,6 @@ export function buildFormData(formData, data, parentKey) {
 			buildFormData(
 				formData,
 				data[key],
-				// parentKey ? `${parentKey}[${key}]` : key
 				parentKey
 					? !isNaN(Number(key))
 						? `${parentKey}[${key}]`
@@ -2243,8 +2246,8 @@ export function buildFormData(formData, data, parentKey) {
 			);
 		});
 	} else {
-		const value = data == null ? "" : data;
-		formData.append(parentKey, value);
+		// const value = data == null ? "" : data;
+		data !== undefined && data !== null && formData.append(parentKey, data);
 	}
 }
 
@@ -2282,8 +2285,9 @@ export function renderTitleWithMentions(title, mentions) {
 				const mention = mentions.filter(
 					member => member.memberId == item
 				);
+				// console.log("mention", mention);
 				if (mention.length > 0) {
-					return `<a href=${mention[0].member.id}>${mention[0].member.name}</a>`;
+					return `<a href=${mention[0]?.member?.id}>${mention[0]?.member?.name}</a>`;
 					// return mention;
 				} else {
 					return item;
@@ -2304,3 +2308,15 @@ export function modifySelectData(data) {
 		return data;
 	}
 }
+
+// This function will get enum value
+
+export const getEnumValue = (objEnum, enumTypeId) => {
+	console.log(objEnum, enumTypeId);
+	objEnum.map(item => {
+		if (item.value === enumTypeId) {
+			console.log("success");
+			return item.label;
+		}
+	});
+};

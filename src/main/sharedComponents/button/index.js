@@ -3,13 +3,13 @@ import { Button, Badge } from "antd";
 import AntTooltip from "../Tooltip/AntTooltip";
 import { useMediaQuery } from "react-responsive";
 
-const Index = ({
-  type,
-  shape,
+const SharedButton = ({
+  type="primary",
+  shape="circle",
   icon,
-  IconSize,
+  IconSize=12,
   title,
-  size,
+  size="small",
   style,
   onClick,
   IconColor,
@@ -57,11 +57,15 @@ const Index = ({
       }
       size={size}
       style={style}
-      className={`${buttonClass} ${isTablet && "CompBtnMobile w-fit"} `}
+      // style={{
+      //   backgroundColor:"transparent",
+      //   border:"none"
+      // }}
+      className={`defaultBtn ${buttonClass} ${isTablet && "CompBtnMobile w-fit"} `}
     >
       {title}
     </Button>
   );
 };
 
-export default Index;
+export default SharedButton;

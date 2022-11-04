@@ -67,6 +67,7 @@ const hindi = {
 			description: "विवरण",
 			agentStatus: "एजेंट की स्थिति",
 			actions: "कार्रवाई",
+			createDate: "तिथि बनाएं",
 		},
 	},
 	Direction: "ltr",

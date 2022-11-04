@@ -24,7 +24,7 @@ const Create = (props) => {
   const [form] = Form.useForm();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-  console.log("props in create component", props);
+  // console.log("props in create component", props);
   const { removeQuestion, formData, handleSequenceChange } = props;
   const { createLoader } = useSelector((state) => state.formSlice);
 
@@ -72,25 +72,55 @@ const Create = (props) => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
+          layout="vertical"
           form={form}
         >
           <div className="c-row bg-clr editForm">
             <div className="f-head-item p_15">
               <Form.Item
+                label="Title"
                 name="subject"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Subject!",
+                    message: "Please input your Title!",
                   },
                 ]}
               >
-                <Input placeholder="Title" />
+                <TextArea
+                  showCount
+                  maxLength={20}
+                  placeholder="Title"
+                  rows={1}
+                />
               </Form.Item>
-              <Form.Item name="description">
-                <TextArea placeholder="Description" rows={4} />
+              <Form.Item
+                name="description"
+                label="Description"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your Description!",
+                  },
+                ]}
+              >
+                <TextArea
+                  showCount
+                  maxLength={100}
+                  placeholder="Description"
+                  rows={4}
+                />
               </Form.Item>
-              <Form.Item name="approvers">
+              <Form.Item
+                name="approvers"
+                label="Approvers"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Select Approvers",
+                  },
+                ]}
+              >
                 <MemberSelect
                   name="Approvers"
                   mode="multiple"
@@ -125,7 +155,7 @@ const Create = (props) => {
             {formData &&
               formData.question.map((item, index) => (
                 <>
-                  {console.log("item radio with image", item)}
+                  {/* {console.log("item radio with image", item)} */}
                   {item.localType === "radio" && (
                     <Radio
                       // handleRadioChange={handleChange}
@@ -170,7 +200,7 @@ const Create = (props) => {
               htmlType="submit"
               disabled={createLoader ? true : false}
             >
-              Submit Form
+              Create Form
             </Button>
           </Form.Item>
         </Form>

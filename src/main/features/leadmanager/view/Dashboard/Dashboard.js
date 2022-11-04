@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../../utils/routes";
 import { Table } from "../../../../sharedComponents/customTable";
-import Spinner from "../../../../sharedComponents/spinner/spinner";
-import { getAllLeadManager } from "../../store/actions";
+// import Spinner from "../../../../sharedComponents/spinner/spinner";
+// import { getAllLeadManager } from "../../store/actions";
+import ComposeEmail from "../Email/ComposeEmail";
 import GridView from "./GridView/GridView";
 import { tableColumn } from "./TableView/tableColumn";
 
@@ -52,6 +53,7 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
 					// onActionClick={onActionClick}
 				/>
 			)}
+			<ComposeEmail />
 		</>
 	);
 }

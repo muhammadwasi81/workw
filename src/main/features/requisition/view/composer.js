@@ -1,198 +1,348 @@
-import React from "react";
-// import "antd/dist/antd.css";
-// import './index.css';
+import { Button, Form, Input, Avatar, InputNumber } from "antd";
+import React, { useEffect, useState, useContext } from "react";
+import TextInput from "../../../sharedComponents/Input/TextInput";
+import { useSelector, useDispatch } from "react-redux";
+import {
+	getAllEmployees,
+} from "../../../../utils/Shared/store/actions";
+import "./style.css"
+import { addRequisition } from "../store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { Button, Form, Input, Select } from "antd";
-const { TextArea } = Input;
+import { requisitionDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getNameForImage, STRINGS } from "../../../../utils/base";
+import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 
-const { Option } = Select;
-const layout = {
-  labelCol: {
-    span: 16,
-  },
-  wrapperCol: {
-    span: 16,
-  },
+const initialState = {
+	id: "",
+	name: "",
+	reason: "",
+	description: "",
+	categoryId: "",
+	imageId: "",
+	finalApprovers: [
+		{
+			approverId: "",
+			approverType: 0,
+		},
+	],
+	approvers: [
+		{
+			approverId: "",
+			approverType: 0,
+			isDefault: true,
+			status: 1,
+			email: "",
+		},
+	],
 };
-const tailLayout = {
-  wrapperCol: {
-    offset: 16,
-    span: 16,
-  },
-};
 
-const Composer = () => {
-  const [form] = Form.useForm();
+const Composer = props => {
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { Direction, requisitionDictionary } = requisitionDictionaryList[userLanguage];
 
-  const onGenderChange = (value) => {
-    switch (value) {
-      case "male":
-        form.setFieldsValue({
-          note: "Hi, man!",
-        });
-        return;
+	const dispatch = useDispatch();
+	const [form] = Form.useForm();
+	const [profileImage, setProfileImage] = useState(null);
+	const [state, setState] = useState(initialState);
+	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+	const [value, setValue] = useState([]);
 
-      case "female":
-        form.setFieldsValue({
-          note: "Hi, lady!",
-        });
-        return;
+	const { success } = useSelector(state => state.requisitionSlice);
+	const employees = useSelector(state => state.sharedSlice.employees);
 
-      case "other":
-        form.setFieldsValue({
-          note: "Hi there!",
-        });
-    }
-  };
+	const selectedData = (data, obj) => {
+		setValue(data);
+		handleMember(obj);
+		// setMembers(obj);
+		// onChange(data, obj);
+	};
+	useEffect(() => {
+		fetchEmployees("", 0);
+	}, []);
 
-  const onFinish = (values) => {
-    console.log(values);
-  };
+	const handleMember = val => {
+		setNewState({
+			...newState,
+			members: [...val],
+		});
+	};
 
-  const onReset = () => {
-    form.resetFields();
-  };
+	const fetchEmployees = (text, pgNo) => {
+		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+	};
 
-  const onFill = () => {
-    form.setFieldsValue({
-      note: "Hello world!",
-      gender: "male",
-    });
-  };
+	const [newState, setNewState] = useState({
+		members: [],
+		memberType: null,
+	});
 
-  return (
-    <Form
-      form={form}
-      name="control-hooks"
-      onFinish={onFinish}
-      layout="vertical"
-    >
-      <Form.Item
-        name="name"
-        label="Name"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input placeholder="Name" />
-      </Form.Item>
+	useEffect(() => {
+		if (employees.length > 0 && !isFirstTimeDataLoaded) {
+			setIsFirstTimeDataLoaded(true);
+			setFirstTimeEmpData(employees);
+		}
+	}, [employees]);
 
-      <Form.Item
-        name="description"
-        label="Description"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input placeholder="Description" />
-      </Form.Item>
+	useEffect(() => {
+		if (employees.length !== 0) {
+			dispatch(emptyEmployeesData());
+			setIsFirstTimeDataLoaded(false);
+		}
+	}, []);
 
-      <Form.Item
-        name="budget"
-        label="Budget"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input type={"number"} placeholder="Budget" />
-      </Form.Item>
-      {/* <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) =>
-          prevValues.gender !== currentValues.gender
-        }
-      >
-        {({ getFieldValue }) =>
-          getFieldValue("gender") === "other" ? (
-            <Form.Item
-              name="customizeGender"
-              label="Customize Gender"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          ) : null
-        }
-      </Form.Item> */}
-      <Form.Item
-        name="end date"
-        label="End Date"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input type="date" />
-      </Form.Item>
-      <Form.Item
-        name="reason"
-        label="Reason"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input placeholder="Reason" />
-      </Form.Item>
-      <Form.Item
-        name="approvals"
-        label="Approvals"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input placeholder="Approvals" />
-      </Form.Item>
-      <Form.Item
-        name="final approvals"
-        label="Final Approvals"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input placeholder="Final Approvals" />
-      </Form.Item>
-      <Form.Item area="true">
-        <SingleUpload
-          //handleImageUpload={handleImageUpload}
-          img="Add Image"
-          position="flex-start"
-          //uploadText={warningDictionary.upload}
-        />
-      </Form.Item>
-      <Form.Item>
-        <Button
-          style={{
-            width: "100%",
-            background: "var(--currentThemeColor)",
-            border: "none",
-            borderRadius: "5px",
-            fontSize: "16px",
-          }}
-          type="primary"
-          htmlType="submit"
-        >
-          Create Requisition
-        </Button>
-      </Form.Item>
-    </Form>
-  );
+	const handleImageUpload = data => {
+		setProfileImage(data);
+	};
+
+	const onFinish = (values) => {
+		let approvers = [];
+		let finalApprovers = [];
+		if (typeof values.approvers === 'string') {
+			approvers.push({
+				approverId: values.approvers
+			})
+		}
+		else {
+			approvers = values.approvers.map((approver) => {
+				return {
+					approverId: approver
+				};
+			});
+		}
+		if (typeof values.finalApprovers === 'string') {
+			finalApprovers.push({
+				approverId: values.finalApprovers
+			})
+		} else {
+			finalApprovers = values.finalApprovers.map((member) => {
+				return {
+					approverId: member
+				};
+			});
+		}
+
+		let image = {
+			id: STRINGS.DEFAULTS.guid,
+			file: profileImage && profileImage[0]?.originFileObj,
+		};
+
+		if (Object.keys(image).length > 0) {
+			let payload = { ...values, approvers, finalApprovers, image };
+			dispatch(addRequisition(payload));
+		} else {
+
+			let payload = { ...values, approvers, finalApprovers };
+			dispatch(addRequisition(payload));
+		}
+	};
+	useEffect(() => {
+		if (success) {
+			form.resetFields();
+		}
+	}, [success]);
+
+	const onFinishFailed = errorInfo => {
+		console.log("Failed:", errorInfo);
+	};
+
+	return (
+		<>
+			<Form
+				form={form}
+				name="addRequisition"
+				labelCol={{
+					span: 24,
+				}}
+				style={{direction: Direction}}
+				wrapperCol={{
+					span: 24,
+				}}
+				initialValues={{
+					remember: true,
+				}}
+				onFinish={onFinish}
+				onFinishFailed={onFinishFailed}
+				autoComplete="off"
+				className={Direction === "rtl" ? "labelRight" : ""}
+			>
+
+				<Form.Item
+					label={requisitionDictionary.name}
+					name="name"
+					labelPosition="top"
+					style={{direction: Direction}}
+					rules={[
+						{
+							required: true,
+							message: requisitionDictionary.PleaseEnterRequisitionName,
+						},
+					]}>
+					<TextInput placeholder={requisitionDictionary.EnterRequisitionName} />
+				</Form.Item>
+
+				<Form.Item
+					label={requisitionDictionary.description}
+					name="description"
+					rules={[
+						{
+							required: true,
+							message: requisitionDictionary.enterDescription,
+						},
+					]}
+				>
+					<Input.TextArea
+						placeholder={requisitionDictionary.enterDescription}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					label={requisitionDictionary.Budget}
+					name="budget"
+					rules={[
+						{
+							required: true,
+							message: requisitionDictionary.EnterBudget,
+						},
+					]}
+				>
+					<InputNumber
+						style={{ width: "100%" }}
+						size={'large'}
+						placeholder={requisitionDictionary.EnterBudget}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					label={requisitionDictionary.reason}
+					name="reason"
+					rules={[
+						{
+							required: true,
+							message: requisitionDictionary.EnterReason,
+						},
+					]}
+				>
+					<TextInput
+						placeholder={requisitionDictionary.EnterReason}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name="approvers"
+					label={requisitionDictionary.approvers}
+					showSearch={true}
+					direction={Direction}
+					style={{ marginBottom: "0px" }}
+				>
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={requisitionDictionary.selectApprovers}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
+						name="approvers"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: requisitionDictionary.PleaseSelectApprover,
+							},
+						]}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name="finalApprovers"
+					label={requisitionDictionary.FinalApprovers}
+					showSearch={true}
+					direction={Direction}
+					style={{ marginBottom: "0px" }}
+				>
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={requisitionDictionary.selectMember}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
+						name="finalApprovers"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: requisitionDictionary.PleaseSelectFinalApprovers,
+							},
+						]}
+					/>
+				</Form.Item>
+
+				<Form.Item area="true">
+					<SingleUpload
+						handleImageUpload={handleImageUpload}
+						img="Add Image"
+						position="flex-start"
+						uploadText={requisitionDictionary.upload}
+					/>
+				</Form.Item>
+
+				<Form.Item>
+					<Button
+						type="primary"
+						size="medium"
+						className="ThemeBtn"
+						block
+						htmlType="submit"
+						title={requisitionDictionary.createRequisition}
+					>
+						{" "}
+						{requisitionDictionary.createRequisition}{" "}
+					</Button>
+				</Form.Item>
+			</Form>
+		</>
+	);
 };
 
 export default Composer;

@@ -29,9 +29,34 @@ export const searchConversationService = (search, pageNo) => {
 		.catch(err => err);
 };
 
+// New Services here
+const getAllChat = async (data) => {
+	let request = messengerDTO.getAllConversations(data);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/getAllConversation`, request);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+const getAllChatMessage = async (data) => {
+	let request = messengerDTO.getAllChatMessage(data);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/GetAllChatMessage`, request);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
 const createChat = async (data) => {
-	// let request = messengerDTO.createChat(data);
-	let formDataRequest = jsonToFormData(data);
+	let request = messengerDTO.createChat(data);
+	let formDataRequest = jsonToFormData(request);
 	try {
 		const {
 			data: { responseCode, data, message },
@@ -42,7 +67,23 @@ const createChat = async (data) => {
 		return ResponseResultError(e);
 	}
 };
+const sendMessage = async (data) => {
+	let request = messengerDTO.sendMessage(data);
+	let formDataRequest = jsonToFormData(request);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/sendChatMessage`, formDataRequest);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
 
 export const MessengerService = {
 	createChat,
+	getAllChat,
+	sendMessage,
+	getAllChatMessage
 }

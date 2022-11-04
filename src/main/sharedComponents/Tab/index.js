@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import { Tabs } from "antd";
 import "./tab.css";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import { useState } from "react";
 const { TabPane } = Tabs;
 function Tab(props) {
-	const { panes, canChangeRoute = false, onChange, defaultPath } = props;
+	const {
+		panes,
+		canChangeRoute = false,
+		onChange,
+		defaultPath,
+		className,
+	} = props;
 	// const [defaultPath, setDefaultPath] = useState("");
 	// const onChange = key => {
 	// 	if (canChangeRoute) {
@@ -21,6 +27,7 @@ function Tab(props) {
 	// 		setDefaultPath(pathname.split("_")[0]);
 	// 	}
 	// }, [pathname]);
+	console.log("class", className);
 
 	return (
 		<>
@@ -28,7 +35,7 @@ function Tab(props) {
 				<Tabs
 					activeKey={canChangeRoute ? defaultPath : ""}
 					onChange={onChange}
-					className="custom_tab"
+					className={"custom_tab " + className}
 					tabBarStyle={{
 						background: "white",
 						padding: "2px 5px",
@@ -51,10 +58,7 @@ function Tab(props) {
 				</Tabs>
 			) : (
 				<Tabs
-					// defaultActiveKey={canChangeRoute ? defaultPath : ""}
-					// activeKey={canChangeRoute ? defaultPath : ""}
-					// onChange={onChange}
-					className="custom_tab"
+					className={"custom_tab " + className}
 					tabBarStyle={{
 						background: "white",
 						padding: "2px 5px",

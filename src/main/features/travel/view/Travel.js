@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import {
@@ -21,24 +21,17 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import { TravelDictionary } from "../localization";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import { TravelReferenceTypeEnum } from "../../projects/enum/enums";
-
-// const initialTableFilter = {
-// 	pageNo: 1,
-// 	pageSize: 20,
-// 	search: "",
-// 	approverStatus: [],
-// 	agentStatus: [],
-// 	filterType: 1,
-// 	sortBy: 1,
-// 	referenceId: "00000000-0000-0000-0000-000000000000",
-// 	referenceType: 0,
-// };
+import Scroll from "../../../sharedComponents/ScrollSelect/infinteScoll";
+import { Skeleton } from "antd";
+import { resetTravelData } from "../store/slice";
 
 function Travel({
 	referenceType = TravelReferenceTypeEnum.General,
 	referenceId = defaultUiid,
 	backButton = true,
 }) {
+	// const isFirstRun = useRef(true);
+	const [firstTimeRender, setFirstTimeRender] = useState(false);
 	const [tableView, setTableView] = useState(false);
 	const [search, setSearch] = useState("");
 	const value = useDebounce(search, 500);
@@ -136,25 +129,71 @@ function Travel({
 	// const { referenceId, referenceType } = props;
 
 	useEffect(() => {
-		dispatch(
-			getAllTravel({
-				pageNo,
-				pageSize: page,
-				search: value,
-				sortBy: sort,
-				filterType,
-				approverStatus: [],
-				agentStatus: [],
-				referenceId,
-				referenceType,
-			})
-		);
-	}, [value, sort, page, pageNo, filterType]);
+		if (!firstTimeRender) {
+			// console.log("1");
+			setFirstTimeRender(true);
+
+			dispatch(
+				getAllTravel({
+					pageNo,
+					pageSize: page,
+					search: value,
+					sortBy: sort,
+					filterType,
+					approverStatus: [],
+					agentStatus: [],
+					referenceId,
+					referenceType,
+				})
+			);
+		}
+	}, []);
+
+	useEffect(() => {
+		if (firstTimeRender) {
+			// console.log("2");
+			dispatch(resetTravelData());
+			dispatch(
+				getAllTravel({
+					pageNo: 1,
+					pageSize: page,
+					search: value,
+					sortBy: sort,
+					filterType,
+					approverStatus: [],
+					agentStatus: [],
+					referenceId,
+					referenceType,
+				})
+			);
+		}
+	}, [value, page, filterType]);
+
+	useEffect(() => {
+		if (firstTimeRender) {
+			// console.log("3");
+			// dispatch(resetTravelData());
+			dispatch(
+				getAllTravel({
+					pageNo,
+					pageSize: page,
+					search: value,
+					sortBy: sort,
+					filterType,
+					approverStatus: [],
+					agentStatus: [],
+					referenceId,
+					referenceType,
+				})
+			);
+		}
+	}, [pageNo, sort]);
 
 	// useEffect(() => {
 	// 	dispatch(getAllTravel(tableColumnFilter));
 	// }, [tableColumnFilter, dispatch]);
 	// console.log("asdfasdfasdf", referenceId, referenceType);
+
 	return (
 		<TabContainer>
 			<Header
@@ -212,11 +251,29 @@ function Travel({
 						// onActionClick={onActionClick}
 					/>
 				) : (
-					<ListView
+					<Scroll
+						isLoading={loader}
 						data={travels}
-						loader={loader}
-						labels={headings}
-					/>
+						fetchMoreData={pageNo => {
+							setPageNo(pageNo);
+						}}
+						loader={[0, 0, 0].map(() => (
+							<Skeleton
+								active
+								avatar
+								paragraph={{
+									rows: 4,
+								}}
+							/>
+						))}
+						endMessage={"No more travels..."}
+					>
+						<ListView
+							data={travels}
+							loader={loader}
+							labels={headings}
+						/>
+					</Scroll>
 				)}
 			</ContBody>
 		</TabContainer>

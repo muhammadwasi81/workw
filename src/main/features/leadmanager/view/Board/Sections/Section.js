@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import Card from "../../../UI/Card/Card";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import CardHeader from "../../../UI/Card/CardHeader";
-import { PlusOutlined, UserOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import CardButton from "../../../UI/Button/CardButton";
 import SectionForm from "./SectionForm/SectionForm";
 import List from "./SectionList/List";
 import { jsonToFormData } from "../../../../../../utils/base";
 import { useDispatch } from "react-redux";
 import { addLeadManagerDetail } from "../../../store/actions";
-import { v4 as id } from "uuid";
+// import { v4 as id } from "uuid";
 import { DEFAULT_GUID } from "../../../../../../utils/constants";
 function Section(props) {
 	const { section, index, handleSectionDetailModal } = props;
@@ -17,7 +17,7 @@ function Section(props) {
 	const [toggleForm, setToggleForm] = useState(false);
 	const dispatch = useDispatch();
 	const onFinish = values => {
-		// console.log("values", values, section.id);
+		console.log("values", values, section.id);
 		let tempObj = {
 			sectionId: section.id,
 			image: {

@@ -39,14 +39,14 @@
 .ConversationListHead>.HeadName {
   font-size: 18px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
 }
 
 .ConversationListHead>.HeadIcon {
   width: 40px;
   font-size: 30px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
   text-align: center;
   cursor: pointer;
 }
@@ -78,13 +78,6 @@
   margin: 0 5px;
 }
 
-.MessengerInput>div>input {
-  background: transparent;
-  height: 100%;
-  width: 83%;
-  border: none;
-  margin: 0 10px;
-}
 
 .MessengerInput>div>input {
   background: transparent;
@@ -92,7 +85,7 @@
   width: 100%;
   border: none;
   margin: 0 10px;
-  padding-left: 15px;
+  /* padding-left: 15px; */
 }
 
 .ConversationListSearch>div>img {
@@ -141,6 +134,8 @@ input:focus {
 
 .ItemLastMsgCont {
   display: flex;
+  justify-content: space-between;
+  margin-right: 5px;
 }
 
 .ItemLastMsgCont>.ItemLastMsg {
@@ -161,6 +156,7 @@ input:focus {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  text-align: right;
 }
 
 .MessengerBox {
@@ -190,7 +186,7 @@ input:focus {
 .MessengerHeadName>div {
   font-size: 18px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
   padding-left: 10px;
 }
 
@@ -202,13 +198,13 @@ input:focus {
 .MessengerProfile .user .name {
   font-size: 18px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
 }
 
 .MessengerProfile .user .desc {
   font-size: 14px;
   font-weight: 700;
-  color: rgb(26, 86, 105);
+  color: var(--currentThemeColor);
 }
 
 .MessengerProfile .actions {
@@ -286,17 +282,18 @@ input:focus {
   color: black;
   width: max-content;
   margin: 0 10px;
-  padding: 10px 15px;
+  padding: 5px 10px 8px 10px;
+  ;
   font-size: 13px;
   max-width: 350px;
   word-wrap: break-word;
-  border-radius: 0px 15px 15px 15px;
+  border-radius: 0px 10px 10px 10px;
   position: relative;
 }
 
 .MessengerListItem-ME>.MessageBubble {
-  border-radius: 15px 0px 15px 15px;
-  background: rgb(26, 86, 105);
+  border-radius: 10px 0px 10px 10px;
+  background: var(--currentThemeColor);
   color: rgb(221, 221, 221);
 }
 
@@ -334,7 +331,7 @@ input:focus {
   content: "";
   position: absolute;
   border-bottom: 10px solid transparent;
-  border-left: 10px solid rgb(26, 86, 105);
+  border-left: 10px solid var(--currentThemeColor);
   top: 0;
   right: -10px;
 }
@@ -398,7 +395,7 @@ input:focus {
 
 .emojiCont {
   position: absolute;
-  bottom: 90px;
+  bottom: 65px;
   left: 20px;
 }
 
@@ -449,17 +446,17 @@ input:focus {
   font-size: 14px;
 }
 
-.createChat .uploadImg .ant-upload.ant-upload-select-picture-card,
+/* .createChat .uploadImg .ant-upload.ant-upload-select-picture-card,
 .ant-upload-list-picture-card-container {
   border: 3px dashed #d9d9d9;
   width: 60px;
   height: 60px;
   margin: 0;
-}
+} */
 
-.createChat .ant-upload-picture-card-wrapper {
+/* .createChat .ant-upload-picture-card-wrapper {
   width: auto;
-}
+} */
 
 .memberCard {
   display: flex;
@@ -527,25 +524,62 @@ animation:0.1s visibleDelay 0.4s forwards;
 .memberCard__body p:nth-child(2) {
   font-size: 11px;
 }
-.messengerUpload{
+
+.messengerUpload {
   position: absolute;
   bottom: 50px;
 }
-.messengerUpload .ant-upload-select{
+
+.messengerUpload .ant-upload-select {
   height: 60px !important;
   width: 60px !important;
   margin-left: 10px;
 }
-.messengerUpload .ant-upload{
+
+.messengerUpload .ant-upload {
   font-size: 11px;
 }
-.recordBlink{
+
+.recordBlink {
   animation-name: visibleDelay;
   animation-duration: 2s;
-  animation-iteration-count:infinite;
+  animation-iteration-count: infinite;
   /* animation-fill-mode: forwards; */
 }
 
+.messageStatus {
+  display: flex;
+  justify-content: right;
+  gap: 5px;
+  align-items: center;
+  padding-left: 10px;
+  width: 50px;
+  margin-bottom: -7px;
+  margin-right: -3px;
+}
+
+.messageStatus .messageTime {
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.textMsgArea {
+  word-wrap: break-word;
+  word-break: break-all;
+  flex: 1;
+}
+
+
+
+
+audio::-webkit-media-controls-panel {
+  background-color: var(--currentThemeColor) !important;
+}
+
+audio::-webkit-media-controls-mute-button,
+audio::-webkit-media-controls-play-button {
+  /* background-color: red !important; */
+}
 
 
 @keyframes visibleDelay {

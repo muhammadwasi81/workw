@@ -33,6 +33,9 @@ import { DocumentReferenceTypeEnum } from "../../documents/view/enum";
 import WorkBoard from "../../workboard";
 import { WorkBoardReferenceTypeEnum } from "../../workboard/enum";
 import Documents from "../../documents/view/documents";
+import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
+import { handleComposeEmail } from "../../leadmanager/store/slice";
+import GroupDefaultImage from "../../../../content/NewContent/groups/GroupDefaultImage.svg";
 
 function GroupDetails() {
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -43,7 +46,7 @@ function GroupDetails() {
 	const detail = useSelector(state => state.groupSlice.groupDetail);
 	const [features, setFeatures] = useState([]);
 	const [open, setOpen] = useState(false);
-	const { id } = params;
+	const { groupId: id } = params;
 	useEffect(() => {
 		dispatch(getGroupById(id));
 	}, [id]);
@@ -168,7 +171,9 @@ function GroupDetails() {
 				<ContBody className="!block" direction={Direction}>
 					<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
 						<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll ">
-							<CoverImage image={detail?.image} />
+							<CoverImage
+								image={detail?.image || GroupDefaultImage}
+							/>
 							<CoverDetail detail={detail} key={detail} />
 							<Tab
 								panes={features}
@@ -180,7 +185,13 @@ function GroupDetails() {
 
 						<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
 							<WhiteCard>
-								<MemberCollapse data={detail?.members} />
+								<MemberCollapse
+									isEmail={true}
+									onEmailClick={() => {
+										dispatch(handleComposeEmail(true));
+									}}
+									data={detail?.members}
+								/>
 							</WhiteCard>
 						</div>
 					</div>
@@ -201,6 +212,7 @@ function GroupDetails() {
 					id={id}
 				/>
 			</Drawer>
+			<ComposeEmail />
 		</>
 	);
 }

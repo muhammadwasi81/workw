@@ -80,7 +80,7 @@ export default function Appraisal({
           }}
           // loading={loading}
         >
-          Add Grade
+          Add Appraisal Question
         </FormButton>
         {/* {form.id ? (
           <>

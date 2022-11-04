@@ -84,12 +84,29 @@
     display: flex;
 }
 
-/* .ant-mentions-measure{
+/* .ant-mentions-measure{   
     z-index: 999999;
     position: absolute;
     bottom: 200px;
 
 } */
+.quickIcons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 65px;
+    width: 100%;
+    border: solid 1px #ebebeb;
+    box-shadow: 0 12px 6px -12px #bbbbbb;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+.quickIcons img{
+    cursor: pointer;
+    width: 27px;
+}
 .postDetails {
     width: 70%;
     margin: 0 auto;

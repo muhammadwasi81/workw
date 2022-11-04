@@ -1,0 +1,179 @@
+.ChatBoxCont {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  justify-content: flex-start;
+  position: absolute;
+  height: 450px;
+  bottom: 3px;
+  right: 100px;
+  width: max-content;
+    max-width: 90%;
+}
+
+.ChatBox {
+  width: 328px;
+  border-radius: 10px 10px 0 0;
+  height: inherit;
+  margin: 0 10px;
+  background: white;
+  z-index: 1;
+  box-shadow: 0px 0px 8px 2px #92929273;
+  position: relative;
+}
+
+.ChatBoxHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 45px;
+  border-radius: inherit;
+  background: var(--currentThemeColor);
+  color: white;
+  align-items: center;
+  padding: 0 7px;
+}
+
+.ChatBoxHead>div {
+  display: flex;
+  align-items: center;
+}
+
+.ChatBoxName {
+  padding-left: 2px;
+  width: calc(100% - 95px);
+  cursor: pointer;
+}
+
+.ChatBoxName>.chatName {
+  margin: 0px 5px 0px 8px;
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ChatBoxMsgCont {
+  height: calc(100% - 90px);
+}
+
+.ChatBoxFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 45px;
+  /* background: thistle; */
+}
+
+.ChatBoxInput {
+  flex: 3;
+  padding: 10px;
+}
+
+.ChatBoxInput>div {
+  background: rgb(244, 244, 244);
+  border-radius: 7px;
+  height: 30px;
+  margin: 3px;
+  color: var(--currentThemeColor);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.ChatBoxInput>div>input {
+  background: transparent;
+  height: 100%;
+  width: 100%;
+  border: none;
+  margin: 0 10px;
+  padding-left: 10px;
+}
+
+.ChatBoxInputHandler {
+  /* width: 100px; */
+  margin: 0 0px 0 10px;
+  display: flex;
+}
+
+.ChatBoxMessages {
+  height: calc(100% - 90px) !important;
+}
+
+.ChatBoxMessages>.MessengerListItem-ME {
+  margin-top: 10px !important;
+}
+
+.ChatBoxMessages>.MessengerListItem {
+  margin-top: 10px !important;
+}
+
+.minimizeChatBox {
+  animation-name: minimizeChatBox;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.minimizeCloseChatBox {
+  animation-name: minimizeCloseChatBox;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+.extendChatBox{
+  animation-name: extendChatBox;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+.extendCloseChatBox{
+  animation-name: extendCloseChatBox;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes minimizeChatBox {
+  from {}
+
+  to {
+    height: 45px;
+    border-radius: 7px;
+    overflow: hidden;
+    width: 200px;
+  }
+}
+@keyframes minimizeCloseChatBox {
+  from {
+    height: 45px;
+    border-radius: 7px;
+    overflow: hidden;
+    width: 200px;
+  }
+
+  to {
+    height: 450px;
+    width: 328px;
+    border-radius: 10px 10px 0 0;
+  }
+}
+@keyframes extendChatBox {
+  from {
+    height: 450px;
+    width: 328px;
+  }
+
+  to {
+    height: 650px;
+    width: 428px;
+  }
+}
+@keyframes extendCloseChatBox {
+  from {
+    height: 650px;
+    width: 428px;
+  }
+
+  to {
+    height: 450px;
+    width: 328px;
+  }
+}

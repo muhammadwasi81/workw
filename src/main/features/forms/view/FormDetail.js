@@ -39,6 +39,7 @@ const FromDetail = (props) => {
     creator,
     createDate,
     description,
+    subject,
     referenceNo,
     status,
     approvers,
@@ -58,6 +59,7 @@ const FromDetail = (props) => {
   //     setStatus(updateList);
   //   }
   // }, [loanStatus]);
+
   return (
     <div>
       {!Object.keys(formDetail).length ? (
@@ -82,6 +84,9 @@ const FromDetail = (props) => {
               <StatusTag status={status}></StatusTag>
             </div>
           </ItemHeader>
+          <div className="title">
+            {subject.length > 0 ? <p>{subject}</p> : null}
+          </div>
           <div className="description w-full pt-3 pb-5 h-[100px]">
             {description.length > 0 ? (
               <p>{description}</p>

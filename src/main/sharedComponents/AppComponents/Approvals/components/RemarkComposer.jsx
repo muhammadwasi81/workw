@@ -34,6 +34,7 @@ function RemarksComposer({
   const isRemarkCancelled = ApprovalStatus.Cancelled === status;
   const index = useId();
   const [isEmoji, setisEmoji] = useState(false);
+  const msgInpRef = useRef();
 
   // const onSelectEmoji = (emoji) => {
   //   setText((prevValue) => prevValue + emoji.native);
@@ -47,6 +48,11 @@ function RemarksComposer({
     if (!isRemarker && isApprover)
       return <RemarkStatus onCurrentStatus={onCurrentStatus} />;
   };
+  const onSelectEmoji = (emoji) => {
+    console.log(emoji, "emoji")
+    msgInpRef.current.value += emoji.native;
+    msgInpRef.current.focus();
+  };
 
   if (isRemarkApproved || isRemarkDecline || isRemarkCancelled) return null;
   return (
@@ -56,9 +62,10 @@ function RemarksComposer({
           <Avatar name={name} src={userImage} size={30} round />
         </div>
         <div className="right">
-          {isEmoji && <EmojiPicker onSelect={() => {}} />}
+          {isEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
           <div className="input">
-            <Input
+            <input
+              className="remarksInput"
               placeholder={placeHolder.writeYourRemarksHere}
               value={value}
               onChange={(e) => {
@@ -66,7 +73,9 @@ function RemarksComposer({
               }}
               onKeyUp={(e) => {
                 onRemarksText(e.target.value, e);
+                // setisEmoji(false)
               }}
+              ref={msgInpRef}
             />
             <label
               htmlFor=""

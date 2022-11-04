@@ -29,9 +29,18 @@ const getAllConversations = (data) => {
 		"search": ""
 	}
 }
+const getAllChatMessage = (data) => {
+	return {
+		"pageNo": data.pageNo ? data.pageNo : 1,
+		"pageSize": data.pageSize ? data.pageSize : 20,
+		"search": data.search ? data.search : "",
+		"chatId": data.chatId ? data.chatId : STRINGS.DEFAULTS.guid
+	}
+}
 
 export const messengerDTO = {
 	createChat,
 	getAllConversations,
-	sendMessage
+	sendMessage,
+	getAllChatMessage
 }

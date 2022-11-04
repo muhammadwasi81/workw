@@ -103,6 +103,10 @@
     margin-bottom: 15px;
     gap: 10px;
 }
+.quickIcons img{
+    cursor: pointer;
+    width: 27px;
+}
 .postDetails {
     width: 70%;
     margin: 0 auto;

@@ -29,12 +29,25 @@ export const searchConversationService = (search, pageNo) => {
 		.catch(err => err);
 };
 
+// New Services here
 const getAllChat = async (data) => {
 	let request = messengerDTO.getAllConversations(data);
 	try {
 		const {
 			data: { responseCode, data, message },
 		} = await Config.post(`api/chat/getAllConversation`, request);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+const getAllChatMessage = async (data) => {
+	let request = messengerDTO.getAllChatMessage(data);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/GetAllChatMessage`, request);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
@@ -71,5 +84,6 @@ const sendMessage = async (data) => {
 export const MessengerService = {
 	createChat,
 	getAllChat,
-	sendMessage
+	sendMessage,
+	getAllChatMessage
 }

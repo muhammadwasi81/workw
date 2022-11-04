@@ -37,7 +37,7 @@ const createObjectForAppendMsg = (payload) => {
     ...payload,
     status: "Pending",
     // messageType: 1,
-    messageByMe: true,
+    createBy: "local",
     attachments
   }
   return request
@@ -45,19 +45,19 @@ const createObjectForAppendMsg = (payload) => {
 
 
 
-export const getAllMessages = createAsyncThunk(
-  "messenger/getAllMessages",
-  async (data, { dispatch }) => {
-    const res = await getAllMessageService(data.chatId, data.pageNo);
-    if (!res.responseCode) {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
-    }
-    return res;
-  }
-);
+// export const getAllMessages = createAsyncThunk(
+//   "messenger/getAllMessages",
+//   async (data, { dispatch }) => {
+//     const res = await getAllMessageService(data.chatId, data.pageNo);
+//     if (!res.responseCode) {
+//       responseMessage({
+//         dispatch: dispatch,
+//         type: responseMessageType.ApiFailure,
+//       });
+//     }
+//     return res;
+//   }
+// );
 
 export const searchConversation = createAsyncThunk(
   "messenger/searchConversation",
@@ -111,6 +111,20 @@ export const getAllChats = createAsyncThunk(
   "messenger/getAllChats",
   async (request, { rejectWithValue }) => {
     const response = await MessengerService.getAllChat(request);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+export const getAllChatMessage = createAsyncThunk(
+  "messenger/getAllChatMessage",
+  async (request, { rejectWithValue }) => {
+    const response = await MessengerService.getAllChatMessage(request);
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

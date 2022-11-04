@@ -62,24 +62,13 @@ export const getAssetItemDetailById = createAsyncThunk(
 );
 
 // TODO: get action for asset item
-export const getAllAssetItemByUserId = createAsyncThunk(
-  `AssetItem/getAllAssetItemByUserId`,
-  async (id, { dispatch }) => {
+export const getAssetItemByUserId = createAsyncThunk(
+  `AssetItem/getAssetItemByUserId`,
+  async (id) => {
+    console.log(id, 'id in action');
     const response = await getAllAssetItemByUserIdService(id);
-    console.log(response, 'getAllAssetItemByUserId action');
+    console.log(response.data, 'getAssetItemByUserId actions');
     return response.data;
-    // if (response.responseType === ResponseType.SUCCESS) {
-    //   console.log(response, 'get single user ka response');
-    //   return response.data;
-    // } else {
-    //   dispatch(
-    //     openNotification({
-    //       message: responseMessage(response.responseType),
-    //       type: responseMessageType(response.responseType),
-    //     })
-    //   );
-    return isRejectedWithValue(response);
-    // }
   }
 );
 

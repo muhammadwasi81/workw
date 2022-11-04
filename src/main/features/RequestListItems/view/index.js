@@ -27,7 +27,7 @@ const Index = () => {
 
   const items = [
     {
-      name: 'Request List Items',
+      name: 'Request For Items',
       to: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
       renderButton: [1],
     },

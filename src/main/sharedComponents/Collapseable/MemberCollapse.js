@@ -80,8 +80,8 @@ function MemberCollapse({
 								<List.Item.Meta
 									avatar={
 										<Avatar
-											name={item.member.name}
-											src={item.member.image}
+											name={item.member?.name}
+											src={item.member?.image}
 											round={true}
 											width={"30px"}
 											height={"30px"}
@@ -95,8 +95,8 @@ function MemberCollapse({
 									}
 									description={
 										<span className="text-gray-500 text-xs ">
-											{item.member.designation
-												? item.member.designation
+											{item.member?.designation
+												? item.member?.designation
 												: "No designation"}
 										</span>
 									}

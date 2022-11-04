@@ -54,7 +54,7 @@ const Reward = (props) => {
         <Header
           buttons={[
             {
-              buttonText: "Create Travel",
+              buttonText: "Create Reward",
               render: (
                 <Button
                   className="ThemeBtn"

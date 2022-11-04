@@ -6,9 +6,6 @@ import "./styles/style.css";
 import Header from "./components/header";
 import Calendar from "./view/calendar";
 import { useSearchParams } from "react-router-dom";
-<<<<<<< HEAD
-import MySchedules from "./view/schedules/Schedules";
-import { ScheduleTopBar } from "./view/schedules/topbar/ScheduleTopBar";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Drawer } from "antd";
 

@@ -38,7 +38,7 @@ function QuickOptions() {
 				<img src={mileboardPlusIcon} name="mileboard" onClick={handleOpenComposer} />
 				<img src={milegridPlusIcon} name="milegrid" onClick={handleOpenComposer} />
 				<img src={milepadPlusIcon} name="milepad" onClick={handleOpenComposer} />
-				<img src={scheduleIcon} name="schedule" onClick={handleOpenComposer} />
+				{/* <img src={scheduleIcon} name="schedule" onClick={handleOpenComposer} /> */}
 				<img src={taskPlusIcon} name="task" onClick={handleOpenComposer} />
 				<img src={expensePlusIcon} name="expense" onClick={handleOpenComposer} />
 			</div>

@@ -1,14 +1,9 @@
 import React from "react";
 import { Collapse, List } from "antd";
-import {
-	DownOutlined,
-	MailOutlined,
-	PlusCircleFilled,
-} from "@ant-design/icons";
-// import { FaUserLock } from "react-icons/fa";
-// import WhiteCard from "../../features/projects/UI/WhiteCard";
-import "./memberCollapse.css";
+import { DownOutlined, MailOutlined, PlusOutlined } from "@ant-design/icons";
 import Avatar from "../Avatar/avatarOLD";
+
+import "./memberCollapse.css";
 const { Panel } = Collapse;
 
 function MemberCollapse({
@@ -16,6 +11,7 @@ function MemberCollapse({
 	data = [],
 	ghost = true,
 	isEmail = false,
+	isMember = false,
 	onEmailClick = () => {},
 }) {
 	const onChange = key => {
@@ -50,23 +46,27 @@ function MemberCollapse({
 				}
 				className="custom_member_collapse"
 				extra={
-					isEmail && (
-						<div
-							onClick={event => {
-								event.stopPropagation();
-								onEmailClick();
-							}}
-						>
-							<MailOutlined className="p-2 rounded-full bg-primary-color !text-white " />
-						</div>
-					)
-					// <PlusCircleFilled
-					// 	onClick={event => {
-					// 		event.stopPropagation();
-					// 		handleAdd();
-					// 	}}
-					// 	className="text-xl font-bold !text-primary-color mr-2"
-					// />
+					<div className="flex gap-2">
+						{isEmail && (
+							<div
+								onClick={event => {
+									event.stopPropagation();
+									onEmailClick();
+								}}
+							>
+								<MailOutlined className="p-2 rounded-full bg-primary-color !text-white " />
+							</div>
+						)}
+						{isMember && (
+							<PlusOutlined
+								onClick={event => {
+									event.stopPropagation();
+									// handleAdd();
+								}}
+								className="p-2 rounded-full bg-primary-color !text-white "
+							/>
+						)}
+					</div>
 				}
 				key="1"
 			>

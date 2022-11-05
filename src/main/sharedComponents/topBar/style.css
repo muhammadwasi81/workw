@@ -21,7 +21,7 @@
   border: 1px solid #ccc;
   background: #0000000f;
   min-width: 200px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .searchBox input {

@@ -21,12 +21,12 @@ export default class Scroll extends React.Component {
 
 		console.log(
 			"parent height ",
-			document.getElementsByClassName("scroll_dropdown")[0].offsetParent
-				.offsetHeight
+			document.getElementsByClassName("scroll_dropdown")[0]?.offsetParent
+				?.offsetHeight
 		);
 		this.setState({
 			height: document.getElementsByClassName("scroll_dropdown")[0]
-				.offsetParent.offsetHeight,
+				?.offsetParent?.offsetHeight,
 		});
 	}
 

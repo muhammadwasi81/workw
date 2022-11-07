@@ -49,6 +49,8 @@ const Promotion = props => {
 	useEffect(() => {
 		dispatch(getAllPromotions(filter));
 	}, [filter]);
+
+	
 	return (
 		<TabbableContainer className="max-width-1190">
 			<Header

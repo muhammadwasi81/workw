@@ -70,11 +70,11 @@ function ShortDetailCard() {
                       careerDetail?.approvers.map((el, i) => {
                         return (
                           <>
-                            <Tooltip title={el.approver.name} placement="top">
+                            <Tooltip title={el.approver?.name} placement="top">
                               <Avatar
                                 src={
-                                  el.approver.image
-                                    ? el.approver.image
+                                  el.approver?.image
+                                    ? el.approver?.image
                                     : "https://joeschmoe.io/api/v1/random"
                                 }
                               />
@@ -141,11 +141,11 @@ function ShortDetailCard() {
                       careerDetail?.interviewers.map((el, i) => {
                         return (
                           <>
-                            <Tooltip title={el.user.name} placement="top">
+                            <Tooltip title={el.user?.name} placement="top">
                               <Avatar
                                 src={
-                                  el.user.image
-                                    ? el.user.image
+                                  el.user?.image
+                                    ? el.user?.image
                                     : "https://joeschmoe.io/api/v1/random"
                                 }
                               />
@@ -209,8 +209,8 @@ function ShortDetailCard() {
                             <Tooltip title={el.user.name} placement="top">
                               <Avatar
                                 src={
-                                  el.user.image
-                                    ? el.user.image
+                                  el.user?.image
+                                    ? el.user?.image
                                     : "https://joeschmoe.io/api/v1/random"
                                 }
                               />

@@ -84,10 +84,7 @@ const Department = (props) => {
           ]}
         />
         <TopBar
-          // onSearch={onSearch}
-          onSearch={(value) => {
-            console.log(value);
-          }}
+          onSearch={(val) => setSearch(val)}
           // buttons={[
           //   {
           //     name: "Departments",

@@ -14,12 +14,7 @@ import { TableColumn } from './tableColumn';
 const Index = () => {
   const dispatch = useDispatch();
   const { assetItemList } = useSelector((state) => state.AssetItemSlice);
-
-  const { success } = useSelector((state) => state.inventoryAssetSlice);
-
   const [search, setSearch] = useState('');
-  const [filterType, setFilterType] = useState(0);
-  const [viewType, setViewType] = useState('Table');
 
   const items = [
     {
@@ -30,7 +25,6 @@ const Index = () => {
   ];
 
   const onSearch = (value) => setSearch(value);
-  const onSegment = (value) => setViewType(value);
 
   const payloadData = {
     pageNo: 1,
@@ -51,13 +45,7 @@ const Index = () => {
   return (
     <TabbableContainer>
       <Header items={items} />
-      <TopBar
-        onSearch={onSearch}
-        segment={{
-          // onSegment,
-          label2: 'Table',
-        }}
-      />
+      <TopBar onSearch={onSearch} />
       <ContBody>{render['Table']}</ContBody>
     </TabbableContainer>
   );

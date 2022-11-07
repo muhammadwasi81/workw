@@ -3,7 +3,6 @@ import {
   getAllInventoryAsset,
   getInventoryAssetById,
   addInventoryAsset,
-  getAllAssetForPaging,
 } from './action';
 
 const initialState = {

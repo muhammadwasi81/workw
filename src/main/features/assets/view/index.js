@@ -21,6 +21,7 @@ const Index = () => {
     (state) => state.AssetItemSlice
   );
 
+  console.log(modalSuccess, 'modalSuccess');
   const { success } = useSelector((state) => state.inventoryAssetSlice);
 
   const [search, setSearch] = useState('');
@@ -29,7 +30,7 @@ const Index = () => {
 
   const items = [
     {
-      name: 'Assets',
+      name: 'Assets Allocation',
       to: `${ROUTES.ASSETS.DEFAULT}`,
       renderButton: [1, 2],
     },
@@ -37,11 +38,11 @@ const Index = () => {
 
   const filterButtons = [
     {
-      name: 'Created My be',
+      name: 'Allocation My be',
       onClick: () => setFilterType(0),
     },
     {
-      name: 'Assets Items Approvals',
+      name: 'Allocation Items Approvals',
       onClick: () => setFilterType(1),
     },
   ];

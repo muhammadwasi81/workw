@@ -33,6 +33,7 @@ const AssetsCategoryForm = ({
   console.log(form, 'data');
 
   const { listData } = useSelector((state) => state.chartOfAccountsSlice);
+  console.log(listData, 'listData');
 
   useEffect(() => {
     dispatch(getAllChartOfAccount());

@@ -1,4 +1,4 @@
-import { Button, Form, Select, Tag } from 'antd';
+import { Button, Form, message, Select } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
@@ -10,6 +10,7 @@ import {
   getAssetItemByUserId,
   updateAssetItems,
 } from '../../../createAssets/store/action';
+import '../styles.css';
 
 const initialState = {
   id: '',
@@ -46,7 +47,6 @@ const AssetDeAllocationComposer = () => {
   const [value, setValue] = useState([]);
 
   const { assetItemByUserId } = useSelector((state) => state.AssetItemSlice);
-  console.log(assetItemByUserId, 'x.name');
 
   const employees = useSelector((state) => state.sharedSlice.employees);
 
@@ -98,14 +98,15 @@ const AssetDeAllocationComposer = () => {
       assetItems.push({
         id: x.id,
         status: x.status,
-        approverStatus: 1,
       });
     });
+    if (!assetItemByUserId[0]?.id) {
+      return message.error('No Asset Items Found');
+    }
     dispatch(
       updateAssetItems({
         id: assetItemByUserId[0]?.id,
         status: values.status,
-        approverStatus: 1,
       })
     );
     // dispatch(updateAssetItems(assetItems));
@@ -176,81 +177,62 @@ const AssetDeAllocationComposer = () => {
             ]}
           />
         </Form.Item>
-        <table
-          style={{
-            border: '1px solid #000',
-            width: '100%',
-          }}
-        >
-          <thead
-            style={{
-              border: '1px solid #000',
-              width: '100%',
-            }}
-          >
-            <tr>
-              <th>Category Name</th>
-              <th>Asset</th>
-              <th>Serial No</th>
-              <th>Select Status</th>
-            </tr>
-          </thead>
-          <tbody
-            style={{
-              border: '1px solid #000',
-              width: '100%',
-            }}
-          >
-            <tr
-              style={{
-                textAlign: 'center',
-                border: '1px solid #eee',
-              }}
-            >
-              {assetItemByUserId.map((item) => {
-                return (
-                  <>
-                    <td>{item.category}</td>
-                    <td>{item.name}</td>
-                    <td>{item.serialNo}</td>
-                    <td>
-                      <Form.Item
-                        name="status"
-                        label="Status"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'Please Select Status',
-                          },
-                        ]}
-                      >
-                        <Select
-                          style={{ width: '100%' }}
-                          placeholder="Select Status"
-                          onChange={(e) => {
-                            setNewState({
-                              ...newState,
-                              status: e,
-                            });
-                          }}
-                        >
-                          <Select.Option value={4}>Available</Select.Option>
-                          <Select.Option value={3}>Allocated</Select.Option>
-                          <Select.Option value={2}>
-                            Waiting For Handover
-                          </Select.Option>
-                          <Select.Option value={1}>
-                            Waiting For Approval
-                          </Select.Option>
-                        </Select>
-                      </Form.Item>
+        <div className="createAssetEntryTable">
+          <div className="bg-white p-4 rounded-md overflow-x-auto">
+            <table>
+              <thead>
+                <tr className="tableWrapper">
+                  <th>Category Name</th>
+                  <th>Asset</th>
+                  <th>Serial No</th>
+                  <th>Select Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {assetItemByUserId?.length > 0 ? (
+                  assetItemByUserId?.map((x, i) => (
+                    <tr key={i} className="tableWrapper">
+                      <td>{x.category}</td>
+                      <td>{x.name}</td>
+                      <td>{x.serialNo}</td>
+                      <td>
+                        <Form.Item name="status">
+                          <Select
+                            style={{ width: '100%' }}
+                            placeholder="Select Status"
+                            defaultValue={x.status}
+                            onChange={(e) => {
+                              console.log('e', e);
+                              setNewState({
+                                ...newState,
+                                status: e,
+                              });
+                            }}
+                          >
+                            <Select.Option value={1}>
+                              Waiting For Approval
+                            </Select.Option>
+                            <Select.Option value={2}>
+                              Waiting For Handover
+                            </Select.Option>
+                            <Select.Option value={3}>Allocated</Select.Option>
+                            <Select.Option value={4}>Available</Select.Option>
+                          </Select>
+                        </Form.Item>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={4} className="text-center py-3">
+                      No Data Found
                     </td>
-                  </>
-                );
-              })}
-            </tr>
-          </tbody>
-        </table>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
         <Form.Item>
           <Button
             type="primary"

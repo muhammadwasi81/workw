@@ -20,6 +20,7 @@ export const TableColumn = () => {
     {
       title: 'Category',
       dataIndex: 'category',
+      render: (category) => (category ? category : 'N/A'),
       ellipsis: true,
       sort: true,
     },

@@ -35,7 +35,7 @@ export const cancelReward = createAsyncThunk("reward/cancelReward", async (id, {
   const response = await cancelRewardService(id);
   if (response.responseCode === 1001) {
     message.success('Reward Canceled');
-    return res;
+    return response;
   } else {
     message.success(response.data.message);
     return rejectWithValue(response.data.message);

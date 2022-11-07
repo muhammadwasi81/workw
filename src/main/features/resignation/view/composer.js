@@ -124,25 +124,27 @@ const Composer = props => {
 				};
 			});
 		}
+		
 		if (typeof values.hr === 'string') {
-			members.push({
+			hr.push({
 				memberId: values.hr
 			})
 		} else {
-			members = values.hr.map((hr) => {
+			hr = values.hr.map((hr) => {
 				return {
-					memberId: hr
+					hrId: hr
 				};
 			});
 		}
+
 		if (typeof values.finance === 'string') {
-			members.push({
-				memberId: values.finance
+			finance.push({
+				financeId: values.finance
 			})
 		} else {
-			members = values.finance.map((finance) => {
+			finance = values.finance.map((finance) => {
 				return {
-					memberId: finance
+					financeId: finance
 				};
 			});
 		}

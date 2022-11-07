@@ -51,9 +51,6 @@ const Promotion = props => {
 		dispatch(getAllPromotions(filter));
 	}, [filter]);
 
-<<<<<<< HEAD
-	
-=======
 	const items = [
 		{
 		  name: 'Promotions',
@@ -62,7 +59,6 @@ const Promotion = props => {
 		},
 	  ];
 
->>>>>>> 46e506d3842fad6d0148875206644f6f43e6426d
 	return (
 		<TabbableContainer className="max-width-1190">
 			<Header

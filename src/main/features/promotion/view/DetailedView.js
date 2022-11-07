@@ -3,7 +3,6 @@ import { Drawer } from "antd";
 import { useMediaQuery } from "react-responsive";
 import { promotionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-
 import PromotionDetail from "./PromotionDetail";
 
 function DetailedView(props) {
@@ -16,6 +15,7 @@ function DetailedView(props) {
 	return (
 		<Drawer
 			title={
+
 				<h1 style={{ fontSize: "20px", margin: 0 }}>
 					{promotionDictionary.promotion}
 				</h1>

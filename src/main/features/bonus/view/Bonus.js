@@ -17,6 +17,7 @@ import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
 
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -42,9 +43,19 @@ const Bonus = (props) => {
   useEffect(() => {
     dispatch(getAllBonus(filter));
   }, [filter]);
+
+  const items = [
+    {
+      name: 'Bonus',
+      to: `${ROUTES.BONUS.DEFAULT}`,
+      renderButton: [1],
+    },
+  ];
+
   return (
     <TabbableContainer className="max-width-1190">
       <Header
+        items={items}
         buttons={[
           {
             buttonText: "Create Bonus",

@@ -71,7 +71,7 @@ import chartOfAccountsSlice from '../main/features/chartOfAccount/store/slice';
 import callingSlice from '../main/features/calling/store/slice';
 import salarySlice from '../main/features/salary/store/slice';
 import loanSlice from '../main/features/loan/store/slice';
-import resignationSlice from './appReducer/resignationSlice';
+import resignationSlice from '../main/features/resignation/store/slice';
 import voucherSlice from '../main/features/voucher/store/slice';
 import scheduleSlice from '../main/features/schedule/store/slice';
 import attendanceSlice from '../main/features/attendance/store/slice';

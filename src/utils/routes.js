@@ -395,11 +395,10 @@ export const ROUTES = {
 		LOAN: `${DOMAIN_PREFIX}/loan`,
 		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
 	},
-	RESIGNATION: {
-		DEFAULT: `${DOMAIN_PREFIX}/designation/*`,
-		RESIGNATION: `${DOMAIN_PREFIX}/designation`,
-		APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
-	},
+	// RESIGNATION: {
+	// 	DEFAULT: `${DOMAIN_PREFIX}/resignation/*`,
+	// 	RESIGNATION: `${DOMAIN_PREFIX}/resignation`,
+	// },
 
 	TRAVELS: `${DOMAIN_PREFIX}/travel`,
 	TRAVEL: {
@@ -496,9 +495,9 @@ export const ROUTES = {
 		APPRAISALS: {
 			DEFAULT: `${DOMAIN_PREFIX}/appraisals`,
 		},
-		RESIGNATIONS: {
-			DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
-		},
+		// RESIGNATIONS: {
+		// 	DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
+		// },
 		WARNINGS: {
 			DEFAULT: `${DOMAIN_PREFIX}/warnings`,
 			APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,

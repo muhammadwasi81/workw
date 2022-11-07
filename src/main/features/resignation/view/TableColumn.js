@@ -21,52 +21,27 @@ export const tableColumn = () => {
       title: "Creator",
       dataIndex: "creator",
       ellipsis: true,
-      render: (/* creator */) => (
-        <TagAvatar
-          text={/* creator.name */ "Daniyal"}
-          img={/* creator.image */ "Avatar"}
-        />
-      ),
+      render: (creator) => <TagAvatar text={creator.name} img={creator.image} />,
       sort: true,
     },
     {
       title: "Status",
       dataIndex: "status",
-      render: (/* status */) => (
-        <StatusTag status={/* status */ "In Progress"} />
-      ),
+      render: (status) => <StatusTag status={status} />,
       sort: true,
     },
-    {
-      title: "Category",
-      dataIndex: "category",
-      ellipsis: true,
-      sort: true,
-    },
-    // { title: "Name", dataIndex: "name", ellipsis: true, sort: true },
-    // { title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
     {
       title: "Date",
       dataIndex: "createDate",
-      render: (/* i */) => moment(/* i.createDate */).format("DD MMM YYYY"),
+      render: (i) => moment(i.createDate).format("DD MMM YYYY"),
       sort: true,
     },
 
-    {
-      title: "Complain Of",
-      dataIndex: "members",
-      ellipsis: true,
-      render: (/* member */) => (
-        <Avatar membersData={/* member */ "Daniyal"} heading={"Members"} />
-      ),
-    },
-    {
-      title: "Approvers",
-      dataIndex: "approvers",
-      ellipsis: true,
-      render: (/* approver */) => (
-        <Avatar membersData={/* approver */ "No Name"} heading={"Approvers"} />
-      ),
-    },
+    // {
+    //   title: "Approvers",
+    //   dataIndex: "approvers",
+    //   ellipsis: true,
+    //   render: (approver) => <Avatar membersData={approver} heading={"Approvers"} />,
+    // },
   ];
 };

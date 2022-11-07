@@ -52,7 +52,7 @@ const Composer = props => {
 	const [value, setValue] = useState([]);
 
 	const { rewardCategories } = useSelector(state => state.sharedSlice);
-	const { success } = useSelector(state => state.rewardSlice);
+	const { success, loader } = useSelector(state => state.rewardSlice);
 	const employees = useSelector(state => state.sharedSlice.employees);
 
 	const selectedData = (data, obj) => {
@@ -139,9 +139,11 @@ const Composer = props => {
 		if (Object.keys(image).length > 0) {
 			let payload = { ...values, approvers, members, image };
 			dispatch(addReward(payload));	
+			dispatch(getAllRewards({filterType: 0}))
 		} else {
 			let payload = { ...values, approvers, members };
 			dispatch(addReward(payload));	
+			dispatch(getAllRewards({filterType: 0}))
 		}
 	};
 	useEffect(() => {
@@ -277,7 +279,7 @@ const Composer = props => {
 						selectedData={selectedData}
 						canFetchNow={isFirstTimeDataLoaded}
 						fetchData={fetchEmployees}
-						placeholder={rewardDictionary.selectMember}
+						placeholder={rewardDictionary.selectApprovers}
 						mode={"multiple"}
 						isObject={true}
 						loadDefaultData={false}
@@ -339,6 +341,7 @@ const Composer = props => {
 						className="ThemeBtn"
 						block
 						htmlType="submit"
+						loading={loader}
 						title={rewardDictionary.createReward}
 					>
 						{" "}

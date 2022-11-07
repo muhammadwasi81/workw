@@ -269,7 +269,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.RESIGNATION.DEFAULT}`,
-      component: lazy(() => import('../main/features/resignation/view/index')),
+      component: lazy(() => import('../main/features/resignation/view/resignations')),
     },
     {
       path: `${ROUTES.REQUISITION.DEFAULT}`,

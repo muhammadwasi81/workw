@@ -18,6 +18,7 @@ import {
 	reactions,
 } from "../../../reactions/reactions";
 import { addReaction } from "../../../../store/actions";
+import { useState } from "react";
 
 const PostFooter = ({
 	attachments,
@@ -34,6 +35,7 @@ const PostFooter = ({
 }) => {
 	const dispatch = useDispatch();
 	let navigate = useNavigate();
+	const [showComments, setShowComments] = useState(false);
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Post, Direction } = FeedDictionary[userLanguage];
 	const {
@@ -44,9 +46,8 @@ const PostFooter = ({
 		WriteYourCommentHere,
 		WriteYourReplyHere,
 	} = Post;
-	// console.log("comments", comments);
+
 	const handleAddReaction = (reactionType, id) => {
-		// console.log("reactionType", reactionType, id);
 		if (reactionType === 0) {
 			dispatch(
 				addFeedReaction({
@@ -93,11 +94,19 @@ const PostFooter = ({
 
 					<a href={reactionCount}>{reactionCount}</a>
 				</div>
-				<div className="commentCount">
-					<Link className="" to={ROUTES.NEWSFEED.LINK + id}>
-						{Comments}
-					</Link>
-				</div>
+				{comments?.length > 0 && (
+					<div
+						className="commentCount"
+						onClick={() => {
+							setShowComments(!showComments);
+						}}
+					>
+						<div className="hover:underline cursor-pointer">
+							{comments?.length} &nbsp;
+							{comments?.length === 1 ? " Comment" : Comments}
+						</div>
+					</div>
+				)}
 			</div>
 			<div className="post-events">
 				<div
@@ -170,6 +179,7 @@ const PostFooter = ({
 				commentRequestSuccess={comment =>
 					dispatch(feedSlice.actions.onSaveComment({ comment }))
 				}
+				showComments={showComments}
 			/>
 			{commentCount > 3 && (
 				<p

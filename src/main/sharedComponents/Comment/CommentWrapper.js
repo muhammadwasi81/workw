@@ -17,6 +17,7 @@ function CommentWrapper({
 	initialMentions = [],
 	placeHolderReply,
 	loadSkeleton = false,
+	showComments = true,
 }) {
 	const [comments, setComments] = useState([]);
 	const { user } = useSelector(state => state.userSlice);
@@ -49,47 +50,49 @@ function CommentWrapper({
 					commentRequestSuccess && commentRequestSuccess(comment);
 				}}
 			/>
-			<div className="comments">
-				{comments.map(
-					({
-						type,
-						comment,
-						creator = {
-							designation: "",
-							name: user.name,
-							image: user.userImage,
-						},
-						createDate = new Date(),
-						id: commentID,
-						referenceId,
-						mentions: mentionedUser,
-					}) => {
-						const { designation, name, image } = creator;
-						return (
-							<CommentItem
-								placeHolderReply={placeHolderReply}
-								initialMentions={initialMentions}
-								mentionedUser={mentionedUser}
-								module={module}
-								comment={{
-									content: comment,
-									parentId: commentID,
-									referenceId: referenceId,
-									type,
-									createDate,
-									youLikeType: 0,
-									likeCounter: 0,
-									creator: {
-										name,
-										image,
-										designation,
-									},
-								}}
-							/>
-						);
-					}
-				)}
-			</div>
+			{showComments && (
+				<div className="comments">
+					{comments.map(
+						({
+							type,
+							comment,
+							creator = {
+								designation: "",
+								name: user.name,
+								image: user.userImage,
+							},
+							createDate = new Date(),
+							id: commentID,
+							referenceId,
+							mentions: mentionedUser,
+						}) => {
+							const { designation, name, image } = creator;
+							return (
+								<CommentItem
+									placeHolderReply={placeHolderReply}
+									initialMentions={initialMentions}
+									mentionedUser={mentionedUser}
+									module={module}
+									comment={{
+										content: comment,
+										parentId: commentID,
+										referenceId: referenceId,
+										type,
+										createDate,
+										youLikeType: 0,
+										likeCounter: 0,
+										creator: {
+											name,
+											image,
+											designation,
+										},
+									}}
+								/>
+							);
+						}
+					)}
+				</div>
+			)}
 		</div>
 	);
 }

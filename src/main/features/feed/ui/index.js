@@ -56,23 +56,23 @@ const NewsFeed = ({
 						/>
 					</div>
 				</div>
-				<div
-					className="rt-col"
-					style={{
-						display: "block",
-						height: "auto",
-						minHeight: "auto",
-					}}
-				>
-					{isScheduler && (
+				{isScheduler && (
+					<div
+						className="rt-col"
+						style={{
+							display: "block",
+							height: "auto",
+							minHeight: "auto",
+						}}
+					>
 						<>
 							<QuickOptions />
 							<div className="schedule" style={{ height: "60%" }}>
 								<Scheduler feed={true} />
 							</div>
 						</>
-					)}
-				</div>
+					</div>
+				)}
 			</ContBody>
 		</TabbableContainer>
 	);

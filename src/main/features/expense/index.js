@@ -4,8 +4,8 @@ import { dictionaryList } from "../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import Header from "../../layout/header";
 import {
-  ContBody,
-  TabbableContainer,
+	ContBody,
+	TabbableContainer,
 } from "../../sharedComponents/AppComponents/MainFlexContainer";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import TopBar from "../../sharedComponents/topBar/topBar";
@@ -23,154 +23,160 @@ import { handleOpenComposer } from "./store/slice";
 import { Button, Drawer } from "antd";
 
 function Expenses({
-  referenceId = defaultUiid,
-  referenceType = ExpenseReferenceTypeEnum.General,
-  width = "",
-  routeLink,
-  backButton,
+	referenceId = defaultUiid,
+	referenceType = ExpenseReferenceTypeEnum.General,
+	width = "",
+	routeLink,
+	backButton,
+	feature = "",
 }) {
-  const [filterType, setFilterType] = useState(ExpenseFilterType.myExpense);
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { appHeader, sharedLabels } = dictionaryList[userLanguage];
-  const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
-  const { isCreateComposer, drawerOpen } = useSelector(
-    (state) => state.expenseSlice
-  );
-  const [view, setView] = useState("List");
-  const dispatch = useDispatch();
-  const { labels } = ExpenseDictionaryList;
-  const items = [
-    {
-      name: appHeader.expense.expenses,
-      to: routeLink ? routeLink : `${STRINGS.ROUTES.EXPENSE.DEFAULT}?f=my`,
-      renderButton: [1],
-    },
-  ];
+	const [filterType, setFilterType] = useState(ExpenseFilterType.myExpense);
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { appHeader, sharedLabels } = dictionaryList[userLanguage];
+	const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
+	const { isCreateComposer, drawerOpen } = useSelector(
+		state => state.expenseSlice
+	);
+	const [view, setView] = useState("List");
+	const dispatch = useDispatch();
+	const { labels } = ExpenseDictionaryList;
+	const items = [
+		{
+			name: appHeader.expense.expenses,
+			to: routeLink
+				? routeLink
+				: `${STRINGS.ROUTES.EXPENSE.DEFAULT}?f=my`,
+			renderButton: [1],
+		},
+	];
 
-  //   const buttons = [
-  //     {
-  //       buttonText: ExpenseDictionaryList.createTextBtn,
-  //       render: (
-  //         <SideDrawer
-  //           children={
-  //             <CreateExpense
-  //               referenceId={referenceId}
-  //               referenceType={referenceType}
-  //             />
-  //           }
-  //           title={ExpenseDictionaryList.createTextBtn}
-  //           buttonText={ExpenseDictionaryList.createTextBtn}
-  //           success={isCreateComposer}
-  //           setOpenDrawer={() => dispatch(toggleCreateComposer())}
-  //           isAccessDrawer={true}
-  //           openDrawer={isCreateComposer}
-  //           setIsEdited={() => {}}
-  //         />
-  //       ),
-  //     },
-  //   ];
+	//   const buttons = [
+	//     {
+	//       buttonText: ExpenseDictionaryList.createTextBtn,
+	//       render: (
+	//         <SideDrawer
+	//           children={
+	//             <CreateExpense
+	//               referenceId={referenceId}
+	//               referenceType={referenceType}
+	//             />
+	//           }
+	//           title={ExpenseDictionaryList.createTextBtn}
+	//           buttonText={ExpenseDictionaryList.createTextBtn}
+	//           success={isCreateComposer}
+	//           setOpenDrawer={() => dispatch(toggleCreateComposer())}
+	//           isAccessDrawer={true}
+	//           openDrawer={isCreateComposer}
+	//           setIsEdited={() => {}}
+	//         />
+	//       ),
+	//     },
+	//   ];
 
-  const render = {
-    List: (
-      <ExpenseListView
-        filterType={filterType}
-        referenceId={referenceId}
-        referenceType={referenceType}
-      />
-    ),
-    Table: <ExpenseTableView />,
-  };
-  return (
-    <TabbableContainer>
-      <Header
-        items={items}
-        buttons={[
-          {
-            buttonText: ExpenseDictionaryList.createTextBtn,
-            render: (
-              <Button
-                className="ThemeBtn"
-                onClick={() => dispatch(handleOpenComposer(true))}
-              >
-                {ExpenseDictionaryList.createTextBtn}
-              </Button>
-            ),
-          },
-        ]}
-        width={width}
-        backButton={backButton}
-      />
-      <TopBar
-        width={width}
-        onSearch={(value) => {
-          console.log(value);
-        }}
-        filter={{
-          onFilter: () => {},
-        }}
-        buttons={[
-          {
-            name: labels.myExpense,
-            onClick: () => {
-              setFilterType(ExpenseFilterType.myExpense);
-            },
-          },
-          {
-            name: labels.approvals,
-            onClick: () => {
-              console.log("end");
-              setFilterType(ExpenseFilterType.forApprovals);
-            },
-          },
+	const render = {
+		List: (
+			<ExpenseListView
+				filterType={filterType}
+				referenceId={referenceId}
+				referenceType={referenceType}
+			/>
+		),
+		Table: <ExpenseTableView />,
+	};
+	return (
+		<TabbableContainer>
+			<Header
+				items={items}
+				buttons={[
+					{
+						buttonText: ExpenseDictionaryList.createTextBtn,
+						render: (
+							<Button
+								className="ThemeBtn"
+								onClick={() =>
+									dispatch(handleOpenComposer(true))
+								}
+							>
+								{ExpenseDictionaryList.createTextBtn}
+							</Button>
+						),
+					},
+				]}
+				width={width}
+				backButton={backButton}
+			/>
+			<TopBar
+				width={width}
+				onSearch={value => {
+					console.log(value);
+				}}
+				filter={{
+					onFilter: () => {},
+				}}
+				buttons={[
+					{
+						name: labels.myExpense,
+						onClick: () => {
+							setFilterType(ExpenseFilterType.myExpense);
+						},
+					},
+					{
+						name: labels.approvals,
+						onClick: () => {
+							console.log("end");
+							setFilterType(ExpenseFilterType.forApprovals);
+						},
+					},
 
-          {
-            name: labels.forExecution,
-            onClick: () => {
-              setFilterType(ExpenseFilterType.forExcecution);
-            },
-          },
-          {
-            name: labels.forFinance,
-            onClick: () => {
-              setFilterType(ExpenseFilterType.forFinance);
-            },
-          },
-        ]}
-        segment={{
-          onSegment: (value) => {
-            setView(value);
-          },
-          label1: sharedLabels.List,
-          label2: sharedLabels.Table,
-        }}
-      />
-      <ContBody className={width}>{render[view]}</ContBody>
-      <Drawer
-        title={
-          <h1
-            style={{
-              fontSize: "20px",
-              margin: 0,
-            }}
-          >
-            {ExpenseDictionaryList.createTextBtn}
-          </h1>
-        }
-        width="768"
-        onClose={() => {
-          dispatch(handleOpenComposer(false));
-        }}
-        visible={drawerOpen}
-        destroyOnClose={true}
-        className="detailedViewComposer drawerSecondary"
-      >
-        <CreateExpense
-          referenceId={referenceId}
-          referenceType={referenceType}
-        />
-      </Drawer>
-    </TabbableContainer>
-  );
+					{
+						name: labels.forExecution,
+						onClick: () => {
+							setFilterType(ExpenseFilterType.forExcecution);
+						},
+					},
+					{
+						name: labels.forFinance,
+						onClick: () => {
+							setFilterType(ExpenseFilterType.forFinance);
+						},
+					},
+				]}
+				segment={{
+					onSegment: value => {
+						setView(value);
+					},
+					label1: sharedLabels.List,
+					label2: sharedLabels.Table,
+				}}
+			/>
+			<ContBody className={width}>{render[view]}</ContBody>
+			<Drawer
+				title={
+					<h1
+						style={{
+							fontSize: "20px",
+							margin: 0,
+						}}
+					>
+						{ExpenseDictionaryList.createTextBtn}
+					</h1>
+				}
+				width="768"
+				onClose={() => {
+					dispatch(handleOpenComposer(false));
+				}}
+				visible={drawerOpen}
+				destroyOnClose={true}
+				className="detailedViewComposer drawerSecondary"
+			>
+				<CreateExpense
+					feature={feature}
+					referenceId={referenceId}
+					referenceType={referenceType}
+				/>
+			</Drawer>
+		</TabbableContainer>
+	);
 }
 
 export default Expenses;

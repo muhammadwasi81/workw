@@ -173,9 +173,9 @@ input:focus {
   height: 200px !important;
 } */
 
-.ql-container.ql-snow {
+/* .ql-container.ql-snow {
   border: none !important;
-}
+} */
 
 .stickyNote_container .ant-input {
   outline: 0;

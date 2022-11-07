@@ -1,8 +1,5 @@
 import moment from "moment";
-import Avatar from "../../../sharedComponents/Avatar/avatar";
-
-import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
-import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import TagAvatar from "../../../../sharedComponents/Avatar/TagAvatar";
 export const tableColumn = () => {
 	return [
 		{ title: "Name", dataIndex: "name", ellipsis: true, sort: true },

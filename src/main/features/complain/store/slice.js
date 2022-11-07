@@ -35,7 +35,7 @@ const complainSlice = createSlice({
     builder
       .addCase(addComplain.fulfilled, (state, { payload }) => {
         state.drawerOpen = false;
-        state.complainData = payload;
+        state.complains = [payload.data.data, ...state.complains ]
         return state;
       })
       .addMatcher(isPending(...[getAllComplains]), (state) => {

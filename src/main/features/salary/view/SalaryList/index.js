@@ -71,7 +71,7 @@ function Salaries() {
     Table: (
       <Table columns={salaryTableColumn()} dragable={true} data={listData} />
     ),
-  };
+  };  
   return (
     <TabbableContainer>
       <Header items={items} buttons={buttons} />

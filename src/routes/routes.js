@@ -186,44 +186,60 @@ export const routes = {
     },
 
     {
-      path: `${ROUTES.WORKBOARD.DEFAULT}`,
-      component: lazy(() => import('../main/features/workboard/index')),
+      path: `${ROUTES.LEAVES.DEFAULT}`,
+      component: lazy(() => import('../main/features/leave/view/Leave')),
     },
     {
-      path: `${ROUTES.WORKBOARD.TODO_BOARD}`,
-      component: lazy(() => import('../main/features/workboard/Trello/Board')),
+      path: `${ROUTES.DEPARTMENTS.DEFAULT}`,
+      component: lazy(() => import('../main/features/departments/view/index')),
     },
     {
-      path: `${ROUTES.LEAD_MANAGER.DEFAULT}`,
-      component: lazy(() => import('../main/features/leadmanager/index')),
-    },
-    {
-      path: `${ROUTES.LEAD_MANAGER.LEAD_DETAIL}`,
+      path: `${ROUTES.DEPARTMENTS.DETAIL}`,
       component: lazy(() =>
-        import('../main/features/leadmanager/view/Board/BoardViews')
+        import(
+          '../main/features/departments/DepartmentDetails/DeptartmentDetails'
+        )
       ),
     },
     {
-      path: `${ROUTES.HR.APPRAISALS.DEFAULT}`,
+      path: `${ROUTES.CAREER.DEFAULT}`,
+      component: lazy(() => import('../main/features/careers/view/')),
+    },
+    {
+      path: `${ROUTES.CAREER.JOB_DETAIL}`,
       component: lazy(() =>
-        import('../main/features/appraisalModule/view/appraisal')
+        import('../main/features/careers/view/DetailView/index')
       ),
     },
     {
-      path: `${ROUTES.WARNINGS.DEFAULT}`,
-      component: lazy(() => import('../main/features/warning/view/Warning')),
+      path: `${ROUTES.EXPENSES.DEFAULT}`,
+      component: lazy(() => import('../main/features/expense/routes/')),
     },
     {
-      path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
-      component: lazy(() => import('../components/HrMenu/Warnings/Approvals/')),
+      path: `${ROUTES.DOCUMENTS.DEFAULT}`,
+      component: lazy(() => import('../main/features/documents/view/index')),
     },
     {
-      path: `${ROUTES.COMPLAINS.DEFAULT}`,
-      component: lazy(() => import('../main/features/complain/view/Complain')),
+      path: `${ROUTES.LOAN.DEFAULT}`,
+      component: lazy(() => import('../main/features/loan/index')),
     },
     {
-      path: `${ROUTES.HR.BONUS.DEFAULT}`,
-      component: lazy(() => import('../main/features/bonus/view/Bonus')),
+      path: `${ROUTES.RESIGNATION.DEFAULT}`,
+      component: lazy(() =>
+        import('../main/features/resignation/view/resignations')
+      ),
+    },
+    {
+      path: `${ROUTES.REQUISITION.DEFAULT}`,
+      component: lazy(() =>
+        import('../main/features/requisition/view/requisition')
+      ),
+    },
+    {
+      path: `${ROUTES.REQUISITION.DETAIL}`,
+      component: lazy(() =>
+        import('../main/features/requisition/view/myRequisitionDetail/index')
+      ),
     },
 
     {

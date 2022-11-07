@@ -4,6 +4,7 @@ import ConversationListItem from './ConversationListItem';
 
 const ConversationList = () => {
 	const conversationsState = useSelector(state => state.MessengerSlice.Conversations);
+    console.log(conversationsState, "conversationsState")
     return (
         <div className="ConversationList" >
          {

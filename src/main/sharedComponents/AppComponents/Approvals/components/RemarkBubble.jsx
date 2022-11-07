@@ -17,7 +17,8 @@ function RemarksBubble({ remarker, remark, type, status, date }) {
         <div className="comment__header">
           <Avatar
             src={remarker?.image}
-            size={40}
+            name={remarker?.name}
+            size={30}
             round
             width={"30px"}
             height={"30px"}

@@ -4,10 +4,12 @@ import { BrokenPage, STRINGS } from "../../../../utils/base";
 
 const Index = () => {
   return (
-    <Switch>
-      <Route exact path={`${STRINGS.ROUTES.REWARDS.DEFAULT}`} component={Reward} />
-      <Route component={BrokenPage} />
-    </Switch>
+    <>
+    </>
+    // <Switch>
+    //   <Route exact path={`${STRINGS.ROUTES.REWARDS.DEFAULT}`} component={Reward} />
+    //   <Route component={BrokenPage} />
+    // </Switch>
   );
 };
 

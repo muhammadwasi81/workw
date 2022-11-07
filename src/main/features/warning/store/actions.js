@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
-import { addWarningService, getAllWarningService, GetWarningByIdService } from "../services/service";
+import { addWarningService, cancelWarningService, getAllWarningService, GetWarningByIdService } from "../services/service";
 
 export const getAllWarnings = createAsyncThunk("Warning/GetAllWarning", async (data) => {
   const response = await getAllWarningService(data);
@@ -28,4 +28,10 @@ export const GetWarningById = createAsyncThunk("Warning/GetWarningById", async (
   const response = await GetWarningByIdService(id);
   console.log("MY ID", id);
   return response.data;
+});
+
+
+export const cancelWarning = createAsyncThunk("Warning/cancelWarning", async (id, { dispatch, setState }) => {
+  const response = await cancelWarningService(id);
+  return response;
 });

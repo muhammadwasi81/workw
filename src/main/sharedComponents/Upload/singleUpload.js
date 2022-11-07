@@ -113,6 +113,9 @@ class SingleUpload extends React.Component {
       previewTitle,
       defaultFileList,
     } = this.state;
+    const {
+      accept
+    } = this.props;
 
     const uploadButton =
       this.props.uploadButton !== undefined ? (
@@ -123,7 +126,6 @@ class SingleUpload extends React.Component {
           <div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
         </div>
       );
-    console.log(this.state.fileList, 'this.state.fileList');
     return (
       <>
         <Upload
@@ -132,7 +134,7 @@ class SingleUpload extends React.Component {
           onPreview={this.handlePreview}
           onChange={this.handleChange}
           className={`uploadImg ${this.props.position}`}
-          accept="*"
+          accept={accept ? accept : "*"}
           beforeUpload={() => false}
           multiple={this.props.multiple}
           // maxCount={1}

@@ -8,7 +8,7 @@
   width: calc(100% - 80px);
 }
 
-.topBar .ant-segmented-item-icon+* {
+.topBar .ant-segmented-item-icon + * {
   margin-left: 0;
 }
 
@@ -21,6 +21,7 @@
   border: 1px solid #ccc;
   background: #0000000f;
   min-width: 200px;
+  /* margin-bottom: 10px; */
 }
 
 .searchBox input {
@@ -28,7 +29,7 @@
   background: transparent;
 }
 
-.topBar .ant-input-affix-wrapper>input.ant-input input {
+.topBar .ant-input-affix-wrapper > input.ant-input input {
   padding: 0;
   font-size: 12px;
 }
@@ -93,7 +94,7 @@
   justify-content: center;
 }
 
-.topBar .ant-segmented-item-icon+* {
+.topBar .ant-segmented-item-icon + * {
   font-size: 14px;
   font-weight: 600;
 }

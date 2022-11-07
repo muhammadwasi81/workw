@@ -35,9 +35,14 @@ const initialState = {
 const Composer = (props) => {
   const dispatch = useDispatch();
   const { employees } = useSelector((state) => state.sharedSlice);
+  const { success, createLoader } = useSelector(
+    (state) => state.departmentSlice
+  );
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [employeesData, setEmployeesData] = useState([]);
+
+  console.log(success, createLoader);
 
   useEffect(() => {
     // dispatch(getRewardCategory());
@@ -72,9 +77,9 @@ const Composer = (props) => {
     console.log("wrapper select data", data, obj);
   };
 
-  if (!isFirstTimeDataLoaded) {
-    return <Skeleton active />;
-  }
+  // if (!isFirstTimeDataLoaded) {
+  //   return <Skeleton active />;
+  // }
 
   const handleImageUpload = (data) => {
     setProfileImage(data);
@@ -93,16 +98,19 @@ const Composer = (props) => {
       email: item.email,
     }));
     console.log("employees*******", employees);
-    let image = {
-      id: STRINGS.DEFAULTS.guid,
-      file: profileImage[0].originFileObj,
-    };
-    let payload = { ...values, image, employees };
+    if (profileImage) {
+      let image = {
+        id: STRINGS.DEFAULTS.guid,
+        file: profileImage[0].originFileObj,
+      };
+      let payload = { ...values, image, employees };
+      dispatch(addDepartment(payload));
+    } else {
+      let payload = { ...values, employees };
+      dispatch(addDepartment(payload));
+    }
 
-    console.log(payload, "FINAL PAYLOAD !!!");
-    dispatch(addDepartment(payload));
-
-    form.resetFields();
+    // form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -137,7 +145,7 @@ const Composer = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "{Please Department Name}",
+                  message: "Please Write Department Name",
                 },
               ]}
             >
@@ -269,6 +277,7 @@ const Composer = (props) => {
             block
             htmlType="submit"
             title={departmentDictionary.createReward}
+            loading={createLoader}
           >
             {" "}
             {"Create Department"}{" "}

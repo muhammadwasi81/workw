@@ -71,11 +71,14 @@ function CreateChat({ onClose, visible }) {
     >
       <div className="bg-white m-2 rounded-md relative">
         <div className="createChat__header">
-          <SingleUpload
-            handleImageUpload={handleImageUpload}
-            uploadText={""}
-            multiple={false}
-          />
+          <div className="profileUploader">
+            <SingleUpload
+              handleImageUpload={handleImageUpload}
+              uploadText={""}
+              multiple={false}
+              accept="image/png, image/gif, image/jpeg"
+            />
+          </div>
           <Input
             placeholder="Name Your Group"
             onChange={(e) => setState({ ...state, title: e.target.value })}
@@ -90,7 +93,7 @@ function CreateChat({ onClose, visible }) {
           />
         </div>
         <div className="fixed bottom-0 w-full" >
-          <Button className="headerBtn w-[480px] ml-[4px] flex justify-center"
+          <Button className="headerBtn w-[480px] ml-[4px] mb-[4px] flex justify-center"
             onClick={handleSubmit} >Create</Button>
         </div>
       </div>

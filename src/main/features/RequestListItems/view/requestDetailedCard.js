@@ -24,7 +24,9 @@ const RequestDetailCard = (props) => {
   if (!requestDetails) return <></>;
 
   const creator = {
-    businessId: 'cfe50d8d-7c47-4abb-9154-661daf129cec',
+    businessId: 'cfe50d8d-7c47-4abb-9154-661daf129cec'
+      ? 'cfe50d8d-7c47-4abb-9154-661daf129cec'
+      : '',
     designation: '',
     email: 'owais@miletap.com',
     id: '77546782-aa7a-4984-9388-5fd044c0fb11',

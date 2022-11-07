@@ -15,17 +15,17 @@ import {
 } from "@ant-design/icons";
 
 export const listitem = [
-  {
-    IconName: (
-      <CheckCircleOutlined
-        style={{ fontSize: 20, margin: "15px" }}
-        color={"var(--currentThemeColor)"}
-      />
-    ),
-    displayName: "attendence",
-    classObj: "button",
-    to: (id) => `/teams/info/attendence/${id}`,
-  },
+  // {
+  //   IconName: (
+  //     <CheckCircleOutlined
+  //       style={{ fontSize: 20, margin: "15px" }}
+  //       color={"var(--currentThemeColor)"}
+  //     />
+  //   ),
+  //   displayName: "attendence",
+  //   classObj: "button",
+  //   to: (id) => `/teams/info/attendence/${id}`,
+  // },
   {
     IconName: (
       <ScheduleOutlined
@@ -59,17 +59,17 @@ export const listitem = [
     classObj: "button",
     to: (id) => `/teams/info/rewards/${id}`,
   },
-  {
-    IconName: (
-      <ProjectOutlined
-        style={{ fontSize: 20, margin: "15px" }}
-        color={"var(--currentThemeColor)"}
-      />
-    ),
-    displayName: "appraisals",
-    classObj: "button",
-    to: (id) => `/teams/info/appraisals/${id}`,
-  },
+  // {
+  //   IconName: (
+  //     <ProjectOutlined
+  //       style={{ fontSize: 20, margin: "15px" }}
+  //       color={"var(--currentThemeColor)"}
+  //     />
+  //   ),
+  //   displayName: "appraisals",
+  //   classObj: "button",
+  //   to: (id) => `/teams/info/appraisals/${id}`,
+  // },
   {
     IconName: (
       <WarningOutlined
@@ -92,17 +92,17 @@ export const listitem = [
     classObj: "button",
     to: (id) => `/teams/info/complains/${id}`,
   },
-  {
-    IconName: (
-      <FolderOpenOutlined
-        style={{ fontSize: 20, margin: "15px" }}
-        color={"var(--currentThemeColor)"}
-      />
-    ),
-    displayName: "courses",
-    classObj: "button",
-    to: (id) => `/teams/info/courses/${id}`,
-  },
+  // {
+  //   IconName: (
+  //     <FolderOpenOutlined
+  //       style={{ fontSize: 20, margin: "15px" }}
+  //       color={"var(--currentThemeColor)"}
+  //     />
+  //   ),
+  //   displayName: "courses",
+  //   classObj: "button",
+  //   to: (id) => `/teams/info/courses/${id}`,
+  // },
   {
     IconName: (
       <ScheduleOutlined
@@ -136,15 +136,15 @@ export const listitem = [
     classObj: "button",
     to: (id) => `/teams/info/loan/${id}`,
   },
-  {
-    IconName: (
-      <RightCircleOutlined
-        style={{ fontSize: 20, margin: "15px" }}
-        color={"var(--currentThemeColor)"}
-      />
-    ),
-    displayName: "activityLog",
-    classObj: "button",
-    to: (id) => `/teams/info/activity-log/${id}`,
-  },
+  // {
+  //   IconName: (
+  //     <RightCircleOutlined
+  //       style={{ fontSize: 20, margin: "15px" }}
+  //       color={"var(--currentThemeColor)"}
+  //     />
+  //   ),
+  //   displayName: "activityLog",
+  //   classObj: "button",
+  //   to: (id) => `/teams/info/activity-log/${id}`,
+  // },
 ];

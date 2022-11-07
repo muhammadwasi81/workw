@@ -19,7 +19,7 @@ const TaskPriorityLabelsAndColor = (label) => {
     },
     2: {
       label: label.low,
-      color: "#a40d0d",
+      color: "green",
     },
 
     3: {
@@ -28,7 +28,7 @@ const TaskPriorityLabelsAndColor = (label) => {
     },
     4: {
       label: label.high,
-      color: "green",
+      color: "#a40d0d",
     },
   };
 };

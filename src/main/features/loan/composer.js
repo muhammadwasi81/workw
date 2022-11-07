@@ -34,7 +34,7 @@ const Composer = () => {
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
-  const { success } = useSelector((state) => state.loanSlice);
+  const { success, createLoader } = useSelector((state) => state.loanSlice);
   const [loanAmount, setLoanAmount] = useState(0);
   const [loanTenure, setLoanTenure] = useState(0);
   const [deductionPerMonth, setDeductionPerMonth] = useState(0);
@@ -91,7 +91,9 @@ const Composer = () => {
     };
     dispatch(addLoan({ loanObj }));
     console.log(success);
-    onReset();
+    if (success) {
+      onReset();
+    }
   };
 
   const onReset = () => {
@@ -229,7 +231,7 @@ const Composer = () => {
       <Form.Item label="DatePicker" name="deadline">
         <DatePicker />
       </Form.Item>
-      <Form.Item label="approvers" name="approvers">
+      <Form.Item label="Approvers" name="approvers">
         <MemberSelect
           name="managerId"
           mode="multiple"
@@ -287,7 +289,7 @@ const Composer = () => {
           }}
           type="primary"
           htmlType="submit"
-          loading={success}
+          loading={createLoader}
         >
           Create
         </Button>

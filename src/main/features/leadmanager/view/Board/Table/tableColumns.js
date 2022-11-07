@@ -53,13 +53,18 @@ export const tableColumns = (sections, handleMemberModal) => {
 		{
 			title: "Section",
 			dataIndex: "sectionId",
-			render: (sectionId, record, index) => (
-				<LeadSectionSelect
-					detail={record}
-					sections={sections}
-					index={index}
-				/>
-			),
+			render: (sectionId, record, index) => {
+				// console.log("index", index, record);
+
+				return (
+					<LeadSectionSelect
+						detail={record}
+						sections={sections}
+						currentIndex={index}
+						key={index}
+					/>
+				);
+			},
 			width: 200,
 		},
 	];

@@ -83,11 +83,16 @@ const Create = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Subject!",
+                    message: "Please input your Title!",
                   },
                 ]}
               >
-                <Input placeholder="Title" />
+                <TextArea
+                  showCount
+                  maxLength={20}
+                  placeholder="Title"
+                  rows={1}
+                />
               </Form.Item>
               <Form.Item
                 name="description"
@@ -99,7 +104,12 @@ const Create = (props) => {
                   },
                 ]}
               >
-                <TextArea placeholder="Description" rows={4} />
+                <TextArea
+                  showCount
+                  maxLength={100}
+                  placeholder="Description"
+                  rows={4}
+                />
               </Form.Item>
               <Form.Item
                 name="approvers"
@@ -190,7 +200,7 @@ const Create = (props) => {
               htmlType="submit"
               disabled={createLoader ? true : false}
             >
-              Submit Form
+              Create Form
             </Button>
           </Form.Item>
         </Form>

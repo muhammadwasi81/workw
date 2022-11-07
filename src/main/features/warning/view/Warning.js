@@ -139,7 +139,7 @@ const Warning = (props) => {
               margin: 0,
             }}
           >
-            Create Reward
+            Create Warning
           </h1>
         }
         width="768"

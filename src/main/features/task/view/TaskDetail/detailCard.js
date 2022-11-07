@@ -65,7 +65,7 @@ function TaskDetail() {
                         ? creator.designation
                         : "Not Designated"
                     }
-                    // time="2 days ago"
+                  // time="2 days ago"
                   />
                 }
               />
@@ -91,20 +91,20 @@ function TaskDetail() {
                       <div className="card-Title-1">{subject}</div>
                       <p className="card-desc-1">
                         {description} dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
-                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksjksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
+                        jskdkjsdkjs dksjksjkdjs sdjksjdkjs sdkjksj ksdjksd
                         jskdkjsdkjs
                       </p>
                     </div>

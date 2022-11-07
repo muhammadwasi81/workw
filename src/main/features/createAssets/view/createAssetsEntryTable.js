@@ -65,7 +65,7 @@ const CreateAssetsEntryTable = () => {
     serialNo: '',
     category: '',
     type: '',
-    handover: '',
+    handoverId: '',
   };
 
   const initialEntries = Array(defaultRows).fill(defaultEntry);
@@ -100,15 +100,19 @@ const CreateAssetsEntryTable = () => {
       categoryId: entries[0].category,
       type: Number(entries[0].type),
       image: { id: DEFAULT_GUID, file: profileImage },
-      handover: entries[0].handover,
+      handoverId: entries[0].handoverId,
     };
-    console.log(payload, 'payload');
+    console.log(payload, payload.handoverId, 'payload');
     return payload;
   };
 
   const handleSubmit = () => {
-    if (!entries[0].approvers) {
-      return message.error('Please select Approvers');
+    if (
+      !entries[0].approvers ||
+      !entries[0].inventoryName ||
+      !entries[0].inventoryValue
+    ) {
+      return message.error('Please fill all the fields');
     }
     let payload = createPayload();
     dispatch(addAssetItem(payload));

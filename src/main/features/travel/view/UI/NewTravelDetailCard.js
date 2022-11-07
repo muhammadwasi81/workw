@@ -45,7 +45,10 @@ function NewTravelDetailCard(props) {
 
 				<div className="flex items-center justify-between font-semibold">
 					<span>
-						{moment(travel?.departureDate).format("DD MMM, YYYY")}
+						{moment
+							.utc(travel?.departureDate)
+							.local()
+							.format("DD MMM, YYYY - HH:mm")}
 					</span>
 					<span className="">{travelObj[travel?.travelById]}</span>
 				</div>

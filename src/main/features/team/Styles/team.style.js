@@ -23,7 +23,7 @@ export const device = {
 export const TeamPanelContainer = styled.div`
   display: flex;
   width: 100%;
-  background: #f9f9f9;
+  background: #fff;
   min-height: 80vh;
   flex-direction: ${(props) =>
     props.theme.Direction === "ltr" ? "row" : "row-reverse"};

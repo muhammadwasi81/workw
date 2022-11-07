@@ -20,6 +20,7 @@ import {
 import { resetBreadCumb } from "../store/slice";
 import { DocumentReferenceTypeEnum } from "./enum";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import DocumentTableView from "./tableView";
 
 const Documents = ({
 	referenceType = DocumentReferenceTypeEnum.General,
@@ -31,6 +32,7 @@ const Documents = ({
 	const dispatch = useDispatch();
 	const CurrentTab = useSelector(state => state.documentSlice.currentTab);
 	const ListData = useSelector(state => state.documentSlice.listData);
+	const isTableView = useSelector(state => state.documentSlice.isTableView);
 	const DetailListData = useSelector(
 		state => state.documentSlice.detailListData
 	);
@@ -50,8 +52,8 @@ const Documents = ({
 					CurrentTab === "myDocuments"
 						? 2
 						: CurrentTab === "forApprovals"
-						? 3
-						: null,
+							? 3
+							: null,
 				referenceId,
 				referenceType,
 			};
@@ -67,7 +69,7 @@ const Documents = ({
 		myDocuments: <DocumentDetailCards data={DetailListData} />,
 		forApprovals: <DocumentDetailCards data={DetailListData} />,
 	};
-	return ( 
+	return (
 		<TabbableContainer>
 			<Header
 				width={width}
@@ -76,7 +78,10 @@ const Documents = ({
 			/>
 			<FilterBar width={width} />
 			<ContBody className={width}>
-				<DropableContainer>{RenderTab[CurrentTab]}</DropableContainer>
+				<DocumentTableView
+					list={ListData}
+					isTable={isTableView} />
+				{!isTableView && <DropableContainer>{RenderTab[CurrentTab]}</DropableContainer>}
 			</ContBody>
 			<DocumentComposers
 				referenceId={referenceId}

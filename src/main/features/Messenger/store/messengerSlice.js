@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createGuid, STRINGS } from "../../../../utils/base";
-import { createChat, getAllChats, getAllMessages, searchConversation, sendChatMessage } from "./actions";
+import { createChat, getAllChats, searchConversation, sendChatMessage, getAllChatMessage } from "./actions";
 
 const defaultCurrentMessenger = {
    chatId: STRINGS.DEFAULTS.guid,
@@ -106,8 +106,8 @@ export const messengerSlice = createSlice({
          .addCase(searchConversation.fulfilled, (state, { payload }) => {
             state.Conversations = payload.data
          })
-         .addCase(getAllMessages.fulfilled, (state, { payload }) => {
-            state.MessengerList[state.currentMessenger.chatId] = payload.data
+         .addCase(getAllChatMessage.fulfilled, (state, { payload }) => {
+            state.MessengerList[state.currentMessenger.chatId] = payload
          })
          .addCase(getAllChats.fulfilled, (state, { payload }) => {
             state.Conversations = payload

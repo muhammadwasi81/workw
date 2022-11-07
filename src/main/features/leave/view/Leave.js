@@ -1,6 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Button, Skeleton, Drawer } from "antd";
 import { leaveDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -9,13 +12,14 @@ import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllLeaves, GetLeaveById, } from "../store/actions";
+import { getAllLeaves, GetLeaveById } from "../store/actions";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import { CardWrapper } from "../../../layout/GridStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
+import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -29,7 +33,9 @@ const Leave = (props) => {
 
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { leaves, loader, leaveDetail, drawerOpen } = useSelector((state) => state.leaveSlice);
+  const { leaves, loader, leaveDetail, drawerOpen } = useSelector(
+    (state) => state.leaveSlice
+  );
 
   const onClose = () => {
     setDetailId(null);
@@ -51,7 +57,10 @@ const Leave = (props) => {
             {
               buttonText: "Create Leave",
               render: (
-                <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                <Button
+                  className="ThemeBtn"
+                  onClick={() => dispatch(handleOpenComposer(true))}
+                >
                   Create Leave
                 </Button>
               ),
@@ -60,7 +69,7 @@ const Leave = (props) => {
         />
         <TopBar
           onSearch={(value) => {
-            setFilter({ ...filter, search: value })
+            setFilter({ ...filter, search: value });
           }}
           buttons={[
             {
@@ -95,11 +104,7 @@ const Leave = (props) => {
         <ContBody>
           {leaves?.length > 0 ? (
             tableView ? (
-              <Table
-                columns={tableColumn()}
-                dragable={true}
-                data={leaves}
-              />
+              <Table columns={tableColumn()} dragable={true} data={leaves} />
             ) : (
               <>
                 {loader ? (
@@ -111,7 +116,12 @@ const Leave = (props) => {
                     {leaves.map((item, index) => {
                       return (
                         <>
-                          <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
+                          <ListItem
+                            item={item}
+                            id={item.id}
+                            key={index}
+                            onClick={() => setDetailId(item.id)}
+                          />
                         </>
                       );
                     })}
@@ -120,10 +130,12 @@ const Leave = (props) => {
               </>
             )
           ) : (
-            <Skeleton avatar paragraph={{ rows: 4 }} />
+            <div className="flex items-center justify-center h-full w-full">
+              <img src={Nodata} />
+            </div>
           )}
         </ContBody>
-        {<DetailedView onClose={onClose} id={detailId} />}
+        {leaveDetail && <DetailedView onClose={onClose} id={detailId} />}
         <Drawer
           title={
             <h1
@@ -137,7 +149,7 @@ const Leave = (props) => {
           }
           width="768"
           onClose={() => {
-            dispatch(handleOpenComposer(false))
+            dispatch(handleOpenComposer(false));
           }}
           visible={drawerOpen}
           destroyOnClose={true}

@@ -1,11 +1,12 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addPromotion, getAllPromotions, GetPromotionById } from "./actions";
+import { addPromotion, getAllPromotions, GetPromotionById ,cancelPromotion} from "./actions";
 
 const initialState = {
   promotions: [],
+  cancelPromotion: {},
   loadingData: false,
   loader: true,
-  promotionDetail: null,
+  promotionDetail: {},
   drawerOpen: false,
 };
 
@@ -26,9 +27,15 @@ const promotionSlice = createSlice({
     builder.addCase(GetPromotionById.fulfilled, (state, action) => {
       state.promotionDetail = action.payload.data;
     });
+    builder.addCase(cancelPromotion.fulfilled, (state, action) => {
+      state.cancelPromotion = action.payload.data;
+      state.success = true
+      state.loader = false
+    });
 
     builder
         .addCase(addPromotion.fulfilled, (state, { payload }) => {
+          state.promotions=[payload.data.data,...state.promotions]
           state.drawerOpen = false;
           return state;
         })

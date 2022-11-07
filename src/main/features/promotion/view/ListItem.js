@@ -14,15 +14,21 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { promotionDictionary } = promotionDictionaryList[userLanguage];
 
-  const { creator, description, createDate, member = {}, approvers, status, referenceNo, grade } = props.item;
+  const { 
+    creator, 
+    description, 
+    createDate,
+    member = {}, 
+    approvers,
+    status,
+    referenceNo, 
+    grade
+   } = props.item;
 
   return (
     <SingleItem>
-      <div
-        className="new"
-        id={props.id}
-        onClick={() => {
-          props.getPromotionId(props.id);
+      <div className="new" id={props.id}
+        onClick={() => {props.getPromotionId(props.id);
         }}
       />
       <ItemHeader>

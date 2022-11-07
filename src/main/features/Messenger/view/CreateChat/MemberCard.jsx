@@ -15,8 +15,7 @@ function MemberCard({
       className={`memberCard ${extraClassName && extraClassName} px-5`}
       onClick={() => {
         isChecked ? onMemberRemove(item) :  onMemberSelect(item);
-      }}
-    >
+      }}>
       <div className="memberCard__header">
         <Avatar 
         src={item.image}

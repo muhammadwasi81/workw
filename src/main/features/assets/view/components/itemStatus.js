@@ -11,7 +11,7 @@ const ItemStatus = ({ status }) => {
     return <Tag color="success">Allocated</Tag>;
   }
   if (status === 4) {
-    return <Tag color="success">Available </Tag>;
+    return <Tag color="success">Available</Tag>;
   }
   if (status === 5) {
     return <Tag color="error">Lost</Tag>;

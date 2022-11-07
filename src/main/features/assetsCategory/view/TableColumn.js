@@ -30,7 +30,15 @@ export const tableColumn = (
   return [
     { title: 'Category Name', dataIndex: 'name', width: '20%', key: 1 },
     { title: 'Description', dataIndex: 'description', width: '20%', key: 2 },
-    { title: 'Account Type', dataIndex: 'accountId', width: '20%', key: 3 },
+    {
+      title: 'Account Type',
+      dataIndex: 'accountId',
+      width: '20%',
+      key: 3,
+      render: (text, row) => {
+        return <>{row.accountId}</>;
+      },
+    },
     {
       title: 'Parent Account',
       dataIndex: 'parentName',

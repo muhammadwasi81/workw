@@ -195,54 +195,60 @@ export const routes = {
 			),
 		},
 
-		{
-			path: `${ROUTES.WORKBOARD.DEFAULT}`,
-			component: lazy(() => import("../main/features/workboard/index")),
-		},
-		{
-			path: `${ROUTES.WORKBOARD.TODO_BOARD}`,
-			component: lazy(() =>
-				import("../main/features/workboard/Trello/Board")
-			),
-		},
-		{
-			path: `${ROUTES.LEAD_MANAGER.DEFAULT}`,
-			component: lazy(() => import("../main/features/leadmanager/index")),
-		},
-		{
-			path: `${ROUTES.LEAD_MANAGER.LEAD_DETAIL}`,
-			component: lazy(() =>
-				import("../main/features/leadmanager/view/Board/BoardViews")
-			),
-		},
-		{
-			path: `${ROUTES.HR.APPRAISALS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/appraisalModule/view/appraisal")
-			),
-		},
-		{
-			path: `${ROUTES.WARNINGS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/warning/view/Warning")
-			),
-		},
-		{
-			path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
-			component: lazy(() =>
-				import("../components/HrMenu/Warnings/Approvals/")
-			),
-		},
-		{
-			path: `${ROUTES.COMPLAINS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/complain/view/Complain")
-			),
-		},
-		{
-			path: `${ROUTES.HR.BONUS.DEFAULT}`,
-			component: lazy(() => import("../main/features/bonus/view/Bonus")),
-		},
+    {
+      path: `${ROUTES.LEAVES.DEFAULT}`,
+      component: lazy(() => import('../main/features/leave/view/Leave')),
+    },
+    {
+      path: `${ROUTES.DEPARTMENTS.DEFAULT}`,
+      component: lazy(() => import('../main/features/departments/view/index')),
+    },
+    {
+      path: `${ROUTES.DEPARTMENTS.DETAIL}`,
+      component: lazy(() =>
+        import(
+          '../main/features/departments/DepartmentDetails/DeptartmentDetails'
+        )
+      ),
+    },
+    {
+      path: `${ROUTES.CAREER.DEFAULT}`,
+      component: lazy(() => import('../main/features/careers/view/')),
+    },
+    {
+      path: `${ROUTES.CAREER.JOB_DETAIL}`,
+      component: lazy(() =>
+        import('../main/features/careers/view/DetailView/index')
+      ),
+    },
+    {
+      path: `${ROUTES.EXPENSES.DEFAULT}`,
+      component: lazy(() => import('../main/features/expense/routes/')),
+    },
+    {
+      path: `${ROUTES.DOCUMENTS.DEFAULT}`,
+      component: lazy(() => import('../main/features/documents/view/index')),
+    },
+    {
+      path: `${ROUTES.LOAN.DEFAULT}`,
+      component: lazy(() => import('../main/features/loan/index')),
+    },
+    {
+      path: `${ROUTES.RESIGNATION.DEFAULT}`,
+      component: lazy(() => import('../main/features/resignation/view/resignations')),
+    },
+    {
+      path: `${ROUTES.REQUISITION.DEFAULT}`,
+      component: lazy(() =>
+        import('../main/features/requisition/view/requisition')
+      ),
+    },
+    {
+      path: `${ROUTES.REQUISITION.DETAIL}`,
+      component: lazy(() =>
+        import('../main/features/requisition/view/myRequisitionDetail/index')
+      ),
+    },
 
 		{
 			path: `${ROUTES.PROMOTION}`,

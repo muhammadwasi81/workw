@@ -20,6 +20,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
+import { ROUTES } from "../../../../utils/routes";
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -49,10 +50,20 @@ const Leave = (props) => {
   useEffect(() => {
     dispatch(getAllLeaves(filter));
   }, [filter]);
+
+  const items = [
+    {
+      name: 'Leaves',
+      to: `${ROUTES.LEAVES.DEFAULT}`,
+      renderButton: [1],
+    },
+  ];
+
   return (
     <>
       <TabbableContainer className="">
         <Header
+          items={items}
           buttons={[
             {
               buttonText: "Create Leave",

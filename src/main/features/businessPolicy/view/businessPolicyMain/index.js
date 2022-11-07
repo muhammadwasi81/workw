@@ -30,6 +30,7 @@ export default function AllApprovals() {
     dispatch(getAllBusinessPolicy(value));
     console.log(value, "valueee");
   };
+
   return (
     <TabbableContainer>
       <Header
@@ -46,14 +47,16 @@ export default function AllApprovals() {
         {/* <Input placeholder="Search" onCha /> */}
         {/* </div> */}
         <div className="flex ApprovalMainView gap-4 w-full">
-          <div className="">
+          <div className="parent-div">
             <Listing
               listData={businessPolicies}
               onSearch={(value) => searchHandler(value)}
             />
           </div>
-          <div className="flex-1">
-            {policyDetail && <ApprovalDetail item={policyDetail} />}
+          <div className="flex-1 policyDetail">
+            {
+               policyDetail && <ApprovalDetail item={policyDetail} />
+            }
           </div>
         </div>
       </ContBody>

@@ -11,7 +11,7 @@ export const getAllWarningService = data => {
 };
 
 export const addWarningService = data => {
-	return MasterConfig.post(`api/Warning/WarningAdd`, data)
+	return MasterConfig.post(`api/Warning/AddWarning`, data)
 		.then(res => {
 			return res;
 		})
@@ -30,8 +30,8 @@ export const GetWarningByIdService = id => {
 		});
 };
 
-export const cancelWarningervice = id => {
-	return MasterConfig.delete(`api/Warning/WarningCancel?warningId=${id}`)
+export const cancelWarningService = id => {
+	return MasterConfig.delete(`api/Warning/CancelWarning?WarningId=${id}`)
 		.then(res => {
 			return res;
 		})

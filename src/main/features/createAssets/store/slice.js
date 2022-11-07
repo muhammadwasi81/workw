@@ -52,9 +52,9 @@ export const AssetItemSlice = createSlice({
         console.log(payload.data, 'getAllAssetItemByUserId slice');
       })
       .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
-        state.assetItemList = payload;
-        state.loader = false;
         state.modalSuccess = true;
+        state.loader = false;
+        state.assetItemList = payload;
         console.log(payload, 'updateAssetItemSlice');
       })
       .addCase(getAllAssetItemByPagination.fulfilled, (state, { payload }) => {
@@ -78,6 +78,7 @@ export const AssetItemSlice = createSlice({
           state.loader = true;
           state.success = false;
           state.error = false;
+          state.modalSuccess = false;
         }
       );
   },

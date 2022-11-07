@@ -20,6 +20,7 @@ import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
 
 const Promotion = props => {
 	const dispatch = useDispatch();
@@ -50,10 +51,22 @@ const Promotion = props => {
 		dispatch(getAllPromotions(filter));
 	}, [filter]);
 
+<<<<<<< HEAD
 	
+=======
+	const items = [
+		{
+		  name: 'Promotions',
+		  to: `${ROUTES.PROMOTION}`,
+		  renderButton: [1],
+		},
+	  ];
+
+>>>>>>> 46e506d3842fad6d0148875206644f6f43e6426d
 	return (
 		<TabbableContainer className="max-width-1190">
 			<Header
+				items={items}
 				buttons={[
 					{
 						buttonText: "Create Promotion",

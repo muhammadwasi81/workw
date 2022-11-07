@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-import { Drawer, Tag } from "antd";
+import React, { useContext, useState } from "react";
+import { Button, Drawer, Tag } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
@@ -12,16 +11,35 @@ import DefaultAttachment from "../../../../content/NewContent/warning/warningsDe
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
 import { ItemContent, ItemHeader } from "../../../sharedComponents/Card/CardStyle";
+import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
+import {
+  ApprovalsModule,
+  ApprovalStatus,
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
+import { cancelWarning } from "../store/actions";
+import { useDispatch } from "react-redux";
 
 function DetailedView(props) {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, Direction, complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
+  const [updatedStatus, setUpdatedStatus] = useState(null);
+  const { user } = useSelector(state => state.userSlice);
+
+  let userId = user.id
 
   const { warningDetail } = useSelector((state) => state.warningSlice);
+  let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
 
-  const { creator, description, image = DefaultAttachment, category, status, createDate, members = [], approvers, referenceNo } = warningDetail;
+  const { creator, description, image = DefaultAttachment, category, status, createDate, members = [], approvers, referenceNo, id } = warningDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
+
+  const handleCancel = (e, payload) => {
+    e.preventDefault()
+    e.stopPropagation();
+    dispatch(cancelWarning(payload));
+}
 
   return (
     <Drawer
@@ -30,6 +48,7 @@ function DetailedView(props) {
       placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
       onClose={props.onClose}
       visible={props.visible}
+      destroyOnClose={true}
       className="detailedViewComposer drawerSecondary">
       <div className="detailedCard ">
         <ItemHeader>
@@ -43,6 +62,10 @@ function DetailedView(props) {
           <div className="right">
             <Tag className="IdTag">{referenceNo}</Tag>
             <StatusTag status={status}></StatusTag>
+            {
+              userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, id)}>Cancel</Button> :
+                "" : ""
+            }
           </div>
         </ItemHeader>
         <ItemContent className="flex">
@@ -85,10 +108,21 @@ function DetailedView(props) {
               }
             </div>
           </div>
-        
+
         </div>
-      <RemarksApproval data={approvers} title="Approvals" />
-    </div>
+        <RemarksApproval
+          module={ApprovalsModule.WarningApproval}
+          status={status}
+          onStatusChanged={statusChanged => {
+            setUpdatedStatus(statusChanged)
+            console.log(statusChanged)
+          }
+          }
+          data={approvers}
+          title="Approvers"
+        />
+        {/* <RemarksApproval data={approvers} title="Approvals" /> */}
+      </div>
     </Drawer >
   );
 }

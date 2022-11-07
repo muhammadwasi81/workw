@@ -2,10 +2,10 @@ import { createSlice, isPending } from '@reduxjs/toolkit';
 import {
   getAllAssetItems,
   addAssetItem,
-  getAllAssetItemByUserId,
   getAssetItemDetailById,
   getAllAssetItemByPagination,
   updateAssetItems,
+  getAssetItemByUserId,
 } from './action';
 
 const initialState = {
@@ -14,6 +14,7 @@ const initialState = {
   loader: false,
   success: false,
   error: false,
+  modalSuccess: false,
 };
 
 export const AssetItemSlice = createSlice({
@@ -39,21 +40,21 @@ export const AssetItemSlice = createSlice({
         console.log(payload, 'addAssetItemSlice');
       })
       .addCase(getAssetItemDetailById.fulfilled, (state, { payload }) => {
-        state.assetItemByUserId = payload;
+        state.assetItemByUserId = payload.data;
         state.loader = false;
         state.success = true;
-        console.log(payload, 'getAssetItemDetailByIdSlice');
+        console.log(payload.data, 'getAssetItemDetailByIdSlice');
       })
-      .addCase(getAllAssetItemByUserId.fulfilled, (state, { payload }) => {
-        state.assetItemByUserId = payload;
+      .addCase(getAssetItemByUserId.fulfilled, (state, { payload }) => {
+        state.assetItemByUserId = payload.data;
         state.loader = false;
         state.success = true;
-        console.log(payload, 'getAllAssetItemByUserId');
+        console.log(payload.data, 'getAllAssetItemByUserId slice');
       })
       .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
         state.assetItemList = payload;
         state.loader = false;
-        state.success = true;
+        state.modalSuccess = true;
         console.log(payload, 'updateAssetItemSlice');
       })
       .addCase(getAllAssetItemByPagination.fulfilled, (state, { payload }) => {
@@ -68,7 +69,7 @@ export const AssetItemSlice = createSlice({
             getAllAssetItems,
             addAssetItem,
             getAssetItemDetailById,
-            getAllAssetItemByUserId,
+            getAssetItemByUserId,
             getAllAssetItemByPagination,
             updateAssetItems,
           ]

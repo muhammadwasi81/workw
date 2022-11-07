@@ -8,8 +8,12 @@ const expenseSlice = createSlice({
     isCreateComposer: false,
     expenses: [],
     expense: {},
+    drawerOpen: false,
   },
   reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     toggleCreateComposer: (state, payload) => {
       state.isCreateComposer = !state.isCreateComposer;
     },
@@ -63,5 +67,6 @@ export const {
   toggleCreateComposer,
   clearExpense,
   updateListExpenseStatus,
+  handleOpenComposer,
 } = expenseSlice.actions;
 export default expenseSlice.reducer;

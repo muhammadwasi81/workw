@@ -21,21 +21,24 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
+import { ROUTES } from "../../../../utils/routes";
 
-const Reward = (props) => {
+const Reward = props => {
   const { visible } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
-
-  const [tableView, setTableView] = useState(false);
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
 
+  const [sort, setSort] = useState(1);
+  const [page, setPage] = useState(20);
+  const [pageNo, setPageNo] = useState(1);
+  const [tableView, setTableView] = useState(false);
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
   const { rewards, loader, rewardDetail, drawerOpen } = useSelector(
-    (state) => state.rewardSlice
+    state => state.rewardSlice
   );
 
   const [searchFilterValues, setSearchFilterValues] = useState();
@@ -48,13 +51,48 @@ const Reward = (props) => {
     dispatch(getAllRewards(filter));
   }, [filter]);
 
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        console.log(record.id, "ID")
+        setDetailId(record.id)
+      },
+      onDoubleClick: (event) => { }, // double click row
+      onContextMenu: (event) => { }, // right button click row
+      onMouseEnter: (event) => { }, // mouse enter row
+      onMouseLeave: (event) => { }, // mouse leave row
+    };
+  };
+
+  const handleColumnSorting = (pagination, filters, sorter) => {
+    const { current, pageSize } = pagination;
+    setPage(pageSize);
+    setPageNo(current);
+    const { order } = sorter;
+    if (order === "ascend") {
+      setSort(2);
+      return;
+    }
+    setSort(1);
+  };
+
+  const items = [
+    {
+      name: 'Rewards',
+      to: `${ROUTES.REWARDS.REWARD}`,
+      renderButton: [1],
+    },
+  ];
+
+
   return (
     <>
       <TabbableContainer className="">
         <Header
+          items={items}
           buttons={[
             {
-              buttonText: "Create Travel",
+              buttonText: "Create Reward",
               render: (
                 <Button
                   className="ThemeBtn"
@@ -103,7 +141,14 @@ const Reward = (props) => {
         <ContBody>
           {rewards?.length > 0 ? (
             tableView ? (
-              <Table columns={tableColumn()} dragable={true} data={rewards} />
+              <Table
+                columns={tableColumn()}
+                dragable={true}
+                handleChange={handleColumnSorting}
+                data={rewards}
+                onRow={onRow}
+
+              />
             ) : (
               <>
                 {loader ? (

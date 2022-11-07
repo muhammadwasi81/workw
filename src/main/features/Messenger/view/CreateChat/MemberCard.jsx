@@ -15,10 +15,15 @@ function MemberCard({
       className={`memberCard ${extraClassName && extraClassName} px-5`}
       onClick={() => {
         isChecked ? onMemberRemove(item) :  onMemberSelect(item);
-      }}
-    >
+      }}>
       <div className="memberCard__header">
-        <Avatar width={"2.2rem"} height={"2.2rem"} round src={item.image}></Avatar>
+        <Avatar 
+        src={item.image}
+        name={item.name}
+        width={"2.2rem"} 
+        height={"2.2rem"} 
+        round 
+         />
       </div>
       <div className="memberCard__body">
         <p>{item.name}</p>

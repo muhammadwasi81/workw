@@ -95,13 +95,20 @@
     justify-content: center;
     align-items: center;
     background-color: white;
-    height: 65px;
+    min-height: 65px;
+    height: max-content;
+    padding: 10px;
+    flex-wrap: wrap;
     width: 100%;
     border: solid 1px #ebebeb;
     box-shadow: 0 12px 6px -12px #bbbbbb;
     border-radius: 8px;
     margin-bottom: 15px;
     gap: 10px;
+}
+.quickIcons img{
+    cursor: pointer;
+    width: 27px;
 }
 .postDetails {
     width: 70%;

@@ -2,44 +2,47 @@ import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { addLeave, getAllLeaves, GetLeaveById } from "./actions";
 
 const initialState = {
-	leaves: [],
-	loadingData: false,
-	loader: true,
-	leaveDetail: {},
-	drawerOpen: false,
+  leaves: [],
+  loadingData: false,
+  loader: true,
+  leaveDetail: {},
+  drawerOpen: false,
 };
 
 const leaveSlice = createSlice({
-	name: "leaves",
-	initialState,
-	reducers: {
-		handleOpenComposer: (state, { payload }) => {
-			state.drawerOpen = payload
-		},
-	},
-	extraReducers: builder => {
-		builder.addCase(getAllLeaves.fulfilled, (state, action) => {
-			state.leaves = action.payload ? action.payload : [];
-			state.loader = false;
-		});
+  name: "leaves",
+  initialState,
+  reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getAllLeaves.fulfilled, (state, action) => {
+      state.leaves = action.payload ? action.payload : [];
+      state.loader = false;
+    });
 
-		builder.addCase(GetLeaveById.fulfilled, (state, action) => {
-			state.leaveDetail = action.payload.data;
-		});
+    builder.addCase(GetLeaveById.fulfilled, (state, action) => {
+      state.leaveDetail = action.payload.data;
+    });
 
-		builder
-			.addCase(addLeave.fulfilled, (state, { payload }) => {
-				state.drawerOpen = false;
-				state.leaveData = payload;
-				return state;
-			})
-			.addMatcher(isPending(...[getAllLeaves]), state => {
-				state.loader = true;
-			})
-			.addMatcher(isRejected(...[getAllLeaves]), state => {
-				state.loader = true;
-			});
-	},
+    builder
+      .addCase(addLeave.fulfilled, (state, { payload }) => {
+        // state.drawerOpen = false;
+        // state.leaveData = payload;
+        // return state;
+        state.leaves = [payload.data.data, ...state.leaves];
+        state.drawerOpen = false;
+        return state;
+      })
+      .addMatcher(isPending(...[getAllLeaves]), (state) => {
+        state.loader = true;
+      })
+      .addMatcher(isRejected(...[getAllLeaves]), (state) => {
+        state.loader = true;
+      });
+  },
 });
 
 export const { handleOpenComposer } = leaveSlice.actions;

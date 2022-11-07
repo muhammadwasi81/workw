@@ -1,24 +1,23 @@
-import { Button, Form, Input, message, Select } from "antd";
+import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
-import TextInput from "../../../sharedComponents/Input/TextInput";
-import { useDispatch } from "react-redux";
-import { addGroup, updateGroup } from "../store/actions";
-import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { groupsDictionaryList } from "../localization/index";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { useDispatch, useSelector } from "react-redux";
 
-import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
+import TextInput from "../../../../sharedComponents/Input/TextInput";
+import { addGroup, updateGroup } from "../../store/actions";
+import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
+import { groupsDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+
+import MemberListItem from "../../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
-import { jsonToFormData, STRINGS } from "../../../../utils/base";
+import { jsonToFormData } from "../../../../../utils/base";
 
 import {
 	defaultUiid,
 	FeaturesEnum,
-} from "../../../../utils/Shared/enums/enums";
-import { DepartmentMemberTypeList } from "../constant";
-import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
-import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
-import { useSelector } from "react-redux";
+} from "../../../../../utils/Shared/enums/enums";
+import FeatureSelect from "../../../../sharedComponents/FeatureSelect/Index";
+import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 
 const initialState = {
 	id: "",

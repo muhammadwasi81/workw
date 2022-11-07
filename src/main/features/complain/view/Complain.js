@@ -25,6 +25,7 @@ import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
 
 const Reward = props => {
 	const dispatch = useDispatch();
@@ -33,11 +34,13 @@ const Reward = props => {
 		userLanguage
 	];
 
+	const [sort, setSort] = useState(1);
+	const [page, setPage] = useState(20);
+	const [pageNo, setPageNo] = useState(1);
+
 	const [tableView, setTableView] = useState(false);
-
 	const [visible, setVisible] = useState(false);
-
-	const [filter, setFilter] = useState({ filterType: 0, search: "" });
+	const [filter, setFilter] = useState({ filterType: 0, search: "", sortBy: 1 });
 	const [complainId, setComplainId] = useState("");
 
 	const { complains, loader, drawerOpen } = useSelector(
@@ -56,9 +59,45 @@ const Reward = props => {
 	useEffect(() => {
 		dispatch(getAllComplains(filter));
 	}, [filter]);
+
+	const items = [
+		{
+			name: 'Complains',
+			to: `${ROUTES.COMPLAINS.DEFAULT}`,
+			renderButton: [1],
+		},
+	];
+
+	const onRow = (record, rowIndex) => {
+		return {
+			onClick: (event) => {
+				console.log(record.id, "ID")
+				setComplainId(record.id);
+				setVisible(true)
+			},
+			onDoubleClick: (event) => { }, // double click row
+			onContextMenu: (event) => { }, // right button click row
+			onMouseEnter: (event) => { }, // mouse enter row
+			onMouseLeave: (event) => { }, // mouse leave row
+		};
+	};
+
+	const handleColumnSorting = (pagination, filters, sorter) => {
+		const { current, pageSize } = pagination;
+		setPage(pageSize);
+		setPageNo(current);
+		const { order } = sorter;
+		if (order === "ascend") {
+			setSort(2);
+			return;
+		}
+		setSort(1);
+	};
+
 	return (
 		<TabbableContainer className="max-width-1190">
 			<Header
+				items={items}
 				buttons={[
 					{
 						buttonText: "Create Complain",
@@ -116,6 +155,8 @@ const Reward = props => {
 							columns={tableColumn()}
 							dragable={true}
 							data={complains}
+							onRow={onRow}
+							handleChange={handleColumnSorting}
 						/>
 					) : (
 						<>

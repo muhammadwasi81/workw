@@ -6,7 +6,7 @@ import WhiteCard from "./WhiteCard";
 
 function CoverDetail(props) {
   // console.log("cover details props", props);
-  const { name, members, description } = props.data;
+  const { name, members, description, creator } = props.data;
   //TODO: add dynamic data when api respond proper data
   return (
     <WhiteCard className={"z-10 sticky top-0 w-full mt-[-87px] shadow-md"}>
@@ -21,7 +21,7 @@ function CoverDetail(props) {
           <Popover content={"Created by: Syed Danish Ali"}>
             <InfoCircleOutlined className="cursor-pointer" />
           </Popover>
-          <span>Created by: {name && name}</span>
+          <span>Created by: {creator?.name}</span>
         </div>
       </div>
     </WhiteCard>

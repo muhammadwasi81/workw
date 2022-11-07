@@ -1,8 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 // import { useDispatch } from 'react-redux';
 import Avatar from "../../../../../../sharedComponents/Avatar/avatarOLD";
 import Attachments from "../../../../../travel/view/UI/Attachments";
-import { getMessageStatus } from "../../../../utils/Functions";
+import { getMessageByMe, getMessageStatus } from "../../../../utils/Functions";
 import MessageProfile from "./messageProfile";
 import MessageStatusView, { getIconByStatus } from "./messageStatusView";
 
@@ -11,15 +12,17 @@ const MessengerListItem = ({
 	messengerDetail = { chatType: 1 },
 	isChatBox = false
 }) => {
-	// const dispatch = useDispatch();
 	const {
 		id,
 		message,
 		messageType,
 		attachments,
-		messageByMe,
-		status
+		// messageByMe,
+		status,
+		createBy
 	} = messgeItem;
+	const { user } = useSelector((state) => state.userSlice);
+	const messageByMe = getMessageByMe(createBy, user);
 	const { chatType } = messengerDetail;
 
 	return (
@@ -36,17 +39,13 @@ const MessengerListItem = ({
 						Your browser does not support the audio tag.
 					</audio>
 				}
-				{!(messageType === 'voice') && <Attachments
+				{!(messageType === 'voice') && 
+				<Attachments
 					data={attachments}
 					key={{ data: attachments }}
 					toShow={3}
-					onClick={() => {
-						// dispatch(
-						// 	handleAttachmentModal(
-						// 		{data:attachments}
-						// 	)
-						// );
-					}}
+					onClick={() => {}}
+					size={isChatBox ? "75px" : "100px"}
 				/>}
 				<div className="flex items-end flex-col" >
 					<div className="textMsgArea">

@@ -157,6 +157,8 @@ const urdu = {
     chartOfAccount: "اکاؤنٹ کا چارٹ",
     report: "رپورٹ",
     voucher: "واؤچر",
+    Quotation: "اقتباسات",
+    QuotationClient: "کوٹیشن کلائنٹ",
     transaction: "لین دین",
     ledgerReport: "لیجر رپورٹ",
     salary: "تنخواہ",

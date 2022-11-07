@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -109,6 +109,7 @@ const reducers = combineReducers({
   customApprovalCategorySlice,
   requisitionSlice,
   quotationSlice,
+  quotationClientSlice,
   rewardCategorySlice,
   rewardSlice,
   complainSlice,
@@ -160,13 +161,15 @@ const reducers = combineReducers({
   AssetItemSlice,
   requestItemSlice,
   teamSlice,
+  inventoryAssetSlice,
+  appraisalModuleSlice,
 });
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
   version: 1,
-  whitelist: ['userSlice'],
+  whitelist: ["userSlice"],
   // blacklist: ["stickyNotesSlice"]
 };
 const persistedReducer = persistReducer(persistConfig, reducers);

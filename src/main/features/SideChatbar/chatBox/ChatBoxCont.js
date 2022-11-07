@@ -8,7 +8,6 @@ import './style/index.css';
 
 const ChatBoxCont = (props) => {
     const currentChatBoxes = useSelector(state => state.MessengerSlice.currentChatBoxes);
-    console.log(currentChatBoxes, "currentChatBoxes")
     return (
         <div className="ChatBoxCont">
             {

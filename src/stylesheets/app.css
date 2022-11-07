@@ -3,6 +3,14 @@
 @tailwind components;
 @tailwind utilities; */
 
+.ant-radio-checked .ant-radio-inner{
+  border-color: #526BB1 !important;
+
+}
+.ant-radio-inner::after{
+  background-color: #526BB1 !important;
+}
+
 .workboard_upload .ant-upload {
   width: 100%;
 }
@@ -13,6 +21,7 @@
 }
 
 .header .ant-btn-primary {
+  padding: 16px;
   background: var(--currentThemeColor);
   border: none;
   border-radius: 4px;

@@ -14,6 +14,7 @@ const initialState = {
     mileboard: false,
     mileshow: false,
   },
+  isTableView: false,
   listData: [],
   detailListData: [],
   documentDetail: [],
@@ -27,7 +28,7 @@ const initialState = {
     label: "Home",
     id: STRINGS.DEFAULTS.guid
   }],
-  defaultFiles:[]
+  defaultFiles: []
 };
 
 const documentSlice = createSlice({
@@ -43,6 +44,9 @@ const documentSlice = createSlice({
     handleChangeTab: (state, { payload: tab }) => {
       state.currentTab = tab;
     },
+    handleChangeView: (state, { payload: isTableView }) => {
+      state.isTableView = isTableView;
+    },
     handleParentId: (state, { payload }) => {
       state.parentId = payload.id;
       state.breadCumbPath = [...state.breadCumbPath, {
@@ -51,23 +55,23 @@ const documentSlice = createSlice({
       }];
     },
     resetBreadCumb: (state, { payload }) => {
-      state.breadCumbPath =  [{
+      state.breadCumbPath = [{
         label: "Home",
         id: STRINGS.DEFAULTS.guid
       }];
       state.parentId = STRINGS.DEFAULTS.guid;
     },
     handleBreadCumb: (state, { payload }) => {
-      state.breadCumbPath = state.breadCumbPath.slice(0, (payload.index+1))
+      state.breadCumbPath = state.breadCumbPath.slice(0, (payload.index + 1))
       state.parentId = payload.id;
     },
     updateMoveDocument: (state, { payload }) => {
-      state.listData = state.listData.filter(item=>item.id !== payload.documents[0]);
+      state.listData = state.listData.filter(item => item.id !== payload.documents[0]);
     },
     uploadFileByDrop: (state, { payload }) => {
       state.defaultFiles = payload;
     },
-    
+
   },
 
   extraReducers: (builder) => {
@@ -75,15 +79,15 @@ const documentSlice = createSlice({
       .addCase(addDocument.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        state.listData = payload.attachments.length > 0 ? 
-        [
-          ...payload.attachments.map((item)=>({
-          ...payload,
-          path: item.path,
-          name:item.attachmentName
-        })),
-        ...state.listData
-      ] : [payload, ...state.listData]
+        state.listData = payload.attachments.length > 0 ?
+          [
+            ...payload.attachments.map((item) => ({
+              ...payload,
+              path: item.path,
+              name: item.attachmentName
+            })),
+            ...state.listData
+          ] : [payload, ...state.listData]
         state.defaultFiles = [];
         state.isOpenComposers.folder = false;
         state.isOpenComposers.mileboard = false;
@@ -99,7 +103,7 @@ const documentSlice = createSlice({
         state.listLoader = false;
         state.listData = payload;
       })
-      .addCase(getAllDocument.fulfilled, (state, {payload}) => {
+      .addCase(getAllDocument.fulfilled, (state, { payload }) => {
         state.listLoader = false;
         state.detailListData = payload;
       })
@@ -139,6 +143,15 @@ const documentSlice = createSlice({
 
 });
 
-export const { handleOpenDocComposer, handleCloseDocComposer, handleChangeTab, handleParentId,
-  resetBreadCumb, handleBreadCumb, updateMoveDocument, uploadFileByDrop } = documentSlice.actions;
+export const {
+  handleOpenDocComposer,
+  handleCloseDocComposer,
+  handleChangeTab,
+  handleParentId,
+  resetBreadCumb,
+  handleBreadCumb,
+  updateMoveDocument,
+  uploadFileByDrop,
+  handleChangeView
+} = documentSlice.actions;
 export default documentSlice.reducer;

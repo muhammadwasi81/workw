@@ -74,6 +74,7 @@ function NotificationBar() {
 	let classes = "notificationBar ";
 	classes += isSearch ? "open" : "";
 
+
 	// Sticky Note
 	const toggleNote = useSelector(state => state.stickySlice.open);
 
@@ -97,26 +98,62 @@ function NotificationBar() {
 
 	return (
 		<div className={classes}>
-			<ul className="list">
-				<li className="list__item">
-					<img
-						alt=""
-						src={theme ? sunIcon : moonIcon}
+			<div className="notiBarIcon" >
+				<ul className="list">
+					<li className="list__item">
+						<img
+							alt=""
+							src={theme ? sunIcon : moonIcon}
+							onClick={() => {
+								setTheme(!theme);
+								modeHandler(!theme);
+							}}
+						/>
+					</li>
+					<li className="list__item">
+						<img src={addUser} alt="" />
+					</li>
+					<li className="list__item">
+						<img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
+					</li>
+					{/* {toggleNote && <Notes stickyNoteTitle={title} />} */}
+
+					<li
+						className="list__item"
 						onClick={() => {
-							setTheme(!theme);
-							modeHandler(!theme);
+							getCurrentNotification("notification");
+						}} >
+						<img src={notification} alt="" />
+					</li>
+					<li
+						className="list__item"
+						onClick={() => {
+							getCurrentNotification("approval");
 						}}
-					/>
-				</li>
-				<li className="list__item">
-					<img src={addUser} alt="" />
-				</li>
-				<li className="list__item">
-					<img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
-				</li>
-				{/* {toggleNote && <Notes stickyNoteTitle={title} />} */}
-				{toggleNote && <StickyContainer />}
-				{/* {incrementStickyNote.map((increment) => (
+					>
+						<img src={rewards} alt="" />
+					</li>
+				</ul>
+				<div className="searchBar" >
+					<img src={search} alt="" onClick={handleSearch} className="cursor-pointer" />
+				</div>
+			</div>
+			<NotificationModal
+				isVisible={notifcationStatus}
+				onClose={toggleNotification}
+			>
+				{renderModal[currentNotification]}
+			</NotificationModal>
+			{openImg && <OpenImage />}
+			{toggleNote && <StickyContainer />}
+
+		</div>
+
+	);
+}
+
+export default NotificationBar;
+{/* {incrementStickyNote.map((increment) => (
           <NewStickyNote
             key={increment.id}
             id={increment.id}
@@ -136,40 +173,3 @@ function NotificationBar() {
             img={increment.img}
           />
         ))} */}
-				<li
-					className="list__item"
-					onClick={() => {
-						getCurrentNotification("notification");
-					}}
-				>
-					<img src={notification} alt="" />
-				</li>
-				<li
-					className="list__item"
-					onClick={() => {
-						getCurrentNotification("approval");
-					}}
-				>
-					<img src={rewards} alt="" />
-				</li>
-				<li className="flex items-center gap-2" >
-					<Input
-						className={`!w-0 !p-0 !border-none rounded-lg ${isSearch &&
-							"!w-[90%] !py-[4px] !px-[11px] !border"}`}
-						placeholder="Search"
-					/>
-					<img src={search} alt="" onClick={handleSearch} className="cursor-pointer" />
-				</li>
-			</ul>
-			<NotificationModal
-				isVisible={notifcationStatus}
-				onClose={toggleNotification}
-			>
-				{renderModal[currentNotification]}
-			</NotificationModal>
-			{openImg && <OpenImage />}
-		</div>
-	);
-}
-
-export default NotificationBar;

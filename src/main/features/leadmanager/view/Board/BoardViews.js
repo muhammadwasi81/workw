@@ -15,6 +15,7 @@ import {
 } from "../../store/actions";
 import {
 	handleAssignMemberModal,
+	handleComposeEmail,
 	handleContactDetailModal,
 	handleSectionDetailModal,
 } from "../../store/slice";
@@ -132,7 +133,7 @@ function BoardViews() {
 					setView(view);
 				}}
 				onEmailClick={() => {
-					setEmailModal(true);
+					dispatch(handleComposeEmail(true));
 				}}
 			/>
 			<TabContainer>
@@ -185,18 +186,8 @@ function BoardViews() {
 				}
 				className={""}
 			/>
-			<CustomModal
-				isModalVisible={emailModal}
-				onCancel={() => {
-					setEmailModal(false);
-				}}
-				title={<div className="flex justify-center">Compose Email</div>}
-				footer={null}
-				centered={true}
-				children={<ComposeEmail />}
-				className={"rounded-lg"}
-				width={"50%"}
-			/>
+			<ComposeEmail />
+
 			<CustomModal
 				isModalVisible={isSectionModalOpen}
 				onCancel={() => dispatch(handleSectionDetailModal())}

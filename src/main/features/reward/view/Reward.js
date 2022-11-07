@@ -94,7 +94,10 @@ const Reward = props => {
             {
               buttonText: "Create Reward",
               render: (
-                <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                <Button
+                  className="ThemeBtn"
+                  onClick={() => dispatch(handleOpenComposer(true))}
+                >
                   Create Reward
                 </Button>
               ),
@@ -103,7 +106,7 @@ const Reward = props => {
         />
         <TopBar
           onSearch={(value) => {
-            setFilter({ ...filter, search: value })
+            setFilter({ ...filter, search: value });
           }}
           buttons={[
             {
@@ -157,7 +160,12 @@ const Reward = props => {
                     {rewards.map((item, index) => {
                       return (
                         <>
-                          <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
+                          <ListItem
+                            item={item}
+                            id={item.id}
+                            key={index}
+                            onClick={() => setDetailId(item.id)}
+                          />
                         </>
                       );
                     })}
@@ -184,7 +192,7 @@ const Reward = props => {
           }
           width="768"
           onClose={() => {
-            dispatch(handleOpenComposer(false))
+            dispatch(handleOpenComposer(false));
           }}
           visible={drawerOpen}
           destroyOnClose={true}

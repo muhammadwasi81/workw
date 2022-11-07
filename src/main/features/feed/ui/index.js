@@ -16,7 +16,7 @@ import {
 	ReactionModuleEnum,
 } from "../../../../utils/Shared/enums/enums";
 import { PostReferenceType } from "../utils/constants";
-import Scroll from "../../../sharedComponents/ScrollSelect/infinteScoll";
+import QuickOptions from "./quickOptions";
 
 const NewsFeed = ({
 	referenceType = PostReferenceType.MAIN_FEED,
@@ -65,9 +65,12 @@ const NewsFeed = ({
 							minHeight: "auto",
 						}}
 					>
-						<div className="schedule" style={{ height: "60%" }}>
-							<Scheduler feed={true} />
-						</div>
+						<>
+							<QuickOptions />
+							<div className="schedule" style={{ height: "60%" }}>
+								<Scheduler feed={true} />
+							</div>
+						</>
 					</div>
 				)}
 			</ContBody>

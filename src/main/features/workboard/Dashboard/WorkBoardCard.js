@@ -1,12 +1,12 @@
 import React from "react";
-import { Card, Image, Skeleton } from "antd";
+import { Card, Skeleton } from "antd";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import WorkBoardImg from "../../../../content/png/workboard.png";
 import PublicPrivateIcon from "../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
-import { ROUTES } from "../../../../utils/routes";
-import { useNavigate } from "react-router-dom";
+import { DOMAIN_PREFIX, ROUTES } from "../../../../utils/routes";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getWorkboardById } from "../store/action";
+// import { getWorkboardById } from "../store/action";
 import { useDispatch } from "react-redux";
 import { handleBoardComposer, updaateWorkboardById } from "../store/slice";
 function WorkBoardCard({ data }) {
@@ -15,7 +15,15 @@ function WorkBoardCard({ data }) {
 	const dispatch = useDispatch();
 	const userId = useSelector(state => state.userSlice.user.id);
 	const loading = useSelector(state => state.trelloSlice.loader);
-
+	const path = useLocation().pathname;
+	// const params = useParams();
+	// console.log("location: ", path);
+	// console.log("params: ", params);
+	let workboardPath = ROUTES.WORKBOARD.BOARD;
+	if (path.includes("groups") || path.includes("projects")) {
+		workboardPath = DOMAIN_PREFIX + path + "/workboard/board/";
+		// console.log("workboardPath: ", workboardPath);
+	}
 	return (
 		<>
 			<Card
@@ -33,7 +41,7 @@ function WorkBoardCard({ data }) {
 				className="Card2"
 				hoverable
 				onClick={e => {
-					navigate(`${ROUTES.WORKBOARD.BOARD}${data.id}`);
+					navigate(`${workboardPath.trim()}${data.id}`);
 				}}
 				loading={loading}
 			>

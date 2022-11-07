@@ -11,10 +11,17 @@ import { ROUTES } from '../../../../utils/routes';
 import { getAllAssetItems } from '../../createAssets/store/action';
 import AssetsList from './assetsList';
 import { TableColumn } from './tableColumn';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import AssetComposer from './composer/assetAllocationComposer';
+import AssetDeAllocationComposer from './composer/deAllocationComposer';
 
 const Index = () => {
   const dispatch = useDispatch();
-  const { assetItemList } = useSelector((state) => state.AssetItemSlice);
+  const { assetItemList, modalSuccess } = useSelector(
+    (state) => state.AssetItemSlice
+  );
+
+  const { success } = useSelector((state) => state.inventoryAssetSlice);
 
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
@@ -24,24 +31,23 @@ const Index = () => {
     {
       name: 'Assets',
       to: `${ROUTES.ASSETS.DEFAULT}`,
-      renderButton: [1],
+      renderButton: [1, 2],
     },
   ];
 
   const filterButtons = [
     {
-      name: 'Assets For Items',
+      name: 'Created My be',
       onClick: () => setFilterType(0),
     },
     {
-      name: 'Created My be',
+      name: 'Assets Items Approvals',
       onClick: () => setFilterType(1),
     },
-    {
-      name: 'Assets For Items Approvals',
-      onClick: () => setFilterType(2),
-    },
   ];
+
+  const onSearch = (value) => setSearch(value);
+  const onSegment = (value) => setViewType(value);
 
   const payloadData = {
     pageNo: 1,
@@ -49,34 +55,50 @@ const Index = () => {
     search: '',
   };
 
-  const onSearch = (value) => setSearch(value);
-  const onSegment = (value) => setViewType(value);
-
   useEffect(() => {
-    dispatch(
-      getAllAssetItems({
-        payloadData,
-        filterType,
-        search,
-      })
-    );
+    dispatch(getAllAssetItems({ payloadData, filterType, search }));
   }, [filterType, search]);
+
+  const buttons = [
+    {
+      buttonText: 'Assets Allocation',
+      render: (
+        <SideDrawer
+          success={success}
+          isAccessDrawer={true}
+          openDrawer={success}
+          children={<AssetComposer />}
+          title="Add Assets Allocation"
+          buttonText="Assets Allocation"
+        />
+      ),
+    },
+    {
+      buttonText: 'De-allocation',
+      render: (
+        <SideDrawer
+          success={modalSuccess}
+          isAccessDrawer={true}
+          openDrawer={modalSuccess}
+          children={<AssetDeAllocationComposer />}
+          title="De-Allocated Assets"
+          buttonText="De-Allocation"
+        />
+      ),
+    },
+  ];
 
   const render = {
     List: <AssetsList data={assetItemList} />,
     Table: (
-      <Table
-        columns={TableColumn()}
-        dragable={true}
-        data={assetItemList ? assetItemList : []}
-      />
+      <Table columns={TableColumn()} dragable={true} data={assetItemList} />
     ),
   };
 
   return (
     <>
       <TabbableContainer>
-        <Header items={items} />
+        <Header items={items} buttons={buttons} />
         <TopBar
           onSearch={onSearch}
           buttons={filterButtons}

@@ -49,3 +49,6 @@
 .teamListContainer.rtl {
   direction: rtl;
 }
+.mood {
+  display: flex;
+}

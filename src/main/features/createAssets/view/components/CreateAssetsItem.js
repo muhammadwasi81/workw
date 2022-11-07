@@ -8,7 +8,7 @@ import { getAllAssetCategories } from '../../../assetsCategory/store/actions';
 import SingleUpload from '../../../../sharedComponents/Upload/singleUpload';
 import { warningDictionaryList } from '../../../allowance/warning/localization';
 import { UploadOutlined } from '@ant-design/icons';
-import '../style.css';
+import '../styles.css';
 
 const CreateAssetsItem = ({
   index,
@@ -34,6 +34,7 @@ const CreateAssetsItem = ({
 
   const onChangeType = (type, index) => {
     console.log(`onChangeType`);
+
     handleChange(type, 'type', index);
   };
 
@@ -41,7 +42,7 @@ const CreateAssetsItem = ({
     handleChange(e.target.value, e.target.name, index);
   };
   return (
-    <tr>
+    <tr className="tableWrapper">
       <td>{index + 1}</td>
       <td>
         <input
@@ -84,7 +85,6 @@ const CreateAssetsItem = ({
         </Select>
       </td>
       <td>
-        {/* TODO: Types */}
         <Select
           optionFilterProp="children"
           onChange={(val) => onChangeType(val, index)}
@@ -103,12 +103,10 @@ const CreateAssetsItem = ({
           ))}
         </Select>
       </td>
-      {/* TODO: IMAGE */}
-      <td>
+      <td className="uploadWrapper">
         <SingleUpload
           handleImageUpload={handleImageUpload}
           img="Add Image"
-          style={{ height: '50px', width: '100%' }}
           uploadButton={<UploadOutlined />}
           uploadText={warningDictionaryList.upload}
         />
@@ -117,11 +115,10 @@ const CreateAssetsItem = ({
         <CustomSelect
           style={{ marginBottom: '0px' }}
           data={employeesShortData}
-          // selectedData={(value, row) => onEmployeeSelect(row)}
           selectedData={(value, row) =>
             handleChange(
               row.map((item) => ({ handoverId: item.id })),
-              'approvers',
+              'handoverId',
               index
             )
           }

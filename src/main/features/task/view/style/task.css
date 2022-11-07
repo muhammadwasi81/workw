@@ -410,11 +410,11 @@
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(1) {
-  border-color: red;
+  border-color: green;
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(1) span {
-  color: red;
+  color: green;
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(2) {
@@ -426,16 +426,16 @@
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(3) {
-  border-color: green;
+  border-color: red;
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper-in-form-item:nth-child(3) span {
-  color: green;
+  color: red;
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(1).ant-radio-button-wrapper-checked {
-  background: #bd1919;
-  border-color: #a40d0d;
+  background: #0a7c0a;
+  border-color: #0a7c0a;
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(1).ant-radio-button-wrapper-checked span {
@@ -451,7 +451,8 @@
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(3).ant-radio-button-wrapper-checked {
-  background: #0a7c0a;
+  background: #bd1919;
+  border-color: #a40d0d;
 }
 
 .radioPrimary.radioPriority .ant-radio-button-wrapper:nth-child(3).ant-radio-button-wrapper-checked span {

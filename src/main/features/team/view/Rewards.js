@@ -16,6 +16,7 @@ function Rewards() {
   const { sharedLabels } = dictionaryList[userLanguage];
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.RewardsTable;
+  const { id } = useParams();
 
   const {
     team: { rewardsdetails },
@@ -23,7 +24,7 @@ function Rewards() {
   } = useSelector((state) => state.teamSlice);
 
   useEffect(() => {
-    dispatch(getRewardsAction({}));
+    dispatch(getRewardsAction(id));
   }, []);
 
   const columns = [
@@ -31,29 +32,32 @@ function Rewards() {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
-    },
-
-    {
-      title: labels.Status,
-      dataIndex: "status",
-      render: (status) => <StatusTag status={status} />,
-      key: "status",
-    },
-    {
-      title: labels.Category,
-      dataIndex: "category",
-      key: "category",
-    },
-    {
-      title: labels.Name,
-      dataIndex: "name",
-      key: "name",
+      className: "referenceNo",
     },
     {
       title: labels.Date,
       dataIndex: "date",
       key: "date",
+      className: "dateTime",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
+    },
+    {
+      title: labels.Name,
+      dataIndex: "name",
+      key: "name",
+      className: "name",
+    },
+    {
+      title: labels.Category,
+      dataIndex: "category",
+      key: "category",
+      className: "category",
+    },
+    {
+      title: labels.Status,
+      dataIndex: "status",
+      render: (status) => <StatusTag status={status} />,
+      key: "status",
     },
   ];
   return (

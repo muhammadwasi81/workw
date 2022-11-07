@@ -17,6 +17,7 @@ import Attachments from "../UI/Attachments";
 import CustomModal from "../../../workboard/Modal/CustomModal";
 import AttachmentsCarrousel from "../AttachmentsCarrousel/AttachmentsCarrousel";
 import { useSelector } from "react-redux";
+import { ClockCircleOutlined } from "@ant-design/icons";
 
 function ListView(props) {
 	const { labels } = props;
@@ -43,7 +44,7 @@ function ListView(props) {
 	return (
 		<div className="gap-5 flex flex-col z-10 ">
 			{props.data
-				? props.data.map(data => (
+				? props.data.map((data, index) => (
 						<div
 							className="flex bg-white flex-col gap-2 rounded-xl cursor-pointer overflow-hidden hover:shadow-lg duration-300"
 							onClick={() => {
@@ -69,6 +70,7 @@ function ListView(props) {
 									refNo={data.referenceNo}
 									status={data.status}
 									profileImgSize={40}
+									showIcon={false}
 								/>
 								<div className="flex justify-between flex-wrap">
 									<div className="flex flex-col gap-1">
@@ -105,11 +107,35 @@ function ListView(props) {
 											className="h-[30px]"
 										/>
 										<div className="flex flex-col gap font-semibold">
-											<span className="">Date</span>
+											<span className="">
+												Departure Date
+											</span>
 											<span className="text-primary-color">
 												{moment(
-													data.departureDate
+													data.cities[0].departureDate
 												).format("D MMM YYYY")}
+											</span>
+										</div>
+									</div>
+									<div className="flex gap-3 items-center before:h-[40px] before:-left-[50px] before:w-[1px] before:bg-[#D9D9D9] before:absolute relative min-w-[250px]">
+										{/* <img
+											src={Calender}
+											alt=""
+											className="h-[30px]"
+										/> */}
+										<ClockCircleOutlined className="h-[30px] !text-2xl !text-[#1a5669]" />
+										<div className="flex flex-col gap font-semibold">
+											<span className="">
+												Departure Time
+											</span>
+											<span className="text-primary-color">
+												{moment
+													.utc(
+														data.cities[0]
+															.departureDate
+													)
+													.local()
+													.format("HH:mm")}
 											</span>
 										</div>
 									</div>

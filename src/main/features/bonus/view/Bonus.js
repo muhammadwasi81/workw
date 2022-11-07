@@ -1,5 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Button, Skeleton, Drawer } from "antd";
 import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -18,6 +21,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
+import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
 
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -33,7 +37,9 @@ const Bonus = (props) => {
 
   const dispatch = useDispatch();
 
-  const { bonuses, loader, bonusDetail, drawerOpen } = useSelector((state) => state.bonusSlice);
+  const { bonuses, loader, bonusDetail, drawerOpen } = useSelector(
+    (state) => state.bonusSlice
+  );
 
   const onClose = () => {
     setDetailId(null);
@@ -43,15 +49,13 @@ const Bonus = (props) => {
   useEffect(() => {
     dispatch(getAllBonus(filter));
   }, [filter]);
-
   const items = [
     {
-      name: 'Bonus',
-      to: `${ROUTES.BONUS.DEFAULT}`,
+      name: "Bonus",
       renderButton: [1],
+      to: `${ROUTES.BONUS.DEFAULT}`,
     },
   ];
-
   return (
     <TabbableContainer className="max-width-1190">
       <Header
@@ -60,7 +64,10 @@ const Bonus = (props) => {
           {
             buttonText: "Create Bonus",
             render: (
-              <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+              <Button
+                className="ThemeBtn"
+                onClick={() => dispatch(handleOpenComposer(true))}
+              >
                 Create Bonus
               </Button>
             ),
@@ -69,7 +76,7 @@ const Bonus = (props) => {
       />
       <TopBar
         onSearch={(value) => {
-          setFilter({ ...filter, search: value })
+          setFilter({ ...filter, search: value });
         }}
         buttons={[
           {
@@ -85,7 +92,7 @@ const Bonus = (props) => {
             onClick: () => setFilter({ filterType: 2 }),
           },
           {
-            name: "Bonus For Me",
+            name: "Bonus To Me",
             onClick: () => setFilter({ filterType: 3 }),
           },
         ]}
@@ -119,7 +126,12 @@ const Bonus = (props) => {
                     return (
                       <>
                         {/*  */}
-                        <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
+                        <ListItem
+                          item={item}
+                          id={item.id}
+                          key={index}
+                          onClick={() => setDetailId(item.id)}
+                        />
                       </>
                     );
                   })}
@@ -128,7 +140,9 @@ const Bonus = (props) => {
             </>
           )
         ) : (
-          "Data not found"
+          <div className="flex items-center justify-center h-full w-full">
+            <img src={Nodata} />
+          </div>
         )}
       </ContBody>
       {<DetailedView onClose={onClose} id={detailId} />}
@@ -145,7 +159,7 @@ const Bonus = (props) => {
         }
         width="768"
         onClose={() => {
-          dispatch(handleOpenComposer(false))
+          dispatch(handleOpenComposer(false));
         }}
         visible={drawerOpen}
         destroyOnClose={true}

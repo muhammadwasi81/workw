@@ -1,10 +1,10 @@
-import React from "react";
-import "antd/dist/antd.min.css";
-import "./style.css";
-import { Upload, Modal, message } from "antd";
-import PropTypes from "prop-types";
-import { PlusOutlined } from "@ant-design/icons";
-import produce from "immer";
+import React from 'react';
+import 'antd/dist/antd.min.css';
+import './style.css';
+import { Upload, Modal, message } from 'antd';
+import PropTypes from 'prop-types';
+import { PlusOutlined } from '@ant-design/icons';
+import produce from 'immer';
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -18,8 +18,8 @@ function getBase64(file) {
 class SingleUpload extends React.Component {
   state = {
     previewVisible: false,
-    previewImage: "",
-    previewTitle: "",
+    previewImage: '',
+    previewTitle: '',
     fileList: [],
     defaultFileList: [],
   };
@@ -46,14 +46,29 @@ class SingleUpload extends React.Component {
         })
       );
     }
+    if (prevProps.url !== this.props.url && this.props.url.length > 0) {
+      this.setState(
+        produce((state) => {
+          state.fileList = [{ url: this.props.url }];
+        })
+      );
+    }
+    console.log(this.props.localFileList, 'this.props.localFileList');
+    if (
+      this.props.localFileList &&
+      prevProps.localFileList.length !== this.props.localFileList.length &&
+      this.props.localFileList.length === 0
+    ) {
+      this.setState({ fileList: [] });
+    }
   }
 
   componentWillUnmount() {
     this.setState(
       produce((state) => {
         state.previewVisible = false;
-        state.previewImage = "";
-        state.previewTitle = "";
+        state.previewImage = '';
+        state.previewTitle = '';
         state.fileList = [];
         state.defaultFileList = [];
         // state.defaultFileList = defaultFile;
@@ -71,20 +86,20 @@ class SingleUpload extends React.Component {
       previewImage: file.url || file.preview,
       previewVisible: true,
       previewTitle:
-        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
+        file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
     });
-    console.log("preview image", this.state.previewImage);
+    console.log('preview image', this.state.previewImage);
   };
 
   handleChange = (info) => {
     let { fileList } = info;
     const status = info.file.status;
-    if (status !== "uploading") {
+    if (status !== 'uploading') {
       // console.log(info.file, info.fileList);
     }
-    if (status === "done") {
+    if (status === 'done') {
       message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
+    } else if (status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
     }
     this.setState({ fileList });
@@ -98,6 +113,9 @@ class SingleUpload extends React.Component {
       previewTitle,
       defaultFileList,
     } = this.state;
+    const {
+      accept
+    } = this.props;
 
     const uploadButton =
       this.props.uploadButton !== undefined ? (
@@ -108,7 +126,6 @@ class SingleUpload extends React.Component {
           <div style={{ marginTop: 8 }}>{this.props.uploadText}</div>
         </div>
       );
-    // console.log(this.props.multiple);
     return (
       <>
         <Upload
@@ -117,7 +134,7 @@ class SingleUpload extends React.Component {
           onPreview={this.handlePreview}
           onChange={this.handleChange}
           className={`uploadImg ${this.props.position}`}
-          accept="*"
+          accept={accept ? accept : "*"}
           beforeUpload={() => false}
           multiple={this.props.multiple}
           // maxCount={1}
@@ -136,7 +153,7 @@ class SingleUpload extends React.Component {
           footer={null}
           onCancel={this.handleCancel}
         >
-          <img alt="example" style={{ width: "100%" }} src={previewImage} />
+          <img alt="example" style={{ width: '100%' }} src={previewImage} />
         </Modal>
       </>
     );
@@ -150,11 +167,13 @@ SingleUpload.propTypes = {
   uploadText: PropTypes.string,
   position: PropTypes.string,
   url: PropTypes.string,
+  localFileList: PropTypes.array,
 };
 SingleUpload.defaultProps = {
   multiple: false,
   handleImageUpload: () => {},
-  uploadText: "Upload",
-  position: "justify-end",
-  url: "",
+  uploadText: 'Upload',
+  position: 'justify-end',
+  url: '',
+  localFileList: null,
 };

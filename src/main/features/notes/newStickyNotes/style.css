@@ -24,7 +24,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
 }
 
 .heading {
@@ -35,7 +34,9 @@
   margin-top: 10px;
   font-size: 15px;
 }
-
+.close_Icon {
+  margin: 2px;
+}
 
 /* *********styling of card in container********** */
 .right_Icons {
@@ -50,6 +51,7 @@
 
 .margin_Icon {
   margin: 2px;
+  color: black;
 }
 
 .time_delete {
@@ -101,7 +103,10 @@
   bottom: 0;
   transform: unset !important;
 }
-
+.search_Box {
+  margin: 5px;
+  width: 300px;
+}
 .search_Box.hide {
   display: none;
 }
@@ -160,22 +165,21 @@ input:focus {
   padding: 5px;
 }
 
-.ql-toolbar.ql-snow+.ql-container.ql-snow {
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
   height: max-content !important;
 }
 
-div[contenteditable="true"] {
+/* div[contenteditable="true"] {
   height: 200px !important;
-}
+} */
 
-.ql-container.ql-snow {
+/* .ql-container.ql-snow {
   border: none !important;
-}
+} */
 
 .stickyNote_container .ant-input {
   outline: 0;
   border: none;
-
 }
 
 .stickyNote_container .ant-input-open {
@@ -233,7 +237,7 @@ div[contenteditable="true"] {
   right: 15px;
   top: 55px;
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
 }
 
 .image_icon {

@@ -8,6 +8,7 @@ import Quizes from "./Sections/Quizes/Quizes";
 import TedTalk from "./Sections/TedTalks/TedTalk";
 import Article from "./Sections/Articles/Article";
 import Videos from "./Sections/Videos/Videos";
+import DashboardLayout from "./Layout/DashboardLayout";
 
 function MainDashboard() {
 	const panes = [
@@ -43,10 +44,12 @@ function MainDashboard() {
 		},
 	];
 	return (
-		<div className="overflow-hidden flex flex-col gap-3">
-			<DashboardOverview />
-			<Tab panes={panes} className={"elearning-dashboard__tab"} />
-		</div>
+		<DashboardLayout>
+			<div className="overflow-hidden flex flex-col gap-3">
+				<DashboardOverview />
+				<Tab panes={panes} className={"elearning-dashboard__tab"} />
+			</div>
+		</DashboardLayout>
 	);
 }
 

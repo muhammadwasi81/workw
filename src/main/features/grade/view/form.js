@@ -110,45 +110,6 @@ export default function GradeForm({
 					</FormButton>
 				)}
 			</FormButtonContainer>
-			{/* <FormButtonContainer>
-        {
-          form.id ? 
-          <>
-            <FormButton
-            type="primary"
-            size="medium"
-            style={{}}
-            className="formBtn"
-            onClick={(e) => onSubmit(form)}
-          >
-            Save Grade
-          </FormButton>
-          {
-            clearButton && 
-            <FormButton
-              type="primary"
-              size="medium"
-              style={{}}
-              className="formBtn"
-              // onClick={handleClear}
-            >
-              Clear 
-            </FormButton>
-          }
-          </>
-        : 
-        <FormButton
-          type="primary"
-          size="medium"
-          style={{}}
-          className="formBtn"
-          onClick={(e) => onSubmit(form)}
-          // loading={loading}
-      >
-        Add Grade 
-      </FormButton>
-        }
-      </FormButtonContainer> */}
 		</FormContainer>
 	);
 }

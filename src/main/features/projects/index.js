@@ -15,6 +15,7 @@ import { Table } from "../../sharedComponents/customTable";
 import Header from "./view/Header/Header";
 import ProjectTopBar from "./view/ProjectTopBar/ProjectTopBar";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import { NoDataFound } from "../../sharedComponents/NoDataIcon";
 
 const Projects = () => {
 	const [search, setSearch] = useState("");
@@ -53,8 +54,8 @@ const Projects = () => {
 		setSortBy(1);
 	};
 	return (
-		<>
-			<TabbableContainer className="">
+	<>
+		<TabbableContainer className="">
 				<Header createTextBtn={createTextBtn} />
 				<ProjectTopBar
 					handleView={isTable => {
@@ -66,8 +67,34 @@ const Projects = () => {
 					topBar={topBar}
 				/>
 
-				<ContBody className="!block" direction={Direction}>
-					{projects?.length > 0 ? (
+		   <ContBody className="!block" direction={Direction}>
+				{
+                    tableView &&
+                    <Table
+                    columns={tableColumn()}
+                    dragable={true}
+					data={projects}
+					handleChange={handleColumnSorting}
+                     />
+                }
+
+				{
+                    projects?.length > 0 && !loader ? (
+					<CardWrapper2>
+                     {projects.map((item, index) => {
+                      return (
+                        <ListItem
+							item={item}
+							id={item.id}
+							key={index}
+						/>
+                      );
+                      })}
+                    </CardWrapper2>
+                    ) : !loader && <NoDataFound />
+			    }
+
+					{/* {projects?.length > 0 ? (
 						tableView ? (
 							<Table
 								columns={tableColumn()}
@@ -94,10 +121,11 @@ const Projects = () => {
 						"loading"
 					) : (
 						"No Data Found"
-					)}
-				</ContBody>
-			</TabbableContainer>
-		</>
+					)} */}
+
+		    </ContBody>
+		</TabbableContainer>
+	</>
 	);
 };
 

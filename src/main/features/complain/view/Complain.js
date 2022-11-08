@@ -21,6 +21,7 @@ import Header from "../../../layout/header/index";
 
 // import "./complain.css";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
@@ -43,7 +44,7 @@ const Reward = props => {
 	const [filter, setFilter] = useState({ filterType: 0, search: "", sortBy: 1 });
 	const [complainId, setComplainId] = useState("");
 
-	const { complains, loader, drawerOpen } = useSelector(
+	const { complains, complainDetail, loader, drawerOpen } = useSelector(
 		state => state.complainSlice
 	);
 
@@ -149,45 +150,38 @@ const Reward = props => {
 				}}
 			/>
 			<ContBody>
-				{complains && complains?.length > 0 ? (
-					tableView ? (
-						<Table
-							columns={tableColumn()}
-							dragable={true}
-							data={complains}
-							onRow={onRow}
-							handleChange={handleColumnSorting}
-						/>
-					) : (
-						<>
-							{loader ? (
-								<>
-									<Skeleton avatar paragraph={{ rows: 4 }} />
-								</>
-							) : (
-								<CardWrapper>
-									{complains.map((item, index) => {
-										return (
-											<>
-												<ListItem
-													getComplainById={
-														getComplainById
-													}
-													item={item}
-													id={item.id}
-													key={index}
-												/>
-											</>
-										);
-									})}
-								</CardWrapper>
-							)}
-						</>
-					)
-				) : (
-					<Skeleton avatar paragraph={{ rows: 4 }} />
-				)}
+                {
+                   loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+                }
+
+               {
+                    tableView &&
+                    <Table
+                    columns={tableColumn()}
+                    dragable={true}
+                    data={complains}
+                     />
+               }
+
+               {
+                    complains?.length > 0 && !loader ? (
+                    <CardWrapper>
+                      {complains.map((item, index)  => {
+                      return (
+                        <ListItem
+						  getComplainById={getComplainById}
+                          item={item}
+                          id={item.id}
+                          key={index}
+                        />
+                      );
+                      })}
+                    </CardWrapper>
+                    ) : !loader && <NoDataFound />
+			    }
+
 			</ContBody>
+			     {complainDetail && (<DetailedView onClose={onClose} visible={visible} />)}
 			<Drawer
 				title={
 					<h1

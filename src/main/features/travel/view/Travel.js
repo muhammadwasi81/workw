@@ -24,6 +24,7 @@ import { TravelReferenceTypeEnum } from "../../projects/enum/enums";
 import Scroll from "../../../sharedComponents/ScrollSelect/infinteScoll";
 import { Skeleton } from "antd";
 import { resetTravelData } from "../store/slice";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 function Travel({
 	referenceType = TravelReferenceTypeEnum.General,
@@ -237,6 +238,53 @@ function Travel({
 				}}
 			/>
 			<ContBody className={`!block ${Direction}`} direction={Direction}>
+				{
+				   tableView &&
+						<Table
+							columns={tableColumns(onActionClick, Direction, table)}
+							dragable={true}
+							handleChange={handleColumnSorting}
+							// onPageChange={onPageChange}
+							onRow={onRow}
+							data={travels}
+							status={travelStatus}
+							loading={loader}
+							success={success}
+							// onActionClick={onActionClick}
+						/>
+
+				}
+				{
+					travels?.length > 0 && !loader ? (
+						<Scroll
+						isLoading={loader}
+						data={travels}
+						fetchMoreData={pageNo => {
+							setPageNo(pageNo);
+						}}
+						loader={[0, 0, 0].map(() => (
+							<Skeleton
+								active
+								avatar
+								paragraph={{
+									rows: 4,
+								}}
+							/>
+						))}
+						endMessage={"No more travels..."}
+					>
+						<ListView
+							data={travels}
+							loader={loader}
+							labels={headings}
+						/>
+					</Scroll>
+
+					): !loader && <NoDataFound/>
+				} 
+			
+
+				{/* 
 				{tableView ? (
 					<Table
 						columns={tableColumns(onActionClick, Direction, table)}
@@ -274,7 +322,8 @@ function Travel({
 							labels={headings}
 						/>
 					</Scroll>
-				)}
+				)} 
+				*/}
 			</ContBody>
 		</TabContainer>
 	);

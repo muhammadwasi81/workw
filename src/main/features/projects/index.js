@@ -79,7 +79,7 @@ const Projects = () => {
                 }
 
 				{
-                    projects?.length > 0 && !loader ? (
+                    projects?.length > 0 && !loader && !tableView ? (
 					<CardWrapper2>
                      {projects.map((item, index) => {
                       return (
@@ -91,7 +91,7 @@ const Projects = () => {
                       );
                       })}
                     </CardWrapper2>
-                    ) : !loader && <NoDataFound />
+                    ) : !loader && !tableView && <NoDataFound />
 			    }
 
 					{/* {projects?.length > 0 ? (

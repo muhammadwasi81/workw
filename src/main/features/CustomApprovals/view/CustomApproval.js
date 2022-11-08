@@ -139,7 +139,7 @@ console.log(loader, "Loader")
           }
 
           {
-            customApprovals?.length > 0 && !loader ? (
+            customApprovals?.length > 0 && !loader && !tableView ? (
               <CardWrapper>
                 {customApprovals.map((item, index) => {
                   return (
@@ -152,7 +152,7 @@ console.log(loader, "Loader")
                   );
                 })}
               </CardWrapper>
-            ) : !loader && <NoDataFound />
+            ) : !loader  && !tableView && <NoDataFound />
           }
         </ContBody>
         {customApprovalDetail && (

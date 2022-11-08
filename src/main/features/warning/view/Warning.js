@@ -125,7 +125,7 @@ const Warning = (props) => {
                }
 
               {
-                    warnings?.length > 0 && !loader ? (
+                    warnings?.length > 0 && !loader && !tableView ? (
                     <CardWrapper>
                       {warnings.map((item, index)  => {
                       return (
@@ -138,7 +138,7 @@ const Warning = (props) => {
                       );
                       })}
                     </CardWrapper>
-                    ) : !loader && <NoDataFound />
+                    ) : !loader && !tableView && <NoDataFound/>
 			         }
         </ContBody>
               {warningDetail && (<DetailedView onClose={onClose} visible={visible} />)}

@@ -94,7 +94,7 @@ const Reward = props => {
 		}
 		setSort(1);
 	};
-
+console.log(tableView, "tableView")
 	return (
 		<TabbableContainer className="max-width-1190">
 			<Header
@@ -164,7 +164,7 @@ const Reward = props => {
                }
 
                {
-                    complains?.length > 0 && !loader ? (
+                    complains?.length > 0 && !loader && !tableView ? (
                     <CardWrapper>
                       {complains.map((item, index)  => {
                       return (
@@ -177,7 +177,7 @@ const Reward = props => {
                       );
                       })}
                     </CardWrapper>
-                    ) : !loader && <NoDataFound />
+                    ) : !loader && !tableView && <NoDataFound />
 			    }
 
 			</ContBody>

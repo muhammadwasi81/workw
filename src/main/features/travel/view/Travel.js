@@ -255,7 +255,7 @@ function Travel({
 
 				}
 				{
-					travels?.length > 0 && !loader ? (
+					travels?.length > 0 && !loader && !tableView ? (
 						<Scroll
 						isLoading={loader}
 						data={travels}
@@ -280,7 +280,7 @@ function Travel({
 						/>
 					</Scroll>
 
-					): !loader && <NoDataFound/>
+					): !loader && !tableView && <NoDataFound/>
 				} 
 			
 

@@ -125,7 +125,7 @@ const CommentComposer = ({
 
 	return (
 		<div className="commentComposer !mb-0">
-			<div className="img">
+			<div className="">
 				<Avatar
 					name={name}
 					width={30}

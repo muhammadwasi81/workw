@@ -6,7 +6,13 @@ import CommentBubble from "./CommentBubble";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { CommentDictionary } from "./localization";
 
-const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
+const CommentItem = ({
+	comment,
+	initialMentions,
+	mentionedUser,
+	user,
+	handleLike,
+}) => {
 	let {
 		referenceId,
 		isReply = false,
@@ -14,7 +20,7 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
 		createDate,
 		content,
 		type,
-		handleLike,
+
 		parentId,
 		module,
 	} = comment;
@@ -31,15 +37,17 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
 		if (response) {
 			const replies = response.map(reply => {
 				const res = response.filter(res => res.id === reply.id);
+
 				if (res.length > 0) return res[0];
 				else return reply;
 			});
+
 			setReplies(replies);
 		}
 	};
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
-	console.log("replies", replies);
+
 	return (
 		<div
 			className={
@@ -51,14 +59,14 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
 			<div style={{ flex: "1" }}>
 				<div>
 					<CommentBubble
-						user={creator}
+						user={user}
 						content={content}
 						mentionedUser={mentionedUser}
 						date={createDate}
 					/>
 					{type !== 2 && (
 						<div className="likeReplyCont">
-							<div onClick={() => handleLike(referenceId)}>
+							<div onClick={() => handleLike(parentId)}>
 								{Like}
 							</div>
 							<div
@@ -93,7 +101,7 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
 												}
 											>
 												<CommentBubble
-													user={replyCreator}
+													user={user}
 													content={replyContent}
 													mentionedUser={
 														replyMentionedUser
@@ -104,7 +112,7 @@ const CommentItem = ({ comment, initialMentions, mentionedUser }) => {
 											<div className="likeReplyCont">
 												<div
 													onClick={() =>
-														handleLike(referenceId)
+														handleLike(Rid)
 													}
 												>
 													{Like}

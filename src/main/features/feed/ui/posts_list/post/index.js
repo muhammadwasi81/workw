@@ -29,6 +29,7 @@ const Post = ({
 		reactionCount,
 		reactionType,
 	} = post;
+
 	return (
 		<div className="post">
 			<PostHeader
@@ -57,6 +58,7 @@ const Post = ({
 				referenceType={referenceType}
 				referenceId={referenceId}
 				reactionType={reactionType}
+				isDetailViewOpen={modelState}
 			/>
 		</div>
 	);

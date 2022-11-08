@@ -47,6 +47,7 @@ const composeInitialState = {
 };
 const allFeedInitialState = {
 	posts: [],
+	postIds: [],
 	loading: false,
 };
 
@@ -56,6 +57,7 @@ export const feedSlice = createSlice({
 		loading: false,
 		allFeed: { ...allFeedInitialState },
 		singlePost: {},
+
 		tagsOptions: [],
 		mentionsOptions: [],
 		postCompose: { ...composeInitialState },
@@ -132,6 +134,9 @@ export const feedSlice = createSlice({
 				} else {
 					state.allFeed.posts = state.allFeed.posts.concat(feedData);
 				}
+				state.allFeed.postIds = state.allFeed.posts.map(
+					feed => feed.id
+				);
 				state.allFeed.loading = false;
 			})
 			.addMatcher(isPending(...[getAllFeed]), state => {

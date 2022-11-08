@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
 import "./stylesheet/FeedCompose.css";
-import frameIcon from "../../../../../content/NewContent/NewsFeed/svg/image.svg";
-import penIcon from "../../../../../content/NewContent/NewsFeed/svg/pen.svg";
-import chartIcon from "../../../../../content/NewContent/NewsFeed/svg/chart.svg";
+// import frameIcon from "../../../../../content/NewContent/NewsFeed/svg/image.svg";
+// import penIcon from "../../../../../content/NewContent/NewsFeed/svg/pen.svg";
+// import chartIcon from "../../../../../content/NewContent/NewsFeed/svg/chart.svg";
+import photo from "../../../../../content/NewContent/NewsFeed/svg/post_img_icon.svg";
+import doc from "../../../../../content/NewContent/NewsFeed/svg/post_doc_icon.svg";
+import poll from "../../../../../content/NewContent/NewsFeed/svg/post_poll_icon.svg";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import PostHeader from "./views/PostHeader";
 import ComposerForm from "./views/ComposerForm";
@@ -50,10 +53,26 @@ function PostComposer({ referenceType, referenceId }) {
 					>
 						{Whatsonyourmind}
 					</div>
-					<div className="feedIcons" style={{ display: "flex" }}>
-						<img src={frameIcon} alt="" />
-						<img src={penIcon} alt="" />
-						<img src={chartIcon} alt="" />
+					<div
+						className="feedIcons cursor-pointer"
+						style={{ display: "flex" }}
+						onClick={() => toggleComposer(true)}
+					>
+						<img
+							src={photo}
+							alt="photo"
+							className="hover:shadow-md hover:scale-125 transition-all"
+						/>
+						<img
+							src={doc}
+							alt="doc"
+							className="hover:shadow-md hover:scale-125 transition-all"
+						/>
+						<img
+							src={poll}
+							alt="poll"
+							className="hover:shadow-md hover:scale-125 transition-all"
+						/>
 					</div>
 				</div>
 				<span className="area-block" />

@@ -32,6 +32,7 @@ const PostFooter = ({
 	referenceId,
 	reactionModule,
 	reactionType,
+	isDetailViewOpen = true,
 }) => {
 	const dispatch = useDispatch();
 	let navigate = useNavigate();
@@ -94,16 +95,16 @@ const PostFooter = ({
 
 					<a href={reactionCount}>{reactionCount}</a>
 				</div>
-				{comments?.length > 0 && (
+				{commentCount > 0 && (
 					<div
 						className="commentCount"
 						onClick={() => {
-							setShowComments(!showComments);
+							setShowComments(true);
 						}}
 					>
 						<div className="hover:underline cursor-pointer">
-							{comments?.length} &nbsp;
-							{comments?.length === 1 ? " Comment" : Comments}
+							{commentCount} &nbsp;
+							{commentCount === 1 ? " Comment" : Comments}
 						</div>
 					</div>
 				)}
@@ -157,7 +158,12 @@ const PostFooter = ({
 						</div>
 					</Reactions>
 				</div>
-				<div className="btn" onClick={() => {}}>
+				<div
+					className="btn"
+					onClick={() => {
+						setShowComments(true);
+					}}
+				>
 					<div>
 						<img src={CommentIcon} alt="" />
 					</div>
@@ -180,8 +186,10 @@ const PostFooter = ({
 					dispatch(feedSlice.actions.onSaveComment({ comment }))
 				}
 				showComments={showComments}
+				isDetailViewOpen={isDetailViewOpen}
+				reactionModule={reactionModule}
 			/>
-			{commentCount > 3 && (
+			{commentCount > 3 && showComments && (
 				<p
 					className="viewComments"
 					onClick={() => {

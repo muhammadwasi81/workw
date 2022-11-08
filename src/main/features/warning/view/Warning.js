@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
@@ -108,40 +110,38 @@ const Warning = (props) => {
           label2: "Table",
         }}
       />
-      <ContBody>
-        {warnings && warnings.length > 0 ? (
-          tableView ? (
-            <div>
-              <Table
-                columns={tableColumn()}
-                dragable={false}
-                data={warnings}
-              />
-            </div>
-          ) : (
-            <>
-              {loader ? (
-                <>
-                  <Skeleton avatar paragraph={{ rows: 4 }} />
-                </>
-              ) : (
-                <CardWrapper>
-                  {warnings.map((item, index) => {
-                    return (
-                      <>
-                        <ListItem getWarningId={getWarningId} item={item} id={item.id} key={index} />
-                      </>
-                    );
-                  })}
-                </CardWrapper>
-              )}
-            </>
-          )
-        ) : (
-          "Data not found"
-        )}
-      </ContBody>
-      {warningDetail && <DetailedView onClose={onClose} visible={visible} />}
+        <ContBody>
+                {
+                   loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+                }
+
+               {
+                    tableView &&
+                    <Table
+                    columns={tableColumn()}
+                    dragable={true}
+                    data={warnings}
+                     />
+               }
+
+              {
+                    warnings?.length > 0 && !loader ? (
+                    <CardWrapper>
+                      {warnings.map((item, index)  => {
+                      return (
+                        <ListItem
+                          getWarningId={getWarningId} 
+                          item={item}
+                          id={item.id}
+                          key={index}
+                        />
+                      );
+                      })}
+                    </CardWrapper>
+                    ) : !loader && <NoDataFound />
+			         }
+        </ContBody>
+              {warningDetail && (<DetailedView onClose={onClose} visible={visible} />)}
       <Drawer
         title={
           <h1

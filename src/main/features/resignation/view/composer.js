@@ -14,8 +14,9 @@ import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSele
 import { getNameForImage, STRINGS } from "../../../../utils/base";
 import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 import { addResignation } from "../store/action";
-import { ResignationPurposeEnum } from "../enums";
+import { ResignationPurposeEnum, ResignationTypeEnum } from "../enums";
 import TextArea from "antd/lib/input/TextArea";
+import moment from "moment";
 const { Option } = Select;
 
 const initialState = {
@@ -108,61 +109,113 @@ const Composer = props => {
 	};
 
 	const onFinish = (values) => {
-		console.log(values, "FINAL")
-		let approvers = [];
 		let hr = [];
 		let finance = [];
-		if (typeof values.approvers === 'string') {
-			approvers.push({
-				approverId: values.approvers
+		let it = [];
+		let admin = [];
+		let other = [];
+		let exit = [];
+		let reportingTo = [];
+
+		if (typeof values.reportingTo === 'string') {
+			reportingTo.push({
+				approverId: values.reportingTo
 			})
-		}
-		else {
-			approvers = values.approvers.map((approver) => {
+		} else {
+			reportingTo = values.reportingTo.map((reportingTo) => {
 				return {
-					approverId: approver
+					approverId: reportingTo
 				};
 			});
 		}
-		
+
 		if (typeof values.hr === 'string') {
 			hr.push({
-				memberId: values.hr
+				approverId: values.hr
 			})
 		} else {
 			hr = values.hr.map((hr) => {
 				return {
-					hrId: hr
+					approverId: hr
 				};
 			});
 		}
 
 		if (typeof values.finance === 'string') {
 			finance.push({
-				financeId: values.finance
+				approverId: values.finance
 			})
 		} else {
 			finance = values.finance.map((finance) => {
 				return {
-					financeId: finance
+					approverId: finance
 				};
 			});
 		}
 
+		if (typeof values.it === 'string') {
+			it.push({
+				approverId: values.it
+			})
+		} else {
+			it = values.it.map((it) => {
+				return {
+					approverId: it
+				};
+			});
+		}
+
+		if (typeof values.admin === 'string') {
+			admin.push({
+				approverId: values.admin
+			})
+		} else {
+			admin = values.admin.map((admin) => {
+				return {
+					approverId: admin
+				};
+			});
+		}
+
+		if (typeof values.other === 'string') {
+			other.push({
+				approverId: values.other
+			})
+		} else {
+			other = values.other.map((other) => {
+				return {
+					approverId: other
+				};
+			});
+		}
+
+		if (typeof values.exit === 'string') {
+			exit.push({
+				approverId: values.exit
+			})
+		} else {
+			exit = values.exit.map((exit) => {
+				return {
+					approverId: exit
+				};
+			});
+		}
+
+
+		let payload = {...values, hr, it, finance, admin, other, exit, reportingTo, resignationDate: moment(values.resignationDate._d).format()};
+		
 		let image = {
 			id: STRINGS.DEFAULTS.guid,
 			file: profileImage && profileImage[0]?.originFileObj,
 		};
 
 		if (Object.keys(image).length > 0) {
-			let payload = { ...values, hr, image };
-			console.log(values, "VALUESSS")
-			dispatch(addResignation(payload));
+			let data = { ...payload, image };
+			dispatch(addResignation(data));
 		} else {
-			let payload = {...values, hr};
-			console.log(payload, "PAYLOADDD!!!!")
 			dispatch(addResignation(payload));
 		}
+
 	};
 	useEffect(() => {
 		if (success) {
@@ -211,9 +264,6 @@ const Composer = props => {
 							borderRadius: "5px",
 						}}
 						size="large"
-					// onChange={onChange}
-					// onSearch={onSearch}
-					// filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
 					>
 						{
 							ResignationPurposeEnum.map((item) =>
@@ -222,6 +272,80 @@ const Composer = props => {
 						}
 					</Select>
 				</Form.Item>
+
+				<Form.Item
+					label={"Type"}
+					name="type"
+					rules={[
+						{
+							required: true,
+							message: "Please Select Type",
+						},
+					]}
+				>
+					<Select
+						showSearch
+						placeholder="Select Type"
+						optionFilterProp="children"
+						style={{
+							width: "100%",
+							borderRadius: "5px",
+						}}
+						size="large"
+					>
+						{
+							ResignationTypeEnum.map((item) =>
+								<Option value={item.value}>{item.label}</Option>
+							)
+						}
+					</Select>
+				</Form.Item>
+
+				<Form.Item
+					name="userId"
+					label={"Select On Behalf"}
+					showSearch={true}
+					direction={Direction}
+					style={{ marginBottom: "0px" }}
+				>
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={"Select Members"}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
+						name="userId"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
+					/>
+				</Form.Item>
+
+
 				<Form.Item
 					label={"Resignation Date"}
 					name="resignationDate"
@@ -239,6 +363,50 @@ const Composer = props => {
 					name="description"
 				>
 					<TextArea placeholder="Enter Description" />
+				</Form.Item>
+
+				<Form.Item
+					name="reportingTo"
+					label={"Manager"}
+					showSearch={true}
+					direction={Direction}
+					style={{ marginBottom: "0px" }}
+				>
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={"Select Members"}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
+						name="reportingTo"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
+					/>
 				</Form.Item>
 
 				<Form.Item
@@ -318,6 +486,182 @@ const Composer = props => {
 						}}
 						dataVal={value}
 						name="finance"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name="it"
+					label={"IT"}
+					showSearch={true}
+					direction={Direction}
+					style={{ marginBottom: "0px" }}
+				>
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={"Select IT Member"}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
+						name="it"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name="admin"
+					label={"Admin"}
+					showSearch={true}
+					direction={Direction}
+					style={{ marginBottom: "0px" }}
+				>
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={"Select Admin"}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
+						name="admin"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name="other"
+					label={"Other Approvals "}
+					showSearch={true}
+					direction={Direction}
+					style={{ marginBottom: "0px" }}
+				>
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={"Select Members"}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
+						name="other"
+						showSearch={true}
+						direction={Direction}
+						rules={[
+							{
+								required: true,
+								message: "Please Select Member",
+							},
+						]}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name="exit"
+					label={"Exit Interview"}
+					showSearch={true}
+					direction={Direction}
+					style={{ marginBottom: "0px" }}
+				>
+					<CustomSelect
+						style={{ marginBottom: "0px" }}
+						data={firstTimeEmpData}
+						selectedData={selectedData}
+						canFetchNow={isFirstTimeDataLoaded}
+						fetchData={fetchEmployees}
+						placeholder={"Select Members"}
+						mode={"multiple"}
+						isObject={true}
+						loadDefaultData={false}
+						optionComponent={opt => {
+							return (
+								<>
+									<Avatar
+										name={opt.name}
+										src={opt.image}
+										className="!bg-black"
+									>
+										{getNameForImage(opt.name)}
+									</Avatar>
+									{opt.name}
+								</>
+							);
+						}}
+						dataVal={value}
+						name="exit"
 						showSearch={true}
 						direction={Direction}
 						rules={[

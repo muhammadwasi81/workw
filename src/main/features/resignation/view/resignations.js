@@ -11,9 +11,11 @@ import { getAllResignations } from "../store/action";
 import ListItem from "./listItem";
 import "./style.css"
 import DetailedView from "./detaileView";
+import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
 import { handleOpenComposer } from "../store/slice";
 import Composer from "./composer";
 import { tableColumn } from "./TableColumn";
+import { ROUTES } from "../../../../utils/routes";
 
 const Resignation = props => {
   const dispatch = useDispatch()
@@ -36,10 +38,19 @@ const Resignation = props => {
     dispatch(getAllResignations(filter))
   }, [filter])
 
+  const headerButtuns = [
+    {
+      name: "Resignation",
+      renderButton: [1],
+      to: `${ROUTES.RESIGNATION.RESIGNATION}`,
+    },
+  ];
+
   return (
     <>
       <TabbableContainer>
         <Header
+          items={headerButtuns}
           buttons={[
             {
               buttonText: "Create Reward",
@@ -67,11 +78,7 @@ const Resignation = props => {
             {
               name: "For Approval",
               onClick: () => setFilter({ filterType: 2 }),
-            },
-            {
-              name: "Resignation To Me",
-              onClick: () => setFilter({ filterType: 3 }),
-            },
+            }
           ]}
           segment={{
             onSegment: (value) => {
@@ -87,6 +94,37 @@ const Resignation = props => {
         />
         <ContBody>
           {items?.length > 0 ? (
+            tableView ? (
+              <Table
+                columns={tableColumn()}
+                dragable={true}
+                data={items}
+              />
+            ) : (
+              <>
+                {loader ? (
+                  <>
+                    <Skeleton avatar paragraph={{ rows: 4 }} />
+                  </>
+                ) : (
+                  <CardWrapper>
+                    {items.map((item, index) => {
+                      return (
+                        <>
+                          <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
+                        </>
+                      );
+                    })}
+                  </CardWrapper>
+                )}
+              </>
+            )
+          ) : (
+            <div className="flex items-center justify-center h-full w-full">
+              <img src={Nodata} />
+            </div>
+          )}
+          {/* {items?.length > 0 ? (
             <>
               {
                 loader === false ?
@@ -112,7 +150,7 @@ const Resignation = props => {
                   </>
 
               }
-            </>) : <Skeleton avatar paragraph={{ rows: 4 }} />}
+            </>) : <Skeleton avatar paragraph={{ rows: 4 }} />} */}
         </ContBody>
         {<DetailedView onClose={onClose} id={detailId} />}
 

@@ -29,6 +29,7 @@ export const ResignationPurposeEnum = [
     }
 ];
 
+
 export const ResignationTypeEnum = [
     {
         label: "On Behalf",

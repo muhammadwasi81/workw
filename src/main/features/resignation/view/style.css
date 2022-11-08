@@ -19,3 +19,8 @@
 .tagDiv {
     margin-top: 3px;
 }
+.detailTabs {
+    margin-top: 15px;
+    background: none !important;
+    padding: 0px !important;
+}

@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
+import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
+
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
@@ -138,8 +140,10 @@ const Warning = (props) => {
             </>
           )
         ) : (
-          "Data not found"
-        )}
+					<div className="flex items-center justify-center h-full w-full">
+					  <img src={Nodata} />
+					</div>
+				)}
       </ContBody>
       {warningDetail && <DetailedView onClose={onClose} visible={visible} />}
       <Drawer

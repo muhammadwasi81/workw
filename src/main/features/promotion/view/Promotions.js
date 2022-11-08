@@ -15,6 +15,8 @@ import { getAllPromotions, GetPromotionById } from "../store/actions";
 import TableView from "./TableView";
 import { CardWrapper } from "../../../layout/GridStyle";
 
+import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
+
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
@@ -150,7 +152,9 @@ const Promotion = props => {
 						</>
 					)
 				) : (
-					"Data not found"
+					<div className="flex items-center justify-center h-full w-full">
+					  <img src={Nodata} />
+					</div>
 				)}
 			</ContBody>
 

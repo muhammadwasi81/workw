@@ -161,12 +161,12 @@ export const routes = {
     },
     {
       path: `${ROUTES.GROUP.DEFAULT}`,
-      component: lazy(() => import("../main/features/groups/index")),
+      component: lazy(() => import("../main/features/groups/view/index")),
     },
     {
       path: `${ROUTES.GROUP.DEFAULT}/:id`,
       component: lazy(() =>
-        import("../main/features/groups/GroupDetails/GroupDetails")
+        import("../main/features/groups/view/GroupDetails/GroupDetails")
       ),
     },
     {

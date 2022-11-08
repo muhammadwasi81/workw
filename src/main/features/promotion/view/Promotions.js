@@ -15,7 +15,7 @@ import { getAllPromotions, GetPromotionById } from "../store/actions";
 import TableView from "./TableView";
 import { CardWrapper } from "../../../layout/GridStyle";
 
-import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
@@ -115,54 +115,39 @@ const Promotion = props => {
 					label2: "Table",
 				}}
 			/>
-			<ContBody>
-				{promotions && promotions.length > 0 ? (
-					tableView ? (
-						<div>
-							<Table
-								columns={tableColumn()}
-								dragable={false}
-								data={promotions}
-							/>
-						</div>
-					) : (
-						<>
-							{loader ? (
-								<>
-									<Skeleton avatar paragraph={{ rows: 4 }} />
-								</>
-							) : (
-								<CardWrapper>
-									{promotions.map((item, index) => {
-										return (
-											<>
-												<ListItem
-													getPromotionId={
-														getPromotionId
-													}
-													item={item}
-													id={item.id}
-													key={index}
-												/>
-											</>
-										);
-									})}
-								</CardWrapper>
-							)}
-						</>
-					)
-				) : (
-					<div className="flex items-center justify-center h-full w-full">
-					  <img src={Nodata} />
-					</div>
-				)}
-			</ContBody>
+		<ContBody>
+			{
+                loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+            }
 
-			<DetailedView
-				onClose={onClose}
-				visible={visible}
-				id={promotionId}
-			/>
+            {
+				tableView &&
+				<Table
+				columns={tableColumn()}
+				dragable={true}
+				data={promotions}
+				/>
+            }
+
+			{
+				promotions?.length > 0 && !loader ? (
+				<CardWrapper>
+					{promotions.map((item, index)  => {
+					return (
+						<ListItem
+						    getPromotionId={getPromotionId}
+							item={item}
+							id={item.id}
+							key={index}
+						/>
+					);
+					})}
+				</CardWrapper>
+				) : !loader && <NoDataFound />
+
+			}
+		</ContBody>
+		{promotionDetail && (<DetailedView onClose={onClose} visible={visible} />)}
 
 			<Drawer
 				title={

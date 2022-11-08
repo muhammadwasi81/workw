@@ -48,7 +48,6 @@ export const getAssetItemDetailByIdService = async (id) => {
   }
 };
 
-// TODO: GET SINGLE ITEM FOR SINGLE USER
 export const getAllAssetItemByUserIdService = async (id) => {
   try {
     console.log(id, 'id in service');
@@ -62,14 +61,17 @@ export const getAllAssetItemByUserIdService = async (id) => {
   }
 };
 
-// TODO: ITEMS TO UPDATE FOR USERS
 export const updateAssetItemService = async (payload) => {
   try {
     const response = await Config.post(
       `/api/InventoryItem/UpdateItemStatus`,
       payload
     );
-    message.success('Asset Item Updated Successfully');
+    if (response.data) {
+      message.success('Asset Item Updated Successfully');
+    } else {
+      message.error('Asset Item Not Updated');
+    }
     console.log(payload, 'payload in service');
     console.log(response, 'updateAssetItemService');
     return ResponseResultSuccess(response.data);

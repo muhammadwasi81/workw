@@ -15,6 +15,12 @@ export const InitMessengerSocket = (dispatch, Accesstoken) => {
 		.build();
 	connection.start().then(() => { });
 	// Receive Message Listner Here
+	connection.on("notificationOut", data => {
+		console.log(data, "notificationOut mySocket")
+	}),
+	connection.on("messageOut", data => {
+		console.log(data, "messageOut mySocket")
+	}),
 	connection.on("ReceiveMessage", data => {
 		// console.log(data)
 		dispatch(receiveChatMessage(data));

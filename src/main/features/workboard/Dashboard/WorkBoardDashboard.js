@@ -65,14 +65,19 @@ function WorkBoardDashboard({
           // onPageChange={onPageChange}
         />
       )}
-      {
-        <CardWrapper2>
-          {workboardsListData.map((data) => (
-            <WorkBoardCard data={data} />
-          ))}
-        </CardWrapper2>
-      }
-      {!loader && workboardsListData.length === 0 && <NoDataFound />}
+
+       {
+            workboardsListData?.length > 0 && !loader && !isTableView ? (
+              <CardWrapper2>
+              {workboardsListData.map((data) => (
+                <WorkBoardCard data={data} />
+              ))}
+            
+            </CardWrapper2>
+          ):
+          !loader && !isTableView && <NoDataFound />
+
+        }
 
       {/* {!isTableView ? (
         <CardWrapper2>

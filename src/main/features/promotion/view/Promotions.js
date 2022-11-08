@@ -130,7 +130,7 @@ const Promotion = props => {
             }
 
 			{
-				promotions?.length > 0 && !loader ? (
+				promotions?.length > 0 && !loader && !tableView ? (
 				<CardWrapper>
 					{promotions.map((item, index)  => {
 					return (
@@ -143,7 +143,7 @@ const Promotion = props => {
 					);
 					})}
 				</CardWrapper>
-				) : !loader && <NoDataFound />
+				) : !loader && !tableView && <NoDataFound />
 
 			}
 		</ContBody>

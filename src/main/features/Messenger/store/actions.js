@@ -35,7 +35,8 @@ const createObjectForAppendMsg = (payload) => {
   }))
   let request = {
     ...payload,
-    status: "Pending",
+    // status: "Pending",
+    status: 1,
     // messageType: 1,
     createBy: "local",
     attachments

@@ -128,6 +128,7 @@ console.log(loader, "Loader")
           {
             loader && <Skeleton avatar paragraph={{ rows: 4 }} />
           }
+
           {
             tableView &&
             <Table
@@ -136,8 +137,9 @@ console.log(loader, "Loader")
               data={customApprovals}
             />
           }
+
           {
-            customApprovals?.length > 0 && !loader ? (
+            customApprovals?.length > 0 && !loader && !tableView ? (
               <CardWrapper>
                 {customApprovals.map((item, index) => {
                   return (
@@ -150,7 +152,7 @@ console.log(loader, "Loader")
                   );
                 })}
               </CardWrapper>
-            ) : <NoDataFound />
+            ) : !loader  && !tableView && <NoDataFound />
           }
         </ContBody>
         {customApprovalDetail && (

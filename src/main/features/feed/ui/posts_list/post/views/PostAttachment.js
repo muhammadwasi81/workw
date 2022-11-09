@@ -13,16 +13,18 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { FullscreenOutlined } from "@ant-design/icons";
+import { getFile } from "../../../../../travel/view/AttachmentsCarrousel/AttachmentsCarrousel";
+import { fileExtentionPreview } from "../../../../../travel/utils/fileExtentionHelper";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Zoom, Thumbs]);
 
 function PostAttachment({ attachments, onOpen }) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	return (
-		<div className="slider-container">
-			<div
-				className="attacmentFullScreenBtn"
-				onClick={() => onOpen(true)}
-			>
+		<div
+			className="slider-container cursor-pointer"
+			onClick={() => onOpen(true)}
+		>
+			<div className="attacmentFullScreenBtn">
 				<FullscreenOutlined />
 			</div>
 			<div className="slides">
@@ -31,6 +33,7 @@ function PostAttachment({ attachments, onOpen }) {
 						"--swiper-navigation-color": "#fff",
 						"--swiper-pagination-color": "#fff",
 						height: "100%",
+						maxHeight: "360px",
 					}}
 					// loop={true}
 					spaceBetween={10}
@@ -45,7 +48,10 @@ function PostAttachment({ attachments, onOpen }) {
 					{attachments.map((slide, ind) => {
 						return (
 							<SwiperSlide zoom={true} key={ind}>
-								<img
+								<div className="flex justify-center items-center w-full">
+									{getFile(slide)}
+								</div>
+								{/* <img
 									id={1}
 									src={slide.path}
 									style={{
@@ -53,7 +59,7 @@ function PostAttachment({ attachments, onOpen }) {
 										width: "min-content",
 									}}
 									alt=""
-								/>
+								/> */}
 							</SwiperSlide>
 						);
 					})}
@@ -77,16 +83,18 @@ function PostAttachment({ attachments, onOpen }) {
 									style={{ width: "100px" }}
 									zoom={true}
 									key={ind}
+									className="cursor-pointer"
 								>
 									<img
 										id={1}
-										src={slide.path}
+										src={fileExtentionPreview(slide.path)}
 										style={{
 											height: "50px",
 											width: "100%",
-											objectFit: "cover",
+											objectFit: "contain",
 										}}
 										alt=""
+										className="cursor-pointer"
 									/>
 								</SwiperSlide>
 							);

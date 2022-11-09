@@ -4,63 +4,63 @@ import { LanguageChangeContext } from "../../../../../../utils/localization/loca
 import { FeedDictionary } from "../../../localization";
 import { feedSlice } from "../../../store/slice";
 import { PostType } from "../../../utils/constants";
+import photo from "../../../../../../content/NewContent/NewsFeed/svg/post_img_icon.svg";
+import doc from "../../../../../../content/NewContent/NewsFeed/svg/post_doc_icon.svg";
+import poll from "../../../../../../content/NewContent/NewsFeed/svg/post_poll_icon.svg";
 
 function PostOptions() {
-  const onPostAttachment = (files) => {
-    if (files.length && files[0]) {
-      store.dispatch(feedSlice.actions.addPostAttachment({ files: files }));
-    }
-  };
-  const setPostTypeToPoll = () => {
-    store.dispatch(feedSlice.actions.onPostTypeChange({ type: PostType.POLL }));
-  };
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { composer } = FeedDictionary[userLanguage];
-  const { Poll, Documents, PhotoVideo } = composer;
+	const onPostAttachment = files => {
+		if (files.length && files[0]) {
+			store.dispatch(
+				feedSlice.actions.addPostAttachment({ files: files })
+			);
+		}
+	};
+	const setPostTypeToPoll = () => {
+		store.dispatch(
+			feedSlice.actions.onPostTypeChange({ type: PostType.POLL })
+		);
+	};
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { composer } = FeedDictionary[userLanguage];
+	const { Poll, Documents, PhotoVideo } = composer;
 
-  return (
-    <div className="uploader">
-      <div className="options">
-        <input
-          onChange={({ target: { files } }) => onPostAttachment(files)}
-          accept=".jpg, .jpeg, .gif, .bmp, .png, .mp4"
-          multiple
-          type="file"
-        />
-        <div className="wrapper">
-          <img
-            src="https://konnect.im/static/media/image.002df348.svg"
-            alt=""
-          />{" "}
-          <span>{PhotoVideo}</span>
-        </div>
-      </div>
-      <div className="options">
-        <input
-          onChange={({ target: { files } }) => onPostAttachment(files)}
-          multiple
-          accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx"
-          type="file"
-        />
-        <div className="wrapper">
-          <img
-            src="https://konnect.im/static/media/contract.eb367011.svg"
-            alt=""
-          />{" "}
-          <span>{Documents}</span>
-        </div>
-      </div>
-      <div className="options" onClick={() => setPostTypeToPoll()}>
-        <div className="wrapper">
-          <img
-            src="https://konnect.im/static/media/ballot.ad2d2fc5.svg"
-            alt=""
-          />
-          <span>{Poll}</span>
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className="uploader">
+			<div className="options">
+				<input
+					onChange={({ target: { files } }) =>
+						onPostAttachment(files)
+					}
+					accept=".jpg, .jpeg, .gif, .bmp, .png, .mp4"
+					multiple
+					type="file"
+				/>
+				<div className="wrapper">
+					<img src={photo} alt="photo" /> <span>{PhotoVideo}</span>
+				</div>
+			</div>
+			<div className="options">
+				<input
+					onChange={({ target: { files } }) =>
+						onPostAttachment(files)
+					}
+					multiple
+					accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx"
+					type="file"
+				/>
+				<div className="wrapper">
+					<img src={doc} alt="doc" /> <span>{Documents}</span>
+				</div>
+			</div>
+			<div className="options" onClick={() => setPostTypeToPoll()}>
+				<div className="wrapper">
+					<img src={poll} alt="poll" />
+					<span>{Poll}</span>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default PostOptions;

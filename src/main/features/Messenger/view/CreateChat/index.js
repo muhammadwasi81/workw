@@ -9,6 +9,8 @@ import { createGuid, STRINGS } from "../../../../../utils/base";
 function CreateChat({ onClose, visible }) {
   const dispatch = useDispatch();
   const { employeeShort: members } = useSelector((state) => state.sharedSlice);
+  const success = useSelector((state) => state.MessengerSlice.success);
+  const loader = useSelector((state) => state.MessengerSlice.loader);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [state, setState] = useState({});
   useEffect(() => {
@@ -19,6 +21,10 @@ function CreateChat({ onClose, visible }) {
       })
     );
   }, []);
+  useEffect(() => {
+    if (!visible)
+      setSelectedMembers([])
+  }, [visible])
   const onMemberSelect = (member) => {
     setSelectedMembers([
       ...selectedMembers,
@@ -57,7 +63,6 @@ function CreateChat({ onClose, visible }) {
   const handleSubmit = () => {
     let payload = createPayload();
     dispatch(createChat(payload));
-    console.log(payload, "Member Here");
   }
 
   return (

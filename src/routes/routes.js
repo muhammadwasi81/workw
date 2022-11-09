@@ -203,7 +203,6 @@ export const routes = {
       path: `${ROUTES.HR.BONUS.DEFAULT}`,
       component: lazy(() => import("../main/features/bonus/view/Bonus")),
     },
-
     {
       path: `${ROUTES.PROMOTION}`,
       component: lazy(() =>
@@ -281,7 +280,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.RESIGNATION.DEFAULT}`,
-      component: lazy(() => import("../main/features/resignation/view/index")),
+      component: lazy(() => import("../main/features/resignation/view/resignations")),
     },
     {
       path: `${ROUTES.REQUISITION.DEFAULT}`,

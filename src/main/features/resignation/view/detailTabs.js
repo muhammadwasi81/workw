@@ -4,19 +4,21 @@ const { TabPane } = Tab;
 import "./style.css"
 import Loan from "../../team/view/Loan";
 import Warnings from "../../team/view/Warnings";
+import Rewards from "../../team/view/Rewards";
+import Courses from "../../team/view/Courses";
 
-function DetailTabs({detailId}) {
+function DetailTabs({detailId, RemarksApproval}) {
 
   const panes = [
     {
       featureId: 0,
-      featureName: "Loans",
-      content: <Loan userId={detailId} />,
+      featureName: "Approvers",
+      content: RemarksApproval,
     },
     {
       featureId: 1,
-      featureName: "Assets",
-      content: "Assets",
+      featureName: "Loans",
+      content: <Loan userId={detailId} />,
     },
     {
       featureId: 2,
@@ -26,12 +28,12 @@ function DetailTabs({detailId}) {
     {
       featureId: 3,
       featureName: "Rewards",
-      content: <div>Finalised div</div>,
+      content: <Rewards userId={detailId} />,
     },
     {
         featureId: 4,
         featureName: "Courses",
-        content: <div>Finalised div</div>,
+        content: <Courses userId={detailId} />,
       },
   ];
   return (

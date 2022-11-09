@@ -19,7 +19,7 @@ import { ROUTES } from "../../../../utils/routes";
 
 const Resignation = props => {
   const dispatch = useDispatch()
-  const [filter, setFilter] = useState({ filterType: 0, search: "" })
+  const [filter, setFilter] = useState({ filterType: 1, search: "", pageNo: 0, pageSize: 20, sortBy: 1})
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
 

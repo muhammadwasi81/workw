@@ -167,19 +167,48 @@ function DetailCard(props) {
                                 </div>
                             </div>
                         </div>
-                        <RemarksApproval
-                            module={ApprovalsModule.RequisitionApproval}
-                            status={status}
-                            onStatusChanged={statusChanged => {
-                                setUpdatedStatus(statusChanged)
-                                console.log(statusChanged)
-                            }
-                            }
-                            data={approvers}
-                            title="Approvers"
-                        />
+
                     </div>
-                    <DetailTabs detailId={props.id} />
+                    <DetailTabs
+                        detailId={props.id}
+                        RemarksApproval={
+                            <>
+                                <RemarksApproval
+                                    module={ApprovalsModule.RequisitionApproval}
+                                    status={status}
+                                    onStatusChanged={statusChanged => {
+                                        setUpdatedStatus(statusChanged)
+                                        console.log(statusChanged)
+                                    }
+                                    }
+                                    data={approvers}
+                                    title={approvers && approvers.length === 0 ? "No Approvers available" : "Approvers"}
+                                    className="ApproversRow"
+                                />
+                                <RemarksApproval
+                                    module={ApprovalsModule.RequisitionApproval}
+                                    status={status}
+                                    onStatusChanged={statusChanged => {
+                                        setUpdatedStatus(statusChanged)
+                                        console.log(statusChanged)
+                                    }
+                                    }
+                                    data={finance}
+                                    title="Finance"
+                                />
+                                <RemarksApproval
+                                    module={ApprovalsModule.RequisitionApproval}
+                                    status={status}
+                                    onStatusChanged={statusChanged => {
+                                        setUpdatedStatus(statusChanged)
+                                        console.log(statusChanged)
+                                    }
+                                    }
+                                    data={it}
+                                    title="IT"
+                                />
+                            </>
+                        } />
                 </>
             )}
         </>

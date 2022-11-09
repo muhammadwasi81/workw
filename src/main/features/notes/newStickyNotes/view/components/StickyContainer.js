@@ -22,6 +22,7 @@ import {
   searchTitleDescAction,
 } from "../../store/actions";
 import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
+import useWindowDimensions from "./useWindowDimensions";
 
 const StickyContainer = () => {
   // *********state for sticky notes*******
@@ -76,16 +77,22 @@ const StickyContainer = () => {
   const openClickedNote = (note) => {
     dispatch(showStickyNote(note.id));
   };
+
+  //*****window size******
+  const { height, width } = useWindowDimensions();
+  console.log(width, height, "widthhh");
+
   const axis = {
-    x_axis: Math.floor(Math.random() * 40) + 250,
-    y_axis: Math.floor(Math.random() * 40) + 155,
+    x_axis: Math.floor(Math.random() * 40) + width,
+    y_axis: Math.floor(Math.random() * 40) + height,
   };
+  // const axis = {
+  //   x_axis: width * 50,
+  //   y_axis: height,
+  // };
   return (
     <>
-      <Draggable
-        defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
-        handle=".handle"
-      >
+      <Draggable defaultPosition={{ x: axis.x_axis }} handle=".handle">
         <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>
           <div className="sticky-header handle">
             <div className="left_Icon">
@@ -114,7 +121,7 @@ const StickyContainer = () => {
                 <CustomCard item={item} onDoubleClick={openClickedNote} />
               ))
             ) : (
-              <div className="flex items-center justify-center  ">
+              <div className="flex items-center justify-center">
                 <img src={Nodata} width={200} />
               </div>
             )}

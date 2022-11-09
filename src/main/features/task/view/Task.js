@@ -20,6 +20,9 @@ import { tableColumn } from "./TaskTable/TaskColumns";
 import { taskDictionary } from "../localization";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { TaskReferenceTypeEnum } from "../enums/enum";
+import { handleOpenComposer } from "../store/taskSlice";
+import { Button, Drawer } from "antd";
+
 import "../view/style/task.css";
 
 function Task({
@@ -28,12 +31,13 @@ function Task({
 	width = "",
 	routeLink,
 	backButton,
+	feature = "",
 }) {
 	let defaultFilter = {
 		filterType: 2,
 		pageNo: 1,
 		pageSize: 40,
-		search: ""
+		search: "",
 	};
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { appHeader, sharedLabels, navMenuLabel } = dictionaryList[
@@ -47,6 +51,7 @@ function Task({
 	const {
 		taskList: { list },
 		success,
+		drawerOpen,
 	} = useSelector(state => state.taskSlice);
 	useEffect(() => {
 		dispatch(
@@ -55,7 +60,7 @@ function Task({
 				filterType,
 				referenceId,
 				referenceType,
-				search
+				search,
 			})
 		);
 	}, [filterType, search]);
@@ -67,32 +72,46 @@ function Task({
 			renderButton: buttonsEnum.dashboard,
 		},
 	];
-	const buttons = [
-		{
-			buttonText: taskDictionaryList.createTextBtn,
-			render: (
-				<SideDrawer
-					success={success}
-					isAccessDrawer={true}
-					openDrawer={success}
-					children={
-						<TaskComposer
-							referenceId={referenceId}
-							referenceType={referenceType}
-						/>
-					}
-					title={taskDictionaryList.createTextBtn}
-					buttonText={taskDictionaryList.createTextBtn}
-				/>
-			),
-		},
-	];
+	//   const buttons = [
+	//     {
+	//       buttonText: taskDictionaryList.createTextBtn,
+	//       render: (
+	//         <SideDrawer
+	//           success={success}
+	//           isAccessDrawer={true}
+	//           openDrawer={success}
+	//           children={
+	//             <TaskComposer
+	//               referenceId={referenceId}
+	//               referenceType={referenceType}
+	//             />
+	//           }
+	//           title={taskDictionaryList.createTextBtn}
+	//           buttonText={taskDictionaryList.createTextBtn}
+	//         />
+	//       ),
+	//     },
+	//   ];
 
 	return (
 		<TabbableContainer>
 			<Header
 				items={items}
-				buttons={buttons}
+				buttons={[
+					{
+						buttonText: taskDictionaryList.createTextBtn,
+						render: (
+							<Button
+								className="ThemeBtn"
+								onClick={() =>
+									dispatch(handleOpenComposer(true))
+								}
+							>
+								{taskDictionaryList.createTextBtn}
+							</Button>
+						),
+					},
+				]}
 				width={width}
 				backButton={backButton}
 			/>
@@ -101,9 +120,6 @@ function Task({
 				onSearch={value => {
 					setSearch(value);
 				}}
-				// filter={{
-				//   onFilter: () => {},
-				// }}
 				buttons={[
 					{
 						name: appHeader.Task.myTask,
@@ -147,6 +163,31 @@ function Task({
 					)}
 				</div>
 			</ContBody>
+			<Drawer
+				title={
+					<h1
+						style={{
+							fontSize: "20px",
+							margin: 0,
+						}}
+					>
+						{taskDictionaryList.createTextBtn}
+					</h1>
+				}
+				width="768"
+				onClose={() => {
+					dispatch(handleOpenComposer(false));
+				}}
+				visible={drawerOpen}
+				destroyOnClose={true}
+				className="detailedViewComposer drawerSecondary"
+			>
+				<TaskComposer
+					referenceId={referenceId}
+					referenceType={referenceType}
+					feature={feature}
+				/>
+			</Drawer>
 		</TabbableContainer>
 	);
 }

@@ -9,117 +9,170 @@ import DefaultIcon from "../../../../content/NewContent/leaves/Leaves.svg";
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import moment from "moment";
 import { cancelReward, GetLeaveById } from "../store/actions";
-import { ApprovalStatus } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import {
+  ApprovalStatus,
+  ApprovalsModule,
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
+
 import { getNameForImage } from "../../../../utils/base";
 import Approval from "../../../sharedComponents/AppComponents/Approval/Approval";
 
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+  ItemContent,
+  ItemHeader,
+  SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 
 function DetailCard(props) {
-    const { userLanguage } = useContext(LanguageChangeContext);
-    const { leaveDictionary } = leaveDictionaryList[userLanguage];
-    const { user } = useSelector(state => state.userSlice);
-    const dispatch = useDispatch();
+  const [updatedStatus, setUpdatedStatus] = useState(null);
 
-    let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
-    let userId = user.id
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { leaveDictionary } = leaveDictionaryList[userLanguage];
+  const { user } = useSelector((state) => state.userSlice);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        props.id && dispatch(GetLeaveById(props.id));
-    }, [props.id]);
+  let {
+    InProcess,
+    Approved,
+    Declined,
+    Resend,
+    Inactive,
+    NotRequired,
+    Cancelled,
+    ApprovalRequired,
+    Hold,
+    NoStatus,
+  } = ApprovalStatus;
+  let userId = user.id;
 
-    const { leaveDetail } = useSelector((state) => state.leaveSlice);
+  useEffect(() => {
+    props.id && dispatch(GetLeaveById(props.id));
+  }, [props.id]);
 
-    const {
-        creator,
-        startDate,
-        createDate,
-        endDate,
-        description,
-        image = DefaultIcon,
-        status,
-        referenceNo,
-        members = [],
-        approvers,
-    } = leaveDetail;
+  const { leaveDetail } = useSelector((state) => state.leaveSlice);
 
-    var a = moment(startDate);
-    var b = moment(endDate);
-    const days = a.diff(b, "days");
+  const {
+    creator,
+    startDate,
+    createDate,
+    endDate,
+    description,
+    image = DefaultIcon,
+    status,
+    referenceNo,
+    leaveTypeName,
+    members = [],
+    approvers,
+    attachments,
+  } = leaveDetail;
 
-    // const isTablet = useMediaQuery({ maxWidth: 800 });
+  var a = moment(startDate);
+  var b = moment(endDate);
+  const days = b.diff(a, "days");
 
-    // const handleCancel = (e, payload) => {
-    //     e.preventDefault()
-    //     e.stopPropagation();
-    //     dispatch(cancelReward(payload));
-    // }
+  // const isTablet = useMediaQuery({ maxWidth: 800 });
 
-    return (
-        <>
-            {leaveDetail.id && (
-                <div id={props.id} className="detailedViewComposer">
-                    <SingleItem onClick={props.onClick}>
-                        <div className="new" id={props.id}></div>
-                        <ItemHeader>
-                            <div className="left">
-                                <UserInfo
-                                    avatarSrc={creator.image}
-                                    name={creator.name}
-                                    Subline={<SublineDesigWithTime designation={creator.designation} time={moment(createDate).format("DD/MM/YYYY")} />}
-                                />
-                            </div>
-                            <div className="right">
-                                <Tag className="IdTag">{referenceNo}</Tag>
-                                <StatusTag status={status}></StatusTag>
-                            </div>
-                        </ItemHeader>
-                        <ItemContent className="flex description">
-                            <div className="w-full">
-                                <p>{description}</p>
-                            </div>
-                            <div className="attachmentBox">
-                                <Image preview={false} width={60} src={image === "" ? DefaultIcon : image} />
-                            </div>
-                        </ItemContent>
-                        <div className="cardSections">
-                            <div className="cardSectionItem">
-                                <div className="cardSection__title">{leaveDictionary.startDate}</div>
-                                <div className="cardSection__body">{moment(startDate).format("ddd,MMM DD,YYYY")}</div>
-                            </div>
-                            <div className="cardSectionItem">
-                                <div className="cardSection__title">{leaveDictionary.endDate}</div>
-                                <div className="cardSection__body">{moment(endDate).format("ddd,MMM DD,YYYY")}</div>
-                            </div>
-                            <div className="cardSectionItem">
-                                <div className="cardSection__title">{leaveDictionary.days}</div>
-                                <div className="cardSection__body">{leaveDictionary.days}</div>
-                            </div>
-                            <div className="cardSectionItem">
-                                <div className="cardSection__title">{leaveDictionary.approvers}</div>
-                                <div className="cardSection__body" >
-                                    {approvers &&
-                                        <Avatar
-                                            isAvatarGroup={true}
-                                            isTag={false}
-                                            heading={"Approvers"}
-                                            membersData={approvers}
-                                            text={"Approvers"}
-                                            image={"https://joeschmoe.io/api/v1/random"}
-                                        />
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </SingleItem>
-                    <RemarksApproval data={approvers} title="Approvals" /> 
+  // const handleCancel = (e, payload) => {
+  //     e.preventDefault()
+  //     e.stopPropagation();
+  //     dispatch(cancelReward(payload));
+  // }
+
+  return (
+    <>
+      {leaveDetail.id && (
+        <div id={props.id} className="detailedViewComposer">
+          <SingleItem onClick={props.onClick}>
+            <div className="new" id={props.id}></div>
+            <ItemHeader>
+              <div className="left">
+                <UserInfo
+                  avatarSrc={creator.image}
+                  name={creator.name}
+                  Subline={
+                    <SublineDesigWithTime
+                      designation={creator.designation}
+                      time={moment(createDate).fromNow()}
+                    />
+                  }
+                />
+              </div>
+              <div className="right">
+                <Tag className="IdTag">{referenceNo}</Tag>
+                <StatusTag status={status}></StatusTag>
+              </div>
+            </ItemHeader>
+            <ItemContent className="flex description">
+              <div className="w-full">
+                <p>{description}</p>
+              </div>
+              <div className="attachmentBox">
+                {attachments.map((i) => {
+                  return <Image preview={false} width={60} src={i.path} />;
+                })}
+              </div>
+            </ItemContent>
+            <div className="cardSections">
+              <div className="cardSectionItem">
+                <div className="cardSection__title">
+                  {leaveDictionary.startDate}
                 </div>
-            )}
-        </>
-    );
+                <div className="cardSection__body">
+                  {moment(startDate).format("ddd,MMM DD,YYYY")}
+                </div>
+              </div>
+              <div className="cardSectionItem">
+                <div className="cardSection__title">
+                  {leaveDictionary.endDate}
+                </div>
+                <div className="cardSection__body">
+                  {moment(endDate).format("ddd,MMM DD,YYYY")}
+                </div>
+              </div>
+              <div className="cardSectionItem">
+                <div className="cardSection__title">{leaveDictionary.days}</div>
+                <div className="cardSection__body">{days}</div>
+              </div>
+              <div className="cardSectionItem">
+                <div className="cardSection__title">Leave Type</div>
+                <div className="cardSection__body"> {leaveTypeName}</div>
+              </div>
+              <div className="cardSectionItem">
+                <div className="cardSection__title">
+                  {leaveDictionary.approvers}
+                </div>
+                <div className="cardSection__body">
+                  {approvers && (
+                    <Avatar
+                      isAvatarGroup={true}
+                      isTag={false}
+                      heading={"Approvers"}
+                      membersData={approvers}
+                      text={"Approvers"}
+                      image={"https://joeschmoe.io/api/v1/random"}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          </SingleItem>
+          <RemarksApproval
+            module={ApprovalsModule.LeaveApproval}
+            status={status}
+            data={approvers}
+            title="Approvals"
+            onStatusChanged={(statusChanged) => {
+              setUpdatedStatus(statusChanged);
+              console.log(statusChanged);
+            }}
+          />
+        </div>
+      )}
+    </>
+  );
 }
 
 export default DetailCard;

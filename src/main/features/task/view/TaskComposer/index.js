@@ -28,6 +28,7 @@ let newType;
 function TaskComposer({
 	referenceId = defaultUiid,
 	referenceType = TaskReferenceTypeEnum.General,
+	feature = "",
 }) {
 	const [form] = Form.useForm();
 	const [isAssignTo, setIsAssignTo] = useState(false);
@@ -57,7 +58,7 @@ function TaskComposer({
 		subject: "",
 		parentId: [],
 		description: "",
-		type: "1",
+		type: feature || "1",
 		taskType: "self",
 		assign: [],
 		taskDate: "",
@@ -219,6 +220,7 @@ function TaskComposer({
 							form.setFieldValue("referenceId", []);
 						}
 					}}
+					disabled={feature ? true : false}
 				>
 					<Radio.Button value="1">
 						<CheckCircleOutlined />
@@ -243,8 +245,9 @@ function TaskComposer({
 					rules={[
 						{
 							required: true,
-							message: `Please select ${type === "2" ? "Projects" : "Groups"
-								}!`,
+							message: `Please select ${
+								type === "2" ? "Projects" : "Groups"
+							}!`,
 						},
 					]}
 				>
@@ -288,7 +291,7 @@ function TaskComposer({
 						onCancel={cancel}
 						okText="Yes"
 						cancelText="No"
-					></Popconfirm>
+					/>
 					{type === "1" ? (
 						<Form.Item
 							label={labels.assignTo}
@@ -403,7 +406,9 @@ function TaskComposer({
 				<RangePicker
 					getPopupContainer={trigger => trigger.parentNode}
 					placeholder={[placeHolder.startDate, placeHolder.endtDate]}
-					disabledDate={(current) => current && current.valueOf() < Date.now()}
+					disabledDate={current =>
+						current && current.valueOf() < Date.now()
+					}
 				/>
 			</Form.Item>
 			<Form.Item

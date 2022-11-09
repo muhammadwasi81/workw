@@ -2250,9 +2250,10 @@ export function renderTitleWithMentions(title, mentions) {
     const titleArr = title.split(" ");
     return titleArr
       .map((item) => {
-        const mention = mentions.filter((member) => member.memberId === item);
+        const mention = mentions.filter((member) => member.memberId == item);
+        // console.log("mention", mention);
         if (mention.length > 0) {
-          return `<a href=${mention[0].member.id}>${mention[0].member.name}</a>`;
+          return `<a href=${mention[0]?.member?.id}>${mention[0]?.member?.name}</a>`;
           // return mention;
         } else {
           return item;

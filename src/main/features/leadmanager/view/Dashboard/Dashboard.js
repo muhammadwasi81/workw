@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../../utils/routes";
 import { Table } from "../../../../sharedComponents/customTable";
-import Spinner from "../../../../sharedComponents/spinner/spinner";
-import { getAllLeadManager } from "../../store/actions";
+import { NoDataFound } from "../../../../sharedComponents/NoDataIcon";
+// import Spinner from "../../../../sharedComponents/spinner/spinner";
+// import { getAllLeadManager } from "../../store/actions";
+import ComposeEmail from "../Email/ComposeEmail";
 import GridView from "./GridView/GridView";
 import { tableColumn } from "./TableView/tableColumn";
 
@@ -30,7 +32,33 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
 
 	return (
 		<>
-			{!isTableView ? (
+        {  isTableView && (
+			<Table
+				columns={tableColumn(dictionary)}
+				dragable={true}
+				handleChange={onChange}
+				// onPageChange={onPageChange}
+				onRow={onRow}
+				data={data ? data : []}
+				// status={travelStatus}
+				loading={loading}
+				// success={success}
+				// onActionClick={onActionClick}
+		   />
+      )}
+	    {
+			<GridView
+				data={data}
+				loading={loading}
+				dispatch={dispatch}
+				handleClickNavigation={handleClickNavigation}
+				dictionary={dictionary}
+		   />
+	    }
+		 {!loading && data.length === 0 && <NoDataFound/>}
+
+      {/* 
+	 		{!isTableView ? (
 				<GridView
 					data={data}
 					loading={loading}
@@ -51,7 +79,9 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
 					// success={success}
 					// onActionClick={onActionClick}
 				/>
-			)}
+			)} 
+		*/}
+			<ComposeEmail />
 		</>
 	);
 }

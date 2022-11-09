@@ -1,5 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Skeleton, Modal, Button, Drawer } from "antd";
 import { customApprovalDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -9,9 +12,6 @@ import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllCustomApprovals, GetCustomApprovalById } from "../store/actions";
-import TableView from "./TableView";
-
-// import "./reward.css";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
@@ -19,19 +19,32 @@ import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 const CustomApproval = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { customApprovalDictionary } = customApprovalDictionaryList[userLanguage];
+  const { customApprovalDictionary } = customApprovalDictionaryList[
+    userLanguage
+  ];
 
   const [tableView, setTableView] = useState(false);
 
   const [visible, setVisible] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [filter, setFilter] = useState({
+    filterType: 0,
+    search: "",
+    sortBy: 1,
+  });
 
   const dispatch = useDispatch();
-  const { customApprovals, loader, customApprovalDetail, drawerOpen } = useSelector((state) => state.customApprovalSlice);
+  const {
+    customApprovals,
+    loader,
+    customApprovalDetail,
+    drawerOpen,
+  } = useSelector((state) => state.customApprovalSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -50,16 +63,28 @@ const CustomApproval = (props) => {
   const handleFilter = (values) => {
     setSearchFilterValues(values);
   };
+  const items = [
+    {
+      name: "Custom Approvals",
+      renderButton: [1],
+      to: `${ROUTES.CUSTOM_APPROVALS.DEFAULT}`,
+    },
+  ];
+console.log(loader, "Loader")
   return (
     <>
       <TabbableContainer className="">
         <Header
+          items={items}
           buttons={[
             {
-              buttonText: "Create Custom Approval",
+              buttonText: "Create",
               render: (
-                <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
-                  Create Custom Approval
+                <Button
+                  className="ThemeBtn"
+                  onClick={() => dispatch(handleOpenComposer(true))}
+                >
+                  Create
                 </Button>
               ),
             },
@@ -67,7 +92,7 @@ const CustomApproval = (props) => {
         />
         <TopBar
           onSearch={(value) => {
-            setFilter({ ...filter, search: value })
+            setFilter({ ...filter, search: value });
           }}
           buttons={[
             {
@@ -100,37 +125,39 @@ const CustomApproval = (props) => {
           }}
         />
         <ContBody>
-          {customApprovals?.length > 0 ? (
-            tableView ? (
-              <Table
-                columns={tableColumn()}
-                dragable={true}
-                data={customApprovals}
-              />
-            ) : (
-              <>
-                {loader ? (
-                  <>
-                    <Skeleton avatar paragraph={{ rows: 4 }} />
-                  </>
-                ) : (
-                  <CardWrapper>
-                    {customApprovals.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem getCustomApprovalId={getCustomApprovalId} item={item} id={item.id} key={index} />
-                        </>
-                      );
-                    })}
-                  </CardWrapper>
-                )}
-              </>
-            )
-          ) : (
-            "Data not found"
-          )}
+          {
+            loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+          }
+
+          {
+            tableView &&
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              data={customApprovals}
+            />
+          }
+
+          {
+            customApprovals?.length > 0 && !loader && !tableView ? (
+              <CardWrapper>
+                {customApprovals.map((item, index) => {
+                  return (
+                    <ListItem
+                      getCustomApprovalId={getCustomApprovalId}
+                      item={item}
+                      id={item.id}
+                      key={index}
+                    />
+                  );
+                })}
+              </CardWrapper>
+            ) : !loader  && !tableView && <NoDataFound />
+          }
         </ContBody>
-        {customApprovalDetail && <DetailedView onClose={onClose} visible={visible} />}
+        {customApprovalDetail && (
+          <DetailedView onClose={onClose} visible={visible} />
+        )}
         <Drawer
           title={
             <h1
@@ -144,7 +171,7 @@ const CustomApproval = (props) => {
           }
           width="768"
           onClose={() => {
-            dispatch(handleOpenComposer(false))
+            dispatch(handleOpenComposer(false));
           }}
           visible={drawerOpen}
           destroyOnClose={true}

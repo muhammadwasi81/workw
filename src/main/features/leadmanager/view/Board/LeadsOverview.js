@@ -18,7 +18,7 @@ import {
 	handleContactDetailModal,
 	moveDetail,
 } from "../../store/slice";
-import LeadSectionSelect from "../../UI/Select/LeadSectionSelect";
+// import LeadSectionSelect from "../../UI/Select/LeadSectionSelect";
 import AvatarGroup from "../../../../sharedComponents/Avatar/avatar";
 function LeadsOverview() {
 	const { Option } = Select;
@@ -64,9 +64,9 @@ function LeadsOverview() {
 		targetSectionId,
 		currentIndex
 	) => {
-		console.log("current section id: ", currentSectionId);
-		console.log("target section id:", targetSectionId);
-		console.log("currentIndex:", currentIndex);
+		// console.log("current section id: ", currentSectionId);
+		// console.log("target section id:", targetSectionId);
+		// console.log("currentIndex:", currentIndex);
 		dispatch(
 			moveDetail({
 				sourceListId: currentSectionId,
@@ -152,31 +152,35 @@ function LeadsOverview() {
 														</div>
 													</div>
 													<div className="flex items-center justify-between">
-														<AvatarGroup
-															heading={"Members"}
-															membersData={
-																det?.members
-															}
-														/>
-														<Tooltip title="Select Assign Members">
-															<div
-																className="bg-primary-color rounded-full p-1 flex items-center"
-																onClick={e => {
-																	e.stopPropagation();
-																	e.preventDefault();
-																	dispatch(
-																		handleAssignMemberModal(
-																			{
-																				id:
-																					det?.id,
-																			}
-																		)
-																	);
-																}}
-															>
-																<PlusOutlined className="!text-[15px] !cursor-pointer !text-white" />
-															</div>
-														</Tooltip>
+														<div className="flex items-center">
+															<AvatarGroup
+																heading={
+																	"Members"
+																}
+																membersData={
+																	det?.members
+																}
+															/>
+															<Tooltip title="Select Assign Members">
+																<div
+																	className="bg-primary-color rounded-full p-1 flex items-center"
+																	onClick={e => {
+																		e.stopPropagation();
+																		e.preventDefault();
+																		dispatch(
+																			handleAssignMemberModal(
+																				{
+																					id:
+																						det?.id,
+																				}
+																			)
+																		);
+																	}}
+																>
+																	<PlusOutlined className="!text-[15px] !cursor-pointer !text-white" />
+																</div>
+															</Tooltip>
+														</div>
 														<div>
 															<Select
 																defaultValue={

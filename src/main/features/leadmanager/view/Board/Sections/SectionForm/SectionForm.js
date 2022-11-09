@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input, Radio, Select, Tag } from "antd";
 import { BiPencil, BiWorld } from "react-icons/bi";
 import {
@@ -7,17 +7,27 @@ import {
 	PhoneOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { leadSectionEnum } from "../../../../enum/enum";
+
+// import { leadSectionEnum } from "../../../../enum/enum";
 function SectionForm(props) {
+	const [form] = Form.useForm();
 	const Option = Select;
 	const loading = useSelector(state => state.leadMangerSlice.loading);
+	const success = useSelector(state => state.leadMangerSlice.success);
 	const leadManagerDetail = useSelector(
 		state => state.leadMangerSlice.leadManagerDetail
 	);
+	useEffect(() => {
+		if (success) {
+			form.resetFields();
+		}
+	}, [success]);
+
 	// console.log('leadManagerDetail?.leadManagerDetail?.sections',);
 	return (
 		<div className="bg-white p-3 rounded-sm">
 			<Form
+				form={form}
 				name="basic"
 				initialValues={{
 					typeId: 1,

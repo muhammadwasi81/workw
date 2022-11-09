@@ -13,6 +13,7 @@ export const getAllRewardService = data => {
 
 export const addRewardService = async(data) => {
 	const formData = jsonToFormData(data);
+	console.log(formData, "HELLO JEE")
 	return MasterConfig.post(`api/Reward/AddReward`, formData)
 		.then(res => {
 			return res;

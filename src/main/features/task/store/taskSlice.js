@@ -9,12 +9,16 @@ const initialState = {
   },
   task: {},
   loading: false,
+  drawerOpen: false,
 };
 
 export const taskSlice = createSlice({
   name: "task",
   initialState: initialState,
   reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     clearTaskById: (state) => {
       state.task = {};
     },
@@ -85,5 +89,9 @@ export const taskSlice = createSlice({
   },
 });
 
-export const { clearTaskById, changeOnProgress } = taskSlice.actions;
+export const {
+  clearTaskById,
+  changeOnProgress,
+  handleOpenComposer,
+} = taskSlice.actions;
 export default taskSlice.reducer;

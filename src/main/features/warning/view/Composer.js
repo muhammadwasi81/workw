@@ -128,7 +128,7 @@ const Composer = props => {
 		<>
 			<Form
 				form={form}
-				name="addBonus"
+				name="addWarning"
 				labelCol={{
 					span: 24,
 				}}

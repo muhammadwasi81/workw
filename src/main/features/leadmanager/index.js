@@ -68,16 +68,12 @@ function LeadManager() {
 				topBar={topBar}
 			/>
 			<ContBody className="!block" direction={Direction}>
-				{loading ? (
-					<Spinner />
-				) : (
-					<LeadDashboard
-						isTableView={isTableView}
-						dictionary={LeadManagerDictionaryList}
-						data={leadManagerData}
-						onChange={handleColumnSorting}
-					/>
-				)}
+				<LeadDashboard
+					isTableView={isTableView}
+					dictionary={LeadManagerDictionaryList}
+					data={leadManagerData}
+					onChange={handleColumnSorting}
+				/>
 			</ContBody>
 		</TabbableContainer>
 	);

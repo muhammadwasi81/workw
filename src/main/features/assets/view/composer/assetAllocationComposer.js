@@ -36,8 +36,9 @@ const initialState = {
 
 const AssetComposer = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, customApprovalDictionary } =
-    customApprovalDictionaryList[userLanguage];
+  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
+    userLanguage
+  ];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -69,14 +70,8 @@ const AssetComposer = () => {
 
   const changeData = (e) => {
     setInput(e);
-  };
-
-  const handleInputChange = () => {
-    if (input.length === 0) {
-      return message.error('Please select a value');
-    }
-    setData([...data, input]);
-    setInput('');
+    setData([...data, e]);
+    console.log(data, 'data');
   };
 
   const handleDelete = (index) => {
@@ -118,6 +113,10 @@ const AssetComposer = () => {
   }, [employees, inventoryAssets]);
 
   const onFinish = (values) => {
+    if (!values.handoverId || !values.assetItems) {
+      return message.error('Please fill all fields');
+    }
+
     let approvers = [];
     let assetItems = [];
 
@@ -168,6 +167,10 @@ const AssetComposer = () => {
     console.error('Failed:', errorInfo);
   };
 
+  let filteredAssetList = assetItemList.filter(
+    (item) => !data.includes(item.id) && !data.includes(item.name)
+  );
+
   return (
     <>
       <Form
@@ -188,9 +191,15 @@ const AssetComposer = () => {
       >
         <Form.Item
           name="handoverId"
-          label="Handover"
+          label="Members"
           showSearch={true}
           direction={Direction}
+          rules={[
+            {
+              required: true,
+              message: 'Please select Members',
+            },
+          ]}
         >
           <CustomSelect
             style={{ marginBottom: '0px' }}
@@ -233,7 +242,7 @@ const AssetComposer = () => {
           label={customApprovalDictionary.approvers}
           showSearch={true}
           direction={Direction}
-          rules={[{ required: true }]}
+          rules={[{ required: false }]}
         >
           <CustomSelect
             style={{ marginBottom: '0px' }}
@@ -263,82 +272,81 @@ const AssetComposer = () => {
             name="approvers"
             showSearch={true}
             direction={Direction}
-            rules={[
-              {
-                required: true,
-                message: 'Please Select Approver',
-              },
-            ]}
           />
         </Form.Item>
+        <Form.Item label="Description" name="description">
+          <Input.TextArea placeholder="Enter Description" />
+        </Form.Item>
         <Form.Item
-          label="Description"
-          name="description"
+          label="Please Select Item"
+          name="assetItems"
           rules={[
             {
               required: true,
-              message: 'Please Enter Description',
+              message: 'Please Select Item',
             },
           ]}
         >
-          <Input.TextArea placeholder="Enter Description" />
+          <Select
+            placeholder="Please Select Item"
+            style={{
+              width: '100%',
+              borderRadius: '5px',
+            }}
+            size="large"
+            onChange={(e) => changeData(e)}
+          >
+            {filteredAssetList.map((item) => (
+              <Select.Option key={item.id} value={item.id}>
+                <>
+                  <span>{item.name}</span>
+                  <span>{item.code}</span>
+                </>
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-        <Row gutter={[16, 16]}>
-          <Col span={12}>
-            <Form.Item
-              label="Please Select Item"
-              name="assetItems"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please Select Item',
-                },
-              ]}
-            >
-              <Select
-                placeholder="Please Select Item"
-                style={{
-                  width: '100%',
-                  borderRadius: '5px',
-                }}
-                size="large"
-                onChange={(e) => changeData(e)}
-              >
-                {assetItemList.map((item) => (
-                  <Select.Option key={item.id} value={item.id}>
-                    {data.includes(item.id) ? (
-                      <></>
-                    ) : (
-                      <>
-                        <span>{item.name}</span>
-                        <span>{item.code}</span>
-                      </>
-                    )}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Button
-              type="primary"
-              style={{
-                borderRadius: '5px',
-                width: '100%',
-                marginTop: '31px',
-                height: '40px',
-                backgroundColor: '#526bb1',
-                color: '#fff',
-                fontSize: '18px',
-              }}
-              onClick={handleInputChange}
-            >
-              <PlusOutlined />
-            </Button>
+
+        <Row>
+          <Col span={24}>
+            {data.length > 0 &&
+              data.map((item, index) => (
+                <div
+                  key={item.id}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    backgroundColor: '#f5f5f5',
+                    padding: '10px',
+                    borderRadius: '5px',
+                    marginBottom: '10px',
+                  }}
+                >
+                  <strong>
+                    {assetItemList.find((el) => el?.id === item)?.name}
+                    &nbsp;&nbsp;
+                    {assetItemList.find((el) => el?.id === item)?.code}
+                  </strong>
+                  <Button
+                    type="primary"
+                    size="medium"
+                    className="ThemeBtn"
+                    block
+                    style={{
+                      width: '45px',
+                      height: '35px',
+                      paddingBottom: '7px',
+                    }}
+                    onClick={() => handleDelete(index)}
+                  >
+                    <DeleteOutlined />
+                  </Button>
+                </div>
+              ))}
           </Col>
         </Row>
 
-        <Row>
+        {/* <Row>
           <Col span={24}>
             {data.map((item, index) => (
               <>
@@ -376,7 +384,7 @@ const AssetComposer = () => {
               </>
             ))}
           </Col>
-        </Row>
+        </Row> */}
         <Form.Item>
           <Button
             type="primary"

@@ -21,6 +21,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { Avatar, Card, Space, Button, Drawer } from "antd";
 import { toggleCreateComposer } from "../store/slice";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 const { Meta } = Card;
 
 const Department = (props) => {
@@ -107,7 +108,41 @@ const Department = (props) => {
           }}
         />
         <ContBody>
-          {departments?.length > 0 ? (
+               {
+                  loader && <Skeleton active={false} />
+                }
+
+               { 
+                  tableView &&
+                  <Table
+                    columns={tableColumn()}
+                    dragable={true}
+                    // handleChange={handleChange}
+                    // onPageChange={onPageChange}
+                    // onRow={onRow}
+                    data={departments}
+                    // status={travelStatus}
+                    // loadding={loader}
+                    // success={success}
+                    // onActionClick={onActionClick}
+                 />
+               }
+
+               {
+                  departments?.length > 0 && !loader && !tableView ? (
+                    <CardWrapper2>
+                    {departments.map((item, index) => {
+                      return (
+                        <>
+                          <ListItem item={item} id={item.id} key={index} />
+                        </>
+                      );
+                    })}
+                  </CardWrapper2>
+                  ):
+                   !loader && !tableView && <NoDataFound/>
+               }
+          {/* {departments?.length > 0 ? (
             tableView ? (
               <Table
                 columns={tableColumn()}
@@ -144,18 +179,18 @@ const Department = (props) => {
                     })}
                   </CardWrapper2>
                 )}
-                {/* <Skeleton loading={loading} avatar active>
+                <Skeleton loading={loading} avatar active>
                   <Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                     title="Card title"
                     description="This is the description"
                   />
-                </Skeleton> */}
-                {/* <CardWrapper2>
+                </Skeleton>
+                <CardWrapper2>
                   {[...Array(9)].map((item) => (
                     <Skeleton active={false} />
                   ))}
-                </CardWrapper2> */}
+                </CardWrapper2>
               </>
             )
           ) : (
@@ -168,7 +203,8 @@ const Department = (props) => {
                 );
               })}
             </CardWrapper2>
-          )}
+          )} 
+        */}
         </ContBody>
         <Drawer
           title={

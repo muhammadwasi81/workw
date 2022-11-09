@@ -1,4 +1,4 @@
-import { Button, Form } from 'antd';
+import { Button, Form, message, Select } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
@@ -6,32 +6,38 @@ import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
 import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
 import { customApprovalDictionaryList } from '../../../CustomApprovals/localization';
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { modifySelectData } from '../../../../../utils/base';
 import {
-  getAllAssetItemByUserId,
+  getAssetItemByUserId,
   updateAssetItems,
 } from '../../../createAssets/store/action';
+import '../styles.css';
 
 const initialState = {
   id: '',
-  description: '',
   handoverId: '',
-
+  approvers: [
+    {
+      approverId: '',
+      approverType: 0,
+      isDefault: true,
+      status: 1,
+      email: '',
+    },
+  ],
   assetItems: [
     {
       id: '',
       assetId: '',
       itemId: '',
       name: '',
+      code: '',
     },
   ],
 };
 
 const AssetDeAllocationComposer = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
-    userLanguage
-  ];
+  const { Direction } = customApprovalDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -40,15 +46,20 @@ const AssetDeAllocationComposer = () => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
+  const { assetItemByUserId } = useSelector((state) => state.AssetItemSlice);
+
   const employees = useSelector((state) => state.sharedSlice.employees);
-  const { inventoryAssets } = useSelector((state) => state.inventoryAssetSlice);
-  const { assetItemList } = useSelector((state) => state.AssetItemSlice);
-  console.log(assetItemList, 'assetItemList');
 
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
+    handleData(data);
   };
+
+  const handleData = (id) => {
+    dispatch(getAssetItemByUserId(id));
+  };
+
   useEffect(() => {
     fetchEmployees('', 0);
   }, []);
@@ -60,10 +71,14 @@ const AssetDeAllocationComposer = () => {
     });
   };
 
-  const fetchEmployees = (text, pgNo, id) => {
-    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
-    // call getAllAssetItemByUserId here and pass id as a parameter
-    dispatch(getAllAssetItemByUserId(id));
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(
+      getAllEmployees({
+        text,
+        pgNo,
+        pgSize: 20,
+      })
+    );
   };
 
   const [newState, setNewState] = useState({
@@ -78,22 +93,23 @@ const AssetDeAllocationComposer = () => {
   }, [employees]);
 
   const onFinish = (values) => {
-    // let assetItems = [];
-    // if (typeof values.assetItems === 'string') {
-    //   assetItems.push({
-    //     itemId: values.assetItems,
-    //   });
-    // } else {
-    //   assetItems = values.assetItems.map((assetItem) => {
-    //     return {
-    //       itemId: assetItem,
-    //     };
-    //   });
-    // }
-    let payload = {};
-    console.log('de-payload', payload);
-    // TODO: Later on we have to patch different APIs
-    dispatch(updateAssetItems(payload));
+    let assetItems = [];
+    assetItemByUserId.map((x) => {
+      assetItems.push({
+        id: x.id,
+        status: x.status,
+      });
+    });
+    if (!assetItemByUserId[0]?.id) {
+      return message.error('No Asset Items Found');
+    }
+    dispatch(
+      updateAssetItems({
+        id: assetItemByUserId[0]?.id,
+        status: values.status,
+      })
+    );
+    // dispatch(updateAssetItems(assetItems));
     setState(initialState);
     form.resetFields();
   };
@@ -106,7 +122,7 @@ const AssetDeAllocationComposer = () => {
     <>
       <Form
         form={form}
-        name="createAssetAllocation"
+        name="createAssetDeAllocation"
         labelCol={{
           span: 24,
         }}
@@ -121,13 +137,12 @@ const AssetDeAllocationComposer = () => {
         autoComplete="off"
       >
         <Form.Item
-          name="handoverId"
-          label="Select Members"
+          name="id"
+          label="Handover"
           showSearch={true}
           direction={Direction}
         >
           <CustomSelect
-            mode={'multiple'}
             style={{ marginBottom: '0px' }}
             data={firstTimeEmpData}
             selectedData={selectedData}
@@ -151,7 +166,7 @@ const AssetDeAllocationComposer = () => {
               );
             }}
             dataVal={value}
-            name="handoverId"
+            name="id"
             showSearch={true}
             direction={Direction}
             rules={[
@@ -162,29 +177,62 @@ const AssetDeAllocationComposer = () => {
             ]}
           />
         </Form.Item>
-
-        <table>
-          <thead>
-            <th>
-              <td>Category Name</td>
-              <td>Asset</td>
-              <td>Serial No</td>
-              <td>Select Status</td>
-            </th>
-          </thead>
-          <tbody>
-            {inventoryAssets.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td>{item.category}</td>
-                  <td>{item.name}</td>
-                  <td>{item.serialNo}</td>
+        <div className="createAssetEntryTable">
+          <div className="bg-white p-4 rounded-md overflow-x-auto">
+            <table>
+              <thead>
+                <tr className="tableWrapper">
+                  <th>Category Name</th>
+                  <th>Asset</th>
+                  <th>Serial No</th>
+                  <th>Select Status</th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-
+              </thead>
+              <tbody>
+                {assetItemByUserId?.length > 0 ? (
+                  assetItemByUserId?.map((x, i) => (
+                    <tr key={i} className="tableWrapper">
+                      <td>{x.category}</td>
+                      <td>{x.name}</td>
+                      <td>{x.serialNo}</td>
+                      <td>
+                        <Form.Item name="status">
+                          <Select
+                            style={{ width: '100%' }}
+                            placeholder="Select Status"
+                            defaultValue={x.status}
+                            onChange={(e) => {
+                              console.log('e', e);
+                              setNewState({
+                                ...newState,
+                                status: e,
+                              });
+                            }}
+                          >
+                            <Select.Option value={1}>
+                              Waiting For Approval
+                            </Select.Option>
+                            <Select.Option value={2}>
+                              Waiting For Handover
+                            </Select.Option>
+                            <Select.Option value={3}>Allocated</Select.Option>
+                            <Select.Option value={4}>Available</Select.Option>
+                          </Select>
+                        </Form.Item>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={4} className="text-center py-3">
+                      No Data Found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
         <Form.Item>
           <Button
             type="primary"

@@ -52,14 +52,16 @@ const AssetsListItem = (props) => {
         <div className="cardSections" style={{ marginTop: '30px' }}>
           <div className="cardSectionItem">
             <div className="cardSection__title">Category Name</div>
-            <div className="cardSection__body">{category}</div>
+            <div className="cardSection__body">
+              {category ? category : 'N/A'}
+            </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Qty</div>
             <div className="cardSection__body">{value}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Name</div>
+            <div className="cardSection__title">Handover</div>
             <div className="cardSection__body">{name}</div>
           </div>
           <div className="cardSectionItem">

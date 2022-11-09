@@ -41,7 +41,7 @@ export const tableColumn = () => {
     {
       title: "Date",
       dataIndex: "createDate",
-      render: (i) => moment(i.createDate).format("DD MMM YYYY"),
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
     },
 

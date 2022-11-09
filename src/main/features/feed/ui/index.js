@@ -16,13 +16,7 @@ import {
 	ReactionModuleEnum,
 } from "../../../../utils/Shared/enums/enums";
 import { PostReferenceType } from "../utils/constants";
-import scheduleIcon from "../../../../content/NewContent/Documents/file/quickIcons/schedulePlus.svg";
-import taskPlusIcon from "../../../../content/NewContent/Documents/file/quickIcons/taskPlus.svg";
-import expensePlusIcon from "../../../../content/NewContent/Documents/file/quickIcons/expensePlus.svg";
-import milePersatationIcon from "../../../../content/NewContent/Documents/file/quickIcons/mile-persatation plus.svg";
-import mileboardPlusIcon from "../../../../content/NewContent/Documents/file/quickIcons/mileboardPlus.svg";
-import milegridPlusIcon from "../../../../content/NewContent/Documents/file/quickIcons/milegridPlus.svg";
-import milepadPlusIcon from "../../../../content/NewContent/Documents/file/quickIcons/milepadPlus.svg";
+import QuickOptions from "./quickOptions";
 
 const NewsFeed = ({
 	referenceType = PostReferenceType.MAIN_FEED,
@@ -62,30 +56,23 @@ const NewsFeed = ({
 						/>
 					</div>
 				</div>
-				<div
-					className="rt-col"
-					style={{
-						display: "block",
-						height: "auto",
-						minHeight: "auto",
-					}}
-				>
-					<div className="quickIcons" >
-						<img src={scheduleIcon} className="w-[27px]" />
-						<img src={taskPlusIcon} className="w-[27px]" />
-						<img src={expensePlusIcon} className="w-[27px]" />
-						<img src={milePersatationIcon} className="w-[27px]" />
-						<img src={mileboardPlusIcon} className="w-[27px]" />
-						<img src={milegridPlusIcon} className="w-[27px]" />
-						<img src={milepadPlusIcon} className="w-[27px]" />
+				{isScheduler && (
+					<div
+						className="rt-col"
+						style={{
+							display: "block",
+							height: "auto",
+							minHeight: "auto",
+						}}
+					>
+						<>
+							<QuickOptions />
+							<div className="schedule" style={{ height: "60%" }}>
+								<Scheduler feed={true} />
+							</div>
+						</>
 					</div>
-					{isScheduler && (
-
-						<div className="schedule" style={{ height: "60%" }}>
-							<Scheduler feed={true} />
-						</div>
-					)}
-				</div>
+				)}
 			</ContBody>
 		</TabbableContainer>
 	);

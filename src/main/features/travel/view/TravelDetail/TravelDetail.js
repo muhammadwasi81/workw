@@ -77,6 +77,7 @@ function TravelDetail(props) {
 							refNo={travelDetail && travelDetail.referenceNo}
 							status={status || travelDetail?.status}
 							profileImgSize={40}
+							showIcon={false}
 						/>
 						<div className="flex justify-between flex-col gap-3">
 							<div className="flex flex-col gap-1">
@@ -92,9 +93,9 @@ function TravelDetail(props) {
 								</span>
 							</div>
 							<div>
-								<h3 className=" text-primary-color font-semibold">
+								{/* <h3 className=" text-primary-color font-semibold">
 									{headings.desctination}
-								</h3>
+								</h3> */}
 								<div
 									className={`flex overflow-x-auto gap-5 ${travelDetail
 										?.cities.length === 1 &&

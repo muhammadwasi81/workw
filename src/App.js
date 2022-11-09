@@ -50,9 +50,9 @@ const App = () => {
   const { isMobileScreen } = useSelector(
     ({ responsiveSlice }) => responsiveSlice
   );
-  const { token } = useSelector((state) => state.userSlice);
+  const userSlice = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
-  const isLoggedIn = !!token;
+  const isLoggedIn = !!userSlice.token;
   useEffect(() => {
     let defaultLanguage = window.localStorage.getItem("rcml-lang");
     if (!defaultLanguage) {
@@ -63,7 +63,7 @@ const App = () => {
 
   useEffect(() => {
     themeHandler(window.localStorage.getItem("darkMode") === "1");
-    isLoggedIn && InitMessengerSocket(dispatch, token);
+    isLoggedIn && InitMessengerSocket(dispatch, userSlice);
     // dispatch(openNotification({ message: "hello", duration: null }));
   }, []);
   const [activityCount /*setActivityCount*/] = useState(null);

@@ -15,37 +15,19 @@ const initialState = {
    currentChatBoxes: [],
    MessengerList: {},
    Conversations: [
-      {
-         id: createGuid(),
-         imageId: "",
-         image: "",
-         name: "Aqib Memon",
-         chatWith: {
-            name: "Aqib Memon",
-            image: "",
-         },
-      },
-      {
-         id: createGuid(),
-         imageId: "",
-         image: "",
-         name: "Salman Ahmed",
-         chatWith: {
-            name: "Salman Ahmed",
-            image: "",
-         },
-      },
-      {
-         id: createGuid(),
-         imageId: "",
-         image: "",
-         name: "Danish Khan",
-         chatWith: {
-            name: "Danish Khan",
-            image: "",
-         },
-      }
-   ]
+      // {
+      //    id: createGuid(),
+      //    imageId: "",
+      //    image: "",
+      //    name: "Aqib Memon",
+      //    chatWith: {
+      //       name: "Aqib Memon",
+      //       image: "",
+      //    },
+      // }
+   ],
+   loader:false,
+   success:false
 };
 
 export const messengerSlice = createSlice({
@@ -53,9 +35,8 @@ export const messengerSlice = createSlice({
    initialState: initialState,
    reducers: {
       receiveChatMessage: (state, { payload }) => {
-         const { chatMessage } = payload;
-         state.MessengerList[chatMessage.chatId] = state.MessengerList[chatMessage.chatId] ?
-            [...state.MessengerList[chatMessage.chatId], chatMessage] : [chatMessage]
+         state.MessengerList[payload.chatId] = state.MessengerList[payload.chatId] ?
+            [...state.MessengerList[payload.chatId], payload] : [payload]
       },
       handleIsopenChat: (state, { payload }) => {
          state.mobileIsopenChat = payload
@@ -127,6 +108,17 @@ export const messengerSlice = createSlice({
             //    messageByMe: true
             // }]
          })
+         .addMatcher(
+				isPending(
+					...[
+						createChat,
+					]
+				),
+				state => {
+					state.loader = true;
+					state.success = false;
+				}
+			)
    }
 })
 

@@ -11,7 +11,7 @@ import { getAllResignations } from "../store/action";
 import ListItem from "./listItem";
 import "./style.css"
 import DetailedView from "./detaileView";
-import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import { handleOpenComposer } from "../store/slice";
 import Composer from "./composer";
 import { tableColumn } from "./TableColumn";
@@ -19,7 +19,7 @@ import { ROUTES } from "../../../../utils/routes";
 
 const Resignation = props => {
   const dispatch = useDispatch()
-  const [filter, setFilter] = useState({ filterType: 1, search: "", pageNo: 0, pageSize: 20, sortBy: 1})
+  const [filter, setFilter] = useState({ filterType: 1, search: "", pageNo: 0, pageSize: 20, sortBy: 1 })
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
 
@@ -45,6 +45,19 @@ const Resignation = props => {
       to: `${ROUTES.RESIGNATION.RESIGNATION}`,
     },
   ];
+
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        console.log(record.id, "ID")
+        setDetailId(record.id)
+      },
+      onDoubleClick: (event) => { }, // double click row
+      onContextMenu: (event) => { }, // right button click row
+      onMouseEnter: (event) => { }, // mouse enter row
+      onMouseLeave: (event) => { }, // mouse leave row
+    };
+  };
 
   return (
     <>
@@ -93,65 +106,32 @@ const Resignation = props => {
           }}
         />
         <ContBody>
-          {items?.length > 0 ? (
-            tableView ? (
+            {
+              loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+            }
+
+            {
+              tableView &&
               <Table
                 columns={tableColumn()}
                 dragable={true}
                 data={items}
+                onRow={onRow}
               />
-            ) : (
-              <>
-                {loader ? (
-                  <>
-                    <Skeleton avatar paragraph={{ rows: 4 }} />
-                  </>
-                ) : (
-                  <CardWrapper>
-                    {items.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
-                        </>
-                      );
-                    })}
-                  </CardWrapper>
-                )}
-              </>
-            )
-          ) : (
-            <div className="flex items-center justify-center h-full w-full">
-              <img src={Nodata} />
-            </div>
-          )}
-          {/* {items?.length > 0 ? (
-            <>
-              {
-                loader === false ?
-                  <>
-                    {tableView ? <Table
-                      columns={tableColumn()}
-                      dragable={true}
-                      data={items}
-                    /> :
-                      <CardWrapper>
-                        {items.map((item, index) => {
-                          return (
-                            <>
-                              <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
-                            </>
-                          );
-                        })}
-                      </CardWrapper>
-                    }
-                  </>
-                  : <>
-                    <Skeleton avatar paragraph={{ rows: 4 }} />
-                  </>
+            }
 
-              }
-            </>) : <Skeleton avatar paragraph={{ rows: 4 }} />} */}
-        </ContBody>
+            {
+              items?.length > 0 && !loader && !tableView ? (
+                <CardWrapper>
+                  {items.map((item, index) => {
+                    return (
+                      <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
+                    );
+                  })}
+                </CardWrapper>
+              ) : !loader && !tableView && <NoDataFound />
+            }
+          </ContBody>
         {<DetailedView onClose={onClose} id={detailId} />}
 
         <Drawer

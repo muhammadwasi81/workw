@@ -202,8 +202,8 @@ const Composer = props => {
 		}
 
 
-		let payload = {...values, hr, it, finance, admin, other, exit, reportingTo, resignationDate: moment(values.resignationDate._d).format()};
-		
+		let payload = { ...values, hr, it, finance, admin, other, exit, reportingTo, resignationDate: moment(values.resignationDate._d).format() };
+
 		let image = {
 			id: STRINGS.DEFAULTS.guid,
 			file: profileImage && profileImage[0]?.originFileObj,
@@ -272,78 +272,80 @@ const Composer = props => {
 						}
 					</Select>
 				</Form.Item>
-
-				<Form.Item
-					label={"Type"}
-					name="type"
-					rules={[
-						{
-							required: true,
-							message: "Please Select Type",
-						},
-					]}
-				>
-					<Select
-						showSearch
-						placeholder="Select Type"
-						optionFilterProp="children"
-						style={{
-							width: "100%",
-							borderRadius: "5px",
-						}}
-						size="large"
-					>
-						{
-							ResignationTypeEnum.map((item) =>
-								<Option value={item.value}>{item.label}</Option>
-							)
-						}
-					</Select>
-				</Form.Item>
-
-				<Form.Item
-					name="userId"
-					label={"Select On Behalf"}
-					showSearch={true}
-					direction={Direction}
-					style={{ marginBottom: "0px" }}
-				>
-					<CustomSelect
-						style={{ marginBottom: "0px" }}
-						data={firstTimeEmpData}
-						selectedData={selectedData}
-						canFetchNow={isFirstTimeDataLoaded}
-						fetchData={fetchEmployees}
-						placeholder={"Select Members"}
-						mode={"multiple"}
-						isObject={true}
-						loadDefaultData={false}
-						optionComponent={opt => {
-							return (
-								<>
-									<Avatar
-										name={opt.name}
-										src={opt.image}
-										className="!bg-black"
-									>
-										{getNameForImage(opt.name)}
-									</Avatar>
-									{opt.name}
-								</>
-							);
-						}}
-						dataVal={value}
-						name="userId"
-						showSearch={true}
-						direction={Direction}
+				<div className="" style={{ display: 'flex' }}>
+					<Form.Item
+						label={"Type"}
+						name="type"
 						rules={[
 							{
 								required: true,
-								message: "Please Select Member",
+								message: "Please Select Type",
 							},
 						]}
-					/>
-				</Form.Item>
+						style={{width: "95%"}}
+					>
+						<Select
+							showSearch
+							placeholder="Select Type"
+							optionFilterProp="children"
+							style={{
+								width: "95%",
+								borderRadius: "5px",
+							}}
+							size="large"
+						>
+							{
+								ResignationTypeEnum.map((item) =>
+									<Option value={item.value}>{item.label}</Option>
+								)
+							}
+						</Select>
+					</Form.Item>
+
+					<Form.Item
+						name="userId"
+						label={"Select Member"}
+						showSearch={true}
+						direction={Direction}
+						style={{ marginBottom: "0px", width: "100%" }}
+					>
+						<CustomSelect
+							style={{ marginBottom: "0px" }}
+							data={firstTimeEmpData}
+							selectedData={selectedData}
+							canFetchNow={isFirstTimeDataLoaded}
+							fetchData={fetchEmployees}
+							// placeholder={"Select Members"}
+							mode={"multiple"}
+							isObject={true}
+							loadDefaultData={false}
+							optionComponent={opt => {
+								return (
+									<>
+										<Avatar
+											name={opt.name}
+											src={opt.image}
+											className="!bg-black"
+										>
+											{getNameForImage(opt.name)}
+										</Avatar>
+										{opt.name}
+									</>
+								);
+							}}
+							dataVal={value}
+							name="userId"
+							showSearch={true}
+							direction={Direction}
+							rules={[
+								{
+									required: true,
+									message: "Please Select Member",
+								},
+							]}
+						/>
+					</Form.Item>
+				</div>
 
 
 				<Form.Item

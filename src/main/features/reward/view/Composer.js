@@ -58,8 +58,6 @@ const Composer = (props) => {
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
-    // setMembers(obj);
-    // onChange(data, obj);
   };
   useEffect(() => {
     fetchEmployees("", 0);

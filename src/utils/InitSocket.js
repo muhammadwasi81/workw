@@ -26,15 +26,15 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 				avatarImage: data.creator.image
 			}));
 		}
-	}),
-		connection.on("ReceiveMessage", data => {
-			// console.log(data)
-			dispatch(receiveChatMessage(data));
-			dispatch(openNotification({
-				message: `${data.messageFrom.name} sent you a message ${data.chatMessage.message}`,
-				playSound: true,
-				avatarName: data.messageFrom.name,
-				avatarImage: data.messageFrom.image
-			}));
-		});
+	});
+	connection.on("ReceiveMessage", data => {
+		// console.log(data)
+		dispatch(receiveChatMessage(data));
+		dispatch(openNotification({
+			message: `${data.messageFrom.name} sent you a message ${data.chatMessage.message}`,
+			playSound: true,
+			avatarName: data.messageFrom.name,
+			avatarImage: data.messageFrom.image
+		}));
+	});
 };

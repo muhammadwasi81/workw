@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, isPending } from "@reduxjs/toolkit"
 import { createGuid, STRINGS } from "../../../../utils/base";
 import { createChat, getAllChats, searchConversation, sendChatMessage, getAllChatMessage } from "./actions";
 
@@ -111,7 +111,7 @@ export const messengerSlice = createSlice({
          .addMatcher(
 				isPending(
 					...[
-						createChat,
+						createChat
 					]
 				),
 				state => {

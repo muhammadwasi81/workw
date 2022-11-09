@@ -4,7 +4,7 @@ import { renderTitleWithMentions } from "../../../utils/base";
 import Avatar from "../Avatar/avatarOLD";
 import DotesIcon from "./assets/dotes.svg";
 function CommentBubble({ user, content, mentionedUser, date }) {
-  const { name, designation, image } = user;
+  const { name, designation = "", userImage:image="" } = user;
   let ts = moment.utc(date);
   ts.local().format("D-MMM-Y");
   return (

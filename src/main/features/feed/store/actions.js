@@ -34,7 +34,7 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
 			referenceType,
 			referenceId
 		);
-		console.log(postCompose);
+
 		const response = await saveCreatePost(requestDto);
 
 		// eslint-disable-next-line default-case

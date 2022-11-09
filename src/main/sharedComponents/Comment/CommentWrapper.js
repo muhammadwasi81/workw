@@ -1,8 +1,8 @@
 import { Skeleton } from "antd";
-import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { STRINGS } from "../../../utils/base";
+import { addReaction } from "../../features/feed/store/actions";
 import CommentItem from "./commentItem";
 import CommentComposer from "./Composer";
 import { getAllComment } from "./services";
@@ -17,13 +17,15 @@ function CommentWrapper({
 	initialMentions = [],
 	placeHolderReply,
 	loadSkeleton = false,
+	showComments = true,
+	isDetailViewOpen = true,
+	reactionModule,
 }) {
 	const [comments, setComments] = useState([]);
+	const dispatch = useDispatch();
 	const { user } = useSelector(state => state.userSlice);
 	useEffect(() => {
 		setComments([...initailComments]);
-		// if (initailComments.length > 0) {
-		// }
 	}, [JSON.stringify(initailComments)]);
 
 	useEffect(() => {
@@ -38,6 +40,16 @@ function CommentWrapper({
 
 	if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
 
+	const handleAddReaction = id => {
+		dispatch(
+			addReaction({
+				referenceId: id,
+				reactionModule,
+				reactionType: 1,
+			})
+		);
+	};
+
 	return (
 		<div className="commentWrapper">
 			<CommentComposer
@@ -49,47 +61,51 @@ function CommentWrapper({
 					commentRequestSuccess && commentRequestSuccess(comment);
 				}}
 			/>
-			<div className="comments">
-				{comments.map(
-					({
-						type,
-						comment,
-						creator = {
-							designation: "",
-							name: user.name,
-							image: user.userImage,
-						},
-						createDate = new Date(),
-						id: commentID,
-						referenceId,
-						mentions: mentionedUser,
-					}) => {
-						const { designation, name, image } = creator;
-						return (
-							<CommentItem
-								placeHolderReply={placeHolderReply}
-								initialMentions={initialMentions}
-								mentionedUser={mentionedUser}
-								module={module}
-								comment={{
-									content: comment,
-									parentId: commentID,
-									referenceId: referenceId,
-									type,
-									createDate,
-									youLikeType: 0,
-									likeCounter: 0,
-									creator: {
-										name,
-										image,
-										designation,
-									},
-								}}
-							/>
-						);
-					}
-				)}
-			</div>
+			{(showComments || isDetailViewOpen) && (
+				<div className="comments">
+					{comments.map(
+						({
+							type,
+							comment,
+							creator = {
+								designation: user.designation || "",
+								name: user.name,
+								image: user.userImage,
+							},
+							createDate = new Date(),
+							id: commentID,
+							referenceId,
+							mentions: mentionedUser,
+						}) => {
+							const { designation, name, image } = creator;
+							return (
+								<CommentItem
+									user={user}
+									placeHolderReply={placeHolderReply}
+									initialMentions={initialMentions}
+									mentionedUser={mentionedUser}
+									module={module}
+									handleLike={handleAddReaction}
+									comment={{
+										content: comment,
+										parentId: commentID,
+										referenceId: referenceId,
+										type,
+										createDate,
+										youLikeType: 0,
+										likeCounter: 0,
+										creator: {
+											name,
+											image,
+											designation,
+										},
+									}}
+								/>
+							);
+						}
+					)}
+				</div>
+			)}
 		</div>
 	);
 }

@@ -10,7 +10,7 @@ import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
 import { useParams } from "react-router-dom";
 
-function Warnings() {
+function Warnings({ userId = null }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { teamDictionary } = teamDictionaryList[userLanguage];
@@ -22,8 +22,10 @@ function Warnings() {
   } = useSelector((state) => state.teamSlice);
   const { id } = useParams();
 
+  let myId = userId ? userId : id;
+
   useEffect(() => {
-    dispatch(getAllWarningAction(id));
+    dispatch(getAllWarningAction(myId));
   }, []);
   const columns = [
     {

@@ -1,6 +1,10 @@
 // import { jsonToFormData } from "../../../../utils/base";
 import { jsonToFormData } from "../../../../utils/base";
 import MasterConfig from "../../../../utils/services/MasterConfig";
+import {
+	ResponseResultError,
+	ResponseResultSuccess,
+  } from "../../../../utils/api/ResponseResult";
 
 export const getAllResignationService = data => {
 	return MasterConfig.post(`api/Resignation/GetAllResignation`, data)
@@ -32,3 +36,15 @@ export const getResignationyByIdService = id => {
 			return res;
 		});
 };
+
+export const cancelResignationService = async (id) => {
+	try {
+	  const {
+		data: { responseCode, data, message },
+	  } = await MasterConfig.delete(`api/Resignation/ResignationCancel?resignationId=${id}`);
+	  if (responseCode === 1001) return ResponseResultSuccess(data);
+	  return ResponseResultError(message);
+	} catch (e) {
+	  return ResponseResultError(e);
+	}
+  };

@@ -15,6 +15,20 @@ const resignationSlice = createSlice({
     handleOpenComposer: (state, { payload }) => {
       state.drawerOpen = payload
     },
+    cancelResignationSuccess: (state, { payload }) => {
+      let tasks = [...state.taskList.list];
+      let index = tasks.findIndex((item) => item.id === payload.taskId);
+      let task = tasks.filter((item) => item.id === payload.taskId)[0];
+      tasks[index] = {
+        ...task,
+        status: 5,
+      };
+      state.taskList.list = tasks;
+      state.task = {
+        ...task,
+        status: 5,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllResignations.fulfilled, (state, action) => {
@@ -43,5 +57,5 @@ const resignationSlice = createSlice({
 
 });
 
-export const { handleOpenComposer } = resignationSlice.actions;
+export const { handleOpenComposer, cancelResignationSuccess } = resignationSlice.actions;
 export default resignationSlice.reducer;

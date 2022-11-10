@@ -53,11 +53,12 @@ const Department = (props) => {
   useEffect(() => {
     dispatch(
       getAllDepartments({
-        filter,
+        // filter,
+        pageSize: 20,
         search,
       })
     );
-  }, [filter, search]);
+  }, [search]);
 
   // useEffect(()=>{
 
@@ -85,10 +86,7 @@ const Department = (props) => {
           ]}
         />
         <TopBar
-          // onSearch={onSearch}
-          onSearch={(value) => {
-            console.log(value);
-          }}
+          onSearch={(val) => setSearch(val)}
           // buttons={[
           //   {
           //     name: "Departments",
@@ -111,40 +109,36 @@ const Department = (props) => {
           }}
         />
         <ContBody>
-               {
-                  loader && <Skeleton active={false} />
-                }
+          {loader && <Skeleton active={false} />}
 
-               { 
-                  tableView &&
-                  <Table
-                    columns={tableColumn()}
-                    dragable={true}
-                    // handleChange={handleChange}
-                    // onPageChange={onPageChange}
-                    // onRow={onRow}
-                    data={departments}
-                    // status={travelStatus}
-                    // loadding={loader}
-                    // success={success}
-                    // onActionClick={onActionClick}
-                 />
-               }
+          {tableView && (
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              // handleChange={handleChange}
+              // onPageChange={onPageChange}
+              // onRow={onRow}
+              data={departments}
+              // status={travelStatus}
+              // loadding={loader}
+              // success={success}
+              // onActionClick={onActionClick}
+            />
+          )}
 
-               {
-                  departments?.length > 0 && !loader && !tableView ? (
-                    <CardWrapper2>
-                    {departments.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem item={item} id={item.id} key={index} />
-                        </>
-                      );
-                    })}
-                  </CardWrapper2>
-                  ):
-                   !loader && !tableView && <NoDataFound/>
-               }
+          {departments?.length > 0 && !loader && !tableView ? (
+            <CardWrapper2>
+              {departments.map((item, index) => {
+                return (
+                  <>
+                    <ListItem item={item} id={item.id} key={index} />
+                  </>
+                );
+              })}
+            </CardWrapper2>
+          ) : (
+            !loader && !tableView && <NoDataFound />
+          )}
           {/* {departments?.length > 0 ? (
             tableView ? (
               <Table

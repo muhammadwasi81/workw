@@ -77,8 +77,8 @@
   padding-left: 10px;
 }
 .careersDetailCard .careersSections {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 100%;
 }
 .careersDetailCard div {

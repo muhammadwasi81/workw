@@ -88,13 +88,13 @@ const MyApprovalCard = (props) => {
         </CardWrapper>
       )}
 
-      {table && (
+      {/* {table && (
         <Table
           columns={tableColumn()}
           dragable={true}
           data={careers ? careers : []}
         />
-      )}
+      )} */}
     </>
   );
 };

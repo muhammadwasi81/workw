@@ -1,4 +1,4 @@
-import { createSlice, isPending } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   getAllAssetItems,
   addAssetItem,
@@ -14,7 +14,7 @@ const initialState = {
   loader: false,
   success: false,
   error: false,
-  modalSuccess: false,
+  drawerOpen: false,
 };
 
 export const AssetItemSlice = createSlice({
@@ -23,6 +23,10 @@ export const AssetItemSlice = createSlice({
   reducers: {
     clearAssetDetail: (state) => {
       state.assetsDetail = null;
+    },
+    clearModalDetail: (state) => {
+      state.assetsDetail = null;
+      console.log(state.assetsDetail, 'modalSuccess');
     },
   },
   extraReducers: (builder) => {
@@ -52,10 +56,12 @@ export const AssetItemSlice = createSlice({
         console.log(payload.data, 'getAllAssetItemByUserId slice');
       })
       .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
-        state.modalSuccess = true;
+        console.log(payload, 'updateAssetItemSlice');
+        // state.success = true;
+        state.drawerOpen = true;
+        console.log(state.drawerOpen, 'state.drawerOpen');
         state.loader = false;
         state.assetItemList = payload;
-        console.log(payload, 'updateAssetItemSlice');
       })
       .addCase(getAllAssetItemByPagination.fulfilled, (state, { payload }) => {
         state.assetItemByPagination = payload;
@@ -70,7 +76,6 @@ export const AssetItemSlice = createSlice({
             addAssetItem,
             getAssetItemDetailById,
             getAssetItemByUserId,
-            getAllAssetItemByPagination,
             updateAssetItems,
           ]
         ),
@@ -78,10 +83,25 @@ export const AssetItemSlice = createSlice({
           state.loader = true;
           state.success = false;
           state.error = false;
-          state.modalSuccess = false;
+          state.success = false;
+        }
+      )
+      .addMatcher(
+        isRejected(
+          ...[
+            getAllAssetItems,
+            addAssetItem,
+            getAssetItemDetailById,
+            getAssetItemByUserId,
+          ]
+        ),
+        (state) => {
+          state.loading = false;
+          state.success = false;
+          state.error = true;
         }
       );
   },
 });
-export const { clearAssetDetail } = AssetItemSlice.actions;
+export const { clearAssetDetail, clearModalDetail } = AssetItemSlice.actions;
 export default AssetItemSlice.reducer;

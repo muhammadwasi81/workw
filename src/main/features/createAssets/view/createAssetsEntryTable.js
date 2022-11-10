@@ -58,7 +58,6 @@ const CreateAssetsEntryTable = () => {
 
   const defaultRows = 12;
   const defaultEntry = {
-    id: '',
     approvers: '',
     inventoryName: '',
     inventoryValue: '',
@@ -90,34 +89,42 @@ const CreateAssetsEntryTable = () => {
   };
 
   const createPayload = () => {
-    let payload = {
-      approvers: entries[0].approvers,
-      name: entries[0].inventoryName,
-      value: Number(entries[0].inventoryValue)
-        ? Number(entries[0].inventoryValue)
-        : 0,
-      serialNo: entries[0].serialNo,
-      categoryId: entries[0].category,
-      type: Number(entries[0].type),
-      image: { id: DEFAULT_GUID, file: profileImage },
-      handoverId: entries[0].handoverId,
-    };
-    console.log(payload, payload.handoverId, 'payload');
-    return payload;
+    const filteredAssetsDataData = entries.filter(
+      (item) => item.inventoryName !== ''
+    );
+    console.log(filteredAssetsDataData, 'filteredAssetsDataData');
+    const payloadData = filteredAssetsDataData.map((item) => {
+      return {
+        inventoryName: item.inventoryName,
+        inventoryValue: item.inventoryValue,
+        serialNo: item.serialNo,
+        category: item.category,
+        type: item.type,
+        image: { id: DEFAULT_GUID, file: profileImage },
+        handoverId: item.handoverId,
+        approvers: item.approvers,
+      };
+    });
+    console.log(payloadData, 'payloadData');
+    return { list: payloadData };
   };
 
   const handleSubmit = () => {
-    if (!entries[0].inventoryName || !entries[0].inventoryValue) {
-      return message.error('Please fill all the fields');
+    if (
+      entries.every((item) => item.inventoryName === '') ||
+      entries.every((item) => item.inventoryValue === '') ||
+      entries.every((item) => item.serialNo === '')
+    ) {
+      return message.error('Please fill at least one row');
     }
     let payload = createPayload();
+    console.log(payload, 'payload');
     dispatch(addAssetItem(payload));
     setEntries(initialEntries);
   };
 
   return (
     <div className="createEntryTable">
-      <div className="flex justify-between items-center my-2 bg-white px-4 py-2 rounded-md"></div>
       <div className="bg-white p-4 rounded-md overflow-x-auto">
         <table>
           <CreateAssetHead />

@@ -69,7 +69,11 @@ function ListItem(props) {
               : description
           }
         />
-        <Meta description={`Created By: ${creator?.name}`} />
+        <Meta
+          description={`Created By: ${
+            creator?.name ? creator.name : "Not Found"
+          }`}
+        />
 
         <div className="approversBox">
           <Avatar

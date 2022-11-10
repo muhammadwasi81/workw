@@ -7,7 +7,7 @@ import moment from "moment";
 
 function CoverDetail(props) {
   // console.log("cover details props", props);
-  const { name, members, description, creator } = props.data;
+  const { name, members, description, creator, createDate } = props.data;
   //TODO: add dynamic data when api respond proper data
   return (
     <WhiteCard className={"z-10 sticky top-0 w-full mt-[-87px] shadow-md"}>

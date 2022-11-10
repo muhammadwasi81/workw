@@ -19,12 +19,18 @@ import ForApprovalCard from "./ForApprovalCard/index";
 import Composer from "./Composers/index";
 import { ROUTES } from "../../../../utils/routes";
 import "../view/styles/style.css";
+import { Table } from "../../../sharedComponents/customTable";
+import { tableColumn } from "./TableColumn";
 
 function Careers() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
+  const careers = useSelector((state) => {
+    return state.careerSlice.items;
+  });
   const { drawerOpen } = useSelector((state) => state.careerSlice);
+  const [sort, setSort] = useState(1);
   const [search, setSearch] = useState("");
   const { labels } = CareerDictionaryList;
   const [view, setView] = useState("List");
@@ -49,6 +55,7 @@ function Careers() {
       let payload = {
         filterType: 0,
         search: search,
+        sortBy: sort,
       };
       dispatch(getAllCareerAction(payload));
     } else {
@@ -60,10 +67,11 @@ function Careers() {
             ? 2
             : null,
         search: search,
+        sortBy: sort,
       };
       dispatch(getAllCareerAction(payload));
     }
-  }, [CurrentTab, search]);
+  }, [CurrentTab, search, sort]);
 
   let RenderTab = {
     careers: <CareerCard view={view} />,
@@ -73,6 +81,14 @@ function Careers() {
 
   const segmentChange = (val) => {
     setView(val);
+  };
+
+  const handleColumnSorting = () => {
+    if (sort === 1) {
+      setSort(2);
+    } else {
+      setSort(1);
+    }
   };
 
   return (
@@ -98,7 +114,17 @@ function Careers() {
           segment={(val) => segmentChange(val)}
           onSearch={(val) => setSearch(val)}
         />
-        <ContBody>{RenderTab[CurrentTab]}</ContBody>
+        <ContBody>
+          {RenderTab[CurrentTab]}
+          {view === "Table" && (
+            <Table
+              columns={tableColumn()}
+              handleChange={handleColumnSorting}
+              dragable={true}
+              data={careers ? careers : []}
+            />
+          )}
+        </ContBody>
         <Drawer
           title={
             <h1

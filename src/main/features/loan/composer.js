@@ -231,7 +231,16 @@ const Composer = () => {
       <Form.Item label="DatePicker" name="deadline">
         <DatePicker />
       </Form.Item>
-      <Form.Item label="Approvers" name="approvers">
+      <Form.Item
+        label="Approvers"
+        name="approvers"
+        rules={[
+          {
+            required: true,
+            message: "Approvers Required!!",
+          },
+        ]}
+      >
         <MemberSelect
           name="managerId"
           mode="multiple"

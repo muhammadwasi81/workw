@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import moment from "moment";
 import "./style.css";
 import { CareerStatusEnum } from "../../utils/enums";
@@ -8,6 +8,8 @@ import { CareerDictionary } from "../../localization";
 import Attachments from "../../../travel/view/UI/Attachments";
 import CustomModal from "../../../workboard/Modal/CustomModal";
 import AttachmentsCarrousel from "../../../travel/view/AttachmentsCarrousel/AttachmentsCarrousel";
+import { getEnumValue } from "../../../../../utils/base";
+import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 
 const ApplicantDetail = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -28,8 +30,6 @@ const ApplicantDetail = (props) => {
     attachments,
   } = props.data;
 
-  // const { path } = attachments[0];
-  // console.log(path);
   return (
     <>
       <div className="item careersQuickDetail">
@@ -41,11 +41,12 @@ const ApplicantDetail = (props) => {
             <div className="text-xs">{email}</div>
           </div>
           <div className="text-[16px] text-m text-sky-900">
-            {CareerStatusEnum.map((item) => {
+            {/* {CareerStatusEnum.map((item) => {
               if (item.value === status) {
                 return item.label;
               }
-            })}
+            })} */}
+            {<StatusTag status={status} />}
           </div>
         </div>
         <div className="mt-4">

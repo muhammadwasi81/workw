@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Tag, Image } from "antd";
+import { Tag, Image, Button } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { resignationDictionaryList } from "../localization/index";
@@ -18,7 +18,7 @@ import {
     ApprovalsModule,
     ApprovalStatus,
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
-import { GetResignationById } from "../store/action";
+import { cancelResignationAction, GetResignationById } from "../store/action";
 import { ResignationPurposeEnum, ResignationTypeEnum } from "../enums";
 import DetailTabs from "./detailTabs";
 
@@ -40,10 +40,6 @@ function DetailCard(props) {
         console.log("runing")
     }, [props.id]);
 
-    console.log(detail, "DETAIL")
-
-    console.log(updatedStatus, "UPDATE STATUS")
-
     const {
         creator = {},
         description,
@@ -59,11 +55,11 @@ function DetailCard(props) {
         createDate,
     } = detail;
 
-    // const handleCancel = (e, payload) => {
-    //     e.preventDefault()
-    //     e.stopPropagation();
-    //     dispatch(cancelReward(payload));
-    // }
+    const handleCancel = (e, payload) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dispatch(cancelResignationAction(payload));
+      };
 
     const isTablet = false;
 
@@ -85,6 +81,9 @@ function DetailCard(props) {
                                 <StatusTag
                                     status={updatedStatus ? updatedStatus.Approvers : status}
                                 ></StatusTag>
+                                {/* <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>
+                                    Cancel
+                                </Button> */}
                                 {/* {
                                 userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
                                     "" : ""

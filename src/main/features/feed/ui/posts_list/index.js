@@ -12,6 +12,7 @@ function PostsList({ referenceType, referenceId, reactionModule }) {
 	const feedSlice = useSelector(state => state.feedSlice);
 	const [pageNo, setPageNo] = useState(1);
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		dispatch(
 			getAllFeed({

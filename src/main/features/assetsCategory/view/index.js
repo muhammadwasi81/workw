@@ -33,7 +33,7 @@ const AssetsCategory = () => {
         parentId: e.parentId,
       };
       console.log(payload, 'payload');
-      // dispatch(addAssetCategory(payload));
+      dispatch(addAssetCategory(payload));
       setAssets(initialState);
     }
   };

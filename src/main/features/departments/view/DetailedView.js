@@ -30,6 +30,7 @@ function DetailedView(props) {
     status,
     members = [],
     approvers,
+    createDate,
   } = departmentDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
@@ -53,8 +54,8 @@ function DetailedView(props) {
               name={creator.name}
               Subline={
                 <SublineDesigWithTime
-                  designation={"ReactJs Developer"}
-                  time="7 days ago"
+                  designation={creator?.designation}
+                  time={createDate}
                 />
               }
             />

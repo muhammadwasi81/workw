@@ -11,7 +11,7 @@ const expenseSlice = createSlice({
     drawerOpen: false,
   },
   reducers: {
-    handleOpenComposer: (state, { payload }) => {
+    handleOpenExpenseComposer: (state, { payload }) => {
       state.drawerOpen = payload;
     },
     toggleCreateComposer: (state, payload) => {
@@ -38,7 +38,9 @@ const expenseSlice = createSlice({
       .addCase(addExpense.fulfilled, (state, { payload: { data } }) => {
         if (data) {
           state.expenses.unshift(data);
+
           state.isCreateComposer = true;
+          state.drawerOpen = false;
         }
       })
       .addCase(getAllExpense.fulfilled, (state, { payload: { data } }) => {
@@ -67,6 +69,6 @@ export const {
   toggleCreateComposer,
   clearExpense,
   updateListExpenseStatus,
-  handleOpenComposer,
+  handleOpenExpenseComposer,
 } = expenseSlice.actions;
 export default expenseSlice.reducer;

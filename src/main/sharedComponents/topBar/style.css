@@ -105,7 +105,7 @@
   }
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 600px) {
   .topBar {
     gap: 10px;
     align-items: flex-start;
@@ -113,7 +113,7 @@
 
   .topBar__inner {
     flex-direction: column;
-    width: 100%;
+    /* width: 100%; */
     gap: 5px;
   }
 

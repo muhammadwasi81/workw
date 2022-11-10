@@ -77,3 +77,15 @@ export const updateUserTaskMemberProgressService = async (request) => {
     return ResponseResultError(e);
   }
 };
+
+export const cancelTaskService = async (id) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.delete(`api/UserTask/UserTaskCancel?taskId=${id}`);
+    if (responseCode === 1001) return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};

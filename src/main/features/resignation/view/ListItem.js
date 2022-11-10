@@ -1,173 +1,136 @@
 import { Image, Tag } from "antd";
 import React, { useContext } from "react";
-//import { rewardDictionaryList } from "../localization/index";
-//import { loanDictionaryList } from "./localization/index";
-//import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { resignationDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import ResignationDefaultIcon from "../../../../content/svg/menu/newNavBarIcon/resignation.svg";
 import moment from "moment";
-import {
-  ItemContent,
-  ItemHeader,
-  SingleItem,
-} from "../../../sharedComponents/Card/CardStyle";
+import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import { useDispatch } from "react-redux";
+import { ResignationPurposeEnum, ResignationTypeEnum } from "../enums";
 
 function ListItem(props) {
-  //const { userLanguage } = useContext(LanguageChangeContext);
-  //const { Direction, rewardDictionary } = loanDictionaryList[userLanguage];
+    const disptach = useDispatch();
+    const { userLanguage } = useContext(LanguageChangeContext);
+    const { Direction, resignationDictionary } = resignationDictionaryList[userLanguage];
 
-  return (
-    <>
-      <SingleItem>
-        <div
-          className="new"
-          style={{ cursor: "pointer" }}
-          id={props.id}
-          onClick={() => {
-            props.getRewardId(props.id);
-          }}
-        ></div>
-        <ItemHeader>
-          <div className="left">
-            <UserInfo
-              avatarSrc={""}
-              name={"Daniyal Khan"}
-              Subline={
-                <SublineDesigWithTime
-                  designation={"Default Designation"}
-                  time={moment().format("DD/MM/YYYY")}
-                />
-              }
-            />
-          </div>
-          <div className="right">
-            <Tag className="IdTag">{"RT-786565"}</Tag>
-            <StatusTag status={1}></StatusTag>
-          </div>
-        </ItemHeader>
-        <ItemContent className="flex">
-          <div className="description w-96">
-            <p>
-              {
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and "
-              }
-            </p>
-          </div>
-        </ItemContent>
-        {/* <div className="flex justify-between">
-          <div className="innerCard w-full">
-            <div className="innerCard__header">
-              <div className="left block">
-                Deduction Per Month :
-                <div className="" style={{ color: "#757D86" }}>
-                  {"category"}
-                </div>
-              </div>
-              <div className="right">
-                <div className="left block">
-                  Deadline :
-                  <div className="" style={{ color: "#757D86" }}>
-                    {"Sun, "}
-                  </div>
-                </div>
-              </div>
-              <div className="right">
-                <div className="left">
-                  Name :
-                  <span className="" style={{ color: "#757D86" }}>
-                    {"name"}
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="innerCard__footer">
-              <div className="left">
-                Reason :
-                <span className="" style={{ color: "#757D86" }}>
-                  {"reason"}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div> */}
+    const {
+        creator,
+        description,
+        finance,
+        image = ResignationDefaultIcon,
+        purposeId,
+        type,
+        user,
+        it,
+        approvers = [],
+        status,
+        referenceNo,
+        createDate,
+    } = props.item;
 
-        <div className="ListItemInner">
-          <div className="ItemDetails">
-            <div className="innerDiv">
-              <span className="!text-black font-extrabold smallHeading">
-                {"Deduction per month"}
-              </span>
-              <Tag className="IdTag !bg-transparent !text-left">
-                {"584.332"}
-              </Tag>
-            </div>
-            <div className="innerDiv">
-              <span className="!text-black font-extrabold smallHeading">
-                {"Deadline"}
-              </span>
-              {/* <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Members"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              /> */}
-              <Tag className="IdTag !bg-transparent">{"Sun, May, 2020"}</Tag>
-            </div>
-            <div className="innerDiv">
-              <span className="!text-black font-extrabold smallHeading">
-                {"Amount"}
-              </span>
-              {/* <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Approvers"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              /> */}
-              <Tag className="IdTag !bg-transparent">{"200,000"}</Tag>
-            </div>
-          </div>
-        </div>
+    const localTime = moment.utc(createDate).local().format();
 
-        <div className="ListItemInner">
-          <div className="ItemDetails">
-            <div className="innerDiv">
-              {
-                <span className="text-black font-extrabold smallHeading">
-                  {/* {rewardDictionary.rewardTo} */}
-                  Avatar
-                </span>
-              }
-              {
-                // <Avatar
-                //   isAvatarGroup={true}
-                //   isTag={false}
-                //   heading={"Members"}
-                //   membersData={members}
-                //   text={"Danish"}
-                //   image={"https://joeschmoe.io/api/v1/random"}
-                // />
-              }
-            </div>
-            <div className="innerDiv">
-              <span className="text-black font-extrabold smallHeading">
-                {/* {rewardDictionary.approvers} */}
-                Approvers
-              </span>
-              {/* <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"approvers"}
-                membersData={approvers ? approvers : []}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              /> */}
-            </div>
-          </div>
-        </div>
-      </SingleItem>
-    </>
-  );
+    return (
+        <>
+            <SingleItem onClick={props.onClick}>
+                <div className="new" id={props.id}></div>
+                <ItemHeader>
+                    <div className="left">
+                        <UserInfo
+                            avatarSrc={creator?.image}
+                            name={creator?.name}
+                            Subline={<SublineDesigWithTime designation={creator?.designation ? creator?.designation : ""} time={moment(localTime).fromNow()} />}
+                        />
+                    </div>
+                    <div className="right">
+                        <Tag className="IdTag">
+                            {referenceNo && referenceNo}</Tag>
+                        <StatusTag status={status && status}></StatusTag>
+                    </div>
+                </ItemHeader>
+                <ItemContent className="flex">
+                    <div className="description w-full">
+                        <p>{description}</p>
+                    </div>
+                    <div className="attachmentBox">
+                        <Image preview={false} width={60} height={60} src={image === "" ? ResignationDefaultIcon : image} />
+                    </div>
+                </ItemContent>
+                <div className="cardSections">
+                    <div className="cardSectionItem">
+                        <div className="cardSection__title">{"Reason"}</div>
+                        <div className="cardSection__body">
+                            {
+                                ResignationPurposeEnum.map((item) => {
+                                    if (item.value === purposeId) {
+                                        return item.label;
+                                    }
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className="cardSectionItem">
+                        <div className="cardSection__title">
+                            {
+                                ResignationTypeEnum.map((item) => {
+                                    if (item.value === type) {
+                                        return item.label;
+                                    }
+                                })
+                            }
+                        </div>
+                        <div className="cardSection__body tagDiv">
+                            {user &&
+                                <div className="singleTag">
+                                    { 
+                                        user.image ?  <div className="imageDiv">
+                                        <img src={user.image} />
+                                    </div> : "" }
+                                    <div className="tagText">
+                                        <p>{user.name}</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div className="cardSectionItem">
+                        <div className="cardSection__title">{"Finance"}</div>
+                        <div className="cardSection__body">
+                            {finance &&
+                                <Avatar
+                                    isAvatarGroup={true}
+                                    isTag={false}
+                                    heading={"approvers"}
+                                    membersData={finance}
+                                    text={"approvers"}
+                                    image={"https://joeschmoe.io/api/v1/random"}
+                                />
+                            }
+                        </div>
+                    </div>
+                    <div className="cardSectionItem">
+                        <div className="cardSection__title">{"IT"}</div>
+                        <div className="cardSection__body">
+                            {it &&
+                                <Avatar
+                                    isAvatarGroup={true}
+                                    isTag={false}
+                                    heading={"approvers"}
+                                    membersData={it ? it : []}
+                                    text={"Approvers"}
+                                    image={"https://joeschmoe.io/api/v1/random"}
+                                />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </SingleItem>
+        </>
+    );
 }
 
 export default ListItem;

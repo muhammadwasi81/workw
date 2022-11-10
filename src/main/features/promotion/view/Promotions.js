@@ -15,11 +15,14 @@ import { getAllPromotions, GetPromotionById } from "../store/actions";
 import TableView from "./TableView";
 import { CardWrapper } from "../../../layout/GridStyle";
 
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
 
 const Promotion = props => {
 	const dispatch = useDispatch();
@@ -49,9 +52,19 @@ const Promotion = props => {
 	useEffect(() => {
 		dispatch(getAllPromotions(filter));
 	}, [filter]);
+
+	const items = [
+		{
+		  name: 'Promotions',
+		  to: `${ROUTES.PROMOTION}`,
+		  renderButton: [1],
+		},
+	  ];
+
 	return (
 		<TabbableContainer className="max-width-1190">
 			<Header
+				items={items}
 				buttons={[
 					{
 						buttonText: "Create Promotion",
@@ -102,52 +115,39 @@ const Promotion = props => {
 					label2: "Table",
 				}}
 			/>
-			<ContBody>
-				{promotions && promotions.length > 0 ? (
-					tableView ? (
-						<div>
-							<Table
-								columns={tableColumn()}
-								dragable={false}
-								data={promotions}
-							/>
-						</div>
-					) : (
-						<>
-							{loader ? (
-								<>
-									<Skeleton avatar paragraph={{ rows: 4 }} />
-								</>
-							) : (
-								<CardWrapper>
-									{promotions.map((item, index) => {
-										return (
-											<>
-												<ListItem
-													getPromotionId={
-														getPromotionId
-													}
-													item={item}
-													id={item.id}
-													key={index}
-												/>
-											</>
-										);
-									})}
-								</CardWrapper>
-							)}
-						</>
-					)
-				) : (
-					"Data not found"
-				)}
-			</ContBody>
+		<ContBody>
+			{
+                loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+            }
 
-			<DetailedView
-				onClose={onClose}
-				visible={visible}
-				id={promotionId}
-			/>
+            {
+				tableView &&
+				<Table
+				columns={tableColumn()}
+				dragable={true}
+				data={promotions}
+				/>
+            }
+
+			{
+				promotions?.length > 0 && !loader && !tableView ? (
+				<CardWrapper>
+					{promotions.map((item, index)  => {
+					return (
+						<ListItem
+						    getPromotionId={getPromotionId}
+							item={item}
+							id={item.id}
+							key={index}
+						/>
+					);
+					})}
+				</CardWrapper>
+				) : !loader && !tableView && <NoDataFound />
+
+			}
+		</ContBody>
+		{promotionDetail && (<DetailedView onClose={onClose} visible={visible} />)}
 
 			<Drawer
 				title={

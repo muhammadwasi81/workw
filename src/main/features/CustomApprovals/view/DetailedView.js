@@ -62,6 +62,7 @@ function DetailedView(props) {
       onClose={props.onClose}
       visible={props.visible}
       className="detailedViewComposer drawerSecondary"
+      destroyOnClose={true}
     >
       <div className="detailedCard ">
         <ItemHeader>

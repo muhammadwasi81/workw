@@ -1,13 +1,15 @@
-import React from "react";
+import React from 'react';
 
 export default function PolicyDetail({ item }) {
+
     return (
+
         <div className="approvalDetail" >
             <div className="policyHeader colorTheme">
                 Description
             </div>
             {/* <PolicyItem item={item} /> */}
-            <div className="item-card" >
+            <div className="item-card">
                 <div className="!flex !flex-row" >
                     <div className="row flex-1 !w-max !mb-0 font-bold" >
                         {item.name}

@@ -4,7 +4,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
 
-function Courses() {
+function Courses({ userId = null }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const { teamDictionary } = teamDictionaryList[userLanguage];
@@ -22,6 +22,9 @@ function Courses() {
       key: "date",
     },
   ];
+
+  let myId = userId ? userId : id;
+  
   return (
     <>
       <TeamTable

@@ -85,7 +85,7 @@ const CommentComposer = ({
 		if (event.keyCode === 13 || event.which === 13) {
 			event.preventDefault();
 			if (state.commentText.length > 0) {
-				console.log("state", state);
+				// console.log("state", state);
 				const prevText = state.commentText;
 				setState(defaultState);
 				// setState(preValue => ({
@@ -124,8 +124,8 @@ const CommentComposer = ({
 	}, [search]);
 
 	return (
-		<div className="commentComposer">
-			<div className="img">
+		<div className="commentComposer !mb-0">
+			<div className="">
 				<Avatar
 					name={name}
 					width={30}

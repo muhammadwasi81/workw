@@ -1049,6 +1049,13 @@
     text-decoration: underline;
 }
 
+.share-feed__content .ant-popover-inner-content{
+    padding: 10px 5px;
+}
+.share-feed__content .ant-popover-inner{
+    border-radius: 5px;
+}
+
 @media screen and (max-width: 500px) {
     .post>.post-header>.top-det>.user-det>.name>span {
         color: #007af5;

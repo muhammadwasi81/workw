@@ -1,13 +1,13 @@
 // Constants Values
 export const DEFAULT_MAX_POLL_OPTIONS = 4;
 export const FeedFilterTypeEnum = {
-	Post: 1,
-	Poll: 2,
-	Attachment: 3,
-	Tag: 4,
+	posts: 1,
+	polls: 2,
+	docs: 3,
+	tagged: 4,
 	Department: 5,
-	Image: 6,
-	Video: 7,
+	photos: 6,
+	videos: 7,
 };
 
 // Enums

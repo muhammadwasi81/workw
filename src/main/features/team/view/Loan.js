@@ -9,7 +9,7 @@ import { teamDictionaryList } from "../localization/index";
 import moment from "moment";
 import { useParams } from "react-router-dom";
 
-function Loan() {
+function Loan({ userId = null }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
@@ -22,8 +22,10 @@ function Loan() {
 
   const { id } = useParams();
 
+  let myId = userId ? userId : id;
+  console.log("WORKING HERE")
   useEffect(() => {
-    dispatch(getAllLoanAction(id));
+    dispatch(getAllLoanAction(myId));
   }, []);
   const columns = [
     {

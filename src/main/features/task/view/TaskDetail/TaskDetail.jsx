@@ -71,6 +71,7 @@ function TaskDetail(props) {
               isTaskMember={true}
               isRatingDisable={false}
               changeOnProgress={handleProgressChange}
+              isDetail={true}
             />
           }
           <div className="comments">

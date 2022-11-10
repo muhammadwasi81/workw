@@ -31,6 +31,12 @@ const en = {
       description: "Description",
       startDate: " Start Date",
       endtDate: " End Date",
+      notStarted: "NotStarted",
+      inProcess: "InProcess",
+
+      completed: "Completed",
+      ratingAssign: "RatingAssign",
+      cancelled: "Cancelled",
     },
   },
   Direction: "ltr",

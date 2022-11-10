@@ -19,3 +19,15 @@
 .tagDiv {
     margin-top: 3px;
 }
+.detailTabs {
+    margin-top: 15px;
+    background: none !important;
+    padding: 0px !important;
+}
+.ApproversRow {
+    margin-top: 10px;
+}
+.approval {
+    margin-top: 10px;
+    padding-left: 10px;
+}

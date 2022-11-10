@@ -8,6 +8,9 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import customApprovalIcon from "../../../../content/svg/menu/newNavBarIcon/Custom Approval.svg";
 import { PieChartOutlined } from "@ant-design/icons";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
+import Attachments from "../../travel/view/UI/Attachments";
+import "./style/customApproval.css";
+
 import {
   ItemContent,
   ItemHeader,
@@ -64,14 +67,21 @@ function ListItem(props) {
             <StatusTag status={status}></StatusTag>
           </div>
         </ItemHeader>
-        <ItemContent className="flex">
+        <ItemContent className="item-content flex">
           <div className="description w-full">
             <p>{description}</p>
           </div>
-          <div className="attachmentBox" style={{ width: "75px" }}>
-            {attachments.map((i) => {
+          <div className="!w-max m-4 ml-auto attachmentBox">
+            <Attachments
+              data={attachments}
+              key={{ data: attachments }}
+              toShow={3}
+              onClick={() => {}}
+              size={"50px"}
+            />
+            {/* {attachments.map((i) => {
               return <img width={"100%"} src={i.path} />;
-            })}
+            })} */}
           </div>
         </ItemContent>
         <div className="cardSections">

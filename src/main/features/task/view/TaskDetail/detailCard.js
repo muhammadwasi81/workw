@@ -20,6 +20,12 @@ import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper"
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { taskDictionary } from "../../localization";
+import {
+  ApprovalsModule,
+  ApprovalStatus,
+} from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import { cancelTaskAction } from "../../store/actions";
+import { Drawer, Image, Button } from "antd";
 
 function TaskDetail() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -32,9 +38,23 @@ function TaskDetail() {
     dispatch(getTaskById(id));
   }, []);
   const taskDetail = useSelector((state) => state.taskSlice.taskdetail);
+  const { user } = useSelector((state) => state.userSlice);
+  let userId = user.id;
+  console.log(userId, "userid");
 
   if (!taskDetail) return <div></div>;
-
+  let {
+    InProcess,
+    Approved,
+    Declined,
+    Resend,
+    Inactive,
+    NotRequired,
+    Cancelled,
+    ApprovalRequired,
+    Hold,
+    NoStatus,
+  } = ApprovalStatus;
   const {
     subject,
     description,
@@ -45,10 +65,18 @@ function TaskDetail() {
     progress,
     members,
     creator,
+    status,
+    predecessor,
   } = taskDetail;
 
   let classes = "card-list-item ";
   classes += Direction === "rtl" ? "rtl" : "ltr";
+  const handleCancel = (e, payload) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(cancelTaskAction(payload));
+  };
+
   return (
     <TabbableContainer>
       <ContBody>
@@ -65,7 +93,7 @@ function TaskDetail() {
                         ? creator.designation
                         : "Not Designated"
                     }
-                  // time="2 days ago"
+                    // time="2 days ago"
                   />
                 }
               />
@@ -79,6 +107,9 @@ function TaskDetail() {
                 <span className="taskID">{referenceNo}</span>
                 <span className="priority high">{labels.high}</span>
               </div>
+              <Button className="ThemeBtn" onClick={(e) => handleCancel(e, id)}>
+                Cancel
+              </Button>
             </div>
           </div>
 
@@ -128,7 +159,7 @@ function TaskDetail() {
                                         </div> */}
                     <div className="column-item-head">
                       <span>{labels.predecessor}</span>
-                      <div className="st-tag"> Helpers UI </div>
+                      <div className="st-tag"> {predecessor} </div>
                     </div>
 
                     <div className="column-item-head">

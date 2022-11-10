@@ -20,6 +20,7 @@ import {
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
 import { GetResignationById } from "../store/action";
 import { ResignationPurposeEnum, ResignationTypeEnum } from "../enums";
+import DetailTabs from "./detailTabs";
 
 function DetailCard(props) {
     const { userLanguage } = useContext(LanguageChangeContext);
@@ -69,113 +70,146 @@ function DetailCard(props) {
     return (
         <>
             {detail.id && (
-                <div id={props.id} className="detailedViewComposer">
-                    <ItemHeader>
-                        <div className="left">
-                            <UserInfo
-                                avatarSrc={creator.image}
-                                name={creator.name}
-                                Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
-                            />
-                        </div>
-                        <div className="right">
-                            <Tag className="IdTag">{referenceNo}</Tag>
-                            <StatusTag
-                                status={updatedStatus ? updatedStatus.Approvers : status}
-                            ></StatusTag>
-                            {/* {
+                <>
+                    <div id={props.id} className="detailedViewComposer">
+                        <ItemHeader>
+                            <div className="left">
+                                <UserInfo
+                                    avatarSrc={creator.image}
+                                    name={creator.name}
+                                    Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+                                />
+                            </div>
+                            <div className="right">
+                                <Tag className="IdTag">{referenceNo}</Tag>
+                                <StatusTag
+                                    status={updatedStatus ? updatedStatus.Approvers : status}
+                                ></StatusTag>
+                                {/* {
                                 userId === creator.id ? status != Declined && status != Resend && status != Approved ? <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
                                     "" : ""
                             } */}
-                        </div>
-                    </ItemHeader>
-                    <ItemContent className="flex">
-                        <div className="description w-full">
-                            <p>{description}</p>
-                        </div>
-                        <div className="attachmentBox" style={{ width: "65px", height: "60px" }}>
-                            <Image preview={false} width={60} src={image === "" ? ResignationDefaultIcon : image} />
-                        </div>
-                    </ItemContent>
-                    <div className="cardSections">
-                        <div className="cardSectionItem">
-                            <div className="cardSection__title">{"Reason"}</div>
-                            <div className="cardSection__body">
-                                {
-                                    ResignationPurposeEnum.map((item) => {
-                                        if (item.value === purposeId) {
-                                            return item.label;
-                                        }
-                                    })
-                                }
                             </div>
-                        </div>
-                        <div className="cardSectionItem">
-                            <div className="cardSection__title">
-                                {
-                                    ResignationTypeEnum.map((item) => {
-                                        if (item.value === type) {
-                                            return item.label;
-                                        }
-                                    })
-                                }
+                        </ItemHeader>
+                        <ItemContent className="flex">
+                            <div className="description w-full">
+                                <p>{description}</p>
                             </div>
-                            <div className="cardSection__body tagDiv">
-                                {user &&
-                                    <div className="singleTag">
-                                        <div className="imageDiv">
-                                            <img src={user.image} />
+                            <div className="attachmentBox" style={{ width: "65px", height: "60px" }}>
+                                <Image preview={false} width={60} src={image === "" ? ResignationDefaultIcon : image} />
+                            </div>
+                        </ItemContent>
+                        <div className="cardSections">
+                            <div className="cardSectionItem">
+                                <div className="cardSection__title">{"Reason"}</div>
+                                <div className="cardSection__body">
+                                    {
+                                        ResignationPurposeEnum.map((item) => {
+                                            if (item.value === purposeId) {
+                                                return item.label;
+                                            }
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            <div className="cardSectionItem">
+                                <div className="cardSection__title">
+                                    {
+                                        ResignationTypeEnum.map((item) => {
+                                            if (item.value === type) {
+                                                return item.label;
+                                            }
+                                        })
+                                    }
+                                </div>
+                                <div className="cardSection__body tagDiv">
+                                    {user &&
+                                        <div className="singleTag">
+                                            {
+                                                user.image ? <div className="imageDiv">
+                                                    <img src={user.image} />
+                                                </div> : ""}
+                                            <div className="tagText">
+                                                <p>{user.name}</p>
+                                            </div>
                                         </div>
-                                        <div className="tagText">
-                                            <p>{user.name}</p>
-                                        </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
+                            </div>
+                            <div className="cardSectionItem">
+                                <div className="cardSection__title">{"Finance"}</div>
+                                <div className="cardSection__body">
+                                    {finance &&
+                                        <Avatar
+                                            isAvatarGroup={true}
+                                            isTag={false}
+                                            heading={"approvers"}
+                                            membersData={finance}
+                                            text={"approvers"}
+                                            image={"https://joeschmoe.io/api/v1/random"}
+                                        />
+                                    }
+                                </div>
+                            </div>
+                            <div className="cardSectionItem">
+                                <div className="cardSection__title">{"IT"}</div>
+                                <div className="cardSection__body">
+                                    {it &&
+                                        <Avatar
+                                            isAvatarGroup={true}
+                                            isTag={false}
+                                            heading={"approvers"}
+                                            membersData={it ? it : []}
+                                            text={"Approvers"}
+                                            image={"https://joeschmoe.io/api/v1/random"}
+                                        />
+                                    }
+                                </div>
                             </div>
                         </div>
-                        <div className="cardSectionItem">
-                            <div className="cardSection__title">{"Finance"}</div>
-                            <div className="cardSection__body">
-                                {finance &&
-                                    <Avatar
-                                        isAvatarGroup={true}
-                                        isTag={false}
-                                        heading={"approvers"}
-                                        membersData={finance}
-                                        text={"approvers"}
-                                        image={"https://joeschmoe.io/api/v1/random"}
-                                    />
-                                }
-                            </div>
-                        </div>
-                        <div className="cardSectionItem">
-                            <div className="cardSection__title">{"IT"}</div>
-                            <div className="cardSection__body">
-                                {it &&
-                                    <Avatar
-                                        isAvatarGroup={true}
-                                        isTag={false}
-                                        heading={"approvers"}
-                                        membersData={it ? it : []}
-                                        text={"Approvers"}
-                                        image={"https://joeschmoe.io/api/v1/random"}
-                                    />
-                                }
-                            </div>
-                        </div>
+
                     </div>
-                    <RemarksApproval
-                        module={ApprovalsModule.RequisitionApproval}
-                        status={status}
-                        onStatusChanged={statusChanged => {
-                            setUpdatedStatus(statusChanged)
-                            console.log(statusChanged)
-                        }
-                        }
-                        data={approvers}
-                        title="Approvers"
-                    />
-                </div>
+                    <DetailTabs
+                        detailId={props.id}
+                        RemarksApproval={
+                            <>
+                                <RemarksApproval
+                                    module={ApprovalsModule.RequisitionApproval}
+                                    status={status}
+                                    onStatusChanged={statusChanged => {
+                                        setUpdatedStatus(statusChanged)
+                                        console.log(statusChanged)
+                                    }
+                                    }
+                                    data={approvers}
+                                    title={approvers && approvers.length === 0 ? "No Approvers available" : "Approvers"}
+                                    className="ApproversRow"
+                                />
+                                <RemarksApproval
+                                    module={ApprovalsModule.RequisitionApproval}
+                                    status={status}
+                                    onStatusChanged={statusChanged => {
+                                        setUpdatedStatus(statusChanged)
+                                        console.log(statusChanged)
+                                    }
+                                    }
+                                    data={finance}
+                                    title="Finance"
+                                />
+                                <RemarksApproval
+                                    module={ApprovalsModule.RequisitionApproval}
+                                    status={status}
+                                    onStatusChanged={statusChanged => {
+                                        setUpdatedStatus(statusChanged)
+                                        console.log(statusChanged)
+                                    }
+                                    }
+                                    data={it}
+                                    title="IT"
+                                />
+                            </>
+                        } />
+                </>
             )}
         </>
     );

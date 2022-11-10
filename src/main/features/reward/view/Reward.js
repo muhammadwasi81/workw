@@ -55,7 +55,6 @@ const Reward = (props) => {
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
-        console.log(record.id, "ID");
         setDetailId(record.id);
       },
       onDoubleClick: (event) => {}, // double click row

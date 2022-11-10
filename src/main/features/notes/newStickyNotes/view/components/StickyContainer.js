@@ -79,12 +79,12 @@ const StickyContainer = () => {
   };
 
   //*****window size******
-  const { height, width } = useWindowDimensions();
-  console.log(width, height, "widthhh");
+  // const { height, width } = useWindowDimensions();
+  // console.log(width, height, "widthhh");
 
   const axis = {
-    x_axis: Math.floor(Math.random() * 40) + width,
-    y_axis: Math.floor(Math.random() * 40) + height,
+    x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+    y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
   };
   // const axis = {
   //   x_axis: width * 50,
@@ -92,7 +92,7 @@ const StickyContainer = () => {
   // };
   return (
     <>
-      <Draggable defaultPosition={{ x: axis.x_axis }} handle=".handle">
+      <Draggable defaultPosition={{ x: 11, y: 456 }} handle=".handle">
         <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>
           <div className="sticky-header handle">
             <div className="left_Icon">

@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllFeed } from "../../store/actions";
 import { useEffect, useState } from "react";
 import PostSkeleton from "./post/skeleton/post";
-import { ReactionModuleEnum } from "../../../../../utils/Shared/enums/enums";
+// import { ReactionModuleEnum } from "../../../../../utils/Shared/enums/enums";
 import Scroll from "../../../../sharedComponents/ScrollSelect/infinteScoll";
 
 function PostsList({ referenceType, referenceId, reactionModule }) {
-	const { userSlice, feedSlice } = useSelector(state => state);
+	// const { userSlice, feedSlice } = useSelector(state => state);
+	const userSlice = useSelector(state => state.userSlice);
+	const feedSlice = useSelector(state => state.feedSlice);
 	const [pageNo, setPageNo] = useState(1);
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -26,6 +28,7 @@ function PostsList({ referenceType, referenceId, reactionModule }) {
 
 	if (feedSlice.allFeed.loading && posts.length === 0)
 		return <PostSkeleton />;
+
 	return (
 		<div className="newsList">
 			{!posts.length > 0 ? (

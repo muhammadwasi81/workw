@@ -28,9 +28,11 @@ export const addAssetItemService = async (payload = {}) => {
   const formData = jsonToFormData(payload);
   try {
     const response = await Config.post(`/api/InventoryItem/AddItem`, formData);
-    message.success('Asset Item Added Successfully');
-    console.log(response, 'addAssetItemService');
-    return ResponseResultSuccess(response.data);
+    if (!response.data) {
+      return ResponseResultError(response.data);
+    } else {
+      return ResponseResultSuccess(response.data);
+    }
   } catch (error) {
     return ResponseResultError(error);
   }

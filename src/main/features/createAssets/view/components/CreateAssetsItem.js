@@ -115,13 +115,7 @@ const CreateAssetsItem = ({
         <CustomSelect
           style={{ marginBottom: '0px' }}
           data={employeesShortData}
-          selectedData={(value, row) =>
-            handleChange(
-              row.map((item) => ({ handoverId: item.id })),
-              'handoverId',
-              index
-            )
-          }
+          selectedData={(value) => handleChange(value[0], 'handoverId', index)}
           canFetchNow={employeesShortData && employeesShortData.length > 0}
           fetchData={fetchEmployeesShort}
           sliceName="employeeShort"
@@ -145,7 +139,7 @@ const CreateAssetsItem = ({
             );
           }}
           dataVal={[]}
-          name="Employee"
+          name="handover"
           showSearch={true}
         />
       </td>

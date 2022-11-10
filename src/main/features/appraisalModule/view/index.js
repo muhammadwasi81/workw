@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { BrokenPage } from "../../../../utils/base";
 import Appraisals from "./appraisal";
 
-import "./style.css";
+// import "./style.css";
 
 const Index = () => {
   return (

@@ -12,14 +12,14 @@ const AssetsCategory = () => {
   const initialState = {
     name: '',
     description: '',
-    accountId: '',
-    parentName: '',
+    accountName: '',
+    parentId: '',
   };
   const [clearButton, setClearButton] = useState(false);
   const [assets, setAssets] = useState(initialState);
 
   const handleSubmit = (e) => {
-    if (!e.name || !e.description || !e.accountId || !e.parentName) {
+    if (!e.name || !e.description) {
       return message.error('Please fill all required fields');
     }
     if (e.id) {
@@ -32,7 +32,8 @@ const AssetsCategory = () => {
         accountName: e.accountName,
         parentId: e.parentId,
       };
-      dispatch(addAssetCategory(payload));
+      console.log(payload, 'payload');
+      // dispatch(addAssetCategory(payload));
       setAssets(initialState);
     }
   };

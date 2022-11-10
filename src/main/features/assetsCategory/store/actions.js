@@ -31,7 +31,7 @@ export const addAssetCategory = createAsyncThunk(
   async (args, { dispatch }) => {
     const res = await addAssetCategoryService(args);
     if (res.responseCode && res.responseCode === responseCode.Success) {
-      message.success('Category added successfully!');
+      message.success('Category Added successfully!');
       responseMessage({ dispatch, data: res });
     } else {
       message.error(res.message);
@@ -46,7 +46,7 @@ export const updateAssetCategory = createAsyncThunk(
     const res = await updateAssetCategoryService(args);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        res.message = 'Asset Category updated successfully!';
+        message.success('Category updated successfully!');
       responseMessage({ dispatch, data: res });
       if (res.responseCode === responseCode.Error) message.error(res.message);
     } else {

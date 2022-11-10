@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import userIcon from '../../../../../content/NewContent/NavBar/UserSettingToggle/userIcon.svg';
-import userLogout from '../../../../../content/NewContent/NavBar/UserSettingToggle/userLogout.svg';
-import userSettings from '../../../../../content/NewContent/NavBar/UserSettingToggle/userSettings.svg';
+import userIcon from '../../../../../content/NewContent/NavBar/UserSettingToggle/profileIcon.svg';
+import userLogout from '../../../../../content/NewContent/NavBar/UserSettingToggle/logoutIcon.svg';
+import userSettings from '../../../../../content/NewContent/NavBar/UserSettingToggle/settingsIcon.svg';
 import { STRINGS, logout } from '../../../../../utils/base';
 import { NavLink } from 'react-router-dom';
 import { FontSizeOutlined } from '@ant-design/icons';
@@ -14,10 +14,6 @@ import {
   ThemeColorEnum,
 } from '../../../../../utils/Shared/enums/enums';
 import { ROUTES } from '../../../../../utils/routes';
-import { SettingFilled } from '@ant-design/icons';
-import { Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { LogoutOutlined } from '@ant-design/icons';
 
 function UserDetailsDropDown({ id, isToggle }) {
   const getCurrentTheme = () => {
@@ -73,41 +69,18 @@ function UserDetailsDropDown({ id, isToggle }) {
       <ul className="list">
         <li className="list__item">
           <NavLink to={`${ROUTES.USER.LINK}${id}`}>
-            {/* <img src={userIcon} alt="userIcon" /> */}
-            <Avatar
-              icon={
-                <UserOutlined
-                  style={{ position: 'absolute', top: ' 5px', left: ' 5px' }}
-                />
-              }
-              size={20}
-              style={{
-                backgroundColor: '#000000',
-                verticalAlign: 'middle',
-              }}
-            />
+            <img src={userIcon} alt="userIcon" loading="lazy" />
             <p>{Profile}</p>
           </NavLink>
         </li>
         <li className="list__item">
           <NavLink to={`${STRINGS.ROUTES.USER.SETTINGS}`}>
-            {/* <img src={userLogout} alt="userSettings" /> */}
-            <SettingFilled
-              style={{
-                fontSize: '16px',
-              }}
-            />
+            <img src={userLogout} alt="userSettings" loading="lazy" />
             <p>{Settings}</p>
           </NavLink>
         </li>
         <li className="list__item" onClick={logout}>
-          {/* <img src={userLogout} alt="userSettings" />
-           */}
-          <LogoutOutlined
-            style={{
-              fontSize: '16px',
-            }}
-          />
+          <img src={userSettings} alt="userSettings" loading="lazy" />
           <p>{Logout}</p>
         </li>
       </ul>

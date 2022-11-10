@@ -3,7 +3,7 @@ const turkish = {
 
 	composer: {
 		Whatsonyourmind: "Aklınızdan ne geçiyor",
-		Write: "Yazmak",
+		Write: "ile birlikte",
 		WriteYourName: "İsmini yaz",
 		Poll: "Anket",
 		Documents: "Belgeler",

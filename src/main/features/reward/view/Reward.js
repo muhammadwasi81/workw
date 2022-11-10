@@ -22,6 +22,7 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 import { ROUTES } from "../../../../utils/routes";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 const Reward = props => {
   const { visible } = props;
@@ -54,7 +55,6 @@ const Reward = props => {
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
-        console.log(record.id, "ID")
         setDetailId(record.id)
       },
       onDoubleClick: (event) => { }, // double click row
@@ -139,7 +139,43 @@ const Reward = props => {
           }}
         />
         <ContBody>
-          {rewards?.length > 0 ? (
+               {
+                  loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+                }
+
+               { 
+                  tableView &&
+                    <Table
+                      columns={tableColumn()}
+                      dragable={true}
+                      handleChange={handleColumnSorting}
+                      data={rewards}
+                      onRow={onRow}
+
+                    />
+               }
+
+              {
+                rewards?.length > 0 && !loader && !tableView ? (
+                  <CardWrapper>
+                    {rewards.map((item, index) => {
+                      return (
+                        <>
+                          <ListItem
+                            item={item}
+                            id={item.id}
+                            key={index}
+                            onClick={() => setDetailId(item.id)}
+                          />
+                        </>
+                      );
+                    })}
+                  </CardWrapper>
+                ):
+                !loader && !tableView && <NoDataFound/>
+              }
+
+          {/* {rewards?.length > 0 ? (
             tableView ? (
               <Table
                 columns={tableColumn()}
@@ -175,7 +211,7 @@ const Reward = props => {
             )
           ) : (
             <Skeleton avatar paragraph={{ rows: 4 }} />
-          )}
+          )} */}
         </ContBody>
         {<DetailedView onClose={onClose} id={detailId} />}
 

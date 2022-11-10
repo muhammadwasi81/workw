@@ -15,6 +15,8 @@ import { getAllPromotions, GetPromotionById } from "../store/actions";
 import TableView from "./TableView";
 import { CardWrapper } from "../../../layout/GridStyle";
 
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
@@ -113,52 +115,39 @@ const Promotion = props => {
 					label2: "Table",
 				}}
 			/>
-			<ContBody>
-				{promotions && promotions.length > 0 ? (
-					tableView ? (
-						<div>
-							<Table
-								columns={tableColumn()}
-								dragable={false}
-								data={promotions}
-							/>
-						</div>
-					) : (
-						<>
-							{loader ? (
-								<>
-									<Skeleton avatar paragraph={{ rows: 4 }} />
-								</>
-							) : (
-								<CardWrapper>
-									{promotions.map((item, index) => {
-										return (
-											<>
-												<ListItem
-													getPromotionId={
-														getPromotionId
-													}
-													item={item}
-													id={item.id}
-													key={index}
-												/>
-											</>
-										);
-									})}
-								</CardWrapper>
-							)}
-						</>
-					)
-				) : (
-					"Data not found"
-				)}
-			</ContBody>
+		<ContBody>
+			{
+                loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+            }
 
-			<DetailedView
-				onClose={onClose}
-				visible={visible}
-				id={promotionId}
-			/>
+            {
+				tableView &&
+				<Table
+				columns={tableColumn()}
+				dragable={true}
+				data={promotions}
+				/>
+            }
+
+			{
+				promotions?.length > 0 && !loader && !tableView ? (
+				<CardWrapper>
+					{promotions.map((item, index)  => {
+					return (
+						<ListItem
+						    getPromotionId={getPromotionId}
+							item={item}
+							id={item.id}
+							key={index}
+						/>
+					);
+					})}
+				</CardWrapper>
+				) : !loader && !tableView && <NoDataFound />
+
+			}
+		</ContBody>
+		{promotionDetail && (<DetailedView onClose={onClose} visible={visible} />)}
 
 			<Drawer
 				title={

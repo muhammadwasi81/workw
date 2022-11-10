@@ -6,7 +6,10 @@ import {
   addNewTaskService,
   getAllTaskService,
   getTaskByIdService,
+  cancelTaskService,
 } from "../utils/services/service";
+import { cancelTaskSuccess } from "./taskSlice";
+import { useDispatch } from "react-redux";
 
 export const addNewTask = createAsyncThunk(
   "task/addNewTask",
@@ -58,6 +61,28 @@ export const getTaskById = createAsyncThunk(
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+export const cancelTaskAction = createAsyncThunk(
+  "task/cancelTaskAction",
+  async (id, { rejectWithValue, dispatch }) => {
+    const response = await cancelTaskService(id);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            message: response.message,
+            type: "error",
+            duration: 2,
+          })
+        );
+        dispatch(cancelTaskSuccess({ taskId: id }));
         return response.data;
       default:
         return;

@@ -10,6 +10,7 @@ const Index = () => {
     <Routes>
       <Route path="/" element={<Appraisals />} />
       {/* <Route path="/create" element={<CreateQuotation />} /> */}
+      <Route path="submitAppraisal" element={<Appraisals />} />
       <Route element={<BrokenPage />} />
     </Routes>
   );

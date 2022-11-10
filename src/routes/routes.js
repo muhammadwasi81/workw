@@ -204,7 +204,7 @@ export const routes = {
       component: lazy(() => import("../main/features/bonus/view/Bonus")),
     },
     {
-      path: `${ROUTES.HR.APPRAISALS.DEFAULT}`,
+      path: `${ROUTES.APPRAISALS.DEFAULT}`,
       component: lazy(() =>
         import("../main/features/appraisalModule/view/index")
       ),

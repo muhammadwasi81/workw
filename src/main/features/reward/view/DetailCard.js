@@ -73,7 +73,6 @@ function RewardDetailCard(props) {
   };
 
   const isTablet = false;
-
   return (
     <>
       {rewardDetail.id && (

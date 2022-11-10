@@ -20,6 +20,7 @@ import {
   ItemContent,
   ItemHeader,
 } from "../../../sharedComponents/Card/CardStyle";
+import Attachments from "../../travel/view/UI/Attachments";
 
 function DetailedView(props) {
   const [updatedStatus, setUpdatedStatus] = useState(null);
@@ -81,16 +82,23 @@ function DetailedView(props) {
             <StatusTag status={status}></StatusTag>
           </div>
         </ItemHeader>
-        <ItemContent className="flex">
+        <ItemContent className="flex item-content">
           <div className="description w-full">
             <p>{description}</p>
           </div>
           <div className="attachmentBox">
-            {attachments.map((i) => {
+            <Attachments
+              data={attachments}
+              key={{ data: attachments }}
+              toShow={3}
+              onClick={() => {}}
+              size={"50px"}
+            />
+            {/* {attachments.map((i) => {
               return (
                 <Image preview={false} width={50} height={50} src={i.path} />
               );
-            })}
+            })} */}
           </div>
         </ItemContent>
         <div className="cardSections">

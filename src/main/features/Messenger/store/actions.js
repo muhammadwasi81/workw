@@ -2,6 +2,7 @@ import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { STRINGS } from "../../../../utils/base";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 import { getAllChatsService, getAllMessageService, MessengerService, searchConversationService, sendMessageService } from "../services/service";
 import { handleAppendMessage } from "./messengerSlice";
 
@@ -77,10 +78,17 @@ export const searchConversation = createAsyncThunk(
 // NEWW
 export const createChat = createAsyncThunk(
   "messenger/createChat",
-  async (request, { rejectWithValue }) => {
+  async (request, { rejectWithValue, dispatch }) => {
     const response = await MessengerService.createChat(request);
+    console.log(response)
     switch (response.type) {
       case ResponseType.ERROR:
+        dispatch(
+          openNotification({
+            message: response.errorMessage,
+            type: "error",
+            duration: 2,
+          }))
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         return response.data;

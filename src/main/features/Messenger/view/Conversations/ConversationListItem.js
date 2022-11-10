@@ -54,6 +54,7 @@ const ConversationListItem = ({ conversation }) => {
 				profileImage: profileImage,
 				chatType: chatType,
 				members: chatMembers,
+				chatWith: chatWith
 			})
 		);
 	};

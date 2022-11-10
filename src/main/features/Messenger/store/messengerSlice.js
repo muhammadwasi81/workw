@@ -26,8 +26,8 @@ const initialState = {
       //    },
       // }
    ],
-   loader:false,
-   success:false
+   loader: false,
+   success: false
 };
 
 export const messengerSlice = createSlice({
@@ -98,6 +98,11 @@ export const messengerSlice = createSlice({
                ...(state.Conversations ? state.Conversations : []),
                payload
             ];
+            state.loader = false;
+            state.success = true;
+         })
+         .addCase(createChat.rejected, (state, { payload }) => {
+            state.loader = false;
          })
          .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
             // let currentChatMessages = state.MessengerList[state.currentMessenger.chatId] ?
@@ -109,27 +114,27 @@ export const messengerSlice = createSlice({
             // }]
          })
          .addMatcher(
-				isPending(
-					...[
-						createChat
-					]
-				),
-				state => {
-					state.loader = true;
-					state.success = false;
-				}
-			)
+            isPending(
+               ...[
+                  createChat
+               ]
+            ),
+            state => {
+               state.loader = true;
+               state.success = false;
+            }
+         )
    }
 })
 
-export const { 
-   handleIsopenChat, 
-   handleMessengerItemClick, 
-   receiveChatMessage, 
-   handleAppendMessage, 
-   handleChatBoxAppend, 
-   handleRemoveChatBox, 
+export const {
+   handleIsopenChat,
+   handleMessengerItemClick,
+   receiveChatMessage,
+   handleAppendMessage,
+   handleChatBoxAppend,
+   handleRemoveChatBox,
    handleMinimizeChatBox,
    handleExpendChatBox
- } = messengerSlice.actions
+} = messengerSlice.actions
 export default messengerSlice.reducer;

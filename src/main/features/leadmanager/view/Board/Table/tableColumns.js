@@ -34,7 +34,7 @@ export const tableColumns = (sections, handleMemberModal) => {
 			render: (members, { id }, index) => {
 				return (
 					<div className="flex gap-2 items-center">
-						<Avatar heading="Members" membersData={members} />
+						<Avatar heading="Members" membersData={members || []} />
 						<Tooltip title="Select Assign Members">
 							<PlusCircleFilled
 								className="!text-[20px] !cursor-pointer !text-primary-color "
@@ -60,7 +60,7 @@ export const tableColumns = (sections, handleMemberModal) => {
 					<LeadSectionSelect
 						detail={record}
 						sections={sections}
-						currentIndex={index}
+						currentIndex={record.indexNo}
 						key={index}
 					/>
 				);

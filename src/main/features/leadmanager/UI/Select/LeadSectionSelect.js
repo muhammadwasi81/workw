@@ -18,7 +18,7 @@ function LeadSectionSelect({ detail, sections, currentIndex }) {
 			moveDetail({
 				sourceListId: currentSectionId,
 				destListId: targetSectionId,
-				oldCardIndex: currentIndex,
+				oldCardIndex: currentIndex - 1,
 				newCardIndex: 0,
 			})
 		);
@@ -26,7 +26,7 @@ function LeadSectionSelect({ detail, sections, currentIndex }) {
 			moveLeadManagerDetail({
 				currentSectionId,
 				targetSectionId,
-				currentIndexNo: Number(currentIndex) + 1,
+				currentIndexNo: currentIndex,
 				targetIndexNo: 1,
 			})
 		);

@@ -14,10 +14,11 @@ import { TableColumn } from './tableColumn';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import AssetComposer from './composer/assetAllocationComposer';
 import AssetDeAllocationComposer from './composer/deAllocationComposer';
+import { Skeleton } from 'antd';
 
 const Index = () => {
   const dispatch = useDispatch();
-  const { assetItemList, drawerOpen } = useSelector(
+  const { loader, assetItemList, drawerOpen } = useSelector(
     (state) => state.AssetItemSlice
   );
 
@@ -109,7 +110,13 @@ const Index = () => {
             label2: 'Table',
           }}
         />
-        <ContBody>{render[viewType]}</ContBody>
+        {loader ? (
+          <>
+            <Skeleton avatar paragraph={{ rows: 4 }} />
+          </>
+        ) : (
+          <ContBody>{render[viewType]}</ContBody>
+        )}
       </TabbableContainer>
     </>
   );

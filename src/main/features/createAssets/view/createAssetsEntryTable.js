@@ -8,7 +8,6 @@ import {
 } from '../../../../utils/Shared/store/actions';
 import { addAssetItem } from '../store/action';
 import { getAllAllowance } from '../../allowance/store/actions';
-import AssetsFooter from './components/AssetsFooter';
 import CreateAssetsItem from './components/CreateAssetsItem';
 import CreateAssetHead from './components/CreateAssetTableHead';
 import { DEFAULT_GUID } from '../../../../utils/constants';
@@ -71,7 +70,6 @@ const CreateAssetsEntryTable = () => {
   const [entries, setEntries] = useState(initialEntries);
 
   const dispatch = useDispatch();
-  const totalDiff = entries.reduce((a, c) => a + Number(c.inventoryValue), 0);
 
   const handleAddRow = () => {
     console.log(defaultEntry, 'defaultEntry');
@@ -168,7 +166,6 @@ const CreateAssetsEntryTable = () => {
             Save
           </Button>
         </div>
-        <AssetsFooter total={totalDiff} />
       </div>
     </div>
   );

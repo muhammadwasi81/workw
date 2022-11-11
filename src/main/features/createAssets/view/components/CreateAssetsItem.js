@@ -22,6 +22,7 @@ const CreateAssetsItem = ({
 }) => {
   const dispatch = useDispatch();
   const { assetsData } = useSelector((state) => state.assetsCategorySlice);
+  console.log('assetsData', assetsData);
 
   useEffect(() => {
     dispatch(getAllAssetCategories());

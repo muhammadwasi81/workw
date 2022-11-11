@@ -12,11 +12,14 @@ import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
 
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -46,9 +49,19 @@ const Warning = (props) => {
   useEffect(() => {
     dispatch(getAllWarnings(filter));
   }, [filter]);
+
+  const items = [
+    {
+      name: 'Warning',
+      to: `${ROUTES.WARNINGS.DEFAULT}`,
+      renderButton: [1],
+    },
+  ];
+
   return (
     <TabbableContainer className="max-width-1190">
       <Header
+        items={items}
         buttons={[
           {
             buttonText: "Create Warning",
@@ -97,40 +110,38 @@ const Warning = (props) => {
           label2: "Table",
         }}
       />
-      <ContBody>
-        {warnings && warnings.length > 0 ? (
-          tableView ? (
-            <div>
-              <Table
-                columns={tableColumn()}
-                dragable={false}
-                data={warnings}
-              />
-            </div>
-          ) : (
-            <>
-              {loader ? (
-                <>
-                  <Skeleton avatar paragraph={{ rows: 4 }} />
-                </>
-              ) : (
-                <CardWrapper>
-                  {warnings.map((item, index) => {
-                    return (
-                      <>
-                        <ListItem getWarningId={getWarningId} item={item} id={item.id} key={index} />
-                      </>
-                    );
-                  })}
-                </CardWrapper>
-              )}
-            </>
-          )
-        ) : (
-          "Data not found"
-        )}
-      </ContBody>
-      {warningDetail && <DetailedView onClose={onClose} visible={visible} />}
+        <ContBody>
+                {
+                   loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+                }
+
+               {
+                    tableView &&
+                    <Table
+                    columns={tableColumn()}
+                    dragable={true}
+                    data={warnings}
+                     />
+               }
+
+              {
+                    warnings?.length > 0 && !loader && !tableView ? (
+                    <CardWrapper>
+                      {warnings.map((item, index)  => {
+                      return (
+                        <ListItem
+                          getWarningId={getWarningId} 
+                          item={item}
+                          id={item.id}
+                          key={index}
+                        />
+                      );
+                      })}
+                    </CardWrapper>
+                    ) : !loader && !tableView && <NoDataFound/>
+			         }
+        </ContBody>
+              {warningDetail && (<DetailedView onClose={onClose} visible={visible} />)}
       <Drawer
         title={
           <h1
@@ -139,7 +150,7 @@ const Warning = (props) => {
               margin: 0,
             }}
           >
-            Create Reward
+            Create Warning
           </h1>
         }
         width="768"

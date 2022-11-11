@@ -1,0 +1,4 @@
+.uploadWrapper .uploadImg .ant-upload.ant-upload-select-picture-card {
+  width: 100px !important;
+  height: 40px !important;
+}

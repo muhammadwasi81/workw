@@ -5,19 +5,14 @@ import { useSelector } from "react-redux";
 import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import DetailCard from "./DetailCard";
+import { useMediaQuery } from "react-responsive";
 // import { GetRewardById } from "../store/actions";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
   const { rewardDetail } = useSelector((state) => state.rewardSlice);
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-    // const isTablet = mediaQuery({ maxWidth: 800 });
-    // props.id && dispatch(GetRewardById(props.id));
-  // }, [props.id]);
-
-  const isTablet = false;
+  const isTablet = useMediaQuery({ maxWidth: 800 });
 
   return (
     <Drawer
@@ -27,6 +22,7 @@ function DetailedView(props) {
       placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
       onClose={props.onClose}
       visible={!!props.id}
+      destroyOnClose={true}
       className="drawerSecondary">
       <DetailCard  id={props.id}/>
     </Drawer>

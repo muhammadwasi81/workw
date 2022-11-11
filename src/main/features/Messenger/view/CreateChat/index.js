@@ -9,6 +9,8 @@ import { createGuid, STRINGS } from "../../../../../utils/base";
 function CreateChat({ onClose, visible }) {
   const dispatch = useDispatch();
   const { employeeShort: members } = useSelector((state) => state.sharedSlice);
+  const success = useSelector((state) => state.MessengerSlice.success);
+  const loader = useSelector((state) => state.MessengerSlice.loader);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [state, setState] = useState({});
   useEffect(() => {
@@ -19,6 +21,10 @@ function CreateChat({ onClose, visible }) {
       })
     );
   }, []);
+  useEffect(() => {
+    if (!visible)
+      setSelectedMembers([])
+  }, [visible])
   const onMemberSelect = (member) => {
     setSelectedMembers([
       ...selectedMembers,
@@ -57,7 +63,6 @@ function CreateChat({ onClose, visible }) {
   const handleSubmit = () => {
     let payload = createPayload();
     dispatch(createChat(payload));
-    console.log(payload, "Member Here");
   }
 
   return (
@@ -71,11 +76,14 @@ function CreateChat({ onClose, visible }) {
     >
       <div className="bg-white m-2 rounded-md relative">
         <div className="createChat__header">
-          <SingleUpload
-            handleImageUpload={handleImageUpload}
-            uploadText={""}
-            multiple={false}
-          />
+          <div className="profileUploader">
+            <SingleUpload
+              handleImageUpload={handleImageUpload}
+              uploadText={""}
+              multiple={false}
+              accept="image/png, image/gif, image/jpeg"
+            />
+          </div>
           <Input
             placeholder="Name Your Group"
             onChange={(e) => setState({ ...state, title: e.target.value })}
@@ -90,7 +98,7 @@ function CreateChat({ onClose, visible }) {
           />
         </div>
         <div className="fixed bottom-0 w-full" >
-          <Button className="headerBtn w-[480px] ml-[4px] flex justify-center"
+          <Button className="headerBtn w-[480px] ml-[4px] mb-[4px] flex justify-center"
             onClick={handleSubmit} >Create</Button>
         </div>
       </div>

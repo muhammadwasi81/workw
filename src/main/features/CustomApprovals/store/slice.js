@@ -44,7 +44,7 @@ const customApprovalSlice = createSlice({
       })
 
       .addMatcher(isRejected(...[getAllCustomApprovals]), (state) => {
-        state.loader = true;
+        state.loader = false;
       });
   },
 });

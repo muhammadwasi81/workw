@@ -446,13 +446,18 @@ input:focus {
   font-size: 14px;
 }
 
-/* .createChat .uploadImg .ant-upload.ant-upload-select-picture-card,
-.ant-upload-list-picture-card-container {
+.createChat .uploadImg .ant-upload-select-picture-card,.createChat .uploadImg .ant-upload-list-picture-card-container {
   border: 3px dashed #d9d9d9;
   width: 60px;
   height: 60px;
   margin: 0;
-} */
+}
+.messengerUpload .uploadImg .ant-upload-select-picture-card,.messengerUpload .uploadImg .ant-upload-list-picture-card-container {
+  border: 3px dashed #d9d9d9;
+  width: 60px;
+  height: 60px;
+  margin: 0;
+}
 
 /* .createChat .ant-upload-picture-card-wrapper {
   width: auto;

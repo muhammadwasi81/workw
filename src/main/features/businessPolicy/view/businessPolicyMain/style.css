@@ -1,4 +1,9 @@
 .policy_item {
+
+
+}
+.close-modal .ant-modal-close{
+  margin: 10px ;
 }
 
 .item-card {
@@ -85,4 +90,10 @@
     margin-top: 0px;
     /* transform: translateY(0); */
   }
+}
+
+@media screen and (max-width: 760px) {
+  .listData {width: 100%; }
+  .parent-div {width:100%; }
+  .policyDetail {display: none !important;}
 }

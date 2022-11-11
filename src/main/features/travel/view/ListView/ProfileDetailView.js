@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { getNameForImage } from "../../../../../utils/base";
 
 function ProfileDetailView(props) {
+	const { showIcon = true } = props;
 	return (
 		<div className="flex items-center gap-1">
 			<Avatar src={props.profileImgSrc} size={props.profileImgSize}>
@@ -18,9 +19,16 @@ function ProfileDetailView(props) {
 				</span>
 				<span className="flex items-center text-center text-xs text-slate-500">
 					{props.destination}&nbsp;&#9679;&nbsp;
-					{moment(props.createDate).fromNow()}
-					&nbsp;&#9679;&nbsp;
-					{props.isPublic ? <BiWorld /> : <LockOutlined />}
+					{moment
+						.utc(props.createDate)
+						.local()
+						.fromNow()}
+					{showIcon && (
+						<>
+							&nbsp;&#9679;&nbsp;
+							{props.isPublic ? <BiWorld /> : <LockOutlined />}
+						</>
+					)}
 				</span>
 			</div>
 		</div>

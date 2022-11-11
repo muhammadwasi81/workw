@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Form, message, Select, Avatar } from "antd";
-import { DepartmentMemberTypeList } from "../constant/index";
-import { PlusOutlined } from "@ant-design/icons";
-import "./style.css";
-import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import { getNameForImage } from "../../../../utils/base";
+import { PlusOutlined } from "@ant-design/icons";
+
+import { DepartmentMemberTypeList } from "../../constant/index";
+import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
+import { getNameForImage } from "../../../../../utils/base";
+import "./style.css";
 
 function MemberComposer(props) {
 	const { Option } = Select;

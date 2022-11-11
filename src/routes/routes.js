@@ -164,7 +164,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/projects/index")),
 		},
 		{
-			path: `${ROUTES.PROJECT.DEFAULT}/:projectId`,
+			path: `${ROUTES.PROJECT.DEFAULT}/:id`,
 			component: lazy(() =>
 				import(
 					"../main/features/projects/ProjectDetails/ProjectDetails"
@@ -172,29 +172,15 @@ export const routes = {
 			),
 		},
 		{
-			path: `${ROUTES.PROJECT.DEFAULT}/:projectId/workboard/board/:id`,
-			component: lazy(() =>
-				import("../main/features/workboard/Trello/Board")
-			),
-		},
-		{
 			path: `${ROUTES.GROUP.DEFAULT}`,
-			component: lazy(() => import("../main/features/groups/index")),
+			component: lazy(() => import("../main/features/groups/view/index")),
 		},
 		{
-			path: `${ROUTES.GROUP.DEFAULT}/:groupId`,
+			path: `${ROUTES.GROUP.DEFAULT}/:id`,
 			component: lazy(() =>
-				import("../main/features/groups/GroupDetails/GroupDetails")
+				import("../main/features/groups/view/GroupDetails/GroupDetails")
 			),
 		},
-
-		{
-			path: `${ROUTES.GROUP.DEFAULT}/:groupId/workboard/board/:id`,
-			component: lazy(() =>
-				import("../main/features/workboard/Trello/Board")
-			),
-		},
-
 		{
 			path: `${ROUTES.WORKBOARD.DEFAULT}`,
 			component: lazy(() => import("../main/features/workboard/index")),
@@ -213,12 +199,6 @@ export const routes = {
 			path: `${ROUTES.LEAD_MANAGER.LEAD_DETAIL}`,
 			component: lazy(() =>
 				import("../main/features/leadmanager/view/Board/BoardViews")
-			),
-		},
-		{
-			path: `${ROUTES.HR.APPRAISALS.DEFAULT}`,
-			component: lazy(() =>
-				import("../main/features/appraisalModule/view/appraisal")
 			),
 		},
 		{
@@ -376,10 +356,6 @@ export const routes = {
 			component: lazy(() =>
 				import("../main/features/payroll/view/index")
 			),
-		},
-		{
-			path: `${ROUTES.COMPANIES.DEFAULT}`,
-			component: lazy(() => import("../main/features/companies/index")),
 		},
 	],
 	AdminRoutes: [

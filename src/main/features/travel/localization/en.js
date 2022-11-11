@@ -67,6 +67,7 @@ const en = {
 			description: "Description",
 			agentStatus: "Agent Status",
 			actions: "Actions",
+			createDate: "Created Date",
 		},
 	},
 	Direction: "ltr",

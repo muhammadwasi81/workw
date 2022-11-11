@@ -58,7 +58,9 @@ const AssetsDetailCard = (props) => {
         <div className="cardSectionItem">
           <div className="cardSection__title">Category</div>
           <div className="cardSection__body">
-            {assetItemByUserId.assetItemByUserId.category}
+            {assetItemByUserId.assetItemByUserId.category
+              ? assetItemByUserId.assetItemByUserId.category
+              : 'N/A'}{' '}
           </div>
         </div>
         <div className="cardSectionItem">
@@ -68,9 +70,11 @@ const AssetsDetailCard = (props) => {
           </div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Name</div>
+          <div className="cardSection__title">Handover</div>
           <div className="cardSection__body">
-            {assetItemByUserId.assetItemByUserId.name}
+            {assetItemByUserId.assetItemByUserId.name
+              ? assetItemByUserId.assetItemByUserId.name
+              : 'N/A'}{' '}
           </div>
         </div>
         <div className="cardSectionItem">
@@ -90,7 +94,7 @@ const AssetsDetailCard = (props) => {
       <RemarksApproval
         data={assetItemByUserId.assetItemByUserId.approvers}
         title="Approvals"
-        module={ApprovalsModule?.assetApproval}
+        module={ApprovalsModule?.ItemApproval}
         onStatusChanged={() => {}}
       />
     </SingleItem>

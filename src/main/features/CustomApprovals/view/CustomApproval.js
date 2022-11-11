@@ -12,9 +12,6 @@ import DetailedView from "./DetailedView";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllCustomApprovals, GetCustomApprovalById } from "../store/actions";
-import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
-
-// import "./reward.css";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
@@ -23,6 +20,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 const CustomApproval = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -72,7 +70,7 @@ const CustomApproval = (props) => {
       to: `${ROUTES.CUSTOM_APPROVALS.DEFAULT}`,
     },
   ];
-
+console.log(loader, "Loader")
   return (
     <>
       <TabbableContainer className="">
@@ -127,42 +125,35 @@ const CustomApproval = (props) => {
           }}
         />
         <ContBody>
-          {customApprovals?.length > 0 ? (
-            tableView ? (
-              <Table
-                columns={tableColumn()}
-                dragable={true}
-                data={customApprovals}
-              />
-            ) : (
-              <>
-                {loader ? (
-                  <>
-                    <Skeleton avatar paragraph={{ rows: 4 }} />
-                  </>
-                ) : (
-                  <CardWrapper>
-                    {customApprovals.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem
-                            getCustomApprovalId={getCustomApprovalId}
-                            item={item}
-                            id={item.id}
-                            key={index}
-                          />
-                        </>
-                      );
-                    })}
-                  </CardWrapper>
-                )}
-              </>
-            )
-          ) : (
-            <div className="flex items-center justify-center h-full w-full">
-              <img src={Nodata} />
-            </div>
-          )}
+          {
+            loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+          }
+
+          {
+            tableView &&
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              data={customApprovals}
+            />
+          }
+
+          {
+            customApprovals?.length > 0 && !loader && !tableView ? (
+              <CardWrapper>
+                {customApprovals.map((item, index) => {
+                  return (
+                    <ListItem
+                      getCustomApprovalId={getCustomApprovalId}
+                      item={item}
+                      id={item.id}
+                      key={index}
+                    />
+                  );
+                })}
+              </CardWrapper>
+            ) : !loader  && !tableView && <NoDataFound />
+          }
         </ContBody>
         {customApprovalDetail && (
           <DetailedView onClose={onClose} visible={visible} />

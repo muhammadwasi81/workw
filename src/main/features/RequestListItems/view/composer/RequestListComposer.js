@@ -40,8 +40,9 @@ const Types = [
 ];
 const Composer = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, customApprovalDictionary } =
-    customApprovalDictionaryList[userLanguage];
+  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
+    userLanguage
+  ];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();

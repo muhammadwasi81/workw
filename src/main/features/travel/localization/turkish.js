@@ -67,6 +67,7 @@ const turkish = {
 			description: "Tanım",
 			agentStatus: "Temsilci Durumu",
 			actions: "Hareketler",
+			createDate: "Oluşturma Tarihi",
 		},
 	},
 	Direction: "ltr",

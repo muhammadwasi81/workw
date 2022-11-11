@@ -17,7 +17,7 @@ const AssetsList = ({ data }) => {
   return (
     <CardWrapper>
       {data.length > 0 ? (
-        data?.map((item) => (
+        data.map((item) => (
           <AssetsListItem
             key={item.id}
             item={item}

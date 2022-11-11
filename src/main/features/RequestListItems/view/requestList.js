@@ -4,7 +4,6 @@ import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
 import { clearRequestDetails } from '../store/slice';
 import RequestDetailedView from './requestDetailedView';
 import RequestListItems from './requestListItems';
-import Nodata from '../../../../content/NewContent/eLearning/no_data.svg';
 
 const RequestList = ({ data }) => {
   const dispatch = useDispatch();

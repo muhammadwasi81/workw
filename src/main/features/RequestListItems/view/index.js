@@ -21,7 +21,6 @@ const Index = () => {
   const { loader, requestItems, success } = useSelector(
     (state) => state.requestItemSlice
   );
-  console.log(loader, 'fghdsdsdsdsdjk');
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');

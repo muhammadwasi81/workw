@@ -11,7 +11,7 @@ import {
 const initialState = {
   assetItemList: [],
   assetItemByUserId: [],
-  loader: false,
+  loader: true,
   success: false,
   error: false,
   drawerOpen: false,

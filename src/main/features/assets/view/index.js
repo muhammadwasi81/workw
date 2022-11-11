@@ -18,12 +18,13 @@ import { Skeleton } from 'antd';
 
 const Index = () => {
   const dispatch = useDispatch();
-  const { loader, assetItemList, drawerOpen } = useSelector(
+  const { loader, assetItemList, success: assetSuccess } = useSelector(
     (state) => state.AssetItemSlice
   );
-
-  console.log(drawerOpen, 'drawerOpen');
-  const { success } = useSelector((state) => state.inventoryAssetSlice);
+  console.log('dsdsdsds', loader);
+  const { loader: inventoryLoader, success } = useSelector(
+    (state) => state.inventoryAssetSlice
+  );
 
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
@@ -66,9 +67,9 @@ const Index = () => {
       buttonText: 'Assets Allocation',
       render: (
         <SideDrawer
-          success={success}
+          success={assetSuccess}
           isAccessDrawer={true}
-          openDrawer={success}
+          openDrawer={assetSuccess}
           children={<AssetComposer />}
           title="Add Assets Allocation"
           buttonText="Assets Allocation"
@@ -79,9 +80,9 @@ const Index = () => {
       buttonText: 'De-allocation',
       render: (
         <SideDrawer
-          success={drawerOpen}
+          success={success}
           isAccessDrawer={true}
-          openDrawer={drawerOpen}
+          openDrawer={success}
           children={<AssetDeAllocationComposer />}
           title="De-Allocated Assets"
           buttonText="De-Allocation"
@@ -110,13 +111,13 @@ const Index = () => {
             label2: 'Table',
           }}
         />
-        {loader ? (
+        {/* {loader || inventoryLoader ? (
           <>
             <Skeleton avatar paragraph={{ rows: 4 }} />
           </>
-        ) : (
-          <ContBody>{render[viewType]}</ContBody>
-        )}
+        ) : ( */}
+        <ContBody>{render[viewType]}</ContBody>
+        {/* )} */}
       </TabbableContainer>
     </>
   );

@@ -21,8 +21,11 @@ function PostAttachment({ attachments, onOpen }) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	return (
 		<div className="slider-container cursor-pointer">
-			<div onClick={() => onOpen(true)}>
-				<div className="attacmentFullScreenBtn">
+			<div>
+				<div
+					className="attacmentFullScreenBtn"
+					onClick={() => onOpen(true)}
+				>
 					<FullscreenOutlined />
 				</div>
 				<div className="slides">
@@ -45,8 +48,15 @@ function PostAttachment({ attachments, onOpen }) {
 					>
 						{attachments.map((slide, ind) => {
 							return (
-								<SwiperSlide zoom={true} key={ind}>
-									<div className="flex justify-center items-center w-full">
+								<SwiperSlide
+									zoom={true}
+									key={ind}
+									onClick={e => e.stopPropagation()}
+								>
+									<div
+										className="flex justify-center items-center w-full"
+										onClick={() => onOpen(true)}
+									>
 										{getFile(slide)}
 									</div>
 									{/* <img

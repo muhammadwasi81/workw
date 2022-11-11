@@ -41,6 +41,8 @@ function ListItem(props) {
     approvers,
   } = props.item;
 
+  console.log(props.item);
+
   const navigate = useNavigate();
   return (
     <>
@@ -67,6 +69,12 @@ function ListItem(props) {
               : description
           }
         />
+        <Meta
+          description={`Created By: ${
+            creator?.name ? creator.name : "Not Found"
+          }`}
+        />
+
         <div className="approversBox">
           <Avatar
             isAvatarGroup={true}

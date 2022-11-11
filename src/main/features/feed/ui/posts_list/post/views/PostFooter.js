@@ -19,6 +19,9 @@ import {
 } from "../../../reactions/reactions";
 import { addReaction } from "../../../../store/actions";
 import { useState } from "react";
+import { RiShareForwardLine } from "react-icons/ri";
+import { Popover } from "antd";
+import PostShareContent from "./PostShareContent";
 
 const PostFooter = ({
 	attachments,
@@ -169,12 +172,20 @@ const PostFooter = ({
 					</div>
 					<div> {Comment}</div>
 				</div>
-				<div className="btn">
-					<div>
-						<img src={ShareIcon} alt="" />
+				<Popover
+					placement="bottom"
+					content={<PostShareContent />}
+					trigger="click"
+					overlayClassName="share-feed__content w-[250px]"
+				>
+					<div className="btn">
+						<div>
+							<RiShareForwardLine className="text-3xl" />
+							{/* <img src={ShareIcon} alt="" /> */}
+						</div>
+						<div> {Share}</div>
 					</div>
-					<div> {Share}</div>
-				</div>
+				</Popover>
 			</div>
 
 			<CommentWrapper

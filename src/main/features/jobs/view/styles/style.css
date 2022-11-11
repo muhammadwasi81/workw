@@ -56,3 +56,35 @@
 .DetailCard .IdTag {
   padding: 5px 12px;
 }
+
+.item {
+  /* width: 50%; */
+  margin: auto auto;
+  height: min-content;
+  border: 1px solid #ebebeb;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+  box-sizing: border-box;
+  /* margin-bottom: 12px; */
+  border-radius: 6px;
+  box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%);
+  text-decoration: none;
+  /* transition: 0.3s; */
+  /* animation: bottomToTop 0.7s ease; */
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.btn-container {
+  margin: 5px !important;
+}
+.icon-btn {
+  background-color: rgb(26, 86, 105);
+  border-color: rgb(26, 86, 105) !important;
+  margin: 10px;
+}

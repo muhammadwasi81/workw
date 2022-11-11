@@ -10,7 +10,7 @@ const DetailedView = () => {
   // console.log(isCareer);
   return (
     <>
-      <div className="w-full">
+      <div className="w-full" style={{ marginTop: "5px" }}>
         <ApplyJob isShowCopyBtn={true} width="100%" />
       </div>
     </>

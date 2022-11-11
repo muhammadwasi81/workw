@@ -1,3 +1,4 @@
+import React, { useRef } from "react";
 import { useContext } from "react";
 import store from "../../../../../../store/store";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
@@ -8,7 +9,8 @@ import photo from "../../../../../../content/NewContent/NewsFeed/svg/post_img_ic
 import doc from "../../../../../../content/NewContent/NewsFeed/svg/post_doc_icon.svg";
 import poll from "../../../../../../content/NewContent/NewsFeed/svg/post_poll_icon.svg";
 
-function PostOptions() {
+const PostOptions = props => {
+	const { imageVideoRef, pollRef, docsRef } = props;
 	const onPostAttachment = files => {
 		if (files.length && files[0]) {
 			store.dispatch(
@@ -29,12 +31,14 @@ function PostOptions() {
 		<div className="uploader">
 			<div className="options">
 				<input
-					onChange={({ target: { files } }) =>
-						onPostAttachment(files)
-					}
 					accept=".jpg, .jpeg, .gif, .bmp, .png, .mp4"
 					multiple
 					type="file"
+					value={""}
+					ref={imageVideoRef}
+					onChange={({ target: { files } }) => {
+						onPostAttachment(files);
+					}}
 				/>
 				<div className="wrapper">
 					<img src={photo} alt="photo" /> <span>{PhotoVideo}</span>
@@ -48,12 +52,18 @@ function PostOptions() {
 					multiple
 					accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx"
 					type="file"
+					value={""}
+					ref={docsRef}
 				/>
 				<div className="wrapper">
 					<img src={doc} alt="doc" /> <span>{Documents}</span>
 				</div>
 			</div>
-			<div className="options" onClick={() => setPostTypeToPoll()}>
+			<div
+				className="options"
+				onClick={() => setPostTypeToPoll()}
+				ref={pollRef}
+			>
 				<div className="wrapper">
 					<img src={poll} alt="poll" />
 					<span>{Poll}</span>
@@ -61,6 +71,6 @@ function PostOptions() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default PostOptions;

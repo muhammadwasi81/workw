@@ -171,9 +171,6 @@ const Reward = (props) => {
 
           {/* {rewards?.length > 0 ? (
             tableView ? (
-<<<<<<< HEAD
-              <Table columns={tableColumn()} dragable={true} data={rewards} />
-=======
               <Table
                 columns={tableColumn()}
                 dragable={true}
@@ -182,7 +179,6 @@ const Reward = (props) => {
                 onRow={onRow}
 
               />
->>>>>>> 7e49605c5150cf78e57241fd36e4e7e6ab166bdd
             ) : (
               <>
                 {loader ? (

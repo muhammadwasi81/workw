@@ -9,7 +9,6 @@ import { createGuid, STRINGS } from "../../../../../utils/base";
 function CreateChat({ onClose, visible }) {
   const dispatch = useDispatch();
   const { employeeShort: members } = useSelector((state) => state.sharedSlice);
-  const success = useSelector((state) => state.MessengerSlice.success);
   const loader = useSelector((state) => state.MessengerSlice.loader);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [state, setState] = useState({});
@@ -62,6 +61,9 @@ function CreateChat({ onClose, visible }) {
 
   const handleSubmit = () => {
     let payload = createPayload();
+    // if () {
+
+    // }
     dispatch(createChat(payload));
   }
 
@@ -98,7 +100,10 @@ function CreateChat({ onClose, visible }) {
           />
         </div>
         <div className="fixed bottom-0 w-full" >
-          <Button className="headerBtn w-[480px] ml-[4px] mb-[4px] flex justify-center"
+          <Button
+            className="headerBtn w-[480px] ml-[4px] mb-[4px] flex justify-center"
+            loading={loader}
+            disabled={selectedMembers.length === 0}
             onClick={handleSubmit} >Create</Button>
         </div>
       </div>

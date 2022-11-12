@@ -9,14 +9,11 @@ import EmptyMessenger from './components/EmptyMessenger';
 import { getAllChatMessage } from '../../store/actions';
 
 const MessengerBox = () => {
-    const dispatch = useDispatch();
     const messengerDetail = useSelector((state) => state.MessengerSlice.currentMessenger);
     // const messageList = useSelector((state) => state.MessengerSlice.MessengerList[messengerDetail.chatId]);
     const [isOpenProfile, setIsOpenProfile] = useState(false);
     const isEmptyMessenger = messengerDetail.members.length === 0 && messengerDetail.chatId === STRINGS.DEFAULTS.guid;
-    useEffect(() => {
-        dispatch(getAllChatMessage({ chatId: messengerDetail.chatId, pageNo: 1 }))
-    }, [messengerDetail]);
+
     if (isEmptyMessenger)
         return <EmptyMessenger />
     return (

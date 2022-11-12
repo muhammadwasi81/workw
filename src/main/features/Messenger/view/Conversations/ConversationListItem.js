@@ -25,7 +25,7 @@ const ConversationListItem = ({ conversation }) => {
 			image: "",
 		},
 		lastMessage = {
-			lastMessage: "",
+			message: "",
 		},
 		lastUpdate = "",
 	} = conversation;
@@ -54,11 +54,11 @@ const ConversationListItem = ({ conversation }) => {
 				profileImage: profileImage,
 				chatType: chatType,
 				members: chatMembers,
+				chatWith: chatWith
 			})
 		);
 	};
-	let lastMsgTime = moment(lastUpdate).fromNow();
-
+	let lastMsgTime = moment.utc(lastUpdate).local().fromNow();
 	return (
 		<div className="ConversationListItem" onClick={handleItemClick}>
 			<div className="ItemDP">
@@ -72,7 +72,7 @@ const ConversationListItem = ({ conversation }) => {
 			<div className="ItemNameCont">
 				<div className="ItemName">{profileName}</div>
 				<div className="ItemLastMsgCont">
-					<div className="ItemLastMsg">{lastMessage.lastMessage}</div>
+					<div className="ItemLastMsg">{lastMessage.message}</div>
 					<div className="ItemLastMsgTime">{lastMsgTime}</div>
 				</div>
 			</div>

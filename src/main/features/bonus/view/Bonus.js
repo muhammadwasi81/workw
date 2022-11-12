@@ -22,10 +22,11 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
+import { useMediaQuery } from "react-responsive";
 
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { bonusDictionary } = bonusDictionaryList[userLanguage];
+  const { bonusDictionary, Direction } = bonusDictionaryList[userLanguage];
 
   const [tableView, setTableView] = useState(false);
 
@@ -36,6 +37,7 @@ const Bonus = (props) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
+  const isTablet = useMediaQuery({ maxWidth: 800 });
 
   const { bonuses, loader, bonusDetail, drawerOpen } = useSelector(
     (state) => state.bonusSlice
@@ -163,6 +165,10 @@ const Bonus = (props) => {
         }}
         visible={drawerOpen}
         destroyOnClose={true}
+        placement={
+          (Direction === "ltr" ? "left" : "right",
+          isTablet ? "bottom" : "right")
+        }
         className="detailedViewComposer drawerSecondary"
       >
         <Composer />

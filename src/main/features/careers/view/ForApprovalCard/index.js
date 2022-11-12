@@ -81,12 +81,12 @@ const MyApprovalCard = props => {
 					{openDetail && (
 						<Modal
 							visible={openDetail}
-							onOk={handleOk}
+							// onOk={handleOk}
 							onCancel={handleCancel}
 							footer={null}
 							width={"50%"}
 						>
-							<JobDetails apply={applyJob} />
+							<JobDetails apply={() => {}} />
 						</Modal>
 					)}
 					{careers.map((item, index) => {

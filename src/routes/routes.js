@@ -170,7 +170,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/projects/index")),
 		},
 		{
-			path: `${ROUTES.PROJECT.DEFAULT}/:id`,
+			path: `${ROUTES.PROJECT.DEFAULT}/:projectId`,
 			component: lazy(() =>
 				import(
 					"../main/features/projects/ProjectDetails/ProjectDetails"

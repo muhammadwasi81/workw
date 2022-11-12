@@ -45,6 +45,7 @@ const Composer = (props) => {
   const { cities } = useSelector((state) => state.sharedSlice);
 
   const { labels, placeHolder } = CareerDictionaryList;
+  const { success } = useSelector((state) => state.careerSlice);
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -138,8 +139,11 @@ const Composer = (props) => {
             },
     };
     dispatch(addCareer(payload));
-    form.resetFields();
-    dispatch(handleOpenComposer(false));
+    if (success) {
+      console.log("successss", success);
+      // dispatch(handleOpenComposer(false));
+    }
+    // form.resetFields();
   };
 
   return (

@@ -18,6 +18,7 @@ import {
   AiFillGolden,
   AiOutlineCalendar,
   AiOutlineShrink,
+  AiFillMoneyCollect,
 } from 'react-icons/ai';
 import {
   RiMedal2Line,
@@ -205,7 +206,7 @@ export const listitem = [
   },
   {
     IconName: (
-      <RiMailSettingsFill size={20} color={'var(--currentThemeColor)'} />
+      <AiFillMoneyCollect size={20} color={'var(--currentThemeColor)'} />
     ),
     displayName: 'Assets_Category',
     classObj: 'button',

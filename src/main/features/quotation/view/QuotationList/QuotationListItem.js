@@ -36,19 +36,25 @@ function QuotationListItem(props) {
         onClick={() => props.onClick(id)}
       >
         <ItemHeader className="ItemHeader">
-          <UserInfo
-            avatarSrc={creator?.image}
-            name={creator?.name}
-            Subline={
-              <SublineDesigWithTime
-                designation={creator?.designation}
-                time={moment(createDate).fromNow()}
-              />
-            }
-          />
+          <div className="flex justify-between">
+            <UserInfo
+              avatarSrc={creator?.image}
+              name={creator?.name}
+              Subline={
+                <SublineDesigWithTime
+                  designation={creator?.designation}
+                  time={moment(createDate).fromNow()}
+                />
+              }
+            />
+
+            <div>
+              <StatusTag status={status} />
+            </div>
+          </div>
         </ItemHeader>
 
-        <div className="cardSections">
+        <div className="cardSections mt-2">
           <div className="cardSectionItem">
             <div className="cardSection__title">Client's Name</div>
             <div className="cardSection__body">{name}</div>

@@ -34,6 +34,7 @@ function Index() {
   const [viewType, setViewType] = useState("List");
   const [search, setSearch] = useState("");
 
+  // const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   // const [detailViewIsVisible, setDetailViewIsVisible] = useState(true);
@@ -47,20 +48,15 @@ function Index() {
   ];
 
   useEffect(() => {
-    dispatch(
-      getAllLoans({
-        filter,
-        search,
-      })
-    );
-  }, [filter, search]);
+    dispatch(getAllLoans(filter));
+  }, [filter]);
 
   const closeDetailView = () => {
     dispatch(CloseDetailView());
     // setDetailViewIsVisible(false);
   };
 
-  const onSearch = (value) => setSearch(value);
+  const onSearch = (value) => setFilter({ ...filter, search: value });
   const onSegment = (value) => setViewType(value);
 
   return (

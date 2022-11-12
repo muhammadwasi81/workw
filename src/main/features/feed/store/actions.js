@@ -34,7 +34,7 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
 			referenceType,
 			referenceId
 		);
-		console.log(postCompose);
+
 		const response = await saveCreatePost(requestDto);
 
 		// eslint-disable-next-line default-case
@@ -152,6 +152,7 @@ function onPostTagsChange(state, { payload }) {
 
 function addPostAttachment(state, { payload: { files } }) {
 	const arr = Array.from(files);
+
 	if (Array.isArray(arr)) {
 		state.postCompose.attachments = [
 			...state.postCompose.attachments,
@@ -173,6 +174,7 @@ function addPostAttachment(state, { payload: { files } }) {
 function removePostAttachment(state, { payload: { index } }) {
 	const attachments = [...state.postCompose.attachments];
 	attachments.splice(index, 1);
+
 	state.postCompose.attachments = attachments;
 }
 

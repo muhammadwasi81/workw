@@ -18,6 +18,10 @@ import {
 	reactions,
 } from "../../../reactions/reactions";
 import { addReaction } from "../../../../store/actions";
+import { useState } from "react";
+import { RiShareForwardLine } from "react-icons/ri";
+import { Popover } from "antd";
+import PostShareContent from "./PostShareContent";
 
 const PostFooter = ({
 	attachments,
@@ -31,9 +35,11 @@ const PostFooter = ({
 	referenceId,
 	reactionModule,
 	reactionType,
+	isDetailViewOpen = true,
 }) => {
 	const dispatch = useDispatch();
 	let navigate = useNavigate();
+	const [showComments, setShowComments] = useState(false);
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Post, Direction } = FeedDictionary[userLanguage];
 	const {
@@ -44,9 +50,8 @@ const PostFooter = ({
 		WriteYourCommentHere,
 		WriteYourReplyHere,
 	} = Post;
-	// console.log("comments", comments);
+
 	const handleAddReaction = (reactionType, id) => {
-		// console.log("reactionType", reactionType, id);
 		if (reactionType === 0) {
 			dispatch(
 				addFeedReaction({
@@ -93,11 +98,19 @@ const PostFooter = ({
 
 					<a href={reactionCount}>{reactionCount}</a>
 				</div>
-				<div className="commentCount">
-					<Link className="" to={ROUTES.NEWSFEED.LINK + id}>
-						{Comments}
-					</Link>
-				</div>
+				{commentCount > 0 && (
+					<div
+						className="commentCount"
+						onClick={() => {
+							setShowComments(true);
+						}}
+					>
+						<div className="hover:underline cursor-pointer">
+							{commentCount} &nbsp;
+							{commentCount === 1 ? " Comment" : Comments}
+						</div>
+					</div>
+				)}
 			</div>
 			<div className="post-events">
 				<div
@@ -148,18 +161,31 @@ const PostFooter = ({
 						</div>
 					</Reactions>
 				</div>
-				<div className="btn" onClick={() => {}}>
+				<div
+					className="btn"
+					onClick={() => {
+						setShowComments(true);
+					}}
+				>
 					<div>
 						<img src={CommentIcon} alt="" />
 					</div>
 					<div> {Comment}</div>
 				</div>
-				<div className="btn">
-					<div>
-						<img src={ShareIcon} alt="" />
+				<Popover
+					placement="bottom"
+					content={<PostShareContent />}
+					trigger="click"
+					overlayClassName="share-feed__content w-[250px]"
+				>
+					<div className="btn">
+						<div>
+							<RiShareForwardLine className="text-3xl" />
+							{/* <img src={ShareIcon} alt="" /> */}
+						</div>
+						<div> {Share}</div>
 					</div>
-					<div> {Share}</div>
-				</div>
+				</Popover>
 			</div>
 
 			<CommentWrapper
@@ -170,8 +196,11 @@ const PostFooter = ({
 				commentRequestSuccess={comment =>
 					dispatch(feedSlice.actions.onSaveComment({ comment }))
 				}
+				showComments={showComments}
+				isDetailViewOpen={isDetailViewOpen}
+				reactionModule={reactionModule}
 			/>
-			{commentCount > 3 && (
+			{commentCount > 3 && showComments && (
 				<p
 					className="viewComments"
 					onClick={() => {

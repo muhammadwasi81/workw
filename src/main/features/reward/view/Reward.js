@@ -24,7 +24,7 @@ import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
-const Reward = props => {
+const Reward = (props) => {
   const { visible } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
@@ -39,7 +39,7 @@ const Reward = props => {
 
   const dispatch = useDispatch();
   const { rewards, loader, rewardDetail, drawerOpen } = useSelector(
-    state => state.rewardSlice
+    (state) => state.rewardSlice
   );
 
   const [searchFilterValues, setSearchFilterValues] = useState();
@@ -55,13 +55,12 @@ const Reward = props => {
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
-        console.log(record.id, "ID")
-        setDetailId(record.id)
+        setDetailId(record.id);
       },
-      onDoubleClick: (event) => { }, // double click row
-      onContextMenu: (event) => { }, // right button click row
-      onMouseEnter: (event) => { }, // mouse enter row
-      onMouseLeave: (event) => { }, // mouse leave row
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
     };
   };
 
@@ -79,12 +78,11 @@ const Reward = props => {
 
   const items = [
     {
-      name: 'Rewards',
+      name: "Rewards",
       to: `${ROUTES.REWARDS.REWARD}`,
       renderButton: [1],
     },
   ];
-
 
   return (
     <>
@@ -140,44 +138,42 @@ const Reward = props => {
           }}
         />
         <ContBody>
-               {
-                  loader && <Skeleton avatar paragraph={{ rows: 4 }} />
-                }
+          {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
-               { 
-                  tableView &&
-                    <Table
-                      columns={tableColumn()}
-                      dragable={true}
-                      handleChange={handleColumnSorting}
-                      data={rewards}
-                      onRow={onRow}
+          {tableView && (
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              handleChange={handleColumnSorting}
+              data={rewards}
+              onRow={onRow}
+            />
+          )}
 
+          {rewards?.length > 0 && !loader && !tableView ? (
+            <CardWrapper>
+              {rewards.map((item, index) => {
+                return (
+                  <>
+                    <ListItem
+                      item={item}
+                      id={item.id}
+                      key={index}
+                      onClick={() => setDetailId(item.id)}
                     />
-               }
-
-              {
-                rewards?.length > 0 && !loader && !tableView ? (
-                  <CardWrapper>
-                    {rewards.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem
-                            item={item}
-                            id={item.id}
-                            key={index}
-                            onClick={() => setDetailId(item.id)}
-                          />
-                        </>
-                      );
-                    })}
-                  </CardWrapper>
-                ):
-                !loader && !tableView && <NoDataFound/>
-              }
+                  </>
+                );
+              })}
+            </CardWrapper>
+          ) : (
+            !loader && !tableView && <NoDataFound />
+          )}
 
           {/* {rewards?.length > 0 ? (
             tableView ? (
+<<<<<<< HEAD
+              <Table columns={tableColumn()} dragable={true} data={rewards} />
+=======
               <Table
                 columns={tableColumn()}
                 dragable={true}
@@ -186,6 +182,7 @@ const Reward = props => {
                 onRow={onRow}
 
               />
+>>>>>>> 7e49605c5150cf78e57241fd36e4e7e6ab166bdd
             ) : (
               <>
                 {loader ? (

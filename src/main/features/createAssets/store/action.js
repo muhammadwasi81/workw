@@ -34,7 +34,7 @@ export const addAssetItem = createAsyncThunk(
     const response = await addAssetItemService(payload);
     console.log(response, payload, 'addAssetItem action');
     if (response.responseType === ResponseType.SUCCESS) {
-      message.success('Asset Item Added Successfully');
+      message.success('Asset Items Added Successfully');
       return response.data;
     } else {
       dispatch(

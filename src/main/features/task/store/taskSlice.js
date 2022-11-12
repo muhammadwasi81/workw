@@ -1,5 +1,10 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
-import { addNewTask, getAllTask, getTaskById } from "./actions";
+import {
+  addNewTask,
+  getAllTask,
+  getTaskById,
+  cancelTaskAction,
+} from "./actions";
 
 const initialState = {
   success: false,
@@ -16,11 +21,25 @@ export const taskSlice = createSlice({
   name: "task",
   initialState: initialState,
   reducers: {
-    handleOpenComposer: (state, { payload }) => {
+    handleOpenTaskComposer: (state, { payload }) => {
       state.drawerOpen = payload;
     },
     clearTaskById: (state) => {
       state.task = {};
+    },
+    cancelTaskSuccess: (state, { payload }) => {
+      let tasks = [...state.taskList.list];
+      let index = tasks.findIndex((item) => item.id === payload.taskId);
+      let task = tasks.filter((item) => item.id === payload.taskId)[0];
+      tasks[index] = {
+        ...task,
+        status: 5,
+      };
+      state.taskList.list = tasks;
+      state.task = {
+        ...task,
+        status: 5,
+      };
     },
     changeOnProgress: (state, { payload }) => {
       let members = state.task.members;
@@ -63,15 +82,24 @@ export const taskSlice = createSlice({
       .addCase(addNewTask.fulfilled, (state, { payload }) => {
         state.success = true;
         state.loading = false;
+        state.drawerOpen = false;
         state.taskList.list = [payload, ...state.taskList.list];
       })
-      .addCase(getAllTask.fulfilled, (state, { payload }) => {
-        state.taskList.list = payload;
+      .addCase(getAllTask.fulfilled, (state, action) => {
+        // state.taskList.list = payload;
+        state.taskList.list = action.payload ? action.payload : [];
         state.taskList.loading = false;
       })
       .addCase(getTaskById.fulfilled, (state, { payload }) => {
         state.task = payload;
-      })
+      });
+    builder
+      // .addCase(cancelTaskAction.fulfilled, (state, action) => {
+      // state.cancelTask = action.payload.data;
+      // state.drawerOpen = false;
+      // console.log("Cancel task", action.payload);
+      // })
+
       .addMatcher(isPending(...[addNewTask]), (state) => {
         state.success = false;
         state.loading = true;
@@ -92,6 +120,7 @@ export const taskSlice = createSlice({
 export const {
   clearTaskById,
   changeOnProgress,
-  handleOpenComposer,
+  handleOpenTaskComposer,
+  cancelTaskSuccess,
 } = taskSlice.actions;
 export default taskSlice.reducer;

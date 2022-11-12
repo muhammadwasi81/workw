@@ -20,7 +20,7 @@ const Index = () => {
   const { requestItems, success } = useSelector(
     (state) => state.requestItemSlice
   );
-
+  console.log(success, 'success');
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');

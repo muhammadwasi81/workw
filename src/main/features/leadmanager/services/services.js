@@ -1,3 +1,4 @@
+import axios from "axios";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "api/LeadManager/";
 const API_SECTION_PREFIX = "api/LeadManagerSection/";
@@ -37,8 +38,10 @@ export const updateLeadManagerService = data => {
 		});
 };
 
-export const getAllLeadManagerService = data => {
-	return MasterConfig.post(`${API_PREFIX}GetAllLeadManager`, data)
+export const getAllLeadManagerService = (data, source) => {
+	return MasterConfig.post(`${API_PREFIX}GetAllLeadManager`, data, {
+		cancelToken: source.token,
+	})
 		.then(res => {
 			return res.data;
 		})

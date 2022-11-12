@@ -747,6 +747,7 @@
 
 .composer-wrapper .select-users .c-multi-select div {
     border-radius: 0 !important;
+    /* width: 100%; */
 }
 
 .composer-wrapper .select-users .c-multi-select .ant-select-selector {

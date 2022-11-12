@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, forwardRef } from "react";
 import { Form, Button } from "antd";
 import { useDispatch } from "react-redux";
 import PostTitleField from "./PostTitleField";
@@ -12,7 +12,13 @@ import { LanguageChangeContext } from "../../../../../../utils/localization/loca
 import { FeedDictionary } from "../../../localization";
 import { useSelector } from "react-redux";
 
-export default function ComposerForm({ referenceType, referenceId }) {
+const ComposerForm = ({
+	referenceType,
+	referenceId,
+	imageVideoRef,
+	pollRef,
+	docsRef,
+}) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const loading = useSelector(state => state.feedSlice.postCompose.loading);
 	const { composer } = FeedDictionary[userLanguage];
@@ -23,13 +29,20 @@ export default function ComposerForm({ referenceType, referenceId }) {
 		dispatch(getAllUser({ search: "", pageNo: 1, pageSize: 20 }));
 	}, []);
 
+	// // console.log("ref", ref);
+	// const {} = ref;
+
 	return (
 		<Form form={formRef}>
 			<PostTitleField />
 			<PostPollOptions />
 			<PostPreviewAttachments />
 			<PostTagField />
-			<PostOptions />
+			<PostOptions
+				imageVideoRef={imageVideoRef}
+				pollRef={pollRef}
+				docsRef={docsRef}
+			/>
 			<div className="submit-wrapper">
 				<PostPrivacyOptions />
 				<Button
@@ -50,4 +63,5 @@ export default function ComposerForm({ referenceType, referenceId }) {
 			</div>
 		</Form>
 	);
-}
+};
+export default ComposerForm;

@@ -15,6 +15,7 @@ import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import { tableColumn } from "../TableColumn";
 import { Table } from "../../../../sharedComponents/customTable";
 import { NoDataFound } from "../../../../sharedComponents/NoDataIcon";
+import { handleOpenApplyComposer } from "../../store/slice";
 
 const CareerCard = (props) => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const CareerCard = (props) => {
   const [applyDrawer, setApplyDrawer] = useState(false);
   const [id, setId] = useState();
   const [table, setTable] = useState(false);
-  console.log(props);
+
   const careers = useSelector((state) => {
     return state.careerSlice.items;
   });
@@ -62,8 +63,9 @@ const CareerCard = (props) => {
   };
 
   const applyJob = () => {
-    console.log("apply works");
-    setApplyDrawer(true);
+    // console.log("apply works");
+    // setApplyDrawer(true);
+    dispatch(handleOpenApplyComposer(true));
     setOpenDetail(false);
   };
 
@@ -174,14 +176,13 @@ const CareerCard = (props) => {
           )}
         </CardWrapper>
       )}
-      {table && (
+      {/* {table && (
         <Table
           columns={tableColumn()}
           dragable={true}
           data={careers ? careers : []}
         />
-      )} 
-      */}
+      )} */}
     </>
   );
 };

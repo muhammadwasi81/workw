@@ -13,39 +13,43 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { FullscreenOutlined } from "@ant-design/icons";
+import { getFile } from "../../../../../travel/view/AttachmentsCarrousel/AttachmentsCarrousel";
+import { fileExtentionPreview } from "../../../../../travel/utils/fileExtentionHelper";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Zoom, Thumbs]);
 
 function PostAttachment({ attachments, onOpen }) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	return (
-		<div className="slider-container">
-			<div
-				className="attacmentFullScreenBtn"
-				onClick={() => onOpen(true)}
-			>
-				<FullscreenOutlined />
-			</div>
-			<div className="slides">
-				<Swiper
-					style={{
-						"--swiper-navigation-color": "#fff",
-						"--swiper-pagination-color": "#fff",
-						height: "100%",
-					}}
-					// loop={true}
-					spaceBetween={10}
-					translate="yes"
-					navigation={true}
-					thumbs={{ swiper: thumbsSwiper }}
-					className="mySwiper2"
-					// style={{height:"100%"}}
+		<div className="slider-container cursor-pointer">
+			<div onClick={() => onOpen(true)}>
+				<div className="attacmentFullScreenBtn">
+					<FullscreenOutlined />
+				</div>
+				<div className="slides">
+					<Swiper
+						style={{
+							"--swiper-navigation-color": "#fff",
+							"--swiper-pagination-color": "#fff",
+							height: "100%",
+							maxHeight: "360px",
+						}}
+						// loop={true}
+						spaceBetween={10}
+						translate="yes"
+						navigation={true}
+						thumbs={{ swiper: thumbsSwiper }}
+						className="mySwiper2"
+						// style={{height:"100%"}}
 
-					zoom={true}
-				>
-					{attachments.map((slide, ind) => {
-						return (
-							<SwiperSlide zoom={true} key={ind}>
-								<img
+						zoom={true}
+					>
+						{attachments.map((slide, ind) => {
+							return (
+								<SwiperSlide zoom={true} key={ind}>
+									<div className="flex justify-center items-center w-full">
+										{getFile(slide)}
+									</div>
+									{/* <img
 									id={1}
 									src={slide.path}
 									style={{
@@ -53,11 +57,12 @@ function PostAttachment({ attachments, onOpen }) {
 										width: "min-content",
 									}}
 									alt=""
-								/>
-							</SwiperSlide>
-						);
-					})}
-				</Swiper>
+								/> */}
+								</SwiperSlide>
+							);
+						})}
+					</Swiper>
+				</div>
 			</div>
 			{attachments.length > 1 && (
 				<div className="thumbnails">
@@ -77,16 +82,18 @@ function PostAttachment({ attachments, onOpen }) {
 									style={{ width: "100px" }}
 									zoom={true}
 									key={ind}
+									className="cursor-pointer"
 								>
 									<img
 										id={1}
-										src={slide.path}
+										src={fileExtentionPreview(slide.path)}
 										style={{
 											height: "50px",
 											width: "100%",
-											objectFit: "cover",
+											objectFit: "contain",
 										}}
 										alt=""
+										className="cursor-pointer"
 									/>
 								</SwiperSlide>
 							);

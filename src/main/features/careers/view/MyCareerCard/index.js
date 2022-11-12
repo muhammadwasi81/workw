@@ -178,14 +178,13 @@ const MyCareerCard = (props) => {
         </CardWrapper>
       )}
 
-      {table && (
+      {/* {table && (
         <Table
           columns={tableColumn()}
           dragable={true}
           data={careers ? careers : []}
         />
-      )}
-     */}
+      )} */}
     </>
   );
 };

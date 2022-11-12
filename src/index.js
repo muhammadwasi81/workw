@@ -23,7 +23,7 @@ const onBeforeLift = () => { };
 injectStore(store);
 InjectAuthConfigStore(store);
 InjectMasterConfigStore(store);
-InjectMessengerConfigStore(store);
+// InjectMessengerConfigStore(store);
 root.render(
 	<Provider store={store}>
 		<PersistGate

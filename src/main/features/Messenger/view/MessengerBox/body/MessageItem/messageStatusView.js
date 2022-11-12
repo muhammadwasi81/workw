@@ -7,12 +7,12 @@ export const getIconByStatus = (status) => {
     console.log(status, "Status")
     switch (status) {
         case "Pending":
-            return deliverIcon
-        case "sent":
+            return pendingIcon
+        case 1:
             return sendIcon
-        case "delivered":
+        case 2:
             return deliverIcon
-        case "read":
+        case 3:
             return deliverIcon
         default:
             return;

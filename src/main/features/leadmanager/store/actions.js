@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { responseCode } from "../../../../services/enums/responseCode";
 import {
 	responseMessage,
@@ -111,8 +112,12 @@ export const updateLeadManager = createAsyncThunk(
 
 export const getAllLeadManager = createAsyncThunk(
 	"getAllLeadManager",
-	async (data, { dispatch, getState, rejectWithValue }) => {
-		const res = await getAllLeadManagerService(data);
+	async (data, { dispatch, getState, rejectWithValue, signal }) => {
+		const source = axios.CancelToken.source();
+		signal.addEventListener("abort", () => {
+			source.cancel();
+		});
+		const res = await getAllLeadManagerService(data, source);
 		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {

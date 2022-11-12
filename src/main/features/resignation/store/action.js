@@ -1,7 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { message } from "antd";
-import { addResignationService, getAllResignationService, getResignationyByIdService } from "../services/service";
+import { addResignationService, cancelResignationService, getAllResignationService, getResignationyByIdService } from "../services/service";
 import { responseCode } from "../../../../services/enums/responseCode";
+import { ResponseType } from "../../../../utils/api/ResponseResult";
+import { openNotification } from "../../../../utils/Shared/store/slice";
+import { cancelResignationSuccess } from "./slice";
 
 export const getAllResignations = createAsyncThunk("Resignation/GetAllResignation", async (data) => {
   const response = await getAllResignationService(data);
@@ -27,3 +30,26 @@ export const GetResignationById = createAsyncThunk("Resignation/GetResignationBy
   const response = await getResignationyByIdService(id);
   return response.data;
 });
+
+export const cancelResignationAction = createAsyncThunk(
+  "Resignation/cancelResignationAction",
+  async (id, { rejectWithValue, dispatch }) => {
+    const response = await cancelResignationService(id);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            message: response.message,
+            type: "error",
+            duration: 2,
+          })
+        );
+        dispatch(cancelResignationSuccess({ resignationId: id }));
+        return response.data;
+      default:
+        return;
+    }
+  }
+);

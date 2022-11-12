@@ -2,8 +2,9 @@ import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { STRINGS } from "../../../../utils/base";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 import { getAllChatsService, getAllMessageService, MessengerService, searchConversationService, sendMessageService } from "../services/service";
-import { handleAppendMessage } from "./messengerSlice";
+import { handleAppendMessage, handleMessageFailure } from "./messengerSlice";
 
 
 // export const sendChatMessage = createAsyncThunk(
@@ -28,23 +29,6 @@ import { handleAppendMessage } from "./messengerSlice";
 //     return res;
 //   }
 // );
-
-const createObjectForAppendMsg = (payload) => {
-  let attachments = payload.attachments.map(item => ({
-    path: window.webkitURL.createObjectURL(item.file)
-  }))
-  let request = {
-    ...payload,
-    // status: "Pending",
-    status: 1,
-    // messageType: 1,
-    createBy: "local",
-    attachments
-  }
-  return request
-}
-
-
 
 // export const getAllMessages = createAsyncThunk(
 //   "messenger/getAllMessages",
@@ -74,13 +58,35 @@ export const searchConversation = createAsyncThunk(
   }
 );
 
+const createObjectForAppendMsg = (payload) => {
+  let attachments = payload.attachments.map(item => ({
+    path: window.webkitURL.createObjectURL(item.file)
+  }))
+  let request = {
+    ...payload,
+    status: "Pending",
+    // status: 1,
+    // messageType: 1,
+    createBy: "local",
+    attachments
+  }
+  return request
+}
+
+
 // NEWW
 export const createChat = createAsyncThunk(
   "messenger/createChat",
-  async (request, { rejectWithValue }) => {
+  async (request, { rejectWithValue, dispatch }) => {
     const response = await MessengerService.createChat(request);
+    console.log(response)
     switch (response.type) {
       case ResponseType.ERROR:
+        dispatch(
+          openNotification({
+            message: response.errorMessage,
+            type: "error"
+          }))
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         return response.data;
@@ -99,6 +105,13 @@ export const sendChatMessage = createAsyncThunk(
     const response = await MessengerService.sendMessage(request);
     switch (response.type) {
       case ResponseType.ERROR:
+        dispatch(
+          openNotification({
+            message: response.errorMessage,
+            type: "error"
+          }))
+        dispatch(
+          handleMessageFailure(request))
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         return response.data;
@@ -107,7 +120,6 @@ export const sendChatMessage = createAsyncThunk(
     }
   }
 );
-
 export const getAllChats = createAsyncThunk(
   "messenger/getAllChats",
   async (request, { rejectWithValue }) => {
@@ -130,11 +142,40 @@ export const getAllChatMessage = createAsyncThunk(
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
+        return {
+          data:response.data,
+          chatId:request.chatId
+        };
+      default:
+        return;
+    }
+  }
+);
+export const updateMessageDeliver = createAsyncThunk(
+  "messenger/updateMessageDeliver",
+  async (request, { rejectWithValue, getState }) => {
+    const response = await MessengerService.updateMessageDeliver(request);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
         return response.data;
       default:
         return;
     }
   }
 );
-
-
+export const updateMessageSeen = createAsyncThunk(
+  "messenger/updateMessageSeen",
+  async (request, { rejectWithValue }) => {
+    const response = await MessengerService.updateMessageSeen(request);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);

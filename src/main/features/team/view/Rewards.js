@@ -10,7 +10,7 @@ import { teamDictionaryList } from "../localization/index";
 
 import moment from "moment";
 
-function Rewards() {
+function Rewards({ userId = null }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
@@ -23,8 +23,10 @@ function Rewards() {
     success,
   } = useSelector((state) => state.teamSlice);
 
+  let myId = userId ? userId : id;
+
   useEffect(() => {
-    dispatch(getRewardsAction(id));
+    dispatch(getRewardsAction(myId));
   }, []);
 
   const columns = [

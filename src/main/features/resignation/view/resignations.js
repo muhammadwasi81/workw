@@ -8,16 +8,18 @@ import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { Table } from "../../../sharedComponents/customTable";
 import { getAllResignations } from "../store/action";
-import ListItem from "./listItem";
+import ListItem from "./ListItem";
 import "./style.css"
 import DetailedView from "./detaileView";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import { handleOpenComposer } from "../store/slice";
 import Composer from "./composer";
 import { tableColumn } from "./TableColumn";
+import { ROUTES } from "../../../../utils/routes";
 
 const Resignation = props => {
   const dispatch = useDispatch()
-  const [filter, setFilter] = useState({ filterType: 0, search: "" })
+  const [filter, setFilter] = useState({ filterType: 1, search: "", pageNo: 0, pageSize: 20, sortBy: 1 })
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
 
@@ -36,10 +38,32 @@ const Resignation = props => {
     dispatch(getAllResignations(filter))
   }, [filter])
 
+  const headerButtuns = [
+    {
+      name: "Resignation",
+      renderButton: [1],
+      to: `${ROUTES.RESIGNATION.RESIGNATION}`,
+    },
+  ];
+
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        console.log(record.id, "ID")
+        setDetailId(record.id)
+      },
+      onDoubleClick: (event) => { }, // double click row
+      onContextMenu: (event) => { }, // right button click row
+      onMouseEnter: (event) => { }, // mouse enter row
+      onMouseLeave: (event) => { }, // mouse leave row
+    };
+  };
+
   return (
     <>
       <TabbableContainer>
         <Header
+          items={headerButtuns}
           buttons={[
             {
               buttonText: "Create Reward",
@@ -67,11 +91,7 @@ const Resignation = props => {
             {
               name: "For Approval",
               onClick: () => setFilter({ filterType: 2 }),
-            },
-            {
-              name: "Resignation To Me",
-              onClick: () => setFilter({ filterType: 3 }),
-            },
+            }
           ]}
           segment={{
             onSegment: (value) => {
@@ -86,34 +106,32 @@ const Resignation = props => {
           }}
         />
         <ContBody>
-          {items?.length > 0 ? (
-            <>
-              {
-                loader === false ?
-                  <>
-                    {tableView ? <Table
-                      columns={tableColumn()}
-                      dragable={true}
-                      data={items}
-                    /> :
-                      <CardWrapper>
-                        {items.map((item, index) => {
-                          return (
-                            <>
-                              <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
-                            </>
-                          );
-                        })}
-                      </CardWrapper>
-                    }
-                  </>
-                  : <>
-                    <Skeleton avatar paragraph={{ rows: 4 }} />
-                  </>
+            {
+              loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+            }
 
-              }
-            </>) : <Skeleton avatar paragraph={{ rows: 4 }} />}
-        </ContBody>
+            {
+              tableView &&
+              <Table
+                columns={tableColumn()}
+                dragable={true}
+                data={items}
+                onRow={onRow}
+              />
+            }
+
+            {
+              items?.length > 0 && !loader && !tableView ? (
+                <CardWrapper>
+                  {items.map((item, index) => {
+                    return (
+                      <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
+                    );
+                  })}
+                </CardWrapper>
+              ) : !loader && !tableView && <NoDataFound />
+            }
+          </ContBody>
         {<DetailedView onClose={onClose} id={detailId} />}
 
         <Drawer

@@ -51,15 +51,13 @@ const Composer = (props) => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
-	const { rewardCategories } = useSelector(state => state.sharedSlice);
-	const { success, loader } = useSelector(state => state.rewardSlice);
-	const employees = useSelector(state => state.sharedSlice.employees);
+  const { rewardCategories } = useSelector((state) => state.sharedSlice);
+  const { success, loader } = useSelector((state) => state.rewardSlice);
+  const employees = useSelector((state) => state.sharedSlice.employees);
 
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
-    // setMembers(obj);
-    // onChange(data, obj);
   };
   useEffect(() => {
     fetchEmployees("", 0);
@@ -135,21 +133,23 @@ const Composer = (props) => {
       file: profileImage && profileImage[0]?.originFileObj,
     };
 
-		if (Object.keys(image).length > 0) {
-			let payload = { ...values, approvers, members, image };
-			dispatch(addReward(payload));	
-			dispatch(getAllRewards({filterType: 0}))
-		} else {
-			let payload = { ...values, approvers, members };
-			dispatch(addReward(payload));	
-			dispatch(getAllRewards({filterType: 0}))
-		}
-	};
-	useEffect(() => {
-		if (success) {
-		  form.resetFields();
-		}
-	  }, [success]);
+    if (Object.keys(image).length > 0) {
+      let payload = { ...values, approvers, members, image };
+      dispatch(addReward(payload));
+      console.log(image.file, "image file");
+      console.log(payload, "payload");
+      dispatch(getAllRewards({ filterType: 0 }));
+    } else {
+      let payload = { ...values, approvers, members };
+      dispatch(addReward(payload));
+      dispatch(getAllRewards({ filterType: 0 }));
+    }
+  };
+  useEffect(() => {
+    if (success) {
+      form.resetFields();
+    }
+  }, [success]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -260,49 +260,45 @@ const Composer = (props) => {
           />
         </Form.Item>
 
-				<Form.Item
-					name="approvers"
-					label={rewardDictionary.approvers}
-					showSearch={true}
-					direction={Direction}
-					style={{ marginBottom: "0px" }}
-				>
-					<CustomSelect
-						style={{ marginBottom: "0px" }}
-						data={firstTimeEmpData}
-						selectedData={selectedData}
-						canFetchNow={isFirstTimeDataLoaded}
-						fetchData={fetchEmployees}
-						placeholder={rewardDictionary.selectApprovers}
-						mode={"multiple"}
-						isObject={true}
-						loadDefaultData={false}
-						optionComponent={opt => {
-							return (
-								<>
-									<Avatar
-										name={opt.name}
-										src={opt.image}
-										className="!bg-black"
-									>
-										{getNameForImage(opt.name)}
-									</Avatar>
-									{opt.name}
-								</>
-							);
-						}}
-						dataVal={value}
-						name="approvers"
-						showSearch={true}
-						direction={Direction}
-						rules={[
-							{
-								required: true,
-								message: "Please Select Approver",
-							},
-						]}
-					/>
-				</Form.Item>
+        <Form.Item
+          name="approvers"
+          label={rewardDictionary.approvers}
+          showSearch={true}
+          direction={Direction}
+          style={{ marginBottom: "0px" }}
+        >
+          <CustomSelect
+            style={{ marginBottom: "0px" }}
+            data={firstTimeEmpData}
+            selectedData={selectedData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            placeholder={rewardDictionary.selectApprovers}
+            mode={"multiple"}
+            isObject={true}
+            loadDefaultData={false}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar name={opt.name} src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
+            }}
+            dataVal={value}
+            name="approvers"
+            showSearch={true}
+            direction={Direction}
+            rules={[
+              {
+                required: true,
+                message: "Please Select Approver",
+              },
+            ]}
+          />
+        </Form.Item>
 
         <Form.Item
           label={rewardDictionary.description}
@@ -326,23 +322,23 @@ const Composer = (props) => {
           />
         </Form.Item>
 
-				<Form.Item>
-					<Button
-						type="primary"
-						size="medium"
-						className="ThemeBtn"
-						block
-						htmlType="submit"
-						loading={loader}
-						title={rewardDictionary.createReward}
-					>
-						{" "}
-						{rewardDictionary.createReward}{" "}
-					</Button>
-				</Form.Item>
-			</Form>
-		</>
-	);
+        <Form.Item>
+          <Button
+            type="primary"
+            size="medium"
+            className="ThemeBtn"
+            block
+            htmlType="submit"
+            loading={loader}
+            title={rewardDictionary.createReward}
+          >
+            {" "}
+            {rewardDictionary.createReward}{" "}
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
+  );
 };
 
 export default Composer;

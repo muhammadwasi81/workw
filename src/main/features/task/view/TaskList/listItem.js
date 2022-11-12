@@ -1,4 +1,4 @@
-import { Progress } from "antd";
+import { Button, Progress } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
@@ -8,25 +8,38 @@ import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/Sub
 import moment from "moment";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { taskDictionary } from "../../localization";
-import { getPriorityLabel } from "../../utils/enum/enum";
+import {
+  getPriorityLabel,
+  UserTaskStatusEnum,
+  getUserStatusLabel,
+} from "../../utils/enum/enum";
 import TaskMembers from "../TaskDetail/taskMembers";
 import { postUserTaskRating } from "../../utils/services/service";
 import Attachments from "../../../travel/view/UI/Attachments";
+import { cancelTaskAction } from "../../store/actions";
+import { useSelector, useDispatch } from "react-redux";
+// import {
+//   ApprovalsModule,
+//   ApprovalStatus,
+// } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 
 function TaskListItem({
   item,
   isTaskMember = false,
-  onTask = () => { },
+  onTask = () => {},
   isRatingDisable = true,
   changeOnProgress,
   progress,
+  isDetail = false,
 }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
   const [rating, setRating] = useState("");
   const { taskDictionaryList } = taskDictionary[userLanguage];
   const [isMount, setIsMount] = useState(false);
+  const [updatedStatus, setUpdatedStatus] = useState(null);
   const { labels } = taskDictionaryList;
+  const dispatch = useDispatch();
   const {
     id,
     subject,
@@ -39,13 +52,24 @@ function TaskListItem({
     progress: progressed,
     members = [],
     creator,
-    attachments
+    status,
+    attachments,
+    predecessor,
   } = item;
+  let {
+    NotStarted,
+    InProcess,
+    Completed,
+    RatingAssign,
+    Cancelled,
+  } = UserTaskStatusEnum;
+  const { user } = useSelector((state) => state.userSlice);
+  let userId = user.id;
 
   let classes = "card-list-item ";
   classes += Direction === "rtl" ? "rtl" : "ltr";
   const { color, label } = getPriorityLabel(labels, priority);
-
+  const taskColorEnum = getUserStatusLabel(label, status);
   useEffect(() => {
     if (isMount) {
       if (!isRatingDisable) handleRating(id, rating);
@@ -60,6 +84,12 @@ function TaskListItem({
     await postUserTaskRating(id, rating);
   };
   console.log(progress ? progress : progressed, "condition");
+  const handleCancel = (e, payload) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(cancelTaskAction(payload));
+  };
+
   return (
     <div className={classes} onClick={() => onTask(id)}>
       <div className="card-item-header">
@@ -69,10 +99,8 @@ function TaskListItem({
             name={creator?.name}
             Subline={
               <SublineDesigWithTime
-                designation={
-                  creator?.designation ? creator?.designation : "Not Designated"
-                }
-              // time="2 days ago"
+                designation={creator?.designation ? creator?.designation : ""}
+                time={moment(startDate).fromNow()}
               />
             }
           />
@@ -91,6 +119,26 @@ function TaskListItem({
             <span className="priority " style={{ backgroundColor: color }}>
               {label}
             </span>
+            {userId === creator.id
+              ? status !== Completed && status !== Cancelled
+                ? isDetail && (
+                    <span
+                      className="cancel-task ThemeBtn"
+                      onClick={(e) => handleCancel(e, id)}
+                    >
+                      Cancel
+                    </span>
+                  )
+                : ""
+              : ""}
+            {(status === Completed || status === Cancelled) && (
+              <span
+                className="user-status"
+                style={{ backgroundColor: taskColorEnum.color }}
+              >
+                {taskColorEnum.label}
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -101,7 +149,6 @@ function TaskListItem({
             <div className="left">
               <div className="card-Title-1">{subject}</div>
               <p className="card-desc-1">{description}</p>
-
             </div>
 
             <div className="right !min-w-max">
@@ -116,7 +163,7 @@ function TaskListItem({
                   data={attachments}
                   key={{ data: attachments }}
                   toShow={3}
-                  onClick={() => { }}
+                  onClick={() => {}}
                   size={"50px"}
                 />
               </div>
@@ -129,6 +176,10 @@ function TaskListItem({
             />
           </div>
           <div className="cardSections">
+            <div className="cardSectionItem">
+              <div className="cardSection__title">{labels.predecessor}</div>
+              <div className="cardSection__body">{predecessor}</div>
+            </div>
             <div className="cardSectionItem">
               <div className="cardSection__title">{labels.startDate}</div>
               <div className="cardSection__body">

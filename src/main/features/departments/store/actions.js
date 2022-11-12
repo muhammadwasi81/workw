@@ -18,6 +18,7 @@ import {
 export const getAllDepartments = createAsyncThunk(
   "Department/getAllDepartment",
   async (data) => {
+    console.log(data);
     const response = await getAllDepartmentService(data);
 
     if (!response.responseCode) {

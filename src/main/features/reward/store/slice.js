@@ -1,6 +1,11 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { setAuthEnv } from "../../../../utils/base";
-import { addReward, cancelReward, getAllRewards, GetRewardById } from "./actions";
+import {
+  addReward,
+  cancelReward,
+  getAllRewards,
+  GetRewardById,
+} from "./actions";
 
 const initialState = {
   success: false,
@@ -17,7 +22,7 @@ const rewardSlice = createSlice({
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
-      state.drawerOpen = payload
+      state.drawerOpen = payload;
     },
   },
   extraReducers: (builder) => {
@@ -36,11 +41,13 @@ const rewardSlice = createSlice({
 
     builder
       .addCase(addReward.fulfilled, (state, { payload }) => {
-        state.drawerOpen = false
-        state.success = true
-        state.addLoader = false
-        // state.rewards = [...state.rewards, payload.data.data];
-        state.rewards.push(payload.data.data);
+        // state.drawerOpen = false;
+        // state.success = true;
+        // state.addLoader = false;
+        state.rewards = [payload.data.data, ...state.rewards];
+        state.drawerOpen = false;
+        return state;
+        // state.rewards.push(payload.data.data);
       })
       .addMatcher(isPending(...[getAllRewards, addReward]), (state) => {
         state.loader = true;

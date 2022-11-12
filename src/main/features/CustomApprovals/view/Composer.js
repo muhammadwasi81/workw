@@ -44,6 +44,7 @@ const Composer = (props) => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
   const [amount, setAmount] = useState(1);
+  const [attachments, setAttachments] = useState([]);
 
   const { customApprovalCategories } = useSelector(
     (state) => state.customApprovalCategorySlice
@@ -51,9 +52,9 @@ const Composer = (props) => {
 
   const employees = useSelector((state) => state.sharedSlice.employees);
 
-  const handleImageUpload = (data) => {
-    setProfileImage(data);
-  };
+  // const handleImageUpload = (data) => {
+  //   setProfileImage(data);
+  // };
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -109,25 +110,23 @@ const Composer = (props) => {
           approverId: approver,
         };
       });
+      // dispatch(addCustomApproval());
     }
+    attachments;
+    let payload = { ...values, approvers, attachments };
+    dispatch(addCustomApproval(payload));
 
-    // // let image = { id: STRINGS.DEFAULTS.guid, file: profileImage[0].originFileObj }
-    // let payload = { ...values, approvers, attachments };
-    // dispatch(addCustomApproval(payload));
-    // let image = {
-    //   id: STRINGS.DEFAULTS.guid,
-    //   file: profileImage && profileImage[0]?.originFileObj,
-    // };
-    if (profileImage) {
-      let attachments = [
-        { id: DEFAULT_GUID, file: profileImage[0].originFileObj },
-      ];
-      let payload = { ...values, approvers, attachments };
-      dispatch(addCustomApproval(payload));
-    } else {
-      let payload = { ...values, approvers };
-      dispatch(addCustomApproval(payload));
-    }
+    ///imagessss addedddd
+    // if (profileImage) {
+    //   let attachments = [
+    //     { id: DEFAULT_GUID, file: profileImage[0].originFileObj },
+    //   ];
+    //   let payload = { ...values, approvers, attachments };
+    //   dispatch(addCustomApproval(payload));
+    // } else {
+    //   let payload = { ...values, approvers };
+    //   dispatch(addCustomApproval(payload));
+    // }
 
     form.resetFields();
   };
@@ -268,14 +267,24 @@ const Composer = (props) => {
           />
         </Form.Item>
 
-        <Form.Item area="true">
+        <Form.Item area="true" className="w-max">
           <SingleUpload
             // handleImageUpload={(file) => {
             //   setFile(file[0].originFileObj);
             // }}
-            handleImageUpload={handleImageUpload}
-            img="Add Image"
-            position="flex-start"
+            // handleImageUpload={handleImageUpload}
+            handleImageUpload={(files) =>
+              setAttachments(
+                files.map((file) => ({
+                  file: file.originFileObj,
+                  id: STRINGS.DEFAULTS.guid,
+                }))
+              )
+            }
+            // img="Add Image"
+            // position="flex-start"
+
+            multiple={true}
             uploadText={customApprovalDictionary.upload}
           />
         </Form.Item>

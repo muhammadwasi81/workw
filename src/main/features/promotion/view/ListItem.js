@@ -6,7 +6,11 @@ import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+  ItemContent,
+  ItemHeader,
+  SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
 
@@ -14,21 +18,25 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { promotionDictionary } = promotionDictionaryList[userLanguage];
 
-  const { 
-    creator, 
-    description, 
+  const {
+    id,
+    creator,
+    description,
     createDate,
-    member = {}, 
+    member = {},
     approvers,
     status,
-    referenceNo, 
-    grade
-   } = props.item;
-
+    referenceNo,
+    grade,
+  } = props.item;
+  // console.log(id, "IDDDD");
   return (
     <SingleItem>
-      <div className="new" id={props.id}
-        onClick={() => {props.getPromotionId(props.id);
+      <div
+        className="new"
+        id={props.id}
+        onClick={() => {
+          props.getPromotionId(props.id);
         }}
       />
       <ItemHeader>
@@ -36,7 +44,12 @@ function ListItem(props) {
           <UserInfo
             avatarSrc={creator.image}
             name={creator.name}
-            Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+            Subline={
+              <SublineDesigWithTime
+                designation={creator.designation ? creator.designation : ""}
+                time={moment(createDate).fromNow()}
+              />
+            }
           />
         </div>
         <div className="right">
@@ -49,20 +62,23 @@ function ListItem(props) {
       </ItemContent>
       <div className="cardSections">
         <div className="cardSectionItem">
-          <div className="cardSection__title">{"New Grade"}</div>
-          <div className="cardSection__body"><Tag className="IdTag">{grade ? grade : "Default Grade"}</Tag></div>
-        </div>
-        <div className="cardSectionItem">
-          <div className="cardSection__title">{promotionDictionary.promotionTo}</div>
+          <div className="cardSection__title">{promotionDictionary.grade}</div>
           <div className="cardSection__body">
-            {member && member.name
-            }
+            <Tag className="IdTag">{grade ? grade : "Default Grade"}</Tag>
           </div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">{promotionDictionary.approvers}</div>
+          <div className="cardSection__title">
+            {promotionDictionary.promotionTo}
+          </div>
+          <div className="cardSection__body">{member && member.name}</div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">
+            {promotionDictionary.approvers}
+          </div>
           <div className="cardSection__body">
-            {approvers &&
+            {approvers && (
               <Avatar
                 isAvatarGroup={true}
                 isTag={false}
@@ -71,7 +87,7 @@ function ListItem(props) {
                 text={"Approvers"}
                 image={"https://joeschmoe.io/api/v1/random"}
               />
-            }
+            )}
           </div>
         </div>
       </div>

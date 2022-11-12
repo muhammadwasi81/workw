@@ -64,6 +64,7 @@ function RewardDetailCard(props) {
     referenceNo,
     members = [],
     approvers,
+    attatchments,
   } = rewardDetail;
 
   const handleCancel = (e, payload) => {
@@ -73,7 +74,6 @@ function RewardDetailCard(props) {
   };
 
   const isTablet = false;
-
   return (
     <>
       {rewardDetail.id && (
@@ -120,11 +120,16 @@ function RewardDetailCard(props) {
               className="attachmentBox"
               style={{ width: "65px", height: "60px" }}
             >
+              {/* {attatchments.map((i) => {
+                return ( */}
               <Image
                 preview={false}
                 width={60}
                 src={image === "" ? RewardDefaultIcon : image}
+                // src={i.path}
               />
+              {/* );
+              })} */}
             </div>
           </ItemContent>
           <div className="cardSections">

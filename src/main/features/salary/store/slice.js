@@ -38,7 +38,10 @@ export const VoucherSlice = createSlice({
          })
          .addMatcher(
             isPending(
-               ...[addMultipleEmployeeSalary]
+               ...[
+                  addMultipleEmployeeSalary,
+                  getAllEmployeeSalary
+               ]
             ),
             state => {
                state.loader = true;

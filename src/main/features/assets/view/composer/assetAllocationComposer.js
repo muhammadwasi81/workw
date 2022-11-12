@@ -8,7 +8,7 @@ import { customApprovalDictionaryList } from '../../../CustomApprovals/localizat
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { addInventoryAsset, getAllInventoryAsset } from '../../store/action';
 import { modifySelectData } from '../../../../../utils/base';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const initialState = {
   id: '',
@@ -52,7 +52,10 @@ const AssetComposer = () => {
   const [data, setData] = useState([]);
 
   const employees = useSelector((state) => state.sharedSlice.employees);
-  const { inventoryAssets } = useSelector((state) => state.inventoryAssetSlice);
+  const { success, inventoryAssets } = useSelector(
+    (state) => state.inventoryAssetSlice
+  );
+  console.log(success, 'composer');
   const { assetItemList } = useSelector((state) => state.AssetItemSlice);
 
   const selectedData = (data, obj) => {
@@ -106,14 +109,14 @@ const AssetComposer = () => {
       setIsFirstTimeDataLoaded(true);
       setFirstTimeEmpData(employees);
     }
-    if (inventoryAssets.length > 0 && !isFirstTimeInvLoaded) {
+    if (inventoryAssets?.length > 0 && !isFirstTimeInvLoaded) {
       setIsFirstTimeInvLoaded(true);
       setFirstTimeEnvData(inventoryAssets);
     }
   }, [employees, inventoryAssets]);
 
   const onFinish = (values) => {
-    if (!values.handoverId || !values.assetItems) {
+    if (!values.handoverId) {
       return message.error('Please fill all fields');
     }
 
@@ -136,13 +139,6 @@ const AssetComposer = () => {
         itemId: values.assetItems,
         name: values.assetItems,
       });
-    } else {
-      assetItems = values.assetItems.map((assetItem) => {
-        return {
-          itemId: assetItem,
-          name: assetItem,
-        };
-      });
     }
 
     let payload = {
@@ -158,9 +154,11 @@ const AssetComposer = () => {
         };
       }),
     };
+    console.log(payload, 'payload');
     dispatch(addInventoryAsset(payload));
     setState(initialState);
     form.resetFields();
+    setData([]);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -168,8 +166,9 @@ const AssetComposer = () => {
   };
 
   let filteredAssetList = assetItemList.filter(
-    (item) => !data.includes(item.id) && !data.includes(item.name)
+    (item) => !data.includes(item.id)
   );
+  console.log(filteredAssetList, 'filteredAssetList');
 
   return (
     <>
@@ -190,16 +189,10 @@ const AssetComposer = () => {
         autoComplete="off"
       >
         <Form.Item
-          name="handoverId"
-          label="Members"
+          name="handover"
+          label="* Members"
           showSearch={true}
           direction={Direction}
-          rules={[
-            {
-              required: true,
-              message: 'Please select Members',
-            },
-          ]}
         >
           <CustomSelect
             style={{ marginBottom: '0px' }}
@@ -238,7 +231,7 @@ const AssetComposer = () => {
         </Form.Item>
         <Form.Item
           style={{ marginBottom: '0px' }}
-          name="approvers"
+          name="approverId"
           label={customApprovalDictionary.approvers}
           showSearch={true}
           direction={Direction}
@@ -277,24 +270,31 @@ const AssetComposer = () => {
         <Form.Item label="Description" name="description">
           <Input.TextArea placeholder="Enter Description" />
         </Form.Item>
-        <Form.Item
-          label="Please Select Item"
-          name="assetItems"
-          rules={[
-            {
-              required: true,
-              message: 'Please Select Item',
-            },
-          ]}
-        >
+
+        <Col span={24}>
+          <Form.Item
+            style={{ marginBottom: '5px' }}
+            name="category"
+            label="* Category"
+            showSearch={true}
+            direction={Direction}
+          />
           <Select
+            name="category"
             placeholder="Please Select Item"
             style={{
               width: '100%',
               borderRadius: '5px',
+              marginBottom: '10px',
             }}
             size="large"
-            onChange={(e) => changeData(e)}
+            value={'Please Select Item'}
+            filterOption={(input, option) =>
+              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+            }
+            onChange={(e) => {
+              changeData(e);
+            }}
           >
             {filteredAssetList.map((item) => (
               <Select.Option key={item.id} value={item.id}>
@@ -305,12 +305,12 @@ const AssetComposer = () => {
               </Select.Option>
             ))}
           </Select>
-        </Form.Item>
+        </Col>
 
         <Row>
           <Col span={24}>
-            {data.length > 0 &&
-              data.map((item, index) => (
+            {data?.length > 0 &&
+              data?.map((item, index) => (
                 <div
                   key={item.id}
                   style={{
@@ -345,46 +345,6 @@ const AssetComposer = () => {
               ))}
           </Col>
         </Row>
-
-        {/* <Row>
-          <Col span={24}>
-            {data.map((item, index) => (
-              <>
-                <div
-                  key={index}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    backgroundColor: '#f5f5f5',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    marginBottom: '10px',
-                  }}
-                >
-                  <strong>
-                    {assetItemList.find((el) => el.id === item).name}
-                    &nbsp;&nbsp;
-                    {assetItemList.find((el) => el.id === item).code}
-                  </strong>
-                  <Button
-                    type="primary"
-                    size="medium"
-                    className="ThemeBtn"
-                    block
-                    style={{
-                      width: '45px',
-                      height: '35px',
-                      paddingBottom: '7px',
-                    }}
-                    onClick={() => handleDelete(index)}
-                  >
-                    <DeleteOutlined />
-                  </Button>
-                </div>
-              </>
-            ))}
-          </Col>
-        </Row> */}
         <Form.Item>
           <Button
             type="primary"

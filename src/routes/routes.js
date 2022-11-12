@@ -84,6 +84,12 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.ASSETS_TABLE_LIST.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/assetsTableList/view/index")
+			),
+		},
+		{
 			path: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/RequestListItems/view/index")
@@ -176,7 +182,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/groups/view/index")),
 		},
 		{
-			path: `${ROUTES.GROUP.DEFAULT}/:groupId`,
+			path: `${ROUTES.GROUP.DEFAULT}/:id`,
 			component: lazy(() =>
 				import("../main/features/groups/view/GroupDetails/GroupDetails")
 			),
@@ -310,7 +316,7 @@ export const routes = {
 		{
 			path: `${ROUTES.RESIGNATION.DEFAULT}`,
 			component: lazy(() =>
-				import("../main/features/resignation/view/index")
+				import("../main/features/resignation/view/resignations")
 			),
 		},
 		{

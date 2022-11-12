@@ -86,9 +86,10 @@ function ListItem(props) {
                         <div className="cardSection__body tagDiv">
                             {user &&
                                 <div className="singleTag">
-                                    <div className="imageDiv">
+                                    { 
+                                        user.image ?  <div className="imageDiv">
                                         <img src={user.image} />
-                                    </div>
+                                    </div> : "" }
                                     <div className="tagText">
                                         <p>{user.name}</p>
                                     </div>

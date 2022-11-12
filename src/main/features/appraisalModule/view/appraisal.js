@@ -10,6 +10,7 @@ import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { handleOpenComposer } from "../store/slice";
 import { useDispatch, useSelector } from "react-redux";
+import ForApproval from "./components/ForApproval";
 
 function Appraisals() {
   const dispatch = useDispatch();
@@ -18,8 +19,8 @@ function Appraisals() {
   );
   let RenderTab = {
     teamAppraisals: <TeamAppraisals />,
-    myAppraisals: <div>My Appraisals</div>,
-    forApprovals: <div>For Approvals</div>,
+    myAppraisals: <ForApproval />,
+    forApprovals: <ForApproval />,
   };
 
   return (
@@ -28,7 +29,7 @@ function Appraisals() {
         <Header
           buttons={[
             {
-              buttonText: "Submit Appraisals",
+              buttonText: "Create Appraisals",
               render: (
                 <Button
                   className="ThemeBtn"

@@ -22,6 +22,7 @@ import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustomSelect";
 import { TaskReferenceTypeEnum } from "../../enums/enum";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
+import "../style/task.css";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 let newType;

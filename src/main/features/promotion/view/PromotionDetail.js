@@ -9,147 +9,153 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import {
-	ApprovalsModule,
-	ApprovalStatus,
+  ApprovalsModule,
+  ApprovalStatus,
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
 import { promotionDictionaryList } from "../localization";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
 import { useDispatch } from "react-redux";
-import { GetPromotionById,cancelPromotion} from "../store/actions";
+import { GetPromotionById, cancelPromotion } from "../store/actions";
 
 function PromotionDetail(props) {
-	const dispatch = useDispatch();
-	const { user } = useSelector(state => state.userSlice);
-	//const { id } = props;
-	const [updatedStatus, setUpdatedStatus] = useState();
-	const { promotionDetail } = useSelector(state => state.promotionSlice);
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { Direction, promotionDictionary } = promotionDictionaryList[
-		userLanguage
-	];
-	let userId = user.id
-	console.log(userId,"useriddddd")
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.userSlice);
+  const { id } = props;
+  const [updatedStatus, setUpdatedStatus] = useState();
+  const { promotionDetail } = useSelector((state) => state.promotionSlice);
+  console.log(promotionDetail, "promotion detail");
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction, promotionDictionary } = promotionDictionaryList[
+    userLanguage
+  ];
+  let userId = user.id;
+  console.log(props.id, "propsss id");
 
-	useEffect(() => {
-		props.id && dispatch(GetPromotionById(props.id));
-    }, [props.id]);
+  useEffect(() => {
+    console.log(props.id, "props iddd");
+    props.id && dispatch(GetPromotionById(props.id));
+  }, [props.id]);
 
-	const {
-		InProcess,
-		Approved,
-		Declined,
-		Resend,
-		Inactive,
-		NotRequired,
-		Cancelled,
-		ApprovalRequired,
-		Hold,
-		NoStatus,
-	} = ApprovalStatus;
+  console.log("FROM DETAIL");
 
-	const {
-		creator,
-		status,
-		approvers,
-		members = [],
-		description,
-		createDate,
-	} = promotionDetail
+  const {
+    InProcess,
+    Approved,
+    Declined,
+    Resend,
+    Inactive,
+    NotRequired,
+    Cancelled,
+    ApprovalRequired,
+    Hold,
+    NoStatus,
+  } = ApprovalStatus;
 
-	const handleCancel = (e, payload) => {
-        e.preventDefault()
-        e.stopPropagation();
-        dispatch(cancelPromotion(payload));
-    }
+  const {
+    creator,
+    status,
+    approvers,
+    description,
+    createDate,
+    member = {},
+    referenceNo,
+  } = promotionDetail;
 
-	return (
-		<>
-		{promotionDetail.id && (
-		<div className="detailedCard ">
-			<div className="item-header">
-				<div className="left">
-					<UserInfo
-						avatarSrc={creator.image}
-						name={creator.name}
-						Subline={
-							<SublineDesigWithTime
-								designation={
-									creator.designation
-										? creator.designation
-										: ""
-								}
-								time={moment(
-									creator.createDate
-								).fromNow()}
-							/>
-						}
-					/>
-				</div>
-				<div className="right">
-					<Tag className="IdTag">TRA-000085</Tag>
-					<StatusTag status={updatedStatus?.Approvals}></StatusTag>
-					{
-                        userId === creator.id ? status != Declined && status != Resend && status != Approved ? 
-                        <Button className="ThemeBtn" onClick={(e) => handleCancel(e, props.id)}>Cancel</Button> :
-                        "" : ""
-                    }
-				</div>
-			</div>
-			<div className="item-content">
-				<p>{creator.description}</p>
-			</div>
-			<div className="cardSections" style={{ marginTop: "10px" }}>
-				<div className="cardSectionItem">
-					<div className="cardSection__title">{"New Grade"}</div>
-					<div className="cardSection__body">
-						<Tag className="IdTag">
-							{creator.grade
-								? creator.grade
-								: "Default Grade"}
-						</Tag>
-					</div>
-				</div>
-				<div className="cardSectionItem">
-					<div className="cardSection__title">
-						{promotionDictionary.promotionTo}
-					</div>
-					<div className="cardSection__body">
-						{creator.member &&
-							promotionDetail?.member.name}
-					</div>
-				</div>
-				<div className="cardSectionItem">
-					<div className="cardSection__title">
-						{promotionDictionary.approvers}
-					</div>
-					<div className="cardSection__body">
-						{approvers && (
-							<Avatar
-								isAvatarGroup={true}
-								isTag={false}
-								heading={"Approvers"}
-								membersData={approvers ? approvers : []}
-								text={"Approvers"}
-							/>
-						)}
-					</div>
-				</div>
-			</div>
-			<RemarksApproval
-				module={ApprovalsModule.PromotionApproval}
-				status={status}
-				onStatusChanged={statusChanged =>
-					setUpdatedStatus(statusChanged)
-				}
-				data={approvers}
-				title="Approvals"
-			/>
-		</div>
-	)}
-	</>
-	);
+  const handleCancel = (e, payload) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(cancelPromotion(payload));
+  };
+
+  return (
+    <>
+      {promotionDetail.id && (
+        <div className="detailedCard ">
+          <div className="item-header">
+            <div className="left">
+              <UserInfo
+                avatarSrc={creator.image}
+                name={creator.name}
+                Subline={
+                  <SublineDesigWithTime
+                    designation={creator.designation ? creator.designation : ""}
+                    time={moment(creator.createDate).fromNow()}
+                  />
+                }
+              />
+            </div>
+            <div className="right">
+              <Tag className="IdTag">{referenceNo}</Tag>
+              <StatusTag
+                status={updatedStatus ? updatedStatus.Approvers : status}
+              ></StatusTag>
+              {userId === creator.id ? (
+                status != Declined && status != Resend && status != Approved ? (
+                  <Button
+                    className="ThemeBtn"
+                    onClick={(e) => handleCancel(e, props.id)}
+                  >
+                    Cancel
+                  </Button>
+                ) : (
+                  ""
+                )
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+          <div className="item-content">
+            <p>{promotionDetail?.description}</p>
+          </div>
+          <div className="cardSections" style={{ marginTop: "10px" }}>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">
+                {promotionDictionary.grade}
+              </div>
+              <div className="cardSection__body">
+                <Tag className="IdTag">
+                  {/* {creator.grade ? creator.grade : "Default Grade"} */}
+                  {promotionDetail?.grade}
+                </Tag>
+              </div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">
+                {promotionDictionary.promotionTo}
+              </div>
+              <div className="cardSection__body">{member && member.name}</div>
+            </div>
+            <div className="cardSectionItem">
+              <div className="cardSection__title">
+                {promotionDictionary.approvers}
+              </div>
+              <div className="cardSection__body">
+                {approvers && (
+                  <Avatar
+                    isAvatarGroup={true}
+                    isTag={false}
+                    heading={"Approvers"}
+                    membersData={approvers ? approvers : []}
+                    text={"Approvers"}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+          <RemarksApproval
+            module={ApprovalsModule.PromotionApproval}
+            status={status}
+            onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)}
+            data={approvers}
+            title="Approvals"
+          />
+        </div>
+      )}
+    </>
+  );
 }
 
 export default PromotionDetail;

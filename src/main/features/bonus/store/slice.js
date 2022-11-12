@@ -33,7 +33,7 @@ const bonusSlice = createSlice({
     });
 
     builder.addCase(GetBonusById.fulfilled, (state, action) => {
-      state.bonusDetail = action.payload.data;
+      state.bonusDetail = action.payload;
     });
 
     builder.addCase(cancelBonus.fulfilled, (state, action) => {

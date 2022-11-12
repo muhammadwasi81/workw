@@ -385,7 +385,11 @@
 .detailedCard .ItemDetails {
   width: 100%;
 }
-
+@media (min-width: 320px) and (max-width: 600px) {
+  .IdTag {
+    font-size: 9px;
+  }
+}
 @media (min-width: 320px) and (max-width: 767px) {
   .lf-col {
     padding: 8px;
@@ -468,9 +472,11 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 899px) {}
+@media (min-width: 768px) and (max-width: 899px) {
+}
 
-@media (min-width: 900px) and (max-width: 1099px) {}
+@media (min-width: 900px) and (max-width: 1099px) {
+}
 
 @media (min-width: 1100px) and (max-width: 1500px) {
   .userInfo .name {

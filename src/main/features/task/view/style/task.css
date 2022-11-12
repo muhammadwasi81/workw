@@ -594,16 +594,27 @@
   width: 49.5%;
 }
 
-@media screen and (max-width: 100px) {
+@media screen and (max-width: 600px) {
   .card-list-item {
     padding: 10px;
   }
 
+  .taskItemContainer {
+    flex-direction: column;
+  }
   .taskItemContainer .card-list-item {
     width: 100%;
   }
 
   .card-column-view > div {
     margin: 5px;
+  }
+  .card-item-header .right .labels {
+    display: flex;
+    gap: 4px;
+    font-size: 10px;
+  }
+  .labels .taskID {
+    width: fit-content;
   }
 }

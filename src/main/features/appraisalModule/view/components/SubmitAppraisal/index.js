@@ -34,7 +34,6 @@ function Index() {
             },
           ]}
         />
-
         <ContBody>
           <SubmitAppraisalBody />
         </ContBody>

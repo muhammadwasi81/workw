@@ -40,6 +40,7 @@ const AppraisalForm = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
+    // props.getAppraisalData(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

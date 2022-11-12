@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import "./stylesheet/FeedCompose.css";
 // import frameIcon from "../../../../../content/NewContent/NewsFeed/svg/image.svg";
 // import penIcon from "../../../../../content/NewContent/NewsFeed/svg/pen.svg";
@@ -18,7 +18,9 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { FeedDictionary } from "../../localization";
 
 function PostComposer({ referenceType, referenceId }) {
-	const { showComposer } = useSelector(state => state.feedSlice.postCompose);
+	const { showComposer, type } = useSelector(
+		state => state.feedSlice.postCompose
+	);
 	const { userSlice } = useSelector(state => state);
 	const { name, userImage } = userSlice.user;
 	const { userLanguage } = useContext(LanguageChangeContext);
@@ -29,6 +31,9 @@ function PostComposer({ referenceType, referenceId }) {
 			feedSlice.actions.toggleComposerVisibility({ visibility })
 		);
 	};
+	const imageVideoRef = useRef();
+	const docsRef = useRef();
+	const pollRef = useRef();
 
 	return (
 		<>
@@ -62,16 +67,31 @@ function PostComposer({ referenceType, referenceId }) {
 							src={photo}
 							alt="photo"
 							className="hover:shadow-md hover:scale-125 transition-all"
+							onClick={() => {
+								setTimeout(() => {
+									imageVideoRef.current.click();
+								}, 100);
+							}}
 						/>
 						<img
 							src={doc}
 							alt="doc"
 							className="hover:shadow-md hover:scale-125 transition-all"
+							onClick={() => {
+								setTimeout(() => {
+									docsRef.current.click();
+								}, 100);
+							}}
 						/>
 						<img
 							src={poll}
 							alt="poll"
 							className="hover:shadow-md hover:scale-125 transition-all"
+							onClick={() => {
+								setTimeout(() => {
+									pollRef.current.click();
+								}, 100);
+							}}
 						/>
 					</div>
 				</div>
@@ -81,7 +101,16 @@ function PostComposer({ referenceType, referenceId }) {
 				className={Direction}
 				width={800}
 				visible={showComposer}
-				onCancel={() => toggleComposer(false)}
+				onCancel={() => {
+					if (type !== 1) {
+						store.dispatch(
+							feedSlice.actions.onPostTypeChange({
+								type: 1,
+							})
+						);
+					}
+					toggleComposer(false);
+				}}
 				destroyOnClose
 				footer={null}
 				header={null}
@@ -94,6 +123,9 @@ function PostComposer({ referenceType, referenceId }) {
 					<ComposerForm
 						referenceType={referenceType}
 						referenceId={referenceId}
+						imageVideoRef={imageVideoRef}
+						pollRef={pollRef}
+						docsRef={docsRef}
 					/>
 				</div>
 			</Modal>

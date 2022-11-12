@@ -78,6 +78,12 @@ export const routes = {
       ),
     },
     {
+      path: `${ROUTES.ASSETS_TABLE_LIST.DEFAULT}`,
+      component: lazy(() =>
+        import("../main/features/assetsTableList/view/index")
+      ),
+    },
+    {
       path: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
       component: lazy(() =>
         import("../main/features/RequestListItems/view/index")
@@ -202,12 +208,6 @@ export const routes = {
     {
       path: `${ROUTES.HR.BONUS.DEFAULT}`,
       component: lazy(() => import("../main/features/bonus/view/Bonus")),
-    },
-    {
-      path: `${ROUTES.APPRAISALS.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/appraisalModule/view/index")
-      ),
     },
 
     {

@@ -577,7 +577,7 @@ animation:0.1s visibleDelay 0.4s forwards;
 
 .messageStatus .messageTime {
   font-weight: bold;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .textMsgArea {

@@ -61,6 +61,9 @@ function CreateChat({ onClose, visible }) {
 
   const handleSubmit = () => {
     let payload = createPayload();
+    // if () {
+
+    // }
     dispatch(createChat(payload));
   }
 
@@ -97,9 +100,10 @@ function CreateChat({ onClose, visible }) {
           />
         </div>
         <div className="fixed bottom-0 w-full" >
-          <Button 
-          className="headerBtn w-[480px] ml-[4px] mb-[4px] flex justify-center"
-          loading={loader}
+          <Button
+            className="headerBtn w-[480px] ml-[4px] mb-[4px] flex justify-center"
+            loading={loader}
+            disabled={selectedMembers.length === 0}
             onClick={handleSubmit} >Create</Button>
         </div>
       </div>

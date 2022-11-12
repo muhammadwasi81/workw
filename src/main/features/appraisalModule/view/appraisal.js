@@ -19,7 +19,7 @@ function Appraisals() {
   );
   let RenderTab = {
     teamAppraisals: <TeamAppraisals />,
-    myAppraisals: <div>My Appraisals</div>,
+    myAppraisals: <ForApproval />,
     forApprovals: <ForApproval />,
   };
 
@@ -29,7 +29,7 @@ function Appraisals() {
         <Header
           buttons={[
             {
-              buttonText: "Submit Appraisals",
+              buttonText: "Create Appraisals",
               render: (
                 <Button
                   className="ThemeBtn"

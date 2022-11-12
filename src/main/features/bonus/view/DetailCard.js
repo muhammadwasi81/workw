@@ -86,7 +86,7 @@ function BonusDetailCard(props) {
                 )}
               </div>
               <div className="right">
-                <Tag className="IdTag">TRA-000085</Tag>
+                <Tag className="IdTag"> {referenceNo}</Tag>
                 <StatusTag status={updatedStatus?.Approvals}></StatusTag>
                 {userId === creator.id ? (
                   status != Declined &&

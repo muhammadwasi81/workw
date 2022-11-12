@@ -44,7 +44,7 @@ const AssetsCategoryForm = ({
       ...form,
       name: '',
       description: '',
-      accountId: '',
+      accountName: '',
       parentId: '',
     });
     setClearButton(false);
@@ -72,7 +72,7 @@ const AssetsCategoryForm = ({
     } else {
       setClearButton(false);
     }
-    setForm({ ...form, accountId: e, parentId: undefined });
+    setForm({ ...form, accountName: e, parentId: undefined });
   };
 
   useEffect(() => {
@@ -106,10 +106,10 @@ const AssetsCategoryForm = ({
               showSearch
               style={{ width: '100%' }}
               placeholder="Select Type"
-              defaultValue={form.accountId}
+              defaultValue={form.accountName}
               optionFilterProp="children"
               onChange={handelChangeBranch}
-              value={form.accountId}
+              value={form.accountName}
               size="large"
             >
               {accountTypes.map((item, i) => (

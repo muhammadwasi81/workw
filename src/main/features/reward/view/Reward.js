@@ -35,11 +35,7 @@ const Reward = (props) => {
   const [page, setPage] = useState(20);
   const [pageNo, setPageNo] = useState(1);
   const [tableView, setTableView] = useState(false);
-  const [filter, setFilter] = useState({
-    filterType: 0,
-    search: "",
-    sortBy: 1,
-  });
+  const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
   const { rewards, loader, rewardDetail, drawerOpen } = useSelector(
@@ -172,6 +168,44 @@ const Reward = (props) => {
           ) : (
             !loader && !tableView && <NoDataFound />
           )}
+
+          {/* {rewards?.length > 0 ? (
+            tableView ? (
+              <Table
+                columns={tableColumn()}
+                dragable={true}
+                handleChange={handleColumnSorting}
+                data={rewards}
+                onRow={onRow}
+
+              />
+            ) : (
+              <>
+                {loader ? (
+                  <>
+                    <Skeleton avatar paragraph={{ rows: 4 }} />
+                  </>
+                ) : (
+                  <CardWrapper>
+                    {rewards.map((item, index) => {
+                      return (
+                        <>
+                          <ListItem
+                            item={item}
+                            id={item.id}
+                            key={index}
+                            onClick={() => setDetailId(item.id)}
+                          />
+                        </>
+                      );
+                    })}
+                  </CardWrapper>
+                )}
+              </>
+            )
+          ) : (
+            <Skeleton avatar paragraph={{ rows: 4 }} />
+          )} */}
         </ContBody>
         {<DetailedView onClose={onClose} id={detailId} />}
 

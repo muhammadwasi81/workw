@@ -236,7 +236,6 @@ const Composer = () => {
           label={customApprovalDictionary.approvers}
           showSearch={true}
           direction={Direction}
-          rules={[{ required: true }]}
         >
           <CustomSelect
             style={{ marginBottom: '0px' }}
@@ -281,7 +280,6 @@ const Composer = () => {
           label="Controller"
           showSearch={true}
           direction={Direction}
-          rules={[{ required: true }]}
         >
           <CustomSelect
             style={{ marginBottom: '0px' }}

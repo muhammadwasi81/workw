@@ -38,9 +38,12 @@ import reportIcon from '../../../content/NewContent/report/report.svg';
 import documentIcon from '../../../content/NewContent/Documents/file/folder.svg';
 import voucherIcon from '../../../content/NewContent/voucher/voucher.svg';
 import requisitionIcon from '../../../content/svg/menu/newNavBarIcon/Employees.svg';
-import assetsIcon from '../../../content/svg/menu/newNavBarIcon/assets.svg';
+import assetsIcon from '../../../content/svg/menu/newNavBarIcon/assetsIC.svg';
+import businessPolicy from '../../../content/svg/menu/newNavBarIcon/businessPolicy.svg';
+import salaryIcon from '../../../content/svg/menu/newNavBarIcon/salary.svg';
+import assetsAllocationIcon from '../../../content/svg/menu/newNavBarIcon/assetAllocation.svg';
 import createAssetsIcon from '../../../content/svg/menu/newNavBarIcon/createassets.svg';
-import requestListIcon from '../../../content/svg/menu/newNavBarIcon/requestItemIcon.svg';
+import requestListIcon from '../../../content/svg/menu/newNavBarIcon/requestItems.svg';
 import quotationIcon from '../../../content/svg/menu/newNavBarIcon/quotationsIcon.svg';
 import chartAccountIcon from '../../../content/svg/menu/newNavBarIcon/chartAccountsIcon.svg';
 
@@ -361,7 +364,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.salary,
       counter: 0,
       to: ROUTES.SALARY.ROOT,
-      icon: reportIcon,
+      icon: salaryIcon,
       isActive: true,
       key: label.navMenuLabel.hr,
     },
@@ -369,7 +372,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.businessPolicy,
       counter: 0,
       to: ROUTES.BUSINESS_POLICY.DEFAULT,
-      icon: reportIcon,
+      icon: businessPolicy,
       isActive: true,
       key: label.navMenuLabel.menu,
     },
@@ -409,7 +412,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.assets,
       counter: 0,
-      icon: assetsIcon,
+      icon: assetsAllocationIcon,
       to: ROUTES.ASSETS.DEFAULT,
       isActive: true,
       key: label.navMenuLabel.inventory,
@@ -427,7 +430,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.assetsList,
       counter: 0,
-      icon: createAssetsIcon,
+      icon: assetsIcon,
       to: ROUTES.ASSETS_TABLE_LIST.DEFAULT,
       isActive: true,
       key: label.navMenuLabel.inventory,

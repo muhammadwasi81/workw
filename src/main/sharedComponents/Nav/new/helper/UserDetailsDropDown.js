@@ -1,22 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
-import userIcon from "../../../../../content/NewContent/NavBar/UserSettingToggle/userIcon.svg";
-import userLogout from "../../../../../content/NewContent/NavBar/UserSettingToggle/userLogout.svg";
-import userSettings from "../../../../../content/NewContent/NavBar/UserSettingToggle/userSettings.svg";
-import { STRINGS, logout } from "../../../../../utils/base";
-import { NavLink } from "react-router-dom";
-import { FontSizeOutlined } from "@ant-design/icons";
-import { userSettingToggleFun } from "../../../../../store/appReducer/responsiveSlice";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../../utils/localization/languages";
-import { useDispatch } from "react-redux";
+import React, { useContext, useEffect, useState } from 'react';
+import userIcon from '../../../../../content/NewContent/NavBar/UserSettingToggle/profileIcon.svg';
+import userLogout from '../../../../../content/NewContent/NavBar/UserSettingToggle/logoutIcon.svg';
+import userSettings from '../../../../../content/NewContent/NavBar/UserSettingToggle/settingsIcon.svg';
+import { STRINGS, logout } from '../../../../../utils/base';
+import { NavLink } from 'react-router-dom';
+import { FontSizeOutlined } from '@ant-design/icons';
+import { userSettingToggleFun } from '../../../../../store/appReducer/responsiveSlice';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
+import { dictionaryList } from '../../../../../utils/localization/languages';
+import { useDispatch } from 'react-redux';
 import {
   defualtThemeColor,
   ThemeColorEnum,
-} from "../../../../../utils/Shared/enums/enums";
-import { ROUTES } from "../../../../../utils/routes";
+} from '../../../../../utils/Shared/enums/enums';
+import { ROUTES } from '../../../../../utils/routes';
+
 function UserDetailsDropDown({ id, isToggle }) {
   const getCurrentTheme = () => {
-    return localStorage.getItem("theme");
+    return localStorage.getItem('theme');
   };
   const [currentTheme, setCurrentTheme] = useState(
     getCurrentTheme() || defualtThemeColor
@@ -47,39 +48,39 @@ function UserDetailsDropDown({ id, isToggle }) {
   const handleTheme = (currentTheme) => {
     setCurrentTheme(currentTheme);
     document.documentElement.style.setProperty(
-      "--currentThemeColor",
+      '--currentThemeColor',
       currentTheme
     );
-    localStorage.setItem("theme", currentTheme);
+    localStorage.setItem('theme', currentTheme);
   };
 
   useEffect(() => {
     document.documentElement.style.setProperty(
-      "--currentThemeColor",
+      '--currentThemeColor',
       currentTheme
     );
   }, []);
 
-  let classes = "dropDown ";
-  classes += !isToggle ? "close" : "open";
+  let classes = 'dropDown ';
+  classes += !isToggle ? 'close' : 'open';
 
   return (
     <div className={classes}>
       <ul className="list">
         <li className="list__item">
           <NavLink to={`${ROUTES.USER.LINK}${id}`}>
-            <img src={userIcon} alt="userIcon" />
+            <img src={userIcon} alt="userIcon" loading="lazy" />
             <p>{Profile}</p>
           </NavLink>
         </li>
         <li className="list__item">
           <NavLink to={`${STRINGS.ROUTES.USER.SETTINGS}`}>
-            <img src={userSettings} alt="userSettings" />
+            <img src={userLogout} alt="userSettings" loading="lazy" />
             <p>{Settings}</p>
           </NavLink>
         </li>
         <li className="list__item" onClick={logout}>
-          <img src={userLogout} alt="userSettings" />
+          <img src={userSettings} alt="userSettings" loading="lazy" />
           <p>{Logout}</p>
         </li>
       </ul>
@@ -88,9 +89,9 @@ function UserDetailsDropDown({ id, isToggle }) {
       <ul className="list lang">
         <li
           className="list__item"
-          onClick={() => handleLanguageChange("en")}
+          onClick={() => handleLanguageChange('en')}
           style={{
-            backgroundColor: userLanguage === "en" && "#e5e5e5",
+            backgroundColor: userLanguage === 'en' && '#e5e5e5',
           }}
         >
           <p>{English}</p>
@@ -99,9 +100,9 @@ function UserDetailsDropDown({ id, isToggle }) {
 
         <li
           className="list__item"
-          onClick={() => handleLanguageChange("urdu")}
+          onClick={() => handleLanguageChange('urdu')}
           style={{
-            backgroundColor: userLanguage === "urdu" && "#e5e5e5",
+            backgroundColor: userLanguage === 'urdu' && '#e5e5e5',
           }}
         >
           <p>{Urdu}</p>
@@ -109,9 +110,9 @@ function UserDetailsDropDown({ id, isToggle }) {
         </li>
         <li
           className="list__item"
-          onClick={() => handleLanguageChange("arabic")}
+          onClick={() => handleLanguageChange('arabic')}
           style={{
-            backgroundColor: userLanguage === "arabic" && "#e5e5e5",
+            backgroundColor: userLanguage === 'arabic' && '#e5e5e5',
           }}
         >
           <p>{Arabic}</p>
@@ -119,9 +120,9 @@ function UserDetailsDropDown({ id, isToggle }) {
         </li>
         <li
           className="list__item"
-          onClick={() => handleLanguageChange("hindi")}
+          onClick={() => handleLanguageChange('hindi')}
           style={{
-            backgroundColor: userLanguage === "hindi" && "#e5e5e5",
+            backgroundColor: userLanguage === 'hindi' && '#e5e5e5',
           }}
         >
           <p>{Hindi}</p>
@@ -129,9 +130,9 @@ function UserDetailsDropDown({ id, isToggle }) {
         </li>
         <li
           className="list__item"
-          onClick={() => handleLanguageChange("turkish")}
+          onClick={() => handleLanguageChange('turkish')}
           style={{
-            backgroundColor: userLanguage === "turkish" && "#e5e5e5",
+            backgroundColor: userLanguage === 'turkish' && '#e5e5e5',
           }}
         >
           <p>{Turkish}</p>
@@ -144,7 +145,7 @@ function UserDetailsDropDown({ id, isToggle }) {
           <li
             key={index}
             style={{ background: color }}
-            className={currentTheme === color ? "color active" : "color"}
+            className={currentTheme === color ? 'color active' : 'color'}
             onClick={() => {
               handleTheme(color);
             }}

@@ -38,6 +38,7 @@ function ListItem(props) {
     amount,
   } = props.item || null;
 
+  console.log(approvers);
   return (
     <>
       {/* <SingleItem onClick={() => props.onclick(userId)}> */}
@@ -168,8 +169,6 @@ function ListItem(props) {
               )}
             </div>
           </div>
-
-          {/* <RemarksApproval data={approvers && approvers} title="Approvers" /> */}
         </div>
       </SingleItem>
     </>

@@ -2,6 +2,7 @@ import MasterConfig from "../../../../utils/services/MasterConfig";
 import { jsonToFormData } from "../../../../utils/base";
 
 export const getAllDepartmentService = (data) => {
+  console.log(data, "data in service");
   return MasterConfig.get(`api/Department/GetAllDepartment`, data)
     .then((res) => {
       // console.log("response data from service", res.data);

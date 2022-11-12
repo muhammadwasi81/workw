@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import CreateChat from "../CreateChat";
 
 const ConversationListHead = () => {
   const [visible, setVisible] = useState(false);
+  const success = useSelector((state) => state.MessengerSlice.success);
+
+  useEffect(() => {
+    if (success)
+      setVisible(false)
+  }, [success])
   const showDrawer = () => {
     setVisible(true);
   };
@@ -15,7 +22,7 @@ const ConversationListHead = () => {
     <div className="ConversationListHead">
       <div>
         <Avatar
-          src={ "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"}
+          src={"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"}
           name={""}
           size={38}
           round={true}

@@ -32,7 +32,7 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
         };
       }),
       message: text,
-      messageId: createGuid(),
+      id: createGuid(),
       messageType: !!voiceNoteFile ? "voice" : 1,
       attachments: attachments.map(file => ({
         file,

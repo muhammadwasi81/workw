@@ -16,6 +16,7 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { CareerDictionary } from "../../localization";
 import { tableColumn } from "../TableColumn";
 import { Table } from "../../../../sharedComponents/customTable";
+import { NoDataFound } from "../../../../sharedComponents/NoDataIcon";
 
 const MyCareerCard = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -83,7 +84,56 @@ const MyCareerCard = (props) => {
         onClose={handleDrawerClose}
         id={id}
       />
-      {!table && (
+      {
+         loader && (
+          [...Array(15)].map((item) => (
+            <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
+          ))
+        )  
+      }
+       {
+        table &&
+        <Table
+          columns={tableColumn()}
+          dragable={true}
+          data={careers ? careers : []}
+      />
+      }
+
+{
+            careers?.length > 0 && !loader && !table ? (
+            <CardWrapper
+              style={{
+                gridTemplateColumns: "repeat(auto-fill,minmax(35rem,1fr))",
+              }}
+            >
+            {openDetail && (
+              <Modal
+              open={openDetail}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              footer={null}
+              width={"50%"}
+            >
+              <JobDetails apply={applyJob} />
+              </Modal>
+            )}
+                {careers.map((item, index) => {
+                  return (
+                    <ListItem
+                      onClick={() => openJobDetailHandler(item.id)}
+                      onClickMyCareer={() => openMyCareerDetail(item.id)}
+                      item={item}
+                   />
+                  );
+                })}
+              </CardWrapper>
+            ) : !loader  && !table && <NoDataFound />
+      }
+
+
+      {/*
+       {!table && (
         <CardWrapper
           style={{
             gridTemplateColumns: "repeat(auto-fill,minmax(35rem,1fr))",
@@ -118,7 +168,7 @@ const MyCareerCard = (props) => {
                     ))
                   ) : (
                     <div>
-                      <h2>No Careers Found!</h2>
+                     <NoDataFound />
                     </div>
                   )}
                 </>
@@ -135,6 +185,7 @@ const MyCareerCard = (props) => {
           data={careers ? careers : []}
         />
       )}
+     */}
     </>
   );
 };

@@ -1,23 +1,23 @@
 .taskMembers {
-    width: 250px;
-    max-height: 180px;
-    padding: 10px 10px;
-    border-radius: 5px;
-    border: 1px solid rgb(230, 230, 230);
-    overflow: scroll;
-    margin-top: 15px;
-    margin-bottom: 5px;
+  width: 250px;
+  max-height: 180px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(230, 230, 230);
+  overflow: scroll;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 .taskDetail .card-list-item {
-    cursor: default;
-    padding: 0;
+  cursor: default;
+  padding: 0;
 }
 
 .taskDetail .card-item-body {
-    width: 100%;
+  width: 100%;
 }
 
-.taskDetail>.comments {
-    margin-top: 20px;
+.taskDetail > .comments {
+  margin-top: 20px;
 }

@@ -31,7 +31,7 @@ function LeadManager() {
 	);
 	const loading = useSelector(state => state.leadMangerSlice.loading);
 	useEffect(() => {
-		dispatch(
+		const promise = dispatch(
 			getAllLeadManager({
 				pageNo,
 				pageSize: page,
@@ -39,6 +39,9 @@ function LeadManager() {
 				sortBy: sort,
 			})
 		);
+		return () => {
+			promise.abort();
+		};
 	}, [value, sort, page, pageNo]);
 
 	const handleColumnSorting = (pagination, filters, sorter) => {

@@ -144,6 +144,7 @@ const Composer = (props) => {
         }}
         initialValues={{
           remember: true,
+          type: 1,
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -209,7 +210,7 @@ const Composer = (props) => {
               ]}
             >
               <Radio.Group onChange={handleType} value={value}>
-                <Radio value={1} defaultChecked={value === 1}>
+                <Radio value={1} checked>
                   Percent
                 </Radio>
                 <Radio value={2}>Amount</Radio>

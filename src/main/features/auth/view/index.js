@@ -4,9 +4,9 @@ import "./styles/style.css";
 import SignIn from "./signIn/signin";
 import MainBannerContent from "./AuthPageContent/MainBannerContent";
 import { Col, Row } from "antd";
-// import { STRINGS } from "../../../../utils/base";
 import { ROUTES } from "../../../../utils/routes";
 import { useSelector } from "react-redux";
+import "./styles/style.css"
 
 const Auth = () => {
 	const { token } = useSelector(state => state.userSlice);
@@ -21,13 +21,15 @@ const Auth = () => {
 
 			<Row gutter={{ xs: 0, sm: 0, lg: 24 }} className="main-landing-row">
 				<Col
+					className="SinginFirstColumn"
 					xs={{ order: 2, span: 24 }}
 					sm={{ order: 1, span: 12 }}
 					lg={{ order: 1, span: 12 }}
 				>
-					<MainBannerContent />
+						<MainBannerContent />
 				</Col>
 				<Col
+					className="FormColumn"
 					xs={{ order: 1, span: 24 }}
 					sm={{ order: 2, span: 12 }}
 					lg={{ order: 2, span: 12 }}
@@ -47,27 +49,27 @@ const Auth = () => {
 {
 	/* <a href="#down"
 style={{
-    zIndex: "5",
+	zIndex: "5",
 }}>
  <div style={{
-     background: "linear-gradient(143deg, rgba(44,86,104,1) 7%, rgba(142,167,175,1) 100%)",
-     width: "50px",
-     height: "50px",
-     borderRadius: "50%",
-     marginBottom: "15px",
-     alignItems: "center",
-     justifyContent: "center",
-     textAlign: "center",
-     zIndex: "1"
+	 background: "linear-gradient(143deg, rgba(44,86,104,1) 7%, rgba(142,167,175,1) 100%)",
+	 width: "50px",
+	 height: "50px",
+	 borderRadius: "50%",
+	 marginBottom: "15px",
+	 alignItems: "center",
+	 justifyContent: "center",
+	 textAlign: "center",
+	 zIndex: "1"
 
  }}
  >
 
 
-     <img style={{
-         width: "30px",
-         marginTop: "18px"
-     }} src={ArrowImg} alt="arrowImg"/>
+	 <img style={{
+		 width: "30px",
+		 marginTop: "18px"
+	 }} src={ArrowImg} alt="arrowImg"/>
  </div>
 </a> */
 }

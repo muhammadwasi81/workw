@@ -11,8 +11,11 @@ import { getAllAllowance } from '../../allowance/store/actions';
 import CreateAssetsItem from './components/CreateAssetsItem';
 import CreateAssetHead from './components/CreateAssetTableHead';
 import { DEFAULT_GUID } from '../../../../utils/constants';
+import { getAllAssetCategories } from '../../assetsCategory/store/actions';
+import { useNavigate } from 'react-router-dom';
 
 const CreateAssetsEntryTable = () => {
+  const navigate = useNavigate();
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
   const [profileImage, setProfileImage] = useState(null);
@@ -21,6 +24,12 @@ const CreateAssetsEntryTable = () => {
   const employeesShortData = useSelector(
     (state) => state.sharedSlice.employeeShort
   );
+
+  const { assetsData, success } = useSelector(
+    (state) => state.assetsCategorySlice
+  );
+  console.log('assetsData', assetsData);
+
   useEffect(() => {
     if (isFirstTime && employeesData.length > 0) {
       setFetchEmployeesData(employeesData);
@@ -32,6 +41,7 @@ const CreateAssetsEntryTable = () => {
     fetchEmployees();
     fetchEmployeesShort();
     fetchAllowance();
+    fetchAssetCategories();
   }, []);
 
   const handleImageUpload = (fileData) => {
@@ -55,6 +65,10 @@ const CreateAssetsEntryTable = () => {
     dispatch(getAllAllowance());
   };
 
+  const fetchAssetCategories = () => {
+    dispatch(getAllAssetCategories());
+  };
+
   const defaultRows = 12;
   const defaultEntry = {
     approvers: '',
@@ -64,6 +78,7 @@ const CreateAssetsEntryTable = () => {
     category: '',
     type: '',
     handoverId: '',
+    image: '',
   };
 
   const initialEntries = Array(defaultRows).fill(defaultEntry);
@@ -93,10 +108,10 @@ const CreateAssetsEntryTable = () => {
     console.log(filteredAssetsDataData, 'filteredAssetsDataData');
     const payloadData = filteredAssetsDataData.map((item) => {
       return {
-        inventoryName: item.inventoryName,
-        inventoryValue: item.inventoryValue,
+        name: item.inventoryName,
+        value: item.inventoryValue,
         serialNo: item.serialNo,
-        category: item.category,
+        categoryId: item.category,
         type: item.type,
         image: { id: DEFAULT_GUID, file: profileImage },
         handoverId: item.handoverId,
@@ -117,8 +132,12 @@ const CreateAssetsEntryTable = () => {
     }
     let payload = createPayload();
     console.log(payload, 'payload');
-    dispatch(addAssetItem(payload));
+    if (success) {
+      dispatch(addAssetItem(payload));
+      message.success('Asset added successfully');
+    }
     setEntries(initialEntries);
+    navigate('/assetsList');
   };
 
   return (
@@ -140,6 +159,7 @@ const CreateAssetsEntryTable = () => {
                   employeesData={fetchEmployeesData}
                   employeesShortData={employeesShortData}
                   handleImageUpload={handleImageUpload}
+                  data={assetsData}
                 />
               );
             })}

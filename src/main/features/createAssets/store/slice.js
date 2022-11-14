@@ -52,13 +52,13 @@ export const AssetItemSlice = createSlice({
       .addCase(getAssetItemByUserId.fulfilled, (state, { payload }) => {
         state.assetItemByUserId = payload.data;
         state.loader = false;
-        state.success = true;
         console.log(payload.data, 'getAllAssetItemByUserId slice');
       })
       .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
         console.log(payload, 'updateAssetItemSlice');
         // state.success = true;
         state.drawerOpen = true;
+        state.success = true;
         console.log(state.drawerOpen, 'state.drawerOpen');
         state.loader = false;
         state.assetItemList = payload;

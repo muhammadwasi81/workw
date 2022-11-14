@@ -17,17 +17,10 @@ const CreateAssetsItem = ({
   value,
   employeesShortData = [],
   employeesData = [],
+  data,
   fetchEmployees = () => {},
   fetchEmployeesShort = () => {},
 }) => {
-  const dispatch = useDispatch();
-  const { assetsData } = useSelector((state) => state.assetsCategorySlice);
-  console.log('assetsData', assetsData);
-
-  useEffect(() => {
-    dispatch(getAllAssetCategories());
-  }, []);
-
   const onChangeCategory = (categoryId, index) => {
     console.log(categoryId, `categoryId`);
     handleChange(categoryId, 'category', index);
@@ -78,10 +71,10 @@ const CreateAssetsItem = ({
           }
           value={value.category}
         >
-          {assetsData.map((item) => (
-            <Select.Option key={item.id} value={item.id}>
+          {data.map((item) => (
+            <Option key={item.id} value={item.id}>
               {item.name}
-            </Select.Option>
+            </Option>
           ))}
         </Select>
       </td>

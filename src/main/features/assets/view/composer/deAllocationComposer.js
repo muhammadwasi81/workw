@@ -93,13 +93,6 @@ const AssetDeAllocationComposer = () => {
   }, [employees]);
 
   const onFinish = (values) => {
-    let assetItems = [];
-    assetItemByUserId.map((x) => {
-      assetItems.push({
-        id: x.id,
-        status: x.status,
-      });
-    });
     if (!assetItemByUserId[0]?.id) {
       return message.error('No Asset Items Found');
     }
@@ -110,7 +103,6 @@ const AssetDeAllocationComposer = () => {
         status: values.status,
       })
     );
-    // dispatch(updateAssetItems(assetItems));
     setState(initialState);
     form.resetFields();
     dispatch(getAssetItemByUserId(''));
@@ -199,6 +191,7 @@ const AssetDeAllocationComposer = () => {
                       <td>{x.serialNo}</td>
                       <td>
                         <Select
+                          name="status"
                           style={{ width: '100%' }}
                           placeholder="Select Status"
                           defaultValue={x.status}

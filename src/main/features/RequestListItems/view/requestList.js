@@ -15,7 +15,7 @@ const RequestList = ({ data }) => {
   };
   return (
     <CardWrapper>
-      {data.length > 0 ? (
+      {data?.length > 0 ? (
         data.map((item) => (
           <RequestListItems
             key={item.id}

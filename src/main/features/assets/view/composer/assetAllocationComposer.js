@@ -190,7 +190,7 @@ const AssetComposer = () => {
       >
         <Form.Item
           name="handover"
-          label="* Members"
+          label="* Member"
           showSearch={true}
           direction={Direction}
         >
@@ -275,13 +275,13 @@ const AssetComposer = () => {
           <Form.Item
             style={{ marginBottom: '5px' }}
             name="category"
-            label="* Category"
+            label="* Items"
             showSearch={true}
             direction={Direction}
           />
           <Select
-            name="category"
-            placeholder="Please Select Item"
+            name="Items"
+            placeholder="Please Select Items"
             style={{
               width: '100%',
               borderRadius: '5px',

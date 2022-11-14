@@ -3,7 +3,7 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Button, Skeleton, Drawer } from "antd";
+import { Button, Skeleton, Drawer, Form } from "antd";
 import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import ListItem from "./ListItem";
@@ -23,6 +23,13 @@ import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
 import { useMediaQuery } from "react-responsive";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+
+const initialFormData = {
+  memberId: "",
+  amount: 0,
+  approvers: [],
+};
 
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -33,13 +40,19 @@ const Bonus = (props) => {
   const [visible, setVisible] = useState(false);
 
   const [detailId, setDetailId] = useState(false);
+  const [isDefault, setIsDefault] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [openDrawer, setOpenDrawer] = useState(false);
+  // const [formData, setFormData] = useState(initialFormData);
+
+  const [form] = Form.useForm();
 
   const dispatch = useDispatch();
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
-  const { bonuses, loader, bonusDetail, drawerOpen } = useSelector(
+  const { bonuses, loader, bonusDetail, drawerOpen, success } = useSelector(
     (state) => state.bonusSlice
   );
 
@@ -66,12 +79,29 @@ const Bonus = (props) => {
           {
             buttonText: "Create Bonus",
             render: (
-              <Button
-                className="ThemeBtn"
-                onClick={() => dispatch(handleOpenComposer(true))}
-              >
-                Create Bonus
-              </Button>
+              // <div
+              //   className={`flex ${
+              //     Direction === "rtl" ? "justify-start" : "justify-end"
+              //   }`}
+              // >
+              <SideDrawer
+                title={"Create Bonus"}
+                buttonText={"Create Bonus"}
+                success={success}
+                openDrawer={openDrawer}
+                setOpenDrawer={setOpenDrawer}
+                // form={form}
+                onClick={() => alert("Yesjjdjkdsskjx")}
+                isAccessDrawer={true}
+                children={
+                  <Composer
+                    // form={form}
+                    // formData={formData}
+                    openDrawer={openDrawer}
+                  />
+                }
+              />
+              // </div>
             ),
           },
         ]}
@@ -110,45 +140,76 @@ const Bonus = (props) => {
           label2: "Table",
         }}
       />
+
       <ContBody>
-        {bonuses && bonuses.length > 0 ? (
-          tableView ? (
-            <div>
-              <Table columns={tableColumn()} dragable={false} data={bonuses} />
-            </div>
+        <div className="access_role_container w-full">
+          {bonuses && bonuses.length > 0 ? (
+            tableView ? (
+              <div>
+                <Table
+                  columns={tableColumn()}
+                  dragable={false}
+                  data={bonuses}
+                />
+              </div>
+            ) : (
+              <>
+                {loader ? (
+                  <>
+                    <Skeleton avatar paragraph={{ rows: 4 }} />
+                  </>
+                ) : (
+                  <CardWrapper>
+                    {bonuses.map((item, index) => {
+                      return (
+                        <>
+                          {/*  */}
+                          <ListItem
+                            item={item}
+                            id={item.id}
+                            key={index}
+                            onClick={() => setDetailId(item.id)}
+                          />
+                        </>
+                      );
+                    })}
+                  </CardWrapper>
+                )}
+              </>
+            )
           ) : (
-            <>
-              {loader ? (
-                <>
-                  <Skeleton avatar paragraph={{ rows: 4 }} />
-                </>
-              ) : (
-                <CardWrapper>
-                  {bonuses.map((item, index) => {
-                    return (
-                      <>
-                        {/*  */}
-                        <ListItem
-                          item={item}
-                          id={item.id}
-                          key={index}
-                          onClick={() => setDetailId(item.id)}
-                        />
-                      </>
-                    );
-                  })}
-                </CardWrapper>
-              )}
-            </>
-          )
-        ) : (
-          <div className="flex items-center justify-center h-full w-full">
-            <img src={Nodata} />
-          </div>
-        )}
+            <div className="flex items-center justify-center h-full w-full">
+              <img src={Nodata} />
+            </div>
+          )}
+        </div>
       </ContBody>
       {<DetailedView onClose={onClose} id={detailId} />}
-      <Drawer
+      {/* <div className="w-full">
+        <div
+          className={`flex ${
+            Direction === "rtl" ? "justify-start" : "justify-end"
+          }`}
+        >
+          <SideDrawer
+            title={"Create Bonus"}
+            buttonText={"Create Bonus"}
+            success={success}
+            openDrawer={openDrawer}
+            setOpenDrawer={setOpenDrawer}
+            form={form}
+            isAccessDrawer={true}
+            children={
+              <Composer
+                form={form}
+                formData={formData}
+                openDrawer={openDrawer}
+              />
+            }
+          />
+        </div>
+      </div> */}
+      {/* <Drawer
         title={
           <h1
             style={{
@@ -172,7 +233,7 @@ const Bonus = (props) => {
         className="detailedViewComposer drawerSecondary"
       >
         <Composer />
-      </Drawer>
+      </Drawer> */}
     </TabbableContainer>
   );
 };

@@ -5,29 +5,11 @@ import TaskComp from "./taskComp";
 import { Form } from "antd";
 
 function SubmitAppraisalBody(props) {
-  // const [form] = Form.useForm();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
-  // const onFinish = (values) => {
-  //   console.log("Success:", values);
-  // };
-
-  // console.log("props in create form", props);
-
-  // const onFinishFailed = (errorInfo) => {
-  //   console.log("Failed:", errorInfo);
-  // };
   return (
     <>
-      {/* <Form.Provider
-        name="CreateForm"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-        layout="vertical"
-        form={form}
-      > */}
       <div className="w-full flex gap-x-5 ">
         <div className="w-5/12">
           <TaskComp
@@ -42,7 +24,6 @@ function SubmitAppraisalBody(props) {
           />
         </div>
       </div>
-      {/* </Form.Provider> */}
     </>
   );
 }

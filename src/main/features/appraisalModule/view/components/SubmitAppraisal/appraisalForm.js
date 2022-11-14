@@ -16,6 +16,8 @@ const AppraisalForm = () => {
   const [promotion, setPromotion] = useState(2);
   const [bonus, setbonus] = useState(2);
   const [bonusType, setBonusType] = useState(1);
+  const [increment, setIncrement] = useState(2);
+  const [incrementType, setIncrementType] = useState(1);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
 
@@ -60,6 +62,15 @@ const AppraisalForm = () => {
     console.log(e.target.value, "onchange type");
     setBonusType(e.target.value);
   };
+  const onChangeIncrement = (e) => {
+    console.log(e.target.value, "onchange bonus");
+    setIncrement(e.target.value);
+  };
+
+  const onChangeIncrementType = (e) => {
+    console.log(e.target.value, "onchange type");
+    setIncrementType(e.target.value);
+  };
   return (
     <>
       <div className="appraisalFormBody drop-shadow">
@@ -78,7 +89,7 @@ const AppraisalForm = () => {
             <StatusTag status={2} />
             <StatusTag status={3} />
           </div>
-          <div className="inputBox flex gap-x-5 items-baseline mt-2">
+          <div className="inputBox  mt-2">
             <span>Promotion</span>
             <Form.Item name="promotion">
               <Radio.Group onChange={onChangePromotion}>
@@ -86,118 +97,190 @@ const AppraisalForm = () => {
                 <Radio value={2}>No</Radio>
               </Radio.Group>
             </Form.Item>
-          </div>
-          {promotion === 1 && (
-            <div className="promotionBox mt-2">
-              <span>Current Grade: No Grade</span>
-              <Form.Item
-                name="grade"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select Grade",
-                  },
-                ]}
-              >
-                <Select placeholder="Select Grade" size="large">
-                  <Option value={1}>Assistant Manager</Option>
-                  <Option value={2}>Developers</Option>
-                  <Option value={3}>Executive</Option>
-                  <Option value={4}>Intern</Option>
-                  <Option value={5}>Manager</Option>
-                  <Option value={6}>Officer</Option>
-                </Select>
-              </Form.Item>
-              <Form.Item
-                name="promotionApprovers"
-                // label={"Approver"}
-                showSearch={true}
-                rules={[{ required: true }]}
-              >
-                <MemberSelect
+            {promotion === 1 && (
+              <>
+                <span>Current Grade: No Grade</span>
+                <Form.Item
+                  name="grade"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select Grade",
+                    },
+                  ]}
+                >
+                  <Select placeholder="Select Grade" size="large">
+                    <Option value={1}>Assistant Manager</Option>
+                    <Option value={2}>Developers</Option>
+                    <Option value={3}>Executive</Option>
+                    <Option value={4}>Intern</Option>
+                    <Option value={5}>Manager</Option>
+                    <Option value={6}>Officer</Option>
+                  </Select>
+                </Form.Item>
+                <Form.Item
                   name="promotionApprovers"
-                  mode="multiple"
-                  formitem={false}
-                  placeholder={"Select Approvers"}
-                  isObject={true}
-                  data={firstTimeEmpData}
-                  canFetchNow={isFirstTimeDataLoaded}
-                  fetchData={fetchEmployees}
-                  optionComponent={(opt) => {
-                    return (
-                      <>
-                        <Avatar src={opt.image} className="!bg-black">
-                          {getNameForImage(opt.name)}
-                        </Avatar>
-                        {opt.name}
-                      </>
-                    );
-                  }}
-                />
-              </Form.Item>
-            </div>
-          )}
-          <div className="inputBox flex gap-x-5 items-baseline mt-2">
+                  // label={"Approver"}
+                  showSearch={true}
+                  rules={[{ required: true }]}
+                >
+                  <MemberSelect
+                    name="promotionApprovers"
+                    mode="multiple"
+                    formitem={false}
+                    placeholder={"Select Approvers"}
+                    isObject={true}
+                    data={firstTimeEmpData}
+                    canFetchNow={isFirstTimeDataLoaded}
+                    fetchData={fetchEmployees}
+                    optionComponent={(opt) => {
+                      return (
+                        <>
+                          <Avatar src={opt.image} className="!bg-black">
+                            {getNameForImage(opt.name)}
+                          </Avatar>
+                          {opt.name}
+                        </>
+                      );
+                    }}
+                  />
+                </Form.Item>
+              </>
+            )}
+          </div>
+          <div className="inputBox mt-2">
             <span>Bonus</span>
-            <Form.Item name="bonus">
+            <Form.Item name="bonusRadio">
               <Radio.Group onChange={onChangeBonus}>
                 <Radio value={1}>Yes</Radio>
                 <Radio value={2}>No</Radio>
               </Radio.Group>
             </Form.Item>
+            {bonus === 1 && (
+              <>
+                {/* <div className="promotionBox mt-2"> */}
+                <Radio.Group onChange={onChangeBonusType} value={bonusType}>
+                  <Radio value={1}>Percentage</Radio>
+                  <Radio value={2}>Amount</Radio>
+                </Radio.Group>
+                <Form.Item name="bonus" typetype="number">
+                  <Input
+                    prefix={"%"}
+                    placeholder="Percentage"
+                    type="number"
+                    disabled={bonusType === 2 ? true : false}
+                    style={{ marginTop: "0.5rem" }}
+                  />
+                  <Input
+                    placeholder="Amount"
+                    type="number"
+                    disabled={bonusType === 1 ? true : false}
+                    style={{ marginTop: "0.5rem" }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="bonusApprovers"
+                  // label={"Approver"}
+                  showSearch={true}
+                  rules={[{ required: true }]}
+                >
+                  <MemberSelect
+                    name="approvers"
+                    mode="multiple"
+                    formitem={false}
+                    placeholder={"Select Approvers"}
+                    isObject={true}
+                    data={firstTimeEmpData}
+                    canFetchNow={isFirstTimeDataLoaded}
+                    fetchData={fetchEmployees}
+                    optionComponent={(opt) => {
+                      return (
+                        <>
+                          <Avatar src={opt.image} className="!bg-black">
+                            {getNameForImage(opt.name)}
+                          </Avatar>
+                          {opt.name}
+                        </>
+                      );
+                    }}
+                  />
+                </Form.Item>
+                {/* // </div> */}
+              </>
+            )}
           </div>
-          {bonus === 1 && (
-            <div className="promotionBox mt-2">
-              <Radio.Group onChange={onChangeBonusType}>
-                <Radio value={1}>Percentage</Radio>
-                <Radio value={2}>Amount</Radio>
+          <div className="inputBox mt-2">
+            <span>Increment</span>
+            <Form.Item name="incrementRadio">
+              <Radio.Group onChange={onChangeIncrement}>
+                <Radio value={1}>Yes</Radio>
+                <Radio value={2}>No</Radio>
               </Radio.Group>
-              <Form.Item name="bonus" typetype="number">
-                <Input
-                  prefix={"%"}
-                  placeholder="Percentage"
-                  disabled={bonusType === 1 ? true : false}
-                  className="mt-2"
-                />
-                <Input
-                  placeholder="Amount"
-                  disabled={bonusType === 2 ? true : false}
-                  className="mt-2"
-                />
-              </Form.Item>
-              <Form.Item
-                name="bonusApprovers"
-                // label={"Approver"}
-                showSearch={true}
-                rules={[{ required: true }]}
-              >
-                <MemberSelect
-                  name="approvers"
-                  mode="multiple"
-                  formitem={false}
-                  placeholder={"Select Approvers"}
-                  isObject={true}
-                  data={firstTimeEmpData}
-                  canFetchNow={isFirstTimeDataLoaded}
-                  fetchData={fetchEmployees}
-                  optionComponent={(opt) => {
-                    return (
-                      <>
-                        <Avatar src={opt.image} className="!bg-black">
-                          {getNameForImage(opt.name)}
-                        </Avatar>
-                        {opt.name}
-                      </>
-                    );
-                  }}
-                />
-              </Form.Item>
-            </div>
-          )}
+            </Form.Item>
+            {increment === 1 && (
+              <>
+                {/* <div className="promotionBox mt-2"> */}
+                <Radio.Group
+                  onChange={onChangeIncrementType}
+                  value={incrementType}
+                >
+                  <Radio value={1}>Percentage</Radio>
+                  <Radio value={2}>Amount</Radio>
+                </Radio.Group>
+                <Form.Item
+                  name="increment"
+                  typetype="number"
+                  value={incrementType}
+                >
+                  <Input
+                    prefix={"%"}
+                    type="number"
+                    placeholder="Percentage"
+                    disabled={incrementType === 2 ? true : false}
+                    style={{ marginTop: "0.5rem" }}
+                  />
+                  <Input
+                    placeholder="Amount"
+                    type="number"
+                    disabled={incrementType === 1 ? true : false}
+                    style={{ marginTop: "0.5rem" }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="incrementApprovers"
+                  // label={"Approvers"}
+                  showSearch={true}
+                  rules={[{ required: true }]}
+                >
+                  <MemberSelect
+                    name="approvers"
+                    mode="multiple"
+                    formitem={false}
+                    placeholder={"Select Approvers"}
+                    isObject={true}
+                    data={firstTimeEmpData}
+                    canFetchNow={isFirstTimeDataLoaded}
+                    fetchData={fetchEmployees}
+                    optionComponent={(opt) => {
+                      return (
+                        <>
+                          <Avatar src={opt.image} className="!bg-black">
+                            {getNameForImage(opt.name)}
+                          </Avatar>
+                          {opt.name}
+                        </>
+                      );
+                    }}
+                  />
+                </Form.Item>
+                {/* // </div> */}
+              </>
+            )}
+          </div>
           <div className="approvalBox mt-2">
             <Form.Item
               name="approvers"
-              // label={"Approver"}
+              label={"Approvers"}
               showSearch={true}
               rules={[{ required: true }]}
             >
@@ -223,7 +306,7 @@ const AppraisalForm = () => {
               />
             </Form.Item>
           </div>
-          <div className="mt-4">
+          <div className="inputBox mt-4">
             <Form.Item name="rate" label="Rate">
               <Rate />
             </Form.Item>

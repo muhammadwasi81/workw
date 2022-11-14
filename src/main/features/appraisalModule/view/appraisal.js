@@ -11,9 +11,11 @@ import { PlusOutlined } from "@ant-design/icons";
 import { handleOpenComposer } from "../store/slice";
 import { useDispatch, useSelector } from "react-redux";
 import ForApproval from "./components/ForApproval";
+import { useNavigate } from "react-router-dom";
 
 function Appraisals() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const CurrentTab = useSelector(
     (state) => state.appraisalModuleSlice.currentTab
   );
@@ -21,6 +23,10 @@ function Appraisals() {
     teamAppraisals: <TeamAppraisals />,
     myAppraisals: <ForApproval />,
     forApprovals: <ForApproval />,
+  };
+
+  const onCreateAppraisal = () => {
+    navigate("submitAppraisal");
   };
 
   return (
@@ -33,10 +39,10 @@ function Appraisals() {
               render: (
                 <Button
                   className="ThemeBtn"
-                  onClick={() => dispatch(handleOpenComposer(true))}
+                  onClick={() => onCreateAppraisal()}
                 >
                   <PlusOutlined />
-                  Submit Appraisals
+                  Create Appraisals
                 </Button>
               ),
             },

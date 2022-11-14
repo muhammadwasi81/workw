@@ -27,6 +27,21 @@ export const CardWrapper = styled.div`
   }
 `;
 
+export const CardWrapperAppraisal = styled.div`
+  width: 100%;
+  display: grid;
+  margin-top: 5px;
+  gap: 0.5rem;
+  height: -moz-fit-content;
+  height: fit-content;
+  direction: ltr;
+  &:hover {
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+`;
+
 export const CardWrapperCareers = styled.div`
   width: 100%;
   display: grid;

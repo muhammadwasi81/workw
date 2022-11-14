@@ -99,10 +99,8 @@ function TaskListItem({
             name={creator?.name}
             Subline={
               <SublineDesigWithTime
-                designation={
-                  creator?.designation ? creator?.designation : "Not Designated"
-                }
-                // time="2 days ago"
+                designation={creator?.designation ? creator?.designation : ""}
+                time={moment(startDate).fromNow()}
               />
             }
           />

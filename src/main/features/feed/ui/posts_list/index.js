@@ -16,7 +16,7 @@ function PostsList({ referenceType, referenceId, reactionModule }) {
 	const navigate = useLocation().search.split("=")[1] || "posts";
 
 	useEffect(() => {
-		dispatch(
+		const promise = dispatch(
 			getAllFeed({
 				pageNo,
 				pageSize: 20,
@@ -26,6 +26,9 @@ function PostsList({ referenceType, referenceId, reactionModule }) {
 				filterType: FeedFilterTypeEnum[navigate],
 			})
 		);
+		return () => {
+			promise.abort();
+		};
 	}, [pageNo, navigate]);
 	const { posts } = feedSlice.allFeed;
 

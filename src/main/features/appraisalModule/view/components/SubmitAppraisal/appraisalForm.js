@@ -10,7 +10,8 @@ import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/Shar
 const { Option } = Select;
 const { TextArea } = Input;
 
-const AppraisalForm = () => {
+const AppraisalForm = (props) => {
+  console.log(props, "appraisal form");
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [promotion, setPromotion] = useState(2);
@@ -40,8 +41,16 @@ const AppraisalForm = () => {
     }
   }, [employees]);
 
+  useEffect(() => {
+    if (props.submit) {
+      console.log("use effect works when true");
+      form.submit();
+    }
+  }, [props.submit]);
+
   const onFinish = (values) => {
     console.log("Success:", values);
+    props.dataSend(values);
     // props.getAppraisalData(values);
   };
   const onFinishFailed = (errorInfo) => {
@@ -91,7 +100,15 @@ const AppraisalForm = () => {
           </div>
           <div className="inputBox  mt-2">
             <span>Promotion</span>
-            <Form.Item name="promotion">
+            <Form.Item
+              name="promotion"
+              rules={[
+                {
+                  required: true,
+                  message: "Please Select Yes/No",
+                },
+              ]}
+            >
               <Radio.Group onChange={onChangePromotion}>
                 <Radio value={1}>Yes</Radio>
                 <Radio value={2}>No</Radio>
@@ -150,7 +167,15 @@ const AppraisalForm = () => {
           </div>
           <div className="inputBox mt-2">
             <span>Bonus</span>
-            <Form.Item name="bonusRadio">
+            <Form.Item
+              name="bonusRadio"
+              rules={[
+                {
+                  required: true,
+                  message: "Please Select Yes/No",
+                },
+              ]}
+            >
               <Radio.Group onChange={onChangeBonus}>
                 <Radio value={1}>Yes</Radio>
                 <Radio value={2}>No</Radio>
@@ -163,7 +188,7 @@ const AppraisalForm = () => {
                   <Radio value={1}>Percentage</Radio>
                   <Radio value={2}>Amount</Radio>
                 </Radio.Group>
-                <Form.Item name="bonus" typetype="number">
+                <Form.Item name={"bonusPercent"} type="number">
                   <Input
                     prefix={"%"}
                     placeholder="Percentage"
@@ -171,6 +196,8 @@ const AppraisalForm = () => {
                     disabled={bonusType === 2 ? true : false}
                     style={{ marginTop: "0.5rem" }}
                   />
+                </Form.Item>
+                <Form.Item name={"bonusAmount"} type="number">
                   <Input
                     placeholder="Amount"
                     type="number"
@@ -185,7 +212,7 @@ const AppraisalForm = () => {
                   rules={[{ required: true }]}
                 >
                   <MemberSelect
-                    name="approvers"
+                    name="bonusApprovers"
                     mode="multiple"
                     formitem={false}
                     placeholder={"Select Approvers"}
@@ -211,7 +238,15 @@ const AppraisalForm = () => {
           </div>
           <div className="inputBox mt-2">
             <span>Increment</span>
-            <Form.Item name="incrementRadio">
+            <Form.Item
+              name="incrementRadio"
+              rules={[
+                {
+                  required: true,
+                  message: "Please Select Yes/No",
+                },
+              ]}
+            >
               <Radio.Group onChange={onChangeIncrement}>
                 <Radio value={1}>Yes</Radio>
                 <Radio value={2}>No</Radio>
@@ -227,11 +262,7 @@ const AppraisalForm = () => {
                   <Radio value={1}>Percentage</Radio>
                   <Radio value={2}>Amount</Radio>
                 </Radio.Group>
-                <Form.Item
-                  name="increment"
-                  typetype="number"
-                  value={incrementType}
-                >
+                <Form.Item name="incrementPercent" typetype="number">
                   <Input
                     prefix={"%"}
                     type="number"
@@ -239,6 +270,8 @@ const AppraisalForm = () => {
                     disabled={incrementType === 2 ? true : false}
                     style={{ marginTop: "0.5rem" }}
                   />
+                </Form.Item>
+                <Form.Item name="incrementAmount" typetype="number">
                   <Input
                     placeholder="Amount"
                     type="number"
@@ -253,7 +286,7 @@ const AppraisalForm = () => {
                   rules={[{ required: true }]}
                 >
                   <MemberSelect
-                    name="approvers"
+                    name="incrementApprovers"
                     mode="multiple"
                     formitem={false}
                     placeholder={"Select Approvers"}
@@ -316,6 +349,9 @@ const AppraisalForm = () => {
               <TextArea rows={4} />
             </Form.Item>
           </div>
+          <Button type="primary" htmlType="submit">
+            Submit form
+          </Button>
         </Form>
       </div>
     </>

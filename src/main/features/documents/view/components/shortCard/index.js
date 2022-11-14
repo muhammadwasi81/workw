@@ -28,7 +28,10 @@ const DocShortCard = ({ data, handlePreview }) => {
     let { name, documentType, creator, createDate, id, path, extensionTypeId, privacyId } = data
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
     let { Public, Private, External } = privacyOption
-
+    const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
     const handleClick = (item) => {
         if (documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
             disptach(handleParentId(item))
@@ -119,6 +122,9 @@ const DocShortCard = ({ data, handlePreview }) => {
                                     privacyId === Private ? <LockFilled style={{ color: "var(--currentThemeColor)" }} /> : ""
                                 }
                             </div>
+                            <h6 className="dateTime">
+                                {moment(localTime).fromNow()}
+                            </h6>
                             <div>
                                 <Avatar
                                     src={creator.image}

@@ -21,6 +21,7 @@ import Notifications from "../../../../features/notifiation/view/index";
 import OpenImage from "../../../../features/notes/OpenImage";
 import StickyContainer from "../../../../features/notes/newStickyNotes/view/components/StickyNotes";
 import { Input } from "antd";
+import { quickAddOpen } from "../../../../features/quickEmployee/store/slice";
 // const Approvals = () => {
 //   return "Approvals";
 // };
@@ -82,6 +83,10 @@ function NotificationBar() {
 		dispatch(toggleStickyNote());
 	};
 
+	const quickEmployeeHandler = () => {
+		dispatch(quickAddOpen());
+	};
+
 	// const incrementStickyNote = useSelector(
 	//   (state) => state.newStickySlice.incrementArray
 	// );
@@ -111,7 +116,7 @@ function NotificationBar() {
 						/>
 					</li>
 					<li className="list__item">
-						<img src={addUser} alt="" />
+						<img src={addUser} alt="" onClick={quickEmployeeHandler} />
 					</li>
 					<li className="list__item">
 						<img src={stickyNotes} alt="" onClick={stickyNoteHandler} />

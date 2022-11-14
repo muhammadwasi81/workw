@@ -174,44 +174,6 @@ const Reward = props => {
                 ):
                 !loader && !tableView && <NoDataFound/>
               }
-
-          {/* {rewards?.length > 0 ? (
-            tableView ? (
-              <Table
-                columns={tableColumn()}
-                dragable={true}
-                handleChange={handleColumnSorting}
-                data={rewards}
-                onRow={onRow}
-
-              />
-            ) : (
-              <>
-                {loader ? (
-                  <>
-                    <Skeleton avatar paragraph={{ rows: 4 }} />
-                  </>
-                ) : (
-                  <CardWrapper>
-                    {rewards.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem
-                            item={item}
-                            id={item.id}
-                            key={index}
-                            onClick={() => setDetailId(item.id)}
-                          />
-                        </>
-                      );
-                    })}
-                  </CardWrapper>
-                )}
-              </>
-            )
-          ) : (
-            <Skeleton avatar paragraph={{ rows: 4 }} />
-          )} */}
         </ContBody>
         {<DetailedView onClose={onClose} id={detailId} />}
 

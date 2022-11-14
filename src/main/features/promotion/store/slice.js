@@ -1,5 +1,10 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addPromotion, getAllPromotions, GetPromotionById ,cancelPromotion} from "./actions";
+import {
+  addPromotion,
+  getAllPromotions,
+  GetPromotionById,
+  cancelPromotion,
+} from "./actions";
 
 const initialState = {
   promotions: [],
@@ -15,8 +20,26 @@ const promotionSlice = createSlice({
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
-      state.drawerOpen = payload
+      state.drawerOpen = payload;
     },
+    // cancelPromotionSuccess: (state, { payload }) => {
+    //   let promotionList = [...state.promotions];
+    //   let index = promotionList.findIndex(
+    //     (item) => item.id === payload.promotionId
+    //   );
+    //   let promotion = promotionList.filter(
+    //     (item) => item.id === payload.promotionId
+    //   )[0];
+    //   promotionList[index] = {
+    //     ...promotion,
+    //     status: 7,
+    //   };
+    //   state.promotions = promotionList;
+    //   state.promotionDetail = {
+    //     ...promotion,
+    //     status: 7,
+    //   };
+    // },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllPromotions.fulfilled, (state, action) => {
@@ -26,19 +49,25 @@ const promotionSlice = createSlice({
 
     builder.addCase(GetPromotionById.fulfilled, (state, action) => {
       state.promotionDetail = action.payload.data;
+      // console.log(state.promotionDetail, "payload dataaaaa ");
     });
     builder.addCase(cancelPromotion.fulfilled, (state, action) => {
       state.cancelPromotion = action.payload.data;
-      state.success = true
-      state.loader = false
+      // state.success = true;
+      // state.loader = false;
     });
 
     builder
-        .addCase(addPromotion.fulfilled, (state, { payload }) => {
-          state.promotions=[payload.data.data,...state.promotions]
-          state.drawerOpen = false;
-          return state;
-        })
+      .addCase(addPromotion.fulfilled, (state, { payload }) => {
+        state.success = true;
+        state.loading = false;
+        state.drawerOpen = false;
+        state.promotions = [payload, ...state.promotions];
+
+        // state.drawerOpen = false;
+        // return state;
+      })
+
       .addMatcher(isPending(...[getAllPromotions]), (state) => {
         state.loader = true;
       })

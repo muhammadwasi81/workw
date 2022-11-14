@@ -1,10 +1,11 @@
-import PostItem from "./post/index";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllFeed } from "../../store/actions";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import PostItem from "./post/index";
+import { getAllFeed } from "../../store/actions";
 import PostSkeleton from "./post/skeleton/post";
-// import { ReactionModuleEnum } from "../../../../../utils/Shared/enums/enums";
 import Scroll from "../../../../sharedComponents/ScrollSelect/infinteScoll";
+import { FeedFilterTypeEnum } from "../../utils/constants";
 
 function PostsList({ referenceType, referenceId, reactionModule }) {
 	// const { userSlice, feedSlice } = useSelector(state => state);
@@ -12,18 +13,23 @@ function PostsList({ referenceType, referenceId, reactionModule }) {
 	const feedSlice = useSelector(state => state.feedSlice);
 	const [pageNo, setPageNo] = useState(1);
 	const dispatch = useDispatch();
+	const navigate = useLocation().search.split("=")[1] || "posts";
+
 	useEffect(() => {
-		dispatch(
+		const promise = dispatch(
 			getAllFeed({
 				pageNo,
 				pageSize: 20,
 				search: "",
 				referenceId: referenceId ? referenceId : userSlice.user.id,
 				referenceType,
-				filterType: 1,
+				filterType: FeedFilterTypeEnum[navigate],
 			})
 		);
-	}, [pageNo]);
+		return () => {
+			promise.abort();
+		};
+	}, [pageNo, navigate]);
 	const { posts } = feedSlice.allFeed;
 
 	if (feedSlice.allFeed.loading && posts.length === 0)

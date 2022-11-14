@@ -56,11 +56,11 @@ function ListItem(props) {
       </ItemHeader>
       <div className="cardSections" style={{ marginTop: "20px" }}>
         <div className="cardSectionItem">
-          <div className="cardSection__title">{"Amount"}</div>
+          <div className="cardSection__title">Amount</div>
           <div className="cardSection__body">{amount}</div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">{"Bonus To"}</div>
+          <div className="cardSection__title">Bonus To</div>
           <div className="cardSection__body">{member && member.name}</div>
         </div>
         <div className="cardSectionItem">

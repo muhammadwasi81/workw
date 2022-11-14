@@ -31,6 +31,7 @@ export const tableColumn = () => {
       title: "Status",
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
+      ellipsis: true,
       sort: true,
     },
     // {

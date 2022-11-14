@@ -30,8 +30,8 @@ export const searchConversationService = (search, pageNo) => {
 };
 
 // New Services here
-const getAllChat = async (data) => {
-	let request = messengerDTO.getAllConversations(data);
+const getAllChat = async (payload) => {
+	let request = messengerDTO.getAllConversations(payload);
 	try {
 		const {
 			data: { responseCode, data, message },
@@ -42,8 +42,8 @@ const getAllChat = async (data) => {
 		return ResponseResultError(e);
 	}
 };
-const getAllChatMessage = async (data) => {
-	let request = messengerDTO.getAllChatMessage(data);
+const getAllChatMessage = async (payload) => {
+	let request = messengerDTO.getAllChatMessage(payload);
 	try {
 		const {
 			data: { responseCode, data, message },
@@ -67,8 +67,8 @@ const createChat = async (data) => {
 		return ResponseResultError(e);
 	}
 };
-const sendMessage = async (data) => {
-	let request = messengerDTO.sendMessage(data);
+const sendMessage = async (payload) => {
+	let request = messengerDTO.sendMessage(payload);
 	let formDataRequest = jsonToFormData(request);
 	try {
 		const {
@@ -80,10 +80,36 @@ const sendMessage = async (data) => {
 		return ResponseResultError(e);
 	}
 };
+const updateMessageDeliver = async (payload) => {
+	let {chatId, msgIds} = payload;
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/UpdateMessageDeliverStatus?id=${chatId}`, msgIds);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+const updateMessageSeen = async (payload) => {
+	let {chatId, msgIds} = payload;
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/UpdateMessageSeenStatus?id=${chatId}`, msgIds);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
 
 export const MessengerService = {
 	createChat,
 	getAllChat,
 	sendMessage,
-	getAllChatMessage
+	getAllChatMessage,
+	updateMessageDeliver,
+	updateMessageSeen
 }

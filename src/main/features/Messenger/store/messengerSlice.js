@@ -26,8 +26,8 @@ const initialState = {
       //    },
       // }
    ],
-   loader:false,
-   success:false
+   loader: false,
+   success: false
 };
 
 export const messengerSlice = createSlice({
@@ -78,7 +78,16 @@ export const messengerSlice = createSlice({
             state.MessengerList[payload.chatId] : [];
          // Append Last Message in MessengerList
          state.MessengerList[payload.chatId] = [...currentChatMessages, payload]
-         // state.currentMessenger = action.payload
+      },
+      handleMessageFailure: (state, { payload }) => {
+         let currentChatMessages = state.MessengerList[state.currentMessenger.chatId] ?
+            state.MessengerList[state.currentMessenger.chatId] : [];
+         let messageIndex = currentChatMessages.findIndex(item => item.id === payload.id);
+         currentChatMessages[messageIndex] = {
+            ...currentChatMessages[messageIndex],
+            status:"Error"
+         };
+         console.log(currentChatMessages, "currentChatMessages")
       },
    },
 
@@ -88,7 +97,7 @@ export const messengerSlice = createSlice({
             state.Conversations = payload.data
          })
          .addCase(getAllChatMessage.fulfilled, (state, { payload }) => {
-            state.MessengerList[state.currentMessenger.chatId] = payload
+            state.MessengerList[payload.chatId] = payload.data
          })
          .addCase(getAllChats.fulfilled, (state, { payload }) => {
             state.Conversations = payload
@@ -98,38 +107,41 @@ export const messengerSlice = createSlice({
                ...(state.Conversations ? state.Conversations : []),
                payload
             ];
+            state.loader = false;
+            state.success = true;
+         })
+         .addCase(createChat.rejected, (state, { payload }) => {
+            state.loader = false;
          })
          .addCase(sendChatMessage.fulfilled, (state, { payload }) => {
-            // let currentChatMessages = state.MessengerList[state.currentMessenger.chatId] ?
-            //    state.MessengerList[state.currentMessenger.chatId] : [];
-            // // Append Last Message in MessengerList
-            // state.MessengerList[state.currentMessenger.chatId] = [...currentChatMessages, {
-            //    ...payload,
-            //    messageByMe: true
-            // }]
+            let currentChatMessages = state.MessengerList[payload.chatId] ?
+               state.MessengerList[payload.chatId] : [];
+            let messageIndex = currentChatMessages.findIndex(item => item.id === payload.id);
+            currentChatMessages[messageIndex] = payload;
          })
          .addMatcher(
-				isPending(
-					...[
-						createChat
-					]
-				),
-				state => {
-					state.loader = true;
-					state.success = false;
-				}
-			)
+            isPending(
+               ...[
+                  createChat
+               ]
+            ),
+            state => {
+               state.loader = true;
+               state.success = false;
+            }
+         )
    }
 })
 
-export const { 
-   handleIsopenChat, 
-   handleMessengerItemClick, 
-   receiveChatMessage, 
-   handleAppendMessage, 
-   handleChatBoxAppend, 
-   handleRemoveChatBox, 
+export const {
+   handleIsopenChat,
+   handleMessengerItemClick,
+   receiveChatMessage,
+   handleAppendMessage,
+   handleChatBoxAppend,
+   handleRemoveChatBox,
    handleMinimizeChatBox,
-   handleExpendChatBox
- } = messengerSlice.actions
+   handleExpendChatBox,
+   handleMessageFailure
+} = messengerSlice.actions
 export default messengerSlice.reducer;

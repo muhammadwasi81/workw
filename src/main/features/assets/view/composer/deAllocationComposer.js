@@ -103,6 +103,7 @@ const AssetDeAllocationComposer = () => {
     if (!assetItemByUserId[0]?.id) {
       return message.error('No Asset Items Found');
     }
+    console.log('de-allocation', values);
     dispatch(
       updateAssetItems({
         id: assetItemByUserId[0]?.id,
@@ -112,6 +113,7 @@ const AssetDeAllocationComposer = () => {
     // dispatch(updateAssetItems(assetItems));
     setState(initialState);
     form.resetFields();
+    dispatch(getAssetItemByUserId(''));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -192,40 +194,38 @@ const AssetDeAllocationComposer = () => {
                 {assetItemByUserId?.length > 0 ? (
                   assetItemByUserId?.map((x, i) => (
                     <tr key={i} className="tableWrapper">
-                      <td>{x.category}</td>
+                      <td>{x.category ? x.category : 'N/A'}</td>
                       <td>{x.name}</td>
                       <td>{x.serialNo}</td>
                       <td>
-                        <Form.Item name="status">
-                          <Select
-                            style={{ width: '100%' }}
-                            placeholder="Select Status"
-                            defaultValue={x.status}
-                            onChange={(e) => {
-                              console.log('e', e);
-                              setNewState({
-                                ...newState,
-                                status: e,
-                              });
-                            }}
-                          >
-                            <Select.Option value={1}>
-                              Waiting For Approval
-                            </Select.Option>
-                            <Select.Option value={2}>
-                              Waiting For Handover
-                            </Select.Option>
-                            <Select.Option value={3}>Allocated</Select.Option>
-                            <Select.Option value={4}>Available</Select.Option>
-                          </Select>
-                        </Form.Item>
+                        <Select
+                          style={{ width: '100%' }}
+                          placeholder="Select Status"
+                          defaultValue={x.status}
+                          onChange={(e) => {
+                            console.log('e', e);
+                            setNewState({
+                              ...newState,
+                              status: e,
+                            });
+                          }}
+                        >
+                          <Select.Option value={1}>
+                            Waiting For Approval
+                          </Select.Option>
+                          <Select.Option value={2}>
+                            Waiting For Handover
+                          </Select.Option>
+                          <Select.Option value={3}>Allocated</Select.Option>
+                          <Select.Option value={4}>Available</Select.Option>
+                        </Select>
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={4} className="text-center py-3">
-                      No Data Found
+                    <td colSpan={4} className="text-center">
+                      <strong>No Data Found</strong>{' '}
                     </td>
                   </tr>
                 )}

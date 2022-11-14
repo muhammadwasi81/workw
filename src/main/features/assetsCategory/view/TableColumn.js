@@ -28,15 +28,15 @@ export const tableColumn = (
   setClearButton
 ) => {
   return [
-    { title: 'Category Name', dataIndex: 'name', width: '20%', key: 1 },
-    { title: 'Description', dataIndex: 'description', width: '20%', key: 2 },
+    { title: 'Category Name', dataIndex: 'name', width: '30%', key: 1 },
+    { title: 'Description', dataIndex: 'description', width: '40%', key: 2 },
     {
       title: 'Account Type',
       dataIndex: 'accountId',
       width: '20%',
       key: 3,
       render: (text, row) => {
-        return <>{row.accountId}</>;
+        return <>{row.accountId.substring(0, 5) + '...'}</>;
       },
     },
     {

@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import { tableColumn } from "../TableColumn";
 import { Table } from "../../../../sharedComponents/customTable";
+import { NoDataFound } from "../../../../sharedComponents/NoDataIcon";
+import { handleOpenApplyComposer } from "../../store/slice";
 
 const CareerCard = (props) => {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const CareerCard = (props) => {
   const [applyDrawer, setApplyDrawer] = useState(false);
   const [id, setId] = useState();
   const [table, setTable] = useState(false);
-  console.log(props);
+
   const careers = useSelector((state) => {
     return state.careerSlice.items;
   });
@@ -61,8 +63,9 @@ const CareerCard = (props) => {
   };
 
   const applyJob = () => {
-    console.log("apply works");
-    setApplyDrawer(true);
+    // console.log("apply works");
+    // setApplyDrawer(true);
+    dispatch(handleOpenApplyComposer(true));
     setOpenDetail(false);
   };
 
@@ -77,7 +80,57 @@ const CareerCard = (props) => {
         onClose={handleDrawerClose}
         id={id}
       />
-      {!table && (
+      {
+        loader && (
+          [...Array(15)].map((item) => (
+            <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
+          ))
+        )  
+      }
+
+      {
+        table &&
+        <Table
+          columns={tableColumn()}
+          dragable={true}
+          data={careers ? careers : []}
+      />
+      }
+
+      {
+            careers?.length > 0 && !loader && !table ? (
+            <CardWrapper
+              style={{
+                gridTemplateColumns: table
+                  ? "repeat(auto-fill,minmax(30rem,1fr))"
+                  : "repeat(auto-fill,minmax(27rem,1fr))",
+              }}
+            > 
+            {openDetail && (
+              <Modal
+                visible={openDetail}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                footer={null}
+                width={"50%"}
+              >
+                <JobDetails apply={applyJob} />
+              </Modal>
+            )}
+                {careers.map((item, index) => {
+                  return (
+                    <ListItem
+                        onClick={() => openJobDetailHandler(item.id)}
+                        onClickMyCareer={() => openMyCareerDetail(item.id)}
+                        item={item}
+                      />
+                  );
+                })}
+              </CardWrapper>
+            ) : !loader  && !table && <NoDataFound />
+      }
+
+      {/* {!table && (
         <CardWrapper
           style={{
             gridTemplateColumns: table
@@ -98,7 +151,7 @@ const CareerCard = (props) => {
           )}
           {!table && (
             <>
-              {loader ? (
+            {  loader ? (
                 [...Array(15)].map((item) => (
                   <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
                 ))
@@ -123,13 +176,13 @@ const CareerCard = (props) => {
           )}
         </CardWrapper>
       )}
-      {table && (
+      {/* {table && (
         <Table
           columns={tableColumn()}
           dragable={true}
           data={careers ? careers : []}
         />
-      )}
+      )} */}
     </>
   );
 };

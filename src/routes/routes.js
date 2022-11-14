@@ -84,6 +84,12 @@ export const routes = {
 			),
 		},
 		{
+			path: `${ROUTES.ASSETS_TABLE_LIST.DEFAULT}`,
+			component: lazy(() =>
+				import("../main/features/assetsTableList/view/index")
+			),
+		},
+		{
 			path: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
 			component: lazy(() =>
 				import("../main/features/RequestListItems/view/index")
@@ -164,7 +170,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/projects/index")),
 		},
 		{
-			path: `${ROUTES.PROJECT.DEFAULT}/:id`,
+			path: `${ROUTES.PROJECT.DEFAULT}/:projectId`,
 			component: lazy(() =>
 				import(
 					"../main/features/projects/ProjectDetails/ProjectDetails"
@@ -176,7 +182,7 @@ export const routes = {
 			component: lazy(() => import("../main/features/groups/view/index")),
 		},
 		{
-			path: `${ROUTES.GROUP.DEFAULT}/:id`,
+			path: `${ROUTES.GROUP.DEFAULT}/:groupId`,
 			component: lazy(() =>
 				import("../main/features/groups/view/GroupDetails/GroupDetails")
 			),

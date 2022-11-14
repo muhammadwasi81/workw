@@ -43,6 +43,7 @@ const departmentSlice = createSlice({
         state.loader = false;
       })
       .addCase(addDepartment.fulfilled, (state, { payload }) => {
+        console.log(payload);
         // console.log("*****", payload.data);
         if (payload.data.data) {
           // console.log("before adding", state.departments);

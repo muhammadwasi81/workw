@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Drawer, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
@@ -7,6 +7,8 @@ import { addCareerApplicant } from "../../store/action";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { STRINGS } from "../../../../../utils/base";
 import TextArea from "antd/lib/input/TextArea";
+import { useSelector } from "react-redux";
+import { handleOpenApplyComposer } from "../../store/slice";
 
 const ApplyComposer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -14,6 +16,16 @@ const ApplyComposer = (props) => {
   const dispatch = useDispatch();
   const [attachments, setAttachment] = useState([]);
   const [form] = Form.useForm();
+
+  const { loader, applySuccess, applyComposer } = useSelector(
+    (state) => state.careerSlice
+  );
+
+  useEffect(() => {
+    if (applySuccess) {
+      form.resetFields();
+    }
+  }, [applySuccess]);
 
   const { labels } = CareerDictionaryList;
   // console.log(CareerDictionaryList);
@@ -30,8 +42,6 @@ const ApplyComposer = (props) => {
           : [{ file: attachments[0].originFileObj, id: STRINGS.DEFAULTS.guid }],
     };
     dispatch(addCareerApplicant(payload));
-    form.resetFields();
-    props.onClose();
   };
 
   return (
@@ -41,8 +51,11 @@ const ApplyComposer = (props) => {
           <h1 style={{ fontSize: "20px", margin: 0 }}>{labels.applyJob}</h1>
         }
         width="768"
-        onClose={props.onClose}
-        visible={props.visible}
+        // onClose={props.onClose}
+        onClose={() => {
+          dispatch(handleOpenApplyComposer(false));
+        }}
+        visible={applyComposer}
         className="detailedViewComposer drawerSecondary"
         placement={Direction === "rtl" ? "left" : "right"}
         style={{
@@ -224,6 +237,7 @@ const ApplyComposer = (props) => {
               className="ThemeBtn"
               block
               htmlType="submit"
+              loading={loader}
             >
               {labels.applyJob}
             </Button>

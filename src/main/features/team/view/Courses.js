@@ -5,40 +5,40 @@ import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
 
 function Courses({ userId = null }) {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels } = dictionaryList[userLanguage];
-  const { teamDictionary } = teamDictionaryList[userLanguage];
-  const labels = teamDictionary.CoursesTable;
-  const columns = [
-    {
-      title: labels.CourseName,
-      dataIndex: "courseName",
-      key: "courseName",
-    },
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { sharedLabels } = dictionaryList[userLanguage];
+	const { teamDictionary } = teamDictionaryList[userLanguage];
+	const labels = teamDictionary.CoursesTable;
+	const columns = [
+		{
+			title: labels.CourseName,
+			dataIndex: "courseName",
+			key: "courseName",
+		},
 
-    {
-      title: labels.Date,
-      dataIndex: "date",
-      key: "date",
-    },
-  ];
+		{
+			title: labels.Date,
+			dataIndex: "date",
+			key: "date",
+		},
+	];
 
-  let myId = userId ? userId : id;
-  
-  return (
-    <>
-      <TeamTable
-        bordered
-        columns={columns}
-        className="custom_table"
-        dataSource={[
-          {
-            courseName: "Web Engineering",
-            date: "Mon 2019",
-          },
-        ]}
-      />
-    </>
-  );
+	// let myId = userId ? userId : id;
+
+	return (
+		<>
+			<TeamTable
+				bordered
+				columns={columns}
+				className="custom_table"
+				dataSource={[
+					{
+						courseName: "Web Engineering",
+						date: "Mon 2019",
+					},
+				]}
+			/>
+		</>
+	);
 }
 export default Courses;

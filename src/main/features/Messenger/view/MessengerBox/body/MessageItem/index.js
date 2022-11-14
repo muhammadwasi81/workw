@@ -47,7 +47,7 @@ const MessengerListItem = ({
 					onClick={() => {}}
 					size={isChatBox ? "75px" : "100px"}
 				/>}
-				<div className="flex items-end flex-col" >
+				<div className="textMessage" >
 					<div className="textMsgArea">
 						{message}
 					</div>

@@ -14,12 +14,13 @@ const createChat = (data) => {
 const sendMessage = (data) => {
 	return {
 		"chatId": data.chatId ? data.chatId : STRINGS.DEFAULTS.guid,
+		"id": data.id ? data.id : undefined,
 		"parrentId": data.parrentId ? data.parrentId : undefined,
 		"message": data.message ? data.message : "",
 		"referenceId": data.referenceId ? data.referenceId : undefined,
 		"messageType": data.messageType ? data.messageType : 1,
 		"attachments": data.attachments ? data.attachments : undefined,
-		"members": data.members ? data.members : []
+		"members": data.members ? data.members : [],
 	}
 }
 const getAllConversations = (data) => {

@@ -14,14 +14,16 @@ export const tableColumn = () => {
     {
       title: "Reference No",
       dataIndex: "referenceNo",
-      ellipsis: true,
+      width: 200,
       sort: true,
     },
     {
       title: "Creator",
       dataIndex: "creator",
-      ellipsis: true,
-      render: (creator) => <TagAvatar text={creator.name} img={creator.image} />,
+      width: 200,
+      render: (creator) => (
+        <TagAvatar text={creator.name} img={creator.image} />
+      ),
       sort: true,
     },
     {
@@ -33,11 +35,10 @@ export const tableColumn = () => {
     {
       title: "Category",
       dataIndex: "category",
-      ellipsis: true,
       sort: true,
+      width: 200,
     },
-    // { title: "Name", dataIndex: "name", ellipsis: true, sort: true },
-    // { title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
+
     {
       title: "Date",
       dataIndex: "createDate",
@@ -48,14 +49,16 @@ export const tableColumn = () => {
     {
       title: "Complain Of",
       dataIndex: "members",
-      ellipsis: true,
       render: (member) => <Avatar membersData={member} heading={"Members"} />,
+      width: 200,
     },
     {
       title: "Approvers",
       dataIndex: "approvers",
-      ellipsis: true,
-      render: (approver) => <Avatar membersData={approver} heading={"Approvers"} />,
+      width: 200,
+      render: (approver) => (
+        <Avatar membersData={approver} heading={"Approvers"} />
+      ),
     },
   ];
 };

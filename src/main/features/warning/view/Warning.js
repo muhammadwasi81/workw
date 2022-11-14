@@ -1,6 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Button, Skeleton, Drawer } from "antd";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -31,11 +34,17 @@ const Warning = (props) => {
 
   const [visible, setVisible] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [filter, setFilter] = useState({
+    filterType: 0,
+    search: "",
+    sortBy: 1,
+  });
 
   const dispatch = useDispatch();
 
-  const { warnings, loader, warningDetail, drawerOpen } = useSelector((state) => state.warningSlice);
+  const { warnings, loader, warningDetail, drawerOpen } = useSelector(
+    (state) => state.warningSlice
+  );
 
   const onClose = () => {
     setVisible(false);
@@ -52,7 +61,7 @@ const Warning = (props) => {
 
   const items = [
     {
-      name: 'Warning',
+      name: "Warning",
       to: `${ROUTES.WARNINGS.DEFAULT}`,
       renderButton: [1],
     },
@@ -66,7 +75,10 @@ const Warning = (props) => {
           {
             buttonText: "Create Warning",
             render: (
-              <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+              <Button
+                className="ThemeBtn"
+                onClick={() => dispatch(handleOpenComposer(true))}
+              >
                 Create Warning
               </Button>
               // <SideDrawer title={warningDictionary.createWarning} buttonText={warningDictionary.createWarning} isAccessDrawer={false}>
@@ -110,38 +122,31 @@ const Warning = (props) => {
           label2: "Table",
         }}
       />
-        <ContBody>
-                {
-                   loader && <Skeleton avatar paragraph={{ rows: 4 }} />
-                }
+      <ContBody>
+        {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
-               {
-                    tableView &&
-                    <Table
-                    columns={tableColumn()}
-                    dragable={true}
-                    data={warnings}
-                     />
-               }
+        {tableView && (
+          <Table columns={tableColumn()} dragable={true} data={warnings} />
+        )}
 
-              {
-                    warnings?.length > 0 && !loader && !tableView ? (
-                    <CardWrapper>
-                      {warnings.map((item, index)  => {
-                      return (
-                        <ListItem
-                          getWarningId={getWarningId} 
-                          item={item}
-                          id={item.id}
-                          key={index}
-                        />
-                      );
-                      })}
-                    </CardWrapper>
-                    ) : !loader && !tableView && <NoDataFound/>
-			         }
-        </ContBody>
-              {warningDetail && (<DetailedView onClose={onClose} visible={visible} />)}
+        {warnings?.length > 0 && !loader && !tableView ? (
+          <CardWrapper>
+            {warnings.map((item, index) => {
+              return (
+                <ListItem
+                  getWarningId={getWarningId}
+                  item={item}
+                  id={item.id}
+                  key={index}
+                />
+              );
+            })}
+          </CardWrapper>
+        ) : (
+          !loader && !tableView && <NoDataFound />
+        )}
+      </ContBody>
+      {warningDetail && <DetailedView onClose={onClose} visible={visible} />}
       <Drawer
         title={
           <h1
@@ -155,7 +160,7 @@ const Warning = (props) => {
         }
         width="768"
         onClose={() => {
-          dispatch(handleOpenComposer(false))
+          dispatch(handleOpenComposer(false));
         }}
         visible={drawerOpen}
         destroyOnClose={true}

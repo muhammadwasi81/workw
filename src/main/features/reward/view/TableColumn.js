@@ -14,13 +14,16 @@ export const tableColumn = () => {
     {
       title: "Reference No",
       dataIndex: "referenceNo",
-      ellipsis: true,
+
       sort: true,
+      width: 200,
     },
     {
       title: "Creator",
       dataIndex: "creator",
-      ellipsis: true,
+
+      width: 200,
+
       render: (creator) => (
         <TagAvatar text={creator.name} img={creator.image} />
       ),
@@ -31,32 +34,34 @@ export const tableColumn = () => {
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
+      width: 200,
     },
     {
       title: "Category",
       dataIndex: "category",
-      ellipsis: true,
       sort: true,
+      width: 200,
     },
-    { title: "Name", dataIndex: "name", ellipsis: true, sort: true },
-    { title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
+    { title: "Name", dataIndex: "name", width: 200, sort: true },
+    { title: "Reason", dataIndex: "reason", width: 200, sort: true },
     {
       title: "Date",
       dataIndex: "createDate",
-      render: (i) => moment(i.createDate).format("DD MMM YYYY"),
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
+      width: 200,
     },
 
     {
       title: "Reward To",
       dataIndex: "members",
-      ellipsis: true,
+      width: 200,
       render: (member) => <Avatar membersData={member} heading={"Members"} />,
     },
     {
       title: "Approvers",
       dataIndex: "approvers",
-      ellipsis: true,
+      width: 200,
       render: (approver) => (
         <Avatar membersData={approver} heading={"Approvers"} />
       ),

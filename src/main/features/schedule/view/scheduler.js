@@ -25,9 +25,9 @@ function Scheduler({ feed = false }) {
 	const calendarRef = useRef();
 	let isPanelChange = false;
 	const dispatch = useDispatch();
-	const renderEventContent = eventInfo => {
-		return <Event eventInfo={eventInfo} />;
-	};
+	// const renderEventContent = eventInfo => {
+	// 	return <Event eventInfo={eventInfo} />;
+	// };
 	useEffect(() => {
 		fetchAllSchedule(todayDate, todayDate);
 	}, []);
@@ -150,7 +150,7 @@ function Scheduler({ feed = false }) {
 					dayMaxEventRows={true}
 					editable={true}
 					plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-					initialView="timeGridDay"
+					initialView={!feed ? "dayGridMonth" : "timeGridDay"}
 					events={
 						data
 						// "https://fullcalendar.io/api/demo-feeds/events.json"

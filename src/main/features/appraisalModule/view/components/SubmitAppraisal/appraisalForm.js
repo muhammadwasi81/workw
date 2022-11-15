@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
 import "../../style.css";
-import { Form, Input, Button, Radio, Select, Avatar, Rate } from "antd";
+import { Form, Input, Button, Radio, Select, Avatar, Rate, Tag } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
+// import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 import { getNameForImage } from "../../../../../../utils/base";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import ModalTag from "./modalTag";
 
 const { Option } = Select;
 const { TextArea } = Input;
 
 const AppraisalForm = (props) => {
-  console.log(props, "appraisal form");
+  // console.log(props, "appraisal form");
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [promotion, setPromotion] = useState(2);
   const [bonus, setbonus] = useState(2);
   const [bonusType, setBonusType] = useState(1);
   const [increment, setIncrement] = useState(2);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [data, setData] = useState("");
   const [incrementType, setIncrementType] = useState(1);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -80,8 +83,22 @@ const AppraisalForm = (props) => {
     console.log(e.target.value, "onchange type");
     setIncrementType(e.target.value);
   };
+
+  const modalOpenFunc = (type) => {
+    setModalOpen(true);
+    setData(type);
+  };
+
+  const modalCloseFunc = () => {
+    setModalOpen(false);
+  };
   return (
     <>
+      <ModalTag
+        showModal={modalOpen}
+        handleCancel={modalCloseFunc}
+        data={data}
+      />
       <div className="appraisalFormBody drop-shadow">
         <Form
           form={form}
@@ -94,9 +111,34 @@ const AppraisalForm = (props) => {
             <span>Basic Salary: 13000</span>
           </div>{" "}
           <div className="inputBox flex justify-evenly mt-2 items-center">
-            <StatusTag status={1} />
-            <StatusTag status={2} />
-            <StatusTag status={3} />
+            <Tag
+              onClick={() => modalOpenFunc("previousAppraisal")}
+              className="statusTag"
+              style={{ backgroundColor: "rgb(26 86 105)", cursor: "pointer" }}
+            >
+              previous Appraisal
+            </Tag>
+            <Tag
+              onClick={() => modalOpenFunc("warning")}
+              className="statusTag"
+              style={{ backgroundColor: "rgb(26 86 105)", cursor: "pointer" }}
+            >
+              Warning
+            </Tag>
+            <Tag
+              onClick={() => modalOpenFunc("rewards")}
+              className="statusTag"
+              style={{ backgroundColor: "rgb(26 86 105)", cursor: "pointer" }}
+            >
+              Rewards
+            </Tag>
+            <Tag
+              onClick={() => modalOpenFunc("course")}
+              className="statusTag"
+              style={{ backgroundColor: "rgb(26 86 105)", cursor: "pointer" }}
+            >
+              Courses
+            </Tag>
           </div>
           <div className="inputBox  mt-2">
             <span>Promotion</span>
@@ -349,9 +391,9 @@ const AppraisalForm = (props) => {
               <TextArea rows={4} />
             </Form.Item>
           </div>
-          <Button type="primary" htmlType="submit">
+          {/* <Button type="primary" htmlType="submit">
             Submit form
-          </Button>
+          </Button> */}
         </Form>
       </div>
     </>

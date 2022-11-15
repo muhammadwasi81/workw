@@ -7,6 +7,8 @@ import {
   getAllEmployees,
   getAllEmployeeShort,
 } from "../../../../../../utils/Shared/store/actions";
+import { getAllAllowance } from "../../../../allowance/store/actions";
+
 import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 
 const TaskComp = (props) => {
@@ -25,7 +27,7 @@ const TaskComp = (props) => {
     console.log("useEffect works");
     fetchEmployees();
     fetchEmployeesShort();
-    // fetchAllowance();
+    fetchAllowance();
   }, []);
 
   useEffect(() => {
@@ -43,6 +45,10 @@ const TaskComp = (props) => {
   };
   const fetchEmployeesShort = (text = "", pgNo = 1) => {
     dispatch(getAllEmployeeShort({ text, pgNo, pgSize: 20 }));
+  };
+
+  const fetchAllowance = () => {
+    dispatch(getAllAllowance());
   };
 
   const onFinish = (values) => {
@@ -63,7 +69,7 @@ const TaskComp = (props) => {
   return (
     <>
       <div className="appraisalFormBody drop-shadow">
-        <div className="inputBox">
+        <div className="inputBoxCustomSelect mb-2">
           <CustomSelect
             style={{ marginBottom: "0px" }}
             data={fetchEmployeesData}
@@ -97,7 +103,9 @@ const TaskComp = (props) => {
         </div>
         <div className="box flex justify-between items-center">
           <UserInfo
-            avatarSrc="https://joeschmoe.io/api/v1/random"
+            avatarSrc={
+              employee ? employee?.image : "https://joeschmoe.io/api/v1/random"
+            }
             name={employee ? employee?.name : "Humayoun Shah"}
             Subline={
               <SublineDesigWithTime

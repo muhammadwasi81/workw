@@ -98,13 +98,13 @@ function ContactDetail(props) {
 							placeholder="Select Friendly Status"
 						>
 							<Option value={1}>
-								<Tag color="green">Friendly Status</Tag>
+								<Tag color="green">Friendly</Tag>
 							</Option>
 							<Option value={2}>
-								<Tag color="yellow">Friendly Status</Tag>
+								<Tag color="yellow">Neutral</Tag>
 							</Option>
 							<Option value={3}>
-								<Tag color="red">Friendly Status</Tag>
+								<Tag color="red">Unfriendly</Tag>
 							</Option>
 						</Select>
 					</Form.Item>

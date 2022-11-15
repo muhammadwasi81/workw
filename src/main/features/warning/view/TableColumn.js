@@ -14,14 +14,16 @@ export const tableColumn = () => {
     {
       title: "Reference No",
       dataIndex: "referenceNo",
-      ellipsis: true,
       sort: true,
+      width: 200,
     },
     {
       title: "Creator",
       dataIndex: "creator",
-      ellipsis: true,
-      render: (creator) => <TagAvatar text={creator.name} img={creator.image} />,
+      render: (creator) => (
+        <TagAvatar text={creator.name} img={creator.image} />
+      ),
+      width: 200,
       sort: true,
     },
     {
@@ -29,33 +31,36 @@ export const tableColumn = () => {
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
+      width: 200,
     },
     {
       title: "Category",
       dataIndex: "category",
-      ellipsis: true,
       sort: true,
+      width: 200,
     },
-    // { title: "Name", dataIndex: "name", ellipsis: true, sort: true },
-    // { title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
+
     {
       title: "Date",
       dataIndex: "createDate",
-      render: (i) => moment(i.createDate).format("DD MMM YYYY"),
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
+      width: 200,
     },
 
     {
       title: "Warning To",
       dataIndex: "members",
-      ellipsis: true,
+      width: 200,
       render: (member) => <Avatar membersData={member} heading={"Members"} />,
     },
     {
       title: "Approvers",
       dataIndex: "approvers",
-      ellipsis: true,
-      render: (approver) => <Avatar membersData={approver} heading={"Approvers"} />,
+      width: 200,
+      render: (approver) => (
+        <Avatar membersData={approver} heading={"Approvers"} />
+      ),
     },
   ];
 };

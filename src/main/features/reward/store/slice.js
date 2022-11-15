@@ -41,13 +41,9 @@ const rewardSlice = createSlice({
 
     builder
       .addCase(addReward.fulfilled, (state, { payload }) => {
-        // state.drawerOpen = false;
-        // state.success = true;
-        // state.addLoader = false;
         state.rewards = [payload.data.data, ...state.rewards];
         state.drawerOpen = false;
         return state;
-        // state.rewards.push(payload.data.data);
       })
       .addMatcher(isPending(...[getAllRewards, addReward]), (state) => {
         state.loader = true;

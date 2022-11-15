@@ -14,16 +14,16 @@ export const tableColumn = () => {
     {
       title: "Reference No",
       dataIndex: "referenceNo",
-      ellipsis: true,
       sort: true,
+      width: 200,
     },
     {
       title: "Creator",
       dataIndex: "creator",
-      ellipsis: true,
       render: (creator) => (
         <TagAvatar text={creator.name} img={creator.image} />
       ),
+      width: 200,
       sort: true,
     },
     {
@@ -31,24 +31,27 @@ export const tableColumn = () => {
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
+      width: 200,
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
       render: (startDate) => moment(startDate).format("ddd,DD MMM YYYY"),
       sort: true,
+      width: 200,
     },
     {
       title: "End Date",
       dataIndex: "endDate",
       render: (endDate) => moment(endDate).format("ddd,DD MMM YYYY"),
       sort: true,
+      width: 200,
     },
 
     {
       title: "Approvers",
       dataIndex: "approvers",
-      ellipsis: true,
+      width: 200,
       render: (approver) => (
         <Avatar membersData={approver} heading={"Approvers"} />
       ),

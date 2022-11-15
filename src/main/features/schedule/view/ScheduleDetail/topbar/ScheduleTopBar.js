@@ -16,10 +16,10 @@ export const ScheduleTopBar = ({
 					name: "My Schedules",
 					onClick: () => setFilterType(1),
 				},
-				{
-					name: "Team Schedules",
-					onClick: () => setFilterType(2),
-				},
+				// {
+				// 	name: "Team Schedules",
+				// 	onClick: () => setFilterType(2),
+				// },
 			]}
 			// filter={{
 			// 	onFilter: () => {},

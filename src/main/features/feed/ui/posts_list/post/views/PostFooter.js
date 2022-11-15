@@ -34,7 +34,7 @@ const PostFooter = ({
 	referenceType,
 	referenceId,
 	reactionModule,
-	reactionType,
+	myReaction,
 	isDetailViewOpen = true,
 }) => {
 	const dispatch = useDispatch();
@@ -51,20 +51,20 @@ const PostFooter = ({
 		WriteYourReplyHere,
 	} = Post;
 
-	const handleAddReaction = (reactionType, id) => {
-		if (reactionType === 0) {
+	const handleAddReaction = (myReaction, id) => {
+		if (myReaction === 0) {
 			dispatch(
 				addFeedReaction({
 					referenceId: id,
 					reactionMode: "click",
-					reactionType: 1,
+					myReaction: 1,
 				})
 			);
 			dispatch(
 				addReaction({
 					referenceId: id,
 					reactionModule,
-					reactionType: 1,
+					myReaction: 1,
 				})
 			);
 			return;
@@ -73,14 +73,14 @@ const PostFooter = ({
 			addFeedReaction({
 				referenceId: id,
 				reactionMode: "click",
-				reactionType,
+				myReaction,
 			})
 		);
 		dispatch(
 			addReaction({
 				referenceId: id,
 				reactionModule,
-				reactionType: 0,
+				myReaction: 0,
 			})
 		);
 	};
@@ -91,8 +91,8 @@ const PostFooter = ({
 				<div className="reactionCount">
 					<span>
 						<img
-							src={reactions[reactionType]}
-							alt={reactionDescription[reactionType]}
+							src={reactions[myReaction]}
+							alt={reactionDescription[myReaction]}
 						/>
 					</span>
 
@@ -115,7 +115,7 @@ const PostFooter = ({
 			<div className="post-events">
 				<div
 					className={`btn on`}
-					onClick={() => handleAddReaction(reactionType, id)}
+					onClick={() => handleAddReaction(myReaction, id)}
 				>
 					<Reactions
 						direction={Direction}
@@ -124,39 +124,39 @@ const PostFooter = ({
 								addFeedReaction({
 									referenceId: id,
 									reactionModule,
-									reactionType: e,
+									myReaction: e,
 								})
 							);
 							dispatch(
 								addReaction({
 									referenceId: id,
 									reactionModule,
-									reactionType: e,
+									myReaction: e,
 								})
 							);
 						}}
 						// onLikeBtnClick={() =>
-						// 	handleAddReaction(reactionType, id)
+						// 	handleAddReaction(myReaction, id)
 						// }
 					>
 						<div className={`btn on`}>
 							<span>
 								<img
 									className={
-										ReactionType.Like === reactionType ||
-										ReactionType.NoReaction === reactionType
+										ReactionType.Like === myReaction ||
+										ReactionType.NoReaction === myReaction
 											? "w-[20px] h-[30px]"
 											: " w-[30px] h-[30px]"
 									}
-									src={reactions[reactionType]}
-									alt={reactionDescription[reactionType]}
+									src={reactions[myReaction]}
+									alt={reactionDescription[myReaction]}
 								/>
 							</span>
 							<div
-								className={`text-[${reactionColor[reactionType]}]`}
-								style={{ color: reactionColor[reactionType] }}
+								className={`text-[${reactionColor[myReaction]}]`}
+								style={{ color: reactionColor[myReaction] }}
 							>
-								{reactionDescription[reactionType]}
+								{reactionDescription[myReaction]}
 							</div>
 						</div>
 					</Reactions>

@@ -36,6 +36,8 @@ import NewsFeed from "../../feed/ui";
 import Task from "../../task/view/Task";
 import Expenses from "../../expense";
 import Documents from "../../documents/view/documents";
+import { handleComposeEmail } from "../../leadmanager/store/slice";
+import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
 
 function ProjectDetails() {
 	const params = useParams();
@@ -120,6 +122,7 @@ function ProjectDetails() {
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
+				feature={"2"}
 			/>
 		),
 		7: (
@@ -138,6 +141,7 @@ function ProjectDetails() {
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
+				feature={2}
 			/>
 		),
 		10: <>Schedule</>,
@@ -178,7 +182,14 @@ function ProjectDetails() {
 						<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
 							<Budget data={detail} />
 							<WhiteCard>
-								<MemberCollapse data={detail?.members} />
+								<MemberCollapse
+									data={detail?.members}
+									isEmail={true}
+									isMember={true}
+									onEmailClick={() => {
+										dispatch(handleComposeEmail(true));
+									}}
+								/>
 							</WhiteCard>
 						</div>
 					</div>
@@ -198,6 +209,7 @@ function ProjectDetails() {
 					id={projectId}
 				/>
 			</Drawer>
+			<ComposeEmail />
 		</>
 	);
 }

@@ -23,7 +23,6 @@ export const taskSlice = createSlice({
   reducers: {
     handleOpenTaskComposer: (state, { payload }) => {
       state.drawerOpen = payload;
-      console.log(payload, "payload");
     },
     clearTaskById: (state) => {
       state.task = {};

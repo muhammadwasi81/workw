@@ -71,7 +71,6 @@ const Bonus = (props) => {
       to: `${ROUTES.BONUS.DEFAULT}`,
     },
   ];
-  console.log(drawerOpen, "drawerOpen");
   return (
     <TabbableContainer className="max-width-1190">
       <Header

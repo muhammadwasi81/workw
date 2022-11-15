@@ -23,6 +23,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -75,15 +76,14 @@ const Warning = (props) => {
           {
             buttonText: "Create Warning",
             render: (
-              <Button
-                className="ThemeBtn"
-                onClick={() => dispatch(handleOpenComposer(true))}
-              >
-                Create Warning
-              </Button>
-              // <SideDrawer title={warningDictionary.createWarning} buttonText={warningDictionary.createWarning} isAccessDrawer={false}>
-              //   <Composer />
-              // </SideDrawer>
+              <SideDrawer
+                title={"Create Warning"}
+                buttonText={"Create Warning"}
+                handleClose={() => dispatch(handleOpenComposer(false))}
+                handleOpen={() => dispatch(handleOpenComposer(true))}
+                isOpen={drawerOpen}
+                children={<Composer />}
+              />
             ),
           },
         ]}
@@ -147,27 +147,6 @@ const Warning = (props) => {
         )}
       </ContBody>
       {warningDetail && <DetailedView onClose={onClose} visible={visible} />}
-      <Drawer
-        title={
-          <h1
-            style={{
-              fontSize: "20px",
-              margin: 0,
-            }}
-          >
-            Create Warning
-          </h1>
-        }
-        width="768"
-        onClose={() => {
-          dispatch(handleOpenComposer(false));
-        }}
-        visible={drawerOpen}
-        destroyOnClose={true}
-        className="detailedViewComposer drawerSecondary"
-      >
-        <Composer />
-      </Drawer>
     </TabbableContainer>
   );
 };

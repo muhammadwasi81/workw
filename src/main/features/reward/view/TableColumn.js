@@ -14,7 +14,6 @@ export const tableColumn = () => {
     {
       title: "Reference No",
       dataIndex: "referenceNo",
-
       sort: true,
       width: 200,
     },

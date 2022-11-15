@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Modal } from "antd";
 
 const ModalTag = ({ showModal, handleCancel, data }) => {
+  useEffect(() => {
+    //TODO: call api according to the data like prev appraisals, warnings etc
+    console.log("useEffect works on component mount");
+  }, []);
+
   return (
     <>
       <Modal

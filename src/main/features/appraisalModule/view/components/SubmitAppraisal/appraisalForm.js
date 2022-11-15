@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../style.css";
-import { Form, Input, Button, Radio, Select, Avatar, Rate, Tag } from "antd";
+import { Form, Input, Radio, Select, Avatar, Rate, Tag } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-// import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 import { getNameForImage } from "../../../../../../utils/base";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";

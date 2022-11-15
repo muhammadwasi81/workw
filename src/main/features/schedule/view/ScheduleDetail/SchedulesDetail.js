@@ -3,30 +3,54 @@ import Tab from "../../../../sharedComponents/Tab";
 import ScheduleCard from "../../UI/ScheduleCard";
 import Approval from "../../../../sharedComponents/AppComponents/Approvals/view";
 import EventDetail from "../../UI/EventDetail";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
+import moment from "moment";
+import { getAllSchedule } from "../../store/action";
 
 function MySchedules() {
+	const schedules = useSelector(state => state.scheduleSlice.schedules);
 	const panes = [
 		{
 			featureName: "Past",
 			featureId: 0,
-			content: <ScheduleCard />,
+			content: <ScheduleCard schedules={schedules} sheduleType="Past" />,
 		},
 		{
 			featureName: "Today",
 			featureId: 1,
-			content: <ScheduleCard />,
+			content: <ScheduleCard schedules={schedules} sheduleType="Today" />,
 		},
 		{
 			featureName: "Upcoming",
 			featureId: 2,
-			content: <ScheduleCard />,
+			content: (
+				<ScheduleCard schedules={schedules} sheduleType="Upcoming" />
+			),
 		},
 	];
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(
+			getAllSchedule({
+				pageNo: 1,
+				pageSize: 20,
+				search: "",
+				sortBy: 1,
+				referenceId: defaultUiid,
+				referenceType: 0,
+				startDate: moment().format(),
+				endDate: moment().format(),
+			})
+		);
+	}, []);
+
 	return (
 		<div className="flex flex-col gap-3 overflow-hidden h-full">
 			<div className="flex flex-1 gap-5 h-full">
 				<div className="basis-[30%] min-w-[330px] overflow-y-auto">
-					<Tab panes={panes} />
+					<Tab panes={panes} activeKey="1" />
 				</div>
 				<div className="basis-[70%] flex flex-col gap-[18px] min-h-0">
 					<div className="rounded-lg p-2 px-5 bg-[white] font-bold text-black">

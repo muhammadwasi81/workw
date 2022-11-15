@@ -47,7 +47,7 @@ function Header({ items, buttons, backButton, width }) {
       : buttons;
 
   const renderButton = (button, index) => {
-    // console.log("button", button);
+    console.log("button", button);
     const { onClick, icon, buttonText, to, render } = button;
     if (render) {
       return render;
@@ -99,20 +99,20 @@ function Header({ items, buttons, backButton, width }) {
         <div className="buttons">
           {filterButtons.map((button, index) => renderButton(button, index))}
         </div>
-        <div className="dropDown">
-          <Dropdown
-            overlayClassName="headerDropDown"
-            overlay={<DropDownMenu items={filterButtons} />}
-            placement="left"
-            arrow={{
-              pointAtCenter: true,
-            }}
-          >
-            <Button className="addBtn">
-              <PlusOutlined />
-            </Button>
-          </Dropdown>
-        </div>
+        {/* <div className="dropDown">
+					<Dropdown
+						overlayClassName="headerDropDown"
+						overlay={<DropDownMenu items={filterButtons} />}
+						placement="left"
+						arrow={{
+							pointAtCenter: true,
+						}}
+					>
+						<Button className="addBtn">
+							<PlusOutlined />
+						</Button>
+					</Dropdown>
+				</div> */}
       </div>
     </div>
   );

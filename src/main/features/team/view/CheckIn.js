@@ -30,7 +30,9 @@ function CheckIn() {
       title: labels.Date,
       dataIndex: "attendanceDate",
       key: "attendanceDate",
-      className: "dateTime",
+      sort: true,
+      width: 200,
+      // className: "dateTime",
       render: (createDate) => moment(createDate).format("MMM DD YYYY"),
     },
 
@@ -38,14 +40,18 @@ function CheckIn() {
       title: labels.Time,
       dataIndex: "attendanceDate",
       key: "attendanceDate",
-      className: "dateTime",
+      sort: true,
+      width: 200,
+      // className: "dateTime",
       render: (attendanceDate) => moment(attendanceDate).format("LT"),
     },
     {
       title: labels.Status,
       dataIndex: "type",
       key: "type",
-      className: "status",
+      sort: true,
+      width: 200,
+      // className: "status",
       render: (type) => {
         let value = TeamStatusEnum.filter((item) => item.value === type)[0];
         return <div>{value.label}</div>;
@@ -56,7 +62,9 @@ function CheckIn() {
       title: labels.Mood,
       dataIndex: "moodId",
       key: "moodId",
-      className: "moodCls",
+      sort: true,
+      width: 200,
+      // className: "moodCls",
       render: (moodId) => {
         let value = TeamsMoodEnum.filter((item) => item.value === moodId)[0];
         return (
@@ -71,13 +79,10 @@ function CheckIn() {
       title: labels.Comments,
       dataIndex: "comment",
       key: "comment",
+      sort: true,
+      width: 200,
       className: "longDsc",
     },
-    // {
-    //   title: labels.Location,
-    //   dataIndex: "location",
-    //   key: "location",
-    // },
   ];
   return (
     <>

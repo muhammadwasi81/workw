@@ -14,17 +14,21 @@ function Courses({ userId = null }) {
       title: labels.CourseName,
       dataIndex: "courseName",
       key: "courseName",
+      sort: true,
+      width: 200,
     },
 
     {
       title: labels.Date,
       dataIndex: "date",
       key: "date",
+      sort: true,
+      width: 200,
     },
   ];
 
-  let myId = userId ? userId : id;
-  
+  // let myId = userId ? userId : id;
+
   return (
     <>
       <TeamTable

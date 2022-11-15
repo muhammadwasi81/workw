@@ -23,6 +23,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 const Promotion = (props) => {
   const dispatch = useDispatch();
@@ -73,12 +74,14 @@ const Promotion = (props) => {
           {
             buttonText: "Create Promotion",
             render: (
-              <Button
-                className="ThemeBtn"
-                onClick={() => dispatch(handleOpenComposer(true))}
-              >
-                Create Promotion
-              </Button>
+              <SideDrawer
+                title={"Create Promotion"}
+                buttonText={"Create Promotion"}
+                handleClose={() => dispatch(handleOpenComposer(false))}
+                handleOpen={() => dispatch(handleOpenComposer(true))}
+                isOpen={drawerOpen}
+                children={<Composer />}
+              />
             ),
           },
         ]}
@@ -143,27 +146,6 @@ const Promotion = (props) => {
       </ContBody>
       {promotionDetail && <DetailedView onClose={onClose} visible={visible} />}
 
-      <Drawer
-        title={
-          <h1
-            style={{
-              fontSize: "20px",
-              margin: 0,
-            }}
-          >
-            Create Promotion
-          </h1>
-        }
-        width="768"
-        onClose={() => {
-          dispatch(handleOpenComposer(false));
-        }}
-        visible={drawerOpen}
-        destroyOnClose={true}
-        className="detailedViewComposer drawerSecondary"
-      >
-        <Composer />
-      </Drawer>
       <DetailedView onClose={onClose} visible={visible} id={promotionId} />
     </TabbableContainer>
   );

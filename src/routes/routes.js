@@ -160,7 +160,7 @@ export const routes = {
       component: lazy(() => import("../main/features/projects/index")),
     },
     {
-      path: `${ROUTES.PROJECT.DEFAULT}/:id`,
+      path: `${ROUTES.PROJECT.DEFAULT}/:projectId`,
       component: lazy(() =>
         import("../main/features/projects/ProjectDetails/ProjectDetails")
       ),
@@ -170,7 +170,7 @@ export const routes = {
       component: lazy(() => import("../main/features/groups/view/index")),
     },
     {
-      path: `${ROUTES.GROUP.DEFAULT}/:id`,
+      path: `${ROUTES.GROUP.DEFAULT}/:groupId`,
       component: lazy(() =>
         import("../main/features/groups/view/GroupDetails/GroupDetails")
       ),
@@ -215,6 +215,7 @@ export const routes = {
         import("../main/features/appraisalModule/view/index")
       ),
     },
+
     {
       path: `${ROUTES.PROMOTION}`,
       component: lazy(() =>

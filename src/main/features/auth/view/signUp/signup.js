@@ -6,14 +6,12 @@ import { ShopOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import CountryPhoneInput from "../../../../sharedComponents/Input/CountryPhoneInput";
 import Select from "../../../../sharedComponents/Select/Select";
-import ImageUpload from "./ImageUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { clearState } from "../../store/slice";
 import { signup, getDesignation } from "../../store/actions";
 import { Form } from "antd";
 import PasswordInput from "../../../../sharedComponents/Input/PasswordInput";
-import ImageReader from "../../../../sharedComponents/ImageReader/ImageReader";
-import { uploadImage } from "../../../../../utils/Shared/store/actions";
+import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 
 let formData = {};
 
@@ -41,7 +39,7 @@ function Signup() {
     (state) => state.authSlice
   );
   const { loader: imageLoader } = useSelector((state) => state.sharedSlice);
-  console.log("image", imageLoader);
+  const [profileImage, setProfileImage] = useState(null);
 
   console.log("loadr", loader);
   const [reset, setReset] = useState(false);
@@ -60,33 +58,30 @@ function Signup() {
     }
   }, [isError, isSuccess]);
 
-  const handleSignUpSubmit = (v) => {
-    if (file === null) {
-      let payload = {
-        businessImageId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        ...v,
-      };
+  const handleSignUpSubmit = (values) => {
+    let image = {
+      id: STRINGS.DEFAULTS.guid,
+      file: profileImage && profileImage[0]?.originFileObj,
+    };
+    if (Object.keys(image).length > 0) {
+      let payload = { ...values, image };
       dispatch(signup(payload));
+      console.log(image.file, "image file");
+      console.log(payload, "payload");
     } else {
-      dispatch(uploadImage(formData.avatar)).then((x) => {
-        if (x) {
-          let signupData = {
-            // businessImageId: x.payload[0].id && x.payload[0].id,
-            businessImageId: x.payload.data[0].id,
-            ...v,
-          };
-          // console.log(signupData, "signup new");
-          dispatch(signup(signupData));
-        } else {
-          message.error("Image upload Error", 5);
-        }
-      });
+      let payload = values;
+      dispatch(signup(payload));
     }
+    dispatch(signup(payload)); 
   };
 
   const onChange = (value, name) => {
     formData = { ...formData, [name]: value };
     console.log(formData, value, name);
+  };
+
+  const handleImageUpload = (data) => {
+    setProfileImage(data);
   };
 
   return (
@@ -101,24 +96,14 @@ function Signup() {
           <div className="input-group">
             <div className="row-header">
               <div className="row-cl-1" style={{ width: "60%" }}>
-                {file == null ? (
-                  <ImageUpload
-                    onChange={(e) => {
-                      formData = {
-                        ...formData,
-                        avatar: [e.target.files[0]],
-                      };
-                      setFile(e.target.files[0]);
-                      e.target.value = "";
-                    }}
+                <Form.Item area="true">
+                  <SingleUpload
+                    handleImageUpload={handleImageUpload}
+                    img="Add Image"
+                    position="flex-start"
+                    uploadText={"Upload"}
                   />
-                ) : (
-                  <ImageReader
-                    file={file}
-                    showButton={true}
-                    removeFile={() => setFile(null)}
-                  />
-                )}
+                </Form.Item>
               </div>
 
               <div className="row-cl-2">
@@ -129,7 +114,7 @@ function Signup() {
               </div>
             </div>
             <Space direction="vertical" size={8} style={{ width: "100%" }}>
-              <Form.Item name="businessName" rules={rules}>
+              <Form.Item name="title" rules={rules}>
                 <TextInput
                   type="text"
                   placeholder="Business Title"

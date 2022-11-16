@@ -114,8 +114,8 @@ const CreateAssetsEntryTable = () => {
         categoryId: item.category,
         type: item.type,
         image: { id: DEFAULT_GUID, file: profileImage },
-        handoverId: item.handoverId,
-        approvers: item.approvers,
+        handoverId: item.handoverId ? item.handoverId : DEFAULT_GUID,
+        approvers: item.approvers ? item.approvers : [],
       };
     });
     console.log(payloadData, 'payloadData');

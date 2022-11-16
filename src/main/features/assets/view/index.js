@@ -21,7 +21,6 @@ const Index = () => {
   const { loader, assetItemList, success: assetSuccess } = useSelector(
     (state) => state.AssetItemSlice
   );
-  console.log('dsdsdsds', loader);
   const { loader: inventoryLoader, success } = useSelector(
     (state) => state.inventoryAssetSlice
   );

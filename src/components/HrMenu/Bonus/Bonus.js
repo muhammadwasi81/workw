@@ -68,7 +68,7 @@ const Bonus = () => {
         <div className="lf-col">
           {currentTab === 'list' ? (
             <BonusList />
-          ) : currentTab === 'aprrovals' ? (
+          ) : currentTab === 'approvals' ? (
             <BonusList />
           ) : (
             ''

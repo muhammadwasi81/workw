@@ -12,14 +12,16 @@ import { getAllAssetItems } from '../../createAssets/store/action';
 import { TableColumn } from './tableColumn';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import AssetComposer from '../../assets/view/composer/assetAllocationComposer';
+import { handleOpenComposer } from '../../assets/store/slice';
 
 const Index = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
 
-  const { success, assetItemList } = useSelector(
+  const { assetDrawerOpen, assetItemList, success } = useSelector(
     (state) => state.AssetItemSlice
   );
+  console.log(assetDrawerOpen, 'assetsTableList');
 
   const items = [
     {

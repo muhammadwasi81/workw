@@ -14,7 +14,7 @@ const initialState = {
   loader: true,
   success: false,
   error: false,
-  drawerOpen: false,
+  assetDrawerOpen: false,
 };
 
 export const AssetItemSlice = createSlice({
@@ -24,9 +24,9 @@ export const AssetItemSlice = createSlice({
     clearAssetDetail: (state) => {
       state.assetsDetail = null;
     },
-    clearModalDetail: (state) => {
-      state.assetsDetail = null;
-      console.log(state.assetsDetail, 'modalSuccess');
+    handleDeAllocationComposer: (state, { payload }) => {
+      state.assetDrawerOpen = payload;
+      console.log('handleDeAllocationComposer', payload);
     },
   },
   extraReducers: (builder) => {
@@ -40,7 +40,6 @@ export const AssetItemSlice = createSlice({
       .addCase(addAssetItem.fulfilled, (state, { payload }) => {
         state.assetItemList = [...state.assetItemList, payload];
         state.loader = false;
-        state.success = true;
         console.log(payload, 'addAssetItemSlice');
       })
       .addCase(getAssetItemDetailById.fulfilled, (state, { payload }) => {
@@ -56,12 +55,11 @@ export const AssetItemSlice = createSlice({
       })
       .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
         console.log(payload, 'updateAssetItemSlice');
-        // state.success = true;
-        state.drawerOpen = true;
         state.success = true;
-        console.log(state.drawerOpen, 'state.drawerOpen');
+        console.log(state.assetDrawerOpen, 'state.drawerOpen');
         state.loader = false;
         state.assetItemList = payload;
+        state.assetDrawerOpen = false;
       })
       .addCase(getAllAssetItemByPagination.fulfilled, (state, { payload }) => {
         state.assetItemByPagination = payload;
@@ -103,5 +101,8 @@ export const AssetItemSlice = createSlice({
       );
   },
 });
-export const { clearAssetDetail, clearModalDetail } = AssetItemSlice.actions;
+export const {
+  clearAssetDetail,
+  handleDeAllocationComposer,
+} = AssetItemSlice.actions;
 export default AssetItemSlice.reducer;

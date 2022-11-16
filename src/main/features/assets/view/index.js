@@ -15,15 +15,21 @@ import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import AssetComposer from './composer/assetAllocationComposer';
 import AssetDeAllocationComposer from './composer/deAllocationComposer';
 import { Skeleton } from 'antd';
+import { handleOpenComposer } from '../store/slice';
+import { handleDeAllocationComposer } from '../../createAssets/store/slice';
 
 const Index = () => {
   const dispatch = useDispatch();
-  const { loader, assetItemList, success: assetSuccess } = useSelector(
-    (state) => state.AssetItemSlice
-  );
-  const { loader: inventoryLoader, success } = useSelector(
+
+  const { inventoryDrawerOpen } = useSelector(
     (state) => state.inventoryAssetSlice
   );
+  console.log(inventoryDrawerOpen, 'inventoryDrawerOpen');
+
+  const { assetItemList, assetDrawerOpen } = useSelector(
+    (state) => state.AssetItemSlice
+  );
+  console.log(assetDrawerOpen, 'assetDrawerOpen');
 
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
@@ -39,7 +45,7 @@ const Index = () => {
 
   const filterButtons = [
     {
-      name: 'Allocation For be',
+      name: 'Allocation For Me',
       onClick: () => setFilterType(0),
     },
     {
@@ -66,12 +72,12 @@ const Index = () => {
       buttonText: 'Assets Allocation',
       render: (
         <SideDrawer
-          success={assetSuccess}
-          isAccessDrawer={true}
-          openDrawer={assetSuccess}
+          title={'Create Assets'}
+          buttonText={'Add Assets Allocation'}
+          handleClose={() => dispatch(handleOpenComposer(false))}
+          handleOpen={() => dispatch(handleOpenComposer(true))}
+          isOpen={inventoryDrawerOpen}
           children={<AssetComposer />}
-          title="Add Assets Allocation"
-          buttonText="Assets Allocation"
         />
       ),
     },
@@ -79,12 +85,12 @@ const Index = () => {
       buttonText: 'De-allocation',
       render: (
         <SideDrawer
-          success={success}
-          isAccessDrawer={true}
-          openDrawer={success}
+          title={'De-Allocated Assets'}
+          buttonText={'De-Allocation'}
+          handleClose={() => dispatch(handleDeAllocationComposer(false))}
+          handleOpen={() => dispatch(handleDeAllocationComposer(true))}
+          isOpen={assetDrawerOpen}
           children={<AssetDeAllocationComposer />}
-          title="De-Allocated Assets"
-          buttonText="De-Allocation"
         />
       ),
     },

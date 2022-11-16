@@ -165,10 +165,10 @@ const AssetComposer = () => {
     console.error('Failed:', errorInfo);
   };
 
-  let filteredAssetList = assetItemList.filter(
-    (item) => !data.includes(item.id)
+  const filteredAssetList = assetItemList.filter(
+    (item) => item.status === 4 && !data.includes(item.id)
   );
-  console.log(filteredAssetList, 'filteredAssetList');
+  console.log(filteredAssetList, 'status 4 items');
 
   return (
     <>

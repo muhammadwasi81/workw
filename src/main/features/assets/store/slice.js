@@ -10,6 +10,7 @@ const initialState = {
   inventoryAssets: [],
   loadingData: false,
   loader: true,
+  inventoryDrawerOpen: false,
 };
 
 const inventoryAssetSlice = createSlice({
@@ -18,6 +19,10 @@ const inventoryAssetSlice = createSlice({
   reducers: {
     clearInventoryAssetDetails: (state) => {
       state.inventoryDetail = null;
+    },
+    handleOpenComposer: (state, { payload }) => {
+      state.inventoryDrawerOpen = payload;
+      console.log('state.inventoryDrawerOpen', payload);
     },
   },
   extraReducers: (builder) => {
@@ -34,9 +39,10 @@ const inventoryAssetSlice = createSlice({
 
     builder
       .addCase(addInventoryAsset.fulfilled, (state, { payload }) => {
-        console.log(payload, 'addInventoryAsset slice');
-        state.success = true;
+        console.log(state.inventoryDrawerOpen, 'addInventoryAsset slice');
         state.inventoryAssets = [...state.inventoryAssets, payload.data.data];
+        state.inventoryDrawerOpen = false;
+        console.log(state.inventoryDrawerOpen, 'addInventoryAsset slice');
       })
       .addMatcher(isPending(...[getAllInventoryAsset]), (state) => {
         state.loader = true;
@@ -47,5 +53,8 @@ const inventoryAssetSlice = createSlice({
   },
 });
 
-export const { clearInventoryAssetDetails } = inventoryAssetSlice.actions;
+export const {
+  handleOpenComposer,
+  clearInventoryAssetDetails,
+} = inventoryAssetSlice.actions;
 export default inventoryAssetSlice.reducer;

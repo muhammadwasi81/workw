@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addBonus,
   addWarning,
@@ -6,7 +6,7 @@ import {
   getAllBonus,
   GetBonusById,
   GetPromotionById,
-} from "./actions";
+} from './actions';
 
 const initialState = {
   bonuses: [],
@@ -18,7 +18,7 @@ const initialState = {
 };
 
 const bonusSlice = createSlice({
-  name: "bonus",
+  name: 'bonus',
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {

@@ -79,29 +79,14 @@ const Bonus = (props) => {
           {
             buttonText: "Create Bonus",
             render: (
-              // <div
-              //   className={`flex ${
-              //     Direction === "rtl" ? "justify-start" : "justify-end"
-              //   }`}
-              // >
               <SideDrawer
                 title={"Create Bonus"}
                 buttonText={"Create Bonus"}
-                success={success}
-                openDrawer={openDrawer}
-                setOpenDrawer={setOpenDrawer}
-                // form={form}
-                onClick={() => alert("Yesjjdjkdsskjx")}
-                isAccessDrawer={true}
-                children={
-                  <Composer
-                    // form={form}
-                    // formData={formData}
-                    openDrawer={openDrawer}
-                  />
-                }
+                handleClose={() => dispatch(handleOpenComposer(false))}
+                handleOpen={() => dispatch(handleOpenComposer(true))}
+                isOpen={drawerOpen}
+                children={<Composer />}
               />
-              // </div>
             ),
           },
         ]}
@@ -142,47 +127,43 @@ const Bonus = (props) => {
       />
 
       <ContBody>
-        <div className="access_role_container w-full">
-          {bonuses && bonuses.length > 0 ? (
-            tableView ? (
-              <div>
-                <Table
-                  columns={tableColumn()}
-                  dragable={false}
-                  data={bonuses}
-                />
-              </div>
-            ) : (
-              <>
-                {loader ? (
-                  <>
-                    <Skeleton avatar paragraph={{ rows: 4 }} />
-                  </>
-                ) : (
-                  <CardWrapper>
-                    {bonuses.map((item, index) => {
-                      return (
-                        <>
-                          {/*  */}
-                          <ListItem
-                            item={item}
-                            id={item.id}
-                            key={index}
-                            onClick={() => setDetailId(item.id)}
-                          />
-                        </>
-                      );
-                    })}
-                  </CardWrapper>
-                )}
-              </>
-            )
-          ) : (
-            <div className="flex items-center justify-center h-full w-full">
-              <img src={Nodata} />
+        {/* <div className="access_role_container w-full"> */}
+        {bonuses && bonuses.length > 0 ? (
+          tableView ? (
+            <div>
+              <Table columns={tableColumn()} dragable={false} data={bonuses} />
             </div>
-          )}
-        </div>
+          ) : (
+            <>
+              {loader ? (
+                <>
+                  <Skeleton avatar paragraph={{ rows: 4 }} />
+                </>
+              ) : (
+                <CardWrapper>
+                  {bonuses.map((item, index) => {
+                    return (
+                      <>
+                        {/*  */}
+                        <ListItem
+                          item={item}
+                          id={item.id}
+                          key={index}
+                          onClick={() => setDetailId(item.id)}
+                        />
+                      </>
+                    );
+                  })}
+                </CardWrapper>
+              )}
+            </>
+          )
+        ) : (
+          <div className="flex items-center justify-center h-full w-full">
+            <img src={Nodata} />
+          </div>
+        )}
+        {/* </div> */}
       </ContBody>
       {<DetailedView onClose={onClose} id={detailId} />}
       {/* <div className="w-full">

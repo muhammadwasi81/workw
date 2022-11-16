@@ -14,7 +14,6 @@ const initialState = {
   loader: true,
   bonusDetail: {},
   drawerOpen: false,
-  cancelReward: {},
   cancelBonuss: {},
 };
 

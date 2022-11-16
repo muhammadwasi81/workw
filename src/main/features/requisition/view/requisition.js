@@ -1,26 +1,26 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import { Button, Drawer } from 'antd';
+import React, { useEffect, useContext, useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import { Button, Drawer } from "antd";
 import {
   ContBody,
   TabbableContainer,
-} from '../../../sharedComponents/AppComponents/MainFlexContainer';
-import { Skeleton } from 'antd';
-import { requisitionDictionaryList } from '../localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import ListItem from './ListItem';
-import Composer from './composer';
-import DetailedView from './DetailedView';
-import './style.css';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getAllRequisition, GetRequisitionById } from '../store/actions';
-import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
-import TopBar from '../../../sharedComponents/topBar/topBar';
-import Header from '../../../layout/header/index';
-import { handleOpenComposer } from '../store/slice';
-import ListItemMyRequisition from './myRequisition';
-import { useNavigate } from 'react-router-dom';
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Skeleton } from "antd";
+import { requisitionDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import Composer from "./composer";
+import DetailedView from "./DetailedView";
+import "./style.css";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllRequisition, GetRequisitionById } from "../store/actions";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
+import TopBar from "../../../sharedComponents/topBar/topBar";
+import Header from "../../../layout/header/index";
+import { handleOpenComposer } from "../store/slice";
+import ListItemMyRequisition from "./myRequisition";
+import { useNavigate } from "react-router-dom";
+import ListItem from "../../reward/view/ListItem";
 
 const Requisition = (props) => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Requisition = (props) => {
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 0, search: '' });
+  const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
   const { items, drawerOpen } = useSelector((state) => state.requisitionSlice);
@@ -48,7 +48,7 @@ const Requisition = (props) => {
   }, [filter]);
 
   const openMyRequisitionDetail = (id) => {
-    console.log(id, 'my Career Id');
+    console.log(id, "my Career Id");
     dispatch(GetRequisitionById(id));
 
     navigate(`requisitionDetail/${id}`);
@@ -122,7 +122,7 @@ const Requisition = (props) => {
           title={
             <h1
               style={{
-                fontSize: '20px',
+                fontSize: "20px",
                 margin: 0,
               }}
             >

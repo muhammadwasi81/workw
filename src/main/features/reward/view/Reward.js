@@ -23,6 +23,7 @@ import { handleOpenComposer } from "../store/slice";
 import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 const Reward = (props) => {
   const { visible } = props;
@@ -92,13 +93,16 @@ const Reward = (props) => {
           buttons={[
             {
               buttonText: "Create Reward",
+
               render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => dispatch(handleOpenComposer(true))}
-                >
-                  Create Reward
-                </Button>
+                <SideDrawer
+                  title={"Create Reward"}
+                  buttonText={"Create Reward"}
+                  handleClose={() => dispatch(handleOpenComposer(false))}
+                  handleOpen={() => dispatch(handleOpenComposer(true))}
+                  isOpen={drawerOpen}
+                  children={<Composer />}
+                />
               ),
             },
           ]}
@@ -208,28 +212,6 @@ const Reward = (props) => {
           )} */}
         </ContBody>
         {<DetailedView onClose={onClose} id={detailId} />}
-
-        <Drawer
-          title={
-            <h1
-              style={{
-                fontSize: "20px",
-                margin: 0,
-              }}
-            >
-              Create Reward
-            </h1>
-          }
-          width="768"
-          onClose={() => {
-            dispatch(handleOpenComposer(false));
-          }}
-          visible={drawerOpen}
-          destroyOnClose={true}
-          className="detailedViewComposer drawerSecondary"
-        >
-          <Composer />
-        </Drawer>
       </TabbableContainer>
     </>
   );

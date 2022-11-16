@@ -166,14 +166,14 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
     },
-    // {
-    //   name: label.navMenuLabel.appraisals,
-    //   counter: 0,
-    //   icon: appraisalsIcon,
-    //   to: ROUTES.APPRAISALS.ROOT,
-    //   isActive: true,
-    //   key: label.navMenuLabel.hr,
-    // },
+    {
+      name: label.navMenuLabel.appraisals,
+      counter: 0,
+      icon: appraisalsIcon,
+      to: ROUTES.APPRAISALS.ROOT,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+    },
     {
       name: label.navMenuLabel.projects,
       counter: 0,

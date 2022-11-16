@@ -11,6 +11,7 @@ function Tab(props) {
 		onChange,
 		defaultPath,
 		className,
+		activeKey = "",
 	} = props;
 	// const [defaultPath, setDefaultPath] = useState("");
 	// const onChange = key => {
@@ -58,6 +59,7 @@ function Tab(props) {
 				</Tabs>
 			) : (
 				<Tabs
+					defaultActiveKey={activeKey}
 					className={"custom_tab " + className}
 					tabBarStyle={{
 						background: "white",

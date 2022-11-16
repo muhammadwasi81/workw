@@ -1,5 +1,8 @@
 // import { createGuid } from "../../../../utils/base";
+import { jsonToFormData } from "../../../../utils/base";
 import AuthConfig from "../../../../utils/services/AuthConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
+
 
 export const loginService = (data) => {
   return AuthConfig.post("api/login", data)
@@ -12,7 +15,8 @@ export const loginService = (data) => {
 };
 
 export const signupService = (data) => {
-  return AuthConfig.post("api/Signup/BusinessSignup", data)
+  const formData = jsonToFormData(data);
+  return MasterConfig.post("api/Auth/Signup", formData)
     .then((res) => {
       return res;
     })

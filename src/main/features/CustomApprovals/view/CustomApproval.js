@@ -21,6 +21,7 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 const CustomApproval = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -70,7 +71,6 @@ const CustomApproval = (props) => {
       to: `${ROUTES.CUSTOM_APPROVALS.DEFAULT}`,
     },
   ];
-console.log(loader, "Loader")
   return (
     <>
       <TabbableContainer className="">
@@ -80,12 +80,14 @@ console.log(loader, "Loader")
             {
               buttonText: "Create",
               render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => dispatch(handleOpenComposer(true))}
-                >
-                  Create
-                </Button>
+                <SideDrawer
+                  title={"Custom Approvals"}
+                  buttonText={"Create"}
+                  handleClose={() => dispatch(handleOpenComposer(false))}
+                  handleOpen={() => dispatch(handleOpenComposer(true))}
+                  isOpen={drawerOpen}
+                  children={<Composer />}
+                />
               ),
             },
           ]}
@@ -125,40 +127,37 @@ console.log(loader, "Loader")
           }}
         />
         <ContBody>
-          {
-            loader && <Skeleton avatar paragraph={{ rows: 4 }} />
-          }
+          {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
-          {
-            tableView &&
+          {tableView && (
             <Table
               columns={tableColumn()}
               dragable={true}
               data={customApprovals}
             />
-          }
+          )}
 
-          {
-            customApprovals?.length > 0 && !loader && !tableView ? (
-              <CardWrapper>
-                {customApprovals.map((item, index) => {
-                  return (
-                    <ListItem
-                      getCustomApprovalId={getCustomApprovalId}
-                      item={item}
-                      id={item.id}
-                      key={index}
-                    />
-                  );
-                })}
-              </CardWrapper>
-            ) : !loader  && !tableView && <NoDataFound />
-          }
+          {customApprovals?.length > 0 && !loader && !tableView ? (
+            <CardWrapper>
+              {customApprovals.map((item, index) => {
+                return (
+                  <ListItem
+                    getCustomApprovalId={getCustomApprovalId}
+                    item={item}
+                    id={item.id}
+                    key={index}
+                  />
+                );
+              })}
+            </CardWrapper>
+          ) : (
+            !loader && !tableView && <NoDataFound />
+          )}
         </ContBody>
         {customApprovalDetail && (
           <DetailedView onClose={onClose} visible={visible} />
         )}
-        <Drawer
+        {/* <Drawer
           title={
             <h1
               style={{
@@ -178,7 +177,7 @@ console.log(loader, "Loader")
           className="detailedViewComposer drawerSecondary"
         >
           <Composer />
-        </Drawer>
+        </Drawer> */}
       </TabbableContainer>
     </>
   );

@@ -15,10 +15,23 @@
 .inputBox {
   width: 100%;
   background: #fff;
+  min-height: 2.5rem;
   border: 0.5px solid #d9d9d9;
-  height: 2.5rem;
   border-radius: 5px;
   padding: 0px 10px 0px 10px;
+}
+
+.inputBoxCustomSelect {
+  width: 100%;
+  background: #fff;
+  min-height: 2.5rem;
+  border: 0.5px solid #d9d9d9;
+  border-radius: 5px;
+  padding: 0px 10px 0px 10px;
+}
+
+.inputBoxCustomSelect .ant-select .ant-select-selector {
+  border: none;
 }
 
 .box {

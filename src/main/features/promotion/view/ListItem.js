@@ -4,7 +4,6 @@ import { promotionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import {
   ItemContent,
@@ -29,7 +28,6 @@ function ListItem(props) {
     referenceNo,
     grade,
   } = props.item;
-  // console.log(id, "IDDDD");
   return (
     <SingleItem>
       <div

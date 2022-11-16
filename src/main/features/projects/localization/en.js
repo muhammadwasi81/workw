@@ -13,7 +13,7 @@ const en = {
 			desc: "Description",
 			upload: "Upload",
 			projectDate: "Project Date",
-			externals: "Externals",
+			externals: "External Members Email",
 			public: "Public",
 			private: "Private",
 		},

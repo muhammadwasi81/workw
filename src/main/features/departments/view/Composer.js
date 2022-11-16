@@ -36,17 +36,14 @@ const initialState = {
 const Composer = (props) => {
   const dispatch = useDispatch();
   const { employees } = useSelector((state) => state.sharedSlice);
-  const { success, createLoader } = useSelector(
+  const { success, createLoader, parentId } = useSelector(
     (state) => state.departmentSlice
   );
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [employeesData, setEmployeesData] = useState([]);
 
-  console.log(success, createLoader);
-
   useEffect(() => {
-    // dispatch(getRewardCategory());
     //TODO:
     fetchEmployees("", 0);
   }, []);
@@ -98,10 +95,10 @@ const Composer = (props) => {
         id: STRINGS.DEFAULTS.guid,
         file: profileImage[0].originFileObj,
       };
-      let payload = { ...values, image };
+      let payload = { ...values, image, parentId };
       dispatch(addDepartment(payload));
     } else {
-      let payload = { ...values };
+      let payload = { ...values, parentId };
       dispatch(addDepartment(payload));
     }
 

@@ -21,6 +21,8 @@ import ProjectCover from "../../../../content/png/project_cover_img.png";
 import { useDispatch } from "react-redux";
 import { getDepartmentById } from "../store/actions";
 import Appraisal from "../appraisal/index";
+import { handleParentId } from "../store/slice";
+import SubDepartment from "./SubDepartment";
 // import WhiteCard from "../UI/WhiteCard";
 
 function ProjectDetails() {
@@ -30,38 +32,24 @@ function ProjectDetails() {
   const [descrip, setDescrip] = useState("");
   const { data } = state;
 
+  useEffect(() => {
+    if (Object.keys(departmentDetail).length > 1) {
+      dispatch(handleParentId(departmentDetail.id));
+    }
+  }, [departmentDetail]);
+
   const { image, description, id } = departmentDetail;
   const panes = [
-    // {
-    //   featureName: `Description`,
-    //   content: <div>{descrip}</div>,
-    //   featureId: 0,
-    // },
+    {
+      featureName: `Sub Departments`,
+      content: <SubDepartment />,
+      featureId: 0,
+    },
     {
       featureName: `Appraisals`,
       content: <Appraisal />,
       featureId: 1,
     },
-    // {
-    //   title: `Workboard`,
-    //   content: <div>Workboard div</div>,
-    //   key: 2,
-    // },
-    // {
-    //   title: `Documents`,
-    //   content: <div>Documents div</div>,
-    //   key: 3,
-    // },
-    // {
-    //   title: `Task`,
-    //   content: <div>Task div</div>,
-    //   key: 4,
-    // },
-    // {
-    //   title: `Expenses`,
-    //   content: <div>Expenses div</div>,
-    //   key: 5,
-    // },
   ];
   const items = [
     {

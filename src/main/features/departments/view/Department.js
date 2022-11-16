@@ -10,15 +10,15 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { ROUTES } from "../../../../utils/routes";
 import { getAllDepartments, GetRewardById } from "../store/actions";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
 import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
-import Header from "../../../layout/header/index";
+import Header from "../../../layout/header";
 import { Avatar, Card, Space, Button, Drawer } from "antd";
 import { toggleCreateComposer } from "../store/slice";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
@@ -65,10 +65,20 @@ const Department = (props) => {
 
   // },[departments])
   // const onSearch = (value) => setSearch(value);
+
+  const items = [
+    {
+      name: "Departments",
+      to: `${ROUTES.DEPARTMENTS.DEPARTMENT}`,
+      renderButton: [1],
+    },
+  ];
+
   return (
     <>
       <TabbableContainer className="">
         <Header
+          items={items}
           buttons={[
             {
               buttonText: "Create Department",

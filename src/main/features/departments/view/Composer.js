@@ -16,6 +16,7 @@ import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
 import { getNameForImage, STRINGS } from "../../../../utils/base";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 
 const initialState = {
   id: "",
@@ -92,21 +93,15 @@ const Composer = (props) => {
   };
 
   const onFinish = (values) => {
-    // console.log(values, "SIMPLE VALUES");
-    const employees = employeesData.map((item) => ({
-      approverId: item.id,
-      email: item.email,
-    }));
-    console.log("employees*******", employees);
     if (profileImage) {
       let image = {
         id: STRINGS.DEFAULTS.guid,
         file: profileImage[0].originFileObj,
       };
-      let payload = { ...values, image, employees };
+      let payload = { ...values, image };
       dispatch(addDepartment(payload));
     } else {
-      let payload = { ...values, employees };
+      let payload = { ...values };
       dispatch(addDepartment(payload));
     }
 
@@ -176,15 +171,15 @@ const Composer = (props) => {
         >
           <Input.TextArea placeholder={departmentDictionary.enterDescription} />
         </Form.Item>
-        {/* 
+
         <Form.Item
           name="hodId"
-          label={"HOD"}
+          label={"Head Of Department"}
           showSearch={true}
           direction={Direction}
           rules={[{ required: true }]}
-        > */}
-        {/* <MemberSelect
+        >
+          <MemberSelect
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -205,46 +200,19 @@ const Composer = (props) => {
                 </>
               );
             }}
-          /> */}
-        {/* <NewCustomSelect
-						name="hodId"
-						label={"HOD"}
-						showSearch={true}
-						direction={Direction}
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={"Select HOD"}
-					/> */}
-        {/* </Form.Item> */}
-        {/* <Form.Item
-          name="name"
-          label="Add Employees"
-          showSearch={true}
-          direction={Direction}
-          rules={[{ required: true }]}
-        >
-          <MemberComposer
-            handleAdd={handelAddMember}
-            firstTimeEmpData={firstTimeEmpData}
-            selectedData={selectedData}
-            isFirstTimeDataLoaded={isFirstTimeDataLoaded}
-            fetchEmployees={fetchEmployees}
           />
+        </Form.Item>
 
-          {memberList?.length > 0 ? (
-            <MemberListItem
-              data={memberList}
-              onRemove={(row) =>
-                setMemberList(
-                  memberList.filter((item) => item.user.id !== row.user.id)
-                )
-              }
-            />
-          ) : (
-            ""
-          )}
-        </Form.Item> */}
-        <Form.Item label="Add Employees" name="approvers">
+        <Form.Item
+          label="Add Employees"
+          name="members"
+          rules={[
+            {
+              required: true,
+              message: "Employees Required!, Add Employees",
+            },
+          ]}
+        >
           <MemberSelect
             name="managerId"
             mode="multiple"

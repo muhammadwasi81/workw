@@ -32,11 +32,11 @@ function ProjectDetails() {
 
   const { image, description, id } = departmentDetail;
   const panes = [
-    {
-      featureName: `Description`,
-      content: <div>{descrip}</div>,
-      featureId: 0,
-    },
+    // {
+    //   featureName: `Description`,
+    //   content: <div>{descrip}</div>,
+    //   featureId: 0,
+    // },
     {
       featureName: `Appraisals`,
       content: <Appraisal />,

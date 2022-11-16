@@ -1,6 +1,7 @@
 import React from "react";
-import { InfoCircleOutlined } from "@ant-design/icons";
-import { Popover } from "antd";
+
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Popover } from "antd";
 import { BiWorld } from "react-icons/bi";
 import WhiteCard from "./WhiteCard";
 import moment from "moment";
@@ -25,17 +26,19 @@ function CoverDetail(props) {
             <InfoCircleOutlined className="cursor-pointer" />
 
           </Popover> */}
-          <span>
-            {/* Created Date:{" "}
-            {createDate && moment(createDate).format("DD/MM/YYYY")} */}
+          {/* <span>
+            
             Head Of Department :{" "}
             {creator?.designation.length > 1
               ? creator?.designation
               : "Not Assigned"}
-          </span>
+          </span> */}
 
           {/* </Popover> */}
-          <span>Created by: {creator?.name}</span>
+          <Button className="ThemeBtn !flex items-center">
+            <PlusOutlined /> Add SubDepartment
+          </Button>
+          {/* <span>Created by: {creator?.name}</span> */}
         </div>
       </div>
     </WhiteCard>

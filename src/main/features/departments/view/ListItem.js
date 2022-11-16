@@ -64,17 +64,11 @@ function ListItem(props) {
         <Meta
           title={name}
           description={
-            description.length > 40
-              ? description.substring(0, 40) + "..."
+            description.length > 20
+              ? description.substring(0, 20) + "..."
               : description
           }
         />
-        <Meta
-          description={`Created By: ${
-            creator?.name ? creator.name : "Not Found"
-          }`}
-        />
-
         <div className="approversBox">
           <Avatar
             isAvatarGroup={true}

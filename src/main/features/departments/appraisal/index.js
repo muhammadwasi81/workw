@@ -44,16 +44,18 @@ export default function Appraisal() {
           isDefault: true,
         })
       );
+    } else {
+      console.log("dispatch update");
+      dispatch(
+        updateDepartmentAppraisalQuestion({
+          id: e.id,
+          departmentId: departmentDetail.id,
+          question: e.question,
+          isDefault: true,
+        })
+      );
     }
-    console.log("dispatch update");
-    dispatch(
-      updateDepartmentAppraisalQuestion({
-        id: e.id,
-        departmentId: departmentDetail.id,
-        question: e.question,
-        isDefault: true,
-      })
-    );
+
     setQuestion(initialState);
     setClearButton(true);
     return;

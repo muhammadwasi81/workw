@@ -3,6 +3,7 @@ import {
 	isFulfilled,
 	isPending,
 	isRejected,
+	current,
 } from "@reduxjs/toolkit";
 import {
 	onFeedCreateSubmitAction,
@@ -101,13 +102,23 @@ export const feedSlice = createSlice({
 			}
 			feed.myReaction = myReaction;
 		},
+		postPoll(state, { payload }) {
+			const { id, postId } = payload;
+			const filteredPoll = state.allFeed.posts
+				.filter(post => post.id === postId)[0]
+				.pollOptions.filter(poll => poll.id === id);
+			// filteredPoll = filteredPoll.filter(poll => poll.id === id);
+			// console.log("payload of poll post", current(filteredPoll[0]));
+			filteredPoll[0].voteCount = filteredPoll[0].voteCount + 1;
+			filteredPoll[0].youVoted = true;
+		},
 	},
 	extraReducers: builder => {
 		builder.addCase(
 			onFeedCreateSubmitAction.fulfilled,
 			(state, { payload }) => {
 				state.postCompose = composeInitialState;
-				state.allFeed.posts.unshift({ ...payload, myReaction: 0 });
+				state.allFeed.posts.unshift(payload);
 			}
 		);
 		builder.addCase(favoriteFeed.fulfilled, (state, { payload }) => {
@@ -183,5 +194,9 @@ export const feedSlice = createSlice({
 			});
 	},
 });
-export const { addFeedFavourite, addFeedReaction } = feedSlice.actions;
+export const {
+	addFeedFavourite,
+	addFeedReaction,
+	postPoll,
+} = feedSlice.actions;
 export default feedSlice.reducer;

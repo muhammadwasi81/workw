@@ -1,19 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FieldTimeOutlined } from "@ant-design/icons";
+import React, { useContext } from "react";
+
 import moment from "moment";
 import {
   ItemContent,
-  ItemHeader,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
-// import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { Avatar, Image, Tooltip } from "antd";
-// import JobDetails from "../../DetailView/DetailComposer/JobDetails";
-import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
-import { useDispatch, useSelector } from "react-redux";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
+import { useSelector } from "react-redux";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
 function ListItem({ item, onClick, onClickMyCareer }) {
@@ -43,29 +38,9 @@ function ListItem({ item, onClick, onClickMyCareer }) {
   const { currentTab } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
 
-  console.log("props", onClickMyCareer);
-
   return (
     <>
       <SingleItem onClick={onClickMyCareer} className="cursor-pointer">
-        {/* <ItemHeader className="ItemHeader">
-          <div className="flex items-center gap-3">
-            <Avatar
-              src={item.creator?.image}
-              className="addPostAvatar"
-              name={item.creator?.name}
-              width={40}
-              height={40}
-              round={true}
-            />
-            <div className="font-bold text-[15px] text-primary-color">
-              {item.designation}
-            </div>
-          </div>
-          <div>
-            <StatusTag status={status} />
-          </div>
-        </ItemHeader> */}
         <CardProfileTopView
           profileImgSrc={
             item.creator && item.creator.image.length > 0

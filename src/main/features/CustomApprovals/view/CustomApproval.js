@@ -128,7 +128,7 @@ console.log(loader, "Loader")
           {
             loader && <Skeleton avatar paragraph={{ rows: 4 }} />
           }
-
+          
           {
             tableView &&
             <Table

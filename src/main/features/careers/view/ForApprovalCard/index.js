@@ -62,14 +62,14 @@ const MyApprovalCard = (props) => {
           ))
         )  
       }
-      {
+      {/* {
         table &&
         <Table
           columns={tableColumn()}
           dragable={true}
           data={careers ? careers : []}
       />
-      }
+      } */}
 
 {
             careers?.length > 0 && !loader && !table ? (

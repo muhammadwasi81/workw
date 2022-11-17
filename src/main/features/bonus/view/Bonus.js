@@ -22,6 +22,7 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -109,7 +110,35 @@ const Bonus = (props) => {
         }}
       />
       <ContBody>
-        {bonuses && bonuses.length > 0 ? (
+          {
+            loader &&  <Skeleton avatar paragraph={{ rows: 4 }} />
+          }
+
+          {
+            tableView && <Table columns={tableColumn()} dragable={false} data={bonuses} />
+          }
+
+         {
+            bonuses?.length > 0 && !loader && !tableView ? (
+              <CardWrapper>
+                  {bonuses.map((item, index) => {
+                    return (
+                      <>
+                        <ListItem
+                          item={item}
+                          id={item.id}
+                          key={index}
+                          onClick={() => setDetailId(item.id)}
+                        />
+                      </>
+                    );
+                  })}
+                </CardWrapper>
+            ) : !loader  && !tableView && <NoDataFound />
+          }
+        </ContBody>
+        
+        {/* {bonuses && bonuses.length > 0 ? (
           tableView ? (
             <div>
               <Table columns={tableColumn()} dragable={false} data={bonuses} />
@@ -125,7 +154,7 @@ const Bonus = (props) => {
                   {bonuses.map((item, index) => {
                     return (
                       <>
-                        {/*  */}
+                       
                         <ListItem
                           item={item}
                           id={item.id}
@@ -143,9 +172,12 @@ const Bonus = (props) => {
           <div className="flex items-center justify-center h-full w-full">
             <img src={Nodata} />
           </div>
-        )}
-      </ContBody>
-      {<DetailedView onClose={onClose} id={detailId} />}
+        )} */}
+
+      {bonusDetail && (
+      <DetailedView onClose={onClose} id={detailId} />
+      )}
+
       <Drawer
         title={
           <h1

@@ -91,16 +91,16 @@ const MyCareerCard = (props) => {
           ))
         )  
       }
-       {
+       {/* {
         table &&
         <Table
           columns={tableColumn()}
           dragable={true}
           data={careers ? careers : []}
       />
-      }
+      } */}
 
-{
+         {
             careers?.length > 0 && !loader && !table ? (
             <CardWrapper
               style={{
@@ -129,7 +129,7 @@ const MyCareerCard = (props) => {
                 })}
               </CardWrapper>
             ) : !loader  && !table && <NoDataFound />
-      }
+         }
 
 
       {/*

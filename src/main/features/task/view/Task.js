@@ -25,6 +25,7 @@ import { Button, Drawer } from "antd";
 import CreateTask from "./createTask/CreateTask";
 
 import "../view/style/task.css";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 function Task({
   referenceId = defaultUiid,
@@ -53,6 +54,7 @@ function Task({
     taskList: { list },
     success,
     drawerOpen,
+    loading,
   } = useSelector((state) => state.taskSlice);
   useEffect(() => {
     dispatch(
@@ -128,7 +130,25 @@ function Task({
       />
       <ContBody className={width}>
         <div className="lf-col">
-          {tableView ? (
+         {
+            tableView &&
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              data={list ? list : []}
+            />
+          }
+          {
+            list?.length > 0 && !loading && !tableView ? (
+            <MyTaskList
+              filterType={filterType}
+              referenceId={referenceId}
+              referenceType={referenceType}
+            />
+            ): !tableView && <NoDataFound />
+          }
+
+          {/* {tableView ? (
             <Table
               columns={tableColumn()}
               dragable={true}
@@ -140,7 +160,7 @@ function Task({
               referenceId={referenceId}
               referenceType={referenceType}
             />
-          )}
+          )} */}
         </div>
       </ContBody>
       {/* <Drawer

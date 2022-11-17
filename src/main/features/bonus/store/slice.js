@@ -14,7 +14,6 @@ const initialState = {
   loader: true,
   bonusDetail: {},
   drawerOpen: false,
-  cancelReward: {},
   cancelBonuss: {},
 };
 
@@ -24,6 +23,22 @@ const bonusSlice = createSlice({
   reducers: {
     handleOpenComposer: (state, { payload }) => {
       state.drawerOpen = payload;
+    },
+    cancelBonusSuccess: (state, { payload }) => {
+      let bonusList = [...state.bonuses];
+      let index = bonusList.findIndex((item) => item.id === payload.bonusId);
+      let bonus = bonusList.filter((item) => item.id === payload.bonusId)[0];
+
+      bonusList[index] = {
+        ...bonus,
+        status: 4,
+      };
+
+      state.bonuses = bonusList;
+      state.bonusDetail = {
+        ...bonus,
+        status: 4,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -36,9 +51,9 @@ const bonusSlice = createSlice({
       state.bonusDetail = action.payload.data;
     });
 
-    builder.addCase(cancelBonus.fulfilled, (state, action) => {
-      state.cancelBonuss = action.payload.data;
-    });
+    // builder.addCase(cancelBonus.fulfilled, (state, action) => {
+    //   state.cancelBonuss = action.payload.data;
+    // });
 
     builder
       .addCase(addBonus.fulfilled, (state, { payload }) => {
@@ -56,5 +71,5 @@ const bonusSlice = createSlice({
   },
 });
 
-export const { handleOpenComposer } = bonusSlice.actions;
+export const { handleOpenComposer, cancelBonusSuccess } = bonusSlice.actions;
 export default bonusSlice.reducer;

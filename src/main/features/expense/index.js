@@ -7,7 +7,6 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../sharedComponents/AppComponents/MainFlexContainer";
-import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import TopBar from "../../sharedComponents/topBar/topBar";
 import { ExpenseDictionary } from "./localization";
 import ExpenseListView from "./view/ExpenseListView";
@@ -22,6 +21,7 @@ import { ExpenseReferenceTypeEnum } from "./enums";
 import { handleOpenExpenseComposer } from "./store/slice";
 import { Button, Drawer } from "antd";
 import OpenCreateExpense from "./view/CreateExpense/OpenCreateExpense";
+import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 
 function Expenses({
   referenceId = defaultUiid,
@@ -38,6 +38,7 @@ function Expenses({
   const { isCreateComposer, drawerOpen } = useSelector(
     (state) => state.expenseSlice
   );
+  console.log(drawerOpen, "drawerOpen slice");
   const [view, setView] = useState("List");
   const dispatch = useDispatch();
   const { labels } = ExpenseDictionaryList;
@@ -48,29 +49,6 @@ function Expenses({
       renderButton: [1],
     },
   ];
-
-  //   const buttons = [
-  //     {
-  //       buttonText: ExpenseDictionaryList.createTextBtn,
-  //       render: (
-  //         <SideDrawer
-  //           children={
-  //             <CreateExpense
-  //               referenceId={referenceId}
-  //               referenceType={referenceType}
-  //             />
-  //           }
-  //           title={ExpenseDictionaryList.createTextBtn}
-  //           buttonText={ExpenseDictionaryList.createTextBtn}
-  //           success={isCreateComposer}
-  //           setOpenDrawer={() => dispatch(toggleCreateComposer())}
-  //           isAccessDrawer={true}
-  //           openDrawer={isCreateComposer}
-  //           setIsEdited={() => {}}
-  //         />
-  //       ),
-  //     },
-  //   ];
 
   const render = {
     List: (
@@ -90,12 +68,14 @@ function Expenses({
           {
             buttonText: ExpenseDictionaryList.createTextBtn,
             render: (
-              <Button
-                className="ThemeBtn"
-                onClick={() => dispatch(handleOpenExpenseComposer(true))}
-              >
-                {ExpenseDictionaryList.createTextBtn}
-              </Button>
+              <SideDrawer
+                title={ExpenseDictionaryList.createTextBtn}
+                buttonText={ExpenseDictionaryList.createTextBtn}
+                handleClose={() => dispatch(handleOpenExpenseComposer(false))}
+                handleOpen={() => dispatch(handleOpenExpenseComposer(true))}
+                isOpen={drawerOpen}
+                children={<CreateExpense />}
+              />
             ),
           },
         ]}
@@ -147,36 +127,6 @@ function Expenses({
         }}
       />
       <ContBody className={width}>{render[view]}</ContBody>
-      {/* <Drawer
-				title={
-					<h1
-						style={{
-							fontSize: "20px",
-							margin: 0,
-						}}
-					>
-						{ExpenseDictionaryList.createTextBtn}
-					</h1>
-				}
-				width="768"
-				onClose={() => {
-					dispatch(handleOpenComposer(false));
-				}}
-				visible={drawerOpen}
-				destroyOnClose={true}
-				className="detailedViewComposer drawerSecondary"
-			>
-				<CreateExpense
-					feature={feature}
-					referenceId={referenceId}
-					referenceType={referenceType}
-				/>
-			</Drawer> */}
-      <OpenCreateExpense
-        feature={feature}
-        referenceId={referenceId}
-        referenceType={referenceType}
-      />
     </TabbableContainer>
   );
 }

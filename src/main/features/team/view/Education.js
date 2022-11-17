@@ -31,16 +31,22 @@ function Education() {
       title: labels.Degree,
       dataIndex: "degree",
       key: "degree",
+      sort: true,
+      width: 200,
     },
 
     {
       title: labels.Institute,
       dataIndex: "institute",
       key: "institute",
+      sort: true,
+      width: 200,
     },
     {
       title: labels.StartEndDate,
       dataIndex: " startDate",
+      sort: true,
+      width: 200,
       key: " startDate",
       render: (value, row) => {
         return value?.length
@@ -54,21 +60,29 @@ function Education() {
       title: labels.ObtainedMarks,
       dataIndex: "obtainedMarks",
       key: "obtainedMarks",
+      sort: true,
+      width: 80,
     },
     {
       title: labels.TotalMarks,
       dataIndex: "totalMarks",
       key: "totalMarks",
+      sort: true,
+      width: 80,
     },
     {
       title: labels.Description,
       dataIndex: "description",
       key: "description",
+      sort: true,
+      width: 200,
     },
     {
       title: labels.City,
       dataIndex: "city",
       key: "city",
+      sort: true,
+      width: 200,
     },
   ];
   return (

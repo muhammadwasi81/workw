@@ -7,7 +7,8 @@ import {
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+// import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import { Avatar, Tooltip } from "antd";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +30,10 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     city,
     country,
     referenceNo,
+    effecttiveDate,
+    approvers,
+    applicantsCount,
+    description,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
 
@@ -57,34 +62,52 @@ function ListItem({ item, onClick, onClickMyCareer }) {
         />
         <ItemContent className="!h-[100px] !max-h-[100px]">
           <div className="font-bold text-[14px] text-primary-color">
-            {/* {" "}
-            React Js Developer */}
-
             {designation}
           </div>
-          <p className="careersDescShort">{item.description}</p>
+          <p className="careerFooterText">
+            {city}, {country}
+          </p>
+          <p className="careersDescShort">{description}</p>
         </ItemContent>
-
-        <div className="flex justify-between">
-          <div className="careerFooterText">
-            {city}, {country} -{" "}
-            {CareerLevelTypeEnum.map((item) => {
-              if (item.value === jobTypeId) {
-                return item.label;
-              }
-            })}
+        <div className="cardSections mt-10">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Salary Range"}</div>
+            <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>
           </div>
-          {/* <div className="careerFooterText flex gap-x-2 items-baseline">
-            <FieldTimeOutlined />
-            {moment(createDate).fromNow()}
-          </div> */}
-          {/* <div className="careersDescShort">
-            {CareerStatusEnum.map((item) => {
-              if (item.value === status) {
-                return item.label;
-              }
-            })}
-          </div> */}
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Effective Date"}</div>
+            <div className="cardSection__body">
+              {" "}
+              {moment(createDate).format("Do MMM YY")}
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Applicants"}</div>
+            <div className="cardSection__body">{`${applicantsCount} `}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Approvers</div>
+            <div className="cardSection__body">
+              <Avatar.Group maxCount={2}>
+                {approvers &&
+                  approvers.map((el, i) => {
+                    return (
+                      <>
+                        <Tooltip title={el.approver?.name} placement="top">
+                          <Avatar
+                            src={
+                              el.approver?.image
+                                ? el.approver?.image
+                                : "https://joeschmoe.io/api/v1/random"
+                            }
+                          />
+                        </Tooltip>
+                      </>
+                    );
+                  })}
+              </Avatar.Group>
+            </div>
+          </div>
         </div>
       </SingleItem>
     </>

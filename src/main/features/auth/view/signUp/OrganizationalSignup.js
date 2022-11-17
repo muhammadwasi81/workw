@@ -24,6 +24,7 @@ export default class OrganizationalSignup extends Component {
         {/* <div className="lg-area-color-layer" /> */}
         <Row gutter={{ xs: 0, sm: 0, lg: 24 }} className="main-landing-row">
           <Col
+            className="signUpFirstColumn"
             xs={{ order: 2, span: 24 }}
             sm={{ order: 2, span: 24 }}
             lg={{ order: 1, span: 15 }}

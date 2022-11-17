@@ -23,7 +23,7 @@ function Loan({ userId = null }) {
   const { id } = useParams();
 
   let myId = userId ? userId : id;
-  console.log("WORKING HERE")
+  console.log("WORKING HERE");
   useEffect(() => {
     dispatch(getAllLoanAction(myId));
   }, []);
@@ -32,38 +32,39 @@ function Loan({ userId = null }) {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
-      className: "referenceNo",
+      // className: "referenceNo",
       sort: true,
+      width: 200,
     },
     {
       title: labels.Date,
       dataIndex: "date",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "date",
-      className: "dateTime",
       sort: true,
+      width: 200,
     },
     {
       title: labels.Amount,
       dataIndex: "amount",
       key: "amount",
-      className: "totalAmount",
       sort: true,
+      width: 80,
     },
     {
       title: labels.DeductionPerMonth,
       dataIndex: "deductionPerMonth",
       key: "deductionPerMonth",
-      className: "deduction",
       sort: true,
+      width: 80,
     },
     {
       title: labels.Deadline,
       dataIndex: "deadline",
       render: (deadline) => moment(deadline).format("DD MMM YYYY"),
       key: "deadline",
-      className: "dateTime",
       sort: true,
+      width: 200,
     },
 
     {
@@ -72,6 +73,7 @@ function Loan({ userId = null }) {
       key: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
+      width: 200,
     },
   ];
   return (

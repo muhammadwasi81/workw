@@ -49,10 +49,11 @@ function RemarksComposer({
       return <RemarkStatus onCurrentStatus={onCurrentStatus} />;
   };
   const onSelectEmoji = (emoji) => {
-    console.log(emoji, "emoji")
     msgInpRef.current.value += emoji.native;
     msgInpRef.current.focus();
+    onRemarksText(msgInpRef.current.value)
   };
+
 
   if (isRemarkApproved || isRemarkDecline || isRemarkCancelled) return null;
   return (
@@ -73,7 +74,7 @@ function RemarksComposer({
               }}
               onKeyUp={(e) => {
                 onRemarksText(e.target.value, e);
-                // setisEmoji(false)
+                setisEmoji(false)
               }}
               ref={msgInpRef}
             />

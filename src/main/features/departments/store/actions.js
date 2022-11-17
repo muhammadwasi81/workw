@@ -47,7 +47,7 @@ export const addDepartment = createAsyncThunk(
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addDepartmentService(data);
     if (res.data?.responseCode === responseCode.Success) {
-      message.success("Reward Created");
+      message.success("Department Created");
       return res;
     } else {
       message.error(res.statusText);

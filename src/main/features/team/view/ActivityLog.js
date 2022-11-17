@@ -14,22 +14,30 @@ function ActivityLog() {
       title: labels.Date,
       dataIndex: "date",
       key: "date",
+      sort: true,
+      width: 200,
     },
 
     {
       title: labels.LoginFrom,
       dataIndex: "loginFrom",
       key: "loginFrom",
+      sort: true,
+      width: 200,
     },
     {
       title: labels.LoginIp,
       dataIndex: "loginIP",
       key: "loginIP",
+      sort: true,
+      width: 200,
     },
     {
       title: labels.Location,
       dataIndex: "location",
       key: "location",
+      sort: true,
+      width: 200,
     },
   ];
   return (

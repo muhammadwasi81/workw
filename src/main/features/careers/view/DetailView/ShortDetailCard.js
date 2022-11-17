@@ -14,7 +14,7 @@ import moment from "moment";
 function ShortDetailCard() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
-  const { careerDetail } = useSelector((state) => state.careerSlice);
+  const { careerDetail, loader } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
   console.log(careerDetail); // set these in component
 
@@ -30,8 +30,12 @@ function ShortDetailCard() {
                 {labels.jobTitle}
               </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
-                {careerDetail?.designation ? (
-                  careerDetail?.designation
+                {!loader ? (
+                  <>
+                    {careerDetail.designation
+                      ? careerDetail.designation
+                      : "No Designation"}
+                  </>
                 ) : (
                   <Skeleton.Input active={true} size="small" />
                 )}

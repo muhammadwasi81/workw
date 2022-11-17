@@ -5,8 +5,10 @@ const expenseSlice = createSlice({
   name: "expense",
   initialState: {
     loader: true,
+    success: false,
     isCreateComposer: false,
     expenses: [],
+    expenseDetail: null,
     expense: {},
     drawerOpen: false,
   },
@@ -35,20 +37,31 @@ const expenseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addExpense.fulfilled, (state, { payload: { data } }) => {
-        if (data) {
-          state.expenses.unshift(data);
+      .addCase(addExpense.fulfilled, (state, { payload }) => {
+        state.expenses = [payload, ...state.expenses];
+        console.log("sommmmmmm", payload);
+        state.drawerOpen = false;
+        console.log(state.expenses, "drawerOpen in redux");
+        // console.log(state.expenses, "expenses stateeeeee");
 
-          state.isCreateComposer = true;
-          state.drawerOpen = false;
-        }
+        // if (data) {
+        //   state.expenses.unshift(data);
+        //   state.isCreateComposer = true;
+        //   state.drawerOpen = false;
+        // }
+        // console.log(data, "expense dataaaa");
       })
-      .addCase(getAllExpense.fulfilled, (state, { payload: { data } }) => {
-        state.expenses = data;
+      .addCase(getAllExpense.fulfilled, (state, action) => {
+        // state.expenses = payload;
+        // state.loader = false;
+        // console.log(payload, "payload");
+        state.expenses = action.payload?.data ? action.payload.data : [];
         state.loader = false;
+        // console.log(action.payload, "payload");
       })
-      .addCase(getExpenseById.fulfilled, (state, { payload: { data } }) => {
-        state.expense = data;
+      .addCase(getExpenseById.fulfilled, (state, action) => {
+        // state.expense = data;
+        state.expense = action.payload?.data;
       })
       .addMatcher(isPending(...[getAllExpense]), (state) => {
         state.expenses = [];

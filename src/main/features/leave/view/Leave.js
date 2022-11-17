@@ -21,7 +21,11 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
 import { ROUTES } from "../../../../utils/routes";
+<<<<<<< HEAD
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+=======
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+>>>>>>> 5c97426d1329d6c6c5783611ff7dd023d8c69488
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -54,7 +58,7 @@ const Leave = (props) => {
 
   const items = [
     {
-      name: 'Leaves',
+      name: "Leaves",
       to: `${ROUTES.LEAVES.DEFAULT}`,
       renderButton: [1],
     },
@@ -69,12 +73,14 @@ const Leave = (props) => {
             {
               buttonText: "Create Leave",
               render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => dispatch(handleOpenComposer(true))}
-                >
-                  Create Leave
-                </Button>
+                <SideDrawer
+                  title={"Create Leave"}
+                  buttonText={"Create Leave"}
+                  handleClose={() => dispatch(handleOpenComposer(false))}
+                  handleOpen={() => dispatch(handleOpenComposer(true))}
+                  isOpen={drawerOpen}
+                  children={<Composer />}
+                />
               ),
             },
           ]}
@@ -175,7 +181,7 @@ const Leave = (props) => {
           )} */}
         </ContBody>
         {leaveDetail && <DetailedView onClose={onClose} id={detailId} />}
-        <Drawer
+        {/* <Drawer
           title={
             <h1
               style={{
@@ -195,7 +201,7 @@ const Leave = (props) => {
           className="detailedViewComposer drawerSecondary"
         >
           <Composer />
-        </Drawer>
+        </Drawer> */}
       </TabbableContainer>
     </>
   );

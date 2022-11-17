@@ -29,20 +29,26 @@ function Complains() {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
-      className: "referenceNo",
+      sort: true,
+      width: 200,
+      // className: "referenceNo",
     },
     {
       title: labels.Date,
       dataIndex: "createDate",
-      className: "dateTime",
+      // className: "dateTime",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "createDate",
+      sort: true,
+      width: 200,
     },
     {
       title: labels.Category,
       dataIndex: "category",
       key: "category",
-      className: "category",
+      sort: true,
+      width: 200,
+      // className: "category",
     },
 
     {
@@ -50,6 +56,8 @@ function Complains() {
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       key: "status",
+      sort: true,
+      width: 200,
     },
   ];
   return (

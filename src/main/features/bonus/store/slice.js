@@ -14,7 +14,6 @@ const initialState = {
   loader: true,
   bonusDetail: {},
   drawerOpen: false,
-  cancelReward: {},
   cancelBonuss: {},
 };
 
@@ -38,9 +37,6 @@ const bonusSlice = createSlice({
 
     builder.addCase(cancelBonus.fulfilled, (state, action) => {
       state.cancelBonuss = action.payload.data;
-      console.log(action.payload.data, "payloadhhh cancel bonus");
-
-      console.log(state.cancelBonuss, "cancel bonusss");
     });
 
     builder

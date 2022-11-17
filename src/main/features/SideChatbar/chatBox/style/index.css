@@ -99,6 +99,7 @@
 
 .ChatBoxMessages {
   height: calc(100% - 90px) !important;
+  padding-left: 6px;
 }
 
 .ChatBoxMessages>.MessengerListItem-ME {

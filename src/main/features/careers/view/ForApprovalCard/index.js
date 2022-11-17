@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-  CardWrapper,
-  CardWrapperCareers,
+	CardWrapper,
+	CardWrapperCareers,
 } from "../../../../sharedComponents/Card/CardStyle";
 import JobDetails from "../../view/DetailView/DetailComposer/JobDetails";
 import ListItem from "./ListItem";
@@ -16,42 +16,43 @@ import { Table } from "../../../../sharedComponents/customTable";
 import ApprovalComposer from "./ApprovalComposer";
 import { NoDataFound } from "../../../../sharedComponents/NoDataIcon";
 
-const MyApprovalCard = (props) => {
-  const navigate = useNavigate();
-  const [openDetail, setOpenDetail] = useState(false);
-  const [applyDrawer, setApplyDrawer] = useState(false);
-  const [id, setId] = useState();
-  const [table, setTable] = useState(false);
-  console.log(props);
-  const careers = useSelector((state) => {
-    return state.careerSlice.items;
-  });
-  const { loader } = useSelector((state) => state.careerSlice);
-  const { currentTab } = useSelector((state) => {
-    return state.careerSlice;
-  });
+const MyApprovalCard = props => {
+	const navigate = useNavigate();
+	const [openDetail, setOpenDetail] = useState(false);
+	const [applyDrawer, setApplyDrawer] = useState(false);
+	const [id, setId] = useState();
+	const [table, setTable] = useState(false);
+	console.log(props);
+	const careers = useSelector(state => {
+		return state.careerSlice.items;
+	});
+	const { loader } = useSelector(state => state.careerSlice);
+	const { currentTab } = useSelector(state => {
+		return state.careerSlice;
+	});
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (props.view === "Table") {
-      setTable(true);
-    } else {
-      setTable(false);
-    }
-  }, [props.view]);
+	useEffect(() => {
+		if (props.view === "Table") {
+			setTable(true);
+		} else {
+			setTable(false);
+		}
+	}, [props.view]);
 
-  const openMyCareerDetail = (id) => {
-    console.log(id, "my Career Id");
-    setId(id);
-    setOpenDetail(true);
-    dispatch(getCareerByIdAction(id));
-  };
+	const openMyCareerDetail = id => {
+		console.log(id, "my Career Id");
+		setId(id);
+		setOpenDetail(true);
+		dispatch(getCareerByIdAction(id));
+	};
 
-  const handleCancel = () => {
-    setOpenDetail(false);
-  };
+	const handleCancel = () => {
+		setOpenDetail(false);
+	};
 
+<<<<<<< HEAD
   return (
     <>
       <ApprovalComposer visible={openDetail} onClose={handleCancel} id={id} />
@@ -70,41 +71,62 @@ const MyApprovalCard = (props) => {
           data={careers ? careers : []}
       />
       } */}
+=======
+	return (
+		<>
+			<ApprovalComposer
+				visible={openDetail}
+				onClose={handleCancel}
+				id={id}
+			/>
+			{loader &&
+				[...Array(15)].map(item => (
+					<Skeleton key={item} avatar paragraph={{ rows: 6 }} />
+				))}
+			{table && (
+				<Table
+					columns={tableColumn()}
+					dragable={true}
+					data={careers ? careers : []}
+				/>
+			)}
+>>>>>>> 5c97426d1329d6c6c5783611ff7dd023d8c69488
 
-{
-            careers?.length > 0 && !loader && !table ? (
-              <CardWrapper
-              style={{
-                gridTemplateColumns: "repeat(auto-fill,minmax(35rem,1fr))",
-              }}
-            >
-            {openDetail && (
-              <Modal
-                visible={openDetail}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                footer={null}
-                width={"50%"}
-              >
-                <JobDetails apply={applyJob} />
-              </Modal>
-            )}
-                {careers.map((item, index) => {
-                  return (
-                    <ListItem
-                        //onClick={() => openJobDetailHandler(item.id)}
-                         onClickApproval={() => openMyCareerDetail(item.id)}
-                         item={item}
-                  />
-                  );
-                })}
-              </CardWrapper>
-            ) : !loader  && !table && <NoDataFound />
-      }
+			{careers?.length > 0 && !loader && !table ? (
+				<CardWrapper
+					style={{
+						gridTemplateColumns:
+							"repeat(auto-fill,minmax(35rem,1fr))",
+					}}
+				>
+					{openDetail && (
+						<Modal
+							visible={openDetail}
+							// onOk={handleOk}
+							onCancel={handleCancel}
+							footer={null}
+							width={"50%"}
+						>
+							<JobDetails apply={() => {}} />
+						</Modal>
+					)}
+					{careers.map((item, index) => {
+						return (
+							<ListItem
+								//onClick={() => openJobDetailHandler(item.id)}
+								onClickApproval={() =>
+									openMyCareerDetail(item.id)
+								}
+								item={item}
+							/>
+						);
+					})}
+				</CardWrapper>
+			) : (
+				!loader && !table && <NoDataFound />
+			)}
 
-
-
-{/* 
+			{/* 
       {!table && (
         <CardWrapper
           style={{
@@ -146,7 +168,7 @@ const MyApprovalCard = (props) => {
           data={careers ? careers : []}
         />
       )} */}
-    </>
-  );
+		</>
+	);
 };
 export default MyApprovalCard;

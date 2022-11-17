@@ -32,21 +32,27 @@ function Warnings({ userId = null }) {
       title: labels.ReferenceNo,
       dataIndex: "referenceNo",
       key: "referenceNo",
-      className: "referenceNo",
+      sort: true,
+      width: 200,
+      // className: "referenceNo",
     },
     {
       title: labels.Date,
       dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "createDate",
-      className: "dateTime",
+      sort: true,
+      width: 200,
+      // className: "dateTime",
     },
 
     {
       title: labels.Category,
       dataIndex: "category",
       key: "category",
-      className: "category",
+      sort: true,
+      width: 200,
+      // className: "category",
     },
 
     {
@@ -54,6 +60,8 @@ function Warnings({ userId = null }) {
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       key: "status",
+      sort: true,
+      width: 200,
     },
   ];
   return (

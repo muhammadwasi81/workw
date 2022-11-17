@@ -12,6 +12,37 @@
   display: none;
 }
 
+@media (min-width: 320px) and (max-width: 720px) {
+  .SinginFirstColumn {
+    display: none !important;
+  }
+  .FormColumn {
+    width: 100%;
+    max-width: 100% !important;
+  }
+  .signUpFirstColumn {
+    display: none;
+  }
+  .main-landing-row {
+    width: 100%;
+  }
+  .main-landing-row {
+    width: 100%;
+    padding: 13px;  
+  }
+  .main-landing-row {
+    width: 100% !important;
+  }
+
+}
+
+@media (min-width: 320px) and (max-width: 1000px) {
+  .signUpFirstColumn {
+    display: none !important;
+  }
+
+}
+
 /*.wrapper  .d-flex{*/
 /*    display: flex;*/
 /*}*/
@@ -1522,11 +1553,6 @@ i.ic-key-feature6 {
     margin: auto;
   }
 
-  .main-landing-row {
-    height: 100%;
-    width: 95% !important;
-  }
-
   /* .lgBox > .lg-area > .lg-text {
     display: none;
   } */
@@ -1556,12 +1582,6 @@ i.ic-key-feature6 {
 
   .basic-price-card {
     margin-top: 20px;
-  }
-
-  .main-landing-row {
-    width: 100% !important;
-    height: 100% !important;
-    padding: 10px;
   }
 
   .row-cl-2-heading1 {
@@ -1667,12 +1687,6 @@ i.ic-key-feature6 {
     width: 95% !important;
     height: 100%;
   }
-
-  .center-area {
-    width: 100% !important;
-    height: 70vh;
-    overflow-y: auto;
-  }
 }
 
 @media only screen and (max-width: 850px) {
@@ -1681,9 +1695,6 @@ i.ic-key-feature6 {
     overflow-y: auto;
   }
 
-  /* .lg-area {
-    display: block !important;
-  } */
   .center-area {
     margin-top: 50px;
   }
@@ -1704,6 +1715,14 @@ i.ic-key-feature6 {
     height: 50vh;
     overflow-y: auto;
   }
+}
+
+
+
+
+
+.main-landing-row {
+  display: none;
 }
 
 .card-form__inner .field {

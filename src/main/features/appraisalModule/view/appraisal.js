@@ -8,34 +8,50 @@ import TeamAppraisals from "./components/TeamAppraisal/index";
 import Header from "../../../layout/header/index";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
 import { useDispatch, useSelector } from "react-redux";
+import ForApproval from "./components/ForApproval";
+import { useNavigate } from "react-router-dom";
 
 function Appraisals() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const CurrentTab = useSelector(
     (state) => state.appraisalModuleSlice.currentTab
   );
   let RenderTab = {
     teamAppraisals: <TeamAppraisals />,
-    myAppraisals: <div>My Appraisals</div>,
-    forApprovals: <div>For Approvals</div>,
+    myAppraisals: <ForApproval />,
+    forApprovals: <ForApproval />,
+  };
+
+  const items = [
+    {
+      name: "Appraisals",
+      to: `${ROUTES.APPRAISALS.ROOT}`,
+      renderButton: [1],
+    },
+  ];
+
+  const onCreateAppraisal = () => {
+    navigate("submitAppraisal");
   };
 
   return (
     <>
       <TabbableContainer>
         <Header
+          items={items}
           buttons={[
             {
-              buttonText: "Submit Appraisals",
+              buttonText: "Create Appraisals",
               render: (
                 <Button
                   className="ThemeBtn"
-                  onClick={() => dispatch(handleOpenComposer(true))}
+                  onClick={() => onCreateAppraisal()}
                 >
                   <PlusOutlined />
-                  Submit Appraisals
+                  Create Appraisals
                 </Button>
               ),
             },

@@ -1,5 +1,5 @@
 import { Image, Tag } from "antd";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { rewardDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
@@ -15,6 +15,7 @@ import {
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { useDispatch } from "react-redux";
 import { data } from "jquery";
+import Attachments from "../../travel/view/UI/Attachments";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -26,6 +27,7 @@ function ListItem(props) {
     name,
     description,
     image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
+    // image = images,
     reason,
     category,
     members = [],
@@ -33,8 +35,9 @@ function ListItem(props) {
     status,
     referenceNo,
     createDate,
+    attachments,
   } = props.item;
-
+  console.log(image, "image fileeeee listitem");
   const localTime = moment
     .utc(createDate)
     .local()
@@ -66,13 +69,14 @@ function ListItem(props) {
           <div className="description w-full">
             <p>{description}</p>
           </div>
-          <div className="attachmentBox">
-            <Image
-              preview={false}
-              width={60}
-              height={60}
-              src={image === "" ? RewardDefaultIcon : image}
-            />
+          <div className="!w-max m-4 ml-auto attachmentBox">
+            <Image preview={false} width={60} height={60} src={image} />
+            {/* <Attachments
+              data={[image]}
+              key={{ data: image }}
+              toShow={1}
+              onClick={() => {}}
+            /> */}
           </div>
         </ItemContent>
         <div className="cardSections">

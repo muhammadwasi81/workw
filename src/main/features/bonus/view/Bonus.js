@@ -3,7 +3,7 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Button, Skeleton, Drawer } from "antd";
+import { Button, Skeleton, Drawer, Form } from "antd";
 import { bonusDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import ListItem from "./ListItem";
@@ -22,23 +22,41 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
+<<<<<<< HEAD
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+=======
+import { useMediaQuery } from "react-responsive";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+
+const initialFormData = {
+  memberId: "",
+  amount: 0,
+  approvers: [],
+};
+>>>>>>> 5c97426d1329d6c6c5783611ff7dd023d8c69488
 
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { bonusDictionary } = bonusDictionaryList[userLanguage];
+  const { bonusDictionary, Direction } = bonusDictionaryList[userLanguage];
 
   const [tableView, setTableView] = useState(false);
 
   const [visible, setVisible] = useState(false);
 
   const [detailId, setDetailId] = useState(false);
+  const [isDefault, setIsDefault] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [openDrawer, setOpenDrawer] = useState(false);
+  // const [formData, setFormData] = useState(initialFormData);
+
+  const [form] = Form.useForm();
 
   const dispatch = useDispatch();
+  const isTablet = useMediaQuery({ maxWidth: 800 });
 
-  const { bonuses, loader, bonusDetail, drawerOpen } = useSelector(
+  const { bonuses, loader, bonusDetail, drawerOpen, success } = useSelector(
     (state) => state.bonusSlice
   );
 
@@ -65,12 +83,14 @@ const Bonus = (props) => {
           {
             buttonText: "Create Bonus",
             render: (
-              <Button
-                className="ThemeBtn"
-                onClick={() => dispatch(handleOpenComposer(true))}
-              >
-                Create Bonus
-              </Button>
+              <SideDrawer
+                title={"Create Bonus"}
+                buttonText={"Create Bonus"}
+                handleClose={() => dispatch(handleOpenComposer(false))}
+                handleOpen={() => dispatch(handleOpenComposer(true))}
+                isOpen={drawerOpen}
+                children={<Composer />}
+              />
             ),
           },
         ]}
@@ -109,6 +129,7 @@ const Bonus = (props) => {
           label2: "Table",
         }}
       />
+
       <ContBody>
           {
             loader &&  <Skeleton avatar paragraph={{ rows: 4 }} />
@@ -178,7 +199,7 @@ const Bonus = (props) => {
       <DetailedView onClose={onClose} id={detailId} />
       )}
 
-      <Drawer
+      {/* <Drawer
         title={
           <h1
             style={{
@@ -195,10 +216,14 @@ const Bonus = (props) => {
         }}
         visible={drawerOpen}
         destroyOnClose={true}
+        placement={
+          (Direction === "ltr" ? "left" : "right",
+          isTablet ? "bottom" : "right")
+        }
         className="detailedViewComposer drawerSecondary"
       >
         <Composer />
-      </Drawer>
+      </Drawer>  */}
     </TabbableContainer>
   );
 };

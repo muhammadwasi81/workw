@@ -56,6 +56,7 @@ const Department = (props) => {
         // filter,
         pageSize: 20,
         search,
+        sortBy: 1,
       })
     );
   }, [search]);

@@ -239,6 +239,10 @@
 
 }
 
+.schedulerCalender a{
+    color: white;
+}
+
 .schedulerCalender .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr{
     display: inline-flex !important;
 }

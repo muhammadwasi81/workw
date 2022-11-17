@@ -7,6 +7,7 @@ const initialState = {
   success: false,
   loader: false,
   error: false,
+  drawerOpen: false,
   createLoader: false,
   isCreateComposer: false,
   loanDetail: {},
@@ -17,6 +18,9 @@ const LoanSlice = createSlice({
   name: "loans",
   initialState,
   reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     toggleCreateComposer: (state, payload) => {
       state.isCreateComposer = !state.isCreateComposer;
     },
@@ -63,5 +67,5 @@ const LoanSlice = createSlice({
   },
 });
 
-export const { toggleCreateComposer } = LoanSlice.actions;
+export const { toggleCreateComposer, handleOpenComposer } = LoanSlice.actions;
 export default LoanSlice.reducer;

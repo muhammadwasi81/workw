@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TabbableContainer, ContBody } from "../../layout/GridStyle";
 import Header from "../../layout/header";
-import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { LoanDictionary } from "./localization";
 import TopBar from "../../sharedComponents/topBar/topBar";
@@ -21,12 +20,14 @@ import getStoredState from "redux-persist/es/getStoredState";
 import { getAllLoans } from "./store/actions";
 import { Drawer, Button } from "antd";
 import { ROUTES } from "../../../utils/routes";
+import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
+import { handleOpenComposer } from "./store/slice";
 
 function Index() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { loanDictionaryList, Direction } = LoanDictionary[userLanguage];
   const dispatch = useDispatch();
-  const { loanList, listItem, isCreateComposer } = useSelector(
+  const { loanList, listItem, isCreateComposer, drawerOpen } = useSelector(
     (state) => state.loanSlice
   );
 
@@ -67,14 +68,14 @@ function Index() {
           {
             buttonText: loanDictionaryList.createLoan,
             render: (
-              <Button
-                className="ThemeBtn"
-                onClick={() => {
-                  dispatch(toggleCreateComposer());
-                }}
-              >
-                {loanDictionaryList.createLoan}
-              </Button>
+              <SideDrawer
+                title={loanDictionaryList.createLoan}
+                buttonText={loanDictionaryList.createLoan}
+                handleClose={() => dispatch(handleOpenComposer(false))}
+                handleOpen={() => dispatch(handleOpenComposer(true))}
+                isOpen={drawerOpen}
+                children={<Composer />}
+              />
             ),
           },
         ]}

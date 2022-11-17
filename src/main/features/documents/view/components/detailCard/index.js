@@ -123,7 +123,7 @@ function DetailCard(props) {
                         title={"dddd"}
                         module={ApprovalsModule.CustomApproval}
                         data={approvers}
-                        onStatusChange={() => { }}
+                        onStatusChanged={() => { }}
                                 status={approverStatus}
                     />
                 </SingleItem >

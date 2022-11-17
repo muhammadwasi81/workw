@@ -281,7 +281,7 @@ const Composer = props => {
 							<Select
 								mode="tags"
 								dropdownClassName="hidden"
-								placeholder="Please add external members"
+								placeholder="Please add external members email"
 								size="large"
 							/>
 						</Form.Item>

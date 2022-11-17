@@ -3,13 +3,16 @@ import React, { useEffect, useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Header from "../../../layout/header";
-import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { Table } from "../../../sharedComponents/customTable";
 import { getAllResignations } from "../store/action";
-import ListItem from "./listItem";
-import "./style.css"
+import ListItem from "./ListItem";
+import "./style.css";
 import DetailedView from "./detaileView";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import { handleOpenComposer } from "../store/slice";
@@ -17,26 +20,32 @@ import Composer from "./composer";
 import { tableColumn } from "./TableColumn";
 import { ROUTES } from "../../../../utils/routes";
 
-const Resignation = props => {
-  const dispatch = useDispatch()
-  const [filter, setFilter] = useState({ filterType: 1, search: "", pageNo: 0, pageSize: 20, sortBy: 1 })
+const Resignation = (props) => {
+  const dispatch = useDispatch();
+  const [filter, setFilter] = useState({
+    filterType: 1,
+    search: "",
+    pageNo: 0,
+    pageSize: 20,
+    sortBy: 1,
+  });
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
 
   const { drawerOpen, items, loader } = useSelector(
-    state => state.resignationSlice
+    (state) => state.resignationSlice
   );
 
   const onClose = () => {
     setDetailId(null);
   };
 
-  console.log(loader, "LOADER")
-  console.log(items, "ITEMS !!!")
+  console.log(loader, "LOADER");
+  console.log(items, "ITEMS !!!");
 
   useEffect(() => {
-    dispatch(getAllResignations(filter))
-  }, [filter])
+    dispatch(getAllResignations(filter));
+  }, [filter]);
 
   const headerButtuns = [
     {
@@ -49,13 +58,13 @@ const Resignation = props => {
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
-        console.log(record.id, "ID")
-        setDetailId(record.id)
+        console.log(record.id, "ID");
+        setDetailId(record.id);
       },
-      onDoubleClick: (event) => { }, // double click row
-      onContextMenu: (event) => { }, // right button click row
-      onMouseEnter: (event) => { }, // mouse enter row
-      onMouseLeave: (event) => { }, // mouse leave row
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
     };
   };
 
@@ -68,7 +77,10 @@ const Resignation = props => {
             {
               buttonText: "Create Reward",
               render: (
-                <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
+                <Button
+                  className="ThemeBtn"
+                  onClick={() => dispatch(handleOpenComposer(true))}
+                >
                   Create Resignation
                 </Button>
               ),
@@ -77,7 +89,7 @@ const Resignation = props => {
         />
         <TopBar
           onSearch={(value) => {
-            setFilter({ ...filter, search: value })
+            setFilter({ ...filter, search: value });
           }}
           buttons={[
             {
@@ -91,7 +103,7 @@ const Resignation = props => {
             {
               name: "For Approval",
               onClick: () => setFilter({ filterType: 2 }),
-            }
+            },
           ]}
           segment={{
             onSegment: (value) => {
@@ -106,32 +118,34 @@ const Resignation = props => {
           }}
         />
         <ContBody>
-            {
-              loader && <Skeleton avatar paragraph={{ rows: 4 }} />
-            }
+          {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
-            {
-              tableView &&
-              <Table
-                columns={tableColumn()}
-                dragable={true}
-                data={items}
-                onRow={onRow}
-              />
-            }
+          {tableView && (
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              data={items}
+              onRow={onRow}
+            />
+          )}
 
-            {
-              items?.length > 0 && !loader && !tableView ? (
-                <CardWrapper>
-                  {items.map((item, index) => {
-                    return (
-                      <ListItem item={item} id={item.id} key={index} onClick={() => setDetailId(item.id)} />
-                    );
-                  })}
-                </CardWrapper>
-              ) : !loader && !tableView && <NoDataFound />
-            }
-          </ContBody>
+          {items?.length > 0 && !loader && !tableView ? (
+            <CardWrapper>
+              {items.map((item, index) => {
+                return (
+                  <ListItem
+                    item={item}
+                    id={item.id}
+                    key={index}
+                    onClick={() => setDetailId(item.id)}
+                  />
+                );
+              })}
+            </CardWrapper>
+          ) : (
+            !loader && !tableView && <NoDataFound />
+          )}
+        </ContBody>
         {<DetailedView onClose={onClose} id={detailId} />}
 
         <Drawer
@@ -147,7 +161,7 @@ const Resignation = props => {
           }
           width="768"
           onClose={() => {
-            dispatch(handleOpenComposer(false))
+            dispatch(handleOpenComposer(false));
           }}
           visible={drawerOpen}
           destroyOnClose={true}
@@ -155,7 +169,6 @@ const Resignation = props => {
         >
           <Composer />
         </Drawer>
-
       </TabbableContainer>
     </>
   );

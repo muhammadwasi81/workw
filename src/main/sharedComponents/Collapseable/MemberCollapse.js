@@ -40,7 +40,7 @@ function MemberCollapse({
 				header={
 					<div>
 						<span className="text-base font-bold text-primary-color">
-							Members
+							Members ({data.length})
 						</span>
 					</div>
 				}

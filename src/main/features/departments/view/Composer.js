@@ -16,6 +16,8 @@ import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
 import { getNameForImage, STRINGS } from "../../../../utils/base";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 
 const initialState = {
   id: "",
@@ -35,17 +37,25 @@ const initialState = {
 const Composer = (props) => {
   const dispatch = useDispatch();
   const { employees } = useSelector((state) => state.sharedSlice);
-  const { success, createLoader } = useSelector(
+  const { success, createLoader, parentId } = useSelector(
     (state) => state.departmentSlice
   );
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [employeesData, setEmployeesData] = useState([]);
+  const [privacyId, setPrivacyId] = useState(1);
 
-  console.log(success, createLoader);
+  const onPrivacyChange = (value) => {
+    setPrivacyId(value);
+  };
+
+  //TODO: add these labels in localization
+  const labels = {
+    public: "Public",
+    private: "Private",
+  };
 
   useEffect(() => {
-    // dispatch(getRewardCategory());
     //TODO:
     fetchEmployees("", 0);
   }, []);
@@ -92,21 +102,15 @@ const Composer = (props) => {
   };
 
   const onFinish = (values) => {
-    // console.log(values, "SIMPLE VALUES");
-    const employees = employeesData.map((item) => ({
-      approverId: item.id,
-      email: item.email,
-    }));
-    console.log("employees*******", employees);
     if (profileImage) {
       let image = {
         id: STRINGS.DEFAULTS.guid,
         file: profileImage[0].originFileObj,
       };
-      let payload = { ...values, image, employees };
+      let payload = { ...values, image, parentId, privacyId };
       dispatch(addDepartment(payload));
     } else {
-      let payload = { ...values, employees };
+      let payload = { ...values, parentId, privacyId };
       dispatch(addDepartment(payload));
     }
 
@@ -176,15 +180,15 @@ const Composer = (props) => {
         >
           <Input.TextArea placeholder={departmentDictionary.enterDescription} />
         </Form.Item>
-        {/* 
+
         <Form.Item
           name="hodId"
-          label={"HOD"}
+          label={"Head Of Department"}
           showSearch={true}
           direction={Direction}
           rules={[{ required: true }]}
-        > */}
-        {/* <MemberSelect
+        >
+          <MemberSelect
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -205,46 +209,19 @@ const Composer = (props) => {
                 </>
               );
             }}
-          /> */}
-        {/* <NewCustomSelect
-						name="hodId"
-						label={"HOD"}
-						showSearch={true}
-						direction={Direction}
-						endPoint="api/Reference/GetAllUserReference"
-						requestType="get"
-						placeholder={"Select HOD"}
-					/> */}
-        {/* </Form.Item> */}
-        {/* <Form.Item
-          name="name"
-          label="Add Employees"
-          showSearch={true}
-          direction={Direction}
-          rules={[{ required: true }]}
-        >
-          <MemberComposer
-            handleAdd={handelAddMember}
-            firstTimeEmpData={firstTimeEmpData}
-            selectedData={selectedData}
-            isFirstTimeDataLoaded={isFirstTimeDataLoaded}
-            fetchEmployees={fetchEmployees}
           />
+        </Form.Item>
 
-          {memberList?.length > 0 ? (
-            <MemberListItem
-              data={memberList}
-              onRemove={(row) =>
-                setMemberList(
-                  memberList.filter((item) => item.user.id !== row.user.id)
-                )
-              }
-            />
-          ) : (
-            ""
-          )}
-        </Form.Item> */}
-        <Form.Item label="Add Employees" name="approvers">
+        <Form.Item
+          label="Add Employees"
+          name="members"
+          rules={[
+            {
+              required: true,
+              message: "Employees Required!, Add Employees",
+            },
+          ]}
+        >
           <MemberSelect
             name="managerId"
             mode="multiple"
@@ -270,18 +247,25 @@ const Composer = (props) => {
           />
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            size="large"
-            className="ThemeBtn"
-            block
-            htmlType="submit"
-            title={departmentDictionary.createReward}
-            loading={createLoader}
-          >
-            {" "}
-            {"Create Department"}{" "}
-          </Button>
+          <div className="flex items-center gap-2">
+            <PrivacyOptions
+              privacyId={privacyId}
+              onPrivacyChange={onPrivacyChange}
+              labels={labels}
+            />
+            <Button
+              type="primary"
+              size="large"
+              className="ThemeBtn"
+              block
+              htmlType="submit"
+              title={departmentDictionary.createReward}
+              loading={createLoader}
+            >
+              {" "}
+              {"Create Department"}{" "}
+            </Button>
+          </div>
         </Form.Item>
       </Form>
     </>

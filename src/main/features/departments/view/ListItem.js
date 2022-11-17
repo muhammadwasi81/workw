@@ -1,32 +1,16 @@
-import { Image, Tag } from "antd";
-import React, { useContext, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
 import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
-import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
-import moment from "moment";
-import {
-  ItemContent,
-  ItemHeader,
-  SingleItem,
-} from "../../../sharedComponents/Card/CardStyle";
 import { ROUTES } from "../../../../utils/routes";
 import { useNavigate } from "react-router-dom";
 import departmentDefaultImage from "../../../../content/NewContent/department/department.svg";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
 import { Card } from "antd";
+import { useDispatch } from "react-redux";
 const { Meta } = Card;
 
 function ListItem(props) {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, departmentDictionary } = departmentDictionaryList[
     userLanguage
@@ -39,9 +23,8 @@ function ListItem(props) {
     image,
     members = [],
     approvers,
+    id,
   } = props.item;
-
-  console.log(props.item);
 
   const navigate = useNavigate();
   return (
@@ -54,27 +37,17 @@ function ListItem(props) {
         actions={[]}
         hoverable
         onClick={(e) => {
-          navigate(`${ROUTES.DEPARTMENTS.DETAIL}`, {
-            state: {
-              data: props.item,
-            },
-          });
+          navigate(`${ROUTES.DEPARTMENTS.DETAIL}/${id}`);
         }}
       >
         <Meta
           title={name}
           description={
-            description.length > 40
-              ? description.substring(0, 40) + "..."
+            description.length > 20
+              ? description.substring(0, 20) + "..."
               : description
           }
         />
-        <Meta
-          description={`Created By: ${
-            creator?.name ? creator.name : "Not Found"
-          }`}
-        />
-
         <div className="approversBox">
           <Avatar
             isAvatarGroup={true}

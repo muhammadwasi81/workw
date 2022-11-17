@@ -28,9 +28,8 @@ import SubDepartment from "./SubDepartment";
 function ProjectDetails() {
   const dispatch = useDispatch();
   const { departmentDetail } = useSelector((state) => state.departmentSlice);
-  const { state } = useLocation();
-  const [descrip, setDescrip] = useState("");
-  const { data } = state;
+  // const { state } = useLocation();
+  // const { data } = state;
 
   useEffect(() => {
     if (Object.keys(departmentDetail).length > 1) {
@@ -39,6 +38,7 @@ function ProjectDetails() {
   }, [departmentDetail]);
 
   const { image, description, id } = departmentDetail;
+  console.log(departmentDetail);
   const panes = [
     {
       featureName: `Sub Departments`,
@@ -68,8 +68,7 @@ function ProjectDetails() {
 
   useEffect(() => {
     console.log("useEffects works");
-    dispatch(getDepartmentById(data.id));
-    setDescrip(data.description);
+    // dispatch(getDepartmentById(data.id));
   }, []);
 
   // console.log("department Details*******", departmentDetail);

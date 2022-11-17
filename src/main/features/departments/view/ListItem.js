@@ -24,9 +24,12 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { Card } from "antd";
+import { useDispatch } from "react-redux";
+import { getDepartmentById } from "../store/actions";
 const { Meta } = Card;
 
 function ListItem(props) {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, departmentDictionary } = departmentDictionaryList[
     userLanguage
@@ -39,9 +42,10 @@ function ListItem(props) {
     image,
     members = [],
     approvers,
+    id,
   } = props.item;
 
-  console.log(props.item);
+  // console.log(props.item);
 
   const navigate = useNavigate();
   return (
@@ -54,11 +58,8 @@ function ListItem(props) {
         actions={[]}
         hoverable
         onClick={(e) => {
-          navigate(`${ROUTES.DEPARTMENTS.DETAIL}`, {
-            state: {
-              data: props.item,
-            },
-          });
+          dispatch(getDepartmentById(id));
+          navigate(`${ROUTES.DEPARTMENTS.DETAIL}/${id}`);
         }}
       >
         <Meta

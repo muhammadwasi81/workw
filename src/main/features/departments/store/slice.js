@@ -61,7 +61,7 @@ const departmentSlice = createSlice({
       .addCase(getDepartmentById.fulfilled, (state, { payload }) => {
         // console.log("GetDepartmentById payload", payload.data);
         state.departmentDetail = payload.data;
-        state.loading = false;
+        state.loader = false;
       })
       .addCase(
         updateDepartmentAppraisalQuestion.fulfilled,

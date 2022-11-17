@@ -77,13 +77,16 @@ const careerSlice = createSlice({
       .addCase(getCareerByIdAction.fulfilled, (state, { payload }) => {
         console.log(payload, "payload STATE ITEMS");
         state.careerDetail = payload;
-
+        state.loader = false;
         console.log(state.careerDetail, "STATE ITEMS");
       })
       .addMatcher(isPending(...[addCareer]), (state) => {
         console.log("pending add career applied");
         state.loader = true;
         state.success = false;
+      })
+      .addMatcher(isPending(...[getCareerByIdAction]), (state) => {
+        state.loader = true;
       })
       .addMatcher(isPending(...[addCareerApplicant]), (state) => {
         state.applySuccess = false;

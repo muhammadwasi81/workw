@@ -28,6 +28,7 @@ import {
 	favoriteFeed,
 } from "./actions";
 import { PollType, PostPrivacyType, PostType } from "../utils/constants";
+import { filter } from "lodash";
 
 const composeInitialState = {
 	showComposer: false,
@@ -104,13 +105,21 @@ export const feedSlice = createSlice({
 		},
 		postPoll(state, { payload }) {
 			const { id, postId } = payload;
-			const filteredPoll = state.allFeed.posts
-				.filter(post => post.id === postId)[0]
-				.pollOptions.filter(poll => poll.id === id);
-			// filteredPoll = filteredPoll.filter(poll => poll.id === id);
-			// console.log("payload of poll post", current(filteredPoll[0]));
-			filteredPoll[0].voteCount = filteredPoll[0].voteCount + 1;
-			filteredPoll[0].youVoted = true;
+			let filteredPoll = state.allFeed.posts.filter(
+				post => post.id === postId
+			)[0].pollOptions;
+			let youVoted = false;
+			for (const poll of filteredPoll) {
+				if (poll.youVoted) {
+					youVoted = true;
+					break;
+				}
+			}
+			if (!youVoted) {
+				filteredPoll = filteredPoll.filter(poll => poll.id === id);
+				filteredPoll[0].voteCount = filteredPoll[0].voteCount + 1;
+				filteredPoll[0].youVoted = true;
+			}
 		},
 	},
 	extraReducers: builder => {

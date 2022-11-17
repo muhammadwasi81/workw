@@ -23,6 +23,9 @@ function Polls({ options, voteCounts, id: postId }) {
 				break;
 			} else {
 				setDisableVote(false);
+				// console.log("option id", opt.id);
+				// console.log("opt opeutib", opt.option);
+				// console.log("opt false", opt.youVoted);
 			}
 		}
 	}, [JSON.stringify(options)]);

@@ -49,7 +49,8 @@ function CommentWrapper({
 			})
 		);
 	};
-
+	// console.log("initailComments", initailComments);
+	// console.log("comment", comments);
 	return (
 		<div className="commentWrapper">
 			<CommentComposer
@@ -57,7 +58,18 @@ function CommentWrapper({
 				placeHolder={placeHolder}
 				module={module}
 				commentRequestSuccess={comment => {
-					setComments(preValue => [...preValue, comment]);
+					let updatedComment = {
+						...comment,
+						attachments: comment.attachments.map(attachment => ({
+							path: (
+								window.URL || window.webkitURL
+							).createObjectURL(attachment.file),
+							attachmentName: attachment.file.name,
+						})),
+					};
+
+					// console.log("updatedComment", updatedComment);
+					setComments(preValue => [...preValue, updatedComment]);
 					commentRequestSuccess && commentRequestSuccess(comment);
 				}}
 			/>
@@ -76,6 +88,8 @@ function CommentWrapper({
 							id: commentID,
 							referenceId,
 							mentions: mentionedUser,
+							attachments,
+							attachmentCount,
 						}) => {
 							const { designation, name, image } = creator;
 							return (
@@ -99,6 +113,8 @@ function CommentWrapper({
 											image,
 											designation,
 										},
+										attachments,
+										attachmentCount,
 									}}
 								/>
 							);

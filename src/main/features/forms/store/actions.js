@@ -71,7 +71,7 @@ export const updateForm = createAsyncThunk(
 );
 
 export const getFormById = createAsyncThunk(
-  "Department/getDepartmentById",
+  "Form/getFormById",
   async (data) => {
     const response = await GetFormByIdService(data);
 

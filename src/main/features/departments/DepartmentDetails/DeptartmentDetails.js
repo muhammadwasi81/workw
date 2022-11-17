@@ -8,33 +8,34 @@ import {
 import Tab from "../../../sharedComponents/Tab";
 import LayoutHeader from "../../../layout/header/index";
 import { EditOutlined } from "@ant-design/icons";
-import Travel from "../../travel/index";
-// import "../styles/projects.css";
-// import Budget from "../UI/Budget";
 import CoverDetail from "../view/CoverDetail";
 import CoverImage from "../view/CoverImage";
-import { useLocation } from "react-router-dom";
-// import CoverImage from "../UI/CoverImage";
-// import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
-// import ProjectCover from "../../../../content/png/project_cover_img.png";
-import ProjectCover from "../../../../content/png/project_cover_img.png";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getDepartmentById } from "../store/actions";
 import Appraisal from "../appraisal/index";
-// import WhiteCard from "../UI/WhiteCard";
+import { handleParentId } from "../store/slice";
+import SubDepartment from "./SubDepartment";
 
-function ProjectDetails() {
+function DepartmentDetails() {
   const dispatch = useDispatch();
+  let param = useParams();
   const { departmentDetail } = useSelector((state) => state.departmentSlice);
-  const { state } = useLocation();
-  const [descrip, setDescrip] = useState("");
-  const { data } = state;
+  // const { state } = useLocation();
+  // const { data } = state;
 
-  const { image, description, id } = departmentDetail;
+  useEffect(() => {
+    if (Object.keys(departmentDetail).length > 1) {
+      dispatch(handleParentId(departmentDetail.id));
+    }
+  }, [departmentDetail]);
+
+  const { image, description } = departmentDetail;
+  console.log(departmentDetail);
   const panes = [
     {
-      featureName: `Description`,
-      content: <div>{descrip}</div>,
+      featureName: `Sub Departments`,
+      content: <SubDepartment />,
       featureId: 0,
     },
     {
@@ -42,31 +43,11 @@ function ProjectDetails() {
       content: <Appraisal />,
       featureId: 1,
     },
-    // {
-    //   title: `Workboard`,
-    //   content: <div>Workboard div</div>,
-    //   key: 2,
-    // },
-    // {
-    //   title: `Documents`,
-    //   content: <div>Documents div</div>,
-    //   key: 3,
-    // },
-    // {
-    //   title: `Task`,
-    //   content: <div>Task div</div>,
-    //   key: 4,
-    // },
-    // {
-    //   title: `Expenses`,
-    //   content: <div>Expenses div</div>,
-    //   key: 5,
-    // },
   ];
   const items = [
     {
       name: "Department Details",
-      to: `${ROUTES.DEPARTMENTS.DEFAULT}`,
+      to: `${ROUTES.DEPARTMENTS.DEPARTMENT}`,
       renderButton: [1],
     },
   ];
@@ -76,15 +57,12 @@ function ProjectDetails() {
       icon: <EditOutlined />,
     },
   ];
-  // console.log("details", data);
 
   useEffect(() => {
     console.log("useEffects works");
-    dispatch(getDepartmentById(data.id));
-    setDescrip(data.description);
-  }, []);
+    dispatch(getDepartmentById(param.id));
+  }, [param.id]);
 
-  // console.log("department Details*******", departmentDetail);
   return (
     <TabContainer>
       {/* <LayoutHeader items={items} buttons={buttons} /> */}
@@ -103,4 +81,4 @@ function ProjectDetails() {
   );
 }
 
-export default ProjectDetails;
+export default DepartmentDetails;

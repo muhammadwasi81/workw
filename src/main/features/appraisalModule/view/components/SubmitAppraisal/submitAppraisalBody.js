@@ -4,42 +4,26 @@ import AppraisalForm from "./appraisalForm";
 import TaskComp from "./taskComp";
 import { Form } from "antd";
 
-function SubmitAppraisalBody() {
-  const [form] = Form.useForm();
+function SubmitAppraisalBody(props) {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-
-  // console.log("props in create form", props);
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
   return (
     <>
-      <Form.Provider
-        name="CreateForm"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-        layout="vertical"
-        form={form}
-      >
-        <div className="w-full flex gap-x-5 ">
-          <div className="w-5/12">
-            <TaskComp
-              startDate={(val) => setStartDate(val)}
-              endDate={(val) => setEndDate(val)}
-            />
-          </div>
-          <div className="w-7/12">
-            <AppraisalForm />
-          </div>
+      <div className="w-full flex gap-x-5 ">
+        <div className="w-5/12">
+          <TaskComp
+            startDate={(val) => setStartDate(val)}
+            endDate={(val) => setEndDate(val)}
+          />
         </div>
-      </Form.Provider>
+        <div className="w-7/12">
+          <AppraisalForm
+            submit={props.submit}
+            dataSend={(val) => props.dataSend(val)}
+          />
+        </div>
+      </div>
     </>
   );
 }

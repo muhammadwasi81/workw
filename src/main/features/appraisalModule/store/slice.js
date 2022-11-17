@@ -19,7 +19,7 @@ const defaultCareer = {
 const initialState = {
   success: false,
   items: [],
-  currentTab: " Team Appraisals",
+  currentTab: "teamAppraisals",
   drawerOpen: false,
   careerDetail: {},
   careerApplicants: [],

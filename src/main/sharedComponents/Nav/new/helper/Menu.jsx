@@ -33,6 +33,8 @@ function Menu() {
   }, [Direction, navMenuLabel]);
 
   const activeTab = (isActive, path) => {
+    console.log('isactive',isActive);
+    console.log('path',path);
     return isActive
       ? "on"
       : DOMAIN_PREFIX.length > 0
@@ -131,6 +133,7 @@ function Menu() {
                               return activeTab(isActive, path);
                             }}
                             to={path}
+                            end
                           >
                             <div className="icon">
                               <img src={icon} alt="#" />
@@ -151,6 +154,7 @@ function Menu() {
                             return activeTab(isActive, path);
                           }}
                           to={path}
+                          end
                         >
                           <div className="icon">
                             <img src={icon} alt="#" />

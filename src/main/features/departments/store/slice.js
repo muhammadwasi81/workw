@@ -18,6 +18,7 @@ const initialState = {
   success: false,
   error: false,
   drawerOpen: false,
+  parentId: null,
   departmentDetail: {},
   appraisalQuestion: [],
 };
@@ -31,8 +32,11 @@ const departmentSlice = createSlice({
         (e) => e.id !== payload
       );
     },
-    toggleCreateComposer: (state, payload) => {
-      state.isCreateComposer = !state.isCreateComposer;
+    toggleCreateComposer: (state, { payload }) => {
+      state.isCreateComposer = payload;
+    },
+    handleParentId: (state, { payload }) => {
+      state.parentId = payload;
     },
   },
   extraReducers: (builder) => {
@@ -52,11 +56,12 @@ const departmentSlice = createSlice({
         }
         state.success = true;
         state.createLoader = false;
+        state.isCreateComposer = false;
       })
       .addCase(getDepartmentById.fulfilled, (state, { payload }) => {
         // console.log("GetDepartmentById payload", payload.data);
         state.departmentDetail = payload.data;
-        state.loading = false;
+        state.loader = false;
       })
       .addCase(
         updateDepartmentAppraisalQuestion.fulfilled,
@@ -91,9 +96,13 @@ const departmentSlice = createSlice({
         // console.log("its pending");
         state.success = false;
         state.createLoader = true;
-        state.isCreateComposer = false;
+        state.isCreateComposer = true;
       })
       .addMatcher(isPending(...[getAllDepartments]), (state) => {
+        // console.log("its pending");
+        state.loader = true;
+      })
+      .addMatcher(isPending(...[getDepartmentById]), (state) => {
         // console.log("its pending");
         state.loader = true;
       })
@@ -108,7 +117,10 @@ const departmentSlice = createSlice({
         state.createLoader = false;
       })
       .addMatcher(isRejected(...[getAllDepartments]), (state) => {
-        state.loader = true;
+        state.loader = false;
+      })
+      .addMatcher(isRejected(...[getDepartmentById]), (state) => {
+        state.loader = false;
       })
       .addMatcher(isPending(...[addDepartmentAppraisalQuestion]), (state) => {
         console.log("its pending add department appraisa question");
@@ -120,5 +132,6 @@ const departmentSlice = createSlice({
 export const {
   appraisalQuestionDeleted,
   toggleCreateComposer,
+  handleParentId,
 } = departmentSlice.actions;
 export default departmentSlice.reducer;

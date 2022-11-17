@@ -84,20 +84,22 @@ export const feedSlice = createSlice({
 			feed.isPinnedPost = !feed.isPinnedPost;
 		},
 		addFeedReaction(state, { payload }) {
-			const { reactionMode, referenceId, reactionType } = payload;
+			const { reactionMode, referenceId, myReaction } = payload;
 			const feed = state.allFeed.posts.find(
 				feed => feed.id === referenceId
 			);
 			if (reactionMode && reactionMode === "click") {
-				// feed.reactionType===reactionType
-				if (feed.reactionType === reactionType) {
-					feed.reactionType = 0;
+				// feed.myReaction===myReaction
+				if (feed.myReaction === myReaction) {
+					feed.myReaction = 0;
 					feed.reactionCount = feed.reactionCount - 1;
 					return;
 				}
 			}
-			feed.reactionCount = 1;
-			feed.reactionType = reactionType;
+			if (feed.reactionCount === 0) {
+				feed.reactionCount = 1;
+			}
+			feed.myReaction = myReaction;
 		},
 	},
 	extraReducers: builder => {
@@ -105,7 +107,7 @@ export const feedSlice = createSlice({
 			onFeedCreateSubmitAction.fulfilled,
 			(state, { payload }) => {
 				state.postCompose = composeInitialState;
-				state.allFeed.posts.unshift({ ...payload, reactionType: 0 });
+				state.allFeed.posts.unshift({ ...payload, myReaction: 0 });
 			}
 		);
 		builder.addCase(favoriteFeed.fulfilled, (state, { payload }) => {
@@ -124,19 +126,17 @@ export const feedSlice = createSlice({
 		builder
 			.addMatcher(isFulfilled(...[getAllFeed]), (state, { payload }) => {
 				const { data, pageNo } = payload;
-				let feedData = data.map((data, i) => ({
-					...data,
-					reactionType: 0,
-				}));
+				// let feedData = data.map((data, i) => ({
+				// 	...data,
+				// 	reactionType: 0,
+				// }));
 				// console.log("feedData", feedData);
 				if (pageNo === 1) {
-					state.allFeed.posts = feedData;
+					state.allFeed.posts = data;
 				} else {
-					state.allFeed.posts = state.allFeed.posts.concat(feedData);
+					state.allFeed.posts = state.allFeed.posts.concat(data);
 				}
-				state.allFeed.postIds = state.allFeed.posts.map(
-					feed => feed.id
-				);
+
 				state.allFeed.loading = false;
 			})
 			.addMatcher(isPending(...[getAllFeed]), state => {

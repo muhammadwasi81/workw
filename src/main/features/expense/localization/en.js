@@ -40,7 +40,7 @@ const en = {
     },
     placeHolder: {
       writeHeaderHere: "Write Header Here...",
-      pickCurrentDate: "Pick Date",
+      pickCurrentDate: "Select Date",
       enterAmount: "Enter Amount",
       selectApprovers: "Select Approvers",
       selectFinancers: "Select Financers",

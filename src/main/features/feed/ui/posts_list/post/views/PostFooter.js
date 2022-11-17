@@ -193,9 +193,25 @@ const PostFooter = ({
 				placeHolderReply={WriteYourReplyHere}
 				initailComments={comments}
 				referenceId={id}
-				commentRequestSuccess={comment =>
-					dispatch(feedSlice.actions.onSaveComment({ comment }))
-				}
+				commentRequestSuccess={comment => {
+					// console.log("commentRequestSuccess", comment);
+					let updatedComment = {
+						...comment,
+						attachments: comment.attachments.map(attachment => ({
+							path: (
+								window.URL || window.webkitURL
+							).createObjectURL(attachment.file),
+							attachmentName: attachment.file.name,
+						})),
+					};
+					// console.log("updatedComment", updatedComment);
+
+					dispatch(
+						feedSlice.actions.onSaveComment({
+							comment: updatedComment,
+						})
+					);
+				}}
 				showComments={showComments}
 				isDetailViewOpen={isDetailViewOpen}
 				reactionModule={reactionModule}

@@ -20,9 +20,10 @@ const CommentItem = ({
 		createDate,
 		content,
 		type,
-
 		parentId,
 		module,
+		attachments,
+		attachmentCount,
 	} = comment;
 	const [openComposer, setOpenComposer] = useState(false);
 	const [replies, setReplies] = useState([]);
@@ -47,7 +48,7 @@ const CommentItem = ({
 	};
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
-
+	// console.log("comment", comment);
 	return (
 		<div
 			className={
@@ -63,6 +64,8 @@ const CommentItem = ({
 						content={content}
 						mentionedUser={mentionedUser}
 						date={createDate}
+						attachments={attachments}
+						attachmentCount={attachmentCount}
 					/>
 					{type !== 2 && (
 						<div className="likeReplyCont">
@@ -107,6 +110,10 @@ const CommentItem = ({
 														replyMentionedUser
 													}
 													date={replyCreateDate}
+													attachments={attachments}
+													attachmentCount={
+														attachmentCount
+													}
 												/>
 											</div>
 											<div className="likeReplyCont">

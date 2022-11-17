@@ -84,7 +84,7 @@ const CommentComposer = ({
 		};
 		if (event.keyCode === 13 || event.which === 13) {
 			event.preventDefault();
-			if (state.commentText.length > 0) {
+			if (state.commentText.length > 0 || state.hasAttachment) {
 				// console.log("state", state);
 				const prevText = state.commentText;
 				setState(defaultState);
@@ -164,6 +164,7 @@ const CommentComposer = ({
 							<input
 								accept=".jpg, .jpeg, .gif, .bmp, .png, .mp4"
 								type="file"
+								value=""
 								onChange={handleCommentImageChange}
 							/>
 						</div>
@@ -173,7 +174,7 @@ const CommentComposer = ({
 					<div className="attach-select-area">
 						{
 							<div
-								className="attach"
+								className="attach  !h-[80px] !w-[80px]"
 								title={state.attachmentName}
 								style={{
 									backgroundImage: `url("${state.attachmentPath}")`,

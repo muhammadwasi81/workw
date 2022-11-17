@@ -30,6 +30,7 @@ import { getAllDefaultHiringCriteriaService } from "../../defaultHiringCriteria/
 import { getAllDesignation } from "../../../designation/store/actions";
 import { addCareer } from "../../store/action";
 import { handleOpenComposer } from "../../store/slice";
+import { getAllDepartments } from "../../../departments/store/actions";
 
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -59,7 +60,11 @@ const Composer = (props) => {
   }, []);
 
   const getDepartment = async () => {
-    const { responseCode, data } = await getAllDepartmentService();
+    const { responseCode, data } = await getAllDepartmentService({
+      pageSize: 20,
+      parentId: STRINGS.DEFAULTS.guid,
+    });
+
     if (responseCode === 1001) setDepartment(data);
   };
   const fetchEmployees = (text, pgNo) => {

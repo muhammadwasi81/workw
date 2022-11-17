@@ -32,17 +32,12 @@ function JobDetails() {
   console.log(labels);
 
   useEffect(() => {
-    console.log("useEffect works in detail");
     const payload = {
       careerIds: [id],
     };
     dispatch(getAllCareerApplicant(payload));
     dispatch(getCareerByIdAction(id));
   }, []);
-
-  // console.log(careerDetail);
-  //call get career by id
-  //call get all career applicant
 
   return (
     <TabbableContainer>

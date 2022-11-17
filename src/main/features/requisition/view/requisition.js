@@ -4,30 +4,11 @@ import { Button, Drawer } from "antd";
 import {
   ContBody,
   TabbableContainer,
-<<<<<<< HEAD
-} from '../../../sharedComponents/AppComponents/MainFlexContainer';
-import { Skeleton } from 'antd';
-import { requisitionDictionaryList } from '../localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import Composer from './composer';
-import DetailedView from './DetailedView';
-import './style.css';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getAllRequisition, GetRequisitionById } from '../store/actions';
-import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
-import TopBar from '../../../sharedComponents/topBar/topBar';
-import Header from '../../../layout/header/index';
-import { handleOpenComposer } from '../store/slice';
-import ListItemMyRequisition from './myRequisition';
-import { useNavigate } from 'react-router-dom';
-import ListItem from '../../reward/view/ListItem';
-=======
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Skeleton } from "antd";
 import { requisitionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import Composer from "./Composer";
+import Composer from "./composer";
 import DetailedView from "./DetailedView";
 import "./style.css";
 import { useSelector } from "react-redux";
@@ -40,7 +21,6 @@ import { handleOpenComposer } from "../store/slice";
 import ListItemMyRequisition from "./myRequisition";
 import { useNavigate } from "react-router-dom";
 import ListItem from "../../reward/view/ListItem";
->>>>>>> 2d31cb2774d50b07404cb6cda664d024af3f2ff4
 
 const Requisition = (props) => {
   const navigate = useNavigate();

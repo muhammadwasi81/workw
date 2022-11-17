@@ -11,13 +11,8 @@ import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { Table } from "../../../sharedComponents/customTable";
 import { getAllResignations } from "../store/action";
-<<<<<<< HEAD
 import ListItem from "./ListItem";
 import "./style.css"
-=======
-import ListItem from "./listItem";
-import "./style.css";
->>>>>>> 2d31cb2774d50b07404cb6cda664d024af3f2ff4
 import DetailedView from "./detaileView";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import { handleOpenComposer } from "../store/slice";
@@ -25,12 +20,6 @@ import Composer from "./composer";
 import { tableColumn } from "./TableColumn";
 import { ROUTES } from "../../../../utils/routes";
 
-<<<<<<< HEAD
-
-const Resignation = props => {
-  const dispatch = useDispatch()
-  const [filter, setFilter] = useState({ filterType: 1, search: "", pageNo: 0, pageSize: 20, sortBy: 1 })
-=======
 const Resignation = (props) => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState({
@@ -40,7 +29,6 @@ const Resignation = (props) => {
     pageSize: 20,
     sortBy: 1,
   });
->>>>>>> 2d31cb2774d50b07404cb6cda664d024af3f2ff4
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
 

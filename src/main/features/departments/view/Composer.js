@@ -17,6 +17,7 @@ import MemberComposer from "./MemberComposer";
 import { getNameForImage, STRINGS } from "../../../../utils/base";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
+import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 
 const initialState = {
   id: "",
@@ -42,6 +43,17 @@ const Composer = (props) => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [employeesData, setEmployeesData] = useState([]);
+  const [privacyId, setPrivacyId] = useState(1);
+
+  const onPrivacyChange = (value) => {
+    setPrivacyId(value);
+  };
+
+  //TODO: add these labels in localization
+  const labels = {
+    public: "Public",
+    private: "Private",
+  };
 
   useEffect(() => {
     //TODO:
@@ -95,10 +107,10 @@ const Composer = (props) => {
         id: STRINGS.DEFAULTS.guid,
         file: profileImage[0].originFileObj,
       };
-      let payload = { ...values, image, parentId };
+      let payload = { ...values, image, parentId, privacyId };
       dispatch(addDepartment(payload));
     } else {
-      let payload = { ...values, parentId };
+      let payload = { ...values, parentId, privacyId };
       dispatch(addDepartment(payload));
     }
 
@@ -235,18 +247,25 @@ const Composer = (props) => {
           />
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            size="large"
-            className="ThemeBtn"
-            block
-            htmlType="submit"
-            title={departmentDictionary.createReward}
-            loading={createLoader}
-          >
-            {" "}
-            {"Create Department"}{" "}
-          </Button>
+          <div className="flex items-center gap-2">
+            <PrivacyOptions
+              privacyId={privacyId}
+              onPrivacyChange={onPrivacyChange}
+              labels={labels}
+            />
+            <Button
+              type="primary"
+              size="large"
+              className="ThemeBtn"
+              block
+              htmlType="submit"
+              title={departmentDictionary.createReward}
+              loading={createLoader}
+            >
+              {" "}
+              {"Create Department"}{" "}
+            </Button>
+          </div>
         </Form.Item>
       </Form>
     </>

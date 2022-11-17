@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Skeleton, Space } from "antd";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import { getAllDepartments } from "../store/actions";
@@ -8,6 +9,7 @@ import ListItem from "../view/ListItem";
 
 const SubDepartment = () => {
   const dispatch = useDispatch();
+  let param = useParams();
   const { departments, parentId, loader } = useSelector(
     (state) => state.departmentSlice
   );
@@ -17,7 +19,7 @@ const SubDepartment = () => {
       getAllDepartments({
         pageSize: 20,
         sortBy: 1,
-        parentId: parentId,
+        parentId: parentId ? parentId : param.id,
       })
     );
   }, []);

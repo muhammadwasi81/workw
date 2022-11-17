@@ -25,7 +25,7 @@ const PayrollList = () => {
 		setVisible(true);
 		dispatch(setPayrollDetail(listData.filter(it => it.id === id)[0]));
 	};
-console.log("MyLoader", loader)
+       console.log("MyLoader", loader)
 	return (
 		<>
 	{listData?.length > 0 && !loader ? (
@@ -40,7 +40,7 @@ console.log("MyLoader", loader)
         </CardWrapper>
             ): !loader && <NoDataFound />
 	}
-	{payrollDetail && (<PayrollDetailedView onClose={onClose} id={itemId} visible={visible}/>)}
+	    {payrollDetail && (<PayrollDetailedView onClose={onClose} id={itemId} visible={visible}/>)}
 		
 		</>
 	);

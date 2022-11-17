@@ -63,13 +63,13 @@ const MyApprovalCard = props => {
 				[...Array(15)].map(item => (
 					<Skeleton key={item} avatar paragraph={{ rows: 6 }} />
 				))}
-			{table && (
+			{/* {table && (
 				<Table
 					columns={tableColumn()}
 					dragable={true}
 					data={careers ? careers : []}
 				/>
-			)}
+			)} */}
 
 			{careers?.length > 0 && !loader && !table ? (
 				<CardWrapper

@@ -42,7 +42,7 @@ const Reward = (props) => {
   const { rewards, loader, rewardDetail, drawerOpen } = useSelector(
     (state) => state.rewardSlice
   );
-
+  console.log(drawerOpen, "drawerOpenn rewards");
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {

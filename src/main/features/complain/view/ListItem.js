@@ -5,17 +5,33 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+  ItemContent,
+  ItemHeader,
+  SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 import DefaultAttachment from "../../../../content/NewContent/complain/DefaultAttachment.svg";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
-import "./complain.css"
+import "./complain.css";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, complainDictionary } = complainDictionaryList[userLanguage];
+  const { Direction, complainDictionary } = complainDictionaryList[
+    userLanguage
+  ];
 
-  const { creator, description, image = DefaultAttachment, category, createDate, members = [], approvers, status } = props.item;
+  const {
+    creator,
+    description,
+    image = DefaultAttachment,
+    category,
+    createDate,
+    members = [],
+    approvers,
+    status,
+    referenceNo,
+  } = props.item;
   return (
     <SingleItem className="ComplainListItem">
       <div
@@ -31,11 +47,16 @@ function ListItem(props) {
             <UserInfo
               avatarSrc={creator.image}
               name={creator.name}
-              Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+              Subline={
+                <SublineDesigWithTime
+                  designation={creator.designation ? creator.designation : ""}
+                  time={moment(createDate).fromNow()}
+                />
+              }
             />
           </div>
           <div className="right">
-            <Tag className="IdTag">TRA-000085</Tag>
+            <Tag className="IdTag">{referenceNo}</Tag>
             <StatusTag status={status}></StatusTag>
           </div>
         </div>
@@ -46,15 +67,17 @@ function ListItem(props) {
         </div>
       </ItemContent>
       <div className="cardSections">
-          <div className="cardSectionItem">
-            <div className="cardSection__title">{"Category"}</div>
-            <div className="cardSection__body">{category}</div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{"Category"}</div>
+          <div className="cardSection__body">{category}</div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">
+            {complainDictionary.complainOf}
           </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">{complainDictionary.complainOf}</div>
-            <div className="cardSection__body">
-              { members &&
-                <Avatar
+          <div className="cardSection__body">
+            {members && (
+              <Avatar
                 isAvatarGroup={true}
                 isTag={false}
                 heading={"Members"}
@@ -62,24 +85,26 @@ function ListItem(props) {
                 text={"Members"}
                 image={"https://joeschmoe.io/api/v1/random"}
               />
-              }
-            </div>
+            )}
           </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">{complainDictionary.approvers}</div>
-            <div className="cardSection__body">
-              {approvers &&
-                <Avatar
-                  isAvatarGroup={true}
-                  isTag={false}
-                  heading={"approvers"}
-                  membersData={approvers ? approvers : []}
-                  text={"Approvers"}
-                  image={"https://joeschmoe.io/api/v1/random"}
-                />
-              }
-            </div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">
+            {complainDictionary.approvers}
           </div>
+          <div className="cardSection__body">
+            {approvers && (
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"approvers"}
+                membersData={approvers ? approvers : []}
+                text={"Approvers"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </SingleItem>
   );

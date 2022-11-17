@@ -8,7 +8,7 @@ import {
 import { Skeleton } from "antd";
 import { requisitionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import Composer from "./composer";
+import Composer from "./Composer";
 import DetailedView from "./DetailedView";
 import "./style.css";
 import { useSelector } from "react-redux";

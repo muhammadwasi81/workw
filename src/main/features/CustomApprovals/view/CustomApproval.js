@@ -127,18 +127,9 @@ const CustomApproval = (props) => {
           }}
         />
         <ContBody>
-<<<<<<< HEAD
-          {
-            loader && <Skeleton avatar paragraph={{ rows: 4 }} />
-          }
-          
-          {
-            tableView &&
-=======
           {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
           {tableView && (
->>>>>>> 5c97426d1329d6c6c5783611ff7dd023d8c69488
             <Table
               columns={tableColumn()}
               dragable={true}

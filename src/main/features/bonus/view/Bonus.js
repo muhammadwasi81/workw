@@ -22,9 +22,6 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
-<<<<<<< HEAD
-import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
-=======
 import { useMediaQuery } from "react-responsive";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
@@ -33,7 +30,6 @@ const initialFormData = {
   amount: 0,
   approvers: [],
 };
->>>>>>> 5c97426d1329d6c6c5783611ff7dd023d8c69488
 
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);

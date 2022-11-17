@@ -19,13 +19,9 @@ import { CardWrapper } from "../../../layout/GridStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
-import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
 import { ROUTES } from "../../../../utils/routes";
-<<<<<<< HEAD
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
-=======
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
->>>>>>> 5c97426d1329d6c6c5783611ff7dd023d8c69488
 
 const Leave = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);

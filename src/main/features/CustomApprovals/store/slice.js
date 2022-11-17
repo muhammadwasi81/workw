@@ -25,7 +25,6 @@ const customApprovalSlice = createSlice({
     builder.addCase(getAllCustomApprovals.fulfilled, (state, action) => {
       state.customApprovals = action.payload ? action.payload : [];
       state.loader = false;
-      // state.customApprovals = [action.payload, ...state.customApprovals];
     });
 
     builder.addCase(GetCustomApprovalById.fulfilled, (state, action) => {

@@ -8,7 +8,7 @@ import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { Table } from "../../../sharedComponents/customTable";
 import { getAllResignations } from "../store/action";
-import ListItem from "./listItem";
+import ListItem from "./ListItem";
 import "./style.css"
 import DetailedView from "./detaileView";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
@@ -16,6 +16,7 @@ import { handleOpenComposer } from "../store/slice";
 import Composer from "./composer";
 import { tableColumn } from "./TableColumn";
 import { ROUTES } from "../../../../utils/routes";
+
 
 const Resignation = props => {
   const dispatch = useDispatch()

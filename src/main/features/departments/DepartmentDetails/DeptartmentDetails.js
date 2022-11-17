@@ -8,25 +8,18 @@ import {
 import Tab from "../../../sharedComponents/Tab";
 import LayoutHeader from "../../../layout/header/index";
 import { EditOutlined } from "@ant-design/icons";
-import Travel from "../../travel/index";
-// import "../styles/projects.css";
-// import Budget from "../UI/Budget";
 import CoverDetail from "../view/CoverDetail";
 import CoverImage from "../view/CoverImage";
-import { useLocation } from "react-router-dom";
-// import CoverImage from "../UI/CoverImage";
-// import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
-// import ProjectCover from "../../../../content/png/project_cover_img.png";
-import ProjectCover from "../../../../content/png/project_cover_img.png";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getDepartmentById } from "../store/actions";
 import Appraisal from "../appraisal/index";
 import { handleParentId } from "../store/slice";
 import SubDepartment from "./SubDepartment";
-// import WhiteCard from "../UI/WhiteCard";
 
-function ProjectDetails() {
+function DepartmentDetails() {
   const dispatch = useDispatch();
+  let param = useParams();
   const { departmentDetail } = useSelector((state) => state.departmentSlice);
   // const { state } = useLocation();
   // const { data } = state;
@@ -37,7 +30,7 @@ function ProjectDetails() {
     }
   }, [departmentDetail]);
 
-  const { image, description, id } = departmentDetail;
+  const { image, description } = departmentDetail;
   console.log(departmentDetail);
   const panes = [
     {
@@ -54,7 +47,7 @@ function ProjectDetails() {
   const items = [
     {
       name: "Department Details",
-      to: `${ROUTES.DEPARTMENTS.DEFAULT}`,
+      to: `${ROUTES.DEPARTMENTS.DEPARTMENT}`,
       renderButton: [1],
     },
   ];
@@ -64,14 +57,12 @@ function ProjectDetails() {
       icon: <EditOutlined />,
     },
   ];
-  // console.log("details", data);
 
   useEffect(() => {
     console.log("useEffects works");
-    // dispatch(getDepartmentById(data.id));
-  }, []);
+    dispatch(getDepartmentById(param.id));
+  }, [param.id]);
 
-  // console.log("department Details*******", departmentDetail);
   return (
     <TabContainer>
       {/* <LayoutHeader items={items} buttons={buttons} /> */}
@@ -90,4 +81,4 @@ function ProjectDetails() {
   );
 }
 
-export default ProjectDetails;
+export default DepartmentDetails;

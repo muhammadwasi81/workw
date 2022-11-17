@@ -1,31 +1,12 @@
-import { Image, Tag } from "antd";
-import React, { useContext, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
 import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { getNameForImage } from "../../../../utils/base";
-import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
-import moment from "moment";
-import {
-  ItemContent,
-  ItemHeader,
-  SingleItem,
-} from "../../../sharedComponents/Card/CardStyle";
 import { ROUTES } from "../../../../utils/routes";
 import { useNavigate } from "react-router-dom";
 import departmentDefaultImage from "../../../../content/NewContent/department/department.svg";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
 import { Card } from "antd";
 import { useDispatch } from "react-redux";
-import { getDepartmentById } from "../store/actions";
 const { Meta } = Card;
 
 function ListItem(props) {
@@ -45,8 +26,6 @@ function ListItem(props) {
     id,
   } = props.item;
 
-  // console.log(props.item);
-
   const navigate = useNavigate();
   return (
     <>
@@ -58,7 +37,6 @@ function ListItem(props) {
         actions={[]}
         hoverable
         onClick={(e) => {
-          dispatch(getDepartmentById(id));
           navigate(`${ROUTES.DEPARTMENTS.DETAIL}/${id}`);
         }}
       >

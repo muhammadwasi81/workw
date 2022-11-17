@@ -448,7 +448,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.companies,
       counter: 0,
       icon: companyIcon,
-      to: "/companies",
+      to: ROUTES.COMPANIES.ROOT,
       isActive: true,
       key: label.navMenuLabel.workWiseCompanies,
     },

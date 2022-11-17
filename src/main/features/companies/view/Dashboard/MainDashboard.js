@@ -9,6 +9,8 @@ import TedTalk from "./Sections/TedTalks/TedTalk";
 import Article from "./Sections/Articles/Article";
 import Videos from "./Sections/Videos/Videos";
 import OverAllDashboard from "./Sections/overAll";
+import { ContBody, TabbableContainer } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import Header from "../Header/Header";
 
 function MainDashboard() {
 	const panes = [
@@ -49,10 +51,15 @@ function MainDashboard() {
 		},
 	];
 	return (
-		<div className="overflow-hidden flex flex-col gap-3">
-			<DashboardOverview />
-			<Tab panes={panes} className={"elearning-dashboard__tab"} />
-		</div>
+		<TabbableContainer>
+			<Header />
+			<ContBody>
+				<div className="overflow-hidden flex flex-col gap-3">
+					<DashboardOverview />
+					<Tab panes={panes} className={"elearning-dashboard__tab"} />
+				</div>
+			</ContBody>
+		</TabbableContainer>
 	);
 }
 

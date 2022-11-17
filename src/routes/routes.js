@@ -271,6 +271,7 @@ export const routes = {
 			),
 		},
 
+
 		{
 			path: `${ROUTES.LEAVES.DEFAULT}`,
 			component: lazy(() => import("../main/features/leave/view/Leave")),
@@ -333,7 +334,14 @@ export const routes = {
 				)
 			),
 		},
-
+		{
+			path: `${ROUTES.COMPANIES.DEFAULT}`,
+			component: lazy(() =>
+				import(
+					"../main/features/companies/index"
+				)
+			),
+		},
 		// {
 		// 	path: `${ROUTES.REQUISITION.DEFAULT}`,
 		// 	component: lazy(() =>

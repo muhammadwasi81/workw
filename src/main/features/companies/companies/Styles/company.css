@@ -1,0 +1,107 @@
+.teamCard {
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 5px;
+}
+.teamCard__header {
+  margin-bottom: 10px;
+}
+.teamCard__header--img .ant-avatar {
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  background-color: #000;
+}
+.teamCard__body p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--currentThemeColor);
+  text-transform: capitalize;
+}
+.teamCard__body span {
+  font-size: 10px;
+  color-scheme: #ccc;
+  display: block;
+  line-height: 1;
+}
+.teamCard__body .buttonGroup {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.teamCard__body .buttonGroup button {
+  height: 26px;
+  display: flex;
+  align-items: center;
+}
+.teamListContainer {
+  display: grid;
+  margin-top: 5px;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  height: fit-content;
+  width: 100%;
+}
+.teamListContainer.rtl {
+  direction: rtl;
+}
+.mood {
+  display: flex;
+}
+.updateFormsBody {
+  background-color: white;
+  padding: 12px;
+}
+.BasicInfoForm .ThemeBtn {
+  padding: 17px;
+  line-height: 0;
+  width: 35%;
+  float: right;
+}
+.updateFormsBody .ant-divider-inner-text {
+  font-size: 20px;
+  font-weight: 600;
+}
+.updateFormsBody label {
+  font-weight: 600;
+}
+.updateFormsBody .ant-form-item {
+  margin-bottom: 4px;
+}
+.updateFormsBody .ant-divider-horizontal.ant-divider-with-text {
+  display: flex;
+  margin: 12px
+}
+.SendEmail .ThemeBtn {
+  width: 110px;
+}
+.updateBtn {
+  margin-top: 36px;
+}
+.emailInput {
+  margin-top: 38px;
+}
+
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .BasicInfoForm .ThemeBtn {
+    width: 100%;
+  }
+  .updateBtn {
+    margin-top: 0px;
+  }
+  .emailInput {
+    margin-top: 0px;
+  }
+  #updateCompany .ant-col {
+    width: 100%;
+    max-width: 100%;
+  }
+  #updateCompany .ant-row {
+    display: block;
+  }
+}

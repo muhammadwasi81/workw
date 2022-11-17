@@ -108,6 +108,7 @@ const en = {
     appraisals: 'Appraisals',
     departments: 'Departments',
     leaves: 'Leaves',
+    basicInfo: 'Basic Info',
     loan: 'Loans',
     holidays: 'Holidays',
     careers: 'Careers',
@@ -138,6 +139,7 @@ const en = {
     payroll: 'Payroll',
     jobBoard: 'Job Board',
     teams: 'My Team',
+    basicInfo: "Basic Info"
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -211,14 +213,6 @@ const en = {
       forApprovals: 'For Approvals',
       myApprovals: 'My Approvals',
     },
-
-    /*** hr menu ***/
-    // team: {
-    //   teams: "My Team",
-    // },
-    // teamDetail: {
-    //   teamDetails: "Team Details",
-    // },
     payroll: {
       payroll: 'payroll',
       payrollApproval: 'Payroll Approval',
@@ -316,6 +310,7 @@ const en = {
   payroll: {},
   employee: {},
   administration: {
+    basciInfo: "Basic Info",
     Default_Hiring_Criteria: 'Default Hiring Criteria',
     Fiscal_Year: 'Fiscal Year',
     Tax_Slabs: 'Tax Slabs',
@@ -416,8 +411,10 @@ const en = {
     Rebate: 'Rebate',
     Salary: 'Salary',
     Leaves: 'Leaves',
+    basicInfo: "Basic Info"
   },
   administration: {
+    basicInfo: "Basic Info",
     Subsidiary_Office: 'Subsidiary Office',
     Fiscal_Year: 'Fiscal Year',
     Tax_Slabs: 'Tax Slabs',

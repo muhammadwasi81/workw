@@ -2,24 +2,21 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import {
 	ContBody,
-	TabbableContainer,
 } from "../../sharedComponents/AppComponents/MainFlexContainer";
+import CompanyList from "./companies/view/CompanyList";
+import CompanyUpdate from "./companies/view/UpdateTeam/TeamPannel";
 import MainDashboard from "./view/Dashboard/MainDashboard";
-import Summary from "./view/Dashboard/Summary";
-import TeamDahsboard from "./view/Dashboard/TeamDahsboard";
-import Header from "./view/Header/Header";
 
 function Companies() {
 	return (
 		<>
-			<TabbableContainer>
-				<Header />
-				<ContBody className="!block">
-					<Routes>
-						<Route path="/" element={<MainDashboard />} />
-					</Routes>
-				</ContBody>
-			</TabbableContainer>
+			<ContBody className="!block">
+				<Routes>
+					<Route path="/" element={<CompanyList />} />
+					<Route path="/dashboard" element={<MainDashboard />} />
+					<Route path="/info/*" element={<CompanyUpdate />} />
+				</Routes>
+			</ContBody>
 		</>
 	);
 }

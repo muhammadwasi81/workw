@@ -52,26 +52,6 @@ const MyApprovalCard = props => {
 		setOpenDetail(false);
 	};
 
-<<<<<<< HEAD
-  return (
-    <>
-      <ApprovalComposer visible={openDetail} onClose={handleCancel} id={id} />
-      {
-        loader && (
-          [...Array(15)].map((item) => (
-            <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
-          ))
-        )  
-      }
-      {/* {
-        table &&
-        <Table
-          columns={tableColumn()}
-          dragable={true}
-          data={careers ? careers : []}
-      />
-      } */}
-=======
 	return (
 		<>
 			<ApprovalComposer
@@ -90,7 +70,6 @@ const MyApprovalCard = props => {
 					data={careers ? careers : []}
 				/>
 			)}
->>>>>>> 5c97426d1329d6c6c5783611ff7dd023d8c69488
 
 			{careers?.length > 0 && !loader && !table ? (
 				<CardWrapper

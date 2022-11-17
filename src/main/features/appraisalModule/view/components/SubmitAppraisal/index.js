@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ContBody,
   TabbableContainer,
@@ -14,6 +14,20 @@ function Index() {
   const CurrentTab = useSelector(
     (state) => state.appraisalModuleSlice.currentTab
   );
+  const [submit, setSubmit] = useState(false);
+
+  const createAppraisal = () => {
+    console.log("create works");
+    setSubmit(true);
+  };
+
+  const dataGet = (data) => {
+    console.log(data, "in index file of submit appraisal");
+    //TODO: API call here when API is ready
+
+    //setState submit false when API is called
+    setSubmit(false);
+  };
 
   return (
     <>
@@ -23,10 +37,7 @@ function Index() {
             {
               buttonText: "Submit Appraisals",
               render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => console.log("dispatch submit appraisal here")}
-                >
+                <Button className="ThemeBtn" onClick={() => createAppraisal()}>
                   <PlusOutlined />
                   Submit Appraisals
                 </Button>
@@ -35,7 +46,10 @@ function Index() {
           ]}
         />
         <ContBody>
-          <SubmitAppraisalBody />
+          <SubmitAppraisalBody
+            submit={submit}
+            dataSend={(val) => dataGet(val)}
+          />
         </ContBody>
       </TabbableContainer>
     </>

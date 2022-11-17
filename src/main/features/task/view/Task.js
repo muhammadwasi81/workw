@@ -6,7 +6,6 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import TaskComposer from "./TaskComposer";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header";
@@ -23,6 +22,7 @@ import { TaskReferenceTypeEnum } from "../enums/enum";
 import { handleOpenTaskComposer } from "../store/taskSlice";
 import { Button, Drawer } from "antd";
 import CreateTask from "./createTask/CreateTask";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 import "../view/style/task.css";
 
@@ -83,12 +83,14 @@ function Task({
           {
             buttonText: taskDictionaryList.createTextBtn,
             render: (
-              <Button
-                className="ThemeBtn"
-                onClick={() => dispatch(handleOpenTaskComposer(true))}
-              >
-                {taskDictionaryList.createTextBtn}
-              </Button>
+              <SideDrawer
+                title={taskDictionaryList.createTextBtn}
+                buttonText={taskDictionaryList.createTextBtn}
+                handleClose={() => dispatch(handleOpenTaskComposer(false))}
+                handleOpen={() => dispatch(handleOpenTaskComposer(true))}
+                isOpen={drawerOpen}
+                children={<TaskComposer />}
+              />
             ),
           },
         ]}
@@ -143,36 +145,12 @@ function Task({
           )}
         </div>
       </ContBody>
-      {/* <Drawer
-				title={
-					<h1
-						style={{
-							fontSize: "20px",
-							margin: 0,
-						}}
-					>
-						{taskDictionaryList.createTextBtn}
-					</h1>
-				}
-				width="768"
-				onClose={() => {
-					dispatch(handleOpenComposer(false));
-				}}
-				visible={drawerOpen}
-				destroyOnClose={true}
-				className="detailedViewComposer drawerSecondary"
-			>
-				<TaskComposer
-					referenceId={referenceId}
-					referenceType={referenceType}
-					feature={feature}
-				/>
-			</Drawer> */}
-      <CreateTask
+
+      {/* <CreateTask
         referenceId={referenceId}
         referenceType={referenceType}
         feature={feature}
-      />
+      /> */}
     </TabbableContainer>
   );
 }

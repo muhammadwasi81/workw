@@ -587,7 +587,7 @@ export const ROUTES = {
     APPROVALS: `leaves/approvals`,
   },
   DEPARTMENTS: {
-    DEFAULT: `${DOMAIN_PREFIX}/departments`,
+    DEFAULT: `${DOMAIN_PREFIX}/departments/*`,
     DEPARTMENT: `${DOMAIN_PREFIX}/departments`,
     DETAIL: `${DOMAIN_PREFIX}/departments/department-detail`,
     APPROVALS: `departments/approvals`,

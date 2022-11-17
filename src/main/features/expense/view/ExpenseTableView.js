@@ -23,8 +23,9 @@ function ExpenseTableView() {
   const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
   const { Direction, sharedLabels } = ExpenseDictionaryList;
   const { expenses, loader } = useSelector((state) => state.expenseSlice);
-  const [tableColumnFilter, setTableColumnFilter] =
-    useState(initialTableFilter);
+  const [tableColumnFilter, setTableColumnFilter] = useState(
+    initialTableFilter
+  );
   const onPageChange = (page, pageSize) => {
     console.log("pagination value", page, pageSize);
   };
@@ -110,7 +111,7 @@ function ExpenseTableView() {
       dragable={true}
       // handleChange={handleChange}
       // onPageChange={onPageChange}
-      // onRow={onRow}
+      onRow={onRow}
       data={expenses ? expenses : []}
       // status={travelStatus}
       // loadding={loader}

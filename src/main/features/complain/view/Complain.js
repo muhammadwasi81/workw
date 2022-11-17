@@ -27,6 +27,7 @@ import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 const Reward = (props) => {
   const dispatch = useDispatch();
@@ -48,9 +49,13 @@ const Reward = (props) => {
   });
   const [complainId, setComplainId] = useState("");
 
-  const { complains, complainDetail, loader, drawerOpen } = useSelector(
-    (state) => state.complainSlice
-  );
+  const {
+    complains,
+    complainDetail,
+    loader,
+    drawerOpen,
+    loadingData,
+  } = useSelector((state) => state.complainSlice);
 
   const onClose = () => {
     setVisible(false);
@@ -98,7 +103,6 @@ const Reward = (props) => {
     }
     setSort(1);
   };
-  console.log(tableView, "tableView");
   const { id } = props;
   return (
     <TabbableContainer className="max-width-1190">
@@ -108,12 +112,14 @@ const Reward = (props) => {
           {
             buttonText: "Create Complain",
             render: (
-              <Button
-                className="ThemeBtn"
-                onClick={() => dispatch(handleOpenComposer(true))}
-              >
-                {complainDictionary.createComplain}
-              </Button>
+              <SideDrawer
+                title={"Create Complain"}
+                buttonText={"Create Complain"}
+                handleClose={() => dispatch(handleOpenComposer(false))}
+                handleOpen={() => dispatch(handleOpenComposer(true))}
+                isOpen={drawerOpen}
+                children={<Composer />}
+              />
             ),
           },
         ]}
@@ -154,7 +160,6 @@ const Reward = (props) => {
       />
       <ContBody>
         {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
-
         {tableView && (
           <Table
             columns={tableColumn()}
@@ -184,7 +189,7 @@ const Reward = (props) => {
       </ContBody>
       {/* {complainDetail && <DetailedView onClose={onClose} visible={visible} />} */}
       <DetailedView onClose={onClose} visible={visible} id={complainId} />
-      <Drawer
+      {/* <Drawer
         title={
           <h1
             style={{
@@ -204,7 +209,7 @@ const Reward = (props) => {
         className="detailedViewComposer drawerSecondary"
       >
         <Composer />
-      </Drawer>
+      </Drawer> */}
 
       {/* <DetailedView onClose={onClose} visible={visible} id={complainId} /> */}
     </TabbableContainer>

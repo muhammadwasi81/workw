@@ -22,11 +22,11 @@ function Header() {
       to: `?f=sc`,
       renderButton: [1],
     },
-    {
-      name: "Schedule Interviews",
-      to: `?f=si`,
-      renderButton: [1],
-    },
+    // {
+    //   name: "Schedule Interviews",
+    //   to: `?f=si`,
+    //   renderButton: [1],
+    // },
   ];
   const buttons = [
     {

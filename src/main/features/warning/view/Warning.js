@@ -1,6 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Button, Skeleton, Drawer } from "antd";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -20,6 +23,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -31,11 +35,17 @@ const Warning = (props) => {
 
   const [visible, setVisible] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [filter, setFilter] = useState({
+    filterType: 0,
+    search: "",
+    sortBy: 1,
+  });
 
   const dispatch = useDispatch();
 
-  const { warnings, loader, warningDetail, drawerOpen } = useSelector((state) => state.warningSlice);
+  const { warnings, loader, warningDetail, drawerOpen } = useSelector(
+    (state) => state.warningSlice
+  );
 
   const onClose = () => {
     setVisible(false);
@@ -52,7 +62,7 @@ const Warning = (props) => {
 
   const items = [
     {
-      name: 'Warning',
+      name: "Warning",
       to: `${ROUTES.WARNINGS.DEFAULT}`,
       renderButton: [1],
     },
@@ -66,12 +76,14 @@ const Warning = (props) => {
           {
             buttonText: "Create Warning",
             render: (
-              <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
-                Create Warning
-              </Button>
-              // <SideDrawer title={warningDictionary.createWarning} buttonText={warningDictionary.createWarning} isAccessDrawer={false}>
-              //   <Composer />
-              // </SideDrawer>
+              <SideDrawer
+                title={"Create Warning"}
+                buttonText={"Create Warning"}
+                handleClose={() => dispatch(handleOpenComposer(false))}
+                handleOpen={() => dispatch(handleOpenComposer(true))}
+                isOpen={drawerOpen}
+                children={<Composer />}
+              />
             ),
           },
         ]}
@@ -110,59 +122,31 @@ const Warning = (props) => {
           label2: "Table",
         }}
       />
-        <ContBody>
-                {
-                   loader && <Skeleton avatar paragraph={{ rows: 4 }} />
-                }
+      <ContBody>
+        {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
-               {
-                    tableView &&
-                    <Table
-                    columns={tableColumn()}
-                    dragable={true}
-                    data={warnings}
-                     />
-               }
+        {tableView && (
+          <Table columns={tableColumn()} dragable={true} data={warnings} />
+        )}
 
-              {
-                    warnings?.length > 0 && !loader && !tableView ? (
-                    <CardWrapper>
-                      {warnings.map((item, index)  => {
-                      return (
-                        <ListItem
-                          getWarningId={getWarningId} 
-                          item={item}
-                          id={item.id}
-                          key={index}
-                        />
-                      );
-                      })}
-                    </CardWrapper>
-                    ) : !loader && !tableView && <NoDataFound/>
-			         }
-        </ContBody>
-              {warningDetail && (<DetailedView onClose={onClose} visible={visible} />)}
-      <Drawer
-        title={
-          <h1
-            style={{
-              fontSize: "20px",
-              margin: 0,
-            }}
-          >
-            Create Warning
-          </h1>
-        }
-        width="768"
-        onClose={() => {
-          dispatch(handleOpenComposer(false))
-        }}
-        visible={drawerOpen}
-        destroyOnClose={true}
-        className="detailedViewComposer drawerSecondary"
-      >
-        <Composer />
-      </Drawer>
+        {warnings?.length > 0 && !loader && !tableView ? (
+          <CardWrapper>
+            {warnings.map((item, index) => {
+              return (
+                <ListItem
+                  getWarningId={getWarningId}
+                  item={item}
+                  id={item.id}
+                  key={index}
+                />
+              );
+            })}
+          </CardWrapper>
+        ) : (
+          !loader && !tableView && <NoDataFound />
+        )}
+      </ContBody>
+      {warningDetail && <DetailedView onClose={onClose} visible={visible} />}
     </TabbableContainer>
   );
 };

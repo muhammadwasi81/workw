@@ -16,7 +16,6 @@ export const addNewTask = createAsyncThunk(
   async (request, { rejectWithValue, dispatch }) => {
     const res = await addNewTaskService(request);
     if (res?.responseCode === responseCode.Success) {
-      console.log("response ture condition");
       dispatch(
         openNotification({
           message: "User Task Created Successfully",

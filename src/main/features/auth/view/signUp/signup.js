@@ -68,14 +68,10 @@ function Signup() {
     if (Object.keys(image).length > 0) {
       let payload = { ...values, image };
       dispatch(signup(payload));
-      console.log(image.file, "image file");
-      console.log(payload, "payload");
     } else {
-      let payload = values;
-      dispatch(signup(payload));
+      dispatch(signup(values));
     }
-
-    dispatch(signup(values)); 
+    dispatch(signup(values));
   };
 
   const onChange = (value, name) => {

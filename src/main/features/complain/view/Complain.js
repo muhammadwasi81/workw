@@ -49,9 +49,13 @@ const Reward = (props) => {
   });
   const [complainId, setComplainId] = useState("");
 
-  const { complains, complainDetail, loader, drawerOpen } = useSelector(
-    (state) => state.complainSlice
-  );
+  const {
+    complains,
+    complainDetail,
+    loader,
+    drawerOpen,
+    loadingData,
+  } = useSelector((state) => state.complainSlice);
 
   const onClose = () => {
     setVisible(false);
@@ -156,7 +160,6 @@ const Reward = (props) => {
       />
       <ContBody>
         {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
-
         {tableView && (
           <Table
             columns={tableColumn()}

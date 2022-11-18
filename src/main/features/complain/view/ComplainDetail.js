@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Tag, Button } from "antd";
+import { Tag, Button, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -27,15 +27,24 @@ function ComplainDetail(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { complainDictionary } = complainDictionaryList[userLanguage];
   const { user } = useSelector((state) => state.userSlice);
-  const { complainDetail } = useSelector((state) => state.complainSlice);
+  const {
+    complainDetail,
+    loader,
+    drawerOpen,
+    loadingData,
+    complains,
+  } = useSelector((state) => state.complainSlice);
 
   const dispatch = useDispatch();
   const [updatedStatus, setUpdatedStatus] = useState();
   const { Approved, Declined, Resend } = ApprovalStatus;
   const userId = user.id;
+
   useEffect(() => {
     props.id && dispatch(GetComplainById(props.id));
   }, [props.id]);
+
+  if (loadingData) return <Skeleton />;
 
   return (
     <div className="detailedCard ComplainListItem">
@@ -58,7 +67,7 @@ function ComplainDetail(props) {
             />
           </div>
           <div className="right">
-            <Tag className="IdTag">TRA-000085</Tag>
+            <Tag className="IdTag">{complainDetail?.referenceNo}</Tag>
             <StatusTag status={updatedStatus?.Approvals} />
             {/* {userId === complainDetail?.creator.id ? (
 							complainDetail?.status != Declined &&

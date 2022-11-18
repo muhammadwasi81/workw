@@ -24,6 +24,7 @@ const CommentItem = ({
 		module,
 		attachments,
 		attachmentCount,
+		attachmentFile,
 	} = comment;
 	const [openComposer, setOpenComposer] = useState(false);
 	const [replies, setReplies] = useState([]);
@@ -42,7 +43,7 @@ const CommentItem = ({
 				if (res.length > 0) return res[0];
 				else return reply;
 			});
-
+			console.log("replies", replies);
 			setReplies(replies);
 		}
 	};
@@ -66,6 +67,7 @@ const CommentItem = ({
 						date={createDate}
 						attachments={attachments}
 						attachmentCount={attachmentCount}
+						attachmentFile={attachmentFile}
 					/>
 					{type !== 2 && (
 						<div className="likeReplyCont">
@@ -92,6 +94,7 @@ const CommentItem = ({
 									createDate: replyCreateDate,
 									comment: replyContent,
 									mentions: replyMentionedUser,
+									attachments,
 								}) => {
 									return (
 										<React.Fragment key={Rid}>
@@ -111,9 +114,6 @@ const CommentItem = ({
 													}
 													date={replyCreateDate}
 													attachments={attachments}
-													attachmentCount={
-														attachmentCount
-													}
 												/>
 											</div>
 											<div className="likeReplyCont">

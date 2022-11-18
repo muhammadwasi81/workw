@@ -79,7 +79,9 @@ const CommentComposer = ({
 			referenceId,
 			parentId,
 			comment: title,
-			attachments: [{ id: defaultUiid, file: state.attachmentFile }],
+			attachments: state.hasAttachment
+				? [{ id: defaultUiid, file: state.attachmentFile }]
+				: [],
 			mentions,
 		};
 		if (event.keyCode === 13 || event.which === 13) {

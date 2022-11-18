@@ -10,6 +10,7 @@ function CommentBubble({
 	date,
 	attachments,
 	attachmentCount,
+	attachmentFile
 }) {
 	const { name, designation = "", userImage: image = "" } = user;
 	let ts = moment.utc(date);
@@ -42,7 +43,7 @@ function CommentBubble({
 							<img
 								src={path}
 								altt={attachmentName}
-								className="w-[210px] h-[210px] "
+								className="max-w-[210px] aspect-[9/6]"
 							/>
 						</div>
 					))}

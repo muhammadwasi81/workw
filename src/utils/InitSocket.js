@@ -5,29 +5,33 @@ import { servicesUrls } from "./services/baseURLS";
 import { openNotification } from "./Shared/store/slice";
 
 export const InitMessengerSocket = (dispatch, userSlice) => {
-	console.log(userSlice, "UserSlice")
+	// console.log(userSlice, "UserSlice")
 	// const URL = `${servicesUrls.messenger}hubs/messenger`;
 	const URL = `${servicesUrls.master}hub/notificationHub`;
 	let connection = new HubConnectionBuilder()
-		.withUrl(URL, {accessTokenFactory: () => userSlice.token,})
+		.withUrl(URL, { accessTokenFactory: () => userSlice.token })
 		.configureLogging(LogLevel.Information)
 		.build();
-	connection.start().then(() => { });
+	connection.start().then(() => {});
 	// Receive Message Listner Here
 	connection.on("messageOut", data => {
-		console.log(data, "messageOut mySocket")
+		console.log(data, "messageOut mySocket");
 		if (data.creator.id !== userSlice.user.id) {
 			dispatch(receiveChatMessage(data));
-			dispatch(updateMessageDeliver({
-				chatId:data.chatId,
-				msgIds:[data.id]
-			}));
-			dispatch(openNotification({
-				message: `${data.creator.name} sent you a message ${data.message}`,
-				playSound: true,
-				avatarName: data.creator.name,
-				avatarImage: data.creator.image
-			}));
+			dispatch(
+				updateMessageDeliver({
+					chatId: data.chatId,
+					msgIds: [data.id],
+				})
+			);
+			dispatch(
+				openNotification({
+					message: `${data.creator.name} sent you a message ${data.message}`,
+					playSound: true,
+					avatarName: data.creator.name,
+					avatarImage: data.creator.image,
+				})
+			);
 		}
 	});
 	// connection.on("ReceiveMessage", data => {

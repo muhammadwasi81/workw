@@ -41,6 +41,7 @@ function CommentWrapper({
 	if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
 
 	const handleAddReaction = id => {
+		// console.log("id", id);
 		dispatch(
 			addReaction({
 				referenceId: id,
@@ -58,18 +59,7 @@ function CommentWrapper({
 				placeHolder={placeHolder}
 				module={module}
 				commentRequestSuccess={comment => {
-					let updatedComment = {
-						...comment,
-						attachments: comment.attachments.map(attachment => ({
-							path: (
-								window.URL || window.webkitURL
-							).createObjectURL(attachment.file),
-							attachmentName: attachment.file.name,
-						})),
-					};
-
-					// console.log("updatedComment", updatedComment);
-					setComments(preValue => [...preValue, updatedComment]);
+					setComments(preValue => [...preValue, comment]);
 					commentRequestSuccess && commentRequestSuccess(comment);
 				}}
 			/>
@@ -90,6 +80,7 @@ function CommentWrapper({
 							mentions: mentionedUser,
 							attachments,
 							attachmentCount,
+							attachmentFile,
 						}) => {
 							const { designation, name, image } = creator;
 							return (
@@ -115,6 +106,7 @@ function CommentWrapper({
 										},
 										attachments,
 										attachmentCount,
+										attachmentFile,
 									}}
 								/>
 							);

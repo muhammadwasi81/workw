@@ -76,7 +76,6 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 	useEffect(() => {
 		let defaultFileName = defaultFiles.map(item => item.name);
 		setFileNames(defaultFileName);
-		console.log(defaultFileName, "MOUNT");
 	}, [defaultFiles]);
 
 	const onFinish = values => {

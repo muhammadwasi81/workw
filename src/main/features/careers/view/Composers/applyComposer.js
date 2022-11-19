@@ -17,7 +17,7 @@ const ApplyComposer = (props) => {
   const [attachments, setAttachment] = useState([]);
   const [form] = Form.useForm();
 
-  const { loader, applySuccess, applyComposer } = useSelector(
+  const { careerLoader, applySuccess, applyComposer } = useSelector(
     (state) => state.careerSlice
   );
 
@@ -237,7 +237,7 @@ const ApplyComposer = (props) => {
               className="ThemeBtn"
               block
               htmlType="submit"
-              loading={loader}
+              loading={careerLoader}
             >
               {labels.applyJob}
             </Button>

@@ -1,15 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Tag, Avatar } from "antd";
-// import "antd/dist/antd.css";
-// import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-// import {
-// 	ItemContent,
-// 	ItemHeader,
-// 	SingleItem,
-// } from "../../../../sharedComponents/Card/CardStyle";
-// import { LinkOutlined } from "@ant-design/icons";
-// import "./style.css";
-// import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import moment from "moment";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
@@ -17,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCareerByIdAction } from "../../store/action";
 import { useParams } from "react-router-dom";
 import ApplyComposer from "../Composers/applyComposer";
+import { handleOpenApplyComposer } from "../../store/slice";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { ROUTES } from "../../../../../utils/routes";
 
@@ -27,10 +18,9 @@ const ApplyJob = (props) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [careerData, setCareerData] = useState({});
-  // const [copy, setCopy] = useState(false);
 
   const { labels } = CareerDictionaryList;
-  // console.log(labels);
+
   const careerDetail = useSelector((state) => {
     return state.careerSlice.careerDetail;
   });
@@ -76,8 +66,6 @@ const ApplyJob = (props) => {
     endDate,
   } = careerData;
 
-  // console.log(careerDetail, "career detail in apply job");
-
   const handleDrawerClose = () => {
     setVisible(false);
   };
@@ -85,6 +73,7 @@ const ApplyJob = (props) => {
   const handleDrawerOpen = () => {
     console.log("handle drawer open");
     setVisible(true);
+    dispatch(handleOpenApplyComposer(true));
   };
 
   const skillsArray = skills?.split(",");
@@ -159,7 +148,6 @@ const ApplyJob = (props) => {
               <div className="cardSection__body">
                 {createDate ? moment(createDate).format("Do MMM YY") : "-"}
               </div>
-              s
             </div>
             <div className="cardSectionItem">
               <div className="cardSection__title">Experience Required</div>

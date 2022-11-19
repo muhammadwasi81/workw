@@ -26,6 +26,7 @@ const initialState = {
   careerDetail: {},
   careerApplicants: [],
   loader: false,
+  careerLoader: false,
 };
 
 const careerSlice = createSlice({
@@ -64,7 +65,7 @@ const careerSlice = createSlice({
         console.log(payload);
         state.applySuccess = true;
         state.applyComposer = false;
-        state.loading = false;
+        state.careerLoader = false;
       })
       .addCase(getAllCareerApplicant.fulfilled, (state, { payload }) => {
         state.careerApplicants = payload;
@@ -90,11 +91,15 @@ const careerSlice = createSlice({
       })
       .addMatcher(isPending(...[addCareerApplicant]), (state) => {
         state.applySuccess = false;
-        state.loading = true;
+        state.careerLoader = true;
         console.log("pending applied");
       })
       .addMatcher(isPending(...[getAllCareerAction]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isRejected(...[addCareerApplicant]), (state) => {
+        state.careerLoader = true;
+        console.log("rejected ");
       });
   },
 });

@@ -16,25 +16,25 @@ function NewTravelDetailCard(props) {
 				<div className="flex justify-between items-center ">
 					<div className="flex flex-col items-center ">
 						<span className="text-lg font-semibold">
-							{travel?.departure.name
-								? travel.departure.name
+							{travel?.departure?.name
+								? travel.departure?.name
 								: travel.departure}
 						</span>
 						<span>
-							{travel?.departure.country
-								? travel.departure.country
+							{travel?.departure?.country
+								? travel.departure?.country
 								: travel.departureCountry}
 						</span>
 					</div>
 					<div className="flex flex-col items-center ">
 						<span className="text-lg font-semibold">
-							{travel?.arrival.name
-								? travel.arrival.name
+							{travel?.arrival?.name
+								? travel.arrival?.name
 								: travel.arrival}
 						</span>
 						<span>
-							{travel?.arrival.country
-								? travel.arrival.country
+							{travel?.arrival?.country
+								? travel.arrival?.country
 								: travel.arrivalCountry}
 						</span>
 					</div>

@@ -8,8 +8,6 @@ import { getCareerByIdAction } from "../../store/action";
 import { useParams } from "react-router-dom";
 import ApplyComposer from "../Composers/applyComposer";
 import { handleOpenApplyComposer } from "../../store/slice";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { ROUTES } from "../../../../../utils/routes";
 
 const ApplyJob = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -31,21 +29,22 @@ const ApplyJob = (props) => {
 
   useEffect(() => {
     //call career by id function
-    dispatch(getCareerByIdAction(id));
-  }, []);
+    if (id) {
+      dispatch(getCareerByIdAction(id));
+    }
+  });
 
   useEffect(() => {
     //works at start to set first element from in state array
     if (Object.keys(careers).length > 1) {
-      console.log(careers, "***");
       setCareerData(careers[0]);
     }
   }, [careers]);
 
-  console.log(id, "id");
+  // console.log(id, "id");
 
   useEffect(() => {
-    console.log("useEffect works when component update");
+    // console.log("useEffect works when component update");
     if (Object.keys(careerDetail).length > 1) {
       setCareerData(careerDetail);
     }
@@ -91,7 +90,14 @@ const ApplyJob = (props) => {
         >
           <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
             <div>
-              <Avatar size={45} src={creator?.image} />
+              <Avatar
+                size={45}
+                src={
+                  creator?.image
+                    ? creator.image
+                    : "https://joeschmoe.io/api/v1/random"
+                }
+              />
             </div>
             <div className="flex-1">
               <div className="text-[16px] font-bold text-sky-900">

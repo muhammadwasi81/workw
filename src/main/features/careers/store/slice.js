@@ -27,6 +27,7 @@ const initialState = {
   careerApplicants: [],
   loader: false,
   careerLoader: false,
+  createLoader: false,
 };
 
 const careerSlice = createSlice({
@@ -57,7 +58,7 @@ const careerSlice = createSlice({
         console.log(payload);
         state.drawerOpen = false;
         state.success = true;
-        state.loader = false;
+        state.createLoader = false;
         // state.items = [...state.items, payload];
         state.items.unshift(payload);
       })
@@ -72,6 +73,7 @@ const careerSlice = createSlice({
         // console.log(payload);
       })
       .addCase(getAllCareerAction.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.items = payload;
         state.loader = false;
       })
@@ -83,12 +85,12 @@ const careerSlice = createSlice({
       })
       .addMatcher(isPending(...[addCareer]), (state) => {
         console.log("pending add career applied");
-        state.loader = true;
+        state.createLoader = true;
         state.success = false;
       })
-      .addMatcher(isPending(...[getCareerByIdAction]), (state) => {
-        state.loader = true;
-      })
+      // .addMatcher(isPending(...[getCareerByIdAction]), (state) => {
+      //   state.loader = true;
+      // })
       .addMatcher(isPending(...[addCareerApplicant]), (state) => {
         state.applySuccess = false;
         state.careerLoader = true;
@@ -97,8 +99,18 @@ const careerSlice = createSlice({
       .addMatcher(isPending(...[getAllCareerAction]), (state) => {
         state.loader = true;
       })
+      // .addMatcher(isRejected(...[getCareerByIdAction]), (state) => {
+      //   state.loader = false;
+      // })
+      .addMatcher(isRejected(...[addCareer]), (state) => {
+        state.createLoader = false;
+      })
+      .addMatcher(isRejected(...[getAllCareerAction]), (state) => {
+        state.loader = false;
+        console.log("rejected ");
+      })
       .addMatcher(isRejected(...[addCareerApplicant]), (state) => {
-        state.careerLoader = true;
+        state.careerLoader = false;
         console.log("rejected ");
       });
   },

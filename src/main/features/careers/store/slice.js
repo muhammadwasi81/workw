@@ -55,7 +55,7 @@ const careerSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addCareer.fulfilled, (state, { payload }) => {
-        console.log(payload);
+        // console.log(payload);
         state.drawerOpen = false;
         state.success = true;
         state.createLoader = false;
@@ -63,7 +63,7 @@ const careerSlice = createSlice({
         state.items.unshift(payload);
       })
       .addCase(addCareerApplicant.fulfilled, (state, { payload }) => {
-        console.log(payload);
+        // console.log(payload);
         state.applySuccess = true;
         state.applyComposer = false;
         state.careerLoader = false;
@@ -73,18 +73,18 @@ const careerSlice = createSlice({
         // console.log(payload);
       })
       .addCase(getAllCareerAction.fulfilled, (state, { payload }) => {
-        console.log(payload);
+        // console.log(payload);
         state.items = payload;
         state.loader = false;
       })
       .addCase(getCareerByIdAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "payload STATE ITEMS");
+        // console.log(payload, "payload STATE ITEMS");
         state.careerDetail = payload;
         state.loader = false;
-        console.log(state.careerDetail, "STATE ITEMS");
+        // console.log(state.careerDetail, "STATE ITEMS");
       })
       .addMatcher(isPending(...[addCareer]), (state) => {
-        console.log("pending add career applied");
+        // console.log("pending add career applied");
         state.createLoader = true;
         state.success = false;
       })
@@ -107,11 +107,11 @@ const careerSlice = createSlice({
       })
       .addMatcher(isRejected(...[getAllCareerAction]), (state) => {
         state.loader = false;
-        console.log("rejected ");
+        console.log("rejected get all career");
       })
       .addMatcher(isRejected(...[addCareerApplicant]), (state) => {
         state.careerLoader = false;
-        console.log("rejected ");
+        console.log("rejected add career applicant");
       });
   },
 });

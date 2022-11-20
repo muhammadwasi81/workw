@@ -13,23 +13,28 @@ import AssetsList from './assetsList';
 import { TableColumn } from './tableColumn';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import AssetComposer from './composer/assetAllocationComposer';
-import AssetDeAllocationComposer from './composer/deAllocationComposer';
 import { Skeleton } from 'antd';
-import { handleOpenComposer } from '../store/slice';
-import { handleDeAllocationComposer } from '../../createAssets/store/slice';
+import AssetDeAllocationComposer from './composer/deAllocationComposer';
+import {
+  handleOpenDeAllocComposer,
+  handleAllocOpenComposer,
+} from '../../createAssets/store/slice';
 
 const Index = () => {
   const dispatch = useDispatch();
 
-  const { inventoryDrawerOpen } = useSelector(
-    (state) => state.inventoryAssetSlice
+  const {
+    loader,
+    assetItemList,
+    drawerDeAllocOpen,
+    drawerAllocOpen,
+  } = useSelector((state) => state.AssetItemSlice);
+  console.log(
+    drawerDeAllocOpen,
+    'drawerDeAllocOpen',
+    drawerAllocOpen,
+    'drawerAllocOpen'
   );
-  console.log(inventoryDrawerOpen, 'inventoryDrawerOpen');
-
-  const { assetItemList, assetDrawerOpen } = useSelector(
-    (state) => state.AssetItemSlice
-  );
-  console.log(assetDrawerOpen, 'assetDrawerOpen');
 
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
@@ -45,7 +50,7 @@ const Index = () => {
 
   const filterButtons = [
     {
-      name: 'Allocation For Me',
+      name: 'Allocation For be',
       onClick: () => setFilterType(0),
     },
     {
@@ -72,11 +77,11 @@ const Index = () => {
       buttonText: 'Assets Allocation',
       render: (
         <SideDrawer
-          title={'Create Assets'}
+          title={'Add Assets Allocation'}
           buttonText={'Add Assets Allocation'}
-          handleClose={() => dispatch(handleOpenComposer(false))}
-          handleOpen={() => dispatch(handleOpenComposer(true))}
-          isOpen={inventoryDrawerOpen}
+          handleClose={() => dispatch(handleAllocOpenComposer(false))}
+          handleOpen={() => dispatch(handleAllocOpenComposer(true))}
+          isOpen={drawerAllocOpen}
           children={<AssetComposer />}
         />
       ),
@@ -85,11 +90,11 @@ const Index = () => {
       buttonText: 'De-allocation',
       render: (
         <SideDrawer
-          title={'De-Allocated Assets'}
-          buttonText={'De-Allocation'}
-          handleClose={() => dispatch(handleDeAllocationComposer(false))}
-          handleOpen={() => dispatch(handleDeAllocationComposer(true))}
-          isOpen={assetDrawerOpen}
+          title={'De-allocation'}
+          buttonText={'De-allocation'}
+          handleClose={() => dispatch(handleOpenDeAllocComposer(false))}
+          handleOpen={() => dispatch(handleOpenDeAllocComposer(true))}
+          isOpen={drawerDeAllocOpen}
           children={<AssetDeAllocationComposer />}
         />
       ),
@@ -99,7 +104,11 @@ const Index = () => {
   const render = {
     List: <AssetsList data={assetItemList} />,
     Table: (
-      <Table columns={TableColumn()} dragable={true} data={assetItemList} />
+      <Table
+        columns={TableColumn()}
+        dragable={true}
+        data={assetItemList ? assetItemList : []}
+      />
     ),
   };
 
@@ -116,7 +125,7 @@ const Index = () => {
             label2: 'Table',
           }}
         />
-        {/* {loader || inventoryLoader ? (
+        {/* {loader ? (
           <>
             <Skeleton avatar paragraph={{ rows: 4 }} />
           </>

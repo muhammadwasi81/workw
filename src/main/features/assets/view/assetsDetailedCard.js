@@ -35,7 +35,7 @@ const AssetsDetailCard = (props) => {
             avatarSrc={
               assetItemByUserId.assetItemByUserId.creator?.image
                 ? assetItemByUserId.assetItemByUserId.creator?.image
-                : `https://58.65.211.234:4436/Resources\\cfe50d8d-7c47-4abb-9154-661daf129cec\\Images\\45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg`
+                : `https://58.65.211.234:4436/Resources/cfe50d8d-7c47-4abb-9154-661daf129cec/Images/45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg`
             }
             name={assetItemByUserId.assetItemByUserId.creator?.name}
             Subline={

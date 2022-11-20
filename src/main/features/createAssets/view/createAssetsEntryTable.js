@@ -132,12 +132,9 @@ const CreateAssetsEntryTable = () => {
     }
     let payload = createPayload();
     console.log(payload, 'payload');
-    if (success) {
-      dispatch(addAssetItem(payload));
-      message.success('Asset added successfully');
-    }
+    dispatch(addAssetItem(payload));
     setEntries(initialEntries);
-    navigate('/assetsList');
+    // navigate('/assetsList');
   };
 
   return (

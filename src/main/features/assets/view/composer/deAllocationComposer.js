@@ -14,25 +14,26 @@ import '../styles.css';
 
 const initialState = {
   id: '',
-  handoverId: '',
-  approvers: [
-    {
-      approverId: '',
-      approverType: 0,
-      isDefault: true,
-      status: 1,
-      email: '',
-    },
-  ],
-  assetItems: [
-    {
-      id: '',
-      assetId: '',
-      itemId: '',
-      name: '',
-      code: '',
-    },
-  ],
+  // handoverId: '',
+  status: '',
+  // approvers: [
+  //   {
+  //     approverId: '',
+  //     approverType: 0,
+  //     isDefault: true,
+  //     status: 1,
+  //     email: '',
+  //   },
+  // ],
+  // assetItems: [
+  //   {
+  //     id: '',
+  //     assetId: '',
+  //     itemId: '',
+  //     name: '',
+  //     code: '',
+  //   },
+  // ],
 };
 
 const AssetDeAllocationComposer = () => {
@@ -45,9 +46,9 @@ const AssetDeAllocationComposer = () => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
+  const [status, setStatus] = useState('');
 
   const { assetItemByUserId } = useSelector((state) => state.AssetItemSlice);
-
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   const selectedData = (data, obj) => {
@@ -57,6 +58,7 @@ const AssetDeAllocationComposer = () => {
   };
 
   const handleData = (id) => {
+    console.log(id, 'id');
     dispatch(getAssetItemByUserId(id));
   };
 
@@ -93,19 +95,25 @@ const AssetDeAllocationComposer = () => {
   }, [employees]);
 
   const onFinish = (values) => {
+    console.log(values, 'values');
     if (!assetItemByUserId[0]?.id) {
       return message.error('No Asset Items Found');
     }
-    console.log('de-allocation', values);
-    dispatch(
-      updateAssetItems({
-        id: assetItemByUserId[0]?.id,
-        status: values.status,
-      })
-    );
+    let payload = {
+      ...values,
+      id: assetItemByUserId[0]?.id,
+      status: status,
+    };
+    console.log(payload, 'payload data');
+    dispatch(updateAssetItems(payload));
+    // dispatch(
+    //   updateAssetItems({
+    //     id: assetItemByUserId[0]?.id,
+    //     status: status,
+    //   })
+    // );
     setState(initialState);
     form.resetFields();
-    dispatch(getAssetItemByUserId(''));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -197,10 +205,7 @@ const AssetDeAllocationComposer = () => {
                           defaultValue={x.status}
                           onChange={(e) => {
                             console.log('e', e);
-                            setNewState({
-                              ...newState,
-                              status: e,
-                            });
+                            setStatus(e);
                           }}
                         >
                           <Select.Option value={1}>

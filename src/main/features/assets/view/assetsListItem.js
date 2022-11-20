@@ -35,11 +35,15 @@ const AssetsListItem = (props) => {
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={creator.image}
-              name={creator.name}
+              avatarSrc={
+                creator?.image
+                  ? creator?.image
+                  : 'https://58.65.211.234:4436/Resources/cfe50d8d-7c47-4abb-9154-661daf129cec/Images/45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg'
+              }
+              name={creator?.name}
               Subline={
                 <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : ''}
+                  designation={creator?.designation ? creator?.designation : ''}
                   time={moment(createDate).fromNow()}
                 />
               }
@@ -61,7 +65,7 @@ const AssetsListItem = (props) => {
             <div className="cardSection__body">{value}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Handover</div>
+            <div className="cardSection__title">Name</div>
             <div className="cardSection__body">{name}</div>
           </div>
           <div className="cardSectionItem">

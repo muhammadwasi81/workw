@@ -334,6 +334,14 @@ export const routes = {
       path: `${ROUTES.PAYROLL.DEFAULT}`,
       component: lazy(() => import('../main/features/payroll/view/index')),
     },
+    {
+			path: `${ROUTES.COMPANIES.DEFAULT}`,
+			component: lazy(() =>
+				import(
+					"../main/features/companies/index"
+				)
+			),
+		},
   ],
   AdminRoutes: [
     {

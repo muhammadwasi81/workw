@@ -4,23 +4,24 @@ import {
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { List, Skeleton } from "antd";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { STRINGS } from "../../../../utils/base";
+import { ROUTES } from "../../../../utils/routes";
 import { getAllDepartments, GetRewardById } from "../store/actions";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
 import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
-import Header from "../../../layout/header/index";
+import Header from "../../../layout/header";
 import { Avatar, Card, Space, Button, Drawer } from "antd";
-import { toggleCreateComposer } from "../store/slice";
+import { handleParentId, toggleCreateComposer } from "../store/slice";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 const { Meta } = Card;
 
@@ -51,12 +52,17 @@ const Department = (props) => {
   };
 
   useEffect(() => {
+    dispatch(handleParentId(STRINGS.DEFAULTS.guid));
+  }, []);
+
+  useEffect(() => {
     dispatch(
       getAllDepartments({
         // filter,
         pageSize: 20,
         search,
         sortBy: 1,
+        parentId: STRINGS.DEFAULTS.guid,
       })
     );
   }, [search]);
@@ -65,23 +71,33 @@ const Department = (props) => {
 
   // },[departments])
   // const onSearch = (value) => setSearch(value);
+
+  const items = [
+    {
+      name: "Departments",
+      to: `${ROUTES.DEPARTMENTS.DEPARTMENT}`,
+      renderButton: [1],
+    },
+  ];
+
   return (
     <>
       <TabbableContainer className="">
         <Header
+          items={items}
           buttons={[
             {
               buttonText: "Create Department",
 
               render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => {
-                    dispatch(toggleCreateComposer());
-                  }}
-                >
-                  {departmentDictionary.createDepartment}
-                </Button>
+                <SideDrawer
+                  title={departmentDictionary.createDepartment}
+                  buttonText={departmentDictionary.createDepartment}
+                  handleClose={() => dispatch(toggleCreateComposer(false))}
+                  handleOpen={() => dispatch(toggleCreateComposer(true))}
+                  isOpen={isCreateComposer}
+                  children={<Composer />}
+                />
               ),
             },
           ]}
@@ -204,29 +220,6 @@ const Department = (props) => {
           )} 
         */}
         </ContBody>
-        <Drawer
-          title={
-            <h1
-              style={{
-                fontSize: "20px",
-                margin: 0,
-                textAlign: Direction === "ltr" ? "" : "end",
-              }}
-            >
-              {departmentDictionary.createDepartment}
-            </h1>
-          }
-          placement={Direction === "rtl" ? "left" : "right"}
-          width="768"
-          onClose={() => {
-            dispatch(toggleCreateComposer());
-          }}
-          visible={isCreateComposer}
-          destroyOnClose={true}
-          className="detailedViewComposer drawerSecondary"
-        >
-          <Composer />
-        </Drawer>
       </TabbableContainer>
     </>
   );

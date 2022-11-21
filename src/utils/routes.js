@@ -492,19 +492,6 @@ export const ROUTES = {
       DEFAULT: `${DOMAIN_PREFIX}/hr/careers`,
       JOB_BY_ID: `${DOMAIN_PREFIX}/hr/careers/job`,
     },
-
-    COMPANIES: {
-      DEFAULT: `${DOMAIN_PREFIX}/hr/companies`,
-      RIGHTS_REQUEST: `${DOMAIN_PREFIX}/hr/companies/request_rights`,
-      DASHBOARD: `${DOMAIN_PREFIX}/hr/companies/dashboard`,
-      ADD: `${DOMAIN_PREFIX}/hr/companies/add`,
-      UPDATE: `${DOMAIN_PREFIX}/hr/companies/update`,
-      DETAILS: `${DOMAIN_PREFIX}/hr/companies/details`,
-      BUSINESS_RIGHTS: `${DOMAIN_PREFIX}/hr/companies/rights`,
-      EMAIL_CONFIG: `${DOMAIN_PREFIX}/hr/companies/emailConfig`,
-      EMAIL_SEND: `${DOMAIN_PREFIX}/hr/companies/emailSend`,
-      INDIVIDUAL_DASHBOARD: `${DOMAIN_PREFIX}/hr/companies/individualDashboard`,
-    },
     EMPLOYEES_ADD: `${DOMAIN_PREFIX}/hr/employees/add`,
     DEPARTMENTS: `${DOMAIN_PREFIX}/hr/departments`,
     SUBDEPARTMENT: `${DOMAIN_PREFIX}/hr/departments/list`,
@@ -600,7 +587,7 @@ export const ROUTES = {
     APPROVALS: `leaves/approvals`,
   },
   DEPARTMENTS: {
-    DEFAULT: `${DOMAIN_PREFIX}/departments`,
+    DEFAULT: `${DOMAIN_PREFIX}/departments/*`,
     DEPARTMENT: `${DOMAIN_PREFIX}/departments`,
     DETAIL: `${DOMAIN_PREFIX}/departments/department-detail`,
     APPROVALS: `departments/approvals`,

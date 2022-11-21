@@ -38,6 +38,7 @@ function Expenses({
   const { isCreateComposer, drawerOpen } = useSelector(
     (state) => state.expenseSlice
   );
+  console.log(drawerOpen, "drawerOpen slice");
   const [view, setView] = useState("List");
   const dispatch = useDispatch();
   const { labels } = ExpenseDictionaryList;
@@ -126,36 +127,6 @@ function Expenses({
         }}
       />
       <ContBody className={width}>{render[view]}</ContBody>
-      {/* <Drawer
-				title={
-					<h1
-						style={{
-							fontSize: "20px",
-							margin: 0,
-						}}
-					>
-						{ExpenseDictionaryList.createTextBtn}
-					</h1>
-				}
-				width="768"
-				onClose={() => {
-					dispatch(handleOpenComposer(false));
-				}}
-				visible={drawerOpen}
-				destroyOnClose={true}
-				className="detailedViewComposer drawerSecondary"
-			>
-				<CreateExpense
-					feature={feature}
-					referenceId={referenceId}
-					referenceType={referenceType}
-				/>
-			</Drawer> */}
-      {/* <OpenCreateExpense
-        feature={feature}
-        referenceId={referenceId}
-        referenceType={referenceType}
-      /> */}
     </TabbableContainer>
   );
 }

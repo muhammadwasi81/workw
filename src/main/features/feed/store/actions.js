@@ -188,6 +188,7 @@ function onPostPollOptionTextChange(state, { payload: { index, value } }) {
 	state.postCompose.poll.options = currentOptions;
 }
 function onSaveComment(state, { payload: { comment } }) {
+	// console.log("payload", comment);
 	const { referenceId } = comment;
 	let {
 		allFeed: { posts },

@@ -9,12 +9,18 @@ import { expenseCategory } from "../enums/expenseCategory";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { getStatusLabelAndColor } from "../../../sharedComponents/AppComponents/Approvals/enums";
 import { ApprovalDictionary } from "../../../sharedComponents/AppComponents/Approvals/localization";
+import Attachments from "../../travel/view/UI/Attachments";
 
-function ExpenseList({ onExpense = () => {}, expense, updateStatus }) {
+function ExpenseList({
+  onExpense = () => {},
+  expense,
+  updateStatus,
+  isDetail = false,
+}) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
   const { status: statusLabels } = ApprovalDictionary[userLanguage];
-
+  console.log(isDetail, "isDetaillll");
   if (!Object || !Object?.keys(expense)?.length > 0) return null;
   const {
     creator: { name, image, designation },
@@ -29,7 +35,10 @@ function ExpenseList({ onExpense = () => {}, expense, updateStatus }) {
     approvers,
     executors,
     financers,
+    attachments,
   } = expense;
+  console.log(expense, "expense list");
+  console.log(isDetail, "isDetail");
   const { labels } = ExpenseDictionaryList;
   let classes = "expenseCard ";
   classes += Direction === "rtl" ? "rtl" : "";
@@ -63,6 +72,15 @@ function ExpenseList({ onExpense = () => {}, expense, updateStatus }) {
       </div>
       <div className="expenseCard__body">
         <p className="expenseCard__para">{description}</p>
+        <div className="!w-max m-4 ml-auto attachmentBox">
+          <Attachments
+            data={attachments}
+            key={{ data: attachments }}
+            toShow={1}
+            onClick={() => {}}
+            size={"50px"}
+          />
+        </div>
         <div className="expensedetail">
           <div className="expensedetail__header">
             <div className="left">
@@ -88,6 +106,7 @@ function ExpenseList({ onExpense = () => {}, expense, updateStatus }) {
           </div>
         </div>
       </div>
+      {/* {!isDetail ? ( */}
       <div className="expenseCard__footer">
         <div className="card-column-view">
           <div className="card-column-item">
@@ -131,6 +150,9 @@ function ExpenseList({ onExpense = () => {}, expense, updateStatus }) {
           </div>
         </div>
       </div>
+      {/* ) : (
+        ""
+      )} */}
     </div>
   );
 }

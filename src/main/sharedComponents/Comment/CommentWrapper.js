@@ -41,6 +41,7 @@ function CommentWrapper({
 	if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
 
 	const handleAddReaction = id => {
+		// console.log("id", id);
 		dispatch(
 			addReaction({
 				referenceId: id,
@@ -49,7 +50,8 @@ function CommentWrapper({
 			})
 		);
 	};
-
+	// console.log("initailComments", initailComments);
+	// console.log("comment", comments);
 	return (
 		<div className="commentWrapper">
 			<CommentComposer
@@ -76,6 +78,9 @@ function CommentWrapper({
 							id: commentID,
 							referenceId,
 							mentions: mentionedUser,
+							attachments,
+							attachmentCount,
+							attachmentFile,
 						}) => {
 							const { designation, name, image } = creator;
 							return (
@@ -99,6 +104,9 @@ function CommentWrapper({
 											image,
 											designation,
 										},
+										attachments,
+										attachmentCount,
+										attachmentFile,
 									}}
 								/>
 							);

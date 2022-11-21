@@ -1,0 +1,101 @@
+.row-dragging {
+  background: #fafafa;
+  border: 1px solid #ccc;
+  z-index: 10;
+}
+
+.row-dragging td {
+  padding: 16px;
+  /* width: 300px; */
+}
+
+/* .ant-table-thead > tr > th {
+  padding: 0px !important;
+} */
+
+.row-dragging .drag-visible {
+  visibility: visible;
+}
+
+.custom_table tr:nth-child(odd) td {
+  background: #f4f4f4;
+}
+
+thead tr th {
+  background: var(--currentThemeColor) !important;
+  color: white !important;
+}
+
+.custom_table .ant-table-tbody > tr > td {
+  padding: 5px 16px !important;
+  height: 47px;
+  font-size: 12px;
+}
+.custom_table .longDsc {
+  max-width: 122px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.custom_table .dateTime {
+  width: 120px;
+}
+.custom_table .status {
+  width: 110px;
+}
+.custom_table .moodCls {
+  width: 150px;
+}
+.custom_table .leaveType {
+  width: 150px;
+}
+.custom_table .referenceNo {
+  width: 150px;
+}
+.custom_table .category {
+  width: 190px;
+}
+.custom_table .experience {
+  width: 190px;
+}
+.custom_table .totalAmount {
+  width: 150px;
+}
+.custom_table .deduction {
+  width: 170px;
+}
+.custom_table .designationStyle {
+  width: 170px;
+}
+.custom_table .name {
+  max-width: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.custom_table .ant-table-thead > tr > th {
+  padding: 5px 15px !important;
+  height: 37px;
+  font-size: 12px;
+}
+
+.ant-table-column-sorter-down.active,
+.ant-table-column-sorter-up.active {
+  color: white !important;
+}
+
+.drag-handle {
+  margin: 0px;
+}
+
+.custom_table.rtl .ant-table-thead,
+.custom_table.rtl .ant-table-tbody {
+  direction: rtl !important;
+  text-align: center !important;
+}
+
+.custom_table.ltr .ant-table-tbody,
+.custom_table.ltr .ant-table-tbody {
+  direction: ltr !important;
+  text-align: left !important;
+}

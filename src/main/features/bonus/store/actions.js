@@ -8,6 +8,7 @@ import {
   cancelBonusService,
 } from '../services/service';
 import { openNotification } from '../../../../utils/Shared/store/slice';
+import { cancelBonusSuccess } from './slice';
 
 export const getAllBonus = createAsyncThunk(
   'Bonus/GetAllBonus',
@@ -25,6 +26,7 @@ export const addBonus = createAsyncThunk(
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addBonusService(data);
     if (res.data?.responseCode === responseCode.Success) {
+      // message.success('Bonus Created');
       dispatch(
         openNotification({
           message: 'Bonus Created',
@@ -51,6 +53,7 @@ export const cancelBonus = createAsyncThunk(
   'bonus/cancelBonus',
   async (id, { dispatch, setState }) => {
     const response = await cancelBonusService(id);
+    dispatch(cancelBonusSuccess({ bonusId: id }));
     return response;
   }
 );

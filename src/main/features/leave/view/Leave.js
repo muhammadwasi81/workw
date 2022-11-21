@@ -19,8 +19,8 @@ import { CardWrapper } from "../../../layout/GridStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
-import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
 import { ROUTES } from "../../../../utils/routes";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 const Leave = (props) => {
@@ -116,7 +116,34 @@ const Leave = (props) => {
           }}
         />
         <ContBody>
-          {leaves?.length > 0 ? (
+          {
+            loader && <Skeleton avatar paragraph={{ rows: 4 }} />
+          }
+
+          {
+            tableView &&
+            <Table columns={tableColumn()} dragable={true} data={leaves} />
+          }
+          {
+             leaves?.length > 0 && !loader && !tableView ? (
+              <CardWrapper>
+                    {leaves.map((item, index) => {
+                      return (
+                        <>
+                          <ListItem
+                            item={item}
+                            id={item.id}
+                            key={index}
+                            onClick={() => setDetailId(item.id)}
+                          />
+                        </>
+                      );
+                    })}
+                  </CardWrapper>
+                  ) : !loader  && !tableView && <NoDataFound />
+           }
+
+          {/* {leaves?.length > 0 ? (
             tableView ? (
               <Table columns={tableColumn()} dragable={true} data={leaves} />
             ) : (
@@ -147,7 +174,7 @@ const Leave = (props) => {
             <div className="flex items-center justify-center h-full w-full">
               <img src={Nodata} />
             </div>
-          )}
+          )} */}
         </ContBody>
         {leaveDetail && <DetailedView onClose={onClose} id={detailId} />}
         {/* <Drawer

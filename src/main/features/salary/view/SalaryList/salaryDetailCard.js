@@ -1,4 +1,4 @@
-import { Button, Image, Tag } from 'antd';
+import { Button, Image, Tag, Skeleton } from 'antd';
 import React, { useContext, useEffect } from 'react';
 import UserInfo from '../../../../sharedComponents/UserShortInfo/UserInfo';
 import SublineDesigWithTime from '../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
@@ -26,8 +26,10 @@ function SalaryDetailCard(props) {
   }, [props.id]);
 
   const salaryDetail = useSelector((state) => state.salarySlice.salaryDetail);
+  const {loadingData } = useSelector((state) => state.salarySlice);
   if (!salaryDetail) return <></>;
 
+<<<<<<< HEAD
   // const {
   //   creator,
   //   basicSalary,
@@ -56,6 +58,24 @@ function SalaryDetailCard(props) {
     userTypeId: 2,
     createDate: moment(),
   };
+=======
+  const {
+    creator,
+    basicSalary,
+    details,
+    description = 'Salary Description here',
+    approvers = [{}],
+    status = 1,
+    referenceNo = 'SAR-10001',
+    createDate = moment(),
+    effectiveDate = moment(),
+    user,
+  } = salaryDetail;
+  console.log(salaryDetail, 'salaryDetail');
+
+  if(loadingData) return <Skeleton />;
+
+>>>>>>> 5e6b2123456ad5ee1ae16f432c3ef70a5807b2a8
   return (
     <>
       <SingleItem onClick={props.onClick}>

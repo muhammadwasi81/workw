@@ -15,6 +15,7 @@ import { getAllBonus } from '../store/actions';
 import { dictionaryList } from '../../../../utils/localization/languages';
 import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
 
+<<<<<<< HEAD
 import { Table } from '../../../sharedComponents/customTable';
 import { tableColumn } from './TableColumn';
 import TopBar from '../../../sharedComponents/topBar/topBar';
@@ -24,6 +25,17 @@ import { ROUTES } from '../../../../utils/routes';
 import Nodata from '../../../../content/NewContent/eLearning/no_data.svg';
 import { useMediaQuery } from 'react-responsive';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+=======
+import { Table } from "../../../sharedComponents/customTable";
+import { tableColumn } from "./TableColumn";
+import TopBar from "../../../sharedComponents/topBar/topBar";
+import Header from "../../../layout/header/index";
+import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
+import { useMediaQuery } from "react-responsive";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+>>>>>>> 5e6b2123456ad5ee1ae16f432c3ef70a5807b2a8
 
 const initialFormData = {
   memberId: '',
@@ -128,8 +140,35 @@ const Bonus = (props) => {
       />
 
       <ContBody>
-        {/* <div className="access_role_container w-full"> */}
-        {bonuses && bonuses.length > 0 ? (
+          {
+            loader &&  <Skeleton avatar paragraph={{ rows: 4 }} />
+          }
+
+          {
+            tableView && <Table columns={tableColumn()} dragable={false} data={bonuses} />
+          }
+
+         {
+            bonuses?.length > 0 && !loader && !tableView ? (
+              <CardWrapper>
+                  {bonuses.map((item, index) => {
+                    return (
+                      <>
+                        <ListItem
+                          item={item}
+                          id={item.id}
+                          key={index}
+                          onClick={() => setDetailId(item.id)}
+                        />
+                      </>
+                    );
+                  })}
+                </CardWrapper>
+            ) : !loader  && !tableView && <NoDataFound />
+          }
+        </ContBody>
+        
+        {/* {bonuses && bonuses.length > 0 ? (
           tableView ? (
             <div>
               <Table columns={tableColumn()} dragable={false} data={bonuses} />
@@ -145,7 +184,7 @@ const Bonus = (props) => {
                   {bonuses.map((item, index) => {
                     return (
                       <>
-                        {/*  */}
+                       
                         <ListItem
                           item={item}
                           id={item.id}
@@ -163,34 +202,12 @@ const Bonus = (props) => {
           <div className="flex items-center justify-center h-full w-full">
             <img src={Nodata} />
           </div>
-        )}
-        {/* </div> */}
-      </ContBody>
-      {<DetailedView onClose={onClose} id={detailId} />}
-      {/* <div className="w-full">
-        <div
-          className={`flex ${
-            Direction === "rtl" ? "justify-start" : "justify-end"
-          }`}
-        >
-          <SideDrawer
-            title={"Create Bonus"}
-            buttonText={"Create Bonus"}
-            success={success}
-            openDrawer={openDrawer}
-            setOpenDrawer={setOpenDrawer}
-            form={form}
-            isAccessDrawer={true}
-            children={
-              <Composer
-                form={form}
-                formData={formData}
-                openDrawer={openDrawer}
-              />
-            }
-          />
-        </div>
-      </div> */}
+        )} */}
+
+      {bonusDetail && (
+      <DetailedView onClose={onClose} id={detailId} />
+      )}
+
       {/* <Drawer
         title={
           <h1
@@ -215,7 +232,7 @@ const Bonus = (props) => {
         className="detailedViewComposer drawerSecondary"
       >
         <Composer />
-      </Drawer> */}
+      </Drawer>  */}
     </TabbableContainer>
   );
 };

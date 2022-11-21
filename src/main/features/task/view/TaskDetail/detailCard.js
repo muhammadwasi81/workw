@@ -1,4 +1,4 @@
-import { Progress, Tag } from "antd";
+import { Progress, Tag ,Skeleton } from "antd";
 import React, { useContext, useEffect } from "react";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
@@ -37,6 +37,8 @@ function TaskDetail() {
   useEffect(() => {
     dispatch(getTaskById(id));
   }, []);
+
+  const { loadingData } = useSelector((state) => state.taskSlice);
   const taskDetail = useSelector((state) => state.taskSlice.taskdetail);
   const { user } = useSelector((state) => state.userSlice);
   let userId = user.id;
@@ -76,6 +78,8 @@ function TaskDetail() {
     e.stopPropagation();
     dispatch(cancelTaskAction(payload));
   };
+  
+  if(loadingData) return <Skeleton />;
 
   return (
     <TabbableContainer>

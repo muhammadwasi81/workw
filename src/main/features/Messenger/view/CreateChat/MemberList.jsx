@@ -4,6 +4,7 @@ import React from "react";
 import MemberCard from "./MemberCard";
 import { useDispatch } from "react-redux";
 import { getAllEmployeeShort } from "../../../../../utils/Shared/store/actions";
+import { useSelector } from "react-redux";
 
 function MemberList({
   allMembers = [],
@@ -12,7 +13,7 @@ function MemberList({
   selectedMembers,
 }) {
   const dispatch = useDispatch();
-
+  const userSlice = useSelector((state) => state.userSlice);
   return (
     <div className="memberList">
       <div className="memberList__header">
@@ -30,7 +31,9 @@ function MemberList({
       </div>
       <Divider>Contacts</Divider>
       <div className="contact" style={{ position: "relative" }}>
-        {allMembers.map((item) => {
+        {allMembers
+        .filter(it=> it.id !== userSlice.user.id)
+        .map((item) => {
           return (
             <MemberCard
               onMemberSelect={onMemberSelect}

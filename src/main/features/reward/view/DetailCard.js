@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image, Button } from "antd";
+import { Drawer, Tag, Image, Button,Skeleton} from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { rewardDictionaryList } from "../localization/index";
@@ -26,7 +26,7 @@ import {
 function RewardDetailCard(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { rewardDictionary } = rewardDictionaryList[userLanguage];
-  const { rewardDetail } = useSelector((state) => state.rewardSlice);
+  const { rewardDetail,loadingData } = useSelector((state) => state.rewardSlice);
   const { user } = useSelector((state) => state.userSlice);
   const [updatedStatus, setUpdatedStatus] = useState(null);
 
@@ -49,6 +49,8 @@ function RewardDetailCard(props) {
   useEffect(() => {
     props.id && dispatch(GetRewardById(props.id));
   }, [props.id]);
+
+  if(loadingData) return <Skeleton />;
 
   console.log(updatedStatus, "UPDATE STATUS");
 
@@ -74,6 +76,7 @@ function RewardDetailCard(props) {
   };
 
   const isTablet = false;
+
   return (
     <>
       {rewardDetail.id && (

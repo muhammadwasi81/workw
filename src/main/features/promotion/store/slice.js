@@ -49,6 +49,7 @@ const promotionSlice = createSlice({
 
     builder.addCase(GetPromotionById.fulfilled, (state, action) => {
       state.promotionDetail = action.payload.data;
+      state.loadingData = false;
       // console.log(state.promotionDetail, "payload dataaaaa ");
     });
     builder.addCase(cancelPromotion.fulfilled, (state, action) => {
@@ -70,6 +71,7 @@ const promotionSlice = createSlice({
 
       .addMatcher(isPending(...[getAllPromotions]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllPromotions]), (state) => {
         state.loader = true;

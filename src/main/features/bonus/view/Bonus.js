@@ -15,27 +15,15 @@ import { getAllBonus } from '../store/actions';
 import { dictionaryList } from '../../../../utils/localization/languages';
 import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
 
-<<<<<<< HEAD
 import { Table } from '../../../sharedComponents/customTable';
 import { tableColumn } from './TableColumn';
 import TopBar from '../../../sharedComponents/topBar/topBar';
 import Header from '../../../layout/header/index';
 import { handleOpenComposer } from '../store/slice';
 import { ROUTES } from '../../../../utils/routes';
-import Nodata from '../../../../content/NewContent/eLearning/no_data.svg';
 import { useMediaQuery } from 'react-responsive';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
-=======
-import { Table } from "../../../sharedComponents/customTable";
-import { tableColumn } from "./TableColumn";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import Header from "../../../layout/header/index";
-import { handleOpenComposer } from "../store/slice";
-import { ROUTES } from "../../../../utils/routes";
-import { useMediaQuery } from "react-responsive";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
->>>>>>> 5e6b2123456ad5ee1ae16f432c3ef70a5807b2a8
+import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
 
 const initialFormData = {
   memberId: '',
@@ -140,35 +128,33 @@ const Bonus = (props) => {
       />
 
       <ContBody>
-          {
-            loader &&  <Skeleton avatar paragraph={{ rows: 4 }} />
-          }
+        {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
-          {
-            tableView && <Table columns={tableColumn()} dragable={false} data={bonuses} />
-          }
+        {tableView && (
+          <Table columns={tableColumn()} dragable={false} data={bonuses} />
+        )}
 
-         {
-            bonuses?.length > 0 && !loader && !tableView ? (
-              <CardWrapper>
-                  {bonuses.map((item, index) => {
-                    return (
-                      <>
-                        <ListItem
-                          item={item}
-                          id={item.id}
-                          key={index}
-                          onClick={() => setDetailId(item.id)}
-                        />
-                      </>
-                    );
-                  })}
-                </CardWrapper>
-            ) : !loader  && !tableView && <NoDataFound />
-          }
-        </ContBody>
-        
-        {/* {bonuses && bonuses.length > 0 ? (
+        {bonuses?.length > 0 && !loader && !tableView ? (
+          <CardWrapper>
+            {bonuses.map((item, index) => {
+              return (
+                <>
+                  <ListItem
+                    item={item}
+                    id={item.id}
+                    key={index}
+                    onClick={() => setDetailId(item.id)}
+                  />
+                </>
+              );
+            })}
+          </CardWrapper>
+        ) : (
+          !loader && !tableView && <NoDataFound />
+        )}
+      </ContBody>
+
+      {/* {bonuses && bonuses.length > 0 ? (
           tableView ? (
             <div>
               <Table columns={tableColumn()} dragable={false} data={bonuses} />
@@ -204,9 +190,7 @@ const Bonus = (props) => {
           </div>
         )} */}
 
-      {bonusDetail && (
-      <DetailedView onClose={onClose} id={detailId} />
-      )}
+      {bonusDetail && <DetailedView onClose={onClose} id={detailId} />}
 
       {/* <Drawer
         title={

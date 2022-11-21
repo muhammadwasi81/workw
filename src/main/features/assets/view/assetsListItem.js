@@ -1,5 +1,6 @@
 import moment from 'moment';
 import Avatar from '../../../sharedComponents/Avatar/avatar';
+import TagAvatar from '../../../sharedComponents/Avatar/TagAvatar';
 import {
   ItemHeader,
   SingleItem,
@@ -26,6 +27,7 @@ const AssetsListItem = (props) => {
     name,
     id,
     approvers = [{}],
+    handover = [{}],
     value,
   } = props.item;
 
@@ -65,8 +67,17 @@ const AssetsListItem = (props) => {
             <div className="cardSection__body">{value}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Name</div>
-            <div className="cardSection__body">{name}</div>
+            <div className="cardSection__title">Handover</div>
+            <div className="cardSection__body">
+              <TagAvatar
+                text={handover?.name ? handover.name : 'Not Assigned'}
+                img={
+                  handover?.image
+                    ? handover?.image
+                    : 'https://konnect.im/upload/2022/10/88c35581-97aa-4e88-be91-584a667fd5eb.jpg'
+                }
+              />
+            </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>

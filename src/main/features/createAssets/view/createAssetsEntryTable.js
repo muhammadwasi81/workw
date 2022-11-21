@@ -25,9 +25,7 @@ const CreateAssetsEntryTable = () => {
     (state) => state.sharedSlice.employeeShort
   );
 
-  const { assetsData, success } = useSelector(
-    (state) => state.assetsCategorySlice
-  );
+  const { assetsData } = useSelector((state) => state.assetsCategorySlice);
   console.log('assetsData', assetsData);
 
   useEffect(() => {
@@ -134,7 +132,7 @@ const CreateAssetsEntryTable = () => {
     console.log(payload, 'payload');
     dispatch(addAssetItem(payload));
     setEntries(initialEntries);
-    // navigate('/assetsList');
+    navigate('/assetsList');
   };
 
   return (

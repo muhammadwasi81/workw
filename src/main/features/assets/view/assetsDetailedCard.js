@@ -12,6 +12,7 @@ import RemarksApproval from '../../../sharedComponents/AppComponents/Approvals/v
 import { ApprovalsModule } from '../../../sharedComponents/AppComponents/Approvals/enums';
 import { getAssetItemDetailById } from '../../createAssets/store/action';
 import Avatar from '../../../sharedComponents/Avatar/avatar';
+import TagAvatar from './../../../sharedComponents/Avatar/TagAvatar';
 
 const AssetsDetailCard = (props) => {
   const dispatch = useDispatch();
@@ -72,9 +73,18 @@ const AssetsDetailCard = (props) => {
         <div className="cardSectionItem">
           <div className="cardSection__title">Handover</div>
           <div className="cardSection__body">
-            {assetItemByUserId.assetItemByUserId.name
-              ? assetItemByUserId.assetItemByUserId.name
-              : 'N/A'}{' '}
+            <TagAvatar
+              text={
+                assetItemByUserId.assetItemByUserId.handover?.name
+                  ? assetItemByUserId.assetItemByUserId.handover?.name
+                  : 'Not Assigned'
+              }
+              img={
+                assetItemByUserId.assetItemByUserId.handover?.image
+                  ? assetItemByUserId.assetItemByUserId.handover?.image
+                  : 'https://konnect.im/upload/2022/10/88c35581-97aa-4e88-be91-584a667fd5eb.jpg'
+              }
+            />
           </div>
         </div>
         <div className="cardSectionItem">

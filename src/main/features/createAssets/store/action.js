@@ -18,7 +18,7 @@ import {
   getAllAssetItemByPaging,
   updateAssetItemService,
 } from '../service/service';
-import { handleOpenDeAllocComposer } from './slice';
+import { handleOpenDeAllocComposer, handleResetDeAllocState } from './slice';
 import { message } from 'antd';
 
 export const getAllAssetItems = createAsyncThunk(
@@ -95,6 +95,7 @@ export const updateAssetItems = createAsyncThunk(
           type: 'success',
         })
       );
+      dispatch(handleResetDeAllocState());
       dispatch(handleOpenDeAllocComposer(false));
       return response.data;
     } else {

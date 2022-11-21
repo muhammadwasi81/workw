@@ -36,6 +36,10 @@ export const AssetItemSlice = createSlice({
       state.drawerAllocOpen = action.payload;
       console.log(state.drawerAllocOpen, 'state.drawerAllocOpen');
     },
+    handleResetDeAllocState: (state) => {
+      state.assetItemByUserId = [];
+      console.log(state.assetItemByUserId, 'assetItemByUserId');
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -61,8 +65,6 @@ export const AssetItemSlice = createSlice({
         console.log(payload.data, 'getAssetItemDetailByIdSlice');
       })
       .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
-        // state.assetItemList = payload.data ? payload.data : payload;
-        state.assetItemList = payload.data;
         state.loader = false;
         state.success = true;
         state.drawerDeAllocOpen = false;
@@ -134,5 +136,6 @@ export const {
   clearAssetDetail,
   handleOpenDeAllocComposer,
   handleAllocOpenComposer,
+  handleResetDeAllocState,
 } = AssetItemSlice.actions;
 export default AssetItemSlice.reducer;

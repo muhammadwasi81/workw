@@ -14,26 +14,7 @@ import '../styles.css';
 
 const initialState = {
   id: '',
-  // handoverId: '',
   status: '',
-  // approvers: [
-  //   {
-  //     approverId: '',
-  //     approverType: 0,
-  //     isDefault: true,
-  //     status: 1,
-  //     email: '',
-  //   },
-  // ],
-  // assetItems: [
-  //   {
-  //     id: '',
-  //     assetId: '',
-  //     itemId: '',
-  //     name: '',
-  //     code: '',
-  //   },
-  // ],
 };
 
 const AssetDeAllocationComposer = () => {
@@ -69,7 +50,8 @@ const AssetDeAllocationComposer = () => {
   const handleMember = (val) => {
     setNewState({
       ...newState,
-      assetItems: [...val],
+      id: val.id,
+      status: val.status,
     });
   };
 
@@ -84,7 +66,8 @@ const AssetDeAllocationComposer = () => {
   };
 
   const [newState, setNewState] = useState({
-    assetItems: [],
+    id: '',
+    status: '',
   });
 
   useEffect(() => {
@@ -106,12 +89,6 @@ const AssetDeAllocationComposer = () => {
     };
     console.log(payload, 'payload data');
     dispatch(updateAssetItems(payload));
-    // dispatch(
-    //   updateAssetItems({
-    //     id: assetItemByUserId[0]?.id,
-    //     status: status,
-    //   })
-    // );
     setState(initialState);
     form.resetFields();
   };
@@ -223,7 +200,7 @@ const AssetDeAllocationComposer = () => {
                 ) : (
                   <tr>
                     <td colSpan={4} className="text-center">
-                      <strong>No Data Found</strong>{' '}
+                      <strong>No Result Found...</strong>{' '}
                     </td>
                   </tr>
                 )}

@@ -25,20 +25,8 @@ const AssetsList = ({ data }) => {
           />
         ))
       ) : (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <strong
-            style={{
-              margin: 'auto',
-              marginRight: '10px',
-            }}
-          >
-            No Result Found...
-          </strong>
+        <div className="ml-auto">
+          <strong>No Result Found...</strong>
         </div>
       )}
       {<AssetsDetailedView onClose={onClose} id={itemId} />}

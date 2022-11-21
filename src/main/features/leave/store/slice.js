@@ -25,6 +25,7 @@ const leaveSlice = createSlice({
 
     builder.addCase(GetLeaveById.fulfilled, (state, action) => {
       state.leaveDetail = action.payload.data;
+      state.loadingData = false;
     });
 
     builder
@@ -38,6 +39,7 @@ const leaveSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllLeaves]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllLeaves]), (state) => {
         state.loader = true;

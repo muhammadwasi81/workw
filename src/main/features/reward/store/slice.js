@@ -53,6 +53,7 @@ const rewardSlice = createSlice({
 
     builder.addCase(GetRewardById.fulfilled, (state, action) => {
       state.rewardDetail = action.payload.data;
+      state.loadingData = false;
     });
 
     // builder.addCase(cancelReward.fulfilled, (state, action) => {
@@ -67,6 +68,7 @@ const rewardSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllRewards, addReward]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllRewards]), (state) => {
         state.loader = true;

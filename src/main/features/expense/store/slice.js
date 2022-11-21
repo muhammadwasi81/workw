@@ -6,6 +6,7 @@ const expenseSlice = createSlice({
   initialState: {
     loader: true,
     success: false,
+    loadingData: false,
     isCreateComposer: false,
     expenses: [],
     expenseDetail: null,
@@ -62,10 +63,12 @@ const expenseSlice = createSlice({
       .addCase(getExpenseById.fulfilled, (state, action) => {
         // state.expense = data;
         state.expense = action.payload?.data;
+        state.loadingData = false;
       })
       .addMatcher(isPending(...[getAllExpense]), (state) => {
         state.expenses = [];
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isPending(...[getExpenseById]), (state) => {
         state.expense = {};

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Tag, Image, Button } from "antd";
+import { Tag, Image, Button, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { resignationDictionaryList } from "../localization/index";
@@ -25,7 +25,7 @@ import DetailTabs from "./detailTabs";
 function DetailCard(props) {
     const { userLanguage } = useContext(LanguageChangeContext);
     const { resginationDictionary } = resignationDictionaryList[userLanguage];
-    const { detail } = useSelector((state) => state.resignationSlice);
+    const { detail ,loadingData } = useSelector((state) => state.resignationSlice);
     const { userData } = useSelector(state => state.userSlice);
     const [updatedStatus, setUpdatedStatus] = useState(null);
 
@@ -62,6 +62,7 @@ function DetailCard(props) {
       };
 
     const isTablet = false;
+    if(loadingData) return <Skeleton />;
 
     return (
         <>

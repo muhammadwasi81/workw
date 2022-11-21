@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
 import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
+import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
 import { clearRequestDetails } from '../store/slice';
 import RequestDetailedView from './requestDetailedView';
 import RequestListItems from './requestListItems';
@@ -13,7 +14,11 @@ const RequestList = ({ data }) => {
     setItemId(null);
     dispatch(clearRequestDetails());
   };
+  const { loader , requestItemDetail} = useSelector((state) => state.requestItemSlice);
   return (
+    <>
+  {   
+    data?.length > 0 && !loader ? (
     <CardWrapper>
       {data.map((item) => (
         <RequestListItems
@@ -22,8 +27,11 @@ const RequestList = ({ data }) => {
           onClick={(id) => setItemId(id)}
         />
       ))}
-      {<RequestDetailedView onClose={onClose} id={itemId} />}
     </CardWrapper>
+    ) : !loader && <NoDataFound />
+ }
+   {requestItemDetail && <RequestDetailedView onClose={onClose} id={itemId} />}
+    </>
   );
 };
 

@@ -14,7 +14,7 @@ import { GetLoanById } from "./store/actions";
 
 function LoanDetail(props) {
   const { id } = props;
-  const { loanDetail } = useSelector((state) => state.loanSlice);
+  const { loanDetail ,loadingData} = useSelector((state) => state.loanSlice);
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { loanDictionaryList, Direction } = LoanDictionary[userLanguage];
@@ -41,6 +41,8 @@ function LoanDetail(props) {
       setStatus(updateList);
     }
   }, [loanStatus]);
+
+  if(loadingData) return <Skeleton />;
   return (
     <div>
       {!Object.keys(loanDetail).length ? (

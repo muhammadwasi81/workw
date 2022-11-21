@@ -35,7 +35,7 @@ const MessengerListItem = ({
       <MessageProfile isChatBox={isChatBox} messageByMe={messageByMe} />
       <div className="MessageBubble">
         {messageType === 2 && (
-          <AudioComponent audio={attachments[0].path} />
+          <AudioComponent audio={attachments[0].path} creator={createBy} />
         )
         // <audio controls>
         // 	<source src={attachments[0].path} />

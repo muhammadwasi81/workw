@@ -1,4 +1,18 @@
 input[type="range"] {
+  /* -webkit-appearance: none; */
   transition: 0.1s ease;
   cursor: pointer;
+  height: 1em;
+  border: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  background-color: #526bb1;
+  height: 0.5rem;
+  width: 0.5rem;
 }

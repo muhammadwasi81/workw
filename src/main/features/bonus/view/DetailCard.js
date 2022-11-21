@@ -87,7 +87,9 @@ function BonusDetailCard(props) {
               </div>
               <div className="right">
                 <Tag className="IdTag">{referenceNo}</Tag>
-                <StatusTag status={updatedStatus?.Approvals}></StatusTag>
+                <StatusTag
+                  status={updatedStatus ? updatedStatus?.Approvers : status}
+                ></StatusTag>
                 {userId === creator.id ? (
                   status != Declined &&
                   status != Resend &&

@@ -46,6 +46,7 @@ const Post = ({
 				attachments={attachments}
 				isOpen={modelState}
 				onOpen={openModel}
+				id={id}
 			/>
 			<PostFooter
 				id={id}

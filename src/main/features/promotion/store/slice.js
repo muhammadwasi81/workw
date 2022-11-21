@@ -22,24 +22,26 @@ const promotionSlice = createSlice({
     handleOpenComposer: (state, { payload }) => {
       state.drawerOpen = payload;
     },
-    // cancelPromotionSuccess: (state, { payload }) => {
-    //   let promotionList = [...state.promotions];
-    //   let index = promotionList.findIndex(
-    //     (item) => item.id === payload.promotionId
-    //   );
-    //   let promotion = promotionList.filter(
-    //     (item) => item.id === payload.promotionId
-    //   )[0];
-    //   promotionList[index] = {
-    //     ...promotion,
-    //     status: 7,
-    //   };
-    //   state.promotions = promotionList;
-    //   state.promotionDetail = {
-    //     ...promotion,
-    //     status: 7,
-    //   };
-    // },
+    cancelPromotionSuccess: (state, { payload }) => {
+      let promotionList = [...state.promotions];
+      let index = promotionList.findIndex(
+        (item) => item.id === payload.promotionId
+      );
+      let promotion = promotionList.filter(
+        (item) => item.id === payload.promotionId
+      )[0];
+
+      promotionList[index] = {
+        ...promotion,
+        status: 4,
+      };
+
+      state.promotions = promotionList;
+      state.promotionDetail = {
+        ...promotion,
+        status: 4,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllPromotions.fulfilled, (state, action) => {
@@ -52,11 +54,11 @@ const promotionSlice = createSlice({
       state.loadingData = false;
       // console.log(state.promotionDetail, "payload dataaaaa ");
     });
-    builder.addCase(cancelPromotion.fulfilled, (state, action) => {
-      state.cancelPromotion = action.payload.data;
-      // state.success = true;
-      // state.loader = false;
-    });
+    // builder.addCase(cancelPromotion.fulfilled, (state, action) => {
+    //   state.cancelPromotion = action.payload.data;
+    //   // state.success = true;
+    //   // state.loader = false;
+    // });
 
     builder
       .addCase(addPromotion.fulfilled, (state, { payload }) => {
@@ -79,5 +81,8 @@ const promotionSlice = createSlice({
   },
 });
 
-export const { handleOpenComposer } = promotionSlice.actions;
+export const {
+  handleOpenComposer,
+  cancelPromotionSuccess,
+} = promotionSlice.actions;
 export default promotionSlice.reducer;

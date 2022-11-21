@@ -11,7 +11,7 @@ import {
   addPromotionService,
   cancelPromotionService,
 } from "../services/service";
-import { cancelPromotionSuccess } from "./actions";
+import { cancelPromotionSuccess } from "./slice";
 
 export const getAllPromotions = createAsyncThunk(
   "Promotion/GetAllPromotion",
@@ -52,7 +52,7 @@ export const cancelPromotion = createAsyncThunk(
   "promotions/cancelPromotion",
   async (id, { dispatch, setState }) => {
     const response = await cancelPromotionService(id);
-    // dispatch(cancelPromotionSuccess({ promotionId: id }));
+    dispatch(cancelPromotionSuccess({ promotionId: id }));
     return response;
   }
 );

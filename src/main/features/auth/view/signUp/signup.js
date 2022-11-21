@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Checkbox, message, Space } from "antd";
+import { Checkbox, Space } from "antd";
 import { STRINGS, SvgSpinner } from "../../../../../utils/base";
 import { ShopOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
@@ -59,10 +59,12 @@ function Signup() {
   }, [isError, isSuccess]);
 
   const handleSignUpSubmit = (values) => {
+
     let image = {
       id: STRINGS.DEFAULTS.guid,
       file: profileImage && profileImage[0]?.originFileObj,
     };
+
     if (Object.keys(image).length > 0) {
       let payload = { ...values, image };
       dispatch(signup(payload));

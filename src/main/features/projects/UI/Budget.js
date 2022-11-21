@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 import WhiteCard from "./WhiteCard";
 
@@ -10,25 +11,25 @@ function Budget({ data }) {
 						Total Budget
 					</span>
 					<span className="text-black font-semibold">
-						{data?.totalBudget}$
+						{data?.totalBudget}
 					</span>
 				</div>
 				<div className="text-base p-5 bg-neutral-100 flex justify-around rounded-lg font-bold">
 					<div className="flex flex-col gap-3 text-center">
-						<span className="text-red-600">
-							{data?.spendAmount}$
+						<span className="text-green-500">
+							{data?.balanceAmount}
 						</span>
 						<span className="text-gray-500 font-semibold">
-							Spent
+							Balance
 						</span>
 					</div>
 					<div className="border-r-2 border-gray-500" />
 					<div className="flex flex-col gap-3 text-center">
-						<span className="text-green-500">
-							{data?.balanceAmount}$
+						<span className="text-red-600 ">
+							{data?.spendAmount}
 						</span>
 						<span className="text-gray-500 font-semibold">
-							Balance
+							Spent
 						</span>
 					</div>
 				</div>
@@ -40,16 +41,20 @@ function Budget({ data }) {
 					</div>
 					<div className="flex w-full justify-around ">
 						<div className="flex flex-col gap-3 text-center pt-3">
-							<span className="text-red-600">100$</span>
+							<span className="text-green-600">
+								{moment(data?.startDate).date()}
+							</span>
 							<span className="text-gray-500 font-semibold">
-								Spent
+								{moment(data?.startDate).format("MMM YYYY")}
 							</span>
 						</div>
 						<div className="border-r-2 border-gray-500" />
 						<div className="flex flex-col gap-3 text-center pt-3">
-							<span className="text-green-500">400$</span>
+							<span className="text-red-600">
+								{moment(data?.endDate).date()}
+							</span>
 							<span className="text-gray-500 font-semibold">
-								Balance
+								{moment(data?.endDate).format("MMM YYYY")}
 							</span>
 						</div>
 					</div>

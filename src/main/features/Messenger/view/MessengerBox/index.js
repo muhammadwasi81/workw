@@ -27,12 +27,12 @@ const MessengerBox = () => {
                 isOpenProfile={isOpenProfile}
                 messengerDetail={messengerDetail} />
             <MessengerBottom
-                isOpenProfile={isOpenProfile} 
+                isOpenProfile={isOpenProfile}
                 messengerDetail={messengerDetail} />
             {isOpenProfile &&
-                <MessengerProfile 
-                hanldeClose={() => setIsOpenProfile(false)} 
-                messengerDetail={messengerDetail} />}
+                <MessengerProfile
+                    hanldeClose={() => setIsOpenProfile(false)}
+                    messengerDetail={messengerDetail} />}
         </div>
     )
 }

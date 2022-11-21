@@ -1,4 +1,4 @@
-import { Button, Drawer, Input } from "antd";
+import { Button, Drawer, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import MemberList from "./MemberList";
@@ -11,7 +11,7 @@ function CreateChat({ onClose, visible }) {
   const { employeeShort: members } = useSelector((state) => state.sharedSlice);
   const loader = useSelector((state) => state.MessengerSlice.loader);
   const [selectedMembers, setSelectedMembers] = useState([]);
-  const [state, setState] = useState({});
+  const [state, setState] = useState({title:""});
   useEffect(() => {
     dispatch(
       getAllEmployeeShort({
@@ -61,9 +61,10 @@ function CreateChat({ onClose, visible }) {
 
   const handleSubmit = () => {
     let payload = createPayload();
-    // if () {
-
-    // }
+    if (payload.members.length > 1 && payload.name.length === 0) {
+      message.error("Group Name Required", 2)
+      return null;
+    }
     dispatch(createChat(payload));
   }
 

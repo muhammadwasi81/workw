@@ -34,7 +34,7 @@ const MessengerListItem = ({
     >
       <MessageProfile isChatBox={isChatBox} messageByMe={messageByMe} />
       <div className="MessageBubble">
-        {messageType === "voice" && (
+        {messageType === 2 && (
           <AudioComponent audio={attachments[0].path} />
         )
         // <audio controls>
@@ -42,7 +42,7 @@ const MessengerListItem = ({
         // 	Your browser does not support the audio tag.
         // </audio>
         }
-        {!(messageType === "voice") && (
+        {!(messageType === 2) && (
           <Attachments
             data={attachments}
             key={{ data: attachments }}

@@ -587,8 +587,6 @@ animation:0.1s visibleDelay 0.4s forwards;
 }
 
 
-
-
 audio::-webkit-media-controls-panel {
   background-color: var(--currentThemeColor) !important;
 }

@@ -7,21 +7,35 @@ import sendIcon from "../../../../../../content/NewContent/Messenger/sendRound.s
 import deleteIcon from "../../../../../../content/NewContent/Messenger/delete.svg";
 import VoiceTimer from "./voiceTimer";
 
-function VoiceNotes({handleVoiceSend}) {
+function VoiceNotes({ handleVoiceSend }) {
     useEffect(() => {
     }, []);
+    function download(blob, filename) {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        // the filename you want
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }
     function blobToFile(theBlob, fileName) {
         //A Blob() is almost a File() - it's just missing the two properties below which we will add
-        theBlob.lastModifiedDate = new Date();
-        theBlob.name = fileName;
-        return theBlob;
+        // theBlob.lastModifiedDate = new Date();
+        download(theBlob, "theBlob")
+        var myFile = new File([theBlob], new Date().toISOString() + '.wav', { type: "audio/wav", lastModified: new Date(), uid: "rc-upload-1668858270775-2" })
+        return myFile;
     }
     const onStartRecording = (e) => {
         // console.log(e, "Start Recording")
     }
     const onStopRecording = (blobURL, blob) => {
         console.log(blobToFile(blob, "Voice"), "Stop Recording");
-        handleVoiceSend(blobToFile(blob, "Voice"))
+        // handleVoiceSend(blobToFile(blob, "Voice"))
+        handleVoiceSend(blobToFile(blob))
     }
     const { status, startRecording, stopRecording, mediaBlobUrl, pauseRecording, clearBlobUrl } =
         useReactMediaRecorder({ audio: true, onStart: onStartRecording, onStop: onStopRecording });

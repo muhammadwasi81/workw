@@ -33,13 +33,13 @@ const MessengerListItem = ({
 			/>
 			<div className="MessageBubble">
 				{
-					messageType === 'voice' &&
+					messageType === 2 &&
 					<audio controls>
 						<source src={attachments[0].path} />
 						Your browser does not support the audio tag.
 					</audio>
 				}
-				{!(messageType === 'voice') && 
+				{!(messageType === 2) && 
 				<Attachments
 					data={attachments}
 					key={{ data: attachments }}

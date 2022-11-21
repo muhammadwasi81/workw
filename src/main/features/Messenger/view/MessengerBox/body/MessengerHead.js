@@ -14,7 +14,7 @@ const MessengerHead = ({
 }) => {
 	const dispatch = useDispatch();
 	const { profileName, profileImage, chatId, chatType } = messengerDetail;
-	useEffect(() => {}, []);
+	useEffect(() => { }, []);
 	return (
 		<div className={"MessengerHead " + (isOpenProfile ? "blur-bg" : "")}>
 			<div className="MessengerHeadAvatar MessengerHeadAvatar-Mob">
@@ -25,11 +25,7 @@ const MessengerHead = ({
 						dispatch(handleIsopenChat(false));
 					}}
 				/>
-				<div
-					onClick={() => {
-						handleProfileClick();
-					}}
-				>
+				<div onClick={handleProfileClick} >
 					<Avatar
 						src={profileImage}
 						name={profileName}

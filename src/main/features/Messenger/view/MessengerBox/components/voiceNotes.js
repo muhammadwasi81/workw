@@ -10,22 +10,22 @@ import VoiceTimer from "./voiceTimer";
 function VoiceNotes({ handleVoiceSend }) {
     useEffect(() => {
     }, []);
-    function download(blob, filename) {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        // the filename you want
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-    }
+    // function download(blob, filename) {
+    //     const url = window.URL.createObjectURL(blob);
+    //     const a = document.createElement('a');
+    //     a.style.display = 'none';
+    //     a.href = url;
+    //     // the filename you want
+    //     a.download = filename;
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     document.body.removeChild(a);
+    //     window.URL.revokeObjectURL(url);
+    // }
     function blobToFile(theBlob, fileName) {
         //A Blob() is almost a File() - it's just missing the two properties below which we will add
         // theBlob.lastModifiedDate = new Date();
-        download(theBlob, "theBlob")
+        // download(theBlob, "theBlob")
         var myFile = new File([theBlob], new Date().toISOString() + '.wav', { type: "audio/wav", lastModified: new Date(), uid: "rc-upload-1668858270775-2" })
         return myFile;
     }

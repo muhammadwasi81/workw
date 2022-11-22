@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image, Button } from "antd";
+import { Drawer, Tag, Image, Button ,Skeleton} from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { leaveDictionaryList } from "../localization/index";
@@ -52,7 +52,9 @@ function DetailCard(props) {
     props.id && dispatch(GetLeaveById(props.id));
   }, [props.id]);
 
-  const { leaveDetail } = useSelector((state) => state.leaveSlice);
+  const { leaveDetail,loadingData } = useSelector((state) => state.leaveSlice);
+
+  if(loadingData) return <Skeleton />;
 
   const {
     creator,

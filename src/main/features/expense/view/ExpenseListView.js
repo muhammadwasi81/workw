@@ -10,6 +10,7 @@ import { Skeleton } from "antd";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import ExpenseDetailsComposer from "./ExpenseDetailsComposer";
 import { ExpenseReferenceTypeEnum } from "../enums";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 function ExpenseListView({
   filterType,
@@ -53,7 +54,8 @@ function ExpenseListView({
         ? [...Array(3)].map((item) => (
             <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
           )): */}
-      {expenses?.map((expense, index) => {
+    { expenses?.length > 0 && !loader ? (  
+      expenses?.map((expense, index) => {
         return (
           <ExpenseList
             key={index}
@@ -61,7 +63,9 @@ function ExpenseListView({
             expense={expense}
           />
         );
-      })}
+      })
+      ) : !loader  && <NoDataFound />
+    } 
 
       <ExpenseDetailsComposer
         direction={Direction}

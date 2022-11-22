@@ -21,9 +21,9 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
-import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
 import { useMediaQuery } from "react-responsive";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 const initialFormData = {
   memberId: "",

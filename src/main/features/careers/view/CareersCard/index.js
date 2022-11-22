@@ -81,16 +81,6 @@ const CareerCard = (props) => {
         id={id}
       />
 
-<<<<<<< HEAD
-      {/* {
-        table &&
-        <Table
-          columns={tableColumn()}
-          dragable={true}
-          data={careers ? careers : []}
-      />
-      } */}
-=======
       {openDetail && (
         <Modal
           visible={openDetail}
@@ -102,7 +92,6 @@ const CareerCard = (props) => {
           <JobDetails apply={applyJob} />
         </Modal>
       )}
->>>>>>> f6199e6bbd799e4d1818268fe1406a9be950f902
 
       {loader && !table ? (
         <CardWrapper

@@ -52,68 +52,10 @@ const MyApprovalCard = (props) => {
     setOpenDetail(false);
   };
 
-<<<<<<< HEAD
-	return (
-		<>
-			<ApprovalComposer
-				visible={openDetail}
-				onClose={handleCancel}
-				id={id}
-			/>
-			{loader &&
-				[...Array(15)].map(item => (
-					<Skeleton key={item} avatar paragraph={{ rows: 6 }} />
-				))}
-			{/* {table && (
-				<Table
-					columns={tableColumn()}
-					dragable={true}
-					data={careers ? careers : []}
-				/>
-			)} */}
-
-			{careers?.length > 0 && !loader && !table ? (
-				<CardWrapper
-					style={{
-						gridTemplateColumns:
-							"repeat(auto-fill,minmax(35rem,1fr))",
-					}}
-				>
-					{openDetail && (
-						<Modal
-							visible={openDetail}
-							// onOk={handleOk}
-							onCancel={handleCancel}
-							footer={null}
-							width={"50%"}
-						>
-							<JobDetails apply={() => {}} />
-						</Modal>
-					)}
-					{careers.map((item, index) => {
-						return (
-							<ListItem
-								//onClick={() => openJobDetailHandler(item.id)}
-								onClickApproval={() =>
-									openMyCareerDetail(item.id)
-								}
-								item={item}
-							/>
-						);
-					})}
-				</CardWrapper>
-			) : (
-				!loader && !table && <NoDataFound />
-			)}
-
-			{/* 
-      {!table && (
-=======
   return (
     <>
       <ApprovalComposer visible={openDetail} onClose={handleCancel} id={id} />
       {loader && !table ? (
->>>>>>> f6199e6bbd799e4d1818268fe1406a9be950f902
         <CardWrapper
           style={{
             gridTemplateColumns: "repeat(auto-fill,minmax(35rem,1fr))",

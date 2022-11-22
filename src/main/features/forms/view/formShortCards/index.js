@@ -4,9 +4,10 @@ import ShortCard from "../components/shortCard/index";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
 import DetailedFormView from "../DetailedFormView.js";
+import { NoDataFound } from "../../../../sharedComponents/NoDataIcon/index.js";
 
 const FormShortCard = () => {
-  const { forms } = useSelector((state) => state.formSlice);
+  const { forms,loader, formDetail } = useSelector((state) => state.formSlice);
   const [id, setId] = useState();
   const [visible, setVisible] = useState(false);
 
@@ -23,6 +24,7 @@ const FormShortCard = () => {
   console.log("formdata in form short card component", forms);
   return (
     <>
+    { forms?.length > 0 && !loader ? (
       <CardWrapper2>
         {forms.map((item, index) => (
           <ShortCard
@@ -33,12 +35,16 @@ const FormShortCard = () => {
             visible={visible}
           />
         ))}
+      </CardWrapper2>
+        ) : !loader && <NoDataFound />
+    }
+    {formDetail && (
         <DetailedFormView
           id={id}
           visible={visible}
           onClose={handleDrawerClose}
         />
-      </CardWrapper2>
+    )}
     </>
   );
 };

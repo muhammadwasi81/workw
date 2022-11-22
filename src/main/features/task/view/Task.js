@@ -147,7 +147,7 @@ function Task({
               referenceId={referenceId}
               referenceType={referenceType}
             />
-            ): !tableView && <NoDataFound />
+            ): !loading && !tableView && <NoDataFound />
           }
 
           {/* {tableView ? (

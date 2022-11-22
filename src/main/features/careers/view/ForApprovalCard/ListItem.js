@@ -6,7 +6,7 @@ import {
 } from "../../../../sharedComponents/Card/CardStyle";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
-
+import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
 import { useSelector } from "react-redux";
 import { Avatar, Tooltip } from "antd";
 
@@ -43,9 +43,13 @@ function ListItem({ item, onClickApproval }) {
       <SingleItem onClick={onClickApproval} className="cursor-pointer">
         <CardProfileTopView
           profileImgSrc={
-            item.creator && item.creator.image.length > 0
-              ? item.creator.image
-              : "https://joeschmoe.io/api/v1/random"
+            <AvatarCustom
+              width={40}
+              height={40}
+              src={item.creator?.image}
+              name={item.creator?.name}
+              round
+            ></AvatarCustom>
           }
           createDate={item.createDate}
           isPublic={true}

@@ -20,3 +20,13 @@ export const getAllScheduleService = data => {
 			return error;
 		});
 };
+
+export const getScheduleByIdService = id => {
+	return MasterConfig.get(`${API_PREFIX}GetScheduleById?id=${id}`)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};

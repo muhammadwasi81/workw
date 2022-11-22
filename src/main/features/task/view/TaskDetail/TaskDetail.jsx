@@ -1,29 +1,30 @@
-import { Drawer, Skeleton } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Drawer, Skeleton } from "antd";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
 import { taskDictionary } from "../../localization";
 import { getTaskById } from "../../store/actions";
 import { changeOnProgress, clearTaskById } from "../../store/taskSlice";
 import TaskListItem from "../TaskList/listItem";
+import '../style/task.css'
 
 function TaskDetail(props) {
   const { visible, onClose, id } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, taskDictionaryList } = taskDictionary[userLanguage];
-  const [isMounted, setIsMounted] = useState(false);
   const [progress, setProgress] = useState();
   const { labels } = taskDictionaryList;
   const { task } = useSelector((state) => state.taskSlice);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isMounted) {
+    if(id){
       dispatch(getTaskById(id));
     }
-    setIsMounted(true);
+    // if (isMounted) {
+    // }
+    // setIsMounted(true);
     return () => {
       dispatch(clearTaskById());
     };

@@ -4,6 +4,7 @@ import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
 	addScheduleService,
 	getAllScheduleService,
+	getScheduleByIdService,
 } from "../services/services";
 
 export const addSchedule = createAsyncThunk(
@@ -36,6 +37,24 @@ export const getAllSchedule = createAsyncThunk(
 	"getAllSchedule",
 	async (data, { dispatch, getState, rejectWithValue }) => {
 		const res = await getAllScheduleService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+export const getScheduleById = createAsyncThunk(
+	"getScheduleById",
+	async (id, { dispatch, getState, rejectWithValue }) => {
+		const res = await getScheduleByIdService(id);
 		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {

@@ -13,7 +13,7 @@ import {
 } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import NewTravelDetailCard from "../UI/NewTravelDetailCard";
 import { fileExtentionPreview } from "../../utils/fileExtentionHelper";
-import { handleAttachmentModal } from "../../store/slice";
+import { handleAttachmentModal, resetTravelDetail } from "../../store/slice";
 
 function TravelDetail(props) {
 	const { travelId } = props;
@@ -25,6 +25,9 @@ function TravelDetail(props) {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getTravelById(travelId));
+		return () => {
+			dispatch(resetTravelDetail());
+		};
 	}, []);
 
 	useEffect(() => {

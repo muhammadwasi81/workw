@@ -5,7 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "../styles/style.css";
 import "../styles/calender.css";
-import Event from "./event";
+// import Event from "./event";
 import { Calendar } from "antd";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -17,7 +17,7 @@ import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { useSelector } from "react-redux";
 
 function Scheduler({ feed = false }) {
-	const [id, setId] = useState("");
+	const [sched, setSchedule] = useState(null);
 	const [calendatView, setCalendatView] = useState("");
 	const [todayDate, setTodayDate] = useState(new Date());
 	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -88,7 +88,7 @@ function Scheduler({ feed = false }) {
 	// console.log("calendarRef.current.getApi().getDate()", calendarRef.current);
 	return (
 		<>
-			<EventDetail id={id} />
+			<EventDetail />
 			<div className={`schedulerCalender ${calendatView}`}>
 				<FullCalendar
 					ref={calendarRef}
@@ -130,8 +130,20 @@ function Scheduler({ feed = false }) {
 							  }
 					}
 					eventClick={info => {
-						setId(parseInt(info.event._def.publicId));
-						dispatch(toggleEventDetailComposer());
+						// console.log("info", info.event._def);
+						// setSchedule({
+						// 	id: info.event._def.publicId,
+						// 	scheduleType:
+						// 		info.event._def.extendedProps.scheduleType,
+						// });
+						// setId(parseInt(info.event._def.publicId));
+						dispatch(
+							toggleEventDetailComposer({
+								id: info.event._def.publicId,
+								scheduleType:
+									info.event._def.extendedProps.scheduleType,
+							})
+						);
 					}}
 					datesSet={val => {
 						if (val.view.type !== "timeGridDay") {

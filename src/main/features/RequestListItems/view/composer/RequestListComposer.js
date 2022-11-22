@@ -243,7 +243,7 @@ const Composer = () => {
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={customApprovalDictionary.selectMember}
+            placeholder={'Select Approvers'}
             mode={'multiple'}
             isObject={true}
             loadDefaultData={false}
@@ -268,7 +268,7 @@ const Composer = () => {
             rules={[
               {
                 required: true,
-                message: 'Please Select Approver',
+                message: 'Please Select Approvers',
               },
             ]}
           />

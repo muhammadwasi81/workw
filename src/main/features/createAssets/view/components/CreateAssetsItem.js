@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
 import { Select } from 'antd';
 import { Option } from 'antd/lib/mentions';
 import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllAssetCategories } from '../../../assetsCategory/store/actions';
 import SingleUpload from '../../../../sharedComponents/Upload/singleUpload';
 import { warningDictionaryList } from '../../../allowance/warning/localization';
 import { UploadOutlined } from '@ant-design/icons';
@@ -17,16 +14,10 @@ const CreateAssetsItem = ({
   value,
   employeesShortData = [],
   employeesData = [],
+  data,
   fetchEmployees = () => {},
   fetchEmployeesShort = () => {},
 }) => {
-  const dispatch = useDispatch();
-  const { assetsData } = useSelector((state) => state.assetsCategorySlice);
-
-  useEffect(() => {
-    dispatch(getAllAssetCategories());
-  }, []);
-
   const onChangeCategory = (categoryId, index) => {
     console.log(categoryId, `categoryId`);
     handleChange(categoryId, 'category', index);
@@ -77,10 +68,10 @@ const CreateAssetsItem = ({
           }
           value={value.category}
         >
-          {assetsData.map((item) => (
-            <Select.Option key={item.id} value={item.id}>
+          {data.map((item) => (
+            <Option key={item.id} value={item.id}>
               {item.name}
-            </Select.Option>
+            </Option>
           ))}
         </Select>
       </td>

@@ -12,6 +12,7 @@ import RemarksApproval from '../../../sharedComponents/AppComponents/Approvals/v
 import { ApprovalsModule } from '../../../sharedComponents/AppComponents/Approvals/enums';
 import { Tag } from 'antd';
 import Avatar from '../../../sharedComponents/Avatar/avatar';
+import StatusTag from '../../../sharedComponents/Tag/StatusTag';
 
 const RequestDetailCard = (props) => {
   const dispatch = useDispatch();
@@ -22,7 +23,6 @@ const RequestDetailCard = (props) => {
   }, [props.id]);
 
   if (!requestDetails) return <></>;
-
   const creator = {
     businessId: 'cfe50d8d-7c47-4abb-9154-661daf129cec'
       ? 'cfe50d8d-7c47-4abb-9154-661daf129cec'
@@ -43,7 +43,11 @@ const RequestDetailCard = (props) => {
       <ItemHeader>
         <div className="left">
           <UserInfo
-            avatarSrc={requestDetails.requestItemDetail.creator?.image}
+            avatarSrc={
+              requestDetails.requestItemDetail.creator?.image
+                ? requestDetails.requestItemDetail.creator?.image
+                : 'https://58.65.211.234:4436/Resources/cfe50d8d-7c47-4abb-9154-661daf129cec/Images/45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg'
+            }
             name={requestDetails.requestItemDetail.creator?.name}
             Subline={
               <SublineDesigWithTime
@@ -61,6 +65,9 @@ const RequestDetailCard = (props) => {
           <Tag className="IdTag">
             {requestDetails.requestItemDetail.referenceNo}
           </Tag>
+          <StatusTag
+            status={requestDetails.requestItemDetail.status}
+          ></StatusTag>
         </div>
       </ItemHeader>
       <div className="cardSections" style={{ marginTop: '20px' }}>
@@ -74,6 +81,20 @@ const RequestDetailCard = (props) => {
           <div className="cardSection__title">Quantity</div>
           <div className="cardSection__body">
             {requestDetails.requestItemDetail.quantity}
+          </div>
+        </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">Approvers</div>
+          <div className="cardSection__body">
+            <Avatar
+              isAvatarGroup={true}
+              heading={'approvers'}
+              membersData={
+                requestDetails.requestItemDetail.approvers
+                  ? requestDetails.requestItemDetail.approvers
+                  : []
+              }
+            />
           </div>
         </div>
         <div className="cardSectionItem">
@@ -95,7 +116,7 @@ const RequestDetailCard = (props) => {
       <RemarksApproval
         data={requestDetails.requestItemDetail.approvers}
         title="Approvals"
-        module={ApprovalsModule.requestForItemsApproval}
+        module={ApprovalsModule.RequestForItemApproval}
         onStatusChanged={() => {}}
       />
     </SingleItem>

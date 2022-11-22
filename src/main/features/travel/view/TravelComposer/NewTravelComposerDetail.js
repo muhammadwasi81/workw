@@ -71,7 +71,7 @@ function NewTravelComposerDetail(props) {
 								<CitySelect
 									data={cities}
 									selectedData={(val, obj) => {
-										console.log("val", obj);
+										// console.log("val", obj);
 										onSelectCity("departure", obj);
 									}}
 									canFetchNow={cities && cities.length > 0}

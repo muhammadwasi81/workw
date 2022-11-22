@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Dropdown, Menu, Space, Image } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
+
 import {
   CopyOutlined,
   CloseOutlined,
@@ -30,20 +31,23 @@ import {
 } from "../../store/actions";
 import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
 import { createGuid } from "../../../../../../utils/base";
+import ShareComponent from "./ShareComponent";
 
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
+  const [openShare, setOpenShare] = useState(false);
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const tilteDebounce = useDebounce(title, 500);
   const descriptionDebounce = useDebounce(description, 500);
-  const [images, setImage] = useState([]);
+
   const dispatch = useDispatch();
 
   // const openColorHandler = () => {
   //   setOpenColor(true);
   // };
-
+  const color = item.colorCode;
+  console.log(color, "colorcode");
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
     const id = item.id;
@@ -51,10 +55,15 @@ const NewStickyNote = ({ item }) => {
       getStickyAttachmentAction({
         attachments: [{ file: image, id: createGuid() }],
         id,
-        description,
-        title,
+        description: item.description,
+        title: item.title,
+        color: item.colorCode,
       })
     );
+  };
+  const openShareHandler = () => {
+    console.log("clicked share");
+    setOpenShare((openShare) => !openShare);
   };
 
   // ********dropdown menu (color, copy, share) in three dot*********
@@ -62,16 +71,8 @@ const NewStickyNote = ({ item }) => {
     <Menu
       items={[
         {
-          label: (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.antgroup.com"
-            >
-              Share
-            </a>
-          ),
-          icon: <ShareAltOutlined />,
+          label: <a onClick={openShareHandler}>Share</a>,
+          icon: <ShareAltOutlined onClick={openShareHandler} />,
           key: "0",
         },
         {
@@ -88,12 +89,7 @@ const NewStickyNote = ({ item }) => {
           key: "1",
         },
         {
-          label: (
-            <div>
-              {/* <a style={{ textDecoration: "none", color: "Black" }}>Color</a> */}
-              {openColor && <StickyColor item={item} />}
-            </div>
-          ),
+          label: <div>{openColor && <StickyColor item={item} />}</div>,
 
           // icon: <HighlightOutlined onClick={openColorHandler} />,
           key: "2",
@@ -123,7 +119,9 @@ const NewStickyNote = ({ item }) => {
   const setTitleValue = (value) => {
     const id = item.id;
     dispatch(targetTitleVal({ id, value }));
-    dispatch(getStickyNoteTitleAction({ ...item, title: value }));
+    dispatch(
+      getStickyNoteTitleAction({ ...item, attachments: [], title: value })
+    );
   };
   const setDescriptionValue = (value) => {
     const id = item.id;
@@ -201,6 +199,8 @@ const NewStickyNote = ({ item }) => {
 
           {/* *******Insert text area and image********* */}
 
+          {openShare && <ShareComponent item={item} />}
+
           <div className="textArea_container">
             <ReactQuill
               onChange={(value) => setDescription(value)}
@@ -210,6 +210,7 @@ const NewStickyNote = ({ item }) => {
               placeholder="Take a Note"
               defaultValue={item.description}
             />
+
             <div className="img-input-container">
               <PictureOutlined className="image_icon text-[20px]" />
               <input

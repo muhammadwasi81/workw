@@ -9,13 +9,14 @@ export const TableColumn = () => {
       dataIndex: 'code',
       ellipsis: true,
       sort: true,
+      width: 150,
     },
     {
       title: 'Name',
       dataIndex: 'name',
       ellipsis: true,
       sort: true,
-      width: 100,
+      width: 150,
     },
     {
       title: 'Category',
@@ -23,25 +24,29 @@ export const TableColumn = () => {
       render: (category) => (category ? category : 'N/A'),
       ellipsis: true,
       sort: true,
+      width: 150,
     },
     {
       title: 'Value',
       dataIndex: 'value',
       ellipsis: true,
       sort: true,
+      width: 150,
     },
     {
       title: 'Date',
       dataIndex: 'createDate',
-      render: (i) => moment(i.createDate).format('DD MMM YYYY'),
+      render: (i) => moment(i?.createDate)?.format('DD MMM YYYY'),
       ellipsis: true,
       sort: true,
+      width: 150,
     },
     {
       title: 'Serial No',
       dataIndex: 'serialNo',
       ellipsis: true,
       sort: true,
+      width: 150,
     },
     {
       title: 'Item Type',
@@ -76,15 +81,15 @@ export const TableColumn = () => {
         />
       ),
       sort: true,
-      width: 200,
+      width: 150,
     },
     {
       title: 'Status',
       dataIndex: 'status',
       render: (value) => <ItemStatus status={value} />,
-      width: 180,
       ellipsis: true,
       sort: true,
+      width: 150,
     },
   ];
 };

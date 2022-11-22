@@ -12,6 +12,7 @@ const initialState = {
   isCreateComposer: false,
   loanDetail: {},
   loanList: [],
+  loadingData: false,
 };
 
 const LoanSlice = createSlice({
@@ -37,6 +38,7 @@ const LoanSlice = createSlice({
         console.log("getLoanById payload", payload.data);
         state.loanDetail = payload.data;
         state.loader = false;
+        state.loadingData = false;
       })
       .addCase(addLoan.fulfilled, (state, { payload }) => {
         console.log("add loan slice ", payload.data);
@@ -53,6 +55,7 @@ const LoanSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
 
       .addMatcher(isPending(...[addLoan]), (state) => {

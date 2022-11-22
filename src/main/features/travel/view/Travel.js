@@ -238,25 +238,22 @@ function Travel({
 				}}
 			/>
 			<ContBody className={`!block ${Direction}`} direction={Direction}>
-				{
-				   tableView &&
-						<Table
-							columns={tableColumns(onActionClick, Direction, table)}
-							dragable={true}
-							handleChange={handleColumnSorting}
-							// onPageChange={onPageChange}
-							onRow={onRow}
-							data={travels}
-							status={travelStatus}
-							loading={loader}
-							success={success}
-							// onActionClick={onActionClick}
-						/>
-
-				}
-				{
-					travels?.length > 0 && !loader && !tableView ? (
-						<Scroll
+				{tableView && (
+					<Table
+						columns={tableColumns(onActionClick, Direction, table)}
+						dragable={true}
+						handleChange={handleColumnSorting}
+						// onPageChange={onPageChange}
+						onRow={onRow}
+						data={travels}
+						status={travelStatus}
+						loading={loader}
+						success={success}
+						// onActionClick={onActionClick}
+					/>
+				)}
+				{!tableView ? (
+					<Scroll
 						isLoading={loader}
 						data={travels}
 						fetchMoreData={pageNo => {
@@ -279,10 +276,9 @@ function Travel({
 							labels={headings}
 						/>
 					</Scroll>
-
-					): !loader && !tableView && <NoDataFound/>
-				} 
-			
+				) : (
+					!loader && !tableView && <NoDataFound />
+				)}
 
 				{/* 
 				{tableView ? (

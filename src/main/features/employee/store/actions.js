@@ -1,26 +1,28 @@
-import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode";
+import { createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit';
+import { responseCode } from '../../../../services/enums/responseCode';
 import {
   responseMessage,
   responseMessageType,
-} from "../../../../services/slices/notificationSlice";
-import { openNotification } from "../../../../utils/Shared/store/slice";
+} from '../../../../services/slices/notificationSlice';
+import { openNotification } from '../../../../utils/Shared/store/slice';
 
 import {
   addEmployeeService,
   getAllEmployeesService,
-} from "../services/service";
+  getEmployeeByIdService,
+  updateEmployeeService,
+} from '../services/service';
 
 export const addEmployee = createAsyncThunk(
-  "addEmployee",
+  'addEmployee',
   async ({ data, resetAllFields }, { dispatch, getState, rejectWithValue }) => {
     const res = await addEmployeeService(data);
 
     if (res?.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Employee Added Successfully",
-          type: "success",
+          message: 'Employee Added Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -32,7 +34,7 @@ export const addEmployee = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -42,7 +44,7 @@ export const addEmployee = createAsyncThunk(
 );
 
 export const getAllEmployees = createAsyncThunk(
-  "getAllEmployees",
+  'getAllEmployees',
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await getAllEmployeesService();
     if (res.responseCode === responseCode.Success) {
@@ -54,6 +56,54 @@ export const getAllEmployees = createAsyncThunk(
         type: responseMessageType.ApiFailure,
       });
       return rejectWithValue(res.message);
+    }
+  }
+);
+
+export const getEmployeeByIdAction = createAsyncThunk(
+  'getEmployeeById',
+  async (id, { dispatch, getState, rejectWithValue }) => {
+    const res = await getEmployeeByIdService(id);
+    console.log(res.data, 'getEmployeeByIdAction');
+    if (res.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        data: res,
+        type: responseMessageType.ApiFailure,
+      });
+      return rejectWithValue(res.message);
+    }
+  }
+);
+
+export const updateEmployeeAction = createAsyncThunk(
+  'updateEmployee',
+  async ({ data, resetAllFields }, { dispatch, getState, rejectWithValue }) => {
+    const res = await updateEmployeeService(data);
+    console.log(res, 'updateEmployeeAction');
+    if (res.responseCode === responseCode.Success) {
+      dispatch(
+        openNotification({
+          message: 'Employee Updated Successfully',
+          type: 'success',
+          duration: 2,
+        })
+      );
+      for (let obj in resetAllFields) {
+        resetAllFields[obj].resetFields();
+      }
+      return res;
+    } else {
+      dispatch(
+        openNotification({
+          message: res.message,
+          type: 'error',
+          duration: 2,
+        })
+      );
+      return isRejectedWithValue(res.message);
     }
   }
 );

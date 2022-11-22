@@ -32,6 +32,7 @@ const requisitionSlice = createSlice({
 
     builder.addCase(GetRequisitionById.fulfilled, (state, action) => {
       state.Detail = action.payload.data;
+      state.loadingData = false;
     });
 
     builder.addCase(GetAllRequisitionOffer.fulfilled, (state, action) => {
@@ -55,6 +56,7 @@ const requisitionSlice = createSlice({
         })
       .addMatcher(isPending(...[getAllRequisition]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllRequisition]), (state) => {
         state.loader = true;

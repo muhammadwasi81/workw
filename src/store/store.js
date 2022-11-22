@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -86,6 +86,7 @@ import teamSlice from '../main/features/team/store/slice';
 import inventoryAssetSlice from '../main/features/createAssets/store/slice';
 import appraisalModuleSlice from '../main/features/appraisalModule/store/slice';
 import quotationClientSlice from '../main/features/quotationClient/store/slice';
+import employeeProfileSlice from '../main/features/profile/store/slice';
 
 // import thunk from "redux-thunk";
 
@@ -169,13 +170,14 @@ const reducers = combineReducers({
   teamSlice,
   inventoryAssetSlice,
   appraisalModuleSlice,
+  employeeProfileSlice,
 });
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
   version: 1,
-  whitelist: ["userSlice"],
+  whitelist: ['userSlice'],
   // blacklist: ["stickyNotesSlice"]
 };
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -8,6 +8,7 @@ const initialState = {
    error: false,
    salaryDetail: null,
    salaryList: [],
+   loadingData: false,
 };
 
 export const VoucherSlice = createSlice({
@@ -30,6 +31,7 @@ export const VoucherSlice = createSlice({
             state.salaryDetail = payload;
             state.loader = false;
             state.success = true;
+            state.loadingData = false;
          })
          .addCase(getAllEmployeeSalary.fulfilled, (state, { payload }) => {
             state.salaryList = payload.data;
@@ -47,6 +49,7 @@ export const VoucherSlice = createSlice({
                state.loader = true;
                state.success = false;
                state.error = false;
+               state.loadingData = true;
             }
          );
    }

@@ -117,6 +117,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         pageNo: 1,
         pageSize: 20,
         filterType: 0,
+        search: "",
       });
       if (responseCode === 1001) {
         setTypesSelect(data);
@@ -197,7 +198,6 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
       description,
       referenceType,
     } = values;
-    console.log(referenceId, "reference Id");
     const expenseObj = {
       id: DEFAULT_GUID,
       referenceId: getRefrenceId(referenceId, values.referenceId),

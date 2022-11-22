@@ -18,6 +18,7 @@ import CustomModal from "../../../workboard/Modal/CustomModal";
 import AttachmentsCarrousel from "../AttachmentsCarrousel/AttachmentsCarrousel";
 import { useSelector } from "react-redux";
 import { ClockCircleOutlined } from "@ant-design/icons";
+import { getNameForImage } from "../../../../../utils/base";
 
 function ListView(props) {
 	const { labels } = props;
@@ -57,7 +58,7 @@ function ListView(props) {
 										data.creator &&
 										data.creator.image.length > 0
 											? data.creator.image
-											: "https://joeschmoe.io/api/v1/random"
+											: ""
 									}
 									createDate={data.createDate}
 									isPublic={true}
@@ -72,7 +73,7 @@ function ListView(props) {
 									profileImgSize={40}
 									showIcon={false}
 								/>
-								<div className="flex justify-between flex-wrap">
+								<div className="flex justify-between flex-wrap mt-2">
 									<div className="flex flex-col gap-1">
 										<span className="text-black text-semi-bold">
 											{data.subject}
@@ -200,7 +201,7 @@ function ListView(props) {
 						</div>
 				  ))
 				: null}
-			{props.loader &&
+			{/* {props.loader &&
 				[0, 0, 0].map(() => (
 					<Skeleton
 						active
@@ -209,12 +210,13 @@ function ListView(props) {
 							rows: 4,
 						}}
 					/>
-				))}
+				))} */}
 			<Drawer
 				title="Travel Detail"
 				placement="right"
 				onClose={onClose}
-				visible={visible}
+				open={visible}
+				// visible={visible}
 				width={"768px"}
 				destroyOnClose={true}
 			>

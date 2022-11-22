@@ -37,8 +37,7 @@ function ExpenseList({
     financers,
     attachments,
   } = expense;
-  console.log(expense, "expense list");
-  console.log(isDetail, "isDetail");
+
   const { labels } = ExpenseDictionaryList;
   let classes = "expenseCard ";
   classes += Direction === "rtl" ? "rtl" : "";
@@ -106,53 +105,53 @@ function ExpenseList({
           </div>
         </div>
       </div>
-      {/* {!isDetail ? ( */}
-      <div className="expenseCard__footer">
-        <div className="card-column-view">
-          <div className="card-column-item">
-            <div className="column-item-head"> {labels.approvers} </div>
-            <div className="SummaryMembers">
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"approvers"}
-                membersData={approvers}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
+      {!isDetail ? (
+        <div className="expenseCard__footer">
+          <div className="card-column-view">
+            <div className="card-column-item">
+              <div className="column-item-head"> {labels.approvers} </div>
+              <div className="SummaryMembers">
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers}
+                  text={"Danish"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              </div>
             </div>
-          </div>
-          <div className="card-column-item">
-            <div className="column-item-head"> {labels.executor} </div>
-            <div className="SummaryMembers">
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"approvers"}
-                membersData={executors}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
+            <div className="card-column-item">
+              <div className="column-item-head"> {labels.executor} </div>
+              <div className="SummaryMembers">
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={executors}
+                  text={"Danish"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              </div>
             </div>
-          </div>
-          <div className="card-column-item">
-            <div className="column-item-head"> {labels.finance} </div>
-            <div className="SummaryMembers">
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"approvers"}
-                membersData={financers}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
+            <div className="card-column-item">
+              <div className="column-item-head"> {labels.finance} </div>
+              <div className="SummaryMembers">
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={financers}
+                  text={"Danish"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* ) : (
+      ) : (
         ""
-      )} */}
+      )}
     </div>
   );
 }

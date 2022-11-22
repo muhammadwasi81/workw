@@ -13,7 +13,7 @@ import {
 import { updateListExpenseStatus } from "../store/slice";
 
 function ExpenseDetail({ id }) {
-  const { expense } = useSelector((state) => state.expenseSlice);
+  const { expense ,loadingData } = useSelector((state) => state.expenseSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
   const { labels } = ExpenseDictionaryList;
@@ -21,11 +21,9 @@ function ExpenseDetail({ id }) {
   const [status, setStatus] = useState();
   const [isMount, setIsMount] = useState(false);
   const dispatch = useDispatch();
-  console.log(id, "iddddddd");
   useEffect(() => {
     // console.log(id, "DDIDDD");
     dispatch(getExpenseById(id));
-    console.log(id, "idddd");
   }, [id]);
   useEffect(() => {
     if (status) {
@@ -56,6 +54,8 @@ function ExpenseDetail({ id }) {
     };
   }, []);
 
+  if(loadingData) return <Skeleton />;
+
   return (
     <>
       {!Object.keys(expense).length ? (
@@ -66,6 +66,7 @@ function ExpenseDetail({ id }) {
             <ExpenseList
               expense={expense}
               updateStatus={isMount ? status : expense.status}
+              isDetail={true}
             />
           }
           <Approval

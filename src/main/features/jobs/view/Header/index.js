@@ -1,19 +1,16 @@
 import React from "react";
-import MainHeader from "../../../../layout/header/index";
+import { ROUTES } from "../../../../../utils/routes";
+import MainHeader from "../../../../layout/header";
 
 const Header = () => {
   const items = [
     {
       name: "Job Board",
-      to: `/public/job_board`,
-      renderButton: []
+      to: `${ROUTES.JOBS.ROOT}`,
+      renderButton: [1],
     },
   ];
-  return (
-      <MainHeader
-        items={items}
-      />
-  );
+  return <MainHeader items={items} />;
 };
 
 export default Header;

@@ -11,6 +11,9 @@ import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import ExpenseDetailsComposer from "./ExpenseDetailsComposer";
 import { ExpenseReferenceTypeEnum } from "../enums";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+import { ContBody } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
+
 
 function ExpenseListView({
   filterType,
@@ -49,31 +52,33 @@ function ExpenseListView({
   };
 
   return (
-    <div className="expenseCardWrapper" style={{ direction: Direction }}>
+    <>
       {/* {loader
         ? [...Array(3)].map((item) => (
             <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
           )): */}
-    { expenses?.length > 0 && !loader ? (  
-      expenses?.map((expense, index) => {
-        return (
-          <ExpenseList
-            key={index}
-            onExpense={handleExpense}
-            expense={expense}
-          />
-        );
-      })
-      ) : !loader  && <NoDataFound />
-    } 
-
+            {expenses?.length > 0 && !loader ? (  
+            <CardWrapper>
+              {expenses?.map((expense, index) => {
+                return (
+                  <ExpenseList
+                    key={index}
+                    onExpense={handleExpense}
+                    expense={expense}
+                  />
+                );
+              })}
+          </CardWrapper>
+          ) : !loader && <NoDataFound />
+        } 
+    
       <ExpenseDetailsComposer
         direction={Direction}
         visible={visible}
         onClose={handleDrawerClose}
         id={id}
       />
-    </div>
+    </>
   );
 }
 

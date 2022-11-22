@@ -30,9 +30,10 @@ function DetailedView(props) {
     userLanguage
   ];
 
-  const { customApprovalDetail,loadingData } = useSelector(
-    (state) => state.customApprovalSlice
-  );
+  const { customApprovalDetail,loadingData} = useSelector(
+    (state) => state.customApprovalSlice); 
+    
+    //console.log("loadingDataaaaaaaaaaaaaaaaaaaa ",loadingData);
 
   const {
     creator,

@@ -15,6 +15,7 @@ function CareersListView() {
     let payload = {
       filterType: 0,
       search: "",
+      sort: 2,
     };
     dispatch(getAllCareerAction(payload));
   }, []);

@@ -389,6 +389,14 @@
   .IdTag {
     font-size: 9px;
   }
+  .description {
+    line-height: 1.2em;
+    height: 3.6em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
 }
 @media (min-width: 320px) and (max-width: 767px) {
   .lf-col {

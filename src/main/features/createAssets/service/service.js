@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import {
   ResponseResultError,
   ResponseResultSuccess,
@@ -17,7 +16,18 @@ export const getAllAssetItemService = async (payload = {}) => {
       return ResponseResultError('No Data Found');
     }
     return response.data;
-    // return ResponseResultSuccess(response.data);
+  } catch (error) {
+    return ResponseResultError(error);
+  }
+};
+
+export const getAllAssetItemByUserIdService = async (id) => {
+  try {
+    const response = await Config.get(
+      `/api/InventoryItem/GetAllItemByUserId?id=${id}`
+    );
+    console.log(response.data, 'single person data service');
+    return ResponseResultSuccess(response.data);
   } catch (error) {
     return ResponseResultError(error);
   }
@@ -50,31 +60,12 @@ export const getAssetItemDetailByIdService = async (id) => {
   }
 };
 
-export const getAllAssetItemByUserIdService = async (id) => {
-  try {
-    console.log(id, 'id in service');
-    const response = await Config.get(
-      `/api/InventoryItem/GetAllItemByUserId?id=${id}`
-    );
-    console.log(response.data, id, 'single person data service');
-    return ResponseResultSuccess(response.data);
-  } catch (error) {
-    return ResponseResultError(error);
-  }
-};
-
 export const updateAssetItemService = async (payload) => {
   try {
     const response = await Config.post(
       `/api/InventoryItem/UpdateItemStatus`,
       payload
     );
-    if (response.data) {
-      message.success('Asset Item Updated Successfully');
-    } else {
-      message.error('Asset Item Not Updated');
-    }
-    console.log(payload, 'payload in service');
     console.log(response, 'updateAssetItemService');
     return ResponseResultSuccess(response.data);
   } catch (error) {

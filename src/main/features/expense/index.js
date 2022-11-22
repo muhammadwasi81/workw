@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { STRINGS } from "../../../utils/base";
 import { dictionaryList } from "../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
@@ -22,6 +22,7 @@ import { handleOpenExpenseComposer } from "./store/slice";
 import { Button, Drawer } from "antd";
 import OpenCreateExpense from "./view/CreateExpense/OpenCreateExpense";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
+import { getAllExpense } from "./store/actions";
 
 function Expenses({
   referenceId = defaultUiid,
@@ -41,6 +42,13 @@ function Expenses({
   console.log(drawerOpen, "drawerOpen slice");
   const [view, setView] = useState("List");
   const dispatch = useDispatch();
+  const [filter, setFilter] = useState({
+    search: "",
+  });
+
+  useEffect(() => {
+    dispatch(getAllExpense(filter));
+  }, [filter]);
   const { labels } = ExpenseDictionaryList;
   const items = [
     {
@@ -85,7 +93,7 @@ function Expenses({
       <TopBar
         width={width}
         onSearch={(value) => {
-          console.log(value);
+          setFilter({ ...filter, search: value });
         }}
         filter={{
           onFilter: () => {},

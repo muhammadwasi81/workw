@@ -1,5 +1,5 @@
-export let DOMAIN_PREFIX = "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "" : "";
+export let DOMAIN_PREFIX = '';
+DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '' : '';
 
 export const ROUTES = {
   SEARCH: {
@@ -254,9 +254,9 @@ export const ROUTES = {
     ADD: `add`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
     INFO: `info/*`,
-    BANK_DETAIL: "info/bankDetail/:id",
-    BASIC_INFO: "info/basicInfo/:id",
-    USER_LEAVES: "info/leaves/:id",
+    BANK_DETAIL: 'info/bankDetail/:id',
+    BASIC_INFO: 'info/basicInfo/:id',
+    USER_LEAVES: 'info/leaves/:id',
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,

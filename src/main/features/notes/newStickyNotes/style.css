@@ -126,7 +126,11 @@
   resize: both;
   overflow: auto;
   width: 300px;
+  max-width: 600px;
+  max-height: 600px;
   height: auto;
+  /* min-width: 186px;
+  min-height: 186px; */
   position: absolute;
   border-radius: 5px;
   cursor: move;
@@ -218,24 +222,40 @@ input:focus {
 }
 
 .leftNote_Icon {
+  display: flex;
   font-size: 16px !important;
   font-weight: bold;
   margin-left: 10px !important;
   justify-content: space-around !important;
 }
-
+/* share styling */
+.shareContainer {
+  display: flex;
+  flex-direction: row;
+}
+.user-box {
+  align-items: center;
+  margin: 5px;
+  width: 100%;
+}
+.shareIcon {
+  font-size: 20px !important;
+  font-weight: bold !important;
+  margin: 4px;
+}
 .textArea_container {
   display: flex;
   flex-direction: row;
   /* justify-content: space-between; */
   overflow-y: scroll;
+  position: relative;
 }
 
 .img-input-container {
   color: black;
   position: absolute;
   right: 15px;
-  top: 55px;
+  top: 15px;
   display: flex;
   flex-direction: row;
 }

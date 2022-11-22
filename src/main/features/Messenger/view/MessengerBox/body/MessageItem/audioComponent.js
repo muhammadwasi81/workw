@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import AudioControls from "./audioControls";
 
-const AudioComponent = ({ audio }) => {
+const AudioComponent = ({ audio, creator, messageByMe }) => {
   console.log(audio);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -70,6 +70,8 @@ const AudioComponent = ({ audio }) => {
         trackProgress={trackProgress}
         onScrub={onScrub}
         onScrubEnd={onScrubEnd}
+        creator={creator}
+        messageByMe={messageByMe}
       />
     </>
   );

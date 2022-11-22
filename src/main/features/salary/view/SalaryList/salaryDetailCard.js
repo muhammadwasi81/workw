@@ -26,7 +26,7 @@ function SalaryDetailCard(props) {
   }, [props.id]);
 
   const salaryDetail = useSelector((state) => state.salarySlice.salaryDetail);
-  const {loadingData } = useSelector((state) => state.salarySlice);
+  const { loadingData } = useSelector((state) => state.salarySlice);
   if (!salaryDetail) return <></>;
 
   const {
@@ -43,7 +43,7 @@ function SalaryDetailCard(props) {
   } = salaryDetail;
   console.log(salaryDetail, 'salaryDetail');
 
-  if(loadingData) return <Skeleton />;
+  if (loadingData) return <Skeleton />;
 
   return (
     <>

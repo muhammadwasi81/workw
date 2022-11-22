@@ -14,25 +14,7 @@ import '../styles.css';
 
 const initialState = {
   id: '',
-  handoverId: '',
-  approvers: [
-    {
-      approverId: '',
-      approverType: 0,
-      isDefault: true,
-      status: 1,
-      email: '',
-    },
-  ],
-  assetItems: [
-    {
-      id: '',
-      assetId: '',
-      itemId: '',
-      name: '',
-      code: '',
-    },
-  ],
+  status: '',
 };
 
 const AssetDeAllocationComposer = () => {
@@ -45,9 +27,9 @@ const AssetDeAllocationComposer = () => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
+  const [status, setStatus] = useState('');
 
   const { assetItemByUserId } = useSelector((state) => state.AssetItemSlice);
-
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   const selectedData = (data, obj) => {
@@ -57,6 +39,7 @@ const AssetDeAllocationComposer = () => {
   };
 
   const handleData = (id) => {
+    console.log(id, 'id');
     dispatch(getAssetItemByUserId(id));
   };
 
@@ -67,7 +50,8 @@ const AssetDeAllocationComposer = () => {
   const handleMember = (val) => {
     setNewState({
       ...newState,
-      assetItems: [...val],
+      id: val.id,
+      status: val.status,
     });
   };
 
@@ -82,7 +66,8 @@ const AssetDeAllocationComposer = () => {
   };
 
   const [newState, setNewState] = useState({
-    assetItems: [],
+    id: '',
+    status: '',
   });
 
   useEffect(() => {
@@ -93,27 +78,19 @@ const AssetDeAllocationComposer = () => {
   }, [employees]);
 
   const onFinish = (values) => {
-    let assetItems = [];
-    assetItemByUserId.map((x) => {
-      assetItems.push({
-        id: x.id,
-        status: x.status,
-      });
-    });
+    console.log(values, 'values');
     if (!assetItemByUserId[0]?.id) {
       return message.error('No Asset Items Found');
     }
-    console.log('de-allocation', values);
-    dispatch(
-      updateAssetItems({
-        id: assetItemByUserId[0]?.id,
-        status: values.status,
-      })
-    );
-    // dispatch(updateAssetItems(assetItems));
+    let payload = {
+      ...values,
+      id: assetItemByUserId[0]?.id,
+      status: status,
+    };
+    console.log(payload, 'payload data');
+    dispatch(updateAssetItems(payload));
     setState(initialState);
     form.resetFields();
-    dispatch(getAssetItemByUserId(''));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -199,15 +176,13 @@ const AssetDeAllocationComposer = () => {
                       <td>{x.serialNo}</td>
                       <td>
                         <Select
+                          name="status"
                           style={{ width: '100%' }}
                           placeholder="Select Status"
                           defaultValue={x.status}
                           onChange={(e) => {
                             console.log('e', e);
-                            setNewState({
-                              ...newState,
-                              status: e,
-                            });
+                            setStatus(e);
                           }}
                         >
                           <Select.Option value={1}>
@@ -225,7 +200,7 @@ const AssetDeAllocationComposer = () => {
                 ) : (
                   <tr>
                     <td colSpan={4} className="text-center">
-                      <strong>No Data Found</strong>{' '}
+                      <strong>No Result Found...</strong>{' '}
                     </td>
                   </tr>
                 )}

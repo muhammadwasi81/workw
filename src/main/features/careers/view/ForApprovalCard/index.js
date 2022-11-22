@@ -54,7 +54,7 @@ const MyApprovalCard = (props) => {
 
   return (
     <>
-      <ApprovalComposer visible={openDetail} onClose={handleCancel} id={id} />
+      {/* <ApprovalComposer visible={openDetail} onClose={handleCancel} id={id} /> */}
       {loader && !table ? (
         <CardWrapper
           style={{

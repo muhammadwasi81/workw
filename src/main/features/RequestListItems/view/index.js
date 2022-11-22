@@ -13,14 +13,14 @@ import RequestList from './requestList';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import RequestListComposer from './composer/RequestListComposer';
 import { ListTableColumn } from './tableColumn';
+import { Skeleton } from 'antd';
 
 const Index = () => {
   const dispatch = useDispatch();
 
-  const { requestItems, success } = useSelector(
+  const { loader, requestItems, success } = useSelector(
     (state) => state.requestItemSlice
   );
-  console.log(success, 'success');
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');
@@ -96,7 +96,13 @@ const Index = () => {
             label2: 'Table',
           }}
         />
-        <ContBody>{render[viewType]}</ContBody>
+        {loader ? (
+          <>
+            <Skeleton avatar paragraph={{ rows: 4 }} />
+          </>
+        ) : (
+          <ContBody>{render[viewType]}</ContBody>
+        )}
       </TabbableContainer>
     </>
   );

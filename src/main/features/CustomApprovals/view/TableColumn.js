@@ -15,13 +15,13 @@ export const tableColumn = () => {
     {
       title: "Reference No",
       dataIndex: "referenceNo",
-      ellipsis: true,
+      width: 100,
       sort: true,
     },
     {
       title: "Creator",
       dataIndex: "creator",
-      ellipsis: true,
+      width: 200,
       render: (creator) => (
         <TagAvatar text={creator.name} img={creator.image} />
       ),
@@ -33,12 +33,13 @@ export const tableColumn = () => {
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
+      width: 100,
     },
     {
       title: "Subject",
       dataIndex: "subject",
-      ellipsis: true,
       sort: true,
+      width: 200,
     },
 
     {
@@ -46,20 +47,22 @@ export const tableColumn = () => {
       dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
+      width: 200,
     },
     {
       title: "Amount",
       dataIndex: "value",
-      ellipsis: true,
+
       sort: true,
+      width: 100,
     },
     {
       title: "Approvers",
       dataIndex: "approvers",
-      ellipsis: true,
       render: (approver) => (
         <Avatar membersData={approver} heading={"Approvers"} />
       ),
+      width: 200,
     },
   ];
 };

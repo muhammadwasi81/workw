@@ -91,7 +91,7 @@ function DetailedView(props) {
             <Attachments
               data={attachments}
               key={{ data: attachments }}
-              toShow={3}
+              toShow={1}
               onClick={() => {}}
               size={"50px"}
             />

@@ -21,7 +21,14 @@ function Approval({
   onListStatus,
 }) {
   const approverDetail = approver ? approver : {};
-  const { businessId, designation, name, image, type } = approverDetail;
+  const {
+    businessId,
+    designation,
+    name,
+    image,
+    type,
+    attachments,
+  } = approverDetail;
   const [files, setFiles] = useState([]);
   const [remarks, setRemarks] = useState([]);
   const [remarksText, setremarksText] = useState("");

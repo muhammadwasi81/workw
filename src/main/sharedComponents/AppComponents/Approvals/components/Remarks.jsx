@@ -1,6 +1,6 @@
 import React from "react";
 import ApprovalComment from "./RemarkBubble";
-function Remarks({ remarker, status, type, remark, date }) {
+function Remarks({ remarker, status, type, remark, date, attachments }) {
   return (
     <div className="remarks">
       {/* <div className="remarks__header">
@@ -13,6 +13,7 @@ function Remarks({ remarker, status, type, remark, date }) {
           type={type}
           remark={remark}
           date={date}
+          attachments={attachments}
         />
       </div>
     </div>

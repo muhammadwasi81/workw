@@ -10,18 +10,21 @@ function ApprovalBody({ remarks }) {
   return (
     <div className="approval__header-body">
       {remarks.length > 0 ? (
-        remarks.map(({ id, remarker, status, type, remark, createDate }) => {
-          return (
-            <Remarks
-              key={id}
-              remarker={remarker}
-              status={status}
-              type={type}
-              remark={remark}
-              date={createDate}
-            />
-          );
-        })
+        remarks.map(
+          ({ id, remarker, status, type, remark, createDate, attachments }) => {
+            return (
+              <Remarks
+                key={id}
+                remarker={remarker}
+                status={status}
+                type={type}
+                remark={remark}
+                date={createDate}
+                attachments={attachments}
+              />
+            );
+          }
+        )
       ) : (
         <div className="remarkNoData">
           {/* <img src={noData} alt="" /> */}

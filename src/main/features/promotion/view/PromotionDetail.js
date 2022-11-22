@@ -38,8 +38,6 @@ function PromotionDetail(props) {
     props.id && dispatch(GetPromotionById(props.id));
   }, [props.id]);
 
-  console.log("FROM DETAIL");
-
   const {
     InProcess,
     Approved,
@@ -54,7 +52,7 @@ function PromotionDetail(props) {
   } = ApprovalStatus;
 
   const {
-    creator,
+    creator = {},
     status,
     approvers,
     description,
@@ -76,8 +74,8 @@ function PromotionDetail(props) {
           <div className="item-header">
             <div className="left">
               <UserInfo
-                avatarSrc={creator.image}
-                name={creator.name}
+                avatarSrc={creator && creator.image}
+                name={creator && creator.name}
                 Subline={
                   <SublineDesigWithTime
                     designation={creator.designation ? creator.designation : ""}

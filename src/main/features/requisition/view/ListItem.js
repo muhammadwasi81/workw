@@ -7,14 +7,20 @@ import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLin
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import RequistionDefaultIcon from "../../../../content/NewContent/requisition/requistion.svg";
 import moment from "moment";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+  ItemContent,
+  ItemHeader,
+  SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { useDispatch } from "react-redux";
 import { data } from "jquery";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, requisitionDictionary } = requisitionDictionaryList[userLanguage];
+  const { Direction, requisitionDictionary } = requisitionDictionaryList[
+    userLanguage
+  ];
   const disptach = useDispatch();
 
   const {
@@ -32,7 +38,10 @@ function ListItem(props) {
     createDate,
   } = props.item;
 
-  const localTime = moment.utc(createDate).local().format();
+  const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
 
   return (
     <>
@@ -43,12 +52,16 @@ function ListItem(props) {
             <UserInfo
               avatarSrc={creator?.image}
               name={creator?.name}
-              Subline={<SublineDesigWithTime designation={creator?.designation ? creator?.designation : ""} time={moment(localTime).fromNow()} />}
+              Subline={
+                <SublineDesigWithTime
+                  designation={creator?.designation ? creator?.designation : ""}
+                  time={moment(localTime).fromNow()}
+                />
+              }
             />
           </div>
           <div className="right">
-            <Tag className="IdTag">
-              {referenceNo && referenceNo}</Tag>
+            <Tag className="IdTag">{referenceNo && referenceNo}</Tag>
             <StatusTag status={status && status}></StatusTag>
           </div>
         </ItemHeader>
@@ -57,7 +70,12 @@ function ListItem(props) {
             <p>{description}</p>
           </div>
           <div className="attachmentBox">
-            <Image preview={false} width={60} height={60} src={image === "" ? RequistionDefaultIcon : image} />
+            <Image
+              preview={false}
+              width={60}
+              height={60}
+              src={image === "" ? RequistionDefaultIcon : image}
+            />
           </div>
         </ItemContent>
         {/* <div className="cardSections">

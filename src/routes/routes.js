@@ -303,12 +303,12 @@ export const routes = {
         import("../main/features/requisition/view/requisition")
       ),
     },
-    {
-      path: `${ROUTES.REQUISITION.DETAIL}`,
-      component: lazy(() =>
-        import("../main/features/requisition/view/myRequisitionDetail/index")
-      ),
-    },
+    // {
+    //   path: `${ROUTES.REQUISITION.DETAIL}`,
+    //   component: lazy(() =>
+    //     import("../main/features/requisition/view/myRequisitionDetail/index")
+    //   ),
+    // },
 
     // {
     // 	path: `${ROUTES.REQUISITION.DEFAULT}`,
@@ -336,13 +336,9 @@ export const routes = {
       component: lazy(() => import("../main/features/payroll/view/index")),
     },
     {
-			path: `${ROUTES.COMPANIES.DEFAULT}`,
-			component: lazy(() =>
-				import(
-					"../main/features/companies/index"
-				)
-			),
-		},
+      path: `${ROUTES.COMPANIES.DEFAULT}`,
+      component: lazy(() => import("../main/features/companies/index")),
+    },
   ],
   AdminRoutes: [
     {

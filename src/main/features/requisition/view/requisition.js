@@ -32,7 +32,11 @@ const Requisition = (props) => {
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [filter, setFilter] = useState({
+    filterType: 0,
+    search: "",
+    sortBy: 1,
+  });
 
   const dispatch = useDispatch();
   const { items, drawerOpen } = useSelector((state) => state.requisitionSlice);
@@ -48,9 +52,7 @@ const Requisition = (props) => {
   }, [filter]);
 
   const openMyRequisitionDetail = (id) => {
-    console.log(id, "my Career Id");
     dispatch(GetRequisitionById(id));
-
     navigate(`requisitionDetail/${id}`);
   };
 

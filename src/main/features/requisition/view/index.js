@@ -3,9 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import { BrokenPage, STRINGS } from "../../../../utils/base";
 import { ROUTES } from "../../../../utils/routes";
 import RequisitionDetails from "./myRequisitionDetail";
-import Requisition from "./Requisition";
+import Requisition from "./requisition";
 
-const Index = () => {   
+const Index = () => {
   return (
     <>
       <Routes>

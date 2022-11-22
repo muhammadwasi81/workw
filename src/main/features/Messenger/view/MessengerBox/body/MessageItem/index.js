@@ -21,8 +21,9 @@ const MessengerListItem = ({
     // messageByMe,
     status,
     createBy,
+    creator,
   } = messgeItem;
-  console.log(messgeItem);
+  console.log(messgeItem, "hhh");
   const { user } = useSelector((state) => state.userSlice);
   const messageByMe = getMessageByMe(createBy, user);
   const { chatType } = messengerDetail;
@@ -35,7 +36,11 @@ const MessengerListItem = ({
       <MessageProfile isChatBox={isChatBox} messageByMe={messageByMe} />
       <div className="MessageBubble">
         {messageType === 2 && (
-          <AudioComponent audio={attachments[0].path} creator={createBy} />
+          <AudioComponent
+            audio={attachments[0].path}
+            creator={creator}
+            messageByMe={messageByMe}
+          />
         )
         // <audio controls>
         // 	<source src={attachments[0].path} />

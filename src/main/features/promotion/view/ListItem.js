@@ -28,6 +28,7 @@ function ListItem(props) {
     referenceNo,
     grade,
   } = props.item;
+  console.log(creator.name, "name of creator");
   return (
     <SingleItem>
       <div
@@ -40,8 +41,8 @@ function ListItem(props) {
       <ItemHeader>
         <div className="left">
           <UserInfo
-            avatarSrc={creator.image}
-            name={creator.name}
+            // avatarSrc={creator.image}
+            name={creator && creator.name}
             Subline={
               <SublineDesigWithTime
                 designation={creator.designation ? creator.designation : ""}
@@ -51,11 +52,11 @@ function ListItem(props) {
           />
         </div>
         <div className="right">
-          <Tag className="IdTag">{referenceNo}</Tag>
-          <StatusTag status={status}></StatusTag>
+          <Tag className="IdTag">{referenceNo && referenceNo}</Tag>
+          <StatusTag status={status && status}></StatusTag>
         </div>
       </ItemHeader>
-      <ItemContent>
+      <ItemContent className="description w-full">
         <p>{description}</p>
       </ItemContent>
       <div className="cardSections">

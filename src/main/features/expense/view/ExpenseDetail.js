@@ -21,11 +21,9 @@ function ExpenseDetail({ id }) {
   const [status, setStatus] = useState();
   const [isMount, setIsMount] = useState(false);
   const dispatch = useDispatch();
-  console.log(id, "iddddddd");
   useEffect(() => {
     // console.log(id, "DDIDDD");
     dispatch(getExpenseById(id));
-    console.log(id, "idddd");
   }, [id]);
   useEffect(() => {
     if (status) {
@@ -68,6 +66,7 @@ function ExpenseDetail({ id }) {
             <ExpenseList
               expense={expense}
               updateStatus={isMount ? status : expense.status}
+              isDetail={true}
             />
           }
           <Approval

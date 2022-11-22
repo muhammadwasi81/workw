@@ -10,7 +10,7 @@ const career_data = (data) => {
   console.log(data);
   return {
     pageNo: data.request.pageNo ? data.request.pageNo : 1,
-    pageSize: data.request.pageSize ? data.request.pageSize : 50,
+    pageSize: data.request.pageSize ? data.request.pageSize : 20,
     approverStatus: data.approverStatus ? data.approverStatus : [],
     filterType: data.request.filterType ? data.request.filterType : 0,
     sortBy: data.request.sortBy ? data.request.sortBy : 2,

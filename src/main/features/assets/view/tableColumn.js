@@ -9,13 +9,14 @@ export const TableColumn = () => {
       dataIndex: 'code',
       ellipsis: true,
       sort: true,
+      width: 200,
     },
     {
       title: 'Name',
       dataIndex: 'name',
       ellipsis: true,
       sort: true,
-      width: 100,
+      width: 200,
     },
     {
       title: 'Category',
@@ -23,17 +24,19 @@ export const TableColumn = () => {
       render: (category) => (category ? category : 'N/A'),
       ellipsis: true,
       sort: true,
+      width: 200,
     },
     {
       title: 'Value',
       dataIndex: 'value',
       ellipsis: true,
       sort: true,
+      width: 200,
     },
     {
       title: 'Date',
       dataIndex: 'createDate',
-      render: (i) => moment(i.createDate).format('DD MMM YYYY'),
+      render: (i) => moment(i?.createDate)?.format('DD MMM YYYY'),
       ellipsis: true,
       sort: true,
     },
@@ -42,24 +45,25 @@ export const TableColumn = () => {
       dataIndex: 'serialNo',
       ellipsis: true,
       sort: true,
+      width: 150,
     },
     {
       title: 'Item Type',
       dataIndex: 'type',
       render: (type) => {
-        if (type === 3) {
-          return <div>Non consumable</div>;
+        if (type === 1) {
+          return <div>Service</div>;
         }
         if (type === 2) {
           return <div>consumable</div>;
         }
-        if (type === 1) {
-          return <div>Service</div>;
+        if (type === 3) {
+          return <div>Non consumable</div>;
         }
       },
       ellipsis: true,
       sort: true,
-      width: 150,
+      width: 200,
     },
     {
       title: 'Handover',
@@ -82,9 +86,9 @@ export const TableColumn = () => {
       title: 'Status',
       dataIndex: 'status',
       render: (value) => <ItemStatus status={value} />,
-      width: 180,
       ellipsis: true,
       sort: true,
+      width: 200,
     },
   ];
 };

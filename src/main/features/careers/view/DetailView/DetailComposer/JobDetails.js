@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
-import { Button, Divider, Tag, Avatar, message } from "antd";
+import { Button, Divider, Tag, message } from "antd";
+import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import "antd/dist/antd.css";
 import JobHeader from "./JobHeader";
 import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
@@ -64,7 +65,14 @@ const JobDetails = (props) => {
       <div className="item-card careersQuickDetail">
         <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
           <div>
-            <Avatar size={45} src={creator?.image} />
+            {/* <Avatar size={45} src={creator?.image} /> */}
+            <Avatar
+              width={40}
+              height={40}
+              src={creator?.image}
+              name={creator?.name}
+              round
+            ></Avatar>
           </div>
           <div className="flex-1">
             <div className="text-[16px] font-bold text-sky-900">

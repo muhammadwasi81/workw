@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import { SingleItem } from "../../../../sharedComponents/Card/CardStyle";
 import { Skeleton } from "antd";
-
+import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
 import { getCareerByIdAction } from "../../store/action";
@@ -75,13 +75,13 @@ function ShortDetailCard() {
                         return (
                           <>
                             <Tooltip title={el.approver?.name} placement="top">
-                              <Avatar
-                                src={
-                                  el.approver?.image
-                                    ? el.approver?.image
-                                    : "https://joeschmoe.io/api/v1/random"
-                                }
-                              />
+                              <AvatarCustom
+                                width={30}
+                                height={30}
+                                src={el.approver?.image}
+                                name={el.approver?.name}
+                                round
+                              ></AvatarCustom>
                             </Tooltip>
                           </>
                         );
@@ -146,13 +146,13 @@ function ShortDetailCard() {
                         return (
                           <>
                             <Tooltip title={el.user?.name} placement="top">
-                              <Avatar
-                                src={
-                                  el.user?.image
-                                    ? el.user?.image
-                                    : "https://joeschmoe.io/api/v1/random"
-                                }
-                              />
+                              <AvatarCustom
+                                width={30}
+                                height={30}
+                                src={el.user?.image}
+                                name={el.user?.name}
+                                round
+                              ></AvatarCustom>
                             </Tooltip>
                           </>
                         );
@@ -211,13 +211,13 @@ function ShortDetailCard() {
                         return (
                           <>
                             <Tooltip title={el.user.name} placement="top">
-                              <Avatar
-                                src={
-                                  el.user?.image
-                                    ? el.user?.image
-                                    : "https://joeschmoe.io/api/v1/random"
-                                }
-                              />
+                              <AvatarCustom
+                                width={30}
+                                height={30}
+                                src={el.user?.image}
+                                name={el.user?.name}
+                                round
+                              ></AvatarCustom>
                             </Tooltip>
                           </>
                         );

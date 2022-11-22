@@ -10,11 +10,18 @@ import {
 import TopBar from '../../../sharedComponents/topBar/topBar';
 import { getAllAssetItems } from '../../createAssets/store/action';
 import { TableColumn } from './tableColumn';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import AssetComposer from '../../assets/view/composer/assetAllocationComposer';
+import { handleOpenComposer } from '../../assets/store/slice';
 
 const Index = () => {
   const dispatch = useDispatch();
-  const { assetItemList } = useSelector((state) => state.AssetItemSlice);
   const [search, setSearch] = useState('');
+
+  const { assetDrawerOpen, assetItemList, success } = useSelector(
+    (state) => state.AssetItemSlice
+  );
+  console.log(assetDrawerOpen, 'assetsTableList');
 
   const items = [
     {
@@ -34,7 +41,7 @@ const Index = () => {
 
   useEffect(() => {
     dispatch(getAllAssetItems({ payloadData, search }));
-  }, [, search]);
+  }, [search]);
 
   const render = {
     Table: (
@@ -42,9 +49,25 @@ const Index = () => {
     ),
   };
 
+  const buttons = [
+    {
+      buttonText: 'Assets Allocation',
+      render: (
+        <SideDrawer
+          success={success}
+          isAccessDrawer={true}
+          openDrawer={success}
+          children={<AssetComposer />}
+          title="Add Assets Allocation"
+          buttonText="Assets Allocation"
+        />
+      ),
+    },
+  ];
+
   return (
     <TabbableContainer>
-      <Header items={items} />
+      <Header items={items} buttons={buttons} />
       <TopBar onSearch={onSearch} />
       <ContBody>{render['Table']}</ContBody>
     </TabbableContainer>

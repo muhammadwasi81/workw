@@ -13,8 +13,7 @@ export const routes = {
   // Private Route Here
   Private: [
     {
-      path: `${ROUTES.USER.DEFAULT}:id`,
-      // path: `${ROUTES.USER.DEFAULT}:id/*`,
+      path: `${ROUTES.USER.DEFAULT}:id/*`,
       component: lazy(() => import("../main/features/profile/Profile")),
     },
     {
@@ -303,12 +302,12 @@ export const routes = {
         import("../main/features/requisition/view/requisition")
       ),
     },
-    // {
-    //   path: `${ROUTES.REQUISITION.DETAIL}`,
-    //   component: lazy(() =>
-    //     import("../main/features/requisition/view/myRequisitionDetail/index")
-    //   ),
-    // },
+    {
+      path: `${ROUTES.REQUISITION.DETAIL}`,
+      component: lazy(() =>
+        import("../main/features/requisition/view/myRequisitionDetail/index")
+      ),
+    },
 
     // {
     // 	path: `${ROUTES.REQUISITION.DEFAULT}`,

@@ -117,7 +117,7 @@ export const stickySlice = createSlice({
         console.log(payload);
         state.loader = false;
         state.success = true;
-        state.listArray = [...state.listArray, payload];
+        state.listArray = [payload, ...state.listArray];
       })
       .addCase(deleteStickyAction.fulfilled, (state) => {
         state.loader = false;
@@ -127,7 +127,7 @@ export const stickySlice = createSlice({
         state.listArray = action.payload;
       })
 
-      .addCase(getStickyNoteDescAction.fulfilled, (state, { payload }) => {})
+      .addCase(getStickyNoteDescAction.fulfilled, (state, { payload }) => { })
       .addCase(getStickyAttachmentAction.fulfilled, (state, action) => {
         let data = action.payload;
 

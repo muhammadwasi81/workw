@@ -45,7 +45,11 @@ function RemarksComposer({
   //   onRemarksText(text);
   // }, [text, onRemarksText]);
   const renderStatus = () => {
-    if (!isRemarker && isApprover)
+    console.log(createBy, "createBy")
+    console.log(approverId, "approverId")
+    console.log(id, "id")
+    // if (!isRemarker && isApprover)
+    if (isApprover)
       return <RemarkStatus onCurrentStatus={onCurrentStatus} />;
   };
   const onSelectEmoji = (emoji) => {

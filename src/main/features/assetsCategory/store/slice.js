@@ -10,6 +10,7 @@ const initialState = {
   assetsData: [],
   loadingData: false,
   loader: false,
+  success: false,
 };
 
 const assetsCategorySlice = createSlice({
@@ -27,6 +28,7 @@ const assetsCategorySlice = createSlice({
       .addCase(getAllAssetCategories.fulfilled, (state, { payload }) => {
         state.loadingData = false;
         state.assetsData = payload;
+        state.success = true;
       })
       .addCase(addAssetCategory.fulfilled, (state, { payload }) => {
         state.loader = false;
@@ -38,7 +40,6 @@ const assetsCategorySlice = createSlice({
         state.assetsData = state.assetsData.map((x) =>
           x.id === payload.data.id ? payload.data : x
         );
-        // if item is already existed show error message
         if (state.assetsData.find((x) => x.id === payload.data.id)) {
           state.assetsData = state.assetsData.map((x) =>
             x.id === payload.data.id ? payload.data : x
@@ -54,6 +55,7 @@ const assetsCategorySlice = createSlice({
       .addMatcher(isPending(...[getAllAssetCategories]), (state) => {
         console.log('pending');
         state.loadingData = true;
+        state.success = false;
       })
       .addMatcher(
         isRejected(
@@ -63,6 +65,7 @@ const assetsCategorySlice = createSlice({
           console.log('rejected');
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
         }
       );
   },

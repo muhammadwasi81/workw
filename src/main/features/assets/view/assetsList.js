@@ -16,13 +16,19 @@ const AssetsList = ({ data }) => {
 
   return (
     <CardWrapper>
-      {data?.map((item) => (
-        <AssetsListItem
-          key={item.id}
-          item={item}
-          onClick={(id) => setItemId(id)}
-        />
-      ))}
+      {data?.length > 0 ? (
+        data?.map((item) => (
+          <AssetsListItem
+            key={item.id}
+            item={item}
+            onClick={(id) => setItemId(id)}
+          />
+        ))
+      ) : (
+        <div className="ml-auto">
+          <strong>No Result Found...</strong>
+        </div>
+      )}
       {<AssetsDetailedView onClose={onClose} id={itemId} />}
     </CardWrapper>
   );

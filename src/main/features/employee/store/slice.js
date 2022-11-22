@@ -1,10 +1,10 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { getBankDetailByUser } from "../../bankDetails/store/actions";
-import { getUserBasicInfo } from "../../basicInfo/store/actions";
-import { getEducationDetailByUser } from "../../education/store/actions";
-import { getUserEmergency } from "../../emergencyInfo/store/actions";
-import { getUserWorkExperience } from "../../experienceInfo/store/actions";
-import { addEmployee, getAllEmployees } from "./actions";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { getBankDetailByUser } from '../../bankDetails/store/actions';
+import { getUserBasicInfo } from '../../basicInfo/store/actions';
+import { getEducationDetailByUser } from '../../education/store/actions';
+import { getUserEmergency } from '../../emergencyInfo/store/actions';
+import { getUserWorkExperience } from '../../experienceInfo/store/actions';
+import { addEmployee, getAllEmployees, getEmployeeByIdAction } from './actions';
 
 const initialState = {
   employees: [],
@@ -14,13 +14,14 @@ const initialState = {
     experiencedetails: [],
     educationdetails: [],
     basicdetails: [],
+    profileDetails: {},
   },
   loader: false,
   success: false,
 };
 
 const employeeSlice = createSlice({
-  name: "employee",
+  name: 'employee',
   initialState,
   reducers: {
     resetBankDetails: (state) => {
@@ -47,6 +48,12 @@ const employeeSlice = createSlice({
       })
       .addCase(getAllEmployees.fulfilled, (state, { payload }) => {
         state.employees = payload.data;
+        state.loader = false;
+        state.success = true;
+      })
+      .addCase(getEmployeeByIdAction.fulfilled, (state, action) => {
+        state.employee.profileDetails = action.payload.data;
+        console.log(action.payload.data, 'profileDetails slice');
         state.loader = false;
         state.success = true;
       })

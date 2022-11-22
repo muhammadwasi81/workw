@@ -1,64 +1,89 @@
-import React from "react";
-import OverviewDetail from "../UI/OverviewDetail";
+import OverviewDetail from '../UI/OverviewDetail';
 import {
-	FaGraduationCap,
-	FaPhoneAlt,
-	FaHandshake,
-	FaBirthdayCake,
-} from "react-icons/fa";
-import { BsBriefcaseFill, BsHeartFill } from "react-icons/bs";
-import { MdEmail, MdLocationOn } from "react-icons/md";
-function Overview() {
-	return (
-		<div className="flex flex-col p-3 gap-5 !text-[#85878B] pb-10">
-			<OverviewDetail
-				icon={<FaGraduationCap />}
-				heading={"Studied A- Levels at"}
-				text={
-					" Beaconhouse college Programme Defence view Campus, Karachi"
-				}
-			/>
-			<OverviewDetail
-				icon={<BsBriefcaseFill />}
-				heading={"Designation"}
-				text={" Android Developer"}
-			/>
-			<OverviewDetail
-				icon={<MdEmail />}
-				heading={"Email"}
-				text={" syeddanish1997@gmail.com"}
-			/>
-			<OverviewDetail
-				icon={<BsHeartFill />}
-				heading={"Relationship"}
-				text={"Single"}
-			/>
+  FaGraduationCap,
+  FaPhoneAlt,
+  FaHandshake,
+  FaBirthdayCake,
+} from 'react-icons/fa';
+import { BsBriefcaseFill, BsHeartFill } from 'react-icons/bs';
+import { MdEmail, MdLocationOn } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
+import { Skeleton } from 'antd';
+import MartialStatus from './martialStatus';
 
-			<OverviewDetail
-				icon={<MdLocationOn />}
-				heading={"Lives in"}
-				text={"Gulshan e Hadeed"}
-			/>
+const Overview = () => {
+  const { employees, loader } = useSelector(
+    (state) => state.employeeProfileSlice
+  );
+  console.log(employees, 'overview inside');
 
-			<OverviewDetail
-				icon={<FaPhoneAlt />}
-				heading={"Contact"}
-				text={"123456789"}
-			/>
+  return (
+    <div className="flex flex-col p-3 gap-5 !text-[#85878B] pb-10">
+      {loader ? (
+        <Skeleton />
+      ) : (
+        <>
+          <OverviewDetail
+            icon={<FaGraduationCap />}
+            heading={'Studied A- Levels at'}
+            text={employees?.education ? employees?.education : 'No Education'}
+          />
+          <OverviewDetail
+            icon={<BsBriefcaseFill />}
+            heading={'Designation'}
+            text={employees?.designation || 'No Designation'}
+          />
+          <OverviewDetail
+            icon={<MdEmail />}
+            heading={'Email'}
+            text={
+              employees?.personalEmail
+                ? employees.personalEmail
+                : 'john@test.com'
+            }
+          />
+          <OverviewDetail
+            icon={<BsHeartFill />}
+            heading={'Relationship'}
+            text={MartialStatus(employees?.maritalStatusId)}
+          />
 
-			<OverviewDetail
-				icon={<FaHandshake />}
-				heading={"Joining"}
-				text={"1/1/1997"}
-			/>
+          <OverviewDetail
+            icon={<MdLocationOn />}
+            heading={'Lives in'}
+            text={employees?.city || 'No City'}
+          />
 
-			<OverviewDetail
-				icon={<FaBirthdayCake />}
-				heading={"BirthDay"}
-				text={"1/1/1997"}
-			/>
-		</div>
-	);
-}
+          <OverviewDetail
+            icon={<FaPhoneAlt />}
+            heading={'Contact'}
+            text={employees?.phoneNo ? employees?.phoneNo : 'No Phone Number'}
+          />
+
+          <OverviewDetail
+            icon={<FaHandshake />}
+            heading={'Joining'}
+            text={
+              moment(employees?.joinDate).format('DD-MM-YYYY')
+                ? moment(employees?.joinDate).format('DD-MM-YYYY')
+                : 'No BirthDay'
+            }
+          />
+
+          <OverviewDetail
+            icon={<FaBirthdayCake />}
+            heading={'BirthDay'}
+            text={
+              moment(employees?.birthDate).format('DD-MM-YYYY')
+                ? moment(employees?.birthDate).format('DD-MM-YYYY')
+                : 'No BirthDay'
+            }
+          />
+        </>
+      )}
+    </div>
+  );
+};
 
 export default Overview;

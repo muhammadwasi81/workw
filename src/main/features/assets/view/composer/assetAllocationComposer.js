@@ -6,9 +6,12 @@ import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
 import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
 import { customApprovalDictionaryList } from '../../../CustomApprovals/localization';
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { addInventoryAsset, getAllInventoryAsset } from '../../store/action';
 import { modifySelectData } from '../../../../../utils/base';
 import { DeleteOutlined } from '@ant-design/icons';
+import {
+  addInventoryAsset,
+  getAllInventoryAsset,
+} from '../../../createAssets/store/action';
 
 const initialState = {
   id: '',
@@ -52,15 +55,16 @@ const AssetComposer = () => {
   const [data, setData] = useState([]);
 
   const employees = useSelector((state) => state.sharedSlice.employees);
-  const { success, inventoryAssets } = useSelector(
-    (state) => state.inventoryAssetSlice
-  );
-  console.log(success, 'composer');
+  const { inventoryAssets } = useSelector((state) => state.inventoryAssetSlice);
   const { assetItemList } = useSelector((state) => state.AssetItemSlice);
 
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
+  };
+
+  const fetchInventoryAssets = (text, pgNo) => {
+    dispatch(getAllInventoryAsset({ text, pgNo, pgSize: 20 }));
   };
 
   useEffect(() => {
@@ -93,10 +97,6 @@ const AssetComposer = () => {
 
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
-  };
-
-  const fetchInventoryAssets = (text, pgNo) => {
-    dispatch(getAllInventoryAsset({ text, pgNo, pgSize: 20 }));
   };
 
   const [newState, setNewState] = useState({
@@ -165,10 +165,9 @@ const AssetComposer = () => {
     console.error('Failed:', errorInfo);
   };
 
-  let filteredAssetList = assetItemList.filter(
-    (item) => !data.includes(item.id)
+  const filteredAssetList = assetItemList.filter(
+    (item) => item.status === 4 && !data.includes(item.id)
   );
-  console.log(filteredAssetList, 'filteredAssetList');
 
   return (
     <>
@@ -190,7 +189,7 @@ const AssetComposer = () => {
       >
         <Form.Item
           name="handover"
-          label="* Members"
+          label="* Member"
           showSearch={true}
           direction={Direction}
         >
@@ -275,13 +274,13 @@ const AssetComposer = () => {
           <Form.Item
             style={{ marginBottom: '5px' }}
             name="category"
-            label="* Category"
+            label="* Items"
             showSearch={true}
             direction={Direction}
           />
           <Select
-            name="category"
-            placeholder="Please Select Item"
+            name="Items"
+            placeholder="Please Select Items"
             style={{
               width: '100%',
               borderRadius: '5px',
@@ -300,6 +299,7 @@ const AssetComposer = () => {
               <Select.Option key={item.id} value={item.id}>
                 <>
                   <span>{item.name}</span>
+                  &nbsp;
                   <span>{item.code}</span>
                 </>
               </Select.Option>
@@ -324,7 +324,7 @@ const AssetComposer = () => {
                 >
                   <strong>
                     {assetItemList.find((el) => el?.id === item)?.name}
-                    &nbsp;&nbsp;
+                    &nbsp;
                     {assetItemList.find((el) => el?.id === item)?.code}
                   </strong>
                   <Button

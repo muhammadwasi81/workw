@@ -47,6 +47,8 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
 		   />
       )}
 	    {
+			 data?.length > 0  && !loading && !isTableView ? (
+			
 			<GridView
 				data={data}
 				loading={loading}
@@ -54,8 +56,8 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
 				handleClickNavigation={handleClickNavigation}
 				dictionary={dictionary}
 		   />
+		   ) : !loading  && !isTableView && <NoDataFound />
 	    }
-		 {!loading && data.length === 0 && <NoDataFound/>}
 
       {/* 
 	 		{!isTableView ? (

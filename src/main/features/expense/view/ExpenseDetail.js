@@ -13,7 +13,7 @@ import {
 import { updateListExpenseStatus } from "../store/slice";
 
 function ExpenseDetail({ id }) {
-  const { expense } = useSelector((state) => state.expenseSlice);
+  const { expense ,loadingData } = useSelector((state) => state.expenseSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
   const { labels } = ExpenseDictionaryList;
@@ -53,6 +53,8 @@ function ExpenseDetail({ id }) {
       setIsMount(false);
     };
   }, []);
+
+  if(loadingData) return <Skeleton />;
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Button, Drawer, Tag, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
@@ -16,7 +16,7 @@ import {
   ApprovalsModule,
   ApprovalStatus,
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
-import { cancelWarning } from "../store/actions";
+import { cancelWarning ,GetWarningById} from "../store/actions";
 import { useDispatch } from "react-redux";
 
 function DetailedView(props) {
@@ -28,7 +28,7 @@ function DetailedView(props) {
 
   let userId = user.id
 
-  const { warningDetail ,loadingData} = useSelector((state) => state.warningSlice);
+  const { warningDetail , loadingData} = useSelector((state) => state.warningSlice);
   let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
 
   const { creator, description, image = DefaultAttachment, category, status, createDate, members = [], approvers, referenceNo, id } = warningDetail;
@@ -41,7 +41,12 @@ function DetailedView(props) {
     dispatch(cancelWarning(payload));
 }
 
+useEffect(() => {
+  dispatch(GetWarningById(id));
+}, [id]);
+
 if(loadingData) return <Skeleton />;
+   console.log("loadinggdataaaa",loadingData);
 
 
   return (

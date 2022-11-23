@@ -27,6 +27,8 @@ function PromotionDetail(props) {
   const { promotionDetail, loadingData } = useSelector(
     (state) => state.promotionSlice
   );
+  console.log("loadingDataaaa",loadingData);
+  
   console.log(promotionDetail, "promotion detail");
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, promotionDictionary } = promotionDictionaryList[

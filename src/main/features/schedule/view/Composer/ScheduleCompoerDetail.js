@@ -4,7 +4,7 @@ import Approval from "../../../../sharedComponents/AppComponents/Approvals/view"
 import Event from "../event";
 function ScheduleCompoerDetail() {
 	const eventDetail = useSelector(state => state.scheduleSlice.eventDetail);
-	console.log("eventDetail", eventDetail);
+	// console.log("eventDetail", eventDetail);
 	return (
 		<div className="eventDetail">
 			<div className="eventDetail__header">

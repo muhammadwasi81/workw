@@ -8,13 +8,12 @@ import "../styles/calender.css";
 // import Event from "./event";
 import { Calendar } from "antd";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleEventDetailComposer } from "../store/slice";
 import EventDetail from "./eventDetail";
 import moment from "moment";
 import { getAllSchedule } from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
-import { useSelector } from "react-redux";
 
 function Scheduler({ feed = false }) {
 	const [sched, setSchedule] = useState(null);

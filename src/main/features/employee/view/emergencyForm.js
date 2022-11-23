@@ -30,7 +30,7 @@ const EmergencyForm = ({ mode, id }) => {
     name: "",
     address: "",
     contactNo: "",
-    relation: "",
+    relation: [],
   };
   const [initialValues, setInitialValues] = useState(initialState);
   const labels = employeesDictionary.EmergencyForm;

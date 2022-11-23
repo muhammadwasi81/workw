@@ -141,7 +141,7 @@ function ProjectDetails() {
 				width={"!w-full"}
 				routeLink={defaultRoute}
 				backButton={false}
-				feature={2}
+				feature={3}
 			/>
 		),
 		10: <>Schedule</>,

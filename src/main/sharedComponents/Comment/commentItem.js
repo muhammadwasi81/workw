@@ -68,6 +68,7 @@ const CommentItem = ({
 						attachments={attachments}
 						attachmentCount={attachmentCount}
 						attachmentFile={attachmentFile}
+						type={type}
 					/>
 					{type !== 2 && (
 						<div className="likeReplyCont">

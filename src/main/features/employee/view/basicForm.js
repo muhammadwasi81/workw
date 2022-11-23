@@ -37,7 +37,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
 
   const initialState = {
     coverImageId: "",
-    userTypeId: "",
+    userTypeId: [],
     titleId: 1,
     firstName: "",
     lastName: "",
@@ -519,9 +519,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             size="large"
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectUserType}
-            onChange={(value) => {
-              setUserTypeValue(value);
-            }}
+            // onChange={(value) => {
+            //   setUserTypeValue(value);
+            // }}
           >
             {userType.map((type) => (
               <Option key={type.id} value={type.id}>

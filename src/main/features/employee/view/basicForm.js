@@ -510,7 +510,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-
         <Form.Item
           name="userTypeId"
           label={labels.UserType}
@@ -519,7 +518,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Select
             size="large"
             getPopupContainer={(trigger) => trigger.parentNode}
-            placeholder={"select"}
+            placeholder={placeholder.selectUserType}
             onChange={(value) => {
               setUserTypeValue(value);
             }}

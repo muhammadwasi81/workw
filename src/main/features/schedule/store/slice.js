@@ -1,4 +1,5 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
+import moment from "moment";
 import {
 	addSchedule,
 	getAllCurrentSchedule,
@@ -45,6 +46,23 @@ const scheduleSlice = createSlice({
 				state.loading = false;
 				state.success = true;
 				state.schedules = payload.data;
+				state.schedules = payload.data.map(sched => {
+					let endDate = moment(sched.endDate);
+					let startDate = moment(sched.startDate);
+					// console.log(
+					// 	"moment(sched.startDate)",
+					// 	endDate.diff(startDate, "hours")
+					// );
+					if (endDate.diff(startDate, "hours") > 20) {
+						return {
+							...sched,
+							allDay: true,
+						};
+					}
+					return {
+						...sched,
+					};
+				});
 			})
 			.addCase(getScheduleById.fulfilled, (state, { payload }) => {
 				state.eventDetail = payload.data;

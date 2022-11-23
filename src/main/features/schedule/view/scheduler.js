@@ -156,7 +156,7 @@ function Scheduler({ feed = false }) {
 					// eventMaxStack={3}
 					selectable={true}
 					dayHeaders={true}
-					allDaySlot={false}
+					allDaySlot={true}
 					// allDaySlot={true}
 					// allDay={true}
 					dayMaxEventRows={true}
@@ -171,17 +171,14 @@ function Scheduler({ feed = false }) {
 					slotDuration={"00:15:00"}
 					slotLabelFormat={{ hour: "numeric", minute: "numeric" }}
 					views={{
-						// allDay: true,
 						// allDaySlot: true,
 						month: {
-							// allDay: true,
 							// allDaySlot: true,
 							type: "dayGridMonth",
 							buttonText: "Month",
 							dayMaxEventRows: 2,
 						},
 						week: {
-							// allDay: true,
 							// allDaySlot: true,
 							type: "dayGridWeek",
 							duration: { days: 7 },
@@ -189,7 +186,6 @@ function Scheduler({ feed = false }) {
 							eventMaxStack: 2,
 						},
 						day: {
-							// allDay: true,
 							// allDaySlot: true,
 							type: "timeGrid",
 							duration: { days: 1 },

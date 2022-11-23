@@ -56,7 +56,7 @@ const Composer = (props) => {
 
   useEffect(() => {
     dispatch(getAllDesignation());
-  });
+  }, []);
 
   const getDepartment = async () => {
     const { responseCode, data } = await getAllDepartmentService({

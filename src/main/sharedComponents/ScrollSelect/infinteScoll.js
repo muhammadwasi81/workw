@@ -112,15 +112,17 @@ export default class Scroll extends React.Component {
 					}
 					height={this.state.height}
 					endMessage={
-						!this.props.isLoading &&
-						!this.hasMoreData() && (
-							<p style={{ textAlign: "center" }}>
-								<b>
-									{this.props.endMessage ||
-										"Yay! You have seen it all"}
-								</b>
-							</p>
-						)
+						this.props.data.length > 0
+							? !this.props.isLoading &&
+							  !this.hasMoreData() && (
+									<p style={{ textAlign: "center" }}>
+										<b>
+											{this.props.endMessage ||
+												"Yay! You have seen it all"}
+										</b>
+									</p>
+							  )
+							: null
 					}
 					scrollThreshold={"100%"}
 					scrollableTarget="scrollableDiv"

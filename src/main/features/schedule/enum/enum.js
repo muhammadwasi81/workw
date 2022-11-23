@@ -3,4 +3,6 @@ export const ScheduleTypeEnum = {
 	Meeting: 2,
 	Interview: 3,
 	StandUp: 4,
+	Task: 5,
+	Travel: 6,
 };

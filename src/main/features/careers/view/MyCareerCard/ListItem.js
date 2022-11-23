@@ -1,19 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FieldTimeOutlined } from "@ant-design/icons";
+import React, { useContext } from "react";
+
 import moment from "moment";
 import {
   ItemContent,
-  ItemHeader,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
-// import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { Avatar, Image, Tooltip } from "antd";
-// import JobDetails from "../../DetailView/DetailComposer/JobDetails";
-import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
-import { useDispatch, useSelector } from "react-redux";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
+import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
+import { useSelector } from "react-redux";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
 function ListItem({ item, onClick, onClickMyCareer }) {
@@ -43,34 +39,18 @@ function ListItem({ item, onClick, onClickMyCareer }) {
   const { currentTab } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
 
-  console.log("props", onClickMyCareer);
-
   return (
     <>
       <SingleItem onClick={onClickMyCareer} className="cursor-pointer">
-        {/* <ItemHeader className="ItemHeader">
-          <div className="flex items-center gap-3">
-            <Avatar
-              src={item.creator?.image}
-              className="addPostAvatar"
-              name={item.creator?.name}
-              width={40}
-              height={40}
-              round={true}
-            />
-            <div className="font-bold text-[15px] text-primary-color">
-              {item.designation}
-            </div>
-          </div>
-          <div>
-            <StatusTag status={status} />
-          </div>
-        </ItemHeader> */}
         <CardProfileTopView
           profileImgSrc={
-            item.creator && item.creator.image.length > 0
-              ? item.creator.image
-              : "https://joeschmoe.io/api/v1/random"
+            <AvatarCustom
+              width={40}
+              height={40}
+              src={item.creator?.image}
+              name={item.creator?.name}
+              round
+            ></AvatarCustom>
           }
           createDate={item.createDate}
           isPublic={true}
@@ -148,13 +128,13 @@ function ListItem({ item, onClick, onClickMyCareer }) {
               {manager && (
                 <>
                   <Tooltip title={manager.name} placement="top">
-                    <Avatar
-                      src={
-                        manager.image
-                          ? manager.image
-                          : "https://joeschmoe.io/api/v1/random"
-                      }
-                    />
+                    <AvatarCustom
+                      width={30}
+                      height={30}
+                      src={manager.image}
+                      name={manager.name}
+                      round
+                    ></AvatarCustom>
                   </Tooltip>
                 </>
               )}
@@ -170,13 +150,13 @@ function ListItem({ item, onClick, onClickMyCareer }) {
                     return (
                       <>
                         <Tooltip title={el.member?.name} placement="top">
-                          <Avatar
-                            src={
-                              el.member?.image
-                                ? el.member?.image
-                                : "https://joeschmoe.io/api/v1/random"
-                            }
-                          />
+                          <AvatarCustom
+                            width={30}
+                            height={30}
+                            src={el.member?.image}
+                            name={el.member?.name}
+                            round
+                          ></AvatarCustom>
                         </Tooltip>
                       </>
                     );
@@ -193,13 +173,13 @@ function ListItem({ item, onClick, onClickMyCareer }) {
                     return (
                       <>
                         <Tooltip title={el.user?.name} placement="top">
-                          <Avatar
-                            src={
-                              el.user?.image
-                                ? el.user?.image
-                                : "https://joeschmoe.io/api/v1/random"
-                            }
-                          />
+                          <AvatarCustom
+                            width={30}
+                            height={30}
+                            src={el.user?.image}
+                            name={el.user?.name}
+                            round
+                          ></AvatarCustom>
                         </Tooltip>
                       </>
                     );
@@ -216,13 +196,13 @@ function ListItem({ item, onClick, onClickMyCareer }) {
                     return (
                       <>
                         <Tooltip title={el.user?.name} placement="top">
-                          <Avatar
-                            src={
-                              el.user?.image
-                                ? el.user?.image
-                                : "https://joeschmoe.io/api/v1/random"
-                            }
-                          />
+                          <AvatarCustom
+                            width={30}
+                            height={30}
+                            src={el.user?.image}
+                            name={el.user?.name}
+                            round
+                          ></AvatarCustom>
                         </Tooltip>
                       </>
                     );
@@ -239,13 +219,13 @@ function ListItem({ item, onClick, onClickMyCareer }) {
                     return (
                       <>
                         <Tooltip title={el.approver?.name} placement="top">
-                          <Avatar
-                            src={
-                              el.approver?.image
-                                ? el.approver?.image
-                                : "https://joeschmoe.io/api/v1/random"
-                            }
-                          />
+                          <AvatarCustom
+                            width={30}
+                            height={30}
+                            src={el.approver?.image}
+                            name={el.approver?.name}
+                            round
+                          ></AvatarCustom>
                         </Tooltip>
                       </>
                     );

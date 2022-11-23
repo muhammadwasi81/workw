@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image, Button } from "antd";
+import { Drawer, Tag, Image, Button, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { bonusDictionaryList } from "../localization/index";
@@ -22,7 +22,7 @@ function BonusDetailCard(props) {
   const { Direction, bonusDictionary } = bonusDictionaryList[userLanguage];
   const [updatedStatus, setUpdatedStatus] = useState();
 
-  const { bonusDetail } = useSelector((state) => state.bonusSlice);
+  const { bonusDetail,loadingData } = useSelector((state) => state.bonusSlice);
   const { user } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
 
@@ -63,6 +63,8 @@ function BonusDetailCard(props) {
 
   const isTablet = false;
 
+  if(loadingData) return <Skeleton />;
+
   return (
     <>
       {bonusDetail.id && (
@@ -87,7 +89,9 @@ function BonusDetailCard(props) {
               </div>
               <div className="right">
                 <Tag className="IdTag">{referenceNo}</Tag>
-                <StatusTag status={updatedStatus?.Approvals}></StatusTag>
+                <StatusTag
+                  status={updatedStatus ? updatedStatus?.Approvers : status}
+                ></StatusTag>
                 {userId === creator.id ? (
                   status != Declined &&
                   status != Resend &&

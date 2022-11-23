@@ -11,13 +11,12 @@ import {
   addPromotionService,
   cancelPromotionService,
 } from "../services/service";
-import { cancelPromotionSuccess } from "./actions";
+import { cancelPromotionSuccess } from "./slice";
 
 export const getAllPromotions = createAsyncThunk(
   "Promotion/GetAllPromotion",
   async (data) => {
     const response = await getAllPromotionService(data);
-    console.log(response, "ALL PROMOTIONS FROM ACTION");
     if (!response.responseCode) {
       message.error("Something went wrong");
     }
@@ -43,16 +42,15 @@ export const GetPromotionById = createAsyncThunk(
   "Promotion/GetPromotionById",
   async (id) => {
     const response = await GetPromotionByIdService(id);
-    console.log(id, "iddddd");
     return response.data;
   }
 );
 
 export const cancelPromotion = createAsyncThunk(
   "promotions/cancelPromotion",
-  async (id, { dispatch, setState }) => {
+  async (id, { dispatch }) => {
     const response = await cancelPromotionService(id);
-    // dispatch(cancelPromotionSuccess({ promotionId: id }));
+    dispatch(cancelPromotionSuccess({ promotionId: id }));
     return response;
   }
 );

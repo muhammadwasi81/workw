@@ -26,6 +26,8 @@ const initialState = {
   careerDetail: {},
   careerApplicants: [],
   loader: false,
+  careerLoader: false,
+  createLoader: false,
 };
 
 const careerSlice = createSlice({
@@ -53,45 +55,63 @@ const careerSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addCareer.fulfilled, (state, { payload }) => {
-        console.log(payload);
+        // console.log(payload);
         state.drawerOpen = false;
         state.success = true;
-        state.loader = false;
+        state.createLoader = false;
         // state.items = [...state.items, payload];
         state.items.unshift(payload);
       })
       .addCase(addCareerApplicant.fulfilled, (state, { payload }) => {
-        console.log(payload);
+        // console.log(payload);
         state.applySuccess = true;
         state.applyComposer = false;
-        state.loading = false;
+        state.careerLoader = false;
       })
       .addCase(getAllCareerApplicant.fulfilled, (state, { payload }) => {
         state.careerApplicants = payload;
         // console.log(payload);
       })
       .addCase(getAllCareerAction.fulfilled, (state, { payload }) => {
+        // console.log(payload);
         state.items = payload;
         state.loader = false;
       })
       .addCase(getCareerByIdAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "payload STATE ITEMS");
+        // console.log(payload, "payload STATE ITEMS");
         state.careerDetail = payload;
-
-        console.log(state.careerDetail, "STATE ITEMS");
+        state.loader = false;
+        // console.log(state.careerDetail, "STATE ITEMS");
       })
       .addMatcher(isPending(...[addCareer]), (state) => {
-        console.log("pending add career applied");
-        state.loader = true;
+        // console.log("pending add career applied");
+        state.createLoader = true;
         state.success = false;
       })
+      // .addMatcher(isPending(...[getCareerByIdAction]), (state) => {
+      //   state.loader = true;
+      // })
       .addMatcher(isPending(...[addCareerApplicant]), (state) => {
         state.applySuccess = false;
-        state.loading = true;
+        state.careerLoader = true;
         console.log("pending applied");
       })
       .addMatcher(isPending(...[getAllCareerAction]), (state) => {
         state.loader = true;
+      })
+      // .addMatcher(isRejected(...[getCareerByIdAction]), (state) => {
+      //   state.loader = false;
+      // })
+      .addMatcher(isRejected(...[addCareer]), (state) => {
+        state.createLoader = false;
+      })
+      .addMatcher(isRejected(...[getAllCareerAction]), (state) => {
+        state.loader = false;
+        console.log("rejected get all career");
+      })
+      .addMatcher(isRejected(...[addCareerApplicant]), (state) => {
+        state.careerLoader = false;
+        console.log("rejected add career applicant");
       });
   },
 });

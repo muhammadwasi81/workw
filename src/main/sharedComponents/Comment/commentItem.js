@@ -20,9 +20,11 @@ const CommentItem = ({
 		createDate,
 		content,
 		type,
-
 		parentId,
 		module,
+		attachments,
+		attachmentCount,
+		attachmentFile,
 	} = comment;
 	const [openComposer, setOpenComposer] = useState(false);
 	const [replies, setReplies] = useState([]);
@@ -41,13 +43,13 @@ const CommentItem = ({
 				if (res.length > 0) return res[0];
 				else return reply;
 			});
-
+			console.log("replies", replies);
 			setReplies(replies);
 		}
 	};
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
-
+	// console.log("comment", comment);
 	return (
 		<div
 			className={
@@ -63,6 +65,9 @@ const CommentItem = ({
 						content={content}
 						mentionedUser={mentionedUser}
 						date={createDate}
+						attachments={attachments}
+						attachmentCount={attachmentCount}
+						attachmentFile={attachmentFile}
 					/>
 					{type !== 2 && (
 						<div className="likeReplyCont">
@@ -89,6 +94,7 @@ const CommentItem = ({
 									createDate: replyCreateDate,
 									comment: replyContent,
 									mentions: replyMentionedUser,
+									attachments,
 								}) => {
 									return (
 										<React.Fragment key={Rid}>
@@ -107,6 +113,7 @@ const CommentItem = ({
 														replyMentionedUser
 													}
 													date={replyCreateDate}
+													attachments={attachments}
 												/>
 											</div>
 											<div className="likeReplyCont">

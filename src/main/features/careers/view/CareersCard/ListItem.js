@@ -7,7 +7,8 @@ import {
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
+import { Avatar, Tooltip } from "antd";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,19 +30,33 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     city,
     country,
     referenceNo,
+    effecttiveDate,
+    approvers,
+    applicantsCount,
+    description,
+    interviewers,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
 
-  // console.log("items", item);
+  console.log("items", item);
 
   return (
     <>
       <SingleItem onClick={onClick} className="cursor-pointer">
         <CardProfileTopView
+          // profileImgSrc={
+          //   item.creator && item.creator.image.length > 0
+          //     ? item.creator.image
+          //     : "https://joeschmoe.io/api/v1/random"
+          // }
           profileImgSrc={
-            item.creator && item.creator.image.length > 0
-              ? item.creator.image
-              : "https://joeschmoe.io/api/v1/random"
+            <AvatarCustom
+              width={40}
+              height={40}
+              src={item.creator?.image}
+              name={item.creator.name}
+              round
+            ></AvatarCustom>
           }
           createDate={item.createDate}
           isPublic={true}
@@ -57,34 +72,75 @@ function ListItem({ item, onClick, onClickMyCareer }) {
         />
         <ItemContent className="!h-[100px] !max-h-[100px]">
           <div className="font-bold text-[14px] text-primary-color">
-            {/* {" "}
-            React Js Developer */}
-
             {designation}
           </div>
-          <p className="careersDescShort">{item.description}</p>
+          <p className="careerFooterText">
+            {city}, {country}
+          </p>
+          <p className="careersDescShort">{description}</p>
         </ItemContent>
-
-        <div className="flex justify-between">
-          <div className="careerFooterText">
-            {city}, {country} -{" "}
-            {CareerLevelTypeEnum.map((item) => {
-              if (item.value === jobTypeId) {
-                return item.label;
-              }
-            })}
+        <div className="cardSections mt-10">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Salary Range"}</div>
+            <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>
           </div>
-          {/* <div className="careerFooterText flex gap-x-2 items-baseline">
-            <FieldTimeOutlined />
-            {moment(createDate).fromNow()}
-          </div> */}
-          {/* <div className="careersDescShort">
-            {CareerStatusEnum.map((item) => {
-              if (item.value === status) {
-                return item.label;
-              }
-            })}
-          </div> */}
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Effective Date"}</div>
+            <div className="cardSection__body">
+              {" "}
+              {moment(createDate).format("Do MMM YY")}
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Applicants"}</div>
+            <div className="cardSection__body">{`${applicantsCount} `}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Approvers</div>
+            <div className="cardSection__body">
+              <Avatar.Group maxCount={2}>
+                {approvers &&
+                  approvers.map((el, i) => {
+                    return (
+                      <>
+                        <Tooltip title={el.approver?.name} placement="top">
+                          <AvatarCustom
+                            width={30}
+                            height={30}
+                            src={el.approver?.image}
+                            name={el.approver?.name}
+                            round
+                          ></AvatarCustom>
+                        </Tooltip>
+                      </>
+                    );
+                  })}
+              </Avatar.Group>
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">Interviewers</div>
+            <div className="cardSection__body">
+              <Avatar.Group maxCount={2}>
+                {interviewers &&
+                  interviewers.map((el, i) => {
+                    return (
+                      <>
+                        <Tooltip title={el.user?.name} placement="top">
+                          <AvatarCustom
+                            width={30}
+                            height={30}
+                            src={el.user?.image}
+                            name={el.user?.name}
+                            round
+                          ></AvatarCustom>
+                        </Tooltip>
+                      </>
+                    );
+                  })}
+              </Avatar.Group>
+            </div>
+          </div>
         </div>
       </SingleItem>
     </>

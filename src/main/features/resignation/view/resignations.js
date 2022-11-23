@@ -11,8 +11,8 @@ import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { Table } from "../../../sharedComponents/customTable";
 import { getAllResignations } from "../store/action";
-import ListItem from "./listItem";
-import "./style.css";
+import ListItem from "./ListItem";
+import "./style.css"
 import DetailedView from "./detaileView";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import { handleOpenComposer } from "../store/slice";

@@ -42,7 +42,7 @@ function Loan({ userId = null }) {
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       key: "date",
       sort: true,
-      width: 200,
+      width: 100,
     },
     {
       title: labels.Amount,
@@ -56,7 +56,7 @@ function Loan({ userId = null }) {
       dataIndex: "deductionPerMonth",
       key: "deductionPerMonth",
       sort: true,
-      width: 80,
+      width: 200,
     },
     {
       title: labels.Deadline,

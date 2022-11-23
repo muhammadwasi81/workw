@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { Avatar, Button, DatePicker, Form, Input, List, Select } from "antd";
 import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
-import { getAllJobDescriptionService } from "../../../jobDescription/services/service";
 import { getAllDepartmentService } from "../../../departments/services/service";
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import {
@@ -29,7 +28,6 @@ import {
 import { getAllDefaultHiringCriteriaService } from "../../defaultHiringCriteria/services/service";
 import { getAllDesignation } from "../../../designation/store/actions";
 import { addCareer } from "../../store/action";
-import { handleOpenComposer } from "../../store/slice";
 
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -54,12 +52,18 @@ const Composer = (props) => {
     designationSlice: { designations },
   } = useSelector((state) => state);
 
+  const { createLoader } = useSelector((state) => state.careerSlice);
+
   useEffect(() => {
     dispatch(getAllDesignation());
-  }, []);
+  });
 
   const getDepartment = async () => {
-    const { responseCode, data } = await getAllDepartmentService();
+    const { responseCode, data } = await getAllDepartmentService({
+      pageSize: 20,
+      parentId: STRINGS.DEFAULTS.guid,
+    });
+
     if (responseCode === 1001) setDepartment(data);
   };
   const fetchEmployees = (text, pgNo) => {
@@ -637,6 +641,7 @@ const Composer = (props) => {
             className="ThemeBtn"
             block
             htmlType="submit"
+            loading={createLoader}
           >
             {labels.createJob}
           </Button>

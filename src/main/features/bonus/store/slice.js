@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addBonus,
   addWarning,
@@ -6,7 +6,7 @@ import {
   getAllBonus,
   GetBonusById,
   GetPromotionById,
-} from "./actions";
+} from './actions';
 
 const initialState = {
   bonuses: [],
@@ -18,11 +18,27 @@ const initialState = {
 };
 
 const bonusSlice = createSlice({
-  name: "bonus",
+  name: 'bonus',
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
       state.drawerOpen = payload;
+    },
+    cancelBonusSuccess: (state, { payload }) => {
+      let bonusList = [...state.bonuses];
+      let index = bonusList.findIndex((item) => item.id === payload.bonusId);
+      let bonus = bonusList.filter((item) => item.id === payload.bonusId)[0];
+
+      bonusList[index] = {
+        ...bonus,
+        status: 4,
+      };
+
+      state.bonuses = bonusList;
+      state.bonusDetail = {
+        ...bonus,
+        status: 4,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -33,11 +49,12 @@ const bonusSlice = createSlice({
 
     builder.addCase(GetBonusById.fulfilled, (state, action) => {
       state.bonusDetail = action.payload.data;
+      state.loadingData = false;
     });
 
-    builder.addCase(cancelBonus.fulfilled, (state, action) => {
-      state.cancelBonuss = action.payload.data;
-    });
+    // builder.addCase(cancelBonus.fulfilled, (state, action) => {
+    //   state.cancelBonuss = action.payload.data;
+    // });
 
     builder
       .addCase(addBonus.fulfilled, (state, { payload }) => {
@@ -48,6 +65,7 @@ const bonusSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllBonus]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllBonus]), (state) => {
         state.loader = true;
@@ -55,5 +73,5 @@ const bonusSlice = createSlice({
   },
 });
 
-export const { handleOpenComposer } = bonusSlice.actions;
+export const { handleOpenComposer, cancelBonusSuccess } = bonusSlice.actions;
 export default bonusSlice.reducer;

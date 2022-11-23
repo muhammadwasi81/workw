@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Drawer, Tag } from "antd";
+import { Button, Drawer, Tag, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { warningDictionaryList } from "../localization/index";
@@ -28,7 +28,7 @@ function DetailedView(props) {
 
   let userId = user.id
 
-  const { warningDetail } = useSelector((state) => state.warningSlice);
+  const { warningDetail ,loadingData} = useSelector((state) => state.warningSlice);
   let { InProcess, Approved, Declined, Resend, Inactive, NotRequired, Cancelled, ApprovalRequired, Hold, NoStatus } = ApprovalStatus
 
   const { creator, description, image = DefaultAttachment, category, status, createDate, members = [], approvers, referenceNo, id } = warningDetail;
@@ -40,6 +40,9 @@ function DetailedView(props) {
     e.stopPropagation();
     dispatch(cancelWarning(payload));
 }
+
+if(loadingData) return <Skeleton />;
+
 
   return (
     <Drawer

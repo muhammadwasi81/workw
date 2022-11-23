@@ -16,6 +16,26 @@ const warningSlice = createSlice({
     handleOpenComposer: (state, { payload }) => {
       state.drawerOpen = payload;
     },
+    cancelWarningSuccess: (state, { payload }) => {
+      let warningList = [...state.warnings];
+      let index = warningList.findIndex(
+        (item) => item.id === payload.warningId
+      );
+      let warning = warningList.filter(
+        (item) => item.id === payload.warningId
+      )[0];
+
+      warningList[index] = {
+        ...warning,
+        status: 4,
+      };
+
+      state.warnings = warningList;
+      state.warningDetail = {
+        ...warning,
+        status: 4,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllWarnings.fulfilled, (state, action) => {
@@ -26,6 +46,7 @@ const warningSlice = createSlice({
     builder.addCase(GetWarningById.fulfilled, (state, action) => {
       console.log("action.payload", action.payload);
       state.warningDetail = action.payload.data;
+      state.loadingData = false;
     });
 
     builder
@@ -36,6 +57,7 @@ const warningSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllWarnings]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllWarnings]), (state) => {
         state.loader = true;
@@ -43,5 +65,8 @@ const warningSlice = createSlice({
   },
 });
 
-export const { handleOpenComposer } = warningSlice.actions;
+export const {
+  handleOpenComposer,
+  cancelWarningSuccess,
+} = warningSlice.actions;
 export default warningSlice.reducer;

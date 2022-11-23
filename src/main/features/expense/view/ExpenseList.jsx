@@ -37,8 +37,7 @@ function ExpenseList({
     financers,
     attachments,
   } = expense;
-  console.log(expense, "expense list");
-  console.log(isDetail, "isDetail");
+
   const { labels } = ExpenseDictionaryList;
   let classes = "expenseCard ";
   classes += Direction === "rtl" ? "rtl" : "";

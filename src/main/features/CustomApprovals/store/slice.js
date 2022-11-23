@@ -29,6 +29,7 @@ const customApprovalSlice = createSlice({
 
     builder.addCase(GetCustomApprovalById.fulfilled, (state, action) => {
       state.customApprovalDetail = action.payload.data;
+      state.loadingData = false;
     });
     builder.addCase(addCustomApproval.fulfilled, (state, { payload }) => {
       console.log(payload, "payload");
@@ -40,6 +41,7 @@ const customApprovalSlice = createSlice({
     builder
       .addMatcher(isPending(...[getAllCustomApprovals]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
 
       .addMatcher(isRejected(...[getAllCustomApprovals]), (state) => {

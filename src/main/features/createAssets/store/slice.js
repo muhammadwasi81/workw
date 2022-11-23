@@ -6,15 +6,19 @@ import {
   getAllAssetItemByPagination,
   updateAssetItems,
   getAssetItemByUserId,
+  addInventoryAsset,
+  getAllInventoryAsset,
 } from './action';
 
 const initialState = {
   assetItemList: [],
   assetItemByUserId: [],
-  loader: false,
+  inventoryAssets: [],
+  loader: true,
   success: false,
   error: false,
-  drawerOpen: false,
+  drawerDeAllocOpen: false,
+  drawerAllocOpen: false,
 };
 
 export const AssetItemSlice = createSlice({
@@ -24,9 +28,17 @@ export const AssetItemSlice = createSlice({
     clearAssetDetail: (state) => {
       state.assetsDetail = null;
     },
-    clearModalDetail: (state) => {
-      state.assetsDetail = null;
-      console.log(state.assetsDetail, 'modalSuccess');
+    handleOpenDeAllocComposer: (state, action) => {
+      state.drawerDeAllocOpen = action.payload;
+      console.log(state.drawerDeAllocOpen, 'state.drawerDeAllocOpen');
+    },
+    handleAllocOpenComposer: (state, action) => {
+      state.drawerAllocOpen = action.payload;
+      console.log(state.drawerAllocOpen, 'state.drawerAllocOpen');
+    },
+    handleResetDeAllocState: (state) => {
+      state.assetItemByUserId = [];
+      console.log(state.assetItemByUserId, 'assetItemByUserId');
     },
   },
   extraReducers: (builder) => {
@@ -35,9 +47,12 @@ export const AssetItemSlice = createSlice({
         state.assetItemList = payload;
         state.loader = false;
         state.success = true;
+        state.drawerDeAllocOpen = false;
+        state.drawerAllocOpen = false;
         console.log(payload, 'getAllAssetItemSlice');
       })
       .addCase(addAssetItem.fulfilled, (state, { payload }) => {
+        state.assetItemList = [...state.assetItemList, payload];
         state.assetItemList = [...state.assetItemList, payload];
         state.loader = false;
         state.success = true;
@@ -49,19 +64,30 @@ export const AssetItemSlice = createSlice({
         state.success = true;
         console.log(payload.data, 'getAssetItemDetailByIdSlice');
       })
+      .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.success = true;
+        state.drawerDeAllocOpen = false;
+        console.log(payload.data, 'updateAssetItemSlice');
+      })
       .addCase(getAssetItemByUserId.fulfilled, (state, { payload }) => {
         state.assetItemByUserId = payload.data;
         state.loader = false;
-        state.success = true;
         console.log(payload.data, 'getAllAssetItemByUserId slice');
       })
-      .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
-        console.log(payload, 'updateAssetItemSlice');
-        // state.success = true;
-        state.drawerOpen = true;
-        console.log(state.drawerOpen, 'state.drawerOpen');
+      // TODO: INVENTORY ASSET GET API
+      .addCase(getAllInventoryAsset.fulfilled, (state, action) => {
+        console.log(action.payload, 'getAllInventoryAsset slice');
+        state.inventoryAssets = action.payload ? action.payload : [];
+        state.success = true;
         state.loader = false;
-        state.assetItemList = payload;
+      })
+      // TODO: INVENTORY ASSET ADD API
+      .addCase(addInventoryAsset.fulfilled, (state, { payload }) => {
+        state.success = true;
+        state.drawerAllocOpen = false;
+        state.inventoryAssets = [...state.inventoryAssets, payload.data.data];
+        console.log(state.drawerAllocOpen, 'state.drawerAllocOpen');
       })
       .addCase(getAllAssetItemByPagination.fulfilled, (state, { payload }) => {
         state.assetItemByPagination = payload;
@@ -77,6 +103,7 @@ export const AssetItemSlice = createSlice({
             getAssetItemDetailById,
             getAssetItemByUserId,
             updateAssetItems,
+            addInventoryAsset,
           ]
         ),
         (state) => {
@@ -93,6 +120,8 @@ export const AssetItemSlice = createSlice({
             addAssetItem,
             getAssetItemDetailById,
             getAssetItemByUserId,
+            updateAssetItems,
+            addInventoryAsset,
           ]
         ),
         (state) => {
@@ -103,5 +132,10 @@ export const AssetItemSlice = createSlice({
       );
   },
 });
-export const { clearAssetDetail, clearModalDetail } = AssetItemSlice.actions;
+export const {
+  clearAssetDetail,
+  handleOpenDeAllocComposer,
+  handleAllocOpenComposer,
+  handleResetDeAllocState,
+} = AssetItemSlice.actions;
 export default AssetItemSlice.reducer;

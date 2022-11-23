@@ -122,24 +122,32 @@
 }
 
 .fc .fc-button-primary:disabled {
-    color: #666 !important;
-    background-color: transparent !important;
+    color: white !important;
+    
+    background-color: var(--currentThemeColor) !important;
     border-color: #666 !important;
     text-transform: capitalize;
 
 }
 
+.fc .fc-timeGridDay-button.fc-button-active , .fc .fc-timeGridWeek-button.fc-button-active, .fc .fc-dayGridMonth-button.fc-button-active {
+    color: white !important;
+    background-color: var(--currentThemeColor) !important;
+}
+
 .fc .fc-button {
     /* font-weight: 600 !important; */
+    color: #666 !important;
     padding: 3px 8px !important;
     font-size: 12px !important;
     text-transform: capitalize !important;
-    background-color: var(--currentThemeColor) !important;
+    background-color: transparent !important;
     border-color: var(--currentThemeColor) !important;
 }
 
 .fc .fc-button:disabled {
     opacity: 1 !important;
+    
 }
 
 .fc .fc-button-group>.fc-button {
@@ -147,8 +155,6 @@
     border-radius: 50%;
     border-top-right-radius: 50% !important;
     border-bottom-right-radius: 50% !important;
-
-
 }
 
 .fc .fc-button-group>.fc-button .fc-icon {
@@ -177,6 +183,27 @@
     background: transparent !important;
     border: 1px solid var(--currentThemeColor) !important;
 }
+
+.fc .fc-button-primary.fc-prev-button:hover,
+.fc .fc-button-primary.fc-next-button:hover{
+    background: var(--currentThemeColor) !important;
+    border: 1px solid white !important;
+    color: white !important;
+}
+
+.fc .fc-button-primary.fc-prev-button:hover .fc-icon-chevron-left::before,
+.fc .fc-button-primary.fc-next-button:hover .fc-icon-chevron-right::before{
+    /* background: var(--currentThemeColor) !important; */
+    /* border: 1px solid white !important; */
+    color: white !important;
+}
+
+
+/* .fc-icon-chevron-right:hover::before,
+.fc-icon-chevron-left:hover::before {
+    color: white !important;
+    font-size: 16px;
+} */
 
 .fc-icon-chevron-right:before,
 .fc-icon-chevron-left:before {

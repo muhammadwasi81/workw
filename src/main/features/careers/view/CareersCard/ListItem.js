@@ -6,9 +6,9 @@ import {
   ItemHeader,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
-
-import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
-import { Avatar, Tooltip } from "antd";
+import AvatarOld from "../../../../sharedComponents/Avatar/avatarOLD";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
+import { Tooltip } from "antd";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,13 +45,13 @@ function ListItem({ item, onClick, onClickMyCareer }) {
       <SingleItem onClick={onClick} className="cursor-pointer">
         <CardProfileTopView
           profileImgSrc={
-            <AvatarCustom
+            <AvatarOld
               width={40}
               height={40}
               src={item.creator?.image}
               name={item.creator.name}
               round
-            ></AvatarCustom>
+            ></AvatarOld>
           }
           createDate={item.createDate}
           isPublic={true}
@@ -93,7 +93,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
+              {/* <Avatar.Group maxCount={2}>
                 {approvers &&
                   approvers.map((el, i) => {
                     return (
@@ -110,13 +110,23 @@ function ListItem({ item, onClick, onClickMyCareer }) {
                       </>
                     );
                   })}
-              </Avatar.Group>
+              </Avatar.Group> */}
+              {approvers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers ? approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Interviewers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
+              {/* <Avatar.Group maxCount={2}>
                 {interviewers &&
                   interviewers.map((el, i) => {
                     return (
@@ -133,7 +143,17 @@ function ListItem({ item, onClick, onClickMyCareer }) {
                       </>
                     );
                   })}
-              </Avatar.Group>
+              </Avatar.Group> */}
+              {interviewers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Users"}
+                  membersData={interviewers ? interviewers : []}
+                  text={"user"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
         </div>

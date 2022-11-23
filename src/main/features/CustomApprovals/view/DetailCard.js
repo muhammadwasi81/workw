@@ -9,7 +9,7 @@ import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLin
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
-import {GetCustomApprovalById} from "../store/slice";
+import {GetCustomApprovalById} from "../store/actions";
 import {
   ApprovalsModule,
   ApprovalStatus,

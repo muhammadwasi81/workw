@@ -1,12 +1,36 @@
-import React from 'react';
-import { Avatar, Tooltip } from 'antd';
+import React, { useState } from 'react';
+import { Avatar, Tooltip, Modal } from 'antd';
 import { getNameForImage } from '../../../utils/base';
+import "./style.css"
+import { useNavigate } from 'react-router-dom';
 // import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
 // import PropTypes from "prop-types";
 
 function AvatarGroup(props) {
+  const navigate = useNavigate()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = (e) => {
+    e.preventDefault()
+    e.stopPropagation();
+    setIsModalOpen(true);
+  };
+  const handleOk = (e) => {
+    e.preventDefault()
+    e.stopPropagation();
+    setIsModalOpen(false);
+  };
+  const handleCancel = (e) => {
+    e.preventDefault()
+    e.stopPropagation();
+    setIsModalOpen(false);
+  };
+
+
   return (
-    <div>
+    <div
+      onClick={(e) => showModal(e)}
+    >
       <Avatar.Group
         maxCount={2}
         maxPopoverTrigger="click"
@@ -30,7 +54,7 @@ function AvatarGroup(props) {
               className="cursor-pointer !bg-black"
               src={
                 members[props.nestedObjProperty] !== null &&
-                members[props.nestedObjProperty].image
+                  members[props.nestedObjProperty].image
                   ? members[props.nestedObjProperty].image
                   : props.dummyImage
               }
@@ -43,29 +67,47 @@ function AvatarGroup(props) {
             </Avatar>
           </Tooltip>
         ))}
-        {/* <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-				<Avatar
-					style={{
-						backgroundColor: "#f56a00",
-					}}
-				>
-					K
-				</Avatar>
-				<Tooltip title="Ant User" placement="top">
-					<Avatar
-						style={{
-							backgroundColor: "#87d068",
-						}}
-						icon={<UserOutlined />}
-					/>
-				</Tooltip>
-				<Avatar
-					style={{
-						backgroundColor: "#1890ff",
-					}}
-					icon={<AntDesignOutlined />}
-				/> */}
       </Avatar.Group>
+      <Modal 
+        open={isModalOpen} 
+        onOk={(e) => handleOk(e)} 
+        onCancel={(e) => handleCancel(e)} 
+        footer={false} 
+        closeIcon={<div/>}
+        className="ApproverModal"
+        width={"360px"}
+      >
+        {props.membersData.map((members) => {
+          return(
+          <div
+            className='approverBox'
+            onClick={() => navigate(`/user/${members.id}`)}
+          >
+            <div className='imageBox'>
+              <Avatar
+                className="cursor-pointer !bg-black imageAvatar"
+                src={
+                  members[props.nestedObjProperty] !== null &&
+                    members[props.nestedObjProperty].image
+                    ? members[props.nestedObjProperty].image
+                    : props.dummyImage
+                }
+              >
+                {getNameForImage(
+                  members[props.nestedObjProperty] !== null
+                    ? members[props.nestedObjProperty].name
+                    : 'Unknown User'
+                )}
+              </Avatar>
+            </div>
+            <div className='contentBox'>
+              <p style={{color: "#222222"}}>{members.approver && members.approver.name}</p> 
+              <p style={{color: 'rgb(117, 125, 134)'}}>{members.approver && members.approver.email}</p>
+            </div>
+          </div>
+        )})
+        }
+      </Modal>
     </div>
   );
 }

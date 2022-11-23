@@ -44,11 +44,6 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     <>
       <SingleItem onClick={onClick} className="cursor-pointer">
         <CardProfileTopView
-          // profileImgSrc={
-          //   item.creator && item.creator.image.length > 0
-          //     ? item.creator.image
-          //     : "https://joeschmoe.io/api/v1/random"
-          // }
           profileImgSrc={
             <AvatarCustom
               width={40}

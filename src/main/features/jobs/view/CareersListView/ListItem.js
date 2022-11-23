@@ -3,7 +3,6 @@ import moment from "moment";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { getCareerByIdAction } from "../../../careers/store/action";
-import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 
 function ListItem({ item }) {
   const dispatch = useDispatch();
@@ -29,7 +28,14 @@ function ListItem({ item }) {
       onClick={() => onJobClick(id)}
     >
       <div>
-        <Avatar size={40} src={creator?.image} />
+        <Avatar
+          size={40}
+          src={
+            creator?.image
+              ? creator.image
+              : "https://joeschmoe.io/api/v1/random"
+          }
+        />
       </div>
 
       <div className="w-full">

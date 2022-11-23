@@ -15,6 +15,7 @@ const initialState = {
   task: {},
   loading: false,
   drawerOpen: false,
+  loadingData: false,
 };
 
 export const taskSlice = createSlice({
@@ -92,6 +93,7 @@ export const taskSlice = createSlice({
       })
       .addCase(getTaskById.fulfilled, (state, { payload }) => {
         state.task = payload;
+        state.loadingData = false;
       });
     builder
       // .addCase(cancelTaskAction.fulfilled, (state, action) => {
@@ -110,6 +112,7 @@ export const taskSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllTask]), (state) => {
         state.taskList.loading = true;
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllTask]), (state) => {
         state.taskList.loading = false;

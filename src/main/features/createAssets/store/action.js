@@ -1,11 +1,15 @@
 import { createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit';
-import { message } from 'antd';
 import {
   responseMessage,
   responseMessageType,
 } from '../../../../services/slices/notificationSlice';
 import { ResponseType } from '../../../../utils/api/ResponseResult';
 import { openNotification } from '../../../../utils/Shared/store/slice';
+import {
+  addInventoryAssetService,
+  getAllInventoryAssetService,
+} from '../../assets/service/service';
+import { handleAllocOpenComposer } from '../../assets/store/slice';
 import {
   getAllAssetItemService,
   addAssetItemService,
@@ -14,6 +18,8 @@ import {
   getAllAssetItemByPaging,
   updateAssetItemService,
 } from '../service/service';
+import { handleOpenDeAllocComposer, handleResetDeAllocState } from './slice';
+import { message } from 'antd';
 
 export const getAllAssetItems = createAsyncThunk(
   'AssetItem/getAllAssetItem',
@@ -27,23 +33,29 @@ export const getAllAssetItems = createAsyncThunk(
     }
   }
 );
-
+// TODO: CREATE TABLE
 export const addAssetItem = createAsyncThunk(
   `AssetItem/addAssetItem`,
   async (payload, { dispatch }) => {
-    const response = await addAssetItemService(payload);
-    console.log(response, payload, 'addAssetItem action');
-    if (response.responseType === ResponseType.SUCCESS) {
-      message.success('Asset Items Added Successfully');
-      return response.data;
+    const res = await addAssetItemService(payload);
+    console.log(res, payload, 'addAssetItem action');
+    if (res.type === 1) {
+      dispatch(
+        openNotification({
+          message: 'Asset Item Created Successfully',
+          type: 'success',
+        })
+      );
+      dispatch(handleAllocOpenComposer(false));
+      return isRejectedWithValue(res);
     } else {
       dispatch(
         openNotification({
-          message: responseMessage(response.responseType),
-          type: responseMessageType(response.responseType),
+          message: responseMessageType(res.responseType),
+          type: responseMessageType(res.responseType),
         })
       );
-      return isRejectedWithValue(response);
+      return isRejectedWithValue(res);
     }
   }
 );
@@ -61,7 +73,6 @@ export const getAssetItemDetailById = createAsyncThunk(
   }
 );
 
-// TODO: get action for asset item
 export const getAssetItemByUserId = createAsyncThunk(
   `AssetItem/getAssetItemByUserId`,
   async (id) => {
@@ -71,16 +82,21 @@ export const getAssetItemByUserId = createAsyncThunk(
     return response.data;
   }
 );
-
-// TODO: update action for asset item
+// TODO: DE-ALLOCATE
 export const updateAssetItems = createAsyncThunk(
   `AssetItem/updateAssetItemService`,
   async (payload, { dispatch }) => {
     const response = await updateAssetItemService(payload);
     console.log(response, 'updateAssetItemService action');
-    if (response.responseType === ResponseType.SUCCESS) {
-      console.log('update API ka response');
-      message.success('Asset Item Updated Successfully');
+    if (response.type === 1) {
+      dispatch(
+        openNotification({
+          message: 'Asset Item Updated Successfully',
+          type: 'success',
+        })
+      );
+      dispatch(handleResetDeAllocState());
+      dispatch(handleOpenDeAllocComposer(false));
       return response.data;
     } else {
       dispatch(
@@ -90,6 +106,45 @@ export const updateAssetItems = createAsyncThunk(
         })
       );
       return isRejectedWithValue(response);
+    }
+  }
+);
+
+// todo: assets say lay rha
+export const getAllInventoryAsset = createAsyncThunk(
+  `InventoryAsset/GetAllInventoryAsset`,
+  async (data) => {
+    const response = await getAllInventoryAssetService(data);
+    console.log(response.data, 'getAllInventoryAsset actions');
+    if (!response.responseCode) {
+      message.error('Something went wrong');
+    }
+    return response.data;
+  }
+);
+
+export const addInventoryAsset = createAsyncThunk(
+  `AssetItem/addInventoryAsset`,
+  async (payload, { dispatch }) => {
+    try {
+      const response = await addInventoryAssetService(payload);
+      console.log(response.data, 'addInventoryAsset actions');
+      dispatch(handleAllocOpenComposer(false));
+      dispatch(
+        openNotification({
+          message: 'Asset Item Allocated Successfully',
+          type: 'success',
+        })
+      );
+      return response.data;
+    } catch (error) {
+      dispatch(
+        openNotification({
+          message: 'Asset Item Created Failed',
+          type: 'error',
+        })
+      );
+      return isRejectedWithValue(error);
     }
   }
 );

@@ -33,12 +33,13 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
       }),
       message: text,
       id: createGuid(),
-      messageType: !!voiceNoteFile ? "voice" : 1,
+      messageType: !!voiceNoteFile ? 2 : 1,
       attachments: attachments.map(file => ({
         file,
         id: STRINGS.DEFAULTS.guid
       }))
     };
+    console.log(payload, "payload")
     return payload
   }
 

@@ -6,7 +6,6 @@ import { CareerDictionary } from "../../localization";
 import { addCareerApplicant } from "../../store/action";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { STRINGS } from "../../../../../utils/base";
-import TextArea from "antd/lib/input/TextArea";
 import { useSelector } from "react-redux";
 import { handleOpenApplyComposer } from "../../store/slice";
 
@@ -17,7 +16,7 @@ const ApplyComposer = (props) => {
   const [attachments, setAttachment] = useState([]);
   const [form] = Form.useForm();
 
-  const { loader, applySuccess, applyComposer } = useSelector(
+  const { careerLoader, applySuccess, applyComposer } = useSelector(
     (state) => state.careerSlice
   );
 
@@ -25,7 +24,7 @@ const ApplyComposer = (props) => {
     if (applySuccess) {
       form.resetFields();
     }
-  }, [applySuccess]);
+  }, [applySuccess, form]);
 
   const { labels } = CareerDictionaryList;
   // console.log(CareerDictionaryList);
@@ -237,7 +236,7 @@ const ApplyComposer = (props) => {
               className="ThemeBtn"
               block
               htmlType="submit"
-              loading={loader}
+              loading={careerLoader}
             >
               {labels.applyJob}
             </Button>

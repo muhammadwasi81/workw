@@ -1,5 +1,6 @@
 import moment from 'moment';
 import Avatar from '../../../sharedComponents/Avatar/avatar';
+import TagAvatar from '../../../sharedComponents/Avatar/TagAvatar';
 import {
   ItemHeader,
   SingleItem,
@@ -26,6 +27,7 @@ const AssetsListItem = (props) => {
     name,
     id,
     approvers = [{}],
+    handover = [{}],
     value,
   } = props.item;
 
@@ -35,11 +37,15 @@ const AssetsListItem = (props) => {
         <ItemHeader>
           <div className="left">
             <UserInfo
-              avatarSrc={creator.image}
-              name={creator.name}
+              avatarSrc={
+                creator?.image
+                  ? creator?.image
+                  : 'https://58.65.211.234:4436/Resources/cfe50d8d-7c47-4abb-9154-661daf129cec/Images/45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg'
+              }
+              name={creator?.name}
               Subline={
                 <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : ''}
+                  designation={creator?.designation ? creator?.designation : ''}
                   time={moment(createDate).fromNow()}
                 />
               }
@@ -62,7 +68,16 @@ const AssetsListItem = (props) => {
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Handover</div>
-            <div className="cardSection__body">{name}</div>
+            <div className="cardSection__body">
+              <TagAvatar
+                text={handover?.name ? handover.name : 'Not Assigned'}
+                img={
+                  handover?.image
+                    ? handover?.image
+                    : 'https://konnect.im/upload/2022/10/88c35581-97aa-4e88-be91-584a667fd5eb.jpg'
+                }
+              />
+            </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>

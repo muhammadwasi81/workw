@@ -25,6 +25,7 @@ import CreateTask from "./createTask/CreateTask";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 import "../view/style/task.css";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 function Task({
 	referenceId = defaultUiid,
@@ -53,6 +54,7 @@ function Task({
 		taskList: { list },
 		success,
 		drawerOpen,
+		loading,
 	} = useSelector(state => state.taskSlice);
 	useEffect(() => {
 		dispatch(
@@ -134,19 +136,36 @@ function Task({
 			/>
 			<ContBody className={width}>
 				<div className="lf-col">
-					{tableView ? (
+					{tableView && (
 						<Table
 							columns={tableColumn()}
 							dragable={true}
 							data={list ? list : []}
 						/>
-					) : (
+					)}
+					{list?.length > 0 && !loading && !tableView ? (
 						<MyTaskList
 							filterType={filterType}
 							referenceId={referenceId}
 							referenceType={referenceType}
 						/>
+					) : (
+						!loading && !tableView && <NoDataFound />
 					)}
+
+					{/* {tableView ? (
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              data={list ? list : []}
+            />
+          ) : (
+            <MyTaskList
+              filterType={filterType}
+              referenceId={referenceId}
+              referenceType={referenceType}
+            />
+          )} */}
 				</div>
 			</ContBody>
 

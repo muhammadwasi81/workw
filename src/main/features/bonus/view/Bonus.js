@@ -1,32 +1,32 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from 'react';
 import {
   ContBody,
   TabbableContainer,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Button, Skeleton, Drawer, Form } from "antd";
-import { bonusDictionaryList } from "../localization/index";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import ListItem from "./ListItem";
-import Composer from "./Composer";
-import DetailedView from "./DetailedView";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getAllBonus } from "../store/actions";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
+} from '../../../sharedComponents/AppComponents/MainFlexContainer';
+import { Button, Skeleton, Drawer, Form } from 'antd';
+import { bonusDictionaryList } from '../localization/index';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import ListItem from './ListItem';
+import Composer from './Composer';
+import DetailedView from './DetailedView';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getAllBonus } from '../store/actions';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
 
-import { Table } from "../../../sharedComponents/customTable";
-import { tableColumn } from "./TableColumn";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import Header from "../../../layout/header/index";
-import { handleOpenComposer } from "../store/slice";
-import { ROUTES } from "../../../../utils/routes";
-import Nodata from "../../../../content/NewContent/eLearning/no_data.svg";
-import { useMediaQuery } from "react-responsive";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { Table } from '../../../sharedComponents/customTable';
+import { tableColumn } from './TableColumn';
+import TopBar from '../../../sharedComponents/topBar/topBar';
+import Header from '../../../layout/header/index';
+import { handleOpenComposer } from '../store/slice';
+import { ROUTES } from '../../../../utils/routes';
+import { useMediaQuery } from 'react-responsive';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
 
 const initialFormData = {
-  memberId: "",
+  memberId: '',
   amount: 0,
   approvers: [],
 };
@@ -43,7 +43,7 @@ const Bonus = (props) => {
   const [isDefault, setIsDefault] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
 
-  const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [filter, setFilter] = useState({ filterType: 0, search: '' });
   const [openDrawer, setOpenDrawer] = useState(false);
   // const [formData, setFormData] = useState(initialFormData);
 
@@ -55,6 +55,7 @@ const Bonus = (props) => {
   const { bonuses, loader, bonusDetail, drawerOpen, success } = useSelector(
     (state) => state.bonusSlice
   );
+  console.log(drawerOpen, 'drawerOpen');
 
   const onClose = () => {
     setDetailId(null);
@@ -66,7 +67,7 @@ const Bonus = (props) => {
   }, [filter]);
   const items = [
     {
-      name: "Bonus",
+      name: 'Bonus',
       renderButton: [1],
       to: `${ROUTES.BONUS.DEFAULT}`,
     },
@@ -77,11 +78,11 @@ const Bonus = (props) => {
         items={items}
         buttons={[
           {
-            buttonText: "Create Bonus",
+            buttonText: 'Create Bonus',
             render: (
               <SideDrawer
-                title={"Create Bonus"}
-                buttonText={"Create Bonus"}
+                title={'Create Bonus'}
+                buttonText={'Create Bonus'}
                 handleClose={() => dispatch(handleOpenComposer(false))}
                 handleOpen={() => dispatch(handleOpenComposer(true))}
                 isOpen={drawerOpen}
@@ -97,38 +98,63 @@ const Bonus = (props) => {
         }}
         buttons={[
           {
-            name: "Bonus",
+            name: 'Bonus',
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: "Created By Me",
+            name: 'Created By Me',
             onClick: () => setFilter({ filterType: 1 }),
           },
           {
-            name: "For Approvals",
+            name: 'For Approvals',
             onClick: () => setFilter({ filterType: 2 }),
           },
           {
-            name: "Bonus To Me",
+            name: 'Bonus To Me',
             onClick: () => setFilter({ filterType: 3 }),
           },
         ]}
         segment={{
           onSegment: (value) => {
-            if (value === "Table") {
+            if (value === 'Table') {
               setTableView(true);
             } else {
               setTableView(false);
             }
           },
-          label1: "List",
-          label2: "Table",
+          label1: 'List',
+          label2: 'Table',
         }}
       />
 
       <ContBody>
-        {/* <div className="access_role_container w-full"> */}
-        {bonuses && bonuses.length > 0 ? (
+        {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
+
+        {tableView && (
+          <Table columns={tableColumn()} dragable={false} data={bonuses} />
+        )}
+
+        {bonuses?.length > 0 && !loader && !tableView ? (
+          <CardWrapper>
+            {bonuses.map((item, index) => {
+              return (
+                <>
+                  <ListItem
+                    item={item}
+                    id={item.id}
+                    key={index}
+                    onClick={() => setDetailId(item.id)}
+                  />
+                </>
+              );
+            })}
+          </CardWrapper>
+        ) : (
+          !loader && !tableView && <NoDataFound />
+        )}
+      </ContBody>
+
+      {/* {bonuses && bonuses.length > 0 ? (
           tableView ? (
             <div>
               <Table columns={tableColumn()} dragable={false} data={bonuses} />
@@ -144,7 +170,7 @@ const Bonus = (props) => {
                   {bonuses.map((item, index) => {
                     return (
                       <>
-                        {/*  */}
+                       
                         <ListItem
                           item={item}
                           id={item.id}
@@ -162,34 +188,10 @@ const Bonus = (props) => {
           <div className="flex items-center justify-center h-full w-full">
             <img src={Nodata} />
           </div>
-        )}
-        {/* </div> */}
-      </ContBody>
-      {<DetailedView onClose={onClose} id={detailId} />}
-      {/* <div className="w-full">
-        <div
-          className={`flex ${
-            Direction === "rtl" ? "justify-start" : "justify-end"
-          }`}
-        >
-          <SideDrawer
-            title={"Create Bonus"}
-            buttonText={"Create Bonus"}
-            success={success}
-            openDrawer={openDrawer}
-            setOpenDrawer={setOpenDrawer}
-            form={form}
-            isAccessDrawer={true}
-            children={
-              <Composer
-                form={form}
-                formData={formData}
-                openDrawer={openDrawer}
-              />
-            }
-          />
-        </div>
-      </div> */}
+        )} */}
+
+      {bonusDetail && <DetailedView onClose={onClose} id={detailId} />}
+
       {/* <Drawer
         title={
           <h1
@@ -214,7 +216,7 @@ const Bonus = (props) => {
         className="detailedViewComposer drawerSecondary"
       >
         <Composer />
-      </Drawer> */}
+      </Drawer>  */}
     </TabbableContainer>
   );
 };

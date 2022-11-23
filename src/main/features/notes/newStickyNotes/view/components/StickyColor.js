@@ -14,7 +14,9 @@ const StickyColor = ({ item }) => {
     const colorValue = e.target.getAttribute("value");
     const id = item.id;
     dispatch(selectStickyNoteColor({ id, colorValue }));
-    dispatch(getColorCodeAction({ ...item, colorCode: colorValue }));
+    dispatch(
+      getColorCodeAction({ ...item, colorCode: colorValue, attachments: [] })
+    );
   };
 
   // const closeColorHandler = () => {
@@ -44,15 +46,7 @@ const StickyColor = ({ item }) => {
             ></div>
           ))}
         </div>
-
-        {/* <div className="note__iconHOVER-dlt" onClick={closeColorHandler}>
-          <div>
-           <CloseOutlined  />
-          </div>
-          Close Colors
-        </div> */}
       </div>
-      {/* } */}
     </>
   );
 };

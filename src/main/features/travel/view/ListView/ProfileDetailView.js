@@ -10,7 +10,11 @@ function ProfileDetailView(props) {
   const { showIcon = true } = props;
   return (
     <div className="flex items-center gap-1">
-      <Avatar src={props.profileImgSrc} size={props.profileImgSize}>
+      <Avatar
+        src={props.profileImgSrc}
+        size={props.profileImgSize}
+        className="!bg-black"
+      >
         {getNameForImage(props.name)}
       </Avatar>
       <div>

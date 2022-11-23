@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 // import PropTypes from "prop-types";
 import AvatarGroup from "./AvatarGroup";
+import SingleItem from "./SingleItem";
 // import TagAvatar from "./TagAvatar";
 // avatar
 function Avatar(props) {
@@ -20,21 +22,18 @@ function Avatar(props) {
     props.membersData[0][objProperty] !== null &&
     props.membersData[0][objProperty] !== undefined &&
     props.membersData[0][objProperty]?.image;
-  // console.log("name", name);
-  // console.log("membersdata", props.membersData);
-  // console.log("image", image);
-  // console.log("heading", props.heading);
-  // console.log("obje property", objProperty);
+
   return (
     <div>
-      {props.membersData && (
+      {props.membersData && props.membersData.length > 1 ? (
         <AvatarGroup
           membersData={props.membersData}
           heading={props.heading}
           nestedObjProperty={objProperty}
           size={props.size}
-          // dummyImage={props.image}
         />
+      ) : (
+        <SingleItem data={props.membersData} />
       )}
     </div>
   );

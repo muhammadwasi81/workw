@@ -10,27 +10,32 @@ function CommentBubble({
 	date,
 	attachments,
 	attachmentCount,
-	attachmentFile
+	attachmentFile,
+	type,
 }) {
 	const { name, designation = "", userImage: image = "" } = user;
 	let ts = moment.utc(date);
 	ts.local().format("D-MMM-Y");
-  // console.log('attachments',attachments);
+	// console.log('attachments',attachments);
 	// console.log('content',content);
 	return (
 		<div style={{ display: "flex", width: "100%" }}>
-			<Avatar src={image} name={name} size={30} round={true} />
+			{type != 2 && (
+				<Avatar src={image} name={name} size={30} round={true} />
+			)}
 			<div className="CommentBubble">
-				<div className="CommentHeader">
-					<div className="CommentHeaderDet">
-						<div className="name">{name}</div>
-						<div className="designation">{designation}</div>
+				{type != 2 && (
+					<div className="CommentHeader">
+						<div className="CommentHeaderDet">
+							<div className="name">{name}</div>
+							<div className="designation">{designation}</div>
+						</div>
+						<div className="CommentHeaderIcon">
+							{/* <img src={DotesIcon} alt="" /> */}
+							<span className="time">{moment(ts).fromNow()}</span>
+						</div>
 					</div>
-					<div className="CommentHeaderIcon">
-						{/* <img src={DotesIcon} alt="" /> */}
-						<span className="time">{moment(ts).fromNow()}</span>
-					</div>
-				</div>
+				)}
 
 				<p
 					dangerouslySetInnerHTML={{

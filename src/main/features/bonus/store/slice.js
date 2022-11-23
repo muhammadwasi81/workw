@@ -49,6 +49,7 @@ const bonusSlice = createSlice({
 
     builder.addCase(GetBonusById.fulfilled, (state, action) => {
       state.bonusDetail = action.payload.data;
+      state.loadingData = false;
     });
 
     // builder.addCase(cancelBonus.fulfilled, (state, action) => {
@@ -64,6 +65,7 @@ const bonusSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllBonus]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllBonus]), (state) => {
         state.loader = true;

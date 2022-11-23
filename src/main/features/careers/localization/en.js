@@ -53,7 +53,7 @@ const en = {
       careerLevel: "Career Level",
       endDate: "End Date",
       reviewCriteria: "Review Criteria",
-      skillsRequired: "Skills Reuired",
+      skillsRequired: "Skills Required",
       createJob: "Create Job",
       expenseDate: "Expense Date",
       expenseDetail: "Expense Detail",

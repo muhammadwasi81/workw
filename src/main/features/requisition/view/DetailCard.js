@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image, Button, message } from "antd";
+import { Drawer, Tag, Image, Button, message ,Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { requisitionDictionaryList } from "../localization/index";
@@ -25,7 +25,7 @@ import { LinkOutlined } from "@ant-design/icons";
 function RequisitionDetailCard(props) {
     const { userLanguage } = useContext(LanguageChangeContext);
     const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
-    const { Detail } = useSelector((state) => state.requisitionSlice);
+    const { Detail,loadingData } = useSelector((state) => state.requisitionSlice);
     const { user } = useSelector(state => state.userSlice);
     const [updatedStatus, setUpdatedStatus] = useState(null);
     const [copy, setCopy] = useState(false);
@@ -69,6 +69,8 @@ function RequisitionDetailCard(props) {
     };
 
     const isTablet = false;
+
+    if(loadingData) return <Skeleton />;
 
     return (
         <>  {copy && message.success("Copied")}

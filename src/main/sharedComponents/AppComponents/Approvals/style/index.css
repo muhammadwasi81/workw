@@ -91,7 +91,7 @@
   display: none !important;
 }
 
-.approvalWrapper+.approvalWrapper {
+.approvalWrapper + .approvalWrapper {
   margin-top: 12px;
 }
 
@@ -128,7 +128,7 @@
   font-size: 14px;
 }
 
-.approvalCollapse .ant-collapse-content>.ant-collapse-content-box {
+.approvalCollapse .ant-collapse-content > .ant-collapse-content-box {
   padding: 0 !important;
 }
 
@@ -157,7 +157,7 @@
 .remarks__body .comment {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  /* gap: 8px; */
   margin-top: 6px;
 }
 
@@ -175,7 +175,9 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.attachments-container {
+  width: fit-content;
+}
 .remarks__body .comment__body h6 {
   font-size: 13px;
   color: var(--currentThemeColor);

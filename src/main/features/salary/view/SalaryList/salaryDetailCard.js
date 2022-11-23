@@ -1,4 +1,4 @@
-import { Button, Image, Tag } from 'antd';
+import { Button, Image, Tag, Skeleton } from 'antd';
 import React, { useContext, useEffect } from 'react';
 import UserInfo from '../../../../sharedComponents/UserShortInfo/UserInfo';
 import SublineDesigWithTime from '../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
@@ -26,36 +26,25 @@ function SalaryDetailCard(props) {
   }, [props.id]);
 
   const salaryDetail = useSelector((state) => state.salarySlice.salaryDetail);
+  const { loadingData } = useSelector((state) => state.salarySlice);
   if (!salaryDetail) return <></>;
 
-  // const {
-  //   creator,
-  //   basicSalary,
-  //   details,
-  //   description = 'Salary Description here',
-  //   approvers = [{}],
-  //   status = 1,
-  //   referenceNo = 'SAR-10001',
-  //   createDate = moment(),
-  //   effectiveDate = moment(),
-  //   user,
-  // } = salaryDetail;
-  // console.log(salaryDetail, 'salaryDetail');
+  const {
+    creator,
+    basicSalary,
+    details,
+    description = 'Salary Description here',
+    approvers = [{}],
+    status = 1,
+    referenceNo = 'SAR-10001',
+    createDate = moment(),
+    effectiveDate = moment(),
+    user,
+  } = salaryDetail;
+  console.log(salaryDetail, 'salaryDetail');
 
-  const creator = {
-    businessId: 'cfe50d8d-7c47-4abb-9154-661daf129cec'
-      ? 'cfe50d8d-7c47-4abb-9154-661daf129cec'
-      : '',
-    designation: '',
-    email: 'owais@miletap.com',
-    id: '77546782-aa7a-4984-9388-5fd044c0fb11',
-    image:
-      'https://58.65.211.234:4436/Resources\\cfe50d8d-7c47-4abb-9154-661daf129cec\\Images\\45f43115-c12f-4fc4-82ec-e570fbc13a70.jpeg',
-    name: 'Owais Shaikh',
-    type: 1,
-    userTypeId: 2,
-    createDate: moment(),
-  };
+  if (loadingData) return <Skeleton />;
+
   return (
     <>
       <SingleItem onClick={props.onClick}>

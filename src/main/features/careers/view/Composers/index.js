@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { Avatar, Button, DatePicker, Form, Input, List, Select } from "antd";
 import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
-import { getAllJobDescriptionService } from "../../../jobDescription/services/service";
 import { getAllDepartmentService } from "../../../departments/services/service";
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import {
@@ -29,8 +28,6 @@ import {
 import { getAllDefaultHiringCriteriaService } from "../../defaultHiringCriteria/services/service";
 import { getAllDesignation } from "../../../designation/store/actions";
 import { addCareer } from "../../store/action";
-import { handleOpenComposer } from "../../store/slice";
-import { getAllDepartments } from "../../../departments/store/actions";
 
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -54,6 +51,8 @@ const Composer = (props) => {
   const {
     designationSlice: { designations },
   } = useSelector((state) => state);
+
+  const { createLoader } = useSelector((state) => state.careerSlice);
 
   useEffect(() => {
     dispatch(getAllDesignation());
@@ -642,6 +641,7 @@ const Composer = (props) => {
             className="ThemeBtn"
             block
             htmlType="submit"
+            loading={createLoader}
           >
             {labels.createJob}
           </Button>

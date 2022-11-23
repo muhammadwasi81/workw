@@ -17,11 +17,11 @@ import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
 import TopBar from '../../../sharedComponents/topBar/topBar';
 import Header from '../../../layout/header/index';
 import { handleOpenComposer } from '../store/slice';
-import ListItemMyRequisition from './myRequisition';
+import ListItemMyRequisition from './ListItem';
 import { useNavigate } from 'react-router-dom';
 import ListItem from '../../reward/view/ListItem';
-import { PlusOutlined } from '@ant-design/icons';
 import { ROUTES } from '../../../../utils/routes';
+import { PlusOutlined } from '@ant-design/icons';
 
 const Requisition = () => {
   const dispatch = useDispatch();
@@ -111,7 +111,7 @@ const Requisition = () => {
                         onClick={() => openMyRequisitionDetail(item.id)}
                       />
                     ) : (
-                      <ListItem
+                      <ListItemMyRequisition
                         item={item}
                         id={item.id}
                         key={index}

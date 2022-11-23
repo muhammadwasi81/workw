@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
+import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
 import { clearRequestDetails } from '../store/slice';
 import RequestDetailedView from './requestDetailedView';
 import RequestListItems from './requestListItems';
@@ -13,35 +14,47 @@ const RequestList = ({ data }) => {
     setItemId(null);
     dispatch(clearRequestDetails());
   };
+  const { loader, requestItemDetail } = useSelector(
+    (state) => state.requestItemSlice
+  );
   return (
-    <CardWrapper>
-      {data?.length > 0 ? (
-        data.map((item) => (
-          <RequestListItems
-            key={item.id}
-            item={item}
-            onClick={(id) => setItemId(id)}
-          />
-        ))
+    <>
+      {data?.length > 0 && !loader ? (
+        <CardWrapper>
+          {data?.length > 0 ? (
+            data.map((item) => (
+              <RequestListItems
+                key={item.id}
+                item={item}
+                onClick={(id) => setItemId(id)}
+              />
+            ))
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <strong
+                style={{
+                  margin: 'auto',
+                  marginRight: '10px',
+                }}
+              >
+                No Result Found...
+              </strong>
+            </div>
+          )}
+          {<RequestDetailedView onClose={onClose} id={itemId} />}
+        </CardWrapper>
       ) : (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <strong
-            style={{
-              margin: 'auto',
-              marginRight: '10px',
-            }}
-          >
-            No Result Found...
-          </strong>
-        </div>
+        !loader && <NoDataFound />
       )}
-      {<RequestDetailedView onClose={onClose} id={itemId} />}
-    </CardWrapper>
+      {requestItemDetail && (
+        <RequestDetailedView onClose={onClose} id={itemId} />
+      )}
+    </>
   );
 };
 

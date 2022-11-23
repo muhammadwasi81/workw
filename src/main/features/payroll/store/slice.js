@@ -49,7 +49,7 @@ export const payrollSlice = createSlice({
          }) 
          .addMatcher(
             isPending(
-               ...[getCalculatedPayroll, addPayroll]
+               ...[getCalculatedPayroll, addPayroll, getAllPayroll]
             ),
             state => {
                state.loader = true;

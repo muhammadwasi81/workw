@@ -25,18 +25,14 @@ const rewardSlice = createSlice({
       state.drawerOpen = payload;
     },
     cancelRewardSuccess: (state, { payload }) => {
-      console.log(payload, "payload");
-
       let rewardList = [...state.rewards];
       let index = rewardList.findIndex((item) => item.id === payload.rewardId);
       let reward = rewardList.filter((item) => item.id === payload.rewardId)[0];
-      console.log(index, "index");
-      console.log(reward, "reward");
+
       rewardList[index] = {
         ...reward,
         status: 4,
       };
-      console.log(rewardList, "rewardList");
 
       state.rewards = rewardList;
       state.rewardDetail = {
@@ -53,6 +49,7 @@ const rewardSlice = createSlice({
 
     builder.addCase(GetRewardById.fulfilled, (state, action) => {
       state.rewardDetail = action.payload.data;
+      state.loadingData = false;
     });
 
     // builder.addCase(cancelReward.fulfilled, (state, action) => {
@@ -67,6 +64,7 @@ const rewardSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllRewards, addReward]), (state) => {
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllRewards]), (state) => {
         state.loader = true;

@@ -85,11 +85,19 @@ const FromDetail = (props) => {
             </div>
           </ItemHeader>
           <div className="title">
-            {subject.length > 0 ? <p>{subject}</p> : null}
+            {subject.length > 0 ? (
+              <div>
+                <span className="text-base font-bold">Subject: </span>
+                {subject}
+              </div>
+            ) : null}
           </div>
           <div className="description w-full pt-3 pb-5 h-[100px]">
             {description.length > 0 ? (
-              <p>{description}</p>
+              <div>
+                <span className="text-base font-bold">Description: </span>
+                {description}
+              </div>
             ) : (
               <p> No description </p>
             )}

@@ -1,15 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Tag, Avatar } from "antd";
-// import "antd/dist/antd.css";
-// import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-// import {
-// 	ItemContent,
-// 	ItemHeader,
-// 	SingleItem,
-// } from "../../../../sharedComponents/Card/CardStyle";
-// import { LinkOutlined } from "@ant-design/icons";
-// import "./style.css";
-// import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import moment from "moment";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
@@ -17,8 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCareerByIdAction } from "../../store/action";
 import { useParams } from "react-router-dom";
 import ApplyComposer from "../Composers/applyComposer";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { ROUTES } from "../../../../../utils/routes";
+import { handleOpenApplyComposer } from "../../store/slice";
 
 const ApplyJob = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -27,10 +16,9 @@ const ApplyJob = (props) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [careerData, setCareerData] = useState({});
-  // const [copy, setCopy] = useState(false);
 
   const { labels } = CareerDictionaryList;
-  // console.log(labels);
+
   const careerDetail = useSelector((state) => {
     return state.careerSlice.careerDetail;
   });
@@ -41,21 +29,22 @@ const ApplyJob = (props) => {
 
   useEffect(() => {
     //call career by id function
-    dispatch(getCareerByIdAction(id));
-  }, []);
+    if (id) {
+      dispatch(getCareerByIdAction(id));
+    }
+  });
 
   useEffect(() => {
     //works at start to set first element from in state array
     if (Object.keys(careers).length > 1) {
-      console.log(careers, "***");
       setCareerData(careers[0]);
     }
   }, [careers]);
 
-  console.log(id, "id");
+  // console.log(id, "id");
 
   useEffect(() => {
-    console.log("useEffect works when component update");
+    // console.log("useEffect works when component update");
     if (Object.keys(careerDetail).length > 1) {
       setCareerData(careerDetail);
     }
@@ -76,8 +65,6 @@ const ApplyJob = (props) => {
     endDate,
   } = careerData;
 
-  // console.log(careerDetail, "career detail in apply job");
-
   const handleDrawerClose = () => {
     setVisible(false);
   };
@@ -85,6 +72,7 @@ const ApplyJob = (props) => {
   const handleDrawerOpen = () => {
     console.log("handle drawer open");
     setVisible(true);
+    dispatch(handleOpenApplyComposer(true));
   };
 
   const skillsArray = skills?.split(",");
@@ -102,7 +90,14 @@ const ApplyJob = (props) => {
         >
           <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
             <div>
-              <Avatar size={45} src={creator?.image} />
+              <Avatar
+                size={45}
+                src={
+                  creator?.image
+                    ? creator.image
+                    : "https://joeschmoe.io/api/v1/random"
+                }
+              />
             </div>
             <div className="flex-1">
               <div className="text-[16px] font-bold text-sky-900">
@@ -159,7 +154,6 @@ const ApplyJob = (props) => {
               <div className="cardSection__body">
                 {createDate ? moment(createDate).format("Do MMM YY") : "-"}
               </div>
-              s
             </div>
             <div className="cardSectionItem">
               <div className="cardSection__title">Experience Required</div>

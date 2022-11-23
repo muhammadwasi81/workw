@@ -12,7 +12,7 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { useDispatch } from "react-redux";
 import { data } from "jquery";
 
-function ListItem(props) {
+function ListItemMyRequisition(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, requisitionDictionary } = requisitionDictionaryList[userLanguage];
   const disptach = useDispatch();
@@ -22,11 +22,11 @@ function ListItem(props) {
     name,
     description,
     image = RequistionDefaultIcon,
-    // reason,
-    // budget,
-    // deadline,
-    // finalApprovers = [],
-    // approvers = [],
+    reason,
+    budget,
+    deadline,
+    finalApprovers = [],
+    approvers = [],
     status,
     referenceNo,
     createDate,
@@ -60,7 +60,7 @@ function ListItem(props) {
             <Image preview={false} width={60} height={60} src={image === "" ? RequistionDefaultIcon : image} />
           </div>
         </ItemContent>
-        {/* <div className="cardSections">
+        <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">{"Budget"}</div>
             <div className="cardSection__body">{budget}</div>
@@ -92,10 +92,10 @@ function ListItem(props) {
               }
             </div>
           </div>
-        </div> */}
+        </div>
       </SingleItem>
     </>
   );
 }
 
-export default ListItem;
+export default ListItemMyRequisition;

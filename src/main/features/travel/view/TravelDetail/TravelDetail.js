@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Skeleton } from "antd";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { ROUTES } from "../../../../../utils/routes";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,18 +14,21 @@ import {
 } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import NewTravelDetailCard from "../UI/NewTravelDetailCard";
 import { fileExtentionPreview } from "../../utils/fileExtentionHelper";
-import { handleAttachmentModal } from "../../store/slice";
+import { handleAttachmentModal, resetTravelDetail } from "../../store/slice";
 
 function TravelDetail(props) {
 	const { travelId } = props;
 	const [status, setStatus] = useState();
 	const [travelStatus, setTravelStatus] = useState({});
-	const { travelDetail, success, loader } = useSelector(
+	const { travelDetail, success, loader,loadingData } = useSelector(
 		state => state.travelSlice
 	);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getTravelById(travelId));
+		return () => {
+			dispatch(resetTravelDetail());
+		};
 	}, []);
 
 	useEffect(() => {
@@ -55,6 +59,8 @@ function TravelDetail(props) {
 		},
 	];
 
+	if(loadingData) return <Skeleton />;
+	
 	return (
 		<div className="p-4 bg-white rounded" direction={Direction}>
 			<div className="flex flex-col gap-4">

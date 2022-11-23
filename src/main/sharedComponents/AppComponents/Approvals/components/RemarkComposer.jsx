@@ -9,6 +9,7 @@ import { ApprovalStatus } from "../enums";
 import RemarkStatus from "./RemarkStatus";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { ApprovalDictionary } from "../localization";
+import Attachments from "../../../../features/travel/view/UI/Attachments";
 
 function RemarksComposer({
   files,
@@ -19,7 +20,6 @@ function RemarksComposer({
   createBy,
   approverId,
   status,
-
   value,
 }) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -45,15 +45,18 @@ function RemarksComposer({
   //   onRemarksText(text);
   // }, [text, onRemarksText]);
   const renderStatus = () => {
-    if (!isRemarker && isApprover)
+    console.log(createBy, "createBy")
+    console.log(approverId, "approverId")
+    console.log(id, "id")
+    // if (!isRemarker && isApprover)
+    if (isApprover)
       return <RemarkStatus onCurrentStatus={onCurrentStatus} />;
   };
   const onSelectEmoji = (emoji) => {
     msgInpRef.current.value += emoji.native;
     msgInpRef.current.focus();
-    onRemarksText(msgInpRef.current.value)
+    onRemarksText(msgInpRef.current.value);
   };
-
 
   if (isRemarkApproved || isRemarkDecline || isRemarkCancelled) return null;
   return (
@@ -74,7 +77,7 @@ function RemarksComposer({
               }}
               onKeyUp={(e) => {
                 onRemarksText(e.target.value, e);
-                setisEmoji(false)
+                setisEmoji(false);
               }}
               ref={msgInpRef}
             />
@@ -104,6 +107,14 @@ function RemarksComposer({
       <div className="remarkFooter__bottom">
         <div className="left">
           <FilePreview files={files} onDelete={onDelete} />
+          {/* <Attachments
+            data={files}
+            key={{ data: files }}
+            toShow={1}
+            onClick={() => {}}
+            // onDelete={onDelete}
+            size={"50px"}
+          /> */}
         </div>
         <div className="right">{renderStatus()}</div>
       </div>

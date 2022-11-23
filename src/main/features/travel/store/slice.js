@@ -4,6 +4,7 @@ import { addTravel, getAllTravel, getTravelById } from "./actions";
 const initialState = {
 	travels: [],
 	travelDetail: null,
+	loadingData: false,
 	loader: false,
 	success: false,
 	isAdded: false,
@@ -53,6 +54,7 @@ const travelSlice = createSlice({
 				// console.log("travel fullfilled slice");
 				state.loader = false;
 				state.success = true;
+				state.loadingData = false;
 
 				state.travelDetail = payload.data;
 			})
@@ -63,6 +65,7 @@ const travelSlice = createSlice({
 					state.loader = true;
 					state.success = false;
 					state.isAdded = false;
+					state.loadingData = true;
 				}
 			)
 			.addMatcher(isRejected(), state => {

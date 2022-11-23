@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Image, Button } from "antd";
+import { Drawer, Image, Button, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import { Tag } from "antd";
@@ -24,7 +24,9 @@ function PromotionDetail(props) {
   const { user } = useSelector((state) => state.userSlice);
   const { id } = props;
   const [updatedStatus, setUpdatedStatus] = useState();
-  const { promotionDetail } = useSelector((state) => state.promotionSlice);
+  const { promotionDetail, loadingData } = useSelector(
+    (state) => state.promotionSlice
+  );
   console.log(promotionDetail, "promotion detail");
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, promotionDictionary } = promotionDictionaryList[
@@ -37,6 +39,8 @@ function PromotionDetail(props) {
     console.log(props.id, "props iddd");
     props.id && dispatch(GetPromotionById(props.id));
   }, [props.id]);
+
+  if (loadingData) return <Skeleton />;
 
   console.log("FROM DETAIL");
 
@@ -54,7 +58,7 @@ function PromotionDetail(props) {
   } = ApprovalStatus;
 
   const {
-    creator,
+    creator = {},
     status,
     approvers,
     description,
@@ -76,8 +80,8 @@ function PromotionDetail(props) {
           <div className="item-header">
             <div className="left">
               <UserInfo
-                avatarSrc={creator.image}
-                name={creator.name}
+                avatarSrc={creator && creator.image}
+                name={creator && creator.name}
                 Subline={
                   <SublineDesigWithTime
                     designation={creator.designation ? creator.designation : ""}

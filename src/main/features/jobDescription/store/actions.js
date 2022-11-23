@@ -1,20 +1,23 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { message } from "antd";
-import { responseCode } from "../../../../services/enums/responseCode";
-import MasterConfig from "../../../../utils/services/MasterConfig";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { message } from 'antd';
+import { responseCode } from '../../../../services/enums/responseCode';
+import MasterConfig from '../../../../utils/services/MasterConfig';
 import {
   responseMessage,
   responseMessageType,
-} from "../../../../services/slices/notificationSlice";
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
-import { addJobDescriptionService, getAllJobDescriptionService } from "../services/service";
-import { jobDescriptionDeleted } from "./slice";
+} from '../../../../services/slices/notificationSlice';
+import AxiosConfig from '../../../../utils/services/AxiosConfig';
+import {
+  addJobDescriptionService,
+  getAllJobDescriptionService,
+} from '../services/service';
+import { jobDescriptionDeleted } from './slice';
 
-const API_PREFIX = "konnectapi/api/Designation/";
+const API_PREFIX = 'konnectapi/api/Designation/';
 
 export const getAllJobDescription = createAsyncThunk(
-  "JobDescription/getAllJobDescription",
-  async (args, { dispatch, getState }) => {
+  'JobDescription/getAllJobDescription',
+  async (args, { dispatch }) => {
     const res = await getAllJobDescriptionService();
 
     if (!res.responseCode) {
@@ -28,20 +31,20 @@ export const getAllJobDescription = createAsyncThunk(
 );
 
 export const addJobDescription = createAsyncThunk(
-  "JobDescription/addJobDescription",
-  async (args, { dispatch, getState }) => {
+  'JobDescription/addJobDescription',
+  async (args, { dispatch }) => {
     const res = await addJobDescriptionService(args);
-    console.log(args, "args")
+    console.log(args, 'args');
 
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success) {
-        message.success("Job Description added successfully!")
+        message.success('Job Description added successfully!');
         responseMessage({ dispatch, data: res });
       } else {
-        message.error(res.message)
+        message.error(res.message);
       }
     } else {
-      message.error("Something went wrong")
+      message.error('Something went wrong');
     }
 
     return res;
@@ -49,20 +52,23 @@ export const addJobDescription = createAsyncThunk(
 );
 
 export const updateJobDescription = createAsyncThunk(
-  "Designation/updateDesignation",
-  async (args, { dispatch, getState }) => {
-    return await MasterConfig.put(`api/JobDescription/updateJobDescription`, args)
+  'Designation/updateDesignation',
+  async (args, { dispatch }) => {
+    return await MasterConfig.put(
+      `api/JobDescription/updateJobDescription`,
+      args
+    )
       .then((res) => {
-        console.log(res.data.message, "RESPONE DASDASDAADS")
+        console.log(res.data.message, 'RESPONE DASDASDAADS');
         if (res.data.responseCode) {
           if (res.data.responseCode === responseCode.Success) {
-            message.success("Job Description updated successfully")
+            message.success('Job Description updated successfully');
             responseMessage({ dispatch, data: res.data });
             return res.data;
           } else {
-            message.error(res.data.message)
+            message.error(res.data.message);
           }
-        } 
+        }
       })
       .catch((err) => {
         responseMessage({
@@ -75,22 +81,22 @@ export const updateJobDescription = createAsyncThunk(
 );
 
 export const removeJobDescription = createAsyncThunk(
-  "JobDescription/removeJobDescription",
-  async (args, { dispatch, getState }) => {
-    return await MasterConfig.delete(`api/JobDescription/removeJobDescription?id=${args.id}`)
+  'JobDescription/removeJobDescription',
+  async (args, { dispatch }) => {
+    return await MasterConfig.delete(
+      `api/JobDescription/removeJobDescription?id=${args.id}`
+    )
       .then((res) => {
-        if (res.data.responseCode) {
-          if (res.data.responseCode === responseCode.Success) {
-            message.success("Job Description removed successfully!")
-            dispatch(jobDescriptionDeleted(args));
-            return res.data;
-          } else {
-            message.error(res.message)
-          }
+        console.log(res.data, 'removeJobDescription');
+        if (res.data.responseCode === responseCode.Success) {
+          message.success('Job Description removed successfully!');
+          dispatch(jobDescriptionDeleted(args));
+          return res.data;
+        } else {
+          message.error(res.message);
         }
       })
       .catch((err) => {
-        // message.error("Something went wrong")
         return err;
       });
   }

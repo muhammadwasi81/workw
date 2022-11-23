@@ -1,7 +1,7 @@
-import MasterConfig from "../../../../utils/services/MasterConfig";
+import MasterConfig from '../../../../utils/services/MasterConfig';
 
 export const getAllJobDescriptionService = () => {
-  return MasterConfig.get(`api/JobDescription/GetAllJobDescription`) 
+  return MasterConfig.get(`api/JobDescription/GetAllJobDescription`)
     .then((res) => {
       return res.data;
     })
@@ -9,7 +9,6 @@ export const getAllJobDescriptionService = () => {
       return err;
     });
 };
-
 
 export const addJobDescriptionService = (args) => {
   return MasterConfig.post(`api/JobDescription/AddJobDescription`, args)

@@ -1,19 +1,19 @@
-import React from "react";
-import $ from "jquery";
-import * as moment from "moment";
-import brokenPaper from "../content/svg/brokenpaper.svg";
-import { Link } from "react-router-dom";
-import { REPORT_URL } from "./services";
-import { ROUTES } from "./routes";
+import React from 'react';
+import $ from 'jquery';
+import * as moment from 'moment';
+import brokenPaper from '../content/svg/brokenpaper.svg';
+import { Link } from 'react-router-dom';
+import { REPORT_URL } from './services';
+import { ROUTES } from './routes';
 // require("jquery.caret");
 
-let DOMAIN_PREFIX = "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+let DOMAIN_PREFIX = '';
+DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '/konnect' : '';
 
 export const STRINGS = {
   COPY_RIGHTS: `\u00A9 Miletap Ltd - Copyrights \u00402017-${new Date().getFullYear()}`,
   STRIPE_KEY:
-    "pk_test_51Hs6ovE6WX7VMR4a2q3dV2dNIhjNSl1YIXa4PMDlAAUMmeYimKZoZ1B0et3b2n5VaGjaoFlDoNTIMDdxW0cMv7Jr00YyDry9GE",
+    'pk_test_51Hs6ovE6WX7VMR4a2q3dV2dNIhjNSl1YIXa4PMDlAAUMmeYimKZoZ1B0et3b2n5VaGjaoFlDoNTIMDdxW0cMv7Jr00YyDry9GE',
   USER_RIGHTS_TYPE: {
     //menu
     FEED: 1,
@@ -50,8 +50,8 @@ export const STRINGS = {
   MENU_MODULES: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14],
   RIGHTS: {},
   DEFAULT_EMAIL: {
-    TO: "support@konnect.im",
-    FROM: "amir@gmail.com",
+    TO: 'support@konnect.im',
+    FROM: 'amir@gmail.com',
   },
   PRICE_LIST: {
     NEWS_FEED: 3.0,
@@ -86,52 +86,52 @@ export const STRINGS = {
   REPORTS: {
     EXPENSE_REPORT: `${REPORT_URL}/MyExpenseReport.aspx`,
   },
-  EDITOR_URL: "https://milepad.gqhub.com/p/",
-  VIDEO: ["mp4"],
-  IMAGE: ["jpg", "jpeg", "png", "gif"],
+  EDITOR_URL: 'https://milepad.gqhub.com/p/',
+  VIDEO: ['mp4'],
+  IMAGE: ['jpg', 'jpeg', 'png', 'gif'],
   SIGN_UP_DEFAULT_TOKEN:
-    "hxD0MXIIS0F1tFGfO2uB56Ux6gZn6Tkvm7IOLTwWqNmyHFaDvo7Rjla0JcAU86oS",
+    'hxD0MXIIS0F1tFGfO2uB56Ux6gZn6Tkvm7IOLTwWqNmyHFaDvo7Rjla0JcAU86oS',
   ENV: {
-    PRODUCTION: "production",
-    DEVELOPMENT: "development",
+    PRODUCTION: 'production',
+    DEVELOPMENT: 'development',
   },
   STORAGE: {
-    connectionId: "",
-    _connectionId: "connectionId",
-    token: "token",
-    user: "user",
-    call: "call",
-    call_id: "call_id",
-    user_id: "user_id",
-    first_name: "first_name",
-    middle_name: "middle_name",
-    last_name: "last_name",
-    department_id: "department_id",
-    departmentName: "departmentName",
-    hod_id: "hod_id",
-    hodName: "hodName",
-    hodImage: "hodImage",
-    hodDesignation: "hodDesignation",
-    designation_id: "designation_id",
-    designation: "designation",
-    profile_picture: "profile_picture",
-    manager_id: "manager_id",
-    managerDesignation: "managerDesignation",
-    managerImage: "managerImage",
-    managerName: "managerName",
-    email: "email",
-    mobileNo: "mobileNo",
-    user_type: "userTypeId",
-    business_id: "business_id",
-    branch_id: "branch_id",
-    user_name: "user_name",
-    birthdate: "birthdate",
-    businessName: "businessName",
-    branchName: "branchName",
-    businessLogo: "businessLogo",
-    fullname: "fullname",
-    userRights: "userRights",
-    rights: "rights",
+    connectionId: '',
+    _connectionId: 'connectionId',
+    token: 'token',
+    user: 'user',
+    call: 'call',
+    call_id: 'call_id',
+    user_id: 'user_id',
+    first_name: 'first_name',
+    middle_name: 'middle_name',
+    last_name: 'last_name',
+    department_id: 'department_id',
+    departmentName: 'departmentName',
+    hod_id: 'hod_id',
+    hodName: 'hodName',
+    hodImage: 'hodImage',
+    hodDesignation: 'hodDesignation',
+    designation_id: 'designation_id',
+    designation: 'designation',
+    profile_picture: 'profile_picture',
+    manager_id: 'manager_id',
+    managerDesignation: 'managerDesignation',
+    managerImage: 'managerImage',
+    managerName: 'managerName',
+    email: 'email',
+    mobileNo: 'mobileNo',
+    user_type: 'userTypeId',
+    business_id: 'business_id',
+    branch_id: 'branch_id',
+    user_name: 'user_name',
+    birthdate: 'birthdate',
+    businessName: 'businessName',
+    branchName: 'branchName',
+    businessLogo: 'businessLogo',
+    fullname: 'fullname',
+    userRights: 'userRights',
+    rights: 'rights',
   },
   ROUTES: {
     SEARCH: {
@@ -437,29 +437,29 @@ export const STRINGS = {
     },
   },
   SOCKET_ACTIONS: {
-    REGISTER_USER: "registerUser",
-    MESSAGES_LISTENER: "messageListner",
-    LOGOUT_LISTENER: "logoutFromDevice",
-    MESSAGES_STATE_LISTENER: "messageStateListner",
-    USER_STATUS_LISTENER: "UserStatus",
-    MESSAGE_STATE_LISTENER: "messageStateListner",
-    CONVERSATIONS_LISTENER: "conversationListener",
-    CHAT_IN: "chatIn",
-    CHAT_OUT: "chatOut",
-    NOTIFY_LISTENER: "notify",
-    TYPING_LISTENER: "typingStatus",
-    MESSAGES_STATUS: "messageStatus",
-    COMMUNICATION_OUT: "communicationOut",
-    COMMUNICATION_IN: "communicationIn",
-    TESTING: "testing",
-    NOTIFICATION_IN: "notificationIn",
-    ACTIVITY_COUNT: "activityCount",
+    REGISTER_USER: 'registerUser',
+    MESSAGES_LISTENER: 'messageListner',
+    LOGOUT_LISTENER: 'logoutFromDevice',
+    MESSAGES_STATE_LISTENER: 'messageStateListner',
+    USER_STATUS_LISTENER: 'UserStatus',
+    MESSAGE_STATE_LISTENER: 'messageStateListner',
+    CONVERSATIONS_LISTENER: 'conversationListener',
+    CHAT_IN: 'chatIn',
+    CHAT_OUT: 'chatOut',
+    NOTIFY_LISTENER: 'notify',
+    TYPING_LISTENER: 'typingStatus',
+    MESSAGES_STATUS: 'messageStatus',
+    COMMUNICATION_OUT: 'communicationOut',
+    COMMUNICATION_IN: 'communicationIn',
+    TESTING: 'testing',
+    NOTIFICATION_IN: 'notificationIn',
+    ACTIVITY_COUNT: 'activityCount',
   },
   DOCUMENT: {
-    pdf: ["pdf"],
-    word: ["doc", "docx"],
-    excel: ["xls", "xlsx"],
-    powerPoint: ["ppt", "pptx"],
+    pdf: ['pdf'],
+    word: ['doc', 'docx'],
+    excel: ['xls', 'xlsx'],
+    powerPoint: ['ppt', 'pptx'],
   },
   TYPES: {
     DEFAULT_APPROVALS: {
@@ -480,7 +480,7 @@ export const STRINGS = {
       DEDUCTION: 2,
     },
     MESSAGES: {
-      WAITING_FOR_APPROVAL: "Waiting for manager approval.",
+      WAITING_FOR_APPROVAL: 'Waiting for manager approval.',
     },
     E_LEARNING: {
       LEVEL_TYPE: {
@@ -509,27 +509,27 @@ export const STRINGS = {
     },
     ATTACHMENTS_EX: {
       IMAGE: [
-        "png",
-        "jpeg",
-        "raw",
-        "cr2",
-        "nef",
-        "orf",
-        "sr2",
-        "tif",
-        "tiff",
-        "bmp",
-        "jpeg",
-        "jpg",
-        "gif",
-        "eps",
-        "svg",
+        'png',
+        'jpeg',
+        'raw',
+        'cr2',
+        'nef',
+        'orf',
+        'sr2',
+        'tif',
+        'tiff',
+        'bmp',
+        'jpeg',
+        'jpg',
+        'gif',
+        'eps',
+        'svg',
       ],
-      VIDEO: ["mp4"],
-      PDF: ["pdf"],
-      WORD: ["docx", "doc"],
-      EXCEL: ["xlsx"],
-      PPT: ["ppt"],
+      VIDEO: ['mp4'],
+      PDF: ['pdf'],
+      WORD: ['docx', 'doc'],
+      EXCEL: ['xlsx'],
+      PPT: ['ppt'],
       INVALID: 0,
     },
     POSTS: {
@@ -552,70 +552,70 @@ export const STRINGS = {
     TRAVEL_TYPE: [
       {
         id: 1,
-        label: "Plane",
-        icon: "ic-air-plane",
+        label: 'Plane',
+        icon: 'ic-air-plane',
       },
       {
         id: 2,
-        label: "Car",
-        icon: "ic-car",
+        label: 'Car',
+        icon: 'ic-car',
       },
       {
         id: 3,
-        label: "Train",
-        icon: "ic-train",
+        label: 'Train',
+        icon: 'ic-train',
       },
       {
         id: 4,
-        label: "Ship",
-        icon: "ic-ship",
+        label: 'Ship',
+        icon: 'ic-ship',
       },
     ],
     EXPENSE_CATEGORY: [
       {
-        id: "2685d8ac-b905-4b33-b1d0-39e8b541cb99",
-        label: "Transport",
-        icon: "ic-transport",
+        id: '2685d8ac-b905-4b33-b1d0-39e8b541cb99',
+        label: 'Transport',
+        icon: 'ic-transport',
       },
       {
-        id: "bda743c4-fed7-4a2d-bcb7-44e130ef9561",
-        label: "Health",
-        icon: "ic-health",
+        id: 'bda743c4-fed7-4a2d-bcb7-44e130ef9561',
+        label: 'Health',
+        icon: 'ic-health',
       },
       {
-        id: "47271eef-4541-4997-8f83-55eb4d15b1c7",
-        label: "Food",
-        icon: "ic-food",
+        id: '47271eef-4541-4997-8f83-55eb4d15b1c7',
+        label: 'Food',
+        icon: 'ic-food',
       },
       {
-        id: "838deae4-4c22-4454-b8b5-61fc4c1e1d01",
-        label: "Shopping",
-        icon: "ic-shopping",
+        id: '838deae4-4c22-4454-b8b5-61fc4c1e1d01',
+        label: 'Shopping',
+        icon: 'ic-shopping',
       },
       {
-        id: "7ba4a1e2-2ca7-4c3c-9e9c-6d0caedac3d2",
-        label: "Entertainment",
-        icon: "ic-entertainment",
+        id: '7ba4a1e2-2ca7-4c3c-9e9c-6d0caedac3d2',
+        label: 'Entertainment',
+        icon: 'ic-entertainment',
       },
       {
-        id: "df2d36db-2ed1-4d8f-8144-7f2ab4e6ccc3",
-        label: "Travel",
-        icon: "ic-air-plane",
+        id: 'df2d36db-2ed1-4d8f-8144-7f2ab4e6ccc3',
+        label: 'Travel',
+        icon: 'ic-air-plane',
       },
       {
-        id: "df74e2dd-4e15-4c35-b192-8d6a81b56da2",
-        label: "Bill",
-        icon: "ic-dollar-bill",
+        id: 'df74e2dd-4e15-4c35-b192-8d6a81b56da2',
+        label: 'Bill',
+        icon: 'ic-dollar-bill',
       },
       {
-        id: "dd5aa6a2-4060-48d8-93c6-df3c1cd56298",
-        label: "Office",
-        icon: "ic-clip",
+        id: 'dd5aa6a2-4060-48d8-93c6-df3c1cd56298',
+        label: 'Office',
+        icon: 'ic-clip',
       },
       {
-        id: "32224d99-ed8e-4ed7-8b23-e06d96c5a9e6",
-        label: "Fuel",
-        icon: "ic-fuel",
+        id: '32224d99-ed8e-4ed7-8b23-e06d96c5a9e6',
+        label: 'Fuel',
+        icon: 'ic-fuel',
       },
     ],
     STATUS: {
@@ -779,7 +779,7 @@ export const STRINGS = {
       FEED: 5,
     },
     CALL: {
-      SCREEN_SHARE_POSTFIX: "SCREEN_SHARE",
+      SCREEN_SHARE_POSTFIX: 'SCREEN_SHARE',
       ICE_CANDIDATE: null,
       TYPE: {
         INCOMING: 1,
@@ -832,14 +832,14 @@ export const STRINGS = {
       },
     },
     EMAIL_FOLDERS_ID: {
-      index: "INBOX",
-      archive: "INBOX.Archive",
-      notes: "INBOX.Notes",
-      drafts: "INBOX.Drafts",
-      junk: "INBOX.Junk",
-      sent: "INBOX.Sent",
-      spam: "INBOX.spam",
-      trash: "INBOX.Trash",
+      index: 'INBOX',
+      archive: 'INBOX.Archive',
+      notes: 'INBOX.Notes',
+      drafts: 'INBOX.Drafts',
+      junk: 'INBOX.Junk',
+      sent: 'INBOX.Sent',
+      spam: 'INBOX.spam',
+      trash: 'INBOX.Trash',
     },
     PROJECT_SUMMARY: {
       Discussion: 0,
@@ -871,10 +871,10 @@ export const STRINGS = {
   },
 
   RESPONSE: {
-    status: "status",
-    error: "error",
-    success: "success",
-    fail: "fail",
+    status: 'status',
+    error: 'error',
+    success: 'success',
+    fail: 'fail',
   },
   API_STATUS: {
     NOT_CALLED: 0,
@@ -884,7 +884,7 @@ export const STRINGS = {
     LOADING_MORE: 4,
   },
   DEFAULTS: {
-    guid: "00000000-0000-0000-0000-000000000000",
+    guid: '00000000-0000-0000-0000-000000000000',
     RIGHTS: {
       NewsFeed: true,
       MailBox: false,
@@ -911,55 +911,55 @@ export const STRINGS = {
   },
   EXPENSE_CATEGORIES: [
     {
-      id: "2685d8ac-b905-4b33-b1d0-39e8b541cb99",
-      label: "Transport",
-      icon: "ic-transport",
+      id: '2685d8ac-b905-4b33-b1d0-39e8b541cb99',
+      label: 'Transport',
+      icon: 'ic-transport',
     },
     {
-      id: "bda743c4-fed7-4a2d-bcb7-44e130ef9561",
-      label: "Health",
-      icon: "ic-health",
+      id: 'bda743c4-fed7-4a2d-bcb7-44e130ef9561',
+      label: 'Health',
+      icon: 'ic-health',
     },
     {
-      id: "47271eef-4541-4997-8f83-55eb4d15b1c7",
-      label: "Food",
-      icon: "ic-food",
+      id: '47271eef-4541-4997-8f83-55eb4d15b1c7',
+      label: 'Food',
+      icon: 'ic-food',
     },
     {
-      id: "838deae4-4c22-4454-b8b5-61fc4c1e1d01",
-      label: "Shopping",
-      icon: "ic-shopping",
+      id: '838deae4-4c22-4454-b8b5-61fc4c1e1d01',
+      label: 'Shopping',
+      icon: 'ic-shopping',
     },
     {
-      id: "7ba4a1e2-2ca7-4c3c-9e9c-6d0caedac3d2",
-      label: "Entertainment",
-      icon: "ic-entertainment",
+      id: '7ba4a1e2-2ca7-4c3c-9e9c-6d0caedac3d2',
+      label: 'Entertainment',
+      icon: 'ic-entertainment',
     },
     {
-      id: "df2d36db-2ed1-4d8f-8144-7f2ab4e6ccc3",
-      label: "Travel",
-      icon: "ic-air-plane",
+      id: 'df2d36db-2ed1-4d8f-8144-7f2ab4e6ccc3',
+      label: 'Travel',
+      icon: 'ic-air-plane',
     },
     {
-      id: "df74e2dd-4e15-4c35-b192-8d6a81b56da2",
-      label: "Bill",
-      icon: "ic-dollar-bill",
+      id: 'df74e2dd-4e15-4c35-b192-8d6a81b56da2',
+      label: 'Bill',
+      icon: 'ic-dollar-bill',
     },
     {
-      id: "dd5aa6a2-4060-48d8-93c6-df3c1cd56298",
-      label: "Office",
-      icon: "ic-clip",
+      id: 'dd5aa6a2-4060-48d8-93c6-df3c1cd56298',
+      label: 'Office',
+      icon: 'ic-clip',
     },
     {
-      id: "32224d99-ed8e-4ed7-8b23-e06d96c5a9e6",
-      label: "Fuel",
-      icon: "ic-fuel",
+      id: '32224d99-ed8e-4ed7-8b23-e06d96c5a9e6',
+      label: 'Fuel',
+      icon: 'ic-fuel',
     },
   ],
 };
 
 export const LOGGER = {
-  log: (LOG, TAG = "LOG_TAG") => {
+  log: (LOG, TAG = 'LOG_TAG') => {
     /*if (process.env.NODE_ENV === 'development') */
     LOG(TAG);
   },
@@ -968,156 +968,156 @@ export const LOGGER = {
 export const ACTIONS = {
   TOAST_HANDLER: {
     TOAST: {
-      OPEN_TOAST: "OPEN_TOAST",
-      CLOSE_TOAST: "CLOSE_TOAST",
+      OPEN_TOAST: 'OPEN_TOAST',
+      CLOSE_TOAST: 'CLOSE_TOAST',
     },
   },
   NOTIFICATION_HANDLER: {
     NOTIFICATION: {
-      ERROR: "GET_ALL_NOTIFICATION_ERROR",
-      PENDING: "GET_ALL_NOTIFICATION_PENDING",
-      FULFILLED: "GET_ALL_NOTIFICATION_FULFILLED",
+      ERROR: 'GET_ALL_NOTIFICATION_ERROR',
+      PENDING: 'GET_ALL_NOTIFICATION_PENDING',
+      FULFILLED: 'GET_ALL_NOTIFICATION_FULFILLED',
     },
   },
   FILES: {
     UPLOAD: {
-      ERROR: "UPLOAD_ERROR",
-      PENDING: "UPLOAD_PENDING",
-      FULFILLED: "UPLOAD_FULFILLED",
+      ERROR: 'UPLOAD_ERROR',
+      PENDING: 'UPLOAD_PENDING',
+      FULFILLED: 'UPLOAD_FULFILLED',
     },
   },
   AUTH: {
     LOGIN: {
-      ERROR: "LOGIN_ERROR",
-      PENDING: "LOGIN_PENDING",
-      FULFILLED: "LOGIN_FULFILLED",
+      ERROR: 'LOGIN_ERROR',
+      PENDING: 'LOGIN_PENDING',
+      FULFILLED: 'LOGIN_FULFILLED',
     },
     SIGNUP: {
-      ERROR: "SIGNUP_ERROR",
-      PENDING: "SIGNUP_PENDING",
-      FULFILLED: "SIGNUP_FULFILLED",
+      ERROR: 'SIGNUP_ERROR',
+      PENDING: 'SIGNUP_PENDING',
+      FULFILLED: 'SIGNUP_FULFILLED',
     },
     FORGOT_PASSWORD: {
-      ERROR: "FORGOT_PASSWORD_ERROR",
-      PENDING: "FORGOT_PASSWORD_PENDING",
-      FULFILLED: "FORGOT_PASSWORD_FULFILLED",
+      ERROR: 'FORGOT_PASSWORD_ERROR',
+      PENDING: 'FORGOT_PASSWORD_PENDING',
+      FULFILLED: 'FORGOT_PASSWORD_FULFILLED',
     },
     ANONYMOUS: {
-      ERROR: "ANONYMOUS_ERROR",
-      PENDING: "ANONYMOUS_PENDING",
-      FULFILLED: "ANONYMOUS_FULFILLED",
+      ERROR: 'ANONYMOUS_ERROR',
+      PENDING: 'ANONYMOUS_PENDING',
+      FULFILLED: 'ANONYMOUS_FULFILLED',
     },
-    LOGOUT: "LOGIN_LOGOUT",
+    LOGOUT: 'LOGIN_LOGOUT',
   },
   USER: {
     GET_ALL: {
-      ERROR: "USER_GET_ALL_ERROR",
-      PENDING: "USER_GET_ALL_PENDING",
-      FULFILLED: "USER_GET_ALL_FULFILLED",
+      ERROR: 'USER_GET_ALL_ERROR',
+      PENDING: 'USER_GET_ALL_PENDING',
+      FULFILLED: 'USER_GET_ALL_FULFILLED',
     },
     GET_BY_ID: {
-      ERROR: "USER_GET_BY_ID_ERROR",
-      PENDING: "USER_GET_BY_ID_PENDING",
-      FULFILLED: "USER_GET_BY_ID_FULFILLED",
+      ERROR: 'USER_GET_BY_ID_ERROR',
+      PENDING: 'USER_GET_BY_ID_PENDING',
+      FULFILLED: 'USER_GET_BY_ID_FULFILLED',
     },
   },
   NEWS: {
     GET_POSTS: {
-      ERROR: "GET_POSTS_ERROR",
-      PENDING: "GET_POSTS_PENDING",
-      FULFILLED: "GET_POSTS_FULFILLED",
+      ERROR: 'GET_POSTS_ERROR',
+      PENDING: 'GET_POSTS_PENDING',
+      FULFILLED: 'GET_POSTS_FULFILLED',
     },
     GET_POST_COMMENTS: {
-      ERROR: "GET_POST_COMMENTS_ERROR",
-      PENDING: "GET_POST_COMMENTS_PENDING",
-      FULFILLED: "GET_POST_COMMENTS_FULFILLED",
+      ERROR: 'GET_POST_COMMENTS_ERROR',
+      PENDING: 'GET_POST_COMMENTS_PENDING',
+      FULFILLED: 'GET_POST_COMMENTS_FULFILLED',
     },
     CREATE_POST: {
-      ERROR: "CREATE_POST_ERROR",
-      PENDING: "CREATE_POST_PENDING",
-      FULFILLED: "CREATE_POST_FULFILLED",
+      ERROR: 'CREATE_POST_ERROR',
+      PENDING: 'CREATE_POST_PENDING',
+      FULFILLED: 'CREATE_POST_FULFILLED',
     },
     REMOVE_POST_REACTION: {
-      ERROR: "REMOVE_POST_REACTION_ERROR",
-      PENDING: "REMOVE_POST_REACTION_PENDING",
-      FULFILLED: "REMOVE_POST_REACTION_FULFILLED",
+      ERROR: 'REMOVE_POST_REACTION_ERROR',
+      PENDING: 'REMOVE_POST_REACTION_PENDING',
+      FULFILLED: 'REMOVE_POST_REACTION_FULFILLED',
     },
     ADD_POST_REACTION: {
-      ERROR: "ADD_POST_REACTION_ERROR",
-      PENDING: "ADD_POST_REACTION_PENDING",
-      FULFILLED: "ADD_POST_REACTION_FULFILLED",
+      ERROR: 'ADD_POST_REACTION_ERROR',
+      PENDING: 'ADD_POST_REACTION_PENDING',
+      FULFILLED: 'ADD_POST_REACTION_FULFILLED',
     },
     ADD_POLL_POST_REACTION: {
-      ERROR: "ADD_POLL_POST_REACTION_ERROR",
-      PENDING: "ADD_POLL_POST_REACTION_PENDING",
-      FULFILLED: "ADD_POLL_POST_REACTION_FULFILLED",
+      ERROR: 'ADD_POLL_POST_REACTION_ERROR',
+      PENDING: 'ADD_POLL_POST_REACTION_PENDING',
+      FULFILLED: 'ADD_POLL_POST_REACTION_FULFILLED',
     },
   },
   EXPENSES: {
-    ADD: "ADD_EXPENSE",
+    ADD: 'ADD_EXPENSE',
     GET_ALL: {
-      ERROR: "GET_ALL_EXPENSES_ERROR",
-      PENDING: "GET_ALL_EXPENSES_PENDING",
-      FULFILLED: "GET_ALL_EXPENSES_FULFILLED",
-      ERROR_CLEAR: "GET_ALL_EXPENSES_CLEAR",
+      ERROR: 'GET_ALL_EXPENSES_ERROR',
+      PENDING: 'GET_ALL_EXPENSES_PENDING',
+      FULFILLED: 'GET_ALL_EXPENSES_FULFILLED',
+      ERROR_CLEAR: 'GET_ALL_EXPENSES_CLEAR',
     },
     CREATE: {
-      ERROR: "CREATE_EXPENSES_ERROR",
-      PENDING: "CREATE_EXPENSES_PENDING",
-      FULFILLED: "CREATE_EXPENSES_FULFILLED",
+      ERROR: 'CREATE_EXPENSES_ERROR',
+      PENDING: 'CREATE_EXPENSES_PENDING',
+      FULFILLED: 'CREATE_EXPENSES_FULFILLED',
     },
   },
   DOCUMENTS: {
     GET_ALL: {
-      ERROR: "GET_ALL_DOCUMENTS_ERROR",
-      PENDING: "GET_ALL_DOCUMENTS_PENDING",
-      FULFILLED: "GET_ALL_DOCUMENTS_FULFILLED",
+      ERROR: 'GET_ALL_DOCUMENTS_ERROR',
+      PENDING: 'GET_ALL_DOCUMENTS_PENDING',
+      FULFILLED: 'GET_ALL_DOCUMENTS_FULFILLED',
     },
   },
   CHATS: {
-    TOGGLE_CHAT_COMPOSER: "TOGGLE_CHAT_COMPOSER",
-    TOGGLE_SIDE_BAR: "TOGGLE_SIDE_BAR",
-    UPDATE_BOTTOM_CHAT_ROOMS: "UPDATE_BOTTOM_CHAT_ROOMS",
-    UPDATE_CHATS: "UPDATE_CHATS",
+    TOGGLE_CHAT_COMPOSER: 'TOGGLE_CHAT_COMPOSER',
+    TOGGLE_SIDE_BAR: 'TOGGLE_SIDE_BAR',
+    UPDATE_BOTTOM_CHAT_ROOMS: 'UPDATE_BOTTOM_CHAT_ROOMS',
+    UPDATE_CHATS: 'UPDATE_CHATS',
     GET_ALL: {
-      ERROR: "GET_ALL_CHATS_ERROR",
-      PENDING: "GET_ALL_CHATS_PENDING",
-      FULFILLED: "GET_ALL_CHATS_FULFILLED",
+      ERROR: 'GET_ALL_CHATS_ERROR',
+      PENDING: 'GET_ALL_CHATS_PENDING',
+      FULFILLED: 'GET_ALL_CHATS_FULFILLED',
     },
   },
   CALL: {
-    CALL_STATUS: "CALL_STATUS",
+    CALL_STATUS: 'CALL_STATUS',
   },
   GENERAL: {
     CITIES: {
-      ERROR: "CITIES_ERROR",
-      PENDING: "CITIES_PENDING",
-      FULFILLED: "CITIES_FULFILLED",
+      ERROR: 'CITIES_ERROR',
+      PENDING: 'CITIES_PENDING',
+      FULFILLED: 'CITIES_FULFILLED',
     },
     Add_EMP: {
-      ERROR: "Add_EMP_ERROR",
-      PENDING: " Add_EMP_PENDING",
-      FULFILLED: " Add_EMP_FULFILLED",
+      ERROR: 'Add_EMP_ERROR',
+      PENDING: ' Add_EMP_PENDING',
+      FULFILLED: ' Add_EMP_FULFILLED',
     },
   },
   NOTES: {
-    TOGGLE_NOTES_AREA: "TOGGLE_NOTES_AREA",
-    OPEN_NOTES_AREA: "OPEN_NOTES_AREA",
-    CLOSE_NOTES_AREA: "CLOSE_NOTES_AREA",
+    TOGGLE_NOTES_AREA: 'TOGGLE_NOTES_AREA',
+    OPEN_NOTES_AREA: 'OPEN_NOTES_AREA',
+    CLOSE_NOTES_AREA: 'CLOSE_NOTES_AREA',
   },
   CALENDAR_EVENTS: {
-    GET_EVENTS_PENDING: "GET_EVENTS_PENDING",
-    GET_EVENTS: "GET_EVENTS",
-    ADD_EVENT: "ADD_EVENT",
-    ERROR_GET_EVENTS: "ERROR_GET_EVENTS",
-    ERROR_ADD_EVENTS: "ERROR_ADD_EVENTS",
-    OPEN_NEW_EVENT_DIALOG: "OPEN_NEW_EVENT_DIALOG",
-    CLOSE_NEW_EVENT_DIALOG: "CLOSE_NEW_EVENT_DIALOG",
-    OPEN_EDIT_EVENT_DIALOG: "OPEN_EDIT_EVENT_DIALOG",
-    CLOSE_EDIT_EVENT_DIALOG: "CLOSE_EDIT_EVENT_DIALOG",
+    GET_EVENTS_PENDING: 'GET_EVENTS_PENDING',
+    GET_EVENTS: 'GET_EVENTS',
+    ADD_EVENT: 'ADD_EVENT',
+    ERROR_GET_EVENTS: 'ERROR_GET_EVENTS',
+    ERROR_ADD_EVENTS: 'ERROR_ADD_EVENTS',
+    OPEN_NEW_EVENT_DIALOG: 'OPEN_NEW_EVENT_DIALOG',
+    CLOSE_NEW_EVENT_DIALOG: 'CLOSE_NEW_EVENT_DIALOG',
+    OPEN_EDIT_EVENT_DIALOG: 'OPEN_EDIT_EVENT_DIALOG',
+    CLOSE_EDIT_EVENT_DIALOG: 'CLOSE_EDIT_EVENT_DIALOG',
   },
   MOBILE_VIEW: {
-    NAV_STATUS: "NAV_STATUS",
+    NAV_STATUS: 'NAV_STATUS',
   },
 };
 
@@ -1272,14 +1272,14 @@ export const REF_TYPES = {
 };
 export const WEB_RTC_CONFIGS = () => {
   const STUN = {
-    urls: "stun:global.stun.twilio.com:3478?transport=udp",
+    urls: 'stun:global.stun.twilio.com:3478?transport=udp',
   };
   const TURN = {
-    urls: "turn:global.turn.twilio.com:3478?transport=udp",
+    urls: 'turn:global.turn.twilio.com:3478?transport=udp',
     username:
-      "3afb2e83d870da93eaec2dc72bed51a80d3d2f5db271a1167ba1e47149b6acf3",
-    credential: "9DnFMqHqcNhwMV6y6OWiwn9Up9t5T8t4UZyhzUFw6qA=",
-    password: "9DnFMqHqcNhwMV6y6OWiwn9Up9t5T8t4UZyhzUFw6qA=",
+      '3afb2e83d870da93eaec2dc72bed51a80d3d2f5db271a1167ba1e47149b6acf3',
+    credential: '9DnFMqHqcNhwMV6y6OWiwn9Up9t5T8t4UZyhzUFw6qA=',
+    password: '9DnFMqHqcNhwMV6y6OWiwn9Up9t5T8t4UZyhzUFw6qA=',
   };
   return {
     iceServers: [STUN, TURN],
@@ -1337,61 +1337,61 @@ export function SvgSpinner(props) {
           cx="24"
           cy="4"
           r="4"
-          fill={`${props.props !== undefined ? props.props : "#fff"}`}
+          fill={`${props.props !== undefined ? props.props : '#fff'}`}
         />
         <circle
           cx="12.19"
           cy="7.86"
           r="3.7"
-          fill={`${props.props !== undefined ? props.props : "#fffbf2"}`}
+          fill={`${props.props !== undefined ? props.props : '#fffbf2'}`}
         />
         <circle
           cx="5.02"
           cy="17.68"
           r="3.4"
-          fill={`${props.props !== undefined ? props.props : "#fef7e4"}`}
+          fill={`${props.props !== undefined ? props.props : '#fef7e4'}`}
         />
         <circle
           cx="5.02"
           cy="30.32"
           r="3.1"
-          fill={`${props.props !== undefined ? props.props : "#fef3d7"}`}
+          fill={`${props.props !== undefined ? props.props : '#fef3d7'}`}
         />
         <circle
           cx="12.19"
           cy="40.14"
           r="2.8"
-          fill={`${props.props !== undefined ? props.props : "#feefc9"}`}
+          fill={`${props.props !== undefined ? props.props : '#feefc9'}`}
         />
         <circle
           cx="24"
           cy="44"
           r="2.5"
-          fill={`${props.props !== undefined ? props.props : "#feebbc"}`}
+          fill={`${props.props !== undefined ? props.props : '#feebbc'}`}
         />
         <circle
           cx="35.81"
           cy="40.14"
           r="2.2"
-          fill={`${props.props !== undefined ? props.props : "#fde7af"}`}
+          fill={`${props.props !== undefined ? props.props : '#fde7af'}`}
         />
         <circle
           cx="42.98"
           cy="30.32"
           r="1.9"
-          fill={`${props.props !== undefined ? props.props : "#fde3a1"}`}
+          fill={`${props.props !== undefined ? props.props : '#fde3a1'}`}
         />
         <circle
           cx="42.98"
           cy="17.68"
           r="1.6"
-          fill={`${props.props !== undefined ? props.props : "#fddf94"}`}
+          fill={`${props.props !== undefined ? props.props : '#fddf94'}`}
         />
         <circle
           cx="35.81"
           cy="7.86"
           r="1.3"
-          fill={`${props.props !== undefined ? props.props : "#fcdb86"}`}
+          fill={`${props.props !== undefined ? props.props : '#fcdb86'}`}
         />
       </svg>
     </span>
@@ -1404,7 +1404,7 @@ export const createScreenSharePeerId = (peerId) => {
 
 export const resolvePeerId = (peerId) => {
   return peerId.includes(STRINGS.TYPES.CALL.SCREEN_SHARE_POSTFIX)
-    ? peerId.split("_")[0]
+    ? peerId.split('_')[0]
     : peerId;
 };
 
@@ -1457,15 +1457,15 @@ export const BrokenPage = () => {
 
 export function setAutoHeightOfInput(element) {
   setTimeout(function() {
-    element.css("height", "20px");
-    element.css("padding", 0);
-    element.css("-moz-box-sizing", "content-box");
-    element.css("height", `${element.prop("scrollHeight")}px`);
+    element.css('height', '20px');
+    element.css('padding', 0);
+    element.css('-moz-box-sizing', 'content-box');
+    element.css('height', `${element.prop('scrollHeight')}px`);
   }, 0);
 }
 
 export function getTypeOfFile(fileName) {
-  const ext = fileName.substr(fileName.lastIndexOf(".") + 1, fileName.length);
+  const ext = fileName.substr(fileName.lastIndexOf('.') + 1, fileName.length);
   if (STRINGS.IMAGE.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.IMAGE;
   else if (STRINGS.VIDEO.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.VIDEO;
   else if (STRINGS.DOCUMENT.pdf.includes(ext))
@@ -1489,12 +1489,12 @@ export function isDocument(ext) {
 }
 
 export function isValidFileSize(files) {
-  const valid = { status: true, message: "" };
+  const valid = { status: true, message: '' };
   for (const key in files) {
     if (files.hasOwnProperty(key)) {
       const file = files[key];
       const ext = file.name.substr(
-        file.name.lastIndexOf(".") + 1,
+        file.name.lastIndexOf('.') + 1,
         file.name.length
       );
       const type = getTypeOfFile(file.name);
@@ -1528,26 +1528,26 @@ export function isValidFileSize(files) {
 }
 
 export function resizeTabbableContainer() {
-  const tabbableContainer = $(".tabbable-container");
-  const tabbableContainerHeader = $(".cont-header");
+  const tabbableContainer = $('.tabbable-container');
+  const tabbableContainerHeader = $('.cont-header');
 
-  if ($(tabbableContainer.parent()[1]).hasClass("mm-tabs")) {
+  if ($(tabbableContainer.parent()[1]).hasClass('mm-tabs')) {
     const innerTabbableContainer = $(tabbableContainer[1]);
     const innerTabbableContainerContainerHeader = $(
       tabbableContainer[1]
-    ).children(".cont-header");
+    ).children('.cont-header');
     const innerTabbableContainerContainerBody = $(
       tabbableContainer[1]
-    ).children(".cont-body");
+    ).children('.cont-body');
 
     const innerTabbableContainerHeader = $(tabbableContainerHeader[1]);
 
-    innerTabbableContainerContainerHeader.children(".ln").css("z-index", 0);
-    innerTabbableContainerContainerBody.css({ "margin-top": "0px" });
+    innerTabbableContainerContainerHeader.children('.ln').css('z-index', 0);
+    innerTabbableContainerContainerBody.css({ 'margin-top': '0px' });
     innerTabbableContainerHeader.css({
       width: `${innerTabbableContainer.outerWidth()}px`,
-      position: "relative",
-      "z-index": 0,
+      position: 'relative',
+      'z-index': 0,
     });
 
     $(window).resize(() => {
@@ -1574,42 +1574,42 @@ export function resizeTabbableContainer() {
 export function resizeRightMenu() {
   $(window).resize(function() {
     if (window.screen.width < 1240) {
-      $(".right-menu-docs").css({ display: "contents" });
-      $(".right-menu-close").css({ display: "none" });
-      $(".file-actions").addClass("df-none");
+      $('.right-menu-docs').css({ display: 'contents' });
+      $('.right-menu-close').css({ display: 'none' });
+      $('.file-actions').addClass('df-none');
     } else if (window.screen.width > 1240) {
-      $(".file-actions").removeClass("right-file-action-change df-none");
-      $(".right-menu-docs").css({ display: "none" });
-      $(".right-menu-close").css({ display: "none" });
+      $('.file-actions').removeClass('right-file-action-change df-none');
+      $('.right-menu-docs').css({ display: 'none' });
+      $('.right-menu-close').css({ display: 'none' });
     }
   });
   if (window.screen.width > 1240) {
-    $(".right-menu-docs").css({ display: "none" });
-    $(".right-menu-close").css({ display: "none" });
-    $(".file-actions").removeClass("right-file-action-change df-none");
+    $('.right-menu-docs').css({ display: 'none' });
+    $('.right-menu-close').css({ display: 'none' });
+    $('.file-actions').removeClass('right-file-action-change df-none');
   }
 }
 
 export function menuOpen() {
-  $(".file-actions").addClass("right-file-action-change");
-  $(".right-menu-docs").css("display", "none");
-  $(".right-menu-close").css("display", "contents");
+  $('.file-actions').addClass('right-file-action-change');
+  $('.right-menu-docs').css('display', 'none');
+  $('.right-menu-close').css('display', 'contents');
 }
 
 export function menuClose() {
-  $(".file-actions").removeClass("right-file-action-change");
-  $(".right-menu-close").css("display", "none");
-  $(".right-menu-docs").css("display", "contents");
+  $('.file-actions').removeClass('right-file-action-change');
+  $('.right-menu-close').css('display', 'none');
+  $('.right-menu-docs').css('display', 'contents');
 }
 
 export function getUrlParameter(sParam) {
   let sPageURL = window.location.search.substring(1),
-    sURLVariables = sPageURL.split("&"),
+    sURLVariables = sPageURL.split('&'),
     sParameterName,
     i;
 
   for (i = 0; i < sURLVariables.length; i++) {
-    sParameterName = sURLVariables[i].split("=");
+    sParameterName = sURLVariables[i].split('=');
 
     if (sParameterName[0] === sParam) {
       return sParameterName[1] === undefined
@@ -1623,7 +1623,7 @@ export function getCommentLikesView(count, youLike) {
   if (youLike) {
     return (
       <div className="count">
-        You {count > 1 ? `and ${count - 1} other` : ""}
+        You {count > 1 ? `and ${count - 1} other` : ''}
       </div>
     );
   } else {
@@ -1656,11 +1656,11 @@ export function getCommentLikesView(count, youLike) {
 // }
 export function setAuthEnv(token, user) {
   console.log(
-    "base chal rha he -----------------------------------------------------------"
+    'base chal rha he -----------------------------------------------------------'
   );
-  console.log("dasfasdfs");
+  console.log('dasfasdfs');
   localStorage.setItem(STRINGS.STORAGE.token, token);
-  user.fullname = user.first_name + " " + user.last_name;
+  user.fullname = user.first_name + ' ' + user.last_name;
   localStorage.setItem(STRINGS.STORAGE.user, JSON.stringify(user));
   console.log(user);
   window.location = ROUTES.ROOT;
@@ -1670,29 +1670,29 @@ export function logout() {
   localStorage.clear();
   window.location = ROUTES.AUTH.SIGN_IN;
   console.log(
-    "base chal rha he -----------------------------------------------------------"
+    'base chal rha he -----------------------------------------------------------'
   );
 }
 
 export function getNameForImage(name) {
-  const split = name.split(" ");
-  let firstName = "",
-    lastName = "",
-    symbol = "";
+  const split = name.split(' ');
+  let firstName = '',
+    lastName = '',
+    symbol = '';
   if (split.length > 1) {
     firstName = split[0];
     lastName = split[1];
-    symbol = `${firstName[0]}${lastName.length ? lastName[0] : ""}`;
+    symbol = `${firstName[0]}${lastName.length ? lastName[0] : ''}`;
   } else {
     symbol = split[0][0];
   }
-  return symbol !== undefined ? symbol.toUpperCase() : "EX";
+  return symbol !== undefined ? symbol.toUpperCase() : 'EX';
 }
 
 export function setUpMentionsView(inp, selectedList, users, submit = null) {
   let _thisVal,
     currentFocus = 0,
-    val = "",
+    val = '',
     appendText = false,
     startPosition = 0;
   let mentionListView = $(
@@ -1700,25 +1700,25 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
   );
 
   const mentionListViewPosition = {
-    bottom: "unset",
-    top: "unset",
-    left: "unset",
+    bottom: 'unset',
+    top: 'unset',
+    left: 'unset',
   };
   let leftPositionOfMentionList = 0;
 
-  inp.on("mouseup keydown", function(e) {
-    if (e.key === "@") {
+  inp.on('mouseup keydown', function(e) {
+    if (e.key === '@') {
       appendText = true;
-      startPosition = $(this).caret("pos") + 1;
-      const position = $(this).caret("position");
+      startPosition = $(this).caret('pos') + 1;
+      const position = $(this).caret('position');
 
       leftPositionOfMentionList = position.left;
 
       if (inp.offset().top + inp.outerHeight() + 22 >= $(window).height()) {
-        mentionListViewPosition.top = "unset";
+        mentionListViewPosition.top = 'unset';
         mentionListViewPosition.bottom = 22;
       } else {
-        mentionListViewPosition.bottom = "unset";
+        mentionListViewPosition.bottom = 'unset';
         mentionListViewPosition.top = !(
           position.top + 0 + position.height >
           220
@@ -1729,27 +1729,27 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
     }
   });
 
-  inp.on("input", function() {
+  inp.on('input', function() {
     _thisVal = $(this).val();
     if (appendText) {
       if (
-        _thisVal[startPosition - 1] === "@" &&
-        _thisVal[startPosition] !== " "
+        _thisVal[startPosition - 1] === '@' &&
+        _thisVal[startPosition] !== ' '
       ) {
-        let endPosition = _thisVal.indexOf(" ", startPosition);
+        let endPosition = _thisVal.indexOf(' ', startPosition);
         endPosition = endPosition <= 0 ? _thisVal.length : endPosition;
 
-        if (_thisVal[endPosition] !== " ") {
+        if (_thisVal[endPosition] !== ' ') {
           val = _thisVal.substring(startPosition, endPosition).trim();
           if ($.isEmptyObject(val)) {
             mentionListView.empty();
-            mentionListView.removeClass("on");
+            mentionListView.removeClass('on');
           } else {
             inp.parent().append(mentionListView);
             mentionListView.empty();
-            mentionListView.removeClass("on");
+            mentionListView.removeClass('on');
             if (users.length > 0) {
-              mentionListView.addClass("on");
+              mentionListView.addClass('on');
               let userFound = false;
               users.forEach((user) => {
                 if (user.name.toLowerCase().includes(val.toLowerCase())) {
@@ -1771,14 +1771,14 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
               mentionListView.css(mentionListViewPosition);
 
               if (userFound) {
-                $(".search-item:nth-child(1)").addClass("on");
+                $('.search-item:nth-child(1)').addClass('on');
                 currentFocus = 0;
               } else {
-                mentionListView.removeClass("on");
+                mentionListView.removeClass('on');
               }
             } else {
               mentionListView.empty();
-              mentionListView.removeClass("on");
+              mentionListView.removeClass('on');
             }
           }
         } else removeMentionsList();
@@ -1786,8 +1786,8 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
     }
   });
 
-  inp.on("keydown", function(e) {
-    let x = document.getElementById("mentions_list");
+  inp.on('keydown', function(e) {
+    let x = document.getElementById('mentions_list');
     if ($.isEmptyObject($(x).html())) {
       if (e.keyCode === 13 && submit !== null) {
         submit.submit();
@@ -1795,7 +1795,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
       }
       return;
     }
-    if (x) x = x.getElementsByClassName("search-item");
+    if (x) x = x.getElementsByClassName('search-item');
     if (e.keyCode === 40) {
       currentFocus++;
       addActive(x);
@@ -1818,19 +1818,19 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
     removeActive(x);
     if (currentFocus >= x.length) currentFocus = 0;
     if (currentFocus < 0) currentFocus = x.length - 1;
-    x[currentFocus].classList.add("on");
+    x[currentFocus].classList.add('on');
   }
 
   function removeActive(x) {
     for (let i = 0; i < x.length; i++) {
-      x[i].classList.remove("on");
+      x[i].classList.remove('on');
     }
   }
 
   function removeMentionsList() {
     appendText = false;
     mentionListView.empty();
-    mentionListView.removeClass("on");
+    mentionListView.removeClass('on');
     mentionListView.remove();
   }
 
@@ -1842,7 +1842,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
                                                             user.profile_picture
                                                           )
                                                             ? `style="background-image: url(${user.profile_picture}); background-repeat: no-repeat; background-size: 100%;"`
-                                                            : ""
+                                                            : ''
                                                         }
                                                      >${
                                                        $.isEmptyObject(
@@ -1851,7 +1851,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
                                                          ? getNameForImage(
                                                              user.name
                                                            )
-                                                         : ""
+                                                         : ''
                                                      }</div>
                                                     <div class="pr">
                                                         <div class="n">${
@@ -1862,14 +1862,14 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
                                                             user.designation
                                                           )
                                                             ? `<div class="p">${user.designation}</div>`
-                                                            : ""
+                                                            : ''
                                                         }
                                                     </div>
                                                 </div>`);
     mentionListView.append(contact);
 
-    contact.on("click", () => {
-      _thisVal = _thisVal.replace(new RegExp(`@${val}`, "g"), `${user.name} `);
+    contact.on('click', () => {
+      _thisVal = _thisVal.replace(new RegExp(`@${val}`, 'g'), `${user.name} `);
       inp.val(_thisVal);
       if (user.id !== undefined) {
         selectedList.push({ username: user.name, user_id: user.id });
@@ -1893,22 +1893,22 @@ export function parseUrlsInText(text) {
   });
 }
 
-export function parseDateAndTime(st = Date.now(), type = "short") {
+export function parseDateAndTime(st = Date.now(), type = 'short') {
   const date = new Date(parseInt(st));
   const options = {
     weekday: type,
-    year: "numeric",
+    year: 'numeric',
     month: type,
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
   };
-  return date.toLocaleDateString("en-US", options);
+  return date.toLocaleDateString('en-US', options);
 }
 
-export function getRelativeTime(d, t = "short") {
+export function getRelativeTime(d, t = 'short') {
   const parseDate = parseDateAndTime(d, t);
-  const difference = moment(parseDate).diff(new Date(), "days");
+  const difference = moment(parseDate).diff(new Date(), 'days');
   return Math.abs(difference) > 7 ? parseDate : moment(parseDate).fromNow();
 }
 
@@ -1920,73 +1920,73 @@ export function getRelativeTime(d, t = "short") {
 //     //console.log(date.getTime())
 // }
 
-export function parseDateWithoutTime(st, type = "short") {
+export function parseDateWithoutTime(st, type = 'short') {
   const date = new Date(parseInt(st));
   const options = {
     weekday: type,
-    year: "numeric",
+    year: 'numeric',
     month: type,
-    day: "numeric",
+    day: 'numeric',
   };
-  return date.toLocaleDateString("en-US", options);
+  return date.toLocaleDateString('en-US', options);
 }
 
-export function parseDateWithMontAndYear(st, type = "short") {
+export function parseDateWithMontAndYear(st, type = 'short') {
   const date = new Date(parseInt(st));
   const options = {
-    year: "numeric",
+    year: 'numeric',
     month: type,
   };
-  return date.toLocaleDateString("en-US", options);
+  return date.toLocaleDateString('en-US', options);
 }
 
-export function parseDateWithDateMontAndYear(st, type = "short") {
+export function parseDateWithDateMontAndYear(st, type = 'short') {
   const date = new Date(parseInt(st));
   const options = {
-    year: "numeric",
+    year: 'numeric',
     month: type,
-    day: "numeric",
+    day: 'numeric',
   };
-  return date.toLocaleDateString("en-US", options);
+  return date.toLocaleDateString('en-US', options);
 }
 
-export function parseDateWithDateAndMonth(st, type = "short") {
+export function parseDateWithDateAndMonth(st, type = 'short') {
   const date = new Date(parseInt(st));
   const options = {
-    day: "numeric",
+    day: 'numeric',
     month: type,
   };
-  return date.toLocaleDateString("en-US", options);
+  return date.toLocaleDateString('en-US', options);
 }
 
 export function parseDateTimeIntoLocalDateTime(st) {
   const date = new Date(parseInt(st));
   const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
   return {
     date: date.getDate(),
     month: monthNames[date.getMonth()],
     year: date.getFullYear(),
     time: formatAMPM(date),
-    dateAsLocalString: date.toLocaleDateString("en-US", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
+    dateAsLocalString: date.toLocaleDateString('en-US', {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
     }),
   };
 }
@@ -1994,20 +1994,20 @@ export function parseDateTimeIntoLocalDateTime(st) {
 export function parseTimeWithoutDate(st) {
   const date = new Date(parseInt(st));
   const options = {
-    hour: "numeric",
-    minute: "numeric",
+    hour: 'numeric',
+    minute: 'numeric',
     hour12: true,
   };
-  return date.toLocaleTimeString("en-US", options);
+  return date.toLocaleTimeString('en-US', options);
 }
 
 export function formatAMPM(date) {
   let hours = date.getHours();
   let minutes = date.getMinutes();
-  let ampm = hours >= 12 ? "pm" : "am";
+  let ampm = hours >= 12 ? 'pm' : 'am';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? "0" + minutes : minutes;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
   return `${hours}:${minutes} ${ampm}`;
 }
 
@@ -2017,11 +2017,11 @@ export function SECONDS_TO_HMS(s) {
   var m = Math.floor(s / 60); //Get remaining minutes
   s -= m * 60;
   return (
-    (h < 10 ? "0" + h : h) +
-    ":" +
-    (m < 10 ? "0" + m : m) +
-    ":" +
-    (s < 10 ? "0" + s : s)
+    (h < 10 ? '0' + h : h) +
+    ':' +
+    (m < 10 ? '0' + m : m) +
+    ':' +
+    (s < 10 ? '0' + s : s)
   ); //zero padding on minutes and seconds
 }
 
@@ -2032,18 +2032,18 @@ export function MINUTES_TO_HMS(min) {
   var m = Math.floor(s / 60); //Get remaining minutes
   s -= m * 60;
   return (
-    (h < 10 ? "0" + h : h) +
-    ":" +
-    (m < 10 ? "0" + m : m) +
-    ":" +
-    (s < 10 ? "0" + s : s)
+    (h < 10 ? '0' + h : h) +
+    ':' +
+    (m < 10 ? '0' + m : m) +
+    ':' +
+    (s < 10 ? '0' + s : s)
   ); //zero padding on minutes and seconds
 }
 
 export function GET_SECONDS(x) {
   var hms = x; // your input string
-  var a = hms.split(":"); // split it at the colons
-  if (a.length < 3) a[2] = "00";
+  var a = hms.split(':'); // split it at the colons
+  if (a.length < 3) a[2] = '00';
   // minutes are worth 60 seconds. Hours are worth 60 minutes.
   var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
   return seconds;
@@ -2089,7 +2089,7 @@ export function getApprovalObject({ id, email }) {
   let obj = {
     approver_id: id !== STRINGS.DEFAULTS.guid ? id : STRINGS.DEFAULTS.guid,
     approverType: id !== STRINGS.DEFAULTS.guid ? 1 : 0,
-    email: id !== STRINGS.DEFAULTS.guid ? "" : email,
+    email: id !== STRINGS.DEFAULTS.guid ? '' : email,
   };
   return obj;
 }
@@ -2130,7 +2130,7 @@ export function _getTree(data) {
 }
 
 export function sumArrayValues(input) {
-  if (toString.call(input) !== "[object Array]") return false;
+  if (toString.call(input) !== '[object Array]') return false;
 
   let total = 0;
   for (let i = 0; i < input.length; i++) {
@@ -2150,13 +2150,13 @@ export function createGuid() {
   return (
     S4() +
     S4() +
-    "-" +
+    '-' +
     S4() +
-    "-4" +
+    '-4' +
     S4().substr(0, 3) +
-    "-" +
+    '-' +
     S4() +
-    "-" +
+    '-' +
     S4() +
     S4() +
     S4()
@@ -2164,7 +2164,7 @@ export function createGuid() {
 }
 
 export function setNotificationOnBrowserTab(counter) {
-  const webTitle = "Konnect";
+  const webTitle = 'Konnect';
   const titleWithCounter =
     counter !== 0 ? `${webTitle} (${counter})` : webTitle;
   document.title = titleWithCounter;
@@ -2198,7 +2198,7 @@ export const isEmptyObj = (obj) => {
 export function buildFormData(formData, data, parentKey) {
   if (
     data &&
-    typeof data === "object" &&
+    typeof data === 'object' &&
     !(data instanceof Date) &&
     !(data instanceof File)
   ) {
@@ -2231,7 +2231,7 @@ export const getMentionsAndText = (titleWithMentions, mentions) => {
     const regex = `@${value}`;
     if (!titleWithMentions.includes(regex)) return false;
 
-    const regexExpression = new RegExp(regex, "g");
+    const regexExpression = new RegExp(regex, 'g');
     titleWithMentions = titleWithMentions.replace(regexExpression, key);
     mentionsFoundInTitle.push(key);
   });
@@ -2247,7 +2247,7 @@ export const getMentionsAndText = (titleWithMentions, mentions) => {
 export function renderTitleWithMentions(title, mentions) {
   if (mentions.length > 0) {
     // console.log(mentions);
-    const titleArr = title.split(" ");
+    const titleArr = title.split(' ');
     return titleArr
       .map((item) => {
         const mention = mentions.filter((member) => member.memberId == item);
@@ -2259,7 +2259,7 @@ export function renderTitleWithMentions(title, mentions) {
           return item;
         }
       })
-      .join(" ");
+      .join(' ');
   } else {
     return title;
   }
@@ -2268,7 +2268,7 @@ export function renderTitleWithMentions(title, mentions) {
 // This function will convert single string into array
 
 export function modifySelectData(data) {
-  if (typeof data === "string") {
+  if (typeof data === 'string') {
     return [data];
   } else {
     return data;

@@ -1,6 +1,11 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addDesignation, getAllDesignation, removeDesignation, updateDesignation } from "./actions.js";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { responseCode } from '../../../../services/enums/responseCode.js';
+import {
+  addDesignation,
+  getAllDesignation,
+  removeDesignation,
+  updateDesignation,
+} from './actions.js';
 
 const initialState = {
   designations: [],
@@ -9,11 +14,13 @@ const initialState = {
 };
 
 const designationSlice = createSlice({
-  name: "designations",
+  name: 'designations',
   initialState,
   reducers: {
     designationDeleted: (state, { payload }) => {
-      state.designations = state.designations.filter((e) => e.id !== payload.id);
+      state.designations = state.designations.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -32,11 +39,21 @@ const designationSlice = createSlice({
         state.designations = state.designations.map((x) =>
           x.id === payload.data.id ? payload.data : x
         );
-        console.log(state.designations)
+        console.log(state.designations);
       })
-      .addMatcher(isPending(...[addDesignation, updateDesignation]), (state) => {
-        state.loader = true;
+      .addCase(removeDesignation.fulfilled, (state, { payload }) => {
+        console.log(payload, 'payload');
+        state.loader = false;
+        state.designations = state.designations.filter(
+          (x) => x.id !== payload.data.id
+        );
       })
+      .addMatcher(
+        isPending(...[addDesignation, updateDesignation]),
+        (state) => {
+          state.loader = true;
+        }
+      )
       .addMatcher(isPending(...[getAllDesignation]), (state) => {
         state.loadingData = true;
       })

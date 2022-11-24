@@ -1,29 +1,49 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Approval from "../../../../sharedComponents/AppComponents/Approvals/view";
+import { getScheduleById } from "../../store/action";
+import EventDetail from "../../UI/EventDetail";
 import Event from "../event";
-function ScheduleCompoerDetail() {
+
+function ScheduleComposerDetail({ id, shortEvent = true }) {
 	const eventDetail = useSelector(state => state.scheduleSlice.eventDetail);
-	console.log("eventDetail", eventDetail);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getScheduleById(id));
+	}, [id]);
+	// console.log("eventDetail", eventDetail);
 	return (
-		<div className="eventDetail">
-			<div className="eventDetail__header">
-				<p className="eventDetail-title">Details</p>
-				<span className="eventNum">SCH-000085</span>
-			</div>
+		<div
+			className={`eventDetail ${!shortEvent &&
+				"p-5 bg-white rounded-lg min-h-0 overflow-y-auto"}
+				`}
+		>
+			{shortEvent && (
+				<div className="eventDetail__header">
+					<p className="eventDetail-title">Details</p>
+					<span className="eventNum">SCH-000085</span>
+				</div>
+			)}
 			<div className="eventDetail__body">
 				<div className="eventDetail__body-event">
-					<Event shortDesc={true} data={eventDetail} />
+					{shortEvent ? (
+						<Event shortDesc={true} data={eventDetail} />
+					) : (
+						<EventDetail data={eventDetail} />
+					)}
 				</div>
-				{/* <div className="eventDetail__body-description">
-					<p className="eventDetail-title">Description</p>
-					<span>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Sequi eos quaerat iusto, expedita ut veritatis alias
-						illum quis dignissimos, saepe omnis. Autem,
-						exercitationem quibusdam! Facere in non nulla quis enim?
-					</span>
-				</div> */}
+				{!shortEvent && (
+					<div className="eventDetail__body-description">
+						<p className="eventDetail-title">Description</p>
+						<span>
+							Lorem ipsum dolor sit amet consectetur adipisicing
+							elit. Sequi eos quaerat iusto, expedita ut veritatis
+							alias illum quis dignissimos, saepe omnis. Autem,
+							exercitationem quibusdam! Facere in non nulla quis
+							enim?
+						</span>
+					</div>
+				)}
 				<div className="eventDetail__body-memberUserWrapper">
 					<p className="eventDetail-title">Hosts</p>
 					<div className="memberUserCards">
@@ -338,4 +358,4 @@ function ScheduleCompoerDetail() {
 	);
 }
 
-export default ScheduleCompoerDetail;
+export default ScheduleComposerDetail;

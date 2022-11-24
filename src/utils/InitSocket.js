@@ -34,6 +34,12 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 			);
 		}
 	});
+	connection.on("notificationOut", data => {
+		console.log(data, "notificationOut")
+	});
+	connection.on("newFeedOut", data => {
+		console.log(data, "notificationOut")
+	});
 	// connection.on("ReceiveMessage", data => {
 	// 	// console.log(data)
 	// 	dispatch(receiveChatMessage(data));

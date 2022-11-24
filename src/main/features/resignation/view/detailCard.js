@@ -63,6 +63,7 @@ function DetailCard(props) {
 
     const isTablet = false;
     if(loadingData) return <Skeleton />;
+    console.log("myloadingdata",loadingData);
 
     return (
         <>

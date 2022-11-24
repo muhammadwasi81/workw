@@ -1,8 +1,9 @@
-import { Avatar } from "antd";
 import moment from "moment";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { getCareerByIdAction } from "../../../careers/store/action";
+import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
 function ListItem({ item }) {
   const dispatch = useDispatch();
@@ -22,6 +23,8 @@ function ListItem({ item }) {
     console.log("on jobclick works");
     dispatch(getCareerByIdAction(id));
   };
+
+  console.log(item);
   return (
     <div
       className="careersShortCard item-card cursor-pointer !flex !flex-row gap-3"
@@ -29,12 +32,11 @@ function ListItem({ item }) {
     >
       <div>
         <Avatar
-          size={40}
-          src={
-            creator?.image
-              ? creator.image
-              : "https://joeschmoe.io/api/v1/random"
-          }
+          name={creator.name}
+          src={creator.image}
+          round={true}
+          width={40}
+          height={40}
         />
       </div>
 
@@ -42,8 +44,8 @@ function ListItem({ item }) {
         <div className="text-[16px] font-bold text-sky-900 mb-1">
           {designation}
         </div>
+        <div className="text-primary-color font-bold">{department}</div>
         <div className="shortCardDesc">{description}</div>
-        <div className="font-bold">{department}</div>
         <div className="text-xs">
           {city}, {country}
         </div>

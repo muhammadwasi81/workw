@@ -50,6 +50,8 @@ const resignationSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllResignations]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[GetResignationById]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllResignations]), (state) => {

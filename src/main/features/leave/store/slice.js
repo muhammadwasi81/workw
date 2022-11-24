@@ -39,6 +39,8 @@ const leaveSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllLeaves]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[GetLeaveById]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllLeaves]), (state) => {

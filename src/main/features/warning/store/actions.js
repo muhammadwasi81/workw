@@ -17,7 +17,6 @@ export const getAllWarnings = createAsyncThunk(
   "Warning/GetAllWarning",
   async (data) => {
     const response = await getAllWarningService(data);
-    console.log(response, "ALL Warnings");
     if (!response.responseCode) {
       message.error("Something went wrong");
     }
@@ -43,7 +42,6 @@ export const GetWarningById = createAsyncThunk(
   "Warning/GetWarningById",
   async (id) => {
     const response = await GetWarningByIdService(id);
-    console.log("MY ID", id);
     return response.data;
   }
 );

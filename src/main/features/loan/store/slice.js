@@ -55,11 +55,13 @@ const LoanSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
-        state.loadingData = true;
       })
 
       .addMatcher(isPending(...[addLoan]), (state) => {
         state.createLoader = true;
+      })
+      .addMatcher(isPending(...[GetLoanById]), (state) => {
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[addLoan]), (state) => {
         state.success = false;

@@ -44,9 +44,12 @@ const warningSlice = createSlice({
     });
 
     builder.addCase(GetWarningById.fulfilled, (state, action) => {
-      console.log("action.payload", action.payload);
       state.warningDetail = action.payload.data;
       state.loadingData = false;
+      console.log(state.warningDetail, "WARNING DETAIL FROM SLICE")
+    });
+    builder.addCase(GetWarningById.pending, (state, action) => {
+      state.loadingData = true;
     });
 
     builder
@@ -57,7 +60,6 @@ const warningSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllWarnings]), (state) => {
         state.loader = true;
-        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllWarnings]), (state) => {
         state.loader = true;

@@ -21,7 +21,7 @@ function Avatar(props) {
 		props.membersData[0][objProperty] !== null &&
 		props.membersData[0][objProperty] !== undefined &&
 		props.membersData[0][objProperty]?.image;
-	
+
 	return (
 		<div>
 			{props.membersData && props.membersData.length > 1 ? (
@@ -32,9 +32,12 @@ function Avatar(props) {
 					size={props.size}
 
 				/>
-			) : ( 
-				
-				<SingleItem data={props.membersData} />
+			) : (
+
+				<SingleItem data={props.membersData}
+					heading={props.heading}
+					nestedObjProperty={objProperty}
+					size={props.size} />
 			)}
 		</div>
 	);

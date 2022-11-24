@@ -1,19 +1,25 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
-import { BrokenPage, STRINGS } from "../../../../utils/base";
-// import "./loan.css";
-import Reward from "./Reward";
+import { Route, Routes } from "react-router-dom";
+import { BrokenPage  } from "../../../../utils/base";
+import { ROUTES } from "../../../../utils/routes"
+import Complain from "./Complain";
+import IndividualDetail from "./IndividualDetail";
 
 const Index = () => {
   return (
-    <Switch>
+    <Routes>
       <Route
         exact
-        path={`${STRINGS.ROUTES.REWARDS.DEFAULT}`}
-        component={Reward}
+        path={"/"}
+        element={<Complain />}
       />
-      <Route component={BrokenPage} />
-    </Switch>
+      <Route
+        exact
+        path={`${ROUTES.COMPLAINS.DETAIL}/:id`}
+        element={<IndividualDetail />}
+      />
+      <Route element={BrokenPage} />
+    </Routes>
   );
 };
 

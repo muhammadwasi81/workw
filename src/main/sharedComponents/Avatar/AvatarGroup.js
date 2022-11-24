@@ -3,8 +3,6 @@ import { Avatar, Tooltip, Modal } from 'antd';
 import { getNameForImage } from '../../../utils/base';
 import "./style.css"
 import { useNavigate } from 'react-router-dom';
-// import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
-// import PropTypes from "prop-types";
 
 function AvatarGroup(props) {
   const navigate = useNavigate()

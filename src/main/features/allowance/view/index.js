@@ -1,15 +1,28 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
-import { addAllowance, removeAllowance, updateAllowance } from "../store/actions";
-import AllowanceTable from "./table.js";
-import AllowanceForm from "./form.js"
-import "./allowance.css"
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import {
+  addAllowance,
+  removeAllowance,
+  updateAllowance,
+} from '../store/actions';
+import AllowanceTable from './table.js';
+import AllowanceForm from './form.js';
+import './allowance.css';
+import { message } from 'antd';
 
 export default function Allowance() {
-  const initialState = { name: "", description: "", gradeId: "", allowanceType: 1, allowanceUnit: 1, isTaxable: true, value: ""   };
+  const initialState = {
+    name: '',
+    description: '',
+    gradeId: '',
+    allowanceType: 1,
+    allowanceUnit: 1,
+    isTaxable: true,
+    value: '',
+  };
   const [allowance, setAllowance] = useState(initialState);
-  const [clearButton, setClearButton] = useState(false)
+  const [clearButton, setClearButton] = useState(false);
 
   const dispatch = useDispatch();
   const { loader } = useSelector((state) => state.allowanceSlice);
@@ -19,11 +32,14 @@ export default function Allowance() {
   };
 
   const onSubmit = (e) => {
-    console.log(e, "FROM MAIN")
+    console.log(e, 'FROM MAIN');
+    if (!e.name || e.description || e.gradeId) {
+      return message.error(`Please fill all the fields`);
+    }
     if (!e.id) {
       dispatch(addAllowance(e));
       setAllowance(initialState);
-      setClearButton(true)
+      setClearButton(true);
       return;
     }
     dispatch(updateAllowance(e));
@@ -31,7 +47,13 @@ export default function Allowance() {
   };
   return (
     <AdminContainer>
-      <AllowanceForm clearButton={clearButton} setClearButton={setClearButton} data={allowance} onSubmit={onSubmit} loading={loader} />
+      <AllowanceForm
+        clearButton={clearButton}
+        setClearButton={setClearButton}
+        data={allowance}
+        onSubmit={onSubmit}
+        loading={loader}
+      />
       <AllowanceTable
         handleEdit={setAllowance}
         handleDelete={handleDelete}

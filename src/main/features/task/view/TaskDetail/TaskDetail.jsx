@@ -6,6 +6,7 @@ import { getTaskById } from "../../store/actions";
 import { changeOnProgress, clearTaskById } from "../../store/taskSlice";
 import TaskListItem from "../TaskList/listItem";
 import "../style/task.css";
+import TaskDetailItem from "./DetailItem";
 
 function TaskDetail({ id }) {
 	const [progress, setProgress] = useState();
@@ -40,7 +41,7 @@ function TaskDetail({ id }) {
 			) : (
 				<div className="taskDetail">
 					{
-						<TaskListItem
+						<TaskDetailItem
 							progress={progress}
 							item={task}
 							isTaskMember={true}

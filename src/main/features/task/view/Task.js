@@ -152,23 +152,8 @@ function Task({
 					) : (
 						!loading && !tableView && <NoDataFound />
 					)}
-
-					{/* {tableView ? (
-            <Table
-              columns={tableColumn()}
-              dragable={true}
-              data={list ? list : []}
-            />
-          ) : (
-            <MyTaskList
-              filterType={filterType}
-              referenceId={referenceId}
-              referenceType={referenceType}
-            />
-          )} */}
 				</div>
 			</ContBody>
-
 			{/* <CreateTask
         referenceId={referenceId}
         referenceType={referenceType}

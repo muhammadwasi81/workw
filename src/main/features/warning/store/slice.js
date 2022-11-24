@@ -57,6 +57,8 @@ const warningSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllWarnings]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[GetWarningById]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllWarnings]), (state) => {

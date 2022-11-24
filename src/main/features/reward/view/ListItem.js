@@ -82,6 +82,7 @@ function ListItem(props) {
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">{"Category"}</div>
+            
             <div className="cardSection__body">{category}</div>
           </div>
           <div className="cardSectionItem">

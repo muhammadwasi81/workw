@@ -19,12 +19,13 @@ import {
   getCountries,
 } from "../../../../utils/Shared/store/actions";
 import { getAllGrades } from "../../grade/store/actions";
+import { getAllDepartmentService } from "../../departments/services/service";
 import { getAllAccessRoles } from "../../accessRole/store/action";
 import { getAllOfficeTimingGroups } from "../../officeTimings/store/actions";
 import { getUserBasicInfo } from "../../basicInfo/store/actions";
 import moment from "moment";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { getNameForImage } from "../../../../utils/base";
+import { getNameForImage, STRINGS } from "../../../../utils/base";
 import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
 import { resetBasicdetails } from "../store/slice";
 import { getAllDesignation } from "../../designation/store/actions";
@@ -36,7 +37,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
 
   const initialState = {
     coverImageId: "",
-    userTypeId: "",
+    userTypeId: [],
     titleId: 1,
     firstName: "",
     lastName: "",
@@ -60,14 +61,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     employeeNo: [],
     employmentTypeId: [],
   };
+  const [department, setDepartment] = useState([]);
   const [initialValues, setInitialValues] = useState(initialState);
   const [userTypeValue, setUserTypeValue] = useState([]);
-  const { countries, cities } = useSelector(
-    (state) => state.sharedSlice
-  );
-  const { designations } = useSelector(
-    (state) => state.designationSlice
-  );
+  const { countries, cities } = useSelector((state) => state.sharedSlice);
+  const { designations } = useSelector((state) => state.designationSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -81,7 +79,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     userLanguage
   ];
 
-  console.log(designations, "DESIGNATION")
+  console.log(designations, "DESIGNATION");
 
   const {
     sharedSlice: { employees },
@@ -97,6 +95,14 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   } = useSelector((state) => state.employeeSlice);
   const labels = employeesDictionary.EmployeeForm;
   const placeholder = employeesDictionary.placeholders;
+
+  const getDepartment = async () => {
+    const { responseCode, data } = await getAllDepartmentService({
+      pageSize: 20,
+      parentId: STRINGS.DEFAULTS.guid,
+    });
+    if (responseCode === 1001) setDepartment(data);
+  };
 
   const selectBefore = (
     <Form.Item name="titleId" className="titleSelect">
@@ -114,6 +120,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   );
   useEffect(() => {
     fetchEmployees("", 0);
+    getDepartment();
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
       if (!countries.length) dispatch(getCountries());
@@ -505,16 +512,16 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         </Form.Item>
         <Form.Item
           name="userTypeId"
-          rules={[{ required: true }]}
           label={labels.UserType}
+          rules={[{ required: true }]}
         >
           <Select
-            onChange={(value) => {
-              setUserTypeValue(value);
-            }}
             size="large"
-            placeholder={placeholder.selectUserType}
             getPopupContainer={(trigger) => trigger.parentNode}
+            placeholder={placeholder.selectUserType}
+            // onChange={(value) => {
+            //   setUserTypeValue(value);
+            // }}
           >
             {userType.map((type) => (
               <Option key={type.id} value={type.id}>
@@ -537,7 +544,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
               console.log(value);
             }}
           >
-            {accessRoles
+            {/* {accessRoles
               .filter((ele) => {
                 if (ele.roleTypeId === userTypeValue) return ele;
               })
@@ -545,7 +552,12 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
                 <Option key={type.id} value={type.id}>
                   {type.name}
                 </Option>
-              ))}
+              ))} */}
+            {accessRoles.map((item) => (
+              <Select.Option key={item.id} value={item.id}>
+                {item.name}
+              </Select.Option>
+            ))}
           </Select>
         </Form.Item>
         <Form.Item
@@ -557,7 +569,31 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           name="department"
           label={labels.department}
         >
-          <Input placeholder={placeholder.department}></Input>
+          {/* <Input placeholder={placeholder.department}></Input> */}
+          <Select
+            size="large"
+            placeholder={placeholder.department}
+            getPopupContainer={(trigger) => trigger.parentNode}
+            showSearch={true}
+            onChange={(value) => {
+              console.log(value);
+            }}
+          >
+            {/* {accessRoles
+              .filter((ele) => {
+                if (ele.roleTypeId === userTypeValue) return ele;
+              })
+              .map((type) => (
+                <Option key={type.id} value={type.id}>
+                  {type.name}
+                </Option>
+              ))} */}
+            {department.map((item) => (
+              <Select.Option key={item.id} value={item.id}>
+                {item.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
         <Form.Item
           rules={[

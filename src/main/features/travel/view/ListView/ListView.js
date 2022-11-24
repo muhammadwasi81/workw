@@ -39,8 +39,13 @@ function ListView(props) {
 
 	const onClose = () => {
 		setVisible(false);
-		dispatch(resetTravelDetail());
 	};
+	// useEffect(() => {
+	// 	if (!visible) {
+
+	// 	}
+	// }, [visible]);
+
 	// console.log("travel", props);
 	return (
 		<div className="gap-5 flex flex-col z-10 ">

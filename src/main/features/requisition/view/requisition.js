@@ -18,7 +18,7 @@ import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
-import ListItemMyRequisition from "./ListItem";
+import ListItemMyRequisition from "./listItem";
 import { useNavigate } from "react-router-dom";
 
 const Requisition = (props) => {

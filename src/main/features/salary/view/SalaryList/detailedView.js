@@ -13,7 +13,9 @@ function SalaryDetailedView(props) {
       placement={("right")}
       onClose={props.onClose}
       visible={!!props.id}
-      className="drawerSecondary">
+      className="drawerSecondary"
+      destroyOnClose={true}>
+
       <SalaryDetailCard  id={props.id}/>
     </Drawer>
   );

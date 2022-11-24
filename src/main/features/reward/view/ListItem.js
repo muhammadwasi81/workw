@@ -19,8 +19,7 @@ import Attachments from "../../travel/view/UI/Attachments";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
-  const disptach = useDispatch();
+  const { rewardDictionary } = rewardDictionaryList[userLanguage];
 
   const {
     creator,
@@ -37,6 +36,7 @@ function ListItem(props) {
     createDate,
     path,
   } = props.item;
+
   const localTime = moment
     .utc(createDate)
     .local()
@@ -44,7 +44,7 @@ function ListItem(props) {
   return (
     <>
       <SingleItem onClick={props.onClick}>
-        <div className="new" id={props.id}></div>
+        <div className="" id={props.id}></div>
         <ItemHeader>
           <div className="left">
             <UserInfo

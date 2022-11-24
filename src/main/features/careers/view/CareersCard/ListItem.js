@@ -8,11 +8,8 @@ import {
 } from "../../../../sharedComponents/Card/CardStyle";
 import AvatarOld from "../../../../sharedComponents/Avatar/avatarOLD";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import { Tooltip } from "antd";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
-import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
 function ListItem({ item, onClick, onClickMyCareer }) {

@@ -34,75 +34,70 @@ function ListItem(props) {
   } = props.item;
   return (
     <SingleItem className="ComplainListItem">
-      <div
-        className="new"
-        id={props.id}
-        onClick={() => {
-          props.getComplainById(props.id);
-        }}
-      />
-      <ItemHeader>
-        <div className={"item-header"}>
-          <div className="left">
-            <UserInfo
-              avatarSrc={creator.image}
-              name={creator.name}
-              Subline={
-                <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : ""}
-                  time={moment(createDate).fromNow()}
+      <div id={props.id} onClick={props.onClick}>
+        <ItemHeader>
+          <div className={"item-header"}>
+            <div className="left">
+              <UserInfo
+                avatarSrc={creator.image}
+                name={creator.name}
+                Subline={
+                  <SublineDesigWithTime
+                    designation={creator.designation ? creator.designation : ""}
+                    time={moment(createDate).fromNow()}
+                  />
+                }
+              />
+            </div>
+            <div className="right">
+              <Tag className="IdTag">{referenceNo}</Tag>
+              <StatusTag status={status}></StatusTag>
+            </div>
+          </div>
+        </ItemHeader>
+        <ItemContent className="flex description">
+          <div className="description w-full">
+            <p>{description}</p>
+          </div>
+        </ItemContent>
+        <div className="cardSections">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Category"}</div>
+            <div className="cardSection__body">{category}</div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">
+              {complainDictionary.complainOf}
+            </div>
+            <div className="cardSection__body">
+              {members && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Members"}
+                  membersData={members ? members : []}
+                  text={"Members"}
+                  image={"https://joeschmoe.io/api/v1/random"}
                 />
-              }
-            />
+              )}
+            </div>
           </div>
-          <div className="right">
-            <Tag className="IdTag">{referenceNo}</Tag>
-            <StatusTag status={status}></StatusTag>
-          </div>
-        </div>
-      </ItemHeader>
-      <ItemContent className="flex description">
-        <div className="description">
-          <p>{description}</p>
-        </div>
-      </ItemContent>
-      <div className="cardSections">
-        <div className="cardSectionItem">
-          <div className="cardSection__title">{"Category"}</div>
-          <div className="cardSection__body">{category}</div>
-        </div>
-        <div className="cardSectionItem">
-          <div className="cardSection__title">
-            {complainDictionary.complainOf}
-          </div>
-          <div className="cardSection__body">
-            {members && (
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Members"}
-                membersData={members ? members : []}
-                text={"Members"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
-            )}
-          </div>
-        </div>
-        <div className="cardSectionItem">
-          <div className="cardSection__title">
-            {complainDictionary.approvers}
-          </div>
-          <div className="cardSection__body">
-            {approvers && (
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"approvers"}
-                membersData={approvers ? approvers : []}
-                text={"Approvers"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
-            )}
+          <div className="cardSectionItem">
+            <div className="cardSection__title">
+              {complainDictionary.approvers}
+            </div>
+            <div className="cardSection__body">
+              {approvers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers ? approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

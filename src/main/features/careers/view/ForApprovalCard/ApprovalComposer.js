@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Avatar, Button, Drawer, Form, Input } from "antd";
+import { Button, Drawer, Form, Input } from "antd";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { useSelector } from "react-redux";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
@@ -13,6 +14,7 @@ import {
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import moment from "moment";
 import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
 const ApprovalComposer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -35,6 +37,7 @@ const ApprovalComposer = (props) => {
     endDate,
     experience,
     approvers,
+    referenceNo,
   } = careerDetail;
 
   return (
@@ -66,20 +69,32 @@ const ApprovalComposer = (props) => {
       >
         <SingleItem>
           <ItemHeader className="ItemHeader">
-            <div className="flex items-center gap-3">
-              {/* {image.length > 1 && (
+            <CardProfileTopView
+              profileImgSrc={
+                <Avatar
+                  width={40}
+                  height={40}
+                  src={creator?.image}
+                  name={creator?.name}
+                  round
+                ></Avatar>
+              }
+              createDate={createDate}
+              isPublic={true}
+              name={creator && creator.name}
+              destination={
+                creator && creator.designation
+                  ? creator.designation
+                  : "Not Designated"
+              }
+              refNo={referenceNo}
+              status={status}
+              profileImgSize={40}
+            />
+            {/* <div className="flex items-center gap-3">
               <Avatar
-                src={item.creator?.image}
-                className="addPostAvatar"
-                name={item.creator?.name}
-                width={40}
-                height={40}
-                round={true}
-              />
-            )} */}
-              <Avatar
-                src={creator?.image}
-                className="addPostAvatar"
+                image={creator?.image}
+                // className="addPostAvatar"
                 name={creator?.name}
                 width={40}
                 height={40}
@@ -88,7 +103,7 @@ const ApprovalComposer = (props) => {
               <div className="font-bold text-[15px] text-primary-color">
                 {designation}
               </div>
-            </div>
+            </div> */}
           </ItemHeader>
           <ItemContent className="!h-[100px] !max-h-[100px]">
             <div className="font-bold text-[14px] text-primary-color">

@@ -13,7 +13,6 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 import {
   ItemContent,
   ItemHeader,
-  SingleItem,
 } from "../../../sharedComponents/Card/CardStyle";
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import moment from "moment";
@@ -34,23 +33,14 @@ function RewardDetailCard(props) {
 
   const dispatch = useDispatch();
 
-  let {
-    InProcess,
-    Approved,
-    Declined,
-    Resend,
-    Inactive,
-    NotRequired,
-    Cancelled,
-    ApprovalRequired,
-    Hold,
-    NoStatus,
-  } = ApprovalStatus;
+  let { Approved, Declined, Resend } = ApprovalStatus;
   let userId = user.id;
 
   useEffect(() => {
     props.id && dispatch(GetRewardById(props.id));
   }, [props.id]);
+
+  console.log("loadingdataaaa", loadingData);
 
   if (loadingData) return <Skeleton />;
 

@@ -231,8 +231,7 @@ export const ROUTES = {
     APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
   },
   COMPLAINS: {
-    DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
-    COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
+    COMPLAIN: `${DOMAIN_PREFIX}/complains/*`,
     APPROVALS: `complains/approvals`,
   },
   WARNINGS: {
@@ -280,7 +279,7 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/administrator/*`,
     ADMINISTRATION: `${DOMAIN_PREFIX}/administrator/`,
     BUSINESS_POLICY: `businessPolicy`,
-    ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
+    ACCESSROLES: `accessroles`,
     GRADE: `grade`,
     DESIGNATION: `designation`,
     APPRASIAL: `appraisal`,
@@ -328,8 +327,8 @@ export const ROUTES = {
   },
   COMPLAINS: {
     DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
-    COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
-    APPROVALS: `complains/approvals`,
+    ROOT: `${DOMAIN_PREFIX}/complains`,
+    DETAIL: `/detail`,
   },
   WARNINGS: {
     DEFAULT: `${DOMAIN_PREFIX}/warnings/*`,
@@ -390,7 +389,7 @@ export const ROUTES = {
     BUSINESS_POLICY: `businessPolicy`,
     COMLAIN_CATEGORY: `complainCategory`,
     PAYROLL_GROUP: `payrollGroup`,
-    ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
+    ACCESSROLES: `accessroles`,
     GRADE: `grade`,
     FISCAL_YEAR: `fiscalYear`,
     DESIGNATION: `designation`,
@@ -520,10 +519,6 @@ export const ROUTES = {
       DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
       APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
     },
-    COMPLAINS: {
-      DEFAULT: `${DOMAIN_PREFIX}/complains`,
-      APPROVALS: `${DOMAIN_PREFIX}/complains/approvals`,
-    },
     BONUS: {
       DEFAULT: `${DOMAIN_PREFIX}/bonus`,
     },
@@ -569,12 +564,6 @@ export const ROUTES = {
     EXPERIENCE: `experience`,
     LOAN: `loan`,
     ACTIVITY_LOG: `activityLog`,
-  },
-
-  COMPLAINS: {
-    DEFAULT: `${DOMAIN_PREFIX}/complains`,
-    COMPLAIN: `${DOMAIN_PREFIX}/complains`,
-    APPROVALS: `complains/approvals`,
   },
   WARNINGS: {
     DEFAULT: `${DOMAIN_PREFIX}/warnings`,

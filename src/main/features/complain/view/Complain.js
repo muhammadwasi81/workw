@@ -3,7 +3,7 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Button, Skeleton, Drawer } from "antd";
+import { Skeleton } from "antd";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
@@ -13,8 +13,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
   getAllComplains,
-  GetComplainById,
-  GetRewardById,
 } from "../store/actions";
 import { Table } from "../../../sharedComponents/customTable";
 import Header from "../../../layout/header/index";
@@ -29,17 +27,17 @@ import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
-const Reward = (props) => {
+const Complain = (props) => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, complainDictionary } = complainDictionaryList[
     userLanguage
   ];
+  const [detailId, setDetailId] = useState(false);
 
   const [sort, setSort] = useState(1);
   const [page, setPage] = useState(20);
   const [pageNo, setPageNo] = useState(1);
-
   const [tableView, setTableView] = useState(false);
   const [visible, setVisible] = useState(false);
   const [filter, setFilter] = useState({
@@ -58,7 +56,7 @@ const Reward = (props) => {
   } = useSelector((state) => state.complainSlice);
 
   const onClose = () => {
-    setVisible(false);
+    setDetailId(null);
   };
 
   const getComplainById = (id) => {
@@ -145,7 +143,7 @@ const Reward = (props) => {
             name: "Complain To Me",
             onClick: () => setFilter({ filterType: 3 }),
           },
-        ]}
+        ]} 
         segment={{
           onSegment: (value) => {
             if (value === "Table") {
@@ -174,12 +172,11 @@ const Reward = (props) => {
             {complains.map((item, index) => {
               return (
                 <ListItem
-                  getComplainById={getComplainById}
-                  item={item}
-                  id={item.id}
-                  key={index}
-                  onClick={() => setComplainId(props.id)}
-                />
+                      item={item}
+                      id={item.id}
+                      key={index}
+                      onClick={() => setDetailId(item.id)}
+                    />
               );
             })}
           </CardWrapper>
@@ -187,33 +184,9 @@ const Reward = (props) => {
           !loader && !tableView && <NoDataFound />
         )}
       </ContBody>
-      {/* {complainDetail && <DetailedView onClose={onClose} visible={visible} />} */}
-      <DetailedView onClose={onClose} visible={visible} id={complainId} />
-      {/* <Drawer
-        title={
-          <h1
-            style={{
-              fontSize: "20px",
-              margin: 0,
-            }}
-          >
-            Create Complain
-          </h1>
-        }
-        width="768"
-        onClose={() => {
-          dispatch(handleOpenComposer(false));
-        }}
-        visible={drawerOpen}
-        destroyOnClose={true}
-        className="detailedViewComposer drawerSecondary"
-      >
-        <Composer />
-      </Drawer> */}
-
-      {/* <DetailedView onClose={onClose} visible={visible} id={complainId} /> */}
+      {<DetailedView onClose={onClose} id={detailId} />}
     </TabbableContainer>
   );
 };
 
-export default Reward;
+export default Complain;

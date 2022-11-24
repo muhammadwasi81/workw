@@ -69,8 +69,10 @@ export const getStatusLabelAndColor = (module, statusLabels) => {
       color: "#FF0000",
     },
     [ApprovalStatus.Resend]: {
-      label: statusLabels.Resend,
-      color: "#008eff",
+      // label: statusLabels.Resend,
+      // color: "#008eff",
+      label: statusLabels.Cancelled,
+      color: "#a40d0d",
     },
     [ApprovalStatus.Inactive]: {
       label: statusLabels.Inactive,
@@ -82,7 +84,7 @@ export const getStatusLabelAndColor = (module, statusLabels) => {
     },
     [ApprovalStatus.Cancelled]: {
       label: statusLabels.Cancelled,
-      color: "#1ECB40",
+      color: "#a40d0d",
     },
     [ApprovalStatus.ApprovalRequired]: {
       label: statusLabels.ApprovalRequired,

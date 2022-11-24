@@ -4,40 +4,29 @@ import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { cancelWarning} from "../store/actions";
 import { useDispatch } from "react-redux";
-import DetailCard from "./DetailCard";
+import DetaileCard from "./DetailCard";
 
 function DetailedView(props) {
-  const dispatch = useDispatch();
-
   const { userLanguage } = useContext(LanguageChangeContext);
- const { sharedLabels, Direction, complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
-  const { user } = useSelector(state => state.userSlice);
-
-  let userId = user.id
+  const { sharedLabels, Direction, complainDictionary, warningDictionary } = warningDictionaryList[userLanguage];
+  const { warningDetail, loadingData } = useSelector((state) => state.warningSlice);
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
-
-  const handleCancel = (e, payload) => {
-    e.preventDefault()
-    e.stopPropagation();
-    dispatch(cancelWarning(payload));
-}
 
 
   return (
     <Drawer
-      title={<h1 style={{ fontSize: "20px", margin: 0 }}>{warningDictionary.warning}</h1>}
+      title={<h1 style={{ fontSize: "20px", margin: 0 }}>{warningDictionary.reward}</h1>}
       width="768"
+      height={"85%"}
       placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
       onClose={props.onClose}
-      visible={props.visible}
+      visible={!!props.id}
       destroyOnClose={true}
-      className="detailedViewComposer drawerSecondary">
-
-     <DetailCard id={props.id} handleCancel={handleCancel} />
-    </Drawer >
+      className="drawerSecondary">
+      <DetaileCard id={props.id} />
+    </Drawer>
   );
 }
 

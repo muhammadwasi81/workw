@@ -28,11 +28,9 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { warningDictionary } = warningDictionaryList[userLanguage];
-
+  const [detailId, setDetailId] = useState(false);
   const [tableView, setTableView] = useState(false);
-
   const isTablet = useMediaQuery({ maxWidth: 800 });
-
   const [visible, setVisible] = useState(false);
 
   const [filter, setFilter] = useState({
@@ -47,15 +45,6 @@ const Warning = (props) => {
     (state) => state.warningSlice
   );
 
-  const onClose = () => {
-    setVisible(false);
-  };
-
-  const getWarningId = (id) => {
-    dispatch(GetWarningById(id));
-    setVisible(true);
-  };
-
   useEffect(() => {
     dispatch(getAllWarnings(filter));
   }, [filter]);
@@ -67,6 +56,10 @@ const Warning = (props) => {
       renderButton: [1],
     },
   ];
+
+  const onClose = () => {
+    setDetailId(null);
+  };
 
   return (
     <TabbableContainer className="max-width-1190">
@@ -134,10 +127,10 @@ const Warning = (props) => {
             {warnings.map((item, index) => {
               return (
                 <ListItem
-                  getWarningId={getWarningId}
                   item={item}
                   id={item.id}
                   key={index}
+                  onClick={() => setDetailId(item.id)}
                 />
               );
             })}
@@ -146,7 +139,7 @@ const Warning = (props) => {
           !loader && !tableView && <NoDataFound />
         )}
       </ContBody>
-      {warningDetail && <DetailedView onClose={onClose} visible={visible} />}
+      {<DetailedView onClose={onClose} id={detailId} />}
     </TabbableContainer>
   );
 };

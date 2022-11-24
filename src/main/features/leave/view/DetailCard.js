@@ -53,6 +53,7 @@ function DetailCard(props) {
   }, [props.id]);
 
   const { leaveDetail,loadingData } = useSelector((state) => state.leaveSlice);
+   //console.log("loadingDataaaaaa",loadingData);
 
   if(loadingData) return <Skeleton />;
 

@@ -73,6 +73,8 @@ const promotionSlice = createSlice({
 
       .addMatcher(isPending(...[getAllPromotions]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[GetPromotionById]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllPromotions]), (state) => {

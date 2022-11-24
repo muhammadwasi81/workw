@@ -50,9 +50,6 @@ const complainSlice = createSlice({
       .addMatcher(isPending(...[GetComplainById]), (state) => {
         state.loadingData = true;
       })
-      // .addMatcher(isPending(...[GetComplainById]), (state) => {
-      //   state.loadingData = true;
-      // })
       .addMatcher(isRejected(...[getAllComplains]), (state) => {
         state.loader = true;
       });

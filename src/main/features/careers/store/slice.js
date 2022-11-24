@@ -27,6 +27,7 @@ const initialState = {
   careerApplicants: [],
   loader: false,
   careerLoader: false,
+  careerByIdLoader: false,
   createLoader: false,
 };
 
@@ -81,6 +82,7 @@ const careerSlice = createSlice({
         // console.log(payload, "payload STATE ITEMS");
         state.careerDetail = payload;
         state.loader = false;
+        state.careerByIdLoader = false;
         // console.log(state.careerDetail, "STATE ITEMS");
       })
       .addMatcher(isPending(...[addCareer]), (state) => {
@@ -88,9 +90,10 @@ const careerSlice = createSlice({
         state.createLoader = true;
         state.success = false;
       })
-      // .addMatcher(isPending(...[getCareerByIdAction]), (state) => {
-      //   state.loader = true;
-      // })
+      .addMatcher(isPending(...[getCareerByIdAction]), (state) => {
+        // state.loader = true;
+        state.careerByIdLoader = true;
+      })
       .addMatcher(isPending(...[addCareerApplicant]), (state) => {
         state.applySuccess = false;
         state.careerLoader = true;
@@ -99,9 +102,10 @@ const careerSlice = createSlice({
       .addMatcher(isPending(...[getAllCareerAction]), (state) => {
         state.loader = true;
       })
-      // .addMatcher(isRejected(...[getCareerByIdAction]), (state) => {
-      //   state.loader = false;
-      // })
+      .addMatcher(isRejected(...[getCareerByIdAction]), (state) => {
+        // state.loader = false;
+        state.careerByIdLoader = true;
+      })
       .addMatcher(isRejected(...[addCareer]), (state) => {
         state.createLoader = false;
       })

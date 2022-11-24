@@ -41,7 +41,7 @@ const Warning = (props) => {
 
   const dispatch = useDispatch();
 
-  const { warnings, loader, warningDetail, drawerOpen } = useSelector(
+  const { warnings, loader, warningDetail, drawerOpen} = useSelector(
     (state) => state.warningSlice
   );
 

@@ -42,6 +42,8 @@ function RewardDetailCard(props) {
     props.id && dispatch(GetRewardById(props.id));
   }, [props.id]);
 
+  console.log("loadingdataaaa",loadingData);
+
   if(loadingData) return <Skeleton />;
 
   console.log(updatedStatus, "UPDATE STATUS");

@@ -5,9 +5,10 @@ import {
   ItemContent,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
-import { Avatar, Image, Tooltip } from "antd";
+import { Image, Tooltip } from "antd";
 import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
 import { useSelector } from "react-redux";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
@@ -38,6 +39,16 @@ function ListItem({ item, onClick, onClickMyCareer }) {
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
+
+  const mangerArrFunc = (manager) => {
+    let newArr = [];
+    let innerObj = {};
+    if (manager) {
+      innerObj = { member: manager };
+      newArr.push(innerObj);
+    }
+    return newArr;
+  };
 
   return (
     <>
@@ -126,17 +137,14 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             <div className="cardSection__title">Manager</div>
             <div className="cardSection__body">
               {manager && (
-                <>
-                  <Tooltip title={manager.name} placement="top">
-                    <AvatarCustom
-                      width={30}
-                      height={30}
-                      src={manager.image}
-                      name={manager.name}
-                      round
-                    ></AvatarCustom>
-                  </Tooltip>
-                </>
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Managers"}
+                  membersData={manager ? mangerArrFunc(manager) : []}
+                  text={"manager"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
               )}
             </div>
           </div>
@@ -144,93 +152,61 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             <div className="cardSection__title">Members</div>
             <div className="cardSection__body">
               {" "}
-              <Avatar.Group maxCount={2}>
-                {members &&
-                  members.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.member?.name} placement="top">
-                          <AvatarCustom
-                            width={30}
-                            height={30}
-                            src={el.member?.image}
-                            name={el.member?.name}
-                            round
-                          ></AvatarCustom>
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {members && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Members"}
+                  membersData={members ? members : []}
+                  text={"member"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">InterViewers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
-                {interviewers &&
-                  interviewers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.user?.name} placement="top">
-                          <AvatarCustom
-                            width={30}
-                            height={30}
-                            src={el.user?.image}
-                            name={el.user?.name}
-                            round
-                          ></AvatarCustom>
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {interviewers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Users"}
+                  membersData={interviewers ? interviewers : []}
+                  text={"user"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Post Interviewers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
-                {postInterviewers &&
-                  postInterviewers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.user?.name} placement="top">
-                          <AvatarCustom
-                            width={30}
-                            height={30}
-                            src={el.user?.image}
-                            name={el.user?.name}
-                            round
-                          ></AvatarCustom>
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {postInterviewers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Users"}
+                  membersData={postInterviewers ? postInterviewers : []}
+                  text={"user"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
-                {approvers &&
-                  approvers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.approver?.name} placement="top">
-                          <AvatarCustom
-                            width={30}
-                            height={30}
-                            src={el.approver?.image}
-                            name={el.approver?.name}
-                            round
-                          ></AvatarCustom>
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {approvers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers ? approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
         </div>

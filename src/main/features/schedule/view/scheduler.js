@@ -156,6 +156,7 @@ function Scheduler({ feed = false }) {
 					selectable={true}
 					dayHeaders={true}
 					allDaySlot={true}
+					allDayText={"All Day"}
 					// allDaySlot={true}
 					// allDay={true}
 					dayMaxEventRows={true}

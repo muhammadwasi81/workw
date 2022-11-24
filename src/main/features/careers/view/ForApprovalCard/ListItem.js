@@ -4,11 +4,12 @@ import {
   ItemContent,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
 import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
 import { useSelector } from "react-redux";
-import { Avatar, Tooltip } from "antd";
+import { Tooltip } from "antd";
 
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
@@ -37,6 +38,16 @@ function ListItem({ item, onClickApproval }) {
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
+
+  const mangerArrFunc = (manager) => {
+    let newArr = [];
+    let innerObj = {};
+    if (manager) {
+      innerObj = { member: manager };
+      newArr.push(innerObj);
+    }
+    return newArr;
+  };
 
   return (
     <>
@@ -100,111 +111,75 @@ function ListItem({ item, onClickApproval }) {
             <div className="cardSection__title">Manager</div>
             <div className="cardSection__body">
               {manager && (
-                <>
-                  <Tooltip title={manager.name} placement="top">
-                    <Avatar
-                      src={
-                        manager.image
-                          ? manager.image
-                          : "https://joeschmoe.io/api/v1/random"
-                      }
-                    />
-                  </Tooltip>
-                </>
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Managers"}
+                  membersData={manager ? mangerArrFunc(manager) : []}
+                  text={"manager"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
               )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Members</div>
             <div className="cardSection__body">
-              {" "}
-              <Avatar.Group maxCount={2}>
-                {members &&
-                  members.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.member?.name} placement="top">
-                          <Avatar
-                            src={
-                              el.member?.image
-                                ? el.member?.image
-                                : "https://joeschmoe.io/api/v1/random"
-                            }
-                          />
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {members && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Members"}
+                  membersData={members ? members : []}
+                  text={"member"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">InterViewers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
-                {interviewers &&
-                  interviewers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.user?.name} placement="top">
-                          <Avatar
-                            src={
-                              el.user?.image
-                                ? el.user?.image
-                                : "https://joeschmoe.io/api/v1/random"
-                            }
-                          />
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {interviewers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Users"}
+                  membersData={interviewers ? interviewers : []}
+                  text={"user"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Post Interviewers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
-                {postInterviewers &&
-                  postInterviewers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.user?.name} placement="top">
-                          <Avatar
-                            src={
-                              el.user?.image
-                                ? el.user?.image
-                                : "https://joeschmoe.io/api/v1/random"
-                            }
-                          />
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {postInterviewers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Users"}
+                  membersData={postInterviewers ? postInterviewers : []}
+                  text={"user"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
-                {approvers &&
-                  approvers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.approver?.name} placement="top">
-                          <Avatar
-                            src={
-                              el.approver?.image
-                                ? el.approver?.image
-                                : "https://joeschmoe.io/api/v1/random"
-                            }
-                          />
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {approvers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers ? approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
         </div>

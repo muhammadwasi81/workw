@@ -43,6 +43,7 @@ function LoanDetail(props) {
   }, [loanStatus]);
 
   if(loadingData) return <Skeleton />;
+  console.log("myloadingDataaaa",loadingData);
   return (
     <div>
       {!Object.keys(loanDetail).length ? (

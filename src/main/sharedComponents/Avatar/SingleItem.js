@@ -1,8 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function SingleItem({ data, nestedObjProperty }) {
+function SingleItem({ data }) {
 	const navigate = useNavigate();
+
+	// console.log(data, "MAIN DATA HERE");
 
 	const handleClick = (e, id) => {
 		// console.log(id, "MAIN ID NOW");
@@ -13,17 +15,39 @@ function SingleItem({ data, nestedObjProperty }) {
 
 	return data.map(item => {
 		return (
-			<div className="singleTag" onClick={e => handleClick(e, item.id)}>
-				{item[nestedObjProperty]?.image ? (
+			<div
+				className="singleTag"
+				onClick={e =>
+					handleClick(
+						e,
+						item.approver?.id || item.user?.id || item.member?.id
+					)
+				}
+			>
+				{item.approver?.image ||
+				item.user?.image ||
+				item.member?.image ? (
 					<div className="imageDiv">
-						<img src={item[nestedObjProperty].image} />
+						<img
+							src={
+								item.approver.image ||
+								item.user?.image ||
+								item.member?.image
+							}
+						/>
 					</div>
 				) : (
 					""
 				)}
-				<div className="tagText">
-					<p>{item[nestedObjProperty]?.name}</p>
-				</div>
+				{(item.user || item.approver || item.member) && (
+					<div className="tagText">
+						<p>
+							{item.user?.name ||
+								item.approver?.name ||
+								item.member?.name}
+						</p>
+					</div>
+				)}
 			</div>
 		);
 	});

@@ -6,10 +6,17 @@ import SingleItem from "./SingleItem";
 // import TagAvatar from "./TagAvatar";
 // avatar
 function Avatar(props) {
+	//   const objProperty =
+	//     props.heading === "Agents"
+	//       ? "approver"
+	//       : props.heading === "Users"
+	//       ? "user"
+	//       : props.heading.split("s")[0].toLowerCase();
 	const objProperty =
 		props.heading === "Agents"
 			? "approver"
-			: props.heading.split("s")[0].toLowerCase();
+			: props.heading.slice(0, props.heading.length - 1).toLowerCase();
+
 	const name =
 		props.membersData?.length > 0 &&
 		props.membersData[0][objProperty] !== null &&
@@ -31,11 +38,7 @@ function Avatar(props) {
 					size={props.size}
 				/>
 			) : (
-				<SingleItem
-					heading={props.heading}
-					data={props.membersData}
-					nestedObjProperty={objProperty}
-				/>
+				<SingleItem data={props.membersData} />
 			)}
 		</div>
 	);

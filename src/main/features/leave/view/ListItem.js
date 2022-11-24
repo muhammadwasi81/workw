@@ -14,6 +14,7 @@ import {
   SingleItem,
 } from "../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
+import Attachments from "../../travel/view/UI/Attachments";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -68,13 +69,17 @@ function ListItem(props) {
         </div>
       </ItemHeader>
       <ItemContent className="flex description">
-        <div className="w-full">
+        <div className="description">
           <p>{description}</p>
         </div>
-        <div className="attachmentBox" style={{ width: "75px" }}>
-          {attachments.map((i) => {
-            return <Image preview={false} src={i.path} />;
-          })}
+        <div className="!w-max m-4 ml-auto attachmentBox">
+          <Attachments
+            data={attachments}
+            key={{ data: attachments }}
+            toShow={1}
+            onClick={() => {}}
+            size={"50px"}
+          />
         </div>
       </ItemContent>
       <div className="cardSections">

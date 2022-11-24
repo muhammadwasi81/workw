@@ -35,13 +35,12 @@ function ListItem(props) {
     status,
     referenceNo,
     createDate,
-    attachments,
+    path,
   } = props.item;
   const localTime = moment
     .utc(createDate)
     .local()
     .format();
-  console.log(members, "memberssss");
   return (
     <>
       <SingleItem onClick={props.onClick}>
@@ -68,8 +67,16 @@ function ListItem(props) {
           <div className="description">
             <p>{description}</p>
           </div>
-          <div className="!w-max m-4 ml-auto attachmentBox">
-            <Image preview={false} width={60} height={60} src={image} />
+          <div
+            className=" ml-auto attachmentBox"
+            style={{ width: "65px", height: "60px" }}
+          >
+            <Image
+              preview={false}
+              // width={60}
+              // height={60}
+              src={image === "" ? "" : image}
+            />
             {/* <Attachments
               data={[image]}
               key={{ data: image }}

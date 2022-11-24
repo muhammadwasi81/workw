@@ -62,7 +62,7 @@ function ListItem(props) {
         </div>
       </ItemHeader>
       <ItemContent className="flex description">
-        <div className="description w-full">
+        <div className="description">
           <p>{description}</p>
         </div>
       </ItemContent>

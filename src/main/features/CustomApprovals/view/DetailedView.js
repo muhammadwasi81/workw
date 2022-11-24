@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image,Skeleton } from "antd";
+import { Drawer, Tag, Image, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { customApprovalDictionaryList } from "../localization/index";
@@ -30,7 +30,7 @@ function DetailedView(props) {
     userLanguage
   ];
 
-  const { customApprovalDetail,loadingData } = useSelector(
+  const { customApprovalDetail, loadingData } = useSelector(
     (state) => state.customApprovalSlice
   );
 
@@ -50,7 +50,7 @@ function DetailedView(props) {
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
-  if(loadingData) return <Skeleton />;
+  if (loadingData) return <Skeleton />;
 
   return (
     <Drawer
@@ -86,7 +86,7 @@ function DetailedView(props) {
           </div>
         </ItemHeader>
         <ItemContent className="flex item-content">
-          <div className="description w-full">
+          <div className="description">
             <p>{description}</p>
           </div>
           <div className="attachmentBox">

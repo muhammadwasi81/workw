@@ -234,6 +234,9 @@
   font-size: 12px;
   color: #757d86;
   font-weight: 600;
+  word-wrap: break-word;
+  overflow: hidden;
+  width: 390px;
 }
 
 .ratingTitle {
@@ -570,6 +573,9 @@
     align-items: end;
     gap: 5px;
   }
+  .card-desc-1 {
+    width: 160px;
+  }
 
   .card-column-view {
     gap: 0;
@@ -598,7 +604,9 @@
   .card-list-item {
     padding: 10px;
   }
-
+  /* .card-desc-1 {
+    width: 5px;
+  } */
   .taskItemContainer {
     flex-direction: column;
   }

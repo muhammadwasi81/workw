@@ -37,12 +37,11 @@ function ListItem(props) {
     createDate,
     attachments,
   } = props.item;
-  console.log(image, "image fileeeee listitem");
   const localTime = moment
     .utc(createDate)
     .local()
     .format();
-
+  console.log(members, "memberssss");
   return (
     <>
       <SingleItem onClick={props.onClick}>
@@ -66,7 +65,7 @@ function ListItem(props) {
           </div>
         </ItemHeader>
         <ItemContent className="flex">
-          <div className="description w-full">
+          <div className="description">
             <p>{description}</p>
           </div>
           <div className="!w-max m-4 ml-auto attachmentBox">
@@ -101,8 +100,8 @@ function ListItem(props) {
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"Members"}
-                  membersData={members}
+                  heading={"members"}
+                  membersData={members ? members : []}
                   text={"Members"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />

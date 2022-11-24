@@ -38,6 +38,9 @@ export const VoucherSlice = createSlice({
             state.loader = false;
             state.success = true;
          })
+         .addMatcher(isPending(...[getEmployeeSalaryDetail]), (state) => {
+            state.loadingData = true;
+          })
          .addMatcher(
             isPending(
                ...[
@@ -49,7 +52,6 @@ export const VoucherSlice = createSlice({
                state.loader = true;
                state.success = false;
                state.error = false;
-               state.loadingData = true;
             }
          );
    }

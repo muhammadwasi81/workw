@@ -1,8 +1,8 @@
-import "./JobDescription.css";
-import { Input, Select,  } from "antd";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {getAllDesignation} from "../../designation/store/actions" 
+import './JobDescription.css';
+import { Select } from 'antd';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllDesignation } from '../../designation/store/actions';
 import {
   FormButton,
   FormButtonContainer,
@@ -12,12 +12,12 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
 
-export default function JobDescriptionForm({ data, onSubmit, loading }) {
+export default function JobDescriptionForm({ data, onSubmit }) {
   const dispatch = useDispatch();
-  const { Option } = Select;  
-  const [designationId, setDesignationId] = useState("");
+  const { Option } = Select;
+  const [designationId, setDesignationId] = useState('');
   const [form, setForm] = useState(data);
 
   const { designations } = useSelector((state) => state.designationSlice);
@@ -26,11 +26,10 @@ export default function JobDescriptionForm({ data, onSubmit, loading }) {
     dispatch(getAllDesignation());
   }, []);
 
-  const  handleChange = (value) =>  {
-    const x = designations.filter((item) => item.id === value)
-    setForm({...form, designationId: x[0].id})
-    
-  }
+  const handleChange = (value) => {
+    const x = designations.filter((item) => item.id === value);
+    setForm({ ...form, designationId: x[0].id });
+  };
 
   useEffect(() => {
     setForm(data);
@@ -40,12 +39,10 @@ export default function JobDescriptionForm({ data, onSubmit, loading }) {
       <FormHeader>Job Description</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>
-            Designation
-          </FormLabel>
+          <FormLabel>Designation</FormLabel>
           <Select
             showSearch
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             placeholder="Select Designation"
             optionFilterProp="children"
             onChange={handleChange}
@@ -60,47 +57,44 @@ export default function JobDescriptionForm({ data, onSubmit, loading }) {
         <FormInput>
           <FormLabel>Description</FormLabel>
           <FormTextArea
-            placeholder={"Enter Description"}
+            placeholder={'Enter Description'}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
         </FormInput>
       </FormInputContainer>
       <FormButtonContainer>
-        {
-          form.id ? 
+        {form.id ? (
           <>
             <FormButton
-            type="primary"
-            size="medium"
-            style={{}}
-            className="formBtn"
-            onClick={(e) => onSubmit(form)}
-          >
-            Save Job Description
-          </FormButton>
+              type="primary"
+              size="medium"
+              className="formBtn"
+              onClick={(e) => onSubmit(form)}
+            >
+              Save Job Description
+            </FormButton>
+            <FormButton
+              type="primary"
+              size="medium"
+              className="formBtn"
+              onClick={(e) =>
+                setForm({ ...form, designationId: '', description: '' })
+              }
+            >
+              Clear
+            </FormButton>
+          </>
+        ) : (
           <FormButton
             type="primary"
             size="medium"
-            style={{}}
             className="formBtn"
-            onClick={(e) => setForm({ ...form, designationId: "", description: "",  })}
+            onClick={(e) => onSubmit(form)}
           >
-            Clear 
+            Add Job Description
           </FormButton>
-          </>
-        : 
-        <FormButton
-          type="primary"
-          size="medium"
-          style={{}}
-          className="formBtn"
-          onClick={(e) => onSubmit(form)}
-          // loading={loading}
-      >
-        Add Job Description 
-      </FormButton>
-        }
+        )}
       </FormButtonContainer>
     </FormContainer>
   );

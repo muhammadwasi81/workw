@@ -320,13 +320,9 @@ export const routes = {
       component: lazy(() => import('../main/features/payroll/view/index')),
     },
     {
-			path: `${ROUTES.COMPANIES.DEFAULT}`,
-			component: lazy(() =>
-				import(
-					"../main/features/companies/index"
-				)
-			),
-		},
+      path: `${ROUTES.COMPANIES.DEFAULT}`,
+      component: lazy(() => import('../main/features/companies/index')),
+    },
   ],
   AdminRoutes: [
     {
@@ -336,7 +332,7 @@ export const routes = {
       }),
     },
     {
-      path: `${'/hr/administrator/'},`,
+      path: `${ROUTES.ADMINISTRATOR.ACCESSROLES}`,
       component: lazy(() => {
         import('../main/features/accessRole/view/AccessRole');
       }),

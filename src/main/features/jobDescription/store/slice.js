@@ -1,6 +1,10 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addJobDescription, getAllJobDescription, removeGrade, updateJobDescription } from "./actions.js";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { responseCode } from '../../../../services/enums/responseCode.js';
+import {
+  addJobDescription,
+  getAllJobDescription,
+  updateJobDescription,
+} from './actions.js';
 
 const initialState = {
   jobDescriptions: [],
@@ -9,11 +13,13 @@ const initialState = {
 };
 
 const jobDescriptionSlice = createSlice({
-  name: "jobDescription",
+  name: 'jobDescription',
   initialState,
   reducers: {
     JobDescriptionDeleted: (state, { payload }) => {
-      state.jobDescriptions = state.jobDescriptions.filter((e) => e.id !== payload.id);
+      state.jobDescriptions = state.jobDescriptions.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -33,14 +39,19 @@ const jobDescriptionSlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addJobDescription, updateJobDescription]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[addJobDescription, updateJobDescription]),
+        (state) => {
+          state.loader = true;
+        }
+      )
       .addMatcher(isPending(...[getAllJobDescription]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(
-        isRejected(...[getAllJobDescription, addJobDescription, updateJobDescription]),
+        isRejected(
+          ...[getAllJobDescription, addJobDescription, updateJobDescription]
+        ),
         (state) => {
           state.loader = false;
           state.loadingData = false;

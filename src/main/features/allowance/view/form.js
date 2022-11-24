@@ -1,6 +1,6 @@
-import "./allowance.css";
-import { Col, Input, Radio, Row, Select, InputNumber } from "antd";
-import { useEffect, useState } from "react";
+import './allowance.css';
+import { Col, Input, Radio, Row, Select, InputNumber } from 'antd';
+import { useEffect, useState } from 'react';
 import {
   FormButton,
   FormButtonContainer,
@@ -10,12 +10,10 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
-// import Select from "../../../sharedComponents/Select/Select";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getAllGrades } from "../../grade/store/actions";
-import { number } from "prop-types";
+} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getAllGrades } from '../../grade/store/actions';
 
 export default function AllowanceForm({
   data,
@@ -32,7 +30,7 @@ export default function AllowanceForm({
   const { grades } = useSelector((state) => state.gradeSlice);
 
   const handleClear = (e) => {
-    setForm({ ...form, description: "", name: "", gradeId: null, value: "" });
+    setForm({ ...form, description: '', name: '', gradeId: null, value: '' });
     setClearButton(false);
   };
 
@@ -71,6 +69,7 @@ export default function AllowanceForm({
     }
     const x = grades.filter((item) => item.id === value);
     setForm({ ...form, gradeId: x[0].id });
+    console.log(x, 'fdfdfd');
   };
 
   const handleType = (e) => {
@@ -98,7 +97,7 @@ export default function AllowanceForm({
             <AllowncesFormInput>
               <FormLabel>Allowance</FormLabel>
               <Input
-                placeholder={"Enter Allowance"}
+                placeholder={'Enter Allowance'}
                 value={form.name}
                 onChange={handelChangeName}
               />
@@ -111,10 +110,10 @@ export default function AllowanceForm({
                     onChange={handelChangeAmount}
                     value={form.value}
                     formatter={(value) => `${value}%`}
-                    parser={(value) => value.replace("%", "")}
+                    parser={(value) => value.replace('%', '')}
                     placeholder="0"
                     size="large"
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                   />
                 </>
               ) : (
@@ -123,9 +122,9 @@ export default function AllowanceForm({
                   <InputNumber
                     onChange={handelChangeAmount}
                     value={form.value}
-                    placeholder={"Enter Amount"}
+                    placeholder={'Enter Amount'}
                     size="large"
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                   />
                 </>
               )}
@@ -133,7 +132,7 @@ export default function AllowanceForm({
             <AllowncesFormInput>
               <FormLabel>Description</FormLabel>
               <FormTextArea
-                placeholder={"Enter Description"}
+                placeholder={'Enter Description'}
                 value={form.description}
                 onChange={handelChangeDescription}
               />
@@ -142,7 +141,7 @@ export default function AllowanceForm({
               <FormLabel>Grade</FormLabel>
               <Select
                 showSearch
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 placeholder="Select Grade"
                 optionFilterProp="children"
                 onChange={handelChangeGrade}

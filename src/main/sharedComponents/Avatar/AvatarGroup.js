@@ -25,7 +25,7 @@ function AvatarGroup(props) {
     e.stopPropagation();
     setIsModalOpen(false);
   };
-
+  console.log(props, "avatar group");
   return (
     <div onClick={(e) => showModal(e)}>
       <Avatar.Group
@@ -78,7 +78,13 @@ function AvatarGroup(props) {
           return (
             <div
               className="approverBox"
-              onClick={() => navigate(`/user/${members.id}`)}
+              onClick={() =>
+                navigate(
+                  `/user/${members.approver.id ||
+                    members.user.id ||
+                    members.user.id}`
+                )
+              }
             >
               <div className="imageBox">
                 <Avatar

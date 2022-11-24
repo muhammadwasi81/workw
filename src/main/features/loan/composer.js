@@ -206,28 +206,6 @@ const Composer = () => {
           <Option value="other">Other</Option>
         </Select>
       </Form.Item>
-      {/* <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) =>
-          prevValues.gender !== currentValues.gender
-        }
-      >
-        {({ getFieldValue }) =>
-          getFieldValue("gender") === "other" ? (
-            <Form.Item
-              name="customizeGender"
-              label="Customize Gender"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          ) : null
-        }
-      </Form.Item> */}
       <Form.Item label="DatePicker" name="deadline">
         <DatePicker />
       </Form.Item>
@@ -265,17 +243,6 @@ const Composer = () => {
           }}
         />
       </Form.Item>
-      {/* <Form.Item
-        name="approvers"
-        label="Approvers"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input placeholder="Approvers" />
-      </Form.Item> */}
       <Form.Item
         name="description"
         label="Description"

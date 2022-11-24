@@ -1,31 +1,56 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function SingleItem({ data }) {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
-    console.log(data, "MAIN DATA HERE")
+	// console.log(data, "MAIN DATA HERE");
 
-    const handleClick = (e, id) => {
-		console.log(id, "MAIN ID NOW")
-		e.preventDefault()
+	const handleClick = (e, id) => {
+		// console.log(id, "MAIN ID NOW");
+		e.preventDefault();
 		e.stopPropagation();
-		navigate(`/user/${id}`)
-	  };
+		navigate(`/user/${id}`);
+	};
 
-    return (
-        data.map((item) => {
-            return <div className="singleTag" onClick={(e) => handleClick(e, item.id)}>
-                {
-                    item.approver?.image ? <div className="imageDiv">
-                        <img src={item.approver.image} />
-                    </div> : ""}
-                <div className="tagText">
-                    <p>{item.approver?.name}</p>
-                </div>
-            </div>
-        })
-    )
+	return data.map(item => {
+		return (
+			<div
+				className="singleTag"
+				onClick={e =>
+					handleClick(
+						e,
+						item.approver?.id || item.user?.id || item.member?.id
+					)
+				}
+			>
+				{item.approver?.image ||
+				item.user?.image ||
+				item.member?.image ? (
+					<div className="imageDiv">
+						<img
+							src={
+								item.approver.image ||
+								item.user?.image ||
+								item.member?.image
+							}
+						/>
+					</div>
+				) : (
+					""
+				)}
+				{(item.user || item.approver || item.member) && (
+					<div className="tagText">
+						<p>
+							{item.user?.name ||
+								item.approver?.name ||
+								item.member?.name}
+						</p>
+					</div>
+				)}
+			</div>
+		);
+	});
 }
 
-export default SingleItem
+export default SingleItem;

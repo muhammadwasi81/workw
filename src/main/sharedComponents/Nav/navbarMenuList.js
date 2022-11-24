@@ -251,7 +251,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.complains,
       counter: 0,
       icon: complainIcon,
-      to: ROUTES.COMPLAINS.COMPLAIN,
+      to: ROUTES.COMPLAINS.ROOT,
       isActive: true,
       key: label.navMenuLabel.hr,
     },

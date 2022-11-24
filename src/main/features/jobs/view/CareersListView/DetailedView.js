@@ -8,7 +8,9 @@ const DetailedView = () => {
   // const careerDetail = useSelector((state) => {
   //   return state.careerSlice.careerDetail;
   // });
-  const { loader } = useSelector((state) => state.careerSlice);
+  const { loader, careerByIdLoader } = useSelector(
+    (state) => state.careerSlice
+  );
   const careers = useSelector((state) => {
     return state.careerSlice.items;
   });
@@ -18,7 +20,7 @@ const DetailedView = () => {
   return (
     <>
       <div className="w-full" style={{ marginTop: "5px" }}>
-        {loader ? (
+        {loader || careerByIdLoader ? (
           [...Array(1)].map((item) => (
             <Skeleton
               className="p-4"

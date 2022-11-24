@@ -6,6 +6,10 @@
   border-radius: 4px;
 }
 
+.DetailContainer {
+  width: 100%;
+}
+
 .submitButton:hover {
   background: #1b5669;
   color: white;

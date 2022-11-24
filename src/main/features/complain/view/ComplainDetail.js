@@ -29,10 +29,7 @@ function ComplainDetail(props) {
   const { user } = useSelector((state) => state.userSlice);
   const {
     complainDetail,
-    loader,
-    drawerOpen,
     loadingData,
-    complains,
   } = useSelector((state) => state.complainSlice);
 
   const dispatch = useDispatch();

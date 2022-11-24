@@ -17,7 +17,7 @@ import { getAllRewards } from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
-import TopBar from "../../../sharedComponents/topBar/topBar";
+import TopBar from "../../../sharedComponents/topBar/topBar"; 
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
@@ -42,7 +42,6 @@ const Reward = (props) => {
   const { rewards, loader, rewardDetail, drawerOpen } = useSelector(
     (state) => state.rewardSlice
   );
-  console.log(drawerOpen, "drawerOpenn rewards");
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -172,44 +171,6 @@ const Reward = (props) => {
           ) : (
             !loader && !tableView && <NoDataFound />
           )}
-
-          {/* {rewards?.length > 0 ? (
-            tableView ? (
-              <Table
-                columns={tableColumn()}
-                dragable={true}
-                handleChange={handleColumnSorting}
-                data={rewards}
-                onRow={onRow}
-
-              />
-            ) : (
-              <>
-                {loader ? (
-                  <>
-                    <Skeleton avatar paragraph={{ rows: 4 }} />
-                  </>
-                ) : (
-                  <CardWrapper>
-                    {rewards.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem
-                            item={item}
-                            id={item.id}
-                            key={index}
-                            onClick={() => setDetailId(item.id)}
-                          />
-                        </>
-                      );
-                    })}
-                  </CardWrapper>
-                )}
-              </>
-            )
-          ) : (
-            <Skeleton avatar paragraph={{ rows: 4 }} />
-          )} */}
         </ContBody>
         {<DetailedView onClose={onClose} id={detailId} />}
       </TabbableContainer>

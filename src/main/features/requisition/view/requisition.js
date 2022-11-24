@@ -20,7 +20,6 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import ListItemMyRequisition from "./ListItem";
 import { useNavigate } from "react-router-dom";
-import ListItem from "../../reward/view/ListItem";
 
 const Requisition = (props) => {
   const navigate = useNavigate();

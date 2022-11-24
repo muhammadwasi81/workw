@@ -1,9 +1,10 @@
-import { Avatar, Image, Tag, Tooltip } from "antd";
+import { Image, Tag, Tooltip } from "antd";
 import React, { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import { SingleItem } from "../../../../sharedComponents/Card/CardStyle";
 import { Skeleton } from "antd";
 import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
 import { getCareerByIdAction } from "../../store/action";
@@ -69,24 +70,16 @@ function ShortDetailCard() {
               <div className="text-[14px] font-bold text-[grey]">Approvers</div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.approvers ? (
-                  <Avatar.Group maxCount={2}>
-                    {careerDetail?.approvers &&
-                      careerDetail?.approvers.map((el, i) => {
-                        return (
-                          <>
-                            <Tooltip title={el.approver?.name} placement="top">
-                              <AvatarCustom
-                                width={30}
-                                height={30}
-                                src={el.approver?.image}
-                                name={el.approver?.name}
-                                round
-                              ></AvatarCustom>
-                            </Tooltip>
-                          </>
-                        );
-                      })}
-                  </Avatar.Group>
+                  <Avatar
+                    isAvatarGroup={true}
+                    isTag={false}
+                    heading={"approvers"}
+                    membersData={
+                      careerDetail?.approvers ? careerDetail?.approvers : []
+                    }
+                    text={"Approvers"}
+                    image={"https://joeschmoe.io/api/v1/random"}
+                  />
                 ) : (
                   <Skeleton.Input active={true} size="small" />
                 )}
@@ -140,24 +133,18 @@ function ShortDetailCard() {
               </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.interviewers ? (
-                  <Avatar.Group maxCount={2}>
-                    {careerDetail?.interviewers &&
-                      careerDetail?.interviewers.map((el, i) => {
-                        return (
-                          <>
-                            <Tooltip title={el.user?.name} placement="top">
-                              <AvatarCustom
-                                width={30}
-                                height={30}
-                                src={el.user?.image}
-                                name={el.user?.name}
-                                round
-                              ></AvatarCustom>
-                            </Tooltip>
-                          </>
-                        );
-                      })}
-                  </Avatar.Group>
+                  <Avatar
+                    isAvatarGroup={true}
+                    isTag={false}
+                    heading={"users"}
+                    membersData={
+                      careerDetail?.interviewers
+                        ? careerDetail?.interviewers
+                        : []
+                    }
+                    text={"Users"}
+                    image={"https://joeschmoe.io/api/v1/random"}
+                  />
                 ) : (
                   <Skeleton.Input active={true} size="small" />
                 )}
@@ -205,24 +192,18 @@ function ShortDetailCard() {
               </div>
               <div className="text-[14px] font-bold text-[#526bb1] font-extrabold">
                 {careerDetail?.postInterviewers ? (
-                  <Avatar.Group maxCount={2}>
-                    {careerDetail?.postInterviewers &&
-                      careerDetail?.postInterviewers.map((el, i) => {
-                        return (
-                          <>
-                            <Tooltip title={el.user.name} placement="top">
-                              <AvatarCustom
-                                width={30}
-                                height={30}
-                                src={el.user?.image}
-                                name={el.user?.name}
-                                round
-                              ></AvatarCustom>
-                            </Tooltip>
-                          </>
-                        );
-                      })}
-                  </Avatar.Group>
+                  <Avatar
+                    isAvatarGroup={true}
+                    isTag={false}
+                    heading={"Users"}
+                    membersData={
+                      careerDetail?.postInterviewers
+                        ? careerDetail?.postInterviewers
+                        : []
+                    }
+                    text={"user"}
+                    image={"https://joeschmoe.io/api/v1/random"}
+                  />
                 ) : (
                   <Skeleton.Input active={true} size="small" />
                 )}

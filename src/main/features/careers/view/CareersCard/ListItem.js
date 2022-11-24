@@ -93,24 +93,6 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>
             <div className="cardSection__body">
-              {/* <Avatar.Group maxCount={2}>
-                {approvers &&
-                  approvers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.approver?.name} placement="top">
-                          <AvatarCustom
-                            width={30}
-                            height={30}
-                            src={el.approver?.image}
-                            name={el.approver?.name}
-                            round
-                          ></AvatarCustom>
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group> */}
               {approvers && (
                 <Avatar
                   isAvatarGroup={true}
@@ -126,31 +108,13 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           <div className="cardSectionItem">
             <div className="cardSection__title">Interviewers</div>
             <div className="cardSection__body">
-              {/* <Avatar.Group maxCount={2}>
-                {interviewers &&
-                  interviewers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.user?.name} placement="top">
-                          <AvatarCustom
-                            width={30}
-                            height={30}
-                            src={el.user?.image}
-                            name={el.user?.name}
-                            round
-                          ></AvatarCustom>
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group> */}
               {interviewers && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"Users"}
+                  heading={"users"}
                   membersData={interviewers ? interviewers : []}
-                  text={"user"}
+                  text={"Users"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
               )}

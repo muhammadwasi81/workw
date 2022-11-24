@@ -7,6 +7,7 @@ export const saveApprovalsRemarks = async (remark) => {
   const data = jsonToFormData(remark);
   const response = await MasterConfig.post(`${API_PREFIX}AddRemark`, data)
     .then((res) => {
+      console.log(res.data, "remarks");
       return res.data;
     })
     .catch((error) => {

@@ -108,6 +108,23 @@ function ListItemMyRequisition(props) {
               )}
             </div>
           </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">
+              {requisitionDictionary.FinalApprovers}
+            </div>
+            <div className="cardSection__body">
+              {finalApprovers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={finalApprovers ? finalApprovers : []}
+                  text={"Final Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
+            </div>
+          </div>
         </div>
       </SingleItem>
     </>

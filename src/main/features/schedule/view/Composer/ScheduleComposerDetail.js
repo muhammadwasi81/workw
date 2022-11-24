@@ -4,6 +4,7 @@ import Approval from "../../../../sharedComponents/AppComponents/Approvals/view"
 import { getScheduleById } from "../../store/action";
 import EventDetail from "../../UI/EventDetail";
 import Event from "../event";
+
 function ScheduleComposerDetail({ id, shortEvent = true }) {
 	const eventDetail = useSelector(state => state.scheduleSlice.eventDetail);
 	const dispatch = useDispatch();
@@ -12,11 +13,17 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 	}, [id]);
 	// console.log("eventDetail", eventDetail);
 	return (
-		<div className="eventDetail">
-			<div className="eventDetail__header">
-				<p className="eventDetail-title">Details</p>
-				<span className="eventNum">SCH-000085</span>
-			</div>
+		<div
+			className={`eventDetail ${!shortEvent &&
+				"p-5 bg-white rounded-lg min-h-0 overflow-y-auto"}
+				`}
+		>
+			{shortEvent && (
+				<div className="eventDetail__header">
+					<p className="eventDetail-title">Details</p>
+					<span className="eventNum">SCH-000085</span>
+				</div>
+			)}
 			<div className="eventDetail__body">
 				<div className="eventDetail__body-event">
 					{shortEvent ? (
@@ -25,15 +32,18 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 						<EventDetail data={eventDetail} />
 					)}
 				</div>
-				{/* <div className="eventDetail__body-description">
-					<p className="eventDetail-title">Description</p>
-					<span>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Sequi eos quaerat iusto, expedita ut veritatis alias
-						illum quis dignissimos, saepe omnis. Autem,
-						exercitationem quibusdam! Facere in non nulla quis enim?
-					</span>
-				</div> */}
+				{!shortEvent && (
+					<div className="eventDetail__body-description">
+						<p className="eventDetail-title">Description</p>
+						<span>
+							Lorem ipsum dolor sit amet consectetur adipisicing
+							elit. Sequi eos quaerat iusto, expedita ut veritatis
+							alias illum quis dignissimos, saepe omnis. Autem,
+							exercitationem quibusdam! Facere in non nulla quis
+							enim?
+						</span>
+					</div>
+				)}
 				<div className="eventDetail__body-memberUserWrapper">
 					<p className="eventDetail-title">Hosts</p>
 					<div className="memberUserCards">

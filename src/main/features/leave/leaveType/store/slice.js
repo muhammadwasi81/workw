@@ -1,6 +1,11 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../../services/enums/responseCode.js";
-import { addLeaveType, getAllLeaveType, removeLeaveType, updateLeaveType } from "./actions.js";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { responseCode } from '../../../../../services/enums/responseCode.js';
+import {
+  addLeaveType,
+  getAllLeaveType,
+  removeLeaveType,
+  updateLeaveType,
+} from './actions.js';
 
 const initialState = {
   leaveTypes: [],
@@ -9,7 +14,7 @@ const initialState = {
 };
 
 const leaveTypeSlice = createSlice({
-  name: "leaveTypes",
+  name: 'leaveTypes',
   initialState,
   reducers: {
     leaveTypeDeleted: (state, { payload }) => {

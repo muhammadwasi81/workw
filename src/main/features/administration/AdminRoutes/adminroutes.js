@@ -30,7 +30,7 @@ import AssetsCategory from '../../assetsCategory/view/index';
 const AdminRoutes = () => {
   return (
     <Routes>
-      <Route path={'/'} element={<AccessRole />} />
+      <Route path={ROUTES.ADMINISTRATOR.ACCESSROLES} element={<AccessRole />} />
       <Route
         path={ROUTES.ADMINISTRATOR.PAYROLL_GROUP}
         element={<PayrollGroup />}

@@ -31,6 +31,7 @@ import { resetBasicdetails } from "../store/slice";
 import { getAllDesignation } from "../../designation/store/actions";
 import { getAllBranch } from "../../subsidiary/store/actions";
 import { getAllBranchOffice } from "../../subsidiaryOffice/store/actions";
+import { updateEmployeeAction } from "../store/actions";
 const { Option } = Select;
 
 const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
@@ -182,10 +183,30 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     try {
       const isValidation = await form.validateFields();
       if (isValidation) {
-        console.log("handleUpdateInfo");
+        let values = form.getFieldsValue();
+        if (values) {
+          values = {
+            ...values,
+            birthDate: moment(form.getFieldValue("birthDate")._ds).format(),
+            joinDate: moment(form.getFieldValue("joinDate")._ds).format(),
+            probationPeriod: parseInt(values.probationPeriod),
+            noticePeriod: parseInt(values.noticePeriod),
+          };
+          console.log(values);
+          dispatch(updateEmployeeAction({ data: values }));
+        }
+        console.log("handleUpdateInfo", values);
       }
     } catch (e) {}
   };
+
+  // const onFinish = (values) => {
+  //   console.log("Success:", values);
+  // };
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log("Failed:", errorInfo);
+  // };
+
   let classes = "employeeForm basicInfo ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
 
@@ -612,6 +633,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             className="btn ThemeBtn"
             icon={<EditOutlined />}
             onClick={handleUpdateInfo}
+            // type="primary"
+            // htmlType="submit"
           >
             {labels.UpdateBasicInfo}
           </Button>

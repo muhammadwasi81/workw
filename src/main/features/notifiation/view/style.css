@@ -1,5 +1,4 @@
-.approval_list_cont {
-    /* padding: 10px; */
+/* .approval_list_cont {
 }
 
 .approval_header {
@@ -21,7 +20,6 @@
 
 .approval_header_child2 {
     display: flex;
-    /* background: red; */
     width: 120px;
     justify-content: space-around;
     font-size: 13px;
@@ -64,7 +62,6 @@
 
 .approval_item_status {
     width: 170px;
-    /* background: red; */
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
@@ -79,4 +76,7 @@
 
 .approval_item_detail .dateTime {
     flex: 1;
+} */
+.notification_item{
+    cursor: pointer;
 }

@@ -202,7 +202,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.COMPLAINS.DEFAULT}`,
-      component: lazy(() => import('../main/features/complain/view/Complain')),
+      component: lazy(() => import('../main/features/complain/view/index')),
     },
     {
       path: `${ROUTES.HR.BONUS.DEFAULT}`,
@@ -231,13 +231,6 @@ export const routes = {
         import('../main/features/RequestListItems/view/index')
       ),
     },
-    //Hr Router
-    // {
-    // 	path: `${ROUTES.EMPLOYEES_INFO.DEFAULT}`,
-    // 	component: lazy(() =>
-    // 		import("../main/features/employee/view/updateEmployee")
-    // 	),
-    // },
     {
       path: `${ROUTES.ADMINISTRATOR.DEFAULT}`,
       component: lazy(() => import('../main/features/administration')),
@@ -308,14 +301,6 @@ export const routes = {
         import('../main/features/requisition/view/myRequisitionDetail/index')
       ),
     },
-
-    // {
-    // 	path: `${ROUTES.REQUISITION.DEFAULT}`,
-    // 	component: lazy(() =>
-    // 		//import("../main/features/view/Requisition/RequisitionCards")
-    // 		import("../main/features/newRequisition/view/Requisition/RequisitionCards")
-    // 	),
-    // },
     {
       path: `${ROUTES.SALARY.DEFAULT}`,
       component: lazy(() => import('../main/features/salary/view/')),
@@ -335,13 +320,9 @@ export const routes = {
       component: lazy(() => import('../main/features/payroll/view/index')),
     },
     {
-			path: `${ROUTES.COMPANIES.DEFAULT}`,
-			component: lazy(() =>
-				import(
-					"../main/features/companies/index"
-				)
-			),
-		},
+      path: `${ROUTES.COMPANIES.DEFAULT}`,
+      component: lazy(() => import('../main/features/companies/index')),
+    },
   ],
   AdminRoutes: [
     {
@@ -351,7 +332,7 @@ export const routes = {
       }),
     },
     {
-      path: `${'/hr/administrator/'},`,
+      path: `${ROUTES.ADMINISTRATOR.ACCESSROLES}`,
       component: lazy(() => {
         import('../main/features/accessRole/view/AccessRole');
       }),

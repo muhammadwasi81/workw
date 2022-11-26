@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image,Skeleton } from "antd";
+import { Drawer, Tag, Image, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { customApprovalDictionaryList } from "../localization/index";
@@ -7,7 +7,6 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import DetailCard from "./DetailCard";
 
 function DetailedView(props) {
-
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
     userLanguage
@@ -18,7 +17,6 @@ function DetailedView(props) {
     e.preventDefault();
     e.stopPropagation();
   };
-
 
   return (
     <Drawer

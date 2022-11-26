@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Dropdown, Menu, Space, Image } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
@@ -40,6 +40,8 @@ const NewStickyNote = ({ item }) => {
   const [description, setDescription] = useState(null);
   const tilteDebounce = useDebounce(title, 500);
   const descriptionDebounce = useDebounce(description, 500);
+  // const [copySuccess, setCopySuccess] = useState("");
+  // const textAreaRef = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -65,7 +67,9 @@ const NewStickyNote = ({ item }) => {
     console.log("clicked share");
     setOpenShare((openShare) => !openShare);
   };
-
+  const copyToClipboard = (e) => {
+    console.log("copy cliekd");
+  };
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
     <Menu
@@ -76,16 +80,8 @@ const NewStickyNote = ({ item }) => {
           key: "0",
         },
         {
-          label: (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.antgroup.com"
-            >
-              Copy
-            </a>
-          ),
-          icon: <CopyOutlined />,
+          label: <a onClick={copyToClipboard}>Copy</a>,
+          icon: <CopyOutlined onClick={copyToClipboard} />,
           key: "1",
         },
         {

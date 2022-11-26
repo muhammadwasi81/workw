@@ -92,7 +92,7 @@ const StickyContainer = () => {
   // };
   return (
     <>
-      <Draggable defaultPosition={{ x: 11, y: 456 }} handle=".handle">
+      <Draggable defaultPosition={{ x: 111, y: 199 }} handle=".handle">
         <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>
           <div className="sticky-header handle">
             <div className="left_Icon">

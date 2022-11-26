@@ -1,11 +1,11 @@
 import { Image, Tag } from "antd";
-import React, { useContext, useState } from "react";
-import { rewardDictionaryList } from "../localization/index";
+import React, { useContext } from "react";
+import { requisitionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../content/svg/menu/rewardIcon.svg";
+import RequistionDefaultIcon from "../../../../content/NewContent/requisition/requistion.svg";
 import moment from "moment";
 import {
   ItemContent,
@@ -15,36 +15,38 @@ import {
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { useDispatch } from "react-redux";
 import { data } from "jquery";
-import Attachments from "../../travel/view/UI/Attachments";
 
-function ListItem(props) {
+function ListItemMyRequisition(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { rewardDictionary } = rewardDictionaryList[userLanguage];
+  const { Direction, requisitionDictionary } = requisitionDictionaryList[
+    userLanguage
+  ];
+  const disptach = useDispatch();
 
   const {
     creator,
     name,
     description,
-    image = "http://localhost:3000/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-    // image = images,
+    image = RequistionDefaultIcon,
     reason,
-    category,
-    members = [],
+    budget,
+    deadline,
+    finalApprovers = [],
     approvers = [],
     status,
     referenceNo,
     createDate,
-    path,
   } = props.item;
-
+  console.log(budget, "props.itmmm");
   const localTime = moment
     .utc(createDate)
     .local()
     .format();
+
   return (
     <>
       <SingleItem onClick={props.onClick}>
-        <div className="" id={props.id}></div>
+        <div className="new" id={props.id}></div>
         <ItemHeader>
           <div className="left">
             <UserInfo
@@ -64,60 +66,34 @@ function ListItem(props) {
           </div>
         </ItemHeader>
         <ItemContent className="flex">
-          <div className="description">
+          <div className="description w-full">
             <p>{description}</p>
           </div>
-          <div
-            className=" ml-auto attachmentBox"
-            style={{ width: "65px", height: "60px" }}
-          >
+          <div className="attachmentBox">
             <Image
               preview={false}
-              // width={60}
-              // height={60}
-              src={image === "" ? "" : image}
+              width={60}
+              height={60}
+              src={image === "" ? RequistionDefaultIcon : image}
             />
-            {/* <Attachments
-              data={[image]}
-              key={{ data: image }}
-              toShow={1}
-              onClick={() => {}}
-            /> */}
           </div>
         </ItemContent>
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Category"}</div>
-            <div className="cardSection__body">{category}</div>
+            <div className="cardSection__title">Budget</div>
+            <div className="cardSection__body">{budget}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Name"}</div>
+            <div className="cardSection__title">Name</div>
             <div className="cardSection__body">{name}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Reason"}</div>
+            <div className="cardSection__title">Reason</div>
             <div className="cardSection__body">{reason}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">
-              {rewardDictionary.rewardTo}
-            </div>
-            <div className="cardSection__body">
-              {members && (
-                <Avatar
-                  isAvatarGroup={true}
-                  isTag={false}
-                  heading={"members"}
-                  membersData={members ? members : []}
-                  text={"Members"}
-                  image={"https://joeschmoe.io/api/v1/random"}
-                />
-              )}
-            </div>
-          </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">
-              {rewardDictionary.approvers}
+              {requisitionDictionary.approvers}
             </div>
             <div className="cardSection__body">
               {approvers && (
@@ -132,10 +108,27 @@ function ListItem(props) {
               )}
             </div>
           </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">
+              {requisitionDictionary.FinalApprovers}
+            </div>
+            <div className="cardSection__body">
+              {finalApprovers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={finalApprovers ? finalApprovers : []}
+                  text={"Final Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
+            </div>
+          </div>
         </div>
       </SingleItem>
     </>
   );
 }
 
-export default ListItem;
+export default ListItemMyRequisition;

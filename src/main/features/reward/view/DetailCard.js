@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image, Button,Skeleton} from "antd";
+import { Drawer, Tag, Image, Button, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { rewardDictionaryList } from "../localization/index";
@@ -25,26 +25,24 @@ import {
 function RewardDetailCard(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { rewardDictionary } = rewardDictionaryList[userLanguage];
-  const { rewardDetail,loadingData } = useSelector((state) => state.rewardSlice);
+  const { rewardDetail, loadingData } = useSelector(
+    (state) => state.rewardSlice
+  );
   const { user } = useSelector((state) => state.userSlice);
   const [updatedStatus, setUpdatedStatus] = useState(null);
 
   const dispatch = useDispatch();
 
-  let {
-    Approved,
-    Declined,
-    Resend,
-  } = ApprovalStatus;
+  let { Approved, Declined, Resend } = ApprovalStatus;
   let userId = user.id;
 
   useEffect(() => {
     props.id && dispatch(GetRewardById(props.id));
   }, [props.id]);
 
-  console.log("loadingdataaaa",loadingData);
+  console.log("loadingdataaaa", loadingData);
 
-  if(loadingData) return <Skeleton />;
+  if (loadingData) return <Skeleton />;
 
   console.log(updatedStatus, "UPDATE STATUS");
 
@@ -60,7 +58,6 @@ function RewardDetailCard(props) {
     referenceNo,
     members = [],
     approvers,
-    attatchments,
   } = rewardDetail;
 
   const handleCancel = (e, payload) => {
@@ -114,7 +111,7 @@ function RewardDetailCard(props) {
               <p>{description}</p>
             </div>
             <div
-              className="attachmentBox"
+              className="ml-auto attachmentBox"
               style={{ width: "65px", height: "60px" }}
             >
               {/* {attatchments.map((i) => {
@@ -122,7 +119,7 @@ function RewardDetailCard(props) {
               <Image
                 preview={false}
                 width={60}
-                src={image === "" ? RewardDefaultIcon : image}
+                src={image === "" ? "" : image}
                 // src={i.path}
               />
               {/* );

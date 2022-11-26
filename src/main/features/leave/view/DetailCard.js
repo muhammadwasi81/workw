@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Drawer, Tag, Image, Button ,Skeleton} from "antd";
+import { Drawer, Tag, Image, Button, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { leaveDictionaryList } from "../localization/index";
@@ -25,6 +25,7 @@ import {
   ItemHeader,
   SingleItem,
 } from "../../../sharedComponents/Card/CardStyle";
+import Attachments from "../../travel/view/UI/Attachments";
 
 function DetailCard(props) {
   const [updatedStatus, setUpdatedStatus] = useState(null);
@@ -52,10 +53,10 @@ function DetailCard(props) {
     props.id && dispatch(GetLeaveById(props.id));
   }, [props.id]);
 
-  const { leaveDetail,loadingData } = useSelector((state) => state.leaveSlice);
-   //console.log("loadingDataaaaaa",loadingData);
+  const { leaveDetail, loadingData } = useSelector((state) => state.leaveSlice);
+  //console.log("loadingDataaaaaa",loadingData);
 
-  if(loadingData) return <Skeleton />;
+  if (loadingData) return <Skeleton />;
 
   const {
     creator,
@@ -112,10 +113,14 @@ function DetailCard(props) {
               <div className="w-full">
                 <p>{description}</p>
               </div>
-              <div className="attachmentBox">
-                {attachments.map((i) => {
-                  return <Image preview={false} width={60} src={i.path} />;
-                })}
+              <div className="!w-max m-4 ml-auto attachmentBox">
+                <Attachments
+                  data={attachments}
+                  key={{ data: attachments }}
+                  toShow={1}
+                  onClick={() => {}}
+                  size={"50px"}
+                />
               </div>
             </ItemContent>
             <div className="cardSections">

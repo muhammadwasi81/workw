@@ -29,6 +29,8 @@ import { getNameForImage, STRINGS } from "../../../../utils/base";
 import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
 import { resetBasicdetails } from "../store/slice";
 import { getAllDesignation } from "../../designation/store/actions";
+import { getAllBranch } from "../../subsidiary/store/actions";
+import { getAllBranchOffice } from "../../subsidiaryOffice/store/actions";
 const { Option } = Select;
 
 const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
@@ -74,6 +76,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   );
   const dispatch = useDispatch();
   const { accessRoles } = useSelector((state) => state.accessRolesSlice);
+  const { items } = useSelector((state) => state.subsidiarySlice);
+  const subsidiaryOffice = useSelector((state) => state.subsidiaryOfficeSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
@@ -121,6 +125,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   useEffect(() => {
     fetchEmployees("", 0);
     getDepartment();
+    dispatch(getAllBranch());
+    dispatch(getAllBranchOffice());
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
       if (!countries.length) dispatch(getCountries());
@@ -226,15 +232,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         >
           <Input placeholder={placeholder.lName}></Input>
         </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="fatherName"
-          label={labels.FatherName}
-        >
+        <Form.Item name="fatherName" label={labels.FatherName}>
           <Input placeholder={placeholder.fatherName}></Input>
         </Form.Item>
         <Form.Item
@@ -251,26 +249,10 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         >
           <Input placeholder={placeholder.pEmail}></Input>
         </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="phoneNo"
-          label={labels.PhoneNumber}
-        >
+        <Form.Item name="phoneNo" label={labels.PhoneNumber}>
           <Input placeholder={placeholder.phNo}></Input>
         </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="nic"
-          label={labels.CNICNumber}
-        >
+        <Form.Item name="nic" label={labels.CNICNumber}>
           <Input placeholder={placeholder.cnicNo}></Input>
         </Form.Item>
         <Form.Item
@@ -288,6 +270,15 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             size="large"
             showSearch={true}
             placeholder="select your Designation"
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            options={designations?.map((val) => {
+              return {
+                value: val.id,
+                label: val.name,
+              };
+            })}
           >
             {designations?.map((designation) => (
               <Option key={designation.id} value={designation.id}>
@@ -296,12 +287,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-
-        <Form.Item
-          name="managerId"
-          label={labels.Manager}
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="managerId" label={labels.Manager}>
           <MemberSelect
             name="managerId"
             formItem={false}
@@ -309,6 +295,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={placeholder.searchToSelect}
+            showSearch={true}
             optionComponent={(opt) => {
               return (
                 <>
@@ -321,11 +308,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             }}
           />
         </Form.Item>
-        <Form.Item
-          name="gradeId"
-          label={labels.Grades}
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="gradeId" label={labels.Grades}>
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
             showSearch={true}
@@ -344,7 +327,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           name="countryId"
           label={labels.Country}
           // showSearch={true}
-          rules={[{ required: true }]}
         >
           <Select
             showSearch={true}
@@ -357,7 +339,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-
         <CitySelect
           data={cities}
           selectedData={(val) => {
@@ -381,14 +362,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           size="large"
           name="cityId"
           label={labels.City}
-          rules={[{ required: true }]}
         />
-
-        <Form.Item
-          name="probationPeriod"
-          label={labels.ProbationPeriod}
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="probationPeriod" label={labels.ProbationPeriod}>
           <Input
             placeholder={placeholder.probPeriod}
             size="large"
@@ -410,11 +385,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             step={"1"}
           />
         </Form.Item>
-        <Form.Item
-          name="birthDate"
-          label={labels.DateOfBirth}
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="birthDate" label={labels.DateOfBirth}>
           <DatePicker
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectDate}
@@ -422,11 +393,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             format={"DD/MM/YYYY"}
           />
         </Form.Item>
-        <Form.Item
-          name="joinDate"
-          label={labels.DateOfJoining}
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="joinDate" label={labels.DateOfJoining}>
           <DatePicker
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectDate}
@@ -451,11 +418,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          name="maritalStatusId"
-          label={labels.MaritalStatus}
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="maritalStatusId" label={labels.MaritalStatus}>
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectMarital}
@@ -468,16 +431,21 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          name="officeTimingId"
-          label={labels.OfficeShift}
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="officeTimingId" label={labels.OfficeShift}>
           <Select
             size="large"
             showSearch={true}
             placeholder={placeholder.selectShift}
             getPopupContainer={(trigger) => trigger.parentNode}
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            options={officeTimingGroups.map((item) => {
+              return {
+                value: item.id,
+                label: item.name,
+              };
+            })}
           >
             {officeTimingGroups?.map((timing) => (
               <Option key={timing.id} value={timing.id}>
@@ -486,18 +454,10 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          name="employeeNo"
-          label={labels.EmpNo}
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="employeeNo" label={labels.EmpNo}>
           <Input placeholder={placeholder.empNo} size="large" />
         </Form.Item>
-        <Form.Item
-          name="employmentTypeId"
-          label={labels.EmploymentType}
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="employmentTypeId" label={labels.EmploymentType}>
           <Select
             size="large"
             getPopupContainer={(trigger) => trigger.parentNode}
@@ -543,16 +503,16 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             onChange={(value) => {
               console.log(value);
             }}
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            options={accessRoles.map((item) => {
+              return {
+                value: item.id,
+                label: item.name,
+              };
+            })}
           >
-            {/* {accessRoles
-              .filter((ele) => {
-                if (ele.roleTypeId === userTypeValue) return ele;
-              })
-              .map((type) => (
-                <Option key={type.id} value={type.id}>
-                  {type.name}
-                </Option>
-              ))} */}
             {accessRoles.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {item.name}
@@ -560,15 +520,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="department"
-          label={labels.department}
-        >
+        <Form.Item name="department" label={labels.department}>
           {/* <Input placeholder={placeholder.department}></Input> */}
           <Select
             size="large"
@@ -579,15 +531,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
               console.log(value);
             }}
           >
-            {/* {accessRoles
-              .filter((ele) => {
-                if (ele.roleTypeId === userTypeValue) return ele;
-              })
-              .map((type) => (
-                <Option key={type.id} value={type.id}>
-                  {type.name}
-                </Option>
-              ))} */}
             {department.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {item.name}
@@ -595,38 +538,72 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
+        {/* <Form.Item name="subsidiary" label={labels.subsidiary}>
+          <Input placeholder={placeholder.subsidiary}></Input>
+        </Form.Item> */}
         <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
           name="subsidiary"
+          rules={[{ required: true }]}
           label={labels.subsidiary}
         >
-          <Input placeholder={placeholder.subsidiary}></Input>
+          <Select
+            size="large"
+            placeholder={placeholder.subsidiary}
+            getPopupContainer={(trigger) => trigger.parentNode}
+            showSearch={true}
+            onChange={(value) => {
+              console.log(value);
+            }}
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            options={items.map((item) => {
+              return {
+                value: item.id,
+                label: item.branchTitle,
+              };
+            })}
+          >
+            {items.map((item) => (
+              <Select.Option key={item.id} value={item.id}>
+                {item.branchTitle}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="payroll"
-          label={labels.payroll}
-        >
+        <Form.Item name="payroll" label={labels.payroll}>
           <Input placeholder={placeholder.payroll}></Input>
         </Form.Item>
         <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
           name="subsidiaryOffice"
+          rules={[{ required: true }]}
           label={labels.subsidiaryOffice}
         >
-          <Input placeholder={placeholder.subsidiaryOffice}></Input>
+          <Select
+            size="large"
+            placeholder={placeholder.subsidiary}
+            getPopupContainer={(trigger) => trigger.parentNode}
+            showSearch={true}
+            onChange={(value) => {
+              console.log(value);
+            }}
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            options={subsidiaryOffice?.items.map((val) => {
+              return {
+                value: val.id,
+                label: val.name,
+              };
+            })}
+          >
+            {subsidiaryOffice?.items.map((val) => (
+              <Select.Option key={val.id} value={val.id}>
+                {val.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
       </Form>
       <div className={isEdit ? "editButtons" : "buttons"}>

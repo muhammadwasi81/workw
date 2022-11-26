@@ -35,10 +35,18 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 		}
 	});
 	connection.on("notificationOut", data => {
-		console.log(data, "notificationOut")
+		console.log(data, "notificationOut");
+		dispatch(
+			openNotification({
+				message: `${data.fromUser.name} ${data.message}`,
+				playSound: true,
+				avatarName: data.fromUser.name,
+				avatarImage: data.fromUser.image,
+			})
+		);
 	});
 	connection.on("newFeedOut", data => {
-		console.log(data, "notificationOut")
+		console.log(data, "newFeedOut")
 	});
 	// connection.on("ReceiveMessage", data => {
 	// 	// console.log(data)

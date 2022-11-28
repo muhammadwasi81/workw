@@ -1,5 +1,5 @@
-import { useEffect, useContext, useState } from 'react';
-import { Button, Drawer } from 'antd';
+import { useEffect, useContext, useState } from "react";
+import { Button, Drawer } from "antd";
 import {
   ContBody,
   TabbableContainer,
@@ -19,7 +19,6 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 // import ListItemMyRequisition from "./ListItem";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import ListItem from "./ListItem";
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
@@ -27,22 +26,13 @@ import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 import { ROUTES } from "../../../../utils/routes";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-=======
->>>>>>> 21df76c1848e6ff0d5eae7f82f80f772067509c4
 
 const Requisition = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-<<<<<<< HEAD
-=======
-  const { items, drawerOpen } = useSelector((state) => state.requisitionSlice);
-  const [detailId, setDetailId] = useState(false);
->>>>>>> 21df76c1848e6ff0d5eae7f82f80f772067509c4
   const { userLanguage } = useContext(LanguageChangeContext);
   const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
-  const [filter, setFilter] = useState({ filterType: 0, search: '' });
 
-<<<<<<< HEAD
   const [tableView, setTableView] = useState(false);
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
@@ -54,21 +44,11 @@ const Requisition = () => {
     sortBy: 1,
   });
 
-  const dispatch = useDispatch();
   const { items, drawerOpen, loader } = useSelector(
     (state) => state.requisitionSlice
   );
 
   const [searchFilterValues, setSearchFilterValues] = useState();
-=======
-  const title = [
-    {
-      name: 'Requisition',
-      renderButton: [1],
-      to: `${ROUTES.REQUISITION.REQUISITION}`,
-    },
-  ];
->>>>>>> 21df76c1848e6ff0d5eae7f82f80f772067509c4
 
   const onClose = () => {
     setDetailId(null);
@@ -79,10 +59,7 @@ const Requisition = () => {
   }, [filter]);
 
   const openMyRequisitionDetail = (id) => {
-<<<<<<< HEAD
-=======
-    console.log(id, 'my Career Id');
->>>>>>> 21df76c1848e6ff0d5eae7f82f80f772067509c4
+    console.log(id, "my Career Id");
     dispatch(GetRequisitionById(id));
     navigate(`requisitionDetail/${id}`);
   };
@@ -110,16 +87,11 @@ const Requisition = () => {
     <>
       <TabbableContainer>
         <Header
-<<<<<<< HEAD
-          items={headerItem}
-=======
           items={title}
->>>>>>> 21df76c1848e6ff0d5eae7f82f80f772067509c4
           buttons={[
             {
               buttonText: requisitionDictionary.createRequisition,
               render: (
-<<<<<<< HEAD
                 <SideDrawer
                   title={requisitionDictionary.createRequisition}
                   buttonText={requisitionDictionary.createRequisition}
@@ -128,15 +100,6 @@ const Requisition = () => {
                   isOpen={drawerOpen}
                   children={<Composer />}
                 />
-=======
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => dispatch(handleOpenComposer(true))}
-                >
-                  <PlusOutlined />
-                  {requisitionDictionary.createRequisition}
-                </Button>
->>>>>>> 21df76c1848e6ff0d5eae7f82f80f772067509c4
               ),
             },
           ]}

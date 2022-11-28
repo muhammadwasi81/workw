@@ -41,9 +41,9 @@ export const routes = {
     // 	component: lazy(() => import("../main/features/mail/")),
     // },
     {
-      path: ROUTES.CUSTOM_APPROVALS.DEFAULT,
+      path: `${ROUTES.CUSTOM_APPROVALS.DEFAULT}`,
       component: lazy(() =>
-        import("../main/features/CustomApprovals/view/CustomApproval")
+        import("../main/features/CustomApprovals/view/index")
       ),
     },
     {
@@ -202,7 +202,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.COMPLAINS.DEFAULT}`,
-      component: lazy(() => import('../main/features/complain/view/index')),
+      component: lazy(() => import("../main/features/complain/view/index")),
     },
     {
       path: `${ROUTES.HR.BONUS.DEFAULT}`,
@@ -237,7 +237,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.REWARDS.DEFAULT}`,
-      component: lazy(() => import("../main/features/reward/view/Reward")),
+      component: lazy(() => import("../main/features/reward/view/index")),
     },
     //*****by SANJANA****
     {
@@ -273,7 +273,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.EXPENSES.DEFAULT}`,
-      component: lazy(() => import("../main/features/expense/routes/")),
+      component: lazy(() => import("../main/features/expense/routes/index")),
     },
     {
       path: `${ROUTES.DOCUMENTS.DEFAULT}`,
@@ -321,11 +321,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.COMPANIES.DEFAULT}`,
-<<<<<<< HEAD
       component: lazy(() => import("../main/features/companies/index")),
-=======
-      component: lazy(() => import('../main/features/companies/index')),
->>>>>>> 21df76c1848e6ff0d5eae7f82f80f772067509c4
     },
   ],
   AdminRoutes: [
@@ -336,11 +332,7 @@ export const routes = {
       }),
     },
     {
-<<<<<<< HEAD
-      path: `${"/hr/administrator/"},`,
-=======
       path: `${ROUTES.ADMINISTRATOR.ACCESSROLES}`,
->>>>>>> 21df76c1848e6ff0d5eae7f82f80f772067509c4
       component: lazy(() => {
         import("../main/features/accessRole/view/AccessRole");
       }),

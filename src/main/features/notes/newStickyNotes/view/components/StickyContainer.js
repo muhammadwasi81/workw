@@ -28,8 +28,12 @@ const StickyContainer = () => {
   // *********state for sticky notes*******
   const [minimize, setMinimize] = useState(true);
   const [search, setSearch] = useState(null);
-  const searchDebounce = useDebounce(search, 500);
+  //const searchDebounce = useDebounce(search, 500);
 
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
   const dispatch = useDispatch();
 
   // ****get redux data for sticky notes*****
@@ -65,7 +69,6 @@ const StickyContainer = () => {
   // ********minimize handler for sticky container********
   const minimizeHandler = () => {
     setMinimize(!minimize);
-    // console.log(minimize);
   };
 
   // *****close Sticky handler*****
@@ -79,8 +82,8 @@ const StickyContainer = () => {
   };
 
   //*****window size******
-  // const { height, width } = useWindowDimensions();
-  // console.log(width, height, "widthhh");
+  const { height, width } = useWindowDimensions();
+  console.log(width, height, "widthhh");
 
   const axis = {
     x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",

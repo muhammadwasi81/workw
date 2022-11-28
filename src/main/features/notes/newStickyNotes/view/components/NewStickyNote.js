@@ -63,12 +63,14 @@ const NewStickyNote = ({ item }) => {
       })
     );
   };
+  console.log(item.description, "description");
   const openShareHandler = () => {
     console.log("clicked share");
     setOpenShare((openShare) => !openShare);
   };
-  const copyToClipboard = (e) => {
+  const copyToClipboard = () => {
     console.log("copy cliekd");
+    navigator.clipboard.writeText(item.description);
   };
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (

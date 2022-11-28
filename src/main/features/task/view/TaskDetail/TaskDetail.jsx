@@ -6,6 +6,7 @@ import { getTaskById } from "../../store/actions";
 import { changeOnProgress, clearTaskById } from "../../store/taskSlice";
 import TaskListItem from "../TaskList/listItem";
 import "../style/task.css";
+import TaskDetailItem from "./DetailItem";
 
 function TaskDetail(props) {
   const [progress, setProgress] = useState();
@@ -30,7 +31,7 @@ function TaskDetail(props) {
   const handleProgressChange = (data) => {
     dispatch(changeOnProgress(data));
   };
-  console.log(props.predecessor, "predecessor");
+
   return (
     <>
       {!Object.keys(task).length ? (
@@ -38,7 +39,7 @@ function TaskDetail(props) {
       ) : (
         <div className="taskDetail">
           {
-            <TaskListItem
+            <TaskDetailItem
               progress={progress}
               item={task}
               isTaskMember={true}
@@ -50,7 +51,7 @@ function TaskDetail(props) {
           <div className="comments">
             <CommentWrapper
               initailComments={[]}
-              referenceId={props.id}
+              referenceId={id}
               module={2}
               isCommentLoad={true}
             />

@@ -94,6 +94,6 @@ export const getStatusLabelAndColor = (module, statusLabels) => {
       label: "No Status",
       color: "Red",
     },
-    [ApprovalStatus.Hold]: { label: statusLabels.Hold, color: "#1a5669" },
+    [ApprovalStatus.Hold]: { label: statusLabels.Hold, color: "#ffa500" },
   };
 };

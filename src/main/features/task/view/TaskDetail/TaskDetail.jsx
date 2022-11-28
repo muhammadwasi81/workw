@@ -51,7 +51,7 @@ function TaskDetail(props) {
           <div className="comments">
             <CommentWrapper
               initailComments={[]}
-              referenceId={id}
+              referenceId={props.id}
               module={2}
               isCommentLoad={true}
             />

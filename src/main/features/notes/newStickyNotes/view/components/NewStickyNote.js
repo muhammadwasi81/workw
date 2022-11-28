@@ -151,6 +151,9 @@ const NewStickyNote = ({ item }) => {
     ],
   };
   const imgSrc = item.attachments;
+  // const { height, width } = useWindowDimensions();
+  // console.log(width, height, "widthhh");
+
   const axis = {
     x_axis: Math.floor(Math.random() * 40) + 250,
     y_axis: Math.floor(Math.random() * 40) + 150,

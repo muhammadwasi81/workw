@@ -5,7 +5,7 @@ import { BrokenPage, STRINGS } from "../../../../utils/base";
 import { ROUTES } from "../../../../utils/routes";
 
 import Task from "../view/Task";
-import TaskDetail from "../view/TaskDetail/detailView";
+// import TaskDetail from "../view/TaskDetail/detailView";
 import IndividualDetail from "../view/TaskDetail/IndividualDetail";
 // import "../view/style/task.css";
 

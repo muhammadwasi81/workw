@@ -21,8 +21,6 @@ import {
   getAllStickyNotesAction,
   searchTitleDescAction,
 } from "../../store/actions";
-import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
-import useWindowDimensions from "./useWindowDimensions";
 
 const StickyContainer = () => {
   // *********state for sticky notes*******
@@ -82,12 +80,16 @@ const StickyContainer = () => {
   };
 
   //*****window size******
-  const { height, width } = useWindowDimensions();
-  console.log(width, height, "widthhh");
+  // const { height, width } = useWindowDimensions();
+  // console.log(width, height, "widthhh");
 
+  // const axis = {
+  //   x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+  //   y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+  // };
   const axis = {
-    x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
-    y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+    x_axis: Math.floor(Math.random() * 40) + 111,
+    y_axis: Math.floor(Math.random() * 40) + 199,
   };
   // const axis = {
   //   x_axis: width * 50,
@@ -95,7 +97,10 @@ const StickyContainer = () => {
   // };
   return (
     <>
-      <Draggable defaultPosition={{ x: 111, y: 199 }} handle=".handle">
+      <Draggable
+        defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
+        handle=".handle"
+      >
         <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>
           <div className="sticky-header handle">
             <div className="left_Icon">

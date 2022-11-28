@@ -63,12 +63,14 @@ const NewStickyNote = ({ item }) => {
       })
     );
   };
+  console.log(item.description, "description");
   const openShareHandler = () => {
     console.log("clicked share");
     setOpenShare((openShare) => !openShare);
   };
-  const copyToClipboard = (e) => {
+  const copyToClipboard = () => {
     console.log("copy cliekd");
+    navigator.clipboard.writeText(item.description);
   };
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
@@ -149,6 +151,9 @@ const NewStickyNote = ({ item }) => {
     ],
   };
   const imgSrc = item.attachments;
+  // const { height, width } = useWindowDimensions();
+  // console.log(width, height, "widthhh");
+
   const axis = {
     x_axis: Math.floor(Math.random() * 40) + 250,
     y_axis: Math.floor(Math.random() * 40) + 150,

@@ -54,19 +54,19 @@ function MySchedules() {
 					<div className="rounded-lg p-2 px-5 bg-[white] font-bold text-black">
 						Details
 					</div>
-
-					{scheduleData !== null ? (
-						scheduleData?.type === 6 ? (
-							<TravelDetail travelId={scheduleData?.id} />
-						) : scheduleData?.type === 5 ? (
-							<TaskDetail id={scheduleData?.id} />
-						) : (
-							<>
-								<ScheduleComposerDetail
-									id={scheduleData?.id}
-									shortEvent={false}
-								/>
-								{/* <div className="eventDetail p-5 bg-white rounded-lg min-h-0 overflow-y-auto">
+					<div className="p-5 bg-white rounded-lg min-h-0 overflow-y-auto">
+						{scheduleData !== null ? (
+							scheduleData?.type === 6 ? (
+								<TravelDetail travelId={scheduleData?.id} />
+							) : scheduleData?.type === 5 ? (
+								<TaskDetail id={scheduleData?.id} />
+							) : (
+								<>
+									<ScheduleComposerDetail
+										id={scheduleData?.id}
+										shortEvent={false}
+									/>
+									{/* <div className="eventDetail p-5 bg-white rounded-lg min-h-0 overflow-y-auto">
 									<div className="eventDetail__header">
 							<p className="eventDetail-title">Details</p>
 							<span className="eventNum">SCH-000085</span>
@@ -477,9 +477,10 @@ function MySchedules() {
 										status={""}
 									/>
 								</div> */}
-							</>
-						)
-					) : null}
+								</>
+							)
+						) : null}
+					</div>
 				</div>
 			</div>
 		</div>

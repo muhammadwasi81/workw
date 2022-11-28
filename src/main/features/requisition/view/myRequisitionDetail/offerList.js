@@ -8,9 +8,8 @@ const { TabPane } = Tab;
 
 function OfferList(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-	const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
+  const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
   const { offers } = useSelector((state) => state.requisitionSlice);
-  
 
   const panes = [
     {
@@ -21,17 +20,17 @@ function OfferList(props) {
     {
       featureId: 1,
       featureName: requisitionDictionary.ShortList,
-      content: <div>Information div</div>,
+      content: <TabElement />,
     },
     {
       featureId: 2,
       featureName: requisitionDictionary.Declined,
-      content: <div>Declined div</div>,
+      content: <TabElement />,
     },
     {
       featureId: 3,
       featureName: requisitionDictionary.Finalised,
-      content: <div>Finalised div</div>,
+      content: <TabElement />,
     },
   ];
   return (

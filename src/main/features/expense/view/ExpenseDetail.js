@@ -13,7 +13,7 @@ import { updateListExpenseStatus } from "../store/slice";
 import ExpenseDetailList from "./ExpenseDetailList";
 
 function ExpenseDetail({ id }) {
-  const { expense ,loadingData } = useSelector((state) => state.expenseSlice);
+  const { expense, loadingData } = useSelector((state) => state.expenseSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
   const { labels } = ExpenseDictionaryList;
@@ -54,7 +54,7 @@ function ExpenseDetail({ id }) {
     };
   }, []);
 
-  if(loadingData) return <Skeleton />;
+  if (loadingData) return <Skeleton />;
 
   return (
     <>

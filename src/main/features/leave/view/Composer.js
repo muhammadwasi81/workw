@@ -51,6 +51,8 @@ const Composer = (props) => {
   const [state, setState] = useState(initialState);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [attachments, setAttachments] = useState([]);
+
   const [value, setValue] = useState([]);
 
   const { leaveTypes } = useSelector((state) => state.leaveTypeSlice);
@@ -131,22 +133,19 @@ const Composer = (props) => {
         };
       });
     }
+    const payload = { ...values, approvers, members, attachments };
+    dispatch(addLeave(payload));
 
-    // let image = { id: STRINGS.DEFAULTS.guid, file: profileImage[0].originFileObj }
-    // let payload = { ...values, approvers, members, image };
-
-    // dispatch(addLeave(payload));
-    // console.log(payload, "FINALLLLL");
-    if (profileImage) {
-      let attachments = [
-        { id: DEFAULT_GUID, file: profileImage[0].originFileObj },
-      ];
-      let payload = { ...values, approvers, members, attachments };
-      dispatch(addLeave(payload));
-    } else {
-      let payload = { ...values, approvers, members };
-      dispatch(addLeave(payload));
-    }
+    // if (profileImage) {
+    //   let attachments = [
+    //     { id: DEFAULT_GUID, file: profileImage[0].originFileObj },
+    //   ];
+    //   let payload = { ...values, approvers, members, attachments };
+    //   dispatch(addLeave(payload));
+    // } else {
+    //   let payload = { ...values, approvers, members };
+    //   dispatch(addLeave(payload));
+    // }
 
     form.resetFields();
   };
@@ -307,10 +306,16 @@ const Composer = (props) => {
 
         <Form.Item area="true">
           <SingleUpload
-            handleImageUpload={handleImageUpload}
-            img="Add Image"
-            position="flex-start"
+            handleImageUpload={(files) =>
+              setAttachments(
+                files.map((file) => ({
+                  file: file.originFileObj,
+                  id: STRINGS.DEFAULTS.guid,
+                }))
+              )
+            }
             uploadText={leaveDictionary.upload}
+            multiple={true}
           />
         </Form.Item>
 

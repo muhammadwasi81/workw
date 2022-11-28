@@ -1,5 +1,4 @@
-import { useEffect, useContext, useState } from 'react';
-import { Button, Drawer } from 'antd';
+import { useEffect, useContext, useState } from "react";
 import {
   ContBody,
   TabbableContainer,
@@ -17,26 +16,36 @@ import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
-import ListItemMyRequisition from "./ListItem";
+// import ListItemMyRequisition from "./ListItem";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from '../../../../utils/routes';
+import ListItem from "./ListItem";
+import { Table } from "../../../sharedComponents/customTable";
+import { tableColumn } from "./TableColumn";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+
+// import { ROUTES } from "../../../../utils/routes";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 const Requisition = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items, drawerOpen } = useSelector((state) => state.requisitionSlice);
-  const [detailId, setDetailId] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
-  const [filter, setFilter] = useState({ filterType: 0, search: '' });
+  const [tableView, setTableView] = useState(false);
+  const [detailId, setDetailId] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const title = [
-    {
-      name: 'Requisition',
-      renderButton: [1],
-      to: `${ROUTES.REQUISITION.REQUISITION}`,
-    },
-  ];
+  const [filter, setFilter] = useState({
+    filterType: 0,
+    search: "",
+    sortBy: 1,
+  });
+
+  const { items, drawerOpen, loader } = useSelector(
+    (state) => state.requisitionSlice
+  );
+
+  const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
     setDetailId(null);
@@ -47,27 +56,46 @@ const Requisition = () => {
   }, [filter]);
 
   const openMyRequisitionDetail = (id) => {
-    console.log(id, 'my Career Id');
     dispatch(GetRequisitionById(id));
     navigate(`requisitionDetail/${id}`);
   };
-
+  const headerItem = [
+    {
+      name: "Requisition",
+      // to: `${ROUTES.REQUISITION.DEFAULT}`,
+      renderButton: [1],
+    },
+  ];
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        // console.log(record.id, "ID");
+        setDetailId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
   return (
     <>
       <TabbableContainer>
         <Header
-          items={title}
+          items={headerItem}
           buttons={[
             {
               buttonText: requisitionDictionary.createRequisition,
               render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => dispatch(handleOpenComposer(true))}
-                >
-                  {/* <PlusOutlined /> */}
-                  {requisitionDictionary.createRequisition}
-                </Button>
+                <SideDrawer
+                  title={requisitionDictionary.createRequisition}
+                  buttonText={requisitionDictionary.createRequisition}
+                  handleClose={() => dispatch(handleOpenComposer(false))}
+                  handleOpen={() => dispatch(handleOpenComposer(true))}
+                  isOpen={drawerOpen}
+                  children={<Composer />}
+                />
               ),
             },
           ]}
@@ -86,33 +114,55 @@ const Requisition = () => {
               onClick: () => setFilter({ filterType: 1 }),
             },
             {
-              name: 'For Approvals',
+              name: requisitionDictionary.forApproval,
               onClick: () => setFilter({ filterType: 2 }),
             },
             {
-              name: 'For Final Approvals',
+              name: requisitionDictionary.forFinalApproval,
               onClick: () => setFilter({ filterType: 3 }),
             },
           ]}
+          segment={{
+            onSegment: (value) => {
+              if (value === "Table") {
+                setTableView(true);
+              } else {
+                setTableView(false);
+              }
+            },
+            label1: "List",
+            label2: "Table",
+          }}
         />
         <ContBody>
-          {items?.length > 0 ? (
+          {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
+          {tableView && (
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              data={items}
+              onRow={onRow}
+            />
+          )}
+          {items?.length > 0 && !loader && !tableView ? (
             <CardWrapper>
               {items.map((item, index) => {
                 return (
                   <>
                     {filter.filterType === 1 ? (
-                      <ListItemMyRequisition
+                      <ListItem
                         item={item}
                         id={item.id}
                         key={index}
+                        isDetail={true}
                         onClick={() => openMyRequisitionDetail(item.id)}
                       />
                     ) : (
-                      <ListItemMyRequisition
+                      <ListItem
                         item={item}
                         id={item.id}
                         key={index}
+                        isDetail={false}
                         onClick={() => setDetailId(item.id)}
                       />
                     )}
@@ -121,12 +171,12 @@ const Requisition = () => {
               })}
             </CardWrapper>
           ) : (
-            <Skeleton avatar paragraph={{ rows: 4 }} />
+            !loader && !tableView && <NoDataFound />
           )}
         </ContBody>
-        {<DetailedView onClose={onClose} id={detailId} />}
+        {<DetailedView onClose={onClose} id={detailId} visible={visible} />}
 
-        <Drawer
+        {/* <Drawer
           title={
             <h1
               style={{
@@ -146,7 +196,7 @@ const Requisition = () => {
           className="detailedViewComposer drawerSecondary"
         >
           <Composer />
-        </Drawer>
+        </Drawer> */}
       </TabbableContainer>
     </>
   );

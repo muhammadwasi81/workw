@@ -34,10 +34,7 @@ function ListItem(props) {
   } = props.item;
   return (
     <SingleItem className="ComplainListItem">
-      <div
-        id={props.id}
-        onClick={props.onClick}
-      >
+      <div id={props.id} onClick={props.onClick}>
         <ItemHeader>
           <div className={"item-header"}>
             <div className="left">

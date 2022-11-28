@@ -27,10 +27,9 @@ function ComplainDetail(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { complainDictionary } = complainDictionaryList[userLanguage];
   const { user } = useSelector((state) => state.userSlice);
-  const {
-    complainDetail,
-    loadingData,
-  } = useSelector((state) => state.complainSlice);
+  const { complainDetail, loadingData } = useSelector(
+    (state) => state.complainSlice
+  );
 
   const dispatch = useDispatch();
   const [updatedStatus, setUpdatedStatus] = useState();
@@ -86,7 +85,7 @@ function ComplainDetail(props) {
         </div>
       </ItemHeader>
       <ItemContent className="flex description">
-        <div className="w-full">
+        <div className="description">
           <p>{complainDetail?.description}</p>
         </div>
       </ItemContent>

@@ -1,49 +1,49 @@
-import StatusTag from '../../../../sharedComponents/Tag/StatusTag';
-import { requisitionDictionaryList } from '../../localization/index';
+import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
+import { requisitionDictionaryList } from "../../localization/index";
 
 export const tableColumn = (userLanguage) => {
   const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
   return [
     {
       title: requisitionDictionary.name,
-      dataIndex: 'name',
-      ellipsis: true,
+      dataIndex: "name",
       sort: true,
+      width: 200,
     },
     {
       title: requisitionDictionary.PhoneNumber,
-      dataIndex: 'phoneNumber',
-      ellipsis: true,
+      dataIndex: "phoneNumber",
+      width: 200,
       sort: true,
     },
     {
       title: requisitionDictionary.Email,
-      dataIndex: 'email',
-      ellipsis: true,
+      dataIndex: "email",
       sort: true,
+      width: 200,
     },
     {
       title: requisitionDictionary.Offer,
-      dataIndex: 'offer',
-      ellipsis: true,
+      dataIndex: "offer",
       sort: true,
+      width: 200,
     },
     {
       title: requisitionDictionary.BusinessName,
-      dataIndex: 'businessName',
-      ellipsis: true,
+      dataIndex: "businessName",
       sort: true,
+      width: 200,
     },
     {
       title: requisitionDictionary.BusinessAddress,
-      dataIndex: 'businessAddress',
-      ellipsis: true,
+      dataIndex: "businessAddress",
       sort: true,
+      width: 200,
     },
     {
       title: requisitionDictionary.Status,
-      dataIndex: 'status',
-      ellipsis: true,
+      dataIndex: "status",
+      width: 100,
       render: (status) => <StatusTag status={status} />,
     },
   ];

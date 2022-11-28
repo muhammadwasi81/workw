@@ -19,6 +19,7 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import ListItemMyRequisition from "./ListItem";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from '../../../../utils/routes';
 
 const Requisition = () => {
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ const Requisition = () => {
                   className="ThemeBtn"
                   onClick={() => dispatch(handleOpenComposer(true))}
                 >
-                  <PlusOutlined />
+                  {/* <PlusOutlined /> */}
                   {requisitionDictionary.createRequisition}
                 </Button>
               ),

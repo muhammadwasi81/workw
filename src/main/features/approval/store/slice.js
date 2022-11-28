@@ -1,17 +1,26 @@
-import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { getAllApproval } from "./action";
 
 const initialState = {
-	approvals: [],
-	approvalDetail: {},
-	loading: false,
-	success: false,
-	error: false,
+  approvalList:[],
+  loader:false
 };
+
 const approvalSlice = createSlice({
-	name: "Approval",
-	initialState,
-	reducers: {},
-	extraReducers: builder => {},
+  name: "approval",
+  initialState,
+  reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getAllApproval.fulfilled, (state, {payload}) => {
+      state.loader = false;
+      state.approvalList = payload;
+    })
+  },
 });
 
+export const { handleOpenComposer } = approvalSlice.actions;
 export default approvalSlice.reducer;

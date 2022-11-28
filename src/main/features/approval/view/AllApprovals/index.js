@@ -20,23 +20,7 @@ export default function AllApprovals() {
 	return (
 		<TabbableContainer>
 			<Header
-				buttons={
-					[
-						// {
-						// 	buttonText: "Create Travel",
-						// 	// onClick: () => setVisible(true),
-						// 	render: (
-						// 		<SideDrawer
-						// 			title={"Hello"}
-						// 			buttonText={"Hello"}
-						// 			isAccessDrawer={false}
-						// 		>
-						// 			"Hello"
-						// 		</SideDrawer>
-						// 	),
-						// },
-					]
-				}
+				buttons={[]}
 				backButton={false}
 			/>
 			<TopBar

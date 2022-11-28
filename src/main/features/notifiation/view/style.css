@@ -80,3 +80,6 @@
 .notification_item{
     cursor: pointer;
 }
+.notification_item.unread{
+    background-color: aliceblue;
+}

@@ -47,6 +47,8 @@
 
 .card-list-item .rating {
   direction: ltr;
+  width: max-content;
+  display: inline-block;
 }
 
 .card-list-item {
@@ -129,9 +131,10 @@
 
 .card-item-header .right {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
-  gap: 20px;
+  display: inline-block;
+  /* gap: 20px; */
 }
 
 .card-item-header .right .labels {
@@ -173,6 +176,7 @@
 .labels .taskID {
   background: #dee5e8;
   color: #396f81;
+  width: fit-content;
 }
 
 .card-item-header .right .labels span {
@@ -216,6 +220,8 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  width: fit-content;
+
   min-width: 70px;
 }
 
@@ -555,7 +561,15 @@
 .myTask .ant-divider-horizontal.ant-divider-with-text {
   border-top-color: #ededed;
 }
-
+@media screen and (max-width: 1600px) {
+  .card-item-header .rating {
+    width: max-content;
+    /* margin-top: 25px; */
+    display: inline-block;
+    /* width: 100px;
+    height: 100px; */
+  }
+}
 @media screen and (max-width: 1200px) {
   .myTask .card-item-body {
     width: 100%;
@@ -575,6 +589,11 @@
     flex-direction: column;
     align-items: end;
     gap: 5px;
+    width: max-content;
+  }
+  .card-item-header .rating {
+    width: max-content;
+    margin-top: 25px;
   }
   .card-desc-1 {
     width: 160px;
@@ -610,6 +629,11 @@
   /* .card-desc-1 {
     width: 5px;
   } */
+  .card-item-header .rating {
+    width: fit-content;
+    margin-top: 30px;
+    display: inline-block;
+  }
   .taskItemContainer {
     flex-direction: column;
   }

@@ -1,5 +1,4 @@
 import { useEffect, useContext, useState } from "react";
-import { Button, Drawer } from "antd";
 import {
   ContBody,
   TabbableContainer,
@@ -24,7 +23,7 @@ import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
-import { ROUTES } from "../../../../utils/routes";
+// import { ROUTES } from "../../../../utils/routes";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
 const Requisition = () => {
@@ -32,9 +31,7 @@ const Requisition = () => {
   const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
-
   const [tableView, setTableView] = useState(false);
-  const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -59,7 +56,6 @@ const Requisition = () => {
   }, [filter]);
 
   const openMyRequisitionDetail = (id) => {
-    console.log(id, "my Career Id");
     dispatch(GetRequisitionById(id));
     navigate(`requisitionDetail/${id}`);
   };
@@ -87,7 +83,7 @@ const Requisition = () => {
     <>
       <TabbableContainer>
         <Header
-          items={title}
+          items={headerItem}
           buttons={[
             {
               buttonText: requisitionDictionary.createRequisition,

@@ -10,7 +10,7 @@ import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
 import { getRequestListItemsById } from '../store/action';
 import RemarksApproval from '../../../sharedComponents/AppComponents/Approvals/view';
 import { ApprovalsModule } from '../../../sharedComponents/AppComponents/Approvals/enums';
-import { Tag } from 'antd';
+import { Tag,Skeleton } from 'antd';
 import Avatar from '../../../sharedComponents/Avatar/avatar';
 import StatusTag from '../../../sharedComponents/Tag/StatusTag';
 
@@ -22,7 +22,10 @@ const RequestDetailCard = (props) => {
     if (props.id) dispatch(getRequestListItemsById(props.id));
   }, [props.id]);
 
-  if (!requestDetails) return <></>;
+  console.log("myLoadinDataaaa",requestDetails.loadingData);
+  console.log(requestDetails,"requestDetails");
+
+  // if (!requestDetails) return <></>;
   const creator = {
     businessId: 'cfe50d8d-7c47-4abb-9154-661daf129cec'
       ? 'cfe50d8d-7c47-4abb-9154-661daf129cec'
@@ -37,6 +40,7 @@ const RequestDetailCard = (props) => {
     userTypeId: 2,
     createDate: moment(),
   };
+  if (requestDetails.loadingData) return <Skeleton />;
 
   return (
     <SingleItem onClick={props.onClick}>

@@ -401,6 +401,7 @@ export const ROUTES = {
     FISCAL_YEAR: `fiscalYear`,
     DESIGNATION: `designation`,
     TAX_SLAB: `taxSlab`,
+    TAX_SLAB_GROUP:`taxSlabsGroup`,
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
     OFFICETIMING: `officetimings`,

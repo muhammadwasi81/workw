@@ -10,6 +10,7 @@ import {
   FormInputContainer,
   FormLabel,
 } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+
 export default function Form({
   data,
   onSubmit,
@@ -18,8 +19,7 @@ export default function Form({
   clearButton,
 }) {
   const [form, setForm] = useState(data);
-  console.log(data, 'adadada');
-  const handleClear = (e) => {
+  const handleClear = () => {
     setForm({
       ...form,
       name: '',
@@ -34,6 +34,7 @@ export default function Form({
   console.log('form', form);
 
   const handelChangeName = (e) => {
+    console.log(e.target.value, 'name');
     if (e.target.value.length > 0) {
       setClearButton(true);
     } else {
@@ -43,39 +44,43 @@ export default function Form({
   };
 
   const handelChangeMin = (e) => {
+    console.log(e, 'min');
     if (e.target.value.length > 0) {
       setClearButton(true);
     } else {
       setClearButton(false);
     }
-    setForm({ ...form, min: e.target.value });
+    setForm({ ...form, min: e });
   };
 
   const handelChangeMax = (e) => {
+    console.log(e, 'max');
     if (e.target.value.length > 0) {
       setClearButton(true);
     } else {
       setClearButton(false);
     }
-    setForm({ ...form, max: e.target.value });
+    setForm({ ...form, max: e });
   };
 
   const handelChangePercentage = (e) => {
+    console.log(e, 'per');
     if (e.target.value.length > 0) {
       setClearButton(true);
     } else {
       setClearButton(false);
     }
-    setForm({ ...form, percentage: e.target.value });
+    setForm({ ...form, percentage: e });
   };
 
   const handelChangePreviousCharge = (e) => {
+    console.log(e, 'prev');
     if (e.target.value.length > 0) {
       setClearButton(true);
     } else {
       setClearButton(false);
     }
-    setForm({ ...form, previousCharge: e.target.value });
+    setForm({ ...form, previousCharge: e });
   };
 
   useEffect(() => {
@@ -137,7 +142,6 @@ export default function Form({
             <FormButton
               type="primary"
               size="medium"
-              style={{}}
               className="formBtn"
               onClick={(e) => {
                 onSubmit(form);
@@ -151,7 +155,6 @@ export default function Form({
           <FormButton
             type="primary"
             size="medium"
-            style={{}}
             className="formBtn"
             onClick={(e) => {
               onSubmit(form);
@@ -166,7 +169,6 @@ export default function Form({
           <FormButton
             type="primary"
             size="medium"
-            style={{}}
             className="formBtn"
             onClick={handleClear}
           >

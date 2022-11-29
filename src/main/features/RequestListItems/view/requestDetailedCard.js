@@ -112,7 +112,6 @@ const RequestDetailCard = (props) => {
           </div>
         </div>
       </div>
-
       <RemarksApproval
         data={requestDetails.requestItemDetail.approvers}
         title="Approvals"

@@ -7,7 +7,7 @@ import notification from "../../../../../content/svg/menu/newNavBarIcon/new/ring
 import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/check_list.svg";
 import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/sticky_notes.svg";
 // import Notes from "../../../../features/notes/Notes";
-// import NewStickyNote from "../../../../features/notes/NewStickyNote";
+import NewStickyNote from "../../../../features/notes/NewStickyNote";
 import { toggleStickyNote } from "../../../../features/notes/newStickyNotes/store/stickySlice";
 import { setApprovalStatus, setNotificationStatus } from "../../../../../store/appReducer/responsiveSlice";
 import { useSelector, useDispatch } from "react-redux";

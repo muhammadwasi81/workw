@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Tab from "../../../../sharedComponents/Tab";
 import ApprovalItem from "../SideBarApproval/approvalItem";
 
@@ -65,11 +66,13 @@ const approvals = [
 ];
 
 export default function Listing({ handleApprovalDetail }) {
+const approvalList = useSelector(state => state.approvalSlice.approvalList);
+
 	return (
 		<>
 			<Tab panes={panes} />
 			<div className="overflow-scroll h-[85vh]">
-				{approvals.map(item => (
+				{approvalList.map(item => (
 					<ApprovalItem
 						item={item}
 						handleApprovalDetail={handleApprovalDetail}

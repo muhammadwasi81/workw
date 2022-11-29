@@ -6,6 +6,7 @@ import '../style.css'
 import { useDispatch } from "react-redux";
 import { getAllApproval } from "../../store/action";
 import { useSelector } from "react-redux";
+import { setApprovalStatus } from "../../../../../store/appReducer/responsiveSlice";
 
 const defaultFilter = {
     pageNo: 1,
@@ -27,14 +28,18 @@ export default function Approvals() {
                 <div className="approval_header_child1">Approvals</div>
                 <div className="approval_header_child2" >
                     <div>Refresh</div>
-                    <NavLink to={ROUTES.APPROVALS.DEFAULT} > <div>See All</div> </NavLink>
+                    <NavLink to={ROUTES.APPROVALS.DEFAULT} >
+                        <div onClick={() => dispatch(setApprovalStatus(false))} >
+                            See All
+                        </div>
+                    </NavLink>
                 </div>
             </div>
 
             <div className="approval_list" >
                 {
                     approvalList.map((item) =>
-                        <ApprovalItem item={item}/>
+                        <ApprovalItem item={item} />
                     )
                 }
             </div>

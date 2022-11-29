@@ -42,6 +42,7 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 				playSound: true,
 				avatarName: data.fromUser.name,
 				avatarImage: data.fromUser.image,
+				style:{backgroundColor:"#64c4b2"}
 			})
 		);
 	});
@@ -59,3 +60,5 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 	// 	}));
 	// });
 };
+
+

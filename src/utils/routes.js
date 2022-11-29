@@ -18,7 +18,7 @@ export const ROUTES = {
   },
   CUSTOM_APPROVALS: {
     DEFAULT: `${DOMAIN_PREFIX}/customApprovals/*`,
-    ROOT: `${DOMAIN_PREFIX}/customApprovals/`,
+    ROOT: `${DOMAIN_PREFIX}/customApprovals`,
     DETAIL: `/detail`,
   },
   APPROVALS: {

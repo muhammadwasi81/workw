@@ -85,22 +85,35 @@ export const feedSlice = createSlice({
 			feed.isPinnedPost = !feed.isPinnedPost;
 		},
 		addFeedReaction(state, { payload }) {
-			const { reactionMode, referenceId, myReaction } = payload;
-			const feed = state.allFeed.posts.find(
-				feed => feed.id === referenceId
-			);
-			if (reactionMode && reactionMode === "click") {
-				// feed.myReaction===myReaction
-				if (feed.myReaction === myReaction) {
-					feed.myReaction = 0;
-					feed.reactionCount = feed.reactionCount - 1;
-					return;
+			const { reactionMode, referenceId, myReaction, isDetail } = payload;
+			if (!isDetail) {
+				const feed = state.allFeed.posts.find(
+					feed => feed.id === referenceId
+				);
+				if (reactionMode && reactionMode === "click") {
+					// feed.myReaction===myReaction
+					if (feed.myReaction === myReaction) {
+						feed.myReaction = 0;
+						feed.reactionCount = feed.reactionCount - 1;
+						return;
+					}
 				}
+				if (feed.reactionCount === 0) {
+					feed.reactionCount = 1;
+				}
+				feed.myReaction = myReaction;
+				return;
 			}
-			if (feed.reactionCount === 0) {
-				feed.reactionCount = 1;
+			if (state.singlePost.myReaction === myReaction) {
+				state.singlePost.myReaction = 0;
+				state.singlePost.myReaction = state.singlePost.myReaction - 1;
+				return;
 			}
-			feed.myReaction = myReaction;
+			if (state.singlePost.reactionCount === 0) {
+				state.singlePost.reactionCount = 1;
+			}
+			state.singlePost.myReaction = myReaction;
+			return;
 		},
 		postPoll(state, { payload }) {
 			const { id, postId } = payload;

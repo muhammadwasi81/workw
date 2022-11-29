@@ -36,6 +36,7 @@ const PostFooter = ({
 	reactionModule,
 	myReaction,
 	isDetailViewOpen = true,
+	isDetail = false,
 }) => {
 	const dispatch = useDispatch();
 	let navigate = useNavigate();
@@ -58,6 +59,7 @@ const PostFooter = ({
 					referenceId: id,
 					reactionMode: "click",
 					myReaction: 1,
+					isDetail,
 				})
 			);
 			dispatch(
@@ -74,6 +76,7 @@ const PostFooter = ({
 				referenceId: id,
 				reactionMode: "click",
 				myReaction,
+				isDetail,
 			})
 		);
 		dispatch(
@@ -125,6 +128,7 @@ const PostFooter = ({
 									referenceId: id,
 									reactionModule,
 									myReaction: e,
+									isDetail,
 								})
 							);
 							dispatch(

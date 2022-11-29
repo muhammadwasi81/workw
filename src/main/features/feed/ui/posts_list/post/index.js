@@ -50,6 +50,7 @@ const Post = ({
 				id={id}
 			/>
 			<PostFooter
+				isDetail={isDetail}
 				id={id}
 				comments={comments}
 				reactionCount={reactionCount}

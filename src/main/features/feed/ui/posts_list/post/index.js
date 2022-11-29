@@ -10,6 +10,7 @@ const Post = ({
 	reactionModule,
 	referenceType,
 	referenceId,
+	isDetail = false,
 }) => {
 	const [modelState, setmodelState] = useState(false);
 	const openModel = value => {

@@ -59,7 +59,6 @@ export const feedSlice = createSlice({
 		loading: false,
 		allFeed: { ...allFeedInitialState },
 		singlePost: {},
-
 		tagsOptions: [],
 		mentionsOptions: [],
 		postCompose: { ...composeInitialState },

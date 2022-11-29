@@ -14,21 +14,23 @@ import Nodata from "../../../../../../content/NewContent/eLearning/no_data.svg";
 
 // *******import redux*******
 import { useSelector, useDispatch } from "react-redux";
-import { closeSticky, showStickyNote } from "../../store/stickySlice";
+import {
+  closeSticky,
+  showStickyNote,
+  handleOpenSticky,
+} from "../../store/stickySlice";
 // import sticky note actions
 import {
   addSticky,
   getAllStickyNotesAction,
   searchTitleDescAction,
 } from "../../store/actions";
-import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
-import useWindowDimensions from "./useWindowDimensions";
 
 const StickyContainer = () => {
   // *********state for sticky notes*******
   const [minimize, setMinimize] = useState(true);
   const [search, setSearch] = useState(null);
-  const searchDebounce = useDebounce(search, 500);
+  //const searchDebounce = useDebounce(search, 500);
 
   const dispatch = useDispatch();
 
@@ -58,14 +60,12 @@ const StickyContainer = () => {
 
   //*****add sticky notes in sticky container*****
   const addStickyHandler = () => {
-    console.log("Calling");
     dispatch(addSticky({}));
   };
 
   // ********minimize handler for sticky container********
   const minimizeHandler = () => {
     setMinimize(!minimize);
-    // console.log(minimize);
   };
 
   // *****close Sticky handler*****
@@ -82,9 +82,13 @@ const StickyContainer = () => {
   // const { height, width } = useWindowDimensions();
   // console.log(width, height, "widthhh");
 
+  // const axis = {
+  //   x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+  //   y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+  // };
   const axis = {
-    x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
-    y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+    x_axis: Math.floor(Math.random() * 40) + 111,
+    y_axis: Math.floor(Math.random() * 40) + 199,
   };
   // const axis = {
   //   x_axis: width * 50,
@@ -92,7 +96,10 @@ const StickyContainer = () => {
   // };
   return (
     <>
-      <Draggable defaultPosition={{ x: 11, y: 456 }} handle=".handle">
+      <Draggable
+        defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
+        handle=".handle"
+      >
         <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>
           <div className="sticky-header handle">
             <div className="left_Icon">
@@ -101,7 +108,10 @@ const StickyContainer = () => {
 
             <p className="heading">Sticky Notes</p>
             <div className="right_Icons">
-              <MinusOutlined onClick={minimizeHandler} />
+              <MinusOutlined
+                onClick={minimizeHandler}
+                className="minimize-Icon"
+              />
               <CloseOutlined onClick={closeHandler} className="close_Icon" />
             </div>
           </div>

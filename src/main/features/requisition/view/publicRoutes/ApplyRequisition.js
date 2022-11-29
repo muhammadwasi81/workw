@@ -1,20 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Divider, Tag, Avatar } from "antd";
+import { Drawer } from "antd";
 import "antd/dist/antd.css";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-import {
-  ItemContent,
-  ItemHeader,
-  SingleItem,
-} from "../../../../sharedComponents/Card/CardStyle";
-import { LinkOutlined } from "@ant-design/icons";
-// import "./style.css";
-import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-// import ApplyComposer from "../Composers/applyComposer";
 import { GetRequisitionById } from "../../store/actions";
+import BusinessLogo from "../../../../../content/systemLogo.png";
+import miletapLogo from "../../../../../content/miletapLogo.png";
+import { handleOpenOfferComposer } from "../../store/slice";
+import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
+import CreateOffer from "../myRequisitionDetail/createOffer";
 
 const RequisitionDetails = (props) => {
   // const { userLanguage } = useContext(LanguageChangeContext);
@@ -28,10 +23,9 @@ const RequisitionDetails = (props) => {
     dispatch(GetRequisitionById(id));
   }, []);
 
-  console.log(id, "id");
-  const Detail = useSelector((state) => {
-    return state.requisitionSlice.Detail;
-  });
+  const { drawerOpenOffer, Detail } = useSelector(
+    (state) => state.requisitionSlice
+  );
 
   const {
     offer,
@@ -46,92 +40,83 @@ const RequisitionDetails = (props) => {
     deadline,
   } = Detail;
 
-  console.log(Detail, "Requisition detail in apply Requisition");
-
-  const handleDrawerClose = () => {
-    setVisible(false);
+  const handleOpenhandler = () => {
+    dispatch(handleOpenOfferComposer(true));
   };
-
-  const handleDrawerOpen = () => {
-    setVisible(true);
-  };
-
-  //   let notesTime = !moment(new Date()).fromNow(createDate)
-  //     ? moment(createDate).format("LT")
-  //     : moment(createDate).format("MMM Do YYYY");
   return (
     <>
-      {/* <ApplyComposer visible={visible} onClose={handleDrawerClose} id={id} /> */}
-      <div className="item careersQuickDetail">
-        <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
-          <div>
-            <Avatar size={45} src={creator?.image} />
-          </div>
-          <div className="flex-1">
-            <div className="text-[16px] font-bold text-sky-900">
-              {name ? name : "-"}
-            </div>
-
-            <div className="text-xs">{creator?.email}</div>
-            <div className="text-xs">
-              {/* {creator.email ? creator.email : "" } */}
-            </div>
-          </div>
-          <div className="linkDiv">
-            <Tag className="LinkTag ThemeBtn" onClick={handleDrawerOpen}>
-              {"Apply Now"}
-            </Tag>
-            {/* <Tag className="LinkTag ThemeBtn">
-              <LinkOutlined /> {"Copy Link"}
-            </Tag> */}
+      <div className="job-let-view">
+        <div className="job-let-view-header">
+          <div className="platform-logo">
+            <img src={BusinessLogo} />
           </div>
         </div>
-
-        <div className="mt-5">
-          <div className="font-bold"> Description</div>
-          <div>{description}</div>
-        </div>
-
-        {/* <div className="mt-5">
-          <div className="font-bold">Skills Required</div>
-          <div>
-            {skills
-              ? skillsArray?.map((item, index) => {
-                return <Tag className="LinkTag">{item}</Tag>;
-              })
-              : null}
-          </div>
-        </div> */}
-
-        <div className="cardSections mt-10">
-          <div className="cardSectionItem">
-            <div className="cardSection__title">Budget</div>
-            <div className="cardSection__body">
-              {budget ? budget : "" }
+        <div className="job-let-card">
+          <div className="job-let-header">
+            <div className="job-let-company">
+              <div className="company-logo">
+                <img src={miletapLogo} />
+              </div>
+              <div className="company-name">{businessName}</div>
+            </div>
+            <div className="job-let-det">
+              <div className="job-let-det-top">
+                <div className="job-let-title">{name}</div>
+                <div
+                  className="job-let-apply-btn ThemeBtn"
+                  onClick={handleOpenhandler}
+                >
+                  Apply
+                </div>
+              </div>
+              <div className="job-let-location">{creator?.email}</div>
+              <div className="job-basics">
+                <div className="job-date flex">
+                  <div className="deadline flex-col">
+                    <div className="job-basics-label font-bold">Deadline</div>
+                    <div className="job-basics-value">
+                      {deadline ? moment(deadline).format("Do MMM YY") : "-"}
+                    </div>
+                  </div>
+                  <div className="budget flex-col ml-10">
+                    <div className="job-basics-budget font-bold">Budget</div>
+                    <div className="job-basics-value">
+                      {budget ? budget : ""}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">Business Name</div>
-            <div className="cardSection__body">
-              {businessName ? businessName : ""}
-            </div>
-          </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">Create Date</div>
-            <div className="cardSection__body">
-              {" "}
-              {createDate ? moment(createDate).format("Do MMM YY") : "-"}
-            </div>
-          </div>
-          <div className="cardSectionItem">
-            <div className="cardSection__title">Deadline</div>
-            <div className="cardSection__body">
-              {" "}
-              {deadline ? moment(deadline).format("Do MMM YY") : "-"}
+          <div className="job-let-section">
+            <div className="job-let-desc">
+              <h2>Description</h2>
+              {description}
             </div>
           </div>
         </div>
       </div>
+      <Drawer
+        title={
+          <h1
+            style={{
+              fontSize: "20px",
+              margin: 0,
+            }}
+          >
+            {"Create Offer"}
+          </h1>
+        }
+        width="768"
+        onClose={() => {
+          dispatch(handleOpenOfferComposer(false));
+        }}
+        visible={drawerOpenOffer}
+        destroyOnClose={true}
+        className="detailedViewComposer drawerSecondary"
+      >
+        <CreateOffer />
+      </Drawer>
     </>
   );
 };

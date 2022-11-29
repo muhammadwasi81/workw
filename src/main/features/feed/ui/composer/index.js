@@ -13,7 +13,7 @@ import ComposerForm from "./views/ComposerForm";
 import store from "../../../../../store/store";
 import { feedSlice } from "../../store/slice";
 import { useSelector } from "react-redux";
-import { Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { FeedDictionary } from "../../localization";
 
@@ -63,36 +63,51 @@ function PostComposer({ referenceType, referenceId }) {
 						style={{ display: "flex" }}
 						onClick={() => toggleComposer(true)}
 					>
-						<img
-							src={photo}
-							alt="photo"
-							className="hover:shadow-md hover:scale-125 transition-all"
-							onClick={() => {
-								setTimeout(() => {
-									imageVideoRef.current.click();
-								}, 100);
-							}}
-						/>
-						<img
-							src={doc}
-							alt="doc"
-							className="hover:shadow-md hover:scale-125 transition-all"
-							onClick={() => {
-								setTimeout(() => {
-									docsRef.current.click();
-								}, 100);
-							}}
-						/>
-						<img
-							src={poll}
-							alt="poll"
-							className="hover:shadow-md hover:scale-125 transition-all"
-							onClick={() => {
-								setTimeout(() => {
-									pollRef.current.click();
-								}, 100);
-							}}
-						/>
+						<Tooltip
+							title="Add Image/Video"
+							color="var(--currentThemeColor)"
+						>
+							<img
+								src={photo}
+								alt="photo"
+								className="hover:shadow-md hover:scale-125 transition-all"
+								onClick={() => {
+									setTimeout(() => {
+										imageVideoRef.current.click();
+									}, 100);
+								}}
+							/>
+						</Tooltip>
+						<Tooltip
+							title="Add Documents"
+							color="var(--currentThemeColor)"
+						>
+							<img
+								src={doc}
+								alt="doc"
+								className="hover:shadow-md hover:scale-125 transition-all"
+								onClick={() => {
+									setTimeout(() => {
+										docsRef.current.click();
+									}, 100);
+								}}
+							/>
+						</Tooltip>
+						<Tooltip
+							title="Add Polls"
+							color="var(--currentThemeColor)"
+						>
+							<img
+								src={poll}
+								alt="poll"
+								className="hover:shadow-md hover:scale-125 transition-all"
+								onClick={() => {
+									setTimeout(() => {
+										pollRef.current.click();
+									}, 100);
+								}}
+							/>
+						</Tooltip>
 					</div>
 				</div>
 				<span className="area-block" />

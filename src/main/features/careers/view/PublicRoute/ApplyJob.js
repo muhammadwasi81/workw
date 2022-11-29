@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Tag, Avatar } from "antd";
+import { Tag } from "antd";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import moment from "moment";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
@@ -8,6 +9,8 @@ import { getCareerByIdAction } from "../../store/action";
 import { useParams } from "react-router-dom";
 import ApplyComposer from "../Composers/applyComposer";
 import { handleOpenApplyComposer } from "../../store/slice";
+import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
+import { ApprovalDictionary } from "../../../../sharedComponents/AppComponents/Approvals/localization";
 
 const ApplyJob = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -91,17 +94,16 @@ const ApplyJob = (props) => {
           <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">
             <div>
               <Avatar
-                size={45}
-                src={
-                  creator?.image
-                    ? creator.image
-                    : "https://joeschmoe.io/api/v1/random"
-                }
+                name={creator?.name}
+                src={creator?.image}
+                round={true}
+                width={50}
+                height={50}
               />
             </div>
             <div className="flex-1">
               <div className="text-[16px] font-bold text-sky-900">
-                {designation ? designation : "-"}
+                {designation ? designation : "No Designation"}
               </div>
 
               <div className="font-bold">{department}</div>

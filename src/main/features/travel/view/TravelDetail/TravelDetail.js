@@ -20,7 +20,7 @@ function TravelDetail(props) {
 	const { travelId } = props;
 	const [status, setStatus] = useState();
 	const [travelStatus, setTravelStatus] = useState({});
-	const { travelDetail, success, loader,loadingData } = useSelector(
+	const { travelDetail, success, loader, loadingData } = useSelector(
 		state => state.travelSlice
 	);
 	const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function TravelDetail(props) {
 		return () => {
 			dispatch(resetTravelDetail());
 		};
-	}, []);
+	}, [travelId]);
 
 	useEffect(() => {
 		if (Object.keys(travelStatus).length !== 0) {
@@ -59,8 +59,8 @@ function TravelDetail(props) {
 		},
 	];
 
-	if(loadingData) return <Skeleton />;
-	
+	if (loadingData) return <Skeleton />;
+
 	return (
 		<div className="p-4 bg-white rounded" direction={Direction}>
 			<div className="flex flex-col gap-4">

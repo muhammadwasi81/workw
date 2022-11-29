@@ -6,13 +6,10 @@ import {
   ItemHeader,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
-
-import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
-import { Avatar, Tooltip } from "antd";
+import AvatarOld from "../../../../sharedComponents/Avatar/avatarOLD";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
-import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
 function ListItem({ item, onClick, onClickMyCareer }) {
@@ -44,19 +41,14 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     <>
       <SingleItem onClick={onClick} className="cursor-pointer">
         <CardProfileTopView
-          // profileImgSrc={
-          //   item.creator && item.creator.image.length > 0
-          //     ? item.creator.image
-          //     : "https://joeschmoe.io/api/v1/random"
-          // }
           profileImgSrc={
-            <AvatarCustom
+            <AvatarOld
               width={40}
               height={40}
               src={item.creator?.image}
               name={item.creator.name}
               round
-            ></AvatarCustom>
+            ></AvatarOld>
           }
           createDate={item.createDate}
           isPublic={true}
@@ -98,47 +90,31 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           <div className="cardSectionItem">
             <div className="cardSection__title">Approvers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
-                {approvers &&
-                  approvers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.approver?.name} placement="top">
-                          <AvatarCustom
-                            width={30}
-                            height={30}
-                            src={el.approver?.image}
-                            name={el.approver?.name}
-                            round
-                          ></AvatarCustom>
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {approvers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={approvers ? approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">Interviewers</div>
             <div className="cardSection__body">
-              <Avatar.Group maxCount={2}>
-                {interviewers &&
-                  interviewers.map((el, i) => {
-                    return (
-                      <>
-                        <Tooltip title={el.user?.name} placement="top">
-                          <AvatarCustom
-                            width={30}
-                            height={30}
-                            src={el.user?.image}
-                            name={el.user?.name}
-                            round
-                          ></AvatarCustom>
-                        </Tooltip>
-                      </>
-                    );
-                  })}
-              </Avatar.Group>
+              {interviewers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"users"}
+                  membersData={interviewers ? interviewers : []}
+                  text={"Users"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
             </div>
           </div>
         </div>

@@ -1,54 +1,54 @@
-import { useContext } from 'react';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import { dictionaryList } from '../../../utils/localization/languages';
-import { ROUTES } from '../../../utils/routes';
-import newsIcon from '../../../content/svg/menu/newNavBarIcon/News Feed.svg';
-import mailsIcon from '../../../content/svg/menu/newNavBarIcon/Mail Box.svg';
-import messengerIcon from '../../../content/svg/menu/newNavBarIcon/Messenger.svg';
-import groupsIcon from '../../../content/svg/menu/newNavBarIcon/Groups.svg';
-import projectsIcon from '../../../content/svg/menu/newNavBarIcon/Projects.svg';
-import taskIcon from '../../../content/svg/menu/newNavBarIcon/Tasks.svg';
-import todoBoard from '../../../content/svg/menu/newNavBarIcon/Work Board.svg';
-import contactManagerIcon from '../../../content/svg/menu/newNavBarIcon/Lead Manager.svg';
-import schedulesIcon from '../../../content/svg/menu/newNavBarIcon/Schedules.svg';
-import expensesIcon from '../../../content/svg/menu/newNavBarIcon/Expenses.svg';
-import travelIcon from '../../../content/svg/menu/newNavBarIcon/Travel.svg';
-import documentsIcon from '../../../content/svg/menu/newNavBarIcon/Docs-Archives.svg';
-import eLearningIcon from '../../../content/svg/menu/newNavBarIcon/E Learning.svg';
-import inventory from '../../../content/svg/menu/newNavBarIcon/Inventory.svg';
-import customApprovalIcon from '../../../content/svg/menu/newNavBarIcon/Custom Approval.svg';
-import promotionIcon from '../../../content/svg/menu/newNavBarIcon/promotionIcon.svg';
-import teamIcon from '../../../content/svg/menu/newNavBarIcon/My Team.svg';
-import orgChartIcon from '../../../content/svg/menu/newNavBarIcon/Org Chart.svg';
-import payrollIcon from '../../../content/svg/menu/newNavBarIcon/PayrolIcon.svg';
-import employeeIcon from '../../../content/svg/menu/newNavBarIcon/Employees.svg';
-import administrator from '../../../content/svg/menu/newNavBarIcon/Administration.svg';
-import appraisalsIcon from '../../../content/svg/menu/newNavBarIcon/Appraisals.svg';
-import leavesIcon from '../../../content/svg/menu/newNavBarIcon/Leaves.svg';
-import companyIcon from '../../../content/svg/menu/newNavBarIcon/companies.svg';
-import loanIcon from '../../../content/svg/menu/newNavBarIcon/Loan.svg';
-import holiday_event from '../../../content/svg/menu/newNavBarIcon/Holidays.svg';
-import career from '../../../content/svg/menu/newNavBarIcon/Career.svg';
-import resignation from '../../../content/svg/menu/newNavBarIcon/resignation.svg';
-import rewardIcon from '../../../content/svg/menu/rewardIcon.svg';
-import complainIcon from '../../../content/svg/menu/newNavBarIcon/complainIcon.svg';
-import departmentIcon from '../../../content/NewContent/department/departmentIcon.svg';
-import bonusIcon from '../../../content/NewContent/bonus/bonus.svg';
-import coaIcon from '../../../content/NewContent/chartOfAccount/coa.svg';
-import reportIcon from '../../../content/NewContent/report/report.svg';
-import documentIcon from '../../../content/NewContent/Documents/file/folder.svg';
-import voucherIcon from '../../../content/NewContent/voucher/voucher.svg';
-import requisitionIcon from '../../../content/svg/menu/newNavBarIcon/Employees.svg';
-import assetsIcon from '../../../content/svg/menu/newNavBarIcon/assetsIC.svg';
-import businessPolicy from '../../../content/svg/menu/newNavBarIcon/businessPolicy.svg';
-import salaryIcon from '../../../content/svg/menu/newNavBarIcon/salary.svg';
-import assetsAllocationIcon from '../../../content/svg/menu/newNavBarIcon/assetAllocation.svg';
-import createAssetsIcon from '../../../content/svg/menu/newNavBarIcon/createassets.svg';
-import requestListIcon from '../../../content/svg/menu/newNavBarIcon/requestItems.svg';
-import quotationIcon from '../../../content/svg/menu/newNavBarIcon/quotationsIcon.svg';
-import chartAccountIcon from '../../../content/svg/menu/newNavBarIcon/chartAccountsIcon.svg';
+import { useContext } from "react";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../utils/localization/languages";
+import { ROUTES } from "../../../utils/routes";
+import newsIcon from "../../../content/svg/menu/newNavBarIcon/News Feed.svg";
+import mailsIcon from "../../../content/svg/menu/newNavBarIcon/Mail Box.svg";
+import messengerIcon from "../../../content/svg/menu/newNavBarIcon/Messenger.svg";
+import groupsIcon from "../../../content/svg/menu/newNavBarIcon/Groups.svg";
+import projectsIcon from "../../../content/svg/menu/newNavBarIcon/Projects.svg";
+import taskIcon from "../../../content/svg/menu/newNavBarIcon/Tasks.svg";
+import todoBoard from "../../../content/svg/menu/newNavBarIcon/Work Board.svg";
+import contactManagerIcon from "../../../content/svg/menu/newNavBarIcon/Lead Manager.svg";
+import schedulesIcon from "../../../content/svg/menu/newNavBarIcon/Schedules.svg";
+import expensesIcon from "../../../content/svg/menu/newNavBarIcon/Expenses.svg";
+import travelIcon from "../../../content/svg/menu/newNavBarIcon/Travel.svg";
+import documentsIcon from "../../../content/svg/menu/newNavBarIcon/Docs-Archives.svg";
+import eLearningIcon from "../../../content/svg/menu/newNavBarIcon/E Learning.svg";
+import inventory from "../../../content/svg/menu/newNavBarIcon/Inventory.svg";
+import customApprovalIcon from "../../../content/svg/menu/newNavBarIcon/Custom Approval.svg";
+import promotionIcon from "../../../content/svg/menu/newNavBarIcon/promotionIcon.svg";
+import teamIcon from "../../../content/svg/menu/newNavBarIcon/My Team.svg";
+import orgChartIcon from "../../../content/svg/menu/newNavBarIcon/Org Chart.svg";
+import payrollIcon from "../../../content/svg/menu/newNavBarIcon/PayrolIcon.svg";
+import employeeIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg";
+import administrator from "../../../content/svg/menu/newNavBarIcon/Administration.svg";
+import appraisalsIcon from "../../../content/svg/menu/newNavBarIcon/Appraisals.svg";
+import leavesIcon from "../../../content/svg/menu/newNavBarIcon/Leaves.svg";
+import companyIcon from "../../../content/svg/menu/newNavBarIcon/companies.svg";
+import loanIcon from "../../../content/svg/menu/newNavBarIcon/Loan.svg";
+import holiday_event from "../../../content/svg/menu/newNavBarIcon/Holidays.svg";
+import career from "../../../content/svg/menu/newNavBarIcon/Career.svg";
+import resignation from "../../../content/svg/menu/newNavBarIcon/resignation.svg";
+import rewardIcon from "../../../content/svg/menu/rewardIcon.svg";
+import complainIcon from "../../../content/svg/menu/newNavBarIcon/complainIcon.svg";
+import departmentIcon from "../../../content/NewContent/department/departmentIcon.svg";
+import bonusIcon from "../../../content/NewContent/bonus/bonus.svg";
+import coaIcon from "../../../content/NewContent/chartOfAccount/coa.svg";
+import reportIcon from "../../../content/NewContent/report/report.svg";
+import documentIcon from "../../../content/NewContent/Documents/file/folder.svg";
+import voucherIcon from "../../../content/NewContent/voucher/voucher.svg";
+import requisitionIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg";
+import assetsIcon from "../../../content/svg/menu/newNavBarIcon/assetsIC.svg";
+import businessPolicy from "../../../content/svg/menu/newNavBarIcon/businessPolicy.svg";
+import salaryIcon from "../../../content/svg/menu/newNavBarIcon/salary.svg";
+import assetsAllocationIcon from "../../../content/svg/menu/newNavBarIcon/assetAllocation.svg";
+import createAssetsIcon from "../../../content/svg/menu/newNavBarIcon/createassets.svg";
+import requestListIcon from "../../../content/svg/menu/newNavBarIcon/requestItems.svg";
+import quotationIcon from "../../../content/svg/menu/newNavBarIcon/quotationsIcon.svg";
+import chartAccountIcon from "../../../content/svg/menu/newNavBarIcon/chartAccountsIcon.svg";
 
-import { DOMAIN_PREFIX } from '../../../utils/routes';
+import { DOMAIN_PREFIX } from "../../../utils/routes";
 const NavMenuList = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
@@ -98,7 +98,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.Schedules,
       counter: 0,
-      to: ROUTES.SCHEDULES.LINK + '?f=cal',
+      to: ROUTES.SCHEDULES.LINK + "?f=cal",
       icon: schedulesIcon,
       isActive: true,
       key: label.navMenuLabel.menu,
@@ -130,7 +130,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.customApprovals,
       counter: 0,
-      to: ROUTES.CUSTOM_APPROVALS.DEFAULT,
+      to: ROUTES.CUSTOM_APPROVALS.ROOT,
       icon: customApprovalIcon,
       isActive: 4,
       key: label.navMenuLabel.menu,
@@ -152,7 +152,7 @@ const NavMenuList = () => {
       key: label.navMenuLabel.menu,
     },
     {
-      name: 'L & D',
+      name: "L & D",
       counter: 0,
       icon: eLearningIcon,
       to: ROUTES.ELearning.LINK,
@@ -252,7 +252,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.complains,
       counter: 0,
       icon: complainIcon,
-      to: ROUTES.COMPLAINS.COMPLAIN,
+      to: ROUTES.COMPLAINS.ROOT,
       isActive: true,
       key: label.navMenuLabel.hr,
     },
@@ -266,7 +266,7 @@ const NavMenuList = () => {
     },
     // *****BY SANJNA****
     {
-      name: 'My Team',
+      name: "My Team",
       counter: 0,
       icon: teamIcon,
       to: ROUTES.TEAMS.TEAM,
@@ -290,7 +290,7 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     {
-      name: 'Job Board',
+      name: "Job Board",
       counter: 0,
       icon: voucherIcon,
       to: ROUTES.JOBS.ROOT,

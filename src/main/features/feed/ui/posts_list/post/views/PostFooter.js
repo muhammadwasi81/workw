@@ -222,6 +222,7 @@ const PostFooter = ({
 				showComments={showComments}
 				isDetailViewOpen={isDetailViewOpen}
 				reactionModule={reactionModule}
+				setShowComments={setShowComments}
 			/>
 			{commentCount > 3 && showComments && (
 				<p

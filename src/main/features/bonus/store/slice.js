@@ -65,6 +65,8 @@ const bonusSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllBonus]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[GetBonusById]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllBonus]), (state) => {

@@ -18,7 +18,7 @@ export const ROUTES = {
   },
   CUSTOM_APPROVALS: {
     DEFAULT: `${DOMAIN_PREFIX}/customApprovals/*`,
-    ROOT: `${DOMAIN_PREFIX}/customApprovals/`,
+    ROOT: `${DOMAIN_PREFIX}/customApprovals`,
     DETAIL: `/detail`,
   },
   APPROVALS: {
@@ -401,6 +401,7 @@ export const ROUTES = {
     FISCAL_YEAR: `fiscalYear`,
     DESIGNATION: `designation`,
     TAX_SLAB: `taxSlab`,
+    TAX_SLAB_GROUP:`taxSlabsGroup`,
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
     OFFICETIMING: `officetimings`,

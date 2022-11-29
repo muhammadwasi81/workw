@@ -14,7 +14,11 @@ import Nodata from "../../../../../../content/NewContent/eLearning/no_data.svg";
 
 // *******import redux*******
 import { useSelector, useDispatch } from "react-redux";
-import { closeSticky, showStickyNote } from "../../store/stickySlice";
+import {
+  closeSticky,
+  showStickyNote,
+  handleOpenSticky,
+} from "../../store/stickySlice";
 // import sticky note actions
 import {
   addSticky,
@@ -28,10 +32,6 @@ const StickyContainer = () => {
   const [search, setSearch] = useState(null);
   //const searchDebounce = useDebounce(search, 500);
 
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
   const dispatch = useDispatch();
 
   // ****get redux data for sticky notes*****
@@ -60,7 +60,6 @@ const StickyContainer = () => {
 
   //*****add sticky notes in sticky container*****
   const addStickyHandler = () => {
-    console.log("Calling");
     dispatch(addSticky({}));
   };
 
@@ -109,7 +108,10 @@ const StickyContainer = () => {
 
             <p className="heading">Sticky Notes</p>
             <div className="right_Icons">
-              <MinusOutlined onClick={minimizeHandler} />
+              <MinusOutlined
+                onClick={minimizeHandler}
+                className="minimize-Icon"
+              />
               <CloseOutlined onClick={closeHandler} className="close_Icon" />
             </div>
           </div>

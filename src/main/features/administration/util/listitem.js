@@ -72,6 +72,13 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.TAX_SLAB,
   },
   {
+    IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,
+    displayName: 'Tax_Slabs_Group',
+    classObj: 'button',
+    to: ROUTES.ADMINISTRATOR.TAX_SLAB_GROUP,
+  },
+
+  {
     IconName: (
       <AiOutlinePartition size={20} color={'var(--currentThemeColor)'} />
     ),

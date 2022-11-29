@@ -9,7 +9,7 @@ const initialState = {
   customApprovals: [],
   loadingData: false,
   loader: true,
-  customApprovalDetail: null,
+  customApprovalDetail: {},
   drawerOpen: false,
 };
 
@@ -30,8 +30,6 @@ const customApprovalSlice = createSlice({
     builder.addCase(GetCustomApprovalById.fulfilled, (state, action) => {
       state.customApprovalDetail = action.payload.data;
       state.loadingData = false;
-      
-
     });
     builder.addCase(addCustomApproval.fulfilled, (state, { payload }) => {
       console.log(payload, "payload");
@@ -41,9 +39,12 @@ const customApprovalSlice = createSlice({
     });
 
     builder
-      .addMatcher(isPending(...[getAllCustomApprovals, addCustomApproval]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[getAllCustomApprovals, addCustomApproval]),
+        (state) => {
+          state.loader = true;
+        }
+      )
       .addMatcher(isPending(...[GetCustomApprovalById]), (state) => {
         state.loadingData = true;
       })

@@ -21,15 +21,17 @@ import {
   getAllStickyNotesAction,
   searchTitleDescAction,
 } from "../../store/actions";
-import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
-import useWindowDimensions from "./useWindowDimensions";
 
 const StickyContainer = () => {
   // *********state for sticky notes*******
   const [minimize, setMinimize] = useState(true);
   const [search, setSearch] = useState(null);
-  const searchDebounce = useDebounce(search, 500);
+  //const searchDebounce = useDebounce(search, 500);
 
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
   const dispatch = useDispatch();
 
   // ****get redux data for sticky notes*****
@@ -65,7 +67,6 @@ const StickyContainer = () => {
   // ********minimize handler for sticky container********
   const minimizeHandler = () => {
     setMinimize(!minimize);
-    // console.log(minimize);
   };
 
   // *****close Sticky handler*****
@@ -82,9 +83,13 @@ const StickyContainer = () => {
   // const { height, width } = useWindowDimensions();
   // console.log(width, height, "widthhh");
 
+  // const axis = {
+  //   x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+  //   y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+  // };
   const axis = {
-    x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
-    y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
+    x_axis: Math.floor(Math.random() * 40) + 111,
+    y_axis: Math.floor(Math.random() * 40) + 199,
   };
   // const axis = {
   //   x_axis: width * 50,
@@ -92,7 +97,10 @@ const StickyContainer = () => {
   // };
   return (
     <>
-      <Draggable defaultPosition={{ x: 11, y: 456 }} handle=".handle">
+      <Draggable
+        defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
+        handle=".handle"
+      >
         <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>
           <div className="sticky-header handle">
             <div className="left_Icon">

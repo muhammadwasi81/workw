@@ -14,14 +14,13 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 	// console.log("eventDetail", eventDetail);
 	return (
 		<div
-			className={`eventDetail ${!shortEvent &&
-				"p-5 bg-white rounded-lg min-h-0 overflow-y-auto"}
+			className={`eventDetail ${!shortEvent && ""}
 				`}
 		>
 			{shortEvent && (
 				<div className="eventDetail__header">
 					<p className="eventDetail-title">Details</p>
-					<span className="eventNum">SCH-000085</span>
+					{/* <span className="eventNum">SCH-000085</span> */}
 				</div>
 			)}
 			<div className="eventDetail__body">

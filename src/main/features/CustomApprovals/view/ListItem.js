@@ -68,7 +68,7 @@ function ListItem(props) {
           </div>
         </ItemHeader>
         <ItemContent className="item-content flex">
-          <div className="description w-full">
+          <div className="description">
             <p>{description}</p>
           </div>
           <div className="!w-max m-4 ml-auto attachmentBox">

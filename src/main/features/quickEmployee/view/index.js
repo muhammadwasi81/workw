@@ -17,7 +17,7 @@ const QuickAdd = props => {
         state => state.quickAddSlice
     );
 
-    const handleAddQuick = (() => {
+    const handleAddQuick = (() => { 
         // dispatch(addQuickEmployee(items))
     })
 
@@ -41,7 +41,7 @@ const QuickAdd = props => {
                     items && items.length > 0 ?
                         <Table
                             bordered
-                            columns={tableColumn(dispatch)}
+                            columns={tableColumn(dispatch, editData)}
                             className="custom_table"
                             data={items}
                         /> : ""

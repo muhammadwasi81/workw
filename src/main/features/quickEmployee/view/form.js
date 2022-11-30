@@ -1,4 +1,4 @@
-import { Button, Form, Select } from "antd";
+import { Button, Form, message, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,11 +18,29 @@ const QuickForm = () => {
     const [state, setState] = useState(initialState);
     const [userTypeValue, setUserTypeValue] = useState([]);
 
-    const { success } = useSelector(state => state.quickAddSlice);
+    const { success, items } = useSelector(state => state.quickAddSlice);
 
     const onFinish = (values) => {
-        dispatch(addInList(values))
-        form.resetFields();
+        let email =  values.email.toLowerCase();
+        let phoneNumber =  values.phoneNumber.toLowerCase();
+
+        let error = false
+
+        if (items.length > 0) {
+            items.map((item) => {
+                if (email === item.email || phoneNumber === item.phoneNumber) {
+                     message.error("Email or Phone Number already exist")
+                     error = true
+                }
+             } )
+        }
+
+        if(!error){
+            dispatch(addInList(values))
+            form.resetFields();
+        }
+
+            
     };
     useEffect(() => {
         if (success) {

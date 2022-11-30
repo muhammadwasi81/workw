@@ -23,17 +23,16 @@ const quickAddSlice = createSlice({
       state.items = [...state.items, payload];
     },
     deleteItem: (state, { payload }) => {
-      let index = payload
-      state.items = state.items.filter((e, ind) => ind !== index); 
+      let index = payload;
+      state.items = state.items.filter((e, ind) => ind !== index);
+      state.editData = null; 
     },
     editItem: (state, { payload }) => {
       state.editData = payload
     },
     handleSave: (state, { payload }) => {
-      console.log(payload, "FROM SAVE FUNCTION")
 			state.editData = null
       state.items.splice(payload.index, 1, payload)
-      // state.items = state.items.filter((e, ind) => ind === payload.index); 
 		}
   },
   extraReducers: (builder) => {

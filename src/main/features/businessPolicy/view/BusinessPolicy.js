@@ -30,8 +30,6 @@ function BusinessPolicy(props) {
   const dispatch = useDispatch();
   const { loader: loading, success, businessPolicies, editData } = useSelector((state) => state.businessPolicySlice);
 
-  console.log(editData, "HELLLO I AM EDIT")
-
   useEffect(() => {
     dispatch(getAllBusinessPolicy())
   }, [])

@@ -1,17 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Approval from "../../../../sharedComponents/AppComponents/Approvals/view";
+import { ScheduleMemberType } from "../../enum/enum";
 import { getScheduleById } from "../../store/action";
 import EventDetail from "../../UI/EventDetail";
 import Event from "../event";
+import ScheduleMembersList from "./ScheduleMembersList";
 
 function ScheduleComposerDetail({ id, shortEvent = true }) {
 	const eventDetail = useSelector(state => state.scheduleSlice.eventDetail);
+	const loggedInUserId = useSelector(state => state.userSlice.user.id);
+	const [isActionEnabled, setIsActionEnabled] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getScheduleById(id));
 	}, [id]);
+
+	useEffect(() => {
+		if (eventDetail && Object.keys(eventDetail).length > 0) {
+			for (let index = 0; index < eventDetail.members.length; index++) {
+				// const element = array[index];
+				if (
+					eventDetail.members[index].memberType ===
+						ScheduleMemberType.Admin &&
+					loggedInUserId === eventDetail.members[index].memberId
+				) {
+					setIsActionEnabled(true);
+				}
+			}
+		}
+	}, [eventDetail]);
+
 	// console.log("eventDetail", eventDetail);
+	console.log("isActionEnabled", isActionEnabled);
 	return (
 		<div
 			className={`eventDetail ${!shortEvent && ""}
@@ -43,7 +63,7 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 						</span>
 					</div>
 				)}
-				<div className="eventDetail__body-memberUserWrapper">
+				{/* <div className="eventDetail__body-memberUserWrapper">
 					<p className="eventDetail-title">Hosts</p>
 					<div className="memberUserCards">
 						<div className="memberUserCard">
@@ -117,10 +137,18 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> */}
 			</div>
-
-			<Approval
+			<div>Members</div>
+			{eventDetail?.members?.map(member => (
+				<ScheduleMembersList
+					status={member.statusEnum}
+					data={member?.member}
+					memberType={member.memberType}
+					isActionEnabled={isActionEnabled}
+				/>
+			))}
+			{/* <Approval
 				title={"Confirmed Attendees"}
 				// module={ApprovalsModule.ExpenseApproval}
 				data={[
@@ -352,7 +380,7 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 				]}
 				onStatusChanged={status => {}}
 				status={""}
-			/>
+			/> */}
 		</div>
 	);
 }

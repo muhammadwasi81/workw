@@ -33,6 +33,7 @@ function EventWrapper({ data, heading = "Events", loading = false }) {
 				) : data?.length > 0 ? (
 					data?.map(event => (
 						<Event
+						showTag={true}
 							data={event}
 							handleScheduleDetailComposer={
 								handleScheduleDetailComposer

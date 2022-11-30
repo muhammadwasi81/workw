@@ -1,18 +1,22 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { BrokenPage, STRINGS } from "../../../../utils/base";
-import Reward from "./Reward";
+import { ROUTES } from "../../../../utils/routes";
+import CustomApproval from "./CustomApproval";
+import IndividualDetail from "./IndividualDetail";
 
 const Index = () => {
   return (
-    <Switch>
+    <Routes>
+      <Route exact path={"/"} element={<CustomApproval />} />
       <Route
         exact
-        path={`${STRINGS.ROUTES.REWARDS.DEFAULT}`}
-        component={Reward}
+        path={`${ROUTES.CUSTOM_APPROVALS.DETAIL}/:id`}
+        element={<IndividualDetail />}
       />
+
       <Route component={BrokenPage} />
-    </Switch>
+    </Routes>
   );
 };
 

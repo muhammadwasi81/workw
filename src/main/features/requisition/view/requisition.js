@@ -1,6 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { Button, Drawer } from "antd";
+import { useEffect, useContext, useState } from "react";
 import {
   ContBody,
   TabbableContainer,
@@ -18,23 +16,34 @@ import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
-import ListItemMyRequisition from "./ListItem";
+// import ListItemMyRequisition from "./ListItem";
 import { useNavigate } from "react-router-dom";
+import ListItem from "./ListItem";
+import { Table } from "../../../sharedComponents/customTable";
+import { tableColumn } from "./TableColumn";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
-const Requisition = (props) => {
+// import { ROUTES } from "../../../../utils/routes";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+
+const Requisition = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { visible } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { requisitionDictionary } = requisitionDictionaryList[userLanguage];
-
   const [tableView, setTableView] = useState(false);
-  const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [filter, setFilter] = useState({
+    filterType: 0,
+    search: "",
+    sortBy: 1,
+  });
 
-  const dispatch = useDispatch();
-  const { items, drawerOpen } = useSelector((state) => state.requisitionSlice);
+  const { items, drawerOpen, loader } = useSelector(
+    (state) => state.requisitionSlice
+  );
 
   const [searchFilterValues, setSearchFilterValues] = useState();
 
@@ -47,26 +56,46 @@ const Requisition = (props) => {
   }, [filter]);
 
   const openMyRequisitionDetail = (id) => {
-    console.log(id, "my Career Id");
     dispatch(GetRequisitionById(id));
-
     navigate(`requisitionDetail/${id}`);
   };
-
+  const headerItem = [
+    {
+      name: "Requisition",
+      // to: `${ROUTES.REQUISITION.DEFAULT}`,
+      renderButton: [1],
+    },
+  ];
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        // console.log(record.id, "ID");
+        setDetailId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
   return (
     <>
-      <TabbableContainer className="">
+      <TabbableContainer>
         <Header
+          items={headerItem}
           buttons={[
             {
               buttonText: requisitionDictionary.createRequisition,
               render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => dispatch(handleOpenComposer(true))}
-                >
-                  {requisitionDictionary.createRequisition}
-                </Button>
+                <SideDrawer
+                  title={requisitionDictionary.createRequisition}
+                  buttonText={requisitionDictionary.createRequisition}
+                  handleClose={() => dispatch(handleOpenComposer(false))}
+                  handleOpen={() => dispatch(handleOpenComposer(true))}
+                  isOpen={drawerOpen}
+                  children={<Composer />}
+                />
               ),
             },
           ]}
@@ -84,26 +113,56 @@ const Requisition = (props) => {
               name: requisitionDictionary.MyRequisitions,
               onClick: () => setFilter({ filterType: 1 }),
             },
+            {
+              name: requisitionDictionary.forApproval,
+              onClick: () => setFilter({ filterType: 2 }),
+            },
+            {
+              name: requisitionDictionary.forFinalApproval,
+              onClick: () => setFilter({ filterType: 3 }),
+            },
           ]}
+          segment={{
+            onSegment: (value) => {
+              if (value === "Table") {
+                setTableView(true);
+              } else {
+                setTableView(false);
+              }
+            },
+            label1: "List",
+            label2: "Table",
+          }}
         />
         <ContBody>
-          {items?.length > 0 ? (
+          {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
+          {tableView && (
+            <Table
+              columns={tableColumn()}
+              dragable={true}
+              data={items}
+              onRow={onRow}
+            />
+          )}
+          {items?.length > 0 && !loader && !tableView ? (
             <CardWrapper>
               {items.map((item, index) => {
                 return (
                   <>
                     {filter.filterType === 1 ? (
-                      <ListItemMyRequisition
+                      <ListItem
                         item={item}
                         id={item.id}
                         key={index}
+                        isDetail={true}
                         onClick={() => openMyRequisitionDetail(item.id)}
                       />
                     ) : (
-                      <ListItemMyRequisition
+                      <ListItem
                         item={item}
                         id={item.id}
                         key={index}
+                        isDetail={false}
                         onClick={() => setDetailId(item.id)}
                       />
                     )}
@@ -112,16 +171,16 @@ const Requisition = (props) => {
               })}
             </CardWrapper>
           ) : (
-            <Skeleton avatar paragraph={{ rows: 4 }} />
+            !loader && !tableView && <NoDataFound />
           )}
         </ContBody>
-        {<DetailedView onClose={onClose} id={detailId} />}
+        {<DetailedView onClose={onClose} id={detailId} visible={visible} />}
 
-        <Drawer
+        {/* <Drawer
           title={
             <h1
               style={{
-                fontSize: "20px",
+                fontSize: '20px',
                 margin: 0,
               }}
             >
@@ -137,7 +196,7 @@ const Requisition = (props) => {
           className="detailedViewComposer drawerSecondary"
         >
           <Composer />
-        </Drawer>
+        </Drawer> */}
       </TabbableContainer>
     </>
   );

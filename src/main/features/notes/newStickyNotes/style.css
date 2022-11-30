@@ -35,9 +35,11 @@
   font-size: 15px;
 }
 .close_Icon {
-  margin: 2px;
+  margin: 3px;
 }
-
+.minimize-Icon {
+  margin: 3px;
+}
 /* *********styling of card in container********** */
 .right_Icons {
   font-size: 16px !important;
@@ -51,9 +53,13 @@
 
 .margin_Icon {
   margin: 2px;
-  color: black;
+  /* color: black; */
 }
-
+/* .three-dot {
+  font-size: 16px !important;
+  font-weight: bold;
+  margin-bottom: 3px;
+} */
 .time_delete {
   display: flex;
   flex-direction: row;
@@ -82,7 +88,7 @@
   /* width:250px; */
   padding-bottom: 5px;
   padding-top: 5px;
-  line-height: 4px;
+  /* line-height: 4px; */
 }
 
 /* .ant-input-affix-wrapper {
@@ -222,7 +228,7 @@ input:focus {
 }
 
 .leftNote_Icon {
-  display: flex;
+  /* display: flex; */
   font-size: 16px !important;
   font-weight: bold;
   margin-left: 10px !important;

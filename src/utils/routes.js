@@ -1,5 +1,5 @@
-export let DOMAIN_PREFIX = '';
-DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '' : '';
+export let DOMAIN_PREFIX = "";
+DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "" : "";
 
 export const ROUTES = {
   SEARCH: {
@@ -17,7 +17,9 @@ export const ROUTES = {
     CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
   },
   CUSTOM_APPROVALS: {
-    DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
+    DEFAULT: `${DOMAIN_PREFIX}/customApprovals/*`,
+    ROOT: `${DOMAIN_PREFIX}/customApprovals`,
+    DETAIL: `/detail`,
   },
   APPROVALS: {
     DEFAULT: `${DOMAIN_PREFIX}/approvals`,
@@ -220,9 +222,12 @@ export const ROUTES = {
     JUNK: `${DOMAIN_PREFIX}/mail?id=INBOX.junk`,
     DRAFTS: `${DOMAIN_PREFIX}/mail?id=INBOX.Drafts`,
   },
+  //by sanjna
   TASK: {
-    DEFAULT: `${DOMAIN_PREFIX}/tasks`,
-    DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
+    DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
+    ROOT: `${DOMAIN_PREFIX}/tasks`,
+    DETAIL: `/detail`,
+    // DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
   },
 
   REWARDS: {
@@ -253,9 +258,9 @@ export const ROUTES = {
     ADD: `add`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
     INFO: `info/*`,
-    BANK_DETAIL: 'info/bankDetail/:id',
-    BASIC_INFO: 'info/basicInfo/:id',
-    USER_LEAVES: 'info/leaves/:id',
+    BANK_DETAIL: "info/bankDetail/:id",
+    BASIC_INFO: "info/basicInfo/:id",
+    USER_LEAVES: "info/leaves/:id",
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
@@ -279,7 +284,7 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/administrator/*`,
     ADMINISTRATION: `${DOMAIN_PREFIX}/administrator/`,
     BUSINESS_POLICY: `businessPolicy`,
-    ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
+    ACCESSROLES: `accessroles`,
     GRADE: `grade`,
     DESIGNATION: `designation`,
     APPRASIAL: `appraisal`,
@@ -337,7 +342,9 @@ export const ROUTES = {
   },
   EXPENSES: {
     DEFAULT: `${DOMAIN_PREFIX}/expenses/*`,
-    EXPENSES: `${DOMAIN_PREFIX}/expenses`,
+    ROOT: `${DOMAIN_PREFIX}/expenses`,
+    EXPENSES: `${DOMAIN_PREFIX}/expenses/`,
+    DETAIL: `/detail`,
   },
   APPRAISALS: {
     DEFAULT: `${DOMAIN_PREFIX}/appraisals/*`,
@@ -389,11 +396,12 @@ export const ROUTES = {
     BUSINESS_POLICY: `businessPolicy`,
     COMLAIN_CATEGORY: `complainCategory`,
     PAYROLL_GROUP: `payrollGroup`,
-    ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
+    ACCESSROLES: `accessroles`,
     GRADE: `grade`,
     FISCAL_YEAR: `fiscalYear`,
     DESIGNATION: `designation`,
     TAX_SLAB: `taxSlab`,
+    TAX_SLAB_GROUP:`taxSlabsGroup`,
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
     OFFICETIMING: `officetimings`,
@@ -538,14 +546,17 @@ export const ROUTES = {
     DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
     CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
   },
-  TASK: {
-    DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
-    ROOT: `${DOMAIN_PREFIX}/tasks`,
-    DETAIL: `tasks/taskDetail/:id`,
-  },
+  //commenttteddd
+  // TASK: {
+  //   DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
+  //   ROOT: `${DOMAIN_PREFIX}/tasks`,
+  //   DETAIL: `tasks/taskDetail/:id`,
+  // },
   REWARDS: {
-    DEFAULT: `${DOMAIN_PREFIX}/rewards`,
+    DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
+    ROOT: `${DOMAIN_PREFIX}/rewards`,
     REWARD: `${DOMAIN_PREFIX}/rewards`,
+    DETAIL: `/detail`,
     APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
   },
   //****by SANJANA****

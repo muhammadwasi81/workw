@@ -3,7 +3,6 @@ import { FaBriefcase, FaUserLock } from 'react-icons/fa';
 import { BsFillPersonCheckFill } from 'react-icons/bs';
 import { HiCurrencyYen } from 'react-icons/hi';
 import { ImOffice } from 'react-icons/im';
-
 import {
   AiFillStar,
   AiFillLike,
@@ -11,7 +10,6 @@ import {
   AiOutlineStar,
   AiFillWarning,
   AiFillShop,
-  AiOutlineFileText,
   AiOutlinePartition,
   AiFillFileImage,
   AiOutlineGroup,
@@ -27,12 +25,13 @@ import {
   RiMailSettingsFill,
   RiMedalFill,
 } from 'react-icons/ri';
+
 export const listitem = [
   {
     IconName: <FaUserLock size={20} color={'var(--currentThemeColor)'} />,
     displayName: 'AccessRole',
     classObj: 'button',
-    to: ROUTES.ADMINISTRATOR.ADMINISTRATION,
+    to: ROUTES.ADMINISTRATOR.ACCESSROLES,
   },
   {
     IconName: <AiFillStar size={20} color={'var(--currentThemeColor)'} />,
@@ -72,6 +71,13 @@ export const listitem = [
     classObj: 'button',
     to: ROUTES.ADMINISTRATOR.TAX_SLAB,
   },
+  {
+    IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,
+    displayName: 'Tax_Slabs_Group',
+    classObj: 'button',
+    to: ROUTES.ADMINISTRATOR.TAX_SLAB_GROUP,
+  },
+
   {
     IconName: (
       <AiOutlinePartition size={20} color={'var(--currentThemeColor)'} />

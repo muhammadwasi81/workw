@@ -1,43 +1,43 @@
-import { message } from "antd";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { message } from 'antd';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
 import {
-	addBranch,
-	addDefaultHiringCriteria,
-	getAllBranch,
-	getAllDefaultHiringCriteria,
-	removeBranch,
-	removeDefaultHiringCriteria,
-	updateBranch,
-	updateDefaultHiringCriteria,
-} from "../store/actions";
-import Form from "./form.js";
-import TableView from "./table.js";
+  addBranch,
+  addDefaultHiringCriteria,
+  getAllBranch,
+  getAllDefaultHiringCriteria,
+  removeBranch,
+  removeDefaultHiringCriteria,
+  updateBranch,
+  updateDefaultHiringCriteria,
+} from '../store/actions';
+import Form from './form.js';
+import TableView from './table.js';
 
 export default function Subsidiary() {
-	const initialState = { branchTitle: "" };
-	const [subsidiary, setSubsidiary] = useState(initialState);
-	const [clearButton, setClearButton] = useState(false);
+  const initialState = { branchTitle: '' };
+  const [subsidiary, setSubsidiary] = useState(initialState);
+  const [clearButton, setClearButton] = useState(false);
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const { loader } = useSelector((state) => state.subsidiarySlice);
 
-	const handleDelete = e => {
-		dispatch(removeBranch(e));
-	};
+  const handleDelete = (e) => {
+    dispatch(removeBranch(e));
+  };
 
   const onSubmit = (e) => {
-    if (e.branchTitle === "") {
-      message.error("Title can't be empty")
+    if (e.branchTitle === '') {
+      message.error("Title can't be empty");
     } else {
       if (!e.id) {
         dispatch(addBranch(e));
-        dispatch(getAllBranch())
+        dispatch(getAllBranch());
         setSubsidiary(initialState);
-        setClearButton(true)
+        setClearButton(true);
         return;
       }
       dispatch(updateBranch(e));
@@ -47,7 +47,13 @@ export default function Subsidiary() {
   };
   return (
     <AdminContainer>
-      <Form clearButton={clearButton} setClearButton={setClearButton} data={subsidiary} onSubmit={onSubmit} loading={loader} />
+      <Form
+        clearButton={clearButton}
+        setClearButton={setClearButton}
+        data={subsidiary}
+        onSubmit={onSubmit}
+        loading={loader}
+      />
       <TableView
         handleEdit={setSubsidiary}
         setClearButton={setClearButton}

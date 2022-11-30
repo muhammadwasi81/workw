@@ -68,6 +68,7 @@ export default function Form({
 	useEffect(() => {
 		setForm(data);
 	}, [data]);
+	
 	return (
 		<FormContainer>
 			<FormHeader>Fiscal Year</FormHeader>

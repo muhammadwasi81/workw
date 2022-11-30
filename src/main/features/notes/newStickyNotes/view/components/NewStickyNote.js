@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Dropdown, Menu, Space, Image } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
@@ -13,7 +13,7 @@ import {
   PictureOutlined,
 } from "@ant-design/icons";
 import "../../style.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   closeStickyNote,
   targetTitleVal,
@@ -32,7 +32,7 @@ import {
 import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
 import { createGuid } from "../../../../../../utils/base";
 import ShareComponent from "./ShareComponent";
-
+import { handleOpenSticky } from "../../store/stickySlice";
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
   const [openShare, setOpenShare] = useState(false);
@@ -42,12 +42,11 @@ const NewStickyNote = ({ item }) => {
   const descriptionDebounce = useDebounce(description, 500);
 
   const dispatch = useDispatch();
+  const { openSticky } = useSelector((state) => {
+    return state.stickySlice;
+  });
 
-  // const openColorHandler = () => {
-  //   setOpenColor(true);
-  // };
   const color = item.colorCode;
-  console.log(color, "colorcode");
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
     const id = item.id;
@@ -62,32 +61,34 @@ const NewStickyNote = ({ item }) => {
     );
   };
   const openShareHandler = () => {
-    console.log("clicked share");
     setOpenShare((openShare) => !openShare);
   };
-
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(item.description);
+  };
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
     <Menu
       items={[
         {
-          label: <a onClick={openShareHandler}>Share</a>,
-          icon: <ShareAltOutlined onClick={openShareHandler} />,
+          label: (
+            <div onClick={openShareHandler}>
+              <ShareAltOutlined />
+              <a className="text-black">Share</a>
+            </div>
+          ),
           key: "0",
         },
         {
           label: (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.antgroup.com"
-            >
-              Copy
-            </a>
+            <div onClick={copyToClipboard}>
+              <CopyOutlined />
+              <a className="text-black">Copy</a>
+            </div>
           ),
-          icon: <CopyOutlined />,
           key: "1",
         },
+
         {
           label: <div>{openColor && <StickyColor item={item} />}</div>,
 
@@ -153,18 +154,31 @@ const NewStickyNote = ({ item }) => {
     ],
   };
   const imgSrc = item.attachments;
+  // const { height, width } = useWindowDimensions();
+  // console.log(width, height, "widthhh");
+
   const axis = {
     x_axis: Math.floor(Math.random() * 40) + 250,
     y_axis: Math.floor(Math.random() * 40) + 150,
   };
-
+  const openNewStikcyHandler = () => {
+    dispatch(handleOpenSticky(item.id));
+  };
   return (
     <>
       <Draggable
+        Draggable
         defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
       >
-        <div className="stickyNote_container">
+        <div
+          className="stickyNote_container"
+          onClick={openNewStikcyHandler}
+          style={{
+            position: "absolute",
+            zIndex: item.id === openSticky ? 3 : 2,
+          }}
+        >
           <div
             className="stickyNote_header handle"
             style={{ backgroundColor: item.colorCode }}
@@ -221,6 +235,7 @@ const NewStickyNote = ({ item }) => {
               />
             </div>
           </div>
+
           {/* **********Insert images******** */}
           {imgSrc.length > 0 ? (
             <div className="image_body">

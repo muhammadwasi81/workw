@@ -4,16 +4,16 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import Approval from "../../../sharedComponents/AppComponents/Approvals/view";
 import { ExpenseDictionary } from "../localization";
 import { useDispatch, useSelector } from "react-redux";
-import ExpenseList from "./ExpenseList";
 import { getExpenseById } from "../store/actions";
 import {
   ApprovalsModule,
   ApprovalStatus,
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
 import { updateListExpenseStatus } from "../store/slice";
+import ExpenseDetailList from "./ExpenseDetailList";
 
 function ExpenseDetail({ id }) {
-  const { expense ,loadingData } = useSelector((state) => state.expenseSlice);
+  const { expense, loadingData } = useSelector((state) => state.expenseSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
   const { labels } = ExpenseDictionaryList;
@@ -54,7 +54,7 @@ function ExpenseDetail({ id }) {
     };
   }, []);
 
-  if(loadingData) return <Skeleton />;
+  if (loadingData) return <Skeleton />;
 
   return (
     <>
@@ -63,7 +63,7 @@ function ExpenseDetail({ id }) {
       ) : (
         <div className="expenseDetail">
           {
-            <ExpenseList
+            <ExpenseDetailList
               expense={expense}
               updateStatus={isMount ? status : expense.status}
               isDetail={true}

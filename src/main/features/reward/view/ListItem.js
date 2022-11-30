@@ -19,8 +19,7 @@ import Attachments from "../../travel/view/UI/Attachments";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
-  const disptach = useDispatch();
+  const { rewardDictionary } = rewardDictionaryList[userLanguage];
 
   const {
     creator,
@@ -35,14 +34,13 @@ function ListItem(props) {
     status,
     referenceNo,
     createDate,
-    attachments,
+    path,
   } = props.item;
-  console.log(image, "image fileeeee listitem");
+
   const localTime = moment
     .utc(createDate)
     .local()
     .format();
-
   return (
     <>
       <SingleItem onClick={props.onClick}>
@@ -66,11 +64,19 @@ function ListItem(props) {
           </div>
         </ItemHeader>
         <ItemContent className="flex">
-          <div className="description w-full">
+          <div className="description">
             <p>{description}</p>
           </div>
-          <div className="!w-max m-4 ml-auto attachmentBox">
-            <Image preview={false} width={60} height={60} src={image} />
+          <div
+            className=" ml-auto attachmentBox"
+            style={{ width: "65px", height: "60px" }}
+          >
+            <Image
+              preview={false}
+              // width={60}
+              // height={60}
+              src={image === "" ? "" : image}
+            />
             {/* <Attachments
               data={[image]}
               key={{ data: image }}
@@ -81,6 +87,7 @@ function ListItem(props) {
         </ItemContent>
         <div className="cardSections">
           <div className="cardSectionItem">
+           
             <div className="cardSection__title">{"Category"}</div>
             <div className="cardSection__body">{category}</div>
           </div>
@@ -101,8 +108,8 @@ function ListItem(props) {
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"Members"}
-                  membersData={members}
+                  heading={"members"}
+                  membersData={members ? members : []}
                   text={"Members"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />

@@ -17,6 +17,7 @@ import documentsIcon from "../../../content/svg/menu/newNavBarIcon/Docs-Archives
 import eLearningIcon from "../../../content/svg/menu/newNavBarIcon/E Learning.svg";
 import inventory from "../../../content/svg/menu/newNavBarIcon/Inventory.svg";
 import customApprovalIcon from "../../../content/svg/menu/newNavBarIcon/Custom Approval.svg";
+import promotionIcon from "../../../content/svg/menu/newNavBarIcon/promotionIcon.svg";
 import teamIcon from "../../../content/svg/menu/newNavBarIcon/My Team.svg";
 import orgChartIcon from "../../../content/svg/menu/newNavBarIcon/Org Chart.svg";
 import payrollIcon from "../../../content/svg/menu/newNavBarIcon/PayrolIcon.svg";
@@ -129,7 +130,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.customApprovals,
       counter: 0,
-      to: ROUTES.CUSTOM_APPROVALS.DEFAULT,
+      to: ROUTES.CUSTOM_APPROVALS.ROOT,
       icon: customApprovalIcon,
       isActive: 4,
       key: label.navMenuLabel.menu,
@@ -227,7 +228,7 @@ const NavMenuList = () => {
       name: label.navMenuLabel.promotions,
       counter: 0,
       to: `${ROUTES.PROMOTION}`,
-      icon: customApprovalIcon,
+      icon: promotionIcon,
       isActive: 7,
       key: label.navMenuLabel.hr,
     },

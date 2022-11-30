@@ -1,6 +1,6 @@
-import "./customApprovalCategory.css";
-import { Input } from "antd";
-import { useEffect, useState } from "react";
+import './customApprovalCategory.css';
+import { Input } from 'antd';
+import { useEffect, useState } from 'react';
 import {
   FormButton,
   FormButtonContainer,
@@ -10,13 +10,13 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
-export default function CustomApprovalCategoryForm({ data, onSubmit, loading }) {
+} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+
+export default function CustomApprovalCategoryForm({ data, onSubmit }) {
   const [form, setForm] = useState(data);
 
   useEffect(() => {
     setForm(data);
-    
   }, [data]);
 
   return (
@@ -26,7 +26,7 @@ export default function CustomApprovalCategoryForm({ data, onSubmit, loading }) 
         <FormInput>
           <FormLabel>Custom Approval Category</FormLabel>
           <Input
-            placeholder={"Enter Custom Approval Category"}
+            placeholder={'Enter Custom Approval Category'}
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
@@ -34,47 +34,42 @@ export default function CustomApprovalCategoryForm({ data, onSubmit, loading }) 
         <FormInput>
           <FormLabel>Description</FormLabel>
           <FormTextArea
-            placeholder={"Enter Description"}
+            placeholder={'Enter Description'}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
         </FormInput>
       </FormInputContainer>
       <FormButtonContainer>
-        {
-          form.id ? 
+        {form.id ? (
           <>
             <FormButton
-            type="primary"
-            size="medium"
-            style={{}}
-            className="formBtn"
-            onClick={(e) => onSubmit(form)}
-          >
-            Save Category
-          </FormButton>
+              type="primary"
+              size="medium"
+              className="formBtn"
+              onClick={(e) => onSubmit(form)}
+            >
+              Save Category
+            </FormButton>
+            <FormButton
+              type="primary"
+              size="medium"
+              className="formBtn"
+              onClick={(e) => setForm({ ...form, description: '', name: '' })}
+            >
+              Clear
+            </FormButton>
+          </>
+        ) : (
           <FormButton
             type="primary"
             size="medium"
-            style={{}}
             className="formBtn"
-            onClick={(e) => setForm({ ...form, description: "", name: "" })}
+            onClick={(e) => onSubmit(form)}
           >
-            Clear 
+            Add Category
           </FormButton>
-          </>
-        : 
-        <FormButton
-          type="primary"
-          size="medium"
-          style={{}}
-          className="formBtn"
-          onClick={(e) => onSubmit(form)}
-          // loading={loading}
-      >
-        Add Category 
-      </FormButton>
-        }
+        )}
       </FormButtonContainer>
     </FormContainer>
   );

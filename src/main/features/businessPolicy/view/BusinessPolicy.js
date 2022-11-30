@@ -24,6 +24,13 @@ const BusinessPolicy = () => {
   const [id, setId] = useState('');
   const dispatch = useDispatch();
 
+  const { loader: loading, success, businessPolicies, editData } = useSelector(
+    (state) => state.businessPolicySlice
+  );
+
+  console.log('editData', editData);
+  console.log('editData', businessPolicies);
+
   useEffect(() => {
     dispatch(getAllBusinessPolicy());
   }, []);

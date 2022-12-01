@@ -54,8 +54,8 @@ export const stickySlice = createSlice({
       state.open = !state.open;
     },
     handleOpenSticky: (state, action) => {
-      let selectedId = action.payload;
-      state.openSticky = selectedId;
+      let openStickyId = action.payload;
+      state.openSticky = openStickyId;
     },
     showStickyNote: (state, action) => {
       let selectedId = action.payload;
@@ -103,8 +103,10 @@ export const stickySlice = createSlice({
     },
     targetStickyDescription: (state, action) => {
       const val = action.payload;
+      console.log(val, "valueee");
       const listObj = state.listArray.find((list) => list.id === val.id);
       listObj.description = val.value;
+      console.log(listObj.description, "description");
     },
   },
 
@@ -123,7 +125,9 @@ export const stickySlice = createSlice({
         state.listArray = action.payload;
       })
 
-      .addCase(getStickyNoteDescAction.fulfilled, (state, { payload }) => {})
+      .addCase(getStickyNoteDescAction.fulfilled, (state, action) => {
+        // state.listArray = action.payload;
+      })
       .addCase(getStickyAttachmentAction.fulfilled, (state, action) => {
         let data = action.payload;
 

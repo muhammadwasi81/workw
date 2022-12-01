@@ -2,7 +2,7 @@ import { message } from "antd";
 import { responseCode } from "../../../../../services/enums/responseCode";
 import { jsonToFormData } from "../../../../../utils/base";
 import MasterConfig from "../../../../../utils/services/MasterConfig";
-const API_PREFIX = "api/ApprovalRemark/";
+const API_PREFIX = "api/Approval/";
 export const saveApprovalsRemarks = async (remark) => {
   const data = jsonToFormData(remark);
   const response = await MasterConfig.post(`${API_PREFIX}AddRemark`, data)

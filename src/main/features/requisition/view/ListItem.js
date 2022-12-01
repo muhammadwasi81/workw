@@ -35,7 +35,7 @@ function ListItem(props) {
     creator,
     name,
     description,
-    image = RequistionDefaultIcon,
+    image,
     reason,
     budget,
     deadline,

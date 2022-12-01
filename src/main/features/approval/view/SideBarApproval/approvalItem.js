@@ -1,32 +1,39 @@
-import { Avatar } from "antd";
+import moment from "moment";
 import React from "react";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 // import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import "../style.css";
 
-export default function ApprovalItem({ item, handleApprovalDetail }) {
+export default function ApprovalItem({ item, handleApprovalDetail = () => { } }) {
+	let {
+		creator,
+		updateDate,
+		message
+	} = item;
+	let notiTime = moment.utc(updateDate).local().fromNow();
+
 	return (
 		<div
 			className="approval_item cursor-pointer"
-			onClick={() => {
-				handleApprovalDetail(item);
-			}}
-		>
+			onClick={() => handleApprovalDetail(item)}>
 			<div>
 				<Avatar
-					src={
-						"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-					}
-					name={"Aqib Memon"}
+					src={creator?.image}
+					name={creator?.name}
+					size={35}
+					round={true}
+				// active={true}
 				/>
 			</div>
 			<div className="approval_item_detail">
 				<div className="approval_item_detail_child1">
-					Aqib Memon Request for travel
+					{creator?.name}
+					{message}
 				</div>
 				<div className="approval_item_detail_child2">
 					<div className="dateTime">
 						<div className="shortDesc">
-							Mon, June 2022. 09:22:20 AM
+							{notiTime}
 						</div>
 						<div className="shortDesc">TRA-00000012</div>
 					</div>

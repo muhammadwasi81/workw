@@ -35,7 +35,7 @@ export default function TaxSlab() {
   };
 
   const onSubmit = (e) => {
-    if ((!e.name || !e.min || !e.max || !e.percentage, !e.previousCharge)) {
+    if ((e.name || e.min || e.max || e.percentage, e.previousCharge)) {
       message.error('Please fill all required fields');
     } else {
       if (!e.id) {

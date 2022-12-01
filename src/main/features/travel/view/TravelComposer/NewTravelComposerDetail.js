@@ -20,8 +20,17 @@ import NewTravelDetailCard from "../UI/NewTravelDetailCard";
 import TravelCard from "../UI/TravelCard";
 import TravelDetailCard from "../UI/TravelDetailCard";
 import { travelCategoryData } from "./TravelCategories";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { TravelDictionary} from "../../localization/index"
+
 
 function NewTravelComposerDetail(props) {
+
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { TravelDictionaryList } = TravelDictionary[userLanguage];
+    const {headings}=TravelDictionaryList;
+	
+
 	const { fetchCityData, travelBy, onSelectCity, onTravelDetailAdd } = props;
 	const cities = useSelector(state => state.sharedSlice.cities);
 	const [form] = Form.useForm();

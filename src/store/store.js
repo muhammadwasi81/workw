@@ -17,6 +17,7 @@ import authSlice from '../main/features/auth/store/slice';
 import gradeSlice from '../main/features/grade/store/slice';
 import rebateCategorySlice from '../main/features/rebateCategory/store/slice';
 import taxSlabSlice from '../main/features/taxSlabs/store/slice';
+import taxSlabGroupSlice from '../main/features/taxSlabsGroup/store/slice';
 import subsidiarySlice from '../main/features/subsidiary/store/slice';
 import quotationSlice from '../main/features/quotation/store/slice';
 import subsidiaryOfficeSlice from '../main/features/subsidiaryOffice/store/slice';
@@ -88,7 +89,11 @@ import appraisalModuleSlice from '../main/features/appraisalModule/store/slice';
 import quotationClientSlice from '../main/features/quotationClient/store/slice';
 import employeeProfileSlice from '../main/features/profile/store/slice';
 import notificationSliceNew from '../main/features/notifiation/store/slice';
+<<<<<<< HEAD
 import approverSlice from '../main/features/defaultApprovers/store/slice';
+=======
+import approvalSlice from '../main/features/approval/store/slice';
+>>>>>>> 854ea3da330c528aebd1f6e6ed981bf9e75b6f64
 
 // import thunk from "redux-thunk";
 
@@ -135,6 +140,7 @@ const reducers = combineReducers({
   emailConfigurationSlice,
   salaryHeaderSlice,
   taxSlabSlice,
+  taxSlabGroupSlice,
   expenseHeaderSlice,
   appraisalSlice,
   allowanceSlice,
@@ -174,7 +180,11 @@ const reducers = combineReducers({
   appraisalModuleSlice,
   employeeProfileSlice,
   notificationSliceNew,
+<<<<<<< HEAD
   approverSlice,
+=======
+  approvalSlice
+>>>>>>> 854ea3da330c528aebd1f6e6ed981bf9e75b6f64
 });
 
 const persistConfig = {

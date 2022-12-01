@@ -113,6 +113,7 @@ export const taskSlice = createSlice({
       .addMatcher(isPending(...[getAllTask]), (state) => {
         state.taskList.loading = true;
         state.loadingData = true;
+        state.taskList.loading = true;
       })
       .addMatcher(isRejected(...[getAllTask]), (state) => {
         state.taskList.loading = false;

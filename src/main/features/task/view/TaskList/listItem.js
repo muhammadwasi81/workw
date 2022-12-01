@@ -26,7 +26,7 @@ import { useSelector, useDispatch } from "react-redux";
 function TaskListItem({
   item,
   isTaskMember = false,
-  onTask = () => {},
+  onTask = () => { },
   isRatingDisable = true,
   changeOnProgress,
   progress,
@@ -107,21 +107,16 @@ function TaskListItem({
         </div>
 
         <div className="right">
-          <div className="rating">
-            <Rate
-              defaultValue={ratingAssign}
-              disabled={isRatingDisable || progress !== 100}
-              onChange={(value) => setRating(value)}
-            />
-          </div>
-          <div className="labels">
-            <span className="taskID">{referenceNo}</span>
-            <span className="priority " style={{ backgroundColor: color }}>
-              {label}
-            </span>
-            {userId === creator.id
-              ? status !== Completed && status !== Cancelled
-                ? isDetail && (
+          <div>
+
+            <div className="labels">
+              <span className="taskID">{referenceNo}</span>
+              <span className="priority " style={{ backgroundColor: color }}>
+                {label}
+              </span>
+              {userId === creator.id
+                ? status !== Completed && status !== Cancelled
+                  ? isDetail && (
                     <span
                       className="cancel-task ThemeBtn"
                       onClick={(e) => handleCancel(e, id)}
@@ -129,16 +124,25 @@ function TaskListItem({
                       Cancel
                     </span>
                   )
-                : ""
-              : ""}
-            {(status === Completed || status === Cancelled) && (
-              <span
-                className="user-status"
-                style={{ backgroundColor: taskColorEnum.color }}
-              >
-                {taskColorEnum.label}
-              </span>
-            )}
+                  : ""
+                : ""}
+              {(status === Completed || status === Cancelled) && (
+                <span
+                  className="user-status"
+                  style={{ backgroundColor: taskColorEnum.color }}
+                >
+                  {taskColorEnum.label}
+                </span>
+              )}
+            </div>
+
+            <div className="rating">
+              <Rate
+                defaultValue={ratingAssign}
+                disabled={isRatingDisable || progress !== 100}
+                onChange={(value) => setRating(value)}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -163,7 +167,7 @@ function TaskListItem({
                   data={attachments}
                   key={{ data: attachments }}
                   toShow={1}
-                  onClick={() => {}}
+                  onClick={() => { }}
                   size={"50px"}
                 />
               </div>

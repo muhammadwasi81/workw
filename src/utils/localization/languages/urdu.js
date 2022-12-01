@@ -107,7 +107,7 @@ const urdu = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
-    Schedules: "Schedules",
+    Schedules: "شیڈولز",
     workWiseCompanies: "کام کے لحاظ سے کمپنیاں",
     promotions: "پروموشنز",
     customApprovals: "حسب ضرورت منظوری",
@@ -150,6 +150,10 @@ const urdu = {
     bonus: "انعام",
     resignations: "استعفی",
     requisition: "درخواست",
+    assets: "اثاثوں کی تقسیم",
+    createAssets: "اثاثے بنائیں",
+    assetsList: "اثاثوں کی فہرست",
+    requestListItems: "اشیاء کی درخواست",
     rewards: "انعامات",
     businessPolicy: "کاروباری پالیسی",
     form: "فارم",
@@ -163,7 +167,9 @@ const urdu = {
     ledgerReport: "لیجر رپورٹ",
     salary: "تنخواہ",
     payroll: "پے رول",
+    jobBoard: "کونسل برائے ملازمت",
     teams: "میری ٹیم",
+    LD: "ایل اینڈ ڈی",
   },
 
   /*** AppHeader only used in Component headerTab ***/

@@ -29,6 +29,13 @@ const en = {
 			approvers: "Approvers",
 			agents: "Agents",
 			desctination: "Destinations",
+			departureDate:"Departure Date",
+			departureTime:"Departure time",
+			departureCity:"Departure City",
+			arrivalCity:"Departure City",
+
+
+
 		},
 
 		labels: {

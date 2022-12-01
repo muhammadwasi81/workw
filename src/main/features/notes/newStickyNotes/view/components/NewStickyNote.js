@@ -42,10 +42,11 @@ const NewStickyNote = ({ item }) => {
   const descriptionDebounce = useDebounce(description, 500);
 
   const dispatch = useDispatch();
-  const { openSticky } = useSelector((state) => {
+  const { openSticky, selectionId } = useSelector((state) => {
     return state.stickySlice;
   });
 
+  console.log(openSticky, "open sticky");
   const color = item.colorCode;
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
@@ -127,6 +128,7 @@ const NewStickyNote = ({ item }) => {
   const setDescriptionValue = (value) => {
     const id = item.id;
     dispatch(targetStickyDescription({ id, value }));
+    console.log(value, "description");
     dispatch(
       getStickyNoteDescAction({ ...item, attachments: [], description: value })
     );
@@ -158,11 +160,12 @@ const NewStickyNote = ({ item }) => {
   // console.log(width, height, "widthhh");
 
   const axis = {
-    x_axis: Math.floor(Math.random() * 40) + 250,
-    y_axis: Math.floor(Math.random() * 40) + 150,
+    x_axis:(Math.floor(Math.random() * (400 - 300)) + 300),
+    y_axis: (Math.floor(Math.random() * (200 - 500)) + 500)
   };
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
+    console.log(item.id, item.description, "iddddddd");
   };
   return (
     <>
@@ -170,6 +173,10 @@ const NewStickyNote = ({ item }) => {
         Draggable
         defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
+        // grid={[25, 25]}
+        scale={1}
+        // bounds="parent"
+        // allowAnyClick={true}
       >
         <div
           className="stickyNote_container"

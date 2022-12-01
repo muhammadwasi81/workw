@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
-import LikeIcon from "../../../../../../../content/NewContent/NewsFeed/svg/like.svg";
 import CommentIcon from "../../../../../../../content/NewContent/NewsFeed/svg/comment.svg";
-import ShareIcon from "../../../../../../../content/NewContent/NewsFeed/svg/share.svg";
 import Reactions from "../../../../../../sharedComponents/reactionBox/index";
 import { useDispatch } from "react-redux";
 import { addFeedReaction, feedSlice } from "../../../../store/slice";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CommentWrapper from "../../../../../../sharedComponents/Comment/CommentWrapper";
 import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
 import { FeedDictionary } from "../../../../localization";
@@ -36,6 +34,7 @@ const PostFooter = ({
 	reactionModule,
 	myReaction,
 	isDetailViewOpen = true,
+	isDetail = false,
 }) => {
 	const dispatch = useDispatch();
 	let navigate = useNavigate();
@@ -47,6 +46,7 @@ const PostFooter = ({
 		Comment,
 		Share,
 		Like,
+		Celebrate,
 		WriteYourCommentHere,
 		WriteYourReplyHere,
 	} = Post;
@@ -58,6 +58,7 @@ const PostFooter = ({
 					referenceId: id,
 					reactionMode: "click",
 					myReaction: 1,
+					isDetail,
 				})
 			);
 			dispatch(
@@ -74,6 +75,7 @@ const PostFooter = ({
 				referenceId: id,
 				reactionMode: "click",
 				myReaction,
+				isDetail,
 			})
 		);
 		dispatch(
@@ -125,6 +127,7 @@ const PostFooter = ({
 									referenceId: id,
 									reactionModule,
 									myReaction: e,
+									isDetail,
 								})
 							);
 							dispatch(
@@ -218,6 +221,7 @@ const PostFooter = ({
 				showComments={showComments}
 				isDetailViewOpen={isDetailViewOpen}
 				reactionModule={reactionModule}
+				setShowComments={setShowComments}
 			/>
 			{commentCount > 3 && showComments && (
 				<p

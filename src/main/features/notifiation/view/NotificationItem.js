@@ -7,7 +7,7 @@ import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { handleRedirect } from "../utils/functions";
 import './style.css'
 
-export default function NotificationItem({ item }) {
+export default function NotificationItem({ item, index }) {
     let {
         fromUser,
         featureType,
@@ -17,12 +17,14 @@ export default function NotificationItem({ item }) {
     } = item;
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    let notiTime = moment.utc(createDate).local().fromNow();
+
     const handleClick = () => {
-        handleRedirect(featureType, referenceId, navigate);
         dispatch(setNotificationStatus(false));
+        handleRedirect(featureType, referenceId, navigate);
     }
     return (
-        <div className="approval_item notification_item" onClick={handleClick}>
+        <div className={"approval_item notification_item " + (index > 4 ? "unread" : "")} onClick={handleClick}>
             <div>
                 <Avatar
                     src={fromUser.image}
@@ -40,7 +42,7 @@ export default function NotificationItem({ item }) {
                 <div className="approval_item_detail_child2" >
                     <div className="dateTime" >
                         <div className="shortDesc" >
-                            {moment(createDate).startOf('hour').fromNow()}
+                            {notiTime}
                         </div>
                         {/* <div className="shortDesc">
                             TRA-00000012

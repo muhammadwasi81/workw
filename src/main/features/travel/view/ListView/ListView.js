@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext} from "react";
 // import { useNavigate } from "react-router-dom";
 import { Drawer, Skeleton } from "antd";
 // import TravelDetailCard from "../UI/TravelDetailCard";
@@ -19,8 +19,15 @@ import AttachmentsCarrousel from "../AttachmentsCarrousel/AttachmentsCarrousel";
 import { useSelector } from "react-redux";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { getNameForImage } from "../../../../../utils/base";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { TravelDictionary} from "../../localization/index"
+
+
 
 function ListView(props) {
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { Direction,TravelDictionaryList } = TravelDictionary[userLanguage];
+    const {headings}=TravelDictionaryList;
 	const { labels } = props;
 	const [visible, setVisible] = useState(false);
 	const [travelId, setTravelId] = useState("");
@@ -114,7 +121,7 @@ function ListView(props) {
 										/>
 										<div className="flex flex-col gap font-semibold">
 											<span className="">
-												Departure Date
+												{headings.departureDate}
 											</span>
 											<span className="text-primary-color">
 												{moment(
@@ -132,7 +139,7 @@ function ListView(props) {
 										<ClockCircleOutlined className="h-[30px] !text-2xl !text-[#1a5669]" />
 										<div className="flex flex-col gap font-semibold">
 											<span className="">
-												Departure Time
+											{headings.departureTime}
 											</span>
 											<span className="text-primary-color">
 												{moment
@@ -154,7 +161,7 @@ function ListView(props) {
 										/>
 										<div className="flex flex-col gap font-semibold">
 											<span className="break-words">
-												Departure City
+											{headings.departureCity}
 											</span>
 											<span className="text-primary-color">
 												{data.departure +
@@ -172,7 +179,7 @@ function ListView(props) {
 										/>
 										<div className="flex flex-col gap font-semibold">
 											<span className="break-words">
-												Arrival City
+											{headings.arrivalCity}	
 											</span>
 											<span className="text-primary-color">
 												{data.arrival +
@@ -183,7 +190,7 @@ function ListView(props) {
 									</div>
 									<div className="flex gap-3 items-center before:h-[40px] before:-left-[50px] before:w-[1px] before:bg-[#D9D9D9] before:absolute relative min-w-[150px]">
 										<div className="flex flex-col gap font-semibold">
-											<span className="">Approvers</span>
+											<span className=""> {headings.approvers}  </span>
 											<Avatar
 												heading={"Approvers"}
 												membersData={data.approvers}
@@ -193,7 +200,7 @@ function ListView(props) {
 									</div>
 									<div className="flex gap-3 items-center before:h-[40px] before:-left-[50px] before:w-[1px] before:bg-[#D9D9D9] before:absolute relative min-w-[150px]">
 										<div className="flex flex-col gap font-semibold">
-											<span className="">Agents</span>
+											<span className="">{headings.agents}</span>
 											<Avatar
 												heading={"Agents"}
 												membersData={data.agents}

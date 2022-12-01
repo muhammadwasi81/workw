@@ -18,27 +18,25 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 
 import { useDispatch } from "react-redux";
 import { GetPromotionById, cancelPromotion } from "../store/actions";
+import ConfirmationRemarkModal from "../../../sharedComponents/ConfirmationRemarkModal/ConfirmationRemarkModal";
 
 function PromotionDetail(props) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
   const { id } = props;
   const [updatedStatus, setUpdatedStatus] = useState();
+  const [isOpen, setIsOpen] = useState(false)
   const { promotionDetail, loadingData } = useSelector(
     (state) => state.promotionSlice
   );
-  console.log("loadingDataaaa",loadingData);
-  
-  console.log(promotionDetail, "promotion detail");
+
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, promotionDictionary } = promotionDictionaryList[
     userLanguage
   ];
   let userId = user.id;
-  console.log(props.id, "propsss id");
 
   useEffect(() => {
-    console.log(props.id, "props iddd");
     props.id && dispatch(GetPromotionById(props.id));
   }, [props.id]);
 
@@ -69,11 +67,22 @@ function PromotionDetail(props) {
     referenceNo,
   } = promotionDetail;
 
-  const handleCancel = (e, payload) => {
+  const handleCancel = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(cancelPromotion(payload));
+    setIsOpen(true);
   };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const onFinish = (values) => { 
+    let id = promotionDetail.id;
+    let reason = values.remarks
+    setIsOpen(false);
+    // dispatch(cancelPromotion({ id: id, reason: reason }));
+  }
 
   return (
     <>
@@ -160,6 +169,7 @@ function PromotionDetail(props) {
           />
         </div>
       )}
+      <ConfirmationRemarkModal isOpen={isOpen} onCancel={onClose} onFinish={onFinish} />
     </>
   );
 }

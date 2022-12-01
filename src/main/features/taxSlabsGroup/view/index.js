@@ -21,33 +21,33 @@ export default function TaxSlabsGroup() {
   const initialState = {
     name: '',
     description: '',
-    country: '',
-    // percentage: '',
-    // previousCharge: '',
+    countryId: '',
   };
   const [taxSlab, setTaxSlab] = useState(initialState);
   const [clearButton, setClearButton] = useState(false);
 
   const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
-    dispatch(removeTaxSlab(e));
-  };
-
+  // const handleDelete = (e) => {
+  //   dispatch(removeTaxSlab(e));
+  // };
   const onSubmit = (e) => {
-    if ((!e.name || !e.min || !e.max || !e.percentage, !e.previousCharge)) {
-      message.error('Please fill all required fields');
-    } else {
-      if (!e.id) {
-        dispatch(addTaxSlab(e));
-        dispatch(getAllTaxSlab());
-        setTaxSlab(initialState);
-        setClearButton(true);
-        return;
-      }
-      dispatch(updateTaxSlab(e));
-
+    if (!e.name || !e.description) {
+      return message.error('Please fill all required fields');
+    }
+    if (!e.id) {
+       dispatch(addTaxSlab(e));
+       dispatch(getAllTaxSlab(
+       {
+         "pageNo": 0,
+          "pageSize": 20,
+          "search": "",
+           "sortBy": 1
+        }
+       ));
+      console.log("taxSlab",e);
       setTaxSlab(initialState);
+    
     }
   };
   return (
@@ -61,7 +61,7 @@ export default function TaxSlabsGroup() {
       <TableView
         handleEdit={setTaxSlab}
         setClearButton={setClearButton}
-        handleDelete={handleDelete}
+        //handleDelete={handleDelete}
         actionRights={[1, 2]}
       />
     </AdminContainer>

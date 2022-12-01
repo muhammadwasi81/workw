@@ -12,36 +12,28 @@ export default function TableView({
   actionRights = [],
   setClearButton 
 }) {
-  const { items, loadingData } = useSelector((state) => state.taxSlabSlice);
-
   const dispatch = useDispatch();
+  const {items,loadingData}=  useSelector((state) => state.taxSlabGroupSlice);
+  console.log(items, 'itemWorkPlease');
+
   useEffect(() => {
-    dispatch(getAllTaxSlab());
+    dispatch(getAllTaxSlab(
+      {
+        "pageNo": 0,
+        "pageSize": 20,
+        "search": "",
+        "sortBy": 1
+      }
+    ));
   }, []);
-
+  
   const [id, setId] = useState()
-
-  const onSuccess = (e) => {
-    setId(null)
-    dispatch(TaxSlabDeleted(e))
-    setClearButton(true)
-  }
-
-  const onError = () => {
-    setId(null)
-  }
-
-  const handleDelete = (e) => {
-    setId(e.id)
-    dispatch(removeTaxSlab(e)).then(() => onSuccess(e), onError);    
-  }
-
   return (
     <AdminTable
       // scroll={{ x: 1500, y: 300 }}
       columns={tableColumn(
         handleEdit,
-        handleDelete,
+       // handleDelete,
         removeButtons,
         actionRights,
         id,

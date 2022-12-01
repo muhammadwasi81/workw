@@ -74,14 +74,16 @@ const sendMessage = async (payload) => {
 		const {
 			data: { responseCode, data, message },
 		} = await Config.post(`api/chat/sendChatMessage`, formDataRequest);
+
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
+		console.log(e);
 		return ResponseResultError(e);
 	}
 };
 const updateMessageDeliver = async (payload) => {
-	let {chatId, msgIds} = payload;
+	let { chatId, msgIds } = payload;
 	try {
 		const {
 			data: { responseCode, data, message },
@@ -93,7 +95,7 @@ const updateMessageDeliver = async (payload) => {
 	}
 };
 const updateMessageSeen = async (payload) => {
-	let {chatId, msgIds} = payload;
+	let { chatId, msgIds } = payload;
 	try {
 		const {
 			data: { responseCode, data, message },

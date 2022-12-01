@@ -21,10 +21,12 @@ import {
   ApprovalsModule,
   ApprovalStatus,
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import ConfirmationRemarkModal from "../../../sharedComponents/ConfirmationRemarkModal/ConfirmationRemarkModal";
 
 function RewardDetailCard(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { rewardDictionary } = rewardDictionaryList[userLanguage];
+  const [isOpen, setIsOpen] = useState(false)
   const { rewardDetail, loadingData } = useSelector(
     (state) => state.rewardSlice
   );
@@ -40,11 +42,7 @@ function RewardDetailCard(props) {
     props.id && dispatch(GetRewardById(props.id));
   }, [props.id]);
 
-  console.log("loadingdataaaa", loadingData);
-
   if (loadingData) return <Skeleton />;
-
-  console.log(updatedStatus, "UPDATE STATUS");
 
   const {
     creator,
@@ -60,11 +58,22 @@ function RewardDetailCard(props) {
     approvers,
   } = rewardDetail;
 
-  const handleCancel = (e, payload) => {
+  const handleCancel = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(cancelReward(payload));
+    setIsOpen(true)
   };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const onFinish = (values) => { 
+    let id = rewardDetail.id;
+    let reason = values.remarks
+    setIsOpen(false);
+    dispatch(cancelReward({ id: id, reason: reason }));
+  }
 
   const isTablet = false;
 
@@ -186,6 +195,7 @@ function RewardDetailCard(props) {
           />
         </div>
       )}
+      <ConfirmationRemarkModal isOpen={isOpen} onCancel={onClose} onFinish={onFinish} />
     </>
   );
 }

@@ -6,7 +6,7 @@ import {
 import Tab from '../../sharedComponents/Tab';
 import CoverImage from '../projects/UI/CoverImage';
 import ProfileCoverDetail from './ProfileCoverDetail';
-import ProjectCover from '../../../content/png/project_cover_img.png';
+import ProjectCover from '../../../content/ProjectCover.svg';
 import ProfilePanel from './view/ProfilePanel';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ROUTES } from '../../../utils/routes';

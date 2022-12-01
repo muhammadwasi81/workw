@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setNotificationStatus } from "../../../../store/appReducer/responsiveSlice";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import NewsIcon from "../../../../content/menu/news.png";
 import { handleRedirect } from "../utils/functions";
 import './style.css'
 
@@ -50,7 +51,12 @@ export default function NotificationItem({ item, index }) {
                     </div>
 
                 </div>
-
+            </div>
+            <div>
+                <img
+                    src={NewsIcon}
+                    style={{marginTop:"11px"}}
+                />
             </div>
         </div>
     )

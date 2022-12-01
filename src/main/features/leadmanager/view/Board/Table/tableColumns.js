@@ -7,8 +7,8 @@ import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 import LeadSectionSelect from "../../../UI/Select/LeadSectionSelect";
 import { LeadManagerDictionary } from "../../../localization";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
-export const tableColumns = (sections, handleMemberModal) => {
-	const { userLanguage } = useContext(LanguageChangeContext);
+export const tableColumns = (sections, handleMemberModal, userLanguage) => {
+	// const { userLanguage } = useContext(LanguageChangeContext);
 	const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
 		userLanguage
 	];

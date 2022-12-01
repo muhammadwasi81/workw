@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="168" height="168" viewBox="0 0 168 168">
+  <g id="COVER_PROFILE" data-name="COVER PROFILE" transform="translate(-4261 3300)">
+    <g id="Group_7690" data-name="Group 7690" transform="translate(99 -883)">
+      <g id="Group_7688" data-name="Group 7688" transform="translate(-39 -30)">
+        <g id="Rectangle_2546" data-name="Rectangle 2546" transform="translate(4201 -2387)" fill="#5f666a" stroke="#fff" stroke-width="4">
+          <rect width="168" height="168" rx="16" stroke="none"/>
+          <rect x="2" y="2" width="164" height="164" rx="14" fill="none"/>
+        </g>
+        <path id="Icon_open-person" data-name="Icon open-person" d="M43.822,0C31.771,0,21.911,12.27,21.911,27.389s9.86,27.389,21.911,27.389,21.911-12.27,21.911-27.389S55.873,0,43.822,0Zm-22.9,54.778A21.933,21.933,0,0,0,0,76.689V87.645H87.645V76.689A21.856,21.856,0,0,0,66.719,54.778C60.8,61.461,52.7,65.733,43.822,65.733S26.841,61.461,20.925,54.778Z" transform="translate(4241.178 -2346.822)" fill="#c8ced0"/>
+      </g>
+    </g>
+  </g>
+</svg>

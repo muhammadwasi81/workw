@@ -173,7 +173,7 @@ const PostFooter = ({
           </div>
           <div> {Comment}</div>
         </div>
-        <Popover
+        {/* <Popover
           placement="bottom"
           content={<PostShareContent />}
           trigger="click"
@@ -182,11 +182,10 @@ const PostFooter = ({
           <div className="btn">
             <div>
               <RiShareForwardLine className="text-3xl" />
-              {/* <img src={ShareIcon} alt="" /> */}
             </div>
             <div> {Share}</div>
           </div>
-        </Popover>
+        </Popover> */}
       </div>
 
       <CommentWrapper

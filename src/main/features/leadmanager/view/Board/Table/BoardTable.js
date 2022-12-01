@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Table } from "../../../../../sharedComponents/customTable";
 import { getLeadManagerDetailById } from "../../../store/actions";
@@ -7,6 +7,7 @@ import {
   handleSectionDetailModal,
 } from "../../../store/slice";
 import { tableColumns } from "./tableColumns";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 
 function BoardTable({ data, dictionary }) {
   // let details = data?.sections.map(det => ());
@@ -16,6 +17,7 @@ function BoardTable({ data, dictionary }) {
     return [...results, ...item.details.map((detail) => ({ ...detail }))];
   }, []);
   const dispatch = useDispatch();
+  const { userLanguage } = useContext(LanguageChangeContext)
   const handleMemberModal = (id) => {
     dispatch(
       handleAssignMemberModal({
@@ -31,25 +33,25 @@ function BoardTable({ data, dictionary }) {
         dispatch(getLeadManagerDetailById(record.id));
         dispatch(handleSectionDetailModal());
       }, // click row
-      onDoubleClick: (event) => {}, // double click row
-      onContextMenu: (event) => {}, // right button click row
-      onMouseEnter: (event) => {}, // mouse enter row
-      onMouseLeave: (event) => {}, // mouse leave row
+      onDoubleClick: (event) => { }, // double click row
+      onContextMenu: (event) => { }, // right button click row
+      onMouseEnter: (event) => { }, // mouse enter row
+      onMouseLeave: (event) => { }, // mouse leave row
     };
   };
   return (
     <Table
-      columns={tableColumns(data?.sections, handleMemberModal)}
+      columns={tableColumns(data?.sections, handleMemberModal, userLanguage)}
       //   columns={tableColumns(dictionary)}
       dragable={false}
       // handleChange={handleColumnSorting}
       // onPageChange={onPageChange}
       onRow={onRow}
       data={details}
-      // status={travelStatus}
-      // loading={loader}
-      // success={success}
-      // onActionClick={onActionClick}
+    // status={travelStatus}
+    // loading={loader}
+    // success={success}
+    // onActionClick={onActionClick}
     />
   );
 }

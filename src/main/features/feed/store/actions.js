@@ -239,6 +239,7 @@ function addPostPollOption(state, _) {
 function clearSinglePost(state, _) {
 	state.singlePost = {};
 }
+
 function removePostPollOption(state, { payload: { index } }) {
 	const {
 		postCompose: {
@@ -271,5 +272,5 @@ export {
 	onPostPrivacyChange,
 	onSaveComment,
 	toggleComposerVisibility,
-	clearSinglePost,
+	clearSinglePost
 };

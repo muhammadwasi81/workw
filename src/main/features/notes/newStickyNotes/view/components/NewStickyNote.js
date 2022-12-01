@@ -160,8 +160,8 @@ const NewStickyNote = ({ item }) => {
   // console.log(width, height, "widthhh");
 
   const axis = {
-    x_axis: Math.floor(Math.random() * 40) + 250,
-    y_axis: Math.floor(Math.random() * 40) + 150,
+    x_axis:(Math.floor(Math.random() * (400 - 300)) + 300),
+    y_axis: (Math.floor(Math.random() * (200 - 500)) + 500)
   };
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
@@ -173,6 +173,10 @@ const NewStickyNote = ({ item }) => {
         Draggable
         defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
+        // grid={[25, 25]}
+        scale={1}
+        // bounds="parent"
+        // allowAnyClick={true}
       >
         <div
           className="stickyNote_container"

@@ -11,7 +11,7 @@ const ConversationListHead = () => {
 
   const [visible, setVisible] = useState(false);
   const success = useSelector((state) => state.MessengerSlice.success);
-
+  const { user } = useSelector((state) => state.userSlice);
   useEffect(() => {
     if (success) setVisible(false);
   }, [success]);
@@ -26,10 +26,8 @@ const ConversationListHead = () => {
     <div className="ConversationListHead">
       <div>
         <Avatar
-          src={
-            "https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-          }
-          name={""}
+          src={user.image}
+          name={user.name}
           size={38}
           round={true}
         />

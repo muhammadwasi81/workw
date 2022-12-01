@@ -168,7 +168,7 @@ export const ROUTES = {
     PAYROLL_DETAILS: `${DOMAIN_PREFIX}/payroll/details`,
   },
   APPROVALS: {
-    DEFAULT: `${DOMAIN_PREFIX}/approvals/`,
+    DEFAULT: `${DOMAIN_PREFIX}/approvals`,
   },
   E_LEARNING: {
     DEFAULT: `${DOMAIN_PREFIX}/eLearningCourses/`,

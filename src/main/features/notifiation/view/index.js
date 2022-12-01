@@ -13,10 +13,12 @@ const defaultFilter = {
 export default function Notifications() {
     const dispatch = useDispatch();
     const [filter, setFilter] = useState(defaultFilter);
+    const notifcationStatus = useSelector(state => state.responsiveSlice.notifcationStatus);
     const notificationList = useSelector(state => state.notificationSliceNew.notificationList);
     useEffect(() => {
-        dispatch(getAllNotification(filter));
-    }, []);
+        if (notifcationStatus)
+            dispatch(getAllNotification(filter));
+    }, [notifcationStatus]);
     return (
         <div className="approval_list_cont" >
             <div className="approval_header" >
@@ -28,7 +30,7 @@ export default function Notifications() {
             </div>
 
             <div className="approval_list" >
-                {notificationList.map((item) => <NotificationItem item={item}/>)}
+                {notificationList.map((item, index) => <NotificationItem item={item} index={index}/>)}
             </div>
 
         </div>

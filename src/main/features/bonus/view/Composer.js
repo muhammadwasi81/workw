@@ -52,6 +52,7 @@ const Composer = (props) => {
   const [prercentage, setPercentage] = useState();
   const [amount, setAmount] = useState();
 
+  console.log(props.id, "bonus composer idddd");
   useEffect(() => {
     fetchEmployees("", 0);
     // setNetSalary(salary)
@@ -110,15 +111,15 @@ const Composer = (props) => {
     console.log("Failed:", errorInfo);
   };
 
-  useEffect(() => {
-    if (value === 1) {
-      setAmount("");
-      console.log("valueeee", value);
-    } else if (value === 2) {
-      setPercentage("");
-      console.log(value, "valuee2");
-    }
-  }, [value]);
+  // useEffect(() => {
+  //   if (value === 1) {
+  //     setAmount("");
+  //     console.log("valueeee", value);
+  //   } else if (value === 2) {
+  //     setPercentage("");
+  //     console.log(value, "valuee2");
+  //   }
+  // }, [value]);
 
   const handleType = (e) => {
     let type = e.target.value;
@@ -210,9 +211,7 @@ const Composer = (props) => {
               ]}
             >
               <Radio.Group onChange={handleType} value={value}>
-                <Radio value={1} checked>
-                  Percent
-                </Radio>
+                <Radio value={1}>Percent</Radio>
                 <Radio value={2}>Amount</Radio>
               </Radio.Group>
             </Form.Item>
@@ -234,7 +233,7 @@ const Composer = (props) => {
                 <InputNumber
                   parser={(value) => value.replace("%", "")}
                   formatter={(value) => `${value}%`}
-                  defaultValue=""
+                  defaultValue="0%"
                   // type={"number"}
                   placeholder="0%"
                   size="large"

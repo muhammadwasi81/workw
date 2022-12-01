@@ -1,4 +1,5 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { addRealTimePost } from "../main/features/feed/store/slice";
 import { updateMessageDeliver } from "../main/features/Messenger/store/actions";
 import { receiveChatMessage } from "../main/features/Messenger/store/messengerSlice";
 import { servicesUrls } from "./services/baseURLS";
@@ -12,7 +13,7 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 		.withUrl(URL, { accessTokenFactory: () => userSlice.token })
 		.configureLogging(LogLevel.Information)
 		.build();
-	connection.start().then(() => {});
+	connection.start().then(() => { });
 	// Receive Message Listner Here
 	connection.on("messageOut", data => {
 		console.log(data, "messageOut mySocket");
@@ -30,6 +31,7 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 					playSound: true,
 					avatarName: data.creator.name,
 					avatarImage: data.creator.image,
+					// duration:0
 				})
 			);
 		}
@@ -42,11 +44,16 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 				playSound: true,
 				avatarName: data.fromUser.name,
 				avatarImage: data.fromUser.image,
+				style: { backgroundColor: "#64c4b2" }
 			})
 		);
 	});
 	connection.on("newFeedOut", data => {
+		dispatch(addRealTimePost(data))
 		console.log(data, "newFeedOut")
+	});
+	connection.on("commentOut", data => {
+		console.log(data, "commentOut")
 	});
 	// connection.on("ReceiveMessage", data => {
 	// 	// console.log(data)
@@ -59,3 +66,5 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 	// 	}));
 	// });
 };
+
+

@@ -8,12 +8,16 @@ export const responsiveSlice = createSlice({
     isTabletScreen: window.innerWidth <= 1000,
     isMobileScreen: window.innerWidth <= 800,
     notifcationStatus: false,
+    approvalStatus: false,
   },
   reducers: {
     navBarOpen: (state, action) => {
       state.navBarStatus = action.payload;
       if (state.navBarStatus !== true && state.notifcationStatus) {
         state.notifcationStatus = false;
+      }
+      if (state.navBarStatus !== true && state.approvalStatus) {
+        state.approvalStatus = false;
       }
     },
     userSettingToggleFun: (state, action) => {
@@ -28,6 +32,9 @@ export const responsiveSlice = createSlice({
     setNotificationStatus: (state, action) => {
       state.notifcationStatus = action.payload;
     },
+    setApprovalStatus: (state, action) => {
+      state.approvalStatus = action.payload;
+    },
   },
 });
 
@@ -37,5 +44,6 @@ export const {
   setMobileScreenStatus,
   setTabletScreenStatus,
   setNotificationStatus,
+  setApprovalStatus
 } = responsiveSlice.actions;
 export default responsiveSlice.reducer;

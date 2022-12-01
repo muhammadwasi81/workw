@@ -8,7 +8,7 @@ export function DepartmentMemberTypeList() {
 	return [
 		{
 			id: DepartmentTypeMemberEnum.Employee,
-			name: "Employee",
+			name: "User",
 		},
 		{
 			id: DepartmentTypeMemberEnum.Admin,

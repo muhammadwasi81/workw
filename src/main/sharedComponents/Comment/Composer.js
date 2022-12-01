@@ -24,6 +24,7 @@ const CommentComposer = ({
 	commentRequestSuccess,
 	initialMentions = [],
 	placeHolder = "Write Your Comments Here.",
+	setShowComments = () => {},
 }) => {
 	const {
 		userSlice: { user },
@@ -106,6 +107,7 @@ const CommentComposer = ({
 				}
 			}
 		}
+		setShowComments(true);
 	};
 	const getEmployeeOnMentionSearch = async value => {
 		if (value.includes("@")) {

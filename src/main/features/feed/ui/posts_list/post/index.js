@@ -10,6 +10,7 @@ const Post = ({
 	reactionModule,
 	referenceType,
 	referenceId,
+	isDetail = false,
 }) => {
 	const [modelState, setmodelState] = useState(false);
 	const openModel = value => {
@@ -49,6 +50,7 @@ const Post = ({
 				id={id}
 			/>
 			<PostFooter
+				isDetail={isDetail}
 				id={id}
 				comments={comments}
 				reactionCount={reactionCount}

@@ -10,6 +10,8 @@ const initialState = {
   complains: [],
   loadingData: false,
   loader: true,
+  success: false,
+
   complainDetail: {},
   drawerOpen: false,
   cancelComplain: {},
@@ -41,10 +43,16 @@ const complainSlice = createSlice({
     builder
       .addCase(addComplain.fulfilled, (state, { payload }) => {
         state.drawerOpen = false;
+        state.loader = false;
         state.complains = [payload.data.data, ...state.complains];
         return state;
       })
-      .addMatcher(isPending(...[getAllComplains, addComplain]), (state) => {
+      .addMatcher(isPending(...[getAllComplains]), (state) => {
+        state.loader = true;
+      })
+      .addMatcher(isPending(...[addComplain]), (state) => {
+        state.success = false;
+
         state.loader = true;
       })
       .addMatcher(isPending(...[GetComplainById]), (state) => {

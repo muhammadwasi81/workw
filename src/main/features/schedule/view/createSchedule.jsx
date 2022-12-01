@@ -271,9 +271,9 @@ function CreateSchedule() {
 						]}
 					>
 						<DatePicker
-							format="YYYY-MM-DD HH:mm:ss"
+							format="YYYY-MM-DD HH:mm"
 							showTime={{
-								defaultValue: moment("00:00:00", "HH:mm:ss"),
+								defaultValue: moment("00:00:00", "HH:mm"),
 							}}
 							placeholder="Select Date & Time"
 						/>

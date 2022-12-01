@@ -4,7 +4,7 @@ import { BsChatSquareText } from "react-icons/bs";
 import PostShareModal from "./PostShareModal";
 import { Popover } from "antd";
 
-function PostShareContent(props) {
+function PostShareContent({postId}) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [shareType, setShareType] = useState("");
 	const [openPopover, setOpenPopover] = useState(false);
@@ -53,11 +53,13 @@ function PostShareContent(props) {
 					<div> {"Share"}</div>
 				</div>
 			</Popover>
-			<PostShareModal
-				isOpen={isOpen}
-				shareType={shareType}
-				handleCancel={handleCancel}
-			/>
+			{isOpen &&
+				<PostShareModal
+					isOpen={isOpen}
+					shareType={shareType}
+					handleCancel={handleCancel}
+					postId={postId}
+				/>}
 		</>
 	);
 }

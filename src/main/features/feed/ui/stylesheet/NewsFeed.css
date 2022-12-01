@@ -83,6 +83,10 @@
 .commentItem {
     display: flex;
 }
+.sharePostBtn, .sharePostBtn:hover{
+    color: white;
+    margin-left: auto;
+}
 
 /* .ant-mentions-measure{   
     z-index: 999999;

@@ -1,0 +1,10 @@
+.confirmationRemarksModal .ant-modal-content {
+    border-radius: 14px;
+}
+.confirmationRemarksModal .buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+.buttons .ant-form-item-control-input-content {
+    margin-right: 10px;
+}

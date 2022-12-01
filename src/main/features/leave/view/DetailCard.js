@@ -8,14 +8,11 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import DefaultIcon from "../../../../content/NewContent/leaves/Leaves.svg";
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import moment from "moment";
-import { cancelReward, GetLeaveById } from "../store/actions";
+import { GetLeaveById } from "../store/actions";
 import {
   ApprovalStatus,
   ApprovalsModule,
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
-
-import { getNameForImage } from "../../../../utils/base";
-import Approval from "../../../sharedComponents/AppComponents/Approval/Approval";
 
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
@@ -26,10 +23,11 @@ import {
   SingleItem,
 } from "../../../sharedComponents/Card/CardStyle";
 import Attachments from "../../travel/view/UI/Attachments";
+import ConfirmationRemarkModal from "../../../sharedComponents/ConfirmationRemarkModal/ConfirmationRemarkModal";
 
 function DetailCard(props) {
   const [updatedStatus, setUpdatedStatus] = useState(null);
-
+  const [isOpen, setIsOpen] = useState(false)
   const { userLanguage } = useContext(LanguageChangeContext);
   const { leaveDictionary } = leaveDictionaryList[userLanguage];
   const { user } = useSelector((state) => state.userSlice);
@@ -54,7 +52,6 @@ function DetailCard(props) {
   }, [props.id]);
 
   const { leaveDetail, loadingData } = useSelector((state) => state.leaveSlice);
-  //console.log("loadingDataaaaaa",loadingData);
 
   if (loadingData) return <Skeleton />;
 
@@ -84,6 +81,24 @@ function DetailCard(props) {
   //     e.stopPropagation();
   //     dispatch(cancelReward(payload));
   // }
+
+  const handleCancel = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(true)
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const onFinish = (values) => { 
+    let id = leaveDetail.id;
+    let reason = values.remarks
+    setIsOpen(false);
+    // dispatch(cancelReward({ id: id, reason: reason }));
+  }
+
 
   return (
     <>
@@ -179,6 +194,7 @@ function DetailCard(props) {
           />
         </div>
       )}
+      <ConfirmationRemarkModal isOpen={isOpen} onCancel={onClose} onFinish={onFinish} />
     </>
   );
 }

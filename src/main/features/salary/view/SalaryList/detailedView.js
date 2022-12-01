@@ -1,22 +1,22 @@
-import React from "react";
-import { Drawer } from "antd";
-import SalaryDetailCard from "./salaryDetailCard";
+import React from 'react';
+import { Drawer } from 'antd';
+import SalaryDetailCard from './salaryDetailCard';
 
 function SalaryDetailedView(props) {
   const isTablet = false;
 
   return (
     <Drawer
-      title={<h1 style={{ fontSize: "20px", margin: 0 }}>Salary</h1>}
+      title={<h1 style={{ fontSize: '20px', margin: 0 }}>Salary</h1>}
       width="768"
-      height={"85%"}
-      placement={("right")}
+      height={'85%'}
+      placement={'right'}
       onClose={props.onClose}
       visible={!!props.id}
       className="drawerSecondary"
-      destroyOnClose={true}>
-
-      <SalaryDetailCard  id={props.id}/>
+      destroyOnClose={true}
+    >
+      <SalaryDetailCard id={props.id} />
     </Drawer>
   );
 }

@@ -14,13 +14,15 @@ import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import RequestListComposer from './composer/RequestListComposer';
 import { ListTableColumn } from './tableColumn';
 import { Skeleton } from 'antd';
+import { handleOpenComposer } from '../store/slice';
 
 const Index = () => {
   const dispatch = useDispatch();
 
-  const { loader, requestItems, success } = useSelector(
+  const { loader, requestItems, drawerOpen } = useSelector(
     (state) => state.requestItemSlice
   );
+  console.log(drawerOpen, 'drawerOpen');
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');
@@ -54,6 +56,8 @@ const Index = () => {
     pageNo: 1,
     pageSize: 20,
     search: '',
+    sortBy: 1,
+    filterType: filterType,
   };
 
   useEffect(() => {
@@ -65,12 +69,12 @@ const Index = () => {
       buttonText: 'Create Request',
       render: (
         <SideDrawer
-          success={success}
-          isAccessDrawer={true}
-          openDrawer={success}
-          children={<RequestListComposer />}
           title="Create Request"
           buttonText="Create Request"
+          handleClose={() => dispatch(handleOpenComposer(false))}
+          handleOpen={() => dispatch(handleOpenComposer(true))}
+          isOpen={drawerOpen}
+          children={<RequestListComposer />}
         />
       ),
     },

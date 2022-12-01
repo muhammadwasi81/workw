@@ -11,6 +11,7 @@ const initialState = {
   loadingData: false,
   loader: true,
   requestItemDetail: {},
+  drawerOpen: false,
 };
 
 const requestItemSlice = createSlice({
@@ -19,6 +20,9 @@ const requestItemSlice = createSlice({
   reducers: {
     clearRequestDetails: (state) => {
       state.salaryDetail = null;
+    },
+    handleOpenComposer: (state, action) => {
+      state.drawerOpen = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -33,11 +37,11 @@ const requestItemSlice = createSlice({
       state.requestItemDetail = action.payload.data;
       state.loadingData = false;
     });
-
     builder
       .addCase(addRequestListItems.fulfilled, (state, { payload }) => {
         console.log(payload, 'addRequestListItems slice');
         state.success = true;
+        state.drawerOpen = false;
         state.requestItems = [...state.requestItems, payload.data.data];
       })
       .addMatcher(isPending(...[getAllRequestListItems]), (state) => {
@@ -52,5 +56,8 @@ const requestItemSlice = createSlice({
   },
 });
 
-export const { clearRequestDetails } = requestItemSlice.actions;
+export const {
+  clearRequestDetails,
+  handleOpenComposer,
+} = requestItemSlice.actions;
 export default requestItemSlice.reducer;

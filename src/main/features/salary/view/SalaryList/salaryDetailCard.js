@@ -44,7 +44,7 @@ function SalaryDetailCard(props) {
   console.log(salaryDetail, 'salaryDetail');
 
   if (loadingData) return <Skeleton />;
-  console.log("loadingDataaaa",loadingData);
+  console.log('loadingDataaaa', loadingData);
 
   return (
     <>

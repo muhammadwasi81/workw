@@ -207,7 +207,9 @@ function LeadsOverview() {
 																		index
 																	);
 																}}
-																// value={}
+																value={
+																	detail?.id
+																}
 															>
 																{leadManagerDetail?.sections.map(
 																	leadSection => (

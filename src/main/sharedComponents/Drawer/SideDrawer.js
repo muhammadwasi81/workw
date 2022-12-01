@@ -79,7 +79,7 @@ function SideDrawer({
 					onClick={showDrawer}
 					shape="square"
 					title={buttonText}
-					antIcon={<PlusOutlined height={"2em"} />}
+					// antIcon={<PlusOutlined height={"2em"} />}
 					buttonClass={
 						Direction === "rtl" && isTablet
 							? "drawerBtn justify-start"

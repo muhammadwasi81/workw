@@ -6,6 +6,13 @@
     border-radius: 7px;
   }
   
+  .slabTable .createEntryTable table {
+    min-width: 672px;
+  }
+  .slabTable .createEntryTable {
+    width: auto;
+  }
+
   .createEntryTable {
     width: 100%;
   }

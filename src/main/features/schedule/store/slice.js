@@ -7,6 +7,8 @@ import {
 	getAllSchedule,
 	getAllUpcomingSchedule,
 	getScheduleById,
+	updateMemberScheduleStatus,
+	updateScheduleMemberType,
 } from "./action";
 
 const scheduleSlice = createSlice({
@@ -32,7 +34,6 @@ const scheduleSlice = createSlice({
 			state.eventDetailComposer = !state.eventDetailComposer;
 			state.scheduleComposerData = payload;
 		},
-		// handleComposer
 	},
 	extraReducers: builder => {
 		builder
@@ -95,6 +96,30 @@ const scheduleSlice = createSlice({
 				state.success = true;
 				state.upcomingSchedules = payload.data;
 			})
+			.addCase(
+				updateMemberScheduleStatus.fulfilled,
+				(state, { payload }) => {
+					state.loading = false;
+					state.success = true;
+					const filteredMemberIndex = state.eventDetail.members.findIndex(
+						member => member.id === payload.data.id
+					);
+					state.eventDetail.members[filteredMemberIndex] =
+						payload.data;
+				}
+			)
+			.addCase(
+				updateScheduleMemberType.fulfilled,
+				(state, { payload }) => {
+					state.loading = false;
+					state.success = true;
+					const filteredMemberIndex = state.eventDetail.members.findIndex(
+						member => member.id === payload.data.id
+					);
+					state.eventDetail.members[filteredMemberIndex] =
+						payload.data;
+				}
+			)
 			.addMatcher(
 				isPending(
 					...[
@@ -104,6 +129,8 @@ const scheduleSlice = createSlice({
 						getAllCurrentSchedule,
 						getAllUpcomingSchedule,
 						getScheduleById,
+						updateMemberScheduleStatus,
+						updateScheduleMemberType,
 					]
 				),
 				state => {
@@ -117,6 +144,8 @@ const scheduleSlice = createSlice({
 						addSchedule,
 						getAllSchedule,
 						getScheduleById,
+						updateMemberScheduleStatus,
+						updateScheduleMemberType,
 						// getAllEventSchedule,
 						// getAllCurrentSchedule,
 					]

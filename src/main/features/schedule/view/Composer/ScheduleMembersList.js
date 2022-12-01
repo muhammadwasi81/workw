@@ -1,21 +1,28 @@
-import { Button, Tag } from "antd";
 import React from "react";
+import { useSelector } from "react-redux";
+import { Button, Tag } from "antd";
+
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import {
 	getStatusLabelAndColor,
 	ScheduleMemberStatus,
 	ScheduleMemberType,
 } from "../../enum/enum";
-// import Avatar from "../../../ Avatar/avatarOLD";
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
-import { useSelector } from "react-redux";
 
-function ScheduleMembersList({ status, data, memberType, isActionEnabled }) {
+function ScheduleMembersList({
+	status,
+	data,
+	memberType,
+	isActionEnabled,
+	handleMemberStatusChange,
+	handleMemberTypeStatusChange,
+	id,
+}) {
 	const { label, color } = getStatusLabelAndColor("", "")[status];
-
 	const loggedInUserId = useSelector(state => state.userSlice.user.id);
 	return (
 		<div>
-			<div className="approvalCollapse ant-collapse cursor-pointer">
+			<div className="approvalCollapse ant-collapse cursor-pointer group">
 				<div className="ant-collapse-item">
 					<div className="approval__body-header">
 						<div className="left">
@@ -47,10 +54,51 @@ function ScheduleMembersList({ status, data, memberType, isActionEnabled }) {
 								(status === ScheduleMemberStatus.Waiting &&
 									loggedInUserId === data?.id) ? (
 									<div className="flex gap-1">
-										<Button className="!border !border-[#1ECB40] !bg-[#1ECB40] !text-white !rounded-sm !p-1">
+										{memberType !=
+											ScheduleMemberType.Admin && (
+											<Button
+												className="!hidden !rounded-sm !p-1 group-hover:!inline"
+												type="dashed"
+												onClick={e => {
+													handleMemberTypeStatusChange(
+														id,
+														ScheduleMemberType.Admin
+													);
+												}}
+												// name={
+												// 	memberType ===
+												// 	ScheduleMemberType.User
+												// 		? ScheduleMemberType.Admin
+												// 		: ScheduleMemberType.User
+												// }
+											>
+												Make Host
+												{/* {memberType ===
+												ScheduleMemberType.User
+													? "Make Host"
+													: "Remove Host"} */}
+											</Button>
+										)}
+										<Button
+											className="!border !border-[#1ECB40] !bg-[#1ECB40] !text-white !rounded-sm !p-1"
+											onClick={() => {
+												handleMemberStatusChange(
+													id,
+													ScheduleMemberStatus.Attending
+												);
+											}}
+										>
 											Attending
 										</Button>
-										<Button className="!border !border-[#FF0000] !bg-[#FF0000] !text-white !rounded-sm !p-1">
+										<Button
+											className="!border !border-[#FF0000] !bg-[#FF0000] !text-white !rounded-sm !p-1"
+											onClick={() => {
+												handleMemberStatusChange(
+													id,
+													ScheduleMemberStatus.NotAttending
+												);
+											}}
+										>
 											Decline
 										</Button>
 									</div>

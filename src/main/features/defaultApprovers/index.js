@@ -45,7 +45,6 @@ const DefaultApprovers = () => {
 
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
-  console.log(employees, 'employees');
 
   const selectedData = (data) => {
     console.log(data, 'selectedData');

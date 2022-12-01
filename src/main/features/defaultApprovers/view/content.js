@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { Button, Form } from 'antd';
+import { Form } from 'antd';
 import { customApprovalDictionaryList } from '../../CustomApprovals/localization';
 import CustomSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,13 +24,16 @@ const Content = () => {
 
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
-  console.log(employees, 'employees');
+
+  const { approversData } = useSelector((state) => state.approverSlice);
+  console.log(approversData, 'approverSlice');
 
   const payloadData = {
-    pageNo: 2147483647,
+    pageNo: 1,
     pageSize: 20,
     search: '',
   };
+
   useEffect(() => {
     dispatch(getAllDefaultApproversAction(payloadData));
   }, []);
@@ -45,7 +48,7 @@ const Content = () => {
     setInput(e);
     setData([...data, e]);
   };
-  console.log(data, 'data hai');
+
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
       setIsFirstTimeDataLoaded(true);
@@ -67,37 +70,59 @@ const Content = () => {
     );
   };
 
+  // filter data accroding to all types
+  const filteredData = approversData.filter((item) => item.type === 2);
+  console.log(
+    filteredData.map((x) => x.member.name),
+    'filteredData'
+  );
+
   return (
-    <CustomSelect
-      style={{ marginBottom: '0px' }}
-      data={firstTimeEmpData}
-      selectedData={selectedData}
-      canFetchNow={isFirstTimeDataLoaded}
-      fetchData={fetchEmployees}
-      placeholder={customApprovalDictionary.selectMember}
-      // mode={'multiple'}
-      isObject={true}
-      loadDefaultData={false}
-      onChange={handleChange}
-      optionComponent={(opt) => {
-        return (
-          <>
+    <>
+      <CustomSelect
+        style={{ marginBottom: '0px' }}
+        data={firstTimeEmpData}
+        selectedData={selectedData}
+        canFetchNow={isFirstTimeDataLoaded}
+        fetchData={fetchEmployees}
+        placeholder={customApprovalDictionary.selectMember}
+        // mode={'multiple'}
+        isObject={true}
+        loadDefaultData={false}
+        onChange={handleChange}
+        optionComponent={(opt) => {
+          return (
+            <>
+              <Avatar
+                name={opt.name}
+                src={opt.image}
+                round={true}
+                width={'30px'}
+                height={'30px'}
+              />
+              {opt.name}
+            </>
+          );
+        }}
+        dataVal={value}
+        name="approvers"
+        showSearch={true}
+        direction={Direction}
+      />
+      <div>
+        {filteredData.map((item) => {
+          return (
             <Avatar
-              name={opt.name}
-              src={opt.image}
+              name={item.member.name}
+              src={item.member.image}
               round={true}
               width={'30px'}
               height={'30px'}
             />
-            {opt.name}
-          </>
-        );
-      }}
-      dataVal={value}
-      name="approvers"
-      showSearch={true}
-      direction={Direction}
-    />
+          );
+        })}
+      </div>
+    </>
   );
 };
 

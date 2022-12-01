@@ -24,7 +24,7 @@ function ListItem(props) {
   const {
     creator,
     description,
-    image = DefaultAttachment,
+    // image = DefaultAttachment,
     category,
     createDate,
     members = [],

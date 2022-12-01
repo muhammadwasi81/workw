@@ -152,7 +152,7 @@ const NavMenuList = () => {
       key: label.navMenuLabel.menu,
     },
     {
-      name: "L & D",
+      name: label.navMenuLabel.LD,
       counter: 0,
       icon: eLearningIcon,
       to: ROUTES.ELearning.LINK,
@@ -266,7 +266,7 @@ const NavMenuList = () => {
     },
     // *****BY SANJNA****
     {
-      name: "My Team",
+      name: label.navMenuLabel.teams,
       counter: 0,
       icon: teamIcon,
       to: ROUTES.TEAMS.TEAM,
@@ -290,7 +290,7 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
     },
     {
-      name: "Job Board",
+      name: label.navMenuLabel.jobBoard,
       counter: 0,
       icon: voucherIcon,
       to: ROUTES.JOBS.ROOT,

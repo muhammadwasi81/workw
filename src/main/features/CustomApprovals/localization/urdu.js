@@ -18,6 +18,8 @@ const urdu = {
     category: "قسم",
     approvers: "منظوری دینے والے",
     rewardTo: "کو انعام",
+    createCustomApproval: "حسب ضرورت منظوری بنائیں",
+
     myComplain: "میری شکایت",
     complainToMe: "مجھ سے شکایت",
     createReward: "اجر پیدا کریں",

@@ -12,6 +12,7 @@ const MessengerListItem = ({
   messgeItem,
   messengerDetail = { chatType: 1 },
   isChatBox = false,
+  previousMessage
 }) => {
   const {
     id,
@@ -23,17 +24,27 @@ const MessengerListItem = ({
     createBy,
     creator,
   } = messgeItem;
-  console.log(messgeItem, "hhh");
   const { user } = useSelector((state) => state.userSlice);
   const messageByMe = getMessageByMe(createBy, user);
   const { chatType } = messengerDetail;
+  const isGroupMessage = previousMessage?.creator?.id === creator?.id;
+  let contClasses = !messageByMe ? "MessengerListItem" : "MessengerListItem-ME";
+  contClasses = 
 
+  console.log(previousMessage, "previousMessage");
+  console.log(id, "id");
+  
   return (
     <div
       id={id}
       className={!messageByMe ? "MessengerListItem" : "MessengerListItem-ME"}
     >
-      <MessageProfile isChatBox={isChatBox} messageByMe={messageByMe} />
+      <MessageProfile
+        isChatBox={isChatBox}
+        messageByMe={messageByMe}
+        creator={creator}
+        isGroupMessage={isGroupMessage}
+      />
       <div className="MessageBubble">
         {messageType === 2 && (
           <AudioComponent
@@ -42,17 +53,17 @@ const MessengerListItem = ({
             messageByMe={messageByMe}
           />
         )
-        // <audio controls>
-        // 	<source src={attachments[0].path} />
-        // 	Your browser does not support the audio tag.
-        // </audio>
+          // <audio controls>
+          // 	<source src={attachments[0].path} />
+          // 	Your browser does not support the audio tag.
+          // </audio>
         }
         {!(messageType === 2) && (
           <Attachments
             data={attachments}
             key={{ data: attachments }}
             toShow={3}
-            onClick={() => {}}
+            onClick={() => { }}
             size={isChatBox ? "75px" : "100px"}
           />
         )}

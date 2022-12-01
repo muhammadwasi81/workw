@@ -32,7 +32,9 @@ const MessengerList = ({ isChatBox = true, isOpenProfile, messengerDetail }) => 
                      key={ind}
                      messgeItem={item}
                      messengerDetail={messengerDetail}
-                     isChatBox={isChatBox} />
+                     isChatBox={isChatBox}
+                     previousMessage={messageList[ind - 1]}
+                  />
                )
             })
          }

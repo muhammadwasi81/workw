@@ -199,7 +199,7 @@ function Travel({
 		<TabContainer>
 			<Header
 				label={TravelDictionaryList}
-				success={isAdded}
+				// success={isAdded}
 				backButton={backButton}
 				referenceId={referenceId}
 				referenceType={referenceType}

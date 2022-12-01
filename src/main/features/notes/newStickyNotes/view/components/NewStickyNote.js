@@ -13,7 +13,7 @@ import {
   PictureOutlined,
 } from "@ant-design/icons";
 import "../../style.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   closeStickyNote,
   targetTitleVal,
@@ -32,7 +32,7 @@ import {
 import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
 import { createGuid } from "../../../../../../utils/base";
 import ShareComponent from "./ShareComponent";
-
+import { handleOpenSticky } from "../../store/stickySlice";
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
   const [openShare, setOpenShare] = useState(false);
@@ -40,16 +40,14 @@ const NewStickyNote = ({ item }) => {
   const [description, setDescription] = useState(null);
   const tilteDebounce = useDebounce(title, 500);
   const descriptionDebounce = useDebounce(description, 500);
-  // const [copySuccess, setCopySuccess] = useState("");
-  // const textAreaRef = useRef(null);
 
   const dispatch = useDispatch();
+  const { openSticky, selectionId } = useSelector((state) => {
+    return state.stickySlice;
+  });
 
-  // const openColorHandler = () => {
-  //   setOpenColor(true);
-  // };
+  console.log(openSticky, "open sticky");
   const color = item.colorCode;
-  console.log(color, "colorcode");
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
     const id = item.id;
@@ -63,13 +61,10 @@ const NewStickyNote = ({ item }) => {
       })
     );
   };
-  console.log(item.description, "description");
   const openShareHandler = () => {
-    console.log("clicked share");
     setOpenShare((openShare) => !openShare);
   };
   const copyToClipboard = () => {
-    console.log("copy cliekd");
     navigator.clipboard.writeText(item.description);
   };
   // ********dropdown menu (color, copy, share) in three dot*********
@@ -77,15 +72,24 @@ const NewStickyNote = ({ item }) => {
     <Menu
       items={[
         {
-          label: <a onClick={openShareHandler}>Share</a>,
-          icon: <ShareAltOutlined onClick={openShareHandler} />,
+          label: (
+            <div onClick={openShareHandler}>
+              <ShareAltOutlined />
+              <a className="text-black">Share</a>
+            </div>
+          ),
           key: "0",
         },
         {
-          label: <a onClick={copyToClipboard}>Copy</a>,
-          icon: <CopyOutlined onClick={copyToClipboard} />,
+          label: (
+            <div onClick={copyToClipboard}>
+              <CopyOutlined />
+              <a className="text-black">Copy</a>
+            </div>
+          ),
           key: "1",
         },
+
         {
           label: <div>{openColor && <StickyColor item={item} />}</div>,
 
@@ -124,6 +128,7 @@ const NewStickyNote = ({ item }) => {
   const setDescriptionValue = (value) => {
     const id = item.id;
     dispatch(targetStickyDescription({ id, value }));
+    console.log(value, "description");
     dispatch(
       getStickyNoteDescAction({ ...item, attachments: [], description: value })
     );
@@ -155,17 +160,32 @@ const NewStickyNote = ({ item }) => {
   // console.log(width, height, "widthhh");
 
   const axis = {
-    x_axis: Math.floor(Math.random() * 40) + 250,
-    y_axis: Math.floor(Math.random() * 40) + 150,
+    x_axis:(Math.floor(Math.random() * (400 - 300)) + 300),
+    y_axis: (Math.floor(Math.random() * (200 - 500)) + 500)
   };
-
+  const openNewStikcyHandler = () => {
+    dispatch(handleOpenSticky(item.id));
+    console.log(item.id, item.description, "iddddddd");
+  };
   return (
     <>
       <Draggable
+        Draggable
         defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
+        // grid={[25, 25]}
+        scale={1}
+        // bounds="parent"
+        // allowAnyClick={true}
       >
-        <div className="stickyNote_container">
+        <div
+          className="stickyNote_container"
+          onClick={openNewStikcyHandler}
+          style={{
+            position: "absolute",
+            zIndex: item.id === openSticky ? 3 : 2,
+          }}
+        >
           <div
             className="stickyNote_header handle"
             style={{ backgroundColor: item.colorCode }}
@@ -222,6 +242,7 @@ const NewStickyNote = ({ item }) => {
               />
             </div>
           </div>
+
           {/* **********Insert images******** */}
           {imgSrc.length > 0 ? (
             <div className="image_body">

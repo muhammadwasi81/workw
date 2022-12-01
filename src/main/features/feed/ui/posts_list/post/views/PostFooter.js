@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
-import LikeIcon from "../../../../../../../content/NewContent/NewsFeed/svg/like.svg";
 import CommentIcon from "../../../../../../../content/NewContent/NewsFeed/svg/comment.svg";
-import ShareIcon from "../../../../../../../content/NewContent/NewsFeed/svg/share.svg";
 import Reactions from "../../../../../../sharedComponents/reactionBox/index";
 import { useDispatch } from "react-redux";
 import { addFeedReaction, feedSlice } from "../../../../store/slice";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CommentWrapper from "../../../../../../sharedComponents/Comment/CommentWrapper";
 import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
 import { FeedDictionary } from "../../../../localization";
@@ -48,6 +46,7 @@ const PostFooter = ({
 		Comment,
 		Share,
 		Like,
+		Celebrate,
 		WriteYourCommentHere,
 		WriteYourReplyHere,
 	} = Post;

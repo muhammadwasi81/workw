@@ -144,7 +144,7 @@ const Composer = props => {
 					moment(detail.endDate),
 				],
 				externals: detail.externals,
-				...featureValues.reduce(function(result, current) {
+				...featureValues.reduce(function (result, current) {
 					return Object.assign(result, current);
 				}, {}),
 			});

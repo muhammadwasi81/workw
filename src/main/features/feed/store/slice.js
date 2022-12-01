@@ -133,6 +133,10 @@ export const feedSlice = createSlice({
 				filteredPoll[0].youVoted = true;
 			}
 		},
+		addRealTimePost(state, { payload }) {
+			state.allFeed.posts.unshift(payload);
+		}
+		
 	},
 	extraReducers: builder => {
 		builder.addCase(
@@ -219,5 +223,6 @@ export const {
 	addFeedFavourite,
 	addFeedReaction,
 	postPoll,
+	addRealTimePost
 } = feedSlice.actions;
 export default feedSlice.reducer;

@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import ListItem from "./ListItem";
-import { useSelector, useDispatch } from "react-redux";
-import { CardWrapper } from "../../sharedComponents/Card/CardStyle";
+import React, { useContext, useEffect, useState } from 'react';
+import ListItem from './ListItem';
+import { useSelector, useDispatch } from 'react-redux';
+import { CardWrapper } from '../../sharedComponents/Card/CardStyle';
 // import { GetLoanById } from "../../../store/appReducer/loanSlice";
-import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { ExpenseDictionary, LoanDictionary } from "./localization";
-import { getAllLoans } from "./store/actions";
-import { Skeleton } from "antd";
-import Notdata from "../../../content/NewContent/eLearning/no_data.svg";
-import { ContBody } from "../../sharedComponents/AppComponents/MainFlexContainer";
-import DetailedView from "./DetailedView";
+import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
+import { ExpenseDictionary, LoanDictionary } from './localization';
+import { getAllLoans } from './store/actions';
+import { Skeleton } from 'antd';
+import Notdata from '../../../content/NewContent/eLearning/Nodata.svg';
+import { ContBody } from '../../sharedComponents/AppComponents/MainFlexContainer';
+import DetailedView from './DetailedView';
 
 const ListView = ({ filter }) => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const ListView = ({ filter }) => {
   const handleDrawerOpen = (id) => {
     setVisible(true);
     setId(id);
-    console.log("id", id);
+    console.log('id', id);
   };
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const ListView = ({ filter }) => {
       getAllLoans({
         pageNo: 1,
         pageSize: 20,
-        search: "",
+        search: '',
         approverStatus: [],
         filterType: filter.filterType,
         sortBy: 1,
@@ -70,7 +70,7 @@ const ListView = ({ filter }) => {
       </div>
       {!loader && loanList.length === 0 && (
         <div className="flex items-center justify-center h-full">
-          <img src={Notdata} />
+          <img src={Notdata} className="h-96 w-96" alt="Not-found" />
         </div>
       )}
     </>

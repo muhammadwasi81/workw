@@ -90,7 +90,7 @@ import quotationClientSlice from '../main/features/quotationClient/store/slice';
 import employeeProfileSlice from '../main/features/profile/store/slice';
 import notificationSliceNew from '../main/features/notifiation/store/slice';
 import approvalSlice from '../main/features/approval/store/slice';
-
+import approverSlice from '../main/features/defaultApprovers/store/slice';
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -176,7 +176,8 @@ const reducers = combineReducers({
   appraisalModuleSlice,
   employeeProfileSlice,
   notificationSliceNew,
-  approvalSlice
+  approvalSlice,
+  approverSlice,
 });
 
 const persistConfig = {

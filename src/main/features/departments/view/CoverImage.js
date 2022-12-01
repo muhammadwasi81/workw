@@ -1,5 +1,5 @@
-import React from "react";
-import departmentDefaultImage from "../../../../content/NewContent/department/department.svg";
+import React from 'react';
+import departmentDefaultImage from '../../../../content/NewContent/department/department.svg';
 
 function CoverImage(props) {
   return (

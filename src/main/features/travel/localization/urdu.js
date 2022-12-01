@@ -29,6 +29,10 @@ const urdu = {
 			approvers: "منظور کرنے والے",
 			agents: "ایجنٹس",
 			desctination: "منزلیں",
+			departureDate:"تاریخ روانگی",
+			departureTime:"روانگی کا وقت",
+			departureCity:"روانگی کے شہر",
+			arrivalCity:"آمد شہر",
 		},
 
 		labels: {

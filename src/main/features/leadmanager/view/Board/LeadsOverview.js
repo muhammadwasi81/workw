@@ -71,7 +71,8 @@ function LeadsOverview() {
 			moveDetail({
 				sourceListId: currentSectionId,
 				destListId: targetSectionId,
-				oldCardIndex: currentIndex,
+				oldCardIndex: Number(currentIndex),
+				// oldCardIndex: currentIndex - 1,
 				newCardIndex: 0,
 			})
 		);
@@ -79,6 +80,7 @@ function LeadsOverview() {
 			moveLeadManagerDetail({
 				currentSectionId,
 				targetSectionId,
+				// currentIndexNo: currentIndex,
 				currentIndexNo: Number(currentIndex) + 1,
 				targetIndexNo: 1,
 			})
@@ -195,12 +197,17 @@ function LeadsOverview() {
 																	e.preventDefault();
 																}}
 																onChange={value => {
+																	console.log(
+																		"value index",
+																		index
+																	);
 																	handleSectionChange(
 																		det?.sectionId,
 																		value,
 																		index
 																	);
 																}}
+																// value={}
 															>
 																{leadManagerDetail?.sections.map(
 																	leadSection => (
@@ -226,11 +233,14 @@ function LeadsOverview() {
 																)}
 															</Select>
 															{/* <LeadSectionSelect
-															detail={det}
-															sections={
-																leadManagerDetail?.sections
-															}
-														/> */}
+																detail={det}
+																sections={
+																	leadManagerDetail?.sections
+																}
+																currentIndex={
+																	det?.indexNo
+																}
+															/> */}
 														</div>
 													</div>
 												</div>

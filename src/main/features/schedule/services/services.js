@@ -30,3 +30,27 @@ export const getScheduleByIdService = id => {
 			return error;
 		});
 };
+
+export const updateMemberScheduleStatusService = ({ id, status }) => {
+	return MasterConfig.get(
+		`${API_PREFIX}updateScheduleMemberStatus?id=${id}&status=${status}`
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};
+
+export const updateScheduleMemberTypeService = ({ id, type }) => {
+	return MasterConfig.get(
+		`${API_PREFIX}updateScheduleMemberType?id=${id}&type=${type}`
+	)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};

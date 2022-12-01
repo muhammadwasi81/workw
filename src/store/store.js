@@ -17,6 +17,7 @@ import authSlice from '../main/features/auth/store/slice';
 import gradeSlice from '../main/features/grade/store/slice';
 import rebateCategorySlice from '../main/features/rebateCategory/store/slice';
 import taxSlabSlice from '../main/features/taxSlabs/store/slice';
+import taxSlabGroupSlice from '../main/features/taxSlabsGroup/store/slice';
 import subsidiarySlice from '../main/features/subsidiary/store/slice';
 import quotationSlice from '../main/features/quotation/store/slice';
 import subsidiaryOfficeSlice from '../main/features/subsidiaryOffice/store/slice';
@@ -135,6 +136,7 @@ const reducers = combineReducers({
   emailConfigurationSlice,
   salaryHeaderSlice,
   taxSlabSlice,
+  taxSlabGroupSlice,
   expenseHeaderSlice,
   appraisalSlice,
   allowanceSlice,

@@ -52,7 +52,7 @@ export const cancelReward = createAsyncThunk(
     const response = await cancelRewardService(data);
     if (response.data.responseCode === 1001) {
       message.success("Reward Canceled");
-      dispatch(cancelRewardSuccess({ rewardId: id }));
+      dispatch(cancelRewardSuccess({ rewardId: data }));
       return response;
     } else {
       message.error(response.data.message);

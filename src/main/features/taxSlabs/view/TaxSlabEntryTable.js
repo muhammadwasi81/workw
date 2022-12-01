@@ -89,11 +89,11 @@ const SlabCreateTable = ({ defaultRows }) => {
     return payload;
   }
 
-  const handleSubmit = () => {
-    let payload = createPayload();
-    dispatch(addVoucher(payload));
+  // const handleSubmit = () => {
+  //   let payload = createPayload();
+  //   dispatch(addVoucher(payload));
     
-  }
+  // }
 
 
   return (

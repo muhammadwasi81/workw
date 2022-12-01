@@ -8,14 +8,30 @@ import {
 import {
 	addTaxSlabService,
 	getAllTaxSlabService,
+	getTaxSlabGroupById,
 	removeTaxSlabService,
 	updateTaxSlabService,
 } from "../services/service";
 
 export const getAllTaxSlab = createAsyncThunk(
-	"TaxSlab/getAllTaxSlab",
+	"TaxSlabsGroup/getAllTaxSlab",
 	async (args, { dispatch }) => {
-		const res = await getAllTaxSlabService();
+		const res = await getAllTaxSlabService(args);
+		console.log(res,"arguments");
+		if (!res.responseCode) {
+			responseMessage({
+				dispatch: dispatch,
+				type: responseMessageType.ApiFailure,
+			});
+		}
+		return res;
+	}
+);
+
+export const getTaxSlabById = createAsyncThunk(
+	"TaxSlabsGroup/getTaxSlabByIdGroup",
+	async (args, { dispatch }) => {
+		const res = await getTaxSlabGroupById(args.id);
 		if (!res.responseCode) {
 			responseMessage({
 				dispatch: dispatch,
@@ -27,12 +43,12 @@ export const getAllTaxSlab = createAsyncThunk(
 );
 
 export const addTaxSlab = createAsyncThunk(
-	"TaxSlab/addTaxSlab",
+	"TaxSlabsGroup/addTaxSlab",
 	async (args, { dispatch }) => {
 		const res = await addTaxSlabService(args);
 		if (res.responseCode) {
 			if (res.responseCode === responseCode.Success) {
-				message.success("Tax Slab added successfully!")
+				message.success("Tax Slab Group added successfully!")
 				responseMessage({ dispatch, data: res });
 				return res
 			} else {
@@ -44,41 +60,3 @@ export const addTaxSlab = createAsyncThunk(
 	}
 );
 
-export const updateTaxSlab = createAsyncThunk(
-	"TaxSlab/updateTaxSlab",
-	async (args, { dispatch }) => {
-		const res = await updateTaxSlabService(args);
-		if (res.responseCode) {
-			if (res.responseCode === responseCode.Success) {
-				message.success("Tax Slab updated successfully!")
-				responseMessage({ dispatch, data: res });
-				return res
-			} else {
-				message.error(res.message)
-			}
-		}else {
-			message.error("Something went Wrong")
-		}
-
-		return res;
-	}
-);
-
-export const removeTaxSlab = createAsyncThunk(
-	"TaxSlab/removeTaxSlab",
-	async (args, { dispatch }) => {
-		const res = await removeTaxSlabService(args.id);
-		if (res.responseCode) {
-			if (res.responseCode === responseCode.Success)
-				message.success("Tax Slab removed successfully!")
-			responseMessage({ dispatch, data: res });
-		} else {
-			responseMessage({
-				dispatch: dispatch,
-				type: responseMessageType.ApiFailure,
-			});
-		}
-
-		return res;
-	}
-);

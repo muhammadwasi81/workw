@@ -42,12 +42,12 @@ function BoardTable({ data, dictionary }) {
   return (
     <Table
       columns={tableColumns(data?.sections, handleMemberModal, userLanguage)}
-      //   columns={tableColumns(dictionary)}
       dragable={false}
-      // handleChange={handleColumnSorting}
-      // onPageChange={onPageChange}
       onRow={onRow}
       data={details}
+    //   columns={tableColumns(dictionary)}
+    // handleChange={handleColumnSorting}
+    // onPageChange={onPageChange}
     // status={travelStatus}
     // loading={loader}
     // success={success}

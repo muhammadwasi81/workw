@@ -7,70 +7,75 @@ import {
 } from './action';
 
 const initialState = {
-  defaultApprovers: [],
+  approversData: [],
   loadingData: false,
   loader: true,
-  defaultApproversDetail: {},
+  defaultApproversDetail: {}, // single approver detail
 };
 
 const approverSlice = createSlice({
   name: 'defaultApprovers',
   initialState,
-  reducers: {},
+  reducers: {
+    clearApproverDetail: (state) => {
+      state.defaultApproversDetail = null;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(getAllDefaultApproversAction.fulfilled, (state, action) => {
-      console.log(action.payload, 'getAllDefaultApprovers Slice');
-      state.defaultApprovers = action.payload ? action.payload : [];
-      state.loader = false;
-    });
-    builder.addCase(
-      getDefaultApproversByIdAction.fulfilled,
-      (state, action) => {
+    builder
+      .addCase(getAllDefaultApproversAction.fulfilled, (state, { payload }) => {
+        console.log(payload, 'getAllDefaultApproversAction slice');
+        state.loadingData = false;
+        state.approversData = payload;
+      })
+      .addCase(getDefaultApproversByIdAction.fulfilled, (state, action) => {
         console.log(action.payload, 'getDefaultApproversByIdAction Slice');
         state.defaultApproversDetail = action.payload.data;
         state.loadingData = false;
-      }
-    );
-    builder.addCase(addDefaultApproversAction.fulfilled, (state, action) => {
-      state.defaultApprovers = state.defaultApprovers.push(action.payload.data);
-      state.loadingData = false;
-      console.log(action.payload, 'addDefaultApproversAction Slice');
-    });
-    builder
+      })
+      .addCase(addDefaultApproversAction.fulfilled, (state, action) => {
+        state.approversData = state.approversData.push(action.payload.data);
+        state.loadingData = false;
+        console.log(action.payload, 'addDefaultApproversAction Slice');
+      })
       .addCase(deleteDefaultApproversByIdAction.fulfilled, (state, action) => {
         console.log(action.payload, 'deleteDefaultApproversByIdAction Slice');
-        state.defaultApproversDetail = state.defaultApprovers.filter(
+        state.defaultApproversDetail = state.approversData.filter(
           (item) => item.id !== action.payload.data.id
         );
         state.loadingData = false;
-      })
-      .addMatcher(isPending(...[getAllDefaultApproversAction]), (state) => {
-        state.loader = true;
-      })
-      .addMatcher(isPending(...[getDefaultApproversByIdAction]), (state) => {
-        state.loadingData = true;
-      })
-      .addMatcher(isPending(...[addDefaultApproversAction]), (state) => {
-        state.loadingData = true;
-      })
-      .addMatcher(isPending(...[deleteDefaultApproversByIdAction]), (state) => {
-        state.loadingData = true;
-      })
-      .addMatcher(
-        isRejected(
-          ...[
-            getAllDefaultApproversAction,
-            getDefaultApproversByIdAction,
-            addDefaultApproversAction,
-            deleteDefaultApproversByIdAction,
-          ]
-        ),
-        (state) => {
-          state.loader = false;
-          state.loadingData = false;
-        }
-      );
+      });
+    // .addMatcher(
+    //   isPending(
+    //     ...[
+    //       getAllDefaultApproversAction,
+    //       getDefaultApproversByIdAction,
+    //       addDefaultApproversAction,
+    //       deleteDefaultApproversByIdAction,
+    //     ]
+    //   ),
+    //   (state) => {
+    //     console.log('pending');
+    //     state.loader = true;
+    //     state.loadingData = true;
+    //   }
+    // )
+    // .addMatcher(
+    //   isRejected(
+    //     ...[
+    //       getAllDefaultApproversAction,
+    //       getDefaultApproversByIdAction,
+    //       addDefaultApproversAction,
+    //       deleteDefaultApproversByIdAction,
+    //     ]
+    //   ),
+    //   (state) => {
+    //     state.loader = false;
+    //     state.loadingData = false;
+    //   }
+    // );
   },
 });
 
+export const { clearApproverDetail } = approverSlice.actions;
 export default approverSlice.reducer;

@@ -32,8 +32,9 @@ export const GetRewardByIdService = (id) => {
     });
 };
 
-export const cancelRewardService = (id) => {
-  return MasterConfig.delete(`api/Reward/RewardCancel?rewardId=${id}`)
+export const cancelRewardService = (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.post(`api/Reward/RewardCancel`, formData)
     .then((res) => {
       return res;
     })

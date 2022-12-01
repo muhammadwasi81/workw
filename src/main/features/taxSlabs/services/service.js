@@ -1,39 +1,43 @@
+// import AxiosConfig from "../../../../utils/services/AxiosConfig";
 import MasterConfig from "../../../../utils/services/MasterConfig";
+const API_PREFIX = "api/BusinessPolicy/";
 
-export const getAllTaxSlabService = () => {
-	return MasterConfig.get(`api/TaxSlab/GetAllTaxSlab`)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return err;
-		});
+export const addBusinessPolicyService = (data) => {
+  return MasterConfig.post(`${API_PREFIX}AddBusinessPolicy`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
 };
 
-export const addTaxSlabService = args => {
-	return MasterConfig.post(`api/TaxSlab/AddTaxSlab`, args)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return err;
-		});
+export const getAllBusinessPolicyService = (search = "") => {
+  return MasterConfig.get(`${API_PREFIX}GetAllBusinessPolicy?search=${search}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
 };
-export const updateTaxSlabService = args => {
-	return MasterConfig.put(`api/TaxSlab/UpdateTaxSlab`, args)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return err;
-		});
+
+export const removeBusinessPolicyService = (id) => {
+  return MasterConfig.delete(`${API_PREFIX}RemoveBusinessPolicy?id=${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
 };
-export const removeTaxSlabService = id => {
-	return MasterConfig.delete(`api/TaxSlab/RemoveTaxSlab?id=${id}`)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return err;
-		});
+
+export const updateBusinessPolicyService = (data) => {
+  return MasterConfig.put(`${API_PREFIX}UpdateBusinessPolicy`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
 };

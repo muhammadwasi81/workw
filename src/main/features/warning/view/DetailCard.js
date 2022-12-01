@@ -21,18 +21,17 @@ import {
 } from "../../../sharedComponents/AppComponents/Approvals/enums";
 import { cancelWarning, GetWarningById } from "../store/actions";
 import { useDispatch } from "react-redux";
+import ConfirmationRemarkModal from "../../../sharedComponents/ConfirmationRemarkModal/ConfirmationRemarkModal";
 
 function DetaileCard(props) {
 	const dispatch = useDispatch();
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const {
-		sharedLabels,
-		Direction,
-		complainDictionary,
 		warningDictionary,
 	} = warningDictionaryList[userLanguage];
 	const [updatedStatus, setUpdatedStatus] = useState(null);
 	const { user } = useSelector(state => state.userSlice);
+	const [isOpen, setIsOpen] = useState(false)
 
 	let userId = user.id;
 
@@ -73,11 +72,22 @@ function DetaileCard(props) {
 
 	const isTablet = useMediaQuery({ maxWidth: 800 });
 
-	const handleCancel = (e, payload) => {
+	const handleCancel = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		dispatch(cancelWarning(payload));
+		setIsOpen(true)
 	};
+	
+	  const onClose = () => {
+		setIsOpen(false);
+	  };
+	
+	  const onFinish = (values) => { 
+		let id = warningDetail.id;
+		let reason = values.remarks
+		setIsOpen(false);
+		dispatch(cancelReward({ id: id, reason: reason }));
+	  }
 
 	if (loadingData) return <Skeleton />;
 
@@ -190,6 +200,7 @@ function DetaileCard(props) {
 					/>
 				</div>
 			)}
+			<ConfirmationRemarkModal isOpen={isOpen} onCancel={onClose} onFinish={onFinish} />
 		</>
 	);
 }

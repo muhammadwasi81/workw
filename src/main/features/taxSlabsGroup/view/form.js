@@ -112,7 +112,7 @@ import { getCountries } from "../../../../utils/Shared/store/actions";
               <Option key={item.id}>{item.name}</Option>
             ))}
           </Select>
-        </FormInput>
+        </FormInput> 
       </FormInputContainer>
       <FormButtonContainer>
         {form.id ? (

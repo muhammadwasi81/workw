@@ -55,6 +55,9 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 	connection.on("commentOut", data => {
 		console.log(data, "commentOut")
 	});
+	connection.on("likeOut", data => {
+		console.log(data, "commentOut")
+	});
 	// connection.on("ReceiveMessage", data => {
 	// 	// console.log(data)
 	// 	dispatch(receiveChatMessage(data));

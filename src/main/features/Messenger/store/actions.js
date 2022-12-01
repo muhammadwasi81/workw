@@ -95,6 +95,36 @@ export const createChat = createAsyncThunk(
     }
   }
 );
+export const sharePostOnChat = createAsyncThunk(
+  "messenger/sendChatMessage",
+  async (request, { dispatch, rejectWithValue }) => {
+    // Append Message before api
+    let appendMsgObject = createObjectForAppendMsg(request);
+    dispatch(handleAppendMessage(appendMsgObject))
+    // Api call to server
+    const response = await MessengerService.sendMessage(request);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        dispatch(
+          openNotification({
+            message: response.errorMessage,
+            type: "error"
+          }))
+        dispatch(
+          handleMessageFailure(request))
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            message: "Successfully Shared",
+            type: "success"
+          }))
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
 export const sendChatMessage = createAsyncThunk(
   "messenger/sendChatMessage",
   async (request, { dispatch, rejectWithValue }) => {

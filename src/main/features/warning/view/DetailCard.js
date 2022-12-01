@@ -86,7 +86,7 @@ function DetaileCard(props) {
 		let id = warningDetail.id;
 		let reason = values.remarks
 		setIsOpen(false);
-		dispatch(cancelReward({ id: id, reason: reason }));
+		// dispatch(cancelReward({ id: id, reason: reason }));
 	  }
 
 	if (loadingData) return <Skeleton />;

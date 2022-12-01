@@ -37,7 +37,9 @@ function PostShareModal({
             closeIcon={<div />}
             className="ApproverModal"
             width={"360px"}
-        ></Modal>
+        >
+            
+        </Modal>
     );
 }
 

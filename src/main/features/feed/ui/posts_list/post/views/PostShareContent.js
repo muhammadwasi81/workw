@@ -7,13 +7,16 @@ import { Popover } from "antd";
 function PostShareContent(props) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [shareType, setShareType] = useState("");
+	const [openPopover, setOpenPopover] = useState(false);
 
 	const handleShareOnChat = () => {
 		setIsOpen(true);
+		setOpenPopover(false);
 		setShareType("Chat");
 	}
 	const handleShareOnFeed = () => {
 		setIsOpen(true);
+		setOpenPopover(false);
 		setShareType("Feed");
 	}
 	const handleCancel = () => {
@@ -24,6 +27,10 @@ function PostShareContent(props) {
 		<>
 			<Popover
 				placement="bottom"
+				trigger="click"
+				overlayClassName="share-feed__content w-[250px]"
+				open={openPopover}
+				onOpenChange={(e) => setOpenPopover(e)}
 				content={
 					<div className="flex flex-col gap-2">
 						<div className="flex gap-2 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
@@ -37,8 +44,6 @@ function PostShareContent(props) {
 							<span>Share in Chat</span>
 						</div>
 					</div>}
-				trigger="click"
-				overlayClassName="share-feed__content w-[250px]"
 			>
 				<div className="btn">
 					<div>

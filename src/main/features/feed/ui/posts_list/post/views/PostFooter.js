@@ -174,6 +174,7 @@ const PostFooter = ({
           </div>
           <div> {Comment}</div>
         </div>
+		<PostShareContent />
         {/* <Popover
           placement="bottom"
           content={<PostShareContent />}

@@ -24,6 +24,8 @@ import DefaultHiringCriteria from '../../careers/defaultHiringCriteria/view';
 import Subsidiary from '../../subsidiary/view';
 import SubsidiaryOffice from '../../subsidiaryOffice/view';
 import TaxSlab from '../../taxSlabs/view';
+import TaxSlabGroups from '../../taxSlabsGroup/view';
+
 import Fiscalyear from '../../fiscalYear/view';
 import AssetsCategory from '../../assetsCategory/view/index';
 
@@ -41,6 +43,7 @@ const AdminRoutes = () => {
         element={<DefaultHiringCriteria />}
       />
       <Route path={ROUTES.ADMINISTRATOR.TAX_SLAB} element={<TaxSlab />} />
+      <Route path={ROUTES.ADMINISTRATOR.TAX_SLAB_GROUP} element={<TaxSlabGroups />} />
       <Route
         path={ROUTES.ADMINISTRATOR.SUBSIDIARY_OFFICE}
         element={<SubsidiaryOffice />}

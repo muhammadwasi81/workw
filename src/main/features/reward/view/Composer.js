@@ -136,8 +136,8 @@ const Composer = (props) => {
     if (Object.keys(image).length > 0) {
       let payload = { ...values, approvers, members, image };
       dispatch(addReward(payload));
-      console.log(image.file, "image file");
-      console.log(payload, "payload");
+      // console.log(image.file, "image file");
+      // console.log(payload, "payload");
       dispatch(getAllRewards({ filterType: 0 }));
     } else {
       let payload = { ...values, approvers, members };

@@ -42,10 +42,11 @@ const NewStickyNote = ({ item }) => {
   const descriptionDebounce = useDebounce(description, 500);
 
   const dispatch = useDispatch();
-  const { openSticky } = useSelector((state) => {
+  const { openSticky, selectionId } = useSelector((state) => {
     return state.stickySlice;
   });
 
+  console.log(openSticky, "open sticky");
   const color = item.colorCode;
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
@@ -127,6 +128,7 @@ const NewStickyNote = ({ item }) => {
   const setDescriptionValue = (value) => {
     const id = item.id;
     dispatch(targetStickyDescription({ id, value }));
+    console.log(value, "description");
     dispatch(
       getStickyNoteDescAction({ ...item, attachments: [], description: value })
     );
@@ -163,6 +165,7 @@ const NewStickyNote = ({ item }) => {
   };
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
+    console.log(item.id, item.description, "iddddddd");
   };
   return (
     <>

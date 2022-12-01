@@ -14,11 +14,7 @@ import Nodata from "../../../../../../content/NewContent/eLearning/no_data.svg";
 
 // *******import redux*******
 import { useSelector, useDispatch } from "react-redux";
-import {
-  closeSticky,
-  showStickyNote,
-  handleOpenSticky,
-} from "../../store/stickySlice";
+import { closeSticky, showStickyNote } from "../../store/stickySlice";
 // import sticky note actions
 import {
   addSticky,
@@ -128,7 +124,11 @@ const StickyContainer = () => {
           <div className={`noteList-container ${!minimize ? "hide" : ""}`}>
             {notesList.length > 0 ? (
               notesList.map((item) => (
-                <CustomCard item={item} onDoubleClick={openClickedNote} />
+                <CustomCard
+                  item={item}
+                  onDoubleClick={openClickedNote}
+                  key={item.id}
+                />
               ))
             ) : (
               <div className="flex items-center justify-center">

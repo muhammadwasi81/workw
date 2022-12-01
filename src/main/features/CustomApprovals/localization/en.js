@@ -29,6 +29,7 @@ const en = {
     deadline: "Deadline",
     description: "Description",
     enterDescription: "Enter Description",
+    subject: "Subject",
     loanPurpose: {
       vehicle: "Vehicle",
       personal: "Personal",

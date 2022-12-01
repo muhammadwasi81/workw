@@ -41,7 +41,7 @@ function SingleItem({ data }) {
 				)}
 				{(item.user || item.approver || item.member) && (
 					<div className="tagText">
-						<p>
+						<p className="text-primary-color">
 							{item.user?.name ||
 								item.approver?.name ||
 								item.member?.name}

@@ -10,9 +10,11 @@ import EventDetail from "../../UI/EventDetail";
 import Event from "../event";
 
 import ScheduleMembersList from "../Composer/ScheduleMembersList";
+import ScheduleDetailSkeleton from "./ScheduleDetailSkeleton";
 
 function ScheduleComposerDetail({ id, shortEvent = true }) {
 	const eventDetail = useSelector(state => state.scheduleSlice.eventDetail);
+	const loading = useSelector(state => state.scheduleSlice.loading);
 	const loggedInUserId = useSelector(state => state.userSlice.user.id);
 	const [isActionEnabled, setIsActionEnabled] = useState(false);
 	const dispatch = useDispatch();
@@ -55,44 +57,52 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 		);
 	};
 	return (
-		<div
-			className={`eventDetail ${!shortEvent && ""}
+		<>
+			{loading ? (
+				<ScheduleDetailSkeleton />
+			) : (
+				<div
+					className={`eventDetail ${!shortEvent && ""}
 				`}
-		>
-			{shortEvent && (
-				<div className="eventDetail__header">
-					<p className="eventDetail-title">Details</p>
-					{/* <span className="eventNum">SCH-000085</span> */}
+				>
+					{shortEvent && (
+						<div className="eventDetail__header">
+							<p className="eventDetail-title">Details</p>
+							{/* <span className="eventNum">SCH-000085</span> */}
+						</div>
+					)}
+					<div className="eventDetail__body">
+						<div className="eventDetail__body-event">
+							{shortEvent ? (
+								<Event shortDesc={true} data={eventDetail} />
+							) : (
+								<EventDetail data={eventDetail} />
+							)}
+						</div>
+						{!shortEvent && (
+							<div className="eventDetail__body-description">
+								<p className="eventDetail-title">Description</p>
+								<span>{eventDetail?.description}</span>
+							</div>
+						)}
+					</div>
+					<div>Members</div>
+					{eventDetail?.members?.map(member => (
+						<ScheduleMembersList
+							status={member.statusEnum}
+							id={member.id}
+							data={member?.member}
+							memberType={member.memberType}
+							isActionEnabled={isActionEnabled}
+							handleMemberStatusChange={handleMemberStatusChange}
+							handleMemberTypeStatusChange={
+								handleMemberTypeStatusChange
+							}
+						/>
+					))}
 				</div>
 			)}
-			<div className="eventDetail__body">
-				<div className="eventDetail__body-event">
-					{shortEvent ? (
-						<Event shortDesc={true} data={eventDetail} />
-					) : (
-						<EventDetail data={eventDetail} />
-					)}
-				</div>
-				{!shortEvent && (
-					<div className="eventDetail__body-description">
-						<p className="eventDetail-title">Description</p>
-						<span>{eventDetail?.description}</span>
-					</div>
-				)}
-			</div>
-			<div>Members</div>
-			{eventDetail?.members?.map(member => (
-				<ScheduleMembersList
-					status={member.statusEnum}
-					id={member.id}
-					data={member?.member}
-					memberType={member.memberType}
-					isActionEnabled={isActionEnabled}
-					handleMemberStatusChange={handleMemberStatusChange}
-					handleMemberTypeStatusChange={handleMemberTypeStatusChange}
-				/>
-			))}
-		</div>
+		</>
 	);
 }
 

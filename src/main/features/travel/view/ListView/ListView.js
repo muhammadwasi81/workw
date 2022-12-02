@@ -20,7 +20,6 @@ import { useSelector } from "react-redux";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { getNameForImage } from "../../../../../utils/base";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import {TravelDictionaryList} from "../../localization";
 import { TravelDictionary} from "../../localization/index"
 
 
@@ -28,7 +27,7 @@ import { TravelDictionary} from "../../localization/index"
 function ListView(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction,TravelDictionaryList } = TravelDictionary[userLanguage];
-const {headings}=TravelDictionaryList;
+    const {headings}=TravelDictionaryList;
 	const { labels } = props;
 	const [visible, setVisible] = useState(false);
 	const [travelId, setTravelId] = useState("");

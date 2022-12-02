@@ -39,14 +39,14 @@ function AvatarGroup(props) {
         }}
       >
         {props.membersData.map((members) => (
-          <Tooltip
-            title={
-              members[props.nestedObjProperty] !== null
-                ? members[props.nestedObjProperty]?.name
-                : "Unknown User"
-            }
-            placement="top"
-          >
+          // <Tooltip
+          //   title={
+          //     members[props.nestedObjProperty] !== null
+          //       ? members[props.nestedObjProperty]?.name
+          //       : "Unknown User"
+          //   }
+          //   placement="top"
+          // >
             <Avatar
               className="cursor-pointer !bg-black"
               src={
@@ -62,7 +62,7 @@ function AvatarGroup(props) {
                   : "Unknown User"
               )}
             </Avatar>
-          </Tooltip>
+          // </Tooltip>
         ))}
       </Avatar.Group>
       <Modal

@@ -51,10 +51,10 @@ function Task({
 	const [search, setSearch] = useState("");
 	const dispatch = useDispatch();
 	const {
-		taskList: { list },
+		taskList: { list, loading },
 		success,
 		drawerOpen,
-		loading,
+		// loading,
 	} = useSelector(state => state.taskSlice);
 	useEffect(() => {
 		dispatch(

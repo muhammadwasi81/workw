@@ -1,15 +1,15 @@
 import en from "./en";
 import urdu from "./urdu";
-import turkish from "./turkish";
-import hindi from "./hindi";
-import arabic from "./arabic";
+// import arabic from "./arabic";
+// import hindi from "./hindi";
+// import turkish from "./turkish";
 
-export const messengerDictionary = { en, urdu, arabic, hindi, turkish };
+export const messengerDictionaryList = { en, urdu };
 
 export const languageOptions = {
   en: "English",
   urdu: "Urdu",
-  arabic: "Arabic",
-  hindi: "Hindi",
-  turkish: "Turkish",
+  //   arabic: "Arabic",
+  //   hindi: "Hindi",
+  //   turkish: "Turkish",
 };

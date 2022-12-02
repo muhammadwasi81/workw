@@ -89,6 +89,7 @@ import appraisalModuleSlice from '../main/features/appraisalModule/store/slice';
 import quotationClientSlice from '../main/features/quotationClient/store/slice';
 import employeeProfileSlice from '../main/features/profile/store/slice';
 import notificationSliceNew from '../main/features/notifiation/store/slice';
+import approvalSlice from '../main/features/approval/store/slice';
 
 // import thunk from "redux-thunk";
 
@@ -174,7 +175,8 @@ const reducers = combineReducers({
   inventoryAssetSlice,
   appraisalModuleSlice,
   employeeProfileSlice,
-  notificationSliceNew
+  notificationSliceNew,
+  approvalSlice
 });
 
 const persistConfig = {

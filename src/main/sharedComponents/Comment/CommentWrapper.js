@@ -20,6 +20,7 @@ function CommentWrapper({
 	showComments = true,
 	isDetailViewOpen = true,
 	reactionModule,
+	setShowComments = () => {},
 }) {
 	const [comments, setComments] = useState([]);
 	const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function CommentWrapper({
 					setComments(preValue => [...preValue, comment]);
 					commentRequestSuccess && commentRequestSuccess(comment);
 				}}
+				setShowComments={setShowComments}
 			/>
 			{(showComments || isDetailViewOpen) && (
 				<div className="comments">

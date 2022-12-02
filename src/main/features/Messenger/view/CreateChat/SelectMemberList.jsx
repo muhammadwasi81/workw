@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import MemberCard from "./MemberCard";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { messengerDictionaryList } from "../../localization";
 
 function SelectMemberList({ selectedMembers, onDelete }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { messengerDictionary } = messengerDictionaryList[userLanguage];
   return (
     <div className="selectMemberList">
       <div className="selectMemberList__header">
-        <p>SELECTED</p>
+        <p>{messengerDictionary.selected}</p>
         <p>{selectedMembers.length}</p>
       </div>
       <div className="selectMemberList__body">

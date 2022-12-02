@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ROUTES } from "../../../../../utils/routes";
 import { TabbableContainer } from "../../../../layout/GridStyle";
 import Header from "../../../../layout/header/index";
 import { ContBody } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
@@ -20,26 +21,17 @@ export default function AllApprovals() {
 	return (
 		<TabbableContainer>
 			<Header
-				buttons={
-					[
-						// {
-						// 	buttonText: "Create Travel",
-						// 	// onClick: () => setVisible(true),
-						// 	render: (
-						// 		<SideDrawer
-						// 			title={"Hello"}
-						// 			buttonText={"Hello"}
-						// 			isAccessDrawer={false}
-						// 		>
-						// 			"Hello"
-						// 		</SideDrawer>
-						// 	),
-						// },
-					]
-				}
+				buttons={[]}
+				items={[
+					{
+						name: 'Approvals',
+						renderButton: [1],
+						to: ROUTES.APPROVALS.DEFAULT,
+					},
+				]}
 				backButton={false}
 			/>
-			<TopBar
+			{/* <TopBar
 				onSearch={value => {
 					console.log(value);
 				}}
@@ -59,7 +51,7 @@ export default function AllApprovals() {
 					label1: "List",
 					label2: "Table",
 				}}
-			/>
+			/> */}
 			<ContBody>
 				<div className="flex ApprovalMainView gap-4 w-full">
 					<div className="">

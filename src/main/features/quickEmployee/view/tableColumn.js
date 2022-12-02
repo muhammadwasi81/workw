@@ -1,7 +1,7 @@
 import { deleteItem, editItem } from "../store/slice";
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 
-export const tableColumn = (dispatch) => {
+export const tableColumn = (dispatch, editData) => {
   return [
     {
       title: "First Name",

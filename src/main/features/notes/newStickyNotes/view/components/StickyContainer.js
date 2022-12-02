@@ -28,10 +28,6 @@ const StickyContainer = () => {
   const [search, setSearch] = useState(null);
   //const searchDebounce = useDebounce(search, 500);
 
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
   const dispatch = useDispatch();
 
   // ****get redux data for sticky notes*****
@@ -60,7 +56,6 @@ const StickyContainer = () => {
 
   //*****add sticky notes in sticky container*****
   const addStickyHandler = () => {
-    console.log("Calling");
     dispatch(addSticky({}));
   };
 
@@ -109,7 +104,10 @@ const StickyContainer = () => {
 
             <p className="heading">Sticky Notes</p>
             <div className="right_Icons">
-              <MinusOutlined onClick={minimizeHandler} />
+              <MinusOutlined
+                onClick={minimizeHandler}
+                className="minimize-Icon"
+              />
               <CloseOutlined onClick={closeHandler} className="close_Icon" />
             </div>
           </div>
@@ -126,7 +124,11 @@ const StickyContainer = () => {
           <div className={`noteList-container ${!minimize ? "hide" : ""}`}>
             {notesList.length > 0 ? (
               notesList.map((item) => (
-                <CustomCard item={item} onDoubleClick={openClickedNote} />
+                <CustomCard
+                  item={item}
+                  onDoubleClick={openClickedNote}
+                  key={item.id}
+                />
               ))
             ) : (
               <div className="flex items-center justify-center">

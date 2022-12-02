@@ -28,6 +28,7 @@ export const stickySlice = createSlice({
     listArray: [],
     colorPicker: true,
     bgColor: "",
+    openSticky: "",
   },
   reducers: {
     closeSticky: (state) => {
@@ -38,7 +39,6 @@ export const stickySlice = createSlice({
       let currentIndex = state.listArray.findIndex(
         (it) => it.id === selectedId
       );
-      console.log(currentIndex, "currentIndex", selectedId);
       state.listArray[currentIndex].isOpen = false;
     },
 
@@ -53,12 +53,15 @@ export const stickySlice = createSlice({
     toggleStickyNote: (state) => {
       state.open = !state.open;
     },
+    handleOpenSticky: (state, action) => {
+      let openStickyId = action.payload;
+      state.openSticky = openStickyId;
+    },
     showStickyNote: (state, action) => {
       let selectedId = action.payload;
       let currentIndex = state.listArray.findIndex(
         (it) => it.id === selectedId
       );
-      // console.log(currentIndex, "currentIndex", selectedId);
       state.listArray[currentIndex].isOpen = true;
     },
     handleChangeNote: (state, action) => {
@@ -66,7 +69,6 @@ export const stickySlice = createSlice({
       let currentIndex = state.listArray.findIndex(
         (it) => it.id === updatedNote.id
       );
-      console.log("current index", currentIndex);
       state.listArray[currentIndex] = updatedNote;
     },
     deleteStickyNote: (state, action) => {
@@ -75,12 +77,9 @@ export const stickySlice = createSlice({
     },
     addImage: (state, action) => {
       const values = action.payload;
-      console.log(values, "VALUES");
       // const id=createGuid();
       const sticky = state.listArray.find((item) => item.id === values.id);
-      console.log("IMAGES REDUX", sticky);
       sticky.attachments.push(values.images);
-      console.log(values, "VALUES AFTER PUSH");
     },
 
     // ********color picker********
@@ -98,23 +97,22 @@ export const stickySlice = createSlice({
 
     targetTitleVal: (state, action) => {
       const val = action.payload;
-      console.log("valueee", val);
+
       const listObj = state.listArray.find((list) => list.id === val.id);
       listObj.title = val.value;
     },
     targetStickyDescription: (state, action) => {
       const val = action.payload;
+      console.log(val, "valueee");
       const listObj = state.listArray.find((list) => list.id === val.id);
-      // state.listArray[index].description = val.stickyText
       listObj.description = val.value;
-      // console.log(current(listObj));
+      console.log(listObj.description, "description");
     },
   },
 
   extraReducers: (builder) => {
     builder
       .addCase(addSticky.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.loader = false;
         state.success = true;
         state.listArray = [payload, ...state.listArray];
@@ -127,14 +125,16 @@ export const stickySlice = createSlice({
         state.listArray = action.payload;
       })
 
-      .addCase(getStickyNoteDescAction.fulfilled, (state, { payload }) => { })
+      .addCase(getStickyNoteDescAction.fulfilled, (state, action) => {
+        // state.listArray = action.payload;
+      })
       .addCase(getStickyAttachmentAction.fulfilled, (state, action) => {
         let data = action.payload;
 
         state.loader = false;
         state.success = true;
         let currentIndex = state.listArray.findIndex((it) => it.id === data.id);
-        console.log("current index", currentIndex);
+
         state.listArray[currentIndex] = {
           ...data,
 
@@ -144,7 +144,6 @@ export const stickySlice = createSlice({
           ],
           isOpen: true,
         };
-        console.log(data, "data");
       });
   },
 });
@@ -161,5 +160,6 @@ export const {
   targetTitleVal,
   targetStickyDescription,
   addImage,
+  handleOpenSticky,
 } = stickySlice.actions;
 export default stickySlice.reducer;

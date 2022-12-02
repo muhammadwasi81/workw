@@ -19,8 +19,8 @@ import {
 	moveDetail,
 } from "../../store/slice";
 // import LeadSectionSelect from "../../UI/Select/LeadSectionSelect";
-import AvatarGroup from "../../../../sharedComponents/Avatar/avatar";
-function LeadsOverview() {
+import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
+function LeadsOverview({ handleSelectedMembers = () => {} }) {
 	const { Option } = Select;
 	const [toggleForm, setToggleForm] = useState(false);
 	const [leadDetailId, setLeadDetailId] = useState("");
@@ -72,7 +72,6 @@ function LeadsOverview() {
 				sourceListId: currentSectionId,
 				destListId: targetSectionId,
 				oldCardIndex: Number(currentIndex),
-				// oldCardIndex: currentIndex - 1,
 				newCardIndex: 0,
 			})
 		);
@@ -80,13 +79,11 @@ function LeadsOverview() {
 			moveLeadManagerDetail({
 				currentSectionId,
 				targetSectionId,
-				// currentIndexNo: currentIndex,
 				currentIndexNo: Number(currentIndex) + 1,
 				targetIndexNo: 1,
 			})
 		);
 	};
-	// console.log("leadManagerDetail", leadManagerDetail);
 	return (
 		<>
 			<div className="flex flex-1 gap-10 my-5 ">
@@ -154,10 +151,10 @@ function LeadsOverview() {
 														</div>
 													</div>
 													<div className="flex items-center justify-between">
-														<div className="flex items-center">
+														<div className="flex items-center gap-2">
 															<AvatarGroup
-																heading={
-																	"Members"
+																nestedObjProperty={
+																	"member"
 																}
 																membersData={
 																	det?.members
@@ -169,6 +166,10 @@ function LeadsOverview() {
 																	onClick={e => {
 																		e.stopPropagation();
 																		e.preventDefault();
+																		handleSelectedMembers(
+																			"",
+																			det.members
+																		);
 																		dispatch(
 																			handleAssignMemberModal(
 																				{
@@ -256,7 +257,7 @@ function LeadsOverview() {
 				</section>
 				<section className="basis-[60%] ">
 					{openDetail && (
-						<div className="p-4 px-3 bg-white rounded w-full mb-2 font-semibold">
+						<div className="p-3 px-3 bg-white rounded w-full mb-2 font-semibold">
 							Details
 						</div>
 					)}
@@ -267,6 +268,9 @@ function LeadsOverview() {
 						) : (
 							<div className="bg-white p-5 rounded">
 								<SectionDetail
+									handleSelectedMembers={
+										handleSelectedMembers
+									}
 									handleContactDetailModal={() => {
 										dispatch(
 											handleContactDetailModal({

@@ -63,13 +63,13 @@ export const tableColumns = (sections, handleMemberModal, userLanguage) => {
 			title: table.section,
 			dataIndex: "sectionId",
 			render: (sectionId, record, index) => {
-				// console.log("index", index, record);
+				console.log("row detail", index, record, sectionId);
 
 				return (
 					<LeadSectionSelect
 						detail={record}
 						sections={sections}
-						currentIndex={record.indexNo}
+						currentIndex={record.index}
 						key={index}
 					/>
 				);

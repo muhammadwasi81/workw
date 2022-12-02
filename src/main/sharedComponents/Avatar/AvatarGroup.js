@@ -27,7 +27,7 @@ function AvatarGroup(props) {
 	};
 	// console.log(props, "avatar group");
 	return (
-		<div onClick={e => showModal(e)}>
+		<div onClick={e => showModal(e)} className="inline-flex">
 			<Avatar.Group
 				maxCount={2}
 				maxPopoverTrigger="click"
@@ -38,7 +38,7 @@ function AvatarGroup(props) {
 					cursor: "pointer",
 				}}
 			>
-				{props.membersData.map(members => (
+				{props.membersData?.map(members => (
 					// <Tooltip
 					//   title={
 					//     members[props.nestedObjProperty] !== null
@@ -74,7 +74,7 @@ function AvatarGroup(props) {
 				className="ApproverModal"
 				width={"360px"}
 			>
-				{props.membersData.map(members => {
+				{props.membersData?.map(members => {
 					return (
 						<div
 							className="approverBox"

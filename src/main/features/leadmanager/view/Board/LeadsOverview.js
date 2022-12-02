@@ -72,7 +72,6 @@ function LeadsOverview() {
 				sourceListId: currentSectionId,
 				destListId: targetSectionId,
 				oldCardIndex: Number(currentIndex),
-				// oldCardIndex: currentIndex - 1,
 				newCardIndex: 0,
 			})
 		);
@@ -80,13 +79,11 @@ function LeadsOverview() {
 			moveLeadManagerDetail({
 				currentSectionId,
 				targetSectionId,
-				// currentIndexNo: currentIndex,
 				currentIndexNo: Number(currentIndex) + 1,
 				targetIndexNo: 1,
 			})
 		);
 	};
-	// console.log("leadManagerDetail", leadManagerDetail);
 	return (
 		<>
 			<div className="flex flex-1 gap-10 my-5 ">

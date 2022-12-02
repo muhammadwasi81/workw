@@ -530,6 +530,9 @@ export const ROUTES = {
     BONUS: {
       DEFAULT: `${DOMAIN_PREFIX}/bonus`,
     },
+    // ORGCHART: {
+    //   DEFAULT: `${DOMAIN_PREFIX}/index`,
+    // },
   },
   MAIL: {
     DEFAULT: `${DOMAIN_PREFIX}/mail`,

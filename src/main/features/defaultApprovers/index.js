@@ -12,12 +12,15 @@ import Avatar from '../../sharedComponents/Avatar/avatarOLD';
 import {
   addDefaultApproversAction,
   getAllDefaultApproversAction,
+  deleteDefaultApproversByIdAction,
 } from './store/action';
 import { defaultApprovers } from './utils';
 import CustomSelect from '../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { customApprovalDictionaryList } from '../CustomApprovals/localization';
 import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-
+import { DeleteOutlined } from '@ant-design/icons';
+import TableHead from './view/table/tableHead';
+import { handleApproversDelete } from './store/slice';
 const { Panel } = Collapse;
 
 const DefaultApprovers = () => {
@@ -76,7 +79,10 @@ const DefaultApprovers = () => {
     console.log(payload, 'payload');
     dispatch(addDefaultApproversAction(payload));
   };
-
+  const handleDelete = (id) => {
+    console.log(id, 'handleDelete');
+    dispatch(deleteDefaultApproversByIdAction(id));
+  };
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
       setIsFirstTimeDataLoaded(true);
@@ -97,7 +103,6 @@ const DefaultApprovers = () => {
       })
     );
   };
-
   return (
     <FormContainer>
       <FormHeader>Default Approvers</FormHeader>
@@ -121,39 +126,60 @@ const DefaultApprovers = () => {
                         </Tooltip>,
                       ]}
                     >
-                      <div className="flex flex-wrap justify-between">
-                        {filterType(item.type).length > 0 ? (
-                          filterType(item.type).map((item, index) => {
-                            return (
-                              <div key={index} className="m-auto">
-                                <Avatar
-                                  size={35}
-                                  round={true}
-                                  name={item?.member?.name}
-                                  src={item?.member?.image}
-                                />
-                                &nbsp; &nbsp;
-                                <div className="nameWrapper">
-                                  <span className="font-bold">
-                                    {item?.member?.name}
-                                  </span>
-                                </div>
-                                <div className="designationWrapper">
-                                  <span className="font-semibold">
-                                    {item?.member?.designation ||
-                                      'No Designation'}
-                                  </span>
-                                </div>
-                              </div>
-                            );
-                          })
-                        ) : (
-                          <div
-                            style={{ width: 100, height: 100, margin: 'auto' }}
-                          >
-                            <NoDataFound />
-                          </div>
-                        )}
+                      <div className="createEntryTable">
+                        <table className="!min-w-full">
+                          {filterType(item.type).length > 0 ? (
+                            <TableHead />
+                          ) : (
+                            <div
+                              style={{
+                                width: 100,
+                                height: 100,
+                                margin: 'auto',
+                              }}
+                            >
+                              <NoDataFound />
+                            </div>
+                          )}
+                          <tbody>
+                            {filterType(item.type).length > 0
+                              ? filterType(item.type).map((item, index) => {
+                                  return (
+                                    <tr key={index}>
+                                      <td>
+                                        <Avatar
+                                          size={35}
+                                          round={true}
+                                          name={item?.member?.name}
+                                          src={item?.member?.image}
+                                        />
+                                      </td>
+                                      <td>
+                                        <span className="font-bold">
+                                          {item?.member?.name}
+                                        </span>
+                                      </td>
+                                      <td>
+                                        <span className="font-semibold">
+                                          {item?.member?.designation ||
+                                            'No Designation'}
+                                        </span>
+                                      </td>
+                                      <td>
+                                        <Button
+                                          type="primary"
+                                          danger
+                                          shape="circle"
+                                          icon={<DeleteOutlined />}
+                                          onClick={() => handleDelete(item.id)}
+                                        />
+                                      </td>
+                                    </tr>
+                                  );
+                                })
+                              : null}
+                          </tbody>
+                        </table>
                       </div>
                       <Modal
                         open={isModalOpen}

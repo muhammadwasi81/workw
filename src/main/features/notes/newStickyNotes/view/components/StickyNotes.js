@@ -5,14 +5,15 @@ import Draggable from "react-draggable";
 import { useSelector, useDispatch } from "react-redux";
 
 function StickyNotes() {
-  const stickynote=useSelector((state)=>{return state.stickySlice.listArray});
+  const stickynote = useSelector((state) => { return state.stickySlice.listArray });
   return (
     <>
-      {stickynote.filter(it=>it.isOpen).map((item, index) => (
-          <NewStickyNote 
-          item={item} 
-          index={item.id} 
-          />
+      {stickynote.filter(it => it.isOpen).map((item, index) => (
+        <NewStickyNote
+          item={item}
+          index={item.id}
+          key={item.id}
+        />
       ))}
       <StickyContainer />
     </>

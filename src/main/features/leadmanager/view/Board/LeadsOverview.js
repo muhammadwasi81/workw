@@ -19,8 +19,8 @@ import {
 	moveDetail,
 } from "../../store/slice";
 // import LeadSectionSelect from "../../UI/Select/LeadSectionSelect";
-import AvatarGroup from "../../../../sharedComponents/Avatar/avatar";
-function LeadsOverview() {
+import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
+function LeadsOverview({ handleSelectedMembers = () => {} }) {
 	const { Option } = Select;
 	const [toggleForm, setToggleForm] = useState(false);
 	const [leadDetailId, setLeadDetailId] = useState("");
@@ -71,7 +71,7 @@ function LeadsOverview() {
 			moveDetail({
 				sourceListId: currentSectionId,
 				destListId: targetSectionId,
-				oldCardIndex: currentIndex,
+				oldCardIndex: Number(currentIndex),
 				newCardIndex: 0,
 			})
 		);
@@ -84,7 +84,6 @@ function LeadsOverview() {
 			})
 		);
 	};
-	// console.log("leadManagerDetail", leadManagerDetail);
 	return (
 		<>
 			<div className="flex flex-1 gap-10 my-5 ">
@@ -152,10 +151,10 @@ function LeadsOverview() {
 														</div>
 													</div>
 													<div className="flex items-center justify-between">
-														<div className="flex items-center">
+														<div className="flex items-center gap-2">
 															<AvatarGroup
-																heading={
-																	"Members"
+																nestedObjProperty={
+																	"member"
 																}
 																membersData={
 																	det?.members
@@ -167,6 +166,10 @@ function LeadsOverview() {
 																	onClick={e => {
 																		e.stopPropagation();
 																		e.preventDefault();
+																		handleSelectedMembers(
+																			"",
+																			det.members
+																		);
 																		dispatch(
 																			handleAssignMemberModal(
 																				{
@@ -195,12 +198,19 @@ function LeadsOverview() {
 																	e.preventDefault();
 																}}
 																onChange={value => {
+																	console.log(
+																		"value index",
+																		index
+																	);
 																	handleSectionChange(
 																		det?.sectionId,
 																		value,
 																		index
 																	);
 																}}
+																value={
+																	detail?.id
+																}
 															>
 																{leadManagerDetail?.sections.map(
 																	leadSection => (
@@ -226,11 +236,14 @@ function LeadsOverview() {
 																)}
 															</Select>
 															{/* <LeadSectionSelect
-															detail={det}
-															sections={
-																leadManagerDetail?.sections
-															}
-														/> */}
+																detail={det}
+																sections={
+																	leadManagerDetail?.sections
+																}
+																currentIndex={
+																	det?.indexNo
+																}
+															/> */}
 														</div>
 													</div>
 												</div>
@@ -244,7 +257,7 @@ function LeadsOverview() {
 				</section>
 				<section className="basis-[60%] ">
 					{openDetail && (
-						<div className="p-4 px-3 bg-white rounded w-full mb-2 font-semibold">
+						<div className="p-3 px-3 bg-white rounded w-full mb-2 font-semibold">
 							Details
 						</div>
 					)}
@@ -255,6 +268,9 @@ function LeadsOverview() {
 						) : (
 							<div className="bg-white p-5 rounded">
 								<SectionDetail
+									handleSelectedMembers={
+										handleSelectedMembers
+									}
 									handleContactDetailModal={() => {
 										dispatch(
 											handleContactDetailModal({

@@ -1,16 +1,22 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addTaxSlab, getAllBranch, getAllTaxSlab, updateBranch, updateTaxSlab } from "./actions.js";
+import { 
+  addTaxSlab, 
+  getTaxSlabById,
+  getAllBranch, 
+  getAllTaxSlab, 
+  updateBranch, 
+  updateTaxSlab } from "./actions.js";
 
 const initialState = {
   items: [],
   loadingData: false,
   loader: false,
-  countryId: [],
+  success: false,
 };
 
-const taxSlabSlice = createSlice({
-  name: "items",
+const taxSlabGroupSlice = createSlice({
+  name: "TaxSlabsGroup", 
   initialState,
   reducers: {
     TaxSlabDeleted: (state, { payload }) => {
@@ -19,28 +25,32 @@ const taxSlabSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllTaxSlab.fulfilled, (state, { payload }) => {
+    .addCase(getAllTaxSlab.fulfilled, (state, { payload }) => {
         state.loadingData = false;
         state.items = payload.data;
+        state.success = true;
+        console.log(payload, 'payloadslice')
+    })
+      .addCase(addTaxSlab.fulfilled, (state, {payload}) => {
+        if (payload.responseCode === responseCode.Success)
+          state.items.push(payload.data)
+          console.log(payload, 'addslice');
+          state.loader = false;
+          state.success=true;
       })
-      .addCase(addTaxSlab.fulfilled, (state, { payload }) => {
-        state.loader = false;
-          // state.items.push(payload.data);
+      .addCase(getTaxSlabById.fulfilled, (state, { payload }) => {
+        state.items = payload;
       })
-      .addCase(updateTaxSlab.fulfilled, (state, { payload }) => {
-        state.loader = false;
-        state.items = state.items.map((x) =>
-          x.id === payload.data.id ? payload.data : x
-        );
-      })
-      .addMatcher(isPending(...[addTaxSlab, updateTaxSlab]), (state) => {
+      .addMatcher(isPending(...[addTaxSlab]), (state) => {
         state.loader = true;
       })
       .addMatcher(isPending(...[getAllTaxSlab]), (state) => {
+        console.log('pending');
         state.loadingData = true;
+        state.success = false;
       })
       .addMatcher(
-        isRejected(...[getAllTaxSlab, addTaxSlab, updateTaxSlab]),
+        isRejected(...[getAllTaxSlab, addTaxSlab]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
@@ -49,5 +59,5 @@ const taxSlabSlice = createSlice({
   },
 });
 
-export const { TaxSlabDeleted } = taxSlabSlice.actions;
-export default taxSlabSlice.reducer;
+export const { TaxSlabDeleted } = taxSlabGroupSlice.actions;
+export default taxSlabGroupSlice.reducer;

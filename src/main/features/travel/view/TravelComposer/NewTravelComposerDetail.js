@@ -11,7 +11,7 @@ import {
 	Typography,
 } from "antd";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { getNameForImage } from "../../../../../utils/base";
 import CitySelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
@@ -20,8 +20,14 @@ import NewTravelDetailCard from "../UI/NewTravelDetailCard";
 import TravelCard from "../UI/TravelCard";
 import TravelDetailCard from "../UI/TravelDetailCard";
 import { travelCategoryData } from "./TravelCategories";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { TravelDictionary } from "../../localization/index";
 
 function NewTravelComposerDetail(props) {
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { TravelDictionaryList } = TravelDictionary[userLanguage];
+	const { headings } = TravelDictionaryList;
+
 	const { fetchCityData, travelBy, onSelectCity, onTravelDetailAdd } = props;
 	const cities = useSelector(state => state.sharedSlice.cities);
 	const [form] = Form.useForm();

@@ -5,13 +5,14 @@ import ScheduleComposerDetail from "./ScheduleComposerDetail";
 import { resetTravelDetail } from "../../../travel/store/slice";
 import TaskDetail from "../../../task/view/TaskDetail/TaskDetail";
 import TravelDetail from "../../../travel/view/TravelDetail/TravelDetail";
+import { ScheduleTypeEnum } from "../../enum/enum";
 // import { toggleEventDetailComposer } from "../../store/slice";
 
 function ScheduleComposer({ onClose, id, visible, type, Direction }) {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		return () => {
-			if (type === 6) {
+			if (type === ScheduleTypeEnum.Travel) {
 				dispatch(resetTravelDetail());
 			}
 		};
@@ -19,9 +20,9 @@ function ScheduleComposer({ onClose, id, visible, type, Direction }) {
 	return (
 		<Drawer
 			title={
-				type === 6
+				type === ScheduleTypeEnum.Travel
 					? "Travel Detail"
-					: type === 5
+					: type === ScheduleTypeEnum.Task
 					? "Task Detail"
 					: "Schedule Detail"
 			}
@@ -34,9 +35,9 @@ function ScheduleComposer({ onClose, id, visible, type, Direction }) {
 			destroyOnClose={true}
 			className=" drawerSecondary"
 		>
-			{type === 6 ? (
+			{type === ScheduleTypeEnum.Travel ? (
 				<TravelDetail travelId={id} />
-			) : type === 5 ? (
+			) : type === ScheduleTypeEnum.Task ? (
 				<TaskDetail id={id} />
 			) : (
 				<ScheduleComposerDetail id={id} />

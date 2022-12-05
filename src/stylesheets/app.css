@@ -43,7 +43,7 @@
   background-color: transparent;
 }
 .ant-btn-default {
-  border-color: var(--currentThemeColor) !important;
+  border-color: var(--currentThemeColor) ;
 }
 
 /* .ant-btn:hover,

@@ -1,19 +1,20 @@
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import { LoadingOutlined } from '@ant-design/icons';
 import { Popconfirm } from "antd";
+
 const Edit = (handleEdit, row, setClearButton) => {
   return (
     <EditFilled
       style={{color: "#1b5669"}}
       onClick={(e) => {
-        handleEdit({
-          id: row.id,
-          name: row.name,
-          min: row.min,
-          max: row.max,
-          percentage: row.percentage,
-          previousCharge: row.previousCharge,
-        }); 
+        // handleEdit({
+        //   id: row.id,
+        //   name: row.name,
+        //   min: row.min,
+        //   max: row.max,
+        //   percentage: row.percentage,
+        //   previousCharge: row.previousCharge,
+        // }); 
         setClearButton(true)
       }
       }
@@ -32,18 +33,17 @@ const Delete = (handleDelete, row) => {
 
 export const tableColumn = (
   handleEdit,
-  handleDelete,
+ handleDelete,
   removeButtons = false,
   rights,
   id,
   setClearButton
-) => {
+) =>
+{
   return [
     { title: "Name", dataIndex: "name", width: "20%", key: 1 },
-    { title: "Description", dataIndex: "min", width: "15%", key: 2 },
-    { title: "Country", dataIndex: "max", width: "15%", key: 3 },
-    // { title: "Percentage", dataIndex: "percentage", width: "10%", key: 4 },
-    // { title: "Previous Charge", dataIndex: "previousCharge", width: "20%", key: 5 },
+    { title: "Description", dataIndex: "description", width: "15%", key: 2 },
+    { title: "CountryName", dataIndex: "countryName", width: "15%", key: 3},
     removeButtons
       ? {}
       : {
@@ -67,3 +67,4 @@ export const tableColumn = (
         },
   ];
 };
+

@@ -28,6 +28,7 @@ import TaxSlabGroups from '../../taxSlabsGroup/view';
 
 import Fiscalyear from '../../fiscalYear/view';
 import AssetsCategory from '../../assetsCategory/view/index';
+import DefaultApprovers from './../../defaultApprovers/index';
 
 const AdminRoutes = () => {
   return (
@@ -99,6 +100,10 @@ const AdminRoutes = () => {
         element={<CustomApprovalCategory />}
       />
       <Route path={ROUTES.ADMINISTRATOR.ALLOWANCES} element={<Allowance />} />
+      <Route
+        path={ROUTES.ADMINISTRATOR.DEFAULT_APPROVALS}
+        element={<DefaultApprovers />}
+      />
       <Route
         path={ROUTES.ADMINISTRATOR.JOB_SKILLS}
         element={<JobDescription />}

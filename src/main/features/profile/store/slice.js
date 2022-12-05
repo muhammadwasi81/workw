@@ -48,6 +48,9 @@ const employeeProfileSlice = createSlice({
       .addMatcher(isPending(...[getAllEmployeeAction]), (state) => {
         state.loader = true;
       })
+      .addMatcher(isPending(...[getEmployeeByIdAction]), (state) => {
+        state.loader = true;
+      })
       .addMatcher(isRejected(...[getAllEmployeeAction]), (state) => {
         state.loader = true;
       });

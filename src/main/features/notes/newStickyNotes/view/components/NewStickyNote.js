@@ -62,6 +62,7 @@ const NewStickyNote = ({ item }) => {
     );
   };
   const openShareHandler = () => {
+    console.log("clecked share");
     setOpenShare((openShare) => !openShare);
   };
   const copyToClipboard = () => {
@@ -166,6 +167,7 @@ const NewStickyNote = ({ item }) => {
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
   };
+  console.log(openShare);
   return (
     <>
       <Draggable
@@ -219,7 +221,12 @@ const NewStickyNote = ({ item }) => {
 
           {/* *******Insert text area and image********* */}
 
-          {openShare && <ShareComponent item={item} />}
+          {openShare && (
+            <ShareComponent
+              item={item}
+              handleClose={() => setOpenShare(false)}
+            />
+          )}
 
           <div className="textArea_container">
             <ReactQuill

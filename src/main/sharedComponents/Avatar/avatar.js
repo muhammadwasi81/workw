@@ -29,7 +29,7 @@ function Avatar(props) {
 		props.membersData[0][objProperty]?.image;
 
 	return (
-		<div>
+		<>
 			{props.membersData && props.membersData.length > 1 ? (
 				<AvatarGroup
 					membersData={props.membersData}
@@ -40,7 +40,7 @@ function Avatar(props) {
 			) : (
 				<SingleItem data={props.membersData} />
 			)}
-		</div>
+		</>
 	);
 }
 

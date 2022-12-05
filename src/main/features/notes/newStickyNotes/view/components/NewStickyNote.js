@@ -75,7 +75,7 @@ const NewStickyNote = ({ item }) => {
           label: (
             <div onClick={openShareHandler}>
               <ShareAltOutlined />
-              <a className="text-black">Share</a>
+              <a className="drop-downList">Share</a>
             </div>
           ),
           key: "0",
@@ -84,7 +84,7 @@ const NewStickyNote = ({ item }) => {
           label: (
             <div onClick={copyToClipboard}>
               <CopyOutlined />
-              <a className="text-black">Copy</a>
+              <a className="drop-downList">Copy</a>
             </div>
           ),
           key: "1",
@@ -160,12 +160,11 @@ const NewStickyNote = ({ item }) => {
   // console.log(width, height, "widthhh");
 
   const axis = {
-    x_axis:(Math.floor(Math.random() * (400 - 300)) + 300),
-    y_axis: (Math.floor(Math.random() * (200 - 500)) + 500)
+    x_axis: Math.floor(Math.random() * (400 - 300)) + 300,
+    y_axis: Math.floor(Math.random() * (200 - 500)) + 500,
   };
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
-    console.log(item.id, item.description, "iddddddd");
   };
   return (
     <>
@@ -203,7 +202,7 @@ const NewStickyNote = ({ item }) => {
               <Dropdown overlay={menu}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    <EllipsisOutlined className="margin_Icon" />
+                    <EllipsisOutlined className="threedot_Icon" />
                   </Space>
                 </a>
               </Dropdown>

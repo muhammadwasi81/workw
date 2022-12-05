@@ -32,15 +32,27 @@ export const getDefaultApproversById = (id) => {
     });
 };
 
-export const addDefaultApprovers = (data) => {
-  return MasterConfig.post(`/api/DefaultApproval/AddDefaultApproval`, data)
-    .then((res) => {
-      console.log(res.data, 'addDefaultApprovers service');
-      return res;
-    })
-    .catch((res) => {
-      return res;
-    });
+// export const addDefaultApprovers = (data) => {
+//   return MasterConfig.post(`/api/DefaultApproval/AddDefaultApproval`, data)
+//     .then((res) => {
+//       console.log(res.data, 'addDefaultApprovers service');
+//       return res;
+//     })
+//     .catch((res) => {
+//       return res;
+//     });
+// };
+export const addDefaultApprovers = async (payload) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`/api/DefaultApproval/AddDefaultApproval`, payload);
+    console.log(data, 'getAllDefaultApprovers service');
+    if (responseCode === 1001) return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
 };
 
 export const deleteDefaultApproversById = (id) => {

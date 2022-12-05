@@ -9,50 +9,48 @@ import { NoDataFound } from './../../sharedComponents/NoDataIcon/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllEmployees } from './../../../utils/Shared/store/actions';
 import Avatar from '../../sharedComponents/Avatar/avatarOLD';
-import { customApprovalDictionaryList } from './../CustomApprovals/localization/index';
-import { LanguageChangeContext } from './../../../utils/localization/localContext/LocalContext';
-import CustomSelect from './../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import Content from './view/content';
+import {
+  addDefaultApproversAction,
+  getAllDefaultApproversAction,
+} from './store/action';
+import { defaultApprovers } from './utils';
+import CustomSelect from '../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { customApprovalDictionaryList } from '../CustomApprovals/localization';
+import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
 
 const { Panel } = Collapse;
 
-const defaultApprovers = [
-  { label: 'Expense', _id: 1 },
-  { label: 'Expense Finance', _id: 2 },
-  { label: 'Travel', _id: 3 },
-  { label: 'Travel Agent', _id: 4 },
-  { label: 'Leave', _id: 5 },
-  { label: 'Asset Allocation', _id: 6 },
-  { label: 'Salary', _id: 7 },
-  { label: 'Payroll', _id: 8 },
-  { label: 'Reward', _id: 9 },
-  { label: 'Resignation HR', _id: 10 },
-  { label: 'Resignation Admin', _id: 11 },
-  { label: 'Resignation IT', _id: 12 },
-  { label: 'Resignation Finance', _id: 13 },
-  { label: 'Resignation Exit', _id: 14 },
-  { label: 'Requistion', _id: 15 },
-];
 const DefaultApprovers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [value, setValue] = useState([]);
-  const [input, setInput] = useState('');
-  const [data, setData] = useState([]);
+  const [currentType, setCurrentType] = useState('');
+
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = customApprovalDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
+  const { approversData } = useSelector((state) => state.approverSlice);
 
-  const selectedData = (data) => {
-    console.log(data, 'selectedData');
-    setValue(data);
+  const payloadData = {
+    pageNo: 1,
+    pageSize: 20,
+    search: '',
   };
 
-  const showModal = () => {
+  useEffect(() => {
+    dispatch(getAllDefaultApproversAction(payloadData));
+  }, []);
+
+  const filterType = (type) => {
+    return approversData.filter((item) => item.type === type);
+  };
+  const showModal = (type) => {
+    console.log(type, 'type');
     setIsModalOpen(true);
+    setCurrentType(type);
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -61,14 +59,22 @@ const DefaultApprovers = () => {
     setIsModalOpen(false);
   };
 
+  const selectedData = (data) => {
+    setValue(data);
+  };
+
   const handleCollapse = (key) => {
     console.log(key, 'key');
   };
 
   const handleChange = (e) => {
-    setInput(e);
-    setData([...data, e]);
-    console.log(data, 'data');
+    console.log(e, 'e');
+    const payload = {
+      memberId: [e],
+      type: currentType,
+    };
+    console.log(payload, 'payload');
+    dispatch(addDefaultApproversAction(payload));
   };
 
   useEffect(() => {
@@ -110,17 +116,44 @@ const DefaultApprovers = () => {
                           <Button
                             shape="circle"
                             icon={<PlusCircleFilled />}
-                            onClick={showModal}
+                            onClick={() => showModal(item.type)}
                           />
                         </Tooltip>,
                       ]}
                     >
-                      <div>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Officiis corrupti, a eius exercitationem maiores
-                        velit quaerat. Provident reiciendis officia natus error
-                        quis, dolores aspernatur nostrum praesentium
-                        repellendus, beatae ipsam voluptatem!
+                      <div className="flex flex-wrap justify-between">
+                        {filterType(item.type).length > 0 ? (
+                          filterType(item.type).map((item, index) => {
+                            return (
+                              <div key={index} className="m-auto">
+                                <Avatar
+                                  size={35}
+                                  round={true}
+                                  name={item?.member?.name}
+                                  src={item?.member?.image}
+                                />
+                                &nbsp; &nbsp;
+                                <div className="nameWrapper">
+                                  <span className="font-bold">
+                                    {item?.member?.name}
+                                  </span>
+                                </div>
+                                <div className="designationWrapper">
+                                  <span className="font-semibold">
+                                    {item?.member?.designation ||
+                                      'No Designation'}
+                                  </span>
+                                </div>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <div
+                            style={{ width: 100, height: 100, margin: 'auto' }}
+                          >
+                            <NoDataFound />
+                          </div>
+                        )}
                       </div>
                       <Modal
                         open={isModalOpen}
@@ -132,13 +165,15 @@ const DefaultApprovers = () => {
                             <label className="text-sm font-bold text-gray-700">
                               Select Default Approval
                             </label>
-                            {/* <CustomSelect
+                            <CustomSelect
                               style={{ marginBottom: '0px' }}
                               data={firstTimeEmpData}
                               selectedData={selectedData}
                               canFetchNow={isFirstTimeDataLoaded}
                               fetchData={fetchEmployees}
-                              placeholder={'Select Members'}
+                              placeholder={
+                                customApprovalDictionaryList.selectMember
+                              }
                               isObject={true}
                               loadDefaultData={false}
                               onChange={handleChange}
@@ -157,33 +192,37 @@ const DefaultApprovers = () => {
                                 );
                               }}
                               dataVal={value}
-                              name="handoverId"
+                              name="approvers"
                               showSearch={true}
                               direction={Direction}
-                              rules={[
-                                {
-                                  required: true,
-                                  message: 'Please Select Member',
-                                },
-                              ]}
                             />
-                            {data?.map((item, index) => {
+                          </div>
+                          {filterType(currentType).length > 0 ? (
+                            filterType(currentType).map((item, index) => {
                               return (
                                 <div key={index}>
                                   <Avatar
-                                    name={item.name}
-                                    src={item.image}
+                                    name={item.member.name}
+                                    src={item.member.image}
                                     round={true}
                                     width={'30px'}
                                     height={'30px'}
-                                  >
-                                    {item.name}
-                                  </Avatar>
+                                  />
+                                  {item.member.name}
                                 </div>
                               );
-                            })} */}
-                            <Content />
-                          </div>
+                            })
+                          ) : (
+                            <div
+                              style={{
+                                width: 100,
+                                height: 200,
+                                margin: 'auto',
+                              }}
+                            >
+                              <NoDataFound />
+                            </div>
+                          )}
                         </div>
                       </Modal>
                     </Panel>

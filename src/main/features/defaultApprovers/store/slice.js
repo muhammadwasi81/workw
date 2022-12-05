@@ -34,9 +34,9 @@ const approverSlice = createSlice({
         state.loadingData = false;
       })
       .addCase(addDefaultApproversAction.fulfilled, (state, action) => {
-        state.approversData = state.approversData.push(action.payload.data);
-        state.loadingData = false;
         console.log(action.payload, 'addDefaultApproversAction Slice');
+        state.approversData = [...state.approversData, ...action.payload];
+        state.loadingData = false;
       })
       .addCase(deleteDefaultApproversByIdAction.fulfilled, (state, action) => {
         console.log(action.payload, 'deleteDefaultApproversByIdAction Slice');

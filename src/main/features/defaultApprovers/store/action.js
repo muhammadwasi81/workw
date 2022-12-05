@@ -17,13 +17,6 @@ export const getAllDefaultApproversAction = createAsyncThunk(
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
-        dispatch(
-          openNotification({
-            message: 'Default Approvers fetched Successfully!',
-            type: 'success',
-            duration: 2,
-          })
-        );
         return response.data;
       default:
         return;
@@ -59,7 +52,7 @@ export const addDefaultApproversAction = createAsyncThunk(
   'defaultApprovers/addDefaultApproversAction',
   async (payload, { rejectWithValue, dispatch }) => {
     const response = await addDefaultApprovers(payload);
-    console.log(response.data, 'addDefaultApproversAction');
+    console.log(response, 'addDefaultApproversAction');
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

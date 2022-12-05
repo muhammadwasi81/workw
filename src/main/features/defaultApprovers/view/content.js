@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllEmployees } from './../../../../utils/Shared/store/actions';
 import { LanguageChangeContext } from './../../../../utils/localization/localContext/LocalContext';
 import Avatar from '../../../sharedComponents/Avatar/avatarOLD';
-import { getAllDefaultApproversAction } from '../store/action';
+import {
+  addDefaultApproversAction,
+  getAllDefaultApproversAction,
+} from '../store/action';
 
 const Content = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -47,6 +50,11 @@ const Content = () => {
     console.log(e, 'e');
     setInput(e);
     setData([...data, e]);
+    const payload = {
+      memberId: [e],
+      type: 1,
+    };
+    dispatch(addDefaultApproversAction(payload));
   };
 
   useEffect(() => {
@@ -69,13 +77,6 @@ const Content = () => {
       })
     );
   };
-
-  // filter data accroding to all types
-  const filteredData = approversData.filter((item) => item.type === 2);
-  console.log(
-    filteredData.map((x) => x.member.name),
-    'filteredData'
-  );
 
   return (
     <>
@@ -110,15 +111,18 @@ const Content = () => {
         direction={Direction}
       />
       <div>
-        {filteredData.map((item) => {
+        {data.map((item, index) => {
           return (
-            <Avatar
-              name={item.member.name}
-              src={item.member.image}
-              round={true}
-              width={'30px'}
-              height={'30px'}
-            />
+            <div key={index}>
+              <Avatar
+                name={item.name}
+                src={item.image}
+                round={true}
+                width={'30px'}
+                height={'30px'}
+              />
+              {item.name}
+            </div>
           );
         })}
       </div>

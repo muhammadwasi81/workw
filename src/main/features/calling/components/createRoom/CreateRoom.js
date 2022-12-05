@@ -1,19 +1,18 @@
-import { Button, DatePicker, Form, Input, message, Switch } from "antd";
 import React, { useEffect, useState } from "react";
+import { Button, DatePicker, Form, Input, message, Switch } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+
 import "./styles/createRoom.css";
-import { HomeOutlined, BranchesOutlined } from "@ant-design/icons";
+// import { HomeOutlined, BranchesOutlined } from "@ant-design/icons";
 // import MemberModal from "../../../workboard/Modal/MemberModal";
 import CustomModal from "../../../workboard/Modal/CustomModal";
 import AddMember from "../../Modal/AddMember";
-import { validateEmail } from "../../../../../utils/Shared/helper/validateEmail";
-import { v4 as id } from "uuid";
+// import { validateEmail } from "../../../../../utils/Shared/helper/validateEmail";
+// import { v4 as id } from "uuid";
 import MultipleAvatars from "../../../../sharedComponents/Avatar/MultipleAvatars";
 import ExternalMember from "../../Modal/ExternalMember";
-import { useDispatch } from "react-redux";
 import { createRoom } from "../../store/action";
-import { useSelector } from "react-redux";
 
-const CALL_URL_PREFIX = "https://call.workw.com/";
 export default function CreateRoom() {
 	const [isPassword, setIsPassword] = useState(false);
 	const [isMeetingSchedule, setIsMeetingSchedule] = useState(false);
@@ -24,17 +23,17 @@ export default function CreateRoom() {
 	const [externalMembers, setExternalMembers] = useState([]);
 
 	const loading = useSelector(state => state.callingSlice.loading);
-	const success = useSelector(state => state.callingSlice.success);
-	const roomId = useSelector(state => state.callingSlice.roomId);
-	const user = useSelector(state => state.userSlice.user);
+	// const success = useSelector(state => state.callingSlice.success);
+	// const roomId = useSelector(state => state.callingSlice.roomId);
+	// const user = useSelector(state => state.userSlice.user);
 
-	useEffect(() => {
-		if (success && roomId && !loading) {
-			const strWindowFeatures =
-				"location=yes,height=800,width=800,scrollbars=yes,status=yes";
-			window.open(CALL_URL_PREFIX + roomId, "_blank", strWindowFeatures);
-		}
-	}, [success, roomId]);
+	// useEffect(() => {
+	// 	if (success && roomId && !loading) {
+	// 		const strWindowFeatures =
+	// 			"location=yes,height=800,width=800,scrollbars=yes,status=yes";
+	// 		window.open(CALL_URL_PREFIX + roomId, "_blank", strWindowFeatures);
+	// 	}
+	// }, [success, roomId]);
 
 	const handleAddMemberModal = () => {
 		setAddMember(!addMember);
@@ -44,37 +43,6 @@ export default function CreateRoom() {
 	};
 
 	const handleSelectedMembers = (val, obj) => {
-		// setMembersValue(val);
-
-		// if (Array.isArray(obj) && obj.length === 0 && val.length > 0) {
-		// 	if (validateEmail(val[val.length - 1])) {
-		// 		setSelectedMembers([
-		// 			...selectedMembers,
-		// 			{
-		// 				id: id(),
-		// 				name: val[val.length - 1],
-		// 				designation: "",
-		// 				image: "",
-		// 				admin: undefined,
-		// 			},
-		// 		]);
-		// 	}
-		// } else {
-		// 	let tempArray = obj.map(member => {
-		// 		return {
-		// 			...member,
-		// 			admin: false,
-		// 		};
-		// 	});
-		// 	let unique = getUniqueListBy(
-		// 		[...tempArray, ...selectedMembers],
-		// 		"id"
-		// 	);
-		// 	unique = unique.sort((a, b) => Number(b.admin) - Number(a.admin));
-		// }
-
-		// let tempObj = [...obj];
-		// tempObj[0].admin = false;
 		const tempObj = obj.map(member => {
 			return {
 				...member,
@@ -82,9 +50,6 @@ export default function CreateRoom() {
 			};
 		});
 		let unique = getUniqueListBy([...selectedMembers, ...tempObj], "id");
-		// const sortedMembers = [...selectedMembers, ...tempObj].sort(
-		// 	(a, b) => Number(b.admin) - Number(a.admin)
-		// );
 		setSelectedMembers([...unique]);
 	};
 
@@ -138,20 +103,7 @@ export default function CreateRoom() {
 			...fields,
 			members: [...members, ...externals],
 		};
-		// console.log("data to send", dataToSend);
 
-		// let dataToSend = {
-		// 	...fields,
-		// 	receiverIds: [...selectedMembers],
-		// 	externalMembers: [...externalMembers],
-		// 	myData: {
-		// 		image: user.userImage,
-		// 		userId: user.id,
-		// 		admin: true,
-		// 		name: user.name,
-		// 		email: user.email,
-		// 	},
-		// };
 		dispatch(createRoom(dataToSend));
 	};
 	const [form] = Form.useForm();

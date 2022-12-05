@@ -6,6 +6,7 @@ import ScheduleCard from "../../UI/ScheduleCard";
 import TaskDetail from "../../../task/view/TaskDetail/TaskDetail";
 import TravelDetail from "../../../travel/view/TravelDetail/TravelDetail";
 import ScheduleComposerDetail from "../Composer/ScheduleComposerDetail";
+import { ScheduleTypeEnum } from "../../enum/enum";
 function MySchedules() {
 	const [scheduleData, setScheduleData] = useState(null);
 	const panes = [
@@ -56,9 +57,9 @@ function MySchedules() {
 					</div>
 					<div className="p-5 bg-white rounded-lg min-h-0 overflow-y-auto">
 						{scheduleData !== null ? (
-							scheduleData?.type === 6 ? (
+							scheduleData?.type === ScheduleTypeEnum.Travel ? (
 								<TravelDetail travelId={scheduleData?.id} />
-							) : scheduleData?.type === 5 ? (
+							) : scheduleData?.type === ScheduleTypeEnum.Task ? (
 								<TaskDetail id={scheduleData?.id} />
 							) : (
 								<>

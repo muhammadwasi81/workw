@@ -7,6 +7,7 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 import plane from "../../../../content/NewContent/Schedule/plane.svg";
 import calendar from "../../../../content/NewContent/Schedule/calendar.svg";
 import task from "../../../../content/NewContent/Schedule/task.svg";
+import { ScheduleTypeEnum } from "../enum/enum";
 
 function ScheduleCardDetail({ schedule }) {
 	return (
@@ -33,9 +34,10 @@ function ScheduleCardDetail({ schedule }) {
 				<div>
 					<img
 						src={
-							schedule?.scheduleType === 5
+							schedule?.scheduleType === ScheduleTypeEnum.Task
 								? task
-								: schedule?.scheduleType === 6
+								: schedule?.scheduleType ===
+								  ScheduleTypeEnum.Travel
 								? plane
 								: calendar
 						}

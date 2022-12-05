@@ -6,18 +6,17 @@ import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { Avatar } from "antd";
 
-function ShareComponent({ item }) {
+function ShareComponent({ item, handleClose }) {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
-  const [closeShare, setCloseShare] = useState(true);
   const [newState, setNewState] = useState({
     members: [],
     memberType: null,
   });
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
-
+// console.log(item,"itemmmm share")
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -31,9 +30,9 @@ function ShareComponent({ item }) {
     });
   };
   const shareHandler = () => {
-    console.log("clickeddd");
+    console.log("clicked share componentß");
     console.log(item.description, "description");
-    setCloseShare(false);
+    handleClose(false);
   };
   useEffect(() => {
     fetchEmployees("", 0);
@@ -51,7 +50,6 @@ function ShareComponent({ item }) {
 
   return (
     <>
-      {closeShare && (
         <div className="shareContainer">
           <div className="user-box">
             <CustomSelect
@@ -95,7 +93,7 @@ function ShareComponent({ item }) {
             <SendOutlined onClick={shareHandler} />
           </div>
         </div>
-      )}
+      
     </>
   );
 }

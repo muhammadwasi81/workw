@@ -67,16 +67,16 @@ export const listitem = [
   },
   {
     IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,
-    displayName: 'Tax_Slabs',
+    displayName: 'Tax_Slabs_Group',
     classObj: 'button',
     to: ROUTES.ADMINISTRATOR.TAX_SLAB,
   },
-  {
-    IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,
-    displayName: 'Tax_Slabs_Group',
-    classObj: 'button',
-    to: ROUTES.ADMINISTRATOR.TAX_SLAB_GROUP,
-  },
+  // {
+  //   IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,
+  //   displayName: 'Tax_Slabs_Group',
+  //   classObj: 'button',
+  //   to: ROUTES.ADMINISTRATOR.TAX_SLAB_GROUP,
+  // },
 
   {
     IconName: (

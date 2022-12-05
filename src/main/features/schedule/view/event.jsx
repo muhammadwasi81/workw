@@ -1,6 +1,7 @@
+import React from "react";
 import { Tag } from "antd";
 import moment from "moment";
-import React from "react";
+import { ScheduleTypeEnum } from "../enum/enum";
 // import "../styles/event.css";
 function Event({ data, handleScheduleDetailComposer, showTag = false }) {
 	// const data = eventInfo?.event._def.extendedProps;
@@ -24,18 +25,18 @@ function Event({ data, handleScheduleDetailComposer, showTag = false }) {
 							}}
 						/>
 					</div>
-					{showTag && (data?.scheduleType === 5 || data?.scheduleType === 6) && (
+					{showTag && (data?.scheduleType === ScheduleTypeEnum.Task || data?.scheduleType === ScheduleTypeEnum.Travel) && (
 						<Tag
 							color={
-								data?.scheduleType === 5
+								data?.scheduleType === ScheduleTypeEnum.Task
 									? "#800080"
-									: data?.scheduleType === 6
+									: data?.scheduleType === ScheduleTypeEnum.Travel
 									? "#ff0000"
 									: ""
 							}
 							className={`!p-1 !text-[12px] !text-white`}
 						>
-							{data?.scheduleType === 5 ? "Task" : "Travel"}
+							{data?.scheduleType === ScheduleTypeEnum.Task ? "Task" : "Travel"}
 						</Tag>
 					)}
 				</div>

@@ -5,20 +5,21 @@ import {
   responseMessageType,
 } from '../../../../services/slices/notificationSlice';
 import {
-  addBusinessPolicyService,
   removeBusinessPolicyService,
   getAllBusinessPolicyService,
   updateBusinessPolicyService,
+  addTaxSlabGroupService,
+  getAllTaxSlabGroupService,
 } from '../services/service';
 import { businessDeleted } from './slice';
 import { message } from 'antd';
 
-export const addBusinessPolicy = createAsyncThunk(
-  'addBusiness',
+export const addTaxSlabGroup = createAsyncThunk(
+  'AddTaxSlabGroup',
   async (data, { dispatch, rejectWithValue }) => {
-    const res = await addBusinessPolicyService(data);
+    const res = await addTaxSlabGroupService(data);
     if (res.responseCode === responseCode.Success) {
-      message.success(`Business Policy Added Successfully`);
+      message.success(`Tax Slab Group Added Successfully`);
       return res;
     } else {
       responseMessage({
@@ -31,17 +32,14 @@ export const addBusinessPolicy = createAsyncThunk(
   }
 );
 
-export const getAllBusinessPolicy = createAsyncThunk(
-  'getAllBusinessPolicy',
-  async (data, { dispatch }) => {
-    const res = await getAllBusinessPolicyService(data);
-    if (!res.responseCode) {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
+export const GetAllTaxSlabGroup = createAsyncThunk(
+  "TaxSlabGroup/GetAllTaxSlabGroup",
+  async (data) => {
+    const response = await getAllTaxSlabGroupService(data);
+    if (!response.responseCode) {
+      message.error("Something went wrong");
     }
-    return res;
+    return response.data;
   }
 );
 

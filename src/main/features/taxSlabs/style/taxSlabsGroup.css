@@ -5,10 +5,7 @@
 }
 
 .ar_container .ar_form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  display: block;
 }
 
 .access_role_container {
@@ -27,5 +24,20 @@
   background: var(--currentThemeColor);
 }
 
-.ReactQuill {
+.taxSlabComposer .ar_container {
+  height: auto;
+}
+.taxSlabGroupParent .ant-collapse-item {
+  border-bottom: 0;
+}
+.taxSlabGroupParent {
+  width: 100%;
+}
+.taxSlabGroupParent .ant-collapse {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #d9d9d9;
+  border-radius: 8px;
+}
+.taxSlabGroupParent .anticon-edit {
+  margin-right: 6px;
 }

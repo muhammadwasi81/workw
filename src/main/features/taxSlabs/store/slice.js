@@ -1,13 +1,13 @@
 import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
-  addBusinessPolicy,
-  getAllBusinessPolicy,
+  addTaxSlabGroup,
+  GetAllTaxSlabGroup,
   removeBusinessPolicy,
   updateBusinessPolicy,
 } from './action';
 
 const initialState = {
-  businessPolicies: [],
+  items: [],
   policyDetail: null,
   loader: false,
   success: false,
@@ -15,46 +15,44 @@ const initialState = {
   editData: null,
 };
 
-const businessPolicySlice = createSlice({
-  name: 'businessPolicy',
+const taxSlabGroupSlice = createSlice({
+  name: 'TaxSlabGroup',
   initialState,
   reducers: {
     handleOpenDetail: (state, action) => {
       state.policyDetail = action.payload;
     },
     businessDeleted: (state, { payload }) => {
-      state.businessPolicies = state.businessPolicies.filter(
+      state.items = state.items.filter(
         (e) => e.id !== payload
       );
     },
     handleEdit: (state, { payload }) => {
-      console.log(payload, 'FROM EDIT SLICE');
       state.editData = payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addBusinessPolicy.fulfilled, (state, { payload }) => {
-        state.businessPolicies.push(payload.data);
+      .addCase(addTaxSlabGroup.fulfilled, (state, { payload }) => {
+        state.items.push(payload.data);
         state.success = true;
         state.loader = false;
       })
-      .addCase(getAllBusinessPolicy.fulfilled, (state, { payload }) => {
-        state.businessPolicies = payload.data;
-        state.policyDetail = payload.data[0];
+      .addCase(GetAllTaxSlabGroup.fulfilled, (state, { payload }) => {
+        state.items = [...payload];
+        // state.policyDetail = payload.data[0];
         state.loader = false;
       })
       .addCase(removeBusinessPolicy.fulfilled, (state, { payload }) => {
-        state.businessPolicies = state.businessPolicies.filter(
+        state.items = state.items.filter(
           (e) => e.id !== payload.data.id
         );
         state.loader = false;
       })
       .addCase(updateBusinessPolicy.fulfilled, (state, { payload }) => {
-        state.businessPolicies = state.businessPolicies.map((e) =>
+        state.items = state.items.map((e) =>
           e.id === payload.data.id ? payload.data : e
         );
-        console.log('update slice call', payload.data);
         state.loader = false;
       })
       .addMatcher(isPending(), (state) => {
@@ -65,14 +63,14 @@ const businessPolicySlice = createSlice({
         state.error = true;
       })
       .addMatcher(
-        isPending(...[addBusinessPolicy, getAllBusinessPolicy]),
+        isPending(...[addTaxSlabGroup, GetAllTaxSlabGroup]),
         (state) => {
           state.loader = true;
           state.success = false;
         }
       )
       .addMatcher(
-        isRejected(...[addBusinessPolicy, getAllBusinessPolicy]),
+        isRejected(...[addTaxSlabGroup, GetAllTaxSlabGroup]),
         (state) => {
           state.loader = false;
           state.success = false;
@@ -86,5 +84,5 @@ export const {
   handleOpenDetail,
   businessDeleted,
   handleEdit,
-} = businessPolicySlice.actions;
-export default businessPolicySlice.reducer;
+} = taxSlabGroupSlice.actions;
+export default taxSlabGroupSlice.reducer;

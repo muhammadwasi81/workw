@@ -27,11 +27,13 @@ const approverSlice = createSlice({
         console.log(payload, 'getAllDefaultApproversAction slice');
         state.loadingData = false;
         state.approversData = payload;
+        state.loader = false;
       })
       .addCase(addDefaultApproversAction.fulfilled, (state, action) => {
         console.log(action.payload, 'addDefaultApproversAction Slice');
         state.approversData = [...state.approversData, ...action.payload];
         state.loadingData = false;
+        state.loader = false;
       })
       .addMatcher(
         isPending(...[getAllDefaultApproversAction, addDefaultApproversAction]),

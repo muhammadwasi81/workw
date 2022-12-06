@@ -24,3 +24,6 @@
 .modalWrapper .ant-modal-close-x {
   display: none;
 }
+.createEntryTable td {
+  padding: 5px;
+}

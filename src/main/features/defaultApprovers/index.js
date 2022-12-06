@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { AdminContainer } from './../../sharedComponents/StyledComponents/admin';
 import { FormContainer } from './../../sharedComponents/StyledComponents/adminForm';
-import { Collapse, Modal, Tooltip, Button } from 'antd';
+import { Collapse, Modal, Tooltip, Button, Skeleton } from 'antd';
 import { FormHeader } from '../../../components/HrMenu/Administration/StyledComponents/adminForm';
 import './styles.css';
 import { PlusCircleFilled } from '@ant-design/icons';
@@ -34,8 +34,8 @@ const DefaultApprovers = () => {
 
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
-  const { approversData } = useSelector((state) => state.approverSlice);
-
+  const { loader, approversData } = useSelector((state) => state.approverSlice);
+  console.log(loader, 'loader');
   const payloadData = {
     pageNo: 1,
     pageSize: 20,
@@ -107,7 +107,7 @@ const DefaultApprovers = () => {
   return (
     <FormContainer>
       <FormHeader>Default Approvers</FormHeader>
-      {defaultApprovers.length > 0 ? (
+      {defaultApprovers?.length > 0 ? (
         <AdminContainer>
           {defaultApprovers?.map((item, index) => {
             return (
@@ -127,61 +127,67 @@ const DefaultApprovers = () => {
                         </Tooltip>,
                       ]}
                     >
-                      <div className="createEntryTable">
-                        <table className="!min-w-full">
-                          {filterType(item.type).length > 0 ? (
-                            <TableHead />
-                          ) : (
-                            <div
-                              style={{
-                                width: 100,
-                                height: 100,
-                                margin: 'auto',
-                              }}
-                            >
-                              <NoDataFound />
-                            </div>
-                          )}
-                          <tbody>
-                            {filterType(item.type).length > 0
-                              ? filterType(item.type).map((item, index) => {
-                                  return (
-                                    <tr key={index}>
-                                      <td>
-                                        <Avatar
-                                          size={35}
-                                          round={true}
-                                          name={item?.member?.name}
-                                          src={item?.member?.image}
-                                        />
-                                      </td>
-                                      <td>
-                                        <span className="font-bold">
-                                          {item?.member?.name}
-                                        </span>
-                                      </td>
-                                      <td>
-                                        <span className="font-semibold">
-                                          {item?.member?.designation ||
-                                            'No Designation'}
-                                        </span>
-                                      </td>
-                                      <td>
-                                        <Button
-                                          type="primary"
-                                          danger
-                                          shape="circle"
-                                          icon={<DeleteOutlined />}
-                                          onClick={() => handleDelete(item.id)}
-                                        />
-                                      </td>
-                                    </tr>
-                                  );
-                                })
-                              : null}
-                          </tbody>
-                        </table>
-                      </div>
+                      {loader ? (
+                        <Skeleton active />
+                      ) : (
+                        <div className="createEntryTable">
+                          <table className="!min-w-full">
+                            {filterType(item.type).length > 0 ? (
+                              <TableHead />
+                            ) : (
+                              <div
+                                style={{
+                                  width: 100,
+                                  height: 100,
+                                  margin: 'auto',
+                                }}
+                              >
+                                <NoDataFound />
+                              </div>
+                            )}
+                            <tbody>
+                              {filterType(item.type).length > 0
+                                ? filterType(item.type).map((item, index) => {
+                                    return (
+                                      <tr key={index}>
+                                        <td style={{ maxWidth: '15px' }}>
+                                          <Avatar
+                                            size={35}
+                                            round={true}
+                                            name={item?.member?.name}
+                                            src={item?.member?.image}
+                                          />
+                                        </td>
+                                        <td>
+                                          <span className="font-bold">
+                                            {item?.member?.name}
+                                          </span>
+                                        </td>
+                                        <td>
+                                          <span className="font-semibold">
+                                            {item?.member?.designation ||
+                                              'No Designation'}
+                                          </span>
+                                        </td>
+                                        <td style={{ maxWidth: '15px' }}>
+                                          <Button
+                                            type="primary"
+                                            danger
+                                            shape="circle"
+                                            icon={<DeleteOutlined />}
+                                            onClick={() =>
+                                              handleDelete(item.id)
+                                            }
+                                          />
+                                        </td>
+                                      </tr>
+                                    );
+                                  })
+                                : null}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
                       <Modal
                         open={isModalOpen}
                         onOk={handleOk}
@@ -224,31 +230,40 @@ const DefaultApprovers = () => {
                               direction={Direction}
                             />
                           </div>
-                          {filterType(currentType).length > 0 ? (
-                            filterType(currentType).map((item, index) => {
-                              return (
-                                <div key={index}>
-                                  <Avatar
-                                    name={item.member.name}
-                                    src={item.member.image}
-                                    round={true}
-                                    width={'30px'}
-                                    height={'30px'}
-                                  />
-                                  &nbsp;{item.member.name}
-                                </div>
-                              );
-                            })
+                          {loader ? (
+                            <Skeleton active />
                           ) : (
-                            <div
-                              style={{
-                                width: 100,
-                                height: 200,
-                                margin: 'auto',
-                              }}
-                            >
-                              <NoDataFound />
-                            </div>
+                            <>
+                              {filterType(currentType).length > 0 ? (
+                                filterType(currentType).map((item, index) => {
+                                  return (
+                                    <div key={index}>
+                                      <Avatar
+                                        name={item.member.name}
+                                        src={item.member.image}
+                                        round={true}
+                                        width={'30px'}
+                                        height={'30px'}
+                                      />
+                                      <span className="font-semibold">
+                                        {' '}
+                                        {item.member.name}
+                                      </span>
+                                    </div>
+                                  );
+                                })
+                              ) : (
+                                <div
+                                  style={{
+                                    width: 100,
+                                    height: 200,
+                                    margin: 'auto',
+                                  }}
+                                >
+                                  <NoDataFound />
+                                </div>
+                              )}
+                            </>
                           )}
                         </div>
                       </Modal>

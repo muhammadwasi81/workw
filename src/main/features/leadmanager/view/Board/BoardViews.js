@@ -35,7 +35,8 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 function BoardViews() {
 	const [view, setView] = useState("List");
 	const [selectedMembers, setSelectedMembers] = useState([]);
-	const [emailModal, setEmailModal] = useState(false);
+	// const [emailModal, setEmailModal] = useState(false);
+	const [leadSectionId, setLeadSectionId] = useState("");
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	const success = useSelector(state => state.leadMangerSlice.success);
@@ -103,7 +104,9 @@ function BoardViews() {
 	const getUniqueListBy = (arr, key) => {
 		return [...new Map(arr.map(item => [item[key], item])).values()];
 	};
-	const handleSelectedMembers = (val, obj) => {
+	const handleSelectedMembers = (val, obj, sectionId) => {
+		// console.log("sectionId", sectionId);
+		// setLeadSectionId(sectionId);
 		const tempObj = obj.map(member => {
 			return {
 				...member.member,
@@ -116,6 +119,7 @@ function BoardViews() {
 				{
 					detailId: assignToMemberId,
 					memberId: tempObj[0].id,
+					sectionId: leadSectionId,
 				},
 			])
 		);
@@ -138,12 +142,13 @@ function BoardViews() {
 			deleteLeadManagerDetailAssignTo({
 				detailId: assignToMemberId,
 				memberId: id,
+				sectionId: leadSectionId,
 			})
 		);
 	};
 	// const handle
-	console.log("selectedMembers", selectedMembers);
-	console.log("leadManagerDetail", leadManagerDetail);
+	// console.log("selectedMembers", selectedMembers);
+	// console.log("leadManagerDetail", leadManagerDetail);
 	return (
 		<div>
 			<Header items={items} />
@@ -160,6 +165,7 @@ function BoardViews() {
 					{view === "List" ? (
 						<LeadsOverview
 							handleSelectedMembers={setMembersToSelectedMembers}
+							setLeadSectionId={setLeadSectionId}
 						/>
 					) : view === "Board" ? (
 						<Board />
@@ -199,6 +205,7 @@ function BoardViews() {
 				children={
 					<AssignMemberModal
 						defaultData={leadManagerDetail?.members}
+						leadManagerDetail={leadManagerDetail}
 						onChange={handleSelectedMembers}
 						placeholder={placeHolder.serachMembersPH}
 						selectedMembers={selectedMembers}

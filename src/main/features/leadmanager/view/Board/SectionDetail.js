@@ -36,7 +36,12 @@ import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
 const { Panel } = Collapse;
 
 function SectionDetail(props) {
-	const { data, isSectionDetailLoading, handleSelectedMembers } = props;
+	const {
+		data,
+		isSectionDetailLoading,
+		handleSelectedMembers,
+		setLeadSectionId,
+	} = props;
 
 	const [image, setImage] = useState(
 		data?.image
@@ -71,6 +76,7 @@ function SectionDetail(props) {
 	if (isSectionDetailLoading && !data) {
 		return <SectionDetailSkeleton />;
 	}
+	// console.log("data", data);
 	return (
 		<div className="gap-5 flex flex-col 2xl:flex-row  ">
 			<section className="flex flex-col gap-3 basis-7/12">
@@ -115,6 +121,7 @@ function SectionDetail(props) {
 							onClick={() => {
 								handleSelectedMembers("", data?.members);
 								props.handleMemberModal(data.id);
+								setLeadSectionId(data.sectionId);
 							}}
 						/>
 					</Tooltip>

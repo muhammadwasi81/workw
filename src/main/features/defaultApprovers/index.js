@@ -20,7 +20,6 @@ import { customApprovalDictionaryList } from '../CustomApprovals/localization';
 import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
 import { DeleteOutlined } from '@ant-design/icons';
 import TableHead from './view/table/tableHead';
-import { handleApproversDelete } from './store/slice';
 const { Panel } = Collapse;
 
 const DefaultApprovers = () => {
@@ -79,10 +78,12 @@ const DefaultApprovers = () => {
     console.log(payload, 'payload');
     dispatch(addDefaultApproversAction(payload));
   };
+
   const handleDelete = (id) => {
     console.log(id, 'handleDelete');
     dispatch(deleteDefaultApproversByIdAction(id));
   };
+
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
       setIsFirstTimeDataLoaded(true);
@@ -185,6 +186,7 @@ const DefaultApprovers = () => {
                         open={isModalOpen}
                         onOk={handleOk}
                         onCancel={handleCancel}
+                        className="modalWrapper"
                       >
                         <div className="flex flex-col space-y-5">
                           <div className="flex flex-col space-y-2">
@@ -192,7 +194,6 @@ const DefaultApprovers = () => {
                               Select Default Approval
                             </label>
                             <CustomSelect
-                              style={{ marginBottom: '0px' }}
                               data={firstTimeEmpData}
                               selectedData={selectedData}
                               canFetchNow={isFirstTimeDataLoaded}
@@ -234,7 +235,7 @@ const DefaultApprovers = () => {
                                     width={'30px'}
                                     height={'30px'}
                                   />
-                                  {item.member.name}
+                                  &nbsp;{item.member.name}
                                 </div>
                               );
                             })

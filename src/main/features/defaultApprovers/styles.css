@@ -6,16 +6,21 @@
   background-color: #fff;
   margin-bottom: 8px;
 }
-.ant-modal-content {
+.modalWrapper .ant-modal-content {
   border-radius: 27px;
 }
-.ant-modal {
+.modalWrapper .ant-modal {
   width: 350px !important;
   height: auto;
 }
-.ant-modal-footer {
+.modalWrapper .ant-modal-content .ant-form-item {
+  margin-bottom: 0px;
+  width: 100%;
+  display: block;
+}
+.modalWrapper .ant-modal-footer {
   display: none;
 }
-.ant-modal-close-x {
+.modalWrapper .ant-modal-close-x {
   display: none;
 }

@@ -28,6 +28,10 @@ const en = {
     submit: "Submit",
     poweredBy: "Powered By",
     yourAnswer: "Your Answer",
+    referenceNo: "Reference No",
+    creator: "Creator",
+    status: "Status",
+    date: "Date",
   },
 
   /*** Define language write side ***/

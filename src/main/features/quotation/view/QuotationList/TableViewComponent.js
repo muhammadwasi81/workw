@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal } from "antd";
 import { Table } from "../../../../sharedComponents/customTable";
 import { quotationTableColumn } from "./tableColumns";
 import QuotationDetail from "../CreateQuotation/components/quotationDetail";
+import { quotationDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 const TableViewComponent = ({ data }) => {
   // const listData = useSelector((state) => state.quotationSlice.quotationList);
   const [openModal, setOpenModal] = useState(false);
   const [details, setDetails] = useState({});
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { quotationDictionary, Direction } = quotationDictionaryList[
+    userLanguage
+  ];
 
   const handleCancel = () => {
     console.log("set cancel");
@@ -30,7 +36,7 @@ const TableViewComponent = ({ data }) => {
   return (
     <>
       <Table
-        columns={quotationTableColumn()}
+        columns={quotationTableColumn(quotationDictionary)}
         dragable={true}
         data={data ? data : []}
         onRow={onRow}

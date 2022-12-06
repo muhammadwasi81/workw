@@ -80,7 +80,9 @@ function ListItem(props) {
         </ItemContent>
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Reason"}</div>
+            <div className="cardSection__title">
+              {resignationDictionary.reason}{" "}
+            </div>
             <div className="cardSection__body">
               {ResignationPurposeEnum.map((item) => {
                 if (item.value === purposeId) {
@@ -115,7 +117,10 @@ function ListItem(props) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Finance"}</div>
+            <div className="cardSection__title">
+              {" "}
+              {resignationDictionary.finance}
+            </div>
             <div className="cardSection__body">
               {finance && (
                 <Avatar
@@ -130,7 +135,10 @@ function ListItem(props) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"IT"}</div>
+            <div className="cardSection__title">
+              {" "}
+              {resignationDictionary.IT}
+            </div>
             <div className="cardSection__body">
               {it && (
                 <Avatar

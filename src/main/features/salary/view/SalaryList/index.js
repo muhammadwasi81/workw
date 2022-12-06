@@ -1,57 +1,69 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Header from '../../../../layout/header';
+import React, { useContext, useEffect, useState } from "react";
+import Header from "../../../../layout/header";
 import {
   ContBody,
   TabbableContainer,
-} from '../../../../sharedComponents/AppComponents/MainFlexContainer';
-import { Button } from 'antd';
-import { ROUTES } from '../../../../../utils/routes';
-import SalaryList from './salaryList';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getAllEmployeeSalary } from '../../store/actions';
-import TopBar from '../../../../sharedComponents/topBar/topBar';
-import { Table } from '../../../../sharedComponents/customTable';
-import { useSelector } from 'react-redux';
-import { salaryTableColumn } from './tableColumns';
+} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Button } from "antd";
+import { ROUTES } from "../../../../../utils/routes";
+import SalaryList from "./salaryList";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getAllEmployeeSalary } from "../../store/actions";
+import TopBar from "../../../../sharedComponents/topBar/topBar";
+import { Table } from "../../../../sharedComponents/customTable";
+import { useSelector } from "react-redux";
+import { salaryTableColumn } from "./tableColumns";
+import { salaryDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 function Salaries() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salaryDictionary } = salaryDictionaryList[userLanguage];
+  const {
+    salary,
+    createSalary,
+    salaries,
+    createdByMe,
+    forApproval,
+    list,
+    table,
+  } = salaryDictionary;
   const listData = useSelector((state) => state.salarySlice.salaryList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [filterType, setFilterType] = useState(0);
-  const [viewType, setViewType] = useState('List');
-  const [search, setSearch] = useState('');
+  const [viewType, setViewType] = useState("List");
+  const [search, setSearch] = useState("");
 
   const items = [
     {
-      name: 'Salary',
+      name: salary,
       to: `${ROUTES.SALARY.ROOT}`,
       renderButton: [1],
     },
   ];
   const buttons = [
     {
-      buttonText: '',
+      buttonText: createSalary,
       render: (
-        <Button className="ThemeBtn" onClick={() => navigate('create')}>
-          {' '}
-          Create Salary{' '}
+        <Button className="ThemeBtn" onClick={() => navigate("create")}>
+          {createSalary}
         </Button>
       ),
     },
   ];
   const filterButtons = [
     {
-      name: 'Salaries',
+      name: salaries,
       onClick: () => setFilterType(0),
     },
     {
-      name: 'Created By Me',
+      name: createdByMe,
       onClick: () => setFilterType(1),
     },
     {
-      name: 'For Approval',
+      name: forApproval,
       onClick: () => setFilterType(2),
     },
   ];
@@ -69,7 +81,11 @@ function Salaries() {
   const render = {
     List: <SalaryList data={listData} />,
     Table: (
-      <Table columns={salaryTableColumn()} dragable={true} data={listData} />
+      <Table
+        columns={salaryTableColumn(salaryDictionary)}
+        dragable={true}
+        data={listData}
+      />
     ),
   };
   return (
@@ -80,8 +96,8 @@ function Salaries() {
         buttons={filterButtons}
         segment={{
           onSegment,
-          label1: 'List',
-          label2: 'Table',
+          label1: list,
+          label2: table,
         }}
       />
       <ContBody>{render[viewType]}</ContBody>

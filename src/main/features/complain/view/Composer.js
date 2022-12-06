@@ -176,7 +176,7 @@ const Composer = (props) => {
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={"Select Member"}
+            placeholder={complainDictionary.selectMember}
             mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
@@ -220,7 +220,7 @@ const Composer = (props) => {
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={"Select Approver"}
+            placeholder={complainDictionary.selectApprovers}
             mode={"multiple"}
             isObject={true}
             loadDefaultData={false}

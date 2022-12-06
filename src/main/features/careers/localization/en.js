@@ -1,6 +1,7 @@
 const en = {
   CareerDictionaryList: {
     createTextBtn: "Create Career",
+    Careers: "Careers",
 
     labels: {
       firstName: "First Name",
@@ -88,6 +89,13 @@ const en = {
       finalist: "Finalist",
       maybe: "Maybe",
       careerdetail: "Career Detail",
+      creator: "Creator",
+      minSalary: "Min Salary",
+      maxSalary: "Max Salary",
+      manager: "Manager",
+      members: "Members",
+      interviewers: "Interviewers",
+      postInterviewers: "Post Interviewers",
     },
     placeHolder: {
       writeHeaderHere: "Write Header Here...",

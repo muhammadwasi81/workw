@@ -1,5 +1,6 @@
 const urdu = {
   loanDictionaryList: {
+    loans: "قرضے",
     filter: "فلٹر",
     selectApprovers: "منظور کنندگان کو منتخب کریں۔",
     warning: "انتباہ",
@@ -25,7 +26,13 @@ const urdu = {
     selectPurpose: "مقصد منتخب کریں",
     description: "تفصیل",
     enterDescription: "تفصیل درج کریں",
+    loanTenure: "قرض کی مدت",
+    datePicker: "تاریخ چننے والا",
+    loansToMe: "مجھے قرض",
+    listL: "فہرست",
+    table: "ٹیبل",
     loanPurpose: {
+      LoanPurpose: "قرض کا مقصد",
       vehicle: "گاڑی",
       personal: "ذاتی",
       wedding: "شادی",

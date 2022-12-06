@@ -25,6 +25,7 @@ import { tableColumn } from "./TableColumn";
 function Careers() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
+
   const CurrentTab = useSelector((state) => state.careerSlice.currentTab);
   const careers = useSelector((state) => {
     return state.careerSlice.items;
@@ -32,12 +33,12 @@ function Careers() {
   const { drawerOpen } = useSelector((state) => state.careerSlice);
   const [sort, setSort] = useState(2);
   const [search, setSearch] = useState("");
-  const { labels } = CareerDictionaryList;
+  const { labels, Careers } = CareerDictionaryList;
   const [view, setView] = useState("List");
 
   const items = [
     {
-      name: "Careers",
+      name: Careers,
       to: `${ROUTES.CAREER.CAREERLINK}`,
       renderButton: [1],
     },
@@ -116,9 +117,9 @@ function Careers() {
         />
         <ContBody>
           {RenderTab[CurrentTab]}
-          {view === "Table" && (
+          {view === labels.table && (
             <Table
-              columns={tableColumn()}
+              columns={tableColumn(CareerDictionaryList)}
               handleChange={handleColumnSorting}
               dragable={true}
               data={careers ? careers : []}

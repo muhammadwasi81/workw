@@ -134,7 +134,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Manager</div>
+            <div className="cardSection__title">{labels.manager}</div>
             <div className="cardSection__body">
               {manager && (
                 <Avatar
@@ -149,14 +149,14 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Members</div>
+            <div className="cardSection__title">{labels.members}</div>
             <div className="cardSection__body">
               {" "}
               {members && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"Members"}
+                  heading={labels.members}
                   membersData={members ? members : []}
                   text={"member"}
                   image={"https://joeschmoe.io/api/v1/random"}
@@ -165,7 +165,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">InterViewers</div>
+            <div className="cardSection__title">{labels.interviewers}</div>
             <div className="cardSection__body">
               {interviewers && (
                 <Avatar
@@ -180,7 +180,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Post Interviewers</div>
+            <div className="cardSection__title">{labels.postInterviewers}</div>
             <div className="cardSection__body">
               {postInterviewers && (
                 <Avatar
@@ -195,7 +195,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Approvers</div>
+            <div className="cardSection__title">{labels.approvers}</div>
             <div className="cardSection__body">
               {approvers && (
                 <Avatar

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SingleItem } from "../../../../../sharedComponents/Card/CardStyle";
 import { Avatar, Card, Button } from "antd";
 import "../../style.css";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { appraisalDictionaryList } from "../../../localization/index";
 
 const ShortAppraisalCard = () => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
+  const { viewAppraisals } = appraisalDictionary;
   return (
     <>
       <SingleItem className="cursor-pointer">
@@ -20,7 +25,7 @@ const ShortAppraisalCard = () => {
         </div>
         <div className="flex justify-end">
           <button className="viewAppraisalBtn drop-shadow">
-            View Appraisal
+            {viewAppraisals}
           </button>
         </div>
       </SingleItem>

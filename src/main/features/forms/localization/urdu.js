@@ -29,6 +29,10 @@ const urdu = {
     submit: "جمع کرائیں",
     poweredBy: "کی طرف سے طاقت",
     yourAnswer: "آپ کا جواب",
+    referenceNo: "حوالہ نمبر",
+    creator: "خالق",
+    status: "حالت",
+    date: "تاریخ",
   },
   /*** Define language write side ***/
   Direction: "rtl",

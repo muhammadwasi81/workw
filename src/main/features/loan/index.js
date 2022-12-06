@@ -42,7 +42,7 @@ function Index() {
 
   const items = [
     {
-      name: "Loans",
+      name: loanDictionaryList.loans,
       to: `${ROUTES.LOAN.LOAN}`,
       renderButton: [1],
     },
@@ -84,18 +84,18 @@ function Index() {
         onSearch={onSearch}
         buttons={[
           {
-            name: "Loans",
+            name: loanDictionaryList.loans,
             onClick: () => setFilter({ filterType: LoanFilterTypeEnum.All }),
           },
           {
-            name: "For Approval",
+            name: loanDictionaryList.forApproval,
             onClick: () =>
               setFilter({
                 filterType: LoanFilterTypeEnum.ForApproval,
               }),
           },
           {
-            name: "Loans To Me",
+            name: loanDictionaryList.loansToMe,
             onClick: () =>
               setFilter({
                 filterType: LoanFilterTypeEnum.CreatedByMeAndLoanOfMe,
@@ -107,15 +107,15 @@ function Index() {
         // }}
         segment={{
           onSegment: (value) => {
-            if (value === "Table") {
+            if (value === loanDictionaryList.table) {
               setTableView(true);
               console.log(tableView);
             } else {
               setTableView(false);
             }
           },
-          label1: "List",
-          label2: "Table",
+          label1: loanDictionaryList.list,
+          label2: loanDictionaryList.table,
         }}
       />
 

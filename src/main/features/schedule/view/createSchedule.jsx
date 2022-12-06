@@ -19,6 +19,7 @@ import { ScheduleTypeEnum } from "../enum/enum";
 import { addSchedule } from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { getNameForImage, jsonToFormData } from "../../../../utils/base";
+import '../styles/style.css'
 
 function CreateSchedule() {
 	const [venue, setVenue] = useState("Venue");

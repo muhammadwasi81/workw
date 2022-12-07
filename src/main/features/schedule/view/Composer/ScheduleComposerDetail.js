@@ -11,12 +11,16 @@ import Event from "../event";
 
 import ScheduleMembersList from "../Composer/ScheduleMembersList";
 import ScheduleDetailSkeleton from "./ScheduleDetailSkeleton";
+import { EditOutlined } from "@ant-design/icons";
+import { Button, Tooltip } from "antd";
+import CreateSchedule from "../createSchedule";
 
 function ScheduleComposerDetail({ id, shortEvent = true }) {
 	const eventDetail = useSelector(state => state.scheduleSlice.eventDetail);
 	const loading = useSelector(state => state.scheduleSlice.loading);
 	const loggedInUserId = useSelector(state => state.userSlice.user.id);
 	const [isActionEnabled, setIsActionEnabled] = useState(false);
+	const [editSchedule, setEditSchedule] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getScheduleById(id));
@@ -61,46 +65,68 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 			{loading ? (
 				<ScheduleDetailSkeleton />
 			) : (
-				<div
-					className={`eventDetail ${!shortEvent && ""}
+				<>
+					{!editSchedule ? (
+						<div
+							className={`eventDetail ${!shortEvent && ""}
 				`}
-				>
-					{shortEvent && (
-						<div className="eventDetail__header">
-							<p className="eventDetail-title">Details</p>
-							{/* <span className="eventNum">SCH-000085</span> */}
-						</div>
-					)}
-					<div className="eventDetail__body">
-						<div className="eventDetail__body-event">
-							{shortEvent ? (
-								<Event shortDesc={true} data={eventDetail} />
-							) : (
-								<EventDetail data={eventDetail} />
+						>
+							{shortEvent && (
+								<div className="eventDetail__header">
+									<p className="eventDetail-title">Details</p>
+									{/* <span className="eventNum">SCH-000085</span> */}
+									<Button className="ThemeBtn">Update</Button>
+									{/* <Tooltip title="Edit Schedule">
+										<EditOutlined
+											className="!text-primary-color cursor-pointer"
+											onClick={() => {
+												setEditSchedule(true);
+											}}
+										/>
+									</Tooltip> */}
+								</div>
 							)}
-						</div>
-						{!shortEvent && (
-							<div className="eventDetail__body-description">
-								<p className="eventDetail-title">Description</p>
-								<span>{eventDetail?.description}</span>
+							<div className="eventDetail__body">
+								<div className="eventDetail__body-event">
+									{shortEvent ? (
+										<Event
+											shortDesc={true}
+											data={eventDetail}
+										/>
+									) : (
+										<EventDetail data={eventDetail} />
+									)}
+								</div>
+								{!shortEvent && (
+									<div className="eventDetail__body-description">
+										<p className="eventDetail-title">
+											Description
+										</p>
+										<span>{eventDetail?.description}</span>
+									</div>
+								)}
 							</div>
-						)}
-					</div>
-					<div>Members</div>
-					{eventDetail?.members?.map(member => (
-						<ScheduleMembersList
-							status={member.statusEnum}
-							id={member.id}
-							data={member?.member}
-							memberType={member.memberType}
-							isActionEnabled={isActionEnabled}
-							handleMemberStatusChange={handleMemberStatusChange}
-							handleMemberTypeStatusChange={
-								handleMemberTypeStatusChange
-							}
-						/>
-					))}
-				</div>
+							<div>Members</div>
+							{eventDetail?.members?.map(member => (
+								<ScheduleMembersList
+									status={member.statusEnum}
+									id={member.id}
+									data={member?.member}
+									memberType={member.memberType}
+									isActionEnabled={isActionEnabled}
+									handleMemberStatusChange={
+										handleMemberStatusChange
+									}
+									handleMemberTypeStatusChange={
+										handleMemberTypeStatusChange
+									}
+								/>
+							))}
+						</div>
+					) : (
+						<CreateSchedule />
+					)}
+				</>
 			)}
 		</>
 	);

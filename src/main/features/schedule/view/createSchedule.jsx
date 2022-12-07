@@ -19,7 +19,7 @@ import { ScheduleTypeEnum } from "../enum/enum";
 import { addSchedule } from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { getNameForImage, jsonToFormData } from "../../../../utils/base";
-import '../styles/style.css'
+import "../styles/style.css";
 
 function CreateSchedule() {
 	const [venue, setVenue] = useState("Venue");
@@ -215,19 +215,13 @@ function CreateSchedule() {
 								setQuillError(false);
 							}
 						}}
-						
 						modules={modules}
 						formats={formats}
 						placeholder="Description"
 					/>
-					
 				</Form.Item>
 				<Form.Item label="Type:" name={"scheduleType"}>
-					<Radio.Group
-						onChange={e => {
-							console.log("e", e.target.value);
-						}}
-					>
+					<Radio.Group>
 						<Radio.Button value={ScheduleTypeEnum.Meeting}>
 							<DeploymentUnitOutlined />
 							Meeting

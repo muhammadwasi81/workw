@@ -104,9 +104,7 @@ function BoardViews() {
 	const getUniqueListBy = (arr, key) => {
 		return [...new Map(arr.map(item => [item[key], item])).values()];
 	};
-	const handleSelectedMembers = (val, obj, sectionId) => {
-		// console.log("sectionId", sectionId);
-		// setLeadSectionId(sectionId);
+	const handleSelectedMembers = (val, obj) => {
 		const tempObj = obj.map(member => {
 			return {
 				...member.member,
@@ -124,15 +122,17 @@ function BoardViews() {
 			])
 		);
 	};
-	const setMembersToSelectedMembers = (val, obj, key) => {
+
+	const setMembersToSelectedMembers = (val, obj) => {
 		const tempObj = obj.map(member => {
 			return {
 				...member.member,
 			};
 		});
-		let unique = getUniqueListBy([...selectedMembers, ...tempObj], "id");
-		setSelectedMembers([...unique]);
+		// let unique = getUniqueListBy([...selectedMembers, ...tempObj], "id");
+		setSelectedMembers([...tempObj]);
 	};
+
 	const handleDeleteMember = id => {
 		let filteredMembers = selectedMembers.filter(
 			member => member.id !== id
@@ -168,9 +168,15 @@ function BoardViews() {
 							setLeadSectionId={setLeadSectionId}
 						/>
 					) : view === "Board" ? (
-						<Board />
+						<Board
+							handleSelectedMembers={setMembersToSelectedMembers}
+						/>
 					) : (
-						<BoardTable data={leadManagerDetail} />
+						<BoardTable
+							data={leadManagerDetail}
+							handleSelectedMembers={setMembersToSelectedMembers}
+							setLeadSectionId={setLeadSectionId}
+						/>
 					)}
 				</ContBody>
 			</TabContainer>
@@ -226,6 +232,8 @@ function BoardViews() {
 				children={
 					<SectionDetail
 						isSectionDetailLoading={isSectionDetailLoading}
+						setLeadSectionId={setLeadSectionId}
+						handleSelectedMembers={setMembersToSelectedMembers}
 						handleContactDetailModal={() => {
 							dispatch(
 								handleContactDetailModal({

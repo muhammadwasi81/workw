@@ -86,6 +86,7 @@ function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
 	};
 
 	const handleDetailAssignTo = (e, id, members, sectionId) => {
+		// console.log("members", members);
 		// console.log("sectionId", sectionId);
 		setLeadSectionId(sectionId);
 		e.stopPropagation();

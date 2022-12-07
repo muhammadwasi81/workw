@@ -43,6 +43,7 @@ function SectionDetail(props) {
 		isSectionDetailLoading,
 		handleSelectedMembers,
 		setLeadSectionId,
+		handleMemberModal,
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -125,7 +126,7 @@ function SectionDetail(props) {
 								className="!text-[20px] !cursor-pointer !text-primary-color"
 								onClick={() => {
 									handleSelectedMembers("", data?.members);
-									props.handleMemberModal(data.id);
+									handleMemberModal(data.id);
 									setLeadSectionId(data.sectionId);
 								}}
 							/>

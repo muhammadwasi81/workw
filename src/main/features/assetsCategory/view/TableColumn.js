@@ -1,10 +1,10 @@
-import { EditFilled } from '@ant-design/icons';
-import { LoadingOutlined } from '@ant-design/icons';
+import { EditFilled } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Edit = (handleEdit, row, setClearButton) => {
   return (
     <EditFilled
-      style={{ color: '#1b5669' }}
+      style={{ color: "#1b5669" }}
       onClick={(e) => {
         handleEdit({
           id: row.id,
@@ -25,30 +25,41 @@ export const tableColumn = (
   removeButtons = false,
   rights,
   id,
-  setClearButton
+  setClearButton,
+  assetsDictionary
 ) => {
   return [
-    { title: 'Category Name', dataIndex: 'name', width: '30%', key: 1 },
-    { title: 'Description', dataIndex: 'description', width: '40%', key: 2 },
     {
-      title: 'Account Type',
-      dataIndex: 'accountId',
-      width: '20%',
+      title: assetsDictionary.categoryName,
+      dataIndex: "name",
+      width: "30%",
+      key: 1,
+    },
+    {
+      title: assetsDictionary.desc,
+      dataIndex: "description",
+      width: "40%",
+      key: 2,
+    },
+    {
+      title: assetsDictionary.accountType,
+      dataIndex: "accountId",
+      width: "20%",
       key: 3,
       render: (text, row) => {
-        return <>{row.accountId.substring(0, 5) + '...'}</>;
+        return <>{row.accountId.substring(0, 5) + "..."}</>;
       },
     },
     {
-      title: 'Parent Account',
-      dataIndex: 'parentName',
-      width: '25%',
+      title: assetsDictionary.parentAccount,
+      dataIndex: "parentName",
+      width: "25%",
       key: 4,
     },
     removeButtons
       ? {}
       : {
-          align: 'right',
+          align: "right",
           key: 3,
           render: (_, row) => {
             if (id && row.id === id) return <LoadingOutlined key={row} />;
@@ -57,7 +68,7 @@ export const tableColumn = (
             if (rights.includes(1) && rights.includes(2))
               return (
                 <>
-                  {Edit(handleEdit, row, setClearButton)}{' '}
+                  {Edit(handleEdit, row, setClearButton)}{" "}
                   {/* {Delete(handleDelete, row)}{' '} */}
                 </>
               );

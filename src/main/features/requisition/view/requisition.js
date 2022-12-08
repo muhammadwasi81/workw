@@ -61,7 +61,7 @@ const Requisition = () => {
   };
   const headerItem = [
     {
-      name: "Requisition",
+      name: requisitionDictionary.Requisitions,
       // to: `${ROUTES.REQUISITION.DEFAULT}`,
       renderButton: [1],
     },
@@ -124,21 +124,21 @@ const Requisition = () => {
           ]}
           segment={{
             onSegment: (value) => {
-              if (value === "Table") {
+              if (value === requisitionDictionary.table) {
                 setTableView(true);
               } else {
                 setTableView(false);
               }
             },
-            label1: "List",
-            label2: "Table",
+            label1: requisitionDictionary.list,
+            label2: requisitionDictionary.table,
           }}
         />
         <ContBody>
           {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
           {tableView && (
             <Table
-              columns={tableColumn()}
+              columns={tableColumn(requisitionDictionary)}
               dragable={true}
               data={items}
               onRow={onRow}

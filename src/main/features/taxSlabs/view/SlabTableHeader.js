@@ -8,19 +8,19 @@ const SlabTableHeader = () => {
         {/* <th style={{ width: "50px" }} >
           S.No.
         </th> */}
-        <th style={{ minWidth: "100px" }}>
+        <th>
           Name
         </th>
-        <th style={{ minWidth: "100px" }}>
+        <th>
           Min
         </th>
-        <th style={{ minWidth: "100px" }}>
+        <th>
           Max
         </th>
-        <th style={{ minWidth: "100px" }}>
+        <th>
           Percentage
         </th>
-        <th style={{ minWidth: "100px" }}>
+        <th>
             Previous Charge 
         </th>
         <th> 

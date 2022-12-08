@@ -1,8 +1,17 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
+import React,{useContext} from "react"
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
 
 const Edit = (handleEdit, row, setClearButton) => {
+
+  // const { userLanguage } = useContext(LanguageChangeContext);
+	// const { administration, sharedLabels, Direction } =
+	// 	dictionaryList[userLanguage];
+	// 	console.log("jkjll",administration.grade.Grade);
+
   return (
     <EditFilled
       style={{ color: '#1b5669' }}
@@ -30,16 +39,19 @@ const Delete = (handleDelete, row) => {
 };
 
 export const tableColumn = (
+  grade,
   handleEdit,
   handleDelete,
   removeButtons = false,
   rights,
   id,
-  setClearButton
+  setClearButton,
+  sharedLabels,
 ) => {
+  console.log(grade,"kkkkkk");
   return [
-    { title: 'Name', dataIndex: 'name', width: '20%', key: 1 },
-    { title: 'Description', dataIndex: 'description', width: '20%', key: 2 },
+    { title:sharedLabels.name, dataIndex: 'name', width: '20%', key: 1 },
+    { title:[sharedLabels.description], dataIndex: 'description', width: '20%', key: 2 },
     removeButtons
       ? {}
       : {

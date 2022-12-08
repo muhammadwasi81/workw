@@ -1,39 +1,43 @@
-import { useEffect, useState } from 'react';
-import TopBar from '../../../sharedComponents/topBar/topBar';
-import { useDispatch, useSelector } from 'react-redux';
-import Header from '../../../layout/header';
+import { useEffect, useState, useContext } from "react";
+import TopBar from "../../../sharedComponents/topBar/topBar";
+import { useDispatch, useSelector } from "react-redux";
+import Header from "../../../layout/header";
 import {
   ContBody,
   TabbableContainer,
-} from '../../../sharedComponents/AppComponents/MainFlexContainer';
-import { Table } from '../../../sharedComponents/customTable';
-import { ROUTES } from '../../../../utils/routes';
-import { getAllAssetItems } from '../../createAssets/store/action';
-import AssetsList from './assetsList';
-import { TableColumn } from './tableColumn';
-import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
-import AssetComposer from './composer/assetAllocationComposer';
-import { Skeleton } from 'antd';
-import AssetDeAllocationComposer from './composer/deAllocationComposer';
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Table } from "../../../sharedComponents/customTable";
+import { ROUTES } from "../../../../utils/routes";
+import { getAllAssetItems } from "../../createAssets/store/action";
+import AssetsList from "./assetsList";
+import { TableColumn } from "./tableColumn";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import AssetComposer from "./composer/assetAllocationComposer";
+import { Skeleton } from "antd";
+import AssetDeAllocationComposer from "./composer/deAllocationComposer";
 import {
   handleOpenDeAllocComposer,
   handleAllocOpenComposer,
-} from '../../createAssets/store/slice';
+} from "../../createAssets/store/slice";
+import { assetsDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
 const Index = () => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { assetsDictionary, Direction } = assetsDictionaryList[userLanguage];
   const dispatch = useDispatch();
 
   const { assetItemList, drawerDeAllocOpen, drawerAllocOpen } = useSelector(
     (state) => state.AssetItemSlice
   );
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState(0);
-  const [viewType, setViewType] = useState('List');
+  const [viewType, setViewType] = useState("List");
 
   const items = [
     {
-      name: 'Assets Allocation',
+      name: assetsDictionary.assetsAllocation,
       to: `${ROUTES.ASSETS.DEFAULT}`,
       renderButton: [1, 2],
     },
@@ -41,11 +45,11 @@ const Index = () => {
 
   const filterButtons = [
     {
-      name: 'Allocation For be',
+      name: assetsDictionary.allocationForMe,
       onClick: () => setFilterType(0),
     },
     {
-      name: 'Allocation Approvals',
+      name: assetsDictionary.allocationApprovals,
       onClick: () => setFilterType(1),
     },
   ];
@@ -56,7 +60,7 @@ const Index = () => {
   const payloadData = {
     pageNo: 1,
     pageSize: 20,
-    search: '',
+    search: "",
   };
 
   useEffect(() => {
@@ -65,11 +69,11 @@ const Index = () => {
 
   const buttons = [
     {
-      buttonText: 'Assets Allocation',
+      buttonText: assetsDictionary.assetsAllocation,
       render: (
         <SideDrawer
-          title={'Add Assets Allocation'}
-          buttonText={'Add Assets Allocation'}
+          title={assetsDictionary.addAssetsAllocation}
+          buttonText={assetsDictionary.addAssetsAllocation}
           handleClose={() => dispatch(handleAllocOpenComposer(false))}
           handleOpen={() => dispatch(handleAllocOpenComposer(true))}
           isOpen={drawerAllocOpen}
@@ -78,11 +82,11 @@ const Index = () => {
       ),
     },
     {
-      buttonText: 'De-allocation',
+      buttonText: assetsDictionary.deAllocation,
       render: (
         <SideDrawer
-          title={'De-allocation'}
-          buttonText={'De-allocation'}
+          title={assetsDictionary.deAllocation}
+          buttonText={assetsDictionary.deAllocation}
           handleClose={() => dispatch(handleOpenDeAllocComposer(false))}
           handleOpen={() => dispatch(handleOpenDeAllocComposer(true))}
           isOpen={drawerDeAllocOpen}
@@ -96,7 +100,7 @@ const Index = () => {
     List: <AssetsList data={assetItemList} />,
     Table: (
       <Table
-        columns={TableColumn()}
+        columns={TableColumn(assetsDictionary)}
         dragable={true}
         data={assetItemList ? assetItemList : []}
       />
@@ -112,8 +116,8 @@ const Index = () => {
           buttons={filterButtons}
           segment={{
             onSegment,
-            label1: 'List',
-            label2: 'Table',
+            label1: "List",
+            label2: "Table",
           }}
         />
         {/* {loader ? (

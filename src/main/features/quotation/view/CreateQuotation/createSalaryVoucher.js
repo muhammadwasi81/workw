@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
 import VoucherFooter from "./components/VoucherFooter";
 import CreateEntryHead from "./components/createEntryTableHead";
@@ -18,8 +18,14 @@ import { createQuotation } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import CreateQuotationOptions from "./components/CreateQuotationOptions";
 import getStoredState from "redux-persist/es/getStoredState";
+import { quotationDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 const CreateQoutationVoucher = ({ defaultRows }) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { quotationDictionary, Direction } = quotationDictionaryList[
+    userLanguage
+  ];
   const defaultEntry = {
     item: "",
     price: 0,
@@ -216,7 +222,7 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
             Clear
           </Button> */}
           <Button className="ThemeBtn mr-2" onClick={handleSubmit}>
-            Create Quotation
+            {quotationDictionary.createQuotation}
           </Button>
         </div>
 

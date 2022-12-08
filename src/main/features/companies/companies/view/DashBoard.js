@@ -11,12 +11,11 @@ function DashBoard() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const { companyDictionary } = companyDictionaryList[userLanguage];
-  
-
+  const { companyDetail } = companyDictionary;
 
   return (
     <div className="SendEmail">
-      <Divider orientation="left"> {"Dashboard"}</Divider>
+      <Divider orientation="left"> {companyDetail.dashboard}</Divider>
       <OverAllDashboard />
     </div>
   );

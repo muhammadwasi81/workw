@@ -11,9 +11,7 @@ import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-  getAllComplains,
-} from "../store/actions";
+import { getAllComplains } from "../store/actions";
 import { Table } from "../../../sharedComponents/customTable";
 import Header from "../../../layout/header/index";
 
@@ -27,12 +25,20 @@ import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
-const Complain = (props) => {
+const Complain = () => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, complainDictionary } = complainDictionaryList[
-    userLanguage
-  ];
+  const { complainDictionary } = complainDictionaryList[userLanguage];
+  // const {
+  //   createComplain,
+  //   Direction,
+  //   Complains,
+  //   createdByMe,
+  //   forApproval,
+  //   complainToMe,
+  //   list,
+  //   table,
+  // } = complainDictionary;
   const [detailId, setDetailId] = useState(false);
 
   const [sort, setSort] = useState(1);
@@ -70,7 +76,7 @@ const Complain = (props) => {
 
   const items = [
     {
-      name: "Complains",
+      name: complainDictionary.Complains,
       to: `${ROUTES.COMPLAINS.DEFAULT}`,
       renderButton: [1],
     },
@@ -101,18 +107,18 @@ const Complain = (props) => {
     }
     setSort(1);
   };
-  const { id } = props;
+  // const { id } = props;
   return (
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
         buttons={[
           {
-            buttonText: "Create Complain",
+            buttonText: complainDictionary.createComplain,
             render: (
               <SideDrawer
-                title={"Create Complain"}
-                buttonText={"Create Complain"}
+                title={complainDictionary.createComplain}
+                buttonText={complainDictionary.createComplain}
                 handleClose={() => dispatch(handleOpenComposer(false))}
                 handleOpen={() => dispatch(handleOpenComposer(true))}
                 isOpen={drawerOpen}
@@ -128,39 +134,39 @@ const Complain = (props) => {
         }}
         buttons={[
           {
-            name: "Complains",
+            name: complainDictionary.Complains,
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: "Created By Me",
+            name: complainDictionary.createdByMe,
             onClick: () => setFilter({ filterType: 1 }),
           },
           {
-            name: "For Approval",
+            name: complainDictionary.forApproval,
             onClick: () => setFilter({ filterType: 2 }),
           },
           {
-            name: "Complain To Me",
+            name: complainDictionary.complainToMe,
             onClick: () => setFilter({ filterType: 3 }),
           },
-        ]} 
+        ]}
         segment={{
           onSegment: (value) => {
-            if (value === "Table") {
+            if (value === complainDictionary.table) {
               setTableView(true);
             } else {
               setTableView(false);
             }
           },
-          label1: "List",
-          label2: "Table",
+          label1: complainDictionary.list,
+          label2: complainDictionary.table,
         }}
       />
       <ContBody>
         {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
         {tableView && (
           <Table
-            columns={tableColumn()}
+            columns={tableColumn(complainDictionary)}
             dragable={true}
             data={complains}
             onRow={onRow}
@@ -172,11 +178,11 @@ const Complain = (props) => {
             {complains.map((item, index) => {
               return (
                 <ListItem
-                      item={item}
-                      id={item.id}
-                      key={index}
-                      onClick={() => setDetailId(item.id)}
-                    />
+                  item={item}
+                  id={item.id}
+                  key={index}
+                  onClick={() => setDetailId(item.id)}
+                />
               );
             })}
           </CardWrapper>

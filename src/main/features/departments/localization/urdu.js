@@ -1,5 +1,6 @@
 const urdu = {
   departmentDictionary: {
+    departments: "شعبه جات",
     enterRewardName: "انعام کا نام درج کریں",
     pleaseEnterRewardName: "برائے مہربانی انعام کا نام درج کریں۔",
     enterRewardReason: "انعام کی وجہ درج کریں",
@@ -31,6 +32,24 @@ const urdu = {
     selectPurpose: "مقصد منتخب کریں",
     description: "تفصیل",
     enterDescription: "تفصیل درج کریں",
+    list: "فہرست",
+    table: "ٹیبل",
+    enterName: "نام درج کریں",
+    uploads: "اپ لوڈز",
+    headOfDepartment: "محکمہ کے سربراہ",
+    selectHod: "HOD منتخب کریں",
+    addEmployees: "ملازمین کو شامل کریں",
+    deptName: "محکمہ کا نام",
+    status: "حالت",
+    createDate: "تاریخ بناؤ",
+    addSubDepartment: "ذیلی محکمہ شامل کریں",
+    appraisalQuestion: "تشخیص کا سوال",
+    question: "سوال",
+    enterQuestion: "سوال درج کریں",
+    saveAppraisalQuestion: "تشخیصی سوال کو محفوظ کریں",
+    addAppraisalQuestion: "تشخیصی سوال شامل کریں",
+    clear: "صاف",
+
     loanPurpose: {
       vehicle: "گاڑی",
       personal: "ذاتی",

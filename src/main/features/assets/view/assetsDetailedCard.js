@@ -1,20 +1,24 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ItemHeader,
   SingleItem,
-} from '../../../sharedComponents/Card/CardStyle';
-import moment from 'moment';
-import StatusTag from '../../../sharedComponents/Tag/StatusTag';
-import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
-import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
-import RemarksApproval from '../../../sharedComponents/AppComponents/Approvals/view/index';
-import { ApprovalsModule } from '../../../sharedComponents/AppComponents/Approvals/enums';
-import { getAssetItemDetailById } from '../../createAssets/store/action';
-import Avatar from '../../../sharedComponents/Avatar/avatar';
-import TagAvatar from './../../../sharedComponents/Avatar/TagAvatar';
+} from "../../../sharedComponents/Card/CardStyle";
+import moment from "moment";
+import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view/index";
+import { ApprovalsModule } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import { getAssetItemDetailById } from "../../createAssets/store/action";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import TagAvatar from "./../../../sharedComponents/Avatar/TagAvatar";
+import { assetsDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
 const AssetsDetailCard = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { assetsDictionary, Direction } = assetsDictionaryList[userLanguage];
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,43 +59,43 @@ const AssetsDetailCard = (props) => {
           </StatusTag>
         </div>
       </ItemHeader>
-      <div className="cardSections" style={{ marginTop: '20px' }}>
+      <div className="cardSections" style={{ marginTop: "20px" }}>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Category</div>
+          <div className="cardSection__title">{assetsDictionary.category}</div>
           <div className="cardSection__body">
             {assetItemByUserId.assetItemByUserId.category
               ? assetItemByUserId.assetItemByUserId.category
-              : 'N/A'}{' '}
+              : "N/A"}{" "}
           </div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Value</div>
+          <div className="cardSection__title">{assetsDictionary.quantity}</div>
           <div className="cardSection__body">
             {assetItemByUserId.assetItemByUserId.value}
           </div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Handover</div>
+          <div className="cardSection__title">{assetsDictionary.handover}</div>
           <div className="cardSection__body">
             <TagAvatar
               text={
                 assetItemByUserId.assetItemByUserId.handover?.name
                   ? assetItemByUserId.assetItemByUserId.handover?.name
-                  : 'Not Assigned'
+                  : "Not Assigned"
               }
               img={
                 assetItemByUserId.assetItemByUserId.handover?.image
                   ? assetItemByUserId.assetItemByUserId.handover?.image
-                  : 'https://konnect.im/upload/2022/10/88c35581-97aa-4e88-be91-584a667fd5eb.jpg'
+                  : "https://konnect.im/upload/2022/10/88c35581-97aa-4e88-be91-584a667fd5eb.jpg"
               }
             />
           </div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Approvers</div>
+          <div className="cardSection__title">{assetsDictionary.approvers}</div>
           <Avatar
             isAvatarGroup={true}
-            heading={'approvers'}
+            heading={"approvers"}
             membersData={
               assetItemByUserId.assetItemByUserId.approvers
                 ? assetItemByUserId.assetItemByUserId.approvers
@@ -103,7 +107,7 @@ const AssetsDetailCard = (props) => {
 
       <RemarksApproval
         data={assetItemByUserId.assetItemByUserId.approvers}
-        title="Approvals"
+        title={assetsDictionary.approvals}
         module={ApprovalsModule?.ItemApproval}
         onStatusChanged={() => {}}
       />

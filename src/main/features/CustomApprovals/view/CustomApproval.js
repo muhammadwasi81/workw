@@ -66,7 +66,7 @@ const CustomApproval = (props) => {
   };
   const items = [
     {
-      name: "Custom Approvals",
+      name: customApprovalDictionary.customApproval,
       renderButton: [1],
       to: `${ROUTES.CUSTOM_APPROVALS.DEFAULT}`,
     },
@@ -78,11 +78,11 @@ const CustomApproval = (props) => {
           items={items}
           buttons={[
             {
-              buttonText: "Create",
+              buttonText: customApprovalDictionary.create,
               render: (
                 <SideDrawer
-                  title={"Custom Approvals"}
-                  buttonText={"Create"}
+                  title={customApprovalDictionary.customApproval}
+                  buttonText={customApprovalDictionary.create}
                   handleClose={() => dispatch(handleOpenComposer(false))}
                   handleOpen={() => dispatch(handleOpenComposer(true))}
                   isOpen={drawerOpen}
@@ -98,32 +98,32 @@ const CustomApproval = (props) => {
           }}
           buttons={[
             {
-              name: "Custom Approvals",
+              name: customApprovalDictionary.customApprovals,
               onClick: () => setFilter({ filterType: 0 }),
             },
             {
-              name: "Created By Me",
+              name: customApprovalDictionary.createdByMe,
               onClick: () => setFilter({ filterType: 1 }),
             },
             {
-              name: "For Approval",
+              name: customApprovalDictionary.forApproval,
               onClick: () => setFilter({ filterType: 2 }),
             },
             {
-              name: "Approvals For Me",
+              name: customApprovalDictionary.approvalForMe,
               onClick: () => setFilter({ filterType: 3 }),
             },
           ]}
           segment={{
             onSegment: (value) => {
-              if (value === "Table") {
+              if (value === customApprovalDictionary.table) {
                 setTableView(true);
               } else {
                 setTableView(false);
               }
             },
-            label1: "List",
-            label2: "Table",
+            label1: customApprovalDictionary.list,
+            label2: customApprovalDictionary.table,
           }}
         />
         <ContBody>

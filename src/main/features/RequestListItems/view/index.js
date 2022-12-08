@@ -1,35 +1,41 @@
-import { useEffect, useState } from 'react';
-import TopBar from '../../../sharedComponents/topBar/topBar';
-import { useDispatch, useSelector } from 'react-redux';
-import Header from '../../../layout/header';
+import { useEffect, useState, useContext } from "react";
+import TopBar from "../../../sharedComponents/topBar/topBar";
+import { useDispatch, useSelector } from "react-redux";
+import Header from "../../../layout/header";
 import {
   ContBody,
   TabbableContainer,
-} from '../../../sharedComponents/AppComponents/MainFlexContainer';
-import { Table } from '../../../sharedComponents/customTable';
-import { getAllRequestListItems } from '../store/action';
-import { ROUTES } from '../../../../utils/routes';
-import RequestList from './requestList';
-import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
-import RequestListComposer from './composer/RequestListComposer';
-import { ListTableColumn } from './tableColumn';
-import { Skeleton } from 'antd';
-import { handleOpenComposer } from '../store/slice';
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import { Table } from "../../../sharedComponents/customTable";
+import { getAllRequestListItems } from "../store/action";
+import { ROUTES } from "../../../../utils/routes";
+import RequestList from "./requestList";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import RequestListComposer from "./composer/RequestListComposer";
+import { ListTableColumn } from "./tableColumn";
+import { Skeleton } from "antd";
+import { handleOpenComposer } from "../store/slice";
+import { requestListDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
 const Index = () => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction, requestListDictionary } = requestListDictionaryList[
+    userLanguage
+  ];
   const dispatch = useDispatch();
 
   const { loader, requestItems, drawerOpen } = useSelector(
     (state) => state.requestItemSlice
   );
-  console.log(drawerOpen, 'drawerOpen');
-  const [search, setSearch] = useState('');
+  console.log(drawerOpen, "drawerOpen");
+  const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState(0);
-  const [viewType, setViewType] = useState('List');
+  const [viewType, setViewType] = useState("List");
 
   const items = [
     {
-      name: 'Request For Items',
+      name: requestListDictionary.requestForItems,
       to: `${ROUTES.REQUEST_LIST_ITEM.DEFAULT}`,
       renderButton: [1],
     },
@@ -37,15 +43,15 @@ const Index = () => {
 
   const filterButtons = [
     {
-      name: 'Request For Items',
+      name: requestListDictionary.requestForItems,
       onClick: () => setFilterType(0),
     },
     {
-      name: 'Created My be',
+      name: requestListDictionary.createdByMe,
       onClick: () => setFilterType(1),
     },
     {
-      name: 'Request For Items Approvals',
+      name: requestListDictionary.requestForItemsApprovals,
       onClick: () => setFilterType(2),
     },
   ];
@@ -55,7 +61,7 @@ const Index = () => {
   const payloadData = {
     pageNo: 1,
     pageSize: 20,
-    search: '',
+    search: "",
     sortBy: 1,
     filterType: filterType,
   };
@@ -66,11 +72,11 @@ const Index = () => {
 
   const buttons = [
     {
-      buttonText: 'Create Request',
+      buttonText: requestListDictionary.createRequest,
       render: (
         <SideDrawer
-          title="Create Request"
-          buttonText="Create Request"
+          title={requestListDictionary.createRequest}
+          buttonText={requestListDictionary.createRequest}
           handleClose={() => dispatch(handleOpenComposer(false))}
           handleOpen={() => dispatch(handleOpenComposer(true))}
           isOpen={drawerOpen}
@@ -96,8 +102,8 @@ const Index = () => {
           buttons={filterButtons}
           segment={{
             onSegment,
-            label1: 'List',
-            label2: 'Table',
+            label1: "List",
+            label2: "Table",
           }}
         />
         {loader ? (

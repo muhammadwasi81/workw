@@ -1,6 +1,6 @@
 import "./style.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import {
 	FormButton,
 	FormButtonContainer,
@@ -10,6 +10,12 @@ import {
 	FormInputContainer,
 	FormLabel,
 } from "../../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+//from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../../utils/localization/languages";
+//"../../utils/localization/languages";
+
 export default function Form({
 	data,
 	onSubmit,
@@ -18,6 +24,11 @@ export default function Form({
 	clearButton,
 }) {
 	const [form, setForm] = useState(data);
+
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,payrollGroup, Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
 
 	const handleClear = e => {
 		setForm({ ...form, description: "", name: "" });
@@ -39,12 +50,12 @@ export default function Form({
 
 	return (
 		<FormContainer>
-			<FormHeader>Payroll Group</FormHeader>
+			<FormHeader>{administration.payrollGroup.PayrollGroup}</FormHeader>
 			<FormInputContainer>
 				<FormInput>
-					<FormLabel>Name</FormLabel>
+					<FormLabel>{administration.payrollGroup.name}</FormLabel>
 					<Input
-						placeholder={"Enter Group Name"}
+						placeholder={administration.payrollGroup.enterName}
 						value={form.name}
 						onChange={handelChangeName}
 					/>
@@ -63,7 +74,7 @@ export default function Form({
 								setClearButton(false);
 							}}
 						>
-							Save Group
+							{administration.payrollGroup.save}
 						</FormButton>
 					</>
 				) : (
@@ -78,7 +89,7 @@ export default function Form({
 						}}
 						loading={loading}
 					>
-						Add Group
+						{administration.payrollGroup.Add}
 					</FormButton>
 				)}
 				{clearButton && (
@@ -89,7 +100,7 @@ export default function Form({
 						className="formBtn"
 						onClick={handleClear}
 					>
-						Clear
+						{administration.payrollGroup.clear}
 					</FormButton>
 				)}
 			</FormButtonContainer>

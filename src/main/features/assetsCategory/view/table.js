@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
-import { tableColumn } from './TableColumn';
-import { Skeleton } from 'antd';
-import { getAllAssetCategories } from '../store/actions.js';
-
+import { useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
+import { tableColumn } from "./TableColumn";
+import { Skeleton } from "antd";
+import { getAllAssetCategories } from "../store/actions.js";
+import { assetsCategoryDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 const AssetsTableView = ({
   handleEdit,
   handleDelete,
@@ -21,7 +22,8 @@ const AssetsTableView = ({
   useEffect(() => {
     dispatch(getAllAssetCategories());
   }, []);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { assetsDictionary } = assetsCategoryDictionaryList[userLanguage];
   return (
     <>
       <AdminTable
@@ -31,7 +33,8 @@ const AssetsTableView = ({
           removeButtons,
           actionRights,
           setClearButton,
-          id
+          id,
+          assetsDictionary
         )}
         dataSource={assetsData}
         pagination={false}
@@ -48,7 +51,7 @@ const AssetsTableView = ({
                 loading={loadingData}
                 round="true"
                 shape="circle"
-                style={{ width: '100%', marginBottom: 2 }}
+                style={{ width: "100%", marginBottom: 2 }}
               />
             ),
           }

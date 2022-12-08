@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import DrangableQuestions from "./DragableItems";
@@ -17,6 +17,9 @@ import { Form, Input, Avatar, Select, Button, Space } from "antd";
 import QuestionWithType from "./QuestionWithType";
 import { CloseOutlined } from "@ant-design/icons";
 import "./createForm.css";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../localization/index";
+
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -27,7 +30,18 @@ const Create = (props) => {
   // console.log("props in create component", props);
   const { removeQuestion, formData, handleSequenceChange } = props;
   const { createLoader } = useSelector((state) => state.formSlice);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+  const {
+    Description,
+    title,
+    Approvers,
+    question,
+    text,
+    addQuestion,
+    selectApprovers,
+    createForms,
+  } = documentDictionary;
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -78,7 +92,7 @@ const Create = (props) => {
           <div className="c-row bg-clr editForm">
             <div className="f-head-item p_15">
               <Form.Item
-                label="Title"
+                label={title}
                 name="subject"
                 rules={[
                   {
@@ -90,13 +104,13 @@ const Create = (props) => {
                 <TextArea
                   showCount
                   maxLength={20}
-                  placeholder="Title"
+                  placeholder={title}
                   rows={1}
                 />
               </Form.Item>
               <Form.Item
                 name="description"
-                label="Description"
+                label={Description}
                 rules={[
                   {
                     required: true,
@@ -107,13 +121,13 @@ const Create = (props) => {
                 <TextArea
                   showCount
                   maxLength={100}
-                  placeholder="Description"
+                  placeholder={Description}
                   rows={4}
                 />
               </Form.Item>
               <Form.Item
                 name="approvers"
-                label="Approvers"
+                label={Approvers}
                 rules={[
                   {
                     required: true,
@@ -129,7 +143,7 @@ const Create = (props) => {
                   data={firstTimeEmpData}
                   canFetchNow={isFirstTimeDataLoaded}
                   fetchData={fetchEmployees}
-                  placeholder="Select Approvers"
+                  placeholder={selectApprovers}
                   selectedData={(_, obj) => {
                     setEmployeesData([...obj]);
                   }}
@@ -200,7 +214,7 @@ const Create = (props) => {
               htmlType="submit"
               disabled={createLoader ? true : false}
             >
-              Create Form
+              {createForms}
             </Button>
           </Form.Item>
         </Form>

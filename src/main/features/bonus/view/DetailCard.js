@@ -22,7 +22,7 @@ function BonusDetailCard(props) {
   const { Direction, bonusDictionary } = bonusDictionaryList[userLanguage];
   const [updatedStatus, setUpdatedStatus] = useState();
 
-  const { bonusDetail,loadingData } = useSelector((state) => state.bonusSlice);
+  const { bonusDetail, loadingData } = useSelector((state) => state.bonusSlice);
   const { user } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
 
@@ -62,8 +62,12 @@ function BonusDetailCard(props) {
   };
 
   const isTablet = false;
+  const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
 
-  if(loadingData) return <Skeleton />;
+  if (loadingData) return <Skeleton />;
 
   return (
     <>
@@ -81,14 +85,14 @@ function BonusDetailCard(props) {
                         designation={
                           creator.designation ? creator.designation : ""
                         }
-                        time={moment(createDate).fromNow()}
+                        time={moment(localTime).fromNow()}
                       />
                     }
                   />
                 )}
               </div>
               <div className="right">
-                <Tag className="IdTag">{referenceNo}</Tag>
+                <Tag className="IdTag">{bonusDictionary.ReferenceNum}</Tag>
                 <StatusTag
                   status={updatedStatus ? updatedStatus?.Approvers : status}
                 ></StatusTag>
@@ -112,11 +116,11 @@ function BonusDetailCard(props) {
             </div>
             <div className="cardSections" style={{ marginTop: "20px" }}>
               <div className="cardSectionItem">
-                <div className="cardSection__title">Amount</div>
+                <div className="cardSection__title">{bonusDictionary.amount}</div>
                 <div className="cardSection__body">{amount}</div>
               </div>
               <div className="cardSectionItem">
-                <div className="cardSection__title">Bonus To</div>
+                <div className="cardSection__title">{bonusDictionary.bonusTo}</div>
                 <div className="cardSection__body">{member && member.name}</div>
               </div>
               <div className="cardSectionItem">

@@ -1,3 +1,29 @@
-const langauge={
-    
-}
+const en = {
+  salaryDictionary: {
+    salary: "Salary",
+    createSalary: "Create Salary",
+    salaries: "Salaries",
+    createdByMe: "Created By Me",
+    forApproval: "For Approval",
+    list: "List",
+    table: "Table",
+    salaryFor: "Salary For",
+    EffectiveDate: "Effective Date",
+    BasicSalary: "Basic Salary",
+    NetSalary: "Net Salary",
+    Approvers: "Approvers",
+    Approvals: "Approvals",
+    referenceno: "Reference No",
+    creator: "Creator",
+    status: "Status",
+    employee: "Employee",
+    grade: "Grade",
+    allowaces: "Allowances",
+    deductions: "Deductions",
+    description: "Description",
+    sno: "S.No.",
+    totalAmount: "Total Amount",
+  },
+  Direction: "ltr",
+};
+export default en;

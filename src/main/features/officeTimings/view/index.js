@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import {useContext } from "react";
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
 import OfficeTimingComposer from './officeTimingComposer';
@@ -7,10 +8,20 @@ import {
   removeGrade,
   updateGrade,
 } from '../store/actions';
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../utils/localization/languages";
+
+
 import OfficeTimingTable from './table.js';
 import { handleOpenComposer } from '../store/slice';
 
 export default function OfficeTiming() {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,office,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector((state) => state.officeTimingSlice);
 
@@ -39,8 +50,8 @@ export default function OfficeTiming() {
         <div className="right-menu">
           <div className="btn-hld">
             <SideDrawer
-              title="New Time Group"
-              buttonText={'Create Group'}
+              title={administration.office.new}
+              buttonText= {administration.office.create}
               handleClose={() => dispatch(handleOpenComposer(false))}
               handleOpen={() => dispatch(handleOpenComposer(true))}
               isOpen={drawerOpen}

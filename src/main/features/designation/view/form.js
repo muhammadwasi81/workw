@@ -1,6 +1,6 @@
 import './grade.css';
 import { Input } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useState ,useContext} from 'react';
 import {
   FormButton,
   FormButtonContainer,
@@ -12,7 +12,16 @@ import {
   FormTextArea,
 } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
 
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../utils/localization/languages";
+
+
 export default function DesignationForm({ data, onSubmit, loading }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,designation,sharedLabels,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const [form, setForm] = useState(data);
 
   useEffect(() => {
@@ -22,20 +31,20 @@ export default function DesignationForm({ data, onSubmit, loading }) {
 
   return (
     <FormContainer>
-      <FormHeader>Designation</FormHeader>
+      <FormHeader>{administration.designation.desig}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Designation</FormLabel>
+          <FormLabel>{administration.designation.desig}</FormLabel>
           <Input
-            placeholder={'Enter Designation'}
+            placeholder={administration.designation.enterdesig}
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Description</FormLabel>
+          <FormLabel>{administration.designation.description}</FormLabel>
           <FormTextArea
-            placeholder={'Enter Description'}
+            placeholder={administration.designation.enterDescription}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
@@ -50,7 +59,7 @@ export default function DesignationForm({ data, onSubmit, loading }) {
               className="formBtn"
               onClick={(e) => onSubmit(form)}
             >
-              Save Designation
+            {administration.designation.save}
             </FormButton>
             <FormButton
               type="primary"
@@ -58,7 +67,7 @@ export default function DesignationForm({ data, onSubmit, loading }) {
               className="formBtn"
               onClick={(e) => setForm({ ...form, description: '', name: '' })}
             >
-              Clear
+             {administration.designation.clear}
             </FormButton>
           </>
         ) : (
@@ -68,7 +77,7 @@ export default function DesignationForm({ data, onSubmit, loading }) {
             className="formBtn"
             onClick={(e) => onSubmit(form)}
           >
-            Add Designation
+           {administration.designation.Add}
           </FormButton>
         )}
       </FormButtonContainer>

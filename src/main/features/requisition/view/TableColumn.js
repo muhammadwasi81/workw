@@ -3,15 +3,15 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = () => {
+export const tableColumn = (requisitionDictionary) => {
   return [
     {
-      title: "Reference No",
+      title: requisitionDictionary.referenceNo,
       dataIndex: "referenceNo",
       sort: true,
     },
     {
-      title: "Creator",
+      title: requisitionDictionary.creator,
       dataIndex: "creator",
       render: (creator) => (
         <TagAvatar text={creator.name} img={creator.image} />
@@ -19,23 +19,23 @@ export const tableColumn = () => {
       sort: true,
     },
     {
-      title: "Status",
+      title: requisitionDictionary.Status,
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
     },
 
-    { title: "Name", dataIndex: "name", sort: true },
-    { title: "Reason", dataIndex: "reason", sort: true },
+    { title: requisitionDictionary.name, dataIndex: "name", sort: true },
+    { title: requisitionDictionary.reason, dataIndex: "reason", sort: true },
     {
-      title: "Date",
+      title: requisitionDictionary.date,
       dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
     },
 
     {
-      title: "Approvers",
+      title: requisitionDictionary.approvers,
       dataIndex: "approvers",
       render: (approver) => (
         <Avatar membersData={approver} heading={"Approvers"} />

@@ -1,10 +1,14 @@
 import { Skeleton } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllDefaultHiringCriteria, removeComplainCategory, removeDefaultHiringCriteria, removePayrollGroup } from "../store/actions";
 import { DefaultHiringCriteriaDeleted, PayrollGroupDeleted } from "../store/slice";
 import { tableColumn } from "./tableColumn";
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../../utils/localization/languages";
+
 
 export default function TableView({
   handleEdit,
@@ -12,6 +16,10 @@ export default function TableView({
   actionRights = [],
   setClearButton 
 }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,taxSlab,sharedLabels,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration.grade.Grade);
   const { questions, loadingData } = useSelector((state) => state.defaultHiringCriteriaSlice);
 
   const dispatch = useDispatch();
@@ -47,7 +55,8 @@ export default function TableView({
         removeButtons,
         actionRights,
         id,
-        setClearButton
+        setClearButton,
+        sharedLabels,
       )}
       dataSource={questions}
       pagination={false}

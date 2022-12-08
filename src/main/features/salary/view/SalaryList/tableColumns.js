@@ -1,19 +1,19 @@
-import moment from 'moment';
-import Avatar from '../../../../sharedComponents/Avatar/avatar';
+import moment from "moment";
+import Avatar from "../../../../sharedComponents/Avatar/avatar";
 
-import TagAvatar from '../../../../sharedComponents/Avatar/TagAvatar';
-import StatusTag from '../../../../sharedComponents/Tag/StatusTag';
-export const salaryTableColumn = () => {
+import TagAvatar from "../../../../sharedComponents/Avatar/TagAvatar";
+import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
+export const salaryTableColumn = (salaryDictionary) => {
   return [
     {
-      title: 'Reference No',
-      dataIndex: 'referenceNo',
+      title: salaryDictionary.referenceno,
+      dataIndex: "referenceNo",
       ellipsis: true,
       sort: true,
     },
     {
-      title: 'Creator',
-      dataIndex: 'creator',
+      title: salaryDictionary.creator,
+      dataIndex: "creator",
       ellipsis: true,
       render: (creator) => (
         <TagAvatar text={creator.name} img={creator.image} />
@@ -21,33 +21,33 @@ export const salaryTableColumn = () => {
       sort: true,
     },
     {
-      title: 'Approvers',
-      dataIndex: 'approvers',
+      title: salaryDictionary.Approvers,
+      dataIndex: "approvers",
       ellipsis: true,
       render: (value) => (
         <Avatar
           isAvatarGroup={true}
-          heading={'approvers'}
+          heading={"approvers"}
           membersData={value ? value : []}
         />
       ),
       sort: true,
     },
     {
-      title: 'Basic Salary',
-      dataIndex: 'basicSalary',
+      title: salaryDictionary.BasicSalary,
+      dataIndex: "basicSalary",
       ellipsis: true,
       sort: true,
     },
     {
-      title: 'NetSalary',
-      dataIndex: 'netSalary',
+      title: salaryDictionary.NetSalary,
+      dataIndex: "netSalary",
       ellipsis: true,
       sort: true,
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
+      title: salaryDictionary.status,
+      dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
     },

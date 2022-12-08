@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import Composer from './Composer';
-import { Form, Collapse, Skeleton } from 'antd';
+import { Form, Collapse,} from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import '../style/businessPolicy.css';
 import '../style/style.css';
-import { getAllBusinessPolicy, removeBusinessPolicy } from '../store/action';
+import { GetAllTaxSlabGroup, removeBusinessPolicy } from '../store/action';
 import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
-import '../style/businessPolicy.css';
+import '../style/taxSlabsGroup.css';
+import { Table } from "../../../sharedComponents/customTable";
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { FormContainer } from '../../../sharedComponents/StyledComponents/adminForm';
 import { FormHeader } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
 import { handleEdit } from '../store/slice';
+import { tableColumn } from "./TableColumn";
 
 const { Panel } = Collapse;
 
@@ -19,18 +20,17 @@ const BusinessPolicy = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isDefault, setIsDefault] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
+  const [filter, setFilter] = useState({  search: "", pageNo: 1, pageSize: 20  })
   const [defaultData, setDefaultData] = useState('');
   const [form] = Form.useForm();
   const [id, setId] = useState('');
   const dispatch = useDispatch();
 
-  const { loader: loading, success, businessPolicies, editData } = useSelector(
-    (state) => state.businessPolicySlice
-  );
+  const { loader: loading, success, items, editData } = useSelector((state) => state.taxSlabGroupSlice);
 
   useEffect(() => {
-    dispatch(getAllBusinessPolicy());
-  }, []);
+    dispatch(GetAllTaxSlabGroup(filter));
+  }, [filter]);
 
   const handleCollapse = (key) => {
     
@@ -49,7 +49,7 @@ const BusinessPolicy = () => {
   };
 
   return (
-    <>
+    <div className='taxSlabGroupParent'>
       <FormContainer>
         <FormHeader>Tax Slabs</FormHeader>
           <>
@@ -77,9 +77,9 @@ const BusinessPolicy = () => {
                 }
               />
             </div>
-            {businessPolicies.length > 0 ? (
+            {items.length > 0 ? (
               <AdminContainer>
-                {businessPolicies?.map((item, ind) => {
+                {items?.map((item, ind) => {
                   return (
                     <>
                       <Collapse defaultActiveKey={0} onChange={handleCollapse}>
@@ -95,11 +95,13 @@ const BusinessPolicy = () => {
                             />,
                           ]}
                         >
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: item.description,
-                            }}
-                          ></div>
+                          <div>
+                            <Table
+                              columns={tableColumn()}
+                              dragable={true}
+                              data={item.taxSlab && item.taxSlab}
+                            />
+                          </div>
                         </Panel>
                       </Collapse>
                     </>
@@ -108,12 +110,12 @@ const BusinessPolicy = () => {
               </AdminContainer>
             ) : (
               <div className="flex justify-center">
-                <strong>No Policy Found...</strong>
+                <strong>No Tax Slab Group...</strong>
               </div>
             )}
           </>
       </FormContainer>
-    </>
+    </div>
   );
 };
 

@@ -1,8 +1,8 @@
-import './JobDescription.css';
-import { Select } from 'antd';
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllDesignation } from '../../designation/store/actions';
+import "./JobDescription.css";
+import { Select } from "antd";
+import { useEffect, useState, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllDesignation } from "../../designation/store/actions";
 import {
   FormButton,
   FormButtonContainer,
@@ -12,12 +12,17 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import { jobDescDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
 export default function JobDescriptionForm({ data, onSubmit }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { jobDescDictionary } = jobDescDictionaryList[userLanguage];
+
   const dispatch = useDispatch();
   const { Option } = Select;
-  const [designationId, setDesignationId] = useState('');
+  const [designationId, setDesignationId] = useState("");
   const [form, setForm] = useState(data);
 
   const { designations } = useSelector((state) => state.designationSlice);
@@ -36,14 +41,14 @@ export default function JobDescriptionForm({ data, onSubmit }) {
   }, [data]);
   return (
     <FormContainer>
-      <FormHeader>Job Description</FormHeader>
+      <FormHeader>{jobDescDictionary.jobDesc}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Designation</FormLabel>
+          <FormLabel>{jobDescDictionary.designation}</FormLabel>
           <Select
             showSearch
-            style={{ width: '100%' }}
-            placeholder="Select Designation"
+            style={{ width: "100%" }}
+            placeholder={jobDescDictionary.selectDesign}
             optionFilterProp="children"
             onChange={handleChange}
             value={form.designationId}
@@ -57,7 +62,7 @@ export default function JobDescriptionForm({ data, onSubmit }) {
         <FormInput>
           <FormLabel>Description</FormLabel>
           <FormTextArea
-            placeholder={'Enter Description'}
+            placeholder={jobDescDictionary.enterDesc}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
@@ -72,17 +77,17 @@ export default function JobDescriptionForm({ data, onSubmit }) {
               className="formBtn"
               onClick={(e) => onSubmit(form)}
             >
-              Save Job Description
+              {jobDescDictionary.saveJobDesc}
             </FormButton>
             <FormButton
               type="primary"
               size="medium"
               className="formBtn"
               onClick={(e) =>
-                setForm({ ...form, designationId: '', description: '' })
+                setForm({ ...form, designationId: "", description: "" })
               }
             >
-              Clear
+              {jobDescDictionary.clear}
             </FormButton>
           </>
         ) : (
@@ -92,7 +97,7 @@ export default function JobDescriptionForm({ data, onSubmit }) {
             className="formBtn"
             onClick={(e) => onSubmit(form)}
           >
-            Add Job Description
+            {jobDescDictionary.addJobdesc}
           </FormButton>
         )}
       </FormButtonContainer>

@@ -1,6 +1,8 @@
 import "./grade.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
 import {
 	FormButton,
 	FormButtonContainer,
@@ -18,6 +20,11 @@ export default function GradeForm({
 	setClearButton,
 	clearButton,
 }) {
+
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration, sharedLabels, Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration.grade.Grade);
+
 	const [form, setForm] = useState(data);
 	const handleClear = e => {
 		setForm({ ...form, description: "", name: "" });
@@ -48,20 +55,20 @@ export default function GradeForm({
 
 	return (
 		<FormContainer>
-			<FormHeader>Grade</FormHeader>
+			<FormHeader>{administration.grade.Grade}</FormHeader>
 			<FormInputContainer>
 				<FormInput>
-					<FormLabel>Grade</FormLabel>
+					<FormLabel>{administration.grade.Grade}</FormLabel>
 					<Input
-						placeholder={"Enter Grade"}
+						placeholder={administration.grade.EnterGrade}
 						value={form.name}
 						onChange={handelChangeName}
 					/>
 				</FormInput>
 				<FormInput>
-					<FormLabel>Description</FormLabel>
+					<FormLabel>{administration.grade.Description}</FormLabel>
 					<FormTextArea
-						placeholder={"Enter Description"}
+						placeholder={administration.grade.EnterDescription}
 						value={form.description}
 						onChange={handelChangeDescription}
 					/>
@@ -80,7 +87,7 @@ export default function GradeForm({
 								setClearButton(false);
 							}}
 						>
-							Save Grade
+							{administration.grade.saveGrade}
 						</FormButton>
 					</>
 				) : (
@@ -95,7 +102,7 @@ export default function GradeForm({
 						}}
 						loading={loading}
 					>
-						Add Grade
+						{administration.grade.AddGrade}
 					</FormButton>
 				)}
 				{clearButton && (
@@ -106,7 +113,7 @@ export default function GradeForm({
 						className="formBtn"
 						onClick={handleClear}
 					>
-						Clear
+						{administration.grade.clear}
 					</FormButton>
 				)}
 			</FormButtonContainer>

@@ -12,8 +12,13 @@ import { ROUTES } from "../../../../utils/routes";
 import { useDispatch, useSelector } from "react-redux";
 import ForApproval from "./components/ForApproval";
 import { useNavigate } from "react-router-dom";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { appraisalDictionaryList } from "../localization/index";
 
 function Appraisals() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
+  const { appraisals, createAppraisals } = appraisalDictionary;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const CurrentTab = useSelector(
@@ -27,7 +32,7 @@ function Appraisals() {
 
   const items = [
     {
-      name: "Appraisals",
+      name: appraisals,
       to: `${ROUTES.APPRAISALS.ROOT}`,
       renderButton: [1],
     },
@@ -44,14 +49,14 @@ function Appraisals() {
           items={items}
           buttons={[
             {
-              buttonText: "Create Appraisals",
+              buttonText: createAppraisals,
               render: (
                 <Button
                   className="ThemeBtn"
                   onClick={() => onCreateAppraisal()}
                 >
                   <PlusOutlined />
-                  Create Appraisals
+                  {createAppraisals}
                 </Button>
               ),
             },

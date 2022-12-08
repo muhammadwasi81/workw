@@ -91,7 +91,10 @@ function ComplainDetail(props) {
       </ItemContent>
       <div className="cardSections">
         <div className="cardSectionItem">
-          <div className="cardSection__title">Category</div>
+          <div className="cardSection__title">
+            {" "}
+            {complainDictionary.category}
+          </div>
           <div className="cardSection__body">{complainDetail?.category}</div>
         </div>
         <div className="cardSectionItem">
@@ -119,7 +122,7 @@ function ComplainDetail(props) {
         status={complainDetail?.status}
         onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)}
         data={complainDetail?.approvers}
-        title="Approvals"
+        title={complainDictionary.approvals}
       />
     </div>
   );

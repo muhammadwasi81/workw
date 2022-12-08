@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import "./style.css";
 import {
-	ItemHeader,
-	SingleItem,
+  ItemHeader,
+  SingleItem,
 } from "../../../../../sharedComponents/Card/CardStyle";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
@@ -24,7 +24,6 @@ const DocFullCard = ({ data, handleClickCard }) => {
 	const { documentDictionary } = documentDictionaryList[userLanguage];
 	let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId, status } = data
 	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
-
 
 	return (
 		<>

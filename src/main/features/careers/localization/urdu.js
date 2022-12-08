@@ -1,7 +1,7 @@
 const urdu = {
   CareerDictionaryList: {
     createTextBtn: "اخراجات بنائیں",
-
+    Careers: "کیریئرز",
     labels: {
       firstName: "پہلا نام",
       enterFirstName: "پہلا نام درج کریں",
@@ -96,6 +96,13 @@ const urdu = {
       finalist: "فائنلسٹ",
       maybe: "شاید",
       careerdetail: "کیریئر کی تفصیل",
+      creator: "خالق",
+      minSalary: "کم سے کم تنخواہ",
+      maxSalary: "زیادہ سے زیادہ تنخواہ",
+      manager: "مینیجر",
+      members: "ممبران",
+      interviewers: "انٹرویو لینے والے",
+      postInterviewers: "انٹرویو لینے والوں کو پوسٹ کریں",
     },
     placeHolder: {
       writeHeaderHere: "یہاں ہیڈر لکھیں...",

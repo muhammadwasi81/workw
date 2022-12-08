@@ -74,7 +74,7 @@ const Department = (props) => {
 
   const items = [
     {
-      name: "Departments",
+      name: departmentDictionary.departments,
       to: `${ROUTES.DEPARTMENTS.DEPARTMENT}`,
       renderButton: [1],
     },
@@ -87,7 +87,7 @@ const Department = (props) => {
           items={items}
           buttons={[
             {
-              buttonText: "Create Department",
+              buttonText: departmentDictionary.createDepartment,
 
               render: (
                 <SideDrawer
@@ -115,14 +115,14 @@ const Department = (props) => {
           // }}
           segment={{
             onSegment: (value) => {
-              if (value === "Table") {
+              if (value === departmentDictionary.table) {
                 setTableView(true);
               } else {
                 setTableView(false);
               }
             },
-            label1: "List",
-            label2: "Table",
+            label1: departmentDictionary.list,
+            label2: departmentDictionary.table,
           }}
         />
         <ContBody>
@@ -130,7 +130,7 @@ const Department = (props) => {
 
           {tableView && (
             <Table
-              columns={tableColumn()}
+              columns={tableColumn(departmentDictionary)}
               dragable={true}
               // handleChange={handleChange}
               // onPageChange={onPageChange}

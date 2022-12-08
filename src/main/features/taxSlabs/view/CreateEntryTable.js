@@ -1,16 +1,7 @@
-import { Select } from 'antd';
-import { Option } from 'antd/lib/mentions';
 import React from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 
-const CreateEntryItem = ({ index, accounts, handleChange, handleRemoveRow, value }) => {
-
-  const onChangeAccount = (accId) => {
-    handleChange(accId, "accountId", index)
-  };
-  const onDr_Cr_Change = (typeId) => {
-    handleChange(typeId, "dr_cr", index)
-  };
+const CreateEntryItem = ({ index, handleChange, handleRemoveRow, value }) => {
 
   const handleInputChange = (e) => {
     handleChange(e.target.value, e.target.name, index)
@@ -22,24 +13,24 @@ const CreateEntryItem = ({ index, accounts, handleChange, handleRemoveRow, value
         {index + 1}
       </td> */}
       <td>
-        <input name="chequeNo" onChange={handleInputChange}
-          value={value.chequeNo} />
+        <input name="name" type="text" width="100%" onChange={handleInputChange}
+          value={value.name} />
       </td>
       <td>
-        <input className='w-full' name="naration" onChange={handleInputChange}
-          value={value.naration} />
+        <input type="number" className='w-full' name="min" onChange={handleInputChange}
+          value={value.min} />
       </td>
       <td>
-        <input name="amount" onChange={handleInputChange}
-          value={value.amount} />
+        <input name="max" type="number" onChange={handleInputChange}
+          value={value.max} />
       </td>
       <td>
-        <input name="amount" onChange={handleInputChange}
-          value={value.amount} />
+        <input name="percentage" type="number" max="100" onChange={handleInputChange}
+          value={value.percentage} />
       </td>
       <td>
-        <input name="amount" onChange={handleInputChange}
-          value={value.amount} />
+        <input name="previousCharge" type="number" onChange={handleInputChange}
+          value={value.previousCharge} />
       </td>
       <td onClick={() => handleRemoveRow(index)} >
         <DeleteOutlined />

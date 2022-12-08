@@ -9,27 +9,36 @@ import DetailCard from "./detailCard";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, resignationDictionary } = resignationDictionaryList[userLanguage];
+  const { Direction, resignationDictionary } = resignationDictionaryList[
+    userLanguage
+  ];
   const { detail } = useSelector((state) => state.resignationSlice);
   // const dispatch = useDispatch();
   // useEffect(() => {
-    // const isTablet = mediaQuery({ maxWidth: 800 });
-    // props.id && dispatch(GetRewardById(props.id));
+  // const isTablet = mediaQuery({ maxWidth: 800 });
+  // props.id && dispatch(GetRewardById(props.id));
   // }, [props.id]);
 
   const isTablet = false;
 
   return (
     <Drawer
-      title={<h1 style={{ fontSize: "20px", margin: 0 }}>{"Resignation Detail"}</h1>}
+      title={
+        <h1 style={{ fontSize: "20px", margin: 0 }}>
+          {resignationDictionary.resignationDetail}
+        </h1>
+      }
       width="768"
       height={"85%"}
-      placement={(Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")}
+      placement={
+        (Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")
+      }
       onClose={props.onClose}
       visible={!!props.id}
       destroyOnClose={true}
-      className="drawerSecondary">
-      <DetailCard  id={props.id}/>
+      className="drawerSecondary"
+    >
+      <DetailCard id={props.id} />
     </Drawer>
   );
 }

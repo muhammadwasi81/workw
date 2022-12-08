@@ -1,6 +1,6 @@
-import './salaryHeader.css';
-import { Input } from 'antd';
-import { useEffect, useState } from 'react';
+import "./salaryHeader.css";
+import { Input } from "antd";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -10,7 +10,9 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import { salaryHeaderDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 export default function SalaryHeaderForm({
   data,
   onSubmit,
@@ -19,9 +21,12 @@ export default function SalaryHeaderForm({
   setClearButton,
 }) {
   const [form, setForm] = useState(data);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction, salaryHeaderDictionary } = salaryHeaderDictionaryList[
+    userLanguage
+  ];
   const handleClear = (e) => {
-    setForm({ ...form, description: '', name: '' });
+    setForm({ ...form, description: "", name: "" });
     setClearButton(false);
   };
 
@@ -50,20 +55,20 @@ export default function SalaryHeaderForm({
 
   return (
     <FormContainer>
-      <FormHeader>Salary Header</FormHeader>
+      <FormHeader>{salaryHeaderDictionary.salaryHeader}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Salary Header</FormLabel>
+          <FormLabel>{salaryHeaderDictionary.salaryHeader}</FormLabel>
           <Input
-            placeholder={'Enter Salary Header'}
+            placeholder={salaryHeaderDictionary.enterSalaryHeader}
             value={form.name}
             onChange={handelChangeName}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Description</FormLabel>
+          <FormLabel>{salaryHeaderDictionary.desc}</FormLabel>
           <FormTextArea
-            placeholder={'Enter Description'}
+            placeholder={salaryHeaderDictionary.enterDesc}
             value={form.description}
             onChange={handelChangeDescription}
           />
@@ -81,7 +86,7 @@ export default function SalaryHeaderForm({
                 setClearButton(false);
               }}
             >
-              Save Header
+              {salaryHeaderDictionary.saveHeader}
             </FormButton>
           </>
         ) : (
@@ -94,7 +99,7 @@ export default function SalaryHeaderForm({
               setClearButton(false);
             }}
           >
-            Add Header
+            {salaryHeaderDictionary.addHeader}
           </FormButton>
         )}
         {clearButton && (
@@ -104,7 +109,7 @@ export default function SalaryHeaderForm({
             className="formBtn"
             onClick={handleClear}
           >
-            Clear
+            {salaryHeaderDictionary.clear}
           </FormButton>
         )}
       </FormButtonContainer>

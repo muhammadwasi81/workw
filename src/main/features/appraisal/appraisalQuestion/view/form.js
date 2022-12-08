@@ -1,6 +1,6 @@
 import "./appraisal.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -11,7 +11,17 @@ import {
   FormLabel,
   FormTextArea,
 } from "../../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../../utils/localization/languages";
+
+
 export default function AppraisalForm({ data, onSubmit, loading, setClearButton, clearButton }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,appraisal,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const [form, setForm] = useState(data);
 
   console.log(clearButton)
@@ -47,20 +57,20 @@ export default function AppraisalForm({ data, onSubmit, loading, setClearButton,
 
   return (
     <FormContainer>
-      <FormHeader>Appraisal</FormHeader>
+      <FormHeader>{administration.appraisal.Appra}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Appraisal</FormLabel>
+          <FormLabel>{administration.appraisal.Appra}</FormLabel>
           <Input
-            placeholder={"Enter Appraisal"}
+            placeholder={administration.appraisal.enterAppraisal}
             value={form.name}
             onChange={handelChangeName}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Description</FormLabel>
+          <FormLabel>{administration.appraisal.description}</FormLabel>
           <FormTextArea
-            placeholder={"Enter Description"}
+            placeholder={administration.appraisal.enterDescription}
             value={form.description}
             onChange={handelChangeDescription}
           />
@@ -77,7 +87,7 @@ export default function AppraisalForm({ data, onSubmit, loading, setClearButton,
             className="formBtn"
             onClick={(e) => {onSubmit(form); setClearButton(false)}}
           >
-            Save Appraisal
+           {administration.appraisal.save}
           </FormButton>
           </>
         : 
@@ -92,7 +102,7 @@ export default function AppraisalForm({ data, onSubmit, loading, setClearButton,
           }}
           // loading={loading}
       >
-        Add Appraisal 
+          {administration.appraisal.Add}
       </FormButton>
         }
         {
@@ -104,7 +114,7 @@ export default function AppraisalForm({ data, onSubmit, loading, setClearButton,
               className="formBtn"
               onClick={handleClear}
             >
-              Clear 
+               {administration.appraisal.clear}
             </FormButton>
           }
       </FormButtonContainer>

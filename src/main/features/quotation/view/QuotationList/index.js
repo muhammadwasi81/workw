@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import TableView from "./TableViewComponent";
 import { quotationTableColumn } from "./tableColumns";
 import TableViewComponent from "./TableViewComponent";
+import { quotationDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 function Quotations() {
   const listData = useSelector((state) => state.quotationSlice.quotationList);
@@ -25,36 +27,40 @@ function Quotations() {
   const [viewType, setViewType] = useState("Table");
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { quotationDictionary, Direction } = quotationDictionaryList[
+    userLanguage
+  ];
 
   const items = [
     {
-      name: "Quotation",
+      name: quotationDictionary.quotation,
       to: `${ROUTES.QUOTATION.ROOT}`,
       renderButton: [1],
     },
   ];
   const buttons = [
     {
-      buttonText: "",
+      buttonText: quotationDictionary.createQuotation,
       render: (
         <Button className="ThemeBtn" onClick={() => navigate("create")}>
           {" "}
-          Create Quotation{" "}
+          {quotationDictionary.createQuotation}
         </Button>
       ),
     },
   ];
   const filterButtons = [
     {
-      name: "Quotations",
+      name: quotationDictionary.quotations,
       onClick: () => setFilterType(0),
     },
     {
-      name: "Created By Me",
+      name: quotationDictionary.createdByMe,
       onClick: () => setFilterType(1),
     },
     {
-      name: "For Approval",
+      name: quotationDictionary.forApproval,
       onClick: () => setFilterType(2),
     },
   ];
@@ -91,8 +97,8 @@ function Quotations() {
           buttons={filterButtons}
           segment={{
             onSegment,
-            label1: "Table",
-            label2: "List",
+            label1: quotationDictionary.table,
+            label2: quotationDictionary.list,
           }}
         />
         <ContBody>{render[viewType]}</ContBody>

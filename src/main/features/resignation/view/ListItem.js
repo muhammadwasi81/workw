@@ -1,10 +1,11 @@
-import { Image, Tag } from "antd";
+import { Image, Tag } from 'antd';
 import React, { useContext } from "react";
 import { resignationDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import Attachments from "../../travel/view/UI/Attachments";
 import ResignationDefaultIcon from "../../../../content/svg/menu/newNavBarIcon/resignation.svg";
 import moment from "moment";
 import {
@@ -15,6 +16,7 @@ import {
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { useDispatch } from "react-redux";
 import { ResignationPurposeEnum, ResignationTypeEnum } from "../enums";
+import "./style.css"
 
 function ListItem(props) {
   const disptach = useDispatch();
@@ -43,9 +45,15 @@ function ListItem(props) {
     .local()
     .format();
 
+  const handleImageView = e => {
+		e.preventDefault();
+		e.stopPropagation();
+    console.log("HELLO !!!")
+	};
+
   return (
     <>
-      <SingleItem onClick={props.onClick}>
+      <SingleItem onClick={props.onClick} className="resignationListItem">
         <div className="new" id={props.id}></div>
         <ItemHeader>
           <div className="left">
@@ -71,16 +79,22 @@ function ListItem(props) {
           </div>
           <div className="attachmentBox">
             <Image
-              preview={false}
               width={60}
               height={60}
+              onClick={handleImageView}
               src={image === "" ? ResignationDefaultIcon : image}
             />
+             {/* <Image
+              width={200}
+              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            /> */}
           </div>
         </ItemContent>
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Reason"}</div>
+            <div className="cardSection__title">
+              {resignationDictionary.reason}{" "}
+            </div>
             <div className="cardSection__body">
               {ResignationPurposeEnum.map((item) => {
                 if (item.value === purposeId) {
@@ -115,7 +129,10 @@ function ListItem(props) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Finance"}</div>
+            <div className="cardSection__title">
+              {" "}
+              {resignationDictionary.finance}
+            </div>
             <div className="cardSection__body">
               {finance && (
                 <Avatar
@@ -130,7 +147,10 @@ function ListItem(props) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"IT"}</div>
+            <div className="cardSection__title">
+              {" "}
+              {resignationDictionary.IT}
+            </div>
             <div className="cardSection__body">
               {it && (
                 <Avatar

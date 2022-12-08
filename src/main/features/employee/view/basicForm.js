@@ -284,13 +284,13 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           ]}
           name="designationId"
           label={labels.Designation}
-          placeholder="select your gender"
+          placeholder={placeholder.selectGender}
         >
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
             size="large"
             showSearch={true}
-            placeholder="select your Designation"
+            placeholder={placeholder.selectDesignation}
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
@@ -351,7 +351,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         >
           <Select
             showSearch={true}
-            placeholder="Please select country."
+            placeholder={placeholder.selectCountry}
             size="large"
             getPopupContainer={(trigger) => trigger.parentNode}
           >

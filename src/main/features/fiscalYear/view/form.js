@@ -1,6 +1,6 @@
 import "./style.css";
 import { Input, DatePicker } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import {
 	FormButton,
 	FormButtonContainer,
@@ -11,6 +11,10 @@ import {
 	FormLabel,
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import TextArea from "antd/lib/input/TextArea";
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+
 const { RangePicker } = DatePicker;
 
 export default function Form({
@@ -21,6 +25,10 @@ export default function Form({
 	clearButton,
 }) {
 	const [form, setForm] = useState(data);
+
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration, sharedLabels, Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration.grade.Grade);
 
 	const handleClear = e => {
 		setForm({ ...form, name: "", description: "", startMonth: "", endMonth: "", startYear: "", endYear: "" });
@@ -71,20 +79,20 @@ export default function Form({
 	
 	return (
 		<FormContainer>
-			<FormHeader>Fiscal Year</FormHeader>
+			<FormHeader>{administration.fiscalyear.Fiscalyear}</FormHeader>
 			<FormInputContainer>
 				<FormInput>
-					<FormLabel>Name</FormLabel>
+					<FormLabel>{administration.fiscalyear.Name}</FormLabel>
 					<Input
-						placeholder={"Enter Name"}
+						placeholder={administration.fiscalyear.EnterName}
 						value={form.name}
 						onChange={handelChangeName}
 					/>
 				</FormInput>
 				<FormInput>
-					<FormLabel>Description</FormLabel>
+					<FormLabel>{administration.fiscalyear.Description}</FormLabel>
 					<TextArea
-						placeholder={"Enter Description"}
+						placeholder={administration.fiscalyear.EnterDescription}
 						value={form.description}
 						onChange={handelChangeDescription}
 					/>
@@ -93,7 +101,9 @@ export default function Form({
 					<RangePicker
 						format={"DD/MM/YYYY"}
 						// value={form.startEndData}
-						placeholder={["Start Date", "End Date"]}
+						placeholder={[administration.fiscalyear.startDate, administration.fiscalyear.endDate]}
+						//placeholder={administration.fiscalyear.startDate}
+						//placeholder={administration.fiscalyear.endDate}
 						onChange={handleEndStartDate}
 						picker="month"
 					/>
@@ -112,7 +122,7 @@ export default function Form({
 								setClearButton(false);
 							}}
 						>
-							Save
+							{administration.fiscalyear.save}
 						</FormButton>
 					</>
 				) : (
@@ -127,7 +137,7 @@ export default function Form({
 						}}
 						loading={loading}
 					>
-						Add
+						{administration.fiscalyear.Add}
 					</FormButton>
 				)}
 				{clearButton && (
@@ -138,7 +148,7 @@ export default function Form({
 						className="formBtn"
 						onClick={handleClear}
 					>
-						Clear
+						{administration.fiscalyear.clear}
 					</FormButton>
 				)}
 			</FormButtonContainer>

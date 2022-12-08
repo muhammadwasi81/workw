@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Form, Input } from "antd";
 // import WorkBoardMemberSelect from "./WorkBoardMemberSelect";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
@@ -9,114 +9,123 @@ import { jsonToFormData } from "../../../../utils/base";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import WorkBoardMemberSelect from "../../leadmanager/view/Composer/WorkBoardMemberSelect";
 import { useSelector } from "react-redux";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { WorkBoardDictionary } from "../localization";
+
 function BoardComposer({ isEdit, loading }) {
-	const workboardDetail = useSelector(
-		state => state.trelloSlice.workboardDetail
-	);
-	const userId = useSelector(state => state.userSlice.user.id);
-	const [form] = Form.useForm();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { WorkBoardDictionaryList, Direction } = WorkBoardDictionary[
+    userLanguage
+  ];
+  const { labels, placeholder } = WorkBoardDictionaryList;
 
-	const dispatch = useDispatch();
+  const workboardDetail = useSelector(
+    (state) => state.trelloSlice.workboardDetail
+  );
+  const userId = useSelector((state) => state.userSlice.user.id);
+  const [form] = Form.useForm();
 
-	const [image, setImage] = useState("");
-	const [privacyId, setPrivacyId] = useState(1);
+  const dispatch = useDispatch();
 
-	const onFinish = values => {
-		let membersObj = values.members.map(member => {
-			return { memberId: member };
-		});
-		let imgObj = { file: image, id: defaultUiid };
-		let tempObj = { ...values };
-		tempObj.members = membersObj;
-		tempObj.image = imgObj;
-		tempObj.privacyId = privacyId;
-		if (isEdit) {
-			if (typeof image === "string" && image) {
-				tempObj.image = { ...imgObj, id: workboardDetail.imageId };
-			}
-			tempObj.id = workboardDetail.id;
-			dispatch(updateWorkBoard(jsonToFormData(tempObj)));
-			return;
-		}
-		dispatch(addWorkBoard(jsonToFormData(tempObj)));
-	};
+  const [image, setImage] = useState("");
+  const [privacyId, setPrivacyId] = useState(1);
 
-	const onFinishFailed = errorInfo => {
-		console.log("Failed:", errorInfo);
-	};
+  const onFinish = (values) => {
+    let membersObj = values.members.map((member) => {
+      return { memberId: member };
+    });
+    let imgObj = { file: image, id: defaultUiid };
+    let tempObj = { ...values };
+    tempObj.members = membersObj;
+    tempObj.image = imgObj;
+    tempObj.privacyId = privacyId;
+    if (isEdit) {
+      if (typeof image === "string" && image) {
+        tempObj.image = { ...imgObj, id: workboardDetail.imageId };
+      }
+      tempObj.id = workboardDetail.id;
+      dispatch(updateWorkBoard(jsonToFormData(tempObj)));
+      return;
+    }
+    dispatch(addWorkBoard(jsonToFormData(tempObj)));
+  };
 
-	const onPrivacyChange = value => {
-		setPrivacyId(value);
-	};
-	useEffect(() => {
-		if (workboardDetail && isEdit) {
-			form.setFieldsValue({ ...workboardDetail });
-			form.setFieldsValue({
-				members: workboardDetail.members
-					.map(members => {
-						return members.memberId;
-					})
-					.filter(member => member !== userId),
-			});
-			setImage(workboardDetail.image);
-			setPrivacyId(workboardDetail.privacyId);
-		}
-	}, [form, workboardDetail]);
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
 
-	return (
-		<Form
-			name="basic"
-			layout="vertical"
-			initialValues={{ name: "", description: "", members: [] }}
-			onFinish={onFinish}
-			onFinishFailed={onFinishFailed}
-			autoComplete="off"
-			form={form}
-		>
-			<div className="flex gap-10">
-				<Form.Item
-					label="Board Name"
-					name="name"
-					rules={[
-						{
-							required: true,
-							message: "Please input your board name!",
-						},
-					]}
-					className="w-full"
-				>
-					<Input size="large" placeholder="Enter board name" />
-				</Form.Item>
-				<Form.Item area="true" className="!m-0">
-					<SingleUpload
-						handleImageUpload={fileData => {
-							setImage(fileData[0].originFileObj);
-						}}
-						uploadText={"Upload Cover"}
-						multiple={false}
-						url={image}
-					/>
-				</Form.Item>
-			</div>
-			<Form.Item
-				label="Board Description"
-				name="description"
-				rules={[
-					{
-						required: true,
-						message: "Please input your board description!",
-					},
-				]}
-			>
-				<Input.TextArea
-					size="large"
-					placeholder="Enter board description"
-					// rows={4}
-					autoSize={{ minRows: 4, maxRows: 4 }}
-				/>
-			</Form.Item>
+  const onPrivacyChange = (value) => {
+    setPrivacyId(value);
+  };
+  useEffect(() => {
+    if (workboardDetail && isEdit) {
+      form.setFieldsValue({ ...workboardDetail });
+      form.setFieldsValue({
+        members: workboardDetail.members
+          .map((members) => {
+            return members.memberId;
+          })
+          .filter((member) => member !== userId),
+      });
+      setImage(workboardDetail.image);
+      setPrivacyId(workboardDetail.privacyId);
+    }
+  }, [form, workboardDetail]);
 
-			{/* <Form.Item label="Members" name="members">
+  return (
+    <Form
+      name="basic"
+      layout="vertical"
+      initialValues={{ name: "", description: "", members: [] }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+      form={form}
+    >
+      <div className="flex gap-10">
+        <Form.Item
+          label={labels.name}
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Please input your board name!",
+            },
+          ]}
+          className="w-full"
+        >
+          <Input size="large" placeholder={placeholder.name} />
+        </Form.Item>
+        <Form.Item area="true" className="!m-0">
+          <SingleUpload
+            handleImageUpload={(fileData) => {
+              setImage(fileData[0].originFileObj);
+            }}
+            uploadText={labels.uploadCvr}
+            multiple={false}
+            url={image}
+          />
+        </Form.Item>
+      </div>
+      <Form.Item
+        label={labels.description}
+        name="description"
+        rules={[
+          {
+            required: true,
+            message: "Please input your board description!",
+          },
+        ]}
+      >
+        <Input.TextArea
+          size="large"
+          placeholder={placeholder.desc}
+          // rows={4}
+          autoSize={{ minRows: 4, maxRows: 4 }}
+        />
+      </Form.Item>
+
+      {/* <Form.Item label="Members" name="members">
 				<WorkBoardMemberSelect
 					onChange={(val, obj) => {
 						setMembersData(val);
@@ -131,30 +140,31 @@ function BoardComposer({ isEdit, loading }) {
 					loading={loading}
 				/>
 			</Form.Item> */}
-			<WorkBoardMemberSelect
-				label={"Members"}
-				placeholder="Search Members"
-			/>
-			<Form.Item>
-				<div className="flex items-center gap-2">
-					<PrivacyOptions
-						privacyId={privacyId}
-						onPrivacyChange={onPrivacyChange}
-					/>
-					<Button
-						type="primary"
-						htmlType="submit"
-						block
-						className="ThemeBtn"
-						size="large"
-						loading={loading}
-					>
-						{isEdit ? "Update " : "Create "}Board
-					</Button>
-				</div>
-			</Form.Item>
-		</Form>
-	);
+      <WorkBoardMemberSelect
+        label={labels.members}
+        placeholder={placeholder.members}
+      />
+      <Form.Item>
+        <div className="flex items-center gap-2">
+          <PrivacyOptions
+            privacyId={privacyId}
+            onPrivacyChange={onPrivacyChange}
+          />
+          <Button
+            type="primary"
+            htmlType="submit"
+            block
+            className="ThemeBtn"
+            size="large"
+            loading={loading}
+          >
+            {isEdit ? labels.Update : labels.Create}
+            {/* {labels.Board} */}
+          </Button>
+        </div>
+      </Form.Item>
+    </Form>
+  );
 }
 
 export default BoardComposer;

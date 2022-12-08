@@ -110,23 +110,9 @@ const Composer = (props) => {
           approverId: approver,
         };
       });
-      // dispatch(addCustomApproval());
     }
-    // attachments;
     let payload = { ...values, approvers, attachments };
     dispatch(addCustomApproval(payload));
-
-    ///imagessss addedddd
-    // if (profileImage) {
-    //   let attachments = [
-    //     { id: DEFAULT_GUID, file: profileImage[0].originFileObj },
-    //   ];
-    //   let payload = { ...values, approvers, attachments };
-    //   dispatch(addCustomApproval(payload));
-    // } else {
-    //   let payload = { ...values, approvers };
-    //   dispatch(addCustomApproval(payload));
-    // }
 
     form.resetFields();
   };
@@ -154,8 +140,8 @@ const Composer = (props) => {
         autoComplete="off"
       >
         <Form.Item
-          label={"Subject"}
-          name="subject"
+          label={customApprovalDictionary.subject}
+          name={"subject"}
           labelPosition="top"
           rules={[
             {
@@ -164,7 +150,9 @@ const Composer = (props) => {
             },
           ]}
         >
-          <TextInput placeholder={"Enter Subject"} />
+          <TextInput
+            placeholder={customApprovalDictionary.pleaseEnterSubject}
+          />
         </Form.Item>
 
         <Form.Item
@@ -189,7 +177,7 @@ const Composer = (props) => {
         </Form.Item>
 
         <Form.Item
-          label={"Amount"}
+          label={customApprovalDictionary.amount}
           name="value"
           labelPosition="top"
           rules={[
@@ -200,7 +188,7 @@ const Composer = (props) => {
           ]}
         >
           <TextInput
-            placeholder={"Enter Amount"}
+            placeholder={customApprovalDictionary.pleaseEnterAmount}
             type="number"
             onChange={amountHandler}
             value={amount}

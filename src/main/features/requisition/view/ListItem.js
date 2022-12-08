@@ -84,11 +84,11 @@ function ListItem(props) {
               onCopy={copyfunc}
             >
               <Tag className="LinkTag ThemeBtn">
-                <LinkOutlined /> {"Copy Link"}
+                <LinkOutlined /> {requisitionDictionary.copyLink}
               </Tag>
             </CopyToClipboard>
             <Button className="ThemeBtn" onClick={() => linkHandler(id)}>
-              Link
+              {requisitionDictionary.link}
             </Button>
           </div>
         </ItemHeader>
@@ -108,19 +108,30 @@ function ListItem(props) {
         </ItemContent>
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Budget"}</div>
+            <div className="cardSection__title">
+              {" "}
+              {requisitionDictionary.Budget}
+            </div>
             <div className="cardSection__body">{budget}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Name"}</div>
+            <div className="cardSection__title">
+              {" "}
+              {requisitionDictionary.name}
+            </div>
             <div className="cardSection__body">{name}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Reason"}</div>
+            <div className="cardSection__title">
+              {" "}
+              {requisitionDictionary.reason}
+            </div>
             <div className="cardSection__body">{reason}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Deadline"}</div>
+            <div className="cardSection__title">
+              {requisitionDictionary.deadline}
+            </div>
             <div className="cardSection__body">
               {" "}
               {moment(deadline).format("ddd,MMM DD,YYYY")}
@@ -139,7 +150,7 @@ function ListItem(props) {
                       isTag={false}
                       heading={"approvers"}
                       membersData={approvers ? approvers : []}
-                      text={"Approvers"}
+                      text={requisitionDictionary.approvers}
                       image={"https://joeschmoe.io/api/v1/random"}
                     />
                   )}
@@ -156,7 +167,7 @@ function ListItem(props) {
                       isTag={false}
                       heading={"approvers"}
                       membersData={finalApprovers ? finalApprovers : []}
-                      text={"Final Approvers"}
+                      text={requisitionDictionary.forFinalApproval}
                       image={"https://joeschmoe.io/api/v1/random"}
                     />
                   )}

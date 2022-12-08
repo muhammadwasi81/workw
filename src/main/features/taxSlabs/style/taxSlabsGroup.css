@@ -1,0 +1,43 @@
+.ar_container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ar_container .ar_form {
+  display: block;
+}
+
+.access_role_container {
+  overflow-y: scroll;
+}
+
+.ar_container .ar_tree .ant-tree-checkbox-checked .ant-tree-checkbox-inner {
+  background: var(--currentThemeColor);
+  border-color: var(--currentThemeColor);
+}
+
+.ar_container
+  .ar_tree
+  .ant-tree-checkbox-indeterminate
+  .ant-tree-checkbox-inner::after {
+  background: var(--currentThemeColor);
+}
+
+.taxSlabComposer .ar_container {
+  height: auto;
+}
+.taxSlabGroupParent .ant-collapse-item {
+  border-bottom: 0;
+}
+.taxSlabGroupParent {
+  width: 100%;
+}
+.taxSlabGroupParent .ant-collapse {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #d9d9d9;
+  border-radius: 8px;
+}
+.taxSlabGroupParent .anticon-edit {
+  margin-right: 6px;
+}

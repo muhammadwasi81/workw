@@ -3,6 +3,8 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import { customApprovalDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
 export const tableColumn = () => {
   return [

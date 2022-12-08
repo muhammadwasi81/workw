@@ -286,7 +286,7 @@ const BankForm = ({ mode, id }) => {
         >
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
-            placeholder="Please select country."
+            placeholder={placeholder.selectCountry}
             size="large"
             onChange={(value, object) =>
               form.setFieldValue("countryId", object)

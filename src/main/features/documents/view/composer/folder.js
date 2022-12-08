@@ -12,6 +12,8 @@ import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 import { addDirectory, addDocument } from "../../store/actions";
 import { DOCUMENT_ENUM } from "../../constant";
 import { useSelector } from "react-redux";
+import { documentDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 const CreateFolder = ({ isOpen, handleClose, referenceId, referenceType }) => {
 	const dispatch = useDispatch();
@@ -49,9 +51,9 @@ const CreateFolder = ({ isOpen, handleClose, referenceId, referenceType }) => {
 		dispatch(addDirectory({ payload, form }));
 	};
 
-	const onFinishFailed = errorInfo => {
-		console.log("Failed:", errorInfo);
-	};
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
 
 	return (
 		<>

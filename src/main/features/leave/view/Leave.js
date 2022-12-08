@@ -23,7 +23,7 @@ import { ROUTES } from "../../../../utils/routes";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 
-const Leave = (props) => {
+const Leave = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, leaveDictionary } = leaveDictionaryList[userLanguage];
 
@@ -54,7 +54,7 @@ const Leave = (props) => {
 
   const items = [
     {
-      name: "Leaves",
+      name: leaveDictionary.leave,
       to: `${ROUTES.LEAVES.DEFAULT}`,
       renderButton: [1],
     },
@@ -67,11 +67,11 @@ const Leave = (props) => {
           items={items}
           buttons={[
             {
-              buttonText: "Create Leave",
+              buttonText: leaveDictionary.createleave,
               render: (
                 <SideDrawer
-                  title={"Create Leave"}
-                  buttonText={"Create Leave"}
+                  title={leaveDictionary.createleave}
+                  buttonText={leaveDictionary.createleave}
                   handleClose={() => dispatch(handleOpenComposer(false))}
                   handleOpen={() => dispatch(handleOpenComposer(true))}
                   isOpen={drawerOpen}
@@ -87,61 +87,62 @@ const Leave = (props) => {
           }}
           buttons={[
             {
-              name: "leaves",
+              name: leaveDictionary.leave,
               onClick: () => setFilter({ filterType: 0 }),
             },
             {
-              name: "Created By Me",
+              name: leaveDictionary.createdByMe,
               onClick: () => setFilter({ filterType: 1 }),
             },
             {
-              name: "For Approval",
+              name: leaveDictionary.forApproval,
               onClick: () => setFilter({ filterType: 2 }),
             },
             {
-              name: "Leave To Me",
+              name: leaveDictionary.leaveToMe,
               onClick: () => setFilter({ filterType: 3 }),
             },
           ]}
           segment={{
             onSegment: (value) => {
-              if (value === "Table") {
+              if (value === leaveDictionary.table) {
                 setTableView(true);
               } else {
                 setTableView(false);
               }
             },
-            label1: "List",
-            label2: "Table",
+            label1: leaveDictionary.list,
+            label2: leaveDictionary.table,
           }}
         />
         <ContBody>
-          {
-            loader && <Skeleton avatar paragraph={{ rows: 4 }} />
-          }
+          {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
-          {
-            tableView &&
-            <Table columns={tableColumn()} dragable={true} data={leaves} />
-          }
-          {
-             leaves?.length > 0 && !loader && !tableView ? (
-              <CardWrapper>
-                    {leaves.map((item, index) => {
-                      return (
-                        <>
-                          <ListItem
-                            item={item}
-                            id={item.id}
-                            key={index}
-                            onClick={() => setDetailId(item.id)}
-                          />
-                        </>
-                      );
-                    })}
-                  </CardWrapper>
-                  ) : !loader  && !tableView && <NoDataFound />
-           }
+          {tableView && (
+            <Table
+              columns={tableColumn(leaveDictionary)}
+              dragable={true}
+              data={leaves}
+            />
+          )}
+          {leaves?.length > 0 && !loader && !tableView ? (
+            <CardWrapper>
+              {leaves.map((item, index) => {
+                return (
+                  <>
+                    <ListItem
+                      item={item}
+                      id={item.id}
+                      key={index}
+                      onClick={() => setDetailId(item.id)}
+                    />
+                  </>
+                );
+              })}
+            </CardWrapper>
+          ) : (
+            !loader && !tableView && <NoDataFound />
+          )}
 
           {/* {leaves?.length > 0 ? (
             tableView ? (

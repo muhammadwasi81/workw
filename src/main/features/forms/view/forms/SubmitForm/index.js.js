@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { STRINGS } from "../../../../../../utils/base";
@@ -19,6 +19,8 @@ import { CardWrapper2 } from "../../../../../sharedComponents/Card/CardStyle";
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
 import BusinessLogo from "../../../../../../content/systemLogo.png";
 import "./SubmitForm.css";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../localization/index";
 
 let initialData = {
   formId: "",
@@ -28,6 +30,10 @@ let initialData = {
 };
 
 const SubmitForm = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+
+  const { submit, poweredBy } = documentDictionary;
   const dispatch = useDispatch();
   const { disableSubmit } = props;
   let { id } = useParams();
@@ -476,13 +482,13 @@ const SubmitForm = (props) => {
             <div className="flex-between mt_10">
               {!disableSubmit && (
                 <button onClick={handleSubmit} type="submit">
-                  Submit
+                  {submit}{" "}
                 </button>
               )}
               {/* <button> Clear Form</button> */}
             </div>
             <div className="poweredBy">
-              <div>Powered by</div>
+              <div>{poweredBy}</div>
               <a href="https://workw.com">
                 <img src={BusinessLogo} />
               </a>

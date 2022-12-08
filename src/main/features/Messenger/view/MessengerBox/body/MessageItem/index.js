@@ -7,6 +7,7 @@ import { getMessageByMe, getMessageStatus } from "../../../../utils/Functions";
 import MessageProfile from "./messageProfile";
 import MessageStatusView, { getIconByStatus } from "./messageStatusView";
 import AudioComponent from "./audioComponent";
+import { replaceURL } from "../../../../../feed/utils/ValidateCreatePost";
 
 const MessengerListItem = ({
   messgeItem,
@@ -29,11 +30,11 @@ const MessengerListItem = ({
   const { chatType } = messengerDetail;
   const isGroupMessage = previousMessage?.creator?.id === creator?.id;
   let contClasses = !messageByMe ? "MessengerListItem" : "MessengerListItem-ME";
-  contClasses = 
+  contClasses =
 
-  console.log(previousMessage, "previousMessage");
+    console.log(previousMessage, "previousMessage");
   console.log(id, "id");
-  
+
   return (
     <div
       id={id}
@@ -68,7 +69,7 @@ const MessengerListItem = ({
           />
         )}
         <div className="textMessage">
-          <div className="textMsgArea">{message}</div>
+          <div className="textMsgArea" dangerouslySetInnerHTML={{ __html: replaceURL(message) }}></div>
           <MessageStatusView messageByMe={messageByMe} status={status} />
         </div>
       </div>

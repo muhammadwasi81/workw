@@ -103,8 +103,8 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 			description: values.description,
 			approvers: values.approvers
 				? modifySelectData(values.approvers).map(item => ({
-						approverId: item,
-				  }))
+					approverId: item,
+				}))
 				: [],
 			members: members,
 			parentId: ParentId,
@@ -113,35 +113,35 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 			attachments:
 				defaultFiles.length === 0
 					? [
-							{
-								documentName: values.name,
-								attachment: {
-									id: STRINGS.DEFAULTS.guid,
-									file: attachment[0].originFileObj,
-								},
+						{
+							name: values.name,
+							attachment: {
+								id: STRINGS.DEFAULTS.guid,
+								file: attachment[0].originFileObj,
 							},
-					  ]
+						},
+					]
 					: defaultFiles.length === 1
-					? [
+						? [
 							{
-								documentName: values.name,
+								name: values.name,
 								attachment: {
 									id: STRINGS.DEFAULTS.guid,
 									file: defaultFiles[0],
 								},
 							},
-					  ]
-					: defaultFiles.length > 1
-					? [
-							...defaultFiles.map((item, index) => ({
-								documentName: fileNames[index],
-								attachment: {
-									id: STRINGS.DEFAULTS.guid,
-									file: item,
-								},
-							})),
-					  ]
-					: [],
+						]
+						: defaultFiles.length > 1
+							? [
+								...defaultFiles.map((item, index) => ({
+									name: fileNames[index],
+									attachment: {
+										id: STRINGS.DEFAULTS.guid,
+										file: item,
+									},
+								})),
+							]
+							: [],
 		};
 		dispatch(addDocument({ payload, form }));
 	};
@@ -163,163 +163,47 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 				isAccessDrawer={false}
 				handleClose={handleClose}
 			>
-				<Form
-					form={form}
-					name="uploadFile"
-					labelCol={{
-						span: 24,
-					}}
-					wrapperCol={{
-						span: 24,
-					}}
-					initialValues={{
-						remember: true,
-					}}
-					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
-					autoComplete="off"
-				>
-					<Form.Item
-						label={"Name"}
-						name="name"
-						labelPosition="top"
-						rules={[
-							{
-								required: true,
-								message: "Name",
-							},
-						]}
+				{isOpen &&
+					<Form
+						form={form}
+						name="uploadFile"
+						labelCol={{
+							span: 24,
+						}}
+						wrapperCol={{
+							span: 24,
+						}}
+						initialValues={{
+							remember: true,
+						}}
+						onFinish={onFinish}
+						onFinishFailed={onFinishFailed}
+						autoComplete="off"
 					>
-						<TextInput placeholder={"Enter Name"} />
-					</Form.Item>
-
-					<Form.Item label={"Description"} name="description">
-						<Input.TextArea placeholder={"Enter Description"} />
-					</Form.Item>
-
-					<Form.Item
-						name="approvers"
-						label={"Approvers"}
-						showSearch={true}
-						style={{ marginBottom: "0px" }}
-						// direction={Direction}
-					>
-						<CustomSelect
-							style={{ marginBottom: "0px" }}
-							data={firstTimeEmpData}
-							selectedData={selectedData}
-							canFetchNow={isFirstTimeDataLoaded}
-							fetchData={fetchEmployees}
-							placeholder={"Approvers"}
-							mode={"multiple"}
-							isObject={true}
-							loadDefaultData={false}
-							optionComponent={opt => {
-								return (
-									<>
-										<Avatar
-											name={opt.name}
-											src={opt.image}
-											round={true}
-											width={"30px"}
-											height={"30px"}
-										/>
-										{opt.name}
-									</>
-								);
-							}}
-							dataVal={value}
-							name="approvers"
-							showSearch={true}
-							// direction={Direction}
-						/>
-					</Form.Item>
-
-					<Form.Item
-						name="collaborators"
-						label={"Collaborators"}
-						showSearch={true}
-						style={{ marginBottom: "0px" }}
-						// direction={Direction}
-					>
-						<CustomSelect
-							style={{ marginBottom: "0px" }}
-							data={firstTimeEmpData}
-							selectedData={selectedData}
-							canFetchNow={isFirstTimeDataLoaded}
-							fetchData={fetchEmployees}
-							placeholder={"collaborators"}
-							mode={"multiple"}
-							isObject={true}
-							loadDefaultData={false}
-							optionComponent={opt => {
-								return (
-									<>
-										<Avatar
-											name={opt.name}
-											src={opt.image}
-											round={true}
-											width={"30px"}
-											height={"30px"}
-										/>
-										{opt.name}
-									</>
-								);
-							}}
-							dataVal={value}
-							name="collaborators"
-							showSearch={true}
-						/>
-					</Form.Item>
-
-					{defaultFiles.length === 0 && (
-						<Form.Item area="true">
-							<SingleUpload
-								handleImageUpload={handleImageUpload}
-								img="Add Image"
-								position="flex-start"
-								uploadText={"Upload"}
-							/>
-						</Form.Item>
-					)}
-					{defaultFiles.length > 1 && (
-						<div className="mt-8 w-full">
-							{defaultFiles.map((item, index) => (
-								<div className="flex mt-4 w-full">
-									<div className="flex-1 flex items-center">
-										<TextInput
-											placeholder={"Enter Name"}
-											value={fileNames[index]}
-											onChange={value =>
-												handleNameChange(value, index)
-											}
-										/>
-									</div>
-									<div className="w-[100px] ml-4 cursor-pointer">
-										<img
-											className="h-[50px] rounded-md m-auto"
-											src={item.src}
-										/>
-									</div>
-								</div>
-							))}
-						</div>
-					)}
-					{defaultFiles.length === 1 && (
-						<div className="w-[100px] ml-4 cursor-pointer">
-							<img
-								className="h-[100px] rounded-md mb-6"
-								src={defaultFiles[0].src}
-							/>
-						</div>
-					)}
-
-					{privacyId === PostPrivacyType.PRIVATE && (
 						<Form.Item
-							name="readers"
-							label={"Readers"}
+							label={"Name"}
+							name="name"
+							labelPosition="top"
+							rules={[
+								{
+									required: true,
+									message: "Name",
+								},
+							]}
+						>
+							<TextInput placeholder={"Enter Name"} />
+						</Form.Item>
+
+						<Form.Item label={"Description"} name="description">
+							<Input.TextArea placeholder={"Enter Description"} />
+						</Form.Item>
+
+						<Form.Item
+							name="approvers"
+							label={"Approvers"}
 							showSearch={true}
-							// direction={Direction}
+							style={{ marginBottom: "0px" }}
+						// direction={Direction}
 						>
 							<CustomSelect
 								style={{ marginBottom: "0px" }}
@@ -327,7 +211,7 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 								selectedData={selectedData}
 								canFetchNow={isFirstTimeDataLoaded}
 								fetchData={fetchEmployees}
-								placeholder={"Readers"}
+								placeholder={"Approvers"}
 								mode={"multiple"}
 								isObject={true}
 								loadDefaultData={false}
@@ -346,32 +230,149 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 									);
 								}}
 								dataVal={value}
-								name="readers"
+								name="approvers"
+								showSearch={true}
+							// direction={Direction}
+							/>
+						</Form.Item>
+
+						<Form.Item
+							name="collaborators"
+							label={"Collaborators"}
+							showSearch={true}
+							style={{ marginBottom: "0px" }}
+						// direction={Direction}
+						>
+							<CustomSelect
+								style={{ marginBottom: "0px" }}
+								data={firstTimeEmpData}
+								selectedData={selectedData}
+								canFetchNow={isFirstTimeDataLoaded}
+								fetchData={fetchEmployees}
+								placeholder={"collaborators"}
+								mode={"multiple"}
+								isObject={true}
+								loadDefaultData={false}
+								optionComponent={opt => {
+									return (
+										<>
+											<Avatar
+												name={opt.name}
+												src={opt.image}
+												round={true}
+												width={"30px"}
+												height={"30px"}
+											/>
+											{opt.name}
+										</>
+									);
+								}}
+								dataVal={value}
+								name="collaborators"
 								showSearch={true}
 							/>
 						</Form.Item>
-					)}
-					<Form.Item>
-						<div className="flex items-center gap-2">
-							<PrivacyOptions
-								privacyId={privacyId}
-								onPrivacyChange={onPrivacyChange}
-							/>
-							<Button
-								type="primary"
-								size="medium"
-								className="ThemeBtn"
-								block
-								htmlType="submit"
-								title={"Create Milepad"}
-								loading={loader}
+
+						{defaultFiles.length === 0 && (
+							<Form.Item area="true">
+								<SingleUpload
+									handleImageUpload={handleImageUpload}
+									img="Add Image"
+									position="flex-start"
+									uploadText={"Upload"}
+								/>
+							</Form.Item>
+						)}
+						{defaultFiles.length > 1 && (
+							<div className="mt-8 w-full">
+								{defaultFiles.map((item, index) => (
+									<div className="flex mt-4 w-full">
+										<div className="flex-1 flex items-center">
+											<TextInput
+												placeholder={"Enter Name"}
+												value={fileNames[index]}
+												onChange={value =>
+													handleNameChange(value, index)
+												}
+											/>
+										</div>
+										<div className="w-[100px] ml-4 cursor-pointer">
+											<img
+												className="h-[50px] rounded-md m-auto"
+												src={item.src}
+											/>
+										</div>
+									</div>
+								))}
+							</div>
+						)}
+						{defaultFiles.length === 1 && (
+							<div className="w-[100px] ml-4 cursor-pointer">
+								<img
+									className="h-[100px] rounded-md mb-6"
+									src={defaultFiles[0].src}
+								/>
+							</div>
+						)}
+
+						{privacyId === PostPrivacyType.PRIVATE && (
+							<Form.Item
+								name="readers"
+								label={"Readers"}
+								showSearch={true}
+							// direction={Direction}
 							>
-								{" "}
-								{"Create"}{" "}
-							</Button>
-						</div>
-					</Form.Item>
-				</Form>
+								<CustomSelect
+									style={{ marginBottom: "0px" }}
+									data={firstTimeEmpData}
+									selectedData={selectedData}
+									canFetchNow={isFirstTimeDataLoaded}
+									fetchData={fetchEmployees}
+									placeholder={"Readers"}
+									mode={"multiple"}
+									isObject={true}
+									loadDefaultData={false}
+									optionComponent={opt => {
+										return (
+											<>
+												<Avatar
+													name={opt.name}
+													src={opt.image}
+													round={true}
+													width={"30px"}
+													height={"30px"}
+												/>
+												{opt.name}
+											</>
+										);
+									}}
+									dataVal={value}
+									name="readers"
+									showSearch={true}
+								/>
+							</Form.Item>
+						)}
+						<Form.Item>
+							<div className="flex items-center gap-2">
+								<PrivacyOptions
+									privacyId={privacyId}
+									onPrivacyChange={onPrivacyChange}
+								/>
+								<Button
+									type="primary"
+									size="medium"
+									className="ThemeBtn"
+									block
+									htmlType="submit"
+									title={"Create Milepad"}
+									loading={loader}
+								>
+									{" "}
+									{"Create"}{" "}
+								</Button>
+							</div>
+						</Form.Item>
+					</Form>}
 			</SideDrawer>
 		</>
 	);

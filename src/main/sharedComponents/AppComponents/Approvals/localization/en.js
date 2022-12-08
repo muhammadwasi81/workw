@@ -13,6 +13,7 @@ const en = {
     Cancelled: "Cancelled",
     ApprovalRequired: "ApprovalRequired",
     Hold: "Hold",
+    NotRequired: "Not Required",
   },
   placeHolder: {
     writeYourRemarksHere: "Write Yours Remarks Here...",

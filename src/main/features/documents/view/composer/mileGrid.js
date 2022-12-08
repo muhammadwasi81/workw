@@ -89,8 +89,8 @@ const CreateMilegrid = ({
 			description: values.description,
 			approvers: values.approvers
 				? modifySelectData(values.approvers).map(item => ({
-						approverId: item,
-				  }))
+					approverId: item,
+				}))
 				: [],
 			members: members,
 			parentId: ParentId,
@@ -115,119 +115,46 @@ const CreateMilegrid = ({
 				isAccessDrawer={false}
 				handleClose={handleClose}
 			>
-				<Form
-					form={form}
-					name="addMilegrid"
-					labelCol={{
-						span: 24,
-					}}
-					wrapperCol={{
-						span: 24,
-					}}
-					initialValues={{
-						remember: true,
-					}}
-					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
-					autoComplete="off"
-				>
-					<Form.Item
-						label={"Name"}
-						name="name"
-						labelPosition="top"
-						rules={[
-							{
-								required: true,
-								message: "Name",
-							},
-						]}
+				{isOpen &&
+					<Form
+						form={form}
+						name="addMilegrid"
+						labelCol={{
+							span: 24,
+						}}
+						wrapperCol={{
+							span: 24,
+						}}
+						initialValues={{
+							remember: true,
+						}}
+						onFinish={onFinish}
+						onFinishFailed={onFinishFailed}
+						autoComplete="off"
 					>
-						<TextInput placeholder={"Enter Name"} />
-					</Form.Item>
-
-					<Form.Item label={"Description"} name="description">
-						<Input.TextArea placeholder={"Enter Description"} />
-					</Form.Item>
-
-					<Form.Item
-						name="approvers"
-						label={"Approvers"}
-						showSearch={true}
-						style={{ marginBottom: "0px" }}
-					>
-						<CustomSelect
-							style={{ marginBottom: "0px" }}
-							data={firstTimeEmpData}
-							selectedData={selectedData}
-							canFetchNow={isFirstTimeDataLoaded}
-							fetchData={fetchEmployees}
-							placeholder={"Approvers"}
-							mode={"multiple"}
-							isObject={true}
-							loadDefaultData={false}
-							optionComponent={opt => {
-								return (
-									<>
-										<Avatar
-											name={opt.name}
-											src={opt.image}
-											round={true}
-											width={"30px"}
-											height={"30px"}
-										/>
-										{opt.name}
-									</>
-								);
-							}}
-							dataVal={value}
-							name="approvers"
-							showSearch={true}
-							// direction={Direction}
-						/>
-					</Form.Item>
-
-					<Form.Item
-						name="collaborator"
-						label={"Collaborators"}
-						showSearch={true}
-						style={{ marginBottom: "0px" }}
-					>
-						<CustomSelect
-							style={{ marginBottom: "0px" }}
-							data={firstTimeEmpData}
-							selectedData={selectedData}
-							canFetchNow={isFirstTimeDataLoaded}
-							fetchData={fetchEmployees}
-							placeholder={"collaborators"}
-							mode={"multiple"}
-							isObject={true}
-							loadDefaultData={false}
-							optionComponent={opt => {
-								return (
-									<>
-										<Avatar
-											name={opt.name}
-											src={opt.image}
-											round={true}
-											width={"30px"}
-											height={"30px"}
-										/>
-										{opt.name}
-									</>
-								);
-							}}
-							dataVal={value}
-							name="collaborators"
-							showSearch={true}
-						/>
-					</Form.Item>
-
-					{privacyId === PostPrivacyType.PRIVATE && (
 						<Form.Item
-							name="readers"
-							label={"Readers"}
+							label={"Name"}
+							name="name"
+							labelPosition="top"
+							rules={[
+								{
+									required: true,
+									message: "Name",
+								},
+							]}
+						>
+							<TextInput placeholder={"Enter Name"} />
+						</Form.Item>
+
+						<Form.Item label={"Description"} name="description">
+							<Input.TextArea placeholder={"Enter Description"} />
+						</Form.Item>
+
+						<Form.Item
+							name="approvers"
+							label={"Approvers"}
 							showSearch={true}
-							// direction={Direction}
+							style={{ marginBottom: "0px" }}
 						>
 							<CustomSelect
 								style={{ marginBottom: "0px" }}
@@ -235,7 +162,7 @@ const CreateMilegrid = ({
 								selectedData={selectedData}
 								canFetchNow={isFirstTimeDataLoaded}
 								fetchData={fetchEmployees}
-								placeholder={"Readers"}
+								placeholder={"Approvers"}
 								mode={"multiple"}
 								isObject={true}
 								loadDefaultData={false}
@@ -254,32 +181,106 @@ const CreateMilegrid = ({
 									);
 								}}
 								dataVal={value}
-								name="readers"
+								name="approvers"
+								showSearch={true}
+							// direction={Direction}
+							/>
+						</Form.Item>
+
+						<Form.Item
+							name="collaborator"
+							label={"Collaborators"}
+							showSearch={true}
+							style={{ marginBottom: "0px" }}
+						>
+							<CustomSelect
+								style={{ marginBottom: "0px" }}
+								data={firstTimeEmpData}
+								selectedData={selectedData}
+								canFetchNow={isFirstTimeDataLoaded}
+								fetchData={fetchEmployees}
+								placeholder={"collaborators"}
+								mode={"multiple"}
+								isObject={true}
+								loadDefaultData={false}
+								optionComponent={opt => {
+									return (
+										<>
+											<Avatar
+												name={opt.name}
+												src={opt.image}
+												round={true}
+												width={"30px"}
+												height={"30px"}
+											/>
+											{opt.name}
+										</>
+									);
+								}}
+								dataVal={value}
+								name="collaborators"
 								showSearch={true}
 							/>
 						</Form.Item>
-					)}
-					<Form.Item>
-						<div className="flex items-center gap-2">
-							<PrivacyOptions
-								privacyId={privacyId}
-								onPrivacyChange={onPrivacyChange}
-							/>
-							<Button
-								type="primary"
-								size="medium"
-								className="ThemeBtn"
-								block
-								htmlType="submit"
-								title={"Create Milepad"}
-								loading={loader}
+
+						{privacyId === PostPrivacyType.PRIVATE && (
+							<Form.Item
+								name="readers"
+								label={"Readers"}
+								showSearch={true}
+							// direction={Direction}
 							>
-								{" "}
-								{"Create"}{" "}
-							</Button>
-						</div>
-					</Form.Item>
-				</Form>
+								<CustomSelect
+									style={{ marginBottom: "0px" }}
+									data={firstTimeEmpData}
+									selectedData={selectedData}
+									canFetchNow={isFirstTimeDataLoaded}
+									fetchData={fetchEmployees}
+									placeholder={"Readers"}
+									mode={"multiple"}
+									isObject={true}
+									loadDefaultData={false}
+									optionComponent={opt => {
+										return (
+											<>
+												<Avatar
+													name={opt.name}
+													src={opt.image}
+													round={true}
+													width={"30px"}
+													height={"30px"}
+												/>
+												{opt.name}
+											</>
+										);
+									}}
+									dataVal={value}
+									name="readers"
+									showSearch={true}
+								/>
+							</Form.Item>
+						)}
+						<Form.Item>
+							<div className="flex items-center gap-2">
+								<PrivacyOptions
+									privacyId={privacyId}
+									onPrivacyChange={onPrivacyChange}
+								/>
+								<Button
+									type="primary"
+									size="medium"
+									className="ThemeBtn"
+									block
+									htmlType="submit"
+									title={"Create Milepad"}
+									loading={loader}
+								>
+									{" "}
+									{"Create"}{" "}
+								</Button>
+							</div>
+						</Form.Item>
+					</Form>}
 			</SideDrawer>
 		</>
 	);

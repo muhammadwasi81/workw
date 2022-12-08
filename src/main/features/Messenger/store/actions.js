@@ -116,7 +116,7 @@ export const sharePostOnChat = createAsyncThunk(
       case ResponseType.SUCCESS:
         dispatch(
           openNotification({
-            message: "Successfully Shared",
+            message: "Successfully Shared on Chat",
             type: "success"
           }))
         return response.data;

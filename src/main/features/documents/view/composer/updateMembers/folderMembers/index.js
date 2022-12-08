@@ -1,65 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createGuid } from "../../../../../../../utils/base";
 import { Button, Modal } from "antd";
 import { useSelector } from "react-redux";
-import { getAllEmployees } from "../../../../../employee/store/actions";
 import Avatar from "../../../../../../sharedComponents/Avatar/avatarOLD";
 import MemberSelect from "../../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { sendChatMessage, sharePostOnChat } from "../../../../../Messenger/store/actions";
-import { onFeedCreateSubmitAction, sharePostOnFeed } from "../../../../store/actions";
-import { feedSlice } from "../../../../store/slice";
+import { getAllEmployees } from "../../../../../../../utils/Shared/store/actions";
 
-
-
-function PostShareModal({
+function FolderMemberUpdate({
     isOpen = false,
-    shareType = "",
-    handleCancel,
-    postId = ""
+    handleClose = () => { },
 }) {
     const dispatch = useDispatch();
     const employees = useSelector((state) => state.sharedSlice.employees);
+    const composerState = useSelector(state => state.documentSlice.composersInitState.updateMembers);
     const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
     const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
     const [value, setValue] = useState([]);
 
-    const handleShareOnChat = () => {
-        let payload = {
-            // chatId: chatId,
-            members: value.map((mem) => {
-                return {
-                    memberId: mem,
-                };
-            }),
-            message: `${window.location.href}newsFeedDetails/${postId}`,
-            id: createGuid(),
-            messageType: 1,
-            attachments: []
-        };
-        dispatch(sharePostOnChat(payload));
-        setValue([]);
-        handleCancel();
-    }
-    const handleShareOnFeed = async () => {
-        dispatch(feedSlice.actions.onPostTitleTextChange({ value: `${window.location.href}newsFeedDetails/${postId}` }));
-        dispatch(sharePostOnFeed({
-            referenceType: 4,
-            referenceId: value[0]
-        }));
-        handleCancel();
-    }
     const handleChange = (e) => {
-        setValue(e);
+        console.log(e);
     };
-    const handleShare = () => {
-        if (value.length > 0) {
-            if (shareType === "Chat")
-                handleShareOnChat();
-            else if (shareType === "Feed")
-                handleShareOnFeed();
-        }
-    };
+
     const fetchEmployees = (text, pgNo) => {
         dispatch(
             getAllEmployees({
@@ -77,20 +38,20 @@ function PostShareModal({
     }, [employees]);
 
     useEffect(() => {
-        fetchEmployees('', 0);
-    }, []);
+        isOpen && fetchEmployees('', 0);
+    }, [isOpen]);
+console.log(composerState, "composerState")
     return (
         <Modal
             open={isOpen}
             onOk={(e) => { }}
-            onCancel={handleCancel}
+            onCancel={handleClose}
             footer={false}
             closeIcon={<div />}
             className="ApproverModal"
             width={"360px"}
             destroyOnClose={true}
         >
-
             <MemberSelect
                 style={{ marginBottom: '0px' }}
                 data={firstTimeEmpData}
@@ -117,15 +78,18 @@ function PostShareModal({
                     );
                 }}
                 dataVal={value}
-                name="approvers"
+                name="readers"
                 showSearch={true}
             />
-            <Button className="sharePostBtn drawerBtn" onClick={handleShare}>
-                Share Now
-            </Button>
-
+            {
+                composerState?.members?.map((item) =>{
+                    return <div>
+                        saas
+                    </div>
+                })
+            }
         </Modal>
     );
 }
 
-export default PostShareModal;
+export default FolderMemberUpdate;

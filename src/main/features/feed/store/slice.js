@@ -26,6 +26,7 @@ import {
 	clearSinglePost,
 	savePollResponse,
 	favoriteFeed,
+	sharePostOnFeed,
 } from "./actions";
 import { PollType, PostPrivacyType, PostType } from "../utils/constants";
 import { filter } from "lodash";
@@ -144,6 +145,12 @@ export const feedSlice = createSlice({
 			(state, { payload }) => {
 				state.postCompose = composeInitialState;
 				state.allFeed.posts.unshift(payload);
+			}
+		);
+		builder.addCase(
+			sharePostOnFeed.fulfilled,
+			(state, { payload }) => {
+				state.postCompose = composeInitialState;
 			}
 		);
 		builder.addCase(favoriteFeed.fulfilled, (state, { payload }) => {

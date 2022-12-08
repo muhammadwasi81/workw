@@ -1,5 +1,5 @@
 import { Button, Form, Input } from "antd";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import Select from "../../../../sharedComponents/Select/Select";
 import { useDispatch } from "react-redux";
@@ -9,7 +9,7 @@ import NewCustomSelect from "../../../../sharedComponents/CustomSelect/newCustom
 import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
-import { addDocument } from "../../store/actions";
+import { addDirectory, addDocument } from "../../store/actions";
 import { DOCUMENT_ENUM } from "../../constant";
 import { useSelector } from "react-redux";
 
@@ -17,31 +17,36 @@ const CreateFolder = ({ isOpen, handleClose, referenceId, referenceType }) => {
 	const dispatch = useDispatch();
 	const loader = useSelector(state => state.documentSlice.loader);
 	const ParentId = useSelector(state => state.documentSlice.parentId);
+	const folderInitState = useSelector(state => state.documentSlice.composersInitState.folder);
 	const [form] = Form.useForm();
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
+
+	useEffect(() => {
+		setPrivacyId(folderInitState.privacyId)
+	}, [])
+
 	const onPrivacyChange = value => {
 		setPrivacyId(value);
 	};
 
 	const onFinish = values => {
+		console.log(values)
 		let payload = {
 			name: values.name,
 			description: values.description,
 			members: values.readers
 				? values.readers.map(item => ({
-						memberId: item,
-						memberType: 1,
-						memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER,
-				  }))
+					memberId: item,
+					// memberType: 1,
+					// memberRightType: DOCUMENT_ENUM.MEMBER_RIGHT_TYPE.READER,
+				}))
 				: [],
 			parentId: ParentId,
-			documentType: DOCUMENT_ENUM.DUCOMENT_TYPE.folder,
 			privacyId: privacyId,
 			referenceId,
 			referenceType,
 		};
-		dispatch(addDocument({ payload, form }));
-		// form.resetFields();
+		dispatch(addDirectory({ payload, form }));
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -57,80 +62,79 @@ const CreateFolder = ({ isOpen, handleClose, referenceId, referenceType }) => {
 				isAccessDrawer={false}
 				handleClose={handleClose}
 			>
-				<Form
-					form={form}
-					name="addFolder"
-					labelCol={{
-						span: 24,
-					}}
-					wrapperCol={{
-						span: 24,
-					}}
-					initialValues={{
-						remember: true,
-					}}
-					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
-					autoComplete="off"
-				>
-					<Form.Item
-						label={"Name"}
-						name="name"
-						labelPosition="top"
-						rules={[
-							{
-								required: true,
-								message: "Name",
-							},
-						]}
+				{isOpen &&
+					<Form
+						form={form}
+						name="addFolder"
+						labelCol={{
+							span: 24,
+						}}
+						wrapperCol={{
+							span: 24,
+						}}
+						initialValues={folderInitState}
+						onFinish={onFinish}
+						onFinishFailed={onFinishFailed}
+						autoComplete="off"
 					>
-						<TextInput placeholder={"Enter Name"} />
-					</Form.Item>
-
-					<Form.Item label={"Description"} name="description">
-						<Input.TextArea placeholder={"Enter Description"} />
-					</Form.Item>
-
-					{privacyId === PostPrivacyType.PRIVATE && (
 						<Form.Item
-							name="readers"
-							label={"Readers"}
-							showSearch={true}
-							// direction={Direction}
+							label={"Name"}
+							name="name"
+							labelPosition="top"
+							rules={[
+								{
+									required: true,
+									message: "Name",
+								},
+							]}
 						>
-							<NewCustomSelect
+							<TextInput placeholder={"Enter Name"} />
+						</Form.Item>
+
+						<Form.Item label={"Description"} name="description">
+							<Input.TextArea placeholder={"Enter Description"} />
+						</Form.Item>
+
+						{privacyId === PostPrivacyType.PRIVATE && (
+							<Form.Item
 								name="readers"
 								label={"Readers"}
 								showSearch={true}
-								// direction={Direction}
-								mode="multiple"
-								endPoint="api/Reference/GetAllUserReference"
-								requestType="get"
-								placeholder={"Select Readers"}
-							/>
-						</Form.Item>
-					)}
-					<Form.Item>
-						<div className="flex items-center gap-2">
-							<PrivacyOptions
-								privacyId={privacyId}
-								onPrivacyChange={onPrivacyChange}
-							/>
-							<Button
-								type="primary"
-								size="medium"
-								className="ThemeBtn"
-								block
-								htmlType="submit"
-								title={"Create Milepad"}
-								loading={loader}
+							// direction={Direction}
 							>
-								{" "}
-								{"Create Folder"}{" "}
-							</Button>
-						</div>
-					</Form.Item>
-				</Form>
+								<NewCustomSelect
+									name="readers"
+									label={"Readers"}
+									showSearch={true}
+									// direction={Direction}
+									mode="multiple"
+									endPoint="api/Reference/GetAllUserReference"
+									requestType="get"
+									placeholder={"Select Readers"}
+								/>
+							</Form.Item>
+						)}
+						<Form.Item>
+							<div className="flex items-center gap-2">
+								<PrivacyOptions
+									privacyId={privacyId}
+									onPrivacyChange={onPrivacyChange}
+								/>
+								<Button
+									type="primary"
+									size="medium"
+									className="ThemeBtn"
+									block
+									htmlType="submit"
+									title={"Create Milepad"}
+									loading={loader}
+								>
+									{" "}
+									{"Create Folder"}{" "}
+								</Button>
+							</div>
+						</Form.Item>
+					</Form>}
 			</SideDrawer>
 		</>
 	);

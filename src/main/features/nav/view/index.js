@@ -21,7 +21,6 @@ import navUpIcon from '../../../content/svg/menu/newNavBarIcon/navUpIcon.svg';
 import userSettings from '../../../content/NewContent/NavBar/UserSettingToggle/userSettings.svg';
 import userIcon from '../../../content/NewContent/NavBar/UserSettingToggle/userIcon.svg';
 import userLogout from '../../../content/NewContent/NavBar/UserSettingToggle/userLogout.svg';
-
 import {
   disable as disableDarkMode,
   enable as enableDarkMode,
@@ -189,7 +188,10 @@ const Index = () => {
         <LogoContainer navbarstatus={navBarStatus}>
           {navBarStatus && (
             <NavLink to={STRINGS.ROUTES.ROOT} className="logo-img">
-              <img src={businessLogo ? businessLogo : systemLogo} alt="#" />
+              <img
+                src={businessLogo ? businessLogo : systemLogo}
+                alt="business-img"
+              />
             </NavLink>
           )}
 

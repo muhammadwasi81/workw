@@ -4,11 +4,9 @@ import { BsFillPersonCheckFill } from 'react-icons/bs';
 import { HiCurrencyYen } from 'react-icons/hi';
 import { ImOffice } from 'react-icons/im';
 import {
-  AiFillStar,
   AiFillLike,
   AiFillDollarCircle,
   AiOutlineStar,
-  AiFillWarning,
   AiFillShop,
   AiOutlinePartition,
   AiFillFileImage,
@@ -25,6 +23,11 @@ import {
   RiMailSettingsFill,
   RiMedalFill,
 } from 'react-icons/ri';
+import { MdApproval } from 'react-icons/md';
+import { TiWarning } from 'react-icons/ti';
+import { TbDiscount2 } from 'react-icons/tb';
+import { BiNotepad } from 'react-icons/bi';
+import { GiArmorDowngrade } from 'react-icons/gi';
 
 export const listitem = [
   {
@@ -34,7 +37,7 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.ACCESSROLES,
   },
   {
-    IconName: <AiFillStar size={20} color={'var(--currentThemeColor)'} />,
+    IconName: <GiArmorDowngrade size={20} color={'var(--currentThemeColor)'} />,
     displayName: 'Grade',
     classObj: 'button',
     to: ROUTES.ADMINISTRATOR.GRADE,
@@ -93,7 +96,7 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.SUBSIDIARY_OFFICE,
   },
   {
-    IconName: <AiFillWarning size={20} color={'var(--currentThemeColor)'} />,
+    IconName: <BiNotepad size={20} color={'var(--currentThemeColor)'} />,
     displayName: 'Complain_Category',
     classObj: 'button',
     to: ROUTES.ADMINISTRATOR.COMLAIN_CATEGORY,
@@ -179,7 +182,7 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.ALLOWANCES,
   },
   {
-    IconName: <AiOutlineStar size={20} color={'var(--currentThemeColor)'} />,
+    IconName: <MdApproval size={20} color={'var(--currentThemeColor)'} />,
     displayName: 'Default_Approvals',
     classObj: 'button',
     to: ROUTES.ADMINISTRATOR.DEFAULT_APPROVALS,
@@ -191,7 +194,7 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.JOB_SKILLS,
   },
   {
-    IconName: <RiMedalFill size={20} color={'var(--currentThemeColor)'} />,
+    IconName: <TiWarning size={20} color={'var(--currentThemeColor)'} />,
     displayName: 'Reward_Category',
     classObj: 'button',
     to: ROUTES.ADMINISTRATOR.REWARD_CATEGORY,
@@ -203,9 +206,7 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.WARNING_CATEGORY,
   },
   {
-    IconName: (
-      <RiMailSettingsFill size={20} color={'var(--currentThemeColor)'} />
-    ),
+    IconName: <TbDiscount2 size={20} color={'var(--currentThemeColor)'} />,
     displayName: 'Rebate_Category',
     classObj: 'button',
     to: ROUTES.ADMINISTRATOR.REBATE_CATEGORY,

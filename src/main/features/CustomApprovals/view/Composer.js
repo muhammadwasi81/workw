@@ -110,23 +110,9 @@ const Composer = (props) => {
           approverId: approver,
         };
       });
-      // dispatch(addCustomApproval());
     }
-    // attachments;
     let payload = { ...values, approvers, attachments };
     dispatch(addCustomApproval(payload));
-
-    ///imagessss addedddd
-    // if (profileImage) {
-    //   let attachments = [
-    //     { id: DEFAULT_GUID, file: profileImage[0].originFileObj },
-    //   ];
-    //   let payload = { ...values, approvers, attachments };
-    //   dispatch(addCustomApproval(payload));
-    // } else {
-    //   let payload = { ...values, approvers };
-    //   dispatch(addCustomApproval(payload));
-    // }
 
     form.resetFields();
   };

@@ -27,17 +27,8 @@ const Index = () => {
   const { assetsDictionary, Direction } = assetsDictionaryList[userLanguage];
   const dispatch = useDispatch();
 
-  const {
-    loader,
-    assetItemList,
-    drawerDeAllocOpen,
-    drawerAllocOpen,
-  } = useSelector((state) => state.AssetItemSlice);
-  console.log(
-    drawerDeAllocOpen,
-    "drawerDeAllocOpen",
-    drawerAllocOpen,
-    "drawerAllocOpen"
+  const { assetItemList, drawerDeAllocOpen, drawerAllocOpen } = useSelector(
+    (state) => state.AssetItemSlice
   );
 
   const [search, setSearch] = useState("");

@@ -118,7 +118,6 @@ const AssetComposer = () => {
     if (!values.handoverId) {
       return message.error("Please fill all fields");
     }
-
     let approvers = [];
     let assetItems = [];
 
@@ -157,7 +156,6 @@ const AssetComposer = () => {
     dispatch(addInventoryAsset(payload));
     setState(initialState);
     form.resetFields();
-    setData([]);
   };
 
   const onFinishFailed = (errorInfo) => {

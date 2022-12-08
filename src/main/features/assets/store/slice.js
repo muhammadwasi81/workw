@@ -30,14 +30,14 @@ const inventoryAssetSlice = createSlice({
     });
 
     builder
-      .addMatcher(isPending(...[getAllInventoryAsset]), (state) => {
-        state.loader = true;
-      })
-      .addMatcher(isPending(...[addInventoryAsset]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[getAllInventoryAsset, addInventoryAsset]),
+        (state) => {
+          state.loader = true;
+        }
+      )
       .addMatcher(isRejected(...[getAllInventoryAsset]), (state) => {
-        state.loader = true;
+        state.loader = false;
       });
   },
 });

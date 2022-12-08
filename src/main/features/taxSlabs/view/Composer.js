@@ -6,16 +6,18 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { dictionaryList } from "../../../../utils/localization/languages";
 import * as S from "../../employee/Styles/employee.style";
 import { FormLabel } from "./FormLabel";
-import { addBusinessPolicy, updateBusinessPolicy } from "../store/action";
 import { handleEdit } from "../store/slice";
+import "../style/style.css"
 import { getCountries } from "../../../../utils/Shared/store/actions";
 import { useSelector } from "react-redux";
 import SlabCreateTable from "./TaxSlabEntryTable";
+import { addTaxSlabGroup } from "../store/action";
 const { Option } = Select;
 
 function Composer({editData}) {
 	const dispatch = useDispatch();
 	const { userLanguage } = useContext(LanguageChangeContext);
+	const [TableData, setTableData] = useState(null)
 	const { administration, sharedLabels, Direction } =
 		dictionaryList[userLanguage];
 
@@ -26,12 +28,13 @@ function Composer({editData}) {
 	}, [])
 
 	const onFinish = values => {
-		console.log(values, "VALUES")
-		// dispatch(addBusinessPolicy(values))
+		let taxSlab = TableData.taxSlab;
+		let data = {...values, taxSlab}
+		dispatch(addTaxSlabGroup(data))
 	};
 
 	return (
-		<div className="ar_container">
+		<div className="ar_container taxSlabComposer">
 			<Form
 				onFinish={onFinish}
 				className="ar_form businessPolicyForm"
@@ -90,17 +93,17 @@ function Composer({editData}) {
 						<Input.TextArea placeholder={"Enter Description"} />
 					</S.FormItem>
 				</div>
-
+				<div className='slabTable' >
+			  		<SlabCreateTable defaultRows={1} handleChangeTable={(data)=>setTableData(data)} />
+				</div>
 				<Form.Item>
 					<Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={"Create"}>
 						{" "}
 						{ editData ? "Save" : "Create"}{" "}
 					</Button>
 				</Form.Item>
+
 			</Form>
-			  <div className='slabTable' >
-			  <SlabCreateTable defaultRows={12} />
-			</div>
 	</div>
 	);
 }

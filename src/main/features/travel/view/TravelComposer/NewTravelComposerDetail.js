@@ -26,7 +26,7 @@ import { TravelDictionary } from "../../localization/index";
 function NewTravelComposerDetail(props) {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { TravelDictionaryList } = TravelDictionary[userLanguage];
-	const { headings } = TravelDictionaryList;
+	const { headings, labels, placeHolder  } = TravelDictionaryList;
 
 	const { fetchCityData, travelBy, onSelectCity, onTravelDetailAdd } = props;
 	const cities = useSelector(state => state.sharedSlice.cities);

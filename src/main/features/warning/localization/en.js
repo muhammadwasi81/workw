@@ -25,6 +25,12 @@ const en = {
     deadline: "Deadline",
     description: "Description",
     enterDescription: "Enter Description",
+    warningCategory: "Warning Category",
+    enterwarningCategory: "Enter Warning Category",
+    addCategory: "Add Category",
+    saveCategory: "Save category",
+    clear: "Clear",
+    name: "Name",
     loanPurpose: {
       vehicle: "Vehicle",
       personal: "Personal",

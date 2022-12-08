@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import { Avatar, DatePicker, Form } from "antd";
@@ -10,8 +10,13 @@ import {
 import { getAllAllowance } from "../../../../allowance/store/actions";
 
 import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { appraisalDictionaryList } from "../../../localization/index";
 
 const TaskComp = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
+  const { Employee, startDate, endDate, task } = appraisalDictionary;
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [employee, setEmployee] = useState({});
@@ -77,7 +82,7 @@ const TaskComp = (props) => {
             canFetchNow={employeesShortData && employeesShortData.length > 0}
             fetchData={fetchEmployeesShort}
             sliceName="employeeShort"
-            placeholder={"Employee"}
+            placeholder={Employee}
             isObject={true}
             size={"medium"}
             loadDefaultData={false}
@@ -119,7 +124,7 @@ const TaskComp = (props) => {
           />
         </div>
         <div className="inputBox flex justify-between items-center mt-4">
-          Task
+          {task}
         </div>
         <Form
           name="CreateForm"
@@ -134,7 +139,7 @@ const TaskComp = (props) => {
               <DatePicker
                 size="large"
                 className="w-full"
-                placeholder="Start Date"
+                placeholder={startDate}
                 onChange={(val) => props.startDate(val._d)}
               />
             </Form.Item>
@@ -144,7 +149,7 @@ const TaskComp = (props) => {
               <DatePicker
                 size="large"
                 className="w-full"
-                placeholder="End Date"
+                placeholder={endDate}
                 onChange={(val) => props.endDate(val._d)}
               />
             </Form.Item>

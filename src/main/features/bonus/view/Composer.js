@@ -51,6 +51,7 @@ const Composer = (props) => {
   const [employeeID, setEmployeeId] = useState(null);
   const [prercentage, setPercentage] = useState();
   const [amount, setAmount] = useState();
+  const [isDisabled, setIsDisabled] = useState(false);
 
   console.log(props.id, "bonus composer idddd");
   useEffect(() => {
@@ -129,6 +130,7 @@ const Composer = (props) => {
       setAmountType(true);
     } else {
       setAmountType(false);
+      setIsDisabled(true);
     }
   };
 

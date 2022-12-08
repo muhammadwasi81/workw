@@ -15,15 +15,34 @@ const Edit = (handleEdit, row) => {
 };
 
 const Delete = (handleDelete, row) => {
-  return <DeleteFilled style={{ color: "#1b5669" }} onClick={(e) => handleDelete({ id: row.id })} />;
+  return (
+    <DeleteFilled
+      style={{ color: "#1b5669" }}
+      onClick={(e) => handleDelete({ id: row.id })}
+    />
+  );
 };
 
-export const tableColumn = (handleEdit, handleDelete, removeButtons = false, rights) => {
+export const tableColumn = (
+  handleEdit,
+  handleDelete,
+  removeButtons = false,
+  rights,
+  customcategoryDictionary
+) => {
   return [
-    { title: "Name", dataIndex: "name", width: "20%" },
-    { title: "Description", dataIndex: "description", width: "20%" },
     {
-      title: "Approvers",
+      title: customcategoryDictionary.name,
+      dataIndex: "name",
+      width: "20%",
+    },
+    {
+      title: customcategoryDictionary.desc,
+      dataIndex: "description",
+      width: "20%",
+    },
+    {
+      title: customcategoryDictionary.approvers,
       dataIndex: "approvers",
       key: "approvers",
       render: (text, row) => {

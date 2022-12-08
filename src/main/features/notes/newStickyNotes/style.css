@@ -55,6 +55,15 @@
   margin: 2px;
   /* color: black; */
 }
+.threedot_Icon {
+  margin: 2px;
+  text-decoration: none;
+  color: white;
+}
+a.drop-downList {
+  text-decoration: none;
+  color: black;
+}
 /* .three-dot {
   font-size: 16px !important;
   font-weight: bold;

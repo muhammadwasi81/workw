@@ -4,8 +4,10 @@ import urdu from "./urdu";
 // import hindi from "./hindi";
 // import turkish from "./turkish";
 
-export const salaryDictionary = { en, urdu, 
-  // rabic, hindi, turkish 
+export const quotationDictionaryList = {
+  en,
+  urdu,
+  // rabic, hindi, turkish
 };
 
 export const languageOptions = {

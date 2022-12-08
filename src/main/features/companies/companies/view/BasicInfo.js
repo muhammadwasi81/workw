@@ -12,8 +12,8 @@ function BaiscInfo() {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels } = dictionaryList[userLanguage];
   const { companyDictionary } = companyDictionaryList[userLanguage];
+  const { companyDetail } = companyDictionary;
   const [profileImage, setProfileImage] = useState(null);
 
   const handleImageUpload = (data) => {
@@ -21,7 +21,7 @@ function BaiscInfo() {
   };
 
   const onFinish = (values) => {
-    console.log(values)
+    console.log(values);
   };
   // useEffect(() => {
   //   if (success) {
@@ -51,11 +51,11 @@ function BaiscInfo() {
       autoComplete="off"
       className="BasicInfoForm"
     >
-      <Divider orientation="left"> {"Basic Info"}</Divider>
+      <Divider orientation="left"> {companyDetail.basicinfo}</Divider>
       <Row gutter={[16, 16]}>
-        <Col span={12} >
+        <Col span={12}>
           <Form.Item
-            label={"Company Name"}
+            label={companyDetail.companyName}
             name="name"
             labelPosition="top"
             rules={[
@@ -65,11 +65,11 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Name"} />
+            <TextInput placeholder={companyDetail.enterCompanyName} />
           </Form.Item>
           <Form.Item
             className="emailInput"
-            label={"Company Email"}
+            label={companyDetail.companyEmail}
             name="companyEmail"
             labelPosition="top"
             rules={[
@@ -79,10 +79,10 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Company Email"} />
+            <TextInput placeholder={companyDetail.companyEmail} />
           </Form.Item>
           <Form.Item
-            label={"Owner Name"}
+            label={companyDetail.ownerName}
             name="name"
             labelPosition="top"
             rules={[
@@ -92,7 +92,7 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Owner Name"} />
+            <TextInput placeholder={companyDetail.enterownerName} />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -105,7 +105,7 @@ function BaiscInfo() {
             />
           </Form.Item>
           <Form.Item
-            label={"Address"}
+            label={companyDetail.address}
             name="address"
             labelPosition="top"
             rules={[
@@ -115,10 +115,10 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Address"} />
+            <TextInput placeholder={companyDetail.enterAddress} />
           </Form.Item>
           <Form.Item
-            label={"Phone Number"}
+            label={companyDetail.phoneNumber}
             name="phoneNumber"
             labelPosition="top"
             rules={[
@@ -128,15 +128,15 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Phone Number"} />
+            <TextInput placeholder={companyDetail.phoneNumber} />
           </Form.Item>
         </Col>
       </Row>
-      <Divider orientation="left"> {"User"}</Divider>
+      <Divider orientation="left"> {companyDetail.user}</Divider>
       <Row gutter={[16, 16]}>
-        <Col span={12} >
+        <Col span={12}>
           <Form.Item
-            label={"Total Employees"}
+            label={companyDetail.totalEmployees}
             name="totalEmployees"
             labelPosition="top"
             rules={[
@@ -146,10 +146,10 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Name Total Employees"} />
+            <TextInput placeholder={companyDetail.entertotalEmployees} />
           </Form.Item>
           <Form.Item
-            label={"Total Groups"}
+            label={companyDetail.totalGroups}
             name="totalGroups"
             labelPosition="top"
             rules={[
@@ -159,12 +159,12 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Company Total Groups"} />
+            <TextInput placeholder={companyDetail.enterCompnaytotalGroups} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item
-            label={"Total Employees In Call"}
+            label={companyDetail.totalEmployeesInCall}
             name="callEmployees"
             labelPosition="top"
             rules={[
@@ -174,10 +174,10 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Total Employees In Call"} />
+            <TextInput placeholder={companyDetail.entertotalEmployeesInCall} />
           </Form.Item>
           <Form.Item
-            label={"Total Projects"}
+            label={companyDetail.totalProjects}
             name="totalProjects"
             labelPosition="top"
             rules={[
@@ -187,15 +187,15 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Total Projects"} />
+            <TextInput placeholder={companyDetail.entertotalProjects} />
           </Form.Item>
         </Col>
       </Row>
-      <Divider orientation="left"> {"Total Memory"}</Divider>
+      <Divider orientation="left"> {companyDetail.totalMemory}</Divider>
       <Row gutter={[16, 16]}>
-        <Col span={12} >
+        <Col span={12}>
           <Form.Item
-            label={"Memory"}
+            label={companyDetail.memory}
             name="memory"
             labelPosition="top"
             rules={[
@@ -205,10 +205,10 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Name Memory (gbs)"} />
+            <TextInput placeholder={companyDetail.enterNameMemory} />
           </Form.Item>
           <Form.Item
-            label={"Availed"}
+            label={companyDetail.availed}
             name="availed"
             labelPosition="top"
             rules={[
@@ -218,12 +218,12 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Enter Availed Memory (gbs)"} />
+            <TextInput placeholder={companyDetail.enterAvailedMemory} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item
-            label={"Used"}
+            label={companyDetail.used}
             name="used"
             labelPosition="top"
             rules={[
@@ -233,7 +233,7 @@ function BaiscInfo() {
               },
             ]}
           >
-            <TextInput placeholder={"Used Memory (gbs)"} />
+            <TextInput placeholder={companyDetail.usedMemory} />
           </Form.Item>
           <Form.Item className="updateBtn">
             <Button
@@ -243,10 +243,10 @@ function BaiscInfo() {
               block
               htmlType="submit"
               // loading={loader}
-              title={"Update"}
+              title={companyDetail.update}
             >
               {" "}
-              {"Update"}{" "}
+              {companyDetail.update}
             </Button>
           </Form.Item>
         </Col>

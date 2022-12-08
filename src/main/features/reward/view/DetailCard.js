@@ -26,7 +26,7 @@ import ConfirmationRemarkModal from "../../../sharedComponents/ConfirmationRemar
 function RewardDetailCard(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { rewardDictionary } = rewardDictionaryList[userLanguage];
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const { rewardDetail, loadingData } = useSelector(
     (state) => state.rewardSlice
   );
@@ -61,19 +61,19 @@ function RewardDetailCard(props) {
   const handleCancel = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsOpen(true)
+    setIsOpen(true);
   };
 
   const onClose = () => {
     setIsOpen(false);
   };
 
-  const onFinish = (values) => { 
+  const onFinish = (values) => {
     let id = rewardDetail.id;
-    let reason = values.remarks
+    let reason = values.remarks;
     setIsOpen(false);
     dispatch(cancelReward({ id: id, reason: reason }));
-  }
+  };
 
   const isTablet = false;
 
@@ -105,7 +105,7 @@ function RewardDetailCard(props) {
                     className="ThemeBtn"
                     onClick={(e) => handleCancel(e, props.id)}
                   >
-                    Cancel
+                    {rewardDictionary.cancel}
                   </Button>
                 ) : (
                   ""
@@ -137,15 +137,20 @@ function RewardDetailCard(props) {
           </ItemContent>
           <div className="cardSections">
             <div className="cardSectionItem">
-              <div className="cardSection__title">{"Category"}</div>
+              <div className="cardSection__title">
+                {rewardDictionary.category}
+              </div>
               <div className="cardSection__body">{category}</div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">{"Name"}</div>
+              <div className="cardSection__title"> {rewardDictionary.name}</div>
               <div className="cardSection__body">{name}</div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">{"Reason"}</div>
+              <div className="cardSection__title">
+                {" "}
+                {rewardDictionary.reason}
+              </div>
               <div className="cardSection__body">{reason}</div>
             </div>
             <div className="cardSectionItem">
@@ -174,7 +179,7 @@ function RewardDetailCard(props) {
                   <Avatar
                     isAvatarGroup={true}
                     isTag={false}
-                    heading={"approvers"}
+                    heading={rewardDictionary.approvers}
                     membersData={approvers ? approvers : []}
                     text={"Approvers"}
                     image={"https://joeschmoe.io/api/v1/random"}
@@ -191,11 +196,15 @@ function RewardDetailCard(props) {
               console.log(statusChanged);
             }}
             data={approvers}
-            title="Approvers"
+            title={rewardDictionary.approvers}
           />
         </div>
       )}
-      <ConfirmationRemarkModal isOpen={isOpen} onCancel={onClose} onFinish={onFinish} />
+      <ConfirmationRemarkModal
+        isOpen={isOpen}
+        onCancel={onClose}
+        onFinish={onFinish}
+      />
     </>
   );
 }

@@ -1,13 +1,19 @@
 import { Button, DatePicker, Form, Select, Input, InputNumber } from "antd";
 import moment from "moment";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
+import { quotationDictionaryList } from "../../../localization/index";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 
 const CreateQuotationOptions = ({ handleChange, data }) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { quotationDictionary, Direction } = quotationDictionaryList[
+    userLanguage
+  ];
   const dispatch = useDispatch();
   const employeesData = useSelector((state) => state.sharedSlice.employees);
 
@@ -24,7 +30,7 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
       <div className="flex justify-between items-center">
         <div className="mr-4  w-[170px]">
           <Input
-            placeholder="Client Name"
+            placeholder={quotationDictionary.clientsName}
             onChange={(e) => handleChange({ ...data, name: e.target.value })}
             required={true}
             value={data.name}
@@ -33,7 +39,7 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
 
         <div className="mr-4 w-[170px]">
           <Input
-            placeholder="client@gmail.com"
+            placeholder={quotationDictionary.clientsEmail}
             rules={[{ type: "email" }]}
             onChange={(e) => handleChange({ ...data, email: e.target.value })}
             value={data.email}
@@ -42,7 +48,7 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
 
         <div className="mr-4 w-[170px]">
           <Input
-            placeholder="Phone Number"
+            placeholder={quotationDictionary.phoneNumber}
             //  rules={[{ type: "number" }]}
             onChange={(e) =>
               handleChange({ ...data, phoneNumber: e.target.value })
@@ -68,7 +74,7 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
             }
             canFetchNow={employeesData && employeesData.length > 0}
             fetchData={fetchEmployees}
-            placeholder={"Approvers"}
+            placeholder={quotationDictionary.approvers}
             mode={"multiple"}
             isObject={true}
             size="medium"

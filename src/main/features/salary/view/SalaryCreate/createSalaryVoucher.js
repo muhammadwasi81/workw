@@ -1,34 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from "react";
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
-import VoucherFooter from './components/VoucherFooter';
-import CreateEntryHead from './components/createEntryTableHead';
-import CreateEntryItem from './components/createEntryItem';
-import { Button } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllChartOfAccount } from '../../../chartOfAccount/store/actions';
-import moment from 'moment';
-import { responseMessageType } from '../../../../../services/slices/notificationSlice';
+import VoucherFooter from "./components/VoucherFooter";
+import CreateEntryHead from "./components/createEntryTableHead";
+import CreateEntryItem from "./components/createEntryItem";
+import { Button } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllChartOfAccount } from "../../../chartOfAccount/store/actions";
+import moment from "moment";
+import { responseMessageType } from "../../../../../services/slices/notificationSlice";
 import {
   getAllEmployees,
   getAllEmployeeShort,
-} from '../../../../../utils/Shared/store/actions';
-import { createGuid } from '../../../../../utils/base';
-import { getAllAllowance } from '../../../allowance/store/actions';
-import { addMultipleEmployeeSalary } from '../../store/actions';
-import { useNavigate } from 'react-router-dom';
+} from "../../../../../utils/Shared/store/actions";
+import { createGuid } from "../../../../../utils/base";
+import { getAllAllowance } from "../../../allowance/store/actions";
+import { addMultipleEmployeeSalary } from "../../store/actions";
+import { useNavigate } from "react-router-dom";
+import { salaryDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 const CreateSalaryVoucher = ({ defaultRows }) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salaryDictionary } = salaryDictionaryList[userLanguage];
+  const { createSalary } = salaryDictionary;
   const defaultEntry = {
     effectiveDate: moment(),
-    userId: '',
-    grade: '',
+    userId: "",
+    grade: "",
     basicSalary: 0,
     allowance: 0,
     deduction: 0,
     netSalary: 0,
     approvers: [],
     details: [],
-    description: '',
+    description: "",
     id: createGuid(),
   };
 
@@ -59,10 +64,10 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
     }
   }, [employeesData]);
 
-  const fetchEmployees = (text = '', pgNo = 1) => {
+  const fetchEmployees = (text = "", pgNo = 1) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
-  const fetchEmployeesShort = (text = '', pgNo = 1) => {
+  const fetchEmployeesShort = (text = "", pgNo = 1) => {
     dispatch(getAllEmployeeShort({ text, pgNo, pgSize: 20 }));
   };
   const fetchAllowance = () => {
@@ -151,7 +156,7 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
             Clear
           </Button> */}
           <Button className="ThemeBtn mr-2" onClick={handleSubmit}>
-            Create Salary
+            {createSalary}
           </Button>
         </div>
 

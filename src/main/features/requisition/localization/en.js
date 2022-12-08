@@ -55,6 +55,14 @@ const en = {
     deadline: "Deadline",
     description: "Description",
     enterDescription: "Enter Description",
+    link: "Link",
+    copyLink: "Copy Link",
+    table: "Table",
+    list: "List",
+    referenceNo: "Reference No",
+    creator: "Creator",
+    due: "Due",
+    date: "Date",
   },
 
   /*** Define language write side ***/

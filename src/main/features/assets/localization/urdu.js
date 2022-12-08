@@ -1,0 +1,45 @@
+const en = {
+  assetsDictionary: {
+    assetsAllocation: "اثاثوں کی تقسیم",
+    addAssetsAllocation: "اثاثوں کی تقسیم شامل کریں",
+    assests: "اثاثے",
+
+    deAllocation: "ڈی ایلوکیشن",
+    list: "فہرست",
+    table: "ٹیبل",
+    allocationForMe: "میرے لیے مختص",
+    allocationApprovals: "مختص کی منظوری",
+    categoryName: "قسم کا نام",
+    quantity: "مقدار",
+    handover: "ان کے حوالے",
+    approvers: "منظور کرنے والے",
+    member: "رکن",
+    selectMember: "ممبر منتخب کریں",
+    code: "کوڈ",
+    name: "نام",
+    approvals: "منظوری",
+
+    category: "قسم",
+    value: "قدر",
+    serialNo: "سیریل نمبر",
+    itemType: "چیز کی قسم",
+    status: "حالت",
+    service: "سروس",
+    consumable: "قابل استعمال",
+    NonConsumable: "ناقابل استعمال",
+    description: "تفصیل",
+    enterDescription: "تفصیل درج کریں",
+    items: "اشیاء",
+    selectItems: "براہ کرم آئٹمز منتخب کریں",
+    createAssetAllocation: "اثاثہ مختص بنائیں",
+    selectStatus: "اسٹیٹس کو منتخب کریں",
+    waitingForApproval: "منظوری کے انتظار میں",
+    waitingForHandover: "حوالگی کا انتظار",
+    allocated: "مختص",
+    available: "دستیاب",
+  },
+
+  /*** Define language write side ***/
+  Direction: "rtl",
+};
+export default en;

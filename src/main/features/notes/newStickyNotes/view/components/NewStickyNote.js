@@ -62,7 +62,7 @@ const NewStickyNote = ({ item }) => {
     );
   };
   const openShareHandler = () => {
-    console.log("clecked share")
+    console.log("clecked share");
     setOpenShare((openShare) => !openShare);
   };
   const copyToClipboard = () => {
@@ -76,7 +76,7 @@ const NewStickyNote = ({ item }) => {
           label: (
             <div onClick={openShareHandler}>
               <ShareAltOutlined />
-              <a className="text-black">Share</a>
+              <a className="drop-downList">Share</a>
             </div>
           ),
           key: "0",
@@ -85,7 +85,7 @@ const NewStickyNote = ({ item }) => {
           label: (
             <div onClick={copyToClipboard}>
               <CopyOutlined />
-              <a className="text-black">Copy</a>
+              <a className="drop-downList">Copy</a>
             </div>
           ),
           key: "1",
@@ -161,14 +161,13 @@ const NewStickyNote = ({ item }) => {
   // console.log(width, height, "widthhh");
 
   const axis = {
-    x_axis: (Math.floor(Math.random() * (400 - 300)) + 300),
-    y_axis: (Math.floor(Math.random() * (200 - 500)) + 500)
+    x_axis: Math.floor(Math.random() * (400 - 300)) + 300,
+    y_axis: Math.floor(Math.random() * (200 - 500)) + 500,
   };
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
-    console.log(item.id, item.description, "iddddddd");
   };
-  console.log(openShare)
+  console.log(openShare);
   return (
     <>
       <Draggable
@@ -177,8 +176,8 @@ const NewStickyNote = ({ item }) => {
         handle=".handle"
         // grid={[25, 25]}
         scale={1}
-      // bounds="parent"
-      // allowAnyClick={true}
+        // bounds="parent"
+        // allowAnyClick={true}
       >
         <div
           className="stickyNote_container"
@@ -205,7 +204,7 @@ const NewStickyNote = ({ item }) => {
               <Dropdown overlay={menu}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    <EllipsisOutlined className="margin_Icon" />
+                    <EllipsisOutlined className="threedot_Icon" />
                   </Space>
                 </a>
               </Dropdown>
@@ -222,11 +221,12 @@ const NewStickyNote = ({ item }) => {
 
           {/* *******Insert text area and image********* */}
 
-          {openShare &&
+          {openShare && (
             <ShareComponent
               item={item}
               handleClose={() => setOpenShare(false)}
-            />}
+            />
+          )}
 
           <div className="textArea_container">
             <ReactQuill

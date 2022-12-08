@@ -20,12 +20,12 @@ import {
 import { useDispatch } from "react-redux";
 import { getFormById } from "../store/actions";
 import moment from "moment";
+import { documentDictionaryList } from "../localization/index";
 
 const FromDetail = (props) => {
   const { id } = props;
   const { formDetail } = useSelector((state) => state.formSlice);
   const dispatch = useDispatch();
-  const { userLanguage } = useContext(LanguageChangeContext);
   // const { loanDictionaryList, Direction } = LoanDictionary[userLanguage];
   const [loanStatus, setLoanStatus] = useState({});
   // const [status, setStatus] = useState();
@@ -59,6 +59,9 @@ const FromDetail = (props) => {
   //     setStatus(updateList);
   //   }
   // }, [loanStatus]);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+  const { Subject, Description, Approvals } = documentDictionary;
 
   return (
     <div>
@@ -87,7 +90,7 @@ const FromDetail = (props) => {
           <div className="title">
             {subject.length > 0 ? (
               <div>
-                <span className="text-base font-bold">Subject: </span>
+                <span className="text-base font-bold">{Subject}: </span>
                 {subject}
               </div>
             ) : null}
@@ -95,7 +98,7 @@ const FromDetail = (props) => {
           <div className="description w-full pt-3 pb-5 h-[100px]">
             {description.length > 0 ? (
               <div>
-                <span className="text-base font-bold">Description: </span>
+                <span className="text-base font-bold">{Description}: </span>
                 {description}
               </div>
             ) : (
@@ -104,7 +107,7 @@ const FromDetail = (props) => {
           </div>
           <RemarksApproval
             data={approvers}
-            title="Approvals"
+            title={Approvals}
             module={ApprovalsModule.FormApproval}
             onStatusChanged={() => {}}
           />

@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../../localization/index";
 
 const TextFields = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+
+  const { yourAnswer } = documentDictionary;
   const {
     type,
     fieldData,
@@ -31,7 +37,7 @@ const TextFields = (props) => {
           }
           className="styled-input"
           type={type}
-          placeholder="Your answer"
+          placeholder={yourAnswer}
           disabled={disableSubmit}
         />
       </div>

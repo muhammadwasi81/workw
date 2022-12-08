@@ -6,8 +6,10 @@ import {
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Skeleton, Modal } from "antd";
-import { dictionaryList } from "../../../../utils/localization/languages";
+// import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { rewardDictionaryList } from "../localization/index";
+
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
@@ -17,7 +19,7 @@ import { getAllRewards } from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
-import TopBar from "../../../sharedComponents/topBar/topBar"; 
+import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
@@ -28,7 +30,10 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 const Reward = (props) => {
   const { visible } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
+  const { rewardDictionary } = rewardDictionaryList[userLanguage];
+
+  // const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
+
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
 
@@ -78,7 +83,7 @@ const Reward = (props) => {
 
   const items = [
     {
-      name: "Rewards",
+      name: rewardDictionary.reward,
       to: `${ROUTES.REWARDS.REWARD}`,
       renderButton: [1],
     },
@@ -91,12 +96,12 @@ const Reward = (props) => {
           items={items}
           buttons={[
             {
-              buttonText: "Create Reward",
+              buttonText: rewardDictionary.createReward,
 
               render: (
                 <SideDrawer
-                  title={"Create Reward"}
-                  buttonText={"Create Reward"}
+                  title={rewardDictionary.createReward}
+                  buttonText={rewardDictionary.createReward}
                   handleClose={() => dispatch(handleOpenComposer(false))}
                   handleOpen={() => dispatch(handleOpenComposer(true))}
                   isOpen={drawerOpen}
@@ -112,32 +117,32 @@ const Reward = (props) => {
           }}
           buttons={[
             {
-              name: "Rewards",
+              name: rewardDictionary.rewards,
               onClick: () => setFilter({ filterType: 0 }),
             },
             {
-              name: "Created By Me",
+              name: rewardDictionary.createdByMe,
               onClick: () => setFilter({ filterType: 1 }),
             },
             {
-              name: "For Approval",
+              name: rewardDictionary.forApproval,
               onClick: () => setFilter({ filterType: 2 }),
             },
             {
-              name: "Reward To Me",
+              name: rewardDictionary.rewardToMe,
               onClick: () => setFilter({ filterType: 3 }),
             },
           ]}
           segment={{
             onSegment: (value) => {
-              if (value === "Table") {
+              if (value === rewardDictionary.table) {
                 setTableView(true);
               } else {
                 setTableView(false);
               }
             },
-            label1: "List",
-            label2: "Table",
+            label1: rewardDictionary.list,
+            label2: rewardDictionary.table,
           }}
         />
         <ContBody>
@@ -145,7 +150,7 @@ const Reward = (props) => {
 
           {tableView && (
             <Table
-              columns={tableColumn()}
+              columns={tableColumn(rewardDictionary)}
               dragable={true}
               handleChange={handleColumnSorting}
               data={rewards}

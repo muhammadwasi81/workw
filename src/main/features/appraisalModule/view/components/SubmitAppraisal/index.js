@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   ContBody,
   TabbableContainer,
@@ -9,8 +9,12 @@ import SubmitAppraisalBody from "./submitAppraisalBody";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { appraisalDictionaryList } from "../../../localization/index";
 function Index() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
+  const { submitAppraisal } = appraisalDictionary;
   const CurrentTab = useSelector(
     (state) => state.appraisalModuleSlice.currentTab
   );
@@ -35,11 +39,11 @@ function Index() {
         <Header
           buttons={[
             {
-              buttonText: "Submit Appraisals",
+              buttonText: submitAppraisal,
               render: (
                 <Button className="ThemeBtn" onClick={() => createAppraisal()}>
                   <PlusOutlined />
-                  Submit Appraisals
+                  {submitAppraisal}
                 </Button>
               ),
             },

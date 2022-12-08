@@ -100,7 +100,7 @@ function ListItem(props) {
           <div className="cardSection__body">{days}</div>
         </div>
         <div className="cardSectionItem">
-          <div className="cardSection__title">Leave Type</div>
+          <div className="cardSection__title">{leaveDictionary.leaveType}</div>
           <div className="cardSection__body">{leaveTypeName}</div>
         </div>
         <div className="cardSectionItem">

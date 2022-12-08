@@ -25,6 +25,12 @@ const urdu = {
     selectPurpose: "مقصد منتخب کریں",
     description: "تفصیل",
     enterDescription: "تفصیل درج کریں",
+    warningCategory: "انتباہی زمرہ",
+    enterwarningCategory: "انتباہی زمرہ درج کریں",
+    addCategory: "زمرہ شامل کریں",
+    saveCategory: "زمرہ محفوظ کریں",
+    clear: "صاف",
+    name: "نام",
     loanPurpose: {
       vehicle: "گاڑی",
       personal: "ذاتی",

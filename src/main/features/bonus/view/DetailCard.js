@@ -22,7 +22,7 @@ function BonusDetailCard(props) {
   const { Direction, bonusDictionary } = bonusDictionaryList[userLanguage];
   const [updatedStatus, setUpdatedStatus] = useState();
 
-  const { bonusDetail,loadingData } = useSelector((state) => state.bonusSlice);
+  const { bonusDetail, loadingData } = useSelector((state) => state.bonusSlice);
   const { user } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
 
@@ -62,8 +62,12 @@ function BonusDetailCard(props) {
   };
 
   const isTablet = false;
+  const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
 
-  if(loadingData) return <Skeleton />;
+  if (loadingData) return <Skeleton />;
 
   return (
     <>
@@ -81,7 +85,7 @@ function BonusDetailCard(props) {
                         designation={
                           creator.designation ? creator.designation : ""
                         }
-                        time={moment(createDate).fromNow()}
+                        time={moment(localTime).fromNow()}
                       />
                     }
                   />

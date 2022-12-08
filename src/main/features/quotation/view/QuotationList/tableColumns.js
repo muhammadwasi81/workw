@@ -3,28 +3,28 @@ import Avatar from "../../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-export const quotationTableColumn = () => {
+export const quotationTableColumn = (quotationDictionary) => {
   return [
     {
-      title: "Client's Name",
+      title: quotationDictionary.clientsName,
       dataIndex: "name",
       ellipsis: true,
       sort: true,
     },
     {
-      title: "Client's Email",
+      title: quotationDictionary.clientsEmail,
       dataIndex: "email",
       ellipsis: true,
       sort: true,
     },
     {
-      title: "Phone Number",
+      title: quotationDictionary.phoneNumber,
       dataIndex: "phoneNumber",
       ellipsis: true,
       sort: true,
     },
     {
-      title: "Creator",
+      title: quotationDictionary.creator,
       dataIndex: "creator",
       ellipsis: true,
       render: (creator) => (
@@ -33,7 +33,7 @@ export const quotationTableColumn = () => {
       sort: true,
     },
     {
-      title: "Approvers",
+      title: quotationDictionary.approvers,
       dataIndex: "approvers",
       ellipsis: true,
       render: (value) => (
@@ -46,9 +46,9 @@ export const quotationTableColumn = () => {
       sort: true,
     },
     {
-      title: "QuotationDate",
+      title: quotationDictionary.quotationDate,
       dataIndex: "quotationDate",
-      render: (i) => moment(i.quotationDate).format("DD MMM YYYY"),
+      render: (quotationDate) => moment(quotationDate).format("DD MMM YYYY"),
       sort: true,
     },
   ];

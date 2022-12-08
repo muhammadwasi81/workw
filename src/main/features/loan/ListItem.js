@@ -35,7 +35,7 @@ function ListItem(props) {
     amount,
   } = props.item || null;
 
-  console.log(approvers);
+  console.log(user);
   return (
     <>
       <SingleItem
@@ -49,8 +49,8 @@ function ListItem(props) {
               <AvatarOld
                 width={40}
                 height={40}
-                src={user.image}
-                name={user.name}
+                // src={user.image}
+                // name={user.name}
                 round
               ></AvatarOld>
             }

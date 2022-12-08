@@ -38,11 +38,16 @@ const urdu = {
     list: "فہرست",
     cancel: "منسوخ کریں",
     rewardCategory: "انعام کا زمرہ",
+    enterrewardCategory: "انعام کا زمرہ درج کریں",
+
     selectCategory: "زمرہ منتخب کریں",
     referenceNo: "حوالہ نمبر",
     creator: "خالق",
     status: "حالت",
     date: "تاریخ",
+    addCategory: "زمرہ شامل کریں",
+    saveCategory: "زمرہ محفوظ کریں",
+    clear: "صاف",
     loanPurpose: {
       vehicle: "گاڑی",
       personal: "ذاتی",

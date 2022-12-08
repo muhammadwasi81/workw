@@ -18,6 +18,8 @@ const en = {
       update: "Update",
       public: "Public",
       private: "Private",
+      createDate: "Create Date",
+      creator: "Creator",
     },
     placeHolders: {
       namePh: "Enter name",

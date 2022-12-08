@@ -1,9 +1,9 @@
-import { DeleteFilled, EditFilled } from '@ant-design/icons';
+import { DeleteFilled, EditFilled } from "@ant-design/icons";
 
 const Edit = (handleEdit, row) => {
   return (
     <EditFilled
-      style={{ color: '#1b5669' }}
+      style={{ color: "#1b5669" }}
       onClick={(e) =>
         handleEdit({
           id: row.id,
@@ -18,7 +18,7 @@ const Edit = (handleEdit, row) => {
 const Delete = (handleDelete, row) => {
   return (
     <DeleteFilled
-      style={{ color: '#1b5669' }}
+      style={{ color: "#1b5669" }}
       onClick={(e) => handleDelete({ id: row.id })}
     />
   );
@@ -28,19 +28,24 @@ export const tableColumn = (
   handleEdit,
   handleDelete,
   removeButtons = false,
-  rights
+  rights,
+  jobDescDictionary
 ) => {
   return [
     {
-      title: 'Name',
-      dataIndex: 'designationId',
-      width: '50%',
+      title: jobDescDictionary.name,
+      dataIndex: "designationId",
+      width: "50%",
     },
-    { title: 'Description', dataIndex: 'description', width: '50%' },
+    {
+      title: jobDescDictionary.desc,
+      dataIndex: "description",
+      width: "50%",
+    },
     removeButtons
       ? {}
       : {
-          align: 'right',
+          align: "right",
           render: (_, row) => {
             if (rights.length <= 0) return;
 

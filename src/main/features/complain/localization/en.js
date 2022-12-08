@@ -38,6 +38,12 @@ const en = {
     status: "Status",
     date: "Date",
     approvers: "Approvers",
+    complaincategory: "Complain Category",
+    name: "Name",
+    enterCategoryName: "Enter Category Name",
+    saveCategory: "Save Category",
+    addCategory: "Add Category",
+    clear: "Clear",
     loanPurpose: {
       vehicle: "Vehicle",
       personal: "Personal",

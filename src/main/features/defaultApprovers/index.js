@@ -1,53 +1,55 @@
-import { useState, useEffect, useContext } from 'react';
-import { AdminContainer } from './../../sharedComponents/StyledComponents/admin';
-import { FormContainer } from './../../sharedComponents/StyledComponents/adminForm';
-import { Collapse, Modal, Tooltip, Button } from 'antd';
-import { FormHeader } from '../../../components/HrMenu/Administration/StyledComponents/adminForm';
-import './styles.css';
-import { PlusCircleFilled } from '@ant-design/icons';
-import { NoDataFound } from './../../sharedComponents/NoDataIcon/index';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllEmployees } from './../../../utils/Shared/store/actions';
-import Avatar from '../../sharedComponents/Avatar/avatarOLD';
-import { customApprovalDictionaryList } from './../CustomApprovals/localization/index';
-import { LanguageChangeContext } from './../../../utils/localization/localContext/LocalContext';
-import CustomSelect from './../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import Content from './view/content';
+import { useState, useEffect, useContext } from "react";
+import { AdminContainer } from "./../../sharedComponents/StyledComponents/admin";
+import { FormContainer } from "./../../sharedComponents/StyledComponents/adminForm";
+import { Collapse, Modal, Tooltip, Button } from "antd";
+import { FormHeader } from "../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import "./styles.css";
+import { PlusCircleFilled } from "@ant-design/icons";
+import { NoDataFound } from "./../../sharedComponents/NoDataIcon/index";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllEmployees } from "./../../../utils/Shared/store/actions";
+import Avatar from "../../sharedComponents/Avatar/avatarOLD";
+import CustomSelect from "./../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import Content from "./view/content";
+import { defaultApproverDictionaryList } from "./localization/index";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 
 const { Panel } = Collapse;
 
-const defaultApprovers = [
-  { label: 'Expense', _id: 1 },
-  { label: 'Expense Finance', _id: 2 },
-  { label: 'Travel', _id: 3 },
-  { label: 'Travel Agent', _id: 4 },
-  { label: 'Leave', _id: 5 },
-  { label: 'Asset Allocation', _id: 6 },
-  { label: 'Salary', _id: 7 },
-  { label: 'Payroll', _id: 8 },
-  { label: 'Reward', _id: 9 },
-  { label: 'Resignation HR', _id: 10 },
-  { label: 'Resignation Admin', _id: 11 },
-  { label: 'Resignation IT', _id: 12 },
-  { label: 'Resignation Finance', _id: 13 },
-  { label: 'Resignation Exit', _id: 14 },
-  { label: 'Requistion', _id: 15 },
-];
 const DefaultApprovers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [value, setValue] = useState([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [data, setData] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction } = customApprovalDictionaryList[userLanguage];
-
+  const {
+    defaultApproverDictionary,
+    Direction,
+  } = defaultApproverDictionaryList[userLanguage];
+  const defaultApprovers = [
+    { label: defaultApproverDictionary.expense, _id: 1 },
+    { label: defaultApproverDictionary.expenseFinance, _id: 2 },
+    { label: defaultApproverDictionary.travel, _id: 3 },
+    { label: defaultApproverDictionary.travelAgent, _id: 4 },
+    { label: defaultApproverDictionary.leave, _id: 5 },
+    { label: defaultApproverDictionary.assetAllocation, _id: 6 },
+    { label: defaultApproverDictionary.salary, _id: 7 },
+    { label: defaultApproverDictionary.payroll, _id: 8 },
+    { label: defaultApproverDictionary.reward, _id: 9 },
+    { label: defaultApproverDictionary.resignationHr, _id: 10 },
+    { label: defaultApproverDictionary.resignationadmin, _id: 11 },
+    { label: defaultApproverDictionary.resignationIT, _id: 12 },
+    { label: defaultApproverDictionary.resignationFinance, _id: 13 },
+    { label: defaultApproverDictionary.resignationExit, _id: 14 },
+    { label: defaultApproverDictionary.requistion, _id: 15 },
+  ];
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   const selectedData = (data) => {
-    console.log(data, 'selectedData');
+    console.log(data, "selectedData");
     setValue(data);
   };
 
@@ -62,13 +64,13 @@ const DefaultApprovers = () => {
   };
 
   const handleCollapse = (key) => {
-    console.log(key, 'key');
+    console.log(key, "key");
   };
 
   const handleChange = (e) => {
     setInput(e);
     setData([...data, e]);
-    console.log(data, 'data');
+    console.log(data, "data");
   };
 
   useEffect(() => {
@@ -79,7 +81,7 @@ const DefaultApprovers = () => {
   }, [employees]);
 
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
   }, []);
 
   const fetchEmployees = (text, pgNo) => {
@@ -94,19 +96,19 @@ const DefaultApprovers = () => {
 
   return (
     <FormContainer>
-      <FormHeader>Default Approvers</FormHeader>
+      <FormHeader>{defaultApproverDictionary.defaultApprovers}</FormHeader>
       {defaultApprovers.length > 0 ? (
         <AdminContainer>
           {defaultApprovers?.map((item, index) => {
             return (
               <>
                 <div className="collapseWrapper" key={index}>
-                  <Collapse onChange={handleCollapse} defaultActiveKey={['1']}>
+                  <Collapse onChange={handleCollapse} defaultActiveKey={["1"]}>
                     <Panel
                       header={item.label}
                       key={item._id}
                       extra={[
-                        <Tooltip title="Approvers">
+                        <Tooltip title={defaultApproverDictionary.approvers}>
                           <Button
                             shape="circle"
                             icon={<PlusCircleFilled />}
@@ -130,7 +132,7 @@ const DefaultApprovers = () => {
                         <div className="flex flex-col space-y-5">
                           <div className="flex flex-col space-y-2">
                             <label className="text-sm font-bold text-gray-700">
-                              Select Default Approval
+                              {defaultApproverDictionary.selectdefaultApprovers}
                             </label>
                             {/* <CustomSelect
                               style={{ marginBottom: '0px' }}

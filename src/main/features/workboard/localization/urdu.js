@@ -54,6 +54,12 @@ const urdu = {
       Board: "بورڈ",
       uploadCoverPhoto: "کور فوٹو اپ لوڈ کریں",
       edit: "ترمیم",
+      addCard: "کارڈ شامل کریں",
+      section: "سیکشن",
+      title: "عنوان",
+      description: "تفصیل",
+      labels: "لیبلز",
+      createdDate: "تشکیل کی تاریخ",
     },
     placeholder: {
       name: "بورڈ کا نام درج کریں",

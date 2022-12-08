@@ -1,9 +1,13 @@
 import { Avatar, Tag } from "antd";
 import moment from "moment";
-import React from "react";
+import React, { useContext } from "react";
 import { LinkOutlined } from "@ant-design/icons";
+import { jobsDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 function DetailView() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { jobsDictionary } = jobsDictionaryList[userLanguage];
   //call career by id
   return (
     <div className="approvalDetail flex-1 p-[5px]">
@@ -29,13 +33,13 @@ function DetailView() {
           <div className="linkDiv">
             <Tag className="LinkTag ThemeBtn">{"Apply Now"}</Tag>
             <Tag className="LinkTag ThemeBtn">
-              <LinkOutlined /> {"Copy Link"}
+              <LinkOutlined /> {jobsDictionary.copyLink}
             </Tag>
           </div>
         </div>
 
         <div className="mt-5">
-          <div className="font-bold">Job Description</div>
+          <div className="font-bold">{jobsDictionary.jobDesc}</div>
           <div>
             We are looking for a React Native developer interested in building
             performant mobile apps on both the iOS and Android platforms. You
@@ -50,7 +54,7 @@ function DetailView() {
         </div>
 
         <div className="mt-5">
-          <div className="font-bold">Skills Required</div>
+          <div className="font-bold">{jobsDictionary.skillsRequired}</div>
           <div>
             <Tag className="LinkTag">{"React.js"}</Tag>
             <Tag className="LinkTag">{"React Native"}</Tag>
@@ -63,31 +67,44 @@ function DetailView() {
 
         <div className="cardSections mt-10">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Salary For</div>
+            <div className="cardSection__title">{jobsDictionary.salaryFor}</div>
             <div className="cardSection__body">{"user.name"}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Effective Date</div>
+            <div className="cardSection__title">
+              {jobsDictionary.effectiveDate}
+            </div>
             <div className="cardSection__body">
               {moment("09-22-2022").format("Do MMM YY")}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Basic Salary</div>
+            <div className="cardSection__title">
+              {jobsDictionary.basicSalary}
+            </div>
             <div className="cardSection__body">{"basicSalary"}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Salary For</div>
+            <div className="cardSection__title">
+              {" "}
+              {jobsDictionary.salaryFor}
+            </div>
             <div className="cardSection__body">{"user.name"}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Effective Date</div>
+            <div className="cardSection__title">
+              {" "}
+              {jobsDictionary.effectiveDate}
+            </div>
             <div className="cardSection__body">
               {moment("09-22-2022").format("Do MMM YY")}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Basic Salary</div>
+            <div className="cardSection__title">
+              {" "}
+              {jobsDictionary.basicSalary}
+            </div>
             <div className="cardSection__body">{"basicSalary"}</div>
           </div>
         </div>

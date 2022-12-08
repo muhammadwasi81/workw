@@ -16,6 +16,9 @@ const en = {
     other: "Other",
     netSalary: "Net Salary",
     totalAmount: "Total Amount",
+    month: "Month",
+    approvals: "Approvals",
+    year: "Year",
   },
 
   /*** Define language write side ***/

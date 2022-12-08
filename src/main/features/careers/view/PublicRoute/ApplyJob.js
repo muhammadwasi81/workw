@@ -113,7 +113,7 @@ const ApplyJob = (props) => {
             </div>
             <div className="linkDiv">
               <Tag className="LinkTag ThemeBtn" onClick={handleDrawerOpen}>
-                {"Apply Now"}
+                {labels.applyNow}
               </Tag>
               {/* {props.isShowCopyBtn && (
               <CopyToClipboard
@@ -146,25 +146,27 @@ const ApplyJob = (props) => {
 
           <div className="cardSections mt-10">
             <div className="cardSectionItem">
-              <div className="cardSection__title">Salary Range</div>
+              <div className="cardSection__title"> {labels.salaryRange}</div>
               <div className="cardSection__body">
                 {minSalary ? `${minSalary} - ${maxSalary} ` : "-"}
               </div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">Effective Date</div>
+              <div className="cardSection__title">{labels.effectiveDate}</div>
               <div className="cardSection__body">
                 {createDate ? moment(createDate).format("Do MMM YY") : "-"}
               </div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">Experience Required</div>
+              <div className="cardSection__title">
+                {labels.experienceRequired}
+              </div>
               <div className="cardSection__body">
                 {experience ? experience : "-"}
               </div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">Job Expires</div>
+              <div className="cardSection__title"> {labels.jobExpires}</div>
               <div className="cardSection__body">
                 {" "}
                 {endDate ? moment(endDate).format("Do MMM YY") : "-"}

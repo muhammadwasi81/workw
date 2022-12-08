@@ -16,6 +16,9 @@ const urdu = {
     other: "دیگر",
     netSalary: "خالص تنخواہ",
     totalAmount: "کل رقم",
+    month: "مہینہ",
+    approvals: "منظوری",
+    year: "سال",
   },
 
   /*** Define language write side ***/

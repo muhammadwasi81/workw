@@ -25,6 +25,12 @@ const urdu = {
       deadline: "ڈیڈ لائن",
       publicProject: "پبلک پروجیکٹ",
       privateProject: "پرائیویٹ پروجیکٹ",
+      travel: "سفر",
+      referenceNo: "حوالہ نمبر",
+      category: "قسم",
+      status: "حالت",
+      creator: "خالق",
+      reason: "وجہ",
     },
     placeholders: {
       name: "نام درج کریں",

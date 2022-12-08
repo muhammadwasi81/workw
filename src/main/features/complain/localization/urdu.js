@@ -38,7 +38,12 @@ const urdu = {
     status: "حالت",
     date: "تاریخ",
     approvers: "منظور کرنے والے",
-
+    complaincategory: "شکایت کا زمرہ",
+    name: "نام",
+    enterCategoryName: "زمرہ کا نام درج کریں",
+    saveCategory: "زمرہ محفوظ کریں",
+    addCategory: "زمرہ شامل کریں",
+    clear: "صاف",
     loanPurpose: {
       vehicle: "گاڑی",
       personal: "ذاتی",

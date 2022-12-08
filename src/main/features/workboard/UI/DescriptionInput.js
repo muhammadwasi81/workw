@@ -111,7 +111,7 @@ function DescriptionInput({ todoData }) {
                 handleDescription("update");
               }}
             >
-              Save
+              {labels.save}
             </Button>
             <Button
               type="text"

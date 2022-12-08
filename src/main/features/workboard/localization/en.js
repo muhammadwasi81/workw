@@ -58,6 +58,12 @@ const en = {
       Board: "Board",
       uploadCoverPhoto: "Upload Cover Photo",
       edit: "Edit",
+      addCard: "Add Card",
+      section: "Section",
+      title: "title",
+      description: "Description",
+      labels: "Labels",
+      createdDate: "Created Date",
     },
     placeholder: {
       name: "Enter board name",

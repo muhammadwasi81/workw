@@ -16,7 +16,8 @@ function CompanyUpdate() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const { companyDictionary } = companyDictionaryList[userLanguage];
-  const labels = companyDictionary.companyDetail;
+  // const labels = companyDictionary.companyDetail;
+  const { companyDetail } = companyDictionary;
 
   const { "*": id } = useParams();
   console.log(id, "ID");
@@ -24,7 +25,7 @@ function CompanyUpdate() {
 
   const items = [
     {
-      name: "Company Detail",
+      name: companyDetail.companyDetails,
     },
   ];
   return (

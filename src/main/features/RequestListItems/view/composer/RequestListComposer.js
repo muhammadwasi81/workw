@@ -1,46 +1,46 @@
-import { Button, Form, Select } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
-import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
-import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
-import TextInput from '../../../../sharedComponents/Input/TextInput';
-import { getAllCustomApprovalCategory } from '../../../customApprovalCategory/store/actions';
-import { customApprovalDictionaryList } from '../../../CustomApprovals/localization';
-import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { getAllAssetCategories } from '../../../assetsCategory/store/actions';
-import { addRequestListItems } from '../../store/action';
-import { modifySelectData } from '../../../../../utils/base';
+import { Button, Form, Select } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import TextInput from "../../../../sharedComponents/Input/TextInput";
+import { getAllCustomApprovalCategory } from "../../../customApprovalCategory/store/actions";
+import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getAllAssetCategories } from "../../../assetsCategory/store/actions";
+import { addRequestListItems } from "../../store/action";
+import { modifySelectData } from "../../../../../utils/base";
+import { requestListDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 const initialState = {
-  id: '',
-  categoryId: '',
+  id: "",
+  categoryId: "",
   assetControllerStatus: 1,
   approvers: [
     {
-      approverId: '',
+      approverId: "",
       approverType: 0,
       isDefault: true,
       status: 1,
-      email: '',
+      email: "",
     },
   ],
   assetController: [
     {
-      approverId: '',
+      approverId: "",
       assetControllerStatus: 1,
     },
   ],
 };
 
 const Types = [
-  { name: 'Non-Consumable', id: 1 },
-  { name: 'Consumable', id: 2 },
-  { name: 'Service', id: 3 },
+  { name: "Non-Consumable", id: 1 },
+  { name: "Consumable", id: 2 },
+  { name: "Service", id: 3 },
 ];
 const Composer = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
+  const { Direction, requestListDictionary } = requestListDictionaryList[
     userLanguage
   ];
 
@@ -52,7 +52,7 @@ const Composer = () => {
   const [value, setValue] = useState([]);
 
   const { assetsData } = useSelector((state) => state.assetsCategorySlice);
-  console.log(assetsData, 'assetsData');
+  console.log(assetsData, "assetsData");
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const Composer = () => {
     handleMember(obj);
   };
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
   }, []);
 
   const handleMember = (val) => {
@@ -98,7 +98,7 @@ const Composer = () => {
   const onFinish = (values) => {
     let approvers = [];
     let assetController = [];
-    if (typeof values.approvers === 'string') {
+    if (typeof values.approvers === "string") {
       approvers.push({
         approverId: values.approvers,
       });
@@ -108,19 +108,19 @@ const Composer = () => {
           approverId: approver,
         };
       });
-      if (typeof values.assetController === 'string') {
+      if (typeof values.assetController === "string") {
         assetController.push({
           approverId: values.assetController,
         });
       } else {
         assetController = values.assetController.map((assetController) => {
-          console.log(assetController, 'assetController');
+          console.log(assetController, "assetController");
           return {
             approverId: assetController,
           };
         });
       }
-      console.log(values, 'values');
+      console.log(values, "values");
     }
     let payload = {
       ...values,
@@ -143,7 +143,7 @@ const Composer = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.error('Failed:', errorInfo);
+    console.error("Failed:", errorInfo);
   };
 
   return (
@@ -165,20 +165,20 @@ const Composer = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Please Select category"
+          label={requestListDictionary.selectCategory}
           name="categoryId"
           rules={[
             {
               required: true,
-              message: 'Please Select Category',
+              message: "Please Select Category",
             },
           ]}
         >
           <Select
-            placeholder="Please Select category"
+            placeholder={requestListDictionary.selectCategory}
             style={{
-              width: '100%',
-              borderRadius: '5px',
+              width: "100%",
+              borderRadius: "5px",
             }}
             size="large"
           >
@@ -191,20 +191,20 @@ const Composer = () => {
         </Form.Item>
 
         <Form.Item
-          label="Please Select Type"
+          label={requestListDictionary.selectType}
           name="type"
           rules={[
             {
               required: true,
-              message: 'Please Select Type',
+              message: "Please Select Type",
             },
           ]}
         >
           <Select
-            placeholder="Please Select Type"
+            placeholder={requestListDictionary.selectType}
             style={{
-              width: '100%',
-              borderRadius: '5px',
+              width: "100%",
+              borderRadius: "5px",
             }}
             size="large"
           >
@@ -217,34 +217,34 @@ const Composer = () => {
         </Form.Item>
 
         <Form.Item
-          label={'Quantity'}
+          label={requestListDictionary.quantity}
           name="quantity"
           labelPosition="top"
           rules={[
             {
               required: true,
-              message: 'Please Enter Quantity',
+              message: "Please Enter Quantity",
             },
           ]}
         >
-          <TextInput placeholder={'Enter Quantity'} />
+          <TextInput placeholder={requestListDictionary.quantity} />
         </Form.Item>
 
         <Form.Item
-          style={{ marginBottom: '0px' }}
+          style={{ marginBottom: "0px" }}
           name="approvers"
-          label={customApprovalDictionary.approvers}
+          label={requestListDictionary.approvers}
           showSearch={true}
           direction={Direction}
         >
           <CustomSelect
-            style={{ marginBottom: '0px' }}
+            style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={'Select Approvers'}
-            mode={'multiple'}
+            placeholder={requestListDictionary.selectApprovers}
+            mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -254,8 +254,8 @@ const Composer = () => {
                     name={opt.name}
                     src={opt.image}
                     round={true}
-                    width={'30px'}
-                    height={'30px'}
+                    width={"30px"}
+                    height={"30px"}
                   />
                   {opt.name}
                 </>
@@ -268,27 +268,27 @@ const Composer = () => {
             rules={[
               {
                 required: true,
-                message: 'Please Select Approvers',
+                message: "Please Select Approvers",
               },
             ]}
           />
         </Form.Item>
 
         <Form.Item
-          style={{ marginBottom: '0px' }}
+          style={{ marginBottom: "0px" }}
           name="assetController"
-          label="Controller"
+          label={requestListDictionary.controller}
           showSearch={true}
           direction={Direction}
         >
           <CustomSelect
-            style={{ marginBottom: '0px' }}
+            style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder="Select Assets Controller"
-            mode={'multiple'}
+            placeholder={requestListDictionary.controller}
+            mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -298,8 +298,8 @@ const Composer = () => {
                     name={opt.name}
                     src={opt.image}
                     round={true}
-                    width={'30px'}
-                    height={'30px'}
+                    width={"30px"}
+                    height={"30px"}
                   />
                   {opt.name}
                 </>
@@ -312,7 +312,7 @@ const Composer = () => {
             rules={[
               {
                 required: true,
-                message: 'Please Select Assets Controller',
+                message: "Please Select Assets Controller",
               },
             ]}
           />
@@ -325,9 +325,9 @@ const Composer = () => {
             className="ThemeBtn"
             block
             htmlType="submit"
-            title="Create Request"
+            title={requestListDictionary.createRequest}
           >
-            Create Request
+            {requestListDictionary.createRequest}
           </Button>
         </Form.Item>
       </Form>

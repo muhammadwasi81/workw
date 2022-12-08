@@ -26,6 +26,12 @@ const en = {
       deadline: "Deadline",
       publicProject: "Public Project",
       privateProject: "Private Project",
+      travel: "Travel",
+      referenceNo: "Reference No",
+      category: "Category",
+      status: "Status",
+      creator: "Creator",
+      reason: "Reason",
     },
     placeholders: {
       name: "Enter name",

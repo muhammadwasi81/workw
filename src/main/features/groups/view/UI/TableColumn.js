@@ -1,29 +1,34 @@
 import moment from "moment";
 import TagAvatar from "../../../../sharedComponents/Avatar/TagAvatar";
-export const tableColumn = () => {
-	return [
-		{ title: "Name", dataIndex: "name", ellipsis: true, sort: true },
-		{
-			title: "Description",
-			dataIndex: "description",
-			ellipsis: true,
-			sort: true,
-		},
-		{
-			title: "Creator",
-			dataIndex: "creator",
-			ellipsis: true,
-			render: creator => (
-				<TagAvatar text={creator.name} img={creator.image} />
-			),
-			sort: true,
-		},
-		{
-			title: "Create Date",
-			dataIndex: "createDate",
-			render: i => moment(i.createDate).format("DD MMM YYYY"),
-			ellipsis: true,
-			sort: true,
-		},
-	];
+export const tableColumn = (groupsDictionary) => {
+  return [
+    {
+      title: groupsDictionary.labels.name,
+      dataIndex: "name",
+      ellipsis: true,
+      sort: true,
+    },
+    {
+      title: groupsDictionary.labels.desc,
+      dataIndex: "description",
+      ellipsis: true,
+      sort: true,
+    },
+    {
+      title: groupsDictionary.labels.creator,
+      dataIndex: "creator",
+      ellipsis: true,
+      render: (creator) => (
+        <TagAvatar text={creator.name} img={creator.image} />
+      ),
+      sort: true,
+    },
+    {
+      title: groupsDictionary.labels.createDate,
+      dataIndex: "createDate",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
+      ellipsis: true,
+      sort: true,
+    },
+  ];
 };

@@ -1,47 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Button, Col, Form, Input, message, Row, Select } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
-import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
-import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
-import { customApprovalDictionaryList } from '../../../CustomApprovals/localization';
-import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { modifySelectData } from '../../../../../utils/base';
-import { DeleteOutlined } from '@ant-design/icons';
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Col, Form, Input, message, Row, Select } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import { customApprovalDictionaryList } from "../../../CustomApprovals/localization";
+import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { modifySelectData } from "../../../../../utils/base";
+import { DeleteOutlined } from "@ant-design/icons";
 import {
   addInventoryAsset,
   getAllInventoryAsset,
-} from '../../../createAssets/store/action';
+} from "../../../createAssets/store/action";
+import { assetsDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 const initialState = {
-  id: '',
-  description: '',
-  handoverId: '',
+  id: "",
+  description: "",
+  handoverId: "",
   approvers: [
     {
-      approverId: '',
+      approverId: "",
       approverType: 0,
       isDefault: true,
       status: 1,
-      email: '',
+      email: "",
     },
   ],
   assetItems: [
     {
-      id: '',
-      assetId: '',
-      itemId: '',
-      name: '',
-      code: '',
+      id: "",
+      assetId: "",
+      itemId: "",
+      name: "",
+      code: "",
     },
   ],
 };
 
 const AssetComposer = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
-    userLanguage
-  ];
+  const { assetsDictionary, Direction } = assetsDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -51,7 +50,7 @@ const AssetComposer = () => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [isFirstTimeInvLoaded, setIsFirstTimeInvLoaded] = useState(false);
   const [value, setValue] = useState([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [data, setData] = useState([]);
 
   const employees = useSelector((state) => state.sharedSlice.employees);
@@ -68,17 +67,17 @@ const AssetComposer = () => {
   };
 
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
   }, []);
 
   useEffect(() => {
-    fetchInventoryAssets('', 0);
+    fetchInventoryAssets("", 0);
   }, []);
 
   const changeData = (e) => {
     setInput(e);
     setData([...data, e]);
-    console.log(data, 'data');
+    console.log(data, "data");
   };
 
   const handleDelete = (index) => {
@@ -117,13 +116,13 @@ const AssetComposer = () => {
 
   const onFinish = (values) => {
     if (!values.handoverId) {
-      return message.error('Please fill all fields');
+      return message.error("Please fill all fields");
     }
 
     let approvers = [];
     let assetItems = [];
 
-    if (typeof values.approvers === 'string') {
+    if (typeof values.approvers === "string") {
       approvers.push({
         approverId: values.approvers,
       });
@@ -134,7 +133,7 @@ const AssetComposer = () => {
         };
       });
     }
-    if (typeof values.assetItems === 'string') {
+    if (typeof values.assetItems === "string") {
       assetItems.push({
         itemId: values.assetItems,
         name: values.assetItems,
@@ -154,7 +153,7 @@ const AssetComposer = () => {
         };
       }),
     };
-    console.log(payload, 'payload');
+    console.log(payload, "payload");
     dispatch(addInventoryAsset(payload));
     setState(initialState);
     form.resetFields();
@@ -162,7 +161,7 @@ const AssetComposer = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.error('Failed:', errorInfo);
+    console.error("Failed:", errorInfo);
   };
 
   const filteredAssetList = assetItemList.filter(
@@ -189,17 +188,17 @@ const AssetComposer = () => {
       >
         <Form.Item
           name="handover"
-          label="* Member"
+          label={assetsDictionary.member}
           showSearch={true}
           direction={Direction}
         >
           <CustomSelect
-            style={{ marginBottom: '0px' }}
+            style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={'Select Members'}
+            placeholder={assetsDictionary.selectMember}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -209,8 +208,8 @@ const AssetComposer = () => {
                     name={opt.name}
                     src={opt.image}
                     round={true}
-                    width={'30px'}
-                    height={'30px'}
+                    width={"30px"}
+                    height={"30px"}
                   />
                   {opt.name}
                 </>
@@ -223,27 +222,27 @@ const AssetComposer = () => {
             rules={[
               {
                 required: true,
-                message: 'Please Select Member',
+                message: "Please Select Member",
               },
             ]}
           />
         </Form.Item>
         <Form.Item
-          style={{ marginBottom: '0px' }}
+          style={{ marginBottom: "0px" }}
           name="approverId"
-          label={customApprovalDictionary.approvers}
+          label={assetsDictionary.approvers}
           showSearch={true}
           direction={Direction}
           rules={[{ required: false }]}
         >
           <CustomSelect
-            style={{ marginBottom: '0px' }}
+            style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={customApprovalDictionary.selectMember}
-            mode={'multiple'}
+            placeholder={assetsDictionary.selectMember}
+            mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -253,8 +252,8 @@ const AssetComposer = () => {
                     name={opt.name}
                     src={opt.image}
                     round={true}
-                    width={'30px'}
-                    height={'30px'}
+                    width={"30px"}
+                    height={"30px"}
                   />
                   {opt.name}
                 </>
@@ -266,30 +265,30 @@ const AssetComposer = () => {
             direction={Direction}
           />
         </Form.Item>
-        <Form.Item label="Description" name="description">
-          <Input.TextArea placeholder="Enter Description" />
+        <Form.Item label={assetsDictionary.description} name="description">
+          <Input.TextArea placeholder={assetsDictionary.enterDescription} />
         </Form.Item>
 
         <Col span={24}>
           <Form.Item
-            style={{ marginBottom: '5px' }}
+            style={{ marginBottom: "5px" }}
             name="category"
-            label="* Items"
+            label={assetsDictionary.items}
             showSearch={true}
             direction={Direction}
           />
           <Select
             name="Items"
-            placeholder="Please Select Items"
+            placeholder={assetsDictionary.selectItems}
             style={{
-              width: '100%',
-              borderRadius: '5px',
-              marginBottom: '10px',
+              width: "100%",
+              borderRadius: "5px",
+              marginBottom: "10px",
             }}
             size="large"
-            value={'Please Select Item'}
+            value={assetsDictionary.selectItems}
             filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
             onChange={(e) => {
               changeData(e);
@@ -314,12 +313,12 @@ const AssetComposer = () => {
                 <div
                   key={item.id}
                   style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    backgroundColor: '#f5f5f5',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    marginBottom: '10px',
+                    display: "flex",
+                    justifyContent: "space-between",
+                    backgroundColor: "#f5f5f5",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    marginBottom: "10px",
                   }}
                 >
                   <strong>
@@ -333,9 +332,9 @@ const AssetComposer = () => {
                     className="ThemeBtn"
                     block
                     style={{
-                      width: '45px',
-                      height: '35px',
-                      paddingBottom: '7px',
+                      width: "45px",
+                      height: "35px",
+                      paddingBottom: "7px",
                     }}
                     onClick={() => handleDelete(index)}
                   >
@@ -354,7 +353,7 @@ const AssetComposer = () => {
             htmlType="submit"
             title="Create Asset Allocation"
           >
-            Create Asset Allocation
+            {assetsDictionary.createAssetAllocation}
           </Button>
         </Form.Item>
       </Form>

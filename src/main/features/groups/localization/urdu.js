@@ -16,8 +16,10 @@ const urdu = {
       name: "نام",
       desc: "تفصیل",
       upload: "اپ لوڈ کریں",
-      public: "Public",
-      private: "Private",
+      public: "عوام",
+      private: "نجی",
+      createDate: "تاریخ بناؤ",
+      creator: "خالق",
     },
     placeHolders: {
       namePh: "نام درج کریں",

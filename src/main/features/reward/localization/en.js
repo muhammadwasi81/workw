@@ -36,11 +36,15 @@ const en = {
     list: "List",
     cancel: "Cancel",
     rewardCategory: "Reward Category",
+    enterrewardCategory: "Enter Reward Category",
     selectCategory: "Select Category",
     referenceNo: "Reference No",
     creator: "Creator",
     status: "Status",
     date: "Date",
+    addCategory: "Add Category",
+    saveCategory: "Save Category",
+    clear: "Clear",
 
     loanPurpose: {
       vehicle: "Vehicle",

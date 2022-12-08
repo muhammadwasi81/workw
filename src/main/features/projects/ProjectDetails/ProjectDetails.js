@@ -73,7 +73,7 @@ function ProjectDetails() {
 
   const panes = [
     {
-      title: `Travel`,
+      title: labels.travel,
       content: (
         <Travel
           referenceType={TravelReferenceTypeEnum.Project}

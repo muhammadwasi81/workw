@@ -37,15 +37,19 @@ export const tableColumn = (
   removeButtons = false,
   rights,
   id,
-  setClearButton
+  setClearButton,
+  sharedLabels
 ) => {
+
+  console.log("Helloooooo",sharedLabels);
+
   return [
-    { title: "name", dataIndex: "name", width: "15%", key: 1 },
-    { title: "Description", dataIndex: "description", width: "15%", key: 2 },
-    { title: "Start Month", dataIndex: "startMonth", width: "15%", key: 3 },
-    { title: "End Month", dataIndex: "endMonth", width: "15%", key: 4 },
-    { title: "Start Year", dataIndex: "startYear", width: "15%", key: 5 },
-    { title: "End Year", dataIndex: "endYear", width: "15%", key: 6 },
+    { title:[sharedLabels.name], dataIndex: "name", width: "15%", key: 1 },
+    { title:[sharedLabels.description], dataIndex: "description", width: "15%", key: 2 },
+    { title:[sharedLabels.startMonth], dataIndex: "startMonth", width: "15%", key: 3 },
+    { title:[sharedLabels.endMonth], dataIndex: "endMonth", width: "15%", key: 4 },
+    { title:[sharedLabels.startyear] , dataIndex: "startYear", width: "15%", key: 5 },
+    { title:[sharedLabels.endyear], dataIndex: "endYear", width: "15%", key: 6 },
     removeButtons
       ? {}
       : {

@@ -32,10 +32,11 @@ export const tableColumn = (
   removeButtons = false,
   rights,
   id,
-  setClearButton
+  setClearButton,
+  sharedLabels
 ) => {
   return [
-    { title: "Name", dataIndex: "name", width: "20%", key: 1 },
+    { title:[sharedLabels.name], dataIndex: "name", width: "20%", key: 1 },
     removeButtons
       ? {}
       : {

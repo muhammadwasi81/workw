@@ -7,6 +7,7 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { validateEmail } from "../../../../../utils/Shared/helper/validateEmail";
 import { dictionaryList } from "../../../../../utils/localization/languages";
+import { TravelDictionary} from "../../localization/index"
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addTravel } from "../../store/actions";
@@ -35,6 +36,8 @@ function NewTravelComposer(props) {
 
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Direction } = dictionaryList[userLanguage];
+	const { TravelDictionaryList } = TravelDictionary[userLanguage];
+    const {buttons} = TravelDictionaryList;
 
 	const [docs, setDocs] = useState();
 	const dispatch = useDispatch();
@@ -338,7 +341,7 @@ function NewTravelComposer(props) {
 					block
 					loading={loading}
 				>
-					Submit
+					{buttons.submit}
 				</Button>
 			</Form>
 		</Form.Provider>

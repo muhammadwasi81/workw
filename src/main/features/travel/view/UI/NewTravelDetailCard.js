@@ -1,8 +1,16 @@
 import moment from "moment";
-import React from "react";
+import React, { useState,useContext} from "react";
 import FlyLocation from "../../../../../content/svg/travel-location.svg";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { TravelDictionary} from "../../localization/index"
+
+
 
 function NewTravelDetailCard(props) {
+
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { Direction,TravelDictionaryList } = TravelDictionary[userLanguage];
+    const {labels}=TravelDictionaryList;
 	const { travel } = props;
 	const travelObj = {
 		1: "By Plane",
@@ -56,13 +64,13 @@ function NewTravelDetailCard(props) {
 			<hr />
 			<div className="flex justify-between p-2">
 				<span>
-					Hotel Required{" "}
+					{labels.hotelReq}{" "}
 					<span className="p-1 bg-primary-color text-white text-xs rounded text-semi-bold">
 						{travel?.isHotelRequired ? "Yes" : "No"}
 					</span>
 				</span>
 				<span>
-					TADA Applicable{" "}
+					{labels.tadaReq}{" "}
 					<span className="p-1 bg-primary-color text-white text-xs rounded text-semi-bold">
 						{travel?.isTADARequired ? "Yes" : "No"}
 					</span>

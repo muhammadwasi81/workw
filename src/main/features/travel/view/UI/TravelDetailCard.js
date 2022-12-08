@@ -1,7 +1,7 @@
 // import React from "react";
 // import { CloseCircleOutlined } from "@ant-design/icons";
 // import { Button } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 // import travelImage from "../../../../../content/svg/travelcard.svg";
 // import travelFly from "../../../../../content/svg/travelFly.svg";
 import ByShip from "../../../../../content/png/by_ship.png";
@@ -13,6 +13,11 @@ import moment from "moment";
 import { useMediaQuery } from "react-responsive";
 import "./card.css";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { TravelDictionary} from "../../localization/index"
+
+
 const initialValue = {
 	arrivalId: null,
 	departureId: null,
@@ -22,6 +27,11 @@ const initialValue = {
 	isTADARequired: null,
 };
 function TravelDetailCard(props) {
+
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { Direction,TravelDictionaryList } = TravelDictionary[userLanguage];
+    const {labels}=TravelDictionaryList;
+
 	const [cardDetail, setCardDetail] = useState(initialValue);
 	const isTablet = useMediaQuery({ minWidth: 640 });
 	const isMobile = useMediaQuery({ minWidth: 500 });
@@ -195,7 +205,7 @@ function TravelDetailCard(props) {
 							}
 						>
 							<span className="font-semibold">
-								Hotel Required{" "}
+						     	{labels.hotelReq}{" "}
 								<span className="bg-white bg-opacity-20 p-1 rounded-md">
 									{cardDetail.isHotelRequired &&
 									cardDetail.isHotelRequired
@@ -204,7 +214,7 @@ function TravelDetailCard(props) {
 								</span>
 							</span>
 							<span className="font-semibold">
-								TADA Applicable{" "}
+							          {labels.tadaReq}{" "}
 								<span className="bg-white bg-opacity-20 p-1 rounded-md">
 									{cardDetail.isTADARequired &&
 									cardDetail.isTADARequired

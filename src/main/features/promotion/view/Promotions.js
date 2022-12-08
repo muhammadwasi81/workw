@@ -29,6 +29,8 @@ const Promotion = (props) => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { promotionDictionary } = promotionDictionaryList[userLanguage];
+  const { tables } = promotionDictionary;
+
   const [promotionId, setPromotionId] = useState("");
 
   const [tableView, setTableView] = useState(false);
@@ -60,7 +62,7 @@ const Promotion = (props) => {
 
   const items = [
     {
-      name: "Promotions",
+      name: promotionDictionary.promotion,
       to: `${ROUTES.PROMOTION}`,
       renderButton: [1],
     },
@@ -75,8 +77,8 @@ const Promotion = (props) => {
             buttonText: "Create Promotion",
             render: (
               <SideDrawer
-                title={"Create Promotion"}
-                buttonText={"Create Promotion"}
+                title={promotionDictionary.createPromotion}
+                buttonText={promotionDictionary.createPromotion}
                 handleClose={() => dispatch(handleOpenComposer(false))}
                 handleOpen={() => dispatch(handleOpenComposer(true))}
                 isOpen={drawerOpen}
@@ -92,39 +94,39 @@ const Promotion = (props) => {
         }}
         buttons={[
           {
-            name: "Promotions",
+            name: promotionDictionary.promotion,
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: "Created By Me",
+            name: promotionDictionary.createdbyMe,
             onClick: () => setFilter({ filterType: 1 }),
           },
           {
-            name: "For Approval",
+            name: promotionDictionary.forApproval,
             onClick: () => setFilter({ filterType: 2 }),
           },
           {
-            name: "Promotion To Me",
+            name: promotionDictionary.promotionToMe,
             onClick: () => setFilter({ filterType: 3 }),
           },
         ]}
         segment={{
           onSegment: (value) => {
-            if (value === "Table") {
+            if (value === promotionDictionary.table) {
               setTableView(true);
             } else {
               setTableView(false);
             }
           },
-          label1: "List",
-          label2: "Table",
+          label1: promotionDictionary.list,
+          label2: promotionDictionary.table,
         }}
       />
       <ContBody>
         {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
         {tableView && (
-          <Table columns={tableColumn()} dragable={true} data={promotions} />
+          <Table columns={tableColumn(tables)} dragable={true} data={promotions} />
         )}
 
         {promotions?.length > 0 && !loader && !tableView ? (

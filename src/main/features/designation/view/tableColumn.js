@@ -29,11 +29,12 @@ export const tableColumn = (
 	handleDelete,
 	removeButtons = false,
 	rights,
-	id
+	id,
+	sharedLabels,
 ) => {
 	return [
-		{ title: "Name", dataIndex: "name", width: "20%" },
-		{ title: "Description", dataIndex: "description", width: "20%" },
+		{ title:[sharedLabels.name], dataIndex: "name", width: "20%" },
+		{ title:[sharedLabels.description],dataIndex: "description", width: "20%" },
 		removeButtons
 			? {}
 			: {

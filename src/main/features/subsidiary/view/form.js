@@ -1,6 +1,6 @@
 import './style.css';
 import { Input } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import {
   FormButton,
   FormButtonContainer,
@@ -11,6 +11,10 @@ import {
   FormLabel,
 } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
 
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+
+
 export default function Form({
   data,
   onSubmit,
@@ -18,6 +22,11 @@ export default function Form({
   clearButton,
   loading,
 }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,subsidiaryOffice, Direction  } = dictionaryList[userLanguage];
+		console.log("jkjll",administration.subsidiary);
+
   const [form, setForm] = useState(data);
   console.log('data', data);
   const handleClear = (e) => {
@@ -39,12 +48,16 @@ export default function Form({
   }, [data]);
   return (
     <FormContainer>
-      <FormHeader>Subsidiary</FormHeader>
+      <FormHeader>
+        {administration.subsidiaryOffice.Subsidiary}
+        </FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Title</FormLabel>
-          <Input
-            placeholder={'Enter Title'}
+          <FormLabel>
+            {administration.subsidiaryOffice.title}
+            </FormLabel>
+          <Input   
+            placeholder={administration.subsidiaryOffice.enterTitle}
             value={form.branchTitle}
             onChange={handelChangebranchTitle}
           />
@@ -62,7 +75,7 @@ export default function Form({
                 setClearButton(false);
               }}
             >
-              Save
+             {administration.subsidiaryOffice.save}
             </FormButton>
           </>
         ) : (
@@ -77,7 +90,7 @@ export default function Form({
             }}
             loading={loading}
           >
-            Add
+              {administration.subsidiaryOffice.Add}
           </FormButton>
         )}
         {clearButton && (
@@ -88,7 +101,7 @@ export default function Form({
             className="formBtn"
             onClick={handleClear}
           >
-            Clear
+            {administration.subsidiaryOffice.clear}
           </FormButton>
         )}
       </FormButtonContainer>

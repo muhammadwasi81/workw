@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import Composer from './BusinessPolicyComposer';
 import { Form, Collapse, Skeleton } from 'antd';
@@ -13,9 +13,18 @@ import { FormContainer } from './../../../sharedComponents/StyledComponents/admi
 import { FormHeader } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
 import { handleEdit } from '../store/slice';
 
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+
+
 const { Panel } = Collapse;
 
 const BusinessPolicy = () => {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,businessPolicy, Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isDefault, setIsDefault] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
@@ -54,15 +63,15 @@ const BusinessPolicy = () => {
   return (
     <>
       <FormContainer>
-        <FormHeader>Business Policies</FormHeader>
+        <FormHeader>{administration.businessPolicy.businesspolicy}</FormHeader>
         {loading ? (
           <Skeleton />
-        ) : (
+        ) : (             
           <>
             <div className="flex justify-end py-3 mr-3">
               <SideDrawer
-                title={editData ? 'Update Policy' : 'Create Policy'}
-                buttonText={'Create Policy'}
+                title={editData ? administration.businessPolicy.updatePolicy : administration.businessPolicy.createPolicy}
+                buttonText={administration.businessPolicy.createPolicy}
                 success={success}
                 openDrawer={openDrawer || !!editData}
                 handleClose={() => dispatch(handleEdit(null))}

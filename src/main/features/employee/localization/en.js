@@ -20,6 +20,8 @@ const en = {
       noticePeriod: "Enter Notice Period",
       selectDate: "Select Date",
       selectGender: "Select Gender",
+      selectCountry:"Select Country",
+      selectDesignation:"Select Designation",
       selectMarital: "Select Marital Status",
       selectShift: "Select Shift",
       empNo: "Enter Employee No",
@@ -145,6 +147,13 @@ const en = {
       AddMoreBank: "Add More Bank",
       AddBank: "Add Bank",
     },
+    tables: {
+			Id:"Id",
+      Name:"Name",
+      Email:"Email",
+      Grade:"Grade",
+      Designation:"Designation",
+		},
     EmployeeList: {
       number: "Number",
       email: "Email",

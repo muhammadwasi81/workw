@@ -2,8 +2,8 @@
 import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "api/BusinessPolicy/";
 
-export const addBusinessPolicyService = (data) => {
-  return MasterConfig.post(`${API_PREFIX}AddBusinessPolicy`, data)
+export const addTaxSlabGroupService = (data) => {
+  return MasterConfig.post(`api/TaxSlab/AddTaxSlabGroup`, data)
     .then((res) => {
       return res.data;
     })
@@ -12,15 +12,16 @@ export const addBusinessPolicyService = (data) => {
     });
 };
 
-export const getAllBusinessPolicyService = (search = "") => {
-  return MasterConfig.get(`${API_PREFIX}GetAllBusinessPolicy?search=${search}`)
+export const getAllTaxSlabGroupService = (data) => {
+  return MasterConfig.post(`api/TaxSlab/GetAllTaxSlabGroup`, data)
     .then((res) => {
       return res.data;
     })
-    .catch((error) => {
-      return error;
+    .catch((err) => {
+      return err;
     });
 };
+
 
 export const removeBusinessPolicyService = (id) => {
   return MasterConfig.delete(`${API_PREFIX}RemoveBusinessPolicy?id=${id}`)

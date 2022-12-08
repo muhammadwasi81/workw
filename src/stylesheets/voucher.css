@@ -7,10 +7,38 @@
   }
   
   .slabTable .createEntryTable table {
-    min-width: 672px;
+    min-width: 690px;
+    max-width: 690px;
   }
   .slabTable .createEntryTable {
     width: auto;
+  }
+  .slabTable .createEntryTable td {
+    width: 20px;
+    max-width: 20px;
+    padding: 5px;
+  }
+  .slabTable .anticon-delete {
+    margin-left: 5px;
+  }
+  .taxSlabComposer .addRowBtn {
+    width: max-content;
+    font-size: 25px;
+    height: 32px;
+    background: var(--currentThemeColor);
+    width: 35px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0;
+  }
+  .tableActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+    margin-bottom: 8px;
   }
 
   .createEntryTable {

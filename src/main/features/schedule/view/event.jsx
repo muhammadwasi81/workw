@@ -1,7 +1,10 @@
 import React from "react";
-import { Tag } from "antd";
+// import { Tag } from "antd";
 import moment from "moment";
 import { ScheduleTypeEnum } from "../enum/enum";
+import plane from "../../../../content/NewContent/Schedule/plane.svg";
+import calendar from "../../../../content/NewContent/Schedule/calendar.svg";
+import task from "../../../../content/NewContent/Schedule/task.svg";
 // import "../styles/event.css";
 function Event({ data, handleScheduleDetailComposer, showTag = false }) {
 	// const data = eventInfo?.event._def.extendedProps;
@@ -25,7 +28,19 @@ function Event({ data, handleScheduleDetailComposer, showTag = false }) {
 							}}
 						/>
 					</div>
-					{showTag && (data?.scheduleType === ScheduleTypeEnum.Task || data?.scheduleType === ScheduleTypeEnum.Travel) && (
+					<img
+						src={
+							data?.scheduleType === ScheduleTypeEnum.Task
+								? task
+								: data?.scheduleType ===
+								  ScheduleTypeEnum.Travel
+								? plane
+								: calendar
+						}
+						alt="icon"
+						className="h-[30px]"
+					/>
+					{/* {showTag && (data?.scheduleType === ScheduleTypeEnum.Task || data?.scheduleType === ScheduleTypeEnum.Travel) && (
 						<Tag
 							color={
 								data?.scheduleType === ScheduleTypeEnum.Task
@@ -38,7 +53,7 @@ function Event({ data, handleScheduleDetailComposer, showTag = false }) {
 						>
 							{data?.scheduleType === ScheduleTypeEnum.Task ? "Task" : "Travel"}
 						</Tag>
-					)}
+					)} */}
 				</div>
 			</div>
 		</div>

@@ -119,7 +119,6 @@ const AssetComposer = () => {
     if (!values.handoverId) {
       return message.error('Please fill all fields');
     }
-
     let approvers = [];
     let assetItems = [];
 
@@ -158,7 +157,6 @@ const AssetComposer = () => {
     dispatch(addInventoryAsset(payload));
     setState(initialState);
     form.resetFields();
-    setData([]);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -188,7 +186,7 @@ const AssetComposer = () => {
         autoComplete="off"
       >
         <Form.Item
-          name="handover"
+          name="handoverId"
           label="* Member"
           showSearch={true}
           direction={Direction}
@@ -230,7 +228,7 @@ const AssetComposer = () => {
         </Form.Item>
         <Form.Item
           style={{ marginBottom: '0px' }}
-          name="approverId"
+          name="approvers"
           label={customApprovalDictionary.approvers}
           showSearch={true}
           direction={Direction}
@@ -274,7 +272,7 @@ const AssetComposer = () => {
           <Form.Item
             style={{ marginBottom: '5px' }}
             name="category"
-            label="* Items"
+            label="* Select Items"
             showSearch={true}
             direction={Direction}
           />

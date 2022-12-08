@@ -173,7 +173,8 @@ function DetailCard(props) {
                     <DetailTabs
                         detailId={props.id}
                         RemarksApproval={
-                            <>
+                            <> 
+                               { approvers && approvers.length === 0 ? "" : 
                                 <RemarksApproval
                                     module={ApprovalsModule.RequisitionApproval}
                                     status={status}
@@ -183,9 +184,10 @@ function DetailCard(props) {
                                     }
                                     }
                                     data={approvers}
-                                    title={approvers && approvers.length === 0 ? "No Approvers available" : "Approvers"}
+                                    title={"Approvers"}
                                     className="ApproversRow"
                                 />
+                                }
                                 <RemarksApproval
                                     module={ApprovalsModule.RequisitionApproval}
                                     status={status}

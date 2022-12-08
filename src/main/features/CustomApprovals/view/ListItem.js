@@ -78,7 +78,7 @@ function ListItem(props) {
               toShow={1}
               onClick={() => {}}
               size={"50px"}
-            />
+            /> 
             {/* {attachments.map((i) => {
               return <img width={"100%"} src={i.path} />;
             })} */}

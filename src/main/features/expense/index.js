@@ -96,9 +96,6 @@ function Expenses({
         onSearch={(value) => {
           setFilter({ ...filter, search: value });
         }}
-        filter={{
-          onFilter: () => {},
-        }}
         buttons={[
           {
             name: labels.myExpense,

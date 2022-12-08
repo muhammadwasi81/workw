@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { AdminContainer } from "./../../sharedComponents/StyledComponents/admin";
 import { FormContainer } from "./../../sharedComponents/StyledComponents/adminForm";
-import { Collapse, Modal, Tooltip, Button } from "antd";
+import { Collapse, Modal, Tooltip, Button, Skeleton } from "antd";
 import { FormHeader } from "../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import "./styles.css";
 import { PlusCircleFilled } from "@ant-design/icons";
@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllEmployees } from "./../../../utils/Shared/store/actions";
 import Avatar from "../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "./../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import Content from "./view/content";
 import { defaultApproverDictionaryList } from "./localization/index";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 

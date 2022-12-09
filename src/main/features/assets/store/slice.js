@@ -23,23 +23,12 @@ const inventoryAssetSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // builder
-    // .addCase(getAllInventoryAsset.fulfilled, (state, action) => {
-    //   console.log(action.payload, 'getAllInventoryAsset slice');
-    //   state.inventoryAssets = action.payload ? action.payload : [];
-    //   state.success = true;
-    //   state.loader = false;
-    // });
     builder.addCase(getInventoryAssetById.fulfilled, (state, action) => {
-      console.log(action.payload.data, 'getInventoryAssetById slice');
+      console.log(action.payload, 'getInventoryAssetById slice');
+      state.loader = false;
       state.inventoryAssets = action.payload.data;
     });
-    // .addCase(addInventoryAsset.fulfilled, (state, { payload }) => {
-    //   state.inventoryAssets = [...state.inventoryAssets, payload.data.data];
-    //   state.success = true;
-    //   state.drawerAllocOpen = false;
-    //   console.log(state.drawerAllocOpen, 'state.drawerOpen');
-    // })
+
     builder
       .addMatcher(isPending(...[getAllInventoryAsset]), (state) => {
         state.loader = true;

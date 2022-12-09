@@ -46,7 +46,7 @@ const resignationSlice = createSlice({
       .addCase(addResignation.fulfilled, (state, { payload }) => {
         state.drawerOpen = false
         state.success = true
-        state.items = [...state.items, payload.data.data];
+        state.items = [payload.data.data, ...state.items];
       })
       .addMatcher(isPending(...[getAllResignations]), (state) => {
         state.loader = true;

@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
-import { ExpenseDictionary } from "../localization";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import { BiWorld } from "react-icons/bi";
-import moment from "moment";
-import { expenseCategory } from "../enums/expenseCategory";
-import Avatar from "../../../sharedComponents/Avatar/avatar";
-import { getStatusLabelAndColor } from "../../../sharedComponents/AppComponents/Approvals/enums";
-import { ApprovalDictionary } from "../../../sharedComponents/AppComponents/Approvals/localization";
-import Attachments from "../../travel/view/UI/Attachments";
+import React, { useContext } from 'react';
+import { ExpenseDictionary } from '../localization';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
+import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
+import { BiWorld } from 'react-icons/bi';
+import moment from 'moment';
+import { expenseCategory } from '../enums/expenseCategory';
+import Avatar from '../../../sharedComponents/Avatar/avatar';
+import { getStatusLabelAndColor } from '../../../sharedComponents/AppComponents/Approvals/enums';
+import { ApprovalDictionary } from '../../../sharedComponents/AppComponents/Approvals/localization';
+import Attachments from '../../travel/view/UI/Attachments';
 
 function ExpenseList({
   onExpense = () => {},
@@ -20,7 +20,7 @@ function ExpenseList({
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
   const { status: statusLabels } = ApprovalDictionary[userLanguage];
-  console.log(isDetail, "isDetaillll");
+  console.log(isDetail, 'isDetaillll');
   if (!Object || !Object?.keys(expense)?.length > 0) return null;
   const {
     creator: { name, image, designation },
@@ -39,10 +39,10 @@ function ExpenseList({
   } = expense;
 
   const { labels } = ExpenseDictionaryList;
-  let classes = "expenseCard ";
-  classes += Direction === "rtl" ? "rtl" : "";
+  let classes = 'expenseCard ';
+  classes += Direction === 'rtl' ? 'rtl' : '';
   const category = expenseCategory.filter((cate) => cate.id === categoryId)[0];
-  const { label, color } = getStatusLabelAndColor("", statusLabels)[
+  const { label, color } = getStatusLabelAndColor('', statusLabels)[
     updateStatus || status
   ];
 
@@ -77,7 +77,7 @@ function ExpenseList({
             key={{ data: attachments }}
             toShow={1}
             onClick={() => {}}
-            size={"50px"}
+            size={'50px'}
           />
         </div>
         <div className="expensedetail">
@@ -96,7 +96,7 @@ function ExpenseList({
           <div className="expensedetail__footer">
             <div className="left">
               <span>{labels.expenseDate}</span>
-              <span> {moment(expenseDate).format("ddd,MMM DD,YYYY")}</span>
+              <span> {moment(expenseDate).format('ddd,MMM DD,YYYY')}</span>
             </div>
             <div className="right">
               <span>{labels.header}:</span>
@@ -114,10 +114,10 @@ function ExpenseList({
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"approvers"}
+                  heading={'approvers'}
                   membersData={approvers}
-                  text={"Danish"}
-                  image={"https://joeschmoe.io/api/v1/random"}
+                  text={'Danish'}
+                  image={'https://joeschmoe.io/api/v1/random'}
                 />
               </div>
             </div>
@@ -127,10 +127,10 @@ function ExpenseList({
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"approvers"}
+                  heading={'approvers'}
                   membersData={executors}
-                  text={"Danish"}
-                  image={"https://joeschmoe.io/api/v1/random"}
+                  text={'Danish'}
+                  image={'https://joeschmoe.io/api/v1/random'}
                 />
               </div>
             </div>
@@ -140,17 +140,17 @@ function ExpenseList({
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"approvers"}
+                  heading={'approvers'}
                   membersData={financers}
-                  text={"Danish"}
-                  image={"https://joeschmoe.io/api/v1/random"}
+                  text={'Danish'}
+                  image={'https://joeschmoe.io/api/v1/random'}
                 />
               </div>
             </div>
           </div>
         </div>
       ) : (
-        ""
+        ''
       )}
     </div>
   );

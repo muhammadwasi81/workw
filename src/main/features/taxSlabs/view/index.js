@@ -1,69 +1,122 @@
-import { message } from 'antd';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import Composer from './Composer';
+import { Form, Collapse,} from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import '../style/style.css';
+import { GetAllTaxSlabGroup, removeBusinessPolicy } from '../store/action';
 import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
-import {
-  addTaxSlab,
-  getAllBranch,
-  getAllDefaultHiringCriteria,
-  getAllTaxSlab,
-  removeBranch,
-  removeDefaultHiringCriteria,
-  removeTaxSlab,
-  updateBranch,
-  updateDefaultHiringCriteria,
-  updateTaxSlab,
-} from '../store/actions';
-import Form from './form.js';
-import TableView from './table.js';
+import '../style/taxSlabsGroup.css';
+import { Table } from "../../../sharedComponents/customTable";
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { FormContainer } from '../../../sharedComponents/StyledComponents/adminForm';
+import { FormHeader } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+import { handleEdit } from '../store/slice';
+import { tableColumn } from "./TableColumn";
 
-export default function TaxSlab() {
-  const initialState = {
-    name: '',
-    min: '',
-    max: '',
-    percentage: '',
-    previousCharge: '',
-  };
-  const [taxSlab, setTaxSlab] = useState(initialState);
-  const [clearButton, setClearButton] = useState(false);
+const { Panel } = Collapse;
 
+const BusinessPolicy = () => {
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [isDefault, setIsDefault] = useState(false);
+  const [isEdited, setIsEdited] = useState(false);
+  const [filter, setFilter] = useState({  search: "", pageNo: 1, pageSize: 20  })
+  const [defaultData, setDefaultData] = useState('');
+  const [form] = Form.useForm();
+  const [id, setId] = useState('');
   const dispatch = useDispatch();
 
-  const handleDelete = (e) => {
-    dispatch(removeTaxSlab(e));
+  const { loader: loading, success, items, editData } = useSelector((state) => state.taxSlabGroupSlice);
+
+  useEffect(() => {
+    dispatch(GetAllTaxSlabGroup(filter));
+  }, [filter]);
+
+  const handleCollapse = (key) => {
+    
   };
 
-  const onSubmit = (e) => {
-    if ((e.name || e.min || e.max || e.percentage, e.previousCharge)) {
-      message.error('Please fill all required fields');
-    } else {
-      if (!e.id) {
-        dispatch(addTaxSlab(e));
-        dispatch(getAllTaxSlab());
-        setTaxSlab(initialState);
-        setClearButton(true);
-        return;
-      }
-      dispatch(updateTaxSlab(e));
-
-      setTaxSlab(initialState);
-    }
+  const handleRemove = (e, id) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(removeBusinessPolicy(id));
   };
+
+  const handleUpdate = (e, item) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(handleEdit(item));
+  };
+
   return (
-    <AdminContainer>
-      <Form
-        clearButton={clearButton}
-        setClearButton={setClearButton}
-        data={taxSlab}
-        onSubmit={onSubmit}
-      />
-      <TableView
-        handleEdit={setTaxSlab}
-        setClearButton={setClearButton}
-        handleDelete={handleDelete}
-        actionRights={[1, 2]}
-      />
-    </AdminContainer>
+    <div className='taxSlabGroupParent'>
+      <FormContainer>
+        <FormHeader>Tax Slabs</FormHeader>
+          <>
+            <div className="flex justify-end py-3 mr-3">
+              <SideDrawer
+                title={editData ? 'Update Tax Slab' : 'Create Tax Slab'}
+                buttonText={'Create'}
+                success={success}
+                openDrawer={openDrawer || !!editData}
+                handleClose={() => dispatch(handleEdit(null))}
+                setOpenDrawer={setOpenDrawer}
+                setIsEdited={setIsEdited}
+                form={form}
+                isAccessDrawer={true}
+                children={
+                  <Composer
+                    editData={editData}
+                    isDefault={isDefault}
+                    isEdited={isEdited}
+                    openDrawer={openDrawer}
+                    id={id}
+                    form={form}
+                    defaultData={defaultData}
+                  />
+                }
+              />
+            </div>
+            {items.length > 0 ? (
+              <AdminContainer>
+                {items?.map((item, ind) => {
+                  return (
+                    <>
+                      <Collapse defaultActiveKey={0} onChange={handleCollapse}>
+                        <Panel
+                          header={item.name}
+                          key={ind}
+                          extra={[
+                            <EditOutlined
+                              onClick={(e) => handleUpdate(e, item)}
+                            />,
+                            <DeleteOutlined
+                              onClick={(e) => handleRemove(e, item.id)}
+                            />,
+                          ]}
+                        >
+                          <div>
+                            <Table
+                              columns={tableColumn()}
+                              dragable={true}
+                              data={item.taxSlab && item.taxSlab}
+                            />
+                          </div>
+                        </Panel>
+                      </Collapse>
+                    </>
+                  );
+                })}
+              </AdminContainer>
+            ) : (
+              <div className="flex justify-center">
+                <strong>No Tax Slab Group...</strong>
+              </div>
+            )}
+          </>
+      </FormContainer>
+    </div>
   );
-}
+};
+
+export default BusinessPolicy;

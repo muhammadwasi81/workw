@@ -1,52 +1,88 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addTaxSlab, getAllBranch, getAllTaxSlab, updateBranch, updateTaxSlab } from "./actions.js";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import {
+  addTaxSlabGroup,
+  GetAllTaxSlabGroup,
+  removeBusinessPolicy,
+  updateBusinessPolicy,
+} from './action';
 
 const initialState = {
   items: [],
-  loadingData: false,
+  policyDetail: null,
   loader: false,
+  success: false,
+  error: false,
+  editData: null,
 };
 
-const taxSlabSlice = createSlice({
-  name: "items",
+const taxSlabGroupSlice = createSlice({
+  name: 'TaxSlabGroup',
   initialState,
   reducers: {
-    TaxSlabDeleted: (state, { payload }) => {
-      state.items = state.items.filter((e) => e.id !== payload.id);
+    handleOpenDetail: (state, action) => {
+      state.policyDetail = action.payload;
+    },
+    businessDeleted: (state, { payload }) => {
+      state.items = state.items.filter(
+        (e) => e.id !== payload
+      );
+    },
+    handleEdit: (state, { payload }) => {
+      state.editData = payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllTaxSlab.fulfilled, (state, { payload }) => {
-        state.loadingData = false;
-        state.items = payload.data;
-      })
-      .addCase(addTaxSlab.fulfilled, (state, { payload }) => {
+      .addCase(addTaxSlabGroup.fulfilled, (state, { payload }) => {
+        state.items.push(payload.data);
+        state.success = true;
         state.loader = false;
-          // state.items.push(payload.data);
       })
-      .addCase(updateTaxSlab.fulfilled, (state, { payload }) => {
+      .addCase(GetAllTaxSlabGroup.fulfilled, (state, { payload }) => {
+        state.items = [...payload];
+        // state.policyDetail = payload.data[0];
         state.loader = false;
-        state.items = state.items.map((x) =>
-          x.id === payload.data.id ? payload.data : x
+      })
+      .addCase(removeBusinessPolicy.fulfilled, (state, { payload }) => {
+        state.items = state.items.filter(
+          (e) => e.id !== payload.data.id
         );
+        state.loader = false;
       })
-      .addMatcher(isPending(...[addTaxSlab, updateTaxSlab]), (state) => {
+      .addCase(updateBusinessPolicy.fulfilled, (state, { payload }) => {
+        state.items = state.items.map((e) =>
+          e.id === payload.data.id ? payload.data : e
+        );
+        state.loader = false;
+      })
+      .addMatcher(isPending(), (state) => {
         state.loader = true;
       })
-      .addMatcher(isPending(...[getAllTaxSlab]), (state) => {
-        state.loadingData = true;
+      .addMatcher(isRejected(), (state) => {
+        state.loader = false;
+        state.error = true;
       })
       .addMatcher(
-        isRejected(...[getAllTaxSlab, addTaxSlab, updateTaxSlab]),
+        isPending(...[addTaxSlabGroup, GetAllTaxSlabGroup]),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+        }
+      )
+      .addMatcher(
+        isRejected(...[addTaxSlabGroup, GetAllTaxSlabGroup]),
         (state) => {
           state.loader = false;
-          state.loadingData = false;
+          state.success = false;
+          state.error = true;
         }
       );
   },
 });
 
-export const { TaxSlabDeleted } = taxSlabSlice.actions;
-export default taxSlabSlice.reducer;
+export const {
+  handleOpenDetail,
+  businessDeleted,
+  handleEdit,
+} = taxSlabGroupSlice.actions;
+export default taxSlabGroupSlice.reducer;

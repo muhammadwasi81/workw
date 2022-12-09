@@ -48,11 +48,11 @@ export const addReward = createAsyncThunk(
 
 export const cancelReward = createAsyncThunk(
   "reward/cancelReward",
-  async (id, { dispatch, setState, rejectWithValue }) => {
-    const response = await cancelRewardService(id);
+  async (data, { dispatch, setState, rejectWithValue }) => {
+    const response = await cancelRewardService(data);
     if (response.data.responseCode === 1001) {
-      message.success("Reward canceled");
-      dispatch(cancelRewardSuccess({ rewardId: id }));
+      message.success("Reward Canceled");
+      dispatch(cancelRewardSuccess({ rewardId: data }));
       return response;
     } else {
       message.error(response.data.message);

@@ -24,10 +24,11 @@ import DefaultHiringCriteria from '../../careers/defaultHiringCriteria/view';
 import Subsidiary from '../../subsidiary/view';
 import SubsidiaryOffice from '../../subsidiaryOffice/view';
 import TaxSlab from '../../taxSlabs/view';
-import TaxSlabGroups from '../../taxSlabsGroup/view';
+// import TaxSlabGroups from '../../taxSlabsGroup/view';
 
 import Fiscalyear from '../../fiscalYear/view';
 import AssetsCategory from '../../assetsCategory/view/index';
+import DefaultApprovers from './../../defaultApprovers/index';
 
 const AdminRoutes = () => {
   return (
@@ -43,7 +44,7 @@ const AdminRoutes = () => {
         element={<DefaultHiringCriteria />}
       />
       <Route path={ROUTES.ADMINISTRATOR.TAX_SLAB} element={<TaxSlab />} />
-      <Route path={ROUTES.ADMINISTRATOR.TAX_SLAB_GROUP} element={<TaxSlabGroups />} />
+      {/* <Route path={ROUTES.ADMINISTRATOR.TAX_SLAB_GROUP} element={<TaxSlabGroups />} /> */}
       <Route
         path={ROUTES.ADMINISTRATOR.SUBSIDIARY_OFFICE}
         element={<SubsidiaryOffice />}
@@ -99,6 +100,10 @@ const AdminRoutes = () => {
         element={<CustomApprovalCategory />}
       />
       <Route path={ROUTES.ADMINISTRATOR.ALLOWANCES} element={<Allowance />} />
+      <Route
+        path={ROUTES.ADMINISTRATOR.DEFAULT_APPROVALS}
+        element={<DefaultApprovers />}
+      />
       <Route
         path={ROUTES.ADMINISTRATOR.JOB_SKILLS}
         element={<JobDescription />}

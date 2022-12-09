@@ -1,16 +1,16 @@
-import { Drawer, Skeleton } from "antd";
-import React, { useContext, useEffect, useState } from "react";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import Approval from "../../../sharedComponents/AppComponents/Approvals/view";
-import { ExpenseDictionary } from "../localization";
-import { useDispatch, useSelector } from "react-redux";
-import { getExpenseById } from "../store/actions";
+import { Drawer, Skeleton } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import Approval from '../../../sharedComponents/AppComponents/Approvals/view';
+import { ExpenseDictionary } from '../localization';
+import { useDispatch, useSelector } from 'react-redux';
+import { getExpenseById } from '../store/actions';
 import {
   ApprovalsModule,
   ApprovalStatus,
-} from "../../../sharedComponents/AppComponents/Approvals/enums";
-import { updateListExpenseStatus } from "../store/slice";
-import ExpenseDetailList from "./ExpenseDetailList";
+} from '../../../sharedComponents/AppComponents/Approvals/enums';
+import { updateListExpenseStatus } from '../store/slice';
+import ExpenseDetailList from './ExpenseDetailList';
 
 function ExpenseDetail({ id }) {
   const { expense, loadingData } = useSelector((state) => state.expenseSlice);

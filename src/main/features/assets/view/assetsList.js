@@ -4,6 +4,7 @@ import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
 import { clearAssetDetail } from '../../createAssets/store/slice';
 import AssetsDetailedView from './assetsDetailedView';
 import AssetsListItem from './assetsListItem';
+import { NoDataFound } from './../../../sharedComponents/NoDataIcon/index';
 
 const AssetsList = ({ data }) => {
   const dispatch = useDispatch();
@@ -25,9 +26,7 @@ const AssetsList = ({ data }) => {
           />
         ))
       ) : (
-        <div className="ml-auto">
-          <strong>No Result Found...</strong>
-        </div>
+        <NoDataFound />
       )}
       {<AssetsDetailedView onClose={onClose} id={itemId} />}
     </CardWrapper>

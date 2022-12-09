@@ -681,6 +681,7 @@ const Composer = props => {
 						img="Add Image"
 						position="flex-start"
 						uploadText={resignationDictionary.upload}
+						accept="image/png, image/gif, image/jpeg"
 					/>
 				</Form.Item>
 

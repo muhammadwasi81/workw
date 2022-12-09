@@ -1,26 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Input } from "antd";
-import Draggable from "react-draggable";
+import React, { useState, useEffect, useRef } from 'react';
+import { Input } from 'antd';
+import Draggable from 'react-draggable';
 import {
   MinusOutlined,
   CloseOutlined,
   PlusOutlined,
   SearchOutlined,
-} from "@ant-design/icons";
-import "antd/dist/antd.css";
-import CustomCard from "./CustomCard";
-import "../../style.css";
-import Nodata from "../../../../../../content/NewContent/eLearning/no_data.svg";
+} from '@ant-design/icons';
+import 'antd/dist/antd.css';
+import CustomCard from './CustomCard';
+import '../../style.css';
+import Nodata from '../../../../../../content/NewContent/eLearning/Nodata.svg';
 
 // *******import redux*******
-import { useSelector, useDispatch } from "react-redux";
-import { closeSticky, showStickyNote } from "../../store/stickySlice";
+import { useSelector, useDispatch } from 'react-redux';
+import { closeSticky, showStickyNote } from '../../store/stickySlice';
 // import sticky note actions
 import {
   addSticky,
   getAllStickyNotesAction,
   searchTitleDescAction,
-} from "../../store/actions";
+} from '../../store/actions';
 
 const StickyContainer = () => {
   // *********state for sticky notes*******
@@ -47,7 +47,7 @@ const StickyContainer = () => {
   // ********search handler***********
   const searchHandler = (e) => {
     let value = e.target.value;
-    if (search == "") {
+    if (search == '') {
       return notesList;
     } else {
       dispatch(getAllStickyNotesAction({ search: value }));
@@ -96,7 +96,7 @@ const StickyContainer = () => {
         defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
       >
-        <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>
+        <div className={`sticky_container ${!minimize ? 'minimize' : ''}`}>
           <div className="sticky-header handle">
             <div className="left_Icon">
               <PlusOutlined onClick={addStickyHandler} />
@@ -113,7 +113,7 @@ const StickyContainer = () => {
           </div>
 
           {/* <SearchBox /> */}
-          <div className={`search_Box ${!minimize ? "hide" : ""}`}>
+          <div className={`search_Box ${!minimize ? 'hide' : ''}`}>
             <Input
               placeholder="Search"
               // style={{ width: "300px" }}
@@ -121,7 +121,7 @@ const StickyContainer = () => {
               prefix={<SearchOutlined />}
             />
           </div>
-          <div className={`noteList-container ${!minimize ? "hide" : ""}`}>
+          <div className={`noteList-container ${!minimize ? 'hide' : ''}`}>
             {notesList.length > 0 ? (
               notesList.map((item) => (
                 <CustomCard
@@ -132,7 +132,7 @@ const StickyContainer = () => {
               ))
             ) : (
               <div className="flex items-center justify-center">
-                <img src={Nodata} width={200} />
+                <img src={Nodata} className="h-96 w-96" alt="no-data" />
               </div>
             )}
           </div>

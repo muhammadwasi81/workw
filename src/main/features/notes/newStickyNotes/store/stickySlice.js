@@ -63,6 +63,7 @@ export const stickySlice = createSlice({
         (it) => it.id === selectedId
       );
       state.listArray[currentIndex].isOpen = true;
+      state.openSticky = selectedId
     },
     handleChangeNote: (state, action) => {
       let updatedNote = action.payload;
@@ -115,7 +116,8 @@ export const stickySlice = createSlice({
       .addCase(addSticky.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        state.listArray = [payload, ...state.listArray];
+        state.listArray = [{ ...payload, isOpen: true }, ...state.listArray];
+        state.openSticky = payload.id;
       })
       .addCase(deleteStickyAction.fulfilled, (state) => {
         state.loader = false;
@@ -124,7 +126,6 @@ export const stickySlice = createSlice({
       .addCase(getAllStickyNotesAction.fulfilled, (state, action) => {
         state.listArray = action.payload;
       })
-
       .addCase(getStickyNoteDescAction.fulfilled, (state, action) => {
         // state.listArray = action.payload;
       })

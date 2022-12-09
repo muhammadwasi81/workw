@@ -98,98 +98,97 @@ const PostFooter = ({
 						/>
 					</span>
 
-					<a href={reactionCount}>{reactionCount}</a>
-				</div>
-				{commentCount > 0 && (
-					<div
-						className="commentCount"
-						onClick={() => {
-							setShowComments(true);
-						}}
-					>
-						<div className="hover:underline cursor-pointer">
-							{commentCount} &nbsp;
-							{commentCount === 1 ? " Comment" : Comments}
-						</div>
-					</div>
-				)}
-			</div>
-			<div className="post-events">
-				<div
-					className={`btn on`}
-					onClick={() => handleAddReaction(myReaction, id)}
-				>
-					<Reactions
-						direction={Direction}
-						onUpdate={e => {
-							dispatch(
-								addFeedReaction({
-									referenceId: id,
-									reactionModule,
-									myReaction: e,
-									isDetail,
-								})
-							);
-							dispatch(
-								addReaction({
-									referenceId: id,
-									reactionModule,
-									myReaction: e,
-								})
-							);
-						}}
-						// onLikeBtnClick={() =>
-						// 	handleAddReaction(myReaction, id)
-						// }
-					>
-						<div className={`btn on`}>
-							<span>
-								<img
-									className={
-										ReactionType.Like === myReaction ||
-										ReactionType.NoReaction === myReaction
-											? "w-[20px] h-[30px]"
-											: " w-[30px] h-[30px]"
-									}
-									src={reactions[myReaction]}
-									alt={reactionDescription[myReaction]}
-								/>
-							</span>
-							<div
-								className={`text-[${reactionColor[myReaction]}]`}
-								style={{ color: reactionColor[myReaction] }}
-							>
-								{reactionDescription[myReaction]}
-							</div>
-						</div>
-					</Reactions>
-				</div>
-				<div
-					className="btn"
-					onClick={() => {
-						setShowComments(true);
-					}}
-				>
-					<div>
-						<img src={CommentIcon} alt="" />
-					</div>
-					<div> {Comment}</div>
-				</div>
-				<Popover
-					placement="bottom"
-					content={<PostShareContent />}
-					trigger="click"
-					overlayClassName="share-feed__content w-[250px]"
-				>
-					<div className="btn">
-						<div>
-							<RiShareForwardLine className="text-3xl" />
-							{/* <img src={ShareIcon} alt="" /> */}
-						</div>
-						<div> {Share}</div>
-					</div>
-				</Popover>
-			</div>
+          <a href={reactionCount}>{reactionCount}</a>
+        </div>
+        {commentCount > 0 && (
+          <div
+            className="commentCount"
+            onClick={() => {
+              setShowComments(true);
+            }}
+          >
+            <div className="hover:underline cursor-pointer">
+              {commentCount} &nbsp;
+              {commentCount === 1 ? " Comment" : Comments}
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="post-events">
+        <div
+          className={`btn on`}
+          onClick={() => handleAddReaction(myReaction, id)}
+        >
+          <Reactions
+            direction={Direction}
+            onUpdate={(e) => {
+              dispatch(
+                addFeedReaction({
+                  referenceId: id,
+                  reactionModule,
+                  myReaction: e,
+                })
+              );
+              dispatch(
+                addReaction({
+                  referenceId: id,
+                  reactionModule,
+                  myReaction: e,
+                })
+              );
+            }}
+            // onLikeBtnClick={() =>
+            // 	handleAddReaction(myReaction, id)
+            // }
+          >
+            <div className={`btn on`}>
+              <span>
+                <img
+                  className={
+                    ReactionType.Like === myReaction ||
+                    ReactionType.NoReaction === myReaction
+                      ? "w-[20px] h-[30px]"
+                      : " w-[30px] h-[30px]"
+                  }
+                  src={reactions[myReaction]}
+                  alt={reactionDescription[myReaction]}
+                />
+              </span>
+              <div
+                className={`text-[${reactionColor[myReaction]}]`}
+                style={{ color: reactionColor[myReaction] }}
+              >
+                {reactionDescription[myReaction]}
+              </div>
+            </div>
+          </Reactions>
+        </div>
+        <div
+          className="btn"
+          onClick={() => {
+            setShowComments(true);
+          }}
+        >
+          <div>
+            <img src={CommentIcon} alt="" />
+          </div>
+          <div> {Comment}</div>
+        </div>
+		<PostShareContent postId={id}/>
+        {/* <Popover
+          placement="bottom"
+          content={<PostShareContent />}
+          trigger="click"
+          overlayClassName="share-feed__content w-[250px]"
+        >
+          <div className="btn">
+            <div>
+              <RiShareForwardLine className="text-3xl" />
+            </div>
+            <div> {Share}</div>
+          </div>
+        </Popover> */}
+      </div>
 
 			<CommentWrapper
 				placeHolder={WriteYourCommentHere}

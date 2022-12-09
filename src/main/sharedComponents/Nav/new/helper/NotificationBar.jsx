@@ -82,8 +82,13 @@ function NotificationBar() {
         <ul className="list">
           <li className="list__item">
             <img
-              alt=""
-              src={theme ? sunIcon : moonIcon}
+              alt="theme-icon"
+              // src={theme ? sunIcon : moonIcon}
+              src={
+                theme
+                  ? 'https://img.icons8.com/color/2x/summer--v1.png'
+                  : 'https://img.icons8.com/parakeet/512/bright-moon.png'
+              }
               onClick={() => {
                 setTheme(!theme);
                 modeHandler(!theme);

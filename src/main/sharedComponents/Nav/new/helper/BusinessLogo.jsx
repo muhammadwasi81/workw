@@ -11,15 +11,20 @@ function BusinessLogo() {
   const dispatch = useDispatch();
   const { isDarkMode } = useSelector((state) => state.sharedSlice);
 
+  const [theme, setTheme] = useState(
+    window.localStorage.getItem('darkMode') === '1'
+  );
+
   useEffect(() => {
-    dispatch(darkModeHandler());
-    console.log('darkModeHandler', isDarkMode);
+    console.log('Dark Mode', isDarkMode);
+    setTheme(isDarkMode);
+    dispatch(darkModeHandler(isDarkMode));
   }, [isDarkMode]);
 
   return (
     <div className="businessLogo">
       <NavLink to={STRINGS.ROUTES.ROOT}>
-        <img src={isDarkMode ? blackLogo : whiteLogo} alt="dark-icon" />
+        <img src={theme ? whiteLogo : blackLogo} alt="dark-icon" />
       </NavLink>
     </div>
   );

@@ -1,6 +1,6 @@
 import "./style.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import {
 	FormButton,
 	FormButtonContainer,
@@ -10,6 +10,10 @@ import {
 	FormInputContainer,
 	FormLabel,
 } from "../../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../../utils/localization/languages";
+
 export default function Form({
 	data,
 	onSubmit,
@@ -17,6 +21,11 @@ export default function Form({
 	setClearButton,
 	clearButton,
 }) {
+
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,defaultHiringCriteria,sharedLabels,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration.grade.Grade);
+
 	const [form, setForm] = useState(data);
 
 	const handleClear = e => {
@@ -39,12 +48,12 @@ export default function Form({
 
 	return (
 		<FormContainer>
-			<FormHeader>Default Hiring Criteria</FormHeader>
+			<FormHeader>{administration.defaultHiringCriteria.default}</FormHeader>
 			<FormInputContainer>
 				<FormInput>
-					<FormLabel>Question</FormLabel>
+					<FormLabel>{administration.defaultHiringCriteria.question}</FormLabel>
 					<Input
-						placeholder={"Enter Question"}
+						placeholder={administration.defaultHiringCriteria.enterQuestions}
 						value={form.question}
 						onChange={handelChangeQuestion}
 					/>
@@ -63,7 +72,7 @@ export default function Form({
 								setClearButton(false);
 							}}
 						>
-							Save Question
+							{administration.defaultHiringCriteria.save}
 						</FormButton>
 					</>
 				) : (
@@ -78,7 +87,7 @@ export default function Form({
 						}}
 						loading={loading}
 					>
-						Add Question
+							{administration.defaultHiringCriteria.Add}
 					</FormButton>
 				)}
 				{clearButton && (
@@ -89,7 +98,7 @@ export default function Form({
 						className="formBtn"
 						onClick={handleClear}
 					>
-						Clear
+							{administration.defaultHiringCriteria.clear}
 					</FormButton>
 				)}
 			</FormButtonContainer>

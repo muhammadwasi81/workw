@@ -28,6 +28,8 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { warningDictionary } = warningDictionaryList[userLanguage];
+  const {tables} = warningDictionary;
+
   const [detailId, setDetailId] = useState(false);
   const [tableView, setTableView] = useState(false);
   const isTablet = useMediaQuery({ maxWidth: 800 });
@@ -51,7 +53,7 @@ const Warning = (props) => {
 
   const items = [
     {
-      name: "Warning",
+      name:warningDictionary.warning,
       to: `${ROUTES.WARNINGS.DEFAULT}`,
       renderButton: [1],
     },
@@ -70,8 +72,8 @@ const Warning = (props) => {
             buttonText: "Create Warning",
             render: (
               <SideDrawer
-                title={"Create Warning"}
-                buttonText={"Create Warning"}
+                title={warningDictionary.createWarning}
+                buttonText={warningDictionary.createWarning}
                 handleClose={() => dispatch(handleOpenComposer(false))}
                 handleOpen={() => dispatch(handleOpenComposer(true))}
                 isOpen={drawerOpen}
@@ -87,39 +89,39 @@ const Warning = (props) => {
         }}
         buttons={[
           {
-            name: "Warnings",
+            name: warningDictionary.warning,
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: "Created By Me",
+            name: warningDictionary.createdByMe,
             onClick: () => setFilter({ filterType: 1 }),
           },
           {
-            name: "For Approval",
+            name: warningDictionary.forApproval,
             onClick: () => setFilter({ filterType: 2 }),
           },
           {
-            name: "Warning To Me",
+            name:warningDictionary.warningToMe,
             onClick: () => setFilter({ filterType: 3 }),
           },
         ]}
         segment={{
           onSegment: (value) => {
-            if (value === "Table") {
+            if (value === warningDictionary.table) {
               setTableView(true);
             } else {
               setTableView(false);
             }
           },
-          label1: "List",
-          label2: "Table",
+          label1: warningDictionary.list,
+          label2: warningDictionary.table,
         }}
       />
       <ContBody>
         {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
         {tableView && (
-          <Table columns={tableColumn()} dragable={true} data={warnings} />
+          <Table columns={tableColumn(tables)} dragable={true} data={warnings} />
         )}
 
         {warnings?.length > 0 && !loader && !tableView ? (

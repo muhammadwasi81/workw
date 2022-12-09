@@ -1,10 +1,15 @@
 import { Table, Checkbox, TimePicker, InputNumber  } from "antd";
-import { useEffect } from "react";
+import { useEffect ,useContext} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllOfficeTimingGroups } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import moment from "moment";
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../utils/localization/languages";
+
+
 
 const expandedRowRender = (officeTimingGroup) => {
   console.log(officeTimingGroup)
@@ -116,6 +121,11 @@ export default function OfficeTimingTable({
   removeButtons,
   actionRights = [],
 }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,office,sharedLabels,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const { officeTimingGroups, loadingData } = useSelector((state) => state.officeTimingSlice);
 
   const dispatch = useDispatch();
@@ -130,7 +140,8 @@ export default function OfficeTimingTable({
         handleEdit,
         handleDelete,
         removeButtons,
-        actionRights
+        actionRights,
+        sharedLabels,
       )}
       dataSource={officeTimingGroups}
       pagination={false}

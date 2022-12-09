@@ -22,11 +22,12 @@ export const tableColumn = (
   handleEdit,
   handleDelete,
   removeButtons = false,
-  rights
+  rights,
+  sharedLabels
 ) => {
   return [
-    { title: "Name", dataIndex: "name", width: "50%" },
-    { title: "Description", dataIndex: "description", width: "50%" },
+    { title:[sharedLabels.name], dataIndex: "name", width: "50%" },
+    { title:[sharedLabels.description], dataIndex: "description", width: "50%" },
     // removeButtons
     //   ? {}
     //   : {

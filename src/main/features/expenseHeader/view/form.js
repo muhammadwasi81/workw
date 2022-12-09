@@ -1,6 +1,6 @@
 import "./expenseHeader.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -11,8 +11,20 @@ import {
   FormLabel,
   FormTextArea,
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../utils/localization/languages";
+
+
+
+
 export default function ExpenseHeaderForm({ data, onSubmit, loading, clearButton, setClearButton }) {
   const [form, setForm] = useState(data);
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,expense,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
 
   const handleClear = (e) => {
     setForm({...form, description: "", name: ""})
@@ -45,20 +57,28 @@ export default function ExpenseHeaderForm({ data, onSubmit, loading, clearButton
 
   return (
     <FormContainer>
-      <FormHeader>Expense Header</FormHeader>
+      <FormHeader>
+        {administration.expense.Expense}
+        </FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Expense Header</FormLabel>
+          <FormLabel>
+            {administration.expense.Expense}
+            </FormLabel>
           <Input
-            placeholder={"Enter Expense Header"}
+            placeholder= 
+            {administration.expense.enterExpense}
             value={form.name}
             onChange={handelChangeName}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Description</FormLabel>
+          <FormLabel>
+            {administration.expense.description}
+            </FormLabel>
           <FormTextArea
-            placeholder={"Enter Description"}
+            placeholder=
+            {administration.expense.enterDescription}
             value={form.description}
             onChange={handelChangeDescription}
           />
@@ -75,7 +95,7 @@ export default function ExpenseHeaderForm({ data, onSubmit, loading, clearButton
             className="formBtn"
             onClick={(e) => {onSubmit(form); setClearButton(false)}}
           >
-            Save Expense
+         {administration.expense.save}
           </FormButton>
           </>
         : 
@@ -90,7 +110,7 @@ export default function ExpenseHeaderForm({ data, onSubmit, loading, clearButton
           }}
           // loading={loading}
       >
-        Add Expense 
+       {administration.expense.Add}
       </FormButton>
         }
         {
@@ -102,7 +122,7 @@ export default function ExpenseHeaderForm({ data, onSubmit, loading, clearButton
               className="formBtn"
               onClick={handleClear}
             >
-              Clear 
+              {administration.expense.clear}
             </FormButton>
           }
       </FormButtonContainer>

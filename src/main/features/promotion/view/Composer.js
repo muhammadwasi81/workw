@@ -179,11 +179,11 @@ const Composer = (props) => {
           />
         </Form.Item>
         <div className="currentGrade">
-          <h5>Current Grade : </h5>
+          <h5>{promotionDictionary.currentGrades}: </h5>
           <h5>&nbsp;&nbsp;{previousGrade && previousGrade}</h5>
         </div>
         <Form.Item
-          label={"New Grade"}
+         label={promotionDictionary.newGrade}
           name="gradeId"
           rules={[
             {
@@ -194,7 +194,7 @@ const Composer = (props) => {
         >
           <Select
             data={grades}
-            placeholder={"Grades"}
+            placeholder={promotionDictionary.grades}
             style={{
               width: "100%",
               borderRadius: "5px",

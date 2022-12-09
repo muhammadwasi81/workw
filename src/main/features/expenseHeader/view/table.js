@@ -1,10 +1,14 @@
 import { Skeleton } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllExpense, removeExpense } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import { expenseDeleted } from "../store/slice";
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../utils/localization/languages";
+
 
 export default function ExpenseHeaderTable({
   handleEdit,
@@ -12,6 +16,11 @@ export default function ExpenseHeaderTable({
   actionRights = [],
   setClearButton
 }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,taxSlab,sharedLabels,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const { expenseHeaders, loadingData } = useSelector((state) => state.expenseHeaderSlice);
 
   const dispatch = useDispatch();
@@ -47,7 +56,8 @@ export default function ExpenseHeaderTable({
         removeButtons,
         actionRights,
         id,
-        setClearButton
+        setClearButton,
+        sharedLabels,
       )}
       dataSource={expenseHeaders}
       pagination={false}

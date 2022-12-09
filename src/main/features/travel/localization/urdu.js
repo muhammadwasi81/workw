@@ -20,7 +20,15 @@ const urdu = {
 			traveDepartlPh: "کہاں سے سفر کر رہے ہیں",
 			travelDestPh: "کہاں جانا ہے",
 			specialRequestPh: "خصوصی درخواست کی تفصیل لکھیں",
+			destinationCity:"منزل شہر تلاش کریں۔",
+			departureCity:"روانگی کا شہر تلاش کریں۔",
+			reason:"وجہ درج کریں۔",
+			selectDate:"تاریخ منتخب کریں۔",
 		},
+		buttons:{
+			submit:"جمع کرائیں",
+		},
+
 		headings: {
 			description: "تفصیل",
 			type: "قسم",

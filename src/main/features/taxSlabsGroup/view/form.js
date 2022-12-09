@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import "./style.css";
 import { Input, InputNumber, Select } from "antd";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,10 +14,19 @@ import {
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import { getCountries } from "../../../../utils/Shared/store/actions";
 
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+
+
   const Form = ({data,onSubmit,loading,setClearButton,clearButton, }) => {
 
   const dispatch = useDispatch();
   const [form, setForm] = useState(data);
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,taxSlab, Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration.grade.Grade);
+
 
   const { Option } = Select;
   const { countries } = useSelector((state) => state.sharedSlice);
@@ -71,20 +80,20 @@ import { getCountries } from "../../../../utils/Shared/store/actions";
 
   return (
     <FormContainer>
-      <FormHeader>Tax Slabs Group</FormHeader>
+      <FormHeader>{administration.taxSlab.TaxSlabgroup}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Name</FormLabel>
+          <FormLabel>{administration.taxSlab.name}</FormLabel>
           <Input
-            placeholder={"Enter Name"}
+            placeholder={administration.taxSlab.enterName}
             value={form.name}
             onChange={handelChangeName}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Description</FormLabel>
+          <FormLabel>{administration.taxSlab.description}</FormLabel>
           <FormTextArea
-            placeholder={"Enter Description"}
+            placeholder={administration.taxSlab.enterDescription}
             value={form.description}
             onChange={handelChangeDescription}
           />
@@ -92,14 +101,14 @@ import { getCountries } from "../../../../utils/Shared/store/actions";
 
          <FormInput
             showSearch={true}
-            placeholder="Please select country."
+            placeholder={administration.taxSlab.enterCountry}
             size="large"
             //name="countryId"
             //label={"Country"}
             rules={[{ required: true }]}
             // value={form.countryId}
           >
-          <FormLabel>Country</FormLabel>
+          <FormLabel>{administration.taxSlab.country}</FormLabel>
           <Select
             //showSearch={true}
             // placeholder="Please select country."
@@ -127,7 +136,7 @@ import { getCountries } from "../../../../utils/Shared/store/actions";
 								setClearButton(false);
 							}}
             >
-              Save
+             {administration.taxSlab.save}
             </FormButton>
           </>
         ) : (
@@ -142,7 +151,7 @@ import { getCountries } from "../../../../utils/Shared/store/actions";
 						}}
             loading={loading}
           >
-            Add
+           {administration.taxSlab.Add}
           </FormButton>
         )}
         {clearButton && (
@@ -153,7 +162,7 @@ import { getCountries } from "../../../../utils/Shared/store/actions";
             className="formBtn"
            // onClick={handleClear}
           >
-            Clear
+           {administration.taxSlab.clear}
           </FormButton>
         )}
       </FormButtonContainer>

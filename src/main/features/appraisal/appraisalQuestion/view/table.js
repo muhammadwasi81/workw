@@ -1,10 +1,14 @@
 import { Skeleton } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllQuestion, removeQuestion } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import { appraisalQuestionDeleted } from "../store/slice";
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../../utils/localization/languages";
+
 
 export default function AppraisalTable({
   handleEdit,
@@ -12,6 +16,11 @@ export default function AppraisalTable({
   actionRights = [],
   setClearButton
 }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,appraisal,sharedLabels,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const { appraisals, loadingData } = useSelector((state) => state.appraisalSlice);
 
   const dispatch = useDispatch();
@@ -48,7 +57,8 @@ export default function AppraisalTable({
         removeButtons,
         actionRights,
         id,
-        setClearButton
+        setClearButton,
+        sharedLabels,
       )}
       dataSource={appraisals}
       pagination={false}

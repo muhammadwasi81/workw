@@ -31,19 +31,21 @@ const Delete = (handleDelete, row) => {
 };
 
 export const tableColumn = (
+  taxSlab,
   handleEdit,
   handleDelete,
   removeButtons = false,
   rights,
   id,
-  setClearButton
+  setClearButton,
+  sharedLabels,
 ) => {
   return [
-    { title: "Name", dataIndex: "name", width: "20%", key: 1 },
-    { title: "Min", dataIndex: "min", width: "15%", key: 2 },
-    { title: "Max", dataIndex: "max", width: "15%", key: 3 },
-    { title: "Percentage", dataIndex: "percentage", width: "10%", key: 4 },
-    { title: "Previous Charge", dataIndex: "previousCharge", width: "20%", key: 5 },
+    { title: [sharedLabels.name], dataIndex: "name", width: "20%", key: 1 },
+    { title: [sharedLabels.min], dataIndex: "min", width: "15%", key: 2 },
+    { title: [sharedLabels.max], dataIndex: "max", width: "15%", key: 3 },
+    { title: [sharedLabels.percentage], dataIndex: "percentage", width: "10%", key: 4 },
+    { title: [sharedLabels.previousCharge], dataIndex: "previousCharge", width: "20%", key: 5 },
     removeButtons
       ? {}
       : {

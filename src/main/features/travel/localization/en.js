@@ -20,6 +20,10 @@ const en = {
 			traveDepartlPh: "Travel from",
 			travelDestPh: "Travel to",
 			specialRequestPh: "Write special request detail",
+			destinationCity:"Search destination city",
+			departureCity:"Search departure city",
+			reason:"Enter reason",
+			selectDate:"Select Date",
 		},
 		headings: {
 			description: "Description",
@@ -32,10 +36,10 @@ const en = {
 			departureDate:"Departure Date",
 			departureTime:"Departure time",
 			departureCity:"Departure City",
-			arrivalCity:"Departure City",
-
-
-
+			arrivalCity:"Arrival City",
+		},
+		buttons:{
+			submit:"submit",
 		},
 
 		labels: {

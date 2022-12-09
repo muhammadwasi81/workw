@@ -27,7 +27,7 @@ export const tableColumns = (
 	return Direction === "ltr"
 		? [
 				{
-					title: [sharedLabels.name],
+					title: sharedLabels.name,
 					dataIndex: "name",
 					ellipsis: true,
 				},

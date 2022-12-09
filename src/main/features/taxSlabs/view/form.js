@@ -1,6 +1,6 @@
 import './style.css';
 import { Input, InputNumber } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import {
   FormButton,
   FormButtonContainer,
@@ -10,6 +10,10 @@ import {
   FormInputContainer,
   FormLabel,
 } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+
 export default function Form({
   data,
   onSubmit,
@@ -17,6 +21,11 @@ export default function Form({
   setClearButton,
   clearButton,
 }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,taxSlab, Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration.grade.Grade);
+
   const [form, setForm] = useState(data);
   console.log(data, 'adadada');
   const handleClear = (e) => {
@@ -84,45 +93,45 @@ export default function Form({
 
   return (
     <FormContainer>
-      <FormHeader>Tax Slabs</FormHeader>
+      <FormHeader>{administration.taxSlab.TaxSlab}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Title</FormLabel>
+          <FormLabel>{administration.taxSlab.title}</FormLabel>
           <Input
-            placeholder={'Enter Title'}
+            placeholder={administration.taxSlab.enterTitle}          
             value={form.name}
             onChange={handelChangeName}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Min</FormLabel>
+          <FormLabel>{administration.taxSlab.min}</FormLabel>
           <InputNumber
-            placeholder={'Enter Min'}
+            placeholder={administration.taxSlab.enterMin}
             value={form.min}
             onChange={handelChangeMin}
             style={{ width: '100%' }}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Max</FormLabel>
+          <FormLabel>{administration.taxSlab.max}</FormLabel>
           <InputNumber
-            placeholder={'Enter Max'}
+            placeholder={administration.taxSlab.enterMin}
             value={form.max}
             onChange={handelChangeMax}
             style={{ width: '100%' }}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Percentage</FormLabel>
+          <FormLabel>{administration.taxSlab.percentage}</FormLabel>
           <InputNumber
-            placeholder={'Enter Percentage'}
+            placeholder={administration.taxSlab.enterPercent}
             value={form.percentage}
             onChange={handelChangePercentage}
             style={{ width: '100%' }}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Previous Charges</FormLabel>
+          <FormLabel>{administration.taxSlab.previousCharge}</FormLabel>
           <InputNumber
             placeholder={0}
             value={form.previousCharge}
@@ -144,7 +153,7 @@ export default function Form({
                 setClearButton(false);
               }}
             >
-              Save
+             {administration.taxSlab.save}
             </FormButton>
           </>
         ) : (
@@ -159,7 +168,7 @@ export default function Form({
             }}
             loading={loading}
           >
-            Add
+           {administration.taxSlab.Add}
           </FormButton>
         )}
         {clearButton && (
@@ -170,7 +179,7 @@ export default function Form({
             className="formBtn"
             onClick={handleClear}
           >
-            Clear
+           {administration.taxSlab.clear}
           </FormButton>
         )}
       </FormButtonContainer>

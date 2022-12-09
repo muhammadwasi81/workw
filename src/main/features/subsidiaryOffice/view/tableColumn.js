@@ -38,14 +38,15 @@ export const tableColumn = (
   removeButtons = false,
   rights,
   id,
-  setClearButton
+  setClearButton,
+  sharedLabels,
 ) => {
   return [
-    { title: 'Name', dataIndex: 'name', width: '20%', key: 1 },
-    { title: 'Branch', dataIndex: 'branchName', width: '15%', key: 2 },
-    { title: 'Address', dataIndex: 'address', width: '20%', key: 3 },
-    { title: 'Latitude', dataIndex: 'lat', width: '10%', key: 4 },
-    { title: 'Longitude', dataIndex: 'lng', width: '10%', key: 5 },
+    { title:[sharedLabels.name], dataIndex: 'name', width: '20%', key: 1 },
+    { title: [sharedLabels.branch], dataIndex: 'branchName', width: '15%', key: 2 },
+    { title: [sharedLabels.address], dataIndex: 'address', width: '20%', key: 3 },
+    { title: [sharedLabels.latitude], dataIndex: 'lat', width: '10%', key: 4 },
+    { title: [sharedLabels.longitude], dataIndex: 'lng', width: '10%', key: 5 },
     removeButtons
       ? {}
       : {

@@ -32,18 +32,20 @@ const Delete = (handleDelete, row) => {
 };
 
 export const tableColumn = (
+  taxSlab,
   handleEdit,
- handleDelete,
+  handleDelete,
   removeButtons = false,
   rights,
   id,
-  setClearButton
+  setClearButton,
+  sharedLabels,
 ) =>
 {
   return [
-    { title: "Name", dataIndex: "name", width: "20%", key: 1 },
-    { title: "Description", dataIndex: "description", width: "15%", key: 2 },
-    { title: "CountryName", dataIndex: "countryName", width: "15%", key: 3},
+    { title:'name', dataIndex: "name", width: "20%", key: 1 },
+    { title:'description', dataIndex: "description", width: "15%", key: 2 },
+    { title:'country', dataIndex: "countryName", width: "15%", key: 3},
     removeButtons
       ? {}
       : {

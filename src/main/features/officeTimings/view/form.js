@@ -1,5 +1,5 @@
 import { Input, Table, InputNumber, Checkbox, TimePicker } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -13,6 +13,10 @@ import {
 import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
 import moment from "moment";
 import "./officeTiming.css";
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../utils/localization/languages";
+
 
 
 const staticDataColumn = [
@@ -76,6 +80,11 @@ const staticDataColumn = [
 
 
 export default function OfficeTimingForm({ data, onSubmit, loading }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,office,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const initialState = { name: "", description: "", details: staticDataColumn };
   const [form, setForm] = useState(initialState);
   // const [timeTable, setTimeTable] = useState(staticDataColumn);
@@ -105,7 +114,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
 
   const OfficeTimingGroupColumn = [
     {
-      title: "Days",
+      title:administration.office.days,
       dataIndex: "name",
       className: "drag-td-name",
       width: "min-content",
@@ -114,7 +123,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
       align: 'center'
     },
     {
-      title: "Is Working",
+      title:administration.office.work,
       dataIndex: "isWorking",
       className: "drag-td-name",
       width: "min-content",
@@ -128,7 +137,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
       }
     },
     {
-      title: "Check In",
+      title:administration.office.checkIn,
       dataIndex: "checkIn",
       className: "drag-td-name",
       width: "min-content",
@@ -150,7 +159,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
       }
     },
     {
-      title: "Check Out",
+      title:administration.office.checkOut,
       dataIndex: "checkOut",
       className: "drag-td-name",
       width: "min-content",
@@ -172,7 +181,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
       }
     },
     {
-      title: "Grace Time",
+      title:administration.office.time,
       dataIndex: "graceTime",
       className: "drag-td-name",
       width: "min-content",
@@ -189,7 +198,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
                 defaultValue={graceTime}
                 onChange={(e) => handleChangeTable(e, row, "graceTime")}
               />
-            min
+          {administration.office.min}
           </>
         );
       }
@@ -203,20 +212,20 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
   return (
     <AdminContainer>
       <FormContainer>
-        <FormHeader>Office Timings</FormHeader>
+        <FormHeader>{administration.office.Office_Timing}</FormHeader>
         <FormInputContainer>
           <FormInput>
-            <FormLabel>Group Name</FormLabel>
+            <FormLabel>{administration.office.group}</FormLabel>
             <Input
-              placeholder={"Enter Group Name"}
+              placeholder={administration.office.enterGroup}
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
           </FormInput>
           <FormInput>
-            <FormLabel>Description</FormLabel>
+            <FormLabel>{administration.office.description}</FormLabel>
             <FormTextArea
-              placeholder={"Enter Description"}
+              placeholder={administration.office.enterDescription}
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
             />
@@ -234,7 +243,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
                   // onClick={(e) => onSubmit({...form, details:timeTable})}
                   onClick={(e) => console.log(form)}
                 >
-                  Save Office Timings
+                  {administration.office.save}
                 </FormButton>
                 <FormButton
                   type="primary"
@@ -243,7 +252,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
                   className="formBtn"
                   onClick={(e) => setForm({ ...form, description: "", name: "" })}
                 >
-                  Clear
+                 {administration.office.clear}
                 </FormButton>
               </>
               :
@@ -255,7 +264,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
                 onClick={(e) => onSubmit(form)}
               // loading={loading}
               >
-                Add Office Timings
+                {administration.office.Add}
               </FormButton>
           }
         </FormButtonContainer>

@@ -4,6 +4,7 @@ import { Avatar, Select } from "antd";
 // import { useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 import { getNameForImage } from "../../../../../utils/base";
+import { filter } from "lodash";
 // import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 // import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 // import { getNameForImage } from "../../../../utils/base";
@@ -16,6 +17,7 @@ function AssignMemberModal({
 	placeholder = "Search",
 	selectedMembers = [],
 	handleDeleteMember = () => {},
+	leadManagerDetail = {},
 }) {
 	const { Option } = Select;
 
@@ -25,6 +27,7 @@ function AssignMemberModal({
 		);
 		onChange("", filterArrOfObj);
 	};
+	// console.log("leadManagerDetail", leadManagerDetail);
 	return (
 		<>
 			<Select
@@ -38,25 +41,35 @@ function AssignMemberModal({
 				showSearch={true}
 				optionFilterProp="children"
 			>
-				{defaultData.map(data => (
-					<>
-						<Option key={data.member.id} value={data.member.id}>
-							<Avatar
-								src={data.member.image}
-								className="!bg-black !mr-3"
-							>
-								{getNameForImage(data.member.name)}
-							</Avatar>
-							{data.member.name}
-						</Option>
-					</>
-				))}
+				{defaultData
+					.filter(
+						value =>
+							!selectedMembers
+								.map(item => item.id)
+								.includes(value.member.id)
+					)
+					.map((data, index) => (
+						<>
+							<Option key={index} value={data.member.id}>
+								<Avatar
+									src={data.member.image}
+									className="!bg-black !mr-3"
+								>
+									{getNameForImage(data.member.name)}
+								</Avatar>
+								{data.member.name}
+							</Option>
+						</>
+					))}
 			</Select>
 
 			<hr className="my-2" />
 			<div className="max-h-96 overflow-y-auto">
-				{selectedMembers.map(element => (
-					<div className="flex justify-between border-b py-3 border-b-neutral-300">
+				{selectedMembers.map((element, index) => (
+					<div
+						className="flex justify-between border-b py-3 border-b-neutral-300"
+						key={index}
+					>
 						<div className="flex gap-3">
 							<Avatar src={""} className="!bg-black">
 								{getNameForImage(element.name)}

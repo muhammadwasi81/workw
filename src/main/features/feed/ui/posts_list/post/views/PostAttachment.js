@@ -17,7 +17,7 @@ import { getFile } from "../../../../../travel/view/AttachmentsCarrousel/Attachm
 import { fileExtentionPreview } from "../../../../../travel/utils/fileExtentionHelper";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Zoom, Thumbs]);
 
-function PostAttachment({ attachments, onOpen }) {
+function PostAttachment({ attachments, onOpen, isDetail }) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	return (
 		<div className="slider-container cursor-pointer">
@@ -57,7 +57,7 @@ function PostAttachment({ attachments, onOpen }) {
 										className="flex justify-center items-center w-full"
 										onClick={() => onOpen(true)}
 									>
-										{getFile(slide)}
+										{getFile(slide, "", isDetail)}
 									</div>
 									{/* <img
 									id={1}

@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   ContBody,
   TabContainer,
-} from '../../sharedComponents/AppComponents/MainFlexContainer';
-import Tab from '../../sharedComponents/Tab';
-import CoverImage from '../projects/UI/CoverImage';
-import ProfileCoverDetail from './ProfileCoverDetail';
-import ProjectCover from '../../../content/ProjectCover.svg';
-import ProfilePanel from './view/ProfilePanel';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { ROUTES } from '../../../utils/routes';
-import './styles/profileStyle.css';
-import NewsFeed from '../feed/ui';
-import { useEffect } from 'react';
-import { getEducationDetailByUser } from '../education/store/actions';
-import { useDispatch } from 'react-redux';
-import { getUserWorkExperience } from '../experienceInfo/store/actions';
-import { getEmployeeByIdAction } from './store/action';
+} from "../../sharedComponents/AppComponents/MainFlexContainer";
+import Tab from "../../sharedComponents/Tab";
+import CoverImage from "../projects/UI/CoverImage";
+import ProfileCoverDetail from "./ProfileCoverDetail";
+// import ProjectCover from "../../../content/ProjectCover.svg";
+import cover from "../../../content/cover.svg";
+import profile from "../../../content/profile.svg";
+
+import ProfilePanel from "./view/ProfilePanel";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../../utils/routes";
+import "./styles/profileStyle.css";
+import NewsFeed from "../feed/ui";
+import { useEffect } from "react";
+import { getEducationDetailByUser } from "../education/store/actions";
+import { useDispatch } from "react-redux";
+import { getUserWorkExperience } from "../experienceInfo/store/actions";
+import { getEmployeeByIdAction } from "./store/action";
 
 function Profile() {
   const param = useParams();
@@ -25,14 +28,15 @@ function Profile() {
   const dispatch = useDispatch();
   const { pathname } = location;
   const { id } = param;
-  const [defaultPath, setDefaultPath] = useState('');
+  const [defaultPath, setDefaultPath] = useState("");
+  // const { education } = useSelector((state) => state.employeeProfileSlice);
 
   const onChange = (key) => {
     navigate(key);
   };
 
   useEffect(() => {
-    setDefaultPath(pathname.split('_')[0]);
+    setDefaultPath(pathname.split("_")[0]);
   }, [pathname]);
 
   const panes = [
@@ -42,7 +46,7 @@ function Profile() {
         <NewsFeed
           isScheduler={false}
           isCheckedIn={false}
-          width={'!w-full'}
+          width={"!w-full"}
           referenceType={4}
           referenceId={id}
           backButton={false}
@@ -54,7 +58,7 @@ function Profile() {
     {
       featureName: `About`,
       content: <ProfilePanel />,
-      featureId: ROUTES.USER.DEFAULT + id + '/about',
+      featureId: ROUTES.USER.DEFAULT + id + "/about",
     },
   ];
 
@@ -70,7 +74,7 @@ function Profile() {
       <ContBody className="!block">
         <div className="flex flex-row gap-5 h-[calc(100vh_-_60px)] w-full">
           <div className="rounded-xl flex flex-col gap-5 overflow-scroll w-full">
-            <CoverImage image={ProjectCover} />
+            <CoverImage image={cover} />
             <ProfileCoverDetail id={id} />
             <Tab
               panes={panes}

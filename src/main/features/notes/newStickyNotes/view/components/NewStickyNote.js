@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { Dropdown, Menu, Space, Image } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
@@ -33,6 +33,8 @@ import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
 import { createGuid } from "../../../../../../utils/base";
 import ShareComponent from "./ShareComponent";
 import { handleOpenSticky } from "../../store/stickySlice";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { stickyNotesDictionaryList } from "../../localization/index";
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
   const [openShare, setOpenShare] = useState(false);
@@ -45,7 +47,8 @@ const NewStickyNote = ({ item }) => {
   const { openSticky, selectionId } = useSelector((state) => {
     return state.stickySlice;
   });
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { stikcyDictionary } = stickyNotesDictionaryList[userLanguage];
   console.log(openSticky, "open sticky");
   const color = item.colorCode;
   const uploadImageHandler = (e) => {
@@ -168,6 +171,7 @@ const NewStickyNote = ({ item }) => {
     dispatch(handleOpenSticky(item.id));
   };
   console.log(openShare);
+
   return (
     <>
       <Draggable
@@ -192,7 +196,7 @@ const NewStickyNote = ({ item }) => {
             style={{ backgroundColor: item.colorCode }}
           >
             <input
-              placeholder="Title"
+              placeholder={stikcyDictionary.title}
               onChange={(e) => setTitle(e.target.value)}
               defaultValue={item.title}
               style={{ backgroundColor: item.colorCode }}
@@ -234,7 +238,7 @@ const NewStickyNote = ({ item }) => {
               modules={modules}
               formats={formats}
               className={"stickyNoteItem-textarea"}
-              placeholder="Take a Note"
+              placeholder={stikcyDictionary.takeANote}
               defaultValue={item.description}
             />
 

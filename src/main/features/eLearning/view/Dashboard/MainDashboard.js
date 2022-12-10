@@ -13,9 +13,7 @@ import { elearningDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 function MainDashboard() {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, elearningDictionary } = elearningDictionaryList[
-    userLanguage
-  ];
+  const { elearningDictionary } = elearningDictionaryList[userLanguage];
   const panes = [
     {
       featureName: elearningDictionary.courses,

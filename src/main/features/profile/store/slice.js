@@ -1,20 +1,24 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addEmployeeAction,
   getAllEmployeeAction,
   getEmployeeByIdAction,
   updateEmployeeAction,
-} from './action';
+  getWorkAction,
+  getEducationAction,
+} from "./action";
 
 const initialState = {
   success: false,
   employees: [],
+  work: [],
+  education: [],
   loadingData: false,
   loader: false,
 };
 
 const employeeProfileSlice = createSlice({
-  name: 'Employee',
+  name: "Employee",
   initialState,
   reducers: {
     clearEmployeeDetails: (state) => {
@@ -23,24 +27,33 @@ const employeeProfileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllEmployeeAction.fulfilled, (state, action) => {
-      console.log(action.payload, 'getAllEmployee slice');
+      console.log(action.payload, "getAllEmployee slice");
       state.employees = action.payload ? action.payload : [];
       state.loader = false;
     });
     builder.addCase(getEmployeeByIdAction.fulfilled, (state, action) => {
-      console.log(action.payload.data, 'getEmployeeById slice');
+      console.log(action.payload.data, "getEmployeeById slice");
       state.employees = action.payload.data;
       state.loader = false;
     });
     builder.addCase(addEmployeeAction.fulfilled, (state, { payload }) => {
-      console.log(payload, 'addEmployee slice');
+      console.log(payload, "addEmployee slice");
       state.success = true;
       state.employees = [...state.employees, payload.data.data];
       state.loader = false;
     });
+    builder.addCase(getWorkAction.fulfilled, (state, action) => {
+      state.work = action.payload.data;
+      state.loader = false;
+    });
+    builder.addCase(getEducationAction.fulfilled, (state, action) => {
+      console.log(action.payload.data, "action.payload");
+      state.education = action.payload.data;
+      state.loader = false;
+    });
     builder
       .addCase(updateEmployeeAction.fulfilled, (state, { payload }) => {
-        console.log(payload, 'updateEmployee slice');
+        console.log(payload, "updateEmployee slice");
         state.success = true;
         state.employees = [...state.employees, payload.data.data];
         state.loader = false;

@@ -4,7 +4,7 @@ import Polls from "../../../../../../sharedComponents/Polls";
 import { renderTitleWithMentions } from "../../../../../../../utils/base";
 import { PostType } from "../../../../utils/constants";
 
-const PostSection = ({ post, isOpen, onOpen }) => {
+const PostSection = ({ post, isOpen, onOpen, isDetail }) => {
 	const {
 		title = "",
 		attachments = [],
@@ -33,6 +33,7 @@ const PostSection = ({ post, isOpen, onOpen }) => {
 					<div className="post-section-attachments">
 						{attachments.length > 0 && (
 							<PostAttachment
+								isDetail={isDetail}
 								attachments={attachments}
 								onOpen={onOpen}
 							/>
@@ -46,6 +47,7 @@ const PostSection = ({ post, isOpen, onOpen }) => {
 				setModelState={() => onOpen(false)}
 				open={isOpen}
 				leftComponent
+				isDetail={isDetail}
 			/>
 		</>
 	);

@@ -17,22 +17,36 @@ import { fileExtentionPreview } from "../../utils/fileExtentionHelper";
 
 import noPreview from "../../../../../content/NewContent/File/nopreview.png";
 import { AttachmentType } from "../../../documents/constant";
+import { Button } from "antd";
+import { PlayCircleOutlined } from "@ant-design/icons";
+
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Zoom, Thumbs]);
 
-export const getFile = (file, className = "") => {
+export const getFile = (file, className = "", showOptions) => {
 	switch (file.attachmentTypeId) {
 		case AttachmentType.video:
 			return (
-				<video controls className="w-full h-[600px]">
-					<source src={file.path} />
-				</video>
+				<div className="relative">
+					{!showOptions ? (
+						<div className="!absolute !flex !justify-center !items-center h-[360px] w-full z-40  transition-all group">
+							<PlayCircleOutlined className="!text-white !text-[60px] group-hover:!text-primary-color transition-all bg-[#2b333fb3] group-hover:!bg-white rounded-full overflow-hidden" />
+						</div>
+					) : null}
+					<video
+						controls={showOptions ? true : false}
+						className="w-full "
+						autoPlay
+					>
+						<source src={file.path} />
+					</video>
+				</div>
 			);
 		case AttachmentType.image:
 			return (
 				<img
 					id={1}
 					src={fileExtentionPreview(file.path)}
-					className="object-contain w-full h-[600px]"
+					className="object-contain w-full h-auto"
 					alt=""
 				/>
 			);
@@ -40,7 +54,9 @@ export const getFile = (file, className = "") => {
 			if (file.extensionTypeId === 8) {
 				return (
 					<iframe
-						className={"!block h-[600px] w-full " + className}
+						className={
+							"!block h-full w-full min-h-[600px]" + className
+						}
 						style={{ display: "block !important" }}
 						src={file.path}
 						frameBorder="0"
@@ -59,7 +75,7 @@ export const getFile = (file, className = "") => {
 		default:
 			return (
 				<iframe
-					className="!block h-[600px] w-full"
+					className="!block h-auto w-full"
 					style={{ display: "block !important" }}
 					src={file.path}
 					frameBorder="0"

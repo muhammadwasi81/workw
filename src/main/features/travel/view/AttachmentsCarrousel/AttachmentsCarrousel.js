@@ -35,7 +35,7 @@ export const getFile = (file, className = "", showOptions) => {
 					<video
 						controls={showOptions ? true : false}
 						className="w-full "
-						autoPlay
+						autoPlay={showOptions ? true : false}
 					>
 						<source src={file.path} />
 					</video>

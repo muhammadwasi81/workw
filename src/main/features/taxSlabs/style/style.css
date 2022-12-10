@@ -19,3 +19,6 @@
 .businessPolicyForm .ant-form-item {
   margin-bottom: 12px;
 }
+.taxSlabComposer .ar_container {
+  height: auto;
+}

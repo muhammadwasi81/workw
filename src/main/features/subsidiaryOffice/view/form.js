@@ -1,6 +1,6 @@
 import "./style.css";
 import { Select, Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import {
 	FormButton,
 	FormButtonContainer,
@@ -13,6 +13,10 @@ import {
 import { useSelector } from "react-redux";
 import { getAllBranch } from "../../subsidiary/store/actions";
 import { useDispatch } from "react-redux";
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+
 export default function Form({
 	data,
 	onSubmit,
@@ -20,6 +24,11 @@ export default function Form({
 	setClearButton,
 	clearButton,
 }) {
+
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,subsidiaryOffice, Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
 	const disptach = useDispatch()
 	const [form, setForm] = useState(data);
 	const [status, setStatus] = useState(null);
@@ -93,30 +102,30 @@ export default function Form({
 	}, [])
 	return (
 		<FormContainer>
-			<FormHeader>Subsidiary Office</FormHeader>
+			<FormHeader>{administration.subsidiaryOffice.subsidiary_Office}</FormHeader>
 			<FormInputContainer>
 				<FormInput>
-					<FormLabel>Name</FormLabel>
+					<FormLabel>{administration.subsidiaryOffice.name}</FormLabel>
 					<Input
-						placeholder={"Enter Name"}
+						placeholder= {administration.subsidiaryOffice.enterName}
 						value={form.name}
 						onChange={handelChangeName}
 					/>
 				</FormInput>
 				<FormInput>
-					<FormLabel>Address</FormLabel>
+					<FormLabel>{administration.subsidiaryOffice.address}</FormLabel>
 					<Input.TextArea
 						value={form.address}
-						placeholder={"Enter Address"}
+						placeholder={administration.subsidiaryOffice.enterAddress}
 						onChange={hadnelAddress}
 					/>
 				</FormInput>
 				<FormInput>
-					<FormLabel>Subsidiary</FormLabel>
+					<FormLabel>{administration.subsidiaryOffice.Subsidiary}</FormLabel>
 					<Select
 						showSearch
 						style={{ width: "100%" }}
-						placeholder="Select Subsidiary"
+						placeholder={administration.subsidiaryOffice.select}
 						defaultValue={form.branchId}
 						optionFilterProp="children"
 						onChange={handelChangeBranch}
@@ -129,14 +138,14 @@ export default function Form({
 					</Select>
 				</FormInput>
 				<FormInput>
-					<FormLabel>Latitude</FormLabel>
+					<FormLabel>{administration.subsidiaryOffice.latitude}</FormLabel>
 					<Input
 						value={form.lat}
 						disabled
 					/>
 				</FormInput>
 				<FormInput>
-					<FormLabel>longitude</FormLabel>
+					<FormLabel>{administration.subsidiaryOffice.longitude}</FormLabel>
 					<Input
 						value={form.lng}
 						disabled
@@ -156,7 +165,7 @@ export default function Form({
 								setClearButton(false);
 							}}
 						>
-							Save
+							{administration.subsidiaryOffice.save}
 						</FormButton>
 					</>
 				) : (
@@ -171,7 +180,7 @@ export default function Form({
 						}}
 						loading={loading}
 					>
-						Add
+						{administration.subsidiaryOffice.Add}
 					</FormButton>
 				)}
 				{clearButton && (
@@ -182,7 +191,7 @@ export default function Form({
 						className="formBtn"
 						onClick={handleClear}
 					>
-						Clear
+						{administration.subsidiaryOffice.clear}
 					</FormButton>
 				)}
 			</FormButtonContainer>

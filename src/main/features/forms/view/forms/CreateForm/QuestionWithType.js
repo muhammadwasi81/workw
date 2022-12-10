@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Form, Input, Select, Button, Upload, Space } from "antd";
 import {
   CloseOutlined,
@@ -8,9 +8,23 @@ import {
 } from "@ant-design/icons";
 import { createGuid } from "../../../../../../utils/base";
 import styles from "../EditForm/editForm.css";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../localization/index";
 const { Option } = Select;
 
 const QuestionWithType = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+
+  const {
+    Question,
+    addOption,
+    selectAnswerType,
+    number,
+    text,
+    polls,
+    addQuestion,
+  } = documentDictionary;
   const [form] = Form.useForm();
   const [options, setOptions] = useState([{ option: "", image: {} }]);
   const [question, setQuestion] = useState(" ");
@@ -94,7 +108,7 @@ const QuestionWithType = (props) => {
                 },
               ]}
             >
-              <Input placeholder="Question.." style={{ width: "40em" }} />
+              <Input placeholder={Question} style={{ width: "40em" }} />
             </Form.Item>
             <Form.Item className="optionClass" name="questionImage">
               <Upload
@@ -119,14 +133,14 @@ const QuestionWithType = (props) => {
             // ]}
           >
             <Select
-              placeholder="Select Answer Type"
+              placeholder={selectAnswerType}
               onChange={onQuestionTypeChange}
               allowClear
               defaultValue={3}
             >
-              <Option value={3}>Text</Option>
-              <Option value={2}>Number</Option>
-              <Option value={1}>Polls</Option>
+              <Option value={3}>{text}</Option>
+              <Option value={2}>{number}</Option>
+              <Option value={1}>{polls}</Option>
             </Select>
           </Form.Item>
           {questionType === 1 && (
@@ -198,7 +212,7 @@ const QuestionWithType = (props) => {
                       }}
                       icon={<PlusOutlined />}
                     >
-                      Add Option
+                      {addOption}
                     </Button>
                   </Form.Item>
                 </>
@@ -211,7 +225,7 @@ const QuestionWithType = (props) => {
               onClick={() => form.submit()}
               className="btn"
             >
-              Add Question
+              {addQuestion}
             </Button>
           </Form.Item>
         </div>

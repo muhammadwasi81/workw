@@ -31,3 +31,10 @@
     margin-top: 10px;
     padding-left: 10px;
 }
+
+.ant-image-preview-img-wrapper {
+    height: 50vh;
+}
+.ant-image-preview-img {
+    margin: 0 auto;
+}

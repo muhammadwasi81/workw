@@ -15,16 +15,13 @@ function SendEmail() {
   const { sharedLabels } = dictionaryList[userLanguage];
   const { companyDictionary } = companyDictionaryList[userLanguage];
   const labels = companyDictionary.sendEmail;
-  
-
+  const { companyDetail } = companyDictionary;
 
   return (
     <div className="SendEmail">
-      <Divider orientation="right"> {"Send Email"}</Divider>
-      <p>
-        {labels.sendWelcomeEmail}
-      </p>
-      <Button className="ThemeBtn" >Re-Send</Button>
+      <Divider orientation="right"> {companyDetail.sendEmail}</Divider>
+      <p>{labels.sendWelcomeEmail}</p>
+      <Button className="ThemeBtn">{companyDetail.reSend}</Button>
     </div>
   );
 }

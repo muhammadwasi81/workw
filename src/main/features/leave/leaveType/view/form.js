@@ -1,6 +1,6 @@
 import './leaveType.css';
 import { Input } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useState ,useContext} from 'react';
 import {
   FormButton,
   FormButtonContainer,
@@ -12,6 +12,11 @@ import {
   FormTextArea,
 } from '../../../../sharedComponents/StyledComponents/adminForm';
 
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../../utils/localization/languages";
+
+
+
 export default function LeaveTypeForm({
   data,
   onSubmit,
@@ -19,6 +24,11 @@ export default function LeaveTypeForm({
   setClearButton,
   clearButton,
 }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,leave,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const [form, setForm] = useState(data);
 
   const handleClear = (e) => {
@@ -51,20 +61,20 @@ export default function LeaveTypeForm({
 
   return (
     <FormContainer>
-      <FormHeader>Leave Type</FormHeader>
+      <FormHeader>{administration.leave.Leave}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Leave Type</FormLabel>
+          <FormLabel>{administration.leave.leaveType}</FormLabel>
           <Input
-            placeholder={'Enter Leave Type'}
+            placeholder={administration.leave.enterLeave}
             value={form.name}
             onChange={handelChangeName}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Description</FormLabel>
+          <FormLabel>{administration.leave.description}</FormLabel>
           <FormTextArea
-            placeholder={'Enter Description'}
+            placeholder={administration.leave.enterDescription}
             value={form.description}
             onChange={handelChangeDescription}
           />
@@ -83,7 +93,7 @@ export default function LeaveTypeForm({
                 setClearButton(false);
               }}
             >
-              Save Type
+             {administration.leave.save}
             </FormButton>
           </>
         ) : (
@@ -98,7 +108,7 @@ export default function LeaveTypeForm({
             }}
             // loading={loading}
           >
-            Add Type
+            {administration.leave.Add}
           </FormButton>
         )}
         {clearButton && (
@@ -109,7 +119,7 @@ export default function LeaveTypeForm({
             className="formBtn"
             onClick={handleClear}
           >
-            Clear
+             {administration.leave.clear}
           </FormButton>
         )}
       </FormButtonContainer>

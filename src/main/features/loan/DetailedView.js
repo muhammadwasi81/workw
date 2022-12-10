@@ -7,13 +7,17 @@ import LoanDetail from "./LoanDetail";
 
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction } = LoanDictionary[userLanguage];
+  const { loanDictionaryList, Direction } = LoanDictionary[userLanguage];
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
   return (
     <Drawer
-      title={<h1 style={{ fontSize: "20px", margin: 0 }}>{"Loan"}</h1>}
+      title={
+        <h1 style={{ fontSize: "20px", margin: 0 }}>
+          {loanDictionaryList.loans}
+        </h1>
+      }
       width="768"
       placement={
         (Direction === "ltr" ? "left" : "right", isTablet ? "bottom" : "right")

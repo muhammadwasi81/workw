@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { ROUTES } from "../../../../utils/routes";
 import {
-	ContBody,
-	TabContainer,
+  ContBody,
+  TabContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import Tab from "../../../sharedComponents/Tab";
 import LayoutHeader from "../../../layout/header/index";
@@ -40,178 +40,174 @@ import { handleComposeEmail } from "../../leadmanager/store/slice";
 import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
 
 function ProjectDetails() {
-	const params = useParams();
-	const dispatch = useDispatch();
-	const detail = useSelector(state => state.projectSlice.projectDetail);
-	const [features, setFeatures] = useState([]);
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { projectsDictionary, Direction } = projectsDictionaryList[
-		userLanguage
-	];
-	const { updateTextBtn } = projectsDictionary;
-	const [open, setOpen] = useState(false);
-	const { projectId } = params;
-	useEffect(() => {
-		dispatch(getProjectById(projectId));
-	}, [projectId]);
+  const params = useParams();
+  const dispatch = useDispatch();
+  const detail = useSelector((state) => state.projectSlice.projectDetail);
+  const [features, setFeatures] = useState([]);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { projectsDictionary, Direction } = projectsDictionaryList[
+    userLanguage
+  ];
+  const { updateTextBtn, labels } = projectsDictionary;
+  const [open, setOpen] = useState(false);
+  const { projectId } = params;
+  useEffect(() => {
+    dispatch(getProjectById(projectId));
+  }, [projectId]);
 
-	useEffect(() => {
-		return () => {
-			dispatch(resetProjectDetail());
-		};
-	}, []);
+  useEffect(() => {
+    return () => {
+      dispatch(resetProjectDetail());
+    };
+  }, []);
 
-	useEffect(() => {
-		let temp = detail?.features.map(feat => {
-			return {
-				...feat,
-				content: featuresComp[feat.featureId],
-			};
-		});
-		setFeatures(temp);
-	}, [detail]);
+  useEffect(() => {
+    let temp = detail?.features.map((feat) => {
+      return {
+        ...feat,
+        content: featuresComp[feat.featureId],
+      };
+    });
+    setFeatures(temp);
+  }, [detail]);
 
-	const panes = [
-		{
-			title: `Travel`,
-			content: (
-				<Travel
-					referenceType={TravelReferenceTypeEnum.Project}
-					referenceId={projectId}
-					backButton={false}
-				/>
-			),
-			key: 11,
-		},
-	];
-	const items = [
-		{
-			name: detail?.name,
-			to: `${ROUTES.PROJECT.DEFAULT}`,
-			renderButton: [1],
-		},
-	];
-	const handleEditComposer = () => {
-		setOpen(!open);
-	};
-	const buttons = [
-		{
-			buttonText: "Edit Projects",
-			icon: <EditOutlined />,
-			onClick: handleEditComposer,
-		},
-	];
+  const panes = [
+    {
+      title: labels.travel,
+      content: (
+        <Travel
+          referenceType={TravelReferenceTypeEnum.Project}
+          referenceId={projectId}
+          backButton={false}
+        />
+      ),
+      key: 11,
+    },
+  ];
+  const items = [
+    {
+      name: detail?.name,
+      to: `${ROUTES.PROJECT.DEFAULT}`,
+      renderButton: [1],
+    },
+  ];
+  const handleEditComposer = () => {
+    setOpen(!open);
+  };
+  const buttons = [
+    {
+      buttonText: labels.editProject,
+      icon: <EditOutlined />,
+      onClick: handleEditComposer,
+    },
+  ];
 
-	const defaultRoute = ROUTES.PROJECT.DEFAULT + "/" + projectId;
-	const featuresComp = {
-		1: (
-			<NewsFeed
-				referenceType={PostReferenceType.PROJECTS}
-				referenceId={projectId.trim()}
-				backButton={false}
-				isScheduler={false}
-				isCheckedIn={false}
-				width={"!w-full"}
-				routeLink={defaultRoute}
-			/>
-		),
-		6: (
-			<Task
-				referenceType={TaskReferenceTypeEnum.Project}
-				referenceId={projectId.trim()}
-				width={"!w-full"}
-				routeLink={defaultRoute}
-				backButton={false}
-				feature={"2"}
-			/>
-		),
-		7: (
-			<WorkBoard
-				referenceType={WorkBoardReferenceTypeEnum.Project}
-				referenceId={projectId.trim()}
-				width={"!w-full"}
-				routeLink={defaultRoute}
-				backButton={false}
-			/>
-		),
-		9: (
-			<Expenses
-				referenceType={ExpenseReferenceTypeEnum.Project}
-				referenceId={projectId.trim()}
-				width={"!w-full"}
-				routeLink={defaultRoute}
-				backButton={false}
-				feature={3}
-			/>
-		),
-		10: <>Schedule</>,
-		11: (
-			<Travel
-				referenceType={TravelReferenceTypeEnum.Project}
-				referenceId={projectId.trim()}
-				backButton={false}
-			/>
-		),
-		12: (
-			<Documents
-				referenceType={DocumentReferenceTypeEnum.Project}
-				referenceId={projectId.trim()}
-				width={"!w-full"}
-				routeLink={defaultRoute}
-				backButton={false}
-			/>
-		),
-	};
+  const defaultRoute = ROUTES.PROJECT.DEFAULT + "/" + projectId;
+  const featuresComp = {
+    1: (
+      <NewsFeed
+        referenceType={PostReferenceType.PROJECTS}
+        referenceId={projectId.trim()}
+        backButton={false}
+        isScheduler={false}
+        isCheckedIn={false}
+        width={"!w-full"}
+        routeLink={defaultRoute}
+      />
+    ),
+    6: (
+      <Task
+        referenceType={TaskReferenceTypeEnum.Project}
+        referenceId={projectId.trim()}
+        width={"!w-full"}
+        routeLink={defaultRoute}
+        backButton={false}
+        feature={"2"}
+      />
+    ),
+    7: (
+      <WorkBoard
+        referenceType={WorkBoardReferenceTypeEnum.Project}
+        referenceId={projectId.trim()}
+        width={"!w-full"}
+        routeLink={defaultRoute}
+        backButton={false}
+      />
+    ),
+    9: (
+      <Expenses
+        referenceType={ExpenseReferenceTypeEnum.Project}
+        referenceId={projectId.trim()}
+        width={"!w-full"}
+        routeLink={defaultRoute}
+        backButton={false}
+        feature={3}
+      />
+    ),
+    10: <>Schedule</>,
+    11: (
+      <Travel
+        referenceType={TravelReferenceTypeEnum.Project}
+        referenceId={projectId.trim()}
+        backButton={false}
+      />
+    ),
+    12: (
+      <Documents
+        referenceType={DocumentReferenceTypeEnum.Project}
+        referenceId={projectId.trim()}
+        width={"!w-full"}
+        routeLink={defaultRoute}
+        backButton={false}
+      />
+    ),
+  };
 
-	return (
-		<>
-			<TabContainer>
-				<LayoutHeader items={items} buttons={buttons} />
-				<ContBody className="!block">
-					<div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
-						<div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
-							<CoverImage image={detail?.image || ProjectCover} />
-							<CoverDetail detail={detail} />
-							<Tab
-								panes={features}
-								id={projectId}
-								features={panes}
-							/>
-						</div>
+  return (
+    <>
+      <TabContainer>
+        <LayoutHeader items={items} buttons={buttons} />
+        <ContBody className="!block">
+          <div className="flex flex-row gap-5 h-[calc(100vh_-_60px)]">
+            <div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
+              <CoverImage image={detail?.image || ProjectCover} />
+              <CoverDetail detail={detail} />
+              <Tab panes={features} id={projectId} features={panes} />
+            </div>
 
-						<div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
-							<Budget data={detail} />
-							<WhiteCard>
-								<MemberCollapse
-									data={detail?.members}
-									isEmail={true}
-									isMember={true}
-									onEmailClick={() => {
-										dispatch(handleComposeEmail(true));
-									}}
-								/>
-							</WhiteCard>
-						</div>
-					</div>
-				</ContBody>
-			</TabContainer>
-			<Drawer
-				open={open}
-				width={"786px"}
-				onClose={handleEditComposer}
-				title={updateTextBtn}
-				className={"shared_drawer drawerSecondary"}
-			>
-				<Composer
-					buttonText={updateTextBtn}
-					detail={detail}
-					update={true}
-					id={projectId}
-				/>
-			</Drawer>
-			<ComposeEmail />
-		</>
-	);
+            <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
+              <Budget data={detail} />
+              <WhiteCard>
+                <MemberCollapse
+                  data={detail?.members}
+                  isEmail={true}
+                  isMember={true}
+                  onEmailClick={() => {
+                    dispatch(handleComposeEmail(true));
+                  }}
+                />
+              </WhiteCard>
+            </div>
+          </div>
+        </ContBody>
+      </TabContainer>
+      <Drawer
+        open={open}
+        width={"786px"}
+        onClose={handleEditComposer}
+        title={updateTextBtn}
+        className={"shared_drawer drawerSecondary"}
+      >
+        <Composer
+          buttonText={updateTextBtn}
+          detail={detail}
+          update={true}
+          id={projectId}
+        />
+      </Drawer>
+      <ComposeEmail />
+    </>
+  );
 }
 
 export default ProjectDetails;

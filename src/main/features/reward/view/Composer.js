@@ -174,7 +174,7 @@ const Composer = (props) => {
         autoComplete="off"
       >
         <Form.Item
-          label={"Reward Category"}
+          label={rewardDictionary.rewardCategory}
           name="categoryId"
           rules={[
             {
@@ -185,7 +185,7 @@ const Composer = (props) => {
         >
           <Select
             data={rewardCategories}
-            placeholder={"Select Category"}
+            placeholder={rewardDictionary.selectCategory}
             style={{
               width: "100%",
               borderRadius: "5px",

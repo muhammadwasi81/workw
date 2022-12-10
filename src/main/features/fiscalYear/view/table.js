@@ -1,17 +1,28 @@
 import { Skeleton } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllFiscalYear, removeBranch, removeComplainCategory, removeDefaultHiringCriteria, removeFiscalYear, removePayrollGroup } from "../store/actions";
 import { FiscalYearDeleted } from "../store/slice";
 import { tableColumn } from "./tableColumn";
 
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+
 export default function TableView({
   handleEdit,
   removeButtons,
   actionRights = [],
-  setClearButton 
+  setClearButton,
 }) {
+
+  
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,fiscalyear,Direction,sharedLabels } = dictionaryList[userLanguage];
+
+		console.log("myyyyyy",administration.fiscalyear.startDate);
+
+
   const { items, loadingData } = useSelector((state) => state.fiscalYearSlice);
 
   const dispatch = useDispatch();
@@ -41,12 +52,15 @@ export default function TableView({
     <AdminTable
       // scroll={{ x: 1500, y: 300 }}
       columns={tableColumn(
+
+       
         handleEdit,
         handleDelete,
         removeButtons,
         actionRights,
         id,
-        setClearButton
+        setClearButton,
+        sharedLabels,
       )}
       dataSource={items}
       pagination={false}

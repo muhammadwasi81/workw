@@ -1,6 +1,6 @@
-import './style.css';
-import { Input, Radio } from 'antd';
-import { useEffect, useState } from 'react';
+import "./style.css";
+import { Input, Radio } from "antd";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -9,8 +9,9 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
-
+} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import { rebateCategoryDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 export default function RebateCategoryForm({
   data,
   onSubmit,
@@ -25,10 +26,10 @@ export default function RebateCategoryForm({
   const handleClear = (e) => {
     setForm({
       ...form,
-      name: '',
-      maxPercentage: '',
-      maxAmount: '',
-      rebateType: '',
+      name: "",
+      maxPercentage: "",
+      maxAmount: "",
+      rebateType: "",
     });
     // if ({...form, name: e.length > 0}) {
     //     setClearButton(true)
@@ -79,46 +80,49 @@ export default function RebateCategoryForm({
   useEffect(() => {
     setForm(data);
   }, [data]);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { rebateDictionary } = rebateCategoryDictionaryList[userLanguage];
   return (
     <FormContainer>
-      <FormHeader>Rebate Category</FormHeader>
+      <FormHeader>{rebateDictionary.rebateCategory}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Group Name</FormLabel>
+          <FormLabel>{rebateDictionary.groupName}</FormLabel>
           <Input
-            placeholder={'Enter Name'}
+            placeholder={rebateDictionary.enterGroupName}
             value={form.name}
             onChange={handelChangeName}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Max Percentage</FormLabel>
+          <FormLabel>{rebateDictionary.maxPercentage}</FormLabel>
           <Input
-            placeholder={'Enter Max Percentage'}
+            placeholder={rebateDictionary.entermaxPercentage}
             value={form.maxPercentage}
             onChange={handelMaxPercentage}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Max Amount</FormLabel>
+          <FormLabel>{rebateDictionary.maxAmount}</FormLabel>
           <Input
-            placeholder={'Enter Max Amount'}
+            placeholder={rebateDictionary.enterMaxAmount}
             value={form.maxAmount}
             onChange={handelMaxAmount}
           />
         </FormInput>
         <FormInput>
-          <FormLabel style={{ marginBottom: '10px' }}>Type</FormLabel>
+          <FormLabel style={{ marginBottom: "10px" }}>
+            {rebateDictionary.type}
+          </FormLabel>
           <Radio.Group
             onChange={rebateType}
             name="Type"
             className="radioGroup"
             value={form.rebateType}
           >
-            <Radio value={1}>Basic</Radio>
-            <Radio value={2}>Tax</Radio>
-            <Radio value={3}>Full Amount</Radio>
+            <Radio value={1}> {rebateDictionary.basic}</Radio>
+            <Radio value={2}>{rebateDictionary.tax}</Radio>
+            <Radio value={3}>{rebateDictionary.fullAmount}</Radio>
           </Radio.Group>
         </FormInput>
       </FormInputContainer>
@@ -135,7 +139,7 @@ export default function RebateCategoryForm({
                 setClearButton(false);
               }}
             >
-              Save
+              {rebateDictionary.save}
             </FormButton>
           </>
         ) : (
@@ -150,7 +154,7 @@ export default function RebateCategoryForm({
             }}
             loading={loading}
           >
-            Add
+            {rebateDictionary.add}
           </FormButton>
         )}
         {clearButton && (
@@ -161,7 +165,7 @@ export default function RebateCategoryForm({
             className="formBtn"
             onClick={handleClear}
           >
-            Clear
+            {rebateDictionary.clear}
           </FormButton>
         )}
       </FormButtonContainer>

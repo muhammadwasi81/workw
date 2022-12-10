@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormContainer,
@@ -6,19 +6,20 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
-import { Input, Select } from 'antd';
-import { FormButtonContainer } from '../../../sharedComponents/StyledComponents/adminForm';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllChartOfAccount } from '../../chartOfAccount/store/actions';
-
+} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import { Input, Select } from "antd";
+import { FormButtonContainer } from "../../../sharedComponents/StyledComponents/adminForm";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllChartOfAccount } from "../../chartOfAccount/store/actions";
+import { assetsCategoryDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 const accountTypes = [
-  { id: 1, label: 'Asset' },
-  { id: 2, label: 'Liability' },
-  { id: 3, label: 'Capital' },
-  { id: 4, label: 'Revenue' },
-  { id: 5, label: 'Expense' },
-  { id: 6, label: 'Cost of Good Sold' },
+  { id: 1, label: "Asset" },
+  { id: 2, label: "Liability" },
+  { id: 3, label: "Capital" },
+  { id: 4, label: "Revenue" },
+  { id: 5, label: "Expense" },
+  { id: 6, label: "Cost of Good Sold" },
 ];
 
 const AssetsCategoryForm = ({
@@ -30,10 +31,10 @@ const AssetsCategoryForm = ({
 }) => {
   const dispatch = useDispatch();
   const [form, setForm] = useState(data);
-  console.log(form, 'data');
+  console.log(form, "data");
 
   const { listData } = useSelector((state) => state.chartOfAccountsSlice);
-  console.log(listData, 'listData');
+  console.log(listData, "listData");
 
   useEffect(() => {
     dispatch(getAllChartOfAccount());
@@ -42,10 +43,10 @@ const AssetsCategoryForm = ({
   const handleClear = () => {
     setForm({
       ...form,
-      name: '',
-      description: '',
-      accountName: '',
-      parentId: '',
+      name: "",
+      description: "",
+      accountName: "",
+      parentId: "",
     });
     setClearButton(false);
   };
@@ -78,34 +79,43 @@ const AssetsCategoryForm = ({
   useEffect(() => {
     setForm(data);
   }, [data]);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { assetsDictionary } = assetsCategoryDictionaryList[userLanguage];
+  const accountTypes = [
+    { id: 1, label: assetsDictionary.assets },
+    { id: 2, label: assetsDictionary.liability },
+    { id: 3, label: assetsDictionary.capital },
+    { id: 4, label: assetsDictionary.revenue },
+    { id: 5, label: assetsDictionary.expense },
+    { id: 6, label: assetsDictionary.costOfGoodsale },
+  ];
   return (
     <FormContainer>
-      <FormHeader>Assets Category</FormHeader>
+      <FormHeader>{assetsDictionary.assetsCategory}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Category Name</FormLabel>
+          <FormLabel>{assetsDictionary.categoryName}</FormLabel>
           <Input
-            placeholder={'Category Name'}
+            placeholder={assetsDictionary.enterCategoryName}
             value={form.name}
             onChange={handelChangeName}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Description</FormLabel>
+          <FormLabel>{assetsDictionary.desc}</FormLabel>
           <Input.TextArea
             value={form.description}
-            placeholder={'Enter Description'}
+            placeholder={assetsDictionary.enterDesc}
             onChange={handleDescription}
           />
         </FormInput>
         {!data.parentId ? (
           <FormInput>
-            <FormLabel>Account Type</FormLabel>
+            <FormLabel>{assetsDictionary.accountType}</FormLabel>
             <Select
               showSearch
-              style={{ width: '100%' }}
-              placeholder="Select Type"
+              style={{ width: "100%" }}
+              placeholder={assetsDictionary.selectType}
               defaultValue={form.accountName}
               optionFilterProp="children"
               onChange={handelChangeBranch}
@@ -123,11 +133,11 @@ const AssetsCategoryForm = ({
 
         {!data.accountId ? (
           <FormInput>
-            <FormLabel>Parent Account</FormLabel>
+            <FormLabel>{assetsDictionary.parentAccount}</FormLabel>
             <Select
               showSearch
-              style={{ width: '100%' }}
-              placeholder="Select Parent"
+              style={{ width: "100%" }}
+              placeholder={assetsDictionary.selectParent}
               defaultValue={form.parentId}
               optionFilterProp="children"
               onChange={(e) => setForm({ ...form, parentId: e })}
@@ -155,7 +165,7 @@ const AssetsCategoryForm = ({
                 setClearButton(false);
               }}
             >
-              Save
+              {assetsDictionary.save}
             </FormButton>
           </>
         ) : (
@@ -169,7 +179,7 @@ const AssetsCategoryForm = ({
             }}
             loading={loading}
           >
-            Add
+            {assetsDictionary.add}
           </FormButton>
         )}
         {clearButton && (
@@ -179,7 +189,7 @@ const AssetsCategoryForm = ({
             className="formBtn"
             onClick={handleClear}
           >
-            Clear
+            {assetsDictionary.clear}
           </FormButton>
         )}
       </FormButtonContainer>

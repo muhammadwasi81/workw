@@ -1,12 +1,14 @@
-import { DatePicker, Select } from 'antd';
-import { Option } from 'antd/lib/mentions';
-import React, { useState } from 'react';
-import { DeleteOutlined } from '@ant-design/icons';
-import { getAllEmployees } from '../../../../../../utils/Shared/store/actions';
-import Avatar from '../../../../../sharedComponents/Avatar/avatarOLD';
-import CustomSelect from '../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { ALLOWANCE_ENUM } from '../../../../allowance/view/enum';
-import { calculateAllowance } from '../../../utils/constant';
+import { DatePicker, Select } from "antd";
+import { Option } from "antd/lib/mentions";
+import React, { useState, useContext } from "react";
+import { DeleteOutlined } from "@ant-design/icons";
+import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
+import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
+import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { ALLOWANCE_ENUM } from "../../../../allowance/view/enum";
+import { calculateAllowance } from "../../../utils/constant";
+import { salaryDictionaryList } from "../../../localization/index";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 
 const CreateEntryItem = ({
   index,
@@ -70,26 +72,29 @@ const CreateEntryItem = ({
       index
     );
   };
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salaryDictionary } = salaryDictionaryList[userLanguage];
+  const { employee, Approvers } = salaryDictionary;
   return (
     <tr>
       <td>{index + 1}</td>
       <td className="text-center salaryDatePicker">
         <DatePicker
           value={value.effectiveDate}
-          onChange={(value) => handleChange(value, 'effectiveDate', index)}
+          onChange={(value) => handleChange(value, "effectiveDate", index)}
         />
       </td>
       <td>
         <CustomSelect
-          style={{ marginBottom: '0px' }}
+          style={{ marginBottom: "0px" }}
           data={employeesShortData}
           selectedData={(value, row) => onEmployeeSelect(row)}
           canFetchNow={employeesShortData && employeesShortData.length > 0}
           fetchData={fetchEmployeesShort}
           sliceName="employeeShort"
-          placeholder={'Employee'}
+          placeholder={employee}
           isObject={true}
-          size={'medium'}
+          size={"medium"}
           loadDefaultData={false}
           formItem={false}
           optionComponent={(opt) => {
@@ -99,8 +104,8 @@ const CreateEntryItem = ({
                   name={opt.name}
                   src={opt.image}
                   round={true}
-                  width={'30px'}
-                  height={'30px'}
+                  width={"30px"}
+                  height={"30px"}
                 />
                 {opt.name}
               </>
@@ -148,19 +153,19 @@ const CreateEntryItem = ({
       </td>
       <td className="removeMargin">
         <CustomSelect
-          style={{ marginBottom: '0px' }}
+          style={{ marginBottom: "0px" }}
           data={employeesData}
           selectedData={(value, row) =>
             handleChange(
               row.map((item) => ({ approverId: item.id })),
-              'approvers',
+              "approvers",
               index
             )
           }
           canFetchNow={employeesData && employeesData.length > 0}
           fetchData={fetchEmployees}
-          placeholder={'Approvers'}
-          mode={'multiple'}
+          placeholder={Approvers}
+          mode={"multiple"}
           isObject={true}
           size="small"
           loadDefaultData={false}
@@ -172,8 +177,8 @@ const CreateEntryItem = ({
                   name={opt.name}
                   src={opt.image}
                   round={true}
-                  width={'30px'}
-                  height={'30px'}
+                  width={"30px"}
+                  height={"30px"}
                 />
                 {opt.name}
               </>

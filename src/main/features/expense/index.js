@@ -96,9 +96,6 @@ function Expenses({
         onSearch={(value) => {
           setFilter({ ...filter, search: value });
         }}
-        filter={{
-          onFilter: () => {},
-        }}
         buttons={[
           {
             name: labels.myExpense,
@@ -131,8 +128,10 @@ function Expenses({
           onSegment: (value) => {
             setView(value);
           },
-          label1: sharedLabels.List,
-          label2: sharedLabels.Table,
+          // label1: sharedLabels.List,
+          // label2: sharedLabels.Table,
+          label1: "List",
+          label2: "Table",
         }}
       />
       <ContBody className={width}>{render[view]}</ContBody>

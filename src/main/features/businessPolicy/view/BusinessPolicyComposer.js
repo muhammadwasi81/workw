@@ -3,13 +3,15 @@ import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import ReactQuill from "react-quill"
 import { FormTextArea } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
 import * as S from "../../employee/Styles/employee.style";
 import { FormLabel } from "./FormLabel";
 import { addBusinessPolicy, updateBusinessPolicy } from "../store/action";
 import 'react-quill/dist/quill.snow.css';
 import { handleEdit } from "../store/slice";
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+
 const { Option } = Select;
 
 const modules = {
@@ -47,10 +49,12 @@ const formats = {
 
 
 function BusinessPolicyComposer({editData}) {
+
 	const dispatch = useDispatch();
+
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { administration, sharedLabels, Direction } =
-		dictionaryList[userLanguage];
+	const { administration,businessPolicy, Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
 
 	const onFinish = values => {
 		if (values.name.length > 20) {
@@ -79,22 +83,19 @@ function BusinessPolicyComposer({editData}) {
 						label={
 							<FormLabel>
 								{
-									"Name"
+									administration.businessPolicy.name
 								}
 							</FormLabel>
 						}
 						rules={[
 							{
 								required: true,
-								message:
-									"Please Enter Name",
+								message:administration.businessPolicy.enterName,
 							},
 						]}
 					>
 						<Input
-							placeholder={
-								"Enter Name"
-							}
+							placeholder={administration.businessPolicy.enterName}
 							size="large"
 						/>
 					</S.FormItem>
@@ -105,16 +106,16 @@ function BusinessPolicyComposer({editData}) {
 							{
 								required: true,
 								message:
-									"Please Select Type",
+								administration.businessPolicy.type,
 							},
 						]}
 						label={
-							<FormLabel>{"Type"}</FormLabel>
+							<FormLabel>{administration.businessPolicy.typee}</FormLabel>
 						}
 					>
 						<Select
 							showSearch
-							placeholder="Select Type"
+							placeholder={administration.businessPolicy.type}
 							size="large"
 						>
 							<Option value={1}>HR</Option>
@@ -124,12 +125,11 @@ function BusinessPolicyComposer({editData}) {
 					<S.FormItem name="description" rules={[
 						{
 							required: true,
-							message:
-								"Please Enter Description",
+							message: administration.businessPolicy.EnterDescription,
 						},
 					]}
 						label={
-							<FormLabel>{"Description"}</FormLabel>
+							<FormLabel>{administration.businessPolicy.description}</FormLabel>
 						} >
 						<ReactQuill
 							style={{overflow: "hidden"}}
@@ -144,7 +144,7 @@ function BusinessPolicyComposer({editData}) {
 				<Form.Item>
 					<Button type="primary" size="large" className="ThemeBtn" block htmlType="submit" title={"Create"}>
 						{" "}
-						{ editData ? "Save" : "Create"}{" "}
+						{ editData ? administration.businessPolicy.save : administration.businessPolicy.create}{" "}
 					</Button>
 				</Form.Item>
 			</Form>

@@ -1,6 +1,6 @@
-import './allowance.css';
-import { Col, Input, Radio, Row, Select, InputNumber } from 'antd';
-import { useEffect, useState } from 'react';
+import "./allowance.css";
+import { Col, Input, Radio, Row, Select, InputNumber } from "antd";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -10,11 +10,12 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getAllGrades } from '../../grade/store/actions';
-
+} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllGrades } from "../../grade/store/actions";
+import { allowanceDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 export default function AllowanceForm({
   data,
   onSubmit,
@@ -30,7 +31,7 @@ export default function AllowanceForm({
   const { grades } = useSelector((state) => state.gradeSlice);
 
   const handleClear = (e) => {
-    setForm({ ...form, description: '', name: '', gradeId: null, value: '' });
+    setForm({ ...form, description: "", name: "", gradeId: null, value: "" });
     setClearButton(false);
   };
 
@@ -69,7 +70,7 @@ export default function AllowanceForm({
     }
     const x = grades.filter((item) => item.id === value);
     setForm({ ...form, gradeId: x[0].id });
-    console.log(x, 'fdfdfd');
+    console.log(x, "fdfdfd");
   };
 
   const handleType = (e) => {
@@ -87,17 +88,20 @@ export default function AllowanceForm({
     setForm(data);
     dispatch(getAllGrades());
   }, [data]);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { allowanceDictionary, Direction } = allowanceDictionaryList[
+    userLanguage
+  ];
   return (
     <FormContainer>
-      <FormHeader>Allowance</FormHeader>
+      <FormHeader>{allowanceDictionary.allowance}</FormHeader>
       <FormInputContainer>
         <Row gutter={[16, 16]} className="radioGroupRow">
           <Col lg={22} md={24} xl={14} sm={24} xs={24}>
             <AllowncesFormInput>
-              <FormLabel>Allowance</FormLabel>
+              <FormLabel>{allowanceDictionary.allowance}</FormLabel>
               <Input
-                placeholder={'Enter Allowance'}
+                placeholder={allowanceDictionary.enterAllownace}
                 value={form.name}
                 onChange={handelChangeName}
               />
@@ -105,44 +109,44 @@ export default function AllowanceForm({
             <AllowncesFormInput>
               {amountType == false ? (
                 <>
-                  <FormLabel>Percent</FormLabel>
+                  <FormLabel>{allowanceDictionary.percent}</FormLabel>
                   <InputNumber
                     onChange={handelChangeAmount}
                     value={form.value}
                     formatter={(value) => `${value}%`}
-                    parser={(value) => value.replace('%', '')}
+                    parser={(value) => value.replace("%", "")}
                     placeholder="0"
                     size="large"
-                    style={{ width: '100%' }}
+                    style={{ width: "100%" }}
                   />
                 </>
               ) : (
                 <>
-                  <FormLabel>Amount</FormLabel>
+                  <FormLabel>{allowanceDictionary.amount}</FormLabel>
                   <InputNumber
                     onChange={handelChangeAmount}
                     value={form.value}
-                    placeholder={'Enter Amount'}
+                    placeholder={"Enter Amount"}
                     size="large"
-                    style={{ width: '100%' }}
+                    style={{ width: "100%" }}
                   />
                 </>
               )}
             </AllowncesFormInput>
             <AllowncesFormInput>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>{allowanceDictionary.desc}</FormLabel>
               <FormTextArea
-                placeholder={'Enter Description'}
+                placeholder={allowanceDictionary.desc}
                 value={form.description}
                 onChange={handelChangeDescription}
               />
             </AllowncesFormInput>
             <AllowncesFormInput>
-              <FormLabel>Grade</FormLabel>
+              <FormLabel>{allowanceDictionary.grade}</FormLabel>
               <Select
                 showSearch
-                style={{ width: '100%' }}
-                placeholder="Select Grade"
+                style={{ width: "100%" }}
+                placeholder={allowanceDictionary.selectGrade}
                 optionFilterProp="children"
                 onChange={handelChangeGrade}
                 value={form.gradeId}
@@ -170,8 +174,8 @@ export default function AllowanceForm({
                 className="radioGroup"
                 value={form.allowanceType}
               >
-                <Radio value={1}>Percent</Radio>
-                <Radio value={2}>Amount</Radio>
+                <Radio value={1}>{allowanceDictionary.percent}</Radio>
+                <Radio value={2}>{allowanceDictionary.amount}</Radio>
               </Radio.Group>
 
               <Radio.Group
@@ -182,8 +186,8 @@ export default function AllowanceForm({
                 className="radioGroup"
                 value={form.allowanceUnit}
               >
-                <Radio value={1}>Benefit</Radio>
-                <Radio value={2}>Deduction</Radio>
+                <Radio value={1}>{allowanceDictionary.benefit}</Radio>
+                <Radio value={2}>{allowanceDictionary.deduction}</Radio>
               </Radio.Group>
 
               <Radio.Group
@@ -194,8 +198,8 @@ export default function AllowanceForm({
                 className="radioGroup"
                 value={form.isTaxable}
               >
-                <Radio value={true}>Texable</Radio>
-                <Radio value={false}>Non Texable</Radio>
+                <Radio value={true}>{allowanceDictionary.texable}</Radio>
+                <Radio value={false}>{allowanceDictionary.nonTexable}</Radio>
               </Radio.Group>
             </div>
           </Col>
@@ -214,7 +218,7 @@ export default function AllowanceForm({
                 setClearButton(false);
               }}
             >
-              Save Allowance
+              {allowanceDictionary.saveAllowance}
             </FormButton>
           </>
         ) : (
@@ -229,7 +233,7 @@ export default function AllowanceForm({
             }}
             // loading={loading}
           >
-            Add Allowance
+            {allowanceDictionary.addAllowance}
           </FormButton>
         )}
         {clearButton && (
@@ -240,7 +244,7 @@ export default function AllowanceForm({
             className="formBtn"
             onClick={handleClear}
           >
-            Clear
+            {allowanceDictionary.clear}
           </FormButton>
         )}
       </FormButtonContainer>

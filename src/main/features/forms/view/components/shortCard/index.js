@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import ProImage from "../../../../../../content/NewContent/careers/proImage.svg";
@@ -13,11 +13,26 @@ import { Button, message } from "antd";
 import "./style.css";
 import { ROUTES } from "../../../../../../utils/routes";
 import { useSelector } from "react-redux";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../localization/index";
 
 function ListItem(props) {
   const { user } = useSelector((state) => state.userSlice);
   const { item, id, onListItem = () => {} } = props;
   const [copy, setCopy] = useState(false);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+  const {
+    forms,
+    createForms,
+    allForms,
+    myForms,
+    forApprovals,
+    list,
+    table,
+    copyLink,
+    attempt,
+  } = documentDictionary;
 
   const copyfunc = () => {
     setCopy(true);
@@ -66,7 +81,7 @@ function ListItem(props) {
               setCopy(true);
             }}
           >
-            Copy Link
+            {copyLink}
           </Button>
 
           {/* <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
@@ -80,7 +95,7 @@ function ListItem(props) {
           )} */}
 
           <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
-            <Button className="ThemeBtn">Attempt</Button>
+            <Button className="ThemeBtn">{attempt}</Button>
           </Link>
         </div>
       </SingleItem>

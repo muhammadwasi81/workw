@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useContext} from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllNotification } from "../store/action";
 import NotificationItem from "./NotificationItem";
 import './style.css'
+
+import { notificationDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
 const defaultFilter = {
     pageNo: 1,
@@ -11,6 +14,10 @@ const defaultFilter = {
 }
 
 export default function Notifications() {
+
+    const { userLanguage } = useContext(LanguageChangeContext);
+    const { notificationDictionary } = notificationDictionaryList[userLanguage];
+
     const dispatch = useDispatch();
     const [filter, setFilter] = useState(defaultFilter);
     const notifcationStatus = useSelector(state => state.responsiveSlice.notifcationStatus);
@@ -22,10 +29,10 @@ export default function Notifications() {
     return (
         <div className="approval_list_cont" >
             <div className="approval_header" >
-                <div className="approval_header_child1">Notifications</div>
+                <div className="approval_header_child1">{notificationDictionary.notifications}</div>
                 <div className="approval_header_child2" >
                     <div></div>
-                    <div>Mark All Read</div>
+                    <div>{notificationDictionary.mark}</div>
                 </div>
             </div>
 

@@ -1,25 +1,26 @@
-import { Button, Form, message, Select } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
-import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
-import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
-import { customApprovalDictionaryList } from '../../../CustomApprovals/localization';
-import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { Button, Form, message, Select } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+
+import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import {
   getAssetItemByUserId,
   updateAssetItems,
-} from '../../../createAssets/store/action';
-import '../styles.css';
+} from "../../../createAssets/store/action";
+import "../styles.css";
+import { assetsDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 const initialState = {
-  id: '',
-  status: '',
+  id: "",
+  status: "",
 };
 
 const AssetDeAllocationComposer = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction } = customApprovalDictionaryList[userLanguage];
+  const { assetsDictionary, Direction } = assetsDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -27,7 +28,7 @@ const AssetDeAllocationComposer = () => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
 
   const { assetItemByUserId } = useSelector((state) => state.AssetItemSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
@@ -39,12 +40,12 @@ const AssetDeAllocationComposer = () => {
   };
 
   const handleData = (id) => {
-    console.log(id, 'id');
+    console.log(id, "id");
     dispatch(getAssetItemByUserId(id));
   };
 
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
   }, []);
 
   const handleMember = (val) => {
@@ -66,8 +67,8 @@ const AssetDeAllocationComposer = () => {
   };
 
   const [newState, setNewState] = useState({
-    id: '',
-    status: '',
+    id: "",
+    status: "",
   });
 
   useEffect(() => {
@@ -78,23 +79,23 @@ const AssetDeAllocationComposer = () => {
   }, [employees]);
 
   const onFinish = (values) => {
-    console.log(values, 'values');
+    console.log(values, "values");
     if (!assetItemByUserId[0]?.id) {
-      return message.error('No Asset Items Found');
+      return message.error("No Asset Items Found");
     }
     let payload = {
       ...values,
       id: assetItemByUserId[0]?.id,
       status: status,
     };
-    console.log(payload, 'payload data');
+    console.log(payload, "payload data");
     dispatch(updateAssetItems(payload));
     setState(initialState);
     form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.error('Failed:', errorInfo);
+    console.error("Failed:", errorInfo);
   };
 
   return (
@@ -117,17 +118,17 @@ const AssetDeAllocationComposer = () => {
       >
         <Form.Item
           name="id"
-          label="Handover"
+          label={assetsDictionary.handover}
           showSearch={true}
           direction={Direction}
         >
           <CustomSelect
-            style={{ marginBottom: '0px' }}
+            style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={'Select Members'}
+            placeholder={assetsDictionary.selectMember}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -137,8 +138,8 @@ const AssetDeAllocationComposer = () => {
                     name={opt.name}
                     src={opt.image}
                     round={true}
-                    width={'30px'}
-                    height={'30px'}
+                    width={"30px"}
+                    height={"30px"}
                   />
                   {opt.name}
                 </>
@@ -151,7 +152,7 @@ const AssetDeAllocationComposer = () => {
             rules={[
               {
                 required: true,
-                message: 'Please Select Member',
+                message: "Please Select Member",
               },
             ]}
           />
@@ -161,38 +162,44 @@ const AssetDeAllocationComposer = () => {
             <table>
               <thead>
                 <tr className="tableWrapper">
-                  <th>Category Name</th>
-                  <th>Asset</th>
-                  <th>Serial No</th>
-                  <th>Select Status</th>
+                  <th>{assetsDictionary.categoryName}</th>
+                  <th>{assetsDictionary.assests}</th>
+                  <th>{assetsDictionary.serialNo}</th>
+                  <th>{assetsDictionary.selectStatus}</th>
                 </tr>
               </thead>
               <tbody>
                 {assetItemByUserId?.length > 0 ? (
                   assetItemByUserId?.map((x, i) => (
                     <tr key={i} className="tableWrapper">
-                      <td>{x.category ? x.category : 'N/A'}</td>
+                      <td>{x.category ? x.category : "N/A"}</td>
                       <td>{x.name}</td>
                       <td>{x.serialNo}</td>
                       <td>
                         <Select
                           name="status"
-                          style={{ width: '100%' }}
-                          placeholder="Select Status"
+                          style={{ width: "100%" }}
+                          placeholder={assetsDictionary.selectStatus}
                           defaultValue={x.status}
                           onChange={(e) => {
-                            console.log('e', e);
+                            console.log("e", e);
                             setStatus(e);
                           }}
                         >
                           <Select.Option value={1}>
-                            Waiting For Approval
+                            {assetsDictionary.waitingForApproval}
                           </Select.Option>
                           <Select.Option value={2}>
-                            Waiting For Handover
+                            {assetsDictionary.waitingForHandover}
                           </Select.Option>
-                          <Select.Option value={3}>Allocated</Select.Option>
-                          <Select.Option value={4}>Available</Select.Option>
+                          <Select.Option value={3}>
+                            {" "}
+                            {assetsDictionary.allocated}
+                          </Select.Option>
+                          <Select.Option value={4}>
+                            {" "}
+                            {assetsDictionary.available}
+                          </Select.Option>
                         </Select>
                       </td>
                     </tr>
@@ -200,7 +207,7 @@ const AssetDeAllocationComposer = () => {
                 ) : (
                   <tr>
                     <td colSpan={4} className="text-center">
-                      <strong>No Result Found...</strong>{' '}
+                      <strong>No Result Found...</strong>{" "}
                     </td>
                   </tr>
                 )}

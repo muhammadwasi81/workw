@@ -21,10 +21,25 @@ const en = {
     Approvers: "Approvers",
     Collabrators: "Collabrators",
     Upload: "Upload",
+    list: "List",
+    table: "Table",
+    enterName: "Enter Name",
+    enterDescription: "Enter Description",
+    readers: "Readers",
+    selectReaders: "Select Readers",
+    createMilepad: "Create Milepad",
+    fileName: "File Name",
+    shortDescription: "Short Description",
+    selectApprovals: "Select Approvals",
+    create: "Create",
+    createMileboard: "Create Mileboard",
+    createMilegrid: "Create Milegrid",
+    createMileshow: "Create Mileshow",
+    members: "Members",
+    detail: "Detail",
   },
 
   /*** Define language write side ***/
   Direction: "ltr",
 };
 export default en;
-

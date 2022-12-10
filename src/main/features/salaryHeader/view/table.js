@@ -1,43 +1,50 @@
 import { Skeleton } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllSalaryHeader, removeSalaryHeader } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import { salaryHeaderDeleted } from "../store/slice";
+import { salaryHeaderDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
 export default function SalaryHeaderTable({
   handleEdit,
   removeButtons,
   actionRights = [],
-  setClearButton
+  setClearButton,
 }) {
-  const { salaryHeaders, loadingData } = useSelector((state) => state.salaryHeaderSlice);
+  const { salaryHeaders, loadingData } = useSelector(
+    (state) => state.salaryHeaderSlice
+  );
 
   const dispatch = useDispatch();
 
-  const [id, setId] = useState()
+  const [id, setId] = useState();
 
   const onSuccess = (e) => {
     console.log(e.id);
-    setId(null)
-    dispatch(salaryHeaderDeleted(e))
-    setClearButton(true)
-  }
+    setId(null);
+    dispatch(salaryHeaderDeleted(e));
+    setClearButton(true);
+  };
 
   const onError = () => {
-    setId(null)
-  }
+    setId(null);
+  };
 
   const handleDelete = (e) => {
-    setId(e.id)
+    setId(e.id);
     dispatch(removeSalaryHeader(e)).then(() => onSuccess(e), onError);
-  }
+  };
 
   useEffect(() => {
     dispatch(getAllSalaryHeader());
   }, []);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction, salaryHeaderDictionary } = salaryHeaderDictionaryList[
+    userLanguage
+  ];
   return (
     <AdminTable
       // scroll={{ x: 1500, y: 300 }}
@@ -47,7 +54,8 @@ export default function SalaryHeaderTable({
         removeButtons,
         actionRights,
         id,
-        setClearButton
+        setClearButton,
+        salaryHeaderDictionary
       )}
       dataSource={salaryHeaders}
       pagination={false}

@@ -1,5 +1,7 @@
 const urdu = {
   customApprovalDictionary: {
+    customApproval: "حسب ضرورت منظوری",
+
     enterRewardName: "انعام کا نام درج کریں",
     pleaseEnterRewardName: "برائے مہربانی انعام کا نام درج کریں۔",
     enterRewardReason: "انعام کی وجہ درج کریں",
@@ -19,11 +21,11 @@ const urdu = {
     approvers: "منظوری دینے والے",
     rewardTo: "کو انعام",
     createCustomApproval: "حسب ضرورت منظوری بنائیں",
-
     myComplain: "میری شکایت",
     complainToMe: "مجھ سے شکایت",
     createReward: "اجر پیدا کریں",
     forApproval: "منظوری کے لیے",
+    approvalForMe: "میرے لیے منظوری",
     deductionPerMonth: "مہینے/کٹوتی",
     pleaseEnterloanTenureInMonths: "براہ کرم قرض کی مدت درج کریں",
     amount: "رقم",
@@ -33,6 +35,17 @@ const urdu = {
     selectPurpose: "مقصد منتخب کریں",
     description: "تفصیل",
     enterDescription: "تفصیل درج کریں",
+    subject: "مضمون",
+    pleaseEnterSubject: "براہ کرم موضوع درج کریں",
+    customApprovals: "حسب ضرورت منظوری",
+    createdByMe: "میرے ذریعہ تخلیق کردہ",
+    list: "فہرست",
+    table: "ٹیبل",
+    referenceNo: "حوالہ نمبر",
+    creator: "خالق",
+    status: "حالت",
+    date: "تاریخ",
+
     loanPurpose: {
       vehicle: "گاڑی",
       personal: "ذاتی",

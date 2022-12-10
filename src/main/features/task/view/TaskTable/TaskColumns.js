@@ -3,16 +3,16 @@ import Avatar from "../../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = () => {
+export const tableColumn = (taskDictionaryList) => {
   return [
     {
-      title: "Reference No",
+      title: taskDictionaryList.labels.referenceNo,
       dataIndex: "referenceNo",
       width: 80,
       sort: true,
     },
     {
-      title: "Creator",
+      title: taskDictionaryList.labels.creator,
       dataIndex: "creator",
       render: (creator) => (
         <TagAvatar text={creator.name} img={creator.image} />
@@ -21,17 +21,27 @@ export const tableColumn = () => {
       width: 200,
     },
     {
-      title: "Status",
+      title: taskDictionaryList.labels.status,
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
       width: 100,
     },
-    { title: "Subject", dataIndex: "subject", sort: true, width: 200 },
-    { title: "Progress", dataIndex: "progress", sort: true, width: 200 },
+    {
+      title: taskDictionaryList.labels.subject,
+      dataIndex: "subject",
+      sort: true,
+      width: 200,
+    },
+    {
+      title: taskDictionaryList.labels.progress,
+      dataIndex: "progress",
+      sort: true,
+      width: 200,
+    },
 
     {
-      title: "Task Assigned To",
+      title: taskDictionaryList.labels.taskAssignedTo,
       dataIndex: "members",
       render: (member) => <Avatar membersData={member} heading={"Members"} />,
       width: 200,

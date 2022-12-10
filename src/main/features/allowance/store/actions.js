@@ -63,6 +63,7 @@ export const removeAllowance = createAsyncThunk(
       `api/allowance/removeallowance?id=${args.id}`
     )
       .then((res) => {
+        console.log(res, 'fdfdfd');
         if (res.data.responseCode === responseCode.Success) {
           message.success('Allowance removed successfully!');
           dispatch(allowanceDeleted(args));

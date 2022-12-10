@@ -51,6 +51,7 @@ const Composer = (props) => {
   const [employeeID, setEmployeeId] = useState(null);
   const [prercentage, setPercentage] = useState();
   const [amount, setAmount] = useState();
+  const [isDisabled, setIsDisabled] = useState(false);
 
   console.log(props.id, "bonus composer idddd");
   useEffect(() => {
@@ -129,6 +130,7 @@ const Composer = (props) => {
       setAmountType(true);
     } else {
       setAmountType(false);
+      setIsDisabled(true);
     }
   };
 
@@ -163,7 +165,7 @@ const Composer = (props) => {
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={"Select Members"}
+            placeholder={bonusDictionary.selectApprovers}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -187,7 +189,7 @@ const Composer = (props) => {
             rules={[
               {
                 required: true,
-                message: "Please Select Member",
+                message: bonusDictionary.selectMember,
               },
             ]}
           />
@@ -195,13 +197,13 @@ const Composer = (props) => {
 
         <div className="flex justify-between gap-4">
           <div className="" style={{ width: "100px" }}>
-            <Form.Item label={"Net Salary"} name="netsalary">
+            <Form.Item label={bonusDictionary.netSalary} name="netsalary">
               {<p style={{ marginTop: "5px" }}>{salary}</p>}
             </Form.Item>
           </div>
           <div className="w-full">
             <Form.Item
-              label={"Type"}
+              label={bonusDictionary.type}
               name="type"
               rules={[
                 {
@@ -211,8 +213,8 @@ const Composer = (props) => {
               ]}
             >
               <Radio.Group onChange={handleType} value={value}>
-                <Radio value={1}>Percent</Radio>
-                <Radio value={2}>Amount</Radio>
+                <Radio value={1}>{bonusDictionary.percent}</Radio>
+                <Radio value={2}>{bonusDictionary.amount}</Radio>
               </Radio.Group>
             </Form.Item>
           </div>
@@ -220,7 +222,7 @@ const Composer = (props) => {
         <div className="flex justify-between gap-4">
           <div className="w-full">
             <Form.Item
-              label={"Amount"}
+              label= {bonusDictionary.amount}
               name="amount"
               rules={[
                 {
@@ -268,7 +270,7 @@ const Composer = (props) => {
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={"Select Approvers"}
+            placeholder={bonusDictionary.selectApprovers}
             mode={"multiple"}
             isObject={true}
             loadDefaultData={false}

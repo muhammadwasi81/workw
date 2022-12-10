@@ -195,7 +195,7 @@ const SalaryForm = ({ mode, id }) => {
         >
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
-            placeholder="Please select relation"
+            placeholder={placeholder.selectRelation}
             size="large"
           >
             {relations.map((item) => (

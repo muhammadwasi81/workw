@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { quotationDictionaryList } from "../../../localization/index";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 
 const CreateEntryHead = () => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { quotationDictionary, Direction } = quotationDictionaryList[
+    userLanguage
+  ];
   return (
     <thead>
       <tr className="whitespace-nowrap">
-        <th style={{ minWidth: "6%" }}>S.No.</th>
-        <th style={{ minWidth: "40%" }}>Service/Item</th>
-        <th style={{ minWidth: "10%" }}>Price</th>
-        <th style={{ minWidth: "6%" }}>Quantity</th>
-        <th style={{ minWidth: "16%" }}>Tax</th>
-        <th style={{ minWidth: "16%" }}>Total Amount</th>
+        <th style={{ minWidth: "6%" }}>{quotationDictionary.sno}</th>
+        <th style={{ minWidth: "40%" }}>{quotationDictionary.serviceItem}</th>
+        <th style={{ minWidth: "10%" }}>{quotationDictionary.price}</th>
+        <th style={{ minWidth: "6%" }}>{quotationDictionary.quantity}</th>
+        <th style={{ minWidth: "16%" }}>{quotationDictionary.tax}</th>
+        <th style={{ minWidth: "16%" }}>{quotationDictionary.totalAmount}</th>
         {/* <th style={{ minWidth: "150px" }}>
           Deductions
         </th>

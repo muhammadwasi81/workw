@@ -1,43 +1,48 @@
 import { Skeleton } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllRewardCategory, removeRewardCategory } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import { rewardCategoryDeleted } from "../store/slice";
+import { rewardDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 export default function RewardCategoryTable({
   handleEdit,
   removeButtons,
   actionRights = [],
-  setClearButton
+  setClearButton,
 }) {
-  const { rewardCategories, loadingData } = useSelector((state) => state.rewardCategorySlice);
+  const { rewardCategories, loadingData } = useSelector(
+    (state) => state.rewardCategorySlice
+  );
 
   const dispatch = useDispatch();
 
-  const [id, setId] = useState()
+  const [id, setId] = useState();
 
   const onSuccess = (e) => {
     console.log(e.id);
-    setId(null)
-    dispatch(rewardCategoryDeleted(e))
-    setClearButton(true)
-  }
+    setId(null);
+    dispatch(rewardCategoryDeleted(e));
+    setClearButton(true);
+  };
 
   const onError = () => {
-    setId(null)
-  }
+    setId(null);
+  };
 
   const handleDelete = (e) => {
-    setId(e.id)
+    setId(e.id);
     dispatch(removeRewardCategory(e)).then(() => onSuccess(e), onError);
-  }
+  };
 
   useEffect(() => {
     dispatch(getAllRewardCategory());
   }, []);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { rewardDictionary } = rewardDictionaryList[userLanguage];
   return (
     <AdminTable
       // scroll={{ x: 1500, y: 300 }}
@@ -47,7 +52,8 @@ export default function RewardCategoryTable({
         removeButtons,
         actionRights,
         id,
-        setClearButton
+        setClearButton,
+        rewardDictionary
       )}
       dataSource={rewardCategories}
       pagination={false}

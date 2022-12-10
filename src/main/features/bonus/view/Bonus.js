@@ -34,6 +34,7 @@ const initialFormData = {
 const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { bonusDictionary, Direction } = bonusDictionaryList[userLanguage];
+  const {tables} = bonusDictionary;
 
   const [tableView, setTableView] = useState(false);
 
@@ -67,7 +68,7 @@ const Bonus = (props) => {
   }, [filter]);
   const items = [
     {
-      name: 'Bonus',
+      name: bonusDictionary.bonus,
       renderButton: [1],
       to: `${ROUTES.BONUS.DEFAULT}`,
     },
@@ -81,8 +82,8 @@ const Bonus = (props) => {
             buttonText: 'Create Bonus',
             render: (
               <SideDrawer
-                title={'Create Bonus'}
-                buttonText={'Create Bonus'}
+                title={bonusDictionary.createBonus}
+                buttonText={bonusDictionary.createBonus}
                 handleClose={() => dispatch(handleOpenComposer(false))}
                 handleOpen={() => dispatch(handleOpenComposer(true))}
                 isOpen={drawerOpen}
@@ -98,32 +99,32 @@ const Bonus = (props) => {
         }}
         buttons={[
           {
-            name: 'Bonus',
+            name:bonusDictionary.bonus,
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: 'Created By Me',
+            name:bonusDictionary.createdbyMe,
             onClick: () => setFilter({ filterType: 1 }),
           },
           {
-            name: 'For Approvals',
+            name: bonusDictionary.forApproval,
             onClick: () => setFilter({ filterType: 2 }),
           },
           {
-            name: 'Bonus To Me',
+            name: bonusDictionary.bonusToMe,
             onClick: () => setFilter({ filterType: 3 }),
           },
         ]}
         segment={{
           onSegment: (value) => {
-            if (value === 'Table') {
+            if (value === bonusDictionary.table) {
               setTableView(true);
             } else {
               setTableView(false);
             }
           },
-          label1: 'List',
-          label2: 'Table',
+          label1: bonusDictionary.list,
+          label2: bonusDictionary.table,
         }}
       />
 
@@ -131,7 +132,7 @@ const Bonus = (props) => {
         {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
         {tableView && (
-          <Table columns={tableColumn()} dragable={false} data={bonuses} />
+          <Table columns={tableColumn(tables)} dragable={false} data={bonuses} />
         )}
 
         {bonuses?.length > 0 && !loader && !tableView ? (

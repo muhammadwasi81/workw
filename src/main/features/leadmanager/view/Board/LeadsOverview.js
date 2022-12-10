@@ -20,7 +20,7 @@ import {
 } from "../../store/slice";
 // import LeadSectionSelect from "../../UI/Select/LeadSectionSelect";
 import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
-function LeadsOverview({ handleSelectedMembers = () => {} }) {
+function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
 	const { Option } = Select;
 	const [toggleForm, setToggleForm] = useState(false);
 	const [leadDetailId, setLeadDetailId] = useState("");
@@ -81,6 +81,20 @@ function LeadsOverview({ handleSelectedMembers = () => {} }) {
 				targetSectionId,
 				currentIndexNo: Number(currentIndex) + 1,
 				targetIndexNo: 1,
+			})
+		);
+	};
+
+	const handleDetailAssignTo = (e, id, members, sectionId) => {
+		// console.log("members", members);
+		// console.log("sectionId", sectionId);
+		setLeadSectionId(sectionId);
+		e.stopPropagation();
+		e.preventDefault();
+		handleSelectedMembers("", members);
+		dispatch(
+			handleAssignMemberModal({
+				id,
 			})
 		);
 	};
@@ -164,19 +178,11 @@ function LeadsOverview({ handleSelectedMembers = () => {} }) {
 																<div
 																	className="bg-primary-color rounded-full p-1 flex items-center"
 																	onClick={e => {
-																		e.stopPropagation();
-																		e.preventDefault();
-																		handleSelectedMembers(
-																			"",
-																			det.members
-																		);
-																		dispatch(
-																			handleAssignMemberModal(
-																				{
-																					id:
-																						det?.id,
-																				}
-																			)
+																		handleDetailAssignTo(
+																			e,
+																			det?.id,
+																			det?.members,
+																			detail.id
 																		);
 																	}}
 																>
@@ -213,13 +219,16 @@ function LeadsOverview({ handleSelectedMembers = () => {} }) {
 																}
 															>
 																{leadManagerDetail?.sections.map(
-																	leadSection => (
+																	(
+																		leadSection,
+																		index
+																	) => (
 																		<Option
 																			value={
 																				leadSection.id
 																			}
 																			key={
-																				leadSection.id
+																				index
 																			}
 																		>
 																			<Tag
@@ -268,6 +277,7 @@ function LeadsOverview({ handleSelectedMembers = () => {} }) {
 						) : (
 							<div className="bg-white p-5 rounded">
 								<SectionDetail
+									setLeadSectionId={setLeadSectionId}
 									handleSelectedMembers={
 										handleSelectedMembers
 									}

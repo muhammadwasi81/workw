@@ -53,7 +53,7 @@ const sharedSlice = createSlice({
     },
     darkModeHandler: (state, { payload }) => {
       console.log('slice', payload);
-      localStorage.setItem('darkMode', payload ? '1' : '0');
+      state.isDarkMode = payload;
     },
   },
   extraReducers: (builder) => {

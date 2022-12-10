@@ -17,6 +17,10 @@ export const routes = {
       component: lazy(() => import("../main/features/profile/Profile")),
     },
     {
+      path: `${ROUTES.SEARCH.DEFAULT}`,
+      component: lazy(() => import("../main/features/search/view/index")),
+    },
+    {
       path: `${ROUTES.SETTINGS.DEFAULT}`,
       component: lazy(() => import("../main/features/settings")),
     },

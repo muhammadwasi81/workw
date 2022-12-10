@@ -3,7 +3,14 @@
   transition: all 0.3s;
   background: #fff;
 }
-
+.globalSearchInput {
+  background-color: #f4f4f4;
+  padding-left: 4px;
+  width: 100%;
+}
+.d-none {
+  display: none;
+}
 .ant-tooltip-inner {
   /* color: #000 !important; */
 }

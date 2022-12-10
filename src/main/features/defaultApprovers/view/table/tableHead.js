@@ -1,12 +1,29 @@
 import '../../styles.css';
+
 const TableHead = () => {
   return (
     <thead>
       <tr>
-        <th className="w-0 !py-1 !px-2 text-left"></th>
-        <th className="w-[200px] !py-1 !px-2 text-left">Name</th>
-        <th className="w-[200px] !py-1 !px-2 text-left">Designation</th>
-        <th className="w-0 !py-1 !px-2 text-left"></th>
+        <th
+          className="!py-1 !px-2 text-left"
+          style={{ width: 50, minWidth: 50 }}
+        ></th>
+        <th
+          className="!py-1 !px-2 text-left"
+          style={{ width: 200, minWidth: 200 }}
+        >
+          Name
+        </th>
+        <th
+          className="!py-1 !px-2 text-left"
+          style={{ width: 200, minWidth: 200 }}
+        >
+          Designation
+        </th>
+        <th
+          className="!py-1 !px-2 text-left"
+          style={{ width: 50, minWidth: 50 }}
+        ></th>
       </tr>
     </thead>
   );

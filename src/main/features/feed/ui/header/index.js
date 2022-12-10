@@ -13,7 +13,6 @@ const Header = ({ isCheckedIn = true, width, backButton, routeLink }) => {
 
   const label = dictionaryList[userLanguage];
   const { ButtonLabel } = FeedDictionary[userLanguage];
-  console.log(ButtonLabel, "button label");
   const items = [
     {
       name: label.appHeader.newsFeed.posts,

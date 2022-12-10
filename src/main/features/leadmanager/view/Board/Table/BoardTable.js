@@ -9,7 +9,7 @@ import {
 import { tableColumns } from "./tableColumns";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 
-function BoardTable({ data, dictionary }) {
+function BoardTable({ data, dictionary, handleSelectedMembers }) {
 	let details = data?.sections.reduce((results, item, index) => {
 		return [
 			...results,
@@ -44,7 +44,8 @@ function BoardTable({ data, dictionary }) {
 			columns={tableColumns(
 				data?.sections,
 				handleMemberModal,
-				userLanguage
+				userLanguage,
+				handleSelectedMembers
 			)}
 			dragable={false}
 			onRow={onRow}

@@ -74,8 +74,8 @@ const turkish = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
-    Schedules: "Schedules",
-    workWiseCompanies: "Workwise Companies",
+    Schedules: "Programları",
+    workWiseCompanies: "Workwise Şirketleri",
     promotions: "Promosyonlar",
     customApprovals: "Özel Onaylar",
     feed: "beslemek",
@@ -128,6 +128,14 @@ const turkish = {
     businessPolicy: "iş politikası",
     form: "biçim",
     teams: "Benim takımım",
+    LD: "L&D",
+    jobBoard: "İş Panosu",
+    salary: "Aylık maaş",
+    ledgerReport: "Defter Raporları",
+    assets: "Varlık Tahsisi",
+    assetsList: "Varlık Listesi",
+    createAssets: "Varlık Oluştur",
+    requestListItems: "Ürün Talebi",
   },
 
   /*** AppHeader only used in Component headerTab ***/

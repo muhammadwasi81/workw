@@ -16,20 +16,22 @@ const AssetsList = ({ data }) => {
   };
 
   return (
-    <CardWrapper>
+    <>
       {data?.length > 0 ? (
-        data?.map((item) => (
-          <AssetsListItem
-            key={item.id}
-            item={item}
-            onClick={(id) => setItemId(id)}
-          />
-        ))
+        <CardWrapper>
+          {data?.map((item) => (
+            <AssetsListItem
+              key={item.id}
+              item={item}
+              onClick={(id) => setItemId(id)}
+            />
+          ))}
+          {<AssetsDetailedView onClose={onClose} id={itemId} />}
+        </CardWrapper>
       ) : (
         <NoDataFound />
       )}
-      {<AssetsDetailedView onClose={onClose} id={itemId} />}
-    </CardWrapper>
+    </>
   );
 };
 

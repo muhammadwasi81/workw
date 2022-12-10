@@ -2,18 +2,18 @@ import React, { useEffect } from "react";
 import { Avatar, Dropdown, Menu, Skeleton } from "antd";
 import { EllipsisOutlined, SmileOutlined } from "@ant-design/icons";
 import { HiDotsHorizontal } from "react-icons/hi";
-import { getWorkAction } from "../store/action";
+import { getEducationAction } from "../store/action";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
-function List() {
+function EducationList() {
   const dispatch = useDispatch();
-  const { work } = useSelector((state) => state.employeeProfileSlice);
-  console.log(work, "work");
+  const { education } = useSelector((state) => state.employeeProfileSlice);
+  console.log(education, "work");
   const { id } = useParams();
   useEffect(() => {
-    dispatch(getWorkAction("34B0E4F7-7D4A-43B7-8597-525FFC619B84"));
+    dispatch(getEducationAction("34B0E4F7-7D4A-43B7-8597-525FFC619B84"));
   }, []);
   const menu = (
     <Menu
@@ -66,17 +66,17 @@ function List() {
     />
   );
 
-  if (!work) return <Skeleton />;
+  if (!education) return <Skeleton />;
   return (
     <div className="py-5">
-      {work.map((itm) => {
+      {education.map((itm) => {
         return (
           <div className="flex items-center justify-between">
             <div className="flex gap-5">
               <Avatar />
               <div className="flex flex-col">
                 <p className="text-base !m-0">
-                  {itm.position ? itm.position : "No Position"}
+                  {itm.institute ? itm.institute : "No Institute"}
                 </p>
                 <p className="text-xs text-gray-500">
                   {moment(itm?.startDate).format("DD-MM-YYYY")}-{" "}
@@ -98,4 +98,4 @@ function List() {
   );
 }
 
-export default List;
+export default EducationList;

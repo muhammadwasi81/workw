@@ -96,7 +96,7 @@ const NavMenuList = () => {
       key: label.navMenuLabel.menu,
     },
     {
-      name: label.navMenuLabel.Schedules,
+      name: label.navMenuLabel.schedules,
       counter: 0,
       to: ROUTES.SCHEDULES.LINK + "?f=cal",
       icon: schedulesIcon,

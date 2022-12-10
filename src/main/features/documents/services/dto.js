@@ -21,7 +21,7 @@ export const getAllDocumentList_dto = (data) => {
 		"referenceId": data.referenceId ? data.referenceId : STRINGS.DEFAULTS.guid,
 		"parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
 		"myDocuments": data.myDocuments ? data.myDocuments : false,
-		"sortBy": data.sortBy ? data.sortBy : 1,
+		"sortBy": data.sortBy ? data.sortBy : 0,
 	}
 }
 

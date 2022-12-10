@@ -24,7 +24,7 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 	const [form] = Form.useForm();
 	const [attachment, setAttachment] = useState(null);
 	const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
-	const [fileNames, setFileNames] = useState([]);
+	const [defaultFileNames, setDefaultFileNames] = useState([]);
 	const [value, setValue] = useState([]);
 	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
 	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -75,7 +75,7 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 	const defaultFiles = useSelector(state => state.documentSlice.defaultFiles);
 	useEffect(() => {
 		let defaultFileName = defaultFiles.map(item => item.name);
-		setFileNames(defaultFileName);
+		setDefaultFileNames(defaultFileName);
 	}, [defaultFiles]);
 
 	const onFinish = values => {
@@ -134,7 +134,7 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 						: defaultFiles.length > 1
 							? [
 								...defaultFiles.map((item, index) => ({
-									name: fileNames[index],
+									name: defaultFileNames[index],
 									attachment: {
 										id: STRINGS.DEFAULTS.guid,
 										file: item,
@@ -146,9 +146,9 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 		dispatch(addDocument({ payload, form }));
 	};
 	const handleNameChange = (value, index) => {
-		let tempFileNames = [...fileNames];
-		tempFileNames[index] = value;
-		setFileNames(tempFileNames);
+		let tempdefaultFileNames = [...defaultFileNames];
+		tempdefaultFileNames[index] = value;
+		setFirstTimeEmpData(tempdefaultFileNames);
 	};
 
 	const onFinishFailed = errorInfo => {
@@ -184,13 +184,7 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 							label={"Name"}
 							name="name"
 							labelPosition="top"
-							rules={[
-								{
-									required: true,
-									message: "Name",
-								},
-							]}
-						>
+							rules={[{ required: true, message: "Name" }]} >
 							<TextInput placeholder={"Enter Name"} />
 						</Form.Item>
 
@@ -280,6 +274,7 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 									img="Add Image"
 									position="flex-start"
 									uploadText={"Upload"}
+									// url="https://konnect.im/upload/2022/10/88c35581-97aa-4e88-be91-584a667fd5eb.jpg"
 								/>
 							</Form.Item>
 						)}
@@ -290,13 +285,22 @@ const CreateUpload = ({ isOpen, handleClose, referenceId, referenceType }) => {
 										<div className="flex-1 flex items-center">
 											<TextInput
 												placeholder={"Enter Name"}
-												value={fileNames[index]}
+												value={defaultFileNames[index]}
 												onChange={value =>
 													handleNameChange(value, index)
 												}
 											/>
 										</div>
 										<div className="w-[100px] ml-4 cursor-pointer">
+											{/* <Form.Item area="true">
+												<SingleUpload
+													handleImageUpload={handleImageUpload}
+													img="Add Image"
+													position="flex-start"
+													uploadText={"Upload"}
+													url={item.src}
+												/>
+											</Form.Item> */}
 											<img
 												className="h-[50px] rounded-md m-auto"
 												src={item.src}

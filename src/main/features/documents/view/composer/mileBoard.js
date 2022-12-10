@@ -94,8 +94,8 @@ const CreateMileboard = ({
       description: values.description,
       approvers: values.approvers
         ? modifySelectData(values.approvers).map((item) => ({
-            approverId: item,
-          }))
+          approverId: item,
+        }))
         : [],
       members: members,
       parentId: ParentId,
@@ -103,6 +103,7 @@ const CreateMileboard = ({
       privacyId: privacyId,
       referenceId,
       referenceType,
+      attachments: [{ name: values.name }]
     };
     dispatch(addDocument({ payload, form }));
   };
@@ -232,7 +233,7 @@ const CreateMileboard = ({
               label={documentDictionary.readers}
               showSearch={true}
               style={{ marginBottom: "0px" }}
-              // direction={Direction}
+            // direction={Direction}
             >
               <CustomSelect
                 style={{ marginBottom: "0px" }}

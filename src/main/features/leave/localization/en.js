@@ -10,6 +10,7 @@ const en = {
     enterRewardReason: "Enter Reward Reason",
     reason: "Reason",
     name: "Name",
+    balanceLeaves: "Leave Types (balance leaves)",
     filter: "Filter",
     tableView: "Table View",
     listView: "List View",

@@ -11,6 +11,7 @@ import { DEFAULT_GUID } from "../../../utils/constants";
 import moment from "moment";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { LoanDictionary } from "./localization";
+import { handleOpenComposer } from "./store/slice";
 const { TextArea } = Input;
 
 const { Option } = Select;
@@ -49,7 +50,6 @@ const Composer = () => {
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
-  // const [account, setAccount] = useState("");
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -61,11 +61,6 @@ const Composer = () => {
       setFirstTimeEmpData(employees);
     }
   }, [employees]);
-
-  // const selectedData = (data, obj) => {
-  //   console.log(data);
-  //   setEmployeesData(JSON.parse(data).members);
-  // };
 
   const onFinish = (values) => {
     const {
@@ -94,6 +89,7 @@ const Composer = () => {
       loanTenure,
     };
     dispatch(addLoan({ loanObj }));
+    dispatch(handleOpenComposer(false))
     console.log(success);
     if (success) {
       onReset();
@@ -103,17 +99,6 @@ const Composer = () => {
   const onReset = () => {
     form.resetFields();
   };
-
-  // const onFill = () => {
-  //   form.setFieldsValue({
-  //     note: "Hello world!",
-  //     gender: "male",
-  //   });
-  // };
-
-  // const onFinishFailed = (errorInfo: any) => {
-  //   console.log("Failed:", errorInfo);
-  // };
 
   return (
     <Form
@@ -157,24 +142,12 @@ const Composer = () => {
           },
         ]}
       >
-        <Input type="number" placeholder={loanDictionaryList.loanTenure} />
+        <Input type="number" placeholder={loanDictionaryList.months} />
       </Form.Item>
-      {/* <Form.Item name="interest" label="Interest">
-        <div
-          style={{
-            border: "1px solid #d9d9d9",
-            borderRadius: "5px",
-            height: "32px",
-            width: "100%",
-          }}
-        ></div>
-      </Form.Item> */}
       <Form.Item
         disabled={true}
         name="deductionPerMonth"
         label={loanDictionaryList.deductionPerMonth}
-        // value={loanAmount & loanTenure ? loanAmount / loanTenure : 0}
-        // value={loanAmount / loanTenure}
       >
         <div
           style={{
@@ -227,7 +200,7 @@ const Composer = () => {
           <Option value="other"> {loanDictionaryList.loanPurpose.other}</Option>
         </Select>
       </Form.Item>
-      <Form.Item label={loanDictionaryList.datePicker} name="deadline">
+      <Form.Item label={loanDictionaryList.deadline} name="deadline">
         <DatePicker />
       </Form.Item>
       <Form.Item

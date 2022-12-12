@@ -2,20 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import moment from "moment";
 import {
-  ItemContent,
-  ItemHeader,
+  ItemContentCareers,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 import AvatarOld from "../../../../sharedComponents/Avatar/avatarOLD";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
-// import JobDetails from "../../DetailView/DetailComposer/JobDetails";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization/index";
+import { Tag } from "antd";
 
 function ListItem({ item, onClick, onClickMyCareer }) {
-  // console.log(item, "description");
   const { userLanguage } = useContext(LanguageChangeContext);
   const { CareerDictionaryList } = CareerDictionary[userLanguage];
   const { labels } = CareerDictionaryList;
@@ -35,13 +33,14 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     referenceNo,
     effecttiveDate,
     approvers,
+    skills,
     applicantsCount,
     description,
     interviewers,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
 
-  console.log("items", item);
+  const skillsArray = skills?.split(",");
 
   return (
     <>
@@ -68,7 +67,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           status={item.status}
           profileImgSize={40}
         />
-        <ItemContent className="!h-[100px] !max-h-[100px]">
+        <ItemContentCareers className="!h-[100px] !max-h-[100px]">
           <div className="font-bold text-[14px] text-primary-color">
             {designation}
           </div>
@@ -76,7 +75,17 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             {city}, {country}
           </p>
           <p className="careersDescShort">{description}</p>
-        </ItemContent>
+          <div className="mt-5 skillsContainer">
+            <div className="font-bold">{labels.skillsRequired}</div>
+            <div>
+              {skills
+                ? skillsArray?.map((item, index) => {
+                    return <Tag className="LinkTag">{item}</Tag>;
+                  })
+                : null}
+            </div>
+          </div>
+        </ItemContentCareers>
         <div className="cardSections mt-10">
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.salaryRange}</div>

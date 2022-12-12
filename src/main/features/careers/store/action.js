@@ -16,7 +16,6 @@ export const addCareer = createAsyncThunk(
   "Career/addCareer",
   async (data, { dispatch, rejectWithValue }) => {
     const res = await addCareerService(data);
-    console.log(res, "FROM CAREER RESPONSE");
 
     switch (res.type) {
       case ResponseType.ERROR:

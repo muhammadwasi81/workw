@@ -18,7 +18,6 @@ const career_data = (data) => {
   };
 };
 export const addCareerService = async (data) => {
-  console.log(data, "data in service");
   const formData = jsonToFormData(data);
   try {
     const {

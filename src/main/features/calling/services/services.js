@@ -17,6 +17,7 @@ export const createRoomService = data => {
 };
 
 export const instantCallService = data => {
+	console.log("instant call data", data);
 	return MasterConfig.post(
 		`https://${LiveCallingUrl}/api/createroomlink
     `,

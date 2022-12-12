@@ -40,7 +40,7 @@ function ScheduleComposer({ onClose, id, visible, type, Direction }) {
 			) : type === ScheduleTypeEnum.Task ? (
 				<TaskDetail id={id} />
 			) : (
-				<ScheduleComposerDetail id={id} />
+				<ScheduleComposerDetail id={id} shortEvent={false} />
 			)}
 		</Drawer>
 	);

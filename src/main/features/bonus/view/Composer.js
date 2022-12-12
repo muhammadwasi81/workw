@@ -39,19 +39,16 @@ const Composer = (props) => {
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [profileImage, setProfileImage] = useState(null);
-  const [value, setValue] = useState(1);
-  const [privacyId, setPrivacyId] = useState(1);
+  const [value, setValue] = useState();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [amountType, setAmountType] = useState(false);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const salary = useSelector((state) => state.sharedSlice.employeeSalary);
-  const [netsalary, setNetSalary] = useState(90);
-  const [employeeID, setEmployeeId] = useState(null);
   const [prercentage, setPercentage] = useState();
   const [amount, setAmount] = useState();
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [netSalary, setnetSalary] = useState();
+  const [isDisabled, setIsDisabled] = useState(true);
 
   console.log(props.id, "bonus composer idddd");
   useEffect(() => {
@@ -123,15 +120,20 @@ const Composer = (props) => {
   // }, [value]);
 
   const handleType = (e) => {
-    let type = e.target.value;
-    setValue(type);
-    if (type === 2) {
-      console.log(type, "type");
-      setAmountType(true);
-    } else {
-      setAmountType(false);
-      setIsDisabled(true);
-    }
+    // let type = e.target.value;
+    // setValue(type);
+    // // setnetSalary(0);
+    // setIsDisabled(!isDisabled);
+    // if (type === 2) {
+    //   console.log(type, "type");
+    //   // setAmountType(true);
+    //   // setnetSalary(0);
+    // } else {
+    //   console.log("percentage clicked");
+    //   console.log(netSalary, "nettttt");
+    //   // setAmountType(false);
+    //   setnetSalary(0);
+    // }
   };
 
   return (
@@ -214,6 +216,7 @@ const Composer = (props) => {
             >
               <Radio.Group onChange={handleType} value={value}>
                 <Radio value={1}>{bonusDictionary.percent}</Radio>
+
                 <Radio value={2}>{bonusDictionary.amount}</Radio>
               </Radio.Group>
             </Form.Item>
@@ -222,7 +225,31 @@ const Composer = (props) => {
         <div className="flex justify-between gap-4">
           <div className="w-full">
             <Form.Item
-              label= {bonusDictionary.amount}
+              label={bonusDictionary.amount}
+              name="percentage"
+              rules={[
+                {
+                  required: true,
+                  message: "Please Enter Amount",
+                },
+              ]}
+            >
+              {/* {amountType === false ? ( */}
+              <Input
+                parser={(value) => value.replace("%", "")}
+                formatter={(value) => `${value}%`}
+                // defaultValue="0%"
+                // type={"number"}
+                placeholder="0%"
+                // size="large"
+                value={prercentage}
+                style={{ width: "100%" }}
+                onChange={(e) => setPercentage(e.target.value)}
+              />
+            </Form.Item>
+            {/* ) : ( */}
+            <Form.Item
+              label={bonusDictionary.amount}
               name="amount"
               rules={[
                 {
@@ -231,29 +258,17 @@ const Composer = (props) => {
                 },
               ]}
             >
-              {amountType === false ? (
-                <InputNumber
-                  parser={(value) => value.replace("%", "")}
-                  formatter={(value) => `${value}%`}
-                  defaultValue="0%"
-                  // type={"number"}
-                  placeholder="0%"
-                  size="large"
-                  value={prercentage}
-                  style={{ width: "100%" }}
-                />
-              ) : (
-                // <Input placeholder="0" size="large" />
-                <InputNumber
-                  // parser={(value) => value.replace("0", "")}
-                  // formatter={(value) => `${value}`}
-                  type={"number"}
-                  placeholder="0"
-                  size="large"
-                  value={amount}
-                  style={{ width: "100%" }}
-                />
-              )}
+              <Input
+                // parser={(value) => value.replace("0", "")}
+                // formatter={(value) => `${value}`}
+                // type={"number"}
+                placeholder="0"
+                // size="large"
+                value={amount}
+                style={{ width: "100%" }}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+              {/* )} */}
             </Form.Item>
           </div>
         </div>

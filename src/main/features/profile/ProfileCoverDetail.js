@@ -1,26 +1,28 @@
-import { useEffect } from 'react';
-import { SettingOutlined } from '@ant-design/icons';
-import { Rate } from 'antd';
-import WhiteCard from '../projects/UI/WhiteCard';
-import ProjectCover from '../../../content/avatarProfile.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { getEmployeeByIdAction } from './store/action';
-import { Link } from 'react-router-dom';
-import { Skeleton } from 'antd';
+import { useEffect } from "react";
+import { SettingOutlined } from "@ant-design/icons";
+import { Rate } from "antd";
+import WhiteCard from "../projects/UI/WhiteCard";
+import ProjectCover from "../../../content/avatarProfile.svg";
+import profile from "../../../content/profile.svg";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getEmployeeByIdAction } from "./store/action";
+import { Link } from "react-router-dom";
+import { Skeleton } from "antd";
 
 function ProfileCoverDetail({ id }) {
   const dispatch = useDispatch();
   const { employees, loader } = useSelector(
     (state) => state.employeeProfileSlice
   );
-  console.log(employees, 'employeeData mera slice');
+  console.log(employees, "employeeData mera slice");
 
   useEffect(() => {
     dispatch(getEmployeeByIdAction(id));
   }, [id]);
 
   return (
-    <WhiteCard className={'z-10 sticky top-0 w-full mt-[-87px] shadow-md'}>
+    <WhiteCard className={"z-10 sticky top-0 w-full mt-[-87px] shadow-md"}>
       <div className="flex w-full justify-between text-base items-center h-[80px]">
         <div className="flex gap-2 items-center px-10">
           {loader ? (
@@ -29,7 +31,7 @@ function ProfileCoverDetail({ id }) {
             <>
               <div className="border-4 border-white rounded-lg overflow-hidden -top-8 relative z-50">
                 <img
-                  src={employees?.image ? employees?.image : ProjectCover}
+                  src={employees?.image ? employees?.image : profile}
                   alt="avatar"
                   loading="lazy"
                   className="h-28 w-28"
@@ -40,7 +42,7 @@ function ProfileCoverDetail({ id }) {
                   {`${employees?.firstName} ${employees?.lastName}`}
                 </span>
                 <span className="text-gray-500 text-sm font-bold flex items-center gap-1">
-                  {employees?.designation || 'No Designation'}
+                  {employees?.designation || "No Designation"}
                 </span>
               </div>
             </>

@@ -3,6 +3,9 @@ const urdu = {
     stickyNotes: "چپکنے والے نوٹس",
     search: "تلاش کریں",
     title: "عنوان",
+    share: "بانٹیں",
+    copy: "کاپی",
+    takeANote: "نوٹ کر لو",
   },
 
   /*** Define language write side ***/

@@ -75,7 +75,7 @@ const hindi = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
-    Schedules: "Schedules",
+    Schedules: "अनुसूचियों",
     workWiseCompanies: "कार्यवार कंपनियां",
     promotions: "पदोन्नति",
     customApprovals: "कस्टम स्वीकृतियां",
@@ -132,6 +132,12 @@ const hindi = {
     salary: "वेतन",
     payroll: "पेरोल",
     teams: "मेरी टीम",
+    LD: "एल एंड डी",
+    jobBoard: "नौकरी बोर्ड",
+    assets: "संपत्ति आवंटन",
+    createAssets: "संपत्ति बनाएँ",
+    assetsList: "संपत्ति सूची",
+    requestListItems: "वस्तुओं के लिए अनुरोध",
   },
 
   /*** AppHeader only used in Component headerTab ***/

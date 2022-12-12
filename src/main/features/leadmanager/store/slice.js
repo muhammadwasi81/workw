@@ -1,8 +1,10 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
 import {
 	addLeadManager,
+	addLeadManagerAssignTo,
 	addLeadManagerContact,
 	addLeadManagerDetail,
+	deleteLeadManagerDetailAssignTo,
 	// deleteLeadManagerContact,
 	getAllLeadManager,
 	getAllLeadManagerContactDetail,
@@ -221,6 +223,47 @@ const leadMangerSlice = createSlice({
 					state.isContactDetailLoading = false;
 					state.success = true;
 					state.contactDetail = payload.data;
+				}
+			)
+			.addCase(addLeadManagerAssignTo.fulfilled, (state, { payload }) => {
+				const { sectionId, detailId, data } = payload;
+				let sectionIndex = state.leadManagerDetail.sections.findIndex(
+					section => section.id === sectionId
+				);
+				let detailIndex = state.leadManagerDetail.sections[
+					sectionIndex
+				].details.findIndex(detail => detail.id === detailId);
+				state.leadManagerDetail.sections[sectionIndex].details[
+					detailIndex
+				].members = data;
+
+				if (state.leadManagerSectionDetailData) {
+					state.leadManagerSectionDetailData.members = data;
+				}
+			})
+			.addCase(
+				deleteLeadManagerDetailAssignTo.fulfilled,
+				(state, { payload }) => {
+					const { sectionId, detailId, memberId } = payload;
+					let sectionIndex = state.leadManagerDetail.sections.findIndex(
+						section => section.id === sectionId
+					);
+					let detailIndex = state.leadManagerDetail.sections[
+						sectionIndex
+					].details.findIndex(detail => detail.id === detailId);
+
+					const filteredMembers = state.leadManagerDetail.sections[
+						sectionIndex
+					].details[detailIndex].members.filter(
+						member => member.memberId !== memberId
+					);
+
+					state.leadManagerDetail.sections[sectionIndex].details[
+						detailIndex
+					].members = filteredMembers;
+					if (state.leadManagerSectionDetailData) {
+						state.leadManagerSectionDetailData.members = filteredMembers;
+					}
 				}
 			)
 			.addCase(addLeadManagerContact.fulfilled, (state, { payload }) => {

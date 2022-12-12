@@ -3,6 +3,9 @@ const en = {
     stickyNotes: "Stikcy Notes",
     search: "Search",
     title: "Title",
+    share: "Share",
+    copy: "Copy",
+    takeANote: "Take A Note",
   },
 
   /*** Define language write side ***/

@@ -7,7 +7,7 @@ import CreateSchedule from "../view/createSchedule";
 import { useSelector } from "react-redux";
 import { ROUTES } from "../../../../utils/routes";
 // import { handleOpenComposer } from "../store/slice";
-function Header() {
+function Header({handleShareLinkModal}) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appHeader, sharedLabels } = dictionaryList[userLanguage];
   const success = useSelector((state) => state.scheduleSlice.success);
@@ -15,12 +15,12 @@ function Header() {
     {
       name: "Calendar",
       to: `?f=cal`,
-      renderButton: [1],
+      renderButton: [1,2],
     },
     {
       name: "Schedule",
       to: `?f=sc`,
-      renderButton: [1],
+      renderButton: [1,2],
     },
     // {
     //   name: "Schedule Interviews",
@@ -29,22 +29,21 @@ function Header() {
     // },
   ];
   const buttons = [
+    
     {
-      buttonText: "Create Schedule",
       render: (
         <SideDrawer
           buttonText="Create Schedule"
           children={<CreateSchedule />}
           title={"Create Schedule"}
           success={success}
-          //   buttonText={ExpenseDictionaryList.createTextBtn}
-          //   success={isCreateComposer}
-          //   setOpenDrawer={() => dispatch(toggleCreateComposer())}
           isAccessDrawer={true}
-          //   openDrawer={isCreateComposer}
-          //   setIsEdited={() => {}}
         />
       ),
+    },
+    {
+      buttonText:'Share Calendar Link',
+      onClick:handleShareLinkModal
     },
   ];
   return <HeaderLayout items={items} buttons={buttons} />;

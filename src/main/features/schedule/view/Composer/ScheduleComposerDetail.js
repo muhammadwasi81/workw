@@ -15,6 +15,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { Button, Tooltip } from "antd";
 import CreateSchedule from "../createSchedule";
 import UpdateSchedule from "./UpdateSchedule";
+import Attachments from "../../../travel/view/UI/Attachments";
 
 function ScheduleComposerDetail({ id, shortEvent = true }) {
 	const eventDetail = useSelector(state => state.scheduleSlice.eventDetail);
@@ -101,14 +102,33 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 						{!shortEvent && (
 							<div className="eventDetail__body-description">
 								<p className="eventDetail-title">Description</p>
-								<span>{eventDetail?.description}</span>
+								<div
+									dangerouslySetInnerHTML={{
+										__html: eventDetail?.description,
+									}}
+									className="break-words dangerous_element_detail"
+								/>
 							</div>
 						)}
 					</div>
-					<div>Members</div>
+					{eventDetail?.attachments?.length > 0 ? (
+						<>
+							<div className="eventDetail-title">Attachments</div>
+							<div className="!w-max m-4">
+								<Attachments
+									data={eventDetail?.attachments}
+									key={{ data: eventDetail?.attachments }}
+									toShow={1}
+									onClick={() => {}}
+									size={"50px"}
+								/>
+							</div>
+						</>
+					) : null}
+					<div className="eventDetail-title">Members</div>
 					{eventDetail?.members?.map(member => (
 						<ScheduleMembersList
-							status={member.statusEnum}
+							status={member.status}
 							id={member.id}
 							data={member?.member}
 							memberType={member.memberType}

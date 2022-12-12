@@ -1,23 +1,23 @@
-import { Button, Progress } from "antd";
-import React, { useContext, useEffect, useState } from "react";
-import { dictionaryList } from "../../../../../utils/localization/languages";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { Rate } from "antd";
-import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import moment from "moment";
-import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import { taskDictionary } from "../../localization";
+import { Button, Progress } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import { dictionaryList } from '../../../../../utils/localization/languages';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
+import { Rate } from 'antd';
+import UserInfo from '../../../../sharedComponents/UserShortInfo/UserInfo';
+import SublineDesigWithTime from '../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
+import moment from 'moment';
+import Avatar from '../../../../sharedComponents/Avatar/avatar';
+import { taskDictionary } from '../../localization';
 import {
   getPriorityLabel,
   UserTaskStatusEnum,
   getUserStatusLabel,
-} from "../../utils/enum/enum";
-import TaskMembers from "../TaskDetail/taskMembers";
-import { postUserTaskRating } from "../../utils/services/service";
-import Attachments from "../../../travel/view/UI/Attachments";
-import { cancelTaskAction } from "../../store/actions";
-import { useSelector, useDispatch } from "react-redux";
+} from '../../utils/enum/enum';
+import TaskMembers from '../TaskDetail/taskMembers';
+import { postUserTaskRating } from '../../utils/services/service';
+import Attachments from '../../../travel/view/UI/Attachments';
+import { cancelTaskAction } from '../../store/actions';
+import { useSelector, useDispatch } from 'react-redux';
 // import {
 //   ApprovalsModule,
 //   ApprovalStatus,
@@ -34,7 +34,7 @@ function TaskDetailItem({
 }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState('');
   const { taskDictionaryList } = taskDictionary[userLanguage];
   const [isMount, setIsMount] = useState(false);
   const [updatedStatus, setUpdatedStatus] = useState(null);
@@ -56,7 +56,7 @@ function TaskDetailItem({
     attachments,
     predecessor,
   } = item;
-  console.log(predecessor, "preddd");
+
   let {
     NotStarted,
     InProcess,
@@ -67,8 +67,8 @@ function TaskDetailItem({
   const { user } = useSelector((state) => state.userSlice);
   let userId = user.id;
 
-  let classes = "card-list-item ";
-  classes += Direction === "rtl" ? "rtl" : "ltr";
+  let classes = 'card-list-item ';
+  classes += Direction === 'rtl' ? 'rtl' : 'ltr';
   const { color, label } = getPriorityLabel(labels, priority);
   const taskColorEnum = getUserStatusLabel(label, status);
   useEffect(() => {
@@ -100,7 +100,7 @@ function TaskDetailItem({
             name={creator?.name}
             Subline={
               <SublineDesigWithTime
-                designation={creator?.designation ? creator?.designation : ""}
+                designation={creator?.designation ? creator?.designation : ''}
                 time={moment(startDate).fromNow()}
               />
             }
@@ -130,8 +130,8 @@ function TaskDetailItem({
                       Cancel
                     </span>
                   )
-                : ""
-              : ""}
+                : ''
+              : ''}
             {(status === Completed || status === Cancelled) && (
               <span
                 className="user-status"
@@ -165,7 +165,7 @@ function TaskDetailItem({
                   key={{ data: attachments }}
                   toShow={1}
                   onClick={() => {}}
-                  size={"50px"}
+                  size={'50px'}
                 />
               </div>
             </div>
@@ -184,13 +184,13 @@ function TaskDetailItem({
             <div className="cardSectionItem">
               <div className="cardSection__title">{labels.startDate}</div>
               <div className="cardSection__body">
-                {moment(startDate).format("ddd,MMM DD,YYYY")}
+                {moment(startDate).format('ddd,MMM DD,YYYY')}
               </div>
             </div>
             <div className="cardSectionItem">
               <div className="cardSection__title">{labels.endtDate}</div>
               <div className="cardSection__body">
-                {moment(endDate).format("ddd,MMM DD,YYYY")}
+                {moment(endDate).format('ddd,MMM DD,YYYY')}
               </div>
             </div>
             {/* <div className="cardSectionItem">
@@ -204,9 +204,9 @@ function TaskDetailItem({
                   <Avatar
                     isAvatarGroup={true}
                     isTag={false}
-                    heading={"Members"}
+                    heading={'Members'}
                     membersData={members}
-                    image={"https://joeschmoe.io/api/v1/random"}
+                    image={'https://joeschmoe.io/api/v1/random'}
                   />
                 )}
               </div>

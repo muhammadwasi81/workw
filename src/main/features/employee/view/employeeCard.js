@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import React, { useContext } from 'react';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { EditOutlined, UserDeleteOutlined } from '@ant-design/icons';
+import { Avatar, Button } from 'antd';
+import { getNameForImage } from '../../../../utils/base';
+import { useNavigate } from 'react-router-dom';
 
-import { EditOutlined, UserDeleteOutlined } from "@ant-design/icons";
-import { Avatar, Button } from "antd";
-import { getNameForImage } from "../../../../utils/base";
-import { useNavigate } from "react-router-dom";
 function EmployeeCard({ employees: { image, name, email, designation, id } }) {
   const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -15,14 +15,14 @@ function EmployeeCard({ employees: { image, name, email, designation, id } }) {
     <div className="employeeCard">
       <div className="employeeCard__header">
         <div className="employeeCard__header--img">
-          <Avatar className="" src={image ? image : ""}>
-            {getNameForImage(name ? name : "Unknown User")}
+          <Avatar className="" src={image ? image : ''}>
+            {getNameForImage(name ? name : 'Unknown User')}
           </Avatar>
         </div>
       </div>
       <div className="employeeCard__body">
         <p>{name}</p>
-        <span>{designation || "No Desigation"}</span>
+        <span>{designation || 'No Designation'}</span>
         <span>{email}</span>
         <div className="buttonGroup">
           <Button

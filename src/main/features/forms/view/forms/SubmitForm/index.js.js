@@ -415,7 +415,7 @@ const SubmitForm = (props) => {
   if (isSubmited)
     return (
       <div className="w-full h-full flex m-auto justify-center items-center">
-        <MessagePage message="Thank you for your Response" />
+        <MessagePage message="Thank you for your response" />
       </div>
     );
 

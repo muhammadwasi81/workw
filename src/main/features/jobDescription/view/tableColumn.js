@@ -34,7 +34,7 @@ export const tableColumn = (
   return [
     {
       title: jobDescDictionary.name,
-      dataIndex: "designationId",
+      dataIndex: "designation",
       width: "50%",
     },
     {

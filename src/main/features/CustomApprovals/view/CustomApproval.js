@@ -82,7 +82,7 @@ const CustomApproval = (props) => {
               render: (
                 <SideDrawer
                   title={customApprovalDictionary.customApproval}
-                  buttonText={customApprovalDictionary.create}
+                  buttonText={customApprovalDictionary.createCustomApproval}
                   handleClose={() => dispatch(handleOpenComposer(false))}
                   handleOpen={() => dispatch(handleOpenComposer(true))}
                   isOpen={drawerOpen}

@@ -1,22 +1,27 @@
-import OverviewDetail from '../UI/OverviewDetail';
+import OverviewDetail from "../UI/OverviewDetail";
 import {
   FaGraduationCap,
   FaPhoneAlt,
   FaHandshake,
   FaBirthdayCake,
-} from 'react-icons/fa';
-import { BsBriefcaseFill, BsHeartFill } from 'react-icons/bs';
-import { MdEmail, MdLocationOn } from 'react-icons/md';
-import { useSelector } from 'react-redux';
-import moment from 'moment';
-import { Skeleton } from 'antd';
-import MartialStatus from './martialStatus';
+} from "react-icons/fa";
+import React, { useContext } from "react";
+import { BsBriefcaseFill, BsHeartFill } from "react-icons/bs";
+import { MdEmail, MdLocationOn } from "react-icons/md";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import { Skeleton } from "antd";
+import MartialStatus from "./martialStatus";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { profileDictionaryList } from "../localization/index";
 
 const Overview = () => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { profileDictionary } = profileDictionaryList[userLanguage];
   const { employees, loader } = useSelector(
     (state) => state.employeeProfileSlice
   );
-  console.log(employees, 'overview inside');
+  console.log(employees, "overview inside");
 
   return (
     <div className="flex flex-col p-3 gap-5 !text-[#85878B] pb-10">
@@ -26,58 +31,58 @@ const Overview = () => {
         <>
           <OverviewDetail
             icon={<FaGraduationCap />}
-            heading={'Studied A- Levels at'}
-            text={employees?.education ? employees?.education : 'No Education'}
+            heading={profileDictionary.studiesALevel}
+            text={employees?.education ? employees?.education : "No Education"}
           />
           <OverviewDetail
             icon={<BsBriefcaseFill />}
-            heading={'Designation'}
-            text={employees?.designation || 'No Designation'}
+            heading={profileDictionary.designation}
+            text={employees?.designation || "No Designation"}
           />
           <OverviewDetail
             icon={<MdEmail />}
-            heading={'Email'}
+            heading={profileDictionary.email}
             text={
               employees?.personalEmail
                 ? employees.personalEmail
-                : 'john@test.com'
+                : "john@test.com"
             }
           />
           <OverviewDetail
             icon={<BsHeartFill />}
-            heading={'Relationship'}
+            heading={profileDictionary.relationship}
             text={MartialStatus(employees?.maritalStatusId)}
           />
 
           <OverviewDetail
             icon={<MdLocationOn />}
-            heading={'Lives in'}
-            text={employees?.city || 'No City'}
+            heading={profileDictionary.livesIn}
+            text={employees?.city || "No City"}
           />
 
           <OverviewDetail
             icon={<FaPhoneAlt />}
-            heading={'Contact'}
-            text={employees?.phoneNo ? employees?.phoneNo : 'No Phone Number'}
+            heading={profileDictionary.contact}
+            text={employees?.phoneNo ? employees?.phoneNo : "No Phone Number"}
           />
 
           <OverviewDetail
             icon={<FaHandshake />}
-            heading={'Joining'}
+            heading={profileDictionary.joining}
             text={
-              moment(employees?.joinDate).format('DD-MM-YYYY')
-                ? moment(employees?.joinDate).format('DD-MM-YYYY')
-                : 'No BirthDay'
+              moment(employees?.joinDate).format("DD-MM-YYYY")
+                ? moment(employees?.joinDate).format("DD-MM-YYYY")
+                : "No BirthDay"
             }
           />
 
           <OverviewDetail
             icon={<FaBirthdayCake />}
-            heading={'BirthDay'}
+            heading={profileDictionary.birthday}
             text={
-              moment(employees?.birthDate).format('DD-MM-YYYY')
-                ? moment(employees?.birthDate).format('DD-MM-YYYY')
-                : 'No BirthDay'
+              moment(employees?.birthDate).format("DD-MM-YYYY")
+                ? moment(employees?.birthDate).format("DD-MM-YYYY")
+                : "No BirthDay"
             }
           />
         </>

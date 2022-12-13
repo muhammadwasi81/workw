@@ -4,7 +4,7 @@ const urdu = {
     selectApprovers: "منظور کنندگان کو منتخب کریں۔",
     promotion: "افروغ",
     createdbyMe:"میری طرف سے پیدا کیا",
-    create: "بنانا",
+    create: "بنانا افروغ",
     grade: "گریڈ",
     newGrade:"نیا گریڈ",
     currentGrades:"موجودہ درجات",

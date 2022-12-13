@@ -39,7 +39,9 @@ function ListItem(props) {
     attachments,
     subject,
   } = props.item;
+  console.log(creator.name, "name of creator");
   return (
+    
     <>
       <SingleItem>
         <div

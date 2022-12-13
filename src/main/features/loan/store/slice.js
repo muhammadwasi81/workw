@@ -46,6 +46,7 @@ const LoanSlice = createSlice({
         state.createLoader = false;
         state.success = true;
         state.isCreateComposer = false;
+        state.drawerOpen = false;
         // if (payload.data.length > 1) {
         //   state.loanList.unshift(payload.data);
         //   state.createLoader = false;

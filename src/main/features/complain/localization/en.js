@@ -7,7 +7,7 @@ const en = {
 		complainOf: "Complain Of",
 		selectApprovers: "Select Approvers",
 		complain: "Complain",
-		create: "Create",
+		create: "Create Complain",
 		upload: "Upload",
 		selectMember: "Select Members",
 		members: "Members",

@@ -145,7 +145,7 @@ const Composer = () => {
       </Form.Item> */}
       <Form.Item
         name="loanTenure"
-        label="Loan Tenure"
+        label="Months"
         onChange={(e) => setLoanTenure(e.target.value)}
         rules={[
           {
@@ -153,7 +153,7 @@ const Composer = () => {
           },
         ]}
       >
-        <Input type="number" placeholder="Loan Tenure" />
+        <Input type="number" placeholder="Months" />
       </Form.Item>
       {/* <Form.Item name="interest" label="Interest">
         <div
@@ -206,7 +206,7 @@ const Composer = () => {
           <Option value="other">Other</Option>
         </Select>
       </Form.Item>
-      <Form.Item label="DatePicker" name="deadline">
+      <Form.Item label="Deadline" name="deadline">
         <DatePicker />
       </Form.Item>
       <Form.Item

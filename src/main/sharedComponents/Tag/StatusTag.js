@@ -11,7 +11,13 @@ const StatusTag = ({ status = 1 }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, Direction } = dictionaryList[userLanguage];
   const { status: statusLabels } = ApprovalDictionary[userLanguage];
-  const { label, color } = getStatusLabelAndColor("", statusLabels)[status];
+  const { label, color } = getStatusLabelAndColor("", statusLabels)[
+    status ? status : 1
+  ];
+  console.log(
+    getStatusLabelAndColor("", statusLabels)[status],
+    "Status labelssssss"
+  );
 
   return (
     <>

@@ -65,7 +65,7 @@ const promotionSlice = createSlice({
         state.success = true;
         state.loading = false;
         state.drawerOpen = false;
-        state.promotions = [payload, ...state.promotions];
+        state.promotions = [payload.data.data, ...state.promotions];
 
         // state.drawerOpen = false;
         // return state;

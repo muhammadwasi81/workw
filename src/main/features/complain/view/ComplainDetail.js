@@ -94,6 +94,9 @@ function ComplainDetail(props) {
           <div className="cardSection__title">Category</div>
           <div className="cardSection__body">{complainDetail?.category}</div>
         </div>
+
+
+
         <div className="cardSectionItem">
           <div className="cardSection__title">
             {complainDictionary.complainOf}
@@ -113,6 +116,33 @@ function ComplainDetail(props) {
             )}
           </div>
         </div>
+
+
+        <div className="cardSectionItem">
+            <div className="cardSection__title">
+              {complainDictionary.approvers}
+            </div>
+            <div className="cardSection__body">
+              {complainDetail.approvers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={
+                   // approvers ? approvers : []
+                    complainDetail?.approvers ? complainDetail?.approvers : []
+                  }
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
+            </div>
+        </div>
+
+
+
+
+
       </div>
       <RemarksApproval
         module={ApprovalsModule.ComplainApproval}

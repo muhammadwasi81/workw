@@ -30,7 +30,7 @@ const ApplyComposer = (props) => {
   // console.log(CareerDictionaryList);
 
   const onFinish = (values) => {
-    console.log(values, "values in onfinish", props.id);
+    console.log(values, values.attachments, "values in onfinish", props.id);
     // console.log(attachments[0].originFileObj);
     const payload = {
       ...values,

@@ -1,5 +1,6 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
 import moment from "moment";
+import { ScheduleTypeEnum } from "../enum/enum";
 import {
 	addSchedule,
 	getAllCurrentSchedule,
@@ -41,24 +42,49 @@ const scheduleSlice = createSlice({
 			.addCase(addSchedule.fulfilled, (state, { payload }) => {
 				state.loading = false;
 				state.success = true;
-				state.schedules.push(payload.data);
+				state.schedules.push({
+					...payload.data,
+					startDate: moment.utc(payload.data.startDate).local(),
+					endDate: moment.utc(payload.data.endDate).local(),
+				});
+				if (moment(payload.data.startDate).isSame(moment(), "day")) {
+					state.currentSchedules.push({
+						...payload.data,
+						startDate: moment.utc(payload.data.startDate).local(),
+						endDate: moment.utc(payload.data.endDate).local(),
+					});
+				}
+				if (moment(payload.data.startDate).isAfter(moment())) {
+					state.upcomingSchedules.push({
+						...payload.data,
+						startDate: moment.utc(payload.data.startDate).local(),
+						endDate: moment.utc(payload.data.endDate).local(),
+					});
+				}
+				state.eventSchedules.push({
+					...payload.data,
+					startDate: moment.utc(payload.data.startDate).local(),
+					endDate: moment.utc(payload.data.endDate).local(),
+				});
 			})
 			.addCase(getAllSchedule.fulfilled, (state, { payload }) => {
 				state.loading = false;
 				state.success = true;
 				state.schedules = payload.data.map(sched => {
-					let endDate = moment(sched.endDate);
-					let startDate = moment(sched.startDate);
+					let endDate = moment.utc(sched.endDate).local();
+					let startDate = moment.utc(sched.startDate).local();
 					let returnedValue = {
 						...sched,
+						endDate: moment.utc(sched.endDate).local(),
+						startDate: moment.utc(sched.startDate).local(),
 					};
-					if (sched.scheduleType === 5) {
+					if (sched.scheduleType === ScheduleTypeEnum.Task) {
 						returnedValue = {
 							...returnedValue,
 							color: "purple",
 						};
 					}
-					if (sched.scheduleType === 6) {
+					if (sched.scheduleType === ScheduleTypeEnum.Travel) {
 						returnedValue = {
 							...returnedValue,
 							color: "red",
@@ -84,17 +110,33 @@ const scheduleSlice = createSlice({
 			.addCase(getAllEventSchedule.fulfilled, (state, { payload }) => {
 				state.loading = false;
 				state.success = true;
-				state.eventSchedules = payload.data;
+				state.eventSchedules = payload.data.map(eventSchedules => ({
+					...eventSchedules,
+					startDate: moment.utc(eventSchedules.startDate).local(),
+					endDate: moment.utc(eventSchedules.endDate).local(),
+				}));
 			})
 			.addCase(getAllCurrentSchedule.fulfilled, (state, { payload }) => {
 				state.loading = false;
 				state.success = true;
-				state.currentSchedules = payload.data;
+				state.currentSchedules = payload.data.map(todaySchedule => ({
+					...todaySchedule,
+					startDate: moment.utc(todaySchedule.startDate).local(),
+					endDate: moment.utc(todaySchedule.endDate).local(),
+				}));
 			})
 			.addCase(getAllUpcomingSchedule.fulfilled, (state, { payload }) => {
 				state.loading = false;
 				state.success = true;
-				state.upcomingSchedules = payload.data;
+				state.upcomingSchedules = payload.data.map(
+					upcomingSchedules => ({
+						...upcomingSchedules,
+						startDate: moment
+							.utc(upcomingSchedules.startDate)
+							.local(),
+						endDate: moment.utc(upcomingSchedules.endDate).local(),
+					})
+				);
 			})
 			.addCase(
 				updateMemberScheduleStatus.fulfilled,

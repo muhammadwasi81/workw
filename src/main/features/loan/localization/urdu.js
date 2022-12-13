@@ -17,6 +17,7 @@ const urdu = {
     warningToMe: "مجھے انتباہ",
     createLoan: "قرض بنائیں",
     forApproval: "منظوری کے لیے",
+    months: "مہینہ",
     deductionPerMonth: "مہینے/کٹوتی",
     pleaseEnterloanTenureInMonths: "براہ کرم قرض کی مدت درج کریں",
     amount: "رقم",

@@ -1,4 +1,5 @@
 import { ResponseResultError, ResponseResultSuccess } from "../../../../utils/api/ResponseResult";
+import { STRINGS } from "../../../../utils/base";
 import Config from "../../../../utils/services/MasterConfig";
 
 const getAllEmployeeSalary_dto = (data) => {
@@ -17,6 +18,7 @@ const addMultipleEmployeeSalary_dto = (data = []) => {
 		"basicSalary": item.basicSalary ? item.basicSalary : 0,
 		"description":  item.description ? item.description : "",
 		"netSalary": item.netSalary ? item.netSalary : 0,
+		"taxSlabId": item.taxSlabId ? item.taxSlabId : STRINGS.DEFAULTS.guid,
 		"effectiveDate":  item.effectiveDate ? item.effectiveDate : null,
 		"isDefault":  item.isDefault ? item.isDefault : true,
 		"approvers": item.approvers ? item.approvers.map((approver)=>({

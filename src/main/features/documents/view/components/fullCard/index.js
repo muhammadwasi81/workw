@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import "./style.css";
-import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import {
   ItemHeader,
   SingleItem,
@@ -17,129 +16,89 @@ import { getIconByExtensionType } from "../../../constant/helpers";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { documentDictionaryList } from "../../../localization/index";
 import DetailCard from "../detailCard";
+import Avatar from "../../../../../sharedComponents/Avatar/avatar";
+import DocumentStatusTag from "../documentStatusTag/StatusTag";
 
 const DocFullCard = ({ data, handleClickCard }) => {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { documentDictionary } = documentDictionaryList[userLanguage];
-  const disptach = useDispatch();
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { documentDictionary } = documentDictionaryList[userLanguage];
+	let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId, status } = data
+	let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
 
-  let {
-    name,
-    documentType,
-    creator,
-    createDate,
-    description,
-    id,
-    path,
-    members,
-    approvers,
-    image,
-    extensionTypeId,
-    status,
-  } = data;
-  let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
+	return (
+		<>
+			<SingleItem onClick={() => handleClickCard(id)}>
+				<ItemHeader>
+					<div className="left">
+						<UserInfo
+							avatarSrc={creator.image}
+							name={creator.name}
+							Subline={
+								<SublineDesigWithTime
+									designation={creator.designation ? creator.designation : ''}
+									time={moment(createDate).fromNow()}
+								/>
+							}
+						/>
+					</div>
+					<div className="right">
+						{/* <Tag className="IdTag">{referenceNo}</Tag> */}
+						<DocumentStatusTag status={status}></DocumentStatusTag>
+					</div>
+				</ItemHeader>
+				{/* <div className="description w-full pt-3 pb-5 h-[100px]">
+					{description.length > 0 ? (
+						<p>{description}</p>
+					) : (
+						<p> No description </p>
+					)}
+				</div> */}
+				<div className="doc_detail_media">
+					<div className="d_ShortCard_Child2">
+						{path &&
+							<img
+								alt=""
+								src={documentType === DUCOMENT_TYPE.image && path ?
+									path : getIconByExtensionType(documentType, extensionTypeId)}
+							/>}
+					</div>
+					<div className="downloadBtn">
+						{
+							documentType === DUCOMENT_TYPE.attachment ?
+								<Button className="ThemeBtn downloadBtn">{documentDictionary.Download}</Button> : ""
+						}
+					</div>
+				</div>
 
-  return (
-    <>
-      <SingleItem>
-        <ItemHeader>
-          <div className={"item-header"}>
-            <div className="left">
-              <UserInfo
-                avatarSrc={creator.image}
-                name={creator.name}
-                Subline={
-                  <SublineDesigWithTime
-                    designation={creator.designation}
-                    time={moment().format("DD/MM/YYYY")}
-                  />
-                }
-              />
-            </div>
-            <div className="right">
-              <Tag className="IdTag">TRA-000085</Tag>
-              <StatusTag status={status}></StatusTag>
-            </div>
-          </div>
-        </ItemHeader>
+				<div className="cardSections">
+					<div className="cardSectionItem">
+						<div className="cardSection__title">Privacy</div>
+						<div className="cardSection__body">{"Public"}</div>
+					</div>
+					<div className="cardSectionItem">
+						<div className="cardSection__title">Create Date</div>
+						<div className="cardSection__body">
+							{moment().format('Do MMM YY')}
+						</div>
+					</div>
+					
+					<div className="cardSectionItem">
+						<div className="cardSection__title">Approvers</div>
+						<div className="cardSection__body">
+							{approvers.length > 0 ?
+								<Avatar
+									isAvatarGroup={true}
+									heading={'approvers'}
+									membersData={approvers ? approvers : []}
+								/> :
+								"N/A"}
+						</div>
+					</div>
 
-        <div className="doc_detail_body" onClick={() => handleClickCard(id)}>
-          <div className="doc_detail_content">
-            <div className="doc_detail_body_head">
-              <div className="doc_detail_title">{name}</div>
-            </div>
-            <div className="doc_detail_desc">
-              <p>{description}</p>
-            </div>
-
-            <div className="ListItemInner">
-              <div className="ItemDetails">
-                <div className="innerDiv">
-                  {members.length ? (
-                    <div>
-                      <span className="text-black font-extrabold smallHeading">
-                        {documentDictionary.members}
-                      </span>
-                      <Avatar
-                        isAvatarGroup={true}
-                        isTag={false}
-                        heading={"Members"}
-                        membersData={members}
-                        text={"Danish"}
-                        image={"https://joeschmoe.io/api/v1/random"}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="innerDiv">
-                  {approvers.length ? (
-                    <div>
-                      <span className="text-black font-extrabold smallHeading">
-                        {documentDictionary.Approvers}
-                      </span>
-                      <Avatar
-                        isAvatarGroup={true}
-                        isTag={false}
-                        heading={"approvers"}
-                        membersData={approvers ? approvers : []}
-                        text={"Danish"}
-                        image={"https://joeschmoe.io/api/v1/random"}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="doc_detail_media">
-            <div className="d_ShortCard_Child2">
-              <img
-                alt=""
-                src={
-                  documentType === DUCOMENT_TYPE.image && path
-                    ? path
-                    : getIconByExtensionType(documentType, extensionTypeId)
-                }
-              />
-            </div>
-            <div className="downloadBtn">
-              {documentType === DUCOMENT_TYPE.attachment ? (
-                <Button className="ThemeBtn downloadBtn">
-                  {documentDictionary.Download}
-                </Button>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-        </div>
-      </SingleItem>
-    </>
-  );
+				</div>
+			</SingleItem>
+		</>
+	);
 };
 
 export default DocFullCard;

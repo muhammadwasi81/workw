@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ROUTES } from "../../../../../utils/routes";
 import sunIcon from '../../../../../content/svg/menu/newNavBarIcon/new/dark_mode.svg';
 import moonIcon from '../../../../../content/svg/menu/newNavBarIcon/new/light_mode.svg';
 import addUser from '../../../../../content/svg/menu/newNavBarIcon/new/add_user.svg';
@@ -25,9 +26,11 @@ import OpenImage from '../../../../features/notes/OpenImage';
 import StickyContainer from '../../../../features/notes/newStickyNotes/view/components/StickyNotes';
 import { quickAddOpen } from '../../../../features/quickEmployee/store/slice';
 import { darkModeHandler } from '../../../../../utils/Shared/store/slice';
+import { useNavigate } from 'react-router-dom';
 
 function NotificationBar() {
   const [isSearch, setIsSearch] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [theme, setTheme] = useState(
     window.localStorage.getItem('darkMode') === '1'
@@ -82,8 +85,13 @@ function NotificationBar() {
         <ul className="list">
           <li className="list__item">
             <img
-              alt=""
-              src={theme ? sunIcon : moonIcon}
+              alt="theme-icon"
+              // src={theme ? sunIcon : moonIcon}
+              src={
+                theme
+                  ? 'https://img.icons8.com/color/2x/summer--v1.png'
+                  : 'https://img.icons8.com/parakeet/512/bright-moon.png'
+              }
               onClick={() => {
                 setTheme(!theme);
                 modeHandler(!theme);
@@ -111,6 +119,7 @@ function NotificationBar() {
             onClick={handleSearch}
             className="cursor-pointer"
           />
+          <input type="text" className={!isSearch ? "d-none" : "globalSearchInput" } onKeyUp={(e) => {if(e.keyCode === 13 && !e.shiftKey) navigate("search")}}  />
         </div>
       </div>
       <NotificationModal

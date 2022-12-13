@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { createGuid } from "../../../../../utils/base.js";
+import { NoDataFound } from "../../../../sharedComponents/NoDataIcon/index.js";
 import BreadCumbs from "../components/breadcumb/index.js";
 import PreviewModal from "../components/modal/index.js";
 import ShortCard from "../components/shortCard/index.js";
@@ -21,7 +22,6 @@ const DocumentShortCards = (props) => {
   }
   return (
     <>
-      {/* <DocSceleton /> */}
       <BreadCumbs
         data={breadCumbsState}
       />
@@ -40,6 +40,10 @@ const DocumentShortCards = (props) => {
           previewItem={previewPath}
           handleClose={handleClose} />
       </div>
+      {
+        listData.length === 0 && !loader &&
+        <NoDataFound />
+      }
     </>
   );
 };

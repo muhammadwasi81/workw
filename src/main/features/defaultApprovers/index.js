@@ -36,6 +36,7 @@ const DefaultApprovers = () => {
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { loader, approversData } = useSelector((state) => state.approverSlice);
   console.log(loader, 'loader');
+
   const payloadData = {
     pageNo: 1,
     pageSize: 20,
@@ -63,10 +64,6 @@ const DefaultApprovers = () => {
 
   const selectedData = (data) => {
     setValue(data);
-  };
-
-  const handleCollapse = (key) => {
-    console.log(key, 'key');
   };
 
   const handleChange = (e) => {
@@ -113,10 +110,10 @@ const DefaultApprovers = () => {
             return (
               <>
                 <div className="collapseWrapper" key={index}>
-                  <Collapse onChange={handleCollapse} defaultActiveKey={['1']}>
+                  <Collapse accordion>
                     <Panel
                       header={item.label}
-                      key={item._id}
+                      key={index}
                       extra={[
                         <Tooltip title="Approvers">
                           <Button
@@ -246,14 +243,14 @@ const DefaultApprovers = () => {
                                         height={'30px'}
                                       />
                                       <span className="font-semibold">
-                                        {' '}
-                                        {item.member.name}
+                                        &nbsp;{item.member.name}
                                       </span>
                                     </div>
                                   );
                                 })
                               ) : (
                                 <div
+                                  className="py-2"
                                   style={{
                                     width: 100,
                                     height: 200,

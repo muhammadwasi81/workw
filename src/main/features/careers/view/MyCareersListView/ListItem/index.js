@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { Button, Image } from "antd";
+import { Button, Image, Tag } from "antd";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import UserInfo from "../../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
@@ -8,6 +8,7 @@ import { getNameForImage, getEnumValue } from "../../../../../../utils/base";
 import moment from "moment";
 import {
   ItemContent,
+  ItemContentCareers,
   ItemHeader,
   SingleItem,
 } from "../../../../../sharedComponents/Card/CardStyle";
@@ -33,11 +34,14 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     experience,
     endDate,
     city,
+    skills,
     country,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
 
-  console.log("props", onClickMyCareer);
+  const skillsArray = skills?.split(",");
+
+  console.log(skills, "SKILSS !!!")
 
   return (
     <>
@@ -135,15 +139,19 @@ function ListItem({ item, onClick, onClickMyCareer }) {
               </div>
             </div>
           </ItemHeader>
-          <ItemContent className="!h-[100px] !max-h-[100px]">
-            <div className="font-bold text-[14px] text-primary-color">
-              {/* {" "}
-            React Js Developer */}
-
-              {item.department}
+          <ItemContentCareers className="!h-[100px] !max-h-[100px]">
+          <p className="careersDescShort">{description}</p>
+          <div className="mt-5 skillsContainer">
+            <div className="font-bold">{labels.skillsRequired}</div>
+            <div>
+              {skills
+                ? skillsArray?.map((item, index) => {
+                    return <Tag className="LinkTag">{item}</Tag>;
+                  })
+                : null}
             </div>
-            <p className="careersDescShort">{item.description}</p>
-          </ItemContent>
+          </div>
+        </ItemContentCareers>
           {/* <div>
           {item.city} 
           {item.country}

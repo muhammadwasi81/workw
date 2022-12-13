@@ -388,7 +388,7 @@
 .description {
   word-wrap: break-word;
   overflow: hidden;
-  width: 500px;
+  /* width: 600px; */
 }
 @media (min-width: 320px) and (max-width: 600px) {
   .IdTag {

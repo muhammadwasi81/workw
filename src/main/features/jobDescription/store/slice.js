@@ -18,8 +18,8 @@ const jobDescriptionSlice = createSlice({
   initialState,
   reducers: {
     JobDescriptionDeleted: (state, action) => {
-      const id = action.payload.id;
-
+      const id = action.payload.id.id;
+      console.log(id, "IDDDD");
       state.jobDescriptions = state.jobDescriptions.filter(
         (list) => list.id !== id
       );
@@ -68,5 +68,5 @@ const jobDescriptionSlice = createSlice({
   },
 });
 
-export const { jobDescriptionDeleted } = jobDescriptionSlice.actions;
+export const { JobDescriptionDeleted } = jobDescriptionSlice.actions;
 export default jobDescriptionSlice.reducer;

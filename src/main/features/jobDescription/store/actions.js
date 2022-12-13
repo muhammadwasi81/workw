@@ -11,7 +11,7 @@ import {
   addJobDescriptionService,
   getAllJobDescriptionService,
 } from "../services/service";
-import { jobDescriptionDeleted } from "./slice";
+import { JobDescriptionDeleted } from "./slice";
 
 const API_PREFIX = "konnectapi/api/Designation/";
 
@@ -90,7 +90,7 @@ export const removeJobDescription = createAsyncThunk(
         console.log(res.data, "removeJobDescription");
         if (res.data.responseCode === responseCode.Success) {
           message.success("Job Description removed successfully!");
-          dispatch(jobDescriptionDeleted({ id: args }));
+          dispatch(JobDescriptionDeleted({ id: args }));
           return res.data;
         } else {
           message.error(res.message);

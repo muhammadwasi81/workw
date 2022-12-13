@@ -32,15 +32,15 @@ const AdminList = () => {
   return (
     <>
       <List>
-        <div className="searchBox">
-          <SearchInput
-            icon={<SearchOutlined />}
-            placeholder={"Search"}
-            size="larger"
-            onChange={searchHandler}
-          />
-        </div>
         <AList className="admin_list">
+          <div className="searchBox">
+            <SearchInput
+              icon={<SearchOutlined />}
+              placeholder={"Search"}
+              size="larger"
+              onChange={searchHandler}
+            />
+          </div>
           {filteredData.map(({ displayName, to, IconName }) => (
             <Item key={displayName}>
               <Tooltip

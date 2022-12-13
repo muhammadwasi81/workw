@@ -1,4 +1,4 @@
-import MasterConfig from '../../../../utils/services/MasterConfig';
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllAllowanceService = () => {
   return MasterConfig.get(`api/allowance/getallallowance`)
@@ -11,7 +11,7 @@ export const getAllAllowanceService = () => {
 };
 
 export const addAllowanceService = (args) => {
-  return MasterConfig.post(`api/allowance/addallowance`, args)
+  return MasterConfig.post(`api/Allowance/AddAllowance`, args)
     .then((res) => {
       return res.data;
     })
@@ -23,7 +23,7 @@ export const addAllowanceService = (args) => {
 export const updateAllowanceService = (payload) => {
   return MasterConfig.put(`api/allowance/updateAllowance`, payload)
     .then((res) => {
-      console.log(res, 'update ki call');
+      console.log(res, "update ki call");
       return res.data;
     })
     .catch((err) => {

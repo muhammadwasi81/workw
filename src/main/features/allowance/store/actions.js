@@ -1,20 +1,20 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { responseCode } from '../../../../services/enums/responseCode';
-import MasterConfig from '../../../../utils/services/MasterConfig';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { responseCode } from "../../../../services/enums/responseCode";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 import {
   responseMessage,
   responseMessageType,
-} from '../../../../services/slices/notificationSlice';
+} from "../../../../services/slices/notificationSlice";
 import {
   addAllowanceService,
   getAllAllowanceService,
   updateAllowanceService,
-} from '../services/service';
-import { allowanceDeleted } from './slice';
-import { message } from 'antd';
+} from "../services/service";
+import { allowanceDeleted } from "./slice";
+import { message } from "antd";
 
 export const getAllAllowance = createAsyncThunk(
-  'allowance/GetAllAllowance',
+  "allowance/GetAllAllowance",
   async (args, { dispatch }) => {
     const res = await getAllAllowanceService();
     if (!res.responseCode) {
@@ -28,12 +28,13 @@ export const getAllAllowance = createAsyncThunk(
 );
 
 export const addAllowance = createAsyncThunk(
-  'allowance/addAllowance',
-  async (args, { dispatch }) => {
+  "allowance/addAllowance",
+  async (args) => {
     const res = await addAllowanceService(args);
+    console.log(res, "response");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success) {
-        message.success('Allowance added successfully!');
+        message.success("Allowance added successfully!");
       } else {
         message.error(`Error: ${res.message}`);
       }
@@ -43,12 +44,12 @@ export const addAllowance = createAsyncThunk(
 );
 
 export const updateAllowance = createAsyncThunk(
-  'allowance/updateAllowance',
+  "allowance/updateAllowance",
   async (args, { dispatch }) => {
     const res = await updateAllowanceService(args);
-    console.log(res, 'update action');
+    console.log(res, "update action");
     if (res.responseCode === responseCode.Success) {
-      message.success('Allowance updated successfully!');
+      message.success("Allowance updated successfully!");
     } else {
       message.error(`Error: ${res.message}`);
     }
@@ -57,15 +58,15 @@ export const updateAllowance = createAsyncThunk(
 );
 
 export const removeAllowance = createAsyncThunk(
-  'allowance/removeallowance',
+  "allowance/removeallowance",
   async (args, { dispatch }) => {
     return await MasterConfig.delete(
       `api/allowance/removeallowance?id=${args.id}`
     )
       .then((res) => {
-        console.log(res, 'fdfdfd');
+        console.log(res, "fdfdfd");
         if (res.data.responseCode === responseCode.Success) {
-          message.success('Allowance removed successfully!');
+          message.success("Allowance removed successfully!");
           dispatch(allowanceDeleted(args));
         } else {
           message.error(res.message);

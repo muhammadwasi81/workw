@@ -140,7 +140,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </ItemHeader>
           <ItemContentCareers className="!h-[100px] !max-h-[100px]">
-          <p className="careersDescShort">{description}</p>
+          <p className="careersDescShort">{item.description}</p>
           <div className="mt-5 skillsContainer">
             <div className="font-bold">{labels.skillsRequired}</div>
             <div>

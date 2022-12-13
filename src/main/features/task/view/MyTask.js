@@ -88,6 +88,8 @@ function MyTask({ referenceId, referenceType }) {
 				id={id}
 				visible={visible}
 				onClose={handleDrawerClose}
+				referenceId={referenceId}
+				referenceType={referenceType}
 			/>
 		</>
 	);

@@ -229,28 +229,28 @@ const Composer = (props) => {
               name={"externals"}
               label={labels.externals}
               direction={Direction}
-              rules={[
-                {
-                  validator: (_, value) => {
-                    if (validateEmail(value[value.length - 1])) {
-                      form.setFieldsValue({
-                        externals: value,
-                      });
-                      return Promise.resolve();
-                    } else {
-                      message.error("Please add correct email.");
-                      form.setFieldsValue({
-                        externals: form
-                          .getFieldValue("externals")
-                          .slice(0, form.getFieldValue("externals").length - 1),
-                      });
-                      return Promise.reject(
-                        new Error("Please add correct email.")
-                      );
-                    }
-                  },
-                },
-              ]}
+              // rules={[
+              //   {
+              //     validator: (_, value) => {
+              //       if (validateEmail(value[value.length - 1])) {
+              //         form.setFieldsValue({
+              //           externals: value,
+              //         });
+              //         return Promise.resolve();
+              //       } else {
+              //         message.error("Please add correct email.");
+              //         form.setFieldsValue({
+              //           externals: form
+              //             .getFieldValue("externals")
+              //             .slice(0, form.getFieldValue("externals").length - 1),
+              //         });
+              //         return Promise.reject(
+              //           new Error("Please add correct email.")
+              //         );
+              //       }
+              //     },
+              //   },
+              // ]}
             >
               <Select
                 mode="tags"

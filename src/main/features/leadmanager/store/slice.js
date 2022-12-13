@@ -88,6 +88,9 @@ const leadMangerSlice = createSlice({
 		resetContactDetail(state, { payload }) {
 			state.contactDetail = null;
 		},
+		resetSuccess(state, { payload }) {
+			state.success = false;
+		},
 		moveSection(state, { payload }) {
 			const { oldListIndex, newListIndex } = payload;
 			const newLists = Array.from(state.leadManagerDetail.sections);
@@ -384,6 +387,7 @@ export const {
 	handleContactDetailModal,
 	handleSectionDetailModal,
 	handleComposeEmail,
+	resetSuccess
 } = leadMangerSlice.actions;
 
 export default leadMangerSlice.reducer;

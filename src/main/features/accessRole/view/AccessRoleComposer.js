@@ -39,8 +39,9 @@ function AccessRoleComposer(props) {
 		isSingleAccessRoleLoaded,
 	} = useSelector(state => state.accessRolesSlice);
 	const { userLanguage } = useContext(LanguageChangeContext);
-	const { administration, sharedLabels, Direction } =
-		dictionaryList[userLanguage];
+	const { administration, sharedLabels, Direction } = dictionaryList[
+		userLanguage
+	];
 
 	useEffect(() => {
 		setLoadingTreeData(true);

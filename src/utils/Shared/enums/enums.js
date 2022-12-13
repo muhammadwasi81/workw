@@ -1,105 +1,105 @@
 export const userType = Object.freeze([
   {
-    id: 2,
-    name: "Admin",
+    id: 1,
+    name: 'Admin',
   },
   {
     id: 3,
-    name: "Employee",
+    name: 'Employee',
   },
 ]);
 export const userTitle = Object.freeze([
   {
     id: 1,
-    name: "Mr",
+    name: 'Mr',
   },
   {
     id: 2,
-    name: "Mrs",
+    name: 'Mrs',
   },
 ]);
 
 export const genderList = Object.freeze([
   {
     id: 1,
-    name: "Male",
+    name: 'Male',
   },
   {
     id: 2,
-    name: "Female",
+    name: 'Female',
   },
   {
     id: 3,
-    name: "Non Binary",
+    name: 'Non Binary',
   },
   {
     id: 4,
-    name: "PreferNotToSay",
+    name: 'PreferNotToSay',
   },
 ]);
 
 export const maritalStatusList = Object.freeze([
   {
     id: 1,
-    name: "Single",
+    name: 'Single',
   },
   {
     id: 2,
-    name: "Engaged",
+    name: 'Engaged',
   },
   {
     id: 3,
-    name: "Married",
+    name: 'Married',
   },
   {
     id: 4,
-    name: "Divorced",
+    name: 'Divorced',
   },
   {
     id: 5,
-    name: "Widow",
+    name: 'Widow',
   },
   {
     id: 6,
-    name: "Widower",
+    name: 'Widower',
   },
   {
     id: 7,
-    name: "PreferNotToStay",
+    name: 'PreferNotToStay',
   },
 ]);
 
 export const relations = Object.freeze([
   {
     id: 1,
-    name: "Father",
+    name: 'Father',
   },
   {
     id: 2,
-    name: "Mother",
+    name: 'Mother',
   },
   {
     id: 3,
-    name: "Brother",
+    name: 'Brother',
   },
   {
     id: 4,
-    name: "Sister",
+    name: 'Sister',
   },
 ]);
 
 export const employmentType = Object.freeze([
   {
     id: 1,
-    name: "FullTime",
+    name: 'FullTime',
   },
   {
     id: 2,
-    name: "PartTime",
+    name: 'PartTime',
   },
 ]);
-export const cityApiPrefix = "/api/Utility/GetAllCities";
-export const defaultUiid = "00000000-0000-0000-0000-000000000000";
+export const cityApiPrefix = '/api/Utility/GetAllCities';
+export const defaultUiid = '00000000-0000-0000-0000-000000000000';
 export const FilterSortEnum = Object.freeze({
   CreateDateDesc: 1,
   CreateDateAsc: 2,
@@ -129,20 +129,20 @@ export const PostPrivacyType = Object.freeze({
     // eslint-disable-next-line default-case
     switch (type) {
       case PostPrivacyType.PUBLIC:
-        return "https://konnect.im/static/media/world.f69f1142.svg";
+        return 'https://konnect.im/static/media/world.f69f1142.svg';
       case PostPrivacyType.PRIVATE:
-        return "https://konnect.im/static/media/padlock.35a2d6ca.svg";
+        return 'https://konnect.im/static/media/padlock.35a2d6ca.svg';
     }
   },
 });
 export const ThemeColorEnum = [
-  "#64c4b2",
-  "#45c6ee",
-  "#526bb1",
-  "#e8137b",
-  "#f7d447",
+  '#64c4b2',
+  '#45c6ee',
+  '#526bb1',
+  '#e8137b',
+  '#f7d447',
 ];
-export const defualtThemeColor = "#526bb1";
+export const defualtThemeColor = '#526bb1';
 
 export const FeaturesEnum = {
   Feed: 1,

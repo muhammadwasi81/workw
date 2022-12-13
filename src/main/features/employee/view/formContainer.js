@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Form } from "antd";
-import EducationForm from "./educationForm";
-import EmergencyForm from "./emergencyForm";
-import ExperienceForm from "./experienceForm";
-import BankForm from "./bankDetailForm";
-import "../Styles/employee.css";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import BasicInfo from "./basicForm";
-import { useDispatch } from "react-redux";
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Form } from 'antd';
+import EducationForm from './educationForm';
+import EmergencyForm from './emergencyForm';
+import ExperienceForm from './experienceForm';
+import BankForm from './bankDetailForm';
+import '../Styles/employee.css';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import BasicInfo from './basicForm';
+import { useDispatch } from 'react-redux';
 import {
   getCities,
   getCountries,
-} from "../../../../utils/Shared/store/actions";
-import { employeeDictionaryList } from "../localization";
-import { addEmployee } from "../store/actions";
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
-import { useSelector } from "react-redux";
+} from '../../../../utils/Shared/store/actions';
+import { employeeDictionaryList } from '../localization';
+import { addEmployee } from '../store/actions';
+import { defaultUiid } from '../../../../utils/Shared/enums/enums';
+import { useSelector } from 'react-redux';
 
 const EmployeeFormContainer = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const EmployeeFormContainer = () => {
   };
   useEffect(() => {
     dispatch(getCountries());
-    dispatch(getCities({ textData: "", page: 20 }));
+    dispatch(getCities({ textData: '', page: 20 }));
   }, [dispatch]);
 
   const onSubmit = (forms) => {
@@ -67,7 +67,9 @@ const EmployeeFormContainer = () => {
             if (isValidation) {
               onSubmit(forms);
             }
-          } catch (e) {}
+          } catch (e) {
+            console.log(e);
+          }
         }}
       >
         <Form>

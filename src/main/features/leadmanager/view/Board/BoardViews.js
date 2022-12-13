@@ -35,7 +35,8 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 function BoardViews() {
 	const [view, setView] = useState("List");
 	const [selectedMembers, setSelectedMembers] = useState([]);
-	const [emailModal, setEmailModal] = useState(false);
+	// const [emailModal, setEmailModal] = useState(false);
+	const [leadSectionId, setLeadSectionId] = useState("");
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	const success = useSelector(state => state.leadMangerSlice.success);
@@ -116,19 +117,22 @@ function BoardViews() {
 				{
 					detailId: assignToMemberId,
 					memberId: tempObj[0].id,
+					sectionId: leadSectionId,
 				},
 			])
 		);
 	};
-	const setMembersToSelectedMembers = (val, obj, key) => {
+
+	const setMembersToSelectedMembers = (val, obj) => {
 		const tempObj = obj.map(member => {
 			return {
 				...member.member,
 			};
 		});
-		let unique = getUniqueListBy([...selectedMembers, ...tempObj], "id");
-		setSelectedMembers([...unique]);
+		// let unique = getUniqueListBy([...selectedMembers, ...tempObj], "id");
+		setSelectedMembers([...tempObj]);
 	};
+
 	const handleDeleteMember = id => {
 		let filteredMembers = selectedMembers.filter(
 			member => member.id !== id
@@ -138,12 +142,13 @@ function BoardViews() {
 			deleteLeadManagerDetailAssignTo({
 				detailId: assignToMemberId,
 				memberId: id,
+				sectionId: leadSectionId,
 			})
 		);
 	};
 	// const handle
-	console.log("selectedMembers", selectedMembers);
-	console.log("leadManagerDetail", leadManagerDetail);
+	// console.log("selectedMembers", selectedMembers);
+	// console.log("leadManagerDetail", leadManagerDetail);
 	return (
 		<div>
 			<Header items={items} />
@@ -160,11 +165,18 @@ function BoardViews() {
 					{view === "List" ? (
 						<LeadsOverview
 							handleSelectedMembers={setMembersToSelectedMembers}
+							setLeadSectionId={setLeadSectionId}
 						/>
 					) : view === "Board" ? (
-						<Board />
+						<Board
+							handleSelectedMembers={setMembersToSelectedMembers}
+						/>
 					) : (
-						<BoardTable data={leadManagerDetail} />
+						<BoardTable
+							data={leadManagerDetail}
+							handleSelectedMembers={setMembersToSelectedMembers}
+							setLeadSectionId={setLeadSectionId}
+						/>
 					)}
 				</ContBody>
 			</TabContainer>
@@ -199,6 +211,7 @@ function BoardViews() {
 				children={
 					<AssignMemberModal
 						defaultData={leadManagerDetail?.members}
+						leadManagerDetail={leadManagerDetail}
 						onChange={handleSelectedMembers}
 						placeholder={placeHolder.serachMembersPH}
 						selectedMembers={selectedMembers}
@@ -219,6 +232,8 @@ function BoardViews() {
 				children={
 					<SectionDetail
 						isSectionDetailLoading={isSectionDetailLoading}
+						setLeadSectionId={setLeadSectionId}
+						handleSelectedMembers={setMembersToSelectedMembers}
 						handleContactDetailModal={() => {
 							dispatch(
 								handleContactDetailModal({

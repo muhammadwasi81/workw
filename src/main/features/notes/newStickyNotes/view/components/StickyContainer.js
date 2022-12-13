@@ -1,27 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Input } from 'antd';
-import Draggable from 'react-draggable';
+import React, { useState, useEffect, useContext } from "react";
+import { Input } from "antd";
+import Draggable from "react-draggable";
 import {
   MinusOutlined,
   CloseOutlined,
   PlusOutlined,
   SearchOutlined,
-} from '@ant-design/icons';
-import 'antd/dist/antd.css';
-import CustomCard from './CustomCard';
-import '../../style.css';
-import Nodata from '../../../../../../content/NewContent/eLearning/Nodata.svg';
+} from "@ant-design/icons";
+import "antd/dist/antd.css";
+import CustomCard from "./CustomCard";
+import "../../style.css";
+import Nodata from "../../../../../../content/NewContent/eLearning/Nodata.svg";
 
 // *******import redux*******
-import { useSelector, useDispatch } from 'react-redux';
-import { closeSticky, showStickyNote } from '../../store/stickySlice';
+import { useSelector, useDispatch } from "react-redux";
+import { closeSticky, showStickyNote } from "../../store/stickySlice";
 // import sticky note actions
 import {
   addSticky,
   getAllStickyNotesAction,
   searchTitleDescAction,
-} from '../../store/actions';
-
+} from "../../store/actions";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { stickyNotesDictionaryList } from "../../localization/index";
 const StickyContainer = () => {
   // *********state for sticky notes*******
   const [minimize, setMinimize] = useState(true);
@@ -47,7 +48,7 @@ const StickyContainer = () => {
   // ********search handler***********
   const searchHandler = (e) => {
     let value = e.target.value;
-    if (search == '') {
+    if (search == "") {
       return notesList;
     } else {
       dispatch(getAllStickyNotesAction({ search: value }));
@@ -90,19 +91,21 @@ const StickyContainer = () => {
   //   x_axis: width * 50,
   //   y_axis: height,
   // };
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { stikcyDictionary } = stickyNotesDictionaryList[userLanguage];
   return (
     <>
       <Draggable
         defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
       >
-        <div className={`sticky_container ${!minimize ? 'minimize' : ''}`}>
+        <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>
           <div className="sticky-header handle">
             <div className="left_Icon">
               <PlusOutlined onClick={addStickyHandler} />
             </div>
 
-            <p className="heading">Sticky Notes</p>
+            <p className="heading">{stikcyDictionary.stickyNotes}</p>
             <div className="right_Icons">
               <MinusOutlined
                 onClick={minimizeHandler}
@@ -113,15 +116,15 @@ const StickyContainer = () => {
           </div>
 
           {/* <SearchBox /> */}
-          <div className={`search_Box ${!minimize ? 'hide' : ''}`}>
+          <div className={`search_Box ${!minimize ? "hide" : ""}`}>
             <Input
-              placeholder="Search"
+              placeholder={stikcyDictionary.search}
               // style={{ width: "300px" }}
               onChange={searchHandler}
               prefix={<SearchOutlined />}
             />
           </div>
-          <div className={`noteList-container ${!minimize ? 'hide' : ''}`}>
+          <div className={`noteList-container ${!minimize ? "hide" : ""}`}>
             {notesList.length > 0 ? (
               notesList.map((item) => (
                 <CustomCard

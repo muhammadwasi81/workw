@@ -8,9 +8,6 @@ function ProjectTopBar({ handleView, topBar, handleSearch }) {
 			onSearch={value => {
 				handleSearch(value);
 			}}
-			filter={{
-				onFilter: () => {},
-			}}
 			segment={{
 				onSegment: value => {
 					if (value === topBar.table) {

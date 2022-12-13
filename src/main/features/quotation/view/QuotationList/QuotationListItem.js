@@ -12,8 +12,14 @@ import {
 } from "../../../../sharedComponents/Card/CardStyle";
 import { useDispatch } from "react-redux";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
+import { quotationDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 function QuotationListItem(props) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { quotationDictionary, Direction } = quotationDictionaryList[
+    userLanguage
+  ];
   const disptach = useDispatch();
   const {
     creator,
@@ -56,19 +62,28 @@ function QuotationListItem(props) {
 
         <div className="cardSections mt-2">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Client's Name</div>
+            <div className="cardSection__title">
+              {" "}
+              {quotationDictionary.clientsName}
+            </div>
             <div className="cardSection__body">{name}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Client's Email</div>
+            <div className="cardSection__title">
+              {quotationDictionary.clientsEmail}
+            </div>
             <div className="cardSection__body">{email}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Phone Number</div>
+            <div className="cardSection__title">
+              {quotationDictionary.phoneNumber}
+            </div>
             <div className="cardSection__body">{phoneNumber}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Approvers</div>
+            <div className="cardSection__title">
+              {quotationDictionary.approvers}
+            </div>
             <div className="cardSection__body">
               {approvers && (
                 <Avatar

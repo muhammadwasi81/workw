@@ -1,11 +1,11 @@
-import { DeleteFilled, EditFilled } from '@ant-design/icons';
-import { LoadingOutlined } from '@ant-design/icons';
-import { Popconfirm } from 'antd';
+import { DeleteFilled, EditFilled } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Popconfirm } from "antd";
 
 const Edit = (handleEdit, row, setClearButton) => {
   return (
     <EditFilled
-      style={{ color: '#1b5669' }}
+      style={{ color: "#1b5669" }}
       onClick={(e) => {
         handleEdit({
           id: row.id,
@@ -29,7 +29,7 @@ const Delete = (handleDelete, row) => {
       title="Sure to delete?"
       onConfirm={(e) => handleDelete({ id: row.id })}
     >
-      <DeleteFilled style={{ color: '#1b5669' }} />
+      <DeleteFilled style={{ color: "#1b5669" }} />
     </Popconfirm>
   );
 };
@@ -40,41 +40,59 @@ export const tableColumn = (
   removeButtons = false,
   rights,
   id,
-  setClearButton
+  setClearButton,
+  allowanceDictionary
 ) => {
   return [
-    { title: 'Name', className: 'name', dataIndex: 'name', width: '5%' },
+    {
+      title: allowanceDictionary.name,
+      className: "name",
+      dataIndex: "name",
+      width: "5%",
+    },
     // { title: "Description", dataIndex: "description", width: "5%" },
-    { title: 'Grade', dataIndex: 'gradeName', width: '5%' },
-    { title: 'Amount', dataIndex: 'value', width: '5%' },
     {
-      title: 'Allowance Type',
-      dataIndex: 'allowanceType',
-      width: '20%',
+      title: allowanceDictionary.grade,
+      dataIndex: "gradeName",
+      width: "5%",
+    },
+    {
+      title: allowanceDictionary.amount,
+      dataIndex: "value",
+      width: "5%",
+    },
+    {
+      title: allowanceDictionary.allowanceType,
+      dataIndex: "allowanceType",
+      width: "20%",
       render: (text, row) => {
-        return text === 1 ? 'Percent' : 'Amount';
+        return text === 1
+          ? allowanceDictionary.percent
+          : allowanceDictionary.amount;
       },
     },
     {
-      title: 'Allowance Unit',
-      dataIndex: 'allowanceUnit',
-      width: '20%',
+      title: allowanceDictionary.allowanceUnit,
+      dataIndex: "allowanceUnit",
+      width: "20%",
       render: (text, row) => {
-        return text === 1 ? 'Benefit' : 'Deduction';
+        return text === 1
+          ? allowanceDictionary.benefit
+          : allowanceDictionary.deduction;
       },
     },
     {
-      title: 'Is Taxable',
-      dataIndex: 'isTaxable',
-      width: '15%',
+      title: allowanceDictionary.istexable,
+      dataIndex: "isTaxable",
+      width: "15%",
       render: (text, row) => {
-        return text === true ? 'Yes' : 'No';
+        return text === true ? allowanceDictionary.yes : allowanceDictionary.no;
       },
     },
     removeButtons
       ? {}
       : {
-          align: 'right',
+          align: "right",
           key: 3,
           render: (_, row) => {
             if (id && row.id === id) return <LoadingOutlined key={row} />;
@@ -83,7 +101,7 @@ export const tableColumn = (
             if (rights.includes(1) && rights.includes(2))
               return (
                 <>
-                  {Edit(handleEdit, row, setClearButton)}{' '}
+                  {Edit(handleEdit, row, setClearButton)}{" "}
                   {Delete(handleDelete, row)}
                 </>
               );

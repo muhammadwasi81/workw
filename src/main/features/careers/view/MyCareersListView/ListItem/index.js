@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { Button, Image } from "antd";
 import { FieldTimeOutlined } from "@ant-design/icons";
@@ -16,8 +16,12 @@ import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../../utils/enums";
 import { useDispatch, useSelector } from "react-redux";
-
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../../localization/index";
 function ListItem({ item, onClick, onClickMyCareer }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
+  const { labels } = CareerDictionaryList;
   // console.log(item, "description");
   const {
     jobTypeId,
@@ -172,21 +176,26 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           </div>
           <div className="cardSections mt-10">
             <div className="cardSectionItem">
-              <div className="cardSection__title">Salary Range</div>
+              <div className="cardSection__title">{labels.salaryRagne}</div>
               <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">Effective Date</div>
+              <div className="cardSection__title">{labels.effectiveDate}</div>
               <div className="cardSection__body">
                 {moment(createDate).format("Do MMM YY")}
               </div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">Experience Required</div>
+              <div className="cardSection__title">
+                {" "}
+                <div className="cardSection__title">
+                  {labels.experienceRequired}
+                </div>
+              </div>
               <div className="cardSection__body">{experience}</div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">Job Expires</div>
+              <div className="cardSection__title"> {labels.jobExpires}</div>
               <div className="cardSection__body">
                 {" "}
                 {moment(endDate).format("Do MMM YY")}

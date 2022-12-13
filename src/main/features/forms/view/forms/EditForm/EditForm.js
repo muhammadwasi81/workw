@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Avatar, Form, message } from "antd";
 import FormHeader from "./FormHeader";
@@ -22,6 +22,8 @@ import {
 import BusinessLogo from "../../../../../../content/systemLogo.png";
 import { addForm, getFormById } from "../../../store/actions";
 import QuestionWithType from "../CreateForm/QuestionWithType";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../localization/index";
 
 let initialData = {
   id: "",
@@ -55,6 +57,10 @@ let initialData = {
 };
 
 const EditForm = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+
+  const { editForm } = documentDictionary;
   console.log(useParams());
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -433,7 +439,7 @@ const EditForm = (props) => {
               ))}
           </DrangableQuestions>
           <Button type="primary" onClick={onEdit}>
-            Edit Form
+            {editForm}
           </Button>
         </div>
       </div>

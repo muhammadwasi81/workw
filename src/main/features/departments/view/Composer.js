@@ -153,7 +153,7 @@ const Composer = (props) => {
                 },
               ]}
             >
-              <TextInput placeholder={"Enter Name"} />
+              <TextInput placeholder={departmentDictionary.enterName} />
             </Form.Item>
           </div>
           <div className="flex gap-4">
@@ -162,7 +162,7 @@ const Composer = (props) => {
                 handleImageUpload={handleImageUpload}
                 img="Add Image"
                 position="flex-start"
-                uploadText={"Uploads"}
+                uploadText={departmentDictionary.uploads}
               />
             </Form.Item>
           </div>
@@ -183,7 +183,7 @@ const Composer = (props) => {
 
         <Form.Item
           name="hodId"
-          label={"Head Of Department"}
+          label={departmentDictionary.headOfDepartment}
           showSearch={true}
           direction={Direction}
           rules={[{ required: true }]}
@@ -194,7 +194,7 @@ const Composer = (props) => {
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             name="hodId"
-            placeholder={"Select HOD"}
+            placeholder={departmentDictionary.selectHod}
             optionComponent={(opt) => {
               return (
                 <>
@@ -213,7 +213,7 @@ const Composer = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Add Employees"
+          label={departmentDictionary.addEmployees}
           name="members"
           rules={[
             {
@@ -230,7 +230,7 @@ const Composer = (props) => {
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder="Add Employees"
+            placeholder={departmentDictionary.addEmployees}
             selectedData={(_, obj) => {
               setEmployeesData([...obj]);
             }}
@@ -263,7 +263,7 @@ const Composer = (props) => {
               loading={createLoader}
             >
               {" "}
-              {"Create Department"}{" "}
+              {departmentDictionary.createDepartment}{" "}
             </Button>
           </div>
         </Form.Item>

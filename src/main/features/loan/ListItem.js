@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 //import { rewardDictionaryList } from "../localization/index";
 //import { loanDictionaryList } from "./localization/index";
@@ -12,14 +12,15 @@ import {
 import Avatar from "../../sharedComponents/Avatar/avatar";
 import AvatarOld from "../../sharedComponents/Avatar/avatarOLD";
 import CardProfileTopView from "../travel/view/ListView/CardProfileTopView";
+import { LoanDictionary } from "./localization/index";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 
 function ListItem(props) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { loanDictionaryList, Direction } = LoanDictionary[userLanguage];
   const { onListItem = () => {} } = props;
-  //const { userLanguage } = useContext(LanguageChangeContext);
-  //const { Direction, rewardDictionary } = loanDictionaryList[userLanguage];
-  // console.log("props for list item", props.item);
+
   const dispatch = useDispatch();
-  // const { designation, name, image } = props.item.user || [];
   const {
     description,
     referenceNo,
@@ -34,7 +35,7 @@ function ListItem(props) {
     amount,
   } = props.item || null;
 
-  console.log(approvers);
+  console.log(user);
   return (
     <>
       <SingleItem
@@ -48,8 +49,8 @@ function ListItem(props) {
               <AvatarOld
                 width={40}
                 height={40}
-                src={user.image}
-                name={user.name}
+                // src={user.image}
+                // name={user.name}
                 round
               ></AvatarOld>
             }
@@ -73,13 +74,18 @@ function ListItem(props) {
         </ItemContent>
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Deduction per month</div>
+            <div className="cardSection__title">
+              {loanDictionaryList.deductionPerMonth}
+            </div>
             <div className="cardSection__body">
               {deductionPerMonth ? deductionPerMonth : ""}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Deadline</div>
+            <div className="cardSection__title">
+              {" "}
+              {loanDictionaryList.deadline}
+            </div>
             <div className="cardSection__body">
               {deadline
                 ? moment(deadline).format("ddd,MMM DD,YYYY")
@@ -87,11 +93,17 @@ function ListItem(props) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Amount</div>
+            <div className="cardSection__title">
+              {" "}
+              {loanDictionaryList.amount}
+            </div>
             <div className="cardSection__body"> {amount ? amount : ""}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Approvers</div>
+            <div className="cardSection__title">
+              {" "}
+              {loanDictionaryList.approvers}
+            </div>
             <div className="cardSection__body">
               {approvers && (
                 <Avatar

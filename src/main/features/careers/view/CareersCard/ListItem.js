@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import moment from "moment";
 import {
@@ -11,9 +11,15 @@ import Avatar from "../../../../sharedComponents/Avatar/avatar";
 // import JobDetails from "../../DetailView/DetailComposer/JobDetails";
 import { useDispatch, useSelector } from "react-redux";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization/index";
 
 function ListItem({ item, onClick, onClickMyCareer }) {
   // console.log(item, "description");
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList } = CareerDictionary[userLanguage];
+  const { labels } = CareerDictionaryList;
+
   const {
     jobTypeId,
     createDate,
@@ -73,22 +79,22 @@ function ListItem({ item, onClick, onClickMyCareer }) {
         </ItemContent>
         <div className="cardSections mt-10">
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Salary Range"}</div>
+            <div className="cardSection__title">{labels.salaryRange}</div>
             <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Effective Date"}</div>
+            <div className="cardSection__title">{labels.effectiveDate}</div>
             <div className="cardSection__body">
               {" "}
               {moment(createDate).format("Do MMM YY")}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Applicants"}</div>
+            <div className="cardSection__title">{labels.applicants}</div>
             <div className="cardSection__body">{`${applicantsCount} `}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Approvers</div>
+            <div className="cardSection__title">{labels.approvers}</div>
             <div className="cardSection__body">
               {approvers && (
                 <Avatar
@@ -103,7 +109,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Interviewers</div>
+            <div className="cardSection__title">{labels.interviewers}</div>
             <div className="cardSection__body">
               {interviewers && (
                 <Avatar

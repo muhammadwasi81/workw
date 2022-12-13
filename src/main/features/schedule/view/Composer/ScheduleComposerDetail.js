@@ -11,12 +11,17 @@ import Event from "../event";
 
 import ScheduleMembersList from "../Composer/ScheduleMembersList";
 import ScheduleDetailSkeleton from "./ScheduleDetailSkeleton";
+import { EditOutlined } from "@ant-design/icons";
+import { Button, Tooltip } from "antd";
+import CreateSchedule from "../createSchedule";
+import UpdateSchedule from "./UpdateSchedule";
 
 function ScheduleComposerDetail({ id, shortEvent = true }) {
 	const eventDetail = useSelector(state => state.scheduleSlice.eventDetail);
 	const loading = useSelector(state => state.scheduleSlice.loading);
 	const loggedInUserId = useSelector(state => state.userSlice.user.id);
 	const [isActionEnabled, setIsActionEnabled] = useState(false);
+	const [editSchedule, setEditSchedule] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getScheduleById(id));
@@ -56,19 +61,33 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 			})
 		);
 	};
+	const handleEditSchedule = () => {
+		setEditSchedule(!editSchedule);
+	};
 	return (
 		<>
 			{loading ? (
 				<ScheduleDetailSkeleton />
 			) : (
-				<div
-					className={`eventDetail ${!shortEvent && ""}
-				`}
-				>
+				<div className={`eventDetail ${!shortEvent && ""}`}>
 					{shortEvent && (
 						<div className="eventDetail__header">
 							<p className="eventDetail-title">Details</p>
 							{/* <span className="eventNum">SCH-000085</span> */}
+							<Button
+								className="ThemeBtn"
+								onClick={handleEditSchedule}
+							>
+								Update
+							</Button>
+							{/* <Tooltip title="Edit Schedule">
+										<EditOutlined
+											className="!text-primary-color cursor-pointer"
+											onClick={() => {
+												setEditSchedule(true);
+											}}
+										/>
+									</Tooltip> */}
 						</div>
 					)}
 					<div className="eventDetail__body">
@@ -102,6 +121,11 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
 					))}
 				</div>
 			)}
+			<UpdateSchedule
+				eventDetail={eventDetail}
+				handleEditSchedule={handleEditSchedule}
+				isOpen={editSchedule}
+			/>
 		</>
 	);
 }

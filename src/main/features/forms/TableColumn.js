@@ -4,25 +4,35 @@ import Avatar from "../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../sharedComponents/Tag/StatusTag";
-export const tableColumn = () => {
+export const tableColumn = (documentDictionary) => {
+  const {
+    referenceNo,
+    creator,
+    status,
+    date,
+    title,
+    Description,
+    Approvers,
+  } = documentDictionary;
+
   return [
     {
-      title: "Reference No",
+      title: referenceNo,
       dataIndex: "referenceNo",
       ellipsis: true,
       sort: true,
     },
     {
-      title: "Title",
+      title: title,
       dataIndex: "subject",
     },
     {
-      title: "Description",
+      title: Description,
       dataIndex: "description",
       ellipsis: true,
     },
     {
-      title: "Creator",
+      title: creator,
       dataIndex: "creator",
       ellipsis: true,
       render: (creator) => (
@@ -31,19 +41,19 @@ export const tableColumn = () => {
       sort: true,
     },
     {
-      title: "Status",
+      title: status,
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
     },
     {
-      title: "Date",
+      title: date,
       dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
     },
     {
-      title: "Approvers",
+      title: Approvers,
       dataIndex: "approvers",
       ellipsis: true,
       render: (approvers) => (

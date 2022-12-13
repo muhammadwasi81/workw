@@ -1,6 +1,6 @@
 import "./grade.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -11,102 +11,109 @@ import {
   FormLabel,
   FormTextArea,
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import { emailConfiDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 export default function EmailConfigurationForm({ data, onSubmit, loading }) {
   const [form, setForm] = useState(data);
 
   useEffect(() => {
     setForm(data);
-    
   }, [data]);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction, emailConfiDictionary } = emailConfiDictionaryList[
+    userLanguage
+  ];
   return (
     <FormContainer>
-      <FormHeader>Email Configuration</FormHeader>
+      <FormHeader>{emailConfiDictionary.emailConfi}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Email Configuration</FormLabel>
+          <FormLabel>{emailConfiDictionary.emailConfi}</FormLabel>
           <Input
-            placeholder={"Enter Email Configuration"}
+            placeholder={emailConfiDictionary.enterEmailConfi}
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Incoming Port</FormLabel>
+          <FormLabel>{emailConfiDictionary.incomingPort}</FormLabel>
           <Input
-            placeholder={"Enter Incoming Port"}
+            placeholder={emailConfiDictionary.enterIncomingPort}
             value={form.incomingPort}
             onChange={(e) => setForm({ ...form, incomingPort: e.target.value })}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Incoming Server Address</FormLabel>
+          <FormLabel>{emailConfiDictionary.incomingServerAddress}</FormLabel>
           <Input
-            placeholder={"Enter incoming Server Address"}
+            placeholder={emailConfiDictionary.enterIncomingServerAddress}
             value={form.incomingServerAddress}
-            onChange={(e) => setForm({ ...form, incomingServerAddress: e.target.value })}
+            onChange={(e) =>
+              setForm({ ...form, incomingServerAddress: e.target.value })
+            }
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Outgoing Port</FormLabel>
+          <FormLabel>{emailConfiDictionary.outgoingPort}</FormLabel>
           <Input
-            placeholder={"Enter Outgoing Port"}
+            placeholder={emailConfiDictionary.enterOutgoingPort}
             value={form.outgoingPort}
             onChange={(e) => setForm({ ...form, outgoingPort: e.target.value })}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Outgoing Server Address</FormLabel>
+          <FormLabel>{emailConfiDictionary.outgoingServerAddress}</FormLabel>
           <Input
-            placeholder={"Enter Outgoing Server Address"}
+            placeholder={emailConfiDictionary.enterOutgoingServerAddress}
             value={form.outgoingServerAddress}
-            onChange={(e) => setForm({ ...form, outgoingServerAddress: e.target.value })}
+            onChange={(e) =>
+              setForm({ ...form, outgoingServerAddress: e.target.value })
+            }
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Provider</FormLabel>
+          <FormLabel>{emailConfiDictionary.provider}</FormLabel>
           <Input
-            placeholder={"Enter Provider"}
+            placeholder={emailConfiDictionary.enterProvider}
             value={form.provider}
             onChange={(e) => setForm({ ...form, provider: e.target.value })}
           />
         </FormInput>
       </FormInputContainer>
       <FormButtonContainer>
-        {
-          form.id ? 
+        {form.id ? (
           <>
             <FormButton
-            type="primary"
-            size="medium"
-            style={{}}
-            className="formBtn"
-            onClick={(e) => onSubmit(form)}
-          >
-            Save Email Configuration
-          </FormButton>
+              type="primary"
+              size="medium"
+              style={{}}
+              className="formBtn"
+              onClick={(e) => onSubmit(form)}
+            >
+              {emailConfiDictionary.saveEmailConfi}
+            </FormButton>
+            <FormButton
+              type="primary"
+              size="medium"
+              style={{}}
+              className="formBtn"
+              onClick={(e) => setForm({ ...form, description: "", name: "" })}
+            >
+              {emailConfiDictionary.clear}
+            </FormButton>
+          </>
+        ) : (
           <FormButton
             type="primary"
             size="medium"
             style={{}}
             className="formBtn"
-            onClick={(e) => setForm({ ...form, description: "", name: "" })}
+            onClick={(e) => onSubmit(form)}
+            // loading={loading}
           >
-            Clear 
+            {emailConfiDictionary.addEmailConfi}
           </FormButton>
-          </>
-        : 
-        <FormButton
-          type="primary"
-          size="medium"
-          style={{}}
-          className="formBtn"
-          onClick={(e) => onSubmit(form)}
-          // loading={loading}
-      >
-        Add Email Configuration 
-      </FormButton>
-        }
+        )}
       </FormButtonContainer>
     </FormContainer>
   );

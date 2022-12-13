@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { Dropdown, Menu, Space, Image } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
@@ -33,6 +33,8 @@ import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
 import { createGuid } from "../../../../../../utils/base";
 import ShareComponent from "./ShareComponent";
 import { handleOpenSticky } from "../../store/stickySlice";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { stickyNotesDictionaryList } from "../../localization/index";
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
   const [openShare, setOpenShare] = useState(false);
@@ -45,7 +47,8 @@ const NewStickyNote = ({ item }) => {
   const { openSticky, selectionId } = useSelector((state) => {
     return state.stickySlice;
   });
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { stikcyDictionary } = stickyNotesDictionaryList[userLanguage];
   console.log(openSticky, "open sticky");
   const color = item.colorCode;
   const uploadImageHandler = (e) => {
@@ -62,7 +65,7 @@ const NewStickyNote = ({ item }) => {
     );
   };
   const openShareHandler = () => {
-    console.log("clecked share")
+    console.log("clecked share");
     setOpenShare((openShare) => !openShare);
   };
   const copyToClipboard = () => {
@@ -76,7 +79,7 @@ const NewStickyNote = ({ item }) => {
           label: (
             <div onClick={openShareHandler}>
               <ShareAltOutlined />
-              <a className="text-black">Share</a>
+              <a className="drop-downList">Share</a>
             </div>
           ),
           key: "0",
@@ -85,7 +88,7 @@ const NewStickyNote = ({ item }) => {
           label: (
             <div onClick={copyToClipboard}>
               <CopyOutlined />
-              <a className="text-black">Copy</a>
+              <a className="drop-downList">Copy</a>
             </div>
           ),
           key: "1",
@@ -161,14 +164,14 @@ const NewStickyNote = ({ item }) => {
   // console.log(width, height, "widthhh");
 
   const axis = {
-    x_axis: (Math.floor(Math.random() * (400 - 300)) + 300),
-    y_axis: (Math.floor(Math.random() * (200 - 500)) + 500)
+    x_axis: Math.floor(Math.random() * (400 - 300)) + 300,
+    y_axis: Math.floor(Math.random() * (200 - 500)) + 500,
   };
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
-    console.log(item.id, item.description, "iddddddd");
   };
-  console.log(openShare)
+  console.log(openShare);
+
   return (
     <>
       <Draggable
@@ -177,8 +180,8 @@ const NewStickyNote = ({ item }) => {
         handle=".handle"
         // grid={[25, 25]}
         scale={1}
-      // bounds="parent"
-      // allowAnyClick={true}
+        // bounds="parent"
+        // allowAnyClick={true}
       >
         <div
           className="stickyNote_container"
@@ -193,7 +196,7 @@ const NewStickyNote = ({ item }) => {
             style={{ backgroundColor: item.colorCode }}
           >
             <input
-              placeholder="Title"
+              placeholder={stikcyDictionary.title}
               onChange={(e) => setTitle(e.target.value)}
               defaultValue={item.title}
               style={{ backgroundColor: item.colorCode }}
@@ -205,7 +208,7 @@ const NewStickyNote = ({ item }) => {
               <Dropdown overlay={menu}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    <EllipsisOutlined className="margin_Icon" />
+                    <EllipsisOutlined className="threedot_Icon" />
                   </Space>
                 </a>
               </Dropdown>
@@ -222,11 +225,12 @@ const NewStickyNote = ({ item }) => {
 
           {/* *******Insert text area and image********* */}
 
-          {openShare &&
+          {openShare && (
             <ShareComponent
               item={item}
               handleClose={() => setOpenShare(false)}
-            />}
+            />
+          )}
 
           <div className="textArea_container">
             <ReactQuill
@@ -234,7 +238,7 @@ const NewStickyNote = ({ item }) => {
               modules={modules}
               formats={formats}
               className={"stickyNoteItem-textarea"}
-              placeholder="Take a Note"
+              placeholder={stikcyDictionary.takeANote}
               defaultValue={item.description}
             />
 

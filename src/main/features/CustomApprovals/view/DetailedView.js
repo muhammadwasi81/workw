@@ -21,7 +21,9 @@ function DetailedView(props) {
   return (
     <Drawer
       title={
-        <h1 style={{ fontSize: "20px", margin: 0 }}>{"Custom Approval"}</h1>
+        <h1 style={{ fontSize: "20px", margin: 0 }}>
+          {customApprovalDictionary.customApproval}
+        </h1>
       }
       width="768"
       placement={

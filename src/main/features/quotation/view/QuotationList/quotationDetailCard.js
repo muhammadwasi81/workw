@@ -17,8 +17,14 @@ import { useSelector } from "react-redux";
 import AllowanceDetail from "./allowanceDetail";
 import RemarksApproval from "../../../../sharedComponents/AppComponents/Approvals/view";
 import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import { quotationDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 function QuotationDetailCard(props) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { quotationDictionary, Direction } = quotationDictionaryList[
+    userLanguage
+  ];
   const dispatch = useDispatch();
   useEffect(() => {
     if (props.id) dispatch(getQuotationById(props.id));
@@ -101,15 +107,24 @@ function QuotationDetailCard(props) {
 
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Client's name</div>
+            <div className="cardSection__title">
+              {" "}
+              {quotationDictionary.clientsName}
+            </div>
             <div className="cardSection__body">{name}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Client's Email</div>
+            <div className="cardSection__title">
+              {" "}
+              {quotationDictionary.clientsEmail}
+            </div>
             <div className="cardSection__body">{email}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Phone Number</div>
+            <div className="cardSection__title">
+              {" "}
+              {quotationDictionary.phoneNumber}
+            </div>
             <div className="cardSection__body">{phoneNumber}</div>
           </div>
         </div>
@@ -118,7 +133,7 @@ function QuotationDetailCard(props) {
 
         <RemarksApproval
           data={approvers}
-          title="Approvals"
+          title={quotationDictionary.approvals}
           module={ApprovalsModule.quotation}
           onStatusChanged={() => {}}
         />

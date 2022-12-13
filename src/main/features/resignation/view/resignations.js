@@ -19,8 +19,14 @@ import { handleOpenComposer } from "../store/slice";
 import Composer from "./composer";
 import { tableColumn } from "./TableColumn";
 import { ROUTES } from "../../../../utils/routes";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { resignationDictionaryList } from "../localization";
 
 const Resignation = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { resignationDictionary, Direction } = resignationDictionaryList[
+    userLanguage
+  ];
   const dispatch = useDispatch();
   const [filter, setFilter] = useState({
     filterType: 1,
@@ -49,7 +55,7 @@ const Resignation = (props) => {
 
   const headerButtuns = [
     {
-      name: "Resignation",
+      name: resignationDictionary.resignation,
       renderButton: [1],
       to: `${ROUTES.RESIGNATION.RESIGNATION}`,
     },
@@ -75,13 +81,13 @@ const Resignation = (props) => {
           items={headerButtuns}
           buttons={[
             {
-              buttonText: "Create Reward",
+              buttonText: resignationDictionary.createReward,
               render: (
                 <Button
                   className="ThemeBtn"
                   onClick={() => dispatch(handleOpenComposer(true))}
                 >
-                  Create Resignation
+                  {resignationDictionary.createResignation}
                 </Button>
               ),
             },
@@ -93,28 +99,28 @@ const Resignation = (props) => {
           }}
           buttons={[
             {
-              name: "Resignations",
+              name: resignationDictionary.resignation,
               onClick: () => setFilter({ filterType: 0 }),
             },
             {
-              name: "Created By Me",
+              name: resignationDictionary.createdByMe,
               onClick: () => setFilter({ filterType: 1 }),
             },
             {
-              name: "For Approval",
+              name: resignationDictionary.forApproval,
               onClick: () => setFilter({ filterType: 2 }),
             },
           ]}
           segment={{
             onSegment: (value) => {
-              if (value === "Table") {
+              if (value === resignationDictionary.table) {
                 setTableView(true);
               } else {
                 setTableView(false);
               }
             },
-            label1: "List",
-            label2: "Table",
+            label1: resignationDictionary.list,
+            label2: resignationDictionary.table,
           }}
         />
         <ContBody>
@@ -122,7 +128,7 @@ const Resignation = (props) => {
 
           {tableView && (
             <Table
-              columns={tableColumn()}
+              columns={tableColumn(resignationDictionary)}
               dragable={true}
               data={items}
               onRow={onRow}
@@ -156,7 +162,7 @@ const Resignation = (props) => {
                 margin: 0,
               }}
             >
-              Create Resignation
+              {resignationDictionary.createResignation}
             </h1>
           }
           width="768"

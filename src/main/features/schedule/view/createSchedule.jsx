@@ -19,8 +19,9 @@ import { ScheduleTypeEnum } from "../enum/enum";
 import { addSchedule } from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { getNameForImage, jsonToFormData } from "../../../../utils/base";
+import "../styles/style.css";
 
-function CreateSchedule() {
+function CreateSchedule({ scheduleDetail = {} }) {
 	const [venue, setVenue] = useState("Venue");
 	const [quillError, setQuillError] = useState(false);
 	const [files, setFiles] = useState([]);
@@ -29,6 +30,7 @@ function CreateSchedule() {
 	const {
 		sharedSlice: { employees },
 	} = useSelector(state => state);
+	const userId = useSelector(state => state.userSlice.user.id);
 	const loading = useSelector(state => state.scheduleSlice.loading);
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -158,7 +160,23 @@ function CreateSchedule() {
 		}
 		return Promise.resolve();
 	};
-
+	useEffect(() => {
+		if (Object.keys(scheduleDetail).length > 0) {
+			console.log("scheduleDetail", scheduleDetail);
+			const startD = moment(scheduleDetail.startDate);
+			const endD = moment(scheduleDetail.endDate);
+			form.setFieldsValue({
+				...scheduleDetail,
+				startDate: startD,
+				endDate: `${endD.diff(startD, "minutes")} minutes`,
+				members: scheduleDetail.members
+					.map(members => {
+						return members.memberId;
+					})
+					.filter(member => member !== userId),
+			});
+		}
+	}, [scheduleDetail]);
 	return (
 		<div className="createSchedule">
 			<Form
@@ -172,6 +190,7 @@ function CreateSchedule() {
 					onVideoConference: false,
 					travelTime: 0,
 					preparationTime: 0,
+					members: []
 				}}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
@@ -214,19 +233,13 @@ function CreateSchedule() {
 								setQuillError(false);
 							}
 						}}
-						
 						modules={modules}
 						formats={formats}
 						placeholder="Description"
 					/>
-					
 				</Form.Item>
 				<Form.Item label="Type:" name={"scheduleType"}>
-					<Radio.Group
-						onChange={e => {
-							console.log("e", e.target.value);
-						}}
-					>
+					<Radio.Group>
 						<Radio.Button value={ScheduleTypeEnum.Meeting}>
 							<DeploymentUnitOutlined />
 							Meeting

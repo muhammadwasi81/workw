@@ -92,7 +92,11 @@ function PostModel({ id, open, setModelState, leftComponent }) {
 											}}
 										>
 											<div className="flex justify-center items-center w-full h-full">
-												{getFile(slide, "!h-full")}
+												{getFile(
+													slide,
+													"!h-full",
+													true
+												)}
 											</div>
 											{/* <img
                         id={1}

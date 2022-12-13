@@ -173,7 +173,7 @@ const Composer = (props) => {
         autoComplete="off"
       >
         <Form.Item
-          label={"Leave Type"}
+          label={leaveDictionary.leaveType}
           name="leaveTypeId"
           rules={[
             {
@@ -184,7 +184,7 @@ const Composer = (props) => {
         >
           <Select
             data={leaveTypes}
-            placeholder={"Select Type"}
+            placeholder={leaveDictionary.selectType}
             style={{
               width: "100%",
               borderRadius: "5px",
@@ -195,7 +195,7 @@ const Composer = (props) => {
 
         <Form.Item
           name="members"
-          label={"On Behalf Of"}
+          label={leaveDictionary.onBehalfOf}
           showSearch={true}
           direction={Direction}
           style={{ marginBottom: "0px" }}
@@ -294,10 +294,10 @@ const Composer = (props) => {
           <Input.TextArea placeholder={leaveDictionary.enterDescription} />
         </Form.Item>
 
-        <Form.Item label="Leaves Dates" name="startEndDate">
+        <Form.Item label={leaveDictionary.leaveDates} name="startEndDate">
           <RangePicker
             format={"DD/MM/YYYY"}
-            placeholder={["Start Start", "End Date"]}
+            placeholder={[leaveDictionary.startDate, leaveDictionary.endDate]}
             onChange={(value, dateString) => {
               handleEndStartDate(value, dateString, "start_end");
             }}
@@ -326,10 +326,9 @@ const Composer = (props) => {
             className="ThemeBtn"
             block
             htmlType="submit"
-            title={"Create Leave"}
+            title={leaveDictionary.createleave}
           >
-            {" "}
-            {"Create Leave"}{" "}
+            {leaveDictionary.createleave}
           </Button>
         </Form.Item>
       </Form>

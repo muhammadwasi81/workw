@@ -87,16 +87,17 @@ function ListItem(props) {
         </ItemContent>
         <div className="cardSections">
           <div className="cardSectionItem">
-           
-            <div className="cardSection__title">{"Category"}</div>
+            <div className="cardSection__title">
+              {rewardDictionary.category}
+            </div>
             <div className="cardSection__body">{category}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Name"}</div>
+            <div className="cardSection__title">{rewardDictionary.name}</div>
             <div className="cardSection__body">{name}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{"Reason"}</div>
+            <div className="cardSection__title">{rewardDictionary.reason}</div>
             <div className="cardSection__body">{reason}</div>
           </div>
           <div className="cardSectionItem">

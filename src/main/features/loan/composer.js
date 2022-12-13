@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // import "antd/dist/antd.css";
 // import './index.css';
 import { Button, Form, Input, Select, DatePicker, Avatar } from "antd";
@@ -9,6 +9,8 @@ import { addLoan } from "./store/actions";
 import { getAllEmployees } from "../../../utils/Shared/store/actions";
 import { DEFAULT_GUID } from "../../../utils/constants";
 import moment from "moment";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { LoanDictionary } from "./localization";
 const { TextArea } = Input;
 
 const { Option } = Select;
@@ -28,6 +30,8 @@ const tailLayout = {
 };
 
 const Composer = () => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { loanDictionaryList, Direction } = LoanDictionary[userLanguage];
   const [form] = Form.useForm();
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
@@ -123,7 +127,7 @@ const Composer = () => {
     >
       <Form.Item
         name="amount"
-        label="Amount"
+        label={loanDictionaryList.amount}
         onChange={(e) => setLoanAmount(e.target.value)}
         rules={[
           {
@@ -131,7 +135,7 @@ const Composer = () => {
           },
         ]}
       >
-        <Input type="number" placeholder="Amount" />
+        <Input type="number" placeholder={loanDictionaryList.amount} />
       </Form.Item>
       {/* <Form.Item name="interest rate" label="Interest Rate">
         <div
@@ -168,7 +172,7 @@ const Composer = () => {
       <Form.Item
         disabled={true}
         name="deductionPerMonth"
-        label="Deduction/Month"
+        label={loanDictionaryList.deductionPerMonth}
         // value={loanAmount & loanTenure ? loanAmount / loanTenure : 0}
         // value={loanAmount / loanTenure}
       >
@@ -182,35 +186,52 @@ const Composer = () => {
         >
           <Input
             type="number"
-            placeholder="Deduction/month"
+            placeholder={loanDictionaryList.deductionPerMonth}
             value={loanAmount / loanTenure}
           />
         </div>
       </Form.Item>
       <Form.Item
         name="loanPurpose"
-        label="Loan Purpose"
+        label={loanDictionaryList.loanPurpose.LoanPurpose}
         rules={[
           {
             required: true,
           },
         ]}
       >
-        <Select placeholder="Loan Purpose" allowClear>
-          <Option value="vehicle">Vehicle</Option>
-          <Option value="personal">Personal</Option>
-          <Option value="wedding">Wedding</Option>
-          <Option value="medical">Medical</Option>
-          <Option value="education">Education</Option>
-          <Option value="house">House</Option>
-          <Option value="other">Other</Option>
+        <Select
+          placeholder={loanDictionaryList.loanPurpose.LoanPurpose}
+          allowClear
+        >
+          <Option value="vehicle">
+            {loanDictionaryList.loanPurpose.vehicle}
+          </Option>
+          <Option value="personal">
+            {" "}
+            {loanDictionaryList.loanPurpose.personal}
+          </Option>
+          <Option value="wedding">
+            {" "}
+            {loanDictionaryList.loanPurpose.wedding}
+          </Option>
+          <Option value="medical">
+            {" "}
+            {loanDictionaryList.loanPurpose.medical}
+          </Option>
+          <Option value="education">
+            {" "}
+            {loanDictionaryList.loanPurpose.education}
+          </Option>
+          <Option value="house"> {loanDictionaryList.loanPurpose.house}</Option>
+          <Option value="other"> {loanDictionaryList.loanPurpose.other}</Option>
         </Select>
       </Form.Item>
       <Form.Item label="Deadline" name="deadline">
         <DatePicker />
       </Form.Item>
       <Form.Item
-        label="Approvers"
+        label={loanDictionaryList.approvers}
         name="approvers"
         rules={[
           {
@@ -227,7 +248,7 @@ const Composer = () => {
           data={firstTimeEmpData}
           canFetchNow={isFirstTimeDataLoaded}
           fetchData={fetchEmployees}
-          placeholder="Select Approvers"
+          placeholder={loanDictionaryList.selectApprovers}
           selectedData={(_, obj) => {
             setEmployeesData([...obj]);
           }}
@@ -245,14 +266,14 @@ const Composer = () => {
       </Form.Item>
       <Form.Item
         name="description"
-        label="Description"
+        label={loanDictionaryList.description}
         rules={[
           {
             required: true,
           },
         ]}
       >
-        <TextArea rows={2} placeholder="Description" />
+        <TextArea rows={2} placeholder={loanDictionaryList.description} />
       </Form.Item>
       <Form.Item>
         <Button
@@ -267,7 +288,7 @@ const Composer = () => {
           htmlType="submit"
           loading={createLoader}
         >
-          Create
+          {loanDictionaryList.create}
         </Button>
       </Form.Item>
     </Form>

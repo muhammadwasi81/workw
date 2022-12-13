@@ -7,7 +7,12 @@ import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 import LeadSectionSelect from "../../../UI/Select/LeadSectionSelect";
 import { LeadManagerDictionary } from "../../../localization";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
-export const tableColumns = (sections, handleMemberModal, userLanguage) => {
+export const tableColumns = (
+	sections,
+	handleMemberModal,
+	userLanguage,
+	handleSelectedMembers
+) => {
 	// const { userLanguage } = useContext(LanguageChangeContext);
 	const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
 		userLanguage
@@ -51,6 +56,7 @@ export const tableColumns = (sections, handleMemberModal, userLanguage) => {
 									e.stopPropagation();
 									e.preventDefault();
 									handleMemberModal(id);
+									handleSelectedMembers("", members);
 								}}
 							/>
 						</Tooltip>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   CardWrapperAppraisal,
   SingleItem,
@@ -7,9 +7,25 @@ import { CaretRightOutlined } from "@ant-design/icons";
 import { Avatar, Rate, Collapse } from "antd";
 import Approval from "../../../../../sharedComponents/AppComponents/Approvals/view";
 import { ApprovalsModule } from "../../../../../sharedComponents/AppComponents/Approvals/enums";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { appraisalDictionaryList } from "../../../localization/index";
 
 const { Panel } = Collapse;
 const ForApproval = () => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
+  const {
+    appraisedBy,
+    createdDate,
+    STARTDATE,
+    ENDDATE,
+    PROMOTION,
+    BONUS,
+    INCREMENT,
+    COMMENT,
+    question,
+    approvals,
+  } = appraisalDictionary;
   const [loanStatus, setLoanStatus] = useState({});
 
   return (
@@ -33,50 +49,50 @@ const ForApproval = () => {
           <div className="flex justify-around mt-8">
             <div className="flex flex-col text-center">
               <span className="font-bold" style={{ color: "#707070" }}>
-                APPRAISED BY
+                {appraisedBy}
               </span>
               <span className="font-medium">Syed Bilal</span>
             </div>
             <div className="flex flex-col text-center">
               <span className="font-bold" style={{ color: "#707070" }}>
-                CREATED DATE
+                {createdDate}
               </span>
               <span className="font-medium">Oct 19, 2022</span>
             </div>
             <div className="flex flex-col text-center">
               <span className="font-bold" style={{ color: "#707070" }}>
-                START DATE
+                {STARTDATE}
               </span>
               <span className="font-medium">Oct 19, 2022</span>
             </div>
             <div className="flex flex-col text-center">
               <span className="font-bold" style={{ color: "#707070" }}>
-                END DATE
+                {ENDDATE}
               </span>
               <span className="font-medium">Oct 19, 2022</span>
             </div>
             <div className="flex flex-col text-center">
               <span className="font-bold" style={{ color: "#707070" }}>
-                PROMOTION
+                {PROMOTION}
               </span>
               <span className="font-medium">Manager</span>
             </div>
             <div className="flex flex-col text-center">
               <span className="font-bold" style={{ color: "#707070" }}>
-                BONUS
+                {BONUS}
               </span>
               <span className="font-medium">05%</span>
             </div>
             <div className="flex flex-col text-center">
               <span className="font-bold" style={{ color: "#707070" }}>
-                INCREMENT
+                {INCREMENT}
               </span>
               <span className="font-medium">07%</span>
             </div>
           </div>
           <div className="mt-8">
             <span className="font-bold" style={{ color: "#40a9ff" }}>
-              COMMENT
+              {COMMENT}
             </span>
             <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -102,7 +118,7 @@ const ForApproval = () => {
               accordion={false}
             >
               <Panel
-                header="Questions"
+                header={question}
                 key="1"
                 className="site-collapse-custom-panel"
               >
@@ -130,7 +146,7 @@ const ForApproval = () => {
           </div>
           <div className="mt-8 mb-8 w-ful">
             <Approval
-              title={"Approvals"}
+              title={approvals}
               module={ApprovalsModule.LoanApproval}
               data={[]}
               onStatusChanged={(status) => {

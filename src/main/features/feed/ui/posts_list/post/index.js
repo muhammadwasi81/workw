@@ -48,6 +48,7 @@ const Post = ({
 				isOpen={modelState}
 				onOpen={openModel}
 				id={id}
+				isDetail={isDetail}
 			/>
 			<PostFooter
 				isDetail={isDetail}

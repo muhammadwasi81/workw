@@ -3,7 +3,7 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = () => {
+export const tableColumn = (complainDictionary) => {
   return [
     // {
     //   title: "Sort",
@@ -12,13 +12,13 @@ export const tableColumn = () => {
     //   width: 80,
     // },
     {
-      title: "Reference No",
+      title: complainDictionary.referenceNo,
       dataIndex: "referenceNo",
       width: 200,
       sort: true,
     },
     {
-      title: "Creator",
+      title: complainDictionary.creator,
       dataIndex: "creator",
       width: 200,
       render: (creator) => (
@@ -27,33 +27,33 @@ export const tableColumn = () => {
       sort: true,
     },
     {
-      title: "Status",
+      title: complainDictionary.status,
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
     },
     {
-      title: "Category",
+      title: complainDictionary.category,
       dataIndex: "category",
       sort: true,
       width: 200,
     },
 
     {
-      title: "Date",
+      title: complainDictionary.date,
       dataIndex: "createDate",
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
     },
 
     {
-      title: "Complain Of",
+      title: complainDictionary.complainOf,
       dataIndex: "members",
       render: (member) => <Avatar membersData={member} heading={"Members"} />,
       width: 200,
     },
     {
-      title: "Approvers",
+      title: complainDictionary.approvers,
       dataIndex: "approvers",
       width: 200,
       render: (approver) => (

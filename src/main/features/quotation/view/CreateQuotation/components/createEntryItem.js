@@ -1,12 +1,14 @@
 import { DatePicker, Input, Select } from "antd";
 import { Option } from "antd/lib/mentions";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { ALLOWANCE_ENUM } from "../../../../allowance/view/enum";
 import { calculateAllowance } from "../../../utils/constant";
+import { quotationDictionaryList } from "../../../localization/index";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 
 const CreateEntryItem = ({
   index,
@@ -23,7 +25,10 @@ const CreateEntryItem = ({
   const handleInputChange = (e) => {
     handleChange(e.target.value, e.target.name, index);
   };
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { quotationDictionary, Direction } = quotationDictionaryList[
+    userLanguage
+  ];
   const onEmployeeSelect = (row) => {
     let { gradeId, grade, id } = row[0];
     let { totalAllowance, totalDeductions, details } = calculateAllowance(
@@ -108,7 +113,7 @@ const CreateEntryItem = ({
           onChange={(value) => handleChange(value, "effectiveDate", index)}
         /> */}
         <input
-          placeholder="Service/Item"
+          placeholder={quotationDictionary.serviceItem}
           // onChange={(value) => handleChange(value, "effectiveDate", index)}
           onChange={handleInputChange}
           name="item"
@@ -147,7 +152,7 @@ const CreateEntryItem = ({
         /> */}
         <input
           // className="text-[#a7a7a7] font-bold"
-          placeholder="Price"
+          placeholder={quotationDictionary.price}
           name="price"
           // value={value.grade}
           // disabled={true}
@@ -157,7 +162,7 @@ const CreateEntryItem = ({
       </td>
       <td>
         <input
-          placeholder="Quantity"
+          placeholder={quotationDictionary.quantity}
           type="number"
           name="quantity"
           // onChange={(e) =>
@@ -168,7 +173,7 @@ const CreateEntryItem = ({
       </td>
       <td>
         <input
-          placeholder="Tax"
+          placeholder={quotationDictionary.tax}
           // type="number"
           value="0.5%"
           disabled={true}
@@ -179,7 +184,7 @@ const CreateEntryItem = ({
       </td>
       <td>
         <input
-          placeholder="Total"
+          placeholder={quotationDictionary.totalAmount}
           //  type="number"
           value={value.totalAmount}
           disabled={true}

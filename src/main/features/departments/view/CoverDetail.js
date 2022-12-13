@@ -45,7 +45,7 @@ function CoverDetail(props) {
               )}
             </span>
             <span className="text-gray-500 text-sm font-bold flex items-center gap-1 ">
-              <BiWorld /> Create Date:{" "}
+              <BiWorld /> {departmentDictionary.createDate}:{" "}
               {loader ? (
                 <Skeleton.Input active={true} size="small" />
               ) : (
@@ -67,7 +67,7 @@ function CoverDetail(props) {
                 className="ThemeBtn !flex items-center"
                 onClick={() => dispatch(toggleCreateComposer(true))}
               >
-                <PlusOutlined /> Add SubDepartment
+                <PlusOutlined /> {departmentDictionary.addSubDepartment}
               </Button>
             )}
 

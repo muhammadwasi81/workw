@@ -8,6 +8,7 @@ import EmergencyForm from "./emergencyForm";
 import ExperienceForm from "./experienceform";
 import UserRightForm from "./userrightform";
 import BankForm from "./bankform";
+
 const AddEmployee = () => {
 	// const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1160px)" });
 	const handleSubmit = e => {

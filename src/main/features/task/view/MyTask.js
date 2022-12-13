@@ -34,7 +34,6 @@ function MyTask({ referenceId, referenceType }) {
       </div>
     );
 
-<<<<<<< HEAD
   let filteredList = list.map((item) => ({
     ...item,
     startDateOnly: moment(item.startDate).format('MMM Do YYYY'),
@@ -50,7 +49,7 @@ function MyTask({ referenceId, referenceType }) {
           // setPageNo(pageNo);
         }}
         loader={<Skeleton avatar />}
-        endMessage={!filteredList.length && <NoDataFound />}
+        endMessage={'No more posts...'}
       >
         {Object.keys(groupDate).map((item) => {
           return (
@@ -86,71 +85,15 @@ function MyTask({ referenceId, referenceType }) {
           );
         })}
       </Scroll>
-      <TaskComposer id={id} visible={visible} onClose={handleDrawerClose} />
+      <TaskComposer
+        id={id}
+        visible={visible}
+        onClose={handleDrawerClose}
+        referenceId={referenceId}
+        referenceType={referenceType}
+      />
     </>
   );
-=======
-	let filteredList = list.map(item => ({
-		...item,
-		startDateOnly: moment(item.startDate).format("MMM Do YYYY"),
-	}));
-	const groupDate = groupByKey(filteredList, "startDateOnly");
-	return (
-		<>
-			<Scroll
-				isLoading={false}
-				data={filteredList}
-				fetchMoreData={pageNo => {
-					console.log(pageNo);
-					// setPageNo(pageNo);
-				}}
-				loader={<Skeleton avatar />}
-				endMessage={"No more posts..."}
-			>
-				{Object.keys(groupDate).map(item => {
-					return (
-						<Collapse
-							key={item}
-							defaultActiveKey={["1"]}
-							className="myTask"
-							ghost={true}
-							accordion={false}
-						>
-							<Panel
-								header={
-									<Divider style={{ margin: "0 0 10px 0" }}>
-										{item}
-										{/* {moment(item).format("MMMM Do YYYY")} */}
-									</Divider>
-								}
-								key="1"
-							>
-								<div className="taskItemContainer">
-									{groupDate[item].map(task => {
-										return (
-											<TaskListItem
-												key={task.id}
-												item={task}
-												onTask={handleCard}
-											/>
-										);
-									})}
-								</div>
-							</Panel>
-						</Collapse>
-					);
-				})}
-			</Scroll>
-			<TaskComposer
-				id={id}
-				visible={visible}
-				onClose={handleDrawerClose}
-				referenceId={referenceId}
-				referenceType={referenceType}
-			/>
-		</>
-	);
->>>>>>> f7027313811199d168d2abcfe53dd23a1f444d9e
 }
 
 export default MyTask;

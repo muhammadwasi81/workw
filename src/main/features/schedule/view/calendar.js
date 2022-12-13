@@ -24,11 +24,16 @@ function Calendar() {
 	const upcomingSchedules = useSelector(
 		state => state.scheduleSlice.upcomingSchedules
 	);
+
 	const loading = useSelector(state => state.scheduleSlice.loading);
 
 	useEffect(() => {
 		fetchAllEventSchedule(new Date(), new Date());
 	}, []);
+
+	// useEffect(() => {
+	// 	dateCellRender();
+	// }, []);
 
 	const fetchAllEventSchedule = (startVal, endVal) => {
 		const startDate = moment(startVal)
@@ -60,9 +65,11 @@ function Calendar() {
 	const fetchCurrentDateScedules = value => {
 		const startDate = moment(value)
 			.startOf("day")
+			.utc()
 			.format();
 		const endDate = moment(value)
 			.endOf("day")
+			.utc()
 			.format();
 
 		dispatch(

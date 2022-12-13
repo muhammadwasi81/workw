@@ -119,7 +119,7 @@ function NotificationBar() {
             onClick={handleSearch}
             className="cursor-pointer"
           />
-          <input type="text" className={!isSearch ? "d-none" : "globalSearchInput" } onKeyUp={(e) => {if(e.keyCode === 13 && !e.shiftKey) navigate("search/*")}}  />
+          <input type="text" className={!isSearch ? "d-none" : "globalSearchInput" } onKeyUp={(e) => {if(e.keyCode === 13 && !e.shiftKey) navigate("search")}}  />
         </div>
       </div>
       <NotificationModal

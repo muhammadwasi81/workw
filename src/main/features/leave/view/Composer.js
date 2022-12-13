@@ -97,8 +97,6 @@ const Composer = (props) => {
 
   useEffect(() => {
     dispatch(getAllLeaveType());
-    // dispatch(getAllEmployee());
-    // console.log(employeesList, "EMPLOYEES")
   }, []);
 
   const handleEndStartDate = (value, dateString, name) => {
@@ -109,7 +107,25 @@ const Composer = (props) => {
   };
 
   const onFinish = (values) => {
-    let approvers = [];
+
+    if (values.members === undefined) {
+      let approvers = [];
+    let members = [];
+    if (typeof values.approvers === "string") {
+      approvers.push({
+        approverId: values.approvers,
+      });
+    } else {
+      approvers = values.approvers.map((approver) => {
+        return {
+          approverId: approver,
+        };
+      });
+    }
+    const payload = { ...values, approvers, members, attachments };
+    dispatch(addLeave(payload));
+    } else {
+      let approvers = [];
     let members = [];
     if (typeof values.approvers === "string") {
       approvers.push({
@@ -135,16 +151,8 @@ const Composer = (props) => {
     }
     const payload = { ...values, approvers, members, attachments };
     dispatch(addLeave(payload));
+    }
 
-    // if (profileImage) {
-    //   let attachments = [
-    //     { id: DEFAULT_GUID, file: profileImage[0].originFileObj },
-    //   ];
-    //   let payload = { ...values, approvers, members, attachments };
-    //   dispatch(addLeave(payload));
-    // } else {
-    //   let payload = { ...values, approvers, members };
-    //   dispatch(addLeave(payload));
     // }
 
     form.resetFields();
@@ -173,12 +181,12 @@ const Composer = (props) => {
         autoComplete="off"
       >
         <Form.Item
-          label={leaveDictionary.leaveType}
+          label={leaveDictionary.balanceLeaves}
           name="leaveTypeId"
           rules={[
             {
               required: true,
-              message: "Please Enter Category",
+              message: "Please select leave type",
             },
           ]}
         >
@@ -226,14 +234,14 @@ const Composer = (props) => {
             }}
             dataVal={value}
             name="members"
-            showSearch={true}
+            showSearch={true} 
             direction={Direction}
-            rules={[
-              {
-                required: true,
-                message: "Please Select Member",
-              },
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please Select Member",
+            //   },
+            // ]}
           />
         </Form.Item>
 

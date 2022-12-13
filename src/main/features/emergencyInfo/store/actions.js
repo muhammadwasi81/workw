@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { message } from 'antd';
 import { responseCode } from '../../../../services/enums/responseCode';
 import {
   responseMessage,
@@ -32,14 +33,11 @@ export const updateUserEmergencyContactAction = createAsyncThunk(
   async (data, { dispatch, rejectWithValue }) => {
     const res = await updateUserEmployeeContactService(data);
     console.log(res, 'updateUserEmergencyContactAction');
-    if (res.responseCode === responseCode.Success) {
+    if (res.status === responseCode.Success) {
+      message.success('Emergency Contact Updated Successfully');
       return res;
     } else {
-      responseMessage({
-        dispatch: dispatch,
-        data: res,
-        type: responseMessageType.ApiFailure,
-      });
+      message.error('Emergency Contact Updated Failed');
       return rejectWithValue(res.message);
     }
   }

@@ -37,10 +37,9 @@ const { Option } = Select;
 const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const isEdit = mode === 'edit';
   const [form] = Form.useForm();
-
   const initialState = {
     coverImageId: '',
-    userTypeId: [],
+    userTypeId: '',
     titleId: 1,
     firstName: '',
     lastName: '',
@@ -64,9 +63,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     employeeNo: [],
     employmentTypeId: [],
   };
+  const [showSubsidary, setShowSubsidary] = useState(false);
   const [department, setDepartment] = useState([]);
   const [initialValues, setInitialValues] = useState(initialState);
-  const [userTypeValue, setUserTypeValue] = useState([]);
   const { countries, cities } = useSelector((state) => state.sharedSlice);
   const { designations } = useSelector((state) => state.designationSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
@@ -124,20 +123,22 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
       </Select>
     </Form.Item>
   );
+
   useEffect(() => {
     fetchEmployees('', 0);
     getDepartment();
     dispatch(getAllBranch());
     dispatch(getAllBranchOffice());
+
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
-      if (!countries.length) dispatch(getCountries());
-      if (!cities.length) fetchCityData('', 0);
+      if (!countries?.length) dispatch(getCountries());
+      if (!cities?.length) fetchCityData('', 0);
     }
-    if (!designations.length) dispatch(getAllDesignation());
-    if (!grades.length) dispatch(getAllGrades());
-    if (!officeTimingGroups.length) dispatch(getAllOfficeTimingGroups());
-    if (!accessRoles.length) {
+    if (!designations?.length) dispatch(getAllDesignation());
+    if (!grades?.length) dispatch(getAllGrades());
+    if (!officeTimingGroups?.length) dispatch(getAllOfficeTimingGroups());
+    if (!accessRoles?.length) {
       dispatch(getAllAccessRoles());
     }
 
@@ -155,7 +156,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         joinDate: moment(basicdetails.joinDate),
         accessRoleId: basicdetails?.accessRoles?.map((item) => item.accessRole),
       });
-      setUserTypeValue(basicdetails.userTypeId);
     }
   }, [basicdetails]);
 
@@ -195,7 +195,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             probationPeriod: parseInt(values.probationPeriod),
             noticePeriod: parseInt(values.noticePeriod),
           };
-          console.log(values);
+          console.log(values, 'values');
           dispatch(updateEmployeeAction({ data: values }));
         }
         console.log('handleUpdateInfo', values);
@@ -205,16 +205,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     }
   };
 
-  // const onFinish = (values) => {
-  //   console.log("Success:", values);
-  // };
-  // const onFinishFailed = (errorInfo) => {
-  //   console.log("Failed:", errorInfo);
-  // };
-
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
-
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.BasicInfo}</Divider>
@@ -349,11 +341,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          name="countryId"
-          label={labels.Country}
-          // showSearch={true}
-        >
+        <Form.Item name="countryId" label={labels.Country}>
           <Select
             showSearch={true}
             placeholder={placeholder.selectCountry}
@@ -395,8 +383,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             placeholder={placeholder.probPeriod}
             size="large"
             type={'number'}
-            min={1}
             step={'1'}
+            min={1}
           />
         </Form.Item>
         <Form.Item
@@ -467,7 +455,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             filterOption={(input, option) =>
               (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }
-            options={officeTimingGroups.map((item) => {
+            options={(officeTimingGroups || [])?.map((item) => {
               return {
                 value: item.id,
                 label: item.name,
@@ -497,23 +485,39 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          name="userTypeId"
-          label={labels.UserType}
-          rules={[{ required: true }]}
-        >
-          <Select
-            size="large"
-            getPopupContainer={(trigger) => trigger.parentNode}
-            placeholder={placeholder.selectUserType}
+        {isEdit ? (
+          <>
+            <Form.Item
+              name="userTypeId"
+              label={labels.UserType}
+              rules={[{ required: true }]}
+            >
+              &nbsp;&nbsp;
+              <strong>
+                {basicdetails?.userTypeId === 1 ? 'Admin' : 'Employee'}
+              </strong>
+            </Form.Item>
+          </>
+        ) : (
+          <Form.Item
+            name="userTypeId"
+            label={labels.UserType}
+            rules={[{ required: true }]}
           >
-            {userType.map((type) => (
-              <Option key={type.id} value={type.id}>
-                {type.name}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
+            <Select
+              size="large"
+              getPopupContainer={(trigger) => trigger.parentNode}
+              placeholder={placeholder.selectUserType}
+            >
+              {userType.map((type) => (
+                <Option key={type.id} value={type.id}>
+                  {type.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
+
         <Form.Item
           name="accessRoleId"
           rules={[{ required: true }]}
@@ -544,6 +548,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
+
         <Form.Item name="department" label={labels.department}>
           <Select
             size="large"
@@ -561,7 +566,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-
         <Form.Item
           name="subsidiary"
           rules={[{ required: false }]}
@@ -572,59 +576,59 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             placeholder={placeholder.subsidiary}
             getPopupContainer={(trigger) => trigger.parentNode}
             showSearch={true}
-            onChange={(value) => {
-              console.log(value);
-            }}
+            onChange={() => setShowSubsidary((prev) => !prev)}
             optionFilterProp="children"
             filterOption={(input, option) =>
               (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }
-            options={items.map((item) => {
+            options={items?.map((item) => {
               return {
-                value: item.id,
-                label: item.branchTitle,
+                value: item?.id,
+                label: item?.branchTitle,
               };
             })}
           >
-            {items.map((item) => (
+            {items?.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {item.branchTitle}
               </Select.Option>
             ))}
           </Select>
         </Form.Item>
-
-        <Form.Item
-          name="subsidiaryOffice"
-          rules={[{ required: false }]}
-          label={labels.subsidiaryOffice}
-        >
-          <Select
-            size="large"
-            placeholder={placeholder.subsidiaryOffice}
-            getPopupContainer={(trigger) => trigger.parentNode}
-            showSearch={true}
-            onChange={(value) => {
-              console.log(value);
-            }}
-            filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-            }
-            options={subsidiaryOffice?.items.map((val) => {
-              return {
-                value: val.id,
-                label: val.name,
-              };
-            })}
+        {showSubsidary && (
+          <Form.Item
+            name="subsidiaryOffice"
+            rules={[{ required: false }]}
+            label={labels.subsidiaryOffice}
           >
-            {subsidiaryOffice?.items.map((val) => (
-              <Select.Option key={val.id} value={val.id}>
-                {val.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-
+            <Select
+              size="large"
+              placeholder={placeholder.subsidiaryOffice}
+              getPopupContainer={(trigger) => trigger.parentNode}
+              showSearch={true}
+              onChange={(value) => {
+                console.log(value);
+              }}
+              filterOption={(input, option) =>
+                (option?.label ?? '')
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              options={subsidiaryOffice?.items.map((val) => {
+                return {
+                  value: val.id,
+                  label: val.name,
+                };
+              })}
+            >
+              {subsidiaryOffice?.items.map((val) => (
+                <Select.Option key={val.id} value={val.id}>
+                  {val.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
         <Form.Item name="payroll" label={labels.payroll}>
           <Input placeholder={placeholder.payroll}></Input>
         </Form.Item>

@@ -16,6 +16,7 @@ import {
 import { resetEmergencydetails } from '../store/slice';
 
 const { Option } = Select;
+
 const EmergencyForm = ({ mode, id }) => {
   const isEdit = mode === 'edit';
   const [emergencyInfo, setEmergencyInfo] = useState([]);
@@ -24,7 +25,6 @@ const EmergencyForm = ({ mode, id }) => {
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
-  console.log(isEdit, 'isEdit');
   const {
     employee: { emergencydetails },
     success,
@@ -51,6 +51,7 @@ const EmergencyForm = ({ mode, id }) => {
     configurable: true,
   });
   const dispatch = useDispatch();
+
   useEffect(() => {
     form.setFieldsValue(initialValues);
   }, [initialValues, form]);
@@ -71,6 +72,7 @@ const EmergencyForm = ({ mode, id }) => {
       dispatch(resetEmergencydetails());
     };
   }, []);
+
   const handleAddMore = async () => {
     form.submit();
     try {
@@ -83,6 +85,19 @@ const EmergencyForm = ({ mode, id }) => {
       console.log(err, 'err');
       throw new Error('something went wrong', { cause: err });
     }
+  };
+
+  const handleUpdate = () => {
+    const payload = {
+      userId: id,
+      name: form.getFieldValue('name'),
+      address: form.getFieldValue('address'),
+      contactNo: form.getFieldValue('contactNo'),
+      relation: form.getFieldValue('relation'),
+    };
+    console.log(payload, 'handle Update');
+    dispatch(updateUserEmergencyContactAction(payload));
+    setEmergencyInfo(payload);
   };
 
   const handleRowChange = (rowIndex) => {
@@ -142,22 +157,6 @@ const EmergencyForm = ({ mode, id }) => {
         },
       },
     ];
-  };
-
-  const handleUpdate = () => {
-    const payload = {
-      id: id,
-      // address: form.get('address'),
-      // contactNo: form.get('contactNo'),
-      // relation: form.get('relation'),
-
-      // name: emergencyInfo[0].name,
-      // address: emergencyInfo[0].address,
-      // contactNo: emergencyInfo[0].contactNo,
-      // relation: emergencyInfo[0].relation,
-    };
-    console.log(payload, 'handle Update');
-    dispatch(updateUserEmergencyContactAction(payload));
   };
 
   let classes = 'employeeForm emergencyInfo ';
@@ -224,6 +223,7 @@ const EmergencyForm = ({ mode, id }) => {
           </Select>
         </Form.Item>
       </Form>
+
       <div className={isEdit ? 'editButtons' : 'buttons'}>
         <Button
           type="dashed"

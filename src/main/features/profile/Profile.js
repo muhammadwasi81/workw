@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   ContBody,
   TabContainer,
@@ -20,6 +20,8 @@ import { getEducationDetailByUser } from "../education/store/actions";
 import { useDispatch } from "react-redux";
 import { getUserWorkExperience } from "../experienceInfo/store/actions";
 import { getEmployeeByIdAction } from "./store/action";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { profileDictionaryList } from "./localization/index";
 
 function Profile() {
   const param = useParams();
@@ -30,7 +32,8 @@ function Profile() {
   const { id } = param;
   const [defaultPath, setDefaultPath] = useState("");
   // const { education } = useSelector((state) => state.employeeProfileSlice);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { profileDictionary } = profileDictionaryList[userLanguage];
   const onChange = (key) => {
     navigate(key);
   };
@@ -41,7 +44,7 @@ function Profile() {
 
   const panes = [
     {
-      featureName: `Feed`,
+      featureName: profileDictionary.feed,
       content: (
         <NewsFeed
           isScheduler={false}
@@ -56,7 +59,7 @@ function Profile() {
       featureId: ROUTES.USER.DEFAULT + id,
     },
     {
-      featureName: `About`,
+      featureName: profileDictionary.about,
       content: <ProfilePanel />,
       featureId: ROUTES.USER.DEFAULT + id + "/about",
     },

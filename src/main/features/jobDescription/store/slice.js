@@ -1,10 +1,11 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { responseCode } from '../../../../services/enums/responseCode.js';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { responseCode } from "../../../../services/enums/responseCode.js";
 import {
   addJobDescription,
   getAllJobDescription,
   updateJobDescription,
-} from './actions.js';
+  removeJobDescription,
+} from "./actions.js";
 
 const initialState = {
   jobDescriptions: [],
@@ -13,15 +14,18 @@ const initialState = {
 };
 
 const jobDescriptionSlice = createSlice({
-  name: 'jobDescription',
+  name: "jobDescription",
   initialState,
   reducers: {
-    JobDescriptionDeleted: (state, { payload }) => {
+    JobDescriptionDeleted: (state, action) => {
+      const id = action.payload.id;
+
       state.jobDescriptions = state.jobDescriptions.filter(
-        (e) => e.id !== payload.id
+        (list) => list.id !== id
       );
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(getAllJobDescription.fulfilled, (state, { payload }) => {
@@ -38,6 +42,10 @@ const jobDescriptionSlice = createSlice({
         state.jobDescriptions = state.jobDescriptions.map((x) =>
           x.id === payload.data.id ? payload.data : x
         );
+      })
+      .addCase(removeJobDescription.fulfilled, (state) => {
+        state.loader = false;
+        state.success = true;
       })
       .addMatcher(
         isPending(...[addJobDescription, updateJobDescription]),

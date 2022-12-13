@@ -1,0 +1,33 @@
+const urdu = {
+  profileDictionary: {
+    firstMenu: "  پہلا مینو آئٹم",
+    secondMenu: " دوسرا مینو آئٹم (غیر فعال)",
+    thirdMenu: " تیسرے مینو آئٹم (غیر فعال)",
+    dangerItem: "ایک خطرے کی چیز",
+    information: "معلومات",
+    feed: "کھانا کھلانا",
+    about: "کے بارے میں",
+    work: "کام",
+    addWorkPlace: "کام کی جگہ شامل کریں",
+    studiesALevel: "میں A- لیول کی تعلیم حاصل کی۔",
+    designation: "عہدہ",
+    email: "ای میل",
+    relationship: "رشتہ",
+    livesIn: "میں رہتا ہے",
+    contact: "رابطہ کریں",
+    joining: "شمولیت",
+    birthday: "سالگرہ",
+    education: "تعلیم",
+    single: "سنگل",
+    engaged: "منگنی",
+    married: "شادی شدہ",
+    divorced: "طلاق ہو گئی۔",
+    widow: "بیوہ",
+    widower: "بیوہ",
+    preferNotTosay: "نہ کہنے کو ترجیح دیں",
+    addAEducation: "تعلیم شامل کریں",
+  },
+  /*** Define language write side ***/
+  Direction: "rtl",
+};
+export default urdu;

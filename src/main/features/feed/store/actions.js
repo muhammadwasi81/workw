@@ -13,10 +13,13 @@ import {
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { getAllEmployeeService } from "../../../../utils/Shared/services/services";
 import { DEFAULT_GUID } from "../../../../utils/constants";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 
 export const onFeedCreateSubmitAction = createAsyncThunk(
 	"feedSlice/onFeedCreateSubmit",
-	async ({ referenceType, referenceId }, { getState, rejectWithValue }) => {
+	async ({
+		referenceType = undefined,
+		referenceId= DEFAULT_GUID }, { getState, rejectWithValue }) => {
 		const {
 			feedSlice: { postCompose },
 		} = getState();
@@ -42,6 +45,35 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
 			case ResponseType.ERROR:
 				return rejectWithValue(response.errorMessage);
 			case ResponseType.SUCCESS:
+				return response.data;
+		}
+	}
+);
+export const sharePostOnFeed = createAsyncThunk(
+	"feedSlice/sharePostOnFeed",
+	async ({
+		referenceType = undefined,
+		referenceId= DEFAULT_GUID }, { getState, rejectWithValue, dispatch }) => {
+		const {
+			feedSlice: { postCompose },
+		} = getState();
+
+		const requestDto = SavePostRequestDto(
+			postCompose,
+			referenceType,
+			referenceId
+		);
+
+		const response = await saveCreatePost(requestDto);
+		// eslint-disable-next-line default-case
+		switch (response.type) {
+			case ResponseType.ERROR:
+				return rejectWithValue(response.errorMessage);
+			case ResponseType.SUCCESS:
+				dispatch(openNotification({
+					type: "success",
+					message: "Successfully Shared on Feed"
+				}))
 				return response.data;
 		}
 	}

@@ -456,13 +456,6 @@
     font-size: 7px;
   }
 
-  .avatar {
-    width: 35px !important;
-    min-width: 35px !important;
-    height: 35px !important;
-    max-height: 35px !important;
-  }
-
   .avatar-name .name {
     font-size: 11px;
   }

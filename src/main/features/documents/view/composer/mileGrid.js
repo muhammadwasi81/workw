@@ -102,6 +102,7 @@ const CreateMilegrid = ({
       privacyId: privacyId,
       referenceId,
       referenceType,
+      attachments: [{ name: values.name }]
     };
     dispatch(addDocument({ payload, form }));
   };

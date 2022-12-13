@@ -26,6 +26,7 @@ import {
 	clearSinglePost,
 	savePollResponse,
 	favoriteFeed,
+	sharePostOnFeed,
 } from "./actions";
 import { PollType, PostPrivacyType, PostType } from "../utils/constants";
 import { filter } from "lodash";
@@ -134,16 +135,26 @@ export const feedSlice = createSlice({
 			}
 		},
 		addRealTimePost(state, { payload }) {
-			state.allFeed.posts.unshift(payload);
+			let filteredFeeds = state.allFeed.posts.filter(it => it.id === payload.id);
+			if (filteredFeeds.length === 0)
+				state.allFeed.posts.unshift(payload);
 		}
-		
+
 	},
 	extraReducers: builder => {
 		builder.addCase(
 			onFeedCreateSubmitAction.fulfilled,
 			(state, { payload }) => {
+				let filteredFeeds = state.allFeed.posts.filter(it => it.id === payload.id);
 				state.postCompose = composeInitialState;
-				state.allFeed.posts.unshift(payload);
+				if (filteredFeeds.length === 0)
+					state.allFeed.posts.unshift(payload);
+			}
+		);
+		builder.addCase(
+			sharePostOnFeed.fulfilled,
+			(state, { payload }) => {
+				state.postCompose = composeInitialState;
 			}
 		);
 		builder.addCase(favoriteFeed.fulfilled, (state, { payload }) => {

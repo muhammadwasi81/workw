@@ -14,6 +14,7 @@ import { LanguageChangeContext } from "../../../../../../utils/localization/loca
 import { DOCUMENT_ENUM } from "../../../constant";
 import Approvals from "../../../../../sharedComponents/AppComponents/Approvals/view";
 import { ApprovalsModule } from "../../../../../sharedComponents/AppComponents/Approvals/enums";
+import DocumentStatusTag from "../documentStatusTag/StatusTag";
 
 function DetailCard(props) {
     const { userLanguage } = useContext(LanguageChangeContext);
@@ -21,7 +22,7 @@ function DetailCard(props) {
     const dispatch = useDispatch()
 
     const ducomentDetail = useSelector((state) => state.documentSlice.documentDetail);
-    let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId, approverStatus } = ducomentDetail
+    let { name, documentType, creator, createDate, description, id, path, members, approvers, image, extensionTypeId, status } = ducomentDetail
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
     useEffect(() => {
         props.id && dispatch(GetDocumentById(props.id))
@@ -33,100 +34,74 @@ function DetailCard(props) {
             {ducomentDetail.id && (
                 <SingleItem>
                     <ItemHeader>
-                        <div className={"item-header"}>
-                            <div className="left">
-                                <UserInfo
-                                    avatarSrc={creator.image}
-                                    name={creator.name}
-                                    Subline={
-                                        <SublineDesigWithTime
-                                            designation={creator.designation}
-                                            time={moment().format("DD/MM/YYYY")}
-                                        />
-                                    }
-                                />
-                            </div>
-                            <div className="right">
-                                <StatusTag status={2}></StatusTag>
-                            </div>
+                        <div className="left">
+                            <UserInfo
+                                avatarSrc={creator.image}
+                                name={creator.name}
+                                Subline={
+                                    <SublineDesigWithTime
+                                        designation={creator.designation ? creator.designation : ''}
+                                        time={moment(createDate).fromNow()}
+                                    />
+                                }
+                            />
+                        </div>
+                        <div className="right">
+                            {/* <Tag className="IdTag">{referenceNo}</Tag> */}
+                            <DocumentStatusTag status={status}></DocumentStatusTag>
                         </div>
                     </ItemHeader>
-
-                    <div className="doc_detail_body">
-                        <div className="doc_detail_content">
-                            <div className="doc_detail_body_head">
-                                <div className="doc_detail_title">
-                                    {name}
-                                </div>
-                            </div>
-                            <div className="doc_detail_desc">
-                                <p>
-                                    {description}
-                                </p>
-                            </div>
-
-                            <div className="ListItemInner">
-                                <div className="ItemDetails">
-                                    <div className="innerDiv">
-                                        {
-                                            members.length ?
-                                                <div>
-                                                    < span className="text-black font-extrabold smallHeading">{"Members"}</span>
-                                                    <Avatar
-                                                        isAvatarGroup={true}
-                                                        isTag={false}
-                                                        heading={"Members"}
-                                                        membersData={members}
-                                                        text={"Danish"}
-                                                        image={"https://joeschmoe.io/api/v1/random"}
-                                                    />
-                                                </div> : ""
-                                        }
-                                    </div>
-                                    <div className="innerDiv">
-                                        {
-                                            approvers.length ?
-                                                <div>
-                                                    <span className="text-black font-extrabold smallHeading">{documentDictionary.Approvers}</span>
-                                                    <Avatar
-                                                        isAvatarGroup={true}
-                                                        isTag={false}
-                                                        heading={"approvers"}
-                                                        membersData={approvers ? approvers : []}
-                                                        text={"Danish"}
-                                                        image={"https://joeschmoe.io/api/v1/random"}
-                                                    />
-                                                </div>
-                                                : ""
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="doc_detail_media">
-                            <div className="d_ShortCard_Child2">
+                    {/* <div className="description w-full pt-3 pb-5 h-[100px]">
+                               {description.length > 0 ? (
+                                   <p>{description}</p>
+                               ) : (
+                                   <p> No description </p>
+                               )}
+                           </div> */}
+                    <div className="doc_detail_media">
+                        <div className="d_ShortCard_Child2">
+                            {path &&
                                 <img
                                     alt=""
                                     src={documentType === DUCOMENT_TYPE.image && path ?
                                         path : getIconByExtensionType(documentType, extensionTypeId)}
-                                />
-                            </div>
-                            <div className="downloadBtn">
-                                {
-                                    documentType === DUCOMENT_TYPE.attachment ?
-                                        <Button className="ThemeBtn downloadBtn">{documentDictionary.Download}</Button> : ""
-                                }
-                            </div>
+                                />}
+                        </div>
+                        <div className="downloadBtn">
+                            {
+                                documentType === DUCOMENT_TYPE.attachment ?
+                                    <Button className="ThemeBtn downloadBtn">{documentDictionary.Download}</Button> : ""
+                            }
                         </div>
                     </div>
-                    <Approvals
-                        title={"dddd"}
-                        module={ApprovalsModule.CustomApproval}
-                        data={approvers}
-                        onStatusChanged={() => { }}
-                                status={approverStatus}
-                    />
-                </SingleItem >
+
+                    <div className="cardSections">
+                        <div className="cardSectionItem">
+                            <div className="cardSection__title">Privacy</div>
+                            <div className="cardSection__body">{"Public"}</div>
+                        </div>
+                        <div className="cardSectionItem">
+                            <div className="cardSection__title">Create Date</div>
+                            <div className="cardSection__body">
+                                {moment().format('Do MMM YY')}
+                            </div>
+                        </div>
+
+                        <div className="cardSectionItem">
+                            <div className="cardSection__title">Approvers</div>
+                            <div className="cardSection__body">
+                                {approvers.length > 0 ?
+                                    <Avatar
+                                        isAvatarGroup={true}
+                                        heading={'approvers'}
+                                        membersData={approvers ? approvers : []}
+                                    /> :
+                                    "N/A"}
+                            </div>
+                        </div>
+
+                    </div>
+                </SingleItem>
             )}
         </>
     );

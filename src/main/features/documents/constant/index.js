@@ -40,7 +40,8 @@ export const DocsComposerEnums = {
   milegrid: "milegrid",
   milepad: "milepad",
   mileboard: "mileboard",
-  mileshow: "mileshow"
+  mileshow: "mileshow",
+  updateMember: "updateMembers",
 }
 
 export const AttachmentType = {
@@ -93,5 +94,33 @@ export const DOCUMENT_ENUM = {
     MileBoard: 20
   }
 }
+
+export const DocumentStatusEnum = {
+  InProcess: 1,
+  Approved: 2,
+  Declined: 3,
+  NotRequired: 4,
+}
+
+export const getDocStatusLabelAndColor = (module, statusLabels) => {
+	return {
+		[DocumentStatusEnum.InProcess]: {
+			label: statusLabels.InProcess,
+			color: "#1a5669",
+		},
+		[DocumentStatusEnum.Approved]: {
+			label: statusLabels.Approved,
+			color: "#1ECB40",
+		},
+		[DocumentStatusEnum.Declined]: {
+			label: statusLabels.Declined,
+			color: "#FF0000",
+		},
+		[DocumentStatusEnum.NotRequired]: {
+			label: statusLabels.NotRequired,
+			color: "#1ECB40",
+		}
+	};
+};
 
 

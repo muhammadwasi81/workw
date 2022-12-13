@@ -18,6 +18,7 @@ import { moveDocument } from "../../../store/actions";
 import { LockFilled } from '@ant-design/icons';
 import { privacyOption } from "../../../../../../utils/Shared/enums/enums";
 import { openNotification } from "../../../../../../utils/Shared/store/slice";
+import QuickOptions from "../quickOptions";
 
 
 const DocShortCard = ({ data, handlePreview }) => {
@@ -25,13 +26,22 @@ const DocShortCard = ({ data, handlePreview }) => {
     const { documentDictionary } = documentDictionaryList[userLanguage];
     const disptach = useDispatch()
 
-    let { name, documentType, creator, createDate, id, path, extensionTypeId, privacyId } = data
+    let {
+        name,
+        documentType = DOCUMENT_ENUM.DUCOMENT_TYPE.folder,
+        creator = {},
+        createDate,
+        id,
+        path,
+        extensionTypeId,
+        privacyId
+    } = data;
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
     let { Public, Private, External } = privacyOption
     const localTime = moment
-    .utc(createDate)
-    .local()
-    .format();
+        .utc(createDate)
+        .local()
+        .format();
     const handleClick = (item) => {
         if (documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
             disptach(handleParentId(item))
@@ -41,7 +51,6 @@ const DocShortCard = ({ data, handlePreview }) => {
         }
     }
     const handleDrop = (item) => {
-        console.log(item, "Item")
         let dragData = item.dragData.name;
         let dropData = item.dropData.name;
         if (dropData.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
@@ -58,9 +67,7 @@ const DocShortCard = ({ data, handlePreview }) => {
                 type: "error"
             }))
         }
-
     }
-    console.log(data, "Data")
     return (
         <>
             <DragDropContainer
@@ -69,7 +76,6 @@ const DocShortCard = ({ data, handlePreview }) => {
                 onDrop={handleDrop}
                 key={data.id}
                 noDragging={false}
-
             >
                 <DropTarget
                     onHit={(e) => { }}
@@ -87,10 +93,11 @@ const DocShortCard = ({ data, handlePreview }) => {
                                 alt=""
                                 src={favorateIcon}
                             />
-                            <img
+                            <QuickOptions data={data}/>
+                            {/* <img
                                 alt=""
                                 src={menuIcon}
-                            />
+                            /> */}
                         </div>
                         {/* <div className="d_ShortCard_Child2">
                         <img
@@ -126,11 +133,13 @@ const DocShortCard = ({ data, handlePreview }) => {
                                 {moment(localTime).fromNow()}
                             </h6>
                             <div>
-                                <Avatar
-                                    src={creator.image}
-                                    size={20}
-                                    round={true}
-                                />
+                                {creator.image || creator.name &&
+                                    <Avatar
+                                        src={creator.image}
+                                        name={creator.name}
+                                        size={20}
+                                        round={true}
+                                    />}
                             </div>
                         </div>
                     </div>

@@ -34,11 +34,7 @@ function Index() {
   const [tableView, setTableView] = useState(false);
   const [viewType, setViewType] = useState("List");
   const [search, setSearch] = useState("");
-
-  // const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
-
-  // const [detailViewIsVisible, setDetailViewIsVisible] = useState(true);
 
   const items = [
     {
@@ -54,7 +50,6 @@ function Index() {
 
   const closeDetailView = () => {
     dispatch(CloseDetailView());
-    // setDetailViewIsVisible(false);
   };
 
   const onSearch = (value) => setFilter({ ...filter, search: value });
@@ -102,9 +97,6 @@ function Index() {
               }),
           },
         ]}
-        // filter={{
-        // 	onFilter: () => {},
-        // }}
         segment={{
           onSegment: (value) => {
             if (value === loanDictionaryList.table) {
@@ -128,16 +120,8 @@ function Index() {
           />
         )}
 
-        {/* {!tableView && <ListBoxes />} */}
-
         {!tableView && <ListView filter={filter} />}
-        {/* 
-        {render[view]}
-        {render[viewType]} */}
       </ContBody>
-      {/* {listItem && (
-				<DetailedView onClose={closeDetailView} visible={listItem} />
-			)} */}
 
       <Drawer
         title={

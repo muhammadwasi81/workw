@@ -5,12 +5,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Route,
-  Routes as ReactRoutes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes as ReactRoutes } from "react-router-dom";
 import Auth from "./main/features/auth/view";
 import IndivisualSignup from "./main/features/auth/view/signUp/IndivisualSignup";
 import OrganizationalSignup from "./main/features/auth/view/signUp/OrganizationalSignup";

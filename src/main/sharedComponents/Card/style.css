@@ -388,7 +388,7 @@
 .description {
   word-wrap: break-word;
   overflow: hidden;
-  width: 500px;
+  /* width: 600px; */
 }
 @media (min-width: 320px) and (max-width: 600px) {
   .IdTag {
@@ -454,13 +454,6 @@
 
   .avatar-name span {
     font-size: 7px;
-  }
-
-  .avatar {
-    width: 35px !important;
-    min-width: 35px !important;
-    height: 35px !important;
-    max-height: 35px !important;
   }
 
   .avatar-name .name {

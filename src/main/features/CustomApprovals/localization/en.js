@@ -1,6 +1,6 @@
 const en = {
   customApprovalDictionary: {
-    customApproval: "Custom Approval",
+    customApproval: "Custom Approvals",
     enterRewardName: "Entet Reward Name",
     pleaseEnterRewardName: "Please Enter Reward Name",
     enterRewardReason: "Enter Reward Reason",
@@ -19,7 +19,7 @@ const en = {
     category: "Category",
     approvers: "Approvers",
     rewardTo: "Reward To",
-    createCustomApproval: "Create Custom Approval",
+    createCustomApproval: "Create Custom Approvals",
     forApproval: "For Approval",
     approvalForMe: "Approval For Me",
     deductionPerMonth: "Deduction/Months",

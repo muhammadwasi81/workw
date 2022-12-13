@@ -1,6 +1,6 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { responseCode } from '../../../../services/enums/responseCode.js';
-import { addOfficeTimingGroup, getAllOfficeTimingGroups } from './actions.js';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { responseCode } from "../../../../services/enums/responseCode.js";
+import { addOfficeTimingGroup, getAllOfficeTimingGroups } from "./actions.js";
 
 const initialState = {
   officeTimingGroups: [],
@@ -10,7 +10,7 @@ const initialState = {
 };
 
 const officeTimingSlice = createSlice({
-  name: 'officeTimingGroup',
+  name: "officeTimingGroup",
   initialState,
   reducers: {
     officeTimingGroupDeleted: (state, { payload }) => {
@@ -27,10 +27,12 @@ const officeTimingSlice = createSlice({
       .addCase(getAllOfficeTimingGroups.fulfilled, (state, { payload }) => {
         state.loadingData = false;
         state.officeTimingGroups = payload.data;
+        console.log(payload, "payload");
       })
       .addCase(addOfficeTimingGroup.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.drawerOpen = false;
+        console.log(payload, "payload");
         if (payload.responseCode === responseCode.Success)
           state.officeTimingGroups.push(payload.data);
       })

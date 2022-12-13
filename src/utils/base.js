@@ -5,6 +5,7 @@ import brokenPaper from '../content/svg/brokenpaper.svg';
 import { Link } from 'react-router-dom';
 import { REPORT_URL } from './services';
 import { ROUTES } from './routes';
+import { replaceURL } from '../main/features/feed/utils/ValidateCreatePost';
 // require("jquery.caret");
 
 let DOMAIN_PREFIX = '';
@@ -1456,7 +1457,7 @@ export const BrokenPage = () => {
 };
 
 export function setAutoHeightOfInput(element) {
-  setTimeout(function() {
+  setTimeout(function () {
     element.css('height', '20px');
     element.css('padding', 0);
     element.css('-moz-box-sizing', 'content-box');
@@ -1572,7 +1573,7 @@ export function resizeTabbableContainer() {
 }
 
 export function resizeRightMenu() {
-  $(window).resize(function() {
+  $(window).resize(function () {
     if (window.screen.width < 1240) {
       $('.right-menu-docs').css({ display: 'contents' });
       $('.right-menu-close').css({ display: 'none' });
@@ -1706,7 +1707,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
   };
   let leftPositionOfMentionList = 0;
 
-  inp.on('mouseup keydown', function(e) {
+  inp.on('mouseup keydown', function (e) {
     if (e.key === '@') {
       appendText = true;
       startPosition = $(this).caret('pos') + 1;
@@ -1729,7 +1730,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
     }
   });
 
-  inp.on('input', function() {
+  inp.on('input', function () {
     _thisVal = $(this).val();
     if (appendText) {
       if (
@@ -1759,8 +1760,8 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
               });
               if (
                 leftPositionOfMentionList +
-                  inp.offset().left +
-                  mentionListView.outerWidth() >=
+                inp.offset().left +
+                mentionListView.outerWidth() >=
                 $(window).width()
               ) {
                 mentionListViewPosition.left =
@@ -1786,7 +1787,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
     }
   });
 
-  inp.on('keydown', function(e) {
+  inp.on('keydown', function (e) {
     let x = document.getElementById('mentions_list');
     if ($.isEmptyObject($(x).html())) {
       if (e.keyCode === 13 && submit !== null) {
@@ -1837,33 +1838,29 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
   function userItem(user) {
     const contact = $(`<div class="search-item">
                                                     <div class="img"
-                                                        ${
-                                                          !$.isEmptyObject(
-                                                            user.profile_picture
-                                                          )
-                                                            ? `style="background-image: url(${user.profile_picture}); background-repeat: no-repeat; background-size: 100%;"`
-                                                            : ''
-                                                        }
-                                                     >${
-                                                       $.isEmptyObject(
-                                                         user.profile_picture
-                                                       )
-                                                         ? getNameForImage(
-                                                             user.name
-                                                           )
-                                                         : ''
-                                                     }</div>
+                                                        ${!$.isEmptyObject(
+      user.profile_picture
+    )
+        ? `style="background-image: url(${user.profile_picture}); background-repeat: no-repeat; background-size: 100%;"`
+        : ''
+      }
+                                                     >${$.isEmptyObject(
+        user.profile_picture
+      )
+        ? getNameForImage(
+          user.name
+        )
+        : ''
+      }</div>
                                                     <div class="pr">
-                                                        <div class="n">${
-                                                          user.name
-                                                        }</div>
-                                                        ${
-                                                          !$.isEmptyObject(
-                                                            user.designation
-                                                          )
-                                                            ? `<div class="p">${user.designation}</div>`
-                                                            : ''
-                                                        }
+                                                        <div class="n">${user.name
+      }</div>
+                                                        ${!$.isEmptyObject(
+        user.designation
+      )
+        ? `<div class="p">${user.designation}</div>`
+        : ''
+      }
                                                     </div>
                                                 </div>`);
     mentionListView.append(contact);
@@ -1888,7 +1885,7 @@ export function setUpMentionsView(inp, selectedList, users, submit = null) {
 /*---------------- Time functions -----------------*/
 export function parseUrlsInText(text) {
   const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
-  return text.replace(urlRegex, function(url) {
+  return text.replace(urlRegex, function (url) {
     return `<a href="${url}" target="_blank">${url}</a>`;
   });
 }
@@ -2247,8 +2244,8 @@ export const getMentionsAndText = (titleWithMentions, mentions) => {
 export function renderTitleWithMentions(title, mentions) {
   if (mentions.length > 0) {
     // console.log(mentions);
-    const titleArr = title.split(' ');
-    return titleArr
+    let titleArr = title.split(' ');
+    titleArr = titleArr
       .map((item) => {
         const mention = mentions.filter((member) => member.memberId == item);
         // console.log("mention", mention);
@@ -2260,8 +2257,13 @@ export function renderTitleWithMentions(title, mentions) {
         }
       })
       .join(' ');
+
+    if (replaceURL(titleArr).includes("<a href=")) {
+      return replaceURL(titleArr)
+    }
+    return titleArr
   } else {
-    return title;
+    return title && replaceURL(title);
   }
 }
 

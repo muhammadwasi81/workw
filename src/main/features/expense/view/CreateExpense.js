@@ -22,11 +22,13 @@ import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
 import { useDispatch, useSelector } from 'react-redux';
 import { addExpense } from '../store/actions';
 import MemberSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+
 import { getAllEmployees } from '../../../../utils/Shared/store/actions';
 import { DEFAULT_GUID } from '../../../../utils/constants';
 import moment from 'moment';
+
 import { getAllExpenseHeaderService } from '../../expenseHeader/services/service';
-import { defaultUiid } from '../../../../utils/Shared/enums/enums';
+// import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { ExpenseDictionary } from '../localization';
 import { getAllProjectsService } from '../../projects/services/service';
@@ -53,6 +55,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = '' }) {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [allHeader, setAllHeader] = useState([]);
   const [typesSelect, setTypesSelect] = useState([]);
+  // const [file, setFile] = useState("");
   const [attachments, setAttachments] = useState([]);
 
   const listObj = {
@@ -69,7 +72,6 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = '' }) {
     4: 'travelId',
     5: 'assetId',
   };
-
   const [employeeData, setEmployeeData] = useState({
     approvers: [],
     executors: [],
@@ -133,6 +135,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = '' }) {
     } else if (type === 4) {
       getTravels();
     } else if (type === 5) {
+      //Get asset list
     }
     return () => {
       setTypesSelect([]);
@@ -211,6 +214,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = '' }) {
       executors: [...employeeData.executors],
       financers: [...employeeData.finance],
     };
+    // console.log(expenseObj, "values");
     dispatch(addExpense(expenseObj));
   };
 
@@ -264,24 +268,18 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = '' }) {
         <Form.Item
           rules={[{ required: true }]}
           label={`${listObj[type]} List`}
+          // name={typeList[type]}
           name={'referenceId'}
           labelPosition="top"
         >
-          <Select
-            placeholder={listObj[type]}
-            size="large"
-            showSearch
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-          >
+          <Select placeholder={listObj[type]} size="large">
             {typesSelect.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {type === 4 ? item.subject : item.name}
               </Select.Option>
             ))}
           </Select>
+          {/* <Input  /> */}
         </Form.Item>
       )}
       <Form.Item
@@ -440,8 +438,19 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = '' }) {
           id=""
         ></TextArea>
       </Form.Item>
-      <Form.Item area="true" className="w-max">
+      <Form.Item
+        // label={labels.attachments}
+        // name="attachments"
+        // labelPosition="top"
+        area="true"
+        className="w-max"
+      >
         <SingleUpload
+          // handleImageUpload={(file) => {
+          //   // console.log(file[0].originFileObj);
+          //   setFile(file[0].originFileObj);
+          // }}
+          // position={"left"}
           handleImageUpload={(files) =>
             setAttachments(
               files.map((file) => ({

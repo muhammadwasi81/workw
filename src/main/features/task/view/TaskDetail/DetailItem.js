@@ -18,6 +18,7 @@ import { postUserTaskRating } from '../../utils/services/service';
 import Attachments from '../../../travel/view/UI/Attachments';
 import { cancelTaskAction } from '../../store/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { handleTaskRating } from '../../store/taskSlice';
 // import {
 //   ApprovalsModule,
 //   ApprovalStatus,
@@ -56,7 +57,7 @@ function TaskDetailItem({
     attachments,
     predecessor,
   } = item;
-
+  // console.log(predecessor, "preddd");
   let {
     NotStarted,
     InProcess,
@@ -83,6 +84,7 @@ function TaskDetailItem({
 
   const handleRating = async (id, rating) => {
     await postUserTaskRating(id, rating);
+    dispatch(handleTaskRating({ id, rating }));
   };
   // console.log(progress ? progress : progressed, "condition");
   const handleCancel = (e, payload) => {

@@ -55,6 +55,7 @@ const Composer = (props) => {
   const [profileImage, setProfileImage] = useState(null);
   const [state, setState] = useState(initialState);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [showMember, setShowMember] = useState(false)
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
@@ -65,8 +66,6 @@ const Composer = (props) => {
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
-    // setMembers(obj);
-    // onChange(data, obj);
   };
   useEffect(() => {
     fetchEmployees("", 0);
@@ -110,6 +109,14 @@ const Composer = (props) => {
   const handleImageUpload = (data) => {
     setProfileImage(data);
   };
+
+  const handleResignationType = (val) => {
+    if (val === 1 || val === 2) {
+      setShowMember(true) 
+    } else {
+      setShowMember(false)
+    }
+  }
 
   const onFinish = (values) => {
     let hr = [];
@@ -291,25 +298,27 @@ const Composer = (props) => {
                 message: "Please Select Type",
               },
             ]}
-            style={{ width: "95%" }}
+            style={{ width: showMember === true ? "95%" : "100%" }}
           >
             <Select
               showSearch
               placeholder={resignationDictionary.selectType}
               optionFilterProp="children"
               style={{
-                width: "95%",
+                width: showMember === true ? "95%" : "100%",
                 borderRadius: "5px",
               }}
               size="large"
+              onChange={handleResignationType}
             >
               {ResignationTypeEnum.map((item) => (
                 <Option value={item.value}>{item.label}</Option>
               ))}
             </Select>
           </Form.Item>
-
-          <Form.Item
+          {
+            showMember === true ? 
+            <Form.Item
             name="userId"
             label={resignationDictionary.selectMember}
             showSearch={true}
@@ -351,7 +360,8 @@ const Composer = (props) => {
                 },
               ]}
             />
-          </Form.Item>
+          </Form.Item> : ""
+          }
         </div>
 
         <Form.Item

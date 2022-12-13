@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Avatar, Button, DatePicker, Form, Input, List, Select } from "antd";
+import { Avatar, Button, DatePicker, Form, Input, List, message, Select } from "antd";
 import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { getAllDepartmentService } from "../../../departments/services/service";
@@ -34,12 +34,12 @@ const Composer = (props) => {
   const { CareerDictionaryList, Direction } = CareerDictionary[userLanguage];
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const [profileImage, setProfileImage] = useState(null);
   // const [designation, setDesignation] = useState([]);
   const [department, setDepartment] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [reviewCriteria, setReviewCriteria] = useState([]);
-  const [attachments, setAttachment] = useState([]);
   const { cities } = useSelector((state) => state.sharedSlice);
 
   const { labels, placeHolder } = CareerDictionaryList;
@@ -53,6 +53,10 @@ const Composer = (props) => {
   } = useSelector((state) => state);
 
   const { createLoader } = useSelector((state) => state.careerSlice);
+
+  const handleImageUpload = (data) => {
+    setProfileImage(data);
+  };
 
   useEffect(() => {
     dispatch(getAllDesignation());
@@ -101,53 +105,63 @@ const Composer = (props) => {
   useEffect(() => {
     if (!cities.length) fetchCityData("", 0);
     fetchEmployees("", 0);
-    // getDesigantion();
     getDepartment();
     getReviewCriteria();
   }, []);
 
   const onFinish = (values) => {
-    console.log(values, "values");
-    let payload = {
-      ...values,
-      endDate: values.endDate.format(),
-      members: modifySelectData(values.members).map((el, index) => {
-        return {
-          memberId: el,
-        };
-      }),
-      approvers: modifySelectData(values.approvers).map((el, index) => {
-        return {
-          approverId: el,
-        };
-      }),
-      postInterviewers: modifySelectData(values.postInterviewers).map(
-        (el, index) => {
+    console.log(values, 'testing in process')
+    let image = {
+      id: STRINGS.DEFAULTS.guid,
+      file: profileImage && profileImage[0]?.originFileObj,
+    };
+    console.log(image, "IMAGE STATUS")
+    if (image.file === null || image.file === undefined ) {
+      message.error("Attachement can't be emty")
+    } 
+    if (values.members === undefined || values.approvers === undefined || values.postInterviewers || values.interviewers) {
+      let payload = {
+        ...values,
+        endDate: values.endDate.format(),
+        skills: values.skills.join(),
+      };
+      dispatch(addCareer({...payload, image}));
+      if (success) {
+      }
+    } else {
+      let payload = {
+        ...values,
+        endDate: values.endDate.format(),
+        members:  modifySelectData(values.members).map((el, index) => {
+          return {
+            memberId: el,
+          };
+        }),
+        approvers: modifySelectData(values.approvers).map((el, index) => {
+          return {
+            approverId: el,
+          };
+        }),
+        postInterviewers: modifySelectData(values.postInterviewers).map(
+          (el, index) => {
+            return {
+              userId: el,
+            };
+          }
+        ),
+        interviewers: modifySelectData(values.interviewers).map((el, index) => {
           return {
             userId: el,
           };
-        }
-      ),
-      interviewers: modifySelectData(values.interviewers).map((el, index) => {
-        return {
-          userId: el,
-        };
-      }),
-      skills: values.skills.join(),
-      image:
-        attachments.length === 0
-          ? ""
-          : {
-              file: attachments[0].originFileObj,
-              id: STRINGS.DEFAULTS.guid,
-            },
-    };
-    dispatch(addCareer(payload));
-    if (success) {
-      console.log("successss", success);
-      // dispatch(handleOpenComposer(false));
+        }),
+        skills: values.skills.join(),
+      };
+      dispatch(addCareer({...payload, image}));
+      if (success) {
+      }
     }
-    // form.resetFields();
+    
+    
   };
 
   return (
@@ -321,12 +335,6 @@ const Composer = (props) => {
         <Form.Item
           label={labels.postInterviewers}
           name="postInterviewers"
-          rules={[
-            {
-              required: true,
-              message: "Please Select Post Interviewers",
-            },
-          ]}
         >
           <MemberSelect
             name="postInterviewers"
@@ -352,12 +360,6 @@ const Composer = (props) => {
         <Form.Item
           label={labels.hiringBuddy}
           name="hiringBuddyId"
-          rules={[
-            {
-              required: true,
-              message: "Please Select Buddy",
-            },
-          ]}
         >
           <MemberSelect
             name="hiringBuddyId"
@@ -382,14 +384,13 @@ const Composer = (props) => {
         </Form.Item>
         <Form.Item
           name="members"
-          label={labels.jobviewer}
-          rules={[{ required: true }]}
+          label={labels.members}
         >
           <MemberSelect
             name="members"
             mode="multiple"
             formitem={false}
-            placeholder={placeHolder.selectJobviewer}
+            placeholder={placeHolder.selectMembers}
             isObject={true}
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -410,7 +411,12 @@ const Composer = (props) => {
           name="approvers"
           label={labels.approvers}
           showSearch={true}
-          rules={[{ required: true }]}
+          rules={[
+            {
+              required: true,
+              message: "Please Select Approver",
+            },
+          ]}
         >
           <MemberSelect
             name="approvers"
@@ -461,11 +467,6 @@ const Composer = (props) => {
         <Form.Item
           name="skills"
           label={labels.skills}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
           <Select
             size="large"
@@ -476,11 +477,6 @@ const Composer = (props) => {
         <Form.Item
           name={"experience"}
           label={labels.experienceLabel}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
           <Input size="large" placeholder={labels.experience} type="number" />
         </Form.Item>
@@ -598,7 +594,7 @@ const Composer = (props) => {
           ></Button>
         </div>
         <List
-          className="!mb-5"
+          className="!mb-5 reviewCriteriaListing"
           bordered={true}
           size="small"
           itemLayout="horizontal"
@@ -625,10 +621,16 @@ const Composer = (props) => {
         />
 
         <Form.Item area="true" label={labels.attachments} name="attachment">
-          <SingleUpload
+          {/* <SingleUpload
             handleImageUpload={(val) => {
               setAttachment(val);
             }}
+            img="Add Image"
+            position="flex-start"
+            uploadText={labels.upload}
+          /> */}
+           <SingleUpload
+            handleImageUpload={handleImageUpload}
             img="Add Image"
             position="flex-start"
             uploadText={labels.upload}

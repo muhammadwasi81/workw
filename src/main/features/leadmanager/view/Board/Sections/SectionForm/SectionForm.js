@@ -9,10 +9,13 @@ import {
 import { useSelector } from "react-redux";
 import { LeadManagerDictionary } from "../../../../localization";
 import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
+import { useDispatch } from "react-redux";
+import { resetSuccess } from "../../../../store/slice";
 
 // import { leadSectionEnum } from "../../../../enum/enum";
 function SectionForm(props) {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   const Option = Select;
   const loading = useSelector((state) => state.leadMangerSlice.loading);
   const success = useSelector((state) => state.leadMangerSlice.success);
@@ -22,6 +25,8 @@ function SectionForm(props) {
   useEffect(() => {
     if (success) {
       form.resetFields();
+      dispatch(resetSuccess());
+      props.handleToggleForm();
     }
   }, [success]);
 
@@ -98,6 +103,7 @@ function SectionForm(props) {
             prefix={<BiWorld className="!text-gray-500" />}
             placeholder={placeHolder.leadWebiste}
             type={"url"}
+            defaultValue="http://www."
           />
         </Form.Item>
         <Form.Item name="typeId">

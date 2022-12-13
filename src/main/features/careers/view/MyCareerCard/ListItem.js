@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 
 import moment from "moment";
 import {
-  ItemContent,
+  ItemContentCareers,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../../localization";
-import { Image, Tooltip } from "antd";
+import { Image, Tag, Tooltip } from "antd";
 import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
 import { useSelector } from "react-redux";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
@@ -36,9 +36,11 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     postInterviewers,
     manager,
     approvers,
+    skills,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
+  const skillsArray = skills?.split(",");
 
   const mangerArrFunc = (manager) => {
     let newArr = [];
@@ -75,40 +77,25 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           status={item.status}
           profileImgSize={40}
         />
-        <ItemContent className="!h-[100px] !max-h-[100px]">
-          <div className="font-bold text-[14px] text-primary-color">
+        <ItemContentCareers className="!h-[100px] !max-h-[100px]">
+        <div className="font-bold text-[14px] text-primary-color">
             {designation}
           </div>
           <p className="careerFooterText">
             {city}, {country}
           </p>
           <p className="careersDescShort">{description}</p>
-        </ItemContent>
-        {/* <div>
-          {item.city} 
-          {item.country}
-           {item.jobTypeId}
-            
-          {item.createDate}
-        </div> */}
-        {/* <div className="flex justify-between">
-          <div className="flex gap-x-8">
-            <p className="careerFooterText">
-              {city}, {country} -{" "}
-            </p>
-            <p className="careerFooterText flex gap-x-2 items-baseline">
-              <FieldTimeOutlined />
-              <p>{moment(createDate).fromNow()}</p>
-            </p>
+          <div className="mt-5 skillsContainer">
+            <div className="font-bold">{labels.skillsRequired}</div>
+            <div>
+              {skills
+                ? skillsArray?.map((item, index) => {
+                    return <Tag className="LinkTag">{item}</Tag>;
+                  })
+                : null}
+            </div>
           </div>
-           <p className="careersDescShort">
-            {CareerStatusEnum.map((item) => {
-              if (item.value === status) {
-                return item.label;
-              }
-            })}
-          </p> 
-        </div> */}
+        </ItemContentCareers>
         <div className="cardSections mt-10">
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.salaryRange}</div>

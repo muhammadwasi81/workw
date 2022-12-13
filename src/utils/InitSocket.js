@@ -50,7 +50,6 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 	});
 	connection.on("newFeedOut", data => {
 		dispatch(addRealTimePost(data))
-		console.log(data, "newFeedOut")
 	});
 	connection.on("commentOut", data => {
 		console.log(data, "commentOut")

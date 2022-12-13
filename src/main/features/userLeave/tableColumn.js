@@ -21,7 +21,9 @@ export const tableColumn = () => {
       title: "Creator",
       dataIndex: "creator",
       ellipsis: true,
-      render: (creator) => <TagAvatar text={creator.name} img={creator.image} />,
+      render: (creator) => (
+        <TagAvatar text={creator.name} img={creator.image} />
+      ),
       sort: true,
     },
     {
@@ -41,7 +43,7 @@ export const tableColumn = () => {
     {
       title: "Date",
       dataIndex: "createDate",
-      render: (i) => moment(i.createDate).format("DD MMM YYYY"),
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
     },
 
@@ -54,8 +56,10 @@ export const tableColumn = () => {
     {
       title: "Approvers",
       dataIndex: "approvers",
-      ellipsis: true,  
-      render: (approver) => <Avatar membersData={approver} heading={"Approvers"} />,
+      ellipsis: true,
+      render: (approver) => (
+        <Avatar membersData={approver} heading={"Approvers"} />
+      ),
     },
   ];
 };

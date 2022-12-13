@@ -177,12 +177,12 @@ function ContactDetail(props) {
           label={labels.phone}
           name="phoneNumber"
           className=""
-          rules={[
-            {
-              required: true,
-              message: "Please enter phone number!",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: "Please enter phone number!",
+          //   },
+          // ]}
         >
           <Input placeholder={placeHolder.writePhoneNumber} />
         </Form.Item>
@@ -190,12 +190,12 @@ function ContactDetail(props) {
           label={labels.email}
           name="email"
           className=""
-          rules={[
-            {
-              required: true,
-              message: "Please enter valid email!",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: "Please enter valid email!",
+          //   },
+          // ]}
         >
           <Input placeholder={placeHolder.writeEmailAddress} type={"email"} />
         </Form.Item>
@@ -222,12 +222,12 @@ function ContactDetail(props) {
           label={labels.description}
           name="description"
           className=""
-          rules={[
-            {
-              required: true,
-              message: "Please enter description!",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: "Please enter description!",
+          //   },
+          // ]}
         >
           <Input placeholder={placeHolder.writeDescription} />
         </Form.Item>

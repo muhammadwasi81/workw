@@ -88,7 +88,7 @@ const ApplyJob = (props) => {
       <ApplyComposer visible={visible} onClose={handleDrawerClose} id={id} />
       <div className="w-full m-auto flex justify-center">
         <div
-          className="item careersQuickDetail"
+          className="item careersQuickDetail QuickDetailPublicRoute"
           style={{ width: `${props.width}` }}
         >
           <div className="careersShortCard cursor-pointer !flex !flex-row gap-2">

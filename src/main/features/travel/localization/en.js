@@ -44,7 +44,7 @@ const en = {
 
 		labels: {
 			update: "Update",
-			createTravel: "Create Travel Expense",
+			createTravel: "Create Travel",
 			updateGrp: "Update Travel Expense",
 			subject: "Subject",
 			description: "Description",

@@ -38,17 +38,14 @@ function ListItem(props) {
   var a = moment(startDate);
   var b = moment(endDate);
   const days = b.diff(a, "days");
-  console.log(days, "daysssss");
+
+  console.log(props.item, "HELLO I AM LEAVE")
 
   return (
-    //onClick={props.onClick}
     <SingleItem onClick={props.onClick}>
       <div
         className="new"
         id={props.id}
-        // onClick={() => {
-        //   props.getLeavesApprovalId(props.id);
-        // }}
       ></div>
       <ItemHeader>
         <div className="left">

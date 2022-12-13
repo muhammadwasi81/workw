@@ -104,6 +104,13 @@ export const ItemContent = styled.div`
 }
 `;
 
+export const ItemContentCareers = styled.div`
+  margin-top: 15px;
+  max-height: 130px;
+  min-height: 130px;
+}
+`;
+
 export const ItemProfile = styled.div`
   display: flex;
 

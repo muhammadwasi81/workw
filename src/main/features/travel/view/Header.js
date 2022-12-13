@@ -40,6 +40,7 @@ function Header(props) {
 			),
 		},
 	];
+	console.log(success, "success")
 	return (
 		<LayoutHeader items={items} buttons={buttons} backButton={backButton} />
 	);

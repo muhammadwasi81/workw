@@ -3,7 +3,7 @@ DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const ROUTES = {
 	SEARCH: {
-		DEFAULT: `${DOMAIN_PREFIX}/search/*`,
+		DEFAULT: `${DOMAIN_PREFIX}/search`,
 	},
 	//sanjna
 	SETTINGS: {

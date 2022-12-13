@@ -185,30 +185,36 @@ function DetailCard(props) {
                   )}
                 </div>
               </div>
-              <div className="cardSectionItem">
-                <div className="cardSection__title">
-                  {" "}
-                  {resignationDictionary.IT}
-                </div>
-                <div className="cardSection__body">
-                  {it && (
-                    <Avatar
-                      isAvatarGroup={true}
-                      isTag={false}
-                      heading={"approvers"}
-                      membersData={it ? it : []}
-                      text={"Approvers"}
-                      image={"https://joeschmoe.io/api/v1/random"}
-                    />
-                  )}
-                </div>
-              </div>
+              {
+                it && it.length > 0 ?
+                <div className="cardSectionItem">
+                  <div className="cardSection__title">
+                    {" "}
+                    {resignationDictionary.IT}
+                  </div>
+                  <div className="cardSection__body">
+                    {it && (
+                      <Avatar
+                        isAvatarGroup={true}
+                        isTag={false}
+                        heading={"approvers"}
+                        membersData={it ? it : []}
+                        text={"Approvers"}
+                        image={"https://joeschmoe.io/api/v1/random"}
+                      />
+                    )}
+                  </div>
+                </div> 
+                : ""
+              }
             </div>
           </div>
           <DetailTabs
             detailId={props.id}
             RemarksApproval={
               <>
+              {
+                approvers && approvers.length > 0 ?
                 <RemarksApproval
                   module={ApprovalsModule.RequisitionApproval}
                   status={status}
@@ -224,6 +230,8 @@ function DetailCard(props) {
                   }
                   className="ApproversRow"
                 />
+                : ""
+              }
                 <RemarksApproval
                   module={ApprovalsModule.RequisitionApproval}
                   status={status}

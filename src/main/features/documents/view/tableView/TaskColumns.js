@@ -1,7 +1,6 @@
 import moment from "moment";
-import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import TagAvatar from "../../../../sharedComponents/Avatar/TagAvatar";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
+import DocumentStatusTag from "../components/documentStatusTag/StatusTag";
 export const tableColumn = () => {
 	return [
 		{
@@ -15,30 +14,30 @@ export const tableColumn = () => {
 			dataIndex: "creator",
 			ellipsis: true,
 			render: (creator, row) => {
-				console.log(row, "row")
-				return (
-					<TagAvatar text={creator.name} img={creator.image} />
-				)
+				return <TagAvatar text={creator.name} img={creator.image} />
 			},
 			sort: true,
 		},
 		{
 			title: "Date",
 			dataIndex: "createDate",
-			render: date => <div>{moment(date).format()}</div>,
+			render: date => <div>{moment(date).format("MMM Do YY")}</div>,
 			ellipsis: true,
 			sort: true,
 		},
 		{
 			title: "Privacy",
 			dataIndex: "privacyId",
+			render: (creator, row) => {
+				return <div>Public</div>
+			},
 			ellipsis: true,
 			sort: true,
 		},
 		{
 			title: "Status",
 			dataIndex: "status",
-			render: status => <StatusTag status={status} />,
+			render: status => <DocumentStatusTag status={status} />,
 			sort: true,
 		},
 		// {

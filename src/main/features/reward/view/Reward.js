@@ -91,7 +91,7 @@ const Reward = (props) => {
 
   return (
     <>
-      <TabbableContainer className="">
+      <TabbableContainer className=""> 
         <Header
           items={items}
           buttons={[

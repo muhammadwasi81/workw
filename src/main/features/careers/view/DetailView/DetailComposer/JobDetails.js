@@ -43,10 +43,12 @@ const JobDetails = (props) => {
     maxSalary,
     experience,
     endDate,
+    status,
     id,
   } = careerDetail;
 
   // console.log("career detail", careerDetail);
+  console.log(status, "STATUS")
 
   const copyfunc = () => {
     setCopy(true);
@@ -55,6 +57,8 @@ const JobDetails = (props) => {
   // console.log(jobDesc, "JOB DETAILLLLLL");
 
   const skillsArray = skills?.split(",");
+
+  console.log(skillsArray, "SKILLSSS !!!")
 
   // let notesTime = !moment(new Date()).fromNow(createDate)
   //   ? moment(createDate).format("LT")
@@ -84,19 +88,25 @@ const JobDetails = (props) => {
             </div>
           </div>
           <div className="linkDiv">
-            <Tag className="LinkTag ThemeBtn" onClick={() => props.apply()}>
-              {/* {"Apply Now"} */}
-              {labels.applyNow}
-            </Tag>
-
-            <CopyToClipboard
-              text={`${window.location.origin}${ROUTES.CAREER.APPLYJOB}/${id}`}
-              onCopy={copyfunc}
-            >
-              <Tag className="LinkTag ThemeBtn">
-                <LinkOutlined /> {labels.copyLink}
-              </Tag>
-            </CopyToClipboard>
+            {
+              status === 2 ?
+              <>
+                <Tag className="LinkTag ThemeBtn" onClick={() => props.apply()}>
+                  {/* {"Apply Now"} */}
+                  {labels.applyNow}
+                </Tag>
+                <CopyToClipboard
+                text={`${window.location.origin}${ROUTES.CAREER.APPLYJOB}/${id}`}
+                onCopy={copyfunc}
+              >
+                <Tag className="LinkTag ThemeBtn">
+                  <LinkOutlined /> {labels.copyLink}
+                </Tag>
+              </CopyToClipboard>
+              </>
+            : 
+            "" 
+            }
           </div>
         </div>
 
@@ -113,7 +123,7 @@ const JobDetails = (props) => {
                   return <Tag className="LinkTag">{item}</Tag>;
                 })
               : null}
-            {/*  <Tag className="LinkTag">{"React.js"}</Tag>
+             {/* <Tag className="LinkTag">{"React.js"}</Tag>
             <Tag className="LinkTag">{"React Native"}</Tag>
              <Tag className="LinkTag">{"Node.js"}</Tag>
              <Tag className="LinkTag">{"Mongo db"}</Tag>

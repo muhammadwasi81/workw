@@ -40,9 +40,10 @@
 .singleTag {
     display: flex;
     background-color: #ededed;
-    padding: 5px 6px;
+    padding: 0px 8px 0px 2px;
     border-radius: 4px;
     cursor: pointer;
+    width: fit-content;
 }
 .singleTag p {
     margin: 2px 0px 0px 4px !important;

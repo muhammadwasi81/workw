@@ -7,12 +7,16 @@ import { getAllEmployees } from "../../../../../employee/store/actions";
 import Avatar from "../../../../../../sharedComponents/Avatar/avatarOLD";
 import MemberSelect from "../../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { sendChatMessage, sharePostOnChat } from "../../../../../Messenger/store/actions";
+import { onFeedCreateSubmitAction, sharePostOnFeed } from "../../../../store/actions";
+import { feedSlice } from "../../../../store/slice";
+
+
 
 function PostShareModal({
     isOpen = false,
     shareType = "",
     handleCancel,
-    postId=""
+    postId = ""
 }) {
     const dispatch = useDispatch();
     const employees = useSelector((state) => state.sharedSlice.employees);
@@ -37,16 +41,24 @@ function PostShareModal({
         setValue([]);
         handleCancel();
     }
-    const handleShareOnFeed = () => {
+    const handleShareOnFeed = async () => {
+        dispatch(feedSlice.actions.onPostTitleTextChange({ value: `${window.location.href}newsFeedDetails/${postId}` }));
+        dispatch(sharePostOnFeed({
+            referenceType: 4,
+            referenceId: value[0]
+        }));
+        handleCancel();
     }
     const handleChange = (e) => {
         setValue(e);
     };
     const handleShare = () => {
-        if (shareType === "Chat")
-            handleShareOnChat();
-        else if (shareType === "Feed")
-            handleShareOnFeed();
+        if (value.length > 0) {
+            if (shareType === "Chat")
+                handleShareOnChat();
+            else if (shareType === "Feed")
+                handleShareOnFeed();
+        }
     };
     const fetchEmployees = (text, pgNo) => {
         dispatch(
@@ -67,7 +79,6 @@ function PostShareModal({
     useEffect(() => {
         fetchEmployees('', 0);
     }, []);
-    console.log(value)
     return (
         <Modal
             open={isOpen}

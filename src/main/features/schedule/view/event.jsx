@@ -11,7 +11,7 @@ function Event({ data, handleScheduleDetailComposer, showTag = false }) {
 
 	return (
 		<div
-			className="event hover:!border-primary-color cursor-pointer transition-all"
+			className="event hover:!border-primary-color cursor-pointer transition-all w-full"
 			onClick={() => handleScheduleDetailComposer(data)}
 		>
 			<div className="left">
@@ -19,15 +19,18 @@ function Event({ data, handleScheduleDetailComposer, showTag = false }) {
 				<span>{moment(data?.startDate).format("dddd")}</span>
 			</div>
 			<div className="right w-full">
-				<div className="flex justify-between items-center w-full h-0">
-					<div>
-						<p className="!text-primary-color">{data?.subject}</p>
-						<span
+				<div className="flex justify-between items-center ">
+					<div className="w-[50%] flex flex-col">
+						<p className="!text-primary-color text-ellipsis overflow-hidden inline-block w-full whitespace-nowrap">{data?.subject}</p>
+						<div
 							dangerouslySetInnerHTML={{
 								__html: data?.description,
 							}}
+							className="description_dangerously text-ellipsis overflow-hidden inline-block w-full"
 						/>
 					</div>
+					{
+						showTag && 
 					<img
 						src={
 							data?.scheduleType === ScheduleTypeEnum.Task
@@ -40,6 +43,7 @@ function Event({ data, handleScheduleDetailComposer, showTag = false }) {
 						alt="icon"
 						className="h-[30px]"
 					/>
+					}
 					{/* {showTag && (data?.scheduleType === ScheduleTypeEnum.Task || data?.scheduleType === ScheduleTypeEnum.Travel) && (
 						<Tag
 							color={

@@ -102,6 +102,10 @@ const formSlice = createSlice({
       .addMatcher(isPending(...[getFormById]), (state) => {
         // console.log("its pending form by ids");
         state.loader = true;
+      })
+      .addMatcher(isRejected(...[addForm]), (state) => {
+        state.createLoader = false;
+        
       });
   },
 });

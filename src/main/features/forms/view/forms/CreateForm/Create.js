@@ -19,6 +19,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import "./createForm.css";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { documentDictionaryList } from "../../../localization/index";
+import PrivacyOptions from "../../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -27,6 +28,7 @@ const Create = (props) => {
   const [form] = Form.useForm();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [privacyId, setPrivacyId] = useState(1);
   // console.log("props in create component", props);
   const { removeQuestion, formData, handleSequenceChange } = props;
   const { createLoader } = useSelector((state) => state.formSlice);
@@ -62,8 +64,22 @@ const Create = (props) => {
     }
   }, [employees]);
 
+   //TODO: add these labels in localization
+   const labels = {
+    public: "Public",
+    private: "Private",
+  };
+
+  const onPrivacyChange = (value) => {
+    setPrivacyId(value);
+  };
+
   const onFinish = (values) => {
-    console.log("Success:", values);
+    console.log("Success:", values );
+    values = {
+      ...values,
+      privacyId: privacyId
+    }
     props.subDescriptionSend(values);
   };
 
@@ -128,12 +144,12 @@ const Create = (props) => {
               <Form.Item
                 name="approvers"
                 label={Approvers}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Select Approvers",
-                  },
-                ]}
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: "Please Select Approvers",
+                //   },
+                // ]}
               >
                 <MemberSelect
                   name="Approvers"
@@ -207,9 +223,16 @@ const Create = (props) => {
                 </>
               ))}
           </DrangableQuestions>
+          <div className="flex justify-end" style={{gridGap: '0.5rem'}}>
+          <PrivacyOptions
+              privacyId={privacyId}
+              onPrivacyChange={onPrivacyChange}
+              labels={labels}
+            />
           <Form.Item className="flex justify-end">
+          
             <Button
-              className="btn"
+              className="Formbtn"
               // type="primary"
               htmlType="submit"
               disabled={createLoader ? true : false}
@@ -217,6 +240,8 @@ const Create = (props) => {
               {createForms}
             </Button>
           </Form.Item>
+          </div>
+          
         </Form>
       </Form.Provider>
     </>

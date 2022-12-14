@@ -13,6 +13,8 @@ import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/Shar
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { appraisalDictionaryList } from "../../../localization/index";
 
+const { RangePicker } = DatePicker;
+
 const TaskComp = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
@@ -69,6 +71,15 @@ const TaskComp = (props) => {
     let selected = employeesData.filter((el) => el.id === employee);
     setEmployee(selected[0]);
     console.log(selected);
+  };
+
+  const onRangeChange = (dates, dateStrings) => {
+    if (dates) {
+      console.log("From: ", dates[0], ", to: ", dates[1]);
+      console.log("From: ", dateStrings[0], ", to: ", dateStrings[1]);
+    } else {
+      console.log("Clear");
+    }
   };
 
   return (
@@ -133,8 +144,19 @@ const TaskComp = (props) => {
           autoComplete="off"
           layout="vertical"
           form={form}
+          className="flex justify-around"
         >
-          <div className="mt-4">
+          <div className="mt-4 w-full">
+            <Form.Item name={"date"} className="h-14">
+              <RangePicker
+                onChange={onRangeChange}
+                size="middle"
+                // className="mt-4"
+              />
+            </Form.Item>
+          </div>
+
+          {/* <div className="mt-4">
             <Form.Item name="startDate">
               <DatePicker
                 size="large"
@@ -153,7 +175,7 @@ const TaskComp = (props) => {
                 onChange={(val) => props.endDate(val._d)}
               />
             </Form.Item>
-          </div>
+          </div> */}
         </Form>
       </div>
     </>

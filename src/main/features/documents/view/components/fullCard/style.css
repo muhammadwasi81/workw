@@ -4,7 +4,7 @@
 }
 
 .doc_detail_media {
-    height: 100px;
+    /* height: 100px; */
     width: max-content;
     margin-left: auto;
     margin-right: 10px;
@@ -51,4 +51,18 @@
 
 .card-column-item {
     margin: 0 10px;
+}
+
+.doc_detail_media .fileName div{
+    width: 100px;
+    display: -webkit-box;
+    max-width: 200px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: unset;
+}
+.doc_detail_media .d_ShortCard{
+ background-color: #f4f4f4;
+ cursor: pointer;
 }

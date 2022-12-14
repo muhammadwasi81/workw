@@ -11,23 +11,11 @@ const CreateEntryHead = () => {
     <thead>
       <tr className="whitespace-nowrap">
         <th style={{ minWidth: "6%" }}>{quotationDictionary.sno}</th>
-        <th style={{ minWidth: "40%" }}>{quotationDictionary.serviceItem}</th>
+        <th style={{ minWidth: "60%", width: "80%" }}>{quotationDictionary.serviceItem}</th>
         <th style={{ minWidth: "10%" }}>{quotationDictionary.price}</th>
         <th style={{ minWidth: "6%" }}>{quotationDictionary.quantity}</th>
-        <th style={{ minWidth: "16%" }}>{quotationDictionary.tax}</th>
+        {/* <th style={{ minWidth: "16%" }}>{quotationDictionary.tax}</th> */}
         <th style={{ minWidth: "16%" }}>{quotationDictionary.totalAmount}</th>
-        {/* <th style={{ minWidth: "150px" }}>
-          Deductions
-        </th>
-        <th style={{ minWidth: "150px" }}>
-          Net Salary
-        </th>
-        <th style={{ minWidth: "300px" }}>
-          Approvers
-        </th>
-        <th style={{ minWidth: "250px" }}>
-          Descrption
-        </th>*/}
         <th style={{ minWidth: "6%" }}></th>
       </tr>
     </thead>

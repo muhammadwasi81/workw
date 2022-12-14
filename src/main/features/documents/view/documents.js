@@ -13,7 +13,6 @@ import DocumentShortCards from "./documentShortCards";
 import DropableContainer from "./dropableContainer";
 import { useDispatch } from "react-redux";
 import {
-	addDocument,
 	getAllDocument,
 	getAllDocumentList,
 } from "../store/actions";

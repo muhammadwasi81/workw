@@ -13,7 +13,7 @@ const en = {
     phoneNumber: "Phone Number",
     creator: "Creator",
     approvers: "Approvers",
-    quotationDate: "Quotation Date",
+    quotationDate: "Date",
     serviceItem: "Service/Item",
     sno: "S.No.",
     price: "Price",

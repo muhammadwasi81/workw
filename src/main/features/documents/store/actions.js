@@ -10,8 +10,31 @@ import {
 	moveDocumentService,
 	getDocumentByIdService,
 	addDirectoryService,
+	moveDirectoryService,
 } from "../services/service";
 import { updateMoveDocument } from "./slice";
+
+export const moveDirectory = createAsyncThunk(
+	"document/moveDirectory",
+	async (payload, { rejectWithValue, dispatch }) => {
+		const response = await moveDirectoryService(payload);
+		switch (response.type) {
+			case ResponseType.ERROR:
+				dispatch(
+					openNotification({
+						message: "Error " + response.errorMessage,
+						type: "error",
+					})
+				);
+				return rejectWithValue(response.errorMessage);
+			case ResponseType.SUCCESS:
+				dispatch(updateMoveDocument(payload));
+				return response.data;
+			default:
+				return;
+		}
+	}
+);
 
 export const moveDocument = createAsyncThunk(
 	"document/moveDocument",
@@ -28,11 +51,6 @@ export const moveDocument = createAsyncThunk(
 				return rejectWithValue(response.errorMessage);
 			case ResponseType.SUCCESS:
 				dispatch(updateMoveDocument(payload));
-				// dispatch(openNotification({
-				//   message: "Document Moved Successfully",
-				//   type: "success",
-				//   duration: 2
-				// }))
 				return response.data;
 			default:
 				return;
@@ -107,6 +125,22 @@ export const getAllDocument = createAsyncThunk(
 
 export const GetDocumentById = createAsyncThunk(
 	"document/getDocumentById",
+	async (request, { rejectWithValue }) => {
+		console.log(request, "REQUEST");
+		const response = await getDocumentByIdService(request);
+		switch (response.type) {
+			case ResponseType.ERROR:
+				return rejectWithValue(response.errorMessage);
+			case ResponseType.SUCCESS:
+				return response.data;
+			default:
+				return;
+		}
+	}
+);
+
+export const UpdateDocumentById = createAsyncThunk(
+	"document/UpdateDocumentById",
 	async (request, { rejectWithValue }) => {
 		console.log(request, "REQUEST");
 		const response = await getDocumentByIdService(request);

@@ -1,11 +1,5 @@
 import milepadIcon from "../../../../content/NewContent/Documents/file/milepad.svg";
-import {
-  FilePdfOutlined,
-  FileWordOutlined,
-  FileExcelOutlined,
-  FilePptOutlined,
-  FolderOpenOutlined,
-} from '@ant-design/icons';
+
 export const fileTypes = [
   {
     title: "Milepad",
@@ -101,7 +95,6 @@ export const DocumentStatusEnum = {
   Declined: 3,
   NotRequired: 4,
 }
-
 export const getDocStatusLabelAndColor = (module, statusLabels) => {
 	return {
 		[DocumentStatusEnum.InProcess]: {

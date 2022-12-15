@@ -40,7 +40,6 @@ function FolderMemberUpdate({
     useEffect(() => {
         isOpen && fetchEmployees('', 0);
     }, [isOpen]);
-console.log(composerState, "composerState")
     return (
         <Modal
             open={isOpen}

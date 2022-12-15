@@ -12,7 +12,7 @@ function TagAvatar(props) {
           src={props.img}
           name={props.text}
           round={true}
-          size={16} />
+          size={25} />
         {props.text}
       </Tag>
     </div>

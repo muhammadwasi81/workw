@@ -45,7 +45,7 @@ const Index = () => {
             key={folderPath}
             path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${folderPath}`}
             pathName={folderPath}
-            name={menuItem.inbox}
+            name={menuItem[folderPath]}
             badgeCount={unseen}
             icon={<MdInbox size={20} color={"var(--currentThemeColor)"} />}
             onChange={() => {}}

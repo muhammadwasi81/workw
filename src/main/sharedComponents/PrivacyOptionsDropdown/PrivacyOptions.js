@@ -4,13 +4,20 @@ import "./privacyOption.css";
 import { BiWorld } from "react-icons/bi";
 import { HiLockClosed } from "react-icons/hi";
 import PublicPrivateIcon from "../PublicPrivateIcon/PublicPrivateIcon";
+import { useEffect, useState } from "react";
 export default function PrivacyOptions({ onPrivacyChange, privacyId, labels }) {
+	const [isOpen, setIsOpen] = useState(false);
+	const handleChange = (e) => {
+		setIsOpen(false)
+		onPrivacyChange(e);
+	}
 	return (
 		<Dropdown
 			trigger={["click"]}
-			overlay={PostPrivacyOptionsMenu(onPrivacyChange, labels)}
+			overlay={PostPrivacyOptionsMenu(handleChange, labels)}
+			open={isOpen}
 		>
-			<button className="dropdown-button">
+			<button className="dropdown-button" onClick={() => setIsOpen(true)}>
 				<PublicPrivateIcon
 					className="text-xl text-gray-500"
 					id={privacyId}

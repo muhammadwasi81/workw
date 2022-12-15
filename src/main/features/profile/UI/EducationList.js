@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Avatar, Dropdown, Menu, Skeleton } from "antd";
 import { EllipsisOutlined, SmileOutlined } from "@ant-design/icons";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -6,9 +6,13 @@ import { getEducationAction } from "../store/action";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { profileDictionaryList } from "../localization/index";
 
 function EducationList() {
   const dispatch = useDispatch();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { profileDictionary } = profileDictionaryList[userLanguage];
   const { education } = useSelector((state) => state.employeeProfileSlice);
   console.log(education, "work");
   const { id } = useParams();
@@ -26,7 +30,7 @@ function EducationList() {
               rel="noopener noreferrer"
               href="https://www.antgroup.com"
             >
-              1st menu item
+              {profileDictionary.firstMenu}
             </a>
           ),
         },
@@ -38,7 +42,7 @@ function EducationList() {
               rel="noopener noreferrer"
               href="https://www.aliyun.com"
             >
-              2nd menu item (disabled)
+              {profileDictionary.secondMenu}
             </a>
           ),
           icon: <SmileOutlined />,
@@ -52,7 +56,7 @@ function EducationList() {
               rel="noopener noreferrer"
               href="https://www.luohanacademy.com"
             >
-              3rd menu item (disabled)
+              {profileDictionary.thirdMenu}
             </a>
           ),
           disabled: true,
@@ -60,7 +64,7 @@ function EducationList() {
         {
           key: "4",
           danger: true,
-          label: "a danger item",
+          label: profileDictionary.dangerItem,
         },
       ]}
     />

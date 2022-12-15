@@ -1,4 +1,4 @@
-import { React, useState,useContext } from "react";
+import { React, useState, useContext } from "react";
 import "./style.css";
 //import { openStickyNotes } from "../../../store/appReducer/stickyNotesSlice";
 //import NewStickyNote from "./NewStickyNote";
@@ -9,10 +9,8 @@ import {
   incrementStickyNote,
   closeNote,
 } from "../../../store/appReducer/newStickySlice";
-
 import { notesDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-
 
 const Notes = (props) => {
   //let stickyNoteTitle = useSelector((state) => state.stickyNotesSlice.addTitle);
@@ -44,7 +42,7 @@ const Notes = (props) => {
       /\./g,
       ""
     ),
-    title:notesDictionary.title,
+    title: notesDictionary.title,
     textArea_placeholder: notesDictionary.placeholder,
     textArea_value: "",
     x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",

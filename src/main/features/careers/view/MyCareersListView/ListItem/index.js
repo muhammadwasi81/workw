@@ -37,11 +37,11 @@ function ListItem({ item, onClick, onClickMyCareer }) {
     skills,
     country,
   } = item;
-  const { currentTab } = useSelector((state) => state.careerSlice);
+  const { currentTab } = useSelector(state => state.careerSlice);
 
   const skillsArray = skills?.split(",");
 
-  console.log(skills, "SKILSS !!!")
+  console.log(skills, "SKILSS !!!");
 
   return (
     <>
@@ -92,7 +92,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             <div className="flex gap-x-8">
               <p className="careerFooterText">
                 {city}, {country} -{" "}
-                {CareerLevelTypeEnum.map((item) => {
+                {CareerLevelTypeEnum.map(item => {
                   if (item.value === jobTypeId) {
                     return item.label;
                   }
@@ -104,7 +104,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
               </p>
             </div>
             <p className="careersDescShort">
-              {CareerStatusEnum.map((item) => {
+              {CareerStatusEnum.map(item => {
                 if (item.value === status) {
                   return item.label;
                 }
@@ -140,18 +140,24 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </ItemHeader>
           <ItemContentCareers className="!h-[100px] !max-h-[100px]">
-          <p className="careersDescShort">{description}</p>
-          <div className="mt-5 skillsContainer">
-            <div className="font-bold">{labels.skillsRequired}</div>
-            <div>
-              {skills
-                ? skillsArray?.map((item, index) => {
-                    return <Tag className="LinkTag">{item}</Tag>;
+            <p className="careersDescShort">{item.description}</p>
+            <div className="mt-5 skillsContainer">
+              <div className="font-bold">
+                {labels.skillsRequired}
+              </div>
+              <div>
+                {skills
+                  ? skillsArray?.map((item, index) => {
+                    return (
+                      <Tag className="LinkTag">
+                        {item}
+                      </Tag>
+                    );
                   })
-                : null}
+                  : null}
+              </div>
             </div>
-          </div>
-        </ItemContentCareers>
+          </ItemContentCareers>
           {/* <div>
           {item.city} 
           {item.country}
@@ -163,7 +169,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             <div className="flex gap-x-8">
               <p className="careerFooterText">
                 Karachi, Pakistan -{" "}
-                {CareerLevelTypeEnum.map((item) => {
+                {CareerLevelTypeEnum.map(item => {
                   if (item.value === jobTypeId) {
                     return item.label;
                   }
@@ -175,7 +181,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
               </p>
             </div>
             <p className="careersDescShort">
-              {CareerStatusEnum.map((item) => {
+              {CareerStatusEnum.map(item => {
                 if (item.value === status) {
                   return item.label;
                 }
@@ -184,11 +190,15 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           </div>
           <div className="cardSections mt-10">
             <div className="cardSectionItem">
-              <div className="cardSection__title">{labels.salaryRagne}</div>
+              <div className="cardSection__title">
+                {labels.salaryRagne}
+              </div>
               <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title">{labels.effectiveDate}</div>
+              <div className="cardSection__title">
+                {labels.effectiveDate}
+              </div>
               <div className="cardSection__body">
                 {moment(createDate).format("Do MMM YY")}
               </div>
@@ -200,10 +210,15 @@ function ListItem({ item, onClick, onClickMyCareer }) {
                   {labels.experienceRequired}
                 </div>
               </div>
-              <div className="cardSection__body">{experience}</div>
+              <div className="cardSection__body">
+                {experience}
+              </div>
             </div>
             <div className="cardSectionItem">
-              <div className="cardSection__title"> {labels.jobExpires}</div>
+              <div className="cardSection__title">
+                {" "}
+                {labels.jobExpires}
+              </div>
               <div className="cardSection__body">
                 {" "}
                 {moment(endDate).format("Do MMM YY")}

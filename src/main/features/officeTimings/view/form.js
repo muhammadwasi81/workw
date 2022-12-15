@@ -1,5 +1,5 @@
 import { Input, Table, InputNumber, Checkbox, TimePicker } from "antd";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -14,10 +14,8 @@ import { AdminContainer } from "../../../../components/HrMenu/Administration/Sty
 import moment from "moment";
 import "./officeTiming.css";
 
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext"
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-
-
 
 const staticDataColumn = [
   {
@@ -34,7 +32,7 @@ const staticDataColumn = [
     checkIn: "2022-02-24T13:00:00.844Z",
     checkOut: "2022-02-24T13:00:00.844Z",
     graceTime: 900,
-    dayId: 2
+    dayId: 2,
   },
   {
     name: "Wednesday",
@@ -42,7 +40,7 @@ const staticDataColumn = [
     checkIn: "2022-02-24T13:00:00.844Z",
     checkOut: "2022-02-24T13:00:00.844Z",
     graceTime: 900,
-    dayId: 3
+    dayId: 3,
   },
   {
     name: "Thurday",
@@ -50,7 +48,7 @@ const staticDataColumn = [
     checkIn: "2022-02-24T13:00:00.844Z",
     checkOut: "2022-02-24T13:00:00.844Z",
     graceTime: 900,
-    dayId: 4
+    dayId: 4,
   },
   {
     name: "Friday",
@@ -58,7 +56,7 @@ const staticDataColumn = [
     checkIn: "2022-02-24T13:00:00.844Z",
     checkOut: "2022-02-24T13:00:00.844Z",
     graceTime: 900,
-    dayId: 5
+    dayId: 5,
   },
   {
     name: "Saturday",
@@ -66,7 +64,7 @@ const staticDataColumn = [
     checkIn: "2022-02-24T13:00:00.844Z",
     checkOut: "2022-02-24T13:00:00.844Z",
     graceTime: 900,
-    dayId: 6
+    dayId: 6,
   },
   {
     name: "Sunday",
@@ -74,78 +72,88 @@ const staticDataColumn = [
     checkIn: "2022-02-24T13:00:00.844Z",
     checkOut: "2022-02-24T13:00:00.844Z",
     graceTime: 900,
-    dayId: 7
+    dayId: 7,
   },
-]
-
+];
 
 export default function OfficeTimingForm({ data, onSubmit, loading }) {
-
   const { userLanguage } = useContext(LanguageChangeContext);
-	const { administration,office,Direction } = dictionaryList[userLanguage];
-		console.log("jkjll",administration);
-
-  const initialState = { name: "", description: "", details: staticDataColumn };
+  const { administration, office, Direction } = dictionaryList[userLanguage];
+  const initialState = {
+    name: "",
+    description: "",
+    details: staticDataColumn,
+  };
   const [form, setForm] = useState(initialState);
   // const [timeTable, setTimeTable] = useState(staticDataColumn);
 
-
   const handleChangeTable = (e, row, inputType) => {
-    let myIndex = row.dayId-1;  
+    let myIndex = row.dayId - 1;
     let oldDetails = [...form.details];
+    console.log(inputType, "input Type");
 
     if (inputType === "isWorking") {
-        oldDetails[myIndex] = {...oldDetails[myIndex], isWorking: e.target.checked};  
-    } 
-    else if (inputType === "graceTime") {
-      oldDetails[myIndex] = {...oldDetails[myIndex], graceTime: e};
-    }
-    else if (inputType === "checkIn") {
-        oldDetails[myIndex] = {...oldDetails[myIndex], checkIn: e}
-    }
-    else if (inputType === "checkOut") {
-      oldDetails[myIndex] = {...oldDetails[myIndex], checkOut: e}
+      oldDetails[myIndex] = {
+        ...oldDetails[myIndex],
+        isWorking: e.target.checked,
+      };
+    } else if (inputType === "graceTime") {
+      oldDetails[myIndex] = {
+        ...oldDetails[myIndex],
+        graceTime: e,
+      };
+    } else if (inputType === "checkIn") {
+      oldDetails[myIndex] = {
+        ...oldDetails[myIndex],
+        checkIn: e,
+      };
+    } else if (inputType === "checkOut") {
+      oldDetails[myIndex] = {
+        ...oldDetails[myIndex],
+        checkOut: e,
+      };
     }
 
-
-    setForm({ ...form, details: oldDetails })
-
-  }
+    setForm({ ...form, details: oldDetails });
+  };
 
   const OfficeTimingGroupColumn = [
     {
-      title:administration.office.days,
+      title: administration.office.days,
       dataIndex: "name",
       className: "drag-td-name",
       width: "min-content",
       width: "12%",
       editable: true,
-      align: 'center'
+      align: "center",
     },
     {
-      title:administration.office.work,
+      title: administration.office.work,
       dataIndex: "isWorking",
       className: "drag-td-name",
       width: "min-content",
       width: "10%",
       editable: true,
-      align: 'center',
-      render: (text, row,) => {
-        return <Checkbox
-          checked={row.isWorking}
-          onChange={(e) => handleChangeTable(e, row, "isWorking")} />
-      }
+      align: "center",
+      render: (text, row) => {
+        return (
+          <Checkbox
+            checked={row.isWorking}
+            onChange={(e) => handleChangeTable(e, row, "isWorking")}
+          />
+        );
+      },
     },
     {
-      title:administration.office.checkIn,
+      title: administration.office.checkIn,
       dataIndex: "checkIn",
       className: "drag-td-name",
       width: "min-content",
       width: "15%",
       editable: true,
-      align: 'center',
+      align: "center",
       render: (text, row) => {
-        const format = 'HH:mm a';
+        const format = "HH:mm a";
         const checkInData = moment(row.checkIn, format);
         return (
           <>
@@ -155,58 +163,57 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
               onChange={(e) => handleChangeTable(e, row, "checkIn")}
             />
           </>
-        )
-      }
+        );
+      },
     },
     {
-      title:administration.office.checkOut,
+      title: administration.office.checkOut,
       dataIndex: "checkOut",
       className: "drag-td-name",
       width: "min-content",
       width: "15%",
       editable: true,
-      align: 'center',
+      align: "center",
       render: (text, row) => {
-        const format = 'HH:mm a';
+        const format = "HH:mm a";
         const checkOutData = moment(row.checkOut, format);
         return (
           <>
-            <TimePicker 
+            <TimePicker
               defaultValue={checkOutData}
               format={format}
               onChange={(e) => handleChangeTable(e, row, "checkOut")}
-              />
+            />
           </>
-        )
-      }
+        );
+      },
     },
     {
-      title:administration.office.time,
+      title: administration.office.time,
       dataIndex: "graceTime",
       className: "drag-td-name",
       width: "min-content",
       width: "20%",
       editable: true,
-      align: 'center',
+      align: "center",
       render: (text, row) => {
-        let graceTime = row.graceTime / 60
+        let graceTime = row.graceTime / 60;
         return (
           <>
-            <InputNumber 
-                min={0} 
-                max={100000} 
-                defaultValue={graceTime}
-                onChange={(e) => handleChangeTable(e, row, "graceTime")}
-              />
-          {administration.office.min}
+            <InputNumber
+              min={0}
+              max={100000}
+              defaultValue={graceTime}
+              onChange={(e) => handleChangeTable(e, row, "graceTime")}
+            />
+            {administration.office.min}
           </>
         );
-      }
+      },
     },
-  ]
+  ];
   useEffect(() => {
     // setForm([data, groupData]);
-
   }, [data]);
   // console.log(form.details, "I'm a Array")
   return (
@@ -227,46 +234,47 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
             <FormTextArea
               placeholder={administration.office.enterDescription}
               value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
             />
           </FormInput>
         </FormInputContainer>
         <FormButtonContainer>
-          {
-            form.id ?
-              <>
-                <FormButton
-                  type="primary"
-                  size="medium"
-                  style={{}}
-                  className="formBtn"
-                  // onClick={(e) => onSubmit({...form, details:timeTable})}
-                  onClick={(e) => console.log(form)}
-                >
-                  {administration.office.save}
-                </FormButton>
-                <FormButton
-                  type="primary"
-                  size="medium"
-                  style={{}}
-                  className="formBtn"
-                  onClick={(e) => setForm({ ...form, description: "", name: "" })}
-                >
-                 {administration.office.clear}
-                </FormButton>
-              </>
-              :
+          {form.id ? (
+            <>
               <FormButton
                 type="primary"
                 size="medium"
                 style={{}}
                 className="formBtn"
-                onClick={(e) => onSubmit(form)}
-              // loading={loading}
+                // onClick={(e) => onSubmit({...form, details:timeTable})}
+                onClick={(e) => console.log(form)}
               >
-                {administration.office.Add}
+                {administration.office.save}
               </FormButton>
-          }
+              <FormButton
+                type="primary"
+                size="medium"
+                style={{}}
+                className="formBtn"
+                onClick={(e) => setForm({ ...form, description: "", name: "" })}
+              >
+                {administration.office.clear}
+              </FormButton>
+            </>
+          ) : (
+            <FormButton
+              type="primary"
+              size="medium"
+              style={{}}
+              className="formBtn"
+              onClick={(e) => onSubmit(form)}
+              // loading={loading}
+            >
+              {administration.office.Add}
+            </FormButton>
+          )}
         </FormButtonContainer>
       </FormContainer>
       <Table

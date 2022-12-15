@@ -260,13 +260,6 @@
     font-size: 7px;
   }
 
-  .avatar {
-    width: 35px !important;
-    min-width: 35px !important;
-    height: 35px !important;
-    max-height: 35px !important;
-  }
-
   .avatar-name .name {
     font-size: 11px;
   }
@@ -402,13 +395,6 @@
 
   .innerDiv h3 {
     font-size: 13px;
-  }
-
-  .avatar {
-    width: 38px !important;
-    min-width: 38px !important;
-    height: 38px !important;
-    max-height: 44px !important;
   }
 }
 

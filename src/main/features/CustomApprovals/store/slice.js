@@ -35,6 +35,7 @@ const customApprovalSlice = createSlice({
       console.log(payload, "payload");
       state.customApprovals = [payload.data.data, ...state.customApprovals];
       state.drawerOpen = false;
+      state.loader = false;
       return state;
     });
 
@@ -48,9 +49,8 @@ const customApprovalSlice = createSlice({
       .addMatcher(isPending(...[GetCustomApprovalById]), (state) => {
         state.loadingData = true;
       })
-
       .addMatcher(isRejected(...[getAllCustomApprovals]), (state) => {
-        state.loader = false;
+        state.loader = true;
       });
   },
 });

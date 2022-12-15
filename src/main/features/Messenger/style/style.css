@@ -380,6 +380,9 @@ input:focus {
   margin: 10px auto;
   border-radius: 50%;
 }
+.MessageBubble a{
+  color: white;
+}
 
 .blur-bg {
   filter: blur(8px);

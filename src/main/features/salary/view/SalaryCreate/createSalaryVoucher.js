@@ -32,6 +32,7 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
     deduction: 0,
     netSalary: 0,
     approvers: [],
+    taxSlabId: "",
     details: [],
     description: "",
     id: createGuid(),
@@ -162,6 +163,10 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
 
         <VoucherFooter amount={0} />
       </div>
+
+
+
+
     </div>
   );
 };

@@ -1,27 +1,32 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { profileDictionaryList } from "../localization/index";
 
 const MartialStatus = () => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { profileDictionary } = profileDictionaryList[userLanguage];
   const { employees } = useSelector((state) => state.employeeProfileSlice);
   if (employees.maritalStatusId === 1) {
-    return <div>Single</div>;
+    return <div>{profileDictionary.single}</div>;
   }
   if (employees.maritalStatusId === 2) {
-    return <div>Engaged </div>;
+    return <div>{profileDictionary.engaged}</div>;
   }
   if (employees.maritalStatusId === 3) {
-    return <div>Married </div>;
+    return <div>{profileDictionary.married} </div>;
   }
   if (employees.maritalStatusId === 4) {
-    return <div>Divorced </div>;
+    return <div>{profileDictionary.divorced} </div>;
   }
   if (employees.maritalStatusId === 5) {
-    return <div>Widowed</div>;
+    return <div>{profileDictionary.widow}</div>;
   }
   if (employees.maritalStatusId === 6) {
-    return <div>Widower</div>;
+    return <div>{profileDictionary.widower}</div>;
   }
   if (employees.maritalStatusId === 7) {
-    return <div>PreferNotToSay </div>;
+    return <div>{profileDictionary.preferNotTosay} </div>;
   }
 };
 

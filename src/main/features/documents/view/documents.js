@@ -13,7 +13,6 @@ import DocumentShortCards from "./documentShortCards";
 import DropableContainer from "./dropableContainer";
 import { useDispatch } from "react-redux";
 import {
-	addDocument,
 	getAllDocument,
 	getAllDocumentList,
 } from "../store/actions";
@@ -21,6 +20,7 @@ import { resetBreadCumb } from "../store/slice";
 import { DocumentReferenceTypeEnum } from "./enum";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import DocumentTableView from "./tableView";
+import FolderMemberUpdate from "./composer/updateMembers/folderMembers";
 
 const Documents = ({
 	referenceType = DocumentReferenceTypeEnum.General,
@@ -81,11 +81,17 @@ const Documents = ({
 				<DocumentTableView
 					list={ListData}
 					isTable={isTableView} />
-				{!isTableView && <DropableContainer>{RenderTab[CurrentTab]}</DropableContainer>}
+				{!isTableView &&
+					<DropableContainer>
+						{RenderTab[CurrentTab]}
+					</DropableContainer>}
 			</ContBody>
 			<DocumentComposers
 				referenceId={referenceId}
 				referenceType={referenceType}
+			/>
+			<FolderMemberUpdate
+				isOpen={false}
 			/>
 		</TabbableContainer>
 	);

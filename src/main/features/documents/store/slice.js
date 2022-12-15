@@ -1,7 +1,9 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { STRINGS } from "../../../../utils/base";
+import { PostPrivacyType } from "../../../../utils/Shared/enums/enums";
 import { getComposerKeyByType } from "../constant/helpers";
-import { addDocument, getAllDocument, getAllDocumentList, moveDocument, GetDocumentById } from "./actions";
+import { addDocument, getAllDocument, getAllDocumentList, moveDocument, GetDocumentById, addDirectory } from "./actions";
+
 
 const initialState = {
   listLoading: false,
@@ -13,6 +15,16 @@ const initialState = {
     milepad: false,
     mileboard: false,
     mileshow: false,
+    updateMembers: false,
+  },
+  composersInitState: {
+    folder: {},
+    upload: {},
+    milegrid: {},
+    milepad: {},
+    mileboard: {},
+    mileshow: {},
+    updateMembers: null,
   },
   isTableView: false,
   listData: [],
@@ -22,6 +34,7 @@ const initialState = {
   success: false,
   loader: false,
   listLoader: false,
+  detailLoader: false,
   error: false,
   parentId: null,
   breadCumbPath: [{
@@ -40,6 +53,7 @@ const documentSlice = createSlice({
     },
     handleCloseDocComposer: (state, { payload: key }) => {
       state.isOpenComposers[key] = false;
+      state.composersInitState[key] = {};
     },
     handleChangeTab: (state, { payload: tab }) => {
       state.currentTab = tab;
@@ -71,6 +85,10 @@ const documentSlice = createSlice({
     uploadFileByDrop: (state, { payload }) => {
       state.defaultFiles = payload;
     },
+    handleUpdateFolder: (state, { payload }) => {
+      state.isOpenComposers.folder = true;
+      state.composersInitState.folder = payload;
+    },
 
   },
 
@@ -79,22 +97,35 @@ const documentSlice = createSlice({
       .addCase(addDocument.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        state.listData = payload.attachments.length > 0 ?
-          [
-            ...payload.attachments.map((item) => ({
-              ...payload,
-              path: item.path,
-              name: item.attachmentName
-            })),
-            ...state.listData
-          ] : [payload, ...state.listData]
+        // state.listData = payload.attachments.length > 0 ?
+        //   [
+        //     ...payload.attachments.map((item) => ({
+        //       ...payload,
+        //       path: item.path,
+        //       name: item.attachmentName
+        //     })),
+        //     ...state.listData
+        //   ] : [payload, ...state.listData]
+        state.listData = [
+          ...payload.map(item => ({
+            ...item,
+            path: item.attachments[0].path,
+            name: item.attachments[0].name
+          })),
+          ...state.listData
+        ];
         state.defaultFiles = [];
-        state.isOpenComposers.folder = false;
         state.isOpenComposers.mileboard = false;
         state.isOpenComposers.milegrid = false;
         state.isOpenComposers.milepad = false;
         state.isOpenComposers.mileshow = false;
         state.isOpenComposers.upload = false;
+      })
+      .addCase(addDirectory.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.success = true;
+        state.listData = [payload, ...state.listData];
+        state.isOpenComposers.folder = false;
       })
       // .addCase(moveDocument.fulfilled, (state, { payload }) => {
       //   state.listData = state.listData.filter(item=>item.id !== payload.documents[0]);
@@ -109,9 +140,16 @@ const documentSlice = createSlice({
       })
       .addCase(GetDocumentById.fulfilled, (state, action) => {
         state.documentDetail = action.payload;
+        state.detailLoader = false;
       })
       .addCase(addDocument.pending, (state, action) => {
         state.loader = true;
+      })
+      .addCase(addDirectory.pending, (state, action) => {
+        state.loader = true;
+      })
+      .addCase(GetDocumentById.pending, (state, action) => {
+        state.detailLoader = true;
       })
       .addMatcher(
         isPending(
@@ -152,6 +190,7 @@ export const {
   handleBreadCumb,
   updateMoveDocument,
   uploadFileByDrop,
-  handleChangeView
+  handleChangeView,
+  handleUpdateFolder
 } = documentSlice.actions;
 export default documentSlice.reducer;

@@ -101,6 +101,7 @@ const CreateMilepad = ({ isOpen, handleClose, referenceId, referenceType }) => {
       privacyId: privacyId,
       referenceId,
       referenceType,
+      attachments: [{ name: values.name }]
     };
     dispatch(addDocument({ payload, form }));
   };

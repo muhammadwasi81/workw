@@ -23,7 +23,7 @@ function Header(props) {
       render: (
         <SideDrawer
           children={<TravelComposer />}
-          title="Create Travel Expense"
+          title="Create Travel"
           buttonText="Create Travel"
           isAccessDrawer={true}
           setOpenDrawer={setVisible}

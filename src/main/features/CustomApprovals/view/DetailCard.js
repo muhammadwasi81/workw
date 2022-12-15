@@ -80,7 +80,7 @@ export default function DetailCard(props) {
         </div>
       </ItemHeader>
       <ItemContent className="flex item-content">
-        <div className="description w-full">
+        <div className="description custom-detail-des">
           <p>{description}</p>
         </div>
         <div className="!w-max m-4 ml-auto attachmentBox">
@@ -89,7 +89,7 @@ export default function DetailCard(props) {
             key={{ data: attachments }}
             toShow={1}
             onClick={() => {}}
-            size={"50px"}
+            size={"60px"}
           />
         </div>
       </ItemContent>

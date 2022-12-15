@@ -1,20 +1,24 @@
-import { PlusOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Divider, Form, Input, Select, Table } from "antd";
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { employeeDictionaryList } from "../localization/index";
-import "../Styles/employeeForm.css";
-import { relations } from "../../../../utils/Shared/enums/enums";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getUserEmergency } from "../../emergencyInfo/store/actions";
-import { resetEmergencydetails } from "../store/slice";
+import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, Divider, Form, Input, Select, Table } from 'antd';
+import React, { useContext, useEffect } from 'react';
+import { useState } from 'react';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { employeeDictionaryList } from '../localization/index';
+import '../Styles/employeeForm.css';
+import { relations } from '../../../../utils/Shared/enums/enums';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import {
+  getUserEmergency,
+  updateUserEmergencyContactAction,
+} from '../../emergencyInfo/store/actions';
+import { resetEmergencydetails } from '../store/slice';
 
 const { Option } = Select;
+
 const EmergencyForm = ({ mode, id }) => {
-  const isEdit = mode === "edit";
+  const isEdit = mode === 'edit';
   const [emergencyInfo, setEmergencyInfo] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
@@ -25,18 +29,20 @@ const EmergencyForm = ({ mode, id }) => {
     employee: { emergencydetails },
     success,
   } = useSelector((state) => state.employeeSlice);
+  console.log(emergencyInfo, 'emergencyInfo');
 
   const initialState = {
-    name: "",
-    address: "",
-    contactNo: "",
+    name: '',
+    address: '',
+    contactNo: '',
     relation: [],
   };
   const [initialValues, setInitialValues] = useState(initialState);
   const labels = employeesDictionary.EmergencyForm;
   const placeholder = employeesDictionary.placeholders;
   const [form] = Form.useForm();
-  Object.defineProperty(form, "values", {
+
+  Object.defineProperty(form, 'values', {
     value: function() {
       return emergencyInfo;
     },
@@ -45,6 +51,7 @@ const EmergencyForm = ({ mode, id }) => {
     configurable: true,
   });
   const dispatch = useDispatch();
+
   useEffect(() => {
     form.setFieldsValue(initialValues);
   }, [initialValues, form]);
@@ -61,11 +68,11 @@ const EmergencyForm = ({ mode, id }) => {
     if (isEdit) {
       dispatch(getUserEmergency(id));
     }
-
     return () => {
       dispatch(resetEmergencydetails());
     };
   }, []);
+
   const handleAddMore = async () => {
     form.submit();
     try {
@@ -74,7 +81,23 @@ const EmergencyForm = ({ mode, id }) => {
         setEmergencyInfo((preValues) => [...preValues, form.getFieldsValue()]);
       form.resetFields();
       setInitialValues(initialState);
-    } catch (e) {}
+    } catch (err) {
+      console.log(err, 'err');
+      throw new Error('something went wrong', { cause: err });
+    }
+  };
+
+  const handleUpdate = () => {
+    const payload = {
+      userId: id,
+      name: form.getFieldValue('name'),
+      address: form.getFieldValue('address'),
+      contactNo: form.getFieldValue('contactNo'),
+      relation: form.getFieldValue('relation'),
+    };
+    console.log(payload, 'handle Update');
+    dispatch(updateUserEmergencyContactAction(payload));
+    setEmergencyInfo(payload);
   };
 
   const handleRowChange = (rowIndex) => {
@@ -84,27 +107,26 @@ const EmergencyForm = ({ mode, id }) => {
     setEmergencyInfo(emergencyInfoArr);
   };
   const columns = (data) => {
-    console.log(data, "data2");
     return [
       {
         title: labels.Name,
-        dataIndex: "name",
-        key: "name",
+        dataIndex: 'name',
+        key: 'name',
       },
       {
         title: labels.Address,
-        dataIndex: "address",
-        key: "address",
+        dataIndex: 'address',
+        key: 'address',
       },
       {
         title: labels.Number,
-        dataIndex: "contactNo",
-        key: "contactNo",
+        dataIndex: 'contactNo',
+        key: 'contactNo',
       },
       {
         title: labels.Relation,
-        dataIndex: "relation",
-        key: "relation",
+        dataIndex: 'relation',
+        key: 'relation',
         render: (value) => {
           return relations[value - 1]?.name;
         },
@@ -113,7 +135,6 @@ const EmergencyForm = ({ mode, id }) => {
       {
         title: sharedLabels.action,
         render: (value, __, rowIndex) => {
-          console.log(data, "return");
           return (
             <a
               href=" "
@@ -123,7 +144,6 @@ const EmergencyForm = ({ mode, id }) => {
                 if (isEdit) {
                   handleRowChange(rowIndex);
                 } else {
-                  console.log("Data", data);
                   const filterArray = data.filter((value, i) => {
                     if (rowIndex !== i) return value;
                   });
@@ -139,18 +159,15 @@ const EmergencyForm = ({ mode, id }) => {
     ];
   };
 
-  const handleUpdate = () => {
-    console.log("handle Update");
-  };
-  let classes = "employeeForm emergencyInfo ";
-  classes += Direction === "ltr" ? "ltr" : "rtl";
+  let classes = 'employeeForm emergencyInfo ';
+  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.EmergencyInfo}</Divider>
       <Form
         name="emergencyInfo"
         form={form}
-        layout={"vertical"}
+        layout={'vertical'}
         initialValues={initialValues}
       >
         <Form.Item
@@ -206,7 +223,8 @@ const EmergencyForm = ({ mode, id }) => {
           </Select>
         </Form.Item>
       </Form>
-      <div className={isEdit ? "editButtons" : "buttons"}>
+
+      <div className={isEdit ? 'editButtons' : 'buttons'}>
         <Button
           type="dashed"
           className="btn addMore"

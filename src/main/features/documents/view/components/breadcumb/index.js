@@ -12,6 +12,9 @@ function BreadCumbs({ data }) {
             index
         }))
     }
+    if (data.length === 1)
+        return <></>
+
     return (
         <div className='MybreadCumbs'>
             <Breadcrumb>

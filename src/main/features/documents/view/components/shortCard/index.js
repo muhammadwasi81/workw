@@ -14,24 +14,34 @@ import { DOCUMENT_ENUM } from "../../../constant";
 import { Button, Modal } from 'antd';
 import moment from "moment";
 import { handleParentId } from "../../../store/slice";
-import { moveDocument } from "../../../store/actions";
+import { moveDirectory, moveDocument } from "../../../store/actions";
 import { LockFilled } from '@ant-design/icons';
 import { privacyOption } from "../../../../../../utils/Shared/enums/enums";
 import { openNotification } from "../../../../../../utils/Shared/store/slice";
+import QuickOptions from "../quickOptions";
 
 
-const DocShortCard = ({ data, handlePreview }) => {
+const DocShortCard = ({ data, handlePreview, hideControls }) => {
     const { userLanguage } = useContext(LanguageChangeContext);
     const { documentDictionary } = documentDictionaryList[userLanguage];
     const disptach = useDispatch()
 
-    let { name, documentType, creator, createDate, id, path, extensionTypeId, privacyId } = data
+    let {
+        name,
+        documentType = DOCUMENT_ENUM.DUCOMENT_TYPE.folder,
+        creator = {},
+        createDate,
+        id,
+        path,
+        extensionTypeId,
+        privacyId
+    } = data;
     let { DUCOMENT_TYPE } = DOCUMENT_ENUM;
     let { Public, Private, External } = privacyOption
     const localTime = moment
-    .utc(createDate)
-    .local()
-    .format();
+        .utc(createDate)
+        .local()
+        .format();
     const handleClick = (item) => {
         if (documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
             disptach(handleParentId(item))
@@ -41,15 +51,21 @@ const DocShortCard = ({ data, handlePreview }) => {
         }
     }
     const handleDrop = (item) => {
-        console.log(item, "Item")
         let dragData = item.dragData.name;
         let dropData = item.dropData.name;
-        if (dropData.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
-            disptach(moveDocument({
+        if (dragData.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder &&
+            dropData.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
+            disptach(moveDirectory({
                 parentId: dropData.id,
                 documents: [
                     dragData.id
                 ]
+            }))
+        }
+        else if (dropData.documentType === DOCUMENT_ENUM.DUCOMENT_TYPE.folder) {
+            disptach(moveDocument({
+                parentId: dropData.id,
+                documents: [dragData.id]
             }))
         }
         else {
@@ -58,9 +74,8 @@ const DocShortCard = ({ data, handlePreview }) => {
                 type: "error"
             }))
         }
-
     }
-    console.log(data, "Data")
+
     return (
         <>
             <DragDropContainer
@@ -69,7 +84,6 @@ const DocShortCard = ({ data, handlePreview }) => {
                 onDrop={handleDrop}
                 key={data.id}
                 noDragging={false}
-
             >
                 <DropTarget
                     onHit={(e) => { }}
@@ -82,24 +96,18 @@ const DocShortCard = ({ data, handlePreview }) => {
                         onClick={(e) => { e.preventDefault(); e.stopPropagation() }}
                         id={data.id}
                     >
-                        <div className="d_ShortCard_Child1" >
-                            <img
-                                alt=""
-                                src={favorateIcon}
-                            />
-                            <img
-                                alt=""
-                                src={menuIcon}
-                            />
-                        </div>
-                        {/* <div className="d_ShortCard_Child2">
-                        <img
-                            onClick={handleType}
-                            alt=""
-                            src={ documentType === DUCOMENT_TYPE.image ? 
-                                  path : getIconByExtensionType(documentType)}
-                        />
-                    </div> */}
+                        {!hideControls &&
+                            <div className="d_ShortCard_Child1" >
+                                <img
+                                    alt=""
+                                    src={favorateIcon}
+                                />
+                                {
+                                    documentType === DUCOMENT_TYPE.folder &&
+                                    <QuickOptions data={data} />
+                                }
+                            </div>}
+
                         <div className="d_ShortCard_Child2">
                             <img
                                 onClick={() => handleClick(data)}
@@ -112,27 +120,27 @@ const DocShortCard = ({ data, handlePreview }) => {
                             <div>
                                 {name}
                             </div>
-                            {/* <h6>
-                            {moment(createDate,'mm/dd/yyyy')}
-                        </h6> */}
                         </div>
-                        <div className="d_ShortCard_Child3">
-                            <div className="privacyStatus">
-                                {
-                                    privacyId === Private ? <LockFilled style={{ color: "var(--currentThemeColor)" }} /> : ""
-                                }
-                            </div>
-                            <h6 className="dateTime">
-                                {moment(localTime).fromNow()}
-                            </h6>
-                            <div>
-                                <Avatar
-                                    src={creator.image}
-                                    size={20}
-                                    round={true}
-                                />
-                            </div>
-                        </div>
+                        {!hideControls &&
+                            <div className="d_ShortCard_Child3">
+                                <div className="privacyStatus">
+                                    {
+                                        privacyId === Private ? <LockFilled style={{ color: "var(--currentThemeColor)" }} /> : ""
+                                    }
+                                </div>
+                                <h6 className="dateTime">
+                                    {moment(localTime).fromNow()}
+                                </h6>
+                                <div>
+                                    {/* {creator.image || creator.name &&
+                                        <Avatar
+                                            src={creator.image}
+                                            name={creator.name}
+                                            size={20}
+                                            round={true}
+                                        />} */}
+                                </div>
+                            </div>}
                     </div>
                 </DropTarget>
             </DragDropContainer>

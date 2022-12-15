@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAllEmployees,
   getAllEmployeeShort,
+  getEmployeeSalary,
 } from "../../../../../../utils/Shared/store/actions";
 import { getAllAllowance } from "../../../../allowance/store/actions";
 
@@ -59,6 +60,8 @@ const TaskComp = (props) => {
           userId
         })
       ); 
+      //TODO: dispatch employee salary here
+      dispatch(getEmployeeSalary({ id: userId }));
     }
   
   }, [date, userId]);

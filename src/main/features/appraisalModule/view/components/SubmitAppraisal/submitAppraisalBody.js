@@ -11,13 +11,13 @@ function SubmitAppraisalBody(props) {
   return (
     <>
       <div className="w-full flex gap-x-5 ">
-        <div className="w-[55%]">
+        <div className="w-[50%]">
           <TaskComp
             startDate={(val) => setStartDate(val)}
             endDate={(val) => setEndDate(val)}
           />
         </div>
-        <div className="w-[45%]">
+        <div className="w-[50%]">
           <AppraisalForm
             submit={props.submit}
             dataSend={(val) => props.dataSend(val)}

@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   ContBody,
   TabbableContainer,
 } from "../../../../../sharedComponents/AppComponents/MainFlexContainer";
-
+import { getAllDepartmentAppraisalQuestionService } from "../../../../departments/services/service";
+import {getAllQuestion} from '../../../../appraisal/appraisalQuestion/store/actions';
 import Header from "../../../../../layout/header/index";
 import SubmitAppraisalBody from "./submitAppraisalBody";
 import { Button } from "antd";
@@ -12,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { appraisalDictionaryList } from "../../../localization/index";
 function Index() {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
   const { submitAppraisal } = appraisalDictionary;
@@ -32,6 +34,11 @@ function Index() {
     //setState submit false when API is called
     setSubmit(false);
   };
+
+  useEffect(()=>{
+    console.log('first mount appraisal')
+    dispatch(getAllQuestion()); 
+  },[])
 
   return (
     <>

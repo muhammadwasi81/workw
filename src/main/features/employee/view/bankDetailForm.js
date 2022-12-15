@@ -1,27 +1,39 @@
-import { PlusOutlined, EditOutlined } from "@ant-design/icons";
-import { Avatar, Button, Divider, Form, Input, Select, Table } from "antd";
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { employeeDictionaryList } from "../localization/index";
-import "../Styles/employeeForm.css";
-import { useDispatch } from "react-redux";
+import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import {
+  Avatar,
+  Button,
+  Divider,
+  Form,
+  Input,
+  message,
+  Select,
+  Table,
+} from 'antd';
+import React, { useContext, useEffect } from 'react';
+import { useState } from 'react';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { employeeDictionaryList } from '../localization/index';
+import '../Styles/employeeForm.css';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getCities,
   getCountries,
-} from "../../../../utils/Shared/store/actions";
-import { useSelector } from "react-redux";
-import { getBankDetailByUser } from "../../bankDetails/store/actions";
-import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
-import { getNameForImage } from "../../../../utils/base";
-import { resetBankDetails } from "../store/slice";
+} from '../../../../utils/Shared/store/actions';
+import {
+  getBankDetailByUser,
+  updateUserBankInfoAction,
+} from '../../bankDetails/store/actions';
+import CitySelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect';
+import { getNameForImage } from '../../../../utils/base';
+import { resetBankDetails } from '../store/slice';
 const { Option } = Select;
+
 const BankForm = ({ mode, id }) => {
-  const isEdit = mode === "edit";
+  const isEdit = mode === 'edit';
   const [bankDetails, setBankDetails] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels } = dictionaryList[userLanguage];  
+  const { sharedLabels } = dictionaryList[userLanguage];
   const [countries, setCountries] = useState([]);
   const dispatch = useDispatch();
   const { countries: countriesSlice, cities } = useSelector(
@@ -35,22 +47,23 @@ const BankForm = ({ mode, id }) => {
     userLanguage
   ];
   const initialState = {
-    accountNumber: "",
-    accountTitle: "",
-    bankBranchCode: "",
-    bankName: "",
+    accountNumber: '',
+    accountTitle: '',
+    bankBranchCode: '',
+    bankName: '',
     cityId: [],
     countryId: [],
-    ibanNumber: "",
-    sortCode: "",
+    ibanNumber: '',
+    sortCode: '',
   };
   const [initialValues, setInitialValues] = useState(initialState);
   const [city, setCity] = useState([]);
+  const [newUserId, setNewUserId] = useState('');
   const labels = employeesDictionary.BankForm;
   const placeholder = employeesDictionary.placeholders;
   const [form] = Form.useForm();
 
-  Object.defineProperty(form, "values", {
+  Object.defineProperty(form, 'values', {
     value: function() {
       return bankDetails.map((item) => {
         return {
@@ -71,7 +84,7 @@ const BankForm = ({ mode, id }) => {
   useEffect(() => {
     if (isEdit) {
       if (!countriesSlice.length) dispatch(getCountries());
-      if (!cities.length) fetchCityData("", 0);
+      if (!cities.length) fetchCityData('', 0);
       dispatch(getBankDetailByUser(id));
     }
 
@@ -108,10 +121,6 @@ const BankForm = ({ mode, id }) => {
     dispatch(getCities({ textData: text, page: pgNo }));
   };
 
-  const handleUpdate = () => {
-    console.log("handle update");
-  };
-
   const handleRowChange = (rowIndex) => {
     setInitialValues(bankDetails[rowIndex]);
     let bankDetailsArr = [...bankDetails];
@@ -120,55 +129,55 @@ const BankForm = ({ mode, id }) => {
   };
   const columns = [
     {
-      title: "Bank Name",
-      dataIndex: "bankName",
+      title: 'Bank Name',
+      dataIndex: 'bankName',
       ellipsis: true,
-      key: "bankName",
+      key: 'bankName',
     },
     {
-      title: "Account Name",
-      dataIndex: "accountTitle",
+      title: 'Account Name',
+      dataIndex: 'accountTitle',
       ellipsis: true,
-      key: "accountTitle",
+      key: 'accountTitle',
     },
     {
-      title: "Branch Code",
-      dataIndex: "bankBranchCode",
+      title: 'Branch Code',
+      dataIndex: 'bankBranchCode',
       ellipsis: true,
-      key: "bankBranchCode",
+      key: 'bankBranchCode',
     },
     {
-      title: "Account Number",
-      dataIndex: "accountNumber",
+      title: 'Account Number',
+      dataIndex: 'accountNumber',
       ellipsis: true,
-      key: "accountNumber",
+      key: 'accountNumber',
     },
     {
-      title: "IBN",
-      dataIndex: "ibanNumber",
+      title: 'IBN',
+      dataIndex: 'ibanNumber',
       ellipsis: true,
-      key: "ibanNumber",
+      key: 'ibanNumber',
     },
     {
-      title: "Sort Code",
-      dataIndex: "sortCode",
+      title: 'Sort Code',
+      dataIndex: 'sortCode',
       ellipsis: true,
-      key: "sortCode",
+      key: 'sortCode',
     },
     {
-      title: "Country",
-      dataIndex: "countryId",
+      title: 'Country',
+      dataIndex: 'countryId',
       ellipsis: true,
-      key: "countryId",
+      key: 'countryId',
       render: (labels) => {
         return labels.children;
       },
     },
     {
-      title: "City",
-      dataIndex: "cityId",
+      title: 'City',
+      dataIndex: 'cityId',
       ellipsis: true,
-      key: "cityId",
+      key: 'cityId',
       render: (value) => {
         return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
       },
@@ -184,6 +193,8 @@ const BankForm = ({ mode, id }) => {
               e.preventDefault();
               if (isEdit) {
                 handleRowChange(rowIndex);
+                console.log(value?.id, 'value');
+                setNewUserId(value?.id);
               } else {
                 const filterArray = bankDetails.filter((value, i) => {
                   if (rowIndex !== i) return value;
@@ -199,18 +210,44 @@ const BankForm = ({ mode, id }) => {
     },
   ];
 
-  let classes = "employeeForm bankDetails ";
-  classes += Direction === "ltr" ? "ltr" : "rtl";
+  const createPayload = () => {
+    const payload = {
+      id: newUserId,
+      userId: id,
+      bankName: form.getFieldValue('bankName'),
+      accountTitle: form.getFieldValue('accountTitle'),
+      bankBranchCode: form.getFieldValue('bankBranchCode'),
+      accountNumber: form.getFieldValue('accountNumber'),
+      ibanNumber: form.getFieldValue('ibanNumber'),
+      sortCode: form.getFieldValue('sortCode'),
+      isDefault: form.getFieldValue('isDefault'),
+      cityId: form.getFieldValue('cityId'),
+      countryId: form.getFieldValue('countryId'),
+    };
+    return payload;
+  };
+
+  const handleUpdate = () => {
+    const payload = createPayload();
+    console.log(payload, 'payload');
+    dispatch(updateUserBankInfoAction(payload));
+    setBankDetails((preValues) => [...preValues, payload]);
+    setInitialValues(initialState);
+    form.resetFields();
+  };
+
+  let classes = 'employeeForm bankDetails ';
+  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.BankInfo}</Divider>
       <Form
         name="bankDetails"
         form={form}
-        layout={"vertical"}
+        layout={'vertical'}
         initialValues={initialValues}
         onFinish={() => {
-          console.log("bankDetails");
+          console.log('bankDetails');
         }}
       >
         <Form.Item
@@ -228,6 +265,12 @@ const BankForm = ({ mode, id }) => {
           rules={[
             {
               required: true,
+              validator: (rule, value) => {
+                if (value.length > 20) {
+                  return Promise.reject('Please enter valid account title');
+                }
+                return Promise.resolve();
+              },
             },
           ]}
           name="accountTitle"
@@ -289,7 +332,7 @@ const BankForm = ({ mode, id }) => {
             placeholder={placeholder.selectCountry}
             size="large"
             onChange={(value, object) =>
-              form.setFieldValue("countryId", object)
+              form.setFieldValue('countryId', object)
             }
           >
             {countries.map((item) => (
@@ -310,11 +353,11 @@ const BankForm = ({ mode, id }) => {
                 <Avatar src={opt.image} className="!bg-black">
                   {getNameForImage(opt.name)}
                 </Avatar>
-                {opt.name + " - " + opt.country}
+                {opt.name + ' - ' + opt.country}
               </>
             );
           }}
-          defaultKey={"id"}
+          defaultKey={'id'}
           isObject={true}
           placeholder={placeholder.searchToSelect}
           size="large"
@@ -323,7 +366,7 @@ const BankForm = ({ mode, id }) => {
           rules={[{ required: true }]}
         />
       </Form>
-      <div className={isEdit ? "editButtons" : "buttons"}>
+      <div className={isEdit ? 'editButtons' : 'buttons'}>
         <Button
           type="dashed"
           className="btn addMore"

@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from 'react';
 import {
   FormButton,
   FormContainer,
@@ -6,20 +6,21 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
-import { Input, Select } from "antd";
-import { FormButtonContainer } from "../../../sharedComponents/StyledComponents/adminForm";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllChartOfAccount } from "../../chartOfAccount/store/actions";
-import { assetsCategoryDictionaryList } from "../localization/index";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+import { Input, Select } from 'antd';
+import { FormButtonContainer } from '../../../sharedComponents/StyledComponents/adminForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllChartOfAccount } from '../../chartOfAccount/store/actions';
+import { assetsCategoryDictionaryList } from '../localization/index';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+
 const accountTypes = [
-  { id: 1, label: "Asset" },
-  { id: 2, label: "Liability" },
-  { id: 3, label: "Capital" },
-  { id: 4, label: "Revenue" },
-  { id: 5, label: "Expense" },
-  { id: 6, label: "Cost of Good Sold" },
+  { id: 1, label: 'Asset' },
+  { id: 2, label: 'Liability' },
+  { id: 3, label: 'Capital' },
+  { id: 4, label: 'Revenue' },
+  { id: 5, label: 'Expense' },
+  { id: 6, label: 'Cost of Good Sold' },
 ];
 
 const AssetsCategoryForm = ({
@@ -31,10 +32,10 @@ const AssetsCategoryForm = ({
 }) => {
   const dispatch = useDispatch();
   const [form, setForm] = useState(data);
-  console.log(form, "data");
+  console.log(form, 'data');
 
   const { listData } = useSelector((state) => state.chartOfAccountsSlice);
-  console.log(listData, "listData");
+  console.log(listData, 'listData');
 
   useEffect(() => {
     dispatch(getAllChartOfAccount());
@@ -43,10 +44,10 @@ const AssetsCategoryForm = ({
   const handleClear = () => {
     setForm({
       ...form,
-      name: "",
-      description: "",
-      accountName: "",
-      parentId: "",
+      name: '',
+      description: '',
+      accountName: '',
+      parentId: '',
     });
     setClearButton(false);
   };
@@ -114,7 +115,7 @@ const AssetsCategoryForm = ({
             <FormLabel>{assetsDictionary.accountType}</FormLabel>
             <Select
               showSearch
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               placeholder={assetsDictionary.selectType}
               defaultValue={form.accountName}
               optionFilterProp="children"
@@ -136,7 +137,7 @@ const AssetsCategoryForm = ({
             <FormLabel>{assetsDictionary.parentAccount}</FormLabel>
             <Select
               showSearch
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               placeholder={assetsDictionary.selectParent}
               defaultValue={form.parentId}
               optionFilterProp="children"

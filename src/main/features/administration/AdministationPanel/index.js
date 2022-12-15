@@ -8,16 +8,19 @@ import { AdminNotification } from "./notification";
 // import { Outlet } from "react-router-dom";
 
 const Administration = () => {
-	return (
-		<>
-			<AdminPanelContainer>
-				<AdminList />
-				<AdminRoutes />
-				{/* <Outlet /> */}
-				<AdminNotification />
-			</AdminPanelContainer>
-		</>
-	);
+  const searchHandler = (value) => {
+    console.log(value, "serach value");
+  };
+  return (
+    <>
+      <AdminPanelContainer>
+        <AdminList />
+        <AdminRoutes />
+        {/* <Outlet /> */}
+        <AdminNotification />
+      </AdminPanelContainer>
+    </>
+  );
 };
 
 export default Administration;

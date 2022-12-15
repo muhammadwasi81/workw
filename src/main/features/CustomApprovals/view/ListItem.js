@@ -70,7 +70,7 @@ function ListItem(props) {
           </div>
         </ItemHeader>
         <ItemContent className="item-content flex">
-          <div className="description">
+          <div className="description custom-description">
             <p>{description}</p>
           </div>
           <div className="!w-max m-4 ml-auto attachmentBox">
@@ -79,8 +79,8 @@ function ListItem(props) {
               key={{ data: attachments }}
               toShow={1}
               onClick={() => {}}
-              size={"50px"}
-            /> 
+              size={"60px"}
+            />
             {/* {attachments.map((i) => {
               return <img width={"100%"} src={i.path} />;
             })} */}

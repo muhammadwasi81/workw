@@ -1,25 +1,25 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
 import {
   addAllowance,
   removeAllowance,
   updateAllowance,
-} from '../store/actions';
-import AllowanceTable from './table.js';
-import AllowanceForm from './form.js';
-import './allowance.css';
-import { message } from 'antd';
+} from "../store/actions";
+import AllowanceTable from "./table.js";
+import AllowanceForm from "./form.js";
+import "./allowance.css";
+import { message } from "antd";
 
 export default function Allowance() {
   const initialState = {
-    name: '',
-    description: '',
-    gradeId: '',
+    name: "",
+    description: "",
+    gradeId: "",
     allowanceType: 1,
     allowanceUnit: 1,
     isTaxable: true,
-    value: '',
+    value: "",
   };
   const [allowance, setAllowance] = useState(initialState);
   const [clearButton, setClearButton] = useState(false);
@@ -32,8 +32,8 @@ export default function Allowance() {
   };
 
   const onSubmit = (e) => {
-    console.log(e, 'FROM MAIN');
-    if (!e.name || e.description || e.gradeId) {
+    console.log(e, "FROM MAIN");
+    if (!e.name || !e.description || !e.gradeId) {
       return message.error(`Please fill all the fields`);
     }
     if (!e.id) {

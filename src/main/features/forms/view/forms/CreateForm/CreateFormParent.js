@@ -127,7 +127,7 @@ export const CreateFormParent = (props) => {
       id: createGuid(),
       subject: values.subject,
       description: values.description,
-      approvers: modifySelectData(values.approvers).map((el, index) => {
+      approvers: values.approvers && modifySelectData(values.approvers).map((el, index) => {
         return {
           approverId: el,
         };

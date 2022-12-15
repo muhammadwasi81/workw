@@ -15,6 +15,7 @@ const urdu = {
     list:"فہرست",
     table:"ٹیبل",
     selectMember: "ممبر کو منتخب کریں۔",
+    selectApprovers:"منظور کنندگان کو منتخب کریں۔",
     members: "اراکین",
     category: "قسم",
     approvers: "منظوری دینے والے",

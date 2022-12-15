@@ -22,14 +22,11 @@ const promotionSlice = createSlice({
     handleOpenComposer: (state, { payload }) => {
       state.drawerOpen = payload;
     },
+    
     cancelPromotionSuccess: (state, { payload }) => {
       let promotionList = [...state.promotions];
-      let index = promotionList.findIndex(
-        (item) => item.id === payload.promotionId
-      );
-      let promotion = promotionList.filter(
-        (item) => item.id === payload.promotionId
-      )[0];
+      let index = promotionList.findIndex((item) => item.id === payload.promotionId);
+      let promotion = promotionList.filter((item) => item.id === payload.promotionId)[0];
 
       promotionList[index] = {
         ...promotion,
@@ -37,10 +34,7 @@ const promotionSlice = createSlice({
       };
 
       state.promotions = promotionList;
-      state.promotionDetail = {
-        ...promotion,
-        status: 4,
-      };
+      state.promotionDetail = { ...promotion,status: 4,};
     },
   },
   extraReducers: (builder) => {

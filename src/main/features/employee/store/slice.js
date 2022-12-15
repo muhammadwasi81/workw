@@ -2,10 +2,6 @@ import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import { getBankDetailByUser } from '../../bankDetails/store/actions';
 import { getUserBasicInfo } from '../../basicInfo/store/actions';
 import { getEducationDetailByUser } from '../../education/store/actions';
-import {
-  getUserEmergency,
-  updateUserEmergencyContactAction,
-} from '../../emergencyInfo/store/actions';
 import { getUserWorkExperience } from '../../experienceInfo/store/actions';
 import { addEmployee, getAllEmployees, getEmployeeByIdAction } from './actions';
 
@@ -60,25 +56,14 @@ const employeeSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
-      .addCase(
-        updateUserEmergencyContactAction.fulfilled,
-        (state, { payload }) => {
-          console.log(payload.data, 'updateUserEmergencyContactAction slice');
-          state.employee.emergencydetails = payload.data;
-          state.loader = false;
-          state.success = true;
-        }
-      )
       .addCase(getBankDetailByUser.fulfilled, (state, { payload }) => {
         state.employee.bankdetails = payload.data;
       })
       .addCase(getUserBasicInfo.fulfilled, (state, { payload }) => {
         state.employee.basicdetails = payload.data;
       })
-      .addCase(getUserEmergency.fulfilled, (state, { payload }) => {
-        state.employee.emergencydetails = payload.data;
-      })
       .addCase(getUserWorkExperience.fulfilled, (state, { payload }) => {
+        console.log(payload.data, 'getUserEmergency slice');
         state.employee.experiencedetails = payload.data;
       })
       .addCase(getEducationDetailByUser.fulfilled, (state, { payload }) => {
@@ -88,15 +73,10 @@ const employeeSlice = createSlice({
         state.loader = true;
         state.success = false;
       })
-      .addMatcher(
-        isRejected(
-          ...[addEmployee, getAllEmployees, updateUserEmergencyContactAction]
-        ),
-        (state) => {
-          state.loader = false;
-          state.success = false;
-        }
-      );
+      .addMatcher(isRejected(...[addEmployee, getAllEmployees]), (state) => {
+        state.loader = false;
+        state.success = false;
+      });
   },
 });
 export default employeeSlice.reducer;

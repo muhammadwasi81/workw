@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useContext } from "react";
-import { TeamTable } from "./TaskTable/TeamTable";
+import React, { useEffect, useState, useContext } from 'react';
+import { TeamTable } from './TaskTable/TeamTable';
 
-import { useDispatch, useSelector } from "react-redux";
-import { getUserWorkExperience } from "../../../features/experienceInfo/store/actions";
-import { useParams } from "react-router-dom";
-import { employmentType } from "../../../../utils/Shared/enums/enums";
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserWorkExperience } from '../../../features/experienceInfo/store/actions';
+import { useParams } from 'react-router-dom';
+import { employmentType } from '../../../../utils/Shared/enums/enums';
 
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { teamDictionaryList } from "../localization/index";
-import moment from "moment";
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { teamDictionaryList } from '../localization/index';
+import moment from 'moment';
 
 function Experience() {
   const dispatch = useDispatch();
@@ -33,8 +33,8 @@ function Experience() {
   const columns = [
     {
       title: labels.Position,
-      dataIndex: "position",
-      key: "position",
+      dataIndex: 'position',
+      key: 'position',
       sort: true,
       width: 200,
       // className: "experience",
@@ -42,9 +42,9 @@ function Experience() {
 
     {
       title: labels.EmploymentType,
-      dataIndex: "employmentTypeId",
+      dataIndex: 'employmentTypeId',
       // className: "experience",
-      key: "employmentTypeId",
+      key: 'employmentTypeId',
       sort: true,
       width: 200,
       render: (value) => {
@@ -53,23 +53,23 @@ function Experience() {
     },
     {
       title: labels.StartEndDate,
-      dataIndex: "startDate",
-      key: "startDate",
+      dataIndex: 'startDate',
+      key: 'startDate',
       sort: true,
       width: 200,
       // className: "experience",
       render: (value, row) => {
         return value?.length
-          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
+          ? `${moment(row.startDate[0]).format('YYYY/MM/DD')} - ${moment(
               row.startDate[1]
-            ).format("YYYY/MM/DD")}`
-          : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
+            ).format('YYYY/MM/DD')}`
+          : `${moment(row.start).format('YYYY/MM/DD')} -  Present`;
       },
     },
     {
       title: labels.City,
-      dataIndex: "cityId",
-      key: "cityId",
+      dataIndex: 'cityId',
+      key: 'cityId',
       sort: true,
       width: 200,
       render: (value) => {

@@ -9,15 +9,16 @@ import '../Styles/employeeForm.css';
 import { relations } from '../../../../utils/Shared/enums/enums';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { resetEmergencydetails } from '../store/slice';
 import {
   getUserEmergency,
   updateUserEmergencyContactAction,
 } from '../../emergencyInfo/store/actions';
-import { resetEmergencydetails } from '../store/slice';
+import { handleResetEmergencyInfo } from '../../emergencyInfo/store/slice';
 
 const { Option } = Select;
 
-const EmergencyForm = ({ mode, id }) => {
+const EmergencyForm = ({ mode, userId }) => {
   const isEdit = mode === 'edit';
   const [emergencyInfo, setEmergencyInfo] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -25,11 +26,11 @@ const EmergencyForm = ({ mode, id }) => {
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
-  const {
-    employee: { emergencydetails },
-    success,
-  } = useSelector((state) => state.employeeSlice);
-  console.log(emergencyInfo, 'emergencyInfo');
+
+  const { emergencyInformation, success, emergencyDetails } = useSelector(
+    (state) => state.emergencyInfoSlice
+  );
+  console.log(emergencyInformation, 'emergencyInformation');
 
   const initialState = {
     name: '',
@@ -44,7 +45,7 @@ const EmergencyForm = ({ mode, id }) => {
 
   Object.defineProperty(form, 'values', {
     value: function() {
-      return emergencyInfo;
+      return emergencyInformation;
     },
     writable: true,
     enumerable: true,
@@ -53,20 +54,21 @@ const EmergencyForm = ({ mode, id }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (success) setEmergencyInfo([]);
+    dispatch(handleResetEmergencyInfo());
+  }, [success]);
+
+  useEffect(() => {
     form.setFieldsValue(initialValues);
   }, [initialValues, form]);
 
   useEffect(() => {
-    if (success) setEmergencyInfo([]);
-  }, [success]);
-
-  useEffect(() => {
-    if (isEdit) setEmergencyInfo(emergencydetails);
-  }, [emergencydetails]);
+    if (isEdit) setEmergencyInfo(emergencyInformation);
+  }, [emergencyInformation]);
 
   useEffect(() => {
     if (isEdit) {
-      dispatch(getUserEmergency(id));
+      dispatch(getUserEmergency(userId));
     }
     return () => {
       dispatch(resetEmergencydetails());
@@ -87,17 +89,25 @@ const EmergencyForm = ({ mode, id }) => {
     }
   };
 
-  const handleUpdate = () => {
+  const createPayload = () => {
     const payload = {
-      userId: id,
+      userId: userId,
+      id: emergencyDetails?.id,
       name: form.getFieldValue('name'),
       address: form.getFieldValue('address'),
       contactNo: form.getFieldValue('contactNo'),
       relation: form.getFieldValue('relation'),
     };
-    console.log(payload, 'handle Update');
-    dispatch(updateUserEmergencyContactAction(payload));
-    setEmergencyInfo(payload);
+    return payload;
+  };
+
+  const handleUpdate = () => {
+    const payloadData = createPayload();
+    console.log(payloadData, 'payloadData');
+    dispatch(updateUserEmergencyContactAction(payloadData));
+    setEmergencyInfo((preValues) => [...preValues, form.getFieldsValue()]);
+    form.resetFields();
+    setInitialValues(initialState);
   };
 
   const handleRowChange = (rowIndex) => {
@@ -106,6 +116,7 @@ const EmergencyForm = ({ mode, id }) => {
     emergencyInfoArr.splice(rowIndex, 1);
     setEmergencyInfo(emergencyInfoArr);
   };
+
   const columns = (data) => {
     return [
       {

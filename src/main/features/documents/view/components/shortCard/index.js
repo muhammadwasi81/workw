@@ -102,7 +102,10 @@ const DocShortCard = ({ data, handlePreview, hideControls }) => {
                                     alt=""
                                     src={favorateIcon}
                                 />
-                                <QuickOptions data={data} />
+                                {
+                                    documentType === DUCOMENT_TYPE.folder &&
+                                    <QuickOptions data={data} />
+                                }
                             </div>}
 
                         <div className="d_ShortCard_Child2">

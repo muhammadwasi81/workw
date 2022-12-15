@@ -28,8 +28,8 @@ export const tableColumn = () => {
 		{
 			title: "Privacy",
 			dataIndex: "privacyId",
-			render: (creator, row) => {
-				return <div>Public</div>
+			render: (data, row) => {
+				return <div>{data === 2 ? "Private" : "Public"}</div>
 			},
 			ellipsis: true,
 			sort: true,

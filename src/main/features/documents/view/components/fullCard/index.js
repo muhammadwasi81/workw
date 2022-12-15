@@ -24,7 +24,7 @@ import DocumentStatusTag from "../documentStatusTag/StatusTag";
 import { createGuid } from "../../../../../../utils/base";
 import DocShortCard from "../shortCard";
 
-const DocFullCard = ({ data, handleClickCard }) => {
+const DocFullCard = ({ data, handleClickCard, handlePreview }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { documentDictionary } = documentDictionaryList[userLanguage];
   let {
@@ -93,7 +93,7 @@ const DocFullCard = ({ data, handleClickCard }) => {
         <div className="doc_detail_media">
           <DocShortCard
             data={documentFile}
-            handlePreview={() => {}}
+            handlePreview={handlePreview}
             key={createGuid()}
             hideControls={true}
           />

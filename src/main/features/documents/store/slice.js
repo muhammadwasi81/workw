@@ -34,6 +34,7 @@ const initialState = {
   success: false,
   loader: false,
   listLoader: false,
+  detailLoader: false,
   error: false,
   parentId: null,
   breadCumbPath: [{
@@ -106,7 +107,7 @@ const documentSlice = createSlice({
         //     ...state.listData
         //   ] : [payload, ...state.listData]
         state.listData = [
-          ...payload.map(item=>({
+          ...payload.map(item => ({
             ...item,
             path: item.attachments[0].path,
             name: item.attachments[0].name
@@ -139,9 +140,16 @@ const documentSlice = createSlice({
       })
       .addCase(GetDocumentById.fulfilled, (state, action) => {
         state.documentDetail = action.payload;
+        state.detailLoader = false;
       })
       .addCase(addDocument.pending, (state, action) => {
         state.loader = true;
+      })
+      .addCase(addDirectory.pending, (state, action) => {
+        state.loader = true;
+      })
+      .addCase(GetDocumentById.pending, (state, action) => {
+        state.detailLoader = true;
       })
       .addMatcher(
         isPending(

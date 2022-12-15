@@ -59,7 +59,12 @@ function SectionDetail(props) {
 		userLanguage
 	];
 	const { detail, labels, placeHolder } = LeadManagerDictionaryList;
-
+	const scheduleSuccess = useSelector(state => state.scheduleSlice.success);
+	useEffect(() => {
+		if (scheduleSuccess) {
+			setIsOpen(false);
+		}
+	}, [scheduleSuccess]);
 	const onFinish = values => {
 		dispatch(
 			updateLeadManagerDetail(
@@ -81,14 +86,6 @@ function SectionDetail(props) {
 	if (isSectionDetailLoading && !data) {
 		return <SectionDetailSkeleton />;
 	}
-
-	const scheduleSuccess = useSelector(state => state.scheduleSlice.success);
-
-	useEffect(() => {
-		if (scheduleSuccess) {
-			setIsOpen(false);
-		}
-	}, [scheduleSuccess]);
 
 	// console.log("data", data);
 	return (

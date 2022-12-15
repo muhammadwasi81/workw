@@ -25,7 +25,6 @@ function PostDetail() {
 		<TabbableContainer>
 			<Header />
 			<ContBody>
-				dsfdsfds
 				<div className="newsFeed" style={{ direction: Direction }}>
 					<div className="newsList">
 						<div className="postDetails">

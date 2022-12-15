@@ -77,3 +77,20 @@ export const getComposerKeyByType = (documentType) => {
             break;
     }
 }
+
+export const getDocumentRightLabel = (documentType) => {
+    console.log(documentType, "documentType")
+    switch (documentType) {
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.folder:
+            return "Access To"
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.image:
+            return "Downloaders"
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.video:
+            return "Downloaders"
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+            return "Downloaders"
+        default:
+            return "Collaborators"
+            break;
+    }
+}

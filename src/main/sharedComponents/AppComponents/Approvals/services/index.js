@@ -21,11 +21,11 @@ export const saveApprovalsRemarks = async (remark) => {
 
 export const addApprovalService = async (data) => {
   let module = data.module
-  let apprverType = Number(data.approvalType) 
+  let approverType = data.approvalType 
   let referenceId = data.referenceId.toString()
   let dataObject = {
     approverId: data.approverId,
-    approverType: apprverType,
+    approverType: approverType,
   }
   console.log(dataObject, "DATA OBJECT");
   return MasterConfig.post(`api/Approval/AddApproval?module=${module}&referenceId=${referenceId}`, dataObject)

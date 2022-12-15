@@ -40,10 +40,10 @@ export const routes = {
       path: ROUTES.SCHEDULES.DEFAULT,
       component: lazy(() => import("../main/features/schedule/routes/")),
     },
-    // {
-    // 	path: `${ROUTES.MAIL.DEFAULT}`,
-    // 	component: lazy(() => import("../main/features/mail/")),
-    // },
+    {
+    	path: `${ROUTES.MAIL.DEFAULT}`,
+    	component: lazy(() => import("../main/features/mail/")),
+    },
     {
       path: `${ROUTES.CUSTOM_APPROVALS.DEFAULT}`,
       component: lazy(() =>

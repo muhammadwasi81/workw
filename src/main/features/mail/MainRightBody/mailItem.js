@@ -1,5 +1,5 @@
 import React from "react";
-import AntTooltip from "../../../SharedComponent/Tooltip/AntTooltip";
+// import AntTooltip from "../../../SharedComponent/Tooltip/AntTooltip";
 import { Button, Rate, Tooltip, message } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import {
@@ -12,6 +12,7 @@ import { MdDelete } from "react-icons/md";
 import { deleteEmail, moveEmailToTrash } from "../Store/Api";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import AntTooltip from "../../../sharedComponents/Tooltip/AntTooltip";
 
 const MailItem = ({ data, changeSeenFlag }) => {
 	const dispatch = useDispatch();

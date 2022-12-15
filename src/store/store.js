@@ -91,6 +91,7 @@ import employeeProfileSlice from '../main/features/profile/store/slice';
 import notificationSliceNew from '../main/features/notifiation/store/slice';
 import approvalSlice from '../main/features/approval/store/slice';
 import approverSlice from '../main/features/defaultApprovers/store/slice';
+import mailSlice from '../main/features/mail/Store/MailSlice';
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -178,6 +179,7 @@ const reducers = combineReducers({
   notificationSliceNew,
   approvalSlice,
   approverSlice,
+  mailSlice
 });
 
 const persistConfig = {

@@ -563,12 +563,6 @@
     font-size: 13px;
   }
 
-  .avatar {
-    width: 38px !important;
-    min-width: 38px !important;
-    height: 38px !important;
-    max-height: 44px !important;
-  }
 }
 
 @media (min-width: 1901px) and (max-width: 2000px) {

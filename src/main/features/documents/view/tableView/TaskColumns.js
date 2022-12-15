@@ -34,12 +34,12 @@ export const tableColumn = () => {
 			ellipsis: true,
 			sort: true,
 		},
-		{
-			title: "Status",
-			dataIndex: "status",
-			render: status => <DocumentStatusTag status={status} />,
-			sort: true,
-		},
+		// {
+		// 	title: "Status",
+		// 	dataIndex: "status",
+		// 	render: status => <DocumentStatusTag status={status} />,
+		// 	sort: true,
+		// },
 		// {
 		// 	title: "Task Assigned To",
 		// 	dataIndex: "members",

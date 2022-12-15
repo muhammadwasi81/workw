@@ -1,10 +1,6 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
-  addCareer,
-  getAllCareerAction,
-  getCareerByIdAction,
-  addCareerApplicant,
-  getAllCareerApplicant,
+  getAllTaskForAppraisalAction,
 } from "./action";
 
 const defaultCareer = {
@@ -24,6 +20,7 @@ const initialState = {
   careerDetail: {},
   careerApplicants: [],
   loader: false,
+  userTask: [],
 };
 
 const appraisalModuleSlice = createSlice({
@@ -45,7 +42,22 @@ const appraisalModuleSlice = createSlice({
       state.currentTab = tab;
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder
+    .addCase(getAllTaskForAppraisalAction.fulfilled, (state, { payload }) => {
+      state.userTask = payload;
+      state.loader = false;
+      console.log(payload);
+    })
+    .addMatcher(isPending(...[getAllTaskForAppraisalAction]), (state) => {
+      console.log('pending')
+      state.loader = true;
+    })
+    .addMatcher(isRejected(...[getAllTaskForAppraisalAction]), (state) => {
+      state.loader = false;
+      console.log("rejected get all appraisal module");
+    })
+  },
 });
 
 export const {

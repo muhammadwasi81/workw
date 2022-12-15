@@ -12,6 +12,11 @@ import { getAllAllowance } from "../../../../allowance/store/actions";
 import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { appraisalDictionaryList } from "../../../localization/index";
+import { getAllTask } from "../../../../task/store/actions";
+import { Table } from "../../../../../sharedComponents/customTable";
+import { tableColumn } from "./TableColumn";
+import { getAllTaskForAppraisalAction } from "../../../store/action";
+import { data } from "jquery";
 
 const { RangePicker } = DatePicker;
 
@@ -22,20 +27,41 @@ const TaskComp = (props) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [employee, setEmployee] = useState({});
-
+  const [userId, setUserId] = useState('');
+  // const [startDateState, setStartDate]= usestate('');
+  // const [endDateState, setEndDate] = useState('');
+  const [ date, setDate] = useState({startDate: '', endDate: ''})
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
   const employeesData = useSelector((state) => state.sharedSlice.employees);
   const employeesShortData = useSelector(
     (state) => state.sharedSlice.employeeShort
   );
+  const {userTask} = useSelector(
+    (state) => state.appraisalModuleSlice
+  );
+
+
 
   useEffect(() => {
-    console.log("useEffect works");
     fetchEmployees();
     fetchEmployeesShort();
     fetchAllowance();
   }, []);
+
+  useEffect(() => {
+    if(date.startDate.length > 1 && date.startDate.length > 1 && userId) {
+      console.log('if block works')
+      dispatch(
+        getAllTaskForAppraisalAction({
+          startDate: date.startDate,
+          endDate: date.endDate,
+          userId
+        })
+      ); 
+    }
+  
+  }, [date, userId]);
 
   useEffect(() => {
     console.log("esssss");
@@ -70,13 +96,17 @@ const TaskComp = (props) => {
     // console.log(employeesData, employee);
     let selected = employeesData.filter((el) => el.id === employee);
     setEmployee(selected[0]);
-    console.log(selected);
+    // console.log(selected[0].id);
+    setUserId(selected[0].id);
   };
 
   const onRangeChange = (dates, dateStrings) => {
+    //TODO: change this function according to api call for task
     if (dates) {
-      console.log("From: ", dates[0], ", to: ", dates[1]);
-      console.log("From: ", dateStrings[0], ", to: ", dateStrings[1]);
+      setDate({
+        startDate: dates[0].format(),
+        endDate: dates[1].format()
+      })
     } else {
       console.log("Clear");
     }
@@ -134,9 +164,7 @@ const TaskComp = (props) => {
             }
           />
         </div>
-        <div className="inputBox flex justify-between items-center mt-4">
-          {task}
-        </div>
+
         <Form
           name="CreateForm"
           onFinish={onFinish}
@@ -144,14 +172,14 @@ const TaskComp = (props) => {
           autoComplete="off"
           layout="vertical"
           form={form}
-          className="flex justify-around"
+          className="h-14"
         >
-          <div className="mt-4 w-full">
-            <Form.Item name={"date"} className="h-14">
+          <div className="range-picker mt-4 w-full">
+            <Form.Item name={"date"}>
               <RangePicker
                 onChange={onRangeChange}
-                size="middle"
                 // className="mt-4"
+                size="large"
               />
             </Form.Item>
           </div>
@@ -177,6 +205,18 @@ const TaskComp = (props) => {
             </Form.Item>
           </div> */}
         </Form>
+        <div className="flex text-2xl font-bold">{task}</div>
+      </div>
+      <div className="appraisalFormBody drop-shadow mt-4">
+        <div className="w-full my-0 mx-auto mt-4">
+        <Table
+          columns={tableColumn()}
+          // handleChange={handleColumnSorting}
+          dragable={true}
+          data={userTask ? userTask : []}
+        />
+        </div>
+        
       </div>
     </>
   );

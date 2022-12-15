@@ -63,7 +63,6 @@ const employeeSlice = createSlice({
         state.employee.basicdetails = payload.data;
       })
       .addCase(getUserWorkExperience.fulfilled, (state, { payload }) => {
-        console.log(payload.data, 'getUserEmergency slice');
         state.employee.experiencedetails = payload.data;
       })
       .addCase(getEducationDetailByUser.fulfilled, (state, { payload }) => {

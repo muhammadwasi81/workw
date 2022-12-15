@@ -21,6 +21,7 @@ const { Option } = Select;
 const EmergencyForm = ({ mode, userId }) => {
   const isEdit = mode === 'edit';
   const [emergencyInfo, setEmergencyInfo] = useState([]);
+  const [newUserId, setNewUserId] = useState('');
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const { employeesDictionary, Direction } = employeeDictionaryList[
@@ -30,7 +31,7 @@ const EmergencyForm = ({ mode, userId }) => {
   const { emergencyInformation, success, emergencyDetails } = useSelector(
     (state) => state.emergencyInfoSlice
   );
-  console.log(emergencyInformation, 'emergencyInformation');
+  console.log(emergencyDetails?.id, 'emergencyInformation');
 
   const initialState = {
     name: '',
@@ -89,27 +90,6 @@ const EmergencyForm = ({ mode, userId }) => {
     }
   };
 
-  const createPayload = () => {
-    const payload = {
-      userId: userId,
-      id: emergencyDetails?.id,
-      name: form.getFieldValue('name'),
-      address: form.getFieldValue('address'),
-      contactNo: form.getFieldValue('contactNo'),
-      relation: form.getFieldValue('relation'),
-    };
-    return payload;
-  };
-
-  const handleUpdate = () => {
-    const payloadData = createPayload();
-    console.log(payloadData, 'payloadData');
-    dispatch(updateUserEmergencyContactAction(payloadData));
-    setEmergencyInfo((preValues) => [...preValues, form.getFieldsValue()]);
-    form.resetFields();
-    setInitialValues(initialState);
-  };
-
   const handleRowChange = (rowIndex) => {
     setInitialValues(emergencyInfo[rowIndex]);
     const emergencyInfoArr = [...emergencyInfo];
@@ -154,6 +134,8 @@ const EmergencyForm = ({ mode, userId }) => {
                 e.stopPropagation();
                 if (isEdit) {
                   handleRowChange(rowIndex);
+                  setNewUserId(data[rowIndex].id);
+                  console.log(data[rowIndex].id, 'data[rowIndex].id');
                 } else {
                   const filterArray = data.filter((value, i) => {
                     if (rowIndex !== i) return value;
@@ -168,6 +150,29 @@ const EmergencyForm = ({ mode, userId }) => {
         },
       },
     ];
+  };
+
+  const createPayload = () => {
+    const payload = {
+      userId: userId,
+      // id: emergencyDetails?.id,
+      id: newUserId,
+      name: form.getFieldValue('name'),
+      address: form.getFieldValue('address'),
+      contactNo: form.getFieldValue('contactNo'),
+      relation: form.getFieldValue('relation'),
+    };
+    return payload;
+  };
+
+  const handleUpdate = () => {
+    const payloadData = createPayload();
+    console.log(payloadData, 'payloadData');
+    dispatch(updateUserEmergencyContactAction(payloadData));
+    // setEmergencyInfo((preValues) => [...preValues, form.getFieldsValue()]);
+    setEmergencyInfo((preValues) => [...preValues, payloadData]);
+    form.resetFields();
+    setInitialValues(initialState);
   };
 
   let classes = 'employeeForm emergencyInfo ';

@@ -95,6 +95,7 @@ import emergencyInfoSlice from '../main/features/emergencyInfo/store/slice';
 import workExperienceSlice from '../main/features/experienceInfo/store/slice';
 import userEducationSlice from '../main/features/education/store/slice';
 import bankInfoSlice from '../main/features/bankDetails/store/slice';
+import employeeSalarySlice from '../main/features/salary/view/SalaryEmployee/action/slice';
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -186,6 +187,7 @@ const reducers = combineReducers({
   workExperienceSlice,
   userEducationSlice,
   bankInfoSlice,
+  employeeSalarySlice,
 });
 
 const persistConfig = {

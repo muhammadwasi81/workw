@@ -1,14 +1,5 @@
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
-import {
-  Avatar,
-  Button,
-  Divider,
-  Form,
-  Input,
-  message,
-  Select,
-  Table,
-} from 'antd';
+import { Avatar, Button, Divider, Form, Input, Select, Table } from 'antd';
 import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { dictionaryList } from '../../../../utils/localization/languages';
@@ -127,6 +118,7 @@ const BankForm = ({ mode, id }) => {
     bankDetailsArr.splice(rowIndex, 1);
     setBankDetails(bankDetailsArr);
   };
+
   const columns = [
     {
       title: 'Bank Name',
@@ -220,7 +212,6 @@ const BankForm = ({ mode, id }) => {
       accountNumber: form.getFieldValue('accountNumber'),
       ibanNumber: form.getFieldValue('ibanNumber'),
       sortCode: form.getFieldValue('sortCode'),
-      isDefault: form.getFieldValue('isDefault'),
       cityId: form.getFieldValue('cityId'),
       countryId: form.getFieldValue('countryId'),
     };

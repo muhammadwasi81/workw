@@ -5,10 +5,11 @@ import { ComposerBtnSection } from "../style/mail.style";
 import { handleMailComposer } from "../Store/MailSlice";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import SharedButton from "../../../SharedComponent/button/";
+// import SharedButton from "../../../SharedComponent/button/";
 import { getMailFolders, refreshMail } from "../Store/Api";
 import { useLocation } from "react-router-dom";
 import { createGuid } from "../../../../utils/base";
+import SharedButton from "../../../sharedComponents/button";
 
 const ComposerBox = () => {
   const { responsiveSlice, mailSlice } = useSelector((state) => state);

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import SharedButton from "../../../SharedComponent/button";
+// import SharedButton from "../../../SharedComponent/button";
 import mailMinimizeIcon from "../assests/mailMinimizeIcon.svg";
 import mailMinimizeOut from "../assests/mailMinimizeOut.svg";
 import mailResizeIcon from "../assests/mailResizeIcon.svg";
@@ -12,15 +12,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleMailComposerClose } from "../Store/MailSlice";
 import SearchAndSelectInput from "./searchAndSelectInput";
 import { composeMail } from "../Store/Api";
+import SharedButton from "../../../sharedComponents/button";
 
 const composerBtnStyle = {
   backgroundColor: "var(--currentThemeColor)",
   borderRadius: "8px",
   color: "#fff",
-  // outline: "none",
-  // marginRight: 10,
-  // display: "flex",
-  // alignItems: "center"
+  padding: "5px 10px",
+  height: "unset",
+  float: "right",
+  marginRight: "7px",
+  marginLeft: "7px"
 };
 const ComposeMailBox = ({
   instance: { id, isMax, isMinimize },
@@ -128,9 +130,9 @@ const ComposeMailBox = ({
       id: 0,
       to: selectedTOEmail
         ? selectedTOEmail.map((value) => ({
-            name: value?.split("@")[0],
-            email: value,
-          }))
+          name: value?.split("@")[0],
+          email: value,
+        }))
         : [],
       from: [
         {
@@ -140,15 +142,15 @@ const ComposeMailBox = ({
       ],
       cc: selectedCcEmail
         ? selectedCcEmail.map((value) => ({
-            name: value?.split("@")[0],
-            email: value,
-          }))
+          name: value?.split("@")[0],
+          email: value,
+        }))
         : [],
       bcc: selectedBcEmail
         ? selectedBcEmail.map((value) => ({
-            name: value?.split("@")[0],
-            email: value,
-          }))
+          name: value?.split("@")[0],
+          email: value,
+        }))
         : [],
       subject: val.subject ? val.subject : "",
       content: val.content,
@@ -173,9 +175,8 @@ const ComposeMailBox = ({
 
   return (
     <div
-      className={`${
-        isMax ? "mail-composer-containerMax" : "mail-composer-container"
-      } ${isMinimize ? "mail-composer-containerMin" : ""}`}
+      className={`${isMax ? "mail-composer-containerMax" : "mail-composer-container"
+        } ${isMinimize ? "mail-composer-containerMin" : ""}`}
     >
       <div className="mail-composer-head">
         <div>{mail.newMessage}</div>

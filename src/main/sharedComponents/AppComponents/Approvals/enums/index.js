@@ -55,6 +55,7 @@ export const ApproverType = {
 	Department: 2,
 };
 export const getStatusLabelAndColor = (module, statusLabels) => {
+	console.log(statusLabels,"statusLabels")
 	return {
 		[ApprovalStatus.InProcess]: {
 			label: statusLabels.InProcess,

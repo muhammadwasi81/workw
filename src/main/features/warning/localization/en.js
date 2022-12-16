@@ -2,9 +2,9 @@ const en = {
   warningDictionary: {
     filter: "Filter",
     selectApprovers: "Select Approvers",
-    warning: "Warning",
+    warning: "Warnings",
     createdByMe:"created By Me",
-    create: "Create",
+    create: "Create Warning",
     upload: "Upload",
     tableView: "Table View",
     listView: "List View",

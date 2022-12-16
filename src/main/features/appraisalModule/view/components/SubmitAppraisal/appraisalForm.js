@@ -204,7 +204,7 @@ const AppraisalForm = (props) => {
             >
               <Radio.Group
                 onChange={onChangePromotion}
-                defaultValue={promotion}
+                // defaultValue={promotion}
               >
                 <Radio value={1}>{yes}</Radio>
                 <Radio value={2} checked={true}>
@@ -274,7 +274,7 @@ const AppraisalForm = (props) => {
                 },
               ]}
             >
-              <Radio.Group onChange={onChangeBonus} defaultValue={bonus}>
+              <Radio.Group onChange={onChangeBonus} >
                 <Radio value={1}>{yes}</Radio>
                 <Radio value={2}>{no}</Radio>
               </Radio.Group>
@@ -359,7 +359,7 @@ const AppraisalForm = (props) => {
             >
               <Radio.Group
                 onChange={onChangeIncrement}
-                defaultValue={increment}
+                // defaultValue={increment}
               >
                 <Radio value={1}>{yes}</Radio>
                 <Radio value={2}>{no}</Radio>

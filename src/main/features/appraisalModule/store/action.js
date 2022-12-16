@@ -2,9 +2,11 @@ import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
   getAllTaskForAppraisalService,
-  getAllAppraisalService
+  getAllAppraisalService,
+  addAppraisalService
 } from "../service/service";
 
 export const getAllTaskForAppraisalAction = createAsyncThunk(
@@ -37,6 +39,36 @@ export const getAllTaskForAppraisalAction = createAsyncThunk(
           return rejectWithValue(response.errorMessage);
         case ResponseType.SUCCESS:
           return response.data;
+        default:
+          return;
+      }
+    }
+  );
+
+  export const addAppraisal = createAsyncThunk(
+    "appraisalModuleSlice/addAppraisal",
+    async (data, { dispatch, rejectWithValue }) => {
+      console.log(data, 'data in action')
+      const res = await addAppraisalService(data);
+  
+      switch (res.type) {
+        case ResponseType.ERROR:
+          dispatch(
+            openNotification({
+              message: res.errorMessage,
+              type: "error",
+            })
+          );
+          return rejectWithValue(res.errorMessage);
+        case ResponseType.SUCCESS:
+          dispatch(
+            openNotification({
+              message: "Appraisal Create Successfully",
+              type: "success",
+              duration: 2,
+            })
+          );
+          return res.data;
         default:
           return;
       }

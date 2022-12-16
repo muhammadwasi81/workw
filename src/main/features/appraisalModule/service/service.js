@@ -45,3 +45,18 @@ export const getAllAppraisalService = async (payload) => {
 };
 
 
+export const addAppraisalService = async (payload) => {
+  console.log(payload, "add Career data in service");
+ 
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Appraisal/AddAppraisal`, payload);
+    if (responseCode === responseCodeEnum.Success) {
+      return ResponseResultSuccess(data);
+    }
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};

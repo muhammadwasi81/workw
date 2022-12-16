@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { appraisalDictionaryList } from "../../../localization/index";
 import { createGuid, modifySelectData } from "../../../../../../utils/base";
+import { addAppraisal } from "../../../store/action";
 function Index() {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -48,7 +49,9 @@ function Index() {
       }),
       tasks: userTask?.map((el)=> el.taskId)
     }
-    console.log(payload, 'final payload')
+    //dispatch add appraisal
+    console.log(payload, 'final payload');
+    dispatch(addAppraisal(payload));
     //setState submit false when API is called
     setSubmit(false);
   };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { DocsComposerEnums, DOCUMENT_ENUM } from '../../../constant';
 import { useDispatch } from 'react-redux';
-import { handleOpenDocComposer, handleUpdateFolder } from '../../../store/slice';
+import { handleOpenDocComposer, handleUpdateFolder, handleUpdateFolderMemberId } from '../../../store/slice';
 
 const ContentOptions = ({ handleClose, data }) => {
   const dispatch = useDispatch();
@@ -18,6 +18,8 @@ const ContentOptions = ({ handleClose, data }) => {
   }
   const handleOpenMembers = () => {
     dispatch(handleOpenDocComposer(DocsComposerEnums.updateMember));
+    dispatch(handleUpdateFolderMemberId(data))
+    
     handleClose(data.documentType);
   }
 

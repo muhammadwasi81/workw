@@ -258,7 +258,7 @@ const Composer = (props) => {
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={leaveDictionary.selectMember}
+            placeholder={leaveDictionary.selectApprovers}
             mode={"multiple"}
             isObject={true}
             loadDefaultData={false}

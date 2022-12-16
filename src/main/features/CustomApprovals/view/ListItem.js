@@ -39,7 +39,9 @@ function ListItem(props) {
     attachments,
     subject,
   } = props.item;
+  console.log(creator.image, "name of creator");
   return (
+    
     <>
       <SingleItem>
         <div
@@ -89,10 +91,10 @@ function ListItem(props) {
             <div className="cardSection__title">
               {customApprovalDictionary.subject}
             </div>
-            <div className="cardSection__body">{subject}</div>
+            <div className="cardSection__body title">{subject}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">
+            <div className="cardSection__title">4
               {customApprovalDictionary.category}
             </div>
             <div className="cardSection__body">{category}</div>

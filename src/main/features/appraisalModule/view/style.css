@@ -56,3 +56,7 @@
   padding: 1rem;
   border-radius: 5px;
 }
+
+.range-picker .ant-picker-range{
+  width: 100%;
+}

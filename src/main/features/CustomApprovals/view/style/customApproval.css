@@ -12,6 +12,17 @@
   -webkit-box-orient: vertical;
   /* overflow: hidden; */
 }
+.description{
+  width: 600px;
+}
+.cardSection__body.title{
+  display: inline-block;
+  word-break: break-word;
+  line-height: 1.4em;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
 
 @media (min-width: 1000px) {
   .description.custom-description {
@@ -20,6 +31,7 @@
   .description.custom-detail-des {
     height: 100%;
     overflow: hidden;
+    /* width: 600px; */
   }
 }
 

@@ -2,7 +2,7 @@ import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { STRINGS } from "../../../../utils/base";
 import { PostPrivacyType } from "../../../../utils/Shared/enums/enums";
 import { getComposerKeyByType } from "../constant/helpers";
-import { addDocument, getAllDocument, getAllDocumentList, moveDocument, GetDocumentById, addDirectory } from "./actions";
+import { addDocument, getAllDocument, getAllDocumentList, moveDocument, GetDocumentById, addDirectory, addDocumentDirectoryList, getAllDocumentDirectoryList } from "./actions";
 
 
 const initialState = {
@@ -24,7 +24,8 @@ const initialState = {
     milepad: {},
     mileboard: {},
     mileshow: {},
-    updateMembers: null,
+    updateFolderMemberId: null,
+    members: []
   },
   isTableView: false,
   listData: [],
@@ -89,6 +90,9 @@ const documentSlice = createSlice({
       state.isOpenComposers.folder = true;
       state.composersInitState.folder = payload;
     },
+    handleUpdateFolderMemberId: (state, { payload }) => {
+      state.composersInitState.updateFolderMemberId = payload.id
+    },
 
   },
 
@@ -142,6 +146,13 @@ const documentSlice = createSlice({
         state.documentDetail = action.payload;
         state.detailLoader = false;
       })
+      .addCase(getAllDocumentDirectoryList.fulfilled, (state, { payload }) => {
+        state.composersInitState.members = payload;
+      })
+      .addCase(addDocumentDirectoryList.fulfilled, (state, { payload}) => {
+        state.composersInitState.members = payload
+        // state.loader = true;
+      })
       .addCase(addDocument.pending, (state, action) => {
         state.loader = true;
       })
@@ -191,6 +202,7 @@ export const {
   updateMoveDocument,
   uploadFileByDrop,
   handleChangeView,
-  handleUpdateFolder
+  handleUpdateFolder,
+  handleUpdateFolderMemberId
 } = documentSlice.actions;
 export default documentSlice.reducer;

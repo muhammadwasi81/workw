@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
-import Avatar from "../../../SharedComponent/Avatar/avatar";
-import SharedButton from "../../../SharedComponent/button/";
+// import Avatar from "../../../SharedComponent/Avatar/avatar";
+// import SharedButton from "../../../SharedComponent/button/";
 import replyIcon from "../assests/replyIcon.svg";
 import forwardIcon from "../assests/forwardIcon.svg";
 import {useMediaQuery} from "react-responsive";
@@ -9,6 +9,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getMailById} from "../Store/Api";
 import {getRelativeTime, parseDate, parseDateAndTime} from "../../../../utils/base";
 import {Spin} from "antd";
+import SharedButton from "../../../sharedComponents/button";
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 
 
 const MailDetail = () => {
@@ -27,7 +29,7 @@ const MailDetail = () => {
 
     return (
         <div className="mBodyContainer">
-            {mailDetail &&
+            {!mailDetail &&
             <>
                 <div className="mbodySubject">
                     <div className="subject">{subject}</div>
@@ -139,10 +141,10 @@ const MailDetail = () => {
                     />
                 </div>
             </>}
-            {!mailDetail &&
+            {/* {!mailDetail &&
             <div style={{display: "flex", height: "100vh", alignItems: "center", justifyContent: "center"}}><Spin/>
             </div>
-            }
+            } */}
         </div>
     );
 }

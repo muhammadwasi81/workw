@@ -9,7 +9,7 @@ const en = {
       forExecution: 'For Excecution',
       forFinance: 'For Finance',
       approvers: 'Approvers',
-      financers: 'financers',
+      financers: 'Financers',
       executors: 'Executors',
       executor: 'Executor',
       finance: 'Finance Approval',

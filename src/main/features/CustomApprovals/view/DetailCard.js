@@ -98,7 +98,7 @@ export default function DetailCard(props) {
           <div className="cardSection__title">
             {customApprovalDictionary.subject}
           </div>
-          <div className="cardSection__body">{subject}</div>
+          <div className="cardSection__body title">{subject}</div>
         </div>
         <div className="cardSectionItem">
           <div className="cardSection__title">

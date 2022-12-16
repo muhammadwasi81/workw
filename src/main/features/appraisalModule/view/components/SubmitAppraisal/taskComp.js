@@ -28,21 +28,17 @@ const TaskComp = (props) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [employee, setEmployee] = useState({});
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState("");
   // const [startDateState, setStartDate]= usestate('');
   // const [endDateState, setEndDate] = useState('');
-  const [ date, setDate] = useState({startDate: '', endDate: ''})
+  const [date, setDate] = useState({ startDate: "", endDate: "" });
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
   const employeesData = useSelector((state) => state.sharedSlice.employees);
   const employeesShortData = useSelector(
     (state) => state.sharedSlice.employeeShort
   );
-  const {userTask} = useSelector(
-    (state) => state.appraisalModuleSlice
-  );
-
-
+  const { userTask } = useSelector((state) => state.appraisalModuleSlice);
 
   useEffect(() => {
     fetchEmployees();
@@ -51,25 +47,21 @@ const TaskComp = (props) => {
   }, []);
 
   useEffect(() => {
-    if(date.startDate.length > 1 && date.startDate.length > 1 && userId) {
-      console.log('if block works')
+    if (date.startDate.length > 1 && date.startDate.length > 1 && userId) {
       dispatch(
         getAllTaskForAppraisalAction({
           startDate: date.startDate,
           endDate: date.endDate,
-          userId
+          userId,
         })
-      ); 
+      );
       //TODO: dispatch employee salary here
       dispatch(getEmployeeSalary({ id: userId }));
     }
-  
   }, [date, userId]);
 
   useEffect(() => {
-    console.log("esssss");
     if (isFirstTime && employeesData.length > 0) {
-      console.log("useEffects works when employees data populated");
       setFetchEmployeesData(employeesData);
       setEmployee(employeesData[0]);
       setIsFirstTime(false);
@@ -82,6 +74,15 @@ const TaskComp = (props) => {
   const fetchEmployeesShort = (text = "", pgNo = 1) => {
     dispatch(getAllEmployeeShort({ text, pgNo, pgSize: 20 }));
   };
+
+  useEffect(() => {
+    if (date && userId) {
+      console.log(userId)
+      props.startDate(date.startDate);
+      props.endDate(date.endDate);
+      props.userId(userId);
+    }
+  }, [date, userId]);
 
   const fetchAllowance = () => {
     dispatch(getAllAllowance());
@@ -108,8 +109,8 @@ const TaskComp = (props) => {
     if (dates) {
       setDate({
         startDate: dates[0].format(),
-        endDate: dates[1].format()
-      })
+        endDate: dates[1].format(),
+      });
     } else {
       console.log("Clear");
     }
@@ -212,14 +213,13 @@ const TaskComp = (props) => {
       </div>
       <div className="appraisalFormBody drop-shadow mt-4">
         <div className="w-full my-0 mx-auto mt-4">
-        <Table
-          columns={tableColumn()}
-          // handleChange={handleColumnSorting}
-          dragable={true}
-          data={userTask ? userTask : []}
-        />
+          <Table
+            columns={tableColumn()}
+            // handleChange={handleColumnSorting}
+            dragable={true}
+            data={userTask ? userTask : []}
+          />
         </div>
-        
       </div>
     </>
   );

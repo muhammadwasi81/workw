@@ -5,8 +5,10 @@ import TaskComp from "./taskComp";
 import { Form } from "antd";
 
 function SubmitAppraisalBody(props) {
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [userId, setUserId] = useState('');
+
 
   return (
     <>
@@ -15,12 +17,13 @@ function SubmitAppraisalBody(props) {
           <TaskComp
             startDate={(val) => setStartDate(val)}
             endDate={(val) => setEndDate(val)}
+            userId = {(val) => setUserId(val)}           
           />
         </div>
         <div className="w-[50%]">
           <AppraisalForm
             submit={props.submit}
-            dataSend={(val) => props.dataSend(val)}
+            dataSend={(val) => props.dataSend(val,startDate, endDate, userId)}
           />
         </div>
       </div>

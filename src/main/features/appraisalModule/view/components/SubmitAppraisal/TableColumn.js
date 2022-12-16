@@ -44,27 +44,27 @@ export const tableColumn = () => {
         // width: 100,
       },
    
-    {
-      title: 'Assign by',
-      dataIndex: "creator",
-      ellipsis: true,
-      width: 100,
-      render: (creator) => (
-        <TagAvatar
-          text={creator.name}
-          img={
-            <AvatarCustom
-              width={20}
-              height={20}
-              src={creator.image}
-              name={creator.name}
-              round
-            ></AvatarCustom>
-          }
-        />
-      ),
-      sort: true,
-    },
+    // {
+    //   title: 'Assign by',
+    //   dataIndex: "creator",
+    //   ellipsis: true,
+    //   width: 100,
+    //   render: (creator) => (
+    //     <TagAvatar
+    //       text={creator.name}
+    //       img={
+    //         <AvatarCustom
+    //           width={20}
+    //           height={20}
+    //           src={creator.image}
+    //           name={creator.name}
+    //           round
+    //         ></AvatarCustom>
+    //       }
+    //     />
+    //   ),
+    //   sort: true,
+    // },
     
   ];
 };

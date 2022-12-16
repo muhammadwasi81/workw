@@ -15,7 +15,7 @@ const { TextArea } = Input;
 const AppraisalForm = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
-  const [question, setQuestion] = useState([{ratingAssign: '', questionId: '', id: ''}]);
+  const [question, setQuestion] = useState([]);
   const {
     appraisals,
     basicSalary,
@@ -66,8 +66,6 @@ const AppraisalForm = (props) => {
 
   const appraisalQuestion = useSelector((state) => state.appraisalSlice);
 
-  console.log(appraisalQuestion);
-
   useEffect(() => {
     fetchEmployees("", 0);
   }, []);
@@ -88,10 +86,12 @@ const AppraisalForm = (props) => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    console.log(form.getFieldValue("question1"))
-    
-    props.dataSend(values);
-    // props.getAppraisalData(values);
+    const payload = {
+      values,
+      questions: question
+    }
+    props.dataSend(payload);
+    // props.getAppraisalData(payload);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -131,21 +131,17 @@ const AppraisalForm = (props) => {
   };
 
   const onChangeQuestionRating = (e, i, questionId) => {
-  
     //TODO: check if object is present in the array then replace the new one else push the new value
-    // console.log(question.filter((item)=> item.questionId === questionId ).length > 0)
-    let newaa = question;
-    console.log(question)
-    if(newaa.filter((item)=> item.questionId === questionId ).length > 0) {
-      console.log('if check')
-      setQuestion(()=>question.splice(i,0,{ratingAssign: e, questionId, id: createGuid()}))
-      // newArr.splice(i,0,{ratingAssign: e, questionId, id: createGuid()});
-    }else{
-      console.log('else check')
-      setQuestion(...question, {ratingAssign: e, questionId, id: createGuid()})
+    console.log(questionId, e, i);
+    if (!question.length) {
+      setQuestion([{ questionId, ratingAssign: e }]);
+    } else {
+      const newQuestionArr = question.filter(
+        (item) => item.questionId !== questionId
+      );
+      setQuestion([...newQuestionArr, { questionId, ratingAssign: e }]);
     }
-    
-  }
+  };
 
   return (
     <>
@@ -470,10 +466,12 @@ const AppraisalForm = (props) => {
           <div className="inputBox mt-4">
             {appraisalQuestion.appraisals.map((item, i) => {
               return (
-                <Form.Item name={`question${i+1}`}>
+                <Form.Item name={`question${i + 1}`}>
                   <div className="flex justify-between items-center">
-                    <span>{`Q${i+1}.  ${item?.name}`}</span>
-                    <Rate onChange={(e)=> onChangeQuestionRating(e, i, item?.id)}/>
+                    <span>{`Q${i + 1}.  ${item?.name}`}</span>
+                    <Rate
+                      onChange={(e) => onChangeQuestionRating(e, i, item?.id)}
+                    />
                   </div>
                 </Form.Item>
               );
@@ -483,13 +481,13 @@ const AppraisalForm = (props) => {
             </Form.Item> */}
           </div>
           <div>
-            <Form.Item name="comments" label={comments}>
+            <Form.Item name="comment" label={comments}>
               <TextArea rows={4} />
             </Form.Item>
           </div>
-          <Button type="primary" htmlType="submit">
+          {/* <Button type="primary" htmlType="submit">
             Submit form
-          </Button>
+          </Button> */}
         </Form>
       </div>
     </>

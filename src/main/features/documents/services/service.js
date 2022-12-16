@@ -10,6 +10,12 @@ const moveDocument_DBO = (data) => {
 		"documents": data.documents ? data.documents : []
 	}
 }
+const moveDirectory_DBO = (data) => {
+	return {
+		"parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
+		"directories": data.documents ? data.documents : []
+	}
+}
 
 
 export const addDocumentService = async (request) => {
@@ -31,6 +37,20 @@ export const moveDocumentService = async (payload) => {
 		const {
 			data: { responseCode, data, message },
 		} = await Config.post(`api/Document/MoveDocument`, request);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+
+export const moveDirectoryService = async (payload) => {
+	console.log(payload)
+	let request = moveDirectory_DBO(payload);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/Document/MoveDirectory`, request);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {

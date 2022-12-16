@@ -17,16 +17,16 @@ function Avatar(props) {
 			? "approver"
 			: props.heading.slice(0, props.heading.length - 1).toLowerCase();
 
-	const name =
-		props.membersData?.length > 0 &&
-		props.membersData[0][objProperty] !== null &&
-		props.membersData[0][objProperty] !== undefined &&
-		props.membersData[0][objProperty]?.name;
-	const image =
-		props.membersData?.length > 0 &&
-		props.membersData[0][objProperty] !== null &&
-		props.membersData[0][objProperty] !== undefined &&
-		props.membersData[0][objProperty]?.image;
+	// const name =
+	// 	props.membersData?.length > 0 &&
+	// 	props.membersData[0][objProperty] !== null &&
+	// 	props.membersData[0][objProperty] !== undefined &&
+	// 	props.membersData[0][objProperty]?.name;
+	// const image =
+	// 	props.membersData?.length > 0 &&
+	// 	props.membersData[0][objProperty] !== null &&
+	// 	props.membersData[0][objProperty] !== undefined &&
+	// 	props.membersData[0][objProperty]?.image;
 
 	return (
 		<>

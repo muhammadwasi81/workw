@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../../style.css";
-import { Form, Input, Radio, Select, Avatar, Rate, Tag } from "antd";
+import { Form, Input, Radio, Select, Avatar, Rate, Tag, Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { getNameForImage } from "../../../../../../utils/base";
+import { createGuid, getNameForImage } from "../../../../../../utils/base";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import ModalTag from "./modalTag";
@@ -15,6 +15,7 @@ const { TextArea } = Input;
 const AppraisalForm = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
+  const [question, setQuestion] = useState([]);
   const {
     appraisals,
     basicSalary,
@@ -63,6 +64,8 @@ const AppraisalForm = (props) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
 
+  const appraisalQuestion = useSelector((state) => state.appraisalSlice);
+
   useEffect(() => {
     fetchEmployees("", 0);
   }, []);
@@ -83,8 +86,12 @@ const AppraisalForm = (props) => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    props.dataSend(values);
-    // props.getAppraisalData(values);
+    const payload = {
+      values,
+      questions: question
+    }
+    props.dataSend(payload);
+    // props.getAppraisalData(payload);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -122,6 +129,20 @@ const AppraisalForm = (props) => {
   const modalCloseFunc = () => {
     setModalOpen(false);
   };
+
+  const onChangeQuestionRating = (e, i, questionId) => {
+    //TODO: check if object is present in the array then replace the new one else push the new value
+    console.log(questionId, e, i);
+    if (!question.length) {
+      setQuestion([{ questionId, ratingAssign: e }]);
+    } else {
+      const newQuestionArr = question.filter(
+        (item) => item.questionId !== questionId
+      );
+      setQuestion([...newQuestionArr, { questionId, ratingAssign: e }]);
+    }
+  };
+
   return (
     <>
       <ModalTag
@@ -138,7 +159,7 @@ const AppraisalForm = (props) => {
         >
           <div className="inputBox flex justify-between items-center">
             <span>{appraisals}</span>
-            <span>{basicSalary}: 13000</span>
+            {/* <span>{basicSalary}: 13000</span> */}
           </div>{" "}
           <div className="inputBox flex justify-evenly mt-2 items-center">
             <Tag
@@ -181,9 +202,14 @@ const AppraisalForm = (props) => {
                 },
               ]}
             >
-              <Radio.Group onChange={onChangePromotion}>
+              <Radio.Group
+                onChange={onChangePromotion}
+                // defaultValue={promotion}
+              >
                 <Radio value={1}>{yes}</Radio>
-                <Radio value={2}>{no}</Radio>
+                <Radio value={2} checked={true}>
+                  {no}
+                </Radio>
               </Radio.Group>
             </Form.Item>
             {promotion === 1 && (
@@ -248,7 +274,7 @@ const AppraisalForm = (props) => {
                 },
               ]}
             >
-              <Radio.Group onChange={onChangeBonus}>
+              <Radio.Group onChange={onChangeBonus} >
                 <Radio value={1}>{yes}</Radio>
                 <Radio value={2}>{no}</Radio>
               </Radio.Group>
@@ -260,23 +286,35 @@ const AppraisalForm = (props) => {
                   <Radio value={1}>{percentage}</Radio>
                   <Radio value={2}>{amount}</Radio>
                 </Radio.Group>
-                <Form.Item name={"bonusPercent"} type="number">
-                  <Input
-                    prefix={"%"}
-                    placeholder={percentage}
+                <div className="flex gap-x-3">
+                  <Form.Item
+                    name={"bonusPercent"}
                     type="number"
-                    disabled={bonusType === 2 ? true : false}
-                    style={{ marginTop: "0.5rem" }}
-                  />
-                </Form.Item>
-                <Form.Item name={"bonusAmount"} type="number">
-                  <Input
-                    placeholder={amount}
+                    style={{ width: "50%" }}
+                  >
+                    <Input
+                      prefix={"%"}
+                      placeholder={percentage}
+                      type="number"
+                      max={100}
+                      disabled={bonusType === 2 ? true : false}
+                      style={{ marginTop: "0.5rem" }}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name={"bonusAmount"}
                     type="number"
-                    disabled={bonusType === 1 ? true : false}
-                    style={{ marginTop: "0.5rem" }}
-                  />
-                </Form.Item>
+                    style={{ width: "50%" }}
+                  >
+                    <Input
+                      placeholder={amount}
+                      type="number"
+                      disabled={bonusType === 1 ? true : false}
+                      style={{ marginTop: "0.5rem" }}
+                    />
+                  </Form.Item>
+                </div>
+
                 <Form.Item
                   name="bonusApprovers"
                   // label={"Approver"}
@@ -319,7 +357,10 @@ const AppraisalForm = (props) => {
                 },
               ]}
             >
-              <Radio.Group onChange={onChangeIncrement}>
+              <Radio.Group
+                onChange={onChangeIncrement}
+                // defaultValue={increment}
+              >
                 <Radio value={1}>{yes}</Radio>
                 <Radio value={2}>{no}</Radio>
               </Radio.Group>
@@ -334,23 +375,34 @@ const AppraisalForm = (props) => {
                   <Radio value={1}>{percentage}</Radio>
                   <Radio value={2}>{amount}</Radio>
                 </Radio.Group>
-                <Form.Item name="incrementPercent" typetype="number">
-                  <Input
-                    prefix={"%"}
-                    type="number"
-                    placeholder={percentage}
-                    disabled={incrementType === 2 ? true : false}
-                    style={{ marginTop: "0.5rem" }}
-                  />
-                </Form.Item>
-                <Form.Item name="incrementAmount" typetype="number">
-                  <Input
-                    placeholder={amount}
-                    type="number"
-                    disabled={incrementType === 1 ? true : false}
-                    style={{ marginTop: "0.5rem" }}
-                  />
-                </Form.Item>
+                <div className="flex gap-x-3">
+                  <Form.Item
+                    name="incrementPercent"
+                    typetype="number"
+                    style={{ width: "50%" }}
+                  >
+                    <Input
+                      prefix={"%"}
+                      type="number"
+                      placeholder={percentage}
+                      disabled={incrementType === 2 ? true : false}
+                      style={{ marginTop: "0.5rem" }}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="incrementAmount"
+                    typetype="number"
+                    style={{ width: "50%" }}
+                  >
+                    <Input
+                      placeholder={amount}
+                      type="number"
+                      disabled={incrementType === 1 ? true : false}
+                      style={{ marginTop: "0.5rem" }}
+                    />
+                  </Form.Item>
+                </div>
+
                 <Form.Item
                   name="incrementApprovers"
                   // label={"Approvers"}
@@ -382,7 +434,7 @@ const AppraisalForm = (props) => {
               </>
             )}
           </div>
-          <div className="approvalBox mt-2">
+          <div className="inputBox mt-2">
             <Form.Item
               name="approvers"
               label={approvers}
@@ -412,12 +464,24 @@ const AppraisalForm = (props) => {
             </Form.Item>
           </div>
           <div className="inputBox mt-4">
-            <Form.Item name="rate" label={rate}>
+            {appraisalQuestion.appraisals.map((item, i) => {
+              return (
+                <Form.Item name={`question${i + 1}`}>
+                  <div className="flex justify-between items-center">
+                    <span>{`Q${i + 1}.  ${item?.name}`}</span>
+                    <Rate
+                      onChange={(e) => onChangeQuestionRating(e, i, item?.id)}
+                    />
+                  </div>
+                </Form.Item>
+              );
+            })}
+            {/* <Form.Item name="rate" label={rate}>
               <Rate />
-            </Form.Item>
+            </Form.Item> */}
           </div>
           <div>
-            <Form.Item name="comments" label={comments}>
+            <Form.Item name="comment" label={comments}>
               <TextArea rows={4} />
             </Form.Item>
           </div>

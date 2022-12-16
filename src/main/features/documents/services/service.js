@@ -114,3 +114,26 @@ export const addDirectoryService = async (payload) => {
 		return ResponseResultError(e);
 	}
 };
+
+export const getAllDocumentDirectoryMemberService = (data) => {
+	let id = data.id
+	return Config.get(`api/Document/GetAllDocumentDirectoryMember?id=${id}&pageNo=1`)
+	  .then((res) => {
+		return res.data;
+	  })
+	  .catch((err) => {
+		return err;
+	  });
+  };
+
+  export const addDocumentDirectoryMemberService = async (data) => {
+	let id = data.id
+	let memberId = data.memberId
+	return Config.post(`api/Document/AddDocumentDirectoryMember?id=${id}`, [{memberId: memberId}])
+	  .then((res) => {
+		return res;
+	  })
+	  .catch((res) => {
+		return res;
+	  });
+  };

@@ -42,40 +42,47 @@ function SalaryEmployee() {
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  console.log(employeesData, 'employeesData');
-
-  // const createPayload = () => {
-  //   const payload = {
-  //     id: form.getFieldValue('id'),
-  //     userId: form.getFieldValue('userId'),
-  //     approvers: form.getFieldValue('approvers'),
-  //     basicSalary: form.getFieldValue('basicSalary'),
-  //     check: form.getFieldValue('check'),
-  //     description: form.getFieldValue('description'),
-  //     effectiveDate: form.getFieldValue('effectiveDate'),
-  //     grossSalary: form.getFieldValue('grossSalary'),
-  //     netSalary: form.getFieldValue('netSalary'),
-  //     salaryHeaders: form.getFieldValue('salaryHeaders'),
-  //   };
-  //   return payload;
-  // };
-
-  const handleSubmit = async () => {
-    form.submit();
-    try {
-      const isValidation = await form.validateFields();
-      console.log(isValidation, 'isValidation');
-      if (isValidation) {
-        setSalaryEmployee((preValue) => [...preValue, form.getFieldsValue()]);
-        form.resetFields();
-        // const payload = createPayload();
-        // console.log(payload, 'payload');
-        dispatch(addEmployeeSalaryAction(isValidation));
-      }
-    } catch (err) {
-      throw new Error(`Error in submitting form: ${err}`, { cause: err });
-    }
+  console.log(salaryEmployee, 'salaryEmployee');
+  const handleSubmit = () => {
+    const payload = createPayload();
+    setSalaryEmployee((preValue) => [...preValue, form.getFieldsValue()]);
+    dispatch(addEmployeeSalaryAction(payload));
   };
+
+  const createPayload = () => {
+    const payload = [];
+    salaryEmployee.forEach((item) => {
+      const data = {
+        approvers: item.approvers,
+        basicSalary: item.basicSalary,
+        check: item.check,
+        description: item.description,
+        effectiveDate: item.effectiveDate,
+        grossSalary: item.grossSalary,
+        netSalary: item.netSalary,
+        salaryHeaders: item.salaryHeaders,
+        employeeId: item.employeeId,
+      };
+      payload.push(data);
+    });
+    console.log(payload, 'payload');
+    return payload;
+  };
+
+  // const handleSubmit = async () => {
+  //   form.submit();
+  //   try {
+  //     const isValidation = await form.validateFields();
+  //     console.log(isValidation, 'isValidation');
+  //     if (isValidation) {
+  //       setSalaryEmployee((preValue) => [...preValue, form.getFieldsValue()]);
+  //       form.resetFields();
+  //     }
+  //     // dispatch(addEmployeeSalaryAction(isValidation));
+  //   } catch (err) {
+  //     throw new Error(`Error in submitting form: ${err}`, { cause: err });
+  //   }
+  // };
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };

@@ -28,3 +28,20 @@ export const getAllTaskForAppraisalService = async (payload) => {
 };
 
 
+
+export const getAllAppraisalService = async (payload) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Appraisal/GetAllAppraisal`, payload);
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+  console.log(e, 'erro   data...')
+
+    return ResponseResultError(e);
+  }
+};
+
+

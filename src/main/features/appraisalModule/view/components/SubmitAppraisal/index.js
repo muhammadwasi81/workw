@@ -12,7 +12,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { appraisalDictionaryList } from "../../../localization/index";
-import { modifySelectData } from "../../../../../../utils/base";
+import { createGuid, modifySelectData } from "../../../../../../utils/base";
 function Index() {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -26,25 +26,20 @@ function Index() {
 
   const createAppraisal = () => {
     console.log("create works");
-    dataGet();
     setSubmit(true);
+    dataGet();
   };
 
   const dataGet = (data, startDate, endDate, userId) => {
     console.log(data,startDate, endDate, userId ,"in index file of submit appraisal");
     //TODO: make an object that will be send as payload to api call
     let payload = {
+      id: createGuid(),
       userId: userId,
       startDate: startDate,
       endDate: endDate,
       questions: data?.questions,
       comment: data?.values.comment,
-      // approvers: data?.values.approvers.map((el)=> {
-      //   return {
-      //     approverId: el,
-      //     approverType: 0
-      //   }
-      // }),
       approvers: modifySelectData(data?.values.approvers).map((el, index) => {
         return {
           approverId: el,
@@ -71,7 +66,7 @@ function Index() {
             {
               buttonText: submitAppraisal,
               render: (
-                <Button className="ThemeBtn" onClick={() => createAppraisal()}>
+                <Button className="ThemeBtn" onClick={createAppraisal}>
                   <PlusOutlined />
                   {submitAppraisal}
                 </Button>

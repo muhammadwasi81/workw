@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../../style.css";
-import { Form, Input, Radio, Select, Avatar, Rate, Tag, Button } from "antd";
+import {
+  Form,
+  Input,
+  Radio,
+  Select,
+  Avatar,
+  Rate,
+  Tag,
+  Button,
+  Divider,
+} from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { createGuid, getNameForImage } from "../../../../../../utils/base";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
@@ -88,8 +98,8 @@ const AppraisalForm = (props) => {
     console.log("Success:", values);
     const payload = {
       values,
-      questions: question
-    }
+      questions: question,
+    };
     props.dataSend(payload);
     // props.getAppraisalData(payload);
   };
@@ -274,7 +284,7 @@ const AppraisalForm = (props) => {
                 },
               ]}
             >
-              <Radio.Group onChange={onChangeBonus} >
+              <Radio.Group onChange={onChangeBonus}>
                 <Radio value={1}>{yes}</Radio>
                 <Radio value={2}>{no}</Radio>
               </Radio.Group>
@@ -468,11 +478,12 @@ const AppraisalForm = (props) => {
               return (
                 <Form.Item name={`question${i + 1}`}>
                   <div className="flex justify-between items-center">
-                    <span>{`Q${i + 1}.  ${item?.name}`}</span>
+                    <span className="max-w-[23rem]">{`${item?.name}`}</span>
                     <Rate
                       onChange={(e) => onChangeQuestionRating(e, i, item?.id)}
                     />
                   </div>
+                  <Divider />
                 </Form.Item>
               );
             })}

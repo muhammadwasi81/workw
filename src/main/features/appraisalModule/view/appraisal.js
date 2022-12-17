@@ -27,7 +27,7 @@ function Appraisals() {
   );
   let RenderTab = {
     teamAppraisals: <TeamAppraisals />,
-    myAppraisals: <ForApproval />,
+    myAppraisals: <TeamAppraisals />,
     forApprovals: <ForApproval />,
   };
 
@@ -39,14 +39,14 @@ function Appraisals() {
     },
   ];
 
-  useEffect(()=> {
-    dispatch(getAllAppraisalAction({
-      pageSize: 50,
-      search: "",
-      filterType: 0,
-      sortBy: 1
-    }))
-  },[])
+  useEffect(() => {
+    dispatch(
+      getAllAppraisalAction({
+        pageNo: 1,
+        filterType: 1,
+      })
+    );
+  }, []);
 
   const onCreateAppraisal = () => {
     navigate("submitAppraisal");

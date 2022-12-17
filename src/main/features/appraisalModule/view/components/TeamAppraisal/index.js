@@ -1,19 +1,34 @@
 import React from "react";
 import { Skeleton } from "antd";
+import { useSelector } from "react-redux";
 import { CardWrapper } from "../../../../../sharedComponents/Card/CardStyle";
-import ShortAppraisalCard from "./shortAppraisalCard";
+import { NoDataFound } from "../../../../../sharedComponents/NoDataIcon/index.js";
+// import ShortAppraisalCard from "./shortAppraisalCard";
+import ShortCard from "./shortAppraisalCardNew";
 
 const Index = () => {
-  return (
-    <>
+  const { appraisals, loader } = useSelector(
+    (state) => state.appraisalModuleSlice
+  );
+  if (loader)
+    return (
       <CardWrapper>
-        {/* {[...Array(15)].map((item) => (
-          <Skeleton key={item} avatar paragraph={{ rows: 6 }} />
-        ))} */}
         {[...Array(15)].map((item) => (
-          <ShortAppraisalCard />
+          <Skeleton avatar paragraph={{ rows: 6 }} />
         ))}
       </CardWrapper>
+    );
+  return (
+    <>
+      {appraisals ? (
+        <CardWrapper>
+          {appraisals.map((item) => (
+            <ShortCard item={item} />
+          ))}
+        </CardWrapper>
+      ) : (
+        <NoDataFound />
+      )}
     </>
   );
 };

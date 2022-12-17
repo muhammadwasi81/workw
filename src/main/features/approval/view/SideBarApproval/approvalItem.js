@@ -2,6 +2,7 @@ import { Tag } from "antd";
 import moment from "moment";
 import React, { useContext } from "react";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { getIconByFeaturesType } from "../../../../../utils/Shared/helper/helpers";
 import { getStatusLabelAndColor } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import { ApprovalDictionary } from "../../../../sharedComponents/AppComponents/Approvals/localization";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
@@ -47,7 +48,12 @@ export default function ApprovalItem({
             <div className="shortDesc">{notiTime}</div>
             <div className="shortDesc">{referenceNo}</div>
           </div>
-          {item.status === 1 && <ApprovalActions item={item} />}
+          <div className="statusHolder" >
+            <div className="featureIcon" >
+              <img src={getIconByFeaturesType(1)} />
+            </div>
+            {item.status === 1 && <ApprovalActions item={item} />}
+          </div>
           {item.status !== 1 && (
             <div className="approval_status_tag">
               <Tag style={{ background: color }}>{label}</Tag>

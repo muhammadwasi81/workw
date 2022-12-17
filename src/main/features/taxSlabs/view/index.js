@@ -12,7 +12,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { FormContainer } from '../../../sharedComponents/StyledComponents/adminForm';
 import { FormHeader } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
 import { handleEdit } from '../store/slice';
-import { tableColumn } from "./TableColumn";
+import { tableColumns } from "./TableColumn";
 
 const { Panel } = Collapse;
 
@@ -97,7 +97,7 @@ const BusinessPolicy = () => {
                         >
                           <div>
                             <Table
-                              columns={tableColumn()}
+                              columns={tableColumns()}
                               dragable={true}
                               data={item.taxSlab && item.taxSlab}
                             />

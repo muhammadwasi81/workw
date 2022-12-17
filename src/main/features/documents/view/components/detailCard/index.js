@@ -20,7 +20,7 @@ import DocShortCard from "../shortCard";
 import RemarksApproval from "../../../../../sharedComponents/AppComponents/Approvals/view";
 import PreviewModal from "../modal";
 import CommentWrapper from "../../../../../sharedComponents/Comment/CommentWrapper";
-
+import '../fullCard/style.css'
 function DetailCard(props) {
     const { userLanguage } = useContext(LanguageChangeContext);
     const { documentDictionary } = documentDictionaryList[userLanguage];

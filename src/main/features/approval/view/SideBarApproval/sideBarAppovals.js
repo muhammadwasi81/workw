@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { setApprovalStatus } from "../../../../../store/appReducer/responsiveSlice";
 
 const defaultFilter = {
-    pageNo: 1,
+    pageNo: 0,
     search: ""
 }
 

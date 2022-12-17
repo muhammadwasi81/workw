@@ -111,14 +111,14 @@ const NavMenuList = () => {
       isActive: 3,
       key: label.navMenuLabel.menu,
     },
-    {
-    	name: label.navMenuLabel.mailBox,
-    	counter: 0,
-    	to: ROUTES.MAIL.DEFAULT,
-    	icon: mailsIcon,
-    	isActive: 3,
-    	key: label.navMenuLabel.menu,
-    },
+    // {
+    // 	name: label.navMenuLabel.mailBox,
+    // 	counter: 0,
+    // 	to: ROUTES.MAIL.DEFAULT,
+    // 	icon: mailsIcon,
+    // 	isActive: 3,
+    // 	key: label.navMenuLabel.menu,
+    // },
     {
       name: label.navMenuLabel.leadManager,
       counter: 0,

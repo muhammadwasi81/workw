@@ -42,7 +42,7 @@ function RewardDetailCard(props) {
     props.id && dispatch(GetRewardById(props.id));
   }, [props.id]);
 
-  if (loadingData) return <Skeleton />;
+  if (loadingData || !rewardDetail.id) return <Skeleton />;
 
   const {
     creator,

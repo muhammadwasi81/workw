@@ -1,5 +1,6 @@
 import React from "react";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
+import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import Tab from "../../../../sharedComponents/Tab";
 import BonusDetailCard from "../../../bonus/view/DetailCard";
 import ComplainDetail from "../../../complain/view/ComplainDetail";
@@ -13,58 +14,59 @@ import SalaryDetailCard from "../../../salary/view/SalaryList/salaryDetailCard";
 import TravelDetail from "../../../travel/view/TravelDetail/TravelDetail";
 
 export default function ApprovalDetail({ approvalDetailData }) {
-	const panes = () => {
-		return [
-			{
-				featureName: `Details`,
-				content: <div></div>,
-				featureId: 0,
-			},
-		];
-	};
+  const panes = () => {
+    return [
+      {
+        featureName: `Details`,
+        content: <div></div>,
+        featureId: 0,
+      },
+    ];
+  };
+  console.log(approvalDetailData, "approvalDetailData");
+  function getConditionalyModule({ module, referenceId: id }) {
+    switch (module) {
+      case ApprovalsModule.SalaryApproval:
+        return <SalaryDetailCard id={id} />;
 
-	function Detail({ type, id }) {
-		switch (type) {
-			case 1:
-				return <SalaryDetailCard id={id} />;
+      case ApprovalsModule.TravelApproval:
+      case ApprovalsModule.TravelAgent:
+        return <TravelDetail travelId={id} />;
 
-			case 2:
-				return <TravelDetail travelId={id} />;
+      case ApprovalsModule.DocumentApproval:
+        return <DocumentDetail id={id} />;
 
-			case 3:
-				return <DocumentDetail id={id} />;
+      case ApprovalsModule.RewardApproval:
+        return <RewardDetailCard id={id} />;
 
-			case 4:
-				return <RewardDetailCard id={id} />;
+      case ApprovalsModule.BonusApproval:
+        return <BonusDetailCard id={id} />;
 
-			case 5:
-				return <BonusDetailCard id={id} />;
+      case ApprovalsModule.ComplainApproval:
+        return <ComplainDetail id={id} />;
 
-			case 6:
-				return <ComplainDetail id={id} />;
+      case ApprovalsModule.PromotionApproval:
+        return <PromotionDetail id={id} />;
 
-			case 7:
-				return <PromotionDetail id={id} />;
+      case ApprovalsModule.LoanApproval:
+        return <LoanDetail id={id} />;
 
-			case 8:
-				return <LoanDetail id={id} />;
+      case ApprovalsModule.PayrollApproval:
+        return <PayrolDetailCard id={id} />;
 
-			case 9:
-				return <PayrolDetailCard id={id} />;
-			case 10:
-				return <ExpenseDetail id={id} />;
-			default:
-				return <></>;
-		}
-	}
+      case ApprovalsModule.ExpenseApproval:
+      case ApprovalsModule.ExpenseExecutor:
+      case ApprovalsModule.ExpenseFinance:
+        return <ExpenseDetail id={id} />;
+      default:
+        return <></>;
+    }
+  }
 
-	return (
-		<div className="approvalDetail">
-			<Tab panes={panes()} />
-			{Detail(approvalDetailData)}
-			{/* schedules pending */}
-			{/* expense =>*/}
-			{/* <Expense/> */}
-		</div>
-	);
+  return (
+    <div className="approvalDetail">
+      <Tab panes={panes()} />
+      {getConditionalyModule(approvalDetailData)}
+    </div>
+  );
 }

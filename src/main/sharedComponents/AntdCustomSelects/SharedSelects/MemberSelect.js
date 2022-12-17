@@ -6,9 +6,9 @@ import AntCustomSelect from "../Select";
 function MemberSelect({
 	onDeselect,
 	data = [],
-	selectedData = () => {},
+	selectedData = () => { },
 	canFetchNow = false,
-	fetchData = () => {},
+	fetchData = () => { },
 	defaultData = [],
 	defaultKey = "id",
 	isObject = false,
@@ -47,6 +47,7 @@ function MemberSelect({
 		const tempArray = String(value).split(",");
 		if (!tempArray[0]) {
 			setStateVal([]);
+			selectedData([],[])
 		} else {
 			setStateVal([...tempArray]);
 		}

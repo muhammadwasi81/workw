@@ -45,8 +45,6 @@
 
 .approval_item_detail_child1 {
     font-size: 12px;
-    color: var(--currentThemeColor);
-    font-weight: 600;
 }
 
 .approval_item_detail {
@@ -101,4 +99,14 @@
     border-radius: 8px;
     padding: 6px;
     margin-bottom: 8px;
+}
+
+.approval_item_detail_child1 .approval_creator {
+    color: var(--currentThemeColor);
+    font-weight: 600;
+}
+.approval_item_detail_child1 .approval_message {
+    color: black;
+    font-size: 13px;
+    
 }

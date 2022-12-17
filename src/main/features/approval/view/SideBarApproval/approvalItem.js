@@ -11,9 +11,9 @@ import ApprovalActions from "./approvalActions";
 
 export default function ApprovalItem({
   item,
-  handleApprovalDetail = () => {},
+  handleApprovalDetail = () => { },
 }) {
-  let { creator, updateDate, message } = item;
+  let { creator, updateDate, message, referenceNo } = item;
   let notiTime = moment
     .utc(updateDate)
     .local()
@@ -23,7 +23,6 @@ export default function ApprovalItem({
   const { label, color } = getStatusLabelAndColor("", statusLabels)[
     item.status
   ];
-  console.log(label);
   return (
     <div
       className="approval_item cursor-pointer"
@@ -35,18 +34,18 @@ export default function ApprovalItem({
           name={creator?.name}
           size={35}
           round={true}
-          // active={true}
+        // active={true}
         />
       </div>
       <div className="approval_item_detail">
         <div className="approval_item_detail_child1">
-          {creator?.name}
-          {message}
+          <span className="approval_creator">{creator?.name}</span>
+          <span className="approval_message">{message}</span>
         </div>
         <div className="approval_item_detail_child2">
           <div className="dateTime">
             <div className="shortDesc">{notiTime}</div>
-            <div className="shortDesc">TRA-00000012</div>
+            <div className="shortDesc">{referenceNo}</div>
           </div>
           {item.status === 1 && <ApprovalActions item={item} />}
           {item.status !== 1 && (

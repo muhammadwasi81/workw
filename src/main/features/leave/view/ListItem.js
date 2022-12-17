@@ -39,14 +39,9 @@ function ListItem(props) {
   var b = moment(endDate);
   const days = b.diff(a, "days");
 
-  console.log(props.item, "HELLO I AM LEAVE")
-
   return (
     <SingleItem onClick={props.onClick}>
-      <div
-        className="new"
-        id={props.id}
-      ></div>
+      <div className="new" id={props.id}></div>
       <ItemHeader>
         <div className="left">
           <UserInfo

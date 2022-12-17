@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import Select from "../../../sharedComponents/Select/Select";
@@ -14,6 +14,7 @@ import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSele
 import { getAllLeaveType } from "../leaveType/store/actions";
 import { DatePicker, Checkbox, Typography } from "antd";
 import { DEFAULT_GUID } from "../../../../utils/constants";
+import moment from "moment";
 
 import { STRINGS } from "../../../../utils/base";
 
@@ -55,7 +56,7 @@ const Composer = (props) => {
 
   const [value, setValue] = useState([]);
 
-  const { leaveTypes } = useSelector((state) => state.leaveTypeSlice);
+  const { leaveTypes, success } = useSelector((state) => state.leaveTypeSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   const selectedData = (data, obj) => {
@@ -99,64 +100,86 @@ const Composer = (props) => {
     dispatch(getAllLeaveType());
   }, []);
 
+  var a = moment(props.startDate);
+  var b = moment(props.endDate);
+  const days = b.diff(a, "days");
+  console.log(days, "days");
+
   const handleEndStartDate = (value, dateString, name) => {
+    // if (days === 0) {
+    //   message.error("select leave date at least for one day! ");
+    // } else {
     setState({
       ...state,
       [name]: dateString,
     });
+    //}
   };
 
   const onFinish = (values) => {
-
     if (values.members === undefined) {
       let approvers = [];
-    let members = [];
-    if (typeof values.approvers === "string") {
-      approvers.push({
-        approverId: values.approvers,
-      });
-    } else {
-      approvers = values.approvers.map((approver) => {
-        return {
-          approverId: approver,
-        };
-      });
-    }
-    const payload = { ...values, approvers, members, attachments };
-    dispatch(addLeave(payload));
+      let members = [];
+      if (typeof values.approvers === "string") {
+        approvers.push({
+          approverId: values.approvers,
+        });
+      } else {
+        approvers = values.approvers.map((approver) => {
+          return {
+            approverId: approver,
+          };
+        });
+      }
+      const payload = {
+        ...values,
+        approvers,
+        members,
+        attachments,
+      };
+      dispatch(addLeave(payload));
     } else {
       let approvers = [];
-    let members = [];
-    if (typeof values.approvers === "string") {
-      approvers.push({
-        approverId: values.approvers,
-      });
-    } else {
-      approvers = values.approvers.map((approver) => {
-        return {
-          approverId: approver,
-        };
-      });
-    }
-    if (typeof values.members === "string") {
-      members.push({
-        memberId: values.members,
-      });
-    } else {
-      members = values.members.map((memeber) => {
-        return {
-          memberId: memeber,
-        };
-      });
-    }
-    const payload = { ...values, approvers, members, attachments };
-    dispatch(addLeave(payload));
+      let members = [];
+      if (typeof values.approvers === "string") {
+        approvers.push({
+          approverId: values.approvers,
+        });
+      } else {
+        approvers = values.approvers.map((approver) => {
+          return {
+            approverId: approver,
+          };
+        });
+      }
+      if (typeof values.members === "string") {
+        members.push({
+          memberId: values.members,
+        });
+      } else {
+        members = values.members.map((memeber) => {
+          return {
+            memberId: memeber,
+          };
+        });
+      }
+
+      const payload = {
+        ...values,
+        approvers,
+        members,
+        attachments,
+      };
+      dispatch(addLeave(payload));
     }
 
     // }
-
-    form.resetFields();
   };
+  useEffect(() => {
+    if (success) {
+      form.resetFields();
+    }
+  }, [success]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -234,7 +257,7 @@ const Composer = (props) => {
             }}
             dataVal={value}
             name="members"
-            showSearch={true} 
+            showSearch={true}
             direction={Direction}
             // rules={[
             //   {

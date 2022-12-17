@@ -33,7 +33,9 @@ export const getAllOfficeTimingGroups = createAsyncThunk(
 export const addOfficeTimingGroup = createAsyncThunk(
   "OfficeTimingGroup/addOfficeTimingGroup",
   async (args, { dispatch }) => {
+    console.log(args, "argssss");
     const res = await addOfficeTimingService(args);
+    console.log(res, "response");
     if (res.responseCode && res.responseCode === responseCode.Success) {
       message.success("Office Timing Group added successfully!");
       responseMessage({ dispatch, data: res });

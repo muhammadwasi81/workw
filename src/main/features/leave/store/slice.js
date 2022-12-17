@@ -7,6 +7,7 @@ const initialState = {
   loader: true,
   leaveDetail: {},
   drawerOpen: false,
+  success: false,
 };
 
 const leaveSlice = createSlice({
@@ -20,6 +21,7 @@ const leaveSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllLeaves.fulfilled, (state, action) => {
       state.leaves = action.payload ? action.payload : [];
+      console.log(action.payload, "payloadddd");
       state.loader = false;
     });
 
@@ -30,11 +32,16 @@ const leaveSlice = createSlice({
 
     builder
       .addCase(addLeave.fulfilled, (state, { payload }) => {
+        console.log(payload, "payload");
+        console.log(state.leaves, "leaves");
         // state.drawerOpen = false;
         // state.leaveData = payload;
         // return state;
-        state.leaves = [payload.data.data, ...state.leaves];
+        // state.leaves = [payload.data.data, ...state.leaves];
+        state.leaves.unshift(payload.data.data);
+
         state.drawerOpen = false;
+
         return state;
       })
       .addMatcher(isPending(...[getAllLeaves]), (state) => {

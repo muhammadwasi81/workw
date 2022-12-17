@@ -11,10 +11,12 @@ import AvatarCustom from "../../../../../sharedComponents/Avatar/avatarOLD";
 import CardProfileTopView from "../../../../travel/view/ListView/CardProfileTopView";
 import { Table } from "../../../../../sharedComponents/customTable";
 import { tableColumn } from "../SubmitAppraisal/TableColumn";
+import DetailedView from "../DetailedView";
 
 function ShortCard({ item }) {
   const [openQuestion, setOpenQuestion] = useState(false);
   const [openTask, setOpenTask] = useState(false);
+  const [detailId, setDetailId] = useState(null);
 
   const {
     id,
@@ -33,22 +35,32 @@ function ShortCard({ item }) {
     userId,
   } = item;
 
-  console.log(item, "item");
-
-  const onClickQuestionTag = () => {
+  const onClickQuestionTag = (e) => {
+    e.stopPropagation();
     setOpenQuestion(true);
     console.log("onclick question");
   };
 
-  const onClickTaskTag = () => {
+  const onClickTaskTag = (e) => {
+    e.stopPropagation();
     setOpenTask(true);
     console.log("onclick Task");
   };
+
+  const onClickAppraisalCard = (e) => {
+    e.stopPropagation();
+    setDetailId(id);
+    console.log("onClick appraisal card");
+  };
+
+  const onClose = () => {
+    setDetailId(null);
+  };
   return (
     <>
+      <DetailedView id={detailId} onClose={onClose} />
       <Modal
         title="Question"
-        d
         centered
         open={openQuestion}
         onCancel={() => setOpenQuestion(false)}
@@ -60,21 +72,22 @@ function ShortCard({ item }) {
          */}
 
         <div className="inputBox mt-4">
-          {questions.map((item) => {
-            return (
-              <>
-                <div className="flex justify-between items-center">
-                  <span className="max-w-[35rem]">{`This is the another dummy question This is the another dummy questionThis is the another dummy questionThis is the another dummy questionThis is the another dummy question`}</span>
-                  <Rate disabled defaultValue={item.ratingAssign} />
-                </div>
-                <Divider />
-              </>
-            );
-          })}
+          {questions &&
+            questions.map((item) => {
+              return (
+                <>
+                  <div className="flex justify-between items-center">
+                    <span className="max-w-[35rem]">{`This is the another dummy question This is the another dummy questionThis is the another dummy questionThis is the another dummy questionThis is the another dummy question`}</span>
+                    <Rate disabled defaultValue={item.ratingAssign} />
+                  </div>
+                  <Divider />
+                </>
+              );
+            })}
         </div>
       </Modal>
       <Modal
-        title="Question"
+        title="Task"
         centered
         open={openTask}
         onCancel={() => setOpenTask(false)}
@@ -89,7 +102,7 @@ function ShortCard({ item }) {
           data={tasks ? tasks : []}
         />
       </Modal>
-      <SingleItem className="cursor-pointer">
+      <SingleItem className="cursor-pointer" onClick={onClickAppraisalCard}>
         <CardProfileTopView
           profileImgSrc={
             <AvatarCustom

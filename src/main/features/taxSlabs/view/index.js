@@ -15,8 +15,8 @@ import { Table } from "../../../sharedComponents/customTable";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { FormContainer } from "../../../sharedComponents/StyledComponents/adminForm";
 import { FormHeader } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
-import { handleEdit, TaxSlabDeleted } from "../store/slice";
-import { tableColumn } from "./TableColumn";
+import { handleEdit } from "../store/slice";
+import { tableColumns } from "./TableColumn";
 
 const { Panel } = Collapse;
 

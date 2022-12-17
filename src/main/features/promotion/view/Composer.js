@@ -216,7 +216,7 @@ const Composer = (props) => {
             selectedData={selectedDataApprover}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={promotionDictionary.selectMember}
+            placeholder={promotionDictionary.selectApprovers}
             mode={"multiple"}
             isObject={true}
             loadDefaultData={false}

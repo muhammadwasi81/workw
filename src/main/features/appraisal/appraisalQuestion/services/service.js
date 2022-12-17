@@ -1,7 +1,7 @@
 import MasterConfig from "../../../../../utils/services/MasterConfig";
 
 export const getAllAppraisalQuestionService = () => {
-  return MasterConfig.get(`api/appraisal/getAllQuestion`)
+  return MasterConfig.get(`api/appraisal/getallquestion`)
     .then((res) => {
       return res.data;
     })
@@ -11,7 +11,7 @@ export const getAllAppraisalQuestionService = () => {
 };
 
 export const addAppraisalQuestionService = (args) => {
-  return MasterConfig.post(`api/appraisal/AddQuestion`, args)
+  return MasterConfig.post(`api/appraisal/addquestion`, args)
     .then((res) => {
       return res.data;
     })

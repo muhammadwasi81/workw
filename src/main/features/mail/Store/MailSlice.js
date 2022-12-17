@@ -8,7 +8,14 @@ export const mailSlice = createSlice({
         currentParamId: "",
         currentPageSize: 1,
         mailDetail: null,
-        mailFolderItem: null,
+        mailFolderItem: [
+            {folderPath:"allMail"},
+            {folderPath:"inbox"},
+            {folderPath:"sent"},
+            {folderPath:"spam"},
+            {folderPath:"trash"},
+            {folderPath:"draft"},
+            ],
 
         mailDrawerStatus: false,
         mailMobComposerStatus: false,
@@ -83,7 +90,7 @@ export const mailSlice = createSlice({
             state.mailFolderItem = payload.data;
         },
         [getMailFolders.rejected]: (state, {payload}) => {
-            state.mailFolderItem = null;
+            // state.mailFolderItem = null;
             state.errorMessage = payload?.message;
             state.responseCode = payload?.responseCode
         },

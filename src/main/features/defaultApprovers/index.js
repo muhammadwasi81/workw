@@ -263,7 +263,7 @@ const DefaultApprovers = () => {
                             </>
                           )}
                         </div>
-                      </Modal>
+                      </Modal> 
                     </Panel>
                   </Collapse>
                 </div>

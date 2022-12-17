@@ -127,16 +127,19 @@ export const CreateFormParent = (props) => {
       id: createGuid(),
       subject: values.subject,
       description: values.description,
-      approvers: modifySelectData(values.approvers).map((el, index) => {
+      approvers: values.approvers && modifySelectData(values.approvers).map((el, index) => {
         return {
           approverId: el,
         };
       }),
+      privacyId: values.privacyId
     };
     setDataObj(payload);
+    console.log(payload, 'payload.....')
     // console.log("final data to be send to api****", payload);
     if (payload.question.length >= 1) {
       console.log("dispatch actions");
+      console.log(payload, 'payload before dispatch')
       dispatch(addForm(payload));
       navigate(-1);
     } else {

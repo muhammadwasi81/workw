@@ -12,8 +12,9 @@ import MailDetail from "./mailDetail";
 import MailBodyHeader from "../Header/mailBodyHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMailSeenFlag, getAllMail, getMailFolders } from "../Store/Api";
-import AntTooltip from "../../../SharedComponent/Tooltip/AntTooltip";
+// import AntTooltip from "../../../SharedComponent/Tooltip/AntTooltip";
 import MailItem from "./mailItem";
+import AntTooltip from "../../../sharedComponents/Tooltip/AntTooltip";
 
 const MainBody = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ const MainBody = () => {
 
   return (
     <div className="mailMainBody" ref={mailHolder}>
-      <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}`}>
+      {/* <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}`}> */}
         {inProcess &&
           [1, 3, 4].map((value) => (
             <div className="mailItem" key={value} style={{ height: "auto" }}>
@@ -162,13 +163,13 @@ const MainBody = () => {
               </div>
             )
           )}
-      </Route>
+      {/* </Route> */}
 
       {/*** For mail detail content with route ***/}
-      <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/:id`}>
+      {/* <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/:id`}> */}
         <MailBodyHeader />
         <MailDetail />
-      </Route>
+      {/* </Route> */}
     </div>
   );
 };

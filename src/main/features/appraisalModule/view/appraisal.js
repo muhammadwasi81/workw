@@ -14,6 +14,7 @@ import ForApproval from "./components/ForApproval";
 import { useNavigate } from "react-router-dom";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { appraisalDictionaryList } from "../localization/index";
+import { getAllAppraisalAction } from "../store/action";
 
 function Appraisals() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -37,6 +38,15 @@ function Appraisals() {
       renderButton: [1],
     },
   ];
+
+  useEffect(()=> {
+    dispatch(getAllAppraisalAction({
+      pageSize: 50,
+      search: "",
+      filterType: 0,
+      sortBy: 1
+    }))
+  },[])
 
   const onCreateAppraisal = () => {
     navigate("submitAppraisal");

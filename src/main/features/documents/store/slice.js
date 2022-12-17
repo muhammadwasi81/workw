@@ -2,8 +2,16 @@ import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { STRINGS } from "../../../../utils/base";
 import { PostPrivacyType } from "../../../../utils/Shared/enums/enums";
 import { getComposerKeyByType } from "../constant/helpers";
-import { addDocument, getAllDocument, getAllDocumentList, moveDocument, GetDocumentById, addDirectory } from "./actions";
-
+import {
+  addDocument,
+  getAllDocument,
+  getAllDocumentList,
+  moveDocument,
+  GetDocumentById,
+  addDirectory,
+  addDocumentDirectoryList,
+  getAllDocumentDirectoryList,
+} from "./actions";
 
 const initialState = {
   listLoading: false,
@@ -24,7 +32,8 @@ const initialState = {
     milepad: {},
     mileboard: {},
     mileshow: {},
-    updateMembers: null,
+    updateFolderMemberId: null,
+    members: [],
   },
   isTableView: false,
   listData: [],
@@ -34,13 +43,16 @@ const initialState = {
   success: false,
   loader: false,
   listLoader: false,
+  detailLoader: false,
   error: false,
   parentId: null,
-  breadCumbPath: [{
-    label: "Home",
-    id: STRINGS.DEFAULTS.guid
-  }],
-  defaultFiles: []
+  breadCumbPath: [
+    {
+      label: "Home",
+      id: STRINGS.DEFAULTS.guid,
+    },
+  ],
+  defaultFiles: [],
 };
 
 const documentSlice = createSlice({
@@ -62,24 +74,31 @@ const documentSlice = createSlice({
     },
     handleParentId: (state, { payload }) => {
       state.parentId = payload.id;
-      state.breadCumbPath = [...state.breadCumbPath, {
-        label: payload.name,
-        id: payload.id
-      }];
+      state.breadCumbPath = [
+        ...state.breadCumbPath,
+        {
+          label: payload.name,
+          id: payload.id,
+        },
+      ];
     },
     resetBreadCumb: (state, { payload }) => {
-      state.breadCumbPath = [{
-        label: "Home",
-        id: STRINGS.DEFAULTS.guid
-      }];
+      state.breadCumbPath = [
+        {
+          label: "Home",
+          id: STRINGS.DEFAULTS.guid,
+        },
+      ];
       state.parentId = STRINGS.DEFAULTS.guid;
     },
     handleBreadCumb: (state, { payload }) => {
-      state.breadCumbPath = state.breadCumbPath.slice(0, (payload.index + 1))
+      state.breadCumbPath = state.breadCumbPath.slice(0, payload.index + 1);
       state.parentId = payload.id;
     },
     updateMoveDocument: (state, { payload }) => {
-      state.listData = state.listData.filter(item => item.id !== payload.documents[0]);
+      state.listData = state.listData.filter(
+        (item) => item.id !== payload.documents[0]
+      );
     },
     uploadFileByDrop: (state, { payload }) => {
       state.defaultFiles = payload;
@@ -88,7 +107,9 @@ const documentSlice = createSlice({
       state.isOpenComposers.folder = true;
       state.composersInitState.folder = payload;
     },
-
+    handleUpdateFolderMemberId: (state, { payload }) => {
+      state.composersInitState.updateFolderMemberId = payload.id;
+    },
   },
 
   extraReducers: (builder) => {
@@ -106,12 +127,12 @@ const documentSlice = createSlice({
         //     ...state.listData
         //   ] : [payload, ...state.listData]
         state.listData = [
-          ...payload.map(item=>({
+          ...payload.map((item) => ({
             ...item,
             path: item.attachments[0].path,
-            name: item.attachments[0].name
+            name: item.attachments[0].name,
           })),
-          ...state.listData
+          ...state.listData,
         ];
         state.defaultFiles = [];
         state.isOpenComposers.mileboard = false;
@@ -139,38 +160,40 @@ const documentSlice = createSlice({
       })
       .addCase(GetDocumentById.fulfilled, (state, action) => {
         state.documentDetail = action.payload;
+        state.detailLoader = false;
+      })
+      .addCase(getAllDocumentDirectoryList.fulfilled, (state, { payload }) => {
+        state.composersInitState.members = payload;
+      })
+      .addCase(addDocumentDirectoryList.fulfilled, (state, { payload }) => {
+        state.composersInitState.members = payload;
+        // state.loader = true;
       })
       .addCase(addDocument.pending, (state, action) => {
         state.loader = true;
       })
+      .addCase(addDirectory.pending, (state, action) => {
+        state.loader = true;
+      })
+      .addCase(GetDocumentById.pending, (state, action) => {
+        state.detailLoader = true;
+      })
       .addMatcher(
-        isPending(
-          ...[
-            getAllDocument,
-            getAllDocumentList
-          ]
-        ),
-        state => {
+        isPending(...[getAllDocument, getAllDocumentList]),
+        (state) => {
           state.listLoader = true;
           state.success = false;
           state.error = false;
         }
       )
       .addMatcher(
-        isRejected(
-          ...[
-            addDocument,
-            getAllDocument,
-            getAllDocumentList
-          ]
-        ),
-        state => {
+        isRejected(...[addDocument, getAllDocument, getAllDocumentList]),
+        (state) => {
           state.listLoader = false;
           state.loader = false;
         }
       );
-  }
-
+  },
 });
 
 export const {
@@ -183,6 +206,7 @@ export const {
   updateMoveDocument,
   uploadFileByDrop,
   handleChangeView,
-  handleUpdateFolder
+  handleUpdateFolder,
+  handleUpdateFolderMemberId,
 } = documentSlice.actions;
 export default documentSlice.reducer;

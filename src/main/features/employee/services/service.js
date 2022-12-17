@@ -1,7 +1,7 @@
 // import AxiosConfig from "../../../../utils/services/AxiosConfig";
-import { jsonToFormData } from "../../../../utils/base";
-import MasterConfig from "../../../../utils/services/MasterConfig";
-const API_PREFIX = "api/Employee/";
+import { jsonToFormData } from '../../../../utils/base';
+import MasterConfig from '../../../../utils/services/MasterConfig';
+const API_PREFIX = 'api/Employee/';
 
 export const addEmployeeService = (data) => {
   const formData = jsonToFormData(data);
@@ -17,7 +17,7 @@ export const addEmployeeService = (data) => {
 export const getAllEmployeesService = () => {
   return MasterConfig.get(`${API_PREFIX}GetAllEmployeeShort`)
     .then((res) => {
-      console.log(res.data, "getAllEmployeesService");
+      console.log(res.data, 'getAllEmployeesService');
       return res.data;
     })
     .catch((err) => {
@@ -28,7 +28,7 @@ export const getAllEmployeesService = () => {
 export const getEmployeeByIdService = (id) => {
   return MasterConfig.get(`/api/Employee/GetEmployeeById?id=${id}`)
     .then((res) => {
-      console.log(res.data, "res.data");
+      console.log(res.data, 'getEmployeeByIdService');
       return res.data;
     })
     .catch((err) => {
@@ -38,7 +38,7 @@ export const getEmployeeByIdService = (id) => {
 
 export const updateEmployeeService = (data) => {
   const formData = jsonToFormData(data);
-  console.log(data, "service");
+  console.log(data, 'service');
   return MasterConfig.put(`${API_PREFIX}UpdateEmployee`, formData)
     .then((res) => {
       return res.data;

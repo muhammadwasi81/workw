@@ -58,7 +58,7 @@ function PromotionDetail(props) {
   } = ApprovalStatus;
 
   const {
-    creator = {},
+    creator,
     status,
     approvers,
     description,

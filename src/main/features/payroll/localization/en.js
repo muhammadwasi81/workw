@@ -3,7 +3,7 @@ const en = {
     payroll: "Payroll",
     createPayroll: "Create Payroll",
     selectMonthYear: "Select Month & Year",
-    dispereseDate: "DispereseDate",
+    dispereseDate: "Disburse Date",
     approvers: "Approvers",
     employee: "Employee",
     basicSalary: "Basic Salary",

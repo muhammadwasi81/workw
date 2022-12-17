@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { jsonToFormData, STRINGS } from "../../../../utils/base";
+import { responseCode } from "../../../../services/enums/responseCode";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 import { addDocument_dto } from "../services/dto";
 import {
@@ -10,8 +11,34 @@ import {
 	moveDocumentService,
 	getDocumentByIdService,
 	addDirectoryService,
+	moveDirectoryService,
+	getAllDocumentDirectoryMemberService,
+	addDocumentDirectoryMemberService,
 } from "../services/service";
 import { updateMoveDocument } from "./slice";
+import { message } from "antd";
+
+export const moveDirectory = createAsyncThunk(
+	"document/moveDirectory",
+	async (payload, { rejectWithValue, dispatch }) => {
+		const response = await moveDirectoryService(payload);
+		switch (response.type) {
+			case ResponseType.ERROR:
+				dispatch(
+					openNotification({
+						message: "Error " + response.errorMessage,
+						type: "error",
+					})
+				);
+				return rejectWithValue(response.errorMessage);
+			case ResponseType.SUCCESS:
+				dispatch(updateMoveDocument(payload));
+				return response.data;
+			default:
+				return;
+		}
+	}
+);
 
 export const moveDocument = createAsyncThunk(
 	"document/moveDocument",
@@ -28,11 +55,6 @@ export const moveDocument = createAsyncThunk(
 				return rejectWithValue(response.errorMessage);
 			case ResponseType.SUCCESS:
 				dispatch(updateMoveDocument(payload));
-				// dispatch(openNotification({
-				//   message: "Document Moved Successfully",
-				//   type: "success",
-				//   duration: 2
-				// }))
 				return response.data;
 			default:
 				return;
@@ -75,11 +97,17 @@ export const addDocument = createAsyncThunk(
 
 export const getAllDocumentList = createAsyncThunk(
 	"document/getAllDocumentList",
-	async (request, { rejectWithValue }) => {
-		console.log(request, "REQUEST");
+	async (request, { rejectWithValue, dispatch }) => {
 		const response = await getAllDocumentListService(request);
+		console.log(response, "REQUEST");		
 		switch (response.type) {
 			case ResponseType.ERROR:
+				dispatch(
+					openNotification({
+						message: response.errorMessage,
+						type: "error",
+					})
+				);
 				return rejectWithValue(response.errorMessage);
 			case ResponseType.SUCCESS:
 				return response.data;
@@ -107,6 +135,22 @@ export const getAllDocument = createAsyncThunk(
 
 export const GetDocumentById = createAsyncThunk(
 	"document/getDocumentById",
+	async (request, { rejectWithValue }) => {
+		console.log(request, "REQUEST");
+		const response = await getDocumentByIdService(request);
+		switch (response.type) {
+			case ResponseType.ERROR:
+				return rejectWithValue(response.errorMessage);
+			case ResponseType.SUCCESS:
+				return response.data;
+			default:
+				return;
+		}
+	}
+);
+
+export const UpdateDocumentById = createAsyncThunk(
+	"document/UpdateDocumentById",
 	async (request, { rejectWithValue }) => {
 		console.log(request, "REQUEST");
 		const response = await getDocumentByIdService(request);
@@ -155,3 +199,33 @@ export const addDirectory = createAsyncThunk(
 		}
 	}
 );
+
+export const getAllDocumentDirectoryList = createAsyncThunk(
+	"document/getAllDocumentDirectoryList",
+	async (request, { rejectWithValue }) => {
+		console.log(request, "FROM ACTION")
+		const response = await getAllDocumentDirectoryMemberService(request);
+		switch (response.type) {
+			case ResponseType.ERROR:
+				return rejectWithValue(response.errorMessage);
+			case ResponseType.SUCCESS:
+				return response.data;
+			default:
+				return;
+		}
+	}
+);
+
+export const addDocumentDirectoryList = createAsyncThunk(
+	"document/addDocumentDirectoryList",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+	  const res = await addDocumentDirectoryMemberService(data);
+	  if (res.data?.responseCode === responseCode.Success) {
+		message.success("Created");
+		return res;
+	  } else {
+		message.error(res.data.message);
+		return rejectWithValue(res.data.message);
+	  }
+	}
+  );

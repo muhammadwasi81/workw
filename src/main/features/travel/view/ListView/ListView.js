@@ -110,7 +110,7 @@ function ListView(props) {
 										/>
 									</div>
 								</div>
-								<div className="bg-[#F6F7F9] mt-3 p-3 px-9 rounded flex items-center justify-between relative overflow-auto ">
+								<div className="flex-1 flex-wrap min-w-fit border-r-2 gap-3 bg-[#F6F7F9] p-4 rounded flex items-center relative overflow-auto ">
 									<div className="flex gap-3 items-center min-w-[200px]">
 										<img
 											src={Calender}
@@ -128,7 +128,7 @@ function ListView(props) {
 											</span>
 										</div>
 									</div>
-									<div className="flex gap-3 items-center before:h-[40px] before:-left-[50px] before:w-[1px] before:bg-[#D9D9D9] before:absolute relative min-w-[250px]">
+									<div className="flex gap-3 items-center min-w-[200px]">
 										{/* <img
 											src={Calender}
 											alt=""
@@ -211,8 +211,8 @@ function ListView(props) {
 											/>
 										</div>
 									</div>
-								</div>
 							</div>
+						</div>
 						</div>
 				  ))
 				: null}

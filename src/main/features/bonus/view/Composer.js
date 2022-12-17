@@ -109,31 +109,33 @@ const Composer = (props) => {
     console.log("Failed:", errorInfo);
   };
 
-  // useEffect(() => {
-  //   if (value === 1) {
-  //     setAmount("");
-  //     console.log("valueeee", value);
-  //   } else if (value === 2) {
-  //     setPercentage("");
-  //     console.log(value, "valuee2");
-  //   }
-  // }, [value]);
+  useEffect(() => {
+    if (value === 1) {
+      setAmount("");
+      console.log("percentvalue",amount);
+      console.log("valueeee", value);
+    } else if (value === 2) {
+      console.log("Amountvalue", prercentage);
+      setPercentage("");
+      console.log(value, "valuee2");
+    }
+  }, [value]);
 
   const handleType = (e) => {
-    // let type = e.target.value;
-    // setValue(type);
-    // // setnetSalary(0);
-    // setIsDisabled(!isDisabled);
-    // if (type === 2) {
-    //   console.log(type, "type");
-    //   // setAmountType(true);
-    //   // setnetSalary(0);
-    // } else {
-    //   console.log("percentage clicked");
-    //   console.log(netSalary, "nettttt");
-    //   // setAmountType(false);
-    //   setnetSalary(0);
-    // }
+    let type = e.target.value;
+    console.log(type, "type");
+    setValue(type);
+    setnetSalary(0);
+    if (type === 2) {
+      //console.log(type, "type");
+      setAmountType(true);
+      setnetSalary(0);
+    } else {
+      console.log("percentage clicked");
+      console.log(netSalary, "nettttt");
+      setAmountType(false);
+      setnetSalary(0);
+    }
   };
 
   return (
@@ -234,11 +236,11 @@ const Composer = (props) => {
                 },
               ]}
             >
-              {/* {amountType === false ? ( */}
+           {  amountType === false ? (
               <Input
                 parser={(value) => value.replace("%", "")}
-                formatter={(value) => `${value}%`}
-                // defaultValue="0%"
+                //formatter={(value) => `${value}%`}
+                defaultValue="0%"
                 // type={"number"}
                 placeholder="0%"
                 // size="large"
@@ -246,30 +248,22 @@ const Composer = (props) => {
                 style={{ width: "100%" }}
                 onChange={(e) => setPercentage(e.target.value)}
               />
-            </Form.Item>
-            {/* ) : ( */}
-            <Form.Item
-              label={bonusDictionary.amount}
-              name="amount"
-              rules={[
-                {
-                  required: true,
-                  message: "Please Enter Amount",
-                },
-              ]}
-            >
+             ):(
               <Input
-                // parser={(value) => value.replace("0", "")}
-                // formatter={(value) => `${value}`}
-                // type={"number"}
+               parser={(value) => value.replace("", "%")}
+                //formatter={(value) => `${value}0`}
+                // defaultValue="0"
+                type={"number"}
                 placeholder="0"
                 // size="large"
                 value={amount}
                 style={{ width: "100%" }}
                 onChange={(e) => setAmount(e.target.value)}
               />
-              {/* )} */}
-            </Form.Item>
+               )
+            }
+            
+              </Form.Item>
           </div>
         </div>
         <Form.Item

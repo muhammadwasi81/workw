@@ -217,7 +217,7 @@ const Composer = (props) => {
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={warningDictionary.selectMember}
+            placeholder={warningDictionary.selectApprovers}
             mode={"multiple"}
             isObject={true}
             loadDefaultData={false}

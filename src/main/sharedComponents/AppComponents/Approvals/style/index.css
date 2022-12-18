@@ -78,12 +78,20 @@
   display: block !important;
 }
 
-.approvalCollapse .ant-tag {
+.approvalCollapse .ant-tag{
   background: var(--currentThemeColor);
   border-radius: 6px;
   font-size: 13px;
   text-transform: capitalize;
   padding: 3px 12px;
+  color: #fff;
+}
+.approval_status_tag .ant-tag{
+  background: var(--currentThemeColor);
+  border-radius: 6px;
+  font-size: 11px;
+  text-transform: capitalize;
+  padding: 1px 7px;
   color: #fff;
 }
 

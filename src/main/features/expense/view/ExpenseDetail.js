@@ -11,7 +11,7 @@ import {
 } from '../../../sharedComponents/AppComponents/Approvals/enums';
 import { updateListExpenseStatus } from '../store/slice';
 import ExpenseDetailList from './ExpenseDetailList';
-
+import "../style/style.css"
 function ExpenseDetail({ id }) {
   const { expense, loadingData } = useSelector((state) => state.expenseSlice);
   const { userLanguage } = useContext(LanguageChangeContext);

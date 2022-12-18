@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { jsonToFormData, STRINGS } from "../../../../utils/base";
+import { responseCode } from "../../../../services/enums/responseCode";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 import { addDocument_dto } from "../services/dto";
 import {
@@ -11,8 +12,11 @@ import {
 	getDocumentByIdService,
 	addDirectoryService,
 	moveDirectoryService,
+	getAllDocumentDirectoryMemberService,
+	addDocumentDirectoryMemberService,
 } from "../services/service";
 import { updateMoveDocument } from "./slice";
+import { message } from "antd";
 
 export const moveDirectory = createAsyncThunk(
 	"document/moveDirectory",
@@ -93,11 +97,17 @@ export const addDocument = createAsyncThunk(
 
 export const getAllDocumentList = createAsyncThunk(
 	"document/getAllDocumentList",
-	async (request, { rejectWithValue }) => {
-		console.log(request, "REQUEST");
+	async (request, { rejectWithValue, dispatch }) => {
 		const response = await getAllDocumentListService(request);
+		console.log(response, "REQUEST");		
 		switch (response.type) {
 			case ResponseType.ERROR:
+				dispatch(
+					openNotification({
+						message: response.errorMessage,
+						type: "error",
+					})
+				);
 				return rejectWithValue(response.errorMessage);
 			case ResponseType.SUCCESS:
 				return response.data;
@@ -189,3 +199,33 @@ export const addDirectory = createAsyncThunk(
 		}
 	}
 );
+
+export const getAllDocumentDirectoryList = createAsyncThunk(
+	"document/getAllDocumentDirectoryList",
+	async (request, { rejectWithValue }) => {
+		console.log(request, "FROM ACTION")
+		const response = await getAllDocumentDirectoryMemberService(request);
+		switch (response.type) {
+			case ResponseType.ERROR:
+				return rejectWithValue(response.errorMessage);
+			case ResponseType.SUCCESS:
+				return response.data;
+			default:
+				return;
+		}
+	}
+);
+
+export const addDocumentDirectoryList = createAsyncThunk(
+	"document/addDocumentDirectoryList",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+	  const res = await addDocumentDirectoryMemberService(data);
+	  if (res.data?.responseCode === responseCode.Success) {
+		message.success("Created");
+		return res;
+	  } else {
+		message.error(res.data.message);
+		return rejectWithValue(res.data.message);
+	  }
+	}
+  );

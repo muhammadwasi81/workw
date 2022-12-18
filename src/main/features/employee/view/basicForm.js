@@ -78,6 +78,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const { accessRoles } = useSelector((state) => state.accessRolesSlice);
   const { items } = useSelector((state) => state.subsidiarySlice);
   const subsidiaryOffice = useSelector((state) => state.subsidiaryOfficeSlice);
+  console.log(subsidiaryOffice, 'subsidiaryOffice slice');
   const { userLanguage } = useContext(LanguageChangeContext);
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage

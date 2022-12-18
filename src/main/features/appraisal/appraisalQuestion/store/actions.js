@@ -44,7 +44,7 @@ export const updateQuestion = createAsyncThunk(
   'appraisalQuestion/updateQuestion',
   async (args, { dispatch }) => {
     return await MasterConfig.put(
-      `api/appraisal/appraisalQuestion/updatequestion`,
+      `api/appraisal/updatequestion`,
       args
     )
       .then((res) => {
@@ -69,7 +69,7 @@ export const removeQuestion = createAsyncThunk(
   'appraisalQuestion/removeQuestion',
   async (args, { dispatch, getState }) => {
     return await MasterConfig.delete(
-      `api/appraisal/appraisalQuestion/removequestion?id=${args.id}`
+      `api/appraisal/removequestion?id=${args.id}`
     )
       .then((res) => {
         if (res.data.responseCode === responseCode.Success) {

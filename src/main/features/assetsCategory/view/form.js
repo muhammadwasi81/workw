@@ -14,15 +14,6 @@ import { getAllChartOfAccount } from '../../chartOfAccount/store/actions';
 import { assetsCategoryDictionaryList } from '../localization/index';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 
-const accountTypes = [
-  { id: 1, label: 'Asset' },
-  { id: 2, label: 'Liability' },
-  { id: 3, label: 'Capital' },
-  { id: 4, label: 'Revenue' },
-  { id: 5, label: 'Expense' },
-  { id: 6, label: 'Cost of Good Sold' },
-];
-
 const AssetsCategoryForm = ({
   data,
   onSubmit,
@@ -30,6 +21,8 @@ const AssetsCategoryForm = ({
   setClearButton,
   clearButton,
 }) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { assetsDictionary } = assetsCategoryDictionaryList[userLanguage];
   const dispatch = useDispatch();
   const [form, setForm] = useState(data);
   console.log(form, 'data');
@@ -80,8 +73,7 @@ const AssetsCategoryForm = ({
   useEffect(() => {
     setForm(data);
   }, [data]);
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { assetsDictionary } = assetsCategoryDictionaryList[userLanguage];
+
   const accountTypes = [
     { id: 1, label: assetsDictionary.assets },
     { id: 2, label: assetsDictionary.liability },
@@ -90,6 +82,7 @@ const AssetsCategoryForm = ({
     { id: 5, label: assetsDictionary.expense },
     { id: 6, label: assetsDictionary.costOfGoodsale },
   ];
+
   return (
     <FormContainer>
       <FormHeader>{assetsDictionary.assetsCategory}</FormHeader>

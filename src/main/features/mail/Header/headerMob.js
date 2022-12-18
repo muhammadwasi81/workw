@@ -5,8 +5,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {openMailMenuDrawer, openMailMobComposer} from "../Store/MailSlice";
 import {LanguageChangeContext} from "../../../../utils/localization/localContext/LocalContext";
 import {dictionaryList} from "../../../../utils/localization/languages";
-import SharedButton from "../../../SharedComponent/button";
+// import SharedButton from "../../../SharedComponent/button";
 import {useLocation} from "react-router-dom";
+import SharedButton from '../../../sharedComponents/button';
 
 const HeaderMob = () => {
     const dispatch = useDispatch();

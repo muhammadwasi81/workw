@@ -3,7 +3,6 @@ import { addEmployeeSalaryAction } from './action';
 
 const initialState = {
   employeeSalary: [],
-  // employeeSalary: {},
   loader: false,
   success: false,
 };
@@ -15,9 +14,10 @@ const employeeSalarySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addEmployeeSalaryAction.fulfilled, (state, { payload }) => {
+        state.employeeSalary = [...state.employeeSalary, ...payload];
+        console.log(payload, 'slice payload');
         state.loader = false;
         state.success = true;
-        state.payload = [...state.payload, ...payload];
       })
       .addMatcher(isPending(...[addEmployeeSalaryAction]), (state) => {
         console.log('pending state');

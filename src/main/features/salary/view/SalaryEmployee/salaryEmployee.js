@@ -1,25 +1,23 @@
-import {
-  Avatar,
-  Button,
-  DatePicker,
-  Divider,
-  Form,
-  Input,
-  Select,
-  Table,
-} from 'antd';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Avatar, Button, DatePicker, Divider, Form, Input, Table } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import moment from 'moment/moment';
 import { getAllSalaryHeaderService } from '../../../salaryHeader/services/service';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import MemberSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { getNameForImage } from '../../../../../utils/base';
+import {
+  getNameForImage,
+  modifySelectData,
+  STRINGS,
+} from '../../../../../utils/base';
 import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
 import { addEmployeeSalaryAction } from './action/action';
+import { useParams } from 'react-router-dom';
 
 function SalaryEmployee() {
+  const { id } = useParams();
+  console.log(id, 'USER ID');
   const [form] = Form.useForm();
   const [salaryEmployee, setSalaryEmployee] = useState([]);
   const [salaryHeader, setSalaryHeader] = useState([]);
@@ -32,7 +30,7 @@ function SalaryEmployee() {
     basicSalary: '',
     check: '',
     description: '',
-    effectiveDate: '',
+    effectiveDate: moment(),
     grossSalary: '',
     netSalary: '',
     salaryHeaders: [],
@@ -42,47 +40,30 @@ function SalaryEmployee() {
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  console.log(salaryEmployee, 'salaryEmployee');
-  const handleSubmit = () => {
-    const payload = createPayload();
-    setSalaryEmployee((preValue) => [...preValue, form.getFieldsValue()]);
-    dispatch(addEmployeeSalaryAction(payload));
+  const handleSubmit = async () => {
+    form.submit();
+    try {
+      const isValidation = await form.validateFields();
+      if (isValidation) {
+        setSalaryEmployee((preValue) => [...preValue, form.getFieldsValue()]);
+        const payloadData = {
+          ...isValidation,
+          userId: id,
+          taxSlabId: STRINGS.DEFAULTS.guid,
+          approvers: modifySelectData(
+            isValidation.approvers
+          ).map((approver) => ({ approverId: approver })),
+        };
+        console.log([payloadData], 'payloadData');
+        dispatch(addEmployeeSalaryAction([payloadData]));
+        form.resetFields();
+      }
+    } catch (err) {
+      console.log(err.message, 'err');
+      throw new Error(`Error in submitting form: ${err}`, { cause: err });
+    }
   };
 
-  const createPayload = () => {
-    const payload = [];
-    salaryEmployee.forEach((item) => {
-      const data = {
-        approvers: item.approvers,
-        basicSalary: item.basicSalary,
-        check: item.check,
-        description: item.description,
-        effectiveDate: item.effectiveDate,
-        grossSalary: item.grossSalary,
-        netSalary: item.netSalary,
-        salaryHeaders: item.salaryHeaders,
-        employeeId: item.employeeId,
-      };
-      payload.push(data);
-    });
-    console.log(payload, 'payload');
-    return payload;
-  };
-
-  // const handleSubmit = async () => {
-  //   form.submit();
-  //   try {
-  //     const isValidation = await form.validateFields();
-  //     console.log(isValidation, 'isValidation');
-  //     if (isValidation) {
-  //       setSalaryEmployee((preValue) => [...preValue, form.getFieldsValue()]);
-  //       form.resetFields();
-  //     }
-  //     // dispatch(addEmployeeSalaryAction(isValidation));
-  //   } catch (err) {
-  //     throw new Error(`Error in submitting form: ${err}`, { cause: err });
-  //   }
-  // };
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
@@ -96,6 +77,7 @@ function SalaryEmployee() {
   useEffect(() => {
     fetchEmployees('', 0);
   }, []);
+
   const columns = [
     {
       title: 'Effective Date',
@@ -184,19 +166,7 @@ function SalaryEmployee() {
         >
           <DatePicker placeholder="Select Date" size="large"></DatePicker>
         </Form.Item>
-        <Form.Item
-          name="salaryHeaders"
-          label={'Salary Headers'}
-          rules={[{ required: true }]}
-        >
-          <Select placeholder=" Select Salary Headers" size="large">
-            {salaryHeader.map((item) => (
-              <Select.Option value={item.id} key={item.id}>
-                {item.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+
         <Form.Item
           name="basicSalary"
           label={'Basic Salary'}
@@ -212,7 +182,7 @@ function SalaryEmployee() {
           <MemberSelect
             name="approvers"
             mode="multiple"
-            formitem={false}
+            formItem={false}
             isObject={true}
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -233,22 +203,20 @@ function SalaryEmployee() {
             }}
           />
         </Form.Item>
-        <Form.Item name="check" label={'Check'} rules={[{ required: true }]}>
-          <Input type="number" placeholder="Check"></Input>
-        </Form.Item>
+
         <Form.Item
           name="grossSalary"
           label={'Gross Salary'}
           rules={[{ required: true }]}
         >
-          <Input type="number" placeholder="Gross Salary"></Input>
+          <Input type="number" placeholder="0" disabled={true} />
         </Form.Item>
         <Form.Item
           name="netSalary"
           label={'Net Salary'}
           rules={[{ required: true }]}
         >
-          <Input type="number" placeholder="Net Salary"></Input>
+          <Input type="number" placeholder="0" disabled={true} />
         </Form.Item>
         <Form.Item
           name="description"

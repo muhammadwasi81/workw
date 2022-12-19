@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { NavLink, useLocation, Route } from "react-router-dom";
+import { NavLink, useLocation, Route, Routes } from "react-router-dom";
 import { Checkbox, Rate, Skeleton } from "antd";
 import {
   parseDate,
@@ -55,7 +55,7 @@ const MainBody = () => {
   };
 
   useEffect(() => {
-    GetAllMailHandle();
+    // GetAllMailHandle();
   }, [currentParamId]);
 
   const changeSeenFlag = (ID, IsRead) => {
@@ -64,112 +64,115 @@ const MainBody = () => {
     );
   };
 
-  const handlePagination = (doPagination = true) => {};
+  const handlePagination = (doPagination = true) => { };
 
   return (
     <div className="mailMainBody" ref={mailHolder}>
-      {/* <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}`}> */}
-        {inProcess &&
-          [1, 3, 4].map((value) => (
-            <div className="mailItem" key={value} style={{ height: "auto" }}>
-              <Skeleton
-                avatar={true}
-                paragraph
-                title={true}
-                active={true}
-                shape={"round"}
-                loading={inProcess}
-                block={true}
-                style={{ margin: "10px 10px" }}
-              ></Skeleton>
-            </div>
-          ))}
-
-        {!isTablet &&
-          !inProcess &&
-          allMail?.map((item) => (
-            <MailItem
-              data={item}
-              key={item.id}
-              changeSeenFlag={changeSeenFlag}
-            />
-          ))}
-
-        {isTablet &&
-          !inProcess &&
-          allMail?.map(
-            ({
-              from,
-              body,
-              id,
-              subject,
-              content,
-              isRead,
-              date,
-              hasAttachments,
-            }) => (
-              <div
-                className="mailItemMob"
-                key={id}
-                style={{
-                  backgroundColor: !isRead && "#e5e5e594",
-                }}
-              >
-                <div className="checkBx-mobile">
-                  <Checkbox onChange={() => console.log("checked")} />
-                </div>
-
-                <NavLink
-                  className="subjectAndBodyMob"
-                  to={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/${id}`}
-                >
-                  <div className="mailForm">
-                    <div className="subject">{from[0].name}</div>
-
-                    {hasAttachments && (
-                      <div>
-                        <img
-                          src={mailAttachmentIcon}
-                          alt="mailAttachmentIcon"
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <div className="mobile-subject-body">{subject}</div>
-                  <div className="mobile-mail-body">{content}</div>
-                </NavLink>
-
-                <div className="end-date-box">
-                  <div>{parseDateWithMontAndYear(parseDate(date))}</div>
-                  <div>
-                    <AntTooltip
-                      value={!isRead ? "Mark as read" : "Mark as unread"}
-                      placement="bottom"
-                      color={"#FFFFFF"}
-                    >
-                      <Rate
-                        count={1}
-                        // defaultValue={!isRead}
-                        onChange={() => changeSeenFlag(id, isRead ? 2 : 1)}
-                        value={!isRead}
-                        style={{
-                          fontSize: "16px",
-                          color: "var(--currentThemeColor)",
-                        }}
-                      />
-                    </AntTooltip>
-                  </div>
-                </div>
+      <Routes>
+        <Route path={`/`}>
+          {inProcess &&
+            [1, 3, 4].map((value) => (
+              <div className="mailItem" key={value} style={{ height: "auto" }}>
+                <Skeleton
+                  avatar={true}
+                  paragraph
+                  title={true}
+                  active={true}
+                  shape={"round"}
+                  loading={inProcess}
+                  block={true}
+                  style={{ margin: "10px 10px" }}
+                ></Skeleton>
               </div>
-            )
-          )}
-      {/* </Route> */}
+            ))}
 
-      {/*** For mail detail content with route ***/}
-      {/* <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/:id`}> */}
-        <MailBodyHeader />
-        <MailDetail />
-      {/* </Route> */}
+          {!isTablet &&
+            !inProcess &&
+            allMail?.map((item) => (
+              <MailItem
+                data={item}
+                key={item.id}
+                changeSeenFlag={changeSeenFlag}
+              />
+            ))}
+
+          {isTablet &&
+            !inProcess &&
+            allMail?.map(
+              ({
+                from,
+                body,
+                id,
+                subject,
+                content,
+                isRead,
+                date,
+                hasAttachments,
+              }) => (
+                <div
+                  className="mailItemMob"
+                  key={id}
+                  style={{
+                    backgroundColor: !isRead && "#e5e5e594",
+                  }}
+                >
+                  <div className="checkBx-mobile">
+                    <Checkbox onChange={() => console.log("checked")} />
+                  </div>
+
+                  <NavLink
+                    className="subjectAndBodyMob"
+                    to={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/${id}`}
+                  >
+                    <div className="mailForm">
+                      <div className="subject">{from[0].name}</div>
+
+                      {hasAttachments && (
+                        <div>
+                          <img
+                            src={mailAttachmentIcon}
+                            alt="mailAttachmentIcon"
+                          />
+                        </div>
+                      )}
+                    </div>
+                    <div className="mobile-subject-body">{subject}</div>
+                    <div className="mobile-mail-body">{content}</div>
+                  </NavLink>
+
+                  <div className="end-date-box">
+                    <div>{parseDateWithMontAndYear(parseDate(date))}</div>
+                    <div>
+                      <AntTooltip
+                        value={!isRead ? "Mark as read" : "Mark as unread"}
+                        placement="bottom"
+                        color={"#FFFFFF"}
+                      >
+                        <Rate
+                          count={1}
+                          // defaultValue={!isRead}
+                          onChange={() => changeSeenFlag(id, isRead ? 2 : 1)}
+                          value={!isRead}
+                          style={{
+                            fontSize: "16px",
+                            color: "var(--currentThemeColor)",
+                          }}
+                        />
+                      </AntTooltip>
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
+        </Route>
+
+        {/*** For mail detail content with route ***/}
+        {/* <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/:id`}> */}
+        {/* <MailBodyHeader /> */}
+        {/* <MailDetail /> */}
+        {/* </Route> */}
+      </Routes>
+
     </div>
   );
 };

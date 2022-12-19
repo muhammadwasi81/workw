@@ -16,7 +16,15 @@ import AntTooltip from "../../../sharedComponents/Tooltip/AntTooltip";
 
 const MailItem = ({ data, changeSeenFlag }) => {
 	const dispatch = useDispatch();
-	const { from, subject, id, isRead, date, hasAttachments, content } = data;
+	const {
+		from = [{ name: "Owais Sheikh" }],
+		subject = "Dummy Subject Here",
+		id = STRINGS.DEFAULTS.guid,
+		isRead = false,
+		date = new Date(),
+		hasAttachments,
+		content = "Dummy Content Here",
+	} = data;
 	const { pathname } = useLocation();
 	const api_base = pathname.split("/")[2];
 
@@ -31,7 +39,7 @@ const MailItem = ({ data, changeSeenFlag }) => {
 					message.success("Email moved to trash.");
 				}
 				console.log(originalPromiseResult, "originalPromiseResult");
-			} catch (rejectedValueOrSerializedError) {}
+			} catch (rejectedValueOrSerializedError) { }
 		});
 	};
 
@@ -44,7 +52,7 @@ const MailItem = ({ data, changeSeenFlag }) => {
 					message.success("Email deleted forever.");
 				}
 				console.log(originalPromiseResult, "originalPromiseResult");
-			} catch (rejectedValueOrSerializedError) {}
+			} catch (rejectedValueOrSerializedError) { }
 		});
 	};
 

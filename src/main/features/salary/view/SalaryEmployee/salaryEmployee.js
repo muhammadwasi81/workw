@@ -12,7 +12,10 @@ import {
   STRINGS,
 } from '../../../../../utils/base';
 import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
-import { addEmployeeSalaryAction } from './action/action';
+import {
+  addEmployeeSalaryAction,
+  getCurrentSalaryOfEmployeeAction,
+} from './action/action';
 import { useParams } from 'react-router-dom';
 
 function SalaryEmployee() {
@@ -20,7 +23,6 @@ function SalaryEmployee() {
   console.log(id, 'USER ID');
   const [form] = Form.useForm();
   const [salaryEmployee, setSalaryEmployee] = useState([]);
-  const [salaryHeader, setSalaryHeader] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [employeesData, setEmployeesData] = useState([]);
@@ -31,13 +33,17 @@ function SalaryEmployee() {
     check: '',
     description: '',
     effectiveDate: moment(),
-    grossSalary: '',
-    netSalary: '',
-    salaryHeaders: [],
+    // grossSalary: '',
+    // netSalary: '',
   };
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
+
+  const { currentEmployeeSalary } = useSelector(
+    (state) => state.employeeSalarySlice
+  );
+
   const dispatch = useDispatch();
 
   const handleSubmit = async () => {
@@ -64,6 +70,11 @@ function SalaryEmployee() {
     }
   };
 
+  useEffect(() => {
+    console.log('useEffect');
+    dispatch(getCurrentSalaryOfEmployeeAction(id));
+  }, [id]);
+
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
@@ -89,21 +100,6 @@ function SalaryEmployee() {
       },
     },
     {
-      title: 'Salary Headers',
-      dataIndex: 'salaryHeaders',
-      ellipsis: true,
-      key: 'salaryHeaders',
-      render: (value, _, index) => {
-        return salaryHeader.filter((item) => item.id === value)[index]?.name;
-      },
-    },
-    {
-      title: 'Basic Salary',
-      dataIndex: 'basicSalary',
-      ellipsis: true,
-      key: 'basicSalary',
-    },
-    {
       title: 'Approvers',
       dataIndex: 'approvers',
       ellipsis: true,
@@ -113,22 +109,22 @@ function SalaryEmployee() {
       },
     },
     {
-      title: 'Check',
-      dataIndex: 'check',
+      title: 'Basic Salary',
+      dataIndex: 'basicSalary',
       ellipsis: true,
-      key: 'check',
-    },
-    {
-      title: 'Gross Salary',
-      dataIndex: 'grossSalary',
-      ellipsis: true,
-      key: 'grossSalary',
+      key: 'basicSalary',
+      render: () => {
+        return currentEmployeeSalary?.basicSalary;
+      },
     },
     {
       title: 'Net Salary',
       dataIndex: 'netSalary',
       ellipsis: true,
       key: 'netSalary',
+      render: () => {
+        return currentEmployeeSalary?.netSalary;
+      },
     },
     {
       title: 'Description',
@@ -137,23 +133,6 @@ function SalaryEmployee() {
       key: 'description',
     },
   ];
-
-  const getSalaryHeader = async () => {
-    try {
-      const { responseCode, data } = await getAllSalaryHeaderService();
-      if (responseCode === 1001) {
-        setSalaryHeader(data);
-      }
-    } catch (err) {
-      throw new Error(`Error in fetching salary header: ${err}`, {
-        cause: err,
-      });
-    }
-  };
-
-  useEffect(() => {
-    getSalaryHeader();
-  }, []);
 
   return (
     <div className="employeeForm">
@@ -204,20 +183,13 @@ function SalaryEmployee() {
           />
         </Form.Item>
 
-        <Form.Item
-          name="grossSalary"
-          label={'Gross Salary'}
-          rules={[{ required: true }]}
-        >
+        <Form.Item label={'Gross Salary'}>
           <Input type="number" placeholder="0" disabled={true} />
         </Form.Item>
-        <Form.Item
-          name="netSalary"
-          label={'Net Salary'}
-          rules={[{ required: true }]}
-        >
+        <Form.Item label={'Net Salary'}>
           <Input type="number" placeholder="0" disabled={true} />
         </Form.Item>
+
         <Form.Item
           name="description"
           label={'Description'}

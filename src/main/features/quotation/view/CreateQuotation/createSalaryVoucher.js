@@ -59,7 +59,6 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   const [entries, setEntries] = useState(initialEntries);
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
-  const [totalAmount, setTotalAmount] = useState(0);
   const [quotationDetails, setQuotationDetails] = useState(initialState);
   const success = useSelector((state) => state.quotationSlice.success);
   const dispatch = useDispatch();
@@ -69,12 +68,6 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
     (state) => state.sharedSlice.employeeShort
   );
   const allowanceData = useSelector((state) => state.allowanceSlice.allowances);
-
-  useEffect(() => {
-    if (entries.totalAmount > 0) {
-      setTotalAmount(...(totalAmount + entries.totalAmount));
-    }
-  }, [entries]);
 
   const prevState = useRef({ quotationDetails }).current;
 
@@ -153,28 +146,32 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
 
   const handleSubmit = () => {
     let filteredEntries = entries.filter((item) => item.item);
-    // console.log(filteredEntries);
-    setQuotationDetails({ ...quotationDetails, details: filteredEntries }, () =>
-      console.log("***", quotationDetails)
-    );
-    // console.log(quotationDetails);
     if (quotationDetails.name.length === 0) {
       message.error(`Client's Name Required`);
       return;
     }
-    if (quotationDetails.email.length === 0) {
-      message.error(`Client's email Required`);
+    if (quotationDetails.quotationDate.length === 0) {
+      message.error(`Quotation date Required`);
       return;
     }
-    if (quotationDetails.phoneNumber.length === 0) {
-      message.error(`Client's Phone Required`);
-      return;
-    }
-    if (quotationDetails.approvers.length === 0) {
-      message.error(`Approvers Required`);
-      return;
-    }
+    // if (quotationDetails.email.length === 0) {
+    //   message.error(`Client's email Required`);
+    //   return;
+    // }
+    // if (quotationDetails.phoneNumber.length === 0) {
+    //   message.error(`Client's Phone Required`);
+    //   return;
+    // }
+    // if (quotationDetails.approvers.length === 0) {
+    //   message.error(`Approvers Required`);
+    //   return;
+    // }
+
+    setQuotationDetails({ ...quotationDetails, details: filteredEntries }, () =>
+      console.log("***", quotationDetails)
+    );
   };
+
   return (
     <div className="createEntryTable">
       <CreateQuotationOptions
@@ -226,7 +223,10 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
           </Button>
         </div>
 
-        <VoucherFooter amount={totalAmount} />
+        <VoucherFooter amount={
+          entries.filter(it => it.item)
+            .reduce((a, b) => a + (b.price * b.quantity), 0)
+        } />
       </div>
     </div>
   );

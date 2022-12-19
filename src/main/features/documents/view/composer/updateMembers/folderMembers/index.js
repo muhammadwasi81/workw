@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Avatar from "../../../../../../sharedComponents/Avatar/avatarOLD";
 import MemberSelect from "../../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { getAllEmployees } from "../../../../../../../utils/Shared/store/actions";
+import { addDocumentDirectoryList, getAllDocumentDirectoryList } from "../../../../store/actions";
 
 function FolderMemberUpdate({
     isOpen = false,
@@ -13,13 +14,24 @@ function FolderMemberUpdate({
     const dispatch = useDispatch();
     const employees = useSelector((state) => state.sharedSlice.employees);
     const composerState = useSelector(state => state.documentSlice.composersInitState.updateMembers);
+    const updateFolderMemberId = useSelector(state => state.documentSlice.composersInitState.updateFolderMemberId);
     const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
     const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
     const [value, setValue] = useState([]);
 
-    const handleChange = (e) => {
-        console.log(e);
+    const handleChange = (id) => {
+        let memberId = id.toString()
+        const data = {
+            id: updateFolderMemberId,
+            memberId: memberId 
+        }
+        dispatch(addDocumentDirectoryList(data))
     };
+
+    useEffect(() => {
+        dispatch(getAllDocumentDirectoryList({id: updateFolderMemberId}))
+        console.log(updateFolderMemberId, "updateFolderMemberId");
+    }, [updateFolderMemberId])
 
     const fetchEmployees = (text, pgNo) => {
         dispatch(
@@ -40,7 +52,6 @@ function FolderMemberUpdate({
     useEffect(() => {
         isOpen && fetchEmployees('', 0);
     }, [isOpen]);
-console.log(composerState, "composerState")
     return (
         <Modal
             open={isOpen}
@@ -82,11 +93,12 @@ console.log(composerState, "composerState")
                 showSearch={true}
             />
             {
-                composerState?.members?.map((item) =>{
-                    return <div>
-                        saas
-                    </div>
-                })
+                // composerState?.members?.map((item) =>{
+                //     return <div>
+                //         saas
+                //     </div>
+                // })
+                <>"Dummy Content"</>
             }
         </Modal>
     );

@@ -1,10 +1,15 @@
 
 export function ValidateAddMultipleSalary(data) {
     let validateObj = { error: false, message: "" };
-    // if (data.details.length === 0) {
-    //     validateObj.error = true;
-    //     validateObj.message += "Empty voucher detail not allowed";
-    // }
+    console.log(data)
+    if (data.length === 0) {
+        validateObj.error = true;
+        validateObj.message += "atlease one salary required";
+    }
+    if (data.filter(it => it.approvers.length === 0).length > 0) {
+        validateObj.error = true;
+        validateObj.message += "Approvers Required";
+    }
     // else if (data.totalDr !== data.totalCr) {
     //     validateObj.error = true;
     //     validateObj.message += "\nDebit & Credit amount must be equal";

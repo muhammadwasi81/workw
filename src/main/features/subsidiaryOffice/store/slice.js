@@ -1,7 +1,12 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addBranchService } from "../../subsidiary/services/service.js";
-import { addBranch, addBranchOffice, getAllBranchOffice, updateBranch } from "./actions.js";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { responseCode } from '../../../../services/enums/responseCode.js';
+import { addBranchService } from '../../subsidiary/services/service.js';
+import {
+  addBranch,
+  addBranchOffice,
+  getAllBranchOffice,
+  updateBranch,
+} from './actions.js';
 
 const initialState = {
   items: [],
@@ -10,7 +15,7 @@ const initialState = {
 };
 
 const subsidiaryOfficeSlice = createSlice({
-  name: "items",
+  name: 'items',
   initialState,
   reducers: {
     BranchOfficeDeleted: (state, { payload }) => {
@@ -20,14 +25,17 @@ const subsidiaryOfficeSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllBranchOffice.fulfilled, (state, { payload }) => {
+        console.log(payload, 'getAllBranchOffice slice');
         state.loadingData = false;
         state.items = payload.data;
       })
       .addCase(addBranchOffice.fulfilled, (state, { payload }) => {
+        console.log(payload, 'addBranchOffice slice');
         state.loader = false;
         state.items.push(payload.data);
       })
       .addCase(updateBranch.fulfilled, (state, { payload }) => {
+        console.log(payload, 'updateBranch slice');
         state.loader = false;
         state.items = state.items.map((x) =>
           x.id === payload.data.id ? payload.data : x

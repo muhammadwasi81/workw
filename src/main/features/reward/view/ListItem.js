@@ -16,6 +16,8 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { useDispatch } from "react-redux";
 import { data } from "jquery";
 import Attachments from "../../travel/view/UI/Attachments";
+import "./style/reward.css";
+
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -94,11 +96,11 @@ function ListItem(props) {
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">{rewardDictionary.name}</div>
-            <div className="cardSection__body">{name}</div>
+            <div className="cardSection__body layout">{name}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">{rewardDictionary.reason}</div>
-            <div className="cardSection__body">{reason}</div>
+            <div className="cardSection__body layout">{reason}</div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">

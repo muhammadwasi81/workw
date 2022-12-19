@@ -28,18 +28,18 @@ export const tableColumn = () => {
 		{
 			title: "Privacy",
 			dataIndex: "privacyId",
-			render: (creator, row) => {
-				return <div>Public</div>
+			render: (data, row) => {
+				return <div>{data === 2 ? "Private" : "Public"}</div>
 			},
 			ellipsis: true,
 			sort: true,
 		},
-		{
-			title: "Status",
-			dataIndex: "status",
-			render: status => <DocumentStatusTag status={status} />,
-			sort: true,
-		},
+		// {
+		// 	title: "Status",
+		// 	dataIndex: "status",
+		// 	render: status => <DocumentStatusTag status={status} />,
+		// 	sort: true,
+		// },
 		// {
 		// 	title: "Task Assigned To",
 		// 	dataIndex: "members",

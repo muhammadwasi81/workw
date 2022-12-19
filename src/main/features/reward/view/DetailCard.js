@@ -16,6 +16,7 @@ import {
 } from "../../../sharedComponents/Card/CardStyle";
 import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import moment from "moment";
+import "./style/reward.css";
 import { cancelReward, GetRewardById } from "../store/actions";
 import {
   ApprovalsModule,
@@ -42,7 +43,7 @@ function RewardDetailCard(props) {
     props.id && dispatch(GetRewardById(props.id));
   }, [props.id]);
 
-  if (loadingData) return <Skeleton />;
+  if (loadingData || !rewardDetail.id) return <Skeleton />;
 
   const {
     creator,
@@ -144,14 +145,14 @@ function RewardDetailCard(props) {
             </div>
             <div className="cardSectionItem">
               <div className="cardSection__title"> {rewardDictionary.name}</div>
-              <div className="cardSection__body">{name}</div>
+              <div className="cardSection__body layout">{name}</div>
             </div>
             <div className="cardSectionItem">
               <div className="cardSection__title">
                 {" "}
                 {rewardDictionary.reason}
               </div>
-              <div className="cardSection__body">{reason}</div>
+              <div className="cardSection__body layout">{reason}</div>
             </div>
             <div className="cardSectionItem">
               <div className="cardSection__title">

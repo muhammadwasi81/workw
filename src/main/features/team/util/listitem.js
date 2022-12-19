@@ -136,15 +136,15 @@ export const listitem = [
     classObj: "button",
     to: (id) => `/teams/info/loan/${id}`,
   },
-  // {
-  //   IconName: (
-  //     <RightCircleOutlined
-  //       style={{ fontSize: 20, margin: "15px" }}
-  //       color={"var(--currentThemeColor)"}
-  //     />
-  //   ),
-  //   displayName: "activityLog",
-  //   classObj: "button",
-  //   to: (id) => `/teams/info/activity-log/${id}`,
-  // },
+  {
+    IconName: (
+      <RightCircleOutlined
+        style={{ fontSize: 20, margin: "15px" }}
+        color={"var(--currentThemeColor)"}
+      />
+    ),
+    displayName: "activityLog",
+    classObj: "button",
+    to: (id) => `/teams/info/activity-log/${id}`,
+  },
 ];

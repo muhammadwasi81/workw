@@ -10,6 +10,12 @@ const moveDocument_DBO = (data) => {
 		"documents": data.documents ? data.documents : []
 	}
 }
+const moveDirectory_DBO = (data) => {
+	return {
+		"parentId": data.parentId ? data.parentId : STRINGS.DEFAULTS.guid,
+		"directories": data.documents ? data.documents : []
+	}
+}
 
 
 export const addDocumentService = async (request) => {
@@ -31,6 +37,20 @@ export const moveDocumentService = async (payload) => {
 		const {
 			data: { responseCode, data, message },
 		} = await Config.post(`api/Document/MoveDocument`, request);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+
+export const moveDirectoryService = async (payload) => {
+	console.log(payload)
+	let request = moveDirectory_DBO(payload);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/Document/MoveDirectory`, request);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
@@ -94,3 +114,26 @@ export const addDirectoryService = async (payload) => {
 		return ResponseResultError(e);
 	}
 };
+
+export const getAllDocumentDirectoryMemberService = (data) => {
+	let id = data.id
+	return Config.get(`api/Document/GetAllDocumentDirectoryMember?id=${id}&pageNo=1`)
+	  .then((res) => {
+		return res.data;
+	  })
+	  .catch((err) => {
+		return err;
+	  });
+  };
+
+  export const addDocumentDirectoryMemberService = async (data) => {
+	let id = data.id
+	let memberId = data.memberId
+	return Config.post(`api/Document/AddDocumentDirectoryMember?id=${id}`, [{memberId: memberId}])
+	  .then((res) => {
+		return res;
+	  })
+	  .catch((res) => {
+		return res;
+	  });
+  };

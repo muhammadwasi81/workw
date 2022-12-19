@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { ROUTES } from "../../../../../utils/routes";
 import { TabbableContainer } from "../../../../layout/GridStyle";
 import Header from "../../../../layout/header/index";
 import { ContBody } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
-import Tab from "../../../../sharedComponents/Tab";
-import TopBar from "../../../../sharedComponents/topBar/topBar";
+import { getAllApproval } from "../../store/action";
 import ApprovalDetail from "./detail";
 import Listing from "./listing";
 
 export default function AllApprovals() {
-	const [tableView, setTableView] = useState(false);
+	const defaultFilter = {
+		pageNo: 0,
+		search: "",
+		modules:[]
+	}
+    const [filter, setFilter] = useState(defaultFilter);
 	const [approvalDetailData, setApprovalDetailData] = useState({});
+	const dispatch = useDispatch();
 
 	const handleApprovalDetail = item => {
-		console.log("item", item);
 		setApprovalDetailData(item);
 	};
+	useEffect(() => {
+            dispatch(getAllApproval(filter));
+    }, [filter]);
 
 	return (
 		<TabbableContainer>
@@ -31,27 +38,7 @@ export default function AllApprovals() {
 				]}
 				backButton={false}
 			/>
-			{/* <TopBar
-				onSearch={value => {
-					console.log(value);
-				}}
-				buttons={[
-					{
-						name: "Filter",
-					},
-				]}
-				segment={{
-					onSegment: value => {
-						if (value === "Table") {
-							setTableView(true);
-						} else {
-							setTableView(false);
-						}
-					},
-					label1: "List",
-					label2: "Table",
-				}}
-			/> */}
+			
 			<ContBody>
 				<div className="flex ApprovalMainView gap-4 w-full">
 					<div className="">

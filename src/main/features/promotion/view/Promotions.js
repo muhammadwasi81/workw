@@ -74,7 +74,7 @@ const Promotion = (props) => {
         items={items}
         buttons={[
           {
-            buttonText: "Create Promotion",
+            buttonText: "Create Promotions",
             render: (
               <SideDrawer
                 title={promotionDictionary.createPromotion}

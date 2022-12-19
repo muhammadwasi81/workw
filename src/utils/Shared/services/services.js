@@ -120,9 +120,7 @@ export const getAllRewardCategoryService = () => {
 };
 
 export const getAllComplainCategoryService = () => {
-  return MasterConfig.get(
-    "api/Complain/ComplainCategory/GetAllComplainCategory"
-  )
+  return MasterConfig.get("api/Complain/ComplainCategory/GetAllComplainCategory")
     .then((res) => {
       return res.data;
     })

@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import mailSearch from "../assests/mailSearch.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {useMediaQuery} from "react-responsive";
-import SearchInput from "../../../SharedComponent/searchBox/SearchInput";
+// import SearchInput from "../../../SharedComponent/searchBox/SearchInput";
 import {refreshMail} from "../Store/Api";
 import {useLocation} from "react-router-dom";
+import SearchInput from '../../../sharedComponents/searchBox/SearchInput';
 
 
 const SearchMailBox = () => {

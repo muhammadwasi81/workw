@@ -48,6 +48,9 @@ function Index() {
       startDate: startDate,
       endDate: endDate,
       questions: data?.questions,
+      gradeId: data?.values.gradeId,
+      salary: null,
+      bonus: null,
       comment: data?.values.comment,
       approvers: modifySelectData(data?.values.approvers).map((el, index) => {
         return {
@@ -58,14 +61,19 @@ function Index() {
       tasks: userTask?.map((el) => el.taskId),
     };
     //dispatch add appraisal
-    console.log(payload, "final payload");
-    // dispatch(
-    //   openNotification({
-    //     message: "please add sdsdasa",
-    //     type: "error",
-    //   })
-    // );
-    // dispatch(addAppraisal(payload));
+    if (!userTask.length) {
+      console.log(payload, "final payload");
+      dispatch(
+        openNotification({
+          message: "Tasks is required",
+          type: "error",
+        })
+      );
+    } else {
+      console.log(payload, "final payload");
+      dispatch(addAppraisal(payload));
+    }
+
     //setState submit false when API is called
     setSubmit(false);
   };

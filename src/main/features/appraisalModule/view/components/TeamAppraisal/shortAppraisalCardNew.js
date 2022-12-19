@@ -13,7 +13,7 @@ import { Table } from "../../../../../sharedComponents/customTable";
 import { tableColumn } from "../SubmitAppraisal/TableColumn";
 import DetailedView from "../DetailedView";
 
-function ShortCard({ item }) {
+function ShortCard({ item, isList }) {
   const [openQuestion, setOpenQuestion] = useState(false);
   const [openTask, setOpenTask] = useState(false);
   const [detailId, setDetailId] = useState(null);
@@ -48,9 +48,12 @@ function ShortCard({ item }) {
   };
 
   const onClickAppraisalCard = (e) => {
-    e.stopPropagation();
-    setDetailId(id);
-    console.log("onClick appraisal card");
+    if (isList) {
+      e.stopPropagation();
+      setDetailId(id);
+    } else {
+      console.log("not listed");
+    }
   };
 
   const onClose = () => {

@@ -20,18 +20,15 @@ function DetailCard(props) {
     (state) => state.appraisalModuleSlice
   );
 
-  console.log(detailLoader, appraisalDetail);
-
   useEffect(() => {
     props.id && dispatch(getAllAppraisalByIdAction(props.id));
   }, [props.id]);
 
-  if (detailLoader) return <Skeleton />;
+  if (detailLoader || !appraisalDetail.id) return <Skeleton />;
 
   return (
     <>
-      {/* <ShortCard item={appraisalDetail && appraisalDetail} /> */}
-      dasdsadas
+      <ShortCard item={appraisalDetail && appraisalDetail} isList={false} />
     </>
   );
 }

@@ -68,8 +68,8 @@ const MainBody = () => {
 
   return (
     <div className="mailMainBody" ref={mailHolder}>
-      <Routes>
-        <Route path={`/`}>
+      {/* <Routes> */}
+        {/* <Route path={`/`}> */}
           {inProcess &&
             [1, 3, 4].map((value) => (
               <div className="mailItem" key={value} style={{ height: "auto" }}>
@@ -164,14 +164,14 @@ const MainBody = () => {
                 </div>
               )
             )}
-        </Route>
+        {/* </Route> */}
 
         {/*** For mail detail content with route ***/}
         {/* <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/:id`}> */}
         {/* <MailBodyHeader /> */}
         {/* <MailDetail /> */}
         {/* </Route> */}
-      </Routes>
+      {/* </Routes> */}
 
     </div>
   );

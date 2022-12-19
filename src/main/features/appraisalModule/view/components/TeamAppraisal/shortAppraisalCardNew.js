@@ -35,6 +35,7 @@ function ShortCard({ item, isList }) {
     tasks,
     user,
     userId,
+    referenceNo,
   } = item;
 
   const onClickQuestionTag = (e) => {
@@ -101,7 +102,7 @@ function ShortCard({ item, isList }) {
               ? creator.designation
               : "Not Designated"
           }
-          refNo={"APP-000002"}
+          refNo={referenceNo}
           status={status}
           profileImgSize={40}
         />

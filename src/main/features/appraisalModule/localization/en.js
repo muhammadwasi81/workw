@@ -1,6 +1,6 @@
 const en = {
   appraisalDictionary: {
-    appraisals: "Appraisals",
+    Appraisals: "Appraisals",
     createAppraisals: "Create Appraisals",
     teamAppraisals: "Team Appraisals",
     myAppraisals: "My Appraisals",

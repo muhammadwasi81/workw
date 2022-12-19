@@ -15,16 +15,21 @@ import { useNavigate } from "react-router-dom";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { appraisalDictionaryList } from "../localization/index";
 import { getAllAppraisalAction } from "../store/action";
+import { tableColumn } from "./tableColumn";
+import { Table } from "../../../sharedComponents/customTable";
 
 function Appraisals() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
-  const { appraisals, createAppraisals } = appraisalDictionary;
+  const { Appraisals, createAppraisals } = appraisalDictionary;
+  const [view, setView] = useState("List");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const CurrentTab = useSelector(
     (state) => state.appraisalModuleSlice.currentTab
   );
+  const { appraisals } = useSelector((state) => state.appraisalModuleSlice);
+  console.log(appraisals);
   let RenderTab = {
     teamAppraisals: <TeamAppraisals />,
     myAppraisals: <TeamAppraisals />,
@@ -33,7 +38,7 @@ function Appraisals() {
 
   const items = [
     {
-      name: appraisals,
+      name: Appraisals,
       to: `${ROUTES.APPRAISALS.ROOT}`,
       renderButton: [1],
     },
@@ -72,8 +77,21 @@ function Appraisals() {
             },
           ]}
         />
-        <TopBar onSearch={(val) => console.log(val)} />
-        <ContBody>{RenderTab[CurrentTab]}</ContBody>
+        <TopBar
+          onSearch={(val) => console.log(val)}
+          segment={(val) => setView(val)}
+        />
+        <ContBody>
+          {view === "List" && RenderTab[CurrentTab]}
+          {view === "Table" && (
+            <Table
+              columns={tableColumn()}
+              // handleChange={handleColumnSorting}
+              dragable={true}
+              data={appraisals ? appraisals : []}
+            />
+          )}
+        </ContBody>
       </TabbableContainer>
     </>
   );

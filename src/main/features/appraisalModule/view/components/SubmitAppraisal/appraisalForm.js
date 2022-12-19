@@ -75,6 +75,9 @@ const AppraisalForm = (props) => {
   };
 
   const appraisalQuestion = useSelector((state) => state.appraisalSlice);
+  const { grades } = useSelector((state) => state.gradeSlice);
+
+  // console.log(grades);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -226,7 +229,7 @@ const AppraisalForm = (props) => {
               <>
                 <span>{currentGrade}: No Grade</span>
                 <Form.Item
-                  name="grade"
+                  name="gradeId"
                   rules={[
                     {
                       required: true,
@@ -235,15 +238,13 @@ const AppraisalForm = (props) => {
                   ]}
                 >
                   <Select placeholder={selectGrade} size="large">
-                    <Option value={1}>{assistantManager}</Option>
-                    <Option value={2}>{developers}</Option>
-                    <Option value={3}> {executive}</Option>
-                    <Option value={4}>{intern}</Option>
-                    <Option value={5}>{manager}</Option>
-                    <Option value={6}>{officer}</Option>
+                    {grades &&
+                      grades.map((it) => {
+                        return <Option value={it.id}>{it.name}</Option>;
+                      })}
                   </Select>
                 </Form.Item>
-                <Form.Item
+                {/* <Form.Item
                   name="promotionApprovers"
                   // label={"Approver"}
                   showSearch={true}
@@ -269,7 +270,7 @@ const AppraisalForm = (props) => {
                       );
                     }}
                   />
-                </Form.Item>
+                </Form.Item> */}
               </>
             )}
           </div>
@@ -291,7 +292,7 @@ const AppraisalForm = (props) => {
             </Form.Item>
             {bonus === 1 && (
               <>
-                {/* <div className="promotionBox mt-2"> */}
+                {/* *TODO: conditional render if salary is present else only amount */}
                 <Radio.Group onChange={onChangeBonusType} value={bonusType}>
                   <Radio value={1}>{percentage}</Radio>
                   <Radio value={2}>{amount}</Radio>

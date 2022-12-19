@@ -1,6 +1,7 @@
 import moment from "moment";
 import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
+// import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 
 // import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import AvatarCustom from "../../../sharedComponents/Avatar/avatarOLD";
@@ -13,12 +14,12 @@ export const tableColumn = () => {
       ellipsis: true,
       sort: true,
     },
-    {
-      title: "Bonus",
-      dataIndex: "bonus",
-      ellipsis: true,
-      sort: true,
-    },
+    // {
+    //   title: "Bonus",
+    //   dataIndex: "bonus",
+    //   ellipsis: true,
+    //   sort: true,
+    // },
     {
       title: "Appraised of",
       dataIndex: "user",
@@ -27,15 +28,16 @@ export const tableColumn = () => {
       render: (user) => (
         <TagAvatar
           text={user.name}
-          img={
-            <AvatarCustom
-              width={20}
-              height={20}
-              src={user.image}
-              name={user.name}
-              round
-            ></AvatarCustom>
-          }
+          // img={
+          //   <AvatarCustom
+          //     width={20}
+          //     height={20}
+          //     src={user.image}
+          //     name={user.name}
+          //     round
+          //   ></AvatarCustom>
+          // }
+          img={user.image}
         />
       ),
       sort: true,
@@ -56,18 +58,18 @@ export const tableColumn = () => {
       sort: true,
       //   width: 100,
     },
-    {
-      title: "Approvers",
-      dataIndex: "approvers",
-      ellipsis: true,
-      //   width: 100,
+    // {
+    //   title: "Approvers",
+    //   dataIndex: "approvers",
+    //   ellipsis: true,
+    //   //   width: 100,
 
-      render: (approvers) => (
-        <Avatar
-          membersData={approvers ? approvers : []}
-          heading={"Approvers"}
-        />
-      ),
-    },
+    //   render: (approvers) => (
+    //     <Avatar
+    //       membersData={approvers ? approvers : []}
+    //       heading={"Approvers"}
+    //     />
+    //   ),
+    // },
   ];
 };

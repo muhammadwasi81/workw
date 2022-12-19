@@ -12,6 +12,8 @@ import CardProfileTopView from "../../../../travel/view/ListView/CardProfileTopV
 import { Table } from "../../../../../sharedComponents/customTable";
 import { tableColumn } from "../SubmitAppraisal/TableColumn";
 import DetailedView from "../DetailedView";
+import QuestionList from "./questionList";
+import TaskList from "./TaskList";
 
 function ShortCard({ item, isList }) {
   const [openQuestion, setOpenQuestion] = useState(false);
@@ -38,13 +40,11 @@ function ShortCard({ item, isList }) {
   const onClickQuestionTag = (e) => {
     e.stopPropagation();
     setOpenQuestion(true);
-    console.log("onclick question");
   };
 
   const onClickTaskTag = (e) => {
     e.stopPropagation();
     setOpenTask(true);
-    console.log("onclick Task");
   };
 
   const onClickAppraisalCard = (e) => {
@@ -70,24 +70,7 @@ function ShortCard({ item, isList }) {
         width={800}
         footer={null}
       >
-        {/**
-         * TODO: content according to task/question
-         */}
-
-        <div className="inputBox mt-4">
-          {questions &&
-            questions.map((item) => {
-              return (
-                <>
-                  <div className="flex justify-between items-center">
-                    <span className="max-w-[35rem]">{`This is the another dummy question This is the another dummy questionThis is the another dummy questionThis is the another dummy questionThis is the another dummy question`}</span>
-                    <Rate disabled defaultValue={item.ratingAssign} />
-                  </div>
-                  <Divider />
-                </>
-              );
-            })}
-        </div>
+        <QuestionList questions={questions} />
       </Modal>
       <Modal
         title="Task"
@@ -97,13 +80,7 @@ function ShortCard({ item, isList }) {
         width={800}
         footer={null}
       >
-        <Table
-          columns={tableColumn()}
-          // handleChange={handleColumnSorting}
-          dragable={true}
-          // Data will be from get all Tasks of that user
-          data={tasks ? tasks : []}
-        />
+        <TaskList tasks={tasks} />
       </Modal>
       <SingleItem className="cursor-pointer" onClick={onClickAppraisalCard}>
         <CardProfileTopView

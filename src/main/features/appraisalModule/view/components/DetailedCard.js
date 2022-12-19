@@ -13,6 +13,7 @@ import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 import { getAllAppraisalByIdAction } from "../../store/action";
 import ShortCard from "./TeamAppraisal/shortAppraisalCardNew";
+import DetailTabs from "./DetailedTabs";
 
 function DetailCard(props) {
   const dispatch = useDispatch();
@@ -25,10 +26,15 @@ function DetailCard(props) {
   }, [props.id]);
 
   if (detailLoader || !appraisalDetail.id) return <Skeleton />;
+  console.log(appraisalDetail);
 
   return (
     <>
       <ShortCard item={appraisalDetail && appraisalDetail} isList={false} />
+      <DetailTabs
+        questions={appraisalDetail.questions}
+        tasks={appraisalDetail.tasks}
+      />
     </>
   );
 }

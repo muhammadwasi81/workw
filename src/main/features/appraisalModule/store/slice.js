@@ -65,7 +65,6 @@ const appraisalModuleSlice = createSlice({
         state.loader = false;
       })
       .addMatcher(isPending(...[getAllTaskForAppraisalAction]), (state) => {
-        console.log("pending");
         state.loader = true;
       })
       .addMatcher(isPending(...[addAppraisal]), (state) => {
@@ -73,7 +72,6 @@ const appraisalModuleSlice = createSlice({
         state.loader = true;
       })
       .addMatcher(isPending(...[getAllAppraisalAction]), (state) => {
-        console.log("get all appraisal pending");
         state.loader = true;
       })
       .addMatcher(isPending(...[getAllAppraisalByIdAction]), (state) => {
@@ -82,7 +80,6 @@ const appraisalModuleSlice = createSlice({
       })
       .addMatcher(isRejected(...[getAllTaskForAppraisalAction]), (state) => {
         state.loader = false;
-        console.log("rejected get all appraisal task module");
       })
       .addMatcher(isRejected(...[addAppraisal]), (state) => {
         state.loader = false;
@@ -90,11 +87,9 @@ const appraisalModuleSlice = createSlice({
       })
       .addMatcher(isRejected(...[getAllAppraisalAction]), (state) => {
         state.loader = false;
-        console.log("rejected get all appraisal module");
       })
       .addMatcher(isRejected(...[getAllAppraisalByIdAction]), (state) => {
         state.detailLoader = false;
-        console.log("rejected get all appraisal module");
       });
   },
 });

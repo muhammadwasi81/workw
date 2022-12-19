@@ -94,7 +94,7 @@ const Reward = (props) => {
     <>
       <TabbableContainer className=""> 
       <img style={{height:"50px"}}
-      src={getIconByFeaturesType(6)}
+      src={getIconByFeaturesType(40)}
       />
         <Header
           items={items}

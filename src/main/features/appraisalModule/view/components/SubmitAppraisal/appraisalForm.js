@@ -105,8 +105,7 @@ const AppraisalForm = (props) => {
   }, [props.submit]);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
-    //TODO: set payload according to increment percent/amount
+    // console.log("Success:", values);
     if (employeeSalary?.basicSalary) {
       console.log("if block");
       let salary = {
@@ -122,13 +121,11 @@ const AppraisalForm = (props) => {
         //   employeeSalary?.basicSalary + values.incrementAmount
         //     ? parseInt(values.incrementAmount)
         //     : parseFloat(values.incrementpercent) / 100,
-        approvers: modifySelectData(values.incrementApprover).map(
-          (el, index) => {
-            return {
-              approverId: el,
-            };
-          }
-        ),
+        approvers: modifySelectData(values.incrementApprover).map((el) => {
+          return {
+            approverId: el,
+          };
+        }),
       };
       let bonus = {
         id: createGuid(),
@@ -136,7 +133,7 @@ const AppraisalForm = (props) => {
         type: values.bonusPercent ? 1 : 2,
         value: values.bonusPercent ? values.bonusPercent : values.bonusAmount,
         // amount: ,
-        approvers: modifySelectData(values.bonusApprovers).map((el, index) => {
+        approvers: modifySelectData(values.bonusApprovers).map((el) => {
           return {
             approverId: el,
           };
@@ -148,6 +145,7 @@ const AppraisalForm = (props) => {
         bonus: bonus,
         salary: salary,
       };
+      console.log(payload, "payload in else block when salary is available");
       props.dataSend(payload);
     } else {
       console.log("else block");
@@ -157,13 +155,11 @@ const AppraisalForm = (props) => {
         basicSalary:
           employeeSalary?.basicSalary + values.incrementAmount &&
           parseInt(values.incrementAmount),
-        approvers: modifySelectData(values.incrementApprover).map(
-          (el, index) => {
-            return {
-              approverId: el,
-            };
-          }
-        ),
+        approvers: modifySelectData(values.incrementApprover).map((el) => {
+          return {
+            approverId: el,
+          };
+        }),
       };
       let bonus = {
         id: createGuid(),
@@ -184,7 +180,7 @@ const AppraisalForm = (props) => {
         bonus: bonus,
         salary: salary,
       };
-
+      console.log(payload, "payload in else block when there is no salary");
       props.dataSend(payload);
     }
 

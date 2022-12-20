@@ -50,7 +50,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     phoneNo: '',
     designationId: [],
     managerId: [],
-    gradeId: [],
+    // gradesId: [],
+    grades: [],
     countryId: [],
     cityId: [],
     probationPeriod: '',
@@ -203,6 +204,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
       }
     } catch (err) {
       console.log(err.message);
+      throw new Error(`Error in handleUpdateInfo: ${err.message}`, {
+        cause: err,
+      });
     }
   };
 
@@ -327,7 +331,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             }}
           />
         </Form.Item>
-        <Form.Item name="gradeId" label={labels.Grades}>
+        <Form.Item name="grades" label={labels.Grades}>
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
             showSearch={true}

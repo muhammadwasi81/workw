@@ -179,7 +179,7 @@ const TaskComp = (props) => {
           )}
           {/* <svg
             viewBox="64 64 896 896"
-            focusable="false"
+            focusable="false" 
             data-icon="close-circle"
             width="1em"
             height="1em"

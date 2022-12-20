@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../../style.css";
-import { Form, Input, Radio, Select, Avatar, Rate, Tag, Button } from "antd";
+import {
+  Form,
+  Input,
+  Radio,
+  Select,
+  Avatar,
+  Rate,
+  Tag,
+  Button,
+  Divider,
+} from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { createGuid, getNameForImage } from "../../../../../../utils/base";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
@@ -65,6 +75,9 @@ const AppraisalForm = (props) => {
   };
 
   const appraisalQuestion = useSelector((state) => state.appraisalSlice);
+  const { grades } = useSelector((state) => state.gradeSlice);
+
+  // console.log(grades);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -88,8 +101,8 @@ const AppraisalForm = (props) => {
     console.log("Success:", values);
     const payload = {
       values,
-      questions: question
-    }
+      questions: question,
+    };
     props.dataSend(payload);
     // props.getAppraisalData(payload);
   };
@@ -216,7 +229,7 @@ const AppraisalForm = (props) => {
               <>
                 <span>{currentGrade}: No Grade</span>
                 <Form.Item
-                  name="grade"
+                  name="gradeId"
                   rules={[
                     {
                       required: true,
@@ -225,15 +238,13 @@ const AppraisalForm = (props) => {
                   ]}
                 >
                   <Select placeholder={selectGrade} size="large">
-                    <Option value={1}>{assistantManager}</Option>
-                    <Option value={2}>{developers}</Option>
-                    <Option value={3}> {executive}</Option>
-                    <Option value={4}>{intern}</Option>
-                    <Option value={5}>{manager}</Option>
-                    <Option value={6}>{officer}</Option>
+                    {grades &&
+                      grades.map((it) => {
+                        return <Option value={it.id}>{it.name}</Option>;
+                      })}
                   </Select>
                 </Form.Item>
-                <Form.Item
+                {/* <Form.Item
                   name="promotionApprovers"
                   // label={"Approver"}
                   showSearch={true}
@@ -259,7 +270,7 @@ const AppraisalForm = (props) => {
                       );
                     }}
                   />
-                </Form.Item>
+                </Form.Item> */}
               </>
             )}
           </div>
@@ -274,14 +285,14 @@ const AppraisalForm = (props) => {
                 },
               ]}
             >
-              <Radio.Group onChange={onChangeBonus} >
+              <Radio.Group onChange={onChangeBonus}>
                 <Radio value={1}>{yes}</Radio>
                 <Radio value={2}>{no}</Radio>
               </Radio.Group>
             </Form.Item>
             {bonus === 1 && (
               <>
-                {/* <div className="promotionBox mt-2"> */}
+                {/* *TODO: conditional render if salary is present else only amount */}
                 <Radio.Group onChange={onChangeBonusType} value={bonusType}>
                   <Radio value={1}>{percentage}</Radio>
                   <Radio value={2}>{amount}</Radio>
@@ -468,11 +479,12 @@ const AppraisalForm = (props) => {
               return (
                 <Form.Item name={`question${i + 1}`}>
                   <div className="flex justify-between items-center">
-                    <span>{`Q${i + 1}.  ${item?.name}`}</span>
+                    <span className="max-w-[23rem]">{`${item?.name}`}</span>
                     <Rate
                       onChange={(e) => onChangeQuestionRating(e, i, item?.id)}
                     />
                   </div>
+                  <Divider />
                 </Form.Item>
               );
             })}

@@ -1,6 +1,6 @@
 const urdu = {
   appraisalDictionary: {
-    appraisals: "تشخیص",
+    Appraisals: "تشخیص",
     createAppraisals: "تشخیصات بنائیں",
     teamAppraisals: "ٹیم کی تشخیص",
     myAppraisals: "میری تشخیص",

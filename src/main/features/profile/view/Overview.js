@@ -1,19 +1,19 @@
-import OverviewDetail from "../UI/OverviewDetail";
+import OverviewDetail from '../UI/OverviewDetail';
 import {
   FaGraduationCap,
   FaPhoneAlt,
   FaHandshake,
   FaBirthdayCake,
-} from "react-icons/fa";
-import React, { useContext } from "react";
-import { BsBriefcaseFill, BsHeartFill } from "react-icons/bs";
-import { MdEmail, MdLocationOn } from "react-icons/md";
-import { useSelector } from "react-redux";
-import moment from "moment";
-import { Skeleton } from "antd";
-import MartialStatus from "./martialStatus";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { profileDictionaryList } from "../localization/index";
+} from 'react-icons/fa';
+import React, { useContext } from 'react';
+import { BsBriefcaseFill, BsHeartFill } from 'react-icons/bs';
+import { MdEmail, MdLocationOn } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
+import { Skeleton } from 'antd';
+import MartialStatus from './martialStatus';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { profileDictionaryList } from '../localization/index';
 
 const Overview = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -21,7 +21,7 @@ const Overview = () => {
   const { employees, loader } = useSelector(
     (state) => state.employeeProfileSlice
   );
-  console.log(employees, "overview inside");
+  console.log(employees, 'overview inside');
 
   return (
     <div className="flex flex-col p-3 gap-5 !text-[#85878B] pb-10">
@@ -32,12 +32,12 @@ const Overview = () => {
           <OverviewDetail
             icon={<FaGraduationCap />}
             heading={profileDictionary.studiesALevel}
-            text={employees?.education ? employees?.education : "No Education"}
+            text={employees?.education ? employees?.education : 'No Education'}
           />
           <OverviewDetail
             icon={<BsBriefcaseFill />}
             heading={profileDictionary.designation}
-            text={employees?.designation || "No Designation"}
+            text={employees?.designation || 'No Designation'}
           />
           <OverviewDetail
             icon={<MdEmail />}
@@ -45,7 +45,7 @@ const Overview = () => {
             text={
               employees?.personalEmail
                 ? employees.personalEmail
-                : "john@test.com"
+                : 'johndoe@test.com'
             }
           />
           <OverviewDetail
@@ -57,22 +57,22 @@ const Overview = () => {
           <OverviewDetail
             icon={<MdLocationOn />}
             heading={profileDictionary.livesIn}
-            text={employees?.city || "No City"}
+            text={employees?.city || 'No City'}
           />
 
           <OverviewDetail
             icon={<FaPhoneAlt />}
             heading={profileDictionary.contact}
-            text={employees?.phoneNo ? employees?.phoneNo : "No Phone Number"}
+            text={employees?.phoneNo ? employees?.phoneNo : 'No Phone Number'}
           />
 
           <OverviewDetail
             icon={<FaHandshake />}
             heading={profileDictionary.joining}
             text={
-              moment(employees?.joinDate).format("DD-MM-YYYY")
-                ? moment(employees?.joinDate).format("DD-MM-YYYY")
-                : "No BirthDay"
+              moment(employees?.joinDate).format('DD-MM-YYYY')
+                ? moment(employees?.joinDate).format('DD-MM-YYYY')
+                : 'No BirthDay'
             }
           />
 
@@ -80,9 +80,9 @@ const Overview = () => {
             icon={<FaBirthdayCake />}
             heading={profileDictionary.birthday}
             text={
-              moment(employees?.birthDate).format("DD-MM-YYYY")
-                ? moment(employees?.birthDate).format("DD-MM-YYYY")
-                : "No BirthDay"
+              moment(employees?.birthDate).format('DD-MM-YYYY')
+                ? moment(employees?.birthDate).format('DD-MM-YYYY')
+                : 'No BirthDay'
             }
           />
         </>

@@ -64,13 +64,16 @@ const sharedSlice = createSlice({
         state.loadingData = false;
       })
       .addCase(getEmployeeSalary.fulfilled, (state, { payload }) => {
-        let x = payload.data.map((element, i) => {
-          return element.netSalary;
-        });
+        console.log("fulfilled");
         console.log(payload);
-        let data = x.length > 0 ? x[0] : "";
-        state.employeeSalary = data;
-        state.loadingData = false;
+        state.employeeSalary = payload.data;
+        // let x = payload.data.map((element, i) => {
+        //   return element.netSalary;
+        // });
+        // console.log(payload, "payload of salary");
+        // let data = x.length > 0 ? x[0] : "";
+        // state.employeeSalary = data;
+        // state.loadingData = false;
       })
       .addCase(getAllEmployees.fulfilled, (state, { payload }) => {
         state.employees = payload.data;

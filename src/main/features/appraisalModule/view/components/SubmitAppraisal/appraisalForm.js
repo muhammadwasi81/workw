@@ -76,6 +76,9 @@ const AppraisalForm = (props) => {
 
   const appraisalQuestion = useSelector((state) => state.appraisalSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
+  const { employeeSalary } = useSelector((state) => state.sharedSlice);
+
+  console.log(employeeSalary, "employeesalary");
 
   // console.log(grades);
 
@@ -144,7 +147,6 @@ const AppraisalForm = (props) => {
   };
 
   const onChangeQuestionRating = (e, i, questionId) => {
-    //TODO: check if object is present in the array then replace the new one else push the new value
     console.log(questionId, e, i);
     if (!question.length) {
       setQuestion([{ questionId, ratingAssign: e }]);
@@ -169,6 +171,7 @@ const AppraisalForm = (props) => {
           layout="vertical"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
+          disabled={props.disabled}
         >
           <div className="inputBox flex justify-between items-center">
             <span>{appraisals}</span>
@@ -276,6 +279,7 @@ const AppraisalForm = (props) => {
           </div>
           <div className="inputBox mt-2">
             <span>{Bonus}</span>
+            {/**TODO: conditonal render options if salary is present then both options will be present amount/percentage */}
             <Form.Item
               name="bonusRadio"
               rules={[
@@ -359,6 +363,7 @@ const AppraisalForm = (props) => {
           </div>
           <div className="inputBox mt-2">
             <span>{Increment}</span>
+            {/**TODO: conditonal render options if salary is present then both options will be present amount/percentage */}
             <Form.Item
               name="incrementRadio"
               rules={[
@@ -482,6 +487,7 @@ const AppraisalForm = (props) => {
                     <span className="max-w-[23rem]">{`${item?.name}`}</span>
                     <Rate
                       onChange={(e) => onChangeQuestionRating(e, i, item?.id)}
+                      disabled={props.disabled}
                     />
                   </div>
                   <Divider />

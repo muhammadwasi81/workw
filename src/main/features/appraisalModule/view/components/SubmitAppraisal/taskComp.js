@@ -47,7 +47,7 @@ const TaskComp = (props) => {
   }, []);
 
   useEffect(() => {
-    if (date.startDate.length > 1 && date.startDate.length > 1 && userId) {
+    if (date.startDate.length > 1 && date.startDate.length > 1) {
       dispatch(
         getAllTaskForAppraisalAction({
           startDate: date.startDate,
@@ -55,15 +55,19 @@ const TaskComp = (props) => {
           userId,
         })
       );
-      //TODO: dispatch employee salary here
-      dispatch(getEmployeeSalary({ id: userId }));
     }
   }, [date, userId]);
 
   useEffect(() => {
+    if (userId) {
+      dispatch(getEmployeeSalary({ id: userId }));
+    }
+  }, [userId]);
+
+  useEffect(() => {
     if (isFirstTime && employeesData.length > 0) {
       setFetchEmployeesData(employeesData);
-      setEmployee(employeesData[0]);
+      // setEmployee(employeesData[0]);
       setIsFirstTime(false);
     }
   }, [employeesData]);
@@ -77,7 +81,6 @@ const TaskComp = (props) => {
 
   useEffect(() => {
     if (date && userId) {
-      console.log(userId)
       props.startDate(date.startDate);
       props.endDate(date.endDate);
       props.userId(userId);
@@ -102,6 +105,7 @@ const TaskComp = (props) => {
     setEmployee(selected[0]);
     // console.log(selected[0].id);
     setUserId(selected[0].id);
+    props.setDisable(false);
   };
 
   const onRangeChange = (dates, dateStrings) => {
@@ -152,21 +156,27 @@ const TaskComp = (props) => {
           />
         </div>
         <div className="box flex justify-between items-center">
-          <UserInfo
-            avatarSrc={
-              employee ? employee?.image : "https://joeschmoe.io/api/v1/random"
-            }
-            name={employee ? employee?.name : "Humayoun Shah"}
-            Subline={
-              <SublineDesigWithTime
-                designation={
-                  employee && employee?.designation
-                    ? employee?.designation
-                    : "Not Designated"
-                }
-              />
-            }
-          />
+          {Object.keys(employee).length ? (
+            <UserInfo
+              avatarSrc={
+                employee
+                  ? employee?.image
+                  : "https://joeschmoe.io/api/v1/random"
+              }
+              name={employee ? employee?.name : "Humayoun Shah"}
+              Subline={
+                <SublineDesigWithTime
+                  designation={
+                    employee && employee?.designation
+                      ? employee?.designation
+                      : "Not Designated"
+                  }
+                />
+              }
+            />
+          ) : (
+            "No employee selected"
+          )}
         </div>
 
         <Form

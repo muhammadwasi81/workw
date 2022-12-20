@@ -70,14 +70,14 @@ function ProfileCoverDetail({ id }) {
                     src={fileDataURL}
                     alt="avatar"
                     loading="lazy"
-                    className="userImg"
+                    className="userImg border-4"
                   />
                 ) : (
                   <img
                     src={employees?.image ? employees?.image : profile}
                     alt="avatar"
                     loading="lazy"
-                    className="userImg"
+                    className="userImg border-4"
                   />
                 )}
                 <div class="profilepic__content">

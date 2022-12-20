@@ -43,7 +43,12 @@
   color: #fff;
   padding-bottom: 20px;
 }
-
+.profilepic__content .imageUpload {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
 .uploadIcon {
   font-size: 36px;
   color: #000;

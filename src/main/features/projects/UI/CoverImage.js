@@ -71,7 +71,7 @@ function CoverImage(props) {
         <input
           type="file"
           accept="image/*"
-          className="imageUpload"
+          className="imageUpload w-100 h-100"
           onChange={imageUploadHandler}
         />
       </div>

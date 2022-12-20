@@ -1,5 +1,4 @@
 .profilepic {
-  background-color: #111;
   position: relative;
   image-rendering: pixelated;
 }
@@ -37,9 +36,15 @@
   color: #fff;
   padding-bottom: 0;
 }
+.profilepic__content .imageUpload {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 .userImg {
   width: 150px;
   height: 150px;
+  border-radius: 4px;
 }
 .uploadIcon {
   font-size: 30px;

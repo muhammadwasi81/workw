@@ -30,7 +30,9 @@ export const getCitiesService = (obj) => {
 };
 
 export const getEmployeeSalaryService = (data) => {
-  return MasterConfig.get(`api/EmployeeSalary/EmployeeSalaryGetByEmployeeId?id=${data.id}`)
+  return MasterConfig.get(
+    `api/EmployeeSalary/GetCurrentSalaryOfEmployee?id=${data.id}`
+  )
     .then((res) => {
       return res.data;
     })
@@ -152,7 +154,6 @@ export const getAllEmployeeService = (search, pgNo, pgSize) => {
       return err;
     });
 };
-
 
 export const uploadImageService = (files) => {
   const formData = new FormData();

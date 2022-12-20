@@ -17,6 +17,10 @@ function Index(props) {
     dispatch(handleChangeTab(tab));
   };
 
+  const onSegmentChange = (val) => {
+    props.segment(val);
+  };
+
   return (
     <>
       <TopBar
@@ -40,6 +44,11 @@ function Index(props) {
             onClick: handleTabChange,
           },
         ]}
+        segment={{
+          onSegment: (value) => onSegmentChange(value),
+          label1: "List",
+          label2: "Table",
+        }}
       />
     </>
   );

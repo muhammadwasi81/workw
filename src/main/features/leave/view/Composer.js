@@ -12,6 +12,8 @@ import { uploadImage } from "../../../../utils/Shared/store/actions";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { getAllLeaveType } from "../leaveType/store/actions";
+import { GetLeaveTypeAction } from "../store/actions";
+
 import { DatePicker, Checkbox, Typography } from "antd";
 import { DEFAULT_GUID } from "../../../../utils/constants";
 import moment from "moment";
@@ -58,12 +60,19 @@ const Composer = (props) => {
 
   const { leaveTypes, success } = useSelector((state) => state.leaveTypeSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
-
+  const { UserLeave } = useSelector((state) => state.leaveSlice);
+  console.log(props.id, "userIddd");
+  const selectedDataApprovers = (data, obj) => {
+    setValue(data);
+    handleMember(obj);
+  };
   const selectedData = (data, obj) => {
+    console.log(data, "dataaaa leave");
     setValue(data);
     handleMember(obj);
     // setMembers(obj);
     // onChange(data, obj);
+    dispatch(GetLeaveTypeAction(data));
   };
   useEffect(() => {
     fetchEmployees("", 0);
@@ -100,11 +109,6 @@ const Composer = (props) => {
     dispatch(getAllLeaveType());
   }, []);
 
-  var a = moment(props.startDate);
-  var b = moment(props.endDate);
-  const days = b.diff(a, "days");
-  console.log(days, "days");
-
   const handleEndStartDate = (value, dateString, name) => {
     // if (days === 0) {
     //   message.error("select leave date at least for one day! ");
@@ -117,7 +121,14 @@ const Composer = (props) => {
   };
 
   const onFinish = (values) => {
-    if (values.members === undefined) {
+    var a = moment(values.startEndDate[0]);
+    var b = moment(values.startEndDate[1]);
+    const days = b.diff(a, "days");
+
+    if (days === 0) {
+      console.log("dayssssssss", days);
+      message.error("select leave date at least for one day! ");
+    } else if (values.members === undefined) {
       let approvers = [];
       let members = [];
       if (typeof values.approvers === "string") {
@@ -136,6 +147,8 @@ const Composer = (props) => {
         approvers,
         members,
         attachments,
+        startDate: values.startEndDate[0]._d,
+        endDate: values.startEndDate[1]._d,
       };
       dispatch(addLeave(payload));
     } else {
@@ -168,7 +181,10 @@ const Composer = (props) => {
         ...values,
         approvers,
         members,
+        days,
         attachments,
+        startDate: values.startEndDate[0].format(),
+        endDate: values.startEndDate[1].format(),
       };
       dispatch(addLeave(payload));
     }
@@ -238,7 +254,7 @@ const Composer = (props) => {
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={leaveDictionary.selectMember}
-            mode={"multiple"}
+            // mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -278,7 +294,7 @@ const Composer = (props) => {
           <CustomSelect
             style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
-            selectedData={selectedData}
+            selectedData={selectedDataApprovers}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={leaveDictionary.selectApprovers}

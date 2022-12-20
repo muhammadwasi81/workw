@@ -1,5 +1,10 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addLeave, getAllLeaves, GetLeaveById } from "./actions";
+import {
+  addLeave,
+  getAllLeaves,
+  GetLeaveById,
+  GetLeaveTypeAction,
+} from "./actions";
 
 const initialState = {
   leaves: [],
@@ -8,6 +13,7 @@ const initialState = {
   leaveDetail: {},
   drawerOpen: false,
   success: false,
+  UserLeave: [],
 };
 
 const leaveSlice = createSlice({
@@ -27,6 +33,11 @@ const leaveSlice = createSlice({
 
     builder.addCase(GetLeaveById.fulfilled, (state, action) => {
       state.leaveDetail = action.payload.data;
+      state.loadingData = false;
+    });
+    builder.addCase(GetLeaveTypeAction.fulfilled, (state, action) => {
+      console.log(action.payload, "sliceeeee");
+      state.UserLeave = action.payload.data;
       state.loadingData = false;
     });
 

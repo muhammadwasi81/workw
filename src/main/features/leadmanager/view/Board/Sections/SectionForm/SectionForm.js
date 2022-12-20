@@ -92,12 +92,12 @@ function SectionForm(props) {
         </Form.Item>
         <Form.Item
           name="website"
-          rules={[
-            {
-              required: true,
-              message: "Website required!",
-            },
-          ]}
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: "Website required!",
+          //   },
+          // ]}
         >
           <Input
             prefix={<BiWorld className="!text-gray-500" />}

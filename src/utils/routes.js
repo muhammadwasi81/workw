@@ -396,6 +396,7 @@ export const ROUTES = {
     SUBSIDIARY_OFFICE: `subsidiaryOffice`,
     SUBSIDIARY: `subsidiary`,
     BUSINESS_POLICY: `businessPolicy`,
+    COMPANIES_POLICY: `companiesPolicy`,
     COMLAIN_CATEGORY: `complainCategory`,
     PAYROLL_GROUP: `payrollGroup`,
     ACCESSROLES: `accessroles`,

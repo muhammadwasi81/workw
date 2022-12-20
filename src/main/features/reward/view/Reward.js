@@ -26,7 +26,8 @@ import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import { getIconByFeaturesType } from "../../../../utils/Shared/helper/helpers";
+//import { getIconByFeaturesType } from "../../../../utils/Shared/helper/helpers";
+import {getApprovalsTypeByFeaturesType} from "../../../sharedComponents/AppComponents/Approvals/helper/helpers"
 
 const Reward = (props) => {
   const { visible } = props;
@@ -89,13 +90,11 @@ const Reward = (props) => {
       renderButton: [1],
     },
   ];
-// console.log(getIconByFeaturesType(1), "getIconByFeaturesType(1)")
+     console.log(getApprovalsTypeByFeaturesType(21), "getApprovalsTypeByFeaturesType")
   return (
     <>
       <TabbableContainer className=""> 
-      <img style={{height:"50px"}}
-      src={getIconByFeaturesType(40)}
-      />
+
         <Header
           items={items}
           buttons={[

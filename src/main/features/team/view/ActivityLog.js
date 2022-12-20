@@ -3,7 +3,9 @@ import { TeamTable } from "./TaskTable/TeamTable";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
+import ModalComponent from "./modal";
 import { Button, Modal } from 'antd';
+
 
 function ActivityLog() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -11,11 +13,17 @@ function ActivityLog() {
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.ActivityLogTbale;
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const onRow = () => {
+  //   return {
+  //     onClick: () => {
+  //       setIsModalOpen(true);
+  //     },
+  //   };
+  // };
+
   const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
+    setIsModalOpen(true)
   };
   const columns = [
     {
@@ -53,30 +61,20 @@ function ActivityLog() {
       <TeamTable
         bordered
         columns={columns}
-        className="custom_table"
+        className="custom_table" 
+        onClick={showModal}
+        
         dataSource={[
           {
             date: "Mon 2019",
             loginFrom: "web app",
             loginIP: "99999",
             location: "miletap",
+            
           },
         ]}
       />
-      <Button type="primary" 
-      onClick={showModal}
-      >
-        Open Modal
-      </Button>
-      <Modal 
-      open={isModalOpen} 
-      title={null}
-      onCancel={handleCancel}   
-      footer={null}
-      className="close-modal"
-      >
-        <p>Some contents...</p>
-      </Modal>
+      <ModalComponent showModal={isModalOpen} />
     </>
   );
 }

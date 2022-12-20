@@ -272,14 +272,23 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = '' }) {
           name={'referenceId'}
           labelPosition="top"
         >
-          <Select placeholder={listObj[type]} size="large">
+          <Select
+            placeholder={listObj[type]}
+            size="large"
+            filterOption={(input, option) => {
+              return (
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              );
+            }}
+            optionFilterProp="children"
+            showSearch
+          >
             {typesSelect.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {type === 4 ? item.subject : item.name}
               </Select.Option>
             ))}
           </Select>
-          {/* <Input  /> */}
         </Form.Item>
       )}
       <Form.Item

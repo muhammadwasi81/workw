@@ -123,7 +123,7 @@ function SalaryEmployee() {
       ellipsis: true,
       key: 'netSalary',
       render: () => {
-        return currentEmployeeSalary?.netSalary;
+        return currentEmployeeSalary?.netSalary || 0;
       },
     },
     {

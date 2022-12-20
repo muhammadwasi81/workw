@@ -97,11 +97,17 @@ export const addDocument = createAsyncThunk(
 
 export const getAllDocumentList = createAsyncThunk(
 	"document/getAllDocumentList",
-	async (request, { rejectWithValue }) => {
-		console.log(request, "REQUEST");
+	async (request, { rejectWithValue, dispatch }) => {
 		const response = await getAllDocumentListService(request);
+		console.log(response, "REQUEST");		
 		switch (response.type) {
 			case ResponseType.ERROR:
+				dispatch(
+					openNotification({
+						message: response.errorMessage,
+						type: "error",
+					})
+				);
 				return rejectWithValue(response.errorMessage);
 			case ResponseType.SUCCESS:
 				return response.data;

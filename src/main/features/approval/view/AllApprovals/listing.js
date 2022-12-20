@@ -26,51 +26,16 @@ const panes = [
 	},
 ];
 
-const approvals = [
-	{
-		type: 1,
-		id: 1,
-	},
-	{
-		type: 2,
-		id: 2,
-	},
-	{
-		type: 3,
-		id: 3,
-	},
-	{
-		type: 4,
-		id: 4,
-	},
-	{
-		type: 5,
-		id: 5,
-	},
-	{
-		type: 6,
-		id: 6,
-	},
-	{
-		type: 7,
-		id: 7,
-	},
-	{
-		type: 8,
-		id: 8,
-	},
-	{
-		type: 9,
-		id: 9,
-	},
-];
 
 export default function Listing({ handleApprovalDetail }) {
 const approvalList = useSelector(state => state.approvalSlice.approvalList);
 
 	return (
 		<>
-			<Tab panes={panes} />
+			<Tab
+			canChangeRoute={true} 
+			panes={panes}
+			onChange={(e)=>console.log(e)} />
 			<div className="overflow-scroll h-[85vh]">
 				{approvalList.map(item => (
 					<ApprovalItem

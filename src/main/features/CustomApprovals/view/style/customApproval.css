@@ -15,13 +15,13 @@
 .description{
   width: 600px;
 }
-.cardSection__body.title{
+.cardSection__body.layout{
   display: inline-block;
   word-break: break-word;
-  line-height: 1.4em;
+  /* line-height: 1.4em;
   -webkit-line-clamp: 2;
   display: -webkit-box;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; */
 }
 
 @media (min-width: 1000px) {

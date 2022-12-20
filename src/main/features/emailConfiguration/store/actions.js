@@ -5,7 +5,10 @@ import {
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 import AxiosConfig from "../../../../utils/services/AxiosConfig";
-import { addEmailConfigurationService, getAllEmailConfigurationsService } from "../services/service";
+import {
+  addEmailConfigurationService,
+  getAllEmailConfigurationsService,
+} from "../services/service";
 import { emailConfigurationDeleted } from "./slice";
 
 const API_PREFIX = "konnectmailbox/api/EmailConfiguration/";
@@ -29,7 +32,7 @@ export const addEmailConfiguration = createAsyncThunk(
   "EmailConfiguration/addEmailConfiguration",
   async (args, { dispatch, getState }) => {
     const res = await addEmailConfigurationService(args);
-
+    console.log(res, "response");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
         res.message = "Email Configuration added successfully!";
@@ -68,7 +71,9 @@ export const updateEmailConfiguration = createAsyncThunk(
 export const removeEmailConfiguration = createAsyncThunk(
   "EmailConfiguration/removeEmailConfiguration",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.delete(`${API_PREFIX}removeEmailConfiguration?id=${args.id}`)
+    return await AxiosConfig.delete(
+      `${API_PREFIX}removeEmailConfiguration?id=${args.id}`
+    )
       .then((res) => {
         if (res.data.responseCode === responseCode.Success) {
           res.data.message = "Email Configuration removed successfully!";

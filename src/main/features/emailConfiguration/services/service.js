@@ -1,6 +1,7 @@
 import AxiosConfig from "../../../../utils/services/AxiosConfig";
 
 const API_PREFIX = "konnectmailbox/api/EmailConfiguration/";
+
 export const getAllEmailConfigurationsService = () => {
   return AxiosConfig.get(`${API_PREFIX}getEmailConfigurationByBusinessId`)
     .then((res) => {
@@ -12,7 +13,8 @@ export const getAllEmailConfigurationsService = () => {
 };
 
 export const addEmailConfigurationService = (args) => {
-  return AxiosConfig.post(`${API_PREFIX}addEmailConfiguration`, args)
+  console.log(args, "argssss");
+  return AxiosConfig.post(`api/Mailbox/AddBusinessEmailConfiguration`, args)
     .then((res) => {
       return res.data;
     })

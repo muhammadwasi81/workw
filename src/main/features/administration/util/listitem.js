@@ -64,7 +64,7 @@ export const listitem = [
   },
   {
     IconName: <AiFillShop size={20} color={"var(--currentThemeColor)"} />,
-    displayName: "Business_Policy",
+    displayName: "Companies_Policy",
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.COMPANIES_POLICY,
   },

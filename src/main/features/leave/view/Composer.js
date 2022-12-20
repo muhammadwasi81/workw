@@ -126,7 +126,6 @@ const Composer = (props) => {
     const days = b.diff(a, "days");
 
     if (days === 0) {
-      console.log("dayssssssss", days);
       message.error("select leave date at least for one day! ");
     } else if (values.members === undefined) {
       let approvers = [];
@@ -230,7 +229,7 @@ const Composer = (props) => {
           ]}
         >
           <Select
-            data={leaveTypes}
+            data={UserLeave}
             placeholder={leaveDictionary.selectType}
             style={{
               width: "100%",

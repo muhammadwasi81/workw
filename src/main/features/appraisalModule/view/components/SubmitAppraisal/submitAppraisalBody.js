@@ -26,6 +26,7 @@ function SubmitAppraisalBody(props) {
             submit={props.submit}
             dataSend={(val) => props.dataSend(val, startDate, endDate, userId)}
             disabled={formDisabled}
+            userId={userId}
           />
         </div>
       </div>

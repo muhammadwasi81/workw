@@ -41,10 +41,7 @@ function ListItem(props) {
 
   return (
     <SingleItem onClick={props.onClick}>
-      <div
-        className="new"
-        id={props.id}
-      ></div>
+      <div className="new" id={props.id}></div>
       <ItemHeader>
         <div className="left">
           <UserInfo

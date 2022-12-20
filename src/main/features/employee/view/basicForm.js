@@ -158,7 +158,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         joinDate: moment(basicdetails.joinDate),
         accessRoleId: basicdetails?.accessRoles?.map((item) => item.accessRole),
         officeTimingId: basicdetails.officeTimingId === STRINGS.DEFAULTS.guid ? "" : basicdetails.officeTimingId,
-        birthDate: basicdetails.birthDate ?  basicdetails.birthDate : "",
+        // birthDate: basicdetails.birthDate ?  basicdetails.birthDate : "",
       });
     }
   }, [basicdetails]);

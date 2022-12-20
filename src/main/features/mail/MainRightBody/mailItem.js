@@ -3,6 +3,7 @@ import React from "react";
 import { Button, Rate, Tooltip, message } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import {
+	createGuid,
 	parseDate,
 	parseDateWithMontAndYear,
 	STRINGS,
@@ -13,13 +14,14 @@ import { deleteEmail, moveEmailToTrash } from "../Store/Api";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import AntTooltip from "../../../sharedComponents/Tooltip/AntTooltip";
+import { ROUTES } from "../../../../utils/routes";
 
 const MailItem = ({ data, changeSeenFlag }) => {
 	const dispatch = useDispatch();
 	const {
 		from = [{ name: "Owais Sheikh" }],
 		subject = "Dummy Subject Here",
-		id = STRINGS.DEFAULTS.guid,
+		id = createGuid(),
 		isRead = false,
 		date = new Date(),
 		hasAttachments,
@@ -95,14 +97,14 @@ const MailItem = ({ data, changeSeenFlag }) => {
 
 				<NavLink
 					className="mailFrom"
-					to={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/${id}`}
+					to={`${ROUTES.MAIL.ROOT}${ROUTES.MAIL.DETAIL}/${id}`}
 				>
 					{from && from[0]?.name}
 				</NavLink>
 			</div>
 			<NavLink
 				className="subjectAndBody"
-				to={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/${id}`}
+				to={`${ROUTES.MAIL.ROOT}${ROUTES.MAIL.DETAIL}/${id}`}
 			>
 				{subject} {content && "-"} {content}
 			</NavLink>

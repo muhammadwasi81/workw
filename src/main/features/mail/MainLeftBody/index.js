@@ -10,6 +10,7 @@ import { MdInbox } from "react-icons/md";
 import Demo from "./dataTree";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { ROUTES } from "../../../../utils/routes";
 
 const Index = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -43,7 +44,7 @@ const Index = () => {
         {mailFolderItem?.map(({ folderPath, unseen }) => (
           <MenuItem
             key={folderPath}
-            path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${folderPath}`}
+            path={`${ROUTES.MAIL.ROOT}${ROUTES.MAIL.LIST}/${folderPath}`}
             pathName={folderPath}
             name={menuItem[folderPath]}
             badgeCount={unseen}

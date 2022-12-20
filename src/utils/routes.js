@@ -532,7 +532,12 @@ export const ROUTES = {
 		},
 	},
 	MAIL: {
-		DEFAULT: `${DOMAIN_PREFIX}/mail`,
+		DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
+		ROOT: `${DOMAIN_PREFIX}/mail`,
+		LIST: `/list`,
+		DETAIL: `/detail`,
+
+
 		INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
 		STARRED: `${DOMAIN_PREFIX}/mail/starred`,
 		SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,

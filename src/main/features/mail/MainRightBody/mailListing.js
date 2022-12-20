@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { NavLink, useLocation, Route } from "react-router-dom";
+import { NavLink, useLocation, Route, Routes } from "react-router-dom";
 import { Checkbox, Rate, Skeleton } from "antd";
 import {
   parseDate,
@@ -8,15 +8,13 @@ import {
 } from "../../../../utils/base";
 import { useMediaQuery } from "react-responsive";
 import mailAttachmentIcon from "../assests/mailAttachmentIcon.svg";
-import MailDetail from "./mailDetail";
-import MailBodyHeader from "../Header/mailBodyHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMailSeenFlag, getAllMail, getMailFolders } from "../Store/Api";
-// import AntTooltip from "../../../SharedComponent/Tooltip/AntTooltip";
 import MailItem from "./mailItem";
 import AntTooltip from "../../../sharedComponents/Tooltip/AntTooltip";
+import { ROUTES } from "../../../../utils/routes";
 
-const MainBody = () => {
+const MailListing = () => {
   const dispatch = useDispatch();
 
   let {
@@ -68,7 +66,6 @@ const MainBody = () => {
 
   return (
     <div className="mailMainBody" ref={mailHolder}>
-      {/* <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}`}> */}
       {inProcess &&
         [1, 3, 4].map((value) => (
           <div className="mailItem" key={value} style={{ height: "auto" }}>
@@ -121,7 +118,7 @@ const MainBody = () => {
 
               <NavLink
                 className="subjectAndBodyMob"
-                to={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/${id}`}
+                to={`${ROUTES.MAIL.ROOT}${ROUTES.MAIL.DETAIL}/${id}`}
               >
                 <div className="mailForm">
                   <div className="subject">{from[0].name}</div>
@@ -163,15 +160,8 @@ const MainBody = () => {
             </div>
           )
         )}
-      {/* </Route> */}
-
-      {/*** For mail detail content with route ***/}
-      {/* <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/:id`}> */}
-      {/* <MailBodyHeader /> */}
-      {/* <MailDetail /> */}
-      {/* </Route> */}
     </div>
   );
 };
 
-export default MainBody;
+export default MailListing;

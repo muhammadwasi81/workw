@@ -12,7 +12,7 @@ export const getAllOfficeTimingService = (args) => {
 
 export const addOfficeTimingService = (args) => {
   console.log(args, "argservice");
-  return MasterConfig.post(`api/officetiming/addOfficeTimingGroup`, args)
+  return MasterConfig.post(`api/OfficeTiming/AddOfficeTimingGroup`, args)
     .then((res) => {
       return res.data;
     })

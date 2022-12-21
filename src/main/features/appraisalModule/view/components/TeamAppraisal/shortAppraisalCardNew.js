@@ -222,17 +222,17 @@ function ShortCard({ item, isList }) {
           <div className="cardSectionItem">
             <div className="cardSection__title">{"Approvers"}</div>
             <div className="cardSection__body">
-              {
+              {approvers && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
                   heading={"approvers"}
-                  //   membersData={approvers ? approvers : []}
-                  membersData={[]}
+                  membersData={approvers ? approvers : []}
+                  // membersData={[]}
                   text={"Approvers"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
-              }
+              )}
             </div>
           </div>
           <div className="cardSectionItem">

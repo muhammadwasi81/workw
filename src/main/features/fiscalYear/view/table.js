@@ -1,8 +1,15 @@
 import { Skeleton } from "antd";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
-import { getAllFiscalYear, removeBranch, removeComplainCategory, removeDefaultHiringCriteria, removeFiscalYear, removePayrollGroup } from "../store/actions";
+import {
+  getAllFiscalYear,
+  removeBranch,
+  removeComplainCategory,
+  removeDefaultHiringCriteria,
+  removeFiscalYear,
+  removePayrollGroup,
+} from "../store/actions";
 import { FiscalYearDeleted } from "../store/slice";
 import { tableColumn } from "./tableColumn";
 
@@ -15,52 +22,52 @@ export default function TableView({
   actionRights = [],
   setClearButton,
 }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const {
+    administration,
+    fiscalyear,
+    Direction,
+    sharedLabels,
+  } = dictionaryList[userLanguage];
 
-  
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { administration,fiscalyear,Direction,sharedLabels } = dictionaryList[userLanguage];
-
-		console.log("myyyyyy",administration.fiscalyear.startDate);
-
+  console.log("myyyyyy", administration.fiscalyear.startDate);
 
   const { items, loadingData } = useSelector((state) => state.fiscalYearSlice);
+  console.log(items, "itemssss");
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllFiscalYear());
   }, []);
 
-  const [id, setId] = useState()
+  const [id, setId] = useState();
 
   const onSuccess = (e) => {
-    setId(null)
-    dispatch(FiscalYearDeleted(e))
-    setClearButton(true)
-  }
+    setId(null);
+    dispatch(FiscalYearDeleted(e));
+    setClearButton(true);
+  };
 
   const onError = () => {
-    setId(null)
-  }
+    setId(null);
+  };
 
   const handleDelete = (e) => {
-    setId(e.id)
+    setId(e.id);
     dispatch(removeFiscalYear(e)).then(() => onSuccess(e), onError);
-    
-  }
+  };
 
   return (
     <AdminTable
       // scroll={{ x: 1500, y: 300 }}
       columns={tableColumn(
-
-       
         handleEdit,
         handleDelete,
         removeButtons,
         actionRights,
         id,
         setClearButton,
-        sharedLabels,
+        sharedLabels
       )}
       dataSource={items}
       pagination={false}

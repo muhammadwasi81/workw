@@ -63,7 +63,7 @@ const BusinessPolicy = () => {
   return (
     <>
       <FormContainer>
-        <FormHeader>{administration.businessPolicy.businesspolicy}</FormHeader>
+        <FormHeader>{administration.businessPolicy.companypolicy}</FormHeader>
         {loading ? (
           <Skeleton />
         ) : (

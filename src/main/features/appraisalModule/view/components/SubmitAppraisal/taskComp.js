@@ -31,6 +31,7 @@ const TaskComp = (props) => {
   const [userId, setUserId] = useState("");
   // const [startDateState, setStartDate]= usestate('');
   // const [endDateState, setEndDate] = useState('');
+  const [taskState, setTaskState] = useState([]);
   const [date, setDate] = useState({ startDate: "", endDate: "" });
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
@@ -39,6 +40,12 @@ const TaskComp = (props) => {
     (state) => state.sharedSlice.employeeShort
   );
   const { userTask } = useSelector((state) => state.appraisalModuleSlice);
+
+  useEffect(() => {
+    if (userTask.length) {
+      setTaskState(userTask);
+    }
+  }, [userTask]);
 
   useEffect(() => {
     fetchEmployees();
@@ -117,6 +124,7 @@ const TaskComp = (props) => {
       });
     } else {
       console.log("Clear");
+      setTaskState([]);
     }
   };
 
@@ -238,7 +246,7 @@ const TaskComp = (props) => {
             columns={tableColumn()}
             // handleChange={handleColumnSorting}
             dragable={true}
-            data={userTask ? userTask : []}
+            data={taskState ? taskState : []}
           />
         </div>
       </div>

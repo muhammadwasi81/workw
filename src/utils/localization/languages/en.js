@@ -448,6 +448,8 @@ const en = {
     Complain_Category: "Complain Category",
     Payroll_Group: "Payroll Group",
     Business_Policy: "Business Policy",
+    Companies_Policy: "Companies Policies",
+
     Rebate_Category: "Rebate Category",
     Assets_Category: " Assets Category",
     AccessRole: "Access Role",

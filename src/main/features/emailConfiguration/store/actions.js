@@ -51,7 +51,10 @@ export const addEmailConfiguration = createAsyncThunk(
 export const updateEmailConfiguration = createAsyncThunk(
   "EmailConfiguration/updateEmailConfiguration",
   async (args, { dispatch, getState }) => {
-    return await AxiosConfig.put(`${API_PREFIX}updateEmailConfiguration`, args)
+    return await AxiosConfig.put(
+      `api/Mailbox/UpdateBusinessEmailConfiguration`,
+      args
+    )
       .then((res) => {
         if (res.data.responseCode === responseCode.Success)
           res.data.message = "Email Configuration updated successfully!";

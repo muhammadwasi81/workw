@@ -20,7 +20,7 @@ const Index = () => {
     );
   return (
     <>
-      {appraisals ? (
+      {appraisals.length ? (
         <CardWrapper>
           {appraisals.map((item) => (
             <ShortCard item={item} isList={true} />

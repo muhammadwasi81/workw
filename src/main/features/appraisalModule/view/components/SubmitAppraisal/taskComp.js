@@ -31,6 +31,7 @@ const TaskComp = (props) => {
   const [userId, setUserId] = useState("");
   // const [startDateState, setStartDate]= usestate('');
   // const [endDateState, setEndDate] = useState('');
+  const [taskState, setTaskState] = useState([]);
   const [date, setDate] = useState({ startDate: "", endDate: "" });
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
@@ -41,13 +42,19 @@ const TaskComp = (props) => {
   const { userTask } = useSelector((state) => state.appraisalModuleSlice);
 
   useEffect(() => {
+    if (userTask.length) {
+      setTaskState(userTask);
+    }
+  }, [userTask]);
+
+  useEffect(() => {
     fetchEmployees();
     fetchEmployeesShort();
     fetchAllowance();
   }, []);
 
   useEffect(() => {
-    if (date.startDate.length > 1 && date.startDate.length > 1 && userId) {
+    if (date.startDate.length > 1 && date.startDate.length > 1) {
       dispatch(
         getAllTaskForAppraisalAction({
           startDate: date.startDate,
@@ -55,15 +62,19 @@ const TaskComp = (props) => {
           userId,
         })
       );
-      //TODO: dispatch employee salary here
-      dispatch(getEmployeeSalary({ id: userId }));
     }
   }, [date, userId]);
 
   useEffect(() => {
+    if (userId) {
+      dispatch(getEmployeeSalary({ id: userId }));
+    }
+  }, [userId]);
+
+  useEffect(() => {
     if (isFirstTime && employeesData.length > 0) {
       setFetchEmployeesData(employeesData);
-      setEmployee(employeesData[0]);
+      // setEmployee(employeesData[0]);
       setIsFirstTime(false);
     }
   }, [employeesData]);
@@ -77,7 +88,6 @@ const TaskComp = (props) => {
 
   useEffect(() => {
     if (date && userId) {
-      console.log(userId)
       props.startDate(date.startDate);
       props.endDate(date.endDate);
       props.userId(userId);
@@ -102,6 +112,7 @@ const TaskComp = (props) => {
     setEmployee(selected[0]);
     // console.log(selected[0].id);
     setUserId(selected[0].id);
+    props.setDisable(false);
   };
 
   const onRangeChange = (dates, dateStrings) => {
@@ -113,6 +124,7 @@ const TaskComp = (props) => {
       });
     } else {
       console.log("Clear");
+      setTaskState([]);
     }
   };
 
@@ -152,21 +164,38 @@ const TaskComp = (props) => {
           />
         </div>
         <div className="box flex justify-between items-center">
-          <UserInfo
-            avatarSrc={
-              employee ? employee?.image : "https://joeschmoe.io/api/v1/random"
-            }
-            name={employee ? employee?.name : "Humayoun Shah"}
-            Subline={
-              <SublineDesigWithTime
-                designation={
-                  employee && employee?.designation
-                    ? employee?.designation
-                    : "Not Designated"
-                }
-              />
-            }
-          />
+          {Object.keys(employee).length ? (
+            <UserInfo
+              avatarSrc={
+                employee
+                  ? employee?.image
+                  : "https://joeschmoe.io/api/v1/random"
+              }
+              name={employee ? employee?.name : "Humayoun Shah"}
+              Subline={
+                <SublineDesigWithTime
+                  designation={
+                    employee && employee?.designation
+                      ? employee?.designation
+                      : "Not Designated"
+                  }
+                />
+              }
+            />
+          ) : (
+            "No employee selected"
+          )}
+          {/* <svg
+            viewBox="64 64 896 896"
+            focusable="false" 
+            data-icon="close-circle"
+            width="1em"
+            height="1em"
+            // fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 01-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z"></path>
+          </svg> */}
         </div>
 
         <Form
@@ -217,7 +246,7 @@ const TaskComp = (props) => {
             columns={tableColumn()}
             // handleChange={handleColumnSorting}
             dragable={true}
-            data={userTask ? userTask : []}
+            data={taskState ? taskState : []}
           />
         </div>
       </div>

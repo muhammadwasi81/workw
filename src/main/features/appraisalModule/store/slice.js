@@ -20,7 +20,7 @@ const initialState = {
   appraisals: [],
   appraisalDetail: {},
   detailLoader: false,
-  currentTab: "teamAppraisals",
+  currentTab: "allAppraisals",
   drawerOpen: false,
   loader: false,
   userTask: [],

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../style.css";
 import AppraisalForm from "./appraisalForm";
 import TaskComp from "./taskComp";
@@ -9,6 +9,10 @@ function SubmitAppraisalBody(props) {
   const [endDate, setEndDate] = useState("");
   const [userId, setUserId] = useState("");
   const [formDisabled, setComponentDisabled] = useState(true);
+
+  useEffect(() => {
+    console.log("useEffect props data send");
+  }, [props.dataSend]);
 
   return (
     <>

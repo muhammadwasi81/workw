@@ -108,79 +108,93 @@ const AppraisalForm = (props) => {
     // console.log("Success:", values);
     if (employeeSalary?.basicSalary) {
       console.log("if block");
-      let salary = {
-        id: createGuid(),
-        userId: props.userId,
-        basicSalary: values.incrementAmount
-          ? parseInt(employeeSalary?.basicSalary) +
-            parseInt(values.incrementAmount)
-          : parseInt(employeeSalary?.basicSalary) +
-            parseInt(employeeSalary?.basicSalary) /
-              parseInt(values.incrementPercent),
-        // basicSalary:
-        //   employeeSalary?.basicSalary + values.incrementAmount
-        //     ? parseInt(values.incrementAmount)
-        //     : parseFloat(values.incrementpercent) / 100,
-        approvers: modifySelectData(values.incrementApprover).map((el) => {
-          return {
-            approverId: el,
-          };
-        }),
-      };
-      let bonus = {
-        id: createGuid(),
-        memberId: props.userId,
-        type: values.bonusPercent ? 1 : 2,
-        value: values.bonusPercent ? values.bonusPercent : values.bonusAmount,
-        // amount: ,
-        approvers: modifySelectData(values.bonusApprovers).map((el) => {
-          return {
-            approverId: el,
-          };
-        }),
-      };
+      let salary;
+      let bonus;
+
+      if (values.incrementRadio === 1) {
+        salary = {
+          id: createGuid(),
+          userId: props.userId,
+          basicSalary: values.incrementAmount
+            ? parseInt(employeeSalary?.basicSalary) +
+              parseInt(values.incrementAmount)
+            : parseInt(employeeSalary?.basicSalary) +
+              parseInt(employeeSalary?.basicSalary) /
+                parseInt(values.incrementPercent),
+          approvers: modifySelectData(values.incrementApprover).map((el) => {
+            return {
+              approverId: el,
+            };
+          }),
+        };
+      }
+
+      if (values.bonusRadio === 1) {
+        bonus = {
+          id: createGuid(),
+          memberId: props.userId,
+          type: values.bonusPercent ? 1 : 2,
+          value: values.bonusPercent ? values.bonusPercent : values.bonusAmount,
+          // amount: ,
+          approvers: modifySelectData(values.bonusApprovers).map((el) => {
+            return {
+              approverId: el,
+            };
+          }),
+        };
+      }
+
       const payload = {
         values,
         questions: question,
-        bonus: bonus,
-        salary: salary,
+        bonus: bonus ? bonus : null,
+        salary: salary ? salary : null,
       };
-      console.log(payload, "payload in else block when salary is available");
+      // const newPayload = addAppraisal_dto(payload);
+
       props.dataSend(payload);
     } else {
-      console.log("else block");
-      let salary = {
-        id: createGuid(),
-        userId: props.userId,
-        basicSalary:
-          employeeSalary?.basicSalary + values.incrementAmount &&
-          parseInt(values.incrementAmount),
-        approvers: modifySelectData(values.incrementApprover).map((el) => {
-          return {
-            approverId: el,
-          };
-        }),
-      };
-      let bonus = {
-        id: createGuid(),
-        memberId: props.userId,
-        type: 2,
-        value: parseInt(values.bonusAmount),
-        amount: parseInt(values.bonusAmount),
-        // amount: ,
-        approvers: modifySelectData(values.bonusApprovers).map((el, index) => {
-          return {
-            approverId: el,
-          };
-        }),
-      };
+      let salary;
+      let bonus;
+      if (values.bonusRadio === 1) {
+        salary = {
+          id: createGuid(),
+          userId: props.userId,
+          basicSalary:
+            employeeSalary?.basicSalary + values.incrementAmount &&
+            parseInt(values.incrementAmount),
+          approvers: modifySelectData(values.incrementApprover).map((el) => {
+            return {
+              approverId: el,
+            };
+          }),
+        };
+      }
+      if (values.incrementRadio === 1) {
+        bonus = {
+          id: createGuid(),
+          memberId: props.userId,
+          type: 2,
+          value: parseInt(values.bonusAmount),
+          amount: parseInt(values.bonusAmount),
+          // amount: ,
+          approvers: modifySelectData(values.bonusApprovers).map(
+            (el, index) => {
+              return {
+                approverId: el,
+              };
+            }
+          ),
+        };
+      }
+
       const payload = {
         values,
         questions: question,
-        bonus: bonus,
-        salary: salary,
+        bonus: bonus ? bonus : null,
+        salary: salary ? salary : null,
       };
-      console.log(payload, "payload in else block when there is no salary");
+
       props.dataSend(payload);
     }
 

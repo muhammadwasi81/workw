@@ -134,7 +134,7 @@ const Composer = () => {
       </Form.Item> */}
       <Form.Item
         name="loanTenure"
-        label={loanDictionaryList.loanTenure}
+        label="Months"
         onChange={(e) => setLoanTenure(e.target.value)}
         rules={[
           {

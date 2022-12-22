@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   getEmployeeSalary,
   getCities,
@@ -15,13 +15,14 @@ import {
   getComplainCategory,
   getAllEmployees,
   getAllEmployeeShort,
-} from './actions';
+} from "./actions";
 
 const initialState = {
   countries: [],
   cities: [],
   designations: [],
-  employeeSalary: '',
+  employeeSalary: "",
+  employeeBasicSalary: "",
   userTypes: [],
   userTitles: [],
   genders: [],
@@ -38,11 +39,11 @@ const initialState = {
   notification: {},
   employees: [],
   employeeShort: [],
-  isDarkMode: localStorage.getItem('darkMode') === '1',
+  isDarkMode: localStorage.getItem("darkMode") === "1",
 };
 
 const sharedSlice = createSlice({
-  name: 'shared',
+  name: "shared",
   initialState,
   reducers: {
     openNotification: (state, { payload }) => {
@@ -52,7 +53,7 @@ const sharedSlice = createSlice({
       state.employees = [];
     },
     darkModeHandler: (state, { payload }) => {
-      console.log('slice', payload);
+      console.log("slice", payload);
       state.isDarkMode = payload;
     },
   },
@@ -63,12 +64,16 @@ const sharedSlice = createSlice({
         state.loadingData = false;
       })
       .addCase(getEmployeeSalary.fulfilled, (state, { payload }) => {
-        let x = payload.data.map((element, i) => {
-          return element.netSalary;
-        });
-        let data = x.length > 0 ? x[0] : '';
-        state.employeeSalary = data;
-        state.loadingData = false;
+        console.log("fulfilled");
+        console.log(payload);
+        state.employeeSalary = payload.data;
+        // let x = payload.data.map((element, i) => {
+        //   return element.netSalary;
+        // });
+        // console.log(payload, "payload of salary");
+        // let data = x.length > 0 ? x[0] : "";
+        // state.employeeSalary = data;
+        // state.loadingData = false;
       })
       .addCase(getAllEmployees.fulfilled, (state, { payload }) => {
         state.employees = payload.data;

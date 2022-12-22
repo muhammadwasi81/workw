@@ -1,7 +1,48 @@
-/* .profile_link{
-    border-radius: 8px;
+.profilepic {
+  background-color: #111;
+  position: relative;
+  image-rendering: pixelated;
 }
 
-.profile_link:hover{
-    back
-} */
+.profilepic:hover .profilepic__content {
+  opacity: 1;
+}
+
+.profilepic:hover .profilepic__image {
+  opacity: 0.5;
+}
+
+.profilepic__image {
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.profilepic__content {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.profilepic__icon {
+  color: #fff;
+  padding-bottom: 0;
+}
+.userImg {
+  width: 150px;
+  height: 150px;
+}
+.uploadIcon {
+  font-size: 30px;
+  color: #000;
+  cursor: pointer;
+}

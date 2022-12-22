@@ -18,14 +18,14 @@ const Edit = (handleEdit, row) => {
   );
 };
 
-const Delete = (handleDelete, row) => {
-  return (
-    <DeleteFilled
-      style={{ color: "#1b5669" }}
-      onClick={(e) => handleDelete({ id: row.id })}
-    />
-  );
-};
+// const Delete = (handleDelete, row) => {
+//   return (
+//     <DeleteFilled
+//       style={{ color: "#1b5669" }}
+//       onClick={(e) => handleDelete({ id: row.id })}
+//     />
+//   );
+// };
 
 export const tableColumn = (
   handleEdit,
@@ -72,13 +72,14 @@ export const tableColumn = (
             if (rights.includes(1) && rights.includes(2))
               return (
                 <>
-                  {Edit(handleEdit, row)} {Delete(handleDelete, row)}
+                  {Edit(handleEdit, row)}
+                  {/* {Delete(handleDelete, row)} */}
                 </>
               );
 
             if (rights.includes(1)) return Edit(handleEdit, row);
 
-            if (rights.includes(2)) return Delete(handleDelete, row);
+            // if (rights.includes(2)) return Delete(handleDelete, row);
           },
         },
   ];

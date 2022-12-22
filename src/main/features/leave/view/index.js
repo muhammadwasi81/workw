@@ -1,14 +1,21 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { BrokenPage, STRINGS } from "../../../../utils/base";
-import Reward from "./Leave";
+import { ROUTES } from "../../../../utils/routes";
+import IndividualDetail from "./IndividualDetail";
 
+import Leave from "./Leave";
 const Index = () => {
   return (
-    <Switch>
-      <Route exact path={`${STRINGS.ROUTES.LEAVE.DEFAULT}`} component={Reward} />
+    <Routes>
+      <Route exact path={"/"} element={<Leave />} />
+      <Route
+        exact
+        path={`${ROUTES.LEAVES.DETAIL}/:id`}
+        element={<IndividualDetail />}
+      />
       <Route component={BrokenPage} />
-    </Switch>
+    </Routes>
   );
 };
 

@@ -198,7 +198,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.WARNINGS.DEFAULT}`,
-      component: lazy(() => import("../main/features/warning/view/Warning")),
+      component: lazy(() => import("../main/features/warning/view/index")),
     },
     {
       path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
@@ -255,7 +255,7 @@ export const routes = {
 
     {
       path: `${ROUTES.LEAVES.DEFAULT}`,
-      component: lazy(() => import("../main/features/leave/view/Leave")),
+      component: lazy(() => import("../main/features/leave/view/index")),
     },
     {
       path: `${ROUTES.DEPARTMENTS.DEFAULT}`,
@@ -293,9 +293,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.RESIGNATION.DEFAULT}`,
-      component: lazy(() =>
-        import("../main/features/resignation/view/resignations")
-      ),
+      component: lazy(() => import("../main/features/resignation/view/index")),
     },
     {
       path: `${ROUTES.REQUISITION.DEFAULT}`,
@@ -311,7 +309,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.SALARY.DEFAULT}`,
-      component: lazy(() => import("../main/features/salary/view/")),
+      component: lazy(() => import("../main/features/salary/view/index")),
     },
     {
       path: `${ROUTES.QUOTATION.DEFAULT}`,

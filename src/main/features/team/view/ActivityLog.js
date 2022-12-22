@@ -1,14 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import { TeamTable } from "./TaskTable/TeamTable";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { teamDictionaryList } from "../localization/index";
+import ModalComponent from "./modal";
+import { Button, Modal } from 'antd';
+
 
 function ActivityLog() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.ActivityLogTbale;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const onRow = () => {
+  //   return {
+  //     onClick: () => {
+  //       setIsModalOpen(true);
+  //     },
+  //   };
+  // };
+
+  const showModal = () => {
+    setIsModalOpen(true)
+  };
   const columns = [
     {
       title: labels.Date,
@@ -45,16 +61,20 @@ function ActivityLog() {
       <TeamTable
         bordered
         columns={columns}
-        className="custom_table"
+        className="custom_table" 
+        onClick={showModal}
+        
         dataSource={[
           {
             date: "Mon 2019",
             loginFrom: "web app",
             loginIP: "99999",
             location: "miletap",
+            
           },
         ]}
       />
+      <ModalComponent showModal={isModalOpen} />
     </>
   );
 }

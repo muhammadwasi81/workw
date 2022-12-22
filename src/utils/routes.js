@@ -286,6 +286,7 @@ export const ROUTES = {
 		BUSINESS_POLICY: `businessPolicy`,
 		ACCESSROLES: `accessroles`,
 		GRADE: `grade`,
+		ELEARNING_CATEGORY:`eLearningCategory`,
 		DESIGNATION: `designation`,
 		APPRASIAL: `appraisal`,
 		TIMEZONE: `timezone`,
@@ -397,11 +398,14 @@ export const ROUTES = {
 		COMLAIN_CATEGORY: `complainCategory`,
 		PAYROLL_GROUP: `payrollGroup`,
 		ACCESSROLES: `accessroles`,
-		GRADE: `grade`,
 		FISCAL_YEAR: `fiscalYear`,
 		DESIGNATION: `designation`,
 		TAX_SLAB: `taxSlab`,
 		TAX_SLAB_GROUP: `taxSlabsGroup`,
+		GRADE: `grade`,
+		ELEARNING_CATEGORY:`eLearningCategory`,
+
+
 		APPRASIAL: `appraisal`,
 		TIMEZONE: `timezone`,
 		OFFICETIMING: `officetimings`,

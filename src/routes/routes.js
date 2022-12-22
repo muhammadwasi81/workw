@@ -352,6 +352,12 @@ export const routes = {
       }),
     },
     {
+      path: `${ROUTES.ADMINISTRATOR.ELEARNING_CATEGORY},`,
+      component: lazy(() => {
+        import("../main/features/eLearningCategory/view/index");
+      }),
+    },
+    {
       path: `${ROUTES.ADMINISTRATOR.DESIGNATION},`,
       component: lazy(() => {
         import("../main/features/designation/view/index");

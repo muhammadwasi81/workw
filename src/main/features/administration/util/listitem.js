@@ -64,7 +64,7 @@ export const listitem = [
   },
   {
     IconName: <AiFillShop size={20} color={'var(--currentThemeColor)'} />,
-    displayName: 'Business_Policy',
+    displayName: 'Company_Policy',
     classObj: 'button',
     to: ROUTES.ADMINISTRATOR.BUSINESS_POLICY,
   },
@@ -73,6 +73,12 @@ export const listitem = [
     displayName: 'Tax_Slabs_Group',
     classObj: 'button',
     to: ROUTES.ADMINISTRATOR.TAX_SLAB,
+  },
+  {
+    IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,
+    displayName: 'E_Learning_Category',
+    classObj: 'button',
+    to: ROUTES.ADMINISTRATOR.ELEARNING_CATEGORY,
   },
   // {
   //   IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,

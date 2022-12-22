@@ -14,12 +14,16 @@ import {
   getAllDefaultApproversAction,
   deleteDefaultApproversByIdAction,
 } from './store/action';
+import { handleApproversDelete } from "./store/slice"
 import { defaultApprovers } from './utils';
 import CustomSelect from '../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { customApprovalDictionaryList } from '../CustomApprovals/localization';
 import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
 import { DeleteOutlined } from '@ant-design/icons';
 import TableHead from './view/table/tableHead';
+import { Popconfirm } from 'antd';
+import { DeleteFilled, EditFilled } from '@ant-design/icons';
+
 const { Panel } = Collapse;
 
 const DefaultApprovers = () => {
@@ -28,6 +32,7 @@ const DefaultApprovers = () => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [value, setValue] = useState([]);
   const [currentType, setCurrentType] = useState('');
+  const [deleteModal, setDeleteModal] = useState(false)
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = customApprovalDictionaryList[userLanguage];
@@ -36,6 +41,7 @@ const DefaultApprovers = () => {
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { loader, approversData } = useSelector((state) => state.approverSlice);
   console.log(loader, 'loader');
+  const [id, setId] = useState();
 
   const payloadData = {
     pageNo: 1,
@@ -67,19 +73,39 @@ const DefaultApprovers = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e, 'e');
+    console.log(e, 'eeeeeeeeeeee');
     const payload = {
       memberId: [e],
       type: currentType,
+
     };
     console.log(payload, 'payload');
     dispatch(addDefaultApproversAction(payload));
+    dispatch(handleApproversDelete(e));
+  };
+  const onSuccess = (item) => {
+    console.log(item,"itemitem");
+    setId(null);
+    dispatch(handleApproversDelete(e));
+    //setClearButton(true);
   };
 
-  const handleDelete = (id) => {
-    console.log(id, 'handleDelete');
-    dispatch(deleteDefaultApproversByIdAction(id));
+  const onError = () => {
+    setId(null);
   };
+
+   const handleDelete = (id) => {
+   console.log(item,"iddddd");
+     setId(item.id);
+      dispatch(deleteDefaultApproversByIdAction({id:item.id})).then(() => onSuccess(item), onError);
+      //dispatch(deleteDefaultApproversByIdAction({id:item.id}));
+   };
+
+   const cancel = (e) => {
+    console.log(e, "ON CANCEL");
+    message.error('Click on No');
+  };
+
 
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
@@ -167,15 +193,21 @@ const DefaultApprovers = () => {
                                           </span>
                                         </td>
                                         <td style={{ maxWidth: '15px' }}>
+                                        <Popconfirm
+                                          title="Sure to delete ?"
+                                          description="Are you sure to delete this item?"
+                                          onConfirm={() => dispatch(deleteDefaultApproversByIdAction(item.id))}
+                                          onCancel={cancel}
+                                          okText="OK"
+                                          cancelText="cancel"
+                                        >
                                           <Button
                                             type="primary"
                                             danger
                                             shape="circle"
                                             icon={<DeleteOutlined />}
-                                            onClick={() =>
-                                              handleDelete(item.id)
-                                            }
                                           />
+                                        </Popconfirm>
                                         </td>
                                       </tr>
                                     );

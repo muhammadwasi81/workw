@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from '../../../../utils/routes';
 import ExpenseHeader from '../../../../main/features/expenseHeader/view/index';
 import Grade from '../../../../main/features/grade/view/index';
+import ELearningCategory from "../../../../main/features/eLearningCategory/view/index";
 import Designation from '../../../../main/features/designation/view/index';
 import Appraisal from '../../../../main/features/appraisal/appraisalQuestion/view/index';
 import LeaveType from '../../../../main/features/leave/leaveType/view/index';
@@ -71,6 +72,9 @@ const AdminRoutes = () => {
         element={<AssetsCategory />}
       />
       <Route path={ROUTES.ADMINISTRATOR.GRADE} element={<Grade />} />
+
+      <Route path={ROUTES.ADMINISTRATOR.ELEARNING_CATEGORY} element={<ELearningCategory />} />
+
       <Route
         path={ROUTES.ADMINISTRATOR.DESIGNATION}
         element={<Designation />}

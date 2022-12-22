@@ -15,6 +15,8 @@ import sideBarChatSlice from '../components/MainMenu/SideChatbar/store/sideBarCh
 import requisitionSlice from '../main/features/requisition/store/slice';
 import authSlice from '../main/features/auth/store/slice';
 import gradeSlice from '../main/features/grade/store/slice';
+import ELearningCategorySlice from "../main/features/eLearningCategory/store/slice";
+
 import rebateCategorySlice from '../main/features/rebateCategory/store/slice';
 // import taxSlabSlice from '../main/features/taxSlabs/store/slice';
 import taxSlabGroupSlice from '../main/features/taxSlabs/store/slice';
@@ -139,6 +141,7 @@ const reducers = combineReducers({
   general: generalSlice,
   // documentsSlice,
   gradeSlice,
+  ELearningCategorySlice,
   emailConfigurationSlice,
   salaryHeaderSlice,
   // taxSlabSlice,

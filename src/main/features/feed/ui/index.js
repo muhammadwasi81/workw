@@ -20,7 +20,7 @@ import QuickOptions from './quickOptions';
 import { Col, Row } from 'antd';
 import NewStickyNote from '../../notes/newStickyNotes/view/components/NewStickyNote';
 import { useSelector } from 'react-redux';
-import StickyContainer from '../../notes/newStickyNotes/view/components/StickyContainer';
+import SingleNotes from '../../notes/singleNotes/singleNotes';
 
 const NewsFeed = ({
   referenceType = PostReferenceType.MAIN_FEED,
@@ -84,16 +84,11 @@ const NewsFeed = ({
         </Col>
         <Col lg={4} xs={24} md={4}>
           <div>
-            {/* {stickyNotes
+            {stickyNotes
               .filter((it) => it.isOpen)
-              .map((item, index) => (
-                <NewStickyNote item={item} index={item.id} key={item.id} />
+              .map((item) => (
+                <SingleNotes item={item} key={item.id} />
               ))}
-            <StickyContainer /> */}
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
-            iusto in explicabo recusandae sint repudiandae eveniet non maiores
-            placeat nostrum amet doloremque architecto, deserunt veniam
-            assumenda quidem magnam pariatur consequatur.
           </div>
         </Col>
       </Row>
@@ -102,3 +97,6 @@ const NewsFeed = ({
 };
 
 export default NewsFeed;
+{
+  /* <NewStickyNote item={item} key={item.id} /> */
+}

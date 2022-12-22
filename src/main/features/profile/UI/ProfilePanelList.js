@@ -20,7 +20,7 @@ function ProfilePanelList() {
       {listItem.map((list) => {
         return (
           <div className="p-2">
-            <NavLink
+            {/* <NavLink
               to={ROUTES.USER.DEFAULT + param.id + list.to}
               className={({ isActive }) =>
                 isActive
@@ -29,15 +29,15 @@ function ProfilePanelList() {
               }
             >
               {list.name}
-            </NavLink>
+            </NavLink> */}
 
             {/* TODO:// REMOVE IT LATER */}
-            {/* <Link
+            <Link
               to={list.to}
               className="!text-primary-color p-2 font-bold text-base flex overflow-hidden rounded-[8px] bg-[#526bb13d] hover:!text-primary-color hover:bg-[#526bb13d] transition-all duration-300"
             >
               {list.name}
-            </Link> */}
+            </Link>
           </div>
         );
       })}

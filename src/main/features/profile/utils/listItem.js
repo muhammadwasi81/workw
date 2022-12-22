@@ -4,14 +4,14 @@ export const listItem = [
     classObj: 'button',
     to: '/about',
   },
-  {
-    name: 'Work',
-    classObj: 'button',
-    to: '/about_work',
-  },
-  {
-    name: 'Education',
-    classObj: 'button',
-    to: '/about_education',
-  },
+  // {
+  //   name: 'Work',
+  //   classObj: 'button',
+  //   to: '/about_work',
+  // },
+  // {
+  //   name: 'Education',
+  //   classObj: 'button',
+  //   to: '/about_education',
+  // },
 ];

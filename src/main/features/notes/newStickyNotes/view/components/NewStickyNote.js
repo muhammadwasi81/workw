@@ -35,7 +35,6 @@ import ShareComponent from './ShareComponent';
 import { handleOpenSticky } from '../../store/stickySlice';
 import { LanguageChangeContext } from '../../../../../../utils/localization/localContext/LocalContext';
 import { stickyNotesDictionaryList } from '../../localization/index';
-
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
   const [openShare, setOpenShare] = useState(false);
@@ -94,8 +93,10 @@ const NewStickyNote = ({ item }) => {
           ),
           key: '1',
         },
+
         {
           label: <div>{openColor && <StickyColor item={item} />}</div>,
+
           // icon: <HighlightOutlined onClick={openColorHandler} />,
           key: '2',
         },

@@ -22,7 +22,7 @@ const ProfileCoverDetail = ({ id }) => {
   const imageUploadHandler = (e) => {
     const fileObj = e.target.files[0];
     if (!fileObj.type.match(imageMimeType)) {
-      return message.error(`Image Type is not valid`);
+      return message.error(`Image type is not valid`);
     }
     const payload = {
       id: STRINGS.DEFAULTS.guid,

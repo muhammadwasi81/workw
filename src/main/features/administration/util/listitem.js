@@ -74,6 +74,12 @@ export const listitem = [
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.TAX_SLAB,
   },
+  {
+    IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,
+    displayName: 'E_Learning_Category',
+    classObj: 'button',
+    to: ROUTES.ADMINISTRATOR.ELEARNING_CATEGORY,
+  },
   // {
   //   IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,
   //   displayName: 'Tax_Slabs_Group',

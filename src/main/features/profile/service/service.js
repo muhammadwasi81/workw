@@ -1,13 +1,14 @@
-import MasterConfig from "../../../../utils/services/MasterConfig";
+import { jsonToFormData } from '../../../../utils/base';
+import MasterConfig from '../../../../utils/services/MasterConfig';
 
 export const addEmployeeService = async (data) => {
   return MasterConfig.post(`/api/Employee/AddEmployee`, data)
     .then((res) => {
-      console.log(res.data, "addEmployeeService service");
+      console.log(res.data, 'addEmployeeService service');
       return res;
     })
     .catch((err) => {
-      console.log(err.message, "error in addEmployee");
+      console.log(err.message, 'error in addEmployee');
       return err;
     });
 };
@@ -15,11 +16,11 @@ export const addEmployeeService = async (data) => {
 export const getAllEmployeeService = async (data) => {
   return MasterConfig.post(`/api/Employee/GetAllEmployeeShort`, data)
     .then((res) => {
-      console.log(res.data, "GetAllEmployeeShort service");
+      console.log(res.data, 'GetAllEmployeeShort service');
       return res.data;
     })
     .catch((err) => {
-      console.log(err.message, "error in GetAllEmployeeShort");
+      console.log(err.message, 'error in GetAllEmployeeShort');
       return err;
     });
 };
@@ -27,11 +28,11 @@ export const getAllEmployeeService = async (data) => {
 export const getEmployeeByIdService = async (id) => {
   return MasterConfig.get(`/api/Employee/GetEmployeeById?id=${id}`)
     .then((res) => {
-      console.log(res.data, "getEmployeeByIdService service");
+      console.log(res.data, 'getEmployeeByIdService service');
       return res;
     })
     .catch((err) => {
-      console.log(err.message, "error in getEmployeeByIdService");
+      console.log(err.message, 'error in getEmployeeByIdService');
       return err;
     });
 };
@@ -39,11 +40,11 @@ export const getEmployeeByIdService = async (id) => {
 export const updateEmployeeService = async (data) => {
   return MasterConfig.post(`/api/Employee/UpdateEmployee`, data)
     .then((res) => {
-      console.log(res.data, "updateEmployeeService service");
+      console.log(res.data, 'updateEmployeeService service');
       return res;
     })
     .catch((err) => {
-      console.log(err.message, "error in updateEmployeeService");
+      console.log(err.message, 'error in updateEmployeeService');
       return err;
     });
 };
@@ -53,11 +54,11 @@ export const getWorkplace = async (userId) => {
     `/api/UserWorkExperience/GetAllUserWorkExperience?userId=${userId}`
   )
     .then((res) => {
-      console.log(res.data, "workplace service");
+      console.log(res.data, 'workplace service');
       return res;
     })
     .catch((err) => {
-      console.log(err.message, "error in workplaceService");
+      console.log(err.message, 'error in workplaceService');
       return err;
     });
 };
@@ -67,11 +68,38 @@ export const getEducation = async (userId) => {
     `/api/UserEducation/GetAllUserEducation?userId=${userId}`
   )
     .then((res) => {
-      console.log(res.data, "education service");
+      console.log(res.data, 'education service');
       return res;
     })
     .catch((err) => {
-      console.log(err.message, "error in education");
+      console.log(err.message, 'error in education');
+      return err;
+    });
+};
+
+// update user coverImg
+export const updateCoverImgService = async (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.put(`/api/Employee/UpdateProfileCoverImage`, formData)
+    .then((res) => {
+      console.log(res.data, 'updateCoverImgService service');
+      return res;
+    })
+    .catch((err) => {
+      console.log(err.message, 'error in updateCoverImgService');
+      return err;
+    });
+};
+
+export const updateUserProfileImgService = async (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.put(`/api/Employee/UpdateProfileImage`, formData)
+    .then((res) => {
+      console.log(res.data, 'updateCoverImgService service');
+      return res;
+    })
+    .catch((err) => {
+      console.log(err.message, 'error in updateCoverImgService');
       return err;
     });
 };

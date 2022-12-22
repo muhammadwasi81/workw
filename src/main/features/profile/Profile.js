@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   ContBody,
   TabContainer,
@@ -14,7 +14,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ROUTES } from '../../../utils/routes';
 import './styles/profileStyle.css';
 import NewsFeed from '../feed/ui';
-import { useEffect } from 'react';
 import { getEducationDetailByUser } from '../education/store/actions';
 import { useDispatch } from 'react-redux';
 import { getUserWorkExperience } from '../experienceInfo/store/actions';
@@ -22,7 +21,7 @@ import { getEmployeeByIdAction } from './store/action';
 import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
 import { profileDictionaryList } from './localization/index';
 
-function Profile() {
+const Profile = () => {
   const param = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -62,7 +61,134 @@ function Profile() {
       content: <ProfilePanel />,
       featureId: ROUTES.USER.DEFAULT + id + '/about',
     },
-    // TODO:// 3rd pane
+    {
+      featureName: profileDictionary.awards,
+      content: (
+        <>
+          <div>
+            <div className="flex flex-row gap-5">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Repudiandae similique ipsum quam cumque, vel tenetur ea culpa
+              fugit libero saepe quia, assumenda laborum voluptatum! Corrupti
+              iste aperiam in soluta dolore?
+            </div>
+          </div>
+        </>
+      ),
+      featureId: ROUTES.USER.DEFAULT + id + '/awards',
+    },
+    {
+      featureName: profileDictionary.appraisal,
+      content: (
+        <>
+          <div className="flex flex-row gap-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+            similique ipsum quam cumque, vel tenetur ea culpa fugit libero saepe
+            quia, assumenda laborum voluptatum! Corrupti iste aperiam in soluta
+            dolore?
+          </div>
+        </>
+      ),
+      featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
+    },
+    {
+      featureName: profileDictionary.salary,
+      content: (
+        <>
+          <div className="flex flex-row gap-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+            similique ipsum quam cumque, vel tenetur ea culpa fugit libero saepe
+            quia, assumenda laborum voluptatum! Corrupti iste aperiam in soluta
+            dolore?
+          </div>
+        </>
+      ),
+      featureId: ROUTES.USER.DEFAULT + id + '/salary',
+    },
+    {
+      featureName: profileDictionary.activityLog,
+      content: (
+        <>
+          <div className="flex flex-row gap-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+            similique ipsum quam cumque, vel tenetur ea culpa fugit libero saepe
+            quia, assumenda laborum voluptatum! Corrupti iste aperiam in soluta
+            dolore?
+          </div>
+        </>
+      ),
+      featureId: ROUTES.USER.DEFAULT + id + '/activityLog',
+    },
+    {
+      featureName: profileDictionary.courses,
+      content: (
+        <>
+          <div className="flex flex-row gap-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+            similique ipsum quam cumque, vel tenetur ea culpa fugit libero saepe
+            quia, assumenda laborum voluptatum! Corrupti iste aperiam in soluta
+            dolore?
+          </div>
+        </>
+      ),
+      featureId: ROUTES.USER.DEFAULT + id + '/courses',
+    },
+    {
+      featureName: profileDictionary.leave,
+      content: (
+        <>
+          <div className="flex flex-row gap-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+            similique ipsum quam cumque, vel tenetur ea culpa fugit libero saepe
+            quia, assumenda laborum voluptatum! Corrupti iste aperiam in soluta
+            dolore?
+          </div>
+        </>
+      ),
+      featureId: ROUTES.USER.DEFAULT + id + '/leave',
+    },
+    {
+      featureName: profileDictionary.education,
+      content: (
+        <>
+          <div className="flex flex-row gap-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+            similique ipsum quam cumque, vel tenetur ea culpa fugit libero saepe
+            quia, assumenda laborum voluptatum! Corrupti iste aperiam in soluta
+            dolore?
+          </div>
+        </>
+      ),
+      featureId: ROUTES.USER.DEFAULT + id + '/education',
+    },
+    {
+      featureName: profileDictionary.experience,
+      content: (
+        <>
+          <div className="flex flex-row gap-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+            similique ipsum quam cumque, vel tenetur ea culpa fugit libero saepe
+            quia, assumenda laborum voluptatum! Corrupti iste aperiam in soluta
+            dolore?
+          </div>
+        </>
+      ),
+      featureId: ROUTES.USER.DEFAULT + id + '/experience',
+    },
+    {
+      featureName: profileDictionary.checkIn,
+      content: (
+        <>
+          <div className="flex flex-row gap-5">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+            similique ipsum quam cumque, vel tenetur ea culpa fugit libero saepe
+            quia, assumenda laborum voluptatum! Corrupti iste aperiam in soluta
+            dolore?
+          </div>
+        </>
+      ),
+      featureId: ROUTES.USER.DEFAULT + id + '/checkIn',
+    },
   ];
 
   useEffect(() => {
@@ -90,6 +216,6 @@ function Profile() {
       </ContBody>
     </TabContainer>
   );
-}
+};
 
 export default Profile;

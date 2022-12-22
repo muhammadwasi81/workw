@@ -1,21 +1,30 @@
+import { useState, useEffect } from 'react';
 import { message } from 'antd';
-import { useEffect } from 'react';
-import { useState } from 'react';
 import { CameraOutlined } from '@ant-design/icons';
 import './style.css';
+import { updateUserCoverImgAction } from '../../profile/store/action';
+import { useDispatch } from 'react-redux';
+import { STRINGS } from '../../../../utils/base';
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
-function CoverImage(props) {
+const CoverImage = (props) => {
+  const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
 
   const imageUploadHandler = (e) => {
-    const file = e.target.files[0];
-    if (!file.type.match(imageMimeType)) {
-      message.error('Image Type is not valid');
-      return;
+    const fileObj = e.target.files[0];
+    if (!fileObj.type.match(imageMimeType)) {
+      return message.error(`Image Type is not valid`);
     }
-    setFile(file);
+    const payload = {
+      id: STRINGS.DEFAULTS.guid,
+      file: fileObj,
+    };
+    console.log('payload', payload);
+    dispatch(updateUserCoverImgAction(payload));
+    setFile(fileObj);
+    console.log('file', fileObj);
   };
 
   useEffect(() => {
@@ -40,14 +49,6 @@ function CoverImage(props) {
     };
   }, [file]);
   return (
-    // <div className="h-[400px]">
-    //   {}
-    //   <img
-    //     className="h-full object-cover w-full rounded-xl z-0"
-    //     src={props.image}
-    //     alt="cover photo"
-    //   />
-    // </div>
     <div class="h-[400px] coverImgWrapper">
       {fileDataURL ? (
         <img
@@ -77,6 +78,6 @@ function CoverImage(props) {
       </div>
     </div>
   );
-}
+};
 
 export default CoverImage;

@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addEmployeeAction,
   getAllEmployeeAction,
@@ -6,7 +6,9 @@ import {
   updateEmployeeAction,
   getWorkAction,
   getEducationAction,
-} from "./action";
+  updateUserCoverImgAction,
+  updateUserProfileImgAction,
+} from './action';
 
 const initialState = {
   success: false,
@@ -15,10 +17,12 @@ const initialState = {
   education: [],
   loadingData: false,
   loader: false,
+  coverImg: {},
+  profileImg: {},
 };
 
 const employeeProfileSlice = createSlice({
-  name: "Employee",
+  name: 'Employee',
   initialState,
   reducers: {
     clearEmployeeDetails: (state) => {
@@ -27,17 +31,17 @@ const employeeProfileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllEmployeeAction.fulfilled, (state, action) => {
-      console.log(action.payload, "getAllEmployee slice");
+      console.log(action.payload, 'getAllEmployee slice');
       state.employees = action.payload ? action.payload : [];
       state.loader = false;
     });
     builder.addCase(getEmployeeByIdAction.fulfilled, (state, action) => {
-      console.log(action.payload.data, "getEmployeeById slice");
+      console.log(action.payload.data, 'getEmployeeById slice');
       state.employees = action.payload.data;
       state.loader = false;
     });
     builder.addCase(addEmployeeAction.fulfilled, (state, { payload }) => {
-      console.log(payload, "addEmployee slice");
+      console.log(payload, 'addEmployee slice');
       state.success = true;
       state.employees = [...state.employees, payload.data.data];
       state.loader = false;
@@ -47,15 +51,27 @@ const employeeProfileSlice = createSlice({
       state.loader = false;
     });
     builder.addCase(getEducationAction.fulfilled, (state, action) => {
-      console.log(action.payload.data, "action.payload");
+      console.log(action.payload.data, 'action.payload');
       state.education = action.payload.data;
       state.loader = false;
     });
+    builder.addCase(updateEmployeeAction.fulfilled, (state, { payload }) => {
+      console.log(payload, 'updateEmployee slice');
+      state.success = true;
+      state.employees = [...state.employees, payload.data.data];
+      state.loader = false;
+    });
     builder
-      .addCase(updateEmployeeAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "updateEmployee slice");
+      .addCase(updateUserCoverImgAction.fulfilled, (state, { payload }) => {
+        console.log(payload, 'updateUserCoverImgAction slice');
         state.success = true;
-        state.employees = [...state.employees, payload.data.data];
+        state.coverImg = payload;
+        state.loader = false;
+      })
+      .addCase(updateUserProfileImgAction.fulfilled, (state, { payload }) => {
+        console.log(payload, 'updateUserProfileImgAction slice');
+        state.success = true;
+        state.profileImg = payload;
         state.loader = false;
       })
       .addMatcher(isPending(...[getAllEmployeeAction]), (state) => {

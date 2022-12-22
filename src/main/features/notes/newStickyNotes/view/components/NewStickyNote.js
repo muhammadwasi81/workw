@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
-import { Dropdown, Menu, Space, Image } from "antd";
-import "antd/dist/antd.css";
-import Draggable from "react-draggable";
+import React, { useEffect, useState, useRef, useContext } from 'react';
+import { Dropdown, Menu, Space, Image } from 'antd';
+import 'antd/dist/antd.css';
+import Draggable from 'react-draggable';
 
 import {
   CopyOutlined,
@@ -11,30 +11,31 @@ import {
   ShareAltOutlined,
   HighlightOutlined,
   PictureOutlined,
-} from "@ant-design/icons";
-import "../../style.css";
-import { useDispatch, useSelector } from "react-redux";
+} from '@ant-design/icons';
+import '../../style.css';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   closeStickyNote,
   targetTitleVal,
   targetStickyDescription,
   addImage,
-} from "../../store/stickySlice";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import StickyColor from "./StickyColor";
+} from '../../store/stickySlice';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import StickyColor from './StickyColor';
 import {
   deleteStickyAction,
   getStickyNoteTitleAction,
   getStickyNoteDescAction,
   getStickyAttachmentAction,
-} from "../../store/actions";
-import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
-import { createGuid } from "../../../../../../utils/base";
-import ShareComponent from "./ShareComponent";
-import { handleOpenSticky } from "../../store/stickySlice";
-import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
-import { stickyNotesDictionaryList } from "../../localization/index";
+} from '../../store/actions';
+import useDebounce from '../../../../../../utils/Shared/helper/use-debounce';
+import { createGuid } from '../../../../../../utils/base';
+import ShareComponent from './ShareComponent';
+import { handleOpenSticky } from '../../store/stickySlice';
+import { LanguageChangeContext } from '../../../../../../utils/localization/localContext/LocalContext';
+import { stickyNotesDictionaryList } from '../../localization/index';
+
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
   const [openShare, setOpenShare] = useState(false);
@@ -49,7 +50,7 @@ const NewStickyNote = ({ item }) => {
   });
   const { userLanguage } = useContext(LanguageChangeContext);
   const { stikcyDictionary } = stickyNotesDictionaryList[userLanguage];
-  console.log(openSticky, "open sticky");
+  console.log(openSticky, 'open sticky');
   const color = item.colorCode;
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
@@ -65,7 +66,7 @@ const NewStickyNote = ({ item }) => {
     );
   };
   const openShareHandler = () => {
-    console.log("clecked share");
+    console.log('clecked share');
     setOpenShare((openShare) => !openShare);
   };
   const copyToClipboard = () => {
@@ -82,7 +83,7 @@ const NewStickyNote = ({ item }) => {
               <a className="drop-downList">Share</a>
             </div>
           ),
-          key: "0",
+          key: '0',
         },
         {
           label: (
@@ -91,14 +92,12 @@ const NewStickyNote = ({ item }) => {
               <a className="drop-downList">Copy</a>
             </div>
           ),
-          key: "1",
+          key: '1',
         },
-
         {
           label: <div>{openColor && <StickyColor item={item} />}</div>,
-
           // icon: <HighlightOutlined onClick={openColorHandler} />,
-          key: "2",
+          key: '2',
         },
       ]}
     />
@@ -132,7 +131,7 @@ const NewStickyNote = ({ item }) => {
   const setDescriptionValue = (value) => {
     const id = item.id;
     dispatch(targetStickyDescription({ id, value }));
-    console.log(value, "description");
+    console.log(value, 'description');
     dispatch(
       getStickyNoteDescAction({ ...item, attachments: [], description: value })
     );
@@ -141,8 +140,8 @@ const NewStickyNote = ({ item }) => {
   // *******modules and formats for React quil******
   const modules = {
     toolbar: [
-      ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
       [],
     ],
   };
@@ -150,13 +149,13 @@ const NewStickyNote = ({ item }) => {
     toolbar: [
       [{ font: [] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "link", "image"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
-      [{ direction: "rtl" }],
-      [{ align: ["center"] }],
+      ['bold', 'italic', 'underline', 'link', 'image'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      [{ direction: 'rtl' }],
+      [{ align: ['center'] }],
       [{ color: [] }, { background: [] }],
-      ["clean"],
+      ['clean'],
     ],
   };
   const imgSrc = item.attachments;
@@ -187,7 +186,7 @@ const NewStickyNote = ({ item }) => {
           className="stickyNote_container"
           onClick={openNewStikcyHandler}
           style={{
-            position: "absolute",
+            position: 'absolute',
             zIndex: item.id === openSticky ? 3 : 2,
           }}
         >
@@ -237,7 +236,7 @@ const NewStickyNote = ({ item }) => {
               onChange={(value) => setDescription(value)}
               modules={modules}
               formats={formats}
-              className={"stickyNoteItem-textarea"}
+              className={'stickyNoteItem-textarea'}
               placeholder={stikcyDictionary.takeANote}
               defaultValue={item.description}
             />
@@ -268,7 +267,7 @@ const NewStickyNote = ({ item }) => {
               })}
             </div>
           ) : (
-            ""
+            ''
           )}
         </div>
       </Draggable>

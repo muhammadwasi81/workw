@@ -20,7 +20,7 @@ const quickAddSlice = createSlice({
       state.isOpen = false;
     },
     addInList: (state, { payload }) => {
-      state.items = [...state.items, payload];
+      state.items = [...state.items, payload]; 
     },
     deleteItem: (state, { payload }) => {
       let index = payload;

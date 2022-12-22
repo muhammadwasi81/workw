@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { NavLink, useLocation, Route, Routes } from "react-router-dom";
+import { NavLink, useLocation, Route, Routes, useParams } from "react-router-dom";
 import { Checkbox, Rate, Skeleton } from "antd";
 import {
   parseDate,
@@ -27,23 +27,19 @@ const MailListing = () => {
 
   const isTablet = useMediaQuery({ maxWidth: 599 });
 
-  const { pathname } = useLocation();
-
-  const api_base = pathname.split("/")[2];
-
+  // const { pathname } = useLocation();
+  // const api_base = pathname.split("/")[2];
+  const { id: api_base } = useParams();
   const mailHolder = useRef();
 
-  let objData = {
-    folderPath: api_base,
-    pageNo: currentPageSize,
-    pageSize: 25,
-    search: "",
-  };
-  useEffect(() => {
-    dispatch(getMailFolders());
-  }, [dispatch]);
 
   const GetAllMailHandle = () => {
+    let objData = {
+      folderPath: api_base,
+      pageNo: currentPageSize,
+      pageSize: 25,
+      search: "",
+    };
     handlePagination(false);
     if (mailDetail === null) dispatch(getAllMail(objData));
 
@@ -52,24 +48,22 @@ const MailListing = () => {
     }
   };
 
-  useEffect(() => {
-    // GetAllMailHandle();
-  }, [currentParamId]);
+
 
   const changeSeenFlag = (ID, IsRead) => {
     dispatch(
       changeMailSeenFlag({ uid: ID, flag: IsRead, folderPath: api_base })
     );
   };
-
   const handlePagination = (doPagination = true) => { };
 
   return (
     <div className="mailMainBody" ref={mailHolder}>
       {inProcess &&
-        [1, 3, 4].map((value) => (
+        [1, 3, 4, 2, 2, 2, 2].map((value) => (
           <div className="mailItem" key={value} style={{ height: "auto" }}>
-            <Skeleton
+            <Skeleton />
+            {/* <Skeleton
               avatar={true}
               paragraph
               title={true}
@@ -78,7 +72,7 @@ const MailListing = () => {
               loading={inProcess}
               block={true}
               style={{ margin: "10px 10px" }}
-            ></Skeleton>
+            ></Skeleton> */}
           </div>
         ))}
 
@@ -118,7 +112,7 @@ const MailListing = () => {
 
               <NavLink
                 className="subjectAndBodyMob"
-                to={`${ROUTES.MAIL.ROOT}${ROUTES.MAIL.DETAIL}/${id}`}
+                to={`${id}`}
               >
                 <div className="mailForm">
                   <div className="subject">{from[0].name}</div>

@@ -4,18 +4,11 @@ import { changeMailSeenFlag, composeMail, getAllMail, getMailById, getMailFolder
 export const mailSlice = createSlice({
     name: 'mail',
     initialState: {
-        allMail: Array(50).fill({}),
+        allMail: null,
         currentParamId: "",
         currentPageSize: 1,
         mailDetail: null,
-        mailFolderItem: [
-            { folderPath: "allMail" },
-            { folderPath: "inbox" },
-            { folderPath: "sent" },
-            { folderPath: "spam" },
-            { folderPath: "trash" },
-            { folderPath: "draft" }
-        ],
+        mailFolderItem: null,
 
         mailDrawerStatus: false,
         mailMobComposerStatus: false,
@@ -84,10 +77,13 @@ export const mailSlice = createSlice({
 
         },
         [getMailFolders.fulfilled]: (state, { payload }) => {
+            console.log("getMailFolders.fulfilled")
             state.mailFolderItem = payload.data;
         },
         [getMailFolders.rejected]: (state, { payload }) => {
             // state.mailFolderItem = null;
+            console.log("getMailFolders.rejected")
+
             state.errorMessage = payload?.message;
             state.responseCode = payload?.responseCode
         },
@@ -105,17 +101,17 @@ export const mailSlice = createSlice({
             state.errorMessage = payload?.message;
         },
 
-        [refreshMail.pending]: (state, { payload }) => {
-            state.isRefresh = true;
-        },
-        [refreshMail.fulfilled]: (state, { payload }) => {
-            state.isRefresh = false;
-            state.allMail = payload.data;
-        },
+        // [refreshMail.pending]: (state, { payload }) => {
+        //     state.isRefresh = true;
+        // },
+        // [refreshMail.fulfilled]: (state, { payload }) => {
+        //     state.isRefresh = false;
+        //     state.allMail = payload.data;
+        // },
 
-        [refreshMail.rejected]: (state, { payload }) => {
-            state.isRefresh = false;
-        },
+        // [refreshMail.rejected]: (state, { payload }) => {
+        //     state.isRefresh = false;
+        // },
 
         [getMailById.pending]: (state, { payload }) => {
             state.mailDetail = null
@@ -127,17 +123,17 @@ export const mailSlice = createSlice({
 
         },
 
-        [changeMailSeenFlag.pending]: (state, { payload, meta }) => {
-            state.allMail = state.allMail.map((value) => value.id === meta.arg.uid ? ({
-                ...value,
-                isRead: !value.isRead
-            }) : value)
-        },
-        [changeMailSeenFlag.fulfilled]: (state, { payload, meta }) => {
-        },
-        [changeMailSeenFlag.rejected]: (state, payload) => {
+        // [changeMailSeenFlag.pending]: (state, { payload, meta }) => {
+        //     state.allMail = state.allMail.map((value) => value.id === meta.arg.uid ? ({
+        //         ...value,
+        //         isRead: !value.isRead
+        //     }) : value)
+        // },
+        // [changeMailSeenFlag.fulfilled]: (state, { payload, meta }) => {
+        // },
+        // [changeMailSeenFlag.rejected]: (state, payload) => {
 
-        }
+        // }
     }
 })
 

@@ -38,7 +38,7 @@ const BusinessPolicy = () => {
     dispatch(GetAllTaxSlabGroup(filter));
   }, [filter]);
 
-  const handleCollapse = (key) => {};
+  const handleCollapse = (key) => { };
 
   const handleRemove = (id) => {
     dispatch(removeTaxSlab(id));

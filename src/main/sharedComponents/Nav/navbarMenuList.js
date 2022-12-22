@@ -114,7 +114,7 @@ const NavMenuList = () => {
     {
       name: label.navMenuLabel.mailBox,
       counter: 0,
-      to: ROUTES.MAIL.ROOT + ROUTES.MAIL.LIST + "/INBOX.allMail",
+      to: ROUTES.MAIL.ROOT + "/INBOX",
       icon: mailsIcon,
       isActive: 3,
       key: label.navMenuLabel.menu,

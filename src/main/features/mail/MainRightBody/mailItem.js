@@ -19,13 +19,13 @@ import { ROUTES } from "../../../../utils/routes";
 const MailItem = ({ data, changeSeenFlag }) => {
 	const dispatch = useDispatch();
 	const {
-		from = [{ name: "Owais Sheikh" }],
-		subject = "Dummy Subject Here",
-		id = createGuid(),
+		from = [],
+		subject = "",
+		id,
 		isRead = false,
 		date = new Date(),
 		hasAttachments,
-		content = "Dummy Content Here",
+		content = "",
 	} = data;
 	const { pathname } = useLocation();
 	const api_base = pathname.split("/")[2];
@@ -97,14 +97,14 @@ const MailItem = ({ data, changeSeenFlag }) => {
 
 				<NavLink
 					className="mailFrom"
-					to={`${ROUTES.MAIL.ROOT}${ROUTES.MAIL.DETAIL}/${id}`}
+					to={`${id}`}
 				>
 					{from && from[0]?.name}
 				</NavLink>
 			</div>
 			<NavLink
 				className="subjectAndBody"
-				to={`${ROUTES.MAIL.ROOT}${ROUTES.MAIL.DETAIL}/${id}`}
+				to={`${id}`}
 			>
 				{subject} {content && "-"} {content}
 			</NavLink>

@@ -541,7 +541,6 @@ export const ROUTES = {
   MAIL: {
 	DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
 	ROOT: `${DOMAIN_PREFIX}/mail`,
-	LIST: `/list`,
 	DETAIL: `/detail`,
 
 

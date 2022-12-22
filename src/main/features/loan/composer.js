@@ -53,16 +53,6 @@ const Composer = () => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
 
-  const fetchdefaultApprovals = async () => {
-    const data = await getAllDefaultApprovers({
-      pageNo: 1,
-      pageSize: 50,
-      sortBy: 1,
-      types: [3],
-    });
-    return data;
-  };
-
   useEffect(() => {
     fetchEmployees("", 0);
     const fetchdefaultApprovals = async () => {
@@ -253,6 +243,18 @@ const Composer = () => {
           formItem={false}
           isObject={true}
           data={firstTimeEmpData}
+          // defaultData={[
+          //   {
+          //     id: "f5d172dc-f497-467d-94cc-499e77e21939",
+          //     businessId: "0ab5f9c0-f948-4c40-8dad-c58ba99fb763",
+          //     name: "hs shah",
+          //     email: "hs@miletap.com",
+          //     image: "",
+          //     type: 1,
+          //     userTypeId: 3,
+          //     designation: "",
+          //   },
+          // ]}
           defaultData={defaultData}
           canFetchNow={isFirstTimeDataLoaded}
           fetchData={fetchEmployees}

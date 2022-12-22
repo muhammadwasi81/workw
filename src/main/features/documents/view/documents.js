@@ -74,7 +74,7 @@ const Documents = ({
 			<Header
 				width={width}
 				backButton={backButton}
-				routeLink={routeLink}
+				routeLink={routeLink} 
 			/>
 			<FilterBar width={width} />
 			<ContBody className={width}>

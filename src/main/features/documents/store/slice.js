@@ -71,7 +71,7 @@ const documentSlice = createSlice({
     },
     resetBreadCumb: (state, { payload }) => {
       state.breadCumbPath = [{
-        label: "Home",
+        label: "Home", 
         id: STRINGS.DEFAULTS.guid
       }];
       state.parentId = STRINGS.DEFAULTS.guid;

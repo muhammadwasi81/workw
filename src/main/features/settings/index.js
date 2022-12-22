@@ -23,7 +23,6 @@ function Settings() {
         <Header items={items} />
         <ContBody>
           <SettingUpdate />
-          {/* <SettingList /> */}
         </ContBody>
       </TabbableContainer>
     </>

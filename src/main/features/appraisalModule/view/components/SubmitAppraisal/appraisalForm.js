@@ -12,7 +12,11 @@ import {
   Divider,
 } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { createGuid, getNameForImage } from "../../../../../../utils/base";
+import {
+  createGuid,
+  getNameForImage,
+  modifySelectData,
+} from "../../../../../../utils/base";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import ModalTag from "./modalTag";
@@ -76,6 +80,9 @@ const AppraisalForm = (props) => {
 
   const appraisalQuestion = useSelector((state) => state.appraisalSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
+  const { employeeSalary } = useSelector((state) => state.sharedSlice);
+
+  // console.log(employeeSalary, "employeesalary");
 
   // console.log(grades);
 
@@ -98,12 +105,99 @@ const AppraisalForm = (props) => {
   }, [props.submit]);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
-    const payload = {
-      values,
-      questions: question,
-    };
-    props.dataSend(payload);
+    // console.log("Success:", values);
+    if (employeeSalary?.basicSalary) {
+      console.log("if block");
+      let salary;
+      let bonus;
+
+      if (values.incrementRadio === 1) {
+        salary = {
+          id: createGuid(),
+          userId: props.userId,
+          basicSalary: values.incrementAmount
+            ? parseInt(employeeSalary?.basicSalary) +
+              parseInt(values.incrementAmount)
+            : parseInt(employeeSalary?.basicSalary) +
+              parseInt(employeeSalary?.basicSalary) /
+                parseInt(values.incrementPercent),
+          approvers: modifySelectData(values.incrementApprover).map((el) => {
+            return {
+              approverId: el,
+            };
+          }),
+        };
+      }
+
+      if (values.bonusRadio === 1) {
+        bonus = {
+          id: createGuid(),
+          memberId: props.userId,
+          type: values.bonusPercent ? 1 : 2,
+          value: values.bonusPercent ? values.bonusPercent : values.bonusAmount,
+          // amount: ,
+          approvers: modifySelectData(values.bonusApprovers).map((el) => {
+            return {
+              approverId: el,
+            };
+          }),
+        };
+      }
+
+      const payload = {
+        values,
+        questions: question,
+        bonus: bonus ? bonus : null,
+        salary: salary ? salary : null,
+      };
+      // const newPayload = addAppraisal_dto(payload);
+
+      props.dataSend(payload);
+    } else {
+      let salary;
+      let bonus;
+      if (values.bonusRadio === 1) {
+        salary = {
+          id: createGuid(),
+          userId: props.userId,
+          basicSalary:
+            employeeSalary?.basicSalary + values.incrementAmount &&
+            parseInt(values.incrementAmount),
+          approvers: modifySelectData(values.incrementApprover).map((el) => {
+            return {
+              approverId: el,
+            };
+          }),
+        };
+      }
+      if (values.incrementRadio === 1) {
+        bonus = {
+          id: createGuid(),
+          memberId: props.userId,
+          type: 2,
+          value: parseInt(values.bonusAmount),
+          amount: parseInt(values.bonusAmount),
+          // amount: ,
+          approvers: modifySelectData(values.bonusApprovers).map(
+            (el, index) => {
+              return {
+                approverId: el,
+              };
+            }
+          ),
+        };
+      }
+
+      const payload = {
+        values,
+        questions: question,
+        bonus: bonus ? bonus : null,
+        salary: salary ? salary : null,
+      };
+
+      props.dataSend(payload);
+    }
+
     // props.getAppraisalData(payload);
   };
   const onFinishFailed = (errorInfo) => {
@@ -111,26 +205,21 @@ const AppraisalForm = (props) => {
   };
 
   const onChangePromotion = (e) => {
-    console.log(e.target.value, "onchange promotion");
     setPromotion(e.target.value);
   };
 
   const onChangeBonus = (e) => {
-    console.log(e.target.value, "onchange bonus");
     setbonus(e.target.value);
   };
 
   const onChangeBonusType = (e) => {
-    console.log(e.target.value, "onchange type");
     setBonusType(e.target.value);
   };
   const onChangeIncrement = (e) => {
-    console.log(e.target.value, "onchange bonus");
     setIncrement(e.target.value);
   };
 
   const onChangeIncrementType = (e) => {
-    console.log(e.target.value, "onchange type");
     setIncrementType(e.target.value);
   };
 
@@ -144,7 +233,6 @@ const AppraisalForm = (props) => {
   };
 
   const onChangeQuestionRating = (e, i, questionId) => {
-    //TODO: check if object is present in the array then replace the new one else push the new value
     console.log(questionId, e, i);
     if (!question.length) {
       setQuestion([{ questionId, ratingAssign: e }]);
@@ -169,6 +257,7 @@ const AppraisalForm = (props) => {
           layout="vertical"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
+          disabled={props.disabled}
         >
           <div className="inputBox flex justify-between items-center">
             <span>{appraisals}</span>
@@ -276,6 +365,7 @@ const AppraisalForm = (props) => {
           </div>
           <div className="inputBox mt-2">
             <span>{Bonus}</span>
+            {/**TODO: conditonal render options if salary is present then both options will be present amount/percentage */}
             <Form.Item
               name="bonusRadio"
               rules={[
@@ -292,39 +382,54 @@ const AppraisalForm = (props) => {
             </Form.Item>
             {bonus === 1 && (
               <>
-                {/* *TODO: conditional render if salary is present else only amount */}
-                <Radio.Group onChange={onChangeBonusType} value={bonusType}>
-                  <Radio value={1}>{percentage}</Radio>
-                  <Radio value={2}>{amount}</Radio>
-                </Radio.Group>
-                <div className="flex gap-x-3">
-                  <Form.Item
-                    name={"bonusPercent"}
-                    type="number"
-                    style={{ width: "50%" }}
-                  >
-                    <Input
-                      prefix={"%"}
-                      placeholder={percentage}
-                      type="number"
-                      max={100}
-                      disabled={bonusType === 2 ? true : false}
-                      style={{ marginTop: "0.5rem" }}
-                    />
-                  </Form.Item>
+                {!employeeSalary ? (
                   <Form.Item
                     name={"bonusAmount"}
                     type="number"
-                    style={{ width: "50%" }}
+                    // style={{ width: "50%" }}
                   >
                     <Input
                       placeholder={amount}
                       type="number"
-                      disabled={bonusType === 1 ? true : false}
                       style={{ marginTop: "0.5rem" }}
                     />
                   </Form.Item>
-                </div>
+                ) : (
+                  <>
+                    <Radio.Group onChange={onChangeBonusType} value={bonusType}>
+                      <Radio value={1}>{percentage}</Radio>
+                      <Radio value={2}>{amount}</Radio>
+                    </Radio.Group>
+                    <div className="flex gap-x-3">
+                      <Form.Item
+                        name={"bonusPercent"}
+                        type="number"
+                        style={{ width: "50%" }}
+                      >
+                        <Input
+                          prefix={"%"}
+                          placeholder={percentage}
+                          type="number"
+                          max={100}
+                          disabled={bonusType === 2 ? true : false}
+                          style={{ marginTop: "0.5rem" }}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        name={"bonusAmount"}
+                        type="number"
+                        style={{ width: "50%" }}
+                      >
+                        <Input
+                          placeholder={amount}
+                          type="number"
+                          disabled={bonusType === 1 ? true : false}
+                          style={{ marginTop: "0.5rem" }}
+                        />
+                      </Form.Item>
+                    </div>
+                  </>
+                )}
 
                 <Form.Item
                   name="bonusApprovers"
@@ -359,6 +464,7 @@ const AppraisalForm = (props) => {
           </div>
           <div className="inputBox mt-2">
             <span>{Increment}</span>
+            {/**TODO: conditonal render options if salary is present then both options will be present amount/percentage */}
             <Form.Item
               name="incrementRadio"
               rules={[
@@ -378,50 +484,61 @@ const AppraisalForm = (props) => {
             </Form.Item>
             {increment === 1 && (
               <>
-                {/* <div className="promotionBox mt-2"> */}
-                <Radio.Group
-                  onChange={onChangeIncrementType}
-                  value={incrementType}
-                >
-                  <Radio value={1}>{percentage}</Radio>
-                  <Radio value={2}>{amount}</Radio>
-                </Radio.Group>
-                <div className="flex gap-x-3">
-                  <Form.Item
-                    name="incrementPercent"
-                    typetype="number"
-                    style={{ width: "50%" }}
-                  >
-                    <Input
-                      prefix={"%"}
-                      type="number"
-                      placeholder={percentage}
-                      disabled={incrementType === 2 ? true : false}
-                      style={{ marginTop: "0.5rem" }}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    name="incrementAmount"
-                    typetype="number"
-                    style={{ width: "50%" }}
-                  >
+                {!employeeSalary ? (
+                  <Form.Item name="incrementAmount" typetype="number">
                     <Input
                       placeholder={amount}
                       type="number"
-                      disabled={incrementType === 1 ? true : false}
                       style={{ marginTop: "0.5rem" }}
                     />
                   </Form.Item>
-                </div>
-
+                ) : (
+                  <>
+                    {/* <div className="promotionBox mt-2"> */}
+                    <Radio.Group
+                      onChange={onChangeIncrementType}
+                      value={incrementType}
+                    >
+                      <Radio value={1}>{percentage}</Radio>
+                      <Radio value={2}>{amount}</Radio>
+                    </Radio.Group>
+                    <div className="flex gap-x-3">
+                      <Form.Item
+                        name="incrementPercent"
+                        typetype="number"
+                        style={{ width: "50%" }}
+                      >
+                        <Input
+                          prefix={"%"}
+                          type="number"
+                          placeholder={percentage}
+                          disabled={incrementType === 2 ? true : false}
+                          style={{ marginTop: "0.5rem" }}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        name="incrementAmount"
+                        typetype="number"
+                        style={{ width: "50%" }}
+                      >
+                        <Input
+                          placeholder={amount}
+                          type="number"
+                          disabled={incrementType === 1 ? true : false}
+                          style={{ marginTop: "0.5rem" }}
+                        />
+                      </Form.Item>
+                    </div>
+                  </>
+                )}
                 <Form.Item
-                  name="incrementApprovers"
-                  // label={"Approvers"}
+                  name="incrementApprover"
+                  // label={"Approver"}
                   showSearch={true}
                   rules={[{ required: true }]}
                 >
                   <MemberSelect
-                    name="incrementApprovers"
+                    name="incrementApprover"
                     mode="multiple"
                     formitem={false}
                     placeholder={selectApprovers}
@@ -441,7 +558,6 @@ const AppraisalForm = (props) => {
                     }}
                   />
                 </Form.Item>
-                {/* // </div> */}
               </>
             )}
           </div>
@@ -482,6 +598,7 @@ const AppraisalForm = (props) => {
                     <span className="max-w-[23rem]">{`${item?.name}`}</span>
                     <Rate
                       onChange={(e) => onChangeQuestionRating(e, i, item?.id)}
+                      disabled={props.disabled}
                     />
                   </div>
                   <Divider />

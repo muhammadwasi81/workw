@@ -4,6 +4,7 @@ const en = {
     createAppraisals: "Create Appraisals",
     teamAppraisals: "Team Appraisals",
     myAppraisals: "My Appraisals",
+    allAppraisals: "All Appraisals",
     forApprovals: "For Approvals",
     viewAppraisals: "View Appraisals",
     Employee: "Employee",

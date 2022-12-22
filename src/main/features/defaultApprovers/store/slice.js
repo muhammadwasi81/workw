@@ -15,7 +15,7 @@ const approverSlice = createSlice({
   initialState,
   reducers: {
     handleApproversDelete: (state, { payload }) => {
-      console.log(payload, 'handleApproversDelete');
+      
       state.approversData = state.approversData.filter(
         (item) => item.id !== payload
       );

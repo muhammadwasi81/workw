@@ -52,6 +52,7 @@
     "react-treelist": "^1.2.0",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.5",
+    "sunflower-antd": "^1.0.0-beta.3",
     "swiper": "^8.1.4",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"

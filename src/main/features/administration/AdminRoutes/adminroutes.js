@@ -27,9 +27,9 @@ import SubsidiaryOffice from '../../subsidiaryOffice/view';
 import TaxSlab from '../../taxSlabs/view';
 // import TaxSlabGroups from '../../taxSlabsGroup/view';
 
-import Fiscalyear from '../../fiscalYear/view';
-import AssetsCategory from '../../assetsCategory/view/index';
-import DefaultApprovers from './../../defaultApprovers/index';
+import Fiscalyear from "../../fiscalYear/view";
+import AssetsCategory from "../../assetsCategory/view/index";
+import DefaultApprovers from "./../../defaultApprovers/index";
 
 const AdminRoutes = () => {
   return (
@@ -56,7 +56,7 @@ const AdminRoutes = () => {
         element={<ComplainCategory />}
       />
       <Route
-        path={ROUTES.ADMINISTRATOR.BUSINESS_POLICY}
+        path={ROUTES.ADMINISTRATOR.COMPANIES_POLICY}
         element={<BusinessPolicy />}
       />
       <Route

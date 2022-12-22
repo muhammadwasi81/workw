@@ -29,6 +29,9 @@ const DocumentComposers = ({ referenceId, referenceType }) => {
 		dispatch(handleCloseDocComposer(key));
 		dispatch(uploadFileByDrop([]));
 	};
+
+	console.log(mileboard, "mileboard");
+
 	return (
 		<>
 			{mileboard &&

@@ -3,15 +3,20 @@ import { DownOutlined } from "@ant-design/icons";
 import { elearningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import React, { useContext } from "react";
+import { handleOpenComposer } from "../store/slice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function CreateLearningDropdown() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, elearningDictionary } = elearningDictionaryList[
     userLanguage
   ];
   const handleChange = (value) => {
-    let { key } = value;
-    // dispatch(handleOpenDocComposer(key));
+    let { key } = value; 
+    dispatch(handleOpenComposer(key));
   };
   const CreateOptions = [
     {
@@ -22,7 +27,7 @@ function CreateLearningDropdown() {
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.courses}</p>,
       key: "courses",
-      onClick: handleChange,
+      onClick: () => navigate("/eLearning/courses/create"),
     },
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.eBooks}</p>,
@@ -31,18 +36,18 @@ function CreateLearningDropdown() {
     },
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.quizez}</p>,
-      key: "quiz",
+      key: "quizz",
       onClick: handleChange,
     },
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.tedTalks}</p>,
-      key: "tedTalks",
+      key: "tedtalks",
       // icon: <img width="17px" alt="" src={milegridIcon} />,
       onClick: handleChange,
     },
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.articles}</p>,
-      key: "articles",
+      key: "article",
       // icon: <img width="17px" alt="" src={mileshowIcon} />,
       onClick: handleChange,
     },

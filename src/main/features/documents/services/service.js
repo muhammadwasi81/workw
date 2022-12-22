@@ -120,7 +120,7 @@ export const getAllDocumentDirectoryMemberService = (data) => {
 	return Config.get(`api/Document/GetAllDocumentDirectoryMember?id=${id}&pageNo=1`)
 	  .then((res) => {
 		return res.data;
-	  })
+	  }) 
 	  .catch((err) => {
 		return err;
 	  });

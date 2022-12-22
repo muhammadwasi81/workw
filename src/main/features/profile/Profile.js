@@ -1,27 +1,26 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 import {
   ContBody,
   TabContainer,
-} from "../../sharedComponents/AppComponents/MainFlexContainer";
-import Tab from "../../sharedComponents/Tab";
-import CoverImage from "../projects/UI/CoverImage";
-import ProfileCoverDetail from "./ProfileCoverDetail";
+} from '../../sharedComponents/AppComponents/MainFlexContainer';
+import Tab from '../../sharedComponents/Tab';
+import CoverImage from '../projects/UI/CoverImage';
+import ProfileCoverDetail from './ProfileCoverDetail';
 // import ProjectCover from "../../../content/ProjectCover.svg";
-import cover from "../../../content/cover.svg";
-import profile from "../../../content/profile.svg";
-
-import ProfilePanel from "./view/ProfilePanel";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { ROUTES } from "../../../utils/routes";
-import "./styles/profileStyle.css";
-import NewsFeed from "../feed/ui";
-import { useEffect } from "react";
-import { getEducationDetailByUser } from "../education/store/actions";
-import { useDispatch } from "react-redux";
-import { getUserWorkExperience } from "../experienceInfo/store/actions";
-import { getEmployeeByIdAction } from "./store/action";
-import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { profileDictionaryList } from "./localization/index";
+import cover from '../../../content/cover.svg';
+import profile from '../../../content/profile.svg';
+import ProfilePanel from './view/ProfilePanel';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { ROUTES } from '../../../utils/routes';
+import './styles/profileStyle.css';
+import NewsFeed from '../feed/ui';
+import { useEffect } from 'react';
+import { getEducationDetailByUser } from '../education/store/actions';
+import { useDispatch } from 'react-redux';
+import { getUserWorkExperience } from '../experienceInfo/store/actions';
+import { getEmployeeByIdAction } from './store/action';
+import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
+import { profileDictionaryList } from './localization/index';
 
 function Profile() {
   const param = useParams();
@@ -30,7 +29,7 @@ function Profile() {
   const dispatch = useDispatch();
   const { pathname } = location;
   const { id } = param;
-  const [defaultPath, setDefaultPath] = useState("");
+  const [defaultPath, setDefaultPath] = useState('');
   // const { education } = useSelector((state) => state.employeeProfileSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { profileDictionary } = profileDictionaryList[userLanguage];
@@ -39,7 +38,7 @@ function Profile() {
   };
 
   useEffect(() => {
-    setDefaultPath(pathname.split("_")[0]);
+    setDefaultPath(pathname.split('_')[0]);
   }, [pathname]);
 
   const panes = [
@@ -49,7 +48,7 @@ function Profile() {
         <NewsFeed
           isScheduler={false}
           isCheckedIn={false}
-          width={"!w-full"}
+          width={'!w-full'}
           referenceType={4}
           referenceId={id}
           backButton={false}
@@ -61,8 +60,9 @@ function Profile() {
     {
       featureName: profileDictionary.about,
       content: <ProfilePanel />,
-      featureId: ROUTES.USER.DEFAULT + id + "/about",
+      featureId: ROUTES.USER.DEFAULT + id + '/about',
     },
+    // TODO:// 3rd pane
   ];
 
   useEffect(() => {

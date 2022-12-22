@@ -49,8 +49,8 @@ function Index() {
       endDate: endDate,
       questions: data?.questions,
       gradeId: data?.values.gradeId,
-      salary: null,
-      bonus: null,
+      salary: data.salary ? data.salary : null,
+      bonus: data.bonus ? data.bonus : null,
       comment: data?.values.comment,
       approvers: modifySelectData(data?.values.approvers).map((el, index) => {
         return {

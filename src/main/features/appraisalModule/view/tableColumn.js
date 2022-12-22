@@ -5,6 +5,7 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 // import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import AvatarCustom from "../../../sharedComponents/Avatar/avatarOLD";
+import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 // import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 export const tableColumn = () => {
   return [
@@ -57,6 +58,12 @@ export const tableColumn = () => {
       render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
       //   width: 100,
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      render: (status) => <StatusTag status={status} />,
+      sort: true,
     },
     // {
     //   title: "Approvers",

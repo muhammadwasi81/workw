@@ -86,7 +86,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
   };
   const [form, setForm] = useState(initialState);
   // const [timeTable, setTimeTable] = useState(staticDataColumn);
-
+  console.log(staticDataColumn, "static data column");
   const handleChangeTable = (e, row, inputType) => {
     let myIndex = row.dayId - 1;
     let oldDetails = [...form.details];
@@ -198,6 +198,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
       align: "center",
       render: (text, row) => {
         let graceTime = row.graceTime / 60;
+        console.log(graceTime, "graceTime");
         return (
           <>
             <InputNumber

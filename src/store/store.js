@@ -64,6 +64,7 @@ import travelSlice from '../main/features/travel/store/slice';
 import feedSlice from '../main/features/feed/store/slice';
 import NoteSlice from './appReducer/NoteSlice';
 import documentSlice from '../main/features/documents/store/slice';
+import eLearningSlice from '../main/features/eLearning/store/slice';
 import newStickySlice from './appReducer/newStickySlice';
 import trelloSlice from '../main/features/workboard/store/slice';
 import expenseSlice from '../main/features/expense/store/slice';
@@ -123,6 +124,7 @@ const reducers = combineReducers({
   complainCategorySlice,
   quickAddSlice,
   payrollGroupSlice,
+  eLearningSlice,
   fiscalYearSlice,
   customApprovalCategorySlice,
   requisitionSlice,

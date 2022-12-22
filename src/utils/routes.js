@@ -286,6 +286,7 @@ export const ROUTES = {
     BUSINESS_POLICY: `businessPolicy`,
     ACCESSROLES: `accessroles`,
     GRADE: `grade`,
+    ELEARNING_CATEGORY: `eLearningCategory`,
     DESIGNATION: `designation`,
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
@@ -397,11 +398,13 @@ export const ROUTES = {
     COMLAIN_CATEGORY: `complainCategory`,
     PAYROLL_GROUP: `payrollGroup`,
     ACCESSROLES: `accessroles`,
-    GRADE: `grade`,
     FISCAL_YEAR: `fiscalYear`,
     DESIGNATION: `designation`,
     TAX_SLAB: `taxSlab`,
     TAX_SLAB_GROUP: `taxSlabsGroup`,
+    GRADE: `grade`,
+    ELEARNING_CATEGORY: `eLearningCategory`,
+
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
     OFFICETIMING: `officetimings`,
@@ -425,7 +428,9 @@ export const ROUTES = {
 
   LOAN: {
     DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
+    ROOT: `${DOMAIN_PREFIX}/loan`,
     LOAN: `${DOMAIN_PREFIX}/loan`,
+    DETAIL: `/detail`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
   // RESIGNATION: {
@@ -454,6 +459,8 @@ export const ROUTES = {
   SALARY: {
     DEFAULT: `${DOMAIN_PREFIX}/salary/*`,
     ROOT: `${DOMAIN_PREFIX}/salary`,
+    SALARY: `${DOMAIN_PREFIX}/salary`,
+    DETAIL: `/detail`,
     CREATE: `${DOMAIN_PREFIX}/create`,
   },
   QOUTATION: {
@@ -577,13 +584,17 @@ export const ROUTES = {
     ACTIVITY_LOG: `activityLog`,
   },
   WARNINGS: {
-    DEFAULT: `${DOMAIN_PREFIX}/warnings`,
+    DEFAULT: `${DOMAIN_PREFIX}/warnings/*`,
+    ROOT: `${DOMAIN_PREFIX}/warnings`,
     WARNING: `${DOMAIN_PREFIX}/warnings`,
+    DETAIL: `/detail`,
     APPROVALS: `warnings/approvals`,
   },
   LEAVES: {
-    DEFAULT: `${DOMAIN_PREFIX}/leaves`,
+    DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
+    ROOT: `${DOMAIN_PREFIX}/leaves`,
     LEAVE: `${DOMAIN_PREFIX}/leaves`,
+    DETAIL: `/detail`,
     APPROVALS: `leaves/approvals`,
   },
   DEPARTMENTS: {

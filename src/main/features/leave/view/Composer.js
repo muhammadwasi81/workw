@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import Select from "../../../sharedComponents/Select/Select";
@@ -12,8 +12,11 @@ import { uploadImage } from "../../../../utils/Shared/store/actions";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { getAllLeaveType } from "../leaveType/store/actions";
+import { GetLeaveTypeAction } from "../store/actions";
+
 import { DatePicker, Checkbox, Typography } from "antd";
 import { DEFAULT_GUID } from "../../../../utils/constants";
+import moment from "moment";
 
 import { STRINGS } from "../../../../utils/base";
 
@@ -55,14 +58,21 @@ const Composer = (props) => {
 
   const [value, setValue] = useState([]);
 
-  const { leaveTypes } = useSelector((state) => state.leaveTypeSlice);
+  const { leaveTypes, success } = useSelector((state) => state.leaveTypeSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
-
+  const { UserLeave } = useSelector((state) => state.leaveSlice);
+  console.log(props.id, "userIddd");
+  const selectedDataApprovers = (data, obj) => {
+    setValue(data);
+    handleMember(obj);
+  };
   const selectedData = (data, obj) => {
+    console.log(data, "dataaaa leave");
     setValue(data);
     handleMember(obj);
     // setMembers(obj);
     // onChange(data, obj);
+    dispatch(GetLeaveTypeAction(data));
   };
   useEffect(() => {
     fetchEmployees("", 0);
@@ -100,63 +110,91 @@ const Composer = (props) => {
   }, []);
 
   const handleEndStartDate = (value, dateString, name) => {
+    // if (days === 0) {
+    //   message.error("select leave date at least for one day! ");
+    // } else {
     setState({
       ...state,
       [name]: dateString,
     });
+    //}
   };
 
   const onFinish = (values) => {
+    var a = moment(values.startEndDate[0]);
+    var b = moment(values.startEndDate[1]);
+    const days = b.diff(a, "days");
 
-    if (values.members === undefined) {
+    if (days === 0) {
+      message.error("select leave date at least for one day! ");
+    } else if (values.members === undefined) {
       let approvers = [];
-    let members = [];
-    if (typeof values.approvers === "string") {
-      approvers.push({
-        approverId: values.approvers,
-      });
-    } else {
-      approvers = values.approvers.map((approver) => {
-        return {
-          approverId: approver,
-        };
-      });
-    }
-    const payload = { ...values, approvers, members, attachments };
-    dispatch(addLeave(payload));
+      let members = [];
+      if (typeof values.approvers === "string") {
+        approvers.push({
+          approverId: values.approvers,
+        });
+      } else {
+        approvers = values.approvers.map((approver) => {
+          return {
+            approverId: approver,
+          };
+        });
+      }
+      const payload = {
+        ...values,
+        approvers,
+        members,
+        attachments,
+        startDate: values.startEndDate[0]._d,
+        endDate: values.startEndDate[1]._d,
+      };
+      dispatch(addLeave(payload));
     } else {
       let approvers = [];
-    let members = [];
-    if (typeof values.approvers === "string") {
-      approvers.push({
-        approverId: values.approvers,
-      });
-    } else {
-      approvers = values.approvers.map((approver) => {
-        return {
-          approverId: approver,
-        };
-      });
-    }
-    if (typeof values.members === "string") {
-      members.push({
-        memberId: values.members,
-      });
-    } else {
-      members = values.members.map((memeber) => {
-        return {
-          memberId: memeber,
-        };
-      });
-    }
-    const payload = { ...values, approvers, members, attachments };
-    dispatch(addLeave(payload));
+      let members = [];
+      if (typeof values.approvers === "string") {
+        approvers.push({
+          approverId: values.approvers,
+        });
+      } else {
+        approvers = values.approvers.map((approver) => {
+          return {
+            approverId: approver,
+          };
+        });
+      }
+      if (typeof values.members === "string") {
+        members.push({
+          memberId: values.members,
+        });
+      } else {
+        members = values.members.map((memeber) => {
+          return {
+            memberId: memeber,
+          };
+        });
+      }
+
+      const payload = {
+        ...values,
+        approvers,
+        members,
+        days,
+        attachments,
+        startDate: values.startEndDate[0].format(),
+        endDate: values.startEndDate[1].format(),
+      };
+      dispatch(addLeave(payload));
     }
 
     // }
-
-    form.resetFields();
   };
+  useEffect(() => {
+    if (success) {
+      form.resetFields();
+    }
+  }, [success]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -191,7 +229,7 @@ const Composer = (props) => {
           ]}
         >
           <Select
-            data={leaveTypes}
+            data={UserLeave}
             placeholder={leaveDictionary.selectType}
             style={{
               width: "100%",
@@ -215,7 +253,7 @@ const Composer = (props) => {
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={leaveDictionary.selectMember}
-            mode={"multiple"}
+            // mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -234,7 +272,7 @@ const Composer = (props) => {
             }}
             dataVal={value}
             name="members"
-            showSearch={true} 
+            showSearch={true}
             direction={Direction}
             // rules={[
             //   {
@@ -255,7 +293,7 @@ const Composer = (props) => {
           <CustomSelect
             style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
-            selectedData={selectedData}
+            selectedData={selectedDataApprovers}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={leaveDictionary.selectApprovers}

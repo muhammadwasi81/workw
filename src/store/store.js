@@ -15,6 +15,8 @@ import sideBarChatSlice from '../components/MainMenu/SideChatbar/store/sideBarCh
 import requisitionSlice from '../main/features/requisition/store/slice';
 import authSlice from '../main/features/auth/store/slice';
 import gradeSlice from '../main/features/grade/store/slice';
+import ELearningCategorySlice from "../main/features/eLearningCategory/store/slice";
+
 import rebateCategorySlice from '../main/features/rebateCategory/store/slice';
 // import taxSlabSlice from '../main/features/taxSlabs/store/slice';
 import taxSlabGroupSlice from '../main/features/taxSlabs/store/slice';
@@ -62,6 +64,7 @@ import travelSlice from '../main/features/travel/store/slice';
 import feedSlice from '../main/features/feed/store/slice';
 import NoteSlice from './appReducer/NoteSlice';
 import documentSlice from '../main/features/documents/store/slice';
+import eLearningSlice from '../main/features/eLearning/store/slice';
 import newStickySlice from './appReducer/newStickySlice';
 import trelloSlice from '../main/features/workboard/store/slice';
 import expenseSlice from '../main/features/expense/store/slice';
@@ -121,6 +124,7 @@ const reducers = combineReducers({
   complainCategorySlice,
   quickAddSlice,
   payrollGroupSlice,
+  eLearningSlice,
   fiscalYearSlice,
   customApprovalCategorySlice,
   requisitionSlice,
@@ -139,6 +143,7 @@ const reducers = combineReducers({
   general: generalSlice,
   // documentsSlice,
   gradeSlice,
+  ELearningCategorySlice,
   emailConfigurationSlice,
   salaryHeaderSlice,
   // taxSlabSlice,

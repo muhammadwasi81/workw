@@ -11,6 +11,7 @@ import Videos from "./Sections/Videos/Videos";
 import DashboardLayout from "./Layout/DashboardLayout";
 import { elearningDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import DocumentComposers from "../../composer";
 function MainDashboard() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { elearningDictionary } = elearningDictionaryList[userLanguage];
@@ -51,6 +52,7 @@ function MainDashboard() {
       <div className="overflow-hidden flex flex-col gap-3">
         <DashboardOverview />
         <Tab panes={panes} className={"elearning-dashboard__tab"} />
+        <DocumentComposers /> 
       </div>
     </DashboardLayout>
   );

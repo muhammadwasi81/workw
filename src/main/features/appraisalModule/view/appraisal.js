@@ -17,23 +17,26 @@ import { appraisalDictionaryList } from "../localization/index";
 import { getAllAppraisalAction } from "../store/action";
 import { tableColumn } from "./tableColumn";
 import { Table } from "../../../sharedComponents/customTable";
+import { current } from "@reduxjs/toolkit";
+import DetailedView from "./components/DetailedView";
 
 function Appraisals() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
   const { Appraisals, createAppraisals } = appraisalDictionary;
   const [view, setView] = useState("List");
+  const [detailId, setDetailId] = useState(null);
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const CurrentTab = useSelector(
     (state) => state.appraisalModuleSlice.currentTab
   );
   const { appraisals } = useSelector((state) => state.appraisalModuleSlice);
-  console.log(appraisals);
   let RenderTab = {
-    teamAppraisals: <TeamAppraisals />,
+    allAppraisals: <TeamAppraisals />,
     myAppraisals: <TeamAppraisals />,
-    forApprovals: <ForApproval />,
+    forApprovals: <TeamAppraisals />,
   };
 
   const items = [
@@ -45,20 +48,53 @@ function Appraisals() {
   ];
 
   useEffect(() => {
-    dispatch(
-      getAllAppraisalAction({
-        pageNo: 1,
-        filterType: 1,
-      })
-    );
-  }, []);
+    if (CurrentTab === "allAppraisals") {
+      let payload = {
+        filterType: 0,
+        search: search,
+        // sortBy: sort,
+      };
+      dispatch(getAllAppraisalAction(payload));
+    } else {
+      let payload = {
+        filterType:
+          CurrentTab === "myAppraisals"
+            ? 1
+            : CurrentTab === "forApprovals"
+            ? 2
+            : null,
+        search: search,
+        // sortBy: sort,
+      };
+      dispatch(getAllAppraisalAction(payload));
+    }
+  }, [CurrentTab, search]);
 
   const onCreateAppraisal = () => {
     navigate("submitAppraisal");
   };
 
+  const onClose = () => {
+    setDetailId(null);
+    console.log("onclose");
+  };
+
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        console.log(record.id, "ID");
+        setDetailId(record.id);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+
   return (
     <>
+      <DetailedView id={detailId} onClose={onClose} />
       <TabbableContainer>
         <Header
           items={items}
@@ -78,7 +114,7 @@ function Appraisals() {
           ]}
         />
         <TopBar
-          onSearch={(val) => console.log(val)}
+          onSearch={(val) => setSearch(val)}
           segment={(val) => setView(val)}
         />
         <ContBody>
@@ -87,6 +123,7 @@ function Appraisals() {
             <Table
               columns={tableColumn()}
               // handleChange={handleColumnSorting}
+              onRow={onRow}
               dragable={true}
               data={appraisals ? appraisals : []}
             />

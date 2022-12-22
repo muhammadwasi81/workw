@@ -1,5 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import DocumentComposers from "./composer";
+import CreateCourse from "./view/Dashboard/courses/Creation";
 import MainDashboard from "./view/Dashboard/MainDashboard";
 import CourseContent from "./view/Dashboard/Sections/Courses/CourseDetail/CourseContent";
 import CoursesDetail from "./view/Dashboard/Sections/Courses/CourseDetail/CoursesDetail";
@@ -13,10 +15,12 @@ function ELearning() {
 				<Route path="/" element={<MainDashboard />} />
 				<Route path="teamDashboard" element={<TeamDahsboard />} />
 				<Route path="summary" element={<Summary />} />
+				<Route path="courses/create" element={<CreateCourse />} />
 				<Route path="courses/:id" element={<CoursesDetail />} />
 				<Route path="courses/learn/:id" element={<CourseContent />} />
 				<Route path="*" element={<div>No page exist</div>} />
 			</Routes>
+			<DocumentComposers /> 
 		</>
 	);
 }

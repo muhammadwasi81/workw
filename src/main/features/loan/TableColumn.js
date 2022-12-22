@@ -17,18 +17,7 @@ export const tableColumn = () => {
       ellipsis: true,
       width: 160,
       render: (creator) => (
-        <TagAvatar
-          text={creator.name}
-          img={
-            <AvatarCustom
-              width={20}
-              height={20}
-              src={creator.image}
-              name={creator.name}
-              round
-            ></AvatarCustom>
-          }
-        />
+        <TagAvatar text={creator.name} img={creator.image} />
       ),
       sort: true,
     },

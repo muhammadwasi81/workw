@@ -4,7 +4,7 @@ import mailMinimizeIcon from "../assests/mailMinimizeIcon.svg";
 import mailMinimizeOut from "../assests/mailMinimizeOut.svg";
 import mailResizeIcon from "../assests/mailResizeIcon.svg";
 import closeMailIcon from "../assests/closeMailIcon.svg";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import Quill from "quill";
@@ -13,6 +13,9 @@ import { handleMailComposerClose } from "../Store/MailSlice";
 import SearchAndSelectInput from "./searchAndSelectInput";
 import { composeMail } from "../Store/Api";
 import SharedButton from "../../../sharedComponents/button";
+import EmailMemberSelect from "./EmailMemberSelect";
+import { openNotification } from "../../../../utils/Shared/store/slice";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const composerBtnStyle = {
   backgroundColor: "var(--currentThemeColor)",
@@ -22,7 +25,8 @@ const composerBtnStyle = {
   height: "unset",
   float: "right",
   marginRight: "7px",
-  marginLeft: "7px"
+  marginLeft: "7px",
+  marginBottom: "10px"
 };
 const ComposeMailBox = ({
   instance: { id, isMax, isMinimize },
@@ -37,6 +41,11 @@ const ComposeMailBox = ({
   const [isCc, setCc] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { mail } = dictionaryList[userLanguage];
+  const [selectedTOEmail, setSelectedTOEmail] = useState([]);
+  const [selectedBcEmail, setSelectedBcEmail] = useState([]);
+  const [selectedCcEmail, setSelectedCcEmail] = useState([]);
+  const [loading, setLoading] = useState([]);
+
 
   const [form] = Form.useForm();
 
@@ -60,21 +69,15 @@ const ComposeMailBox = ({
     setQuillInstance(quillInstance);
   }, []);
 
-  let selectedTOEmail = [];
 
-  let selectedBcEmail = [];
+  const handleToMailSelected = (arr) =>
+    setSelectedTOEmail(arr)
 
-  let selectedCcEmail = [];
+  const handleBccMailSelected = (arr) =>
+    setSelectedBcEmail(arr)
 
-  const handleToMailSelected = (arr) => {
-    selectedTOEmail = arr;
-  };
-  const handleBccMailSelected = (arr) => {
-    selectedBcEmail = arr;
-  };
-  const handleCcMailSelected = (arr) => {
-    selectedCcEmail = arr;
-  };
+  const handleCcMailSelected = (arr) =>
+    setSelectedCcEmail(arr)
 
   function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -93,7 +96,7 @@ const ComposeMailBox = ({
 
     if (dataObj.to.length > 0) {
       dataObj.to.forEach((value) => {
-        if (!validateEmail(value.email)) {
+        if (!validateEmail(value.address)) {
           valid.error = true;
           valid.message += valid.message
             ? `\nInvalid email ${value.email}.`
@@ -103,35 +106,43 @@ const ComposeMailBox = ({
     }
     if (dataObj.cc.length > 0) {
       dataObj.cc.forEach((value) => {
-        if (!validateEmail(value.email)) {
+        if (!validateEmail(value.address)) {
           valid.error = true;
           valid.message += valid.message
-            ? `\nInvalid email ${value.email}.`
-            : `Invalid email ${value.email}.`;
+            ? `\nInvalid email ${value.address}.`
+            : `Invalid email ${value.address}.`;
         }
       });
     }
     if (dataObj.bcc.length > 0) {
       dataObj.bcc.forEach((value) => {
-        if (!validateEmail(value.email)) {
+        if (!validateEmail(value.address)) {
           valid.error = true;
           valid.message += valid.message
-            ? `\nInvalid email ${value.email}.`
-            : `Invalid email ${value.email}.`;
+            ? `\nInvalid email ${value.address}.`
+            : `Invalid email ${value.address}.`;
         }
       });
+    }
+    if (!dataObj.subject) {
+      valid.error = true;
+      valid.message += `\nSubject Required.`
     }
     return valid;
   };
   const onFinish = (val) => {
     val.content = `${QuillInstance.root.innerHTML}`;
 
+    console.log(selectedTOEmail, "selectedTOEmail")
+    console.log(selectedCcEmail, "selectedCc")
+    console.log(selectedBcEmail, "selectedBc")
+
     const dataObj = {
       id: 0,
       to: selectedTOEmail
         ? selectedTOEmail.map((value) => ({
           name: value?.split("@")[0],
-          email: value,
+          address: value,
         }))
         : [],
       from: [
@@ -143,29 +154,43 @@ const ComposeMailBox = ({
       cc: selectedCcEmail
         ? selectedCcEmail.map((value) => ({
           name: value?.split("@")[0],
-          email: value,
+          address: value,
         }))
         : [],
       bcc: selectedBcEmail
         ? selectedBcEmail.map((value) => ({
           name: value?.split("@")[0],
-          email: value,
+          address: value,
         }))
         : [],
       subject: val.subject ? val.subject : "",
       content: val.content,
       isRead: false,
-      hasAttachments: true,
+      hasAttachments: false,
       date: "2022-01-21T13:56:14.064Z",
     };
     let validate = isValidate(dataObj);
     if (validate.error) {
       //here we get the validation error
-      alert(validate.message);
+      dispatch(openNotification({
+        type: "error",
+        message: validate.message
+      }))
+      // alert(validate.message);
     } else {
       //Here we hit the send mail api
       console.log(dataObj, val);
-      dispatch(composeMail(dataObj));
+
+
+      message.loading("Action in progress..", 5, async () => {
+        try {
+          const resultAction = await dispatch(composeMail(dataObj));
+          const originalPromiseResult = unwrapResult(resultAction);
+          if (originalPromiseResult?.data) {
+            message.success("Email Sent Successfully.");
+          }
+        } catch (rejectedValueOrSerializedError) { }
+      });
     }
   };
 
@@ -236,7 +261,7 @@ const ComposeMailBox = ({
           layout="vertical"
           style={{
             display: "flex",
-            height: "425px",
+            height: "max-content",
             flexDirection: "column",
             justifyContent: "space-evenly",
           }}
@@ -247,6 +272,9 @@ const ComposeMailBox = ({
               placeholder={"To"}
             />
           </Form.Item>
+
+          {/* <EmailMemberSelect /> */}
+
 
           {isBcc && (
             <Form.Item>
@@ -314,7 +342,7 @@ const ComposeMailBox = ({
             <div
               id={`editor${i}`}
               style={{
-                border: "1px solid #f5f5f5 !important",
+                border: "1px solid #d9d9d9 !important",
                 borderRadius: 4,
               }}
             />
@@ -324,7 +352,7 @@ const ComposeMailBox = ({
             <SharedButton
               htmlType="submit"
               type="default"
-              title={"Submit"}
+              title={"Send"}
               style={composerBtnStyle}
               buttonClass={"btn-hover"}
             />

@@ -1,5 +1,5 @@
-import {createSlice, current} from "@reduxjs/toolkit";
-import {changeMailSeenFlag, composeMail, getAllMail, getMailById, getMailFolders, refreshMail} from "./Api";
+import { createSlice, current } from "@reduxjs/toolkit";
+import { changeMailSeenFlag, composeMail, getAllMail, getMailById, getMailFolders, refreshMail } from "./Api";
 
 export const mailSlice = createSlice({
     name: 'mail',
@@ -8,23 +8,13 @@ export const mailSlice = createSlice({
         currentParamId: "",
         currentPageSize: 1,
         mailDetail: null,
-        mailFolderItem: [
-            {folderPath:"allMail"},
-            {folderPath:"inbox"},
-            {folderPath:"sent"},
-            {folderPath:"spam"},
-            {folderPath:"trash"},
-            {folderPath:"draft"},
-            ],
+        mailFolderItem: null,
 
         mailDrawerStatus: false,
         mailMobComposerStatus: false,
         mailComposerStatus: false,
-
         mailComposerInstances: [],
-
         responseCode: null,
-
         inProcess: false,
         isRefresh: false,
         errorMessage: "",
@@ -38,14 +28,14 @@ export const mailSlice = createSlice({
             state.mailMobComposerStatus = action.payload
         },
 
-        handleMailComposer: (state, {payload}) => {
+        handleMailComposer: (state, { payload }) => {
             state.mailComposerInstances = payload
         },
-        handleMailComposerClose: (state, {payload}) => {
+        handleMailComposerClose: (state, { payload }) => {
             state.mailComposerInstances = state.mailComposerInstances.filter(item => item.id !== payload)
         },
         handleMailComposerIsMax: (state, action) => {
-            const {mailComposerInstances} = current(state);
+            const { mailComposerInstances } = current(state);
             return {
                 ...state, //copying the orignal state
                 mailComposerInstances: mailComposerInstances.map(item => item.id === action.payload.id ? ({
@@ -56,7 +46,7 @@ export const mailSlice = createSlice({
         },
         handleMailMinimize: (state, action) => {
             console.log(action)
-            const {mailComposerInstances} = current(state);
+            const { mailComposerInstances } = current(state);
             return {
                 ...state, //copying the orignal state
                 mailComposerInstances: mailComposerInstances.map(item => item.id === action.payload.id ? ({
@@ -68,79 +58,82 @@ export const mailSlice = createSlice({
         updateParamsId: (state, action) => {
             state.currentParamId = action.payload
         },
-        updateEmail: (state, {payload}) => {
+        updateEmail: (state, { payload }) => {
             console.log(payload, "payload")
             state.allMail = payload
         },
     },
     extraReducers: {
-        [composeMail.pending]: (state, {payload}) => {
+        [composeMail.pending]: (state, { payload }) => {
             //sending mail pending
         },
-        [composeMail.fulfilled]: (state, {payload}) => {
+        [composeMail.fulfilled]: (state, { payload }) => {
             //sending mail fulfilled
         },
-        [composeMail.rejected]: (state, {payload}) => {
+        [composeMail.rejected]: (state, { payload }) => {
             //sending mail rejected
         },
-        [getMailFolders.pending]: (state, {payload}) => {
+        [getMailFolders.pending]: (state, { payload }) => {
 
         },
-        [getMailFolders.fulfilled]: (state, {payload}) => {
+        [getMailFolders.fulfilled]: (state, { payload }) => {
+            console.log("getMailFolders.fulfilled")
             state.mailFolderItem = payload.data;
         },
-        [getMailFolders.rejected]: (state, {payload}) => {
+        [getMailFolders.rejected]: (state, { payload }) => {
             // state.mailFolderItem = null;
+            console.log("getMailFolders.rejected")
+
             state.errorMessage = payload?.message;
             state.responseCode = payload?.responseCode
         },
 
-        [getAllMail.pending]: (state, {payload}) => {
+        [getAllMail.pending]: (state, { payload }) => {
             state.inProcess = true;
         },
-        [getAllMail.fulfilled]: (state, {payload}) => {
+        [getAllMail.fulfilled]: (state, { payload }) => {
             state.allMail = payload.data;
             state.inProcess = false;
         },
-        [getAllMail.rejected]: (state, {payload}) => {
+        [getAllMail.rejected]: (state, { payload }) => {
             state.inProcess = false;
             state.allMail = null;
             state.errorMessage = payload?.message;
         },
 
-        [refreshMail.pending]: (state, {payload}) => {
-            state.isRefresh = true;
-        },
-        [refreshMail.fulfilled]: (state, {payload}) => {
-            state.isRefresh = false;
-            state.allMail = payload.data;
-        },
+        // [refreshMail.pending]: (state, { payload }) => {
+        //     state.isRefresh = true;
+        // },
+        // [refreshMail.fulfilled]: (state, { payload }) => {
+        //     state.isRefresh = false;
+        //     state.allMail = payload.data;
+        // },
 
-        [refreshMail.rejected]: (state, {payload}) => {
-            state.isRefresh = false;
-        },
+        // [refreshMail.rejected]: (state, { payload }) => {
+        //     state.isRefresh = false;
+        // },
 
-        [getMailById.pending]: (state, {payload}) => {
+        [getMailById.pending]: (state, { payload }) => {
             state.mailDetail = null
         },
-        [getMailById.fulfilled]: (state, {payload}) => {
+        [getMailById.fulfilled]: (state, { payload }) => {
             state.mailDetail = payload.data;
         },
         [getMailById.rejected]: (state, payload) => {
 
         },
 
-        [changeMailSeenFlag.pending]: (state, {payload, meta}) => {
-            state.allMail = state.allMail.map((value) => value.id === meta.arg.uid ? ({
-                ...value,
-                isRead: !value.isRead
-            }) : value)
-        },
-        [changeMailSeenFlag.fulfilled]: (state, {payload, meta}) => {
-        },
-        [changeMailSeenFlag.rejected]: (state, payload) => {
+        // [changeMailSeenFlag.pending]: (state, { payload, meta }) => {
+        //     state.allMail = state.allMail.map((value) => value.id === meta.arg.uid ? ({
+        //         ...value,
+        //         isRead: !value.isRead
+        //     }) : value)
+        // },
+        // [changeMailSeenFlag.fulfilled]: (state, { payload, meta }) => {
+        // },
+        // [changeMailSeenFlag.rejected]: (state, payload) => {
 
-        }
+        // }
     }
 })
 

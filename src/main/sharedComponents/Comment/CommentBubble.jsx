@@ -23,6 +23,12 @@ function CommentBubble({
 			{type != 2 && (
 				<Avatar src={image} name={name} size={30} round={true} />
 			)}
+			{type == 2 && (
+				<div className="commentName">
+					<Avatar src={image} name={name} size={25} round={true} />
+					<div className="nameText">{name}</div>
+				</div>
+			)}
 			<div className="CommentBubble">
 				{type != 2 && (
 					<div className="CommentHeader">

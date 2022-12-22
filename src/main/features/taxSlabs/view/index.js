@@ -38,7 +38,7 @@ const BusinessPolicy = () => {
     dispatch(GetAllTaxSlabGroup(filter));
   }, [filter]);
 
-  const handleCollapse = (key) => {};
+  const handleCollapse = (key) => { };
 
   const handleRemove = (id) => {
     dispatch(removeTaxSlab(id));
@@ -101,7 +101,7 @@ const BusinessPolicy = () => {
                       >
                         <div>
                           <Table
-                            columns={tableColumn()}
+                            columns={tableColumns()}
                             dragable={true}
                             data={item.taxSlab && item.taxSlab}
                           />

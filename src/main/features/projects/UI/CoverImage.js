@@ -5,12 +5,14 @@ import './style.css';
 import { updateUserCoverImgAction } from '../../profile/store/action';
 import { useDispatch } from 'react-redux';
 import { STRINGS } from '../../../../utils/base';
+import { useSelector } from 'react-redux';
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
 const CoverImage = (props) => {
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
+  const { employees } = useSelector((state) => state.employeeProfileSlice);
 
   const imageUploadHandler = (e) => {
     const fileObj = e.target.files[0];
@@ -59,7 +61,11 @@ const CoverImage = (props) => {
         />
       ) : (
         <img
-          src={props.image}
+          src={
+            employees?.coverImage
+              ? employees?.coverImage
+              : 'https://images.unsplash.com/photo-1616166330073-8c1b5e1b5b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
+          }
           alt="avatar"
           loading="lazy"
           className="h-full object-cover w-full rounded-xl z-0"

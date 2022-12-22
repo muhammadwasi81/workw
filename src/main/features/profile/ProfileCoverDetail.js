@@ -2,27 +2,36 @@ import { useEffect, useState } from 'react';
 import { SettingOutlined } from '@ant-design/icons';
 import { message, Rate, Skeleton } from 'antd';
 import WhiteCard from '../projects/UI/WhiteCard';
-import ProjectCover from '../../../content/avatarProfile.svg';
 import profile from '../../../content/profile.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEmployeeByIdAction } from './store/action';
+import {
+  getEmployeeByIdAction,
+  updateUserProfileImgAction,
+} from './store/action';
 import { Link } from 'react-router-dom';
 import './styles/profileStyle.css';
 import { CameraOutlined } from '@ant-design/icons';
+import { STRINGS } from '../../../utils/base';
 
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
-function ProfileCoverDetail({ id }) {
+const ProfileCoverDetail = ({ id }) => {
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
 
   const imageUploadHandler = (e) => {
-    const file = e.target.files[0];
-    if (!file.type.match(imageMimeType)) {
-      message.error('Image Type is not valid');
-      return;
+    const fileObj = e.target.files[0];
+    if (!fileObj.type.match(imageMimeType)) {
+      return message.error(`Image type is not valid`);
     }
-    setFile(file);
+    const payload = {
+      id: STRINGS.DEFAULTS.guid,
+      file: fileObj,
+    };
+    console.log('payload', payload);
+    dispatch(updateUserProfileImgAction(payload));
+    setFile(fileObj);
+    console.log('file', fileObj);
   };
 
   useEffect(() => {
@@ -70,14 +79,14 @@ function ProfileCoverDetail({ id }) {
                     src={fileDataURL}
                     alt="avatar"
                     loading="lazy"
-                    className="userImg"
+                    className="userImg border-4"
                   />
                 ) : (
                   <img
                     src={employees?.image ? employees?.image : profile}
                     alt="avatar"
                     loading="lazy"
-                    className="userImg"
+                    className="userImg border-4"
                   />
                 )}
                 <div class="profilepic__content">
@@ -113,6 +122,6 @@ function ProfileCoverDetail({ id }) {
       </div>
     </WhiteCard>
   );
-}
+};
 
 export default ProfileCoverDetail;

@@ -14,10 +14,10 @@ const StatusTag = ({ status = 1 }) => {
   const { label, color } = getStatusLabelAndColor("", statusLabels)[
     status ? status : 1
   ];
-  console.log(
-    getStatusLabelAndColor("", statusLabels)[status],
-    "Status labelssssss"
-  );
+  // console.log(
+  //   getStatusLabelAndColor("", statusLabels)[status],
+  //   "Status labelssssss"
+  // );
 
   return (
     <>

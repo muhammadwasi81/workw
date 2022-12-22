@@ -8,13 +8,14 @@ import { appraisalDictionaryList } from "../../localization/index";
 function Index(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
-  const { teamAppraisals, myAppraisals, forApprovals } = appraisalDictionary;
+  const { allAppraisals, myAppraisals, forApprovals } = appraisalDictionary;
   const dispatch = useDispatch();
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [search, setSearch] = useState("");
 
   const handleTabChange = (tab) => {
     dispatch(handleChangeTab(tab));
+    console.log(props);
   };
 
   const onSegmentChange = (val) => {
@@ -29,8 +30,8 @@ function Index(props) {
         }}
         buttons={[
           {
-            name: teamAppraisals,
-            to: "teamAppraisals",
+            name: allAppraisals,
+            to: "allAppraisals",
             onClick: handleTabChange,
           },
           {

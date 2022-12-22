@@ -4,6 +4,7 @@ const urdu = {
     createAppraisals: "تشخیصات بنائیں",
     teamAppraisals: "ٹیم کی تشخیص",
     myAppraisals: "میری تشخیص",
+    allAppraisals: "تمام تشخیص",
     forApprovals: "منظوریوں کے لیے",
     viewAppraisals: "تشخیصات دیکھیں",
     Employee: "ملازم",

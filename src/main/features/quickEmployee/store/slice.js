@@ -6,7 +6,7 @@ const initialState = {
   isOpen: false,
   success: false,
   loader: false,
-  editData: null
+  editData: null,
 };
 
 const quickAddSlice = createSlice({
@@ -20,39 +20,48 @@ const quickAddSlice = createSlice({
       state.isOpen = false;
     },
     addInList: (state, { payload }) => {
-      state.items = [...state.items, payload];
+      state.items = [...state.items, payload]; 
     },
     deleteItem: (state, { payload }) => {
       let index = payload;
       state.items = state.items.filter((e, ind) => ind !== index);
-      state.editData = null; 
+      state.editData = null;
+    },
+    clearItem: (state) => {
+      state.items = [];
     },
     editItem: (state, { payload }) => {
-      state.editData = payload
+      state.editData = payload;
     },
     handleSave: (state, { payload }) => {
-			state.editData = null
-      state.items.splice(payload.index, 1, payload)
-		}
+      state.editData = null;
+      state.items.splice(payload.index, 1, payload);
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(addQuickEmployee.fulfilled, (state, { payload }) => {
         state.loader = false;
+        state.success = true;
       })
       .addMatcher(isPending(...[addQuickEmployee]), (state) => {
         state.loader = true;
-        state.success = true
+        state.success = false;
       })
-      .addMatcher(
-        isRejected(...[addQuickEmployee]),
-        (state) => {
-          state.loader = false;
-          state.success = false
-        }
-      );
+      .addMatcher(isRejected(...[addQuickEmployee]), (state) => {
+        state.loader = false;
+        state.success = false;
+      });
   },
 });
 
-export const { quickAddOpen, quickAddClose, addInList, deleteItem, editItem, handleSave } = quickAddSlice.actions;
+export const {
+  quickAddOpen,
+  quickAddClose,
+  addInList,
+  deleteItem,
+  editItem,
+  handleSave,
+  clearItem,
+} = quickAddSlice.actions;
 export default quickAddSlice.reducer;

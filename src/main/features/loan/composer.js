@@ -12,6 +12,7 @@ import moment from "moment";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { LoanDictionary } from "./localization";
 import { handleOpenComposer } from "./store/slice";
+import { getAllDefaultApprovers } from "../defaultApprovers/service/service";
 const { TextArea } = Input;
 
 const { Option } = Select;
@@ -46,19 +47,52 @@ const Composer = () => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [employeesData, setEmployeesData] = useState([]);
+  const [defaultData, setDefaultData] = useState([]);
 
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
 
+  const fetchdefaultApprovals = async () => {
+    const data = await getAllDefaultApprovers({
+      pageNo: 1,
+      pageSize: 50,
+      sortBy: 1,
+      types: [3],
+    });
+    return data;
+  };
+
   useEffect(() => {
     fetchEmployees("", 0);
+    const fetchdefaultApprovals = async () => {
+      const defaultApprovers = await getAllDefaultApprovers({
+        pageNo: 1,
+        pageSize: 50,
+        sortBy: 1,
+        types: [3],
+      });
+      // return defaultApprovers;
+      const newData = defaultApprovers.data.map((it) => it.member);
+      setDefaultData(newData);
+      console.log("checking");
+    };
+    fetchdefaultApprovals();
+
+    // console.log(defaultApprovers);
+    // console.log(defaultApprovers.data);
+    // if (defaultApprovers.data.length) {
+    //   console.log(defaultApprovers, "default approvers");
+    //   const newData = defaultApprovers.data.map((it) => it.member);
+    //   setDefaultData(newData);
+    // }
   }, []);
 
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
       setIsFirstTimeDataLoaded(true);
       setFirstTimeEmpData(employees);
+      console.log(employees, "employees");
     }
   }, [employees]);
 
@@ -89,7 +123,7 @@ const Composer = () => {
       loanTenure,
     };
     dispatch(addLoan({ loanObj }));
-    dispatch(handleOpenComposer(false))
+    dispatch(handleOpenComposer(false));
     console.log(success);
     if (success) {
       onReset();
@@ -219,6 +253,7 @@ const Composer = () => {
           formItem={false}
           isObject={true}
           data={firstTimeEmpData}
+          defaultData={defaultData}
           canFetchNow={isFirstTimeDataLoaded}
           fetchData={fetchEmployees}
           placeholder={loanDictionaryList.selectApprovers}

@@ -1,5 +1,5 @@
-export let DOMAIN_PREFIX = '';
-DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '/konnect' : '';
+export let DOMAIN_PREFIX = "";
+// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const ROUTES = {
   SEARCH: {
@@ -539,20 +539,24 @@ export const ROUTES = {
     },
   },
   MAIL: {
-    DEFAULT: `${DOMAIN_PREFIX}/mail`,
-    INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
-    STARRED: `${DOMAIN_PREFIX}/mail/starred`,
-    SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
-    ALL_MAIL: `${DOMAIN_PREFIX}/mail/all_mail`,
-    SPAM: `${DOMAIN_PREFIX}/mail/id=INBOX.spam`,
-    NOTES: `${DOMAIN_PREFIX}/mail/id=INBOX.Notes`,
-    ARCHIVE: `${DOMAIN_PREFIX}/mail/id=INBOX.Archive`,
-    SENT: `${DOMAIN_PREFIX}/mail/sent`,
-    TRASH: `${DOMAIN_PREFIX}/mail/trash`,
-    JUNK: `${DOMAIN_PREFIX}/mail/id=INBOX.Junk`,
-    DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
-    CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
-  },
+	DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
+	ROOT: `${DOMAIN_PREFIX}/mail`,
+	DETAIL: `/detail`,
+
+
+	INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
+	STARRED: `${DOMAIN_PREFIX}/mail/starred`,
+	SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
+	ALL_MAIL: `${DOMAIN_PREFIX}/mail/all_mail`,
+	SPAM: `${DOMAIN_PREFIX}/mail/id=INBOX.spam`,
+	NOTES: `${DOMAIN_PREFIX}/mail/id=INBOX.Notes`,
+	ARCHIVE: `${DOMAIN_PREFIX}/mail/id=INBOX.Archive`,
+	SENT: `${DOMAIN_PREFIX}/mail/sent`,
+	TRASH: `${DOMAIN_PREFIX}/mail/trash`,
+	JUNK: `${DOMAIN_PREFIX}/mail/id=INBOX.Junk`,
+	DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
+	CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
+},
   //commenttteddd
   // TASK: {
   //   DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,

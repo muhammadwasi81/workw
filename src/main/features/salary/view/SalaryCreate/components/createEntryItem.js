@@ -155,12 +155,14 @@ const CreateEntryItem = ({
         <CustomSelect
           style={{ marginBottom: "0px" }}
           data={employeesData}
-          selectedData={(value, row) =>
+          selectedData={(value, row) =>{
+            console.log(row, "selectedData")
             handleChange(
               row.map((item) => ({ approverId: item.id })),
               "approvers",
               index
-            )
+            );
+          }
           }
           canFetchNow={employeesData && employeesData.length > 0}
           fetchData={fetchEmployees}

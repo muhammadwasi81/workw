@@ -4,9 +4,9 @@ import { getNameForImage, STRINGS } from "../../../utils/base";
 import { Badge } from "antd";
 
 export default function Avatar({
-	src,
+	src="",
 	size,
-	name,
+	name = "",
 	active,
 	width,
 	height,

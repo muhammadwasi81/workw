@@ -37,7 +37,8 @@
   user-select: none;
 }
 .defaultBtn:hover {
-  background-color: var(--currentThemeColor);
+  /* background-color: var(--currentThemeColor); */
+  background-color: unset;
 }
 .defaultBtn:focus {
   background-color: transparent;

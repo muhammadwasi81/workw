@@ -66,6 +66,7 @@ const ApplyJob = (props) => {
     maxSalary,
     experience,
     endDate,
+    status,
   } = careerData;
 
   const handleDrawerClose = () => {
@@ -112,9 +113,12 @@ const ApplyJob = (props) => {
               </div>
             </div>
             <div className="linkDiv">
-              <Tag className="LinkTag ThemeBtn" onClick={handleDrawerOpen}>
-                {labels.applyNow}
-              </Tag>
+              {status === 2 && (
+                <Tag className="LinkTag ThemeBtn" onClick={handleDrawerOpen}>
+                  {labels.applyNow}
+                </Tag>
+              )}
+
               {/* {props.isShowCopyBtn && (
               <CopyToClipboard
                 text={`${window.location.origin}${ROUTES.CAREER.APPLYJOB}/${id}`}

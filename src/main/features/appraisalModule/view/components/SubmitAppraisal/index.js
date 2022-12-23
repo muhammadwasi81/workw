@@ -61,19 +61,19 @@ function Index() {
       tasks: userTask?.map((el) => el.taskId),
     };
     //dispatch add appraisal
-    if (!userTask.length) {
-      console.log(payload, "final payload");
-      dispatch(
-        openNotification({
-          message: "Tasks is required",
-          type: "error",
-        })
-      );
-    } else {
-      console.log(payload, "final payload");
-      dispatch(addAppraisal(payload));
-    }
-
+    // if (!userTask.length) {
+    //   console.log(payload, "final payload");
+    //   dispatch(
+    //     openNotification({
+    //       message: "Tasks is required",
+    //       type: "error",
+    //     })
+    //   );
+    // } else {
+    //   console.log(payload, "final payload");
+    //   // dispatch(addAppraisal(payload));
+    // }
+    console.log(payload, "final payload");
     //setState submit false when API is called
     setSubmit(false);
   };

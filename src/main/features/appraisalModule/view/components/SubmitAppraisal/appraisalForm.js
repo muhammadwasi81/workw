@@ -112,15 +112,23 @@ const AppraisalForm = (props) => {
       let bonus;
 
       if (values.incrementRadio === 1) {
+        //1 percent 2 amount
         salary = {
           id: createGuid(),
           userId: props.userId,
-          basicSalary: values.incrementAmount
-            ? parseInt(employeeSalary?.basicSalary) +
-              parseInt(values.incrementAmount)
-            : parseInt(employeeSalary?.basicSalary) +
-              parseInt(employeeSalary?.basicSalary) /
-                parseInt(values.incrementPercent),
+          basicSalary:
+            incrementType === 2
+              ? parseInt(employeeSalary?.basicSalary) +
+                parseInt(values.incrementAmount)
+              : (parseInt(employeeSalary?.basicSalary) *
+                  parseInt(values.incrementPercent)) /
+                100,
+          // basicSalary: values.incrementAmount
+          //   ? parseInt(employeeSalary?.basicSalary) +
+          //     parseInt(values.incrementAmount)
+          //   : parseInt(employeeSalary?.basicSalary) +
+          //     parseInt(employeeSalary?.basicSalary) /
+          //       parseInt(values.incrementPercent),
           approvers: modifySelectData(values.incrementApprover).map((el) => {
             return {
               approverId: el,
@@ -134,8 +142,8 @@ const AppraisalForm = (props) => {
           id: createGuid(),
           memberId: props.userId,
           type: values.bonusPercent ? 1 : 2,
-          value: values.bonusPercent ? values.bonusPercent : values.bonusAmount,
-          // amount: ,
+          value: bonusType === 1 ? values.bonusPercent : "",
+          amount: bonusType === 2 ? values.bonusAmount : "",
           approvers: modifySelectData(values.bonusApprovers).map((el) => {
             return {
               approverId: el,

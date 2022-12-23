@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 import { createGuid } from "../../../../utils/base";
 import SharedButton from "../../../sharedComponents/button";
 
-const ComposerBox = ({handleReFetchMail}) => {
+const ComposerBox = ({ handleReFetchMail }) => {
   const { responsiveSlice, mailSlice } = useSelector((state) => state);
   const { isMobileScreen } = responsiveSlice;
   const { isRefresh, mailComposerInstances } = mailSlice;
@@ -29,6 +29,9 @@ const ComposerBox = ({handleReFetchMail}) => {
       id,
       isMax: false,
       isMinimize: false,
+      isReply: false,
+      isForward: false,
+      data: null,
     };
     temArr.push(obj);
 

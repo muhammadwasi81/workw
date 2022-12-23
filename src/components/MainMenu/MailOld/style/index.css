@@ -332,8 +332,10 @@
   justify-content: flex-end;
   align-items: flex-end;
   /*height: 100%;*/
-  width: 100%;
+  width: max-content;
   bottom: 0;
+  right: 0;
+  max-width: 100%;
 }
 
 .mail-composer-container {

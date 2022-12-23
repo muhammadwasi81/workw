@@ -18,7 +18,6 @@ import {
 import { PostReferenceType } from '../utils/constants';
 import QuickOptions from './quickOptions';
 import { Col, Row } from 'antd';
-import NewStickyNote from '../../notes/newStickyNotes/view/components/NewStickyNote';
 import { useSelector } from 'react-redux';
 import SingleNotes from '../../notes/singleNotes/singleNotes';
 
@@ -34,10 +33,7 @@ const NewsFeed = ({
 }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = FeedDictionary[userLanguage];
-  const stickyNotes = useSelector((state) => {
-    return state.stickySlice.listArray;
-  });
-  console.log(stickyNotes, 'stickyNotes');
+
   return (
     <TabbableContainer>
       <Header
@@ -47,7 +43,7 @@ const NewsFeed = ({
         routeLink={routeLink}
       />
       <Row gutter={16}>
-        <Col lg={20} xs={24} md={20}>
+        <Col lg={18} xs={24} md={18}>
           <ContBody style={{ direction: Direction }} className={width && width}>
             <div className="lf-col" style={{ direction: Direction }}>
               <div className="newsFeed">
@@ -82,13 +78,9 @@ const NewsFeed = ({
             )}
           </ContBody>
         </Col>
-        <Col lg={4} xs={24} md={4}>
+        <Col lg={6} xs={24} md={6}>
           <div>
-            {stickyNotes
-              .filter((it) => it.isOpen)
-              .map((item) => (
-                <SingleNotes item={item} key={item.id} />
-              ))}
+            <SingleNotes />
           </div>
         </Col>
       </Row>
@@ -97,6 +89,3 @@ const NewsFeed = ({
 };
 
 export default NewsFeed;
-{
-  /* <NewStickyNote item={item} key={item.id} /> */
-}

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import DashboardLayout from "../Layout/DashboardLayout";
-import { elearningDictionaryList } from "../../../localization/index";
-import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import DashboardLayout from "../Dashboard/Layout/DashboardLayout";
+import { elearningDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 function Courses() {
   const { userLanguage } = useContext(LanguageChangeContext);

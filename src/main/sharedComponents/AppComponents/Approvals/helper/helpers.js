@@ -6,43 +6,43 @@ export const getApprovalsTypeByFeaturesType = (APPROVALS_TYPE) =>
     console.log(FeaturesEnum, "documentType")
 
     switch (APPROVALS_TYPE) {
-        case ApprovalsModule.APPROVALS_TYPE.ExpenseApproval:
+        case ApprovalsModule.ExpenseApproval:
             return FeaturesEnum.FEATURES_TYPE.Expense
-        case ApprovalsModule.APPROVALS_TYPE.ExpenseExecutor:
+        case ApprovalsModule.ExpenseExecutor:
             return FeaturesEnum.FEATURES_TYPE.Expense
-        case ApprovalsModule.APPROVALS_TYPE.ExpenseFinance:
+        case ApprovalsModule.ExpenseFinance:
             return FeaturesEnum.FEATURES_TYPE.Expense
-        case ApprovalsModule.APPROVALS_TYPE.LeaveApproval:
+        case ApprovalsModule.LeaveApproval:
             return FeaturesEnum.FEATURES_TYPE.Leave
-        case ApprovalsModule.APPROVALS_TYPE.TravelApproval:
+        case ApprovalsModule.TravelApproval:
             return FeaturesEnum.FEATURES_TYPE.Travel
-        case ApprovalsModule.APPROVALS_TYPE.TravelAgent:
+        case ApprovalsModule.TravelAgent:
             return FeaturesEnum.FEATURES_TYPE.Travel
-        case ApprovalsModule.APPROVALS_TYPE.WarningApproval:
+        case ApprovalsModule.WarningApproval:
             return FeaturesEnum.FEATURES_TYPE.Warnings  
-        case ApprovalsModule.APPROVALS_TYPE.ComplainApproval:
+        case ApprovalsModule.ComplainApproval:
             return FeaturesEnum.FEATURES_TYPE.Complains                              
-        case ApprovalsModule.APPROVALS_TYPE.RewardApproval:
+        case ApprovalsModule.RewardApproval:
             return FeaturesEnum.FEATURES_TYPE.Rewards  
-        case ApprovalsModule.APPROVALS_TYPE.BonusApproval:
+        case ApprovalsModule.BonusApproval:
             return FeaturesEnum.FEATURES_TYPE.Bonus  
-        case ApprovalsModule.APPROVALS_TYPE.PromotionApproval:
+        case ApprovalsModule.PromotionApproval:
             return FeaturesEnum.FEATURES_TYPE.Promotion  
-        case ApprovalsModule.APPROVALS_TYPE.LoanApproval:
+        case ApprovalsModule.LoanApproval:
             return FeaturesEnum.FEATURES_TYPE.Loan  
-        case ApprovalsModule.APPROVALS_TYPE.CustomApproval:
+        case ApprovalsModule.CustomApproval:
             return FeaturesEnum.FEATURES_TYPE.CustomApproval  
-        case ApprovalsModule.APPROVALS_TYPE.DocumentApproval:
+        case ApprovalsModule.DocumentApproval:
             return FeaturesEnum.FEATURES_TYPE.Document  
-        case ApprovalsModule.APPROVALS_TYPE.PayrollApproval:
+        case ApprovalsModule.PayrollApproval:
             return FeaturesEnum.FEATURES_TYPE.Payroll  
-        case ApprovalsModule.APPROVALS_TYPE.CareerApproval:
+        case ApprovalsModule.CareerApproval:
             return FeaturesEnum.FEATURES_TYPE.Career  
-        case ApprovalsModule.APPROVALS_TYPE.RequisitionApproval:
+        case ApprovalsModule.RequisitionApproval:
             return FeaturesEnum.FEATURES_TYPE.Requisition 
-        case ApprovalsModule.APPROVALS_TYPE.RequisitionFinalApproval:
+        case ApprovalsModule.RequisitionFinalApproval:
             return FeaturesEnum.FEATURES_TYPE.Requisition  
-        case ApprovalsModule.APPROVALS_TYPE.AssetApproval:
+        case ApprovalsModule.AssetApproval:
             return FeaturesEnum.FEATURES_TYPE.Asset 
        
         default:

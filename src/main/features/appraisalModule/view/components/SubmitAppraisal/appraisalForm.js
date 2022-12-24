@@ -106,6 +106,7 @@ const AppraisalForm = (props) => {
 
   const onFinish = (values) => {
     // console.log("Success:", values);
+    console.log("onfinish");
     if (employeeSalary?.basicSalary) {
       console.log("if block");
       let salary;
@@ -120,9 +121,10 @@ const AppraisalForm = (props) => {
             incrementType === 2
               ? parseInt(employeeSalary?.basicSalary) +
                 parseInt(values.incrementAmount)
-              : (parseInt(employeeSalary?.basicSalary) *
+              : parseInt(employeeSalary?.basicSalary) +
+                (parseInt(employeeSalary?.basicSalary) *
                   parseInt(values.incrementPercent)) /
-                100,
+                  100,
           // basicSalary: values.incrementAmount
           //   ? parseInt(employeeSalary?.basicSalary) +
           //     parseInt(values.incrementAmount)

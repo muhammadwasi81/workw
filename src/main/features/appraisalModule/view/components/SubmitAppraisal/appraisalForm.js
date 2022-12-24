@@ -443,7 +443,7 @@ const AppraisalForm = (props) => {
 
                 <Form.Item
                   name="bonusApprovers"
-                  // label={"Approver"}
+                  label={"Bonus Approver"}
                   showSearch={true}
                   rules={[{ required: true }]}
                 >
@@ -543,7 +543,7 @@ const AppraisalForm = (props) => {
                 )}
                 <Form.Item
                   name="incrementApprover"
-                  // label={"Approver"}
+                  label={"Increment Approver"}
                   showSearch={true}
                   rules={[{ required: true }]}
                 >

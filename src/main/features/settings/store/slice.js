@@ -4,6 +4,8 @@ import {
   updateProfileAction,
   updateEmployeeEmailAction,
   updateEmployeePhoneAction,
+  updateEmployeeStatusAction,
+  updatePasswordAction,
 } from "./action";
 
 const initialState = {
@@ -33,6 +35,14 @@ const settingSlice = createSlice({
         console.log(payload.data);
       })
       .addCase(updateEmployeePhoneAction.fulfilled, (state, { payload }) => {
+        state.settings = payload.data;
+        state.loader = false;
+      })
+      .addCase(updateEmployeeStatusAction.fulfilled, (state, { payload }) => {
+        state.settings = payload.data;
+        state.loader = false;
+      })
+      .addCase(updatePasswordAction.fulfilled, (state, { payload }) => {
         state.settings = payload.data;
         state.loader = false;
       });

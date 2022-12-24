@@ -10,6 +10,8 @@ import {
   updateProfileService,
   updateEmployeeEmailService,
   updateEmployeePhoneNoService,
+  updateStatusService,
+  updatePasswordService,
 } from "../services/service";
 
 const personal_email = (data) => {
@@ -70,6 +72,46 @@ export const updateEmployeePhoneAction = createAsyncThunk(
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
         res.message = "Phone No updated successfully!";
+      message.success(res.message);
+      responseMessage({ dispatch, data: res });
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+
+    return res;
+  }
+);
+
+export const updateEmployeeStatusAction = createAsyncThunk(
+  `settings/updateEmployeeStatus`,
+  async (args, { dispatch }) => {
+    const res = await updateStatusService(args);
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+        res.message = "Status updated successfully!";
+      message.success(res.message);
+      responseMessage({ dispatch, data: res });
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+
+    return res;
+  }
+);
+
+export const updatePasswordAction = createAsyncThunk(
+  `settings/updateEmployeePassword`,
+  async (args, { dispatch }) => {
+    const res = await updatePasswordService(args);
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+        res.message = "Password updated successfully!";
       message.success(res.message);
       responseMessage({ dispatch, data: res });
     } else {

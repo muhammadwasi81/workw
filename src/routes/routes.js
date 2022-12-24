@@ -51,6 +51,11 @@ export const routes = {
       ),
     },
     {
+      path: `${ROUTES.BONUS.DEFAULT}`,
+      component: lazy(() => import("../main/features/bonus/view/index")),
+    },
+
+    {
       path: `${ROUTES.TASK.DEFAULT}`,
       component: lazy(() => import("../main/features/task/routes/index")),
     },
@@ -128,7 +133,7 @@ export const routes = {
     },
     {
       path: `${ROUTES.TRAVEL.DEFAULT}`,
-      component: lazy(() => import("../main/features/travel/")),
+      component: lazy(() => import("../main/features/travel/view/index")),
     },
     {
       path: `${ROUTES.TRAVEL.DETAIL}`,
@@ -224,10 +229,8 @@ export const routes = {
     },
 
     {
-      path: `${ROUTES.PROMOTION}`,
-      component: lazy(() =>
-        import("../main/features/promotion/view/Promotions")
-      ),
+      path: `${ROUTES.PROMOTION.DEFAULT}`,
+      component: lazy(() => import("../main/features/promotion/view/index")),
     },
     {
       path: `${ROUTES.JOBS.DEFAULT}`,
@@ -296,7 +299,7 @@ export const routes = {
       component: lazy(() => import("../main/features/resignation/view/index")),
     },
     {
-      path: `${ROUTES.REQUISITION.DEFAULT}`,
+      path: `${ROUTES.REQUISITIONS.DEFAULT}`,
       component: lazy(() =>
         import("../main/features/requisition/view/requisition")
       ),

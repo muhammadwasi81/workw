@@ -18,6 +18,7 @@ import {
   updateProfileAction,
   updateEmployeeEmailAction,
   updateEmployeePhoneAction,
+  updateEmployeeStatusAction,
 } from "../store/action";
 import { STRINGS } from "../../../../utils/base";
 
@@ -45,12 +46,10 @@ function BasicInfo() {
   };
 
   const handelUpdateEmail = () => {
-    console.log("clickedddddd");
     const payload = {
       id: user.id,
       email: form.personalEmail,
     };
-    console.log(payload, "payloaddd");
     dispatch(updateEmployeeEmailAction(payload));
   };
 
@@ -64,14 +63,26 @@ function BasicInfo() {
     };
     dispatch(updateEmployeePhoneAction(payload));
   };
+  const handelChangeStatus = (e) => {
+    setForm({ ...form, about: e.target.value });
+  };
+  const handelUpdateStatus = () => {
+    const payload = {
+      id: user.id,
+      about: form.about,
+    };
+    dispatch(updateEmployeeStatusAction(payload));
+  };
   if (form.personalEmail === undefined) return <></>;
   if (form.phoneNo === undefined) return <></>;
+  if (form.about === undefined) return <></>;
 
   return (
     <FormContainer>
+      {/* <div className="settings-form"> */}
       <FormHeader>Basic Information</FormHeader>
 
-      <Row style={{ width: "100%" }}>
+      <Row justify="center">
         <Col lg={6} md={6} xl={6} sm={24} xs={24} offset={2}>
           <SingleUpload
             handleImageUpload={handleImageUpload}
@@ -90,7 +101,7 @@ function BasicInfo() {
                 onChange={handelChangeEmail}
               />
             </FormInput>
-            <Button className="ThemeBtn mt-4" onClick={handelUpdateEmail}>
+            <Button className="ThemeBtn mt-4 ml-3" onClick={handelUpdateEmail}>
               {"Update"}
             </Button>
           </div>
@@ -101,9 +112,10 @@ function BasicInfo() {
                 placeholder={"Mobile #"}
                 defaultValue={form.phoneNo}
                 onChange={handelChangePhone}
+                type={"Number"}
               />
             </FormInput>
-            <Button className="ThemeBtn mt-4" onClick={handelUpdatePhone}>
+            <Button className="ThemeBtn mt-4 ml-3" onClick={handelUpdatePhone}>
               {"Update"}
             </Button>
           </div>
@@ -112,14 +124,18 @@ function BasicInfo() {
               <FormLabel>Status</FormLabel>
               <Input
                 placeholder={"Status"}
-                value={settings.status}
-                // onChange={handelChangeName}
+                defaultValue={form.about}
+                onChange={handelChangeStatus}
               />
             </FormInput>
-            <Button className="ThemeBtn mt-4">{"Update"}</Button>
+            <Button className="ThemeBtn mt-4 ml-3" onClick={handelUpdateStatus}>
+              {"Update"}
+            </Button>
           </div>
         </Col>
       </Row>
+
+      {/* </div> */}
     </FormContainer>
   );
 }

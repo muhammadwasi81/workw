@@ -8,12 +8,15 @@ import HeaderNavLink from "../../sharedComponents/AppComponents/MainHeader/Heade
 import { ContainerHeader } from "../../sharedComponents/AppComponents/MainHeader";
 import SettingUpdate from "./view/UpdateSetting/SettingPannel/index";
 import Header from "../../layout/header";
+import { ROUTES } from "../../../utils/routes";
+
 import SettingList from "./view/UpdateSetting/SettingPannel/SettingList";
 
 function Settings() {
   const items = [
     {
       name: "Settings",
+      to: `${ROUTES.SETTINGS.SETTING}`,
     },
   ];
 

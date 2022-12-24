@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { AdminContainer } from "./../../sharedComponents/StyledComponents/admin";
 import { FormContainer } from "./../../sharedComponents/StyledComponents/adminForm";
-import { Collapse, Modal, Tooltip, Button, Skeleton } from "antd";
+import { Collapse, Modal, Tooltip, Button, Skeleton, message } from "antd";
 import { FormHeader } from "../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import "./styles.css";
 import { PlusCircleFilled } from "@ant-design/icons";
@@ -26,7 +26,7 @@ import { DeleteFilled, EditFilled } from "@ant-design/icons";
 
 const { Panel } = Collapse;
 
-const DefaultApprovers = () => {
+const DefaultApprovers = ({ item }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -82,7 +82,7 @@ const DefaultApprovers = () => {
     dispatch(addDefaultApproversAction(payload));
     dispatch(handleApproversDelete(e));
   };
-  const onSuccess = (item) => {
+  const onSuccess = (item, e) => {
     console.log(item, "itemitem");
     setId(null);
     dispatch(handleApproversDelete(e));
@@ -94,7 +94,6 @@ const DefaultApprovers = () => {
   };
 
   const handleDelete = (id) => {
-    console.log(item, "iddddd");
     setId(item.id);
     dispatch(deleteDefaultApproversByIdAction({ id: item.id })).then(
       () => onSuccess(item),

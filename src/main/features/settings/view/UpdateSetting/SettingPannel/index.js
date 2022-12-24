@@ -6,7 +6,6 @@ import {
 } from "../../../../../sharedComponents/AppComponents/MainFlexContainer";
 import { SettingPanelContainer } from "../../../styles/setting.style";
 import SettingList from "./SettingList";
-import "../../../style/style.css";
 
 function SettingUpdate() {
   return (

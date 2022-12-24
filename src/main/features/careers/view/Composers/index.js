@@ -1,5 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Avatar, Button, DatePicker, Form, Input, List, message, Select } from "antd";
+import {
+  Avatar,
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  List,
+  message,
+  Select,
+} from "antd";
 import { useDispatch } from "react-redux";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { getAllDepartmentService } from "../../../departments/services/service";
@@ -110,29 +119,35 @@ const Composer = (props) => {
   }, []);
 
   const onFinish = (values) => {
-    console.log(values, 'testing in process')
+    console.log(values, "testing in process");
     let image = {
       id: STRINGS.DEFAULTS.guid,
       file: profileImage && profileImage[0]?.originFileObj,
     };
-    console.log(image, "IMAGE STATUS")
-    if (image.file === null || image.file === undefined ) {
-      message.error("Attachement can't be emty")
-    } 
-    if (values.members === undefined || values.approvers === undefined || values.postInterviewers || values.interviewers) {
+    console.log(image, "IMAGE STATUS");
+    // if (image.file === null || image.file === undefined ) {
+    //   message.error("Attachement can't be emty")
+    // }
+    //TODO: work on this
+    if (
+      values.members === undefined ||
+      values.approvers === undefined ||
+      values.postInterviewers ||
+      values.interviewers
+    ) {
       let payload = {
         ...values,
         endDate: values.endDate.format(),
         skills: values.skills.join(),
       };
-      dispatch(addCareer({...payload, image}));
+      dispatch(addCareer({ ...payload, image }));
       if (success) {
       }
     } else {
       let payload = {
         ...values,
         endDate: values.endDate.format(),
-        members:  modifySelectData(values.members).map((el, index) => {
+        members: modifySelectData(values.members).map((el, index) => {
           return {
             memberId: el,
           };
@@ -156,12 +171,10 @@ const Composer = (props) => {
         }),
         skills: values.skills.join(),
       };
-      dispatch(addCareer({...payload, image}));
+      dispatch(addCareer({ ...payload, image }));
       if (success) {
       }
     }
-    
-    
   };
 
   return (
@@ -332,10 +345,7 @@ const Composer = (props) => {
             }}
           />
         </Form.Item>
-        <Form.Item
-          label={labels.postInterviewers}
-          name="postInterviewers"
-        >
+        <Form.Item label={labels.postInterviewers} name="postInterviewers">
           <MemberSelect
             name="postInterviewers"
             mode="multiple"
@@ -357,10 +367,7 @@ const Composer = (props) => {
             }}
           />
         </Form.Item>
-        <Form.Item
-          label={labels.hiringBuddy}
-          name="hiringBuddyId"
-        >
+        <Form.Item label={labels.hiringBuddy} name="hiringBuddyId">
           <MemberSelect
             name="hiringBuddyId"
             mode="multiple"
@@ -382,10 +389,7 @@ const Composer = (props) => {
             }}
           />
         </Form.Item>
-        <Form.Item
-          name="members"
-          label={labels.members}
-        >
+        <Form.Item name="members" label={labels.members}>
           <MemberSelect
             name="members"
             mode="multiple"
@@ -464,20 +468,14 @@ const Composer = (props) => {
           label={labels.city}
           rules={[{ required: true }]}
         />
-        <Form.Item
-          name="skills"
-          label={labels.skills}
-        >
+        <Form.Item name="skills" label={labels.skills}>
           <Select
             size="large"
             placeholder={placeHolder.addSkills}
             mode="tags"
           />
         </Form.Item>
-        <Form.Item
-          name={"experience"}
-          label={labels.experienceLabel}
-        >
+        <Form.Item name={"experience"} label={labels.experienceLabel}>
           <Input size="large" placeholder={labels.experience} type="number" />
         </Form.Item>
 
@@ -629,7 +627,7 @@ const Composer = (props) => {
             position="flex-start"
             uploadText={labels.upload}
           /> */}
-           <SingleUpload
+          <SingleUpload
             handleImageUpload={handleImageUpload}
             img="Add Image"
             position="flex-start"

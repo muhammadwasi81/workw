@@ -17,10 +17,6 @@ import {
 } from "../../../../utils/Shared/enums/enums";
 import { PostReferenceType } from "../utils/constants";
 import QuickOptions from "./quickOptions";
-import { Col, Row } from "antd";
-import NewStickyNote from "../../notes/newStickyNotes/view/components/NewStickyNote";
-import { useSelector } from "react-redux";
-import SingleNotes from "../../notes/singleNotes/singleNotes";
 
 const NewsFeed = ({
   referenceType = PostReferenceType.MAIN_FEED,
@@ -34,9 +30,6 @@ const NewsFeed = ({
 }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = FeedDictionary[userLanguage];
-  const stickyNotes = useSelector((state) => {
-    return state.stickySlice.listArray;
-  });
   return (
     <TabbableContainer>
       <Header
@@ -45,57 +38,41 @@ const NewsFeed = ({
         backButton={backButton}
         routeLink={routeLink}
       />
-      <Row gutter={16}>
-        <Col lg={20} xs={24} md={20}>
-          <ContBody style={{ direction: Direction }} className={width && width}>
-            <div className="lf-col" style={{ direction: Direction }}>
-              <div className="newsFeed">
-                <PostComposer
-                  referenceType={referenceType}
-                  referenceId={referenceId}
-                />
+      <ContBody style={{ direction: Direction }} className={width && width}>
+        <div className="lf-col" style={{ direction: Direction }}>
+          <div className="newsFeed">
+            <PostComposer
+              referenceType={referenceType}
+              referenceId={referenceId}
+            />
 
-                <PostsList
-                  referenceType={referenceType}
-                  referenceId={referenceId}
-                  reactionModule={reactionModule}
-                />
-              </div>
-            </div>
-            {isScheduler && (
-              <div
-                className="rt-col"
-                style={{
-                  display: "block",
-                  height: "auto",
-                  minHeight: "auto",
-                }}
-              >
-                <>
-                  <QuickOptions />
-                  <div className="schedule" style={{ height: "60%" }}>
-                    <Scheduler feed={true} />
-                  </div>
-                </>
-              </div>
-            )}
-          </ContBody>
-        </Col>
-        <Col lg={4} xs={24} md={4}>
-          <div>
-            {stickyNotes
-              .filter((it) => it.isOpen)
-              .map((item) => (
-                <SingleNotes item={item} key={item.id} />
-              ))}
+            <PostsList
+              referenceType={referenceType}
+              referenceId={referenceId}
+              reactionModule={reactionModule}
+            />
           </div>
-        </Col>
-      </Row>
+        </div>
+        {isScheduler && (
+          <div
+            className="rt-col"
+            style={{
+              display: "block",
+              height: "auto",
+              minHeight: "auto",
+            }}
+          >
+            <>
+              <QuickOptions />
+              <div className="schedule" style={{ height: "60%" }}>
+                <Scheduler feed={true} />
+              </div>
+            </>
+          </div>
+        )}
+      </ContBody>
     </TabbableContainer>
   );
 };
 
 export default NewsFeed;
-{
-  /* <NewStickyNote item={item} key={item.id} /> */
-}

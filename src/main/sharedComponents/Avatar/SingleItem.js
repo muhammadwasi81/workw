@@ -4,14 +4,13 @@ import { useNavigate } from "react-router-dom";
 function SingleItem({ data }) {
 	const navigate = useNavigate();
 
-	// console.log(data, "MAIN DATA HERE");
-
 	const handleClick = (e, id) => {
-		// console.log(id, "MAIN ID NOW");
 		e.preventDefault();
 		e.stopPropagation();
 		navigate(`/user/${id}`);
 	};
+
+	console.log(data, "datadatadatadata");
 
 	return data.map(item => {
 		return (
@@ -30,7 +29,7 @@ function SingleItem({ data }) {
 					<div className="imageDiv">
 						<img
 							src={
-								item.approver.image ||
+								item?.approver?.image ||
 								item.user?.image ||
 								item.member?.image
 							}

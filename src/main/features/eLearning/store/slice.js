@@ -1,16 +1,16 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addCourse } from "./action";
+import { addBook, addCourse, getAllBook, getAllCourse } from "./action";
 
 const initialState = {
   listLoading: false,
   isOpenComposers: {
-    category: false,
+    // category: false,
     courses: false,
     ebook: false,
-    quizz: false,
-    tedtalks: false,
-    article: false,
-    videos: false,
+    // quizz: false,
+    // tedtalks: false,
+    // article: false,
+    // videos: false,
   },
   composersInitState: {
     category: {},
@@ -23,6 +23,8 @@ const initialState = {
   },
   topics: [],
   sections: [],
+  courses: [],
+  books: [],
   success: false,
   loader: false,
 };
@@ -52,17 +54,29 @@ const eLearningSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder
-      .addCase(addCourse.fulfilled, (state) => {
+    builder.addCase(addCourse.fulfilled, (state) => {
         state.loader = false;
+        state.success = true;
         return state;
       })
-      .addMatcher(isPending(...[addCourse]), (state) => {
+      .addCase(getAllCourse.fulfilled, (state, action) => {
+        state.courses = action.payload ? action.payload : [];
+        state.loader = false;
+      })
+      .addCase(addBook.fulfilled, (state) => {
+        state.loader = false;
+        state.success = true;
+        return state;
+      })
+      .addCase(getAllBook.fulfilled, (state, action) => {
+        state.books = action.payload ? action.payload : [];
+        state.loader = false;
+      })
+      .addMatcher(isPending(...[addCourse, addBook, getAllBook, getAllCourse]), (state) => {
         state.loader = true;
-        state.success = true
       })
       .addMatcher(
-        isRejected(...[addCourse]),
+        isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
         (state) => {
           state.loader = false;
           state.success = false

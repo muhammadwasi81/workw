@@ -1,5 +1,5 @@
 import { DeleteFilled } from '@ant-design/icons';
-import { deleteTopic } from '../../../store/slice';
+import { deleteTopic } from '../../store/slice';
 
 export const tableColumn = (dispatch, editData) => {
   return [

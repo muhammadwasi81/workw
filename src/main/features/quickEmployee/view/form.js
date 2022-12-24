@@ -21,7 +21,7 @@ const QuickForm = () => {
   const { success, items } = useSelector((state) => state.quickAddSlice);
 
   const onFinish = (values) => {
-    console.log(values);
+    // console.log(values);
     let email = values.email.toLowerCase();
     let phoneNumber = values.phoneNumber.toLowerCase();
     let error = false;

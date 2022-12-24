@@ -12,11 +12,20 @@ import CourseAbout from "./CourseAbout";
 import CourseCurriculum from "./CourseCurriculum";
 import CourseQuizes from "./CourseQuizes";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { GetCourseById } from "../../../../../store/action";
 
 function CoursesDetail() {
-	const id = useParams().id;
+	const disptach = useDispatch()
 	const navigate = useNavigate();
-	// console.log("id", id);
+	const id = useParams().id;
+	
+	useEffect(() => {
+		disptach(GetCourseById(id))
+	},[])
+
+
 	const items = [
 		{
 			label: `About`,

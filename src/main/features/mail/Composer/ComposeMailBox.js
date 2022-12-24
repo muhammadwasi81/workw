@@ -29,7 +29,7 @@ const composerBtnStyle = {
   marginBottom: "10px",
 };
 const ComposeMailBox = ({
-  instance: { id, isMax, isMinimize, isReply, isForward, data },
+  instance: { id, isMax, isMinimize, isReply, isForward, data = {} },
   i,
   handleMaxToMin,
   handleMinimize,
@@ -131,9 +131,9 @@ const ComposeMailBox = ({
       id: 0,
       to: selectedTOEmail
         ? selectedTOEmail.map((value) => ({
-            name: value?.split("@")[0],
-            address: value,
-          }))
+          name: value?.split("@")[0],
+          address: value,
+        }))
         : [],
       from: [
         {
@@ -143,15 +143,15 @@ const ComposeMailBox = ({
       ],
       cc: selectedCcEmail
         ? selectedCcEmail.map((value) => ({
-            name: value?.split("@")[0],
-            address: value,
-          }))
+          name: value?.split("@")[0],
+          address: value,
+        }))
         : [],
       bcc: selectedBcEmail
         ? selectedBcEmail.map((value) => ({
-            name: value?.split("@")[0],
-            address: value,
-          }))
+          name: value?.split("@")[0],
+          address: value,
+        }))
         : [],
       subject: val.subject ? val.subject : "",
       content: val.content,
@@ -194,22 +194,21 @@ const ComposeMailBox = ({
   };
 
   const getDefaultSubject = () => {
-    if(isReply){
-      return "RE : "+ data.subject
+    if (isReply) {
+      return "RE : " + data.subject
     }
-    else if(isForward){
+    else if (isForward) {
       return data.subject
     }
-    else{
+    else {
       return ""
     }
   }
 
   return (
     <div
-      className={`${
-        isMax ? "mail-composer-containerMax" : "mail-composer-container"
-      } ${isMinimize ? "mail-composer-containerMin" : ""}`}
+      className={`${isMax ? "mail-composer-containerMax" : "mail-composer-container"
+        } ${isMinimize ? "mail-composer-containerMin" : ""}`}
     >
       <div className="mail-composer-head">
         <div>{mail.newMessage}</div>
@@ -279,7 +278,7 @@ const ComposeMailBox = ({
               handleGetSelected={handleToMailSelected}
               placeholder={"To"}
               disabled={isReply}
-              defaultValue={data.from.map(item=>item.address)}
+              defaultValue={data?.from ? data.from.map(item => item.address) : []}
             />
           </Form.Item>
 

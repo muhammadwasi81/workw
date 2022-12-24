@@ -78,7 +78,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           profileImgSize={40}
         />
         <ItemContentCareers className="!h-[100px] !max-h-[100px]">
-        <div className="font-bold text-[14px] text-primary-color">
+          <div className="font-bold text-[14px] text-primary-color">
             {designation}
           </div>
           <p className="careerFooterText">
@@ -96,7 +96,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </div>
         </ItemContentCareers>
-        <div className="cardSections mt-10">
+        <div className="cardSections mt-14">
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.salaryRange}</div>
             <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>

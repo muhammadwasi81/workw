@@ -92,7 +92,9 @@ export const ROUTES = {
     USER_ATTENDANCE: `${DOMAIN_PREFIX}/attendance/user_attendance`,
   },
   ASSETS: {
-    DEFAULT: `${DOMAIN_PREFIX}/assets`,
+    DEFAULT: `${DOMAIN_PREFIX}/assets/*`,
+    ROOT: `${DOMAIN_PREFIX}/assets`,
+    DETAIL: `/detail`,
   },
   ASSETS_TABLE_LIST: {
     DEFAULT: `${DOMAIN_PREFIX}/assetsList`,
@@ -258,9 +260,9 @@ export const ROUTES = {
     ADD: `add`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
     INFO: `info/*`,
-    BANK_DETAIL: 'info/bankDetail/:id',
-    BASIC_INFO: 'info/basicInfo/:id',
-    USER_LEAVES: 'info/leaves/:id',
+    BANK_DETAIL: "info/bankDetail/:id",
+    BASIC_INFO: "info/basicInfo/:id",
+    USER_LEAVES: "info/leaves/:id",
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
@@ -350,7 +352,13 @@ export const ROUTES = {
   APPRAISALS: {
     DEFAULT: `${DOMAIN_PREFIX}/appraisals/*`,
     ROOT: `${DOMAIN_PREFIX}/appraisals`,
+    DETAIL: `/detail`,
     SUBMIT: `/submitAppraisal`,
+  },
+  PROMOTION: {
+    DEFAULT: `${DOMAIN_PREFIX}/promotions/*`,
+    ROOT: `${DOMAIN_PREFIX}/promotions`,
+    DETAIL: `/detail`,
   },
   LEAVES: {
     DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
@@ -440,7 +448,9 @@ export const ROUTES = {
 
   TRAVELS: `${DOMAIN_PREFIX}/travel`,
   TRAVEL: {
-    DEFAULT: `${DOMAIN_PREFIX}/travel`,
+    DEFAULT: `${DOMAIN_PREFIX}/travel/*`,
+    ROOT: `${DOMAIN_PREFIX}/travel`,
+    DETAILS: `/detail`,
     TREAVELDETAIL: `${DOMAIN_PREFIX}/travel/travel-detail/`,
     DETAIL: `${DOMAIN_PREFIX}/travel/travel-detail/:travelId`,
     CITIES: `${DOMAIN_PREFIX}/travel/cities`,
@@ -539,24 +549,23 @@ export const ROUTES = {
     },
   },
   MAIL: {
-	DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
-	ROOT: `${DOMAIN_PREFIX}/mail`,
-	DETAIL: `/detail`,
+    DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
+    ROOT: `${DOMAIN_PREFIX}/mail`,
+    DETAIL: `/detail`,
 
-
-	INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
-	STARRED: `${DOMAIN_PREFIX}/mail/starred`,
-	SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
-	ALL_MAIL: `${DOMAIN_PREFIX}/mail/all_mail`,
-	SPAM: `${DOMAIN_PREFIX}/mail/id=INBOX.spam`,
-	NOTES: `${DOMAIN_PREFIX}/mail/id=INBOX.Notes`,
-	ARCHIVE: `${DOMAIN_PREFIX}/mail/id=INBOX.Archive`,
-	SENT: `${DOMAIN_PREFIX}/mail/sent`,
-	TRASH: `${DOMAIN_PREFIX}/mail/trash`,
-	JUNK: `${DOMAIN_PREFIX}/mail/id=INBOX.Junk`,
-	DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
-	CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
-},
+    INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
+    STARRED: `${DOMAIN_PREFIX}/mail/starred`,
+    SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
+    ALL_MAIL: `${DOMAIN_PREFIX}/mail/all_mail`,
+    SPAM: `${DOMAIN_PREFIX}/mail/id=INBOX.spam`,
+    NOTES: `${DOMAIN_PREFIX}/mail/id=INBOX.Notes`,
+    ARCHIVE: `${DOMAIN_PREFIX}/mail/id=INBOX.Archive`,
+    SENT: `${DOMAIN_PREFIX}/mail/sent`,
+    TRASH: `${DOMAIN_PREFIX}/mail/trash`,
+    JUNK: `${DOMAIN_PREFIX}/mail/id=INBOX.Junk`,
+    DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
+    CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
+  },
   //commenttteddd
   // TASK: {
   //   DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
@@ -627,6 +636,8 @@ export const ROUTES = {
     MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
   },
   BONUS: {
-    DEFAULT: `${DOMAIN_PREFIX}/bonus`,
+    DEFAULT: `${DOMAIN_PREFIX}/bonus/*`,
+    ROOT: `${DOMAIN_PREFIX}/bonus`,
+    DETAIL: `/detail`,
   },
 };

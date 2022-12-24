@@ -73,7 +73,7 @@ function Index() {
       console.log(payload, "final payload");
       dispatch(addAppraisal(payload));
     }
-
+    // console.log(payload, "final payload");
     //setState submit false when API is called
     setSubmit(false);
   };

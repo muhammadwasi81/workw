@@ -15,7 +15,6 @@ export default function PolicyDetail({ item }) {
   return (
     <div className="approvalDetail">
       <div className="policyHeader colorTheme">{description}</div>
-      {/* <PolicyItem item={item} /> */}
       <div className="item-card">
         <div className="!flex !flex-row">
           <div className="row flex-1 !w-max !mb-0 font-bold">{item.name}</div>
@@ -28,9 +27,7 @@ export default function PolicyDetail({ item }) {
         <div
           className="row !mb-0 mt-4"
           dangerouslySetInnerHTML={{ __html: item.description }}
-        >
-          {/* {item.description} */}
-        </div>
+        ></div>
       </div>
     </div>
   );

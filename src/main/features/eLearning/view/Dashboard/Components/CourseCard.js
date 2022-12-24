@@ -31,7 +31,7 @@ function CourseCard({data}) {
 	return (
 		<WhiteCard
 			onClick={() => {
-				navigate("courses/123");
+				navigate(`courses/${data.id}`);
 			}}
 			className="cursor-pointer hover:shadow-lg transition-all"
 		>

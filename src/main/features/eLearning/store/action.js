@@ -1,7 +1,7 @@
 import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
-import { addBookService, addCourseService, getAllBookService, getAllCourseService } from "../service/service";
+import { addBookService, addCourseService, getAllBookService, getAllCourseService, GetCourseByIdService } from "../service/service";
 
   //  COURSES ACTIONS  //
 
@@ -29,6 +29,14 @@ export const getAllCourse = createAsyncThunk(
     if (!response.responseCode) {
       message.error("Something went wrong");
     }
+    return response.data;
+  }
+);
+
+export const GetCourseById = createAsyncThunk(
+  "Course/GetCourseById",
+  async (id) => {
+    const response = await GetCourseByIdService(id);
     return response.data;
   }
 );

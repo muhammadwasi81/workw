@@ -11,6 +11,7 @@ import {
   addExpenseService,
   getAllExpenseService,
   getExpenseByIDService,
+  getExpenseDefaultApprovalService,
 } from "../services/service";
 
 export const addExpense = createAsyncThunk(
@@ -71,3 +72,19 @@ export const getExpenseById = createAsyncThunk(
     }
   }
 );
+
+// export const getDefaultApprovalByType = createAsyncThunk(
+//   "expense/getDefaultApproval",
+//   async (args, { dispatch, getState }) => {
+//     const res = await getExpenseDefaultApprovalService(args);
+
+//     if (res?.responseCode === responseCode.Success) {
+//       return res;
+//     } else {
+//       responseMessage({
+//         dispatch: dispatch,
+//         type: responseMessageType.ApiFailure,
+//       });
+//     }
+//   }
+// );

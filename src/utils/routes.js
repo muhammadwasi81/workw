@@ -92,7 +92,9 @@ export const ROUTES = {
     USER_ATTENDANCE: `${DOMAIN_PREFIX}/attendance/user_attendance`,
   },
   ASSETS: {
-    DEFAULT: `${DOMAIN_PREFIX}/assets`,
+    DEFAULT: `${DOMAIN_PREFIX}/assets/*`,
+    ROOT: `${DOMAIN_PREFIX}/assets`,
+    DETAIL: `/detail`,
   },
   ASSETS_TABLE_LIST: {
     DEFAULT: `${DOMAIN_PREFIX}/assetsList`,
@@ -258,9 +260,15 @@ export const ROUTES = {
     ADD: `add`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
     INFO: `info/*`,
+<<<<<<< HEAD
+    BANK_DETAIL: "info/bankDetail/:id",
+    BASIC_INFO: "info/basicInfo/:id",
+    USER_LEAVES: "info/leaves/:id",
+=======
     BANK_DETAIL: 'info/bankDetail/:id',
     BASIC_INFO: 'info/basicInfo/:id',
     USER_LEAVES: 'info/leaves/:id',
+>>>>>>> 4e5e2785f9cec577399a0a0aebc5762c05ff5617
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
@@ -318,9 +326,17 @@ export const ROUTES = {
     RESIGNATION: `${DOMAIN_PREFIX}/resignation`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
+<<<<<<< HEAD
+  REQUISITIONS: {
+    DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+    ROOT: `${DOMAIN_PREFIX}/requisition`,
+    REQUISITIONS: `${DOMAIN_PREFIX}/requisition`,
+    DETAIL: `/detail`,
+=======
   REQUISITION: {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
     REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+>>>>>>> 4e5e2785f9cec577399a0a0aebc5762c05ff5617
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
     APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
     CREATE_VOUCHERS: `${DOMAIN_PREFIX}/createasset`,
@@ -350,7 +366,13 @@ export const ROUTES = {
   APPRAISALS: {
     DEFAULT: `${DOMAIN_PREFIX}/appraisals/*`,
     ROOT: `${DOMAIN_PREFIX}/appraisals`,
+    DETAIL: `/detail`,
     SUBMIT: `/submitAppraisal`,
+  },
+  PROMOTION: {
+    DEFAULT: `${DOMAIN_PREFIX}/promotions/*`,
+    ROOT: `${DOMAIN_PREFIX}/promotions`,
+    DETAIL: `/detail`,
   },
   LEAVES: {
     DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
@@ -440,7 +462,9 @@ export const ROUTES = {
 
   TRAVELS: `${DOMAIN_PREFIX}/travel`,
   TRAVEL: {
-    DEFAULT: `${DOMAIN_PREFIX}/travel`,
+    DEFAULT: `${DOMAIN_PREFIX}/travel/*`,
+    ROOT: `${DOMAIN_PREFIX}/travel`,
+    DETAILS: `/detail`,
     TREAVELDETAIL: `${DOMAIN_PREFIX}/travel/travel-detail/`,
     DETAIL: `${DOMAIN_PREFIX}/travel/travel-detail/:travelId`,
     CITIES: `${DOMAIN_PREFIX}/travel/cities`,
@@ -627,6 +651,8 @@ export const ROUTES = {
     MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
   },
   BONUS: {
-    DEFAULT: `${DOMAIN_PREFIX}/bonus`,
+    DEFAULT: `${DOMAIN_PREFIX}/bonus/*`,
+    ROOT: `${DOMAIN_PREFIX}/bonus`,
+    DETAIL: `/detail`,
   },
 };

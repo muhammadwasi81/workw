@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+import { useState, useEffect, useContext } from "react";
+import { AdminContainer } from "./../../sharedComponents/StyledComponents/admin";
+import { FormContainer } from "./../../sharedComponents/StyledComponents/adminForm";
+import { Collapse, Modal, Tooltip, Button, Skeleton, message } from "antd";
+import { FormHeader } from "../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import "./styles.css";
+import { PlusCircleFilled } from "@ant-design/icons";
+import { NoDataFound } from "./../../sharedComponents/NoDataIcon/index";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllEmployees } from "./../../../utils/Shared/store/actions";
+import Avatar from "../../sharedComponents/Avatar/avatarOLD";
+=======
 import { useState, useEffect, useContext } from 'react';
 import { AdminContainer } from './../../sharedComponents/StyledComponents/admin';
 import { FormContainer } from './../../sharedComponents/StyledComponents/adminForm';
@@ -9,6 +22,7 @@ import { NoDataFound } from './../../sharedComponents/NoDataIcon/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllEmployees } from './../../../utils/Shared/store/actions';
 import Avatar from '../../sharedComponents/Avatar/avatarOLD';
+>>>>>>> 4e5e2785f9cec577399a0a0aebc5762c05ff5617
 import {
   addDefaultApproversAction,
   getAllDefaultApproversAction,
@@ -26,7 +40,7 @@ import { DeleteFilled, EditFilled } from '@ant-design/icons';
 
 const { Panel } = Collapse;
 
-const DefaultApprovers = () => {
+const DefaultApprovers = ({ item }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);

@@ -24,6 +24,18 @@ export const getAllCourseService = (data) => {
     });
 };
 
+
+export const GetCourseByIdService = (id) => {
+  return MasterConfig.get(`api/ELearning/GetCourseById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+
   // E-BOOK SERVICES //
 
 export const addBookService = async (data) => {

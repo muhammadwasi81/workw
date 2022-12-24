@@ -94,6 +94,7 @@ export const ROUTES = {
   ASSETS: {
     DEFAULT: `${DOMAIN_PREFIX}/assets/*`,
     ROOT: `${DOMAIN_PREFIX}/assets`,
+    ASSETS: `${DOMAIN_PREFIX}/assets`,
     DETAIL: `/detail`,
   },
   ASSETS_TABLE_LIST: {
@@ -235,6 +236,7 @@ export const ROUTES = {
   REWARDS: {
     DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
     REWARD: `${DOMAIN_PREFIX}/rewards/`,
+    DETAILS: `${DOMAIN_PREFIX}/rewardDetails/:id`,
     APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
   },
   COMPLAINS: {
@@ -320,9 +322,11 @@ export const ROUTES = {
     RESIGNATION: `${DOMAIN_PREFIX}/resignation`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
-  REQUISITION: {
+  REQUISITIONS: {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
-    REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+    ROOT: `${DOMAIN_PREFIX}/requisition`,
+    REQUISITIONS: `${DOMAIN_PREFIX}/requisition`,
+    DETAIL: `/detail`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
     APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
     CREATE_VOUCHERS: `${DOMAIN_PREFIX}/createasset`,
@@ -358,6 +362,8 @@ export const ROUTES = {
   PROMOTION: {
     DEFAULT: `${DOMAIN_PREFIX}/promotions/*`,
     ROOT: `${DOMAIN_PREFIX}/promotions`,
+    PROMOTION: `${DOMAIN_PREFIX}/promotions`,
+
     DETAIL: `/detail`,
   },
   LEAVES: {
@@ -402,7 +408,7 @@ export const ROUTES = {
     DEFAULT_HIRING_CRITERIA: `defaultHiringCriteria`,
     SUBSIDIARY_OFFICE: `subsidiaryOffice`,
     SUBSIDIARY: `subsidiary`,
-    BUSINESS_POLICY: `businessPolicy`,
+    COMPANIES_POLICY: `companiesPolicy`,
     COMLAIN_CATEGORY: `complainCategory`,
     PAYROLL_GROUP: `payrollGroup`,
     ACCESSROLES: `accessroles`,

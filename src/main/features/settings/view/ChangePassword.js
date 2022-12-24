@@ -17,12 +17,15 @@ function ChangePassword() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
   const { settings } = useSelector((state) => state.settingSlice);
+  console.log(settings, "settings");
   const [form, setForm] = useState({});
   const [confrimPass, setConfirmPass] = useState();
 
   useEffect(() => {
+    console.log(settings, "useEffect");
     setForm(settings);
   }, [settings]);
+
   const handelChangepassword = (e) => {
     setForm({ ...form, oldPassword: e.target.value });
   };
@@ -42,7 +45,6 @@ function ChangePassword() {
     setForm({ ...form, newPassword: e.target.value });
   };
   const handelChangeConfirmPass = (e) => {
-    console.log("onChnggeeee");
     const confirmPass = e.target.value;
     setConfirmPass(confirmPass);
   };
@@ -72,7 +74,7 @@ function ChangePassword() {
           <FormLabel>Confirm Password</FormLabel>
           <Input
             type="password"
-            placeholder={"Enter Confirm"}
+            placeholder={"Enter Confirm Password"}
             value={confrimPass}
             onChange={handelChangeConfirmPass}
           />

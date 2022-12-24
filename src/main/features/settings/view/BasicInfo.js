@@ -28,7 +28,7 @@ function BasicInfo() {
   const { user } = useSelector((state) => state.userSlice);
   const { settings } = useSelector((state) => state.settingSlice);
   const [form, setForm] = useState({});
-
+  console.log(form, "formmm");
   useEffect(() => {
     dispatch(getBasicInfoAction(user.id));
   }, []);
@@ -43,6 +43,7 @@ function BasicInfo() {
   };
   const handelChangeEmail = (e) => {
     setForm({ ...form, personalEmail: e.target.value });
+    console.log(form, "formmmm");
   };
 
   const handelUpdateEmail = () => {

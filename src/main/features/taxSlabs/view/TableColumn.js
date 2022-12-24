@@ -18,10 +18,10 @@ const Edit = (handleEdit, row) => {
 };
 
 export const tableColumns = (
-  handleEdit,
+  // handleEdit,
   // id,
   // accessRoles,
-  Direction,
+  //Direction,
   taxSlab
 ) => {
   return [

@@ -141,7 +141,7 @@ function Loan() {
           dispatch(toggleCreateComposer());
         }}
         visible={isCreateComposer}
-        destroyOnClose={true}
+        // destroyOnClose={true}
         className="detailedViewComposer drawerSecondary"
       >
         <Composer />

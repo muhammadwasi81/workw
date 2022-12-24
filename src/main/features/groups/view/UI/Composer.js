@@ -114,7 +114,7 @@ const Composer = props => {
 				}),
 				name: detail.name,
 				description: detail.description,
-				...featureValues.reduce(function(result, current) {
+				...featureValues.reduce(function (result, current) {
 					return Object.assign(result, current);
 				}, {}),
 			});
@@ -198,11 +198,12 @@ const Composer = props => {
 				) : (
 					""
 				)}
-				<FeatureSelect
-					features={features}
-					form={form}
-					notIncludeFeature={FeaturesEnum.Travel}
-				/>
+				{!update &&
+					<FeatureSelect
+						features={features}
+						form={form}
+						notIncludeFeature={FeaturesEnum.Travel}
+					/>}
 
 				<Form.Item>
 					<div className="flex items-center gap-2">

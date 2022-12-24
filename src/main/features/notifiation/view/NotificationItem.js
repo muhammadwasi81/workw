@@ -7,6 +7,7 @@ import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import NewsIcon from "../../../../content/menu/news.png";
 import { handleRedirect } from "../utils/functions";
 import './style.css'
+import { getIconByFeaturesType } from "../../../../utils/Shared/helper/helpers";
 
 export default function NotificationItem({ item, index }) {
     let {
@@ -54,8 +55,8 @@ export default function NotificationItem({ item, index }) {
             </div>
             <div>
                 <img
-                    src={NewsIcon}
-                    style={{marginTop:"11px"}}
+                    src={getIconByFeaturesType(1)}
+                    className="mt-[11px] w-[20px] mr-[5px]"
                 />
             </div>
         </div>

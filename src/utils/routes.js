@@ -1,5 +1,5 @@
 export let DOMAIN_PREFIX = "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const ROUTES = {
   SEARCH: {
@@ -92,7 +92,9 @@ export const ROUTES = {
     USER_ATTENDANCE: `${DOMAIN_PREFIX}/attendance/user_attendance`,
   },
   ASSETS: {
-    DEFAULT: `${DOMAIN_PREFIX}/assets`,
+    DEFAULT: `${DOMAIN_PREFIX}/assets/*`,
+    ROOT: `${DOMAIN_PREFIX}/assets`,
+    DETAIL: `/detail`,
   },
   ASSETS_TABLE_LIST: {
     DEFAULT: `${DOMAIN_PREFIX}/assetsList`,
@@ -286,6 +288,7 @@ export const ROUTES = {
     BUSINESS_POLICY: `businessPolicy`,
     ACCESSROLES: `accessroles`,
     GRADE: `grade`,
+    ELEARNING_CATEGORY: `eLearningCategory`,
     DESIGNATION: `designation`,
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
@@ -314,9 +317,7 @@ export const ROUTES = {
   },
   RESIGNATION: {
     DEFAULT: `${DOMAIN_PREFIX}/resignation/*`,
-    ROOT: `${DOMAIN_PREFIX}/resignation`,
     RESIGNATION: `${DOMAIN_PREFIX}/resignation`,
-    DETAIL: `/detail`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
   REQUISITION: {
@@ -351,7 +352,13 @@ export const ROUTES = {
   APPRAISALS: {
     DEFAULT: `${DOMAIN_PREFIX}/appraisals/*`,
     ROOT: `${DOMAIN_PREFIX}/appraisals`,
+    DETAIL: `/detail`,
     SUBMIT: `/submitAppraisal`,
+  },
+  PROMOTION: {
+    DEFAULT: `${DOMAIN_PREFIX}/promotions/*`,
+    ROOT: `${DOMAIN_PREFIX}/promotions`,
+    DETAIL: `/detail`,
   },
   LEAVES: {
     DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
@@ -396,15 +403,16 @@ export const ROUTES = {
     SUBSIDIARY_OFFICE: `subsidiaryOffice`,
     SUBSIDIARY: `subsidiary`,
     BUSINESS_POLICY: `businessPolicy`,
-    COMPANIES_POLICY: `companiesPolicy`,
     COMLAIN_CATEGORY: `complainCategory`,
     PAYROLL_GROUP: `payrollGroup`,
     ACCESSROLES: `accessroles`,
-    GRADE: `grade`,
     FISCAL_YEAR: `fiscalYear`,
     DESIGNATION: `designation`,
     TAX_SLAB: `taxSlab`,
     TAX_SLAB_GROUP: `taxSlabsGroup`,
+    GRADE: `grade`,
+    ELEARNING_CATEGORY: `eLearningCategory`,
+
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
     OFFICETIMING: `officetimings`,
@@ -440,7 +448,9 @@ export const ROUTES = {
 
   TRAVELS: `${DOMAIN_PREFIX}/travel`,
   TRAVEL: {
-    DEFAULT: `${DOMAIN_PREFIX}/travel`,
+    DEFAULT: `${DOMAIN_PREFIX}/travel/*`,
+    ROOT: `${DOMAIN_PREFIX}/travel`,
+    DETAILS: `/detail`,
     TREAVELDETAIL: `${DOMAIN_PREFIX}/travel/travel-detail/`,
     DETAIL: `${DOMAIN_PREFIX}/travel/travel-detail/:travelId`,
     CITIES: `${DOMAIN_PREFIX}/travel/cities`,
@@ -539,7 +549,10 @@ export const ROUTES = {
     },
   },
   MAIL: {
-    DEFAULT: `${DOMAIN_PREFIX}/mail`,
+    DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
+    ROOT: `${DOMAIN_PREFIX}/mail`,
+    DETAIL: `/detail`,
+
     INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
     STARRED: `${DOMAIN_PREFIX}/mail/starred`,
     SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
@@ -623,6 +636,8 @@ export const ROUTES = {
     MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
   },
   BONUS: {
-    DEFAULT: `${DOMAIN_PREFIX}/bonus`,
+    DEFAULT: `${DOMAIN_PREFIX}/bonus/*`,
+    ROOT: `${DOMAIN_PREFIX}/bonus`,
+    DETAIL: `/detail`,
   },
 };

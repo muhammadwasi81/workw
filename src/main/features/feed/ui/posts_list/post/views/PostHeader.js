@@ -1,21 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { STRINGS } from "../../../../../../../utils/base";
-import Avatar from "../../../../../../sharedComponents/Avatar/avatarOLD";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { STRINGS } from '../../../../../../../utils/base';
+import Avatar from '../../../../../../sharedComponents/Avatar/avatarOLD';
 // import starIcon from "./../../../../../../../content/NewContent/NewsFeed/svg/star.svg";
-import publicIcon from "./../../../../../../../content/NewContent/NewsFeed/svg/public.svg";
+import publicIcon from './../../../../../../../content/NewContent/NewsFeed/svg/public.svg';
 // import cover from "./../../../../../../../content/NewContent/NewsFeed/svg/COVER.svg";
 
-import moment from "moment";
+import moment from 'moment';
 import {
   LockOutlined,
   ShareAltOutlined,
   StarFilled,
   StarOutlined,
-} from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import { favoriteFeed } from "../../../../store/actions";
-import { addFeedFavourite } from "../../../../store/slice";
+} from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { favoriteFeed } from '../../../../store/actions';
+import { addFeedFavourite } from '../../../../store/slice';
 
 const PostHeader = ({
   creator = {},
@@ -31,12 +31,12 @@ const PostHeader = ({
 
   const privacy = {
     1: <img src={publicIcon} alt="public-icon" />,
-    2: <LockOutlined style={{ color: "#797f85", fontSize: "12px" }} />,
+    2: <LockOutlined style={{ color: '#797f85', fontSize: '12px' }} />,
     3: <ShareAltOutlined />,
   };
 
   var ts = moment.utc(createDate);
-  ts.local().format("D-MMM-Y");
+  ts.local().format('D-MMM-Y');
 
   return (
     <div className="post-header">
@@ -49,7 +49,7 @@ const PostHeader = ({
             </span>
             {tags.length > 0 && (
               <React.Fragment>
-                &ensp;with <span>{tags[tags.length - 1].member.name}</span>
+                &ensp;with <span>{tags[tags.length - 1].member?.name}</span>
                 {tags.length > 1 && (
                   <React.Fragment>
                     &ensp;and&ensp;
@@ -71,7 +71,7 @@ const PostHeader = ({
           </div>
           <div className="dtp">
             <div className="d">
-              {designation ? designation : "Not Designated"}
+              {designation ? designation : 'Not Designated'}
               &nbsp;&#9679;
             </div>
             <div className="t">

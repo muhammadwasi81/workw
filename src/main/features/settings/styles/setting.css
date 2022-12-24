@@ -10,3 +10,8 @@
   background: #1b5669;
   margin: 0px 4px;
 }
+.basic-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

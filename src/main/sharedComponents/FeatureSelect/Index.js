@@ -10,6 +10,7 @@ import expensesIcon from "../../../content/svg/menu/newNavBarIcon/Expenses.svg";
 
 import "./style.css";
 import { FeaturesEnum } from "../../../utils/Shared/enums/enums";
+import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 
 function FeatureSelect({ features, form, notIncludeFeature }) {
 	const data = [
@@ -19,7 +20,7 @@ function FeatureSelect({ features, form, notIncludeFeature }) {
 			icon: feedIcon,
 			description:
 				"A board for the project/group to update and have open conversations",
-			id: FeaturesEnum.Feed,
+			id: FeaturesEnum.FEATURES_TYPE.Feed,
 		},
 		{
 			name: features.schedule,
@@ -27,42 +28,42 @@ function FeatureSelect({ features, form, notIncludeFeature }) {
 			icon: schedulesIcon,
 			description:
 				"Schedule to manage timelines for the project/groupemipsum",
-			id: FeaturesEnum.Schedule,
+			id: FeaturesEnum.FEATURES_TYPE.Schedule,
 		},
 		{
 			name: features.workBoard,
 			featureName: "Workboard",
 			icon: todoBoard,
 			description: "A Kanban methodology board to manage tasks",
-			id: FeaturesEnum.WorkBoard,
+			id: FeaturesEnum.FEATURES_TYPE.WorkBoard,
 		},
 		{
 			name: features.document,
 			featureName: "Document",
 			icon: documentIcon,
 			description: "Project/Group based documents",
-			id: FeaturesEnum.Document,
+			id: FeaturesEnum.FEATURES_TYPE.Document,
 		},
 		{
 			name: features.task,
 			featureName: "Task",
 			icon: taskIcon,
 			description: "Key tasks and milestones for a Project/Group",
-			id: FeaturesEnum.Task,
+			id: FeaturesEnum.FEATURES_TYPE.Task,
 		},
 		{
 			name: features.expenses,
 			featureName: "Expense",
 			icon: expensesIcon,
 			description: "Expense management for the project/group",
-			id: FeaturesEnum.Expense,
+			id: FeaturesEnum.FEATURES_TYPE.Expense,
 		},
 		{
 			name: features.travel,
 			featureName: "Travel",
 			icon: travelIcon,
 			description: "Management Group/Project Travel requirements",
-			id: FeaturesEnum.Travel,
+			id: FeaturesEnum.FEATURES_TYPE.Travel,
 		},
 	];
 
@@ -84,7 +85,7 @@ function FeatureSelect({ features, form, notIncludeFeature }) {
 			});
 		}
 	};
-
+console.log(data, "data")
 	return (
 		<>
 			<p className="!mb-[8px]">Features</p>

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { ROUTES } from "../../../../../utils/routes";
 import { TabbableContainer } from "../../../../layout/GridStyle";
 import Header from "../../../../layout/header/index";
+import { ApprovalStatus } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import { ContBody } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 import { getAllApproval } from "../../store/action";
 import ApprovalDetail from "./detail";
@@ -12,18 +13,43 @@ export default function AllApprovals() {
 	const defaultFilter = {
 		pageNo: 0,
 		search: "",
-		modules:[]
+		status: [1]
 	}
-    const [filter, setFilter] = useState(defaultFilter);
+	const [filter, setFilter] = useState(defaultFilter);
 	const [approvalDetailData, setApprovalDetailData] = useState({});
 	const dispatch = useDispatch();
 
 	const handleApprovalDetail = item => {
 		setApprovalDetailData(item);
 	};
+	const handleTabChange = (tabIndex) => {
+		tabIndex = Number(tabIndex);
+		console.log(tabIndex)
+		let status = ApprovalStatus.InProcess;
+		switch (tabIndex) {
+			case 1:
+				status = ApprovalStatus.InProcess;
+				break;
+			case 2:
+				status = ApprovalStatus.Approved;
+				break;
+			case 3:
+				status = ApprovalStatus.Declined;
+				break;
+			case 4:
+				status = ApprovalStatus.Hold;
+				break;
+			default:
+				break;
+		}
+		setFilter({
+			...filter,
+			status: [status]
+		})
+	}
 	useEffect(() => {
-            dispatch(getAllApproval(filter));
-    }, [filter]);
+		dispatch(getAllApproval(filter));
+	}, [filter]);
 
 	return (
 		<TabbableContainer>
@@ -33,16 +59,19 @@ export default function AllApprovals() {
 					{
 						name: 'Approvals',
 						renderButton: [1],
-						to: ROUTES.APPROVALS.DEFAULT,
+						to: ROUTES.APPROVALS.DEFAULT
 					},
 				]}
 				backButton={false}
 			/>
-			
+
 			<ContBody>
 				<div className="flex ApprovalMainView gap-4 w-full">
 					<div className="">
-						<Listing handleApprovalDetail={handleApprovalDetail} />
+						<Listing
+							handleApprovalDetail={handleApprovalDetail}
+							handleTabChange={handleTabChange}
+						/>
 					</div>
 					<div className="flex-1">
 						<ApprovalDetail

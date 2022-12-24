@@ -6,36 +6,43 @@ import { getAllApproval } from "../../store/action";
 
 export default function ApprovalActions({ item }) {
   const dispatch = useDispatch();
-  const createRemark = async (status) => {
+  const defaultFilter = {
+    pageNo: 0,
+    search: "",
+    status: [1]
+  }
+  const createRemark = async (e, status) => {
+    e.preventDefault();
+    e.stopPropagation();
     const remarks = {
       approvalId: item.id,
       remark: "",
       module: item.module,
       status: status,
       type: item.approverType,
-      attachments: [],
+      attachments: []
     };
 
     const remark = await saveApprovalsRemarks(remarks);
     if (remark) {
-      dispatch(getAllApproval({}))
+      dispatch(getAllApproval(defaultFilter))
     }
   };
   return (
     <div className="approval_item_status">
       <div
         className="accept"
-        onClick={() => createRemark(ApprovalStatus.Approved)}
-      >
+        onClick={(e) => createRemark(e, ApprovalStatus.Approved)}>
         Accept
       </div>
       <div
         className="decline"
-        onClick={() => createRemark(ApprovalStatus.Declined)}
-      >
+        onClick={(e) => createRemark(e, ApprovalStatus.Declined)}>
         Decline
       </div>
-      <div className="hold" onClick={() => createRemark(ApprovalStatus.Hold)}>
+      <div
+        className="hold"
+        onClick={(e) => createRemark(e, ApprovalStatus.Hold)}>
         Hold
       </div>
     </div>

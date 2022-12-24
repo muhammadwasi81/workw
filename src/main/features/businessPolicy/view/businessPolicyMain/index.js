@@ -55,9 +55,6 @@ export default function AllApprovals() {
       />
 
       <ContBody className="!block">
-        {/* <div className="searchBar"> */}
-        {/* <Input placeholder="Search" onCha /> */}
-        {/* </div> */}
         <div className="flex ApprovalMainView gap-4 w-full">
           <div className="parent-div">
             <Listing

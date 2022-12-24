@@ -12,6 +12,8 @@ import PromotionDetail from "../../../promotion/view/PromotionDetail";
 import RewardDetailCard from "../../../reward/view/DetailCard";
 import SalaryDetailCard from "../../../salary/view/SalaryList/salaryDetailCard";
 import TravelDetail from "../../../travel/view/TravelDetail/TravelDetail";
+import WarningDetail from "../../../warning/view/DetailCard";
+import AssetsDetail from "../../../assets/view/assetsDetailedCard";
 
 export default function ApprovalDetail({ approvalDetailData }) {
   const panes = () => {
@@ -23,7 +25,6 @@ export default function ApprovalDetail({ approvalDetailData }) {
       },
     ];
   };
-  console.log(approvalDetailData, "approvalDetailData");
   function getConditionalyModule({ module, referenceId: id }) {
     switch (module) {
       case ApprovalsModule.SalaryApproval:
@@ -58,6 +59,13 @@ export default function ApprovalDetail({ approvalDetailData }) {
       case ApprovalsModule.ExpenseExecutor:
       case ApprovalsModule.ExpenseFinance:
         return <ExpenseDetail id={id} />;
+
+      case ApprovalsModule.WarningApproval:
+        return <WarningDetail id={id} />;
+
+      case ApprovalsModule.AssetApproval:
+        return <AssetsDetail id={id} />;
+
       default:
         return <></>;
     }

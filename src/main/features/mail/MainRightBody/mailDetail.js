@@ -155,6 +155,20 @@ const MailDetail = () => {
                 marginRight: "10px",
               }}
             />
+             <SharedButton
+              type=""
+              onClick={() => handleComposer(true)}
+              shape="square"
+              size={isTablet ? "middle" : "large"}
+              icon={replyIcon}
+              IconSize={18}
+              title="Reply All"
+              style={{
+                color: "#757d86",
+                borderRadius: "8px",
+                marginRight: "10px",
+              }}
+            />
             <SharedButton
               type=""
               onClick={() => handleComposer(false, true)}

@@ -29,7 +29,9 @@ function SingleItem({ data }) {
 					<div className="imageDiv">
 						<img
 							src={
-								item.approver.image || 	item.user?.image || item.member?.image
+								item?.approver?.image ||
+								item.user?.image ||
+								item.member?.image
 							}
 						/>
 					</div>

@@ -1,7 +1,12 @@
 import React from "react";
 import WhiteCard from "../../../UI/WhiteCard";
 import BoxThumnail from "../UI/BoxThumnail";
-function EbookCard() {
+function EbookCard({ data }) {
+
+	let { name } = data;
+
+	console.log(name, "NAME FROM ITEM")
+
 	return (
 		<WhiteCard
 			onClick={() => {}}

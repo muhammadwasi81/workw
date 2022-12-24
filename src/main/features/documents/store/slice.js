@@ -166,7 +166,7 @@ const documentSlice = createSlice({
         state.composersInitState.members = payload;
       })
       .addCase(addDocumentDirectoryList.fulfilled, (state, { payload }) => {
-        state.composersInitState.members = payload;
+        // state.composersInitState.members = [...state.composersInitState.members, payload];
         // state.loader = true;
       })
       .addCase(addDocument.pending, (state, action) => {

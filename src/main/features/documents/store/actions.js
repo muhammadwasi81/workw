@@ -203,16 +203,16 @@ export const addDirectory = createAsyncThunk(
 export const getAllDocumentDirectoryList = createAsyncThunk(
 	"document/getAllDocumentDirectoryList",
 	async (request, { rejectWithValue }) => {
-		console.log(request, "FROM ACTION")
 		const response = await getAllDocumentDirectoryMemberService(request);
-		switch (response.type) {
-			case ResponseType.ERROR:
-				return rejectWithValue(response.errorMessage);
-			case ResponseType.SUCCESS:
-				return response.data;
-			default:
-				return;
-		}
+		// switch (response.type) {
+		// 	case ResponseType.ERROR:
+		// 		return rejectWithValue(response.errorMessage);
+		// 	case ResponseType.SUCCESS:
+		// 		return response.data;
+		// 	default:
+		// 		return;
+		return response.data
+		// }
 	}
 );
 
@@ -222,7 +222,7 @@ export const addDocumentDirectoryList = createAsyncThunk(
 	  const res = await addDocumentDirectoryMemberService(data);
 	  if (res.data?.responseCode === responseCode.Success) {
 		message.success("Created");
-		return res;
+		return res.data;
 	  } else {
 		message.error(res.data.message);
 		return rejectWithValue(res.data.message);

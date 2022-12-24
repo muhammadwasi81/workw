@@ -25,7 +25,6 @@ export default function ApprovalDetail({ approvalDetailData }) {
       },
     ];
   };
-  console.log(approvalDetailData, "approvalDetailData");
   function getConditionalyModule({ module, referenceId: id }) {
     switch (module) {
       case ApprovalsModule.SalaryApproval:

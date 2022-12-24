@@ -1,6 +1,6 @@
 import React, {  } from "react";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import { StepperFOrm } from "../components/coursesForm";
+// import { StepperFOrm } from "../components/coursesForm";
 
 const CreateCourse = ({ isOpen, handleClose, referenceId, referenceType }) => {
 
@@ -14,7 +14,7 @@ const CreateCourse = ({ isOpen, handleClose, referenceId, referenceType }) => {
 				handleClose={handleClose}
 			>
 				
-				<StepperFOrm />
+				{/* <StepperFOrm /> */}
 			</SideDrawer>
 		</>
 	);

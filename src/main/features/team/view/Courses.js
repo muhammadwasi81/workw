@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { TeamTable } from "./TaskTable/TeamTable";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { teamDictionaryList } from "../localization/index";
+import React, { useContext } from 'react';
+import { TeamTable } from './TaskTable/TeamTable';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { teamDictionaryList } from '../localization/index';
 
 function Courses({ userId = null }) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -12,22 +12,20 @@ function Courses({ userId = null }) {
   const columns = [
     {
       title: labels.CourseName,
-      dataIndex: "courseName",
-      key: "courseName",
+      dataIndex: 'courseName',
+      key: 'courseName',
       sort: true,
       width: 200,
     },
 
     {
       title: labels.Date,
-      dataIndex: "date",
-      key: "date",
+      dataIndex: 'date',
+      key: 'date',
       sort: true,
       width: 200,
     },
   ];
-
-  // let myId = userId ? userId : id;
 
   return (
     <>
@@ -37,8 +35,8 @@ function Courses({ userId = null }) {
         className="custom_table"
         dataSource={[
           {
-            courseName: "Web Engineering",
-            date: "Mon 2019",
+            courseName: 'Web Engineering',
+            date: 'Mon 2019',
           },
         ]}
       />

@@ -1,5 +1,5 @@
 export let DOMAIN_PREFIX = "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const ROUTES = {
   SEARCH: {
@@ -260,9 +260,15 @@ export const ROUTES = {
     ADD: `add`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
     INFO: `info/*`,
+<<<<<<< HEAD
     BANK_DETAIL: "info/bankDetail/:id",
     BASIC_INFO: "info/basicInfo/:id",
     USER_LEAVES: "info/leaves/:id",
+=======
+    BANK_DETAIL: 'info/bankDetail/:id',
+    BASIC_INFO: 'info/basicInfo/:id',
+    USER_LEAVES: 'info/leaves/:id',
+>>>>>>> 4e5e2785f9cec577399a0a0aebc5762c05ff5617
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
@@ -320,11 +326,17 @@ export const ROUTES = {
     RESIGNATION: `${DOMAIN_PREFIX}/resignation`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
+<<<<<<< HEAD
   REQUISITIONS: {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
     ROOT: `${DOMAIN_PREFIX}/requisition`,
     REQUISITIONS: `${DOMAIN_PREFIX}/requisition`,
     DETAIL: `/detail`,
+=======
+  REQUISITION: {
+    DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+    REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+>>>>>>> 4e5e2785f9cec577399a0a0aebc5762c05ff5617
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
     APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
     CREATE_VOUCHERS: `${DOMAIN_PREFIX}/createasset`,
@@ -371,7 +383,6 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
     REQUISITION: `${DOMAIN_PREFIX}/requisition`,
     DETAIL: `${DOMAIN_PREFIX}/requisition/requisitionDetail/:id`,
-
     APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
   },
   //   EMPLOYEES: {
@@ -552,20 +563,24 @@ export const ROUTES = {
     },
   },
   MAIL: {
-    DEFAULT: `${DOMAIN_PREFIX}/mail`,
-    INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
-    STARRED: `${DOMAIN_PREFIX}/mail/starred`,
-    SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
-    ALL_MAIL: `${DOMAIN_PREFIX}/mail/all_mail`,
-    SPAM: `${DOMAIN_PREFIX}/mail/id=INBOX.spam`,
-    NOTES: `${DOMAIN_PREFIX}/mail/id=INBOX.Notes`,
-    ARCHIVE: `${DOMAIN_PREFIX}/mail/id=INBOX.Archive`,
-    SENT: `${DOMAIN_PREFIX}/mail/sent`,
-    TRASH: `${DOMAIN_PREFIX}/mail/trash`,
-    JUNK: `${DOMAIN_PREFIX}/mail/id=INBOX.Junk`,
-    DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
-    CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
-  },
+	DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
+	ROOT: `${DOMAIN_PREFIX}/mail`,
+	DETAIL: `/detail`,
+
+
+	INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
+	STARRED: `${DOMAIN_PREFIX}/mail/starred`,
+	SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
+	ALL_MAIL: `${DOMAIN_PREFIX}/mail/all_mail`,
+	SPAM: `${DOMAIN_PREFIX}/mail/id=INBOX.spam`,
+	NOTES: `${DOMAIN_PREFIX}/mail/id=INBOX.Notes`,
+	ARCHIVE: `${DOMAIN_PREFIX}/mail/id=INBOX.Archive`,
+	SENT: `${DOMAIN_PREFIX}/mail/sent`,
+	TRASH: `${DOMAIN_PREFIX}/mail/trash`,
+	JUNK: `${DOMAIN_PREFIX}/mail/id=INBOX.Junk`,
+	DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
+	CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
+},
   //commenttteddd
   // TASK: {
   //   DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,

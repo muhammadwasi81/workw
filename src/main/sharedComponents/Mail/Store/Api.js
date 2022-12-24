@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {MailServices} from "../../../../utils/services/MailServices/MailServices";
+import {MailServices} from "../../../features/mail/MailServices/MailServices";
 
 export const getMailFolders = createAsyncThunk(
     "mail/getMailFolders",

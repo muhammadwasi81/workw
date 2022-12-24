@@ -1,8 +1,8 @@
 import React from 'react';
 import {Select, Tag} from 'antd';
 
-const SearchAndSelectInput = ({handleGetSelected, placeholder}) => {
-    const [value, setValue] = React.useState(["meraj@mileta.com"]);
+const SearchAndSelectInput = ({handleGetSelected, placeholder, defaultValue, disabled}) => {
+    const [value, setValue] = React.useState([]);
     const [collapse, setCollapse] = React.useState(false);
 
     function validateEmail(email) {
@@ -40,6 +40,8 @@ const SearchAndSelectInput = ({handleGetSelected, placeholder}) => {
             mode={"tags"}
             showSearch
             allowClear
+            defaultValue={defaultValue}
+            disabled={disabled}
             placeholder={placeholder}
             onChange={handleChange}
             tagRender={tagRender}

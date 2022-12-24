@@ -94,6 +94,7 @@ export const ROUTES = {
   ASSETS: {
     DEFAULT: `${DOMAIN_PREFIX}/assets/*`,
     ROOT: `${DOMAIN_PREFIX}/assets`,
+    ASSETS: `${DOMAIN_PREFIX}/assets`,
     DETAIL: `/detail`,
   },
   ASSETS_TABLE_LIST: {
@@ -235,6 +236,7 @@ export const ROUTES = {
   REWARDS: {
     DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
     REWARD: `${DOMAIN_PREFIX}/rewards/`,
+    DETAILS: `${DOMAIN_PREFIX}/rewardDetails/:id`,
     APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
   },
   COMPLAINS: {
@@ -260,15 +262,9 @@ export const ROUTES = {
     ADD: `add`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
     INFO: `info/*`,
-<<<<<<< HEAD
     BANK_DETAIL: "info/bankDetail/:id",
     BASIC_INFO: "info/basicInfo/:id",
     USER_LEAVES: "info/leaves/:id",
-=======
-    BANK_DETAIL: 'info/bankDetail/:id',
-    BASIC_INFO: 'info/basicInfo/:id',
-    USER_LEAVES: 'info/leaves/:id',
->>>>>>> 4e5e2785f9cec577399a0a0aebc5762c05ff5617
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
@@ -326,17 +322,11 @@ export const ROUTES = {
     RESIGNATION: `${DOMAIN_PREFIX}/resignation`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
-<<<<<<< HEAD
   REQUISITIONS: {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
     ROOT: `${DOMAIN_PREFIX}/requisition`,
     REQUISITIONS: `${DOMAIN_PREFIX}/requisition`,
     DETAIL: `/detail`,
-=======
-  REQUISITION: {
-    DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
-    REQUISITION: `${DOMAIN_PREFIX}/requisition`,
->>>>>>> 4e5e2785f9cec577399a0a0aebc5762c05ff5617
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
     APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
     CREATE_VOUCHERS: `${DOMAIN_PREFIX}/createasset`,
@@ -372,6 +362,8 @@ export const ROUTES = {
   PROMOTION: {
     DEFAULT: `${DOMAIN_PREFIX}/promotions/*`,
     ROOT: `${DOMAIN_PREFIX}/promotions`,
+    PROMOTION: `${DOMAIN_PREFIX}/promotions`,
+
     DETAIL: `/detail`,
   },
   LEAVES: {
@@ -416,7 +408,7 @@ export const ROUTES = {
     DEFAULT_HIRING_CRITERIA: `defaultHiringCriteria`,
     SUBSIDIARY_OFFICE: `subsidiaryOffice`,
     SUBSIDIARY: `subsidiary`,
-    BUSINESS_POLICY: `businessPolicy`,
+    COMPANIES_POLICY: `companiesPolicy`,
     COMLAIN_CATEGORY: `complainCategory`,
     PAYROLL_GROUP: `payrollGroup`,
     ACCESSROLES: `accessroles`,
@@ -563,24 +555,23 @@ export const ROUTES = {
     },
   },
   MAIL: {
-	DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
-	ROOT: `${DOMAIN_PREFIX}/mail`,
-	DETAIL: `/detail`,
+    DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
+    ROOT: `${DOMAIN_PREFIX}/mail`,
+    DETAIL: `/detail`,
 
-
-	INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
-	STARRED: `${DOMAIN_PREFIX}/mail/starred`,
-	SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
-	ALL_MAIL: `${DOMAIN_PREFIX}/mail/all_mail`,
-	SPAM: `${DOMAIN_PREFIX}/mail/id=INBOX.spam`,
-	NOTES: `${DOMAIN_PREFIX}/mail/id=INBOX.Notes`,
-	ARCHIVE: `${DOMAIN_PREFIX}/mail/id=INBOX.Archive`,
-	SENT: `${DOMAIN_PREFIX}/mail/sent`,
-	TRASH: `${DOMAIN_PREFIX}/mail/trash`,
-	JUNK: `${DOMAIN_PREFIX}/mail/id=INBOX.Junk`,
-	DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
-	CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
-},
+    INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
+    STARRED: `${DOMAIN_PREFIX}/mail/starred`,
+    SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
+    ALL_MAIL: `${DOMAIN_PREFIX}/mail/all_mail`,
+    SPAM: `${DOMAIN_PREFIX}/mail/id=INBOX.spam`,
+    NOTES: `${DOMAIN_PREFIX}/mail/id=INBOX.Notes`,
+    ARCHIVE: `${DOMAIN_PREFIX}/mail/id=INBOX.Archive`,
+    SENT: `${DOMAIN_PREFIX}/mail/sent`,
+    TRASH: `${DOMAIN_PREFIX}/mail/trash`,
+    JUNK: `${DOMAIN_PREFIX}/mail/id=INBOX.Junk`,
+    DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
+    CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
+  },
   //commenttteddd
   // TASK: {
   //   DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,

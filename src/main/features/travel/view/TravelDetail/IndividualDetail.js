@@ -8,15 +8,13 @@ import TravelDetail from "./TravelDetail";
 
 function IndividualDetail(props) {
   const param = useParams();
-  const id = param.travelId;
-
-  const detailId = id ? id : props.travelId;
-  console.log(detailId);
+  const id = param.id;
+  const detailId = id ? id : props.id;
   return (
     <TabbableContainer>
       <ContBody>
         <div className="DetailContainer w-full">
-          <TravelDetail id={detailId} />
+          <TravelDetail travelId={detailId} />
         </div>
       </ContBody>
     </TabbableContainer>

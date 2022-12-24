@@ -1,26 +1,26 @@
 import {
   ContBody,
   TabbableContainer,
-} from '../../../sharedComponents/AppComponents/MainFlexContainer/index';
-import './stylesheet/NewsFeed.css';
-import './stylesheet/EventBox.css';
-import Header from './header';
-import PostComposer from './composer';
-import PostsList from './posts_list';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { useContext } from 'react';
-import { FeedDictionary } from '../localization';
-import Scheduler from '../../schedule/view/scheduler';
+} from "../../../sharedComponents/AppComponents/MainFlexContainer/index";
+import "./stylesheet/NewsFeed.css";
+import "./stylesheet/EventBox.css";
+import Header from "./header";
+import PostComposer from "./composer";
+import PostsList from "./posts_list";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { useContext } from "react";
+import { FeedDictionary } from "../localization";
+import Scheduler from "../../schedule/view/scheduler";
 import {
   defaultUiid,
   ReactionModuleEnum,
-} from '../../../../utils/Shared/enums/enums';
-import { PostReferenceType } from '../utils/constants';
-import QuickOptions from './quickOptions';
-import { Col, Row } from 'antd';
-import NewStickyNote from '../../notes/newStickyNotes/view/components/NewStickyNote';
-import { useSelector } from 'react-redux';
-import SingleNotes from '../../notes/singleNotes/singleNotes';
+} from "../../../../utils/Shared/enums/enums";
+import { PostReferenceType } from "../utils/constants";
+import QuickOptions from "./quickOptions";
+import { Col, Row } from "antd";
+import NewStickyNote from "../../notes/newStickyNotes/view/components/NewStickyNote";
+import { useSelector } from "react-redux";
+import SingleNotes from "../../notes/singleNotes/singleNotes";
 
 const NewsFeed = ({
   referenceType = PostReferenceType.MAIN_FEED,
@@ -28,7 +28,7 @@ const NewsFeed = ({
   reactionModule = ReactionModuleEnum.Feed,
   isScheduler = true,
   isCheckedIn,
-  width = '',
+  width = "",
   backButton,
   routeLink,
 }) => {
@@ -37,7 +37,6 @@ const NewsFeed = ({
   const stickyNotes = useSelector((state) => {
     return state.stickySlice.listArray;
   });
-  console.log(stickyNotes, 'stickyNotes');
   return (
     <TabbableContainer>
       <Header
@@ -67,14 +66,14 @@ const NewsFeed = ({
               <div
                 className="rt-col"
                 style={{
-                  display: 'block',
-                  height: 'auto',
-                  minHeight: 'auto',
+                  display: "block",
+                  height: "auto",
+                  minHeight: "auto",
                 }}
               >
                 <>
                   <QuickOptions />
-                  <div className="schedule" style={{ height: '60%' }}>
+                  <div className="schedule" style={{ height: "60%" }}>
                     <Scheduler feed={true} />
                   </div>
                 </>

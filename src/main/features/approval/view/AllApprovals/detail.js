@@ -14,6 +14,9 @@ import SalaryDetailCard from "../../../salary/view/SalaryList/salaryDetailCard";
 import TravelDetail from "../../../travel/view/TravelDetail/TravelDetail";
 import WarningDetail from "../../../warning/view/DetailCard";
 import AssetsDetail from "../../../assets/view/assetsDetailedCard";
+import LeaveDetail from "../../../leave/view/DetailCard";
+import ResignationDetail from "../../../resignation/view/detailCard";
+import AppraisalDetail from "../../../appraisalModule/view/components/DetailedCard";
 
 export default function ApprovalDetail({ approvalDetailData }) {
   const panes = () => {
@@ -65,6 +68,21 @@ export default function ApprovalDetail({ approvalDetailData }) {
 
       case ApprovalsModule.AssetApproval:
         return <AssetsDetail id={id} />;
+
+      case ApprovalsModule.LeaveApproval:
+        return <LeaveDetail id={id} />;
+
+      case ApprovalsModule.ResignationAdminApproval:
+      case ApprovalsModule.ResignationExitApproval:
+      case ApprovalsModule.ResignationFinanceApproval:
+      case ApprovalsModule.ResignationHrApproval:
+      case ApprovalsModule.ResignationItApproval:
+      case ApprovalsModule.ResignationOtherApproval:
+      case ApprovalsModule.ResignationReportingToApproval:
+        return <ResignationDetail id={id} />;
+
+      case ApprovalsModule.AppraisalApproval:
+        return <AppraisalDetail id={id} />;
 
       default:
         return <></>;

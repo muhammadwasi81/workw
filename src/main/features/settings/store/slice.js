@@ -32,7 +32,6 @@ const settingSlice = createSlice({
       .addCase(updateEmployeeEmailAction.fulfilled, (state, { payload }) => {
         state.settings = payload.data;
         state.loader = false;
-        console.log(payload.data);
       })
       .addCase(updateEmployeePhoneAction.fulfilled, (state, { payload }) => {
         state.settings = payload.data;

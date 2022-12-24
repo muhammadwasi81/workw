@@ -99,6 +99,8 @@ import bankInfoSlice from "../main/features/bankDetails/store/slice";
 import employeeSalarySlice from "../main/features/salary/view/SalaryEmployee/action/slice";
 import mailSlice from "../main/features/mail/Store/MailSlice";
 import settingSlice from "../main/features/settings/store/slice";
+import eLearningSlice from "../main/features/eLearning/store/slice";
+import ELearningCategorySlice from "../main/features/eLearningCategory/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -142,7 +144,7 @@ const reducers = combineReducers({
   general: generalSlice,
   // documentsSlice,
   gradeSlice,
-  // ELearningCategorySlice,
+  ELearningCategorySlice,
   emailConfigurationSlice,
   salaryHeaderSlice,
   // taxSlabSlice,

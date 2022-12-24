@@ -10,6 +10,8 @@ function SingleItem({ data }) {
 		navigate(`/user/${id}`);
 	};
 
+	console.log(data, "datadatadatadata");
+
 	return data.map(item => {
 		return (
 			<div

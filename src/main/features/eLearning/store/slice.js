@@ -4,13 +4,13 @@ import { addBook, addCourse, getAllBook, getAllCourse } from "./action";
 const initialState = {
   listLoading: false,
   isOpenComposers: {
-    category: false,
+    // category: false,
     courses: false,
     ebook: false,
-    quizz: false,
-    tedtalks: false,
-    article: false,
-    videos: false,
+    // quizz: false,
+    // tedtalks: false,
+    // article: false,
+    // videos: false,
   },
   composersInitState: {
     category: {},

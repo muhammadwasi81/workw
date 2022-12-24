@@ -33,3 +33,14 @@ export const getExpenseByIDService = (request) => {
       return err;
     });
 };
+
+// export const getExpenseDefaultApprovalService = (args) => {
+//   console.log(args, "argumentsss");
+//   return AxiosConfig.get(`api/DefaultApproval/GetAllDefaultApproval`, args)
+//     .then((res) => {
+//       return res.data;
+//     })
+//     .catch((err) => {
+//       return err;
+//     });
+// };

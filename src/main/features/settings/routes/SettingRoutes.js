@@ -9,6 +9,7 @@ function SettingRoutes() {
     <>
       <div className="updateFormsBody w-full">
         <Routes>
+          <Route path="/" element={<ChangePassword />} />
           <Route path="changePassword/" element={<ChangePassword />} />
           <Route path="basicInfo/" element={<BasicInfo />} />
           <Route path="*" element={BrokenPage} />

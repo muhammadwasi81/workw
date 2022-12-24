@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import Composer from "./Composer";
 import { Form, Collapse } from "antd";
@@ -17,6 +17,8 @@ import { FormContainer } from "../../../sharedComponents/StyledComponents/adminF
 import { FormHeader } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import { handleEdit } from "../store/slice";
 import { tableColumns } from "./TableColumn";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
 
 const { Panel } = Collapse;
 
@@ -29,6 +31,11 @@ const BusinessPolicy = () => {
   const [form] = Form.useForm();
   const [id, setId] = useState("");
   const dispatch = useDispatch();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { sharedLabels, Direction, administration } = dictionaryList[
+    userLanguage
+  ];
+  const { taxSlab } = administration;
 
   const { loader: loading, success, items, editData } = useSelector(
     (state) => state.taxSlabGroupSlice
@@ -101,7 +108,7 @@ const BusinessPolicy = () => {
                       >
                         <div>
                           <Table
-                            columns={tableColumn()}
+                            columns={tableColumns()}
                             dragable={true}
                             data={item.taxSlab && item.taxSlab}
                           />

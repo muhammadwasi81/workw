@@ -25,7 +25,6 @@ export default function AppraisalForm({
 }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, appraisal, Direction } = dictionaryList[userLanguage];
-  console.log("jkjll", administration);
 
   const [form, setForm] = useState(data);
 

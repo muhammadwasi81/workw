@@ -16,13 +16,14 @@ import { getAllEmployees, getRewardCategory } from "../../../../../utils/Shared/
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 import { addBook } from "../../store/action";
+import FileUploader from "../../../Messenger/view/MessengerBox/components/fileUploader";
 
 const { Option } = Select;
 
 function CreateEbook() {
   const dispatch = useDispatch()
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, elearningDictionary } = elearningDictionaryList[ userLanguage  ];
+  const { Direction, elearningDictionary } = elearningDictionaryList[userLanguage];
 
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
@@ -34,9 +35,9 @@ function CreateEbook() {
   const [value, setValue] = useState([]);
 
   const { rewardCategories } = useSelector((state) => state.sharedSlice);
-  const { loader, success } = useSelector((state) => state.eLearningSlice);
+  const { loaders, success } = useSelector((state) => state.eLearningSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
-
+  let loader = loaders.addBookLoading
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -73,8 +74,8 @@ function CreateEbook() {
   }, []);
 
   const onPrivacyChange = value => {
-		setPrivacyId(value);
-	};
+    setPrivacyId(value);
+  };
 
   const handleImageUpload = (data) => {
     setProfileImage(data);
@@ -144,6 +145,8 @@ function CreateEbook() {
     } else {
       dispatch(addBook(dataObject))
     }
+    setProfileImage([])
+    setPdf([])
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -156,11 +159,13 @@ function CreateEbook() {
     }
   }, [success]);
 
+  console.log(profileImage, "profileImage")
+
   return (
-      <DashboardLayout>
+    <DashboardLayout>
       <MainContainer className="AddCourseMainContainer">
-      <Heading>Create E-Book</Heading>
-      <Form
+        <Heading>Create E-Book</Heading>
+        <Form
           form={form}
           name="addCourse"
           labelCol={{
@@ -174,82 +179,82 @@ function CreateEbook() {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-        <FormContainer>
-          <div className="flex">
-            <div className="innerColumn">
-              <Form.Item
-                label={"Select Category"}
-                name="categoryId"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Select Category",
-                  },
-                ]}
-              >
-                <CustomSelect
-                  data={rewardCategories}
-                  placeholder={"Select Categoy"}
-                  style={{
-                    width: "100%",
-                    borderRadius: "5px",
-                  }}
-                  size="large"
-                />
-            </Form.Item>
+          <FormContainer>
+            <div className="flex">
+              <div className="innerColumn">
+                <Form.Item
+                  label={"Select Category"}
+                  name="categoryId"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please Select Category",
+                    },
+                  ]}
+                >
+                  <CustomSelect
+                    data={rewardCategories}
+                    placeholder={"Select Categoy"}
+                    style={{
+                      width: "100%",
+                      borderRadius: "5px",
+                    }}
+                    size="large"
+                  />
+                </Form.Item>
+              </div>
             </div>
-          </div>
-          <div className="flex">
-            <div className="innerColumn">
-              <Form.Item
-                label={"Name"}
-                name="name"
-                labelPosition="top"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Enter Name",
-                  },
-                ]}
-              >
-              <TextInput placeholder={"Enter Name"} />
-            </Form.Item>
+            <div className="flex">
+              <div className="innerColumn">
+                <Form.Item
+                  label={"Name"}
+                  name="name"
+                  labelPosition="top"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please Enter Name",
+                    },
+                  ]}
+                >
+                  <TextInput placeholder={"Enter Name"} />
+                </Form.Item>
+              </div>
+              <div className="innerColumn">
+                <Form.Item
+                  label={"Athor Name"}
+                  name="athorName"
+                  labelPosition="top"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please Enter Name",
+                    },
+                  ]}
+                >
+                  <TextInput placeholder={"Enter Name"} />
+                </Form.Item>
+              </div>
             </div>
-            <div className="innerColumn">
-            <Form.Item
-                label={"Athor Name"}
-                name="athorName"
-                labelPosition="top"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Enter Name",
-                  },
-                ]}
-              >
-              <TextInput placeholder={"Enter Name"} />
-            </Form.Item>
+            <div className="flex">
+              <div className="innerColumn">
+                <Form.Item
+                  label={"Information"}
+                  name="informataion"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Enter Information",
+                    },
+                  ]}
+                >
+                  <Input.TextArea placeholder={"Enter Information"} />
+                </Form.Item>
+              </div>
             </div>
-          </div>
-          <div className="flex">
-          <div className="innerColumn">
-              <Form.Item
-              label={"Information"}
-              name="informataion"
-              rules={[
-                {
-                  required: true,
-                  message: "Enter Information",
-                },
-              ]}
-            >
-              <Input.TextArea placeholder={"Enter Information"} />
-          </Form.Item>
-            </div>
-          </div>
-          <div className="flex" style={{marginTop: "15px"}}>
-            <div className="innerColumn">
-              <Form.Item
+            <div className="flex" style={{ marginTop: "15px" }}>
+              <div className="innerColumn">
+                <Form.Item
                   name="members"
                   label={"Members"}
                   showSearch={true}
@@ -293,113 +298,107 @@ function CreateEbook() {
                         message: "Please Select Member",
                       },
                     ]}
-                />
-              </Form.Item>
+                  />
+                </Form.Item>
               </div>
-            <div className="innerColumn">
-            <Form.Item
-                name="assignMembers"
-                label={"Assign Members"}
-                showSearch={true}
-                direction={Direction}
-                style={{ marginBottom: "0px" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Select Assign Member",
-                  },
-                ]}
-              >
-                <CustomSelect
-                  style={{ marginBottom: "0px" }}
-                  data={firstTimeEmpData}
-                  selectedData={selectedData}
-                  canFetchNow={isFirstTimeDataLoaded}
-                  fetchData={fetchEmployees}
-                  placeholder={"Select Assign Member"}
-                  size="large"
-                  mode={"multiple"}
-                  isObject={true}
-                  loadDefaultData={false}
-                  optionComponent={(opt) => {
-                    return (
-                      <>
-                        <Avatar name={opt.name} src={opt.image} className="!bg-black">
-                          {getNameForImage(opt.name)}
-                        </Avatar>
-                        {opt.name}
-                      </>
-                    );
-                  }}
-                  dataVal={value}
+              <div className="innerColumn">
+                <Form.Item
                   name="assignMembers"
+                  label={"Assign Members"}
                   showSearch={true}
                   direction={Direction}
+                  style={{ marginBottom: "0px" }}
                   rules={[
                     {
                       required: true,
                       message: "Please Select Assign Member",
                     },
                   ]}
-              />
-            </Form.Item>
-            </div>
-            </div>
-          <div className="innerColumn">
-          <Form.Item
-            label={"Description"}
-            name="description"
-            rules={[
-              {
-                required: true,
-                message: "Enter Description",
-              },
-            ]}
-          >
-            <Input.TextArea placeholder={"Enter Description"} style={{height: "50px"}} />
-          </Form.Item>
-          <div className="flex"> 
-            <Form.Item area="true">
-              <SingleUpload
-                handleImageUpload={handleImageUpload}
-                img="Add Image"
-                position="flex-start"
-                uploadText={"Image"}
-                accept="image/*"
-              />
-            </Form.Item>
-            <Form.Item area="true">
-              <SingleUpload
-                handleImageUpload={handlePdfUpload}
-                img="Add Image"
-                position="flex-start"
-                uploadText={"Attachment"}
-                accept=".pdf"
-              />
-            </Form.Item>
-          </div>
-          </div>
-        </FormContainer>
-        <Form.Item>
-                <div className="flex items-center gap-2">
-                  <PrivacyOptions
-                    privacyId={privacyId}
-                    onPrivacyChange={onPrivacyChange}
+                >
+                  <CustomSelect
+                    style={{ marginBottom: "0px" }}
+                    data={firstTimeEmpData}
+                    selectedData={selectedData}
+                    canFetchNow={isFirstTimeDataLoaded}
+                    fetchData={fetchEmployees}
+                    placeholder={"Select Assign Member"}
+                    size="large"
+                    mode={"multiple"}
+                    isObject={true}
+                    loadDefaultData={false}
+                    optionComponent={(opt) => {
+                      return (
+                        <>
+                          <Avatar name={opt.name} src={opt.image} className="!bg-black">
+                            {getNameForImage(opt.name)}
+                          </Avatar>
+                          {opt.name}
+                        </>
+                      );
+                    }}
+                    dataVal={value}
+                    name="assignMembers"
+                    showSearch={true}
+                    direction={Direction}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please Select Assign Member",
+                      },
+                    ]}
                   />
-                  <Button
-                    type="primary"
-                    size="medium"
-                    className="ThemeBtn"
-                    block
-                    htmlType="submit"
-                    title={"Create"}
-                    loading={loader}
-                  >
-                    {" "}
-                    {"Create"}{" "}
-                  </Button>
-                </div>
-        </Form.Item>
+                </Form.Item>
+              </div>
+            </div>
+            <div className="innerColumn">
+              <Form.Item
+                label={"Description"}
+                name="description"
+                rules={[
+                  {
+                    required: true,
+                    message: "Enter Description",
+                  },
+                ]}
+              >
+                <Input.TextArea placeholder={"Enter Description"} style={{ height: "50px" }} />
+              </Form.Item>
+              <div className="flex">
+                <FileUploader
+                  fileList={profileImage ? profileImage : []}
+                  uploadButton={<button>Cover Photo</button>}
+                  handleUpload={handleImageUpload} 
+                  classes=""
+                  />
+                   <FileUploader
+                  fileList={pdf ? pdf : []}
+                  uploadButton={<button>Upload Book</button>}
+                  handleUpload={handlePdfUpload} 
+                  classes="" 
+                  />
+              </div>
+            </div>
+          </FormContainer>
+          <Form.Item>
+            <div className="flex items-center gap-2">
+              <PrivacyOptions
+                privacyId={privacyId}
+                onPrivacyChange={onPrivacyChange}
+              />
+              <Button
+                type="primary"
+                size="medium"
+                className="ThemeBtn"
+                block
+                htmlType="submit"
+                title={"Create"}
+                loading={loader}
+              >
+                {" "}
+                {"Create"}{" "}
+              </Button>
+            </div>
+          </Form.Item>
         </Form>
       </MainContainer>
     </DashboardLayout>

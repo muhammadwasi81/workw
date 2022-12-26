@@ -13,7 +13,7 @@ export default function ELearningCategory() {
 
 
   const dispatch = useDispatch();
-  const { loader } = useSelector((state) => state.ELearningCategorySlice);
+  const { loader } = useSelector((state) => state.eLearningCategorySlice);
 
   const handleDelete = (e) => {
     dispatch(removeELearningCategory(e));

@@ -18,7 +18,8 @@ import gradeSlice from "../main/features/grade/store/slice";
 import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
 // import taxSlabSlice from '../main/features/taxSlabs/store/slice';
 import taxSlabGroupSlice from "../main/features/taxSlabs/store/slice";
-// import eLearningSlice from "../main/features/eLearning/store/slice";
+import eLearningSlice from "../main/features/eLearning/store/slice";
+import eLearningCategorySlice from "../main/features/eLearningCategory/store/slice";
 import subsidiarySlice from "../main/features/subsidiary/store/slice";
 import quotationSlice from "../main/features/quotation/store/slice";
 import subsidiaryOfficeSlice from "../main/features/subsidiaryOffice/store/slice";
@@ -99,7 +100,6 @@ import bankInfoSlice from "../main/features/bankDetails/store/slice";
 import employeeSalarySlice from "../main/features/salary/view/SalaryEmployee/action/slice";
 import mailSlice from "../main/features/mail/Store/MailSlice";
 import settingSlice from "../main/features/settings/store/slice";
-import eLearningSlice from "../main/features/eLearning/store/slice";
 import ELearningCategorySlice from "../main/features/eLearningCategory/store/slice";
 // import thunk from "redux-thunk";
 
@@ -144,7 +144,7 @@ const reducers = combineReducers({
   general: generalSlice,
   // documentsSlice,
   gradeSlice,
-  ELearningCategorySlice,
+  eLearningCategorySlice,
   emailConfigurationSlice,
   salaryHeaderSlice,
   // taxSlabSlice,

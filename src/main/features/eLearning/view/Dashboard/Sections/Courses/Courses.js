@@ -10,7 +10,12 @@ function Courses() {
 	const dispatch = useDispatch()
 	const [filter, setFilter] = useState({ pageNo: 1, pageSize: 20, search: "", sortBy: 1   })
 
-	const { courses, loader } = useSelector((state) => state.eLearningSlice);
+	const { 
+		loaders, 
+		courses
+	} = useSelector((state) => 
+		state.eLearningSlice)
+	let loading = loaders.courseLoading;
 
 	useEffect(() => {
 		dispatch(getAllCourse(filter))
@@ -19,13 +24,13 @@ function Courses() {
 	return (
 		<>	
 			<div 
-				className={"grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mb-2"}>
-			{   loader ? 
+				className={loading || courses?.length > 0 ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mb-2" : !loading && ""}>
+			{   loading ? 
 					<ThumbnailSkeleton count={[1,2]} /> :
 					courses?.length > 0 ? courses.map((item) => {
 					return <CourseCard data={item} />
 				}) :  
-				!loader && <> <NoDataFound /></>
+				!loading && <> <NoDataFound /></>
 			}
 			</div>
 		</>

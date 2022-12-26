@@ -23,6 +23,7 @@ export default function Form({
   const [form, setForm] = useState(data);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { complainDictionary } = complainDictionaryList[userLanguage];
+
   const handleClear = (e) => {
     setForm({ ...form, description: "", name: "" });
     setClearButton(false);

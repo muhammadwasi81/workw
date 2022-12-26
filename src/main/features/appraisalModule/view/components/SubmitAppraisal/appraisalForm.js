@@ -106,21 +106,31 @@ const AppraisalForm = (props) => {
 
   const onFinish = (values) => {
     // console.log("Success:", values);
+    console.log("onfinish");
     if (employeeSalary?.basicSalary) {
       console.log("if block");
       let salary;
       let bonus;
 
       if (values.incrementRadio === 1) {
+        //1 percent 2 amount
         salary = {
           id: createGuid(),
           userId: props.userId,
-          basicSalary: values.incrementAmount
-            ? parseInt(employeeSalary?.basicSalary) +
-              parseInt(values.incrementAmount)
-            : parseInt(employeeSalary?.basicSalary) +
-              parseInt(employeeSalary?.basicSalary) /
-                parseInt(values.incrementPercent),
+          basicSalary:
+            incrementType === 2
+              ? parseInt(employeeSalary?.basicSalary) +
+                parseInt(values.incrementAmount)
+              : parseInt(employeeSalary?.basicSalary) +
+                (parseInt(employeeSalary?.basicSalary) *
+                  parseInt(values.incrementPercent)) /
+                  100,
+          // basicSalary: values.incrementAmount
+          //   ? parseInt(employeeSalary?.basicSalary) +
+          //     parseInt(values.incrementAmount)
+          //   : parseInt(employeeSalary?.basicSalary) +
+          //     parseInt(employeeSalary?.basicSalary) /
+          //       parseInt(values.incrementPercent),
           approvers: modifySelectData(values.incrementApprover).map((el) => {
             return {
               approverId: el,
@@ -134,8 +144,8 @@ const AppraisalForm = (props) => {
           id: createGuid(),
           memberId: props.userId,
           type: values.bonusPercent ? 1 : 2,
-          value: values.bonusPercent ? values.bonusPercent : values.bonusAmount,
-          // amount: ,
+          value: bonusType === 1 ? values.bonusPercent : "",
+          amount: bonusType === 2 ? values.bonusAmount : "",
           approvers: modifySelectData(values.bonusApprovers).map((el) => {
             return {
               approverId: el,
@@ -433,7 +443,7 @@ const AppraisalForm = (props) => {
 
                 <Form.Item
                   name="bonusApprovers"
-                  // label={"Approver"}
+                  label={"Bonus Approver"}
                   showSearch={true}
                   rules={[{ required: true }]}
                 >
@@ -533,7 +543,7 @@ const AppraisalForm = (props) => {
                 )}
                 <Form.Item
                   name="incrementApprover"
-                  // label={"Approver"}
+                  label={"Increment Approver"}
                   showSearch={true}
                   rules={[{ required: true }]}
                 >

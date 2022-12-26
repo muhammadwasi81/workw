@@ -17,9 +17,6 @@ import {
 } from '../../../../utils/Shared/enums/enums';
 import { PostReferenceType } from '../utils/constants';
 import QuickOptions from './quickOptions';
-import { Col, Row } from 'antd';
-import { useSelector } from 'react-redux';
-import SingleNotes from '../../notes/singleNotes/singleNotes';
 
 const NewsFeed = ({
   referenceType = PostReferenceType.MAIN_FEED,
@@ -33,7 +30,6 @@ const NewsFeed = ({
 }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = FeedDictionary[userLanguage];
-
   return (
     <TabbableContainer>
       <Header
@@ -42,48 +38,39 @@ const NewsFeed = ({
         backButton={backButton}
         routeLink={routeLink}
       />
-      <Row gutter={16}>
-        <Col lg={18} xs={24} md={18}>
-          <ContBody style={{ direction: Direction }} className={width && width}>
-            <div className="lf-col" style={{ direction: Direction }}>
-              <div className="newsFeed">
-                <PostComposer
-                  referenceType={referenceType}
-                  referenceId={referenceId}
-                />
+      <ContBody style={{ direction: Direction }} className={width && width}>
+        <div className="lf-col" style={{ direction: Direction }}>
+          <div className="newsFeed">
+            <PostComposer
+              referenceType={referenceType}
+              referenceId={referenceId}
+            />
 
-                <PostsList
-                  referenceType={referenceType}
-                  referenceId={referenceId}
-                  reactionModule={reactionModule}
-                />
-              </div>
-            </div>
-            {isScheduler && (
-              <div
-                className="rt-col"
-                style={{
-                  display: 'block',
-                  height: 'auto',
-                  minHeight: 'auto',
-                }}
-              >
-                <>
-                  <QuickOptions />
-                  <div className="schedule" style={{ height: '60%' }}>
-                    <Scheduler feed={true} />
-                  </div>
-                </>
-              </div>
-            )}
-          </ContBody>
-        </Col>
-        <Col lg={6} xs={24} md={6}>
-          <div>
-            <SingleNotes />
+            <PostsList
+              referenceType={referenceType}
+              referenceId={referenceId}
+              reactionModule={reactionModule}
+            />
           </div>
-        </Col>
-      </Row>
+        </div>
+        {isScheduler && (
+          <div
+            className="rt-col"
+            style={{
+              display: 'block',
+              height: 'auto',
+              minHeight: 'auto',
+            }}
+          >
+            <>
+              <QuickOptions />
+              <div className="schedule" style={{ height: '60%' }}>
+                <Scheduler feed={true} />
+              </div>
+            </>
+          </div>
+        )}
+      </ContBody>
     </TabbableContainer>
   );
 };

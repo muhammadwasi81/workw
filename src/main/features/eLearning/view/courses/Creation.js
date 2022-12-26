@@ -1,32 +1,34 @@
 import React, { useContext } from "react";
-import DashboardLayout from "../Layout/DashboardLayout";
-import { elearningDictionaryList } from "../../../localization/index";
-import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import DashboardLayout from "../Dashboard/Layout/DashboardLayout";
+import { elearningDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { FormContainer, Heading, MainContainer } from "./styleObjects";
 import "./style.css"
 import { Avatar, Button, Form, Input, message, Select } from "antd";
-import TextInput from "../../../../../sharedComponents/Input/TextInput";
-import SingleUpload from "../../../../../sharedComponents/Upload/singleUpload";
+import TextInput from "../../../../sharedComponents/Input/TextInput";
+import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { useState } from "react";
-import { STRINGS, getNameForImage } from "../../../../../../utils/base";
+import { STRINGS, getNameForImage } from "../../../../../utils/base";
 import { useSelector } from "react-redux";
-import CustomSelect from "../../../../../sharedComponents/Select/Select";
-import { getAllEmployees, getRewardCategory } from "../../../../../../utils/Shared/store/actions";
+import CustomSelect from "../../../../sharedComponents/Select/Select";
+import { getAllEmployees, getRewardCategory } from "../../../../../utils/Shared/store/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { CourseOptionsEnum, FileTypeEnum, LevelEnum, TypeEnum } from "../../../constant";
-import PrivacyOptions from "../../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
-import { PostPrivacyType } from "../../../../../../utils/Shared/enums/enums";
-import { addSection, addTopic } from "../../../store/slice";
-import { Table } from "../../../../../sharedComponents/customTable";
+import { CourseOptionsEnum, FileTypeEnum, LevelEnum, TypeEnum } from "../../constant";
+import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
+import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
+import { addSection, addTopic } from "../../store/slice";
+import { Table } from "../../../../sharedComponents/customTable";
 import { tableColumn } from "./topicColumn";
-import { addCourse } from "../../../store/action";
+import { addCourse } from "../../store/action";
 import CurriculumCollapse from "./curriculumCollapse";
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
 function CreateCourse() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, elearningDictionary } = elearningDictionaryList[ userLanguage  ];
 
@@ -43,7 +45,7 @@ function CreateCourse() {
   const [value, setValue] = useState([]);
 
   const { rewardCategories } = useSelector((state) => state.sharedSlice);
-  const { topics, sections, loader } = useSelector((state) => state.eLearningSlice);
+  const { topics, sections, loader, success } = useSelector((state) => state.eLearningSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   const selectedData = (data, obj) => {
@@ -180,6 +182,12 @@ function CreateCourse() {
   const handleAddSection = ((e) => {
     dispatch(addSection({topics, name: curriculumName, description: "dummy content" }))
   })
+
+  useEffect(() => {
+    if (success) {
+      form.resetFields();
+    }
+  }, [success]);
 
   return (
       <DashboardLayout>

@@ -26,10 +26,10 @@ const composerBtnStyle = {
   float: "right",
   marginRight: "7px",
   marginLeft: "7px",
-  marginBottom: "10px"
+  marginBottom: "10px",
 };
 const ComposeMailBox = ({
-  instance: { id, isMax, isMinimize },
+  instance: { id, isMax, isMinimize, isReply, isForward, data = {} },
   i,
   handleMaxToMin,
   handleMinimize,
@@ -44,9 +44,7 @@ const ComposeMailBox = ({
   const [selectedTOEmail, setSelectedTOEmail] = useState([]);
   const [selectedBcEmail, setSelectedBcEmail] = useState([]);
   const [selectedCcEmail, setSelectedCcEmail] = useState([]);
-  const [loading, setLoading] = useState([]);
-
-
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
   const toolbarOptions = [
@@ -68,16 +66,16 @@ const ComposeMailBox = ({
     });
     setQuillInstance(quillInstance);
   }, []);
+  useEffect(() => {
+    if (isReply)
+      setSelectedTOEmail(data?.from.map(item => item.address))
+  }, [])
 
+  const handleToMailSelected = (arr) => setSelectedTOEmail(arr);
 
-  const handleToMailSelected = (arr) =>
-    setSelectedTOEmail(arr)
+  const handleBccMailSelected = (arr) => setSelectedBcEmail(arr);
 
-  const handleBccMailSelected = (arr) =>
-    setSelectedBcEmail(arr)
-
-  const handleCcMailSelected = (arr) =>
-    setSelectedCcEmail(arr)
+  const handleCcMailSelected = (arr) => setSelectedCcEmail(arr);
 
   function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -126,17 +124,12 @@ const ComposeMailBox = ({
     }
     if (!dataObj.subject) {
       valid.error = true;
-      valid.message += `\nSubject Required.`
+      valid.message += `\nSubject Required.`;
     }
     return valid;
   };
   const onFinish = (val) => {
     val.content = `${QuillInstance.root.innerHTML}`;
-
-    console.log(selectedTOEmail, "selectedTOEmail")
-    console.log(selectedCcEmail, "selectedCc")
-    console.log(selectedBcEmail, "selectedBc")
-
     const dataObj = {
       id: 0,
       to: selectedTOEmail
@@ -172,30 +165,64 @@ const ComposeMailBox = ({
     let validate = isValidate(dataObj);
     if (validate.error) {
       //here we get the validation error
-      dispatch(openNotification({
-        type: "error",
-        message: validate.message
-      }))
+      dispatch(
+        openNotification({
+          type: "error",
+          message: validate.message,
+        })
+      );
       // alert(validate.message);
     } else {
       //Here we hit the send mail api
-      console.log(dataObj, val);
-
-
-      message.loading("Action in progress..", 5, async () => {
+      setLoading(true);
+      message.loading("Email Sending..", 2, async () => {
         try {
           const resultAction = await dispatch(composeMail(dataObj));
           const originalPromiseResult = unwrapResult(resultAction);
           if (originalPromiseResult?.data) {
             message.success("Email Sent Successfully.");
+            dispatch(handleMailComposerClose(id));
+            setLoading(false);
           }
-        } catch (rejectedValueOrSerializedError) { }
+        } catch (rejectedValueOrSerializedError) {
+          setLoading(false);
+          message.error("Error on mail sending");
+        }
       });
     }
   };
 
   const handleCloseComposer = () => {
     dispatch(handleMailComposerClose(id));
+  };
+
+  const getDefaultSubject = () => {
+    if (isReply)
+      return data.subject.toLocaleLowerCase().startsWith("re") ? data.subject : "RE : " + data.subject;
+    else if (isForward)
+      return data.subject.toLocaleLowerCase().startsWith("fw") ? data.subject : "FW : " + data.subject;
+    else
+      return ""
+  }
+  const makeReplyBody = (content) => {
+    let updatedContent = "";
+    let replyLine = "<h4><strong>=======================================================</strong></h4>";
+    updatedContent += content;
+    updatedContent += replyLine;
+    return updatedContent;
+  };
+  const makeForwardBody = (content) => {
+    let updatedContent = "";
+    updatedContent += content;
+    return content;
+  };
+  const getDefaultBody = () => {
+    if (isReply)
+      return makeReplyBody(data.content);
+    else if (isForward)
+      return data.content;
+    else
+      return ""
   };
 
   return (
@@ -265,16 +292,20 @@ const ComposeMailBox = ({
             flexDirection: "column",
             justifyContent: "space-evenly",
           }}
+          initialValues={{
+            subject: getDefaultSubject()
+          }}
         >
           <Form.Item>
             <SearchAndSelectInput
               handleGetSelected={handleToMailSelected}
               placeholder={"To"}
+              // disabled={isReply}
+              defaultValue={isReply ? data.from.map(item => item.address) : []}
             />
           </Form.Item>
 
           {/* <EmailMemberSelect /> */}
-
 
           {isBcc && (
             <Form.Item>
@@ -300,6 +331,8 @@ const ComposeMailBox = ({
               prefix={null}
               size={"middle"}
               style={{ borderRadius: 4, outline: "none" }}
+              // disabled={isReply}
+            // defaultValue={getDefaultSubject}
             />
           </Form.Item>
 
@@ -345,6 +378,9 @@ const ComposeMailBox = ({
                 border: "1px solid #d9d9d9 !important",
                 borderRadius: 4,
               }}
+              dangerouslySetInnerHTML={{
+                __html: getDefaultBody()
+              }}
             />
           </div>
 
@@ -353,6 +389,7 @@ const ComposeMailBox = ({
               htmlType="submit"
               type="default"
               title={"Send"}
+              loading={loading}
               style={composerBtnStyle}
               buttonClass={"btn-hover"}
             />

@@ -75,7 +75,7 @@ function Careers() {
   }, [CurrentTab, search, sort]);
 
   let RenderTab = {
-    careers: <MyCareerCard view={view} />,
+    careers: <CareerCard view={view} />,
     myCareers: <MyCareerCard view={view} />,
     forApprovals: <ForApprovalCard view={view} />,
   };

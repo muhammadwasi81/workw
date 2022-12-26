@@ -20,7 +20,7 @@ const quickAddSlice = createSlice({
       state.isOpen = false;
     },
     addInList: (state, { payload }) => {
-      state.items = [...state.items, payload]; 
+      state.items = [...state.items, payload];
     },
     deleteItem: (state, { payload }) => {
       let index = payload;
@@ -34,8 +34,11 @@ const quickAddSlice = createSlice({
       state.editData = payload;
     },
     handleSave: (state, { payload }) => {
+      let newPayload = { ...payload };
+      delete newPayload["index"];
+      console.log(newPayload, payload);
       state.editData = null;
-      state.items.splice(payload.index, 1, payload);
+      state.items.splice(payload.index, 1, newPayload);
     },
   },
   extraReducers: (builder) => {

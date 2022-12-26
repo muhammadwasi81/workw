@@ -6,7 +6,7 @@ const MailDetailView = () => {
 
   return (
     <>
-      <MailBodyHeader />
+      {/* <MailBodyHeader /> */}
       <MailDetail />
     </>
   );

@@ -22,16 +22,13 @@ const RequestDetailCard = (props) => {
     userLanguage
   ];
   const dispatch = useDispatch();
-  const requestDetails = useSelector((state) => state.requestItemSlice);
-
+  const { requestDetails } = useSelector((state) => state.requestItemSlice);
+  console.log(requestDetails, "requestDetailssss");
   useEffect(() => {
     if (props.id) dispatch(getRequestListItemsById(props.id));
   }, [props.id]);
 
-  console.log("myLoadinDataaaa", requestDetails.loadingData);
-  console.log(requestDetails, "requestDetails");
-
-  // if (!requestDetails) return <></>;
+  if (!requestDetails) return <></>;
   const creator = {
     businessId: "cfe50d8d-7c47-4abb-9154-661daf129cec"
       ? "cfe50d8d-7c47-4abb-9154-661daf129cec"
@@ -47,7 +44,7 @@ const RequestDetailCard = (props) => {
     createDate: moment(),
   };
   if (requestDetails.loadingData) return <Skeleton />;
-
+  console.log(requestDetails.loadingData, "loading dataaa");
   return (
     <SingleItem onClick={props.onClick}>
       <ItemHeader>

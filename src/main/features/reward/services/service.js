@@ -30,7 +30,7 @@ export const GetRewardByIdService = (id) => {
     .catch((res) => {
       return res;
     });
-};
+}; 
 
 export const cancelRewardService = (data) => {
   const formData = jsonToFormData(data);

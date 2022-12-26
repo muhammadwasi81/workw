@@ -1,5 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {MailServices} from "../../../../utils/services/MailServices/MailServices";
+import { jsonToFormData } from "../../../../utils/base";
+import { Mail_dto } from "../MailServices/dto";
+import {MailServices} from "../MailServices/MailServices";
 
 export const getMailFolders = createAsyncThunk(
     "mail/getMailFolders",
@@ -17,7 +19,8 @@ export const getAllMail = createAsyncThunk(
     "mail/getAllMail",
     async (objData, {rejectWithValue}) => {
         try {
-            const response = await MailServices.getAllEmail(objData);
+            const payload = Mail_dto.getAllMail(objData);
+            const response = await MailServices.getAllEmail(payload);
             return response.data;
         } catch (e) {
             return rejectWithValue(e.response.data);
@@ -49,6 +52,23 @@ export const getMailById = createAsyncThunk(
     }
 );
 
+export const composeMail = createAsyncThunk(
+    "mail/compose",
+    async (data, rejectWithValue) => {
+        try {
+            const payload = jsonToFormData(data)
+            const response = await MailServices.composeMail(payload);
+            return response.data;
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+)
+
+
+
+
+
 export const changeMailSeenFlag = createAsyncThunk(
     "mail/changeMailSeenFlag",
     async (params, rejectWithValue) => {
@@ -78,17 +98,6 @@ export const deleteEmail = createAsyncThunk(
     async (id, rejectWithValue) => {
         try {
             const response = await MailServices.deleteEmail(id);
-            return response.data;
-        } catch (e) {
-            return rejectWithValue(e.response.data);
-        }
-    }
-)
-export const composeMail = createAsyncThunk(
-    "mail/compose",
-    async (data, rejectWithValue) => {
-        try {
-            const response = await MailServices.composeMail(data);
             return response.data;
         } catch (e) {
             return rejectWithValue(e.response.data);

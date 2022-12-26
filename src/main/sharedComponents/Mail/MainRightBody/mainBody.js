@@ -165,10 +165,10 @@ const MainBody = () => {
       </Route>
 
       {/*** For mail detail content with route ***/}
-      <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/:id`}>
+      {/* <Route path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/:id`}>
         <MailBodyHeader />
         <MailDetail />
-      </Route>
+      </Route> */}
     </div>
   );
 };

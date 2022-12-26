@@ -23,7 +23,6 @@ const BusinessPolicy = () => {
   const { administration, businessPolicy, Direction } = dictionaryList[
     userLanguage
   ];
-  console.log("jkjll", administration);
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isDefault, setIsDefault] = useState(false);
@@ -36,9 +35,6 @@ const BusinessPolicy = () => {
   const { loader: loading, success, businessPolicies, editData } = useSelector(
     (state) => state.businessPolicySlice
   );
-
-  console.log("editData", editData);
-  console.log("editData", businessPolicies);
 
   useEffect(() => {
     dispatch(getAllBusinessPolicy());

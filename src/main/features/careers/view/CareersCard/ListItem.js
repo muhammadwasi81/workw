@@ -86,7 +86,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             </div>
           </div>
         </ItemContentCareers>
-        <div className="cardSections mt-10">
+        <div className="cardSections mt-14">
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.salaryRange}</div>
             <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>

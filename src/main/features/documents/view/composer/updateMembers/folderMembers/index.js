@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 import { useSelector } from "react-redux";
 import Avatar from "../../../../../../sharedComponents/Avatar/avatarOLD";
 import MemberSelect from "../../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { getAllEmployees } from "../../../../../../../utils/Shared/store/actions";
 import { addDocumentDirectoryList, getAllDocumentDirectoryList } from "../../../../store/actions";
+import ApproverListItem from "../../../../../../sharedComponents/AppComponents/Approvals/components/approverList";
 
 function FolderMemberUpdate({
     isOpen = false,
@@ -15,9 +16,17 @@ function FolderMemberUpdate({
     const employees = useSelector((state) => state.sharedSlice.employees);
     const composerState = useSelector(state => state.documentSlice.composersInitState.updateMembers);
     const updateFolderMemberId = useSelector(state => state.documentSlice.composersInitState.updateFolderMemberId);
+    const members = useSelector(state => state.documentSlice.composersInitState.members);
     const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
     const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
     const [value, setValue] = useState([]);
+
+    const mainState = useSelector(
+		state => state.documentSlice.isOpenComposers
+	);
+	let {
+		updateMembers
+	} = mainState;
 
     const handleChange = (id) => {
         let memberId = id.toString()
@@ -26,11 +35,11 @@ function FolderMemberUpdate({
             memberId: memberId 
         }
         dispatch(addDocumentDirectoryList(data))
+        dispatch(getAllDocumentDirectoryList({id: updateFolderMemberId}))
     };
 
     useEffect(() => {
-        dispatch(getAllDocumentDirectoryList({id: updateFolderMemberId}))
-        console.log(updateFolderMemberId, "updateFolderMemberId");
+       updateMembers && dispatch(getAllDocumentDirectoryList({id: updateFolderMemberId}))
     }, [updateFolderMemberId])
 
     const fetchEmployees = (text, pgNo) => {
@@ -92,14 +101,7 @@ function FolderMemberUpdate({
                 name="readers"
                 showSearch={true}
             />
-            {
-                // composerState?.members?.map((item) =>{
-                //     return <div>
-                //         saas
-                //     </div>
-                // })
-                <>"Dummy Content"</>
-            }
+            <ApproverListItem data={members} />
         </Modal>
     );
 }

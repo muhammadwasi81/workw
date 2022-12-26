@@ -1,7 +1,7 @@
 import { deleteItem, editItem } from "../store/slice";
-import { DeleteFilled, EditFilled } from '@ant-design/icons';
+import { DeleteFilled, EditFilled } from "@ant-design/icons";
 
-export const tableColumn = (dispatch, editData) => {
+export const tableColumn = (dispatch) => {
   return [
     {
       title: "First Name",
@@ -36,19 +36,21 @@ export const tableColumn = (dispatch, editData) => {
       width: "8%",
       render: (value, row, index) => (
         <>
-          <EditFilled onClick={(() => {
-            dispatch(editItem({...row, index}))
-          })}
+          <EditFilled
+            onClick={() => {
+              dispatch(editItem({ ...value, index: index }));
+            }}
             style={{
               marginRight: "6px",
-              color: 'var(--currentThemeColor)'
+              color: "var(--currentThemeColor)",
             }}
           />
-          <DeleteFilled onClick={(() => {
-            dispatch(deleteItem(index))
-          })}
+          <DeleteFilled
+            onClick={() => {
+              dispatch(deleteItem(index));
+            }}
             style={{
-              color: 'var(--currentThemeColor)'
+              color: "var(--currentThemeColor)",
             }}
           />
         </>

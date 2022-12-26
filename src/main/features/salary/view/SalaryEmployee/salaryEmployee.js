@@ -20,7 +20,6 @@ import { useParams } from 'react-router-dom';
 
 function SalaryEmployee() {
   const { id } = useParams();
-  console.log(id, 'USER ID');
   const [form] = Form.useForm();
   const [salaryEmployee, setSalaryEmployee] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -126,12 +125,12 @@ function SalaryEmployee() {
         return currentEmployeeSalary?.netSalary || 0;
       },
     },
-    {
-      title: 'Description',
-      dataIndex: 'description',
-      ellipsis: true,
-      key: 'description',
-    },
+    // {
+    //   title: 'Description',
+    //   dataIndex: 'description',
+    //   ellipsis: true,
+    //   key: 'description',
+    // },
   ];
 
   return (
@@ -184,10 +183,20 @@ function SalaryEmployee() {
         </Form.Item>
 
         <Form.Item label={'Gross Salary'}>
-          <Input type="number" placeholder="0" disabled={true} />
+          <Input
+            type="number"
+            placeholder="0"
+            disabled={true}
+            value={form.getFieldValue('basicSalary')}
+          />
         </Form.Item>
         <Form.Item label={'Net Salary'}>
-          <Input type="number" placeholder="0" disabled={true} />
+          <Input
+            type="number"
+            placeholder="0"
+            disabled={true}
+            value={form.getFieldValue('basicSalary')}
+          />
         </Form.Item>
 
         <Form.Item
@@ -208,7 +217,7 @@ function SalaryEmployee() {
           Add Salary
         </Button>
       </div>
-      {salaryEmployee.length > 0 && (
+      {/* {salaryEmployee.length > 0 && (
         <div className="rebateTable" style={{ marginTop: '1rem' }}>
           <Table
             columns={columns}
@@ -216,7 +225,14 @@ function SalaryEmployee() {
             dataSource={salaryEmployee}
           />
         </div>
-      )}
+      )} */}
+      <div className="rebateTable" style={{ marginTop: '1rem' }}>
+        <Table
+          columns={columns}
+          dragable={true}
+          dataSource={currentEmployeeSalary ? [currentEmployeeSalary] : []}
+        />
+      </div>
     </div>
   );
 }

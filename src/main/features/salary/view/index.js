@@ -24,11 +24,13 @@ import { ROUTES } from "../../../../utils/routes";
 import IndividualDetail from "../view/SalaryList/IndividualDetail";
 
 import Salaries from "../view/SalaryList/index";
+import CreateSalary from "./SalaryCreate";
 
 const Index = () => {
   return (
     <Routes>
       <Route exact path={"/"} element={<Salaries />} />
+      <Route path="/create" element={<CreateSalary />} />
       <Route
         exact
         path={`${ROUTES.SALARY.DETAIL}/:id`}

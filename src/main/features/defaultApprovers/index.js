@@ -1,38 +1,38 @@
-import { useState, useEffect, useContext } from 'react';
-import { AdminContainer } from './../../sharedComponents/StyledComponents/admin';
-import { FormContainer } from './../../sharedComponents/StyledComponents/adminForm';
-import { Collapse, Modal, Tooltip, Button, Skeleton } from 'antd';
-import { FormHeader } from '../../../components/HrMenu/Administration/StyledComponents/adminForm';
-import './styles.css';
-import { PlusCircleFilled } from '@ant-design/icons';
-import { NoDataFound } from './../../sharedComponents/NoDataIcon/index';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllEmployees } from './../../../utils/Shared/store/actions';
-import Avatar from '../../sharedComponents/Avatar/avatarOLD';
+import { useState, useEffect, useContext } from "react";
+import { AdminContainer } from "./../../sharedComponents/StyledComponents/admin";
+import { FormContainer } from "./../../sharedComponents/StyledComponents/adminForm";
+import { Collapse, Modal, Tooltip, Button, Skeleton, message } from "antd";
+import { FormHeader } from "../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import "./styles.css";
+import { PlusCircleFilled } from "@ant-design/icons";
+import { NoDataFound } from "./../../sharedComponents/NoDataIcon/index";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllEmployees } from "./../../../utils/Shared/store/actions";
+import Avatar from "../../sharedComponents/Avatar/avatarOLD";
 import {
   addDefaultApproversAction,
   getAllDefaultApproversAction,
   deleteDefaultApproversByIdAction,
-} from './store/action';
-import { handleApproversDelete } from "./store/slice"
-import { defaultApprovers } from './utils';
-import CustomSelect from '../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { customApprovalDictionaryList } from '../CustomApprovals/localization';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import { DeleteOutlined } from '@ant-design/icons';
-import TableHead from './view/table/tableHead';
-import { Popconfirm } from 'antd';
-import { DeleteFilled, EditFilled } from '@ant-design/icons';
+} from "./store/action";
+import { handleApproversDelete } from "./store/slice";
+import { defaultApprovers } from "./utils";
+import CustomSelect from "../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { customApprovalDictionaryList } from "../CustomApprovals/localization";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { DeleteOutlined } from "@ant-design/icons";
+import TableHead from "./view/table/tableHead";
+import { Popconfirm } from "antd";
+import { DeleteFilled, EditFilled } from "@ant-design/icons";
 
 const { Panel } = Collapse;
 
-const DefaultApprovers = () => {
+const DefaultApprovers = ({ item }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [value, setValue] = useState([]);
-  const [currentType, setCurrentType] = useState('');
-  const [deleteModal, setDeleteModal] = useState(false)
+  const [currentType, setCurrentType] = useState("");
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = customApprovalDictionaryList[userLanguage];
@@ -40,13 +40,14 @@ const DefaultApprovers = () => {
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { loader, approversData } = useSelector((state) => state.approverSlice);
-  console.log(loader, 'loader');
+  console.log(loader, "loader");
   const [id, setId] = useState();
 
   const payloadData = {
     pageNo: 1,
     pageSize: 20,
-    search: '',
+    search: "",
+    filterType: 3,
   };
 
   useEffect(() => {
@@ -57,7 +58,6 @@ const DefaultApprovers = () => {
     return approversData.filter((item) => item.type === type);
   };
   const showModal = (type) => {
-    console.log(type, 'type');
     setIsModalOpen(true);
     setCurrentType(type);
   };
@@ -73,39 +73,29 @@ const DefaultApprovers = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e, 'eeeeeeeeeeee');
     const payload = {
       memberId: [e],
       type: currentType,
-
     };
-    console.log(payload, 'payload');
+
     dispatch(addDefaultApproversAction(payload));
     dispatch(handleApproversDelete(e));
   };
-  const onSuccess = (item) => {
-    console.log(item,"itemitem");
-    setId(null);
-    dispatch(handleApproversDelete(e));
-    //setClearButton(true);
-  };
+  // const onSuccess = (item) => {
+  //   console.log(item, 'itemitem');
+  //   setId(null);
+  //   dispatch(handleApproversDelete(e));
+  //   //setClearButton(true);
+  // };
 
   const onError = () => {
     setId(null);
   };
 
-   const handleDelete = (id) => {
-   console.log(item,"iddddd");
-     setId(item.id);
-      dispatch(deleteDefaultApproversByIdAction({id:item.id})).then(() => onSuccess(item), onError);
-      //dispatch(deleteDefaultApproversByIdAction({id:item.id}));
-   };
-
-   const cancel = (e) => {
+  const cancel = (e) => {
     console.log(e, "ON CANCEL");
-    message.error('Click on No');
+    message.error("Click on No");
   };
-
 
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
@@ -115,7 +105,7 @@ const DefaultApprovers = () => {
   }, [employees]);
 
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
   }, []);
 
   const fetchEmployees = (text, pgNo) => {
@@ -162,7 +152,7 @@ const DefaultApprovers = () => {
                                 style={{
                                   width: 100,
                                   height: 100,
-                                  margin: 'auto',
+                                  margin: "auto",
                                 }}
                               >
                                 <NoDataFound />
@@ -173,7 +163,7 @@ const DefaultApprovers = () => {
                                 ? filterType(item.type).map((item, index) => {
                                     return (
                                       <tr key={index}>
-                                        <td style={{ maxWidth: '15px' }}>
+                                        <td style={{ maxWidth: "15px" }}>
                                           <Avatar
                                             size={35}
                                             round={true}
@@ -189,25 +179,31 @@ const DefaultApprovers = () => {
                                         <td>
                                           <span className="font-semibold">
                                             {item?.member?.designation ||
-                                              'No Designation'}
+                                              "No Designation"}
                                           </span>
                                         </td>
-                                        <td style={{ maxWidth: '15px' }}>
-                                        <Popconfirm
-                                          title="Sure to delete ?"
-                                          description="Are you sure to delete this item?"
-                                          onConfirm={() => dispatch(deleteDefaultApproversByIdAction(item.id))}
-                                          onCancel={cancel}
-                                          okText="OK"
-                                          cancelText="cancel"
-                                        >
-                                          <Button
-                                            type="primary"
-                                            danger
-                                            shape="circle"
-                                            icon={<DeleteOutlined />}
-                                          />
-                                        </Popconfirm>
+                                        <td style={{ maxWidth: "15px" }}>
+                                          <Popconfirm
+                                            title="Sure to delete ?"
+                                            description="Are you sure to delete this item?"
+                                            onConfirm={() =>
+                                              dispatch(
+                                                deleteDefaultApproversByIdAction(
+                                                  item.id
+                                                )
+                                              )
+                                            }
+                                            onCancel={cancel}
+                                            okText="OK"
+                                            cancelText="cancel"
+                                          >
+                                            <Button
+                                              type="primary"
+                                              danger
+                                              shape="circle"
+                                              icon={<DeleteOutlined />}
+                                            />
+                                          </Popconfirm>
                                         </td>
                                       </tr>
                                     );
@@ -246,8 +242,8 @@ const DefaultApprovers = () => {
                                       name={opt.name}
                                       src={opt.image}
                                       round={true}
-                                      width={'30px'}
-                                      height={'30px'}
+                                      width={"30px"}
+                                      height={"30px"}
                                     />
                                     {opt.name}
                                   </>
@@ -271,8 +267,8 @@ const DefaultApprovers = () => {
                                         name={item.member.name}
                                         src={item.member.image}
                                         round={true}
-                                        width={'30px'}
-                                        height={'30px'}
+                                        width={"30px"}
+                                        height={"30px"}
                                       />
                                       <span className="font-semibold">
                                         &nbsp;{item.member.name}
@@ -286,7 +282,7 @@ const DefaultApprovers = () => {
                                   style={{
                                     width: 100,
                                     height: 200,
-                                    margin: 'auto',
+                                    margin: "auto",
                                   }}
                                 >
                                   <NoDataFound />
@@ -295,7 +291,7 @@ const DefaultApprovers = () => {
                             </>
                           )}
                         </div>
-                      </Modal> 
+                      </Modal>
                     </Panel>
                   </Collapse>
                 </div>

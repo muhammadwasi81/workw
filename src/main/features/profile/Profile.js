@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   ContBody,
   TabContainer,
@@ -14,15 +14,20 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ROUTES } from '../../../utils/routes';
 import './styles/profileStyle.css';
 import NewsFeed from '../feed/ui';
-import { useEffect } from 'react';
 import { getEducationDetailByUser } from '../education/store/actions';
 import { useDispatch } from 'react-redux';
 import { getUserWorkExperience } from '../experienceInfo/store/actions';
 import { getEmployeeByIdAction } from './store/action';
 import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
 import { profileDictionaryList } from './localization/index';
+import Courses from '../team/view/Courses';
+import ActivityLog from '../team/view/ActivityLog';
+import Education from '../team/view/Education';
+import Leaves from '../team/view/Leaves';
+import Experience from '../team/view/Experience';
+import CheckIn from '../team/view/CheckIn';
 
-function Profile() {
+const Profile = () => {
   const param = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -62,12 +67,55 @@ function Profile() {
       content: <ProfilePanel />,
       featureId: ROUTES.USER.DEFAULT + id + '/about',
     },
-    // TODO:// 3rd pane
+    {
+      featureName: profileDictionary.awards,
+      content: <CheckIn />,
+      featureId: ROUTES.USER.DEFAULT + id + '/awards',
+    },
+    {
+      featureName: profileDictionary.appraisal,
+      content: <CheckIn />,
+      featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
+    },
+    {
+      featureName: profileDictionary.salary,
+      content: <CheckIn />,
+      featureId: ROUTES.USER.DEFAULT + id + '/salary',
+    },
+    {
+      featureName: profileDictionary.activityLog,
+      content: <ActivityLog />,
+      featureId: ROUTES.USER.DEFAULT + id + '/activityLog',
+    },
+    {
+      featureName: profileDictionary.courses,
+      content: <Courses />,
+      featureId: ROUTES.USER.DEFAULT + id + '/courses',
+    },
+    {
+      featureName: profileDictionary.leave,
+      content: <Leaves />,
+      featureId: ROUTES.USER.DEFAULT + id + '/leave',
+    },
+    {
+      featureName: profileDictionary.education,
+      content: <Education />,
+      featureId: ROUTES.USER.DEFAULT + id + '/education',
+    },
+    {
+      featureName: profileDictionary.experience,
+      content: <Experience />,
+      featureId: ROUTES.USER.DEFAULT + id + '/experience',
+    },
+    {
+      featureName: profileDictionary.checkIn,
+      content: <CheckIn />,
+      featureId: ROUTES.USER.DEFAULT + id + '/checkIn',
+    },
   ];
 
   useEffect(() => {
     dispatch(getEducationDetailByUser(id));
-    dispatch(getUserWorkExperience(id));
     dispatch(getUserWorkExperience(id));
     dispatch(getEmployeeByIdAction(id));
   }, []);
@@ -90,6 +138,6 @@ function Profile() {
       </ContBody>
     </TabContainer>
   );
-}
+};
 
 export default Profile;

@@ -34,8 +34,6 @@ function ListItem(props) {
     status,
     amount,
   } = props.item || null;
-
-  console.log(user);
   return (
     <>
       <SingleItem

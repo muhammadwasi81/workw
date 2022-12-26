@@ -15,6 +15,7 @@ const AssetsCategory = () => {
     accountName: '',
     parentId: '',
   };
+
   const [clearButton, setClearButton] = useState(false);
   const [assets, setAssets] = useState(initialState);
 

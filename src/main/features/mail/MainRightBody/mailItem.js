@@ -3,6 +3,7 @@ import React from "react";
 import { Button, Rate, Tooltip, message } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import {
+	createGuid,
 	parseDate,
 	parseDateWithMontAndYear,
 	STRINGS,
@@ -13,10 +14,19 @@ import { deleteEmail, moveEmailToTrash } from "../Store/Api";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import AntTooltip from "../../../sharedComponents/Tooltip/AntTooltip";
+import { ROUTES } from "../../../../utils/routes";
 
 const MailItem = ({ data, changeSeenFlag }) => {
 	const dispatch = useDispatch();
-	const { from, subject, id, isRead, date, hasAttachments, content } = data;
+	const {
+		from = [],
+		subject = "",
+		id,
+		isRead = false,
+		date = new Date(),
+		hasAttachments,
+		content = "",
+	} = data;
 	const { pathname } = useLocation();
 	const api_base = pathname.split("/")[2];
 
@@ -31,7 +41,7 @@ const MailItem = ({ data, changeSeenFlag }) => {
 					message.success("Email moved to trash.");
 				}
 				console.log(originalPromiseResult, "originalPromiseResult");
-			} catch (rejectedValueOrSerializedError) {}
+			} catch (rejectedValueOrSerializedError) { }
 		});
 	};
 
@@ -44,7 +54,7 @@ const MailItem = ({ data, changeSeenFlag }) => {
 					message.success("Email deleted forever.");
 				}
 				console.log(originalPromiseResult, "originalPromiseResult");
-			} catch (rejectedValueOrSerializedError) {}
+			} catch (rejectedValueOrSerializedError) { }
 		});
 	};
 
@@ -87,14 +97,14 @@ const MailItem = ({ data, changeSeenFlag }) => {
 
 				<NavLink
 					className="mailFrom"
-					to={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/${id}`}
+					to={`${id}`}
 				>
 					{from && from[0]?.name}
 				</NavLink>
 			</div>
 			<NavLink
 				className="subjectAndBody"
-				to={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/${id}`}
+				to={`${id}`}
 			>
 				{subject} {content && "-"} {content}
 			</NavLink>

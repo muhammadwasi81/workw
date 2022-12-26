@@ -8,8 +8,9 @@ function Header({ user, type, status }) {
   const { name, designation, image } = user;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { status: statusLabels } = ApprovalDictionary[userLanguage];
+  console.log(status, "status")
+  console.log(getStatusLabelAndColor("", statusLabels), "status")
   const { label, color } = getStatusLabelAndColor("", statusLabels)[status];
-
   return (
     <div className="approval__body-header">
       <div className="left">

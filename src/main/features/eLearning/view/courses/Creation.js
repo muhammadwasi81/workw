@@ -23,6 +23,8 @@ import { tableColumn } from "./topicColumn";
 import { addCourse } from "../../store/action";
 import CurriculumCollapse from "./curriculumCollapse";
 import { useNavigate } from "react-router-dom";
+import { getELearningCategory } from "../../../eLearningCategory/store/action";
+import FileUploader from "../../../Messenger/view/MessengerBox/components/fileUploader";
 
 const { Option } = Select;
 
@@ -44,9 +46,10 @@ function CreateCourse() {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
-  const { rewardCategories } = useSelector((state) => state.sharedSlice);
-  const { topics, sections, loader, success } = useSelector((state) => state.eLearningSlice);
+  const {ELearningCategory } = useSelector((state) => state.eLearningCategorySlice);
+  const { topics, sections, loaders, success } = useSelector((state) => state.eLearningSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
+  let loader = loaders.addCourseLoading
 
   const selectedData = (data, obj) => {
     setValue(data);
@@ -80,16 +83,12 @@ function CreateCourse() {
   }, [employees]);
 
   useEffect(() => {
-    dispatch(getRewardCategory());
+    dispatch(getELearningCategory());
   }, []);
 
   const onPrivacyChange = value => {
 		setPrivacyId(value);
 	};
-
-  const handleImageUpload = (data) => {
-    setProfileImage(data);
-  };
 
 
   const onFinish = (values) => {
@@ -126,7 +125,7 @@ function CreateCourse() {
     };
 
     let payloadOne = {
-      // categoryId: values.categoryId,
+      categoryId: values.categoryId,
       courseType: values.courseType,
       name: values.name,
       description: values.description,
@@ -141,13 +140,11 @@ function CreateCourse() {
 
     console.log(payloadOne, "PAYLOAD ONE");
 
-    if (Object.keys(image).length > 0) {
-      // let payload = { ...values, image, curriculums };
-      dispatch(addCourse(payloadOne))
-    } else {
-      // let payload = { ...values, curriculums };
-      dispatch(addCourse(payloadOne))
-    }
+    // if (Object.keys(image).length > 0) {
+    //   dispatch(addCourse(payloadOne))
+    // } else {
+    //   dispatch(addCourse(payloadOne))
+    // }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -162,22 +159,38 @@ function CreateCourse() {
     setTopic({...topic, type: e})
     setFileType(e)
   })
-  const handleSingleImage = (data) => {
-    let imageUpload = {
-      id: STRINGS.DEFAULTS.guid,
-      file: data && data[0]?.originFileObj,
-    };
-    setTopic({...topic, attachments: imageUpload})
-  }
+
+  // const handleSingleImage = (data) => {
+  //   setSingleImage(data)
+  //   let imageUpload = {
+  //     id: STRINGS.DEFAULTS.guid,
+  //     file: singleImage && singleImage[0]?.originFileObj,
+  //   };
+  //   setTopic({...topic, attachments: imageUpload})
+  // }
+
+  const handleImageUpload = (data) => {
+    setProfileImage(data);
+  };
+
+  console.log(singleImage, "singleImagesingleImagesingleImage")
 
   const handleAddTopic = (e) => {
+    let imageUpload = {
+      id: STRINGS.DEFAULTS.guid,
+      file: singleImage && singleImage[0]?.originFileObj,
+    };
+    console.log(imageUpload, "imageUploadimageUploadimageUpload")
     if (!form.getFieldValue().curriculumName || !form.getFieldValue().topicName) {
       message.error("All fields required")
     } else {
+      setTopic({...topic, attachments: imageUpload})
       dispatch(addTopic(topic))
       form.setFieldsValue({curriculumName: "", topicName: "", type: "", text: "",})
     }
   }
+
+  console.log(topic, "topic")
 
   const handleAddSection = ((e) => {
     dispatch(addSection({topics, name: curriculumName, description: "dummy content" }))
@@ -221,7 +234,7 @@ function CreateCourse() {
                 ]}
               >
                 <CustomSelect
-                  data={rewardCategories}
+                  data={ELearningCategory}
                   placeholder={"Select Categoy"}
                   style={{
                     width: "100%",
@@ -399,15 +412,12 @@ function CreateCourse() {
           >
             <Input.TextArea placeholder={"Enter Description"} />
           </Form.Item>
-
-          <Form.Item area="true">
-            <SingleUpload
-              handleImageUpload={handleImageUpload}
-              img="Add Image"
-              position="flex-start"
-              uploadText={"Upload"}
-            />
-          </Form.Item>
+          <FileUploader
+              fileList={profileImage ? profileImage : []}
+              uploadButton={<button>Upload</button>}
+              handleUpload={handleImageUpload} 
+              classes=""
+              />
           </div>
         </FormContainer>
         <FormContainer>
@@ -474,15 +484,19 @@ function CreateCourse() {
             >
           <TextInput placeholder={fileType === TypeEnum.TEXT ? "Enter Text" : "Enter Link"} /></Form.Item> :
           fileType === TypeEnum.IMAGE || TypeEnum.PDF || TypeEnum.VIDEO ? 
-          <Form.Item area="true">
-            <SingleUpload
-              handleImageUpload={handleSingleImage}
-              img="Add Image"
-              position="flex-start"
-              uploadText={"Upload"}
-            />
-          </Form.Item> 
-          : 
+            // <SingleUpload
+            //   handleImageUpload={handleSingleImage}
+            //   img="Add Image"
+            //   position="flex-start"
+            //   uploadText={"Upload"}
+            // />
+            <FileUploader
+                  fileList={singleImage ? singleImage : []}
+                  uploadButton={<button>Upload</button>}
+                  handleUpload={(data) => {setSingleImage(data)}} 
+                  classes=""
+                  />
+           : 
           "" 
           }
         </div>

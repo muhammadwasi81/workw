@@ -14,6 +14,7 @@ const en = {
     ApprovalRequired: "ApprovalRequired",
     Hold: "Hold",
     NotRequired: "Not Required",
+    WaitingForOtherApprover: "Waiting For Other Approvers"
   },
   placeHolder: {
     writeYourRemarksHere: "Write Yours Remarks Here...",

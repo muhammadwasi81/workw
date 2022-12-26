@@ -15,6 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { GetCourseById } from "../../../../../store/action";
+import Avatar from "../../../../../../../sharedComponents/Avatar/avatarOLD";
 
 function CoursesDetail() {
 	const disptach = useDispatch()
@@ -63,6 +64,20 @@ function CoursesDetail() {
 						/>
 						<DetailTabs items={items} />
 					</WhiteCard>
+					<div className="members">
+						<div className="members">
+						{/* {approvers && ( */}
+							<Avatar
+							isAvatarGroup={true}
+							isTag={false}
+							heading={"approvers"}
+							// membersData={approvers ? approvers : []}
+							text={"Approvers"}
+							image={"https://joeschmoe.io/api/v1/random"}
+							/>
+						{/* )} */}
+						</div>
+					</div>
 				</section>
 				<section
 					className="flex basis-[25%] overflow-y-auto h-fit"

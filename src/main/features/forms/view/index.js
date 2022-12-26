@@ -5,6 +5,8 @@ import { ROUTES } from "../../../../utils/routes";
 import Forms from "./forms";
 import EditForm from "./forms/EditForm/EditForm";
 import { CreateFormParent } from "./forms/CreateForm/CreateFormParent";
+import ResponseFormDetails from "./forms/formDetail";
+import ResponseComponent from "./forms/formDetail/responseComponent";
 
 const Index = () => {
   return (
@@ -13,6 +15,14 @@ const Index = () => {
       <Route
         path={`${ROUTES.FORMS.CREATE_FORM}`}
         element={<CreateFormParent />}
+      />
+      <Route
+        path={`${ROUTES.FORMS.RESPONSE_DETAIL_FORM}/:id`}
+        element={<ResponseFormDetails />}
+      />
+      <Route
+        path={`${ROUTES.FORMS.RESPONSE}/:id`}
+        element={<ResponseComponent />}
       />
       <Route path={`${ROUTES.FORMS.EDIT_FORM}/:id`} element={<EditForm />} />
       <Route element={<BrokenPage />} />

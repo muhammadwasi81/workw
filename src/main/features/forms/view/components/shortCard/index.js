@@ -93,6 +93,11 @@ function ListItem(props) {
               <Button className="ThemeBtn">Edit</Button>
             </Link>
           )} */}
+          {item.creator.id === user.id && (
+            <Link to={ROUTES.FORMS.RESPONSE_DETAIL_FORM + `/${id}`}>
+              <Button className="ThemeBtn">Details</Button>
+            </Link>
+          )}
 
           <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
             <Button className="ThemeBtn">{attempt}</Button>

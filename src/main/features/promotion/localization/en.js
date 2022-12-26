@@ -5,7 +5,7 @@ const en = {
     createdbyMe:"Created By Me",
     promotion:"Promotions",
     newGrade:"New Grade",
-    currentGrades:"current Grades",
+    currentGrades:"Current Grades",
     grades:"Grades",
     selectApprovers: "Select Approvers",
     promotion: "Promotions",

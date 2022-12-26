@@ -108,7 +108,7 @@ const BusinessPolicy = () => {
                       >
                         <div>
                           <Table
-                            columns={tableColumns()}
+                            columns={tableColumns(taxSlab)}
                             dragable={true}
                             data={item.taxSlab && item.taxSlab}
                           />

@@ -28,7 +28,7 @@ const Index = () => {
   const { loader, requestItems, drawerOpen } = useSelector(
     (state) => state.requestItemSlice
   );
-  console.log(drawerOpen, "drawerOpen");
+  console.log(requestItems, "drawerOpen");
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState("List");

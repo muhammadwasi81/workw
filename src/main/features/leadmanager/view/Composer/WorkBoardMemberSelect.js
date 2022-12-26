@@ -8,77 +8,77 @@ import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedS
 // import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 
 function WorkBoardMemberSelect({
-	onChange = () => {},
-	defaultData = [],
-	placeholder = "Search",
-	label,
+  onChange = () => {},
+  defaultData = [],
+  placeholder = "Search",
+  label,
 }) {
-	const dispatch = useDispatch();
-	const employees = useSelector(state => state.sharedSlice.employees);
-	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
-	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-	const [value, setValue] = useState([]);
+  const dispatch = useDispatch();
+  const employees = useSelector((state) => state.sharedSlice.employees);
+  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [value, setValue] = useState([]);
 
-	useEffect(() => {
-		fetchEmployees("", 0);
-	}, []);
+  useEffect(() => {
+    fetchEmployees("", 0);
+  }, []);
 
-	useEffect(() => {
-		setValue(defaultData);
-		// setLoading(true);
-	}, [JSON.stringify(defaultData)]);
+  useEffect(() => {
+    setValue(defaultData);
+    // setLoading(true);
+  }, [JSON.stringify(defaultData)]);
 
-	useEffect(() => {
-		if (employees.length > 0 && !isFirstTimeDataLoaded) {
-			setIsFirstTimeDataLoaded(true);
-			setFirstTimeEmpData(employees);
-		}
-	}, [employees]);
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+    }
+  }, [employees]);
 
-	const fetchEmployees = (text, pgNo) => {
-		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
-	};
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
 
-	const selectedData = (data, obj) => {
-		// setValue(data);
-		// setMembers(obj);
-		// onChange(data, obj);
-	};
+  const selectedData = (data, obj) => {
+    // setValue(data);
+    // setMembers(obj);
+    // onChange(data, obj);
+  };
 
-	return (
-		<>
-			<MemberSelect
-				data={firstTimeEmpData}
-				selectedData={selectedData}
-				canFetchNow={isFirstTimeDataLoaded}
-				fetchData={fetchEmployees}
-				placeholder={placeholder}
-				mode={"multiple"}
-				isObject={true}
-				loadDefaultData={true}
-				optionComponent={opt => {
-					return (
-						<>
-							<Avatar src={opt.image} className="!bg-black">
-								{getNameForImage(opt.name)}
-							</Avatar>
-							{opt.name}
-						</>
-					);
-				}}
-				dataVal={value}
-				name="members"
-				showSearch={true}
-				rules={[
-					{
-						required: true,
-						message: "Members is required",
-					},
-				]}
-				label={label}
-			/>
-		</>
-	);
+  return (
+    <>
+      <MemberSelect
+        data={firstTimeEmpData}
+        selectedData={selectedData}
+        canFetchNow={isFirstTimeDataLoaded}
+        fetchData={fetchEmployees}
+        placeholder={placeholder}
+        mode={"multiple"}
+        isObject={true}
+        loadDefaultData={true}
+        optionComponent={(opt) => {
+          return (
+            <>
+              <Avatar src={opt.image} className="!bg-black">
+                {getNameForImage(opt.name)}
+              </Avatar>
+              {opt.name}
+            </>
+          );
+        }}
+        dataVal={value}
+        name="members"
+        showSearch={true}
+        // rules={[
+        // 	{
+        // 		required: true,
+        // 		message: "Members is required",
+        // 	},
+        // ]}
+        label={label}
+      />
+    </>
+  );
 }
 
 export default WorkBoardMemberSelect;

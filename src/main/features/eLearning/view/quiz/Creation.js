@@ -51,24 +51,6 @@ function CreateQuiz(props) {
         }) 
       }
       
-      {/* <DrangableQuestions
-            // questions={pollData.question}
-            // handleChange={handleSequenceChange}
-          >
-            {pollData &&
-              pollData.question.map((item, index) => (
-                <>
-                  {item.answer === 3 && (
-                    <Radio
-                      // handleRadioChange={handleChange}
-                      question={item}
-                      index={index}
-                      // removeQuestion={(index) => removeQuestion(index)}
-                    />
-                  )}
-                </>
-              ))}
-          </DrangableQuestions> */}
       {/* <Form
           form={form}
           name="addCourse"

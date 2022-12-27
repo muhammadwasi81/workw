@@ -169,8 +169,10 @@ function onPostTitleTextChange(state, { payload: { value } }) {
 	const {
 		postCompose: { type },
 	} = current(state);
-	if (type === PostType.DEFAULT) state.postCompose.title = value;
-	else if (type === PostType.POLL) state.postCompose.pollTitle = value;
+	// if (type === PostType.DEFAULT) state.postCompose.title = value;
+	// else if (type === PostType.POLL) state.postCompose.pollTitle = value;
+	state.postCompose.title = value
+	state.postCompose.pollTitle = value
 }
 
 function onPostMention(state, { payload }) {

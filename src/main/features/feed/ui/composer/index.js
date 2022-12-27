@@ -141,6 +141,7 @@ function PostComposer({ referenceType, referenceId }) {
 						imageVideoRef={imageVideoRef}
 						pollRef={pollRef}
 						docsRef={docsRef}
+						isOpen={showComposer}
 					/>
 				</div>
 			</Modal>

@@ -1,5 +1,5 @@
 import { Mentions } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MentionUserItem from "../ListItem/MentionUserItem/MentionUserItem";
 function CustomMentions({
   placeholder,
@@ -7,13 +7,19 @@ function CustomMentions({
   onChange,
   onSelect,
   initialMentions = [],
+  isOpen,
   ...props
 }) {
   const [data, setData] = useState([]);
   useEffect(() => {
     setData([...initialMentions]);
   }, [initialMentions]);
+  let myRef = useRef()
 
+  useEffect(() => {
+    if (isOpen)
+      myRef.current.focus()
+  }, [])
   return (
     <Mentions
       {...props}
@@ -22,6 +28,7 @@ function CustomMentions({
       value={value}
       onChange={(value) => onChange(value)}
       onSelect={(e) => onSelect(e)}
+      ref={myRef}
     >
       {data.map(({ id, image, name, designation }) => (
         <Mentions.Option key={id} value={name}>
@@ -29,6 +36,7 @@ function CustomMentions({
             avatar={image}
             name={name}
             designation={designation}
+
           />
         </Mentions.Option>
       ))}

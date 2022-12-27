@@ -51,6 +51,21 @@ export default function AllApprovals() {
 		dispatch(getAllApproval(filter));
 	}, [filter]);
 
+
+
+	function parentFunc() {
+		const value = 10;
+
+		return function childFunc(x) {
+			return value * x
+		}
+	}
+
+	const result = parentFunc()(10); // 100
+
+
+
+
 	return (
 		<TabbableContainer>
 			<Header

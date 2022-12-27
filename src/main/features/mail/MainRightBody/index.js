@@ -7,6 +7,7 @@ import MainBody from "./mainBody";
 import MobileDrawer from "../Drawer/mobileDrawer";
 import {useMediaQuery} from "react-responsive";
 import MobileMailComposer from "../Composer/MobileMailComposer";
+import EventDetail from '../../schedule/view/eventDetail';
 
 const Index = () => {
     const isTablet = useMediaQuery({maxWidth: 768});
@@ -28,7 +29,6 @@ const Index = () => {
             {isTablet && mailMobComposerStatus && <MobileMailComposer/>} {/***mobile mail composer ***/}
 
            {isTablet && <MobileDrawer/>} {/*** Folder Drawer  ****/}
-
         </MailContentBody>
     );
 }

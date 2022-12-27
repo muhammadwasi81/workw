@@ -21,8 +21,6 @@ function PostComposer({ referenceType, referenceId }) {
   const { showComposer, type } = useSelector(
     (state) => state.feedSlice.postCompose
   );
-  const { employees } = useSelector((state) => state.employeeProfileSlice);
-
   const { userSlice } = useSelector((state) => state);
   const { name, userImage } = userSlice.user;
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -41,7 +39,7 @@ function PostComposer({ referenceType, referenceId }) {
         <div className="composer">
           <div className="user">
             <Avatar
-              src={employees?.image ? employees?.image : userImage}
+              src={userImage}
               className="addPostAvatar"
               name={name}
               width={44}

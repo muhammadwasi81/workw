@@ -17,8 +17,6 @@ function UserDetails() {
     user: { name, profile_picture, designation, id },
   } = useSelector((state) => state.userSlice);
 
-  const { employees } = useSelector((state) => state.employeeProfileSlice);
-
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
   const [isToggle, setIsToggle] = useState(false);
 
@@ -33,7 +31,7 @@ function UserDetails() {
     <div className="userDetailsWrapper">
       <div className="userDetails">
         <Avatar
-          src={employees?.image ? employees?.image : profile_picture}
+          src={profile_picture}
           name={name}
           active={false}
           round={true}

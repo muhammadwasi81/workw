@@ -45,7 +45,6 @@ const NewsFeed = ({
               referenceType={referenceType}
               referenceId={referenceId}
             />
-
             <PostsList
               referenceType={referenceType}
               referenceId={referenceId}

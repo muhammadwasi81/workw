@@ -50,7 +50,7 @@ export const tableColumn = (
 ) => {
   console.log(grade,"kkkkkk");
   return [
-    { title:"ELearning category", dataIndex: 'name', width: '20%', key: 1 },
+    { title:"eLearning category", dataIndex: 'name', width: '20%', key: 1 },
     { title:"Description", dataIndex: 'description', width: '20%', key: 2 },
     removeButtons
       ? {}

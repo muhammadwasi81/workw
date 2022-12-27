@@ -36,7 +36,7 @@ export const quotationSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
-      .addMatcher(isPending(...[createQuotation]), (state) => {
+      .addMatcher(isPending(...[createQuotation, getAllQuotation]), (state) => {
         state.loader = true;
         state.success = false;
         state.error = false;

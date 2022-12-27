@@ -1,22 +1,23 @@
-import { useEffect, useState } from 'react';
-import { Avatar, Button, DatePicker, Divider, Form, Input, Table } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
-import moment from 'moment/moment';
-import { getAllSalaryHeaderService } from '../../../salaryHeader/services/service';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import MemberSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { useEffect, useState } from "react";
+import { Avatar, Button, DatePicker, Divider, Form, Input, Table } from "antd";
+import { EditOutlined } from "@ant-design/icons";
+import moment from "moment/moment";
+import { getAllSalaryHeaderService } from "../../../salaryHeader/services/service";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import {
   getNameForImage,
   modifySelectData,
   STRINGS,
-} from '../../../../../utils/base';
-import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
+} from "../../../../../utils/base";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import {
   addEmployeeSalaryAction,
   getCurrentSalaryOfEmployeeAction,
-} from './action/action';
-import { useParams } from 'react-router-dom';
+  getEmployeeSalaryAction,
+} from "./action/action";
+import { useParams } from "react-router-dom";
 
 function SalaryEmployee() {
   const { id } = useParams();
@@ -28,12 +29,12 @@ function SalaryEmployee() {
 
   const initialValues = {
     approvers: [],
-    basicSalary: '',
-    check: '',
-    description: '',
+    basicSalary: "",
+    check: "",
+    description: "",
     effectiveDate: moment(),
-    // grossSalary: '',
-    // netSalary: '',
+    // grossSalary: "",
+    netSalary: "",
   };
   const {
     sharedSlice: { employees },
@@ -42,7 +43,7 @@ function SalaryEmployee() {
   const { currentEmployeeSalary } = useSelector(
     (state) => state.employeeSalarySlice
   );
-
+  console.log(currentEmployeeSalary, "current employee salary");
   const dispatch = useDispatch();
 
   const handleSubmit = async () => {
@@ -59,19 +60,19 @@ function SalaryEmployee() {
             isValidation.approvers
           ).map((approver) => ({ approverId: approver })),
         };
-        console.log([payloadData], 'payloadData');
+        console.log([payloadData], "payloasss");
         dispatch(addEmployeeSalaryAction([payloadData]));
         form.resetFields();
       }
     } catch (err) {
-      console.log(err.message, 'err');
+      console.log(err.message, "err");
       throw new Error(`Error in submitting form: ${err}`, { cause: err });
     }
   };
 
   useEffect(() => {
-    console.log('useEffect');
-    dispatch(getCurrentSalaryOfEmployeeAction(id));
+    console.log("useEffect");
+    dispatch(getEmployeeSalaryAction(id));
   }, [id]);
 
   const fetchEmployees = (text, pgNo) => {
@@ -85,61 +86,58 @@ function SalaryEmployee() {
   }, [employees]);
 
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
   }, []);
 
   const columns = [
     {
-      title: 'Effective Date',
-      dataIndex: 'effectiveDate',
+      title: "Effective Date",
+      dataIndex: "effectiveDate",
       ellipsis: true,
-      key: 'effectiveDate',
+      key: "effectiveDate",
       render: (value) => {
-        return moment(value).format('YYYY/MM/DD');
+        return moment(value).format("YYYY/MM/DD");
       },
     },
     {
-      title: 'Approvers',
-      dataIndex: 'approvers',
+      title: "Reference No",
+      dataIndex: "referenceNo",
       ellipsis: true,
-      key: 'approvers',
-      render: (value, _, index) => {
-        return employeesData.filter((item) => item.id === value)[index]?.name;
-      },
+      key: "referenceNo",
     },
     {
-      title: 'Basic Salary',
-      dataIndex: 'basicSalary',
+      title: "Basic Salary",
+      dataIndex: "basicSalary",
       ellipsis: true,
-      key: 'basicSalary',
-      render: () => {
-        return currentEmployeeSalary?.basicSalary;
-      },
+      key: "basicSalary",
     },
     {
-      title: 'Net Salary',
-      dataIndex: 'netSalary',
+      title: "Net Salary",
+      dataIndex: "netSalary",
       ellipsis: true,
-      key: 'netSalary',
-      render: () => {
-        return currentEmployeeSalary?.netSalary || 0;
-      },
+      key: "netSalary",
     },
     // {
-    //   title: 'Description',
-    //   dataIndex: 'description',
+    //   title: "Gross Salary",
+    //   dataIndex: "grossSalary",
     //   ellipsis: true,
-    //   key: 'description',
+    //   key: "netSalary",
     // },
+    {
+      title: "Description",
+      dataIndex: "description",
+      ellipsis: true,
+      key: "description",
+    },
   ];
 
   return (
     <div className="employeeForm">
       <Divider orientation="left">Salary Info</Divider>
-      <Form layout={'vertical'} form={form} initialValues={initialValues}>
+      <Form layout={"vertical"} form={form} initialValues={initialValues}>
         <Form.Item
           name="effectiveDate"
-          label={'Effective Date'}
+          label={"Effective Date"}
           rules={[{ required: true }]}
         >
           <DatePicker placeholder="Select Date" size="large"></DatePicker>
@@ -147,14 +145,14 @@ function SalaryEmployee() {
 
         <Form.Item
           name="basicSalary"
-          label={'Basic Salary'}
+          label={"Basic Salary"}
           rules={[{ required: true }]}
         >
           <Input type="number" placeholder="Basic Salary"></Input>
         </Form.Item>
         <Form.Item
           name="approvers"
-          label={'Approvers'}
+          label={"Approvers"}
           rules={[{ required: true }]}
         >
           <MemberSelect
@@ -165,7 +163,7 @@ function SalaryEmployee() {
             data={firstTimeEmpData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={'Select Approvers'}
+            placeholder={"Select Approvers"}
             selectedData={(_, obj) => {
               setEmployeesData([...obj]);
             }}
@@ -182,26 +180,26 @@ function SalaryEmployee() {
           />
         </Form.Item>
 
-        <Form.Item label={'Gross Salary'}>
+        <Form.Item label={"Gross Salary"}>
           <Input
             type="number"
             placeholder="0"
             disabled={true}
-            value={form.getFieldValue('basicSalary')}
+            value={form.getFieldValue("basicSalary")}
           />
         </Form.Item>
-        <Form.Item label={'Net Salary'}>
+        <Form.Item name="netSalary" label={"Net Salary"}>
           <Input
             type="number"
             placeholder="0"
             disabled={true}
-            value={form.getFieldValue('basicSalary')}
+            value={form.getFieldValue("basicSalary")}
           />
         </Form.Item>
 
         <Form.Item
           name="description"
-          label={'Description'}
+          label={"Description"}
           rules={[{ required: true }]}
         >
           <Input.TextArea placeholder="Enter Description"></Input.TextArea>
@@ -210,7 +208,7 @@ function SalaryEmployee() {
       <div className="buttons">
         <Button
           className="btn ThemeBtn"
-          style={{ marginLeft: 'auto' }}
+          style={{ marginLeft: "auto" }}
           icon={<EditOutlined />}
           onClick={handleSubmit}
         >
@@ -226,11 +224,11 @@ function SalaryEmployee() {
           />
         </div>
       )} */}
-      <div className="rebateTable" style={{ marginTop: '1rem' }}>
+      <div className="rebateTable" style={{ marginTop: "1rem" }}>
         <Table
           columns={columns}
           dragable={true}
-          dataSource={currentEmployeeSalary ? [currentEmployeeSalary] : []}
+          dataSource={currentEmployeeSalary}
         />
       </div>
     </div>

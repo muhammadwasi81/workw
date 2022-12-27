@@ -45,7 +45,6 @@ const ComposeMailBox = ({
   const [selectedBcEmail, setSelectedBcEmail] = useState([]);
   const [selectedCcEmail, setSelectedCcEmail] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const [form] = Form.useForm();
 
   const toolbarOptions = [
@@ -67,6 +66,10 @@ const ComposeMailBox = ({
     });
     setQuillInstance(quillInstance);
   }, []);
+  useEffect(() => {
+    if (isReply)
+      setSelectedTOEmail(data?.from.map(item => item.address))
+  }, [])
 
   const handleToMailSelected = (arr) => setSelectedTOEmail(arr);
 
@@ -194,16 +197,33 @@ const ComposeMailBox = ({
   };
 
   const getDefaultSubject = () => {
-    if (isReply) {
-      return "RE : " + data.subject
-    }
-    else if (isForward) {
-      return data.subject
-    }
-    else {
+    if (isReply)
+      return data.subject.toLocaleLowerCase().startsWith("re") ? data.subject : "RE : " + data.subject;
+    else if (isForward)
+      return data.subject.toLocaleLowerCase().startsWith("fw") ? data.subject : "FW : " + data.subject;
+    else
       return ""
-    }
   }
+  const makeReplyBody = (content) => {
+    let updatedContent = "";
+    let replyLine = "<h4><strong>=======================================================</strong></h4>";
+    updatedContent += content;
+    updatedContent += replyLine;
+    return updatedContent;
+  };
+  const makeForwardBody = (content) => {
+    let updatedContent = "";
+    updatedContent += content;
+    return content;
+  };
+  const getDefaultBody = () => {
+    if (isReply)
+      return makeReplyBody(data.content);
+    else if (isForward)
+      return data.content;
+    else
+      return ""
+  };
 
   return (
     <div
@@ -272,13 +292,16 @@ const ComposeMailBox = ({
             flexDirection: "column",
             justifyContent: "space-evenly",
           }}
+          initialValues={{
+            subject: getDefaultSubject()
+          }}
         >
           <Form.Item>
             <SearchAndSelectInput
               handleGetSelected={handleToMailSelected}
               placeholder={"To"}
-              disabled={isReply}
-              defaultValue={data?.from ? data.from.map(item => item.address) : []}
+              // disabled={isReply}
+              defaultValue={isReply ? data.from.map(item => item.address) : []}
             />
           </Form.Item>
 
@@ -308,8 +331,8 @@ const ComposeMailBox = ({
               prefix={null}
               size={"middle"}
               style={{ borderRadius: 4, outline: "none" }}
-              disabled={isReply}
-              defaultValue={getDefaultSubject}
+              // disabled={isReply}
+            // defaultValue={getDefaultSubject}
             />
           </Form.Item>
 
@@ -354,6 +377,9 @@ const ComposeMailBox = ({
               style={{
                 border: "1px solid #d9d9d9 !important",
                 borderRadius: 4,
+              }}
+              dangerouslySetInnerHTML={{
+                __html: getDefaultBody()
               }}
             />
           </div>

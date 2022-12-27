@@ -1,6 +1,6 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addELearningCategory, getELearningCategory,updateELearningCategory }
+import { addELearningCategory,getELearningCategory,updateELearningCategory }
  from "./action.js";
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
   loader: false,
 };
 
-const ELearningCategorySlice = createSlice({
+const eLearningCategorySlice = createSlice({
   name: "ELearningCategorys",
   initialState,
   reducers: {
@@ -20,8 +20,9 @@ const ELearningCategorySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getELearningCategory.fulfilled, (state, { payload }) => {
+        console.log(payload, "payload from SLICEEE")
         state.loadingData = false;
-        state.ELearningCategory = payload.data;
+        state.ELearningCategory = payload;
       })
       .addCase(addELearningCategory.fulfilled, (state, { payload }) => {
         state.loader = false;
@@ -50,5 +51,5 @@ const ELearningCategorySlice = createSlice({
   },
 });
 
-export const { ELearningCategoryDeleted } = ELearningCategorySlice.actions;
-export default ELearningCategorySlice.reducer;
+export const { ELearningCategoryDeleted } = eLearningCategorySlice.actions;
+export default eLearningCategorySlice.reducer;

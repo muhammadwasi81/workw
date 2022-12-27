@@ -15,6 +15,7 @@ const TextFields = (props) => {
     disableSubmit,
     required,
   } = props;
+  console.log(type);
   return (
     <>
       <div className="c-row txt-fields bg-clr p_15">
@@ -24,7 +25,7 @@ const TextFields = (props) => {
           </div>
         )}
         <label className="required label" htmlFor="">
-          {fieldData.question}
+          {fieldData.question} <span className="text-sm"> {`(${type})`}</span>
         </label>
         <input
           onChange={(e) =>

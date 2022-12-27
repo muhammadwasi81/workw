@@ -20,9 +20,10 @@ export default function ELearningCategoryTable({
 
    const { userLanguage } = useContext(LanguageChangeContext);
 	 const { administration,grade,sharedLabels, Direction } = dictionaryList[userLanguage];
-		console.log("jkjll",sharedLabels);
 
-  const {ELearningCategory, loadingData } = useSelector((state) => state.ELearningCategorySlice);
+  const {ELearningCategory, loadingData } = useSelector((state) => (state.eLearningCategorySlice));
+
+  console.log(ELearningCategory, "MAIN SLICE")
 
   const dispatch = useDispatch();
   useEffect(() => {

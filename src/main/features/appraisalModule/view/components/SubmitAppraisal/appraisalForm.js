@@ -86,6 +86,8 @@ const AppraisalForm = (props) => {
 
   // console.log(grades);
 
+  console.log(appraisalQuestion);
+
   useEffect(() => {
     fetchEmployees("", 0);
   }, []);
@@ -443,7 +445,7 @@ const AppraisalForm = (props) => {
 
                 <Form.Item
                   name="bonusApprovers"
-                  // label={"Approver"}
+                  label={"Bonus Approver"}
                   showSearch={true}
                   rules={[{ required: true }]}
                 >
@@ -543,7 +545,7 @@ const AppraisalForm = (props) => {
                 )}
                 <Form.Item
                   name="incrementApprover"
-                  // label={"Approver"}
+                  label={"Increment Approver"}
                   showSearch={true}
                   rules={[{ required: true }]}
                 >
@@ -600,25 +602,24 @@ const AppraisalForm = (props) => {
               />
             </Form.Item>
           </div>
-          <div className="inputBox mt-4">
-            {appraisalQuestion.appraisals.map((item, i) => {
-              return (
-                <Form.Item name={`question${i + 1}`}>
-                  <div className="flex justify-between items-center">
-                    <span className="max-w-[23rem]">{`${item?.name}`}</span>
-                    <Rate
-                      onChange={(e) => onChangeQuestionRating(e, i, item?.id)}
-                      disabled={props.disabled}
-                    />
-                  </div>
-                  <Divider />
-                </Form.Item>
-              );
-            })}
-            {/* <Form.Item name="rate" label={rate}>
-              <Rate />
-            </Form.Item> */}
-          </div>
+          {appraisalQuestion.appraisals.length > 1 && (
+            <div className="inputBox mt-4">
+              {appraisalQuestion.appraisals.map((item, i) => {
+                return (
+                  <Form.Item name={`question${i + 1}`}>
+                    <div className="flex justify-between items-center">
+                      <span className="max-w-[23rem]">{`${item?.name}`}</span>
+                      <Rate
+                        onChange={(e) => onChangeQuestionRating(e, i, item?.id)}
+                        disabled={props.disabled}
+                      />
+                    </div>
+                    <Divider />
+                  </Form.Item>
+                );
+              })}
+            </div>
+          )}
           <div>
             <Form.Item name="comment" label={comments}>
               <TextArea rows={4} />

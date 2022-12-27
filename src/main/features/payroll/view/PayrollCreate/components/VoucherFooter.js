@@ -2,14 +2,21 @@ import { Button } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import { payrollDictionaryList } from "../../../localization/index";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { useSelector, useDispatch } from "react-redux";
 
 const VoucherFooter = ({ amount = 0, handleSubmit }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { payrollDictionary, Direction } = payrollDictionaryList[userLanguage];
+  const loader = useSelector((state) => state.payrollSlice.loader);
+
   return (
     <div className="bg-white p-4 rounded-md flex w-full justify-between mt-5 sticky bottom-2">
       <div>
-        <Button className="ThemeBtn mr-2" onClick={handleSubmit}>
+        <Button
+          className="ThemeBtn mr-2"
+          onClick={handleSubmit}
+          loading={loader}
+        >
           {payrollDictionary.createPayroll}
         </Button>
       </div>

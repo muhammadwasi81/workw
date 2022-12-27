@@ -22,7 +22,7 @@ export const getELearningCategory = createAsyncThunk(
         type: responseMessageType.ApiFailure,
       });
     }
-    return res;
+    return res.data;
   }
 );
 

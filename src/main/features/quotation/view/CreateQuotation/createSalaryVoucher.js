@@ -60,7 +60,8 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
   const [quotationDetails, setQuotationDetails] = useState(initialState);
-  const success = useSelector((state) => state.quotationSlice.success);
+  const { success, loader } = useSelector((state) => state.quotationSlice);
+  console.log(loader, "loader");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const employeesData = useSelector((state) => state.sharedSlice.employees);
@@ -218,15 +219,20 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
           {/* <Button className='ThemeBtn mr-2' onClick={() => setEntries(Array(defaultRows).fill(defaultEntry))} >
             Clear
           </Button> */}
-          <Button className="ThemeBtn mr-2" onClick={handleSubmit}>
+          <Button
+            className="ThemeBtn mr-2"
+            onClick={handleSubmit}
+            loading={loader}
+          >
             {quotationDictionary.createQuotation}
           </Button>
         </div>
 
-        <VoucherFooter amount={
-          entries.filter(it => it.item)
-            .reduce((a, b) => a + (b.price * b.quantity), 0)
-        } />
+        <VoucherFooter
+          amount={entries
+            .filter((it) => it.item)
+            .reduce((a, b) => a + b.price * b.quantity, 0)}
+        />
       </div>
     </div>
   );

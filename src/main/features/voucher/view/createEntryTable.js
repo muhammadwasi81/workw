@@ -40,6 +40,7 @@ const CreateEntryTable = ({ defaultRows }) => {
   );
   const success = useSelector((state) => state.voucherSlice.success);
   const AllVouchers = useSelector((state) => state.voucherSlice.voucherList);
+  const loader = useSelector((state) => state.voucherSlice.loader);
   const dispatch = useDispatch();
   const totalDr = entries
     .filter((it) => it.dr_cr === VOUCHER_ENUM.DR_CR.DR)
@@ -173,7 +174,11 @@ const CreateEntryTable = ({ defaultRows }) => {
           >
             {vouncherDictionary.clear}
           </Button>
-          <Button className="ThemeBtn mr-2" onClick={handleSubmit}>
+          <Button
+            className="ThemeBtn mr-2"
+            onClick={handleSubmit}
+            loading={loader}
+          >
             {vouncherDictionary.save}
           </Button>
           <Button

@@ -91,7 +91,6 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
       />
     )
   }
-
   return (
     <>
       {/* <VoiceNotes /> */}

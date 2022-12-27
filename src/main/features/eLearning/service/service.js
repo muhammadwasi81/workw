@@ -5,7 +5,7 @@ import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const addCourseService = async (data) => {
   const formData = jsonToFormData(data);
-  return MasterConfig.post(`api/ELearning/AddCourse`, formData)
+  return MasterConfig.post(`api/ELearning/AddCasdasdourse`, formData)
     .then((res) => {
       return res;
     })

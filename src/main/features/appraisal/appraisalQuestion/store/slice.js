@@ -1,11 +1,18 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../../services/enums/responseCode.js";
-import { addQuestion, getAllQuestion, removeQuestion, updateQuestion } from "./actions.js";
+import {
+  addQuestion,
+  getAllQuestion,
+  removeQuestion,
+  updateQuestion,
+} from "./actions.js";
 
 const initialState = {
   appraisals: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const appraisalSlice = createSlice({
@@ -35,15 +42,21 @@ const appraisalSlice = createSlice({
       })
       .addMatcher(isPending(...[addQuestion, updateQuestion]), (state) => {
         state.loader = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[getAllQuestion]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(...[getAllQuestion, addQuestion, updateQuestion]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

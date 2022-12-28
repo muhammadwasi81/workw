@@ -21,6 +21,8 @@ export default function JobDescriptionForm({ data, onSubmit }) {
   const { jobDescDictionary } = jobDescDictionaryList[userLanguage];
 
   const dispatch = useDispatch();
+  const { loader } = useSelector((state) => state.jobDescriptionSlice);
+
   const { Option } = Select;
   const [designationId, setDesignationId] = useState("");
   const [form, setForm] = useState(data);
@@ -76,6 +78,7 @@ export default function JobDescriptionForm({ data, onSubmit }) {
               size="medium"
               className="formBtn"
               onClick={(e) => onSubmit(form)}
+              loading={loader}
             >
               {jobDescDictionary.saveJobDesc}
             </FormButton>
@@ -96,6 +99,7 @@ export default function JobDescriptionForm({ data, onSubmit }) {
             size="medium"
             className="formBtn"
             onClick={(e) => onSubmit(form)}
+            loading={loader}
           >
             {jobDescDictionary.addJobdesc}
           </FormButton>

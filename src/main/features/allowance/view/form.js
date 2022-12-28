@@ -29,7 +29,7 @@ export default function AllowanceForm({
   const [amountType, setAmountType] = useState(false);
 
   const { grades } = useSelector((state) => state.gradeSlice);
-
+  const { loader } = useSelector((state) => state.allowanceSlice);
   const handleClear = (e) => {
     setForm({ ...form, description: "", name: "", gradeId: null, value: "" });
     setClearButton(false);
@@ -217,6 +217,7 @@ export default function AllowanceForm({
                 onSubmit({ ...form, value: Number(form.value) });
                 setClearButton(false);
               }}
+              loading={loader}
             >
               {allowanceDictionary.saveAllowance}
             </FormButton>
@@ -231,7 +232,7 @@ export default function AllowanceForm({
               onSubmit({ ...form, value: Number(form.value) });
               setClearButton(false);
             }}
-            // loading={loading}
+            loading={loader}
           >
             {allowanceDictionary.addAllowance}
           </FormButton>

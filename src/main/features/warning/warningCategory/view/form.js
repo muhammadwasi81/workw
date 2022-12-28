@@ -1,6 +1,8 @@
 import "./warningCategory.css";
 import { Input } from "antd";
 import { useEffect, useState, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   FormButton,
   FormButtonContainer,
@@ -50,6 +52,7 @@ export default function WarningCategoryForm({
   }, [data]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { warningDictionary } = warningDictionaryList[userLanguage];
+  const { loader } = useSelector((state) => state.warningCategorySlice);
   return (
     <FormContainer>
       <FormHeader>{warningDictionary.warningCategory}</FormHeader>
@@ -83,6 +86,7 @@ export default function WarningCategoryForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
+              loading={loader}
             >
               {warningDictionary.saveCategory}
             </FormButton>
@@ -97,7 +101,7 @@ export default function WarningCategoryForm({
               onSubmit(form);
               setClearButton(false);
             }}
-            // loading={loading}
+            loading={loading}
           >
             {warningDictionary.addCategory}
           </FormButton>

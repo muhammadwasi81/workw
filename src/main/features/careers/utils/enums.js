@@ -100,7 +100,7 @@ export const CareerLevelTypeEnum = [
     value: 4,
   },
   {
-    label: "CSuite",
+    label: "C-Suite",
     value: 5,
   },
   {

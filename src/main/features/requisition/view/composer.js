@@ -1,38 +1,38 @@
-import { Button, Form, Input, Avatar, InputNumber, DatePicker } from "antd";
-import React, { useEffect, useState, useContext } from "react";
-import TextInput from "../../../sharedComponents/Input/TextInput";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import "./style.css";
-import { addRequisition } from "../store/actions";
-import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { requisitionDictionaryList } from "../localization/index";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { getNameForImage, STRINGS } from "../../../../utils/base";
-import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
+import { Button, Form, Input, Avatar, InputNumber, DatePicker } from 'antd';
+import React, { useEffect, useState, useContext } from 'react';
+import TextInput from '../../../sharedComponents/Input/TextInput';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllEmployees } from '../../../../utils/Shared/store/actions';
+import './style.css';
+import { addRequisition } from '../store/actions';
+import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
+import { requisitionDictionaryList } from '../localization/index';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import CustomSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { getNameForImage, STRINGS } from '../../../../utils/base';
+import { emptyEmployeesData } from '../../../../utils/Shared/store/slice';
 
 const initialState = {
-  id: "",
-  name: "",
-  reason: "",
-  description: "",
-  categoryId: "",
-  imageId: "",
+  id: '',
+  name: '',
+  reason: '',
+  description: '',
+  categoryId: '',
+  imageId: '',
   attachments: [],
   finalApprovers: [
     {
-      approverId: "",
+      approverId: '',
       approverType: 0,
     },
   ],
   approvers: [
     {
-      approverId: "",
+      approverId: '',
       approverType: 0,
       isDefault: true,
       status: 1,
-      email: "",
+      email: '',
     },
   ],
 };
@@ -52,7 +52,7 @@ const Composer = (props) => {
   const [value, setValue] = useState([]);
   const [attachments, setAttachments] = useState([]);
 
-  const { success } = useSelector((state) => state.requisitionSlice);
+  const { success, loader } = useSelector((state) => state.requisitionSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   const selectedData = (data, obj) => {
@@ -62,7 +62,7 @@ const Composer = (props) => {
     // onChange(data, obj);
   };
   useEffect(() => {
-    fetchEmployees("", 0);
+    fetchEmployees('', 0);
   }, []);
 
   const handleMember = (val) => {
@@ -102,7 +102,7 @@ const Composer = (props) => {
   const onFinish = (values) => {
     let approvers = [];
     let finalApprovers = [];
-    if (typeof values.approvers === "string") {
+    if (typeof values.approvers === 'string') {
       approvers.push({
         approverId: values.approvers,
       });
@@ -113,7 +113,7 @@ const Composer = (props) => {
         };
       });
     }
-    if (typeof values.finalApprovers === "string") {
+    if (typeof values.finalApprovers === 'string') {
       finalApprovers.push({
         approverId: values.finalApprovers,
       });
@@ -127,7 +127,6 @@ const Composer = (props) => {
 
     const payload = { ...values, attachments, approvers, finalApprovers };
     dispatch(addRequisition(payload));
-
   };
   useEffect(() => {
     if (success) {
@@ -136,7 +135,7 @@ const Composer = (props) => {
   }, [success]);
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   return (
@@ -157,7 +156,7 @@ const Composer = (props) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        className={Direction === "rtl" ? "labelRight" : ""}
+        className={Direction === 'rtl' ? 'labelRight' : ''}
       >
         <Form.Item
           label={requisitionDictionary.name}
@@ -200,24 +199,24 @@ const Composer = (props) => {
           ]}
         >
           <InputNumber
-            style={{ width: "100%" }}
-            size={"large"}
+            style={{ width: '100%' }}
+            size={'large'}
             placeholder={requisitionDictionary.EnterBudget}
           />
         </Form.Item>
         <Form.Item
-          label={"End Date"}
+          label={'End Date'}
           name="requisitionDate"
           rules={[
             {
               required: true,
-              message: "Please Select Date",
+              message: 'Please Select Date',
             },
           ]}
         >
           <DatePicker
             size="large"
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             placeholder="Date of Request Expire"
           />
         </Form.Item>
@@ -239,17 +238,17 @@ const Composer = (props) => {
           label={requisitionDictionary.approvers}
           showSearch={true}
           direction={Direction}
-          style={{ marginBottom: "0px" }}
+          style={{ marginBottom: '0px' }}
           rules={[{ required: true }]}
         >
           <CustomSelect
-            style={{ marginBottom: "0px" }}
+            style={{ marginBottom: '0px' }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={requisitionDictionary.selectApprovers}
-            mode={"multiple"}
+            mode={'multiple'}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -280,17 +279,17 @@ const Composer = (props) => {
           label={requisitionDictionary.FinalApprovers}
           showSearch={true}
           direction={Direction}
-          style={{ marginBottom: "0px" }}
+          style={{ marginBottom: '0px' }}
           rules={[{ required: true }]}
         >
           <CustomSelect
-            style={{ marginBottom: "0px" }}
+            style={{ marginBottom: '0px' }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={requisitionDictionary.selectMember}
-            mode={"multiple"}
+            mode={'multiple'}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -327,7 +326,7 @@ const Composer = (props) => {
               )
             }
             multiple={true}
-            uploadText={"Upload"}
+            uploadText={'Upload'}
           />
         </Form.Item>
 
@@ -339,9 +338,9 @@ const Composer = (props) => {
             block
             htmlType="submit"
             title={requisitionDictionary.createRequisition}
+            loading={loader}
           >
-            {" "}
-            {requisitionDictionary.createRequisition}{" "}
+            {requisitionDictionary.createRequisition}{' '}
           </Button>
         </Form.Item>
       </Form>

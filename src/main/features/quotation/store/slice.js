@@ -1,5 +1,5 @@
-import { createSlice, isPending } from "@reduxjs/toolkit";
-import { createQuotation, getAllQuotation, getQuotationById } from "./actions";
+import { createSlice, isPending } from '@reduxjs/toolkit';
+import { createQuotation, getAllQuotation, getQuotationById } from './actions';
 
 const initialState = {
   editData: null,
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const quotationSlice = createSlice({
-  name: "Quotation",
+  name: 'Quotation',
   initialState: initialState,
   reducers: {
     clearSalaryDetail: (state) => {

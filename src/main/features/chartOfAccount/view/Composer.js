@@ -27,7 +27,7 @@ function Composer() {
     userLanguage
   ];
   const dispatch = useDispatch();
-  const { listData, editData, loader } = useSelector(
+  const { listData, editData, createLoader } = useSelector(
     (state) => state.chartOfAccountsSlice
   );
 
@@ -161,7 +161,7 @@ function Composer() {
             className="ThemeBtn"
             block
             htmlType="submit"
-            loading={loader}
+            loading={createLoader}
             title={chartOfAccountDictionary.create}
           >
             {" "}

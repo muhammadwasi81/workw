@@ -1,5 +1,5 @@
 import { Skeleton } from "antd";
-import { useEffect, useState ,useContext} from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
 import { getAllBranchOffice, removeBranchOffice } from "../store/actions";
@@ -9,44 +9,42 @@ import { tableColumn } from "./tableColumn";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 
-
 export default function TableView({
   handleEdit,
   removeButtons,
   actionRights = [],
-  setClearButton 
+  setClearButton,
 }) {
-
   const { userLanguage } = useContext(LanguageChangeContext);
-	const { administration,taxSlab,sharedLabels,Direction } = dictionaryList[userLanguage];
-		console.log("jkjll",administration.grade.Grade);
+  const { administration, taxSlab, sharedLabels, Direction } = dictionaryList[
+    userLanguage
+  ];
 
-  const { items, loadingData } = useSelector((state) => state.subsidiaryOfficeSlice);
+  const { items, loadingData } = useSelector(
+    (state) => state.subsidiaryOfficeSlice
+  );
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch((getAllBranchOffice()));
+    dispatch(getAllBranchOffice());
   }, []);
 
-  console.log(items,)
-
-  const [id, setId] = useState()
+  const [id, setId] = useState();
 
   const onSuccess = (e) => {
-    setId(null)
-    dispatch(BranchOfficeDeleted(e))
-    setClearButton(true)
-  }
+    setId(null);
+    dispatch(BranchOfficeDeleted(e));
+    setClearButton(true);
+  };
 
   const onError = () => {
-    setId(null)
-  }
+    setId(null);
+  };
 
   const handleDelete = (e) => {
-    setId(e.id)
+    setId(e.id);
     dispatch(removeBranchOffice(e)).then(() => onSuccess(e), onError);
-    
-  }
+  };
 
   return (
     <AdminTable
@@ -58,7 +56,7 @@ export default function TableView({
         actionRights,
         id,
         setClearButton,
-        sharedLabels,
+        sharedLabels
       )}
       dataSource={items}
       pagination={false}

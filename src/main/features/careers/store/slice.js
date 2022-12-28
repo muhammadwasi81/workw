@@ -104,7 +104,7 @@ const careerSlice = createSlice({
       })
       .addMatcher(isRejected(...[getCareerByIdAction]), (state) => {
         // state.loader = false;
-        state.careerByIdLoader = true;
+        state.careerByIdLoader = false;
       })
       .addMatcher(isRejected(...[addCareer]), (state) => {
         state.createLoader = false;

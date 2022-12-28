@@ -40,7 +40,8 @@
 .singleTag {
     display: flex;
     background-color: #ededed;
-    padding: 0px 8px 0px 2px;
+    /* padding: 0px 8px 0px 2px; */
+    align-items: center;
     border-radius: 4px;
     cursor: pointer;
     width: fit-content;

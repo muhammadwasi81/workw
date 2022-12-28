@@ -35,6 +35,7 @@ function ListItem({ item, onClickApproval }) {
     postInterviewers,
     manager,
     approvers,
+    creator,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
@@ -61,6 +62,7 @@ function ListItem({ item, onClickApproval }) {
               name={item.creator?.name}
               round
             ></AvatarCustom>
+            // item && item.creator?.image
           }
           createDate={item.createDate}
           isPublic={true}

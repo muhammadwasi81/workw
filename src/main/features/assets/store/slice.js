@@ -36,9 +36,12 @@ const inventoryAssetSlice = createSlice({
           state.loader = true;
         }
       )
-      .addMatcher(isRejected(...[getAllInventoryAsset]), (state) => {
-        state.loader = false;
-      });
+      .addMatcher(
+        isRejected(...[getAllInventoryAsset, addInventoryAsset]),
+        (state) => {
+          state.loader = false;
+        }
+      );
   },
 });
 

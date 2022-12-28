@@ -1,30 +1,27 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState } from 'react';
 import {
   ContBody,
   TabbableContainer,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Skeleton } from "antd";
-import { requisitionDictionaryList } from "../localization/index";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import Composer from "./composer";
-import DetailedView from "./DetailedView";
-import "./style.css";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getAllRequisition, GetRequisitionById } from "../store/actions";
-import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import Header from "../../../layout/header/index";
-import { handleOpenComposer } from "../store/slice";
-// import ListItemMyRequisition from "./ListItem";
-import { useNavigate } from "react-router-dom";
-import ListItem from "./ListItem";
-import { Table } from "../../../sharedComponents/customTable";
-import { tableColumn } from "./TableColumn";
-import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
-
-// import { ROUTES } from "../../../../utils/routes";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+} from '../../../sharedComponents/AppComponents/MainFlexContainer';
+import { Skeleton } from 'antd';
+import { requisitionDictionaryList } from '../localization/index';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import Composer from './composer';
+import DetailedView from './DetailedView';
+import './style.css';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getAllRequisition, GetRequisitionById } from '../store/actions';
+import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
+import TopBar from '../../../sharedComponents/topBar/topBar';
+import Header from '../../../layout/header/index';
+import { handleOpenComposer } from '../store/slice';
+import { useNavigate } from 'react-router-dom';
+import ListItem from './ListItem';
+import { Table } from '../../../sharedComponents/customTable';
+import { tableColumn } from './TableColumn';
+import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 
 const Requisition = () => {
   const dispatch = useDispatch();
@@ -37,15 +34,13 @@ const Requisition = () => {
 
   const [filter, setFilter] = useState({
     filterType: 0,
-    search: "",
+    search: '',
     sortBy: 1,
   });
 
   const { items, drawerOpen, loader } = useSelector(
     (state) => state.requisitionSlice
   );
-
-  const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
     setDetailId(null);

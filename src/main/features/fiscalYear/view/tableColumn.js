@@ -1,7 +1,9 @@
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Popconfirm } from "antd";
-import { fiscalYearEnum } from "../enum/index";
+//import { fiscalYearEnum } from "../enum/index";
+import { getMonthName } from "../helper/helpers";
+import moment from "moment";
 
 const Edit = (handleEdit, row, setClearButton) => {
   return (
@@ -48,18 +50,20 @@ export const tableColumn = (
     {
       title: [sharedLabels.description],
       dataIndex: "description",
-      width: "15%",
+      width: "25%",
       key: 2,
     },
     {
       title: [sharedLabels.startMonth],
       dataIndex: "startMonth",
+      render: (startMonth) => getMonthName(startMonth),
       width: "15%",
       key: 3,
     },
     {
       title: [sharedLabels.endMonth],
       dataIndex: "endMonth",
+      render: (endMonth) => getMonthName(endMonth),
       width: "15%",
       key: 4,
     },

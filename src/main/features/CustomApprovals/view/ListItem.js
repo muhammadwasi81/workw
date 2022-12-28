@@ -94,7 +94,7 @@ function ListItem(props) {
             <div className="cardSection__body layout">{subject}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">4
+            <div className="cardSection__title">
               {customApprovalDictionary.category}
             </div>
             <div className="cardSection__body">{category}</div>

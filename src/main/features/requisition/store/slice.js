@@ -1,11 +1,11 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addRequisition,
   addRequisitionOffer,
   getAllRequisition,
   GetAllRequisitionOffer,
   GetRequisitionById,
-} from "./actions";
+} from './actions';
 
 const initialState = {
   success: false,
@@ -20,7 +20,7 @@ const initialState = {
 };
 
 const requisitionSlice = createSlice({
-  name: "requisition",
+  name: 'requisition',
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
@@ -65,6 +65,9 @@ const requisitionSlice = createSlice({
       })
       .addMatcher(isPending(...[GetRequisitionById]), (state) => {
         state.loadingData = true;
+      })
+      .addMatcher(isPending(...[addRequisition]), (state) => {
+        state.loader = true;
       })
       .addMatcher(isRejected(...[getAllRequisition]), (state) => {
         state.loader = true;

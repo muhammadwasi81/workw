@@ -54,16 +54,16 @@ export const getCities = createAsyncThunk(
 export const getEmployeeSalary = createAsyncThunk(
   "getEmployeeSalary",
   async (data, { dispatch, getState }) => {
-    const res = await getEmployeeSalaryService(data)
+    const res = await getEmployeeSalaryService(data);
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
-        type:  responseMessageType.ApiFailure
-      })
+        type: responseMessageType.ApiFailure,
+      });
     }
-    return res
+    return res;
   }
-)
+);
 
 export const getAllDefaultDesignation = createAsyncThunk(
   "getDefaultDesignation",

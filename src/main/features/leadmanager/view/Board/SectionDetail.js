@@ -26,6 +26,7 @@ import UploadBgImg from "../../../workboard/WorkBoardDetail/UploadBgImg";
 import {
   getAllLeadManagerContactDetail,
   updateLeadManagerDetail,
+  getAllScheduleAction,
 } from "../../store/actions";
 import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
 import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
@@ -34,8 +35,11 @@ import { LeadManagerDictionary } from "../../localization";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
 import CreateSchedule from "../../../schedule/view/createSchedule";
-import calenderSvg from "../../../../../content/NewContent/leadManager/svg/calenderSvg.svg";
 import Calender from "../../../../../content/NewContent/leadManager/svg/Calender-ic.svg";
+import "./event.css";
+import Event from "./event";
+import EventDetail from "../../../schedule/view/eventDetail";
+import { toggleEventDetailComposer } from "../../../schedule/store/slice";
 
 const { Panel } = Collapse;
 
@@ -62,11 +66,31 @@ function SectionDetail(props) {
   ];
   const { detail, labels, placeHolder } = LeadManagerDictionaryList;
   const scheduleSuccess = useSelector((state) => state.scheduleSlice.success);
+  const { meetingDetail, isMeetingDetailLoading } = useSelector(
+    (state) => state.leadMangerSlice
+  );
+  console.log(meetingDetail, "meetingDetailS");
+  useEffect(() => {
+    dispatch(
+      getAllScheduleAction({
+        referenceType: meetingDetail.referenceType,
+        referenceId: meetingDetail.referenceId,
+      })
+    );
+  }, []);
   useEffect(() => {
     if (scheduleSuccess) {
       setIsOpen(false);
     }
   }, [scheduleSuccess]);
+  const handleScheduleDetailComposer = (data) => {
+    dispatch(
+      toggleEventDetailComposer({
+        id: data.id,
+        scheduleType: data.scheduleType,
+      })
+    );
+  };
   const onFinish = (values) => {
     dispatch(
       updateLeadManagerDetail(
@@ -239,13 +263,34 @@ function SectionDetail(props) {
                       setIsOpen(true);
                     }}
                   >
+
                     {/* <CalendarOutlined className="!text-primary-color !text-base" /> */}
                     <img src={Calender} width="21px" alt="" />
+
+                    {/* <CalendarOutlined className="!text-primary-color !text-base" /> */}
+
                   </div>
                 }
               >
-                <div className="flex justify-center text-primary-color">
-                  {detail.noMeetings}
+                {/* *******show Meeting list******* */}
+                <div className="eventWrapper">
+                  <div className="eventWrapper__body">
+                    <EventDetail />
+                    {meetingDetail?.length > 0 ? (
+                      meetingDetail?.map((event) => (
+                        <Event
+                          data={event}
+                          handleScheduleDetailComposer={
+                            handleScheduleDetailComposer
+                          }
+                        />
+                      ))
+                    ) : (
+                      <div className="flex justify-center text-primary-color">
+                        {detail.noMeetings}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </Panel>
             </Collapse>
@@ -281,6 +326,7 @@ function SectionDetail(props) {
                   </div>
                 }
               >
+                {/* contacts list */}
                 <div className="max-h-60 overflow-y-auto flex flex-col gap-3">
                   {data?.contacts.length > 0 ? (
                     data?.contacts.map((contact) => (

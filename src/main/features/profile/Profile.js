@@ -4,11 +4,7 @@ import {
   TabContainer,
 } from '../../sharedComponents/AppComponents/MainFlexContainer';
 import Tab from '../../sharedComponents/Tab';
-import CoverImage from '../projects/UI/CoverImage';
 import ProfileCoverDetail from './ProfileCoverDetail';
-// import ProjectCover from "../../../content/ProjectCover.svg";
-import cover from '../../../content/cover.svg';
-import profile from '../../../content/profile.svg';
 import ProfilePanel from './view/ProfilePanel';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ROUTES } from '../../../utils/routes';
@@ -26,6 +22,11 @@ import Education from '../team/view/Education';
 import Leaves from '../team/view/Leaves';
 import Experience from '../team/view/Experience';
 import CheckIn from '../team/view/CheckIn';
+import ProfileCover from '../projects/UI/ProfileCover';
+import SingleNotes from '../notes/singleNotes/singleNotes';
+import AppraisalTable from './appraisals';
+import AwardsTable from './awards';
+import SalaryTable from './salary';
 
 const Profile = () => {
   const param = useParams();
@@ -50,15 +51,20 @@ const Profile = () => {
     {
       featureName: profileDictionary.feed,
       content: (
-        <NewsFeed
-          isScheduler={false}
-          isCheckedIn={false}
-          width={'!w-full'}
-          referenceType={4}
-          referenceId={id}
-          backButton={false}
-          routeLink={ROUTES.USER.DEFAULT + id}
-        />
+        <div className="flex">
+          <NewsFeed
+            isScheduler={false}
+            isCheckedIn={false}
+            width={'!w-full'}
+            referenceType={4}
+            referenceId={id}
+            backButton={false}
+            routeLink={ROUTES.USER.DEFAULT + id}
+          />
+          <div className="w-1/4">
+            <SingleNotes />
+          </div>
+        </div>
       ),
       featureId: ROUTES.USER.DEFAULT + id,
     },
@@ -69,17 +75,17 @@ const Profile = () => {
     },
     {
       featureName: profileDictionary.awards,
-      content: <CheckIn />,
+      content: <AwardsTable />,
       featureId: ROUTES.USER.DEFAULT + id + '/awards',
     },
     {
       featureName: profileDictionary.appraisal,
-      content: <CheckIn />,
+      content: <AppraisalTable />,
       featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
     },
     {
       featureName: profileDictionary.salary,
-      content: <CheckIn />,
+      content: <SalaryTable />,
       featureId: ROUTES.USER.DEFAULT + id + '/salary',
     },
     {
@@ -125,7 +131,7 @@ const Profile = () => {
       <ContBody className="!block">
         <div className="flex flex-row gap-5 h-[calc(100vh_-_60px)] w-full">
           <div className="rounded-xl flex flex-col gap-5 overflow-scroll w-full">
-            <CoverImage image={cover} />
+            <ProfileCover />
             <ProfileCoverDetail id={id} />
             <Tab
               panes={panes}

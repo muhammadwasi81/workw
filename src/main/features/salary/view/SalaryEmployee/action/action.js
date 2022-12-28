@@ -1,36 +1,37 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   responseMessage,
   responseMessageType,
-} from '../../../../../../services/slices/notificationSlice';
-import { ResponseType } from '../../../../../../utils/api/ResponseResult';
-import { openNotification } from '../../../../../../utils/Shared/store/slice';
-import { ValidateAddMultipleSalary } from '../../../utils/validate';
+} from "../../../../../../services/slices/notificationSlice";
+import { ResponseType } from "../../../../../../utils/api/ResponseResult";
+import { openNotification } from "../../../../../../utils/Shared/store/slice";
+import { ValidateAddMultipleSalary } from "../../../utils/validate";
 import {
   addEmployeeSalaryService,
   getCurrentSalaryOfEmployeeService,
-} from '../service/service';
+  getEmployeeSalaryService,
+} from "../service/service";
 
 export const getCurrentSalaryOfEmployeeAction = createAsyncThunk(
   `InventoryAsset/GetInventoryAssetById`,
   async (id) => {
     const response = await getCurrentSalaryOfEmployeeService(id);
-    console.log(response.data, 'getCurrentSalaryOfEmployeeAction actions');
+    console.log(response.data, "getCurrentSalaryOfEmployeeAction actions");
     return response.data;
   }
 );
 
 export const addEmployeeSalaryAction = createAsyncThunk(
-  'employeeSalary/addEmployee',
+  "employeeSalary/addEmployee",
   async (payload, { rejectWithValue, dispatch }) => {
     const response = await addEmployeeSalaryService(payload);
-    console.log(response, 'addEmployeeSalaryAction action');
+    console.log(response, "addEmployeeSalaryAction action");
     switch (response.type) {
       case ResponseType.ERROR:
         dispatch(
           openNotification({
             message: response.errorMessage,
-            type: 'error',
+            type: "error",
             duration: 2,
           })
         );
@@ -39,7 +40,7 @@ export const addEmployeeSalaryAction = createAsyncThunk(
         dispatch(
           openNotification({
             message: `Employee Salary Added Successfully`,
-            type: 'success',
+            type: "success",
             duration: 2,
           })
         );
@@ -47,6 +48,15 @@ export const addEmployeeSalaryAction = createAsyncThunk(
       default:
         return;
     }
+  }
+);
+
+export const getEmployeeSalaryAction = createAsyncThunk(
+  `employeeSlice/GetEmployeeSalary`,
+  async (id) => {
+    const response = await getEmployeeSalaryService(id);
+    console.log(response.data, "getSalaryOfEmployeeAction actions");
+    return response.data;
   }
 );
 

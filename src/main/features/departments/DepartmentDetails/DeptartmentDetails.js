@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { ROUTES } from "../../../../utils/routes";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { ROUTES } from '../../../../utils/routes';
+import { useSelector } from 'react-redux';
 import {
   ContBody,
   TabContainer,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import Tab from "../../../sharedComponents/Tab";
-import LayoutHeader from "../../../layout/header/index";
-import { EditOutlined } from "@ant-design/icons";
-import CoverDetail from "../view/CoverDetail";
-import CoverImage from "../view/CoverImage";
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getDepartmentById } from "../store/actions";
-import Appraisal from "../appraisal/index";
-import { handleParentId } from "../store/slice";
-import SubDepartment from "./SubDepartment";
+} from '../../../sharedComponents/AppComponents/MainFlexContainer';
+import Tab from '../../../sharedComponents/Tab';
+import LayoutHeader from '../../../layout/header/index';
+import { EditOutlined } from '@ant-design/icons';
+import CoverDetail from '../view/CoverDetail';
+import CoverImage from '../view/CoverImage';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getDepartmentById } from '../store/actions';
+import Appraisal from '../appraisal/index';
+import { handleParentId } from '../store/slice';
+import SubDepartment from './SubDepartment';
 
 function DepartmentDetails() {
   const dispatch = useDispatch();
@@ -46,20 +46,20 @@ function DepartmentDetails() {
   ];
   const items = [
     {
-      name: "Department Details",
+      name: 'Department Details',
       to: `${ROUTES.DEPARTMENTS.DEPARTMENT}`,
       renderButton: [1],
     },
   ];
   const buttons = [
     {
-      buttonText: "Edit Projects",
+      buttonText: 'Edit Projects',
       icon: <EditOutlined />,
     },
   ];
 
   useEffect(() => {
-    console.log("useEffects works");
+    console.log('useEffects works');
     dispatch(getDepartmentById(param.id));
   }, [param.id]);
 

@@ -1,9 +1,9 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addChartOfAccount,
   getAllChartOfAccount,
   updateChartOfAccount,
-} from './actions';
+} from "./actions";
 
 const initialState = {
   listData: [],
@@ -11,14 +11,14 @@ const initialState = {
   success: false,
   loader: false,
   error: false,
+  createLoader: false,
 };
 
 export const ChartOfAccountSlice = createSlice({
-  name: 'chartOfAccount',
+  name: "chartOfAccount",
   initialState: initialState,
   reducers: {
     handleEdit: (state, { payload }) => {
-      console.log(payload, 'PAYLOAD');
       state.editData = payload;
     },
   },
@@ -26,14 +26,14 @@ export const ChartOfAccountSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addChartOfAccount.fulfilled, (state, { payload }) => {
-        state.loader = false;
+        state.createLoader = false;
         state.success = true;
         state.listData = [payload, ...state.listData];
       })
       .addCase(updateChartOfAccount.fulfilled, (state, { payload }) => {
-        console.log(payload, 'PAYLOAD HERE');
+        console.log(payload, "PAYLOAD HERE");
         state.editData = null;
-        state.loader = false;
+        state.createLoader = false;
         state.success = true;
         let tempListData = [...state.listData];
         tempListData.splice(
@@ -47,22 +47,23 @@ export const ChartOfAccountSlice = createSlice({
         state.loader = false;
         state.listData = payload;
       })
-      .addMatcher(
-        isPending(
-          ...[addChartOfAccount, getAllChartOfAccount, updateChartOfAccount]
-        ),
-        (state) => {
-          state.loader = true;
-          state.success = false;
-          state.error = false;
-        }
-      )
+      .addMatcher(isPending(...[addChartOfAccount]), (state) => {
+        state.createLoader = true;
+        state.success = false;
+        state.error = false;
+      })
+      .addMatcher(isPending(...[getAllChartOfAccount]), (state) => {
+        state.loader = true;
+        state.success = false;
+        state.error = false;
+      })
       .addMatcher(
         isRejected(
           ...[addChartOfAccount, getAllChartOfAccount, updateChartOfAccount]
         ),
         (state) => {
-          state.loader = true;
+          state.loader = false;
+          state.createLoader = false;
           state.success = false;
           state.error = false;
         }

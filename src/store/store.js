@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -196,13 +196,14 @@ const reducers = combineReducers({
   employeeSalarySlice,
   mailSlice,
   settingSlice,
+  eLearningCategorySlice,
 });
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
   version: 1,
-  whitelist: ['userSlice'],
+  whitelist: ["userSlice"],
   // blacklist: ["stickyNotesSlice"]
 };
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -27,6 +27,7 @@ import SingleNotes from '../notes/singleNotes/singleNotes';
 import AppraisalTable from './appraisals';
 import AwardsTable from './awards';
 import SalaryTable from './salary';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
   const param = useParams();
@@ -35,10 +36,15 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { pathname } = location;
   const { id } = param;
+  console.log(id, 'params');
   const [defaultPath, setDefaultPath] = useState('');
   // const { education } = useSelector((state) => state.employeeProfileSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { profileDictionary } = profileDictionaryList[userLanguage];
+  const {
+    user: { id: userId },
+  } = useSelector((state) => state.userSlice);
+  console.log(userId, 'userId');
   const onChange = (key) => {
     navigate(key);
   };
@@ -61,7 +67,7 @@ const Profile = () => {
             backButton={false}
             routeLink={ROUTES.USER.DEFAULT + id}
           />
-          <div className="w-1/4">
+          <div className="bg-white w-1/4">
             <SingleNotes />
           </div>
         </div>
@@ -134,7 +140,7 @@ const Profile = () => {
             <ProfileCover />
             <ProfileCoverDetail id={id} />
             <Tab
-              panes={panes}
+              panes={userId === id ? panes : panes.slice(0, 2)}
               canChangeRoute={true}
               onChange={onChange}
               defaultPath={defaultPath}

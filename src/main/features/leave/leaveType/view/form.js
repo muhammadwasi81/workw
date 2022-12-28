@@ -1,6 +1,6 @@
-import './leaveType.css';
-import { Input } from 'antd';
-import { useEffect, useState ,useContext} from 'react';
+import "./leaveType.css";
+import { Input } from "antd";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -10,12 +10,10 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from '../../../../sharedComponents/StyledComponents/adminForm';
+} from "../../../../sharedComponents/StyledComponents/adminForm";
 
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext"
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
-
-
 
 export default function LeaveTypeForm({
   data,
@@ -24,15 +22,14 @@ export default function LeaveTypeForm({
   setClearButton,
   clearButton,
 }) {
-
   const { userLanguage } = useContext(LanguageChangeContext);
-	const { administration,leave,Direction } = dictionaryList[userLanguage];
-		console.log("jkjll",administration);
+  const { administration, leave, Direction } = dictionaryList[userLanguage];
+  console.log("jkjll", administration);
 
   const [form, setForm] = useState(data);
 
   const handleClear = (e) => {
-    setForm({ ...form, description: '', name: '' });
+    setForm({ ...form, description: "", name: "" });
     setClearButton(false);
   };
 
@@ -53,6 +50,14 @@ export default function LeaveTypeForm({
       setClearButton(false);
     }
     setForm({ ...form, description: e.target.value });
+  };
+  const handelChangeCounts = (e) => {
+    if (e.target.value.length > 0) {
+      setClearButton(true);
+    } else {
+      setClearButton(false);
+    }
+    setForm({ ...form, defaultAllotLeaves: e.target.value });
   };
 
   useEffect(() => {
@@ -79,6 +84,15 @@ export default function LeaveTypeForm({
             onChange={handelChangeDescription}
           />
         </FormInput>
+        <FormInput>
+          <FormLabel>{administration.leave.allotLeaves}</FormLabel>
+          <Input
+            placeholder={"Alloted Leaves"}
+            value={form.defaultAllotLeaves}
+            type={"number"}
+            onChange={handelChangeCounts}
+          />
+        </FormInput>
       </FormInputContainer>
       <FormButtonContainer>
         {form.id ? (
@@ -93,7 +107,7 @@ export default function LeaveTypeForm({
                 setClearButton(false);
               }}
             >
-             {administration.leave.save}
+              {administration.leave.save}
             </FormButton>
           </>
         ) : (
@@ -119,7 +133,7 @@ export default function LeaveTypeForm({
             className="formBtn"
             onClick={handleClear}
           >
-             {administration.leave.clear}
+            {administration.leave.clear}
           </FormButton>
         )}
       </FormButtonContainer>

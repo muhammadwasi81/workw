@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
 import {
   addRebateCategory,
-  getAllRebateCategories,
-  removeRebateCategory,
+  removeRebateCategoryAction,
   updateRebateCategory,
 } from '../store/actions';
 import RebateCategoryTable from './table.js';
@@ -25,7 +24,7 @@ export default function AssetsCategory() {
   const { loader } = useSelector((state) => state.rebateCategorySlice);
 
   const handleDelete = (e) => {
-    dispatch(removeRebateCategory(e));
+    dispatch(removeRebateCategoryAction(e));
   };
 
   const onSubmit = (e) => {

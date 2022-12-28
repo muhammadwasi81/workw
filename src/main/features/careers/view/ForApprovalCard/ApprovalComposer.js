@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Button, Drawer, Form, Input } from "antd";
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { useSelector } from "react-redux";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
@@ -15,6 +14,7 @@ import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import moment from "moment";
 import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
+import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
 
 const ApprovalComposer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -71,6 +71,28 @@ const ApprovalComposer = (props) => {
           <ItemHeader className="ItemHeader">
             <CardProfileTopView
               profileImgSrc={
+                <AvatarCustom
+                  width={40}
+                  height={40}
+                  src={creator?.image}
+                  name={creator?.name}
+                  round
+                ></AvatarCustom>
+              }
+              createDate={createDate}
+              isPublic={true}
+              name={creator && creator.name}
+              destination={
+                creator && creator.designation
+                  ? creator.designation
+                  : "Not Designated"
+              }
+              refNo={referenceNo}
+              status={status}
+              profileImgSize={40}
+            />
+            {/* <CardProfileTopView
+              profileImgSrc={
                 <Avatar
                   width={40}
                   height={40}
@@ -90,7 +112,7 @@ const ApprovalComposer = (props) => {
               refNo={referenceNo}
               status={status}
               profileImgSize={40}
-            />
+            /> */}
             {/* <div className="flex items-center gap-3">
               <Avatar
                 image={creator?.image}

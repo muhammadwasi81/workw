@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -8,14 +8,14 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
-import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
-import requisitionSlice from "../main/features/requisition/store/slice";
-import authSlice from "../main/features/auth/store/slice";
-import gradeSlice from "../main/features/grade/store/slice";
-import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import MessengerSlice from '../main/features/Messenger/store/messengerSlice';
+import sideBarChatSlice from '../components/MainMenu/SideChatbar/store/sideBarChatSlice';
+import requisitionSlice from '../main/features/requisition/store/slice';
+import authSlice from '../main/features/auth/store/slice';
+import gradeSlice from '../main/features/grade/store/slice';
+import rebateCategorySlice from '../main/features/rebateCategory/store/slice';
 // import taxSlabSlice from '../main/features/taxSlabs/store/slice';
 import taxSlabGroupSlice from "../main/features/taxSlabs/store/slice";
 import eLearningSlice from "../main/features/eLearning/store/slice";
@@ -124,7 +124,7 @@ const reducers = combineReducers({
   complainCategorySlice,
   quickAddSlice,
   payrollGroupSlice,
-  eLearningSlice,
+  // eLearningSlice,
   fiscalYearSlice,
   customApprovalCategorySlice,
   requisitionSlice,
@@ -143,7 +143,7 @@ const reducers = combineReducers({
   general: generalSlice,
   // documentsSlice,
   gradeSlice,
-  eLearningCategorySlice,
+  // eLearningCategorySlice,
   emailConfigurationSlice,
   salaryHeaderSlice,
   // taxSlabSlice,
@@ -199,10 +199,10 @@ const reducers = combineReducers({
 });
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
   version: 1,
-  whitelist: ["userSlice"],
+  whitelist: ['userSlice'],
   // blacklist: ["stickyNotesSlice"]
 };
 const persistedReducer = persistReducer(persistConfig, reducers);

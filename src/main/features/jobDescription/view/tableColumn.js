@@ -39,12 +39,12 @@ export const tableColumn = (
     {
       title: jobDescDictionary.name,
       dataIndex: "designation",
-      width: "50%",
+      width: "25%",
     },
     {
       title: jobDescDictionary.desc,
       dataIndex: "description",
-      width: "50%",
+      width: "70%",
     },
     removeButtons
       ? {}

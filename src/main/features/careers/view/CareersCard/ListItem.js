@@ -75,7 +75,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             {city}, {country}
           </p>
           <p className="careersDescShort">{description}</p>
-          <div className="mt-5 skillsContainer">
+          <div className="skillsContainer">
             <div className="font-bold">{labels.skillsRequired}</div>
             <div>
               {skills

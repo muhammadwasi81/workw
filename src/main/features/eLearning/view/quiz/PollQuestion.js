@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Form, Input, Select, Button, Upload, Space } from "antd";
+import { Form, Input, Select, Button, Upload, Radio } from "antd";
 import {
   CloseOutlined,
   UploadOutlined,
@@ -13,6 +13,7 @@ import FileUploader from "../../../Messenger/view/MessengerBox/components/fileUp
 // import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 // import { elearningDictionaryList } from "../../localization/indexs";
 const { Option } = Select;
+const { TextArea } = Input;
 
 const QuestionWithType = (props) => {
   // const { userLanguage } = useContext(LanguageChangeContext);
@@ -85,16 +86,60 @@ const QuestionWithType = (props) => {
   // };
 
   const [form] = Form.useForm();
-  const [options, setOptions] = useState([{ answer: "", attachments: {}, isTrue: false }]);
-  const [question, setQuestion] = useState([{ question: "", attachments: {} }]);
+  const [options, setOptions] = useState([{ option: "", image: {} }]);
+  const [question, setQuestion] = useState(" ");
+  const [questionType, setQuestionType] = useState(3);
+  const [fileList, setFileList] = useState([]);
+  const [quesionImage, setQuestionImage] = useState();
+  const [isTrue, setIsTrue] = useState({});
 
   const handleQuestionImageChange = () => {
 
-  }
+  useEffect(() => {
+    console.log(fileList);
+  }, [fileList]);
+
+  const handleQuestionImageChange = (info) => {
+    console.log("image", info);
+    setQuestionImage(info.fileList[0]);
+  };
+
+  // const onQuestionTypeChange = (value) => {
+  //   setQuestionType(value);
+  // };
 
   const onFinish = (values) => {
     console.log("values", values);
+    console.log("fileList onfinish", fileList);
+    let data = {};
+    if (values.answers) {
+      data = {
+        ...values,
+        fileList: fileList,
+        image: quesionImage && quesionImage,
+        isTrue: isTrue,
+      };
+    } else {
+      data = {
+        ...values,
+        fileList: fileList,
+        answers: [],
+        image: quesionImage && quesionImage,
+        isTrue: isTrue,
+      };
+    }
+    console.log(data, "data here console");
+    props.dataSend(data);
+    form.resetFields();
+    setQuestionImage(null);
+    setFileList([]);
+  };
 
+  const setRadionfunc = (e, index) => {
+    setIsTrue({
+      isTrue: e.target.value,
+      index: index,
+    });
   };
 
   return (
@@ -111,7 +156,11 @@ const QuestionWithType = (props) => {
                 },
               ]}
             >
-              <Input placeholder={"Question"} style={{ width: "40em" }} />
+              <TextArea
+                placeholder={"Question"}
+                rows={4}
+                style={{ width: "40em" }}
+              />
             </Form.Item>
             <Form.Item className="optionClass" name="questionImage">
               <FileUploader
@@ -122,7 +171,6 @@ const QuestionWithType = (props) => {
               />
             </Form.Item>
           </div>
-
           <Form.List name="answers">
             {(fields, { add, remove }, { errors }) => (
               <>
@@ -133,6 +181,12 @@ const QuestionWithType = (props) => {
                     name={[field.name]}
                     className="optionClass"
                   >
+                    <input
+                      type="radio"
+                      value={true}
+                      name={`optionTrue`}
+                      onChange={(e) => setRadionfunc(e, index)}
+                    />
                     <Form.Item
                       {...field}
                       validateTrigger={["onChange", "onBlur"]}
@@ -154,13 +208,17 @@ const QuestionWithType = (props) => {
                       />
                     </Form.Item>
 
-                    <Form.Item name={"jjjj"}>
-                      <FileUploader
-                        // fileList={profileImage ? profileImage : []}
-                        uploadButton={<button>Upload</button>}
-                        handleUpload={handleQuestionImageChange}
-                        classes=""
-                      />
+                    <Form.Item>
+                      <Upload
+                        onChange={(info) => handleImageChange(info, index)}
+                        accept="*"
+                        beforeUpload={() => false}
+                        multiple={false}
+                        defaultFileList={[]}
+                        uid={index}
+                      >
+                        <Button icon={<UploadOutlined />}></Button>
+                      </Upload>
                     </Form.Item>
                     <div
                       style={{

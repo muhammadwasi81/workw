@@ -51,7 +51,7 @@ export const tableColumn = (
   console.log(grade,"kkkkkk");
   return [
     { title:sharedLabels.name, dataIndex: 'name', width: '20%', key: 1 },
-    { title:[sharedLabels.description], dataIndex: 'description', key: 2 },
+    { title:[sharedLabels.description], dataIndex: 'description', width: '70%', key: 2 },
     removeButtons
       ? {}
       : {

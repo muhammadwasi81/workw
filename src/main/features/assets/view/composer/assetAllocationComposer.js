@@ -1,39 +1,39 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Col, Form, Input, message, Row, Select } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
-import { customApprovalDictionaryList } from "../../../CustomApprovals/localization";
-import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { modifySelectData } from "../../../../../utils/base";
-import { DeleteOutlined } from "@ant-design/icons";
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Col, Form, Input, message, Row, Select } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
+import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
+import { customApprovalDictionaryList } from '../../../CustomApprovals/localization';
+import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { modifySelectData } from '../../../../../utils/base';
+import { DeleteOutlined } from '@ant-design/icons';
 import {
   addInventoryAsset,
   getAllInventoryAsset,
-} from "../../../createAssets/store/action";
-import { assetsDictionaryList } from "../../localization/index";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+} from '../../../createAssets/store/action';
+import { assetsDictionaryList } from '../../localization/index';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
 
 const initialState = {
-  id: "",
-  description: "",
-  handoverId: "",
+  id: '',
+  description: '',
+  handoverId: '',
   approvers: [
     {
-      approverId: "",
+      approverId: '',
       approverType: 0,
       isDefault: true,
       status: 1,
-      email: "",
+      email: '',
     },
   ],
   assetItems: [
     {
-      id: "",
-      assetId: "",
-      itemId: "",
-      name: "",
-      code: "",
+      id: '',
+      assetId: '',
+      itemId: '',
+      name: '',
+      code: '',
     },
   ],
 };
@@ -50,11 +50,13 @@ const AssetComposer = () => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [isFirstTimeInvLoaded, setIsFirstTimeInvLoaded] = useState(false);
   const [value, setValue] = useState([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [data, setData] = useState([]);
 
   const employees = useSelector((state) => state.sharedSlice.employees);
-  const { inventoryAssets } = useSelector((state) => state.inventoryAssetSlice);
+  const { inventoryAssets, loader } = useSelector(
+    (state) => state.inventoryAssetSlice
+  );
   const { assetItemList } = useSelector((state) => state.AssetItemSlice);
 
   const selectedData = (data, obj) => {
@@ -67,17 +69,17 @@ const AssetComposer = () => {
   };
 
   useEffect(() => {
-    fetchEmployees("", 0);
+    fetchEmployees('', 0);
   }, []);
 
   useEffect(() => {
-    fetchInventoryAssets("", 0);
+    fetchInventoryAssets('', 0);
   }, []);
 
   const changeData = (e) => {
     setInput(e);
     setData([...data, e]);
-    console.log(data, "data");
+    console.log(data, 'data');
   };
 
   const handleDelete = (index) => {
@@ -116,12 +118,12 @@ const AssetComposer = () => {
 
   const onFinish = (values) => {
     if (!values.handoverId) {
-      return message.error("Please fill all fields");
+      return message.error('Please fill all fields');
     }
     let approvers = [];
     let assetItems = [];
 
-    if (typeof values.approvers === "string") {
+    if (typeof values.approvers === 'string') {
       approvers.push({
         approverId: values.approvers,
       });
@@ -132,7 +134,7 @@ const AssetComposer = () => {
         };
       });
     }
-    if (typeof values.assetItems === "string") {
+    if (typeof values.assetItems === 'string') {
       assetItems.push({
         itemId: values.assetItems,
         name: values.assetItems,
@@ -152,14 +154,14 @@ const AssetComposer = () => {
         };
       }),
     };
-    console.log(payload, "payload");
+    console.log(payload, 'payload');
     dispatch(addInventoryAsset(payload));
     setState(initialState);
     form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.error("Failed:", errorInfo);
+    console.error('Failed:', errorInfo);
   };
 
   const filteredAssetList = assetItemList.filter(
@@ -191,7 +193,7 @@ const AssetComposer = () => {
           direction={Direction}
         >
           <CustomSelect
-            style={{ marginBottom: "0px" }}
+            style={{ marginBottom: '0px' }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
@@ -206,8 +208,8 @@ const AssetComposer = () => {
                     name={opt.name}
                     src={opt.image}
                     round={true}
-                    width={"30px"}
-                    height={"30px"}
+                    width={'30px'}
+                    height={'30px'}
                   />
                   {opt.name}
                 </>
@@ -220,13 +222,13 @@ const AssetComposer = () => {
             rules={[
               {
                 required: true,
-                message: "Please Select Member",
+                message: 'Please Select Member',
               },
             ]}
           />
         </Form.Item>
         <Form.Item
-          style={{ marginBottom: "0px" }}
+          style={{ marginBottom: '0px' }}
           name="approverId"
           label={assetsDictionary.approvers}
           showSearch={true}
@@ -234,13 +236,13 @@ const AssetComposer = () => {
           rules={[{ required: false }]}
         >
           <CustomSelect
-            style={{ marginBottom: "0px" }}
+            style={{ marginBottom: '0px' }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={assetsDictionary.selectMember}
-            mode={"multiple"}
+            mode={'multiple'}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -250,8 +252,8 @@ const AssetComposer = () => {
                     name={opt.name}
                     src={opt.image}
                     round={true}
-                    width={"30px"}
-                    height={"30px"}
+                    width={'30px'}
+                    height={'30px'}
                   />
                   {opt.name}
                 </>
@@ -269,7 +271,7 @@ const AssetComposer = () => {
 
         <Col span={24}>
           <Form.Item
-            style={{ marginBottom: "5px" }}
+            style={{ marginBottom: '5px' }}
             name="category"
             label={assetsDictionary.items}
             showSearch={true}
@@ -279,14 +281,14 @@ const AssetComposer = () => {
             name="Items"
             placeholder={assetsDictionary.selectItems}
             style={{
-              width: "100%",
-              borderRadius: "5px",
-              marginBottom: "10px",
+              width: '100%',
+              borderRadius: '5px',
+              marginBottom: '10px',
             }}
             size="large"
             value={assetsDictionary.selectItems}
             filterOption={(input, option) =>
-              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }
             onChange={(e) => {
               changeData(e);
@@ -311,12 +313,12 @@ const AssetComposer = () => {
                 <div
                   key={item.id}
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    backgroundColor: "#f5f5f5",
-                    padding: "10px",
-                    borderRadius: "5px",
-                    marginBottom: "10px",
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    backgroundColor: '#f5f5f5',
+                    padding: '10px',
+                    borderRadius: '5px',
+                    marginBottom: '10px',
                   }}
                 >
                   <strong>
@@ -330,9 +332,9 @@ const AssetComposer = () => {
                     className="ThemeBtn"
                     block
                     style={{
-                      width: "45px",
-                      height: "35px",
-                      paddingBottom: "7px",
+                      width: '45px',
+                      height: '35px',
+                      paddingBottom: '7px',
                     }}
                     onClick={() => handleDelete(index)}
                   >
@@ -350,6 +352,7 @@ const AssetComposer = () => {
             block
             htmlType="submit"
             title="Create Asset Allocation"
+            loading={loader}
           >
             {assetsDictionary.createAssetAllocation}
           </Button>

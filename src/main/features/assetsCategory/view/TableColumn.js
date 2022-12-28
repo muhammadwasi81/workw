@@ -32,7 +32,7 @@ export const tableColumn = (
     {
       title: assetsDictionary.categoryName,
       dataIndex: "name",
-      width: "30%",
+      width: "25%",
       key: 1,
     },
     {

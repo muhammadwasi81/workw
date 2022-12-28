@@ -52,7 +52,7 @@ const Composer = (props) => {
   const [value, setValue] = useState([]);
 
   const { rewardCategories } = useSelector((state) => state.sharedSlice);
-  const { success, loader } = useSelector((state) => state.rewardSlice);
+  const { success, addRewardLoader } = useSelector((state) => state.rewardSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
 
   const selectedData = (data, obj) => {
@@ -76,7 +76,7 @@ const Composer = (props) => {
 
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
-  };
+  }; 
 
   const [newState, setNewState] = useState({
     members: [],
@@ -329,7 +329,7 @@ const Composer = (props) => {
             className="ThemeBtn"
             block
             htmlType="submit"
-            loading={loader}
+            loading={addRewardLoader}
             title={rewardDictionary.createReward}
           >
             {' '}

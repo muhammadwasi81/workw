@@ -15,6 +15,7 @@ const initialState = {
   bonusDetail: {},
   drawerOpen: false,
   cancelBonuss: {},
+  createLoader: false,
 };
 
 const bonusSlice = createSlice({
@@ -61,6 +62,7 @@ const bonusSlice = createSlice({
         // state.warningData = payload;
         state.bonuses = [payload.data.data, ...state.bonuses];
         state.drawerOpen = false;
+        state.createLoader = false;
         return state;
       })
       .addMatcher(isPending(...[getAllBonus]), (state) => {
@@ -69,8 +71,14 @@ const bonusSlice = createSlice({
       .addMatcher(isPending(...[GetBonusById]), (state) => {
         state.loadingData = true;
       })
+      .addMatcher(isPending(...[addBonus]), (state) => {
+        state.createLoader = true;
+      })
       .addMatcher(isRejected(...[getAllBonus]), (state) => {
-        state.loader = true;
+        state.loader = false;
+      })
+      .addMatcher(isRejected(...[addBonus]), (state) => {
+        state.createLoader = false;
       });
   },
 });

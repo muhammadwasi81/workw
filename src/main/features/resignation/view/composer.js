@@ -60,6 +60,7 @@ const Composer = (props) => {
   const [value, setValue] = useState([]);
 
   const { rewardCategories } = useSelector((state) => state.sharedSlice);
+  const { createLoader } = useSelector((state) => state.resignationSlice);
   const { success } = useSelector((state) => state.rewardSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
 
@@ -676,6 +677,7 @@ const Composer = (props) => {
             className="ThemeBtn"
             block
             htmlType="submit"
+            loading={createLoader}
             title={resignationDictionary.create}
           >
             {" "}

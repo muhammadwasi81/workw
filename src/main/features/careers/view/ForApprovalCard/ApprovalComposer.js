@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Drawer, Form, Input, Skeleton } from "antd";
+import { Button, Drawer, Form, Input, Skeleton, Tag } from "antd";
 import { useSelector } from "react-redux";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
@@ -9,6 +9,7 @@ import {
   ItemHeader,
   SingleItem,
   ItemContent,
+  ItemContentCareers,
 } from "../../../../sharedComponents/Card/CardStyle";
 import { CareerStatusEnum, CareerLevelTypeEnum } from "../../utils/enums";
 import moment from "moment";
@@ -40,7 +41,9 @@ const ApprovalComposer = (props) => {
     experience,
     approvers,
     referenceNo,
+    skills,
   } = careerDetail;
+  const skillsArray = skills?.split(",");
 
   return (
     <>
@@ -103,13 +106,13 @@ const ApprovalComposer = (props) => {
                   profileImgSize={40}
                 />
               </ItemHeader>
-              <ItemContent className="!h-[100px] !max-h-[100px]">
+              <ItemContentCareers className="!h-[100px] !max-h-[100px]">
                 <div className="font-bold text-[14px] text-primary-color">
                   {department}
                 </div>
                 <p className="careersDescShort">{description}</p>
-              </ItemContent>
-              <div className="flex justify-between">
+              </ItemContentCareers>
+              {/* <div className="flex justify-between">
                 <div className="flex gap-x-8">
                   <p className="careerFooterText">
                     {city}, {country} -{" "}
@@ -131,6 +134,16 @@ const ApprovalComposer = (props) => {
                     }
                   })}
                 </p>
+              </div> */}
+              <div className="skillsContainer">
+                <div className="font-bold">{labels.skillsRequired}</div>
+                <div>
+                  {skills
+                    ? skillsArray?.map((item, index) => {
+                        return <Tag className="LinkTag">{item}</Tag>;
+                      })
+                    : null}
+                </div>
               </div>
               <div className="cardSections">
                 <div className="cardSectionItem">

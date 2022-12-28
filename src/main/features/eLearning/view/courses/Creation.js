@@ -10,8 +10,9 @@ import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { useState } from "react";
 import { STRINGS, getNameForImage } from "../../../../../utils/base";
 import { useSelector } from "react-redux";
-import CustomSelect from "../../../../sharedComponents/Select/Select";
-import { getAllEmployees, getRewardCategory } from "../../../../../utils/Shared/store/actions";
+import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import MySelect from "../../../../sharedComponents/Select/Select";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CourseOptionsEnum, FileTypeEnum, LevelEnum, TypeEnum } from "../../constant";
@@ -90,7 +91,6 @@ function CreateCourse() {
 		setPrivacyId(value);
 	};
 
-
   const onFinish = (values) => {
     let members = [];
     let assignMembers = [];
@@ -124,6 +124,8 @@ function CreateCourse() {
       file: profileImage && profileImage[0]?.originFileObj,
     };
 
+    console.log(profileImage, image, "COVER IMAGE FROM ON FINISH")
+
     let payloadOne = {
       categoryId: values.categoryId,
       courseType: values.courseType,
@@ -138,13 +140,13 @@ function CreateCourse() {
       curriculums: sections,
     }
 
-    console.log(payloadOne, "PAYLOAD ONE");
+    console.log(payloadOne, "MY PAYLOAD !!!")
 
-    // if (Object.keys(image).length > 0) {
-    //   dispatch(addCourse(payloadOne))
-    // } else {
-    //   dispatch(addCourse(payloadOne))
-    // }
+    if (Object.keys(image).length > 0) {
+      dispatch(addCourse(payloadOne))
+    } else {
+      dispatch(addCourse(payloadOne))
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -173,8 +175,6 @@ function CreateCourse() {
     setProfileImage(data);
   };
 
-  console.log(singleImage, "singleImagesingleImagesingleImage")
-
   const handleAddTopic = (e) => {
     let imageUpload = {
       id: STRINGS.DEFAULTS.guid,
@@ -189,8 +189,6 @@ function CreateCourse() {
       form.setFieldsValue({curriculumName: "", topicName: "", type: "", text: "",})
     }
   }
-
-  console.log(topic, "topic")
 
   const handleAddSection = ((e) => {
     dispatch(addSection({topics, name: curriculumName, description: "dummy content" }))
@@ -233,7 +231,7 @@ function CreateCourse() {
                   },
                 ]}
               >
-                <CustomSelect
+                <MySelect
                   data={ELearningCategory}
                   placeholder={"Select Categoy"}
                   style={{

@@ -60,7 +60,7 @@ const Composer = (props) => {
 
   const { leaveTypes, success } = useSelector((state) => state.leaveTypeSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
-  const { UserLeave } = useSelector((state) => state.leaveSlice);
+  const { UserLeave, createLoader } = useSelector((state) => state.leaveSlice);
   console.log(props.id, "userIddd");
   const selectedDataApprovers = (data, obj) => {
     setValue(data);
@@ -372,6 +372,7 @@ const Composer = (props) => {
             className="ThemeBtn"
             block
             htmlType="submit"
+            loading={createLoader}
             title={leaveDictionary.createleave}
           >
             {leaveDictionary.createleave}

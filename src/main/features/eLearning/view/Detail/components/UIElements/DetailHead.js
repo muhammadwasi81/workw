@@ -6,6 +6,7 @@ function DetailPageTopDetail({
 	createdBy,
 	lastUpdated,
 	assignedTo,
+	members,
 	difficulty,
 	description,
 	imageHeight = "400px",
@@ -48,6 +49,14 @@ function DetailPageTopDetail({
 							Last updated: &nbsp;
 						</span>
 						<span>{lastUpdated}</span>
+					</div>
+				)}
+				{members && (
+					<div className="flex items-center">
+						<span className="font-semibold">
+							Members: &nbsp;
+						</span>
+						<span>{members}</span>
 					</div>
 				)}
 				{assignedTo && (

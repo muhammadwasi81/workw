@@ -45,6 +45,7 @@ const Composer = (props) => {
   const [amountType, setAmountType] = useState(false);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const salary = useSelector((state) => state.sharedSlice.employeeSalary);
+  const { createLoader } = useSelector((state) => state.bonusSlice)
   const [prercentage, setPercentage] = useState();
   const [amount, setAmount] = useState();
   const [netSalary, setnetSalary] = useState();
@@ -317,6 +318,7 @@ const Composer = (props) => {
             className="ThemeBtn"
             block
             htmlType="submit"
+            loading={createLoader}
             title={bonusDictionary.create}
           >
             {" "}

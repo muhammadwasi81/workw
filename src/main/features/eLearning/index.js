@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import DocumentComposers from "./composer";
+import CreateCourse from "./view/courses/Creation";
 // import CreateCourse from "./view/courses/Creation";
 import MainDashboard from "./view/Dashboard/MainDashboard";
 import CourseContent from "./view/Dashboard/Sections/Courses/CourseDetail/CourseContent";
@@ -9,7 +10,6 @@ import Summary from "./view/Dashboard/Summary";
 import TeamDahsboard from "./view/Dashboard/TeamDahsboard";
 import CreateEbook from "./view/ebook/Creation";
 import CreateQuiz from "./view/quiz/Creation";
-import CreateCourse from "./composer/course";
 
 function ELearning() {
 	return (

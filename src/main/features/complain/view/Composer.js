@@ -51,13 +51,14 @@ const Composer = (props) => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
   const { complainCategories } = useSelector((state) => state.sharedSlice);
-  console.log(complainCategories, "complainCategoriesssssssss");
   const employees = useSelector((state) => state.sharedSlice.employees);
-  const { loader } = useSelector((state) => state.complainSlice);
+  const { createLoader } = useSelector((state) => state.complainSlice);
 
   useEffect(() => {
     dispatch(getComplainCategory());
   }, []);
+
+  console.log(complainCategories, "complainCategoriescomplainCategoriescomplainCategoriescomplainCategories")
 
   const selectedData = (data, obj) => {
     setValue(data);
@@ -270,7 +271,7 @@ const Composer = (props) => {
             type="primary"
             size="medium"
             className="ThemeBtn"
-            loading={loader}
+            loading={createLoader}
             block
             htmlType="submit"
             title={complainDictionary.create}

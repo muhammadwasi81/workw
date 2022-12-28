@@ -11,7 +11,7 @@ const initialState = {
   loadingData: false,
   loader: true,
   success: false,
-
+  createLoader: false,
   complainDetail: {},
   drawerOpen: false,
   cancelComplain: {},
@@ -44,6 +44,7 @@ const complainSlice = createSlice({
       .addCase(addComplain.fulfilled, (state, { payload }) => {
         state.drawerOpen = false;
         state.loader = false;
+        state.createLoader = false
         state.complains = [payload.data.data, ...state.complains];
         return state;
       })
@@ -58,8 +59,14 @@ const complainSlice = createSlice({
       .addMatcher(isPending(...[GetComplainById]), (state) => {
         state.loadingData = true;
       })
+      .addMatcher(isPending(...[addComplain]), (state) => {
+        state.createLoader = true;
+      })
       .addMatcher(isRejected(...[getAllComplains]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isRejected(...[addComplain]), (state) => {
+        state.createLoader = false;
       });
     // .addMatcher(isRejected(...[GetComplainById]), (state) => {
     //   state.loader = false;

@@ -11,6 +11,7 @@ const initialState = {
   cancelPromotion: {},
   loadingData: false,
   loader: true,
+  createLoader: false,
   promotionDetail: {},
   drawerOpen: false,
 };
@@ -59,14 +60,18 @@ const promotionSlice = createSlice({
         state.success = true;
         state.loading = false;
         state.drawerOpen = false;
+        state.createLoader = false;
         state.promotions = [payload.data.data, ...state.promotions];
-
-        // state.drawerOpen = false;
-        // return state;
       })
 
       .addMatcher(isPending(...[getAllPromotions]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[addPromotion]), (state) => {
+        state.createLoader = true;
+      })
+      .addMatcher(isRejected(...[addPromotion]), (state) => {
+        state.createLoader = false;
       })
       .addMatcher(isPending(...[GetPromotionById]), (state) => {
         state.loadingData = true;

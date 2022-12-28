@@ -26,6 +26,7 @@ function AvatarGroup(props) {
 		setIsModalOpen(false);
 	};
 	// console.log(props, "avatar group");
+
 	return (
 		<div onClick={e => showModal(e)} className="inline-flex">
 			<Avatar.Group
@@ -47,6 +48,7 @@ function AvatarGroup(props) {
 					//   }
 					//   placement="top"
 					// >
+					
 					<Avatar
 						className="cursor-pointer !bg-black"
 						src={

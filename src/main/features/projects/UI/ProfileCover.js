@@ -10,7 +10,7 @@ import coverImage from '../../../../content/default-cover.png';
 
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
-const CoverImage = (props) => {
+const ProfileCover = () => {
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
@@ -52,6 +52,7 @@ const CoverImage = (props) => {
       }
     };
   }, [file]);
+
   return (
     <div class="h-[400px] coverImgWrapper">
       {fileDataURL ? (
@@ -84,4 +85,4 @@ const CoverImage = (props) => {
   );
 };
 
-export default CoverImage;
+export default ProfileCover;

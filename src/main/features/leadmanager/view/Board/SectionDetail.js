@@ -35,6 +35,7 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
 import CreateSchedule from "../../../schedule/view/createSchedule";
 import calenderSvg from "../../../../../content/NewContent/leadManager/svg/calenderSvg.svg";
+import Calender from "../../../../../content/NewContent/leadManager/svg/Calender-ic.svg";
 
 const { Panel } = Collapse;
 
@@ -239,7 +240,7 @@ function SectionDetail(props) {
                     }}
                   >
                     {/* <CalendarOutlined className="!text-primary-color !text-base" /> */}
-                    <img src={calenderSvg} alt="" />
+                    <img src={Calender} width="21px" alt="" />
                   </div>
                 }
               >

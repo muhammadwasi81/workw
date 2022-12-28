@@ -18,9 +18,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 
 const RequestDetailCard = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, requestListDictionary } = requestListDictionaryList[
-    userLanguage
-  ];
+  const { Direction, requestListDictionary } = requestListDictionaryList[userLanguage];
   const dispatch = useDispatch();
   const { requestDetails } = useSelector((state) => state.requestItemSlice);
   console.log(requestDetails, "requestDetailssss");

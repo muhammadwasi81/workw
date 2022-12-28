@@ -85,18 +85,18 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             {city}, {country}
           </p>
           <p className="careersDescShort">{description}</p>
-          <div className="mt-5 skillsContainer">
-            <div className="font-bold">{labels.skillsRequired}</div>
-            <div>
-              {skills
-                ? skillsArray?.map((item, index) => {
-                    return <Tag className="LinkTag">{item}</Tag>;
-                  })
-                : null}
-            </div>
-          </div>
         </ItemContentCareers>
-        <div className="cardSections mt-14">
+        <div className="skillsContainer">
+          <div className="font-bold">{labels.skillsRequired}</div>
+          <div>
+            {skills
+              ? skillsArray?.map((item, index) => {
+                  return <Tag className="LinkTag">{item}</Tag>;
+                })
+              : null}
+          </div>
+        </div>
+        <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.salaryRange}</div>
             <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>

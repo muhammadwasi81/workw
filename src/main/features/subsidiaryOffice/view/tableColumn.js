@@ -42,7 +42,7 @@ export const tableColumn = (
   sharedLabels
 ) => {
   return [
-    { title: [sharedLabels.name], dataIndex: "name", width: "20%", key: 1 },
+    { title: [sharedLabels.name], dataIndex: "name", width: "22%", key: 1 },
     {
       title: [sharedLabels.branch],
       dataIndex: "branchName",

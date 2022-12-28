@@ -1,6 +1,6 @@
 import "./style.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -81,7 +81,7 @@ export default function Form({
             }}
             loading={loading}
           >
-            {jobsDictionary.addQstn}
+            {/* {jobsDictionary.addQstn} */}hhhhhh
           </FormButton>
         )}
         {clearButton && (

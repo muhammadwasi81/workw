@@ -38,11 +38,11 @@ export const tableColumn = (
   warningDictionary
 ) => {
   return [
-    { title: warningDictionary.name, dataIndex: "name", width: "20%", key: 1 },
+    { title: warningDictionary.name, dataIndex: "name", width: "25%", key: 1 },
     {
       title: warningDictionary.description,
       dataIndex: "description",
-      width: "20%",
+      width: "70%",
       key: 2,
     },
     removeButtons

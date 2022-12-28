@@ -35,6 +35,7 @@ import { LeadManagerDictionary } from "../../localization";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
 import CreateSchedule from "../../../schedule/view/createSchedule";
+import Calender from "../../../../../content/NewContent/leadManager/svg/Calender-ic.svg";
 import "./event.css";
 import Event from "./event";
 import EventDetail from "../../../schedule/view/eventDetail";
@@ -262,7 +263,12 @@ function SectionDetail(props) {
                       setIsOpen(true);
                     }}
                   >
-                    <CalendarOutlined className="!text-primary-color !text-base" />
+
+                    {/* <CalendarOutlined className="!text-primary-color !text-base" /> */}
+                    <img src={Calender} width="21px" alt="" />
+
+                    {/* <CalendarOutlined className="!text-primary-color !text-base" /> */}
+
                   </div>
                 }
               >

@@ -41,13 +41,13 @@ export const tableColumn = (
     {
       title: salaryHeaderDictionary.name,
       dataIndex: "name",
-      width: "20%",
+      width: "25%",
       key: 1,
     },
     {
       title: salaryHeaderDictionary.desc,
       dataIndex: "description",
-      width: "20%",
+      width: "70%",
       key: 2,
     },
     removeButtons

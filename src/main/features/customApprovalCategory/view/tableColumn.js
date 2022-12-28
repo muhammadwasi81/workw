@@ -38,12 +38,12 @@ export const tableColumn = (
     {
       title: customcategoryDictionary.name,
       dataIndex: "name",
-      width: "20%",
+      width: "25%",
     },
     {
       title: customcategoryDictionary.desc,
       dataIndex: "description",
-      width: "20%",
+      width: "70%",
     },
     {
       title: customcategoryDictionary.approvers,

@@ -38,7 +38,8 @@ export const tableColumn = (
 ) => {
   return [
     {
-      title: jobsDictionary.question,
+      title: "ghhhjjhj",
+      //jobsDictionary.question,
       dataIndex: "question",
       width: "20%",
       key: 1,

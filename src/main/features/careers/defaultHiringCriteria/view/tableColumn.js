@@ -36,7 +36,9 @@ export const tableColumn = (
   sharedLabels,
 ) => {
   return [
-    { title:[sharedLabels.question], dataIndex: "question", width: "20%", key: 1 },
+    { title:[sharedLabels.question], 
+      dataIndex: "question",
+       width: "90%", key: 1 },
     removeButtons
       ? {}
       : {

@@ -52,7 +52,7 @@ export const tableColumn = (
     {
       title: [sharedLabels.description],
       dataIndex: "description",
-      width: "15%",
+      width: "25%",
       key: 2,
     },
     {

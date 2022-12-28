@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import { createSlice, isPending } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import { createQuotation, getAllQuotation, getQuotationById } from './actions';
-=======
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { createQuotation, getAllQuotation, getQuotationById } from "./actions";
->>>>>>> 5f5b33e5297dfd7c6f1d80485ef1f1894a95e2ef
 
 const initialState = {
   editData: null,

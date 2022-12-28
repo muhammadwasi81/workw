@@ -57,7 +57,10 @@ function ListItem(props) {
     message.success("Copied");
   };
   const linkHandler = (id) => {
-    window.open(`http://localhost:3000/applyRequisition/${id}`, "_blank");
+    window.open(
+      `${window.location.origin}${ROUTES.REQUISITION.APPLYREQUISITION}/${id}`,
+      "_blank"
+    );
   };
   return (
     <>

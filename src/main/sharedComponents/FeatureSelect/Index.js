@@ -82,6 +82,7 @@ function FeatureSelect({ features, form, notIncludeFeature }) {
         featureId: id,
         id: projectId,
       };
+      console.log(payload, 'payload');
       dispatch(addProjectFeatureAction([payload]));
     } else {
       let featureValue = form.getFieldValue('features');
@@ -98,10 +99,7 @@ function FeatureSelect({ features, form, notIncludeFeature }) {
       );
     }
   };
-  console.log(
-    data.map((x) => x.id),
-    'data'
-  );
+  console.log(data, 'data');
   return (
     <>
       <p className="!mb-[8px]">Features</p>

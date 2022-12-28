@@ -1,7 +1,6 @@
 import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addProject,
-  // addProjectFeatureAction,
   getAllProjects,
   getProjectById,
   updateProject,
@@ -32,7 +31,7 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(addProject.fulfilled, (state, { payload }) => {
-        // console.log("add project", payload);
+        console.log('add project', payload);
         state.projects.unshift(payload.data);
         state.loader = false;
         state.success = true;
@@ -47,23 +46,10 @@ const projectSlice = createSlice({
         state.loader = false;
         state.success = true;
       });
-    // .addCase(addProjectFeatureAction.fulfilled, (state, { payload }) => {
-    //   state.projects = [...state.projects, ...payload];
-    //   state.loader = false;
-    //   state.success = true;
-    //   console.log('slice ka data', payload);
-    // });
-
     builder
       .addMatcher(
         isPending(
-          ...[
-            getAllProjects,
-            addProject,
-            getProjectById,
-            updateProject,
-            // addProjectFeatureAction,
-          ]
+          ...[getAllProjects, addProject, getProjectById, updateProject]
         ),
         (state) => {
           state.loader = true;
@@ -73,13 +59,7 @@ const projectSlice = createSlice({
       )
       .addMatcher(
         isRejected(
-          ...[
-            getAllProjects,
-            addProject,
-            getProjectById,
-            updateProject,
-            // addProjectFeatureAction,
-          ]
+          ...[getAllProjects, addProject, getProjectById, updateProject]
         ),
         (state) => {
           state.loader = false;

@@ -4,13 +4,13 @@ import { addBook, addCourse, getAllBook, getAllCourse } from "./action";
 const initialState = {
   listLoading: false,
   isOpenComposers: {
-    // category: false,
+    category: false,
     courses: false,
     ebook: false,
-    // quizz: false,
-    // tedtalks: false,
-    // article: false,
-    // videos: false,
+    quizz: false,
+    tedtalks: false,
+    article: false,
+    videos: false,
   },
   composersInitState: {
     category: {},
@@ -27,6 +27,12 @@ const initialState = {
   books: [],
   success: false,
   loader: false,
+  loaders: {
+    courseLoading: false,
+    addCourseLoading: false,
+    bookLoading: false,
+    addBookLoading: false,
+  },
 };
 
 const eLearningSlice = createSlice({
@@ -55,30 +61,38 @@ const eLearningSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(addCourse.fulfilled, (state) => {
-        state.loader = false;
+        state.loaders.addCourseLoading = false;
         state.success = true;
         return state;
       })
       .addCase(getAllCourse.fulfilled, (state, action) => {
         state.courses = action.payload ? action.payload : [];
-        state.loader = false;
+        state.loaders.courseLoading = false;
       })
       .addCase(addBook.fulfilled, (state) => {
-        state.loader = false;
+        state.loaders.addBookLoading = false;
         state.success = true;
         return state;
       })
       .addCase(getAllBook.fulfilled, (state, action) => {
         state.books = action.payload ? action.payload : [];
-        state.loader = false;
+        state.loaders.bookLoading = false;
+        state.loaders.courseLoading = false;
       })
       .addMatcher(isPending(...[addCourse, addBook, getAllBook, getAllCourse]), (state) => {
-        state.loader = true;
+        // state.loader = true;
+        state.loaders.addCourseLoading = true;
+        state.loaders.addBookLoading = true;
+        state.loaders.courseLoading = true
+        state.loaders.bookLoading = true
       })
       .addMatcher(
         isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
         (state) => {
-          state.loader = false;
+          state.loaders.addCourseLoading = false;
+          state.loaders.addBookLoading = false;
+          state.loaders.courseLoading = false
+          state.loaders.bookLoading = false;
           state.success = false
         }
       );

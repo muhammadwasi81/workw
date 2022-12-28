@@ -37,7 +37,7 @@ function CreateLearningDropdown() {
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.quizez}</p>,
       key: "quizz",
-      onClick: handleChange,
+      onClick: () => navigate("/eLearning/quiz/create"),
     },
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.tedTalks}</p>,

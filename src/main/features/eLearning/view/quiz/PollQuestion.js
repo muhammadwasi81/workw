@@ -106,6 +106,30 @@ const QuestionWithType = (props) => {
   //   setQuestionType(value);
   // };
 
+  const handleImageChange = (info, index) => {
+    console.log("index", index);
+    console.log(info);
+    if (info.file?.status === "removed") {
+      console.log("removed console");
+      let fileLists = [...fileList];
+      console.log(fileLists);
+      fileLists.splice(index, 1);
+      console.log(fileLists);
+      setFileList(fileLists);
+      return;
+    }
+    if (!fileList[index]) {
+      console.log("add console");
+      setFileList([
+        ...fileList,
+        {
+          image: info.fileList[0],
+          index,
+        },
+      ]);
+    }
+  };
+
   const onFinish = (values) => {
     console.log("values", values);
     console.log("fileList onfinish", fileList);

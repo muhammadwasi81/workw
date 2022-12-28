@@ -84,6 +84,7 @@ function Scheduler({ feed = false }) {
 			title: sch.subject,
 		};
 	});
+
 	// console.log("calendarRef.current.getApi().getDate()", calendarRef.current);
 	return (
 		<>
@@ -100,7 +101,7 @@ function Scheduler({ feed = false }) {
 						},
 						next: {
 							text: "Next",
-							click: function(value) {
+							click: function (value) {
 								calendarRef.current.getApi().next();
 								const date = moment(
 									calendarRef.current.getApi().getDate()
@@ -110,7 +111,7 @@ function Scheduler({ feed = false }) {
 						},
 						prev: {
 							text: "Prev",
-							click: function(value) {
+							click: function (value) {
 								calendarRef.current.getApi().prev();
 								const date = moment(
 									calendarRef.current.getApi().getDate()
@@ -123,10 +124,10 @@ function Scheduler({ feed = false }) {
 						feed
 							? { start: "title myCustomButton" }
 							: {
-									left: "timeGridDay prev next today",
-									center: "title,myCustomButton",
-									right: "timeGridWeek dayGridMonth",
-							  }
+								left: "timeGridDay prev next today",
+								center: "title,myCustomButton",
+								right: "timeGridWeek dayGridMonth",
+							}
 					}
 					eventClick={info => {
 						// console.log("info", info.event._def);
@@ -162,12 +163,12 @@ function Scheduler({ feed = false }) {
 					dayMaxEventRows={true}
 					editable={true}
 					plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-					initialView={!feed ? "dayGridMonth" : "timeGridDay"}
+					initialView={!feed ? "dayGridWeek" : "timeGridDay"}
 					events={
 						data
 						// "https://fullcalendar.io/api/demo-feeds/events.json"
 					}
-					eventResize={() => {}}
+					eventResize={() => { }}
 					slotDuration={"00:15:00"}
 					slotLabelFormat={{ hour: "numeric", minute: "numeric" }}
 					views={{
@@ -201,12 +202,12 @@ function Scheduler({ feed = false }) {
 						// 	buttonText: "List",
 						// },
 					}}
-					// locale="en-GB"
-					// eventContent={renderEventContent}
-					//   locales={allLocales}
-					//   locale="ja"
-					// datesSet={(args) => console.log("###datesSet:", args)}
-					//   dateClick={handleDateClick}
+				// locale="en-GB"
+				// eventContent={renderEventContent}
+				//   locales={allLocales}
+				//   locale="ja"
+				// datesSet={(args) => console.log("###datesSet:", args)}
+				//   dateClick={handleDateClick}
 				/>
 				<div className="flex justify-center">
 					<div

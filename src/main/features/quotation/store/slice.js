@@ -1,4 +1,4 @@
-import { createSlice, isPending } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { createQuotation, getAllQuotation, getQuotationById } from "./actions";
 
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
   error: false,
   quotationDetail: null,
   quotationList: [],
+  createLoader: false,
 };
 
 export const quotationSlice = createSlice({
@@ -22,7 +23,7 @@ export const quotationSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createQuotation.fulfilled, (state, { payload }) => {
-        state.loader = false;
+        state.createLoader = false;
         state.success = true;
         state.quotationList = [...state.quotationList, ...payload];
       })
@@ -32,15 +33,29 @@ export const quotationSlice = createSlice({
         state.success = true;
       })
       .addCase(getAllQuotation.fulfilled, (state, { payload }) => {
-        state.quotationList = payload.data;
         state.loader = false;
-        state.success = true;
+        // state.success = true;
+        state.quotationList = payload.data;
       })
-      .addMatcher(isPending(...[createQuotation, getAllQuotation]), (state) => {
+      .addMatcher(isPending(...[createQuotation]), (state) => {
+        state.createLoader = true;
+        state.success = false;
+        state.error = false;
+      })
+      .addMatcher(isPending(...[getAllQuotation]), (state) => {
         state.loader = true;
         state.success = false;
         state.error = false;
-      });
+      })
+      .addMatcher(
+        isRejected(...[createQuotation, getAllQuotation]),
+        (state) => {
+          state.loader = false;
+          state.createLoader = false;
+          state.success = false;
+          state.error = false;
+        }
+      );
   },
 });
 export const { clearSalaryDetail } = quotationSlice.actions;

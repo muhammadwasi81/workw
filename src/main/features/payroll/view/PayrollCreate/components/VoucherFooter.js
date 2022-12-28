@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 const VoucherFooter = ({ amount = 0, handleSubmit }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { payrollDictionary, Direction } = payrollDictionaryList[userLanguage];
-  const loader = useSelector((state) => state.payrollSlice.loader);
+  const { createLoader } = useSelector((state) => state.payrollSlice);
 
   return (
     <div className="bg-white p-4 rounded-md flex w-full justify-between mt-5 sticky bottom-2">
@@ -15,7 +15,7 @@ const VoucherFooter = ({ amount = 0, handleSubmit }) => {
         <Button
           className="ThemeBtn mr-2"
           onClick={handleSubmit}
-          loading={loader}
+          loading={createLoader}
         >
           {payrollDictionary.createPayroll}
         </Button>

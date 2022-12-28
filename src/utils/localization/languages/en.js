@@ -91,6 +91,7 @@ const en = {
     address: "Address",
     branch: "Branch",
     question: "Questions",
+    allotLeaves: "Alloted Leaves",
   },
 
   /*** navMenuLabel only used in LeftSideBar ***/
@@ -336,7 +337,7 @@ const en = {
     Fiscal_Year: "Fiscal Year",
     Tax_Slabs: "Tax Slabs",
     Tax_Slabs_Group: "Tax Slabs Group",
-    E_Learning_Category:"ELearning Category",
+    E_Learning_Category: "ELearning Category",
     subsidiary: "Subsidiary",
     Subsidiary_Office: "Subsidiary Office",
     Business_Logo: "Business Logo",
@@ -443,8 +444,8 @@ const en = {
     Fiscal_Year: "Fiscal Year",
     Tax_Slabs: "Tax Slabs",
     Tax_Slabs_Group: "Tax Slabs Group",
-    E_Learning_Category:"ELearning Category",
-    Company_Policy:"Companies Policies",
+    E_Learning_Category: "ELearning Category",
+    Company_Policy: "Companies Policies",
     Default_Hiring_Criteria: "Default Hiring Criteria",
     subsidiary: "Subsidiary",
     Business_Logo: "Business Logo",
@@ -657,6 +658,7 @@ const en = {
       Add: "Add Leave Type",
       enterDescription: "Enter Description",
       description: "Description",
+      allotLeaves: "Alloted Leaves",
     },
     expense: {
       Expense: "Expense Header",
@@ -667,8 +669,8 @@ const en = {
       clear: "Clear",
       Add: "Add  Expense Header",
     },
-    elearningCategory:{
-      elearningCategory:"ELearning Category",
+    elearningCategory: {
+      elearningCategory: "ELearning Category",
       description: "Description",
       enterelearningCategory: "Enter ELearning Category ",
       enterDescription: "Enter Description",

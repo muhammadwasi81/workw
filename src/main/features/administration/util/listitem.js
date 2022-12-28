@@ -75,9 +75,9 @@ export const listitem = [
     to: ROUTES.ADMINISTRATOR.TAX_SLAB,
   },
   {
-    IconName: <AiFillGolden size={20} color={'var(--currentThemeColor)'} />,
-    displayName: 'E_Learning_Category',
-    classObj: 'button',
+    IconName: <AiFillGolden size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "E_Learning_Category",
+    classObj: "button",
     to: ROUTES.ADMINISTRATOR.ELEARNING_CATEGORY,
   },
   // {
@@ -139,12 +139,12 @@ export const listitem = [
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.LEAVE_TYPES,
   },
-  {
-    IconName: <RiUser2Fill size={20} color={"var(--currentThemeColor)"} />,
-    displayName: "User_Types",
-    classObj: "button",
-    to: ROUTES.ADMINISTRATOR.USER_TYPES,
-  },
+  // {
+  //   IconName: <RiUser2Fill size={20} color={"var(--currentThemeColor)"} />,
+  //   displayName: "User_Types",
+  //   classObj: "button",
+  //   to: ROUTES.ADMINISTRATOR.USER_TYPES,
+  // },
   {
     IconName: <HiCurrencyYen size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Expense_Headers",

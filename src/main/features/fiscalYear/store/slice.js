@@ -1,10 +1,10 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { responseCode } from '../../../../services/enums/responseCode.js';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { responseCode } from "../../../../services/enums/responseCode.js";
 import {
   addFiscalYear,
   getAllFiscalYear,
   updateFiscalYear,
-} from './actions.js';
+} from "./actions.js";
 
 const initialState = {
   items: [],
@@ -13,7 +13,7 @@ const initialState = {
 };
 
 const fiscalYearSlice = createSlice({
-  name: 'items',
+  name: "items",
   initialState,
   reducers: {
     FiscalYearDeleted: (state, { payload }) => {
@@ -23,8 +23,9 @@ const fiscalYearSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllFiscalYear.fulfilled, (state, { payload }) => {
-        state.loadingData = false;
+        console.log(payload.data, "payloaddd");
         state.items = payload.data;
+        state.loadingData = false;
       })
       .addCase(addFiscalYear.fulfilled, (state, { payload }) => {
         state.loader = false;

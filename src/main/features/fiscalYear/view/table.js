@@ -32,8 +32,8 @@ export default function TableView({
 
   console.log("myyyyyy", administration.fiscalyear.startDate);
 
-  const { items, loadingData } = useSelector((state) => state.fiscalYearSlice);
-  console.log(items, "itemssss");
+  const { FiscalYear, loadingData } = useSelector((state) => state.fiscalYearSlice);
+  console.log(FiscalYear, "FiscalYearitems");
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function TableView({
         setClearButton,
         sharedLabels
       )}
-      dataSource={items}
+      dataSource={FiscalYear}
       pagination={false}
       rowKey="id"
       scroll={{ x: true }}

@@ -133,9 +133,6 @@ const NewStickyNote = ({ item }) => {
     const id = item.id;
     dispatch(targetStickyDescription({ id, value }));
     console.log(value, 'description');
-    dispatch(
-      getStickyNoteDescAction({ ...item, attachments: [], description: value })
-    );
   };
 
   // *******modules and formats for React quil******

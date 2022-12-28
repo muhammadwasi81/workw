@@ -1,13 +1,15 @@
-import { Skeleton } from "antd";
-import { removeData } from "jquery";
-import { useEffect, useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
-import { getAllRebateCategories, removeRebateCategory } from "../store/actions";
-import { rebateCategoryDeleted } from "../store/slice";
-import { tableColumn } from "./tableColumn";
-import { rebateCategoryDictionaryList } from "../localization/index";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { Skeleton } from 'antd';
+import { useEffect, useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
+import {
+  getAllRebateCategories,
+  removeRebateCategoryAction,
+} from '../store/actions';
+import { rebateCategoryDeleted } from '../store/slice';
+import { tableColumn } from './tableColumn';
+import { rebateCategoryDictionaryList } from '../localization/index';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 export default function RebateCategoryTable({
   handleEdit,
   removeButtons,
@@ -37,7 +39,7 @@ export default function RebateCategoryTable({
 
   const handleDelete = (e) => {
     setId(e.id);
-    dispatch(removeRebateCategory(e)).then(() => onSuccess(e), onError);
+    dispatch(removeRebateCategoryAction(e)).then(() => onSuccess(e), onError);
   };
   const { userLanguage } = useContext(LanguageChangeContext);
   const { rebateDictionary } = rebateCategoryDictionaryList[userLanguage];
@@ -68,7 +70,7 @@ export default function RebateCategoryTable({
               loading={loadingData}
               round="true"
               shape="circle"
-              style={{ width: "100%", marginBottom: 2 }}
+              style={{ width: '100%', marginBottom: 2 }}
             />
           ),
         }

@@ -4,6 +4,8 @@ import { useEffect, useState ,useContext} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
 import { getAllGrades, removeGrade } from '../store/actions';
+
+
 import { gradeDeleted } from '../store/slice';
 import { tableColumn } from './tableColumn';
 
@@ -27,6 +29,7 @@ export default function GradeTable({
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllGrades());
+
   }, []);
 
   const [id, setId] = useState();

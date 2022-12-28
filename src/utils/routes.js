@@ -23,6 +23,10 @@ export const ROUTES = {
   },
   APPROVALS: {
     DEFAULT: `${DOMAIN_PREFIX}/approvals`,
+    MY_APPROVALS: `${DOMAIN_PREFIX}/approvals/myApprovals`,
+  },
+  MY_APPROVALS: {
+    DEFAULT: `${DOMAIN_PREFIX}/myApprovals`,
   },
   USER: {
     LINK: `${DOMAIN_PREFIX}/user/`,
@@ -65,6 +69,8 @@ export const ROUTES = {
     SUBMIT_FORM: `${DOMAIN_PREFIX}/submitForm`,
     EDIT_FORM: `${DOMAIN_PREFIX}/editForm`,
     CREATE_FORM: `create`,
+    RESPONSE_DETAIL_FORM: "detail",
+    RESPONSE: "response",
   },
   JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
   OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
@@ -262,9 +268,9 @@ export const ROUTES = {
     ADD: `add`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
     INFO: `info/*`,
-    BANK_DETAIL: "info/bankDetail/:id",
-    BASIC_INFO: "info/basicInfo/:id",
-    USER_LEAVES: "info/leaves/:id",
+    BANK_DETAIL: 'info/bankDetail/:id',
+    BASIC_INFO: 'info/basicInfo/:id',
+    USER_LEAVES: 'info/leaves/:id',
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,

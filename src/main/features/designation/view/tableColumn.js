@@ -1,5 +1,6 @@
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import { LoadingOutlined } from "@ant-design/icons";
+import { Popconfirm } from 'antd';
 const Edit = (handleEdit, row) => {
 	return (
 		<EditFilled
@@ -17,10 +18,12 @@ const Edit = (handleEdit, row) => {
 
 const Delete = (handleDelete, row) => {
 	return (
-		<DeleteFilled
-			style={{ color: "#1b5669" }}
-			onClick={e => handleDelete({ id: row.id })}
-		/>
+		<Popconfirm
+		title="Sure to delete?"
+		onConfirm={(e) => handleDelete({ id: row.id })}
+	  >
+		<DeleteFilled style={{ color: '#1b5669' }} />
+	  </Popconfirm>
 	);
 };
 
@@ -33,8 +36,8 @@ export const tableColumn = (
 	sharedLabels,
 ) => {
 	return [
-		{ title:[sharedLabels.name], dataIndex: "name", width: "20%" },
-		{ title:[sharedLabels.description],dataIndex: "description", width: "20%" },
+		{ title:[sharedLabels.name], dataIndex: "name", width: "25%" },
+		{ title:[sharedLabels.description],dataIndex: "description", width: "70%" },
 		removeButtons
 			? {}
 			: {

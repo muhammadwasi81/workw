@@ -1,40 +1,40 @@
-import { Button, Form, Input, Avatar } from 'antd';
-import React, { useEffect, useState, useContext } from 'react';
-import TextInput from '../../../sharedComponents/Input/TextInput';
-import Select from '../../../sharedComponents/Select/Select';
-import { useSelector, useDispatch } from 'react-redux';
+import { Button, Form, Input, Avatar } from "antd";
+import React, { useEffect, useState, useContext } from "react";
+import TextInput from "../../../sharedComponents/Input/TextInput";
+import Select from "../../../sharedComponents/Select/Select";
+import { useSelector, useDispatch } from "react-redux";
 import {
   getAllEmployees,
   getRewardCategory,
-} from '../../../../utils/Shared/store/actions';
-import { addReward, getAllRewards } from '../store/actions';
-import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
-import { rewardDictionaryList } from '../localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import CustomSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { getNameForImage, STRINGS } from '../../../../utils/base';
-import { emptyEmployeesData } from '../../../../utils/Shared/store/slice';
+} from "../../../../utils/Shared/store/actions";
+import { addReward, getAllRewards } from "../store/actions";
+import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
+import { rewardDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getNameForImage, STRINGS } from "../../../../utils/base";
+import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 
 const initialState = {
-  id: '',
-  name: '',
-  reason: '',
-  description: '',
-  categoryId: '',
-  imageId: '',
+  id: "",
+  name: "",
+  reason: "",
+  description: "",
+  categoryId: "",
+  imageId: "",
   members: [
     {
-      memberId: '',
+      memberId: "",
       memberType: 1,
     },
   ],
   approvers: [
     {
-      approverId: '',
+      approverId: "",
       approverType: 0,
       isDefault: true,
       status: 1,
-      email: '',
+      email: "",
     },
   ],
 };
@@ -60,7 +60,7 @@ const Composer = (props) => {
     handleMember(obj);
   };
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
   }, []);
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const Composer = (props) => {
   const onFinish = (values) => {
     let approvers = [];
     let members = [];
-    if (typeof values.approvers === 'string') {
+    if (typeof values.approvers === "string") {
       approvers.push({
         approverId: values.approvers,
       });
@@ -116,7 +116,7 @@ const Composer = (props) => {
         };
       });
     }
-    if (typeof values.members === 'string') {
+    if (typeof values.members === "string") {
       members.push({
         memberId: values.members,
       });
@@ -152,7 +152,7 @@ const Composer = (props) => {
   }, [success]);
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -179,7 +179,7 @@ const Composer = (props) => {
           rules={[
             {
               required: true,
-              message: 'Please Select Category',
+              message: "Please Select Category",
             },
           ]}
         >
@@ -187,8 +187,8 @@ const Composer = (props) => {
             data={rewardCategories}
             placeholder={rewardDictionary.selectCategory}
             style={{
-              width: '100%',
-              borderRadius: '5px',
+              width: "100%",
+              borderRadius: "5px",
             }}
             size="large"
           />
@@ -225,16 +225,16 @@ const Composer = (props) => {
           label={rewardDictionary.rewardTo}
           showSearch={true}
           direction={Direction}
-          style={{ marginBottom: '0px' }}
+          style={{ marginBottom: "0px" }}
         >
           <CustomSelect
-            style={{ marginBottom: '0px' }}
+            style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={rewardDictionary.selectMember}
-            mode={'multiple'}
+            mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -254,7 +254,7 @@ const Composer = (props) => {
             rules={[
               {
                 required: true,
-                message: 'Please Select Member',
+                message: "Please Select Member",
               },
             ]}
           />
@@ -265,16 +265,16 @@ const Composer = (props) => {
           label={rewardDictionary.approvers}
           showSearch={true}
           direction={Direction}
-          style={{ marginBottom: '0px' }}
+          style={{ marginBottom: "0px" }}
         >
           <CustomSelect
-            style={{ marginBottom: '0px' }}
+            style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
             selectedData={selectedData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={rewardDictionary.selectApprovers}
-            mode={'multiple'}
+            mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -294,7 +294,7 @@ const Composer = (props) => {
             rules={[
               {
                 required: true,
-                message: 'Please Select Approver',
+                message: "Please Select Approver",
               },
             ]}
           />
@@ -332,8 +332,8 @@ const Composer = (props) => {
             loading={addRewardLoader}
             title={rewardDictionary.createReward}
           >
-            {' '}
-            {rewardDictionary.createReward}{' '}
+            {" "}
+            {rewardDictionary.createReward}{" "}
           </Button>
         </Form.Item>
       </Form>

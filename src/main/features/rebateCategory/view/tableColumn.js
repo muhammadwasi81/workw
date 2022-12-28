@@ -44,7 +44,7 @@ export const tableColumn = (
   const { Basic, Tax, FullAmount } = RebateTypes;
 
   return [
-    { title: rebateDictionary.name, dataIndex: "name", width: "20%", key: 1 },
+    { title: rebateDictionary.name, dataIndex: "name", width: "25%", key: 1 },
     {
       title: rebateDictionary.maxPercentage,
       dataIndex: "maxPercentage",

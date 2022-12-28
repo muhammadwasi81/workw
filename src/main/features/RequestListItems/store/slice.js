@@ -42,14 +42,22 @@ const requestItemSlice = createSlice({
         console.log(payload, 'addRequestListItems slice');
         state.success = true;
         state.drawerOpen = false;
+        state.loader = true;
         state.requestItems = [...state.requestItems, payload.data.data];
       })
-      .addMatcher(isPending(...[getAllRequestListItems]), (state) => {
-        state.loader = true;
-      })
-      .addMatcher(isPending(...[getRequestListItemsById]), (state) => {
-        state.loadingData = true;
-      })
+      .addMatcher(
+        isPending(
+          ...[
+            getAllRequestListItems,
+            getRequestListItemsById,
+            addRequestListItems,
+          ]
+        ),
+        (state) => {
+          console.log('isPending');
+          state.loader = true;
+        }
+      )
       .addMatcher(isRejected(...[getAllRequestListItems]), (state) => {
         state.loader = true;
       });

@@ -143,7 +143,7 @@ const reducers = combineReducers({
   general: generalSlice,
   // documentsSlice,
   gradeSlice,
-  // eLearningCategorySlice,
+  eLearningCategorySlice,
   emailConfigurationSlice,
   salaryHeaderSlice,
   // taxSlabSlice,

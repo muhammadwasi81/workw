@@ -93,8 +93,6 @@ const QuestionWithType = (props) => {
   const [quesionImage, setQuestionImage] = useState();
   const [isTrue, setIsTrue] = useState({});
 
-  const handleQuestionImageChange = () => {
-
   useEffect(() => {
     console.log(fileList);
   }, [fileList]);
@@ -265,5 +263,6 @@ const QuestionWithType = (props) => {
     </Form>
   );
 };
+
 
 export default QuestionWithType;

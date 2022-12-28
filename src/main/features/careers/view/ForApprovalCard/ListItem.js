@@ -52,7 +52,7 @@ function ListItem({ item, onClickApproval }) {
   return (
     <>
       <SingleItem onClick={onClickApproval} className="cursor-pointer">
-        <CardProfileTopView
+        {/* <CardProfileTopView
           profileImgSrc={
             <AvatarCustom
               width={40}
@@ -73,7 +73,7 @@ function ListItem({ item, onClickApproval }) {
           refNo={referenceNo}
           status={item.status}
           profileImgSize={40}
-        />
+        /> */}
         <ItemContent className="!h-[100px] !max-h-[100px]">
           <div className="font-bold text-[14px] text-primary-color">
             {designation}

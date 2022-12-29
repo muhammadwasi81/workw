@@ -14,7 +14,7 @@ const initialState = {
   assetItemList: [],
   assetItemByUserId: [],
   inventoryAssets: [],
-  loader: true,
+  loader: false,
   success: false,
   error: false,
   drawerDeAllocOpen: false,
@@ -65,9 +65,9 @@ export const AssetItemSlice = createSlice({
         console.log(payload.data, 'getAssetItemDetailByIdSlice');
       })
       .addCase(updateAssetItems.fulfilled, (state, { payload }) => {
-        state.loader = false;
         state.success = true;
         state.drawerDeAllocOpen = false;
+        state.loader = false;
         console.log(payload.data, 'updateAssetItemSlice');
       })
       .addCase(getAssetItemByUserId.fulfilled, (state, { payload }) => {
@@ -125,6 +125,7 @@ export const AssetItemSlice = createSlice({
           ]
         ),
         (state) => {
+          state.loader = true;
           state.loading = false;
           state.success = false;
           state.error = true;

@@ -1,6 +1,6 @@
 .searchBox {
   width: 260px;
 }
-.scrolling {
-  overflow-y: scroll;
+.attachmentModal {
+  width: 60%;
 }

@@ -69,7 +69,7 @@ const Administration = () => {
         <CustomModal
           isModalVisible={visible}
           footer={null}
-          width={"80%"}
+          width={"50%"}
           className="attachmentModal"
           onCancel={() => {
             setVisible(false);

@@ -12,6 +12,8 @@ const initialState = {
   items: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const subsidiaryOfficeSlice = createSlice({
@@ -42,15 +44,21 @@ const subsidiaryOfficeSlice = createSlice({
       })
       .addMatcher(isPending(...[addBranchOffice, updateBranch]), (state) => {
         state.loader = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[getAllBranchOffice]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(...[getAllBranchOffice, addBranchOffice, updateBranch]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

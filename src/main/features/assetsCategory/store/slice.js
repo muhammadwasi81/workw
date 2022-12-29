@@ -10,6 +10,7 @@ const initialState = {
   assetsData: [],
   loadingData: false,
   loader: false,
+
   success: false,
 };
 

@@ -1,12 +1,18 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../../services/enums/responseCode.js";
-import { addQuestion, getAllQuestion, removeQuestion, updateQuestion } from "./actions.js";
+import {
+  addQuestion,
+  getAllQuestion,
+  removeQuestion,
+  updateQuestion,
+} from "./actions.js";
 
 const initialState = {
   appraisals: [],
   loadingData: false,
   loader: false,
-  createLoader: false,
+  success: false,
+  error: false,
 };
 
 const appraisalSlice = createSlice({
@@ -25,7 +31,7 @@ const appraisalSlice = createSlice({
       })
       .addCase(addQuestion.fulfilled, (state, { payload }) => {
         state.loader = false;
-        state.createLoader = false
+        state.createLoader = false;
         if (payload.responseCode === responseCode.Success)
           state.appraisals.push(payload.data);
       })
@@ -37,26 +43,26 @@ const appraisalSlice = createSlice({
       })
       .addMatcher(isPending(...[updateQuestion]), (state) => {
         state.loader = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[getAllQuestion]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[addQuestion]), (state) => {
         state.createLoader = true;
       })
-      .addMatcher(
-        isRejected(...[getAllQuestion, updateQuestion]),
-        (state) => {
-          state.loader = false;
-          state.loadingData = false;
-        }
-      )
-      .addMatcher(
-        isRejected(...[addQuestion]),
-        (state) => {
-          state.createLoader = false
-        }
-      );
+      .addMatcher(isRejected(...[getAllQuestion, updateQuestion]), (state) => {
+        state.loader = false;
+        state.loadingData = false;
+        state.success = false;
+        state.error = false;
+      })
+      .addMatcher(isRejected(...[addQuestion]), (state) => {
+        state.createLoader = false;
+      });
   },
 });
 

@@ -1,11 +1,18 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../../services/enums/responseCode.js";
-import { addWarningCategory, getAllWarningCategories, removeWarningCategory, updateWarningCategory } from "./actions.js";
+import {
+  addWarningCategory,
+  getAllWarningCategories,
+  removeWarningCategory,
+  updateWarningCategory,
+} from "./actions.js";
 
 const initialState = {
   warningCategories: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const warningCategorySlice = createSlice({
@@ -13,7 +20,9 @@ const warningCategorySlice = createSlice({
   initialState,
   reducers: {
     warningCategoryDeleted: (state, { payload }) => {
-      state.warningCategories = state.warningCategories.filter((e) => e.id !== payload.id);
+      state.warningCategories = state.warningCategories.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -33,17 +42,32 @@ const warningCategorySlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addWarningCategory, updateWarningCategory]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[addWarningCategory, updateWarningCategory]),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+          state.error = false;
+        }
+      )
       .addMatcher(isPending(...[getAllWarningCategories]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
-        isRejected(...[getAllWarningCategories, addWarningCategory, updateWarningCategory]),
+        isRejected(
+          ...[
+            getAllWarningCategories,
+            addWarningCategory,
+            updateWarningCategory,
+          ]
+        ),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

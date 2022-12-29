@@ -207,6 +207,10 @@ function ProjectDetails() {
         />
       </Drawer>
       <ComposeEmail />
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus
+      facilis obcaecati nam hic unde consequuntur voluptates dicta illo in quis
+      molestias, perspiciatis, magni iure eligendi excepturi cumque. Quaerat,
+      porro nobis.
     </>
   );
 }

@@ -54,3 +54,26 @@
   color: #000;
   cursor: pointer;
 }
+
+/* modal css  */
+
+.ant-modal .ant-modal-content {
+  height: 86vh;
+  min-height: 100vh;
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  border-radius: 27px;
+  background-color: #eef2f4;
+  color: #727780;
+}
+.ant-modal-body {
+  height: calc(100vh - 110px);
+}
+.expense-chart {
+  height: 171.565px;
+}
+.modalWrapper,
+.ant-modal-footer {
+  display: none;
+}

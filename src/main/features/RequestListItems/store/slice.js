@@ -9,7 +9,7 @@ const initialState = {
   success: false,
   requestItems: [],
   loadingData: false,
-  loader: true,
+  loader: false,
   requestItemDetail: {},
   drawerOpen: false,
 };

@@ -73,6 +73,19 @@
     border-bottom: solid 1px #dfdfdf;
     border-top: 10px solid var(--currentThemeColor);
   }
+
+  .quizQuestionClass .ant-upload-list-item-name{
+    display: none;
+  }
   
+  .quizOptionClass .ant-form-item-control-input-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline
+}
+
+.quizOptionClass .ant-upload-list-item-name{
+  display: none;
+}
 
   

@@ -10,6 +10,7 @@ const initialState = {
   FiscalYear: [],
   loadingData: false,
   loader: false,
+  createLoader:false,
 };
 
 const fiscalYearSlice = createSlice({
@@ -24,6 +25,7 @@ const fiscalYearSlice = createSlice({
     builder
       .addCase(getAllFiscalYear.fulfilled, (state, { payload }) => {
         state.loadingData = false;
+        state.createLoader = false;
         state.FiscalYear = payload.data;
         console.log("statestate",payload.data);
       })
@@ -43,12 +45,14 @@ const fiscalYearSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllFiscalYear]), (state) => {
         state.loadingData = true;
+        state.createLoader = true;
       })
       .addMatcher(
         isRejected(...[getAllFiscalYear, addFiscalYear, updateFiscalYear]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.createLoader = false;
         }
       );
   },

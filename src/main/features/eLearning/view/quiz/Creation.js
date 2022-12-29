@@ -17,6 +17,8 @@ import { createGuid, STRINGS } from "../../../../../utils/base";
 import RadioComponent from "./Radio";
 import RadioWithImageComponent from "./RadioWithImage";
 
+const { TextArea } = Input;
+
 let initialData = {
   id: createGuid(),
   name: "",
@@ -106,8 +108,11 @@ function CreateQuiz(props) {
     //TODO: here to set data accordingly to render below and send to api...
   };
 
-  const onSubmit = () => {
-    console.log(pollData, "poll data");
+  // const onSubmit = () => {
+
+  // };
+
+  const onFinish = (values) => {
     const newFilteredQuestions = pollData?.questions.map((el) => {
       const { type, ...restVal } = el;
       return restVal;
@@ -116,6 +121,8 @@ function CreateQuiz(props) {
     const payload = {
       ...pollData,
       questions: newFilteredQuestions,
+      name: values.name,
+      description: values.description,
     };
 
     console.log(payload);
@@ -123,34 +130,72 @@ function CreateQuiz(props) {
     dispatch(addQuiz(payload));
   };
 
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <DashboardLayout>
       <MainContainer className="AddCourseMainContainer">
         <Heading>Create Quiz</Heading>
-        <div className="create-quiz-body mb-4">
-          <PollQuestion dataSend={(values) => dataGet(values)} />
-        </div>
+        <Form
+          name="CreateForm"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+          layout="vertical"
+          form={form}
+        >
+          <div className="card mb-4">
+            <Form.Item
+              label="Quiz name"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: "Quiz name required!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Description"
+              name="description"
+              rules={[
+                {
+                  required: true,
+                  message: "Quiz description required!",
+                },
+              ]}
+            >
+              <TextArea rows={4} />
+            </Form.Item>
+          </div>
+          <div className="create-quiz-body mb-4">
+            <PollQuestion dataSend={(values) => dataGet(values)} />
+          </div>
 
-        {pollQuestions.map((el, i) => (
-          <>
-            {el.type === 1 ? (
-              <RadioComponent question={el} />
-            ) : (
-              <RadioWithImageComponent question={el} />
-            )}
-          </>
-        ))}
-        {pollQuestions.length > 0 && (
-          <Button
-            className="Formbtn"
-            // type="primary"
-            // htmlType="submit"
-            onClick={onSubmit}
-            loading={loaders.addQuizLoading ? true : false}
-          >
-            Submit
-          </Button>
-        )}
+          {pollQuestions.map((el, i) => (
+            <>
+              {el.type === 1 ? (
+                <RadioComponent question={el} />
+              ) : (
+                <RadioWithImageComponent question={el} />
+              )}
+            </>
+          ))}
+          {pollQuestions.length > 0 && (
+            <Button
+              className="Formbtn"
+              // type="primary"
+              htmlType="submit"
+              loading={loaders.addQuizLoading ? true : false}
+            >
+              Submit
+            </Button>
+          )}
+        </Form>
       </MainContainer>
     </DashboardLayout>
   );

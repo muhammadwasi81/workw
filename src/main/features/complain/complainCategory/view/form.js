@@ -13,6 +13,8 @@ import {
 } from "../../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { complainDictionaryList } from "../../localization/index";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function Form({
   data,
   onSubmit,
@@ -50,6 +52,7 @@ export default function Form({
   useEffect(() => {
     setForm(data);
   }, [data]);
+  const { loader } = useSelector((state) => state.complainCategorySlice);
 
   return (
     <FormContainer>
@@ -84,6 +87,7 @@ export default function Form({
                 onSubmit(form);
                 setClearButton(false);
               }}
+              loading={loader}
             >
               {complainDictionary.saveCategory}
             </FormButton>
@@ -98,7 +102,7 @@ export default function Form({
               onSubmit(form);
               setClearButton(false);
             }}
-            // loading={loading}
+            loading={loader}
           >
             {complainDictionary.addCategory}
           </FormButton>

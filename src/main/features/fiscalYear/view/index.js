@@ -1,6 +1,6 @@
 import { message } from 'antd';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState} from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
 import {
   addFiscalYear,
@@ -20,6 +20,7 @@ export default function Fiscalyear() {
     startYear: '',
     endYear: '',
   };
+  const { createLoader } = useSelector((state) => state.fiscalYearSlice);
   const [subsidiary, setSubsidiary] = useState(initialState);
   const [clearButton, setClearButton] = useState(false);
 
@@ -52,6 +53,7 @@ export default function Fiscalyear() {
         setClearButton={setClearButton}
         data={subsidiary}
         onSubmit={onSubmit}
+        loading={createLoader}
       />
       <TableView
         handleEdit={setSubsidiary}

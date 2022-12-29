@@ -11,6 +11,8 @@ const initialState = {
   jobDescriptions: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const jobDescriptionSlice = createSlice({
@@ -51,10 +53,14 @@ const jobDescriptionSlice = createSlice({
         isPending(...[addJobDescription, updateJobDescription]),
         (state) => {
           state.loader = true;
+          state.success = false;
+          state.error = false;
         }
       )
       .addMatcher(isPending(...[getAllJobDescription]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(
@@ -63,6 +69,8 @@ const jobDescriptionSlice = createSlice({
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

@@ -1,7 +1,7 @@
 import { jsonToFormData } from "../../../../utils/base";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
-  // COURSES SERVICES //
+// COURSES SERVICES //
 
 export const addCourseService = async (data) => {
   const formData = jsonToFormData(data);
@@ -11,6 +11,27 @@ export const addCourseService = async (data) => {
     })
     .catch((res) => {
       return res;
+    });
+};
+
+export const addQuizService = async (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.post(`api/ELearning/AddQuiz`, formData)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const getAllQuizService = (data) => {
+  return MasterConfig.post(`api/ELearning/GetAllQuiz`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
     });
 };
 
@@ -24,7 +45,6 @@ export const getAllCourseService = (data) => {
     });
 };
 
-
 export const GetCourseByIdService = (id) => {
   return MasterConfig.get(`api/ELearning/GetCourseById?id=${id}`)
     .then((res) => {
@@ -36,7 +56,7 @@ export const GetCourseByIdService = (id) => {
 };
 
 export const getAllCourseAssignMemService = (id) => {
-  return MasterConfig.get(`api/ELearning/GetAllCourseAssignMember?id=${id}`,)
+  return MasterConfig.get(`api/ELearning/GetAllCourseAssignMember?id=${id}`)
     .then((res) => {
       return res.data;
     })
@@ -46,7 +66,7 @@ export const getAllCourseAssignMemService = (id) => {
 };
 
 export const getAllCourseMemberService = (id) => {
-  return MasterConfig.get(`api/ELearning/GetAllCourseMember?id=${id}`,)
+  return MasterConfig.get(`api/ELearning/GetAllCourseMember?id=${id}`)
     .then((res) => {
       return res.data;
     })
@@ -56,32 +76,34 @@ export const getAllCourseMemberService = (id) => {
 };
 
 export const addCourseMemberService = async (data) => {
-	let id = data.id
-	let memberId = data.memberId
-	return MasterConfig.post(`api/ELearning/AddCourseMember?id=${id}`, [{memberId: memberId}])
-	  .then((res) => {
-		return res;
-	  })
-	  .catch((res) => {
-		return res;
-	  });
-  };
-
+  let id = data.id;
+  let memberId = data.memberId;
+  return MasterConfig.post(`api/ELearning/AddCourseMember?id=${id}`, [
+    { memberId: memberId },
+  ])
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
 
 export const addCourseAssignMemberService = async (data) => {
-	let id = data.id
-	let memberId = data.memberId
-	return MasterConfig.post(`api/ELearning/AddCourseAssignMember?id=${id}`, [{memberId: memberId}])
-	  .then((res) => {
-		return res;
-	  })
-	  .catch((res) => {
-		return res;
-	  });
-  };
+  let id = data.id;
+  let memberId = data.memberId;
+  return MasterConfig.post(`api/ELearning/AddCourseAssignMember?id=${id}`, [
+    { memberId: memberId },
+  ])
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
 
-
-  // E-BOOK SERVICES //
+// E-BOOK SERVICES //
 
 export const addBookService = async (data) => {
   const formData = jsonToFormData(data);

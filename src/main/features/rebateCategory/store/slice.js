@@ -1,11 +1,17 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addRebateCategory, getAllRebateCategories, updateRebateCategory } from "./actions.js";
+import {
+  addRebateCategory,
+  getAllRebateCategories,
+  updateRebateCategory,
+} from "./actions.js";
 
 const initialState = {
   rebateCategories: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const rebateCategorySlice = createSlice({
@@ -13,7 +19,9 @@ const rebateCategorySlice = createSlice({
   initialState,
   reducers: {
     rebateDeleted: (state, { payload }) => {
-      state.rebateCategories = state.rebateCategories.filter((e) => e.id !== payload.id);
+      state.rebateCategories = state.rebateCategories.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -33,17 +41,28 @@ const rebateCategorySlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addRebateCategory, updateRebateCategory]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[addRebateCategory, updateRebateCategory]),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+          state.error = false;
+        }
+      )
       .addMatcher(isPending(...[getAllRebateCategories]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
-        isRejected(...[getAllRebateCategories, addRebateCategory, updateRebateCategory]),
+        isRejected(
+          ...[getAllRebateCategories, addRebateCategory, updateRebateCategory]
+        ),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

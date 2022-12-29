@@ -184,13 +184,16 @@ const QuestionWithType = (props) => {
                 style={{ width: "40em" }}
               />
             </Form.Item>
-            <Form.Item className="optionClass" name="questionImage">
-              <FileUploader
-                // fileList={profileImage ? profileImage : []}
-                uploadButton={<button>Upload</button>}
-                handleUpload={handleQuestionImageChange}
-                classes=""
-              />
+            <Form.Item className="quizQuestionClass" name="questionImage">
+              <Upload
+                onChange={(info) => handleQuestionImageChange(info)}
+                accept="*"
+                beforeUpload={() => false}
+                multiple={false}
+                defaultFileList={[]}
+              >
+                <Button icon={<UploadOutlined />}></Button>
+              </Upload>
             </Form.Item>
           </div>
           <Form.List name="answers">
@@ -201,7 +204,7 @@ const QuestionWithType = (props) => {
                     required={false}
                     key={field.key}
                     name={[field.name]}
-                    className="optionClass"
+                    className="quizOptionClass"
                   >
                     <input
                       type="radio"

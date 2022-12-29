@@ -1,6 +1,6 @@
 import { Button, Form, Input, message, Select } from "antd";
 import React, { useContext } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector} from "react-redux";
 import ReactQuill from "react-quill";
 import { FormTextArea } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import * as S from "../../employee/Styles/employee.style";
@@ -47,12 +47,12 @@ const formats = {
 
 function BusinessPolicyComposer({ editData }) {
   const dispatch = useDispatch();
-
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, businessPolicy, Direction } = dictionaryList[
     userLanguage
   ];
 
+  const {createLoader} = useSelector((state) => state.businessPolicySlice);
   const onFinish = (values) => {
     if (values.name.length > 150) {
       message.error("Name characters limit exeeded");
@@ -140,6 +140,7 @@ function BusinessPolicyComposer({ editData }) {
             block
             htmlType="submit"
             title={"Create"}
+            loading={createLoader}
           >
             {" "}
             {editData

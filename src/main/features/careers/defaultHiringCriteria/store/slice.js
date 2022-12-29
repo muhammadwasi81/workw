@@ -1,11 +1,17 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../../services/enums/responseCode.js";
-import { addDefaultHiringCriteria, getAllDefaultHiringCriteria, updateDefaultHiringCriteria } from "./actions.js";
+import {
+  addDefaultHiringCriteria,
+  getAllDefaultHiringCriteria,
+  updateDefaultHiringCriteria,
+} from "./actions.js";
 
 const initialState = {
   questions: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const defaultHiringCriteriaSlice = createSlice({
@@ -33,21 +39,38 @@ const defaultHiringCriteriaSlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addDefaultHiringCriteria, updateDefaultHiringCriteria]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[addDefaultHiringCriteria, updateDefaultHiringCriteria]),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+          state.error = false;
+        }
+      )
       .addMatcher(isPending(...[getAllDefaultHiringCriteria]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
-        isRejected(...[getAllDefaultHiringCriteria, addDefaultHiringCriteria, updateDefaultHiringCriteria]),
+        isRejected(
+          ...[
+            getAllDefaultHiringCriteria,
+            addDefaultHiringCriteria,
+            updateDefaultHiringCriteria,
+          ]
+        ),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },
 });
 
-export const { DefaultHiringCriteriaDeleted } = defaultHiringCriteriaSlice.actions;
+export const {
+  DefaultHiringCriteriaDeleted,
+} = defaultHiringCriteriaSlice.actions;
 export default defaultHiringCriteriaSlice.reducer;

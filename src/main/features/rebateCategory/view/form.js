@@ -134,6 +134,7 @@ export default function RebateCategoryForm({
               size="medium"
               style={{}}
               className="formBtn"
+              loading={loading}
               onClick={(e) => {
                 onSubmit(form);
                 setClearButton(false);

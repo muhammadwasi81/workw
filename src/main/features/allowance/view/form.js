@@ -217,7 +217,7 @@ export default function AllowanceForm({
                 onSubmit({ ...form, value: Number(form.value) });
                 setClearButton(false);
               }}
-              loading={loader}
+              loading={loading}
             >
               {allowanceDictionary.saveAllowance}
             </FormButton>
@@ -232,7 +232,7 @@ export default function AllowanceForm({
               onSubmit({ ...form, value: Number(form.value) });
               setClearButton(false);
             }}
-            loading={loader}
+            loading={loading}
           >
             {allowanceDictionary.addAllowance}
           </FormButton>

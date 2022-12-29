@@ -93,7 +93,7 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
               style={{}}
               className="formBtn"
               onClick={(e) => onSubmit(form)}
-              loading={loader}
+              loading={loading}
             >
               {emailConfiDictionary.saveEmailConfi}
             </FormButton>
@@ -114,7 +114,7 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
             style={{}}
             className="formBtn"
             onClick={(e) => onSubmit(form)}
-            loading={loader}
+            loading={loading}
           >
             {emailConfiDictionary.addEmailConfi}
           </FormButton>

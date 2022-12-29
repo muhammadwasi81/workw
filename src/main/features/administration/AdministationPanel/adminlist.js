@@ -31,7 +31,7 @@ const AdminList = () => {
   });
   return (
     <>
-      <List>
+      <List style={{height:"inherit"}}>
         <AList className="admin_list">
           <div className="searchBox">
             <SearchInput

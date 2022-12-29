@@ -50,7 +50,7 @@ export const tableColumn = (
     {
       title: [sharedLabels.description],
       dataIndex: "description",
-      width: "25%",
+      width: "20%",
       key: 2,
     },
     {
@@ -84,6 +84,7 @@ export const tableColumn = (
       : {
           align: "right",
           key: 3,
+          width: "500px",
           render: (_, row) => {
             if (id && row.id === id) return <LoadingOutlined key={row} />;
             if (rights.length <= 0) return;

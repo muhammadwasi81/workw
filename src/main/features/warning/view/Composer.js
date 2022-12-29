@@ -43,8 +43,12 @@ const Composer = (props) => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
-  const { warningCategories, loader } = useSelector(
+  const { warningCategories } = useSelector(
     (state) => state.warningCategorySlice
+  );
+
+  const { createLoader } = useSelector(
+    (state) => state.warningSlice
   );
 
   const employees = useSelector((state) => state.sharedSlice.employees);
@@ -268,7 +272,7 @@ const Composer = (props) => {
             className="ThemeBtn"
             block
             htmlType="submit"
-            loading={loader}
+            loading={createLoader}
             title={warningDictionary.create}
           >
             {" "}

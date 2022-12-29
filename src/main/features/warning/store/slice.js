@@ -7,6 +7,7 @@ const initialState = {
   loader: true,
   warningDetail: null,
   drawerOpen: false,
+  createLoader: false,
 };
 
 const warningSlice = createSlice({
@@ -56,16 +57,23 @@ const warningSlice = createSlice({
       .addCase(addWarning.fulfilled, (state, { payload }) => {
         state.warnings = [payload.data.data, ...state.warnings];
         state.drawerOpen = false;
+        state.createLoader = false;
         return state;
       })
       .addMatcher(isPending(...[getAllWarnings]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[addWarning]), (state) => {
+        state.createLoader = true;
       })
       .addMatcher(isPending(...[GetWarningById]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllWarnings]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isRejected(...[addWarning]), (state) => {
+        state.createLoader = false;
       });
   },
 });

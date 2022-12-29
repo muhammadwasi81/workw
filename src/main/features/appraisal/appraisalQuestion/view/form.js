@@ -20,7 +20,6 @@ import { useDispatch, useSelector } from "react-redux";
 export default function AppraisalForm({
   data,
   onSubmit,
-  loading,
   setClearButton,
   clearButton,
 }) {
@@ -28,8 +27,9 @@ export default function AppraisalForm({
   const { administration, appraisal, Direction } = dictionaryList[userLanguage];
 
   const [form, setForm] = useState(data);
+  const { createLoader } = useSelector((state) => state.appraisalSlice);
 
-  console.log(clearButton);
+  console.log(createLoader, "CREATE LOADER FROM FORM");
 
   const handleClear = (e) => {
     setForm({ ...form, description: "", name: "" });

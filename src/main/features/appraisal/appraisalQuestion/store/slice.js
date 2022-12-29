@@ -31,6 +31,7 @@ const appraisalSlice = createSlice({
       })
       .addCase(addQuestion.fulfilled, (state, { payload }) => {
         state.loader = false;
+        state.createLoader = false;
         if (payload.responseCode === responseCode.Success)
           state.appraisals.push(payload.data);
       })
@@ -40,7 +41,7 @@ const appraisalSlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addQuestion, updateQuestion]), (state) => {
+      .addMatcher(isPending(...[updateQuestion]), (state) => {
         state.loader = true;
         state.success = false;
         state.error = false;
@@ -50,15 +51,18 @@ const appraisalSlice = createSlice({
         state.success = false;
         state.error = false;
       })
-      .addMatcher(
-        isRejected(...[getAllQuestion, addQuestion, updateQuestion]),
-        (state) => {
-          state.loader = false;
-          state.loadingData = false;
-          state.success = false;
-          state.error = false;
-        }
-      );
+      .addMatcher(isPending(...[addQuestion]), (state) => {
+        state.createLoader = true;
+      })
+      .addMatcher(isRejected(...[getAllQuestion, updateQuestion]), (state) => {
+        state.loader = false;
+        state.loadingData = false;
+        state.success = false;
+        state.error = false;
+      })
+      .addMatcher(isRejected(...[addQuestion]), (state) => {
+        state.createLoader = false;
+      });
   },
 });
 

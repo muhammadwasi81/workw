@@ -7,6 +7,7 @@ const initialState = {
   loader: false,
   detail: {},
   loadingData: false,
+  createLoader: false,
 };
 
 const resignationSlice = createSlice({
@@ -46,6 +47,7 @@ const resignationSlice = createSlice({
       .addCase(addResignation.fulfilled, (state, { payload }) => {
         state.drawerOpen = false
         state.success = true
+        state.createLoader = false
         state.items = [payload.data.data, ...state.items];
       })
       .addMatcher(isPending(...[getAllResignations]), (state) => {
@@ -54,8 +56,14 @@ const resignationSlice = createSlice({
       .addMatcher(isPending(...[GetResignationById]), (state) => {
         state.loadingData = true;
       })
+      .addMatcher(isPending(...[addResignation]), (state) => {
+        state.createLoader = true;
+      })
       .addMatcher(isRejected(...[getAllResignations]), (state) => {
         state.loader = false;
+      })
+      .addMatcher(isRejected(...[addResignation]), (state) => {
+        state.createLoader = false;
       });
   },
 

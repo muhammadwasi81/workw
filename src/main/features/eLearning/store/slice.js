@@ -1,6 +1,16 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { addDocumentDirectoryList } from "../../documents/store/actions";
-import { addBook, addCourse, addCourseAssignMem, getAllBook, getAllCourse, getAllCourseAssignMem, getAllCourseMember, GetCourseById } from "./action";
+import {
+  addBook,
+  addCourse,
+  addCourseAssignMem,
+  getAllBook,
+  getAllCourse,
+  getAllCourseAssignMem,
+  getAllCourseMember,
+  GetCourseById,
+  addQuiz,
+} from "./action";
 
 const initialState = {
   listLoading: false,
@@ -34,11 +44,12 @@ const initialState = {
     addCourseLoading: false,
     bookLoading: false,
     addBookLoading: false,
+    addQuizLoading: false,
   },
   courseMembers: [],
   courseAssignMembers: [],
   addAssignMemberModal: false,
-  addMemberModal: false
+  addMemberModal: false,
 };
 
 const eLearningSlice = createSlice({
@@ -61,7 +72,7 @@ const eLearningSlice = createSlice({
     },
     addSection: (state, { payload }) => {
       state.sections = [...state.sections, payload];
-      state.topics = []
+      state.topics = [];
     },
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
@@ -72,13 +83,19 @@ const eLearningSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(addCourse.fulfilled, (state) => {
+    builder
+      .addCase(addCourse.fulfilled, (state) => {
         state.loaders.addCourseLoading = false;
         state.success = true;
         return state;
       })
+      .addCase(addQuiz.fulfilled, (state) => {
+        state.loaders.addQuizLoading = false;
+        state.success = true;
+        return state;
+      })
       .addCase(addCourseAssignMem.fulfilled, (state, { payload }) => {
-        state.courseAssignMembers = [...state.courseAssignMembers, payload]
+        state.courseAssignMembers = [...state.courseAssignMembers, payload];
         return state;
       })
       .addCase(getAllCourse.fulfilled, (state, action) => {
@@ -104,34 +121,45 @@ const eLearningSlice = createSlice({
       .addCase(getAllCourseAssignMem.fulfilled, (state, action) => {
         state.courseAssignMembers = action.payload ? action.payload : [];
       })
-      .addMatcher(isPending(...[addCourse, addBook, getAllBook, getAllCourse]), (state) => {
-        // state.loader = true;
-        state.loaders.addCourseLoading = true;
-        state.loaders.addBookLoading = true;
-        state.loaders.courseLoading = true
-        state.loaders.bookLoading = true
+      .addMatcher(
+        isPending(...[addCourse, addBook, getAllBook, getAllCourse]),
+        (state) => {
+          // state.loader = true;
+          state.loaders.addCourseLoading = true;
+          state.loaders.addBookLoading = true;
+          state.loaders.courseLoading = true;
+          state.loaders.bookLoading = true;
+        }
+      )
+      .addMatcher(isPending(...[addQuiz]), (state) => {
+        // console.log("pending add career applied");
+        state.loaders.addQuizLoading = true;
+        state.success = false;
       })
       .addMatcher(
         isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
         (state) => {
           state.loaders.addCourseLoading = false;
           state.loaders.addBookLoading = false;
-          state.loaders.courseLoading = false
+          state.loaders.courseLoading = false;
           state.loaders.bookLoading = false;
-          state.success = false
+          state.success = false;
         }
-      );
-  }
-
+      )
+      .addMatcher(isRejected(...[addQuiz]), (state) => {
+        state.loaders.addQuizLoading = false;
+        state.success = false;
+      });
+  },
 });
 
 export const {
-    handleOpenComposer,
-    handleCloseComposer,
-    addTopic,
-    deleteTopic,
-    addSection,
-    addAssignMember,
-    addMember,
+  handleOpenComposer,
+  handleCloseComposer,
+  addTopic,
+  deleteTopic,
+  addSection,
+  addAssignMember,
+  addMember,
 } = eLearningSlice.actions;
 export default eLearningSlice.reducer;

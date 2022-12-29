@@ -25,7 +25,9 @@ function Index() {
     (state) => state.appraisalModuleSlice.currentTab
   );
   const [submit, setSubmit] = useState(false);
-  const { userTask } = useSelector((state) => state.appraisalModuleSlice);
+  const { userTask, loader } = useSelector(
+    (state) => state.appraisalModuleSlice
+  );
 
   const createAppraisal = () => {
     console.log("create works");
@@ -92,7 +94,11 @@ function Index() {
             {
               buttonText: submitAppraisal,
               render: (
-                <Button className="ThemeBtn" onClick={createAppraisal}>
+                <Button
+                  className="ThemeBtn"
+                  onClick={createAppraisal}
+                  loading={loader ? true : false}
+                >
                   <PlusOutlined />
                   {submitAppraisal}
                 </Button>

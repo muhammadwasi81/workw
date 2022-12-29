@@ -125,7 +125,7 @@ const QuestionWithType = (props) => {
                 style={{ width: "40em" }}
               />
             </Form.Item>
-            <Form.Item className="optionClass" name="questionImage">
+            <Form.Item className="quizQuestionClass" name="questionImage">
               <Upload
                 onChange={(info) => handleQuestionImageChange(info)}
                 accept="*"
@@ -145,7 +145,7 @@ const QuestionWithType = (props) => {
                     required={false}
                     key={field.key}
                     name={[field.name]}
-                    className="optionClass"
+                    className="quizOptionClass"
                   >
                     <input
                       type="radio"

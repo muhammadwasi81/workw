@@ -15,13 +15,30 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { GetCourseById } from "../../../../../store/action";
-import Avatar from "../../../../../../../sharedComponents/Avatar/avatarOLD";
+import Avatar from "../../../../../../../sharedComponents/Avatar/avatar";
+import { useSelector } from "react-redux";
+import "../../../../courses/style.css";
+import { addAssignMember, addMember } from "../../../../../store/slice";
+import AssignMemberModal from "../../../Components/AssignMemModal";
+import { AssignMemEnum, MemberEnum } from "../../../../../constant/index";
+import MemberModal from "../../../Components/MemberModal";
 
 function CoursesDetail() {
 	const disptach = useDispatch()
 	const navigate = useNavigate();
 	const id = useParams().id;
-	
+	const { courseDetail } = useSelector((state) => state.eLearningSlice);
+	let {
+		image,
+		name,
+		creator,
+		assignMembers,
+		members,
+		description,
+		curriculums,
+	} = courseDetail
+	let Default = "https://www.makeintern.com/learning/img/online-course12.jpg"
+
 	useEffect(() => {
 		disptach(GetCourseById(id))
 	},[])
@@ -31,12 +48,12 @@ function CoursesDetail() {
 		{
 			label: `About`,
 			key: "1",
-			children: <CourseAbout />,
+			children: <CourseAbout content={description} />,
 		},
 		{
 			label: `Curriculum`,
 			key: "2",
-			children: <CourseCurriculum />,
+			children: <CourseCurriculum curriculums={curriculums} />,
 		},
 		{
 			label: `Quizes`,
@@ -51,33 +68,52 @@ function CoursesDetail() {
 				<section className="flex basis-[75%] overflow-y-auto detail_section">
 					<WhiteCard className="flex flex-col gap-5 w-full h-fit">
 						<DetailPageTopDetail
-							image={
-								"https://www.makeintern.com/learning/img/online-course12.jpg"
-							}
+							image={image ? image : Default}
 							difficulty={{ name: tag[1], icon: LevelsIcon[1] }}
-							lastUpdated={"Syed Danish Ali"}
-							title={"Foundation of User Experience (UX) Design"}
-							createdBy={"Syed Danish Ali"}
-							assignedTo={"Syed Danish Ali"}
+							// lastUpdated={"Syed Danish Ali"}
+							title={name}
+							createdBy={creator && creator.name}
+							members={
+								members &&
+									<>
+										<div className="members"> 
+											<Avatar
+												className="MembersList"
+												isAvatarGroup={true}
+												isTag={false}
+												heading={"members"}
+												membersData={members ? members : []}
+												text={"Members"}
+												image={"https://joeschmoe.io/api/v1/random"}
+											/>
+											<div className="addMemberBtn" onClick={() => disptach(addMember({status: true, type: MemberEnum.courses}))} >+</div>
+										</div>
+										<MemberModal />
+									</>
+							}
+							assignedTo={
+								assignMembers &&
+									<>
+										<div className="members"> 
+											<Avatar
+												className="MembersList"
+												isAvatarGroup={true}
+												isTag={false}
+												heading={"members"}
+												membersData={assignMembers ? assignMembers : []}
+												text={"Members"}
+												image={"https://joeschmoe.io/api/v1/random"}
+											/>
+											<div className="addMemberBtn" onClick={() => disptach(addAssignMember({status: true, type: AssignMemEnum.courses}))} >+</div>
+										</div>
+										<AssignMemberModal />
+									</>
+								}
 							imageHeight={"200px"}
 							headingSize={"30px"}
 						/>
 						<DetailTabs items={items} />
 					</WhiteCard>
-					<div className="members">
-						<div className="members">
-						{/* {approvers && ( */}
-							<Avatar
-							isAvatarGroup={true}
-							isTag={false}
-							heading={"approvers"}
-							// membersData={approvers ? approvers : []}
-							text={"Approvers"}
-							image={"https://joeschmoe.io/api/v1/random"}
-							/>
-						{/* )} */}
-						</div>
-					</div>
 				</section>
 				<section
 					className="flex basis-[25%] overflow-y-auto h-fit"

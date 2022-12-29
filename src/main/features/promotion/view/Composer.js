@@ -48,7 +48,7 @@ const Composer = (props) => {
   const [previousGrade, setPreviousGrade] = useState(null);
 
   const { employeeShort } = useSelector((state) => state.sharedSlice);
-
+  const { createLoader } = useSelector((state) => state.promotionSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
 
   useEffect(() => {
@@ -267,6 +267,7 @@ const Composer = (props) => {
             className="ThemeBtn"
             block
             htmlType="submit"
+            loading={createLoader}
             title={promotionDictionary.create}
           >
             {" "}

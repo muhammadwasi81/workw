@@ -2,6 +2,7 @@ import { Avatar } from 'antd';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { getNameForImage } from '../../../../../utils/base';
+import "./style.css"
 
 function ApproverListItem({ data }) {
     console.log(data, "DAT DATA")
@@ -26,7 +27,7 @@ function ApproverListItem({ data }) {
                         // src={members.member.image ? members.member.image : ""}
                     >
                         {
-                getNameForImage(members.member.name)}
+                            members.member && getNameForImage(members.member.name && members.member.name)}
                     </Avatar>
                 </div>
                 <div className="contentBox">

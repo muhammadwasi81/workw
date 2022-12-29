@@ -10,6 +10,7 @@ const initialState = {
 	accessRoles: [],
 	singleAccessRole: [],
 	loader: false,
+	createLoader:false,
 	isSingleAccessRoleLoaded: false,
 	success: false,
 	error: false,
@@ -25,12 +26,12 @@ const accessRolesSlice = createSlice({
 				// console.log("payload", payload.data);
 				state.accessRoles.push(payload.data);
 				state.success = true;
-				state.loader = false;
+				state.createLoader = false;
 			})
 			.addCase(getAllAccessRoles.fulfilled, (state, { payload }) => {
 				// console.log("payload", payload);
 				state.accessRoles = payload.data;
-				state.loader = false;
+				state.loader = false
 			})
 			.addCase(getAccessRoleById.fulfilled, (state, { payload }) => {
 				state.singleAccessRole = payload.data;
@@ -45,7 +46,7 @@ const accessRolesSlice = createSlice({
 					return obj;
 				});
 				state.success = true;
-				state.loader = false;
+				state.createLoader = false;
 			})
 			// .addCase(addAccessRole.rejected, (state, action) => {
 			// 	state.error = true;
@@ -53,14 +54,20 @@ const accessRolesSlice = createSlice({
 			// 	console.log("action", action);
 			// })
 			.addMatcher(
-				isPending(
-					...[addAccessRole, getAllAccessRoles, updateAccessRoleById]
-				),
-				state => {
+				isPending(...[addAccessRole]), state => {
+					state.createLoader = true;
+					state.success = false;
+				})
+				.addMatcher(
+					isPending(...[updateAccessRoleById]), state => {
+						state.createLoader = true;
+						state.success = false;
+					})
+			.addMatcher(
+				isPending(...[getAllAccessRoles]), state => {
 					state.loader = true;
 					state.success = false;
-				}
-			)
+				})
 			.addMatcher(isPending(getAccessRoleById), state => {
 				state.loader = false;
 				state.success = false;
@@ -81,6 +88,7 @@ const accessRolesSlice = createSlice({
 					state.success = false;
 					state.isSingleAccessRoleLoaded = false;
 					state.error = true;
+					state.createLoader = false;
 				}
 			);
 	},

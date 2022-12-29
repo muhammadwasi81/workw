@@ -11,6 +11,7 @@ const initialState = {
   loadingData: false,
   loader: true,
   leaveDetail: {},
+  createLoader: false,
   drawerOpen: false,
   success: false,
   UserLeave: [],
@@ -45,25 +46,31 @@ const leaveSlice = createSlice({
       .addCase(addLeave.fulfilled, (state, { payload }) => {
         console.log(payload, "payload");
         console.log(state.leaves, "leaves");
+
         // state.drawerOpen = false;
         // state.leaveData = payload;
         // return state;
         // state.leaves = [payload.data.data, ...state.leaves];
         state.leaves.unshift(payload.data.data);
-
         state.drawerOpen = false;
-
+        state.createLoader = false;
         return state;
       })
       .addMatcher(isPending(...[getAllLeaves]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[addLeave]), (state) => {
+        state.createLoader = false;
       })
       .addMatcher(isPending(...[GetLeaveById]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllLeaves]), (state) => {
         state.loader = true;
-      });
+      })
+      .addMatcher(isRejected(...[addLeave]), (state) => {
+        state.createLoader = false;
+      })
   },
 });
 

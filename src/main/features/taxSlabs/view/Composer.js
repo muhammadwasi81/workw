@@ -23,6 +23,7 @@ function Composer({ editData }) {
   ];
 
   const { countries } = useSelector((state) => state.sharedSlice);
+  const { createLoader } = useSelector((state) => state.taxSlabGroupSlice);
 
   useEffect(() => {
     dispatch(getCountries());
@@ -98,6 +99,7 @@ function Composer({ editData }) {
             block
             htmlType="submit"
             title={"Create"}
+            loading={createLoader}
           >
             {" "}
             {editData ? "Save" : "Create"}{" "}

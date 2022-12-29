@@ -6,6 +6,7 @@ const initialState = {
   groups: [],
   loadingData: false,
   loader: false,
+  createLoader:false,
 };
 
 const playGroupSlice = createSlice({
@@ -20,6 +21,7 @@ const playGroupSlice = createSlice({
     builder
       .addCase(getAllPayrollGroup.fulfilled, (state, { payload }) => {
         state.loadingData = false;
+        state.createLoader = false;
         state.groups = payload.data;
       })
       .addCase(addPayrollGroup.fulfilled, (state, { payload }) => {
@@ -38,12 +40,14 @@ const playGroupSlice = createSlice({
       })
       .addMatcher(isPending(...[getAllPayrollGroup]), (state) => {
         state.loadingData = true;
+        state.createLoader = true;
       })
       .addMatcher(
         isRejected(...[getAllPayrollGroup, addPayrollGroup, updateaPayrollGroup]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.createLoader = false;
         }
       );
   },

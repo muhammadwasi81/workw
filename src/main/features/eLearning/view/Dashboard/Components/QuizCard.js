@@ -23,9 +23,9 @@ function QuizCard({ item }) {
           description={description}
         />
       </div>
-      <p className="!mb-0 flex items-center gap-1 font-semibold">
+      {/* <p className="!mb-0 flex items-center gap-1 font-semibold">
         <BsFileText className="!text-lg" /> Questions: {questions.length}
-      </p>
+      </p> */}
     </WhiteCard>
   );
 }

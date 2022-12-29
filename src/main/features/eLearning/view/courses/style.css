@@ -33,3 +33,23 @@
     font-size: 20px;
     font-weight: 600;
 }
+
+.members {
+    display: flex;
+}
+.addMemberBtn {
+    margin-left: 5px;
+    background: var(--currentThemeColor);
+    width: 22px;
+    text-align: center;
+    border-radius: 44px;
+    height: 22px;
+    color: white;
+    font-size: 19px;
+    line-height: 23px;
+    cursor: pointer;
+}
+.ApproverModal .ant-modal-body {
+    max-height: 431px;
+    overflow: scroll;
+}

@@ -8,6 +8,26 @@ export const DocsComposerEnums = {
   video: "video"
 }
 
+export const AssignMemEnum = {
+  category: 1,
+  courses: 2,
+  ebook: 3,
+  quizz: 4,
+  tedtalks: 5,
+  article: 6,
+  video: 7
+}
+
+export const MemberEnum = {
+  category: 1,
+  courses: 2,
+  ebook: 3,
+  quizz: 4,
+  tedtalks: 5,
+  article: 6,
+  video: 7
+}
+
 export const CourseOptionsEnum = [
   {
       label: "Personal Development",

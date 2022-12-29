@@ -12,6 +12,7 @@ const initialState = {
   rewards: [],
   loadingData: false,
   loader: true,
+  addRewardLoader: false,
   rewardDetail: {},
   drawerOpen: false,
   cancelReward: {},
@@ -60,10 +61,17 @@ const rewardSlice = createSlice({
       .addCase(addReward.fulfilled, (state, { payload }) => {
         state.rewards = [payload.data.data, ...state.rewards];
         state.drawerOpen = false;
+        state.addRewardLoader = false;
         return state;
       })
       .addMatcher(isPending(...[getAllRewards, addReward]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[addReward]), (state) => {
+        state.addRewardLoader = true;
+      })
+      .addMatcher(isRejected(...[addReward]), (state) => {
+        state.addRewardLoader = true;
       })
       .addMatcher(isPending(...[GetRewardById]), (state) => {
         state.loadingData = true;

@@ -15,11 +15,11 @@ import {
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 import * as S from "../../../employee/Styles/employee.style";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function AppraisalForm({
   data,
   onSubmit,
-  loading,
   setClearButton,
   clearButton,
 }) {
@@ -27,8 +27,9 @@ export default function AppraisalForm({
   const { administration, appraisal, Direction } = dictionaryList[userLanguage];
 
   const [form, setForm] = useState(data);
+  const { createLoader } = useSelector((state) => state.appraisalSlice);
 
-  console.log(clearButton);
+  console.log(createLoader, "CREATE LOADER FROM FORM");
 
   const handleClear = (e) => {
     setForm({ ...form, description: "", name: "" });
@@ -57,6 +58,7 @@ export default function AppraisalForm({
   useEffect(() => {
     setForm(data);
   }, [data]);
+  const { loader } = useSelector((state) => state.appraisalSlice);
 
   return (
     <FormContainer>
@@ -107,6 +109,7 @@ export default function AppraisalForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
+              loading={loader}
             >
               {administration.appraisal.save}
             </FormButton>
@@ -121,7 +124,7 @@ export default function AppraisalForm({
               onSubmit(form);
               setClearButton(false);
             }}
-            // loading={loading}
+            loading={loader}
           >
             {administration.appraisal.Add}
           </FormButton>

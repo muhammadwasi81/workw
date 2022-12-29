@@ -30,6 +30,7 @@ export default function Appraisal() {
     dispatch(updateQuestion(e));
     setQuestion(initialState);
   };
+
   return (
     <AdminContainer>
       <AppraisalForm
@@ -37,7 +38,6 @@ export default function Appraisal() {
         setClearButton={setClearButton}
         data={question}
         onSubmit={onSubmit}
-        loading={loader}
       />
       <AppraisalTable
         setClearButton={setClearButton}

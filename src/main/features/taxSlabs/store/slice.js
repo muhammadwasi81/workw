@@ -17,6 +17,7 @@ const initialState = {
   error: false,
   editData: null,
   taxSlabDetail: null,
+  createLoader:false,
 };
 
 const taxSlabGroupSlice = createSlice({
@@ -41,11 +42,12 @@ const taxSlabGroupSlice = createSlice({
       .addCase(addTaxSlabGroup.fulfilled, (state, { payload }) => {
         state.items.push(payload.data);
         state.success = true;
-        state.loader = false;
+        state.createLoader = false;
       })
       .addCase(GetAllTaxSlabGroup.fulfilled, (state, { payload }) => {
         state.items = [...payload];
         // state.policyDetail = payload.data[0];
+        //state.loader = false;
         state.loader = false;
       })
       .addCase(getTaxSlabById.fulfilled, (state, { payload }) => {
@@ -54,12 +56,11 @@ const taxSlabGroupSlice = createSlice({
         state.loader = false;
       })
       .addCase(updateTaxSlab.fulfilled, (state, { payload }) => {
-        state.loader = false;
         state.items = state.items.map((x) =>
           x.id === payload.data.id ? payload.data : x
         );
         state.success = true;
-        state.loader = false;
+        state.createLoader = false;
         console.log(payload.data, "payload.data tax slab");
       })
       .addCase(removeTaxSlab.fulfilled, (state, { payload }) => {})
@@ -71,24 +72,33 @@ const taxSlabGroupSlice = createSlice({
         state.items = state.items.map((e) =>
           e.id === payload.data.id ? payload.data : e
         );
-        state.loader = false;
+        // state.loader = false;
       })
-      .addMatcher(isPending(), (state) => {
-        state.loader = true;
-      })
+      // .addMatcher(isPending(), (state) => {
+      //   state.loader = true;
+      // })
       .addMatcher(isRejected(...[getTaxSlabById]), (state) => {
         state.loader = true;
         state.success = false;
       })
-      .addMatcher(isRejected(), (state) => {
-        state.loader = false;
-        state.error = true;
-      })
+      // .addMatcher(isRejected(), (state) => {
+      //   state.loader = false;
+      //   state.error = true;
+      // })
       .addMatcher(
-        isPending(...[addTaxSlabGroup, GetAllTaxSlabGroup]),
+        isPending(...[addTaxSlabGroup]),
+        (state) => {
+          state.createLoader = true;
+          state.success = false;
+          //state.createLoader = true;
+        }
+      )
+      .addMatcher(
+        isPending(...[GetAllTaxSlabGroup]),
         (state) => {
           state.loader = true;
           state.success = false;
+          // state.createLoader = true;
         }
       )
       .addMatcher(
@@ -97,6 +107,7 @@ const taxSlabGroupSlice = createSlice({
           state.loader = false;
           state.success = false;
           state.error = true;
+          state.createLoader = false;
         }
       )
       .addMatcher(isRejected(...[getTaxSlabById]), (state) => {

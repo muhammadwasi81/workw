@@ -12,6 +12,7 @@ import {
   getAllCourseService,
   GetCourseByIdService,
   addQuizService,
+  getAllQuizService,
 } from "../service/service";
 
 //  COURSES ACTIONS  //
@@ -50,6 +51,18 @@ export const getAllCourse = createAsyncThunk(
   "Course/GetAllCourse",
   async (data) => {
     const response = await getAllCourseService(data);
+
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+export const getAllQuiz = createAsyncThunk(
+  "Course/GetAllQuiz",
+  async (data) => {
+    const response = await getAllQuizService(data);
 
     if (!response.responseCode) {
       message.error("Something went wrong");

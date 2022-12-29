@@ -10,6 +10,7 @@ import {
   getAllCourseMember,
   GetCourseById,
   addQuiz,
+  getAllQuiz,
 } from "./action";
 
 const initialState = {
@@ -35,6 +36,7 @@ const initialState = {
   topics: [],
   sections: [],
   courses: [],
+  quizzes: [],
   courseDetail: {},
   books: [],
   success: false,
@@ -45,6 +47,7 @@ const initialState = {
     bookLoading: false,
     addBookLoading: false,
     addQuizLoading: false,
+    quizLoading: false,
   },
   courseMembers: [],
   courseAssignMembers: [],
@@ -102,6 +105,12 @@ const eLearningSlice = createSlice({
         state.courses = action.payload ? action.payload : [];
         state.loaders.courseLoading = false;
       })
+      .addCase(getAllQuiz.fulfilled, (state, { payload }) => {
+        console.log(payload, "payloadsssss");
+        state.quizzes = payload;
+        state.loaders.quizLoading = false;
+        state.success = true;
+      })
       .addCase(GetCourseById.fulfilled, (state, action) => {
         state.courseDetail = action.payload.data;
       })
@@ -136,6 +145,11 @@ const eLearningSlice = createSlice({
         state.loaders.addQuizLoading = true;
         state.success = false;
       })
+      .addMatcher(isPending(...[getAllQuiz]), (state) => {
+        // console.log("pending add career applied");
+        state.loaders.quizLoading = true;
+        state.success = false;
+      })
       .addMatcher(
         isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
         (state) => {
@@ -148,6 +162,10 @@ const eLearningSlice = createSlice({
       )
       .addMatcher(isRejected(...[addQuiz]), (state) => {
         state.loaders.addQuizLoading = false;
+        state.success = false;
+      })
+      .addMatcher(isRejected(...[getAllQuiz]), (state) => {
+        state.loaders.quizLoading = false;
         state.success = false;
       });
   },

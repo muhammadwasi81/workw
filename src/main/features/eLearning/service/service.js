@@ -25,6 +25,16 @@ export const addQuizService = async (data) => {
     });
 };
 
+export const getAllQuizService = (data) => {
+  return MasterConfig.post(`api/ELearning/GetAllQuiz`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getAllCourseService = (data) => {
   return MasterConfig.post(`api/ELearning/GetAllCourse`, data)
     .then((res) => {

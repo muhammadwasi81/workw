@@ -108,8 +108,19 @@ function CreateQuiz(props) {
 
   const onSubmit = () => {
     console.log(pollData, "poll data");
+    const newFilteredQuestions = pollData?.questions.map((el) => {
+      const { type, ...restVal } = el;
+      return restVal;
+    });
+
+    const payload = {
+      ...pollData,
+      questions: newFilteredQuestions,
+    };
+
+    console.log(payload);
     //TODO: dispatch create quiz
-    // dispatch(addQuiz(pollData));
+    dispatch(addQuiz(payload));
   };
 
   return (

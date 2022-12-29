@@ -180,8 +180,11 @@ function onPostMention(state, { payload }) {
 }
 
 function onPostTagsChange(state, { payload }) {
-	console.log(payload);
 	state.postCompose.tags = payload;
+}
+
+function resetComposeFeed(state, { payload }) {
+	state.postCompose.tags = [];
 }
 
 function addPostAttachment(state, { payload: { files } }) {
@@ -306,5 +309,6 @@ export {
 	onPostPrivacyChange,
 	onSaveComment,
 	toggleComposerVisibility,
-	clearSinglePost
+	clearSinglePost,
+	resetComposeFeed
 };

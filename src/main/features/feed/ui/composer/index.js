@@ -18,20 +18,20 @@ import { LanguageChangeContext } from '../../../../../utils/localization/localCo
 import { FeedDictionary } from '../../localization';
 
 function PostComposer({ referenceType, referenceId }) {
-  const { showComposer, type } = useSelector(
-    (state) => state.feedSlice.postCompose
-  );
-  const { userSlice } = useSelector((state) => state);
-  const { name, userImage } = userSlice.user;
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { composer, Direction } = FeedDictionary[userLanguage];
-  const { Whatsonyourmind } = composer;
-  const toggleComposer = (visibility) => {
-    store.dispatch(feedSlice.actions.toggleComposerVisibility({ visibility }));
-  };
-  const imageVideoRef = useRef();
-  const docsRef = useRef();
-  const pollRef = useRef();
+	const { showComposer, type } = useSelector(
+		(state) => state.feedSlice.postCompose
+	);
+	const { userSlice } = useSelector((state) => state);
+	const { name, userImage } = userSlice.user;
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { composer, Direction } = FeedDictionary[userLanguage];
+	const { Whatsonyourmind } = composer;
+	const toggleComposer = (visibility) => {
+		store.dispatch(feedSlice.actions.toggleComposerVisibility({ visibility }));
+	};
+	const imageVideoRef = useRef();
+	const docsRef = useRef();
+	const pollRef = useRef();
 
 	return (
 		<>
@@ -119,9 +119,10 @@ function PostComposer({ referenceType, referenceId }) {
 						store.dispatch(
 							feedSlice.actions.onPostTypeChange({
 								type: 1,
-							})
-						);
+							}));
 					}
+					store.dispatch(
+						feedSlice.actions.resetComposeFeed());
 					toggleComposer(false);
 				}}
 				destroyOnClose

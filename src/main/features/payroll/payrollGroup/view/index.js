@@ -7,6 +7,8 @@ import Form from "./form.js";
 import TableView from "./table.js";
 
 export default function PayrollGroup() {
+
+  const {createLoader} = useSelector((state) => state.payrollGroupSlice);
   const initialState = { name: "" };
   const [payrollGroup, setPayrollGroup] = useState(initialState);
   const [clearButton, setClearButton] = useState(false)
@@ -37,7 +39,9 @@ export default function PayrollGroup() {
   };
   return (
     <AdminContainer>
-      <Form clearButton={clearButton} setClearButton={setClearButton} data={payrollGroup} onSubmit={onSubmit} />
+      <Form clearButton={clearButton} setClearButton={setClearButton} data={payrollGroup} onSubmit={onSubmit} 
+      loading={createLoader}
+      />
       <TableView
         handleEdit={setPayrollGroup}
         setClearButton={setClearButton}

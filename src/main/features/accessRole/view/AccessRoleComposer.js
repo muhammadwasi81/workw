@@ -34,6 +34,7 @@ function AccessRoleComposer(props) {
   const [isObjEqual, setIsObjEqual] = useState(false);
   const {
     loader: loading,
+    createLoader,
     success,
     singleAccessRole,
     isSingleAccessRoleLoaded,
@@ -356,7 +357,8 @@ function AccessRoleComposer(props) {
             className="ThemeBtn"
             block
             htmlType="submit"
-            loading={loading}
+            loading={createLoader}
+            //loading={createLoader}
             disabled={props.isDefault || (props.isEdited && isObjEqual)}
           >
             {props.isEdited

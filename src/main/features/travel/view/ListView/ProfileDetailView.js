@@ -8,6 +8,7 @@ import { getNameForImage } from "../../../../../utils/base";
 
 function ProfileDetailView(props) {
   const { showIcon = true } = props;
+  // console.log(props.name, "props name");
   return (
     <div className="flex items-center gap-1">
       <Avatar

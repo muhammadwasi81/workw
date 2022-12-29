@@ -1,10 +1,10 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { responseCode } from '../../../../services/enums/responseCode.js';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { responseCode } from "../../../../services/enums/responseCode.js";
 import {
   addAssetCategory,
   getAllAssetCategories,
   updateAssetCategory,
-} from './actions.js';
+} from "./actions.js";
 
 const initialState = {
   assetsData: [],
@@ -14,7 +14,7 @@ const initialState = {
 };
 
 const assetsCategorySlice = createSlice({
-  name: 'AssetCategory',
+  name: "AssetCategory",
   initialState,
   reducers: {
     reset: (state) => {
@@ -50,10 +50,10 @@ const assetsCategorySlice = createSlice({
         isPending(...[addAssetCategory, updateAssetCategory]),
         (state) => {
           state.loader = true;
+          state.success = false;
         }
       )
       .addMatcher(isPending(...[getAllAssetCategories]), (state) => {
-        console.log('pending');
         state.loadingData = true;
         state.success = false;
       })
@@ -62,7 +62,6 @@ const assetsCategorySlice = createSlice({
           ...[getAllAssetCategories, addAssetCategory, updateAssetCategory]
         ),
         (state) => {
-          console.log('rejected');
           state.loader = false;
           state.loadingData = false;
           state.success = false;

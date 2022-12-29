@@ -45,8 +45,6 @@ export const tableColumn = (
   setClearButton,
   sharedLabels
 ) => {
-  console.log("Helloooooo", sharedLabels);
-  
   return [
     { title: [sharedLabels.name], dataIndex: "name", width: "15%", key: 1 },
     {

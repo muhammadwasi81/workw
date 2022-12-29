@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import moment from "moment";
 import {
   ItemContent,
+  ItemContentCareers,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
@@ -9,7 +10,7 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { CareerDictionary } from "../../localization";
 import AvatarCustom from "../../../../sharedComponents/Avatar/avatarOLD";
 import { useSelector } from "react-redux";
-import { Tooltip } from "antd";
+import { Tag, Tooltip } from "antd";
 
 import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
@@ -35,9 +36,12 @@ function ListItem({ item, onClickApproval }) {
     postInterviewers,
     manager,
     approvers,
+    creator,
+    skills,
   } = item;
   const { currentTab } = useSelector((state) => state.careerSlice);
   const { labels } = CareerDictionaryList;
+  const skillsArray = skills?.split(",");
 
   const mangerArrFunc = (manager) => {
     let newArr = [];
@@ -74,7 +78,7 @@ function ListItem({ item, onClickApproval }) {
           status={item.status}
           profileImgSize={40}
         />
-        <ItemContent className="!h-[100px] !max-h-[100px]">
+        <ItemContentCareers className="!h-[100px] !max-h-[100px]">
           <div className="font-bold text-[14px] text-primary-color">
             {designation}
           </div>
@@ -82,8 +86,18 @@ function ListItem({ item, onClickApproval }) {
             {city}, {country}
           </p>
           <p className="careersDescShort">{description}</p>
-        </ItemContent>
-        <div className="cardSections mt-10">
+        </ItemContentCareers>
+        <div className="skillsContainer">
+          <div className="font-bold">{labels.skillsRequired}</div>
+          <div>
+            {skills
+              ? skillsArray?.map((item, index) => {
+                  return <Tag className="LinkTag">{item}</Tag>;
+                })
+              : null}
+          </div>
+        </div>
+        <div className="cardSections ">
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.salaryRange}</div>
             <div className="cardSection__body">{`${minSalary} - ${maxSalary} `}</div>

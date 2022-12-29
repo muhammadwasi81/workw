@@ -51,7 +51,7 @@ const Composer = (props) => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
   const { complainCategories } = useSelector((state) => state.sharedSlice);
-  console.log(complainCategories,"complainCategoriesssssssss");
+  console.log(complainCategories, "complainCategoriesssssssss");
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { loader } = useSelector((state) => state.complainSlice);
 

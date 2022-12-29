@@ -60,8 +60,10 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
   const [quotationDetails, setQuotationDetails] = useState(initialState);
-  const { success, loader } = useSelector((state) => state.quotationSlice);
-  console.log(loader, "loader");
+  const { success, createLoader, loader } = useSelector(
+    (state) => state.quotationSlice
+  );
+  console.log(createLoader, "createLoader");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const employeesData = useSelector((state) => state.sharedSlice.employees);
@@ -222,7 +224,7 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
           <Button
             className="ThemeBtn mr-2"
             onClick={handleSubmit}
-            loading={loader}
+            loading={createLoader}
           >
             {quotationDictionary.createQuotation}
           </Button>

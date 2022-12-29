@@ -275,8 +275,8 @@ const Composer = (props) => {
             ) : null}
           </>
         )}
-        {/* TODO:// features ka form  */}
-        {<FeatureSelect features={features} form={form} />}
+
+        <FeatureSelect features={features} form={form} />
 
         <Form.Item>
           <div className="flex items-center gap-2">
@@ -286,7 +286,6 @@ const Composer = (props) => {
               labels={labels}
             />
             <Button
-              // type="primary"
               className="ThemeBtn"
               block
               size="large"

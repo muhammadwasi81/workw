@@ -34,6 +34,7 @@ export default function Form({
   const [status, setStatus] = useState(null);
 
   const { items } = useSelector((state) => state.subsidiarySlice);
+  const { loader } = useSelector((state) => state.subsidiaryOfficeSlice);
 
   useEffect(() => {
     disptach(getAllBranch());
@@ -182,6 +183,7 @@ export default function Form({
                 onSubmit(form);
                 setClearButton(false);
               }}
+              loading={loader}
             >
               {administration.subsidiaryOffice.save}
             </FormButton>
@@ -196,7 +198,7 @@ export default function Form({
               onSubmit(form);
               setClearButton(false);
             }}
-            loading={loading}
+            loading={loader}
           >
             {administration.subsidiaryOffice.Add}
           </FormButton>

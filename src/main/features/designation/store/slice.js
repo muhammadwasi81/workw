@@ -11,6 +11,8 @@ const initialState = {
   designations: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const designationSlice = createSlice({
@@ -52,16 +54,22 @@ const designationSlice = createSlice({
         isPending(...[addDesignation, updateDesignation]),
         (state) => {
           state.loader = true;
+          state.success = false;
+          state.error = false;
         }
       )
       .addMatcher(isPending(...[getAllDesignation]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(...[getAllDesignation, addDesignation, updateDesignation]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

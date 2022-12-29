@@ -1,3 +1,6 @@
 .searchBox {
   width: 260px;
 }
+.scrolling {
+  overflow-y: scroll;
+}

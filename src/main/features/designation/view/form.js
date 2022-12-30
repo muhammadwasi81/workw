@@ -61,7 +61,7 @@ export default function DesignationForm({ data, onSubmit, loading }) {
               size="medium"
               className="formBtn"
               onClick={(e) => onSubmit(form)}
-              loading={loader}
+              loading={loading}
             >
               {administration.designation.save}
             </FormButton>
@@ -80,7 +80,7 @@ export default function DesignationForm({ data, onSubmit, loading }) {
             size="medium"
             className="formBtn"
             onClick={(e) => onSubmit(form)}
-            loading={loader}
+            loading={loading}
           >
             {administration.designation.Add}
           </FormButton>

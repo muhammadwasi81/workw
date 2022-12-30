@@ -13,6 +13,8 @@ import {
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import { customCategoryDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function CustomApprovalCategoryForm({ data, onSubmit }) {
   const [form, setForm] = useState(data);
 
@@ -23,6 +25,8 @@ export default function CustomApprovalCategoryForm({ data, onSubmit }) {
   const { Direction, customcategoryDictionary } = customCategoryDictionaryList[
     userLanguage
   ];
+  const { loader } = useSelector((state) => state.customApprovalCategorySlice);
+
   return (
     <FormContainer>
       <FormHeader>{customcategoryDictionary.customApprovalcategory}</FormHeader>
@@ -54,6 +58,7 @@ export default function CustomApprovalCategoryForm({ data, onSubmit }) {
               size="medium"
               className="formBtn"
               onClick={(e) => onSubmit(form)}
+              loading={loader}
             >
               {customcategoryDictionary.saveCategory}
             </FormButton>
@@ -72,6 +77,7 @@ export default function CustomApprovalCategoryForm({ data, onSubmit }) {
             size="medium"
             className="formBtn"
             onClick={(e) => onSubmit(form)}
+            loading={loader}
           >
             {customcategoryDictionary.addCategory}{" "}
           </FormButton>

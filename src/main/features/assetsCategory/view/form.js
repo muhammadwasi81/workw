@@ -25,12 +25,11 @@ const AssetsCategoryForm = ({
   const { assetsDictionary } = assetsCategoryDictionaryList[userLanguage];
   const dispatch = useDispatch();
   const [form, setForm] = useState(data);
-  console.log(form, "data");
 
-  const { listData, loader } = useSelector(
-    (state) => state.chartOfAccountsSlice
-  );
-  console.log(listData, "listData");
+  const { listData } = useSelector((state) => state.chartOfAccountsSlice);
+  const { loader } = useSelector((state) => state.assetsCategorySlice);
+
+  console.log(loader, "listData");
 
   useEffect(() => {
     dispatch(getAllChartOfAccount());

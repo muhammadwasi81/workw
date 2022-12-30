@@ -1,6 +1,6 @@
-import './style.css';
-import { Input } from 'antd';
-import { useEffect, useState,useContext } from 'react';
+import "./style.css";
+import { Input } from "antd";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -9,11 +9,11 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Form({
   data,
@@ -22,15 +22,15 @@ export default function Form({
   clearButton,
   loading,
 }) {
-
   const { userLanguage } = useContext(LanguageChangeContext);
-	const { administration,subsidiaryOffice, Direction  } = dictionaryList[userLanguage];
-		console.log("jkjll",administration.subsidiary);
+  const { administration, subsidiaryOffice, Direction } = dictionaryList[
+    userLanguage
+  ];
 
   const [form, setForm] = useState(data);
-  console.log('data', data);
+
   const handleClear = (e) => {
-    setForm({ ...form, branchTitle: '' });
+    setForm({ ...form, branchTitle: "" });
     setClearButton(false);
   };
 
@@ -46,17 +46,15 @@ export default function Form({
   useEffect(() => {
     setForm(data);
   }, [data]);
+  const { loader } = useSelector((state) => state.subsidiarySlice);
+
   return (
     <FormContainer>
-      <FormHeader>
-        {administration.subsidiaryOffice.Subsidiary}
-        </FormHeader>
+      <FormHeader>{administration.subsidiaryOffice.Subsidiary}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>
-            {administration.subsidiaryOffice.title}
-            </FormLabel>
-          <Input   
+          <FormLabel>{administration.subsidiaryOffice.title}</FormLabel>
+          <Input
             placeholder={administration.subsidiaryOffice.enterTitle}
             value={form.branchTitle}
             onChange={handelChangebranchTitle}
@@ -74,8 +72,9 @@ export default function Form({
                 onSubmit(form);
                 setClearButton(false);
               }}
+              loading={loader}
             >
-             {administration.subsidiaryOffice.save}
+              {administration.subsidiaryOffice.save}
             </FormButton>
           </>
         ) : (
@@ -88,9 +87,9 @@ export default function Form({
               onSubmit(form);
               setClearButton(false);
             }}
-            loading={loading}
+            loading={loader}
           >
-              {administration.subsidiaryOffice.Add}
+            {administration.subsidiaryOffice.Add}
           </FormButton>
         )}
         {clearButton && (

@@ -1,11 +1,18 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addExpense, getAllExpense, removeExpense, updateExpense } from "./actions.js";
+import {
+  addExpense,
+  getAllExpense,
+  removeExpense,
+  updateExpense,
+} from "./actions.js";
 
 const initialState = {
   expenseHeaders: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const expenseHeaederSlice = createSlice({
@@ -13,7 +20,9 @@ const expenseHeaederSlice = createSlice({
   initialState,
   reducers: {
     expenseDeleted: (state, { payload }) => {
-      state.expenseHeaders = state.expenseHeaders.filter((e) => e.id !== payload.id);
+      state.expenseHeaders = state.expenseHeaders.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -35,15 +44,21 @@ const expenseHeaederSlice = createSlice({
       })
       .addMatcher(isPending(...[addExpense, updateExpense]), (state) => {
         state.loader = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[getAllExpense]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(...[getAllExpense, addExpense, updateExpense]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

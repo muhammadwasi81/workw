@@ -3,7 +3,6 @@ import { Button, Col, Form, Input, message, Row, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
 import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
-import { customApprovalDictionaryList } from '../../../CustomApprovals/localization';
 import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { modifySelectData } from '../../../../../utils/base';
 import { DeleteOutlined } from '@ant-design/icons';

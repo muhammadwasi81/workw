@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import {
   CheckCircleOutlined,
   WalletOutlined,
   TeamOutlined,
   BankOutlined,
   PieChartOutlined,
-} from "@ant-design/icons";
-import "swiper/css";
-import ExpenseType from "../components/ExpenseType";
+} from '@ant-design/icons';
+import 'swiper/css';
+import ExpenseType from '../components/ExpenseType';
 import {
   Button,
   Form,
@@ -17,29 +17,26 @@ import {
   Checkbox,
   Select,
   Avatar,
-} from "antd";
-import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { useDispatch, useSelector } from "react-redux";
-import { addExpense } from "../store/actions";
-import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-
-import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import { DEFAULT_GUID } from "../../../../utils/constants";
-import moment from "moment";
-
-import { getAllExpenseHeaderService } from "../../expenseHeader/services/service";
-// import { defaultUiid } from "../../../../utils/Shared/enums/enums";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { ExpenseDictionary } from "../localization";
-import { getAllProjectsService } from "../../projects/services/service";
-import { getAllGroupService } from "../../groups/services/service";
-import { getAllTravelService } from "../../travel/services/service";
-import { getNameForImage, STRINGS } from "../../../../utils/base";
-import { getAllDefaultApprovers } from "../../defaultApprovers/service/service";
-import "../style/style.css";
+} from 'antd';
+import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
+import { useDispatch, useSelector } from 'react-redux';
+import { addExpense } from '../store/actions';
+import MemberSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { getAllEmployees } from '../../../../utils/Shared/store/actions';
+import { DEFAULT_GUID } from '../../../../utils/constants';
+import moment from 'moment';
+import { getAllExpenseHeaderService } from '../../expenseHeader/services/service';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { ExpenseDictionary } from '../localization';
+import { getAllProjectsService } from '../../projects/services/service';
+import { getAllGroupService } from '../../groups/services/service';
+import { getAllTravelService } from '../../travel/services/service';
+import { getNameForImage, STRINGS } from '../../../../utils/base';
+import { getAllDefaultApprovers } from '../../defaultApprovers/service/service';
+import '../style/style.css';
 const { TextArea } = Input;
 
-function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
+function CreateExpense({ referenceId = DEFAULT_GUID, feature = '' }) {
   const [isExecutor, setIsExecutor] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const {
@@ -51,7 +48,8 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
-
+  const { loader } = useSelector((state) => state.expenseSlice);
+  console.log('loader', loader);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [allHeader, setAllHeader] = useState([]);
@@ -67,11 +65,11 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
     5: labels.assets,
   };
   const typeList = {
-    1: "generalId",
-    2: "groupId",
-    3: "projectId",
-    4: "travelId",
-    5: "assetId",
+    1: 'generalId',
+    2: 'groupId',
+    3: 'projectId',
+    4: 'travelId',
+    5: 'assetId',
   };
   const [employeeData, setEmployeeData] = useState({
     approvers: [],
@@ -95,7 +93,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         setTypesSelect(data);
       }
     } catch (e) {
-      console.log("Error in projects", e);
+      console.log('Error in projects', e);
     }
   };
   const getGroups = async () => {
@@ -109,7 +107,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         setTypesSelect(data);
       }
     } catch (e) {
-      console.log("Error in Groups", e);
+      console.log('Error in Groups', e);
     }
   };
   const getTravels = async () => {
@@ -118,13 +116,13 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         pageNo: 1,
         pageSize: 20,
         filterType: 0,
-        search: "",
+        search: '',
       });
       if (responseCode === 1001) {
         setTypesSelect(data);
       }
     } catch (e) {
-      console.log("Error in Travel", e);
+      console.log('Error in Travel', e);
     }
   };
   useEffect(() => {
@@ -147,7 +145,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
   };
   getDefaultApproval();
   const selectedData = (_, obj, name) => {
-    if (name === "approvers") {
+    if (name === 'approvers') {
       setEmployeeData((preValue) => {
         return {
           ...preValue,
@@ -156,7 +154,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           }),
         };
       });
-    } else if (name === "executors") {
+    } else if (name === 'executors') {
       setEmployeeData((preValue) => {
         return {
           ...preValue,
@@ -165,7 +163,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           }),
         };
       });
-    } else if (name === "finance") {
+    } else if (name === 'finance') {
       setEmployeeData((preValue) => {
         return {
           ...preValue,
@@ -181,7 +179,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
     if (data?.length) setAllHeader(data);
   };
   useEffect(() => {
-    fetchEmployees("", 0);
+    fetchEmployees('', 0);
     getAllHeaderExpense();
   }, []);
   const fetchEmployees = (text, pgNo) => {
@@ -231,7 +229,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
       onFinish={onFinish}
       autoComplete="off"
       layout="vertical"
-      className={Direction === "ltr" ? "addExpense" : "addExpense rtl"}
+      className={Direction === 'ltr' ? 'addExpense' : 'addExpense rtl'}
       initialValues={{ categoryId: 1, referenceType: feature || 1 }}
     >
       <ExpenseType labels={labels} />
@@ -273,7 +271,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           rules={[{ required: true }]}
           label={`${listObj[type]} List`}
           // name={typeList[type]}
-          name={"referenceId"}
+          name={'referenceId'}
           labelPosition="top"
         >
           <Select
@@ -304,8 +302,8 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         <Select
           placeholder={placeHolder.writeHeaderHere}
           style={{
-            width: "100%",
-            borderRadius: "5px",
+            width: '100%',
+            borderRadius: '5px',
           }}
           size="large"
         >
@@ -323,7 +321,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           labelPosition="top"
           rules={[{ required: true }]}
         >
-          <Input placeholder={placeHolder.enterAmount} type={"number"} />
+          <Input placeholder={placeHolder.enterAmount} type={'number'} />
         </Form.Item>
         <Form.Item
           label={labels.date}
@@ -333,7 +331,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         >
           <DatePicker
             placeholder={placeHolder.pickCurrentDate}
-            className={"expenseDate"}
+            className={'expenseDate'}
           />
         </Form.Item>
         <Form.Item
@@ -359,7 +357,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         <MemberSelect
           isObject={true}
           data={firstTimeEmpData}
-          selectedData={(data, obj, name = "approvers") =>
+          selectedData={(data, obj, name = 'approvers') =>
             selectedData(data, obj, name)
           }
           canFetchNow={isFirstTimeDataLoaded}
@@ -389,7 +387,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           <MemberSelect
             isObject={true}
             data={firstTimeEmpData}
-            selectedData={(data, obj, name = "executors") =>
+            selectedData={(data, obj, name = 'executors') =>
               selectedData(data, obj, name)
             }
             canFetchNow={isFirstTimeDataLoaded}
@@ -418,7 +416,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         <MemberSelect
           isObject={true}
           data={firstTimeEmpData}
-          selectedData={(data, obj, name = "finance") =>
+          selectedData={(data, obj, name = 'finance') =>
             selectedData(data, obj, name)
           }
           canFetchNow={isFirstTimeDataLoaded}
@@ -473,7 +471,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
             )
           }
           multiple={true}
-          uploadText={"Upload"}
+          uploadText={'Upload'}
         />
       </Form.Item>
       <Form.Item>
@@ -483,6 +481,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           className="ThemeBtn"
           block
           htmlType="submit"
+          loading={loader}
         >
           {labels.createExpense}
         </Button>

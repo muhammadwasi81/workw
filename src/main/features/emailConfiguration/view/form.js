@@ -13,6 +13,8 @@ import {
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import { emailConfiDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function EmailConfigurationForm({ data, onSubmit, loading }) {
   const [form, setForm] = useState(data);
 
@@ -23,6 +25,8 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
   const { Direction, emailConfiDictionary } = emailConfiDictionaryList[
     userLanguage
   ];
+  const { loader } = useSelector((state) => state.emailConfigurationSlice);
+
   return (
     <FormContainer>
       <FormHeader>{emailConfiDictionary.emailConfi}</FormHeader>
@@ -89,6 +93,7 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
               style={{}}
               className="formBtn"
               onClick={(e) => onSubmit(form)}
+              loading={loader}
             >
               {emailConfiDictionary.saveEmailConfi}
             </FormButton>
@@ -109,7 +114,7 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
             style={{}}
             className="formBtn"
             onClick={(e) => onSubmit(form)}
-            // loading={loading}
+            loading={loader}
           >
             {emailConfiDictionary.addEmailConfi}
           </FormButton>

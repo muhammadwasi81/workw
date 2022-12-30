@@ -7,6 +7,8 @@ const initialState = {
   loadingData: false,
   loader: false,
   drawerOpen: false,
+  success: false,
+  error: false,
 };
 
 const officeTimingSlice = createSlice({
@@ -27,12 +29,10 @@ const officeTimingSlice = createSlice({
       .addCase(getAllOfficeTimingGroups.fulfilled, (state, { payload }) => {
         state.loadingData = false;
         state.officeTimingGroups = payload.data;
-        console.log(payload, "payload");
       })
       .addCase(addOfficeTimingGroup.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.drawerOpen = false;
-        console.log(payload, "payload");
         if (payload.responseCode === responseCode.Success)
           state.officeTimingGroups.push(payload.data);
       })
@@ -44,15 +44,21 @@ const officeTimingSlice = createSlice({
       // })
       .addMatcher(isPending(...[addOfficeTimingGroup]), (state) => {
         state.loader = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[getAllOfficeTimingGroups]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(...[getAllOfficeTimingGroups, addOfficeTimingGroup]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

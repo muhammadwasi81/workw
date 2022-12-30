@@ -14,6 +14,7 @@ import TextArea from "antd/lib/input/TextArea";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
+import { useDispatch, useSelector } from "react-redux";
 
 const { RangePicker } = DatePicker;
 
@@ -133,6 +134,7 @@ export default function Form({
                 onSubmit(form);
                 setClearButton(false);
               }}
+              loading={loading}
             >
               {administration.fiscalyear.save}
             </FormButton>

@@ -87,7 +87,7 @@ export default function RewardCategoryForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
-              loading={loader}
+              loading={loading}
             >
               {rewardDictionary.saveCategory}
             </FormButton>
@@ -102,7 +102,7 @@ export default function RewardCategoryForm({
               onSubmit(form);
               setClearButton(false);
             }}
-            loading={loader}
+            loading={loading}
           >
             {rewardDictionary.addCategory}
           </FormButton>

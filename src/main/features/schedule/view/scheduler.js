@@ -163,7 +163,7 @@ function Scheduler({ feed = false }) {
 					dayMaxEventRows={true}
 					editable={true}
 					plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-					initialView={!feed ? "dayGridWeek" : "timeGridDay"}
+					initialView={!feed ? "timeGridWeek" : "timeGridDay"}
 					events={
 						data
 						// "https://fullcalendar.io/api/demo-feeds/events.json"

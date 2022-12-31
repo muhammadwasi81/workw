@@ -11,6 +11,7 @@ import {
   GetCourseById,
   addQuiz,
   getAllQuiz,
+  CheckQuizAttempt,
 } from "./action";
 
 const initialState = {
@@ -114,6 +115,9 @@ const eLearningSlice = createSlice({
       .addCase(GetCourseById.fulfilled, (state, action) => {
         state.courseDetail = action.payload.data;
       })
+      .addCase(CheckQuizAttempt.fulfilled, (state, { payload }) => {
+        console.log("fullfilled");
+      })
       .addCase(addBook.fulfilled, (state) => {
         state.loaders.addBookLoading = false;
         state.success = true;
@@ -150,6 +154,9 @@ const eLearningSlice = createSlice({
         state.loaders.quizLoading = true;
         state.success = false;
       })
+      .addMatcher(isPending(...[CheckQuizAttempt]), (state) => {
+        console.log("pending");
+      })
       .addMatcher(
         isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
         (state) => {
@@ -163,6 +170,9 @@ const eLearningSlice = createSlice({
       .addMatcher(isRejected(...[addQuiz]), (state) => {
         state.loaders.addQuizLoading = false;
         state.success = false;
+      })
+      .addMatcher(isRejected(...[CheckQuizAttempt]), (state) => {
+        console.log("rejected");
       })
       .addMatcher(isRejected(...[getAllQuiz]), (state) => {
         state.loaders.quizLoading = false;

@@ -55,6 +55,17 @@ export const GetCourseByIdService = (id) => {
     });
 };
 
+export const checkQuizAttemptService = (id) => {
+  console.log(id);
+  return MasterConfig.get(`api/ELearning/QuizCheckAttempted?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
 export const getAllCourseAssignMemService = (id) => {
   return MasterConfig.get(`api/ELearning/GetAllCourseAssignMember?id=${id}`)
     .then((res) => {

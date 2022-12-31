@@ -2,13 +2,17 @@ import React from "react";
 import WhiteCard from "../../../UI/WhiteCard";
 import BoxThumnail from "../UI/BoxThumnail";
 import { BsFileText } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 function QuizCard({ item }) {
   console.log(item);
-  const { name, description, questions, validTill } = item;
+  const { name, description, questions, validTill, id } = item;
+  const navigate = useNavigate();
   return (
     <WhiteCard
-      onClick={() => {}}
+      onClick={() => {
+        navigate(`quiz/${id}`);
+      }}
       className="cursor-pointer hover:shadow-lg transition-all relative overflow-hidden"
     >
       <div className="absolute top-0 right-0 bg-[#D40413] text-white font-semibold rounded-bl-lg p-2 z-50">

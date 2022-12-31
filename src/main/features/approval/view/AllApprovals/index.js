@@ -25,7 +25,6 @@ export default function AllApprovals() {
   };
   const handleTabChange = (tabIndex) => {
     tabIndex = Number(tabIndex);
-    console.log(tabIndex);
     let status = ApprovalStatus.InProcess;
     switch (tabIndex) {
       case 1:

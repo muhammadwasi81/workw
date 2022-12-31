@@ -4,8 +4,8 @@ import { getAllApprovalService } from "../services/service";
 
 export const getAllApproval = createAsyncThunk(
   "Approval/getAllApproval",
-  async (payload={}, { rejectWithValue, dispatch }) => {
-    const response = await getAllApprovalService(payload);
+  async ({ isMyApproval, filter }, { rejectWithValue, dispatch }) => {
+    const response = await getAllApprovalService(filter);
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

@@ -12,9 +12,15 @@ function EmployeeCard({ employees: { image, name, email, designation, id } }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
 
+  console.log("imageimage",image);
   return (
     <Parent>
-    <ImageBox BackgroundImage="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+    <ImageBox 
+   // BackgroundImage="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" 
+            src={image ? image : ''}
+   // getNameForImage={name ? name : 'Unknown User'}
+   
+    />
     <ContentBox>
          {/* <Avatar className="" src={image ? image : ''}>
             {getNameForImage(name ? name : 'Unknown User')}

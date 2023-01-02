@@ -89,7 +89,7 @@ export default function ExpenseHeaderForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
-              loading={loader}
+              loading={loading}
             >
               {administration.expense.save}
             </FormButton>
@@ -104,7 +104,7 @@ export default function ExpenseHeaderForm({
               onSubmit(form);
               setClearButton(false);
             }}
-            loading={loader}
+            loading={loading}
           >
             {administration.expense.Add}
           </FormButton>

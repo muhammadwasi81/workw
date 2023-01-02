@@ -88,7 +88,7 @@ export default function SalaryHeaderForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
-              loading={loader}
+              loading={loading}
             >
               {salaryHeaderDictionary.saveHeader}
             </FormButton>
@@ -102,7 +102,7 @@ export default function SalaryHeaderForm({
               onSubmit(form);
               setClearButton(false);
             }}
-            loading={loader}
+            loading={loading}
           >
             {salaryHeaderDictionary.addHeader}
           </FormButton>

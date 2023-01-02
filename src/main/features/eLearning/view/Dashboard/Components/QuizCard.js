@@ -11,7 +11,7 @@ function QuizCard({ item }) {
   return (
     <WhiteCard
       onClick={() => {
-        navigate(`quiz/${id}`);
+        navigate(`quiz/${id}`, { state: { data: item } });
       }}
       className="cursor-pointer hover:shadow-lg transition-all relative overflow-hidden"
     >

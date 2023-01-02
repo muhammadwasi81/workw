@@ -38,6 +38,7 @@ const initialState = {
   sections: [],
   courses: [],
   quizzes: [],
+  checkquizAttempt: {},
   courseDetail: {},
   books: [],
   success: false,
@@ -49,6 +50,7 @@ const initialState = {
     addBookLoading: false,
     addQuizLoading: false,
     quizLoading: false,
+    checkQuizAttemptLoading: false,
   },
   courseMembers: [],
   courseAssignMembers: [],
@@ -117,6 +119,9 @@ const eLearningSlice = createSlice({
       })
       .addCase(CheckQuizAttempt.fulfilled, (state, { payload }) => {
         console.log("fullfilled");
+        console.log(payload.data);
+        state.checkquizAttempt = payload;
+        state.loaders.checkQuizAttemptLoading = false;
       })
       .addCase(addBook.fulfilled, (state) => {
         state.loaders.addBookLoading = false;
@@ -156,6 +161,7 @@ const eLearningSlice = createSlice({
       })
       .addMatcher(isPending(...[CheckQuizAttempt]), (state) => {
         console.log("pending");
+        state.loaders.checkQuizAttemptLoading = true;
       })
       .addMatcher(
         isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
@@ -173,6 +179,7 @@ const eLearningSlice = createSlice({
       })
       .addMatcher(isRejected(...[CheckQuizAttempt]), (state) => {
         console.log("rejected");
+        state.loaders.checkQuizAttemptLoading = false;
       })
       .addMatcher(isRejected(...[getAllQuiz]), (state) => {
         state.loaders.quizLoading = false;

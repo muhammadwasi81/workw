@@ -1,53 +1,93 @@
 import { Button, Radio } from "antd";
-import React from "react";
-import WhiteCard from "../../../UI/WhiteCard";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addQuizAnswerAttempt } from "../../../store/action";
 import "./style.css";
 
-const QuestionWithoutImage = () => {
+const QuestionWithoutImage = ({ questions }) => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.userSlice);
+  const [question, setQuestion] = useState({});
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [radioAnswer, setRadioAnswer] = useState("");
+  const [isLastQuestion, setIsLastQuestion] = useState(false);
+
+  //   useEffect(() => {
+  //     if (questions.length) {
+  //       setQuestion(questions[0]);
+  //     }
+  //   }, [questions]);
+  //   console.log(question);
+  console.log(questions);
+
+  const onchangeRadio = (e) => {
+    setRadioAnswer(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const onSubmit = () => {
+    console.log("on submit console");
+    //TODO: dispatch action for respsonse quiz question here
+    let payload = {
+      questionId: questions[questionIndex].id,
+      answerId: radioAnswer,
+      attemptId: "08e6f172-d9f3-4aa6-b719-6f7c84f5d7fc",
+    };
+    dispatch(addQuizAnswerAttempt(payload));
+    if (questions.length === questionIndex + 1) {
+      console.log("ssss");
+      setIsLastQuestion(true);
+    } else {
+      setQuestionIndex(questionIndex + 1);
+    }
+    // setQuestion(questions[1]);
+  };
+
+  if (isLastQuestion) {
+    return <div>Last question thank you</div>;
+  }
+
   return (
     <div className="question-box flex flex-col">
-      <span className="text-xl">Question 9/10</span>
-      <div className="flex self-center">
-        <img
-          src={
-            "https://58.65.211.234:4436/Resources\\0ab5f9c0-f948-4c40-8dad-c58ba99fb765\\Images\\f41b2b3c-e18e-4d78-b594-74c3b01cbf25.png"
-          }
-          className="w-[300px] h-[300px] flex self-center"
-        />
-      </div>
+      <span className="text-xl">{`Question ${questionIndex + 1}/${
+        questions.length
+      }`}</span>
+      {questions[questionIndex].attachment && (
+        <div className="flex self-center">
+          <img
+            src={
+              "https://58.65.211.234:4436/Resources\\0ab5f9c0-f948-4c40-8dad-c58ba99fb765\\Images\\f41b2b3c-e18e-4d78-b594-74c3b01cbf25.png"
+            }
+            className="w-[300px] h-[300px] flex self-center"
+          />
+        </div>
+      )}
 
       <span className=" text-base font-black mt-6">
-        In 2017, which player became the leading run scorer of all tie in
-        women's ODI cricket
+        {questions[questionIndex].question}
       </span>
       {/**will map here options */}
-      <Radio.Group>
-        <div className="inputBox mt-4">
-          <Radio value="pear">
-            {" "}
-            work closely with a supervisor to learn more aout a job{" "}
-          </Radio>
-        </div>
-        <div className="inputBox mt-4">
-          <Radio value="a">
-            {" "}
-            work closely with a supervisor to learn more aout a job{" "}
-          </Radio>
-        </div>
-        <div className="inputBox mt-4">
-          <Radio value="d">
-            {" "}
-            work closely with a supervisor to learn more aout a job{" "}
-          </Radio>
-        </div>
-        <div className="inputBox mt-4">
-          <Radio value="g">
-            {" "}
-            work closely with a supervisor to learn more aout a job{" "}
-          </Radio>
-        </div>
+      <Radio.Group
+        onChange={onchangeRadio}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        {questions[questionIndex]?.answers.map((el, i) => (
+          <>
+            <div className="inputBox mt-4">
+              <Radio value={el.id}> {el.answer}</Radio>
+            </div>
+          </>
+        ))}
       </Radio.Group>
-      <Button className="Formbtn w-[5rem] mt-4 flex justify-center self-end">
+      <Button
+        className="Formbtn w-[5rem] mt-4 flex justify-center self-end"
+        onClick={onSubmit}
+      >
         Next
       </Button>
     </div>

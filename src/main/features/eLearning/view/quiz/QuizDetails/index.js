@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { CheckQuizAttempt } from "../../../store/action";
+import {
+  AddStartQuiz,
+  CheckQuizAttempt,
+  getQuizById,
+} from "../../../store/action";
 import WhiteCard from "../../../UI/WhiteCard";
 import DetailLayout from "../../Dashboard/Layout/DetailLayout";
 import { useLocation, useParams } from "react-router-dom";
@@ -26,9 +30,10 @@ function QuizDetail(props) {
   //   } = courseDetail;
   let Default = "https://www.makeintern.com/learning/img/online-course12.jpg";
 
-  // useEffect(() => {
-  //   disptach(CheckQuizAttempt(id));
-  // }, []);
+  useEffect(() => {
+    disptach(getQuizById(id));
+    disptach(AddStartQuiz(id));
+  }, []);
 
   let renderPage = {
     DetailPage: (

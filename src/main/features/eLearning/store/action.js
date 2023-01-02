@@ -14,6 +14,9 @@ import {
   addQuizService,
   getAllQuizService,
   checkQuizAttemptService,
+  GetQuizByIdService,
+  AddQuizAnswerAttemptService,
+  AddStartQuizService,
 } from "../service/service";
 
 //  COURSES ACTIONS  //
@@ -68,6 +71,31 @@ export const getAllQuiz = createAsyncThunk(
     if (!response.responseCode) {
       message.error("Something went wrong");
     }
+    return response.data;
+  }
+);
+
+export const getQuizById = createAsyncThunk(
+  "Course/GetQuizById",
+  async (data) => {
+    const response = await GetQuizByIdService(data);
+    return response.data;
+  }
+);
+
+export const AddStartQuiz = createAsyncThunk(
+  "Quiz/AddStartQuiz",
+  async (data) => {
+    const response = await AddStartQuizService(data);
+    return response.data;
+  }
+);
+
+export const addQuizAnswerAttempt = createAsyncThunk(
+  "Course/AddQuizAnswerAttempt",
+  async (data) => {
+    // console.log(data);
+    const response = await AddQuizAnswerAttemptService(data);
     return response.data;
   }
 );

@@ -212,6 +212,20 @@ const Composer = (props) => {
           />
         </Form.Item>
 
+        <MemberComposer
+          handleAdd={handelAddMember}
+          form={form}
+          placeholder={"Search Members"}
+          error={"Please Select Members"}
+        />
+        {memberList?.length > 0 ? (
+          <MemberListItem
+            data={memberList}
+            onRemove={(row, ind) => {
+              setMemberList(memberList.filter((_, index) => index !== ind));
+            }}
+          />
+        ) : null}
         <Form.Item
           label={departmentDictionary.addEmployees}
           name="members"

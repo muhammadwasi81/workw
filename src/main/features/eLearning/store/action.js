@@ -13,6 +13,11 @@ import {
   GetCourseByIdService,
   addQuizService,
   getAllQuizService,
+  checkQuizAttemptService,
+  GetQuizByIdService,
+  AddQuizAnswerAttemptService,
+  AddStartQuizService,
+  GetQuizResultService,
 } from "../service/service";
 
 //  COURSES ACTIONS  //
@@ -71,10 +76,51 @@ export const getAllQuiz = createAsyncThunk(
   }
 );
 
+export const getQuizById = createAsyncThunk(
+  "Course/GetQuizById",
+  async (data) => {
+    const response = await GetQuizByIdService(data);
+    return response.data;
+  }
+);
+
+export const AddStartQuiz = createAsyncThunk(
+  "Quiz/AddStartQuiz",
+  async (data) => {
+    const response = await AddStartQuizService(data);
+    return response.data;
+  }
+);
+
+export const addQuizAnswerAttempt = createAsyncThunk(
+  "Course/AddQuizAnswerAttempt",
+  async (data) => {
+    // console.log(data);
+    const response = await AddQuizAnswerAttemptService(data);
+    return response.data;
+  }
+);
+
 export const GetCourseById = createAsyncThunk(
   "Course/GetCourseById",
   async (id) => {
     const response = await GetCourseByIdService(id);
+    return response.data;
+  }
+);
+
+export const GetQuizResult = createAsyncThunk(
+  "Quiz/GetQuizResult",
+  async (id) => {
+    const response = await GetQuizResultService(id);
+    return response.data;
+  }
+);
+
+export const CheckQuizAttempt = createAsyncThunk(
+  "Quiz/checkQuizAttempt",
+  async (id) => {
+    const response = await checkQuizAttemptService(id);
     return response.data;
   }
 );

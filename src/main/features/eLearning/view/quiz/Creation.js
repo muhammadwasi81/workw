@@ -11,8 +11,6 @@ import { addBook, addQuiz } from "../../store/action";
 // import QuestionWithType from "../../../forms/view/forms/CreateForm/QuestionWithType"
 import PollQuestion from "./PollQuestion";
 import DrangableQuestions from "./DraggableItem";
-import RadioWithImage from "../../../forms/view/forms/CreateForm/QuestionsItems/RadioWithImage";
-import TextFields from "../../../forms/view/forms/CreateForm/QuestionsItems/TextFields";
 import { createGuid, STRINGS } from "../../../../../utils/base";
 import RadioComponent from "./Radio";
 import RadioWithImageComponent from "./RadioWithImage";

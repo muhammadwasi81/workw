@@ -13,6 +13,8 @@ const QuestionWithoutImage = ({ questions }) => {
   const [radioAnswer, setRadioAnswer] = useState("");
   const [isLastQuestion, setIsLastQuestion] = useState(false);
 
+  const { startQuiz } = useSelector((state) => state.eLearningSlice);
+
   //   useEffect(() => {
   //     if (questions.length) {
   //       setQuestion(questions[0]);
@@ -30,12 +32,12 @@ const QuestionWithoutImage = ({ questions }) => {
     console.log("on submit console");
     //TODO: dispatch action for respsonse quiz question here
     let payload = {
-      questionId: questions[questionIndex].id,
+      questionId: questions.questions[questionIndex].id,
       answerId: radioAnswer,
-      attemptId: "08e6f172-d9f3-4aa6-b719-6f7c84f5d7fc",
+      attemptId: questions.id,
     };
     dispatch(addQuizAnswerAttempt(payload));
-    if (questions.length === questionIndex + 1) {
+    if (questions.questions.length === questionIndex + 1) {
       console.log("ssss");
       setIsLastQuestion(true);
     } else {
@@ -51,9 +53,9 @@ const QuestionWithoutImage = ({ questions }) => {
   return (
     <div className="question-box flex flex-col">
       <span className="text-xl">{`Question ${questionIndex + 1}/${
-        questions.length
+        questions.questions.length
       }`}</span>
-      {questions[questionIndex].attachment && (
+      {questions.questions[questionIndex].attachment && (
         <div className="flex self-center">
           <img
             src={
@@ -65,7 +67,7 @@ const QuestionWithoutImage = ({ questions }) => {
       )}
 
       <span className=" text-base font-black mt-6">
-        {questions[questionIndex].question}
+        {questions.questions[questionIndex].question}
       </span>
       {/**will map here options */}
       <Radio.Group
@@ -76,7 +78,7 @@ const QuestionWithoutImage = ({ questions }) => {
           },
         ]}
       >
-        {questions[questionIndex]?.answers.map((el, i) => (
+        {questions.questions[questionIndex]?.answers.map((el, i) => (
           <>
             <div className="inputBox mt-4">
               <Radio value={el.id}> {el.answer}</Radio>

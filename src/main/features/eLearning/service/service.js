@@ -45,6 +45,17 @@ export const GetQuizByIdService = (id) => {
     });
 };
 
+export const GetQuizResultService = (id) => {
+  console.log(id);
+  return MasterConfig.get(`api/ELearning/GetQuizResult?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
 export const AddQuizAnswerAttemptService = (data) => {
   console.log(data);
   return MasterConfig.get(

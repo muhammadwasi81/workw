@@ -1,7 +1,19 @@
+import React, { useEffect } from "react";
 import { Radio, Space } from "antd";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { GetQuizResult } from "../../../store/action";
 
-const ResultPage = () => {
+const ResultPage = ({ id }) => {
+  console.log(id, "result page");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("mount dispatch");
+    dispatch(GetQuizResult(id));
+    console.log("dispatch end");
+  }, []);
+  //TODO: use selector loader and dispatch action on mount
   return (
     <div className="bg-white rounded-lg shadow-md min-h-screen h-fit">
       <div className="bg-[#EDEFF0] h-[6rem] rounded-t-[0.5rem] flex flex-col justify-center pl-[2rem] font-black">

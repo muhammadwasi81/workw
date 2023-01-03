@@ -17,6 +17,7 @@ import {
   GetQuizByIdService,
   AddQuizAnswerAttemptService,
   AddStartQuizService,
+  GetQuizResultService,
 } from "../service/service";
 
 //  COURSES ACTIONS  //
@@ -104,6 +105,14 @@ export const GetCourseById = createAsyncThunk(
   "Course/GetCourseById",
   async (id) => {
     const response = await GetCourseByIdService(id);
+    return response.data;
+  }
+);
+
+export const GetQuizResult = createAsyncThunk(
+  "Quiz/GetQuizResult",
+  async (id) => {
+    const response = await GetQuizResultService(id);
     return response.data;
   }
 );

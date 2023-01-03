@@ -15,6 +15,7 @@ import {
   getQuizById,
   addQuizAnswerAttempt,
   AddStartQuiz,
+  GetQuizResult,
 } from "./action";
 
 const initialState = {
@@ -44,6 +45,7 @@ const initialState = {
   quizDetail: {},
   startQuiz: {},
   checkquizAttempt: {},
+  quizResult: {},
   courseDetail: {},
   books: [],
   success: false,
@@ -57,6 +59,7 @@ const initialState = {
     quizLoading: false,
     checkQuizAttemptLoading: false,
     addquizAttemptLoader: false,
+    getQuizResultLoader: false,
   },
   courseMembers: [],
   courseAssignMembers: [],
@@ -122,6 +125,10 @@ const eLearningSlice = createSlice({
       .addCase(getQuizById.fulfilled, (state, { payload }) => {
         state.quizDetail = payload.data;
       })
+      .addCase(GetQuizResult.fulfilled, (state, { payload }) => {
+        // state.quizResult = payload.data;
+        console.log(payload);
+      })
       .addCase(AddStartQuiz.fulfilled, (state, { payload }) => {
         state.startQuiz = payload.data;
       })
@@ -176,6 +183,10 @@ const eLearningSlice = createSlice({
       .addMatcher(isPending(...[getQuizById]), (state) => {
         console.log("pending get quiz by id");
       })
+      .addMatcher(isPending(...[GetQuizResult]), (state) => {
+        console.log("pending get quiz result");
+        state.getQuizResultLoader = true;
+      })
       .addMatcher(isPending(...[AddStartQuiz]), (state) => {
         console.log("pending start quiz");
       })
@@ -205,6 +216,10 @@ const eLearningSlice = createSlice({
       })
       .addMatcher(isRejected(...[getQuizById]), (state) => {
         console.log("rejected");
+      })
+      .addMatcher(isRejected(...[GetQuizResult]), (state) => {
+        console.log("rejected get quiz result");
+        state.getQuizResultLoader = false;
       })
       .addMatcher(isRejected(...[AddStartQuiz]), (state) => {
         console.log("rejected start quiz");

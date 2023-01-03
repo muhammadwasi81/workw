@@ -32,7 +32,7 @@ function QuizDetail(props) {
   let Default = "https://www.makeintern.com/learning/img/online-course12.jpg";
 
   useEffect(() => {
-    disptach(getQuizById(id));
+    // disptach(getQuizById(id));
     disptach(AddStartQuiz(id));
   }, []);
 
@@ -41,7 +41,7 @@ function QuizDetail(props) {
       <DefaultPage pageChangeFunc={setCurrentPage} data={state.data} />
     ),
     QuizPage: <StartQuiz />,
-    QuizResultPage: <ResultPage />,
+    QuizResultPage: <ResultPage id={id} />,
   };
 
   return (

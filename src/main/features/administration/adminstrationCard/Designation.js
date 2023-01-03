@@ -16,6 +16,7 @@ import { dictionaryList } from "../../../../utils/localization/languages";
 import { useDispatch, useSelector } from "react-redux";
 import blackLogo from "../../../../content/blackLogo.svg";
 import { addDesignation } from "../../designation/store/actions";
+import "./adminstartionCard.css";
 
 function Designation({ formData, setFormData }) {
   const dispatch = useDispatch();
@@ -48,7 +49,10 @@ function Designation({ formData, setFormData }) {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="adminstration-card">
+          <FormContainer
+            className="adminstration-card"
+            style={{ width: "500px", marginTop: "40px", height: "350px" }}
+          >
             <FormHeader>{administration.designation.desig}</FormHeader>
             <FormInputContainer>
               <FormInput>

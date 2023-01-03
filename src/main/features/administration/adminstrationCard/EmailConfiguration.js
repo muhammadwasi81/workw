@@ -15,6 +15,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { useDispatch, useSelector } from "react-redux";
 import blackLogo from "../../../../content/blackLogo.svg";
 import { addEmailConfiguration } from "../../emailConfiguration/store/actions";
+import "./adminstartionCard.css";
 
 export default function EmailConfigurationForm({
   formData,
@@ -49,7 +50,7 @@ export default function EmailConfigurationForm({
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
           <FormContainer
-            //style={{ width: "500px", marginTop: "30px", height: "530px" }}
+            style={{ width: "500px", marginTop: "30px", height: "530px" }}
             className="email-form-container"
           >
             <FormHeader>{emailConfiDictionary.emailConfi}</FormHeader>

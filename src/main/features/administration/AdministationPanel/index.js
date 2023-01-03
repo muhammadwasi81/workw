@@ -37,8 +37,11 @@ const Administration = () => {
   const [page, setPage] = useState(0);
 
   const handleChangeTab = (e) => {
-    setFormData(formData);
-    setPage(page + 1);
+    if (page === 4) {
+      setVisible(false);
+    } else {
+      setPage(page + 1);
+    }
   };
   useEffect(() => {
     setVisible(true);
@@ -75,7 +78,7 @@ const Administration = () => {
             </Button>,
             <Button
               className="ThemeBtn"
-              onClick={(e) => handleChangeTab({ formData, e })}
+              onClick={(e) => handleChangeTab(formData)}
             >
               Next
             </Button>,

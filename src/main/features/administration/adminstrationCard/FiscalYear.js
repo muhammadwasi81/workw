@@ -16,6 +16,7 @@ import { dictionaryList } from "../../../../utils/localization/languages";
 import { useDispatch, useSelector } from "react-redux";
 import blackLogo from "../../../../content/blackLogo.svg";
 import { addFiscalYear } from "../../fiscalYear/store/actions";
+import "./adminstartionCard.css";
 
 const { RangePicker } = DatePicker;
 
@@ -57,7 +58,10 @@ export default function FiscalYear({ formData, setFormData }) {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="adminstration-card">
+          <FormContainer
+            className="adminstration-card"
+            style={{ width: "500px", marginTop: "40px", height: "350px" }}
+          >
             <FormHeader>{administration.fiscalyear.Fiscalyear}</FormHeader>
             <FormInputContainer>
               <FormInput>

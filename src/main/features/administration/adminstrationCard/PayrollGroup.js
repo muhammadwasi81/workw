@@ -15,6 +15,7 @@ import { dictionaryList } from "../../../../utils/localization/languages/index";
 import blackLogo from "../../../../content/blackLogo.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { addPayrollGroup } from "../../payroll/payrollGroup/store/actions";
+import "./adminstartionCard.css";
 
 export default function Form({ formData, setFormData }) {
   const dispatch = useDispatch();
@@ -37,7 +38,10 @@ export default function Form({ formData, setFormData }) {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="adminstration-card">
+          <FormContainer
+            className="adminstration-card"
+            style={{ width: "500px", marginTop: "40px", height: "350px" }}
+          >
             <FormHeader>{administration.payrollGroup.PayrollGroup}</FormHeader>
             <FormInputContainer>
               <FormInput>

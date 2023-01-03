@@ -10,6 +10,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import DefaultPage from "./defaultPage";
 import StartQuiz from "./startQuiz";
+import ResultPage from "./resultPage";
 
 function QuizDetail(props) {
   const disptach = useDispatch();
@@ -40,7 +41,7 @@ function QuizDetail(props) {
       <DefaultPage pageChangeFunc={setCurrentPage} data={state.data} />
     ),
     QuizPage: <StartQuiz />,
-    QuizResultPage: <div>quiz result page</div>,
+    QuizResultPage: <ResultPage />,
   };
 
   return (

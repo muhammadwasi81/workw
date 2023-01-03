@@ -1,43 +1,44 @@
-import React, { useContext, useEffect } from 'react';
-import { ROUTES } from '../../../../utils/routes';
+import React, { useContext, useEffect } from "react";
+import { ROUTES } from "../../../../utils/routes";
 import {
   ContBody,
   TabContainer,
-} from '../../../sharedComponents/AppComponents/MainFlexContainer';
-import Tab from '../../../sharedComponents/Tab';
-import LayoutHeader from '../../../layout/header/index';
-import { EditOutlined } from '@ant-design/icons';
-import Travel from '../../travel/view/Travel';
-import '../styles/projects.css';
-import Budget from '../UI/Budget';
-import CoverDetail from '../UI/CoverDetail';
-import CoverImage from '../../departments/view/CoverImage';
-import MemberCollapse from '../../../sharedComponents/Collapseable/MemberCollapse';
-import ProjectCover from '../../../../content/png/project_cover_img.png';
-import WhiteCard from '../UI/WhiteCard';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProjectById } from '../store/actions';
-import { Drawer } from 'antd';
-import Composer from '../UI/Composer';
-import { useState } from 'react';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { projectsDictionaryList } from '../localization';
-import { resetProjectDetail } from '../store/slice';
-import { FeaturesEnum } from '../../../../utils/Shared/enums/enums';
-import WorkBoard from '../../workboard';
-import { TravelReferenceTypeEnum } from '../enum/enums';
-import { PostReferenceType } from '../../feed/utils/constants';
-import { TaskReferenceTypeEnum } from '../../task/enums/enum';
-import { WorkBoardReferenceTypeEnum } from '../../workboard/enum';
-import { ExpenseReferenceTypeEnum } from '../../expense/enums';
-import { DocumentReferenceTypeEnum } from '../../documents/view/enum';
-import NewsFeed from '../../feed/ui';
-import Task from '../../task/view/Task';
-import Expenses from '../../expense';
-import Documents from '../../documents/view/documents';
-import { handleComposeEmail } from '../../leadmanager/store/slice';
-import ComposeEmail from '../../leadmanager/view/Email/ComposeEmail';
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import Tab from "../../../sharedComponents/Tab";
+import LayoutHeader from "../../../layout/header/index";
+import { EditOutlined } from "@ant-design/icons";
+import Travel from "../../travel/view/Travel";
+import "../styles/projects.css";
+import Budget from "../UI/Budget";
+import CoverDetail from "../UI/CoverDetail";
+import CoverImage from "../../departments/view/CoverImage";
+import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
+import ProjectCover from "../../../../content/png/project_cover_img.png";
+import WhiteCard from "../UI/WhiteCard";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProjectById } from "../store/actions";
+import { Drawer } from "antd";
+import Composer from "../UI/Composer";
+import { useState } from "react";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { projectsDictionaryList } from "../localization";
+import { resetProjectDetail } from "../store/slice";
+import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
+import WorkBoard from "../../workboard";
+import { TravelReferenceTypeEnum } from "../enum/enums";
+import { PostReferenceType } from "../../feed/utils/constants";
+import { TaskReferenceTypeEnum } from "../../task/enums/enum";
+import { WorkBoardReferenceTypeEnum } from "../../workboard/enum";
+import { ExpenseReferenceTypeEnum } from "../../expense/enums";
+import { DocumentReferenceTypeEnum } from "../../documents/view/enum";
+import NewsFeed from "../../feed/ui";
+import Task from "../../task/view/Task";
+import Expenses from "../../expense";
+import Documents from "../../documents/view/documents";
+import { handleComposeEmail } from "../../leadmanager/store/slice";
+import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
+import SingleNotes from "../UI/singleNotes";
 
 function ProjectDetails() {
   const params = useParams();
@@ -51,7 +52,7 @@ function ProjectDetails() {
   const { updateTextBtn, labels } = projectsDictionary;
   const [open, setOpen] = useState(false);
   const { projectId } = params;
-  console.log('projectId', projectId);
+  console.log("projectId", projectId);
   useEffect(() => {
     dispatch(getProjectById(projectId));
   }, [projectId]);
@@ -103,7 +104,7 @@ function ProjectDetails() {
     },
   ];
 
-  const defaultRoute = ROUTES.PROJECT.DEFAULT + '/' + projectId;
+  const defaultRoute = ROUTES.PROJECT.DEFAULT + "/" + projectId;
   const featuresComp = {
     1: (
       <NewsFeed
@@ -112,7 +113,7 @@ function ProjectDetails() {
         backButton={false}
         isScheduler={false}
         isCheckedIn={false}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
       />
     ),
@@ -120,17 +121,17 @@ function ProjectDetails() {
       <Task
         referenceType={TaskReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
-        feature={'2'}
+        feature={"2"}
       />
     ),
     7: (
       <WorkBoard
         referenceType={WorkBoardReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
       />
@@ -139,7 +140,7 @@ function ProjectDetails() {
       <Expenses
         referenceType={ExpenseReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
         feature={3}
@@ -157,7 +158,7 @@ function ProjectDetails() {
       <Documents
         referenceType={DocumentReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
       />
@@ -178,6 +179,9 @@ function ProjectDetails() {
 
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <Budget data={detail} />
+              <div className="bg-white">
+                <SingleNotes />
+              </div>
               <WhiteCard>
                 <MemberCollapse
                   data={detail?.members}
@@ -194,10 +198,10 @@ function ProjectDetails() {
       </TabContainer>
       <Drawer
         open={open}
-        width={'786px'}
+        width={"786px"}
         onClose={handleEditComposer}
         title={updateTextBtn}
-        className={'shared_drawer drawerSecondary'}
+        className={"shared_drawer drawerSecondary"}
       >
         <Composer
           buttonText={updateTextBtn}

@@ -9,6 +9,7 @@ import SearchInput from "../../../sharedComponents/searchBox/SearchInput";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
+import "../styles/adminstration.css";
 
 const AdminList = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -41,7 +42,7 @@ const AdminList = () => {
         // size={"60px"}
       /> */}
 
-      <List>
+      <List className="Adminlist" style={{ height: "inherit" }}>
         <AList className="admin_list">
           <div className="searchBox">
             <SearchInput

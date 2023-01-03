@@ -10,7 +10,7 @@ import { Form } from "antd";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import "../style/style.css";
+// import "../style/style.css";
 
 const BusinessLogo = () => {
   const { userLanguage } = useContext(LanguageChangeContext);

@@ -35,6 +35,50 @@ export const getAllQuizService = (data) => {
     });
 };
 
+export const GetQuizByIdService = (id) => {
+  return MasterConfig.get(`api/ELearning/GetQuizById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const GetQuizResultService = (id) => {
+  console.log(id);
+  return MasterConfig.get(`api/ELearning/GetQuizResult?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const AddQuizAnswerAttemptService = (data) => {
+  console.log(data);
+  return MasterConfig.get(
+    `api/ELearning/AddQuizAnswerAttempt?questionId=${data.questionId}&answerId=${data.answerId}&attemptId=${data.attemptId}`
+  )
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const AddStartQuizService = (id) => {
+  return MasterConfig.get(`api/ELearning/AddStartQuiz?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
 export const getAllCourseService = (data) => {
   return MasterConfig.post(`api/ELearning/GetAllCourse`, data)
     .then((res) => {
@@ -47,6 +91,17 @@ export const getAllCourseService = (data) => {
 
 export const GetCourseByIdService = (id) => {
   return MasterConfig.get(`api/ELearning/GetCourseById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const checkQuizAttemptService = (id) => {
+  console.log(id);
+  return MasterConfig.get(`api/ELearning/QuizCheckAttempted?id=${id}`)
     .then((res) => {
       return res;
     })

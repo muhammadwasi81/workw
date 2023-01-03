@@ -38,6 +38,7 @@ import Expenses from '../../expense';
 import Documents from '../../documents/view/documents';
 import { handleComposeEmail } from '../../leadmanager/store/slice';
 import ComposeEmail from '../../leadmanager/view/Email/ComposeEmail';
+import CustomNotes from '../../notes/singleNotes/singleNotes';
 
 function ProjectDetails() {
   const params = useParams();
@@ -164,6 +165,38 @@ function ProjectDetails() {
     ),
   };
 
+  const modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [],
+    ],
+  };
+  const formats = {
+    toolbar: [
+      [{ font: [] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'link', 'image'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      [{ direction: 'rtl' }],
+      [{ align: ['center'] }],
+      [{ color: [] }, { background: [] }],
+      ['clean'],
+    ],
+  };
+  const descHandler = (value) => {
+    // setDescription(value);
+    // console.log(description, 'descHandler');
+    // listArray.map((item) => {
+    //   console.log(item.id, 'item.id');
+    //   dispatch(targetStickyDescription({ id: item.id, value }));
+    // });
+    // addSticky({
+    //   attachments: [],
+    //   description: value,
+    // });
+  };
   return (
     <>
       <TabContainer>
@@ -175,9 +208,11 @@ function ProjectDetails() {
               <CoverDetail detail={detail} />
               <Tab panes={features} id={projectId} features={panes} />
             </div>
-
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <Budget data={detail} />
+              <div className="bg-white">
+                <CustomNotes />
+              </div>
               <WhiteCard>
                 <MemberCollapse
                   data={detail?.members}
@@ -188,6 +223,14 @@ function ProjectDetails() {
                   }}
                 />
               </WhiteCard>
+              <CustomNotes
+                onChange={(value) => descHandler(value)}
+                modules={modules}
+                formats={formats}
+                className={'stickyNoteItem-textarea'}
+                placeholder={'please enter your notes here'}
+                defaultValue={'<h2>React Quill Rich Text Editor</h2>'}
+              />
             </div>
           </div>
         </ContBody>

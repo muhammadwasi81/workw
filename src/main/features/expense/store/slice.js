@@ -1,10 +1,10 @@
-import { createSlice, current, isPending, isRejected } from '@reduxjs/toolkit';
-import { addExpense, getAllExpense, getExpenseById } from './actions.js';
+import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
+import { addExpense, getAllExpense, getExpenseById } from "./actions.js";
 
 const expenseSlice = createSlice({
-  name: 'expense',
+  name: "expense",
   initialState: {
-    loader: true,
+    loader: false,
     success: false,
     loadingData: false,
     isCreateComposer: false,

@@ -108,7 +108,7 @@ export default function LeaveTypeForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
-              loading={loader}
+              loading={loading}
             >
               {administration.leave.save}
             </FormButton>
@@ -123,7 +123,7 @@ export default function LeaveTypeForm({
               onSubmit(form);
               setClearButton(false);
             }}
-            loading={loader}
+            loading={loading}
           >
             {administration.leave.Add}
           </FormButton>

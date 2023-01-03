@@ -40,8 +40,8 @@ function ListItem(props) {
     subject,
   } = props.item;
   console.log(creator.image, "name of creator");
+  console.log(attachments, "attatchments!!");
   return (
-    
     <>
       <SingleItem>
         <div

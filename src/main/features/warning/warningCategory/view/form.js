@@ -86,7 +86,7 @@ export default function WarningCategoryForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
-              loading={loader}
+              loading={loading}
             >
               {warningDictionary.saveCategory}
             </FormButton>

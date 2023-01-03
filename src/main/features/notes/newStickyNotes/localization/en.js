@@ -1,6 +1,6 @@
 const en = {
   stikcyDictionary: {
-    stickyNotes: "Stikcy Notes",
+    stickyNotes: "Sticky Notes",
     search: "Search",
     title: "Title",
     share: "Share",

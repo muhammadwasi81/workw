@@ -3,7 +3,6 @@
   width: 250px;
 }
 
-/* TODO:// cover image */
 .coverImgWrapper {
   background-color: #111;
   position: relative;
@@ -55,25 +54,65 @@
   cursor: pointer;
 }
 
-/* modal css  */
+.mainWrapper {
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  min-height: 42vh;
+  height: 42vh;
+}
 
-.ant-modal .ant-modal-content {
-  height: 86vh;
-  min-height: 100vh;
-  width: 100vw;
-  max-width: 100vw;
-  margin: 0;
-  border-radius: 27px;
-  background-color: #eef2f4;
-  color: #727780;
+.modalStyle .ant-modal-content {
+  border-radius: 20px;
 }
-.ant-modal-body {
-  height: calc(100vh - 110px);
+.iconsChild {
+  position: absolute;
+  bottom: 16px;
+  right: 15px;
 }
-.expense-chart {
-  height: 171.565px;
+
+.barIcon {
+  font-size: 18px;
+  padding: 5px 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  background-color: #d9d9d9;
 }
-.modalWrapper,
-.ant-modal-footer {
-  display: none;
+.barIcon:hover {
+  background-color: #bfbfbf;
+  color: #000000;
+}
+
+.summaryWrapper {
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  height: 15vh;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.tagsWrapper {
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  height: 32vh;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.modalWrapper .ant-modal-content {
+  border-radius: 20px !important;
+}
+@media (max-width: 768px) {
+  .coverImgWrapper {
+    height: 200px;
+  }
+  .mainWrapper {
+    height: 100%;
+  }
+  .summaryWrapper {
+    height: 100%;
+  }
+  .tagsWrapper {
+    height: 100%;
+  }
 }

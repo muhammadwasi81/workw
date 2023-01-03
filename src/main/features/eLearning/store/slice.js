@@ -11,6 +11,11 @@ import {
   GetCourseById,
   addQuiz,
   getAllQuiz,
+  CheckQuizAttempt,
+  getQuizById,
+  addQuizAnswerAttempt,
+  AddStartQuiz,
+  GetQuizResult,
 } from "./action";
 
 const initialState = {
@@ -37,6 +42,10 @@ const initialState = {
   sections: [],
   courses: [],
   quizzes: [],
+  quizDetail: {},
+  startQuiz: {},
+  checkquizAttempt: {},
+  quizResult: {},
   courseDetail: {},
   books: [],
   success: false,
@@ -48,6 +57,9 @@ const initialState = {
     addBookLoading: false,
     addQuizLoading: false,
     quizLoading: false,
+    checkQuizAttemptLoading: false,
+    addquizAttemptLoader: false,
+    getQuizResultLoader: false,
   },
   courseMembers: [],
   courseAssignMembers: [],
@@ -106,13 +118,31 @@ const eLearningSlice = createSlice({
         state.loaders.courseLoading = false;
       })
       .addCase(getAllQuiz.fulfilled, (state, { payload }) => {
-        console.log(payload, "payloadsssss");
         state.quizzes = payload;
         state.loaders.quizLoading = false;
         state.success = true;
       })
+      .addCase(getQuizById.fulfilled, (state, { payload }) => {
+        state.quizDetail = payload.data;
+      })
+      .addCase(GetQuizResult.fulfilled, (state, { payload }) => {
+        // state.quizResult = payload.data;
+        console.log(payload);
+      })
+      .addCase(AddStartQuiz.fulfilled, (state, { payload }) => {
+        state.startQuiz = payload.data;
+      })
+      .addCase(addQuizAnswerAttempt.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.loaders.addquizAttemptLoader = false;
+      })
       .addCase(GetCourseById.fulfilled, (state, action) => {
         state.courseDetail = action.payload.data;
+      })
+      .addCase(CheckQuizAttempt.fulfilled, (state, { payload }) => {
+        console.log(payload.data);
+        state.checkquizAttempt = payload;
+        state.loaders.checkQuizAttemptLoading = false;
       })
       .addCase(addBook.fulfilled, (state) => {
         state.loaders.addBookLoading = false;
@@ -150,6 +180,22 @@ const eLearningSlice = createSlice({
         state.loaders.quizLoading = true;
         state.success = false;
       })
+      .addMatcher(isPending(...[getQuizById]), (state) => {
+        console.log("pending get quiz by id");
+      })
+      .addMatcher(isPending(...[GetQuizResult]), (state) => {
+        console.log("pending get quiz result");
+        state.getQuizResultLoader = true;
+      })
+      .addMatcher(isPending(...[AddStartQuiz]), (state) => {
+        console.log("pending start quiz");
+      })
+      .addMatcher(isPending(...[CheckQuizAttempt]), (state) => {
+        state.loaders.checkQuizAttemptLoading = true;
+      })
+      .addMatcher(isPending(...[addQuizAnswerAttempt]), (state) => {
+        state.loaders.addquizAttemptLoader = true;
+      })
       .addMatcher(
         isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
         (state) => {
@@ -163,6 +209,24 @@ const eLearningSlice = createSlice({
       .addMatcher(isRejected(...[addQuiz]), (state) => {
         state.loaders.addQuizLoading = false;
         state.success = false;
+      })
+      .addMatcher(isRejected(...[CheckQuizAttempt]), (state) => {
+        console.log("rejected");
+        state.loaders.checkQuizAttemptLoading = false;
+      })
+      .addMatcher(isRejected(...[getQuizById]), (state) => {
+        console.log("rejected");
+      })
+      .addMatcher(isRejected(...[GetQuizResult]), (state) => {
+        console.log("rejected get quiz result");
+        state.getQuizResultLoader = false;
+      })
+      .addMatcher(isRejected(...[AddStartQuiz]), (state) => {
+        console.log("rejected start quiz");
+      })
+      .addMatcher(isRejected(...[addQuizAnswerAttempt]), (state) => {
+        console.log("rejected request");
+        state.loaders.addquizAttemptLoader = false;
       })
       .addMatcher(isRejected(...[getAllQuiz]), (state) => {
         state.loaders.quizLoading = false;

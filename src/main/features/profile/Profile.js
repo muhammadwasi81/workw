@@ -1,7 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from "react";
 import {
   ContBody,
   TabContainer,
+<<<<<<< HEAD
 } from '../../sharedComponents/AppComponents/MainFlexContainer';
 import Tab from '../../sharedComponents/Tab';
 import ProfileCoverDetail from './ProfileCoverDetail';
@@ -31,6 +32,34 @@ import { useSelector } from 'react-redux';
 import CustomNotes from '../notes/singleNotes/singleNotes';
 import { targetStickyDescription } from '../notes/newStickyNotes/store/stickySlice';
 import { addSticky } from '../notes/newStickyNotes/store/actions';
+=======
+} from "../../sharedComponents/AppComponents/MainFlexContainer";
+import Tab from "../../sharedComponents/Tab";
+import ProfileCoverDetail from "./ProfileCoverDetail";
+import ProfilePanel from "./view/ProfilePanel";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../../utils/routes";
+import "./styles/profileStyle.css";
+import NewsFeed from "../feed/ui";
+import { getEducationDetailByUser } from "../education/store/actions";
+import { useDispatch } from "react-redux";
+import { getUserWorkExperience } from "../experienceInfo/store/actions";
+import { getEmployeeByIdAction } from "./store/action";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { profileDictionaryList } from "./localization/index";
+import Courses from "../team/view/Courses";
+import ActivityLog from "../team/view/ActivityLog";
+import Education from "../team/view/Education";
+import Leaves from "../team/view/Leaves";
+import Experience from "../team/view/Experience";
+import CheckIn from "../team/view/CheckIn";
+import ProfileCover from "../projects/UI/ProfileCover";
+import SingleNotes from "./UI/singleNotes";
+import AppraisalTable from "./appraisals";
+import AwardsTable from "./awards";
+import SalaryTable from "./salary";
+import { useSelector } from "react-redux";
+>>>>>>> 98591ff91f438f3629b0e0f5826a2a1cd43f8295
 
 const Profile = () => {
   const param = useParams();
@@ -39,9 +68,14 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { pathname } = location;
   const { id } = param;
+<<<<<<< HEAD
   console.log(id, 'params');
   const [description, setDescription] = useState('');
   const [defaultPath, setDefaultPath] = useState('');
+=======
+  console.log(id, "params");
+  const [defaultPath, setDefaultPath] = useState("");
+>>>>>>> 98591ff91f438f3629b0e0f5826a2a1cd43f8295
   // const { education } = useSelector((state) => state.employeeProfileSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { profileDictionary } = profileDictionaryList[userLanguage];
@@ -49,14 +83,18 @@ const Profile = () => {
   const {
     user: { id: userId },
   } = useSelector((state) => state.userSlice);
+<<<<<<< HEAD
 
   console.log(userId, 'userId');
+=======
+  console.log(userId, "userId");
+>>>>>>> 98591ff91f438f3629b0e0f5826a2a1cd43f8295
   const onChange = (key) => {
     navigate(key);
   };
 
   useEffect(() => {
-    setDefaultPath(pathname.split('_')[0]);
+    setDefaultPath(pathname.split("_")[0]);
   }, [pathname]);
 
   console.log(listArray, 'listArray');
@@ -102,7 +140,7 @@ const Profile = () => {
           <NewsFeed
             isScheduler={false}
             isCheckedIn={false}
-            width={'!w-full'}
+            width={"!w-full"}
             referenceType={4}
             referenceId={id}
             backButton={false}
@@ -125,52 +163,52 @@ const Profile = () => {
     {
       featureName: profileDictionary.about,
       content: <ProfilePanel />,
-      featureId: ROUTES.USER.DEFAULT + id + '/about',
+      featureId: ROUTES.USER.DEFAULT + id + "/about",
     },
     {
       featureName: profileDictionary.awards,
       content: <AwardsTable />,
-      featureId: ROUTES.USER.DEFAULT + id + '/awards',
+      featureId: ROUTES.USER.DEFAULT + id + "/awards",
     },
     {
       featureName: profileDictionary.appraisal,
       content: <AppraisalTable />,
-      featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
+      featureId: ROUTES.USER.DEFAULT + id + "/appraisal",
     },
     {
       featureName: profileDictionary.salary,
       content: <SalaryTable />,
-      featureId: ROUTES.USER.DEFAULT + id + '/salary',
+      featureId: ROUTES.USER.DEFAULT + id + "/salary",
     },
     {
       featureName: profileDictionary.activityLog,
       content: <ActivityLog />,
-      featureId: ROUTES.USER.DEFAULT + id + '/activityLog',
+      featureId: ROUTES.USER.DEFAULT + id + "/activityLog",
     },
     {
       featureName: profileDictionary.courses,
       content: <Courses />,
-      featureId: ROUTES.USER.DEFAULT + id + '/courses',
+      featureId: ROUTES.USER.DEFAULT + id + "/courses",
     },
     {
       featureName: profileDictionary.leave,
       content: <Leaves />,
-      featureId: ROUTES.USER.DEFAULT + id + '/leave',
+      featureId: ROUTES.USER.DEFAULT + id + "/leave",
     },
     {
       featureName: profileDictionary.education,
       content: <Education />,
-      featureId: ROUTES.USER.DEFAULT + id + '/education',
+      featureId: ROUTES.USER.DEFAULT + id + "/education",
     },
     {
       featureName: profileDictionary.experience,
       content: <Experience />,
-      featureId: ROUTES.USER.DEFAULT + id + '/experience',
+      featureId: ROUTES.USER.DEFAULT + id + "/experience",
     },
     {
       featureName: profileDictionary.checkIn,
       content: <CheckIn />,
-      featureId: ROUTES.USER.DEFAULT + id + '/checkIn',
+      featureId: ROUTES.USER.DEFAULT + id + "/checkIn",
     },
   ];
 

@@ -32,7 +32,7 @@ const BusinessLogo = ({ formData, setFormData }) => {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="form-container">
+          <FormContainer className="adminstration-card">
             <FormHeader>{sharedLabels.businessLogo}</FormHeader>
             <div className="flex justify-center">
               <Form.Item area="true">

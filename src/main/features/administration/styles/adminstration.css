@@ -17,13 +17,13 @@
   font-weight: 600;
   color: var(--currentThemeColor);
 }
-.form-container {
+.adminstration-card {
   margin-top: 40px;
 }
 .modal-body .ant-modal-content {
   border-radius: 10px;
 }
-.form-container.jsshDx {
+.adminstration-card.jsshDx {
   width: 500px;
   height: 350px;
 }

@@ -48,7 +48,7 @@ function Designation({ formData, setFormData }) {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="form-container">
+          <FormContainer className="adminstration-card">
             <FormHeader>{administration.designation.desig}</FormHeader>
             <FormInputContainer>
               <FormInput>

@@ -37,7 +37,7 @@ export default function Form({ formData, setFormData }) {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="form-container">
+          <FormContainer className="adminstration-card">
             <FormHeader>{administration.payrollGroup.PayrollGroup}</FormHeader>
             <FormInputContainer>
               <FormInput>

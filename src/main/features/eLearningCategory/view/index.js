@@ -13,7 +13,7 @@ export default function ELearningCategory() {
 
 
   const dispatch = useDispatch();
-  const { loader } = useSelector((state) => state.eLearningCategorySlice);
+  const { createLoader } = useSelector((state) => state.eLearningCategorySlice);
 
   const handleDelete = (e) => {
     dispatch(removeELearningCategory(e));
@@ -37,7 +37,7 @@ export default function ELearningCategory() {
   return (
     <AdminContainer>
       <ELearningCategoryForm clearButton={clearButton} setClearButton={setClearButton} 
-           data={grade} onSubmit={onSubmit} loading={loader} />
+        data={grade} onSubmit={onSubmit} loading={createLoader} />
       <ELearningCategoryTable
         handleEdit={setGrade}
         setClearButton={setClearButton}

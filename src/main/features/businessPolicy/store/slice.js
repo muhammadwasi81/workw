@@ -13,6 +13,7 @@ const initialState = {
   success: false,
   error: false,
   editData: null,
+  createLoader:false
 };
 
 const businessPolicySlice = createSlice({
@@ -37,7 +38,7 @@ const businessPolicySlice = createSlice({
       .addCase(addBusinessPolicy.fulfilled, (state, { payload }) => {
         state.businessPolicies.push(payload.data);
         state.success = true;
-        state.loader = false;
+        state.createLoader = false;
       })
       .addCase(getAllBusinessPolicy.fulfilled, (state, { payload }) => {
         state.businessPolicies = payload.data;
@@ -55,20 +56,29 @@ const businessPolicySlice = createSlice({
           e.id === payload.data.id ? payload.data : e
         );
         console.log('update slice call', payload.data);
-        state.loader = false;
+        state.createLoader = false;
       })
-      .addMatcher(isPending(), (state) => {
-        state.loader = true;
-      })
-      .addMatcher(isRejected(), (state) => {
-        state.loader = false;
-        state.error = true;
-      })
+      // .addMatcher(isPending(), (state) => {
+      //   state.loader = true;
+      // })
+      // .addMatcher(isRejected(), (state) => {
+      //   state.loader = false;
+      //   state.error = true;
+      // })
       .addMatcher(
-        isPending(...[addBusinessPolicy, getAllBusinessPolicy]),
+        isPending(...[addBusinessPolicy]),
+        (state) => {
+          //state.loader = true;
+          state.success = false;
+          state.createLoader = true;
+        }
+      )
+      .addMatcher(
+        isPending(...[getAllBusinessPolicy]),
         (state) => {
           state.loader = true;
           state.success = false;
+          //state.createLoader = true;
         }
       )
       .addMatcher(
@@ -77,6 +87,7 @@ const businessPolicySlice = createSlice({
           state.loader = false;
           state.success = false;
           state.error = true;
+          state.createLoader = false;
         }
       );
   },

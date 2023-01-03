@@ -24,8 +24,8 @@ const fiscalYearSlice = createSlice({
     builder
       .addCase(getAllFiscalYear.fulfilled, (state, { payload }) => {
         state.loadingData = false;
+
         state.FiscalYear = payload.data;
-        console.log("statestate", payload.data);
       })
       .addCase(addFiscalYear.fulfilled, (state, { payload }) => {
         state.loader = false;

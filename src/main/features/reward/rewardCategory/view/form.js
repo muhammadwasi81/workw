@@ -13,6 +13,8 @@ import {
 } from "../../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import { rewardDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function RewardCategoryForm({
   data,
   onSubmit,
@@ -22,6 +24,7 @@ export default function RewardCategoryForm({
 }) {
   const [form, setForm] = useState(data);
 
+  const { loader } = useSelector((state) => state.rewardCategorySlice);
   const handleClear = (e) => {
     setForm({ ...form, description: "", name: "" });
     setClearButton(false);
@@ -84,6 +87,7 @@ export default function RewardCategoryForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
+              loading={loading}
             >
               {rewardDictionary.saveCategory}
             </FormButton>
@@ -98,7 +102,7 @@ export default function RewardCategoryForm({
               onSubmit(form);
               setClearButton(false);
             }}
-            // loading={loading}
+            loading={loading}
           >
             {rewardDictionary.addCategory}
           </FormButton>

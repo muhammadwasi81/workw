@@ -13,6 +13,8 @@ import {
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import { salaryHeaderDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function SalaryHeaderForm({
   data,
   onSubmit,
@@ -52,6 +54,7 @@ export default function SalaryHeaderForm({
   useEffect(() => {
     setForm(data);
   }, [data]);
+  const { loader } = useSelector((state) => state.salaryHeaderSlice);
 
   return (
     <FormContainer>
@@ -85,6 +88,7 @@ export default function SalaryHeaderForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
+              loading={loading}
             >
               {salaryHeaderDictionary.saveHeader}
             </FormButton>
@@ -98,6 +102,7 @@ export default function SalaryHeaderForm({
               onSubmit(form);
               setClearButton(false);
             }}
+            loading={loading}
           >
             {salaryHeaderDictionary.addHeader}
           </FormButton>

@@ -16,6 +16,7 @@ import "./officeTiming.css";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
+import { useDispatch, useSelector } from "react-redux";
 
 const staticDataColumn = [
   {
@@ -217,6 +218,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
     // setForm([data, groupData]);
   }, [data]);
   // console.log(form.details, "I'm a Array")
+  const { loader } = useSelector((state) => state.officeTimingSlice);
   return (
     <AdminContainer>
       <FormContainer>
@@ -251,6 +253,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
                 className="formBtn"
                 // onClick={(e) => onSubmit({...form, details:timeTable})}
                 onClick={(e) => console.log(form)}
+                loading={loader}
               >
                 {administration.office.save}
               </FormButton>
@@ -271,7 +274,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
               style={{}}
               className="formBtn"
               onClick={(e) => onSubmit(form)}
-              // loading={loading}
+              loading={loader}
             >
               {administration.office.Add}
             </FormButton>

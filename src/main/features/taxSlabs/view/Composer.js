@@ -23,6 +23,7 @@ function Composer({ editData }) {
   ];
 
   const { countries } = useSelector((state) => state.sharedSlice);
+  const { createLoader } = useSelector((state) => state.taxSlabGroupSlice);
 
   useEffect(() => {
     dispatch(getCountries());
@@ -30,6 +31,7 @@ function Composer({ editData }) {
 
   const onFinish = (values) => {
     if (editData) {
+      //console.log(editData, "editDataaa");
       let taxSlab = TableData.taxSlab;
       let data = { ...values, taxSlab, id: editData.id };
       dispatch(updateTaxSlab(data));
@@ -63,13 +65,18 @@ function Composer({ editData }) {
             <Input placeholder={"Enter Name"} size="large" />
           </S.FormItem>
           <S.FormItem
-            placeholder="Please select country"
             size="large"
             name="countryId"
             label={"Country"}
             rules={[{ required: true }]}
           >
-            <CustomSelect showSearch={true} data={countries} size="large" />
+            <CustomSelect
+              showSearch={true}
+              data={countries}
+              size="large"
+              placeholder="Please select country"
+              defaultValue={editData?.countryId}
+            />
           </S.FormItem>
           <S.FormItem
             label={"Description"}
@@ -98,6 +105,7 @@ function Composer({ editData }) {
             block
             htmlType="submit"
             title={"Create"}
+            loading={createLoader}
           >
             {" "}
             {editData ? "Save" : "Create"}{" "}

@@ -22,13 +22,10 @@ import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { addExpense } from "../store/actions";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import { DEFAULT_GUID } from "../../../../utils/constants";
 import moment from "moment";
-
 import { getAllExpenseHeaderService } from "../../expenseHeader/services/service";
-// import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { ExpenseDictionary } from "../localization";
 import { getAllProjectsService } from "../../projects/services/service";
@@ -51,7 +48,8 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
-
+  const { loader } = useSelector((state) => state.expenseSlice);
+  console.log("loader", loader);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [allHeader, setAllHeader] = useState([]);
@@ -308,6 +306,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
             borderRadius: "5px",
           }}
           size="large"
+          showSearch={true}
         >
           {allHeader.map((item) => (
             <Select.Option key={item.id} value={item.id}>
@@ -483,6 +482,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           className="ThemeBtn"
           block
           htmlType="submit"
+          loading={loader}
         >
           {labels.createExpense}
         </Button>

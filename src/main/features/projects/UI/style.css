@@ -3,7 +3,6 @@
   width: 250px;
 }
 
-/* TODO:// cover image */
 .coverImgWrapper {
   background-color: #111;
   position: relative;
@@ -53,4 +52,67 @@
   font-size: 36px;
   color: #000;
   cursor: pointer;
+}
+
+.mainWrapper {
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  min-height: 42vh;
+  height: 42vh;
+}
+
+.modalStyle .ant-modal-content {
+  border-radius: 20px;
+}
+.iconsChild {
+  position: absolute;
+  bottom: 16px;
+  right: 15px;
+}
+
+.barIcon {
+  font-size: 18px;
+  padding: 5px 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  background-color: #d9d9d9;
+}
+.barIcon:hover {
+  background-color: #bfbfbf;
+  color: #000000;
+}
+
+.summaryWrapper {
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  height: 15vh;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.tagsWrapper {
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  height: 32vh;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.modalWrapper .ant-modal-content {
+  border-radius: 20px !important;
+}
+@media (max-width: 768px) {
+  .coverImgWrapper {
+    height: 200px;
+  }
+  .mainWrapper {
+    height: 100%;
+  }
+  .summaryWrapper {
+    height: 100%;
+  }
+  .tagsWrapper {
+    height: 100%;
+  }
 }

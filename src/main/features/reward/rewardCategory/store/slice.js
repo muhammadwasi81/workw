@@ -1,11 +1,17 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../../services/enums/responseCode.js";
-import {  getAllRewardCategory, addRewardCategory, updateRewardCategory } from "./actions.js";
+import {
+  getAllRewardCategory,
+  addRewardCategory,
+  updateRewardCategory,
+} from "./actions.js";
 
 const initialState = {
   rewardCategories: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const rewardCategorySlice = createSlice({
@@ -13,7 +19,9 @@ const rewardCategorySlice = createSlice({
   initialState,
   reducers: {
     rewardCategoryDeleted: (state, { payload }) => {
-      state.rewardCategories = state.rewardCategories.filter((e) => e.id !== payload.id);
+      state.rewardCategories = state.rewardCategories.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -33,17 +41,28 @@ const rewardCategorySlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addRewardCategory, updateRewardCategory]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[addRewardCategory, updateRewardCategory]),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+          state.error = false;
+        }
+      )
       .addMatcher(isPending(...[getAllRewardCategory]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
-        isRejected(...[getAllRewardCategory, addRewardCategory, updateRewardCategory]),
+        isRejected(
+          ...[getAllRewardCategory, addRewardCategory, updateRewardCategory]
+        ),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

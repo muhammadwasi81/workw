@@ -221,11 +221,7 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
           {/* <Button className='ThemeBtn mr-2' onClick={() => setEntries(Array(defaultRows).fill(defaultEntry))} >
             Clear
           </Button> */}
-          <Button
-            className="ThemeBtn mr-2"
-            onClick={handleSubmit}
-            loading={createLoader}
-          >
+          <Button className="ThemeBtn mr-2" onClick={handleSubmit}>
             {quotationDictionary.createQuotation}
           </Button>
         </div>

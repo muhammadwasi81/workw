@@ -1,11 +1,18 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addEmailConfiguration, getAllEmailConfigurations, removeEmailConfiguration, updateEmailConfiguration } from "./actions.js";
+import {
+  addEmailConfiguration,
+  getAllEmailConfigurations,
+  removeEmailConfiguration,
+  updateEmailConfiguration,
+} from "./actions.js";
 
 const initialState = {
   emailConfigurations: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const emailConfigurationSlice = createSlice({
@@ -13,7 +20,9 @@ const emailConfigurationSlice = createSlice({
   initialState,
   reducers: {
     emailConfigurationDeleted: (state, { payload }) => {
-      state.emailConfigurations = state.emailConfigurations.filter((e) => e.id !== payload.id);
+      state.emailConfigurations = state.emailConfigurations.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -33,17 +42,32 @@ const emailConfigurationSlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addEmailConfiguration, updateEmailConfiguration]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[addEmailConfiguration, updateEmailConfiguration]),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+          state.error = false;
+        }
+      )
       .addMatcher(isPending(...[getAllEmailConfigurations]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
-        isRejected(...[getAllEmailConfigurations, addEmailConfiguration, updateEmailConfiguration]),
+        isRejected(
+          ...[
+            getAllEmailConfigurations,
+            addEmailConfiguration,
+            updateEmailConfiguration,
+          ]
+        ),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

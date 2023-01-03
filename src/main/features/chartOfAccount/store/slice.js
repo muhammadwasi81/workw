@@ -31,7 +31,6 @@ export const ChartOfAccountSlice = createSlice({
         state.listData = [payload, ...state.listData];
       })
       .addCase(updateChartOfAccount.fulfilled, (state, { payload }) => {
-        console.log(payload, "PAYLOAD HERE");
         state.editData = null;
         state.createLoader = false;
         state.success = true;

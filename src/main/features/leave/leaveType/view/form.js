@@ -14,6 +14,7 @@ import {
 
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function LeaveTypeForm({
   data,
@@ -63,6 +64,7 @@ export default function LeaveTypeForm({
   useEffect(() => {
     setForm(data);
   }, [data]);
+  const { loader } = useSelector((state) => state.leaveTypeSlice);
 
   return (
     <FormContainer>
@@ -106,6 +108,7 @@ export default function LeaveTypeForm({
                 onSubmit(form);
                 setClearButton(false);
               }}
+              loading={loading}
             >
               {administration.leave.save}
             </FormButton>
@@ -120,7 +123,7 @@ export default function LeaveTypeForm({
               onSubmit(form);
               setClearButton(false);
             }}
-            // loading={loading}
+            loading={loading}
           >
             {administration.leave.Add}
           </FormButton>

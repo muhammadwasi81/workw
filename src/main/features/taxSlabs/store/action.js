@@ -68,8 +68,8 @@ export const getTaxSlabById = createAsyncThunk(
     const res = await getTaxSlabByIdService(id);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success("Tax Slab get successfully!");
-      responseMessage({ dispatch, data: res });
+        // message.success("Tax Slab get successfully!");
+        responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
         dispatch: dispatch,

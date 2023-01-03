@@ -9,11 +9,14 @@ import SearchInput from "../../../sharedComponents/searchBox/SearchInput";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
+import "../styles/adminstration.css";
+
 const AdminList = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration } = dictionaryList[userLanguage];
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const [searchInput, setSearchInput] = useState("");
+  const [visible, setVisible] = useState(false);
 
   const searchHandler = (e) => {
     const searchValue = e.target.value;
@@ -31,7 +34,15 @@ const AdminList = () => {
   });
   return (
     <>
-      <List>
+      {/* <Attachments
+        data={images}
+        key={{ data: images }}
+        toShow={1}
+        onClick={() => {}}
+        // size={"60px"}
+      /> */}
+
+      <List className="Adminlist" style={{ height: "inherit" }}>
         <AList className="admin_list">
           <div className="searchBox">
             <SearchInput

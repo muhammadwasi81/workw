@@ -4,7 +4,7 @@ import { addExpense, getAllExpense, getExpenseById } from "./actions.js";
 const expenseSlice = createSlice({
   name: "expense",
   initialState: {
-    loader: true,
+    loader: false,
     success: false,
     loadingData: false,
     isCreateComposer: false,
@@ -41,6 +41,7 @@ const expenseSlice = createSlice({
       .addCase(addExpense.fulfilled, (state, { payload }) => {
         state.expenses = [payload, ...state.expenses];
         state.drawerOpen = false;
+        state.loader = false;
       })
       .addCase(getAllExpense.fulfilled, (state, action) => {
         // state.expenses = payload;
@@ -63,6 +64,9 @@ const expenseSlice = createSlice({
       })
       .addMatcher(isPending(...[getExpenseById]), (state) => {
         state.expense = {};
+      })
+      .addMatcher(isPending(...[addExpense]), (state) => {
+        state.loader = true;
       })
       .addMatcher(isRejected(...[getExpenseById]), (state) => {
         state.expense = {};

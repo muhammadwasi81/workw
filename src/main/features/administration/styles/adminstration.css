@@ -1,3 +1,12 @@
 .searchBox {
   width: 260px;
 }
+.attachmentModal {
+  width: 60%;
+}
+.Adminlist {
+  height: inherit;
+}
+.modal-body .ant-modal-content {
+  border-radius: 10px;
+}

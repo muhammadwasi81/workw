@@ -6,6 +6,8 @@ const initialState = {
   items: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const subsidiarySlice = createSlice({
@@ -35,15 +37,21 @@ const subsidiarySlice = createSlice({
       })
       .addMatcher(isPending(...[addBranch, updateBranch]), (state) => {
         state.loader = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[getAllBranch]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(...[getAllBranch, addBranch, updateBranch]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

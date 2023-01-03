@@ -4,7 +4,7 @@ import { message, Modal } from "antd";
 import { useSelector } from "react-redux";
 import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import ApproverListItem from "../../../../../sharedComponents/AppComponents/Approvals/components/approverList";
-import { addCourseAssignMem, getAllCourseAssignMem } from "../../../store/action";
+import { addBookAssignMem, addCourseAssignMem, getAllBookAssignMem, getAllCourseAssignMem } from "../../../store/action";
 import { useParams } from "react-router-dom";
 import { addAssignMember } from "../../../store/slice";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
@@ -15,7 +15,7 @@ function AssignMemberModal({ isOpen = false }) {
     const dispatch = useDispatch();
     const assignMemberId = useParams().id;
     const modalRequest = useSelector(state => state.eLearningSlice.addAssignMemberModal);
-    const { courseAssignMembers } = useSelector((state) => state.eLearningSlice)
+    const { courseAssignMembers, bookAssignMembers } = useSelector((state) => state.eLearningSlice)
     const employees = useSelector((state) => state.sharedSlice.employees);
     const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
     const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -26,8 +26,10 @@ function AssignMemberModal({ isOpen = false }) {
 	useEffect(() => {
         if (Type === AssignMemEnum.courses) {
             ModalOpen && dispatch(getAllCourseAssignMem(assignMemberId))
+        } if (Type === AssignMemEnum.ebook) {
+            dispatch(getAllBookAssignMem(assignMemberId)) 
         } else {
-            ModalOpen && message.error("Type is not defined")
+            ModalOpen && message.error("Type is not defined for Get Request")
         }
 	},[ModalOpen])
     
@@ -50,6 +52,8 @@ function AssignMemberModal({ isOpen = false }) {
         dispatch(addAssignMember(false))
      }
 
+     console.log(Type, "TYPE")
+
     const handleChange = (id) => {
         let memberId = id.toString()
         const data = {
@@ -57,8 +61,11 @@ function AssignMemberModal({ isOpen = false }) {
             memberId: memberId 
         }
         if (Type === AssignMemEnum.courses) {
-            dispatch(addCourseAssignMem(data))
-            dispatch(getAllCourseAssignMem(assignMemberId))        
+            dispatch(addBookAssignMem(data))
+            dispatch(getAllBookAssignMem(assignMemberId))        
+        } if (Type === AssignMemEnum.ebook) {
+            dispatch(addBookAssignMem(data))
+            dispatch(getAllBookAssignMem(assignMemberId)) 
         } else {
             message.error("Type is not defined")
         }
@@ -125,7 +132,7 @@ function AssignMemberModal({ isOpen = false }) {
                 },
                 ]}
           />
-            <ApproverListItem className="AddMemberModal" data={courseAssignMembers} />
+            <ApproverListItem className="AddMemberModal" data={Type === AssignMemEnum.ebook ? bookAssignMembers : Type === AssignMemEnum.courses ?  courseAssignMembers : ""} />
         </Modal>
     );
 }

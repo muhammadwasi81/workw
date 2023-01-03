@@ -5,7 +5,7 @@ import { BsFileText } from "react-icons/bs";
 function QuizCard() {
 	return (
 		<WhiteCard
-			onClick={() => {}}
+			zz
 			className="cursor-pointer hover:shadow-lg transition-all relative overflow-hidden"
 		>
 			<div className="absolute top-0 right-0 bg-[#D40413] text-white font-semibold rounded-bl-lg p-2 z-50">

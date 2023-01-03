@@ -12,6 +12,7 @@ const CommentItem = ({
 	mentionedUser,
 	user,
 	handleLike,
+	likeClass,
 }) => {
 	let {
 		referenceId,
@@ -50,6 +51,7 @@ const CommentItem = ({
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
 	// console.log("comment", comment);
+	console.log(likeClass, "likeClasslikeClasslikeClass")
 	return (
 		<div
 			className={
@@ -72,7 +74,7 @@ const CommentItem = ({
 					/>
 					{type !== 2 && (
 						<div className="likeReplyCont">
-							<div onClick={() => handleLike(parentId)}>
+							<div className={likeClass} onClick={() => handleLike(parentId)}>
 								{Like}
 							</div>
 							<div

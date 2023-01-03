@@ -23,6 +23,7 @@ function CommentWrapper({
 	setShowComments = () => {},
 }) {
 	const [comments, setComments] = useState([]);
+	const [likeClass, setLikeClass] = useState("hello boy");
 	const dispatch = useDispatch();
 	const { user } = useSelector(state => state.userSlice);
 	useEffect(() => {
@@ -50,6 +51,7 @@ function CommentWrapper({
 				reactionType: 1,
 			})
 		);
+		setLikeClass("liked")
 	};
 	// console.log("initailComments", initailComments);
 	// console.log("comment", comments);
@@ -92,6 +94,7 @@ function CommentWrapper({
 									initialMentions={initialMentions}
 									mentionedUser={mentionedUser}
 									module={module}
+									likeClass={likeClass}
 									handleLike={handleAddReaction}
 									comment={{
 										content: comment,

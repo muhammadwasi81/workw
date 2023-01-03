@@ -1,33 +1,36 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react';
 import {
   ContBody,
   TabContainer,
-} from "../../sharedComponents/AppComponents/MainFlexContainer";
-import Tab from "../../sharedComponents/Tab";
-import ProfileCoverDetail from "./ProfileCoverDetail";
-import ProfilePanel from "./view/ProfilePanel";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { ROUTES } from "../../../utils/routes";
-import "./styles/profileStyle.css";
-import NewsFeed from "../feed/ui";
-import { getEducationDetailByUser } from "../education/store/actions";
-import { useDispatch } from "react-redux";
-import { getUserWorkExperience } from "../experienceInfo/store/actions";
-import { getEmployeeByIdAction } from "./store/action";
-import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { profileDictionaryList } from "./localization/index";
-import Courses from "../team/view/Courses";
-import ActivityLog from "../team/view/ActivityLog";
-import Education from "../team/view/Education";
-import Leaves from "../team/view/Leaves";
-import Experience from "../team/view/Experience";
-import CheckIn from "../team/view/CheckIn";
-import ProfileCover from "../projects/UI/ProfileCover";
-import SingleNotes from "./UI/singleNotes";
-import AppraisalTable from "./appraisals";
-import AwardsTable from "./awards";
-import SalaryTable from "./salary";
-import { useSelector } from "react-redux";
+} from '../../sharedComponents/AppComponents/MainFlexContainer';
+import Tab from '../../sharedComponents/Tab';
+import ProfileCoverDetail from './ProfileCoverDetail';
+import ProfilePanel from './view/ProfilePanel';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { ROUTES } from '../../../utils/routes';
+import './styles/profileStyle.css';
+import NewsFeed from '../feed/ui';
+import { getEducationDetailByUser } from '../education/store/actions';
+import { useDispatch } from 'react-redux';
+import { getUserWorkExperience } from '../experienceInfo/store/actions';
+import { getEmployeeByIdAction } from './store/action';
+import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
+import { profileDictionaryList } from './localization/index';
+import Courses from '../team/view/Courses';
+import ActivityLog from '../team/view/ActivityLog';
+import Education from '../team/view/Education';
+import Leaves from '../team/view/Leaves';
+import Experience from '../team/view/Experience';
+import CheckIn from '../team/view/CheckIn';
+import ProfileCover from '../projects/UI/ProfileCover';
+import SingleNotes from '../notes/singleNotes/singleNotes';
+import AppraisalTable from './appraisals';
+import AwardsTable from './awards';
+import SalaryTable from './salary';
+import { useSelector } from 'react-redux';
+import CustomNotes from '../notes/singleNotes/singleNotes';
+import { targetStickyDescription } from '../notes/newStickyNotes/store/stickySlice';
+import { addSticky } from '../notes/newStickyNotes/store/actions';
 
 const Profile = () => {
   const param = useParams();
@@ -36,39 +39,84 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { pathname } = location;
   const { id } = param;
-  console.log(id, "params");
-  const [defaultPath, setDefaultPath] = useState("");
+  console.log(id, 'params');
+  const [description, setDescription] = useState('');
+  const [defaultPath, setDefaultPath] = useState('');
   // const { education } = useSelector((state) => state.employeeProfileSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { profileDictionary } = profileDictionaryList[userLanguage];
+  const { listArray } = useSelector((state) => state.stickySlice);
   const {
     user: { id: userId },
   } = useSelector((state) => state.userSlice);
-  console.log(userId, "userId");
+
+  console.log(userId, 'userId');
   const onChange = (key) => {
     navigate(key);
   };
 
   useEffect(() => {
-    setDefaultPath(pathname.split("_")[0]);
+    setDefaultPath(pathname.split('_')[0]);
   }, [pathname]);
+
+  console.log(listArray, 'listArray');
+
+  const modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [],
+    ],
+  };
+  const formats = {
+    toolbar: [
+      [{ font: [] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'link', 'image'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      [{ direction: 'rtl' }],
+      [{ align: ['center'] }],
+      [{ color: [] }, { background: [] }],
+      ['clean'],
+    ],
+  };
+  const descHandler = (value) => {
+    setDescription(value);
+    console.log(description, 'descHandler');
+    listArray.map((item) => {
+      console.log(item.id, 'item.id');
+      dispatch(targetStickyDescription({ id: item.id, value }));
+    });
+    addSticky({
+      attachments: [],
+      description: value,
+    });
+  };
 
   const panes = [
     {
       featureName: profileDictionary.feed,
       content: (
-        <div className="flex">
+        <div className="flex gap-5">
           <NewsFeed
             isScheduler={false}
             isCheckedIn={false}
-            width={"!w-full"}
+            width={'!w-full'}
             referenceType={4}
             referenceId={id}
             backButton={false}
             routeLink={ROUTES.USER.DEFAULT + id}
           />
-          <div className="bg-white w-1/4">
-            <SingleNotes />
+          <div className="bg-white w-1/4 rounded-xl px-2">
+            <CustomNotes
+              onChange={(value) => descHandler(value)}
+              modules={modules}
+              formats={formats}
+              className={'stickyNoteItem-textarea'}
+              placeholder={'please enter your notes here'}
+              defaultValue={'<h2>React Quill Rich Text Editor</h2>'}
+            />
           </div>
         </div>
       ),
@@ -77,52 +125,52 @@ const Profile = () => {
     {
       featureName: profileDictionary.about,
       content: <ProfilePanel />,
-      featureId: ROUTES.USER.DEFAULT + id + "/about",
+      featureId: ROUTES.USER.DEFAULT + id + '/about',
     },
     {
       featureName: profileDictionary.awards,
       content: <AwardsTable />,
-      featureId: ROUTES.USER.DEFAULT + id + "/awards",
+      featureId: ROUTES.USER.DEFAULT + id + '/awards',
     },
     {
       featureName: profileDictionary.appraisal,
       content: <AppraisalTable />,
-      featureId: ROUTES.USER.DEFAULT + id + "/appraisal",
+      featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
     },
     {
       featureName: profileDictionary.salary,
       content: <SalaryTable />,
-      featureId: ROUTES.USER.DEFAULT + id + "/salary",
+      featureId: ROUTES.USER.DEFAULT + id + '/salary',
     },
     {
       featureName: profileDictionary.activityLog,
       content: <ActivityLog />,
-      featureId: ROUTES.USER.DEFAULT + id + "/activityLog",
+      featureId: ROUTES.USER.DEFAULT + id + '/activityLog',
     },
     {
       featureName: profileDictionary.courses,
       content: <Courses />,
-      featureId: ROUTES.USER.DEFAULT + id + "/courses",
+      featureId: ROUTES.USER.DEFAULT + id + '/courses',
     },
     {
       featureName: profileDictionary.leave,
       content: <Leaves />,
-      featureId: ROUTES.USER.DEFAULT + id + "/leave",
+      featureId: ROUTES.USER.DEFAULT + id + '/leave',
     },
     {
       featureName: profileDictionary.education,
       content: <Education />,
-      featureId: ROUTES.USER.DEFAULT + id + "/education",
+      featureId: ROUTES.USER.DEFAULT + id + '/education',
     },
     {
       featureName: profileDictionary.experience,
       content: <Experience />,
-      featureId: ROUTES.USER.DEFAULT + id + "/experience",
+      featureId: ROUTES.USER.DEFAULT + id + '/experience',
     },
     {
       featureName: profileDictionary.checkIn,
       content: <CheckIn />,
-      featureId: ROUTES.USER.DEFAULT + id + "/checkIn",
+      featureId: ROUTES.USER.DEFAULT + id + '/checkIn',
     },
   ];
 

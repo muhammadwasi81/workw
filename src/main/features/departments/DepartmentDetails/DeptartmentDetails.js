@@ -1,26 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { ROUTES } from '../../../../utils/routes';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { ROUTES } from "../../../../utils/routes";
+import { useSelector } from "react-redux";
 import {
   ContBody,
   TabContainer,
-} from '../../../sharedComponents/AppComponents/MainFlexContainer';
-import Tab from '../../../sharedComponents/Tab';
-import LayoutHeader from '../../../layout/header/index';
-import { EditOutlined } from '@ant-design/icons';
-import CoverDetail from '../view/CoverDetail';
-import CoverImage from '../view/CoverImage';
-import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getDepartmentById } from '../store/actions';
-import Appraisal from '../appraisal/index';
-import { handleParentId } from '../store/slice';
-import SubDepartment from './SubDepartment';
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import Tab from "../../../sharedComponents/Tab";
+import LayoutHeader from "../../../layout/header/index";
+import { EditOutlined } from "@ant-design/icons";
+import CoverDetail from "../view/CoverDetail";
+import CoverImage from "../view/CoverImage";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getDepartmentById } from "../store/actions";
+import Appraisal from "../appraisal/index";
+import { handleParentId } from "../store/slice";
+import SubDepartment from "./SubDepartment";
+import WhiteCard from "../view/WhiteCard";
+import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
+import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
+import { handleComposeEmail } from "../../leadmanager/store/slice";
 
 function DepartmentDetails() {
   const dispatch = useDispatch();
   let param = useParams();
   const { departmentDetail } = useSelector((state) => state.departmentSlice);
+  console.log(departmentDetail, "departmentdetailll");
   // const { state } = useLocation();
   // const { data } = state;
 
@@ -46,38 +51,54 @@ function DepartmentDetails() {
   ];
   const items = [
     {
-      name: 'Department Details',
+      name: "Department Details",
       to: `${ROUTES.DEPARTMENTS.DEPARTMENT}`,
       renderButton: [1],
     },
   ];
   const buttons = [
     {
-      buttonText: 'Edit Projects',
+      buttonText: "Edit Projects",
       icon: <EditOutlined />,
     },
   ];
 
   useEffect(() => {
-    console.log('useEffects works');
+    console.log("useEffects works");
     dispatch(getDepartmentById(param.id));
   }, [param.id]);
 
   return (
-    <TabContainer>
-      {/* <LayoutHeader items={items} buttons={buttons} /> */}
-      <LayoutHeader items={items} />
+    <>
+      <TabContainer>
+        {/* <LayoutHeader items={items} buttons={buttons} /> */}
+        <LayoutHeader items={items} />
 
-      <ContBody>
-        <div className="flex flex-row gap-5  h-[calc(100vh_-_60px)] w-full">
-          <div className="rounded-xl basis-12/12 flex flex-col gap-5 overflow-scroll w-full">
-            <CoverImage image={image} />
-            <CoverDetail data={departmentDetail} />
-            <Tab panes={panes} />
+        <ContBody className="!block">
+          <div className="flex flex-row gap-5  h-[calc(100vh_-_60px)]">
+            <div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
+              <CoverImage image={image} />
+              <CoverDetail data={departmentDetail} />
+              <Tab panes={panes} />
+            </div>
+
+            <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
+              <WhiteCard>
+                <MemberCollapse
+                  data={departmentDetail?.members}
+                  isEmail={true}
+                  isMember={true}
+                  onEmailClick={() => {
+                    dispatch(handleComposeEmail(true));
+                  }}
+                />
+              </WhiteCard>
+            </div>
           </div>
-        </div>
-      </ContBody>
-    </TabContainer>
+        </ContBody>
+      </TabContainer>
+      <ComposeEmail />
+    </>
   );
 }
 

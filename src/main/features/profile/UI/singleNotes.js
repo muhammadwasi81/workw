@@ -1,8 +1,8 @@
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import { useDispatch, useSelector } from "react-redux";
-import { addSticky } from "../newStickyNotes/store/actions";
-import { targetStickyDescription } from "../newStickyNotes/store/stickySlice";
+import { addSticky } from "../../notes/newStickyNotes/store/actions";
+import { targetStickyDescription } from "../../notes/newStickyNotes/store/stickySlice";
 
 const SingleNotes = () => {
   const dispatch = useDispatch();

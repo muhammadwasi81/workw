@@ -62,6 +62,7 @@ function MemberComposer(props) {
           <Form.Item
             name="members"
             showSearch={true}
+            label={"Select Members"}
             direction={Direction}
             rules={[{ required: true }]}
           >

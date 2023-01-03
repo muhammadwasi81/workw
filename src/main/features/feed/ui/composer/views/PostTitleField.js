@@ -6,7 +6,7 @@ import { feedSlice } from "../../../store/slice";
 import { PostType } from "../../../utils/constants";
 import CustomMentions from "../../../../../sharedComponents/Mentions";
 
-const PostTitleField = () => {
+const PostTitleField = ({isOpen}) => {
   const { type, title, pollTitle } = useSelector(
     ({ feedSlice }) => feedSlice.postCompose
   );
@@ -27,6 +27,7 @@ const PostTitleField = () => {
           placeholder={PostType.getTitlePlaceHolder(type)}
           value={PostType.isPollType(type) ? pollTitle : title}
           initialMentions={[...feedMentions]}
+          isOpen={isOpen}
         />
       </Form.Item>
     </Form.Item>

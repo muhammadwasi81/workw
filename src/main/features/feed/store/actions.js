@@ -169,8 +169,10 @@ function onPostTitleTextChange(state, { payload: { value } }) {
 	const {
 		postCompose: { type },
 	} = current(state);
-	if (type === PostType.DEFAULT) state.postCompose.title = value;
-	else if (type === PostType.POLL) state.postCompose.pollTitle = value;
+	// if (type === PostType.DEFAULT) state.postCompose.title = value;
+	// else if (type === PostType.POLL) state.postCompose.pollTitle = value;
+	state.postCompose.title = value
+	state.postCompose.pollTitle = value
 }
 
 function onPostMention(state, { payload }) {
@@ -178,8 +180,11 @@ function onPostMention(state, { payload }) {
 }
 
 function onPostTagsChange(state, { payload }) {
-	console.log(payload);
 	state.postCompose.tags = payload;
+}
+
+function resetComposeFeed(state, { payload }) {
+	state.postCompose.tags = [];
 }
 
 function addPostAttachment(state, { payload: { files } }) {
@@ -304,5 +309,6 @@ export {
 	onPostPrivacyChange,
 	onSaveComment,
 	toggleComposerVisibility,
-	clearSinglePost
+	clearSinglePost,
+	resetComposeFeed
 };

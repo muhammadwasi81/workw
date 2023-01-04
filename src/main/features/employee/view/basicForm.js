@@ -157,7 +157,10 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         birthDate: moment(basicdetails.birthDate),
         joinDate: moment(basicdetails.joinDate),
         accessRoleId: basicdetails?.accessRoles?.map((item) => item.accessRole),
-        officeTimingId: basicdetails.officeTimingId === STRINGS.DEFAULTS.guid ? "" : basicdetails.officeTimingId,
+        officeTimingId:
+          basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
+            ? ''
+            : basicdetails.officeTimingId,
         // birthDate: basicdetails.birthDate ?  basicdetails.birthDate : "",
       });
     }
@@ -168,7 +171,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   }, [initialValues, form]);
 
   Object.defineProperty(form, 'values', {
-    value: function () {
+    value: function() {
       return {
         ...form.getFieldsValue(),
         birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
@@ -289,7 +292,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           name="designationId"
           label={labels.Designation}
           placeholder={placeholder.selectGender}
-
         >
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}

@@ -211,13 +211,17 @@ export const addBook = createAsyncThunk(
   }
 );
 
-export const getAllBook = createAsyncThunk("Book/GetAllBook", async (data) => {
-  const response = await getAllBookService(data);
+export const getAllBook = createAsyncThunk(
+  "Book/GetAllBook",
+  async (data) => {
+    const response = await getAllBookService(data);
 
-  if (!response.responseCode) {
-    message.error("Something went wrong");
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
   }
-});
+);
 
 export const GetBookById = createAsyncThunk(
   "Book/GetBookById",

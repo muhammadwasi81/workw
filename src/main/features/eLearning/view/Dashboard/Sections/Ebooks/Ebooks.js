@@ -25,8 +25,8 @@ function Books() {
 					<ThumbnailSkeleton count={[1,2]} /> :
 					books?.length > 0 ? books.map((item) => {
 					return <EbookCard data={item} />
-				}) :  
-				!loading && <> <NoDataFound /></>
+				}) :  ""
+				// !loading && <> <NoDataFound /></>
 			}
 			</div>
 		</>

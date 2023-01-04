@@ -7,14 +7,14 @@ import {
 } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { useState, useContext } from "react";
-import { Divider, Form } from "antd";
+import { Button, Divider, Form } from "antd";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import blackLogo from "../../../../content/blackLogo.svg";
 import { ContBody } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-
-const BusinessLogo = ({ formData, setFormData }) => {
+import "./adminstartionCard.css";
+const BusinessLogo = ({ formData, setFormData, handleChangeTab }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, sharedLabels, Direction } = dictionaryList[
     userLanguage
@@ -24,7 +24,9 @@ const BusinessLogo = ({ formData, setFormData }) => {
   const handleImageUpload = (data) => {
     setProfileImage(data);
   };
-
+  const onSubmitBusinessLogo = () => {
+    handleChangeTab();
+  };
   return (
     <>
       <div>
@@ -32,7 +34,10 @@ const BusinessLogo = ({ formData, setFormData }) => {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="adminstration-card">
+          <FormContainer
+            className="adminstration-card"
+            style={{ width: "500px", marginTop: "30px", height: "390px" }}
+          >
             <FormHeader>{sharedLabels.businessLogo}</FormHeader>
             <div className="flex justify-center">
               <Form.Item area="true">
@@ -55,6 +60,19 @@ const BusinessLogo = ({ formData, setFormData }) => {
                   position="flex-start"
                   uploadText={"Upload"}
                 />
+              </Form.Item>
+            </div>
+            <div className="flex justify-center">
+              <Form.Item area="true">
+                <Button
+                  type="primary"
+                  size="medium"
+                  className="ThemeBtn"
+                  onClick={() => onSubmitBusinessLogo(formData)}
+                  //loading={loader}
+                >
+                  Add Logo
+                </Button>
               </Form.Item>
             </div>
           </FormContainer>

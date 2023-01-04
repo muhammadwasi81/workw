@@ -1,22 +1,22 @@
 export const EducationTypeEnum = [
   {
-    label: "NoEducation",
+    label: "No Education",
     value: 1,
   },
   {
-    label: "PrimarySchool",
+    label: "Primary School",
     value: 2,
   },
   {
-    label: "MiddleSchool",
+    label: "Middle School",
     value: 3,
   },
   {
-    label: "HighSchool",
+    label: "High School",
     value: 4,
   },
   {
-    label: "UnderGraduate",
+    label: "Under Graduate",
     value: 5,
   },
   {

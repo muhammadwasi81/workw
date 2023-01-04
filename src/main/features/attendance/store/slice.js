@@ -17,7 +17,7 @@ export const AttendanceSlice = createSlice({
       builder
          .addCase(getAttendanceLastCheckIn.fulfilled, (state, { payload }) => {
             state.loader = false;
-            state.lastCheckIn = payload
+            state.lastCheckIn = (payload && payload.length) ? payload[0] : {}
          })
          .addCase(addAttendanceCheckIn.fulfilled, (state, { payload }) => {
             state.loader = false;

@@ -14,8 +14,12 @@ import { handleChangeTab } from "../store/slice";
 import FiscalYear from "../adminstrationCard/FiscalYear";
 import PayrollGroup from "../adminstrationCard/PayrollGroup";
 import EmailConfigurationForm from "../adminstrationCard/EmailConfiguration";
+import { addDesignation } from "../../designation/store/actions";
+import { addFiscalYear } from "../../fiscalYear/store/actions";
+import { addPayrollGroup } from "../../payroll/payrollGroup/store/actions";
 
 const Administration = () => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -36,7 +40,22 @@ const Administration = () => {
   });
   const [page, setPage] = useState(0);
 
-  const handleChangeTab = (e) => {
+  // const NextHandler = (e) => {
+  //   if (page === 0) {
+  //     handleChangeTab();
+  //   } else if (page === 1) {
+  //     dispatch(addDesignation(e));
+  //     handleChangeTab();
+  //   } else if (page === 2) {
+  //     dispatch(addFiscalYear(e));
+  //     handleChangeTab();
+  //   } else if (page === 3) {
+  //     dispatch(addPayrollGroup(e));
+  //   } else {
+  //     message.error("Please fill required field!");
+  //   }
+  // };
+  const handleChangeTab = () => {
     if (page === 4) {
       setVisible(false);
     } else {
@@ -48,20 +67,38 @@ const Administration = () => {
   }, []);
 
   const handleSkip = () => {
-    setPage(page + 1);
+    if (page === 4) {
+      setVisible(false);
+    } else {
+      setPage(page + 1);
+    }
   };
-  const handleSubmit = () => {
-    setFormData(formData);
-  };
+
   let RenderTab = [
-    <BusinessLogo formData={formData} setFormData={setFormData} />,
-    <Designation formData={formData} setFormData={setFormData} />,
-    <FiscalYear formData={formData} setFormData={setFormData} />,
-    <PayrollGroup formData={formData} setFormData={setFormData} />,
+    <BusinessLogo
+      formData={formData}
+      setFormData={setFormData}
+      handleChangeTab={handleChangeTab}
+    />,
+    <Designation
+      formData={formData}
+      setFormData={setFormData}
+      handleChangeTab={handleChangeTab}
+    />,
+    <FiscalYear
+      formData={formData}
+      setFormData={setFormData}
+      handleChangeTab={handleChangeTab}
+    />,
+    <PayrollGroup
+      formData={formData}
+      setFormData={setFormData}
+      handleChangeTab={handleChangeTab}
+    />,
     <EmailConfigurationForm
       formData={formData}
       setFormData={setFormData}
-      onSuccess={handleSubmit}
+      handleChangeTab={handleChangeTab}
     />,
   ];
 
@@ -76,19 +113,31 @@ const Administration = () => {
             <Button className="ThemeBtn" onClick={handleSkip}>
               Skip
             </Button>,
-            <Button
-              className="ThemeBtn"
-              onClick={(e) => handleChangeTab(formData)}
-            >
-              Next
-            </Button>,
+
+            // <>
+            //   {page === 4 ? (
+            //     <Button
+            //       className="ThemeBtn"
+            //       onClick={() => handleChangeTab(formData)}
+            //     >
+            //       Submit
+            //     </Button>
+            //   ) : (
+            //     <Button
+            //       className="ThemeBtn"
+            //       onClick={() => NextHandler(formData)}
+            //     >
+            //       Next
+            //     </Button>
+            //   )}
+            // </>,
           ]}
           open={visible}
           onOk={() => setVisible(false)}
           onCancel={() => setVisible(false)}
           closable={false}
           width={900}
-          height={550}
+          // height={550}
         >
           {RenderTab[page]}
         </Modal>

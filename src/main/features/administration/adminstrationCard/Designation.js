@@ -1,4 +1,4 @@
-import { Input, Divider, message } from "antd";
+import { Input, Divider, message, Button } from "antd";
 import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
@@ -16,8 +16,9 @@ import { dictionaryList } from "../../../../utils/localization/languages";
 import { useDispatch, useSelector } from "react-redux";
 import blackLogo from "../../../../content/blackLogo.svg";
 import { addDesignation } from "../../designation/store/actions";
+import "./adminstartionCard.css";
 
-function Designation({ formData, setFormData }) {
+function Designation({ formData, setFormData, handleChangeTab }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const {
@@ -39,6 +40,7 @@ function Designation({ formData, setFormData }) {
       return message.error("Please fill all required fields");
     } else {
       dispatch(addDesignation(e));
+      handleChangeTab();
     }
   };
   return (
@@ -48,7 +50,10 @@ function Designation({ formData, setFormData }) {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="adminstration-card">
+          <FormContainer
+            className="adminstration-card"
+            style={{ width: "500px", marginTop: "40px", height: "350px" }}
+          >
             <FormHeader>{administration.designation.desig}</FormHeader>
             <FormInputContainer>
               <FormInput>
@@ -71,18 +76,16 @@ function Designation({ formData, setFormData }) {
                   }
                 />
               </FormInput>
-            </FormInputContainer>
-            <FormButtonContainer>
-              <FormButton
+              <Button
                 type="primary"
                 size="medium"
-                className="formBtn"
-                onClick={(e) => onSubmitDesignation(formData)}
+                className="ThemeBtn"
+                onClick={() => onSubmitDesignation(formData)}
                 loading={loader}
               >
                 {administration.designation.Add}
-              </FormButton>
-            </FormButtonContainer>
+              </Button>
+            </FormInputContainer>
           </FormContainer>
         </div>
         <Divider type="vertical" style={{ height: "400px" }} />

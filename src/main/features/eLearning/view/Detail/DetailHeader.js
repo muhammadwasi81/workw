@@ -11,7 +11,7 @@ function DetailHeader({ dictionary, direction }) {
   ];
   const items = [
     {
-      name: elearningDictionary.courseDetail,
+      name: "Detail",
       to: ``,
       renderButton: [1],
     },

@@ -1,4 +1,4 @@
-import { Input, DatePicker, Divider, message } from "antd";
+import { Input, DatePicker, Divider, message, Button } from "antd";
 import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
@@ -16,10 +16,11 @@ import { dictionaryList } from "../../../../utils/localization/languages";
 import { useDispatch, useSelector } from "react-redux";
 import blackLogo from "../../../../content/blackLogo.svg";
 import { addFiscalYear } from "../../fiscalYear/store/actions";
+import "./adminstartionCard.css";
 
 const { RangePicker } = DatePicker;
 
-export default function FiscalYear({ formData, setFormData }) {
+export default function FiscalYear({ formData, setFormData, handleChangeTab }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, sharedLabels, Direction } = dictionaryList[
@@ -47,6 +48,7 @@ export default function FiscalYear({ formData, setFormData }) {
       return message.error("Please fill all required fields");
     } else {
       dispatch(addFiscalYear(e));
+      handleChangeTab();
     }
   };
 
@@ -57,7 +59,14 @@ export default function FiscalYear({ formData, setFormData }) {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="adminstration-card">
+          <FormContainer
+            className="adminstration-card"
+            style={{
+              width: "500px",
+              marginTop: "40px",
+              height: "350px",
+            }}
+          >
             <FormHeader>{administration.fiscalyear.Fiscalyear}</FormHeader>
             <FormInputContainer>
               <FormInput>
@@ -66,7 +75,10 @@ export default function FiscalYear({ formData, setFormData }) {
                   placeholder={administration.fiscalyear.EnterName}
                   value={formData.fiscalName}
                   onChange={(e) =>
-                    setFormData({ ...formData, fiscalName: e.target.value })
+                    setFormData({
+                      ...formData,
+                      fiscalName: e.target.value,
+                    })
                   }
                 />
               </FormInput>
@@ -97,21 +109,19 @@ export default function FiscalYear({ formData, setFormData }) {
                   picker="month"
                 />
               </FormInput>
-            </FormInputContainer>
-            <FormButtonContainer>
-              <FormButton
+              <Button
                 type="primary"
                 size="medium"
                 style={{}}
-                className="formBtn"
+                className="ThemeBtn"
                 onClick={(e) => {
                   onSubmitFiscalYear(formData);
                 }}
                 loading={loader}
               >
-                {administration.fiscalyear.Add}
-              </FormButton>
-            </FormButtonContainer>
+                Add Fiscal Year
+              </Button>
+            </FormInputContainer>
           </FormContainer>
         </div>
         <Divider type="vertical" style={{ height: "400px" }} />

@@ -58,9 +58,9 @@ const PostHeader = ({
                         `${tags.length - 1} Others`
                       ) : (
                         <Link
-                          to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${tags[1].id}`}
+                          to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${tags[1]?.member?.id}`}
                         >
-                          String
+                          {tags[1]?.member?.name}
                         </Link>
                       )}
                     </span>

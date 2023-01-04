@@ -4,7 +4,7 @@ import { message, Modal } from "antd";
 import { useSelector } from "react-redux";
 import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import ApproverListItem from "../../../../../sharedComponents/AppComponents/Approvals/components/approverList";
-import {  addCourseMember, getAllCourseAssignMem, getAllCourseMember } from "../../../store/action";
+import { addBookMember, addCourseMember, getAllBookMember, getAllCourseMember } from "../../../store/action";
 import { useParams } from "react-router-dom";
 import { addMember } from "../../../store/slice";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
@@ -15,7 +15,7 @@ function MemberModal({ isOpen = false }) {
     const dispatch = useDispatch();
     const assignMemberId = useParams().id;
     const modalRequest = useSelector(state => state.eLearningSlice.addMemberModal);
-    const { courseMembers } = useSelector((state) => state.eLearningSlice)
+    const { courseMembers, bookMembers } = useSelector((state) => state.eLearningSlice)
     const employees = useSelector((state) => state.sharedSlice.employees);
     const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
     const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -23,9 +23,14 @@ function MemberModal({ isOpen = false }) {
 
     let ModalOpen = modalRequest.status
     let Type = modalRequest.type
+
+    console.log(Type, "TYPE !!" )
+
 	useEffect(() => {
         if (Type === MemberEnum.courses) {
             ModalOpen && dispatch(getAllCourseMember(assignMemberId))
+        } if (Type === MemberEnum.ebook) {
+            ModalOpen && dispatch(getAllBookMember(assignMemberId))
         } else {
             ModalOpen && message.error("Type is not defined")
         }
@@ -53,6 +58,9 @@ function MemberModal({ isOpen = false }) {
         if (Type === MemberEnum.courses) {
             dispatch(addCourseMember(data))
             dispatch(getAllCourseMember(assignMemberId))        
+        } if (Type === MemberEnum.ebook) {
+            dispatch(addBookMember(data))
+            dispatch(getAllBookMember(assignMemberId))
         } else {
             message.error("Type is not defined")
         }
@@ -119,7 +127,7 @@ function MemberModal({ isOpen = false }) {
                 },
                 ]}
           />
-            <ApproverListItem className="AddMemberModal" data={courseMembers} />
+            <ApproverListItem className="AddMemberModal" data={Type === MemberEnum.ebook ? bookMembers : Type === MemberEnum.courses ?  courseMembers : ""} />
         </Modal>
     );
 }

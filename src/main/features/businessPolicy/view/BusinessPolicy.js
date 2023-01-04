@@ -110,7 +110,7 @@ const BusinessPolicy = () => {
                             />,
                           ]}
                         >
-                          {item.typeId}
+                          {/* {item.typeId} */}
                           <div
                             dangerouslySetInnerHTML={{
                               __html: item.description,

@@ -1,94 +1,38 @@
 import React from "react";
+import { Collapse } from 'antd';
 import CurriculumCollapseCard from "../../../../Detail/components/UIElements/CurrCollCard";
 import DetailCollapse from "../../../../Detail/components/UIElements/DetailCollapse";
+const { Panel } = Collapse;
+const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.
+`;
 
 function CourseCurriculum({curriculums}) {
 	let data = curriculums;
-	console.log(data, "CURRRIIII DATAAAA !!!")
 
-
-	const DUMMY_DATA = [
-		{
-			name: data.name,
-			details: [
-				{
-					title:
-						"Introducing to course: Foundation of User Experience Design.",
-					type: 1,
-					duration: 20,
-				},
-				{
-					title: "Specialists, generalists, and T-shaped designers.",
-					type: 2,
-					duration: 20,
-				},
-				{
-					title: "Identify good user experience",
-					type: 3,
-					duration: 20,
-				},
-			],
-		// },
-		// {
-		// 	name: "Start the Program 123",
-		// 	details: [
-		// 		{
-		// 			title:
-		// 				"Introducing to course: Foundation of User Experience Design.",
-		// 			type: 1,
-		// 			duration: 20,
-		// 		},
-		// 		{
-		// 			title: "Specialists, generalists, and T-shaped designers.",
-		// 			type: 2,
-		// 			duration: 20,
-		// 		},
-		// 		{
-		// 			title: "Identify good user experience",
-		// 			type: 3,
-		// 			duration: 20,
-		// 		},
-		// 	],
-		// },
-		// {
-		// 	name: "Start the Program 23432",
-		// 	details: [
-		// 		{
-		// 			title:
-		// 				"Introducing to course: Foundation of User Experience Design.",
-		// 			type: 1,
-		// 			duration: 20,
-		// 		},
-		// 		{
-		// 			title: "Specialists, generalists, and T-shaped designers.",
-		// 			type: 2,
-		// 			duration: 20,
-		// 		},
-		// 		{
-		// 			title: "Identify good user experience",
-		// 			type: 3,
-		// 			duration: 20,
-		// 		},
-		// 	],
-		 },
-	];
+	const onChange = (key) => {
+		// console.log(key);
+	};
 	return (
-		// <div>
-		// 	<DetailCollapse
-		// 		data={DUMMY_DATA}
-		// 		Component={CurriculumCollapseCard}
-		// 	/>
-		// </div>
-		<div>
-			{
-			 data && data.map((item) => {
-				return <DetailCollapse
-							data={DUMMY_DATA} 
-							Component={CurriculumCollapseCard}
-						/>
-			 })
-			}
-		</div>
+		<div className="CurriculumAccordion">
+			<Collapse onChange={onChange}>
+			{ data?.map((item, index) => {
+				return <>
+						<Panel header={item.name} key={index} className="CurriculumPanel">
+							<Collapse defaultActiveKey="1">
+								{item.topics && item.topics.map((topic, index) => {
+									return <Panel className="CurriculumPanel" header={topic.name} key={index}>
+											<p>{"Dummy Content"}</p>
+										</Panel>
+								})}
+							</Collapse>
+						</Panel>
+						</>  
+			})}
+		</Collapse>
+	</div>
 	);
 }
 

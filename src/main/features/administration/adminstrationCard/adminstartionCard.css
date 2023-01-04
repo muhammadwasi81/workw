@@ -1,0 +1,23 @@
+/* .adminstration-card {
+  margin-top: 40px;
+}
+
+.adminstration-card.jsshDx {
+  width: 500px;
+  height: 350px;
+}
+.email-form-container.jsshDx {
+  margin-top: 30px;
+  width: 500px;
+  height: 530px;
+} */
+.logoHeader {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--currentThemeColor);
+}
+.moduleHeader {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--currentThemeColor);
+}

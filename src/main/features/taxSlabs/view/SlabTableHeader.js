@@ -21,7 +21,7 @@ const SlabTableHeader = () => {
           Percentage
         </th>
         <th>
-            Previous Charge 
+            Minimum Charge 
         </th>
         <th> 
         </th>

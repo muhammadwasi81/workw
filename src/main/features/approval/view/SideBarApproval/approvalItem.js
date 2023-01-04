@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { getIconByFeaturesType } from "../../../../../utils/Shared/helper/helpers";
 import { getStatusLabelAndColor } from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import { getFeaturesTypeByApprovalsType } from "../../../../sharedComponents/AppComponents/Approvals/helper/helpers";
 import { ApprovalDictionary } from "../../../../sharedComponents/AppComponents/Approvals/localization";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 // import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
@@ -50,7 +51,7 @@ export default function ApprovalItem({
           </div>
           <div className="statusHolder" >
             <div className="featureIcon" >
-              <img src={getIconByFeaturesType(1)} />
+              <img src={getIconByFeaturesType(getFeaturesTypeByApprovalsType(item.module))} />
             </div>
             {item.status === 1 && <ApprovalActions item={item} />}
           </div>

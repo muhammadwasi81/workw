@@ -1,4 +1,4 @@
-import { Divider, Input, message } from "antd";
+import { Button, Divider, Input, message } from "antd";
 import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
@@ -15,8 +15,9 @@ import { dictionaryList } from "../../../../utils/localization/languages/index";
 import blackLogo from "../../../../content/blackLogo.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { addPayrollGroup } from "../../payroll/payrollGroup/store/actions";
+import "./adminstartionCard.css";
 
-export default function Form({ formData, setFormData }) {
+export default function Form({ formData, setFormData, handleChangeTab }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, payrollGroup, Direction } = dictionaryList[
@@ -28,6 +29,7 @@ export default function Form({ formData, setFormData }) {
       message.error("Please fill all required field!");
     } else {
       dispatch(addPayrollGroup(e));
+      handleChangeTab();
     }
   };
   return (
@@ -37,7 +39,10 @@ export default function Form({ formData, setFormData }) {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="adminstration-card">
+          <FormContainer
+            className="adminstration-card"
+            style={{ width: "500px", marginTop: "40px", height: "350px" }}
+          >
             <FormHeader>{administration.payrollGroup.PayrollGroup}</FormHeader>
             <FormInputContainer>
               <FormInput>
@@ -53,21 +58,19 @@ export default function Form({ formData, setFormData }) {
                   }
                 />
               </FormInput>
-            </FormInputContainer>
-            <FormButtonContainer>
-              <FormButton
+              <Button
                 type="primary"
                 size="medium"
                 style={{}}
-                className="formBtn"
+                className="ThemeBtn"
                 onClick={(e) => {
                   onSubmitPayrollGroup(formData);
                 }}
                 loading={loader}
               >
                 {administration.payrollGroup.Add}
-              </FormButton>
-            </FormButtonContainer>
+              </Button>
+            </FormInputContainer>
           </FormContainer>
         </div>
         <Divider

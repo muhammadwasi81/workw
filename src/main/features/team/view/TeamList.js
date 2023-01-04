@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import TeamCard from "./TeamCard";
+import TeamCard , { CardGrid } from "./TeamCard";
 import { useDispatch, useSelector } from "react-redux";
 import { Skeleton } from "antd";
 import TopBar from "../../../sharedComponents/topBar/topBar";
@@ -33,7 +33,7 @@ function TeamList() {
       <div className={classes}>
         {[...Array(40)].map(() => (
           <>
-            <Skeleton.Avatar shape={"circle"} size={"large"} />
+            {/* <Skeleton.Avatar shape={"circle"} size={"large"} /> */}
             <Skeleton loading={true} active></Skeleton>
           </>
         ))}
@@ -54,11 +54,11 @@ function TeamList() {
           }}
         />
         {view === "List" ? (
-          <div className={classes}>
+          <CardGrid>
             {teams.map((team, index) => {
               return <TeamCard teams={team} key={index} />;
             })}
-          </div>
+          </CardGrid>
         ) : (
           <TeamTableView />
         )}

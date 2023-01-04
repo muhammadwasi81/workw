@@ -172,6 +172,7 @@ export const addBookService = async (data) => {
 };
 
 export const getAllBookService = (data) => {
+  console.log(data, "FROM SERVICE")
   return MasterConfig.post(`api/ELearning/GetAllBook`, data)
     .then((res) => {
       return res.data;

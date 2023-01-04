@@ -164,6 +164,7 @@ const eLearningSlice = createSlice({
         return state;
       })
       .addCase(getAllBook.fulfilled, (state, action) => {
+        console.log(action, "FROM SLICE IS COMING");
         state.books = action.payload ? action.payload : [];
         state.loaders.bookLoading = false;
         state.loaders.courseLoading = false;

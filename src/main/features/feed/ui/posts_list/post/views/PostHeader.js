@@ -49,7 +49,7 @@ const PostHeader = ({
             </span>
             {tags.length > 0 && (
               <React.Fragment>
-                &ensp;with <span>{tags[tags.length - 1].member?.name}</span>
+                &ensp;with <span>{tags[0].member?.name}</span>
                 {tags.length > 1 && (
                   <React.Fragment>
                     &ensp;and&ensp;
@@ -58,9 +58,9 @@ const PostHeader = ({
                         `${tags.length - 1} Others`
                       ) : (
                         <Link
-                          to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${tags[1].id}`}
+                          to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${tags[1]?.member?.id}`}
                         >
-                          String
+                          {tags[1]?.member?.name}
                         </Link>
                       )}
                     </span>

@@ -16,7 +16,7 @@ function DetailPageTopDetail({
 		<div className="flex flex-col gap-3">
 			{image && (
 				<div
-					className={`rounded-lg w-full overflow-hidden {h-[${imageHeight}]}`}
+					className={`rounded-lg w-full overflow-hidden {h-[${imageHeight}]}`} style={{height: "300px"}}
 				>
 					<img
 						src={image}

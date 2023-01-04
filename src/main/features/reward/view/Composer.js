@@ -102,6 +102,8 @@ const Composer = (props) => {
     setProfileImage(data);
   };
 
+  console.log(profileImage, "IMAGE ONE TO ONE")
+
   const onFinish = (values) => {
     let approvers = [];
     let members = [];

@@ -2,7 +2,7 @@ const en = {
   taskDictionaryList: {
     createTextBtn: "Create Task",
     placeHolder: {
-      writeSubject: "Write Suject Here",
+      writeSubject: "Write Subject Here",
       writePredecessor: "Write Predecessor Here",
       writeDescription: "Write Description Here",
       startDate: " Start Date",

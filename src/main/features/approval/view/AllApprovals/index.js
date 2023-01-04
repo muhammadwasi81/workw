@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { ROUTES } from '../../../../../utils/routes';
 import { TabbableContainer } from '../../../../layout/GridStyle';
 import Header from '../../../../layout/header/index';
@@ -24,7 +25,6 @@ export default function AllApprovals() {
   };
   const handleTabChange = (tabIndex) => {
     tabIndex = Number(tabIndex);
-    console.log(tabIndex);
     let status = ApprovalStatus.InProcess;
     switch (tabIndex) {
       case 1:
@@ -48,9 +48,10 @@ export default function AllApprovals() {
     });
   };
   useEffect(() => {
-    dispatch(getAllApproval(filter));
+    let isMyApproval = true;
+    dispatch(getAllApproval({ isMyApproval, filter }));
   }, [filter]);
-
+  console.log(useSearchParams(), "useParams()")
   return (
     <TabbableContainer>
       <Header
@@ -64,7 +65,7 @@ export default function AllApprovals() {
           {
             name: 'My Approval',
             renderButton: [2],
-            to: ROUTES.MY_APPROVALS.DEFAULT,
+            to: ROUTES.APPROVALS.DEFAULT + "?myApproval",
           },
         ]}
         backButton={false}

@@ -18,7 +18,7 @@ import SharedButton from "../../../sharedComponents/button";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { handleMailComposer } from "../Store/MailSlice";
 
-const MailDetail = () => {
+const MailDetail = ({detailIdByProps}) => {
     const isTablet = useMediaQuery({ maxWidth: 768 });
     const dispatch = useDispatch();
     const { mailDetail, mailComposerInstances } = useSelector(
@@ -27,12 +27,11 @@ const MailDetail = () => {
     const { subject, content, date, from } = mailDetail || {};
     const { name, address } = (from && from[0]) || [];
     let { detailId, id } = useParams();
-    const { pathname } = useLocation();
-    const api_base = pathname.split("/")[2];
-    console.log(useParams(), "$$$$$$");
+    let mailId = detailIdByProps ? detailIdByProps : detailId;
+
     useEffect(() => {
-        dispatch(getMailById({ id: detailId, folderPath: id }));
-    }, [detailId]);
+        mailId && dispatch(getMailById({ id: mailId, folderPath: id }));
+    }, [mailId]);
 
     const handleComposer = (isReply = false, isForward = false) => {
         const id = createGuid();
@@ -53,7 +52,7 @@ const MailDetail = () => {
             dispatch(handleMailComposer(temArr));
         }
     };
-
+console.log(mailDetail)
     return (
         <div className="mBodyContainer">
             {mailDetail && (
@@ -182,7 +181,7 @@ const MailDetail = () => {
                     </div>
                 </>
             )}
-            {!mailDetail && (
+            {mailDetail === null && (
                 <div
                     style={{ padding: "30px 100px" }}
                 // style={{display: "flex", height: "100vh", alignItems: "center", justifyContent: "center"}}

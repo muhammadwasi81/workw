@@ -27,6 +27,7 @@ import {
 	savePollResponse,
 	favoriteFeed,
 	sharePostOnFeed,
+	resetComposeFeed
 } from "./actions";
 import { PollType, PostPrivacyType, PostType } from "../utils/constants";
 import { filter } from "lodash";
@@ -68,6 +69,7 @@ export const feedSlice = createSlice({
 		onPostTitleTextChange,
 		onPostMention,
 		onPostTagsChange,
+		resetComposeFeed,
 		addPostAttachment,
 		removePostAttachment,
 		onPostTypeChange,

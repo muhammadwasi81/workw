@@ -126,12 +126,6 @@ export const routes = {
       ),
     },
     {
-      path: ROUTES.MY_APPROVALS.DEFAULT,
-      component: lazy(() =>
-        import('../main/features/approval/view/AllApprovals/index')
-      ),
-    },
-    {
       path: ROUTES.BUSINESS_POLICY.DEFAULT,
       component: lazy(() =>
         import('../main/features/businessPolicy/view/businessPolicyMain/index')

@@ -90,7 +90,6 @@ const Reward = (props) => {
       renderButton: [1],
     },
   ];
-     console.log(getApprovalsTypeByFeaturesType(21), "getApprovalsTypeByFeaturesType")
   return (
     <>
       <TabbableContainer className=""> 

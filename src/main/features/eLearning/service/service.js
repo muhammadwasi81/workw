@@ -235,3 +235,38 @@ export const addBookMemberService = async (data) => {
       return res;
       });
     };
+
+
+// TEDTALKS SERVICES  
+    
+
+export const addTedTalkService = async (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.post(`api/ELearning/AddTedTalks`, formData)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const getAllTedTalkService = (data) => {
+  return MasterConfig.post(`api/ELearning/GetAllTedTalks`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const GetTedTalkByIdService = (id) => {
+  return MasterConfig.get(`api/ELearning/GetTedTalksById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};

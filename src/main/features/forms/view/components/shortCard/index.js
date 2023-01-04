@@ -15,6 +15,9 @@ import { ROUTES } from "../../../../../../utils/routes";
 import { useSelector } from "react-redux";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { documentDictionaryList } from "../../../localization/index";
+import CardProfileTopView from "../../../../travel/view/ListView/CardProfileTopView";
+import AvatarOld from "../../../../../sharedComponents/Avatar/avatarOLD";
+import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 
 function ListItem(props) {
   const { user } = useSelector((state) => state.userSlice);
@@ -42,6 +45,7 @@ function ListItem(props) {
     <>
       {copy && message.success("Copied")}
       <SingleItem
+        //className="cursor-pointer"
         className="Card3 formShortCard"
         onClick={() => {
           onListItem(props.item.id);
@@ -64,8 +68,8 @@ function ListItem(props) {
           {/* <p>{item.description}</p> */}
           <h3>{item.referenceNo}</h3>
         </ItemContent>
-        <div className="ItemFooter">
-          <Button
+        <div className="ItemFooter"> 
+            <Button
             className="ThemeBtn"
             onClick={(e) => {
               e.preventDefault();
@@ -83,7 +87,15 @@ function ListItem(props) {
           >
             {copyLink}
           </Button>
-
+            {item.creator.id === user.id && (
+            <Link to={ROUTES.FORMS.RESPONSE_DETAIL_FORM + `/${id}`}>
+              <Button className="ThemeBtn">Details</Button>
+            </Link>
+          )}
+            <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
+            <Button className="ThemeBtn">{attempt}</Button>
+             </Link>
+          
           {/* <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
             <Button className="ThemeBtn">Copy Link</Button>
           </Link> */}
@@ -93,16 +105,33 @@ function ListItem(props) {
               <Button className="ThemeBtn">Edit</Button>
             </Link>
           )} */}
-          {item.creator.id === user.id && (
-            <Link to={ROUTES.FORMS.RESPONSE_DETAIL_FORM + `/${id}`}>
-              <Button className="ThemeBtn">Details</Button>
-            </Link>
-          )}
 
-          <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
-            <Button className="ThemeBtn">{attempt}</Button>
-          </Link>
         </div>
+        <div className="cardSections">
+          <div className="cardSectionItem">
+            <div className="cardSection__title">createDate</div>
+            <div className="cardSection__body">
+              {" "}
+              {moment(item.createDate).format("Do MMM YY")}
+            </div>
+          </div>
+          <div className="cardSectionItem">
+            <div className="cardSection__title">approvers</div>
+            <div className="cardSection__body">
+              {item.approvers && (
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"approvers"}
+                  membersData={item.approvers ? item.approvers : []}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+
       </SingleItem>
     </>
   );

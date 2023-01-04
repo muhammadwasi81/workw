@@ -35,8 +35,6 @@ import { GiArmorDowngrade } from 'react-icons/gi';
 
 import { FeaturesEnum } from '../enums/enums';
 
-
-
 export const getIconByFeaturesType = (FEATURES_TYPE) => {
 
     console.log(FEATURES_TYPE, "documentType")

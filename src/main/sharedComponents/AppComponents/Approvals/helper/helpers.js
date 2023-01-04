@@ -1,7 +1,7 @@
 import {ApprovalsModule} from "../enums/index";
 import {FeaturesEnum} from "../../../../../../src/utils/Shared/enums/enums";
 
-export const getApprovalsTypeByFeaturesType = (APPROVALS_TYPE) =>
+export const getFeaturesTypeByApprovalsType = (APPROVALS_TYPE) =>
  {
     console.log(FeaturesEnum, "documentType")
 

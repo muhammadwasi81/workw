@@ -7,6 +7,8 @@ function FileUploader({
 	handleUpload,
 	fileList,
 	uploadButton = null,
+	isMultiple = true,
+	acceptFile,
 	classes = "messengerUpload"
 }) {
 	return (
@@ -19,8 +21,9 @@ function FileUploader({
 					img="Add Image"
 					position="flex-start"
 					uploadText={"Upload"}
-					multiple={true}
+					multiple={isMultiple}
 					inputRef={inputRef}
+					accept={acceptFile}
 					uploadButton={uploadButton}
 					localFileList={fileList}
 				/>

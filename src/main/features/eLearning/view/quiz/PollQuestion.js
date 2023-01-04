@@ -7,6 +7,8 @@ import {
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import { createGuid } from "../../../../../utils/base";
+import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
+import FileUploader from "../../../Messenger/view/MessengerBox/components/fileUploader";
 // import styles from "../EditForm/editForm.css";
 // import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 // import { elearningDictionaryList } from "../../localization/indexs";
@@ -26,6 +28,63 @@ const QuestionWithType = (props) => {
   //   polls,
   //   addQuestion,
   // } = eLearningDictionary;
+  // const [question, setQuestion] = useState(" ");
+  // const [fileList, setFileList] = useState([]);
+  // const [quesionImage, setQuestionImage] = useState();
+
+  // const handleImageChange = (info, index) => {
+  //   console.log("index", index);
+  //   console.log(info);
+  //   if (info.file?.status === "removed") {
+  //     console.log("removed console");
+  //     let fileLists = [...fileList];
+  //     console.log(fileLists);
+  //     fileLists.splice(index, 1);
+  //     console.log(fileLists);
+  //     setFileList(fileLists);
+  //     return;
+  //   }
+  //   if (!fileList[index]) {
+  //     console.log("add console");
+  //     setFileList([
+  //       ...fileList,
+  //       {
+  //         image: info.fileList[0],
+  //         index,
+  //       },
+  //     ]);
+  //   }
+  // };
+
+  // const handleQuestionImageChange = (info) => {
+  //   console.log("image", info);
+  //   setQuestionImage(info.fileList[0]);
+  // };
+
+  // const onFinish = (values) => {
+  // console.log("values", values);
+  // console.log("fileList onfinish", fileList);
+  // let data = {};
+  // if (values.answers) {
+  //   data = {
+  //     ...values,
+  //     fileList: fileList,
+  //     image: quesionImage && quesionImage,
+  //   };
+  // } else {
+  //   data = {
+  //     ...values,
+  //     fileList: fileList,
+  //     answers: [],
+  //     image: quesionImage && quesionImage,
+  //   };
+  // }
+  // console.log(data, "data here console");
+  // props.dataSend(data);
+  // form.resetFields();
+  // setQuestionImage(null);
+  // };
+
   const [form] = Form.useForm();
   const [options, setOptions] = useState([{ option: "", image: {} }]);
   const [question, setQuestion] = useState(" ");
@@ -33,6 +92,19 @@ const QuestionWithType = (props) => {
   const [fileList, setFileList] = useState([]);
   const [quesionImage, setQuestionImage] = useState();
   const [isTrue, setIsTrue] = useState({});
+
+  useEffect(() => {
+    console.log(fileList);
+  }, [fileList]);
+
+  const handleQuestionImageChange = (info) => {
+    console.log("image", info);
+    setQuestionImage(info.fileList[0]);
+  };
+
+  // const onQuestionTypeChange = (value) => {
+  //   setQuestionType(value);
+  // };
 
   const handleImageChange = (info, index) => {
     console.log("index", index);
@@ -57,19 +129,6 @@ const QuestionWithType = (props) => {
       ]);
     }
   };
-
-  useEffect(() => {
-    console.log(fileList);
-  }, [fileList]);
-
-  const handleQuestionImageChange = (info) => {
-    console.log("image", info);
-    setQuestionImage(info.fileList[0]);
-  };
-
-  // const onQuestionTypeChange = (value) => {
-  //   setQuestionType(value);
-  // };
 
   const onFinish = (values) => {
     console.log("values", values);
@@ -217,7 +276,6 @@ const QuestionWithType = (props) => {
               </>
             )}
           </Form.List>
-
           <Form.Item>
             <Button
               // type="primary"
@@ -232,5 +290,6 @@ const QuestionWithType = (props) => {
     </Form>
   );
 };
+
 
 export default QuestionWithType;

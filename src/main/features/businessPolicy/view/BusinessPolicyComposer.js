@@ -54,7 +54,7 @@ function BusinessPolicyComposer({ editData }) {
 
   const {createLoader} = useSelector((state) => state.businessPolicySlice);
   const onFinish = (values) => {
-    if (values.name.length > 20) {
+    if (values.name.length > 150) {
       message.error("Name characters limit exeeded");
     } else {
       if (editData) {

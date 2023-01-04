@@ -78,11 +78,11 @@ function CreateEbook() {
   };
 
   const handleImageUpload = (data) => {
-    setProfileImage(data);
+    setProfileImage(data[0]);
   };
 
   const handlePdfUpload = (data) => {
-    setPdf(data);
+    setPdf(data[0]);
   };
 
 
@@ -117,13 +117,15 @@ function CreateEbook() {
 
     let image = {
       id: STRINGS.DEFAULTS.guid,
-      file: profileImage && profileImage[0]?.originFileObj,
+      file: profileImage && profileImage,
     };
 
     let attachment = {
       id: STRINGS.DEFAULTS.guid,
-      file: pdf && pdf[0]?.originFileObj,
+      file: pdf && pdf,
     };
+
+    console.log(image, attachment, "FUCKING");
 
     let dataObject = {
       // categoryId: values.categoryId,
@@ -145,8 +147,7 @@ function CreateEbook() {
     } else {
       dispatch(addBook(dataObject))
     }
-    setProfileImage([])
-    setPdf([])
+    
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -156,15 +157,15 @@ function CreateEbook() {
   useEffect(() => {
     if (success) {
       form.resetFields();
+      setProfileImage([])
+      setPdf([])
     }
   }, [success]);
-
-  console.log(profileImage, "profileImage")
 
   return (
     <DashboardLayout>
       <MainContainer className="AddCourseMainContainer">
-        <Heading>Create E-Book</Heading>
+        <Heading>Create eBook</Heading>
         <Form
           form={form}
           name="addCourse"
@@ -222,7 +223,7 @@ function CreateEbook() {
               </div>
               <div className="innerColumn">
                 <Form.Item
-                  label={"Athor Name"}
+                  label={"Author Name"}
                   name="athorName"
                   labelPosition="top"
                   rules={[
@@ -240,7 +241,7 @@ function CreateEbook() {
               <div className="innerColumn">
                 <Form.Item
                   label={"Information"}
-                  name="informataion"
+                  name="information"
                   rules={[
                     {
                       required: true,
@@ -368,13 +369,17 @@ function CreateEbook() {
                   fileList={profileImage ? profileImage : []}
                   uploadButton={<button>Cover Photo</button>}
                   handleUpload={handleImageUpload} 
+                  isMultiple={false}
+                  acceptFile="image/*"
                   classes=""
                   />
                    <FileUploader
-                  fileList={pdf ? pdf : []}
-                  uploadButton={<button>Upload Book</button>}
-                  handleUpload={handlePdfUpload} 
-                  classes="" 
+                      fileList={pdf ? pdf : []}
+                      isMultiple={false}
+                      uploadButton={<button>Upload Book (PDF)</button>}
+                      handleUpload={handlePdfUpload} 
+                      classes="" 
+                      acceptFile=".PDF"
                   />
               </div>
             </div>

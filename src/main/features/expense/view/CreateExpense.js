@@ -307,6 +307,12 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           }}
           size="large"
           showSearch={true}
+          filterOption={(input, option) => {
+            return (
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            );
+          }}
+          optionFilterProp="children"
         >
           {allHeader.map((item) => (
             <Select.Option key={item.id} value={item.id}>

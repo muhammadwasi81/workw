@@ -18,6 +18,7 @@ const ComposerForm = ({
 	imageVideoRef,
 	pollRef,
 	docsRef,
+	isOpen
 }) => {
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const loading = useSelector(state => state.feedSlice.postCompose.loading);
@@ -34,7 +35,7 @@ const ComposerForm = ({
 
 	return (
 		<Form form={formRef}>
-			<PostTitleField />
+			<PostTitleField isOpen={isOpen}/>
 			<PostPollOptions />
 			<PostPreviewAttachments />
 			<PostTagField />

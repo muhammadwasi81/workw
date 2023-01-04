@@ -21,6 +21,9 @@ export default function EmailConfigurationTable({
   useEffect(() => {
     dispatch(getAllEmailConfigurations());
   }, []);
+
+  console.log(emailConfigurations, "EMAIL CONFIGURATION")
+  
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, emailConfiDictionary } = emailConfiDictionaryList[
     userLanguage

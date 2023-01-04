@@ -13,7 +13,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { dictionaryList } from "../../../../utils/localization/languages";
 import blackLogo from "../../../../content/blackLogo.svg";
 import { ContBody } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-
+import "./adminstartionCard.css";
 const BusinessLogo = ({ formData, setFormData }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, sharedLabels, Direction } = dictionaryList[
@@ -32,7 +32,10 @@ const BusinessLogo = ({ formData, setFormData }) => {
       </div>
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
-          <FormContainer className="adminstration-card">
+          <FormContainer
+            className="adminstration-card"
+            style={{ width: "500px", marginTop: "40px", height: "350px" }}
+          >
             <FormHeader>{sharedLabels.businessLogo}</FormHeader>
             <div className="flex justify-center">
               <Form.Item area="true">

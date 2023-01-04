@@ -7,31 +7,35 @@ import MainDashboard from "./view/Dashboard/MainDashboard";
 import CourseContent from "./view/Dashboard/Sections/Courses/CourseDetail/CourseContent";
 import CoursesDetail from "./view/Dashboard/Sections/Courses/CourseDetail/CoursesDetail";
 import EBookDetail from "./view/Dashboard/Sections/Ebooks/BookDetail/BookDetail";
+import TedTalkDetail from "./view/Dashboard/Sections/TedTalks/Detail";
 import Summary from "./view/Dashboard/Summary";
 import TeamDahsboard from "./view/Dashboard/TeamDahsboard";
 import CreateEbook from "./view/ebook/Creation";
 import CreateQuiz from "./view/quiz/Creation";
 import QuizDetail from "./view/quiz/QuizDetails";
+import CreateTedTalk from "./view/TedTalks/Creation";
 
 function ELearning() {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<MainDashboard />} />
-        <Route path="teamDashboard" element={<TeamDahsboard />} />
-        <Route path="summary" element={<Summary />} />
-        <Route path="courses/create" element={<CreateCourse />} />
-        <Route path="ebook/create" element={<CreateEbook />} />
-        <Route path="quiz/create" element={<CreateQuiz />} />
-        <Route path="courses/:id" element={<CoursesDetail />} />
-        <Route path="ebook/:id" element={<EBookDetail />} />
-        <Route path="quiz/:id" element={<QuizDetail />} />
-        <Route path="courses/learn/:id" element={<CourseContent />} />
-        <Route path="*" element={<div>No page exist</div>} />
-      </Routes>
-      <DocumentComposers />
-    </>
-  );
+	return (
+		<>
+			<Routes>
+				<Route path="/" element={<MainDashboard />} />
+				<Route path="teamDashboard" element={<TeamDahsboard />} />
+				<Route path="summary" element={<Summary />} />
+				<Route path="courses/create" element={<CreateCourse />} />
+				<Route path="ebook/create" element={<CreateEbook />} />
+				<Route path="tedtalk/create" element={<CreateTedTalk />} />
+				<Route path="quiz/create" element={<CreateQuiz />} />
+				<Route path="courses/:id" element={<CoursesDetail />} />
+				<Route path="ebook/:id" element={<EBookDetail />} />
+				<Route path="tedtalk/:id" element={<TedTalkDetail />} />
+				<Route path="quiz/:id" element={<QuizDetail />} />
+				<Route path="courses/learn/:id" element={<CourseContent />} />
+				<Route path="*" element={<div>No page exist</div>} />
+			</Routes>
+			<DocumentComposers /> 
+		</>
+	);
 }
 
 export default ELearning;

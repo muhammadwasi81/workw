@@ -1,26 +1,25 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { 
-    addBook,
-    addBookAssignMem,
-    addCourse,
-    addCourseAssignMem,
-    getAllBook, 
-    getAllBookAssignMem, 
-    getAllBookMember, 
-    getAllCourse, 
-    getAllCourseAssignMem, 
-    getAllCourseMember, 
-    GetBookById, 
-    GetCourseById,
-    addQuiz,
-    getAllQuiz,
-    CheckQuizAttempt,
-    getQuizById,
-    addQuizAnswerAttempt,
-    AddStartQuiz,
-    GetQuizResult, 
-  } 
-  from "./action";
+import {
+  addBook,
+  addBookAssignMem,
+  addCourse,
+  addCourseAssignMem,
+  getAllBook,
+  getAllBookAssignMem,
+  getAllBookMember,
+  getAllCourse,
+  getAllCourseAssignMem,
+  getAllCourseMember,
+  GetBookById,
+  GetCourseById,
+  addQuiz,
+  getAllQuiz,
+  CheckQuizAttempt,
+  getQuizById,
+  addQuizAnswerAttempt,
+  AddStartQuiz,
+  GetQuizResult,
+} from "./action";
 
 const initialState = {
   listLoading: false,
@@ -133,8 +132,8 @@ const eLearningSlice = createSlice({
         state.quizDetail = payload.data;
       })
       .addCase(GetQuizResult.fulfilled, (state, { payload }) => {
-        // state.quizResult = payload.data;
-        console.log(payload);
+        state.quizResult = payload.data;
+        state.loaders.getQuizResultLoader = false;
       })
       .addCase(AddStartQuiz.fulfilled, (state, { payload }) => {
         state.startQuiz = payload.data;
@@ -160,7 +159,7 @@ const eLearningSlice = createSlice({
         return state;
       })
       .addCase(addBookAssignMem.fulfilled, (state, { payload }) => {
-        state.bookAssignMembers = [...state.bookAssignMembers, payload]
+        state.bookAssignMembers = [...state.bookAssignMembers, payload];
         return state;
       })
       .addCase(getAllBook.fulfilled, (state, action) => {
@@ -182,11 +181,14 @@ const eLearningSlice = createSlice({
         state.bookAssignMembers = action.payload ? action.payload : [];
       })
       .addMatcher(isPending(...[getAllBook, getAllCourse]), (state) => {
-        state.loaders.courseLoading = true
-        state.loaders.bookLoading = true
+        state.loaders.courseLoading = true;
+        state.loaders.bookLoading = true;
       })
       .addMatcher(isPending(...[addCourse]), (state) => {
         state.loaders.addCourseLoading = true;
+      })
+      .addMatcher(isPending(...[GetQuizResult]), (state) => {
+        state.loaders.getQuizResultLoader = true;
       })
       .addMatcher(isPending(...[addBook]), (state) => {
         state.loaders.addBookLoading = true;
@@ -201,7 +203,7 @@ const eLearningSlice = createSlice({
           state.success = false;
         }
       )
-      
+
       .addMatcher(isRejected(...[addQuiz]), (state) => {
         state.loaders.addQuizLoading = false;
         state.success = false;

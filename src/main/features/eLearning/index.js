@@ -14,24 +14,24 @@ import CreateQuiz from "./view/quiz/Creation";
 import QuizDetail from "./view/quiz/QuizDetails";
 
 function ELearning() {
-	return (
-		<>
-			<Routes>
-				<Route path="/" element={<MainDashboard />} />
-				<Route path="teamDashboard" element={<TeamDahsboard />} />
-				<Route path="summary" element={<Summary />} />
-				<Route path="courses/create" element={<CreateCourse />} />
-				<Route path="ebook/create" element={<CreateEbook />} />
-				<Route path="quiz/create" element={<CreateQuiz />} />
-				<Route path="courses/:id" element={<CoursesDetail />} />
-				<Route path="ebook/:id" element={<EBookDetail />} />
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<MainDashboard />} />
+        <Route path="teamDashboard" element={<TeamDahsboard />} />
+        <Route path="summary" element={<Summary />} />
+        <Route path="courses/create" element={<CreateCourse />} />
+        <Route path="ebook/create" element={<CreateEbook />} />
+        <Route path="quiz/create" element={<CreateQuiz />} />
+        <Route path="courses/:id" element={<CoursesDetail />} />
+        <Route path="ebook/:id" element={<EBookDetail />} />
         <Route path="quiz/:id" element={<QuizDetail />} />
-				<Route path="courses/learn/:id" element={<CourseContent />} />
-				<Route path="*" element={<div>No page exist</div>} />
-			</Routes>
-			<DocumentComposers /> 
-		</>
-	);
+        <Route path="courses/learn/:id" element={<CourseContent />} />
+        <Route path="*" element={<div>No page exist</div>} />
+      </Routes>
+      <DocumentComposers />
+    </>
+  );
 }
 
 export default ELearning;

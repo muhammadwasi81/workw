@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addQuizAnswerAttempt } from "../../../store/action";
+import blackLogo from "../../../../../../content/blackLogo.svg";
 import "./style.css";
 
 const QuestionWithoutImage = ({ questions }) => {
@@ -15,22 +16,11 @@ const QuestionWithoutImage = ({ questions }) => {
 
   const { startQuiz } = useSelector((state) => state.eLearningSlice);
 
-  //   useEffect(() => {
-  //     if (questions.length) {
-  //       setQuestion(questions[0]);
-  //     }
-  //   }, [questions]);
-  //   console.log(question);
-  console.log(questions);
-
   const onchangeRadio = (e) => {
     setRadioAnswer(e.target.value);
-    console.log(e.target.value);
   };
 
   const onSubmit = () => {
-    console.log("on submit console");
-    //TODO: dispatch action for respsonse quiz question here
     let payload = {
       questionId: questions.questions[questionIndex].id,
       answerId: radioAnswer,
@@ -38,18 +28,26 @@ const QuestionWithoutImage = ({ questions }) => {
     };
     dispatch(addQuizAnswerAttempt(payload));
     if (questions.questions.length === questionIndex + 1) {
-      console.log("ssss");
       setIsLastQuestion(true);
     } else {
       setQuestionIndex(questionIndex + 1);
     }
-    // setQuestion(questions[1]);
   };
-
   if (isLastQuestion) {
-    return <div>Last question thank you</div>;
+    return (
+      <div className="h-[50%] w-[50%] border-[#195669] border-[30px]">
+        <div className="flex flex-col justify-center items-center">
+          <img
+            src={blackLogo}
+            alt=""
+            className="w-[8rem] h-[8rem] lg:w-[10rem]  lg:w-[10rem]"
+          />
+          <span className="text-2xl font-black">Successfully Attempted</span>
+          <span className="text-4xl font-black mt-4">Thankyou</span>
+        </div>
+      </div>
+    );
   }
-
   return (
     <div className="question-box flex flex-col">
       <span className="text-xl">{`Question ${questionIndex + 1}/${

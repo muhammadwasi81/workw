@@ -15,13 +15,13 @@ import CustomSelect from "../../../../sharedComponents/Select/Select";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
-import { addTedTalk } from "../../store/action";
+import { addArticle } from "../../store/action";
 import FileUploader from "../../../Messenger/view/MessengerBox/components/fileUploader";
 import { getELearningCategory } from "../../../eLearningCategory/store/action";
 
 const { Option } = Select;
 
-function CreateTedTalk() {
+function CreateArticle() {
   const dispatch = useDispatch()
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, elearningDictionary } = elearningDictionaryList[userLanguage];
@@ -37,7 +37,7 @@ function CreateTedTalk() {
   const [videoType, setVideoType] = useState(1);
 
   const {ELearningCategory } = useSelector((state) => state.eLearningCategorySlice);
-  const { loaders, addTedTalksuccess } = useSelector((state) => state.eLearningSlice);
+  const { loaders, success } = useSelector((state) => state.eLearningSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
 
 
@@ -47,7 +47,7 @@ function CreateTedTalk() {
   };
 
 
-  let loader = loaders.addTedTalkLoading
+  let loader = loaders.addArticleLoading
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -96,32 +96,6 @@ function CreateTedTalk() {
   };
 
   const onFinish = (values) => {
-    // let members = [];
-    // let assignMembers = [];
-    // if (typeof values.members === "string") {
-    //   members.push({
-    //     memberId: values.members,
-    //   });
-    // } else {
-    //   members = values.members.map((member) => {
-    //     return {
-    //       memberId: member,
-    //     };
-    //   });
-    // }
-
-    // if (typeof values.assignMembers === "string") {
-    //   assignMembers.push({
-    //     memberId: values.assignMembers,
-    //   });
-    // } else {
-    //   assignMembers = values.assignMembers.map((member) => {
-    //     return {
-    //       memberId: member,
-    //     };
-    //   });
-    // }
-
 
     let image = {
       id: STRINGS.DEFAULTS.guid,
@@ -139,17 +113,16 @@ function CreateTedTalk() {
       privacyId: privacyId,
       name: values.name,
       links: values.links,
-      // authorName: values.athorName,
-      // members: members,
-      // assignMembers: assignMembers,
       image: image,
       attachment: attachment,
     }
 
+    console.log(dataObject, "DATA OBJECT")
+
     if (Object.keys(image).length > 0) {
-      dispatch(addTedTalk(dataObject))
+      dispatch(addArticle(dataObject))
     } else {
-      dispatch(addTedTalk(dataObject))
+      dispatch(addArticle(dataObject))
     }
     
   };
@@ -159,20 +132,20 @@ function CreateTedTalk() {
   };
 
   useEffect(() => {
-    if (addTedTalksuccess) {
+    if (success) {
       form.resetFields();
       setProfileImage([])
       setVideo([])
     }
-  }, [addTedTalksuccess]);
+  }, [success]);
 
   return (
     <DashboardLayout>
       <MainContainer className="AddCourseMainContainer">
-        <Heading>Create TedTalk</Heading>
+        <Heading>Create Article</Heading>
         <Form
           form={form}
-          name="addTedTalk"
+          name="addArticle"
           labelCol={{
             span: 24,
           }}
@@ -209,104 +182,6 @@ function CreateTedTalk() {
                 </Form.Item>
               </div>
             </div>
-            {/* <div className="flex" style={{ marginTop: "15px" }}>
-              <div className="innerColumn">
-                <Form.Item
-                  name="members"
-                  label={"Members"}
-                  showSearch={true}
-                  direction={Direction}
-                  style={{ marginBottom: "0px" }}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please Select Member",
-                    },
-                  ]}
-                >
-                  <CustomSelect
-                    style={{ marginBottom: "0px" }}
-                    data={firstTimeEmpData}
-                    selectedData={selectedData}
-                    canFetchNow={isFirstTimeDataLoaded}
-                    fetchData={fetchEmployees}
-                    placeholder={"Select Member"}
-                    size="large"
-                    mode={"multiple"}
-                    isObject={true}
-                    loadDefaultData={false}
-                    optionComponent={(opt) => {
-                      return (
-                        <>
-                          <Avatar name={opt.name} src={opt.image} className="!bg-black">
-                            {getNameForImage(opt.name)}
-                          </Avatar>
-                          {opt.name}
-                        </>
-                      );
-                    }}
-                    dataVal={value}
-                    name="members"
-                    showSearch={true}
-                    direction={Direction}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please Select Member",
-                      },
-                    ]}
-                  />
-                </Form.Item>
-              </div>
-              <div className="innerColumn">
-                <Form.Item
-                  name="assignMembers"
-                  label={"Assign Members"}
-                  showSearch={true}
-                  direction={Direction}
-                  style={{ marginBottom: "0px" }}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please Select Assign Member",
-                    },
-                  ]}
-                >
-                  <CustomSelect
-                    style={{ marginBottom: "0px" }}
-                    data={firstTimeEmpData}
-                    selectedData={selectedData}
-                    canFetchNow={isFirstTimeDataLoaded}
-                    fetchData={fetchEmployees}
-                    placeholder={"Select Assign Member"}
-                    size="large"
-                    mode={"multiple"}
-                    isObject={true}
-                    loadDefaultData={false}
-                    optionComponent={(opt) => {
-                      return (
-                        <>
-                          <Avatar name={opt.name} src={opt.image} className="!bg-black">
-                            {getNameForImage(opt.name)}
-                          </Avatar>
-                          {opt.name}
-                        </>
-                      );
-                    }}
-                    dataVal={value}
-                    name="assignMembers"
-                    showSearch={true}
-                    direction={Direction}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please Select Assign Member",
-                      },
-                    ]}
-                  />
-                </Form.Item>
-              </div>
-            </div> */}
             <div className="flex">
             <div className="innerColumn">
                 <Form.Item
@@ -411,4 +286,4 @@ function CreateTedTalk() {
   );
 }
 
-export default CreateTedTalk
+export default CreateArticle

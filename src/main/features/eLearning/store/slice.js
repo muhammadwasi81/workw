@@ -21,7 +21,10 @@ import {
     GetQuizResult,
     addTedTalk,
     getAllTedTalk,
-    GetTedTalkById, 
+    GetTedTalkById,
+    addArticle,
+    getAllArticle,
+    GetArticleById, 
   } 
   from "./action";
 
@@ -58,20 +61,29 @@ const initialState = {
   books: [],
   tedTalks: [],
   tedTalkDetail: {},
+  articles: [],
+  articleDetail: {},
   success: false,
+  addTedTalksuccess: false,
   loader: false,
   loaders: {
     courseLoading: false,
     addCourseLoading: false,
+    courseDetailLoading: false,
     bookLoading: false,
     addBookLoading: false,
+    bookDetailLoading: false,
     addQuizLoading: false,
     quizLoading: false,
     checkQuizAttemptLoading: false,
     addquizAttemptLoader: false,
     getQuizResultLoader: false,
     addTedTalkLoading: false,
-    TedTalkLoading: false,
+    tedTalkLoading: false,
+    TedTalkDetailLoading: false,
+    articlesLoading: false,
+    addArticleLoading: false,
+    articleDetailLoading: false,
   },
   courseMembers: [],
   bookMembers: [],
@@ -118,6 +130,11 @@ const eLearningSlice = createSlice({
         state.success = true;
         return state;
       })
+      .addCase(addArticle.fulfilled, (state) => {
+        state.loaders.addArticleLoading = false;
+        state.success = true;
+        return state;
+      })
       .addCase(addQuiz.fulfilled, (state) => {
         state.loaders.addQuizLoading = false;
         state.success = true;
@@ -147,17 +164,23 @@ const eLearningSlice = createSlice({
         state.startQuiz = payload.data;
       })
       .addCase(addQuizAnswerAttempt.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.loaders.addquizAttemptLoader = false;
       })
       .addCase(GetCourseById.fulfilled, (state, action) => {
         state.courseDetail = action.payload.data;
+        state.loaders.courseDetailLoading = false;
       })
       .addCase(GetBookById.fulfilled, (state, action) => {
+        state.loaders.bookDetailLoading = false
         state.bookDetail = action.payload.data;
+      })
+      .addCase(GetArticleById.fulfilled, (state, action) => {
+        state.loaders.articleDetailLoading = false
+        state.articleDetail = action.payload.data;
       })
       .addCase(GetTedTalkById.fulfilled, (state, action) => {
         state.tedTalkDetail = action.payload.data;
+        state.loaders.TedTalkDetailLoading = false;
       })
       .addCase(CheckQuizAttempt.fulfilled, (state, { payload }) => {
         console.log(payload.data);
@@ -174,20 +197,24 @@ const eLearningSlice = createSlice({
         return state;
       })
       .addCase(getAllBook.fulfilled, (state, action) => {
-        console.log(action, "FROM SLICE IS COMING");
         state.books = action.payload ? action.payload : [];
         state.loaders.bookLoading = false;
         state.loaders.courseLoading = false;
       })
       .addCase(getAllTedTalk.fulfilled, (state, action) => {
         state.tedTalks = action.payload ? action.payload : [];
-        state.loaders.TedTalkLoading = false;
+        state.loaders.tedTalkLoading = false;
         state.loaders.courseLoading = false;
         state.loaders.bookLoading = false;
       })
+      .addCase(getAllArticle.fulfilled, (state, action) => {
+        state.articles = action.payload ? action.payload : [];
+        state.loaders.articlesLoading = false;
+        state.loaders.courseLoading = false;
+      })
       .addCase(addTedTalk.fulfilled, (state) => {
         state.loaders.addTedTalkLoading = false;
-        state.success = true;
+        state.addTedTalksuccess = true;
         return state;
       })
       .addCase(getAllCourseMember.fulfilled, (state, action) => {
@@ -206,17 +233,38 @@ const eLearningSlice = createSlice({
         state.loaders.courseLoading = true;
         state.loaders.bookLoading = true;
       })
+      .addMatcher(isPending(...[getAllArticle]), (state) => {
+        state.loaders.articlesLoading = true;
+      })
+      .addMatcher(isPending(...[getAllTedTalk]), (state) => {
+        state.loaders.tedTalkLoading = true;
+      })
       .addMatcher(isPending(...[addCourse]), (state) => {
         state.loaders.addCourseLoading = true;
       })
+      .addMatcher(isPending(...[addArticle]), (state) => {
+        state.loaders.addArticleLoading = true;
+      })
       .addMatcher(isPending(...[GetQuizResult]), (state) => {
         state.loaders.getQuizResultLoader = true;
+      })
+      .addMatcher(isPending(...[GetCourseById]), (state) => {
+        state.loaders.courseDetailLoading = true;
+      })
+      .addMatcher(isPending(...[GetArticleById]), (state) => {
+        state.loaders.articleDetailLoading = true;
+      })
+      .addMatcher(isPending(...[GetBookById]), (state) => {
+        state.loaders.bookDetailLoading = true
       })
       .addMatcher(isPending(...[addBook]), (state) => {
         state.loaders.addBookLoading = true;
       })
       .addMatcher(isPending(...[addTedTalk]), (state) => {
         state.loaders.addTedTalkLoading = true;
+      })
+      .addMatcher(isPending(...[GetTedTalkById]), (state) => {
+        state.loaders.TedTalkDetailLoading = true;
       })
       .addMatcher(
         isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
@@ -233,9 +281,33 @@ const eLearningSlice = createSlice({
         state.loaders.addQuizLoading = false;
         state.success = false;
       })
+      .addMatcher(isRejected(...[getAllArticle]), (state) => {
+        state.loaders.articlesLoading = false;
+        state.success = false;
+      })
+      .addMatcher(isRejected(...[getAllTedTalk]), (state) => {
+        state.loaders.tedTalkLoading = false;
+        state.success = false;
+      })
+      .addMatcher(isRejected(...[addArticle]), (state) => {
+        state.loaders.addArticleLoading = false;
+        state.success = false;
+      })
+      .addMatcher(isRejected(...[GetCourseById]), (state) => {
+        state.loaders.courseDetailLoading = false;
+      })
+      .addMatcher(isRejected(...[GetArticleById]), (state) => {
+        state.loaders.articleDetailLoading = false;
+      })
+      .addMatcher(isRejected(...[GetBookById]), (state) => {
+        state.loaders.bookDetailLoading = false
+      })
       .addMatcher(isRejected(...[addTedTalk]), (state) => {
         state.loaders.addTedTalkLoading = false;
-        state.success = false;
+        state.addTedTalksuccess = false;
+      })
+      .addMatcher(isRejected(...[GetTedTalkById]), (state) => {
+        state.loaders.TedTalkDetailLoading = false;
       })
       .addMatcher(isRejected(...[CheckQuizAttempt]), (state) => {
         console.log("rejected");

@@ -270,3 +270,36 @@ export const GetTedTalkByIdService = (id) => {
       return res;
     });
 };
+
+// ARTICLE SERVICES
+
+export const addArticleService = async (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.post(`api/ELearning/AddArticles`, formData)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const getAllArticleService = (data) => {
+  return MasterConfig.post(`api/ELearning/GetAllArticles`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const GetArticleByIdService = (id) => {
+  return MasterConfig.get(`api/ELearning/GetArticlesById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};

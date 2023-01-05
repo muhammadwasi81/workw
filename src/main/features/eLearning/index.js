@@ -1,9 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import DocumentComposers from "./composer";
+import CreateArticle from "./view/Articles/Creation";
 import CreateCourse from "./view/courses/Creation";
 // import CreateCourse from "./view/courses/Creation";
 import MainDashboard from "./view/Dashboard/MainDashboard";
+import ArticleDetail from "./view/Dashboard/Sections/Articles/Detail";
 import CourseContent from "./view/Dashboard/Sections/Courses/CourseDetail/CourseContent";
 import CoursesDetail from "./view/Dashboard/Sections/Courses/CourseDetail/CoursesDetail";
 import EBookDetail from "./view/Dashboard/Sections/Ebooks/BookDetail/BookDetail";
@@ -26,9 +28,11 @@ function ELearning() {
 				<Route path="ebook/create" element={<CreateEbook />} />
 				<Route path="tedtalk/create" element={<CreateTedTalk />} />
 				<Route path="quiz/create" element={<CreateQuiz />} />
+				<Route path="article/create" element={<CreateArticle />} />
 				<Route path="courses/:id" element={<CoursesDetail />} />
 				<Route path="ebook/:id" element={<EBookDetail />} />
 				<Route path="tedtalk/:id" element={<TedTalkDetail />} />
+				<Route path="article/:id" element={<ArticleDetail />} />
 				<Route path="quiz/:id" element={<QuizDetail />} />
 				<Route path="courses/learn/:id" element={<CourseContent />} />
 				<Route path="*" element={<div>No page exist</div>} />

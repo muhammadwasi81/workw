@@ -12,7 +12,7 @@ function TedTalk() {
 	const [filter, setFilter] = useState({ pageNo: 1, pageSize: 20, search: "", sortBy: 1, filterType: 1 })
 
 	const { tedTalks, loaders } = useSelector((state) => state.eLearningSlice);
-	let loading = loaders.TedTalkLoading;
+	let loading = loaders.tedTalkLoading;
 
 	useEffect(() => {
 		dispatch(getAllTedTalk(filter))

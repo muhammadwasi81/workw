@@ -11,26 +11,26 @@ function EmployeeCard({ employees: { image, name, email, designation, id } }) {
   const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
+  
 
   console.log("imageimage",image);
   return (
     <Parent>
-    <ImageBox 
-   // BackgroundImage="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" 
-            src={image ? image : ''}
-   // getNameForImage={name ? name : 'Unknown User'}
-   
-    />
-    <ContentBox>
-         {/* <Avatar className="" src={image ? image : ''}>
+       {/* <ImageBox BackgroundImage ={image ? image :'https://58.65.211.234:4436/Resources\\0ab5f9c0-f948-4c40-8dad-c58ba99fb765\\Images\\68fb6063-7b34-440e-b31b-738e931c32e7.jpg'}
+           src={image ? image : ''}
+            getNameForImage={name ? name : 'Unknown User'}
+        /> */}
+        <ImageBox className="" src={image ? image : ''}>
             {getNameForImage(name ? name : 'Unknown User')}
-         </Avatar> */}
+        </ImageBox>
+    <ContentBox>
+       
 
         <Heading>{name}</Heading>
         <Text>{email}</Text>
         <Text><b> {designation || 'No Designation'}</b></Text>
         <ButtonsBox>
-            <ActionButton BackgroundColor="#db5252" >
+            <ActionButton BackgroundColor="#db5252">
                 {sharedLabels.Disable}
             </ActionButton>
             <ActionButton

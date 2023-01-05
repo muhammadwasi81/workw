@@ -183,7 +183,7 @@ export default function Form({
                 onSubmit(form);
                 setClearButton(false);
               }}
-              loading={loader}
+              loading={loading}
             >
               {administration.subsidiaryOffice.save}
             </FormButton>
@@ -198,7 +198,7 @@ export default function Form({
               onSubmit(form);
               setClearButton(false);
             }}
-            loading={loader}
+            loading={loading}
           >
             {administration.subsidiaryOffice.Add}
           </FormButton>

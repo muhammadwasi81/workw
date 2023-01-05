@@ -29,9 +29,13 @@ import payRollIcon from '../../../content/svg/menu/newNavBarIcon/Payroll.svg';
 import promotionIcon from '../../../content/svg/menu/newNavBarIcon/promotionIcon.svg';
 import bonusIcon from "../../../content/NewContent/bonus/bonus.svg";
 import milepadIcon from "../../../content/NewContent/Documents/file/milepad.svg";
+import milegrid from "../../../content/NewContent/Documents/file/milegrid.svg";
+import mileboard from "../../../content/NewContent/Documents/file/mileboard.svg";
 import orgChartIcon from "../../../content/svg/menu/newNavBarIcon/Org Chart.svg";
-import defaultImage from "../../../content/business_default.png"
-import { GiArmorDowngrade } from 'react-icons/gi';
+import defaultImage from "../../../content/business_default.png" ;
+
+import videoIcon from "../../../content/NewContent/Messenger/videoIcon.svg";
+import audio from "../../../content/audio.svg";
 
 import { FeaturesEnum } from '../enums/enums';
 
@@ -88,20 +92,20 @@ export const getIconByFeaturesType = (FEATURES_TYPE) => {
             return holiday_event
         case FeaturesEnum.FEATURES_TYPE.Career:
             return career
-        // case FeaturesEnum.FEATURES_TYPE.AudioCalling:
-        //     return FeedIcon
-        // case FeaturesEnum.FEATURES_TYPE.VideoCalling:
-        //     return FeedIcon
-        // case FeaturesEnum.FEATURES_TYPE.Attendance:
-        //     return FeedIcon
+        case FeaturesEnum.FEATURES_TYPE.AudioCalling:
+            return audio
+        case FeaturesEnum.FEATURES_TYPE.VideoCalling:
+            return videoIcon
+        case FeaturesEnum.FEATURES_TYPE.Attendance:
+            return null
         case FeaturesEnum.FEATURES_TYPE.Grade:
-            return <GiArmorDowngrade />
+            return null
         case FeaturesEnum.FEATURES_TYPE.Requisition:
             return resignation
         case FeaturesEnum.FEATURES_TYPE.MileBoard:
-            return milepadIcon
+            return mileboard
         case FeaturesEnum.FEATURES_TYPE.MileGrid:
-            return milepadIcon
+            return milegrid
         case FeaturesEnum.FEATURES_TYPE.MilePad:
             return milepadIcon
         case FeaturesEnum.FEATURES_TYPE.Payroll:

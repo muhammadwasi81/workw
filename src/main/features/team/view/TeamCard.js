@@ -19,9 +19,12 @@ const TeamCard = ({ teams: { image, name, designation, email, id } }) => {
             {getNameForImage(name ? name : 'Unknown User')}
         </Avatar> */}
         
-        <ImageBox
+        {/* <ImageBox
          BackgroundImage="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-          />
+          /> */}
+            <ImageBox className="" BackgroundImage={image ? image : ''}>
+            {getNameForImage(name ? name : 'Unknown User')}
+        </ImageBox>
     <ContentBox>
        
         <Heading>{name}</Heading>

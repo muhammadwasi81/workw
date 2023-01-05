@@ -86,6 +86,9 @@ function ListItem({ item, onClick, onClickMyCareer }) {
               : null}
           </div>
         </div>
+
+
+        
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.salaryRange}</div>

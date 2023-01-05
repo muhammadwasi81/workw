@@ -8,6 +8,10 @@ function QuizCard({ item }) {
   console.log(item);
   const { name, description, questions, validTill, id } = item;
   const navigate = useNavigate();
+  console.log(moment().isSameOrBefore(validTill));
+  console.log(moment().format("YYYY-MM-DD HH:mm:ss"));
+  let dateNow = moment().format("YYYY-MM-DD");
+  let newValidDate = moment(validTill).format("YYYY-MM-DD ");
   return (
     <WhiteCard
       onClick={() => {
@@ -15,9 +19,17 @@ function QuizCard({ item }) {
       }}
       className="cursor-pointer hover:shadow-lg transition-all relative overflow-hidden"
     >
-      <div className="absolute top-0 right-0 bg-[#D40413] text-white font-semibold rounded-bl-lg p-2 z-50">
-        {moment(validTill).format("DD/MM/YYYY")}
-      </div>
+      {/** validity render */}
+      {moment(dateNow).isSameOrBefore(newValidDate) === true ? (
+        <div className="absolute top-0 right-0 bg-[#008844] text-white font-semibold rounded-bl-lg p-2 z-50">
+          Valid
+        </div>
+      ) : (
+        <div className="absolute top-0 right-0  bg-[#D40413] text-white font-semibold rounded-bl-lg p-2 z-50">
+          Expired
+        </div>
+      )}
+
       <div className="flex flex-col gap-1">
         <BoxThumnail
           image={

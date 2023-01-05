@@ -29,6 +29,28 @@ const ResultPage = ({ id }) => {
       />
     );
   }
+
+  const getQuestionResultFunction = (options, yourAnswer) => {
+    console.log(options, yourAnswer);
+    // const result = options.find((el)=>console.log(el))
+    let output = (
+      <>
+        <AiFillCloseCircle color="#DF0000" /> Wrong
+      </>
+    );
+    options.forEach((el) => {
+      if (el.id === yourAnswer) {
+        if (el.isTrue === true) {
+          output = (
+            <>
+              <AiFillCheckCircle color="#008844" /> Correct
+            </>
+          );
+        }
+      }
+    });
+    return output;
+  };
   //TODO: use selector loader and dispatch action on mount
   return (
     <div className="bg-white rounded-lg shadow-md min-h-screen h-fit">
@@ -56,7 +78,10 @@ const ResultPage = ({ id }) => {
               </Radio.Group>
               <div className="h-[4rem] bg-[#EDEFF0] w-[70%] mt-[1rem] flex flex-col justify-center pl-[1rem]">
                 <span className="text-sm flex items-center gap-x-[0.3rem] text-[#008844]">
-                  <AiFillCheckCircle color="#008844" /> Correct{" "}
+                  {getQuestionResultFunction(
+                    item.resultQuestionAnswers,
+                    item.yourAnswered
+                  )}
                 </span>
                 {/**show correct answer here */}
                 <span className="text-sm">

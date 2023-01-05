@@ -5,39 +5,49 @@ import { elearningDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { FormContainer, Heading, MainContainer } from "./styleObjects";
 import "./style.css"
-import { Avatar, Button, Form, Input, Select } from "antd";
+import { Avatar, Button, Form, Input, Select, Radio } from "antd";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { useState } from "react";
 import { STRINGS, getNameForImage } from "../../../../../utils/base";
 import { useSelector } from "react-redux";
 import CustomSelect from "../../../../sharedComponents/Select/Select";
-import { getAllEmployees, getRewardCategory } from "../../../../../utils/Shared/store/actions";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
-import { addBook } from "../../store/action";
+import { addTedTalk } from "../../store/action";
 import FileUploader from "../../../Messenger/view/MessengerBox/components/fileUploader";
+import { getELearningCategory } from "../../../eLearningCategory/store/action";
 
 const { Option } = Select;
 
-function CreateEbook() {
+function CreateTedTalk() {
   const dispatch = useDispatch()
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, elearningDictionary } = elearningDictionaryList[userLanguage];
 
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
-  const [pdf, setPdf] = useState(null)
+  const [video, setVideo] = useState(null)
   const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
   const [fileType, setFileType] = useState(1)
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
+  const [videoType, setVideoType] = useState(1);
 
-  const { rewardCategories } = useSelector((state) => state.sharedSlice);
-  const { loaders, success } = useSelector((state) => state.eLearningSlice);
+  const {ELearningCategory } = useSelector((state) => state.eLearningCategorySlice);
+  const { loaders, addTedTalksuccess } = useSelector((state) => state.eLearningSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
-  let loader = loaders.addBookLoading
+
+
+  const onChangeRadio = (e) => {
+    let value = e.target.value 
+    setVideoType(value);
+  };
+
+
+  let loader = loaders.addTedTalkLoading
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -70,7 +80,7 @@ function CreateEbook() {
   }, [employees]);
 
   useEffect(() => {
-    dispatch(getRewardCategory());
+    dispatch(getELearningCategory());
   }, []);
 
   const onPrivacyChange = value => {
@@ -81,38 +91,36 @@ function CreateEbook() {
     setProfileImage(data[0]);
   };
 
-  const handlePdfUpload = (data) => {
-    setPdf(data[0]);
+  const handleVideoUpload = (data) => {
+    setVideo(data[0]);
   };
 
-
   const onFinish = (values) => {
-    console.log(values, "VALUES !!!!");
-    let members = [];
-    let assignMembers = [];
-    if (typeof values.members === "string") {
-      members.push({
-        memberId: values.members,
-      });
-    } else {
-      members = values.members.map((member) => {
-        return {
-          memberId: member,
-        };
-      });
-    }
+    // let members = [];
+    // let assignMembers = [];
+    // if (typeof values.members === "string") {
+    //   members.push({
+    //     memberId: values.members,
+    //   });
+    // } else {
+    //   members = values.members.map((member) => {
+    //     return {
+    //       memberId: member,
+    //     };
+    //   });
+    // }
 
-    if (typeof values.assignMembers === "string") {
-      assignMembers.push({
-        memberId: values.assignMembers,
-      });
-    } else {
-      assignMembers = values.assignMembers.map((member) => {
-        return {
-          memberId: member,
-        };
-      });
-    }
+    // if (typeof values.assignMembers === "string") {
+    //   assignMembers.push({
+    //     memberId: values.assignMembers,
+    //   });
+    // } else {
+    //   assignMembers = values.assignMembers.map((member) => {
+    //     return {
+    //       memberId: member,
+    //     };
+    //   });
+    // }
 
 
     let image = {
@@ -122,28 +130,26 @@ function CreateEbook() {
 
     let attachment = {
       id: STRINGS.DEFAULTS.guid,
-      file: pdf && pdf,
+      file: video && video,
     };
 
-    console.log(image, attachment, "FUCKING");
-
     let dataObject = {
-      // categoryId: values.categoryId,
+      categoryId: values.categoryId,
       description: values.description,
       privacyId: privacyId,
       name: values.name,
-      authorName: values.athorName,
-      information: values.information,
-      members: members,
-      assignMembers: assignMembers,
+      links: values.links,
+      // authorName: values.athorName,
+      // members: members,
+      // assignMembers: assignMembers,
       image: image,
       attachment: attachment,
     }
 
     if (Object.keys(image).length > 0) {
-      dispatch(addBook(dataObject))
+      dispatch(addTedTalk(dataObject))
     } else {
-      dispatch(addBook(dataObject))
+      dispatch(addTedTalk(dataObject))
     }
     
   };
@@ -153,20 +159,20 @@ function CreateEbook() {
   };
 
   useEffect(() => {
-    if (success) {
+    if (addTedTalksuccess) {
       form.resetFields();
       setProfileImage([])
-      setPdf([])
+      setVideo([])
     }
-  }, [success]);
+  }, [addTedTalksuccess]);
 
   return (
     <DashboardLayout>
       <MainContainer className="AddCourseMainContainer">
-        <Heading>Create eBook</Heading>
+        <Heading>Create TedTalk</Heading>
         <Form
           form={form}
-          name="addCourse"
+          name="addTedTalk"
           labelCol={{
             span: 24,
           }}
@@ -192,7 +198,7 @@ function CreateEbook() {
                   ]}
                 >
                   <CustomSelect
-                    data={rewardCategories}
+                    data={ELearningCategory}
                     placeholder={"Select Categoy"}
                     style={{
                       width: "100%",
@@ -203,55 +209,7 @@ function CreateEbook() {
                 </Form.Item>
               </div>
             </div>
-            <div className="flex">
-              <div className="innerColumn">
-                <Form.Item
-                  label={"Name"}
-                  name="name"
-                  labelPosition="top"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please Enter Name",
-                    },
-                  ]}
-                >
-                  <TextInput placeholder={"Enter Name"} />
-                </Form.Item>
-              </div>
-              <div className="innerColumn">
-                <Form.Item
-                  label={"Author Name"}
-                  name="athorName"
-                  labelPosition="top"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please Enter Name",
-                    },
-                  ]}
-                >
-                  <TextInput placeholder={"Enter Name"} />
-                </Form.Item>
-              </div>
-            </div>
-            <div className="flex">
-              <div className="innerColumn">
-                <Form.Item
-                  label={"Information"}
-                  name="information"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Enter Information",
-                    },
-                  ]}
-                >
-                  <Input.TextArea placeholder={"Enter Information"} />
-                </Form.Item>
-              </div>
-            </div>
-            <div className="flex" style={{ marginTop: "15px" }}>
+            {/* <div className="flex" style={{ marginTop: "15px" }}>
               <div className="innerColumn">
                 <Form.Item
                   name="members"
@@ -348,6 +306,59 @@ function CreateEbook() {
                   />
                 </Form.Item>
               </div>
+            </div> */}
+            <div className="flex">
+            <div className="innerColumn">
+                <Form.Item
+                  label={"Name"}
+                  name="name"
+                  labelPosition="top"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please Enter Name",
+                    },
+                  ]}
+                >
+                  <TextInput placeholder={"Enter Name"} />
+                </Form.Item>
+              </div>
+              <div className="innerColumn" style={{paddingTop: "33px"}}>
+                <Form.Item>
+                  <Radio.Group onChange={onChangeRadio} value={videoType}>
+                    <Radio value={1}>Via Link</Radio>
+                    <Radio value={2}>Via Video Upload</Radio>
+                  </Radio.Group>
+                </Form.Item>
+              </div>
+            </div>
+            <div className="flex">
+              <div className="innerColumn">
+                {
+                  videoType === 1 ? 
+                    <Form.Item
+                      label={"Link"}
+                      name="links"
+                      labelPosition="top"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please Insert Link",
+                        },
+                      ]}
+                    >
+                      <TextInput placeholder={"Insert Link"} />
+                    </Form.Item> :
+                    <FileUploader
+                    fileList={video ? video : []}
+                    isMultiple={false}
+                    uploadButton={<div>Upload Video</div>}
+                    handleUpload={handleVideoUpload} 
+                    classes="" 
+                    // acceptFile=".PDF"
+                />
+                }
+              </div>
             </div>
             <div className="innerColumn">
               <Form.Item
@@ -365,19 +376,11 @@ function CreateEbook() {
               <div className="flex">
                 <FileUploader
                   fileList={profileImage ? profileImage : []}
-                  uploadButton={<div>Cover Photo</div>}
+                  uploadButton={<div>Upload Image</div>}
                   handleUpload={handleImageUpload} 
                   isMultiple={false}
                   acceptFile="image/*"
                   classes=""
-                  />
-                   <FileUploader
-                      fileList={pdf ? pdf : []}
-                      isMultiple={false}
-                      uploadButton={<div>Upload Book (PDF)</div>}
-                      handleUpload={handlePdfUpload} 
-                      classes="" 
-                      acceptFile=".PDF"
                   />
               </div>
             </div>
@@ -408,4 +411,4 @@ function CreateEbook() {
   );
 }
 
-export default CreateEbook
+export default CreateTedTalk

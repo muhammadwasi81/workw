@@ -5,7 +5,7 @@ function BoxThumnail({ image, tag, title, description, level }) {
     <>
       <div className="relative ">
         <div className="overflow-hidden h-[200px] rounded-xl">
-          <img src={image} alt={title} className=" object-cover" />
+          <img width={"100%"} src={image} alt={title} className=" object-cover" />
         </div>
         {tag && (
           <div className="bg-white rounded-lg absolute bottom-4 left-2 p-1 px-2 font-semibold flex items-center gap-1">

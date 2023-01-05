@@ -140,8 +140,6 @@ function CreateEbook() {
       attachment: attachment,
     }
 
-    console.log(dataObject, "PAYLOAD ONE");
-
     if (Object.keys(image).length > 0) {
       dispatch(addBook(dataObject))
     } else {
@@ -367,7 +365,7 @@ function CreateEbook() {
               <div className="flex">
                 <FileUploader
                   fileList={profileImage ? profileImage : []}
-                  uploadButton={<button>Cover Photo</button>}
+                  uploadButton={<div>Cover Photo</div>}
                   handleUpload={handleImageUpload} 
                   isMultiple={false}
                   acceptFile="image/*"
@@ -376,7 +374,7 @@ function CreateEbook() {
                    <FileUploader
                       fileList={pdf ? pdf : []}
                       isMultiple={false}
-                      uploadButton={<button>Upload Book (PDF)</button>}
+                      uploadButton={<div>Upload Book (PDF)</div>}
                       handleUpload={handlePdfUpload} 
                       classes="" 
                       acceptFile=".PDF"

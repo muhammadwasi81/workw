@@ -8,7 +8,7 @@ import DetailPageTopDetail from "../../../Detail/components/UIElements/DetailHea
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { GetTedTalkById } from "../../../../store/action";
+import { GetArticleById, GetTedTalkById } from "../../../../store/action";
 import Avatar from "../../../../../../sharedComponents/Avatar/avatar";
 import { useSelector } from "react-redux";
 import "../../../courses/style.css";
@@ -16,16 +16,16 @@ import { addAssignMember, addMember } from "../../../../store/slice";
 import AssignMemberModal from "../../Components/AssignMemModal";
 import { AssignMemEnum, MemberEnum } from "../../../../constant/index";
 import MemberModal from "../../Components/MemberModal";
+import DefaultImage from "../../../../../../../content/NewContent/eLearning/articleDefatulImage.svg"
 import { useState } from "react";
-import DefaultImage from "../../../../../../../content/NewContent/eLearning/tedTalkDefault.jpg"
 
-function TedTalkDetail() {
+function ArticleDetail() {
 	const disptach = useDispatch()
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false)
 	const id = useParams().id;
-	const { tedTalkDetail, loaders } = useSelector((state) => state.eLearningSlice);
-	let loader = loaders.TedTalkDetailLoading
+	const { articleDetail, loaders } = useSelector((state) => state.eLearningSlice);
+	let loader = loaders.articleDetailLoading
 	let {
 		image,
 		name,
@@ -34,13 +34,11 @@ function TedTalkDetail() {
 		members,
 		description,
 		attachment,
-	} = tedTalkDetail
+	} = articleDetail
 
 	useEffect(() => {
-		disptach(GetTedTalkById(id))
+		disptach(GetArticleById(id))
 	},[])
-
-	console.log(loader, "LOADER")
 
 	return (
 		<>
@@ -124,7 +122,7 @@ function TedTalkDetail() {
 								:
 							<DetailPageTopDetail
 								image={image ? image : DefaultImage}
-								title={"TedTalks Daily"}
+								title={"Latest Trend In Business"}
 								description={description ===  "" ?  "Information will come here" : description}
 							/>
 						}
@@ -178,4 +176,4 @@ function TedTalkDetail() {
 	);
 }
 
-export default TedTalkDetail;
+export default ArticleDetail;

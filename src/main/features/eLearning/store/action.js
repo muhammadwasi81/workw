@@ -25,7 +25,10 @@ import {
   GetCourseByIdService, 
   addTedTalkService,
   getAllTedTalkService,
-  GetTedTalkByIdService} from "../service/service";
+  GetTedTalkByIdService,
+  getAllArticleService,
+  GetArticleByIdService,
+  addArticleService} from "../service/service";
 
   // import {
   //   addBookService,
@@ -317,6 +320,42 @@ export const GetTedTalkById = createAsyncThunk(
   "TedTalk/GetTedTalkById",
   async (id) => {
     const response = await GetTedTalkByIdService(id);
+    return response.data;
+  }
+);
+
+// ARTICLES //
+
+export const addArticle = createAsyncThunk(
+  "Article/addArticle",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addArticleService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Article Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const getAllArticle = createAsyncThunk(
+  "Article/GetAllArticle",
+  async (data) => {
+    const response = await getAllArticleService(data);
+
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+export const GetArticleById = createAsyncThunk(
+  "Article/GetArticlekById",
+  async (id) => {
+    const response = await GetArticleByIdService(id);
     return response.data;
   }
 );

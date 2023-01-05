@@ -1,19 +1,41 @@
 import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
-import {
+import { 
+  addBookAssignMemberService,
+  addBookMemberService,
   addBookService,
   addCourseAssignMemberService,
   addCourseMemberService,
   addCourseService,
-  getAllBookService,
-  getAllCourseAssignMemService,
-  getAllCourseMemberService,
-  getAllCourseService,
-  GetCourseByIdService,
+  getAllBookAssignMemService, 
+  getAllBookMemberService, 
+  getAllBookService, 
+  getAllCourseAssignMemService, 
+  getAllCourseMemberService, 
+  getAllCourseService, 
+  GetBookByIdService, 
   addQuizService,
   getAllQuizService,
-} from "../service/service";
+  checkQuizAttemptService,
+  GetQuizByIdService,
+  AddQuizAnswerAttemptService,
+  AddStartQuizService,
+  GetQuizResultService,
+  GetCourseByIdService } from "../service/service";
+
+  // import {
+  //   addBookService,
+  //   addCourseAssignMemberService,
+  //   addCourseMemberService,
+  //   addCourseService,
+  //   getAllBookService,
+  //   getAllCourseAssignMemService,
+  //   getAllCourseMemberService,
+  //   getAllCourseService,
+  //   GetCourseByIdService,
+  // } from "../service/service";
+
 
 //  COURSES ACTIONS  //
 
@@ -71,10 +93,51 @@ export const getAllQuiz = createAsyncThunk(
   }
 );
 
+export const getQuizById = createAsyncThunk(
+  "Course/GetQuizById",
+  async (data) => {
+    const response = await GetQuizByIdService(data);
+    return response.data;
+  }
+);
+
+export const AddStartQuiz = createAsyncThunk(
+  "Quiz/AddStartQuiz",
+  async (data) => {
+    const response = await AddStartQuizService(data);
+    return response.data;
+  }
+);
+
+export const addQuizAnswerAttempt = createAsyncThunk(
+  "Course/AddQuizAnswerAttempt",
+  async (data) => {
+    // console.log(data);
+    const response = await AddQuizAnswerAttemptService(data);
+    return response.data;
+  }
+);
+
 export const GetCourseById = createAsyncThunk(
   "Course/GetCourseById",
   async (id) => {
     const response = await GetCourseByIdService(id);
+    return response.data;
+  }
+);
+
+export const GetQuizResult = createAsyncThunk(
+  "Quiz/GetQuizResult",
+  async (id) => {
+    const response = await GetQuizResultService(id);
+    return response.data;
+  }
+);
+
+export const CheckQuizAttempt = createAsyncThunk(
+  "Quiz/checkQuizAttempt",
+  async (id) => {
+    const response = await checkQuizAttemptService(id);
     return response.data;
   }
 );
@@ -148,11 +211,73 @@ export const addBook = createAsyncThunk(
   }
 );
 
-export const getAllBook = createAsyncThunk("Book/GetAllBook", async (data) => {
-  const response = await getAllBookService(data);
+export const getAllBook = createAsyncThunk(
+  "Book/GetAllBook",
+  async (data) => {
+    const response = await getAllBookService(data);
 
-  if (!response.responseCode) {
-    message.error("Something went wrong");
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
   }
-  return response.data;
-});
+);
+
+export const GetBookById = createAsyncThunk(
+  "Book/GetBookById",
+  async (id) => {
+    const response = await GetBookByIdService(id);
+    return response.data;
+  }
+);
+
+export const getAllBookMember = createAsyncThunk(
+  "Book/GetAllBookMember",
+  async (data) => {
+    const response = await getAllBookMemberService(data);
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+export const addBookMember = createAsyncThunk(
+  "Book/addBookMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addBookMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Member Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const getAllBookAssignMem = createAsyncThunk(
+  "Book/GetAllBookAssignMember",
+  async (data) => {
+    const response = await getAllBookAssignMemService(data);
+
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+export const addBookAssignMem = createAsyncThunk(
+  "Book/addBookAssignMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addBookAssignMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Assign Member Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);

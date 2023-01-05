@@ -218,3 +218,6 @@
   align-items: center;
   padding: 5px 0;
 }
+.liked {
+  color: var(--currentThemeColor);
+}

@@ -31,7 +31,6 @@ const Post = ({
 
 		myReaction,
 	} = post;
-console.log(tags, "tags")
 	return (
 		<div className="post">
 			<PostHeader

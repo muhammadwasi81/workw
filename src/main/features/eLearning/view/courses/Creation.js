@@ -99,6 +99,7 @@ function CreateCourse() {
         memberId: values.members,
       });
     } else {
+      
       members = values.members.map((member) => {
         return {
           memberId: member,
@@ -118,13 +119,10 @@ function CreateCourse() {
       });
     }
 
-
     let image = {
       id: STRINGS.DEFAULTS.guid,
-      file: profileImage && profileImage[0]?.originFileObj,
+      file: profileImage && profileImage,
     };
-
-    console.log(profileImage, image, "COVER IMAGE FROM ON FINISH")
 
     let payloadOne = {
       categoryId: values.categoryId,
@@ -140,7 +138,6 @@ function CreateCourse() {
       curriculums: sections,
     }
 
-    console.log(payloadOne, "MY PAYLOAD !!!")
 
     if (Object.keys(image).length > 0) {
       dispatch(addCourse(payloadOne))
@@ -162,30 +159,19 @@ function CreateCourse() {
     setFileType(e)
   })
 
-  // const handleSingleImage = (data) => {
-  //   setSingleImage(data)
-  //   let imageUpload = {
-  //     id: STRINGS.DEFAULTS.guid,
-  //     file: singleImage && singleImage[0]?.originFileObj,
-  //   };
-  //   setTopic({...topic, attachments: imageUpload})
-  // }
-
   const handleImageUpload = (data) => {
-    setProfileImage(data);
+    setProfileImage(data[0]);
   };
 
   const handleAddTopic = (e) => {
     let imageUpload = {
       id: STRINGS.DEFAULTS.guid,
-      file: singleImage && singleImage[0]?.originFileObj,
+      file: singleImage && singleImage,
     };
-    console.log(imageUpload, "imageUploadimageUploadimageUpload")
     if (!form.getFieldValue().curriculumName || !form.getFieldValue().topicName) {
       message.error("All fields required")
     } else {
       setTopic({...topic, attachments: imageUpload})
-      dispatch(addTopic(topic))
       form.setFieldsValue({curriculumName: "", topicName: "", type: "", text: "",})
     }
   }
@@ -414,6 +400,7 @@ function CreateCourse() {
               fileList={profileImage ? profileImage : []}
               uploadButton={<button>Upload</button>}
               handleUpload={handleImageUpload} 
+              isMultiple={false}
               classes=""
               />
           </div>
@@ -491,7 +478,8 @@ function CreateCourse() {
             <FileUploader
                   fileList={singleImage ? singleImage : []}
                   uploadButton={<button>Upload</button>}
-                  handleUpload={(data) => {setSingleImage(data)}} 
+                  isMultiple={false}
+                  handleUpload={(data) => {setSingleImage(data[0])}} 
                   classes=""
                   />
            : 

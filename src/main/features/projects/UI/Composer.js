@@ -1,32 +1,32 @@
-import { Button, Form, Input, message, Select, Switch } from 'antd';
-import React, { useEffect, useState, useContext } from 'react';
-import { useDispatch } from 'react-redux';
-import { getRewardCategory } from '../../../../utils/Shared/store/actions';
-import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
-import { projectsDictionaryList } from '../localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import MemberListItem from '../../../sharedComponents/MemberByTag/Index';
-import MemberComposer from './MemberComposer';
-import FeatureSelect from '../../../sharedComponents/FeatureSelect/Index';
-import { DatePicker } from 'antd';
-import { validateEmail } from '../../../../utils/Shared/helper/validateEmail';
-import { defaultUiid } from '../../../../utils/Shared/enums/enums';
-import { addProject, updateProject } from '../store/actions';
-import { jsonToFormData } from '../../../../utils/base';
-import { useSelector } from 'react-redux';
-import moment from 'moment';
-import PrivacyOptions from '../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions';
+import { Button, Form, Input, message, Select, Switch } from "antd";
+import React, { useEffect, useState, useContext } from "react";
+import { useDispatch } from "react-redux";
+import { getRewardCategory } from "../../../../utils/Shared/store/actions";
+import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
+import { projectsDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import MemberListItem from "../../../sharedComponents/MemberByTag/Index";
+import MemberComposer from "./MemberComposer";
+import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
+import { DatePicker } from "antd";
+import { validateEmail } from "../../../../utils/Shared/helper/validateEmail";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { addProject, updateProject } from "../store/actions";
+import { jsonToFormData } from "../../../../utils/base";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 
 const { RangePicker } = DatePicker;
 
 const initialState = {
-  name: '',
-  description: '',
+  name: "",
+  description: "",
   imageId: defaultUiid,
-  image: '',
+  image: "",
   members: [
     {
-      memberId: '',
+      memberId: "",
       memberType: 1,
     },
   ],
@@ -70,8 +70,8 @@ const Composer = (props) => {
   const onFinish = () => {
     const values = form.getFieldsValue(true);
 
-    let startDate = '';
-    let endDate = '';
+    let startDate = "";
+    let endDate = "";
     if (values.startEndDate) {
       startDate = values.startEndDate[0].format();
       endDate = values.startEndDate[1].format();
@@ -122,7 +122,7 @@ const Composer = (props) => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   useEffect(() => {
@@ -156,7 +156,7 @@ const Composer = (props) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         dir={Direction}
-        layout={'vertical'}
+        layout={"vertical"}
         className={`${Direction}`}
       >
         <div className="flex justify-between gap-4">
@@ -185,14 +185,14 @@ const Composer = (props) => {
                 handleImageUpload={handleImageUpload}
                 position="flex-start"
                 uploadText={labels.upload}
-                url={detail?.image ? detail.image : ''}
+                url={detail?.image ? detail.image : ""}
               />
             </Form.Item>
           </div>
         </div>
 
         <Form.Item
-          style={{ marginTop: '-18px' }}
+          style={{ marginTop: "-18px" }}
           label={labels.desc}
           name="description"
           rules={[
@@ -213,10 +213,10 @@ const Composer = (props) => {
           <>
             <Form.Item label={labels.projectDate} name="startEndDate">
               <RangePicker
-                format={'DD/MM/YYYY'}
+                format={"DD/MM/YYYY"}
                 placeholder={[placeholders.startDate, placeholders.endDate]}
                 onChange={(value, dateString) => {
-                  handleEndStartDate(value, dateString, 'start_end');
+                  handleEndStartDate(value, dateString, "start_end");
                 }}
                 size="large"
                 className="!rounded"
@@ -224,7 +224,7 @@ const Composer = (props) => {
             </Form.Item>
 
             <Form.Item
-              name={'externals'}
+              name={"externals"}
               label={labels.externals}
               direction={Direction}
               // rules={[

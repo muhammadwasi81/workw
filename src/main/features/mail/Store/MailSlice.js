@@ -7,7 +7,7 @@ export const mailSlice = createSlice({
         allMail: null,
         currentParamId: "",
         currentPageSize: 1,
-        mailDetail: null,
+        mailDetail: undefined,
         mailFolderItem: null,
 
         mailDrawerStatus: false,

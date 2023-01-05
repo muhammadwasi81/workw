@@ -8,15 +8,15 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
-import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
-import requisitionSlice from "../main/features/requisition/store/slice";
-import authSlice from "../main/features/auth/store/slice";
-import gradeSlice from "../main/features/grade/store/slice";
-import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
-import taxSlabSlice from "../main/features/taxSlabs/store/slice";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import MessengerSlice from '../main/features/Messenger/store/messengerSlice';
+import sideBarChatSlice from '../components/MainMenu/SideChatbar/store/sideBarChatSlice';
+import requisitionSlice from '../main/features/requisition/store/slice';
+import authSlice from '../main/features/auth/store/slice';
+import gradeSlice from '../main/features/grade/store/slice';
+import rebateCategorySlice from '../main/features/rebateCategory/store/slice';
+// import taxSlabSlice from '../main/features/taxSlabs/store/slice';
 import taxSlabGroupSlice from "../main/features/taxSlabs/store/slice";
 import eLearningSlice from "../main/features/eLearning/store/slice";
 import eLearningCategorySlice from "../main/features/eLearningCategory/store/slice";
@@ -100,6 +100,7 @@ import bankInfoSlice from "../main/features/bankDetails/store/slice";
 import employeeSalarySlice from "../main/features/salary/view/SalaryEmployee/action/slice";
 import mailSlice from "../main/features/mail/Store/MailSlice";
 import settingSlice from "../main/features/settings/store/slice";
+import adminstrationSlice from "../main/features/administration/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -143,7 +144,7 @@ const reducers = combineReducers({
   general: generalSlice,
   // documentsSlice,
   gradeSlice,
-  // eLearningCategorySlice,
+  eLearningCategorySlice,
   emailConfigurationSlice,
   salaryHeaderSlice,
   // taxSlabSlice,
@@ -197,6 +198,7 @@ const reducers = combineReducers({
   mailSlice,
   settingSlice,
   eLearningCategorySlice,
+  adminstrationSlice,
 });
 
 const persistConfig = {

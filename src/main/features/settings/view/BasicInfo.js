@@ -43,6 +43,7 @@ function BasicInfo() {
   };
   const handelChangeEmail = (e) => {
     setForm({ ...form, personalEmail: e.target.value });
+
     console.log(form, "formmmm");
   };
 

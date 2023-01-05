@@ -9,7 +9,7 @@ const PostHeader = () => {
       user: { name, userImage },
     },
   } = useSelector((state) => state);
-
+console.log(tags, "tagstags")
   return (
     <>
       <div className="avatar-wrapper">

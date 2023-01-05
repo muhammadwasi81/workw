@@ -56,11 +56,11 @@ const ResultPage = ({ id }) => {
     <div className="bg-white rounded-lg shadow-md min-h-screen h-fit">
       <div className="bg-[#EDEFF0] h-[6rem] rounded-t-[0.5rem] flex flex-col justify-center pl-[2rem] font-black">
         <span className="text-xl flex items-center gap-x-[0.3rem] ">
-          <AiFillCheckCircle color="#008844" /> Congratulations! You Passed{" "}
+          <AiFillCheckCircle color="#008844" /> Your Result!{" "}
         </span>
-        <span className="text-lg">
+        {/* <span className="text-lg">
           Grade Received <span className="text-[#008844]">100%</span>
-        </span>
+        </span> */}
       </div>
       {quizResultQuestions.map((item, index) => {
         return (

@@ -9,15 +9,15 @@ function DetailHeader({ dictionary, direction }) {
   const { Direction, elearningDictionary } = elearningDictionaryList[
     userLanguage
   ];
-  const items = [
-    {
-      name: "Detail",
-      to: ``,
-      renderButton: [1],
-    },
-  ];
+  // const items = [
+  //   {
+  //     name: "Detail",
+  //     to: ``,
+  //     renderButton: [1],
+  //   },
+  // ];
 
-  return <LayoutHeader items={items} buttons={[]} />;
+  return <LayoutHeader buttons={[]} />;
 }
 
 export default DetailHeader;

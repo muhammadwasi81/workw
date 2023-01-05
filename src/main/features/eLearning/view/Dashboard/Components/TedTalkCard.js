@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import WhiteCard from "../../../UI/WhiteCard";
 import BoxThumnail from "../UI/BoxThumnail";
+import DefaultImage from "../../../../../../content/NewContent/eLearning/tedTalkDefault.jpg"
 
 function TedTalkCard({ data }) {
 	const navigate = useNavigate()
@@ -10,7 +11,6 @@ function TedTalkCard({ data }) {
 		description,
 		image,
 	} = data;
-	let Default = "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80"
 
 	return (
 		<WhiteCard
@@ -19,7 +19,7 @@ function TedTalkCard({ data }) {
 		>
 			<div className="flex flex-col gap-1">
 				<BoxThumnail
-					image={image ? image : Default}
+					image={image ? image : DefaultImage}
 					title={name}
 					description={description}
 				/>

@@ -49,7 +49,7 @@ function CreateLearningDropdown() {
       label: <p className="!mb-0 pl-3">{elearningDictionary.articles}</p>,
       key: "article",
       // icon: <img width="17px" alt="" src={mileshowIcon} />,
-      onClick: handleChange,
+      onClick: () => navigate("/eLearning/article/create"),
     },
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.videos}</p>,

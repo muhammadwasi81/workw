@@ -1,29 +1,28 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { 
-    addBook,
-    addBookAssignMem,
-    addCourse,
-    addCourseAssignMem,
-    getAllBook, 
-    getAllBookAssignMem, 
-    getAllBookMember, 
-    getAllCourse, 
-    getAllCourseAssignMem, 
-    getAllCourseMember, 
-    GetBookById, 
-    GetCourseById,
-    addQuiz,
-    getAllQuiz,
-    CheckQuizAttempt,
-    getQuizById,
-    addQuizAnswerAttempt,
-    AddStartQuiz,
-    GetQuizResult,
-    addTedTalk,
-    getAllTedTalk,
-    GetTedTalkById, 
-  } 
-  from "./action";
+import {
+  addBook,
+  addBookAssignMem,
+  addCourse,
+  addCourseAssignMem,
+  getAllBook,
+  getAllBookAssignMem,
+  getAllBookMember,
+  getAllCourse,
+  getAllCourseAssignMem,
+  getAllCourseMember,
+  GetBookById,
+  GetCourseById,
+  addQuiz,
+  getAllQuiz,
+  CheckQuizAttempt,
+  getQuizById,
+  addQuizAnswerAttempt,
+  AddStartQuiz,
+  GetQuizResult,
+  addTedTalk,
+  getAllTedTalk,
+  GetTedTalkById,
+} from "./action";
 
 const initialState = {
   listLoading: false,
@@ -69,9 +68,10 @@ const initialState = {
     quizLoading: false,
     checkQuizAttemptLoading: false,
     addquizAttemptLoader: false,
-    getQuizResultLoader: false,
+    getQuizResultLoader: true,
     addTedTalkLoading: false,
     TedTalkLoading: false,
+    startQuizLoader: true,
   },
   courseMembers: [],
   bookMembers: [],
@@ -145,6 +145,7 @@ const eLearningSlice = createSlice({
       })
       .addCase(AddStartQuiz.fulfilled, (state, { payload }) => {
         state.startQuiz = payload.data;
+        state.loaders.startQuizLoader = false;
       })
       .addCase(addQuizAnswerAttempt.fulfilled, (state, { payload }) => {
         console.log(payload);
@@ -218,6 +219,9 @@ const eLearningSlice = createSlice({
       .addMatcher(isPending(...[addTedTalk]), (state) => {
         state.loaders.addTedTalkLoading = true;
       })
+      .addMatcher(isPending(...[AddStartQuiz]), (state) => {
+        state.loaders.startQuizLoader = true;
+      })
       .addMatcher(
         isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
         (state) => {
@@ -250,6 +254,7 @@ const eLearningSlice = createSlice({
       })
       .addMatcher(isRejected(...[AddStartQuiz]), (state) => {
         console.log("rejected start quiz");
+        state.loaders.startQuizLoader = false;
       })
       .addMatcher(isRejected(...[addQuizAnswerAttempt]), (state) => {
         console.log("rejected request");

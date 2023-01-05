@@ -22,12 +22,12 @@ const QuestionWithoutImage = ({ questions }) => {
 
   const onSubmit = () => {
     let payload = {
-      questionId: questions.questions[questionIndex].id,
+      questionId: startQuiz.questions[questionIndex].id,
       answerId: radioAnswer,
-      attemptId: questions.id,
+      attemptId: startQuiz.id,
     };
     dispatch(addQuizAnswerAttempt(payload));
-    if (questions.questions.length === questionIndex + 1) {
+    if (startQuiz.questions.length === questionIndex + 1) {
       setIsLastQuestion(true);
     } else {
       setQuestionIndex(questionIndex + 1);
@@ -51,9 +51,9 @@ const QuestionWithoutImage = ({ questions }) => {
   return (
     <div className="question-box flex flex-col">
       <span className="text-xl">{`Question ${questionIndex + 1}/${
-        questions.questions.length
+        startQuiz.questions.length
       }`}</span>
-      {questions.questions[questionIndex].attachment && (
+      {startQuiz.questions[questionIndex].attachment && (
         <div className="flex self-center">
           <img
             src={
@@ -65,7 +65,7 @@ const QuestionWithoutImage = ({ questions }) => {
       )}
 
       <span className=" text-base font-black mt-6">
-        {questions.questions[questionIndex].question}
+        {startQuiz.questions[questionIndex].question}
       </span>
       {/**will map here options */}
       <Radio.Group
@@ -76,7 +76,7 @@ const QuestionWithoutImage = ({ questions }) => {
           },
         ]}
       >
-        {questions.questions[questionIndex]?.answers.map((el, i) => (
+        {startQuiz.questions[questionIndex]?.answers.map((el, i) => (
           <>
             <div className="inputBox mt-4">
               <Radio value={el.id}> {el.answer}</Radio>

@@ -1,32 +1,31 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { 
-    addBook,
-    addBookAssignMem,
-    addCourse,
-    addCourseAssignMem,
-    getAllBook, 
-    getAllBookAssignMem, 
-    getAllBookMember, 
-    getAllCourse, 
-    getAllCourseAssignMem, 
-    getAllCourseMember, 
-    GetBookById, 
-    GetCourseById,
-    addQuiz,
-    getAllQuiz,
-    CheckQuizAttempt,
-    getQuizById,
-    addQuizAnswerAttempt,
-    AddStartQuiz,
-    GetQuizResult,
-    addTedTalk,
-    getAllTedTalk,
-    GetTedTalkById,
-    addArticle,
-    getAllArticle,
-    GetArticleById, 
-  } 
-  from "./action";
+import {
+  addBook,
+  addBookAssignMem,
+  addCourse,
+  addCourseAssignMem,
+  getAllBook,
+  getAllBookAssignMem,
+  getAllBookMember,
+  getAllCourse,
+  getAllCourseAssignMem,
+  getAllCourseMember,
+  GetBookById,
+  GetCourseById,
+  addQuiz,
+  getAllQuiz,
+  CheckQuizAttempt,
+  getQuizById,
+  addQuizAnswerAttempt,
+  AddStartQuiz,
+  GetQuizResult,
+  addTedTalk,
+  getAllTedTalk,
+  GetTedTalkById,
+  addArticle,
+  getAllArticle,
+  GetArticleById,
+} from "./action";
 
 const initialState = {
   listLoading: false,
@@ -77,13 +76,14 @@ const initialState = {
     quizLoading: false,
     checkQuizAttemptLoading: false,
     addquizAttemptLoader: false,
-    getQuizResultLoader: false,
+    getQuizResultLoader: true,
     addTedTalkLoading: false,
     tedTalkLoading: false,
     TedTalkDetailLoading: false,
     articlesLoading: false,
     addArticleLoading: false,
     articleDetailLoading: false,
+    startQuizLoader: true,
   },
   courseMembers: [],
   bookMembers: [],
@@ -162,6 +162,7 @@ const eLearningSlice = createSlice({
       })
       .addCase(AddStartQuiz.fulfilled, (state, { payload }) => {
         state.startQuiz = payload.data;
+        state.loaders.startQuizLoader = false;
       })
       .addCase(addQuizAnswerAttempt.fulfilled, (state, { payload }) => {
         state.loaders.addquizAttemptLoader = false;
@@ -171,11 +172,11 @@ const eLearningSlice = createSlice({
         state.loaders.courseDetailLoading = false;
       })
       .addCase(GetBookById.fulfilled, (state, action) => {
-        state.loaders.bookDetailLoading = false
+        state.loaders.bookDetailLoading = false;
         state.bookDetail = action.payload.data;
       })
       .addCase(GetArticleById.fulfilled, (state, action) => {
-        state.loaders.articleDetailLoading = false
+        state.loaders.articleDetailLoading = false;
         state.articleDetail = action.payload.data;
       })
       .addCase(GetTedTalkById.fulfilled, (state, action) => {
@@ -255,13 +256,16 @@ const eLearningSlice = createSlice({
         state.loaders.articleDetailLoading = true;
       })
       .addMatcher(isPending(...[GetBookById]), (state) => {
-        state.loaders.bookDetailLoading = true
+        state.loaders.bookDetailLoading = true;
       })
       .addMatcher(isPending(...[addBook]), (state) => {
         state.loaders.addBookLoading = true;
       })
       .addMatcher(isPending(...[addTedTalk]), (state) => {
         state.loaders.addTedTalkLoading = true;
+      })
+      .addMatcher(isPending(...[AddStartQuiz]), (state) => {
+        state.loaders.startQuizLoader = true;
       })
       .addMatcher(isPending(...[GetTedTalkById]), (state) => {
         state.loaders.TedTalkDetailLoading = true;
@@ -300,7 +304,7 @@ const eLearningSlice = createSlice({
         state.loaders.articleDetailLoading = false;
       })
       .addMatcher(isRejected(...[GetBookById]), (state) => {
-        state.loaders.bookDetailLoading = false
+        state.loaders.bookDetailLoading = false;
       })
       .addMatcher(isRejected(...[addTedTalk]), (state) => {
         state.loaders.addTedTalkLoading = false;
@@ -322,6 +326,7 @@ const eLearningSlice = createSlice({
       })
       .addMatcher(isRejected(...[AddStartQuiz]), (state) => {
         console.log("rejected start quiz");
+        state.loaders.startQuizLoader = false;
       })
       .addMatcher(isRejected(...[addQuizAnswerAttempt]), (state) => {
         console.log("rejected request");

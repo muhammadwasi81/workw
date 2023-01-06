@@ -51,7 +51,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     designationId: [],
     managerId: [],
     gradesId: [],
-    // grade: [],
     countryId: [],
     cityId: [],
     probationPeriod: '',
@@ -155,15 +154,21 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         ...basicdetails,
         birthDate: moment(basicdetails.birthDate),
         joinDate: moment(basicdetails.joinDate),
-        accessRoleId: basicdetails?.accessRoles?.map((item) => item.accessRole),
+        accessRoleId: basicdetails?.accessRoles?.map(
+          (item) => item.accessRoleId
+        ),
         officeTimingId:
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
             ? ''
             : basicdetails.officeTimingId,
-        // birthDate: basicdetails.birthDate ?  basicdetails.birthDate : "",
       });
     }
   }, [basicdetails]);
+
+  console.log(
+    basicdetails?.accessRoles?.map((item) => item.accessRoleId),
+    'accessRoleId)'
+  );
 
   useEffect(() => {
     form.setFieldsValue(initialValues);
@@ -290,7 +295,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
               required: true,
             },
           ]}
-          name="designationId"
+          name="designation"
           label={labels.Designation}
           placeholder={placeholder.selectGender}
         >

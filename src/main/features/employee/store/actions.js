@@ -5,7 +5,6 @@ import {
   responseMessageType,
 } from '../../../../services/slices/notificationSlice';
 import { openNotification } from '../../../../utils/Shared/store/slice';
-import { updateUserEmployeeContactService } from '../../emergencyInfo/service/service';
 
 import {
   addEmployeeService,
@@ -81,8 +80,8 @@ export const getEmployeeByIdAction = createAsyncThunk(
 
 export const updateEmployeeAction = createAsyncThunk(
   'updateEmployee',
-  async ({ data, resetAllFields }, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, 'action');
+  async ({ data, resetAllFields }, { dispatch }) => {
+    console.log(data, 'updateEmployeeActions');
     const res = await updateEmployeeService(data);
     console.log(res, 'updateEmployeeAction');
     if (res.responseCode === responseCode.Success) {

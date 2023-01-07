@@ -18,6 +18,7 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import GridView from "../../leadmanager/view/Dashboard/GridView/GridView";
 import Spinner from "../../../sharedComponents/spinner/spinner";
+import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 
 const Groups = (props) => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const Groups = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { groupsDictionary, Direction } = groupsDictionaryList[userLanguage];
   const { createTextBtn, topBar } = groupsDictionary;
+  const [search, setSearch] = useState("");
+  const value = useDebounce(search, 500);
 
   const [tableView, setTableView] = useState(false);
   const { groups, success, getDataLoading } = useSelector(
@@ -36,11 +39,11 @@ const Groups = (props) => {
       getAllGroup({
         pageNo: 1,
         pageSize: 20,
-        search: "",
+        search: value,
         sortBy: 1,
       })
     );
-  }, []);
+  }, [search]);
   const handleClickNavigation = (id) => {
     navigate(`${ROUTES.GROUP.DEFAULT}/${id}`);
   };
@@ -74,7 +77,7 @@ const Groups = (props) => {
         />
         <TopBar
           onSearch={(value) => {
-            console.log(value);
+            setSearch(value);
           }}
           segment={{
             onSegment: (value) => {

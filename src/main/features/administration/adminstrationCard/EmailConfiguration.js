@@ -1,4 +1,4 @@
-import { Divider, Input, message } from "antd";
+import { Button, Divider, Input, message } from "antd";
 import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
@@ -20,7 +20,7 @@ import "./adminstartionCard.css";
 export default function EmailConfigurationForm({
   formData,
   setFormData,
-  onSuccess,
+  handleChangeTab,
 }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -40,6 +40,7 @@ export default function EmailConfigurationForm({
       return message.error("Please fill all required fields");
     } else {
       dispatch(addEmailConfiguration(e));
+      handleChangeTab();
     }
   };
   return (
@@ -50,7 +51,7 @@ export default function EmailConfigurationForm({
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
           <FormContainer
-            style={{ width: "500px", marginTop: "30px", height: "530px" }}
+            style={{ width: "500px", marginTop: "20px", height: "520px" }}
             className="email-form-container"
           >
             <FormHeader>{emailConfiDictionary.emailConfi}</FormHeader>
@@ -137,28 +138,18 @@ export default function EmailConfigurationForm({
                   }
                 />
               </FormInput>
-            </FormInputContainer>
-            <FormButtonContainer>
-              <FormButton
+
+              <Button
                 type="primary"
                 size="medium"
                 style={{ width: "" }}
-                className="formBtn"
+                className="ThemeBtn"
                 onClick={(e) => onSubmitEmailConfiguration(formData)}
                 loading={loader}
               >
-                Add{" "}
-              </FormButton>
-              <FormButton
-                type="primary"
-                size="medium"
-                style={{ width: "" }}
-                className="formBtn"
-                onSuccess={onSuccess}
-              >
-                Submit
-              </FormButton>
-            </FormButtonContainer>
+                Add Email Configuration{" "}
+              </Button>
+            </FormInputContainer>
           </FormContainer>
         </div>
         <Divider

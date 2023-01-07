@@ -1,4 +1,4 @@
-import { Divider, Input, message } from "antd";
+import { Button, Divider, Input, message } from "antd";
 import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addPayrollGroup } from "../../payroll/payrollGroup/store/actions";
 import "./adminstartionCard.css";
 
-export default function Form({ formData, setFormData }) {
+export default function Form({ formData, setFormData, handleChangeTab }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, payrollGroup, Direction } = dictionaryList[
@@ -29,6 +29,7 @@ export default function Form({ formData, setFormData }) {
       message.error("Please fill all required field!");
     } else {
       dispatch(addPayrollGroup(e));
+      handleChangeTab();
     }
   };
   return (
@@ -57,21 +58,19 @@ export default function Form({ formData, setFormData }) {
                   }
                 />
               </FormInput>
-            </FormInputContainer>
-            <FormButtonContainer>
-              <FormButton
+              <Button
                 type="primary"
                 size="medium"
                 style={{}}
-                className="formBtn"
+                className="ThemeBtn"
                 onClick={(e) => {
                   onSubmitPayrollGroup(formData);
                 }}
                 loading={loader}
               >
                 {administration.payrollGroup.Add}
-              </FormButton>
-            </FormButtonContainer>
+              </Button>
+            </FormInputContainer>
           </FormContainer>
         </div>
         <Divider

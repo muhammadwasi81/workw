@@ -172,11 +172,134 @@ export const addBookService = async (data) => {
 };
 
 export const getAllBookService = (data) => {
+  console.log(data, "FROM SERVICE")
   return MasterConfig.post(`api/ELearning/GetAllBook`, data)
     .then((res) => {
       return res.data;
     })
     .catch((err) => {
       return err;
+    });
+};
+
+export const GetBookByIdService = (id) => {
+  return MasterConfig.get(`api/ELearning/GetBookById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const getAllBookMemberService = (id) => {
+  return MasterConfig.get(`api/ELearning/GetAllBookMember?id=${id}`,)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const addBookMemberService = async (data) => {
+	let id = data.id
+	let memberId = data.memberId
+	return MasterConfig.post(`api/ELearning/AddBookMember?id=${id}`, [{memberId: memberId}])
+	  .then((res) => {
+		return res;
+	  })
+	  .catch((res) => {
+		return res;
+	  });
+  };
+
+  export const getAllBookAssignMemService = (id) => {
+    return MasterConfig.get(`api/ELearning/GetAllBookAssignMember?id=${id}`,)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        return err;
+      });
+  };
+
+  export const addBookAssignMemberService = async (data) => {
+    let id = data.id
+    let memberId = data.memberId
+    return MasterConfig.post(`api/ELearning/AddBookAssignMember?id=${id}`, [{memberId: memberId}])
+      .then((res) => {
+      return res;
+      })
+      .catch((res) => {
+      return res;
+      });
+    };
+
+
+// TEDTALKS SERVICES  
+    
+
+export const addTedTalkService = async (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.post(`api/ELearning/AddTedTalks`, formData)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const getAllTedTalkService = (data) => {
+  return MasterConfig.post(`api/ELearning/GetAllTedTalks`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const GetTedTalkByIdService = (id) => {
+  return MasterConfig.get(`api/ELearning/GetTedTalksById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+// ARTICLE SERVICES
+
+export const addArticleService = async (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.post(`api/ELearning/AddArticles`, formData)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const getAllArticleService = (data) => {
+  return MasterConfig.post(`api/ELearning/GetAllArticles`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const GetArticleByIdService = (id) => {
+  return MasterConfig.get(`api/ELearning/GetArticlesById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
     });
 };

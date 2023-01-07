@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addQuizAnswerAttempt } from "../../../store/action";
+import blackLogo from "../../../../../../content/blackLogo.svg";
 import "./style.css";
 
 const QuestionWithoutImage = ({ questions }) => {
@@ -15,47 +16,44 @@ const QuestionWithoutImage = ({ questions }) => {
 
   const { startQuiz } = useSelector((state) => state.eLearningSlice);
 
-  //   useEffect(() => {
-  //     if (questions.length) {
-  //       setQuestion(questions[0]);
-  //     }
-  //   }, [questions]);
-  //   console.log(question);
-  console.log(questions);
-
   const onchangeRadio = (e) => {
     setRadioAnswer(e.target.value);
-    console.log(e.target.value);
   };
 
   const onSubmit = () => {
-    console.log("on submit console");
-    //TODO: dispatch action for respsonse quiz question here
     let payload = {
-      questionId: questions.questions[questionIndex].id,
+      questionId: startQuiz.questions[questionIndex].id,
       answerId: radioAnswer,
-      attemptId: questions.id,
+      attemptId: startQuiz.id,
     };
     dispatch(addQuizAnswerAttempt(payload));
-    if (questions.questions.length === questionIndex + 1) {
-      console.log("ssss");
+    if (startQuiz.questions.length === questionIndex + 1) {
       setIsLastQuestion(true);
     } else {
       setQuestionIndex(questionIndex + 1);
     }
-    // setQuestion(questions[1]);
   };
-
   if (isLastQuestion) {
-    return <div>Last question thank you</div>;
+    return (
+      <div className="h-[50%] w-[50%] border-[#195669] border-[30px]">
+        <div className="flex flex-col justify-center items-center">
+          <img
+            src={blackLogo}
+            alt=""
+            className="w-[8rem] h-[8rem] lg:w-[10rem]  lg:w-[10rem]"
+          />
+          <span className="text-2xl font-black">Successfully Attempted</span>
+          <span className="text-4xl font-black mt-4">Thankyou</span>
+        </div>
+      </div>
+    );
   }
-
   return (
     <div className="question-box flex flex-col">
       <span className="text-xl">{`Question ${questionIndex + 1}/${
-        questions.questions.length
+        startQuiz.questions.length
       }`}</span>
-      {questions.questions[questionIndex].attachment && (
+      {startQuiz.questions[questionIndex].attachment && (
         <div className="flex self-center">
           <img
             src={
@@ -67,7 +65,7 @@ const QuestionWithoutImage = ({ questions }) => {
       )}
 
       <span className=" text-base font-black mt-6">
-        {questions.questions[questionIndex].question}
+        {startQuiz.questions[questionIndex].question}
       </span>
       {/**will map here options */}
       <Radio.Group
@@ -78,7 +76,7 @@ const QuestionWithoutImage = ({ questions }) => {
           },
         ]}
       >
-        {questions.questions[questionIndex]?.answers.map((el, i) => (
+        {startQuiz.questions[questionIndex]?.answers.map((el, i) => (
           <>
             <div className="inputBox mt-4">
               <Radio value={el.id}> {el.answer}</Radio>

@@ -1,16 +1,20 @@
 import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
-import {
+import { 
+  addBookAssignMemberService,
+  addBookMemberService,
   addBookService,
   addCourseAssignMemberService,
   addCourseMemberService,
   addCourseService,
-  getAllBookService,
-  getAllCourseAssignMemService,
-  getAllCourseMemberService,
-  getAllCourseService,
-  GetCourseByIdService,
+  getAllBookAssignMemService, 
+  getAllBookMemberService, 
+  getAllBookService, 
+  getAllCourseAssignMemService, 
+  getAllCourseMemberService, 
+  getAllCourseService, 
+  GetBookByIdService, 
   addQuizService,
   getAllQuizService,
   checkQuizAttemptService,
@@ -18,7 +22,26 @@ import {
   AddQuizAnswerAttemptService,
   AddStartQuizService,
   GetQuizResultService,
-} from "../service/service";
+  GetCourseByIdService, 
+  addTedTalkService,
+  getAllTedTalkService,
+  GetTedTalkByIdService,
+  getAllArticleService,
+  GetArticleByIdService,
+  addArticleService} from "../service/service";
+
+  // import {
+  //   addBookService,
+  //   addCourseAssignMemberService,
+  //   addCourseMemberService,
+  //   addCourseService,
+  //   getAllBookService,
+  //   getAllCourseAssignMemService,
+  //   getAllCourseMemberService,
+  //   getAllCourseService,
+  //   GetCourseByIdService,
+  // } from "../service/service";
+
 
 //  COURSES ACTIONS  //
 
@@ -194,11 +217,145 @@ export const addBook = createAsyncThunk(
   }
 );
 
-export const getAllBook = createAsyncThunk("Book/GetAllBook", async (data) => {
-  const response = await getAllBookService(data);
+export const getAllBook = createAsyncThunk(
+  "Book/GetAllBook",
+  async (data) => {
+    const response = await getAllBookService(data);
 
-  if (!response.responseCode) {
-    message.error("Something went wrong");
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
   }
-  return response.data;
-});
+);
+
+export const GetBookById = createAsyncThunk(
+  "Book/GetBookById",
+  async (id) => {
+    const response = await GetBookByIdService(id);
+    return response.data;
+  }
+);
+
+export const getAllBookMember = createAsyncThunk(
+  "Book/GetAllBookMember",
+  async (data) => {
+    const response = await getAllBookMemberService(data);
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+export const addBookMember = createAsyncThunk(
+  "Book/addBookMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addBookMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Member Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const getAllBookAssignMem = createAsyncThunk(
+  "Book/GetAllBookAssignMember",
+  async (data) => {
+    const response = await getAllBookAssignMemService(data);
+
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+export const addBookAssignMem = createAsyncThunk(
+  "Book/addBookAssignMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addBookAssignMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Assign Member Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+
+//  TedTalk Functions //
+
+export const addTedTalk = createAsyncThunk(
+  "TedTalk/addTedTalk",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addTedTalkService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("TedTalk Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const getAllTedTalk = createAsyncThunk(
+  "TedTalk/GetAllTedTalk",
+  async (data) => {
+    const response = await getAllTedTalkService(data);
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+export const GetTedTalkById = createAsyncThunk(
+  "TedTalk/GetTedTalkById",
+  async (id) => {
+    const response = await GetTedTalkByIdService(id);
+    return response.data;
+  }
+);
+
+// ARTICLES //
+
+export const addArticle = createAsyncThunk(
+  "Article/addArticle",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addArticleService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Article Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const getAllArticle = createAsyncThunk(
+  "Article/GetAllArticle",
+  async (data) => {
+    const response = await getAllArticleService(data);
+
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+export const GetArticleById = createAsyncThunk(
+  "Article/GetArticlekById",
+  async (id) => {
+    const response = await GetArticleByIdService(id);
+    return response.data;
+  }
+);

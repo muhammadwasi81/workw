@@ -14,6 +14,7 @@ import DrangableQuestions from "./DraggableItem";
 import { createGuid, STRINGS } from "../../../../../utils/base";
 import RadioComponent from "./Radio";
 import RadioWithImageComponent from "./RadioWithImage";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const { TextArea } = Input;
 
@@ -26,12 +27,13 @@ let initialData = {
 
 function CreateQuiz(props) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, elearningDictionary } = elearningDictionaryList[
     userLanguage
   ];
 
-  const { loaders } = useSelector((state) => state.eLearningSlice);
+  const { loaders, success } = useSelector((state) => state.eLearningSlice);
   console.log(loaders);
 
   const [pollData, setPollData] = useState(initialData);
@@ -124,8 +126,12 @@ function CreateQuiz(props) {
     };
 
     console.log(payload);
-    //TODO: dispatch create quiz
+
     dispatch(addQuiz(payload));
+    //TODO: navigate to back page
+    if (success === true) {
+      navigate(-1);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {

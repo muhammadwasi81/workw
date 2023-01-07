@@ -17,6 +17,8 @@ function Books() {
 		dispatch(getAllBook(filter))
 	}, [])
 
+	console.log(books, "BOOKS")
+
 	return (
 		<>
 			<div 

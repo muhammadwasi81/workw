@@ -20,9 +20,12 @@ const CommentItem = (props) => {
     youLikeType = 0,
     likeCounter = 0,
     handleLike,
+    likeClass,
   } = props;
   let { id, name, image, designation } = creator;
   const [openComposer, setOpenComposer] = useState(false);
+
+  console.log(handleLike, "handleLike")
 
   return (
     <div className={'CommentItem ' + (isReply ? 'ReplyComment' : '')}>
@@ -48,7 +51,7 @@ const CommentItem = (props) => {
         </div>
 
         <div className="likeReplyCont">
-          <div onClick={() => handleLike(id)}>Like</div>
+          <div className={likeClass} onClick={() => handleLike(id)}>Like</div>
           <div onClick={() => setOpenComposer(!openComposer)}>Reply</div>
         </div>
         <div>{openComposer && <CommentComposer />}</div>

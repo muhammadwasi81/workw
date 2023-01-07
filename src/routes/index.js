@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { Socket, SOCKET_STATE } from "../utils/socket";
 import Spinner from "../main/sharedComponents/spinner/spinner";
 import SideChatBar from "../main/features/SideChatbar/index";
+import FcmNotification from "../main/features/notifiation/view/FCM/fcmNotification";
+import MainNotification from "../main/sharedComponents/Notification/Notification";
 const PrivateRoute = () => {
   const { token } = useSelector((state) => state.userSlice);
   const isLoggedIn = !!token;
@@ -64,6 +66,10 @@ export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
 
       {isLoggedIn  && <SideChatBar />}
       {isLoggedIn && isMobileView && <BottomNavigationTab />}
+      
+      {isLoggedIn  && <FcmNotification />}
+      {isLoggedIn  && <MainNotification />}
+
     </React.Fragment>
   );
 }

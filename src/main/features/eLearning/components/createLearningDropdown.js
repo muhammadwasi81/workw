@@ -15,7 +15,7 @@ function CreateLearningDropdown() {
     userLanguage
   ];
   const handleChange = (value) => {
-    let { key } = value; 
+    let { key } = value;
     dispatch(handleOpenComposer(key));
   };
   const CreateOptions = [
@@ -55,7 +55,7 @@ function CreateLearningDropdown() {
       label: <p className="!mb-0 pl-3">{elearningDictionary.videos}</p>,
       key: "video",
       // icon: <img width="17px" alt="" src={mileshowIcon} />,
-      onClick: handleChange,
+      onClick: () => navigate("/eLearning/video/create"),
     },
   ];
   return (

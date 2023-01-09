@@ -50,8 +50,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     phoneNo: '',
     designationId: [],
     managerId: [],
-    // gradesId: [],
-    grades: [],
+    gradesId: [],
+    // grade: [],
     countryId: [],
     cityId: [],
     probationPeriod: '',
@@ -79,7 +79,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const { accessRoles } = useSelector((state) => state.accessRolesSlice);
   const { items } = useSelector((state) => state.subsidiarySlice);
   const subsidiaryOffice = useSelector((state) => state.subsidiaryOfficeSlice);
-  console.log(subsidiaryOffice, 'subsidiaryOffice slice');
   const { userLanguage } = useContext(LanguageChangeContext);
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
@@ -157,7 +156,10 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         birthDate: moment(basicdetails.birthDate),
         joinDate: moment(basicdetails.joinDate),
         accessRoleId: basicdetails?.accessRoles?.map((item) => item.accessRole),
-        officeTimingId: basicdetails.officeTimingId === STRINGS.DEFAULTS.guid ? "" : basicdetails.officeTimingId,
+        officeTimingId:
+          basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
+            ? ''
+            : basicdetails.officeTimingId,
         // birthDate: basicdetails.birthDate ?  basicdetails.birthDate : "",
       });
     }
@@ -168,7 +170,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   }, [initialValues, form]);
 
   Object.defineProperty(form, 'values', {
-    value: function () {
+    value: function() {
       return {
         ...form.getFieldsValue(),
         birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
@@ -185,24 +187,26 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const fetchCityData = (text, pgNo) => {
     dispatch(getCities({ textData: text, page: pgNo }));
   };
+
   const handleUpdateInfo = async () => {
     form.submit();
     try {
       const isValidation = await form.validateFields();
       if (isValidation) {
-        let values = form.getFieldsValue();
-        if (values) {
-          values = {
-            ...values,
+        let payload = form.getFieldsValue();
+        console.log('payload', payload);
+        if (payload) {
+          payload = {
+            ...payload,
+            id: id,
             birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
             joinDate: moment(form.getFieldValue('joinDate')._ds).format(),
-            probationPeriod: parseInt(values.probationPeriod),
-            noticePeriod: parseInt(values.noticePeriod),
+            probationPeriod: parseInt(payload.probationPeriod),
+            // noticePeriod: parseInt(payload.noticePeriod),
+            noticePeriod: 30,
           };
-          console.log(values, 'values');
-          dispatch(updateEmployeeAction({ data: values }));
+          dispatch(updateEmployeeAction({ data: payload }));
         }
-        console.log('handleUpdateInfo', values);
       }
     } catch (err) {
       console.log(err.message);
@@ -289,7 +293,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           name="designationId"
           label={labels.Designation}
           placeholder={placeholder.selectGender}
-
         >
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
@@ -334,7 +337,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             }}
           />
         </Form.Item>
-        <Form.Item name="grades" label={labels.Grades}>
+        <Form.Item name="gradeId" label={labels.Grades}>
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
             showSearch={true}
@@ -382,8 +385,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           isObject={true}
           placeholder={placeholder.searchToSelect}
           size="large"
-          // name="cityId"
-          name="city"
+          name="cityId"
           label={labels.City}
         />
         <Form.Item name="probationPeriod" label={labels.ProbationPeriod}>
@@ -395,19 +397,21 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             min={1}
           />
         </Form.Item>
-        <Form.Item
-          name="noticePeriod"
-          label={labels.NoticePeriod}
-          rules={[{ required: true }]}
-        >
-          <Input
-            placeholder={placeholder.noticePeriod}
-            size="large"
-            type={'number'}
-            min={1}
-            step={'1'}
-          />
-        </Form.Item>
+        {!isEdit && (
+          <Form.Item
+            name="noticePeriod"
+            label={labels.NoticePeriod}
+            rules={[{ required: true }]}
+          >
+            <Input
+              placeholder={placeholder.noticePeriod}
+              size="large"
+              type={'number'}
+              min={1}
+              step={'1'}
+            />
+          </Form.Item>
+        )}
         <Form.Item name="birthDate" label={labels.DateOfBirth}>
           <DatePicker
             getPopupContainer={(trigger) => trigger.parentNode}
@@ -574,35 +578,41 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          name="subsidiary"
-          rules={[{ required: false }]}
-          label={labels.subsidiary}
-        >
-          <Select
-            size="large"
-            placeholder={placeholder.subsidiary}
-            getPopupContainer={(trigger) => trigger.parentNode}
-            showSearch={true}
-            onChange={() => setShowSubsidary((prev) => !prev)}
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-            }
-            options={items?.map((item) => {
-              return {
-                value: item?.id,
-                label: item?.branchTitle,
-              };
-            })}
+
+        {!isEdit && (
+          <Form.Item
+            name="subsidiary"
+            rules={[{ required: false }]}
+            label={labels.subsidiary}
           >
-            {items?.map((item) => (
-              <Select.Option key={item.id} value={item.id}>
-                {item.branchTitle}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+            <Select
+              size="large"
+              placeholder={placeholder.subsidiary}
+              getPopupContainer={(trigger) => trigger.parentNode}
+              showSearch={true}
+              onChange={() => setShowSubsidary((prev) => !prev)}
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                (option?.label ?? '')
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              options={items?.map((item) => {
+                return {
+                  value: item?.id,
+                  label: item?.branchTitle,
+                };
+              })}
+            >
+              {items?.map((item) => (
+                <Select.Option key={item.id} value={item.id}>
+                  {item.branchTitle}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
+
         {showSubsidary && (
           <Form.Item
             name="subsidiaryOffice"
@@ -637,10 +647,14 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             </Select>
           </Form.Item>
         )}
-        <Form.Item name="payroll" label={labels.payroll}>
-          <Input placeholder={placeholder.payroll}></Input>
-        </Form.Item>
+
+        {!isEdit && (
+          <Form.Item name="payroll" label={labels.payroll}>
+            <Input placeholder={placeholder.payroll}></Input>
+          </Form.Item>
+        )}
       </Form>
+
       <div className={isEdit ? 'editButtons' : 'buttons'}>
         {isEdit && (
           <Button

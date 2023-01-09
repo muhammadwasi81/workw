@@ -224,14 +224,16 @@ function ProjectDetails() {
                   }}
                 />
               </WhiteCard>
-              <CustomNotes
-                onChange={(value) => descHandler(value)}
-                modules={modules}
-                formats={formats}
-                className={"stickyNoteItem-textarea"}
-                placeholder={"please enter your notes here"}
-                defaultValue={"<h2>React Quill Rich Text Editor</h2>"}
-              />
+              <div className="bg-white">
+                <CustomNotes
+                  onChange={(value) => descHandler(value)}
+                  modules={modules}
+                  formats={formats}
+                  className={"stickyNoteItem-textarea"}
+                  placeholder={"please enter your notes here"}
+                  defaultValue={"<h2>React Quill Rich Text Editor</h2>"}
+                />
+              </div>
             </div>
           </div>
         </ContBody>

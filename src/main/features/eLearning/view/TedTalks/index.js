@@ -1,23 +1,18 @@
 import React, { useContext } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import LayoutHeader from "../../../../layout/header";
+import DashboardLayout from "../Dashboard/Layout/DashboardLayout";
 import { elearningDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
-function DetailHeader({ dictionary, direction }) {
+function Courses() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, elearningDictionary } = elearningDictionaryList[
     userLanguage
   ];
-  // const items = [
-  //   {
-  //     name: "Detail",
-  //     to: ``,
-  //     renderButton: [1],
-  //   },
-  // ];
-
-  return <LayoutHeader buttons={[]} />;
+  return (
+    <DashboardLayout>
+      <div>{"Courses"}</div>
+    </DashboardLayout>
+  );
 }
 
-export default DetailHeader;
+export default Courses

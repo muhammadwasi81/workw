@@ -43,13 +43,13 @@ function CreateLearningDropdown() {
       label: <p className="!mb-0 pl-3">{elearningDictionary.tedTalks}</p>,
       key: "tedtalks",
       // icon: <img width="17px" alt="" src={milegridIcon} />,
-      onClick: handleChange,
+      onClick: () => navigate("/eLearning/tedtalk/create"),
     },
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.articles}</p>,
       key: "article",
       // icon: <img width="17px" alt="" src={mileshowIcon} />,
-      onClick: handleChange,
+      onClick: () => navigate("/eLearning/article/create"),
     },
     {
       label: <p className="!mb-0 pl-3">{elearningDictionary.videos}</p>,

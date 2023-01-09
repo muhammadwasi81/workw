@@ -31,10 +31,10 @@ function QuizDetail(props) {
   //   } = courseDetail;
   let Default = "https://www.makeintern.com/learning/img/online-course12.jpg";
 
-  useEffect(() => {
-    // disptach(getQuizById(id));
-    disptach(AddStartQuiz(id));
-  }, []);
+  // useEffect(() => {
+  //   // disptach(getQuizById(id));
+  //   disptach(AddStartQuiz(id));
+  // }, []);
 
   let renderPage = {
     DetailPage: (

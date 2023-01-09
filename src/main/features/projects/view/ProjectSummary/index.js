@@ -25,7 +25,7 @@ const ProjectSummary = () => {
           width={1300}
           className="modalStyle"
           bodyStyle={{
-            height: 'calc(100vh - 150px)',
+            height: 'calc(100vh - 120px)',
             overflow: 'auto',
             minHeight: '500px',
           }}
@@ -33,7 +33,7 @@ const ProjectSummary = () => {
         >
           <h2 className="text-center font-semibold text-lg">Summary</h2>
           <Row gutter={[16, 16]}>
-            <Col span={18}>
+            <Col lg={18} xs={24} sm={24}>
               <div className="mainWrapper rounded-lgh-64 py-4">
                 <div className="flex justify-between px-5">
                   <img
@@ -93,15 +93,24 @@ const ProjectSummary = () => {
                     <span className="text-gray-500 font-semibold">Balance</span>
                   </div>
                 </div>
-                <div className="text-base p-5 bg-neutral-100 flex justify-around w-full rounded-lg font-bold">
-                  <div className="flex flex-col gap-3 text-center">
-                    <span className="text-red-600">100$</span>
-                    <span className="text-gray-500 font-semibold">Spent</span>
+                <div className="text-base p-5 bg-neutral-100 flex flex-col w-full rounded-lg font-bold">
+                  <div className="border-b-2 border-gray-500 text-center pb-3">
+                    <span className="text-primary-color text-center w-full">
+                      Deadline
+                    </span>
                   </div>
-                  <div className="border-r-2 border-gray-500" />
-                  <div className="flex flex-col gap-3 text-center">
-                    <span className="text-green-500">400$</span>
-                    <span className="text-gray-500 font-semibold">Balance</span>
+                  <div className="flex w-full justify-around">
+                    <div className="flex flex-col gap-3 text-center pt-3">
+                      <span className="text-red-600">100$</span>
+                      <span className="text-gray-500 font-semibold">Spent</span>
+                    </div>
+                    <div className="border-r-2 border-gray-500" />
+                    <div className="flex flex-col gap-3 text-center pt-3">
+                      <span className="text-green-500">400$</span>
+                      <span className="text-gray-500 font-semibold">
+                        Balance
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

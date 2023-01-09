@@ -237,8 +237,8 @@ export const addBookMemberService = async (data) => {
     };
 
 
-// TEDTALKS SERVICES  
-    
+// TEDTALKS SERVICES
+
 
 export const addTedTalkService = async (data) => {
   const formData = jsonToFormData(data);
@@ -296,6 +296,40 @@ export const getAllArticleService = (data) => {
 
 export const GetArticleByIdService = (id) => {
   return MasterConfig.get(`api/ELearning/GetArticlesById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+// VIDEO SERVICES
+
+export const addVideoService = async (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.post(`api/ELearning/AddVideos`, formData)
+      .then((res) => {
+        return res;
+      })
+      .catch((res) => {
+        return res;
+      });
+};
+
+
+export const getAllVideoService = (data) => {
+  return MasterConfig.post(`api/ELearning/GetAllVideos`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const GetVideoByIdService = (id) => {
+  return MasterConfig.get(`api/ELearning/GetVideosById?id=${id}`)
     .then((res) => {
       return res;
     })

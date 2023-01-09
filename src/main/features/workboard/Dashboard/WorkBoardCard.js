@@ -40,7 +40,6 @@ function WorkBoardCard({ data }) {
     userLanguage
   ];
   const { labels, placeholder } = WorkBoardDictionaryList;
-  console.log(data.members, "dtaaaa");
 
   const memberHandler = (e) => {
     e.preventDefault();

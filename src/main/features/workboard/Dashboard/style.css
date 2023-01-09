@@ -13,3 +13,7 @@
   line-height: 23px;
   cursor: pointer;
 }
+.ApproverModal .ant-modal-body {
+  max-height: 431px;
+  overflow: scroll;
+}

@@ -33,8 +33,6 @@ function MemberModal({ isOpen = false }) {
   let ModalOpen = modalRequest.status;
   let Type = modalRequest.type;
 
-  console.log(Type, "TYPE !!");
-
   useEffect(() => {
     if (Type === MemberEnum.courses) {
       ModalOpen && dispatch(getAllCourseMember(assignMemberId));

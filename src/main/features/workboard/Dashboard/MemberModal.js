@@ -14,10 +14,8 @@ import { getWorkBoardMemberAction, addWorkBoardMember } from "../store/action";
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
-  console.log(userId, "memberIdf");
   const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
   const { workBoardMembers } = useSelector((state) => state.trelloSlice);
-  console.log(workBoardMembers, "workBoardMmeber");
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);

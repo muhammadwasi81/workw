@@ -62,6 +62,7 @@ const trelloSlice = createSlice({
   reducers: {
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
+      console.log(payload, "add memberrr");
     },
     addList(state, { payload }) {
       // console.log("add card");
@@ -504,6 +505,7 @@ const trelloSlice = createSlice({
       .addCase(getWorkBoardMemberAction.fulfilled, (state, action) => {
         state.workBoardMembers = action.payload ? action.payload : [];
       })
+      .addCase(addWorkBoardMember.fulfilled, (state, { payload }) => {})
       .addMatcher(
         isPending(
           ...[

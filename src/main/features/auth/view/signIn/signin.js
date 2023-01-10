@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import FormFooter from "./formFooter";
+import { getFirebaseToken } from "../../../../../firebase/initFirebase";
 
 function SignIn() {
   let formData = {};
@@ -29,7 +30,14 @@ function SignIn() {
 
   const [reset, setReset] = useState(false);
 
-  const onSubmit = (payload) => {
+  const onSubmit = async (payload) => {
+    let permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      console.log('Notification permission granted.');
+      let firebaseToken = await getFirebaseToken();
+      // set send token api here...
+      console.log(firebaseToken, 'firebaseToken');
+    }
     dispatch(loginUser(payload));
   };
 

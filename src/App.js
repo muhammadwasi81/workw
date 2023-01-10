@@ -30,7 +30,6 @@ import { LanguageChangeContext } from "./utils/localization/localContext/LocalCo
 import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
 import { InitMessengerSocket } from "./utils/InitSocket";
-import MainNotification from "./main/sharedComponents/Notification/Notification";
 import SubmitForm from "./main/features/forms/view/forms/SubmitForm/index.js";
 import { openNotification } from "./utils/Shared/store/slice";
 import Careers from "./main/features/careers/view/Careers";
@@ -156,7 +155,6 @@ const App = () => {
           </Router>
         </MainFlexContainer>
       </ErrorBoundary>
-      <MainNotification />
     </>
   );
 };

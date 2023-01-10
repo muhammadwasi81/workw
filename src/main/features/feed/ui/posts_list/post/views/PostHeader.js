@@ -49,10 +49,10 @@ const PostHeader = ({
             </span>
             {tags.length > 0 && (
               <React.Fragment>
-                &ensp;with <span>{tags[0].member?.name}</span>
+                &nbsp;with <span>{tags[tags.length - 1].member?.name}</span>
                 {tags.length > 1 && (
                   <React.Fragment>
-                    &ensp;and&ensp;
+                    &nbsp;and&nbsp;
                     <span>
                       {tags.length > 2 ? (
                         `${tags.length - 1} Others`

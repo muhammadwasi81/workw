@@ -271,11 +271,11 @@ const AppraisalForm = (props) => {
           onFinishFailed={onFinishFailed}
           disabled={props.disabled}
         >
-          <div className="inputBox flex justify-between items-center">
+          <div className="inputBox-form flex justify-between items-center">
             <span>{appraisals}</span>
             {/* <span>{basicSalary}: 13000</span> */}
           </div>{" "}
-          <div className="inputBox flex justify-evenly mt-2 items-center">
+          <div className="inputBox-form flex justify-evenly mt-2 items-center">
             <Tag
               onClick={() => modalOpenFunc("previousAppraisal")}
               className="statusTag"
@@ -305,7 +305,7 @@ const AppraisalForm = (props) => {
               {courses}
             </Tag>
           </div>
-          <div className="inputBox  mt-2">
+          <div className="inputBox-form  mt-2">
             <span>{Promotion}</span>
             <Form.Item
               name="promotion"
@@ -375,7 +375,7 @@ const AppraisalForm = (props) => {
               </>
             )}
           </div>
-          <div className="inputBox mt-2">
+          <div className="inputBox-form mt-2">
             <span>{Bonus}</span>
             {/**TODO: conditonal render options if salary is present then both options will be present amount/percentage */}
             <Form.Item
@@ -474,7 +474,7 @@ const AppraisalForm = (props) => {
               </>
             )}
           </div>
-          <div className="inputBox mt-2">
+          <div className="inputBox-form mt-2">
             <span>{Increment}</span>
             {/**TODO: conditonal render options if salary is present then both options will be present amount/percentage */}
             <Form.Item
@@ -573,7 +573,7 @@ const AppraisalForm = (props) => {
               </>
             )}
           </div>
-          <div className="inputBox mt-2">
+          <div className="inputBox-form mt-2">
             <Form.Item
               name="approvers"
               label={approvers}
@@ -603,7 +603,7 @@ const AppraisalForm = (props) => {
             </Form.Item>
           </div>
           {appraisalQuestion.appraisals.length > 1 && (
-            <div className="inputBox mt-4">
+            <div className="inputBox-form mt-4">
               {appraisalQuestion.appraisals.map((item, i) => {
                 return (
                   <Form.Item name={`question${i + 1}`}>

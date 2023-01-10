@@ -1,6 +1,6 @@
 import React from "react";
 import { ClockCircleOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Skeleton } from "antd";
 import { BsFileText } from "react-icons/bs";
 import WhiteCard from "../../../../../UI/WhiteCard";
 import { LevelsIcon, tag } from "../../../Components/CourseCard";
@@ -27,7 +27,7 @@ function EBookDetail() {
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false)
 	const id = useParams().id;
-	const { bookDetail } = useSelector((state) => state.eLearningSlice);
+	const { bookDetail, loaders } = useSelector((state) => state.eLearningSlice);
 	let {
 		image,
 		name,
@@ -39,6 +39,7 @@ function EBookDetail() {
 		attachment,
 	} = bookDetail
 	let Default = "https://www.makeintern.com/learning/img/online-course12.jpg"
+	let loader = loaders.bookDetailLoading
 
 	useEffect(() => {
 		disptach(GetBookById(id))
@@ -52,7 +53,13 @@ function EBookDetail() {
 			<main className="flex flex-1 gap-10 h-full overflow-hidden">
 				<section className="flex basis-[75%] overflow-y-auto detail_section">
 					<WhiteCard className="flex flex-col gap-5 w-full h-fit">
-						<DetailPageTopDetail
+						{
+							loader ? 
+							<>
+								<Skeleton paragraph={{ rows: 4 }} />
+							</> :
+							<>
+								<DetailPageTopDetail
 							// image={image ? image : Default}
 							// difficulty={{ name: tag[1], icon: LevelsIcon[1] }}
 							// lastUpdated={"Syed Danish Ali"}
@@ -98,9 +105,9 @@ function EBookDetail() {
 							imageHeight={"200px"}
 							headingSize={"30px"}
 						/>
-						<h3 style={{color: "#222",fontSize: "17px",fontWeight: '600',marginBottom: '0px'}} >Description</h3>
-						{
-							description && description 
+							<h3 style={{color: "#222",fontSize: "17px",fontWeight: '600',marginBottom: '0px'}} >Description</h3>
+							{description && description}
+							</>
 						}
 						{/* <DetailTabs items={items} /> */}
 					</WhiteCard>
@@ -112,53 +119,62 @@ function EBookDetail() {
 					}}
 				>
 					<WhiteCard className="flex flex-col gap-1 w-full">
-						<DetailPageTopDetail
-							image={image ? image : Default}
-							title={"Book Information"}
-							description={information ===  "" ?  "Information will come here" : information}
-						/>
-						{/* <div className="font-bold text-xs flex items-center justify-between mb-2">
-							<p className="!mb-0 flex items-center gap-1">
-								<ClockCircleOutlined /> 1h 30m
-							</p>
-							<p className="!mb-0 flex items-center gap-1">
-								<BsFileText className="!text-lg" /> 5 Modules
-							</p>
-						</div> */}
-						{/* <ModulesList /> */}
+						{
+							loader ? 
+							<>
+								<Skeleton.Image style={{width: "100%", height:"250px"}} active={true} />
+								<Skeleton paragraph={{ rows: 4 }} />
+							</> :
+							<>
+								<DetailPageTopDetail
+									image={image ? image : Default}
+									title={"Book Information"}
+									description={information ===  "" ?  "Information will come here" : information}
+								/>
+								{/* <div className="font-bold text-xs flex items-center justify-between mb-2">
+									<p className="!mb-0 flex items-center gap-1">
+										<ClockCircleOutlined /> 1h 30m
+									</p>
+									<p className="!mb-0 flex items-center gap-1">
+										<BsFileText className="!text-lg" /> 5 Modules
+									</p>
+								</div> */}
+								{/* <ModulesList /> */}
 
-						<Button
-							className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
-							block
-							style={{marginBottom: "5px"}}
-							onClick={() => setIsOpen(true)}
-						>
-							Read
-						</Button>
-						<Button
-							className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
-							block
-							style={{marginBottom: "5px"}}
-							onClick={() => console.log("Read Button Clicked")}
-						>
-							Delete Book
-						</Button>
-						<Button
-							className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
-							block
-							style={{marginBottom: "10px"}}
-							onClick={() => console.log("Read Button Clicked")}
-						>
-							Update
-						</Button>
-						<Button
-							className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
-							block
-							style={{marginBottom: "10px"}}
-							onClick={() => disptach(addAssignMember({status: true, type: AssignMemEnum.ebook}))}
-						>
-							Assign
-						</Button>
+								<Button
+									className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
+									block
+									style={{marginBottom: "5px"}}
+									onClick={() => setIsOpen(true)}
+								>
+									Read
+								</Button>
+								<Button
+									className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
+									block
+									style={{marginBottom: "5px"}}
+									onClick={() => console.log("Read Button Clicked")}
+								>
+									Delete Book
+								</Button>
+								<Button
+									className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
+									block
+									style={{marginBottom: "10px"}}
+									onClick={() => console.log("Read Button Clicked")}
+								>
+									Update
+								</Button>
+								<Button
+									className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
+									block
+									style={{marginBottom: "10px"}}
+									onClick={() => disptach(addAssignMember({status: true, type: AssignMemEnum.ebook}))}
+								>
+									Assign
+								</Button>
+							</>
+						}
 					</WhiteCard>
 				</section>
 			</main>

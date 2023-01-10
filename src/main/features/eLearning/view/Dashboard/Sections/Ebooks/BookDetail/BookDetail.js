@@ -71,7 +71,8 @@ function EBookDetail() {
 												text={"Members"}
 												image={"https://joeschmoe.io/api/v1/random"}
 											/>
-											<div className="addMemberBtn" onClick={() => disptach(addMember({status: true, type: MemberEnum.ebook}))} >+</div>
+											<div className="addMemberBtn" onClick={() => 
+												disptach(addMember({status: true, type: MemberEnum.ebook}))} >+</div>
 										</div>
 										<MemberModal />
 									</>

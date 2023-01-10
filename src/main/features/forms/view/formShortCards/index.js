@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CardWrapper2 } from "../../../../sharedComponents/Card/CardStyle.js";
+import { CardWrapper } from "../../../../sharedComponents/Card/CardStyle";
 import ShortCard from "../components/shortCard/index";
 import "./style.css";
 import { Skeleton } from 'antd';
@@ -25,20 +26,20 @@ const FormShortCard = () => {
   console.log("formdata in form short card component", forms);
   if (loader) {
     return(
-      <div className="d_AllShortCard" >
+    <div className="d_AllShortCard">
       {
         (Array(20).fill(1)).map((item) => (
-          // <SclknShortCard />
-          <Skeleton loading={true} active></Skeleton>
+          <Skeleton loading={true} active />
         ))
       }
     </div>
+   
     );
-  }else{
+  }
   return (
     <>
     { forms?.length > 0 && !loader ? (
-      <CardWrapper2>
+      <CardWrapper>
         {forms.map((item, index) => (
           <ShortCard
             item={item}
@@ -48,7 +49,7 @@ const FormShortCard = () => {
             visible={visible}
           />
         ))}
-      </CardWrapper2>
+      </CardWrapper>
         ) : !loader && <NoDataFound />
     }
     {formDetail && (
@@ -60,7 +61,7 @@ const FormShortCard = () => {
     )}
     </>
   );
-}
+
 };
 
 export default FormShortCard;

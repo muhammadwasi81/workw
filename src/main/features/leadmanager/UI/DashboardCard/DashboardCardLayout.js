@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Card, Skeleton } from "antd";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import PublicPrivateIcon from "../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
-import { useSelector,useDispatch } from "react-redux";
-import {addMember} from "../../store/slice";
+import { useSelector, useDispatch } from "react-redux";
+import { addMember } from "../../store/slice";
 import MemberModal from "../../view/Modal/MemberModal";
 import "./style.css";
+import QuickOptions from "../../../documents/view/components/quickOptions";
 
 function DashboardCardLayout({
   data = {},
@@ -16,20 +17,20 @@ function DashboardCardLayout({
   onClick = () => {},
   dictionary = {},
 }) {
-  const disptach = useDispatch()
-  const [visible,setVisible] = useState(false);
+  const disptach = useDispatch();
+  const [visible, setVisible] = useState(false);
   const { Meta } = Card;
   const userId = useSelector((state) => state.userSlice.user.id);
   // console.log("dict", dictionary);
   //   console.log(dictionary, "dictionaryyyyy");
 
-  const handleModal=(e)=>{
-    console.log("modallllll",visible);
+  const handleModal = (e) => {
+    console.log("modallllll", visible);
     e.preventDefault();
     e.stopPropagation();
     setVisible(true);
-    disptach(addMember({status: true}));
-  }
+    disptach(addMember({ status: true }));
+  };
   return (
     <>
       <Card
@@ -71,33 +72,31 @@ function DashboardCardLayout({
           }
         />
 
-           
-          <div className="flex justify-between items-center">
-            <div className="members"> 
-                <Avatar
-                  isAvatarGroup={true}
-                  isTag={false}
-                  heading={"Members"}
-                 membersData={data.members ? data.members : []}
-                />
-                <div className="addMemberBtn" 
-                    onClick={(e) =>handleModal(e)
-                    }>+</div>
-                
+        <div className="flex justify-between items-center">
+          <div className="members">
+            <Avatar
+              isAvatarGroup={true}
+              isTag={false}
+              heading={"Members"}
+              membersData={data.members ? data.members : []}
+            />
+            <div className="addMemberBtn" onClick={(e) => handleModal(e)}>
+              +
             </div>
-          
-             {userId === data.createBy && (
-               <div
-                className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  getDetailById(data.id);
-                  handleUpdate();
-                }}
-                >
-                  {dictionary?.labels?.update}
           </div>
+          {userId === data.createBy && (
+            //      <div
+            //       className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
+            //       onClick={(e) => {
+            //         e.preventDefault();
+            //         e.stopPropagation();
+            //         getDetailById(data.id);
+            //         handleUpdate();
+            //       }}
+            //       >
+            //         {dictionary?.labels?.update}
+            // </div>
+            <QuickOptions data={data} />
           )}
         </div>
       </Card>

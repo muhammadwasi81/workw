@@ -1,34 +1,38 @@
 import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
-import { 
-  addBookAssignMemberService,
-  addBookMemberService,
-  addBookService,
-  addCourseAssignMemberService,
-  addCourseMemberService,
-  addCourseService,
-  getAllBookAssignMemService, 
-  getAllBookMemberService, 
-  getAllBookService, 
-  getAllCourseAssignMemService, 
-  getAllCourseMemberService, 
-  getAllCourseService, 
-  GetBookByIdService, 
-  addQuizService,
-  getAllQuizService,
-  checkQuizAttemptService,
-  GetQuizByIdService,
-  AddQuizAnswerAttemptService,
-  AddStartQuizService,
-  GetQuizResultService,
-  GetCourseByIdService, 
-  addTedTalkService,
-  getAllTedTalkService,
-  GetTedTalkByIdService,
-  getAllArticleService,
-  GetArticleByIdService,
-  addArticleService} from "../service/service";
+import {
+    addBookAssignMemberService,
+    addBookMemberService,
+    addBookService,
+    addCourseAssignMemberService,
+    addCourseMemberService,
+    addCourseService,
+    getAllBookAssignMemService,
+    getAllBookMemberService,
+    getAllBookService,
+    getAllCourseAssignMemService,
+    getAllCourseMemberService,
+    getAllCourseService,
+    GetBookByIdService,
+    addQuizService,
+    getAllQuizService,
+    checkQuizAttemptService,
+    GetQuizByIdService,
+    AddQuizAnswerAttemptService,
+    AddStartQuizService,
+    GetQuizResultService,
+    GetCourseByIdService,
+    addTedTalkService,
+    getAllTedTalkService,
+    GetTedTalkByIdService,
+    getAllArticleService,
+    GetArticleByIdService,
+    addArticleService,
+    addVideoService,
+    getAllVideoService,
+    GetVideoByIdService
+} from "../service/service";
 
   // import {
   //   addBookService,
@@ -353,9 +357,46 @@ export const getAllArticle = createAsyncThunk(
 );
 
 export const GetArticleById = createAsyncThunk(
-  "Article/GetArticlekById",
+  "Article/GetArticleById",
   async (id) => {
     const response = await GetArticleByIdService(id);
+    return response.data;
+  }
+);
+
+// VIDEO //
+
+export const addVideo = createAsyncThunk(
+    "Video/addArticle",
+    async (data, { dispatch, getState, rejectWithValue }) => {
+        const res = await addVideoService(data);
+        if (res.data?.responseCode === responseCode.Success) {
+            message.success("Video Added");
+            return res;
+        } else {
+            message.error(res.data.message);
+            return rejectWithValue(res.data.message);
+        }
+    }
+);
+
+export const getAllVideo = createAsyncThunk(
+  "Video/GetAllVideo",
+  async (data) => {
+    const response = await getAllVideoService(data);
+
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+
+export const GetVideoById = createAsyncThunk(
+  "Video/GetVideoById",
+  async (id) => {
+    const response = await GetVideoByIdService(id);
     return response.data;
   }
 );

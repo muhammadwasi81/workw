@@ -244,6 +244,7 @@ const eLearningSlice = createSlice({
       })
       .addCase(getAllBookMember.fulfilled, (state, action) => {
         state.bookMembers = action.payload ? action.payload : [];
+        console.log(state.bookMembers, "book members");
       })
       .addCase(getAllCourseAssignMem.fulfilled, (state, action) => {
         state.courseAssignMembers = action.payload ? action.payload : [];

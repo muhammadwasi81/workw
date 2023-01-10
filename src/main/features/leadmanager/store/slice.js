@@ -17,6 +17,8 @@ import {
   updateLeadManagerDetail,
   getAllScheduleAction,
   getScheduleByIdAction,
+  getAllLeadManagerMember,
+  addLeadManagereMember,
 } from "./actions";
 
 const initialComposerData = {
@@ -33,6 +35,7 @@ const initialState = {
   error: false,
   loading: false,
   leadManagersData: [],
+  memberData:[],
   leadManagerDetail: null,
   leadManagerSectionDetailData: null,
   isSectionDetailLoading: false,
@@ -53,6 +56,8 @@ const initialState = {
   isAssignMemberModalOpen: false,
   assignToMemberId: "",
   isSectionModalOpen: false,
+  addMemberModal: false,
+  addAssignMemberModal: false,
 
   contactModal: {
     isOpen: false,
@@ -68,6 +73,12 @@ const leadMangerSlice = createSlice({
   reducers: {
     handleOpenComposer: (state, { payload }) => {
       state.drawerOpen = payload;
+    },
+    addMember: (state, { payload }) => {
+      state.addMemberModal = payload;
+    },
+    addAssignMember: (state, { payload }) => {
+      state.addAssignMemberModal = payload;
     },
     toggleEventDetailComposer: (state, { payload }) => {
       state.meetingDetailComposer = !state.meetingDetailComposer;
@@ -155,6 +166,13 @@ const leadMangerSlice = createSlice({
         state.leadManagersData.unshift(payload.data);
         state.loading = false;
         state.success = true;
+      })
+      .addCase(getAllLeadManagerMember.fulfilled, (state, action) => {
+        state.memberData = action.payload ? action.payload : [];
+      })
+      .addCase(addLeadManagereMember.fulfilled, (state, { payload }) => {
+        state.memberData = [...state.memberData, payload];
+        return state;
       })
       .addCase(getLeadManagerById.fulfilled, (state, { payload }) => {
         // console.log("payload.data", payload.data);
@@ -387,6 +405,8 @@ export const {
   handleSectionDetailModal,
   handleComposeEmail,
   resetSuccess,
+  addMember,
+  addAssignMember,
   handleOpenComposer,
   toggleEventDetailComposer,
 } = leadMangerSlice.actions;

@@ -23,7 +23,7 @@ export const updateUserWorkExperienceService = async (payload) => {
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.post(
+    } = await Config.put(
       `${API_PREFIX}userWorkExperience/UpdateUserWorkExperience`,
       payload
     );

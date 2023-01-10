@@ -32,6 +32,7 @@ import { getAllDesignation } from '../../designation/store/actions';
 import { getAllBranch } from '../../subsidiary/store/actions';
 import { getAllBranchOffice } from '../../subsidiaryOffice/store/actions';
 import { updateEmployeeAction } from '../store/actions';
+import { getAllDepartments } from '../../departments/store/actions';
 const { Option } = Select;
 
 const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
@@ -141,6 +142,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     if (!accessRoles?.length) {
       dispatch(getAllAccessRoles());
     }
+    if (!department?.length) getAllDepartments();
 
     return () => {
       dispatch(resetBasicdetails());
@@ -149,7 +151,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
 
   useEffect(() => {
     if (isEdit) {
-      console.log('basicdetails', basicdetails);
+      console.log('basicDetails', basicdetails);
       setInitialValues({
         ...basicdetails,
         birthDate: moment(basicdetails.birthDate),
@@ -161,14 +163,14 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
             ? ''
             : basicdetails.officeTimingId,
+        managerId: basicdetails.manager?.id
+          ? basicdetails.manager?.id
+          : STRINGS.DEFAULTS.guid,
       });
     }
   }, [basicdetails]);
 
-  console.log(
-    basicdetails?.accessRoles?.map((item) => item.accessRoleId),
-    'accessRoleId)'
-  );
+  console.log(basicdetails.manager?.id, 'managerId');
 
   useEffect(() => {
     form.setFieldsValue(initialValues);
@@ -295,7 +297,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
               required: true,
             },
           ]}
-          name="designation"
+          name="designationId"
           label={labels.Designation}
           placeholder={placeholder.selectGender}
         >
@@ -566,7 +568,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           </Select>
         </Form.Item>
 
-        <Form.Item name="department" label={labels.department}>
+        <Form.Item name="departmentId" label={labels.department}>
           <Select
             size="large"
             placeholder={placeholder.department}

@@ -17,15 +17,12 @@ import { LanguageChangeContext } from '../../../../utils/localization/localConte
 import { employeeDictionaryList } from '../localization/index';
 import '../Styles/employeeForm.css';
 import { employmentType } from '../../../../utils/Shared/enums/enums';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   getUserWorkExperience,
   updateUserWorkExperienceAction,
 } from '../../experienceInfo/store/actions';
 import moment from 'moment';
-import CitySelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect';
-import { getNameForImage } from '../../../../utils/base';
 import { getCities } from '../../../../utils/Shared/store/actions';
 import { resetEmergencydetails } from '../store/slice';
 
@@ -57,7 +54,6 @@ const ExperienceForm = ({ mode, id }) => {
     enumerable: true,
     configurable: true,
   });
-  const [city, setCity] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const [isPresent, setIsPresent] = useState(false);
@@ -77,7 +73,6 @@ const ExperienceForm = ({ mode, id }) => {
   const initialState = {
     position: '',
     employmentTypeId: [],
-    cityId: [],
     startDate: '',
     isPresent: false,
   };
@@ -136,7 +131,7 @@ const ExperienceForm = ({ mode, id }) => {
       setInitialValues(initialState);
     } catch (err) {
       console.log(err, 'err');
-      throw new Error(`Failed to Fetch`, { cause: err });
+      throw new Error(`Failed to Fetch: ${err}`, { cause: err });
     }
   };
 
@@ -162,14 +157,7 @@ const ExperienceForm = ({ mode, id }) => {
         return employmentType[value - 1]?.name;
       },
     },
-    {
-      title: labels.City,
-      dataIndex: 'cityId',
-      key: 'cityId',
-      render: (value) => {
-        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
-      },
-    },
+
     {
       title: labels.StartEndDate,
       dataIndex: 'startDate',
@@ -218,7 +206,6 @@ const ExperienceForm = ({ mode, id }) => {
       id: newUserId,
       userId: id,
       employmentTypeId: form.getFieldValue('employmentTypeId'),
-      // cityId: form.getFieldValue('cityId')
       startDate: form.getFieldValue('startDate')[0],
       endDate: form.getFieldValue('startDate')[1],
       isPresent: form.getFieldValue('isPresent'),
@@ -258,17 +245,7 @@ const ExperienceForm = ({ mode, id }) => {
         >
           <Input placeholder={placeholder.position}></Input>
         </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="organization"
-          label={labels.organization}
-        >
-          <Input placeholder={placeholder.organization}></Input>
-        </Form.Item>
+
         <Form.Item
           rules={[
             {
@@ -286,32 +263,6 @@ const ExperienceForm = ({ mode, id }) => {
             ))}
           </Select>
         </Form.Item>
-
-        <CitySelect
-          data={cities}
-          selectedData={(val, obj) => {
-            setCity((preValues) => [...preValues, ...obj]);
-          }}
-          canFetchNow={cities && cities.length > 0}
-          fetchData={fetchCityData}
-          optionComponent={(opt) => {
-            return (
-              <>
-                <Avatar src={opt.image} className="!bg-black">
-                  {getNameForImage(opt.name)}
-                </Avatar>
-                {opt.name + ' - ' + opt.country}
-              </>
-            );
-          }}
-          defaultKey={'id'}
-          isObject={true}
-          placeholder={placeholder.searchToSelect}
-          size="large"
-          name="cityId"
-          label={labels.City}
-          rules={[{ required: true }]}
-        />
 
         <div className="dates">
           {!isPresent && (

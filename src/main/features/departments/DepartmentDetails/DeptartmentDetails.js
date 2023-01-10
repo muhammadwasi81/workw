@@ -20,14 +20,21 @@ import WhiteCard from "../view/WhiteCard";
 import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
 import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
 import { handleComposeEmail } from "../../leadmanager/store/slice";
+import MemberModal from "./MemberModal";
+import { addMember } from "../store/slice";
+import { Members } from "../constant/index";
+import "./style.css";
 
 function DepartmentDetails() {
   const dispatch = useDispatch();
   let param = useParams();
-  const { departmentDetail } = useSelector((state) => state.departmentSlice);
+  const { departmentDetail, departmentMembers } = useSelector(
+    (state) => state.departmentSlice
+  );
   console.log(departmentDetail, "departmentdetailll");
   // const { state } = useLocation();
   // const { data } = state;
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     if (Object.keys(departmentDetail).length > 1) {
@@ -68,6 +75,12 @@ function DepartmentDetails() {
     dispatch(getDepartmentById(param.id));
   }, [param.id]);
 
+  const memberHandler = () => {
+    console.log("member handler");
+    setVisible(true);
+    // const userTypes = memberType === 1 ? Members.user : Members.admin;
+    dispatch(addMember({ status: true }));
+  };
   return (
     <>
       <TabContainer>
@@ -91,6 +104,7 @@ function DepartmentDetails() {
                   onEmailClick={() => {
                     dispatch(handleComposeEmail(true));
                   }}
+                  handleAdd={(e) => memberHandler(e)}
                 />
               </WhiteCard>
             </div>
@@ -98,6 +112,7 @@ function DepartmentDetails() {
         </ContBody>
       </TabContainer>
       <ComposeEmail />
+      {visible && <MemberModal />}
     </>
   );
 }

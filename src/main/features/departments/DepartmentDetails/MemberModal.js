@@ -9,13 +9,21 @@ import { useParams } from "react-router-dom";
 import { addMember } from "../store/slice";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import { getWorkBoardMemberAction, addWorkBoardMember } from "../store/action";
+import {
+  addDepartmentMemberAction,
+  getDepartmentMemberAction,
+} from "../store/actions";
+import "./style.css";
 
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userSlice.user.id);
-  const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
-  const { workBoardMembers } = useSelector((state) => state.trelloSlice);
+  const departMemberId = useParams().id;
+  console.log(departMemberId, "department id");
+  const modalRequest = useSelector(
+    (state) => state.departmentSlice.addMemberModal
+  );
+  const { departmentMembers } = useSelector((state) => state.departmentSlice);
+  console.log(departmentMembers, "deaprtment membersss");
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -25,8 +33,8 @@ function MemberModal({ isOpen = false }) {
   let type = modalRequest.memberType;
 
   useEffect(() => {
-    ModalOpen && dispatch(getWorkBoardMemberAction(userId));
-    // dispatch(getWorkBoardMemberAction(userId));
+    // ModalOpen && dispatch(getWorkBoardMemberAction(userId));
+    dispatch(getDepartmentMemberAction(departMemberId));
   }, [ModalOpen]);
 
   useEffect(() => {
@@ -45,13 +53,13 @@ function MemberModal({ isOpen = false }) {
     let memberId = id.toString();
     console.log(memberId, "memberIddd");
     const data = {
-      id: userId,
+      id: departMemberId,
       memberId: memberId,
       memberType: type,
     };
     console.log(type, "memberType");
-    dispatch(addWorkBoardMember(data));
-    dispatch(getWorkBoardMemberAction(userId));
+    dispatch(addDepartmentMemberAction(data));
+    dispatch(getDepartmentMemberAction(departMemberId));
   };
 
   useEffect(() => {
@@ -111,7 +119,7 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      <ApproverListItem className="AddMemberModal" data={workBoardMembers} />
+      <ApproverListItem className="AddMemberModal" data={departmentMembers} />
     </Modal>
   );
 }

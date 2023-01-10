@@ -65,7 +65,6 @@ function WorkBoardCard({ data }) {
         hoverable
         onClick={(e) => {
           navigate(`${workboardPath.trim()}${data.id}`);
-          console.log("dsdsds");
         }}
         loading={loading}
       >

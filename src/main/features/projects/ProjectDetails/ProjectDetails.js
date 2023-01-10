@@ -44,7 +44,6 @@ function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
-  console.log(detail, "detailss");
   const [features, setFeatures] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary, Direction } = projectsDictionaryList[
@@ -211,9 +210,7 @@ function ProjectDetails() {
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <Budget data={detail} />
-              <div className="bg-white">
-                <CustomNotes />
-              </div>
+
               <WhiteCard>
                 <MemberCollapse
                   data={detail?.members}

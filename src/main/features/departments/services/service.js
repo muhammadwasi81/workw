@@ -95,3 +95,31 @@ export const updateDepartmentAppraisalQuestionService = (data) => {
       return res;
     });
 };
+export const addDepartmentMemberService = (data) => {
+  const id = data.id;
+  let memberId = data.memberId;
+  let memberType = data.memberType;
+  console.log(data, "dataaa");
+  return MasterConfig.post(`api/Department/AddDepartmentMember?id=${id}`, [
+    {
+      memberId: memberId,
+      memberType: memberType,
+    },
+  ])
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+export const getDepartmentMemberService = (id) => {
+  return MasterConfig.get(`api/WorkBoard/GetAllWorkBoardMember?id=${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

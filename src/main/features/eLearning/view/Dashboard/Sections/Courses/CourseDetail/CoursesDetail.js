@@ -22,6 +22,7 @@ import { addAssignMember, addMember } from "../../../../../store/slice";
 import AssignMemberModal from "../../../Components/AssignMemModal";
 import { AssignMemEnum, MemberEnum } from "../../../../../constant/index";
 import MemberModal from "../../../Components/MemberModal";
+import defaultImage from "../../../../../../../../content/NewContent/courses/courseDefault.jpg"
 
 function CoursesDetail() {
 	const disptach = useDispatch()
@@ -35,15 +36,16 @@ function CoursesDetail() {
 		assignMembers,
 		members,
 		description,
+		courseType,
 		curriculums,
 	} = courseDetail
-	let Default = "https://www.makeintern.com/learning/img/online-course12.jpg"
+	let Default = defaultImage
+	// let Default = "https://www.makeintern.com/learning/img/online-course12.jpg"
 	let loader = loaders.courseDetailLoading
 
 	useEffect(() => {
 		disptach(GetCourseById(id))
 	},[])
-
 
 	const items = [
 		{
@@ -78,7 +80,7 @@ function CoursesDetail() {
 							<>
 								<DetailPageTopDetail
 								image={image ? image : Default}
-								difficulty={{ name: tag[1], icon: LevelsIcon[1] }}
+								difficulty={{ name: tag[courseType], icon: LevelsIcon[courseType] }}
 								// lastUpdated={"Syed Danish Ali"}
 								title={name}
 								createdBy={creator && creator.name}
@@ -141,23 +143,19 @@ function CoursesDetail() {
 							</> :
 							<>
 								<DetailPageTopDetail
-									image={
-										"https://www.makeintern.com/learning/img/online-course12.jpg"
-									}
-									title={"Foundation of User Experience (UX) Design"}
-									description={
-										"lorem ipsum dolor sit amet, consectetur adipiscing lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet"
-									}
+									image={Default}
+									title={"Description"}
+									description={description}
 								/>
-								<div className="font-bold text-xs flex items-center justify-between mb-2">
+								{/* <div className="font-bold text-xs flex items-center justify-between mb-2">
 									<p className="!mb-0 flex items-center gap-1">
 										<ClockCircleOutlined /> 1h 30m
 									</p>
 									<p className="!mb-0 flex items-center gap-1">
 										<BsFileText className="!text-lg" /> 5 Modules
 									</p>
-								</div>
-								<ModulesList />
+								</div> */}
+								{/* <ModulesList /> */}
 
 								<Button
 									className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"

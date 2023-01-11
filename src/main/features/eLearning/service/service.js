@@ -133,9 +133,7 @@ export const getAllCourseMemberService = (id) => {
 export const addCourseMemberService = async (data) => {
   let id = data.id;
   let memberId = data.memberId;
-  return MasterConfig.post(`api/ELearning/AddCourseMember?id=${id}`, [
-    { memberId: memberId },
-  ])
+  return MasterConfig.post(`api/ELearning/AddCourseMember?id=${id}`, [{ memberId: memberId },])
     .then((res) => {
       return res;
     })

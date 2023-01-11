@@ -1,0 +1,12 @@
+.menuIcon img {
+    height: 17px;
+    padding-right: 3px;
+}
+
+.menuIcon {
+    cursor: pointer;
+}
+
+.docsPopover .ant-popover-inner-content {
+    padding: 5px;
+}

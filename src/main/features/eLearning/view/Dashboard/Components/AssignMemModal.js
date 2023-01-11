@@ -28,9 +28,7 @@ function AssignMemberModal({ isOpen = false }) {
             ModalOpen && dispatch(getAllCourseAssignMem(assignMemberId))
         } if (Type === AssignMemEnum.ebook) {
             dispatch(getAllBookAssignMem(assignMemberId)) 
-        } else {
-            ModalOpen && message.error("Type is not defined for Get Request")
-        }
+        } 
 	},[ModalOpen])
     
       useEffect(() => {
@@ -52,8 +50,6 @@ function AssignMemberModal({ isOpen = false }) {
         dispatch(addAssignMember(false))
      }
 
-     console.log(Type, "TYPE")
-
     const handleChange = (id) => {
         let memberId = id.toString()
         const data = {
@@ -63,7 +59,7 @@ function AssignMemberModal({ isOpen = false }) {
         if (Type === AssignMemEnum.courses) {
             dispatch(addBookAssignMem(data))
             dispatch(getAllBookAssignMem(assignMemberId))        
-        } if (Type === AssignMemEnum.ebook) {
+        } else if (Type === AssignMemEnum.ebook) {
             dispatch(addBookAssignMem(data))
             dispatch(getAllBookAssignMem(assignMemberId)) 
         } else {

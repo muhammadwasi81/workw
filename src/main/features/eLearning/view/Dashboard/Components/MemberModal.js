@@ -9,6 +9,8 @@ import {
   addCourseMember,
   getAllBookMember,
   getAllCourseMember,
+  GetBookById,
+  GetCourseById,
 } from "../../../store/action";
 import { useParams } from "react-router-dom";
 import { addMember } from "../../../store/slice";
@@ -33,14 +35,14 @@ function MemberModal({ isOpen = false }) {
   let ModalOpen = modalRequest.status;
   let Type = modalRequest.type;
 
+  console.log(ModalOpen, "ModalOpen")
+
   useEffect(() => {
     if (Type === MemberEnum.courses) {
       ModalOpen && dispatch(getAllCourseMember(assignMemberId));
     }
     if (Type === MemberEnum.ebook) {
       ModalOpen && dispatch(getAllBookMember(assignMemberId));
-    } else {
-      ModalOpen && message.error("Type is not defined");
     }
   }, [ModalOpen]);
 
@@ -65,12 +67,11 @@ function MemberModal({ isOpen = false }) {
     if (Type === MemberEnum.courses) {
       dispatch(addCourseMember(data));
       dispatch(getAllCourseMember(assignMemberId));
-    }
-    if (Type === MemberEnum.ebook) {
+    } else if (Type === MemberEnum.ebook) {
       dispatch(addBookMember(data));
       dispatch(getAllBookMember(assignMemberId));
     } else {
-      message.error("Type is not defined");
+        message.error("Type is not defined");
     }
   };
 

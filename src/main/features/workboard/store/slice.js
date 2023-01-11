@@ -54,6 +54,7 @@ const initialState = {
   sectionTableData: [],
   addMemberModal: false,
   workBoardMembers: [],
+  memberModal: false,
 };
 
 const trelloSlice = createSlice({
@@ -62,6 +63,7 @@ const trelloSlice = createSlice({
   reducers: {
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
+      state.memberModal = payload;
       console.log(payload, "add memberrr");
     },
     addList(state, { payload }) {

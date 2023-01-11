@@ -121,9 +121,9 @@ const MailItem = ({ data, changeSeenFlag, handleClick }) => {
 						className="subjectAndBody detail"
 						to={`${id}`}
 					> */}
-					<div className="subjectAndBody detail">
+					{/* <div className="subjectAndBody detail">
 						Dummy Mail Detail Content Here
-					</div>
+					</div> */}
 					{/* </NavLink> */}
 				</div>
 

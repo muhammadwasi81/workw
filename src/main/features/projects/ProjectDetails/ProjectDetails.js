@@ -39,12 +39,30 @@ import Documents from "../../documents/view/documents";
 import { handleComposeEmail } from "../../leadmanager/store/slice";
 import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
+import { Menu, Dropdown, Space } from "antd";
+import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
+import {
+  saveProjectStickyAction,
+  saveStickyTitleAction,
+  getProjectStickyAction,
+} from "../store/actions";
+import useDebounce from "../../../../utils/Shared/helper/use-debounce";
+import { targetTitleVal } from "../store/slice";
 
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
+  const sticky = useSelector((state) => state.projectSlice.stickyArray);
+  console.log(sticky, "sticky array");
   const [features, setFeatures] = useState([]);
+  const [description, setDescription] = useState(null);
+  const descriptionDebounce = useDebounce(description, 500);
+  console.log(descriptionDebounce, "description");
+
+  const [title, setTitle] = useState(null);
+  const tilteDebounce = useDebounce(title, 500);
+
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary, Direction } = projectsDictionaryList[
     userLanguage
@@ -52,7 +70,6 @@ function ProjectDetails() {
   const { updateTextBtn, labels } = projectsDictionary;
   const [open, setOpen] = useState(false);
   const { projectId } = params;
-  console.log("projectId", projectId);
   useEffect(() => {
     dispatch(getProjectById(projectId));
   }, [projectId]);
@@ -185,18 +202,60 @@ function ProjectDetails() {
       ["clean"],
     ],
   };
+  useEffect(() => {
+    dispatch(getProjectStickyAction({}));
+  }, []);
   const descHandler = (value) => {
-    // setDescription(value);
-    // console.log(description, 'descHandler');
-    // listArray.map((item) => {
-    //   console.log(item.id, 'item.id');
-    //   dispatch(targetStickyDescription({ id: item.id, value }));
-    // });
-    // addSticky({
-    //   attachments: [],
-    //   description: value,
-    // });
+    dispatch(
+      saveProjectStickyAction({
+        description: value,
+        title: "sanjna",
+        colorCode: 1,
+      })
+    );
   };
+  useEffect(() => {
+    if (descriptionDebounce) descHandler(descriptionDebounce);
+  }, [descriptionDebounce]);
+
+  const setTitleValue = (value) => {
+    dispatch(
+      saveStickyTitleAction({
+        title: value,
+        description: "some",
+        colorCode: 1,
+      })
+    );
+  };
+  useEffect(() => {
+    if (tilteDebounce) setTitleValue(tilteDebounce);
+  }, [tilteDebounce]);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText("");
+  };
+  const menu = (
+    <Menu
+      items={[
+        {
+          label: (
+            <div onClick={copyToClipboard}>
+              <CopyOutlined />
+              <a className="drop-downList">Copy</a>
+            </div>
+          ),
+          key: "1",
+        },
+
+        {
+          label: <div>{}</div>,
+
+          // icon: <HighlightOutlined onClick={openColorHandler} />,
+          key: "2",
+        },
+      ]}
+    />
+  );
   return (
     <>
       <TabContainer>
@@ -221,15 +280,35 @@ function ProjectDetails() {
                   }}
                 />
               </WhiteCard>
-              <div className="bg-white">
-                <CustomNotes
-                  onChange={(value) => descHandler(value)}
-                  modules={modules}
-                  formats={formats}
-                  className={"stickyNoteItem-textarea"}
-                  placeholder={"please enter your notes here"}
-                  defaultValue={"<h2>React Quill Rich Text Editor</h2>"}
-                />
+              <div className="singleNote_container">
+                <div className="singleNote_header">
+                  {/* <input
+                    placeholder={"Title"}
+                    onChange={(e) => setTitle(e.target.value)}
+                    defaultValue={title}
+                    // style={{ backgroundColor: item.colorCode }}
+                    className="sticky_titleContainer"
+                  /> */}
+                  {/* <div className="leftNote_Icon">
+                    <Dropdown overlay={menu}>
+                      <a onClick={(e) => e.preventDefault()}>
+                        <Space>
+                          <EllipsisOutlined className="threedot_Icon" />
+                        </Space>
+                      </a>
+                    </Dropdown>
+                  </div> */}
+                </div>
+                <div className="textArea_container bg-white">
+                  <CustomNotes
+                    onChange={(value) => setDescription(value)}
+                    modules={modules}
+                    formats={formats}
+                    className={"stickyNoteItem-textarea"}
+                    placeholder={"Take a Note"}
+                    defaultValue={description}
+                  />
+                </div>
               </div>
             </div>
           </div>

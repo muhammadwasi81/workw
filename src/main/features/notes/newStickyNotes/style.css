@@ -132,7 +132,9 @@ a.drop-downList {
 
 /* *********styling of sticky container*********** */
 .stickyNote_container {
-  box-shadow: 0px 0px 2px 0px #898989;
+  /* box-shadow: 0px 0px 2px 0px #898989; */
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+    0 3px 14px 2px rgb(0 0 0 / 12%);
   display: flex;
   z-index: 10;
   flex-direction: column;
@@ -183,7 +185,9 @@ input:focus {
   resize: none;
   padding: 5px;
 }
-
+.stickyNoteItem-textarea .ql-container.ql-snow {
+  border: none;
+}
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
   height: max-content !important;
 }

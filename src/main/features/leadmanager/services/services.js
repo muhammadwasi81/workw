@@ -1,9 +1,9 @@
-import axios from "axios";
-import MasterConfig from "../../../../utils/services/MasterConfig";
-const API_PREFIX = "api/LeadManager/";
-const API_SECTION_PREFIX = "api/LeadManagerSection/";
-const API_LEAD_MANAGER_PREFIX = "api/LeadManagerDetail/";
-const API_LEAD_MANAGER_CONTACT_PREFIX = "api/LeadManagerDetailContact/";
+import axios from 'axios';
+import MasterConfig from '../../../../utils/services/MasterConfig';
+const API_PREFIX = 'api/LeadManager/';
+const API_SECTION_PREFIX = 'api/LeadManagerSection/';
+const API_LEAD_MANAGER_PREFIX = 'api/LeadManagerDetail/';
+const API_LEAD_MANAGER_CONTACT_PREFIX = 'api/LeadManagerDetailContact/';
 
 export const addLeadManagerService = (data) => {
   return MasterConfig.post(`${API_PREFIX}AddLeadManager`, data)
@@ -206,7 +206,7 @@ export const deleteLeadManagerDetailAssignToService = (data) => {
 // };
 
 export const getAllScheduleService = (data) => {
-  console.log(data, "dataaaaa");
+  console.log(data, 'getAllScheduleService');
   return MasterConfig.post(`api/Schedule/GetAllSchedule`, data)
     .then((res) => {
       return res.data;
@@ -216,9 +216,9 @@ export const getAllScheduleService = (data) => {
     });
 };
 export const getScheduleByIdService = (id) => {
-  //   console.log(data, "dataaaaa");
   return MasterConfig.post(`api/Schedule/GetScheduleById?id=${id}`)
     .then((res) => {
+      console.log(res, 'getScheduleByIdService');
       return res.data;
     })
     .catch((error) => {

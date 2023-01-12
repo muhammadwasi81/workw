@@ -1,4 +1,4 @@
-import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addLeadManager,
   addLeadManagerAssignTo,
@@ -17,15 +17,15 @@ import {
   updateLeadManagerDetail,
   getAllScheduleAction,
   getScheduleByIdAction,
-} from "./actions";
+} from './actions';
 
 const initialComposerData = {
-  name: "",
-  description: "",
+  name: '',
+  description: '',
   members: [],
   attachments: [],
   privacyId: 1,
-  image: "",
+  image: '',
 };
 
 const initialState = {
@@ -51,7 +51,7 @@ const initialState = {
   isContactUpdated: false,
   contactDataUpdating: false,
   isAssignMemberModalOpen: false,
-  assignToMemberId: "",
+  assignToMemberId: '',
   isSectionModalOpen: false,
 
   contactModal: {
@@ -63,7 +63,7 @@ const initialState = {
   scheduleComposerData: null,
 };
 const leadMangerSlice = createSlice({
-  name: "leadManager",
+  name: 'leadManager',
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
@@ -165,7 +165,7 @@ const leadMangerSlice = createSlice({
         ////meetings by iddd
         state.isComposerDataLoading = false;
         state.meetingDetailComposer = payload.data;
-        console.log(payload, "payloadddd");
+        console.log(payload, 'payloadddd');
       })
       .addCase(getAllLeadManager.fulfilled, (state, { payload }) => {
         state.success = true;

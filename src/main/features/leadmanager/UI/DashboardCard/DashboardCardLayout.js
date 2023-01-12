@@ -6,8 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addMember } from "../../store/slice";
 import MemberModal from "../../view/Modal/MemberModal";
 import "./style.css";
-import QuickOptions from "../../../documents/view/components/quickOptions";
-
+import QuickOptions from "../../quickOptions/index";
 function DashboardCardLayout({
   data = {},
   defaultImg,
@@ -19,17 +18,21 @@ function DashboardCardLayout({
 }) {
   const disptach = useDispatch();
   const [visible, setVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { Meta } = Card;
   const userId = useSelector((state) => state.userSlice.user.id);
   // console.log("dict", dictionary);
   //   console.log(dictionary, "dictionaryyyyy");
 
   const handleModal = (e) => {
-    console.log("modallllll", visible);
     e.preventDefault();
     e.stopPropagation();
     setVisible(true);
     disptach(addMember({ status: true }));
+  };
+  const menuHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
   return (
     <>
@@ -84,20 +87,20 @@ function DashboardCardLayout({
               +
             </div>
           </div>
-          {userId === data.createBy && (
-            //      <div
-            //       className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
-            //       onClick={(e) => {
-            //         e.preventDefault();
-            //         e.stopPropagation();
-            //         getDetailById(data.id);
-            //         handleUpdate();
-            //       }}
-            //       >
-            //         {dictionary?.labels?.update}
-            // </div>
-            <QuickOptions data={data} />
-          )}
+          {/* {userId === data.createBy && (
+                 <div
+                  className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    getDetailById(data.id);
+                    handleUpdate();
+                  }}
+                  >
+                    {dictionary?.labels?.update}
+            </div>
+          )} */}
+          <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
         </div>
       </Card>
       {visible && <MemberModal />}

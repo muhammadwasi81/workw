@@ -17,7 +17,7 @@ import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import { AssignMemEnum } from "../../../constant";
 import { NoDataFound } from "./index";
 
-function AssignMemberModal({ isOpen = false }) {
+function AssignMemberModal({ isOpen = false }) 
   const dispatch = useDispatch();
   const assignMemberId = useParams().id;
   const modalRequest = useSelector(
@@ -31,33 +31,50 @@ function AssignMemberModal({ isOpen = false }) {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
-  let ModalOpen = modalRequest.status;
-  let Type = modalRequest.type;
-  useEffect(() => {
-    if (Type === AssignMemEnum.courses) {
-      ModalOpen && dispatch(getAllCourseAssignMem(assignMemberId));
-    }
-    if (Type === AssignMemEnum.ebook) {
-      dispatch(getAllBookAssignMem(assignMemberId));
-    } else {
-      ModalOpen && message.error("Type is not defined for Get Request");
-    }
-  }, [ModalOpen]);
+    let ModalOpen = modalRequest.status
+    let Type = modalRequest.type
+	useEffect(() => {
+        if (Type === AssignMemEnum.courses) {
+            ModalOpen && dispatch(getAllCourseAssignMem(assignMemberId))
+        } if (Type === AssignMemEnum.ebook) {
+            dispatch(getAllBookAssignMem(assignMemberId)) 
+        } 
+	},[ModalOpen])
+    
+      useEffect(() => {
+        fetchEmployees('', 0);
+      }, []);
+    
+    //   const handleMember = (val) => {
+    //     setNewState({
+    //       ...newState,
+    //       members: [...val],
+    //     });
+    //   };
+    
+      const fetchEmployees = (text, pgNo) => {
+        dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+      }; 
 
   useEffect(() => {
     fetchEmployees("", 0);
   }, []);
 
-  //   const handleMember = (val) => {
-  //     setNewState({
-  //       ...newState,
-  //       members: [...val],
-  //     });
-  //   };
-
-  const fetchEmployees = (text, pgNo) => {
-    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
-  };
+    const handleChange = (id) => {
+        let memberId = id.toString()
+        const data = {
+            id: assignMemberId,
+            memberId: memberId 
+        }
+        if (Type === AssignMemEnum.courses) {
+            dispatch(addBookAssignMem(data))
+            dispatch(getAllBookAssignMem(assignMemberId))        
+        } else if (Type === AssignMemEnum.ebook) {
+            dispatch(addBookAssignMem(data))
+            dispatch(getAllBookAssignMem(assignMemberId)) 
+        } else {
+            message.error("Type is not defined")
+        }
 
   const handleClose = () => {
     dispatch(addAssignMember(false));

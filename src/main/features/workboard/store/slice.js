@@ -54,6 +54,7 @@ const initialState = {
   sectionTableData: [],
   addMemberModal: false,
   workBoardMembers: [],
+  memberModal: false,
 };
 
 const trelloSlice = createSlice({

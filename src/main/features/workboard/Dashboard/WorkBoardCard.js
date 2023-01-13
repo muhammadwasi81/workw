@@ -1,22 +1,36 @@
 import React, { useContext } from "react";
-import { Card, Skeleton } from "antd";
+import { Card, Popover, Skeleton } from "antd";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import WorkBoardImg from "../../../../content/png/workboard.png";
 import PublicPrivateIcon from "../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
 import { DOMAIN_PREFIX, ROUTES } from "../../../../utils/routes";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import menuIcon from '../../../../content/NewContent/Documents/3dots.svg';
+import { useSelector, useDispatch } from "react-redux";
 // import { getWorkboardById } from "../store/action";
-import { useDispatch } from "react-redux";
-import { handleBoardComposer, updaateWorkboardById } from "../store/slice";
+import {
+  handleBoardComposer,
+  updaateWorkboardById,
+  addMember,
+} from "../store/slice";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { WorkBoardDictionary } from "../localization";
+import MemberModal from "./MemberModal";
+import "./style.css";
+import { useState } from "react";
+import QuickOptions from "../quickOptions";
+
 function WorkBoardCard({ data }) {
   const { Meta } = Card;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isMember, setIsMember] = useState(false);
+  const [open, setOpen] = useState(false);
   const userId = useSelector((state) => state.userSlice.user.id);
   const loading = useSelector((state) => state.trelloSlice.loader);
+  const {memberModal} = useSelector((state) => state.trelloSlice);
+ 
+  const [visible, setVisible] = useState(false);
   const path = useLocation().pathname;
   // const params = useParams();
   // console.log("location: ", path);
@@ -31,6 +45,38 @@ function WorkBoardCard({ data }) {
     userLanguage
   ];
   const { labels, placeholder } = WorkBoardDictionaryList;
+
+  const memberHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setVisible(true);
+    setOpen(false);
+    dispatch(addMember({ status: true }));
+  };
+
+  const hide = () => {
+    setOpen(false);
+  };
+  const handleOpenChange = (newOpen) => {
+      setOpen(newOpen);
+  };
+
+  const handleUpdate = () => {
+    dispatch(updaateWorkboardById(data.id));
+    dispatch(
+      handleBoardComposer({
+        isEdit: true,
+        isVisible: true,
+          })
+      );
+    // handleClose();
+  }
+  const handleOpenMembers = () => {
+    dispatch(addMember({ status: true }));
+    setVisible(true);
+    // handleClose();
+  }
+
   return (
     <>
       <Card
@@ -49,6 +95,7 @@ function WorkBoardCard({ data }) {
         hoverable
         onClick={(e) => {
           navigate(`${workboardPath.trim()}${data.id}`);
+          console.log("dsdsds");
         }}
         loading={loading}
       >
@@ -67,33 +114,52 @@ function WorkBoardCard({ data }) {
           }
         />
         <div className="flex justify-between items-center">
-          <Avatar
-            isAvatarGroup={true}
-            isTag={false}
-            heading={"Members"}
-            membersData={data.members}
-            image={"https://joeschmoe.io/api/v1/random"}
-          />
+          <div className="members">
+            <Avatar
+              isAvatarGroup={true}
+              isTag={false}
+              heading={"Members"}
+              membersData={data.members}
+              image={"https://joeschmoe.io/api/v1/random"}
+            />
+            {/* <div className="addMemberBtn" onClick={(e) => memberHandler(e)}>
+              +
+            </div> */}
+          </div>
+
           {userId === data.createBy && (
-            <div
-              className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dispatch(updaateWorkboardById(data.id));
-                dispatch(
-                  handleBoardComposer({
-                    isEdit: true,
-                    isVisible: true,
-                  })
-                );
-              }}
-            >
-              {labels.Update}
-            </div>
+             <div className="docsPopover"  onClick={(e) => {e.preventDefault(); e.stopPropagation();}} >
+             <Popover
+                 content={
+                      <div className="flex flex-col">
+                        <div className="flex gap-2 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
+                          onClick={handleUpdate}>
+                          <span>Update</span>
+                        </div>
+                        <div className="flex gap-3 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
+                          onClick={(e) => memberHandler(e)}>
+                          <span>Members</span>
+                        </div>
+                      </div>
+                 }
+                 title={null}
+                 trigger="click"
+                 placement="rightTop"
+                 open={open}
+                
+                 onOpenChange={handleOpenChange}
+                 overlayClassName="docsPopover"
+             >
+                 <div className='menuIcon' >
+                     <img src={menuIcon}
+                     />
+                 </div>
+             </Popover>
+         </div>
           )}
         </div>
       </Card>
+      {visible && <MemberModal />}
     </>
   );
 }

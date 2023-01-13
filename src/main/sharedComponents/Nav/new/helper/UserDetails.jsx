@@ -14,7 +14,7 @@ function UserDetails() {
   } = dictionaryList[userLanguage];
 
   const {
-    user: { name, profile_picture, designation, id },
+    user: { name, userImage, designation, id },
   } = useSelector((state) => state.userSlice);
 
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
@@ -31,7 +31,7 @@ function UserDetails() {
     <div className="userDetailsWrapper">
       <div className="userDetails">
         <Avatar
-          src={profile_picture}
+          src={userImage}
           name={name}
           active={false}
           round={true}

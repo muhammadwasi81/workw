@@ -107,6 +107,8 @@
 .QuesImg {
   text-align: center;
   margin-bottom: 20px;
+  display: inline-flex;
+  max-height: 200px;
 }
 
 .submit-form-wrap .ml_10 {

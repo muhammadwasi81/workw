@@ -289,7 +289,7 @@ function ProjectDetails() {
                     // style={{ backgroundColor: item.colorCode }}
                     className="sticky_titleContainer"
                   /> */}
-                  {/* <div className="leftNote_Icon">
+                  <div className="leftNote_Icon">
                     <Dropdown overlay={menu}>
                       <a onClick={(e) => e.preventDefault()}>
                         <Space>
@@ -297,7 +297,7 @@ function ProjectDetails() {
                         </Space>
                       </a>
                     </Dropdown>
-                  </div> */}
+                  </div>
                 </div>
                 <div className="textArea_container bg-white">
                   <CustomNotes

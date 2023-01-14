@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import React, { useContext, useEffect } from "react";
+import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import {
   Avatar,
   Button,
@@ -10,45 +10,45 @@ import {
   Input,
   Select,
   Table,
-} from 'antd';
-import { useState } from 'react';
-import { dictionaryList } from '../../../../utils/localization/languages';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { employeeDictionaryList } from '../localization/index';
-import '../Styles/employeeForm.css';
-import { employmentType } from '../../../../utils/Shared/enums/enums';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+} from "antd";
+import { useState } from "react";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { employeeDictionaryList } from "../localization/index";
+import "../Styles/employeeForm.css";
+import { employmentType } from "../../../../utils/Shared/enums/enums";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   getUserWorkExperience,
   updateUserWorkExperienceAction,
-} from '../../experienceInfo/store/actions';
-import moment from 'moment';
-import CitySelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect';
-import { getNameForImage } from '../../../../utils/base';
-import { getCities } from '../../../../utils/Shared/store/actions';
-import { resetEmergencydetails } from '../store/slice';
+} from "../../experienceInfo/store/actions";
+import moment from "moment";
+import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
+import { getNameForImage } from "../../../../utils/base";
+import { getCities } from "../../../../utils/Shared/store/actions";
+import { resetEmergencydetails } from "../store/slice";
 
 const { RangePicker } = DatePicker;
 
 const { Option } = Select;
 
 const ExperienceForm = ({ mode, id }) => {
-  console.log('id', id);
-  const isEdit = mode === 'edit';
+  console.log("id", id);
+  const isEdit = mode === "edit";
   const dispatch = useDispatch();
   const [workInfo, setWorkInfo] = useState([]);
   const [form] = Form.useForm();
-  const [newUserId, setNewUserId] = useState('');
+  const [newUserId, setNewUserId] = useState("");
 
-  Object.defineProperty(form, 'values', {
+  Object.defineProperty(form, "values", {
     value: function() {
       return workInfo.map((item) => {
         return {
           ...item,
           startDate: moment(item[0]?.startEndDate?._ds)?.format(),
           endDate: item?.isPresent
-            ? ''
+            ? ""
             : moment(item[1]?.startEndDate?._ds)?.format(),
         };
       });
@@ -72,16 +72,17 @@ const ExperienceForm = ({ mode, id }) => {
   const { experienceDetails } = useSelector(
     (state) => state.workExperienceSlice
   );
-  console.log(experienceDetails, 'experienceDetails');
+  console.log(experienceDetails, "experienceDetails");
 
   const initialState = {
-    position: '',
+    position: "",
     employmentTypeId: [],
     cityId: [],
-    startDate: '',
+    startDate: "",
     isPresent: false,
   };
   const [initialValues, setInitialValues] = useState(initialState);
+  console.log(initialValues, "initialvaluessss");
   const labels = employeesDictionary.WorkExperienceForm;
   const placeholder = employeesDictionary.placeholders;
   const { cities } = useSelector((state) => state.sharedSlice);
@@ -94,7 +95,7 @@ const ExperienceForm = ({ mode, id }) => {
   useEffect(() => {
     if (isEdit) {
       dispatch(getUserWorkExperience(id));
-      if (!cities.length) fetchCityData('', 0);
+      if (!cities.length) fetchCityData("", 0);
     }
     return () => {
       dispatch(resetEmergencydetails());
@@ -119,7 +120,7 @@ const ExperienceForm = ({ mode, id }) => {
       );
   }, [experiencedetails]);
 
-  console.log(workInfo, 'workInfo');
+  console.log(workInfo, "workInfo");
 
   const fetchCityData = (text, pgNo) => {
     dispatch(getCities({ textData: text, page: pgNo }));
@@ -135,7 +136,7 @@ const ExperienceForm = ({ mode, id }) => {
       setIsPresent(false);
       setInitialValues(initialState);
     } catch (err) {
-      console.log(err, 'err');
+      console.log(err, "err");
       throw new Error(`Failed to Fetch`, { cause: err });
     }
   };
@@ -150,36 +151,36 @@ const ExperienceForm = ({ mode, id }) => {
   const columns = [
     {
       title: labels.Position,
-      dataIndex: 'position',
-      key: 'position',
+      dataIndex: "position",
+      key: "position",
     },
 
     {
       title: labels.EmploymentType,
-      dataIndex: 'employmentTypeId',
-      key: 'employmentTypeId',
+      dataIndex: "employmentTypeId",
+      key: "employmentTypeId",
       render: (value) => {
         return employmentType[value - 1]?.name;
       },
     },
     {
       title: labels.City,
-      dataIndex: 'cityId',
-      key: 'cityId',
+      dataIndex: "cityId",
+      key: "cityId",
       render: (value) => {
         return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
       },
     },
     {
       title: labels.StartEndDate,
-      dataIndex: 'startDate',
-      key: 'startDate',
+      dataIndex: "startDate",
+      key: "startDate",
       render: (value, row) => {
         return value?.length
-          ? `${moment(row.startDate[0]).format('YYYY/MM/DD')} - ${moment(
+          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
               row.startDate[1]
-            ).format('YYYY/MM/DD')}`
-          : `${moment(row.start).format('YYYY/MM/DD')} -  Present`;
+            ).format("YYYY/MM/DD")}`
+          : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
       },
     },
 
@@ -190,19 +191,19 @@ const ExperienceForm = ({ mode, id }) => {
           <a
             href=" "
             onClick={(e) => {
-              console.log(rowIndex, 'rowIndex');
+              console.log(rowIndex, "rowIndex");
               e.preventDefault();
               if (isEdit) {
                 handleRowChange(rowIndex);
-                console.log('edit');
-                console.log(value?.id, 'value');
+                console.log("edit");
+                console.log(value?.id, "value");
                 setNewUserId(value?.id);
               } else {
                 const filterArray = workInfo.filter((value, i) => {
                   if (rowIndex !== i) return value;
                 });
                 setWorkInfo(filterArray);
-                console.log(filterArray, 'filterArray');
+                console.log(filterArray, "filterArray");
               }
             }}
           >
@@ -217,34 +218,34 @@ const ExperienceForm = ({ mode, id }) => {
     const payload = {
       id: newUserId,
       userId: id,
-      employmentTypeId: form.getFieldValue('employmentTypeId'),
+      employmentTypeId: form.getFieldValue("employmentTypeId"),
       // cityId: form.getFieldValue('cityId')
-      startDate: form.getFieldValue('startDate')[0],
-      endDate: form.getFieldValue('startDate')[1],
-      isPresent: form.getFieldValue('isPresent'),
-      position: form.getFieldValue('position'),
+      startDate: form.getFieldValue("startDate")[0],
+      endDate: form.getFieldValue("startDate")[1],
+      isPresent: form.getFieldValue("isPresent"),
+      position: form.getFieldValue("position"),
     };
     return payload;
   };
 
   const handleUpdate = () => {
     const payload = createPayload();
-    console.log(payload, 'payload');
+    console.log(payload, "payload");
     dispatch(updateUserWorkExperienceAction(payload));
     setWorkInfo((preValues) => [...preValues, payload]);
     setInitialValues(initialState);
     form.resetFields();
   };
 
-  let classes = 'employeeForm workInfo ';
-  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
+  let classes = "employeeForm workInfo ";
+  classes += Direction === "ltr" ? "ltr" : "rtl";
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.WorkExperienceInfo}</Divider>
       <Form
         name="workInfo"
         form={form}
-        layout={'vertical'}
+        layout={"vertical"}
         initialValues={initialValues}
       >
         <Form.Item
@@ -300,11 +301,11 @@ const ExperienceForm = ({ mode, id }) => {
                 <Avatar src={opt.image} className="!bg-black">
                   {getNameForImage(opt.name)}
                 </Avatar>
-                {opt.name + ' - ' + opt.country}
+                {opt.name + " - " + opt.country}
               </>
             );
           }}
-          defaultKey={'id'}
+          defaultKey={"id"}
           isObject={true}
           placeholder={placeholder.searchToSelect}
           size="large"
@@ -327,7 +328,7 @@ const ExperienceForm = ({ mode, id }) => {
               <RangePicker
                 getPopupContainer={(trigger) => trigger.parentNode}
                 size="large"
-                format={'DD/MM/YYYY'}
+                format={"DD/MM/YYYY"}
                 placeholder={[placeholder.sDate, placeholder.eDate]}
               />
             </Form.Item>
@@ -345,7 +346,7 @@ const ExperienceForm = ({ mode, id }) => {
             >
               <DatePicker
                 getPopupContainer={(trigger) => trigger.parentNode}
-                format={'DD/MM/YYYY'}
+                format={"DD/MM/YYYY"}
                 placeholder={labels.start}
                 size="large"
               />
@@ -356,8 +357,8 @@ const ExperienceForm = ({ mode, id }) => {
             <Checkbox
               onChange={() => {
                 setIsPresent(!isPresent);
-                form.setFieldValue('startDate', '');
-                form.setFieldValue('startEndDate', '');
+                form.setFieldValue("startDate", "");
+                form.setFieldValue("startEndDate", "");
               }}
             >
               {labels.Present}
@@ -365,7 +366,7 @@ const ExperienceForm = ({ mode, id }) => {
           </Form.Item>
         </div>
       </Form>
-      <div className={isEdit ? 'editButtons' : 'buttons'}>
+      <div className={isEdit ? "editButtons" : "buttons"}>
         <Button
           type="dashed"
           className="btn addMore"

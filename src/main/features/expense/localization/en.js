@@ -37,6 +37,7 @@ const en = {
       attachments: 'Attachments',
       createExpense: 'Create Expense',
       isReimbursable: 'Is Reimbursable',
+      type: 'Type',
     },
     placeHolder: {
       writeHeaderHere: 'Write Header Here...',

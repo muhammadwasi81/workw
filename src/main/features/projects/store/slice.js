@@ -1,10 +1,13 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addProject,
   getAllProjects,
   getProjectById,
   updateProject,
-} from './actions';
+  saveProjectStickyAction,
+  saveStickyTitleAction,
+  getProjectStickyAction,
+} from "./actions";
 
 const initialState = {
   projects: [],
@@ -13,14 +16,22 @@ const initialState = {
   success: false,
   error: false,
   projectDetail: null,
+  stickyArray: [],
 };
 
 const projectSlice = createSlice({
-  name: 'projects',
+  name: "projects",
   initialState,
   reducers: {
     resetProjectDetail(state, { payload }) {
       state.projectDetail = null;
+    },
+    targetTitleVal: (state, action) => {
+      const val = action.payload;
+
+      const listObj = state.stickyArray.find((list) => list.id === val.id);
+      listObj.title = val.value;
+      console.log(listObj.title, "titleeee");
     },
   },
   extraReducers: (builder) => {
@@ -31,7 +42,7 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(addProject.fulfilled, (state, { payload }) => {
-        console.log('add project', payload);
+        console.log("add project", payload);
         state.projects.unshift(payload.data);
         state.loader = false;
         state.success = true;
@@ -45,6 +56,21 @@ const projectSlice = createSlice({
         state.projectDetail = payload.data;
         state.loader = false;
         state.success = true;
+      })
+      .addCase(saveProjectStickyAction.fulfilled, (state, { payload }) => {
+        console.log(payload, "description");
+        state.loader = false;
+        state.success = true;
+        state.stickyArray = payload;
+        console.log(payload, "payloadd");
+        console.log(state.stickyArray, "sticky array");
+      })
+      .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
+        state.stickyArray = payload;
+        console.log(payload, "payload");
+      })
+      .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
+        state.stickyArray = payload;
       });
     builder
       .addMatcher(
@@ -70,5 +96,5 @@ const projectSlice = createSlice({
   },
 });
 
-export const { resetProjectDetail } = projectSlice.actions;
+export const { resetProjectDetail, targetTitleVal } = projectSlice.actions;
 export default projectSlice.reducer;

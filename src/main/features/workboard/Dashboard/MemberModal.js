@@ -49,6 +49,7 @@ function MemberModal({ isOpen = false }) {
       memberId: memberId,
       memberType: type,
     };
+    console.log(type, "memberType");
     dispatch(addWorkBoardMember(data));
     dispatch(getWorkBoardMemberAction(userId));
   };

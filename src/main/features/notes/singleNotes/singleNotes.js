@@ -1,5 +1,5 @@
-import ReactQuill from 'react-quill';
-import PropTypes from 'prop-types';
+import ReactQuill from "react-quill";
+import PropTypes from "prop-types";
 
 const CustomNotes = ({
   onChange,
@@ -27,7 +27,7 @@ CustomNotes.propTypes = {
   placeholder: PropTypes.string,
   defaultValue: PropTypes.string,
   modules: PropTypes.object,
-  formats: PropTypes.array,
+  formats: PropTypes.object,
 };
 
 export default CustomNotes;

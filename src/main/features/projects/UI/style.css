@@ -102,6 +102,7 @@
 .modalWrapper .ant-modal-content {
   border-radius: 20px !important;
 }
+
 @media (max-width: 768px) {
   .coverImgWrapper {
     height: 200px;

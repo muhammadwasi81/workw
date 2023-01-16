@@ -17,13 +17,9 @@ import {
   updateLeadManagerDetail,
   getAllScheduleAction,
   getScheduleByIdAction,
-<<<<<<< HEAD
-} from './actions';
-=======
   getAllLeadManagerMember,
   addLeadManagereMember,
-} from "./actions";
->>>>>>> 1c94675bbcfcb4ef86555b6b74b0738a50b946e9
+} from './actions';
 
 const initialComposerData = {
   name: '',
@@ -39,7 +35,7 @@ const initialState = {
   error: false,
   loading: false,
   leadManagersData: [],
-  memberData:[],
+  memberData: [],
   leadManagerDetail: null,
   leadManagerSectionDetailData: null,
   isSectionDetailLoading: false,

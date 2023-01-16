@@ -48,6 +48,7 @@ import {
 } from "../store/actions";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import { targetTitleVal } from "../store/slice";
+import StickyColor from "../UI/StickyColor";
 
 function ProjectDetails() {
   const params = useParams();
@@ -59,6 +60,7 @@ function ProjectDetails() {
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
   console.log(descriptionDebounce, "description");
+  const [openColor, setOpenColor] = useState(true);
 
   const [title, setTitle] = useState(null);
   const tilteDebounce = useDebounce(title, 500);
@@ -248,7 +250,7 @@ function ProjectDetails() {
         },
 
         {
-          label: <div>{}</div>,
+          label: <div>{openColor && <StickyColor />}</div>,
 
           // icon: <HighlightOutlined onClick={openColorHandler} />,
           key: "2",

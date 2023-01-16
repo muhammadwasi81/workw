@@ -167,7 +167,7 @@
 
 .expenseCard__footer .card-column-view {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   margin-top: 10px;
   gap: 20px;
 }
@@ -243,7 +243,7 @@
 }
 
 .expenseCategory
-  .ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
+  .ant-radio-button-wrapper-checked:not([class*=' ant-radio-button-wrapper-disabled']).ant-radio-button-wrapper:first-child {
   border-right-color: var(--currentThemeColor);
 }
 
@@ -299,7 +299,7 @@
 }
 
 .radioPrimary
-  .ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
+  .ant-radio-button-wrapper-checked:not([class*=' ant-radio-button-wrapper-disabled']).ant-radio-button-wrapper:first-child {
   border-color: var(--currentThemeColor);
 }
 
@@ -331,6 +331,11 @@
   height: 34px;
 }
 
+.referenceType {
+  background: #e7e7e7;
+  color: var(--currentThemeColor);
+  padding-top: 4px;
+}
 @media screen and (max-width: 900px) {
   .expenseCard__header .right {
     flex-direction: column;

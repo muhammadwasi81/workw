@@ -137,3 +137,28 @@ export const getAllDocumentDirectoryMemberService = (data) => {
 		return res;
 	  });
   };
+
+//   export const getAllCourseMemberService = (id) => {
+// 	return Config.get(`api/ELearning/GetAllCourseMember?id=${id}`)
+// 	  .then((res) => {
+// 		return res.data;
+// 	  })
+// 	  .catch((err) => {
+// 		return err;
+// 	  });
+//   };
+  
+//   export const addCourseMemberService = async (data) => {
+// 	let id = data.id;
+// 	let memberId = data.memberId;
+// 	return Config.post(`api/ELearning/AddCourseMember?id=${id}`, [
+// 	  { memberId: memberId },
+// 	])
+// 	  .then((res) => {
+// 		return res;
+// 	  })
+// 	  .catch((res) => {
+// 		return res;
+// 	  });
+//   };
+  

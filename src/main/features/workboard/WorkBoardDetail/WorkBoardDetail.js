@@ -33,12 +33,17 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { WorkBoardDictionary } from "../localization";
 
 function WorkBoardDetail({ todoDetail }) {
+  console.log(todoDetail, "todoDetail");
   // const [members, setMembers] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
   const addMemberCardId = useSelector(
     (state) => state.trelloSlice.addMemberCardId
   );
+  const workboardsListData = useSelector(
+    (state) => state.trelloSlice.workboardsList
+  );
+  console.log(workboardsListData?.members);
   const [todoData, setTodoData] = useState(todoDetail);
 
   useEffect(() => {
@@ -124,7 +129,8 @@ function WorkBoardDetail({ todoDetail }) {
               <div className="flex flex-col gap-5">
                 <MemberCollapse
                   handleAdd={addMembers}
-                  data={todoDetail ? todoDetail.members : []}
+                  data={workboardsListData?.members}
+                  isMember={true}
                   ghost={false}
                 />
                 <TrelloThemeButton

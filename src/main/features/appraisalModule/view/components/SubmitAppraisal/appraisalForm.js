@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import "../../style.css";
+import React, { useState, useEffect, useContext } from 'react';
+import '../../style.css';
 import {
   Form,
   Input,
@@ -10,18 +10,18 @@ import {
   Tag,
   Button,
   Divider,
-} from "antd";
-import { useSelector, useDispatch } from "react-redux";
+} from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   createGuid,
   getNameForImage,
   modifySelectData,
-} from "../../../../../../utils/base";
-import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
-import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import ModalTag from "./modalTag";
-import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
-import { appraisalDictionaryList } from "../../../localization/index";
+} from '../../../../../../utils/base';
+import { getAllEmployees } from '../../../../../../utils/Shared/store/actions';
+import MemberSelect from '../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import ModalTag from './modalTag';
+import { LanguageChangeContext } from '../../../../../../utils/localization/localContext/LocalContext';
+import { appraisalDictionaryList } from '../../../localization/index';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -65,7 +65,7 @@ const AppraisalForm = (props) => {
   const [bonusType, setBonusType] = useState(1);
   const [increment, setIncrement] = useState(2);
   const [modalOpen, setModalOpen] = useState(false);
-  const [data, setData] = useState("");
+  const [data, setData] = useState('');
   const [incrementType, setIncrementType] = useState(1);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -89,7 +89,7 @@ const AppraisalForm = (props) => {
   console.log(appraisalQuestion);
 
   useEffect(() => {
-    fetchEmployees("", 0);
+    fetchEmployees('', 0);
   }, []);
 
   useEffect(() => {
@@ -101,16 +101,16 @@ const AppraisalForm = (props) => {
 
   useEffect(() => {
     if (props.submit) {
-      console.log("use effect works when true");
+      console.log('use effect works when true');
       form.submit();
     }
   }, [props.submit]);
 
   const onFinish = (values) => {
     // console.log("Success:", values);
-    console.log("onfinish");
+    console.log('onfinish');
     if (employeeSalary?.basicSalary) {
-      console.log("if block");
+      console.log('if block');
       let salary;
       let bonus;
 
@@ -146,8 +146,8 @@ const AppraisalForm = (props) => {
           id: createGuid(),
           memberId: props.userId,
           type: values.bonusPercent ? 1 : 2,
-          value: bonusType === 1 ? values.bonusPercent : "",
-          amount: bonusType === 2 ? values.bonusAmount : "",
+          value: bonusType === 1 ? values.bonusPercent : '',
+          amount: bonusType === 2 ? values.bonusAmount : '',
           approvers: modifySelectData(values.bonusApprovers).map((el) => {
             return {
               approverId: el,
@@ -213,7 +213,7 @@ const AppraisalForm = (props) => {
     // props.getAppraisalData(payload);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   const onChangePromotion = (e) => {
@@ -274,33 +274,33 @@ const AppraisalForm = (props) => {
           <div className="inputBox-form flex justify-between items-center">
             <span>{appraisals}</span>
             {/* <span>{basicSalary}: 13000</span> */}
-          </div>{" "}
+          </div>{' '}
           <div className="inputBox-form flex justify-evenly mt-2 items-center">
             <Tag
-              onClick={() => modalOpenFunc("previousAppraisal")}
+              onClick={() => modalOpenFunc('previousAppraisal')}
               className="statusTag"
-              style={{ backgroundColor: "rgb(26 86 105)", cursor: "pointer" }}
+              style={{ backgroundColor: 'rgb(26 86 105)', cursor: 'pointer' }}
             >
               {previousApraisals}
             </Tag>
             <Tag
-              onClick={() => modalOpenFunc("warning")}
+              onClick={() => modalOpenFunc('warning')}
               className="statusTag"
-              style={{ backgroundColor: "rgb(26 86 105)", cursor: "pointer" }}
+              style={{ backgroundColor: 'rgb(26 86 105)', cursor: 'pointer' }}
             >
               {warning}
             </Tag>
             <Tag
-              onClick={() => modalOpenFunc("rewards")}
+              onClick={() => modalOpenFunc('rewards')}
               className="statusTag"
-              style={{ backgroundColor: "rgb(26 86 105)", cursor: "pointer" }}
+              style={{ backgroundColor: 'rgb(26 86 105)', cursor: 'pointer' }}
             >
               {rewards}
             </Tag>
             <Tag
-              onClick={() => modalOpenFunc("course")}
+              onClick={() => modalOpenFunc('course')}
               className="statusTag"
-              style={{ backgroundColor: "rgb(26 86 105)", cursor: "pointer" }}
+              style={{ backgroundColor: 'rgb(26 86 105)', cursor: 'pointer' }}
             >
               {courses}
             </Tag>
@@ -312,7 +312,7 @@ const AppraisalForm = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please Select Yes/No",
+                  message: 'Please Select Yes/No',
                 },
               ]}
             >
@@ -334,7 +334,7 @@ const AppraisalForm = (props) => {
                   rules={[
                     {
                       required: true,
-                      message: "Please select Grade",
+                      message: 'Please select Grade',
                     },
                   ]}
                 >
@@ -383,7 +383,7 @@ const AppraisalForm = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please Select Yes/No",
+                  message: 'Please Select Yes/No',
                 },
               ]}
             >
@@ -396,14 +396,14 @@ const AppraisalForm = (props) => {
               <>
                 {!employeeSalary ? (
                   <Form.Item
-                    name={"bonusAmount"}
+                    name={'bonusAmount'}
                     type="number"
                     // style={{ width: "50%" }}
                   >
                     <Input
                       placeholder={amount}
                       type="number"
-                      style={{ marginTop: "0.5rem" }}
+                      style={{ marginTop: '0.5rem' }}
                     />
                   </Form.Item>
                 ) : (
@@ -414,29 +414,29 @@ const AppraisalForm = (props) => {
                     </Radio.Group>
                     <div className="flex gap-x-3">
                       <Form.Item
-                        name={"bonusPercent"}
+                        name={'bonusPercent'}
                         type="number"
-                        style={{ width: "50%" }}
+                        style={{ width: '50%' }}
                       >
                         <Input
-                          prefix={"%"}
+                          prefix={'%'}
                           placeholder={percentage}
                           type="number"
                           max={100}
                           disabled={bonusType === 2 ? true : false}
-                          style={{ marginTop: "0.5rem" }}
+                          style={{ marginTop: '0.5rem' }}
                         />
                       </Form.Item>
                       <Form.Item
-                        name={"bonusAmount"}
+                        name={'bonusAmount'}
                         type="number"
-                        style={{ width: "50%" }}
+                        style={{ width: '50%' }}
                       >
                         <Input
                           placeholder={amount}
                           type="number"
                           disabled={bonusType === 1 ? true : false}
-                          style={{ marginTop: "0.5rem" }}
+                          style={{ marginTop: '0.5rem' }}
                         />
                       </Form.Item>
                     </div>
@@ -445,7 +445,7 @@ const AppraisalForm = (props) => {
 
                 <Form.Item
                   name="bonusApprovers"
-                  label={"Bonus Approver"}
+                  label={'Bonus Approver'}
                   showSearch={true}
                   rules={[{ required: true }]}
                 >
@@ -482,7 +482,7 @@ const AppraisalForm = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "Please Select Yes/No",
+                  message: 'Please Select Yes/No',
                 },
               ]}
             >
@@ -501,7 +501,7 @@ const AppraisalForm = (props) => {
                     <Input
                       placeholder={amount}
                       type="number"
-                      style={{ marginTop: "0.5rem" }}
+                      style={{ marginTop: '0.5rem' }}
                     />
                   </Form.Item>
                 ) : (
@@ -518,26 +518,26 @@ const AppraisalForm = (props) => {
                       <Form.Item
                         name="incrementPercent"
                         typetype="number"
-                        style={{ width: "50%" }}
+                        style={{ width: '50%' }}
                       >
                         <Input
-                          prefix={"%"}
+                          prefix={'%'}
                           type="number"
                           placeholder={percentage}
                           disabled={incrementType === 2 ? true : false}
-                          style={{ marginTop: "0.5rem" }}
+                          style={{ marginTop: '0.5rem' }}
                         />
                       </Form.Item>
                       <Form.Item
                         name="incrementAmount"
                         typetype="number"
-                        style={{ width: "50%" }}
+                        style={{ width: '50%' }}
                       >
                         <Input
                           placeholder={amount}
                           type="number"
                           disabled={incrementType === 1 ? true : false}
-                          style={{ marginTop: "0.5rem" }}
+                          style={{ marginTop: '0.5rem' }}
                         />
                       </Form.Item>
                     </div>
@@ -545,7 +545,7 @@ const AppraisalForm = (props) => {
                 )}
                 <Form.Item
                   name="incrementApprover"
-                  label={"Increment Approver"}
+                  label={'Increment Approver'}
                   showSearch={true}
                   rules={[{ required: true }]}
                 >

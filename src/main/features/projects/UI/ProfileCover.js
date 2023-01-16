@@ -54,7 +54,7 @@ const ProfileCover = () => {
   }, [file]);
 
   return (
-    <div class="h-[400px] coverImgWrapper">
+    <div className="h-[400px] coverImgWrapper">
       {fileDataURL ? (
         <img
           src={fileDataURL}
@@ -70,8 +70,8 @@ const ProfileCover = () => {
           className="h-full object-cover w-full rounded-xl z-0"
         />
       )}
-      <div class="profilepic__content">
-        <span class="profilepic__icon">
+      <div className="profilepic__content">
+        <span className="profilepic__icon">
           <CameraOutlined className="uploadIcon" />
         </span>
         <input

@@ -48,7 +48,7 @@ function CreateCourse() {
   const [value, setValue] = useState([]);
 
   const {ELearningCategory } = useSelector((state) => state.eLearningCategorySlice);
-  const { topics, sections, loaders, success } = useSelector((state) => state.eLearningSlice);
+  const { topics, sections, loaders, addCourseSuccess } = useSelector((state) => state.eLearningSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
   let loader = loaders.addCourseLoading
 
@@ -125,7 +125,7 @@ function CreateCourse() {
     };
 
     let payloadOne = {
-      categoryId: values.categoryId,
+      // categoryId: values.categoryId,
       courseType: values.courseType,
       name: values.name,
       description: values.description,
@@ -172,19 +172,23 @@ function CreateCourse() {
       message.error("All fields required")
     } else {
       setTopic({...topic, attachments: imageUpload})
-      form.setFieldsValue({curriculumName: "", topicName: "", type: "", text: "",})
+      dispatch(addTopic(topic))
+      form.setFieldsValue({topicName: "", type: "", text: "",})
+      setSingleImage([])
     }
   }
 
   const handleAddSection = ((e) => {
     dispatch(addSection({topics, name: curriculumName, description: "dummy content" }))
+    form.setFieldsValue({curriculumName: ""})
   })
 
   useEffect(() => {
-    if (success) {
+    if (addCourseSuccess) {
       form.resetFields();
+      setProfileImage([])
     }
-  }, [success]);
+  }, [addCourseSuccess]);
 
   return (
       <DashboardLayout>
@@ -398,7 +402,7 @@ function CreateCourse() {
           </Form.Item>
           <FileUploader
               fileList={profileImage ? profileImage : []}
-              uploadButton={<button>Upload</button>}
+              uploadButton={<div>Upload</div>}
               handleUpload={handleImageUpload} 
               isMultiple={false}
               classes=""
@@ -406,16 +410,19 @@ function CreateCourse() {
           </div>
         </FormContainer>
         <FormContainer>
-        <Heading>Add Course</Heading>
+        <Heading>Add Curriculum</Heading>
         <div className="innerColumn">
-          <Form.Item
-                label={"Curriculum"}
-                labelPosition="top"
-                name="curriculumName"
-                onChange={handleChangeCurriculum}
-              >
+          {
+            topics.length > 0 ? "" : 
+              <Form.Item
+              label={"Curriculum"}
+              labelPosition="top"
+              name="curriculumName"
+              onChange={handleChangeCurriculum}
+            >
               <TextInput placeholder={"Enter Curriculum"} />
             </Form.Item>
+          }
         </div>
         <div className="flex">
           <div className="innerColumn">
@@ -477,7 +484,7 @@ function CreateCourse() {
             // />
             <FileUploader
                   fileList={singleImage ? singleImage : []}
-                  uploadButton={<button>Upload</button>}
+                  uploadButton={<div>Upload</div>}
                   isMultiple={false}
                   handleUpload={(data) => {setSingleImage(data[0])}} 
                   classes=""
@@ -487,6 +494,7 @@ function CreateCourse() {
           }
         </div>
         <div className="topicTable">
+          <h2  style={{fontSize: "20px", marginBottom: "2px"}} >{topics.length > 0 &&  curriculumName}</h2>
           {
             topics && topics.length > 0 ?
             <>
@@ -509,7 +517,7 @@ function CreateCourse() {
         </div>
         <div className="sectionContainer">
           <h3>
-            Sections
+            Curriculums
           </h3>
             {sections && sections.length > 0 ?
                 sections.map((item, index) => {

@@ -1,4 +1,4 @@
-import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addLeadManager,
   addLeadManagerAssignTo,
@@ -17,15 +17,17 @@ import {
   updateLeadManagerDetail,
   getAllScheduleAction,
   getScheduleByIdAction,
-} from "./actions";
+  getAllLeadManagerMember,
+  addLeadManagereMember,
+} from './actions';
 
 const initialComposerData = {
-  name: "",
-  description: "",
+  name: '',
+  description: '',
   members: [],
   attachments: [],
   privacyId: 1,
-  image: "",
+  image: '',
 };
 
 const initialState = {
@@ -33,6 +35,7 @@ const initialState = {
   error: false,
   loading: false,
   leadManagersData: [],
+  memberData: [],
   leadManagerDetail: null,
   leadManagerSectionDetailData: null,
   isSectionDetailLoading: false,
@@ -51,8 +54,10 @@ const initialState = {
   isContactUpdated: false,
   contactDataUpdating: false,
   isAssignMemberModalOpen: false,
-  assignToMemberId: "",
+  assignToMemberId: '',
   isSectionModalOpen: false,
+  addMemberModal: false,
+  addAssignMemberModal: false,
 
   contactModal: {
     isOpen: false,
@@ -63,11 +68,17 @@ const initialState = {
   scheduleComposerData: null,
 };
 const leadMangerSlice = createSlice({
-  name: "leadManager",
+  name: 'leadManager',
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
       state.drawerOpen = payload;
+    },
+    addMember: (state, { payload }) => {
+      state.addMemberModal = payload;
+    },
+    addAssignMember: (state, { payload }) => {
+      state.addAssignMemberModal = payload;
     },
     toggleEventDetailComposer: (state, { payload }) => {
       state.meetingDetailComposer = !state.meetingDetailComposer;
@@ -156,6 +167,13 @@ const leadMangerSlice = createSlice({
         state.loading = false;
         state.success = true;
       })
+      .addCase(getAllLeadManagerMember.fulfilled, (state, action) => {
+        state.memberData = action.payload ? action.payload : [];
+      })
+      .addCase(addLeadManagereMember.fulfilled, (state, { payload }) => {
+        state.memberData = [...state.memberData, payload];
+        return state;
+      })
       .addCase(getLeadManagerById.fulfilled, (state, { payload }) => {
         // console.log("payload.data", payload.data);
         state.isComposerDataLoading = false;
@@ -165,7 +183,7 @@ const leadMangerSlice = createSlice({
         ////meetings by iddd
         state.isComposerDataLoading = false;
         state.meetingDetailComposer = payload.data;
-        console.log(payload, "payloadddd");
+        console.log(payload, 'payloadddd');
       })
       .addCase(getAllLeadManager.fulfilled, (state, { payload }) => {
         state.success = true;
@@ -387,6 +405,8 @@ export const {
   handleSectionDetailModal,
   handleComposeEmail,
   resetSuccess,
+  addMember,
+  addAssignMember,
   handleOpenComposer,
   toggleEventDetailComposer,
 } = leadMangerSlice.actions;

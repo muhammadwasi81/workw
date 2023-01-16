@@ -1,9 +1,5 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import {
-  getTeamsAction,
-  getRewardsAction,
-  getAllLoanAction
-} from "./action";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { getTeamsAction, getRewardsAction, getAllLoanAction } from './action';
 
 const initialState = {
   teams: [],
@@ -16,7 +12,7 @@ const initialState = {
 };
 
 const teamSlice = createSlice({
-  name: "teams",
+  name: 'teams',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -36,7 +32,30 @@ const teamSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
+      .addMatcher(isPending(getTeamsAction), (state) => {
+        console.log('pending teams');
+        state.loader = true;
+        state.success = false;
+      })
+      .addMatcher(isPending(getRewardsAction), (state) => {
+        console.log('pending teams');
+        state.loader = true;
+        state.success = false;
+      })
+      .addMatcher(isPending(getAllLoanAction), (state) => {
+        console.log('pending teams');
+        state.loader = true;
+        state.success = false;
+      })
+      .addMatcher(
+        isRejected(...[getTeamsAction, getRewardsAction, getAllLoanAction]),
+        (state) => {
+          console.log('rejected');
+          state.loader = false;
+          state.success = false;
+        }
+      );
   },
 });
+
 export default teamSlice.reducer;
-// export const {} = teamSlice.actions;

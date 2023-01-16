@@ -23,6 +23,7 @@ import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 import DocumentStatusTag from "../documentStatusTag/StatusTag";
 import { createGuid } from "../../../../../../utils/base";
 import DocShortCard from "../shortCard";
+//import MemberModal from "../../../Components/MemberModal";
 
 const DocFullCard = ({ data, handleClickCard, handlePreview }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -129,6 +130,30 @@ const DocFullCard = ({ data, handleClickCard, handlePreview }) => {
               {getDocumentRightLabel(documentType)}
             </div>
             <div className="cardSection__body">
+            
+            {/* members={
+              members &&
+              <>
+                 <div className="members"> 
+											<Avatar
+												className="MembersList"
+												isAvatarGroup={true}
+												isTag={false}
+												heading={"members"}
+                        membersData={collaborators ? collaborators : []}
+												text={"Members"}
+												image={"https://joeschmoe.io/api/v1/random"}
+											/>
+                      
+                      <div className="addMemberBtn">+ </div>
+											<div className="addMemberBtn" 
+                          onClick={() => 
+                          disptach(addMember({status: true, type: MemberEnum.ebook}))} >+</div>
+
+										   </div>
+                       <MemberModal />
+               </>
+            } */}
               {collaborators.length > 0 ? (
                 <Avatar
                   isAvatarGroup={true}
@@ -138,6 +163,7 @@ const DocFullCard = ({ data, handleClickCard, handlePreview }) => {
               ) : (
                 "Not Available"
               )}
+
             </div>
           </div>
 

@@ -72,6 +72,9 @@ const documentSlice = createSlice({
     handleChangeView: (state, { payload: isTableView }) => {
       state.isTableView = isTableView;
     },
+    // addMember: (state, { payload }) => {
+    //   state.addMemberModal = payload;
+    // },
     handleParentId: (state, { payload }) => {
       state.parentId = payload.id;
       state.breadCumbPath = [

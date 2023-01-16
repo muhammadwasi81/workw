@@ -9,7 +9,7 @@ import {
   SingleItem,
 } from "../../../../../sharedComponents/Card/CardStyle";
 import { Link } from "react-router-dom";
-import { Button, message } from "antd";
+import { Button, message ,Tag} from "antd";
 import "./style.css";
 import { ROUTES } from "../../../../../../utils/routes";
 import { useSelector } from "react-redux";
@@ -18,8 +18,10 @@ import { documentDictionaryList } from "../../../localization/index";
 import CardProfileTopView from "../../../../travel/view/ListView/CardProfileTopView";
 import AvatarOld from "../../../../../sharedComponents/Avatar/avatarOLD";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
+import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 
-function ListItem(props) {
+function 
+ListItem(props) {
   const { user } = useSelector((state) => state.userSlice);
   const { item, id, onListItem = () => {} } = props;
   const [copy, setCopy] = useState(false);
@@ -34,7 +36,7 @@ function ListItem(props) {
     list,
     table,
     copyLink,
-    attempt,
+    attempt, 
   } = documentDictionary;
 
   const copyfunc = () => {
@@ -45,28 +47,52 @@ function ListItem(props) {
     <>
       {copy && message.success("Copied")}
       <SingleItem
+          className="new formShortCard"
         //className="cursor-pointer"
-        className="Card3 formShortCard"
+        //className="Card3 formShortCard"
+        id={props.id}
         onClick={() => {
-          onListItem(props.item.id);
+        onListItem(props.item.id);
         }}
+        
+        /* <div
+         className="Card3 formShortCard"
+          id={props.id}
+          onClick={() => {
+            onListItem(props.item.id);
+          }}
+        ></div> */
       >
-        <ItemHeader className="ItemHeader">
-          <UserInfo
-            avatarSrc={item.creator.image}
-            name={item.creator.name}
-            Subline={
-              <SublineDesigWithTime
-                designation={item.creator.designation}
-                time={moment(item.createDate).fromNow()}
-              />
-            }
-          />
-        </ItemHeader>
-        <ItemContent className="ItemContent">
-          <h3>{item.subject}</h3>
-          {/* <p>{item.description}</p> */}
-          <h3>{item.referenceNo}</h3>
+        {/* <CardProfileTopView>
+
+        </CardProfileTopView> */}
+       <ItemHeader className="ItemHeader">
+         <div className="left">
+            <UserInfo
+              avatarSrc={item.creator.image}
+              name={item.creator.name}
+              Subline={
+                <SublineDesigWithTime
+                  designation={item.creator.designation}
+                  time={moment(item.createDate).fromNow()}
+                />
+              }
+            />
+          </div>
+            <div className="right">
+               <Tag className="IdTag">{item.referenceNo}</Tag>
+               <StatusTag>{item.status}</StatusTag>
+              {/* <h3>{item.subject}</h3> */}
+              {/* {/* <p>{item.description}</p> */}
+              {/* <h3>{item.referenceNo}</h3> */}
+           </div>
+      </ItemHeader> 
+        <ItemContent 
+         //className="ItemContent" 
+            className="item-content flex">
+          <div className="description custom-description">
+          <p>{item.description}</p>
+          </div>
         </ItemContent>
         <div className="ItemFooter"> 
             <Button

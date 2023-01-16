@@ -1,12 +1,5 @@
-
 export const tableColumn = (tables) => {
   return [
-    {
-      title: tables.Id,
-      dataIndex: "id",
-      ellipsis: true,
-      sort: true,
-    },
     {
       title: tables.Name,
       dataIndex: "name",

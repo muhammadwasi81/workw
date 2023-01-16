@@ -48,8 +48,8 @@ export const ROUTES = {
     SIGN_IN_ANONYMOUSLY: `${DOMAIN_PREFIX}/authenticating`,
     FORGOT_PASSWORD_LANDING: `${DOMAIN_PREFIX}/resetpassword`,
     FORGOT_PASSWORD: `${DOMAIN_PREFIX}/forgotpassword`,
-    VERIFICATION_SUCCESS: `${DOMAIN_PREFIX}/verified`,
-    VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verify`,
+    // VERIFICATION_SUCCESS: `${DOMAIN_PREFIX}/verified`,
+    // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
   },
   BUDGET: {
     DEFAULT: `${DOMAIN_PREFIX}/budgets`,

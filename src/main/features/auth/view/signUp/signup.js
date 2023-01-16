@@ -41,7 +41,6 @@ function Signup() {
   const { loader: imageLoader } = useSelector((state) => state.sharedSlice);
   const [profileImage, setProfileImage] = useState(null);
 
-  console.log("loadr", loader);
   const [reset, setReset] = useState(false);
 
   useEffect(() => {
@@ -60,23 +59,25 @@ function Signup() {
 
   const handleSignUpSubmit = (values) => {
 
-    let image = {
-      id: STRINGS.DEFAULTS.guid,
-      file: profileImage && profileImage[0]?.originFileObj,
-    };
+    window.location.pathname = "/verification";
 
-    if (Object.keys(image).length > 0) {
-      let payload = { ...values, image };
-      dispatch(signup(payload));
-    } else {
-      dispatch(signup(values));
-    }
-    dispatch(signup(values));
+    // let image = {
+    //   id: STRINGS.DEFAULTS.guid,
+    //   file: profileImage && profileImage[0]?.originFileObj,
+    // };
+
+    // if (Object.keys(image).length > 0) {
+    //   let payload = { ...values, image };
+    //   dispatch(signup(payload));
+    // } else {
+    //   dispatch(signup(values));
+    // }
+    // dispatch(signup(values));
   };
+
 
   const onChange = (value, name) => {
     formData = { ...formData, [name]: value };
-    console.log(formData, value, name);
   };
 
   const handleImageUpload = (data) => {

@@ -1,7 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
 import { AdminContainer } from './../../sharedComponents/StyledComponents/admin';
 import { FormContainer } from './../../sharedComponents/StyledComponents/adminForm';
-import { Collapse, Modal, Tooltip, Button, Skeleton, message } from 'antd';
+import {
+  Collapse,
+  Modal,
+  Tooltip,
+  Button,
+  Skeleton,
+  message,
+  Popconfirm,
+} from 'antd';
 import { FormHeader } from '../../../components/HrMenu/Administration/StyledComponents/adminForm';
 import './styles.css';
 import { PlusCircleFilled } from '@ant-design/icons';
@@ -21,11 +29,10 @@ import { customApprovalDictionaryList } from '../CustomApprovals/localization';
 import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
 import { DeleteOutlined } from '@ant-design/icons';
 import TableHead from './view/table/tableHead';
-import { Popconfirm } from 'antd';
 
 const { Panel } = Collapse;
 
-const DefaultApprovers = ({ item }) => {
+const DefaultApprovers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -80,8 +87,7 @@ const DefaultApprovers = ({ item }) => {
   };
 
   const cancel = (e) => {
-    console.log(e, 'ON CANCEL');
-    message.error('Click on No');
+    message.error(e.message);
   };
 
   useEffect(() => {

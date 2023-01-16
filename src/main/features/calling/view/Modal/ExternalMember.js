@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Input } from "antd";
-import { validateEmail } from "../../../../utils/Shared/helper/validateEmail";
-import { getNameForImage } from "../../../../utils/base";
+import { validateEmail } from "../../../../../utils/Shared/helper/validateEmail";
+import { getNameForImage } from "../../../../../utils/base";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
 function ExternalMember({

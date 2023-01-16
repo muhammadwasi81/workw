@@ -7,6 +7,7 @@ const initialState = {
 	success: false,
 	error: false,
 	roomId: "",
+	incomingCallData: null
 };
 const callingSlice = createSlice({
 	name: "calling",
@@ -18,6 +19,9 @@ const callingSlice = createSlice({
 			state.loading = false;
 			state.error = false;
 			state.roomId = "";
+		},
+		handleIncomingCall(state, { payload }) {
+			state.incomingCallData = payload;
 		},
 	},
 	extraReducers: builder => {
@@ -47,6 +51,6 @@ const callingSlice = createSlice({
 	},
 });
 
-export const { handleCreateRoomModal } = callingSlice.actions;
+export const { handleCreateRoomModal, handleIncomingCall } = callingSlice.actions;
 
 export default callingSlice.reducer;

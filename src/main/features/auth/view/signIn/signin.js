@@ -32,13 +32,15 @@ function SignIn() {
 
   const onSubmit = async (payload) => {
     let permission = await Notification.requestPermission();
+    let deviceToken = null;
     if (permission === 'granted') {
       console.log('Notification permission granted.');
       let firebaseToken = await getFirebaseToken();
       // set send token api here...
+      deviceToken = firebaseToken;
       console.log(firebaseToken, 'firebaseToken');
     }
-    dispatch(loginUser(payload));
+    dispatch(loginUser({ ...payload, deviceToken }));
   };
 
   useEffect(() => {

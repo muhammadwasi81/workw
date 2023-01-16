@@ -30,3 +30,13 @@ export const instantCallService = data => {
 			return error;
 		});
 };
+
+export const addDeviceService = data => {
+	return MasterConfig.post(`api/User/addDevice`, data)
+		.then(res => {
+			return res.data;
+		})
+		.catch(error => {
+			return error;
+		});
+};

@@ -271,7 +271,6 @@ function ProjectDetails() {
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <Budget data={detail} />
-
               <WhiteCard>
                 <MemberCollapse
                   data={detail?.members}

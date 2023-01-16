@@ -1,28 +1,27 @@
-import { Button, Avatar, DatePicker, Form, Input, Radio, Select } from "antd";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import { Button, Avatar, DatePicker, Form, Input, Radio, Select } from 'antd';
+import moment from 'moment';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   DeploymentUnitOutlined,
   CalendarOutlined,
   EnvironmentOutlined,
   VideoCameraOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 
-import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { ScheduleTypeEnum } from "../enum/enum";
-import { addSchedule } from "../store/action";
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
-import { getNameForImage, jsonToFormData } from "../../../../utils/base";
-import "../styles/style.css";
+import { getAllEmployees } from '../../../../utils/Shared/store/actions';
+import MemberSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
+import { ScheduleTypeEnum } from '../enum/enum';
+import { addSchedule } from '../store/action';
+import { defaultUiid } from '../../../../utils/Shared/enums/enums';
+import { getNameForImage, jsonToFormData } from '../../../../utils/base';
+import '../styles/style.css';
 
 function CreateSchedule({ scheduleDetail = {} }) {
-  const [venue, setVenue] = useState("Venue");
+  const [venue, setVenue] = useState('Venue');
   const [quillError, setQuillError] = useState(false);
   const [files, setFiles] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -37,16 +36,16 @@ function CreateSchedule({ scheduleDetail = {} }) {
   const modules = {
     toolbar: [
       [{ font: [] }],
-      [{ size: ["small", false, "large", "huge"] }],
+      [{ size: ['small', false, 'large', 'huge'] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "link", "image"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
+      ['bold', 'italic', 'underline', 'link', 'image'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
       //[{ 'indent': '-1'}, { 'indent': '+1' }],
-      [{ direction: "rtl" }],
-      [{ align: ["center"] }],
+      [{ direction: 'rtl' }],
+      [{ align: ['center'] }],
       [{ color: [] }, { background: [] }],
-      ["clean"],
+      ['clean'],
     ],
     clipboard: {
       matchVisual: false,
@@ -55,36 +54,36 @@ function CreateSchedule({ scheduleDetail = {} }) {
   const formats = {
     toolbar: [
       [{ font: [] }],
-      [{ size: ["small", false, "large", "huge"] }],
+      [{ size: ['small', false, 'large', 'huge'] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "link", "image"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
+      ['bold', 'italic', 'underline', 'link', 'image'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
       //[{ 'indent': '-1'}, { 'indent': '+1' }],
-      [{ direction: "rtl" }],
-      [{ align: ["center"] }],
+      [{ direction: 'rtl' }],
+      [{ align: ['center'] }],
       [{ color: [] }, { background: [] }],
-      ["clean"],
+      ['clean'],
     ],
   };
   const meetingduration = [
-    { label: "15 min", value: "15 minutes" },
-    { label: "30 min", value: "30 minutes" },
-    { label: "45 min", value: "45 minutes" },
-    { label: "01 hr", value: "1 hours" },
-    { label: "02 hr", value: "2 hours" },
+    { label: '15 min', value: '15 minutes' },
+    { label: '30 min', value: '30 minutes' },
+    { label: '45 min', value: '45 minutes' },
+    { label: '01 hr', value: '1 hours' },
+    { label: '02 hr', value: '2 hours' },
   ];
   const travelDuration = [
-    { label: "0 min", value: 0 },
-    { label: "15 min", value: 15 },
-    { label: "30 min", value: 30 },
-    { label: "45 min", value: 45 },
+    { label: '0 min', value: 0 },
+    { label: '15 min', value: 15 },
+    { label: '30 min', value: 30 },
+    { label: '45 min', value: 45 },
   ];
   const preparationDuration = [
-    { label: "0 min", value: 0 },
-    { label: "15 min", value: 15 },
-    { label: "30 min", value: 30 },
-    { label: "45 min", value: 45 },
+    { label: '0 min', value: 0 },
+    { label: '15 min', value: 15 },
+    { label: '30 min', value: 30 },
+    { label: '45 min', value: 45 },
   ];
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
@@ -96,18 +95,18 @@ function CreateSchedule({ scheduleDetail = {} }) {
     }
   }, [employees]);
   useEffect(() => {
-    fetchEmployees("", 0);
+    fetchEmployees('', 0);
   }, []);
 
   const onFinish = (value) => {
     let objToSend = value;
     if (objToSend.startDate) {
       objToSend.endDate = moment(value.startDate)
-        .add(+value.endDate.split(" ")[0], value.endDate.split(" ")[1])
+        .add(+value.endDate.split(' ')[0], value.endDate.split(' ')[1])
         .format();
       objToSend.startDate = moment(objToSend.startDate).format();
     } else {
-      objToSend.endDate = "";
+      objToSend.endDate = '';
     }
     if (objToSend.members) {
       objToSend.members = value.members.map((member) => {
@@ -124,7 +123,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
       });
     }
 
-    if (venue !== "Venue") {
+    if (venue !== 'Venue') {
       objToSend.onVideoConference = true;
     }
 
@@ -139,7 +138,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
   };
   const onFinishFailed = (value) => {
     // console.log('field validating', form.getFieldError("description")[0]);
-    if (form.getFieldError("description")[0]) {
+    if (form.getFieldError('description')[0]) {
       setQuillError(true);
       return;
     }
@@ -155,20 +154,20 @@ function CreateSchedule({ scheduleDetail = {} }) {
   };
 
   const checkDesc = (_, value) => {
-    if (value.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
-      return Promise.reject(new Error(""));
+    if (value.replace(/<(.|\n)*?>/g, '').trim().length === 0) {
+      return Promise.reject(new Error(''));
     }
     return Promise.resolve();
   };
   useEffect(() => {
     if (Object.keys(scheduleDetail).length > 0) {
-      console.log("scheduleDetail", scheduleDetail);
+      console.log('scheduleDetail', scheduleDetail);
       const startD = moment(scheduleDetail.startDate);
       const endD = moment(scheduleDetail.endDate);
       form.setFieldsValue({
         ...scheduleDetail,
         startDate: startD,
-        endDate: `${endD.diff(startD, "minutes")} minutes`,
+        endDate: `${endD.diff(startD, 'minutes')} minutes`,
         members: scheduleDetail.members
           .map((members) => {
             return members.memberId;
@@ -183,10 +182,10 @@ function CreateSchedule({ scheduleDetail = {} }) {
         form={form}
         layout="vertical"
         initialValues={{
-          description: "",
-          location: "",
+          description: '',
+          location: '',
           scheduleType: ScheduleTypeEnum.Meeting,
-          endDate: "15 minutes",
+          endDate: '15 minutes',
           onVideoConference: false,
           travelTime: 0,
           preparationTime: 0,
@@ -197,18 +196,18 @@ function CreateSchedule({ scheduleDetail = {} }) {
       >
         <Form.Item
           name="subject"
-          label={"Task Subject:"}
-          rules={[{ required: true, message: "Subject is required" }]}
+          label={'Task Subject:'}
+          rules={[{ required: true, message: 'Subject is required' }]}
         >
           <Input placeholder="Write Subject"></Input>
         </Form.Item>
         <Form.Item
           name="description"
-          label={"Description:"}
+          label={'Description:'}
           rules={[
             {
               required: true,
-              message: "Description is required",
+              message: 'Description is required',
               // validator: checkDesc,
             },
           ]}
@@ -216,13 +215,13 @@ function CreateSchedule({ scheduleDetail = {} }) {
           <ReactQuill
             className={`${
               quillError
-                ? "ant-input ant-input-status-error !p-0"
-                : "ReactQuill "
+                ? 'ant-input ant-input-status-error !p-0'
+                : 'ReactQuill '
             } `}
             onChange={(e) => {
-              if (e.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
+              if (e.replace(/<(.|\n)*?>/g, '').trim().length === 0) {
                 form.setFieldsValue({
-                  description: "",
+                  description: '',
                 });
                 setQuillError(true);
                 return;
@@ -236,7 +235,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
             placeholder="Description"
           />
         </Form.Item>
-        <Form.Item label="Type:" name={"scheduleType"}>
+        <Form.Item label="Type:" name={'scheduleType'}>
           <Radio.Group>
             <Radio.Button value={ScheduleTypeEnum.Meeting}>
               <DeploymentUnitOutlined />
@@ -265,48 +264,48 @@ function CreateSchedule({ scheduleDetail = {} }) {
             </Radio.Button>
           </Radio.Group>
         </Form.Item>
-        {venue === "Venue" && (
-          <Form.Item label={"Venue:"} name="location">
+        {venue === 'Venue' && (
+          <Form.Item label={'Venue:'} name="location">
             <Input placeholder="Write Venue" />
           </Form.Item>
         )}
         <div className="formInput w-50">
           <Form.Item
-            label={"Start Date & Time:"}
+            label={'Start Date & Time:'}
             name="startDate"
             rules={[
               {
                 required: true,
-                message: "Date & Time is required",
+                message: 'Date & Time is required',
               },
             ]}
           >
             <DatePicker
               format="YYYY-MM-DD HH:mm"
               showTime={{
-                defaultValue: moment("00:00:00", "HH:mm"),
+                defaultValue: moment('00:00:00', 'HH:mm'),
               }}
               placeholder="Select Date & Time"
             />
           </Form.Item>
           <Form.Item
-            label={"Duration:"}
+            label={'Duration:'}
             name="endDate"
-            rules={[{ required: true, message: "Duration is required" }]}
+            rules={[{ required: true, message: 'Duration is required' }]}
           >
             <Select defaultValue="15min" options={meetingduration}></Select>
           </Form.Item>
         </div>
 
         <Form.Item
-          name={"externals"}
-          label={"External Members Email"}
+          name={'externals'}
+          label={'External Members Email'}
           //   direction={Direction}
         >
           <Select
             mode="tags"
             dropdownClassName="hidden"
-            placeholder={"Enter External Members Email"}
+            placeholder={'Enter External Members Email'}
             size="large"
           />
         </Form.Item>
@@ -318,7 +317,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
           fetchData={fetchEmployees}
           name="members"
           mode="multiple"
-          placeholder={"Select Employee"}
+          placeholder={'Select Employee'}
           optionComponent={(opt) => {
             return (
               <>
@@ -329,7 +328,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
               </>
             );
           }}
-          label={"Members"}
+          label={'Members'}
           size="default"
         />
 
@@ -337,10 +336,10 @@ function CreateSchedule({ scheduleDetail = {} }) {
           {/* <Form.Item label={""}>
 						<Checkbox>Travel Time</Checkbox>
 					</Form.Item> */}
-          <Form.Item label={"Travel Time:"} name="travelTime">
+          <Form.Item label={'Travel Time:'} name="travelTime">
             <Select defaultValue={0} options={travelDuration}></Select>
           </Form.Item>
-          <Form.Item label={"Preparation Time:"} name="preparationTime">
+          <Form.Item label={'Preparation Time:'} name="preparationTime">
             <Select defaultValue={0} options={preparationDuration}></Select>
           </Form.Item>
         </div>
@@ -349,7 +348,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
 						<Checkbox>Preparation time</Checkbox>
 					</Form.Item>
 				</div> */}
-        <Form.Item label={"Attachment"} labelPosition="top">
+        <Form.Item label={'Attachment'} labelPosition="top">
           <SingleUpload
             handleImageUpload={(file) => {
               // console.log(file);
@@ -357,7 +356,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
               // setFile(file[0].originFileObj);
             }}
             multiple={true}
-            position={"left"}
+            position={'left'}
           />
         </Form.Item>
         <Form.Item>
@@ -369,7 +368,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
             htmlType="submit"
             loading={loading}
           >
-            {"Create Schedule"}
+            {'Create Schedule'}
           </Button>
         </Form.Item>
       </Form>

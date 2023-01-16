@@ -19,7 +19,7 @@ function ProfilePanelList() {
       </p>
       {listItem.map((list) => {
         return (
-          <div className="p-2">
+          <div className="p-2" key={list.id}>
             {/* <NavLink
               to={ROUTES.USER.DEFAULT + param.id + list.to}
               className={({ isActive }) =>

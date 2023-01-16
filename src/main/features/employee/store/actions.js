@@ -1,29 +1,29 @@
-import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode";
+import { createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit';
+import { responseCode } from '../../../../services/enums/responseCode';
 import {
   responseMessage,
   responseMessageType,
-} from "../../../../services/slices/notificationSlice";
-import { openNotification } from "../../../../utils/Shared/store/slice";
-import { updateUserEmployeeContactService } from "../../emergencyInfo/service/service";
+} from '../../../../services/slices/notificationSlice';
+import { openNotification } from '../../../../utils/Shared/store/slice';
+import { updateUserEmployeeContactService } from '../../emergencyInfo/service/service';
 
 import {
   addEmployeeService,
   getAllEmployeesService,
   getEmployeeByIdService,
   updateEmployeeService,
-} from "../services/service";
+} from '../services/service';
 
 export const addEmployee = createAsyncThunk(
-  "addEmployee",
+  'addEmployee',
   async ({ data, resetAllFields }, { dispatch, getState, rejectWithValue }) => {
     const res = await addEmployeeService(data);
 
     if (res?.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Employee Added Successfully",
-          type: "success",
+          message: 'Employee Added Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -35,7 +35,7 @@ export const addEmployee = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -45,9 +45,9 @@ export const addEmployee = createAsyncThunk(
 );
 
 export const getAllEmployees = createAsyncThunk(
-  "getAllEmployees",
+  'getAllEmployees',
   async (data, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, "dataaa");
+    console.log(data, 'dataaa');
     const res = await getAllEmployeesService(data);
     if (res.responseCode === responseCode.Success) {
       return res;
@@ -63,10 +63,10 @@ export const getAllEmployees = createAsyncThunk(
 );
 
 export const getEmployeeByIdAction = createAsyncThunk(
-  "getEmployeeById",
+  'getEmployeeById',
   async (id, { dispatch, rejectWithValue }) => {
     const res = await getEmployeeByIdService(id);
-    console.log(res.data, "getEmployeeByIdAction");
+    console.log(res.data, 'getEmployeeByIdAction');
     if (res.responseCode === responseCode.Success) {
       return res;
     } else {
@@ -81,16 +81,16 @@ export const getEmployeeByIdAction = createAsyncThunk(
 );
 
 export const updateEmployeeAction = createAsyncThunk(
-  "updateEmployee",
+  'updateEmployee',
   async ({ data, resetAllFields }, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, "action");
+    console.log(data, 'action');
     const res = await updateEmployeeService(data);
-    console.log(res, "updateEmployeeAction");
+    console.log(res, 'updateEmployeeAction');
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Employee Updated Successfully",
-          type: "success",
+          message: 'Employee Updated Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -102,7 +102,7 @@ export const updateEmployeeAction = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );

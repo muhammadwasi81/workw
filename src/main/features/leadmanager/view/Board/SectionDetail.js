@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from 'react';
 import {
   Avatar,
   Button,
@@ -9,41 +9,43 @@ import {
   Radio,
   Tag,
   Tooltip,
-} from "antd";
-import { FaGlobe, FaUserAlt, FaUserPlus } from "react-icons/fa";
+} from 'antd';
+import { FaGlobe, FaUserAlt, FaUserPlus } from 'react-icons/fa';
 import {
-  CalendarOutlined,
   EnvironmentFilled,
   MailFilled,
   PhoneFilled,
   PlusCircleFilled,
-} from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-
-import "./sectionDetail.css";
-import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
-import UploadBgImg from "../../../workboard/WorkBoardDetail/UploadBgImg";
+} from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import './sectionDetail.css';
+import CommentWrapper from '../../../../sharedComponents/Comment/CommentWrapper';
+import UploadBgImg from '../../../workboard/WorkBoardDetail/UploadBgImg';
 import {
   getAllLeadManagerContactDetail,
   updateLeadManagerDetail,
   getAllScheduleAction,
-} from "../../store/actions";
-import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
-import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
-import { DEFAULT_GUID } from "../../../../../utils/constants";
-import { LeadManagerDictionary } from "../../localization";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
-import CreateSchedule from "../../../schedule/view/createSchedule";
-import Calender from "../../../../../content/NewContent/leadManager/svg/Calender-ic.svg";
-import "./event.css";
-import Event from "./event";
-import EventDetail from "../../../schedule/view/eventDetail";
-import { toggleEventDetailComposer } from "../../../schedule/store/slice";
+} from '../../store/actions';
+import { getNameForImage, jsonToFormData } from '../../../../../utils/base';
+import SectionDetailSkeleton from '../../UI/Skeleton/SectionDetailSkeleton';
+import { DEFAULT_GUID } from '../../../../../utils/constants';
+import { LeadManagerDictionary } from '../../localization';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
+import AvatarGroup from '../../../../sharedComponents/Avatar/AvatarGroup';
+import CreateSchedule from '../../../schedule/view/createSchedule';
+import Calender from '../../../../../content/NewContent/leadManager/svg/Calender-ic.svg';
+import RefreshIcon from '../../../../../content/NewContent/leadManager/svg/refresh.svg';
+import './event.css';
+import Event from './event';
+import EventDetail from '../../../schedule/view/eventDetail';
+import { toggleEventDetailComposer } from '../../../schedule/store/slice';
+import { useParams } from 'react-router-dom';
+import { ScheduleReferenceTypeEnum } from '../../enum/enum';
 
 const { Panel } = Collapse;
 
 function SectionDetail(props) {
+  const { id } = useParams();
   const {
     data,
     isSectionDetailLoading,
@@ -53,36 +55,33 @@ function SectionDetail(props) {
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
-
   const [image, setImage] = useState(
     data?.image
       ? data.image
-      : "https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
+      : 'https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg'
   );
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
-    userLanguage
-  ];
+  const { LeadManagerDictionaryList } = LeadManagerDictionary[userLanguage];
   const { detail, labels, placeHolder } = LeadManagerDictionaryList;
   const scheduleSuccess = useSelector((state) => state.scheduleSlice.success);
-  const { meetingDetail, isMeetingDetailLoading } = useSelector(
-    (state) => state.leadMangerSlice
-  );
-  console.log(meetingDetail, "meetingDetailS");
+  const { meetingDetail } = useSelector((state) => state.leadMangerSlice);
+
   useEffect(() => {
     dispatch(
       getAllScheduleAction({
-        referenceType: meetingDetail.referenceType,
-        referenceId: meetingDetail.referenceId,
+        referenceType: ScheduleReferenceTypeEnum.Lead,
+        referenceId: id,
       })
     );
   }, []);
+
   useEffect(() => {
     if (scheduleSuccess) {
       setIsOpen(false);
     }
   }, [scheduleSuccess]);
+
   const handleScheduleDetailComposer = (data) => {
     dispatch(
       toggleEventDetailComposer({
@@ -96,7 +95,7 @@ function SectionDetail(props) {
       updateLeadManagerDetail(
         jsonToFormData({
           image: {
-            id: typeof image === "object" ? DEFAULT_GUID : data.imageId,
+            id: typeof image === 'object' ? DEFAULT_GUID : data.imageId,
             file: image ? image : null,
           },
           ...values,
@@ -110,10 +109,20 @@ function SectionDetail(props) {
     return <SectionDetailSkeleton />;
   }
 
-  // console.log("data", data);
+  const handleRefresh = (e) => {
+    console.log('refresh');
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(
+      getAllScheduleAction({
+        referenceType: ScheduleReferenceTypeEnum.Lead,
+        referenceId: id,
+      })
+    );
+  };
   return (
     <>
-      <div className="gap-5 flex flex-col 2xl:flex-row  ">
+      <div className="gap-5 flex flex-col 2xl:flex-row">
         <section className="flex flex-col gap-3 basis-7/12">
           <div className="overflow-hidden relative h-[200px]">
             <img
@@ -133,7 +142,7 @@ function SectionDetail(props) {
               <div
                 className="bg-gray-500 absolute text-white w-full bottom-0 left-0 flex justify-center py-3 bg-opacity-90 rounded-b-2xl cursor-pointer hover:bg-opacity-95 transition hover:font-semibold"
                 onClick={() => {
-                  console.log("upload ");
+                  console.log('upload');
                 }}
               >
                 {labels.uplpadImage}
@@ -141,25 +150,20 @@ function SectionDetail(props) {
             </UploadBgImg>
           </div>
           <div className="flex justify-end gap-2 items-center">
-            {/* <div></div> */}
-
             <AvatarGroup
-              // heading={"Members"}
               membersData={data?.members}
-              nestedObjProperty={"member"}
+              nestedObjProperty={'member'}
             />
             <Tooltip title="Select Assign Members">
               <PlusCircleFilled
                 className="!text-[20px] !cursor-pointer !text-primary-color"
                 onClick={() => {
-                  handleSelectedMembers("", data?.members);
+                  handleSelectedMembers('', data?.members);
                   handleMemberModal(data.id);
                   setLeadSectionId(data.sectionId);
                 }}
               />
             </Tooltip>
-            {/* <div className="flex justify-end">
-					</div> */}
           </div>
           <Form
             name="basic"
@@ -177,6 +181,7 @@ function SectionDetail(props) {
             <Form.Item
               label={<span className="text-primary-color">{detail.name}</span>}
               name="name"
+              rules={[{ required: true }]}
             >
               <Input
                 prefix={<FaUserAlt className="text-gray-500" />}
@@ -188,18 +193,21 @@ function SectionDetail(props) {
               label={
                 <span className="text-primary-color">{detail.phoneNumber}</span>
               }
+              rules={[{ required: true }]}
             >
               <Input
                 prefix={<PhoneFilled rotate={90} className="!text-gray-500" />}
                 placeholder={placeHolder.leadPhoneNumber}
+                type="number"
               />
             </Form.Item>
             <Form.Item
               name="emailAddress"
               label={<span className="text-primary-color">{detail.email}</span>}
+              rules={[{ required: true }, { type: 'email' }]}
             >
               <Input
-                // type={"email"}
+                type={'email'}
                 prefix={<MailFilled className="!text-gray-500" />}
                 placeholder={placeHolder.leadEmailAddress}
               />
@@ -209,8 +217,10 @@ function SectionDetail(props) {
               label={
                 <span className="text-primary-color">{detail.address}</span>
               }
+              rules={[{ required: true }]}
             >
               <Input
+                type="text"
                 prefix={<EnvironmentFilled className="!text-gray-500" />}
                 placeholder={placeHolder.leadAddress}
               />
@@ -220,11 +230,11 @@ function SectionDetail(props) {
               label={
                 <span className="text-primary-color">{detail.website}</span>
               }
+              rules={[{ required: true }]}
             >
               <Input
                 prefix={<FaGlobe className="!text-gray-500" />}
                 placeholder={placeHolder.leadUrl}
-                // type={"url"}
               />
             </Form.Item>
             <Form.Item className="!mb-0">
@@ -242,7 +252,7 @@ function SectionDetail(props) {
           <div className="bg-neutral-100 p-2 rounded-lg h-fit">
             <Collapse
               bordered={false}
-              defaultActiveKey={["1"]}
+              defaultActiveKey={['1']}
               ghost={true}
               expandIconPosition="end"
               className="site-collapse-custom-collapse !overflow-hidden"
@@ -255,24 +265,40 @@ function SectionDetail(props) {
                 className=" site-collapse-custom-panel"
                 showArrow={false}
                 extra={
-                  <div
-                    className="h-[32px] w-[32px] flex items-center justify-center rounded-lg bg-white hover:bg-neutral-200 transition"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setIsOpen(true);
-                    }}
-                  >
-
-                    {/* <CalendarOutlined className="!text-primary-color !text-base" /> */}
-                    <img src={Calender} width="21px" alt="" />
-
-                    {/* <CalendarOutlined className="!text-primary-color !text-base" /> */}
-
+                  <div className="flex flex-wrap justify-end gap-3">
+                    <div
+                      className="h-[32px] w-[32px] rounded-lg bg-white hover:bg-neutral-200 transition"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setIsOpen(true);
+                      }}
+                    >
+                      <img
+                        src={Calender}
+                        width="21px"
+                        alt="calender logo"
+                        loading="lazy"
+                        className="cursor-pointer m-auto mt-1"
+                      />
+                    </div>
+                    <div
+                      className="h-[32px] w-[32px] rounded-lg bg-white hover:bg-neutral-200 transition"
+                      onClick={(e) => {
+                        handleRefresh(e);
+                      }}
+                    >
+                      <img
+                        src={RefreshIcon}
+                        width="20px"
+                        alt="calender logo"
+                        loading="lazy"
+                        className="cursor-pointer m-auto mt-2"
+                      />
+                    </div>
                   </div>
                 }
               >
-                {/* *******show Meeting list******* */}
                 <div className="eventWrapper">
                   <div className="eventWrapper__body">
                     <EventDetail />
@@ -299,7 +325,7 @@ function SectionDetail(props) {
           <div className="bg-neutral-100 p-2 rounded-lg h-fit">
             <Collapse
               bordered={false}
-              defaultActiveKey={["1"]}
+              defaultActiveKey={['1']}
               ghost={true}
               expandIconPosition="end"
               className="site-collapse-custom-collapse !overflow-hidden"
@@ -317,7 +343,6 @@ function SectionDetail(props) {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-
                       props.handleContactDetailModal();
                       props.onClickContact(false);
                     }}
@@ -390,17 +415,18 @@ function SectionDetail(props) {
         </section>
       </div>
       <Drawer
-        title={"Create Schedule"}
-        // placement={Direction === "ltr" ? "right" : "left"}
+        title={'Create Schedule'}
         width="768"
         onClose={() => {
           setIsOpen(false);
         }}
-        visible={isOpen}
+        open={isOpen}
         destroyOnClose={true}
         className=" drawerSecondary"
       >
-        <CreateSchedule />
+        <CreateSchedule
+          scheduleDetail={{ referenceType: 4, referenceId: id, members: [] }}
+        />
       </Drawer>
     </>
   );

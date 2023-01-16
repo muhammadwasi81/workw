@@ -1,64 +1,64 @@
-import { Button, DatePicker, Divider, Form, Input, Select, Avatar } from "antd";
-import React, { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { employeeDictionaryList } from "../localization/index";
-import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
-import { EditOutlined } from "@ant-design/icons";
+import { Button, DatePicker, Divider, Form, Input, Select, Avatar } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { employeeDictionaryList } from '../localization/index';
+import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
+import { EditOutlined } from '@ant-design/icons';
 import {
   userType,
   userTitle,
   genderList,
   maritalStatusList,
   employmentType,
-} from "../../../../utils/Shared/enums/enums";
-import { useDispatch } from "react-redux";
+} from '../../../../utils/Shared/enums/enums';
+import { useDispatch } from 'react-redux';
 import {
   getAllEmployees,
   getCities,
   getCountries,
-} from "../../../../utils/Shared/store/actions";
-import { getAllGrades } from "../../grade/store/actions";
-import { getAllDepartmentService } from "../../departments/services/service";
-import { getAllAccessRoles } from "../../accessRole/store/action";
-import { getAllOfficeTimingGroups } from "../../officeTimings/store/actions";
-import { getUserBasicInfo } from "../../basicInfo/store/actions";
-import moment from "moment";
-import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import { getNameForImage, STRINGS } from "../../../../utils/base";
-import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
-import { resetBasicdetails } from "../store/slice";
-import { getAllDesignation } from "../../designation/store/actions";
-import { getAllBranch } from "../../subsidiary/store/actions";
-import { getAllBranchOffice } from "../../subsidiaryOffice/store/actions";
-import { updateEmployeeAction } from "../store/actions";
-import CustomSelect from "../../../sharedComponents/Select/Select";
+} from '../../../../utils/Shared/store/actions';
+import { getAllGrades } from '../../grade/store/actions';
+import { getAllDepartmentService } from '../../departments/services/service';
+import { getAllAccessRoles } from '../../accessRole/store/action';
+import { getAllOfficeTimingGroups } from '../../officeTimings/store/actions';
+import { getUserBasicInfo } from '../../basicInfo/store/actions';
+import moment from 'moment';
+import MemberSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { getNameForImage, STRINGS } from '../../../../utils/base';
+import CitySelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect';
+import { resetBasicdetails } from '../store/slice';
+import { getAllDesignation } from '../../designation/store/actions';
+import { getAllBranch } from '../../subsidiary/store/actions';
+import { getAllBranchOffice } from '../../subsidiaryOffice/store/actions';
+import { updateEmployeeAction } from '../store/actions';
+import CustomSelect from '../../../sharedComponents/Select/Select';
+import { getAllDepartments } from '../../departments/store/actions';
 
 const { Option } = Select;
 
 const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
-  const isEdit = mode === "edit";
+  const isEdit = mode === 'edit';
   const [form] = Form.useForm();
   const initialState = {
-    coverImageId: "",
-    userTypeId: "",
+    coverImageId: '',
+    userTypeId: '',
     titleId: 1,
-    firstName: "",
-    lastName: "",
-    fatherName: "",
-    email: "",
-    personalEmail: "",
-    nic: "",
-    phoneNo: "",
+    firstName: '',
+    lastName: '',
+    fatherName: '',
+    email: '',
+    personalEmail: '',
+    nic: '',
+    phoneNo: '',
     designationId: [],
     managerId: [],
     gradesId: [],
-    // grade: [],
     countryId: [],
     cityId: [],
-    probationPeriod: "",
-    birthDate: "",
-    joinDate: "",
+    probationPeriod: '',
+    birthDate: '',
+    joinDate: '',
     genderId: [],
     maritalStatusId: [],
     officeTimingId: [],
@@ -69,7 +69,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const [showSubsidary, setShowSubsidary] = useState(false);
   const [department, setDepartment] = useState([]);
   const [initialValues, setInitialValues] = useState(initialState);
-  console.log(initialValues.managerId, "managerrr");
+  console.log(initialValues.managerId, 'managerrr');
   const { countries, cities } = useSelector((state) => state.sharedSlice);
   const { designations } = useSelector((state) => state.designationSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
@@ -101,7 +101,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const {
     employee: { basicdetails },
   } = useSelector((state) => state.employeeSlice);
-  console.log(basicdetails, "basicDetailss");
+  console.log(basicdetails, 'basicDetailss');
 
   const labels = employeesDictionary.EmployeeForm;
   const placeholder = employeesDictionary.placeholders;
@@ -117,7 +117,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const selectBefore = (
     <Form.Item name="titleId" className="titleSelect">
       <Select
-        style={{ padding: "0", width: "4.5rem", marginBottom: 0 }}
+        style={{ padding: '0', width: '4.5rem', marginBottom: 0 }}
         getPopupContainer={(trigger) => trigger.parentNode}
       >
         {userTitle.map((titles) => (
@@ -130,7 +130,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   );
 
   useEffect(() => {
-    fetchEmployees("", 0);
+    fetchEmployees('', 0);
     getDepartment();
     dispatch(getAllBranch());
     dispatch(getAllBranchOffice());
@@ -138,7 +138,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
       if (!countries?.length) dispatch(getCountries());
-      if (!cities?.length) fetchCityData("", 0);
+      if (!cities?.length) fetchCityData('', 0);
     }
     if (!designations?.length) dispatch(getAllDesignation());
     if (!grades?.length) dispatch(getAllGrades());
@@ -146,6 +146,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     if (!accessRoles?.length) {
       dispatch(getAllAccessRoles());
     }
+    if (!department?.length) getAllDepartments();
 
     return () => {
       dispatch(resetBasicdetails());
@@ -158,26 +159,32 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         ...basicdetails,
         birthDate: moment(basicdetails.birthDate),
         joinDate: moment(basicdetails.joinDate),
-        accessRoleId: basicdetails?.accessRoles?.map((item) => item.accessRole),
+        accessRoleId: basicdetails?.accessRoles?.map(
+          (item) => item.accessRoleId
+        ),
         officeTimingId:
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
-            ? ""
+            ? ''
             : basicdetails.officeTimingId,
-        // birthDate: basicdetails.birthDate ?  basicdetails.birthDate : "",
+        managerId: basicdetails.manager?.id
+          ? basicdetails.manager?.id
+          : STRINGS.DEFAULTS.guid,
       });
     }
   }, [basicdetails]);
+
+  console.log(basicdetails.manager?.id, 'managerId');
 
   useEffect(() => {
     form.setFieldsValue(initialValues);
   }, [initialValues, form]);
 
-  Object.defineProperty(form, "values", {
+  Object.defineProperty(form, 'values', {
     value: function() {
       return {
         ...form.getFieldsValue(),
-        birthDate: moment(form.getFieldValue("birthDate")._ds).format(),
-        joinDate: moment(form.getFieldValue("joinDate")._ds).format(),
+        birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
+        joinDate: moment(form.getFieldValue('joinDate')._ds).format(),
       };
     },
     writable: true,
@@ -197,13 +204,13 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
       const isValidation = await form.validateFields();
       if (isValidation) {
         let payload = form.getFieldsValue();
-        console.log("payload", payload);
+        console.log('payload', payload);
         if (payload) {
           payload = {
             ...payload,
             id: id,
-            birthDate: moment(form.getFieldValue("birthDate")._ds).format(),
-            joinDate: moment(form.getFieldValue("joinDate")._ds).format(),
+            birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
+            joinDate: moment(form.getFieldValue('joinDate')._ds).format(),
             probationPeriod: parseInt(payload.probationPeriod),
             // noticePeriod: parseInt(payload.noticePeriod),
             noticePeriod: 30,
@@ -219,20 +226,20 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     }
   };
 
-  let classes = "employeeForm basicInfo ";
-  classes += Direction === "ltr" ? "ltr" : "rtl";
+  let classes = 'employeeForm basicInfo ';
+  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.BasicInfo}</Divider>
       <Form
         name="basicInfo"
         form={form}
-        layout={"vertical"}
+        layout={'vertical'}
         initialValues={initialValues}
       >
-        <Form.Item area="true" style={{ gridArea: "1/-2 / span 2 / span 1" }}>
+        <Form.Item area="true" style={{ gridArea: '1/-2 / span 2 / span 1' }}>
           <SingleUpload
-            url={isEdit ? initialValues.image : ""}
+            url={isEdit ? initialValues.image : ''}
             value={profileImage}
             handleImageUpload={handleImageUpload}
             uploadText={labels.AddImage}
@@ -268,14 +275,14 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Input placeholder={placeholder.fatherName}></Input>
         </Form.Item>
         <Form.Item
-          rules={[{ required: true }, { type: "email" }]}
+          rules={[{ required: true }, { type: 'email' }]}
           name="email"
           label={labels.Email}
         >
           <Input placeholder={placeholder.email}></Input>
         </Form.Item>
         <Form.Item
-          rules={[{ required: true }, { type: "email" }]}
+          rules={[{ required: true }, { type: 'email' }]}
           name="personalEmail"
           label={labels.PersonalEmail}
         >
@@ -378,7 +385,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         <CitySelect
           data={cities}
           selectedData={(val) => {
-            console.log("val", val);
+            console.log('val', val);
           }}
           canFetchNow={cities && cities.length > 0}
           fetchData={fetchCityData}
@@ -388,11 +395,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
                 <Avatar src={opt.image} className="!bg-black">
                   {getNameForImage(opt.name)}
                 </Avatar>
-                {opt.name + " - " + opt.country}
+                {opt.name + ' - ' + opt.country}
               </>
             );
           }}
-          defaultKey={"id"}
+          defaultKey={'id'}
           isObject={true}
           placeholder={placeholder.searchToSelect}
           size="large"
@@ -403,8 +410,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Input
             placeholder={placeholder.probPeriod}
             size="large"
-            type={"number"}
-            step={"1"}
+            type={'number'}
+            step={'1'}
             min={1}
           />
         </Form.Item>
@@ -417,9 +424,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             <Input
               placeholder={placeholder.noticePeriod}
               size="large"
-              type={"number"}
+              type={'number'}
               min={1}
-              step={"1"}
+              step={'1'}
             />
           </Form.Item>
         )}
@@ -428,7 +435,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectDate}
             size="large"
-            format={"DD/MM/YYYY"}
+            format={'DD/MM/YYYY'}
           />
         </Form.Item>
         <Form.Item name="joinDate" label={labels.DateOfJoining}>
@@ -436,7 +443,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectDate}
             size="large"
-            format={"DD/MM/YYYY"}
+            format={'DD/MM/YYYY'}
           />
         </Form.Item>
         <Form.Item
@@ -476,7 +483,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             placeholder={placeholder.selectShift}
             getPopupContainer={(trigger) => trigger.parentNode}
             filterOption={(input, option) =>
-              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }
             options={(officeTimingGroups || [])?.map((item) => {
               return {
@@ -517,7 +524,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             >
               &nbsp;&nbsp;
               <strong>
-                {basicdetails?.userTypeId === 1 ? "Admin" : "Employee"}
+                {basicdetails?.userTypeId === 1 ? 'Admin' : 'Employee'}
               </strong>
             </Form.Item>
           </>
@@ -552,10 +559,10 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
             showSearch={true}
             onChange={(value) => {
-              console.log(value, "accessrole");
+              console.log(value, 'accessrole');
             }}
             filterOption={(input, option) =>
-              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }
             options={accessRoles.map((item) => {
               return {
@@ -572,7 +579,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           </Select>
         </Form.Item>
 
-        <Form.Item name="department" label={labels.department}>
+        <Form.Item name="departmentId" label={labels.department}>
           <Select
             size="large"
             placeholder={placeholder.department}
@@ -604,7 +611,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
               onChange={() => setShowSubsidary((prev) => !prev)}
               optionFilterProp="children"
               filterOption={(input, option) =>
-                (option?.label ?? "")
+                (option?.label ?? '')
                   .toLowerCase()
                   .includes(input.toLowerCase())
               }
@@ -639,7 +646,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
                 console.log(value);
               }}
               filterOption={(input, option) =>
-                (option?.label ?? "")
+                (option?.label ?? '')
                   .toLowerCase()
                   .includes(input.toLowerCase())
               }
@@ -666,7 +673,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         )}
       </Form>
 
-      <div className={isEdit ? "editButtons" : "buttons"}>
+      <div className={isEdit ? 'editButtons' : 'buttons'}>
         {isEdit && (
           <Button
             className="btn ThemeBtn"

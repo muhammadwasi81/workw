@@ -27,7 +27,7 @@ CustomNotes.propTypes = {
   placeholder: PropTypes.string,
   defaultValue: PropTypes.string,
   modules: PropTypes.object,
-  formats: PropTypes.array,
+  formats: PropTypes.object,
 };
 
 export default CustomNotes;

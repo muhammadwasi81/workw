@@ -32,7 +32,9 @@ import { getAllDesignation } from '../../designation/store/actions';
 import { getAllBranch } from '../../subsidiary/store/actions';
 import { getAllBranchOffice } from '../../subsidiaryOffice/store/actions';
 import { updateEmployeeAction } from '../store/actions';
+import CustomSelect from '../../../sharedComponents/Select/Select';
 import { getAllDepartments } from '../../departments/store/actions';
+
 const { Option } = Select;
 
 const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
@@ -67,6 +69,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const [showSubsidary, setShowSubsidary] = useState(false);
   const [department, setDepartment] = useState([]);
   const [initialValues, setInitialValues] = useState(initialState);
+  console.log(initialValues.managerId, 'managerrr');
   const { countries, cities } = useSelector((state) => state.sharedSlice);
   const { designations } = useSelector((state) => state.designationSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
@@ -98,6 +101,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const {
     employee: { basicdetails },
   } = useSelector((state) => state.employeeSlice);
+  console.log(basicdetails, 'basicDetailss');
 
   const labels = employeesDictionary.EmployeeForm;
   const placeholder = employeesDictionary.placeholders;
@@ -151,7 +155,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
 
   useEffect(() => {
     if (isEdit) {
-      console.log('basicDetails', basicdetails);
       setInitialValues({
         ...basicdetails,
         birthDate: moment(basicdetails.birthDate),
@@ -301,13 +304,21 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           label={labels.Designation}
           placeholder={placeholder.selectGender}
         >
-          <Select
+          <CustomSelect
+            showSearch={true}
+            data={designations}
+            size="large"
+            placeholder="Please select Designation"
+            defaultValue={initialValues.designationId}
+          />
+          {/* <Select
             getPopupContainer={(trigger) => trigger.parentNode}
             size="large"
             showSearch={true}
             placeholder={placeholder.selectDesignation}
+            defaultValue={""}
             filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
             options={designations?.map((val) => {
               return {
@@ -317,11 +328,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             })}
           >
             {designations?.map((designation) => (
-              <Option key={designation.id} value={designation.id}>
+              <Option key={designation.name} value={designation.name}>
                 {designation.name}
               </Option>
             ))}
-          </Select>
+          </Select> */}
         </Form.Item>
         <Form.Item name="managerId" label={labels.Manager}>
           <MemberSelect

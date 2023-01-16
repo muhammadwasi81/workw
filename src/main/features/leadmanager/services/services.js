@@ -5,6 +5,30 @@ const API_SECTION_PREFIX = 'api/LeadManagerSection/';
 const API_LEAD_MANAGER_PREFIX = 'api/LeadManagerDetail/';
 const API_LEAD_MANAGER_CONTACT_PREFIX = 'api/LeadManagerDetailContact/';
 
+export const getAllLeadManagerMemberService = (id) => {
+  return MasterConfig.get(`api/LeadManager/GetAllLeadManagerMember?id=${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const addLeadManagerMemberService = async (data) => {
+  let id = data.id;
+  let memberId = data.memberId;
+  return MasterConfig.post(`api/LeadManager/AddLeadManagerMember?id=${id}`, [
+    { memberId: memberId },
+  ])
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
 export const addLeadManagerService = (data) => {
   return MasterConfig.post(`${API_PREFIX}AddLeadManager`, data)
     .then((res) => {

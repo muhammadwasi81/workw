@@ -10,7 +10,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { dictionaryList } from "../../../../utils/localization/languages";
 
 const expandedRowRender = (officeTimingGroup) => {
-  console.log(officeTimingGroup);
+  console.log(officeTimingGroup, "officeTiming group");
   const columns = [
     {
       title: "Days",

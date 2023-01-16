@@ -5,6 +5,7 @@ import {
   responseMessageType,
 } from '../../../../services/slices/notificationSlice';
 import { openNotification } from '../../../../utils/Shared/store/slice';
+import { updateUserEmployeeContactService } from '../../emergencyInfo/service/service';
 
 import {
   addEmployeeService,
@@ -46,7 +47,8 @@ export const addEmployee = createAsyncThunk(
 export const getAllEmployees = createAsyncThunk(
   'getAllEmployees',
   async (data, { dispatch, getState, rejectWithValue }) => {
-    const res = await getAllEmployeesService();
+    console.log(data, 'dataaa');
+    const res = await getAllEmployeesService(data);
     if (res.responseCode === responseCode.Success) {
       return res;
     } else {
@@ -80,8 +82,8 @@ export const getEmployeeByIdAction = createAsyncThunk(
 
 export const updateEmployeeAction = createAsyncThunk(
   'updateEmployee',
-  async ({ data, resetAllFields }, { dispatch }) => {
-    console.log(data, 'updateEmployeeActions');
+  async ({ data, resetAllFields }, { dispatch, getState, rejectWithValue }) => {
+    console.log(data, 'action');
     const res = await updateEmployeeService(data);
     console.log(res, 'updateEmployeeAction');
     if (res.responseCode === responseCode.Success) {

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import {
   responseMessage,
@@ -25,6 +26,8 @@ import {
   updateLeadManagerService,
   getAllScheduleService,
   getScheduleByIdService,
+  getAllLeadManagerMemberService ,
+  addLeadManagerMemberService,
 } from "../services/services";
 
 export const addLeadManager = createAsyncThunk(
@@ -395,6 +398,30 @@ export const getScheduleByIdAction = createAsyncThunk(
       return res;
     } else {
       return rejectWithValue(res.message);
+    }
+  }
+);
+export const getAllLeadManagerMember = createAsyncThunk(
+  "GetAllCourseMember",
+  async (data) => {
+    console.log(data, "FROM ACTIONSSS !!");
+    const response = await getAllLeadManagerMemberService (data);
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+export const addLeadManagereMember = createAsyncThunk(
+  "addCourseMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addLeadManagerMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Member Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
     }
   }
 );

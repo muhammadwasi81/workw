@@ -16,7 +16,7 @@ function ShareComponent({ item, handleClose }) {
   });
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
-// console.log(item,"itemmmm share")
+  // console.log(item,"itemmmm share")
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -30,8 +30,6 @@ function ShareComponent({ item, handleClose }) {
     });
   };
   const shareHandler = () => {
-    console.log("clicked share componentß");
-    console.log(item.description, "description");
     handleClose(false);
   };
   useEffect(() => {
@@ -50,50 +48,49 @@ function ShareComponent({ item, handleClose }) {
 
   return (
     <>
-        <div className="shareContainer">
-          <div className="user-box">
-            <CustomSelect
-              style={{ marginBottom: "0px" }}
-              data={firstTimeEmpData}
-              selectedData={selectedData}
-              canFetchNow={isFirstTimeDataLoaded}
-              fetchData={fetchEmployees}
-              placeholder={"Select User"}
-              mode={"multiple"}
-              isObject={true}
-              loadDefaultData={false}
-              optionComponent={(opt) => {
-                return (
-                  <>
-                    <Avatar
-                      name={opt.name}
-                      src={opt.image}
-                      round={true}
-                      width={"30px"}
-                      height={"30px"}
-                    />
-                    {opt.name}
-                  </>
-                );
-              }}
-              dataVal={value}
-              name="users"
-              showSearch={true}
-              // direction={Direction}
-              rules={[
-                {
-                  required: true,
-                  message: "Please Select Users",
-                },
-              ]}
-            />
-          </div>
-          <div className="shareIcon">
-            {" "}
-            <SendOutlined onClick={shareHandler} />
-          </div>
+      <div className="shareContainer">
+        <div className="user-box">
+          <CustomSelect
+            style={{ marginBottom: "0px" }}
+            data={firstTimeEmpData}
+            selectedData={selectedData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            placeholder={"Select User"}
+            mode={"multiple"}
+            isObject={true}
+            loadDefaultData={false}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar
+                    name={opt.name}
+                    src={opt.image}
+                    round={true}
+                    width={"30px"}
+                    height={"30px"}
+                  />
+                  {opt.name}
+                </>
+              );
+            }}
+            dataVal={value}
+            name="users"
+            showSearch={true}
+            // direction={Direction}
+            rules={[
+              {
+                required: true,
+                message: "Please Select Users",
+              },
+            ]}
+          />
         </div>
-      
+        <div className="shareIcon">
+          {" "}
+          <SendOutlined onClick={shareHandler} />
+        </div>
+      </div>
     </>
   );
 }

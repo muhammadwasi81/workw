@@ -23,6 +23,7 @@ function WorkBoardDashboard({
   const workboardsListData = useSelector(
     (state) => state.trelloSlice.workboardsList
   );
+  console.log(workboardsListData, "workboardList");
   const loader = useSelector((state) => state.trelloSlice.loader);
   // useEffect(() => {
   // 	dispatch(
@@ -66,18 +67,15 @@ function WorkBoardDashboard({
         />
       )}
 
-       {
-            workboardsListData?.length > 0 && !loader && !isTableView ? (
-              <CardWrapper2>
-              {workboardsListData.map((data) => (
-                <WorkBoardCard data={data} />
-              ))}
-            
-            </CardWrapper2>
-          ):
-          !loader && !isTableView && <NoDataFound />
-
-        }
+      {workboardsListData?.length > 0 && !loader && !isTableView ? (
+        <CardWrapper2>
+          {workboardsListData.map((data) => (
+            <WorkBoardCard data={data} />
+          ))}
+        </CardWrapper2>
+      ) : (
+        !loader && !isTableView && <NoDataFound />
+      )}
 
       {/* {!isTableView ? (
         <CardWrapper2>

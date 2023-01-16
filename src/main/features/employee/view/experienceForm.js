@@ -77,6 +77,7 @@ const ExperienceForm = ({ mode, id }) => {
     isPresent: false,
   };
   const [initialValues, setInitialValues] = useState(initialState);
+  console.log(initialValues, 'initialvaluessss');
   const labels = employeesDictionary.WorkExperienceForm;
   const placeholder = employeesDictionary.placeholders;
   const { cities } = useSelector((state) => state.sharedSlice);
@@ -157,7 +158,6 @@ const ExperienceForm = ({ mode, id }) => {
         return employmentType[value - 1]?.name;
       },
     },
-
     {
       title: labels.StartEndDate,
       dataIndex: 'startDate',

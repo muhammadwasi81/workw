@@ -57,6 +57,7 @@ const initialState = {
   quizResult: {},
   courseDetail: {},
   bookDetail: {},
+  addCourseSuccess: false,
   books: [],
   tedTalks: [],
   tedTalkDetail: {},
@@ -97,7 +98,7 @@ const initialState = {
   courseAssignMembers: [],
   bookAssignMembers: [],
   addAssignMemberModal: false,
-  addMemberModal: false,
+  addMemberModal: {},
 };
 
 const eLearningSlice = createSlice({
@@ -112,6 +113,7 @@ const eLearningSlice = createSlice({
       state.composersInitState[key] = {};
     },
     addTopic: (state, { payload }) => {
+      console.log(payload, "FROM REDUCER");
       state.topics = [...state.topics, payload];
     },
     deleteTopic: (state, { payload }) => {
@@ -123,6 +125,7 @@ const eLearningSlice = createSlice({
       state.topics = [];
     },
     addMember: (state, { payload }) => {
+      console.log(payload, "FROM REDUCER")
       state.addMemberModal = payload;
     },
     addAssignMember: (state, { payload }) => {
@@ -134,7 +137,8 @@ const eLearningSlice = createSlice({
     builder
       .addCase(addCourse.fulfilled, (state) => {
         state.loaders.addCourseLoading = false;
-        state.success = true;
+        state.addCourseSuccess = true;
+        state.sections = [];
         return state;
       })
       .addCase(addVideo.fulfilled, (state) => {
@@ -244,6 +248,7 @@ const eLearningSlice = createSlice({
       })
       .addCase(getAllBookMember.fulfilled, (state, action) => {
         state.bookMembers = action.payload ? action.payload : [];
+        console.log(state.bookMembers, "book members");
       })
       .addCase(getAllCourseAssignMem.fulfilled, (state, action) => {
         state.courseAssignMembers = action.payload ? action.payload : [];
@@ -266,6 +271,7 @@ const eLearningSlice = createSlice({
       })
       .addMatcher(isPending(...[addCourse]), (state) => {
         state.loaders.addCourseLoading = true;
+        state.addCourseSuccess = false
       })
       .addMatcher(isPending(...[addArticle]), (state) => {
         state.loaders.addArticleLoading = true;
@@ -301,13 +307,20 @@ const eLearningSlice = createSlice({
         state.loaders.TedTalkDetailLoading = true;
       })
       .addMatcher(
-        isRejected(...[addCourse, addBook, getAllBook, getAllCourse]),
+        isRejected(...[addBook, getAllBook, getAllCourse]),
         (state) => {
           state.loaders.addCourseLoading = false;
           state.loaders.addBookLoading = false;
           state.loaders.courseLoading = false;
           state.loaders.bookLoading = false;
           state.success = false;
+        }
+      )
+
+      .addMatcher(
+        isRejected(...[addCourse]),
+        (state) => {
+          state.addCourseSuccess = false
         }
       )
 

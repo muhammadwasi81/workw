@@ -13,10 +13,21 @@ import {
     parseDate,
     parseDateAndTime,
 } from "../../../../utils/base";
-import { Skeleton, Spin } from "antd";
+import { Button, Popover, Skeleton, Spin } from "antd";
 import SharedButton from "../../../sharedComponents/button";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { handleMailComposer } from "../Store/MailSlice";
+import { BsInbox } from "react-icons/bs";
+import {
+    CaretDownOutlined
+  } from '@ant-design/icons';
+
+const fromContent = (
+    <div>
+      <p>Content</p>
+      <p>Content</p>
+    </div>
+);
 
 const MailDetail = ({detailIdByProps}) => {
     const isTablet = useMediaQuery({ maxWidth: 768 });
@@ -24,10 +35,20 @@ const MailDetail = ({detailIdByProps}) => {
     const { mailDetail, mailComposerInstances } = useSelector(
         (state) => state?.mailSlice
     );
-    const { subject, content, date, from } = mailDetail || {};
+    const { subject, content, date, from, to } = mailDetail || {};
     const { name, address } = (from && from[0]) || [];
+    // const { object } = (to && to[0]) || [];
     let { detailId, id } = useParams();
+
+    console.log(to, "JANI YEH HI HAI")
+
     let mailId = detailIdByProps ? detailIdByProps : detailId;
+
+    console.log(name, "TO OBJECT")
+    // const FolderTypeEnum = {
+    //     INBOX.Sent,
+
+    // }
 
     useEffect(() => {
         mailId && dispatch(getMailById({ id: mailId, folderPath: id }));
@@ -52,13 +73,16 @@ const MailDetail = ({detailIdByProps}) => {
             dispatch(handleMailComposer(temArr));
         }
     };
-console.log(mailDetail)
+
+    // console.log(mailDetail, "MAIL DETAIL")
+
+
     return (
         <div className="mBodyContainer">
             {mailDetail && (
                 <>
                     <div className="mbodySubject">
-                        <div className="subject">{subject}</div>
+                        <div className="subject"><h2 style={{fontSize: "20px"}} >{subject}</h2></div>
                         {/* <SharedButton
                         type="default"
                         onClick={() => {
@@ -75,13 +99,45 @@ console.log(mailDetail)
                             <div style={{ display: "flex", marginBottom: "10px" }}>
                                 <Avatar src={null} round name={name} size={45} />
                                 <div className="headRight">
-                                    <div className="from">{address}</div>
-                                    <div className="forMeMore">to me</div>
+                                    <div className="from">{name}</div>
+                                    <div className="forMeMore">
+                                        <Popover
+                                            content={
+                                                    to.map((item) => {
+                                                        return (
+                                                            <div className="detailPopup">
+                                                                <div className="flex">
+                                                                    <div className="innerColumn" style={{textAlign: "right"}}>
+                                                                        <div><span>from :</span> &nbsp; &nbsp;</div>
+                                                                        <div><span>to :</span> &nbsp; &nbsp;</div>
+                                                                        <div><span>subject :</span> &nbsp; &nbsp;</div>
+                                                                    </div>
+                                                                    <div className="innerColumn">
+                                                                        <div>{name} ( {address} )</div>
+                                                                        <div>{item.address}</div>
+                                                                        <div>{subject}</div>
+                                                                    </div>
+                                                                </div>
+                                                                {/* <div>
+                                                                    {item.address}
+                                                                </div> */}
+                                                        </div> 
+                                                        )
+                                                    })
+                                                } 
+                                        placement="bottomRight"
+                                        trigger="click">
+                                            { id === "INBOX.Sent" ? 
+                                                <div> to <CaretDownOutlined /></div> 
+                                            : 
+                                            <div> to me <CaretDownOutlined /></div> }   
+                                        </Popover>
+                                    </div>
                                 </div>
                             </div>
 
                             <div className="headLeft">
-                                <div className="date">
+                                <div className="date" style={{fontSize: "11px"}}>
                                     {parseDateAndTime(parseDate(date))}{" "}
                                     {`( ${getRelativeTime(parseDate(date))} )`}
                                 </div>

@@ -10,6 +10,7 @@ import {
   EnvironmentOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
+
 import { getAllEmployees } from '../../../../utils/Shared/store/actions';
 import MemberSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
@@ -18,17 +19,8 @@ import { addSchedule } from '../store/action';
 import { defaultUiid } from '../../../../utils/Shared/enums/enums';
 import { getNameForImage, jsonToFormData } from '../../../../utils/base';
 import '../styles/style.css';
-import {
-  formats,
-  meetingDuration,
-  modules,
-  preparationDuration,
-  travelDuration,
-} from '../utils';
 
 function CreateSchedule({ scheduleDetail = {} }) {
-  console.log(scheduleDetail, 'CreateSchedule');
-  const [composerReference, setComoposerReference] = useState(scheduleDetail);
   const [venue, setVenue] = useState('Venue');
   const [quillError, setQuillError] = useState(false);
   const [files, setFiles] = useState([]);
@@ -41,7 +33,58 @@ function CreateSchedule({ scheduleDetail = {} }) {
   const loading = useSelector((state) => state.scheduleSlice.loading);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-
+  const modules = {
+    toolbar: [
+      [{ font: [] }],
+      [{ size: ['small', false, 'large', 'huge'] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'link', 'image'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      //[{ 'indent': '-1'}, { 'indent': '+1' }],
+      [{ direction: 'rtl' }],
+      [{ align: ['center'] }],
+      [{ color: [] }, { background: [] }],
+      ['clean'],
+    ],
+    clipboard: {
+      matchVisual: false,
+    },
+  };
+  const formats = {
+    toolbar: [
+      [{ font: [] }],
+      [{ size: ['small', false, 'large', 'huge'] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'link', 'image'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      //[{ 'indent': '-1'}, { 'indent': '+1' }],
+      [{ direction: 'rtl' }],
+      [{ align: ['center'] }],
+      [{ color: [] }, { background: [] }],
+      ['clean'],
+    ],
+  };
+  const meetingduration = [
+    { label: '15 min', value: '15 minutes' },
+    { label: '30 min', value: '30 minutes' },
+    { label: '45 min', value: '45 minutes' },
+    { label: '01 hr', value: '1 hours' },
+    { label: '02 hr', value: '2 hours' },
+  ];
+  const travelDuration = [
+    { label: '0 min', value: 0 },
+    { label: '15 min', value: 15 },
+    { label: '30 min', value: 30 },
+    { label: '45 min', value: 45 },
+  ];
+  const preparationDuration = [
+    { label: '0 min', value: 0 },
+    { label: '15 min', value: 15 },
+    { label: '30 min', value: 30 },
+    { label: '45 min', value: 45 },
+  ];
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
@@ -51,7 +94,6 @@ function CreateSchedule({ scheduleDetail = {} }) {
       setFirstTimeEmpData(employees);
     }
   }, [employees]);
-
   useEffect(() => {
     fetchEmployees('', 0);
   }, []);
@@ -90,8 +132,6 @@ function CreateSchedule({ scheduleDetail = {} }) {
         jsonToFormData({
           ...objToSend,
           attachments,
-          referenceId: composerReference.referenceId,
-          referenceType: composerReference.referenceType,
         })
       )
     );
@@ -103,6 +143,21 @@ function CreateSchedule({ scheduleDetail = {} }) {
       return;
     }
     setQuillError(false);
+    // if (
+    // 	value.values.description.replace(/<(.|\n)*?>/g, "").trim()
+    // 		.length === 0
+    // ) {
+    // 	form.setFieldsValue({
+    // 		description: "",
+    // 	});
+    // }
+  };
+
+  const checkDesc = (_, value) => {
+    if (value.replace(/<(.|\n)*?>/g, '').trim().length === 0) {
+      return Promise.reject(new Error(''));
+    }
+    return Promise.resolve();
   };
   useEffect(() => {
     if (Object.keys(scheduleDetail).length > 0) {
@@ -121,7 +176,6 @@ function CreateSchedule({ scheduleDetail = {} }) {
       });
     }
   }, [scheduleDetail]);
-
   return (
     <div className="createSchedule">
       <Form
@@ -154,6 +208,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
             {
               required: true,
               message: 'Description is required',
+              // validator: checkDesc,
             },
           ]}
         >
@@ -238,10 +293,22 @@ function CreateSchedule({ scheduleDetail = {} }) {
             name="endDate"
             rules={[{ required: true, message: 'Duration is required' }]}
           >
-            <Select defaultValue="15min" options={meetingDuration}></Select>
+            <Select defaultValue="15min" options={meetingduration}></Select>
           </Form.Item>
         </div>
 
+        <Form.Item
+          name={'externals'}
+          label={'External Members Email'}
+          //   direction={Direction}
+        >
+          <Select
+            mode="tags"
+            dropdownClassName="hidden"
+            placeholder={'Enter External Members Email'}
+            size="large"
+          />
+        </Form.Item>
         <MemberSelect
           isObject={true}
           data={firstTimeEmpData}
@@ -264,7 +331,11 @@ function CreateSchedule({ scheduleDetail = {} }) {
           label={'Members'}
           size="default"
         />
+
         <div className="formInput w-50">
+          {/* <Form.Item label={""}>
+						<Checkbox>Travel Time</Checkbox>
+					</Form.Item> */}
           <Form.Item label={'Travel Time:'} name="travelTime">
             <Select defaultValue={0} options={travelDuration}></Select>
           </Form.Item>
@@ -272,7 +343,11 @@ function CreateSchedule({ scheduleDetail = {} }) {
             <Select defaultValue={0} options={preparationDuration}></Select>
           </Form.Item>
         </div>
-
+        {/* <div className="formInput w-33">
+					<Form.Item label={""}>
+						<Checkbox>Preparation time</Checkbox>
+					</Form.Item>
+				</div> */}
         <Form.Item label={'Attachment'} labelPosition="top">
           <SingleUpload
             handleImageUpload={(file) => {

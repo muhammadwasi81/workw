@@ -1,5 +1,7 @@
 import { ROUTES } from "../../../../utils/routes";
 import React from "react";
+import { AiFillLike } from "react-icons/ai";
+
 import {
   CheckCircleOutlined,
   StarOutlined,
@@ -12,8 +14,9 @@ import {
   RightCircleOutlined,
   ProjectOutlined,
   AreaChartOutlined,
+  LikeOutlined,
 } from "@ant-design/icons";
-import appraisal  from "../../../../content/NewContent/teams/appraisal.svg";
+//import appraisal  from "../../../../content/NewContent/teams/appraisal.svg";
 
 
 export const listitem = [
@@ -151,16 +154,15 @@ export const listitem = [
   },
 
   {
-    // IconName: (
-    //   appraisal
-        //style={{ fontSize: 20, margin: "15px" }}
-        //color={"var(--currentThemeColor)"}
-    //),
-    IconName:<img src={appraisal} style={{ width: 20, margin: "15px",color:"white" }}/>,
+    IconName: (  
+      <LikeOutlined
+        style={{ fontSize: 20, margin: "15px" }}
+        color={"var(--currentThemeColor)"}
+      />
+    ),
     displayName: "appraisals",
     classObj: "button",
     to: (id) => `/teams/info/appraisals/${id}`,
   },
-
 
 ];

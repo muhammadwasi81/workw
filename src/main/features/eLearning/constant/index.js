@@ -5,8 +5,8 @@ export const DocsComposerEnums = {
   quizz: "quizz",
   tedtalks: "tedtalks",
   article: "article",
-  video: "video"
-}
+  video: "video",
+};
 
 export const AssignMemEnum = {
   category: 1,
@@ -15,8 +15,8 @@ export const AssignMemEnum = {
   quizz: 4,
   tedtalks: 5,
   article: 6,
-  video: 7
-}
+  video: 7,
+};
 
 export const MemberEnum = {
   category: 1,
@@ -25,36 +25,36 @@ export const MemberEnum = {
   quizz: 4,
   tedtalks: 5,
   article: 6,
-  video: 7
-}
+  video: 7,
+};
 
 export const CourseOptionsEnum = [
   {
-      label: "Personal Development",
-      value: 1,
+    label: "Personal Development",
+    value: 1,
   },
   {
-      label: "Professional Development",
-      value: 2,
+    label: "Professional Development",
+    value: 2,
   },
   {
-      label: "Micro Learning",
-      value: 3,
+    label: "Micro Learning",
+    value: 3,
   },
 ];
 
 export const LevelEnum = [
   {
-      label: "Beginner",
-      value: 1,
+    label: "Beginner",
+    value: 1,
   },
   {
-      label: "Intermediate",
-      value: 2,
+    label: "Intermediate",
+    value: 2,
   },
   {
-      label: "Advance",
-      value: 3,
+    label: "Advance",
+    value: 3,
   },
 ];
 
@@ -70,21 +70,21 @@ export const TypeEnum = {
   TEDTALKS: 9,
   ARTICLES: 10,
   EBOOKS: 11,
-  WORKSHOP: 12
-}
+  WORKSHOP: 12,
+};
 
 export const FileTypeEnum = [
   {
-      label: "Image",
-      value: 1,
+    label: "Image",
+    value: 1,
   },
   {
-      label: "Video",
-      value: 2,
+    label: "Video",
+    value: 2,
   },
   {
-      label: "PDF",
-      value: 3,
+    label: "PDF",
+    value: 3,
   },
   {
     label: "Link",
@@ -123,9 +123,3 @@ export const FileTypeEnum = [
     value: 12,
   },
 ];
-
-
-
-
-
-

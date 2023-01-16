@@ -221,6 +221,7 @@ export const addWorkBoardMemberService = (data) => {
   const id = data.id;
   let memberId = data.memberId;
   let memberType = data.memberType;
+  console.log(data, "data");
   return MasterConfig.post(`api/WorkBoard/AddWorkBoardMember?id=${id}`, [
     {
       memberId: memberId,

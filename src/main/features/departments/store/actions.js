@@ -13,6 +13,8 @@ import {
   addDepartmentAppraisalQuestionService,
   updateDepartmentAppraisalQuestionService,
   removeDepartmentAppraisalQuestionService,
+  addDepartmentMemberService,
+  getDepartmentMemberService,
 } from "../services/service";
 
 export const getAllDepartments = createAsyncThunk(
@@ -113,6 +115,40 @@ export const updateDepartmentAppraisalQuestion = createAsyncThunk(
     if (res.data.responseCode) {
       if (res.data.responseCode === responseCode.Success)
         message.success("Appraisal updated successfully!");
+    } else {
+      message.error(res.statusText);
+      return rejectWithValue(res.statusText);
+    }
+
+    return res;
+  }
+);
+
+export const addDepartmentMemberAction = createAsyncThunk(
+  "Department/addMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addDepartmentMemberService(data);
+
+    if (res.data.responseCode) {
+      if (res.data.responseCode === responseCode.Success)
+        message.success("Member Added successfully!");
+    } else {
+      message.error(res.statusText);
+      return rejectWithValue(res.statusText);
+    }
+
+    return res;
+  }
+);
+
+export const getDepartmentMemberAction = createAsyncThunk(
+  "Department/getMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await getDepartmentMemberService(data);
+
+    if (res.data.responseCode) {
+      if (res.data.responseCode === responseCode.Success)
+        message.success("Member Get successfully!");
     } else {
       message.error(res.statusText);
       return rejectWithValue(res.statusText);

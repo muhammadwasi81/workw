@@ -2,49 +2,39 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { message, Modal } from "antd";
 import { useSelector } from "react-redux";
-import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import ApproverListItem from "../../../../../sharedComponents/AppComponents/Approvals/components/approverList";
-import {
-  addBookMember,
-  addCourseMember,
-  getAllBookMember,
-  getAllCourseMember,
-  GetBookById,
-  GetCourseById,
-} from "../../../store/action";
+import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import ApproverListItem from "../../../sharedComponents/AppComponents/Approvals/components/approverList";
+
 import { useParams } from "react-router-dom";
-import { addMember } from "../../../store/slice";
-import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
-import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
-import { MemberEnum } from "../../../constant";
-import { NoDataFound } from "./index";
+import { addMember } from "../store/slice";
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
+import {
+  addDepartmentMemberAction,
+  getDepartmentMemberAction,
+} from "../store/actions";
+import "./style.css";
 
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
-  const assignMemberId = useParams().id;
+  const departMemberId = useParams().id;
+  console.log(departMemberId, "department id");
   const modalRequest = useSelector(
-    (state) => state.eLearningSlice.addMemberModal
+    (state) => state.departmentSlice.addMemberModal
   );
-  const { courseMembers, bookMembers } = useSelector(
-    (state) => state.eLearningSlice
-  );
+  const { departmentMembers } = useSelector((state) => state.departmentSlice);
+  console.log(departmentMembers, "deaprtment membersss");
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
   let ModalOpen = modalRequest.status;
-  let Type = modalRequest.type;
-
-  console.log(ModalOpen, "ModalOpen")
+  let type = modalRequest.memberType;
 
   useEffect(() => {
-    if (Type === MemberEnum.courses) {
-      ModalOpen && dispatch(getAllCourseMember(assignMemberId));
-    }
-    if (Type === MemberEnum.ebook) {
-      ModalOpen && dispatch(getAllBookMember(assignMemberId));
-    }
+    // ModalOpen && dispatch(getWorkBoardMemberAction(userId));
+    dispatch(getDepartmentMemberAction(departMemberId));
   }, [ModalOpen]);
 
   useEffect(() => {
@@ -61,19 +51,15 @@ function MemberModal({ isOpen = false }) {
 
   const handleChange = (id) => {
     let memberId = id.toString();
+    console.log(memberId, "memberIddd");
     const data = {
-      id: assignMemberId,
+      id: departMemberId,
       memberId: memberId,
+      memberType: type,
     };
-    if (Type === MemberEnum.courses) {
-      dispatch(addCourseMember(data));
-      dispatch(getAllCourseMember(assignMemberId));
-    } else if (Type === MemberEnum.ebook) {
-      dispatch(addBookMember(data));
-      dispatch(getAllBookMember(assignMemberId));
-    } else {
-        message.error("Type is not defined");
-    }
+    console.log(type, "memberType");
+    dispatch(addDepartmentMemberAction(data));
+    dispatch(getDepartmentMemberAction(departMemberId));
   };
 
   useEffect(() => {
@@ -133,20 +119,7 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      {courseMembers?.length > 0 || bookMembers.length > 0 ? (
-        <ApproverListItem
-          className="AddMemberModal"
-          data={
-            Type === MemberEnum.ebook
-              ? bookMembers
-              : Type === MemberEnum.courses
-              ? courseMembers
-              : ""
-          }
-        />
-      ) : (
-        <NoDataFound />
-      )}
+      <ApproverListItem className="AddMemberModal" data={departmentMembers} />
     </Modal>
   );
 }

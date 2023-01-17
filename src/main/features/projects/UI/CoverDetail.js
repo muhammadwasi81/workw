@@ -41,9 +41,9 @@ function CoverDetail({ detail }) {
             {detail?.description}
           </span>
         </div>
-        <ProjectSummary />
+        {/* <ProjectSummary /> */}
         <div>
-          <div className="text-black text-sm font-bold flex items-center gap-2 ">
+          {/* <div className="text-black text-sm font-bold flex items-center gap-2 ">
             <Popover content={`Created by: ${detail?.creator?.name}`}>
               <InfoCircleOutlined className="cursor-pointer" />
             </Popover>
@@ -57,7 +57,7 @@ function CoverDetail({ detail }) {
               {labels.createdAt}:&nbsp;
               {moment(detail?.createDate).format("MMMM D, YYYY")}
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </WhiteCard>

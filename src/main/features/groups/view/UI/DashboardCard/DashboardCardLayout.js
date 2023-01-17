@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Card, Skeleton } from "antd";
-import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import PublicPrivateIcon from "../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
+import Avatar from "../../../../../sharedComponents/Avatar/avatar";
+import PublicPrivateIcon from "../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
 import { useSelector, useDispatch } from "react-redux";
-import { addMember } from "../../store/slice";
-import MemberModal from "../../view/Modal/MemberModal";
-import "./style.css";
-import QuickOptions from "../../quickOptions/index";
+// import { addMember } from "../../store/slice";
+// import MemberModal from "../../view/Modal/MemberModal";
+// import "./style.css";
+import QuickOptions from "../../../quickOptions/index";
 
 function DashboardCardLayout({
   data = {},
@@ -16,6 +16,7 @@ function DashboardCardLayout({
   getDetailById = () => {},
   onClick = () => {},
   dictionary = {},
+  chatIcon,
 }) {
   const disptach = useDispatch();
   const [visible, setVisible] = useState(false);
@@ -69,7 +70,9 @@ function DashboardCardLayout({
             </div>
           }
         />
-
+        <div className={`halfHeader mb-2`}>
+          <img src={chatIcon} alt="" width={20} />
+        </div>{" "}
         <div className="flex justify-between items-center">
           <div className="members">
             <Avatar

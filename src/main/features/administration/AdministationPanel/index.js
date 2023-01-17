@@ -113,24 +113,6 @@ const Administration = () => {
             <Button className="ThemeBtn" onClick={handleSkip}>
               Skip
             </Button>,
-
-            // <>
-            //   {page === 4 ? (
-            //     <Button
-            //       className="ThemeBtn"
-            //       onClick={() => handleChangeTab(formData)}
-            //     >
-            //       Submit
-            //     </Button>
-            //   ) : (
-            //     <Button
-            //       className="ThemeBtn"
-            //       onClick={() => NextHandler(formData)}
-            //     >
-            //       Next
-            //     </Button>
-            //   )}
-            // </>,
           ]}
           open={visible}
           onOk={() => setVisible(false)}

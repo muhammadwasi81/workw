@@ -35,6 +35,7 @@ import ComposeEmail from "../../../leadmanager/view/Email/ComposeEmail";
 import { handleComposeEmail } from "../../../leadmanager/store/slice";
 import GroupDefaultImage from "../../../../../content/NewContent/groups/GroupDefaultImage.svg";
 import CoverImage from "../../../departments/view/CoverImage";
+import GroupsInfo from "../UI/GroupsInfo";
 
 function GroupDetails() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -42,14 +43,22 @@ function GroupDetails() {
   const { groupDetail, updateTextBtn, editGroup } = groupsDictionary;
   const params = useParams();
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
+
   const detail = useSelector((state) => state.groupSlice.groupDetail);
+  console.log(detail, "detaill");
   const [features, setFeatures] = useState([]);
   const [open, setOpen] = useState(false);
   const { groupId: id } = params;
   useEffect(() => {
     dispatch(getGroupById(id));
   }, [id]);
-
+  const memberHandler = () => {
+    console.log("member handler");
+    setVisible(true);
+    // const userTypes = memberType === 1 ? Members.user : Members.admin;
+    // dispatch(addMember({ status: true }));
+  };
   useEffect(() => {
     return () => {
       dispatch(resetGroupDetail());
@@ -186,9 +195,12 @@ function GroupDetails() {
                   // }}
                   data={detail?.members}
                   isMember={true}
+                  handleAdd={(e) => memberHandler(e)}
                 />
               </WhiteCard>
-              <WhiteCard>gg</WhiteCard>
+              <WhiteCard>
+                <GroupsInfo />
+              </WhiteCard>
             </div>
           </div>
         </ContBody>

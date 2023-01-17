@@ -100,11 +100,11 @@ function DepartmentDetails() {
               <WhiteCard>
                 <MemberCollapse
                   data={departmentMembers}
-                  isEmail={true}
+                  isEmail={false}
                   isMember={true}
-                  onEmailClick={() => {
-                    dispatch(handleComposeEmail(true));
-                  }}
+                  // onEmailClick={() => {
+                  //   dispatch(handleComposeEmail(true));
+                  // }}
                   handleAdd={(e) => memberHandler(e)}
                 />
               </WhiteCard>

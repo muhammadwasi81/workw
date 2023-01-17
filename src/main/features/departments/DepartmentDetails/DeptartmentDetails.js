@@ -12,7 +12,7 @@ import CoverDetail from "../view/CoverDetail";
 import CoverImage from "../view/CoverImage";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getDepartmentById } from "../store/actions";
+import { getDepartmentById, getDepartmentMemberAction } from "../store/actions";
 import Appraisal from "../appraisal/index";
 import { handleParentId } from "../store/slice";
 import SubDepartment from "./SubDepartment";
@@ -31,7 +31,7 @@ function DepartmentDetails() {
   const { departmentDetail, departmentMembers } = useSelector(
     (state) => state.departmentSlice
   );
-  console.log(departmentDetail, "departmentdetailll");
+  // console.log(departmentDetail, "departmentdetailll");
   // const { state } = useLocation();
   // const { data } = state;
   const [visible, setVisible] = useState(false);
@@ -43,7 +43,7 @@ function DepartmentDetails() {
   }, [departmentDetail]);
 
   const { image, description } = departmentDetail;
-  console.log(departmentDetail);
+
   const panes = [
     {
       featureName: `Sub Departments`,
@@ -73,6 +73,7 @@ function DepartmentDetails() {
   useEffect(() => {
     console.log("useEffects works");
     dispatch(getDepartmentById(param.id));
+    dispatch(getDepartmentMemberAction(param.id));
   }, [param.id]);
 
   const memberHandler = () => {
@@ -98,12 +99,12 @@ function DepartmentDetails() {
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <WhiteCard>
                 <MemberCollapse
-                  data={departmentDetail?.members}
-                  isEmail={true}
+                  data={departmentMembers}
+                  isEmail={false}
                   isMember={true}
-                  onEmailClick={() => {
-                    dispatch(handleComposeEmail(true));
-                  }}
+                  // onEmailClick={() => {
+                  //   dispatch(handleComposeEmail(true));
+                  // }}
                   handleAdd={(e) => memberHandler(e)}
                 />
               </WhiteCard>

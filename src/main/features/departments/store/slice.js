@@ -101,8 +101,9 @@ const departmentSlice = createSlice({
       )
       .addCase(addDepartmentMemberAction.fulfilled, (state, { payload }) => {})
 
-      .addCase(getDepartmentMemberAction.fulfilled, (state, action) => {
-        state.departmentMembers = action.payload ? action.payload : [];
+      .addCase(getDepartmentMemberAction.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.departmentMembers = payload.length > 0 ? payload : [];
       })
       .addMatcher(isPending(...[addDepartment]), (state) => {
         // console.log("its pending");

@@ -3,11 +3,11 @@ import { Button, Avatar } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getNameForImage } from "../../../../utils/base";
-import { validateEmail } from "../../../../utils/Shared/helper/validateEmail";
-import { getAllEmployees } from "../../../../utils/Shared/store/actions";
+import { getNameForImage } from "../../../../../utils/base";
+import { validateEmail } from "../../../../../utils/Shared/helper/validateEmail";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 // import EmailSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/EmailSelect";
-import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 // import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 
 function AddMember({

@@ -12,7 +12,7 @@ function Header(props) {
   const items = [
     {
       name: label.appHeader.travel.travels,
-      to: `${ROUTES.TRAVEL.DEFAULT}?f=trv`,
+      to: `${ROUTES.TRAVEL.ROOT}?f=trv`,
       renderButton: buttonsEnum.travel,
     },
   ];

@@ -3,7 +3,7 @@ const en = {
     chartOfAccount: "Chart Of Account",
     createAccount: "Create Account",
 
-    create: "Create",
+    create: "Create Chart Of Account",
     update: "Update",
     name: "Name",
     accountType: "Account Type",

@@ -38,7 +38,7 @@ const Assets = () => {
   const items = [
     {
       name: assetsDictionary.assetsAllocation,
-      to: `${ROUTES.ASSETS.DEFAULT}`,
+      to: `${ROUTES.ASSETS.ROOT}`,
       renderButton: [1, 2],
     },
   ];

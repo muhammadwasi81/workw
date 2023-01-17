@@ -77,7 +77,7 @@ const Complain = () => {
   const items = [
     {
       name: complainDictionary.Complains,
-      to: `${ROUTES.COMPLAINS.DEFAULT}`,
+      to: `${ROUTES.COMPLAINS.ROOT}`,
       renderButton: [1],
     },
   ];

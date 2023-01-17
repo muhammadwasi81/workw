@@ -39,7 +39,7 @@ const en = {
 			arrivalCity:"Arrival City",
 		},
 		buttons:{
-			submit:"Submit",
+			submit:"Create Travel",
 		},
 
 		labels: {

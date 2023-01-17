@@ -277,7 +277,7 @@ const Composer = (props) => {
             title={complainDictionary.create}
           >
             {" "}
-            {complainDictionary.create}{" "}
+            {complainDictionary.createComplain}{" "}
           </Button>
         </Form.Item>
       </Form>

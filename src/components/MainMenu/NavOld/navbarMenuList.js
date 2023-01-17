@@ -264,6 +264,14 @@ const NavMenuList = () => {
       to: ROUTES.REWARDS.REWARD,
       isActive: true,
     },
+    {
+      name: label.navMenuLabel.teams,
+      counter: 0,
+      icon: teamIcon,
+      to: ROUTES.TEAMS.TEAM,
+      isActive: true,
+    },
+    
   ];
   return { navMenuData, navHrMenuData };
 };

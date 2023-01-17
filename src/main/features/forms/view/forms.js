@@ -13,6 +13,7 @@ import { getAllForms } from "../store/actions";
 import { tableColumn } from "../TableColumn";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { documentDictionaryList } from "../localization/index";
+import { Skeleton } from "antd";
 
 const Forms = ({ dictionary }) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });

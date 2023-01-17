@@ -196,7 +196,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
       >
         <Form.Item
           name="subject"
-          label={'Task Subject:'}
+          label={'Subject:'}
           rules={[{ required: true, message: 'Subject is required' }]}
         >
           <Input placeholder="Write Subject"></Input>
@@ -266,7 +266,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
         </Form.Item>
         {venue === 'Venue' && (
           <Form.Item label={'Venue:'} name="location">
-            <Input placeholder="Write Venue" />
+            <Input placeholder="Enter the Location" />
           </Form.Item>
         )}
         <div className="formInput w-50">
@@ -299,13 +299,13 @@ function CreateSchedule({ scheduleDetail = {} }) {
 
         <Form.Item
           name={'externals'}
-          label={'External Members Email'}
+          label={'External Members'}
           //   direction={Direction}
         >
           <Select
             mode="tags"
             dropdownClassName="hidden"
-            placeholder={'Enter External Members Email'}
+            placeholder={'Enter the Email Adresses'}
             size="large"
           />
         </Form.Item>

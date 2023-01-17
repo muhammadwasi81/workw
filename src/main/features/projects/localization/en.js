@@ -14,7 +14,7 @@ const en = {
       desc: "Description",
       upload: "Upload",
       projectDate: "Project Date",
-      externals: "External Members Email",
+      externals: "External Members",
       public: "Public",
       private: "Private",
       createdBy: "Created By",
@@ -41,7 +41,7 @@ const en = {
       externals: "Select externals",
       startDate: "Start Date",
       endDate: "End Date",
-      externalEmail: "Please add external members email",
+      externalEmail: "Enter the Email Adresses",
     },
     errors: {
       name: "Please enter group name.",

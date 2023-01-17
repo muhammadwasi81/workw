@@ -18,9 +18,11 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage (function (payload) {
     console.log(payload,"BACKGROUNG");
-    const notificationTitle = payload.notification.title;
-    const notificationOptions ={
-        body: payload.notification.body,
-    };
-    return self.registration.showNotification(notificationTitle, notificationOptions);
+    // const callingRingtune = new window.Audio(require("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"));
+    // callingRingtune.play()
+    // const notificationTitle = "payload.notification.title";
+    // const notificationOptions ={
+    //     body: "payload.notification.body",
+    // };
+    // return self.registration.showNotification(notificationTitle, notificationOptions);
 })

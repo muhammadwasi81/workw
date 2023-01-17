@@ -22,7 +22,7 @@ function CoverDetail(props) {
   );
 
   const { name, members, description, creator, createDate } = props.data;
-  console.log(props.data, "cover detail");
+  // console.log(props.data, "cover detail");
 
   return (
     <>

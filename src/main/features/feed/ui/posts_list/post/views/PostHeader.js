@@ -1,11 +1,10 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { STRINGS } from '../../../../../../../utils/base';
 import Avatar from '../../../../../../sharedComponents/Avatar/avatarOLD';
 // import starIcon from "./../../../../../../../content/NewContent/NewsFeed/svg/star.svg";
 import publicIcon from './../../../../../../../content/NewContent/NewsFeed/svg/public.svg';
 // import cover from "./../../../../../../../content/NewContent/NewsFeed/svg/COVER.svg";
-
 import moment from 'moment';
 import {
   LockOutlined,
@@ -13,9 +12,13 @@ import {
   StarFilled,
   StarOutlined,
 } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { favoriteFeed } from '../../../../store/actions';
 import { addFeedFavourite } from '../../../../store/slice';
+import { Modal } from 'antd';
+import MemberSelect from '../../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { getAllEmployees } from '../../../../../../../utils/Shared/store/actions';
+import PostTaggedModal from './PostTaggedModal';
 
 const PostHeader = ({
   creator = {},
@@ -25,9 +28,22 @@ const PostHeader = ({
   privacyId,
   id,
 }) => {
-  const { image, name, designation } = creator;
-  // console.log('creator', creator);
   const dispatch = useDispatch();
+  const { image, name, designation } = creator;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleShowModal = () => {
+    console.log('open');
+    setIsModalOpen(true);
+  };
 
   const privacy = {
     1: <img src={publicIcon} alt="public-icon" />,
@@ -48,12 +64,12 @@ const PostHeader = ({
               <Link to={`/user/${creator.id}`}>{name}</Link>
             </span>
             {tags.length > 0 && (
-              <React.Fragment>
+              <>
                 &nbsp;with <span>{tags[tags.length - 1].member?.name}</span>
                 {tags.length > 1 && (
-                  <React.Fragment>
+                  <>
                     &nbsp;and&nbsp;
-                    <span>
+                    <span onClick={handleShowModal}>
                       {tags.length > 2 ? (
                         `${tags.length - 1} Others`
                       ) : (
@@ -64,9 +80,9 @@ const PostHeader = ({
                         </Link>
                       )}
                     </span>
-                  </React.Fragment>
+                  </>
                 )}
-              </React.Fragment>
+              </>
             )}
           </div>
           <div className="dtp">
@@ -94,17 +110,12 @@ const PostHeader = ({
         ) : (
           <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
         )}
-        {/* <img
-					alt="#"
-					// style={
-					// 	!isPinnedPost
-					// 		? { filter: "saturate(11.5) grayscale(1)" }
-					// 		: {}
-					// }
-					src={starIcon}
-					onClick={() => this.markPinnedPost(false)}
-				/> */}
       </div>
+      <PostTaggedModal
+        open={isModalOpen}
+        onCancel={handleCancel}
+        onOk={handleOk}
+      />
     </div>
   );
 };

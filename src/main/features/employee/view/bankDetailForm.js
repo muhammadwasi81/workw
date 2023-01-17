@@ -105,9 +105,10 @@ const BankForm = ({ mode, id }) => {
         form.resetFields();
         setInitialValues(initialState);
       }
-    } catch (e) {}
+    } catch (err) {
+      console.log(err.message);
+    }
   };
-
   const fetchCityData = (text, pgNo) => {
     dispatch(getCities({ textData: text, page: pgNo }));
   };
@@ -162,7 +163,9 @@ const BankForm = ({ mode, id }) => {
       ellipsis: true,
       key: 'countryId',
       render: (labels) => {
-        return labels.children;
+        return bankDetails
+          .filter((item) => item.countryId === labels)
+          .map((item) => item.country);
       },
     },
     {
@@ -171,7 +174,9 @@ const BankForm = ({ mode, id }) => {
       ellipsis: true,
       key: 'cityId',
       render: (value) => {
-        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
+        return bankDetails
+          .filter((item) => item.cityId === value)
+          .map((item) => item.city);
       },
     },
 
@@ -319,12 +324,10 @@ const BankForm = ({ mode, id }) => {
           rules={[{ required: true }]}
         >
           <Select
+            showSearch={true}
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectCountry}
             size="large"
-            onChange={(value, object) =>
-              form.setFieldValue('countryId', object)
-            }
           >
             {countries.map((item) => (
               <Option key={item.id}>{item.name}</Option>
@@ -377,7 +380,6 @@ const BankForm = ({ mode, id }) => {
           </Button>
         )}
       </div>
-
       {bankDetails.length > 0 && (
         <Table columns={columns} dragable={true} dataSource={bankDetails} />
       )}

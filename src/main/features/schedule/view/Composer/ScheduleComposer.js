@@ -31,7 +31,7 @@ function ScheduleComposer({ onClose, id, visible, type, Direction }) {
       onClose={() => {
         onClose();
       }}
-      visible={visible}
+      open={visible}
       destroyOnClose={true}
       className=" drawerSecondary"
     >

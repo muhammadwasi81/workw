@@ -18,6 +18,7 @@ import { getNameForImage, STRINGS } from "../../../../utils/base";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSelect";
 import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
+import DepartmentMemberSelect from "./DepartmentMemberSelect";
 
 const initialState = {
   id: "",
@@ -167,7 +168,6 @@ const Composer = (props) => {
             </Form.Item>
           </div>
         </div>
-
         <Form.Item
           label={departmentDictionary.description}
           name="description"
@@ -180,7 +180,6 @@ const Composer = (props) => {
         >
           <Input.TextArea placeholder={departmentDictionary.enterDescription} />
         </Form.Item>
-
         <Form.Item
           name="hodId"
           label={departmentDictionary.headOfDepartment}
@@ -211,24 +210,13 @@ const Composer = (props) => {
             }}
           />
         </Form.Item>
-
-        <MemberComposer
-          handleAdd={handelAddMember}
-          form={form}
-          placeholder={"Search Members"}
-          error={"Please Select Members"}
+        <DepartmentMemberSelect
+          placeholder={"Select Members"}
+          label={"Select Member"}
         />
-        {memberList?.length > 0 ? (
-          <MemberListItem
-            data={memberList}
-            onRemove={(row, ind) => {
-              setMemberList(memberList.filter((_, index) => index !== ind));
-            }}
-          />
-        ) : null}
         <Form.Item
           label={departmentDictionary.addEmployees}
-          name="members"
+          name="employees"
           rules={[
             {
               required: true,

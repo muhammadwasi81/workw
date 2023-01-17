@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import EmployeeCard , { CardGrid } from './employeeCard';
+import { useContext, useEffect, useState } from 'react';
+import EmployeeCard, { CardGrid } from './employeeCard';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllEmployees } from '../store/actions';
@@ -13,59 +13,66 @@ function EmployeeList() {
   const { Direction } = dictionaryList[userLanguage];
   const dispatch = useDispatch();
   const { sharedLabels } = dictionaryList[userLanguage];
-  const label = dictionaryList[userLanguage];
   const { employees, loader } = useSelector((state) => state.employeeSlice);
   const [view, setView] = useState('List');
+
   useEffect(() => {
-    dispatch(getAllEmployees());
-  }, [dispatch]);
+    const controller = new AbortController();
+    const signal = controller.signal;
+    dispatch(getAllEmployees(signal));
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   let classes = 'empolyeesListContainer';
   classes += Direction === ' ltr' ? ' ltr' : ' rtl';
-  if (loader) {
-    return (
-      <div className="empolyeesListContainer">
-        {[...Array(40)].map(() => (
-          <>
-            {/* <Skeleton.Avatar shape={'circle'} size={'large'} /> */}
-            <Skeleton loading={true} active></Skeleton>
-          </>
-        ))}
-      </div>
-    );
-  } else {
-    return (
-      <div style={{ flexDirection: 'column', width: '100%' }}>
-        <TopBar
-          style={{ margin: 0, width: '100%' }}
-          onSearch={(value) => {
-            console.log(value);
-          }}
-          filter={{
-            onFilter: () => {},
-          }}
-          buttons={[]}
-          segment={{
-            onSegment: (value) => {
-              setView(value);
-            },
-            label1: sharedLabels.List,
-            label2: sharedLabels.Table,
-          }}
-        />
-        {view === 'List' ? (
-           <CardGrid>
-            {employees.map((employee, index) => {
-              return <EmployeeCard employees={employee} key={index} />;
-            })}
-           </CardGrid>
 
-        ) : (
-          <EmployeeTableView />
-        )}
-      </div>
-    );
-  }
+  return (
+    <>
+      {loader ? (
+        [...Array(40)].map((_, index) => (
+          <div className={`${classes} empolyeesListContainer`}>
+            <Skeleton key={index} loading={true} active />
+          </div>
+        ))
+      ) : (
+        <>
+          <div style={{ flexDirection: 'column', width: '100%' }}>
+            <TopBar
+              style={{ margin: 0, width: '100%' }}
+              onSearch={(value) => {
+                console.log(value);
+              }}
+              filter={{
+                onFilter: () => {
+                  console.log('filter');
+                },
+              }}
+              buttons={[]}
+              segment={{
+                onSegment: (value) => {
+                  setView(value);
+                },
+                label1: sharedLabels.List,
+                label2: sharedLabels.Table,
+              }}
+            />
+            {view === 'List' ? (
+              <CardGrid>
+                {employees.map((employee, index) => {
+                  return <EmployeeCard employees={employee} key={index} />;
+                })}
+              </CardGrid>
+            ) : (
+              <EmployeeTableView />
+            )}
+          </div>
+        </>
+      )}
+    </>
+  );
 }
+// }
 
 export default EmployeeList;

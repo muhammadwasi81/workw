@@ -73,7 +73,7 @@ const ProfileCoverDetail = ({ id }) => {
             <Skeleton avatar paragraph={{ rows: 4 }} />
           ) : (
             <>
-              <div class="profilepic border-4 border-white rounded-lg overflow-hidden -top-8 relative z-50">
+              <div className="profilepic border-4 border-white rounded-lg overflow-hidden -top-8 relative z-50">
                 {fileDataURL ? (
                   <img
                     src={fileDataURL}
@@ -89,8 +89,8 @@ const ProfileCoverDetail = ({ id }) => {
                     className="userImg border-4"
                   />
                 )}
-                <div class="profilepic__content">
-                  <span class="profilepic__icon">
+                <div className="profilepic__content">
+                  <span className="profilepic__icon">
                     <CameraOutlined className="uploadIcon" />
                   </span>
                   <input

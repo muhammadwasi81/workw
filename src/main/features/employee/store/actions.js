@@ -47,7 +47,8 @@ export const addEmployee = createAsyncThunk(
 export const getAllEmployees = createAsyncThunk(
   'getAllEmployees',
   async (data, { dispatch, getState, rejectWithValue }) => {
-    const res = await getAllEmployeesService();
+    console.log(data, 'dataaa');
+    const res = await getAllEmployeesService(data);
     if (res.responseCode === responseCode.Success) {
       return res;
     } else {

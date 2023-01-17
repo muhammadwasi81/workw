@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import init from "./helper";
-import "./style.css";
+import React, { useEffect } from 'react';
+import init from './helper';
+import './style.css';
 
 function SoundWaves() {
   useEffect(() => {
@@ -10,10 +10,10 @@ function SoundWaves() {
   return (
     <>
       <canvas id="canvas"></canvas>
-      <div class="line-container1">
-        <div class="vertical-line1" />
-        <div class="dot1" />
-        <div class="dot1" />
+      <div className="line-container1">
+        <div className="vertical-line1" />
+        <div className="dot1" />
+        <div className="dot1" />
       </div>
       <div id="waves"></div>
     </>

@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { Button, Col, Modal, Row, Tag } from "antd";
 import React from "react";
 import { LaptopOutlined } from "@ant-design/icons";
 import { Button, Col, Modal, Row } from 'antd';
-import { LaptopOutlined } from '@ant-design/icons';
 import Chart from './chart/DouhgnatChart';
 import ProjectSummaryTable from './table';
 import {

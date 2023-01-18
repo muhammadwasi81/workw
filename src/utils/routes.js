@@ -594,7 +594,8 @@ export const ROUTES = {
   //****by SANJANA****
   TEAMS: {
     DEFAULT: `${DOMAIN_PREFIX}/teams/*`,
-    TEAM: `${DOMAIN_PREFIX}/teams/`,
+    ROOT: `${DOMAIN_PREFIX}/teams`,
+    TEAM: `${DOMAIN_PREFIX}/teams`,
     ATTENDENCE: `attendence`,
     CHECK_IN: `checkIn`,
     LEAVES: `leaves`,

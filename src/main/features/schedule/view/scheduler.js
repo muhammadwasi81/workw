@@ -60,6 +60,7 @@ function Scheduler({ feed = false }) {
 				calendarRef.current.getApi().getDate(),
 				calendarRef.current.getApi().getDate()
 			);
+			
 		}
 	};
 
@@ -83,7 +84,8 @@ function Scheduler({ feed = false }) {
 			end: new Date(sch.endDate),
 			title: sch.subject,
 		};
-	});
+	}
+);
 
 	// console.log("calendarRef.current.getApi().getDate()", calendarRef.current);
 	return (

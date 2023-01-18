@@ -29,9 +29,11 @@ const initialFormData = {
   memberId: '',
   amount: 0,
   approvers: [],
+  
 };
 
-const Bonus = (props) => {
+const Bonus = (props) => {  
+ 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { bonusDictionary, Direction } = bonusDictionaryList[userLanguage];
   const {tables} = bonusDictionary;
@@ -70,7 +72,7 @@ const Bonus = (props) => {
     {
       name: bonusDictionary.bonus,
       renderButton: [1],
-      to: `${ROUTES.BONUS.DEFAULT}`,
+      to: `${ROUTES.BONUS.ROOT}`,
     },
   ];
   return (

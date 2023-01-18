@@ -2,18 +2,22 @@ import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   getTeamsAction,
   getRewardsAction,
+  getCourseAction,
   getAllLoanAction,
   getAllComplainAction,
   getAllWarningAction,
   getAllLeaveAction,
   getAllCheckInAction,
+  getAppraisalsAction,
 } from "./action";
 
 const initialState = {
   teams: [],
   team: {
     rewardsdetails: [],
+    coursedetails: [],
     loandetails: [],
+    appraisalsdetails: [],
     complaindetails: [],
     warningdetails: [],
     leavedetails: [],
@@ -40,6 +44,18 @@ const teamSlice = createSlice({
         state.loader = false;
         state.success = true;
         console.log(payload, "REWARDS");
+      })
+      .addCase(getCourseAction.fulfilled, (state, { payload }) => {
+        state.team.coursedetails = payload;
+        state.loader = false;
+        state.success = true;
+        console.log(payload, "COURSESCOURSES");
+      })
+      .addCase(getAppraisalsAction.fulfilled, (state, { payload }) => {
+        state.team.appraisalsdetails = payload;
+        state.loader = false;
+        state.success = true;
+        console.log(payload, "appraisalsdetailsssss");
       })
       .addCase(getAllLoanAction.fulfilled, (state, { payload }) => {
         state.team.loandetails = payload;

@@ -23,6 +23,7 @@ export default function Form({
   clearButton,
 }) {
   const [form, setForm] = useState(data);
+
   const { userLanguage } = useContext(LanguageChangeContext);
   const { complainDictionary } = complainDictionaryList[userLanguage];
 

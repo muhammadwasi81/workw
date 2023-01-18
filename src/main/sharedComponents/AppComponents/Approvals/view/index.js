@@ -7,45 +7,45 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { ApprovalDictionary } from "../localization";
 import { ApprovalStatus } from "../enums";
 function Approval({
-	title,
-	data,
-	module,
-	approverType,
-	onStatusChanged,
-	status,
+  title,
+  data,
+  module,
+  approverType,
+  onStatusChanged,
+  status,
 }) {
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { Direction } = ApprovalDictionary[userLanguage];
-	const [statusList, setStatusList] = useState([]);
-	const [updateStatus, setUpdateStatus] = useState();
-	const handleStatusList = status => {
-		setStatusList(preValue => [...preValue, status]);
-	};
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction } = ApprovalDictionary[userLanguage];
+  const [statusList, setStatusList] = useState([]);
+  const [updateStatus, setUpdateStatus] = useState();
+  const handleStatusList = (status) => {
+    setStatusList((preValue) => [...preValue, status]);
+  };
 
-	const createNewStatus = changedStatus => {
-		const newStatusList = statusList.map(item => {
-			if (item.id === changedStatus.id) return changedStatus;
-			else return item;
-		});
-		const updateList = newStatusList.reduce((acc, val) => {
-			if (acc.status === val.status) return val.status;
-			else return ApprovalStatus.InProcess;
-		});
+  const createNewStatus = (changedStatus) => {
+    const newStatusList = statusList.map((item) => {
+      if (item.id === changedStatus.id) return changedStatus;
+      else return item;
+    });
+    const updateList = newStatusList.reduce((acc, val) => {
+      if (acc.status === val.status) return val.status;
+      else return ApprovalStatus.InProcess;
+    });
 
-		setUpdateStatus(updateList.status);
-	};
-	useEffect(() => {
-		if (status) onStatusChanged({ [title]: status });
-	}, [status]);
+    setUpdateStatus(updateList.status);
+  };
+  useEffect(() => {
+    if (status) onStatusChanged({ [title]: status });
+  }, [status]);
 
-	useEffect(() => {
-		if (updateStatus) onStatusChanged({ [title]: updateStatus });
-	}, [updateStatus]);
+  useEffect(() => {
+    if (updateStatus) onStatusChanged({ [title]: updateStatus });
+  }, [updateStatus]);
 
-	return (
-		<div className="approval" style={{ direction: Direction }}>
-			<div className="approval__header">
-				{/* <Segmented
+  return (
+    <div className="approval" style={{ direction: Direction }}>
+      <div className="approval__header">
+        {/* <Segmented
           onChange={(value) => {}}
           options={[
             {
@@ -56,22 +56,22 @@ function Approval({
             },
           ]}
         /> */}
-			</div>
+      </div>
 
-			<div className="approval__body !p-0">
-				<ApprovalWrapper
-					title={title}
-					data={data}
-					module={module}
-					onListStatus={handleStatusList}
-					approverType={approverType}
-					onStatusChange={status => {
-						createNewStatus(status);
-					}}
-				/>
-			</div>
-		</div>
-	);
+      <div className="approval__body !p-0">
+        <ApprovalWrapper
+          title={title}
+          data={data}
+          module={module}
+          onListStatus={handleStatusList}
+          approverType={approverType}
+          onStatusChange={(status) => {
+            createNewStatus(status);
+          }}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Approval;

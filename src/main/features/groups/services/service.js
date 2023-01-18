@@ -40,3 +40,28 @@ export const updateGroupService = data => {
 			return err;
 		});
 };
+
+export const addGroupMdmberService = data => {
+	let id = data.id;
+	let memberId = data.memberId;
+	return MasterConfig.post(`api/Group/AddGroupMember?id=${id}`, [
+		{ memberId: memberId },
+	  ])
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};
+
+export const getAllGroupMdmberService = id => {
+	
+	return MasterConfig.get(`api/Group/AddGroupMember?id=${id}`)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return err;
+		});
+};

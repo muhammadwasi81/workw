@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Button, Col, Modal, Row, Tag } from 'antd';
-import React from 'react';
-import { AiOutlineBarChart } from 'react-icons/ai';
-import { BiLaptop } from 'react-icons/bi';
-import { HiOutlineUserAdd } from 'react-icons/hi';
-import { IoEarth } from 'react-icons/io5';
-import { InfoCircleOutlined, LaptopOutlined } from '@ant-design/icons';
+import { useState } from "react";
+import { Button, Col, Modal, Row, Tag } from "antd";
+import React from "react";
+import { AiOutlineBarChart } from "react-icons/ai";
+import { BiLaptop } from "react-icons/bi";
+import { HiOutlineUserAdd } from "react-icons/hi";
+import { IoEarth } from "react-icons/io5";
+import { InfoCircleOutlined, LaptopOutlined } from "@ant-design/icons";
 
 const ProjectSummary = () => {
   const [open, setOpen] = useState(false);
@@ -20,14 +20,15 @@ const ProjectSummary = () => {
       <div className="modalWrapper">
         <Modal
           open={open}
+          centered
           onOk={() => setOpen(false)}
           onCancel={() => setOpen(false)}
           width={1300}
           className="modalStyle"
           bodyStyle={{
-            height: 'calc(100vh - 120px)',
-            overflow: 'auto',
-            minHeight: '500px',
+            height: "calc(100vh - 120px)",
+            overflow: "auto",
+            minHeight: "200px",
           }}
           footer={null}
         >

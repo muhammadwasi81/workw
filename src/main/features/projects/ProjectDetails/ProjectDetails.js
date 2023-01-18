@@ -1,64 +1,66 @@
-import React, { useContext, useEffect } from 'react';
-import { ROUTES } from '../../../../utils/routes';
+import React, { useContext, useEffect } from "react";
+import { ROUTES } from "../../../../utils/routes";
 import {
   ContBody,
   TabContainer,
-} from '../../../sharedComponents/AppComponents/MainFlexContainer';
-import Tab from '../../../sharedComponents/Tab';
-import LayoutHeader from '../../../layout/header/index';
-import { EditOutlined } from '@ant-design/icons';
-import Travel from '../../travel/view/Travel';
-import '../styles/projects.css';
-import Budget from '../UI/Budget';
-import CoverDetail from '../UI/CoverDetail';
-import CoverImage from '../../departments/view/CoverImage';
-import MemberCollapse from '../../../sharedComponents/Collapseable/MemberCollapse';
-import ProjectCover from '../../../../content/png/project_cover_img.png';
-import WhiteCard from '../UI/WhiteCard';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProjectById } from '../store/actions';
-import { Drawer } from 'antd';
-import Composer from '../UI/Composer';
-import { useState } from 'react';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { projectsDictionaryList } from '../localization';
-import { resetProjectDetail } from '../store/slice';
-import { FeaturesEnum } from '../../../../utils/Shared/enums/enums';
-import WorkBoard from '../../workboard';
-import { TravelReferenceTypeEnum } from '../enum/enums';
-import { PostReferenceType } from '../../feed/utils/constants';
-import { TaskReferenceTypeEnum } from '../../task/enums/enum';
-import { WorkBoardReferenceTypeEnum } from '../../workboard/enum';
-import { ExpenseReferenceTypeEnum } from '../../expense/enums';
-import { DocumentReferenceTypeEnum } from '../../documents/view/enum';
-import NewsFeed from '../../feed/ui';
-import Task from '../../task/view/Task';
-import Expenses from '../../expense';
-import Documents from '../../documents/view/documents';
-import { handleComposeEmail } from '../../leadmanager/store/slice';
-import ComposeEmail from '../../leadmanager/view/Email/ComposeEmail';
-import CustomNotes from '../../notes/singleNotes/singleNotes';
-import { Menu, Dropdown, Space } from 'antd';
-import { CopyOutlined, EllipsisOutlined } from '@ant-design/icons';
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import Tab from "../../../sharedComponents/Tab";
+import LayoutHeader from "../../../layout/header/index";
+import { EditOutlined } from "@ant-design/icons";
+import Travel from "../../travel/view/Travel";
+import "../styles/projects.css";
+import Budget from "../UI/Budget";
+import CoverDetail from "../UI/CoverDetail";
+import CoverImage from "../../departments/view/CoverImage";
+import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
+import ProjectCover from "../../../../content/png/project_cover_img.png";
+import WhiteCard from "../UI/WhiteCard";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProjectById } from "../store/actions";
+import { Drawer } from "antd";
+import Composer from "../UI/Composer";
+import { useState } from "react";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { projectsDictionaryList } from "../localization";
+import { resetProjectDetail } from "../store/slice";
+import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
+import WorkBoard from "../../workboard";
+import { TravelReferenceTypeEnum } from "../enum/enums";
+import { PostReferenceType } from "../../feed/utils/constants";
+import { TaskReferenceTypeEnum } from "../../task/enums/enum";
+import { WorkBoardReferenceTypeEnum } from "../../workboard/enum";
+import { ExpenseReferenceTypeEnum } from "../../expense/enums";
+import { DocumentReferenceTypeEnum } from "../../documents/view/enum";
+import NewsFeed from "../../feed/ui";
+import Task from "../../task/view/Task";
+import Expenses from "../../expense";
+import Documents from "../../documents/view/documents";
+import { handleComposeEmail } from "../../leadmanager/store/slice";
+import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
+import CustomNotes from "../../notes/singleNotes/singleNotes";
+import { Menu, Dropdown, Space } from "antd";
+import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
 import {
   saveProjectStickyAction,
   saveStickyTitleAction,
   getProjectStickyAction,
-} from '../store/actions';
-import useDebounce from '../../../../utils/Shared/helper/use-debounce';
-import { targetTitleVal } from '../store/slice';
+} from "../store/actions";
+import useDebounce from "../../../../utils/Shared/helper/use-debounce";
+import { targetTitleVal } from "../store/slice";
+import StickyColor from "../UI/StickyColor";
 
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const sticky = useSelector((state) => state.projectSlice.stickyArray);
-  console.log(sticky, 'sticky array');
+  console.log(sticky, "sticky array");
   const [features, setFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
-  console.log(descriptionDebounce, 'description');
+  console.log(descriptionDebounce, "description");
+  const [openColor, setOpenColor] = useState(true);
 
   const [title, setTitle] = useState(null);
   const tilteDebounce = useDebounce(title, 500);
@@ -121,7 +123,7 @@ function ProjectDetails() {
     },
   ];
 
-  const defaultRoute = ROUTES.PROJECT.DEFAULT + '/' + projectId;
+  const defaultRoute = ROUTES.PROJECT.DEFAULT + "/" + projectId;
   const featuresComp = {
     1: (
       <NewsFeed
@@ -130,7 +132,7 @@ function ProjectDetails() {
         backButton={false}
         isScheduler={false}
         isCheckedIn={false}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
       />
     ),
@@ -138,17 +140,17 @@ function ProjectDetails() {
       <Task
         referenceType={TaskReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
-        feature={'2'}
+        feature={"2"}
       />
     ),
     7: (
       <WorkBoard
         referenceType={WorkBoardReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
       />
@@ -157,7 +159,7 @@ function ProjectDetails() {
       <Expenses
         referenceType={ExpenseReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
         feature={3}
@@ -175,7 +177,7 @@ function ProjectDetails() {
       <Documents
         referenceType={DocumentReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
       />
@@ -184,8 +186,8 @@ function ProjectDetails() {
 
   const modules = {
     toolbar: [
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
       [],
     ],
   };
@@ -193,13 +195,13 @@ function ProjectDetails() {
     toolbar: [
       [{ font: [] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'link', 'image'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub' }, { script: 'super' }],
-      [{ direction: 'rtl' }],
-      [{ align: ['center'] }],
+      ["bold", "italic", "underline", "link", "image"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ script: "sub" }, { script: "super" }],
+      [{ direction: "rtl" }],
+      [{ align: ["center"] }],
       [{ color: [] }, { background: [] }],
-      ['clean'],
+      ["clean"],
     ],
   };
   useEffect(() => {
@@ -209,7 +211,7 @@ function ProjectDetails() {
     dispatch(
       saveProjectStickyAction({
         description: value,
-        title: 'sanjna',
+        title: "sanjna",
         colorCode: 1,
       })
     );
@@ -222,7 +224,7 @@ function ProjectDetails() {
     dispatch(
       saveStickyTitleAction({
         title: value,
-        description: 'some',
+        description: "some",
         colorCode: 1,
       })
     );
@@ -232,7 +234,7 @@ function ProjectDetails() {
   }, [tilteDebounce]);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText('');
+    navigator.clipboard.writeText("");
   };
   const menu = (
     <Menu
@@ -244,14 +246,14 @@ function ProjectDetails() {
               <a className="drop-downList">Copy</a>
             </div>
           ),
-          key: '1',
+          key: "1",
         },
 
         {
-          label: <div>{}</div>,
+          label: <div>{openColor && <StickyColor />}</div>,
 
           // icon: <HighlightOutlined onClick={openColorHandler} />,
-          key: '2',
+          key: "2",
         },
       ]}
     />
@@ -303,8 +305,8 @@ function ProjectDetails() {
                     onChange={(value) => setDescription(value)}
                     modules={modules}
                     formats={formats}
-                    className={'stickyNoteItem-textarea'}
-                    placeholder={'Take a Note'}
+                    className={"stickyNoteItem-textarea"}
+                    placeholder={"Take a Note"}
                     defaultValue={description}
                   />
                 </div>
@@ -315,10 +317,10 @@ function ProjectDetails() {
       </TabContainer>
       <Drawer
         open={open}
-        width={'786px'}
+        width={"786px"}
         onClose={handleEditComposer}
         title={updateTextBtn}
-        className={'shared_drawer drawerSecondary'}
+        className={"shared_drawer drawerSecondary"}
       >
         <Composer
           buttonText={updateTextBtn}

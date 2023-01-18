@@ -87,7 +87,7 @@ function ScheduleCard({ sheduleType = "", setScheduleData = () => {} }) {
 						<ScheduleCardDetail schedule={schedule} />
 					</div>
 				</div>
-			))}
+			)) }
 		</Scroll>
 	);
 }

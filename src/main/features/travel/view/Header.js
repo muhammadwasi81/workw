@@ -12,8 +12,8 @@ function Header(props) {
   const items = [
     {
       name: label.travels,
-      to: route ? route : `${ROUTES.TRAVEL.DEFAULT}`,
       renderButton: buttonsEnum.travel,
+      to: route ? route : `${ROUTES.TRAVEL.ROOT}?f=trv`,
     },
   ];
   const buttons = [

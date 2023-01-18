@@ -129,8 +129,8 @@ export const addDepartmentMemberAction = createAsyncThunk(
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addDepartmentMemberService(data);
 
-    if (res.data.responseCode) {
-      if (res.data.responseCode === responseCode.Success)
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
         message.success("Member Added successfully!");
     } else {
       message.error(res.statusText);
@@ -145,10 +145,11 @@ export const getDepartmentMemberAction = createAsyncThunk(
   "Department/getMember",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await getDepartmentMemberService(data);
-
-    if (res.data.responseCode) {
-      if (res.data.responseCode === responseCode.Success)
-        message.success("Member Get successfully!");
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+        // message.success("Member Get successfully!");
+        console.log(res.data);
+      return res.data;
     } else {
       message.error(res.statusText);
       return rejectWithValue(res.statusText);

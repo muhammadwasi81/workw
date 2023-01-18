@@ -34,7 +34,7 @@ const FormHeader = (props) => {
             type="text"
             placeholder={yourEmail}
             onChange={handleChangeEmail}
-            disabled={true}
+            disabled={false}
           />
           {/* <input className="styled-input" type="text" placeholder="Your Email"
           disabled={(!!localStorage.getItem(STRINGS.STORAGE.token))}

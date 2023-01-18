@@ -59,31 +59,3 @@ export const instantCall = createAsyncThunk(
 		}
 	}
 );
-
-export const addFcmDevice = createAsyncThunk(
-	"calling/addFcmDevice",
-	async (data, { dispatch, rejectWithValue }) => {
-		const res = await addDeviceService(data);
-		if (res.responseCode === responseCode.Success) {
-			dispatch(
-				openNotification({
-					message: "Notification Token Saved.",
-					type: "success",
-					duration: 2,
-				})
-			);
-			return res;
-		} else {
-			dispatch(
-				openNotification({
-					message: res.message,
-					type: "error",
-					duration: 2,
-				})
-			);
-			return rejectWithValue(res.message);
-		}
-	}
-);
-
-

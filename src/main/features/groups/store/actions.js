@@ -4,6 +4,8 @@ import {
 	getAllGroupService,
 	getGroupByIdService,
 	updateGroupService,
+	addGroupMdmberService,
+	getAllGroupMdmberService
 } from "../services/service";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { openNotification } from "../../../../utils/Shared/store/slice";
@@ -77,6 +79,46 @@ export const getGroupById = createAsyncThunk(
 	"getGroupById",
 	async (id, { dispatch, getState, rejectWithValue }) => {
 		const res = await getGroupByIdService(id);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+
+export const addGroupMemberAction = createAsyncThunk(
+	"groupMember",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await addGroupMdmberService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+
+export const getAllGroupMemberAction = createAsyncThunk(
+	"GetgroupMember",
+	async (id, { dispatch, getState, rejectWithValue }) => {
+		const res = await getAllGroupMdmberService(id);
 		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {

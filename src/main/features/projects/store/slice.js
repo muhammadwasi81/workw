@@ -1,3 +1,4 @@
+import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addProject,
@@ -17,6 +18,9 @@ const initialState = {
   error: false,
   projectDetail: null,
   stickyArray: [],
+  isComposerOpen: false,
+  isEditComposer: false,
+  addMemberModal: false,
 };
 
 const projectSlice = createSlice({
@@ -26,12 +30,17 @@ const projectSlice = createSlice({
     resetProjectDetail(state, { payload }) {
       state.projectDetail = null;
     },
-    targetTitleVal: (state, action) => {
-      const val = action.payload;
-
-      const listObj = state.stickyArray.find((list) => list.id === val.id);
-      listObj.title = val.value;
-      console.log(listObj.title, "titleeee");
+    addMember: (state, { payload }) => {
+      state.addMemberModal = payload;
+    },
+    updateProjectById(state, { payload }) {
+      state.projectDetail = state.projects.find((list) => list.id === payload);
+    },
+    handleComposer(state, { payload }) {
+      const { isOpen, isEdit } = payload;
+      console.log(payload, "payloadd");
+      state.isEditComposer = isEdit;
+      state.isComposerOpen = isOpen;
     },
   },
   extraReducers: (builder) => {
@@ -96,5 +105,10 @@ const projectSlice = createSlice({
   },
 });
 
-export const { resetProjectDetail, targetTitleVal } = projectSlice.actions;
+export const {
+  resetProjectDetail,
+  updateProjectById,
+  handleComposer,
+  addMember,
+} = projectSlice.actions;
 export default projectSlice.reducer;

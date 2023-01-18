@@ -2,33 +2,36 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { message, Modal } from "antd";
 import { useSelector } from "react-redux";
-import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import ApproverListItem from "../../../sharedComponents/AppComponents/Approvals/components/approverList";
-
+import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import ApproverListItem from "../../../../sharedComponents/AppComponents/Approvals/components/approverList";
+import {
+  getAllGroupMemberAction,addGroupMemberAction
+} from "../../store/actions";
 import { useParams } from "react-router-dom";
-import { addMember } from "../store/slice";
-import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
-import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import { getWorkBoardMemberAction, addWorkBoardMember } from "../store/action";
-import { NoDataFound } from "./index";
+import {  addMember } from "../../store/slice";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
-  const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
-  const { workBoardMembers } = useSelector((state) => state.trelloSlice);
+  const { memberData } = useSelector((state) => state.groupSlice);
+  const modalRequest = useSelector(
+    (state) => state.groupSlice.addMemberModal
+  );
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
   let ModalOpen = modalRequest.status;
-  let type = modalRequest.memberType;
+  let Type = modalRequest.type;
+
+  // console.log(Type, "TYPE !!");
 
   useEffect(() => {
-    ModalOpen && dispatch(getWorkBoardMemberAction(userId));
-    // dispatch(getWorkBoardMemberAction(userId));
-  }, [ModalOpen]);
+    ModalOpen && dispatch(  getAllGroupMemberAction(userId));
+  }, [ ModalOpen]);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -44,15 +47,12 @@ function MemberModal({ isOpen = false }) {
 
   const handleChange = (id) => {
     let memberId = id.toString();
-    console.log(memberId, "memberIddd");
     const data = {
       id: userId,
       memberId: memberId,
-      memberType: type,
     };
-    console.log(type, "memberType");
-    dispatch(addWorkBoardMember(data));
-    dispatch(getWorkBoardMemberAction(userId));
+    dispatch(addGroupMemberAction(data));
+    dispatch(getAllGroupMemberAction(userId));
   };
 
   useEffect(() => {
@@ -112,11 +112,7 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      {workBoardMembers?.length > 0 ? (
-        <ApproverListItem className="AddMemberModal" data={workBoardMembers} />
-      ) : (
-        <NoDataFound />
-      )}
+      <ApproverListItem className="AddMemberModal" data={memberData} />
     </Modal>
   );
 }

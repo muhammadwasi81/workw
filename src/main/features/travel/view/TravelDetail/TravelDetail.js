@@ -20,9 +20,11 @@ function TravelDetail(props) {
   const { travelId } = props;
   const [status, setStatus] = useState();
   const [travelStatus, setTravelStatus] = useState({});
+  // const [agentStatus, setAgentStatus] = useState({});
   const { travelDetail, success, loader, loadingData } = useSelector(
     (state) => state.travelSlice
   );
+  console.log(travelDetail, "travelDetail");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTravelById(travelId));

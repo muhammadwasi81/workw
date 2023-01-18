@@ -1,18 +1,18 @@
-import React, { useContext, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import CreateExpense from "../CreateExpense";
-import { Button, Drawer } from "antd";
-import { handleOpenExpenseComposer } from "../../store/slice";
-import { dictionaryList } from "../../../../../utils/localization/languages";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { ExpenseDictionary } from "../../localization";
-import { STRINGS } from "../../../../../utils/base";
-import { ExpenseReferenceTypeEnum } from "../../enums";
+import React, { useContext, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import CreateExpense from '../CreateExpense';
+import { Button, Drawer } from 'antd';
+import { handleOpenExpenseComposer } from '../../store/slice';
+import { dictionaryList } from '../../../../../utils/localization/languages';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
+import { ExpenseDictionary } from '../../localization';
+import { STRINGS } from '../../../../../utils/base';
+import { ExpenseReferenceTypeEnum } from '../../enums';
 
 function OpenCreateExpense({
   referenceId = STRINGS.DEFAULTS.guid,
   referenceType = ExpenseReferenceTypeEnum.General,
-  feature = "",
+  feature = '',
 }) {
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ function OpenCreateExpense({
         title={
           <h1
             style={{
-              fontSize: "20px",
+              fontSize: '20px',
               margin: 0,
             }}
           >
@@ -40,7 +40,7 @@ function OpenCreateExpense({
         onClose={() => {
           dispatch(handleOpenExpenseComposer(false));
         }}
-        visible={drawerOpen}
+        open={drawerOpen}
         destroyOnClose={true}
         className="detailedViewComposer drawerSecondary"
       >

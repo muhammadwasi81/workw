@@ -66,12 +66,11 @@ function ProjectDetails() {
   const tilteDebounce = useDebounce(title, 500);
 
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { projectsDictionary, Direction } = projectsDictionaryList[
-    userLanguage
-  ];
+  const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { updateTextBtn, labels } = projectsDictionary;
   const [open, setOpen] = useState(false);
   const { projectId } = params;
+
   useEffect(() => {
     dispatch(getProjectById(projectId));
   }, [projectId]);

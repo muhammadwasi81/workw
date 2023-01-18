@@ -1,14 +1,21 @@
 import { useState } from "react";
 import { Button, Col, Modal, Row, Tag } from "antd";
 import React from "react";
-import { AiOutlineBarChart } from "react-icons/ai";
-import { BiLaptop } from "react-icons/bi";
-import { HiOutlineUserAdd } from "react-icons/hi";
-import { IoEarth } from "react-icons/io5";
-import { InfoCircleOutlined, LaptopOutlined } from "@ant-design/icons";
+import { LaptopOutlined } from "@ant-design/icons";
+import { Button, Col, Modal, Row } from 'antd';
+import { LaptopOutlined } from '@ant-design/icons';
+import Chart from './chart/DouhgnatChart';
+import ProjectSummaryTable from './table';
+import {
+  approvalData,
+  approvalOptions,
+  expenseData,
+  expenseOptions,
+} from './utils';
+import BarChart from './chart/BarChart';
 
 const ProjectSummary = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <>
@@ -32,115 +39,106 @@ const ProjectSummary = () => {
           }}
           footer={null}
         >
-          <h2 className="text-center font-semibold text-lg">Summary</h2>
-          <Row gutter={[16, 16]}>
-            <Col lg={18} xs={24} sm={24}>
-              <div className="mainWrapper rounded-lgh-64 py-4">
-                <div className="flex justify-between px-5">
-                  <img
-                    src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                    alt="global"
-                    loading="lazy"
-                    className="object-cover h-48 w-96 rounded-lg"
-                  />
-                  <div className="px-5">
-                    <div className="flex flex-no-wrap justify-between">
-                      <div className="text-lg font-bold">Konnect V4</div>
-                      <div className="mt-1 ml-2">
-                        <IoEarth className="cursor-pointer text-lg" />
-                      </div>
-                      <div className="justify-end ml-auto">
-                        <InfoCircleOutlined className="cursor-pointer text-lg" />
-                      </div>
-                    </div>
-                    <div className=" text-gray-500 font-semibold">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Voluptatibus ab assumenda, odit corporis quidem repellat
-                      harum exercitationem laborum eveniet deserunt quibusdam
-                      autem eos soluta sit cumque placeat at iure vitae.
-                    </div>
-                    <div className="iconsChild flex gap-3">
-                      <Button className="barIcon">
-                        <AiOutlineBarChart />
-                      </Button>
-                      <Button className="barIcon">
-                        <BiLaptop />
-                      </Button>
-                      <button className="barIcon font-bold py-2 px-4 rounded inline-flex items-center">
-                        <HiOutlineUserAdd className="text-base" />
-                        <span className="text-sm">Download</span>
-                      </button>
-                    </div>
+          <Row gutter={[16, 16]} className="mt-5">
+            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+              <div className="border-2 border-slate-100 rounded-md py-2 px-5 h-48">
+                <div className="flex flex-wrap">
+                  <h3 className="font-semibold text-lg">Members</h3>
+                  <div className="ml-auto font-semibold text-lg">18</div>
+                </div>
+                <div className="internalMembers flex justify-start gap-5 mt-5">
+                  <div>
+                    <h5 className="font-semibold text-gray-500">
+                      Internal Members
+                    </h5>
+                    <h5 className="font-semibold text">09</h5>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-gray-500">
+                      External Members
+                    </h5>
+                    <h5 className="font-semibold text">09</h5>
                   </div>
                 </div>
               </div>
             </Col>
-            <Col lg={6} sm={24} md={24}>
-              <div className="mainWrapper flex flex-wrap py-2 px-2">
-                <div className="text-base p-5 bg-neutral-100 flex w-full rounded-lg">
-                  <span className="text-primary-color text-base font-semibold">
-                    Total Budget
-                  </span>
-                  <span className="text-black font-semibold ml-auto">500$</span>
-                </div>
-                <div className="text-base p-5 bg-neutral-100 flex justify-around w-full my-2 rounded-lg font-bold">
-                  <div className="flex flex-col gap-3 text-center">
-                    <span className="text-red-600">100$</span>
-                    <span className="text-gray-500 font-semibold">Spent</span>
-                  </div>
-                  <div className="border-r-2 border-gray-500" />
-                  <div className="flex flex-col gap-3 text-center">
-                    <span className="text-green-500">400$</span>
-                    <span className="text-gray-500 font-semibold">Balance</span>
+            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+              <div className="border-2 border-slate-100 rounded-md py-2 px-5 h-48">
+                <div className="flex flex-wrap">
+                  <h3 className="font-semibold text-lg">Total Budget</h3>
+                  <div className="ml-auto">
+                    <span className="font-extrabold text-lg">$500</span>
                   </div>
                 </div>
-                <div className="text-base p-5 bg-neutral-100 flex flex-col w-full rounded-lg font-bold">
-                  <div className="border-b-2 border-gray-500 text-center pb-3">
-                    <span className="text-primary-color text-center w-full">
-                      Deadline
-                    </span>
+                <div className="flex flex-wrap justify-start gap-5 mt-5">
+                  <div>
+                    <h5 className="font-semibold text-gray-500">Balance</h5>
+                    <h5 className="font-semibold text">$500</h5>
                   </div>
-                  <div className="flex w-full justify-around">
-                    <div className="flex flex-col gap-3 text-center pt-3">
-                      <span className="text-red-600">100$</span>
-                      <span className="text-gray-500 font-semibold">Spent</span>
-                    </div>
-                    <div className="border-r-2 border-gray-500" />
-                    <div className="flex flex-col gap-3 text-center pt-3">
-                      <span className="text-green-500">400$</span>
-                      <span className="text-gray-500 font-semibold">
-                        Balance
-                      </span>
-                    </div>
+                  <div>
+                    <h5 className="font-semibold text-gray-500">Spent</h5>
+                    <h5 className="font-semibold text">$200</h5>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-gray-500">Deadline</h5>
+                    <h5 className="font-semibold text">12/12/2021</h5>
                   </div>
                 </div>
               </div>
             </Col>
-            <Col lg={6}>
-              <div className="summaryWrapper flex flex-wrap py-2 px-2">
-                <div className="summaryChild text-base p-5 bg-neutral-100 flex w-full rounded-lg">
-                  <span className="text-primary-color text-base font-semibold">
-                    Total Budget
-                  </span>
+            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+              <div className="border-2 border-slate-100 rounded-md py-2 px-5 h-48">
+                <div className="flex flex-wrap">
+                  <h3 className="font-semibold text-lg">Approvals</h3>
+                  <div className="ml-auto">
+                    <span className="font-extrabold text-lg">80</span>
+                  </div>
                 </div>
-              </div>
-              <div className="summaryWrapper flex flex-wrap py-2 px-2">
-                <div className="summaryChild text-base p-5 bg-neutral-100 flex w-full rounded-lg">
-                  <span className="text-primary-color text-base font-semibold">
-                    Total Budget
-                  </span>
+                <div>
+                  <Chart data={expenseData} options={expenseOptions} />
                 </div>
               </div>
             </Col>
-            <Col lg={18}>
-              <div className="tagsWrapper flex flex-wrap">
-                <div className="summaryChild text-base p-5 bg-neutral-100 w-full rounded-lg">
-                  <div className="flex justify-end">
-                    <Tag color="green">Task</Tag>
-                    <Tag color="blue">Schedule</Tag>
-                    <Tag color="black">Expense</Tag>
-                    <Tag color="warning">Document</Tag>
+            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+              <div className="border-2 border-slate-100 rounded-md py-2 px-5 h-48">
+                <div className="flex justify-start flex-wrap gap-4">
+                  <h3 className="font-semibold text-lg">Total Expense</h3>
+                  <span className="font-semibold text-lg">80</span>
+                  <div className="flex gap-4 ml-auto">
+                    <h3 className="font-semibold text-lg">
+                      Total Expense Amount
+                    </h3>
+                    <span className="font-extrabold text-lg">$800</span>
                   </div>
+                </div>
+                <div>
+                  <ProjectSummaryTable />
+                </div>
+              </div>
+            </Col>
+            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+              <div className="border-2 border-slate-100 rounded-md py-2 px-5 h-48">
+                <div className="flex flex-wrap">
+                  <h3 className="font-semibold text-lg">Total Post</h3>
+                  <div className="ml-auto">
+                    <span className="font-extrabold text-lg">85</span>
+                  </div>
+                </div>
+                <div style={{ marginRight: '23px' }}>
+                  <Chart data={approvalData} options={approvalOptions} />
+                </div>
+              </div>
+            </Col>
+            <Col sm={12} md={12} lg={12} xl={12} xxl={12}>
+              <div className="border-2 border-slate-100 rounded-md py-2 px-5 h-48">
+                <div className="flex flex-wrap">
+                  <h3 className="font-semibold text-lg">Total Meeting</h3>
+                  <div className="ml-auto">
+                    <span className="font-extrabold text-lg">43</span>
+                  </div>
+                </div>
+                <div>
+                  <BarChart />
                 </div>
               </div>
             </Col>

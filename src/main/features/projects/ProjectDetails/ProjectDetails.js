@@ -47,7 +47,6 @@ import {
   getProjectStickyAction,
 } from '../store/actions';
 import useDebounce from '../../../../utils/Shared/helper/use-debounce';
-import { targetTitleVal } from '../store/slice';
 
 function ProjectDetails() {
   const params = useParams();
@@ -64,12 +63,11 @@ function ProjectDetails() {
   const tilteDebounce = useDebounce(title, 500);
 
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { projectsDictionary, Direction } = projectsDictionaryList[
-    userLanguage
-  ];
+  const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { updateTextBtn, labels } = projectsDictionary;
   const [open, setOpen] = useState(false);
   const { projectId } = params;
+
   useEffect(() => {
     dispatch(getProjectById(projectId));
   }, [projectId]);

@@ -32,10 +32,13 @@ import WorkBoard from "../../../workboard";
 import { WorkBoardReferenceTypeEnum } from "../../../workboard/enum";
 import Documents from "../../../documents/view/documents";
 import ComposeEmail from "../../../leadmanager/view/Email/ComposeEmail";
-import { handleComposeEmail } from "../../../leadmanager/store/slice";
 import GroupDefaultImage from "../../../../../content/NewContent/groups/GroupDefaultImage.svg";
 import CoverImage from "../../../departments/view/CoverImage";
 import GroupsInfo from "../UI/GroupsInfo";
+import {  addMember} from "../../store/slice";
+import {getAllGroupMemberAction} from "../../store/actions";
+import MemberModal from "../Modal/MemberModal";
+
 
 function GroupDetails() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -46,18 +49,17 @@ function GroupDetails() {
   const [visible, setVisible] = useState(false);
 
   const detail = useSelector((state) => state.groupSlice.groupDetail);
-  console.log(detail, "detaill");
   const [features, setFeatures] = useState([]);
   const [open, setOpen] = useState(false);
   const { groupId: id } = params;
   useEffect(() => {
     dispatch(getGroupById(id));
+    dispatch(getAllGroupMemberAction(id));
   }, [id]);
   const memberHandler = () => {
-    console.log("member handler");
     setVisible(true);
     // const userTypes = memberType === 1 ? Members.user : Members.admin;
-    // dispatch(addMember({ status: true }));
+    dispatch(addMember({ status: true }));
   };
   useEffect(() => {
     return () => {
@@ -220,6 +222,8 @@ function GroupDetails() {
           id={id}
         />
       </Drawer>
+      {visible && <MemberModal />}
+
       {/* <ComposeEmail /> */}
     </>
   );

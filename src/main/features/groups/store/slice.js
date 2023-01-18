@@ -5,6 +5,8 @@ import {
   getAllProjects,
   getGroupById,
   updateGroup,
+  addGroupMemberAction,
+  getAllGroupMemberAction
 } from "./actions";
 
 const initialState = {
@@ -15,6 +17,11 @@ const initialState = {
   success: false,
   error: false,
   getDataLoading: false,
+  memberData: [],
+  isComposerOpen: false,
+  isEditComposer: false,
+  addMemberModal: false,
+
 };
 
 const groupSlice = createSlice({
@@ -23,6 +30,21 @@ const groupSlice = createSlice({
   reducers: {
     resetGroupDetail(state, { payload }) {
       state.groupDetail = null;
+    },
+    getGroupDetailById(state, { payload }) {
+      console.log(payload,"payload")
+      state.groupDetail = state.groups.find(
+        (list) => list.id === payload
+      );
+    },
+    handleComposer(state, { payload }) {
+      console.log(payload,"payloaddd");
+      const { isOpen, isEdit } = payload;
+      state.isEditComposer = isEdit;
+      state.isComposerOpen = isOpen;
+    },
+    addMember: (state, { payload }) => {
+      state.addMemberModal = payload;
     },
   },
   extraReducers: (builder) => {
@@ -50,6 +72,14 @@ const groupSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
+      .addCase( addGroupMemberAction.fulfilled,(state, { payload })=>{
+        console.log(payload,"payloaddd");
+        state.memberData = [...state.memberData, payload];
+        return state;
+      })
+      .addCase(getAllGroupMemberAction.fulfilled,(state,{payload})=>{
+        state.memberData = payload.length>0?payload:[];
+      })
       .addMatcher(isPending(getAllGroup), (state) => {
         state.getDataLoading = true;
       })
@@ -72,5 +102,5 @@ const groupSlice = createSlice({
   },
 });
 
-export const { resetGroupDetail } = groupSlice.actions;
+export const { resetGroupDetail,getGroupDetailById, handleComposer,addMember } = groupSlice.actions;
 export default groupSlice.reducer;

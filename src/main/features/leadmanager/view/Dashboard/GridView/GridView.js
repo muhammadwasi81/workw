@@ -1,6 +1,6 @@
 import React from "react";
 import { CardWrapper2 } from "../../../../../sharedComponents/Card/CardStyle";
-import { getLeadManagerById } from "../../../store/actions";
+import { getLeadManagerById, } from "../../../store/actions";
 import {
   getLeadManagerGroupDetailById,
   handleComposer,

@@ -30,6 +30,7 @@ const initialState = {
 };
 
 const Composer = (props) => {
+  console.log(props, 'props')
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
   const { labels, placeHolders, errors, features } = groupsDictionary;
@@ -43,6 +44,7 @@ const Composer = (props) => {
   const [memberList, setMemberList] = useState([]);
 
   const onPrivacyChange = (value) => {
+    console.log('ss')
     setPrivacyId(value);
   };
 
@@ -56,6 +58,7 @@ const Composer = (props) => {
   };
 
   const onFinish = () => {
+    console.log('sssss')
     const values = form.getFieldsValue(true);
     let members = memberList.map((member) => {
       return {

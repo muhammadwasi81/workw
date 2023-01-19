@@ -9,6 +9,7 @@ import ExperienceForm from "../../../../experienceInfo/index";
 import RebateEmployee from "../../../../rebate/rebateEmployee";
 import SalaryEmployee from "../../../../salary/view/SalaryEmployee/salaryEmployee";
 import UserLeave from "../../../../userLeave";
+import Devices from "../../../../devices/view/index";
 import "../styles/style.css";
 
 const EmployeeRoutes = () => {
@@ -23,6 +24,7 @@ const EmployeeRoutes = () => {
         <Route path={"/rebate/:id"} element={<RebateEmployee />} />
         <Route path={"/salary/:id"} element={<SalaryEmployee />} />
         <Route path={"/experience/:id"} element={<ExperienceForm />} />
+        <Route path={"/devices/:id"} element={<Devices />} />
         <Route path={"*"} element={<BrokenPage />} />
       </Routes>
     </div>

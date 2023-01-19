@@ -59,20 +59,18 @@ function Signup() {
 
   const handleSignUpSubmit = (values) => {
 
-    window.location.pathname = "/verification";
+    let image = {
+      id: STRINGS.DEFAULTS.guid,
+      file: profileImage && profileImage[0]?.originFileObj,
+    };
 
-    // let image = {
-    //   id: STRINGS.DEFAULTS.guid,
-    //   file: profileImage && profileImage[0]?.originFileObj,
-    // };
-
-    // if (Object.keys(image).length > 0) {
-    //   let payload = { ...values, image };
-    //   dispatch(signup(payload));
-    // } else {
-    //   dispatch(signup(values));
-    // }
-    // dispatch(signup(values));
+    if (Object.keys(image).length > 0) {
+      let payload = { ...values, image };
+      dispatch(signup(payload));
+    } else {
+      dispatch(signup(values));
+    }
+    
   };
 
 

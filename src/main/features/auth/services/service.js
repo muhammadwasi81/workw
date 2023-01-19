@@ -26,7 +26,7 @@ export const signupService = (data) => {
 };
 
 export const emailVerificationService = (data) => {
-  return AuthConfig.get(`konnectapi/api/Signup/VerifySignup?token=${data}`);
+  return MasterConfig.get(`api/Auth/VerifySignupEmailToken?token=${data}`);
 };
 
 // export const getDesignationService = () => {

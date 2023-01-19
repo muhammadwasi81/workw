@@ -1,13 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setUser } from "../../../../store/appReducer/userSlice";
 import { loginService, signupService } from "../services/service";
-// import { uploadImageService } from "../services/service";
-// import { getDesignationService } from "../services/service";
 import { emailVerificationService } from "../services/service";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { message } from "antd";
-// import { responseMessageType } from "../../../../services/slices/notificationSlice";
-// import { responseMessage } from "../../../../services/slices/notificationSlice";
 import { STRINGS } from "../../../../utils/base";
 import { getDefaultDesignationService } from "../../../../utils/Shared/services/services";
 import { addDeviceService } from "../../calling/services/services";
@@ -84,14 +80,14 @@ export const getDesignation = createAsyncThunk(
 
 export const signup = createAsyncThunk(
 	"auth/signup",
-	async (formData, { getState }) => {
+	async (formData, { }) => {
 		const res = await signupService(formData);
 
 		if (res.data) {
 			const { data } = res;
 
 			if (data.responseCode === 1001) {
-				window.location.pathname = "/verify";
+				window.location.pathname = "/verification";
 				return data;
 			} else {
 				message.error(data.message);

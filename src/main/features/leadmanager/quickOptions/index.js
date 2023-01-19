@@ -13,7 +13,13 @@ const QuickOptions = ({ data, onClick = () => {} }) => {
     setOpen(newOpen);
   };
   return (
-    <div className="docsPopover">
+    <div
+      className="docsPopover"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+    >
       <Popover
         content={<ContentOptions handleClose={hide} data={data} />}
         title={null}

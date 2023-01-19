@@ -1,13 +1,14 @@
 const en = {
   projectsDictionary: {
-    createTextBtn: "Create Project",
-    updateTextBtn: "Update Project",
+    createTextBtn: 'Create Project',
+    updateTextBtn: 'Update Project',
+    routeName: 'Projects',
 
     topBar: {
-      search: "Search",
-      filter: "Filter",
-      list: "List",
-      table: "Table",
+      search: 'Search',
+      filter: 'Filter',
+      list: 'List',
+      table: 'Table',
     },
     labels: {
       name: "Name",
@@ -44,25 +45,25 @@ const en = {
       externalEmail: "Enter the Email Adresses",
     },
     errors: {
-      name: "Please enter group name.",
-      desc: "Please enter description.",
-      members: "Please select members.",
-      type: "Please select member type.",
-      externals: "Please select externals",
+      name: 'Please enter group name.',
+      desc: 'Please enter description.',
+      members: 'Please select members.',
+      type: 'Please select member type.',
+      externals: 'Please select externals',
     },
     features: {
-      features: "Features",
-      newsFeed: "News Feed",
-      schedule: "Schedule",
-      workBoard: "Work Board",
-      document: "Document",
-      expenses: "Expenses",
-      task: "Task",
-      travel: "Travel",
+      features: 'Features',
+      newsFeed: 'News Feed',
+      schedule: 'Schedule',
+      workBoard: 'Work Board',
+      document: 'Document',
+      expenses: 'Expenses',
+      task: 'Task',
+      travel: 'Travel',
     },
   },
 
   /*** Define language write side ***/
-  Direction: "ltr",
+  Direction: 'ltr',
 };
 export default en;

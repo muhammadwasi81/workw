@@ -7,6 +7,8 @@ import {
   addDepartmentAppraisalQuestion,
   updateDepartmentAppraisalQuestion,
   removeDepartmentAppraisalQuestion,
+  addDepartmentMemberAction,
+  getDepartmentMemberAction,
 } from "./actions";
 
 const initialState = {
@@ -21,12 +23,17 @@ const initialState = {
   parentId: null,
   departmentDetail: {},
   appraisalQuestion: [],
+  addMemberModal: false,
+  departmentMembers: [],
 };
 
 const departmentSlice = createSlice({
   name: "departments",
   initialState,
   reducers: {
+    addMember: (state, { payload }) => {
+      state.addMemberModal = payload;
+    },
     appraisalQuestionDeleted: (state, { payload }) => {
       state.appraisalQuestion = state.appraisalQuestion.filter(
         (e) => e.id !== payload
@@ -59,7 +66,7 @@ const departmentSlice = createSlice({
         state.isCreateComposer = false;
       })
       .addCase(getDepartmentById.fulfilled, (state, { payload }) => {
-        // console.log("GetDepartmentById payload", payload.data);
+        console.log("GetDepartmentById payload", payload.data);
         state.departmentDetail = payload.data;
         state.loader = false;
       })
@@ -92,6 +99,12 @@ const departmentSlice = createSlice({
           state.success = true;
         }
       )
+      .addCase(addDepartmentMemberAction.fulfilled, (state, { payload }) => {})
+
+      .addCase(getDepartmentMemberAction.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.departmentMembers = payload.length > 0 ? payload : [];
+      })
       .addMatcher(isPending(...[addDepartment]), (state) => {
         // console.log("its pending");
         state.success = false;
@@ -133,5 +146,6 @@ export const {
   appraisalQuestionDeleted,
   toggleCreateComposer,
   handleParentId,
+  addMember,
 } = departmentSlice.actions;
 export default departmentSlice.reducer;

@@ -10,6 +10,8 @@ import Avatar from '../../../sharedComponents/Avatar/avatar';
 import { getStatusLabelAndColor } from '../../../sharedComponents/AppComponents/Approvals/enums';
 import { ApprovalDictionary } from '../../../sharedComponents/AppComponents/Approvals/localization';
 import Attachments from '../../travel/view/UI/Attachments';
+import { referenceHandler } from './utils';
+import '../style/style.css';
 
 function ExpenseList({
   onExpense = () => {},
@@ -20,7 +22,6 @@ function ExpenseList({
   const { userLanguage } = useContext(LanguageChangeContext);
   const { ExpenseDictionaryList, Direction } = ExpenseDictionary[userLanguage];
   const { status: statusLabels } = ApprovalDictionary[userLanguage];
-  console.log(isDetail, 'isDetaillll');
   if (!Object || !Object?.keys(expense)?.length > 0) return null;
   const {
     creator: { name, image, designation },
@@ -38,6 +39,7 @@ function ExpenseList({
     attachments,
   } = expense;
 
+  console.log(expense, 'expense');
   const { labels } = ExpenseDictionaryList;
   let classes = 'expenseCard ';
   classes += Direction === 'rtl' ? 'rtl' : '';
@@ -147,11 +149,15 @@ function ExpenseList({
                 />
               </div>
             </div>
+            <div className="card-column-item">
+              <div className="column-item-head">{labels.type}</div>
+              <div className="referenceType bg-gray-300 rounded-md h-[34px] w-[80px] px-2">
+                {referenceHandler(expense.referenceType) || 'N/A'}
+              </div>
+            </div>
           </div>
         </div>
-      ) : (
-        ''
-      )}
+      ) : null}
     </div>
   );
 }

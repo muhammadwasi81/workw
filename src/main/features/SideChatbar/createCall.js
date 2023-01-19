@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { VideoCameraOutlined } from "@ant-design/icons";
 import { Dropdown, Menu, Modal, Space, Typography } from "antd";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import CreateRoom from "../calling/components/createRoom/CreateRoom";
+import CreateRoom from "../calling/view/components/createRoom/CreateRoom";
 import { sideChatBarList } from "./localization";
 import { handleCreateRoomModal } from "../calling/store/slice";
 import { instantCall } from "../calling/store/action";

@@ -12,7 +12,7 @@ import CoverDetail from "../view/CoverDetail";
 import CoverImage from "../view/CoverImage";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getDepartmentById } from "../store/actions";
+import { getDepartmentById, getDepartmentMemberAction } from "../store/actions";
 import Appraisal from "../appraisal/index";
 import { handleParentId } from "../store/slice";
 import SubDepartment from "./SubDepartment";
@@ -20,14 +20,21 @@ import WhiteCard from "../view/WhiteCard";
 import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
 import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
 import { handleComposeEmail } from "../../leadmanager/store/slice";
+import MemberModal from "./MemberModal";
+import { addMember } from "../store/slice";
+import { Members } from "../constant/index";
+import "./style.css";
 
 function DepartmentDetails() {
   const dispatch = useDispatch();
   let param = useParams();
-  const { departmentDetail } = useSelector((state) => state.departmentSlice);
-  console.log(departmentDetail, "departmentdetailll");
+  const { departmentDetail, departmentMembers } = useSelector(
+    (state) => state.departmentSlice
+  );
+  // console.log(departmentDetail, "departmentdetailll");
   // const { state } = useLocation();
   // const { data } = state;
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     if (Object.keys(departmentDetail).length > 1) {
@@ -36,7 +43,7 @@ function DepartmentDetails() {
   }, [departmentDetail]);
 
   const { image, description } = departmentDetail;
-  console.log(departmentDetail);
+
   const panes = [
     {
       featureName: `Sub Departments`,
@@ -66,8 +73,15 @@ function DepartmentDetails() {
   useEffect(() => {
     console.log("useEffects works");
     dispatch(getDepartmentById(param.id));
+    dispatch(getDepartmentMemberAction(param.id));
   }, [param.id]);
 
+  const memberHandler = () => {
+    console.log("member handler");
+    setVisible(true);
+    // const userTypes = memberType === 1 ? Members.user : Members.admin;
+    dispatch(addMember({ status: true }));
+  };
   return (
     <>
       <TabContainer>
@@ -85,12 +99,13 @@ function DepartmentDetails() {
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <WhiteCard>
                 <MemberCollapse
-                  data={departmentDetail?.members}
-                  isEmail={true}
+                  data={departmentMembers}
+                  isEmail={false}
                   isMember={true}
-                  onEmailClick={() => {
-                    dispatch(handleComposeEmail(true));
-                  }}
+                  // onEmailClick={() => {
+                  //   dispatch(handleComposeEmail(true));
+                  // }}
+                  handleAdd={(e) => memberHandler(e)}
                 />
               </WhiteCard>
             </div>
@@ -98,6 +113,7 @@ function DepartmentDetails() {
         </ContBody>
       </TabContainer>
       <ComposeEmail />
+      {visible && <MemberModal />}
     </>
   );
 }

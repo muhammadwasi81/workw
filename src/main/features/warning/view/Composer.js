@@ -46,6 +46,7 @@ const Composer = (props) => {
   const { warningCategories } = useSelector(
     (state) => state.warningCategorySlice
   );
+  console.log("propsssssss",initialState);
 
   const { createLoader } = useSelector(
     (state) => state.warningSlice

@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 // import Select from "../../../sharedComponents/Select/Select";
@@ -16,6 +16,7 @@ import NewCustomSelect from "../../../sharedComponents/CustomSelect/newCustomSel
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { getAllEmployeeService } from "../../../../utils/Shared/services/services";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import Select from "../../../sharedComponents/Select/Select";
 
 const initialState = {
   id: "",
@@ -50,6 +51,7 @@ const Composer = (props) => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
+  const [state, setState] = useState(initialState);
   const { complainCategories } = useSelector((state) => state.sharedSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { createLoader } = useSelector((state) => state.complainSlice);
@@ -58,7 +60,8 @@ const Composer = (props) => {
     dispatch(getComplainCategory());
   }, []);
 
-  console.log(complainCategories, "complainCategoriescomplainCategoriescomplainCategoriescomplainCategories")
+  console.log(complainCategories, "complainCategoriescomplain");
+  
 
   const selectedData = (data, obj) => {
     setValue(data);
@@ -277,7 +280,7 @@ const Composer = (props) => {
             title={complainDictionary.create}
           >
             {" "}
-            {complainDictionary.create}{" "}
+            {complainDictionary.createComplain}{" "}
           </Button>
         </Form.Item>
       </Form>

@@ -1,10 +1,14 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addProject,
   getAllProjects,
   getProjectById,
   updateProject,
-} from './actions';
+  saveProjectStickyAction,
+  saveStickyTitleAction,
+  getProjectStickyAction,
+} from "./actions";
 
 const initialState = {
   projects: [],
@@ -13,14 +17,30 @@ const initialState = {
   success: false,
   error: false,
   projectDetail: null,
+  stickyArray: [],
+  isComposerOpen: false,
+  isEditComposer: false,
+  addMemberModal: false,
 };
 
 const projectSlice = createSlice({
-  name: 'projects',
+  name: "projects",
   initialState,
   reducers: {
     resetProjectDetail(state, { payload }) {
       state.projectDetail = null;
+    },
+    addMember: (state, { payload }) => {
+      state.addMemberModal = payload;
+    },
+    updateProjectById(state, { payload }) {
+      state.projectDetail = state.projects.find((list) => list.id === payload);
+    },
+    handleComposer(state, { payload }) {
+      const { isOpen, isEdit } = payload;
+      console.log(payload, "payloadd");
+      state.isEditComposer = isEdit;
+      state.isComposerOpen = isOpen;
     },
   },
   extraReducers: (builder) => {
@@ -31,7 +51,7 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(addProject.fulfilled, (state, { payload }) => {
-        console.log('add project', payload);
+        console.log("add project", payload);
         state.projects.unshift(payload.data);
         state.loader = false;
         state.success = true;
@@ -45,6 +65,21 @@ const projectSlice = createSlice({
         state.projectDetail = payload.data;
         state.loader = false;
         state.success = true;
+      })
+      .addCase(saveProjectStickyAction.fulfilled, (state, { payload }) => {
+        console.log(payload, "description");
+        state.loader = false;
+        state.success = true;
+        state.stickyArray = payload;
+        console.log(payload, "payloadd");
+        console.log(state.stickyArray, "sticky array");
+      })
+      .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
+        state.stickyArray = payload;
+        console.log(payload, "payload");
+      })
+      .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
+        state.stickyArray = payload;
       });
     builder
       .addMatcher(
@@ -70,5 +105,10 @@ const projectSlice = createSlice({
   },
 });
 
-export const { resetProjectDetail } = projectSlice.actions;
+export const {
+  resetProjectDetail,
+  updateProjectById,
+  handleComposer,
+  addMember,
+} = projectSlice.actions;
 export default projectSlice.reducer;

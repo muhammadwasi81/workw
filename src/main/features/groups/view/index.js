@@ -16,7 +16,7 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import Composer from "./UI/Composer";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
-import GridView from "../../leadmanager/view/Dashboard/GridView/GridView";
+import GridView from "./GridView/GridView";
 import Spinner from "../../../sharedComponents/spinner/spinner";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 

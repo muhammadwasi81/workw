@@ -20,8 +20,9 @@ const MyTeam = () => {
   const items = [
     {
       name: labels.teams,
-      //   to: ROUTES.EMPLOYEES.EMPLOYEELINK,
+      //to: ROUTES.EMPLOYEES.EMPLOYEELINK,
       //    renderButton: buttonsEnum.employee,
+      to: `${ROUTES.TEAMS.ROOT}`,
     },
   ];
   return (

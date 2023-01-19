@@ -1,40 +1,44 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { Drawer } from 'antd';
+import React, { useEffect, useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { Drawer } from "antd";
 
-import { ROUTES } from '../../../../../utils/routes';
-import Header from '../../../../layout/header';
+import { ROUTES } from "../../../../../utils/routes";
+import Header from "../../../../layout/header";
 import {
   ContBody,
   TabContainer,
-} from '../../../../sharedComponents/AppComponents/MainFlexContainer';
-import MemberCollapse from '../../../../sharedComponents/Collapseable/MemberCollapse';
-import Tab from '../../../../sharedComponents/Tab';
-import CoverDetail from '../../../projects/UI/CoverDetail';
-import WhiteCard from '../../../projects/UI/WhiteCard';
-import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
-import { groupsDictionaryList } from '../../localization';
+} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import MemberCollapse from "../../../../sharedComponents/Collapseable/MemberCollapse";
+import Tab from "../../../../sharedComponents/Tab";
+import CoverDetail from "../../../projects/UI/CoverDetail";
+import WhiteCard from "../../../projects/UI/WhiteCard";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { groupsDictionaryList } from "../../localization";
 // import Travel from "../../../travel/view/Travel";
 // import { FeaturesEnum } from "../../../../../utils/Shared/enums/enums";
-import { getGroupById } from '../../store/actions';
-import { resetGroupDetail } from '../../store/slice';
-import { EditOutlined } from '@ant-design/icons';
-import Composer from '../UI/Composer';
-import NewsFeed from '../../../feed/ui';
-import Task from '../../../task/view/Task';
-import Expenses from '../../../expense';
-import { ExpenseReferenceTypeEnum } from '../../../expense/enums';
-import { TaskReferenceTypeEnum } from '../../../task/enums/enum';
-import { PostReferenceType } from '../../../feed/utils/constants';
-import { DocumentReferenceTypeEnum } from '../../../documents/view/enum';
-import WorkBoard from '../../../workboard';
-import { WorkBoardReferenceTypeEnum } from '../../../workboard/enum';
-import Documents from '../../../documents/view/documents';
-import ComposeEmail from '../../../leadmanager/view/Email/ComposeEmail';
-import { handleComposeEmail } from '../../../leadmanager/store/slice';
-import GroupDefaultImage from '../../../../../content/NewContent/groups/GroupDefaultImage.svg';
-import CoverImage from '../../../departments/view/CoverImage';
+import { getGroupById } from "../../store/actions";
+import { resetGroupDetail } from "../../store/slice";
+import { EditOutlined } from "@ant-design/icons";
+import Composer from "../UI/Composer";
+import NewsFeed from "../../../feed/ui";
+import Task from "../../../task/view/Task";
+import Expenses from "../../../expense";
+import { ExpenseReferenceTypeEnum } from "../../../expense/enums";
+import { TaskReferenceTypeEnum } from "../../../task/enums/enum";
+import { PostReferenceType } from "../../../feed/utils/constants";
+import { DocumentReferenceTypeEnum } from "../../../documents/view/enum";
+import WorkBoard from "../../../workboard";
+import { WorkBoardReferenceTypeEnum } from "../../../workboard/enum";
+import Documents from "../../../documents/view/documents";
+import ComposeEmail from "../../../leadmanager/view/Email/ComposeEmail";
+import GroupDefaultImage from "../../../../../content/NewContent/groups/GroupDefaultImage.svg";
+import CoverImage from "../../../departments/view/CoverImage";
+import GroupsInfo from "../UI/GroupsInfo";
+import {  addMember} from "../../store/slice";
+import {getAllGroupMemberAction} from "../../store/actions";
+import MemberModal from "../Modal/MemberModal";
+
 
 function GroupDetails() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -42,14 +46,21 @@ function GroupDetails() {
   const { groupDetail, updateTextBtn, editGroup } = groupsDictionary;
   const params = useParams();
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
+
   const detail = useSelector((state) => state.groupSlice.groupDetail);
   const [features, setFeatures] = useState([]);
   const [open, setOpen] = useState(false);
   const { groupId: id } = params;
   useEffect(() => {
     dispatch(getGroupById(id));
+    dispatch(getAllGroupMemberAction(id));
   }, [id]);
-
+  const memberHandler = () => {
+    setVisible(true);
+    // const userTypes = memberType === 1 ? Members.user : Members.admin;
+    dispatch(addMember({ status: true }));
+  };
   useEffect(() => {
     return () => {
       dispatch(resetGroupDetail());
@@ -66,7 +77,7 @@ function GroupDetails() {
     setFeatures(temp);
   }, [detail]);
 
-  const defaultRoute = ROUTES.GROUP.DEFAULT + '/' + id;
+  const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;
   const featuresComp = {
     1: (
       <NewsFeed
@@ -75,7 +86,7 @@ function GroupDetails() {
         backButton={false}
         isScheduler={false}
         isCheckedIn={false}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
       />
     ),
@@ -83,8 +94,8 @@ function GroupDetails() {
       <Task
         referenceType={TaskReferenceTypeEnum.Group}
         referenceId={id}
-        feature={'3'}
-        width={'!w-full'}
+        feature={"3"}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
       />
@@ -93,7 +104,7 @@ function GroupDetails() {
       <WorkBoard
         referenceType={WorkBoardReferenceTypeEnum.Group}
         referenceId={id}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
       />
@@ -102,7 +113,7 @@ function GroupDetails() {
       <Expenses
         referenceType={ExpenseReferenceTypeEnum.Group}
         referenceId={id}
-        width={'!w-full'}
+        width={"!w-full"}
         feature={3}
         routeLink={defaultRoute}
         backButton={false}
@@ -113,7 +124,7 @@ function GroupDetails() {
       <Documents
         referenceType={DocumentReferenceTypeEnum.Group}
         referenceId={id}
-        width={'!w-full'}
+        width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
       />
@@ -180,13 +191,17 @@ function GroupDetails() {
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <WhiteCard>
                 <MemberCollapse
-                  isEmail={true}
-                  onEmailClick={() => {
-                    dispatch(handleComposeEmail(true));
-                  }}
+                  // isEmail={true}
+                  // onEmailClick={() => {
+                  //   dispatch(handleComposeEmail(true));
+                  // }}
                   data={detail?.members}
                   isMember={true}
+                  handleAdd={(e) => memberHandler(e)}
                 />
+              </WhiteCard>
+              <WhiteCard>
+                <GroupsInfo />
               </WhiteCard>
             </div>
           </div>
@@ -194,10 +209,10 @@ function GroupDetails() {
       </TabContainer>
       <Drawer
         open={open}
-        width={'786px'}
+        width={"786px"}
         onClose={handleEditComposer}
         title={updateTextBtn}
-        className={'shared_drawer drawerSecondary'}
+        className={"shared_drawer drawerSecondary"}
         destroyOnClose={true}
       >
         <Composer
@@ -207,7 +222,9 @@ function GroupDetails() {
           id={id}
         />
       </Drawer>
-      <ComposeEmail />
+      {visible && <MemberModal />}
+
+      {/* <ComposeEmail /> */}
     </>
   );
 }

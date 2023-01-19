@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../../layout/header";
+import Header from "../../../layout/header";
 import {
 	ContBody,
 	TabbableContainer,
-} from "../../sharedComponents/AppComponents/MainFlexContainer";
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import CreateRoomComponent from "./components/createRoom/CreateRoom";
 
 function CreateRoom() {

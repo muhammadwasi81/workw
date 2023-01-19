@@ -107,10 +107,10 @@ function AvatarGroup(props) {
               </div>
               <div className="contentBox">
                 <p style={{ color: "#222222" }}>
-                  {members.approver && members.approver.name}
+                  {members.member && members.member.name}
                 </p>
                 <p style={{ color: "rgb(117, 125, 134)" }}>
-                  {members.approver && members.approver.email}
+                  {members.member && members.member.email}
                 </p>
               </div>
             </div>

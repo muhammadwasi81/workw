@@ -1,4 +1,4 @@
-import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addLeadManager,
   addLeadManagerAssignTo,
@@ -35,7 +35,7 @@ const initialState = {
   error: false,
   loading: false,
   leadManagersData: [],
-  memberData:[],
+  memberData: [],
   leadManagerDetail: null,
   leadManagerSectionDetailData: null,
   isSectionDetailLoading: false,

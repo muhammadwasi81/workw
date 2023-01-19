@@ -57,11 +57,12 @@ const Composer = (props) => {
   const [attachments, setAttachments] = useState([]);
 
   const [value, setValue] = useState([]);
-
   const { leaveTypes, success } = useSelector((state) => state.leaveTypeSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { UserLeave, createLoader } = useSelector((state) => state.leaveSlice);
-  console.log(props.id, "userIddd");
+
+  console.log("UserLeaveUserLeave",leaveTypes);
+  console.log(props, "userIddd");
   const selectedDataApprovers = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -229,7 +230,8 @@ const Composer = (props) => {
           ]}
         >
           <Select
-            data={UserLeave}
+            //defaultValue={props.id}
+            data={leaveTypes}
             placeholder={leaveDictionary.selectType}
             style={{
               width: "100%",

@@ -298,7 +298,7 @@ const Composer = () => {
           htmlType="submit"
           loading={createLoader}
         >
-          {loanDictionaryList.create}
+          {loanDictionaryList.createLoan}
         </Button>
       </Form.Item>
     </Form>

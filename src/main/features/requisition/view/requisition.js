@@ -22,6 +22,7 @@ import { Table } from '../../../sharedComponents/customTable';
 import { tableColumn } from './TableColumn';
 import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import { ROUTES } from "../../../../utils/routes";
 
 const Requisition = () => {
   const dispatch = useDispatch();
@@ -57,8 +58,8 @@ const Requisition = () => {
   const headerItem = [
     {
       name: requisitionDictionary.Requisitions,
-      // to: `${ROUTES.REQUISITION.DEFAULT}`,
       renderButton: [1],
+      to: `${ROUTES.REQUISITIONS.ROOT}`,
     },
   ];
   const onRow = (record, rowIndex) => {

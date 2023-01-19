@@ -63,8 +63,6 @@ const trelloSlice = createSlice({
   reducers: {
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
-      state.memberModal = payload;
-      console.log(payload, "add memberrr");
     },
     addList(state, { payload }) {
       // console.log("add card");
@@ -105,13 +103,9 @@ const trelloSlice = createSlice({
           isCardCompleted,
         },
       };
-      // console.log("current", current(state));
     },
     changeBackgroundColor(state, { payload }) {
-      console.log("bg color", state, payload);
-      // const index = state.lists.findIndex(payload.list.id);
       const foundIndex = state.lists.findIndex((x) => x.id === payload.list.id);
-      console.log("index", state.lists[foundIndex]);
       let tempList = state.lists;
       tempList.splice(foundIndex, 1, {
         ...state.lists[foundIndex],
@@ -260,7 +254,6 @@ const trelloSlice = createSlice({
       }
     },
     openDateModal(state, { payload }) {
-      // console.log("payload", payload);
       const { isDateModalOpen, todoId, sectionId } = payload;
       if (todoId && sectionId) {
         const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
@@ -290,9 +283,6 @@ const trelloSlice = createSlice({
     },
     updateSectionTodoDesc(state, { payload }) {
       const { todoId, sectionId, description } = payload;
-
-      // console.log("description", description);
-
       const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
         (section) => section.id === sectionId
       );
@@ -381,7 +371,6 @@ const trelloSlice = createSlice({
       })
       .addCase(getWorkBoardTodoById.fulfilled, (state, { payload }) => {
         state.loader = false;
-        console.log("payload or data", payload.data);
         state.todoDetail = payload.data;
       })
       .addCase(updateWorkBoardTodoDesc.fulfilled, (state, { payload }) => {
@@ -470,7 +459,6 @@ const trelloSlice = createSlice({
         ].todos.filter((todo) => todo.id !== id);
       })
       .addCase(addWorkBoardTodoLabel.fulfilled, (state, { payload }) => {
-        console.log("payload data after success", payload);
         const { data, sectionId } = payload;
         const { workBoardTodoId: todoId } = data;
         const workBoardSectionIndex = state.workboardDetail.sections.findIndex(

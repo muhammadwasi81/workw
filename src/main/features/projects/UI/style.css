@@ -87,7 +87,7 @@
 .summaryWrapper {
   border: 1px solid #d9d9d9;
   border-radius: 20px;
-  height: 15vh;
+  height: 12vh;
   padding: 5px;
   margin-bottom: 10px;
 }
@@ -95,13 +95,14 @@
 .tagsWrapper {
   border: 1px solid #d9d9d9;
   border-radius: 20px;
-  height: 32vh;
+  height: 25vh;
   padding: 5px;
   margin-bottom: 10px;
 }
 .modalWrapper .ant-modal-content {
   border-radius: 20px !important;
 }
+
 @media (max-width: 768px) {
   .coverImgWrapper {
     height: 200px;

@@ -63,8 +63,9 @@ const Promotion = (props) => {
   const items = [
     {
       name: promotionDictionary.promotion,
-      to: `${ROUTES.PROMOTION}`,
       renderButton: [1],
+      to: `${ROUTES.PROMOTION.ROOT}`,
+      
     },
   ];
 

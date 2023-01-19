@@ -10,6 +10,7 @@ import { addMember } from "../store/slice";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import { getWorkBoardMemberAction, addWorkBoardMember } from "../store/action";
+import { NoDataFound } from "./index";
 
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ function MemberModal({ isOpen = false }) {
       memberId: memberId,
       memberType: type,
     };
+    console.log(type, "memberType");
     dispatch(addWorkBoardMember(data));
     dispatch(getWorkBoardMemberAction(userId));
   };
@@ -110,7 +112,11 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      <ApproverListItem className="AddMemberModal" data={workBoardMembers} />
+      {workBoardMembers?.length > 0 ? (
+        <ApproverListItem className="AddMemberModal" data={workBoardMembers} />
+      ) : (
+        <NoDataFound />
+      )}
     </Modal>
   );
 }

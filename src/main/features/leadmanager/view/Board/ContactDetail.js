@@ -1,27 +1,25 @@
-import { Button, Form, Input, Select, Tag } from "antd";
-import React, { useEffect, useState, useContext } from "react";
-import { useDispatch } from "react-redux";
-import { jsonToFormData } from "../../../../../utils/base";
-import { DEFAULT_GUID } from "../../../../../utils/constants";
-import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
-import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
+import { useEffect, useState, useContext } from 'react';
+import { Button, Form, Input, Select, Tag } from 'antd';
+import { useDispatch } from 'react-redux';
+import { jsonToFormData } from '../../../../../utils/base';
+import { DEFAULT_GUID } from '../../../../../utils/constants';
+import CommentWrapper from '../../../../sharedComponents/Comment/CommentWrapper';
+import SingleUpload from '../../../../sharedComponents/Upload/singleUpload';
 import {
   addLeadManagerContact,
   updateLeadManagerContact,
-} from "../../store/actions";
-import { LeadManagerDictionary } from "../../localization";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+} from '../../store/actions';
+import { LeadManagerDictionary } from '../../localization';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
 
 const { Option } = Select;
 function ContactDetail(props) {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
-    userLanguage
-  ];
-  const { detail, labels, placeHolder, status } = LeadManagerDictionaryList;
+  const { LeadManagerDictionaryList } = LeadManagerDictionary[userLanguage];
+  const { labels, placeHolder, status } = LeadManagerDictionaryList;
   const prefixSelector = (
     <Form.Item name="titleId" noStyle>
       <Select>
@@ -32,7 +30,7 @@ function ContactDetail(props) {
     </Form.Item>
   );
   useEffect(() => {
-    setImage("");
+    setImage('');
   }, []);
   const { isContactUpdated, contactDetail } = props;
   const onFinish = (value) => {
@@ -40,7 +38,7 @@ function ContactDetail(props) {
       // id: DEFAULT_GUID,
       id: !isContactUpdated
         ? DEFAULT_GUID
-        : typeof image === "string"
+        : typeof image === 'string'
         ? props.contactDetail.imageId
         : DEFAULT_GUID,
       file: image,
@@ -143,7 +141,7 @@ function ContactDetail(props) {
           rules={[
             {
               required: true,
-              message: "Please enter name!",
+              message: 'Please enter name!',
             },
           ]}
         >
@@ -153,7 +151,7 @@ function ContactDetail(props) {
           />
         </Form.Item>
         <div
-          style={{ gridArea: "1/3/span 2/ span 1" }}
+          style={{ gridArea: '1/3/span 2/ span 1' }}
           className="flex items-end"
         >
           <SingleUpload
@@ -168,7 +166,7 @@ function ContactDetail(props) {
             // uploadText={labels.uploadCvr}
             // multiple={false}
             url={image}
-            position={"justify-end item-end"}
+            position={'justify-end item-end'}
           />
         </div>
       </div>
@@ -176,28 +174,21 @@ function ContactDetail(props) {
         <Form.Item
           label={labels.phone}
           name="phoneNumber"
-          className=""
-          // rules={[
-          //   {
-          //     required: true,
-          //     message: "Please enter phone number!",
-          //   },
-          // ]}
+          rules={[
+            {
+              required: true,
+              message: 'Please enter phone number!',
+            },
+          ]}
         >
-          <Input placeholder={placeHolder.writePhoneNumber} />
+          <Input type="number" placeholder={placeHolder.writePhoneNumber} />
         </Form.Item>
         <Form.Item
           label={labels.email}
           name="email"
-          className=""
-          // rules={[
-          //   {
-          //     required: true,
-          //     message: "Please enter valid email!",
-          //   },
-          // ]}
+          rules={[{ required: true }, { type: 'email' }]}
         >
-          <Input placeholder={placeHolder.writeEmailAddress} type={"email"} />
+          <Input placeholder={placeHolder.writeEmailAddress} type={'email'} />
         </Form.Item>
         <Form.Item
           label={labels.officeAddress}
@@ -240,7 +231,6 @@ function ContactDetail(props) {
           loadSkeleton={true}
         />
       )}
-
       <Form.Item className="!mt-5">
         <Button
           type="primary"

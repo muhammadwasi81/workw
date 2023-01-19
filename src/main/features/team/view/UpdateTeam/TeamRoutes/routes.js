@@ -32,6 +32,7 @@ const TeamRoutes = () => {
           <Route path={"experience/:id"} element={<Experience />} />
           <Route path={"loan/:id"} element={<Loan />} />
           <Route path={"activity-log/:id"} element={<ActivityLog />} />
+
         </Routes>
       </div>
     </>

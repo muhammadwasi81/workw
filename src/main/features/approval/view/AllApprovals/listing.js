@@ -14,7 +14,6 @@ import { getAllApproval } from '../../store/action';
 export default function Listing({ handleApprovalDetail, handleTabChange }) {
 	const dispatch=useDispatch();
 	const handleRefresh = (e) => {
-		console.log('refresh');
 		e.preventDefault();
 		e.stopPropagation();
 		let isMyApproval = true;
@@ -45,7 +44,13 @@ export default function Listing({ handleApprovalDetail, handleTabChange }) {
 			featureId: 4
 		},
 		{
-			featureName:"Refresh",
+			featureName:<div><img
+			src={RefreshIcon}
+			width="20px"
+			alt="calender logo"
+			loading="lazy"
+			className="cursor-pointer m-auto"
+		  /></div>,
 			content:<div onClick={(e) => {handleRefresh(e)
 			  }}></div>,
 		  featureId:5,

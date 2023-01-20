@@ -6,27 +6,28 @@ import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSele
 import ApproverListItem from "../../../sharedComponents/AppComponents/Approvals/components/approverList";
 
 import { useParams } from "react-router-dom";
-import { addMember } from "../store/slice";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-// import { getWorkBoardMemberAction, addWorkBoardMember } from "../store/action";
-// import { NoDataFound } from "./index";
+import {addMember} from "../store/slice";
+import {getAllProjectMemberAction,addProjectMemberAction}from "../store/actions";
 
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
-  // const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
-  // const { workBoardMembers } = useSelector((state) => state.trelloSlice);
+  const { memberData } = useSelector((state) => state.projectSlice);
+
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
+  const modalRequest = useSelector(
+    (state) => state.projectSlice.addMemberModal
+  );
 
-  // let ModalOpen = modalRequest.status;
-  // let type = modalRequest.memberType;
+  let ModalOpen = modalRequest.status;
 
   useEffect(() => {
-    // ModalOpen && dispatch(getWorkBoardMemberAction(userId));
+    ModalOpen && dispatch(getAllProjectMemberAction(userId));
   }, []);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ function MemberModal({ isOpen = false }) {
   };
 
   const handleClose = () => {
-    // dispatch(addMember(false));
+    dispatch(addMember(false));
   };
 
   const handleChange = (id) => {
@@ -47,10 +48,10 @@ function MemberModal({ isOpen = false }) {
     const data = {
       id: userId,
       memberId: memberId,
-      //memberType: type,
+      // memberType: type,
     };
-    // dispatch(addWorkBoardMember(data));
-    // dispatch(getWorkBoardMemberAction(userId));
+    dispatch(addProjectMemberAction(data));
+    dispatch(getAllProjectMemberAction(userId));
   };
 
   useEffect(() => {
@@ -67,7 +68,7 @@ function MemberModal({ isOpen = false }) {
 
   return (
     <Modal
-      // open={ModalOpen}
+      open={ModalOpen}
       onOk={(e) => {}}
       onCancel={handleClose}
       footer={false}
@@ -111,7 +112,7 @@ function MemberModal({ isOpen = false }) {
         ]}
       />
       {[]?.length > 0 ? (
-        <ApproverListItem className="AddMemberModal" data={""} />
+        <ApproverListItem className="AddMemberModal" data={memberData} />
       ) : (
         ""
       )}

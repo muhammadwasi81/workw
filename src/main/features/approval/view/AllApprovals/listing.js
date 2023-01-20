@@ -7,10 +7,6 @@ import RefreshIcon from '../../../../../content/NewContent/leadManager/svg/refre
 import { useDispatch } from "react-redux";
 import { getAllApproval } from '../../store/action';
 
-
-
-
-
 export default function Listing({ handleApprovalDetail, handleTabChange }) {
 	const dispatch=useDispatch();
 	const handleRefresh = (e) => {

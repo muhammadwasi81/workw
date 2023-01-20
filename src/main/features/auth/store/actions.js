@@ -103,11 +103,8 @@ export const signup = createAsyncThunk(
 export const verification = createAsyncThunk(
 	"auth/signup/verification",
 	async (token, { rejectWithValue }) => {
-		console.log("THUNK", token);
-
 		try {
 			const response = await emailVerificationService(token);
-			console.log(response, "FROM THUNK");
 			return response.data;
 		} catch (e) {
 			return rejectWithValue(e.response.data);

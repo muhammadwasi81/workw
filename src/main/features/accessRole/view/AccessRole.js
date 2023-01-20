@@ -1,31 +1,31 @@
-import { useContext, useEffect, useState } from "react";
-import Card from "../../../sharedComponents/Card/AccessRoleCard";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import AccessRoleComposer from "./AccessRoleComposer";
-import { message, Skeleton, Form, Table } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useContext, useEffect, useState } from 'react';
+import Card from '../../../sharedComponents/Card/AccessRoleCard';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import AccessRoleComposer from './AccessRoleComposer';
+import { message, Skeleton, Form } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllBussinessFeatures,
   getAllUserTypes,
-} from "../../../../utils/Shared/store/actions";
-import "../style/accessrole.css";
+} from '../../../../utils/Shared/store/actions';
+import '../style/accessrole.css';
 import {
   addAccessRole,
   getAccessRoleById,
   getAllAccessRoles,
   updateAccessRoleById,
-} from "../store/action";
+} from '../store/action';
 // import CustomTable from "./CustomTable";
 // import { EditFilled } from "@ant-design/icons";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
-import { tableColumns } from "./tableColumns";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
+import { tableColumns } from './tableColumns';
+import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
 
 const initialFormData = {
-  name: "",
-  description: "",
+  name: '',
+  description: '',
   features: [],
 };
 
@@ -53,10 +53,12 @@ function AccessRole() {
     dispatch(getAllBussinessFeatures());
     dispatch(getAllAccessRoles());
     dispatch(getAllUserTypes());
-  }, [dispatch]);
+  }, []);
 
   const onSubmitData = (finalData) => {
+    console.log(finalData, 'onSubmit');
     if (isEdited) {
+      console.log(isEdited, 'isEdited');
       dispatch(updateAccessRoleById(finalData));
     } else {
       dispatch(addAccessRole(finalData));
@@ -65,10 +67,10 @@ function AccessRole() {
   useEffect(() => {
     if (success) {
       if (isEdited && id) {
-        message.success("Access Role Updated Successfuly...");
+        message.success('Access Role Updated Successfully');
         return;
       }
-      message.success("Access Role Added Successfuly...");
+      message.success('Access Role Added Successfully');
     }
   }, [success, id, isEdited]);
 
@@ -114,7 +116,7 @@ function AccessRole() {
   }, [singleAccessRole, formData]);
 
   const handleEdit = (data) => {
-    // console.log("data", data);
+    console.log('data', data);
     setId(data.id);
     form.resetFields();
     setIsDefault(data.isDefault);
@@ -147,7 +149,7 @@ function AccessRole() {
           <div className="w-full">
             <div
               className={`flex ${
-                Direction === "rtl" ? "justify-start" : "justify-end"
+                Direction === 'rtl' ? 'justify-start' : 'justify-end'
               }`}
             >
               <SideDrawer
@@ -200,7 +202,7 @@ function AccessRole() {
                     loading={loading}
                     round="true"
                     shape="circle"
-                    style={{ width: "100%", marginBottom: 2 }}
+                    style={{ width: '100%', marginBottom: 2 }}
                   />
                 ),
               }

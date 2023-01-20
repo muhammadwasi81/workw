@@ -6,8 +6,13 @@ import { verification } from "../../store/actions";
 import "../styles/style.css";
 // import { STRINGS } from "../../../../../utils/base";
 import { ROUTES } from "../../../../../utils/routes";
+import { useSelector } from "react-redux";
+import {
+	LoadingOutlined
+  } from '@ant-design/icons';
 
 const Verified = () => {
+	const { verificationSuccess, verificationLoader } = useSelector((state) => state.authSlice);
 	const id = useLocation();
 	const dispatch = useDispatch();
 	const stoken = id.search.split("=");
@@ -16,15 +21,16 @@ const Verified = () => {
 	useEffect(() => {
 		if (stoken[1]) {
 			dispatch(verification(stoken[1]));
-		} else {
-			alert("token not found");
 		}
 	}, [stoken[1]]);
 
 	return (
-		<div style={{ width: "100%" }} className="verificationScreen">
-			{stoken[1] ? (
-				<>
+		<>
+			{ verificationLoader ? 
+			<div className="loaderBody">
+				<LoadingOutlined className="verificationLoader"/>
+			</div> : verificationSuccess ? (
+				<div style={{ width: "100%" }} className="verificationScreen">
 					<Result
 						status="success"
 						title="Thank You!"
@@ -35,16 +41,16 @@ const Verified = () => {
 							</p>,
 						]}
 					/>
-				</>
+				</div>
 			) : (
-				<>
+				<div style={{ width: "100%" }} className="verificationScreen">
 					<Result
-						title="You don't have token"
-						subTitle="Try Again"
+						title="You don't have valid token"
+						subTitle="May be token already exist"
 					/>
-				</>
+				</div>
 			)}
-		</div>
+		</>
 	);
 };
 

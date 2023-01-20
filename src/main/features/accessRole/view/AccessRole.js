@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import Card from '../../../sharedComponents/Card/AccessRoleCard';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import AccessRoleComposer from './AccessRoleComposer';
-import { message, Skeleton, Form } from 'antd';
+import { Skeleton, Form } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllBussinessFeatures,
@@ -15,8 +15,6 @@ import {
   getAllAccessRoles,
   updateAccessRoleById,
 } from '../store/action';
-// import CustomTable from "./CustomTable";
-// import { EditFilled } from "@ant-design/icons";
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { dictionaryList } from '../../../../utils/localization/languages';
 import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
@@ -49,6 +47,7 @@ function AccessRole() {
     singleAccessRole,
   } = useSelector((state) => state.accessRolesSlice);
 
+  console.log(defaultData, 'defaultData');
   useEffect(() => {
     dispatch(getAllBussinessFeatures());
     dispatch(getAllAccessRoles());
@@ -56,40 +55,12 @@ function AccessRole() {
   }, []);
 
   const onSubmitData = (finalData) => {
-    console.log(finalData, 'onSubmit');
     if (isEdited) {
-      console.log(isEdited, 'isEdited');
       dispatch(updateAccessRoleById(finalData));
     } else {
       dispatch(addAccessRole(finalData));
     }
   };
-  useEffect(() => {
-    if (success) {
-      if (isEdited && id) {
-        message.success('Access Role Updated Successfully');
-        return;
-      }
-      message.success('Access Role Added Successfully');
-    }
-  }, [success, id, isEdited]);
-
-  // const onActionClick = (text, record) => {
-  // 	const id = record.id;
-  // 	// console.log("record", record);
-  // 	setIsDefault(record.isDefault);
-  // 	setFormData(prevData => ({
-  // 		...prevData,
-  // 		name: record.name,
-  // 		description: record.description,
-  // 	}));
-  // 	dispatch(getAccessRoleById(id));
-  // 	toggleDrawer();
-  // };
-
-  // const toggleDrawer = () => {
-  // 	setOpenDrawer(!openDrawer);
-  // };
 
   useEffect(() => {
     if (
@@ -116,30 +87,29 @@ function AccessRole() {
   }, [singleAccessRole, formData]);
 
   const handleEdit = (data) => {
-    console.log('data', data);
+    console.log('handleEdit', data);
     setId(data.id);
-    form.resetFields();
     setIsDefault(data.isDefault);
     setFormData((prevData) => ({
       ...prevData,
-      // id: data.id,
       name: data.name,
       roleTypeId: data.roleTypeId,
       description: data.description,
     }));
     dispatch(getAccessRoleById(data.id));
     setOpenDrawer(true);
+    form.resetFields();
     setIsEdited(true);
   };
-  useEffect(() => {
-    if (!openDrawer) {
-      setIsEdited(false);
-      setIsDefault(false);
-      setFormData(initialFormData);
-    }
-    // console.log("reset field");
 
-    form.resetFields();
+  useEffect(() => {
+    if (openDrawer && isEdited) {
+      form.setFieldsValue({
+        name: formData.name,
+        description: formData.description,
+        roleTypeId: formData.roleTypeId,
+      });
+    }
   }, [openDrawer, form]);
 
   return (
@@ -153,7 +123,11 @@ function AccessRole() {
               }`}
             >
               <SideDrawer
-                title={administration.accessRole.Drawer.CreateAccessRole}
+                title={
+                  isEdited
+                    ? administration.accessRole.Drawer.UpdateAccessRole
+                    : administration.accessRole.Drawer.CreateAccessRole
+                }
                 buttonText={administration.accessRole.Button.AddAccessRole}
                 success={success}
                 openDrawer={openDrawer}
@@ -179,13 +153,7 @@ function AccessRole() {
 
           <AdminTable
             bordered
-            columns={tableColumns(
-              handleEdit,
-              // id,
-              // accessRoles,
-              Direction,
-              sharedLabels
-            )}
+            columns={tableColumns(handleEdit, Direction, sharedLabels)}
             dataSource={accessRoles}
             pagination={false}
             direction={Direction}

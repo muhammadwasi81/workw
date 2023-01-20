@@ -1,4 +1,5 @@
-import { createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { message } from 'antd';
 import { responseCode } from '../../../../services/enums/responseCode';
 import {
   responseMessage,
@@ -18,7 +19,7 @@ export const addAccessRole = createAsyncThunk(
     const res = await addAccessRoleService(data);
     console.log(res, 'addAccessRoleAction');
     if (res.responseCode === responseCode.Success) {
-      res.message = 'Access Role added successfully!';
+      message.success('Access Role added successfully!');
       responseMessage({ dispatch, data: res });
       return res;
     } else {
@@ -41,14 +42,13 @@ export const getAllAccessRoles = createAsyncThunk(
         type: responseMessageType.ApiFailure,
       });
     }
-    // console.log("response after getting access role", res);
     return res;
   }
 );
 
 export const getAccessRoleById = createAsyncThunk(
   'getAccessRoleById',
-  async (data, { dispatch, getState }) => {
+  async (data, { dispatch }) => {
     const res = await getAccessRoleByIdService(data);
     if (!res.responseCode) {
       responseMessage({
@@ -56,22 +56,23 @@ export const getAccessRoleById = createAsyncThunk(
         type: responseMessageType.ApiFailure,
       });
     }
-    // console.log("response after getting access role", res);
     return res;
   }
 );
 
 export const updateAccessRoleById = createAsyncThunk(
   'updateAccessRoleById',
-  async (data, { dispatch, getState }) => {
+  async (data, { dispatch }) => {
     const res = await updateAccessRoleByIdService(data);
+    if (res.responseCode === responseCode.Success) {
+      message.success('Access Role updated successfully!');
+    }
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
         type: responseMessageType.ApiFailure,
       });
     }
-    // console.log("response after getting access role", res);
     return res;
   }
 );

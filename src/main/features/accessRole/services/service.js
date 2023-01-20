@@ -25,7 +25,7 @@ export const getAllAccessRolesService = () => {
 };
 
 export const getAccessRoleByIdService = (data) => {
-  return MasterConfig.get(`${API_PREFIX}GetAccessRoleById?accessRoleId=${data}`)
+  return MasterConfig.get(`/api/AccessRole/GetAccessRole?id=${data}`)
     .then((res) => {
       return res.data;
     })
@@ -37,6 +37,7 @@ export const getAccessRoleByIdService = (data) => {
 export const updateAccessRoleByIdService = (data) => {
   return MasterConfig.put(`${API_PREFIX}UpdateAccessRole`, data)
     .then((res) => {
+      console.log(`Updated access role: ${res.data}`);
       return res.data;
     })
     .catch((error) => {

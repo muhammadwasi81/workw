@@ -48,7 +48,6 @@ function AccessRoleComposer(props) {
     setLoadingTreeData(true);
 
     if (bussinessFeatures && bussinessFeatures.length > 0) {
-      console.log('bussinessFeatures', bussinessFeatures);
       let expandedKeysArray = [];
       bussinessFeatures &&
         bussinessFeatures.length > 0 &&
@@ -90,7 +89,6 @@ function AccessRoleComposer(props) {
       }
       let newFeatures = [...featuresTreeData];
       newFeatures[0].children = transformObject;
-      console.log('newfeatures', newFeatures);
       setFeaturesTreeData(newFeatures);
       setLoadingTreeData(false);
     }
@@ -111,7 +109,6 @@ function AccessRoleComposer(props) {
       let checkedData = [];
       for (let i = 0; i < singleAccessRole.features.length; i++) {
         if (singleAccessRole.features[i].permissions.length > 0) {
-          console.log(singleAccessRole.features[i].permissions, 'ddfdfd');
           singleAccessRole.features[i].permissions.map((role) => {
             checkedData.push(
               JSON.stringify(role) + '_' + singleAccessRole.features[i].id
@@ -126,7 +123,6 @@ function AccessRoleComposer(props) {
           singleAccessRoleObj.name = singleAccessRole.features[i].name;
           singleAccessRoleObj.id = singleAccessRole.features[i].id;
           checkedData.push(JSON.stringify(singleAccessRoleObj));
-          console.log(JSON.stringify(checkedData), 'checkedData');
         }
       }
       setCheckedKeys((prevCheckedKeys) => [...prevCheckedKeys, ...checkedData]);
@@ -164,7 +160,6 @@ function AccessRoleComposer(props) {
     for (let i = 0; i < checkedKeys.length; i++) {
       let id = checkedKeys[i].split('_')[1];
       let data = checkedKeys[i].split('_')[0];
-      console.log(data, 'data');
       if (id) {
         if (
           finalData.features.length > 0 &&
@@ -209,15 +204,12 @@ function AccessRoleComposer(props) {
     if (props.isEdited) {
       finalData.id = props.id;
     }
-    // console.log("final data", finalData);
     props.onSubmitData(finalData);
   };
 
   useEffect(() => {
     if (props.isEdited) {
       const finalData = handleTreeForm(formDataObject);
-      console.log('final data', finalData);
-      console.log('form obj', props.defaultData);
       finalData &&
         finalData.features &&
         finalData.features.sort((a, b) => {
@@ -227,10 +219,8 @@ function AccessRoleComposer(props) {
       if (
         JSON.stringify(finalData).includes(JSON.stringify(props.defaultData))
       ) {
-        // console.log("equal");
         setIsObjEqual(true);
       } else {
-        // console.log("notequal");
         setIsObjEqual(false);
       }
     }
@@ -362,7 +352,6 @@ function AccessRoleComposer(props) {
             block
             htmlType="submit"
             loading={createLoader}
-            //loading={createLoader}
             disabled={props.isDefault || (props.isEdited && isObjEqual)}
           >
             {props.isEdited

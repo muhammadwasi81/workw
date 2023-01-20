@@ -681,7 +681,7 @@ const Composer = (props) => {
             title={resignationDictionary.create}
           >
             {" "}
-            {resignationDictionary.create}
+            {resignationDictionary.createResignation}
           </Button>
         </Form.Item>
       </Form>

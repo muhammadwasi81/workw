@@ -10,6 +10,8 @@ import {
   getAllWarningService,
   getAllLeaveService,
   getAllCheckInService,
+  getAllCoursesService,
+  getAllAppraisalService,
 } from "../services/service";
 
 export const getTeamsAction = createAsyncThunk(
@@ -58,6 +60,52 @@ export const getRewardsAction = createAsyncThunk(
   }
 );
 
+export const getAppraisalsAction = createAsyncThunk(
+  "teamSlice/getAppraisalsAction",
+  async (id, { rejectWithValue, dispatch }) => {
+    const response = await getAllAppraisalService(id);
+    console.log(id, "appraisals action");
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            // message: "Team added Successfully!",
+            type: "success",
+            //   duration: 2
+          })
+        );
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+
+export const getCourseAction = createAsyncThunk(
+  "teamSlice/getCourseAction",
+  async (id, { rejectWithValue, dispatch }) => {
+    const response = await getAllCoursesService(id);
+    console.log(id, "Course action");
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            // message: "Team added Successfully!",
+            type: "success",
+            //   duration: 2
+          })
+        );
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
 export const getAllLoanAction = createAsyncThunk(
   "teamSlice/ getAllLoanAction",
   async (id, { rejectWithValue, dispatch }) => {

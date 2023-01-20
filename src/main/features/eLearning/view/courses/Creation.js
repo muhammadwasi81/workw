@@ -21,7 +21,7 @@ import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 import { addSection, addTopic } from "../../store/slice";
 import { Table } from "../../../../sharedComponents/customTable";
 import { tableColumn } from "./topicColumn";
-import { addCourse } from "../../store/action";
+import { addCourse, getAllQuiz } from "../../store/action";
 import CurriculumCollapse from "./curriculumCollapse";
 import { useNavigate } from "react-router-dom";
 import { getELearningCategory } from "../../../eLearningCategory/store/action";
@@ -38,6 +38,7 @@ function CreateCourse() {
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
   const [singleImage, setSingleImage] = useState(null);
+  const [quizId, setQuizId] = useState(null)
   const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
   const [curriculums, setCurriculums] = useState([])
   const [curriculumName, setCurriculumName] = useState("")
@@ -48,7 +49,7 @@ function CreateCourse() {
   const [value, setValue] = useState([]);
 
   const {ELearningCategory } = useSelector((state) => state.eLearningCategorySlice);
-  const { topics, sections, loaders, addCourseSuccess } = useSelector((state) => state.eLearningSlice);
+  const { topics, sections, loaders, addCourseSuccess, quizzes } = useSelector((state) => state.eLearningSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
   let loader = loaders.addCourseLoading
 
@@ -85,6 +86,7 @@ function CreateCourse() {
 
   useEffect(() => {
     dispatch(getELearningCategory());
+    dispatch(getAllQuiz({ pageNo: 1, pageSize: 20, search: "", sortBy: 1 }))
   }, []);
 
   const onPrivacyChange = value => {
@@ -138,7 +140,6 @@ function CreateCourse() {
       curriculums: sections,
     }
 
-
     if (Object.keys(image).length > 0) {
       dispatch(addCourse(payloadOne))
     } else {
@@ -171,10 +172,10 @@ function CreateCourse() {
     if (!form.getFieldValue().curriculumName || !form.getFieldValue().topicName) {
       message.error("All fields required")
     } else {
-      setTopic({...topic, attachments: imageUpload})
+      setTopic({...topic, attachments: imageUpload, quizId: quizId})
       dispatch(addTopic(topic))
       form.setFieldsValue({topicName: "", type: "", text: "",})
-      setSingleImage([])
+      // setSingleImage([])
     }
   }
 
@@ -187,6 +188,7 @@ function CreateCourse() {
     if (addCourseSuccess) {
       form.resetFields();
       setProfileImage([])
+      setSingleImage([])
     }
   }, [addCourseSuccess]);
 
@@ -467,30 +469,47 @@ function CreateCourse() {
         </div>
         <div className="innerColumn">
           {
+            fileType === TypeEnum.QUIZ ? 
+            <Form.Item
+                    label={"Select Quiz"}
+                    name="quizId"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please Select Quiz",
+                      },
+                    ]}
+                  >
+                  <MySelect
+                    data={quizzes}
+                    placeholder={"Select Quiz"}
+                    style={{
+                      width: "100%",
+                      borderRadius: "5px",
+                    }}
+                    onChange={(e) => setQuizId(e)}
+                    size="large"
+                  />
+              </Form.Item>
+            :
             fileType === TypeEnum.TEXT || fileType === TypeEnum.LINK || fileType === TypeEnum.YOUTUBE || fileType === TypeEnum.ARTICLES || fileType === TypeEnum.EXTERNAL_COURSE ?
              <Form.Item
-              label={fileType === TypeEnum.TEXT ? "text" : "link"}
-              labelPosition="top"
-              name="text"
-              onChange={(e) => setTopic({...topic, link: e.target.value })}
-            >
-          <TextInput placeholder={fileType === TypeEnum.TEXT ? "Enter Text" : "Enter Link"} /></Form.Item> :
+                label={fileType === TypeEnum.TEXT ? "text" : "link"}
+                labelPosition="top"
+                name="text"
+                onChange={(e) => setTopic({...topic, link: e.target.value })}
+              >
+              <TextInput placeholder={fileType === TypeEnum.TEXT ? "Enter Text" : "Enter Link"} />
+            </Form.Item> :
           fileType === TypeEnum.IMAGE || TypeEnum.PDF || TypeEnum.VIDEO ? 
-            // <SingleUpload
-            //   handleImageUpload={handleSingleImage}
-            //   img="Add Image"
-            //   position="flex-start"
-            //   uploadText={"Upload"}
-            // />
             <FileUploader
                   fileList={singleImage ? singleImage : []}
                   uploadButton={<div>Upload</div>}
                   isMultiple={false}
                   handleUpload={(data) => {setSingleImage(data[0])}} 
                   classes=""
-                  />
-           : 
-          "" 
+                  />      
+            : ""
           }
         </div>
         <div className="topicTable">

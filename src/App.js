@@ -113,11 +113,11 @@ const App = () => {
                 element={<OrganizationalSignup isLoggedIn={isLoggedIn} />}
               />
               <Route
-                path={ROUTES.AUTH.VERIFICATION_SUCCESS}
+                path={'signupVerification/verify'}
                 element={<Verified />}
               />
               <Route
-                path={`${ROUTES.AUTH.VERIFICATION_INPROCESS}/:id?`}
+                path={'/verification'}
                 element={<Verifying />}
               />
               <Route

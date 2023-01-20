@@ -10,7 +10,6 @@ import {
 import MemberModal from "../view/Modal/MemberModal";
 
 const ContentOptions = ({ handleClose, data }) => {
-  console.log(data, "data");
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
 

@@ -15,7 +15,7 @@ const en = {
     labels: {
       update: "Update Board",
       create: "Create Board",
-      name: "Board Name",
+      name: "Name",
       description: "Board Description",
       members: "Members",
       public: "Public",

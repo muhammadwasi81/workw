@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
+import React from "react";
+import { LaptopOutlined } from "@ant-design/icons";
 import { Button, Col, Modal, Row } from 'antd';
-import { LaptopOutlined } from '@ant-design/icons';
 import Chart from './chart/DouhgnatChart';
 import ProjectSummaryTable from './table';
 import {
@@ -24,14 +25,15 @@ const ProjectSummary = () => {
       <div className="modalWrapper">
         <Modal
           open={open}
+          centered
           onOk={() => setOpen(false)}
           onCancel={() => setOpen(false)}
           width={1300}
           className="modalStyle"
           bodyStyle={{
-            height: 'calc(100vh - 120px)',
-            overflow: 'auto',
-            minHeight: '500px',
+            height: "calc(100vh - 120px)",
+            overflow: "auto",
+            minHeight: "200px",
           }}
           footer={null}
         >

@@ -1,12 +1,18 @@
 .menuIcon img {
-    height: 17px;
-    padding-right: 3px;
+  height: 17px;
+  padding-right: 3px;
 }
 
 .menuIcon {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .docsPopover .ant-popover-inner-content {
-    padding: 5px;
+  padding: 5px;
+}
+
+.ApproverModal .ant-modal-body {
+  height: 350px;
+  max-height: 431px;
+  overflow: scroll;
 }

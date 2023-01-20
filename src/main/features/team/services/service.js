@@ -38,6 +38,39 @@ export const getAllRewardService = async (id) => {
   }
 };
 
+export const getAllCoursesService = async (id) => {
+  console.log(id, "REQUEST");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(`api/ELearning/GetELearningCourseCurriculumTopicAttemptByMe?userId=${id}`);
+    console.log(responseCode, "response code");
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+export const getAllAppraisalService = async (id) => {
+  console.log(id, "Appraisal");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(`api/Appraisal/GetAppraisalByMe?userId=${id}`);
+    console.log(responseCode, "response code");
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
+
+
+
 export const getAllLoanService = async (id) => {
   // console.log(request, "REQUEST");
   try {
@@ -89,7 +122,7 @@ export const getAllLeaveService = async (id) => {
     console.log(id, "REQUEST Leave RESPONSE");
     const {
       data: { responseCode, data, message },
-    } = await Config.get(`api/Leave/GetLeaveUserById?userId=${id}`);
+    } = await Config.get(`api/UserLeave/GetAllUserLeave?userId=${id}`);
     console.log(data, "REQUEST Leave RESPONSE");
 
     if (responseCode === responseCodeEnum.Success)

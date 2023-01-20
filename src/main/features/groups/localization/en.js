@@ -2,7 +2,7 @@ const en = {
   groupsDictionary: {
     createTextBtn: "Create Group",
     updateTextBtn: "Update Group",
-    editGroup: "Edit Groups",
+    editGroup: "Edit Group",
 
     topBar: {
       search: "Search",

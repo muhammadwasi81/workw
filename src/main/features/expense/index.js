@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { STRINGS } from "../../../utils/base";
+//import { ROUTES } from "../../../../utils/routes";
+import { ROUTES } from "../../../utils/routes";
 import { dictionaryList } from "../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import Header from "../../layout/header";
@@ -52,7 +54,9 @@ function Expenses({
 	const items = [
 		{
 			name: appHeader.expense.expenses,
-			to: routeLink ? routeLink : `${STRINGS.ROUTES.EXPENSE.DEFAULT}`,
+			//to: routeLink ? routeLink : `${STRINGS.ROUTES.EXPENSE.DEFAULT}`,
+			to: `${ROUTES.EXPENSES.ROOT}?f=my`,
+
 
 			// : `${STRINGS.ROUTES.EXPENSE.DEFAULT}?f=my`,
 			renderButton: [1],
@@ -99,7 +103,7 @@ function Expenses({
 					},
 				]}
 				width={width}
-				backButton={backButton}
+				backButton={false}
 			/>
 			<TopBar
 				width={width}

@@ -49,6 +49,7 @@ import {
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import { targetTitleVal } from "../store/slice";
 import StickyColor from "../UI/StickyColor";
+import Schedules from "../../schedule/index";
 
 function ProjectDetails() {
   const params = useParams();
@@ -164,7 +165,7 @@ function ProjectDetails() {
         feature={3}
       />
     ),
-    10: <>Schedule</>,
+    10: <Schedules referenceId={projectId.trim()} />,
     11: (
       <Travel
         referenceType={TravelReferenceTypeEnum.Project}

@@ -14,7 +14,7 @@ const MessengerHead = ({
 }) => {
   const dispatch = useDispatch();
   const { profileName, profileImage, chatId, chatType } = messengerDetail;
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   return (
     <div className={'MessengerHead ' + (isOpenProfile ? 'blur-bg' : '')}>
       <div className="MessengerHeadAvatar MessengerHeadAvatar-Mob">
@@ -39,7 +39,10 @@ const MessengerHead = ({
       </div>
       <div className="MessengerHeadIcon">
         <div>
-          <img src={phoneIcon} alt="phoneIcon" className="cursor-pointer" />
+          <img src={phoneIcon}
+            onClick={handldeCall}
+            alt="phoneIcon"
+            className="cursor-pointer" />
           <img
             src={videoIcon}
             className="videoIcon cursor-pointer"

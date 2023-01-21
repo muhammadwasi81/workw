@@ -3,6 +3,7 @@ import LayoutHeader from "../../../../layout/header";
 import CreateLearningDropdown from "../../components/createLearningDropdown";
 import { elearningDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { ROUTES } from "../../../../../utils/routes";
 
 function Header({ dictionary, direction }) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -12,17 +13,17 @@ function Header({ dictionary, direction }) {
   const items = [
     {
       name: elearningDictionary.dashboard,
-      to: `/eLearning`,
+      to: `${ROUTES.ELearning.LINK}`,
       renderButton: [1],
     },
     {
       name: elearningDictionary.teamDashboard,
-      to: `/eLearning/teamDashboard`,
+      to: `${ROUTES.ELearning.TEAM_DASHBOARD}`,
       renderButton: [1],
     },
     {
       name: elearningDictionary.summary,
-      to: `/eLearning/summary`,
+      to: `${ROUTES.ELearning.TEAM_SUMMARY}`,
       renderButton: [1],
     },
   ];

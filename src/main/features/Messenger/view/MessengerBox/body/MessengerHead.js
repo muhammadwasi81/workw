@@ -6,6 +6,7 @@ import infoIcon from '../../../../../../content/NewContent/Messenger/infoIcon.sv
 import arrowIcon from '../../../../../../content/NewContent/Messenger/leftArrow.svg';
 import { useDispatch } from 'react-redux';
 import { handleIsopenChat } from '../../../store/messengerSlice';
+import { createRoom } from '../../../../calling/store/action';
 
 const MessengerHead = ({
   handleProfileClick,
@@ -13,8 +14,22 @@ const MessengerHead = ({
   messengerDetail,
 }) => {
   const dispatch = useDispatch();
-  const { profileName, profileImage, chatId, chatType } = messengerDetail;
+  console.log(messengerDetail, "messengerDetailmessengerDetail");
+  const { profileName, profileImage, chatId, chatType, members } = messengerDetail;
   useEffect(() => { }, []);
+  const handleCall = () => {
+    let payload = {
+      roomPassword: "",
+      private: false,
+      members: members.map((member) => ({
+        admin: false,
+        exteral: false,
+        exteralEmail: null,
+        userId: member.id
+      }))
+    }
+    dispatch(createRoom(payload))
+  }
   return (
     <div className={'MessengerHead ' + (isOpenProfile ? 'blur-bg' : '')}>
       <div className="MessengerHeadAvatar MessengerHeadAvatar-Mob">
@@ -40,11 +55,12 @@ const MessengerHead = ({
       <div className="MessengerHeadIcon">
         <div>
           <img src={phoneIcon}
-            onClick={handldeCall}
+            onClick={handleCall}
             alt="phoneIcon"
             className="cursor-pointer" />
           <img
             src={videoIcon}
+            onClick={handleCall}
             className="videoIcon cursor-pointer"
             alt="videoIcon"
           />

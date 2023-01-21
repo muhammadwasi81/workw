@@ -12,7 +12,7 @@ const en = {
     labels: {
       taskDetail: "Task Detail",
       attachments: "Attachments",
-      taskSubject: "Task Subject",
+      taskSubject: "Subject",
       predecessor: "Predecessor",
       type: "Type",
       taskDate: "Task Date",

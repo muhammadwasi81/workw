@@ -54,7 +54,7 @@ const Warning = (props) => {
   const items = [
     {
       name:warningDictionary.warning,
-      to: `${ROUTES.WARNINGS.DEFAULT}`,
+      to: `${ROUTES.WARNINGS.ROOT}`,
       renderButton: [1],
     },
   ];

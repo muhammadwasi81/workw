@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { ROUTES } from "../../../utils/routes";
 import DocumentComposers from "./composer";
 import CreateArticle from "./view/Articles/Creation";
 import CreateCourse from "./view/courses/Creation";
@@ -23,8 +24,8 @@ function ELearning() {
 		<>
 			<Routes>
 				<Route path="/" element={<MainDashboard />} />
-				<Route path="teamDashboard" element={<TeamDahsboard />} />
-				<Route path="summary" element={<Summary />} />
+				<Route path={ROUTES.ELearning.TEAM_DASHBOARD} element={<TeamDahsboard />} />
+				<Route path={ROUTES.ELearning.TEAM_SUMMARY} element={<Summary />} />
 				<Route path="courses/create" element={<CreateCourse />} />
 				<Route path="ebook/create" element={<CreateEbook />} />
 				<Route path="tedtalk/create" element={<CreateTedTalk />} />

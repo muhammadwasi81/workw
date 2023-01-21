@@ -68,7 +68,7 @@ const CustomApproval = (props) => {
     {
       name: customApprovalDictionary.customApproval,
       renderButton: [1],
-      to: `${ROUTES.CUSTOM_APPROVALS.DEFAULT}`,
+      to: `${ROUTES.CUSTOM_APPROVALS.ROOT}`,
     },
   ];
   return (

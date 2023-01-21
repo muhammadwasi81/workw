@@ -158,7 +158,7 @@ function BoardComposer({ isEdit, loading }) {
             size="large"
             loading={loading}
           >
-            {isEdit ? labels.Update : labels.Create}
+            {isEdit ? labels.Update : labels.create}
             {/* {labels.Board} */}
           </Button>
         </div>

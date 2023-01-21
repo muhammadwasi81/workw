@@ -322,7 +322,7 @@ const Composer = (props) => {
             title={bonusDictionary.create}
           >
             {" "}
-            {bonusDictionary.create}{" "}
+            {bonusDictionary.createBonus}{" "}
           </Button>
         </Form.Item>
       </Form>

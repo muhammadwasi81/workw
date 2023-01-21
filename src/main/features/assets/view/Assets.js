@@ -1,44 +1,43 @@
-import { useEffect, useState, useContext } from "react";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import { useDispatch, useSelector } from "react-redux";
-import Header from "../../../layout/header";
+import { useEffect, useState, useContext } from 'react';
+import TopBar from '../../../sharedComponents/topBar/topBar';
+import { useDispatch, useSelector } from 'react-redux';
+import Header from '../../../layout/header';
 import {
   ContBody,
   TabbableContainer,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Table } from "../../../sharedComponents/customTable";
-import { ROUTES } from "../../../../utils/routes";
-import { getAllAssetItems } from "../../createAssets/store/action";
-import AssetsList from "./assetsList";
-import { TableColumn } from "./tableColumn";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import AssetComposer from "./composer/assetAllocationComposer";
-import { Skeleton } from "antd";
-import AssetDeAllocationComposer from "./composer/deAllocationComposer";
+} from '../../../sharedComponents/AppComponents/MainFlexContainer';
+import { Table } from '../../../sharedComponents/customTable';
+import { ROUTES } from '../../../../utils/routes';
+import { getAllAssetItems } from '../../createAssets/store/action';
+import AssetsList from './assetsList';
+import { TableColumn } from './tableColumn';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import AssetComposer from './composer/assetAllocationComposer';
+import AssetDeAllocationComposer from './composer/deAllocationComposer';
 import {
   handleOpenDeAllocComposer,
   handleAllocOpenComposer,
-} from "../../createAssets/store/slice";
-import { assetsDictionaryList } from "../localization/index";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+} from '../../createAssets/store/slice';
+import { assetsDictionaryList } from '../localization/index';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 
 const Assets = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { assetsDictionary, Direction } = assetsDictionaryList[userLanguage];
+  const { assetsDictionary } = assetsDictionaryList[userLanguage];
   const dispatch = useDispatch();
 
   const { assetItemList, drawerDeAllocOpen, drawerAllocOpen } = useSelector(
     (state) => state.AssetItemSlice
   );
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
-  const [viewType, setViewType] = useState("List");
+  const [viewType, setViewType] = useState('List');
 
   const items = [
     {
       name: assetsDictionary.assetsAllocation,
-      to: `${ROUTES.ASSETS.DEFAULT}`,
+      to: `${ROUTES.ASSETS.ROOT}`,
       renderButton: [1, 2],
     },
   ];
@@ -60,7 +59,7 @@ const Assets = () => {
   const payloadData = {
     pageNo: 1,
     pageSize: 20,
-    search: "",
+    search: '',
   };
 
   useEffect(() => {
@@ -116,17 +115,11 @@ const Assets = () => {
           buttons={filterButtons}
           segment={{
             onSegment,
-            label1: "List",
-            label2: "Table",
+            label1: 'List',
+            label2: 'Table',
           }}
         />
-        {/* {loader ? (
-          <>
-            <Skeleton avatar paragraph={{ rows: 4 }} />
-          </>
-        ) : ( */}
         <ContBody>{render[viewType]}</ContBody>
-        {/* )} */}
       </TabbableContainer>
     </>
   );

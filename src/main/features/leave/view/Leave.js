@@ -55,7 +55,7 @@ const Leave = () => {
   const items = [
     {
       name: leaveDictionary.leave,
-      to: `${ROUTES.LEAVES.DEFAULT}`,
+      to: `${ROUTES.LEAVES.ROOT}`,
       renderButton: [1],
     },
   ];
@@ -65,6 +65,7 @@ const Leave = () => {
       <TabbableContainer className="">
         <Header
           items={items}
+          backButton={false}
           buttons={[
             {
               buttonText: leaveDictionary.createleave,
@@ -80,6 +81,7 @@ const Leave = () => {
               ),
             },
           ]}
+       
         />
         <TopBar
           onSearch={(value) => {

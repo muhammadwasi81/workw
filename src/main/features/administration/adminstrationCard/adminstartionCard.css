@@ -21,3 +21,7 @@
   font-weight: 600;
   color: var(--currentThemeColor);
 }
+.horizontalLogo {
+  display: inline-flex;
+  margin-left: 35px;
+}

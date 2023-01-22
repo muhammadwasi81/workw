@@ -43,7 +43,7 @@ export const listitem = [
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/leaves/${id}`,
   },
   {
-    displayName: "devices",
+    displayName: "Devices",
     classObj: "button",
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/devices/${id}`,
   },

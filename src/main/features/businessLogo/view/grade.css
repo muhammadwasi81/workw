@@ -11,3 +11,8 @@
   background: #1b5669;
   margin: 0px 4px;
 }
+
+.horizontalLogo {
+  display: inline-flex;
+  margin-left: 35px;
+}

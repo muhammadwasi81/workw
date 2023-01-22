@@ -436,6 +436,7 @@ const en = {
     Rebate: "Rebate",
     Salary: "Salary",
     Leaves: "Leaves",
+    Devices: "Devices",
     basicInfo: "Basic Info",
   },
   administration: {

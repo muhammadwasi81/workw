@@ -281,6 +281,7 @@ export const ROUTES = {
     BANK_DETAIL: "info/bankDetail/:id",
     BASIC_INFO: "info/basicInfo/:id",
     USER_LEAVES: "info/leaves/:id",
+    DEVICES: "info/devices/:id",
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,

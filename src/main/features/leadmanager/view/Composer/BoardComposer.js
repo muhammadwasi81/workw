@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Skeleton } from "antd";
 import WorkBoardMemberSelect from "./WorkBoardMemberSelect";
@@ -87,7 +88,76 @@ function BoardComposer({
 			dir={direction}
 			className={`${direction}`}
 		>
-			z
+			<div className="flex-col-reverse flex gap-2 sm:gap-10 sm:flex-row justify-center">
+				<Form.Item
+					label={labels.grpName}
+					name="name"
+					rules={[
+						{
+							required: true,
+							message: "Please input your board name!",
+						},
+					]}
+					className="w-full"
+				>
+					{dataLoading ? (
+						<Skeleton.Input active={true} block size={"large"} />
+					) : (
+						<Input
+							size="large"
+							placeholder={placeHolder.grpNamePH}
+						/>
+					)}
+				</Form.Item>
+				<Form.Item area="true" className="!m-0">
+					{dataLoading ? (
+						<Skeleton.Image active={true} />
+					) : (
+						<SingleUpload
+							handleImageUpload={fileData => {
+								// console.log("fileData", fileData);
+								if (fileData.length > 0) {
+									setImage(fileData[0].originFileObj);
+								} else {
+									setImage("");
+								}
+							}}
+							uploadText={labels.uploadCvr}
+							multiple={false}
+							url={image}
+							position={"justify-center"}
+						/>
+					)}
+				</Form.Item>
+			</div>
+			<Form.Item
+				label={labels.grpDescription}
+				name="description"
+				rules={[
+					{
+						required: true,
+						message: "Please input your board description!",
+					},
+				]}
+			>
+				{dataLoading ? (
+					<Skeleton.Input active={true} block size={"large"} />
+				) : (
+					<Input
+						size="large"
+						placeholder={placeHolder.grpNameDescPH}
+					/>
+				)}
+			</Form.Item>
+
+			{dataLoading ? (
+				<Skeleton.Input active={true} block size={"large"} />
+			) : (
+				<WorkBoardMemberSelect
+					placeholder={placeHolder.serachMembersPH}
+					label={labels.members}
+				/>
+			)}
 			<Form.Item>
 				<div className="flex items-center gap-2">
 					{dataLoading ? (

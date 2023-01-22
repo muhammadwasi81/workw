@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setUser } from "../../../../store/appReducer/userSlice";
-import { loginService, signupService } from "../services/service";
+import { loginService, setNewPasswordService, signupService } from "../services/service";
 import { emailVerificationService } from "../services/service";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { message } from "antd";
 import { STRINGS } from "../../../../utils/base";
 import { getDefaultDesignationService } from "../../../../utils/Shared/services/services";
 import { addDeviceService } from "../../calling/services/services";
+import { getFirebaseToken } from "../../../../firebase/initFirebase";
 
 const addFcmDeviceOnServer = async (data) => {
 	const payload = {
@@ -106,6 +107,36 @@ export const verification = createAsyncThunk(
 		try {
 			const response = await emailVerificationService(token);
 			return response.data;
+		} catch (e) {
+			return rejectWithValue(e.response.data);
+		}
+	}
+);
+
+export const setNewPassword = createAsyncThunk(
+	"auth/signup/SetNewPassword",
+	async (data, { rejectWithValue, dispatch }) => {
+		try {
+			const response = await setNewPasswordService(data);
+			if (response.data.responseCode === 1001) {
+				let permission = await Notification.requestPermission();
+				let deviceToken = null;
+				if (permission === 'granted') {
+				let firebaseToken = await getFirebaseToken();
+				// set send token api here...
+				deviceToken = firebaseToken;
+				console.log(firebaseToken, 'firebaseToken');
+				}
+				dispatch(loginUser({ 
+					...{
+						email: response.data.data,
+						password: data.password
+					}, 
+					deviceToken }));
+				return response.data;	
+			} else {
+				message.error(response.data.message)
+			}
 		} catch (e) {
 			return rejectWithValue(e.response.data);
 		}

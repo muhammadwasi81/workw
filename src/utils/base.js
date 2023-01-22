@@ -9,7 +9,7 @@ import { replaceURL } from '../main/features/feed/utils/ValidateCreatePost';
 // require("jquery.caret");
 
 let DOMAIN_PREFIX = '';
-// for live this will line will be comment 
+// for live this line will be comment 
 // DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '/konnect' : '';
 
 export const STRINGS = {

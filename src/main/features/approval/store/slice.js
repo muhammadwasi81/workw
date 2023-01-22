@@ -15,9 +15,9 @@ const approvalSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getAllApproval.fulfilled, (state, {payload}) => {
+    builder.addCase(getAllApproval.fulfilled, (state, action) => {
       state.loader = false;
-      state.approvalList = payload;
+      state.approvalList = action.payload ? action.payload : [];
     })
   },
 });

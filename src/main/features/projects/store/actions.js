@@ -11,6 +11,8 @@ import {
   saveProjectStickyNotesService,
   saveStickyNotesTitleService,
   getAllProjectStickyService,
+  getAllProjectMemberService,
+  addProjectMemberService
 } from "../services/service";
 import { message } from "antd";
 import {
@@ -215,3 +217,41 @@ export const getProjectStickyAction = createAsyncThunk(
     return res;
   }
 );
+
+
+export const getAllProjectMemberAction = createAsyncThunk(
+  "getMember",
+  async (id, { dispatch }) => {
+    const res = await   getAllProjectMemberService
+    (id);
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+      responseMessage({ dispatch, data: res });
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+    return res;
+  }
+);
+
+export const addProjectMemberAction = createAsyncThunk(
+  "addMember",
+  async (data, { dispatch }) => {
+    const res = await   addProjectMemberService
+    (data);
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+      responseMessage({ dispatch, data: res });
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+    return res;
+  }
+);
+

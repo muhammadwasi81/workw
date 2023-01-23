@@ -1,17 +1,16 @@
-import moment from "moment";
-import React, { useContext } from "react";
-import WhiteCard from "./WhiteCard";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { projectsDictionaryList } from "../localization";
+import { useContext } from 'react';
+import moment from 'moment';
+import WhiteCard from './WhiteCard';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { projectsDictionaryList } from '../localization';
 
 function Budget({ data }) {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { projectsDictionary, Direction } = projectsDictionaryList[
-    userLanguage
-  ];
-  const { updateTextBtn, labels } = projectsDictionary;
+  const { projectsDictionary } = projectsDictionaryList[userLanguage];
+  const { labels } = projectsDictionary;
+
   return (
-    <WhiteCard className={"text-base"}>
+    <WhiteCard className={'text-base'}>
       <div className="flex flex-col gap-2">
         <div className="text-base p-5 bg-neutral-100 flex justify-between rounded-lg">
           <span className="text-primary-color text-base font-semibold">
@@ -23,7 +22,7 @@ function Budget({ data }) {
           <div className="flex flex-col gap-3 text-center">
             <span className="text-green-500">{data?.balanceAmount}</span>
             <span className="text-gray-500 font-semibold">
-              {" "}
+              {' '}
               {labels.balance}
             </span>
           </div>
@@ -45,7 +44,7 @@ function Budget({ data }) {
                 {moment(data?.startDate).date()}
               </span>
               <span className="text-gray-500 font-semibold">
-                {moment(data?.startDate).format("MMM YYYY")}
+                {moment(data?.startDate).format('MMM YYYY')}
               </span>
             </div>
             <div className="border-r-2 border-gray-500" />
@@ -54,7 +53,7 @@ function Budget({ data }) {
                 {moment(data?.endDate).date()}
               </span>
               <span className="text-gray-500 font-semibold">
-                {moment(data?.endDate).format("MMM YYYY")}
+                {moment(data?.endDate).format('MMM YYYY')}
               </span>
             </div>
           </div>

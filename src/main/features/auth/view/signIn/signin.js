@@ -11,6 +11,7 @@ import { loginUser } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import FormFooter from "./formFooter";
 import { getFirebaseToken } from "../../../../../firebase/initFirebase";
+import "../styles/style.css"
 
 function SignIn() {
   let formData = {};

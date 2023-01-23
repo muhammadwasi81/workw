@@ -9,7 +9,8 @@ import { replaceURL } from '../main/features/feed/utils/ValidateCreatePost';
 // require("jquery.caret");
 
 let DOMAIN_PREFIX = '';
-DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '/konnect' : '';
+// for live this line will be comment 
+// DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '/konnect' : '';
 
 export const STRINGS = {
   COPY_RIGHTS: `\u00A9 Miletap Ltd - Copyrights \u00402017-${new Date().getFullYear()}`,

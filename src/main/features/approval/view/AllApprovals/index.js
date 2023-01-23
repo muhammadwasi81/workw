@@ -23,6 +23,13 @@ export default function AllApprovals() {
   const handleApprovalDetail = (item) => {
     setApprovalDetailData(item);
   };
+  const handleRefresh = (e) => {
+    console.log('refresh');
+    e.preventDefault();
+    e.stopPropagation();
+    let isMyApproval = true;
+    dispatch(getAllApproval({ isMyApproval, filter }));
+  };
   const handleTabChange = (tabIndex) => {
     tabIndex = Number(tabIndex);
     let status = ApprovalStatus.InProcess;
@@ -77,6 +84,7 @@ export default function AllApprovals() {
             <Listing
               handleApprovalDetail={handleApprovalDetail}
               handleTabChange={handleTabChange}
+              handleRefresh={handleRefresh} 
             />
           </div>
           <div className="flex-1">

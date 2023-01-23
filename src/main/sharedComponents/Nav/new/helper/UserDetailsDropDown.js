@@ -15,7 +15,7 @@ import {
 } from '../../../../../utils/Shared/enums/enums';
 import { ROUTES } from '../../../../../utils/routes';
 
-function UserDetailsDropDown({ id, isToggle }) {
+function UserDetailsDropDown({ id, isToggle, onClickClose }) {
   const getCurrentTheme = () => {
     return localStorage.getItem('theme');
   };
@@ -68,13 +68,19 @@ function UserDetailsDropDown({ id, isToggle }) {
     <div className={classes}>
       <ul className="list">
         <li className="list__item">
-          <NavLink to={`${ROUTES.USER.LINK}${id}`}>
+          <NavLink 
+            to={`${ROUTES.USER.LINK}${id}`}
+            onClick={onClickClose}
+          >
             <img src={userIcon} alt="userIcon" loading="lazy" />
             <p>{Profile}</p>
           </NavLink>
         </li>
         <li className="list__item">
-          <NavLink to={`${STRINGS.ROUTES.USER.SETTINGS}`}>
+          <NavLink 
+            to={`${STRINGS.ROUTES.USER.SETTINGS}`}
+            onClick={onClickClose}  
+          >
             <img src={userLogout} alt="userSettings" loading="lazy" />
             <p>{Settings}</p>
           </NavLink>
@@ -89,7 +95,11 @@ function UserDetailsDropDown({ id, isToggle }) {
       <ul className="list lang">
         <li
           className="list__item"
-          onClick={() => handleLanguageChange('en')}
+          onClick={() => {
+            handleLanguageChange('en');
+            onClickClose();
+          }
+        }
           style={{
             backgroundColor: userLanguage === 'en' && '#e5e5e5',
           }}
@@ -100,7 +110,11 @@ function UserDetailsDropDown({ id, isToggle }) {
 
         <li
           className="list__item"
-          onClick={() => handleLanguageChange('urdu')}
+          onClick={() => {
+            handleLanguageChange('urdu'); 
+            onClickClose();
+          }
+           }
           style={{
             backgroundColor: userLanguage === 'urdu' && '#e5e5e5',
           }}
@@ -110,7 +124,11 @@ function UserDetailsDropDown({ id, isToggle }) {
         </li>
         <li
           className="list__item"
-          onClick={() => handleLanguageChange('arabic')}
+          onClick={() => {
+            handleLanguageChange('arabic');
+            onClickClose();
+          }
+        }
           style={{
             backgroundColor: userLanguage === 'arabic' && '#e5e5e5',
           }}
@@ -120,7 +138,10 @@ function UserDetailsDropDown({ id, isToggle }) {
         </li>
         <li
           className="list__item"
-          onClick={() => handleLanguageChange('hindi')}
+          onClick={() => {
+            handleLanguageChange('hindi');
+            onClickClose();
+          }}
           style={{
             backgroundColor: userLanguage === 'hindi' && '#e5e5e5',
           }}
@@ -130,7 +151,10 @@ function UserDetailsDropDown({ id, isToggle }) {
         </li>
         <li
           className="list__item"
-          onClick={() => handleLanguageChange('turkish')}
+          onClick={() => {
+            handleLanguageChange('turkish');
+            onClickClose();
+          }}
           style={{
             backgroundColor: userLanguage === 'turkish' && '#e5e5e5',
           }}
@@ -148,6 +172,7 @@ function UserDetailsDropDown({ id, isToggle }) {
             className={currentTheme === color ? 'color active' : 'color'}
             onClick={() => {
               handleTheme(color);
+              onClickClose();
             }}
           ></li>
         ))}

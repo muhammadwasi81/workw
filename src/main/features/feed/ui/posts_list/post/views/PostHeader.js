@@ -19,6 +19,7 @@ import { Modal } from 'antd';
 import MemberSelect from '../../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { getAllEmployees } from '../../../../../../../utils/Shared/store/actions';
 import PostTaggedModal from './PostTaggedModal';
+import { ROUTES } from '../../../../../../../utils/routes';
 
 const PostHeader = ({
   creator = {},
@@ -61,7 +62,8 @@ const PostHeader = ({
         <div className="user-det">
           <div className="name">
             <span>
-              <Link to={`/user/${creator.id}`}>{name}</Link>
+              {/* <Link to={`/user/${creator.id}`}>{name}</Link> */}
+              <Link to={`${ROUTES.USER.DEFAULT}${creator.id}`}>{name}</Link>
             </span>
             {tags.length > 0 && (
               <>

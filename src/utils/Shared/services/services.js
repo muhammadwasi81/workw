@@ -1,8 +1,8 @@
 // import AxiosConfig from "../../../utils/services/MasterConfig";
-import MasterConfig from "../../../utils/services/MasterConfig";
-import { createGuid } from "../../../utils/base";
-const API_PREFIX = "api/Utility/";
-const API_FEATURES_PREFIX = "api/BusinessFeature/";
+import MasterConfig from '../../../utils/services/MasterConfig';
+import { createGuid } from '../../../utils/base';
+const API_PREFIX = 'api/Utility/';
+const API_FEATURES_PREFIX = 'api/BusinessFeature/';
 
 export const getCountriesService = () => {
   return MasterConfig.get(`${API_PREFIX}GetAllCountries`)
@@ -100,7 +100,7 @@ export const getAllEmployeeTypesService = () => {
     });
 };
 export const getAllBussinessFeaturesService = () => {
-  return MasterConfig.get(`${API_FEATURES_PREFIX}GetBusinessFeatures`)
+  return MasterConfig.get(`/api/Business/GetAllBusinessFeature`)
     .then((res) => {
       return res.data;
     })
@@ -110,7 +110,7 @@ export const getAllBussinessFeaturesService = () => {
 };
 
 export const getAllRewardCategoryService = () => {
-  return MasterConfig.get("api/RewardCategory/GetAllRewardCategory")
+  return MasterConfig.get('api/RewardCategory/GetAllRewardCategory')
     .then((res) => {
       return res.data;
     })
@@ -121,7 +121,7 @@ export const getAllRewardCategoryService = () => {
 
 export const getAllComplainCategoryService = () => {
   return MasterConfig.get(
-    "api/Complain/ComplainCategory/GetAllComplainCategory"
+    'api/Complain/ComplainCategory/GetAllComplainCategory'
   )
     .then((res) => {
       return res.data;
@@ -131,7 +131,7 @@ export const getAllComplainCategoryService = () => {
     });
 };
 
-export const getAllEmployeeShortService = (pageNo = 0, search = "") => {
+export const getAllEmployeeShortService = (pageNo = 0, search = '') => {
   return MasterConfig.get(
     `api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&search=${search}`
   )
@@ -174,7 +174,7 @@ export const uploadImageService = (files) => {
     `/UploadFiles`,
     formData,
     {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { 'Content-Type': 'multipart/form-data' },
     }
   );
 };

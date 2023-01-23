@@ -41,7 +41,6 @@ function Signup() {
   const { loader: imageLoader } = useSelector((state) => state.sharedSlice);
   const [profileImage, setProfileImage] = useState(null);
 
-  console.log("loadr", loader);
   const [reset, setReset] = useState(false);
 
   useEffect(() => {
@@ -71,12 +70,12 @@ function Signup() {
     } else {
       dispatch(signup(values));
     }
-    dispatch(signup(values));
+    
   };
+
 
   const onChange = (value, name) => {
     formData = { ...formData, [name]: value };
-    console.log(formData, value, name);
   };
 
   const handleImageUpload = (data) => {

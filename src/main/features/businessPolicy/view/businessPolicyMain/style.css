@@ -6,15 +6,14 @@
   margin: 10px ;
 }
 
-.item-card {
+.policycard {
   width: 100%;
-  height: -webkit-min-content;
   height: min-content;
   border: 1px solid #ebebeb;
   background: #fff;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
-  padding: 15px 0;
+  padding: 15px;
   box-sizing: border-box;
   margin-bottom: 12px;
   border-radius: 6px;
@@ -23,13 +22,21 @@
   transition: 0.3s;
   -webkit-animation: bottomToTop 0.7s ease;
   animation: bottomToTop 0.7s ease;
+  align-items: center;
+  word-break: break-all;
+  align-items: flex-start;
+
+  border: 1px solid #dcdcdc;
+  cursor: pointer;
+  margin-bottom: 8px;
 }
 
-.item-card .row {
+
+.policycard .row {
   width: 100%;
   padding: 0 15px;
   box-sizing: border-box;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   margin-bottom: 12px;
   cursor: pointer;
@@ -49,11 +56,10 @@
   font-size: 14px;
   font-weight: bolder;
 }
-.searchBox {
+.mysearchBox {
   border-radius: 4px;
   border: 1px solid #ccc;
   background: #0000000f;
-  min-width: 200px;
 }
 
 .searchBox input {

@@ -1,5 +1,6 @@
 export let DOMAIN_PREFIX = "";
 // DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
 
 export const ROUTES = {
   SEARCH: {
@@ -48,8 +49,9 @@ export const ROUTES = {
     SIGN_IN_ANONYMOUSLY: `${DOMAIN_PREFIX}/authenticating`,
     FORGOT_PASSWORD_LANDING: `${DOMAIN_PREFIX}/resetpassword`,
     FORGOT_PASSWORD: `${DOMAIN_PREFIX}/forgotpassword`,
-    VERIFICATION_SUCCESS: `${DOMAIN_PREFIX}/verified`,
-    VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verify`,
+    VERIFICATION: `${DOMAIN_PREFIX}/signupVerification/verify`,
+    SETUP_PASSWORD: `${DOMAIN_PREFIX}/SetupNewPassword`,
+    // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
   },
   BUDGET: {
     DEFAULT: `${DOMAIN_PREFIX}/budgets`,
@@ -87,7 +89,15 @@ export const ROUTES = {
   },
   ELearning: {
     LINK: `${DOMAIN_PREFIX}/eLearning`,
-    DEFAULT: `${DOMAIN_PREFIX}/eLearning/*`,
+    DEFAULT: `${DOMAIN_PREFIX}/eLearning/*`, 
+    TEAM_DASHBOARD: `${DOMAIN_PREFIX}/eLearning/teamDashboard`,
+    TEAM_SUMMARY: `${DOMAIN_PREFIX}/eLearning/summary`,
+    COURSE_CREATE: `${DOMAIN_PREFIX}/eLearning/courses/create`,
+    EBOOK_CREATE: `${DOMAIN_PREFIX}/eLearning/eBook/create`,
+    VIDEO_CREATE: `${DOMAIN_PREFIX}/eLearning/video/create`,
+    ARTICLE_CREATE: `${DOMAIN_PREFIX}/eLearning/article/create`,
+    QUIZ_CREATE: `${DOMAIN_PREFIX}/eLearning/quiz/create`,
+    TEDTALK_CREATE: `${DOMAIN_PREFIX}/eLearning/tedtalk/create`,
     // COURSE: `${DOMAIN_PREFIX}/eLearning/courses/`,
   },
   INVENTORY: {
@@ -271,6 +281,7 @@ export const ROUTES = {
     BANK_DETAIL: "info/bankDetail/:id",
     BASIC_INFO: "info/basicInfo/:id",
     USER_LEAVES: "info/leaves/:id",
+    DEVICES: "info/devices/:id",
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,

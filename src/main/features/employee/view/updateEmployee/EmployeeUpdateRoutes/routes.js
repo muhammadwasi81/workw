@@ -12,6 +12,7 @@ import UserEmailConfiguration from "../../../../emailUserConfiguration/view/inde
 // import UserConfiguration from "../../../../emailConfiguration/view/index";
 
 import UserLeave from "../../../../userLeave";
+import Devices from "../../../../devices/view/index";
 import "../styles/style.css";
 
 const EmployeeRoutes = () => {
@@ -30,6 +31,7 @@ const EmployeeRoutes = () => {
         <Route path={"/rebate/:id"} element={<RebateEmployee />} />
         <Route path={"/salary/:id"} element={<SalaryEmployee />} />
         <Route path={"/experience/:id"} element={<ExperienceForm />} />
+        <Route path={"/devices/:id"} element={<Devices />} />
         <Route path={"*"} element={<BrokenPage />} />
       </Routes>
     </div>

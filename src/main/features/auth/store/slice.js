@@ -1,11 +1,13 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { loginUser, signup, verification, getDesignation } from "./actions.js";
+import { loginUser, signup, verification, getDesignation, setNewPassword } from "./actions.js";
 
 const initialState = {
   data: {},
   designations: [],
   loader: false,
   isSuccess: false,
+  verificationSuccess: false,
+  verificationLoader: false
 };
 
 export const authSlice = createSlice({
@@ -37,7 +39,6 @@ export const authSlice = createSlice({
       //   state.uploadImage = false;
       // })
       .addCase(signup.fulfilled, (state, { payload }) => {
-        console.log(payload, "PAYLOAD_FROM_REDUCER123");
         state.signupData = payload;
         state.loader = false;
         state.isSuccess = true;
@@ -48,14 +49,34 @@ export const authSlice = createSlice({
       //   console.log(payload, "verification.pending");
       // })
       .addCase(verification.fulfilled, (state, { payload }) => {
-        state.isSuccess = true;
+        state.verificationLoader = false;
+        let resCode = payload.responseCode;
+        if(resCode === 1001) {
+          state.isSuccess = true;
+          state.verificationSuccess = true;
+        } else {
+          state.isSuccess = false;
+          state.verificationSuccess = false;
+        }    
       })
+      // .addCase(setNewPassword.fulfilled, (state, { payload }) => {
+      //   let resCode = payload.responseCode;
+      //   if (resCode === 1001) {
+      //       console.log("Success")
+      //   }
+      //   console.log(resCode, "MY PAYLOAD")    
+      // })
       .addCase(verification.rejected, (state, { payload }) => {
         state.isError = true;
+        state.verificationLoader = false;
+        // state.verificationSuccess = false;
       })
 
       .addMatcher(isPending(...[loginUser, signup]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[verification]), (state) => {
+        state.verificationLoader = true;
       })
 
       .addMatcher(isRejected(...[loginUser, signup]), (state, { payload }) => {

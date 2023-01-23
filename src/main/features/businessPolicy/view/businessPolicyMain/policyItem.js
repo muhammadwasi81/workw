@@ -2,8 +2,8 @@ import React from "react";
 
 export default function PolicyItem({ item, handleClick }) {
     return (
-        <div className="item-card cursor-pointer !flex !flex-row" onClick={()=>handleClick(item)}>
-            <div className="row flex-1 !w-max !mb-0" >
+        <div className="policycard cursor-pointer !flex !flex-row" onClick={()=>handleClick(item)}>
+            <div className="row flex-1 !w-max !mb-0">
                 {item.name}
             </div>
             <div className="w-max mr-2">

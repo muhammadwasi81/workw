@@ -46,7 +46,7 @@ export default function Listing({ listData, onSearch }) {
     <>
       <div className="policyHeader colorTheme">{policies}</div>
 
-      <div className="searchBox">
+      <div className="mysearchBox">
         <SearchInput
           icon={<SearchOutlined />}
           placeholder={search}

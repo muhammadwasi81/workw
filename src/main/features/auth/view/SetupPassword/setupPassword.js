@@ -7,13 +7,13 @@ import TextInput from "../../../../sharedComponents/Input/TextInput";
 import PasswordInput from "../../../../sharedComponents/Input/PasswordInput";
 import { SvgSpinner } from "../../../../../utils/base";
 import { useSelector, useDispatch } from "react-redux";
-import { loginUser } from "../../store/actions";
-import { useNavigate } from "react-router-dom";
-import FormFooter from "./formFooter";
+import { loginUser, setNewPassword } from "../../store/actions";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import FormFooter from "../signIn/formFooter";
 import { getFirebaseToken } from "../../../../../firebase/initFirebase";
 import "../styles/style.css"
 
-function SignIn() {
+function PasswordForm() {
   let formData = {};
   const [localState, setlocalState] = useState({
     disableFormSubmit: false,
@@ -22,26 +22,29 @@ function SignIn() {
     path: "",
   });
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const passwordToken = useParams();
+	const id = useLocation();
+	const stoken = id.search.split("=");
+	console.log(stoken[1], "Token");
 
-  const { loader } = useSelector((state) => state.authSlice);
+	const { loader } = useSelector((state) => state.authSlice);
 
-  const { token } = useSelector((state) => state.userSlice);
+	const { token } = useSelector((state) => state.userSlice);
 
-  const [reset, setReset] = useState(false);
+	const [reset, setReset] = useState(false);
 
-  const onSubmit = async (payload) => {
-    let permission = await Notification.requestPermission();
-    let deviceToken = null;
-    if (permission === 'granted') {
-      console.log('Notification permission granted.');
-      let firebaseToken = await getFirebaseToken();
-      // set send token api here...
-      deviceToken = firebaseToken;
-      console.log(firebaseToken, 'firebaseToken');
-    }
-    dispatch(loginUser({ ...payload, deviceToken }));
+
+
+  const onSubmit = async (values) => {
+	console.log(values, "Form Data")
+	let payload = {
+		token: stoken[1],
+		password: values.password
+	}
+	dispatch(setNewPassword(payload))
+
   };
 
   useEffect(() => {
@@ -64,12 +67,12 @@ function SignIn() {
       </div>
       <Form onFinish={onSubmit} className="lg-form">
         <div className="welcome-heading">
-          <div>Welcome</div>
+          <div>Setup Password</div>
         </div>
-        <div className="note note-heading">Enter your login credentials to continue.</div>
+        <div className="note note-heading">Enter email address to receive email to reset password.</div>
         <div className="">
           <Space direction="vertical" size={16} style={{ width: "100%" }}>
-            <Form.Item name="email">
+            {/* <Form.Item name="email">
               <TextInput
                 type="email"
                 // onChange={onChange}
@@ -78,13 +81,13 @@ function SignIn() {
                 size="large"
                 reset={reset}
               />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item name="password">
               <PasswordInput placeholder="Password" prefix={LockOutlined} size="large" reset={reset} />
             </Form.Item>
           </Space>
         </div>
-        <div className="terms-alert">
+        {/* <div className="terms-alert">
           By signing in,{" "}
           <span
             style={{ cursor: "pointer" }}
@@ -97,10 +100,10 @@ function SignIn() {
             }>
             I agree the terms and conditions.
           </span>
-        </div>
+        </div> */}
         <div className="btn">
           <button className={`button ${loader ? "disable" : ""}`}>
-            Sign in
+            Send Request
             {!loader ? (
               <span className="icon-login">
                 <i className="ic-login_icon" />
@@ -111,7 +114,7 @@ function SignIn() {
           </button>
         </div>
 
-        <FormFooter></FormFooter>
+        {/* <FormFooter></FormFooter> */}
 
         {/* {localState.openView && (
           <ViewerModal
@@ -125,4 +128,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default PasswordForm;

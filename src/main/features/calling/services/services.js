@@ -32,7 +32,7 @@ export const instantCallService = data => {
 };
 
 export const addDeviceService = data => {
-	return MasterConfig.post(`api/User/addDevice`, data)
+	return MasterConfig.post(`api/device/addDevice`, data)
 		.then(res => {
 			return res.data;
 		})

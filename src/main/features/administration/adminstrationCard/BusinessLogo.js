@@ -39,7 +39,7 @@ const BusinessLogo = ({ formData, setFormData, handleChangeTab }) => {
             style={{ width: "500px", marginTop: "30px", height: "390px" }}
           >
             <FormHeader>{sharedLabels.businessLogo}</FormHeader>
-            <div className="flex justify-center">
+            <div className="flex justify-center horizontalLogo">
               <Form.Item area="true">
                 <div className="logoHeader">Short Logo</div>
                 <SingleUpload
@@ -51,7 +51,21 @@ const BusinessLogo = ({ formData, setFormData, handleChangeTab }) => {
               </Form.Item>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center horizontalLogo">
+              <Form.Item area="true">
+                <div className="logoHeader">Long Logo</div>
+                <SingleUpload
+                  handleImageUpload={handleImageUpload}
+                  img="Add Image"
+                  position="flex-start"
+                  uploadText={"Upload"}
+                />
+              </Form.Item>
+            </div>
+
+
+
+            <div className="flex justify-center horizontalLogo">
               <Form.Item area="true">
                 <div className="logoHeader">Full Logo</div>
                 <SingleUpload

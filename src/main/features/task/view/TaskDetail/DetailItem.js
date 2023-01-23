@@ -19,6 +19,7 @@ import Attachments from '../../../travel/view/UI/Attachments';
 import { cancelTaskAction } from '../../store/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleTaskRating } from '../../store/taskSlice';
+import { Popconfirm } from "antd";
 // import {
 //   ApprovalsModule,
 //   ApprovalStatus,
@@ -36,11 +37,13 @@ function TaskDetailItem({
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
   const [rating, setRating] = useState('');
+  const [open, setOpen] = useState(false);
   const { taskDictionaryList } = taskDictionary[userLanguage];
   const [isMount, setIsMount] = useState(false);
   const [updatedStatus, setUpdatedStatus] = useState(null);
   const { labels } = taskDictionaryList;
   const dispatch = useDispatch();
+
   const {
     id,
     subject,
@@ -85,6 +88,15 @@ function TaskDetailItem({
   const handleRating = async (id, rating) => {
     await postUserTaskRating(id, rating);
     dispatch(handleTaskRating({ id, rating }));
+    setOpen(false);
+  };
+
+  const Cancel = () => {
+    console.log('Clicked cancel button');
+    setOpen(false);
+  };
+  const showPopconfirm = () => {
+    setOpen(true);
   };
   // console.log(progress ? progress : progressed, "condition");
   const handleCancel = (e, payload) => {
@@ -92,6 +104,15 @@ function TaskDetailItem({
     e.stopPropagation();
     dispatch(cancelTaskAction(payload));
   };
+  const handlepopup = () => {
+    //setRating(value);
+  <Popconfirm
+      title="Sure to delete?"
+      //onConfirm={(e) => handleDelete({ id: row.id })}
+    >
+    {/* <DeleteFilled style={{ color: "#1b5669" }} /> */}
+  </Popconfirm>
+  }
 
   return (
     <div className={classes} onClick={() => onTask(id)}>
@@ -110,13 +131,29 @@ function TaskDetailItem({
         </div>
 
         <div className="right">
-          <div className="rating">
-            <Rate
+           <Popconfirm title="Sure to rate?"  
+              //open={open}
+              onConfirm={(e) => handleRating(id, rating)} 
+              //onConfirm={(e) => handleDelete({ id: row.id })}
+              //onCancel={Cancel}
+            >
+            <div className="rating">
+              <Rate
+                defaultValue={ratingAssign}
+                disabled={isRatingDisable || progress !== 100}
+                onChange={(value) => setRating(value)}
+                //onClick={showPopconfirm}
+                />
+            </div>
+         </Popconfirm>
+
+            {/* <Rate
               defaultValue={ratingAssign}
               disabled={isRatingDisable || progress !== 100}
+              // onClick={() => setRating(value)}
               onChange={(value) => setRating(value)}
-            />
-          </div>
+            /> */}
+        
           <div className="labels">
             <span className="taskID">{referenceNo}</span>
             <span className="priority " style={{ backgroundColor: color }}>

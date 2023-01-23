@@ -331,6 +331,7 @@ const urdu = {
     Education: "Education",
     Emergency_Info: "Emergency Information",
     Experience: "Experience",
+    Devices: "Devices",
   },
   administration: {
     subsidiary: "ماتحت ادارہ",

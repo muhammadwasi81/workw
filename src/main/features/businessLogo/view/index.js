@@ -11,6 +11,7 @@ import { Form } from "antd";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 // import "../style/style.css";
+import "./grade.css";
 
 const BusinessLogo = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -38,6 +39,31 @@ const BusinessLogo = () => {
             />
           </Form.Item>
         </div>
+        <div className="flex justify-center">
+              <Form.Item area="true">
+                <div className="logoHeader">Long Logo</div>
+                <SingleUpload
+                  handleImageUpload={handleImageUpload}
+                  img="Add Image"
+                  position="flex-start"
+                  uploadText={"Upload"}
+                />
+              </Form.Item>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div className="flex justify-center">
           <Form.Item area="true">

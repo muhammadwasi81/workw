@@ -87,7 +87,7 @@ function BoardComposer({
 			dir={direction}
 			className={`${direction}`}
 		>
-			z
+			
 			<Form.Item>
 				<div className="flex items-center gap-2">
 					{dataLoading ? (

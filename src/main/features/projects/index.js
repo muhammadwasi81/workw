@@ -17,6 +17,10 @@ import useDebounce from '../../../utils/Shared/helper/use-debounce';
 import { NoDataFound } from '../../sharedComponents/NoDataIcon';
 import Header from '../../layout/header';
 import { ROUTES } from '../../../utils/routes';
+import {Drawer} from "antd";
+import { handleComposer } from "./store/slice";
+import Composer from './UI/Composer';
+
 
 const Projects = () => {
   const [search, setSearch] = useState('');
@@ -63,6 +67,11 @@ const Projects = () => {
     }
     setSortBy(1);
   };
+  const {isComposerOpen, projectDetail, isEditComposer} = useSelector((state)=> state.projectSlice)
+  const handleEditComposer = () => {
+    dispatch( handleComposer ({ isOpen: false, isEdit: false }));
+  };
+  console.log(isComposerOpen, "isComposerOpen");
   return (
     <>
       <TabbableContainer>
@@ -125,8 +134,24 @@ const Projects = () => {
 					) : (
 						"No Data Found"
 					)} */}
+      <Drawer
+        open={isComposerOpen}
+        width={"786px"}
+        onClose={handleEditComposer}
+        title={"Update Project"}
+        className={"shared_drawer drawerSecondary"}
+      >
+        <Composer
+          buttonText={"Update Project"}
+          detail={projectDetail}
+          update={isEditComposer}
+          id={projectDetail?.id}
+        />
+      </Drawer>
         </ContBody>
+       
       </TabbableContainer>
+      
     </>
   );
 };

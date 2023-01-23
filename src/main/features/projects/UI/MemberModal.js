@@ -21,14 +21,14 @@ function MemberModal({ isOpen = false }) {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
   const modalRequest = useSelector(
-    (state) => state.projectSlice.addMemberModal
+    (state) => state.projectSlice.addMemberModal  
   );
 
   let ModalOpen = modalRequest.status;
 
   useEffect(() => {
     ModalOpen && dispatch(getAllProjectMemberAction(userId));
-  }, []);
+  }, [ ModalOpen]);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -44,7 +44,6 @@ function MemberModal({ isOpen = false }) {
 
   const handleChange = (id) => {
     let memberId = id.toString();
-    console.log(memberId, "memberIddd");
     const data = {
       id: userId,
       memberId: memberId,
@@ -111,11 +110,11 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      {[]?.length > 0 ? (
+      {memberData?.length > 0 ? (
         <ApproverListItem className="AddMemberModal" data={memberData} />
-      ) : (
-        ""
-      )}
+       ) : (
+         "No data"
+       )} 
     </Modal>
   );
 }

@@ -41,9 +41,11 @@ export const updateGroupService = data => {
 		});
 };
 
-export const addGroupMdmberService = data => {
+export const addGroupMemberService = data => {
+	
 	let id = data.id;
 	let memberId = data.memberId;
+	console.log(data,"dataaa");
 	return MasterConfig.post(`api/Group/AddGroupMember?id=${id}`, [
 		{ memberId: memberId },
 	  ])
@@ -55,9 +57,8 @@ export const addGroupMdmberService = data => {
 		});
 };
 
-export const getAllGroupMdmberService = id => {
-	
-	return MasterConfig.get(`api/Group/AddGroupMember?id=${id}`)
+export const getAllGroupMemberService = id => {
+	return MasterConfig.get(`api/Group/GetAllGroupMember?id=${id}`)
 		.then(res => {
 			return res.data;
 		})

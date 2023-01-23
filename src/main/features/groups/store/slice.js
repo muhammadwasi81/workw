@@ -74,11 +74,11 @@ const groupSlice = createSlice({
       })
       .addCase( addGroupMemberAction.fulfilled,(state, { payload })=>{
         console.log(payload,"payloaddd");
-        state.memberData = [...state.memberData, payload];
+        state.memberData = [...state.memberData, payload.data];
         return state;
       })
       .addCase(getAllGroupMemberAction.fulfilled,(state,{payload})=>{
-        state.memberData = payload.length>0?payload:[];
+        state.memberData = payload.data
       })
       .addMatcher(isPending(getAllGroup), (state) => {
         state.getDataLoading = true;

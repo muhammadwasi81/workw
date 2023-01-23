@@ -83,7 +83,7 @@ function MemberModal({ isOpen = false }) {
       destroyOnClose={true}
     >
       <CustomSelect
-        style={{ marginBottom: "0px" }}
+        style={{ marginBottom: "0px" }} 
         data={firstTimeEmpData}
         selectedData={handleChange}
         canFetchNow={isFirstTimeDataLoaded}

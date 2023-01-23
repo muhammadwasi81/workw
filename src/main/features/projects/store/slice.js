@@ -1,4 +1,3 @@
-import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addProject,
@@ -40,7 +39,6 @@ const projectSlice = createSlice({
     },
     handleComposer(state, { payload }) {
       const { isOpen, isEdit } = payload;
-      console.log(payload, "payloadd");
       state.isEditComposer = isEdit;
       state.isComposerOpen = isOpen;
     },
@@ -83,8 +81,10 @@ const projectSlice = createSlice({
       .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
       })
-      .addCase(getAllProjectMemberAction.fulfilled,(state,{payload})=>{
-        state.memberData = payload.length>0?payload:[];
+      .addCase(getAllProjectMemberAction.fulfilled,(state,action)=>{
+        console.log(action.payload,"payloadd");
+        state.memberData = action.payload.data;
+        console.log(state.memberData,"payloadd");
 
       })
       .addCase(addProjectMemberAction.fulfilled,(state,{payload})=>{

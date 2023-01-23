@@ -4,9 +4,8 @@ import {
 	getAllGroupService,
 	getGroupByIdService,
 	updateGroupService,
-	addGroupMdmberService,
-	getAllGroupMdmberService
-} from "../services/service";
+	addGroupMemberService,
+	getAllGroupMemberService} from "../services/service";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 
@@ -98,7 +97,7 @@ export const getGroupById = createAsyncThunk(
 export const addGroupMemberAction = createAsyncThunk(
 	"groupMember",
 	async (data, { dispatch, getState, rejectWithValue }) => {
-		const res = await addGroupMdmberService(data);
+		const res = await addGroupMemberService(data);
 		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {
@@ -118,7 +117,7 @@ export const addGroupMemberAction = createAsyncThunk(
 export const getAllGroupMemberAction = createAsyncThunk(
 	"GetgroupMember",
 	async (id, { dispatch, getState, rejectWithValue }) => {
-		const res = await getAllGroupMdmberService(id);
+		const res = await getAllGroupMemberService(id);
 		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {

@@ -30,7 +30,7 @@ function MemberModal({ isOpen = false }) {
   // console.log(Type, "TYPE !!");
 
   useEffect(() => {
-    ModalOpen && dispatch(  getAllGroupMemberAction(userId));
+    ModalOpen && dispatch(getAllGroupMemberAction(userId));
   }, [ ModalOpen]);
 
   useEffect(() => {

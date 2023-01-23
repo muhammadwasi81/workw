@@ -9,6 +9,7 @@ import {
   addUserEmailConfigurationService,
   getAllUserEmailConfigurationsService,
   getAllBussinessEmailConfigurationService,
+  updateUserEmailConfigurationService,
 } from "../services/service";
 // import { emailConfigurationDeleted } from "./slice";
 
@@ -30,7 +31,7 @@ export const getAllUserEmailConfigurations = createAsyncThunk(
 );
 
 export const getAllBussinessEmailConfiguration = createAsyncThunk(
-  "UserEmailConfiguration/getBussinessEmailconfiguration",
+  "UserEmailConfiguration/getUserEmailconfiguration",
   async (args, { dispatch, getState }) => {
     const res = await getAllBussinessEmailConfigurationService();
 
@@ -48,6 +49,26 @@ export const addUserEmailConfiguration = createAsyncThunk(
   "UserEmailConfiguration/addUserEmailConfiguration",
   async (args, { dispatch, getState }) => {
     const res = await addUserEmailConfigurationService(args);
+    console.log(res, "response");
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+        res.message = "Email user Configuration added successfully!";
+      responseMessage({ dispatch, data: res });
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+
+    return res;
+  }
+);
+
+export const updateUserEmailConfiguration = createAsyncThunk(
+  "UserEmailConfiguration/updateUserEmailConfiguration",
+  async (args, { dispatch, getState }) => {
+    const res = await updateUserEmailConfigurationService(args);
     console.log(res, "response");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)

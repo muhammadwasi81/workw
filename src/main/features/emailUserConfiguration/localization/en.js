@@ -1,6 +1,7 @@
 const en = {
   emailConfiDictionary: {
-    emailConfi: "Email Configuration",
+    emailConfi: "User Email Configuration",
+    password: "Password",
     enterEmailConfi: "Enter Email Configuration",
     incomingPort: "Incoming Port",
     enterIncomingPort: "Enter Incoming Port",

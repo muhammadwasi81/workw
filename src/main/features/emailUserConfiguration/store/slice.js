@@ -4,6 +4,7 @@ import {
   getAllUserEmailConfigurations,
   getAllBussinessEmailConfiguration,
   addUserEmailConfiguration,
+  updateUserEmailConfiguration,
 } from "./actions.js";
 
 const initialState = {
@@ -31,6 +32,7 @@ const emailUserConfigurationSlice = createSlice({
       .addCase(
         getAllUserEmailConfigurations.fulfilled,
         (state, { payload }) => {
+          console.log("payload get user", payload);
           state.loadingData = false;
           state.userEmailConfigurations = payload.data;
         }
@@ -42,6 +44,10 @@ const emailUserConfigurationSlice = createSlice({
         }
       )
       .addCase(addUserEmailConfiguration.fulfilled, (state, { payload }) => {
+        //   state.bussinessEmailConfigurations = payload.data;
+        console.log(payload, "data");
+      })
+      .addCase(updateUserEmailConfiguration.fulfilled, (state, { payload }) => {
         //   state.bussinessEmailConfigurations = payload.data;
         console.log(payload, "data");
       })
@@ -59,12 +65,16 @@ const emailUserConfigurationSlice = createSlice({
       .addMatcher(isPending(...[addUserEmailConfiguration]), (state) => {
         console.log("pending adding");
       })
+      .addMatcher(isPending(...[updateUserEmailConfiguration]), (state) => {
+        console.log("pending updating");
+      })
       .addMatcher(
         isRejected(
           ...[
             getAllUserEmailConfigurations,
             getAllBussinessEmailConfiguration,
             addUserEmailConfiguration,
+            updateUserEmailConfiguration,
           ]
         ),
         (state) => {

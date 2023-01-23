@@ -17,8 +17,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function EmailConfigurationForm({ data, onSubmit, loading }) {
   const [form, setForm] = useState(data);
-
   useEffect(() => {
+    console.log(data);
+    // const newData = {
+    //   name: data.name,
+    //   incomingPort: data.incomingPort,
+    //   incomingServerAddress: data.incomingServerAddress,
+    //   outgoingPort: data.outgoingPort,
+    //   outgoingServerAddress: data.outgoingServerAddress,
+    //   provider: data.provider,
+    // };
     setForm(data);
   }, [data]);
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -40,11 +48,20 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
           />
         </FormInput>
         <FormInput>
+          <FormLabel>{emailConfiDictionary.password}</FormLabel>
+          <Input
+            placeholder={emailConfiDictionary.password}
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+        </FormInput>
+        <FormInput>
           <FormLabel>{emailConfiDictionary.incomingPort}</FormLabel>
           <Input
             placeholder={emailConfiDictionary.enterIncomingPort}
             value={form.incomingPort}
             onChange={(e) => setForm({ ...form, incomingPort: e.target.value })}
+            disabled
           />
         </FormInput>
         <FormInput>
@@ -55,6 +72,7 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
             onChange={(e) =>
               setForm({ ...form, incomingServerAddress: e.target.value })
             }
+            disabled
           />
         </FormInput>
         <FormInput>
@@ -63,6 +81,7 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
             placeholder={emailConfiDictionary.enterOutgoingPort}
             value={form.outgoingPort}
             onChange={(e) => setForm({ ...form, outgoingPort: e.target.value })}
+            disabled
           />
         </FormInput>
         <FormInput>
@@ -73,6 +92,7 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
             onChange={(e) =>
               setForm({ ...form, outgoingServerAddress: e.target.value })
             }
+            disabled
           />
         </FormInput>
         <FormInput>
@@ -81,9 +101,11 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
             placeholder={emailConfiDictionary.enterProvider}
             value={form.provider}
             onChange={(e) => setForm({ ...form, provider: e.target.value })}
+            disabled
           />
         </FormInput>
       </FormInputContainer>
+
       <FormButtonContainer>
         {form.id ? (
           <>

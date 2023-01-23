@@ -14,9 +14,11 @@ export default function EmailConfigurationTable({
   removeButtons,
   actionRights = [],
 }) {
-  const { emailConfigurations, loadingData } = useSelector(
-    (state) => state.emailConfigurationSlice
-  );
+  const {
+    emailConfigurations,
+    loadingData,
+    userEmailConfigurations,
+  } = useSelector((state) => state.emailUserConfigurationSlice);
   const param = useParams();
   const id = param.id;
   const dispatch = useDispatch();
@@ -24,8 +26,6 @@ export default function EmailConfigurationTable({
   useEffect(() => {
     dispatch(getAllUserEmailConfigurations(id));
   }, []);
-
-  console.log(emailConfigurations, "EMAIL CONFIGURATION");
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, emailConfiDictionary } = emailConfiDictionaryList[
@@ -40,7 +40,7 @@ export default function EmailConfigurationTable({
         actionRights,
         emailConfiDictionary
       )}
-      dataSource={emailConfigurations}
+      dataSource={userEmailConfigurations}
       pagination={false}
       rowKey="id"
       size="small"

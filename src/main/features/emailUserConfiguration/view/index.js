@@ -4,11 +4,15 @@ import { AdminContainer } from "../../../../components/HrMenu/Administration/Sty
 import {
   addUserEmailConfiguration,
   getAllBussinessEmailConfiguration,
+  getAllUserEmailConfigurations,
+  updateUserEmailConfiguration,
 } from "../store/actions";
 import EmailConfigurationForm from "./form.js";
+import { useParams } from "react-router-dom";
 import EmailConfigurationTable from "./table.js";
 
 export default function UserEmailConfiguration() {
+  let { id } = useParams();
   //TODO: changes will be done according to the user configuration
   const initialState = {
     name: "",
@@ -21,10 +25,28 @@ export default function UserEmailConfiguration() {
   const [emailConfiguration, setemailConfiguration] = useState(initialState);
 
   const dispatch = useDispatch();
-  const { loader } = useSelector((state) => state.emailUserConfigurationSlice);
+  const { loader, bussinessEmailConfigurations } = useSelector(
+    (state) => state.emailUserConfigurationSlice
+  );
 
   useEffect(() => {
-    console.log("getall userConfiguration");
+    if (bussinessEmailConfigurations.length > 0) {
+      const bussinessEmailConfig = {
+        name: bussinessEmailConfigurations[0].name,
+        incomingPort: bussinessEmailConfigurations[0].incomingPort,
+        incomingServerAddress:
+          bussinessEmailConfigurations[0].incomingServerAddress,
+        outgoingPort: bussinessEmailConfigurations[0].outgoingPort,
+        outgoingServerAddress:
+          bussinessEmailConfigurations[0].outgoingServerAddress,
+        provider: bussinessEmailConfigurations[0].provider,
+      };
+      setemailConfiguration(bussinessEmailConfig);
+    }
+  }, [bussinessEmailConfigurations]);
+
+  useEffect(() => {
+    dispatch(getAllUserEmailConfigurations(id));
     dispatch(getAllBussinessEmailConfiguration());
   }, []);
 
@@ -35,11 +57,15 @@ export default function UserEmailConfiguration() {
 
   const onSubmit = (e) => {
     if (!e.id) {
-      dispatch(addUserEmailConfiguration(e));
+      const payload = {
+        ...e,
+        userId: id,
+      };
+      dispatch(addUserEmailConfiguration(payload));
       setemailConfiguration(initialState);
       return;
     }
-    // dispatch(updateEmailConfiguration(e));
+    dispatch(updateUserEmailConfiguration(e));
     setemailConfiguration(initialState);
   };
   return (

@@ -23,6 +23,17 @@ export const addUserEmailConfigurationService = (args) => {
     });
 };
 
+export const updateUserEmailConfigurationService = (args) => {
+  console.log(args, "argssss");
+  return AxiosConfig.put(`api/Mailbox/UpdateUserEmailConfiguration`, args)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getAllBussinessEmailConfigurationService = () => {
   return AxiosConfig.get(`api/Mailbox/GetAllBusinessEmailConfiguration`)
     .then((res) => {

@@ -35,6 +35,10 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
   ];
   const { loader } = useSelector((state) => state.emailConfigurationSlice);
 
+  const { userEmailConfigurations } = useSelector(
+    (state) => state.emailUserConfigurationSlice
+  );
+
   return (
     <FormContainer>
       <FormHeader>{emailConfiDictionary.emailConfi}</FormHeader>
@@ -130,16 +134,20 @@ export default function EmailConfigurationForm({ data, onSubmit, loading }) {
             </FormButton>
           </>
         ) : (
-          <FormButton
-            type="primary"
-            size="medium"
-            style={{}}
-            className="formBtn"
-            onClick={(e) => onSubmit(form)}
-            loading={loader}
-          >
-            {emailConfiDictionary.addEmailConfi}
-          </FormButton>
+          <>
+            {!userEmailConfigurations.length && (
+              <FormButton
+                type="primary"
+                size="medium"
+                style={{}}
+                className="formBtn"
+                onClick={(e) => onSubmit(form)}
+                loading={loader}
+              >
+                {emailConfiDictionary.addEmailConfi}
+              </FormButton>
+            )}
+          </>
         )}
       </FormButtonContainer>
     </FormContainer>

@@ -65,21 +65,23 @@ export default function UserEmailConfiguration() {
         userId: id,
       };
       //check if there is already an configuration exist
-      if (userEmailConfigurations.length > 0) {
-        //todo error msg show that already exist configuration
-        dispatch(
-          openNotification({
-            message: "Email configuration already exist",
-            type: "error",
-            duration: 2,
-          })
-        );
-        setemailConfiguration(initialState);
-        return;
-      } else {
-        dispatch(addUserEmailConfiguration(payload));
-        setemailConfiguration(initialState);
-      }
+      dispatch(addUserEmailConfiguration(payload));
+      setemailConfiguration(initialState);
+      // if (userEmailConfigurations.length > 0) {
+      //   //todo error msg show that already exist configuration
+      //   dispatch(
+      //     openNotification({
+      //       message: "Email configuration already exist",
+      //       type: "error",
+      //       duration: 2,
+      //     })
+      //   );
+      //   setemailConfiguration(initialState);
+      //   return;
+      // } else {
+      //   dispatch(addUserEmailConfiguration(payload));
+      //   setemailConfiguration(initialState);
+      // }
       return;
     }
     dispatch(updateUserEmailConfiguration(e));

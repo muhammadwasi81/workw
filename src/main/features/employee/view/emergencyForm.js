@@ -8,8 +8,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { employeeDictionaryList } from "../localization/index";
 import "../Styles/employeeForm.css";
 import { relations } from "../../../../utils/Shared/enums/enums";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { resetEmergencydetails } from "../store/slice";
 import {
   addUserEmergencyContactAction,

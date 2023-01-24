@@ -65,7 +65,7 @@ export const addUserEmergencyContactAction = createAsyncThunk(
       case ResponseType.SUCCESS:
         dispatch(
           openNotification({
-            message: `Emergency contact addedd Successfully`,
+            message: `Emergency contact added Successfully`,
             type: "success",
             duration: 2,
           })

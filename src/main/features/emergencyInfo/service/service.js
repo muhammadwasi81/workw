@@ -27,7 +27,6 @@ export const updateUserEmployeeContactService = async (payload) => {
       `${API_PREFIX}userEmergencyContact/UpdateUserEmergencyContact`,
       payload
     );
-    console.log(data, "updateUserEmployeeContactService service");
     if (responseCode === 1001) return ResponseResultSuccess(data);
     return ResponseResultError(message);
   } catch (e) {
@@ -36,7 +35,6 @@ export const updateUserEmployeeContactService = async (payload) => {
 };
 
 export const addUserEmergenctContactService = async (payload) => {
-  console.log(payload, "payload", payload.id);
   const newPayload = {
     ...payload.payload,
     userId: payload.id,

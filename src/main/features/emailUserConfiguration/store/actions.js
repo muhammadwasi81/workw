@@ -5,6 +5,7 @@ import {
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import { message } from "antd";
 import {
   addUserEmailConfigurationService,
   getAllUserEmailConfigurationsService,
@@ -52,13 +53,9 @@ export const addUserEmailConfiguration = createAsyncThunk(
     console.log(res, "response");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        res.message = "Email user Configuration added successfully!";
-      responseMessage({ dispatch, data: res });
+        message.success("Email configuration added successfully!");
     } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
+      message.error(res.message);
     }
 
     return res;
@@ -72,13 +69,9 @@ export const updateUserEmailConfiguration = createAsyncThunk(
     console.log(res, "response");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        res.message = "Email user Configuration added successfully!";
-      responseMessage({ dispatch, data: res });
+        message.success("Email configuration updated successfully!");
     } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
+      message.error(res.message);
     }
 
     return res;

@@ -46,10 +46,12 @@ const emailUserConfigurationSlice = createSlice({
       .addCase(addUserEmailConfiguration.fulfilled, (state, { payload }) => {
         //   state.bussinessEmailConfigurations = payload.data;
         console.log(payload, "data");
+        state.loader = false;
       })
       .addCase(updateUserEmailConfiguration.fulfilled, (state, { payload }) => {
         //   state.bussinessEmailConfigurations = payload.data;
         console.log(payload, "data");
+        state.loader = false;
       })
       .addMatcher(isPending(...[getAllUserEmailConfigurations]), (state) => {
         state.loadingData = true;
@@ -64,9 +66,11 @@ const emailUserConfigurationSlice = createSlice({
       )
       .addMatcher(isPending(...[addUserEmailConfiguration]), (state) => {
         console.log("pending adding");
+        state.loader = true;
       })
       .addMatcher(isPending(...[updateUserEmailConfiguration]), (state) => {
         console.log("pending updating");
+        state.loader = true;
       })
       .addMatcher(
         isRejected(

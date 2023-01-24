@@ -10,6 +10,7 @@ import {
 import EmailConfigurationForm from "./form.js";
 import { useParams } from "react-router-dom";
 import EmailConfigurationTable from "./table.js";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 
 export default function UserEmailConfiguration() {
   let { id } = useParams();
@@ -25,9 +26,11 @@ export default function UserEmailConfiguration() {
   const [emailConfiguration, setemailConfiguration] = useState(initialState);
 
   const dispatch = useDispatch();
-  const { loader, bussinessEmailConfigurations } = useSelector(
-    (state) => state.emailUserConfigurationSlice
-  );
+  const {
+    loader,
+    bussinessEmailConfigurations,
+    userEmailConfigurations,
+  } = useSelector((state) => state.emailUserConfigurationSlice);
 
   useEffect(() => {
     if (bussinessEmailConfigurations.length > 0) {
@@ -61,8 +64,22 @@ export default function UserEmailConfiguration() {
         ...e,
         userId: id,
       };
-      dispatch(addUserEmailConfiguration(payload));
-      setemailConfiguration(initialState);
+      //check if there is already an configuration exist
+      if (userEmailConfigurations.length > 0) {
+        //todo error msg show that already exist configuration
+        dispatch(
+          openNotification({
+            message: "Email configuration already exist",
+            type: "error",
+            duration: 2,
+          })
+        );
+        setemailConfiguration(initialState);
+        return;
+      } else {
+        dispatch(addUserEmailConfiguration(payload));
+        setemailConfiguration(initialState);
+      }
       return;
     }
     dispatch(updateUserEmailConfiguration(e));

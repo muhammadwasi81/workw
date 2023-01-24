@@ -34,8 +34,16 @@ const ProjectSummary = () => {
           }}
           footer={null}
         >
-          <Row gutter={[16, 16]} className="mt-5 cursor-pointer">
-            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+          <Row gutter={[16, 16]} className="cursor-pointer">
+            <Col
+              xs={24}
+              sm={24}
+              md={12}
+              lg={12}
+              xl={12}
+              xxl={12}
+              className="mt-4"
+            >
               <div className="shadow hover:shadow-lg hover:transition-all rounded-md py-2 px-5 h-52">
                 <div className="flex flex-wrap">
                   <h3 className="font-semibold text-lg">Members</h3>
@@ -57,12 +65,20 @@ const ProjectSummary = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+            <Col
+              xs={24}
+              sm={24}
+              md={12}
+              lg={12}
+              xl={12}
+              xxl={12}
+              className="mt-4"
+            >
               <div className="shadow hover:shadow-lg hover:transition-all rounded-md py-2 px-5 h-52">
                 <Budget />
               </div>
             </Col>
-            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
               <div className="shadow hover:shadow-lg hover:transition-all rounded-md py-2 px-5 h-52">
                 <div className="flex flex-wrap">
                   <h3 className="font-semibold text-lg">Approvals</h3>
@@ -75,7 +91,7 @@ const ProjectSummary = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
               <div className="shadow hover:shadow-lg hover:transition-all rounded-md py-2 px-5 h-52">
                 <div className="flex justify-start flex-wrap gap-4">
                   <h3 className="font-semibold text-lg">Total Expense</h3>
@@ -92,7 +108,7 @@ const ProjectSummary = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={24} md={12} lg={12} xl={12} xxl={12}>
+            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
               <div className="shadow hover:shadow-lg hover:transition-all rounded-md py-2 px-5 h-52">
                 <div className="flex flex-wrap">
                   <h3 className="font-semibold text-lg">Total Post</h3>
@@ -105,7 +121,7 @@ const ProjectSummary = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={12} md={12} lg={12} xl={12} xxl={12}>
+            <Col xs={24} sm={12} md={12} lg={12} xl={12} xxl={12}>
               <div className="shadow hover:shadow-lg hover:transition-all rounded-md py-2 px-5 h-52">
                 <div className="flex flex-wrap">
                   <h3 className="font-semibold text-lg">Total Meeting</h3>

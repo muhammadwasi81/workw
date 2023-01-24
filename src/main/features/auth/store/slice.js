@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { loginUser, signup, verification, getDesignation } from "./actions.js";
+import { loginUser, signup, verification, getDesignation, setNewPassword } from "./actions.js";
 
 const initialState = {
   data: {},
@@ -57,9 +57,15 @@ export const authSlice = createSlice({
         } else {
           state.isSuccess = false;
           state.verificationSuccess = false;
-        }  
-        
+        }    
       })
+      // .addCase(setNewPassword.fulfilled, (state, { payload }) => {
+      //   let resCode = payload.responseCode;
+      //   if (resCode === 1001) {
+      //       console.log("Success")
+      //   }
+      //   console.log(resCode, "MY PAYLOAD")    
+      // })
       .addCase(verification.rejected, (state, { payload }) => {
         state.isError = true;
         state.verificationLoader = false;

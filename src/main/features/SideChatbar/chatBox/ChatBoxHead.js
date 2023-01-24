@@ -12,13 +12,28 @@ import {
 } from '../../Messenger/store/messengerSlice';
 import phoneIcon from '../../../../content/NewContent/Messenger/callWhiteIcon.svg';
 import videoIcon from '../../../../content/NewContent/Messenger/videoWhiteIcon.svg';
+import { createRoom } from '../../calling/store/action';
 
 const ChatBoxHead = ({ chat, index }) => {
-  let { profileImage, profileName, chatId } = chat;
+  let { profileImage, profileName, chatId, members } = chat;
   const dispatch = useDispatch();
   const handleClose = () => dispatch(handleRemoveChatBox(chat));
   const handleMinimize = () => dispatch(handleMinimizeChatBox({ index }));
   const handleExpend = () => dispatch(handleExpendChatBox({ index }));
+
+  const handleCall = () => {
+    let payload = {
+      roomPassword: "",
+      private: false,
+      members: members.map((member) => ({
+        admin: false,
+        exteral: false,
+        exteralEmail: null,
+        userId: member.id
+      }))
+    }
+    dispatch(createRoom(payload))
+  }
 
   return (
     <div className="ChatBoxHead">
@@ -34,10 +49,10 @@ const ChatBoxHead = ({ chat, index }) => {
       </div>
       <div>
         <div>
-          <SharedButton onClick={handleClose} icon={videoIcon} />
+          <SharedButton onClick={handleCall} icon={videoIcon} />
         </div>
         <div>
-          <SharedButton onClick={handleClose} icon={phoneIcon} />
+          <SharedButton onClick={handleCall} icon={phoneIcon} />
         </div>
         <div>
           <SharedButton

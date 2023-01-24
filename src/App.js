@@ -37,6 +37,7 @@ import PublicJobs from "./main/features/jobs/view/PublicJobs";
 import Jobs from "./main/features/jobs/view/Jobs";
 import ApplyJob from "./main/features/careers/view/PublicRoute/ApplyJob";
 import ApplyRequisition from "./main/features/requisition/view/publicRoutes/ApplyRequisition";
+import SetupPassword from "./main/features/auth/view/SetupPassword";
 
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -113,12 +114,16 @@ const App = () => {
                 element={<OrganizationalSignup isLoggedIn={isLoggedIn} />}
               />
               <Route
-                path={'signupVerification/verify'}
+                path={ROUTES.AUTH.VERIFICATION}
                 element={<Verified />}
               />
               <Route
                 path={'/verification'}
                 element={<Verifying />}
+              />
+              <Route
+                path={ROUTES.AUTH.SETUP_PASSWORD}
+                element={<SetupPassword />}
               />
               <Route
                 path={`${ROUTES.FORMS.SUBMIT_FORM}/:id`}

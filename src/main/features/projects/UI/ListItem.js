@@ -8,6 +8,7 @@ import menuIcon from "../../../../content/NewContent/Documents/3dots.svg";
 import MemberModal from "./MemberModal";
 import { updateProjectById, handleComposer, addMember } from "../store/slice";
 import { useDispatch, useSelector } from "react-redux";
+import "./style.css"
 const { Meta } = Card;
 
 function ListItem(props) {
@@ -32,7 +33,7 @@ function ListItem(props) {
     e.preventDefault();
     e.stopPropagation();
     setVisible(true);
-    setOpen(false);
+    setOpen(true);
     dispatch(addMember({ status: true }));
   };
   const handleOpenChange = (newOpen) => {

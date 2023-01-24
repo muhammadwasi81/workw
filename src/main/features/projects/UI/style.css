@@ -102,7 +102,11 @@
 .modalWrapper .ant-modal-content {
   border-radius: 20px !important;
 }
-
+.ApproverModal .ant-modal-body {
+  height: 350px;
+  max-height: 431px;
+  overflow: scroll;
+}
 @media (max-width: 768px) {
   .coverImgWrapper {
     height: 200px;

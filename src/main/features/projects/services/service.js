@@ -108,3 +108,26 @@ export const getAllProjectStickyService = (data) => {
       return err;
     });
 };
+export const getAllProjectMemberService = (id) => {
+  return MasterConfig.get(`api/Project/GetAllProjectMember?id=${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const addProjectMemberService = (data) => {
+  let id = data.id;
+	let memberId = data.memberId;
+  return MasterConfig.post(`api/Project/AddProjectMember?id=${id}`, [
+		{ memberId: memberId },
+	  ])
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

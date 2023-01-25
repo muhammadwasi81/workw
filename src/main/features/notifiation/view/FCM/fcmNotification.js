@@ -12,7 +12,7 @@ export default function FcmNotification() {
             console.log('Message received.', payload);
             if (payload) {
               dispatch(handleIncomingCall({
-                data: payload.notification.title
+                data: payload
               }));
             }
           });

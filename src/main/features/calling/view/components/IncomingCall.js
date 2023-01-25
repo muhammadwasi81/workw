@@ -9,6 +9,16 @@ export default function IncomingCall() {
 	const incomingCallData = useSelector(state => state.callingSlice.incomingCallData);
 	const dispatch = useDispatch();
 
+	const handleOpenCall = (callURL) => {
+		const strWindowFeatures =
+		  "location=yes,height=800,width=800,scrollbars=yes,status=yes";
+		window.open(callURL, "_blank", strWindowFeatures);
+		console.log(callURL, "callURL")
+		dispatch(handleIncomingCall(null));
+
+	}
+	const userDetail = incomingCallData?.data?.data?.callInitializer && JSON.parse(incomingCallData?.data?.data?.callInitializer);
+
 	return (
 		<>
 			{
@@ -18,10 +28,10 @@ export default function IncomingCall() {
 							<Avatar
 								round={true}
 								size={72}
-								name={"Abubakar Memon"}
-								src={"https://konnect.im/upload/2022/10/88c35581-97aa-4e88-be91-584a667fd5eb.jpg"}
+								name={userDetail?.name}
+								src={userDetail?.image}
 							/>
-							<div className="caller-name">{"AbuBakar Memon"}</div>
+							<div className="caller-name">{userDetail?.name}</div>
 							<div className="call-status">
 								{"Incoming call"}
 							</div>
@@ -33,14 +43,14 @@ export default function IncomingCall() {
 							<div className="call-options">
 								{/* {mode === STRINGS.TYPES.CALL.MODE.VIDEO && ( */}
 								<div className="call-opt-btn gr"
-									onClick={() => dispatch(handleIncomingCall(null))}
+									onClick={() => handleOpenCall(incomingCallData.data.data.CallURL)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.VIDEO_ANSWER)}
 								>
 									<i className="ic-facetime" style={{ width: "14px", height: "14px" }} />
 								</div>
 								{/* )} */}
 								<div className="call-opt-btn gr"
-									onClick={() => dispatch(handleIncomingCall(null))}
+									onClick={() => handleOpenCall(incomingCallData.data.data.CallURL)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.ANSWER)}
 								>
 									<i className="ic-phone" />

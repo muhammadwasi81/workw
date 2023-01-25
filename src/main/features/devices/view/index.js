@@ -6,12 +6,6 @@ import './style.css'
 import {getUserDeviceInfo} from "../store/action";
 
 const columns = [
-    {
-        title: "Date",
-        //dataIndex: "deviceType",
-        ellipsis: true,
-        key: "Date",
-    },
   {
     title: "Device type",
     dataIndex: "deviceType",
@@ -36,40 +30,16 @@ const columns = [
     ellipsis: true,
     key: "device",
   },
-
-  // {
-  //   title: sharedLabels.action,
-  //   render: (value, __, rowIndex) => {
-  //     return (
-  //       <a
-  //         href=" "
-  //         onClick={(e) => {
-  //           e.preventDefault();
-  //           if (isEdit) {
-  //             handleRowChange(rowIndex);
-  //           } else {
-  //             const filterArray = bankDetails.filter((value, i) => {
-  //               if (rowIndex !== i) return value;
-  //             });
-  //             setBankDetails(filterArray);
-  //           }
-  //         }}
-  //       >
-  //         {isEdit ? sharedLabels.Edit : sharedLabels.Delete}
-  //       </a>
-  //     );
-  //   },
-  // },
 ];
 
 function Devices() {
 
-  //const { id } = useParams();
+  const { id } = useParams();
   const { user } = useSelector((state) => state.userSlice);
   const userId = user.id;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUserDeviceInfo(userId));
+    dispatch(getUserDeviceInfo('47d7929b-5b7d-4ffe-859d-2059ece13191'));
   }, []);
 
   console.log("userIduserId",userId);

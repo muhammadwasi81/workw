@@ -15,7 +15,7 @@ const initialState = {
   error: false,
 };
 
-const emailConfigurationSlice = createSlice({
+const userEmailConfigurationSlice = createSlice({
   name: "emailConfiguration",
   initialState,
   reducers: {
@@ -73,5 +73,7 @@ const emailConfigurationSlice = createSlice({
   },
 });
 
-export const { emailConfigurationDeleted } = emailConfigurationSlice.actions;
-export default emailConfigurationSlice.reducer;
+export const {
+  emailConfigurationDeleted,
+} = userEmailConfigurationSlice.actions;
+export default userEmailConfigurationSlice.reducer;

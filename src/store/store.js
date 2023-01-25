@@ -8,14 +8,14 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import MessengerSlice from '../main/features/Messenger/store/messengerSlice';
-import sideBarChatSlice from '../components/MainMenu/SideChatbar/store/sideBarChatSlice';
-import requisitionSlice from '../main/features/requisition/store/slice';
-import authSlice from '../main/features/auth/store/slice';
-import gradeSlice from '../main/features/grade/store/slice';
-import rebateCategorySlice from '../main/features/rebateCategory/store/slice';
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
+import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
+import requisitionSlice from "../main/features/requisition/store/slice";
+import authSlice from "../main/features/auth/store/slice";
+import gradeSlice from "../main/features/grade/store/slice";
+import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
 // import taxSlabSlice from '../main/features/taxSlabs/store/slice';
 import taxSlabGroupSlice from "../main/features/taxSlabs/store/slice";
 import eLearningSlice from "../main/features/eLearning/store/slice";
@@ -26,6 +26,7 @@ import subsidiaryOfficeSlice from "../main/features/subsidiaryOffice/store/slice
 import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
+import emailUserConfigurationSlice from "../main/features/emailUserConfiguration/store/slice";
 import designationSlice from "../main/features/designation/store/slice";
 import appraisalSlice from "../main/features/appraisal/appraisalQuestion/store/slice";
 import warningCategorySlice from "../main/features/warning/warningCategory/store/slice";
@@ -146,6 +147,7 @@ const reducers = combineReducers({
   gradeSlice,
   eLearningCategorySlice,
   emailConfigurationSlice,
+  emailUserConfigurationSlice,
   salaryHeaderSlice,
   // taxSlabSlice,
   taxSlabGroupSlice,

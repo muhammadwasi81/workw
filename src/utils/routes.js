@@ -1,6 +1,6 @@
 export let DOMAIN_PREFIX = "";
 // DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
-// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
+DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
 
 export const ROUTES = {
   SEARCH: {

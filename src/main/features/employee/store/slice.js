@@ -63,9 +63,12 @@ const employeeSlice = createSlice({
       })
       .addCase(getUserBasicInfo.fulfilled, (state, { payload }) => {
         state.employee.basicdetails = payload.data;
+      
       })
       .addCase(getUserDeviceInfo.fulfilled, (state, { payload }) => {
-        state.employee.devicedetails = payload.data
+
+        state.employee.devicedetails = payload.data;
+        console.log(payload.data,"payloadddd");
       })
       .addCase(getUserWorkExperience.fulfilled, (state, { payload }) => {
         state.employee.experiencedetails = payload.data;

@@ -7,6 +7,7 @@ import { addMember } from "../../store/slice";
 import MemberModal from "../../view/Modal/MemberModal";
 import "./style.css";
 import QuickOptions from "../../quickOptions/index";
+import {getAllLeadManagerMember} from "../../store/actions";
 
 function DashboardCardLayout({
   data = {},
@@ -17,7 +18,8 @@ function DashboardCardLayout({
   onClick = () => {},
   dictionary = {},
 }) {
-  const disptach = useDispatch();
+  console.log(data.members,'membersss');
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { Meta } = Card;
@@ -28,6 +30,14 @@ function DashboardCardLayout({
   const menuHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
+  };
+  const handleChange = (id) => {
+    let memberId = id.toString();
+    const data = {
+      id: userId,
+      memberId: memberId,
+    };
+    dispatch(getAllLeadManagerMember(userId));
   };
   return (
     <>
@@ -70,15 +80,19 @@ function DashboardCardLayout({
           }
         />
 
-        <div className="flex justify-between items-center">
-          <div className="members">
-            <Avatar
-              isAvatarGroup={true}
-              isTag={false}
-              heading={"Members"}
-              membersData={data.members ? data.members : []}
-            />
-          </div>
+        <div className="flex justify-between items-center">  
+              <div className="members">
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Members"}
+                  membersData={data.members ? data.members : []}
+                  //selectedData={handleChange} 
+                 // membersData={dispatch(getAllLeadManagerMember(userId))}
+               />
+              </div>
+          
+        
           {/* {userId === data.createBy && (
             <div
               className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
@@ -93,7 +107,7 @@ function DashboardCardLayout({
             </div>
           )} */}
           <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
-        </div>
+          </div>
       </Card>
     </>
   );

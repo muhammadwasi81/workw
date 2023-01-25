@@ -7,6 +7,12 @@ export const listitem = [
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/basicInfo/${id}`,
   },
   {
+    displayName: "Email_Configuration",
+    classObj: "button",
+    to: (id) =>
+      `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/emailConfiguration/${id}`,
+  },
+  {
     displayName: "Bank_Detail",
     classObj: "button",
 

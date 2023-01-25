@@ -1,14 +1,19 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { updateUserWorkExperienceAction } from './actions';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import {
+  updateUserWorkExperienceAction,
+  addUserWorkExperienceAction,
+  getUserWorkExperience,
+} from "./actions";
 
 const initialState = {
   experienceDetails: {},
+  experienceInformation: [],
   loader: false,
   success: false,
 };
 
 const workExperienceSlice = createSlice({
-  name: 'experienceDetails',
+  name: "experienceDetails",
   initialState,
   reducers: {
     handleResetEmergencyInfo: (state) => {
@@ -17,18 +22,44 @@ const workExperienceSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getUserWorkExperience.fulfilled, (state, { payload }) => {
+        console.log(payload, "getUserWorkExperience Slice");
+        state.experienceInformation = payload.data;
+        state.loader = false;
+        state.success = true;
+      })
       .addCase(updateUserWorkExperienceAction.fulfilled, (state, action) => {
-        console.log(action.payload, 'updateUserEmergencyContactAction Slice');
+        console.log(action.payload, "updateUserEmergencyContactAction Slice");
         state.experienceDetails = action.payload;
         state.loader = false;
         state.success = true;
       })
+      .addCase(addUserWorkExperienceAction.fulfilled, (state, { payload }) => {
+        state.experienceInformation.push(payload[0]);
+        state.experienceDetails = payload[0];
+        state.loader = false;
+        state.success = true;
+      })
       .addMatcher(isPending(...[updateUserWorkExperienceAction]), (state) => {
-        console.log('pending state');
+        state.loader = true;
+      })
+      .addMatcher(isPending(...[addUserWorkExperienceAction]), (state) => {
+        console.log("pending adding state");
+        state.loader = true;
+      })
+      .addMatcher(isPending(...[getUserWorkExperience]), (state) => {
+        console.log("pending getUserWorkExperience state");
         state.loader = true;
       })
       .addMatcher(isRejected(...[updateUserWorkExperienceAction]), (state) => {
-        console.log('rejected state');
+        state.loader = false;
+      })
+      .addMatcher(isRejected(...[addUserWorkExperienceAction]), (state) => {
+        console.log("rejected adding state");
+        state.loader = false;
+      })
+      .addMatcher(isRejected(...[getUserWorkExperience]), (state) => {
+        console.log("rejected adding state");
         state.loader = false;
       });
   },

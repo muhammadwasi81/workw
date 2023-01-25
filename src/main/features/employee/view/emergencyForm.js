@@ -1,27 +1,29 @@
-import { PlusOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Divider, Form, Input, Select, Table } from 'antd';
-import React, { useContext, useEffect } from 'react';
-import { useState } from 'react';
-import { dictionaryList } from '../../../../utils/localization/languages';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { employeeDictionaryList } from '../localization/index';
-import '../Styles/employeeForm.css';
-import { relations } from '../../../../utils/Shared/enums/enums';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { resetEmergencydetails } from '../store/slice';
+import { PlusOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Divider, Form, Input, Select, Table } from "antd";
+import React, { useContext, useEffect } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { employeeDictionaryList } from "../localization/index";
+import "../Styles/employeeForm.css";
+import { relations } from "../../../../utils/Shared/enums/enums";
+import { useSelector, useDispatch } from "react-redux";
+import { resetEmergencydetails } from "../store/slice";
 import {
+  addUserEmergencyContactAction,
   getUserEmergency,
   updateUserEmergencyContactAction,
-} from '../../emergencyInfo/store/actions';
-import { handleResetEmergencyInfo } from '../../emergencyInfo/store/slice';
+} from "../../emergencyInfo/store/actions";
+import { handleResetEmergencyInfo } from "../../emergencyInfo/store/slice";
 
 const { Option } = Select;
 
 const EmergencyForm = ({ mode, userId }) => {
-  const isEdit = mode === 'edit';
+  const param = useParams();
+  const isEdit = mode === "edit";
   const [emergencyInfo, setEmergencyInfo] = useState([]);
-  const [newUserId, setNewUserId] = useState('');
+  const [newUserId, setNewUserId] = useState("");
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const { employeesDictionary, Direction } = employeeDictionaryList[
@@ -31,12 +33,12 @@ const EmergencyForm = ({ mode, userId }) => {
   const { emergencyInformation, success, emergencyDetails } = useSelector(
     (state) => state.emergencyInfoSlice
   );
-  console.log(emergencyDetails?.id, 'emergencyInformation');
+  console.log(emergencyDetails?.id, "emergencyInformation");
 
   const initialState = {
-    name: '',
-    address: '',
-    contactNo: '',
+    name: "",
+    address: "",
+    contactNo: "",
     relation: [],
   };
   const [initialValues, setInitialValues] = useState(initialState);
@@ -44,7 +46,7 @@ const EmergencyForm = ({ mode, userId }) => {
   const placeholder = employeesDictionary.placeholders;
   const [form] = Form.useForm();
 
-  Object.defineProperty(form, 'values', {
+  Object.defineProperty(form, "values", {
     value: function() {
       return emergencyInformation;
     },
@@ -80,13 +82,24 @@ const EmergencyForm = ({ mode, userId }) => {
     form.submit();
     try {
       const isValidation = await form.validateFields();
-      if (isValidation)
+      if (isValidation) {
+        //TODO: here we will add emergency info
+        if (isEdit) {
+          console.log("is edit work");
+          const payloadObj = {
+            payload: form.getFieldsValue(),
+            id: param.id,
+          };
+          dispatch(addUserEmergencyContactAction(payloadObj));
+        }
+
         setEmergencyInfo((preValues) => [...preValues, form.getFieldsValue()]);
-      form.resetFields();
-      setInitialValues(initialState);
+        form.resetFields();
+        setInitialValues(initialState);
+      }
     } catch (err) {
-      console.log(err, 'err');
-      throw new Error('something went wrong', { cause: err });
+      console.log(err, "err");
+      throw new Error("something went wrong", { cause: err });
     }
   };
 
@@ -101,23 +114,23 @@ const EmergencyForm = ({ mode, userId }) => {
     return [
       {
         title: labels.Name,
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: "name",
+        key: "name",
       },
       {
         title: labels.Address,
-        dataIndex: 'address',
-        key: 'address',
+        dataIndex: "address",
+        key: "address",
       },
       {
         title: labels.Number,
-        dataIndex: 'contactNo',
-        key: 'contactNo',
+        dataIndex: "contactNo",
+        key: "contactNo",
       },
       {
         title: labels.Relation,
-        dataIndex: 'relation',
-        key: 'relation',
+        dataIndex: "relation",
+        key: "relation",
         render: (value) => {
           return relations[value - 1]?.name;
         },
@@ -135,7 +148,7 @@ const EmergencyForm = ({ mode, userId }) => {
                 if (isEdit) {
                   handleRowChange(rowIndex);
                   setNewUserId(data[rowIndex].id);
-                  console.log(data[rowIndex].id, 'data[rowIndex].id');
+                  console.log(data[rowIndex].id, "data[rowIndex].id");
                 } else {
                   const filterArray = data.filter((value, i) => {
                     if (rowIndex !== i) return value;
@@ -157,17 +170,17 @@ const EmergencyForm = ({ mode, userId }) => {
       userId: userId,
       // id: emergencyDetails?.id,
       id: newUserId,
-      name: form.getFieldValue('name'),
-      address: form.getFieldValue('address'),
-      contactNo: form.getFieldValue('contactNo'),
-      relation: form.getFieldValue('relation'),
+      name: form.getFieldValue("name"),
+      address: form.getFieldValue("address"),
+      contactNo: form.getFieldValue("contactNo"),
+      relation: form.getFieldValue("relation"),
     };
     return payload;
   };
 
   const handleUpdate = () => {
     const payloadData = createPayload();
-    console.log(payloadData, 'payloadData');
+    console.log(payloadData, "payloadData");
     dispatch(updateUserEmergencyContactAction(payloadData));
     // setEmergencyInfo((preValues) => [...preValues, form.getFieldsValue()]);
     setEmergencyInfo((preValues) => [...preValues, payloadData]);
@@ -175,15 +188,15 @@ const EmergencyForm = ({ mode, userId }) => {
     setInitialValues(initialState);
   };
 
-  let classes = 'employeeForm emergencyInfo ';
-  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
+  let classes = "employeeForm emergencyInfo ";
+  classes += Direction === "ltr" ? "ltr" : "rtl";
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.EmergencyInfo}</Divider>
       <Form
         name="emergencyInfo"
         form={form}
-        layout={'vertical'}
+        layout={"vertical"}
         initialValues={initialValues}
       >
         <Form.Item
@@ -240,7 +253,7 @@ const EmergencyForm = ({ mode, userId }) => {
         </Form.Item>
       </Form>
 
-      <div className={isEdit ? 'editButtons' : 'buttons'}>
+      <div className={isEdit ? "editButtons" : "buttons"}>
         <Button
           type="dashed"
           className="btn addMore"

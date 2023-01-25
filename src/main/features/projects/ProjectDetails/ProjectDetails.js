@@ -50,6 +50,7 @@ import StickyColor from '../UI/StickyColor';
 import { formats, modules } from './utils';
 import { DownOutlined } from '@ant-design/icons';
 import ProjectSummary from '../view/ProjectSummary';
+import Schedules from '../../schedule/index';
 const { Panel } = Collapse;
 
 function ProjectDetails() {
@@ -166,7 +167,7 @@ function ProjectDetails() {
         feature={3}
       />
     ),
-    10: <>Schedule</>,
+    10: <Schedules referenceId={projectId.trim()} />,
     11: (
       <Travel
         referenceType={TravelReferenceTypeEnum.Project}

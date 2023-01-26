@@ -1,32 +1,43 @@
-export const userType = Object.freeze([
-  {
-    id: 1,
-    name: 'Super Admin',
-  },
-  {
-    id: 2,
-    name: 'Admin',
-  },
-  {
-    id: 3,
-    name: 'Employee',
-  },
-  {
-    id: 4,
-    name: 'Individual',
-  },
-  {
-    id: 5,
-    name: 'Guest',
-  },
-]);
-
 export const userTypeEnum = {
   SuperAdmin: 1,
   Admin: 2,
   Employee: 3,
   Individual: 4,
+  Guest:5
 };
+export const userTypeList = Object.freeze([
+  {
+    id: userTypeEnum.SuperAdmin,
+    name: 'Super Admin',
+  },
+  {
+    id: userTypeEnum.Admin,
+    name: 'Admin',
+  },
+  {
+    id: userTypeEnum.Employee,
+    name: 'Employee',
+  },
+  {
+    id: userTypeEnum.Individual,
+    name: 'Individual',
+  },
+  {
+    id: userTypeEnum.Guest,
+    name: 'Guest',
+  },
+]);
+export const employmentType = Object.freeze([
+  {
+    id: 1,
+    name: 'FullTime',
+  },
+  {
+    id: 2,
+    name: 'PartTime',
+  },
+]);
+
 export const userTitle = Object.freeze([
   {
     id: 1,
@@ -107,16 +118,7 @@ export const relations = Object.freeze([
   },
 ]);
 
-export const employmentType = Object.freeze([
-  {
-    id: 1,
-    name: 'FullTime',
-  },
-  {
-    id: 2,
-    name: 'PartTime',
-  },
-]);
+
 export const cityApiPrefix = '/api/Utility/GetAllCities';
 export const defaultUiid = '00000000-0000-0000-0000-000000000000';
 export const FilterSortEnum = Object.freeze({

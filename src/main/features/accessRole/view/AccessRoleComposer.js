@@ -1,15 +1,14 @@
 import { Button, Form, Input, Tree, Skeleton, message } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { FormTextArea } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
-// import { getAllBussinessFeatures } from "../../../../utils/Shared/store/actions";
+import { getAllBussinessFeatures } from "../../../../utils/Shared/store/actions";
 import Select from '../../../sharedComponents/Select/Select';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { dictionaryList } from '../../../../utils/localization/languages';
 import * as S from '../../employee/Styles/employee.style';
 import { FormLabel } from './FormLabel';
-import { userType } from '../../../../utils/Shared/enums/enums';
+import {userTypeEnum, userTypeList} from '../../../../utils/Shared/enums/enums';
 const initialTreeData = [
   {
     title: 'Access Controls',
@@ -19,10 +18,13 @@ const initialTreeData = [
 ];
 
 function AccessRoleComposer(props) {
+  const dispatch=useDispatch();
   const [expandedKeys, setExpandedKeys] = useState(['Access Controls']);
   const [checkedKeys, setCheckedKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
+ // const [bussinessFeatures,setBussinessFeatures]  = useState([]);
+
   const { bussinessFeatures } = useSelector((state) => state.sharedSlice);
   const [featuresTreeData, setFeaturesTreeData] = useState(initialTreeData);
   const [loadingTreeData, setLoadingTreeData] = useState(false);
@@ -42,10 +44,12 @@ function AccessRoleComposer(props) {
   const { administration, sharedLabels, Direction } = dictionaryList[
     userLanguage
   ];
+  useEffect(()=>{
+    dispatch(getAllBussinessFeatures());
+  },[]);
 
   useEffect(() => {
     setLoadingTreeData(true);
-
     if (bussinessFeatures && bussinessFeatures.length > 0) {
       let expandedKeysArray = [];
       bussinessFeatures &&
@@ -70,6 +74,7 @@ function AccessRoleComposer(props) {
           id: feature.featureId,
           children: [],
         }));
+      console.log(transformObject,'transformObject');
       let transformedChildren;
 
       for (let i = 0; i < bussinessFeatures.length; i++) {
@@ -149,6 +154,7 @@ function AccessRoleComposer(props) {
     setSelectedKeys(selectedKeysValue);
   };
   const handleTreeForm = (values) => {
+    console.log(values,checkedKeys,'values');
     let finalData = {
       name: values.name,
       description: values.description,
@@ -203,6 +209,8 @@ function AccessRoleComposer(props) {
     if (props.isEdited) {
       finalData.id = props.id;
     }
+    console.log(finalData,'finalData');
+    return;
     props.onSubmitData(finalData);
   };
 
@@ -293,7 +301,7 @@ function AccessRoleComposer(props) {
               placeholder={
                 administration.accessRole.Drawer.placeholders.SelectUserType
               }
-              data={userType}
+              data={userTypeList.filter(x=>[userTypeEnum.Admin,userTypeEnum.Employee].includes(x.id))}
               defaultValue={props.formData.roleTypeId}
             />
           </S.FormItem>

@@ -43,7 +43,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const [form] = Form.useForm();
   const initialState = {
     coverImageId: '',
-    userTypeId: userTypeEnum.Employee,
+    userTypeId: '',
     titleId: 1,
     firstName: '',
     lastName: '',
@@ -179,8 +179,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     }
   }, [basicdetails]);
 
-  console.log(basicdetails.manager?.id, 'managerId');
-
   useEffect(() => {
     form.setFieldsValue(initialValues);
   }, [initialValues, form]);
@@ -246,8 +244,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
       });
     }
   };
-
-  console.log('userType.id', userType);
 
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
@@ -596,7 +592,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
               size="large"
               getPopupContainer={(trigger) => trigger.parentNode}
               placeholder={placeholder.selectUserType}
-              defaultValue={initialState.userTypeId}
             >
               {userType.map((type) => (
                 <Option key={type.id} value={type.id}>

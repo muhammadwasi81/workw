@@ -26,6 +26,7 @@ export const userTypeEnum = {
   Admin: 2,
   Employee: 3,
   Individual: 4,
+  Guest: 5,
 };
 export const userTitle = Object.freeze([
   {

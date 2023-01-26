@@ -7,6 +7,12 @@ export const listitem = [
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/basicInfo/${id}`,
   },
   {
+    displayName: "Email_Configuration",
+    classObj: "button",
+    to: (id) =>
+      `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/emailConfiguration/${id}`,
+  },
+  {
     displayName: "Bank_Detail",
     classObj: "button",
 
@@ -41,5 +47,10 @@ export const listitem = [
     displayName: "Leaves",
     classObj: "button",
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/leaves/${id}`,
+  },
+  {
+    displayName: "Devices",
+    classObj: "button",
+    to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/devices/${id}`,
   },
 ];

@@ -1,25 +1,26 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from "react";
 import {
   ContBody,
   TabbableContainer,
-} from '../../sharedComponents/AppComponents/MainFlexContainer';
-import { projectsDictionaryList } from './localization/index';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import ListItem from './UI/ListItem';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getAllProjects } from './store/actions';
-import { CardWrapper2 } from '../../sharedComponents/Card/CardStyle';
-import { tableColumn } from './UI/TableColumn';
-import { Table } from '../../sharedComponents/customTable';
-import ProjectTopBar from './view/ProjectTopBar/ProjectTopBar';
-import useDebounce from '../../../utils/Shared/helper/use-debounce';
-import { NoDataFound } from '../../sharedComponents/NoDataIcon';
-import Header from '../../layout/header';
-import { ROUTES } from '../../../utils/routes';
+} from "../../sharedComponents/AppComponents/MainFlexContainer";
+import { projectsDictionaryList } from "./localization/index";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import ListItem from "./UI/ListItem";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllProjects } from "./store/actions";
+import { CardWrapper2 } from "../../sharedComponents/Card/CardStyle";
+import { tableColumn } from "./UI/TableColumn";
+import { Table } from "../../sharedComponents/customTable";
+import ProjectTopBar from "./view/ProjectTopBar/ProjectTopBar";
+import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import { NoDataFound } from "../../sharedComponents/NoDataIcon";
+// import Header from "../../layout/header";
+import Header from "./view/Header/Header";
+import { ROUTES } from "../../../utils/routes";
 
 const Projects = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [tableView, setTableView] = useState(false);
   const [sortBy, setSortBy] = useState(1);
   const [pageSize, setPageSize] = useState(20);
@@ -57,7 +58,7 @@ const Projects = () => {
     setPageSize(pageSize);
     setPageNo(current);
     const { order } = sorter;
-    if (order === 'ascend') {
+    if (order === "ascend") {
       setSortBy(2);
       return;
     }
@@ -66,7 +67,7 @@ const Projects = () => {
   return (
     <>
       <TabbableContainer>
-        <Header createTextBtn={createTextBtn} items={items} />
+        <Header createTextBtn={createTextBtn} />
         <ProjectTopBar
           handleView={(isTable) => {
             setTableView(isTable);

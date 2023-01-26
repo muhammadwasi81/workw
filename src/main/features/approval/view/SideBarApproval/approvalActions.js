@@ -47,6 +47,7 @@ export default function ApprovalActions({ item }) {
     createRemark(currentStatus, remarks);
     setIsOpen(false);
   };
+  
   return (
     <div className="approval_item_status">
       <div
@@ -67,6 +68,7 @@ export default function ApprovalActions({ item }) {
       >
         Hold
       </div>
+      
       <ConfirmationRemarkModal
         isOpen={isOpen}
         onCancel={onClose}

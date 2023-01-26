@@ -8,6 +8,7 @@ import {
   saveProjectStickyAction,
   saveStickyTitleAction,
   getProjectStickyAction,
+  getAllProjectMemberAction,addProjectMemberAction
 } from "./actions";
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
   isComposerOpen: false,
   isEditComposer: false,
   addMemberModal: false,
+  memberData:[],
 };
 
 const projectSlice = createSlice({
@@ -80,7 +82,15 @@ const projectSlice = createSlice({
       })
       .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
-      });
+      })
+      .addCase(getAllProjectMemberAction.fulfilled,(state,{payload})=>{
+        state.memberData = payload.length>0?payload:[];
+
+      })
+      .addCase(addProjectMemberAction.fulfilled,(state,{payload})=>{
+        state.memberData = [...state.memberData, payload];
+        return state;
+      })
     builder
       .addMatcher(
         isPending(

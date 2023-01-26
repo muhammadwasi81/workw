@@ -28,7 +28,7 @@ const EmployeeRoutes = () => {
         <Route path={"/bankDetail/:id"} element={<BankForm mode="edit" />} />
         <Route path={"/education/:id"} element={<EducationForm />} />
         <Route path={"/emergencyInfo/:id"} element={<EmergencyForm />} />
-        <Route path={"/rebate/:id"} element={<RebateEmployee />} />
+        <Route path={"/rebate/:id"} element={<RebateEmployee mode="edit" />} />
         <Route path={"/salary/:id"} element={<SalaryEmployee />} />
         <Route path={"/experience/:id"} element={<ExperienceForm />} />
         <Route path={"/devices/:id"} element={<Devices />} />

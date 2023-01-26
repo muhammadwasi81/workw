@@ -3,11 +3,7 @@ export const userTypeEnum = {
   Admin: 2,
   Employee: 3,
   Individual: 4,
-<<<<<<< HEAD
   Guest: 5,
-=======
-  Guest:5
->>>>>>> ff3ffe76a7787ed9f707bdec2761f990a3ea9553
 };
 export const userTypeList = Object.freeze([
   {
@@ -34,11 +30,11 @@ export const userTypeList = Object.freeze([
 export const employmentType = Object.freeze([
   {
     id: 1,
-    name: 'FullTime',
+    name: 'Full-Time',
   },
   {
     id: 2,
-    name: 'PartTime',
+    name: 'Part-Time',
   },
 ]);
 
@@ -121,7 +117,6 @@ export const relations = Object.freeze([
     name: 'Sister',
   },
 ]);
-
 
 export const cityApiPrefix = '/api/Utility/GetAllCities';
 export const defaultUiid = '00000000-0000-0000-0000-000000000000';

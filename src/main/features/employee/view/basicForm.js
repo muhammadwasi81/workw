@@ -43,7 +43,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const [form] = Form.useForm();
   const initialState = {
     coverImageId: '',
-    userTypeId: '',
+    userTypeId: userTypeEnum.Employee || userTypeEnum.Admin,
     titleId: 1,
     firstName: '',
     lastName: '',
@@ -167,7 +167,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         accessRoleId: basicdetails?.accessRoles?.map(
           (item) => item.accessRoleId
         ),
-        userTypeId: basicdetails.userTypeId,
         officeTimingId:
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
             ? ''
@@ -245,11 +244,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     }
   };
 
-<<<<<<< HEAD
-=======
   console.log('userType.id', userTypeList);
 
->>>>>>> ff3ffe76a7787ed9f707bdec2761f990a3ea9553
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
   return (
@@ -462,11 +458,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Form.Item
             name="noticePeriod"
             label={labels.NoticePeriod}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input
               placeholder={placeholder.noticePeriod}
@@ -496,11 +488,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         <Form.Item
           name="genderId"
           label={labels.Gender}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
         >
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
@@ -571,11 +559,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             <Form.Item
               name="userTypeId"
               label={labels.UserType}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
             >
               &nbsp;&nbsp;
               <strong>
@@ -587,16 +571,13 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Form.Item
             name="userTypeId"
             label={labels.UserType}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Select
               size="large"
               getPopupContainer={(trigger) => trigger.parentNode}
               placeholder={placeholder.selectUserType}
+              defaultValue={userTypeEnum.Employee || userTypeEnum.Admin}
             >
               {userTypeList.map((type) => (
                 <Option key={type.id} value={type.id}>
@@ -608,11 +589,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         )}
         <Form.Item
           name="accessRoleId"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
           label={labels.AccessRole}
         >
           <Select
@@ -621,13 +598,17 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
             showSearch={true}
             onChange={(value) => {
-              console.log(value, 'accessrole');
+              console.log(value, 'accessroles');
             }}
             filterOption={(input, option) =>
               (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }
             options={accessRoles
-              .filter((x) => x.roleTypeId === initialState.userTypeId)
+              .filter(
+                (x) =>
+                  x.roleTypeId === userTypeEnum.Employee ||
+                  x.roleTypeId === userTypeEnum.Admin
+              )
               .map((item) => {
                 return {
                   value: item.id,

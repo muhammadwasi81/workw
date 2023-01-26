@@ -6,7 +6,7 @@ import { employeeDictionaryList } from '../localization/index';
 import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
 import { EditOutlined } from '@ant-design/icons';
 import {
-  userType,
+  userTypeList,
   userTitle,
   genderList,
   maritalStatusList,
@@ -87,7 +87,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     userLanguage
   ];
   console.log(accessRoles, 'accessRoles');
-  console.log(userType, 'userType');
+  console.log(userTypeList, 'userType');
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -245,6 +245,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     }
   };
 
+<<<<<<< HEAD
+=======
+  console.log('userType.id', userTypeList);
+
+>>>>>>> ff3ffe76a7787ed9f707bdec2761f990a3ea9553
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
   return (
@@ -593,7 +598,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
               getPopupContainer={(trigger) => trigger.parentNode}
               placeholder={placeholder.selectUserType}
             >
-              {userType.map((type) => (
+              {userTypeList.map((type) => (
                 <Option key={type.id} value={type.id}>
                   {type.name}
                 </Option>

@@ -11,6 +11,7 @@ import {
   genderList,
   maritalStatusList,
   employmentType,
+  userTypeEnum,
 } from '../../../../utils/Shared/enums/enums';
 import { useDispatch } from 'react-redux';
 import {
@@ -42,7 +43,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const [form] = Form.useForm();
   const initialState = {
     coverImageId: '',
-    userTypeId: '',
+    userTypeId: userTypeEnum.Employee,
     titleId: 1,
     firstName: '',
     lastName: '',
@@ -69,7 +70,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const [showSubsidary, setShowSubsidary] = useState(false);
   const [department, setDepartment] = useState([]);
   const [initialValues, setInitialValues] = useState(initialState);
-  console.log(initialValues.managerId, 'managerrr');
   const { countries, cities } = useSelector((state) => state.sharedSlice);
   const { designations } = useSelector((state) => state.designationSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
@@ -86,7 +86,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
-
+  console.log(accessRoles, 'accessRoles');
+  console.log(userType, 'userType');
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -117,7 +118,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const selectBefore = (
     <Form.Item name="titleId" className="titleSelect">
       <Select
-        style={{ padding: '0', width: '4.5rem', marginBottom: 0 }}
+        style={{
+          padding: '0',
+          width: '4.5rem',
+          marginBottom: 0,
+        }}
         getPopupContainer={(trigger) => trigger.parentNode}
       >
         {userTitle.map((titles) => (
@@ -162,6 +167,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         accessRoleId: basicdetails?.accessRoles?.map(
           (item) => item.accessRoleId
         ),
+        userTypeId: basicdetails.userTypeId,
         officeTimingId:
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
             ? ''
@@ -192,10 +198,21 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     configurable: true,
   });
   const fetchEmployees = (text, pgNo) => {
-    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+    dispatch(
+      getAllEmployees({
+        text,
+        pgNo,
+        pgSize: 20,
+      })
+    );
   };
   const fetchCityData = (text, pgNo) => {
-    dispatch(getCities({ textData: text, page: pgNo }));
+    dispatch(
+      getCities({
+        textData: text,
+        page: pgNo,
+      })
+    );
   };
 
   const handleUpdateInfo = async () => {
@@ -215,7 +232,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             // noticePeriod: parseInt(payload.noticePeriod),
             noticePeriod: 30,
           };
-          dispatch(updateEmployeeAction({ data: payload }));
+          dispatch(
+            updateEmployeeAction({
+              data: payload,
+            })
+          );
         }
       }
     } catch (err) {
@@ -225,6 +246,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
       });
     }
   };
+
+  console.log('userType.id', userType);
 
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
@@ -237,7 +260,12 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         layout={'vertical'}
         initialValues={initialValues}
       >
-        <Form.Item area="true" style={{ gridArea: '1/-2 / span 2 / span 1' }}>
+        <Form.Item
+          area="true"
+          style={{
+            gridArea: '1/-2 / span 2 / span 1',
+          }}
+        >
           <SingleUpload
             url={isEdit ? initialValues.image : ''}
             value={profileImage}
@@ -275,14 +303,28 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Input placeholder={placeholder.fatherName}></Input>
         </Form.Item>
         <Form.Item
-          rules={[{ required: true }, { type: 'email' }]}
+          rules={[
+            {
+              required: true,
+            },
+            {
+              type: 'email',
+            },
+          ]}
           name="email"
           label={labels.Email}
         >
           <Input placeholder={placeholder.email}></Input>
         </Form.Item>
         <Form.Item
-          rules={[{ required: true }, { type: 'email' }]}
+          rules={[
+            {
+              required: true,
+            },
+            {
+              type: 'email',
+            },
+          ]}
           name="personalEmail"
           label={labels.PersonalEmail}
         >
@@ -419,7 +461,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Form.Item
             name="noticePeriod"
             label={labels.NoticePeriod}
-            rules={[{ required: true }]}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
           >
             <Input
               placeholder={placeholder.noticePeriod}
@@ -449,7 +495,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         <Form.Item
           name="genderId"
           label={labels.Gender}
-          rules={[{ required: true }]}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
@@ -520,7 +570,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             <Form.Item
               name="userTypeId"
               label={labels.UserType}
-              rules={[{ required: true }]}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
             >
               &nbsp;&nbsp;
               <strong>
@@ -532,12 +586,17 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Form.Item
             name="userTypeId"
             label={labels.UserType}
-            rules={[{ required: true }]}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
           >
             <Select
               size="large"
               getPopupContainer={(trigger) => trigger.parentNode}
               placeholder={placeholder.selectUserType}
+              defaultValue={initialState.userTypeId}
             >
               {userType.map((type) => (
                 <Option key={type.id} value={type.id}>
@@ -547,10 +606,13 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             </Select>
           </Form.Item>
         )}
-
         <Form.Item
           name="accessRoleId"
-          rules={[{ required: true }]}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
           label={labels.AccessRole}
         >
           <Select
@@ -564,12 +626,14 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             filterOption={(input, option) =>
               (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }
-            options={accessRoles.map((item) => {
-              return {
-                value: item.id,
-                label: item.name,
-              };
-            })}
+            options={accessRoles
+              .filter((x) => x.roleTypeId === initialState.userTypeId)
+              .map((item) => {
+                return {
+                  value: item.id,
+                  label: item.name,
+                };
+              })}
           >
             {accessRoles.map((item) => (
               <Select.Option key={item.id} value={item.id}>
@@ -600,7 +664,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         {!isEdit && (
           <Form.Item
             name="subsidiary"
-            rules={[{ required: false }]}
+            rules={[
+              {
+                required: false,
+              },
+            ]}
             label={labels.subsidiary}
           >
             <Select
@@ -634,7 +702,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         {showSubsidary && (
           <Form.Item
             name="subsidiaryOffice"
-            rules={[{ required: false }]}
+            rules={[
+              {
+                required: false,
+              },
+            ]}
             label={labels.subsidiaryOffice}
           >
             <Select

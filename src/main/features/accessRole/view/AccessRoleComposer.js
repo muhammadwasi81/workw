@@ -33,7 +33,6 @@ function AccessRoleComposer(props) {
   });
   const [isObjEqual, setIsObjEqual] = useState(false);
   const {
-    loader: loading,
     createLoader,
     success,
     singleAccessRole,

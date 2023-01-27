@@ -9,7 +9,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { dictionaryList } from "../../../../utils/localization/languages";
 
 import OfficeTimingTable from "./table.js";
-import { handleOpenComposer, handleComposer } from "../store/slice";
+import { handleComposer } from "../store/slice";
 import { getAllOfficeTimingService } from "../services/service";
 
 export default function OfficeTiming() {
@@ -22,9 +22,7 @@ export default function OfficeTiming() {
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
-  const { drawerOpen, editData, success } = useSelector(
-    (state) => state.officeTimingSlice
-  );
+  const { editData, success } = useSelector((state) => state.officeTimingSlice);
 
   const handleEdit = async (data) => {
     // const result = await getAllOfficeTimingService();
@@ -51,8 +49,6 @@ export default function OfficeTiming() {
               title={isEdited ? "Update Office Timing" : "Create Office Timing"}
               buttonText={"Create Office Timing"}
               success={success}
-              // handleClose={() => dispatch(handleOpenComposer(false))}
-              // handleOpen={() => dispatch(handleOpenComposer(true))}
               openDrawer={openDrawer || !!editData}
               setOpenDrawer={setOpenDrawer}
               setIsEdited={setIsEdited}
@@ -61,8 +57,9 @@ export default function OfficeTiming() {
               isAccessDrawer={true}
               children={
                 <OfficeTimingComposer
+                  editData={editData}
                   isEdited={isEdited}
-                  formData={formData}
+                  //formData={formData}
                   form={form}
                 />
               }

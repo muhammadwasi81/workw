@@ -6,21 +6,19 @@ import OfficeTimingForm from "./form";
 import { message } from "antd";
 import { updateOfficeTimingGroupAction } from "../store/actions";
 
-function OfficeTimingComposer({ isEdited, formData }) {
-  console.log(isEdited, "formDataaa");
+function OfficeTimingComposer({ editData, isEdited }) {
   const { responsiveSlice } = useSelector((state) => state);
   const { isMobileScreen } = responsiveSlice;
 
   const initialState = { name: "", description: "" };
-  const [officeTimingGroups, setOfficeTimingGroups] = useState(formData);
-  console.log(officeTimingGroups, "officeTimingGroups");
+  const [officeTimingGroups, setOfficeTimingGroups] = useState(initialState);
 
   const dispatch = useDispatch();
   const { loader } = useSelector((state) => state.officeTimingSlice);
 
   const onSubmit = (e) => {
-    console.log(e, "uuuuuuuu");
-    if (isEdited) {
+    console.log(e, "eeeeee");
+    if (editData) {
       dispatch(updateOfficeTimingGroupAction(e));
     } else {
       if (e.name === "" || e.description === "") {
@@ -46,7 +44,7 @@ function OfficeTimingComposer({ isEdited, formData }) {
 
           dispatch(addOfficeTimingGroup(filteredData));
 
-          setOfficeTimingGroups(officeTimingGroups);
+          setOfficeTimingGroups(initialState);
           return;
         }
       }
@@ -56,11 +54,11 @@ function OfficeTimingComposer({ isEdited, formData }) {
   return (
     <>
       <OfficeTimingForm
-        isEdited={isEdited}
         data={officeTimingGroups}
         onSubmit={onSubmit}
         loading={loader}
-        formData={formData}
+        isEdited={isEdited}
+        editData={editData}
       />
     </>
   );

@@ -30,9 +30,6 @@ const officeTimingSlice = createSlice({
         (e) => e.id !== payload.id
       );
     },
-    handleOpenComposer: (state, { payload }) => {
-      state.drawerOpen = payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -42,6 +39,7 @@ const officeTimingSlice = createSlice({
       })
       .addCase(addOfficeTimingGroup.fulfilled, (state, { payload }) => {
         state.loader = false;
+        state.success = true;
         state.drawerOpen = false;
         if (payload.responseCode === responseCode.Success)
           state.officeTimingGroups.push(payload.data);
@@ -57,6 +55,7 @@ const officeTimingSlice = createSlice({
       )
       .addCase(getOfficeTimingByIdAction.fulfilled, (state, { payload }) => {
         state.officeTimingDetail = payload.data;
+        console.log(payload.data, "officetiminggg");
         state.loader = false;
       })
 
@@ -84,7 +83,6 @@ const officeTimingSlice = createSlice({
 
 export const {
   officeTimingGroupDeleted,
-  handleOpenComposer,
   handleComposer,
 } = officeTimingSlice.actions;
 export default officeTimingSlice.reducer;

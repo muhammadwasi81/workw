@@ -104,24 +104,26 @@ export default function OfficeTimingForm({
   onSubmit,
   loading,
   isEdited,
-  formData,
+  editData,
 }) {
-  console.log(formData, "formdata");
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, office, Direction } = dictionaryList[userLanguage];
   const initialState = {
-    name: "",
-    description: "",
+    name: editData?.name,
+    description: editData?.description,
     details: staticDataColumn,
   };
-  const [form, setForm] = useState(formData);
+  const [form, setForm] = useState(initialState);
 
-  useEffect(() => {
-    if (Object.keys(formData).length) {
-      setForm(formData[0]);
-      console.log(formData[0], "formmm dataaa");
-    }
-  }, [formData]);
+  const { officeTimingDetail } = useSelector(
+    (state) => state.officeTimingSlice
+  );
+  // useEffect(() => {
+  //   if (Object.keys(formData).length) {
+  //     setForm(formData[0]);
+  //     console.log(formData[0], "formmm dataaa");
+  //   }
+  // }, [formData]);
 
   const handleChangeTable = (e, row, inputType) => {
     let myIndex = row.dayId - 1;
@@ -208,7 +210,7 @@ export default function OfficeTimingForm({
         return (
           <>
             <TimePicker
-              // defaultValue={formData[0]?.checkIn}
+              defaultValue={defaultDate}
               format={format}
               onChange={(e) => handleChangeTable(e, row, "checkIn")}
             />
@@ -230,7 +232,7 @@ export default function OfficeTimingForm({
         return (
           <>
             <TimePicker
-              // defaultValue={checkOutData}
+              defaultValue={checkOutData}
               format={format}
               onChange={(e) => handleChangeTable(e, row, "checkOut")}
             />
@@ -254,7 +256,7 @@ export default function OfficeTimingForm({
             <InputNumber
               min={0}
               max={100000}
-              // defaultValue={graceTime}
+              defaultValue={graceTime}
               onChange={(e) => handleChangeTable(e, row, "graceTime")}
             />
             {administration.office.min}
@@ -338,7 +340,7 @@ export default function OfficeTimingForm({
             onClick={(e) => onSubmit(form)}
           >
             {" "}
-            {isEdited ? "Update Office Timing" : "Create Office Timing"}{" "}
+            {editData ? "Update Office Timing" : "Create Office Timing"}{" "}
           </FormButton>
         </FormButtonContainer>
       </FormContainer>
@@ -347,7 +349,7 @@ export default function OfficeTimingForm({
         pagination={false}
         size="middle"
         columns={OfficeTimingGroupColumn}
-        dataSource={staticDataColumn}
+        dataSource={form.details}
       />
     </AdminContainer>
   );

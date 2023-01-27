@@ -10,6 +10,8 @@ import { gradeDeleted } from "../../grade/store/slice";
 import {
   addOfficeTimingService,
   getAllOfficeTimingService,
+  updateOfficeTimingService,
+  getOfficeTimingbyIdService,
 } from "../services/service";
 
 const API_PREFIX = "konnectapi/api/OfficeTimingGroup/";
@@ -38,6 +40,34 @@ export const addOfficeTimingGroup = createAsyncThunk(
     console.log(res, "response");
     if (res.responseCode && res.responseCode === responseCode.Success) {
       message.success("Office Timing Group added successfully!");
+      responseMessage({ dispatch, data: res });
+    } else {
+      message.error(res.message);
+    }
+    return res;
+  }
+);
+
+export const updateOfficeTimingGroupAction = createAsyncThunk(
+  "OfficeTimingGroup/updateOfficeTimingGroup",
+  async (args, { dispatch }) => {
+    const res = await updateOfficeTimingService(args);
+    if (res.responseCode && res.responseCode === responseCode.Success) {
+      message.success("Office Timing Group updated successfully!");
+      responseMessage({ dispatch, data: res });
+    } else {
+      message.error(res.message);
+    }
+    return res;
+  }
+);
+
+export const getOfficeTimingByIdAction = createAsyncThunk(
+  "OfficeTimingGroup/getOfficeTimingGroup",
+  async (id, { dispatch }) => {
+    const res = await getOfficeTimingbyIdService(id);
+    if (res.responseCode && res.responseCode === responseCode.Success) {
+      // message.success("Office Timing Get successfully!");
       responseMessage({ dispatch, data: res });
     } else {
       message.error(res.message);

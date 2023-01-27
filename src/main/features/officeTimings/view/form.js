@@ -1,4 +1,4 @@
-import { Input, Table, InputNumber, Checkbox, TimePicker } from "antd";
+import { Input, Table, InputNumber, Checkbox, TimePicker, message } from "antd";
 import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
@@ -17,67 +17,96 @@ import "./officeTiming.css";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { useDispatch, useSelector } from "react-redux";
+import { EditFilled } from "@ant-design/icons";
+
+const secondsToHms = (d) => {
+  d = Number(d);
+  var h = Math.floor(d / 3600);
+  var m = Math.floor((d % 3600) / 60);
+  var s = Math.floor((d % 3600) % 60);
+  // var p = 0;
+  // var ap = "a";
+  // if (h > 12) {
+  //   p = h - 2;
+  //   ap = "p";
+  // }
+
+  var hDisplay = h > 0 ? String(h).padStart(2, "0") : "00";
+  var mDisplay = m > 0 ? String(m).padStart(2, "0") : "00";
+  var sDisplay = s > 0 ? String(s).padStart(2, "0") : "00";
+  return hDisplay + ":" + mDisplay + ":" + sDisplay;
+};
+
+var startTime = secondsToHms(32400);
+var endTime = secondsToHms(61200);
 
 const staticDataColumn = [
   {
     name: "Monday",
     isWorking: false,
-    checkIn: "2022-02-24T13:00:00.844Z",
-    checkOut: "2022-02-24T13:00:00.844Z",
+    checkIn: startTime,
+    checkOut: endTime,
     graceTime: 900,
     dayId: 1,
   },
   {
     name: "Tuesday",
     isWorking: false,
-    checkIn: "2022-02-24T13:00:00.844Z",
-    checkOut: "2022-02-24T13:00:00.844Z",
+    checkIn: startTime,
+    checkOut: endTime,
     graceTime: 900,
     dayId: 2,
   },
   {
     name: "Wednesday",
     isWorking: false,
-    checkIn: "2022-02-24T13:00:00.844Z",
-    checkOut: "2022-02-24T13:00:00.844Z",
+    checkIn: startTime,
+    checkOut: endTime,
     graceTime: 900,
     dayId: 3,
   },
   {
     name: "Thurday",
     isWorking: false,
-    checkIn: "2022-02-24T13:00:00.844Z",
-    checkOut: "2022-02-24T13:00:00.844Z",
+    checkIn: startTime,
+    checkOut: endTime,
     graceTime: 900,
     dayId: 4,
   },
   {
     name: "Friday",
     isWorking: false,
-    checkIn: "2022-02-24T13:00:00.844Z",
-    checkOut: "2022-02-24T13:00:00.844Z",
+    checkIn: startTime,
+    checkOut: endTime,
     graceTime: 900,
     dayId: 5,
   },
   {
     name: "Saturday",
     isWorking: false,
-    checkIn: "2022-02-24T13:00:00.844Z",
-    checkOut: "2022-02-24T13:00:00.844Z",
+    checkIn: startTime,
+    checkOut: endTime,
     graceTime: 900,
     dayId: 6,
   },
   {
     name: "Sunday",
     isWorking: false,
-    checkIn: "2022-02-24T13:00:00.844Z",
-    checkOut: "2022-02-24T13:00:00.844Z",
+    checkIn: startTime,
+    checkOut: endTime,
     graceTime: 900,
     dayId: 7,
   },
 ];
 
-export default function OfficeTimingForm({ data, onSubmit, loading }) {
+export default function OfficeTimingForm({
+  data,
+  onSubmit,
+  loading,
+  isEdited,
+  formData,
+}) {
+  console.log(formData, "formdata");
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, office, Direction } = dictionaryList[userLanguage];
   const initialState = {
@@ -85,13 +114,18 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
     description: "",
     details: staticDataColumn,
   };
-  const [form, setForm] = useState(initialState);
-  // const [timeTable, setTimeTable] = useState(staticDataColumn);
-  console.log(staticDataColumn, "static data column");
+  const [form, setForm] = useState(formData);
+
+  useEffect(() => {
+    if (Object.keys(formData).length) {
+      setForm(formData[0]);
+      console.log(formData[0], "formmm dataaa");
+    }
+  }, [formData]);
+
   const handleChangeTable = (e, row, inputType) => {
     let myIndex = row.dayId - 1;
     let oldDetails = [...form.details];
-    console.log(inputType, "input Type");
 
     if (inputType === "isWorking") {
       oldDetails[myIndex] = {
@@ -106,12 +140,12 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
     } else if (inputType === "checkIn") {
       oldDetails[myIndex] = {
         ...oldDetails[myIndex],
-        checkIn: e,
+        checkIn: e._d.getMinutes() * 60 + e._d.getHours() * 3600,
       };
     } else if (inputType === "checkOut") {
       oldDetails[myIndex] = {
         ...oldDetails[myIndex],
-        checkOut: e,
+        checkOut: e._d.getMinutes() * 60 + e._d.getHours() * 3600,
       };
     }
 
@@ -155,11 +189,26 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
       align: "center",
       render: (text, row) => {
         const format = "HH:mm a";
-        const checkInData = moment(row.checkIn, format);
+
+        // const checkInData = moment(secondsToHms(row.checkIn), format);
+        // console.log(checkInData, "checkIn data");
+        // console.log(Number(row.checkIn), "row.checkinnnn");
+        // console.log(moment(row.checkIn).format(), "heeeee");
+        // moment(row.checkIn, "HH:mm:ss: A").diff(
+        //   moment().startOf("day"),
+        //   "seconds"
+        // );
+        // console.log(checkInData, "checkInData");
+
+        // const checkInData = moment.duration(row.checkIn).asSeconds(); //mm:ss to seconds
+        // console.log(checkInData, "myVarrr");
+
+        const defaultDate = moment(row.checkIn, format);
+
         return (
           <>
             <TimePicker
-              defaultValue={checkInData}
+              // defaultValue={formData[0]?.checkIn}
               format={format}
               onChange={(e) => handleChangeTable(e, row, "checkIn")}
             />
@@ -181,7 +230,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
         return (
           <>
             <TimePicker
-              defaultValue={checkOutData}
+              // defaultValue={checkOutData}
               format={format}
               onChange={(e) => handleChangeTable(e, row, "checkOut")}
             />
@@ -205,7 +254,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
             <InputNumber
               min={0}
               max={100000}
-              defaultValue={graceTime}
+              // defaultValue={graceTime}
               onChange={(e) => handleChangeTable(e, row, "graceTime")}
             />
             {administration.office.min}
@@ -244,18 +293,18 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
           </FormInput>
         </FormInputContainer>
         <FormButtonContainer>
-          {form.id ? (
+          {/* {form.id ? (
             <>
               <FormButton
                 type="primary"
                 size="medium"
                 style={{}}
                 className="formBtn"
-                // onClick={(e) => onSubmit({...form, details:timeTable})}
+                // onClick={(e) => onSubmit({ ...form, details: timeTable })}
                 onClick={(e) => console.log(form)}
                 loading={loader}
               >
-                {administration.office.save}
+                {"Update"}
               </FormButton>
               <FormButton
                 type="primary"
@@ -278,7 +327,19 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
             >
               {administration.office.Add}
             </FormButton>
-          )}
+          )} */}
+          <FormButton
+            type="primary"
+            size="medium"
+            className="ThemeBtn"
+            htmlType="submit"
+            title={"Create"}
+            // loading={createLoader}
+            onClick={(e) => onSubmit(form)}
+          >
+            {" "}
+            {isEdited ? "Update Office Timing" : "Create Office Timing"}{" "}
+          </FormButton>
         </FormButtonContainer>
       </FormContainer>
       <Table
@@ -286,7 +347,7 @@ export default function OfficeTimingForm({ data, onSubmit, loading }) {
         pagination={false}
         size="middle"
         columns={OfficeTimingGroupColumn}
-        dataSource={form.details}
+        dataSource={staticDataColumn}
       />
     </AdminContainer>
   );

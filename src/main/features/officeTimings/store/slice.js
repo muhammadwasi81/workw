@@ -1,6 +1,11 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addOfficeTimingGroup, getAllOfficeTimingGroups } from "./actions.js";
+import {
+  addOfficeTimingGroup,
+  getAllOfficeTimingGroups,
+  updateOfficeTimingGroupAction,
+  getOfficeTimingByIdAction,
+} from "./actions.js";
 
 const initialState = {
   officeTimingGroups: [],
@@ -9,12 +14,17 @@ const initialState = {
   drawerOpen: false,
   success: false,
   error: false,
+  editData: null,
+  officeTimingDetail: null,
 };
 
 const officeTimingSlice = createSlice({
   name: "officeTimingGroup",
   initialState,
   reducers: {
+    handleComposer: (state, { payload }) => {
+      state.editData = payload;
+    },
     officeTimingGroupDeleted: (state, { payload }) => {
       state.officeTimingGroups = state.officeTimingGroups.filter(
         (e) => e.id !== payload.id
@@ -36,12 +46,20 @@ const officeTimingSlice = createSlice({
         if (payload.responseCode === responseCode.Success)
           state.officeTimingGroups.push(payload.data);
       })
-      // .addCase(updateGrade.fulfilled, (state, { payload }) => {
-      //   state.loader = false;
-      //   state.grades = state.grades.map((x) =>
-      //     x.id === payload.data.id ? payload.data : x
-      //   );
-      // })
+      .addCase(
+        updateOfficeTimingGroupAction.fulfilled,
+        (state, { payload }) => {
+          state.items = state.items.map((x) =>
+            x.id === payload.data.id ? payload.data : x
+          );
+          state.success = true;
+        }
+      )
+      .addCase(getOfficeTimingByIdAction.fulfilled, (state, { payload }) => {
+        state.officeTimingDetail = payload.data;
+        state.loader = false;
+      })
+
       .addMatcher(isPending(...[addOfficeTimingGroup]), (state) => {
         state.loader = true;
         state.success = false;
@@ -67,5 +85,6 @@ const officeTimingSlice = createSlice({
 export const {
   officeTimingGroupDeleted,
   handleOpenComposer,
+  handleComposer,
 } = officeTimingSlice.actions;
 export default officeTimingSlice.reducer;

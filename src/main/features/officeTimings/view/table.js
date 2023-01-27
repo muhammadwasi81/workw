@@ -8,7 +8,17 @@ import moment from "moment";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
+const secondsToHms = (d) => {
+  d = Number(d);
+  var h = Math.floor(d / 3600);
+  var m = Math.floor((d % 3600) / 60);
+  var s = Math.floor((d % 3600) % 60);
 
+  var hDisplay = h > 0 ? String(h).padStart(2, "0") : "00";
+  var mDisplay = m > 0 ? String(m).padStart(2, "0") : "00";
+  var sDisplay = s > 0 ? String(s).padStart(2, "0") : "00";
+  return hDisplay + ":" + mDisplay + ":" + sDisplay;
+};
 const expandedRowRender = (officeTimingGroup) => {
   console.log(officeTimingGroup, "officeTiming group");
   const columns = [
@@ -48,7 +58,10 @@ const expandedRowRender = (officeTimingGroup) => {
         const format = "HH:mm a";
         return (
           <>
-            <TimePicker defaultValue={moment(text, format)} format={format} />
+            <TimePicker
+              defaultValue={moment(secondsToHms(text), format)}
+              format={format}
+            />
           </>
         );
       },
@@ -65,7 +78,7 @@ const expandedRowRender = (officeTimingGroup) => {
         const format = "HH:mm a";
         return (
           <>
-            <TimePicker defaultValue={moment(text, format)} format={format} />
+            <TimePicker defaultValue={moment(secondsToHms(text), format)} />
           </>
         );
       },
@@ -79,7 +92,7 @@ const expandedRowRender = (officeTimingGroup) => {
       editable: true,
       align: "center",
       render: (text, row) => {
-        let num = text / 60;
+        let num = text;
         function onChange(value) {
           console.log("changed", value);
         }
@@ -134,7 +147,6 @@ export default function OfficeTimingTable({
   const { administration, office, sharedLabels, Direction } = dictionaryList[
     userLanguage
   ];
-  console.log("jkjll", administration);
 
   const { officeTimingGroups, loadingData } = useSelector(
     (state) => state.officeTimingSlice

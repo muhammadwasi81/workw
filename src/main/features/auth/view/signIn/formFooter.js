@@ -8,7 +8,7 @@ function FormFooter() {
 		<>
 			<div className="fg">
 				<NavLink className="lf" to={ROUTES.AUTH.SIGN_UP}>
-					Register as <strong>Organization</strong>&nbsp;
+				&nbsp;Register
 				</NavLink>
 				{/* <NavLink to={ROUTES.AUTH.FORGOT_PASSWORD}>
 					Forgot Password?

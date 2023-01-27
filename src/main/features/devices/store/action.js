@@ -9,6 +9,7 @@ import { getUserDeviceInfoService } from "../service/service"
 export const getUserDeviceInfo = createAsyncThunk(
   "deviceInfo",
   async (payload, { dispatch, getState, rejectWithValue }) => {
+
     const res = await getUserDeviceInfoService(payload);
     if (res.responseCode === responseCode.Success) {
       return res;

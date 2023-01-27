@@ -3,7 +3,7 @@ import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "api/";
 
 export const getUserDeviceInfoService = (payload) => {
-  return MasterConfig.get(`api/Device/GetAllDevice`,[payload])
+  return MasterConfig.post(`api/Device/GetAllDevice`,[payload])
     .then((res) => {
       return res.data;
     })

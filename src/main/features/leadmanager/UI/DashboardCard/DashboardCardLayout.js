@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Skeleton } from "antd";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import PublicPrivateIcon from "../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
 import { useSelector, useDispatch } from "react-redux";
-import { addMember } from "../../store/slice";
-import MemberModal from "../../view/Modal/MemberModal";
 import "./style.css";
 import QuickOptions from "../../quickOptions/index";
-import {getAllLeadManagerMember} from "../../store/actions";
+import { getAllLeadManagerMember } from "../../store/actions";
 
 function DashboardCardLayout({
   data = {},
@@ -18,26 +16,21 @@ function DashboardCardLayout({
   onClick = () => {},
   dictionary = {},
 }) {
-  console.log(data.members,'membersss');
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { Meta } = Card;
   const userId = useSelector((state) => state.userSlice.user.id);
-  // console.log("dict", dictionary);
-  //   console.log(dictionary, "dictionaryyyyy");
+  const { Meta } = Card;
+  const { memberData } = useSelector((state) => state.leadMangerSlice);
+  console.log(memberData.member, "memberData in useselector");
+
+  useEffect(() => {
+    dispatch(getAllLeadManagerMember(userId));
+  }, []);
 
   const menuHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
-  };
-  const handleChange = (id) => {
-    let memberId = id.toString();
-    const data = {
-      id: userId,
-      memberId: memberId,
-    };
-    dispatch(getAllLeadManagerMember(userId));
   };
   return (
     <>
@@ -80,19 +73,20 @@ function DashboardCardLayout({
           }
         />
 
-        <div className="flex justify-between items-center">  
-              <div className="members">
-                <Avatar
-                  isAvatarGroup={true}
-                  isTag={false}
-                  heading={"Members"}
-                  membersData={data.members ? data.members : []}
-                  //selectedData={handleChange} 
-                 // membersData={dispatch(getAllLeadManagerMember(userId))}
-               />
-              </div>
-          
-        
+        <div className="flex justify-between items-center">
+          {memberData && (
+            <div className="members">
+              <Avatar
+                isAvatarGroup={true}
+                isTag={false}
+                heading={"Members"}
+                membersData={memberData || []}
+                text={"Danish"}
+                image={"https://joeschmoe.io/api/v1/random"}
+              />
+            </div>
+          )}
+
           {/* {userId === data.createBy && (
             <div
               className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
@@ -107,7 +101,7 @@ function DashboardCardLayout({
             </div>
           )} */}
           <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
-          </div>
+        </div>
       </Card>
     </>
   );

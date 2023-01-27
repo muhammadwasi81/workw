@@ -1,48 +1,49 @@
-import { Avatar } from 'antd';
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import { getNameForImage } from '../../../../../utils/base';
-import "./style.css"
+import { Avatar } from "antd";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { getNameForImage } from "../../../../../utils/base";
+import "./style.css";
 
 function ApproverListItem({ data }) {
-    console.log(data, "DAT DATA")
-    const navigate = useNavigate()
+  console.log(data, "ApproverListItem");
+  const navigate = useNavigate();
   return (
     <>
-        {data && data.map(members => {
-        return (
+      {data &&
+        data.map((members) => {
+          return (
             <div
-                className="approverBox"
-                onClick={() =>
-                    navigate(
-                        `/user/${members.approver.id ||
-                            members.user.id ||
-                            members.user.id}`
-                    )
-                }
+              className="approverBox"
+              onClick={() =>
+                navigate(
+                  `/user/${members.approver.id ||
+                    members.user.id ||
+                    members.user.id}`
+                )
+              }
             >
-                <div className="imageBox">
-                    <Avatar
-                        className="cursor-pointer !bg-black  imageAvatar"
-                        // src={members.member.image ? members.member.image : ""}
-                    >
-                        {
-                            members.member && getNameForImage(members.member.name && members.member.name)}
-                    </Avatar>
-                </div>
-                <div className="contentBox">
-                    <p style={{ color: "#222222" }}>
-                        {members.member && members.member.name}
-                    </p>
-                    <p style={{ color: "rgb(117, 125, 134)" }}>
-                        {members.member && members.member.email}
-                    </p>
-                </div>
+              <div className="imageBox">
+                <Avatar
+                  className="cursor-pointer !bg-black  imageAvatar"
+                  src={members?.member?.image ? members?.member?.image : "https://joeschmoe.io/api/v1/random"}
+                >
+                  {members.member &&
+                    getNameForImage(members.member.name && members.member.name)}
+                </Avatar>
+              </div>
+              <div className="contentBox">
+                <p style={{ color: "#222222" }}>
+                  {members.member && members.member.name}
+                </p>
+                <p style={{ color: "rgb(117, 125, 134)" }}>
+                  {members.member && members.member.email}
+                </p>
+              </div>
             </div>
-        );
-    })}
+          );
+        })}
     </>
-  )
+  );
 }
 
-export default ApproverListItem
+export default ApproverListItem;

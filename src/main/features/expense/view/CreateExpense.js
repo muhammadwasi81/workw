@@ -150,7 +150,8 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         return {
           ...preValue,
           approvers: obj.map(({ type, id }) => {
-            return { approverType: type, approverId: id };
+            return { approverId: id };
+            //approverType: type,
           }),
         };
       });
@@ -159,7 +160,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         return {
           ...preValue,
           executors: obj.map(({ type, id }) => {
-            return { approverType: type, approverId: id };
+            return { approverId: id };
           }),
         };
       });
@@ -168,7 +169,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
         return {
           ...preValue,
           finance: obj.map(({ type, id }) => {
-            return { approverType: type, approverId: id };
+            return { approverId: id };
           }),
         };
       });
@@ -185,9 +186,10 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
-  const getRefrenceId = (parentRefrenceId, CategoryRefrenceId) => {
+  const getRefrenceId = (parentRefrenceId) => {
+    console.log("reference game", parentRefrenceId);
     if (parentRefrenceId !== STRINGS.DEFAULTS.guid) return parentRefrenceId;
-    if (CategoryRefrenceId) return CategoryRefrenceId;
+    // if (CategoryRefrenceId) return CategoryRefrenceId;
     return STRINGS.DEFAULTS.guid;
   };
 
@@ -201,12 +203,12 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
       referenceType,
     } = values;
     const expenseObj = {
-      id: DEFAULT_GUID,
-      referenceId: getRefrenceId(referenceId, values.referenceId),
+      // id: DEFAULT_GUID,
+      referenceId: getRefrenceId(referenceId),
       categoryId,
       headerId,
       // [typeList[type]]: values[[typeList[type]]],
-      referenceType,
+      // referenceType,
       amount,
       expenseDate: moment(expenseDate._d).format(),
       isReimbursable: isExecutor,
@@ -215,8 +217,9 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
       approvers: [...employeeData.approvers],
       executors: [...employeeData.executors],
       financers: [...employeeData.finance],
+      quantity: 1,
     };
-    // console.log(expenseObj, "values");
+    console.log(expenseObj, "values");
     dispatch(addExpense(expenseObj));
   };
 
@@ -335,10 +338,12 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           name="expenseDate"
           labelPosition="top"
           rules={[{ required: true }]}
+          defaultValue={moment()}
         >
           <DatePicker
             placeholder={placeHolder.pickCurrentDate}
             className={"expenseDate"}
+            defaultValue={moment()}
           />
         </Form.Item>
         <Form.Item

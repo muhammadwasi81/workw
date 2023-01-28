@@ -1,44 +1,46 @@
 import React, { useState } from "react";
 import ProjectDefaultImage from "../../../../content/png/project_cover_img.png";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
-import { Card, Popover } from "antd";
+import { Card, Popover,Drawer } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../utils/routes";
 import menuIcon from "../../../../content/NewContent/Documents/3dots.svg";
 import MemberModal from "./MemberModal";
 import { updateProjectById, handleComposer, addMember } from "../store/slice";
 import { useDispatch, useSelector } from "react-redux";
+
 import "./style.css"
 const { Meta } = Card;
 
 function ListItem(props) {
   const dispatch = useDispatch();
   const { name, description, image, members = [], id } = props.item;
+  console.log(id,"iddd");
 
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  console.log(open,"opennn");
   const [visible, setVisible] = useState(false);
 
   const handleUpdate = () => {
     dispatch(updateProjectById(id));
-    console.log(id, "iddd");
-    dispatch(
-      handleComposer({
-        isEdit: true,
-        isVisible: true,
-      })
-    );
+      dispatch( handleComposer ({ isOpen: true, isEdit: true }))
   };
   const memberHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setVisible(true);
-    setOpen(true);
+    // setOpen(true);
     dispatch(addMember({ status: true }));
   };
   const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
   };
+  const hide = () => {
+    setOpen(false);
+  };
+  
+  
   return (
     <>
       <Card
@@ -101,6 +103,7 @@ function ListItem(props) {
               trigger="click"
               placement="rightTop"
               open={open}
+              handleClose={hide}
               onOpenChange={handleOpenChange}
               overlayClassName="docsPopover"
             >
@@ -108,10 +111,12 @@ function ListItem(props) {
                 <img src={menuIcon} />
               </div>
             </Popover>
+
           </div>
         </div>
       </Card>
       {visible && <MemberModal />}
+      
     </>
   );
 }

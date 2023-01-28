@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Collapse, Divider, Popover, Form, Modal } from "antd";
 import {
   CalendarOutlined,
@@ -10,19 +10,19 @@ import {
 import moment from "moment";
 import FeatureSelect from "../../../../sharedComponents/FeatureSelect/Index";
 import { FeaturesEnum } from "../../../../../utils/Shared/enums/enums";
-
+import { toggleInfoModal } from "../../store/slice";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 
 const { Panel } = Collapse;
 function GroupsInfo({ ghost = true }) {
+  const dispatch = useDispatch();
   const [openFeature, setOpenFeature] = useState(false);
   const detail = useSelector((state) => state.groupSlice.groupDetail);
   const [form] = Form.useForm();
-
   const featureHandler = () => {
     setOpenFeature(true);
   };
+
   return (
     <>
       <Collapse
@@ -34,7 +34,7 @@ function GroupsInfo({ ghost = true }) {
         )}
         ghost={ghost}
         expandIconPosition={"end"}
-        defaultActiveKey={["1"]}
+        defaultActiveKey={["0"]}
       >
         <Panel
           showArrow={true}
@@ -74,7 +74,7 @@ function GroupsInfo({ ghost = true }) {
           <Divider />
           <div className="font-bold flex items-center gap-2 mb-2">
             <LaptopOutlined />
-            <span>{"View Summary"}</span>
+            <span>{"Summary"}</span>
           </div>
         </Panel>
       </Collapse>

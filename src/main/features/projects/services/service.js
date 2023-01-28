@@ -120,10 +120,24 @@ export const getAllProjectMemberService = (id) => {
 
 export const addProjectMemberService = (data) => {
   let id = data.id;
-	let memberId = data.memberId;
+  let memberId = data.memberId;
   return MasterConfig.post(`api/Project/AddProjectMember?id=${id}`, [
-		{ memberId: memberId },
-	  ])
+    { memberId: memberId },
+  ])
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const deleteProjectMemberService = (data) => {
+  let id = data.id;
+  let memberId = data.memberId;
+  return MasterConfig.post(`api/Project/RemoveProjectMember?id=${id}`, [
+    memberId,
+  ])
     .then((res) => {
       return res.data;
     })

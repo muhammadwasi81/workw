@@ -26,9 +26,7 @@ const ContentOptions = ({ handleClose, data }) => {
     dispatch(addMember({ status: true }));
     handleClose(false);
   };
-  const handleEditComposer = () => {
-    dispatch( handleComposer ({ isOpen: false, isEdit: false }));
-  };
+  
   return (
     <>
       <div className="flex flex-col"  >
@@ -38,6 +36,7 @@ const ContentOptions = ({ handleClose, data }) => {
         >
           {/* <RiShareForwardLine className="text-xl text-[#5B626A]" /> */}
           <span>Update</span>
+       
         </div>
         <div
           className="flex gap-3 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
@@ -47,23 +46,10 @@ const ContentOptions = ({ handleClose, data }) => {
           <span>Members</span>
         </div>
         {visible && <MemberModal />}
+        
       </div>
-
-      <Drawer
-        open={isComposerOpen}
-        width={"786px"}
-        onClose={handleEditComposer}
-        title={'Update group'}
-        className={"shared_drawer drawerSecondary"}
-        destroyOnClose={true}
-      >
-        <Composer
-          buttonText={'updateTextBtn'}
-          detail={groupDetail}  
-          update={isEditComposer}
-          id={data.id}
-        />
-      </Drawer>
+    
+    
     </>
   );
 };

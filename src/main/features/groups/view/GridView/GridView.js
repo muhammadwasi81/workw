@@ -1,17 +1,30 @@
 import React from "react";
+import {  Drawer } from "antd";
+
 import { CardWrapper2 } from "../../../../sharedComponents/Card/CardStyle";
-import { getGroupDetailById, handleComposer } from "../../store/slice";
+import { handleComposer } from "../../store/slice";
 
 import DashboardCardLayout from "../UI/DashboardCard/DashboardCardLayout";
 import ChatIcon from "../../../../../content/NewContent/groups/ChatIcon.svg";
+import Composer from "../../view/UI/Composer";
+import { useDispatch,useSelector } from "react-redux";
+
+
+
 
 function GridView({
   data,
   loading,
-  dispatch,
+   dispatch,
   handleClickNavigation,
   dictionary,
 }) {
+  // const dispatch=useDispatch();
+
+  const {isComposerOpen, groupDetail, isEditComposer} = useSelector((state)=> state.groupSlice)
+  const handleEditComposer = () => {
+    dispatch( handleComposer ({ isOpen: false, isEdit: false }));
+  };
   return (
     <CardWrapper2>
       {data &&
@@ -33,6 +46,21 @@ function GridView({
             chatIcon={ChatIcon}
           />
         ))}
+ <Drawer
+        open={isComposerOpen}
+        width={"786px"}
+        onClose={handleEditComposer}
+        title={'Update group'}
+        className={"shared_drawer drawerSecondary"}
+        destroyOnClose={true}
+      >
+        <Composer
+          buttonText={'updateTextBtn'}
+          detail={groupDetail}  
+          update={isEditComposer}
+          id={groupDetail?.id}
+        />
+      </Drawer>
     </CardWrapper2>
   );
 }

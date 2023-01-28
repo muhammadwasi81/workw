@@ -17,13 +17,17 @@ import "./officeTiming.css";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { useDispatch, useSelector } from "react-redux";
-import { EditFilled } from "@ant-design/icons";
 
 const secondsToHms = (d) => {
   d = Number(d);
+  console.log(d, "ddd");
+
   var h = Math.floor(d / 3600);
+  console.log(h, "hhhhh");
   var m = Math.floor((d % 3600) / 60);
+  console.log(m, "mmmmm");
   var s = Math.floor((d % 3600) % 60);
+  console.log(s, "ssss");
   // var p = 0;
   // var ap = "a";
   // if (h > 12) {
@@ -39,61 +43,65 @@ const secondsToHms = (d) => {
 
 var startTime = secondsToHms(32400);
 var endTime = secondsToHms(61200);
+let defaultStartTime = 32400;
+let defaultEndTime = 61200;
 
+// var startTime = 100;
+// var endTime = 100;
 const staticDataColumn = [
   {
     name: "Monday",
     isWorking: false,
-    checkIn: startTime,
-    checkOut: endTime,
+    checkIn: defaultStartTime,
+    checkOut: defaultEndTime,
     graceTime: 900,
     dayId: 1,
   },
   {
     name: "Tuesday",
     isWorking: false,
-    checkIn: startTime,
-    checkOut: endTime,
+    checkIn: defaultStartTime,
+    checkOut: defaultEndTime,
     graceTime: 900,
     dayId: 2,
   },
   {
     name: "Wednesday",
     isWorking: false,
-    checkIn: startTime,
-    checkOut: endTime,
+    checkIn: defaultStartTime,
+    checkOut: defaultEndTime,
     graceTime: 900,
     dayId: 3,
   },
   {
     name: "Thurday",
     isWorking: false,
-    checkIn: startTime,
-    checkOut: endTime,
+    checkIn: defaultStartTime,
+    checkOut: defaultEndTime,
     graceTime: 900,
     dayId: 4,
   },
   {
     name: "Friday",
     isWorking: false,
-    checkIn: startTime,
-    checkOut: endTime,
+    checkIn: defaultStartTime,
+    checkOut: defaultEndTime,
     graceTime: 900,
     dayId: 5,
   },
   {
     name: "Saturday",
     isWorking: false,
-    checkIn: startTime,
-    checkOut: endTime,
+    checkIn: defaultStartTime,
+    checkOut: defaultEndTime,
     graceTime: 900,
     dayId: 6,
   },
   {
     name: "Sunday",
     isWorking: false,
-    checkIn: startTime,
-    checkOut: endTime,
+    checkIn: defaultStartTime,
+    checkOut: defaultEndTime,
     graceTime: 900,
     dayId: 7,
   },
@@ -109,6 +117,7 @@ export default function OfficeTimingForm({
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, office, Direction } = dictionaryList[userLanguage];
   const initialState = {
+    id: editData?.id,
     name: editData?.name,
     description: editData?.description,
     details: staticDataColumn,

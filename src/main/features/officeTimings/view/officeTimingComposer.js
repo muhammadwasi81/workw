@@ -17,7 +17,6 @@ function OfficeTimingComposer({ editData, isEdited }) {
   const { loader } = useSelector((state) => state.officeTimingSlice);
 
   const onSubmit = (e) => {
-    console.log(e, "eeeeee");
     if (editData) {
       dispatch(updateOfficeTimingGroupAction(e));
     } else {

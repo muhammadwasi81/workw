@@ -58,10 +58,7 @@ const expandedRowRender = (officeTimingGroup) => {
         const format = "HH:mm a";
         return (
           <>
-            <TimePicker
-              defaultValue={moment(secondsToHms(text), format)}
-              format={format}
-            />
+            <TimePicker defaultValue={moment(secondsToHms(text), format)} />
           </>
         );
       },

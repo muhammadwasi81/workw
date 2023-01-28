@@ -1,9 +1,9 @@
-import axios from 'axios';
-import MasterConfig from '../../../../utils/services/MasterConfig';
-const API_PREFIX = 'api/LeadManager/';
-const API_SECTION_PREFIX = 'api/LeadManagerSection/';
-const API_LEAD_MANAGER_PREFIX = 'api/LeadManagerDetail/';
-const API_LEAD_MANAGER_CONTACT_PREFIX = 'api/LeadManagerDetailContact/';
+import axios from "axios";
+import MasterConfig from "../../../../utils/services/MasterConfig";
+const API_PREFIX = "api/LeadManager/";
+const API_SECTION_PREFIX = "api/LeadManagerSection/";
+const API_LEAD_MANAGER_PREFIX = "api/LeadManagerDetail/";
+const API_LEAD_MANAGER_CONTACT_PREFIX = "api/LeadManagerDetailContact/";
 
 export const getAllLeadManagerMemberService = (id) => {
   return MasterConfig.get(`api/LeadManager/GetAllLeadManagerMember?id=${id}`)
@@ -18,6 +18,7 @@ export const getAllLeadManagerMemberService = (id) => {
 export const addLeadManagerMemberService = async (data) => {
   let id = data.id;
   let memberId = data.memberId;
+  console.log(memberId, "memberIdd");
   return MasterConfig.post(`api/LeadManager/AddLeadManagerMember?id=${id}`, [
     { memberId: memberId },
   ])
@@ -217,6 +218,23 @@ export const deleteLeadManagerDetailAssignToService = (data) => {
     });
 };
 
+export const deleteLeadManagerMemberById = (data) => {
+  const id = data.id;
+  console.log(id, "idd");
+  const memberId = data.memberId;
+  console.log(memberId, "memberIddd");
+  console.log(data, "dataaa servicess");
+  return MasterConfig.delete(
+    `api/LeadManager/RemoveLeadManagerMember?id=${id}`,
+    [memberId]
+  )
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
 // export const deleteLeadManagerContactService = id => {
 // 	return MasterConfig.delete(
 // 		`${API_LEAD_MANAGER_CONTACT_PREFIX}RemoveLeadManagerContact?id=${id}`
@@ -230,7 +248,7 @@ export const deleteLeadManagerDetailAssignToService = (data) => {
 // };
 
 export const getAllScheduleService = (data) => {
-  console.log(data, 'getAllScheduleService');
+  console.log(data, "getAllScheduleService");
   return MasterConfig.post(`api/Schedule/GetAllSchedule`, data)
     .then((res) => {
       return res.data;
@@ -242,7 +260,7 @@ export const getAllScheduleService = (data) => {
 export const getScheduleByIdService = (id) => {
   return MasterConfig.post(`api/Schedule/GetScheduleById?id=${id}`)
     .then((res) => {
-      console.log(res, 'getScheduleByIdService');
+      console.log(res, "getScheduleByIdService");
       return res.data;
     })
     .catch((error) => {

@@ -8,6 +8,7 @@ import {
   getAllAppraisalService,
   addAppraisalService,
   getAllAppraisalByIdService,
+  getAllAppraisalByMeService,
 } from "../service/service";
 
 export const getAllTaskForAppraisalAction = createAsyncThunk(
@@ -48,6 +49,24 @@ export const getAllAppraisalByIdAction = createAsyncThunk(
   async (request, { rejectWithValue }) => {
     console.log(request, "GET REQUEST appraisalModule");
     const response = await getAllAppraisalByIdService(request);
+    console.log(request, "GET REQUEST appraisalModule 22");
+
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getAllAppraisalByMeAction = createAsyncThunk(
+  "appraisalModuleSlice/getAllAppraisalByMeAction",
+  async (request, { rejectWithValue }) => {
+    console.log(request, "GET REQUEST appraisalModule");
+    const response = await getAllAppraisalByMeService(request);
     console.log(request, "GET REQUEST appraisalModule 22");
 
     switch (response.type) {

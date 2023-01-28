@@ -78,7 +78,7 @@ function UserDetailsDropDown({ id, isToggle, onClickClose }) {
         </li>
         <li className="list__item">
           <NavLink 
-            to={`${STRINGS.ROUTES.USER.SETTINGS}`}
+            to={`${ROUTES.USER.SETTINGS}`}
             onClick={onClickClose}  
           >
             <img src={userLogout} alt="userSettings" loading="lazy" />

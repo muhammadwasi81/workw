@@ -1,29 +1,29 @@
-import { useContext, useEffect, useState } from 'react';
-import Card from '../../../sharedComponents/Card/AccessRoleCard';
-import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
-import AccessRoleComposer from './AccessRoleComposer';
-import { Skeleton, Form } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useContext, useEffect, useState } from "react";
+import Card from "../../../sharedComponents/Card/AccessRoleCard";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import AccessRoleComposer from "./AccessRoleComposer";
+import { Skeleton, Form } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getAllBussinessFeatures,
   getAllUserTypes,
-} from '../../../../utils/Shared/store/actions';
-import '../style/accessrole.css';
+} from "../../../../utils/Shared/store/actions";
+import "../style/accessrole.css";
 import {
   addAccessRole,
   getAccessRoleById,
   getAllAccessRoles,
   updateAccessRoleById,
-} from '../store/action';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { dictionaryList } from '../../../../utils/localization/languages';
-import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
-import { tableColumns } from './tableColumns';
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+} from "../store/action";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
+import { tableColumns } from "./tableColumns";
+import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
 
 const initialFormData = {
-  name: '',
-  description: '',
+  name: "",
+  description: "",
   features: [],
 };
 
@@ -47,7 +47,7 @@ function AccessRole() {
     singleAccessRole,
   } = useSelector((state) => state.accessRolesSlice);
 
-  console.log(defaultData, 'defaultData');
+  console.log(defaultData, "defaultData");
   useEffect(() => {
     dispatch(getAllBussinessFeatures());
     dispatch(getAllAccessRoles());
@@ -87,7 +87,6 @@ function AccessRole() {
   }, [singleAccessRole, formData]);
 
   const handleEdit = (data) => {
-    console.log('handleEdit', data);
     setId(data.id);
     setIsDefault(data.isDefault);
     setFormData((prevData) => ({
@@ -119,7 +118,7 @@ function AccessRole() {
           <div className="w-full">
             <div
               className={`flex ${
-                Direction === 'rtl' ? 'justify-start' : 'justify-end'
+                Direction === "rtl" ? "justify-start" : "justify-end"
               }`}
             >
               <SideDrawer
@@ -170,7 +169,7 @@ function AccessRole() {
                     loading={loading}
                     round="true"
                     shape="circle"
-                    style={{ width: '100%', marginBottom: 2 }}
+                    style={{ width: "100%", marginBottom: 2 }}
                   />
                 ),
               }

@@ -55,6 +55,13 @@ const Reward = (props) => {
     setDetailId(null);
   };
 
+  // var currentDateTime = new Date();
+  // var a = 'Tue, Jan 22 2022 10:00:00 GMT+0500 (Pakistan Standard Time)'
+  // var resultInSeconds = a.getTime()
+  // console.log(currentDateTime, "SIMPLE");
+  // console.log(resultInSeconds, "CURRENT DATE AND TIMEA")
+
+
   useEffect(() => {
     dispatch(getAllRewards(filter));
   }, [filter]);

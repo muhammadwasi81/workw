@@ -26,10 +26,11 @@ import {
   updateLeadManagerService,
   getAllScheduleService,
   getScheduleByIdService,
-  getAllLeadManagerMemberService ,
+  getAllLeadManagerMemberService,
   addLeadManagerMemberService,
+  deleteLeadManagerMemberById,
 } from "../services/services";
-
+import { deleteLeadManagerMember } from "../store/slice";
 export const addLeadManager = createAsyncThunk(
   "addLeadManager",
   async (data, { dispatch, getState, rejectWithValue }) => {
@@ -160,6 +161,24 @@ export const getLeadManagerById = createAsyncThunk(
   }
 );
 
+export const deleteLeadManagerById = createAsyncThunk(
+  "deleteManagerById",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await deleteLeadManagerMemberById(data);
+    if (res.responseCode === responseCode.Success) {
+      dispatch(deleteLeadManagerMember({ id: data }));
+      res.message = "Member deleted successfulyy";
+      message.success(res.message);
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        data: res,
+        type: responseMessageType.ApiFailure,
+      });
+      return rejectWithValue(res.message);
+    }
+  }
+);
 export const getLeadManagerSectionById = createAsyncThunk(
   "getLeadManagerSectionById",
   async (id, { dispatch, getState, rejectWithValue }) => {
@@ -405,7 +424,7 @@ export const getAllLeadManagerMember = createAsyncThunk(
   "GetAllCourseMember",
   async (data) => {
     console.log(data, "FROM ACTIONSSS !!");
-    const response = await getAllLeadManagerMemberService (data);
+    const response = await getAllLeadManagerMemberService(data);
     if (!response.responseCode) {
       message.error("Something went wrong");
     }

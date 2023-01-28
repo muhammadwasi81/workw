@@ -162,7 +162,10 @@ const leadMangerSlice = createSlice({
       destinationsSection.details.splice(newCardIndex, 0, removedTodo[0]);
     },
     deleteLeadManagerMember(state, { payload }) {
-      state.memberData = state.memberData.filter((e) => e.id !== payload.id);
+      state.memberData = state.memberData.filter(
+        (member) => member.id !== payload.id
+      );
+      console.log(state.memberData, "mmeber dataaa");
     },
   },
   extraReducers: (builder) => {

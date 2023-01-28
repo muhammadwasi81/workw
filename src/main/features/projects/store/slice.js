@@ -7,7 +7,9 @@ import {
   saveProjectStickyAction,
   saveStickyTitleAction,
   getProjectStickyAction,
-  getAllProjectMemberAction,addProjectMemberAction
+  getAllProjectMemberAction,
+  addProjectMemberAction,
+  deleteProjectMemberAction,
 } from "./actions";
 
 const initialState = {
@@ -21,7 +23,7 @@ const initialState = {
   isComposerOpen: false,
   isEditComposer: false,
   addMemberModal: false,
-  memberData:[],
+  memberData: [],
 };
 
 const projectSlice = createSlice({
@@ -41,6 +43,12 @@ const projectSlice = createSlice({
       const { isOpen, isEdit } = payload;
       state.isEditComposer = isEdit;
       state.isComposerOpen = isOpen;
+    },
+    deleteProjectMember(state, { payload }) {
+      state.projects = state.projects.filter(
+        (member) => member.id !== payload.id
+      );
+      console.log(state.projects, "projectsss");
     },
   },
   extraReducers: (builder) => {
@@ -81,16 +89,15 @@ const projectSlice = createSlice({
       .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
       })
-      .addCase(getAllProjectMemberAction.fulfilled,(state,action)=>{
-        console.log(action.payload,"payloadd");
+      .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
+        console.log(action.payload, "payloadd");
         state.memberData = action.payload.data;
-        console.log(state.memberData,"payloadd");
-
+        console.log(state.memberData, "payloadd");
       })
-      .addCase(addProjectMemberAction.fulfilled,(state,{payload})=>{
+      .addCase(addProjectMemberAction.fulfilled, (state, { payload }) => {
         state.memberData = [...state.memberData, payload];
         return state;
-      })
+      });
     builder
       .addMatcher(
         isPending(
@@ -120,5 +127,6 @@ export const {
   updateProjectById,
   handleComposer,
   addMember,
+  deleteProjectMember,
 } = projectSlice.actions;
 export default projectSlice.reducer;

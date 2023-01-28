@@ -44,6 +44,11 @@ const groupSlice = createSlice({
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
     },
+    deleteGroupMember(state, { payload }) {
+      state.memberData = state.memberData.filter(
+        (member) => member.id !== payload.id
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -105,5 +110,6 @@ export const {
   getGroupDetailById,
   handleComposer,
   addMember,
+  deleteGroupMember,
 } = groupSlice.actions;
 export default groupSlice.reducer;

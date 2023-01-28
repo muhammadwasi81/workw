@@ -7,7 +7,7 @@ import { DeleteFilled } from "@ant-design/icons";
 import "./style.css";
 
 function ApproverListItem({ data, handleDelete }) {
-  console.log(data, "datataaaa");
+  console.log(data, "dataa approval");
   const navigate = useNavigate();
   return (
     <>

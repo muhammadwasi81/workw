@@ -220,14 +220,10 @@ export const deleteLeadManagerDetailAssignToService = (data) => {
 
 export const deleteLeadManagerMemberById = (data) => {
   const id = data.id;
-  console.log(id, "idd");
   const memberId = data.memberId;
-  console.log(memberId, "memberIddd");
-  console.log(data, "dataaa servicess");
-  return MasterConfig.delete(
-    `api/LeadManager/RemoveLeadManagerMember?id=${id}`,
-    [memberId]
-  )
+  return MasterConfig.post(`api/LeadManager/RemoveLeadManagerMember?id=${id}`, [
+    memberId,
+  ])
     .then((res) => {
       return res.data;
     })

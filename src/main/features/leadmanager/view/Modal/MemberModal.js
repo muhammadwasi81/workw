@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import { addMember } from "../../store/slice";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
+import { deleteLeadManagerMember } from "../../store/slice";
 
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
@@ -75,13 +76,12 @@ function MemberModal({ isOpen = false }) {
   });
   const handleDeleteMember = (id) => {
     let memberId = id.toString();
-    console.log(memberId, "memberIdddd");
     const data = {
       id: userId,
       memberId: memberId,
     };
-
     console.log(data, "dataaaa modalll");
+    //dispatch(deleteLeadManagerMember(memberId));
     dispatch(deleteLeadManagerById(data));
   };
   return (

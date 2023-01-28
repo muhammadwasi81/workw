@@ -3,11 +3,15 @@ import React, { useEffect, useState, useContext } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import SingleUpload from "../../sharedComponents/Upload/singleUpload";
 import { getAllRebateCategoriesService } from "../rebateCategory/services/service";
-import moment from "moment/moment";
+import moment from "moment";
 import { useDispatch } from "react-redux";
 import { dictionaryList } from "../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { addEmployeeRebate, getAllEmployeeRebate } from "./store/actions";
+import {
+  addEmployeeRebate,
+  getAllEmployeeRebate,
+  updateEmployeeRebate,
+} from "./store/actions";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { createGuid, STRINGS } from "../../../utils/base";
@@ -27,16 +31,29 @@ function RebateEmployee({ mode }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const [rebateEmployee, setRebateEmployee] = useState([]);
-  const [newUserId, setNewUserId] = useState("");
+  const [rebateId, setRebateId] = useState("");
   const [rebateCategory, setRebateCategory] = useState([]);
   const [initialValues, setInitialValues] = useState(initialState);
   const [rebateImage, setRebateImag] = useState([]);
   const { employeeRebate } = useSelector((state) => state.employeeRebateSlice);
+  const [disableAdd, setDisableAdd] = useState(false);
 
   useEffect(() => {
     getRebateCategory();
     dispatch(getAllEmployeeRebate(param.id));
   }, []);
+
+  // Object.defineProperty(form, "values", {
+  //   value: function() {
+  //     return {
+  //       ...form.getFieldsValue(),
+  //       date: moment(form.getFieldValue("date")._ds).format(),
+  //     };
+  //   },
+  //   writable: true,
+  //   enumerable: true,
+  //   configurable: true,
+  // });
 
   useEffect(() => {
     if (isEdit)
@@ -73,7 +90,7 @@ function RebateEmployee({ mode }) {
     setInitialValues(rebateEmployee[rowIndex]);
     const newPayload = {
       amount: rebateEmployee[rowIndex].amount,
-      categoryId: rebateEmployee[rowIndex].category,
+      categoryId: rebateEmployee[rowIndex].categoryId,
       date: moment(rebateEmployee[rowIndex].date),
     };
     form.setFieldsValue(newPayload);
@@ -98,12 +115,13 @@ function RebateEmployee({ mode }) {
               },
             };
             dispatch(addEmployeeRebate(payload));
-            form.resetFields();
+            // form.resetFields();
             setRebateImag([]);
           } else {
             const payload = { ...form.getFieldsValue(), userId: param.id };
+            console.log(payload);
             dispatch(addEmployeeRebate(payload));
-            form.resetFields();
+            // form.resetFields();
             setRebateImag([]);
           }
         }
@@ -135,7 +153,7 @@ function RebateEmployee({ mode }) {
         ellipsis: true,
         key: "date",
         render: (value) => {
-          return moment(value).format("YYYY/MM/DD");
+          return moment(value).format("DD/MM/YYYY");
         },
       },
       {
@@ -148,8 +166,9 @@ function RebateEmployee({ mode }) {
                 e.preventDefault();
                 e.stopPropagation();
                 if (isEdit) {
+                  setDisableAdd(true);
                   handleRowChange(rowIndex);
-                  setNewUserId(data[rowIndex].id);
+                  setRebateId(data[rowIndex].id);
                 } else {
                   const filterArray = data.filter((value, i) => {
                     if (rowIndex !== i) return value;
@@ -172,17 +191,68 @@ function RebateEmployee({ mode }) {
   };
 
   const handleUpdate = async () => {
+    form.submit();
     const isValidation = await form.validateFields();
-    if (isValidation) {
-      let fieldsValue = form.getFieldsValue();
-      const categoryId = rebateCategory.filter(
-        (item) => item.name === fieldsValue.categoryId
-      );
-      fieldsValue = {
-        ...fieldsValue,
-        categoryId: categoryId[0].id,
-      };
-      console.log(fieldsValue);
+
+    try {
+      if (isValidation) {
+        const value = form.getFieldsValue();
+        const categoryId = rebateCategory.filter(
+          (item) => item.id === value.categoryId
+        );
+        // console.log(form.getFieldValue("date")._d;
+        // return;
+        let fieldsValue = {
+          ...form.getFieldsValue(),
+          date: form.getFieldValue("date")._d,
+          categoryId: categoryId[0].id,
+        };
+
+        console.log(fieldsValue);
+
+        if (Object.keys(rebateImage).length) {
+          fieldsValue = {
+            id: rebateId,
+            categoryId: categoryId[0].id,
+            date: form.getFieldValue("date"),
+            userId: param.id,
+            attachment: {
+              id: STRINGS.DEFAULTS.guid,
+              file: rebateImage,
+            },
+          };
+          //dispatch update
+          dispatch(updateEmployeeRebate(fieldsValue));
+          form.setFieldsValue({
+            date: moment(),
+            amount: "",
+            categoryId: "",
+          });
+
+          setRebateImag([]);
+        } else {
+          fieldsValue = {
+            id: rebateId,
+            categoryId: categoryId[0].id,
+            date: form.getFieldValue("date"),
+            userId: param.id,
+          };
+          //dispatch update
+          dispatch(updateEmployeeRebate(fieldsValue));
+          form.setFieldsValue({
+            date: moment(),
+            amount: "",
+            categoryId: "",
+          });
+
+          setRebateImag([]);
+        }
+        console.log(fieldsValue);
+        //set enable add
+        setDisableAdd(false);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -237,6 +307,7 @@ function RebateEmployee({ mode }) {
           style={{ marginLeft: "auto" }}
           icon={<EditOutlined />}
           onClick={handleSubmit}
+          disabled={disableAdd ? true : false}
         >
           Add Rebate
         </Button>
@@ -245,6 +316,7 @@ function RebateEmployee({ mode }) {
             className="btn ThemeBtn"
             icon={<EditOutlined />}
             onClick={handleUpdate}
+            disabled={!disableAdd ? true : false}
           >
             Update Rebate
           </Button>

@@ -24,7 +24,9 @@ export const addEmployeeRebateService = (args) => {
     });
 };
 export const updateEmployeeRebateService = (args) => {
-  return MasterConfig.put(`api/EmployeeRebate/UpdateEmployeeRebate`, args)
+  console.log(args, "servive payload");
+  const formData = jsonToFormData(args);
+  return MasterConfig.put(`api/EmployeeRebate/UpdateEmployeeRebate`, formData)
     .then((res) => {
       return res.data;
     })

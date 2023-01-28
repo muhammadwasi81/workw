@@ -47,7 +47,7 @@ export const updateEmployeeRebate = createAsyncThunk(
 
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        res.message = "Rebate Category updated successfully!";
+        message.success("Employee rebate updated successfully!");
       responseMessage({ dispatch, data: res });
     } else {
       responseMessage({

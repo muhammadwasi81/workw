@@ -107,7 +107,7 @@ function Signup() {
               <div className="row-cl-2">
                 <div className="row-cl-2-heading1">Sign Up</div>
                 <div className="row-cl-2-heading2">
-                  You’re signing up as an Individual.
+                  You’re signing up as an organization.
                 </div>
               </div>
             </div>
@@ -190,7 +190,7 @@ function Signup() {
                   reset={reset}
                 />
               </Form.Item> */}
-              <Form.Item name="designationId" rules={rules}>
+              {/* <Form.Item name="designationId" rules={rules}>
                 <Select
                   data={designations}
                   value={"3fa85f64-5717-4562-b3fc-2c963f66afa6"}
@@ -202,15 +202,15 @@ function Signup() {
                   size="large"
                   reset={reset}
                 />
-              </Form.Item>
-              <Form.Item name="password" rules={rules}>
+              </Form.Item> */}
+              {/* <Form.Item name="password" rules={rules}>
                 <PasswordInput
                   placeholder="Password"
                   prefix={LockOutlined}
                   size="large"
                   reset={reset}
                 />
-              </Form.Item>
+              </Form.Item> */}
               <div className="agreement small-sign-up-form small-sign-up-form-agreement">
                 <Form.Item name="agree" valuePropName="checked">
                   <Checkbox>
@@ -245,7 +245,7 @@ function Signup() {
           </button>
         </div>
         <div className="already-acc">
-          <p className="p">Already Have an Account?&nbsp;</p>
+          <p className="p">Already have an acount?&nbsp;</p>
           <NavLink
             id="login_btn"
             className="a"

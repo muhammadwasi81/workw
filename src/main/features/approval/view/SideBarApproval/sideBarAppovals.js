@@ -17,12 +17,16 @@ const defaultFilter = {
 export default function Approvals() {
     const dispatch = useDispatch();
     const [filter, setFilter] = useState(defaultFilter);
-    const approvalStatus = useSelector(state => state.responsiveSlice.approvalStatus);
+    const [approvalStatus, setApprovalStatus] = useState(true)
+    // const approvalStatus = useSelector(state => state.responsiveSlice.approvalStatus);
     const approvalList = useSelector(state => state.approvalSlice.approvalList);
     useEffect(() => {
+        let isMyApproval = true;
         if (approvalStatus)
-            dispatch(getAllApproval(filter));
+            dispatch(getAllApproval({isMyApproval, filter}));
     }, [approvalStatus]);
+
+    console.log(filter, "FROM SIDEBAR")
     return (
         <div className="approval_list_cont" >
             <div className="approval_header" >
@@ -36,12 +40,11 @@ export default function Approvals() {
                     </NavLink>
                 </div>
             </div>
-
             <div className="approval_list" >
                 {
-                    approvalList.map((item) =>
+                    approvalList && approvalList.length > 0 ? approvalList.map((item) =>
                         <ApprovalItem item={item} />
-                    )
+                    ) : <p className="noData">No data...</p>
                 }
             </div>
 

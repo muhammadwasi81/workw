@@ -4,6 +4,7 @@ import {
   getAllAppraisalAction,
   addAppraisal,
   getAllAppraisalByIdAction,
+  getAllAppraisalByMeAction,
 } from "./action";
 
 const defaultCareer = {
@@ -59,23 +60,26 @@ const appraisalModuleSlice = createSlice({
         state.appraisalDetail = payload;
         state.detailLoader = false;
       })
+      .addCase(getAllAppraisalByMeAction.fulfilled, (state, { payload }) => {
+        state.userTask = payload;
+        state.loader = false;
+      })
       .addCase(addAppraisal.fulfilled, (state, { payload }) => {
-        // state.appraisals = payload;
-        console.log(payload);
         state.loader = false;
       })
       .addMatcher(isPending(...[getAllTaskForAppraisalAction]), (state) => {
         state.loader = true;
       })
       .addMatcher(isPending(...[addAppraisal]), (state) => {
-        console.log("pending add appraisal");
         state.loader = true;
       })
       .addMatcher(isPending(...[getAllAppraisalAction]), (state) => {
         state.loader = true;
       })
+      .addMatcher(isPending(...[getAllAppraisalByMeAction]), (state) => {
+        state.loader = true;
+      })
       .addMatcher(isPending(...[getAllAppraisalByIdAction]), (state) => {
-        console.log("pending");
         state.detailLoader = true;
       })
       .addMatcher(isRejected(...[getAllTaskForAppraisalAction]), (state) => {
@@ -83,13 +87,15 @@ const appraisalModuleSlice = createSlice({
       })
       .addMatcher(isRejected(...[addAppraisal]), (state) => {
         state.loader = false;
-        console.log("rejected add appraisal task module");
       })
       .addMatcher(isRejected(...[getAllAppraisalAction]), (state) => {
         state.loader = false;
       })
       .addMatcher(isRejected(...[getAllAppraisalByIdAction]), (state) => {
         state.detailLoader = false;
+      })
+      .addMatcher(isRejected(...[getAllAppraisalByMeAction]), (state) => {
+        state.loader = false;
       });
   },
 });

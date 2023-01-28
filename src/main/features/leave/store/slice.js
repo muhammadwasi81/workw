@@ -4,6 +4,7 @@ import {
   getAllLeaves,
   GetLeaveById,
   GetLeaveTypeAction,
+  GetLeaveUserById,
 } from "./actions";
 
 const initialState = {
@@ -26,23 +27,26 @@ const leaveSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getAllLeaves.fulfilled, (state, action) => {
-      state.leaves = action.payload ? action.payload : [];
-      console.log(action.payload, "payloadddd");
-      state.loader = false;
-    });
-
-    builder.addCase(GetLeaveById.fulfilled, (state, action) => {
-      state.leaveDetail = action.payload.data;
-      state.loadingData = false;
-    });
-    builder.addCase(GetLeaveTypeAction.fulfilled, (state, action) => {
-      console.log(action.payload, "sliceeeee");
-      state.UserLeave = action.payload.data;
-      state.loadingData = false;
-    });
-
     builder
+      .addCase(getAllLeaves.fulfilled, (state, action) => {
+        state.leaves = action.payload ? action.payload : [];
+        console.log(action.payload, "payloadddd");
+        state.loader = false;
+      })
+      .addCase(GetLeaveUserById.fulfilled, (state, { payload }) => {
+        state.leaves = payload.data ? payload.data : [];
+        console.log(payload.data, "payloadddd");
+        state.loader = false;
+      })
+      .addCase(GetLeaveById.fulfilled, (state, action) => {
+        state.leaveDetail = action.payload.data;
+        state.loadingData = false;
+      })
+      .addCase(GetLeaveTypeAction.fulfilled, (state, action) => {
+        console.log(action.payload, "sliceeeee");
+        state.UserLeave = action.payload.data;
+        state.loadingData = false;
+      })
       .addCase(addLeave.fulfilled, (state, { payload }) => {
         console.log(payload, "payload");
         console.log(state.leaves, "leaves");
@@ -59,6 +63,9 @@ const leaveSlice = createSlice({
       .addMatcher(isPending(...[getAllLeaves]), (state) => {
         state.loader = true;
       })
+      .addMatcher(isPending(...[GetLeaveUserById]), (state) => {
+        state.loader = true;
+      })
       .addMatcher(isPending(...[addLeave]), (state) => {
         state.createLoader = false;
       })
@@ -71,6 +78,9 @@ const leaveSlice = createSlice({
       .addMatcher(isRejected(...[addLeave]), (state) => {
         state.createLoader = false;
       })
+      .addMatcher(isRejected(...[GetLeaveUserById]), (state) => {
+        state.loader = false;
+      });
   },
 });
 

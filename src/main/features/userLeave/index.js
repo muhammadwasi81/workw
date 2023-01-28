@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Table } from "antd";
-import './style.css'
+import "./style.css";
+import { useDispatch } from "react-redux";
+import { GetLeaveUserById } from "../leave/store/actions";
 
 const columns = [
   {
     title: "Leave Type",
-    dataIndex: "leaveType",
+    dataIndex: "leaveTypeName",
     ellipsis: true,
-    key: "leaveType",
+    key: "leaveTypeName",
   },
   {
     title: "Alloted",
@@ -51,13 +53,25 @@ const columns = [
 
 function UserLeave() {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    //TODO: dispatch get leaveUserById
+    dispatch(GetLeaveUserById(id));
+  }, []);
   const {
     employee: { basicdetails },
   } = useSelector((state) => state.employeeSlice);
 
+  const { leaves } = useSelector((state) => state.leaveSlice);
+  console.log(leaves, "leaves");
+
   return (
     <div className="userLeavesTable">
-        <Table columns={columns} dragable={true} dataSource={basicdetails.leaves} />
+      <Table
+        columns={columns}
+        dragable={true}
+        dataSource={leaves ? leaves : []}
+      />
     </div>
   );
 }

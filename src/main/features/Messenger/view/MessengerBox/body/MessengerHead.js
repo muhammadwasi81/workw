@@ -7,6 +7,7 @@ import arrowIcon from '../../../../../../content/NewContent/Messenger/leftArrow.
 import { useDispatch } from 'react-redux';
 import { handleIsopenChat } from '../../../store/messengerSlice';
 import { createRoom } from '../../../../calling/store/action';
+import { InitializeSocket } from '../../../../../../utils/InitCallingSocket';
 
 const MessengerHead = ({
   handleProfileClick,
@@ -28,7 +29,9 @@ const MessengerHead = ({
         userId: member.id
       }))
     }
-    dispatch(createRoom(payload))
+    dispatch(createRoom(payload));
+    const callingSocket = InitializeSocket.getInstance();
+    callingSocket.startCalling(payload.members)
   }
   return (
     <div className={'MessengerHead ' + (isOpenProfile ? 'blur-bg' : '')}>

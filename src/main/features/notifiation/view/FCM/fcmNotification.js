@@ -11,9 +11,9 @@ export default function FcmNotification() {
         onMessage(messaging, (payload) => {
             console.log('Message received.', payload);
             if (payload) {
-              dispatch(handleIncomingCall({
-                data: payload
-              }));
+              // dispatch(handleIncomingCall({
+              //   data: payload
+              // }));
             }
           });
     }, []);

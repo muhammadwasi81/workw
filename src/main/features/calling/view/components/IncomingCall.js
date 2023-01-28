@@ -17,8 +17,8 @@ export default function IncomingCall() {
 		dispatch(handleIncomingCall(null));
 
 	}
-	const userDetail = incomingCallData?.data?.data?.callInitializer && JSON.parse(incomingCallData?.data?.data?.callInitializer);
-
+	const userDetail = incomingCallData?.data?.callInitializer && incomingCallData?.data?.callInitializer
+console.log(incomingCallData)
 	return (
 		<>
 			{
@@ -43,14 +43,14 @@ export default function IncomingCall() {
 							<div className="call-options">
 								{/* {mode === STRINGS.TYPES.CALL.MODE.VIDEO && ( */}
 								<div className="call-opt-btn gr"
-									onClick={() => handleOpenCall(incomingCallData.data.data.CallURL)}
+									onClick={() => handleOpenCall(incomingCallData.data.CallURL)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.VIDEO_ANSWER)}
 								>
 									<i className="ic-facetime" style={{ width: "14px", height: "14px" }} />
 								</div>
 								{/* )} */}
 								<div className="call-opt-btn gr"
-									onClick={() => handleOpenCall(incomingCallData.data.data.CallURL)}
+									onClick={() => handleOpenCall(incomingCallData.data.CallURL)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.ANSWER)}
 								>
 									<i className="ic-phone" />

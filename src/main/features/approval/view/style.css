@@ -13,6 +13,22 @@
     z-index: 1;
 }
 
+.refresButton {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.refresButton img {
+    width: 20px;
+    margin: inherit;
+}
+
+.noData {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+
 .approval_header_child1 {
     font-size: 14px;
     font-weight: bolder;

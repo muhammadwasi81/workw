@@ -71,7 +71,7 @@ const rewardSlice = createSlice({
         state.addRewardLoader = true;
       })
       .addMatcher(isRejected(...[addReward]), (state) => {
-        state.addRewardLoader = true;
+        state.addRewardLoader = false;
       })
       .addMatcher(isPending(...[GetRewardById]), (state) => {
         state.loadingData = true;

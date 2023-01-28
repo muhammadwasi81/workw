@@ -13,6 +13,7 @@ import UserEmailConfiguration from '../../../../emailUserConfiguration/view/inde
 import UserLeave from '../../../../userLeave';
 import Devices from '../../../../devices/index';
 import '../styles/style.css';
+import EmployeeAttachments from '../../../../employeeAttachments';
 
 const EmployeeRoutes = () => {
   return (
@@ -31,6 +32,7 @@ const EmployeeRoutes = () => {
         <Route path={'/salary/:id'} element={<SalaryEmployee />} />
         <Route path={'/experience/:id'} element={<ExperienceForm />} />
         <Route path={'/devices/:id'} element={<Devices />} />
+        <Route path={'/attachments/:id'} element={<EmployeeAttachments />} />
         <Route path={'*'} element={<BrokenPage />} />
       </Routes>
     </div>

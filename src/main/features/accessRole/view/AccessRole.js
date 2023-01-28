@@ -47,7 +47,7 @@ function AccessRole() {
   useEffect(() => {
     dispatch(getAllBussinessFeatures());
     dispatch(getAllAccessRoles());
-  }, []);
+  }, [dispatch]);
 
   const onSubmitData = (finalData) => {
     if (isEdited) {

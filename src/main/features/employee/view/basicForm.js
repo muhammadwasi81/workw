@@ -142,17 +142,14 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
 
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
-      if (!countries?.length) dispatch(getCountries());
-      if (!cities?.length) fetchCityData('', 0);
+      if (!countries.length) dispatch(getCountries());
+      if (!cities.length) fetchCityData('', 0);
+      if (!designations.length) dispatch(getAllDesignation());
+      if (!grades.length) dispatch(getAllGrades());
+      if (!officeTimingGroups?.length) dispatch(getAllOfficeTimingGroups());
+      if (!accessRoles.length) dispatch(getAllAccessRoles());
+      if (!department.length) getAllDepartments();
     }
-    if (!designations?.length) dispatch(getAllDesignation());
-    if (!grades?.length) dispatch(getAllGrades());
-    if (!officeTimingGroups?.length) dispatch(getAllOfficeTimingGroups());
-    if (!accessRoles?.length) {
-      dispatch(getAllAccessRoles());
-    }
-    if (!department?.length) getAllDepartments();
-
     return () => {
       dispatch(resetBasicdetails());
     };
@@ -164,9 +161,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         ...basicdetails,
         birthDate: moment(basicdetails.birthDate),
         joinDate: moment(basicdetails.joinDate),
-        accessRoleId: basicdetails?.accessRoles?.map(
-          (item) => item.accessRoleId
-        ),
+        accessRoleId: basicdetails.accessRoles,
         officeTimingId:
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
             ? ''
@@ -272,11 +267,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           />
         </Form.Item>
         <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
           name="firstName"
           label={labels.FirstName}
         >
@@ -600,6 +591,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             onChange={(value) => {
               console.log(value, 'accessroles');
             }}
+            mode="multiple"
             filterOption={(input, option) =>
               (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }

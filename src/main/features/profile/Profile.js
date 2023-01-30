@@ -172,6 +172,8 @@ const Profile = () => {
     },
     {
       featureName: profileDictionary.appraisal,
+      content: <AppraisalTable />,
+      featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
       content: <TeamAppraisal userId={id} />,
       featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
     },

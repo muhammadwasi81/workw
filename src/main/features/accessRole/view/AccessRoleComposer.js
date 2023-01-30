@@ -397,7 +397,7 @@ function AccessRoleComposer(props) {
             block
             htmlType="submit"
             loading={createLoader}
-            disabled={props.isDefault || (props.isEdited && isObjEqual)}
+            // disabled={props.isDefault || (props.isEdited && isObjEqual)}
           >
             {props.isEdited
               ? isObjEqual

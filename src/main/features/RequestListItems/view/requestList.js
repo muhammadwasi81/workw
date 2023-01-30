@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
-import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
-import { clearRequestDetails } from "../store/slice";
-import RequestDetailedView from "./requestDetailedView";
-import RequestListItems from "./requestListItems";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
+import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
+import { clearRequestDetails } from '../store/slice';
+import RequestDetailedView from './requestDetailedView';
+import RequestListItems from './requestListItems';
 
 const RequestList = ({ data }) => {
   const dispatch = useDispatch();
   const [itemId, setItemId] = useState(null);
   const { loader } = useSelector((state) => state.requestItemSlice);
-  console.log(loader, "datataaaa");
+  console.log(loader, 'datataaaa');
   const onClose = () => {
     setItemId(null);
     dispatch(clearRequestDetails());

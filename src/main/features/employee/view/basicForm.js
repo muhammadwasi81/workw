@@ -578,6 +578,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             </Select>
           </Form.Item>
         )}
+
         <Form.Item
           name="accessRoleId"
           rules={[{ required: true }]}

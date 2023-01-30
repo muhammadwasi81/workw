@@ -18,7 +18,7 @@ import { LanguageChangeContext } from '../../../../utils/localization/localConte
 
 const RequestDetailCard = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, requestListDictionary } = requestListDictionaryList[userLanguage];
+  const { requestListDictionary } = requestListDictionaryList[userLanguage];
   const dispatch = useDispatch();
   const { requestItemDetail } = useSelector((state) => state.requestItemSlice);
   console.log(requestItemDetail, 'requestItemDetail');
@@ -40,6 +40,7 @@ const RequestDetailCard = (props) => {
     userTypeId: 2,
     createDate: moment(),
   };
+
   if (requestItemDetail.loadingData) return <Skeleton />;
   console.log(requestItemDetail.loadingData, 'loading data');
 

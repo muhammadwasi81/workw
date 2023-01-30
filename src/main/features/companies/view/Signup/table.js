@@ -3,56 +3,56 @@ import { useSelector,useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Table } from "antd";
 import './style.css'
-import {getUserDeviceInfo} from "../store/action";
+import {getAllSignupAction} from "../../companies/store/action";
 
 const columns = [
   {
-    title: "Device type",
-    dataIndex: "deviceType",
+    title: "First Name",
+    dataIndex: "firstName",
     ellipsis: true,
     key: "deviceType",
   },
   {
-    title: "Device token",
-    dataIndex: "deviceToken",
+    title: "Last Name",
+    dataIndex: "lastName",
     ellipsis: true,
     key: "deviceToken",
   },
   {
-    title: "OS Version",
-    dataIndex: "osVersion",
+    title: "Email",
+    dataIndex: "email",
     ellipsis: true,
     key: "osVersion",
   },
   {
-    title: "Device IP",
-    dataIndex: "device",
+    title: "Phone",
+    dataIndex: "phoneNo",
     ellipsis: true,
     key: "device",
   },
 ];
 
-function Devices() {
+function Signup() {
 
   const { id } = useParams();
   const { user } = useSelector((state) => state.userSlice);
   const userId = user.id;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUserDeviceInfo(userId));
+    dispatch(getAllSignupAction());
   }, []);
 
-  console.log("userIduserId",userId);
+  console.log("userIduserId",userId);  
   
-  const {employee: { devicedetails },} = useSelector((state) => state.employeeSlice);
-console.log(devicedetails,"devicedetailss")
+  const { signup } = useSelector((state) => state.teamSlice);
+  console.log(signup,"devicedetailss")
   return (
     <div className="deviceTable">
         <Table columns={columns} dragable={true} 
-         dataSource={devicedetails}
+         dataSource={signup}
          />
     </div>
   );
 }
 
-export default Devices;
+export default Signup;

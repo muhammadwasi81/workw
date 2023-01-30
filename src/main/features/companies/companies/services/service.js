@@ -68,3 +68,19 @@ export const getAllComplainService = async (id) => {
     return ResponseResultError(e);
   }
 };
+
+export const getAllSignupService = async (data) => {
+  // console.log(request, "REQUEST");
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(`api/Signup/GetAllSignupByWaitingForEmailConfirmation`,data);
+    // console.log(responseCode, "REQUEST REWARD RESPONSE");
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};

@@ -1,8 +1,9 @@
 import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { getTeamsAction, getRewardsAction, getAllLoanAction } from './action';
+import { getTeamsAction, getRewardsAction, getAllLoanAction,getAllSignupAction } from './action';
 
 const initialState = {
   teams: [],
+  signup:[],
   team: {
     rewardsdetails: [],
     loandetails: [],
@@ -29,6 +30,11 @@ const teamSlice = createSlice({
       })
       .addCase(getAllLoanAction.fulfilled, (state, { payload }) => {
         state.team.loandetails = payload;
+        state.loader = false;
+        state.success = true;
+      })
+      .addCase(getAllSignupAction.fulfilled, (state, { payload }) => {
+        state.signup = payload;
         state.loader = false;
         state.success = true;
       })

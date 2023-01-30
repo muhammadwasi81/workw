@@ -1,5 +1,5 @@
 import { EditFilled } from "@ant-design/icons";
-import { userType } from "../../../../utils/Shared/enums/enums";
+import { userTypeList } from "../../../../utils/Shared/enums/enums";
 const Edit = (handleEdit, row) => {
 	return (
 		<EditFilled
@@ -41,16 +41,16 @@ export const tableColumns = (
 					dataIndex: "usertype",
 
 					render: (_, row) => {
-						return (
-							userType &&
-							userType.length > 0 &&
-							userType
+						return (userTypeList.filter(x=>x.id===row.roleTypeId)[0]?.name
+							/*userTypeList &&
+							userTypeList.length > 0 &&
+							userTypeList
 								.filter(function (el) {
 									if (el.id === row.roleTypeId) {
 										return el.name;
 									}
 								})
-								.map(data => data.name)
+								.map(data => data.name)*/
 						);
 					},
 				},

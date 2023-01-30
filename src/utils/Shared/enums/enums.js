@@ -1,13 +1,43 @@
-export const userType = Object.freeze([
+export const userTypeEnum = {
+  SuperAdmin: 1,
+  Admin: 2,
+  Employee: 3,
+  Individual: 4,
+  Guest: 5,
+};
+export const userTypeList = Object.freeze([
   {
-    id: 1,
+    id: userTypeEnum.SuperAdmin,
+    name: 'Super Admin',
+  },
+  {
+    id: userTypeEnum.Admin,
     name: 'Admin',
   },
   {
-    id: 3,
+    id: userTypeEnum.Employee,
     name: 'Employee',
   },
+  {
+    id: userTypeEnum.Individual,
+    name: 'Individual',
+  },
+  {
+    id: userTypeEnum.Guest,
+    name: 'Guest',
+  },
 ]);
+export const employmentType = Object.freeze([
+  {
+    id: 1,
+    name: 'Full-Time',
+  },
+  {
+    id: 2,
+    name: 'Part-Time',
+  },
+]);
+
 export const userTitle = Object.freeze([
   {
     id: 1,
@@ -88,16 +118,6 @@ export const relations = Object.freeze([
   },
 ]);
 
-export const employmentType = Object.freeze([
-  {
-    id: 1,
-    name: 'FullTime',
-  },
-  {
-    id: 2,
-    name: 'PartTime',
-  },
-]);
 export const cityApiPrefix = '/api/Utility/GetAllCities';
 export const defaultUiid = '00000000-0000-0000-0000-000000000000';
 export const FilterSortEnum = Object.freeze({
@@ -146,46 +166,46 @@ export const defualtThemeColor = '#526bb1';
 
 export const FeaturesEnum = {
   FEATURES_TYPE: {
-        Feed: 1,
-        Mailbox: 2,
-        Messenger: 3,
-        Group: 4,
-        Project: 5,
-        Task: 6,
-        WorkBoard: 7,
-        Lead: 8,
-        Expense: 9,
-        Schedule: 10,
-        Travel: 11,
-        Document: 12,
-        ELearning: 13,
-        Asset: 14,
-        CustomApproval: 15,
-        Employee: 16,
-        Administration: 17,
-        Appraisal: 18,
-        Department: 19,
-        Leave: 20,
-        Loan: 21,
-        Holiday: 22,
-        Career: 23,
-        AudioCalling: 24,
-        VideoCalling: 25,
-        Attendance: 27,
-        Requisition: 28,
-        MileBoard: 29,
-        MileGrid: 30,
-        MilePad: 31,
-        Payroll: 32,
-        Rewards: 33,
-        Complains: 34,
-        Warnings: 35,
-        Bonus: 36,
-        Promotion: 37,
-        OrganizationalChart: 38,
-        MyTeam: 39,
-        Grade: 40,
-     }
+    Feed: 1,
+    Mailbox: 2,
+    Messenger: 3,
+    Group: 4,
+    Project: 5,
+    Task: 6,
+    WorkBoard: 7,
+    Lead: 8,
+    Expense: 9,
+    Schedule: 10,
+    Travel: 11,
+    Document: 12,
+    ELearning: 13,
+    Asset: 14,
+    CustomApproval: 15,
+    Employee: 16,
+    Administration: 17,
+    Appraisal: 18,
+    Department: 19,
+    Leave: 20,
+    Loan: 21,
+    Holiday: 22,
+    Career: 23,
+    AudioCalling: 24,
+    VideoCalling: 25,
+    Attendance: 27,
+    Requisition: 28,
+    MileBoard: 29,
+    MileGrid: 30,
+    MilePad: 31,
+    Payroll: 32,
+    Rewards: 33,
+    Complains: 34,
+    Warnings: 35,
+    Bonus: 36,
+    Promotion: 37,
+    OrganizationalChart: 38,
+    MyTeam: 39,
+    Grade: 40,
+  },
 };
 
 export const ReactionModuleEnum = {

@@ -4,7 +4,12 @@ import { getUserBasicInfo } from "../../basicInfo/store/actions";
 import { getUserDeviceInfo } from "../../devices/store/action";
 import { getEducationDetailByUser } from "../../education/store/actions";
 import { getUserWorkExperience } from "../../experienceInfo/store/actions";
-import { addEmployee, getAllEmployees, getEmployeeByIdAction } from "./actions";
+import {
+  addEmployee,
+  getAllEmployees,
+  getEmployeeByIdAction,
+  addEmployeeFamily,
+} from "./actions";
 
 const initialState = {
   employees: [],
@@ -14,8 +19,9 @@ const initialState = {
     experiencedetails: [],
     educationdetails: [],
     basicdetails: [],
-    devicedetails:[],
+    devicedetails: [],
     profileDetails: {},
+    family: [],
   },
   loader: false,
   success: false,
@@ -47,6 +53,11 @@ const employeeSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
+      .addCase(addEmployeeFamily.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.success = true;
+        console.log(payload);
+      })
       .addCase(getAllEmployees.fulfilled, (state, { payload }) => {
         state.employees = payload.data;
         state.loader = false;
@@ -63,12 +74,10 @@ const employeeSlice = createSlice({
       })
       .addCase(getUserBasicInfo.fulfilled, (state, { payload }) => {
         state.employee.basicdetails = payload.data;
-      
       })
       .addCase(getUserDeviceInfo.fulfilled, (state, { payload }) => {
-
         state.employee.devicedetails = payload.data;
-        console.log(payload.data,"payloadddd");
+        console.log(payload.data, "payloadddd");
       })
       .addCase(getUserWorkExperience.fulfilled, (state, { payload }) => {
         state.employee.experiencedetails = payload.data;
@@ -76,14 +85,20 @@ const employeeSlice = createSlice({
       .addCase(getEducationDetailByUser.fulfilled, (state, { payload }) => {
         state.employee.educationdetails = payload.data;
       })
-      .addMatcher(isPending(...[addEmployee, getAllEmployees]), (state) => {
-        state.loader = true;
-        state.success = false;
-      })
-      .addMatcher(isRejected(...[addEmployee, getAllEmployees]), (state) => {
-        state.loader = false;
-        state.success = false;
-      });
+      .addMatcher(
+        isPending(...[addEmployee, getAllEmployees, addEmployeeFamily]),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+        }
+      )
+      .addMatcher(
+        isRejected(...[addEmployee, getAllEmployees, addEmployeeFamily]),
+        (state) => {
+          state.loader = false;
+          state.success = false;
+        }
+      );
   },
 });
 export default employeeSlice.reducer;

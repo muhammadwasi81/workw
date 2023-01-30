@@ -14,6 +14,7 @@ import UserEmailConfiguration from "../../../../emailUserConfiguration/view/inde
 import UserLeave from "../../../../userLeave";
 import UserAppraisal from "../../../../userAppraisal/index";
 import Devices from "../../../../devices/view/index";
+import EmployeeFamily from "../../../../employeeFamily/index";
 import "../styles/style.css";
 
 const EmployeeRoutes = () => {
@@ -34,6 +35,7 @@ const EmployeeRoutes = () => {
         <Route path={"/appraisal/:id"} element={<UserAppraisal />} />
         <Route path={"/experience/:id"} element={<ExperienceForm />} />
         <Route path={"/devices/:id"} element={<Devices />} />
+        <Route path={"/family/:id"} element={<EmployeeFamily mode="edit" />} />
         <Route path={"*"} element={<BrokenPage />} />
       </Routes>
     </div>

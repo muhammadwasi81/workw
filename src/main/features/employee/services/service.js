@@ -14,6 +14,17 @@ export const addEmployeeService = (data) => {
     });
 };
 
+export const addEmployeeFamilyService = (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.post(`${API_PREFIX}AddEmployeeFamily`, formData)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 export const getAllEmployeesService = (search) => {
   console.log(search, "search");
   return MasterConfig.get(`${API_PREFIX}GetAllEmployeeShort?search=${search}`)

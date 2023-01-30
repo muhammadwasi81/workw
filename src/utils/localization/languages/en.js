@@ -439,6 +439,7 @@ const en = {
     Devices: "Devices",
     basicInfo: "Basic Info",
     Appraisal: "Appraisal",
+    Family: "Family",
   },
   administration: {
     basicInfo: "Basic Info",

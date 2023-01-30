@@ -58,4 +58,9 @@ export const listitem = [
     classObj: "button",
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/devices/${id}`,
   },
+  {
+    displayName: "Family",
+    classObj: "button",
+    to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/family/${id}`,
+  },
 ];

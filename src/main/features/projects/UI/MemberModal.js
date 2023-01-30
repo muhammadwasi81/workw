@@ -8,7 +8,7 @@ import ApproverListItem from "../../../sharedComponents/AppComponents/Approvals/
 import { useParams } from "react-router-dom";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import { addMember } from "../store/slice";
+import { addMember, deleteProjectMember } from "../store/slice";
 import {
   getAllProjectMemberAction,
   addProjectMemberAction,
@@ -74,6 +74,7 @@ function MemberModal({ isOpen = false }) {
       id: userId,
       memberId: memberId,
     };
+    dispatch(deleteProjectMember(userId));
     dispatch(deleteProjectMemberAction(data));
   };
   return (

@@ -23,7 +23,7 @@ const initialState = {
   isEditComposer: false,
   addMemberModal: false,
   open: false,
-  deleteSucess: false,
+  removeMemberSucess: false,
 };
 
 const groupSlice = createSlice({
@@ -86,13 +86,10 @@ const groupSlice = createSlice({
         state.memberData = payload.data.length > 0 ? payload.data : [];
       })
       .addCase(deleteGroupMemberAction.fulfilled, (state, action) => {
-        state.loader = false;
-        state.success = true;
-
-        state.deleteSucess = true;
-        state.memberData = state.memberData.filter(
-          (member) => member.id !== action.payload.id
-        );
+        state.removeMemberSucess = true;
+      })
+      .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
+        state.removeMemberSucess = false;
       })
       .addMatcher(isPending(getAllGroup), (state) => {
         state.loader = true;
@@ -105,6 +102,9 @@ const groupSlice = createSlice({
           state.error = false;
         }
       )
+      .addMatcher(isRejected(...[deleteGroupMemberAction]), (state) => {
+        state.removeMemberSucess = false;
+      })
       .addMatcher(
         isRejected(...[getAllGroup, addGroup, updateGroup, getGroupById]),
         (state) => {

@@ -24,6 +24,7 @@ const initialState = {
   isEditComposer: false,
   addMemberModal: false,
   memberData: [],
+  removeMemberSucess: false,
 };
 
 const projectSlice = createSlice({
@@ -48,7 +49,6 @@ const projectSlice = createSlice({
       state.projects = state.projects.filter(
         (member) => member.id !== payload.id
       );
-      console.log(state.projects, "projectsss");
     },
   },
   extraReducers: (builder) => {
@@ -59,7 +59,6 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(addProject.fulfilled, (state, { payload }) => {
-        console.log("add project", payload);
         state.projects.unshift(payload.data);
         state.loader = false;
         state.success = true;
@@ -75,16 +74,12 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(saveProjectStickyAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "description");
         state.loader = false;
         state.success = true;
         state.stickyArray = payload;
-        console.log(payload, "payloadd");
-        console.log(state.stickyArray, "sticky array");
       })
       .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
-        console.log(payload, "payload");
       })
       .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
@@ -94,12 +89,18 @@ const projectSlice = createSlice({
       })
       .addCase(addProjectMemberAction.fulfilled, (state, { payload }) => {
         if (payload.data.length > 0) {
-          console.log(payload.data, "payloadd");
           state.memberData = [...state.memberData, payload.data[0]];
           return state;
         }
+      })
+      .addCase(deleteProjectMemberAction.fulfilled, (state, { payload }) => {
+        state.removeMemberSucess = true;
       });
+
     builder
+      .addMatcher(isPending(...[deleteProjectMemberAction]), (state) => {
+        state.removeMemberSucess = false;
+      })
       .addMatcher(
         isPending(
           ...[getAllProjects, addProject, getProjectById, updateProject]
@@ -110,6 +111,9 @@ const projectSlice = createSlice({
           state.success = false;
         }
       )
+      .addMatcher(isRejected(...[deleteProjectMemberAction]), (state) => {
+        state.removeMemberSucess = false;
+      })
       .addMatcher(
         isRejected(
           ...[getAllProjects, addProject, getProjectById, updateProject]

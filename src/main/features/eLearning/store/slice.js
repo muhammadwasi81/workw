@@ -24,7 +24,13 @@ import {
   GetTedTalkById,
   addArticle,
   getAllArticle,
-  GetArticleById, addVideo, getAllVideo, GetVideoById,
+  GetArticleById,
+  addVideo,
+  getAllVideo,
+  GetVideoById,
+  RemoveCousrseMemberAction,
+  addCourseMember,
+  RemoveCousrseAssignMemberAction,
 } from "./action";
 
 const initialState = {
@@ -68,6 +74,7 @@ const initialState = {
   success: false,
   addTedTalksuccess: false,
   addVideosuccess: false,
+  removeCourseMemberSuccess: false,
   loader: false,
   loaders: {
     courseLoading: false,
@@ -113,7 +120,6 @@ const eLearningSlice = createSlice({
       state.composersInitState[key] = {};
     },
     addTopic: (state, { payload }) => {
-      console.log(payload, "FROM REDUCER");
       state.topics = [...state.topics, payload];
     },
     deleteTopic: (state, { payload }) => {
@@ -125,11 +131,21 @@ const eLearningSlice = createSlice({
       state.topics = [];
     },
     addMember: (state, { payload }) => {
-      console.log(payload, "FROM REDUCER")
       state.addMemberModal = payload;
     },
     addAssignMember: (state, { payload }) => {
       state.addAssignMemberModal = payload;
+    },
+    removeCourseMember: (state, { payload }) => {
+      state.courseMembers = state.courseMembers.filter(
+        (member) => member.memberId !== payload
+      );
+    },
+    removeCourseAssignMember: (state, { payload }) => {
+      console.log(payload, "payloafddd");
+      state.courseAssignMembers = state.courseAssignMembers.filter(
+        (member) => member.id !== payload
+      );
     },
   },
 
@@ -214,8 +230,11 @@ const eLearningSlice = createSlice({
         return state;
       })
       .addCase(addBookAssignMem.fulfilled, (state, { payload }) => {
-        state.bookAssignMembers = [...state.bookAssignMembers, payload];
-        return state;
+        console.log(payload.data, "payloadd assignnn");
+        if (payload.length > 0) {
+          state.bookAssignMembers = [...state.bookAssignMembers, payload];
+          return state;
+        }
       })
       .addCase(getAllBook.fulfilled, (state, action) => {
         state.books = action.payload ? action.payload : [];
@@ -248,21 +267,44 @@ const eLearningSlice = createSlice({
       })
       .addCase(getAllBookMember.fulfilled, (state, action) => {
         state.bookMembers = action.payload ? action.payload : [];
-        console.log(state.bookMembers, "book members");
       })
       .addCase(getAllCourseAssignMem.fulfilled, (state, action) => {
         state.courseAssignMembers = action.payload ? action.payload : [];
       })
       .addCase(getAllBookAssignMem.fulfilled, (state, action) => {
-        state.bookAssignMembers = action.payload ? action.payload : [];
+        state.bookAssignMembers = action.payload.data;
       })
+      .addCase(RemoveCousrseMemberAction.fulfilled, (state, { payload }) => {
+        state.removeCourseMemberSuccess = true;
+      })
+      .addCase(addCourseMember.fulfilled, (state, { payload }) => {
+        if (payload.data.length > 0) {
+          state.courseMembers = [...state.courseMembers, payload.data[0]];
+          return state;
+        }
+      })
+      .addCase(
+        RemoveCousrseAssignMemberAction.fulfilled,
+        (state, { payload }) => {
+          state.removeCourseMemberSuccess = true;
+        }
+      )
       .addMatcher(isPending(...[getAllBook, getAllCourse]), (state) => {
         state.loaders.courseLoading = true;
         state.loaders.bookLoading = true;
       })
+
       .addMatcher(isPending(...[getAllVideo]), (state) => {
         state.loaders.videosLoading = true;
       })
+      .addMatcher(
+        isPending(
+          ...[RemoveCousrseMemberAction, RemoveCousrseAssignMemberAction]
+        ),
+        (state) => {
+          state.removeCourseMemberSuccess = false;
+        }
+      )
       .addMatcher(isPending(...[getAllArticle]), (state) => {
         state.loaders.articlesLoading = true;
       })
@@ -271,7 +313,7 @@ const eLearningSlice = createSlice({
       })
       .addMatcher(isPending(...[addCourse]), (state) => {
         state.loaders.addCourseLoading = true;
-        state.addCourseSuccess = false
+        state.addCourseSuccess = false;
       })
       .addMatcher(isPending(...[addArticle]), (state) => {
         state.loaders.addArticleLoading = true;
@@ -317,12 +359,9 @@ const eLearningSlice = createSlice({
         }
       )
 
-      .addMatcher(
-        isRejected(...[addCourse]),
-        (state) => {
-          state.addCourseSuccess = false
-        }
-      )
+      .addMatcher(isRejected(...[addCourse]), (state) => {
+        state.addCourseSuccess = false;
+      })
 
       .addMatcher(isRejected(...[addQuiz]), (state) => {
         state.loaders.addQuizLoading = false;
@@ -371,6 +410,14 @@ const eLearningSlice = createSlice({
         console.log("rejected");
         state.loaders.checkQuizAttemptLoading = false;
       })
+      .addMatcher(
+        isRejected(
+          ...[RemoveCousrseMemberAction, RemoveCousrseAssignMemberAction]
+        ),
+        (state) => {
+          state.removeCourseMemberSuccess = false;
+        }
+      )
       .addMatcher(isRejected(...[getQuizById]), (state) => {
         console.log("rejected");
       })
@@ -401,5 +448,7 @@ export const {
   addSection,
   addAssignMember,
   addMember,
+  removeCourseMember,
+  removeCourseAssignMember,
 } = eLearningSlice.actions;
 export default eLearningSlice.reducer;

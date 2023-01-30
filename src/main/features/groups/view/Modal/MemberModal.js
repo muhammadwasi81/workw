@@ -17,9 +17,7 @@ import { deleteGroupMemberAction } from "../../store/actions";
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
-  const { memberData, success, deleteSucess } = useSelector(
-    (state) => state.groupSlice
-  );
+  const { memberData, success } = useSelector((state) => state.groupSlice);
   const modalRequest = useSelector((state) => state.groupSlice.addMemberModal);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -76,9 +74,9 @@ function MemberModal({ isOpen = false }) {
       id: userId,
       memberId: memberId,
     };
-    dispatch(deleteGroupMember(id));
 
     dispatch(deleteGroupMemberAction(data));
+    dispatch(deleteGroupMember(userId));
   };
   return (
     <Modal

@@ -9,13 +9,18 @@ import {
   addCourseAssignMem,
   getAllBookAssignMem,
   getAllCourseAssignMem,
+  RemoveCousrseAssignMemberAction,
 } from "../../../store/action";
 import { useParams } from "react-router-dom";
-import { addAssignMember } from "../../../store/slice";
+import {
+  addAssignMember,
+  removeCourseAssignMember,
+} from "../../../store/slice";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import { AssignMemEnum } from "../../../constant";
 import { NoDataFound } from "./index";
+import { displayName } from "react-quill";
 
 function AssignMemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
@@ -113,7 +118,15 @@ function AssignMemberModal({ isOpen = false }) {
     members: [],
     memberType: null,
   });
-
+  const handleDeleteAssignMember = (id) => {
+    const memberId = id.toString();
+    const data = {
+      id: assignMemberId,
+      memberId: memberId,
+    };
+    dispatch(removeCourseAssignMember(memberId));
+    dispatch(RemoveCousrseAssignMemberAction(data));
+  };
   return (
     <Modal
       open={ModalOpen}
@@ -162,6 +175,7 @@ function AssignMemberModal({ isOpen = false }) {
       {courseAssignMembers?.length > 0 || bookAssignMembers.length > 0 ? (
         <ApproverListItem
           className="AddMemberModal"
+          handleDelete={handleDeleteAssignMember}
           data={
             Type === AssignMemEnum.ebook
               ? bookAssignMembers

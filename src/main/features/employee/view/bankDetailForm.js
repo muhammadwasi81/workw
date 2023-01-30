@@ -218,19 +218,10 @@ const BankForm = ({ mode, id }) => {
   };
   const createPayload = () => {
     const payload = {
+      ...form.getFieldsValue(),
       id: newUserId,
       userId: id,
-      bankName: form.getFieldValue('bankName'),
-      accountTitle: form.getFieldValue('accountTitle'),
-      bankBranchCode: form.getFieldValue('bankBranchCode'),
-      accountNumber: form.getFieldValue('accountNumber'),
-      ibanNumber: form.getFieldValue('ibanNumber'),
-      sortCode: form.getFieldValue('sortCode'),
-      cityId: form.getFieldValue('cityId'),
-      countryId: form.getFieldValue('countryId'),
     };
-    console.log(payload.id, 'id');
-    console.log(payload.userId, 'userId');
     return payload;
   };
 

@@ -33,6 +33,7 @@ import { targetStickyDescription } from '../notes/newStickyNotes/store/stickySli
 import { addSticky } from '../notes/newStickyNotes/store/actions';
 import { CopyOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { Menu, Dropdown, Space } from 'antd';
+import TeamAppraisal from '../appraisalModule/view/components/TeamAppraisal/index';
 
 const Profile = () => {
   const param = useParams();
@@ -171,7 +172,7 @@ const Profile = () => {
     },
     {
       featureName: profileDictionary.appraisal,
-      content: <AppraisalTable />,
+      content: <TeamAppraisal userId={id} />,
       featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
     },
     {

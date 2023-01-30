@@ -9,16 +9,19 @@ import {
   getAllBookMember,
   getAllLeadManagerMember,
   addLeadManagereMember,
+  deleteLeadManagerById,
 } from "../../store/actions";
 import { useParams } from "react-router-dom";
 import { addMember } from "../../store/slice";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
+import { deleteLeadManagerMember } from "../../store/slice";
 
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
   const { memberData } = useSelector((state) => state.leadMangerSlice);
+  console.log(memberData, "memberDataaaa");
 
   const modalRequest = useSelector(
     (state) => state.leadMangerSlice.addMemberModal
@@ -51,6 +54,7 @@ function MemberModal({ isOpen = false }) {
 
   const handleChange = (id) => {
     let memberId = id.toString();
+    console.log(memberId);
     const data = {
       id: userId,
       memberId: memberId,
@@ -70,7 +74,16 @@ function MemberModal({ isOpen = false }) {
     members: [],
     memberType: null,
   });
-
+  const handleDeleteMember = (id) => {
+    let memberId = id.toString();
+    const data = {
+      id: userId,
+      memberId: memberId,
+    };
+    console.log(data, "dataaaa modalll");
+    //dispatch(deleteLeadManagerMember(memberId));
+    dispatch(deleteLeadManagerById(data));
+  };
   return (
     <Modal
       open={ModalOpen}
@@ -116,7 +129,11 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      <ApproverListItem className="AddMemberModal" data={memberData} />
+      <ApproverListItem
+        className="AddMemberModal"
+        data={memberData}
+        handleDelete={handleDeleteMember}
+      />
     </Modal>
   );
 }

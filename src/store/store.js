@@ -102,6 +102,7 @@ import employeeSalarySlice from "../main/features/salary/view/SalaryEmployee/act
 import mailSlice from "../main/features/mail/Store/MailSlice";
 import settingSlice from "../main/features/settings/store/slice";
 import adminstrationSlice from "../main/features/administration/store/slice";
+import employeeRebateSlice from "../main/features/rebate/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -201,6 +202,7 @@ const reducers = combineReducers({
   settingSlice,
   eLearningCategorySlice,
   adminstrationSlice,
+  employeeRebateSlice,
 });
 
 const persistConfig = {

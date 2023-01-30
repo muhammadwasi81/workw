@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-import { Button, Popover } from "antd";
+import { Button, Popover, Drawer } from "antd";
 import ContentOptions from "./content";
 import menuIcon from "../../../../content/NewContent/Documents/3dots.svg";
 import "./style.css";
 
+
+
 const QuickOptions = ({ data, onClick = () => {} }) => {
   const [open, setOpen] = useState(false);
+
   const hide = () => {
     setOpen(false);
   };
   const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
   };
+  
   return (
+    <>
     <div
       className="docsPopover"
       onClick={(e) => {
@@ -33,7 +38,10 @@ const QuickOptions = ({ data, onClick = () => {} }) => {
           <img src={menuIcon} />
         </div>
       </Popover>
+     
     </div>
+    
+    </>
   );
 };
 export default QuickOptions;

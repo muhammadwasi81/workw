@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import { PlusOutlined, EditOutlined } from "@ant-design/icons";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { employeeDictionaryList } from "../localization/index";
+import React, { useContext, useEffect } from 'react';
+import { useState } from 'react';
+import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { employeeDictionaryList } from '../localization/index';
 import {
   DatePicker,
   Checkbox,
@@ -13,24 +13,24 @@ import {
   Button,
   Table,
   Avatar,
-} from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import moment from "moment";
+} from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import moment from 'moment';
 import {
   addUserEducationAction,
   getEducationDetailByUser,
   updateUserEducationAction,
-} from "../../education/store/actions";
-import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
-import { getNameForImage } from "../../../../utils/base";
-import { getCities } from "../../../../utils/Shared/store/actions";
+} from '../../education/store/actions';
+import CitySelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect';
+import { getNameForImage } from '../../../../utils/base';
+import { getCities } from '../../../../utils/Shared/store/actions';
 const { RangePicker } = DatePicker;
 
 const EducationForm = ({ id, mode }) => {
   const param = useParams();
 
-  const isEdit = mode === "edit";
+  const isEdit = mode === 'edit';
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
@@ -47,17 +47,17 @@ const EducationForm = ({ id, mode }) => {
   const labels = employeesDictionary.EducationForm;
   const placeholder = employeesDictionary.placeholders;
   const [educationDetails, setEducationDetails] = useState([]);
-  const [newUserId, setNewUserId] = useState("");
+  const [newUserId, setNewUserId] = useState('');
 
   const [form] = Form.useForm();
-  Object.defineProperty(form, "values", {
+  Object.defineProperty(form, 'values', {
     value: function() {
       return educationDetails.map((item) => {
         return {
           ...item,
           startDate: moment(item[0]?.startEndDate?._ds)?.format(),
           endDate: item?.isPresent
-            ? ""
+            ? ''
             : moment(item[1]?.startEndDate?._ds)?.format(),
         };
       });
@@ -71,12 +71,12 @@ const EducationForm = ({ id, mode }) => {
   }, [success]);
 
   const initialState = {
-    degree: "",
-    institute: "",
-    description: "",
-    totalMarks: "",
-    obtainedMarks: "",
-    startDate: "",
+    degree: '',
+    institute: '',
+    description: '',
+    totalMarks: '',
+    obtainedMarks: '',
+    startDate: '',
     cityId: [],
     isPresent: false,
   };
@@ -85,48 +85,48 @@ const EducationForm = ({ id, mode }) => {
   const columns = () => [
     {
       title: labels.Degree,
-      dataIndex: "degree",
-      key: "degree",
+      dataIndex: 'degree',
+      key: 'degree',
     },
     {
       title: labels.Institute,
-      dataIndex: "institute",
-      key: "institute",
+      dataIndex: 'institute',
+      key: 'institute',
     },
     {
       title: labels.City,
-      dataIndex: "cityId",
-      key: "cityId",
+      dataIndex: 'cityId',
+      key: 'cityId',
       render: (value) => {
         return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
       },
     },
     {
       title: labels.Description,
-      dataIndex: "description",
-      key: "description",
+      dataIndex: 'description',
+      key: 'description',
     },
     {
       title: labels.ObtainedMarks,
-      dataIndex: "obtainedMarks",
-      key: "obtainedMarks",
+      dataIndex: 'obtainedMarks',
+      key: 'obtainedMarks',
     },
     {
       title: labels.TotalMarks,
-      dataIndex: "totalMarks",
-      key: "totalMarks",
+      dataIndex: 'totalMarks',
+      key: 'totalMarks',
     },
 
     {
       title: labels.StartEndDate,
-      dataIndex: "startDate",
-      key: "startDate",
+      dataIndex: 'startDate',
+      key: 'startDate',
       render: (value, row) => {
         return value?.length
-          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
+          ? `${moment(row.startDate[0]).format('YYYY/MM/DD')} - ${moment(
               row.startDate[1]
-            ).format("YYYY/MM/DD")}`
-          : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
+            ).format('YYYY/MM/DD')}`
+          : `${moment(row.start).format('YYYY/MM/DD')} -  Present`;
       },
     },
 
@@ -140,7 +140,7 @@ const EducationForm = ({ id, mode }) => {
               e.preventDefault();
               if (isEdit) {
                 handleRowChange(rowIndex);
-                console.log(value?.id, "value");
+                console.log(value?.id, 'value');
                 setNewUserId(value?.id);
               } else {
                 const filterArray = educationDetails.filter((value, i) => {
@@ -167,10 +167,10 @@ const EducationForm = ({ id, mode }) => {
     form.submit();
     try {
       const isValidation = await form.validateFields();
+      console.log(isValidation, 'isValidation');
       if (isValidation) {
-        //here we will add new education
         if (isEdit) {
-          console.log("is edit work");
+          console.log('is edit work');
           const payloadObj = {
             payload: form.getFieldsValue(),
             id: param.id,
@@ -198,7 +198,7 @@ const EducationForm = ({ id, mode }) => {
   useEffect(() => {
     if (isEdit) {
       dispatch(getEducationDetailByUser(id));
-      if (!cities.length) fetchCityData("", 0);
+      if (!cities.length) fetchCityData('', 0);
     }
     return () => {
       form.setFieldsValue(initialValues);
@@ -224,29 +224,21 @@ const EducationForm = ({ id, mode }) => {
     dispatch(getCities({ textData: text, page: pgNo }));
   };
 
-  let classes = "employeeForm educationDetails ";
-  classes += Direction === "ltr" ? "ltr" : "rtl";
+  let classes = 'employeeForm educationDetails ';
+  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
 
   const createPayload = () => {
     const payload = {
-      id: id,
+      ...form.getFieldsValue(),
+      id: newUserId,
       userId: param.id,
-      institute: form.getFieldValue("institute"),
-      degree: form.getFieldValue("degree"),
-      description: form.getFieldValue("description"),
-      totalMarks: form.getFieldValue("totalMarks"),
-      obtainedMarks: form.getFieldValue("obtainedMarks"),
-      startDate: form.getFieldValue("startDate")[0],
-      endDate: form.getFieldValue("startDate")[1],
-      cityId: form.getFieldValue("cityId"),
-      isPresent: form.getFieldValue("isPresent"),
     };
     return payload;
   };
 
   const handleUpdate = () => {
     const payload = createPayload();
-    console.log(payload, "payload");
+    console.log(payload, 'payload');
     dispatch(updateUserEducationAction(payload));
     setEducationDetails((preValues) => [...preValues, payload]);
     setInitialValues(initialState);
@@ -259,7 +251,7 @@ const EducationForm = ({ id, mode }) => {
       <Form
         name="educationDetails"
         form={form}
-        layout={"vertical"}
+        layout={'vertical'}
         initialValues={initialValues}
       >
         <Form.Item
@@ -331,11 +323,11 @@ const EducationForm = ({ id, mode }) => {
                 <Avatar src={opt.image} className="!bg-black">
                   {getNameForImage(opt.name)}
                 </Avatar>
-                {opt.name + " - " + opt.country}
+                {opt.name + ' - ' + opt.country}
               </>
             );
           }}
-          defaultKey={"id"}
+          defaultKey={'id'}
           isObject={true}
           placeholder={placeholder.searchToSelect}
           size="large"
@@ -358,7 +350,7 @@ const EducationForm = ({ id, mode }) => {
               <RangePicker
                 getPopupContainer={(trigger) => trigger.parentNode}
                 size="large"
-                format={"DD/MM/YYYY"}
+                format={'DD/MM/YYYY'}
                 placeholder={[placeholder.sDate, placeholder.eDate]}
               />
             </Form.Item>
@@ -366,17 +358,13 @@ const EducationForm = ({ id, mode }) => {
 
           {isPresent && (
             <Form.Item
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
               name="startDate"
               label={labels.StartDate}
             >
               <DatePicker
                 getPopupContainer={(trigger) => trigger.parentNode}
-                format={"DD/MM/YYYY"}
+                format={'DD/MM/YYYY'}
                 placeholder={labels.start}
                 size="large"
               />
@@ -387,8 +375,8 @@ const EducationForm = ({ id, mode }) => {
             <Checkbox
               onChange={() => {
                 setIsPresent(!isPresent);
-                form.setFieldValue("startDate", "");
-                form.setFieldValue("startEndDate", "");
+                form.setFieldValue('startDate', '');
+                form.setFieldValue('startEndDate', '');
               }}
             >
               {labels.Present}
@@ -396,7 +384,7 @@ const EducationForm = ({ id, mode }) => {
           </Form.Item>
         </div>
       </Form>
-      <div className={isEdit ? "editButtons" : "buttons"}>
+      <div className={isEdit ? 'editButtons' : 'buttons'}>
         <Button
           type="dashed"
           className="btn addMore"

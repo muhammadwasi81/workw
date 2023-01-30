@@ -12,16 +12,19 @@ import {
   getCountries,
 } from '../../../../utils/Shared/store/actions';
 import {
-  getBankDetailByUser,
+  addUserBankInfoAction,
+  getAllBankDetailByUser,
   updateUserBankInfoAction,
 } from '../../bankDetails/store/actions';
 import CitySelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect';
 import { getNameForImage } from '../../../../utils/base';
 import { resetBankDetails } from '../store/slice';
+import { useParams } from 'react-router';
 const { Option } = Select;
 
 const BankForm = ({ mode, id }) => {
   const isEdit = mode === 'edit';
+  const param = useParams();
   const [bankDetails, setBankDetails] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
@@ -32,11 +35,12 @@ const BankForm = ({ mode, id }) => {
   );
   const {
     employee: { bankdetails },
-    success,
   } = useSelector((state) => state.employeeSlice);
+  const { userBankDetails } = useSelector((state) => state.bankInfoSlice);
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
+  console.log(userBankDetails, 'userBankDetails');
   const initialState = {
     accountNumber: '',
     accountTitle: '',
@@ -53,6 +57,10 @@ const BankForm = ({ mode, id }) => {
   const labels = employeesDictionary.BankForm;
   const placeholder = employeesDictionary.placeholders;
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    dispatch(getAllBankDetailByUser(param.id));
+  }, []);
 
   Object.defineProperty(form, 'values', {
     value: function() {
@@ -76,17 +84,13 @@ const BankForm = ({ mode, id }) => {
     if (isEdit) {
       if (!countriesSlice.length) dispatch(getCountries());
       if (!cities.length) fetchCityData('', 0);
-      dispatch(getBankDetailByUser(id));
+      dispatch(getAllBankDetailByUser(id));
     }
 
     return () => {
       dispatch(resetBankDetails());
     };
   }, []);
-
-  useEffect(() => {
-    if (success) setBankDetails([]);
-  }, [success]);
 
   useEffect(() => {
     if (isEdit) setBankDetails(bankdetails);
@@ -100,10 +104,16 @@ const BankForm = ({ mode, id }) => {
     form.submit();
     try {
       const isValidation = await form.validateFields();
+      console.log(isValidation, 'isValidation');
       if (isValidation) {
         setBankDetails((preValues) => [...preValues, form.getFieldsValue()]);
         form.resetFields();
         setInitialValues(initialState);
+        const payloadObject = {
+          ...isValidation,
+          userId: param.id,
+        };
+        dispatch(addUserBankInfoAction(payloadObject));
       }
     } catch (err) {
       console.log(err.message);
@@ -119,94 +129,93 @@ const BankForm = ({ mode, id }) => {
     bankDetailsArr.splice(rowIndex, 1);
     setBankDetails(bankDetailsArr);
   };
-
-  const columns = [
-    {
-      title: 'Bank Name',
-      dataIndex: 'bankName',
-      ellipsis: true,
-      key: 'bankName',
-    },
-    {
-      title: 'Account Name',
-      dataIndex: 'accountTitle',
-      ellipsis: true,
-      key: 'accountTitle',
-    },
-    {
-      title: 'Branch Code',
-      dataIndex: 'bankBranchCode',
-      ellipsis: true,
-      key: 'bankBranchCode',
-    },
-    {
-      title: 'Account Number',
-      dataIndex: 'accountNumber',
-      ellipsis: true,
-      key: 'accountNumber',
-    },
-    {
-      title: 'IBN',
-      dataIndex: 'ibanNumber',
-      ellipsis: true,
-      key: 'ibanNumber',
-    },
-    {
-      title: 'Sort Code',
-      dataIndex: 'sortCode',
-      ellipsis: true,
-      key: 'sortCode',
-    },
-    {
-      title: 'Country',
-      dataIndex: 'countryId',
-      ellipsis: true,
-      key: 'countryId',
-      render: (labels) => {
-        return bankDetails
-          .filter((item) => item.countryId === labels)
-          .map((item) => item.country);
+  const columns = (data) => {
+    return [
+      {
+        title: 'Bank Name',
+        dataIndex: 'bankName',
+        ellipsis: true,
+        key: 'bankName',
       },
-    },
-    {
-      title: 'City',
-      dataIndex: 'cityId',
-      ellipsis: true,
-      key: 'cityId',
-      render: (value) => {
-        return bankDetails
-          .filter((item) => item.cityId === value)
-          .map((item) => item.city);
+      {
+        title: 'Account Name',
+        dataIndex: 'accountTitle',
+        ellipsis: true,
+        key: 'accountTitle',
       },
-    },
-
-    {
-      title: sharedLabels.action,
-      render: (value, __, rowIndex) => {
-        return (
-          <a
-            href=" "
-            onClick={(e) => {
-              e.preventDefault();
-              if (isEdit) {
-                handleRowChange(rowIndex);
-                console.log(value?.id, 'value');
-                setNewUserId(value?.id);
-              } else {
-                const filterArray = bankDetails.filter((value, i) => {
-                  if (rowIndex !== i) return value;
-                });
-                setBankDetails(filterArray);
-              }
-            }}
-          >
-            {isEdit ? sharedLabels.Edit : sharedLabels.Delete}
-          </a>
-        );
+      {
+        title: 'Branch Code',
+        dataIndex: 'bankBranchCode',
+        ellipsis: true,
+        key: 'bankBranchCode',
       },
-    },
-  ];
-
+      {
+        title: 'Account Number',
+        dataIndex: 'accountNumber',
+        ellipsis: true,
+        key: 'accountNumber',
+      },
+      {
+        title: 'IBN',
+        dataIndex: 'ibanNumber',
+        ellipsis: true,
+        key: 'ibanNumber',
+      },
+      {
+        title: 'Sort Code',
+        dataIndex: 'sortCode',
+        ellipsis: true,
+        key: 'sortCode',
+      },
+      {
+        title: 'Country',
+        dataIndex: 'countryId',
+        ellipsis: true,
+        key: 'countryId',
+        render: (labels) => {
+          return bankDetails
+            .filter((item) => item.countryId === labels)
+            .map((item) => item.country);
+        },
+      },
+      {
+        title: 'City',
+        dataIndex: 'cityId',
+        ellipsis: true,
+        key: 'cityId',
+        render: (value) => {
+          return bankDetails
+            .filter((item) => item.cityId === value)
+            .map((item) => item.city);
+        },
+      },
+      {
+        title: sharedLabels.action,
+        render: (value, __, rowIndex) => {
+          return (
+            <a
+              href=" "
+              onClick={(e) => {
+                e.preventDefault();
+                if (isEdit) {
+                  handleRowChange(rowIndex);
+                  console.log(data[rowIndex].id, 'data[rowIndex].id');
+                  setNewUserId(data[rowIndex].id);
+                } else {
+                  const filterArray = bankDetails.filter((value, i) => {
+                    if (rowIndex !== i) return value;
+                  });
+                  setBankDetails(filterArray);
+                }
+              }}
+            >
+              {isEdit ? sharedLabels.Edit : sharedLabels.Delete}
+            </a>
+          );
+        },
+      },
+    ];
+  };
   const createPayload = () => {
     const payload = {
       id: newUserId,
@@ -220,16 +229,22 @@ const BankForm = ({ mode, id }) => {
       cityId: form.getFieldValue('cityId'),
       countryId: form.getFieldValue('countryId'),
     };
+    console.log(payload.id, 'id');
+    console.log(payload.userId, 'userId');
     return payload;
   };
 
   const handleUpdate = () => {
     const payload = createPayload();
     console.log(payload, 'payload');
-    dispatch(updateUserBankInfoAction(payload));
+    const payloadObj = {
+      payload,
+      id: param.id,
+    };
+    dispatch(updateUserBankInfoAction(payloadObj));
     setBankDetails((preValues) => [...preValues, payload]);
-    setInitialValues(initialState);
     form.resetFields();
+    setInitialValues(initialState);
   };
 
   let classes = 'employeeForm bankDetails ';
@@ -369,7 +384,6 @@ const BankForm = ({ mode, id }) => {
         >
           {labels.AddBank}
         </Button>
-
         {isEdit && (
           <Button
             className="btn ThemeBtn"
@@ -381,7 +395,11 @@ const BankForm = ({ mode, id }) => {
         )}
       </div>
       {bankDetails.length > 0 && (
-        <Table columns={columns} dragable={true} dataSource={bankDetails} />
+        <Table
+          columns={columns(bankDetails)}
+          dragable={true}
+          dataSource={bankDetails}
+        />
       )}
     </div>
   );

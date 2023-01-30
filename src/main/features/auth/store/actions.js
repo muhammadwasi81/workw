@@ -54,7 +54,7 @@ export const loginUser = createAsyncThunk(
 						)
 					}
 				}
-				document.cookie = `token=${data.data.accessToken}; path=/; secure; domain=." + "workw.com`;
+				document.cookie = `token=${data.data.accessToken}; domain=.workw.com; path=/;`;
 			}
 		} else {
 			message.error(STRINGS.SERVER_ERROR);

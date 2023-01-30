@@ -90,13 +90,14 @@ const projectSlice = createSlice({
         state.stickyArray = payload;
       })
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
-        console.log(action.payload, "payloadd");
         state.memberData = action.payload.data;
-        console.log(state.memberData, "payloadd");
       })
       .addCase(addProjectMemberAction.fulfilled, (state, { payload }) => {
-        state.memberData = [...state.memberData, payload];
-        return state;
+        if (payload.data.length > 0) {
+          console.log(payload.data, "payloadd");
+          state.memberData = [...state.memberData, payload.data[0]];
+          return state;
+        }
       });
     builder
       .addMatcher(

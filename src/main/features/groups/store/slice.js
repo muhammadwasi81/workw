@@ -7,6 +7,7 @@ import {
   updateGroup,
   addGroupMemberAction,
   getAllGroupMemberAction,
+  deleteGroupMemberAction,
 } from "./actions";
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
   isEditComposer: false,
   addMemberModal: false,
   open: false,
+  deleteSucess: false,
 };
 
 const groupSlice = createSlice({
@@ -32,11 +34,9 @@ const groupSlice = createSlice({
       state.groupDetail = null;
     },
     getGroupDetailById(state, { payload }) {
-      console.log(payload, "payload");
       state.groupDetail = state.groups.find((list) => list.id === payload);
     },
     handleComposer(state, { payload }) {
-      console.log(payload, "payloaddd");
       const { isOpen, isEdit } = payload;
       state.isEditComposer = isEdit;
       state.isComposerOpen = isOpen;
@@ -45,6 +45,7 @@ const groupSlice = createSlice({
       state.addMemberModal = payload;
     },
     deleteGroupMember(state, { payload }) {
+      console.log(payload.id, "payloaddd");
       state.memberData = state.memberData.filter(
         (member) => member.id !== payload.id
       );
@@ -76,15 +77,25 @@ const groupSlice = createSlice({
         state.success = true;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "payloaddd");
-        state.memberData = [...state.memberData, payload.data];
-        return state;
+        if (payload.data.length > 0) {
+          state.memberData = [...state.memberData, payload.data[0]];
+          return state;
+        }
       })
       .addCase(getAllGroupMemberAction.fulfilled, (state, { payload }) => {
-        state.memberData = payload.data;
+        state.memberData = payload.data.length > 0 ? payload.data : [];
+      })
+      .addCase(deleteGroupMemberAction.fulfilled, (state, action) => {
+        state.loader = false;
+        state.success = true;
+
+        state.deleteSucess = true;
+        state.memberData = state.memberData.filter(
+          (member) => member.id !== action.payload.id
+        );
       })
       .addMatcher(isPending(getAllGroup), (state) => {
-        state.getDataLoading = true;
+        state.loader = true;
       })
       .addMatcher(
         isPending(...[addGroup, updateGroup, getGroupById]),

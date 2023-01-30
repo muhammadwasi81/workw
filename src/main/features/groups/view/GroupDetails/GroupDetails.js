@@ -35,10 +35,9 @@ import ComposeEmail from "../../../leadmanager/view/Email/ComposeEmail";
 import GroupDefaultImage from "../../../../../content/NewContent/groups/GroupDefaultImage.svg";
 import CoverImage from "../../../departments/view/CoverImage";
 import GroupsInfo from "../UI/GroupsInfo";
-import {  addMember} from "../../store/slice";
-import {getAllGroupMemberAction} from "../../store/actions";
+import { addMember } from "../../store/slice";
+import { getAllGroupMemberAction } from "../../store/actions";
 import MemberModal from "../Modal/MemberModal";
-
 
 function GroupDetails() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -56,6 +55,7 @@ function GroupDetails() {
     dispatch(getGroupById(id));
     dispatch(getAllGroupMemberAction(id));
   }, [id]);
+
   const memberHandler = () => {
     setVisible(true);
     // const userTypes = memberType === 1 ? Members.user : Members.admin;

@@ -1,110 +1,110 @@
 export const EducationTypeEnum = [
   {
-    label: "No Education",
+    label: 'No Education',
     value: 1,
   },
   {
-    label: "Primary School",
+    label: 'Primary School',
     value: 2,
   },
   {
-    label: "Middle School",
+    label: 'Middle School',
     value: 3,
   },
   {
-    label: "High School",
+    label: 'High School',
     value: 4,
   },
   {
-    label: "Under Graduate",
+    label: 'Under Graduate',
     value: 5,
   },
   {
-    label: "Graduate",
+    label: 'Graduate',
     value: 6,
   },
   {
-    label: "Doctorate",
+    label: 'Doctorate',
     value: 7,
   },
   {
-    label: "Diploma",
+    label: 'Diploma',
     value: 8,
   },
 ];
 
 export const JobShiftTypeEnum = [
   {
-    label: "Day",
+    label: 'Day',
     value: 1,
   },
   {
-    label: "Morning",
+    label: 'Morning',
     value: 2,
   },
   {
-    label: "AfterNoon",
+    label: 'AfterNoon',
     value: 3,
   },
   {
-    label: "Night",
+    label: 'Night',
     value: 4,
   },
   {
-    label: "Other",
+    label: 'Other',
     value: 5,
   },
 ];
 
 export const JobTypeEnum = [
   {
-    label: "FullTime",
+    label: 'Full-Time',
     value: 1,
   },
   {
-    label: "PartTime",
+    label: 'Part-Time',
     value: 2,
   },
   {
-    label: "Contractual",
+    label: 'Contractual',
     value: 3,
   },
   {
-    label: "Consultant",
+    label: 'Consultant',
     value: 4,
   },
   {
-    label: "Agent",
+    label: 'Agent',
     value: 5,
   },
   {
-    label: "ProjectBased",
+    label: 'ProjectBased',
     value: 6,
   },
 ];
 export const CareerLevelTypeEnum = [
   {
-    label: "Entry",
+    label: 'Entry',
     value: 1,
   },
   {
-    label: "MidLevel",
+    label: 'MidLevel',
     value: 2,
   },
   {
-    label: "SeniorLevel",
+    label: 'SeniorLevel',
     value: 3,
   },
   {
-    label: "ExecutiveLevel",
+    label: 'ExecutiveLevel',
     value: 4,
   },
   {
-    label: "CSuite",
+    label: 'CSuite',
     value: 5,
   },
   {
-    label: "PresidentCeo",
+    label: 'PresidentCeo',
     value: 6,
   },
 ];

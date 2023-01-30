@@ -56,7 +56,7 @@ export const CreateCall = () => {
   return (
     <>
       <div>
-        <Dropdown overlay={menu}>
+        <Dropdown menu={menu}>
           <Typography.Link>
             <Space>
               <VideoCameraOutlined />

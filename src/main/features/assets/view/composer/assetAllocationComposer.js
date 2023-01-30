@@ -57,7 +57,7 @@ const AssetComposer = () => {
     (state) => state.inventoryAssetSlice
   );
   const { assetItemList } = useSelector((state) => state.AssetItemSlice);
-
+  console.log(assetItemList, 'assetItemList');
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -166,7 +166,7 @@ const AssetComposer = () => {
   const filteredAssetList = assetItemList.filter(
     (item) => item.status === 4 && !data.includes(item.id)
   );
-
+  console.log(filteredAssetList, 'filteredAssetList');
   return (
     <>
       <Form

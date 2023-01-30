@@ -1,38 +1,39 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react';
 import {
   ContBody,
   TabContainer,
-} from "../../sharedComponents/AppComponents/MainFlexContainer";
-import Tab from "../../sharedComponents/Tab";
-import ProfileCoverDetail from "./ProfileCoverDetail";
-import ProfilePanel from "./view/ProfilePanel";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { ROUTES } from "../../../utils/routes";
-import "./styles/profileStyle.css";
-import NewsFeed from "../feed/ui";
-import { getEducationDetailByUser } from "../education/store/actions";
-import { useDispatch } from "react-redux";
-import { getUserWorkExperience } from "../experienceInfo/store/actions";
-import { getEmployeeByIdAction } from "./store/action";
-import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { profileDictionaryList } from "./localization/index";
-import Courses from "../team/view/Courses";
-import ActivityLog from "../team/view/ActivityLog";
-import Education from "../team/view/Education";
-import Leaves from "../team/view/Leaves";
-import Experience from "../team/view/Experience";
-import CheckIn from "../team/view/CheckIn";
-import ProfileCover from "../projects/UI/ProfileCover";
-import SingleNotes from "../notes/singleNotes/singleNotes";
-import AppraisalTable from "./appraisals";
-import AwardsTable from "./awards";
-import SalaryTable from "./salary";
-import { useSelector } from "react-redux";
-import CustomNotes from "../notes/singleNotes/singleNotes";
-import { targetStickyDescription } from "../notes/newStickyNotes/store/stickySlice";
-import { addSticky } from "../notes/newStickyNotes/store/actions";
-import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
-import { Menu, Dropdown, Space } from "antd";
+} from '../../sharedComponents/AppComponents/MainFlexContainer';
+import Tab from '../../sharedComponents/Tab';
+import ProfileCoverDetail from './ProfileCoverDetail';
+import ProfilePanel from './view/ProfilePanel';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { ROUTES } from '../../../utils/routes';
+import './styles/profileStyle.css';
+import NewsFeed from '../feed/ui';
+import { getEducationDetailByUser } from '../education/store/actions';
+import { useDispatch } from 'react-redux';
+import { getUserWorkExperience } from '../experienceInfo/store/actions';
+import { getEmployeeByIdAction } from './store/action';
+import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
+import { profileDictionaryList } from './localization/index';
+import Courses from '../team/view/Courses';
+import ActivityLog from '../team/view/ActivityLog';
+import Education from '../team/view/Education';
+import Leaves from '../team/view/Leaves';
+import Experience from '../team/view/Experience';
+import CheckIn from '../team/view/CheckIn';
+import ProfileCover from '../projects/UI/ProfileCover';
+import SingleNotes from '../notes/singleNotes/singleNotes';
+import AppraisalTable from './appraisals';
+import AwardsTable from './awards';
+import SalaryTable from './salary';
+import { useSelector } from 'react-redux';
+import CustomNotes from '../notes/singleNotes/singleNotes';
+import { targetStickyDescription } from '../notes/newStickyNotes/store/stickySlice';
+import { addSticky } from '../notes/newStickyNotes/store/actions';
+import { CopyOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { Menu, Dropdown, Space } from 'antd';
+import TeamAppraisal from '../appraisalModule/view/components/TeamAppraisal/index';
 
 const Profile = () => {
   const param = useParams();
@@ -41,9 +42,9 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { pathname } = location;
   const { id } = param;
-  console.log(id, "params");
-  const [description, setDescription] = useState("");
-  const [defaultPath, setDefaultPath] = useState("");
+  console.log(id, 'params');
+  const [description, setDescription] = useState('');
+  const [defaultPath, setDefaultPath] = useState('');
   // const { education } = useSelector((state) => state.employeeProfileSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { profileDictionary } = profileDictionaryList[userLanguage];
@@ -52,21 +53,21 @@ const Profile = () => {
     user: { id: userId },
   } = useSelector((state) => state.userSlice);
 
-  console.log(userId, "userId");
+  console.log(userId, 'userId');
   const onChange = (key) => {
     navigate(key);
   };
 
   useEffect(() => {
-    setDefaultPath(pathname.split("_")[0]);
+    setDefaultPath(pathname.split('_')[0]);
   }, [pathname]);
 
-  console.log(listArray, "listArray");
+  console.log(listArray, 'listArray');
 
   const modules = {
     toolbar: [
-      ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
       [],
     ],
   };
@@ -74,17 +75,17 @@ const Profile = () => {
     toolbar: [
       [{ font: [] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "link", "image"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
-      [{ direction: "rtl" }],
-      [{ align: ["center"] }],
+      ['bold', 'italic', 'underline', 'link', 'image'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      [{ direction: 'rtl' }],
+      [{ align: ['center'] }],
       [{ color: [] }, { background: [] }],
-      ["clean"],
+      ['clean'],
     ],
   };
   const copyToClipboard = () => {
-    navigator.clipboard.writeText("");
+    navigator.clipboard.writeText('');
   };
   const menu = (
     <Menu
@@ -96,14 +97,12 @@ const Profile = () => {
               <a className="drop-downList">Copy</a>
             </div>
           ),
-          key: "1",
+          key: '1',
         },
-
         {
-          label: <div>{}</div>,
-
+          label: <div></div>,
+          key: '2',
           // icon: <HighlightOutlined onClick={openColorHandler} />,
-          key: "2",
         },
       ]}
     />
@@ -128,7 +127,7 @@ const Profile = () => {
           <NewsFeed
             isScheduler={false}
             isCheckedIn={false}
-            width={"!w-full"}
+            width={'!w-full'}
             referenceType={4}
             referenceId={id}
             backButton={false}
@@ -137,7 +136,7 @@ const Profile = () => {
           <div className="singleNote_container w-[500px]">
             <div className="singleNote_header">
               <div className="leftNote_Icon">
-                <Dropdown overlay={menu}>
+                <Dropdown menu={menu}>
                   <a onClick={(e) => e.preventDefault()}>
                     <Space>
                       <EllipsisOutlined className="threedot_Icon" />
@@ -151,9 +150,9 @@ const Profile = () => {
                 //onChange={(value) => descHandler(value)}
                 modules={modules}
                 formats={formats}
-                className={"stickyNoteItem-textarea"}
-                placeholder={"Take a Note"}
-                defaultValue={""}
+                className={'stickyNoteItem-textarea'}
+                placeholder={'Take a Note'}
+                defaultValue={''}
               />
             </div>
           </div>
@@ -164,52 +163,54 @@ const Profile = () => {
     {
       featureName: profileDictionary.about,
       content: <ProfilePanel />,
-      featureId: ROUTES.USER.DEFAULT + id + "/about",
+      featureId: ROUTES.USER.DEFAULT + id + '/about',
     },
     {
       featureName: profileDictionary.awards,
       content: <AwardsTable />,
-      featureId: ROUTES.USER.DEFAULT + id + "/awards",
+      featureId: ROUTES.USER.DEFAULT + id + '/awards',
     },
     {
       featureName: profileDictionary.appraisal,
       content: <AppraisalTable />,
-      featureId: ROUTES.USER.DEFAULT + id + "/appraisal",
+      featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
+      content: <TeamAppraisal userId={id} />,
+      featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
     },
     {
       featureName: profileDictionary.salary,
       content: <SalaryTable />,
-      featureId: ROUTES.USER.DEFAULT + id + "/salary",
+      featureId: ROUTES.USER.DEFAULT + id + '/salary',
     },
     {
       featureName: profileDictionary.activityLog,
       content: <ActivityLog />,
-      featureId: ROUTES.USER.DEFAULT + id + "/activityLog",
+      featureId: ROUTES.USER.DEFAULT + id + '/activityLog',
     },
     {
       featureName: profileDictionary.courses,
       content: <Courses />,
-      featureId: ROUTES.USER.DEFAULT + id + "/courses",
+      featureId: ROUTES.USER.DEFAULT + id + '/courses',
     },
     {
       featureName: profileDictionary.leave,
       content: <Leaves />,
-      featureId: ROUTES.USER.DEFAULT + id + "/leave",
+      featureId: ROUTES.USER.DEFAULT + id + '/leave',
     },
     {
       featureName: profileDictionary.education,
       content: <Education />,
-      featureId: ROUTES.USER.DEFAULT + id + "/education",
+      featureId: ROUTES.USER.DEFAULT + id + '/education',
     },
     {
       featureName: profileDictionary.experience,
       content: <Experience />,
-      featureId: ROUTES.USER.DEFAULT + id + "/experience",
+      featureId: ROUTES.USER.DEFAULT + id + '/experience',
     },
     {
       featureName: profileDictionary.checkIn,
       content: <CheckIn />,
-      featureId: ROUTES.USER.DEFAULT + id + "/checkIn",
+      featureId: ROUTES.USER.DEFAULT + id + '/checkIn',
     },
   ];
 

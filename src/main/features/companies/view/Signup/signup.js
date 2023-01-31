@@ -1,21 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import TopBar from '../../../../sharedComponents/topBar/topBar';
-import Header from "../../../../layout/header";
-import {
-    ContBody,
-    TabbableContainer,
-  } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import Header from '../Header/Header';
+import {TabbableContainer} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 import Table from './table';
 
 function Signup() {
   return (
-    <TabbableContainer>
-        
+    <TabbableContainer> 
         <div style={{ flexDirection: 'column', width: '100%' }}>
             <Header/>
             <Table/>
-        </div>
-        
+        </div>  
     </TabbableContainer>
   )
 }

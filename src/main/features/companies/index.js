@@ -6,6 +6,7 @@ import {
 import CompanyList from "./companies/view/CompanyList";
 import CompanyUpdate from "./companies/view/UpdateTeam/TeamPannel";
 import MainDashboard from "./view/Dashboard/MainDashboard";
+import Signup from "./view/Signup/signup";
 
 function Companies() {
 	return (
@@ -15,6 +16,8 @@ function Companies() {
 					<Route path="/" element={<CompanyList />} />
 					<Route path="/dashboard" element={<MainDashboard />} />
 					<Route path="/info/*" element={<CompanyUpdate />} />
+					<Route path="/signup" element={<Signup/>} />
+
 				</Routes>
 			</ContBody>
 		</>

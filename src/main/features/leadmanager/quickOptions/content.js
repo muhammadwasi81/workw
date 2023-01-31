@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import { DocsComposerEnums, DOCUMENT_ENUM } from '../../../constant';
 import { useDispatch } from "react-redux";
+import { AssignMemEnum,MemberEnum } from "../../eLearning/constant";
 // import { handleOpenDocComposer, handleUpdateFolder, handleUpdateFolderMemberId } from '../../../store/slice';
 import {
   getLeadManagerGroupDetailById,
@@ -25,7 +26,7 @@ const ContentOptions = ({ handleClose, data }) => {
     e.preventDefault();
     e.stopPropagation();
     setVisible(true);
-    dispatch(addMember({ status: true }));
+    dispatch(addMember({ status: true}));
     handleClose(false);
   };
 

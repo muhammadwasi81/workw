@@ -1,21 +1,28 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { responseMessage, responseMessageType } from "../../../../services/slices/notificationSlice";
-import { ResponseType } from "../../../../utils/api/ResponseResult";
-import { openNotification } from "../../../../utils/Shared/store/slice";
-import { addMultipleEmployeeSalaryService, getAllEmployeeSalaryService, getEmployeeSalaryDetailService } from "../services/service";
-import { ValidateAddMultipleSalary } from "../utils/validate";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  responseMessage,
+  responseMessageType,
+} from '../../../../services/slices/notificationSlice';
+import { ResponseType } from '../../../../utils/api/ResponseResult';
+import { openNotification } from '../../../../utils/Shared/store/slice';
+import {
+  addMultipleEmployeeSalaryService,
+  getAllEmployeeSalaryService,
+  getEmployeeSalaryDetailService,
+} from '../services/service';
+import { ValidateAddMultipleSalary } from '../utils/validate';
 
 export const addMultipleEmployeeSalary = createAsyncThunk(
-  "EmployeeSalary/addMultipleEmployeeSalary",
+  'EmployeeSalary/addMultipleEmployeeSalary',
   async ({ navigate, salaries }, { rejectWithValue, dispatch }) => {
     let validatePayload = ValidateAddMultipleSalary(salaries);
     if (validatePayload.error) {
       responseMessage({
         dispatch: dispatch,
         type: responseMessageType.ApiFailure,
-        data: validatePayload
+        data: validatePayload,
       });
-      return rejectWithValue(validatePayload.message)
+      return rejectWithValue(validatePayload.message);
     }
 
     const response = await addMultipleEmployeeSalaryService(salaries);
@@ -25,17 +32,19 @@ export const addMultipleEmployeeSalary = createAsyncThunk(
           dispatch: dispatch,
           type: responseMessageType.ApiFailure,
           data: {
-            message: response.errorMessage
-          }
+            message: response.errorMessage,
+          },
         });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
-        dispatch(openNotification({
-          message: "Salary Create Successfully",
-          type: "success",
-          duration: 2
-        }))
-        navigate("/salary")
+        dispatch(
+          openNotification({
+            message: 'Salary Create Successfully',
+            type: 'success',
+            duration: 2,
+          })
+        );
+        navigate('/salary');
         return response.data;
       default:
         return null;
@@ -43,7 +52,7 @@ export const addMultipleEmployeeSalary = createAsyncThunk(
   }
 );
 export const getEmployeeSalaryDetail = createAsyncThunk(
-  "EmployeeSalary/getEmployeeSalaryDetail",
+  'EmployeeSalary/getEmployeeSalaryDetail',
   async (id, { rejectWithValue, dispatch }) => {
     const response = await getEmployeeSalaryDetailService(id);
     switch (response.type) {
@@ -52,8 +61,8 @@ export const getEmployeeSalaryDetail = createAsyncThunk(
           dispatch: dispatch,
           type: responseMessageType.ApiFailure,
           data: {
-            message: response.errorMessage
-          }
+            message: response.errorMessage,
+          },
         });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
@@ -65,7 +74,7 @@ export const getEmployeeSalaryDetail = createAsyncThunk(
 );
 
 export const getAllEmployeeSalary = createAsyncThunk(
-  "EmployeeSalary/getAllEmployeeSalary",
+  'EmployeeSalary/getAllEmployeeSalary',
   async (data, { rejectWithValue, dispatch }) => {
     const response = await getAllEmployeeSalaryService(data);
     switch (response.type) {
@@ -74,8 +83,8 @@ export const getAllEmployeeSalary = createAsyncThunk(
           dispatch: dispatch,
           type: responseMessageType.ApiFailure,
           data: {
-            message: response.errorMessage
-          }
+            message: response.errorMessage,
+          },
         });
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:

@@ -1,7 +1,7 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { getBankDetailByUser } from "../../bankDetails/store/actions";
 import { getUserBasicInfo } from "../../basicInfo/store/actions";
-import { getUserDeviceInfo } from "../../devices/store/action";
+import { getUserDeviceInfoAction } from "../../devices/store/action";
 import { getEducationDetailByUser } from "../../education/store/actions";
 import { getUserWorkExperience } from "../../experienceInfo/store/actions";
 import {
@@ -104,9 +104,9 @@ const employeeSlice = createSlice({
       .addCase(getUserBasicInfo.fulfilled, (state, { payload }) => {
         state.employee.basicdetails = payload.data;
       })
-      .addCase(getUserDeviceInfo.fulfilled, (state, { payload }) => {
-        state.employee.devicedetails = payload.data;
-        console.log(payload.data, "payloadddd");
+      .addCase(getUserDeviceInfoAction.fulfilled, (state, { payload }) => {
+        console.log(payload.data, "getUserDeviceInfo");
+        state.employee.deviceDetails = payload.data;
       })
       .addCase(getUserWorkExperience.fulfilled, (state, { payload }) => {
         state.employee.experiencedetails = payload.data;

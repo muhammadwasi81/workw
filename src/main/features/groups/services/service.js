@@ -44,10 +44,13 @@ export const updateGroupService = (data) => {
 export const addGroupMemberService = (data) => {
   let id = data.id;
   let memberId = data.memberId;
-  console.log(data, "dataaa");
-  return MasterConfig.post(`api/Group/AddGroupMember?id=${id}`, [
-    { memberId: memberId },
-  ])
+  let member = [
+    {
+      memberId: memberId,
+      memberType: 1,
+    },
+  ];
+  return MasterConfig.post(`api/Group/AddGroupMember?id=${id}`, member)
     .then((res) => {
       return res.data;
     })

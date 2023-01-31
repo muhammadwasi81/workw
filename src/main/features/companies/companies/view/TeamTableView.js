@@ -11,7 +11,7 @@ function CompanyTableView() {
   const { companyDictionary } = companyDictionaryList[userLanguage];
   const labels = companyDictionary.companyTable;
 
-  const { teams } = useSelector((state) => state.teamSlice);
+  const { teams } = useSelector((state) => state.companySlice);
   const columns = [
     {
       title: labels.name,

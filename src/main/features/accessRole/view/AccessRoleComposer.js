@@ -1,15 +1,19 @@
 import { Button, Form, Input, Tree, Skeleton, message } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import { FormTextArea } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
-// import { getAllBussinessFeatures } from "../../../../utils/Shared/store/actions";
+import { getAllBussinessFeatures } from '../../../../utils/Shared/store/actions';
 import Select from '../../../sharedComponents/Select/Select';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { dictionaryList } from '../../../../utils/localization/languages';
 import * as S from '../../employee/Styles/employee.style';
 import { FormLabel } from './FormLabel';
-import { userType } from '../../../../utils/Shared/enums/enums';
+import {
+  userTypeEnum,
+  userTypeList,
+} from '../../../../utils/Shared/enums/enums';
+import { STRINGS } from '../../../../utils/base';
+
 const initialTreeData = [
   {
     title: 'Access Controls',
@@ -45,6 +49,10 @@ function AccessRoleComposer(props) {
   ];
 
   useEffect(() => {
+    getAllBussinessFeatures();
+  }, []);
+
+  useEffect(() => {
     setLoadingTreeData(true);
 
     if (bussinessFeatures && bussinessFeatures.length > 0) {
@@ -58,19 +66,33 @@ function AccessRoleComposer(props) {
         ...expandedKeys,
         ...expandedKeysArray,
       ]);
+      console.log(bussinessFeatures, 'bussinessFeatures');
       const transformObject =
         bussinessFeatures &&
         bussinessFeatures.length > 0 &&
         bussinessFeatures.map((feature) => ({
           key: JSON.stringify({
             name: feature.name,
-            id: feature.featureId,
+            permissionId: feature.featureId,
             permissions: feature.permissions,
           }),
           title: feature.name,
-          id: feature.featureId,
+          permissionId: feature.featureId,
           children: [],
         }));
+      console.log(
+        bussinessFeatures.map((x) => ({
+          key: JSON.stringify({
+            name: x.name,
+            permissionId: x.featureId,
+            permissions: x.permissions,
+          }),
+          title: x.name,
+          id: x.featureId,
+          children: [],
+        })),
+        'json object'
+      );
       let transformedChildren;
 
       for (let i = 0; i < bussinessFeatures.length; i++) {
@@ -80,11 +102,22 @@ function AccessRoleComposer(props) {
           bussinessFeatures[i].permissions.map((permission) => ({
             key:
               JSON.stringify(permission) + '_' + bussinessFeatures[i].featureId,
+            permissionId: permission.id,
             value: permission.featurePermissionId,
             title: permission.name,
             parentId: bussinessFeatures[i].featureId,
           }));
-
+        console.log(
+          bussinessFeatures[i].permissions.map((x) => ({
+            key: JSON.stringify({
+              permissionId: x.id,
+            }),
+            value: x.featurePermissionId,
+            title: x.name,
+            parentId: bussinessFeatures[i].featureId,
+          })),
+          'dusra wala object'
+        );
         transformObject[i].children = transformedChildren;
       }
       let newFeatures = [...featuresTreeData];
@@ -116,8 +149,8 @@ function AccessRoleComposer(props) {
           });
         } else {
           let singleAccessRoleObj = {
-            name: '',
             id: '',
+            name: '',
             permissions: [],
           };
           singleAccessRoleObj.name = singleAccessRole.features[i].name;
@@ -159,7 +192,11 @@ function AccessRoleComposer(props) {
 
     for (let i = 0; i < checkedKeys.length; i++) {
       let id = checkedKeys[i].split('_')[1];
+      console.log(id, 'id');
       let data = checkedKeys[i].split('_')[0];
+      console.log(data, 'data');
+      console.log(checkedKeys, 'checkedKeys[i]');
+      console.log(finalData, 'finalData');
       if (id) {
         if (
           finalData.features.length > 0 &&
@@ -173,10 +210,15 @@ function AccessRoleComposer(props) {
             }
           });
         } else {
+          console.log([JSON.parse(data)], 'TTTTTTT');
           finalData.features.push({
             featureId: Number(id),
             name: JSON.parse(data).name,
-            permissions: [JSON.parse(data)],
+            permissions: [JSON.parse(data)].map((permission) => ({
+              ...permission,
+              permissionId: permission.id,
+              id: STRINGS.DEFAULTS.guid,
+            })),
           });
         }
       } else {
@@ -201,6 +243,7 @@ function AccessRoleComposer(props) {
       return;
     }
     let finalData = handleTreeForm(values);
+    console.log(finalData, 'finalData');
     if (props.isEdited) {
       finalData.id = props.id;
     }
@@ -267,7 +310,7 @@ function AccessRoleComposer(props) {
               placeholder={
                 administration.accessRole.Drawer.placeholders.EnterName
               }
-              disabled={props.isDefault}
+              // disabled={props.isDefault}
               onChange={(e) => {
                 setFormDataObject((prevObj) => ({
                   ...prevObj,
@@ -294,7 +337,9 @@ function AccessRoleComposer(props) {
               placeholder={
                 administration.accessRole.Drawer.placeholders.SelectUserType
               }
-              data={userType}
+              data={userTypeList.filter((user) =>
+                [userTypeEnum.Admin, userTypeEnum.Employee].includes(user.id)
+              )}
               defaultValue={props.formData.roleTypeId}
             />
           </S.FormItem>
@@ -316,7 +361,7 @@ function AccessRoleComposer(props) {
               placeholder={
                 administration.accessRole.Drawer.placeholders.EnterDescription
               }
-              disabled={props.isDefault}
+              // disabled={props.isDefault}
               onChange={(e) => {
                 setFormDataObject((prevObj) => ({
                   ...prevObj,
@@ -352,7 +397,7 @@ function AccessRoleComposer(props) {
             block
             htmlType="submit"
             loading={createLoader}
-            disabled={props.isDefault || (props.isEdited && isObjEqual)}
+            // disabled={props.isDefault || (props.isEdited && isObjEqual)}
           >
             {props.isEdited
               ? isObjEqual

@@ -30,14 +30,16 @@ function Avatar(props) {
 
   return (
     <>
-      {props.membersData && props.membersData.length > 0 ? (
+      {props.membersData && props.membersData.length > 0 ?
+       (
         <AvatarGroup
           membersData={props.membersData}
           heading={props.heading}
           nestedObjProperty={objProperty}
           size={props.size}
         />
-      ) : (
+      ) 
+      : (
         <SingleItem data={props.membersData} />
       )}
     </>

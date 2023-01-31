@@ -77,13 +77,14 @@ const DefaultApprovers = () => {
   };
 
   const handleChange = (e) => {
-    const payload = {
-      memberId: [e],
-      type: currentType,
-    };
-
-    dispatch(addDefaultApproversAction(payload));
-    dispatch(handleApproversDelete(e));
+    const isAlreadyAdded = approversData.find((item) => item.memberId === e);
+    console.log(isAlreadyAdded, 'isAlreadyAdded');
+    if (isAlreadyAdded) {
+      return message.error('Member Already Exists');
+    } else {
+      dispatch(addDefaultApproversAction({ memberId: [e], type: currentType }));
+      dispatch(handleApproversDelete(e));
+    }
   };
 
   const cancel = (e) => {
@@ -190,7 +191,9 @@ const DefaultApprovers = () => {
                                             okText="OK"
                                             cancelText="cancel"
                                           >
-                                            <DeleteFilled style={{ color: "#1b5669" }} />
+                                            <DeleteFilled
+                                              style={{ color: '#1b5669' }}
+                                            />
                                           </Popconfirm>
                                         </td>
                                       </tr>

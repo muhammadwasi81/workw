@@ -29,7 +29,6 @@ import {
   resetComposeFeed,
 } from './actions';
 import { PollType, PostPrivacyType, PostType } from '../utils/constants';
-import { filter } from 'lodash';
 
 const composeInitialState = {
   showComposer: false,

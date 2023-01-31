@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import Avatar from '../../../../../sharedComponents/Avatar/avatar';
 import PublicPrivateIcon from '../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import QuickOptions from '../../../quickOptions/index';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { handleFavoriteMark } from '../../../store/slice';
@@ -25,13 +25,13 @@ function DashboardCardLayout({
     e.stopPropagation();
   };
 
-  const handleFavorite = () => {
-    const payload = {
-      id: data.id,
-      isPinned: !data.isFavorite,
-    };
-    dispatch(handleFavoriteMark(payload));
-    dispatch(addGroupFavoriteMarkAction(payload));
+  const handleFavorite = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(handleFavoriteMark({ id: data.id, isPinned: !data.isFavorite }));
+    dispatch(
+      addGroupFavoriteMarkAction({ id: data.id, isPinned: !data.isFavorite })
+    );
   };
   return (
     <>
@@ -45,7 +45,7 @@ function DashboardCardLayout({
         }
         className="Card2"
         hoverable
-        // onClick={onClick}
+        onClick={onClick}
       >
         <Meta
           className="w-full"
@@ -89,10 +89,10 @@ function DashboardCardLayout({
               <img src={chatIcon} alt="chatIcon" loading="lazy" width={20} />
             </div>
             <div
-              onClick={handleFavorite}
+              onClick={(e) => handleFavorite(e)}
               className="relative bottom-2 right-1 mr-1 mt-1"
             >
-              {data.isFavourite ? (
+              {data.isPinnedPost ? (
                 <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
               ) : (
                 <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />

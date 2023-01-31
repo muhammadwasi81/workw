@@ -39,17 +39,17 @@ function ListItem(props) {
   const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
   };
-  const hide = () => {
+  const handleClose = () => {
     setOpen(false);
   };
 
   const handlePinnedPost = () => {
     const payload = {
       id,
-      isPinnedProject: !isPinnedProject,
+      isPinned: !isPinnedProject,
     };
+    console.log(payload, 'payload isPinnedProject');
     dispatch(addProjectFavoriteAction(payload));
-    console.log(payload, 'payload');
   };
 
   return (
@@ -87,8 +87,8 @@ function ListItem(props) {
               membersData={members}
             />
           </div>
-          {/* yahan say kam krna hai */}
           <div className="pinned-post" onClick={handlePinnedPost}>
+            {/* The key is on pending from backend for isFavourite */}
             {isPinnedProject ? (
               <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
             ) : (
@@ -123,12 +123,12 @@ function ListItem(props) {
               trigger="click"
               placement="rightTop"
               open={open}
-              handleClose={hide}
+              handleClose={handleClose}
               onOpenChange={handleOpenChange}
               overlayClassName="docsPopover"
             >
               <div className="menuIcon">
-                <img src={menuIcon} />
+                <img src={menuIcon} alt="menuIcon" loading="lazy" />
               </div>
             </Popover>
           </div>

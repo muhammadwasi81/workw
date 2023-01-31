@@ -53,7 +53,7 @@ const groupSlice = createSlice({
     handleFavoriteMark(state, { payload }) {
       console.log(payload, 'payload in slice');
       const favGroups = state.groups.find((group) => group.id === payload.id);
-      favGroups.isFavorite = !payload.isFavorite;
+      favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
   },
   extraReducers: (builder) => {

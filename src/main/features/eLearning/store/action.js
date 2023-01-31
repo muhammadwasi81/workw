@@ -2,50 +2,53 @@ import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { responseCode } from "../../../../services/enums/responseCode";
 import {
-    addBookAssignMemberService,
-    addBookMemberService,
-    addBookService,
-    addCourseAssignMemberService,
-    addCourseMemberService,
-    addCourseService,
-    getAllBookAssignMemService,
-    getAllBookMemberService,
-    getAllBookService,
-    getAllCourseAssignMemService,
-    getAllCourseMemberService,
-    getAllCourseService,
-    GetBookByIdService,
-    addQuizService,
-    getAllQuizService,
-    checkQuizAttemptService,
-    GetQuizByIdService,
-    AddQuizAnswerAttemptService,
-    AddStartQuizService,
-    GetQuizResultService,
-    GetCourseByIdService,
-    addTedTalkService,
-    getAllTedTalkService,
-    GetTedTalkByIdService,
-    getAllArticleService,
-    GetArticleByIdService,
-    addArticleService,
-    addVideoService,
-    getAllVideoService,
-    GetVideoByIdService
+  addBookAssignMemberService,
+  addBookMemberService,
+  addBookService,
+  addCourseAssignMemberService,
+  addCourseMemberService,
+  addCourseService,
+  getAllBookAssignMemService,
+  getAllBookMemberService,
+  getAllBookService,
+  getAllCourseAssignMemService,
+  getAllCourseMemberService,
+  getAllCourseService,
+  GetBookByIdService,
+  addQuizService,
+  getAllQuizService,
+  checkQuizAttemptService,
+  GetQuizByIdService,
+  AddQuizAnswerAttemptService,
+  AddStartQuizService,
+  GetQuizResultService,
+  GetCourseByIdService,
+  addTedTalkService,
+  getAllTedTalkService,
+  GetTedTalkByIdService,
+  getAllArticleService,
+  GetArticleByIdService,
+  addArticleService,
+  addVideoService,
+  getAllVideoService,
+  GetVideoByIdService,
+  RemoveCousrseMemberService,
+  RemoveCousrseAssignMemberService,
+  RemoveBookMemberService,
+  RemoveBookAssignMemberService,
 } from "../service/service";
 
-  // import {
-  //   addBookService,
-  //   addCourseAssignMemberService,
-  //   addCourseMemberService,
-  //   addCourseService,
-  //   getAllBookService,
-  //   getAllCourseAssignMemService,
-  //   getAllCourseMemberService,
-  //   getAllCourseService,
-  //   GetCourseByIdService,
-  // } from "../service/service";
-
+// import {
+//   addBookService,
+//   addCourseAssignMemberService,
+//   addCourseMemberService,
+//   addCourseService,
+//   getAllBookService,
+//   getAllCourseAssignMemService,
+//   getAllCourseMemberService,
+//   getAllCourseService,
+//   GetCourseByIdService,
+// } from "../service/service";
 
 //  COURSES ACTIONS  //
 
@@ -221,25 +224,19 @@ export const addBook = createAsyncThunk(
   }
 );
 
-export const getAllBook = createAsyncThunk(
-  "Book/GetAllBook",
-  async (data) => {
-    const response = await getAllBookService(data);
+export const getAllBook = createAsyncThunk("Book/GetAllBook", async (data) => {
+  const response = await getAllBookService(data);
 
-    if (!response.responseCode) {
-      message.error("Something went wrong");
-    }
-    return response.data;
+  if (!response.responseCode) {
+    message.error("Something went wrong");
   }
-);
+  return response.data;
+});
 
-export const GetBookById = createAsyncThunk(
-  "Book/GetBookById",
-  async (id) => {
-    const response = await GetBookByIdService(id);
-    return response.data;
-  }
-);
+export const GetBookById = createAsyncThunk("Book/GetBookById", async (id) => {
+  const response = await GetBookByIdService(id);
+  return response.data;
+});
 
 export const getAllBookMember = createAsyncThunk(
   "Book/GetAllBookMember",
@@ -291,7 +288,6 @@ export const addBookAssignMem = createAsyncThunk(
     }
   }
 );
-
 
 //  TedTalk Functions //
 
@@ -367,17 +363,17 @@ export const GetArticleById = createAsyncThunk(
 // VIDEO //
 
 export const addVideo = createAsyncThunk(
-    "Video/addArticle",
-    async (data, { dispatch, getState, rejectWithValue }) => {
-        const res = await addVideoService(data);
-        if (res.data?.responseCode === responseCode.Success) {
-            message.success("Video Added");
-            return res;
-        } else {
-            message.error(res.data.message);
-            return rejectWithValue(res.data.message);
-        }
+  "Video/addArticle",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addVideoService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Video Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
     }
+  }
 );
 
 export const getAllVideo = createAsyncThunk(
@@ -392,11 +388,61 @@ export const getAllVideo = createAsyncThunk(
   }
 );
 
-
 export const GetVideoById = createAsyncThunk(
   "Video/GetVideoById",
   async (id) => {
     const response = await GetVideoByIdService(id);
     return response.data;
+  }
+);
+export const RemoveCousrseMemberAction = createAsyncThunk(
+  "Course/RemoveCourseMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await RemoveCousrseMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const RemoveCousrseAssignMemberAction = createAsyncThunk(
+  "Course/RemoveCourseAssignMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await RemoveCousrseAssignMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const RemoveBookMemberAction = createAsyncThunk(
+  "Course/RemoveBookMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await RemoveBookMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const RemoveBookAssignMemberAction = createAsyncThunk(
+  "Course/RemoveBookAssignMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await RemoveBookAssignMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
   }
 );

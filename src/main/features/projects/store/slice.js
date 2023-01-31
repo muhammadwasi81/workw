@@ -1,4 +1,3 @@
-import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addProject,
@@ -8,7 +7,9 @@ import {
   saveProjectStickyAction,
   saveStickyTitleAction,
   getProjectStickyAction,
-  getAllProjectMemberAction,addProjectMemberAction
+  getAllProjectMemberAction,
+  addProjectMemberAction,
+  deleteProjectMemberAction,
 } from "./actions";
 
 const initialState = {
@@ -22,7 +23,7 @@ const initialState = {
   isComposerOpen: false,
   isEditComposer: false,
   addMemberModal: false,
-  memberData:[],
+  memberData: [],
 };
 
 const projectSlice = createSlice({
@@ -40,9 +41,14 @@ const projectSlice = createSlice({
     },
     handleComposer(state, { payload }) {
       const { isOpen, isEdit } = payload;
-      console.log(payload, "payloadd");
       state.isEditComposer = isEdit;
       state.isComposerOpen = isOpen;
+    },
+    deleteProjectMember(state, { payload }) {
+      state.projects = state.projects.filter(
+        (member) => member.id !== payload.id
+      );
+      console.log(state.projects, "projectsss");
     },
   },
   extraReducers: (builder) => {
@@ -83,14 +89,15 @@ const projectSlice = createSlice({
       .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
       })
-      .addCase(getAllProjectMemberAction.fulfilled,(state,{payload})=>{
-        state.memberData = payload.length>0?payload:[];
-
+      .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
+        console.log(action.payload, "payloadd");
+        state.memberData = action.payload.data;
+        console.log(state.memberData, "payloadd");
       })
-      .addCase(addProjectMemberAction.fulfilled,(state,{payload})=>{
+      .addCase(addProjectMemberAction.fulfilled, (state, { payload }) => {
         state.memberData = [...state.memberData, payload];
         return state;
-      })
+      });
     builder
       .addMatcher(
         isPending(
@@ -120,5 +127,6 @@ export const {
   updateProjectById,
   handleComposer,
   addMember,
+  deleteProjectMember,
 } = projectSlice.actions;
 export default projectSlice.reducer;

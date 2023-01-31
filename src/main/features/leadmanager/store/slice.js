@@ -19,6 +19,7 @@ import {
   getScheduleByIdAction,
   getAllLeadManagerMember,
   addLeadManagereMember,
+  deleteLeadManagerById,
 } from "./actions";
 
 const initialComposerData = {
@@ -126,6 +127,7 @@ const leadMangerSlice = createSlice({
       newLists.splice(newListIndex, 0, removedList);
       state.leadManagerDetail.sections = newLists;
     },
+
     moveDetail(state, { payload }) {
       // console.log("move detail", payload);
       const { oldCardIndex, newCardIndex, sourceListId, destListId } = payload;
@@ -158,6 +160,12 @@ const leadMangerSlice = createSlice({
       //move todo from one section to another
       const removedTodo = sourceSection.details.splice(oldCardIndex, 1);
       destinationsSection.details.splice(newCardIndex, 0, removedTodo[0]);
+    },
+    deleteLeadManagerMember(state, { payload }) {
+      state.memberData = state.memberData.filter(
+        (member) => member.id !== payload.id
+      );
+      console.log(state.memberData, "mmeber dataaa");
     },
   },
   extraReducers: (builder) => {
@@ -314,6 +322,8 @@ const leadMangerSlice = createSlice({
         state.meetingDetail = payload.data;
         //////////////////////////////////
       })
+      .addCase(deleteLeadManagerById.fulfilled, (state, { payload }) => {})
+
       .addMatcher(isPending(getAllLeadManagerContactDetail), (state) => {
         state.isContactDetailLoading = true;
         state.contactDetail = null;
@@ -408,6 +418,7 @@ export const {
   addAssignMember,
   handleOpenComposer,
   toggleEventDetailComposer,
+  deleteLeadManagerMember,
 } = leadMangerSlice.actions;
 
 export default leadMangerSlice.reducer;

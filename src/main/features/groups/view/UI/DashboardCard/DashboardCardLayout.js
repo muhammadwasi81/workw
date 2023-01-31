@@ -70,9 +70,7 @@ function DashboardCardLayout({
             </div>
           }
         />
-        <div className={`halfHeader mb-2`}>
-          <img src={chatIcon} alt="" width={20} />
-        </div>{" "}
+
         <div className="flex justify-between items-center">
           <div className="members">
             <Avatar
@@ -95,7 +93,12 @@ function DashboardCardLayout({
               {dictionary?.labels?.update}
             </div>
           )} */}
-          <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
+          <div className="flex justify-end">
+            <div className={`halfHeader `}>
+              <img src={chatIcon} alt="" width={20} />
+            </div>{" "}
+            <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
+          </div>
         </div>
       </Card>
     </>

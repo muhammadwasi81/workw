@@ -1,6 +1,6 @@
 export let DOMAIN_PREFIX = "";
-// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
+DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
 
 export const ROUTES = {
   SEARCH: {
@@ -36,7 +36,7 @@ export const ROUTES = {
       DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
       INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
     },
-    SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
+    SETTINGS: `${DOMAIN_PREFIX}/settings`,
     NOTES: `${DOMAIN_PREFIX}/user/notes`,
   },
   AUTH: {

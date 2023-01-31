@@ -102,10 +102,11 @@ export const getAllComplainAction = createAsyncThunk(
 );
 
 export const getAllSignupAction = createAsyncThunk(
-  "signup/ getAllSignupAction",
+  "teamSlice/ getAllSignupAction",
   async (payload, { rejectWithValue, dispatch }) => {
     const response = await getAllSignupService(payload);
-    // console.log(response, "complain SERVICE");
+    console.log(response, "getAllSignupAction");
+   
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

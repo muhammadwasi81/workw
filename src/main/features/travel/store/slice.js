@@ -44,11 +44,12 @@ const travelSlice = createSlice({
 				state.loader = false;
 				state.success = true;
 				const { data, pageNo } = payload;
-				if (pageNo === 1) {
-					state.travels = data;
-				} else {
-					state.travels = state.travels.concat(data);
-				}
+				// if (pageNo === 1) {
+				// 	state.travels = data;
+				// } else {
+				// 	state.travels = state.travels.concat(data);
+				// }
+				state.travels = data ? data : [];
 			})
 			.addCase(getTravelById.fulfilled, (state, { payload }) => {
 				// console.log("travel fullfilled slice");

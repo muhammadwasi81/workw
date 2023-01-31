@@ -87,6 +87,7 @@ import requestItemSlice from "../main/features/RequestListItems/store/slice";
 import assetsCategorySlice from "../main/features/assetsCategory/store/slice";
 import AssetItemSlice from "../main/features/createAssets/store/slice";
 import teamSlice from "../main/features/team/store/slice";
+import companySlice from "../main/features/companies/companies/store/slice";
 import inventoryAssetSlice from "../main/features/createAssets/store/slice";
 import appraisalModuleSlice from "../main/features/appraisalModule/store/slice";
 import quotationClientSlice from "../main/features/quotationClient/store/slice";
@@ -102,6 +103,7 @@ import employeeSalarySlice from "../main/features/salary/view/SalaryEmployee/act
 import mailSlice from "../main/features/mail/Store/MailSlice";
 import settingSlice from "../main/features/settings/store/slice";
 import adminstrationSlice from "../main/features/administration/store/slice";
+import employeeRebateSlice from "../main/features/rebate/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -186,6 +188,7 @@ const reducers = combineReducers({
   AssetItemSlice,
   requestItemSlice,
   teamSlice,
+  companySlice,
   inventoryAssetSlice,
   appraisalModuleSlice,
   employeeProfileSlice,
@@ -201,6 +204,7 @@ const reducers = combineReducers({
   settingSlice,
   eLearningCategorySlice,
   adminstrationSlice,
+  employeeRebateSlice,
 });
 
 const persistConfig = {

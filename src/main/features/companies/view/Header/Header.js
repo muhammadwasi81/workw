@@ -22,6 +22,7 @@ function Header({ dictionary, direction }) {
 			to: `/companies/dashboard`,
 			renderButton: [1],
 		},
+		
 		{
 			name: labels.signup,
 			to: `/companies/Signup`,

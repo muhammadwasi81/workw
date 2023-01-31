@@ -1,58 +1,28 @@
 import React,{useEffect} from "react";
 import { useSelector,useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Table } from "antd";
-import './style.css'
+import {TeamTable} from "../../companies/view/TaskTable/TeamTable";
 import {getAllSignupAction} from "../../companies/store/action";
+import tableColumn from "./tableColumn";
 
-const columns = [
-  {
-    title: "First Name",
-    dataIndex: "firstName",
-    ellipsis: true,
-    key: "deviceType",
-  },
-  {
-    title: "Last Name",
-    dataIndex: "lastName",
-    ellipsis: true,
-    key: "deviceToken",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    ellipsis: true,
-    key: "osVersion",
-  },
-  {
-    title: "Phone",
-    dataIndex: "phoneNo",
-    ellipsis: true,
-    key: "device",
-  },
-];
+function Table() {
 
-function Signup() {
-
-  const { id } = useParams();
-  const { user } = useSelector((state) => state.userSlice);
-  const userId = user.id;
+  const { signup }  = useSelector((state) => state.companySlice);
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllSignupAction());
   }, []);
 
-  console.log("userIduserId",userId);  
   
-  const { signup } = useSelector((state) => state.teamSlice);
-  console.log(signup,"devicedetailss")
   return (
-    <div className="deviceTable">
-        <Table columns={columns} dragable={true} 
+
+        <TeamTable
+         bordered
+         className="custom_table"
+         columns={tableColumn()}
          dataSource={signup}
-         />
-    </div>
+         />  
   );
 }
 
-export default Signup;
+export default Table;

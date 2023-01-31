@@ -11,6 +11,7 @@ import {
   GetLeaveByIdService,
   GetRewardByIdService,
   GetLeaveTypeService,
+  GetLeaveUserByIdService,
 } from "../services/service";
 
 export const getAllLeaves = createAsyncThunk(
@@ -30,6 +31,15 @@ export const GetLeaveById = createAsyncThunk(
   async (id) => {
     console.log(id, "FROM ACTION");
     const response = await GetLeaveByIdService(id);
+    return response.data;
+  }
+);
+
+export const GetLeaveUserById = createAsyncThunk(
+  "Leave/getUserLeave",
+  async (id) => {
+    console.log(id, "FROM ACTION");
+    const response = await GetLeaveUserByIdService(id);
     return response.data;
   }
 );

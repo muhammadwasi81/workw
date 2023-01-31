@@ -20,3 +20,25 @@ export const addOfficeTimingService = (args) => {
       return err;
     });
 };
+
+export const updateOfficeTimingService = (args) => {
+  return MasterConfig.put(`api/OfficeTiming/UpdateOfficeTimingGroup`, args)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getOfficeTimingbyIdService = (id) => {
+  return MasterConfig.get(
+    `api/OfficeTiming/GetAllOfficeTimingGroupById?id=${id}`
+  )
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

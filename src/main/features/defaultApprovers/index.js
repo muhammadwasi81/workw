@@ -27,7 +27,7 @@ import { defaultApprovers } from './utils';
 import CustomSelect from '../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { customApprovalDictionaryList } from '../CustomApprovals/localization';
 import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteFilled } from '@ant-design/icons';
 import TableHead from './view/table/tableHead';
 
 const { Panel } = Collapse;
@@ -190,12 +190,7 @@ const DefaultApprovers = () => {
                                             okText="OK"
                                             cancelText="cancel"
                                           >
-                                            <Button
-                                              type="primary"
-                                              danger
-                                              shape="circle"
-                                              icon={<DeleteOutlined />}
-                                            />
+                                            <DeleteFilled style={{ color: "#1b5669" }} />
                                           </Popconfirm>
                                         </td>
                                       </tr>

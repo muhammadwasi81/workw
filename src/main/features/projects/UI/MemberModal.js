@@ -8,8 +8,12 @@ import ApproverListItem from "../../../sharedComponents/AppComponents/Approvals/
 import { useParams } from "react-router-dom";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import {addMember} from "../store/slice";
-import {getAllProjectMemberAction,addProjectMemberAction}from "../store/actions";
+import { addMember } from "../store/slice";
+import {
+  getAllProjectMemberAction,
+  addProjectMemberAction,
+  deleteProjectMemberAction,
+} from "../store/actions";
 
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
@@ -28,7 +32,7 @@ function MemberModal({ isOpen = false }) {
 
   useEffect(() => {
     ModalOpen && dispatch(getAllProjectMemberAction(userId));
-  }, []);
+  }, [ModalOpen]);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -44,7 +48,6 @@ function MemberModal({ isOpen = false }) {
 
   const handleChange = (id) => {
     let memberId = id.toString();
-    console.log(memberId, "memberIddd");
     const data = {
       id: userId,
       memberId: memberId,
@@ -65,7 +68,14 @@ function MemberModal({ isOpen = false }) {
     members: [],
     memberType: null,
   });
-
+  const handleMemberDelete = (id) => {
+    const memberId = id.toString();
+    const data = {
+      id: userId,
+      memberId: memberId,
+    };
+    dispatch(deleteProjectMemberAction(data));
+  };
   return (
     <Modal
       open={ModalOpen}
@@ -111,10 +121,14 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      {[]?.length > 0 ? (
-        <ApproverListItem className="AddMemberModal" data={memberData} />
+      {memberData?.length > 0 ? (
+        <ApproverListItem
+          className="AddMemberModal"
+          data={memberData}
+          handleDelete={handleMemberDelete}
+        />
       ) : (
-        ""
+        "No data"
       )}
     </Modal>
   );

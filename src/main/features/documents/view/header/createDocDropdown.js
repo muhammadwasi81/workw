@@ -58,16 +58,14 @@ const CreateDocDropdown = () => {
         }
     ];
     return (
-        <Dropdown
-            overlay={<Menu
-                items={CreateOptions}
-                onChange={(e)=>console.log(e)}
-            />}
-            trigger={['click']}>
-            <Button className="headerBtn" >
-                {documentDictionary.CreateDocument}
-            </Button>
-        </Dropdown>
+      <Dropdown
+        menu={<Menu items={CreateOptions} onChange={(e) => console.log(e)} />}
+        trigger={['click']}
+      >
+        <Button className="headerBtn">
+          {documentDictionary.CreateDocument}
+        </Button>
+      </Dropdown>
     );
 };
 

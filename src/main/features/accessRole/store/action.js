@@ -15,9 +15,9 @@ import {
 export const addAccessRole = createAsyncThunk(
   'addAccessRole',
   async (data, { dispatch, rejectWithValue }) => {
-    console.log(data, 'data');
+    // console.log(data, 'data');
     const res = await addAccessRoleService(data);
-    console.log(res, 'addAccessRoleAction');
+    // console.log(res, 'addAccessRoleAction');
     if (res.responseCode === responseCode.Success) {
       message.success('Access Role added successfully!');
       responseMessage({ dispatch, data: res });

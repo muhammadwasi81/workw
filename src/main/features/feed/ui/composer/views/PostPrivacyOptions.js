@@ -19,7 +19,7 @@ export default function PostPrivacyOptions() {
 		<Dropdown
 			trigger={["click"]}
 			open={isOpen}
-			overlay={PostPrivacyOptionsMenu(onPrivacyChange, setIsOpen)}
+			menu={PostPrivacyOptionsMenu(onPrivacyChange, setIsOpen)}
 		>
 			<button className="dropdown-button" onClick={() => setIsOpen(true)}>
 				<img

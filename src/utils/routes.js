@@ -1,5 +1,5 @@
-export let DOMAIN_PREFIX = "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+export let DOMAIN_PREFIX = '';
+DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '/konnect' : '';
 // DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
 
 export const ROUTES = {
@@ -71,8 +71,8 @@ export const ROUTES = {
     SUBMIT_FORM: `${DOMAIN_PREFIX}/submitForm`,
     EDIT_FORM: `${DOMAIN_PREFIX}/editForm`,
     CREATE_FORM: `create`,
-    RESPONSE_DETAIL_FORM: "detail",
-    RESPONSE: "response",
+    RESPONSE_DETAIL_FORM: 'detail',
+    RESPONSE: 'response',
   },
   JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
   OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
@@ -89,7 +89,7 @@ export const ROUTES = {
   },
   ELearning: {
     LINK: `${DOMAIN_PREFIX}/eLearning`,
-    DEFAULT: `${DOMAIN_PREFIX}/eLearning/*`, 
+    DEFAULT: `${DOMAIN_PREFIX}/eLearning/*`,
     TEAM_DASHBOARD: `${DOMAIN_PREFIX}/eLearning/teamDashboard`,
     TEAM_SUMMARY: `${DOMAIN_PREFIX}/eLearning/summary`,
     COURSE_CREATE: `${DOMAIN_PREFIX}/eLearning/courses/create`,
@@ -278,10 +278,10 @@ export const ROUTES = {
     ADD: `add`,
     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
     INFO: `info/*`,
-    BANK_DETAIL: "info/bankDetail/:id",
-    BASIC_INFO: "info/basicInfo/:id",
-    USER_LEAVES: "info/leaves/:id",
-    DEVICES: "info/devices/:id",
+    BANK_DETAIL: 'info/bankDetail/:id',
+    BASIC_INFO: 'info/basicInfo/:id',
+    USER_LEAVES: 'info/leaves/:id',
+    DEVICES: 'info/devices/:id',
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,

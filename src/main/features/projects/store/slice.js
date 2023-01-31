@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addProject,
   getAllProjects,
@@ -9,11 +9,12 @@ import {
   getProjectStickyAction,
   getAllProjectMemberAction,
   addProjectMemberAction,
-  deleteProjectMemberAction,
-} from "./actions";
+  addProjectFavoriteAction,
+} from './actions';
 
 const initialState = {
   projects: [],
+  isPinnedProject: false,
   loadingData: false,
   loader: true,
   success: false,
@@ -27,7 +28,7 @@ const initialState = {
 };
 
 const projectSlice = createSlice({
-  name: "projects",
+  name: 'projects',
   initialState,
   reducers: {
     resetProjectDetail(state, { payload }) {
@@ -48,7 +49,6 @@ const projectSlice = createSlice({
       state.projects = state.projects.filter(
         (member) => member.id !== payload.id
       );
-      console.log(state.projects, "projectsss");
     },
   },
   extraReducers: (builder) => {
@@ -59,7 +59,6 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(addProject.fulfilled, (state, { payload }) => {
-        console.log("add project", payload);
         state.projects.unshift(payload.data);
         state.loader = false;
         state.success = true;
@@ -75,33 +74,44 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(saveProjectStickyAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "description");
         state.loader = false;
         state.success = true;
         state.stickyArray = payload;
-        console.log(payload, "payloadd");
-        console.log(state.stickyArray, "sticky array");
       })
       .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
-        console.log(payload, "payload");
       })
       .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
       })
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
-        console.log(action.payload, "payloadd");
         state.memberData = action.payload.data;
-        console.log(state.memberData, "payloadd");
       })
       .addCase(addProjectMemberAction.fulfilled, (state, { payload }) => {
         state.memberData = [...state.memberData, payload];
         return state;
+      })
+      .addCase(addProjectFavoriteAction.fulfilled, (state, { payload }) => {
+        state.projects = state.projects.map((project) => {
+          console.log('project in slice', payload.isPinnedProject);
+          if (project.id === payload.id) {
+            project.isPinnedProject = payload.isPinnedProject;
+          }
+          return project;
+        });
+        state.loader = false;
+        state.success = true;
       });
     builder
       .addMatcher(
         isPending(
-          ...[getAllProjects, addProject, getProjectById, updateProject]
+          ...[
+            getAllProjects,
+            addProject,
+            getProjectById,
+            updateProject,
+            addProjectFavoriteAction,
+          ]
         ),
         (state) => {
           state.loader = true;
@@ -111,7 +121,13 @@ const projectSlice = createSlice({
       )
       .addMatcher(
         isRejected(
-          ...[getAllProjects, addProject, getProjectById, updateProject]
+          ...[
+            getAllProjects,
+            addProject,
+            getProjectById,
+            updateProject,
+            addProjectFavoriteAction,
+          ]
         ),
         (state) => {
           state.loader = false;

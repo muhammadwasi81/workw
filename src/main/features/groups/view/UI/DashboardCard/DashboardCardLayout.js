@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Card, Skeleton } from "antd";
-import Avatar from "../../../../../sharedComponents/Avatar/avatar";
-import PublicPrivateIcon from "../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
-import { useSelector, useDispatch } from "react-redux";
-// import { addMember } from "../../store/slice";
-// import MemberModal from "../../view/Modal/MemberModal";
-// import "./style.css";
-import QuickOptions from "../../../quickOptions/index";
+import { Card } from 'antd';
+import Avatar from '../../../../../sharedComponents/Avatar/avatar';
+import PublicPrivateIcon from '../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon';
+import { useSelector, useDispatch } from 'react-redux';
+import QuickOptions from '../../../quickOptions/index';
+import { StarFilled, StarOutlined } from '@ant-design/icons';
+import { handleFavoriteMark } from '../../../store/slice';
+import { addGroupFavoriteMarkAction } from '../../../store/actions';
+const { Meta } = Card;
 
 function DashboardCardLayout({
   data = {},
@@ -18,32 +18,24 @@ function DashboardCardLayout({
   dictionary = {},
   chatIcon,
 }) {
-  const disptach = useDispatch();
-  const [visible, setVisible] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const { Meta } = Card;
-  const userId = useSelector((state) => state.userSlice.user.id);
-  // console.log("dict", dictionary);
-  //   console.log(dictionary, "dictionaryyyyy");
+  const dispatch = useDispatch();
 
   const menuHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
+
+  const handleFavorite = () => {
+    const payload = {
+      id: data.id,
+      isPinned: !data.isFavorite,
+    };
+    dispatch(handleFavoriteMark(payload));
+    dispatch(addGroupFavoriteMarkAction(payload));
+  };
   return (
     <>
       <Card
-        // cover={
-        // 	!loading ? (
-        // 		<img
-        // 			alt="example"
-        // 			className="object-cover"
-        // 			src={data.image ? data.image : defaultImg}
-        // 		/>
-        // 	) : (
-        // 		<Skeleton.Image className="ant-skeleton-active" />
-        // 	)
-        // }
         cover={
           <img
             alt="example"
@@ -53,15 +45,14 @@ function DashboardCardLayout({
         }
         className="Card2"
         hoverable
-        onClick={onClick}
-        // loading={loading}
+        // onClick={onClick}
       >
         <Meta
           className="w-full"
           title={data.name}
           description={
             <div className="flex items-center gap-1 w-full">
-              <PublicPrivateIcon id={data.privacyId} />{" "}
+              <PublicPrivateIcon id={data.privacyId} />{' '}
               <div className="flex items-center justify-between w-full">
                 <span className="text-ellipsis whitespace-nowrap overflow-hidden w-[150px]">
                   {data.description}
@@ -76,7 +67,7 @@ function DashboardCardLayout({
             <Avatar
               isAvatarGroup={true}
               isTag={false}
-              heading={"Members"}
+              heading={'Members'}
               membersData={data.members ? data.members : []}
             />
           </div>
@@ -95,8 +86,18 @@ function DashboardCardLayout({
           )} */}
           <div className="flex justify-end">
             <div className={`halfHeader `}>
-              <img src={chatIcon} alt="" width={20} />
-            </div>{" "}
+              <img src={chatIcon} alt="chatIcon" loading="lazy" width={20} />
+            </div>
+            <div
+              onClick={handleFavorite}
+              className="relative bottom-2 right-1 mr-1 mt-1"
+            >
+              {data.isFavourite ? (
+                <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
+              ) : (
+                <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
+              )}
+            </div>
             <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
           </div>
         </div>

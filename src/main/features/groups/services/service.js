@@ -1,5 +1,5 @@
-import MasterConfig from "../../../../utils/services/MasterConfig";
-const API_PREFIX = "/api/Group/";
+import MasterConfig from '../../../../utils/services/MasterConfig';
+const API_PREFIX = '/api/Group/';
 
 export const getAllGroupService = (data) => {
   return MasterConfig.post(`${API_PREFIX}GetAllGroup`, data)
@@ -44,7 +44,7 @@ export const updateGroupService = (data) => {
 export const addGroupMemberService = (data) => {
   let id = data.id;
   let memberId = data.memberId;
-  console.log(data, "dataaa");
+  // console.log(data, 'dataaa');
   return MasterConfig.post(`api/Group/AddGroupMember?id=${id}`, [
     { memberId: memberId },
   ])
@@ -71,6 +71,20 @@ export const deleteGroupMemberService = (data) => {
   const memberId = data.memberId;
   return MasterConfig.post(`api/Group/RemoveGroupMember?id=${id}`, [memberId])
     .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const addGroupFavoriteMarkService = (payload) => {
+  console.log(payload, 'payload');
+  return MasterConfig.get(
+    `api/Group/AddGroupFavouriteMark?groupId=${payload.id}&isPinned=${payload.isPinned}`
+  )
+    .then((res) => {
+      console.log(res, 'addGroupFavoruiteMarkServices');
       return res.data;
     })
     .catch((err) => {

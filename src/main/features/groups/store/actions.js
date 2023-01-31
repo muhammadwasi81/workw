@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   addGroupService,
   getAllGroupService,
@@ -7,13 +7,14 @@ import {
   addGroupMemberService,
   getAllGroupMemberService,
   deleteGroupMemberService,
-} from "../services/service";
-import { responseCode } from "../../../../services/enums/responseCode";
-import { openNotification } from "../../../../utils/Shared/store/slice";
-import { deleteGroupMember } from "../store/slice";
+  addGroupFavoriteMarkService,
+} from '../services/service';
+import { responseCode } from '../../../../services/enums/responseCode';
+import { openNotification } from '../../../../utils/Shared/store/slice';
+import { deleteGroupMember } from '../store/slice';
 
 export const getAllGroup = createAsyncThunk(
-  "getAllGroup",
+  'getAllGroup',
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await getAllGroupService(data);
     if (res.responseCode === responseCode.Success) {
@@ -25,14 +26,14 @@ export const getAllGroup = createAsyncThunk(
 );
 
 export const addGroup = createAsyncThunk(
-  "addGroup",
+  'addGroup',
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addGroupService(data);
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Group Created Successfully",
-          type: "success",
+          message: 'Group Created Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -42,7 +43,7 @@ export const addGroup = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -52,14 +53,14 @@ export const addGroup = createAsyncThunk(
 );
 
 export const updateGroup = createAsyncThunk(
-  "updateGroup",
+  'updateGroup',
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await updateGroupService(data);
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Project Updated Successfully!",
-          type: "success",
+          message: 'Project Updated Successfully!',
+          type: 'success',
           duration: 2,
         })
       );
@@ -68,7 +69,7 @@ export const updateGroup = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -78,7 +79,7 @@ export const updateGroup = createAsyncThunk(
 );
 
 export const getGroupById = createAsyncThunk(
-  "getGroupById",
+  'getGroupById',
   async (id, { dispatch, getState, rejectWithValue }) => {
     const res = await getGroupByIdService(id);
     if (res.responseCode === responseCode.Success) {
@@ -87,7 +88,7 @@ export const getGroupById = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -97,7 +98,7 @@ export const getGroupById = createAsyncThunk(
 );
 
 export const addGroupMemberAction = createAsyncThunk(
-  "groupMember",
+  'groupMember',
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addGroupMemberService(data);
     if (res.responseCode === responseCode.Success) {
@@ -106,7 +107,7 @@ export const addGroupMemberAction = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -116,7 +117,7 @@ export const addGroupMemberAction = createAsyncThunk(
 );
 
 export const getAllGroupMemberAction = createAsyncThunk(
-  "GetgroupMember",
+  'GetgroupMember',
   async (id, { dispatch, getState, rejectWithValue }) => {
     const res = await getAllGroupMemberService(id);
     if (res.responseCode === responseCode.Success) {
@@ -125,7 +126,7 @@ export const getAllGroupMemberAction = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -135,7 +136,7 @@ export const getAllGroupMemberAction = createAsyncThunk(
 );
 
 export const deleteGroupMemberAction = createAsyncThunk(
-  "deletegroupMember",
+  'deletegroupMember',
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await deleteGroupMemberService(data);
     if (res.responseCode === responseCode.Success) {
@@ -145,7 +146,28 @@ export const deleteGroupMemberAction = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
+          duration: 2,
+        })
+      );
+      return rejectWithValue(res.message);
+    }
+  }
+);
+
+export const addGroupFavoriteMarkAction = createAsyncThunk(
+  'addGroupFavoriteMark',
+  async (data, { dispatch, rejectWithValue }) => {
+    console.log(data, 'addGroupFavoriteMarkAction');
+    const res = await addGroupFavoriteMarkService(data);
+    console.log(res, 'addGroupFavoriteMarkAction');
+    if (res.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      dispatch(
+        openNotification({
+          message: res.message,
+          type: 'error',
           duration: 2,
         })
       );

@@ -1,36 +1,39 @@
-import React, { useState } from "react";
-import ProjectDefaultImage from "../../../../content/png/project_cover_img.png";
-import Avatar from "../../../sharedComponents/Avatar/avatar";
-import { Card, Popover,Drawer } from "antd";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../../../utils/routes";
-import menuIcon from "../../../../content/NewContent/Documents/3dots.svg";
-import MemberModal from "./MemberModal";
-import { updateProjectById, handleComposer, addMember } from "../store/slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from 'react';
+import ProjectDefaultImage from '../../../../content/png/project_cover_img.png';
+import Avatar from '../../../sharedComponents/Avatar/avatar';
+import { Card, Popover } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../../utils/routes';
+import menuIcon from '../../../../content/NewContent/Documents/3dots.svg';
+import MemberModal from './MemberModal';
+import { updateProjectById, handleComposer, addMember } from '../store/slice';
+import { useDispatch, useSelector } from 'react-redux';
+import './style.css';
+import { StarFilled, StarOutlined } from '@ant-design/icons';
+import { addProjectFavoriteAction } from '../store/actions';
 
-import "./style.css"
 const { Meta } = Card;
 
 function ListItem(props) {
   const dispatch = useDispatch();
+  const { projects, isPinnedProject } = useSelector(
+    (state) => state.projectSlice
+  );
   const { name, description, image, members = [], id } = props.item;
-  console.log(id,"iddd");
-
+  console.log(projects, 'projects');
+  console.log(isPinnedProject, 'isPinnedProject');
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  console.log(open,"opennn");
   const [visible, setVisible] = useState(false);
 
   const handleUpdate = () => {
     dispatch(updateProjectById(id));
-      dispatch( handleComposer ({ isOpen: true, isEdit: true }))
+    dispatch(handleComposer({ isOpen: true, isEdit: true }));
   };
   const memberHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setVisible(true);
-    // setOpen(true);
     dispatch(addMember({ status: true }));
   };
   const handleOpenChange = (newOpen) => {
@@ -39,21 +42,30 @@ function ListItem(props) {
   const hide = () => {
     setOpen(false);
   };
-  
-  
+
+  const handlePinnedPost = () => {
+    const payload = {
+      id,
+      isPinnedProject: !isPinnedProject,
+    };
+    dispatch(addProjectFavoriteAction(payload));
+    console.log(payload, 'payload');
+  };
+
   return (
     <>
       <Card
-        className={"Card2"}
+        className={'Card2'}
         cover={
           <img
             alt="example"
             className="object-cover"
             src={image || ProjectDefaultImage}
+            loading="lazy"
           />
         }
         hoverable
-        onClick={(e) => {
+        onClick={() => {
           navigate(`${ROUTES.PROJECT.DEFAULT}/${props.id} `);
         }}
       >
@@ -71,9 +83,17 @@ function ListItem(props) {
             <Avatar
               isAvatarGroup={true}
               isTag={false}
-              heading={"Members"}
+              heading={'Members'}
               membersData={members}
             />
+          </div>
+          {/* yahan say kam krna hai */}
+          <div className="pinned-post" onClick={handlePinnedPost}>
+            {isPinnedProject ? (
+              <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
+            ) : (
+              <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
+            )}
           </div>
           <div
             className="docsPopover"
@@ -111,12 +131,10 @@ function ListItem(props) {
                 <img src={menuIcon} />
               </div>
             </Popover>
-
           </div>
         </div>
       </Card>
       {visible && <MemberModal />}
-      
     </>
   );
 }

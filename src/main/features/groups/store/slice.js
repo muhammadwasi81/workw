@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addGroup,
   getAllGroup,
@@ -7,7 +7,8 @@ import {
   updateGroup,
   addGroupMemberAction,
   getAllGroupMemberAction,
-} from "./actions";
+  addGroupFavoriteMarkAction,
+} from './actions';
 
 const initialState = {
   groups: [],
@@ -25,18 +26,18 @@ const initialState = {
 };
 
 const groupSlice = createSlice({
-  name: "groupSlice",
+  name: 'groupSlice',
   initialState,
   reducers: {
     resetGroupDetail(state, { payload }) {
       state.groupDetail = null;
     },
     getGroupDetailById(state, { payload }) {
-      console.log(payload, "payload");
+      console.log(payload, 'payload');
       state.groupDetail = state.groups.find((list) => list.id === payload);
     },
     handleComposer(state, { payload }) {
-      console.log(payload, "payloaddd");
+      // console.log(payload, 'payload');
       const { isOpen, isEdit } = payload;
       state.isEditComposer = isEdit;
       state.isComposerOpen = isOpen;
@@ -48,6 +49,11 @@ const groupSlice = createSlice({
       state.memberData = state.memberData.filter(
         (member) => member.id !== payload.id
       );
+    },
+    handleFavoriteMark(state, { payload }) {
+      console.log(payload, 'payload in slice');
+      const favGroups = state.groups.find((group) => group.id === payload.id);
+      favGroups.isFavorite = !payload.isFavorite;
     },
   },
   extraReducers: (builder) => {
@@ -76,12 +82,20 @@ const groupSlice = createSlice({
         state.success = true;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "payloaddd");
+        console.log(payload, 'payloaddd');
         state.memberData = [...state.memberData, payload.data];
         return state;
       })
       .addCase(getAllGroupMemberAction.fulfilled, (state, { payload }) => {
         state.memberData = payload.data;
+      })
+      .addCase(addGroupFavoriteMarkAction.fulfilled, (state, { payload }) => {
+        state.groups = state.groups.map((group) => {
+          if (group.id === payload.data.id) {
+            group.isFavorite = payload.data.isFavorite;
+          }
+          return group;
+        });
       })
       .addMatcher(isPending(getAllGroup), (state) => {
         state.getDataLoading = true;
@@ -111,5 +125,6 @@ export const {
   handleComposer,
   addMember,
   deleteGroupMember,
+  handleFavoriteMark,
 } = groupSlice.actions;
 export default groupSlice.reducer;

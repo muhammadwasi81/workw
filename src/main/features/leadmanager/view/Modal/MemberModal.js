@@ -86,9 +86,8 @@ function MemberModal({ isOpen = false }) {
       id: userId,
       memberId: memberId,
     };
-    console.log(data, "dataaaa modalll");
-    //dispatch(deleteLeadManagerMember(memberId));
     dispatch(deleteLeadManagerById(data));
+    dispatch(deleteLeadManagerMember(memberId));
   };
   return (
     <Modal

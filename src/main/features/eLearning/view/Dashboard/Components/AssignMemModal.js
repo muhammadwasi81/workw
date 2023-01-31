@@ -9,13 +9,21 @@ import {
   addCourseAssignMem,
   getAllBookAssignMem,
   getAllCourseAssignMem,
+  RemoveCousrseAssignMemberAction,
+  RemoveBookAssignMemberAction,
 } from "../../../store/action";
 import { useParams } from "react-router-dom";
-import { addAssignMember } from "../../../store/slice";
+import {
+  addAssignMember,
+  removeCourseAssignMember,
+  removeBookAssignMember,
+} from "../../../store/slice";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import { AssignMemEnum } from "../../../constant";
 import { NoDataFound } from "./index";
+import { displayName } from "react-quill";
+import { disable } from "darkreader";
 
 function AssignMemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
@@ -38,7 +46,7 @@ function AssignMemberModal({ isOpen = false }) {
       ModalOpen && dispatch(getAllCourseAssignMem(assignMemberId));
     }
     if (Type === AssignMemEnum.ebook) {
-      dispatch(getAllBookAssignMem(assignMemberId));
+      ModalOpen && dispatch(getAllBookAssignMem(assignMemberId));
     }
   }, [ModalOpen]);
 
@@ -93,8 +101,6 @@ function AssignMemberModal({ isOpen = false }) {
     dispatch(addAssignMember(false));
   };
 
-  console.log(Type, "TYPE");
-
   // const handleChange = (id) => {
   //   let memberId = id.toString();
   //   const data = {
@@ -124,7 +130,20 @@ function AssignMemberModal({ isOpen = false }) {
     members: [],
     memberType: null,
   });
-
+  const handleDeleteAssignMember = (id) => {
+    const memberId = id.toString();
+    const data = {
+      id: assignMemberId,
+      memberId: memberId,
+    };
+    if (Type === AssignMemEnum.courses) {
+      dispatch(RemoveCousrseAssignMemberAction(data));
+      dispatch(removeCourseAssignMember(memberId));
+    } else if (Type === AssignMemEnum.ebook) {
+      dispatch(RemoveBookAssignMemberAction(data));
+      dispatch(removeBookAssignMember(memberId));
+    }
+  };
   return (
     <Modal
       open={ModalOpen}
@@ -170,9 +189,10 @@ function AssignMemberModal({ isOpen = false }) {
           },
         ]}
       />
-      {courseAssignMembers?.length > 0 || bookAssignMembers.length > 0 ? (
+      {courseAssignMembers?.length > 0 || bookAssignMembers?.length > 0 ? (
         <ApproverListItem
           className="AddMemberModal"
+          handleDelete={handleDeleteAssignMember}
           data={
             Type === AssignMemEnum.ebook
               ? bookAssignMembers

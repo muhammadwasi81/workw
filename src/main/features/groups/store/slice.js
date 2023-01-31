@@ -7,6 +7,7 @@ import {
   updateGroup,
   addGroupMemberAction,
   getAllGroupMemberAction,
+  deleteGroupMemberAction,
 } from "./actions";
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
   isEditComposer: false,
   addMemberModal: false,
   open: false,
+  removeMemberSucess: false,
 };
 
 const groupSlice = createSlice({
@@ -32,11 +34,9 @@ const groupSlice = createSlice({
       state.groupDetail = null;
     },
     getGroupDetailById(state, { payload }) {
-      console.log(payload, "payload");
       state.groupDetail = state.groups.find((list) => list.id === payload);
     },
     handleComposer(state, { payload }) {
-      console.log(payload, "payloaddd");
       const { isOpen, isEdit } = payload;
       state.isEditComposer = isEdit;
       state.isComposerOpen = isOpen;
@@ -46,7 +46,7 @@ const groupSlice = createSlice({
     },
     deleteGroupMember(state, { payload }) {
       state.memberData = state.memberData.filter(
-        (member) => member.id !== payload.id
+        (member) => member.memberId !== payload
       );
     },
   },
@@ -55,7 +55,6 @@ const groupSlice = createSlice({
       .addCase(getAllGroup.fulfilled, (state, { payload }) => {
         state.groups = payload.data;
         state.success = true;
-        state.getDataLoading = false;
       })
       .addCase(addGroup.fulfilled, (state, { payload }) => {
         state.loader = false;
@@ -76,15 +75,22 @@ const groupSlice = createSlice({
         state.success = true;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "payloaddd");
-        state.memberData = [...state.memberData, payload.data];
-        return state;
+        if (payload.data.length > 0) {
+          state.memberData = [...state.memberData, payload.data[0]];
+          return state;
+        }
       })
       .addCase(getAllGroupMemberAction.fulfilled, (state, { payload }) => {
-        state.memberData = payload.data;
+        state.memberData = payload.data.length > 0 ? payload.data : [];
+      })
+      .addCase(deleteGroupMemberAction.fulfilled, (state, action) => {
+        state.removeMemberSucess = true;
+      })
+      .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
+        state.removeMemberSucess = false;
       })
       .addMatcher(isPending(getAllGroup), (state) => {
-        state.getDataLoading = true;
+        state.loader = true;
       })
       .addMatcher(
         isPending(...[addGroup, updateGroup, getGroupById]),
@@ -94,6 +100,9 @@ const groupSlice = createSlice({
           state.error = false;
         }
       )
+      .addMatcher(isRejected(...[deleteGroupMemberAction]), (state) => {
+        state.removeMemberSucess = false;
+      })
       .addMatcher(
         isRejected(...[getAllGroup, addGroup, updateGroup, getGroupById]),
         (state) => {

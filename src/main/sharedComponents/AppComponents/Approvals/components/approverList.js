@@ -7,7 +7,6 @@ import { DeleteFilled } from "@ant-design/icons";
 import "./style.css";
 
 function ApproverListItem({ data, handleDelete }) {
-  console.log(data, "dataa approval");
   const navigate = useNavigate();
   return (
     <>
@@ -39,16 +38,18 @@ function ApproverListItem({ data, handleDelete }) {
                   <p style={{ color: "#222222" }}>
                     {members.member && members.member.name}
                   </p>
-                  <p style={{ color: "rgb(117, 125, 134)" }}>
+                  <p
+                    style={{ color: "rgb(117, 125, 134)" }}
+                    className="member-email"
+                  >
                     {members.member && members.member.email}
                   </p>
                 </div>
-                <div className="">
-                  <DeleteFilled
-                    style={{ color: "#000000" }}
-                    onClick={() => handleDelete(members.member.id)}
-                  />
-                </div>
+                <DeleteFilled
+                  className=""
+                  style={{ color: "#000000" }}
+                  onClick={() => handleDelete(members.member.id)}
+                />
               </div>
             </div>
           );

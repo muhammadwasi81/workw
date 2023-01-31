@@ -15,6 +15,9 @@
   line-height: 16px;
   font-weight: 600;
 }
+.member-email {
+  font-size: 12px;
+}
 .ApproverModal .ant-modal-content {
   border-radius: 16px;
 }

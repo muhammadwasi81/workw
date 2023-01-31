@@ -35,10 +35,10 @@ import ComposeEmail from "../../../leadmanager/view/Email/ComposeEmail";
 import GroupDefaultImage from "../../../../../content/NewContent/groups/GroupDefaultImage.svg";
 import CoverImage from "../../../departments/view/CoverImage";
 import GroupsInfo from "../UI/GroupsInfo";
-import {  addMember} from "../../store/slice";
-import {getAllGroupMemberAction} from "../../store/actions";
+import { addMember } from "../../store/slice";
+import { getAllGroupMemberAction } from "../../store/actions";
 import MemberModal from "../Modal/MemberModal";
-
+import MySchedules from "../../../schedule/view/ScheduleDetail/SchedulesDetail";
 
 function GroupDetails() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -49,6 +49,7 @@ function GroupDetails() {
   const [visible, setVisible] = useState(false);
 
   const detail = useSelector((state) => state.groupSlice.groupDetail);
+  const { memberData } = useSelector((state) => state.groupSlice);
   const [features, setFeatures] = useState([]);
   const [open, setOpen] = useState(false);
   const { groupId: id } = params;
@@ -56,6 +57,7 @@ function GroupDetails() {
     dispatch(getGroupById(id));
     dispatch(getAllGroupMemberAction(id));
   }, [id]);
+
   const memberHandler = () => {
     setVisible(true);
     // const userTypes = memberType === 1 ? Members.user : Members.admin;
@@ -119,7 +121,7 @@ function GroupDetails() {
         backButton={false}
       />
     ),
-    10: <>Schedule</>,
+    10: <MySchedules />,
     12: (
       <Documents
         referenceType={DocumentReferenceTypeEnum.Group}
@@ -195,7 +197,7 @@ function GroupDetails() {
                   // onEmailClick={() => {
                   //   dispatch(handleComposeEmail(true));
                   // }}
-                  data={detail?.members}
+                  data={memberData ? memberData : []}
                   isMember={true}
                   handleAdd={(e) => memberHandler(e)}
                 />

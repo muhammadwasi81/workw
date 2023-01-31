@@ -72,7 +72,6 @@ const Projects = () => {
   const handleEditComposer = () => {
     dispatch(handleComposer({ isOpen: false, isEdit: false }));
   };
-  console.log(isComposerOpen, "isComposerOpen");
   return (
     <>
       <TabbableContainer>

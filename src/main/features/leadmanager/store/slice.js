@@ -59,6 +59,7 @@ const initialState = {
   isSectionModalOpen: false,
   addMemberModal: false,
   addAssignMemberModal: false,
+  removeMemberSuccess: false,
 
   contactModal: {
     isOpen: false,
@@ -163,9 +164,8 @@ const leadMangerSlice = createSlice({
     },
     deleteLeadManagerMember(state, { payload }) {
       state.memberData = state.memberData.filter(
-        (member) => member.id !== payload.id
+        (member) => member.memberId !== payload
       );
-      console.log(state.memberData, "mmeber dataaa");
     },
   },
   extraReducers: (builder) => {
@@ -179,8 +179,10 @@ const leadMangerSlice = createSlice({
         state.memberData = action.payload ? action.payload : [];
       })
       .addCase(addLeadManagereMember.fulfilled, (state, { payload }) => {
-        state.memberData = [...state.memberData, payload];
-        return state;
+        if (payload.data.data.length > 0) {
+          state.memberData = [...state.memberData, payload.data.data[0]];
+          return state;
+        }
       })
       .addCase(getLeadManagerById.fulfilled, (state, { payload }) => {
         state.isComposerDataLoading = false;
@@ -190,7 +192,6 @@ const leadMangerSlice = createSlice({
         ////meetings by iddd
         state.isComposerDataLoading = false;
         state.meetingDetailComposer = payload.data;
-        console.log(payload, "payloadddd");
       })
       .addCase(getAllLeadManager.fulfilled, (state, { payload }) => {
         state.success = true;
@@ -322,8 +323,12 @@ const leadMangerSlice = createSlice({
         state.meetingDetail = payload.data;
         //////////////////////////////////
       })
-      .addCase(deleteLeadManagerById.fulfilled, (state, { payload }) => {})
-
+      .addCase(deleteLeadManagerById.fulfilled, (state, { payload }) => {
+        state.removeMemberSuccess = true;
+      })
+      .addMatcher(isPending(...[deleteLeadManagerById]), (state) => {
+        state.removeMemberSuccess = false;
+      })
       .addMatcher(isPending(getAllLeadManagerContactDetail), (state) => {
         state.isContactDetailLoading = true;
         state.contactDetail = null;
@@ -346,6 +351,9 @@ const leadMangerSlice = createSlice({
           state.error = false;
         }
       )
+      .addMatcher(isRejected(...[deleteLeadManagerById]), (state) => {
+        state.removeMemberSuccess = false;
+      })
       .addMatcher(
         isRejected(...[updateLeadManagerContact, addLeadManagerContact]),
         (state) => {

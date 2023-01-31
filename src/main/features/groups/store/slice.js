@@ -45,9 +45,8 @@ const groupSlice = createSlice({
       state.addMemberModal = payload;
     },
     deleteGroupMember(state, { payload }) {
-      console.log(payload.id, "payloaddd");
       state.memberData = state.memberData.filter(
-        (member) => member.id !== payload.id
+        (member) => member.memberId !== payload
       );
     },
   },
@@ -56,7 +55,6 @@ const groupSlice = createSlice({
       .addCase(getAllGroup.fulfilled, (state, { payload }) => {
         state.groups = payload.data;
         state.success = true;
-        state.getDataLoading = false;
       })
       .addCase(addGroup.fulfilled, (state, { payload }) => {
         state.loader = false;

@@ -1,6 +1,7 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addBook,
+  addBookMember,
   addBookAssignMem,
   addCourse,
   addCourseAssignMem,
@@ -31,6 +32,8 @@ import {
   RemoveCousrseMemberAction,
   addCourseMember,
   RemoveCousrseAssignMemberAction,
+  RemoveBookMemberAction,
+  RemoveBookAssignMemberAction,
 } from "./action";
 
 const initialState = {
@@ -75,6 +78,9 @@ const initialState = {
   addTedTalksuccess: false,
   addVideosuccess: false,
   removeCourseMemberSuccess: false,
+  removeCourseAssignMemberSuccess: false,
+  removeBookMemberSuccess: false,
+  removeBookAssignMemberSuccess: false,
   loader: false,
   loaders: {
     courseLoading: false,
@@ -142,9 +148,18 @@ const eLearningSlice = createSlice({
       );
     },
     removeCourseAssignMember: (state, { payload }) => {
-      console.log(payload, "payloafddd");
       state.courseAssignMembers = state.courseAssignMembers.filter(
-        (member) => member.id !== payload
+        (member) => member.memberId !== payload
+      );
+    },
+    removeBookMember: (state, { payload }) => {
+      state.bookMembers = state.bookMembers.filter(
+        (member) => member.memberId !== payload
+      );
+    },
+    removeBookAssignMember: (state, { payload }) => {
+      state.bookAssignMembers = state.bookAssignMembers.filter(
+        (member) => member.memberId !== payload
       );
     },
   },
@@ -173,8 +188,13 @@ const eLearningSlice = createSlice({
         return state;
       })
       .addCase(addCourseAssignMem.fulfilled, (state, { payload }) => {
-        state.courseAssignMembers = [...state.courseAssignMembers, payload];
-        return state;
+        if (payload.data.data.length > 0) {
+          state.courseAssignMembers = [
+            ...state.courseAssignMembers,
+            payload.data.data[0],
+          ];
+          return state;
+        }
       })
       .addCase(getAllCourse.fulfilled, (state, action) => {
         state.courses = action.payload ? action.payload : [];
@@ -229,10 +249,18 @@ const eLearningSlice = createSlice({
         state.success = true;
         return state;
       })
+      .addCase(addBookMember.fulfilled, (state, { payload }) => {
+        if (payload.data.data.length > 0) {
+          state.bookMembers = [...state.bookMembers, payload.data.data[0]];
+          return state;
+        }
+      })
       .addCase(addBookAssignMem.fulfilled, (state, { payload }) => {
-        console.log(payload.data, "payloadd assignnn");
-        if (payload.length > 0) {
-          state.bookAssignMembers = [...state.bookAssignMembers, payload];
+        if (payload.data.data.length > 0) {
+          state.bookAssignMembers = [
+            ...state.bookAssignMembers,
+            payload.data.data[0],
+          ];
           return state;
         }
       })
@@ -272,7 +300,7 @@ const eLearningSlice = createSlice({
         state.courseAssignMembers = action.payload ? action.payload : [];
       })
       .addCase(getAllBookAssignMem.fulfilled, (state, action) => {
-        state.bookAssignMembers = action.payload.data;
+        state.bookAssignMembers = action.payload;
       })
       .addCase(RemoveCousrseMemberAction.fulfilled, (state, { payload }) => {
         state.removeCourseMemberSuccess = true;
@@ -286,9 +314,16 @@ const eLearningSlice = createSlice({
       .addCase(
         RemoveCousrseAssignMemberAction.fulfilled,
         (state, { payload }) => {
-          state.removeCourseMemberSuccess = true;
+          state.removeCourseAssignMemberSuccess = true;
         }
       )
+      .addCase(RemoveBookMemberAction.fulfilled, (state, action) => {
+        state.removeBookMemberSuccess = true;
+      })
+
+      .addCase(RemoveBookAssignMemberAction.fulfilled, (state, action) => {
+        state.removeBookAssignMemberSuccess = true;
+      })
       .addMatcher(isPending(...[getAllBook, getAllCourse]), (state) => {
         state.loaders.courseLoading = true;
         state.loaders.bookLoading = true;
@@ -297,14 +332,18 @@ const eLearningSlice = createSlice({
       .addMatcher(isPending(...[getAllVideo]), (state) => {
         state.loaders.videosLoading = true;
       })
-      .addMatcher(
-        isPending(
-          ...[RemoveCousrseMemberAction, RemoveCousrseAssignMemberAction]
-        ),
-        (state) => {
-          state.removeCourseMemberSuccess = false;
-        }
-      )
+      .addMatcher(isPending(...[RemoveCousrseMemberAction]), (state) => {
+        state.removeCourseMemberSuccess = false;
+      })
+      .addMatcher(isPending(...[RemoveBookMemberAction]), (state) => {
+        state.removeBookMemberSuccess = false;
+      })
+      .addMatcher(isPending(...[RemoveBookAssignMemberAction]), (state) => {
+        state.removeBookAssignMemberSuccess = false;
+      })
+      .addMatcher(isPending(...[RemoveCousrseAssignMemberAction]), (state) => {
+        state.removeCourseAssignMemberSuccess = false;
+      })
       .addMatcher(isPending(...[getAllArticle]), (state) => {
         state.loaders.articlesLoading = true;
       })
@@ -410,14 +449,19 @@ const eLearningSlice = createSlice({
         console.log("rejected");
         state.loaders.checkQuizAttemptLoading = false;
       })
-      .addMatcher(
-        isRejected(
-          ...[RemoveCousrseMemberAction, RemoveCousrseAssignMemberAction]
-        ),
-        (state) => {
-          state.removeCourseMemberSuccess = false;
-        }
-      )
+      .addMatcher(isRejected(...[RemoveCousrseMemberAction]), (state) => {
+        state.removeCourseMemberSuccess = false;
+      })
+      .addMatcher(isRejected(...[RemoveCousrseAssignMemberAction]), (state) => {
+        state.removeCourseAssignMemberSuccess = false;
+      })
+      .addMatcher(isRejected(...[RemoveBookMemberAction]), (state) => {
+        state.removeBookMemberSuccess = false;
+      })
+      .addMatcher(isRejected(...[RemoveBookAssignMemberAction]), (state) => {
+        state.removeBookAssignMemberSuccess = false;
+      })
+
       .addMatcher(isRejected(...[getQuizById]), (state) => {
         console.log("rejected");
       })
@@ -450,5 +494,7 @@ export const {
   addMember,
   removeCourseMember,
   removeCourseAssignMember,
+  removeBookMember,
+  removeBookAssignMember,
 } = eLearningSlice.actions;
 export default eLearningSlice.reducer;

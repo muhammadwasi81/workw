@@ -46,8 +46,8 @@ const projectSlice = createSlice({
       state.isComposerOpen = isOpen;
     },
     deleteProjectMember(state, { payload }) {
-      state.projects = state.projects.filter(
-        (member) => member.id !== payload.id
+      state.memberData = state.memberData.filter(
+        (member) => member.memberId !== payload
       );
     },
   },

@@ -34,6 +34,8 @@ import {
   GetVideoByIdService,
   RemoveCousrseMemberService,
   RemoveCousrseAssignMemberService,
+  RemoveBookMemberService,
+  RemoveBookAssignMemberService,
 } from "../service/service";
 
 // import {
@@ -410,6 +412,32 @@ export const RemoveCousrseAssignMemberAction = createAsyncThunk(
   "Course/RemoveCourseAssignMember",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await RemoveCousrseAssignMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const RemoveBookMemberAction = createAsyncThunk(
+  "Course/RemoveBookMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await RemoveBookMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const RemoveBookAssignMemberAction = createAsyncThunk(
+  "Course/RemoveBookAssignMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await RemoveBookAssignMemberService(data);
     if (res.data?.responseCode === responseCode.Success) {
       return res;
     } else {

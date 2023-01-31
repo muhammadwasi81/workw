@@ -12,9 +12,14 @@ import {
   GetBookById,
   GetCourseById,
   RemoveCousrseMemberAction,
+  RemoveBookMemberAction,
 } from "../../../store/action";
 import { useParams } from "react-router-dom";
-import { addMember, removeCourseMember } from "../../../store/slice";
+import {
+  addMember,
+  removeCourseMember,
+  removeBookMember,
+} from "../../../store/slice";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import { MemberEnum } from "../../../constant";
@@ -92,10 +97,14 @@ function MemberModal({ isOpen = false }) {
       id: assignMemberId,
       memberId: memberId,
     };
+    if (Type === MemberEnum.courses) {
+      dispatch(RemoveCousrseMemberAction(data));
 
-    dispatch(RemoveCousrseMemberAction(data));
-
-    dispatch(removeCourseMember(memberId));
+      dispatch(removeCourseMember(memberId));
+    } else if (Type === MemberEnum.ebook) {
+      dispatch(RemoveBookMemberAction(data));
+      dispatch(removeBookMember(memberId));
+    }
   };
 
   // useEffect(() => {

@@ -366,3 +366,31 @@ export const RemoveCousrseAssignMemberService = (data) => {
       return res;
     });
 };
+
+export const RemoveBookMemberService = (data) => {
+  const id = data.id;
+  const memberId = data.memberId;
+  return MasterConfig.post(`api/ELearning/RemoveBookMember?id=${id}`, [
+    memberId,
+  ])
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const RemoveBookAssignMemberService = (data) => {
+  const id = data.id;
+  const memberId = data.memberId;
+  return MasterConfig.post(`api/ELearning/RemoveBookAssignMember?id=${id}`, [
+    memberId,
+  ])
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};

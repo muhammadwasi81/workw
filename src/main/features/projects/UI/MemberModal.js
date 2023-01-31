@@ -74,8 +74,8 @@ function MemberModal({ isOpen = false }) {
       id: userId,
       memberId: memberId,
     };
-    dispatch(deleteProjectMember(userId));
     dispatch(deleteProjectMemberAction(data));
+    dispatch(deleteProjectMember(memberId));
   };
   return (
     <Modal

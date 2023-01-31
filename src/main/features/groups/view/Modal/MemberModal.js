@@ -76,7 +76,7 @@ function MemberModal({ isOpen = false }) {
     };
 
     dispatch(deleteGroupMemberAction(data));
-    dispatch(deleteGroupMember(userId));
+    dispatch(deleteGroupMember(memberId));
   };
   return (
     <Modal

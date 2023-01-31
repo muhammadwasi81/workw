@@ -388,7 +388,7 @@ function CreateCourse() {
                   ]}
               />
             </Form.Item>
-            </div>
+          </div>
           <div className="innerColumn">
           <Form.Item
             label={"Description"}

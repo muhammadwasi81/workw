@@ -17,6 +17,7 @@ function BoardComposer({
 	dictionary,
 	direction,
 }) {
+	console.log("propsprops",isEdit);
 	const leadDetail = useSelector(
 		state => state.leadMangerSlice.leadManagerDetail
 	);
@@ -149,14 +150,16 @@ function BoardComposer({
 					/>
 				)}
 			</Form.Item>
-
-			{dataLoading ? (
+			{!isEdit && (
+				<>
+				{dataLoading ? (
 				<Skeleton.Input active={true} block size={"large"} />
-			) : (
+			      ) : (
 				<WorkBoardMemberSelect
 					placeholder={placeHolder.serachMembersPH}
-					label={labels.members}
-				/>
+					label={labels.members}/>
+			)} 
+				</>
 			)}
 			<Form.Item>
 				<div className="flex items-center gap-2">

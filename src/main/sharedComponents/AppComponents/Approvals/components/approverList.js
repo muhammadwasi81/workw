@@ -5,7 +5,6 @@ import { getNameForImage } from '../../../../../utils/base';
 import "./style.css"
 
 function ApproverListItem({ data }) {
-    console.log(data, "DAT DATA")
     const navigate = useNavigate()
   return (
     <>

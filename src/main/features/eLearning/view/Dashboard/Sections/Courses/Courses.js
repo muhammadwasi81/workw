@@ -5,8 +5,12 @@ import { getAllCourse } from "../../../../store/action";
 import CourseCard from "../../Components/CourseCard";
 import { NoDataFound } from "../../../../../../sharedComponents/NoDataIcon";
 import ThumbnailSkeleton from "../../UI/thumbnailSkeleton";
+import { useParams } from "react-router-dom";
+import { message } from "antd";
+import { GetCourseByUserId } from "../../../../../profile/store/action";
 
 function Courses() {
+	const param = useParams()
 	const dispatch = useDispatch()
 	const [filter, setFilter] = useState({ pageNo: 1, pageSize: 20, search: "", sortBy: 1   })
 
@@ -18,11 +22,15 @@ function Courses() {
 	let loading = loaders.courseLoading;
 
 	useEffect(() => {
-		dispatch(getAllCourse(filter))
+		if (param.id) {
+			dispatch(GetCourseByUserId(param.id))
+		} else {
+			dispatch(getAllCourse(filter))
+		}
 	}, [])
 
 	return (
-		<>	
+		<div className="coursListing">	
 			<div 
 				className={loading || courses?.length > 0 ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mb-2" : !loading && ""}>
 			{   loading ? 
@@ -33,7 +41,7 @@ function Courses() {
 				!loading && <> <NoDataFound /></>
 			}
 			</div>
-		</>
+		</div>
 	);
 }
 

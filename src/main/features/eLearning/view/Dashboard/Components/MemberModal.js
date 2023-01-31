@@ -65,14 +65,23 @@ function MemberModal({ isOpen = false }) {
       id: assignMemberId,
       memberId: memberId,
     };
-    if (Type === MemberEnum.courses) {
-      dispatch(addCourseMember(data));
-      dispatch(getAllCourseMember(assignMemberId));
-    } else if (Type === MemberEnum.ebook) {
-      dispatch(addBookMember(data));
-      dispatch(getAllBookMember(assignMemberId));
+
+    let a = courseMembers.filter((item) => {
+      return item.memberId === data.memberId
+    });
+
+    if (data.memberId === a[0] && a[0].memberId) {
+      message.error("Member Already Added")
     } else {
-        message.error("Type is not defined");
+      if (Type === MemberEnum.courses) {
+        dispatch(addCourseMember(data));
+        dispatch(getAllCourseMember(assignMemberId));
+      } else if (Type === MemberEnum.ebook) {
+        dispatch(addBookMember(data));
+        dispatch(getAllBookMember(assignMemberId));
+      } else {
+          message.error("Type is not defined");
+      }
     }
   };
 

@@ -16,7 +16,7 @@ import { getUserWorkExperience } from "../experienceInfo/store/actions";
 import { getEmployeeByIdAction } from "./store/action";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { profileDictionaryList } from "./localization/index";
-import Courses from "../team/view/Courses";
+// import Courses from "../team/view/Courses";
 import ActivityLog from "../team/view/ActivityLog";
 import Education from "../team/view/Education";
 import Leaves from "../team/view/Leaves";
@@ -33,6 +33,7 @@ import { targetStickyDescription } from "../notes/newStickyNotes/store/stickySli
 import { addSticky } from "../notes/newStickyNotes/store/actions";
 import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
 import { Menu, Dropdown, Space } from "antd";
+import Courses from "../eLearning/view/Dashboard/Sections/Courses/Courses";
 
 const Profile = () => {
   const param = useParams();

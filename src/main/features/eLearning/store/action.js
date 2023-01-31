@@ -155,7 +155,6 @@ export const CheckQuizAttempt = createAsyncThunk(
 export const getAllCourseMember = createAsyncThunk(
   "Course/GetAllCourseMember",
   async (data) => {
-    console.log(data, "FROM ACTIONSSS !!");
     const response = await getAllCourseMemberService(data);
     if (!response.responseCode) {
       message.error("Something went wrong");

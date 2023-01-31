@@ -4,10 +4,7 @@ import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import AccessRoleComposer from './AccessRoleComposer';
 import { Skeleton, Form } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getAllBussinessFeatures,
-  getAllUserTypes,
-} from '../../../../utils/Shared/store/actions';
+import { getAllBussinessFeatures } from '../../../../utils/Shared/store/actions';
 import '../style/accessrole.css';
 import {
   addAccessRole,
@@ -47,12 +44,10 @@ function AccessRole() {
     singleAccessRole,
   } = useSelector((state) => state.accessRolesSlice);
 
-  console.log(defaultData, 'defaultData');
   useEffect(() => {
     dispatch(getAllBussinessFeatures());
     dispatch(getAllAccessRoles());
-    dispatch(getAllUserTypes());
-  }, []);
+  }, [dispatch]);
 
   const onSubmitData = (finalData) => {
     if (isEdited) {
@@ -87,7 +82,6 @@ function AccessRole() {
   }, [singleAccessRole, formData]);
 
   const handleEdit = (data) => {
-    console.log('handleEdit', data);
     setId(data.id);
     setIsDefault(data.isDefault);
     setFormData((prevData) => ({

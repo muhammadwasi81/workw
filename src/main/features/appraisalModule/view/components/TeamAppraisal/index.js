@@ -5,11 +5,21 @@ import { CardWrapper } from "../../../../../sharedComponents/Card/CardStyle";
 import { NoDataFound } from "../../../../../sharedComponents/NoDataIcon/index.js";
 // import ShortAppraisalCard from "./shortAppraisalCard";
 import ShortCard from "./shortAppraisalCardNew";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getAllAppraisalByMeAction } from "../../../store/action";
 
-const Index = () => {
+const Index = ({ userId }) => {
+  const dispatch = useDispatch();
   const { appraisals, loader } = useSelector(
     (state) => state.appraisalModuleSlice
   );
+  useEffect(() => {
+    if (userId) {
+      //TODO: dispatch here
+      dispatch(getAllAppraisalByMeAction(userId));
+    }
+  }, []);
   if (loader)
     return (
       <CardWrapper>

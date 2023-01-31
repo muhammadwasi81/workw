@@ -5,20 +5,20 @@ import { useSelector } from "react-redux";
 import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import ApproverListItem from "../../../../sharedComponents/AppComponents/Approvals/components/approverList";
 import {
-  getAllGroupMemberAction,addGroupMemberAction
+  getAllGroupMemberAction,
+  addGroupMemberAction,
 } from "../../store/actions";
 import { useParams } from "react-router-dom";
-import {  addMember } from "../../store/slice";
+import { addMember } from "../../store/slice";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
+import { deleteGroupMemberAction } from "../../store/actions";
 
 function MemberModal({ isOpen = false }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
   const { memberData } = useSelector((state) => state.groupSlice);
-  const modalRequest = useSelector(
-    (state) => state.groupSlice.addMemberModal
-  );
+  const modalRequest = useSelector((state) => state.groupSlice.addMemberModal);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -30,8 +30,8 @@ function MemberModal({ isOpen = false }) {
   // console.log(Type, "TYPE !!");
 
   useEffect(() => {
-    ModalOpen && dispatch(  getAllGroupMemberAction(userId));
-  }, [ ModalOpen]);
+    ModalOpen && dispatch(getAllGroupMemberAction(userId));
+  }, [ModalOpen]);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -67,6 +67,14 @@ function MemberModal({ isOpen = false }) {
     memberType: null,
   });
 
+  const handleDeleteMember = (id) => {
+    const memberId = id.toString();
+    const data = {
+      id: userId,
+      memberId: memberId,
+    };
+    dispatch(deleteGroupMemberAction(data));
+  };
   return (
     <Modal
       open={ModalOpen}
@@ -112,7 +120,11 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      <ApproverListItem className="AddMemberModal" data={memberData} />
+      <ApproverListItem
+        className="AddMemberModal"
+        data={memberData}
+        handleDelete={handleDeleteMember}
+      />
     </Modal>
   );
 }

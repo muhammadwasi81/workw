@@ -1,13 +1,11 @@
-// import AxiosConfig from "../../../../utils/services/AxiosConfig";
-import MasterConfig from "../../../../utils/services/MasterConfig";
-const API_PREFIX = "api/";
+import MasterConfig from '../../../../utils/services/MasterConfig';
 
-export const getUserDeviceInfoService = (payload) => {
-  return MasterConfig.post(`api/Device/GetAllDevice`,[payload])
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      return err;
-    });
+export const getUserDeviceInfoService = async (payload) => {
+  try {
+    const res = await MasterConfig.post(`api/Device/GetAllDevice`, payload);
+    console.log(res, 'getUserDeviceInfoService');
+    return res.data;
+  } catch (err) {
+    return err;
+  }
 };

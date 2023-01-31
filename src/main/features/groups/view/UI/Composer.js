@@ -30,7 +30,6 @@ const initialState = {
 };
 
 const Composer = (props) => {
-  console.log(props, 'props')
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
   const { labels, placeHolders, errors, features } = groupsDictionary;
@@ -44,12 +43,10 @@ const Composer = (props) => {
   const [memberList, setMemberList] = useState([]);
 
   const onPrivacyChange = (value) => {
-    console.log('ss')
     setPrivacyId(value);
   };
 
   const handleImageUpload = (fileData) => {
-    console.log("filedata", fileData);
     setProfileImage(fileData[0].originFileObj);
   };
 
@@ -58,7 +55,7 @@ const Composer = (props) => {
   };
 
   const onFinish = () => {
-    console.log('sssss')
+    console.log("on Finishhh");
     const values = form.getFieldsValue(true);
     let members = memberList.map((member) => {
       return {
@@ -218,6 +215,7 @@ const Composer = (props) => {
               block
               htmlType="submit"
               loading={loading}
+              // onClick={onFinish}
             >
               {update
                 ? groupsDictionary.updateTextBtn

@@ -6,7 +6,7 @@ import {
   getGroupById,
   updateGroup,
   addGroupMemberAction,
-  getAllGroupMemberAction
+  getAllGroupMemberAction,
 } from "./actions";
 
 const initialState = {
@@ -21,7 +21,7 @@ const initialState = {
   isComposerOpen: false,
   isEditComposer: false,
   addMemberModal: false,
-
+  open: false,
 };
 
 const groupSlice = createSlice({
@@ -32,19 +32,22 @@ const groupSlice = createSlice({
       state.groupDetail = null;
     },
     getGroupDetailById(state, { payload }) {
-      console.log(payload,"payload")
-      state.groupDetail = state.groups.find(
-        (list) => list.id === payload
-      );
+      console.log(payload, "payload");
+      state.groupDetail = state.groups.find((list) => list.id === payload);
     },
     handleComposer(state, { payload }) {
-      console.log(payload,"payloaddd");
+      console.log(payload, "payloaddd");
       const { isOpen, isEdit } = payload;
       state.isEditComposer = isEdit;
       state.isComposerOpen = isOpen;
     },
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
+    },
+    deleteGroupMember(state, { payload }) {
+      state.memberData = state.memberData.filter(
+        (member) => member.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -72,13 +75,13 @@ const groupSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
-      .addCase( addGroupMemberAction.fulfilled,(state, { payload })=>{
-        console.log(payload,"payloaddd");
-        state.memberData = [...state.memberData, payload];
+      .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
+        console.log(payload, "payloaddd");
+        state.memberData = [...state.memberData, payload.data];
         return state;
       })
-      .addCase(getAllGroupMemberAction.fulfilled,(state,{payload})=>{
-        state.memberData = payload.length>0?payload:[];
+      .addCase(getAllGroupMemberAction.fulfilled, (state, { payload }) => {
+        state.memberData = payload.data;
       })
       .addMatcher(isPending(getAllGroup), (state) => {
         state.getDataLoading = true;
@@ -102,5 +105,11 @@ const groupSlice = createSlice({
   },
 });
 
-export const { resetGroupDetail,getGroupDetailById, handleComposer,addMember } = groupSlice.actions;
+export const {
+  resetGroupDetail,
+  getGroupDetailById,
+  handleComposer,
+  addMember,
+  deleteGroupMember,
+} = groupSlice.actions;
 export default groupSlice.reducer;

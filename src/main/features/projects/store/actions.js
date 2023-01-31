@@ -12,7 +12,8 @@ import {
   saveStickyNotesTitleService,
   getAllProjectStickyService,
   getAllProjectMemberService,
-  addProjectMemberService
+  addProjectMemberService,
+  deleteProjectMemberService,
 } from "../services/service";
 import { message } from "antd";
 import {
@@ -20,6 +21,7 @@ import {
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 import { jsonToFormData, STRINGS } from "../../../../utils/base";
+import { deleteProjectMember } from "../store/slice";
 
 const addSticky_SD = (data) => {
   return {
@@ -218,15 +220,13 @@ export const getProjectStickyAction = createAsyncThunk(
   }
 );
 
-
 export const getAllProjectMemberAction = createAsyncThunk(
   "getMember",
   async (id, { dispatch }) => {
-    const res = await   getAllProjectMemberService
-    (id);
+    const res = await getAllProjectMemberService(id);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-      responseMessage({ dispatch, data: res });
+        responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
         dispatch: dispatch,
@@ -240,11 +240,10 @@ export const getAllProjectMemberAction = createAsyncThunk(
 export const addProjectMemberAction = createAsyncThunk(
   "addMember",
   async (data, { dispatch }) => {
-    const res = await   addProjectMemberService
-    (data);
+    const res = await addProjectMemberService(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-      responseMessage({ dispatch, data: res });
+        responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
         dispatch: dispatch,
@@ -255,3 +254,20 @@ export const addProjectMemberAction = createAsyncThunk(
   }
 );
 
+export const deleteProjectMemberAction = createAsyncThunk(
+  "deleteMember",
+  async (data, { dispatch }) => {
+    const res = await deleteProjectMemberService(data);
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+        dispatch(deleteProjectMember({ id: data }));
+      responseMessage({ dispatch, data: res });
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+    return res;
+  }
+);

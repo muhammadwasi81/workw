@@ -32,6 +32,16 @@ export const GetLeaveByIdService = (id) => {
     });
 };
 
+export const GetLeaveUserByIdService = (id) => {
+  return MasterConfig.get(`api/Leave/GetLeaveUserById?userId=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
 export const GetLeaveTypeService = (args) => {
   console.log(args, "leave service");
   return MasterConfig.get(`api/LeaveType/GetAllLeaveType`, args)

@@ -89,7 +89,7 @@ function EducationList() {
               </div>
             </div>
             <div>
-              <Dropdown overlay={menu}>
+              <Dropdown menu={menu}>
                 <div className="!text-2xl !font-bold cursor-pointer hover:bg-[#F4F4F4] rounded-full transition duration-300 p-2">
                   <HiDotsHorizontal className="!text-2xl" />
                 </div>

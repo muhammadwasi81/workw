@@ -112,15 +112,12 @@ const TeamCard = ({ teams: { image, name, designation, email, id } }) => {
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.sharedLabels;
 
+  console.log(image,"imageeeeeeee");
   const navigate = useNavigate();
   return (
     <Parent>
       <ImageBox
-        src={
-          image
-            ? image
-            : 'https://58.65.211.234:4436/Resources/0ab5f9c0-f948-4c40-8dad-c58ba99fb765/Images/68fb6063-7b34-440e-b31b-738e931c32e7.jpg'
-        }
+        src={image ? image : 'http://www.miletap.com/img/title.png'}
         alt="logo"
         loading="lazy"
       />

@@ -183,7 +183,6 @@ const leadMangerSlice = createSlice({
         return state;
       })
       .addCase(getLeadManagerById.fulfilled, (state, { payload }) => {
-        // console.log("payload.data", payload.data);
         state.isComposerDataLoading = false;
         state.leadManagerDetail = payload.data;
       })

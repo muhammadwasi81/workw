@@ -59,8 +59,14 @@ function MemberModal({ isOpen = false }) {
       id: userId,
       memberId: memberId,
     };
-    dispatch(addLeadManagereMember(data));
-    dispatch(getAllLeadManagerMember(userId));
+
+    memberData.filter((item) => {
+      item.member.id === data.id ? message.error("NOT WORKING") : 
+      dispatch(addLeadManagereMember(memberData));
+      dispatch(getAllLeadManagerMember(userId)); 
+      console.log(data.id,"itemmmmm");
+    })
+    // console.log(a, "AAAAA")
   };
 
   useEffect(() => {
@@ -108,13 +114,13 @@ function MemberModal({ isOpen = false }) {
           return (
             <>
               <Avatar
-                name={opt.name}
-                src={opt.image}
+                name={opt?.name}
+                src={opt?.image || "https://joeschmoe.io/api/v1/random"}
                 round={true}
                 width={"30px"}
                 height={"30px"}
               />
-              {opt.name}
+              {opt?.name}
             </>
           );
         }}
@@ -137,5 +143,6 @@ function MemberModal({ isOpen = false }) {
     </Modal>
   );
 }
+
 
 export default MemberModal;

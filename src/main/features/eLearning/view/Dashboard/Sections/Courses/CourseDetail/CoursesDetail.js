@@ -39,6 +39,7 @@ function CoursesDetail() {
 		courseType,
 		curriculums,
 	} = courseDetail
+	console.log(members,"sadsdsds");
 	let Default = defaultImage
 	// let Default = "https://www.makeintern.com/learning/img/online-course12.jpg"
 	let loader = loaders.courseDetailLoading

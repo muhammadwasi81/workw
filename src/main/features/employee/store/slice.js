@@ -9,6 +9,9 @@ import {
   getAllEmployees,
   getEmployeeByIdAction,
   addEmployeeFamily,
+  getAllEmployeeFamilyAction,
+  // removeEmployeeFamily,
+  updateEmployeeFamily,
 } from "./actions";
 
 const initialState = {
@@ -24,6 +27,8 @@ const initialState = {
     family: [],
   },
   loader: false,
+  addFamilyLoader: false,
+  updateFamilyLoader: false,
   success: false,
 };
 
@@ -46,6 +51,12 @@ const employeeSlice = createSlice({
     resetBasicdetails: (state) => {
       state.employee.basicdetails = [];
     },
+    removeFamilyMember: (state, { payload }) => {
+      console.log(payload);
+      state.employee.family = state.employee.family.filter(
+        (item) => payload !== item.id
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -54,9 +65,27 @@ const employeeSlice = createSlice({
         state.success = true;
       })
       .addCase(addEmployeeFamily.fulfilled, (state, { payload }) => {
-        state.loader = false;
+        state.addFamilyLoader = false;
         state.success = true;
         console.log(payload);
+        state.employee.family = [...state.employee.family, payload.data];
+      })
+      .addCase(updateEmployeeFamily.fulfilled, (state, { payload }) => {
+        state.updateFamilyLoader = false;
+        state.success = true;
+        console.log(payload);
+        //TODO: replace the response with existing id object
+        const index = state.employee.family.map((item, i) => {
+          if (item.id === payload.id) {
+            return i;
+          }
+        });
+        state.employee.family.splice(index, 1, payload.data);
+        // state.employee.family = [...state.employee.family, payload.data];
+      })
+      .addCase(getAllEmployeeFamilyAction.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.employee.family = payload.data;
       })
       .addCase(getAllEmployees.fulfilled, (state, { payload }) => {
         state.employees = payload.data;
@@ -86,19 +115,45 @@ const employeeSlice = createSlice({
         state.employee.educationdetails = payload.data;
       })
       .addMatcher(
-        isPending(...[addEmployee, getAllEmployees, addEmployeeFamily]),
+        isPending(
+          ...[addEmployee, getAllEmployees, getAllEmployeeFamilyAction]
+        ),
         (state) => {
           state.loader = true;
           state.success = false;
         }
       )
+      .addMatcher(isPending(...[addEmployeeFamily]), (state) => {
+        state.addFamilyLoader = true;
+        state.success = false;
+      })
+      .addMatcher(isPending(...[updateEmployeeFamily]), (state) => {
+        state.updateFamilyLoader = true;
+        state.success = false;
+      })
       .addMatcher(
-        isRejected(...[addEmployee, getAllEmployees, addEmployeeFamily]),
+        isRejected(
+          ...[
+            addEmployee,
+            getAllEmployees,
+            addEmployeeFamily,
+            getAllEmployeeFamilyAction,
+            updateEmployeeFamily,
+          ]
+        ),
         (state) => {
           state.loader = false;
           state.success = false;
         }
-      );
+      )
+      .addMatcher(isRejected(...[addEmployeeFamily]), (state) => {
+        state.addFamilyLoader = false;
+        state.success = false;
+      })
+      .addMatcher(isRejected(...[updateEmployeeFamily]), (state) => {
+        state.updateFamilyLoader = false;
+        state.success = false;
+      });
   },
 });
 export default employeeSlice.reducer;
@@ -108,4 +163,5 @@ export const {
   resetExperiencedetails,
   resetBasicdetails,
   resetEmergencydetails,
+  removeFamilyMember,
 } = employeeSlice.actions;

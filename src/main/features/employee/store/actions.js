@@ -6,6 +6,7 @@ import {
 } from "../../../../services/slices/notificationSlice";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 import { updateUserEmployeeContactService } from "../../emergencyInfo/service/service";
+import { removeFamilyMember } from "./slice";
 
 import {
   addEmployeeService,
@@ -13,6 +14,9 @@ import {
   getEmployeeByIdService,
   updateEmployeeService,
   addEmployeeFamilyService,
+  getAllEmployeeFamilyService,
+  removeEmployeeFamilyService,
+  updateEmployeeFamilyService,
 } from "../services/service";
 
 export const addEmployee = createAsyncThunk(
@@ -47,7 +51,8 @@ export const addEmployee = createAsyncThunk(
 
 export const addEmployeeFamily = createAsyncThunk(
   "addEmployeeFamily",
-  async ({ data }, { dispatch, getState, rejectWithValue }) => {
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    console.log(data, "in actions");
     const res = await addEmployeeFamilyService(data);
 
     if (res?.responseCode === responseCode.Success) {
@@ -68,6 +73,71 @@ export const addEmployeeFamily = createAsyncThunk(
         })
       );
       return isRejectedWithValue(res.message);
+    }
+  }
+);
+
+export const updateEmployeeFamily = createAsyncThunk(
+  "updateEmployeeFamily",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    console.log(data, "in actions");
+    const res = await updateEmployeeFamilyService(data);
+
+    if (res?.responseCode === responseCode.Success) {
+      dispatch(
+        openNotification({
+          message: "Employee Family updated Successfully",
+          type: "success",
+          duration: 2,
+        })
+      );
+      return res;
+    } else {
+      dispatch(
+        openNotification({
+          message: res.message,
+          type: "error",
+          duration: 2,
+        })
+      );
+      return isRejectedWithValue(res.message);
+    }
+  }
+);
+
+export const getAllEmployeeFamilyAction = createAsyncThunk(
+  "getAllEmployeeFamily",
+  async (id, { dispatch, rejectWithValue }) => {
+    const res = await getAllEmployeeFamilyService(id);
+    console.log(res.data, "get all family ");
+    if (res.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        data: res,
+        type: responseMessageType.ApiFailure,
+      });
+      return rejectWithValue(res.message);
+    }
+  }
+);
+
+export const removeEmployeeFamily = createAsyncThunk(
+  "removeEmployeeFamily",
+  async (id, { dispatch, rejectWithValue }) => {
+    const res = await removeEmployeeFamilyService(id);
+    console.log(res, "remove family ");
+    if (res.responseCode === responseCode.Success) {
+      dispatch(removeFamilyMember(id));
+      return res;
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        data: res,
+        type: responseMessageType.ApiFailure,
+      });
+      return rejectWithValue(res.message);
     }
   }
 );

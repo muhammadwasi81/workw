@@ -15,6 +15,7 @@ export const addEmployeeService = (data) => {
 };
 
 export const addEmployeeFamilyService = (data) => {
+  console.log(data, "in service");
   const formData = jsonToFormData(data);
   return MasterConfig.post(`${API_PREFIX}AddEmployeeFamily`, formData)
     .then((res) => {
@@ -22,6 +23,40 @@ export const addEmployeeFamilyService = (data) => {
     })
     .catch((error) => {
       return error;
+    });
+};
+
+export const updateEmployeeFamilyService = (data) => {
+  console.log(data, "in service");
+  const formData = jsonToFormData(data);
+  return MasterConfig.put(`${API_PREFIX}UpdateEmployeeFamily`, formData)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+export const getAllEmployeeFamilyService = (id) => {
+  return MasterConfig.get(`/api/Employee/GetAllEmployeeFamily?userId=${id}`)
+    .then((res) => {
+      console.log(res.data, "getEmployeeByIdService");
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const removeEmployeeFamilyService = (id) => {
+  return MasterConfig.delete(`/api/Employee/RemoveEmployeeFamily?id=${id}`)
+    .then((res) => {
+      console.log(res.data, "getEmployeeByIdService");
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
     });
 };
 

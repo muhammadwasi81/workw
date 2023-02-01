@@ -175,7 +175,7 @@ function EmployeeFamily({ mode }) {
             userId: param.id,
             image: {
               id: STRINGS.DEFAULTS.guid,
-              file: familyImage,
+              file: familyImage[0],
             },
           };
           //TODO: dispatch add family member

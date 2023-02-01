@@ -12,16 +12,15 @@ import {
   addMember,
   handleFavoriteProjects,
 } from '../store/slice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './style.css';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { addProjectFavoriteAction } from '../store/actions';
 
 const { Meta } = Card;
 
-function ListItem(props) {
+const ListItem = (props) => {
   const dispatch = useDispatch();
-  const { projects } = useSelector((state) => state.projectSlice);
   const {
     name,
     description,
@@ -30,8 +29,7 @@ function ListItem(props) {
     id,
     isPinnedPost,
   } = props.item;
-  console.log(props.item, 'props.item');
-  console.log(projects, 'projects');
+
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -74,7 +72,7 @@ function ListItem(props) {
         }
         hoverable
         onClick={() => {
-          // navigate(`${ROUTES.PROJECT.DEFAULT}/${props.id} `);
+          navigate(`${ROUTES.PROJECT.DEFAULT}/${props.id} `);
         }}
       >
         <Meta
@@ -147,6 +145,6 @@ function ListItem(props) {
       {visible && <MemberModal />}
     </>
   );
-}
+};
 
 export default ListItem;

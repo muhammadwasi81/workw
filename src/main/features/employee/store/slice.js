@@ -12,6 +12,9 @@ import {
   getAllEmployeeFamilyAction,
   // removeEmployeeFamily,
   updateEmployeeFamily,
+  addEmployeeDetailAttachment,
+  getAllEmployeeDetailAttachment,
+  // removeEmployeeDetailAttachment,
 } from "./actions";
 
 const initialState = {
@@ -25,9 +28,11 @@ const initialState = {
     devicedetails: [],
     profileDetails: {},
     family: [],
+    attachments: [],
   },
   loader: false,
   addFamilyLoader: false,
+  attachmentLoader: false,
   updateFamilyLoader: false,
   success: false,
 };
@@ -57,6 +62,12 @@ const employeeSlice = createSlice({
         (item) => payload !== item.id
       );
     },
+    deleteEmployeeAttachment: (state, { payload }) => {
+      console.log(payload);
+      state.employee.attachments = state.employee.attachments.filter(
+        (item) => payload !== item.id
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -69,6 +80,15 @@ const employeeSlice = createSlice({
         state.success = true;
         console.log(payload);
         state.employee.family = [...state.employee.family, payload.data];
+      })
+      .addCase(addEmployeeDetailAttachment.fulfilled, (state, { payload }) => {
+        state.attachmentLoader = false;
+        state.success = true;
+        console.log(payload);
+        state.employee.attachments = [
+          ...state.employee.attachments,
+          payload.data,
+        ];
       })
       .addCase(updateEmployeeFamily.fulfilled, (state, { payload }) => {
         state.updateFamilyLoader = false;
@@ -98,6 +118,12 @@ const employeeSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
+      .addCase(getAllEmployeeDetailAttachment.fulfilled, (state, action) => {
+        state.employee.attachments = action.payload.data;
+        console.log(action.payload.data, "profileDetails slice");
+        state.loader = false;
+        state.success = true;
+      })
       .addCase(getBankDetailByUser.fulfilled, (state, { payload }) => {
         state.employee.bankdetails = payload.data;
       })
@@ -116,7 +142,12 @@ const employeeSlice = createSlice({
       })
       .addMatcher(
         isPending(
-          ...[addEmployee, getAllEmployees, getAllEmployeeFamilyAction]
+          ...[
+            addEmployee,
+            getAllEmployees,
+            getAllEmployeeFamilyAction,
+            getAllEmployeeDetailAttachment,
+          ]
         ),
         (state) => {
           state.loader = true;
@@ -125,6 +156,10 @@ const employeeSlice = createSlice({
       )
       .addMatcher(isPending(...[addEmployeeFamily]), (state) => {
         state.addFamilyLoader = true;
+        state.success = false;
+      })
+      .addMatcher(isPending(...[addEmployeeDetailAttachment]), (state) => {
+        state.attachmentLoader = true;
         state.success = false;
       })
       .addMatcher(isPending(...[updateEmployeeFamily]), (state) => {
@@ -139,6 +174,7 @@ const employeeSlice = createSlice({
             addEmployeeFamily,
             getAllEmployeeFamilyAction,
             updateEmployeeFamily,
+            getAllEmployeeDetailAttachment,
           ]
         ),
         (state) => {
@@ -148,6 +184,10 @@ const employeeSlice = createSlice({
       )
       .addMatcher(isRejected(...[addEmployeeFamily]), (state) => {
         state.addFamilyLoader = false;
+        state.success = false;
+      })
+      .addMatcher(isRejected(...[addEmployeeDetailAttachment]), (state) => {
+        state.attachmentLoader = false;
         state.success = false;
       })
       .addMatcher(isRejected(...[updateEmployeeFamily]), (state) => {
@@ -164,4 +204,5 @@ export const {
   resetBasicdetails,
   resetEmergencydetails,
   removeFamilyMember,
+  deleteEmployeeAttachment,
 } = employeeSlice.actions;

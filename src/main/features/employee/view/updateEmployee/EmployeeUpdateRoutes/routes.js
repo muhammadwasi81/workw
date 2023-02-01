@@ -15,7 +15,7 @@ import UserLeave from "../../../../userLeave";
 import UserAppraisal from "../../../../userAppraisal/index";
 import Devices from "../../../../devices";
 import EmployeeFamily from "../../../../employeeFamily/index";
-import EmployeeAttachments from "../../../../employeeAttachments";
+import EmployeeAttachments from "../../employeeAttachments";
 import "../styles/style.css";
 
 const EmployeeRoutes = () => {

@@ -94,3 +94,40 @@ export const updateEmployeeService = (data) => {
       return err;
     });
 };
+
+export const addEmployeeDetailAttachmentService = (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.post(`${API_PREFIX}AddEmployeeDetailAttachment`, formData)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+export const getAllEmployeeDetailAttachmentService = (id) => {
+  return MasterConfig.get(
+    `/api/Employee/GetAllEmployeeDetailAttachment?id=${id}`
+  )
+    .then((res) => {
+      console.log(res.data, "getAllEmployeeAttachment");
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const removeEmployeeDetailAttachmentService = (id) => {
+  return MasterConfig.delete(
+    `/api/Employee/RemoveEmployeeDetailAttachment?id=${id}`
+  )
+    .then((res) => {
+      console.log(res.data, "getAllEmployeeAttachment");
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

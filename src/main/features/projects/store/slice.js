@@ -9,12 +9,10 @@ import {
   getProjectStickyAction,
   getAllProjectMemberAction,
   addProjectMemberAction,
-  addProjectFavoriteAction,
 } from './actions';
 
 const initialState = {
   projects: [],
-  isPinnedProject: false,
   loadingData: false,
   loader: true,
   success: false,
@@ -49,6 +47,12 @@ const projectSlice = createSlice({
       state.projects = state.projects.filter(
         (member) => member.id !== payload.id
       );
+    },
+    handleFavoriteProjects(state, { payload }) {
+      const favProjects = state.projects.find(
+        (project) => project.id === payload.id
+      );
+      favProjects.isPinnedPost = !favProjects.isPinnedPost;
     },
   },
   extraReducers: (builder) => {
@@ -90,28 +94,11 @@ const projectSlice = createSlice({
       .addCase(addProjectMemberAction.fulfilled, (state, { payload }) => {
         state.memberData = [...state.memberData, payload];
         return state;
-      })
-      .addCase(addProjectFavoriteAction.fulfilled, (state, { payload }) => {
-        state.projects = state.projects.map((project) => {
-          console.log('project in slice', payload.isPinnedProject);
-          if (project.id === payload.id) {
-            project.isPinnedProject = payload.isPinnedProject;
-          }
-          return project;
-        });
-        state.loader = false;
-        state.success = true;
       });
     builder
       .addMatcher(
         isPending(
-          ...[
-            getAllProjects,
-            addProject,
-            getProjectById,
-            updateProject,
-            addProjectFavoriteAction,
-          ]
+          ...[getAllProjects, addProject, getProjectById, updateProject]
         ),
         (state) => {
           state.loader = true;
@@ -121,13 +108,7 @@ const projectSlice = createSlice({
       )
       .addMatcher(
         isRejected(
-          ...[
-            getAllProjects,
-            addProject,
-            getProjectById,
-            updateProject,
-            addProjectFavoriteAction,
-          ]
+          ...[getAllProjects, addProject, getProjectById, updateProject]
         ),
         (state) => {
           state.loader = false;
@@ -144,5 +125,6 @@ export const {
   handleComposer,
   addMember,
   deleteProjectMember,
+  handleFavoriteProjects,
 } = projectSlice.actions;
 export default projectSlice.reducer;

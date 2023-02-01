@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import {
-  Avatar,
   Button,
   Checkbox,
   DatePicker,
@@ -27,7 +26,6 @@ import {
 import moment from 'moment';
 import { getCities } from '../../../../utils/Shared/store/actions';
 import { resetEmergencydetails } from '../store/slice';
-import { addUserWorkExperienceService } from '../../experienceInfo/service/service';
 
 const { RangePicker } = DatePicker;
 
@@ -35,7 +33,6 @@ const { Option } = Select;
 
 const ExperienceForm = ({ mode, id }) => {
   const param = useParams();
-  console.log('id', id);
   const isEdit = mode === 'edit';
   const dispatch = useDispatch();
   const [workInfo, setWorkInfo] = useState([]);
@@ -104,20 +101,6 @@ const ExperienceForm = ({ mode, id }) => {
   useEffect(() => {
     if (success) setWorkInfo([]);
   }, [success]);
-
-  // useEffect(() => {
-  //   if (isEdit)
-  //     setWorkInfo(
-  //       experiencedetails?.map((item) => {
-  //         return {
-  //           ...item,
-  //           startDate: item.isPresent
-  //             ? moment(item.startDate)
-  //             : [moment(item.startDate), moment(item.endDate)],
-  //         };
-  //       })
-  //     );
-  // }, [experiencedetails]);
 
   useEffect(() => {
     if (isEdit)
@@ -263,11 +246,7 @@ const ExperienceForm = ({ mode, id }) => {
         initialValues={initialValues}
       >
         <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
           name="position"
           label={labels.Position}
         >
@@ -275,11 +254,7 @@ const ExperienceForm = ({ mode, id }) => {
         </Form.Item>
 
         <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
           name="employmentTypeId"
           label={labels.EmploymentType}
         >
@@ -295,11 +270,7 @@ const ExperienceForm = ({ mode, id }) => {
         <div className="dates">
           {!isPresent && (
             <Form.Item
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
               name="startDate"
               label={labels.StartEndDate}
             >
@@ -314,11 +285,7 @@ const ExperienceForm = ({ mode, id }) => {
 
           {isPresent && (
             <Form.Item
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
               name="startDate"
               label={labels.StartDate}
             >

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card } from 'antd';
 import Avatar from '../../../../../sharedComponents/Avatar/avatar';
 import PublicPrivateIcon from '../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon';
@@ -6,6 +7,7 @@ import QuickOptions from '../../../quickOptions/index';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { handleFavoriteMark } from '../../../store/slice';
 import { addGroupFavoriteMarkAction } from '../../../store/actions';
+import PropTypes from 'prop-types';
 const { Meta } = Card;
 
 function DashboardCardLayout({
@@ -28,9 +30,9 @@ function DashboardCardLayout({
   const handleFavorite = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(handleFavoriteMark({ id: data.id, isPinned: !data.isFavorite }));
+    dispatch(handleFavoriteMark({ id: data.id, isPinned: !data.isPinnedPost }));
     dispatch(
-      addGroupFavoriteMarkAction({ id: data.id, isPinned: !data.isFavorite })
+      addGroupFavoriteMarkAction({ id: data.id, isPinned: !data.isPinnedPost })
     );
   };
   return (
@@ -61,7 +63,6 @@ function DashboardCardLayout({
             </div>
           }
         />
-
         <div className="flex justify-between items-center">
           <div className="members">
             <Avatar
@@ -106,4 +107,14 @@ function DashboardCardLayout({
   );
 }
 
-export default DashboardCardLayout;
+export default memo(DashboardCardLayout);
+DashboardCardLayout.propTypes = {
+  data: PropTypes.object,
+  defaultImg: PropTypes.string,
+  loading: PropTypes.bool,
+  handleUpdate: PropTypes.func,
+  getDetailById: PropTypes.func,
+  onClick: PropTypes.func,
+  dictionary: PropTypes.object,
+  chatIcon: PropTypes.string,
+};

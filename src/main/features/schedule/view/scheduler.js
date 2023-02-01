@@ -14,8 +14,7 @@ import moment from 'moment';
 import { getAllSchedule } from '../store/action';
 
 function Scheduler({ feed = false, referenceId }) {
-  const [sched, setSchedule] = useState(null);
-  const [calendatView, setCalendatView] = useState('');
+  const [calenderView, setCalendarView] = useState('');
   const [todayDate, setTodayDate] = useState(new Date());
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const schedules = useSelector((state) => state.scheduleSlice.schedules);
@@ -84,7 +83,7 @@ function Scheduler({ feed = false, referenceId }) {
   return (
     <>
       <EventDetail />
-      <div className={`schedulerCalender ${calendatView}`}>
+      <div className={`schedulerCalender ${calenderView}`}>
         <FullCalendar
           ref={calendarRef}
           customButtons={{
@@ -141,9 +140,9 @@ function Scheduler({ feed = false, referenceId }) {
           }}
           datesSet={(val) => {
             if (val.view.type !== 'timeGridDay') {
-              setCalendatView(val.view.type);
+              setCalendarView(val.view.type);
             } else {
-              setCalendatView('');
+              setCalendarView('');
             }
           }}
           // nowIndicator={true}

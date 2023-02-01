@@ -6,7 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../../utils/routes';
 import menuIcon from '../../../../content/NewContent/Documents/3dots.svg';
 import MemberModal from './MemberModal';
-import { updateProjectById, handleComposer, addMember } from '../store/slice';
+import {
+  updateProjectById,
+  handleComposer,
+  addMember,
+  handleFavoriteProjects,
+} from '../store/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
@@ -16,12 +21,17 @@ const { Meta } = Card;
 
 function ListItem(props) {
   const dispatch = useDispatch();
-  const { projects, isPinnedProject } = useSelector(
-    (state) => state.projectSlice
-  );
-  const { name, description, image, members = [], id } = props.item;
+  const { projects } = useSelector((state) => state.projectSlice);
+  const {
+    name,
+    description,
+    image,
+    members = [],
+    id,
+    isPinnedPost,
+  } = props.item;
+  console.log(props.item, 'props.item');
   console.log(projects, 'projects');
-  console.log(isPinnedProject, 'isPinnedProject');
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -43,13 +53,11 @@ function ListItem(props) {
     setOpen(false);
   };
 
-  const handlePinnedPost = () => {
-    const payload = {
-      id,
-      isPinned: !isPinnedProject,
-    };
-    console.log(payload, 'payload isPinnedProject');
-    dispatch(addProjectFavoriteAction(payload));
+  const handlePinnedPost = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(addProjectFavoriteAction({ id: id, isPinned: !isPinnedPost }));
+    dispatch(handleFavoriteProjects({ id: id, isPinned: !isPinnedPost }));
   };
 
   return (
@@ -66,7 +74,7 @@ function ListItem(props) {
         }
         hoverable
         onClick={() => {
-          navigate(`${ROUTES.PROJECT.DEFAULT}/${props.id} `);
+          // navigate(`${ROUTES.PROJECT.DEFAULT}/${props.id} `);
         }}
       >
         <Meta
@@ -87,9 +95,11 @@ function ListItem(props) {
               membersData={members}
             />
           </div>
-          <div className="pinned-post" onClick={handlePinnedPost}>
-            {/* The key is on pending from backend for isFavourite */}
-            {isPinnedProject ? (
+          <div
+            className="pinned-post ml-auto mr-2"
+            onClick={(e) => handlePinnedPost(e)}
+          >
+            {isPinnedPost ? (
               <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
             ) : (
               <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />

@@ -2,7 +2,6 @@ import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addGroup,
   getAllGroup,
-  getAllProjects,
   getGroupById,
   updateGroup,
   addGroupMemberAction,

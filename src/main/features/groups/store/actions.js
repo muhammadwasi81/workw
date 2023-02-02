@@ -10,7 +10,7 @@ import {
 } from "../services/service";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { openNotification } from "../../../../utils/Shared/store/slice";
-import { deleteGroupMember } from "../store/slice";
+import { addGroupMember, deleteGroupMember } from "../store/slice";
 
 export const getAllGroup = createAsyncThunk(
   "getAllGroup",
@@ -101,6 +101,7 @@ export const addGroupMemberAction = createAsyncThunk(
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addGroupMemberService(data);
     if (res.responseCode === responseCode.Success) {
+      dispatch(addGroupMember(res.data));
       return res;
     } else {
       dispatch(

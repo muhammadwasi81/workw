@@ -7,7 +7,6 @@ import {
 import { getAllApproval_dto } from "./dto";
 
 export const getAllApprovalService = async (payload) => {
-	console.log(payload, "FROM SERVICE")
 	try {
 		payload = getAllApproval_dto(payload);
 		const {

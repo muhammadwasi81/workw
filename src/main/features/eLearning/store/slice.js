@@ -1,4 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { GetCourseByUserId } from "../../profile/store/action";
 import {
   addBook,
   addBookMember,
@@ -199,6 +200,12 @@ const eLearningSlice = createSlice({
       .addCase(getAllCourse.fulfilled, (state, action) => {
         state.courses = action.payload ? action.payload : [];
         state.loaders.courseLoading = false;
+      })
+      .addCase(GetCourseByUserId.fulfilled, (state, action) => {
+        console.log(action.payload.data, "USER FROM SLICE")
+        let courseByUserId = action.payload.data;
+        state.courses = courseByUserId ? courseByUserId : [];
+        // state.loaders.courseLoading = false;
       })
       .addCase(getAllQuiz.fulfilled, (state, { payload }) => {
         state.quizzes = payload;

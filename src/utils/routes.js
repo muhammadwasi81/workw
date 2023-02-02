@@ -89,7 +89,8 @@ export const ROUTES = {
   },
   ELearning: {
     LINK: `${DOMAIN_PREFIX}/eLearning`,
-    DEFAULT: `${DOMAIN_PREFIX}/eLearning/*`,
+    DEFAULT: `${DOMAIN_PREFIX}/eLearning/*`, 
+    COURSE_DETAIL: `${DOMAIN_PREFIX}/eLearning/courses`,
     TEAM_DASHBOARD: `${DOMAIN_PREFIX}/eLearning/teamDashboard`,
     TEAM_SUMMARY: `${DOMAIN_PREFIX}/eLearning/summary`,
     COURSE_CREATE: `${DOMAIN_PREFIX}/eLearning/courses/create`,

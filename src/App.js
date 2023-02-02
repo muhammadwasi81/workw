@@ -38,6 +38,8 @@ import Jobs from "./main/features/jobs/view/Jobs";
 import ApplyJob from "./main/features/careers/view/PublicRoute/ApplyJob";
 import ApplyRequisition from "./main/features/requisition/view/publicRoutes/ApplyRequisition";
 import SetupPassword from "./main/features/auth/view/SetupPassword";
+import { servicesUrls } from "./utils/services/baseURLS";
+import { InitializeSocket } from "./utils/InitCallingSocket";
 
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -60,6 +62,7 @@ const App = () => {
   useEffect(() => {
     themeHandler(window.localStorage.getItem("darkMode") === "1");
     isLoggedIn && InitMessengerSocket(dispatch, userSlice);
+    isLoggedIn && InitializeSocket.getInstance(dispatch, servicesUrls.callingSocket, userSlice);
     // dispatch(openNotification({ message: "hello", duration: null }));
   }, []);
   const [activityCount /*setActivityCount*/] = useState(null);

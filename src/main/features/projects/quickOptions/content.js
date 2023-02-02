@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-// import { DocsComposerEnums, DOCUMENT_ENUM } from '../../../constant';
-import { useDispatch } from "react-redux";
-import { AssignMemEnum, MemberEnum } from "../../eLearning/constant";
-// import { handleOpenDocComposer, handleUpdateFolder, handleUpdateFolderMemberId } from '../../../store/slice';
-import {
-  getLeadManagerGroupDetailById,
-  handleComposer,
-  addMember,
-} from "../store/slice";
-import MemberModal from "../view/Modal/MemberModal";
+import { useDispatch, useSelector } from "react-redux";
+import { handleComposer, addMember, updateProjectById } from "../store/slice";
+
+import MemberModal from "../UI/MemberModal";
 
 const ContentOptions = ({ handleClose, data }) => {
   const dispatch = useDispatch();
@@ -17,8 +11,7 @@ const ContentOptions = ({ handleClose, data }) => {
   const handleUpdate = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // getDetailById(data.id);
-    dispatch(getLeadManagerGroupDetailById(data.id));
+    dispatch(updateProjectById(data.id));
     dispatch(handleComposer({ isOpen: true, isEdit: true }));
     handleClose(false);
   };

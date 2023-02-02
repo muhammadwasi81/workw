@@ -16,12 +16,10 @@ import { addMember } from "../../store/slice";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import { deleteLeadManagerMember } from "../../store/slice";
+import { data } from "jquery";
 
-function MemberModal({ isOpen = false }) {
+function MemberModal({ isOpen = false, data }) {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userSlice.user.id);
-  const { memberData } = useSelector((state) => state.leadMangerSlice);
-  console.log(memberData, "memberDataaaa");
 
   const modalRequest = useSelector(
     (state) => state.leadMangerSlice.addMemberModal
@@ -32,13 +30,6 @@ function MemberModal({ isOpen = false }) {
   const [value, setValue] = useState([]);
 
   let ModalOpen = modalRequest.status;
-  let Type = modalRequest.type;
-
-  console.log(Type, "TYPE !!");
-
-  useEffect(() => {
-    ModalOpen && dispatch(getAllLeadManagerMember(userId));
-  }, [ModalOpen]);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -52,21 +43,22 @@ function MemberModal({ isOpen = false }) {
     dispatch(addMember(false));
   };
 
-  const handleChange = (id) => {
-    let memberId = id.toString();
-    console.log(memberId);
-    const data = {
-      id: userId,
+  const handleChange = (myId) => {
+    let memberId = myId.toString();
+    const membersData = {
+      id: data.id,
       memberId: memberId,
     };
 
-    memberData.filter((item) => {
-      item.member.id === data.id ? message.error("NOT WORKING") : 
-      dispatch(addLeadManagereMember(memberData));
-      dispatch(getAllLeadManagerMember(userId)); 
-      console.log(data.id,"itemmmmm");
-    })
-    // console.log(a, "AAAAA")
+    let a = data.members.filter((item) => {
+      return item.member.id === membersData.memberId;
+    });
+    let b = a[0] ? a[0].memberId : "";
+    if (membersData.memberId === b) {
+      return message.error("Member Already Added");
+    } else {
+      dispatch(addLeadManagereMember(membersData));
+    }
   };
 
   useEffect(() => {
@@ -76,18 +68,14 @@ function MemberModal({ isOpen = false }) {
     }
   }, [employees]);
 
-  const [newState, setNewState] = useState({
-    members: [],
-    memberType: null,
-  });
-  const handleDeleteMember = (id) => {
-    let memberId = id.toString();
-    const data = {
-      id: userId,
+  const handleDeleteMember = (myId) => {
+    let memberId = myId.toString();
+    const membersData = {
+      id: data.id,
       memberId: memberId,
     };
-    dispatch(deleteLeadManagerById(data));
-    dispatch(deleteLeadManagerMember(memberId));
+    dispatch(deleteLeadManagerById(membersData));
+    // dispatch(deleteLeadManagerMember(memberId));
   };
   return (
     <Modal
@@ -136,12 +124,11 @@ function MemberModal({ isOpen = false }) {
       />
       <ApproverListItem
         className="AddMemberModal"
-        data={memberData}
+        data={data.members}
         handleDelete={handleDeleteMember}
       />
     </Modal>
   );
 }
-
 
 export default MemberModal;

@@ -69,7 +69,7 @@ function DashboardCardLayout({
               isAvatarGroup={true}
               isTag={false}
               heading={'Members'}
-              membersData={data.members ? data.members : []}
+              membersData={data.members}
             />
           </div>
           {/* {userId === data.createBy && (

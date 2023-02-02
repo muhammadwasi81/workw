@@ -9,6 +9,7 @@ import {
   getProjectStickyAction,
   getAllProjectMemberAction,
   addProjectMemberAction,
+  deleteProjectMemberAction,
 } from './actions';
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   isEditComposer: false,
   addMemberModal: false,
   memberData: [],
+  removeMemberSucess: false,
 };
 
 const projectSlice = createSlice({
@@ -44,8 +46,8 @@ const projectSlice = createSlice({
       state.isComposerOpen = isOpen;
     },
     deleteProjectMember(state, { payload }) {
-      state.projects = state.projects.filter(
-        (member) => member.id !== payload.id
+      state.memberData = state.memberData.filter(
+        (member) => member.memberId !== payload
       );
     },
     handleFavoriteProjects(state, { payload }) {
@@ -92,10 +94,19 @@ const projectSlice = createSlice({
         state.memberData = action.payload.data;
       })
       .addCase(addProjectMemberAction.fulfilled, (state, { payload }) => {
-        state.memberData = [...state.memberData, payload];
-        return state;
+        if (payload.data.length > 0) {
+          state.memberData = [...state.memberData, payload.data[0]];
+          return state;
+        }
+      })
+      .addCase(deleteProjectMemberAction.fulfilled, (state, { payload }) => {
+        state.removeMemberSucess = true;
       });
+
     builder
+      .addMatcher(isPending(...[deleteProjectMemberAction]), (state) => {
+        state.removeMemberSucess = false;
+      })
       .addMatcher(
         isPending(
           ...[getAllProjects, addProject, getProjectById, updateProject]
@@ -106,6 +117,9 @@ const projectSlice = createSlice({
           state.success = false;
         }
       )
+      .addMatcher(isRejected(...[deleteProjectMemberAction]), (state) => {
+        state.removeMemberSucess = false;
+      })
       .addMatcher(
         isRejected(
           ...[getAllProjects, addProject, getProjectById, updateProject]

@@ -261,8 +261,8 @@ export const deleteProjectMemberAction = createAsyncThunk(
     const res = await deleteProjectMemberService(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        dispatch(deleteProjectMember({ id: data }));
-      responseMessage({ dispatch, data: res });
+        // dispatch(deleteProjectMember({ id: data }));
+        responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
         dispatch: dispatch,

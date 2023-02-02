@@ -52,6 +52,7 @@
     "react-scripts": "^5.0.1",
     "react-treelist": "^1.2.0",
     "redux-persist": "^6.0.0",
+    "socket.io-client": "^4.5.4",
     "styled-components": "^5.3.5",
     "sunflower-antd": "^1.0.0-beta.3",
     "swiper": "^8.1.4",

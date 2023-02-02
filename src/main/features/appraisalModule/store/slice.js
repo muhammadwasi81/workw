@@ -5,6 +5,7 @@ import {
   addAppraisal,
   getAllAppraisalByIdAction,
   getAllAppraisalByMeAction,
+  getAllPreviousAppraisalAction,
 } from "./action";
 
 const defaultCareer = {
@@ -20,6 +21,7 @@ const initialState = {
   success: false,
   appraisals: [],
   appraisalDetail: {},
+  previousAppraisals: [],
   detailLoader: false,
   currentTab: "allAppraisals",
   drawerOpen: false,
@@ -64,6 +66,13 @@ const appraisalModuleSlice = createSlice({
         state.userTask = payload;
         state.loader = false;
       })
+      .addCase(
+        getAllPreviousAppraisalAction.fulfilled,
+        (state, { payload }) => {
+          state.previousAppraisals = payload;
+          state.loader = false;
+        }
+      )
       .addCase(addAppraisal.fulfilled, (state, { payload }) => {
         state.loader = false;
       })
@@ -77,6 +86,9 @@ const appraisalModuleSlice = createSlice({
         state.loader = true;
       })
       .addMatcher(isPending(...[getAllAppraisalByMeAction]), (state) => {
+        state.loader = true;
+      })
+      .addMatcher(isPending(...[getAllPreviousAppraisalAction]), (state) => {
         state.loader = true;
       })
       .addMatcher(isPending(...[getAllAppraisalByIdAction]), (state) => {
@@ -95,6 +107,9 @@ const appraisalModuleSlice = createSlice({
         state.detailLoader = false;
       })
       .addMatcher(isRejected(...[getAllAppraisalByMeAction]), (state) => {
+        state.loader = false;
+      })
+      .addMatcher(isRejected(...[getAllPreviousAppraisalAction]), (state) => {
         state.loader = false;
       });
   },

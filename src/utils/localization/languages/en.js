@@ -436,9 +436,11 @@ const en = {
     Rebate: 'Rebate',
     Salary: 'Salary',
     Leaves: 'Leaves',
-    Devices: 'Activity Logs',
-    Attachments: 'Attachments',
+    Devices: 'Devices',
     basicInfo: 'Basic Info',
+    Appraisal: 'Appraisal',
+    Family: 'Family',
+    Attachments: 'Attachments',
   },
   administration: {
     basicInfo: 'Basic Info',

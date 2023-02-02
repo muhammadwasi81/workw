@@ -20,7 +20,7 @@ function CompanyList() {
   const { companyDictionary, Direction } = companyDictionaryList[userLanguage];
   const labels = companyDictionary.sharedLabels;
 
-  const { teams, loader } = useSelector((state) => state.teamSlice);
+  const { teams, loader } = useSelector((state) => state.companySlice);
   useEffect(() => {
     dispatch(getTeamsAction());
   }, []);

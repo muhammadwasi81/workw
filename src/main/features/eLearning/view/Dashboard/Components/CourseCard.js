@@ -8,6 +8,7 @@ import WhiteCard from "../../../UI/WhiteCard";
 import BoxThumnail from "../UI/BoxThumnail";
 import defaultImage from "../../../../../../content/NewContent/courses/courseDefault.jpg"
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../../../../utils/routes";
 
 export const LevelsIcon = {
 	1: <img src={beginner} alt="beginner" />,
@@ -31,7 +32,7 @@ function CourseCard({data}) {
 	return (
 		<WhiteCard
 			onClick={() => {
-				navigate(`courses/${data.id}`);
+				navigate(`${ROUTES.ELearning.COURSE_DETAIL}/${data.id}`); 
 			}}
 			className="cursor-pointer hover:shadow-lg transition-all"
 		>

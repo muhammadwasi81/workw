@@ -11,9 +11,15 @@ import {
   getAllCourseMember,
   GetBookById,
   GetCourseById,
+  RemoveCousrseMemberAction,
+  RemoveBookMemberAction,
 } from "../../../store/action";
 import { useParams } from "react-router-dom";
-import { addMember } from "../../../store/slice";
+import {
+  addMember,
+  removeCourseMember,
+  removeBookMember,
+} from "../../../store/slice";
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import { MemberEnum } from "../../../constant";
@@ -25,7 +31,7 @@ function MemberModal({ isOpen = false }) {
   const modalRequest = useSelector(
     (state) => state.eLearningSlice.addMemberModal
   );
-  const { courseMembers, bookMembers } = useSelector(
+  const { courseMembers, bookMembers, removeCourseMemberSuccess } = useSelector(
     (state) => state.eLearningSlice
   );
   const employees = useSelector((state) => state.sharedSlice.employees);
@@ -35,8 +41,6 @@ function MemberModal({ isOpen = false }) {
 
   let ModalOpen = modalRequest.status;
   let Type = modalRequest.type;
-
-  console.log(ModalOpen, "ModalOpen")
 
   useEffect(() => {
     if (Type === MemberEnum.courses) {
@@ -65,14 +69,23 @@ function MemberModal({ isOpen = false }) {
       id: assignMemberId,
       memberId: memberId,
     };
-    if (Type === MemberEnum.courses) {
-      dispatch(addCourseMember(data));
-      dispatch(getAllCourseMember(assignMemberId));
-    } else if (Type === MemberEnum.ebook) {
-      dispatch(addBookMember(data));
-      dispatch(getAllBookMember(assignMemberId));
+
+    let a = courseMembers.filter((item) => {
+      return item.memberId === data.memberId
+    });
+
+    if (data.memberId === a[0] && a[0].memberId) {
+      message.error("Member Already Added")
     } else {
-        message.error("Type is not defined");
+      if (Type === MemberEnum.courses) {
+        dispatch(addCourseMember(data));
+        dispatch(getAllCourseMember(assignMemberId));
+      } else if (Type === MemberEnum.ebook) {
+        dispatch(addBookMember(data));
+        dispatch(getAllBookMember(assignMemberId));
+      } else {
+          message.error("Type is not defined");
+      }
     }
   };
 
@@ -87,7 +100,28 @@ function MemberModal({ isOpen = false }) {
     members: [],
     memberType: null,
   });
+  const handleMemberDelete = (id) => {
+    let memberId = id.toString();
+    const data = {
+      id: assignMemberId,
+      memberId: memberId,
+    };
+    if (Type === MemberEnum.courses) {
+      dispatch(RemoveCousrseMemberAction(data));
 
+      dispatch(removeCourseMember(memberId));
+    } else if (Type === MemberEnum.ebook) {
+      dispatch(RemoveBookMemberAction(data));
+      dispatch(removeBookMember(memberId));
+    }
+  };
+
+  // useEffect(() => {
+  //   if (removeCourseMemberSuccess) {
+  //     let memberId = id.toString();
+  //     dispatch(removeCourseMember(memberId));
+  //   }
+  // }, [removeCourseMemberSuccess]);
   return (
     <Modal
       open={ModalOpen}
@@ -136,6 +170,7 @@ function MemberModal({ isOpen = false }) {
       {courseMembers?.length > 0 || bookMembers.length > 0 ? (
         <ApproverListItem
           className="AddMemberModal"
+          handleDelete={handleMemberDelete}
           data={
             Type === MemberEnum.ebook
               ? bookMembers

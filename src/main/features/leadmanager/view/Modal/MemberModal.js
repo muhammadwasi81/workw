@@ -60,14 +60,23 @@ function MemberModal({ isOpen = false }) {
       memberId: memberId,
     };
 
-    memberData.filter((item) => {
-      item.member.id === data.id ? message.error("NOT WORKING") : 
+   let a = memberData.filter((item) => {
+     return  item.member.id === data.memberId  
+    })
+
+    let b = a[0] ? a[0].memberId : "";  
+    console.log(data.memberId,"bbbbbbbbbbbbbbb")
+  
+       
+    if(data.memberId === b) {
+      return message.error("Member Already Added")
+      } 
+    else{
       dispatch(addLeadManagereMember(memberData));
       dispatch(getAllLeadManagerMember(userId)); 
       console.log(data.id,"itemmmmm");
-    })
-    // console.log(a, "AAAAA")
-  };
+    };
+ };
 
   useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
@@ -142,6 +151,5 @@ function MemberModal({ isOpen = false }) {
     </Modal>
   );
 }
-
 
 export default MemberModal;

@@ -26,6 +26,10 @@ const employeeSalarySlice = createSlice({
       })
       .addCase(addEmployeeSalaryAction.fulfilled, (state, { payload }) => {
         state.employeeSalary = [...state.employeeSalary, ...payload];
+        state.currentEmployeeSalary = [
+          ...state.currentEmployeeSalary,
+          ...payload,
+        ];
         console.log(payload, "slice payload");
         state.loader = false;
         state.success = true;

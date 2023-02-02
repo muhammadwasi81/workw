@@ -14,7 +14,7 @@ export default function PrivacyOptions({ onPrivacyChange, privacyId, labels }) {
 	return (
 		<Dropdown
 			trigger={["click"]}
-			overlay={PostPrivacyOptionsMenu(handleChange, labels)}
+			menu={PostPrivacyOptionsMenu(handleChange, labels)}
 			open={isOpen}
 		>
 			<button className="dropdown-button" onClick={() => setIsOpen(true)}>

@@ -62,10 +62,10 @@ const menu = (changeBgColor, deleteList) => {
 
 function MenuDropDown({ changeBgColor, deleteList, addMembers }) {
 	return (
-		<Dropdown overlay={menu(changeBgColor, deleteList)} trigger={["click"]}>
-			<EllipsisOutlined className="cursor-pointer p-1 rounded-sm hover:bg-slate-400 hover:bg-opacity-40 h-fit hover:transition-all" />
-		</Dropdown>
-	);
+    <Dropdown menu={menu(changeBgColor, deleteList)} trigger={['click']}>
+      <EllipsisOutlined className="cursor-pointer p-1 rounded-sm hover:bg-slate-400 hover:bg-opacity-40 h-fit hover:transition-all" />
+    </Dropdown>
+  );
 }
 
 export default MenuDropDown;

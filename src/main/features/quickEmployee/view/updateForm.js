@@ -2,7 +2,7 @@ import { Button, Form, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import { useSelector, useDispatch } from "react-redux";
-import { userType } from "../../../../utils/Shared/enums/enums";
+import { userTypeList } from "../../../../utils/Shared/enums/enums";
 import { addInList, handleSave } from "../store/slice";
 
 const { Option } = Select;
@@ -124,7 +124,7 @@ const UpdateForm = () => {
               placeholder={"Select User Type"}
               getPopupContainer={(trigger) => trigger.parentNode}
             >
-              {userType.map((type) => (
+              {userTypeList.map((type) => (
                 <Option key={type.id} value={type.id}>
                   {type.name}
                 </Option>

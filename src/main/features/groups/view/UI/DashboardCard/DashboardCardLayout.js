@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Skeleton } from "antd";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 import PublicPrivateIcon from "../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
 import { useSelector, useDispatch } from "react-redux";
-// import { addMember } from "../../store/slice";
-// import MemberModal from "../../view/Modal/MemberModal";
-// import "./style.css";
+
 import QuickOptions from "../../../quickOptions/index";
+import { getAllGroupMemberAction } from "../../../store/actions";
 
 function DashboardCardLayout({
   data = {},
@@ -23,13 +22,14 @@ function DashboardCardLayout({
   const [menuOpen, setMenuOpen] = useState(false);
   const { Meta } = Card;
   const userId = useSelector((state) => state.userSlice.user.id);
-  // console.log("dict", dictionary);
-  //   console.log(dictionary, "dictionaryyyyy");
-
+  const { memberData } = useSelector((state) => state.groupSlice);
   const menuHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
+  useEffect(() => {
+    // disptach(getAllGroupMemberAction(userId));
+  }, []);
   return (
     <>
       <Card
@@ -77,7 +77,7 @@ function DashboardCardLayout({
               isAvatarGroup={true}
               isTag={false}
               heading={"Members"}
-              membersData={data.members ? data.members : []}
+              membersData={data.members}
             />
           </div>
           {/* {userId === data.createBy && (
@@ -93,7 +93,7 @@ function DashboardCardLayout({
               {dictionary?.labels?.update}
             </div>
           )} */}
-          <div className="flex justify-end">
+          <div className="flex justify-end justify-between">
             <div className={`halfHeader `}>
               <img src={chatIcon} alt="" width={20} />
             </div>{" "}

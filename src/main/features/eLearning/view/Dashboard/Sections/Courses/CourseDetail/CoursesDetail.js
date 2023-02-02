@@ -29,6 +29,7 @@ function CoursesDetail() {
 	const navigate = useNavigate();
 	const id = useParams().id;
 	const { courseDetail, loaders } = useSelector((state) => state.eLearningSlice);
+
 	let {
 		image,
 		name,
@@ -39,7 +40,7 @@ function CoursesDetail() {
 		courseType,
 		curriculums,
 	} = courseDetail
-	let Default = defaultImage
+	let Default = defaultImage;
 	// let Default = "https://www.makeintern.com/learning/img/online-course12.jpg"
 	let loader = loaders.courseDetailLoading
 

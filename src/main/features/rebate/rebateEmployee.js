@@ -43,18 +43,6 @@ function RebateEmployee({ mode }) {
     dispatch(getAllEmployeeRebate(param.id));
   }, []);
 
-  // Object.defineProperty(form, "values", {
-  //   value: function() {
-  //     return {
-  //       ...form.getFieldsValue(),
-  //       date: moment(form.getFieldValue("date")._ds).format(),
-  //     };
-  //   },
-  //   writable: true,
-  //   enumerable: true,
-  //   configurable: true,
-  // });
-
   useEffect(() => {
     if (isEdit)
       setRebateEmployee(
@@ -301,7 +289,7 @@ function RebateEmployee({ mode }) {
           />
         </Form.Item>
       </Form>
-      <div className={isEdit ? "editButtons" : "buttons"}>
+      <div className={isEdit ? "editButtons " : "buttons"}>
         <Button
           type="dashed"
           style={{ marginLeft: "auto" }}

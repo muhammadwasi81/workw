@@ -6,11 +6,12 @@ import { employeeDictionaryList } from '../localization/index';
 import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
 import { EditOutlined } from '@ant-design/icons';
 import {
-  userType,
+  userTypeList,
   userTitle,
   genderList,
   maritalStatusList,
   employmentType,
+  userTypeEnum,
 } from '../../../../utils/Shared/enums/enums';
 import { useDispatch } from 'react-redux';
 import {
@@ -42,7 +43,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const [form] = Form.useForm();
   const initialState = {
     coverImageId: '',
-    userTypeId: '',
+    userTypeId: userTypeEnum.Employee || userTypeEnum.Admin,
     titleId: 1,
     firstName: '',
     lastName: '',
@@ -69,7 +70,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const [showSubsidary, setShowSubsidary] = useState(false);
   const [department, setDepartment] = useState([]);
   const [initialValues, setInitialValues] = useState(initialState);
-  console.log(initialValues.managerId, 'managerrr');
   const { countries, cities } = useSelector((state) => state.sharedSlice);
   const { designations } = useSelector((state) => state.designationSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
@@ -86,7 +86,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
-
+  console.log(accessRoles, 'accessRoles');
+  console.log(userTypeList, 'userType');
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -117,7 +118,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
   const selectBefore = (
     <Form.Item name="titleId" className="titleSelect">
       <Select
-        style={{ padding: '0', width: '4.5rem', marginBottom: 0 }}
+        style={{
+          padding: '0',
+          width: '4.5rem',
+          marginBottom: 0,
+        }}
         getPopupContainer={(trigger) => trigger.parentNode}
       >
         {userTitle.map((titles) => (
@@ -137,17 +142,14 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
 
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
-      if (!countries?.length) dispatch(getCountries());
-      if (!cities?.length) fetchCityData('', 0);
+      if (!countries.length) dispatch(getCountries());
+      if (!cities.length) fetchCityData('', 0);
+      if (!designations.length) dispatch(getAllDesignation());
+      if (!grades.length) dispatch(getAllGrades());
+      if (!officeTimingGroups?.length) dispatch(getAllOfficeTimingGroups());
+      if (!accessRoles.length) dispatch(getAllAccessRoles());
+      if (!department.length) getAllDepartments();
     }
-    if (!designations?.length) dispatch(getAllDesignation());
-    if (!grades?.length) dispatch(getAllGrades());
-    if (!officeTimingGroups?.length) dispatch(getAllOfficeTimingGroups());
-    if (!accessRoles?.length) {
-      dispatch(getAllAccessRoles());
-    }
-    if (!department?.length) getAllDepartments();
-
     return () => {
       dispatch(resetBasicdetails());
     };
@@ -159,9 +161,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         ...basicdetails,
         birthDate: moment(basicdetails.birthDate),
         joinDate: moment(basicdetails.joinDate),
-        accessRoleId: basicdetails?.accessRoles?.map(
-          (item) => item.accessRoleId
-        ),
+        accessRoleId: basicdetails.accessRoles,
         officeTimingId:
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
             ? ''
@@ -172,8 +172,6 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
       });
     }
   }, [basicdetails]);
-
-  console.log(basicdetails.manager?.id, 'managerId');
 
   useEffect(() => {
     form.setFieldsValue(initialValues);
@@ -192,10 +190,21 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     configurable: true,
   });
   const fetchEmployees = (text, pgNo) => {
-    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+    dispatch(
+      getAllEmployees({
+        text,
+        pgNo,
+        pgSize: 20,
+      })
+    );
   };
   const fetchCityData = (text, pgNo) => {
-    dispatch(getCities({ textData: text, page: pgNo }));
+    dispatch(
+      getCities({
+        textData: text,
+        page: pgNo,
+      })
+    );
   };
 
   const handleUpdateInfo = async () => {
@@ -215,7 +224,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             // noticePeriod: parseInt(payload.noticePeriod),
             noticePeriod: 30,
           };
-          dispatch(updateEmployeeAction({ data: payload }));
+          dispatch(
+            updateEmployeeAction({
+              data: payload,
+            })
+          );
         }
       }
     } catch (err) {
@@ -225,6 +238,8 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
       });
     }
   };
+
+  console.log('userType.id', userTypeList);
 
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
@@ -237,7 +252,12 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         layout={'vertical'}
         initialValues={initialValues}
       >
-        <Form.Item area="true" style={{ gridArea: '1/-2 / span 2 / span 1' }}>
+        <Form.Item
+          area="true"
+          style={{
+            gridArea: '1/-2 / span 2 / span 1',
+          }}
+        >
           <SingleUpload
             url={isEdit ? initialValues.image : ''}
             value={profileImage}
@@ -247,11 +267,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           />
         </Form.Item>
         <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
           name="firstName"
           label={labels.FirstName}
         >
@@ -275,14 +291,28 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Input placeholder={placeholder.fatherName}></Input>
         </Form.Item>
         <Form.Item
-          rules={[{ required: true }, { type: 'email' }]}
+          rules={[
+            {
+              required: true,
+            },
+            {
+              type: 'email',
+            },
+          ]}
           name="email"
           label={labels.Email}
         >
           <Input placeholder={placeholder.email}></Input>
         </Form.Item>
         <Form.Item
-          rules={[{ required: true }, { type: 'email' }]}
+          rules={[
+            {
+              required: true,
+            },
+            {
+              type: 'email',
+            },
+          ]}
           name="personalEmail"
           label={labels.PersonalEmail}
         >
@@ -538,8 +568,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
               size="large"
               getPopupContainer={(trigger) => trigger.parentNode}
               placeholder={placeholder.selectUserType}
+              defaultValue={userTypeEnum.Employee || userTypeEnum.Admin}
             >
-              {userType.map((type) => (
+              {userTypeList.map((type) => (
                 <Option key={type.id} value={type.id}>
                   {type.name}
                 </Option>
@@ -559,17 +590,24 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
             showSearch={true}
             onChange={(value) => {
-              console.log(value, 'accessrole');
+              console.log(value, 'accessroles');
             }}
+            mode="multiple"
             filterOption={(input, option) =>
               (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             }
-            options={accessRoles.map((item) => {
-              return {
-                value: item.id,
-                label: item.name,
-              };
-            })}
+            options={accessRoles
+              .filter(
+                (x) =>
+                  x.roleTypeId === userTypeEnum.Employee ||
+                  x.roleTypeId === userTypeEnum.Admin
+              )
+              .map((item) => {
+                return {
+                  value: item.id,
+                  label: item.name,
+                };
+              })}
           >
             {accessRoles.map((item) => (
               <Select.Option key={item.id} value={item.id}>
@@ -600,7 +638,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         {!isEdit && (
           <Form.Item
             name="subsidiary"
-            rules={[{ required: false }]}
+            rules={[
+              {
+                required: false,
+              },
+            ]}
             label={labels.subsidiary}
           >
             <Select
@@ -634,7 +676,11 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
         {showSubsidary && (
           <Form.Item
             name="subsidiaryOffice"
-            rules={[{ required: false }]}
+            rules={[
+              {
+                required: false,
+              },
+            ]}
             label={labels.subsidiaryOffice}
           >
             <Select

@@ -44,6 +44,11 @@ export const listitem = [
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/salary/${id}`,
   },
   {
+    displayName: "Appraisal",
+    classObj: "button",
+    to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/appraisal/${id}`,
+  },
+  {
     displayName: "Leaves",
     classObj: "button",
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/leaves/${id}`,
@@ -52,5 +57,15 @@ export const listitem = [
     displayName: "Devices",
     classObj: "button",
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/devices/${id}`,
+  },
+  {
+    displayName: "Family",
+    classObj: "button",
+    to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/family/${id}`,
+  },
+  {
+    displayName: "Attachments",
+    classObj: "button",
+    to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/attachments/${id}`,
   },
 ];

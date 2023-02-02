@@ -12,7 +12,10 @@ import UserEmailConfiguration from "../../../../emailUserConfiguration/view/inde
 // import UserConfiguration from "../../../../emailConfiguration/view/index";
 
 import UserLeave from "../../../../userLeave";
-import Devices from "../../../../devices/view/index";
+import UserAppraisal from "../../../../userAppraisal/index";
+import Devices from "../../../../devices";
+import EmployeeFamily from "../../../../employeeFamily/index";
+import EmployeeAttachments from "../../employeeAttachments";
 import "../styles/style.css";
 
 const EmployeeRoutes = () => {
@@ -30,8 +33,11 @@ const EmployeeRoutes = () => {
         <Route path={"/emergencyInfo/:id"} element={<EmergencyForm />} />
         <Route path={"/rebate/:id"} element={<RebateEmployee mode="edit" />} />
         <Route path={"/salary/:id"} element={<SalaryEmployee mode="edit" />} />
+        <Route path={"/appraisal/:id"} element={<UserAppraisal />} />
         <Route path={"/experience/:id"} element={<ExperienceForm />} />
         <Route path={"/devices/:id"} element={<Devices />} />
+        <Route path={"/family/:id"} element={<EmployeeFamily mode="edit" />} />
+        <Route path={"/attachments/:id"} element={<EmployeeAttachments />} />
         <Route path={"*"} element={<BrokenPage />} />
       </Routes>
     </div>

@@ -1,5 +1,6 @@
 export let DOMAIN_PREFIX = "";
-// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
 
 export const ROUTES = {
   SEARCH: {
@@ -88,7 +89,8 @@ export const ROUTES = {
   },
   ELearning: {
     LINK: `${DOMAIN_PREFIX}/eLearning`,
-    DEFAULT: `${DOMAIN_PREFIX}/eLearning/*`, 
+    DEFAULT: `${DOMAIN_PREFIX}/eLearning/*`,
+    COURSE_DETAIL: `${DOMAIN_PREFIX}/eLearning/courses`,
     TEAM_DASHBOARD: `${DOMAIN_PREFIX}/eLearning/teamDashboard`,
     TEAM_SUMMARY: `${DOMAIN_PREFIX}/eLearning/summary`,
     COURSE_CREATE: `${DOMAIN_PREFIX}/eLearning/courses/create`,

@@ -29,6 +29,7 @@ function LeadManager() {
 	const leadManagerData = useSelector(
 		state => state.leadMangerSlice.leadManagersData
 	);
+	console.log(leadManagerData, )
 	const loading = useSelector(state => state.leadMangerSlice.loading);
 	useEffect(() => {
 		const promise = dispatch(

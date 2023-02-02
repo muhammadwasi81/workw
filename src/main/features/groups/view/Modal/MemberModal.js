@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { message, Modal } from "antd";
+import { message, Modal, Form } from "antd";
 import { useSelector } from "react-redux";
 import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import ApproverListItem from "../../../../sharedComponents/AppComponents/Approvals/components/approverList";
@@ -9,20 +9,22 @@ import {
   addGroupMemberAction,
 } from "../../store/actions";
 import { useParams } from "react-router-dom";
-import { addMember } from "../../store/slice";
+import { addMember, deleteGroupMember } from "../../store/slice";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import { deleteGroupMemberAction } from "../../store/actions";
+import { data } from "jquery";
 
-function MemberModal({ isOpen = false }) {
+function MemberModal({ isOpen = false, data }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
-  const { memberData } = useSelector((state) => state.groupSlice);
+  const { memberData, success } = useSelector((state) => state.groupSlice);
   const modalRequest = useSelector((state) => state.groupSlice.addMemberModal);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
+  const [form] = Form.useForm();
 
   let ModalOpen = modalRequest.status;
   let Type = modalRequest.type;
@@ -30,7 +32,7 @@ function MemberModal({ isOpen = false }) {
   // console.log(Type, "TYPE !!");
 
   useEffect(() => {
-    ModalOpen && dispatch(getAllGroupMemberAction(userId));
+    // ModalOpen && dispatch(getAllGroupMemberAction(id));
   }, [ModalOpen]);
 
   useEffect(() => {
@@ -45,14 +47,14 @@ function MemberModal({ isOpen = false }) {
     dispatch(addMember(false));
   };
 
-  const handleChange = (id) => {
-    let memberId = id.toString();
-    const data = {
-      id: userId,
+  const handleChange = (myid) => {
+    let memberId = myid.toString();
+    const members = {
+      id: data.id,
       memberId: memberId,
     };
-    dispatch(addGroupMemberAction(data));
-    dispatch(getAllGroupMemberAction(userId));
+    dispatch(addGroupMemberAction(members));
+    // dispatch(getAllGroupMemberAction());
   };
 
   useEffect(() => {
@@ -67,13 +69,15 @@ function MemberModal({ isOpen = false }) {
     memberType: null,
   });
 
-  const handleDeleteMember = (id) => {
-    const memberId = id.toString();
-    const data = {
-      id: userId,
+  const handleDeleteMember = (myid) => {
+    const memberId = myid.toString();
+    const members = {
+      id: data.id,
       memberId: memberId,
     };
-    dispatch(deleteGroupMemberAction(data));
+
+    dispatch(deleteGroupMemberAction(members));
+    dispatch(deleteGroupMember(memberId));
   };
   return (
     <Modal
@@ -112,6 +116,7 @@ function MemberModal({ isOpen = false }) {
         dataVal={value}
         name="members"
         showSearch={true}
+        resetField={true}
         // direction={Direction}
         rules={[
           {
@@ -122,7 +127,7 @@ function MemberModal({ isOpen = false }) {
       />
       <ApproverListItem
         className="AddMemberModal"
-        data={memberData}
+        data={data.members}
         handleDelete={handleDeleteMember}
       />
     </Modal>

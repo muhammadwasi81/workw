@@ -198,7 +198,7 @@ const NewStickyNote = ({ item }) => {
 
             {/* ******Drop Down menu (color, copy, share) on three dot****** */}
             <div className="leftNote_Icon">
-              <Dropdown overlay={menu}>
+              <Dropdown menu={menu}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
                     <EllipsisOutlined className="threedot_Icon" />

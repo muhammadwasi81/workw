@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import { DocsComposerEnums, DOCUMENT_ENUM } from '../../../constant';
 import { useDispatch } from "react-redux";
-import { AssignMemEnum,MemberEnum } from "../../eLearning/constant";
+import { AssignMemEnum, MemberEnum } from "../../eLearning/constant";
 // import { handleOpenDocComposer, handleUpdateFolder, handleUpdateFolderMemberId } from '../../../store/slice';
 import {
   getLeadManagerGroupDetailById,
@@ -26,7 +26,7 @@ const ContentOptions = ({ handleClose, data }) => {
     e.preventDefault();
     e.stopPropagation();
     setVisible(true);
-    dispatch(addMember({ status: true}));
+    dispatch(addMember({ status: true }));
     handleClose(false);
   };
 
@@ -47,7 +47,7 @@ const ContentOptions = ({ handleClose, data }) => {
           {/* <BsChatSquareText className="text-md text-[#5B626A]" /> */}
           <span>Members</span>
         </div>
-        {visible && <MemberModal />}
+        {visible && <MemberModal data={data} />}
       </div>
     </>
   );

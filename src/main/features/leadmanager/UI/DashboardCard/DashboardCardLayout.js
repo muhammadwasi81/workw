@@ -19,14 +19,7 @@ function DashboardCardLayout({
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const userId = useSelector((state) => state.userSlice.user.id);
   const { Meta } = Card;
-  const { memberData } = useSelector((state) => state.leadMangerSlice);
-  console.log(memberData.member, "memberData in useselector");
-
-  useEffect(() => {
-    dispatch(getAllLeadManagerMember(userId));
-  }, []);
 
   const menuHandler = (e) => {
     e.preventDefault();
@@ -74,18 +67,16 @@ function DashboardCardLayout({
         />
 
         <div className="flex justify-between items-center">
-          {memberData && (
-            <div className="members">
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Members"}
-                membersData={memberData || []}
-                text={"Danish"}
-                image={"https://joeschmoe.io/api/v1/random"}
-              />
-            </div>
-          )}
+          <div className="members">
+            <Avatar
+              isAvatarGroup={true}
+              isTag={false}
+              heading={"Members"}
+              membersData={data.members}
+              text={"Danish"}
+              image={"https://joeschmoe.io/api/v1/random"}
+            />
+          </div>
 
           {/* {userId === data.createBy && (
             <div

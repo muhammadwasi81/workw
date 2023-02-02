@@ -2,37 +2,38 @@ import React, { useState, useContext, useEffect } from 'react';
 import {
   ContBody,
   TabContainer,
-} from '../../sharedComponents/AppComponents/MainFlexContainer';
-import Tab from '../../sharedComponents/Tab';
-import ProfileCoverDetail from './ProfileCoverDetail';
-import ProfilePanel from './view/ProfilePanel';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { ROUTES } from '../../../utils/routes';
-import './styles/profileStyle.css';
-import NewsFeed from '../feed/ui';
-import { getEducationDetailByUser } from '../education/store/actions';
-import { useDispatch } from 'react-redux';
-import { getUserWorkExperience } from '../experienceInfo/store/actions';
-import { getEmployeeByIdAction } from './store/action';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import { profileDictionaryList } from './localization/index';
-import Courses from '../team/view/Courses';
-import ActivityLog from '../team/view/ActivityLog';
-import Education from '../team/view/Education';
-import Leaves from '../team/view/Leaves';
-import Experience from '../team/view/Experience';
-import CheckIn from '../team/view/CheckIn';
-import ProfileCover from '../projects/UI/ProfileCover';
-import SingleNotes from '../notes/singleNotes/singleNotes';
-import AppraisalTable from './appraisals';
-import AwardsTable from './awards';
-import SalaryTable from './salary';
-import { useSelector } from 'react-redux';
-import CustomNotes from '../notes/singleNotes/singleNotes';
-import { targetStickyDescription } from '../notes/newStickyNotes/store/stickySlice';
-import { addSticky } from '../notes/newStickyNotes/store/actions';
-import { CopyOutlined, EllipsisOutlined } from '@ant-design/icons';
-import { Menu, Dropdown, Space } from 'antd';
+} from "../../sharedComponents/AppComponents/MainFlexContainer";
+import Tab from "../../sharedComponents/Tab";
+import ProfileCoverDetail from "./ProfileCoverDetail";
+import ProfilePanel from "./view/ProfilePanel";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../../utils/routes";
+import "./styles/profileStyle.css";
+import NewsFeed from "../feed/ui";
+import { getEducationDetailByUser } from "../education/store/actions";
+import { useDispatch } from "react-redux";
+import { getUserWorkExperience } from "../experienceInfo/store/actions";
+import { getEmployeeByIdAction } from "./store/action";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { profileDictionaryList } from "./localization/index";
+// import Courses from "../team/view/Courses";
+import ActivityLog from "../team/view/ActivityLog";
+import Education from "../team/view/Education";
+import Leaves from "../team/view/Leaves";
+import Experience from "../team/view/Experience";
+import CheckIn from "../team/view/CheckIn";
+import ProfileCover from "../projects/UI/ProfileCover";
+import SingleNotes from "../notes/singleNotes/singleNotes";
+import AppraisalTable from "./appraisals";
+import AwardsTable from "./awards";
+import SalaryTable from "./salary";
+import { useSelector } from "react-redux";
+import CustomNotes from "../notes/singleNotes/singleNotes";
+import { targetStickyDescription } from "../notes/newStickyNotes/store/stickySlice";
+import { addSticky } from "../notes/newStickyNotes/store/actions";
+import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { Menu, Dropdown, Space } from "antd";
+import Courses from "../eLearning/view/Dashboard/Sections/Courses/Courses";
 import TeamAppraisal from '../appraisalModule/view/components/TeamAppraisal/index';
 
 const Profile = () => {
@@ -172,8 +173,8 @@ const Profile = () => {
     },
     {
       featureName: profileDictionary.appraisal,
-      content: <AppraisalTable />,
-      featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
+      // content: <AppraisalTable />,
+      // featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
       content: <TeamAppraisal userId={id} />,
       featureId: ROUTES.USER.DEFAULT + id + '/appraisal',
     },

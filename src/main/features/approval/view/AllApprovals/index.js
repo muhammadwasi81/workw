@@ -49,8 +49,6 @@ export default function AllApprovals() {
     });
   };
 
-  console.log(filter, "FROM INDEX FILE")
-
   useEffect(() => {
     let isMyApproval = true;
     dispatch(getAllApproval({ isMyApproval, filter }));

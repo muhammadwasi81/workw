@@ -20,7 +20,6 @@ import { getAllApprovalService } from "../services/service";
 export const getAllApproval = createAsyncThunk(
   "Approval/getAllApproval",
   async (filter, { rejectWithValue, dispatch }) => {
-    console.log(filter, "FILTER FROM ACTION")
     const response = await getAllApprovalService(filter);
     switch (response.type) {
       case ResponseType.ERROR:

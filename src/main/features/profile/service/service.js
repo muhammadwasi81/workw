@@ -77,6 +77,20 @@ export const getEducation = async (userId) => {
     });
 };
 
+export const GetCourseByUserIdService = async (userId) => {
+  return MasterConfig.get(
+    `/api/ELearning/GetELearningCourseCurriculumTopicAttemptByUser?userId=${userId}`
+  )
+    .then((res) => {
+      console.log(res.data, 'education service');
+      return res;
+    })
+    .catch((err) => {
+      console.log(err.message, 'error in education');
+      return err;
+    });
+};
+
 // update user coverImg
 export const updateCoverImgService = async (data) => {
   const formData = jsonToFormData(data);

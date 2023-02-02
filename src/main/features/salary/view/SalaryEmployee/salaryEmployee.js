@@ -128,6 +128,29 @@ function SalaryEmployee({ mode }) {
       ellipsis: true,
       key: "description",
     },
+    {
+      title: "Action",
+      render: (value, __, rowIndex) => {
+        return (
+          <a
+            href=" "
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (isEdit) {
+                console.log("ssss");
+                const newPayload = {
+                  basicSalary: currentEmployeeSalary[rowIndex].basicSalary,
+                };
+                form.setFieldsValue(newPayload);
+              }
+            }}
+          >
+            Edit
+          </a>
+        );
+      },
+    },
   ];
 
   return (
@@ -206,23 +229,13 @@ function SalaryEmployee({ mode }) {
       </Form>
       <div className={isEdit ? "editButtons" : "buttons"}>
         <Button
-          type="dashed"
+          type="btn ThemeBtn"
           style={{ marginLeft: "auto" }}
           icon={<EditOutlined />}
           onClick={handleSubmit}
         >
           Add Salary
         </Button>
-        {isEdit && (
-          <Button
-            className="btn ThemeBtn"
-            icon={<EditOutlined />}
-            // onClick={}
-            // disabled={!disableAdd ? true : false}
-          >
-            Update Rebate
-          </Button>
-        )}
       </div>
       {/* {salaryEmployee.length > 0 && (
         <div className="rebateTable" style={{ marginTop: '1rem' }}>

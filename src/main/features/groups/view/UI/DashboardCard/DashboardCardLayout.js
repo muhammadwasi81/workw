@@ -23,14 +23,12 @@ function DashboardCardLayout({
   const { Meta } = Card;
   const userId = useSelector((state) => state.userSlice.user.id);
   const { memberData } = useSelector((state) => state.groupSlice);
-  console.log(memberData, "group memeberss");
-
   const menuHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
   useEffect(() => {
-    disptach(getAllGroupMemberAction(userId));
+    // disptach(getAllGroupMemberAction(userId));
   }, []);
   return (
     <>
@@ -75,14 +73,12 @@ function DashboardCardLayout({
 
         <div className="flex justify-between items-center">
           <div className="members">
-            {memberData && (
-              <Avatar
-                isAvatarGroup={true}
-                isTag={false}
-                heading={"Members"}
-                membersData={memberData ? memberData : []}
-              />
-            )}
+            <Avatar
+              isAvatarGroup={true}
+              isTag={false}
+              heading={"Members"}
+              membersData={data.members}
+            />
           </div>
           {/* {userId === data.createBy && (
             <div

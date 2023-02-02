@@ -93,3 +93,15 @@
   resize: none;
   padding: 5px;
 }
+
+@media (min-width: 1280px) {
+  .coursListing .xl\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .coursListing .md\:grid-cols-2 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

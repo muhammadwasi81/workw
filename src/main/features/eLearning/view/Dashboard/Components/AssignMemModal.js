@@ -75,14 +75,25 @@ function AssignMemberModal({ isOpen = false }) {
       id: assignMemberId,
       memberId: memberId,
     };
-    if (Type === AssignMemEnum.courses) {
-      dispatch(addCourseAssignMem(data));
-      dispatch(getAllCourseAssignMem(assignMemberId));
-    } else if (Type === AssignMemEnum.ebook) {
-      dispatch(addBookAssignMem(data));
-      dispatch(getAllBookAssignMem(assignMemberId));
+    let a = courseAssignMembers.filter((item) => {
+      return item.memberId === data.memberId
+    });
+
+    let b = a[0] && a[0].memberId
+    console.log(data.memberId, b,)
+
+    if (data.memberId === a[0] && a[0].memberId) {
+      message.error("Member Already Added")
     } else {
-      message.error("Type is not defined");
+      if (Type === AssignMemEnum.courses) {
+        dispatch(addCourseAssignMem(data));
+        dispatch(getAllCourseAssignMem(assignMemberId));
+      } else if (Type === AssignMemEnum.ebook) {
+        dispatch(addBookAssignMem(data));
+        dispatch(getAllBookAssignMem(assignMemberId));
+      } else {
+        message.error("Type is not defined");
+      }
     }
   };
 

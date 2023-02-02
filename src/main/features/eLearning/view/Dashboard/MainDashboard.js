@@ -49,7 +49,7 @@ function MainDashboard() {
   ];
   return (
     <DashboardLayout>
-      <div className="overflow-hidden flex flex-col gap-3">
+      <div className="overflow-hidden flex flex-col gap-3 coursListing">
         <DashboardOverview />
         <Tab panes={panes} className={"elearning-dashboard__tab"} />
         <DocumentComposers /> 

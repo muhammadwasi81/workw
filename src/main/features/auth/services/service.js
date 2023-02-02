@@ -16,7 +16,7 @@ export const loginService = (data) => {
 
 export const signupService = (data) => {
   const formData = jsonToFormData(data);
-  return MasterConfig.post("api/Auth/Signup", formData)
+  return MasterConfig.post("api/Signup/Signup", formData)
     .then((res) => {
       return res;
     })
@@ -26,7 +26,7 @@ export const signupService = (data) => {
 };
 
 export const emailVerificationService = (data) => {
-  return MasterConfig.get(`api/Auth/VerifySignupEmailToken?token=${data}`);
+  return MasterConfig.get(`api/Signup/VerifySignupEmailToken?token=${data}`);
 };
 
 export const setNewPasswordService = (data) => {

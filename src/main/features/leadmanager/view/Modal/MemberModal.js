@@ -45,18 +45,20 @@ function MemberModal({ isOpen = false, data }) {
 
   const handleChange = (myId) => {
     let memberId = myId.toString();
-    console.log(memberId);
     const membersData = {
       id: data.id,
       memberId: memberId,
     };
 
-    // memberData.filter((item) => {
-    //   item.member.id === data.id
-    //     ? message.error("NOT WORKING")
-    dispatch(addLeadManagereMember(membersData));
-    // });
-    // console.log(a, "AAAAA")
+    let a = data.members.filter((item) => {
+      return item.member.id === membersData.memberId;
+    });
+    let b = a[0] ? a[0].memberId : "";
+    if (membersData.memberId === b) {
+      return message.error("Member Already Added");
+    } else {
+      dispatch(addLeadManagereMember(membersData));
+    }
   };
 
   useEffect(() => {

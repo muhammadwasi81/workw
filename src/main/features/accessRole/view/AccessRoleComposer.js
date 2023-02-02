@@ -80,19 +80,6 @@ function AccessRoleComposer(props) {
           permissionId: feature.featureId,
           children: [],
         }));
-      console.log(
-        bussinessFeatures.map((x) => ({
-          key: JSON.stringify({
-            name: x.name,
-            permissionId: x.featureId,
-            permissions: x.permissions,
-          }),
-          title: x.name,
-          id: x.featureId,
-          children: [],
-        })),
-        'json object'
-      );
       let transformedChildren;
 
       for (let i = 0; i < bussinessFeatures.length; i++) {
@@ -107,17 +94,6 @@ function AccessRoleComposer(props) {
             title: permission.name,
             parentId: bussinessFeatures[i].featureId,
           }));
-        console.log(
-          bussinessFeatures[i].permissions.map((x) => ({
-            key: JSON.stringify({
-              permissionId: x.id,
-            }),
-            value: x.featurePermissionId,
-            title: x.name,
-            parentId: bussinessFeatures[i].featureId,
-          })),
-          'dusra wala object'
-        );
         transformObject[i].children = transformedChildren;
       }
       let newFeatures = [...featuresTreeData];
@@ -162,13 +138,13 @@ function AccessRoleComposer(props) {
     }
   }, [singleAccessRole]);
 
-  useEffect(() => {
-    if (success) {
-      setCheckedKeys([]);
-      setSelectedKeys([]);
-      props.form.resetFields();
-    }
-  }, [success]);
+  // useEffect(() => {
+  //   if (success) {
+  //     setCheckedKeys([]);
+  //     setSelectedKeys([]);
+  //     props.form.resetFields();
+  //   }
+  // }, [success]);
 
   const onExpand = (expandedKeysValue) => {
     setExpandedKeys(expandedKeysValue);
@@ -192,11 +168,7 @@ function AccessRoleComposer(props) {
 
     for (let i = 0; i < checkedKeys.length; i++) {
       let id = checkedKeys[i].split('_')[1];
-      console.log(id, 'id');
       let data = checkedKeys[i].split('_')[0];
-      console.log(data, 'data');
-      console.log(checkedKeys, 'checkedKeys[i]');
-      console.log(finalData, 'finalData');
       if (id) {
         if (
           finalData.features.length > 0 &&
@@ -210,7 +182,6 @@ function AccessRoleComposer(props) {
             }
           });
         } else {
-          console.log([JSON.parse(data)], 'TTTTTTT');
           finalData.features.push({
             featureId: Number(id),
             name: JSON.parse(data).name,
@@ -239,11 +210,9 @@ function AccessRoleComposer(props) {
 
   const onFinish = (values) => {
     if (checkedKeys.length === 0) {
-      message.error('Please add access role!');
-      return;
+      return message.error('Please add access role!');
     }
     let finalData = handleTreeForm(values);
-    console.log(finalData, 'finalData');
     if (props.isEdited) {
       finalData.id = props.id;
     }

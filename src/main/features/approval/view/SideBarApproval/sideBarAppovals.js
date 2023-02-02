@@ -21,12 +21,10 @@ export default function Approvals() {
     // const approvalStatus = useSelector(state => state.responsiveSlice.approvalStatus);
     const approvalList = useSelector(state => state.approvalSlice.approvalList);
     useEffect(() => {
-        let isMyApproval = true;
+        let isMyApproval = true;    
         if (approvalStatus)
             dispatch(getAllApproval({isMyApproval, filter}));
     }, [approvalStatus]);
-
-    console.log(filter, "FROM SIDEBAR")
     return (
         <div className="approval_list_cont" >
             <div className="approval_header" >

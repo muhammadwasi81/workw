@@ -10,6 +10,7 @@ import {
   getEducation,
   updateCoverImgService,
   updateUserProfileImgService,
+  GetCourseByUserIdService,
 } from '../service/service';
 
 export const addEmployeeAction = createAsyncThunk(
@@ -76,6 +77,15 @@ export const getEducationAction = createAsyncThunk(
   `Employee/education`,
   async (userId) => {
     const response = await getEducation(userId);
+    console.log(response.data, 'getEducation actions');
+    return response.data;
+  }
+);
+
+export const GetCourseByUserId = createAsyncThunk(
+  `eLearning/CourseByUserId`,
+  async (userId) => {
+    const response = await GetCourseByUserIdService(userId);
     console.log(response.data, 'getEducation actions');
     return response.data;
   }

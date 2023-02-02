@@ -21,8 +21,7 @@ import {
   responseMessage,
   responseMessageType,
 } from '../../../../services/slices/notificationSlice';
-import { jsonToFormData, STRINGS } from '../../../../utils/base';
-import { deleteProjectMember } from '../store/slice';
+import { jsonToFormData } from '../../../../utils/base';
 
 const addSticky_SD = (data) => {
   return {

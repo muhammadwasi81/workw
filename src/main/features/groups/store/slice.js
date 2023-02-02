@@ -7,7 +7,6 @@ import {
   addGroupMemberAction,
   getAllGroupMemberAction,
   deleteGroupMemberAction,
-  addGroupFavoriteMarkAction,
 } from './actions';
 
 const initialState = {
@@ -114,14 +113,6 @@ const groupSlice = createSlice({
       .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
       })
-      .addCase(addGroupFavoriteMarkAction.fulfilled, (state, { payload }) => {
-        state.groups = state.groups.map((group) => {
-          if (group.id === payload.data.id) {
-            group.isFavorite = payload.data.isFavorite;
-          }
-          return group;
-        });
-      })
       .addMatcher(isPending(getAllGroup), (state) => {
         state.loader = true;
       })
@@ -154,5 +145,6 @@ export const {
   addMember,
   deleteGroupMember,
   addGroupMember,
+  handleFavoriteMark,
 } = groupSlice.actions;
 export default groupSlice.reducer;

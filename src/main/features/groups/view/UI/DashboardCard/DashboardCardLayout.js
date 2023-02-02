@@ -21,7 +21,6 @@ function DashboardCardLayout({
   chatIcon,
 }) {
   const dispatch = useDispatch();
-
   const menuHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -85,7 +84,7 @@ function DashboardCardLayout({
               {dictionary?.labels?.update}
             </div>
           )} */}
-          <div className="flex justify-end">
+          <div className="flex  justify-between">
             <div className={`halfHeader `}>
               <img src={chatIcon} alt="chatIcon" loading="lazy" width={20} />
             </div>

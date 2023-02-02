@@ -29,7 +29,7 @@ const ListItem = (props) => {
     id,
     isPinnedPost,
   } = props.item;
-
+  console.log(props.item, 'props.item');
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);

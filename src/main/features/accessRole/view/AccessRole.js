@@ -82,6 +82,7 @@ function AccessRole() {
   }, [singleAccessRole, formData]);
 
   const handleEdit = (data) => {
+    console.log(data, 'data in index.js');
     setId(data.id);
     setIsDefault(data.isDefault);
     setFormData((prevData) => ({
@@ -89,6 +90,7 @@ function AccessRole() {
       name: data.name,
       roleTypeId: data.roleTypeId,
       description: data.description,
+      features: data.features,
     }));
     dispatch(getAccessRoleById(data.id));
     setOpenDrawer(true);
@@ -102,7 +104,9 @@ function AccessRole() {
         name: formData.name,
         description: formData.description,
         roleTypeId: formData.roleTypeId,
+        features: formData.features,
       });
+      form.setFieldsValue(defaultData);
     }
   }, [openDrawer, form]);
 

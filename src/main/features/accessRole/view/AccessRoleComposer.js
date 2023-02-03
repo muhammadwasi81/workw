@@ -1,4 +1,4 @@
-import { Button, Form, Input, Tree, Skeleton, message } from 'antd';
+import { Button, Form, Input, Tree, Skeleton, message, Checkbox } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FormTextArea } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
@@ -13,6 +13,7 @@ import {
   userTypeList,
 } from '../../../../utils/Shared/enums/enums';
 import { STRINGS } from '../../../../utils/base';
+const { TreeNode } = Tree;
 
 const initialTreeData = [
   {
@@ -47,6 +48,10 @@ function AccessRoleComposer(props) {
   const { administration, sharedLabels, Direction } = dictionaryList[
     userLanguage
   ];
+
+  console.log(featuresTreeData, 'featuresTreeData');
+  // console.log(checkedKeys, 'checkedKeys');
+  // console.log(featuresTreeData, 'featuresTreeData');
 
   useEffect(() => {
     getAllBussinessFeatures();
@@ -104,15 +109,15 @@ function AccessRoleComposer(props) {
   }, [bussinessFeatures]);
 
   useEffect(() => {
-    if (
-      singleAccessRole &&
-      singleAccessRole.features &&
-      singleAccessRole.features.length > 0
-    ) {
+    if (singleAccessRole && singleAccessRole?.features?.length > 0) {
+      console.log(singleAccessRole, 'singleAccessRole');
       setFormDataObject((prevObj) => ({
         ...prevObj,
         name: props.formData.name,
         description: props.formData.description,
+        roleTypeId: props.formData.roleTypeId,
+        features: props.formData.features,
+        permissions: props.formData.permissions,
       }));
 
       let checkedData = [];
@@ -127,10 +132,12 @@ function AccessRoleComposer(props) {
           let singleAccessRoleObj = {
             id: '',
             name: '',
+            features: [],
             permissions: [],
           };
           singleAccessRoleObj.name = singleAccessRole.features[i].name;
           singleAccessRoleObj.id = singleAccessRole.features[i].id;
+          singleAccessRoleObj.features = singleAccessRole.features[i].features;
           checkedData.push(JSON.stringify(singleAccessRoleObj));
         }
       }
@@ -138,27 +145,32 @@ function AccessRoleComposer(props) {
     }
   }, [singleAccessRole]);
 
-  // useEffect(() => {
-  //   if (success) {
-  //     setCheckedKeys([]);
-  //     setSelectedKeys([]);
-  //     props.form.resetFields();
-  //   }
-  // }, [success]);
+  useEffect(() => {
+    if (success) {
+      setCheckedKeys([]);
+      setSelectedKeys([]);
+      props.form.resetFields();
+    }
+  }, [success]);
 
   const onExpand = (expandedKeysValue) => {
+    console.log('onExpand', expandedKeysValue);
     setExpandedKeys(expandedKeysValue);
     setAutoExpandParent(false);
   };
 
   const onCheck = (checkedKeysValue) => {
+    console.log('onCheck', checkedKeysValue);
     setCheckedKeys(checkedKeysValue);
   };
 
-  const onSelect = (selectedKeysValue) => {
+  const onSelect = (selectedKeysValue, info) => {
+    console.log('onSelect', info);
     setSelectedKeys(selectedKeysValue);
   };
+
   const handleTreeForm = (values) => {
+    console.log(values, 'handleTreeForm');
     let finalData = {
       name: values.name,
       description: values.description,
@@ -214,6 +226,7 @@ function AccessRoleComposer(props) {
     }
     let finalData = handleTreeForm(values);
     if (props.isEdited) {
+      console.log(props.isEdited, 'props.isEdited');
       finalData.id = props.id;
     }
     props.onSubmitData(finalData);
@@ -222,12 +235,12 @@ function AccessRoleComposer(props) {
   useEffect(() => {
     if (props.isEdited) {
       const finalData = handleTreeForm(formDataObject);
+      console.log(finalData, 'finalData in useEffect');
       finalData &&
         finalData.features &&
         finalData.features.sort((a, b) => {
           return a.id - b.id;
         });
-
       if (
         JSON.stringify(finalData).includes(JSON.stringify(props.defaultData))
       ) {
@@ -236,7 +249,7 @@ function AccessRoleComposer(props) {
         setIsObjEqual(false);
       }
     }
-  }, [formDataObject, checkedKeys]);
+  }, [formDataObject, checkedKeys, props.defaultData]);
 
   useEffect(() => {
     if (!props.openDrawer) {
@@ -256,6 +269,7 @@ function AccessRoleComposer(props) {
           name: props.formData.name,
           description: props.formData.description,
           roleTypeId: props.formData.roleTypeId,
+          features: props.formData.features,
         }}
       >
         <div>

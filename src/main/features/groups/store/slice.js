@@ -84,15 +84,16 @@ const groupSlice = createSlice({
       .addCase(getAllGroup.fulfilled, (state, { payload }) => {
         state.groups = payload.data;
         state.success = true;
+        state.loadingData = false;
       })
       .addCase(addGroup.fulfilled, (state, { payload }) => {
+        state.groups = [{ ...payload }, ...state.groups];
         state.loader = false;
         state.success = true;
-        state.groups = [{ ...payload }, ...state.groups];
       })
       .addCase(getGroupById.fulfilled, (state, { payload }) => {
         state.groupDetail = payload.data;
-        state.loader = false;
+        state.loadingData = false;
         state.success = true;
       })
       .addCase(updateGroup.fulfilled, (state, { payload }) => {
@@ -119,25 +120,23 @@ const groupSlice = createSlice({
       .addMatcher(isPending(getAllGroup), (state) => {
         state.loader = true;
       })
-      .addMatcher(
-        isPending(...[addGroup, updateGroup, getGroupById]),
-        (state) => {
-          state.loader = true;
-          state.success = false;
-          state.error = false;
-        }
-      )
+      .addMatcher(isPending(...[addGroup]), (state) => {
+        state.loader = true;
+        state.success = false;
+        state.error = false;
+      })
+      .addMatcher(isRejected(...[addGroup]), (state) => {
+        state.loader = false;
+        state.success = false;
+      })
       .addMatcher(isRejected(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
       })
-      .addMatcher(
-        isRejected(...[getAllGroup, addGroup, updateGroup, getGroupById]),
-        (state) => {
-          state.loader = false;
-          state.success = false;
-          state.error = true;
-        }
-      );
+      .addMatcher(isRejected(...[updateGroup, getGroupById]), (state) => {
+        state.loader = false;
+        state.success = false;
+        state.error = true;
+      });
   },
 });
 

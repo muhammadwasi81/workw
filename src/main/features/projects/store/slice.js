@@ -169,5 +169,6 @@ export const {
   addMember,
   deleteProjectMember,
   addProjectMember,
+  handleFavoriteProjects,
 } = projectSlice.actions;
 export default projectSlice.reducer;

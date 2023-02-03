@@ -9,7 +9,7 @@ const Devices = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
   const {
-    employee: { deviceDetails },
+    employee: { devicedetails },
   } = useSelector((state) => state.employeeSlice);
 
   useEffect(() => {
@@ -17,13 +17,13 @@ const Devices = () => {
   }, [dispatch, user?.id]);
 
   console.log(user.id, 'userId');
-  console.log(deviceDetails, 'deviceDetails');
+  console.log(devicedetails, 'deviceDetails');
   return (
     <div className="deviceTable">
       <Table
         columns={tableDevicesColumn}
         dragable={true}
-        dataSource={deviceDetails}
+        dataSource={devicedetails}
       />
     </div>
   );

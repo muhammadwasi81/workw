@@ -1,6 +1,6 @@
 export const servicesUrls = { master: "", messenger: "", auth: "", mail: "", callingSocket: "" };
-export const buildType = "LIVE";
-// export const buildType = "LOCAL";
+// export const buildType = "LIVE";
+export const buildType = "LOCAL";
 
 export const MASTER_URL = (() => {
   if (buildType === "LIVE") {

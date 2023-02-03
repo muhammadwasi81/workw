@@ -18,10 +18,16 @@ export const getAllLeadManagerMemberService = (id) => {
 export const addLeadManagerMemberService = async (data) => {
   let id = data.id;
   let memberId = data.memberId;
-  console.log(memberId, "memberIdd");
-  return MasterConfig.post(`api/LeadManager/AddLeadManagerMember?id=${id}`, [
-    { memberId: memberId },
-  ])
+  let member = [
+    {
+      memberId: memberId,
+      memberType: 1,
+    },
+  ];
+  return MasterConfig.post(
+    `api/LeadManager/AddLeadManagerMember?id=${id}`,
+    member
+  )
     .then((res) => {
       return res;
     })

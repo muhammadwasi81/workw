@@ -121,9 +121,13 @@ export const getAllProjectMemberService = (id) => {
 export const addProjectMemberService = (data) => {
   let id = data.id;
   let memberId = data.memberId;
-  return MasterConfig.post(`api/Project/AddProjectMember?id=${id}`, [
-    { memberId: memberId },
-  ])
+  let member = [
+    {
+      memberId: memberId,
+      memberType: 1,
+    },
+  ];
+  return MasterConfig.post(`api/Project/AddProjectMember?id=${id}`, member)
     .then((res) => {
       return res.data;
     })

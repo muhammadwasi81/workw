@@ -49,6 +49,7 @@ function MemberModal({ isOpen = false, data }) {
       id: data.id,
       memberId: memberId,
     };
+   
 
     let a = data.members.filter((item) => {
       return item.member.id === membersData.memberId;

@@ -150,3 +150,26 @@ export const getAllCheckInService = async (id) => {
     return ResponseResultError(e);
   }
 };
+
+export const getDeviceInfoService = async (payload) => {
+  try {
+    console.log(payload, "REQUEST Leave RESPONSE");
+    const {
+      data: { responseCode, data, message },
+    } = await Config.post(`api/Device/GetAllDevice`, payload);
+    console.log(data, "REQUESTcheck");
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+
+  // try {
+  //   const res = await Config.post(`api/Device/GetAllDevice`, payload);
+  //   return res.data;
+  // } catch (err) {
+  //   return err;
+  // }
+};

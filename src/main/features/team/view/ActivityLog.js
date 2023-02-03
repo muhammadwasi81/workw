@@ -1,75 +1,49 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext,useState,useEffect } from 'react';
 import { TeamTable } from './TaskTable/TeamTable';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { dictionaryList } from '../../../../utils/localization/languages';
-import { teamDictionaryList } from '../localization/index';
 import ModalComponent from './modal';
+import { Table } from 'antd';
+import { useSelector,useDispatch} from "react-redux";
+import {getDeviceInfoAction} from "../store/action";
+import { ActivityLogTbale } from './ActivityLogTable';
+import { useParams } from 'react-router-dom';
+import "../Styles/table.css"
 
 function ActivityLog() {
-  const { userLanguage } = useContext(LanguageChangeContext);
-  const { sharedLabels } = dictionaryList[userLanguage];
-  const { teamDictionary } = teamDictionaryList[userLanguage];
-  const labels = teamDictionary.ActivityLogTbale;
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useSelector((state) => state.userSlice);
+  const {
+    team: { devicedetails },
+  } = useSelector((state) => state.teamSlice);
+  // const { deviceDetails } = useSelector((state) => state.teamSlice);
 
-  // const onRow = () => {
-  //   return {
-  //     onClick: () => {
-  //       setIsModalOpen(true);
-  //     },
-  //   };
-  // };
+  console.log(devicedetails,"deviceDetailsdeviceDetails");
+
+  const { id } = useParams();
+  let myId = user.id ? user.id : id;
+
+  useEffect(() => {
+    dispatch(getDeviceInfoAction([user?.id]));
+  }, []);
+  
+  console.log(user.id, 'userIdddd');
+
 
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const columns = [
-    {
-      title: labels.Date,
-      dataIndex: 'date',
-      key: 'date',
-      sort: true,
-      width: 200,
-    },
-
-    {
-      title: labels.LoginFrom,
-      dataIndex: 'loginFrom',
-      key: 'loginFrom',
-      sort: true,
-      width: 200,
-    },
-    {
-      title: labels.LoginIp,
-      dataIndex: 'loginIP',
-      key: 'loginIP',
-      sort: true,
-      width: 200,
-    },
-    {
-      title: labels.Location,
-      dataIndex: 'location',
-      key: 'location',
-      sort: true,
-      width: 200,
-    },
-  ];
+ 
   return (
     <>
-      <TeamTable
+     <div className="deviceTable">
+      <Table
         bordered
-        columns={columns}
+        columns={ActivityLogTbale}
         className="custom_table"
         onClick={showModal}
-        dataSource={[
-          {
-            date: 'Mon 2019',
-            loginFrom: 'web app',
-            loginIP: '99999',
-            location: 'miletap',
-          },
-        ]}
+        dataSource={devicedetails?devicedetails:[]}
       />
+      </div>
       <ModalComponent showModal={isModalOpen} />
     </>
   );

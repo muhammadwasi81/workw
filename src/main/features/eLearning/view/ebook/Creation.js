@@ -144,19 +144,19 @@ function CreateEbook() {
 
     console.log(Object.keys(image).length)
 
-    // if (bookEdit) {
-    //   if (Object.keys(image).length > 0) {
-    //     dispatch(updateBook({...dataObject, id: bookEdit.id, image: image, attachment: attachment}))
-    //   } else {
-    //     dispatch(updateBook({...dataObject, id: bookEdit.id}))
-    //   } 
-    // }  else {
-    //   if (Object.keys(image).length > 0) {
-    //     dispatch(addBook({...dataObject, image: image, attachment: attachment}))
-    //   } else {
-    //     dispatch(addBook(dataObject))
-    //   }
-    // }
+    if (bookEdit) {
+      if (Object.keys(image).length > 0) {
+        dispatch(updateBook({...dataObject, id: bookEdit.id, image: image, attachment: attachment}))
+      } else {
+        dispatch(updateBook({...dataObject, id: bookEdit.id}))
+      } 
+    }  else {
+      if (Object.keys(image).length > 0) {
+        dispatch(addBook({...dataObject, image: image, attachment: attachment}))
+      } else {
+        dispatch(addBook(dataObject))
+      }
+    }
   };
 
   const onFinishFailed = (errorInfo) => {

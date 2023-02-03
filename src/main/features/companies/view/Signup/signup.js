@@ -6,6 +6,7 @@ import Table from './table';
 function Signup() {
   return (
     <TabbableContainer> 
+      
       <Header/>
         <ContBody>
           <Table/>

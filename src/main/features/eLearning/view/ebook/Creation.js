@@ -15,8 +15,9 @@ import CustomSelect from "../../../../sharedComponents/Select/Select";
 import { getAllEmployees, getRewardCategory } from "../../../../../utils/Shared/store/actions";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
-import { addBook } from "../../store/action";
+import { addBook, updateBook } from "../../store/action";
 import FileUploader from "../../../Messenger/view/MessengerBox/components/fileUploader";
+import { getELearningCategory } from "../../../eLearningCategory/store/action";
 
 const { Option } = Select;
 
@@ -24,7 +25,10 @@ function CreateEbook() {
   const dispatch = useDispatch()
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, elearningDictionary } = elearningDictionaryList[userLanguage];
-
+  const { loaders, addBookSuccess, bookEdit } = useSelector((state) => state.eLearningSlice);
+  const employees = useSelector((state) => state.sharedSlice.employees);
+  const {ELearningCategory } = useSelector((state) => state.eLearningCategorySlice);
+  let loader = loaders.addBookLoading
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
   const [pdf, setPdf] = useState(null)
@@ -35,9 +39,6 @@ function CreateEbook() {
   const [value, setValue] = useState([]);
 
   const { rewardCategories } = useSelector((state) => state.sharedSlice);
-  const { loaders, success } = useSelector((state) => state.eLearningSlice);
-  const employees = useSelector((state) => state.sharedSlice.employees);
-  let loader = loaders.addBookLoading
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -52,6 +53,10 @@ function CreateEbook() {
       members: [...val],
     });
   };
+
+  useEffect(() => {
+    dispatch(getELearningCategory());
+  }, [])
 
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
@@ -87,32 +92,33 @@ function CreateEbook() {
 
 
   const onFinish = (values) => {
-    console.log(values, "VALUES !!!!");
     let members = [];
     let assignMembers = [];
-    if (typeof values.members === "string") {
-      members.push({
-        memberId: values.members,
-      });
-    } else {
-      members = values.members.map((member) => {
-        return {
-          memberId: member,
-        };
-      });
-    }
-
-    if (typeof values.assignMembers === "string") {
-      assignMembers.push({
-        memberId: values.assignMembers,
-      });
-    } else {
-      assignMembers = values.assignMembers.map((member) => {
-        return {
-          memberId: member,
-        };
-      });
-    }
+    if (!bookEdit) {
+      if (typeof values.members === "string") {
+        members.push({
+          memberId: values.members,
+        });
+      } else {
+        members = values.members.map((member) => {
+          return {
+            memberId: member,
+          };
+        });
+      }
+  
+      if (typeof values.assignMembers === "string") {
+        assignMembers.push({
+          memberId: values.assignMembers,
+        });
+      } else {
+        assignMembers = values.assignMembers.map((member) => {
+          return {
+            memberId: member,
+          };
+        });
+      }
+    } 
 
 
     let image = {
@@ -125,27 +131,32 @@ function CreateEbook() {
       file: pdf && pdf,
     };
 
-    console.log(image, attachment, "FUCKING");
-
     let dataObject = {
-      // categoryId: values.categoryId,
+      categoryId: values.categoryId,
       description: values.description,
       privacyId: privacyId,
       name: values.name,
-      authorName: values.athorName,
+      authorName: values.authorName,
       information: values.information,
       members: members,
       assignMembers: assignMembers,
-      image: image,
-      attachment: attachment,
     }
 
-    if (Object.keys(image).length > 0) {
-      dispatch(addBook(dataObject))
-    } else {
-      dispatch(addBook(dataObject))
-    }
-    
+    console.log(Object.keys(image).length)
+
+    // if (bookEdit) {
+    //   if (Object.keys(image).length > 0) {
+    //     dispatch(updateBook({...dataObject, id: bookEdit.id, image: image, attachment: attachment}))
+    //   } else {
+    //     dispatch(updateBook({...dataObject, id: bookEdit.id}))
+    //   } 
+    // }  else {
+    //   if (Object.keys(image).length > 0) {
+    //     dispatch(addBook({...dataObject, image: image, attachment: attachment}))
+    //   } else {
+    //     dispatch(addBook(dataObject))
+    //   }
+    // }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -153,17 +164,24 @@ function CreateEbook() {
   };
 
   useEffect(() => {
-    if (success) {
+    if (addBookSuccess) {
       form.resetFields();
       setProfileImage([])
       setPdf([])
     }
-  }, [success]);
+  }, [addBookSuccess]);
+
+  let updateCategory = 
+    { 
+      id: bookEdit && bookEdit.categoryId,
+      name: bookEdit && bookEdit.category
+    }
+
 
   return (
     <DashboardLayout>
       <MainContainer className="AddCourseMainContainer">
-        <Heading>Create eBook</Heading>
+        <Heading>{ bookEdit ? "Update eBook" : "Craete eBook"}</Heading>
         <Form
           form={form}
           name="addCourse"
@@ -173,7 +191,7 @@ function CreateEbook() {
           wrapperCol={{
             span: 24,
           }}
-          initialValues={{ remember: true }}
+          initialValues={bookEdit ? bookEdit : ""}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -192,7 +210,8 @@ function CreateEbook() {
                   ]}
                 >
                   <CustomSelect
-                    data={rewardCategories}
+                    data={ELearningCategory}
+                    defaultValue={updateCategory.id}
                     placeholder={"Select Categoy"}
                     style={{
                       width: "100%",
@@ -222,7 +241,7 @@ function CreateEbook() {
               <div className="innerColumn">
                 <Form.Item
                   label={"Author Name"}
-                  name="athorName"
+                  name="authorName"
                   labelPosition="top"
                   rules={[
                     {
@@ -251,7 +270,9 @@ function CreateEbook() {
                 </Form.Item>
               </div>
             </div>
-            <div className="flex" style={{ marginTop: "15px" }}>
+            {
+              bookEdit ? "" :
+              <div className="flex" style={{ marginTop: "15px" }}>
               <div className="innerColumn">
                 <Form.Item
                   name="members"
@@ -348,7 +369,8 @@ function CreateEbook() {
                   />
                 </Form.Item>
               </div>
-            </div>
+            </div> 
+            }
             <div className="innerColumn">
               <Form.Item
                 label={"Description"}
@@ -394,11 +416,11 @@ function CreateEbook() {
                 className="ThemeBtn"
                 block
                 htmlType="submit"
-                title={"Create"}
+                title={bookEdit ? "Update" : "Create"}
                 loading={loader}
               >
                 {" "}
-                {"Create"}{" "}
+                {bookEdit ? "Update" : "Create"}{" "}
               </Button>
             </div>
           </Form.Item>

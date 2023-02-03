@@ -11,16 +11,17 @@ import ModulesList from "../../../../Detail/components/UIElements/ModulesList";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { GetBookById } from "../../../../../store/action";
+import { DeleteBook, GetBookById } from "../../../../../store/action";
 import Avatar from "../../../../../../../sharedComponents/Avatar/avatar";
 import { useSelector } from "react-redux";
 import "../../../../courses/style.css";
-import { addAssignMember, addMember } from "../../../../../store/slice";
+import { addAssignMember, addMember, handleUpdateBook } from "../../../../../store/slice";
 import AssignMemberModal from "../../../Components/AssignMemModal";
 import { AssignMemEnum, MemberEnum } from "../../../../../constant/index";
 import MemberModal from "../../../Components/MemberModal";
 import { useState } from "react";
 import FileViewerModal from "./FileViewerModal";
+import { ROUTES } from "../../../../../../../../utils/routes";
 
 function EBookDetail() {
 	const disptach = useDispatch()
@@ -44,6 +45,11 @@ function EBookDetail() {
 	useEffect(() => {
 		disptach(GetBookById(id))
 	},[])
+
+	const handleBookDelete =  () => {
+		disptach(DeleteBook(id))
+		navigate(`${ROUTES.ELearning.LINK}`)
+	}
 
 	
 
@@ -153,7 +159,7 @@ function EBookDetail() {
 									className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
 									block
 									style={{marginBottom: "5px"}}
-									onClick={() => console.log("Read Button Clicked")}
+									onClick={handleBookDelete}
 								>
 									Delete Book
 								</Button>
@@ -161,7 +167,10 @@ function EBookDetail() {
 									className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
 									block
 									style={{marginBottom: "10px"}}
-									onClick={() => console.log("Read Button Clicked")}
+									onClick={() => {
+										disptach(handleUpdateBook(bookDetail))
+										navigate(`${ROUTES.ELearning.EBOOK_CREATE}`)
+									}}
 								>
 									Update
 								</Button>

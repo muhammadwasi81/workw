@@ -79,11 +79,11 @@ function AssignMemberModal({ isOpen = false }) {
       return item.memberId === data.memberId
     });
 
-    let b = a[0] && a[0].memberId
-    console.log(data.memberId, b,)
+    let b = a[0] ? a[0].memberId : "";  
+    console.log(data.memberId, b)
 
-    if (data.memberId === a[0] && a[0].memberId) {
-      message.error("Member Already Added")
+    if (data.memberId === b) {
+      return message.error("Member Already Added")
     } else {
       if (Type === AssignMemEnum.courses) {
         dispatch(addCourseAssignMem(data));

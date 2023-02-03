@@ -21,7 +21,8 @@ import {
   responseMessage,
   responseMessageType,
 } from '../../../../services/slices/notificationSlice';
-import { jsonToFormData } from '../../../../utils/base';
+import { jsonToFormData, STRINGS } from '../../../../utils/base';
+import { deleteProjectMember, addProjectMember } from '../store/slice';
 
 const addSticky_SD = (data) => {
   return {
@@ -243,7 +244,8 @@ export const addProjectMemberAction = createAsyncThunk(
     const res = await addProjectMemberService(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        responseMessage({ dispatch, data: res });
+        dispatch(addProjectMember(res.data));
+      responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
         dispatch: dispatch,
@@ -260,8 +262,8 @@ export const deleteProjectMemberAction = createAsyncThunk(
     const res = await deleteProjectMemberService(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        // dispatch(deleteProjectMember({ id: data }));
-        responseMessage({ dispatch, data: res });
+        dispatch(deleteProjectMember(data));
+      responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
         dispatch: dispatch,

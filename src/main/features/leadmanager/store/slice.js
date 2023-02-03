@@ -162,10 +162,40 @@ const leadMangerSlice = createSlice({
       const removedTodo = sourceSection.details.splice(oldCardIndex, 1);
       destinationsSection.details.splice(newCardIndex, 0, removedTodo[0]);
     },
+
+    addLeadMember: (state, { payload }) => {
+      //TODO: replace the response with existing id object
+      const leadMembers = state.leadManagersData.map((item, i) => {
+        if (item.id === payload.data[0].leadManagerId) {
+          let members = [...item.members, payload.data[0]];
+          let newItem = {
+            ...item,
+            members,
+          };
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+
+      state.leadManagersData = leadMembers;
+    },
     deleteLeadManagerMember(state, { payload }) {
-      state.memberData = state.memberData.filter(
-        (member) => member.memberId !== payload
-      );
+      const deleteLeadMembers = state.leadManagersData.map((item, i) => {
+        if (item.id === payload.id) {
+          let delMember = item.members.filter(
+            (member) => member.memberId !== payload.memberId
+          );
+          let deleteItem = {
+            ...item,
+            members: delMember,
+          };
+          return deleteItem;
+        } else {
+          return item;
+        }
+      });
+      state.leadManagersData = deleteLeadMembers;
     },
   },
   extraReducers: (builder) => {
@@ -373,9 +403,6 @@ const leadMangerSlice = createSlice({
             getLeadManagerSectionById,
             addLeadManagerDetail,
             updateLeadManagerDetail,
-            // updateLeadManagerContact,
-            // addLeadManagerContact,
-            // deleteLeadManagerContact,
           ]
         ),
         (state) => {
@@ -394,17 +421,14 @@ const leadMangerSlice = createSlice({
             getLeadManagerSectionById,
             getLeadManagerById,
             addLeadManagerDetail,
-            // updateLeadManagerContact,
-            // addLeadManagerContact,
+
             updateLeadManagerDetail,
-            // deleteLeadManagerContact,
           ]
         ),
         (state) => {
           state.loading = false;
           state.success = false;
           state.error = true;
-          // state.contactDataUpdating = false;
         }
       );
   },
@@ -427,6 +451,7 @@ export const {
   handleOpenComposer,
   toggleEventDetailComposer,
   deleteLeadManagerMember,
+  addLeadMember,
 } = leadMangerSlice.actions;
 
 export default leadMangerSlice.reducer;

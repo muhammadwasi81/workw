@@ -13,10 +13,9 @@ import {
   handleFavoriteProjects,
 } from '../store/slice';
 import { useDispatch } from 'react-redux';
-import './style.css';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { addProjectFavoriteAction } from '../store/actions';
-
+import { addProjectFavoriteAction } from './../store/actions';
+import './style.css';
 const { Meta } = Card;
 
 const ListItem = (props) => {

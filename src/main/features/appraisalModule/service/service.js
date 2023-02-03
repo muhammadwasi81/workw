@@ -81,3 +81,18 @@ export const getAllAppraisalByMeService = async (id) => {
     return ResponseResultError(e);
   }
 };
+
+export const getAllPreviousAppraisalService = async (id) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(`api/Appraisal/GetAllPreviousAppraisal?id=${id}`);
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    console.log(e, "erro   data...");
+
+    return ResponseResultError(e);
+  }
+};

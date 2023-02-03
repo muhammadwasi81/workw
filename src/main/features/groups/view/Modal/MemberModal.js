@@ -13,8 +13,9 @@ import { addMember, deleteGroupMember } from "../../store/slice";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import { deleteGroupMemberAction } from "../../store/actions";
+import { data } from "jquery";
 
-function MemberModal({ isOpen = false }) {
+function MemberModal({ isOpen = false, data }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
   const { memberData, success } = useSelector((state) => state.groupSlice);
@@ -31,7 +32,7 @@ function MemberModal({ isOpen = false }) {
   // console.log(Type, "TYPE !!");
 
   useEffect(() => {
-    ModalOpen && dispatch(getAllGroupMemberAction(userId));
+    // ModalOpen && dispatch(getAllGroupMemberAction(id));
   }, [ModalOpen]);
 
   useEffect(() => {
@@ -46,14 +47,14 @@ function MemberModal({ isOpen = false }) {
     dispatch(addMember(false));
   };
 
-  const handleChange = (id) => {
-    let memberId = id.toString();
-    const data = {
-      id: userId,
+  const handleChange = (myid) => {
+    let memberId = myid.toString();
+    const members = {
+      id: data.id,
       memberId: memberId,
     };
-    dispatch(addGroupMemberAction(data));
-    dispatch(getAllGroupMemberAction(userId));
+    dispatch(addGroupMemberAction(members));
+    // dispatch(getAllGroupMemberAction());
   };
 
   useEffect(() => {
@@ -68,15 +69,15 @@ function MemberModal({ isOpen = false }) {
     memberType: null,
   });
 
-  const handleDeleteMember = (id) => {
-    const memberId = id.toString();
-    const data = {
-      id: userId,
+  const handleDeleteMember = (myid) => {
+    const memberId = myid.toString();
+    const members = {
+      id: data.id,
       memberId: memberId,
     };
 
-    dispatch(deleteGroupMemberAction(data));
-    dispatch(deleteGroupMember(memberId));
+    dispatch(deleteGroupMemberAction(members));
+    // dispatch(deleteGroupMember(memberId));
   };
   return (
     <Modal
@@ -126,7 +127,7 @@ function MemberModal({ isOpen = false }) {
       />
       <ApproverListItem
         className="AddMemberModal"
-        data={memberData}
+        data={data.members}
         handleDelete={handleDeleteMember}
       />
     </Modal>

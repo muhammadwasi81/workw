@@ -10,7 +10,7 @@ const QuestionList = ({ questions }) => {
             return (
               <>
                 <div className="flex justify-between items-center mt-4">
-                  <span className="max-w-[35rem]">{`This is the another dummy question This is the another dummy questionThis is the another dummy questionThis is the another dummy questionThis is the another dummy question`}</span>
+                  <span className="max-w-[35rem]">{item.question}</span>
                   <Rate disabled defaultValue={item.ratingAssign} />
                 </div>
                 <Divider />

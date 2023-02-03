@@ -44,10 +44,39 @@ const groupSlice = createSlice({
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
     },
+    addGroupMember: (state, { payload }) => {
+      //TODO: replace the response with existing id object
+      const newGroups = state.groups.map((item, i) => {
+        if (item.id === payload[0].groupId) {
+          let members = [...item.members, payload[0]];
+          let newItem = {
+            ...item,
+            members,
+          };
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+
+      state.groups = newGroups;
+    },
     deleteGroupMember(state, { payload }) {
-      state.memberData = state.memberData.filter(
-        (member) => member.memberId !== payload
-      );
+      const deleteGroupMembers = state.groups.map((item, i) => {
+        if (item.id === payload.id) {
+          let delMember = item.members.filter(
+            (member) => member.memberId !== payload.memberId
+          );
+          let deleteItem = {
+            ...item,
+            members: delMember,
+          };
+          return deleteItem;
+        } else {
+          return item;
+        }
+      });
+      state.groups = deleteGroupMembers;
     },
   },
   extraReducers: (builder) => {
@@ -59,12 +88,9 @@ const groupSlice = createSlice({
       .addCase(addGroup.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        // state.groups.unshift(payload.data);
         state.groups = [{ ...payload }, ...state.groups];
       })
       .addCase(getGroupById.fulfilled, (state, { payload }) => {
-        // state.projects = action.payload ? action.payload.data : [];
-        // console.log("project by id", action.payload);
         state.groupDetail = payload.data;
         state.loader = false;
         state.success = true;
@@ -75,6 +101,7 @@ const groupSlice = createSlice({
         state.success = true;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
+        state.groups = state.groups.filter((group) => group.id);
         if (payload.data.length > 0) {
           state.memberData = [...state.memberData, payload.data[0]];
           return state;
@@ -120,5 +147,6 @@ export const {
   handleComposer,
   addMember,
   deleteGroupMember,
+  addGroupMember,
 } = groupSlice.actions;
 export default groupSlice.reducer;

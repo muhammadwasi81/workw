@@ -45,10 +45,39 @@ const projectSlice = createSlice({
       state.isEditComposer = isEdit;
       state.isComposerOpen = isOpen;
     },
+    addProjectMember: (state, { payload }) => {
+      //TODO: replace the response with existing id object
+      const projectMember = state.projects.map((item, i) => {
+        if (item.id === payload[0].projectId) {
+          let members = [...item.members, payload[0]];
+          let newItem = {
+            ...item,
+            members,
+          };
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+
+      state.projects = projectMember;
+    },
     deleteProjectMember(state, { payload }) {
-      state.memberData = state.memberData.filter(
-        (member) => member.memberId !== payload
-      );
+      const deleteProjectMembers = state.projects.map((item, i) => {
+        if (item.id === payload.id) {
+          let delMember = item.members.filter(
+            (member) => member.memberId !== payload.memberId
+          );
+          let deleteItem = {
+            ...item,
+            members: delMember,
+          };
+          return deleteItem;
+        } else {
+          return item;
+        }
+      });
+      state.projects = deleteProjectMembers;
     },
   },
   extraReducers: (builder) => {
@@ -133,5 +162,6 @@ export const {
   handleComposer,
   addMember,
   deleteProjectMember,
+  addProjectMember,
 } = projectSlice.actions;
 export default projectSlice.reducer;

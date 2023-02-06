@@ -8,32 +8,25 @@ import {
   getAllGroupMemberAction,
   addGroupMemberAction,
 } from "../../store/actions";
-import { useParams } from "react-router-dom";
 import { addMember, deleteGroupMember } from "../../store/slice";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import { deleteGroupMemberAction } from "../../store/actions";
-import { data } from "jquery";
+import { useParams } from "react-router-dom";
 
 function MemberModal({ isOpen = false, data }) {
+  console.log(data, "memberss data");
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userSlice.user.id);
-  const { memberData, success } = useSelector((state) => state.groupSlice);
   const modalRequest = useSelector((state) => state.groupSlice.addMemberModal);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
-  const [form] = Form.useForm();
-
+  const params = useParams();
+  const { groupDetailid } = params;
+  console.log(groupDetailid, "iddd");
+  console.log(data, "sss");
   let ModalOpen = modalRequest.status;
-  let Type = modalRequest.type;
-
-  // console.log(Type, "TYPE !!");
-
-  useEffect(() => {
-    // ModalOpen && dispatch(getAllGroupMemberAction(id));
-  }, [ModalOpen]);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -54,7 +47,6 @@ function MemberModal({ isOpen = false, data }) {
       memberId: memberId,
     };
     dispatch(addGroupMemberAction(members));
-    // dispatch(getAllGroupMemberAction());
   };
 
   useEffect(() => {
@@ -64,20 +56,14 @@ function MemberModal({ isOpen = false, data }) {
     }
   }, [employees]);
 
-  const [newState, setNewState] = useState({
-    members: [],
-    memberType: null,
-  });
-
   const handleDeleteMember = (myid) => {
     const memberId = myid.toString();
-    const members = {
-      id: data.id,
+    const delmembers = {
+      id: data.id || groupDetailid,
       memberId: memberId,
     };
 
-    dispatch(deleteGroupMemberAction(members));
-    // dispatch(deleteGroupMember(memberId));
+    dispatch(deleteGroupMemberAction(delmembers));
   };
   return (
     <Modal
@@ -127,7 +113,7 @@ function MemberModal({ isOpen = false, data }) {
       />
       <ApproverListItem
         className="AddMemberModal"
-        data={data.members}
+        data={data?.members}
         handleDelete={handleDeleteMember}
       />
     </Modal>

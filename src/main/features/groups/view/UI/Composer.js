@@ -213,7 +213,7 @@ const Composer = (props) => {
               className="ThemeBtn"
               block
               htmlType="submit"
-              loading={loader}
+              // loading={loader}
               // onClick={onFinish}
             >
               {update

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-export const servicesUrls = { master: "", messenger: "", auth: "", mail: "", callingSocket: "" };
-=======
 export const servicesUrls = {
   master: "",
   messenger: "",
@@ -8,7 +5,6 @@ export const servicesUrls = {
   mail: "",
   callingSocket: "",
 };
->>>>>>> 1001f63b53a94b52676e41d83fac6b1ace7a276f
 // export const buildType = "LIVE";
 export const buildType = "LOCAL";
 

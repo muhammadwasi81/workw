@@ -187,7 +187,6 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
   const getRefrenceId = (parentRefrenceId) => {
-    console.log("reference game", parentRefrenceId);
     if (parentRefrenceId !== STRINGS.DEFAULTS.guid) return parentRefrenceId;
     // if (CategoryRefrenceId) return CategoryRefrenceId;
     return STRINGS.DEFAULTS.guid;
@@ -219,8 +218,8 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
       financers: [...employeeData.finance],
       quantity: 1,
     };
-    console.log(expenseObj, "values");
     dispatch(addExpense(expenseObj));
+    console.log(expenseObj, "expense objj");
   };
 
   const [form] = Form.useForm();

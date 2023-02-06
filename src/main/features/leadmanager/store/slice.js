@@ -265,6 +265,7 @@ const leadMangerSlice = createSlice({
         state.success = true;
         state.loading = false;
         const { sectionId } = payload.data;
+
         const sectionIndex = state.leadManagerDetail.sections.findIndex(
           (section) => section.id === sectionId
         );

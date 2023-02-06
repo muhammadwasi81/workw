@@ -49,13 +49,11 @@ function GroupDetails() {
   const [visible, setVisible] = useState(false);
 
   const detail = useSelector((state) => state.groupSlice.groupDetail);
-  const { memberData } = useSelector((state) => state.groupSlice);
   const [features, setFeatures] = useState([]);
   const [open, setOpen] = useState(false);
   const { groupId: id } = params;
   useEffect(() => {
     dispatch(getGroupById(id));
-    dispatch(getAllGroupMemberAction(id));
   }, [id]);
 
   const memberHandler = () => {
@@ -197,7 +195,7 @@ function GroupDetails() {
                   // onEmailClick={() => {
                   //   dispatch(handleComposeEmail(true));
                   // }}
-                  data={memberData ? memberData : []}
+                  data={detail?.members}
                   isMember={true}
                   handleAdd={(e) => memberHandler(e)}
                 />
@@ -224,9 +222,7 @@ function GroupDetails() {
           id={id}
         />
       </Drawer>
-      {visible && <MemberModal />}
-
-      {/* <ComposeEmail /> */}
+      {visible && <MemberModal data={detail} />}
     </>
   );
 }

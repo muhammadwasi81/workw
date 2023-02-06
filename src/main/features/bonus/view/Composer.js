@@ -45,7 +45,7 @@ const Composer = (props) => {
   const [amountType, setAmountType] = useState(false);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const salary = useSelector((state) => state.sharedSlice.employeeSalary);
-  const { createLoader } = useSelector((state) => state.bonusSlice)
+  const { createLoader } = useSelector((state) => state.bonusSlice);
   const [prercentage, setPercentage] = useState();
   const [amount, setAmount] = useState();
   const [netSalary, setnetSalary] = useState();
@@ -100,10 +100,15 @@ const Composer = (props) => {
       });
     }
 
-    let payload = { ...values, approvers };
-
+    let payload = {
+      amount: values.amount ? parseInt(values.amount) : 0,
+      memberId: values.memberId,
+      value: values.value ? values.value : 0,
+      type: values.type,
+      approvers,
+    };
     dispatch(addBonus(payload));
-    form.resetFields();
+    // form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -113,7 +118,7 @@ const Composer = (props) => {
   useEffect(() => {
     if (value === 1) {
       setAmount("");
-      console.log("percentvalue",amount);
+      console.log("percentvalue", amount);
       console.log("valueeee", value);
     } else if (value === 2) {
       console.log("Amountvalue", prercentage);
@@ -227,7 +232,56 @@ const Composer = (props) => {
         </div>
         <div className="flex justify-between gap-4">
           <div className="w-full">
-            <Form.Item
+            {amountType === false ? (
+              <Form.Item
+                label={bonusDictionary.percent}
+                name="value"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Enter Amount",
+                  },
+                ]}
+              >
+                <InputNumber
+                  // parser={(value) => value.replace("%", "")}
+                  // formatter={(value) => `${value}%`}
+                  // defaultValue={0}
+                  // type={"number"}
+                  placeholder="0%"
+                  min={0}
+                  max={100}
+                  // size="large"
+                  value={prercentage}
+                  style={{ width: "100%" }}
+                  onChange={(e) => setPercentage(e.target.value)}
+                />
+              </Form.Item>
+            ) : (
+              <Form.Item
+                label={bonusDictionary.amount}
+                name="amount"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Enter Amount",
+                  },
+                ]}
+              >
+                <Input
+                  parser={(value) => value.replace("", "%")}
+                  //formatter={(value) => `${value}0`}
+                  // defaultValue="0"
+                  type={"number"}
+                  placeholder="0"
+                  // size="large"
+                  value={amount}
+                  style={{ width: "100%" }}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </Form.Item>
+            )}
+            {/* <Form.Item
               label={bonusDictionary.amount}
               name="percentage"
               rules={[
@@ -237,34 +291,34 @@ const Composer = (props) => {
                 },
               ]}
             >
-           {  amountType === false ? (
-              <Input
-                parser={(value) => value.replace("%", "")}
-                //formatter={(value) => `${value}%`}
-                defaultValue="0%"
-                // type={"number"}
-                placeholder="0%"
-                // size="large"
-                value={prercentage}
-                style={{ width: "100%" }}
-                onChange={(e) => setPercentage(e.target.value)}
-              />
-             ):(
-              <Input
-               parser={(value) => value.replace("", "%")}
-                //formatter={(value) => `${value}0`}
-                // defaultValue="0"
-                type={"number"}
-                placeholder="0"
-                // size="large"
-                value={amount}
-                style={{ width: "100%" }}
-                onChange={(e) => setAmount(e.target.value)}
-              />
-               )
-            }
-            
-              </Form.Item>
+              {amountType === false ? (
+                <InputNumber
+                  parser={(value) => value.replace("%", "")}
+                  formatter={(value) => `${value}%`}
+                  defaultValue={0}
+                  // type={"number"}
+                  placeholder="0%"
+                  min={0}
+                  max={100}
+                  // size="large"
+                  value={prercentage}
+                  style={{ width: "100%" }}
+                  onChange={(e) => setPercentage(e.target.value)}
+                />
+              ) : (
+                <Input
+                  parser={(value) => value.replace("", "%")}
+                  //formatter={(value) => `${value}0`}
+                  // defaultValue="0"
+                  type={"number"}
+                  placeholder="0"
+                  // size="large"
+                  value={amount}
+                  style={{ width: "100%" }}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              )}
+            </Form.Item> */}
           </div>
         </div>
         <Form.Item

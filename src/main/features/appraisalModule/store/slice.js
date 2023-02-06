@@ -27,6 +27,7 @@ const initialState = {
   drawerOpen: false,
   loader: false,
   userTask: [],
+  addSuccess: false,
 };
 
 const appraisalModuleSlice = createSlice({
@@ -75,12 +76,14 @@ const appraisalModuleSlice = createSlice({
       )
       .addCase(addAppraisal.fulfilled, (state, { payload }) => {
         state.loader = false;
+        state.addSuccess = true;
       })
       .addMatcher(isPending(...[getAllTaskForAppraisalAction]), (state) => {
         state.loader = true;
       })
       .addMatcher(isPending(...[addAppraisal]), (state) => {
         state.loader = true;
+        state.addSuccess = false;
       })
       .addMatcher(isPending(...[getAllAppraisalAction]), (state) => {
         state.loader = true;
@@ -99,6 +102,7 @@ const appraisalModuleSlice = createSlice({
       })
       .addMatcher(isRejected(...[addAppraisal]), (state) => {
         state.loader = false;
+        state.addSuccess = false;
       })
       .addMatcher(isRejected(...[getAllAppraisalAction]), (state) => {
         state.loader = false;

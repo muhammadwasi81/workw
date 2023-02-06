@@ -16,16 +16,19 @@ import { createGuid, modifySelectData } from "../../../../../../utils/base";
 import { getAllGrades } from "../../../../grade/store/actions";
 import { addAppraisal } from "../../../store/action";
 import { openNotification } from "../../../../../../utils/Shared/store/slice";
+import { useNavigate } from "react-router-dom";
 function Index() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appraisalDictionary } = appraisalDictionaryList[userLanguage];
   const { submitAppraisal } = appraisalDictionary;
   const CurrentTab = useSelector(
     (state) => state.appraisalModuleSlice.currentTab
   );
+
   const [submit, setSubmit] = useState(false);
-  const { userTask, loader } = useSelector(
+  const { userTask, loader, addSuccess } = useSelector(
     (state) => state.appraisalModuleSlice
   );
 
@@ -34,6 +37,12 @@ function Index() {
     setSubmit(true);
     dataGet();
   };
+
+  useEffect(() => {
+    if (addSuccess) {
+      navigate(-1);
+    }
+  }, [addSuccess]);
 
   const dataGet = (data, startDate, endDate, userId) => {
     console.log(
@@ -44,6 +53,7 @@ function Index() {
       "in index file of submit appraisal"
     );
     //TODO: make an object that will be send as payload to api call
+
     let payload = {
       id: createGuid(),
       userId: userId,
@@ -62,6 +72,8 @@ function Index() {
       }),
       tasks: userTask?.map((el) => el.taskId),
     };
+    console.log(payload);
+    // return;
     //dispatch add appraisal
     if (!userTask.length) {
       console.log(payload, "final payload");

@@ -1,4 +1,4 @@
-import { Button, Form, Input, Tree, Skeleton, message, Checkbox } from 'antd';
+import { Button, Form, Input, Tree, Skeleton, message } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FormTextArea } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
@@ -13,7 +13,6 @@ import {
   userTypeList,
 } from '../../../../utils/Shared/enums/enums';
 import { STRINGS } from '../../../../utils/base';
-const { TreeNode } = Tree;
 
 const initialTreeData = [
   {
@@ -49,7 +48,7 @@ function AccessRoleComposer(props) {
     userLanguage
   ];
 
-  console.log(featuresTreeData, 'featuresTreeData');
+  // console.log(featuresTreeData, 'featuresTreeData');
   // console.log(checkedKeys, 'checkedKeys');
   // console.log(featuresTreeData, 'featuresTreeData');
 
@@ -177,7 +176,7 @@ function AccessRoleComposer(props) {
       roleTypeId: values.roleTypeId,
       features: [],
     };
-
+    // console.log(finalData, 'finalData in handleTreeForm');
     for (let i = 0; i < checkedKeys.length; i++) {
       let id = checkedKeys[i].split('_')[1];
       let data = checkedKeys[i].split('_')[0];
@@ -207,6 +206,7 @@ function AccessRoleComposer(props) {
       } else {
         if (data !== 'Access Controls') {
           const tempData = JSON.parse(data);
+          // console.log(data.features, 'data.features');
           if (tempData.permissions.length === 0) {
             finalData.features.push({
               id: Number(tempData.id),
@@ -225,6 +225,7 @@ function AccessRoleComposer(props) {
       return message.error('Please add access role!');
     }
     let finalData = handleTreeForm(values);
+    console.log(finalData, 'finalData onFinish');
     if (props.isEdited) {
       console.log(props.isEdited, 'props.isEdited');
       finalData.id = props.id;
@@ -235,7 +236,7 @@ function AccessRoleComposer(props) {
   useEffect(() => {
     if (props.isEdited) {
       const finalData = handleTreeForm(formDataObject);
-      console.log(finalData, 'finalData in useEffect');
+      // console.log(finalData, 'finalData in useEffect');
       finalData &&
         finalData.features &&
         finalData.features.sort((a, b) => {
@@ -250,6 +251,18 @@ function AccessRoleComposer(props) {
       }
     }
   }, [formDataObject, checkedKeys, props.defaultData]);
+
+  // create a function that take checkedData and return status true or false
+  const getStatus = (checkedData) => {
+    console.log(checkedData, 'checkedData in getStatus');
+    let status = false;
+    for (let i = 0; i < checkedData?.length; i++) {
+      if (checkedData[i].permissions?.length > 0) {
+        status = true;
+      }
+    }
+    return status;
+  };
 
   useEffect(() => {
     if (!props.openDrawer) {

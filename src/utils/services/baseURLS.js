@@ -1,4 +1,10 @@
-export const servicesUrls = { master: "", messenger: "", auth: "", mail: "", callingSocket: "" };
+export const servicesUrls = {
+  master: "",
+  messenger: "",
+  auth: "",
+  mail: "",
+  callingSocket: "",
+};
 // export const buildType = "LIVE";
 export const buildType = "LOCAL";
 

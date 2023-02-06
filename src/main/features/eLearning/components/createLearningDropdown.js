@@ -19,12 +19,12 @@ function CreateLearningDropdown() {
     let { key } = value;
     dispatch(handleOpenComposer(key));
   };
-  const CreateOptions = [
-    {
-      label: <p className="!mb-0 pl-3">{'Category'}</p>,
-      key: 'category',
-      onClick: handleChange,
-    },
+  const items = [
+    // {
+    //   label: <p className="!mb-0 pl-3">{'Category'}</p>,
+    //   key: 'category',
+    //   onClick: handleChange,
+    // },
     {
       label: <p className="!mb-0 pl-3">{'Course'}</p>,
       key: 'courses',
@@ -60,8 +60,12 @@ function CreateLearningDropdown() {
     },
   ];
   return (
-    <Dropdown menu={<Menu items={CreateOptions} />} trigger={['click']}>
-      <Button className="primary_btn  ">
+    <Dropdown
+      menu={{
+        items,
+      }}
+    >
+      <Button className="primary_btn" onClick={(e) => e.preventDefault()}>
         {elearningDictionary.create}
         <DownOutlined className="!text-sm" />
       </Button>

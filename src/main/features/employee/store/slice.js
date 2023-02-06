@@ -132,7 +132,7 @@ const employeeSlice = createSlice({
       })
       .addCase(getUserDeviceInfoAction.fulfilled, (state, { payload }) => {
         console.log(payload.data, "getUserDeviceInfo");
-        state.employee.deviceDetails = payload.data;
+        state.employee.devicedetails = payload.data;
       })
       .addCase(getUserWorkExperience.fulfilled, (state, { payload }) => {
         state.employee.experiencedetails = payload.data;

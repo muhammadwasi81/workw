@@ -9,6 +9,7 @@ import {
   getAllLeaveAction,
   getAllCheckInAction,
   getAppraisalsAction,
+  getDeviceInfoAction,
 } from "./action";
 
 const initialState = {
@@ -22,7 +23,9 @@ const initialState = {
     warningdetails: [],
     leavedetails: [],
     checkIndetails: [],
+    devicedetails:[],
   },
+
   loader: false,
   success: false,
 };
@@ -39,17 +42,22 @@ const teamSlice = createSlice({
         state.success = true;
         // console.log(payload, "payload");
       })
+      .addCase(getDeviceInfoAction.fulfilled, (state, {payload} ) => {
+        state.team.devicedetails = payload;
+        state.loader = false;
+        state.success = true;
+        console.log(state.team.devicedetails,"chal jaoooooo");
+
+      })
       .addCase(getRewardsAction.fulfilled, (state, { payload }) => {
         state.team.rewardsdetails = payload;
         state.loader = false;
         state.success = true;
-        console.log(payload, "REWARDS");
       })
       .addCase(getCourseAction.fulfilled, (state, { payload }) => {
         state.team.coursedetails = payload;
         state.loader = false;
         state.success = true;
-        console.log(payload, "COURSESCOURSES");
       })
       .addCase(getAppraisalsAction.fulfilled, (state, { payload }) => {
         state.team.appraisalsdetails = payload;

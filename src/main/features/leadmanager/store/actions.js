@@ -30,7 +30,7 @@ import {
   addLeadManagerMemberService,
   deleteLeadManagerMemberById,
 } from "../services/services";
-import { deleteLeadManagerMember } from "../store/slice";
+import { addLeadMember, deleteLeadManagerMember } from "../store/slice";
 export const addLeadManager = createAsyncThunk(
   "addLeadManager",
   async (data, { dispatch, getState, rejectWithValue }) => {
@@ -95,13 +95,7 @@ export const updateLeadManager = createAsyncThunk(
           duration: 2,
         })
       );
-      // dispatch(
-      // 	getAllLeadManager({
-      // 		pageNo: 0,
-      // 		pageSize: 0,
-      // 		search: "",
-      // 	})
-      // );
+
       return res;
     } else {
       dispatch(
@@ -166,8 +160,8 @@ export const deleteLeadManagerById = createAsyncThunk(
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await deleteLeadManagerMemberById(data);
     if (res.responseCode === responseCode.Success) {
-      dispatch(deleteLeadManagerMember({ id: data }));
-      res.message = "Member deleted successfulyy";
+      dispatch(deleteLeadManagerMember(data));
+      // res.message = "Member deleted successfulyy";
       message.success(res.message);
     } else {
       responseMessage({
@@ -362,7 +356,6 @@ export const addLeadManagerAssignTo = createAsyncThunk(
 export const deleteLeadManagerDetailAssignTo = createAsyncThunk(
   "deleteLeadManagerDetailAssignTo",
   async (data, { dispatch, getState, rejectWithValue }) => {
-    console.log("data", data);
     const res = await deleteLeadManagerDetailAssignToService(data);
     if (res.responseCode === responseCode.Success) {
       return {
@@ -421,7 +414,7 @@ export const getScheduleByIdAction = createAsyncThunk(
   }
 );
 export const getAllLeadManagerMember = createAsyncThunk(
-  "GetAllCourseMember",
+  "GetAllLeadMember",
   async (data) => {
     console.log(data, "FROM ACTIONSSS !!");
     const response = await getAllLeadManagerMemberService(data);
@@ -432,11 +425,12 @@ export const getAllLeadManagerMember = createAsyncThunk(
   }
 );
 export const addLeadManagereMember = createAsyncThunk(
-  "addCourseMember",
+  "addLeadMember",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addLeadManagerMemberService(data);
     if (res.data?.responseCode === responseCode.Success) {
-      message.success("Member Added");
+      dispatch(addLeadMember(res.data));
+      // message.success("Member Added");
       return res;
     } else {
       message.error(res.data.message);

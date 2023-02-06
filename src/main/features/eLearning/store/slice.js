@@ -35,6 +35,7 @@ import {
   RemoveCousrseAssignMemberAction,
   RemoveBookMemberAction,
   RemoveBookAssignMemberAction,
+  updateBook,
 } from "./action";
 
 const initialState = {
@@ -67,6 +68,8 @@ const initialState = {
   quizResult: {},
   courseDetail: {},
   bookDetail: {},
+  bookEdit: null,
+  addBookSuccess: false,
   addCourseSuccess: false,
   books: [],
   tedTalks: [],
@@ -136,6 +139,9 @@ const eLearningSlice = createSlice({
     addSection: (state, { payload }) => {
       state.sections = [...state.sections, payload];
       state.topics = [];
+    },
+    handleUpdateBook: (state, { payload }) => {
+      state.bookEdit = payload;
     },
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
@@ -254,7 +260,12 @@ const eLearningSlice = createSlice({
       .addCase(addBook.fulfilled, (state) => {
         state.loaders.addBookLoading = false;
         state.success = true;
+        state.addBookSuccess = true;
         return state;
+      })
+      .addCase(updateBook.fulfilled, (state)=> {
+        state.addBookSuccess = true;
+        state.bookEdit = null
       })
       .addCase(addBookMember.fulfilled, (state, { payload }) => {
         if (payload.data.data.length > 0) {
@@ -384,6 +395,10 @@ const eLearningSlice = createSlice({
       })
       .addMatcher(isPending(...[addBook]), (state) => {
         state.loaders.addBookLoading = true;
+        state.addBookSuccess = false
+      })
+      .addMatcher(isPending(...[updateBook]), (state) => {
+        state.addBookSuccess = false
       })
       .addMatcher(isPending(...[addTedTalk]), (state) => {
         state.loaders.addTedTalkLoading = true;
@@ -407,6 +422,9 @@ const eLearningSlice = createSlice({
 
       .addMatcher(isRejected(...[addCourse]), (state) => {
         state.addCourseSuccess = false;
+      })
+      .addMatcher(isRejected(...[addBook]), (state) => {
+        state.addBook = false;
       })
 
       .addMatcher(isRejected(...[addQuiz]), (state) => {
@@ -503,5 +521,6 @@ export const {
   removeCourseAssignMember,
   removeBookMember,
   removeBookAssignMember,
+  handleUpdateBook,
 } = eLearningSlice.actions;
 export default eLearningSlice.reducer;

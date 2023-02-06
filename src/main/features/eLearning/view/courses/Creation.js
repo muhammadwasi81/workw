@@ -127,7 +127,7 @@ function CreateCourse() {
     };
 
     let payloadOne = {
-      // categoryId: values.categoryId,
+      categoryId: values.categoryId,
       courseType: values.courseType,
       name: values.name,
       description: values.description,

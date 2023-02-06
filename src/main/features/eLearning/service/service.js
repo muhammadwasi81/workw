@@ -171,6 +171,17 @@ export const addBookService = async (data) => {
     });
 };
 
+export const updateBookService = async (data) => {
+  const formData = jsonToFormData(data);
+  return MasterConfig.put(`api/ELearning/UpdateBook`, formData)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
 export const getAllBookService = (data) => {
   console.log(data, "FROM SERVICE");
   return MasterConfig.post(`api/ELearning/GetAllBook`, data)
@@ -184,6 +195,17 @@ export const getAllBookService = (data) => {
 
 export const GetBookByIdService = (id) => {
   return MasterConfig.get(`api/ELearning/GetBookById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const DeleteBookService = (id) => {
+  console.log(id, "FROM ACTION")
+  return MasterConfig.delete(`api/ELearning/RemoveBook?id=${id}`)
     .then((res) => {
       return res;
     })

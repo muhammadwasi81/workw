@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addQuizAnswerAttempt } from "../../../store/action";
 import blackLogo from "../../../../../../content/blackLogo.svg";
+import ThankyouPage from "../../../../../../content/thankyoupage.jpeg";
 import "./style.css";
 
 const QuestionWithoutImage = ({ questions }) => {
@@ -35,16 +36,19 @@ const QuestionWithoutImage = ({ questions }) => {
   };
   if (isLastQuestion) {
     return (
-      <div className="h-[50%] w-[50%] border-[#195669] border-[30px]">
-        <div className="flex flex-col justify-center items-center">
-          <img
-            src={blackLogo}
-            alt=""
-            className="w-[8rem] h-[8rem] lg:w-[10rem]  lg:w-[10rem]"
-          />
-          <span className="text-2xl font-black">Successfully Attempted</span>
-          <span className="text-4xl font-black mt-4">Thankyou</span>
-        </div>
+      // <div className="h-[50%] w-[50%] border-[#195669] border-[30px]">
+      //   <div className="flex flex-col justify-center items-center">
+      //     <img
+      //       src={blackLogo}
+      //       alt=""
+      //       className="w-[8rem] h-[8rem] lg:w-[10rem]  lg:w-[10rem]"
+      //     />
+      //     <span className="text-2xl font-black">Successfully Attempted</span>
+      //     <span className="text-4xl font-black mt-4">Thankyou</span>
+      //   </div>
+      // </div>
+      <div className="flex justify-center">
+        <img src={ThankyouPage} alt="" className="w-[50vw] h-[90vh]" />
       </div>
     );
   }

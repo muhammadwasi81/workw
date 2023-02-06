@@ -100,6 +100,7 @@ export const ROUTES = {
     ARTICLE_CREATE: `${DOMAIN_PREFIX}/eLearning/article/create`,
     QUIZ_CREATE: `${DOMAIN_PREFIX}/eLearning/quiz/create`,
     TEDTALK_CREATE: `${DOMAIN_PREFIX}/eLearning/tedtalk/create`,
+    COURSE_VIDEO: `${DOMAIN_PREFIX}/eLearning/courses/learn/`,
     // COURSE: `${DOMAIN_PREFIX}/eLearning/courses/`,
   },
   INVENTORY: {

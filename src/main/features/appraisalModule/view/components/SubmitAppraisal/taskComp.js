@@ -42,9 +42,8 @@ const TaskComp = (props) => {
   const { userTask } = useSelector((state) => state.appraisalModuleSlice);
 
   useEffect(() => {
-    if (userTask.length) {
-      setTaskState(userTask);
-    }
+    // if (userTask.length) {
+    setTaskState(userTask);
   }, [userTask]);
 
   useEffect(() => {
@@ -131,6 +130,7 @@ const TaskComp = (props) => {
   return (
     <>
       <div className="appraisalFormBody drop-shadow">
+        <div className="text-xl font-bold mb-2">Employee</div>
         <div className="inputBoxCustomSelect mb-2">
           <CustomSelect
             style={{ marginBottom: "0px" }}

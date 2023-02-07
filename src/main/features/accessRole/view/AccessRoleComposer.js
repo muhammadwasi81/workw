@@ -49,7 +49,10 @@ function AccessRoleComposer(props) {
     userLanguage
   ];
 
+  console.log(selectedKeys, 'featuresTreeData');
   console.log(featuresTreeData, 'featuresTreeData');
+  console.log(checkedKeys, 'featuresTreeData');
+  
 
   useEffect(() => {
     getAllBussinessFeatures();
@@ -122,8 +125,13 @@ function AccessRoleComposer(props) {
       for (let i = 0; i < singleAccessRole.features.length; i++) {
         if (singleAccessRole.features[i].permissions.length > 0) {
           singleAccessRole.features[i].permissions.map((role) => {
+            let obj = {
+              id: role.permissionId,
+              featureId: singleAccessRole.features[i].featureId,
+              name: role.permission,
+            }
             checkedData.push(
-              JSON.stringify(role) + '_' + singleAccessRole.features[i].id
+              JSON.stringify(obj) + '_' + singleAccessRole.features[i].featureId
             );
           });
         } else {
@@ -139,7 +147,14 @@ function AccessRoleComposer(props) {
           checkedData.push(JSON.stringify(singleAccessRoleObj));
         }
       }
+      console.log(checkedData, "checkedDatacheckedData");
       setCheckedKeys((prevCheckedKeys) => [...prevCheckedKeys, ...checkedData]);
+// "{\"id\":20,\"featureId\":11,\"name\":\"View Travel\"}_11"
+
+// accessRoleFeatureId: "5524ddd0-d57f-487f-b8d6-774d3514dee8"
+// id: "152a577e-eaa0-402f-b736-6550ed8926e2"
+// permission: "View Feed"
+// permissionId: 1
     }
   }, [singleAccessRole]);
 
@@ -158,12 +173,12 @@ function AccessRoleComposer(props) {
   };
 
   const onSelect = (selectedKeysValue) => {
-    console.log('selectedKeysValue', selectedKeysValue);
+    console.log('featuresTreeData', selectedKeysValue);
     setSelectedKeys(selectedKeysValue);
   };
 
   const onCheck = (checkedKeysValue) => {
-    console.log('onCheck', checkedKeysValue);
+    console.log('featuresTreeData onCheck', checkedKeysValue);
     setCheckedKeys(checkedKeysValue);
     setShowChecked(true);
   };

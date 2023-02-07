@@ -12,61 +12,59 @@ import { useDispatch } from "react-redux";
 import { handleOpenDocComposer } from "../../store/slice";
 
 const CreateDocDropdown = () => {
-    const { userLanguage } = useContext(LanguageChangeContext);
-    const { documentDictionary } = documentDictionaryList[userLanguage];
-    const dispatch = useDispatch();
-    const handleChange = (value) => {
-        let {key} = value;
-        dispatch(handleOpenDocComposer(key))
-    }
-    const CreateOptions = [
-        {
-            label:documentDictionary.NewFolder,
-            key: "folder",
-            icon:<img width="17px" alt="" src={folderIcon} />,
-            onClick:handleChange
-        },
-        {
-            label: documentDictionary.UploadDocuments,
-            key: "upload",
-            icon:<img width="17px" alt="" src={documentIcon} />,
-            onClick:handleChange
-        },
-        {
-            label: documentDictionary.AddMileBoard,
-            key: "mileboard",
-            icon:<img width="17px" alt="" src={mileboardIcon} />,
-            onClick:handleChange
-        },
-        {
-            label: documentDictionary.AddMilePad,
-            key: "milepad",
-            icon:<img width="17px" alt="" src={milepadIcon} />,
-            onClick:handleChange
-        },
-        {
-            label: documentDictionary.AddMileGrid,
-            key: "milegrid",
-            icon:<img width="17px" alt="" src={milegridIcon} />,
-            onClick:handleChange
-        },
-        {
-            label: documentDictionary.AddMileShow,
-            key: "mileshow",
-            icon:<img width="17px" alt="" src={mileshowIcon} />,
-            onClick:handleChange
-        }
-    ];
-    return (
-      <Dropdown
-        menu={<Menu items={CreateOptions} onChange={(e) => console.log(e)} />}
-        trigger={['click']}
-      >
-        <Button className="headerBtn">
-          {documentDictionary.CreateDocument}
-        </Button>
-      </Dropdown>
-    );
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+  const dispatch = useDispatch();
+  const handleChange = (value) => {
+    let { key } = value;
+    dispatch(handleOpenDocComposer(key));
+  };
+  const CreateOptions = [
+    {
+      label: documentDictionary.NewFolder,
+      key: "folder",
+      icon: <img width="17px" alt="" src={folderIcon} />,
+      onClick: handleChange,
+    },
+    {
+      label: documentDictionary.UploadDocuments,
+      key: "upload",
+      icon: <img width="17px" alt="" src={documentIcon} />,
+      onClick: handleChange,
+    },
+    {
+      label: documentDictionary.AddMileBoard,
+      key: "mileboard",
+      icon: <img width="17px" alt="" src={mileboardIcon} />,
+      onClick: handleChange,
+    },
+    {
+      label: documentDictionary.AddMilePad,
+      key: "milepad",
+      icon: <img width="17px" alt="" src={milepadIcon} />,
+      onClick: handleChange,
+    },
+    {
+      label: documentDictionary.AddMileGrid,
+      key: "milegrid",
+      icon: <img width="17px" alt="" src={milegridIcon} />,
+      onClick: handleChange,
+    },
+    {
+      label: documentDictionary.AddMileShow,
+      key: "mileshow",
+      icon: <img width="17px" alt="" src={mileshowIcon} />,
+      onClick: handleChange,
+    },
+  ];
+  return (
+    <Dropdown
+      overlay={<Menu items={CreateOptions} onChange={(e) => console.log(e)} />}
+      trigger={["click"]}
+    >
+      <Button className="headerBtn">{documentDictionary.CreateDocument}</Button>
+    </Dropdown>
+  );
 };
 
 export default CreateDocDropdown;

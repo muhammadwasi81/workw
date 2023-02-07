@@ -6,9 +6,7 @@ const API_PREFIX = "api/Expense/";
 export const addExpenseService = (request) => {
   const formData = jsonToFormData(request);
   return AxiosConfig.post(`${API_PREFIX}AddExpense`, formData)
-
     .then((res) => {
-      // return console.log(res.data, formData, "response data expense");
       return res.data;
     })
     .catch((err) => {

@@ -76,7 +76,6 @@ function MemberModal({ isOpen = false, data }) {
       memberId: memberId,
     };
     dispatch(deleteLeadManagerById(membersData));
-    // dispatch(deleteLeadManagerMember(memberId));
   };
   return (
     <Modal

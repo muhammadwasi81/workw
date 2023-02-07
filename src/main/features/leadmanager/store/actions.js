@@ -61,6 +61,7 @@ export const addLeadManagerDetail = createAsyncThunk(
   "addLeadManagerDetail",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addLeadManagerDetailService(data);
+    console.log(res, "res lead ");
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({

@@ -5,34 +5,22 @@ import WorkBoardImg from "../../../../content/png/workboard.png";
 import PublicPrivateIcon from "../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
 import { DOMAIN_PREFIX, ROUTES } from "../../../../utils/routes";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import menuIcon from "../../../../content/NewContent/Documents/3dots.svg";
 import { useSelector, useDispatch } from "react-redux";
 // import { getWorkboardById } from "../store/action";
-import {
-  handleBoardComposer,
-  updaateWorkboardById,
-  addMember,
-} from "../store/slice";
+
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { WorkBoardDictionary } from "../localization";
-import MemberModal from "./MemberModal";
 import "./style.css";
-import { useState } from "react";
 import QuickOptions from "../quickOptions";
 
 function WorkBoardCard({ data }) {
   const { Meta } = Card;
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [isMember, setIsMember] = useState(false);
-  const [open, setOpen] = useState(false);
   const userId = useSelector((state) => state.userSlice.user.id);
   const loading = useSelector((state) => state.trelloSlice.loader);
 
   const path = useLocation().pathname;
-  // const params = useParams();
-  // console.log("location: ", path);
-  // console.log("params: ", params);
+
   let workboardPath = ROUTES.WORKBOARD.BOARD;
   if (path.includes("groups") || path.includes("projects")) {
     workboardPath = DOMAIN_PREFIX + path + "/workboard/board/";
@@ -43,31 +31,6 @@ function WorkBoardCard({ data }) {
   ];
   const { labels, placeholder } = WorkBoardDictionaryList;
 
-  // const memberHandler = (e) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   setVisible(true);
-  //   setOpen(false);
-  //   dispatch(addMember({ status: true }));
-  // };
-
-  // const hide = () => {
-  //   setOpen(false);
-  // };
-  // const handleOpenChange = (newOpen) => {
-  //   setOpen(newOpen);
-  // };
-
-  // const handleUpdate = () => {
-  //   dispatch(updaateWorkboardById(data.id));
-  //   dispatch(
-  //     handleBoardComposer({
-  //       isEdit: true,
-  //       isVisible: true,
-  //     })
-  //   );
-  //   // handleClose();
-  // };
   const menuHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -119,42 +82,6 @@ function WorkBoardCard({ data }) {
           </div>
 
           {userId === data.createBy && (
-            // <div
-            //   className="docsPopover"
-            //   onClick={(e) => {
-            //     e.preventDefault();
-            //     e.stopPropagation();
-            //   }}
-            // >
-            //   <Popover
-            //     content={
-            //       <div className="flex flex-col">
-            //         <div
-            //           className="flex gap-2 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
-            //           onClick={handleUpdate}
-            //         >
-            //           <span>Update</span>
-            //         </div>
-            //         <div
-            //           className="flex gap-3 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
-            //           onClick={(e) => memberHandler(e)}
-            //         >
-            //           <span>Members</span>
-            //         </div>
-            //       </div>
-            //     }
-            //     title={null}
-            //     trigger="click"
-            //     placement="rightTop"
-            //     open={open}
-            //     onOpenChange={handleOpenChange}
-            //     overlayClassName="docsPopover"
-            //   >
-            //     <div className="menuIcon">
-            //       <img src={menuIcon} />
-            //     </div>
-            //   </Popover>
-            // </div>
             <div className="flex justify-end">
               <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
             </div>

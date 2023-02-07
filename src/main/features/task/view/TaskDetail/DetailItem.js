@@ -34,10 +34,11 @@ function TaskDetailItem({
   progress,
   isDetail = false,
 }) {
+  console.log("progresss",progress);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
   const [rating, setRating] = useState('');
-  const [open, setOpen] = useState(false);
+  const [openRating, setOpenRating] = useState(false);
   const { taskDictionaryList } = taskDictionary[userLanguage];
   const [isMount, setIsMount] = useState(false);
   const [updatedStatus, setUpdatedStatus] = useState(null);
@@ -60,7 +61,8 @@ function TaskDetailItem({
     attachments,
     predecessor,
   } = item;
-  // console.log(predecessor, "preddd");
+  
+  console.log(item, "preddd");
   let {
     NotStarted,
     InProcess,
@@ -86,35 +88,23 @@ function TaskDetailItem({
   }, []);
 
   const handleRating = async (id, rating) => {
+    setOpenRating(false);
     await postUserTaskRating(id, rating);
     dispatch(handleTaskRating({ id, rating }));
-    setOpen(false);
   };
 
   const Cancel = () => {
     console.log('Clicked cancel button');
-    setOpen(false);
+    setOpenRating(false);
   };
-  const showPopconfirm = () => {
-    setOpen(true);
-  };
-  // console.log(progress ? progress : progressed, "condition");
   const handleCancel = (e, payload) => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(cancelTaskAction(payload));
   };
-  const handlepopup = () => {
-    //setRating(value);
-  <Popconfirm
-      title="Sure to delete?"
-      //onConfirm={(e) => handleDelete({ id: row.id })}
-    >
-    {/* <DeleteFilled style={{ color: "#1b5669" }} /> */}
-  </Popconfirm>
-  }
 
   return (
+    <>
     <div className={classes} onClick={() => onTask(id)}>
       <div className="card-item-header">
         <div className="left">
@@ -131,28 +121,21 @@ function TaskDetailItem({
         </div>
 
         <div className="right">
-           <Popconfirm title="Sure to rate?"  
-              //open={open}
+        
+           <Popconfirm title="Sure to Rate ?"  
               onConfirm={(e) => handleRating(id, rating)} 
-              //onConfirm={(e) => handleDelete({ id: row.id })}
-              //onCancel={Cancel}
+              onCancel={Cancel}
+              disabled={isRatingDisable || progress !== 100}
             >
+              
             <div className="rating">
               <Rate
                 defaultValue={ratingAssign}
                 disabled={isRatingDisable || progress !== 100}
                 onChange={(value) => setRating(value)}
-                //onClick={showPopconfirm}
                 />
             </div>
-         </Popconfirm>
-
-            {/* <Rate
-              defaultValue={ratingAssign}
-              disabled={isRatingDisable || progress !== 100}
-              // onClick={() => setRating(value)}
-              onChange={(value) => setRating(value)}
-            /> */}
+            </Popconfirm>
         
           <div className="labels">
             <span className="taskID">{referenceNo}</span>
@@ -254,6 +237,7 @@ function TaskDetailItem({
         </div>
       </div>
     </div>
+    </>
   );
 }
 

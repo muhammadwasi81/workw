@@ -9,10 +9,15 @@ import { useParams } from "react-router-dom";
 import { addMember } from "../store/slice";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import { getWorkBoardMemberAction, addWorkBoardMember } from "../store/action";
+import {
+  getWorkBoardMemberAction,
+  addWorkBoardMember,
+  removeWorkBoardMemberAction,
+} from "../store/action";
 import { NoDataFound } from "./index";
 
-function MemberModal({ isOpen = false }) {
+function MemberModal({ isOpen = false, data }) {
+  console.log(data, "data");
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
   const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
@@ -26,11 +31,6 @@ function MemberModal({ isOpen = false }) {
   let type = modalRequest.memberType;
 
   useEffect(() => {
-    ModalOpen && dispatch(getWorkBoardMemberAction(userId));
-    // dispatch(getWorkBoardMemberAction(userId));
-  }, [ModalOpen]);
-
-  useEffect(() => {
     fetchEmployees("", 0);
   }, []);
 
@@ -42,17 +42,13 @@ function MemberModal({ isOpen = false }) {
     dispatch(addMember(false));
   };
 
-  const handleChange = (id) => {
-    let memberId = id.toString();
-    console.log(memberId, "memberIddd");
-    const data = {
-      id: userId,
+  const handleChange = (myId) => {
+    let memberId = myId.toString();
+    const addmembers = {
+      id: data.id,
       memberId: memberId,
-      memberType: type,
     };
-    console.log(type, "memberType");
-    dispatch(addWorkBoardMember(data));
-    dispatch(getWorkBoardMemberAction(userId));
+    dispatch(addWorkBoardMember(addmembers));
   };
 
   useEffect(() => {
@@ -62,11 +58,15 @@ function MemberModal({ isOpen = false }) {
     }
   }, [employees]);
 
-  const [newState, setNewState] = useState({
-    members: [],
-    memberType: null,
-  });
+  const handleDeleteMember = (myid) => {
+    const memberId = myid.toString();
+    const delmembers = {
+      id: data.id,
+      memberId: memberId,
+    };
 
+    dispatch(removeWorkBoardMemberAction(delmembers));
+  };
   return (
     <Modal
       open={ModalOpen}
@@ -112,8 +112,12 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      {workBoardMembers?.length > 0 ? (
-        <ApproverListItem className="AddMemberModal" data={workBoardMembers} />
+      {data.members?.length > 0 ? (
+        <ApproverListItem
+          className="AddMemberModal"
+          data={data.members}
+          handleDelete={handleDeleteMember}
+        />
       ) : (
         <NoDataFound />
       )}

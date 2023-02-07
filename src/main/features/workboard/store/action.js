@@ -30,7 +30,9 @@ import {
   uploadWorkBoardTodoImageService,
   getWorkBoardMemberService,
   addWorkBoardMemberService,
+  deleteWorkBoardMemberService,
 } from "../services/services";
+import { addWorkBoardMembers, deleteWorkBoardMember } from "../store/slice";
 
 export const addWorkBoard = createAsyncThunk(
   "addWorkBoard",
@@ -431,8 +433,9 @@ export const addWorkBoardMember = createAsyncThunk(
   "addWorkBoardMember",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addWorkBoardMemberService(data);
-    if (res.data?.responseCode === responseCode.Success) {
-      message.success("Member Added");
+    if (res.responseCode === responseCode.Success) {
+      dispatch(addWorkBoardMembers(res.data));
+      // message.success("Member Added");
       return res;
     } else {
       message.error(res.data.message);
@@ -443,15 +446,27 @@ export const addWorkBoardMember = createAsyncThunk(
 
 export const getWorkBoardMemberAction = createAsyncThunk(
   "getWorkBoardMemberAction",
-  async (args) => {
-    console.log(args, "args.id");
-    try {
-      const response = await getWorkBoardMemberService(args);
-      console.log(response, "getWorkBoardMemberAction");
-      // if (!response.data) return message.error(`Error fetching data`);
-      return response.data;
-    } catch (error) {
-      console.log(error.message);
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await getWorkBoardMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const removeWorkBoardMemberAction = createAsyncThunk(
+  "removeWorkBoardMemberAction",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await deleteWorkBoardMemberService(data);
+    if (res.responseCode === responseCode.Success) {
+      dispatch(deleteWorkBoardMember(data));
+      return data;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
     }
   }
 );

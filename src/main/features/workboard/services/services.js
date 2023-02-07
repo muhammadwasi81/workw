@@ -220,14 +220,13 @@ export const removeWorkBoardTodoLabelService = (data) => {
 export const addWorkBoardMemberService = (data) => {
   const id = data.id;
   let memberId = data.memberId;
-  let memberType = data.memberType;
-  console.log(data, "data");
-  return MasterConfig.post(`api/WorkBoard/AddWorkBoardMember?id=${id}`, [
+  let member = [
     {
       memberId: memberId,
-      memberType: memberType,
+      memberType: 1,
     },
-  ])
+  ];
+  return MasterConfig.post(`api/WorkBoard/AddWorkBoardMember?id=${id}`, member)
     .then((res) => {
       return res.data;
     })
@@ -242,5 +241,19 @@ export const getWorkBoardMemberService = (id) => {
     })
     .catch((error) => {
       return error;
+    });
+};
+
+export const deleteWorkBoardMemberService = (data) => {
+  const id = data.id;
+  const memberId = data.memberId;
+  return MasterConfig.post(`api/WorkBoard/RemoveWorkBoardMember?id=${id}`, [
+    memberId,
+  ])
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
     });
 };

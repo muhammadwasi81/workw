@@ -82,7 +82,6 @@ function AccessRole() {
   }, [singleAccessRole, formData]);
 
   const handleEdit = (data) => {
-    console.log(data, 'data in index.js');
     setId(data.id);
     setIsDefault(data.isDefault);
     setFormData((prevData) => ({

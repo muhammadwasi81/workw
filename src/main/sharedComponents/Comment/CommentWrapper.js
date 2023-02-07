@@ -1,11 +1,11 @@
-import { Skeleton } from "antd";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { STRINGS } from "../../../utils/base";
-import { addReaction } from "../../features/feed/store/actions";
-import CommentItem from "./commentItem";
-import CommentComposer from "./Composer";
-import { getAllComment } from "./services";
+import { Skeleton } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { STRINGS } from '../../../utils/base';
+import { addReaction } from '../../features/feed/store/actions';
+import CommentItem from './commentItem';
+import CommentComposer from './Composer';
+import { getAllComment } from './services';
 
 function CommentWrapper({
   initailComments = [],
@@ -23,7 +23,7 @@ function CommentWrapper({
   setShowComments = () => {},
 }) {
   const [comments, setComments] = useState([]);
-  const [likeClass, setLikeClass] = useState("hello boy");
+  const [likeClass, setLikeClass] = useState('hello boy');
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
   useEffect(() => {
@@ -50,7 +50,7 @@ function CommentWrapper({
         reactionType: 1,
       })
     );
-    setLikeClass("liked");
+    setLikeClass('liked');
   };
   // console.log("initailComments", initailComments);
   // console.log("comment", comments);
@@ -73,7 +73,7 @@ function CommentWrapper({
               type,
               comment,
               creator = {
-                designation: user.designation || "",
+                designation: user.designation || '',
                 name: user.name,
                 image: user.userImage,
               },
@@ -93,7 +93,7 @@ function CommentWrapper({
                   initialMentions={initialMentions}
                   mentionedUser={mentionedUser}
                   module={module}
-                  likeClass={likeClass}
+                  likeClass={`${likeClass}`}
                   handleLike={handleAddReaction}
                   comment={{
                     content: comment,

@@ -14,6 +14,8 @@ const initialState = {
   groups: [],
   loadingData: false,
   loader: false,
+  createLoader: false,
+
   groupDetail: null,
   success: false,
   error: false,
@@ -23,6 +25,7 @@ const initialState = {
   isEditComposer: false,
   addMemberModal: false,
   open: false,
+  drawerOpen: false,
   removeMemberSucess: false,
 };
 
@@ -85,14 +88,13 @@ const groupSlice = createSlice({
       .addCase(getAllGroup.fulfilled, (state, { payload }) => {
         state.groups = payload.data;
         state.success = true;
-        state.loadingData = false;
+        state.loader = false;
       })
       .addCase(addGroup.fulfilled, (state, { payload }) => {
-        state.groups = [...payload, ...state.groups];
-        // state.groups.unshift(payload);
-
-        state.loader = false;
+        state.createLoader = false;
         state.success = true;
+        state.groups = [payload.data, ...state.groups];
+        state.drawerOpen = false;
       })
       .addCase(getGroupById.fulfilled, (state, { payload }) => {
         state.groupDetail = payload.data;
@@ -105,12 +107,6 @@ const groupSlice = createSlice({
         state.success = true;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
-        // state.groups = state.groups.filter((group) => group.id);
-        // if (payload.data.length > 0) {
-        //   state.memberData = [...state.memberData, payload.data[0]];
-        //   return state;
-        // }
-
         if (state.groupDetail) {
           //TODO: check if response is empty
           if (payload.data?.length) {
@@ -126,9 +122,6 @@ const groupSlice = createSlice({
         state.memberData = payload.data.length > 0 ? payload.data : [];
       })
       .addCase(deleteGroupMemberAction.fulfilled, (state, { payload }) => {
-        // if (state.groupDetail) {
-        console.log(payload, "payload in iff");
-
         let newMembers = state.groupDetail.members.filter(
           (member) => member.memberId !== payload
         );
@@ -138,16 +131,22 @@ const groupSlice = createSlice({
       .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
       })
-      .addMatcher(isPending(getAllGroup), (state) => {
+      .addMatcher(isPending(...[getAllGroup]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[getGroupById]), (state) => {
+        state.loadingData = true;
       })
       .addMatcher(isPending(...[addGroup]), (state) => {
+        state.createLoader = false;
+        // state.success = false;
+        // state.error = false;
+      })
+      .addMatcher(isRejected(...[getAllGroup]), (state) => {
         state.loader = true;
-        state.success = false;
-        state.error = false;
       })
       .addMatcher(isRejected(...[addGroup]), (state) => {
-        state.loader = false;
+        state.createLoader = false;
         state.success = false;
       })
       .addMatcher(isRejected(...[deleteGroupMemberAction]), (state) => {

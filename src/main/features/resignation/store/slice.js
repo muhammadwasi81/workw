@@ -49,7 +49,6 @@ const resignationSlice = createSlice({
         state.success = true
         state.createLoader = false
         state.items = [payload.data.data, ...state.items];
-        console.log("sliceresignationn",payload);
       })
       .addMatcher(isPending(...[getAllResignations]), (state) => {
         state.loader = true;

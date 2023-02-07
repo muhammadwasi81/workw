@@ -232,6 +232,7 @@ const Composer = (props) => {
     if (Object.keys(image).length > 0) {
       let data = { ...payload, image };
       dispatch(addResignation(data));
+      console.log("composerrrr",data);
     } else {
       dispatch(addResignation(payload));
     }

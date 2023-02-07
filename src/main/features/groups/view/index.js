@@ -104,7 +104,7 @@ const Groups = (props) => {
             ) : (
               <>
                 <GridView
-                  data={groups}
+                  data={groups ? groups : []}
                   loading={getDataLoading}
                   dispatch={dispatch}
                   handleClickNavigation={handleClickNavigation}
@@ -115,9 +115,6 @@ const Groups = (props) => {
           ) : (
             "Data not found"
           )}
-
-
-          
         </ContBody>
       </TabbableContainer>
     </>

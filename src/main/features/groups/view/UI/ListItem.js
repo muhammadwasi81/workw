@@ -14,11 +14,6 @@ function ListItem(props) {
   const { memberData, success, deleteSucess } = useSelector(
     (state) => state.groupSlice
   );
-  const userId = useSelector((state) => state.userSlice.user.id);
-
-  useEffect(() => {
-    dispatch(getAllGroupMemberAction(userId));
-  });
 
   return (
     <>

@@ -18,7 +18,6 @@ import {
 } from "@ant-design/icons";
 //import appraisal  from "../../../../content/NewContent/teams/appraisal.svg";
 
-
 export const listitem = [
   // {
   //   IconName: (
@@ -40,7 +39,7 @@ export const listitem = [
     ),
     displayName: "checkIn",
     classObj: "button",
-    to: (id) => `/teams/info/check-in/${id}`,
+    to: (id) => `${ROUTES.TEAMS.CHECK_IN}/${id}`,
   },
   {
     IconName: (
@@ -51,7 +50,7 @@ export const listitem = [
     ),
     displayName: "leaves",
     classObj: "button",
-    to: (id) => `/teams/info/leaves/${id}`,
+    to: (id) => `${ROUTES.TEAMS.LEAVES}/${id}`,
   },
   {
     IconName: (
@@ -62,7 +61,7 @@ export const listitem = [
     ),
     displayName: "rewards",
     classObj: "button",
-    to: (id) => `/teams/info/rewards/${id}`,
+    to: (id) => `${ROUTES.TEAMS.REWARDS}/${id}`,
   },
   // {
   //   IconName: (
@@ -84,7 +83,7 @@ export const listitem = [
     ),
     displayName: "warnings",
     classObj: "button",
-    to: (id) => `/teams/info/warnings/${id}`,
+    to: (id) => `${ROUTES.TEAMS.WARNING}/${id}`,
   },
   {
     IconName: (
@@ -95,7 +94,7 @@ export const listitem = [
     ),
     displayName: "complains",
     classObj: "button",
-    to: (id) => `/teams/info/complains/${id}`,
+    to: (id) => `${ROUTES.TEAMS.COMPLAIN}/${id}`,
   },
   {
     IconName: (
@@ -106,7 +105,7 @@ export const listitem = [
     ),
     displayName: "courses",
     classObj: "button",
-    to: (id) => `/teams/info/courses/${id}`,
+    to: (id) => `${ROUTES.TEAMS.COURSES}/${id}`,
   },
   {
     IconName: (
@@ -117,7 +116,7 @@ export const listitem = [
     ),
     displayName: "education",
     classObj: "button",
-    to: (id) => `/teams/info/education/${id}`,
+    to: (id) => `${ROUTES.TEAMS.EDUCATION}/${id}`,
   },
   {
     IconName: (
@@ -128,7 +127,7 @@ export const listitem = [
     ),
     displayName: "experience",
     classObj: "button",
-    to: (id) => `/teams/info/experience/${id}`,
+    to: (id) => `${ROUTES.TEAMS.EXPERIENCE}/${id}`,
   },
   {
     IconName: (
@@ -139,7 +138,7 @@ export const listitem = [
     ),
     displayName: "loan",
     classObj: "button",
-    to: (id) => `/teams/info/loan/${id}`,
+    to: (id) => `${ROUTES.TEAMS.LOAN}/${id}`,
   },
   {
     IconName: (
@@ -150,11 +149,11 @@ export const listitem = [
     ),
     displayName: "activityLog",
     classObj: "button",
-    to: (id) => `/teams/info/activity-log/${id}`,
+    to: (id) => `${ROUTES.TEAMS.ACTIVITY_LOG}/${id}`,
   },
 
   {
-    IconName: (  
+    IconName: (
       <LikeOutlined
         style={{ fontSize: 20, margin: "15px" }}
         color={"var(--currentThemeColor)"}
@@ -162,7 +161,6 @@ export const listitem = [
     ),
     displayName: "appraisals",
     classObj: "button",
-    to: (id) => `/teams/info/appraisals/${id}`,
+    to: (id) => `${ROUTES.TEAMS.APPRAISALS}/${id}`,
   },
-
 ];

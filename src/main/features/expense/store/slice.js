@@ -40,16 +40,16 @@ const expenseSlice = createSlice({
     builder
       .addCase(addExpense.fulfilled, (state, { payload }) => {
         state.expenses = [payload, ...state.expenses];
+
         state.drawerOpen = false;
         state.loader = false;
       })
       .addCase(getAllExpense.fulfilled, (state, action) => {
-        // state.expenses = payload;
+        // state.expenses = action.payload;
         // state.loader = false;
-        // console.log(payload, "payload");
-        state.expenses = action.payload?.data ? action.payload.data : [];
-        state.loader = false;
         // console.log(action.payload, "payload");
+        state.expenses = action.payload.data ? action.payload.data : [];
+        state.loader = false;
       })
       .addCase(getExpenseById.fulfilled, (state, action) => {
         // state.expense = data;

@@ -33,6 +33,9 @@ const groupSlice = createSlice({
   name: "groupSlice",
   initialState,
   reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     resetGroupDetail(state, { payload }) {
       state.groupDetail = null;
     },
@@ -91,10 +94,11 @@ const groupSlice = createSlice({
         state.loader = false;
       })
       .addCase(addGroup.fulfilled, (state, { payload }) => {
-        state.createLoader = false;
-        state.success = true;
         state.groups = [payload.data, ...state.groups];
         state.drawerOpen = false;
+        state.createLoader = false;
+        return state;
+        // state.success = true;
       })
       .addCase(getGroupById.fulfilled, (state, { payload }) => {
         state.groupDetail = payload.data;
@@ -103,8 +107,10 @@ const groupSlice = createSlice({
       })
       .addCase(updateGroup.fulfilled, (state, { payload }) => {
         state.groupDetail = payload.data;
-        state.loader = false;
-        state.success = true;
+        state.createLoader = false;
+        state.drawerOpen = false;
+        // state.success = true;
+        return state;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
         if (state.groupDetail) {
@@ -137,22 +143,23 @@ const groupSlice = createSlice({
       .addMatcher(isPending(...[getGroupById]), (state) => {
         state.loadingData = true;
       })
-      .addMatcher(isPending(...[addGroup]), (state) => {
-        state.createLoader = false;
+      .addMatcher(isPending(...[addGroup, updateGroup]), (state) => {
+        state.createLoader = true;
         // state.success = false;
         // state.error = false;
       })
       .addMatcher(isRejected(...[getAllGroup]), (state) => {
         state.loader = true;
       })
-      .addMatcher(isRejected(...[addGroup]), (state) => {
+      .addMatcher(isRejected(...[addGroup, updateGroup]), (state) => {
         state.createLoader = false;
         state.success = false;
+        state.error = false;
       })
       .addMatcher(isRejected(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
       })
-      .addMatcher(isRejected(...[updateGroup, getGroupById]), (state) => {
+      .addMatcher(isRejected(...[getGroupById]), (state) => {
         state.loader = false;
         state.success = false;
         state.error = true;
@@ -167,5 +174,6 @@ export const {
   addMember,
   deleteGroupMember,
   addGroupMember,
+  handleOpenComposer,
 } = groupSlice.actions;
 export default groupSlice.reducer;

@@ -117,13 +117,23 @@ const projectSlice = createSlice({
         state.memberData = action.payload.data;
       })
       .addCase(addProjectMemberAction.fulfilled, (state, { payload }) => {
-        if (payload.data.length > 0) {
-          state.memberData = [...state.memberData, payload.data[0]];
-          return state;
+        if (state.projectDetail) {
+          if (payload.data?.length) {
+            let newMembers = [...state.projectDetail.members, payload.data[0]];
+            state.projectDetail = {
+              ...state.projectDetail,
+              members: newMembers,
+            };
+          }
         }
       })
       .addCase(deleteProjectMemberAction.fulfilled, (state, { payload }) => {
-        state.removeMemberSucess = true;
+        let newMembers = state.projectDetail.members.filter(
+          (member) => member.memberId !== payload
+        );
+
+        state.projectDetail = { ...state.projectDetail, members: newMembers };
+        // state.removeMemberSucess = true;
       });
 
     builder

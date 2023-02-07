@@ -32,7 +32,9 @@ const CheckIn = () => {
   return (
     <>
       <div className="flex items-center text-xs">
-        <div>{isMobile ? moment().format("lll") : moment().format("LLLL")}</div>
+        <div>
+          {isMobile ? moment().format("llll") : moment().format("LLLL")}
+        </div>
         <div className="cursor-pointer" onClick={() => setIsOpen(true)}>
           <img
             className={

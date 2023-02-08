@@ -4,6 +4,7 @@ export const ActivityLogTbale=[
         dataIndex: 'deviceType',
         key: 'deviceType',
         sort: true,
+        ellipsis: true,
        
       },
   
@@ -12,13 +13,14 @@ export const ActivityLogTbale=[
         dataIndex: 'deviceToken',
         key: 'deviceToken',
         sort: true,
-       
+        ellipsis: true,
       },
       {
         title: "OS Version",
         dataIndex: 'osVersion',
         key: 'osVersion',
         sort: true,
+        ellipsis: true,
        
       },
       {
@@ -26,6 +28,7 @@ export const ActivityLogTbale=[
         dataIndex: 'device',
         key: 'device',
         sort: true,
+        ellipsis: true,
        
       },
 ]

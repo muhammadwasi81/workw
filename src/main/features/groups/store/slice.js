@@ -53,6 +53,7 @@ const groupSlice = createSlice({
             ...item,
             members,
           };
+
           return newItem;
         } else {
           return item;
@@ -84,15 +85,18 @@ const groupSlice = createSlice({
       .addCase(getAllGroup.fulfilled, (state, { payload }) => {
         state.groups = payload.data;
         state.success = true;
+        state.loadingData = false;
       })
       .addCase(addGroup.fulfilled, (state, { payload }) => {
+        state.groups = [...payload, ...state.groups];
+        // state.groups.unshift(payload);
+
         state.loader = false;
         state.success = true;
-        state.groups = [{ ...payload }, ...state.groups];
       })
       .addCase(getGroupById.fulfilled, (state, { payload }) => {
         state.groupDetail = payload.data;
-        state.loader = false;
+        state.loadingData = false;
         state.success = true;
       })
       .addCase(updateGroup.fulfilled, (state, { payload }) => {
@@ -101,17 +105,35 @@ const groupSlice = createSlice({
         state.success = true;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
-        state.groups = state.groups.filter((group) => group.id);
-        if (payload.data.length > 0) {
-          state.memberData = [...state.memberData, payload.data[0]];
-          return state;
+        // state.groups = state.groups.filter((group) => group.id);
+        // if (payload.data.length > 0) {
+        //   state.memberData = [...state.memberData, payload.data[0]];
+        //   return state;
+        // }
+
+        if (state.groupDetail) {
+          //TODO: check if response is empty
+          if (payload.data?.length) {
+            let newMembers = [...state.groupDetail.members, payload.data[0]];
+            state.groupDetail = {
+              ...state.groupDetail,
+              members: newMembers,
+            };
+          }
         }
       })
       .addCase(getAllGroupMemberAction.fulfilled, (state, { payload }) => {
         state.memberData = payload.data.length > 0 ? payload.data : [];
       })
-      .addCase(deleteGroupMemberAction.fulfilled, (state, action) => {
-        state.removeMemberSucess = true;
+      .addCase(deleteGroupMemberAction.fulfilled, (state, { payload }) => {
+        // if (state.groupDetail) {
+        console.log(payload, "payload in iff");
+
+        let newMembers = state.groupDetail.members.filter(
+          (member) => member.memberId !== payload
+        );
+
+        state.groupDetail = { ...state.groupDetail, members: newMembers };
       })
       .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
@@ -119,25 +141,23 @@ const groupSlice = createSlice({
       .addMatcher(isPending(getAllGroup), (state) => {
         state.loader = true;
       })
-      .addMatcher(
-        isPending(...[addGroup, updateGroup, getGroupById]),
-        (state) => {
-          state.loader = true;
-          state.success = false;
-          state.error = false;
-        }
-      )
+      .addMatcher(isPending(...[addGroup]), (state) => {
+        state.loader = true;
+        state.success = false;
+        state.error = false;
+      })
+      .addMatcher(isRejected(...[addGroup]), (state) => {
+        state.loader = false;
+        state.success = false;
+      })
       .addMatcher(isRejected(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
       })
-      .addMatcher(
-        isRejected(...[getAllGroup, addGroup, updateGroup, getGroupById]),
-        (state) => {
-          state.loader = false;
-          state.success = false;
-          state.error = true;
-        }
-      );
+      .addMatcher(isRejected(...[updateGroup, getGroupById]), (state) => {
+        state.loader = false;
+        state.success = false;
+        state.error = true;
+      });
   },
 });
 

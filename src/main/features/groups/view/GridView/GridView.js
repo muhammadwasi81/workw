@@ -1,10 +1,13 @@
+import React from 'react';
 import { Drawer } from 'antd';
+
 import { CardWrapper2 } from '../../../../sharedComponents/Card/CardStyle';
 import { handleComposer } from '../../store/slice';
+
 import DashboardCardLayout from '../UI/DashboardCard/DashboardCardLayout';
 import ChatIcon from '../../../../../content/NewContent/groups/ChatIcon.svg';
 import Composer from '../../view/UI/Composer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function GridView({
   data,
@@ -29,10 +32,6 @@ function GridView({
               'https://st.depositphotos.com/1062085/4008/v/600/depositphotos_40089703-stock-illustration-businessman-in-the-office-flat.jpg'
             }
             loading={loading}
-            // handleUpdate={() => {
-            //   dispatch(getGroupDetailById(list.id));
-            //   dispatch(handleComposer({ isOpen: true, isEdit: true }));
-            // }}
             onClick={() => {
               handleClickNavigation(list.id);
             }}

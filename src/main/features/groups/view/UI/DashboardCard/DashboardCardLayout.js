@@ -8,7 +8,6 @@ import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { handleFavoriteMark } from '../../../store/slice';
 import { addGroupFavoriteMarkAction } from '../../../store/actions';
 import PropTypes from 'prop-types';
-const { Meta } = Card;
 
 function DashboardCardLayout({
   data = {},
@@ -21,6 +20,7 @@ function DashboardCardLayout({
   chatIcon,
 }) {
   const dispatch = useDispatch();
+  const { Meta } = Card;
   const menuHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -71,34 +71,23 @@ function DashboardCardLayout({
               membersData={data.members}
             />
           </div>
-          {/* {userId === data.createBy && (
-            <div
-              className="flex items-center gap-1 p-1 rounded-sm bg-neutral-100 !text-primary-color hover:bg-neutral-200 transition"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                getDetailById(data.id);
-                handleUpdate();
-              }}
-            >
-              {dictionary?.labels?.update}
-            </div>
-          )} */}
           <div className="flex  justify-between">
-            <div className={`halfHeader `}>
-              <img src={chatIcon} alt="chatIcon" loading="lazy" width={20} />
+            <div className="flex justify-between m-2">
+              <div className={`halfHeader `}>
+                <img src={chatIcon} alt="chatIcon" loading="lazy" width={20} />
+              </div>
+              <div
+                onClick={(e) => handleFavorite(e)}
+                className="relative bottom-2 right-1 mr-1 mt-1"
+              >
+                {data.isPinnedPost ? (
+                  <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
+                ) : (
+                  <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
+                )}
+              </div>
+              <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
             </div>
-            <div
-              onClick={(e) => handleFavorite(e)}
-              className="relative bottom-2 right-1 mr-1 mt-1"
-            >
-              {data.isPinnedPost ? (
-                <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
-              ) : (
-                <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
-              )}
-            </div>
-            <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
           </div>
         </div>
       </Card>

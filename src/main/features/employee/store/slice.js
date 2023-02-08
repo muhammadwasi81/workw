@@ -93,7 +93,6 @@ const employeeSlice = createSlice({
       .addCase(updateEmployeeFamily.fulfilled, (state, { payload }) => {
         state.updateFamilyLoader = false;
         state.success = true;
-        console.log(payload);
         //TODO: replace the response with existing id object
         const index = state.employee.family.map((item, i) => {
           if (item.id === payload.id) {
@@ -114,13 +113,11 @@ const employeeSlice = createSlice({
       })
       .addCase(getEmployeeByIdAction.fulfilled, (state, action) => {
         state.employee.profileDetails = action.payload.data;
-        console.log(action.payload.data, 'profileDetails slice');
         state.loader = false;
         state.success = true;
       })
       .addCase(getAllEmployeeDetailAttachment.fulfilled, (state, action) => {
         state.employee.attachments = action.payload.data;
-        console.log(action.payload.data, 'profileDetails slice');
         state.loader = false;
         state.success = true;
       })
@@ -131,7 +128,6 @@ const employeeSlice = createSlice({
         state.employee.basicdetails = payload.data;
       })
       .addCase(getUserDeviceInfoAction.fulfilled, (state, { payload }) => {
-        console.log(payload.data, 'getUserDeviceInfo');
         state.employee.devicedetails = payload.data;
       })
       .addCase(getUserWorkExperience.fulfilled, (state, { payload }) => {

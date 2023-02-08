@@ -1,6 +1,7 @@
 export let DOMAIN_PREFIX = "";
 DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
-// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
+// DOMAIN_PREFIX =
+//   process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
 
 export const ROUTES = {
   SEARCH: {
@@ -99,6 +100,7 @@ export const ROUTES = {
     ARTICLE_CREATE: `${DOMAIN_PREFIX}/eLearning/article/create`,
     QUIZ_CREATE: `${DOMAIN_PREFIX}/eLearning/quiz/create`,
     TEDTALK_CREATE: `${DOMAIN_PREFIX}/eLearning/tedtalk/create`,
+    COURSE_VIDEO: `${DOMAIN_PREFIX}/eLearning/courses/learn/`,
     // COURSE: `${DOMAIN_PREFIX}/eLearning/courses/`,
   },
   INVENTORY: {

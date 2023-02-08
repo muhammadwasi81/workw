@@ -3,6 +3,7 @@ import {
   isFulfilled,
   isPending,
   isRejected,
+  current,
 } from '@reduxjs/toolkit';
 import {
   onFeedCreateSubmitAction,
@@ -29,6 +30,7 @@ import {
   resetComposeFeed,
 } from './actions';
 import { PollType, PostPrivacyType, PostType } from '../utils/constants';
+import { filter } from 'lodash';
 
 const composeInitialState = {
   showComposer: false,
@@ -84,14 +86,14 @@ export const feedSlice = createSlice({
       feed.isPinnedPost = !feed.isPinnedPost;
     },
     addFeedReaction(state, { payload }) {
-      const { reactionMode, referenceId, myReaction, isDetail } = payload;
+      const { reactionMode, referenceId, reactionType, isDetail } = payload;
       if (!isDetail) {
         const feed = state.allFeed.posts.find(
           (feed) => feed.id === referenceId
         );
         if (reactionMode && reactionMode === 'click') {
           // feed.myReaction===myReaction
-          if (feed.myReaction === myReaction) {
+          if (feed.myReaction === reactionType) {
             feed.myReaction = 0;
             feed.reactionCount = feed.reactionCount - 1;
             return;
@@ -100,10 +102,10 @@ export const feedSlice = createSlice({
         if (feed.reactionCount === 0) {
           feed.reactionCount = 1;
         }
-        feed.myReaction = myReaction;
+        feed.myReaction = reactionType;
         return;
       }
-      if (state.singlePost.myReaction === myReaction) {
+      if (state.singlePost.myReaction === reactionType) {
         state.singlePost.myReaction = 0;
         state.singlePost.myReaction = state.singlePost.myReaction - 1;
         return;
@@ -111,7 +113,7 @@ export const feedSlice = createSlice({
       if (state.singlePost.reactionCount === 0) {
         state.singlePost.reactionCount = 1;
       }
-      state.singlePost.myReaction = myReaction;
+      state.singlePost.myReaction = reactionType;
       return;
     },
     postPoll(state, { payload }) {

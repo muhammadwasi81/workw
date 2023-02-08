@@ -99,6 +99,6 @@ thead tr th {
   direction: ltr !important;
   text-align: left !important;
 }
-.deviceTable .ant-table-thead>tr>th  {
+.logTable .ant-table-thead>tr>th  {
   padding: 5px;
 }

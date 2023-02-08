@@ -33,7 +33,7 @@ const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
   const { labels, placeHolders, errors, features } = groupsDictionary;
-  const loading = useSelector((state) => state.groupSlice.loader);
+  const { loader } = useSelector((state) => state.groupSlice);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState("");
@@ -55,7 +55,6 @@ const Composer = (props) => {
   };
 
   const onFinish = () => {
-    console.log("on Finishhh");
     const values = form.getFieldsValue(true);
     let members = memberList.map((member) => {
       return {
@@ -214,7 +213,7 @@ const Composer = (props) => {
               className="ThemeBtn"
               block
               htmlType="submit"
-              loading={loading}
+              // loading={loader}
               // onClick={onFinish}
             >
               {update

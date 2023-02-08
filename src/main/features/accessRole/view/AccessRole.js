@@ -84,6 +84,7 @@ function AccessRole() {
   const handleEdit = (data) => {
     setId(data.id);
     setIsDefault(data.isDefault);
+    form.resetFields();
     setFormData((prevData) => ({
       ...prevData,
       name: data.name,
@@ -93,7 +94,6 @@ function AccessRole() {
     }));
     dispatch(getAccessRoleById(data.id));
     setOpenDrawer(true);
-    form.resetFields();
     setIsEdited(true);
   };
 

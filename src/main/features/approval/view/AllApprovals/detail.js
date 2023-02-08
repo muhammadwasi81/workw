@@ -55,6 +55,9 @@ export default function ApprovalDetail({ approvalDetailData }) {
       case ApprovalsModule.LoanApproval:
         return <LoanDetail id={id} />;
 
+        // case ApprovalsModule.SignupApproval:
+        // return <SignupDetailCard id={id} />;
+
       case ApprovalsModule.PayrollApproval:
         return <PayrolDetailCard id={id} />;
 

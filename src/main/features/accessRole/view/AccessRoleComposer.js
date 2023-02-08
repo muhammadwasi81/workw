@@ -52,7 +52,6 @@ function AccessRoleComposer(props) {
   console.log(selectedKeys, 'featuresTreeData');
   console.log(featuresTreeData, 'featuresTreeData');
   console.log(checkedKeys, 'featuresTreeData');
-  
 
   useEffect(() => {
     getAllBussinessFeatures();
@@ -129,7 +128,7 @@ function AccessRoleComposer(props) {
               id: role.permissionId,
               featureId: singleAccessRole.features[i].featureId,
               name: role.permission,
-            }
+            };
             checkedData.push(
               JSON.stringify(obj) + '_' + singleAccessRole.features[i].featureId
             );
@@ -147,14 +146,14 @@ function AccessRoleComposer(props) {
           checkedData.push(JSON.stringify(singleAccessRoleObj));
         }
       }
-      console.log(checkedData, "checkedDatacheckedData");
+      console.log(checkedData, 'checkedDatacheckedData');
       setCheckedKeys((prevCheckedKeys) => [...prevCheckedKeys, ...checkedData]);
-// "{\"id\":20,\"featureId\":11,\"name\":\"View Travel\"}_11"
+      // "{\"id\":20,\"featureId\":11,\"name\":\"View Travel\"}_11"
 
-// accessRoleFeatureId: "5524ddd0-d57f-487f-b8d6-774d3514dee8"
-// id: "152a577e-eaa0-402f-b736-6550ed8926e2"
-// permission: "View Feed"
-// permissionId: 1
+      // accessRoleFeatureId: "5524ddd0-d57f-487f-b8d6-774d3514dee8"
+      // id: "152a577e-eaa0-402f-b736-6550ed8926e2"
+      // permission: "View Feed"
+      // permissionId: 1
     }
   }, [singleAccessRole]);
 
@@ -411,166 +410,3 @@ function AccessRoleComposer(props) {
 }
 
 export default memo(AccessRoleComposer);
-
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-// import { useState } from 'react';
-// import { Tree } from 'antd';
-// import { useEffect } from 'react';
-// import { getAllBussinessFeatures } from './../../../../utils/Shared/store/actions';
-
-// const initialTreeData = [
-//   {
-//     title: 'Access Controls',
-//     key: 'Access Controls',
-//     children: [{ title: '', key: '', children: [] }],
-//   },
-// ];
-
-// // const treeData = [
-// //   {
-// //     title: 'Access Controls',
-// //     key: 'Access Controls',
-// //     children: [
-// //       {
-// //         title: 'parent 1-0',
-// //         key: '0-0-0',
-// //         children: [
-// //           {
-// //             title: 'leaf',
-// //             key: '0-0-0-0',
-// //           },
-// //           {
-// //             title: 'leaf',
-// //             key: '0-0-0-1',
-// //           },
-// //         ],
-// //       },
-// //       // {
-// //       //   title: 'parent 1-1',
-// //       //   key: '0-0-1',
-// //       //   children: [
-// //       //     {
-// //       //       title: (
-// //       //         <span
-// //       //           style={{
-// //       //             color: '#1890ff',
-// //       //           }}
-// //       //         >
-// //       //           sss
-// //       //         </span>
-// //       //       ),
-// //       //       key: '0-0-1-0',
-// //       //     },
-// //       //   ],
-// //       // },
-// //     ],
-// //   },
-// // ];
-
-// const AccessRoleComposer = () => {
-//   const [expandedKeys, setExpandedKeys] = useState(['Access Controls']);
-//   const [checkedKeys, setCheckedKeys] = useState([]);
-//   const [selectedKeys, setSelectedKeys] = useState([]);
-//   const [autoExpandParent, setAutoExpandParent] = useState(true);
-//   const { bussinessFeatures } = useSelector((state) => state.sharedSlice);
-//   const [featuresTreeData, setFeaturesTreeData] = useState(initialTreeData);
-//   const [loadingTreeData, setLoadingTreeData] = useState(false);
-//   const [features, setFeatures] = useState([]);
-//   const [showChecked, setShowChecked] = useState(false);
-//   const [formDataObject, setFormDataObject] = useState({
-//     name: '',
-//     description: '',
-//     roleTypeId: null,
-//   });
-//   const [isObjEqual, setIsObjEqual] = useState(false);
-//   // const {
-//   //   loader: loading,
-//   //   createLoader,
-//   //   success,
-//   //   singleAccessRole,
-//   //   isSingleAccessRoleLoaded,
-//   // } = useSelector((state) => state.accessRolesSlice);
-
-//   useEffect(() => {
-//     getAllBussinessFeatures();
-//   }, []);
-
-//   let roles =
-//     bussinessFeatures &&
-//     bussinessFeatures.map((item) => {
-//       return {
-//         title: item.name,
-//         key: item.featureId,
-//         children: item.permissions.map((item) => {
-//           return {
-//             title: item.name,
-//             id: item.id,
-//             featureId: item.featureId,
-//           };
-//         }),
-//       };
-//     });
-
-//   let list = [
-//     {
-//       children: roles,
-//       title: 'Access Controls',
-//       key: 'Access Controls',
-//     },
-//   ];
-
-//   const onCheck = (checkedKeys, info) => {
-//     // console.log('onCheck', checkedKeys, info);
-
-//     let filterParent = info.checkedNodes.filter((item) => item.children);
-//     console.log(filterParent, 'filterParent');
-
-//     setFeatures(filterParent);
-//     setCheckedKeys(checkedKeys);
-//   };
-
-//   const onSelect = (selectedKeys, data) => {
-//     setSelectedKeys(selectedKeys);
-//   };
-//   const onExpand = (expandedKeysValue) => {
-//     setExpandedKeys(expandedKeysValue);
-//     setAutoExpandParent(false);
-//   };
-
-//   let featuresData = features.map((item) => {
-//     return {
-//       id: item.id,
-//       featureId: item.featureId,
-//       name: item.title,
-//     };
-//   });
-
-//   let payload = {
-//     features: featuresData,
-//     name: 'john Doe',
-//     description: 'john Doe',
-//     roleTypeId: 2,
-//     id: 'a43cf58a-5432-47f4-9317-a6e61d71a2a2',
-//   };
-
-//   console.log(payload, 'PAYLOAD');
-
-//   return (
-//     <div>
-//       <Tree
-//         checkable
-//         onExpand={onExpand}
-//         expandedKeys={expandedKeys}
-//         autoExpandParent={autoExpandParent}
-//         onCheck={onCheck}
-//         checkedKeys={checkedKeys}
-//         onSelect={onSelect}
-//         selectedKeys={selectedKeys}
-//         treeData={list}
-//       />
-//     </div>
-//   );
-// };
-
-// export default AccessRoleComposer;

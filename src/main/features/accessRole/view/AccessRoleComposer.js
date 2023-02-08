@@ -31,6 +31,7 @@ function AccessRoleComposer(props) {
   const [featuresTreeData, setFeaturesTreeData] = useState(initialTreeData);
   const [loadingTreeData, setLoadingTreeData] = useState(false);
   const [showChecked, setShowChecked] = useState(false);
+  const [form] = Form.useForm();
   const [formDataObject, setFormDataObject] = useState({
     name: '',
     description: '',
@@ -49,9 +50,9 @@ function AccessRoleComposer(props) {
     userLanguage
   ];
 
-  console.log(selectedKeys, 'featuresTreeData');
-  console.log(featuresTreeData, 'featuresTreeData');
-  console.log(checkedKeys, 'featuresTreeData');
+  // console.log(selectedKeys, 'featuresTreeData');
+  // console.log(featuresTreeData, 'featuresTreeData');
+  // console.log(checkedKeys, 'featuresTreeData');
 
   useEffect(() => {
     getAllBussinessFeatures();
@@ -71,7 +72,7 @@ function AccessRoleComposer(props) {
         ...expandedKeys,
         ...expandedKeysArray,
       ]);
-      console.log(bussinessFeatures, 'bussinessFeatures');
+      // console.log(bussinessFeatures, 'bussinessFeatures');
       const transformObject =
         bussinessFeatures &&
         bussinessFeatures.length > 0 &&
@@ -110,7 +111,7 @@ function AccessRoleComposer(props) {
 
   useEffect(() => {
     if (singleAccessRole && singleAccessRole?.features?.length > 0) {
-      console.log(singleAccessRole, 'singleAccessRole');
+      // console.log(singleAccessRole, 'singleAccessRole');
       setFormDataObject((prevObj) => ({
         ...prevObj,
         name: props.formData.name,
@@ -146,7 +147,7 @@ function AccessRoleComposer(props) {
           checkedData.push(JSON.stringify(singleAccessRoleObj));
         }
       }
-      console.log(checkedData, 'checkedDatacheckedData');
+      // console.log(checkedData, 'checkedDatacheckedData');
       setCheckedKeys((prevCheckedKeys) => [...prevCheckedKeys, ...checkedData]);
       // "{\"id\":20,\"featureId\":11,\"name\":\"View Travel\"}_11"
 
@@ -166,18 +167,18 @@ function AccessRoleComposer(props) {
   }, [success]);
 
   const onExpand = (expandedKeysValue) => {
-    console.log('onExpand', expandedKeysValue);
+    // console.log('onExpand', expandedKeysValue);
     setExpandedKeys(expandedKeysValue);
     setAutoExpandParent(false);
   };
 
   const onSelect = (selectedKeysValue) => {
-    console.log('featuresTreeData', selectedKeysValue);
+    // console.log('featuresTreeData', selectedKeysValue);
     setSelectedKeys(selectedKeysValue);
   };
 
   const onCheck = (checkedKeysValue) => {
-    console.log('featuresTreeData onCheck', checkedKeysValue);
+    // console.log('featuresTreeData onCheck', checkedKeysValue);
     setCheckedKeys(checkedKeysValue);
     setShowChecked(true);
   };
@@ -239,9 +240,9 @@ function AccessRoleComposer(props) {
       return message.error('Please add access role!');
     }
     let finalData = handleTreeForm(values);
-    console.log(finalData, 'finalData onFinish');
+    // console.log(finalData, 'finalData onFinish');
     if (props.isEdited) {
-      console.log(props.isEdited, 'props.isEdited');
+      // console.log(props.isEdited, 'props.isEdited');
       finalData.id = props.id;
     }
     props.onSubmitData(finalData);

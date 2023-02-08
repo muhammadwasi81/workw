@@ -4,7 +4,10 @@ import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import AccessRoleComposer from './AccessRoleComposer';
 import { Skeleton, Form } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBussinessFeatures } from '../../../../utils/Shared/store/actions';
+import {
+  getAllBussinessFeatures,
+  getAllUserTypes,
+} from '../../../../utils/Shared/store/actions';
 import '../style/accessrole.css';
 import {
   addAccessRole,
@@ -47,13 +50,16 @@ function AccessRole() {
   useEffect(() => {
     dispatch(getAllBussinessFeatures());
     dispatch(getAllAccessRoles());
+    dispatch(getAllUserTypes());
   }, [dispatch]);
 
-  const onSubmitData = (finalData) => {
+  const handleSubmit = (finalData) => {
     if (isEdited) {
       dispatch(updateAccessRoleById(finalData));
+      form.resetFields();
     } else {
       dispatch(addAccessRole(finalData));
+      form.resetFields();
     }
   };
 
@@ -82,32 +88,34 @@ function AccessRole() {
   }, [singleAccessRole, formData]);
 
   const handleEdit = (data) => {
+    console.log('data', data);
     setId(data.id);
-    setIsDefault(data.isDefault);
     form.resetFields();
+    setIsDefault(data.isDefault);
     setFormData((prevData) => ({
       ...prevData,
+      // id: data.id,
       name: data.name,
       roleTypeId: data.roleTypeId,
       description: data.description,
-      features: data.features,
     }));
     dispatch(getAccessRoleById(data.id));
     setOpenDrawer(true);
     setIsEdited(true);
   };
 
+  console.log(defaultData, 'defaultData');
   useEffect(() => {
-    if (openDrawer && isEdited) {
-      form.setFieldsValue({
-        name: formData.name,
-        description: formData.description,
-        roleTypeId: formData.roleTypeId,
-        features: formData.features,
-      });
+    if (!openDrawer) {
+      setIsEdited(false);
+      setIsDefault(false);
+      setFormData(initialFormData);
+      form.resetFields();
+    }
+    if (defaultData) {
       form.setFieldsValue(defaultData);
     }
-  }, [openDrawer, form]);
+  }, [openDrawer, form, defaultData, initialFormData]);
 
   return (
     <AdminContainer>
@@ -120,11 +128,7 @@ function AccessRole() {
               }`}
             >
               <SideDrawer
-                title={
-                  isEdited
-                    ? administration.accessRole.Drawer.UpdateAccessRole
-                    : administration.accessRole.Drawer.CreateAccessRole
-                }
+                title={administration.accessRole.Drawer.CreateAccessRole}
                 buttonText={administration.accessRole.Button.AddAccessRole}
                 success={success}
                 openDrawer={openDrawer}
@@ -135,7 +139,7 @@ function AccessRole() {
                 children={
                   <AccessRoleComposer
                     isDefault={isDefault}
-                    onSubmitData={onSubmitData}
+                    onSubmitData={handleSubmit}
                     formData={formData}
                     isEdited={isEdited}
                     openDrawer={openDrawer}
@@ -150,7 +154,13 @@ function AccessRole() {
 
           <AdminTable
             bordered
-            columns={tableColumns(handleEdit, Direction, sharedLabels)}
+            columns={tableColumns(
+              handleEdit,
+              // id,
+              // accessRoles,
+              Direction,
+              sharedLabels
+            )}
             dataSource={accessRoles}
             pagination={false}
             direction={Direction}

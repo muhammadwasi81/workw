@@ -136,9 +136,7 @@ const PostFooter = ({
                 })
               );
             }}
-            // onLikeBtnClick={() =>
-            // 	handleAddReaction(myReaction, id)
-            // }
+            onLikeBtnClick={() => handleAddReaction(myReaction, id)}
           >
             <div className={`btn on`}>
               <span>

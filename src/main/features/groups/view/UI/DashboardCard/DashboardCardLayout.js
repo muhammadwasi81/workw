@@ -73,7 +73,7 @@ function DashboardCardLayout({
             />
           </div>
 
-          <div className="flex justify-end justify-between">
+          <div className="flex justify-end justify-between m-2">
             <div className={`halfHeader `}>
               <img src={chatIcon} alt="" width={20} />
             </div>{" "}

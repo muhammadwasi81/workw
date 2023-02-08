@@ -17,6 +17,7 @@ export const getAllResignations = createAsyncThunk("Resignation/GetAllResignatio
 
 export const addResignation = createAsyncThunk("Resgination/addResignation", async (data, { dispatch, getState, rejectWithValue }) => {
   const res = await addResignationService(data);
+  console.log("resignationnn",res);
   if (res.data?.responseCode === responseCode.Success) {
     message.success('Resignation Created');
     return res;

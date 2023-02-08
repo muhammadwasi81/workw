@@ -15,7 +15,6 @@ function ActivityLog() {
   const {
     team: { devicedetails },
   } = useSelector((state) => state.teamSlice);
-  // const { deviceDetails } = useSelector((state) => state.teamSlice);
 
   console.log(devicedetails,"deviceDetailsdeviceDetails");
 
@@ -35,7 +34,7 @@ function ActivityLog() {
  
   return (
     <>
-     <div className="deviceTable">
+     <div className="logTable">
       <Table
         bordered
         columns={ActivityLogTbale}

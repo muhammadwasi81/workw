@@ -53,6 +53,7 @@ const groupSlice = createSlice({
             ...item,
             members,
           };
+
           return newItem;
         } else {
           return item;
@@ -87,7 +88,9 @@ const groupSlice = createSlice({
         state.loadingData = false;
       })
       .addCase(addGroup.fulfilled, (state, { payload }) => {
-        state.groups = [{ ...payload }, ...state.groups];
+        state.groups = [...payload, ...state.groups];
+        // state.groups.unshift(payload);
+
         state.loader = false;
         state.success = true;
       })
@@ -102,17 +105,35 @@ const groupSlice = createSlice({
         state.success = true;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
-        state.groups = state.groups.filter((group) => group.id);
-        if (payload.data.length > 0) {
-          state.memberData = [...state.memberData, payload.data[0]];
-          return state;
+        // state.groups = state.groups.filter((group) => group.id);
+        // if (payload.data.length > 0) {
+        //   state.memberData = [...state.memberData, payload.data[0]];
+        //   return state;
+        // }
+
+        if (state.groupDetail) {
+          //TODO: check if response is empty
+          if (payload.data?.length) {
+            let newMembers = [...state.groupDetail.members, payload.data[0]];
+            state.groupDetail = {
+              ...state.groupDetail,
+              members: newMembers,
+            };
+          }
         }
       })
       .addCase(getAllGroupMemberAction.fulfilled, (state, { payload }) => {
         state.memberData = payload.data.length > 0 ? payload.data : [];
       })
-      .addCase(deleteGroupMemberAction.fulfilled, (state, action) => {
-        state.removeMemberSucess = true;
+      .addCase(deleteGroupMemberAction.fulfilled, (state, { payload }) => {
+        // if (state.groupDetail) {
+        console.log(payload, "payload in iff");
+
+        let newMembers = state.groupDetail.members.filter(
+          (member) => member.memberId !== payload
+        );
+
+        state.groupDetail = { ...state.groupDetail, members: newMembers };
       })
       .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;

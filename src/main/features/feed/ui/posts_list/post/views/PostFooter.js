@@ -1,25 +1,25 @@
-import React, { useContext } from 'react';
-import CommentIcon from '../../../../../../../content/NewContent/NewsFeed/svg/comment.svg';
-import Reactions from '../../../../../../sharedComponents/reactionBox/index';
-import { useDispatch } from 'react-redux';
-import { addFeedReaction, feedSlice } from '../../../../store/slice';
-import { useNavigate } from 'react-router-dom';
-import CommentWrapper from '../../../../../../sharedComponents/Comment/CommentWrapper';
-import { LanguageChangeContext } from '../../../../../../../utils/localization/localContext/LocalContext';
-import { FeedDictionary } from '../../../../localization';
-import { ROUTES } from '../../../../../../../utils/routes';
-import { ReactionType } from '../../../../utils/constants';
+import React, { useContext } from "react";
+import CommentIcon from "../../../../../../../content/NewContent/NewsFeed/svg/comment.svg";
+import Reactions from "../../../../../../sharedComponents/reactionBox/index";
+import { useDispatch } from "react-redux";
+import { addFeedReaction, feedSlice } from "../../../../store/slice";
+import { useNavigate } from "react-router-dom";
+import CommentWrapper from "../../../../../../sharedComponents/Comment/CommentWrapper";
+import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
+import { FeedDictionary } from "../../../../localization";
+import { ROUTES } from "../../../../../../../utils/routes";
+import { ReactionType } from "../../../../utils/constants";
 
 import {
   reactionColor,
   reactionDescription,
   reactions,
-} from '../../../reactions/reactions';
-import { addReaction } from '../../../../store/actions';
-import { useState } from 'react';
-import { RiShareForwardLine } from 'react-icons/ri';
-import { Popover } from 'antd';
-import PostShareContent from './PostShareContent';
+} from "../../../reactions/reactions";
+import { addReaction } from "../../../../store/actions";
+import { useState } from "react";
+import { RiShareForwardLine } from "react-icons/ri";
+import { Popover } from "antd";
+import PostShareContent from "./PostShareContent";
 
 const PostFooter = ({
   attachments,
@@ -56,7 +56,7 @@ const PostFooter = ({
       dispatch(
         addFeedReaction({
           referenceId: id,
-          reactionMode: 'click',
+          reactionMode: "click",
           myReaction: 1,
           isDetail,
         })
@@ -73,7 +73,7 @@ const PostFooter = ({
     dispatch(
       addFeedReaction({
         referenceId: id,
-        reactionMode: 'click',
+        reactionMode: "click",
         myReaction,
         isDetail,
       })
@@ -108,7 +108,7 @@ const PostFooter = ({
           >
             <div className="hover:underline cursor-pointer">
               {commentCount} &nbsp;
-              {commentCount === 1 ? ' Comment' : Comments}
+              {commentCount === 1 ? " Comment" : Comments}
             </div>
           </div>
         )}
@@ -125,20 +125,18 @@ const PostFooter = ({
                 addFeedReaction({
                   referenceId: id,
                   reactionModule,
-                  myReaction: e,
+                  reactionType: e,
                 })
               );
               dispatch(
                 addReaction({
                   referenceId: id,
                   reactionModule,
-                  myReaction: e,
+                  reactionType: e,
                 })
               );
             }}
-            // onLikeBtnClick={() =>
-            // 	handleAddReaction(myReaction, id)
-            // }
+            onLikeBtnClick={() => handleAddReaction(myReaction, id)}
           >
             <div className={`btn on`}>
               <span>
@@ -146,8 +144,8 @@ const PostFooter = ({
                   className={
                     ReactionType.Like === myReaction ||
                     ReactionType.NoReaction === myReaction
-                      ? 'w-[20px] h-[30px]'
-                      : ' w-[30px] h-[30px]'
+                      ? "w-[20px] h-[30px]"
+                      : " w-[30px] h-[30px]"
                   }
                   src={reactions[myReaction]}
                   alt={reactionDescription[myReaction]}

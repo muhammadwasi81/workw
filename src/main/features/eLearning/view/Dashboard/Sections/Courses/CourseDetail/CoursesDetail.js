@@ -23,6 +23,7 @@ import AssignMemberModal from "../../../Components/AssignMemModal";
 import { AssignMemEnum, MemberEnum } from "../../../../../constant/index";
 import MemberModal from "../../../Components/MemberModal";
 import defaultImage from "../../../../../../../../content/NewContent/courses/courseDefault.jpg"
+import { ROUTES } from "../../../../../../../../utils/routes";
 
 function CoursesDetail() {
 	const disptach = useDispatch()
@@ -161,8 +162,11 @@ function CoursesDetail() {
 								<Button
 									className="primary_btn !w-full !justify-center hover:shadow-lg transition-all"
 									block
+									// onClick={() =>
+									// 	navigate(`/eLearning/courses/learn/${id}`) 
+									// }
 									onClick={() =>
-										navigate(`/eLearning/courses/learn/${id}`)
+										navigate(`${ROUTES.ELearning.COURSE_VIDEO}${id}`) 
 									}
 								>
 									Start

@@ -112,7 +112,7 @@ const CareerCard = (props) => {
               style={{
                 gridTemplateColumns: table
                   ? "repeat(auto-fill,minmax(30rem,1fr))"
-                  : "repeat(auto-fill,minmax(27rem,1fr))",
+                  : "repeat(auto-fill,minmax(29rem,1fr))",
               }}
             >
               {careers.map((item, index) => {

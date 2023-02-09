@@ -63,7 +63,7 @@ function DashboardCardLayout({
           }
         />
 
-        <div className="flex justify-between items-center">
+        <div className="flex  justify-between items-center">
           <div className="members">
             <Avatar
               isAvatarGroup={true}
@@ -73,8 +73,8 @@ function DashboardCardLayout({
             />
           </div>
 
-          <div className="flex justify-end justify-between m-2">
-            <div className={`halfHeader `}>
+          <div className="flex justify-end">
+            <div className={`halfHeader mr-2`}>
               <img src={chatIcon} alt="" width={20} />
             </div>{" "}
             <QuickOptions data={data} onClick={(e) => menuHandler(e)} />

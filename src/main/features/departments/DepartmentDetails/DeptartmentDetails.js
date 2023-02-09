@@ -31,9 +31,6 @@ function DepartmentDetails() {
   const { departmentDetail, departmentMembers } = useSelector(
     (state) => state.departmentSlice
   );
-  // console.log(departmentDetail, "departmentdetailll");
-  // const { state } = useLocation();
-  // const { data } = state;
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -71,13 +68,11 @@ function DepartmentDetails() {
   ];
 
   useEffect(() => {
-    console.log("useEffects works");
     dispatch(getDepartmentById(param.id));
     dispatch(getDepartmentMemberAction(param.id));
   }, [param.id]);
 
   const memberHandler = () => {
-    console.log("member handler");
     setVisible(true);
     // const userTypes = memberType === 1 ? Members.user : Members.admin;
     dispatch(addMember({ status: true }));
@@ -99,7 +94,7 @@ function DepartmentDetails() {
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <WhiteCard>
                 <MemberCollapse
-                  data={departmentMembers}
+                  data={departmentDetail?.members}
                   isEmail={false}
                   isMember={true}
                   // onEmailClick={() => {
@@ -113,7 +108,7 @@ function DepartmentDetails() {
         </ContBody>
       </TabContainer>
       <ComposeEmail />
-      {visible && <MemberModal />}
+      {visible && <MemberModal data={departmentDetail} />}
     </>
   );
 }

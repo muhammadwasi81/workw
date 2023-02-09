@@ -9,9 +9,7 @@ import { useSelector } from "react-redux";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { WorkBoardDictionary } from "../localization";
-import MemberModal from "./MemberModal";
 import "./style.css";
-import { useState } from "react";
 import QuickOptions from "../quickOptions";
 
 function WorkBoardCard({ data }) {
@@ -38,7 +36,6 @@ function WorkBoardCard({ data }) {
     e.preventDefault();
     e.stopPropagation();
   };
-
   return (
     <>
       <Card
@@ -92,7 +89,6 @@ function WorkBoardCard({ data }) {
           )}
         </div>
       </Card>
-      {visible && <MemberModal data={data} />}
     </>
   );
 }

@@ -262,7 +262,7 @@ export const deleteProjectMemberAction = createAsyncThunk(
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
         dispatch(deleteProjectMember(data));
-      responseMessage({ dispatch, data: res });
+      return data.memberId;
     } else {
       responseMessage({
         dispatch: dispatch,

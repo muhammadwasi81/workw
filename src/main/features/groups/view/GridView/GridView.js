@@ -25,7 +25,7 @@ function GridView({
   return (
     <CardWrapper2>
       {data &&
-        data.map((list) => (
+        data?.map((list) => (
           <DashboardCardLayout
             data={list}
             defaultImg={
